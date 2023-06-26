@@ -1,0 +1,124 @@
+.main {
+  /* display: flex;
+    align-items: center;
+    justify-content: center; */
+  /* height: 100%; */
+  padding: 30px 360px;
+
+  /* padding: 30px 0px; */
+  line-height: 32px;
+  background-color: var(--footer-bg-color);
+}
+
+.listKeywords {
+  /* display: flex; */
+  margin-bottom: 32px;
+}
+
+.singleSpan {
+  margin-right: 16px;
+  color: var(--color-white);
+}
+
+.headerText {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.menu {
+  margin-top: 32px;
+}
+
+.fstElm {
+  height: 40%;
+}
+
+.sndElem {
+  margin-top: 45px;
+}
+
+.thirdSection {
+  margin-top: 32px;
+}
+
+.listCert {
+  display: flex;
+  align-items: center;
+}
+
+.listQr {
+  display: flex;
+}
+
+.singleQr {
+  margin-right: 26px;
+}
+
+.qrText {
+  text-align: center;
+  font-size: 12px;
+}
+
+.compNameText {
+  /* margin-bottom: 20px; */
+  font-weight: 600;
+}
+
+.qrHeaderText {
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.compInfoText {
+  font-size: 15px;
+}
+
+.listBtns {
+  display: flex;
+}
+
+.btnDownload {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  margin-right: 20px;
+  background-color: rgba(255, 255, 255, 0.18);
+  border: none;
+  border-radius: 8px;
+}
+
+.downloadSection {
+  display: none;
+}
+
+/* responsive */
+
+@media screen and (max-width: 1366px) {
+  .main {
+    padding: 30px 83px;
+  }
+}
+
+/* 1068px */
+@media screen and (max-width: 1068px) {
+  .qrSection {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .main {
+    padding: 30px 24px;
+  }
+
+  .qrSection {
+    display: none;
+  }
+
+  .downloadSection {
+    display: block;
+  }
+}

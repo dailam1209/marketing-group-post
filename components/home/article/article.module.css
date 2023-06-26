@@ -1,0 +1,14 @@
+.moreBtn {
+  margin: auto;
+  margin-top: 30px;
+  padding: 10px 20px;
+  text-align: center;
+  border-radius: 15px;
+
+  width: 20%;
+  background-image: linear-gradient(to right, #4c5bd4, #1184c0);
+
+  .text {
+    color: var(--white-color);
+  }
+}
