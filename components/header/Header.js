@@ -1,7 +1,7 @@
 import React from "react"
 // import "../../Styles/globals.css"
 // import Link from "next/link"
-
+import Link from 'next/link'
 
 export default function Header() {
   return (
@@ -27,54 +27,36 @@ export default function Header() {
             <div className="nav">
               <ul>
                 <li>
-                  <a
-                    href="/"
-                    className="cr_weight_bold share_fsize_tow share_clr_tow "
-                  >
-                    Trang chủ
-                  </a>
+                  
+                  <Link href="/" className="cr_weight_bold share_fsize_tow share_clr_tow ">Trang chủ</Link>
                 </li>
                 <li>
-                  <a
-                    href="/san-pham.html"
-                    className="cr_weight_bold share_fsize_tow share_clr_tow active"
-                  >
-                    Sản phẩm
-                  </a>
+                
+                  <Link href="/san-pham.html" className="cr_weight_bold share_fsize_tow share_clr_tow active">Sản phẩm</Link>
+
                 </li>
                 <li>
-                  <a
-                    href="/he-sinh-thai.html"
-                    className="cr_weight_bold share_fsize_tow share_clr_tow "
-                  >
-                    Hệ sinh thái
-                  </a>
+                 
+                  <Link href="/eco" className="cr_weight_bold share_fsize_tow share_clr_tow ">Hệ sinh thái</Link>
+
                 </li>
                 <li>
-                  <a
-                    href="https://timviec365.vn/blog"
-                    className="cr_weight_bold share_fsize_tow share_clr_tow"
-                  >
-                    Tin tức
-                  </a>
+                  
+                  <Link href="https://timviec365.vn/blog" className="cr_weight_bold share_fsize_tow share_clr_tow">Tin tức</Link>
+
                 </li>
               </ul>
               <div className="hd_log">
                 <div className="bg_log">
                   <p>
-                    <a
-                      href="lua-chon-dang-ky.html"
-                      className="cr_weight_bold share_fsize_tow share_clr_tow"
-                    >
-                      Đăng ký
-                    </a>
+                    
+                    
+                  <Link href="lua-chon-dang-ky.html" className="cr_weight_bold share_fsize_tow share_clr_tow">Đăng ký</Link>
+
                     /
-                    <a
-                      href="lua-chon-dang-nhap.html"
-                      className="cr_weight_bold share_fsize_tow share_clr_tow"
-                    >
-                      Đăng nhập
-                    </a>
+                    
+                  <Link href="lua-chon-dang-ky.html" className="cr_weight_bold share_fsize_tow share_clr_tow">Đăng nhập</Link>
+
                   </p>
                 </div>
               </div>
