@@ -22,7 +22,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "pages/_app.js", "pages/_document.js", "pages/index.js", "pages/layout.js", "components/header/Header.js", "components/Layout.js", "components/test.js", "components/footer/Footer.js"  ],
+, "pages/_app.js", "pages/_document.js", "pages/product.js", "pages/layout.js", "components/header/Header.js", "components/Layout.js", "components/test.js", "components/footer/Footer.js"  ],
   "exclude": [
     "node_modules"
   ]
