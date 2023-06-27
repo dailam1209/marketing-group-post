@@ -46,7 +46,7 @@ export default function ecosystem() {
   <title>Trang chủ quản lý chung</title>
 </>
 
-        <Header></Header>
+        {/* <Header></Header> */}
 
 <>
   <div className="content_ql">
@@ -370,7 +370,7 @@ export default function ecosystem() {
   </div>
   <link rel="stylesheet" href="https://timviec365.vn/css/footer_new.css?v=2" />
 </>
-        <Footer/>
+        {/* <Footer/> */}
         </>
     )
 }

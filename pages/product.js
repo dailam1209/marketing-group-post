@@ -45,8 +45,8 @@ export default function Home() {
         />
         <title>Trang sản phẩm</title>
       </>
-
-      <Header></Header>
+{/* 
+      <Header></Header> */}
       <>
         <div className="content_ql">
           <div className="cnt_ttone">
@@ -1520,7 +1520,7 @@ export default function Home() {
         <link rel="stylesheet" href="https://timviec365.vn/css/footer_new.css?v=2" />
       </>
 
-      <Footer />
+      {/* <Footer /> */}
 
     </>
   )
