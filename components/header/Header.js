@@ -1,9 +1,8 @@
 import React from "react"
-// import "../../Styles/globals.css"
-import Link from 'next/link'
-import routers from "../../utils/routers"
-import { useRouter } from 'next/navigation'
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 export default function Header() {
+  const router = useRouter();
   return (
     <>
       <div id="san_pham" className="share_sph">
@@ -26,36 +25,24 @@ export default function Header() {
                   <div className="nav">
                     <ul>
                       <li>
-                        {/* <button type="button" onClick={() => routers.push("/")}>
-                Trang chủ
-    </button> */}
-                        <Link href={routers.home} className="cr_weight_bold share_fsize_tow share_clr_tow">Trang chủ</Link>
+                        <Link href="/" className="cr_weight_bold share_fsize_tow share_clr_tow">Trang chủ</Link>
                       </li>
                       <li>
-
                         <Link href="/product" className="cr_weight_bold share_fsize_tow share_clr_tow active">Sản phẩm</Link>
-
                       </li>
                       <li>
-
-                        <Link href={routers.home} className="cr_weight_bold share_fsize_tow share_clr_tow ">Hệ sinh thái</Link>
-
+                        <Link href="/he-sinh-thai" className="cr_weight_bold share_fsize_tow share_clr_tow ">Hệ sinh thái</Link>
                       </li>
                       <li>
-
                         <Link href="https://timviec365.vn/blog" className="cr_weight_bold share_fsize_tow share_clr_tow">Tin tức</Link>
-
                       </li>
                     </ul>
                     <div className="hd_log">
                       <div className="bg_log">
                         <p>
                           <Link href="lua-chon-dang-ky.html" className="cr_weight_bold share_fsize_tow share_clr_tow">Đăng ký</Link>
-
                           /
-
                           <Link href="lua-chon-dang-ky.html" className="cr_weight_bold share_fsize_tow share_clr_tow">Đăng nhập</Link>
-
                         </p>
                       </div>
                     </div>

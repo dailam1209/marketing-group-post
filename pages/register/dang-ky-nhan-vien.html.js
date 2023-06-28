@@ -1,13 +1,12 @@
 import React from "react"
-import Header from "/components/header/Header";
-import Footer from "/components/footer/Footer";
 import Head from "next/head";
+import { useForm } from 'react-hook-form';
 
-
-
-
-//const inter = Inter({ subsets: [latin] })
 export default function register_emp() {
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const onSubmit = data => {
+        window.location.href = "thong-tin-dang-ky-nhan-vien.html?com_id=" + data.id_company
+    };
     return (
         <>
             <Head>
@@ -75,11 +74,10 @@ export default function register_emp() {
                     onload="if (media != 'all')media='all'"
                 />
             </Head>
-            <Header />
             <>
                 <div className="content_nv">
                     <div className="ctn_register_nv">
-                        <form className="regnv_form regnv_form_id" autoComplete="off">
+                        <form onSubmit={handleSubmit(onSubmit)} className="regnv_form regnv_form_id" autoComplete="off">
                             <div className="one_page_qmk">
                                 <div className="container">
                                     <div className="ctn_qmk">
@@ -89,9 +87,6 @@ export default function register_emp() {
                                                     Trải nghiệm điều tuyệt vời tại nền tảng chuyển đổi số lớn
                                                     nhất hiện nay
                                                 </h1>
-                                                {/*                                                 <div class="qmk_avt_ic tex_center">
-                                              <img src="../img/one_ic_reg_nv.png" alt="">
-                                          </div> */}
                                             </div>
                                             <div className="ctn_form share_distance">
                                                 <div className="form-group">
@@ -100,15 +95,23 @@ export default function register_emp() {
                                                     </label>
                                                     <input
                                                         type="text"
-                                                        name="name_tk"
+                                                        name="id_company"
                                                         className="form-control"
                                                         id="name_id"
                                                         placeholder="Nhập ID công ty của bạn"
+                                                        {...register('id_company', {
+                                                            required: true,
+                                                            pattern: {
+                                                                value: /^\d+$/,
+                                                                message: "This input is number only."
+                                                            },
+                                                        })}
                                                     />
+                                                    {errors && errors.id_company && <label className="error">Vui lòng nhập ID công ty</label>}
                                                 </div>
                                                 <div className="form-butt-one">
                                                     <button
-                                                        type="button"
+                                                        type="submit"
                                                         className="share_bgr_one cr_weight share_clr_tow share_fsize_tow share_cursor tiep_tuc_one"
                                                     >
                                                         Tiếp tục
@@ -132,8 +135,6 @@ export default function register_emp() {
                 </div>
                 <link rel="stylesheet" href="https://timviec365.vn/css/footer_new.css?v=2" />
             </>
-            <Footer />
         </>
-
     )
 };
