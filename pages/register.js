@@ -3,7 +3,7 @@ import Header from "/components/header/Header";
 import Footer from "/components/footer/Footer";
 import Head from "next/head";
 import Link from 'next/link'
-import router from "../../utils/router"
+import router from "../utils/router"
 
 import { useRouter } from 'next/navigation'
 
