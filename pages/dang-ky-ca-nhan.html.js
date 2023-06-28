@@ -1,14 +1,45 @@
+// 'use server'
+
 import React from "react"
 import Header from "/components/header/Header";
 import Footer from "/components/footer/Footer"
 import Head from "next/head";
+import { useForm } from 'react-hook-form';
+//import { cookies } from 'next/headers';
+import { useState } from "react";
+export function checkPhoneNumber(phoneNumber) {
+    var pattern = /^(032|033|034|035|036|037|038|039|086|096|097|098|081|082|083|084|085|088|087|091|094|056|058|092|070|076|077|078|079|089|090|093|099|059)+([0-9]{7})$/i;
+    console.log("check : " + pattern.test(phoneNumber))
+    return pattern.test(phoneNumber);
+}
+export function validatePassword(password) {
+    var pattern = /^\S*(?=\S{6,})(?=\S*[a-zA-Z])(?=\S*[0-9])(?=\S*[\d])\S*$/i;
+    console.log("check password : " + pattern.test(password));
+    return pattern.test(password);
 
+}
 
 
 //const inter = Inter({ subsets: [latin] })
 export default function dang_ki_ca_nhan() {
+    // const cookieStore = cookies();
+    const [acount, setAcount] = useState('');
+    const [userName, setUserName] = useState('');
+    const [password, setPassword] = useState('');
+    const [re_password, setRe_assword] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [address, setAddress] = useState('');
+
+    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const onSubmit = data => {
+        window.location.href = "/xac-thuc-otp-ca-nhan.html";
+    };
+
+
+
     return (
         <>
+            {/* <h1>${acount}</h1> */}
             <Head>
                 <>
                     <title>
@@ -83,7 +114,7 @@ export default function dang_ki_ca_nhan() {
                     <div className="content_nv">
                         <div className="container">
                             <div className="ctn_qmk">
-                                <form action="" className="register_form" autoComplete="false">
+                                <form action="" className="register_form" autoComplete="false" onSubmit={handleSubmit(onSubmit)} >
                                     <div className="one_page_qmk one_reg_ql share_reg_log share_brd_radius share_bgr_tow">
                                         <div className="header_qmk">
                                             <h1 className="share_clr_four cr_weight_bold tex_center qlc_tieude_moi">
@@ -91,7 +122,7 @@ export default function dang_ki_ca_nhan() {
                                             </h1>
                                         </div>
                                         <div className="ctn_form share_distance">
-                                            <div className="form-group">
+                                            <div className="form-group" >
                                                 <label className="form_label share_fsize_three share_clr_one cr_weight">
                                                     Tài khoản đăng nhập<span className="cr_red">*</span>
                                                 </label>
@@ -101,7 +132,15 @@ export default function dang_ki_ca_nhan() {
                                                     id="email_nv"
                                                     className="form-control"
                                                     placeholder="Nhập số điện thoại"
+                                                    //  onChange={e => { setAcount(e.currentTarget.value); }}
+                                                    {...register("email", {
+                                                        required: true, pattern: {
+                                                            value: /^(032|033|034|035|036|037|038|039|086|096|097|098|081|082|083|084|085|088|087|091|094|056|058|092|070|076|077|078|079|089|090|093|099|059)+([0-9]{7})$/,
+                                                            message: "This input is number only."
+                                                        }
+                                                    })}
                                                 />
+                                                {errors && errors.email && <p className="error">account khong duoc de trong .</p>}
                                             </div>
                                             <div className="form-group">
                                                 <label className="form_label share_fsize_three share_clr_one cr_weight">
@@ -112,6 +151,7 @@ export default function dang_ki_ca_nhan() {
                                                     name="name_tk"
                                                     className="form-control"
                                                     placeholder="Nhập tên người dùng"
+                                                    onChange={e => { setUserName(e.currentTarget.value); }}
                                                 />
                                             </div>
                                             <div className="form-group">
@@ -124,6 +164,7 @@ export default function dang_ki_ca_nhan() {
                                                     className="form-control"
                                                     id="mk_tkcn"
                                                     placeholder="Nhập mật khẩu"
+                                                    onChange={e => { setPassword(e.currentTarget.value); }}
                                                 />
                                             </div>
                                             <div className="form-group">
@@ -136,6 +177,7 @@ export default function dang_ki_ca_nhan() {
                                                     className="form-control"
                                                     id="nlmk_tkcn"
                                                     placeholder="Nhập lại mật khẩu"
+                                                    onChange={e => { setRe_assword(e.currentTarget.value); }}
                                                 />
                                             </div>
                                             <div className="form-group">
@@ -147,6 +189,7 @@ export default function dang_ki_ca_nhan() {
                                                     name="phone"
                                                     className="form-control"
                                                     placeholder="Nhập số điện thoại"
+                                                    onChange={e => { setPhoneNumber(e.currentTarget.value); }}
                                                 />
                                             </div>
                                             <div className="form-group">
@@ -158,13 +201,17 @@ export default function dang_ki_ca_nhan() {
                                                     name="address"
                                                     className="form-control"
                                                     placeholder="Nhập địa chỉ"
+                                                    onChange={e => { setAddress(e.currentTarget.value); }}
                                                 />
                                             </div>
                                         </div>
                                         <div className="form-butt-one">
                                             <button
-                                                type="button"
+                                                // type="button"
+                                                type="submit"
                                                 className="share_bgr_one cr_weight share_clr_tow share_fsize_tow share_cursor tiep_tuc_one"
+                                            // onClick={validatePassword(password)}
+
                                             >
                                                 Tiếp tục
                                             </button>
@@ -176,14 +223,16 @@ export default function dang_ki_ca_nhan() {
                                                     Quay lại
                                                 </a>
                                             </p>
+
                                         </div>
                                     </div>
                                 </form>
                             </div>
                         </div>
                     </div>
-                </div>
+                </div >
                 <link rel="stylesheet" href="https://timviec365.vn/css/footer_new.css?v=2" />
+
             </>
             <Footer />
 

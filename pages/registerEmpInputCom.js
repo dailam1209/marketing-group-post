@@ -110,20 +110,12 @@ export default function register_emp() {
                                                     {errors && errors.id_company && <label className="error">Vui lòng nhập ID công ty</label>}
                                                 </div>
                                                 <div className="form-butt-one">
-<<<<<<< HEAD:pages/register/registerEmpInputCom.js
-                                                <button
-                                                                onClick={() => router.push("/register/registerEmp")}
-                                                                className="share_bgr_one cr_weight share_clr_tow share_fsize_tow share_cursor tiep_tuc_one">
-                                                                Tiếp tục
-                                                            </button>
-=======
                                                     <button
                                                         type="submit"
                                                         className="share_bgr_one cr_weight share_clr_tow share_fsize_tow share_cursor tiep_tuc_one"
                                                     >
                                                         Tiếp tục
                                                     </button>
->>>>>>> cce44f1eae588bcb3d75d2bce074572720df5f5a:pages/register/dang-ky-nhan-vien.html.js
                                                     <p className="bo_qua tex_center">
                                                         <a
                                                             href="/register/lua-chon-dang-ky.html"
