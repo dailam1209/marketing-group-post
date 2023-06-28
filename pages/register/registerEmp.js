@@ -1,11 +1,23 @@
 import React from "react"
+<<<<<<< HEAD:pages/register/registerEmp.js
 
+=======
+>>>>>>> cce44f1eae588bcb3d75d2bce074572720df5f5a:pages/register/thong-tin-dang-ky-nhan-vien.html.js
 import Head from "next/head";
+import { useRouter } from 'next/router';
+import { useForm } from 'react-hook-form';
 
-
+// const router = useRouter();
+// const comId = router.query.com_id;
+// console.log(comId);
 
 //const inter = Inter({ subsets: [latin] })
 export default function info_register_emp() {
+    const { register, handleSubmit,watch, formState: { errors } } = useForm();
+    const onSubmit = data => {
+        console.log(data)
+    };
+    console.log(watch())
     return (
         <>
             <Head>
@@ -52,7 +64,7 @@ export default function info_register_emp() {
                 <div className="content_ql ctn_bgr_body">
                     <div className="content_nv">
                         <div className="ctn_register_nv">
-                            <form className="regnv_form regnv_form_dk">
+                            <form onSubmit={handleSubmit(onSubmit)} className="regnv_form regnv_form_dk">
                                 <div className="three_page_qmk">
                                     <div className="container">
                                         <div className="cnt_page_one">
@@ -78,6 +90,13 @@ export default function info_register_emp() {
                                                                 className="form-control"
                                                                 id="email_nv"
                                                                 placeholder="Nhập số điện thoại"
+                                                                {...register("name", {
+                                                                    required: true,
+                                                                    pattern: {
+                                                                        value: /^\d+$/,
+                                                                        message: "This input is number only."
+                                                                    },
+                                                                })}
                                                             />
                                                         </div>
                                                         <div className="form-group">
@@ -156,7 +175,7 @@ export default function info_register_emp() {
                                                                 Giới tính <span className="cr_red">*</span>
                                                             </label>
                                                             <select name="gender" className="form-control">
-                                                                <option value={1} selected="">
+                                                                <option value={1}>
                                                                     Nam
                                                                 </option>
                                                                 <option value={2}>Nữ</option>
@@ -180,7 +199,7 @@ export default function info_register_emp() {
                                                             <label className="form_label share_fsize_three share_clr_one cr_weight">
                                                                 Trình độ học vấn <span className="cr_red">*</span>
                                                             </label>
-                                                            <select name="academic_level" className="form-control">
+                                                            <select defaultValue={0} name="academic_level" className="form-control">
                                                                 <option value={0}>Chọn trình độ học vấn</option>
                                                                 <option value={1}>Trên Đại học</option>
                                                                 <option value={2}>Đại học</option>
@@ -198,7 +217,7 @@ export default function info_register_emp() {
                                                             </label>
                                                             <select name="marriage" className="form-control">
                                                                 <option value={2}>Đã lập gia đình</option>
-                                                                <option value={1} selected="">
+                                                                <option value={1}>
                                                                     Độc thân
                                                                 </option>
                                                             </select>
@@ -209,11 +228,9 @@ export default function info_register_emp() {
                                                             <label className="form_label share_fsize_three share_clr_one cr_weight">
                                                                 Kinh nghiệm làm việc <span className="cr_red">*</span>
                                                             </label>
-                                                            <select name="exper_job" className="form-control">
+                                                            <select defaultValue={1} name="exper_job" className="form-control">
                                                                 <option value={1}>Chưa có kinh nghiệm</option>
-                                                                <option value={2} selected="">
-                                                                    Dưới 1 năm kinh nghiệm
-                                                                </option>
+                                                                <option value={2}>Dưới 1 năm kinh nghiệm</option>
                                                                 <option value={3}>1 năm</option>
                                                                 <option value={4}>2 năm</option>
                                                                 <option value={5}>3 năm</option>
@@ -242,13 +259,12 @@ export default function info_register_emp() {
                                                                 id="chuc_vu"
                                                                 name="chuc_vu"
                                                                 className="form-control"
+                                                                defaultValue={1}
                                                             >
                                                                 <option value={1}>SINH VIÊN THỰC TẬP</option>
                                                                 <option value={2}>NHÂN VIÊN THỬ VIỆC</option>
                                                                 <option value={9}>NHÂN VIÊN PART TIME</option>
-                                                                <option value={3} selected="">
-                                                                    NHÂN VIÊN CHÍNH THỨC
-                                                                </option>
+                                                                <option value={3}>NHÂN VIÊN CHÍNH THỨC</option>
                                                                 <option value={20}>NHÓM PHÓ</option>
                                                                 <option value={4}>TRƯỞNG NHÓM</option>
                                                                 <option value={12}>PHÓ TỔ TRƯỞNG</option>
