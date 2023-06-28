@@ -1,8 +1,4 @@
 import React from "react"
-<<<<<<< HEAD:pages/register/registerEmp.js
-
-=======
->>>>>>> cce44f1eae588bcb3d75d2bce074572720df5f5a:pages/register/thong-tin-dang-ky-nhan-vien.html.js
 import Head from "next/head";
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
@@ -13,7 +9,7 @@ import { useForm } from 'react-hook-form';
 
 //const inter = Inter({ subsets: [latin] })
 export default function info_register_emp() {
-    const { register, handleSubmit,watch, formState: { errors } } = useForm();
+    const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const onSubmit = data => {
         console.log(data)
     };
