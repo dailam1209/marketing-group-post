@@ -1,11 +1,13 @@
 import React from "react"
 import Head from "next/head";
 import { useForm } from 'react-hook-form';
+import Cookies from "js-cookie";
 
 export default function register_emp() {
     // Xử lý validate form
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = data => {
+        Cookies.set('idCom', data.id_company);
         window.location.href = "/thong-tin-dang-ky-nhan-vien.html"
     };
     return (
