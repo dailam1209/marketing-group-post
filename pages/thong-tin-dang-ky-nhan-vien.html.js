@@ -1,6 +1,7 @@
 import React from "react"
 import Head from "next/head";
 import { useRouter } from 'next/router';
+// import { ErrorMessage } from "@hookform/error-message";
 import { useForm } from 'react-hook-form';
 
 // const router = useRouter();
@@ -9,7 +10,7 @@ import { useForm } from 'react-hook-form';
 
 //const inter = Inter({ subsets: [latin] })
 export default function info_register_emp() {
-    const { register, handleSubmit,watch, formState: { errors } } = useForm();
+    const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const onSubmit = data => {
         console.log(data)
     };
@@ -82,18 +83,19 @@ export default function info_register_emp() {
                                                             </label>
                                                             <input
                                                                 type="text"
-                                                                name="email"
+                                                                name="phone_tk"
                                                                 className="form-control"
-                                                                id="email_nv"
+                                                                id="phone_tk"
                                                                 placeholder="Nhập số điện thoại"
-                                                                {...register("name", {
+                                                                {...register("phone_tk", {
                                                                     required: true,
                                                                     pattern: {
                                                                         value: /^\d+$/,
                                                                         message: "This input is number only."
                                                                     },
-                                                                })}
+                                                                })}                                                             
                                                             />
+                                                            {errors && errors.phone_tk && <label className="error">Vui lòng nhập ID công ty</label>}
                                                         </div>
                                                         <div className="form-group">
                                                             <label className="form_label share_fsize_three share_clr_one cr_weight">
@@ -334,6 +336,19 @@ export default function info_register_emp() {
                                         </div>
                                     </div>
                                 </div>
+                                {/* ErrorMessage được import từ thư viện */}
+                                {/* <ErrorMessage
+                                    // nhận vào props errors ( errors lấy từ formState ở trên ) nó sẽ trigger khi phát hiện lỗi khác.
+                                    errors={errors}
+                                    // name tương ứng với name input đã đăng kí với hook
+                                    name="multipleErrorInput"
+                                    // sẽ render ra giao diện khi có error, ở đây là thẻ p
+                                    render={({ messages }) => {
+                                        return messages.map((message, index) => (
+                                            <p key={index}>{message}</p>
+                                        ))
+                                    }}
+                                /> */}
                             </form>
                         </div>
                     </div>

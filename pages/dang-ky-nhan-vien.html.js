@@ -3,9 +3,10 @@ import Head from "next/head";
 import { useForm } from 'react-hook-form';
 
 export default function register_emp() {
+    // Xử lý validate form
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = data => {
-        window.location.href = "thong-tin-dang-ky-nhan-vien.html?com_id=" + data.id_company
+        window.location.href = "/thong-tin-dang-ky-nhan-vien.html"
     };
     return (
         <>
