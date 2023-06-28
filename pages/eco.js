@@ -2,7 +2,7 @@ import React from "react"
 import Header from "../components/header/Header"
 import Footer from "../components/footer/Footer"
 
-
+import Script from 'next/script'
 
 
 //const inter = Inter({ subsets: [latin] })
@@ -370,7 +370,9 @@ export default function ecosystem() {
   </div>
   <link rel="stylesheet" href="https://timviec365.vn/css/footer_new.css?v=2" />
 </>
-        {/* <Footer/> */}
+<>
+      <Script src="https://example.com/script.js" strategy="afterInteractive" />
+    </>
         </>
     )
 }

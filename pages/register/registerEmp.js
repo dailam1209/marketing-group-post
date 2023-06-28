@@ -1,6 +1,5 @@
 import React from "react"
-import Header from "/components/header/Header";
-import Footer from "/components/footer/Footer"
+
 import Head from "next/head";
 
 
@@ -49,7 +48,6 @@ export default function info_register_emp() {
                 </>
 
             </Head>
-            <Header />
             <>
                 <div className="content_ql ctn_bgr_body">
                     <div className="content_nv">
@@ -330,7 +328,6 @@ export default function info_register_emp() {
                 </div >
                 <link rel="stylesheet" href="https://timviec365.vn/css/footer_new.css?v=2" />
             </>
-            <Footer />
         </>
     )
 };

@@ -9,7 +9,6 @@ import Head from "next/head";
 export default function dang_ki_ca_nhan() {
     return (
         <>
-            <Head>
                 <>
                     <title>
                         Tích cực chuyển đổi số, quanlychung.timviec365.vn giúp bạn đổi đời, phát
@@ -76,8 +75,6 @@ export default function dang_ki_ca_nhan() {
                     />
                 </>
 
-            </Head>
-            <Header />
             <>
                 <div className="content_ql ctn_bgr_body">
                     <div className="content_nv">
@@ -184,9 +181,8 @@ export default function dang_ki_ca_nhan() {
                     </div>
                 </div>
                 <link rel="stylesheet" href="https://timviec365.vn/css/footer_new.css?v=2" />
-            </>
-            <Footer />
 
+        </>
         </>
     )
 };

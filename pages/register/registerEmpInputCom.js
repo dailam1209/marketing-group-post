@@ -75,7 +75,6 @@ export default function register_emp() {
                     onload="if (media != 'all')media='all'"
                 />
             </Head>
-            <Header />
             <>
                 <div className="content_nv">
                     <div className="ctn_register_nv">
@@ -107,12 +106,11 @@ export default function register_emp() {
                                                     />
                                                 </div>
                                                 <div className="form-butt-one">
-                                                    <button
-                                                        type="button"
-                                                        className="share_bgr_one cr_weight share_clr_tow share_fsize_tow share_cursor tiep_tuc_one"
-                                                    >
-                                                        Tiếp tục
-                                                    </button>
+                                                <button
+                                                                onClick={() => router.push("/register/registerEmp")}
+                                                                className="share_bgr_one cr_weight share_clr_tow share_fsize_tow share_cursor tiep_tuc_one">
+                                                                Tiếp tục
+                                                            </button>
                                                     <p className="bo_qua tex_center">
                                                         <a
                                                             href="/register/lua-chon-dang-ky.html"
@@ -132,7 +130,6 @@ export default function register_emp() {
                 </div>
                 <link rel="stylesheet" href="https://timviec365.vn/css/footer_new.css?v=2" />
             </>
-            <Footer />
         </>
 
     )

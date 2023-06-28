@@ -32,16 +32,16 @@ export default function Header() {
                 {/* <button type="button" onClick={() => routers.push("/")}>
                 Trang chủ
     </button> */}
-                  <Link href={router.home} className="cr_weight_bold share_fsize_tow share_clr_tow ">Trang chủ</Link>
+                  <Link href={router.home} as='/' className="cr_weight_bold share_fsize_tow share_clr_tow ">Trang chủ</Link>
                 </li>
                 <li>
                 
-                  <Link href="/product" className="cr_weight_bold share_fsize_tow share_clr_tow active">Sản phẩm</Link>
+                  <Link href={router.product} as='/san-pham.html' className="cr_weight_bold share_fsize_tow share_clr_tow active">Sản phẩm</Link>
 
                 </li>
                 <li>
                  
-                  <Link href="/eco" className="cr_weight_bold share_fsize_tow share_clr_tow ">Hệ sinh thái</Link>
+                  <Link href={router.eco} as='/he-sinh-thai.html' className="cr_weight_bold share_fsize_tow share_clr_tow ">Hệ sinh thái</Link>
 
                 </li>
                 <li>
@@ -55,11 +55,11 @@ export default function Header() {
                   <p>
                     
                     
-                  <Link href="lua-chon-dang-ky.html" className="cr_weight_bold share_fsize_tow share_clr_tow">Đăng ký</Link>
+                  <Link href={router.register} as='/dang-ki' className="cr_weight_bold share_fsize_tow share_clr_tow">Đăng ký</Link>
 
                     /
                     
-                  <Link href="lua-chon-dang-ky.html" className="cr_weight_bold share_fsize_tow share_clr_tow">Đăng nhập</Link>
+                  <Link href={router.login} as='/dang-nhap' className="cr_weight_bold share_fsize_tow share_clr_tow">Đăng nhập</Link>
 
                   </p>
                 </div>

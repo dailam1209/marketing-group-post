@@ -6,10 +6,9 @@ import Head from "next/head";
 
 
 //const inter = Inter({ subsets: [latin] })
-export default function xac_nhan_otp_ca_nhans() {
+export default function xac_thuc_otp_nhan_vien() {
     return (
         <>
-            <Head>
                 <>
                     <meta charSet="UTF-8" />
                     <meta name="robots" content="noindex,nofollow" />
@@ -44,12 +43,11 @@ export default function xac_nhan_otp_ca_nhans() {
                         href="../css/style.css"
                         onload="if (media != 'all')media='all'"
                     />
-                    <title>Trang xác thực mã OTP cá nhân</title>
+                    <title>Trang xác thực mã OTP nhân viên</title>
                 </>
-                <Header />
 
 
-            </Head>
+            
             <>
                 <div className="content_ql ctn_bgr_body">
                     <div className="content_nv">
@@ -94,7 +92,7 @@ export default function xac_nhan_otp_ca_nhans() {
                                                             <button
                                                                 type="button"
                                                                 className="share_clr_four cr_weight share_fsize_three share_cursor gui_lai"
-                                                                //  data={0984607837}
+                                                                // data={0977217933}
                                                                 data1={1}
                                                             >
                                                                 Gửi lại
@@ -107,7 +105,7 @@ export default function xac_nhan_otp_ca_nhans() {
                                                     <input
                                                         type="button"
                                                         className="share_bgr_one cr_weight share_clr_tow share_fsize_tow share_cursor tiep_tuc_one"
-                                                        // data={0984607837}
+                                                        //  data={0977217933}
                                                         data2={1}
                                                         defaultValue="Tiếp tục"
                                                     />
@@ -123,7 +121,7 @@ export default function xac_nhan_otp_ca_nhans() {
                 </div>
                 <link rel="stylesheet" href="https://timviec365.vn/css/footer_new.css?v=2" />
             </>
-            <Footer />
+
         </>
     )
 };
