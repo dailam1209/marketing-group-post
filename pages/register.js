@@ -2,6 +2,7 @@ import React from "react"
 import Header from "/components/header/Header";
 import Footer from "/components/footer/Footer";
 import Head from "next/head";
+import head from "../components/head/head";
 import Link from 'next/link'
 import router from "../utils/router"
 
@@ -14,7 +15,7 @@ export default function register() {
     return (
         <>
                 <>
-                <>
+                <>       
   <meta name="robots" content="index,follow" />
   <title>
     Đăng ký tài khoản trên hệ sinh thái chuyển đổi số 365, bạn được gì?

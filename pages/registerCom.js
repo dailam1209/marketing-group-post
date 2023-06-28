@@ -1,70 +1,18 @@
-import React, { useState } from "react";
+import React from "react"
+import Head from "next/head";
+import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router'
-// import Link from "next/link"
-import {
-  Form,
-  FormGroup,
-  Label,
-  InputGroup,
-  InputGroupAddon,
-  InputGroupText,
-  Input,
-  FormFeedback,
-  FormLabel,
-  FormControl,
-  Button,
-  Row,
-  Spinner,
-  FormText
-} from "react-bootstrap";
-import Link from "next/link";
-// import { Formik } from "formik";
-// import * as Yup from "yup";
-// import fetch from "isomorphic-unfetch";
-// import { login } from "../../utils/auth";
 
-
-//const inter = Inter({ subsets: [latin] })
 export default function register_com() {
   const router = useRouter()
-  
-    const [username, setUsername] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    
-    const handleUsername = (e) => { setUsername(e.target.value) };
-    const handleEmail = (e) => { setEmail(e.target.value) };
-    const handlePassword = (e) => { setPassword(e.target.value) };
-  
-  
-    const RegisterAccount = () =>
-    {
-      //check if email is actually an email
-      var res = email.match(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/);
-      if(res === null){
-        ErrorAlert('Please enter a valid email address');
-        return;
-      }
-  
-      Axios.post("http://127.0.0.1:3000/users-create",
-      {
-        name: username,
-        email: email,
-        pass: password,
-      }).then((response) => {
-          if(response.data.status == 0){
-            ErrorAlert(response.data.message);
-          }
-          else{
-            SucessAlert(response.data.message);
-          }
-      });
-      return;
-    }
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const onSubmit = data => {
+      window.location.href = "thong-tin-dang-ky-nhan-vien.html?com_id=" + data.id_company
+  };
   
     return (
         <>
-	<>
+	<>      
   <meta charSet="UTF-8" />
   <title>
     Hệ thống chuyển đổi số hàng đầu Việt Nam, đăng ký để trải nghiệm
@@ -130,6 +78,8 @@ export default function register_com() {
 </>
 
 <>
+<form onSubmit={handleSubmit(onSubmit)} className="regnv_form regnv_form_dk">
+
   <div className="content_ql ctn_bgr_body">
     <div className="content_nv">
       <div className="container">
@@ -154,8 +104,16 @@ export default function register_com() {
                     name="email"
                     id="email_dk"
                     className="form-control"
-                    placeholder="Nhập số điện thoại"
-                  />
+                    placeholder="Nhập email đăng kí"
+                    {...register("name", {
+                      required: true,
+                      pattern: {
+                          value: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/,
+                          message: "vui lòng nhập email đăng kí."
+                      },
+                  })}
+                />
+              {errors && <label className="error">Vui lòng nhập email</label>}
                 </div>
                 <div className="form-group">
                   <label className="form_label share_fsize_three share_clr_one cr_weight">
@@ -166,39 +124,60 @@ export default function register_com() {
                     name="name_cty"
                     className="form-control"
                     placeholder="Nhập tên công ty của bạn"
-                  />
+                    {...register("name", {
+                      required: true,
+                      pattern: {
+                          value: /^\d+$/,
+                          
+                          message: "Vui lòng nhập tên công ty của bạn"
+                      },
+                  })}
+                />
+              {errors && <label className="error">Vui lòng nhập tên công ty của bạn</label>}
                 </div>
-                
                 <div className="form-group">
-                <FormGroup>
-                        <FormLabel>Email</FormLabel>
-                        <FormControl type="text" placeholder="Email" className="form_label share_fsize_three share_clr_one cr_weight" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-                        required="true" title="Enter valid email" />
-                       
-                    </FormGroup>
+                  <label className="form_label share_fsize_three share_clr_one cr_weight">
+                    Email
+                  </label>
+                  <input
+                    type="text"
+                    name="phone"
+                    className="form-control"
+                    placeholder="Nhập số email"
+                    {...register("name", {
+                      required: true,
+                      pattern: {
+                          value: /^\d+$/,
+                          message: "This input is number only."
+                      },
+                  })}
+                />
+              {errors && errors.id_company && <label className="error">Vui lòng nhập email</label>}
                 </div>
                 <div className="form-group">
-                  
-                  <FormGroup>
-                        <FormLabel>Nhập mật khẩu</FormLabel>
-                        <FormControl type="password" placeholder="Password" className="form_label share_fsize_three share_clr_one cr_weight" id="password" name="password"
-                        required="true" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                        title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters"
-                        />
-                        
-                    </FormGroup>
+                  <label className="form_label share_fsize_three share_clr_one cr_weight">
+                    Nhập mật khẩu <span className="cr_red">*</span>
+                  </label>
+                  <span className="see_log" toggle="#password-field-three" />
+                  <input
+                    type="password"
+                    name="password"
+                    className="form-control"
+                    id="password-field-three"
+                    placeholder="Nhập mật khẩu"
+                    {...register("name", {
+                      required: true,
+                      pattern: {
+                          value: /^\d+$/,
+                          message: "This input is number only."
+                      },
+                  })}
+                />
+              {errors && errors.id_company && <label className="error">Vui lòng nhập email</label>}
                   {/* <span class="loi_error share_dnone">Hãy nhập mật khẩu từ 8 đến 16 ký tự bao gồm chữ hoa, chữ thường và ít nhất một chữ số và không chứa khoảng trắng</span> */}
                 </div>
                 <div className="form-group">
-                <FormGroup>
-                        <FormLabel>Nhập lại mật khẩu</FormLabel>
-                        <FormControl type="password" placeholder="Nhập lại mật khẩu" className="form_label share_fsize_three share_clr_one cr_weight" id="password-field-four" name="res_password"
-                        required="true" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                        title="Nhập lại mật khẩu"
-                        />
-                        
-                    </FormGroup>
-                  {/* <label className="form_label share_fsize_three share_clr_one cr_weight">
+                  <label className="form_label share_fsize_three share_clr_one cr_weight">
                     Nhập lại mật khẩu <span className="cr_red">*</span>
                   </label>
                   <span className="see_log" toggle="#password-field-four" />
@@ -208,14 +187,31 @@ export default function register_com() {
                     className="form-control"
                     id="password-field-four"
                     placeholder="Nhập lại mật khẩu"
-                  /> */}
+                    {...register("name", {
+                      required: true,
+                      pattern: {
+                          value: /^\d+$/,
+                          message: "This input is number only."
+                      },
+                  })}
+                />
+              {errors && errors.id_company && <label className="error">Vui lòng nhập email</label>}
                 </div>
                 <div className="form-group">
                   <label className="form_label share_fsize_three share_clr_one cr_weight">
                     Địa chỉ <span className="cr_red">*</span>
                   </label>
                   <input type="text" name="address" class="form-control"
-                                          placeholder="Nhập địa chỉ"/>
+                                          placeholder="Nhập địa chỉ"
+                                          {...register("name", {
+                                            required: true,
+                                            pattern: {
+                                                value: /^\d+$/,
+                                                message: "This input is number only."
+                                            },
+                                        })}
+                                      />
+                                    {errors && errors.id_company && <label className="error">Vui lòng nhập email</label>}
                   {/* <textarea
                     type="text"
                     id="user_name"
@@ -239,14 +235,12 @@ export default function register_com() {
                 </div>
               </div>
               <div className="form-butt-one">
-              <button
-                   onClick={() => router.push("/register/sendOTP_Com")}
-                  className="share_bgr_one cr_weight share_clr_tow share_fsize_tow share_cursor tiep_tuc_one" type="submit" variant="primary" 
+                <button
+                  type="summit"
+                  className="share_bgr_one cr_weight share_clr_tow share_fsize_tow share_cursor tiep_tuc_one"
                 >
                   Tiếp tục
                 </button>
-                {/* <Button onClick={() => router.push("/register/sendOTP_Com")}
-                  className="share_bgr_one cr_weight share_clr_tow share_fsize_tow share_cursor tiep_tuc_one" type="submit" variant="primary">Tiếp tục</Button> */}
                 <p className="bo_qua tex_center">
                   <a
                     href="/lua-chon-dang-ky.html"
@@ -263,6 +257,11 @@ export default function register_com() {
     </div>
   </div>
   <link rel="stylesheet" href="https://timviec365.vn/css/footer_new.css?v=2" />
+  </form>
+
+
+
+
 </>
 
 
