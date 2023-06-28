@@ -240,7 +240,7 @@ export default function register_com() {
               </div>
               <div className="form-butt-one">
               <button
-                   onClick={() => router.push("/register/sendOTP_Com")}
+                   onClick={() => router.push("/sendOTP_Com")}
                   className="share_bgr_one cr_weight share_clr_tow share_fsize_tow share_cursor tiep_tuc_one" type="submit" variant="primary" 
                 >
                   Tiếp tục
