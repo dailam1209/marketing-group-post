@@ -14,7 +14,5 @@ export default function Layout({children}) {
     {children}
     <Footer/>
     </>
-    // <div >mạnh</div>
-
   )
 }
