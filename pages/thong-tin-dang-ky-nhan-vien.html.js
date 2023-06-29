@@ -3,23 +3,32 @@ import Head from "next/head";
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import Cookies from "js-cookie";
+import callApi from '../pages/api/call_api';
 
 export default function info_register_emp() {
     // xử lý validate
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
     const validatePhone = (value) => {
-        if(value) {
+        if (value) {
             return /^(032|033|034|035|036|037|038|039|086|096|097|098|081|082|083|084|085|088|087|091|094|056|058|092|070|076|077|078|079|089|090|093|099|059)+([0-9]{7})$/i.test(value);
         }
         return true;
     };
 
     // lấy cookie idCom
-    let idCom = Cookies.get('idCom');
+    // let idCom = Cookies.get('idCom');
 
-    const onSubmit = data => {
-        console.log(data)
+    const onSubmit = async data => {
+        data.com_id = 1;
+        delete data.res_password;
+        let response = await callApi.registerEp(data);
+        if(response.data && response.data.data && response.data.data.result == true) {
+            Cookies.set('phone', data.phoneTK);
+            window.location.href = "xac-thuc-ma-otp-nhan-vien.html";
+        } else {
+            alert(response)
+        }
     };
 
     return (
@@ -90,18 +99,18 @@ export default function info_register_emp() {
                                                             </label>
                                                             <input
                                                                 type="text"
-                                                                name="phone_tk"
+                                                                name="phoneTK"
                                                                 className="form-control"
-                                                                id="phone_tk"
+                                                                id="phoneTK"
                                                                 placeholder="Nhập số điện thoại"
-                                                                {...register("phone_tk", {
+                                                                {...register("phoneTK", {
                                                                     required: 'Vui lòng nhập số điện thoại',
                                                                     validate: {
                                                                         validatePhone: (value) => validatePhone(value) || "Hãy nhập đúng định dạng số điện thoại"
                                                                     }
                                                                 })}
                                                             />
-                                                            {errors && errors.phone_tk && <label className="error">{errors.phone_tk.message}</label>}
+                                                            {errors && errors.phoneTK && <label className="error">{errors.phoneTK.message}</label>}
                                                         </div>
                                                         <div className="form-group">
                                                             <label className="form_label share_fsize_three share_clr_one cr_weight">
@@ -206,7 +215,7 @@ export default function info_register_emp() {
                                                             <label className="form_label share_fsize_three share_clr_one cr_weight">
                                                                 Giới tính <span className="cr_red">*</span>
                                                             </label>
-                                                            <select name="gender" className="form-control">
+                                                            <select {...register('gender')} name="gender" className="form-control">
                                                                 <option value={1}>
                                                                     Nam
                                                                 </option>
@@ -235,7 +244,7 @@ export default function info_register_emp() {
                                                             <label className="form_label share_fsize_three share_clr_one cr_weight">
                                                                 Trình độ học vấn <span className="cr_red"></span>
                                                             </label>
-                                                            <select {...register('academicLevel')} defaultValue={0} name="academic_level" className="form-control">
+                                                            <select {...register('education')} defaultValue={0} name="academic_level" className="form-control">
                                                                 <option value={0}>Chọn trình độ học vấn</option>
                                                                 <option value={1}>Trên Đại học</option>
                                                                 <option value={2}>Đại học</option>
@@ -251,7 +260,7 @@ export default function info_register_emp() {
                                                             <label className="form_label share_fsize_three share_clr_one cr_weight">
                                                                 Tình trạng hôn nhân{" "}
                                                             </label>
-                                                            <select {...register('marriage')} name="marriage" className="form-control">
+                                                            <select {...register('married')} name="married" className="form-control">
                                                                 <option value={1}>
                                                                     Độc thân
                                                                 </option>
@@ -264,7 +273,7 @@ export default function info_register_emp() {
                                                             <label className="form_label share_fsize_three share_clr_one cr_weight">
                                                                 Kinh nghiệm làm việc <span className="cr_red"></span>
                                                             </label>
-                                                            <select {...register('experJob')} defaultValue={2} name="exper_job" className="form-control">
+                                                            <select {...register('experience')} defaultValue={2} name="exper_job" className="form-control">
                                                                 <option value={1}>Chưa có kinh nghiệm</option>
                                                                 <option value={2}>Dưới 1 năm kinh nghiệm</option>
                                                                 <option value={3}>1 năm</option>
@@ -275,16 +284,6 @@ export default function info_register_emp() {
                                                                 <option value={8}>Trên 5 năm</option>
                                                             </select>
                                                         </div>
-                                                        <div className="form-group share_dnone">
-                                                            <label className="form_label share_fsize_three share_clr_one cr_weight">
-                                                                Ngày bắt đầu làm việc
-                                                            </label>
-                                                            <input
-                                                                type="date"
-                                                                name="start_day"
-                                                                className="form-control"
-                                                            />
-                                                        </div>
                                                     </div>
                                                     <div className="form-row">
                                                         <div className="form-group">
@@ -293,7 +292,7 @@ export default function info_register_emp() {
                                                             </label>
                                                             <select
                                                                 id="chuc_vu"
-                                                                name="chuc_vu"
+                                                                name="position_id"
                                                                 className="form-control"
                                                                 defaultValue={3}
                                                                 {...register('position')}
