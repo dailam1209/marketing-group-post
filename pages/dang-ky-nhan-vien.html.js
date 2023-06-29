@@ -2,16 +2,28 @@ import React from "react"
 import Head from "next/head";
 import { useForm } from 'react-hook-form';
 import Cookies from "js-cookie";
+import callApi from '../pages/api/call_api';
+import axios from 'axios'
 
 export default function register_emp() {
     // Xử lý validate form
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const onSubmit = data => {
-        Cookies.set('idCom', data.id_company);
-        window.location.href = "/thong-tin-dang-ky-nhan-vien.html"
+    const onSubmit = async data => {
+        // let checkVip = await callApi.checkVip(data.id_company)
+        // if(checkVip == 0) {
+        //     Cookies.set('idCom', data.id_company);
+        //     window.location.href = "/thong-tin-dang-ky-nhan-vien.html"
+        // } else {
+        //     window.location.href = "/thong-bao-tai-khoan-vip.html"
+        // }
+        let response = '';
+        const call = await axios.post('http://210.245.108.202:3000/api/qlc/CheckVip', { idCom: data });
+        response = call;
+        console.log(response);
     };
+
     return (
-        <>
+        <>  
             <Head>
                 <link rel="stylesheet" href="/css/style.css" />
                 <title>
