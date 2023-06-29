@@ -76,28 +76,71 @@ export default function Home()
 
   return (
     <>
-        <div  className="content">
-        <div className="content-main" style={{display:"flex",gap:"20px"}} >
-          <h2 className="content-title">Create your account now</h2>
+ <>
+  <meta charSet="UTF-8" />
+  <title>
+    Hệ thống chuyển đổi số hàng đầu Việt Nam, đăng ký để trải nghiệm
+  </title>
+  <meta
+    name="description"
+    content="Khám phá một hệ sinh thái chuyển đổi số lớn, tích hợp nhiều tiện ích trong một nền tảng giúp công ty quản trị nguồn nhân lực hiệu quả, tối ưu và tiết kiệm."
+  />
+  <meta
+    property="og:title"
+    content="Hệ thống chuyển đổi số hàng đầu Việt Nam, đăng ký để trải nghiệm"
+  />
+  <meta
+    property="og:description"
+    content="Khám phá một hệ sinh thái chuyển đổi số lớn, tích hợp nhiều tiện ích trong một nền tảng giúp công ty quản trị nguồn nhân lực hiệu quả, tối ưu và tiết kiệm."
+  />
+  <meta
+    property="og:url"
+    content="https://quanlychung.timviec365.vn/dang-ky-cong-ty.html"
+  />
+  <meta
+    property="og:image:url"
+    content="https://quanlychung.timviec365.vn/img/bgr_banner.png"
+  />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="vi_VN" />
+  <link
+    rel="canonical"
+    href="https://quanlychung.timviec365.vn/dang-ky-cong-ty.html"
+  />
+  <meta name="robots" content="noindex,nofollow" />
+  <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon" />
+  <link
+    rel="preload"
+    href="../fonts/Roboto-Bold.woff2"
+    as="font"
+    type="font/woff2"
+    crossOrigin="anonymous"
+  />
+  <link
+    rel="preload"
+    href="../fonts/Roboto-Medium.woff2"
+    as="font"
+    type="font/woff2"
+    crossOrigin="anonymous"
+  />
+  <link
+    rel="preload"
+    href="../fonts/Roboto-Regular.woff2"
+    as="font"
+    type="font/woff2"
+    crossOrigin="anonymous"
+  />
+  <link rel="preload" as="style" href="../css/style.css?" />
+  <link
+    rel="stylesheet"
+    media="all"
+    href="../css/style.css"
+    onload="if (media != 'all')media='all'"
+  />
+</>
 
-          <input className="input_huge" type="text" name="Username" placeholder="Username" onChange={handleUsername} required />
-          <input className="input_huge" type="email"  name="Email" placeholder="Email" onChange={handleEmail} required />
-          <input  className="input_huge" type="password" name="Password" placeholder="Password" onChange={handlePassword} required />
-          <button className="btn_white" onClick={RegisterAccount}>Register</button>
-          <a id="label_white" href="/">You already have account?</a>
-        </div>
-
-        <div className="sidebar">
-          <div className="sidebar-content">
-
-          <h1 id="sideBarCaption">Welcome</h1>
-          <h3 id="sideBarDesc">You have not<br/> logged in yet</h3>    
-
-          <a href="/"  className="btn_lightblue" >Login</a>       
-          </div>
-        </div>
-      
-    </div>
 
     <>
   <div className="content_ql ctn_bgr_body">
