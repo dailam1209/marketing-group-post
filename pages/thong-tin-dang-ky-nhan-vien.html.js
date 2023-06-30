@@ -17,10 +17,10 @@ export default function info_register_emp() {
     };
 
     // lấy cookie idCom
-    // let idCom = Cookies.get('idCom');
+    let idCom = Cookies.get('idCom');
 
     const onSubmit = async data => {
-        data.com_id = 1;
+        data.com_id = idCom;
         delete data.res_password;
         let response = await callApi.registerEp(data);
         if(response.data && response.data.data && response.data.data.result == true) {
@@ -91,7 +91,7 @@ export default function info_register_emp() {
                                           </div> */}
                                                 </div>
                                                 <div className="ctn_form edit_tt_form share_distance">
-                                                    <p className="com_id hidden" data={3321} />
+                                                    <p className="com_id hidden"/>
                                                     <div className="form-row">
                                                         <div className="form-group">
                                                             <label className="form_label share_fsize_three share_clr_one cr_weight">
