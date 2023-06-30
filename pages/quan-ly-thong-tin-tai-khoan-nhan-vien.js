@@ -52,9 +52,10 @@ export default function thong_tin_tai_khoan() {
             // })
         })
         .catch((error) => {
-            dispatch({
-                type: ERROR_FINDING_USER
-            })
+            // dispatch({
+            //     type: ERROR_FINDING_USER
+            // })
+            console.log(error)
         })
     return (
         <>
