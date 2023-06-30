@@ -4,6 +4,9 @@ import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import Cookies from "js-cookie";
 import Axios from "axios";
+import callApi from '../pages/api/call_api';
+
+
 
 export default function info_register_emp() {
   // xử lý validate
@@ -19,26 +22,32 @@ export default function info_register_emp() {
   // lấy cookie idCom
   // let idCom = Cookies.get('idCom');
 
-  const onSubmit = data => {
-    console.log(data)
-    // Cookies.set('idCom', data.id_company);
-    // window.location.href = "/"
-  }
+  const onSubmit = async data => {
+    data.com_id = 1;
+    delete data.res_password;
+    let response = await callApi.registerCom(data);
+    if(response.data && response.data.data && response.data.data.result == true) {
+        Cookies.set('phone', data.phoneTK);
+        window.location.href = "sendOTP_Com";
+    } else {
+        alert(response)
+    }
+};
 
-  Axios.post("http://127.0.0.1:8000/users-create",
-  {
-    phoneTK: phone_tk,
-    name: username,
-    email: email,
-    pass: password,
-  }).then((response) => {
-      if(response.data.status == 0){
-        ErrorAlert(response.data.message);
-      }
-      else{
-        SucessAlert(response.data.message);
-      }
-  })
+  // Axios.post("http://127.0.0.1:8000/users-create",
+  // {
+  //   phoneTK: phone_tk,
+  //   name: username,
+  //   email: email,
+  //   pass: password,
+  // }).then((response) => {
+  //     if(response.data.status == 0){
+  //       ErrorAlert(response.data.message);
+  //     }
+  //     else{
+  //       SucessAlert(response.data.message);
+  //     }
+  // })
 
   return (
     <>
@@ -129,11 +138,11 @@ export default function info_register_emp() {
                         </label>
                         <input
                           type="text"
-                          name="phone_tk"
+                          name="phone"
                           id="phone_tk"
                           className="form-control"
                           placeholder="Nhập số điện thoại"
-                          {...register("phone_tk", {
+                          {...register("phoneTK", {
                             required: 'Vui lòng nhập số điện thoại',
                             validate: {
                               validatePhone: (value) => validatePhone(value) || "Hãy nhập đúng định dạng số điện thoại"
@@ -148,7 +157,7 @@ export default function info_register_emp() {
                         </label>
                         <input
                           type="text"
-                          name="name_cty"
+                          name="userName"
                           className="form-control"
                           placeholder="Nhập tên công ty của bạn"
                           {...register("userName", {
@@ -166,7 +175,7 @@ export default function info_register_emp() {
                           name="email"
                           className="form-control"
                           placeholder="Nhập số email"
-                          {...register("userName", {
+                          {...register("email", {
                             required: 'email không được để trống',
                           })}
                         />
@@ -221,7 +230,12 @@ export default function info_register_emp() {
                           Địa chỉ <span className="cr_red">*</span>
                         </label>
                         <input type="text" name="address" class="form-control"
-                          placeholder="Nhập địa chỉ" />
+                          placeholder="Nhập địa chỉ" 
+                          {...register("address", {
+                            required: 'Họ và tên không được để trống',
+                          })}
+                        />
+                        {errors && errors.userName && <label className="error">{errors.userName.message}</label>}
                         {/* <textarea
                     type="text"
                     id="user_name"

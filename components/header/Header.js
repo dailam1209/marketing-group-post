@@ -2,7 +2,6 @@ import React from "react"
 // import "../../Styles/globals.css"
 import Link from 'next/link'
 import router from "../../utils/router"
-
 // import { useRouter } from 'next/navigation'
 export default function Header() {
   // const router = useRouter()

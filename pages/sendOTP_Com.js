@@ -2,11 +2,22 @@ import React from "react"
 import Header from "/components/header/Header";
 import Footer from "/components/footer/Footer"
 import Head from "next/head";
+import handleVerifyOtp from '../utils/firebaseEvents';
 
 
 
 //const inter = Inter({ subsets: [latin] })
 export default function sendOTP_Com() {
+  const onClickVerifyOtp = () => {
+    const value = document.querySelector('.verify_otp');
+    if (value.classList.contains('nhan_ma')) {
+        let phone = Cookies.get('phone');
+        handleVerifyOtp(phone);
+    } else {
+        var otp = document.querySelector('#partitioned').value;
+        handleVerifyOtp(otp);
+    }
+};
     return (
         <>
 <>
