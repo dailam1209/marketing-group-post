@@ -9,17 +9,13 @@ export default function register_emp() {
     // Xử lý validate form
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = async data => {
-        // let checkVip = await callApi.checkVip(data.id_company)
-        // if(checkVip == 0) {
-        //     Cookies.set('idCom', data.id_company);
-        //     window.location.href = "/thong-tin-dang-ky-nhan-vien.html"
-        // } else {
-        //     window.location.href = "/thong-bao-tai-khoan-vip.html"
-        // }
-        let response = '';
-        const call = await axios.post('http://210.245.108.202:3000/api/qlc/CheckVip', { idCom: data });
-        response = call;
-        console.log(response);
+        let checkVip = await callApi.checkVip(data.id_company)
+        if(checkVip == 0) {
+            Cookies.set('idCom', data.id_company);
+            window.location.href = "/thong-tin-dang-ky-nhan-vien.html"
+        } else {
+            window.location.href = "/thong-bao-tai-khoan-vip.html"
+        }
     };
 
     return (

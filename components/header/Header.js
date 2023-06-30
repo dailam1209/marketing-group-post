@@ -4,11 +4,8 @@ import Link from 'next/link'
 import router from "../../utils/router"
 // import { useRouter } from 'next/navigation'
 export default function Header() {
-  // const router = useRouter()
   return (
-    
     <>
-        <>
   <meta charSet="UTF-8" />
 
   <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
@@ -67,36 +64,32 @@ export default function Header() {
               <li>
                       <Link href={router.product} as='/san-pham.html' className="cr_weight_bold share_fsize_tow share_clr_tow active">Sản phẩm</Link>
 
-              </li>
-              <li>
+                    </li>
+                    <li>
                       <Link href={router.eco} as='/he-sinh-thai.html' className="cr_weight_bold share_fsize_tow share_clr_tow ">Hệ sinh thái</Link>
 
-              </li>
-              <li>
-                        <Link href="https://timviec365.vn/blog" className="cr_weight_bold share_fsize_tow share_clr_tow">Tin tức</Link>
+                    </li>
+                    <li>
+                      <Link href="https://timviec365.vn/blog" className="cr_weight_bold share_fsize_tow share_clr_tow">Tin tức</Link>
 
-              </li>
-            </ul>
-            <div className="hd_log">
-              <div className="bg_log">
-                <p>
+                    </li>
+                  </ul>
+                  <div className="hd_log">
+                    <div className="bg_log">
+                      <p>
                         <Link href={router.register} as='/dang-ki' className="cr_weight_bold share_fsize_tow share_clr_tow">Đăng ký</Link>
 
-                  /
+                        /
                         <Link href={router.login} as='/dang-nhap' className="cr_weight_bold share_fsize_tow share_clr_tow">Đăng nhập</Link>
-
-                </p>
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</div>
-
-  </>
-
-  
-      )
+    </>
+  )
 }
