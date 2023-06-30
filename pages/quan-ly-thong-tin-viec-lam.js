@@ -93,7 +93,7 @@ export default function thiet_lap_tai_khoan_ca_nhan() {
                                             Thông tin tài khoản
                                         </li>
                                     </a>
-                                    <a href="thiet_lap_tai_khoan_nhan_vien" className="nav-item ">
+                                    <Link href="/thiet_lap_tai_khoan_nhan_vien" className="nav-item active">
                                         <li className="nav-child-item cr_weight_bold share_fsize_tow share_clr_tow d_flex">
                                             <span className="item_ic">
                                                 <img
@@ -103,7 +103,7 @@ export default function thiet_lap_tai_khoan_ca_nhan() {
                                             </span>
                                             Thiết lập tài khoản nhân viên
                                         </li>
-                                    </a>
+                                    </Link>
                                 </ul>
                             </div>
                         </div>{" "}
@@ -113,61 +113,7 @@ export default function thiet_lap_tai_khoan_ca_nhan() {
                             <div className="ctn_header_qly">
                                 <div className="img_ic_mobi show_sidebar">
                                     <img src="../img/mobi_4.png" alt="" className="btx_header_nv" />
-                                    <div className="menu_header" style={{ display: "none" }}>
-                                        <div className="modal-content">
-                                            <div className="ctn_ind share_bgr_one">
-                                                <div className="modal-body">
-                                                    <div className="ind__header_one">
-                                                        <div className="avt_log_head tex_center">
-                                                            <img src="../img/logo.png" alt="" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="ind-tow">
-                                                        <div className="ctn_ulli">
-                                                            <ul className="navbar-nav">
-                                                                <a
-                                                                    href="quan-ly-ung-dung-nhan-vien.html"
-                                                                    className="nav-item jhjh"
-                                                                >
-                                                                    <li className="nav-child-item cr_weight_bold share_fsize_tow share_clr_tow d_flex">
-                                                                        <span className="item_ic">
-                                                                            <img src="../img/ung-dung.png" alt="" />
-                                                                        </span>
-                                                                        Ứng dụng
-                                                                    </li>
-                                                                </a>
-                                                                <a
-                                                                    href="quan-ly-thong-tin-tai-khoan-nhan-vien.html"
-                                                                    className="nav-item "
-                                                                >
-                                                                    <li className="nav-child-item cr_weight_bold share_fsize_tow share_clr_tow d_flex">
-                                                                        <span className="item_ic">
-                                                                            <img src="../img/qly-tttaikhoan.png" alt="" />
-                                                                        </span>
-                                                                        Thông tin tài khoản
-                                                                    </li>
-                                                                </a>
-                                                                <a
-                                                                    href="quan-ly-thong-tin-viec-lam.html"
-                                                                    className="nav-item active"
-                                                                >
-                                                                    <li className="nav-child-item cr_weight_bold share_fsize_tow share_clr_tow d_flex">
-                                                                        <span className="item_ic">
-                                                                            <img
-                                                                                src="../img/qly-ttvieclam.png"
-                                                                                alt="Thiết lập tài khoản nhân viên"
-                                                                            />
-                                                                        </span>
-                                                                        Thiết lập tài khoản nhân viên
-                                                                    </li>
-                                                                </a>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+
                                 </div>{" "}
                                 <div className="left_header_qly">
                                     <p className="share_clr_one font_14">Thiết lập việc làm</p>

@@ -73,7 +73,7 @@ export default function sau_đang_nhap_ca_nhan() {
                                             </li>
                                         </a>
                                         <Link
-                                            href={'/quan-ly-thong-tin-tai-khoan-nhan-vien?acc_token=${acc_token}'}
+                                            href='/quan-ly-thong-tin-tai-khoan-nhan-vien'
                                             className="nav-item "
                                         >
                                             <li className="nav-child-item cr_weight_bold share_fsize_tow share_clr_tow d_flex">
@@ -86,7 +86,7 @@ export default function sau_đang_nhap_ca_nhan() {
                                                 Thông tin tài khoản
                                             </li>
                                         </Link>
-                                        <a href="thiet_lap_tai_khoan_nhan_vien" className="nav-item ">
+                                        <a href="quan-ly-thong-tin-viec-lam" className="nav-item ">
                                             <li className="nav-child-item cr_weight_bold share_fsize_tow share_clr_tow d_flex">
                                                 <span className="item_ic">
                                                     <img
