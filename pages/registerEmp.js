@@ -3,11 +3,11 @@ import Head from "next/head";
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 
-// const router = useRouter();
-// const comId = router.query.com_id;
-// console.log(comId);
+const router = useRouter();
+const comId = router.query.com_id;
+console.log(comId);
 
-//const inter = Inter({ subsets: [latin] })
+const inter = Inter({ subsets: [latin] })
 export default function info_register_emp() {
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const onSubmit = data => {

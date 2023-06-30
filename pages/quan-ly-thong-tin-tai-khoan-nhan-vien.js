@@ -18,26 +18,44 @@ export default function thong_tin_tai_khoan() {
     //let data = new FormData();
     var token = Cookies.get("access_token");
     console.log("token: " + token)
-    //const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6MTIyMDI4MCwiZW1haWwiOm51bGwsInBob25lVEsiOiIwOTc3MjE3OTMyIiwidXNlck5hbWUiOiJ0aW5oIiwiYWxpYXMiOm51bGwsInBob25lIjpudWxsLCJlbWFpbENvbnRhY3QiOm51bGwsImF2YXRhclVzZXIiOm51bGwsInR5cGUiOjAsInBhc3N3b3JkIjoiZjc5NDZhMTg3ZDhkYmYxMzIyYTUzNWMyZDA5YWU3MTIiLCJjaXR5IjpudWxsLCJkaXN0cmljdCI6bnVsbCwiYWRkcmVzcyI6Imhhbm9pIiwib3RwIjpudWxsLCJhdXRoZW50aWMiOm51bGwsImlzT25saW5lIjowLCJmcm9tV2ViIjpudWxsLCJmcm9tRGV2aWNlIjowLCJjcmVhdGVkQXQiOjAsInVwZGF0ZWRBdCI6MCwibGFzdEFjdGl2ZWRBdCI6bnVsbCwidGltZV9sb2dpbiI6MCwicm9sZSI6MCwibGF0aXR1ZGUiOm51bGwsImxvbmd0aXR1ZGUiOm51bGwsImlkUUxDIjoxMjIwMjgwLCJpZFRpbVZpZWMzNjUiOjAsImlkUmFvTmhhbmgzNjUiOjAsImNoYXQzNjVfc2VjcmV0IjpudWxsLCJzaGFyZVBlcm1pc3Npb25JZCI6W10sImluRm9yUGVyc29uIjp7InNjYW4iOjAsImFjY291bnQiOnsiYmlydGhkYXkiOm51bGwsImdlbmRlciI6MCwibWFycmllZCI6MCwiZXhwZXJpZW5jZSI6MCwiZWR1Y2F0aW9uIjowLCJfaWQiOiI2NDllYTgxOGFkYmZiMzBhZWE2MGRlZjgifSwiZW1wbG95ZWUiOnsiZGVwX2lkIjowLCJzdGFydF93b3JraW5nX3RpbWUiOm51bGwsInBvc2l0aW9uX2lkIjowLCJncm91cF9pZCI6MCwidGltZV9xdWl0X2pvYiI6bnVsbCwiZXBfZGVzY3JpcHRpb24iOm51bGwsImVwX2ZlYXR1cmVkX3JlY29nbml0aW9uIjpudWxsLCJlcF9zdGF0dXMiOiJQZW5kaW5nIiwiZXBfc2lnbmF0dXJlIjowLCJhbGxvd191cGRhdGVfZmFjZSI6MCwidmVyc2lvbl9pbl91c2UiOjAsIl9pZCI6IjY0OWVhODE4YWRiZmIzMGFlYTYwZGVmYSJ9LCJjYW5kaWRhdGUiOm51bGwsIl9pZCI6IjY0OWVhODE4YWRiZmIzMGFlYTYwZGVmOSJ9LCJpbkZvckNvbXBhbnkiOm51bGwsImluZm9yUk4zNjUiOm51bGwsImNvbmZpZ0NoYXQiOnsibm90aWZpY2F0aW9uQWNjZXB0T2ZmZXIiOjEsIm5vdGlmaWNhdGlvbkFsbG9jYXRpb25SZWNhbGwiOjEsIm5vdGlmaWNhdGlvbkNoYW5nZVNhbGFyeSI6MSwibm90aWZpY2F0aW9uQ29tbWVudEZyb21SYW9OaGFuaCI6MSwibm90aWZpY2F0aW9uQ29tbWVudEZyb21UaW1WaWVjIjoxLCJub3RpZmljYXRpb25EZWNpbGluZU9mZmVyIjoxLCJub3RpZmljYXRpb25NaXNzTWVzc2FnZSI6MSwibm90aWZpY2F0aW9uTlRERXhwaXJlZFBpbiI6MSwibm90aWZpY2F0aW9uTlRERXhwaXJlZFJlY3J1aXQiOjEsIm5vdGlmaWNhdGlvbk5URFBvaW50IjoxLCJub3RpZmljYXRpb25TZW5kQ2FuZGlkYXRlIjoxLCJub3RpZmljYXRpb25UYWciOjEsInJlbW92ZVN1Z2dlcyI6W10sInVzZXJOYW1lTm9WbiI6IiIsImRvdWJsZVZlcmlmeSI6MCwiYWN0aXZlIjowLCJzdGF0dXMiOiIiLCJhY2NlcHRNZXNzU3RyYW5nZXIiOjAsIkhpc3RvcnlBY2Nlc3MiOltdfX0sImlhdCI6MTY4ODExOTMyMCwiZXhwIjoxNjg4MjA1NzIwfQ.CJWQUuq3P81pnm1cM16MWWPASoJJuRZM6CZhAMl76zA';
+    // //const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6MTIyMDI4MCwiZW1haWwiOm51bGwsInBob25lVEsiOiIwOTc3MjE3OTMyIiwidXNlck5hbWUiOiJ0aW5oIiwiYWxpYXMiOm51bGwsInBob25lIjpudWxsLCJlbWFpbENvbnRhY3QiOm51bGwsImF2YXRhclVzZXIiOm51bGwsInR5cGUiOjAsInBhc3N3b3JkIjoiZjc5NDZhMTg3ZDhkYmYxMzIyYTUzNWMyZDA5YWU3MTIiLCJjaXR5IjpudWxsLCJkaXN0cmljdCI6bnVsbCwiYWRkcmVzcyI6Imhhbm9pIiwib3RwIjpudWxsLCJhdXRoZW50aWMiOm51bGwsImlzT25saW5lIjowLCJmcm9tV2ViIjpudWxsLCJmcm9tRGV2aWNlIjowLCJjcmVhdGVkQXQiOjAsInVwZGF0ZWRBdCI6MCwibGFzdEFjdGl2ZWRBdCI6bnVsbCwidGltZV9sb2dpbiI6MCwicm9sZSI6MCwibGF0aXR1ZGUiOm51bGwsImxvbmd0aXR1ZGUiOm51bGwsImlkUUxDIjoxMjIwMjgwLCJpZFRpbVZpZWMzNjUiOjAsImlkUmFvTmhhbmgzNjUiOjAsImNoYXQzNjVfc2VjcmV0IjpudWxsLCJzaGFyZVBlcm1pc3Npb25JZCI6W10sImluRm9yUGVyc29uIjp7InNjYW4iOjAsImFjY291bnQiOnsiYmlydGhkYXkiOm51bGwsImdlbmRlciI6MCwibWFycmllZCI6MCwiZXhwZXJpZW5jZSI6MCwiZWR1Y2F0aW9uIjowLCJfaWQiOiI2NDllYTgxOGFkYmZiMzBhZWE2MGRlZjgifSwiZW1wbG95ZWUiOnsiZGVwX2lkIjowLCJzdGFydF93b3JraW5nX3RpbWUiOm51bGwsInBvc2l0aW9uX2lkIjowLCJncm91cF9pZCI6MCwidGltZV9xdWl0X2pvYiI6bnVsbCwiZXBfZGVzY3JpcHRpb24iOm51bGwsImVwX2ZlYXR1cmVkX3JlY29nbml0aW9uIjpudWxsLCJlcF9zdGF0dXMiOiJQZW5kaW5nIiwiZXBfc2lnbmF0dXJlIjowLCJhbGxvd191cGRhdGVfZmFjZSI6MCwidmVyc2lvbl9pbl91c2UiOjAsIl9pZCI6IjY0OWVhODE4YWRiZmIzMGFlYTYwZGVmYSJ9LCJjYW5kaWRhdGUiOm51bGwsIl9pZCI6IjY0OWVhODE4YWRiZmIzMGFlYTYwZGVmOSJ9LCJpbkZvckNvbXBhbnkiOm51bGwsImluZm9yUk4zNjUiOm51bGwsImNvbmZpZ0NoYXQiOnsibm90aWZpY2F0aW9uQWNjZXB0T2ZmZXIiOjEsIm5vdGlmaWNhdGlvbkFsbG9jYXRpb25SZWNhbGwiOjEsIm5vdGlmaWNhdGlvbkNoYW5nZVNhbGFyeSI6MSwibm90aWZpY2F0aW9uQ29tbWVudEZyb21SYW9OaGFuaCI6MSwibm90aWZpY2F0aW9uQ29tbWVudEZyb21UaW1WaWVjIjoxLCJub3RpZmljYXRpb25EZWNpbGluZU9mZmVyIjoxLCJub3RpZmljYXRpb25NaXNzTWVzc2FnZSI6MSwibm90aWZpY2F0aW9uTlRERXhwaXJlZFBpbiI6MSwibm90aWZpY2F0aW9uTlRERXhwaXJlZFJlY3J1aXQiOjEsIm5vdGlmaWNhdGlvbk5URFBvaW50IjoxLCJub3RpZmljYXRpb25TZW5kQ2FuZGlkYXRlIjoxLCJub3RpZmljYXRpb25UYWciOjEsInJlbW92ZVN1Z2dlcyI6W10sInVzZXJOYW1lTm9WbiI6IiIsImRvdWJsZVZlcmlmeSI6MCwiYWN0aXZlIjowLCJzdGF0dXMiOiIiLCJhY2NlcHRNZXNzU3RyYW5nZXIiOjAsIkhpc3RvcnlBY2Nlc3MiOltdfX0sImlhdCI6MTY4ODExOTMyMCwiZXhwIjoxNjg4MjA1NzIwfQ.CJWQUuq3P81pnm1cM16MWWPASoJJuRZM6CZhAMl76zA';
+    // const headers = {
+    //     'Authorization': `Bearer ${token}`,
+    // }
+    // console.log("header: " + headers);
+    // const getData = async () => {
+    //     try {
+    //         let response = await callApi.getInfo(headers);
+    //         console.log("respone" + response);
+    //         console.log(response.data.data.data)
+    //         setIsDataLoaded(true);
+    //         // onDataLoaded(data)
+    //     }
+    //     catch (error) {
+    //         console.log('Error:', error);
+    //     }
+    // }
+    // getData();
     const headers = {
-        'Authorization': `Bearer ${token}`,
+        // 'Content-Type': 'application/json',
+        'Authorization': token
     }
-    console.log("header: " + headers);
-    const getData = async () => {
-        try {
-            let response = await callApi.getInfo(headers);
-            console.log("respone" + response);
-            console.log(response.data.data.data)
-            setIsDataLoaded(true);
-            // onDataLoaded(data)
-        }
-        catch (error) {
-            console.log('Error:', error);
-        }
-    }
-    getData();
-
-
+    let data = {};
+    axios.post("http://210.245.108.202:3000/api/qlc/individual/info", data, {
+        headers: headers
+    })
+        .then((response) => {
+            console.log(response);
+            // dispatch({
+            //     type: FOUND_USER,
+            //     data: response.data[0]
+            // })
+        })
+        .catch((error) => {
+            dispatch({
+                type: ERROR_FINDING_USER
+            })
+        })
     return (
         <>
             <>

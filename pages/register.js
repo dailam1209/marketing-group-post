@@ -2,6 +2,7 @@ import React from "react"
 import Header from "/components/header/Header";
 import Footer from "/components/footer/Footer";
 import Head from "next/head";
+import head from "../components/head/head";
 import Link from 'next/link'
 import router from "../utils/router"
 

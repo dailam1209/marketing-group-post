@@ -89,22 +89,22 @@ export default function register() {
                 </div>
                 <div className="titl_form">
                   <div className="ctn_log_butt">
-                    <a href="dang-nhap-cong-ty.html" className="ct_butt">
+                    <Link href={router.loginCom} className="ct_butt">
                       <div className="titl_del">
                         <h4 className="share_fsize_tow cr_weight">Công ty</h4>
                         <p className="share_fsize_one share_clr_three">
                           Tài khoản công ty
                         </p>
                       </div>
-                    </a>
-                    <a href="dang-nhap-nhan-vien.html" className="nv_butt">
+                    </Link>
+                    <Link href={router.loginCom} className="nv_butt">
                       <div className="titl_del">
                         <h4 className="share_fsize_tow cr_weight">Nhân viên</h4>
                         <p className="share_fsize_one share_clr_three">
                           Tài khoản nhân viên
                         </p>
                       </div>
-                    </a>
+                    </Link>
                     <Link href="login_person" as='/dang-ki-ca-nhan' className="nv_butt">
 
                       <div className="titl_del">
@@ -114,12 +114,12 @@ export default function register() {
                         </p>
                       </div>
                     </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+                  </div >
+                </div >
+              </div >
+            </div >
+          </div >
+        </div >
         <link rel="stylesheet" href="https://timviec365.vn/css/footer_new.css?v=2" />
       </>
 
