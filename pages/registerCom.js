@@ -138,8 +138,8 @@ export default function info_register_emp() {
                         </label>
                         <input
                           type="text"
-                          name="phone"
-                          id="phone_tk"
+                          name="phoneTK"
+                          id="phoneTK"
                           className="form-control"
                           placeholder="Nhập số điện thoại"
                           {...register("phoneTK", {
@@ -149,7 +149,7 @@ export default function info_register_emp() {
                             }
                           })}
                         />
-                        {errors && errors.phone_tk && <label className="error">{errors.phone_tk.message}</label>}
+                        {errors && errors.phoneTK && <label className="error">{errors.phoneTK.message}</label>}
                       </div>
                       <div className="form-group">
                         <label className="form_label share_fsize_three share_clr_one cr_weight">
@@ -161,7 +161,7 @@ export default function info_register_emp() {
                           className="form-control"
                           placeholder="Nhập tên công ty của bạn"
                           {...register("userName", {
-                            required: 'Họ và tên không được để trống',
+                            required: 'Tên công ty không được để trống',
                           })}
                         />
                         {errors && errors.userName && <label className="error">{errors.userName.message}</label>}
@@ -179,7 +179,7 @@ export default function info_register_emp() {
                             required: 'email không được để trống',
                           })}
                         />
-                        {errors && errors.userName && <label className="error">{errors.userName.message}</label>}
+                        {errors && errors.email && <label className="error">{errors.email.message}</label>}
                       </div>
                       <div className="form-group">
                         <label className="form_label share_fsize_three share_clr_one cr_weight">
@@ -232,10 +232,10 @@ export default function info_register_emp() {
                         <input type="text" name="address" class="form-control"
                           placeholder="Nhập địa chỉ" 
                           {...register("address", {
-                            required: 'Họ và tên không được để trống',
+                            required: 'Địa chỉ không được để trống',
                           })}
                         />
-                        {errors && errors.userName && <label className="error">{errors.userName.message}</label>}
+                        {errors && errors.address && <label className="error">{errors.address.message}</label>}
                         {/* <textarea
                     type="text"
                     id="user_name"
