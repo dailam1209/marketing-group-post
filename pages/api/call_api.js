@@ -12,6 +12,18 @@ class callApi {
     return response;
   }
 
+  //api dang ky cty
+  static async registerCom(data) {
+    let response = '';
+    try {
+      const call = await axios.post('http://210.245.108.202:3000/api/qlc/Company/register', data);
+      response = call;
+    } catch (error) {
+      response = error.response.data.error.message
+    }
+    return response;
+  }
+
   // api check vip
   static async checkVip(idCom) {
     let response = '';
