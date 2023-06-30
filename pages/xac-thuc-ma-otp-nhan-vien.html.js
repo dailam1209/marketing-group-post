@@ -1,12 +1,19 @@
-import React from "react"
-import Header from "/components/header/Header";
-import Footer from "/components/footer/Footer"
+import React from 'react';
 import Head from "next/head";
+import handleVerifyOtp from '../utils/firebaseEvents';
+import Cookies from "js-cookie";
 
-
-
-//const inter = Inter({ subsets: [latin] })
 export default function xac_thuc_otp_nhan_vien() {
+    const onClickVerifyOtp = () => {
+        const value = document.querySelector('.verify_otp');
+        if (value.classList.contains('nhan_ma')) {
+            let phone = Cookies.get('phone');
+            handleVerifyOtp(phone);
+        } else {
+            var otp = document.querySelector('#partitioned').value;
+            handleVerifyOtp(otp);
+        }
+    };
     return (
         <>
             <Head>
@@ -46,17 +53,14 @@ export default function xac_thuc_otp_nhan_vien() {
                     />
                     <title>Trang xác thực mã OTP nhân viên</title>
                 </>
-
-
             </Head>
-            <Header />
             <>
                 <div className="content_ql ctn_bgr_body">
                     <div className="content_nv">
                         <div className="ctn_register_nv">
                             <form
                                 action=""
-                                onsubmit="return false"
+                                // onSubmit="return false"
                                 className="regnv_form regnv_form_otp_nv"
                                 method=""
                             >
@@ -72,21 +76,21 @@ export default function xac_thuc_otp_nhan_vien() {
                                                         <img src="../img/three_ic_reg_nv.png" alt="" />
                                                     </div>
                                                 </div>
-                                                <p className="titl_form share_fsize_three share_clr_one tex_center">
-                                                    Vui lòng nhập mã OTP gồm 6 chữ số được gửi về email hoặc số
-                                                    điện thoại đăng ký tài khoản!
+                                                <p className="titl_form share_fsize_three share_clr_one tex_center change_text">
+                                                    Vui lòng bấm "Nhận mã" để nhận mã xác thực về số điện thoại
                                                 </p>
                                                 <div className="center_form">
                                                     <div className="form-group">
-
                                                         <input
                                                             id="partitioned"
                                                             name="otp_nv"
                                                             maxLength={6}
                                                             placeholder=""
+                                                            className="hidden_t"
                                                         />
+                                                        <div id="recaptcha-container" className="recaptcha"></div>
                                                     </div>
-                                                    <div className="gui_lai_otp">
+                                                    <div className="gui_lai_otp hidden">
                                                         <p>
                                                             <span className="share_fsize_three share_clr_one">
                                                                 Bạn chưa nhận được mã OTP?
@@ -94,7 +98,6 @@ export default function xac_thuc_otp_nhan_vien() {
                                                             <button
                                                                 type="button"
                                                                 className="share_clr_four cr_weight share_fsize_three share_cursor gui_lai"
-                                                                // data={0977217933}
                                                                 data1={1}
                                                             >
                                                                 Gửi lại
@@ -106,10 +109,15 @@ export default function xac_thuc_otp_nhan_vien() {
                                                 <div className="form-butt-one">
                                                     <input
                                                         type="button"
-                                                        className="share_bgr_one cr_weight share_clr_tow share_fsize_tow share_cursor tiep_tuc_one"
-                                                        //  data={0977217933}
-                                                        data2={1}
+                                                        className="nhan_ma share_bgr_one cr_weight share_clr_tow share_fsize_tow share_cursor tiep_tuc_one verify_otp otpSMS"
+                                                        defaultValue="Nhận mã"
+                                                        onClick={onClickVerifyOtp}
+                                                    />
+                                                    <input
+                                                        type="button"
+                                                        className="hidden gui_ma gui_otp share_bgr_one cr_weight share_clr_tow share_fsize_tow share_cursor tiep_tuc_one confirm_otp verify_otp otpSMS"
                                                         defaultValue="Tiếp tục"
+                                                        onClick={onClickVerifyOtp}
                                                     />
                                                     {/* <p class="quay_lai tex_center share_clr_one share_cursor share_fsize_three">Quay lại</p> */}
                                                 </div>
@@ -121,10 +129,24 @@ export default function xac_thuc_otp_nhan_vien() {
                         </div>
                     </div>
                 </div>
+                {/* <div className="f_xt_ntd">
+                    <p>Mọi vấn đề cần hỗ trợ vui lòng liên hệ bộ phận CSKH <span>Timviec365.vn</span></p>
+                    <p>Điện thoại: <span>0982.079.209</span></p>
+                    <p>Gmail: <span>timviec365.vn@gmail.com</span></p>
+                </div> */}
+                {/* <div className="modal_tbcc">
+                    <div className="nd_modal">
+                        <div className="header_modal_tbcc">
+                            <p>Timviec365.vn Thông báo</p> <img className="img_close_cc" src="/images/ic_close_cc.png" alt="" />
+                        </div>
+                        <div className="nd_modal_tbcc">
+                            <p className="txt_nd_modal"></p>
+                            <span className="close_modal_tbcc">Đóng</span>
+                        </div>
+                    </div>
+                </div> */}
                 <link rel="stylesheet" href="https://timviec365.vn/css/footer_new.css?v=2" />
             </>
-            <Footer />
-
         </>
     )
 };

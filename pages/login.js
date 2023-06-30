@@ -2,7 +2,7 @@ import React from "react"
 import Header from "/components/header/Header";
 import Footer from "/components/footer/Footer";
 import Head from "next/head";
-
+import Link from 'next/link'
 
 
 
@@ -105,14 +105,15 @@ export default function register() {
                         </p>
                       </div>
                     </a>
-                    <a href="dang-nhap-ca-nhan.html" className="nv_butt">
+                    <Link href="login_person" as='/dang-ki-ca-nhan' className="nv_butt">
+
                       <div className="titl_del">
                         <h4 className="share_fsize_tow cr_weight">Cá nhân</h4>
                         <p className="share_fsize_one share_clr_three">
                           Tài khoản cá nhân
                         </p>
                       </div>
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -126,3 +127,4 @@ export default function register() {
 
     </>)
 };
+

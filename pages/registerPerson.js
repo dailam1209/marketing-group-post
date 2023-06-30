@@ -1,45 +1,30 @@
 
-
 import React from "react"
 import Header from "/components/header/Header";
 import Footer from "/components/footer/Footer"
 import Head from "next/head";
 import { useForm } from 'react-hook-form';
+import callApi from '../pages/api/call_api';
 //import { cookies } from 'next/headers';
 import { useState } from "react";
-// export function checkPhoneNumber(phoneNumber) {
-//     var pattern = /^(032|033|034|035|036|037|038|039|086|096|097|098|081|082|083|084|085|088|087|091|094|056|058|092|070|076|077|078|079|089|090|093|099|059)+([0-9]{7})$/i;
-//     console.log("check : " + pattern.test(phoneNumber))
-//     return pattern.test(phoneNumber);
-// }
-// export function validatePassword(password) {
-//     var pattern = /^\S*(?=\S{6,})(?=\S*[a-zA-Z])(?=\S*[0-9])(?=\S*[\d])\S*$/i;
-//     console.log("check password : " + pattern.test(password));
-//     return pattern.test(password);
-
-// }
-
-
-//const inter = Inter({ subsets: [latin] })
 export default function dang_ki_ca_nhan() {
-    // const cookieStore = cookies();
-    const [acount, setAcount] = useState('');
-    const [userName, setUserName] = useState('');
-    const [password, setPassword] = useState('');
-    const [re_password, setRe_assword] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState('');
-    const [address, setAddress] = useState('');
-
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
-    const onSubmit = data => {
-        window.location.href = "/sendOTP_Person";
-
+    const onSubmit = async data => {
+        // window.location.href = "/sendOTP_Person";
+        data.com_id = 1;
+        delete data.res_password;
+        let response = await callApi.registerPerson(data);
+        // console.log("respone " + response);
+        alert(response);
+        if (response.data && response.data.data && response.data.data.result == true) {
+            Cookies.set('phone', data.phoneTK);
+            window.location.href = "/sendOTP_Person";
+        } else {
+            alert(response)
+        }
     };
-
-
     return (
         <>
-
             <Head>
                 <>
                     <title>
@@ -106,7 +91,6 @@ export default function dang_ki_ca_nhan() {
                         onload="if (media != 'all')media='all'"
                     />
                 </>
-
             </Head>
             <Header />
             <>
