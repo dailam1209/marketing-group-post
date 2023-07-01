@@ -89,21 +89,10 @@ export default function xac_thuc_otp_ca_nhan() {
                                                             placeholder=""
                                                             className="hidden_t"
                                                         />
-                                                        {/* <p>
-                                                            <span className="share_fsize_three share_clr_one">
-                                                                Bạn chưa nhận được mã OTP?
-                                                            </span>{" "}
-                                                            <button
-                                                                type="button"
-                                                                className="share_clr_four cr_weight share_fsize_three share_cursor gui_lai"
-                                                                data1={1}
-                                                            >
-                                                                Gửi lại
-                                                            </button>
-                                                        </p> */}
+
                                                         <div id="recaptcha-container" className="recaptcha"></div>
                                                     </div>
-                                                    <div className="gui_lai_otp hidden">
+                                                    <div className="gui_lai_otp   hidden">
                                                         <p>
                                                             <span className="share_fsize_three share_clr_one">
                                                                 Bạn chưa nhận được mã OTP?

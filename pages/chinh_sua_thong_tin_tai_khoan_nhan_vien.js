@@ -10,6 +10,8 @@ import { useForm } from "react-hook-form";
 //const inter = Inter({ subsets: [latin] })
 export default function ecosystem() {
     var token = Cookies.get("access_token");
+
+    //  console.log(token)
     const [infoAcc, setInfoAcc] = useState({});
 
     const headers = {
@@ -29,7 +31,10 @@ export default function ecosystem() {
         })
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const onSubmit = async data => {
-        axios.post("http://210.245.108.202:3000/api/qlc/employee/updateInfoEmployee", data, {
+
+        // data.avatarUser =  ;
+        console.log(data);
+        axios.post("http://210.245.108.202:3000/api/qlc/individual/updateInfoindividual", data, {
             headers: headers
         })
             .then((response) => {
@@ -41,7 +46,6 @@ export default function ecosystem() {
             })
 
     }
-
     return (
         <>
             <>
@@ -306,6 +310,8 @@ export default function ecosystem() {
                                 </div>
                             </div>
                         </div>
+
+
                         <div className="ctn_right_qly color_gray">
                             <div className="ctn_res_qly">
                                 <div className="left_header_qly">
@@ -333,7 +339,7 @@ export default function ecosystem() {
                                                         className="form-control share_fsize_one share_clr_one"
                                                         placeholder="Nhập ID"
                                                         defaultValue={infoAcc._id}
-                                                        readOnly=""
+                                                        readOnly
                                                     />
                                                 </div>
                                                 <div className="form-group">
@@ -345,8 +351,9 @@ export default function ecosystem() {
                                                         name="congty"
                                                         className="form-control share_fsize_one share_clr_one"
                                                         placeholder="Nhập tên công ty"
-                                                        defaultValue=""
-                                                        readOnly=""
+                                                        defaultValue={(infoAcc.inForPerson && infoAcc.inForPerson.employee && infoAcc.inForPerson.employee.com_id) ? infoAcc.inForPerson.employee.com_id : ""}
+                                                        readOnly
+                                                        {...register('congty', { required: true })}
                                                     />
                                                 </div>
                                             </div>
@@ -360,11 +367,8 @@ export default function ecosystem() {
                                                         name="name_nv"
                                                         className="form-control share_fsize_one share_clr_one"
                                                         placeholder="Nhập họ và tên"
-                                                        defaultValue={infoAcc.userName}
-                                                        {...register("name_nv", {
-                                                            required: true,
-
-                                                        })}
+                                                        Value={infoAcc.userName}
+                                                        {...register('name_nv', { required: true })}
                                                     />
                                                     {errors.name_nv && <label className="error">Không được để trống</label>}
                                                 </div>
@@ -416,7 +420,6 @@ export default function ecosystem() {
                                                         defaultValue={infoAcc.address}
                                                         {...register("address", {
                                                             required: true,
-
                                                         })}
                                                     />
                                                     {errors.address && <label className="error">Không được để trống</label>}
@@ -525,8 +528,8 @@ export default function ecosystem() {
                                                         type="date"
                                                         name="ngaylamviec"
                                                         className="form-control share_fsize_one share_clr_one"
-                                                        defaultValue="2023-06-15"
-                                                        disabled=""
+                                                        defaultValue={(infoAcc.inForPerson && infoAcc.inForPerson.employee && infoAcc.inForPerson.employee.start_working_time) ? infoAcc.inForPerson.employee.start_working_time : ""}
+                                                        disabled
                                                         {...register("ngaylamviec", {
                                                             //required: true,
 
@@ -544,7 +547,7 @@ export default function ecosystem() {
                                                         name="phongban"
                                                         className="form-control share_fsize_one share_clr_one"
                                                         placeholder="Nhập tên phòng ban"
-                                                        defaultValue=""
+                                                        defaultValue={(infoAcc.inForPerson && infoAcc.inForPerson.employee && infoAcc.inForPerson.employee.dep_id) ? infoAcc.inForPerson.employee.dep_id : ""}
                                                         data=""
                                                         readOnly=""
                                                         {...register("phongban", {
@@ -561,7 +564,7 @@ export default function ecosystem() {
                                                         type="text"
                                                         className="form-control"
                                                         name="chuc_vu"
-                                                        defaultValue="Nhân viên chính thức"
+                                                        defaultValue={(infoAcc.inForPerson && infoAcc.inForPerson.employee && infoAcc.inForPerson.employee.position_id) ? infoAcc.inForPerson.employee.position_id : ""}
                                                         data={3}
                                                         readOnly=""
                                                         {...register("chuc_vu", {
