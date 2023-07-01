@@ -23,7 +23,7 @@ export default function info_register_emp() {
         data.com_id = idCom;
         delete data.res_password;
         let response = await callApi.registerEp(data);
-        if(response.data && response.data.data && response.data.data.result == true) {
+        if (response.data && response.data.data && response.data.data.result == true) {
             Cookies.set('phone', data.phoneTK);
             window.location.href = "xac-thuc-ma-otp-nhan-vien.html";
         } else {
@@ -91,7 +91,7 @@ export default function info_register_emp() {
                                           </div> */}
                                                 </div>
                                                 <div className="ctn_form edit_tt_form share_distance">
-                                                    <p className="com_id hidden"/>
+                                                    <p className="com_id hidden" />
                                                     <div className="form-row">
                                                         <div className="form-group">
                                                             <label className="form_label share_fsize_three share_clr_one cr_weight">

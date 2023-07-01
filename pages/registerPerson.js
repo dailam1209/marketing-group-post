@@ -1,21 +1,21 @@
-
 import React from "react"
-import Header from "/components/header/Header";
-import Footer from "/components/footer/Footer"
 import Head from "next/head";
+import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
+import Cookies from "js-cookie";
 import callApi from '../pages/api/call_api';
 //import { cookies } from 'next/headers';
 import { useState } from "react";
+
+
 export default function dang_ki_ca_nhan() {
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const onSubmit = async data => {
         // window.location.href = "/sendOTP_Person";
-        data.com_id = 1;
-        delete data.res_password;
+        // data.com_id = 1;
+        //  delete data.res_password;
         let response = await callApi.registerPerson(data);
         // console.log("respone " + response);
-        alert(response);
         if (response.data && response.data.data && response.data.data.result == true) {
             Cookies.set('phone', data.phoneTK);
             window.location.href = "/sendOTP_Person";
@@ -92,7 +92,7 @@ export default function dang_ki_ca_nhan() {
                     />
                 </>
             </Head>
-            <Header />
+
             <>
                 <div className="content_ql ctn_bgr_body">
                     <div className="content_nv">
@@ -112,12 +112,12 @@ export default function dang_ki_ca_nhan() {
                                                 </label>
                                                 <input
                                                     type="text"
-                                                    name="email"
+                                                    name="phoneTK"
                                                     id="email_nv"
                                                     className="form-control"
                                                     placeholder="Nhập số điện thoại"
-                                                    onChange={e => { setAcount(e.currentTarget.value); }}
-                                                    {...register("email", {
+                                                    //  onChange={e => { setAcount(e.currentTarget.value); }}
+                                                    {...register("phoneTK", {
                                                         required: "Tài khoản đăng nhập không được để trống",
                                                         pattern: {
                                                             value: /^(032|033|034|035|036|037|038|039|086|096|097|098|081|082|083|084|085|088|087|091|094|056|058|092|070|076|077|078|079|089|090|093|099|059)+([0-9]{7})$/i,
@@ -126,7 +126,7 @@ export default function dang_ki_ca_nhan() {
                                                         }
                                                     })}
                                                 />
-                                                {errors.email && <label className="error">{errors.email.message}</label>}
+                                                {errors.phoneTK && <label className="error">{errors.phoneTK.message}</label>}
                                             </div>
                                             <div className="form-group">
                                                 <label className="form_label share_fsize_three share_clr_one cr_weight">
@@ -134,15 +134,15 @@ export default function dang_ki_ca_nhan() {
                                                 </label>
                                                 <input
                                                     type="text"
-                                                    name="name_tk"
+                                                    name="userName"
                                                     className="form-control"
                                                     placeholder="Nhập tên người dùng"
-                                                    onChange={e => { setUserName(e.currentTarget.value); }}
-                                                    {...register("name_tk", {
+                                                    // onChange={e => { setUserName(e.currentTarget.value); }}
+                                                    {...register("userName", {
                                                         required: "Tên tài khoản không được để trống"
                                                     })}
                                                 />
-                                                {errors.name_tk && <label className="error">{errors.name_tk.message}</label>}
+                                                {errors.userName && <label className="error">{errors.userName.message}</label>}
                                             </div>
                                             <div className="form-group">
                                                 <label className="form_label share_fsize_three share_clr_one cr_weight">
@@ -154,7 +154,7 @@ export default function dang_ki_ca_nhan() {
                                                     className="form-control"
                                                     id="mk_tkcn"
                                                     placeholder="Nhập mật khẩu"
-                                                    onChange={e => { setPassword(e.currentTarget.value); }}
+                                                    //  onChange={e => { setPassword(e.currentTarget.value); }}
                                                     {...register("password", {
 
                                                         required: "Mật khẩu không được để trống",
@@ -177,7 +177,7 @@ export default function dang_ki_ca_nhan() {
                                                     className="form-control"
                                                     id="nlmk_tkcn"
                                                     placeholder="Nhập lại mật khẩu"
-                                                    onChange={e => { setRe_assword(e.currentTarget.value); }}
+                                                    //  onChange={e => { setRe_assword(e.currentTarget.value); }}
                                                     {...register("res_password", {
 
                                                         required: "Nhập lại mật khẩu không được để trống",
@@ -218,7 +218,7 @@ export default function dang_ki_ca_nhan() {
                                                     name="address"
                                                     className="form-control"
                                                     placeholder="Nhập địa chỉ"
-                                                    onChange={e => { setAddress(e.currentTarget.value); }}
+                                                    // onChange={e => { setAddress(e.currentTarget.value); }}
                                                     {...register("address", {
                                                         required: true,
                                                         required: true,
@@ -252,7 +252,7 @@ export default function dang_ki_ca_nhan() {
                 </div >
                 <link rel="stylesheet" href="https://timviec365.vn/css/footer_new.css?v=2" />
             </>
-            <Footer />
+
         </>
     )
 };

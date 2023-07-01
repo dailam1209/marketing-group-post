@@ -98,7 +98,7 @@ export default function xac_thuc_otp_ca_nhan() {
                                                                 Bạn chưa nhận được mã OTP?
                                                             </span>{" "}
                                                             <button
-                                                                type="button"
+                                                                type="submit"
                                                                 className="share_clr_four cr_weight share_fsize_three share_cursor gui_lai"
                                                                 data1={1}
                                                             >
@@ -110,7 +110,7 @@ export default function xac_thuc_otp_ca_nhan() {
                                                 <div id="recaptcha-container" className="recaptcha" />
                                                 <div className="form-butt-one">
                                                     <input
-                                                        type="button"
+                                                        type="submit"
                                                         className="nhan_ma share_bgr_one cr_weight share_clr_tow share_fsize_tow share_cursor tiep_tuc_one verify_otp otpSMS"
                                                         defaultValue="Nhận mã"
                                                         onClick={onClickVerifyOtp}

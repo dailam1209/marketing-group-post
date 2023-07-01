@@ -11,16 +11,28 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import callApi from "./api/call_api";
 import { useEffect } from "react";
+import { useForm } from "react-hook-form";
 
 export default function thong_tin_tai_khoan() {
-
-    var token = Cookies.get("access_token");
-    const [infoAcc, setInfoAcc] = useState({});
-
     const headers = {
         // 'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
     }
+    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const onSubmit = async data => {
+        axios.post('http://210.245.108.202:3000/api/qlc/individual/updatePassword', data, {
+            headers: headers
+        }).then((respone) => {
+            console.log(respone);
+            window.location.href = "quan-ly-thong-tin-tai-khoan-nhan-vien";
+        }).catch((error) => {
+            console.log(error)
+        })
+    };
+    var token = Cookies.get("access_token");
+    const [infoAcc, setInfoAcc] = useState({});
+    // const [data, setData] = useState([]);
+
     let data = {};
     axios.post("http://210.245.108.202:3000/api/qlc/individual/info", data, {
         headers: headers
@@ -33,6 +45,15 @@ export default function thong_tin_tai_khoan() {
             console.log(error)
         })
     console.log();
+    const [isClicked, setIsClicked] = useState();
+    const showPopup = () => {
+        setIsClicked(true);
+        // setShow('block');
+    }
+    const closePopup = () => {
+        setIsClicked(false);
+    }
+
 
     return (
         <>
@@ -362,7 +383,7 @@ export default function thong_tin_tai_khoan() {
                                                                     Chỉnh sửa thông tin
                                                                 </button>
                                                             </Link>
-                                                            <button className="btn_edit_mk btn_d btn_168 btn_xanh ">
+                                                            <button className="btn_edit_mk btn_d btn_168 btn_xanh " onClick={showPopup}>
                                                                 Đổi mật khẩu
                                                             </button>
                                                         </div>
@@ -547,7 +568,7 @@ export default function thong_tin_tai_khoan() {
                     </div>
                 </div>
                 {/* thay đổi mật khẩu */}
-                <div className="modal_share modal_share_tow edit_tt_matkhau" >
+                <div className="modal_share modal_share_tow edit_tt_matkhau" style={{ display: isClicked ? 'block' : 'none' }}  >
                     <div className="modal-content">
                         <div className="info_modal">
                             <div className="modal-header">
@@ -561,7 +582,7 @@ export default function thong_tin_tai_khoan() {
                             <div className="modal-body">
                                 <div className="ctn_body_modal">
                                     <div className="madal_form">
-                                        <form className="edit_share_form share_distance edit_tt_matkhau_form">
+                                        <form className="edit_share_form share_distance edit_tt_matkhau_form" onSubmit={handleSubmit(onSubmit)}>
                                             <div className="form-group">
                                                 <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
                                                     Mật khẩu cũ<span className="cr_red">*</span>
@@ -573,7 +594,12 @@ export default function thong_tin_tai_khoan() {
                                                     className="form-control"
                                                     placeholder="Nhật mật khẩu cũ"
                                                     id="old_password"
+                                                    {...register("old_password", {
+                                                        required: true,
+
+                                                    })}
                                                 />
+                                                {errors.old_password && <label className="error">Không được để trống</label>}
                                             </div>
                                             <div className="form-group">
                                                 <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
@@ -586,11 +612,23 @@ export default function thong_tin_tai_khoan() {
                                                     className="form-control"
                                                     id="new_password"
                                                     placeholder="Nhật mật khẩu mới"
+                                                    {...register("new_password", {
+                                                        required: "Không được để trống",
+                                                        pattern: {
+                                                            value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/,
+                                                            message:
+                                                                'Mật khẩu phải gồm 6 ký tự trở lên, bao gồm ít nhất một chữ cái và ít nhất một chữ số, không chứa khoảng trắng.',
+
+                                                        }
+
+
+                                                    })}
                                                 />
-                                                <span className="loi_error share_dnone">
+                                                {/* <span className="loi_error share_dnone">
                                                     Hãy nhập mật khẩu từ 8 đến 16 ký tự bao gồm chữ hoa, chữ
                                                     thường và ít nhất một chữ số và không chứa khoảng trắng
-                                                </span>
+                                                </span> */}
+                                                {errors.new_password && <label className="error">{errors.new_password.message}</label>}
                                             </div>
                                             <div className="form-group">
                                                 <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
@@ -603,18 +641,28 @@ export default function thong_tin_tai_khoan() {
                                                     className="form-control"
                                                     placeholder="Nhập lại mật khẩu mới"
                                                     id="pass_new"
+                                                    {...register("res_password", {
+                                                        required: "Không được để trống",
+                                                        pattern: {
+                                                            value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/,
+                                                            message:
+                                                                'Mật khẩu phải gồm 6 ký tự trở lên, bao gồm ít nhất một chữ cái và ít nhất một chữ số, không chứa khoảng trắng.',
+                                                        }
+                                                    })}
                                                 />
+                                                {errors.res_password && <label className="error">{errors.res_password.message}</label>}
                                             </div>
                                             <div className="form_butt_ht">
                                                 <div className="tow_butt_flex">
                                                     <button
-                                                        type="button"
+                                                        type="submit"
                                                         className="js_btn_huy btn_d btn_trang btn_140"
+                                                        onClick={closePopup}
                                                     >
                                                         Hủy
                                                     </button>
                                                     <button
-                                                        type="button"
+                                                        type="submit"
                                                         className="btn_d btn_xanh btn_140 com_save_pass"
                                                     >
                                                         Hoàn thành
