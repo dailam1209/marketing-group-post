@@ -8,6 +8,7 @@ const router = {
     registerEmp1 : "/registerEmpInputCom",
     registerPer1 : "/registerPerson",
     login : "/login",
+    loginCom : '/dang-nhap-cong-ty'
 }
 
 
