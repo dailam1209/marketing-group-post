@@ -3,7 +3,7 @@ import Head from "next/head";
 import SideBar from '../components/employee/sideBar';
 import HeaderEp from '../components/employee/headerEp';
 
-export default function homeEmployee() {
+export default function HomeEmployee() {
     return (
         <>
             <Head>

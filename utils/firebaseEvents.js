@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { initializeApp } from 'firebase/app';
 import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
-import { useRouter } from 'next/router';
-
+import Cookies from "js-cookie";
 
 const handleVerifyOtp = async (account) => {
+    let token = Cookies.get('acc_token');
     const btn_confirm = document.querySelector('.verify_otp');
     const partitioned = document.querySelector('#partitioned');
     if (!btn_confirm.classList.contains('confirm_otp')) {
@@ -66,8 +66,23 @@ const handleVerifyOtp = async (account) => {
     else {
         try {
             confirmationResult.confirm(account).then((result) => {
-                alert('Xác thực thành công')
-                router.replace('/');
+                let role = Cookies.get('role');
+                if (role == 2) {
+                    var api = 'http://210.245.108.202:3000/api/qlc/employee/verify';
+                } else {
+                    var api = 'http://210.245.108.202:3000/api/qlc/individual/verify';
+                }
+                const authen = axios.post(api, {}, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                })
+                if (authen.data && authen.data && authen.data.result == true) {
+                    alert('Xác thực thành công')
+                    window.location.href = "/";
+                } else {
+                    alert(authen);
+                }
             }).catch((error) => {
                 alert('Mã OTP không khớp, vui lòng thử lại!')
                 // $('.txt_nd_modal').html('Mã OTP không khớp, vui lòng thử lại!');

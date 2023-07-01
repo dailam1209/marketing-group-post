@@ -1,14 +1,12 @@
-// import React from "react"
 import Header from "./header/Header"
 import head from "./head/Head"
 import Footer from "./footer/Footer"
-export default function Layout({children}) {
+export default function Layout({ children, isLoggedIn }) {
   return (
     <>
-    
-    <Header/>
-    {children}
-    <Footer/>
+      {!isLoggedIn && <Header />}
+      {children}
+      {!isLoggedIn && <Footer />}
     </>
-  )
+  );
 }

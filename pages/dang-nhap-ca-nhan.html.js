@@ -1,25 +1,19 @@
 import React from "react"
-import Header from "/components/header/Header";
-import Footer from "/components/footer/Footer";
 import Head from "next/head";
 import { useForm } from 'react-hook-form';
-import callApi from '../pages/api/call_api';
+import callApi from './api/call_api';
 import Link from 'next/link'
-import { useState } from "react";
 import Cookies from "js-cookie";
-//const inter = Inter({ subsets: [latin] })
-export default function login_person() {
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+
+export default function LoginPersonal() {
+    const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = async data => {
-        let response = await callApi.loginPerson(data);
-        //  console.log("TOKEN: " + response.data.data.access_token);
-        console.log(response);
-        console.log("RESPONE: " + response.data.data.data.access_token);
+        let response = await callApi.loginPersonal(data);
         if (response.data && response.data.data && response.data.data.data.access_token) {
-            //  window.location.href = "person_sau_dang_nhap";
-            Cookies.set('access_token', response.data.data.data.access_token);
-            console.log("TOKEN: " + Cookies.get('access_token'));
-            window.location.href = 'person_sau_dang_nhap';
+            Cookies.set('acc_token', response.data.data.data.access_token);
+            Cookies.set('rf_token', response.data.data.data.refresh_token);
+            Cookies.set('role', 3);
+            window.location.href = '/quan-ly-ung-dung-ca-nhan.html';
         }
         else {
             alert(response)
@@ -46,7 +40,6 @@ export default function login_person() {
         btnQr.classList.add('active');
     }
     const helper_login = () => {
-        //  alert("hêlo");
         const hidden_help = document.querySelector('.popup_helper_qr');
         hidden_help.classList.remove('dbn');
     }

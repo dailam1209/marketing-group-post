@@ -1,11 +1,10 @@
 import React from "react"
 import Head from "next/head";
-import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import Cookies from "js-cookie";
 import callApi from '../pages/api/call_api';
 
-export default function info_register_emp() {
+export default function RegisterEp() {
     // xử lý validate
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
@@ -25,6 +24,8 @@ export default function info_register_emp() {
         let response = await callApi.registerEp(data);
         if (response.data && response.data.data && response.data.data.result == true) {
             Cookies.set('phone', data.phoneTK);
+            Cookies.set('acc_token', response.data.data.data.access_token)
+            Cookies.set('rf_token', response.data.data.data.refresh_token)
             window.location.href = "xac-thuc-ma-otp-nhan-vien.html";
         } else {
             alert(response)
@@ -138,7 +139,6 @@ export default function info_register_emp() {
                                                                 type="password"
                                                                 name="password"
                                                                 className="form-control"
-                                                                id="password_nv"
                                                                 placeholder="Nhập mật khẩu"
                                                                 {...register('password', {
                                                                     required: 'Vui lòng nhập mật khẩu',
@@ -163,7 +163,6 @@ export default function info_register_emp() {
                                                                 type="password"
                                                                 name="res_password"
                                                                 className="form-control"
-                                                                id="password-field-six"
                                                                 placeholder="Nhập lại mật khẩu"
                                                                 {...register('res_password', {
                                                                     required: 'Vui lòng nhập mật khẩu xác nhận',
@@ -182,16 +181,16 @@ export default function info_register_emp() {
                                                                 Số điện thoại
                                                                 <input
                                                                     type="text"
-                                                                    name="phone"
+                                                                    name="phoneContact"
                                                                     className="form-control"
                                                                     placeholder="Nhập số điện thoại liên hệ"
-                                                                    {...register('phone', {
+                                                                    {...register('phoneContact', {
                                                                         validate: {
                                                                             validatePhone: (value) => validatePhone(value) || "Hãy nhập đúng định dạng số điện thoại"
                                                                         }
                                                                     })}
                                                                 />
-                                                                {errors && errors.phone && <label className="error">{errors.phone.message}</label>}
+                                                                {errors && errors.phoneContact && <label className="error">{errors.phoneContact.message}</label>}
                                                             </label>
                                                         </div>
                                                         <div className="form-group">

@@ -18,13 +18,13 @@ export default function loginEmployee() {
     const onSubmit = async data => {
         let response = await callApi.loginEmployee(data);
         if(response.data && response.data.data && response.data.data.result == true) {
-            Cookies.set('access_token', response.data.data.data.access_token);
-            window.location.href = "/";
+            Cookies.set('acc_token', response.data.data.data.access_token);
+            Cookies.set('role', 2);
+            window.location.href = "/quan-ly-ung-dung-nhan-vien.html";
         } else {
             alert(response)
         }
     };
-
 
     return (
         <>

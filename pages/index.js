@@ -1,11 +1,4 @@
 import React from "react"
-// import Header from "../components/header/Header"
-// import Footer from "../components/footer/Footer"
-
-import router from "../utils/router"
-
-
-//const inter = Inter({ subsets: [latin] })
 export default function ecosystem() {
     return (
         <>
@@ -69,14 +62,12 @@ export default function ecosystem() {
                     rel="stylesheet"
                     media="all"
                     href="../css/style_chat_box.css"
-                    onload="if (media != 'all')media='all'"
                 />
                 <link rel="preload" as="style" href="../css/style.css" />
                 <link
                     rel="stylesheet"
                     media="all"
                     href="../css/style.css"
-                    onload="if (media != 'all')media='all'"
                 />
                 {/* Google Tag Manager */}
                 {/* End Google Tag Manager */}

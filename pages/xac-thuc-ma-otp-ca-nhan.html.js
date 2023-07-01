@@ -4,7 +4,7 @@ import Head from "next/head";
 import handleVerifyOtp from '../utils/firebaseEvents';
 import Cookies from "js-cookie";
 
-export default function xac_thuc_otp_ca_nhan() {
+export default function AuthenticPersonal() {
     const onClickVerifyOtp = () => {
         const value = document.querySelector('.verify_otp');
         if (value.classList.contains('nhan_ma')) {
@@ -61,7 +61,6 @@ export default function xac_thuc_otp_ca_nhan() {
                         <div className="ctn_register_nv">
                             <form
                                 action=""
-                                // onSubmit="return false"
                                 className="regnv_form regnv_form_otp_nv"
                                 method=""
                             >
@@ -110,7 +109,7 @@ export default function xac_thuc_otp_ca_nhan() {
                                                 <div id="recaptcha-container" className="recaptcha" />
                                                 <div className="form-butt-one">
                                                     <input
-                                                        type="submit"
+                                                        type="button"
                                                         className="nhan_ma share_bgr_one cr_weight share_clr_tow share_fsize_tow share_cursor tiep_tuc_one verify_otp otpSMS"
                                                         defaultValue="Nhận mã"
                                                         onClick={onClickVerifyOtp}
