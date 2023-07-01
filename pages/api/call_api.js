@@ -48,6 +48,23 @@ class callApi {
     
     return response
   }
+
+  // api change password
+  static async changePass(token, data) {
+    let response = ''
+    try {
+      const call = axios.post('http://210.245.108.202:3000/api/qlc/employee/updatePassword', data , {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      response = call;
+    } catch(error) {
+      response = error
+    }
+    
+    return response
+  }
 }
 
 export default callApi;
