@@ -3,7 +3,7 @@ import Head from "next/head";
 import handleVerifyOtp from '../utils/firebaseEvents';
 import Cookies from "js-cookie";
 
-export default function xac_thuc_otp_nhan_vien() {
+export default function AuthenticEp() {
     const onClickVerifyOtp = () => {
         const value = document.querySelector('.verify_otp');
         if (value.classList.contains('nhan_ma')) {

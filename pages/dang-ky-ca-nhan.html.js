@@ -1,24 +1,27 @@
 import React from "react"
 import Head from "next/head";
-import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import Cookies from "js-cookie";
-import callApi from '../pages/api/call_api';
-//import { cookies } from 'next/headers';
-import { useState } from "react";
+import callApi from './api/call_api';
 
-
-export default function dang_ki_ca_nhan() {
+export default function RegisterPersonal() {
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+    const validatePhone = (value) => {
+        if (value) {
+            return /^(032|033|034|035|036|037|038|039|086|096|097|098|081|082|083|084|085|088|087|091|094|056|058|092|070|076|077|078|079|089|090|093|099|059)+([0-9]{7})$/i.test(value);
+        }
+        return true;
+    };
+
     const onSubmit = async data => {
-        // window.location.href = "/sendOTP_Person";
-        // data.com_id = 1;
-        //  delete data.res_password;
+        delete data.res_password;
         let response = await callApi.registerPerson(data);
-        // console.log("respone " + response);
         if (response.data && response.data.data && response.data.data.result == true) {
             Cookies.set('phone', data.phoneTK);
-            window.location.href = "/sendOTP_Person";
+            Cookies.set('acc_token', response.data.data.data.access_token)
+            Cookies.set('rf_token', response.data.data.data.refresh_token)
+            window.location.href = "/xac-thuc-ma-otp-ca-nhan.html";
         } else {
             alert(response)
         }
@@ -92,7 +95,6 @@ export default function dang_ki_ca_nhan() {
                     />
                 </>
             </Head>
-
             <>
                 <div className="content_ql ctn_bgr_body">
                     <div className="content_nv">
@@ -116,13 +118,10 @@ export default function dang_ki_ca_nhan() {
                                                     id="email_nv"
                                                     className="form-control"
                                                     placeholder="Nhập số điện thoại"
-                                                    //  onChange={e => { setAcount(e.currentTarget.value); }}
                                                     {...register("phoneTK", {
-                                                        required: "Tài khoản đăng nhập không được để trống",
-                                                        pattern: {
-                                                            value: /^(032|033|034|035|036|037|038|039|086|096|097|098|081|082|083|084|085|088|087|091|094|056|058|092|070|076|077|078|079|089|090|093|099|059)+([0-9]{7})$/i,
-                                                            message: "Hãy nhập đúng định dạng số điện thoại"
-
+                                                        required: 'Vui lòng nhập số điện thoại',
+                                                        validate: {
+                                                            validatePhone: (value) => validatePhone(value) || "Hãy nhập đúng định dạng số điện thoại"
                                                         }
                                                     })}
                                                 />
@@ -137,9 +136,8 @@ export default function dang_ki_ca_nhan() {
                                                     name="userName"
                                                     className="form-control"
                                                     placeholder="Nhập tên người dùng"
-                                                    // onChange={e => { setUserName(e.currentTarget.value); }}
                                                     {...register("userName", {
-                                                        required: "Tên tài khoản không được để trống"
+                                                        required: 'Họ và tên không được để trống',
                                                     })}
                                                 />
                                                 {errors.userName && <label className="error">{errors.userName.message}</label>}
@@ -152,16 +150,14 @@ export default function dang_ki_ca_nhan() {
                                                     type="password"
                                                     name="password"
                                                     className="form-control"
-                                                    id="mk_tkcn"
                                                     placeholder="Nhập mật khẩu"
-                                                    //  onChange={e => { setPassword(e.currentTarget.value); }}
-                                                    {...register("password", {
-
-                                                        required: "Mật khẩu không được để trống",
+                                                    {...register('password', {
+                                                        required: 'Vui lòng nhập mật khẩu',
                                                         pattern: {
-                                                            value: /^\S*(?=\S{6,})(?=\S*[a-zA-Z])(?=\S*[0-9])(?=\S*[\d])\S*$/i,
-                                                            message: "Mật khẩu từ 6 ký tự trở lên gồm ít nhất một chữ cái, ít nhất một chữ số và không chứa khoảng trắng"
-                                                        }
+                                                            value: passwordPattern,
+                                                            message:
+                                                                'Mật khẩu phải gồm 6 ký tự trở lên, bao gồm ít nhất một chữ cái và ít nhất một chữ số, không chứa khoảng trắng.',
+                                                        },
                                                     })}
                                                 />
                                                 {errors && errors.password && <label className="error">{errors.password.message}</label>}
@@ -175,16 +171,13 @@ export default function dang_ki_ca_nhan() {
                                                     type="password"
                                                     name="res_password"
                                                     className="form-control"
-                                                    id="nlmk_tkcn"
                                                     placeholder="Nhập lại mật khẩu"
-                                                    //  onChange={e => { setRe_assword(e.currentTarget.value); }}
-                                                    {...register("res_password", {
-
-                                                        required: "Nhập lại mật khẩu không được để trống",
-                                                        pattern: {
-                                                            value: /^\S*(?=\S{6,})(?=\S*[a-zA-Z])(?=\S*[0-9])(?=\S*[\d])\S*$/i,
-                                                            message: "Mật khẩu từ 6 ký tự trở lên gồm ít nhất một chữ cái, ít nhất một chữ số và không chứa khoảng trắng"
-                                                        }
+                                                    {...register('res_password', {
+                                                        required: 'Vui lòng nhập mật khẩu xác nhận',
+                                                        validate: (value) => {
+                                                            const password = watch('password');
+                                                            return value === password || 'Mật khẩu không khớp';
+                                                        },
                                                     })}
                                                 />
                                                 {errors && errors.res_password && <label className="error">{errors.res_password.message}</label>}
@@ -195,19 +188,17 @@ export default function dang_ki_ca_nhan() {
                                                 </label>
                                                 <input
                                                     type="text"
-                                                    name="phone"
+                                                    name="phoneContact"
                                                     className="form-control"
                                                     placeholder="Nhập số điện thoại"
                                                     onChange={e => { setPhoneNumber(e.currentTarget.value); }}
-                                                    {...register("phone", {
-                                                        required: "Nhập lại mật khẩu không được để trống",
-                                                        pattern: {
-                                                            value: /^(032|033|034|035|036|037|038|039|086|096|097|098|081|082|083|084|085|088|087|091|094|056|058|092|070|076|077|078|079|089|090|093|099|059)+([0-9]{7})$/i,
-                                                            message: "Hãy nhập đúng định dạng số điện thoại"
+                                                    {...register('phoneContact', {
+                                                        validate: {
+                                                            validatePhone: (value) => validatePhone(value) || "Hãy nhập đúng định dạng số điện thoại"
                                                         }
                                                     })}
                                                 />
-                                                {errors && errors.phone && <label className="error">{errors.phone.message}</label>}
+                                                {errors && errors.phoneContact && <label className="error">{errors.phoneContact.message}</label>}
                                             </div>
                                             <div className="form-group">
                                                 <label className="form_label share_fsize_three share_clr_one cr_weight">
@@ -218,18 +209,15 @@ export default function dang_ki_ca_nhan() {
                                                     name="address"
                                                     className="form-control"
                                                     placeholder="Nhập địa chỉ"
-                                                    // onChange={e => { setAddress(e.currentTarget.value); }}
-                                                    {...register("address", {
-                                                        required: true,
-                                                        required: true,
+                                                    {...register('address', {
+                                                        required: 'Địa chỉ không được để trống'
                                                     })}
                                                 />
-                                                {errors && errors.address && <label className="error">Nhập lại mật khẩu không được để trống</label>}
+                                                {errors && errors.address && <label className="error">{errors.address.message}</label>}
                                             </div>
                                         </div>
                                         <div className="form-butt-one">
                                             <button
-                                                // type="button"
                                                 type="submit"
                                                 className="share_bgr_one cr_weight share_clr_tow share_fsize_tow share_cursor tiep_tuc_one"
                                             >
@@ -237,7 +225,7 @@ export default function dang_ki_ca_nhan() {
                                             </button>
                                             <p className="bo_qua tex_center">
                                                 <a
-                                                    href="/register/lua-chon-dang-ky.html"
+                                                    href="/lua-chon-dang-ky.html"
                                                     className="share_fsize_three share_clr_one"
                                                 >
                                                     Quay lại
@@ -252,7 +240,6 @@ export default function dang_ki_ca_nhan() {
                 </div >
                 <link rel="stylesheet" href="https://timviec365.vn/css/footer_new.css?v=2" />
             </>
-
         </>
     )
 };

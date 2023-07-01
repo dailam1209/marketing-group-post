@@ -6,26 +6,22 @@ import callApi from '../pages/api/call_api';
 import Cookies from "js-cookie";
 import { getEducation } from "../utils/function";
 
-export default function editEmployee() {
-
-    // const [data, setData] = useState(null);
-    // const handleDataLoaded = (data) => {
-    //     // Cập nhật dữ liệu từ component con vào state của page cha
-    //     setData(data);
-    // };
-
+export default function EditEmployee() {
     // gọi api lấy thông tin nhân viên
     const [data, setData] = useState([]);
-    // const [isDataLoaded, setIsDataLoaded] = useState(false);
-    var token = Cookies.get('access_token');
+    var token = Cookies.get('acc_token');
+    var role = Cookies.get('role');
 
     useEffect(() => {
         const getData = async () => {
             try {
-                let response = await callApi.getInfoEp(token);
-                setData(response.data.data.data[0])
-                // setIsDataLoaded(true);
-                // onDataLoaded(data)
+                if(role == 2) {
+                    let response = await callApi.getInfoEp(token);
+                    setData(response.data.data.data[0])
+                } else {
+                    let response = await callApi.getInfoPersonal(token);
+                    setData(response.data.data.data)
+                }
             }
             catch (error) {
                 console.log('Error:', error);
@@ -51,9 +47,6 @@ export default function editEmployee() {
         var married = "Chưa cập nhập"
     }
 
-    // if (!isDataLoaded) {
-    //     return
-    // }
     console.log(data)
 
     return (

@@ -1,12 +1,8 @@
 import React from "react"
 import Head from "next/head";
-import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import Cookies from "js-cookie";
-import Axios from "axios";
-import callApi from '../pages/api/call_api';
-
-
+import callApi from './api/call_api';
 
 export default function info_register_emp() {
   // xử lý validate
@@ -19,15 +15,11 @@ export default function info_register_emp() {
     return true;
   };
 
-  // lấy cookie idCom
-  // let idCom = Cookies.get('idCom');
-
   const onSubmit = async data => {
     data.com_id = 1;
     delete data.res_password;
     let response = await callApi.registerCom(data);
     if (response.data && response.data.data && response.data.data.result == true) {
-      Cookies.set('phone', data.phoneTK);
       window.location.href = "sendOTP_Com";
     } else {
       alert(response)

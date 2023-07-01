@@ -6,11 +6,7 @@ import callApi from '../../pages/api/call_api';
 
 export default function headerEp({ onDataLoaded }) {
     // check login
-    var token = Cookies.get('access_token');
-    // if(!token) {
-    //     Router.push('/');
-    //     console.log('test');
-    // }
+    var token = Cookies.get('acc_token');
 
     // gọi api lấy thông tin nhân viên
     const [data, setData] = useState([]);
@@ -20,7 +16,6 @@ export default function headerEp({ onDataLoaded }) {
             try {
                 let response = await callApi.getInfoEp(token);
                 setData(response.data.data.data)
-                // onDataLoaded(data)
             }
             catch {
                 console.log('Error:', error);

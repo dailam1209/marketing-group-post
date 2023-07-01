@@ -3,12 +3,9 @@ import Header from "/components/header/Header";
 import Footer from "/components/footer/Footer";
 import Head from "next/head";
 import { useForm } from 'react-hook-form';
-import { useRouter } from 'next/router';
 import Link from "next/link";
 import Cookies from "js-cookie";
-export default function sau_đang_nhap_ca_nhan() {
-    const acc_token = Cookies.get('access_token');
-    console.log("acc_token1" + acc_token);
+export default function HomePersonal() {
     return (
         <>
             <>

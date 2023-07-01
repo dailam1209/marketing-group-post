@@ -89,7 +89,7 @@ export default function register() {
                                 </div>
                                 <div className="titl_form">
                                     <div className="ctn_log_butt">
-                                        <a href="dang-ky-cong-ty.html" className="ct_butt">
+                                        <a href="/dang-nhap-cong-ty.html" className="ct_butt">
                                             <div className="titl_del">
                                                 <p className="share_fsize_tow cr_weight">Công ty</p>
                                                 <p className="share_fsize_one share_clr_three">
@@ -97,7 +97,7 @@ export default function register() {
                                                 </p>
                                             </div>
                                         </a>
-                                        <a href="dang-ky-nhan-vien.html" className="nv_butt">
+                                        <a href="/dang-nhap-nhan-vien.html" className="nv_butt">
                                             <div className="titl_del">
                                                 <p className="share_fsize_tow cr_weight">Nhân viên</p>
                                                 <p className="share_fsize_one share_clr_three">
@@ -105,7 +105,7 @@ export default function register() {
                                                 </p>
                                             </div>
                                         </a>
-                                        <a href="dang-ky-ca-nhan.html" className="nv_butt">
+                                        <a href="/dang-nhap-ca-nhan.html" className="nv_butt">
                                             <div className="titl_del">
                                                 <p className="share_fsize_tow cr_weight">Cá nhân</p>
                                                 <p className="share_fsize_one share_clr_three">

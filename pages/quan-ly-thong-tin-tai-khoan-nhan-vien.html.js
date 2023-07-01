@@ -8,16 +8,8 @@ import { getEducation } from "../utils/function";
 import { useForm } from 'react-hook-form';
 
 export default function detailEmployy() {
-
-    // const [data, setData] = useState(null);
-    // const handleDataLoaded = (data) => {
-    //     // Cập nhật dữ liệu từ component con vào state của page cha
-    //     setData(data);
-    // };
-
     // gọi api lấy thông tin nhân viên
     const [data, setData] = useState([]);
-    // const [isDataLoaded, setIsDataLoaded] = useState(false);
     var token = Cookies.get('access_token');
 
     useEffect(() => {
@@ -25,8 +17,6 @@ export default function detailEmployy() {
             try {
                 let response = await callApi.getInfoEp(token);
                 setData(response.data.data.data)
-                // setIsDataLoaded(true);
-                // onDataLoaded(data)
             }
             catch {
                 console.log('Error:', error);
@@ -54,10 +44,8 @@ export default function detailEmployy() {
 
     // show popup change password
     const [isClicked, setIsClicked] = useState(false);
-    // const [show, setShow] = useState('none');
     const showPopup = () => {
         setIsClicked(true);
-        // setShow('block');
     }
     const closePopup = () => {
         setIsClicked(false);
@@ -85,10 +73,6 @@ export default function detailEmployy() {
         }
     };
 
-
-    // if (!isDataLoaded) {
-    //     return
-    // }
     return (
         <>
             <Head>
