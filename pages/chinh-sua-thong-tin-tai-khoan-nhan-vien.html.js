@@ -16,15 +16,15 @@ export default function editEmployee() {
 
     // gọi api lấy thông tin nhân viên
     const [data, setData] = useState([]);
-    const [isDataLoaded, setIsDataLoaded] = useState(false);
+    // const [isDataLoaded, setIsDataLoaded] = useState(false);
     var token = Cookies.get('access_token');
 
     useEffect(() => {
         const getData = async () => {
             try {
                 let response = await callApi.getInfoEp(token);
-                setData(response.data.data.data)
-                setIsDataLoaded(true);
+                setData(response.data.data.data[0])
+                // setIsDataLoaded(true);
                 // onDataLoaded(data)
             }
             catch {
@@ -51,10 +51,11 @@ export default function editEmployee() {
         var married = "Chưa cập nhập"
     }
 
-    // console.log(data.inForPerson.account);
-    if (!isDataLoaded) {
-        return
-    }
+    // if (!isDataLoaded) {
+    //     return
+    // }
+    console.log(data)
+
     return (
         <>
             <Head>
@@ -110,72 +111,72 @@ export default function editEmployee() {
                                 <HeaderEp />
                             </div>
                         </div>
-                        <div class="ctn_right_qly color_gray">
-                            <div class="ctn_res_qly">
-                                <div class="left_header_qly">
-                                    <p class="share_clr_one font_14"><a class="avt_href_share share_fsize_one share_clr_one" href="/quan-ly-thong-tin-tai-khoan-nhan-vien.html"><img src="../img/href_pre.png" /></a>
+                        <div className="ctn_right_qly color_gray">
+                            <div className="ctn_res_qly">
+                                <div className="left_header_qly">
+                                    <p className="share_clr_one font_14"><a className="avt_href_share share_fsize_one share_clr_one" href="/quan-ly-thong-tin-tai-khoan-nhan-vien.html"><img src="../img/href_pre.png" /></a>
                                         Thông tin tài khoản / Chỉnh sửa thông tin</p>
                                 </div>
-                                <div class="list_all_qly">
-                                    <div class="main_tt main_tt_taikhoan_bang">
-                                        <form class="edit_share_form share_distance edit_tt_taikhoan_to_form">
-                                            <div class="d_form_item form_container d_flex">
-                                                <div class="form-group">
-                                                    <label class="form_label share_fsize_three tex_left cr_weight share_clr_one">
+                                <div className="list_all_qly">
+                                    <div className="main_tt main_tt_taikhoan_bang">
+                                        <form className="edit_share_form share_distance edit_tt_taikhoan_to_form">
+                                            <div className="d_form_item form_container d_flex">
+                                                <div className="form-group">
+                                                    <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
                                                         ID</label>
-                                                    <input type="text" name="name_id" class="form-control share_fsize_one share_clr_one" placeholder="Nhập ID" value={data._id} readonly />
+                                                    <input type="text" name="name_id" className="form-control share_fsize_one share_clr_one" placeholder="Nhập ID" value={data._id || ''} readOnly />
                                                 </div>
-                                                <div class="form-group">
-                                                    <label class="form_label share_fsize_three tex_left cr_weight share_clr_one">
+                                                <div className="form-group">
+                                                    <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
                                                         Công ty</label>
-                                                    <input type="text" name="congty" class="form-control share_fsize_one share_clr_one" placeholder="Nhập tên công ty" value={data.companyName} readonly />
+                                                    <input type="text" name="congty" className="form-control share_fsize_one share_clr_one" placeholder="Nhập tên công ty" defaultValue={data.companyName || ''} readOnly />
                                                 </div>
                                             </div>
-                                            <div class="d_form_item form_container d_flex">
-                                                <div class="form-group">
-                                                    <label class="form_label share_fsize_three tex_left cr_weight share_clr_one">
-                                                        Họ và tên<span class="cr_red">*</span></label>
-                                                    <input type="text" name="name_nv" class="form-control share_fsize_one share_clr_one" placeholder="Nhập họ và tên" value={data.userName} />
+                                            <div className="d_form_item form_container d_flex">
+                                                <div className="form-group">
+                                                    <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
+                                                        Họ và tên<span className="cr_red">*</span></label>
+                                                    <input type="text" name="name_nv" className="form-control share_fsize_one share_clr_one" placeholder="Nhập họ và tên" defaultValue={data.userName || ''} />
                                                 </div>
-                                                <div class="form-group">
-                                                    <label class="form_label share_fsize_three tex_left cr_weight share_clr_one">
-                                                        Email<span class="cr_red">*</span></label>
-                                                    <input type="text" name="email" class="form-control share_fsize_one share_clr_one" placeholder="Nhập email" value={data.email} readonly />
-                                                </div>
-                                            </div>
-                                            <div class="d_form_item form_container d_flex">
-                                                <div class="form-group">
-                                                    <label class="form_label share_fsize_three tex_left cr_weight share_clr_one">
-                                                        Số điện thoại <span class="cr_red">*</span></label>
-                                                    <input type="text" name="phone" class="form-control share_fsize_one share_clr_one" placeholder="Nhập số điện thoại" value={data.phoneTK} />
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="form_label share_fsize_three tex_left cr_weight share_clr_one">
-                                                        Địa chỉ <span class="cr_red">*</span></label>
-                                                    <input type="text" name="address" class="form-control share_fsize_one share_clr_one" placeholder="Nhập địa chỉ nơi ở" value={data.address} />
+                                                <div className="form-group">
+                                                    <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
+                                                        Email<span className="cr_red">*</span></label>
+                                                    <input type="text" name="email" className="form-control share_fsize_one share_clr_one" placeholder="Nhập email" defaultValue={data.email || ''} readOnly />
                                                 </div>
                                             </div>
-                                            <div class="d_form_item form_container d_flex">
-                                                <div class="form-group">
-                                                    <label class="form_label share_fsize_three tex_left cr_weight share_clr_one">
-                                                        Giới tính<span class="cr_red">*</span></label>
-                                                    <select name="gioitinh" class="form-control">
+                                            <div className="d_form_item form_container d_flex">
+                                                <div className="form-group">
+                                                    <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
+                                                        Số điện thoại <span className="cr_red">*</span></label>
+                                                    <input type="text" name="phone" className="form-control share_fsize_one share_clr_one" placeholder="Nhập số điện thoại" defaultValue={data.phoneTK || ''} />
+                                                </div>
+                                                <div className="form-group">
+                                                    <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
+                                                        Địa chỉ <span className="cr_red">*</span></label>
+                                                    <input type="text" name="address" className="form-control share_fsize_one share_clr_one" placeholder="Nhập địa chỉ nơi ở" defaultValue={data.address || ''} />
+                                                </div>
+                                            </div>
+                                            <div className="d_form_item form_container d_flex">
+                                                <div className="form-group">
+                                                    <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
+                                                        Giới tính<span className="cr_red">*</span></label>
+                                                    <select defaultValue={data.inForPerson && data.inForPerson.account && data.inForPerson.account.gender} name="gioitinh" className="form-control">
                                                         <option value="1" >Nam</option>
                                                         <option value="2" >Nữ</option>
                                                         <option value="3" >Khác</option>
                                                     </select>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label class="form_label share_fsize_three tex_left cr_weight share_clr_one">
-                                                        Ngày sinh <span class="cr_red">*</span></label>
-                                                    <input type="date" name="ngaysinh" value={data.birthday} class="form-control share_fsize_one share_clr_one" placeholder="Nhập ngày sinh của bạn" />
+                                                <div className="form-group">
+                                                    <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
+                                                        Ngày sinh <span className="cr_red">*</span></label>
+                                                    <input type="date" name="ngaysinh" defaultValue={data.birthday} className="form-control share_fsize_one share_clr_one" placeholder="Nhập ngày sinh của bạn" />
                                                 </div>
                                             </div>
-                                            <div class="d_form_item form_container d_flex">
-                                                <div class="form-group">
-                                                    <label class="form_label share_fsize_three tex_left cr_weight share_clr_one">
-                                                        Trình độ học vấn <span class="cr_red">*</span></label>
-                                                    <select name="trinhdo" class="form-control">
+                                            <div className="d_form_item form_container d_flex">
+                                                <div className="form-group">
+                                                    <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
+                                                        Trình độ học vấn <span className="cr_red">*</span></label>
+                                                    <select defaultValue={data.inForPerson && data.inForPerson.account && data.inForPerson.account.education} name="trinhdo" className="form-control">
                                                         <option value="1" >Trên đại học</option>
                                                         <option value="2" >Đại học</option>
                                                         <option value="3" >Cao đẳng</option>
@@ -186,20 +187,20 @@ export default function editEmployee() {
                                                         <option value="8" >Tiểu học</option>
                                                     </select >
                                                 </div >
-                                                <div class="form-group">
-                                                    <label class="form_label share_fsize_three tex_left cr_weight share_clr_one">
-                                                        Tình trạng hôn nhân<span class="cr_red">*</span></label>
-                                                    <select name="tinhtrang" class="form-control">
-                                                        <option value="2" >Đã có gia đình</option>
+                                                <div className="form-group">
+                                                    <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
+                                                        Tình trạng hôn nhân<span className="cr_red">*</span></label>
+                                                    <select defaultValue={data.inForPerson && data.inForPerson.account && data.inForPerson.account.married} name="tinhtrang" className="form-control">
                                                         <option value="1" >Độc thân</option>
+                                                        <option value="2" >Đã có gia đình</option>
                                                     </select >
                                                 </div >
                                             </div >
-                                            <div class="d_form_item form_container d_flex">
-                                                <div class="form-group">
-                                                    <label class="form_label share_fsize_three tex_left cr_weight share_clr_one">
-                                                        Kinh nghiệm làm việc <span class="cr_red">*</span></label>
-                                                    <select name="kinhnghiem" class="form-control">
+                                            <div className="d_form_item form_container d_flex">
+                                                <div className="form-group">
+                                                    <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
+                                                        Kinh nghiệm làm việc <span className="cr_red">*</span></label>
+                                                    <select defaultValue={data.inForPerson && data.inForPerson.account && data.inForPerson.account.experience} name="kinhnghiem" className="form-control">
                                                         <option value="1">Chưa có kinh nghiệm</option>
                                                         <option value="2">Dưới 1 năm kinh nghiệm</option>
                                                         <option value="3">1 năm</option>
@@ -210,41 +211,41 @@ export default function editEmployee() {
                                                         <option value="8"> Trên 5 năm</option >
                                                     </select >
                                                 </div >
-                                                <div class="form-group share_done">
-                                                    <label class="form_label share_fsize_three tex_left cr_weight share_clr_one">
-                                                        Ngày bắt đầu làm việc<span class="cr_red">*</span>
+                                                <div className="form-group share_done">
+                                                    <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
+                                                        Ngày bắt đầu làm việc<span className="cr_red">*</span>
                                                     </label>
-                                                    <input type="date" name="ngaylamviec" class="form-control share_fsize_one share_clr_one" value="" disabled />
+                                                    <input type="date" name="ngaylamviec" className="form-control share_fsize_one share_clr_one" value="" readOnly />
 
                                                 </div>
                                             </div>
-                                            <div class="d_form_item form_container d_flex">
-                                                <div class="form-group">
-                                                    <label class="form_label share_fsize_three tex_left cr_weight share_clr_one">Phòng ban </label>
-                                                    <input type="text" name="phongban" class="form-control share_fsize_one share_clr_one" placeholder="Nhập tên phòng ban" value="<?= $dep_name; ?>" data="<?= $tt_user['dep_id']; ?>" readonly />
+                                            <div className="d_form_item form_container d_flex">
+                                                <div className="form-group">
+                                                    <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">Phòng ban </label>
+                                                    <input type="text" name="phongban" className="form-control share_fsize_one share_clr_one" placeholder="Nhập tên phòng ban" defaultValue={'đw'} readOnly />
                                                 </div>
-                                                <div class="form-group">
-                                                    <label class="form_label share_fsize_three tex_left cr_weight share_clr_one">Chức vụ<span class="cr_red">*</span></label>
-                                                    <input type="text" class="form-control" name="chuc_vu" value="<?= $position_name; ?>" data="<?= $position_id; ?>" readonly />
+                                                <div className="form-group">
+                                                    <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">Chức vụ<span className="cr_red">*</span></label>
+                                                    <input type="text" className="form-control" name="chuc_vu" value={data.inForPerson && data.inForPerson.employee && data.inForPerson.employee.position_id || ''} readOnly />
                                                 </div>
                                             </div>
-                                            <div class="d_form_item form_container d_flex">
-                                                <div class="form-group">
-                                                    <label class="form_label share_fsize_three tex_left cr_weight share_clr_one"> Tổ </label>
-                                                    <select name="to" id="to_id" class="form-control">
+                                            <div className="d_form_item form_container d_flex">
+                                                <div className="form-group">
+                                                    <label className="form_label share_fsize_three tex_left cr_weight share_clr_one"> Tổ </label>
+                                                    <select readOnly name="to" id="to_id" className="form-control">
                                                         <option value="">Chọn tổ</option>
                                                     </select>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label class="form_label share_fsize_three tex_left cr_weight share_clr_one"> Nhóm</label>
-                                                    <select name="nhom" id="nhom_id" class="form-control">
+                                                <div className="form-group">
+                                                    <label className="form_label share_fsize_three tex_left cr_weight share_clr_one"> Nhóm</label>
+                                                    <select readOnly name="nhom" id="nhom_id" className="form-control">
                                                         <option value="">Chọn nhóm</option>
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="d_form_item d_flex content_c">
-                                                <button type="button" class="btn_d huy_luu btn_trang btn_168"> Hủy </button>
-                                                <button type="button" class="btn_d btn_xanh btn_168 edit_inf_nv"> Lưu </button>
+                                            <div className="d_form_item d_flex content_c">
+                                                <a type="button" className="btn_d huy_luu btn_trang btn_168" href="/quan-ly-thong-tin-tai-khoan-nhan-vien.html"> Hủy </a>
+                                                <button type="button" className="btn_d btn_xanh btn_168 edit_inf_nv"> Lưu </button>
                                             </div>
                                         </form >
                                     </div >
