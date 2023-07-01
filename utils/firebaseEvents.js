@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { initializeApp } from 'firebase/app';
 import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
 
 
 const handleVerifyOtp = async (account) => {
@@ -28,9 +28,9 @@ const handleVerifyOtp = async (account) => {
                         nhanMa.remove();
                     }
                     const text = document.querySelector('.change_text');
-                        if (text) {
-                            text.innerHTML = '';
-                        }
+                    if (text) {
+                        text.innerHTML = '';
+                    }
 
                 }
                 generateRecaptcha();
@@ -49,6 +49,8 @@ const handleVerifyOtp = async (account) => {
                         }
                         partitioned.classList.remove('hidden_t');
                         const guiMa = document.querySelector('.gui_ma');
+                        // const guiLai = document.querySelector('.gui_lai_otp');
+                        // guiLai.classList.remove('hidden');
                         guiMa.classList.remove('hidden');
                     }).catch((error) => {
                         console.log(error)

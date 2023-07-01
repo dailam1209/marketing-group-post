@@ -1,5 +1,4 @@
 import React from "react"
-
 import Head from "next/head";
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
@@ -10,7 +9,7 @@ console.log(comId);
 
 const inter = Inter({ subsets: [latin] })
 export default function info_register_emp() {
-    const { register, handleSubmit,watch, formState: { errors } } = useForm();
+    const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const onSubmit = data => {
         console.log(data)
     };

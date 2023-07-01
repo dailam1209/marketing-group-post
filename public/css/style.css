@@ -6668,4 +6668,56 @@ input[type=number]::-webkit-outer-spin-button {
     .nd_modal_tbcc .txt_nd_modal span {
         display: block;
     }
+
+    /* .help_qr {
+
+        background: none;
+        border: none;
+        color: #4C5BD4;
+        cursor: pointer;
+        padding: 0;
+        margin: 0;
+        font-family: Roboto;
+        box-sizing: border-box;
+    }
+
+    .box_select_type button:hover,
+    .box_select_type button.active {
+        color: #4C5BD4;
+        border-bottom: 2px solid #4C5BD4;
+        font-weight: 600;
+    }
+
+    .box_select_type button {
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 19px;
+        color: #474747;
+        height: 49px;
+        background: none;
+        border: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+
+    .box_select_type {
+        width: 100%;
+        display: flex;
+        gap: 40px;
+        justify-content: center;
+        align-items: center;
+        margin-top: 12px;
+        margin-bottom: 30px;
+        border-bottom: 2px solid #CCCCCC;
+    }
+
+    .box_select_type .line {
+        width: 1px;
+        height: 17px;
+        background: #CCCCCC;
+
+    } */
 }

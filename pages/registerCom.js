@@ -26,13 +26,13 @@ export default function info_register_emp() {
     data.com_id = 1;
     delete data.res_password;
     let response = await callApi.registerCom(data);
-    if(response.data && response.data.data && response.data.data.result == true) {
-        Cookies.set('phone', data.phoneTK);
-        window.location.href = "sendOTP_Com";
+    if (response.data && response.data.data && response.data.data.result == true) {
+      Cookies.set('phone', data.phoneTK);
+      window.location.href = "sendOTP_Com";
     } else {
-        alert(response)
+      alert(response)
     }
-};
+  };
 
   // Axios.post("http://127.0.0.1:8000/users-create",
   // {
@@ -51,70 +51,70 @@ export default function info_register_emp() {
 
   return (
     <>
-<>
-  <meta charSet="UTF-8" />
-  <title>
-    Hệ thống chuyển đổi số hàng đầu Việt Nam, đăng ký để trải nghiệm
-  </title>
-  <meta
-    name="description"
-    content="Khám phá một hệ sinh thái chuyển đổi số lớn, tích hợp nhiều tiện ích trong một nền tảng giúp công ty quản trị nguồn nhân lực hiệu quả, tối ưu và tiết kiệm."
-  />
-  <meta
-    property="og:title"
-    content="Hệ thống chuyển đổi số hàng đầu Việt Nam, đăng ký để trải nghiệm"
-  />
-  <meta
-    property="og:description"
-    content="Khám phá một hệ sinh thái chuyển đổi số lớn, tích hợp nhiều tiện ích trong một nền tảng giúp công ty quản trị nguồn nhân lực hiệu quả, tối ưu và tiết kiệm."
-  />
-  <meta
-    property="og:url"
-    content="https://quanlychung.timviec365.vn/dang-ky-cong-ty.html"
-  />
-  <meta
-    property="og:image:url"
-    content="https://quanlychung.timviec365.vn/img/bgr_banner.png"
-  />
-  <meta property="og:type" content="website" />
-  <meta property="og:locale" content="vi_VN" />
-  <link
-    rel="canonical"
-    href="https://quanlychung.timviec365.vn/dang-ky-cong-ty.html"
-  />
-  <meta name="robots" content="noindex,nofollow" />
-  <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon" />
-  <link
-    rel="preload"
-    href="../fonts/Roboto-Bold.woff2"
-    as="font"
-    type="font/woff2"
-    crossOrigin="anonymous"
-  />
-  <link
-    rel="preload"
-    href="../fonts/Roboto-Medium.woff2"
-    as="font"
-    type="font/woff2"
-    crossOrigin="anonymous"
-  />
-  <link
-    rel="preload"
-    href="../fonts/Roboto-Regular.woff2"
-    as="font"
-    type="font/woff2"
-    crossOrigin="anonymous"
-  />
-  <link rel="preload" as="style" href="../css/style.css?" />
-  <link
-    rel="stylesheet"
-    media="all"
-    href="../css/style.css"
-    onload="if (media != 'all')media='all'"
-  />
-</>
+      <>
+        <meta charSet="UTF-8" />
+        <title>
+          Hệ thống chuyển đổi số hàng đầu Việt Nam, đăng ký để trải nghiệm
+        </title>
+        <meta
+          name="description"
+          content="Khám phá một hệ sinh thái chuyển đổi số lớn, tích hợp nhiều tiện ích trong một nền tảng giúp công ty quản trị nguồn nhân lực hiệu quả, tối ưu và tiết kiệm."
+        />
+        <meta
+          property="og:title"
+          content="Hệ thống chuyển đổi số hàng đầu Việt Nam, đăng ký để trải nghiệm"
+        />
+        <meta
+          property="og:description"
+          content="Khám phá một hệ sinh thái chuyển đổi số lớn, tích hợp nhiều tiện ích trong một nền tảng giúp công ty quản trị nguồn nhân lực hiệu quả, tối ưu và tiết kiệm."
+        />
+        <meta
+          property="og:url"
+          content="https://quanlychung.timviec365.vn/dang-ky-cong-ty.html"
+        />
+        <meta
+          property="og:image:url"
+          content="https://quanlychung.timviec365.vn/img/bgr_banner.png"
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:locale" content="vi_VN" />
+        <link
+          rel="canonical"
+          href="https://quanlychung.timviec365.vn/dang-ky-cong-ty.html"
+        />
+        <meta name="robots" content="noindex,nofollow" />
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon" />
+        <link
+          rel="preload"
+          href="../fonts/Roboto-Bold.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="../fonts/Roboto-Medium.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="../fonts/Roboto-Regular.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        <link rel="preload" as="style" href="../css/style.css?" />
+        <link
+          rel="stylesheet"
+          media="all"
+          href="../css/style.css"
+          onload="if (media != 'all')media='all'"
+        />
+      </>
 
       <>
         <div className="content_ql ctn_bgr_body">
@@ -230,7 +230,7 @@ export default function info_register_emp() {
                           Địa chỉ <span className="cr_red">*</span>
                         </label>
                         <input type="text" name="address" class="form-control"
-                          placeholder="Nhập địa chỉ" 
+                          placeholder="Nhập địa chỉ"
                           {...register("address", {
                             required: 'Địa chỉ không được để trống',
                           })}

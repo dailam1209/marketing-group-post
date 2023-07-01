@@ -27,7 +27,7 @@ export default function editEmployee() {
                 // setIsDataLoaded(true);
                 // onDataLoaded(data)
             }
-            catch {
+            catch (error) {
                 console.log('Error:', error);
             }
         }

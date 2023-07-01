@@ -31,34 +31,50 @@ class callApi {
     response = call;
     return response;
   }
-
-  // api login employee
-  static async loginEmployee(data) {
+  static async registerPerson(data) {
     let response = '';
     try {
-      const call = await axios.post('http://210.245.108.202:3000/api/qlc/employee/login', data);
+      const call = await axios.post('http://210.245.108.202:3000/api/qlc/individual/register', data);// api looix
       response = call;
+      //  console.log("response : " + response);
     } catch (error) {
-      response = error.response.data.error.message
+      response = error.message;
+    }
+    return response;
+  }
+  static async loginPerson(data) {
+    let response = '';
+    try {
+      const call = await axios.post('http://210.245.108.202:3000/api/qlc/individual/login', { phoneTK: data.email, password: data.password });
+      response = call;
+
+    } catch (error) {
+      response = error;
+    }
+    return response;
+  }
+  static async quen_mat_khau(data) {
+    let response = '';
+    try {
+      const call = await axios.post('http://210.245.108.202:3000/api/qlcemployee/forgotPassword ', data);
+      response = call;
+      //  console.log("response : " + response);
+    } catch (error) {
+      response = error.message;
     }
     return response;
   }
 
-  // api get infor employy
-  static async getInfoEp(token) {
-    let response = ''
+  static getInfo(headers) {
+    let response = '';
     try {
-      const call = axios.post('http://210.245.108.202:3000/api/qlc/employee/info', {}, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      })
+      const call = axios.post('http://210.245.108.202:3000/api/qlc/individual/info', {}, (headers));
       response = call;
-    } catch(error) {
-      response = error
+      //  console.log("response : " + response);
+    } catch (error) {
+      response = error.message;
     }
-    
-    return response
+    return response;
   }
 
   // api change password
@@ -78,5 +94,7 @@ class callApi {
     return response
   }
 }
+
+
 
 export default callApi;
