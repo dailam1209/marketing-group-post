@@ -4,7 +4,7 @@ import Router from 'next/router';
 import Cookies from "js-cookie";
 import callApi from '../../pages/api/call_api';
 
-export default function headerEp({ onDataLoaded }) {
+export default function HeaderLogin() {
     // check login
     var token = Cookies.get('acc_token');
 
