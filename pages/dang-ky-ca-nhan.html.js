@@ -16,7 +16,7 @@ export default function RegisterPersonal() {
 
     const onSubmit = async data => {
         delete data.res_password;
-        let response = await callApi.registerPerson(data);
+        let response = await callApi.registerPersonal(data);
         if (response.data && response.data.data && response.data.data.result == true) {
             Cookies.set('phone', data.phoneTK);
             Cookies.set('acc_token', response.data.data.data.access_token)

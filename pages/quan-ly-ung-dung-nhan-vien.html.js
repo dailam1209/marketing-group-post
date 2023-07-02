@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from "next/head";
-import SideBar from '../components/employee/sideBar';
-import HeaderEp from '../components/employee/headerEp';
+import SideBar from '../components/sideBar/SideBar';
+import HeaderLogin from '../components/headerLogin/HeaderLogin';
 
 export default function HomeEmployee() {
     return (
@@ -45,7 +45,7 @@ export default function HomeEmployee() {
             <div id="qly_ungdung_nv" className="qly_ungdung">
                 <div className="wrapper">
                     <div className="left_ql">
-                        <SideBar/>
+                        <SideBar type='2' />
                     </div>
                     <div className="right_ql">
                         <div className="header_rigth_qly">
@@ -53,7 +53,7 @@ export default function HomeEmployee() {
                                 <div className="left_header_qly">
                                     <p className="share_fsize_one ">Ứng dụng / <span className="thay_doi">Tất cả</span></p>
                                 </div>
-                                <HeaderEp/>
+                                <HeaderLogin />
                             </div>
                         </div>
                         <div className="ctn_right_qly">
@@ -84,7 +84,7 @@ export default function HomeEmployee() {
                                                     <div className="avt_detl_tab">
                                                         <h3>27</h3>
                                                         <p>Tất cả</p>
-                                                        <input type="radio" name="gs-gd" value="1" defaultChecked={true}/>
+                                                        <input type="radio" name="gs-gd" value="1" defaultChecked={true} />
                                                     </div>
                                                 </label>
                                             </div>
@@ -200,7 +200,7 @@ export default function HomeEmployee() {
                                                 <div className="detl_nv_count">
                                                     <div className="titl_qlyud">
                                                         <a className="avt_qlyc" href="https://tinhluong.timviec365.vn/" target="_blank">
-                                                            <img src="../img/ql-tinhluong.png" alt="Tính lương"/>
+                                                            <img src="../img/ql-tinhluong.png" alt="Tính lương" />
                                                         </a>
                                                         <div className="titl_delt">
                                                             <h4 className="share_fsize_tow share_clr_four">
@@ -229,7 +229,7 @@ export default function HomeEmployee() {
                                                 <div className="detl_nv_count">
                                                     <div className="titl_qlyud">
                                                         <a className="avt_qlyc" href="https://phanmemnhansu.timviec365.vn/" target="_blank">
-                                                            <img src="../img/qly-nhansu.png" alt="Quản trị nhân sự"/>
+                                                            <img src="../img/qly-nhansu.png" alt="Quản trị nhân sự" />
                                                         </a>
                                                         <div className="titl_delt">
                                                             <h4 className="share_fsize_tow share_clr_four">
@@ -258,7 +258,7 @@ export default function HomeEmployee() {
                                                 <div className="detl_nv_count">
                                                     <div className="titl_qlyud">
                                                         <a className="avt_qlyc" href="https://phanmemgiaoviec.timviec365.vn/" target="_blank">
-                                                            <img src="../img/qly-nhansu.png" alt="Phần mềm giao việc"/>
+                                                            <img src="../img/qly-nhansu.png" alt="Phần mềm giao việc" />
                                                         </a>
                                                         <div className="titl_delt">
                                                             <h4 className="share_fsize_tow share_clr_four">
@@ -288,7 +288,7 @@ export default function HomeEmployee() {
                                                 <div className="detl_nv_count">
                                                     <div className="titl_qlyud">
                                                         <a className="avt_qlyc" href="https://vanthu.timviec365.vn/" target="_blank">
-                                                            <img src="../img/vt-luutru.png" alt="Văn thư lưu trữ"/>
+                                                            <img src="../img/vt-luutru.png" alt="Văn thư lưu trữ" />
                                                         </a>
                                                         <div className="titl_delt">
                                                             <h4 className="share_fsize_tow share_clr_four">
@@ -318,7 +318,7 @@ export default function HomeEmployee() {
                                                 <div className="detl_nv_count">
                                                     <div className="titl_qlyud">
                                                         <a className="avt_qlyc" href="https://crm.timviec365.vn/" target="_blank">
-                                                            <img src="../img/crm_ql.png" alt="Phần mềm CRM"/>
+                                                            <img src="../img/crm_ql.png" alt="Phần mềm CRM" />
                                                         </a>
                                                         <div className="titl_delt">
                                                             <h4 className="share_fsize_tow share_clr_four">
@@ -347,7 +347,7 @@ export default function HomeEmployee() {
                                                 <div className="detl_nv_count">
                                                     <div className="titl_qlyud">
                                                         <a className="avt_qlyc" href="https://phanmemquanlytaisan.timviec365.vn" target="_blank">
-                                                            <img src="../img/quanly_taisan.png" alt="Quản lý tài sản"/>
+                                                            <img src="../img/quanly_taisan.png" alt="Quản lý tài sản" />
                                                         </a>
                                                         <div className="titl_delt">
                                                             <h4 className="share_fsize_tow share_clr_four">
@@ -377,7 +377,7 @@ export default function HomeEmployee() {
                                                 <div className="detl_nv_count">
                                                     <div className="titl_qlyud">
                                                         <a className="avt_qlyc" href="https://phanmemdanhgiananglucnhanvien.timviec365.vn/" target="_blank">
-                                                            <img src="../img/danh-gia.png" alt="Đánh giá năng lực nhân viên"/>
+                                                            <img src="../img/danh-gia.png" alt="Đánh giá năng lực nhân viên" />
                                                         </a>
                                                         <div className="titl_delt">
                                                             <h4 className="share_fsize_tow share_clr_four">
@@ -407,7 +407,7 @@ export default function HomeEmployee() {
                                                 <div className="detl_nv_count">
                                                     <div className="titl_qlyud">
                                                         <a className="avt_qlyc" href="https://kpi.timviec365.vn/" target="_blank">
-                                                            <img src="../img/qly-kpi.png" alt="Quản lý KPI"/>
+                                                            <img src="../img/qly-kpi.png" alt="Quản lý KPI" />
                                                         </a>
                                                         <div className="titl_delt">
                                                             <h4 className="share_fsize_tow share_clr_four">
@@ -437,7 +437,7 @@ export default function HomeEmployee() {
                                                 <div className="detl_nv_count">
                                                     <div className="titl_qlyud">
                                                         <a className="avt_qlyc" href="https://phanmemsohoatailieu.timviec365.vn/" target="_blank">
-                                                            <img src="../img/danh-gia.png" alt="Số hóa tài liệu"/>
+                                                            <img src="../img/danh-gia.png" alt="Số hóa tài liệu" />
                                                         </a>
                                                         <div className="titl_delt">
                                                             <h4 className="share_fsize_tow share_clr_four">
@@ -468,7 +468,7 @@ export default function HomeEmployee() {
                                                 <div className="detl_nv_count">
                                                     <div className="titl_qlyud">
                                                         <a className="avt_qlyc" href="https://dms.timviec365.vn" target="_blank">
-                                                            <img src="../img/dms_ql.png" alt="DMS"/>
+                                                            <img src="../img/dms_ql.png" alt="DMS" />
                                                         </a>
                                                         <div className="titl_delt">
                                                             <h4 className="share_fsize_tow share_clr_four">
@@ -498,7 +498,7 @@ export default function HomeEmployee() {
                                                 <div className="detl_nv_count">
                                                     <div className="titl_qlyud">
                                                         <a className="avt_qlyc" href="https://cardvisitthongminh.timviec365.vn/" rel="nofollow" target="_blank">
-                                                            <img src="../img/dms_ql.png" alt="SMARTID365"/>
+                                                            <img src="../img/dms_ql.png" alt="SMARTID365" />
                                                         </a>
                                                         <div className="titl_delt">
                                                             <h4 className="share_fsize_tow share_clr_four">
@@ -527,7 +527,7 @@ export default function HomeEmployee() {
                                                 <div className="detl_nv_count">
                                                     <div className="titl_qlyud">
                                                         <a className="avt_qlyc" href="https://chuyenvanbanthanhgiongnoi.timviec365.vn/trang-chu.html" target="_blank">
-                                                            <img src="../img/chuyendoi_vb.png" alt="Chuyển văn bản thành giọng nói"/>
+                                                            <img src="../img/chuyendoi_vb.png" alt="Chuyển văn bản thành giọng nói" />
                                                         </a>
                                                         <div className="titl_delt">
                                                             <h4 className="share_fsize_tow share_clr_four">
@@ -558,7 +558,7 @@ export default function HomeEmployee() {
                                                 <div className="detl_nv_count">
                                                     <div className="titl_qlyud">
                                                         <a className="avt_qlyc" href="https://phanmemquanlygaraoto.timviec365.vn/" target="_blank">
-                                                            <img src="../img/ql_gara.png" alt="Phần mềm quản lý Gara ô tô"/>
+                                                            <img src="../img/ql_gara.png" alt="Phần mềm quản lý Gara ô tô" />
                                                         </a>
                                                         <div className="titl_delt">
                                                             <h4 className="share_fsize_tow share_clr_four">
@@ -617,7 +617,7 @@ export default function HomeEmployee() {
                                                 <div className="detl_nv_count">
                                                     <div className="titl_qlyud">
                                                         <a className="avt_qlyc" href="https://bienphiendich.timviec365.vn" target="_blank">
-                                                            <img src="../img/phanmem_phiendich.png" alt="Phần mềm phiên dịch"/>
+                                                            <img src="../img/phanmem_phiendich.png" alt="Phần mềm phiên dịch" />
                                                         </a>
                                                         <div className="titl_delt">
                                                             <h4 className="share_fsize_tow share_clr_four">
@@ -642,7 +642,7 @@ export default function HomeEmployee() {
                                                 <div className="detl_nv_count">
                                                     <div className="titl_qlyud">
                                                         <a className="avt_qlyc" href="https://phanmemquanlykhoxaydung.timviec365.vn/" target="_blank">
-                                                            <img src="../img/ql_khvt.png" alt="Phần mềm quản lý kho vật tư xây dựng"/>
+                                                            <img src="../img/ql_khvt.png" alt="Phần mềm quản lý kho vật tư xây dựng" />
                                                         </a>
                                                         <div className="titl_delt">
                                                             <h4 className="share_fsize_tow share_clr_four">
@@ -671,7 +671,7 @@ export default function HomeEmployee() {
                                                 <div className="detl_nv_count">
                                                     <div className="titl_qlyud">
                                                         <a className="avt_qlyc" href="https://loyalty.timviec365.vn/" target="_blank">
-                                                            <img src="../img/ql_cungung.png" alt="Phần mềm Loyalty"/>
+                                                            <img src="../img/ql_cungung.png" alt="Phần mềm Loyalty" />
                                                         </a>
                                                         <div className="titl_delt">
                                                             <h4 className="share_fsize_tow share_clr_four">
@@ -700,7 +700,7 @@ export default function HomeEmployee() {
                                                 <div className="detl_nv_count">
                                                     <div className="titl_qlyud">
                                                         <a className="avt_qlyc" href="https://phanmemquanlytaichinhcongtrinh.timviec365.vn/" target="_blank">
-                                                            <img src="../img/ql_congtrinh.png" alt="Phần mềm quản lý công trình"/>
+                                                            <img src="../img/ql_congtrinh.png" alt="Phần mềm quản lý công trình" />
                                                         </a>
                                                         <div className="titl_delt">
                                                             <h4 className="share_fsize_tow share_clr_four">
@@ -729,7 +729,7 @@ export default function HomeEmployee() {
                                                 <div className="detl_nv_count">
                                                     <div className="titl_qlyud">
                                                         <a className="avt_qlyc" href="https://phanmemquanlydautuxaydung.timviec365.vn/" target="_blank">
-                                                            <img src="../img/ql_congtrinh.png" alt="Phần mềm quản lý công trình"/>
+                                                            <img src="../img/ql_congtrinh.png" alt="Phần mềm quản lý công trình" />
                                                         </a>
                                                         <div className="titl_delt">
                                                             <h4 className="share_fsize_tow share_clr_four">
@@ -760,7 +760,7 @@ export default function HomeEmployee() {
                                                 <div className="detl_nv_count">
                                                     <div className="titl_qlyud">
                                                         <a className="avt_qlyc" href="https://phanmemquanlycongtrinh.timviec365.vn/" target="_blank">
-                                                            <img src="../img/ql_congtrinh.png" alt="Phần mềm quản lý công trình"/>
+                                                            <img src="../img/ql_congtrinh.png" alt="Phần mềm quản lý công trình" />
                                                         </a>
                                                         <div className="titl_delt">
                                                             <h4 className="share_fsize_tow share_clr_four">
@@ -789,7 +789,7 @@ export default function HomeEmployee() {
                                                 <div className="detl_nv_count">
                                                     <div className="titl_qlyud">
                                                         <a className="avt_qlyc" href="https://phanmemquanlyquytrinhsanxuat.timviec365.vn" target="_blank">
-                                                            <img src="../img/ql_congtrinh.png" alt="Phần mềm quản lý công trình"/>
+                                                            <img src="../img/ql_congtrinh.png" alt="Phần mềm quản lý công trình" />
                                                         </a>
                                                         <div className="titl_delt">
                                                             <h4 className="share_fsize_tow share_clr_four">
@@ -818,7 +818,7 @@ export default function HomeEmployee() {
                                                 <div className="detl_nv_count">
                                                     <div className="titl_qlyud">
                                                         <a className="avt_qlyc" href="https://phanmemquanlyvantai.timviec365.vn/" target="_blank">
-                                                            <img src="../img/ql_congtrinh.png" alt="Phần mềm quản lý công trình"/>
+                                                            <img src="../img/ql_congtrinh.png" alt="Phần mềm quản lý công trình" />
                                                         </a>
                                                         <div className="titl_delt">
                                                             <h4 className="share_fsize_tow share_clr_four">
@@ -847,7 +847,7 @@ export default function HomeEmployee() {
                                                 <div className="detl_nv_count">
                                                     <div className="titl_qlyud">
                                                         <a className="avt_qlyc" href="https://phanmemquanlycungung.timviec365.vn/" target="_blank">
-                                                            <img src="../img/ql_cungung.png" alt="Phần mềm quản lý cung ứng"/>
+                                                            <img src="../img/ql_cungung.png" alt="Phần mềm quản lý cung ứng" />
                                                         </a>
                                                         <div className="titl_delt">
                                                             <h4 className="share_fsize_tow share_clr_four">
@@ -876,7 +876,7 @@ export default function HomeEmployee() {
                                                 <div className="detl_nv_count">
                                                     <div className="titl_qlyud">
                                                         <a className="avt_qlyc" href="https://lichbieu.timviec365.vn/" target="_blank">
-                                                            <img src="../img/lich-bieu.png" alt="Phần mềm quản lý lịch biểu"/>
+                                                            <img src="../img/lich-bieu.png" alt="Phần mềm quản lý lịch biểu" />
                                                         </a>
                                                         <div className="titl_delt">
                                                             <h4 className="share_fsize_tow share_clr_four">
@@ -905,7 +905,7 @@ export default function HomeEmployee() {
                                                 <div className="detl_nv_count">
                                                     <div className="titl_qlyud">
                                                         <a className="avt_qlyc" href="https://phanmemquanlykho.timviec365.vn/" target="_blank">
-                                                            <img src="../img/ql_khvt.png" alt="Phần mềm quản lý kho 365"/>
+                                                            <img src="../img/ql_khvt.png" alt="Phần mềm quản lý kho 365" />
                                                         </a>
                                                         <div className="titl_delt">
                                                             <h4 className="share_fsize_tow share_clr_four">
@@ -934,7 +934,7 @@ export default function HomeEmployee() {
                                                 <div className="detl_nv_count">
                                                     <div className="titl_qlyud">
                                                         <a className="avt_qlyc" href="https://truyenthongnoibo.timviec365.vn/" target="_blank">
-                                                            <img src="../img/tt-vanhoa.png" alt="Truyền thông văn hóa"/>
+                                                            <img src="../img/tt-vanhoa.png" alt="Truyền thông văn hóa" />
                                                         </a>
                                                         <div className="titl_delt">
                                                             <h4 className="share_fsize_tow share_clr_four">
@@ -1034,7 +1034,7 @@ export default function HomeEmployee() {
                                                 <div className="detl_nv_count">
                                                     <div className="titl_qlyud">
                                                         <a className="avt_qlyc" href="https://tinhluong.timviec365.vn/" target="_blank">
-                                                            <img src="../img/ql-tinhluong.png" alt="Tính lương"/>
+                                                            <img src="../img/ql-tinhluong.png" alt="Tính lương" />
                                                         </a>
                                                         <div className="titl_delt">
                                                             <h4 className="share_fsize_tow share_clr_four">
@@ -1063,7 +1063,7 @@ export default function HomeEmployee() {
                                                 <div className="detl_nv_count">
                                                     <div className="titl_qlyud">
                                                         <a className="avt_qlyc" href="https://phanmemnhansu.timviec365.vn/" target="_blank">
-                                                            <img src="../img/qly-nhansu.png" alt="Quản trị nhân sự"/>
+                                                            <img src="../img/qly-nhansu.png" alt="Quản trị nhân sự" />
                                                         </a>
                                                         <div className="titl_delt">
                                                             <h4 className="share_fsize_tow share_clr_four">
@@ -1092,7 +1092,7 @@ export default function HomeEmployee() {
                                                 <div className="detl_nv_count">
                                                     <div className="titl_qlyud">
                                                         <a className="avt_qlyc" href="https://phanmemdanhgiananglucnhanvien.timviec365.vn/" target="_blank">
-                                                            <img src="../img/danh-gia.png" alt="Đánh giá năng lực nhân viên"/>
+                                                            <img src="../img/danh-gia.png" alt="Đánh giá năng lực nhân viên" />
                                                         </a>
                                                         <div className="titl_delt">
                                                             <h4 className="share_fsize_tow share_clr_four">
@@ -1123,7 +1123,7 @@ export default function HomeEmployee() {
                                                 <div className="detl_nv_count">
                                                     <div className="titl_qlyud">
                                                         <a className="avt_qlyc" href="https://kpi.timviec365.vn/" target="_blank">
-                                                            <img src="../img/qly-kpi.png" alt="Quản lý KPI"/>
+                                                            <img src="../img/qly-kpi.png" alt="Quản lý KPI" />
                                                         </a>
                                                         <div className="titl_delt">
                                                             <h4 className="share_fsize_tow share_clr_four">
@@ -1152,7 +1152,7 @@ export default function HomeEmployee() {
                                                 <div className="detl_nv_count">
                                                     <div className="titl_qlyud">
                                                         <a className="avt_qlyc" href="https://crm.timviec365.vn/" target="_blank">
-                                                            <img src="../img/crm_ql.png" alt="Phần mềm CRM"/>
+                                                            <img src="../img/crm_ql.png" alt="Phần mềm CRM" />
                                                         </a>
                                                         <div className="titl_delt">
                                                             <h4 className="share_fsize_tow share_clr_four">
@@ -1181,7 +1181,7 @@ export default function HomeEmployee() {
                                                 <div className="detl_nv_count">
                                                     <div className="titl_qlyud">
                                                         <a className="avt_qlyc" href="https://lichbieu.timviec365.vn/" target="_blank">
-                                                            <img src="../img/lich-bieu.png" alt="Phần mềm quản lý lịch biểu"/>
+                                                            <img src="../img/lich-bieu.png" alt="Phần mềm quản lý lịch biểu" />
                                                         </a>
                                                         <div className="titl_delt">
                                                             <h4 className="share_fsize_tow share_clr_four">
@@ -1210,7 +1210,7 @@ export default function HomeEmployee() {
                                                 <div className="detl_nv_count">
                                                     <div className="titl_qlyud">
                                                         <a className="avt_qlyc" href="https://phanmemgiaoviec.timviec365.vn/" target="_blank">
-                                                            <img src="../img/qly-nhansu.png" alt="Phần mềm giao việc"/>
+                                                            <img src="../img/qly-nhansu.png" alt="Phần mềm giao việc" />
                                                         </a>
                                                         <div className="titl_delt">
                                                             <h4 className="share_fsize_tow share_clr_four">
@@ -1241,7 +1241,7 @@ export default function HomeEmployee() {
                                                 <div className="detl_nv_count">
                                                     <div className="titl_qlyud">
                                                         <a className="avt_qlyc" href="https://vanthu.timviec365.vn/" target="_blank">
-                                                            <img src="../img/vt-luutru.png" alt="Văn thư lưu trữ"/>
+                                                            <img src="../img/vt-luutru.png" alt="Văn thư lưu trữ" />
                                                         </a>
                                                         <div className="titl_delt">
                                                             <h4 className="share_fsize_tow share_clr_four">
@@ -1270,7 +1270,7 @@ export default function HomeEmployee() {
                                                 <div className="detl_nv_count">
                                                     <div className="titl_qlyud">
                                                         <a className="avt_qlyc" href="https://truyenthongnoibo.timviec365.vn/" target="_blank">
-                                                            <img src="../img/tt-vanhoa.png" alt="Truyền thông văn hóa"/>
+                                                            <img src="../img/tt-vanhoa.png" alt="Truyền thông văn hóa" />
                                                         </a>
                                                         <div className="titl_delt">
                                                             <h4 className="share_fsize_tow share_clr_four">
@@ -1299,7 +1299,7 @@ export default function HomeEmployee() {
                                                 <div className="detl_nv_count">
                                                     <div className="titl_qlyud">
                                                         <a className="avt_qlyc" href="https://chuyenvanbanthanhgiongnoi.timviec365.vn/trang-chu.html" target="_blank">
-                                                            <img src="../img/chuyendoi_vb.png" alt="Chuyển văn bản thành giọng nói"/>
+                                                            <img src="../img/chuyendoi_vb.png" alt="Chuyển văn bản thành giọng nói" />
                                                         </a>
                                                         <div className="titl_delt">
                                                             <h4 className="share_fsize_tow share_clr_four">
@@ -1329,7 +1329,7 @@ export default function HomeEmployee() {
                                                 <div className="detl_nv_count">
                                                     <div className="titl_qlyud">
                                                         <a className="avt_qlyc" href="https://phanmemquanlytaisan.timviec365.vn" target="_blank">
-                                                            <img src="../img/quanly_taisan.png" alt="Quản lý tài sản"/>
+                                                            <img src="../img/quanly_taisan.png" alt="Quản lý tài sản" />
                                                         </a>
                                                         <div className="titl_delt">
                                                             <h4 className="share_fsize_tow share_clr_four">
@@ -1358,7 +1358,7 @@ export default function HomeEmployee() {
                                                 <div className="detl_nv_count">
                                                     <div className="titl_qlyud">
                                                         <a className="avt_qlyc" href="https://bienphiendich.timviec365.vn" target="_blank">
-                                                            <img src="../img/phanmem_phiendich.png" alt="Phần mềm phiên dịch"/>
+                                                            <img src="../img/phanmem_phiendich.png" alt="Phần mềm phiên dịch" />
                                                         </a>
                                                         <div className="titl_delt">
                                                             <h4 className="share_fsize_tow share_clr_four">
@@ -1382,7 +1382,7 @@ export default function HomeEmployee() {
                                                 <div className="detl_nv_count">
                                                     <div className="titl_qlyud">
                                                         <a className="avt_qlyc" href="https://phanmemsohoatailieu.timviec365.vn/" target="_blank">
-                                                            <img src="../img/danh-gia.png" alt="Số hóa tài liệu"/>
+                                                            <img src="../img/danh-gia.png" alt="Số hóa tài liệu" />
                                                         </a>
                                                         <div className="titl_delt">
                                                             <h4 className="share_fsize_tow share_clr_four">
@@ -1411,7 +1411,7 @@ export default function HomeEmployee() {
                                                 <div className="detl_nv_count">
                                                     <div className="titl_qlyud">
                                                         <a className="avt_qlyc" href="https://phanmemquanlytaisan.timviec365.vn" target="_blank">
-                                                            <img src="../img/quanly_taisan.png" alt="Quản lý tài sản"/>
+                                                            <img src="../img/quanly_taisan.png" alt="Quản lý tài sản" />
                                                         </a>
                                                         <div className="titl_delt">
                                                             <h4 className="share_fsize_tow share_clr_four">
@@ -1470,7 +1470,7 @@ export default function HomeEmployee() {
                                                 <div className="detl_nv_count">
                                                     <div className="titl_qlyud">
                                                         <a className="avt_qlyc" href="https://crm.timviec365.vn/" target="_blank">
-                                                            <img src="../img/crm_ql.png" alt="Phần mềm CRM"/>
+                                                            <img src="../img/crm_ql.png" alt="Phần mềm CRM" />
                                                         </a>
                                                         <div className="titl_delt">
                                                             <h4 className="share_fsize_tow share_clr_four">
@@ -1499,7 +1499,7 @@ export default function HomeEmployee() {
                                                 <div className="detl_nv_count">
                                                     <div className="titl_qlyud">
                                                         <a className="avt_qlyc" href="https://dms.timviec365.vn" target="_blank">
-                                                            <img src="../img/dms_ql.png" alt="DMS"/>
+                                                            <img src="../img/dms_ql.png" alt="DMS" />
                                                         </a>
                                                         <div className="titl_delt">
                                                             <h4 className="share_fsize_tow share_clr_four">
@@ -1528,7 +1528,7 @@ export default function HomeEmployee() {
                                                 <div className="detl_nv_count">
                                                     <div className="titl_qlyud">
                                                         <a className="avt_qlyc" href="https://cardvisitthongminh.timviec365.vn/" rel="nofollow" target="_blank">
-                                                            <img src="../img/dms_ql.png" alt="SMARTID365"/>
+                                                            <img src="../img/dms_ql.png" alt="SMARTID365" />
                                                         </a>
                                                         <div className="titl_delt">
                                                             <h4 className="share_fsize_tow share_clr_four">
@@ -1557,7 +1557,7 @@ export default function HomeEmployee() {
                                                 <div className="detl_nv_count">
                                                     <div className="titl_qlyud">
                                                         <a className="avt_qlyc" href="https://phanmemquanlygaraoto.timviec365.vn/" target="_blank">
-                                                            <img src="../img/ql_gara.png" alt="Phần mềm quản lý Gara ô tô"/>
+                                                            <img src="../img/ql_gara.png" alt="Phần mềm quản lý Gara ô tô" />
                                                         </a>
                                                         <div className="titl_delt">
                                                             <h4 className="share_fsize_tow share_clr_four">
@@ -1586,7 +1586,7 @@ export default function HomeEmployee() {
                                                 <div className="detl_nv_count">
                                                     <div className="titl_qlyud">
                                                         <a className="avt_qlyc" href="https://phanmemquanlykhoxaydung.timviec365.vn/" target="_blank">
-                                                            <img src="../img/ql_khvt.png" alt="Phần mềm quản lý kho vật tư xây dựng"/>
+                                                            <img src="../img/ql_khvt.png" alt="Phần mềm quản lý kho vật tư xây dựng" />
                                                         </a>
                                                         <div className="titl_delt">
                                                             <h4 className="share_fsize_tow share_clr_four">
@@ -1615,7 +1615,7 @@ export default function HomeEmployee() {
                                                 <div className="detl_nv_count">
                                                     <div className="titl_qlyud">
                                                         <a className="avt_qlyc" href="https://loyalty.timviec365.vn/" target="_blank">
-                                                            <img src="../img/ql_cungung.png" alt="Phần mềm Loyalty"/>
+                                                            <img src="../img/ql_cungung.png" alt="Phần mềm Loyalty" />
                                                         </a>
                                                         <div className="titl_delt">
                                                             <h4 className="share_fsize_tow share_clr_four">
@@ -1644,7 +1644,7 @@ export default function HomeEmployee() {
                                                 <div className="detl_nv_count">
                                                     <div className="titl_qlyud">
                                                         <a className="avt_qlyc" href="https://phanmemquanlyvantai.timviec365.vn/" target="_blank">
-                                                            <img src="../img/ql_congtrinh.png" alt="Phần mềm quản lý công trình"/>
+                                                            <img src="../img/ql_congtrinh.png" alt="Phần mềm quản lý công trình" />
                                                         </a>
                                                         <div className="titl_delt">
                                                             <h4 className="share_fsize_tow share_clr_four">
@@ -1673,7 +1673,7 @@ export default function HomeEmployee() {
                                                 <div className="detl_nv_count">
                                                     <div className="titl_qlyud">
                                                         <a className="avt_qlyc" href="https://phanmemquanlycungung.timviec365.vn/" target="_blank">
-                                                            <img src="../img/ql_cungung.png" alt="Phần mềm quản lý cung ứng"/>
+                                                            <img src="../img/ql_cungung.png" alt="Phần mềm quản lý cung ứng" />
                                                         </a>
                                                         <div className="titl_delt">
                                                             <h4 className="share_fsize_tow share_clr_four">
@@ -1702,7 +1702,7 @@ export default function HomeEmployee() {
                                                 <div className="detl_nv_count">
                                                     <div className="titl_qlyud">
                                                         <a className="avt_qlyc" href="https://phanmemquanlykho.timviec365.vn/" target="_blank">
-                                                            <img src="../img/ql_khvt.png" alt="Phần mềm quản lý kho 365"/>
+                                                            <img src="../img/ql_khvt.png" alt="Phần mềm quản lý kho 365" />
                                                         </a>
                                                         <div className="titl_delt">
                                                             <h4 className="share_fsize_tow share_clr_four">
@@ -1731,7 +1731,7 @@ export default function HomeEmployee() {
                                                 <div className="detl_nv_count">
                                                     <div className="titl_qlyud">
                                                         <a className="avt_qlyc" href="https://phanmemquanlyquytrinhsanxuat.timviec365.vn" target="_blank">
-                                                            <img src="../img/ql_congtrinh.png" alt="Phần mềm quản lý công trình"/>
+                                                            <img src="../img/ql_congtrinh.png" alt="Phần mềm quản lý công trình" />
                                                         </a>
                                                         <div className="titl_delt">
                                                             <h4 className="share_fsize_tow share_clr_four">
