@@ -1,15 +1,19 @@
-import React from "react"
+import { React, useState, useEffect } from "react"
 import { useForm } from 'react-hook-form';
 import Cookies from "js-cookie";
 
 export default function SideBar() {
     let type = Cookies.get('role')
-    if (type == '2') {
-        linkHome = 'quan-ly-ung-dung-nhan-vien.html'
-    } else {
-        linkHome = 'quan-ly-ung-dung-ca-nhan.html'
-    }
-    if (type == '1') {
+    const [linkHome, setLinkHome] = useState('quan-ly-ung-dung-nhan-vien.html')
+    useEffect(() => {
+        if (type == '1') {
+            setLinkHome('quan-ly-ung-dung-cong-ty.html')
+        }
+        else if (type == '3') {
+            setLinkHome('quan-ly-ung-dung-ca-nhan.html')
+        }
+    }, [])
+    if (type != '1') {
         return (
             <>
                 <div className="ctn_qly_left">
@@ -42,7 +46,7 @@ export default function SideBar() {
                                     Thiết lập tài khoản nhân viên
                                 </li>
                             </a>
-                            {(props.type == '2') && (
+                            {(type == '2') && (
                                 <a href="quan-ly-nghi-viec.html" className="nav-item">
                                     <li className="nav-child-item cr_weight_bold share_fsize_tow share_clr_tow d_flex">
                                         <span className="item_ic"><img src="../img/qly-ttnghiviec.png" alt="Chấm dứt lao động" /></span>

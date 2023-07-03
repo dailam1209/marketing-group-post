@@ -1,5 +1,5 @@
 import React from 'react';
-import Head from "next/head";
+import Head from "../components/head";
 import SideBar from '../components/sideBar/SideBar';
 import HeaderLogin from '../components/headerLogin/HeaderLogin';
 
@@ -14,7 +14,7 @@ export default function HomeEmployee() {
             <div id="qly_ungdung_nv" className="qly_ungdung">
                 <div className="wrapper">
                     <div className="left_ql">
-                        <SideBar />
+                        <SideBar/>
                     </div>
                     <div className="right_ql">
                         <div className="header_rigth_qly">

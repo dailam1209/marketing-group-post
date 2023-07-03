@@ -1,5 +1,5 @@
 import React from "react"
-import Head from "next/head";
+import Head from "../components/head";
 import { useForm } from 'react-hook-form';
 import Cookies from "js-cookie";
 import callApi from '../pages/api/call_api';
@@ -20,7 +20,9 @@ export default function register_emp() {
 
     return (
         <>  
-            <Head>
+            <Head
+            
+            />
                 <link rel="stylesheet" href="/css/style.css" />
                 <title>
                     Tham gia hệ thống chuyển đổi số số 1 Việt Nam, tối giản và tiện ích

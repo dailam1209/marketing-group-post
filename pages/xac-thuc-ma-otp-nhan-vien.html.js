@@ -1,7 +1,9 @@
 import React from 'react';
-import Head from "next/head";
 import handleVerifyOtp from '../utils/firebaseEvents';
 import Cookies from "js-cookie";
+import Header from "../components/header/Header"
+import Footer from "../components/footer/Footer"
+import Head from '../components/head'
 
 export default function AuthenticEp() {
     const onClickVerifyOtp = () => {
@@ -16,51 +18,17 @@ export default function AuthenticEp() {
     };
     return (
         <>
-            <Head>
-                <>
-                    <meta charSet="UTF-8" />
-                    <meta name="robots" content="noindex,nofollow" />
-                    <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                    <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon" />
-                    <link
-                        rel="preload"
-                        href="../fonts/Roboto-Bold.woff2"
-                        as="font"
-                        type="font/woff2"
-                        crossOrigin="anonymous"
-                    />
-                    <link
-                        rel="preload"
-                        href="../fonts/Roboto-Medium.woff2"
-                        as="font"
-                        type="font/woff2"
-                        crossOrigin="anonymous"
-                    />
-                    <link
-                        rel="preload"
-                        href="../fonts/Roboto-Regular.woff2"
-                        as="font"
-                        type="font/woff2"
-                        crossOrigin="anonymous"
-                    />
-                    <link rel="preload" as="style" href="../css/style.css" />
-                    <link
-                        rel="stylesheet"
-                        media="all"
-                        href="../css/style.css"
-                        onload="if (media != 'all')media='all'"
-                    />
-                    <title>Trang xác thực mã OTP nhân viên</title>
-                </>
-            </Head>
+            <Head
+            title = 'Trang xác thực mã OTP nhân viên'
+            seo = ''
+            />
+            <Header/>
             <>
                 <div className="content_ql ctn_bgr_body">
                     <div className="content_nv">
                         <div className="ctn_register_nv">
                             <form
                                 action=""
-                                // onSubmit="return false"
                                 className="regnv_form regnv_form_otp_nv"
                                 method=""
                             >
@@ -109,7 +77,7 @@ export default function AuthenticEp() {
                                                 <div className="form-butt-one">
                                                     <input
                                                         type="button"
-                                                        className="nhan_ma share_bgr_one cr_weight share_clr_tow share_fsize_tow share_cursor tiep_tuc_one verify_otp otpSMS"
+                                                        className="nhan_ma nhan_ma_2 share_bgr_one cr_weight share_clr_tow share_fsize_tow share_cursor tiep_tuc_one verify_otp otpSMS"
                                                         defaultValue="Nhận mã"
                                                         onClick={onClickVerifyOtp}
                                                     />
@@ -145,6 +113,7 @@ export default function AuthenticEp() {
                         </div>
                     </div>
                 </div> */}
+                <Footer/>
                 <link rel="stylesheet" href="https://timviec365.vn/css/footer_new.css?v=2" />
             </>
         </>

@@ -434,7 +434,7 @@ a.status {
 }
 
 .exit {
-    background: url("../images/toolbar/exit.png") center left no-repeat;
+    background: url("../img/exit.png") center left no-repeat;
     padding-left: 22px;
     padding-right: 15px;
     margin-left: 10px;
@@ -788,4 +788,17 @@ span.checked {
     margin-right: 5px;
     margin-bottom: 5px;
     width: 30%;
+}
+
+.pagination a {
+    padding: 0 5px;
+}
+
+.pagination strong {
+    font-size: 15px;
+    color: red
+}
+
+td {
+    border: 1px solid #000;
 }
