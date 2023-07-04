@@ -1,7 +1,6 @@
 import { React, useState, useEffect } from 'react'
 
 export default function OptionUser(props) {
-    console.log(props.type)
     const [link, setLink] = useState('')
     useEffect(() => {
         if (props.type == '1') {

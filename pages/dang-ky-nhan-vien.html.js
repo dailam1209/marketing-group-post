@@ -2,19 +2,14 @@ import React from "react"
 import Seo from "../components/head";
 import { useForm } from 'react-hook-form';
 import Cookies from "js-cookie";
-import callApi from '../pages/api/call_api';
+import { checkVip } from "../utils/handleApi";
 
-export default function register_emp() {
+
+export default function RegisterEp() {
     // Xử lý validate form
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = async data => {
-        let checkVip = await callApi.checkVip(data.id_company)
-        if (checkVip == 0) {
-            Cookies.set('idCom', data.id_company);
-            window.location.href = "/thong-tin-dang-ky-nhan-vien.html"
-        } else {
-            window.location.href = "/thong-bao-tai-khoan-vip.html"
-        }
+        checkVip(data.id_company)
     };
 
     return (

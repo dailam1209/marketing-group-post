@@ -1,5 +1,29 @@
 import axios from 'axios';
 class CallApi {
+  static async callAPI(url, data, token) {
+    let configHeader = {
+      headers: {}
+    };
+    if (token) {
+      configHeader.headers['Authorization'] = `Bearer ${token}`;
+    }
+
+    let configData = {}
+    if (data) {
+      configData = data;
+    }
+
+    let response = '';
+
+    try {
+      const call = await axios.post(url, configData, configHeader);
+      response = call.data.data.data;
+    } catch (error) {
+      response = error.response;
+    }
+
+    return response;
+  }
 
   // api register employee
   static async registerEp(data) {
@@ -47,15 +71,17 @@ class CallApi {
 
   // api login personal
   static async loginPersonal(data) {
-    let response = '';
-    try {
-      const call = await axios.post('http://210.245.108.202:3000/api/qlc/individual/login', { phoneTK: data.email, password: data.password });
-      response = call;
+    // let response = '';
+    // try {
+    //   const call = await axios.post('http://210.245.108.202:3000/api/qlc/individual/login', { phoneTK: data.email, password: data.password });
+    //   response = call;
 
-    } catch (error) {
-      response = error;
-    }
-    return response;
+    // } catch (error) {
+    //   response = error;
+    // }
+    // return response;
+    let result = CallApi.callAPI('http://210.245.108.202:3000/api/qlc/individual/login', data, '');
+    return result;
   }
 
   // api login employee
@@ -269,7 +295,42 @@ class CallApi {
       response = error.response.data.error.message
     }
     return response
+  }
 
+  // api phòng ban
+  static async listDepartments(idCom) {
+    let response = ''
+    try {
+      const call = await axios.post('http://210.245.108.202:3000/api/qlc/department/get', { com_id: idCom })
+      response = call.data.data.data;
+    } catch (error) {
+      response = error.response.data.error.message
+    }
+    return response
+  }
+
+  // api tổ
+  static async listGroups(idCom, idDep) {
+    let response = ''
+    try {
+      const call = await axios.post('http://210.245.108.202:3000/api/qlc/team/search', { com_id: idCom, dep_id: idDep })
+      response = call.data.data.data;
+    } catch (error) {
+      response = error.response.data.error.message
+    }
+    return response
+  }
+
+  // api nhóm
+  static async listTeams(idCom, idDep, idGroup) {
+    let response = ''
+    try {
+      const call = await axios.post('http://210.245.108.202:3000/api/qlc/group/search', { com_id: idCom, dep_id: idDep, team_id: idGroup })
+      response = call.data.data.data;
+    } catch (error) {
+      response = error.response.data.error.message
+    }
+    return response
   }
 
   // api admin

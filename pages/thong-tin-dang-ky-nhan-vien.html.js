@@ -1,8 +1,7 @@
-import React from "react"
-import Head from "next/head";
+import { React, useState, useEffect } from "react"
 import { useForm } from 'react-hook-form';
 import Cookies from "js-cookie";
-import callApi from '../pages/api/call_api';
+import CallApi from '../pages/api/call_api';
 import Seo from '../components/head'
 
 export default function RegisterEp() {
@@ -19,10 +18,54 @@ export default function RegisterEp() {
     // lấy cookie idCom
     let idCom = Cookies.get('idCom');
 
+    // get list department, group, team
+    const [deps, setDep] = useState([]);
+    const [groups, setGroup] = useState([]);
+    const [teams, setTeam] = useState([]);
+    const [selectedDep, setSelectedDep] = useState('');
+    const [selectedGroup, setSelectedGroup] = useState('');
+    const [selectedTeam, setSelectedTeam] = useState('');
+
+    // chose department
+    useEffect(() => {
+        apiDeps();
+    }, []);
+
+    const apiDeps = async () => {
+        let response = await CallApi.listDepartments(idCom);
+        setDep(response);
+    };
+    
+    // chose group
+    useEffect(() => {
+        if (selectedDep) {
+            apiGroups(selectedDep, idCom);
+        }
+        setTeam([]);
+    }, [selectedDep]);
+
+    const apiGroups = async (selectedDep, idCom) => {
+        let response = await CallApi.listGroups(idCom, selectedDep);
+        setGroup(response);
+    };
+
+    // chose team
+    useEffect(() => {
+        if (selectedGroup) {
+            apiTeams(selectedDep,selectedGroup, idCom);
+        }
+    }, [selectedGroup]);
+
+    const apiTeams = async (selectedDep, selectedGroup, idCom) => {
+        let response = await CallApi.listTeams(idCom, selectedDep, selectedGroup);
+        setTeam(response);
+    };
+
     const onSubmit = async data => {
+        console.log(data)
         data.com_id = idCom;
         delete data.res_password;
-        let response = await callApi.registerEp(data);
+        let response = await CallApi.registerEp(data);
         if (response.data && response.data.data && response.data.data.result == true) {
             Cookies.set('phone', data.phoneTK);
             Cookies.set('acc_token', response.data.data.data.access_token)
@@ -293,10 +336,18 @@ export default function RegisterEp() {
                                                             Phòng ban
                                                         </label>
                                                         <select
-                                                            name="phong_ban"
+                                                            {...register('dep_id')}
+                                                            name="dep_id"
                                                             className="form-control n_phong_ban"
+                                                            value={selectedDep}
+                                                            onChange={(e) => setSelectedDep(e.target.value)}
                                                         >
                                                             <option value="">Chọn phòng ban</option>
+                                                            {deps.map((dep) => (
+                                                                <option key={dep._id} value={dep._id}>
+                                                                    {dep.deparmentName}
+                                                                </option>
+                                                            ))}
                                                         </select>
                                                     </div>
                                                 </div>
@@ -305,16 +356,42 @@ export default function RegisterEp() {
                                                         <label className="form_label share_fsize_three share_clr_one cr_weight">
                                                             Tổ
                                                         </label>
-                                                        <select name="name_to" className="form-control">
+                                                        <select
+                                                            {...register('team_id')}
+                                                            name="team_id"
+                                                            className="form-control"
+                                                            value={selectedGroup}
+                                                            onChange={(e) => setSelectedGroup(e.target.value)}
+                                                        >
                                                             <option value="">Chọn tổ</option>
+                                                            {
+                                                                groups.map((group) => (
+                                                                    <option key={group._id} value={group._id}>
+                                                                        {group.teamName}
+                                                                    </option>
+                                                                ))
+                                                            }
                                                         </select>
                                                     </div>
                                                     <div className="form-group">
                                                         <label className="form_label share_fsize_three share_clr_one cr_weight">
                                                             Nhóm
                                                         </label>
-                                                        <select name="name_nhom" className="form-control">
+                                                        <select 
+                                                         {...register('group_id')}
+                                                        name="group_id" 
+                                                        className="form-control"
+                                                        value={selectedTeam}
+                                                        onChange={(e) => setSelectedTeam(e.target.value)}
+                                                        >
                                                             <option value="">Chọn nhóm</option>
+                                                            {
+                                                                teams.map((team) => (
+                                                                    <option key={team._id} value={team._id}>
+                                                                        {team.groupName}
+                                                                    </option>
+                                                                ))
+                                                            }
                                                         </select>
                                                     </div>
                                                 </div>
