@@ -19,7 +19,6 @@ export default function Head(props) {
         <meta property="og:url" content={props.url} />
       )
       }
-      <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon" />
       <link
         rel="preload"
         href="../fonts/Roboto-Bold.woff2"
@@ -44,6 +43,10 @@ export default function Head(props) {
       <link
         rel="stylesheet"
         href="/css/style.css"
+      />
+      <link
+        rel="stylesheet"
+        href="../css/login_qr.css"
       />
     </>
   )

@@ -23,7 +23,7 @@ const handleVerifyOtp = async (account) => {
                         }
                     }, getAuth(app));
                     recaptchaVerifier.render();
-                    const nhanMa = document.querySelector('.nhan_ma');
+                    const nhanMa = document.querySelector('.nhan_ma_2');
                     if (nhanMa) {
                         nhanMa.remove();
                     }
@@ -31,7 +31,6 @@ const handleVerifyOtp = async (account) => {
                     if (text) {
                         text.innerHTML = '';
                     }
-
                 }
                 generateRecaptcha();
                 // hàm gửi otp 
@@ -49,9 +48,10 @@ const handleVerifyOtp = async (account) => {
                         }
                         partitioned.classList.remove('hidden_t');
                         const guiMa = document.querySelector('.gui_ma');
-                        // const guiLai = document.querySelector('.gui_lai_otp');
-                        // guiLai.classList.remove('hidden');
                         guiMa.classList.remove('hidden');
+
+                        const guiLai = document.querySelector('.gui_lai_otp');
+                        guiLai.classList.remove('hidden');
                     }).catch((error) => {
                         console.log(error)
                     });
@@ -69,6 +69,8 @@ const handleVerifyOtp = async (account) => {
                 let role = Cookies.get('role');
                 if (role == 2) {
                     var api = 'http://210.245.108.202:3000/api/qlc/employee/verify';
+                } else if(role == 1) {
+                    var api = 'http://210.245.108.202:3000/api/qlc/Company/verify';
                 } else {
                     var api = 'http://210.245.108.202:3000/api/qlc/individual/verify';
                 }
@@ -92,7 +94,6 @@ const handleVerifyOtp = async (account) => {
         } catch (error) {
             console.error(error);
         }
-
     }
 };
 

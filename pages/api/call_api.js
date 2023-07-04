@@ -1,5 +1,5 @@
 import axios from 'axios';
-class callApi {
+class CallApi {
 
   // api register employee
   static async registerEp(data) {
@@ -95,23 +95,26 @@ class callApi {
   }
 
   // api get infor personal
-  static getInfoPersonal(headers) {
+  static async getInfoPersonal(token) {
     let response = '';
     try {
-      const call = axios.post('http://210.245.108.202:3000/api/qlc/individual/info', {}, (headers));
+      const call = await axios.post('http://210.245.108.202:3000/api/qlc/individual/info', {}, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
       response = call;
     } catch (error) {
-      response = error.message;
+      response = error.response.data.error.message
     }
     return response;
   }
 
   // api get infor employee
-  // api get infor employy
   static async getInfoEp(token) {
     let response = ''
     try {
-      const call = axios.post('http://210.245.108.202:3000/api/qlc/employee/info', {}, {
+      const call = await axios.post('http://210.245.108.202:3000/api/qlc/employee/info', {}, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -120,7 +123,6 @@ class callApi {
     } catch (error) {
       response = error
     }
-
     return response
   }
 
@@ -128,7 +130,7 @@ class callApi {
   static async changePassEp(token, data) {
     let response = ''
     try {
-      const call = axios.post('http://210.245.108.202:3000/api/qlc/employee/updatePassword', data, {
+      const call = await axios.post('http://210.245.108.202:3000/api/qlc/employee/updatePassword', data, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -145,7 +147,23 @@ class callApi {
   static async changePassPersonal(token, data) {
     let response = ''
     try {
-      const call = axios.post('http://210.245.108.202:3000/api/qlc/individual/updatePassword', data, {
+      const call = await axios.post('http://210.245.108.202:3000/api/qlc/individual/updatePassword', data, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      response = call;
+    } catch (error) {
+      response = error.response.data.error.message
+    }
+    return response
+  }
+
+  // api change password personal
+  static async changePassCom(token, data) {
+    let response = ''
+    try {
+      const call = await axios.post('http://210.245.108.202:3000/api/qlc/Company/updateNewPassword', data, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -161,7 +179,7 @@ class callApi {
   static async authenPersonal(token) {
     let response = ''
     try {
-      const call = axios.post('http://210.245.108.202:3000/api/qlc/employee/verify', {}, {
+      const call = await axios.post('http://210.245.108.202:3000/api/qlc/individual/verify', {}, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -172,6 +190,63 @@ class callApi {
     }
     return response
   }
+
+  // api authen employee
+  static async authenEp(token) {
+    let response = ''
+    try {
+      const call = await await axios.post('http://210.245.108.202:3000/api/qlc/employee/verify', {}, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      response = call;
+    } catch (error) {
+      response = error.response.data.error.message
+    }
+    return response
+  }
+
+  // api authen company
+  static async authenCom(token) {
+    let response = ''
+    try {
+      const call = await axios.post('http://210.245.108.202:3000/api/qlc/Company/verify', {}, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      response = call;
+    } catch (error) {
+      response = error.response.data.error.message
+    }
+    return response
+  }
+
+  // api admin
+  // api get list feedback
+  static async listFeedback(currentPage) {
+    let response = ''
+    try {
+      const call = await axios.post('http://210.245.108.202:3001/api/timviec/appli/list', {page: currentPage})
+      response = call
+    } catch(error) {
+      response = error.response.data.error.message
+    }
+    return response
+  }
+
+  // api get list company
+  static async listCom(currentPage) {
+    let response = ''
+    try {
+      const call = await axios.post('http://210.245.108.202:3001/api/timviec/appli/list', {page:currentPage})
+      response = call
+    } catch(error) {
+      response = error.response.data.error.message
+    }
+    return response
+  }
 }
 
-export default callApi;
+export default CallApi;

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Head from "next/head";
-import SideBar from '../components/employee/sideBar';
-import HeaderEp from '../components/employee/headerEp';
-import callApi from '../pages/api/call_api';
+import SideBar from '../components/sideBar/SideBar';
+import HeaderLogin from '../components/headerLogin/HeaderLogin';
+import CallApi from '../pages/api/call_api';
 import Cookies from "js-cookie";
 import { getEducation } from "../utils/function";
 
@@ -15,11 +15,11 @@ export default function EditEmployee() {
     useEffect(() => {
         const getData = async () => {
             try {
-                if(role == 2) {
-                    let response = await callApi.getInfoEp(token);
+                if (role == 2) {
+                    let response = await CallApi.getInfoEp(token);
                     setData(response.data.data.data[0])
                 } else {
-                    let response = await callApi.getInfoPersonal(token);
+                    let response = await CallApi.getInfoPersonal(token);
                     setData(response.data.data.data)
                 }
             }
@@ -29,6 +29,7 @@ export default function EditEmployee() {
         }
         getData()
     }, [])
+    
     if (data.inForPerson && data.inForPerson.account && data.inForPerson.account.gender == 1) {
         var gender = 'Nam'
     } else if (data.inForPerson && data.inForPerson.account && data.inForPerson.account.gender == 2) {
@@ -101,7 +102,7 @@ export default function EditEmployee() {
                                 <div className="left_header_qly">
                                     <p className="share_fsize_one ">Ứng dụng / <span className="thay_doi">Tất cả</span></p>
                                 </div>
-                                <HeaderEp />
+                                <HeaderLogin />
                             </div>
                         </div>
                         <div className="ctn_right_qly color_gray">

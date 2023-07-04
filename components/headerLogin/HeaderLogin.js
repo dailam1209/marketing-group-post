@@ -1,29 +1,45 @@
-import React, { useEffect, useState } from 'react';
+import { React, useEffect, useState } from 'react';
 import Link from 'next/link'
-import Router from 'next/router';
 import Cookies from "js-cookie";
 import callApi from '../../pages/api/call_api';
+import axios from 'axios';
+import OptionUser from '../optionUser/OptionUser';
 
 export default function HeaderLogin() {
-    // check login
-    var token = Cookies.get('acc_token');
+    let token = Cookies.get('acc_token');
+    let type = Cookies.get('role');
 
     // gọi api lấy thông tin nhân viên
     const [data, setData] = useState([]);
 
+    const [option, setOption] = useState(false);
+    const optionUser = () => {
+        if(option) {
+            setOption(false)
+        } else {
+            setOption(true)
+        }
+    }
+
     useEffect(() => {
         const getData = async () => {
             try {
-                let response = await callApi.getInfoEp(token);
-                setData(response.data.data.data)
-            }
-            catch {
+                if (type == '2') {
+                    let response = await callApi.getInfoEp(token);
+                    setData(response.data.data.data);
+                } else if (type == '1') {
+                    let response = await callApi.getInfoEp2(token);
+                    setData(response.data.data.data);
+                } else {
+                    let response = await callApi.getInfoPersonal(token);
+                    setData(response.data.data.data);
+                }
+            } catch (error) {
                 console.log('Error:', error);
             }
         }
         getData()
     }, [])
-    console.log(data);
 
     return (
         <>
@@ -56,36 +72,9 @@ export default function HeaderLogin() {
                         {
                             data.avatarUser ? (<img src={data.avatarUser} alt="" className="avt_img_tk" />) : (<img src="../img/logo_com.png" alt="" className="avt_img_tk" />)
                         }
-                        <p className="logout_fname share_clr_one"></p>
+                        <p className="logout_fname share_clr_one" onClick={optionUser}>{data.userName}</p>
                     </div>
-                    <div className="avt_log_posti share_bgr_tow">
-                        <ul className="navbar-nav">
-                            <a href="/quan-ly-thong-tin-tai-khoan-nhan-vien.html" className="nav-item">
-                                <li className="nav-child-item share_clr_one share_fsize_one">
-                                    <span className="item_ic"><img src="../img/inf_tk.png" alt="" /></span>
-                                    Thông tin tài khoản
-                                </li>
-                            </a>
-                            <a href="https://chamcong.timviec365.vn/quan-ly-cong-ty/danh-gia.html" target="_blank" className="nav-item">
-                                <li className="nav-child-item share_clr_one share_fsize_one">
-                                    <span className="item_ic"><img src="../img/danh_gia.png" alt="" /></span>
-                                    Đánh giá
-                                </li>
-                            </a>
-                            <a href="https://chamcong.timviec365.vn/quan-ly-cong-ty/gui-loi.html" target="_blank" className="nav-item">
-                                <li className="nav-child-item share_clr_one share_fsize_one">
-                                    <span className="item_ic"><img src="../img/bao-loi.png" alt="" /></span>
-                                    Báo lỗi
-                                </li>
-                            </a>
-                            <a className="nav-item">
-                                <li className="nav-child-item share_clr_one share_fsize_one btx_logout">
-                                    <span className="item_ic"><img src="../img/dang-xuat.png" alt="" /></span>
-                                    Đăng xuất
-                                </li>
-                            </a>
-                        </ul>
-                    </div>
+                    {(option) && <OptionUser type = {type}/>}
                 </div>
             </div>
         </>

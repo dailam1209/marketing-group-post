@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Head from "next/head";
-import SideBar from '../components/employee/sideBar';
-import HeaderEp from '../components/employee/headerEp';
+import SideBar from '../components/sideBar/SideBar';
+import HeaderLogin from '../components/headerLogin/HeaderLogin';
 import callApi from '../pages/api/call_api';
 import Cookies from "js-cookie";
 import { getEducation } from "../utils/function";
@@ -10,20 +10,27 @@ import { useForm } from 'react-hook-form';
 export default function detailEmployy() {
     // gọi api lấy thông tin nhân viên
     const [data, setData] = useState([]);
-    var token = Cookies.get('access_token');
+    let token = Cookies.get('acc_token');
+    let type = Cookies.get('role');
 
     useEffect(() => {
         const getData = async () => {
             try {
-                let response = await callApi.getInfoEp(token);
-                setData(response.data.data.data)
+                if (type == '2') {
+                    let response = await callApi.getInfoEp(token);
+                    setData(response.data.data.data)
+                } else {
+                    let response = await callApi.getInfoPersonal(token);
+                    setData(response.data.data.data)
+                }
             }
-            catch {
-                console.log('Error:', error);
+            catch (error) {
+                alert(error.response.data.error.message);
             }
         }
         getData()
     }, [])
+    console.log(data)
     if (data.inForPerson && data.inForPerson.account && data.inForPerson.account.gender == 1) {
         var gender = 'Nam'
     } else if (data.inForPerson && data.inForPerson.account && data.inForPerson.account.gender == 2) {
@@ -31,7 +38,7 @@ export default function detailEmployy() {
     } else if (data.inForPerson && data.inForPerson.account && data.inForPerson.account.gender == 3) {
         var gender = ' Khác'
     } else {
-        var gender = ''
+        var gender = 'Chưa cập nhập'
     }
 
     if (data.inForPerson && data.inForPerson.account && data.inForPerson.account.married == 1) {
@@ -59,17 +66,30 @@ export default function detailEmployy() {
     // validate form change password
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
-    console.log(watch());
 
     const onSubmit = async data => {
-        var token = Cookies.get('access_token');
-        delete data.res_password;
-        console.log(data)
-        let response = await callApi.changePass(token, data);
-        if (response.data && response.data.data && response.data.data.result == true) {
-            setIsSuccess(true);
+        if(type == '2') {
+            try{
+                let response = await callApi.changePassEp(token, data);
+                if (response.data && response.data.data && response.data.data.result == true) {
+                    setIsSuccess(true);
+                } else {
+                    setIsFalse(true);
+                }
+            } catch(error) {
+                alert(error.response.data.error.message)
+            }
         } else {
-            setIsFalse(true);
+            try {
+                let response = await callApi.changePassPersonal(token, data);
+                if (response.data && response.data.data && response.data.data.result == true) {
+                    setIsSuccess(true);
+                } else {
+                    setIsFalse(true);
+                }
+            } catch(error) {
+                alert(error.response.data.error.message)
+            }
         }
     };
 
@@ -125,7 +145,7 @@ export default function detailEmployy() {
                                 <div className="left_header_qly">
                                     <p className="share_fsize_one ">Ứng dụng / <span className="thay_doi">Tất cả</span></p>
                                 </div>
-                                <HeaderEp />
+                                <HeaderLogin />
                             </div>
                         </div>
                         <div className="ctn_right_qly ">
@@ -145,7 +165,7 @@ export default function detailEmployy() {
                                                             <img src="../img/icon_mayanh.png" alt=""
                                                                 className="img_mayanh position_a" />
                                                             <input type="file" className="img_taianh display_none"
-                                                                defaultValue={''}/>
+                                                                defaultValue={''} />
                                                         </div>
 
                                                         <p className="id">{data.id}</p>
@@ -233,7 +253,10 @@ export default function detailEmployy() {
                                                 cũ<span className="cr_red">*</span></label>
                                             {/* <span className="see_log" toggle="#old_password"></span> */}
                                             <input type="password" name="old_password" className="form-control"
-                                                placeholder="Nhật mật khẩu cũ" id="old_password" />
+                                                placeholder="Nhật mật khẩu cũ" id="old_password" {...register('old_password', {
+                                                    required: 'Vui lòng nhập mật khẩu cũ',
+                                                })} />
+                                            {errors && errors.old_password && <label className="error">{errors.old_password.message}</label>}
                                         </div>
                                         <div className="form-group">
                                             <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">Mật khẩu
@@ -256,14 +279,14 @@ export default function detailEmployy() {
                                                 mật khẩu<span className="cr_red">*</span></label>
                                             {/* <span className="see_log" toggle="#pass_new"></span> */}
                                             <input type="password" name="res_password" className="form-control"
-                                                placeholder="Nhập lại mật khẩu mới" id="pass_new" {...register('res_password', {
+                                                placeholder="Nhập lại mật khẩu mới" id="pass_new" {...register('re_password', {
                                                     required: 'Vui lòng nhập mật khẩu xác nhận',
                                                     validate: (value) => {
                                                         const password = watch('password');
                                                         return value === password || 'Mật khẩu không khớp';
                                                     },
                                                 })} />
-                                            {errors && errors.res_password && <label className="error">{errors.res_password.message}</label>}
+                                            {errors && errors.re_password && <label className="error">{errors.re_password.message}</label>}
                                         </div>
                                         <div className="form_butt_ht">
                                             <div className="tow_butt_flex">
@@ -296,8 +319,8 @@ export default function detailEmployy() {
                                     <p className="titl_notif">Đổi mật khẩu thành công!</p>
                                     <div className="form_butt_ht">
                                         <div className="tow_butt_flex">
-                                            <button type="submit"
-                                                className="font_s15 share_clr_tow share_bgr_one dong_button close_button_share">Đóng</button>
+                                            <a href="/quan-ly-thong-tin-tai-khoan-nhan-vien.html"
+                                                className="font_s15 share_clr_tow share_bgr_one dong_button close_button_share">Đóng</a>
                                         </div>
                                     </div>
                                 </div>
