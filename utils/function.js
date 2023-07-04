@@ -11,3 +11,9 @@ export function getEducation(id) {
     arr[8] = 'Tiểu học';
     return arr[id] || 'Chưa cập nhật'
 }
+
+export function formatDate(dateString) {
+    const parts = dateString.split('/');
+    const formattedDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
+    return formattedDate;
+}

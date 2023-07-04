@@ -3,7 +3,7 @@ import handleVerifyOtp from '../utils/firebaseEvents';
 import Cookies from "js-cookie";
 import Header from "../components/header/Header"
 import Footer from "../components/footer/Footer"
-import Head from '../components/head'
+import Seo from '../components/head'
 
 export default function AuthenticEp() {
     const onClickVerifyOtp = () => {
@@ -18,7 +18,7 @@ export default function AuthenticEp() {
     };
     return (
         <>
-            <Head
+            <Seo
             title = 'Trang xác thực mã OTP nhân viên'
             seo = ''
             />

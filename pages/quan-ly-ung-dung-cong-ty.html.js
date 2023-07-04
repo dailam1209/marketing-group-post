@@ -1,12 +1,21 @@
 import React from 'react';
-import Head from "../components/head";
+import Seo from "../components/head";
 import SideBar from '../components/sideBar/SideBar';
 import HeaderLogin from '../components/headerLogin/HeaderLogin';
 
-export default function HomeEmployee() {
+export default function HomeCompany() {
+    const [hydrated, setHydrated] = React.useState(false);
+    React.useEffect(() => {
+        setHydrated(true);
+    }, []);
+    if (!hydrated) {
+        // Returns null on first render, so the client and server match
+        return null;
+    }
+
     return (
         <>
-            <Head
+            <Seo
                 seo=''
                 title='Quản lý ứng dụng'
             />
@@ -14,7 +23,7 @@ export default function HomeEmployee() {
             <div id="qly_ungdung_nv" className="qly_ungdung">
                 <div className="wrapper">
                     <div className="left_ql">
-                        <SideBar/>
+                        <SideBar />
                     </div>
                     <div className="right_ql">
                         <div className="header_rigth_qly">
@@ -27,18 +36,20 @@ export default function HomeEmployee() {
                         </div>
                         <div className="ctn_right_qly">
                             <div className="ctn_res_qly">
-                                <div className="left_header_qly">
-                                    <p className="share_clr_one share_fsize_one">Ứng dụng / <span className="thay_doi">Tất cả</span></p>
+                                <div className="tbao_nangcap share_bgr_tow">
+                                    <div className="tbao_ncap">
+                                        <div className="tde_tbao_ncap">
+                                            <h4 className="hd_chuavip davip_ncap">Tài khoản của bạn có thể đăng ký tối đa 10000 nhân viên</h4>
+                                        </div>
+                                        <div className="nang_capv">
+                                            <p className="share_fsize_one ncap_tkhoan">
+                                                <a href="/thong-bao-tai-khoan-vip.html"><img src="/img/napcap_vip.png" className="ncap_vip"/> Nâng cấp tài khoản</a>
+                                            </p>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div className="search_qly">
                                     <form className="form_timkiem">
-                                        {/* <div className="tim-kiem share_form_select">
-                                            <select name="search"
-                                                className="form-serach share_fsize_one share_clr_three share_bgr_tow">
-                                                <option></option>
-                                            </select>
-                                            <span className="ico_search"></span>
-                                        </div> */}
                                         <div className="tim-kiem">
                                             <input type="text" name="search" id="myInput" placeholder="Nhập tên phần mềm" className="form-serach share_fsize_one share_clr_three share_bgr_tow" />
                                             <span className="ico_search"></span>

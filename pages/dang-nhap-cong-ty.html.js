@@ -1,5 +1,5 @@
 import React from "react"
-import Head from "../components/head";
+import Seo from "../components/head";
 import { useForm } from 'react-hook-form';
 import Cookies from "js-cookie";
 import callApi from './api/call_api';
@@ -52,7 +52,7 @@ export default function LoginCompany() {
 
   return (
     <>
-      <Head
+      <Seo
         seo='true'
         title='Chuyển đổi số thành công cùng quanlychung.timviec365.vn - doanh nghiệp bứt phá'
         des='Hệ thống chuyển đổi số timviec365.vn đem đến cho công ty giải pháp tối ưu nhất để quản trị doanh nghiệp hiệu quả, thúc đẩy tối đa hiệu suất công việc.'
@@ -71,7 +71,7 @@ export default function LoginCompany() {
           <div className="right_bgr_nv">
             <div className="tro_lai">
               <a
-                href="lua-chon-dang-nhap.html"
+                href="/lua-chon-dang-nhap.html"
                 className="share_fsize_one share_clr_four"
               >
                 Quay lại
@@ -105,27 +105,40 @@ export default function LoginCompany() {
                         type="text"
                         className="form-control"
                         id="dn_mail"
-                        name="email"
+                        name="phoneTK"
                         placeholder="Nhập email hoặc số điện thoại"
+                        {...register("phoneTK", {
+                          required: "Tài khoản đăng nhập không được để trống",
+                          pattern: {
+                            value: /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})|([0-9]{10})+$/,
+                            message: "Nhập đúng định dạng email hoặc số điện thoại"
+                          }
+                        })}
                       />
+                      {errors.phoneTK && <label className="error">{errors.phoneTK.message}</label>}
+
                     </div>
                     <div className="form-group">
                       <label className="form_label share_fsize_three share_clr_one cr_weight">
                         Mật khẩu <span className="cr_red">*</span>
                       </label>
-                      {/* <span class="see_log" toggle="#pass_field"></span> */}
                       <input
                         type="password"
                         className="form-control"
                         name="password"
                         id="pass_field"
                         placeholder="Nhập mật khẩu"
+                        {...register("password", {
+                          required: "Mật khẩu không được để trống",
+                        })}
                       />
+                      {errors && errors.password && <label className="error">{errors.password.message}</label>}
+
                     </div>
                     <div className="qmk_login">
                       <p className="tex_right">
                         <a
-                          href="quen-mat-khau.html?type=1"
+                          href="/quen-mat-khau.html?type=1"
                           className="share_clr_four share_fsize_three cr_weight"
                         >
                           Quên mật khẩu?
@@ -134,14 +147,14 @@ export default function LoginCompany() {
                     </div>
                     <div className="form_button">
                       <input
-                        type="button"
+                        type="submit"
                         className="share_bgr_one cr_weight share_clr_tow share_fsize_tow share_cursor btn_luu"
                         defaultValue="Đăng nhập"
                       />
                     </div>
                     <p className="tex_center cr_weight share_fsize_three no_login">
                       Bạn chưa có tài khoản?{" "}
-                      <a href="/dang-ky-nhan-vien.html">Đăng ký ngay</a>
+                      <a href="/dang-ky-cong-ty.html">Đăng ký ngay</a>
                     </p>
                   </form>
                   <div className="login_qr scan_qr">

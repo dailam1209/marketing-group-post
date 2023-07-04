@@ -1,16 +1,29 @@
 import React, { useState, useEffect } from "react";
-import Head from "next/head";
+import Seo from "../components/head";
 import SideBar from '../components/sideBar/SideBar';
 import HeaderLogin from '../components/headerLogin/HeaderLogin';
 import CallApi from '../pages/api/call_api';
 import Cookies from "js-cookie";
-import { getEducation } from "../utils/function";
+import { useForm } from 'react-hook-form';
+
+import { getEducation, formatDate } from "../utils/function";
 
 export default function EditEmployee() {
     // gọi api lấy thông tin nhân viên
     const [data, setData] = useState([]);
-    var token = Cookies.get('acc_token');
-    var role = Cookies.get('role');
+    let token = Cookies.get('acc_token');
+    let role = Cookies.get('role');
+
+    // set values in form
+    const [selectedDate, setSelectedDate] = useState('');
+    const [phone, setPhone] = useState('');
+    const handleDateChange = (event) => {
+        setSelectedDate(event.target.value);
+    };
+
+    const handlePhone = (event) => {
+        setPhone(event.target.value);
+    };
 
     useEffect(() => {
         const getData = async () => {
@@ -18,9 +31,13 @@ export default function EditEmployee() {
                 if (role == 2) {
                     let response = await CallApi.getInfoEp(token);
                     setData(response.data.data.data[0])
+                    setSelectedDate(formatDate(response.birthday))
                 } else {
                     let response = await CallApi.getInfoPersonal(token);
-                    setData(response.data.data.data)
+                    setData(response)
+                    setSelectedDate(formatDate(response.birthday))
+                    setPhone((response.phone || response.phoneTK || ''))
+
                 }
             }
             catch (error) {
@@ -29,7 +46,8 @@ export default function EditEmployee() {
         }
         getData()
     }, [])
-    
+    console.log(data)
+
     if (data.inForPerson && data.inForPerson.account && data.inForPerson.account.gender == 1) {
         var gender = 'Nam'
     } else if (data.inForPerson && data.inForPerson.account && data.inForPerson.account.gender == 2) {
@@ -48,49 +66,42 @@ export default function EditEmployee() {
         var married = "Chưa cập nhập"
     }
 
-    console.log(data)
+    // handle validate form update
+    const { register, handleSubmit, formState: { errors } } = useForm();
+
+    const validatePhone = (value) => {
+        if (value) {
+            return /^(032|033|034|035|036|037|038|039|086|096|097|098|081|082|083|084|085|088|087|091|094|056|058|092|070|076|077|078|079|089|090|093|099|059)+([0-9]{7})$/i.test(value);
+        }
+        return true;
+    };
+
+    const onSubmit = async data => {
+        console.log(data)
+        if(role == 2) {
+            let response = await CallApi.updatePersonal(data);
+            if (response.data && response.data.data && response.data.data.result == true) {
+                alert('Chỉnh sửa thành công')
+            } else {
+                alert(response)
+            }
+        } else {
+            let response = await CallApi.updateEp(data);
+            if (response.data && response.data.data && response.data.data.result == true) {
+                alert('Chỉnh sửa thành công')
+            } else {
+                alert(response)
+            }
+        }
+    };
 
     return (
         <>
-            <Head>
-                <meta charSet="UTF-8" />
-                <meta name="robots" content="noindex,nofollow" />
-                <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon" />
-                <link
-                    rel="preload"
-                    href="../fonts/Roboto-Bold.woff2"
-                    as="font"
-                    type="font/woff2"
-                    crossOrigin="anonymous"
-                />
-                <link
-                    rel="preload"
-                    href="../fonts/Roboto-Medium.woff2"
-                    as="font"
-                    type="font/woff2"
-                    crossOrigin="anonymous"
-                />
-                <link
-                    rel="preload"
-                    href="../fonts/Roboto-Regular.woff2"
-                    as="font"
-                    type="font/woff2"
-                    crossOrigin="anonymous"
-                />
-                <link
-                    rel="stylesheet"
-                    media="all"
-                    href="../css/style.css"
-                />
-                <link
-                    rel="stylesheet"
-                    media="all"
-                    href="../css/detail_employee.css"
-                />
-                <title>Trang xác thực mã OTP nhân viên</title>
-            </Head>
+            <Seo
+                seo=''
+                title='Chỉnh sửa tài khoản nhân viên'
+            />
+
             <div id="qly_ungdung_nv" className="qly_ungdung">
                 <div className="wrapper">
                     <div className="left_ql">
@@ -113,7 +124,7 @@ export default function EditEmployee() {
                                 </div>
                                 <div className="list_all_qly">
                                     <div className="main_tt main_tt_taikhoan_bang">
-                                        <form className="edit_share_form share_distance edit_tt_taikhoan_to_form">
+                                        <form onSubmit={handleSubmit(onSubmit)} className="edit_share_form share_distance edit_tt_taikhoan_to_form">
                                             <div className="d_form_item form_container d_flex">
                                                 <div className="form-group">
                                                     <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
@@ -123,38 +134,57 @@ export default function EditEmployee() {
                                                 <div className="form-group">
                                                     <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
                                                         Công ty</label>
-                                                    <input type="text" name="congty" className="form-control share_fsize_one share_clr_one" placeholder="Nhập tên công ty" defaultValue={data.companyName || ''} readOnly />
+                                                    <input type="text" name="congty" className="form-control share_fsize_one share_clr_one" placeholder="Nhập tên công ty" value={data.companyName || ''} readOnly />
                                                 </div>
                                             </div>
                                             <div className="d_form_item form_container d_flex">
                                                 <div className="form-group">
                                                     <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
                                                         Họ và tên<span className="cr_red">*</span></label>
-                                                    <input type="text" name="name_nv" className="form-control share_fsize_one share_clr_one" placeholder="Nhập họ và tên" defaultValue={data.userName || ''} />
+                                                    <input type="text" name="name_nv" className="form-control share_fsize_one share_clr_one" placeholder="Nhập họ và tên" value={data.userName || ''}
+                                                        {...register("userName", {
+                                                            required: 'Họ và tên không được để trống',
+                                                        })}
+                                                    />
+                                                    {errors.userName && <label className="error">{errors.userName.message}</label>}
                                                 </div>
                                                 <div className="form-group">
                                                     <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
-                                                        Email<span className="cr_red">*</span></label>
-                                                    <input type="text" name="email" className="form-control share_fsize_one share_clr_one" placeholder="Nhập email" defaultValue={data.email || ''} readOnly />
+                                                        Email<span className="cr_red"></span></label>
+                                                    <input type="text" name="email" className="form-control share_fsize_one share_clr_one" placeholder="Nhập email" value={data.email || ''} readOnly />
                                                 </div>
                                             </div>
                                             <div className="d_form_item form_container d_flex">
                                                 <div className="form-group">
                                                     <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
-                                                        Số điện thoại <span className="cr_red">*</span></label>
-                                                    <input type="text" name="phone" className="form-control share_fsize_one share_clr_one" placeholder="Nhập số điện thoại" defaultValue={data.phoneTK || ''} />
+                                                        Số điện thoại <span className="cr_red"></span></label>
+                                                    <input type="text" name="phone" className="form-control share_fsize_one share_clr_one" placeholder="Nhập số điện thoại" defaultValue={phone}
+                                                        {...register("phone", {
+                                                            validate: {
+                                                                validatePhone: (value) => validatePhone(value) || "Hãy nhập đúng định dạng số điện thoại"
+                                                            }
+                                                        })}
+                                                    />
+                                                    {errors.phone && <label className="error">{errors.phone.message}</label>}
                                                 </div>
                                                 <div className="form-group">
                                                     <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
                                                         Địa chỉ <span className="cr_red">*</span></label>
-                                                    <input type="text" name="address" className="form-control share_fsize_one share_clr_one" placeholder="Nhập địa chỉ nơi ở" defaultValue={data.address || ''} />
+                                                    <input type="text" name="address" className="form-control share_fsize_one share_clr_one" placeholder="Nhập địa chỉ nơi ở" defaultValue={data.address || ''}
+                                                        {...register("address", {
+                                                            required: 'Vui lòng nhập địa chỉ',
+
+                                                        })}
+                                                    />
+                                                    {errors.address && <label className="error">{errors.address.message}</label>}
+
                                                 </div>
                                             </div>
                                             <div className="d_form_item form_container d_flex">
                                                 <div className="form-group">
                                                     <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
                                                         Giới tính<span className="cr_red">*</span></label>
-                                                    <select defaultValue={data.inForPerson && data.inForPerson.account && data.inForPerson.account.gender} name="gioitinh" className="form-control">
+                                                    <select {...register('gender')} value={data.gender} name="gioitinh" className="form-control">
                                                         <option value="1" >Nam</option>
                                                         <option value="2" >Nữ</option>
                                                         <option value="3" >Khác</option>
@@ -163,14 +193,27 @@ export default function EditEmployee() {
                                                 <div className="form-group">
                                                     <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
                                                         Ngày sinh <span className="cr_red">*</span></label>
-                                                    <input type="date" name="ngaysinh" defaultValue={data.birthday} className="form-control share_fsize_one share_clr_one" placeholder="Nhập ngày sinh của bạn" />
+                                                    <input
+                                                        type="date"
+                                                        name="ngaysinh"
+                                                        value={selectedDate}
+                                                        onChange={handleDateChange}
+                                                        className="form-control share_fsize_one share_clr_one"
+                                                        placeholder="Nhập ngày sinh của bạn"
+                                                        {...register("birthday", {
+                                                            // required: 'Không được để trống',
+                                                        })}
+                                                    />
+                                                    {errors.birthday && <label className="error">{errors.birthday.message}</label>}
                                                 </div>
                                             </div>
                                             <div className="d_form_item form_container d_flex">
                                                 <div className="form-group">
                                                     <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
                                                         Trình độ học vấn <span className="cr_red">*</span></label>
-                                                    <select defaultValue={data.inForPerson && data.inForPerson.account && data.inForPerson.account.education} name="trinhdo" className="form-control">
+                                                    <select {...register('education')} value={data.education} name="trinhdo" className="form-control"
+                                                    
+                                                    >
                                                         <option value="1" >Trên đại học</option>
                                                         <option value="2" >Đại học</option>
                                                         <option value="3" >Cao đẳng</option>
@@ -184,7 +227,7 @@ export default function EditEmployee() {
                                                 <div className="form-group">
                                                     <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
                                                         Tình trạng hôn nhân<span className="cr_red">*</span></label>
-                                                    <select defaultValue={data.inForPerson && data.inForPerson.account && data.inForPerson.account.married} name="tinhtrang" className="form-control">
+                                                    <select {...register('married')} value={data.married || 1} name="tinhtrang" className="form-control">
                                                         <option value="1" >Độc thân</option>
                                                         <option value="2" >Đã có gia đình</option>
                                                     </select >
@@ -194,7 +237,7 @@ export default function EditEmployee() {
                                                 <div className="form-group">
                                                     <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
                                                         Kinh nghiệm làm việc <span className="cr_red">*</span></label>
-                                                    <select defaultValue={data.inForPerson && data.inForPerson.account && data.inForPerson.account.experience} name="kinhnghiem" className="form-control">
+                                                    <select {...register('experience')} value={data.experience || 1} name="kinhnghiem" className="form-control">
                                                         <option value="1">Chưa có kinh nghiệm</option>
                                                         <option value="2">Dưới 1 năm kinh nghiệm</option>
                                                         <option value="3">1 năm</option>
@@ -216,11 +259,11 @@ export default function EditEmployee() {
                                             <div className="d_form_item form_container d_flex">
                                                 <div className="form-group">
                                                     <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">Phòng ban </label>
-                                                    <input type="text" name="phongban" className="form-control share_fsize_one share_clr_one" placeholder="Nhập tên phòng ban" defaultValue={'đw'} readOnly />
+                                                    <input type="text" name="phongban" className="form-control share_fsize_one share_clr_one" placeholder="Nhập tên phòng ban" defaultValue='' readOnly />
                                                 </div>
                                                 <div className="form-group">
                                                     <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">Chức vụ<span className="cr_red">*</span></label>
-                                                    <input type="text" className="form-control" name="chuc_vu" value={data.inForPerson && data.inForPerson.employee && data.inForPerson.employee.position_id || ''} readOnly />
+                                                    <input type="text" className="form-control" name="chuc_vu" value={data.position_id || ''} readOnly />
                                                 </div>
                                             </div>
                                             <div className="d_form_item form_container d_flex">
@@ -239,7 +282,7 @@ export default function EditEmployee() {
                                             </div>
                                             <div className="d_form_item d_flex content_c">
                                                 <a type="button" className="btn_d huy_luu btn_trang btn_168" href="/quan-ly-thong-tin-tai-khoan-nhan-vien.html"> Hủy </a>
-                                                <button type="button" className="btn_d btn_xanh btn_168 edit_inf_nv"> Lưu </button>
+                                                <button type="submit" className="btn_d btn_xanh btn_168 edit_inf_nv"> Lưu </button>
                                             </div>
                                         </form >
                                     </div >

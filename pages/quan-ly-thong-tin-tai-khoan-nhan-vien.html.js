@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Head from "next/head";
+import Seo from '../components/head'
 import SideBar from '../components/sideBar/SideBar';
 import HeaderLogin from '../components/headerLogin/HeaderLogin';
 import callApi from '../pages/api/call_api';
@@ -68,16 +68,18 @@ export default function detailEmployy() {
     const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
 
     const onSubmit = async data => {
+        console.log(data)
         if(type == '2') {
             try{
                 let response = await callApi.changePassEp(token, data);
                 if (response.data && response.data.data && response.data.data.result == true) {
                     setIsSuccess(true);
                 } else {
-                    setIsFalse(true);
+                    alert(response)
                 }
             } catch(error) {
-                alert(error.response.data.error.message)
+                setIsFalse(true);
+
             }
         } else {
             try {
@@ -85,55 +87,20 @@ export default function detailEmployy() {
                 if (response.data && response.data.data && response.data.data.result == true) {
                     setIsSuccess(true);
                 } else {
-                    setIsFalse(true);
+                    alert(response)
                 }
             } catch(error) {
-                alert(error.response.data.error.message)
+                setIsFalse(true);
             }
         }
     };
 
     return (
         <>
-            <Head>
-                <meta charSet="UTF-8" />
-                <meta name="robots" content="noindex,nofollow" />
-                <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon" />
-                <link
-                    rel="preload"
-                    href="../fonts/Roboto-Bold.woff2"
-                    as="font"
-                    type="font/woff2"
-                    crossOrigin="anonymous"
-                />
-                <link
-                    rel="preload"
-                    href="../fonts/Roboto-Medium.woff2"
-                    as="font"
-                    type="font/woff2"
-                    crossOrigin="anonymous"
-                />
-                <link
-                    rel="preload"
-                    href="../fonts/Roboto-Regular.woff2"
-                    as="font"
-                    type="font/woff2"
-                    crossOrigin="anonymous"
-                />
-                <link
-                    rel="stylesheet"
-                    media="all"
-                    href="../css/style.css"
-                />
-                <link
-                    rel="stylesheet"
-                    media="all"
-                    href="../css/detail_employee.css"
-                />
-                <title>Trang xác thực mã OTP nhân viên</title>
-            </Head>
+            <Seo
+            seo = ''
+            title = 'Thông tin tài khoản nhân viên'
+            />
             <div id="qly_ungdung_nv" className="qly_ungdung">
                 <div className="wrapper">
                     <div className="left_ql">

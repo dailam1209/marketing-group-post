@@ -1,5 +1,5 @@
 import React from "react"
-import Head from "../components/head";
+import Seo from "../components/head";
 import { useForm } from 'react-hook-form';
 import callApi from './api/call_api';
 import Link from 'next/link'
@@ -7,6 +7,12 @@ import Cookies from "js-cookie";
 
 export default function LoginPersonal() {
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const validatePhone = (value) => {
+        if (value) {
+            return /^(032|033|034|035|036|037|038|039|086|096|097|098|081|082|083|084|085|088|087|091|094|056|058|092|070|076|077|078|079|089|090|093|099|059)+([0-9]{7})$/i.test(value);
+        }
+        return true;
+    };
     const onSubmit = async data => {
         let response = await callApi.loginPersonal(data);
         if (response.data && response.data.data && response.data.data.data.access_token) {
@@ -51,7 +57,7 @@ export default function LoginPersonal() {
 
     return (
         <>
-            <Head
+            <Seo
                 seo='true'
                 title='Thành công trong tầm với, chuyển đổi số cùng quanlychung.timviec365.vn ngay'
                 des='Cơ hội phát triển bản thân cực lớn nằm ngay trong hệ sinh thái chuyển đổi số của timviec365.vn. Truy cập, trải nghiệm để vạch ra kế hoạch chuyển đổi số hiệu quả nhé.'
@@ -70,7 +76,7 @@ export default function LoginPersonal() {
                     <div className="right_bgr_nv">
                         <div className="tro_lai">
                             <a
-                                href="login"
+                                href="/lua-chon-dang-nhap.html"
                                 className="share_fsize_one share_clr_four"
                             >
                                 Quay lại
@@ -108,10 +114,8 @@ export default function LoginPersonal() {
                                                 placeholder="Nhập email hoặc số điện thoại"
                                                 {...register("email", {
                                                     required: "Tài khoản đăng nhập không được để trống",
-                                                    pattern: {
-                                                        value: /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})|([0-9]{10})+$/,
-                                                        message: "Nhập đúng định dạng email hoặc số điện thoại"
-
+                                                    validate: {
+                                                        validatePhone: (value) => validatePhone(value) || "Hãy nhập đúng định dạng số điện thoại"
                                                     }
                                                 })}
 
@@ -129,16 +133,15 @@ export default function LoginPersonal() {
                                                 id="pass_field"
                                                 placeholder="Nhập mật khẩu"
                                                 {...register("password", {
-                                                    required: "Tài khoản đăng nhập không được để trống",
-
+                                                    required: "Mật khẩu không được để trống",
                                                 })}
                                             />
-                                            {errors.password && <label className="error">Mật khẩu không được để trống</label>}
+                                            {errors && errors.password && <label className="error">{errors.password.message}</label>}
                                         </div>
                                         <div className="qmk_login">
                                             <p className="tex_right">
                                                 <a
-                                                    href="quen_mat_khau"
+                                                    href="/quen-mat-khau.html?type=2"
                                                     className="share_clr_four share_fsize_three cr_weight"
                                                 >
                                                     Quên mật khẩu?
@@ -155,7 +158,7 @@ export default function LoginPersonal() {
                                         </div>
                                         <p className="tex_center cr_weight share_fsize_three no_login">
                                             Bạn chưa có tài khoản?{" "}
-                                            <Link href="/registerPerson">Đăng ký ngay</Link>
+                                            <Link href="/dang-ky-ca-nhan.html">Đăng ký ngay</Link>
                                         </p>
                                     </form>
 

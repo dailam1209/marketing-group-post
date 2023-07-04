@@ -1,5 +1,5 @@
 import React from 'react';
-import Head from "../components/head";
+import Seo from "../components/head";
 import callApi from '../pages/api/call_api';
 import { useForm } from 'react-hook-form';
 import Cookies from "js-cookie";
@@ -58,7 +58,7 @@ export default function loginEmployee() {
 
     return (
         <>
-            <Head
+            <Seo
                 seo='true'
                 title='Sự nghiệp thăng tiến nếu biết tận dụng hệ thống chuyển đổi số'
                 des='Chuyển đổi số đơn giản, dễ thực hiện, đem đến cơ hội phát triển bản thân vô cùng lớn dành cho mỗi nhân viên tại doanh nghiệp. Đăng nhập ngay để kiến tạo tương lai.'
@@ -75,7 +75,7 @@ export default function loginEmployee() {
                     </div>
                     <div className="right_bgr_nv">
                         <div className="tro_lai">
-                            <a href="lua-chon-dang-nhap.html" className="share_fsize_one share_clr_four">Quay lại</a>
+                            <a href="/lua-chon-dang-nhap.html" className="share_fsize_one share_clr_four">Quay lại</a>
                         </div>
                         <div className="form_dangnhap">
                             <div className="ctn_dangnhap">
@@ -111,7 +111,7 @@ export default function loginEmployee() {
                                         </div>
                                         <div className="qmk_login">
                                             <p className="tex_right">
-                                                <a href="quen-mat-khau.html?type=1" className="share_clr_four share_fsize_three cr_weight">
+                                                <a href="/quen-mat-khau.html?type=2" className="share_clr_four share_fsize_three cr_weight">
                                                     Quên mật khẩu?</a>
                                             </p>
                                         </div>

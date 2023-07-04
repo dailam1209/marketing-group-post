@@ -1,8 +1,8 @@
 import React from "react"
-import Head from '../components/head'
 import { useForm } from 'react-hook-form';
 import callApi from './api/call_api';
 import Cookies from "js-cookie";
+import Seo from "../components/head";
 
 export default function info_register_emp() {
   // xử lý validate
@@ -30,20 +30,13 @@ export default function info_register_emp() {
 
   return (
     <>
-      <Head
+      <Seo
         seo='true'
         title='Hệ thống chuyển đổi số hàng đầu Việt Nam, đăng ký để trải nghiệm'
         des='Khám phá một hệ sinh thái chuyển đổi số lớn, tích hợp nhiều tiện ích trong một nền tảng giúp công ty quản trị nguồn nhân lực hiệu quả, tối ưu và tiết kiệm.'
         url='https://quanlychung.timviec365.vn/dang-ky-cong-ty.html'
       />
-      <meta charSet="UTF-8" />
-      <title>
-        Hệ thống chuyển đổi số hàng đầu Việt Nam, đăng ký để trải nghiệm
-      </title>
-      <meta
-        name="description"
-        content="Khám phá một hệ sinh thái chuyển đổi số lớn, tích hợp nhiều tiện ích trong một nền tảng giúp công ty quản trị nguồn nhân lực hiệu quả, tối ưu và tiết kiệm."
-      />
+    
       <div className="content_ql ctn_bgr_body">
         <div className="content_nv">
           <div className="container">

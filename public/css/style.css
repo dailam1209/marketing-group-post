@@ -2971,7 +2971,6 @@ ul li {
     background: #FFFFFF;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    display: none;
 }
 
 .avt_log_posti .nav-item {
@@ -5723,7 +5722,7 @@ a {
 
     /* moi long */
     .register_dk_vip .ctn_bgr_body {
-        background-image: url(/img/exp_banner_vip_1024.jpg);
+        background-image: url(../img/exp_banner_vip_1024.jpg);
     }
 }
 
@@ -5955,7 +5954,7 @@ a {
     }
 
     .register_dk_vip .ctn_bgr_body {
-        background-image: url(/img/exp_banner_vip_768.jpg);
+        background-image: url(../img/exp_banner_vip_768.jpg);
     }
 }
 
@@ -6464,7 +6463,7 @@ a {
     }
 
     .register_ctnv.register_dk_vip .ctn_bgr_body {
-        background-image: url(/img/exp_banner_vip_768.jpg);
+        background-image: url(../img/exp_banner_vip_768.jpg);
         background-size: 100% 100%;
     }
 
