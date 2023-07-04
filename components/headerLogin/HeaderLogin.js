@@ -2,7 +2,6 @@ import { React, useEffect, useState } from 'react';
 import Link from 'next/link'
 import Cookies from "js-cookie";
 import callApi from '../../pages/api/call_api';
-import axios from 'axios';
 import OptionUser from '../optionUser/OptionUser';
 
 export default function HeaderLogin() {
@@ -26,13 +25,13 @@ export default function HeaderLogin() {
             try {
                 if (type == '2') {
                     let response = await callApi.getInfoEp(token);
-                    setData(response.data.data.data);
+                    setData(response);
                 } else if (type == '1') {
-                    let response = await callApi.getInfoEp2(token);
-                    setData(response.data.data.data);
+                    let response = await callApi.getInfoCom(token);
+                    setData(response);
                 } else {
                     let response = await callApi.getInfoPersonal(token);
-                    setData(response.data.data.data);
+                    setData(response);
                 }
             } catch (error) {
                 console.log('Error:', error);

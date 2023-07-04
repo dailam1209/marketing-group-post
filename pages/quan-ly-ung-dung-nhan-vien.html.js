@@ -1,12 +1,22 @@
-import React from 'react';
-import Head from "next/head";
+import {React, useState, useEffect} from 'react';
+import Seo from '../components/head'
 import SideBar from '../components/sideBar/SideBar';
 import HeaderLogin from '../components/headerLogin/HeaderLogin';
 
 export default function HomeEmployee() {
+    const [hydrated, setHydrated] = useState(false);
+    useEffect(() => {
+        setHydrated(true);
+    }, [])
+
+    if (!hydrated) {
+        // Returns null on first render, so the client and server match
+        return null;
+    }
+
     return (
         <>
-            <Head
+            <Seo
                 seo=''
                 title='Quản lý ứng dụng'
             />
@@ -1778,6 +1788,5 @@ export default function HomeEmployee() {
                 <link rel="stylesheet" href="https://timviec365.vn/css/footer_new.css?v=2" />
             </>
         </>
-
     )
 };

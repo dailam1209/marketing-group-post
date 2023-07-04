@@ -1,46 +1,17 @@
 import React from "react"
-import Head from "next/head";
+import Seo from '../components/head'
 import SideBar from '../components/sideBar/SideBar';
 import HeaderLogin from '../components/headerLogin/HeaderLogin';
 export default function HomePersonal() {
     return (
         <>
-            <Head>
-                <meta charSet="UTF-8" />
-                <meta name="robots" content="noindex,nofollow" />
-                <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                <link
-                    rel="preload"
-                    href="../fonts/Roboto-Bold.woff2"
-                    as="font"
-                    type="font/woff2"
-                    crossOrigin="anonymous"
-                />
-                <link
-                    rel="preload"
-                    href="../fonts/Roboto-Medium.woff2"
-                    as="font"
-                    type="font/woff2"
-                    crossOrigin="anonymous"
-                />
-                <link
-                    rel="preload"
-                    href="../fonts/Roboto-Regular.woff2"
-                    as="font"
-                    type="font/woff2"
-                    crossOrigin="anonymous"
-                />
-                <link rel="stylesheet" href="../css/select2.min.css" />
-                <link rel="preload" as="style" href="../css/style.css" />
-                <link
-                    rel="stylesheet"
-                    media="all"
-                    href="../css/style.css"
-                />
-                <title>Quản lý ứng dụng</title>
-            </Head>
-
+            <Seo
+                seo=''
+                title='Quản lý ứng dụng'
+            />
+            <>
+            <link rel="stylesheet" href="../css/dat.css"/>
+            </>
             <div id="qly_ungdung_nv" className="qly_ungdung">
                 <div className="wrapper">
                     <div className="left_ql">

@@ -1,8 +1,8 @@
 import React from "react"
-import Head from "next/head";
+import Seo from "../components/head";
 import { useForm } from 'react-hook-form';
 import Cookies from "js-cookie";
-import callApi from './api/call_api';
+import CallApi from './api/call_api';
 
 export default function RegisterPersonal() {
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
@@ -16,7 +16,7 @@ export default function RegisterPersonal() {
 
     const onSubmit = async data => {
         delete data.res_password;
-        let response = await callApi.registerPersonal(data);
+        let response = await CallApi.registerPersonal(data);
         if (response.data && response.data.data && response.data.data.result == true) {
             Cookies.set('phone', data.phoneTK);
             Cookies.set('acc_token', response.data.data.data.access_token)
@@ -26,220 +26,159 @@ export default function RegisterPersonal() {
             alert(response)
         }
     };
+
     return (
         <>
-            <Head>
-                <>
-                    <title>
-                        Tích cực chuyển đổi số, quanlychung.timviec365.vn giúp bạn đổi đời, phát
-                        triển
-                    </title>
-                    <meta
-                        name="description"
-                        content="Thời đại công nghệ số đòi hỏi mỗi cá nhân phải tân tiến và tự mình “chuyển đổi số” để thành công. Cùng timviec365.vn chuyển đổi số, tận dụng nhiều phần mềm cần thiết."
-                    />
-                    <meta
-                        property="og:title"
-                        content="Tích cực chuyển đổi số, quanlychung.timviec365.vn giúp bạn đổi đời, phát triển"
-                    />
-                    <meta
-                        property="og:description"
-                        content="Thời đại công nghệ số đòi hỏi mỗi cá nhân phải tân tiến và tự mình “chuyển đổi số” để thành công. Cùng timviec365.vn chuyển đổi số, tận dụng nhiều phần mềm cần thiết."
-                    />
-                    <meta
-                        property="og:url"
-                        content="https://quanlychung.timviec365.vn/dang-ky-ca-nhan.html"
-                    />
-                    <meta
-                        property="og:image:url"
-                        content="https://quanlychung.timviec365.vn/img/bgr_nentang.png"
-                    />
-                    <meta property="og:type" content="website" />
-                    <meta property="og:locale" content="vi_VN" />
-                    <link
-                        rel="canonical"
-                        href="https://quanlychung.timviec365.vn/dang-ky-ca-nhan.html"
-                    />
-                    <meta charSet="UTF-8" />
-                    <meta name="robots" content="noindex,nofollow" />
-                    <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                    <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon" />
-                    <link
-                        rel="preload"
-                        href="../fonts/Roboto-Bold.woff2"
-                        as="font"
-                        type="font/woff2"
-                        crossOrigin="anonymous"
-                    />
-                    <link
-                        rel="preload"
-                        href="../fonts/Roboto-Medium.woff2"
-                        as="font"
-                        type="font/woff2"
-                        crossOrigin="anonymous"
-                    />
-                    <link
-                        rel="preload"
-                        href="../fonts/Roboto-Regular.woff2"
-                        as="font"
-                        type="font/woff2"
-                        crossOrigin="anonymous"
-                    />
-                    <link rel="preload" as="style" href="../css/style.css?" />
-                    <link
-                        rel="stylesheet"
-                        media="all"
-                        href="../css/style.css"
-                        onload="if (media != 'all')media='all'"
-                    />
-                </>
-            </Head>
-            <>
-                <div className="content_ql ctn_bgr_body">
-                    <div className="content_nv">
-                        <div className="container">
-                            <div className="ctn_qmk">
-                                <form action="" className="register_form" autoComplete="false" onSubmit={handleSubmit(onSubmit)} >
-                                    <div className="one_page_qmk one_reg_ql share_reg_log share_brd_radius share_bgr_tow">
-                                        <div className="header_qmk">
-                                            <h1 className="share_clr_four cr_weight_bold tex_center qlc_tieude_moi">
-                                                Đăng ký tài khoản cá nhân trên nền tảng chuyển đổi số lớn nhất
-                                            </h1>
-                                        </div>
-                                        <div className="ctn_form share_distance">
-                                            <div className="form-group" >
-                                                <label className="form_label share_fsize_three share_clr_one cr_weight">
-                                                    Tài khoản đăng nhập<span className="cr_red">*</span>
-                                                </label>
-                                                <input
-                                                    type="text"
-                                                    name="phoneTK"
-                                                    id="email_nv"
-                                                    className="form-control"
-                                                    placeholder="Nhập số điện thoại"
-                                                    {...register("phoneTK", {
-                                                        required: 'Vui lòng nhập số điện thoại',
-                                                        validate: {
-                                                            validatePhone: (value) => validatePhone(value) || "Hãy nhập đúng định dạng số điện thoại"
-                                                        }
-                                                    })}
-                                                />
-                                                {errors.phoneTK && <label className="error">{errors.phoneTK.message}</label>}
-                                            </div>
-                                            <div className="form-group">
-                                                <label className="form_label share_fsize_three share_clr_one cr_weight">
-                                                    Tên người dùng <span className="cr_red">*</span>
-                                                </label>
-                                                <input
-                                                    type="text"
-                                                    name="userName"
-                                                    className="form-control"
-                                                    placeholder="Nhập tên người dùng"
-                                                    {...register("userName", {
-                                                        required: 'Họ và tên không được để trống',
-                                                    })}
-                                                />
-                                                {errors.userName && <label className="error">{errors.userName.message}</label>}
-                                            </div>
-                                            <div className="form-group">
-                                                <label className="form_label share_fsize_three share_clr_one cr_weight">
-                                                    Nhập mật khẩu <span className="cr_red">*</span>
-                                                </label>
-                                                <input
-                                                    type="password"
-                                                    name="password"
-                                                    className="form-control"
-                                                    placeholder="Nhập mật khẩu"
-                                                    {...register('password', {
-                                                        required: 'Vui lòng nhập mật khẩu',
-                                                        pattern: {
-                                                            value: passwordPattern,
-                                                            message:
-                                                                'Mật khẩu phải gồm 6 ký tự trở lên, bao gồm ít nhất một chữ cái và ít nhất một chữ số, không chứa khoảng trắng.',
-                                                        },
-                                                    })}
-                                                />
-                                                {errors && errors.password && <label className="error">{errors.password.message}</label>}
+            <Seo
+                seo='true'
+                title='Tích cực chuyển đổi số, quanlychung.timviec365.vn giúp bạn đổi đời, phát triển'
+                des='Thời đại công nghệ số đòi hỏi mỗi cá nhân phải tân tiến và tự mình “chuyển đổi số” để thành công. Cùng timviec365.vn chuyển đổi số, tận dụng nhiều phần mềm cần thiết.'
+                url='https://quanlychung.timviec365.vn/dang-ky-ca-nhan.html'
+            />
 
-                                            </div>
-                                            <div className="form-group">
-                                                <label className="form_label share_fsize_three share_clr_one cr_weight">
-                                                    Nhập lại mật khẩu <span className="cr_red">*</span>
-                                                </label>
-                                                <input
-                                                    type="password"
-                                                    name="res_password"
-                                                    className="form-control"
-                                                    placeholder="Nhập lại mật khẩu"
-                                                    {...register('res_password', {
-                                                        required: 'Vui lòng nhập mật khẩu xác nhận',
-                                                        validate: (value) => {
-                                                            const password = watch('password');
-                                                            return value === password || 'Mật khẩu không khớp';
-                                                        },
-                                                    })}
-                                                />
-                                                {errors && errors.res_password && <label className="error">{errors.res_password.message}</label>}
-                                            </div>
-                                            <div className="form-group">
-                                                <label className="form_label share_fsize_three share_clr_one cr_weight">
-                                                    Số điện thoại
-                                                </label>
-                                                <input
-                                                    type="text"
-                                                    name="phoneContact"
-                                                    className="form-control"
-                                                    placeholder="Nhập số điện thoại"
-                                                    onChange={e => { setPhoneNumber(e.currentTarget.value); }}
-                                                    {...register('phoneContact', {
-                                                        validate: {
-                                                            validatePhone: (value) => validatePhone(value) || "Hãy nhập đúng định dạng số điện thoại"
-                                                        }
-                                                    })}
-                                                />
-                                                {errors && errors.phoneContact && <label className="error">{errors.phoneContact.message}</label>}
-                                            </div>
-                                            <div className="form-group">
-                                                <label className="form_label share_fsize_three share_clr_one cr_weight">
-                                                    Địa chỉ <span className="cr_red">*</span>
-                                                </label>
-                                                <input
-                                                    type="text"
-                                                    name="address"
-                                                    className="form-control"
-                                                    placeholder="Nhập địa chỉ"
-                                                    {...register('address', {
-                                                        required: 'Địa chỉ không được để trống'
-                                                    })}
-                                                />
-                                                {errors && errors.address && <label className="error">{errors.address.message}</label>}
-                                            </div>
+            <div className="content_ql ctn_bgr_body">
+                <div className="content_nv">
+                    <div className="container">
+                        <div className="ctn_qmk">
+                            <form action="" className="register_form" autoComplete="false" onSubmit={handleSubmit(onSubmit)} >
+                                <div className="one_page_qmk one_reg_ql share_reg_log share_brd_radius share_bgr_tow">
+                                    <div className="header_qmk">
+                                        <h1 className="share_clr_four cr_weight_bold tex_center qlc_tieude_moi">
+                                            Đăng ký tài khoản cá nhân trên nền tảng chuyển đổi số lớn nhất
+                                        </h1>
+                                    </div>
+                                    <div className="ctn_form share_distance">
+                                        <div className="form-group" >
+                                            <label className="form_label share_fsize_three share_clr_one cr_weight">
+                                                Tài khoản đăng nhập<span className="cr_red">*</span>
+                                            </label>
+                                            <input
+                                                type="text"
+                                                name="phoneTK"
+                                                id="email_nv"
+                                                className="form-control"
+                                                placeholder="Nhập số điện thoại"
+                                                {...register("phoneTK", {
+                                                    required: 'Vui lòng nhập số điện thoại',
+                                                    validate: {
+                                                        validatePhone: (value) => validatePhone(value) || "Hãy nhập đúng định dạng số điện thoại"
+                                                    }
+                                                })}
+                                            />
+                                            {errors.phoneTK && <label className="error">{errors.phoneTK.message}</label>}
                                         </div>
-                                        <div className="form-butt-one">
-                                            <button
-                                                type="submit"
-                                                className="share_bgr_one cr_weight share_clr_tow share_fsize_tow share_cursor tiep_tuc_one"
-                                            >
-                                                Tiếp tục
-                                            </button>
-                                            <p className="bo_qua tex_center">
-                                                <a
-                                                    href="/lua-chon-dang-ky.html"
-                                                    className="share_fsize_three share_clr_one"
-                                                >
-                                                    Quay lại
-                                                </a>
-                                            </p>
+                                        <div className="form-group">
+                                            <label className="form_label share_fsize_three share_clr_one cr_weight">
+                                                Tên người dùng <span className="cr_red">*</span>
+                                            </label>
+                                            <input
+                                                type="text"
+                                                name="userName"
+                                                className="form-control"
+                                                placeholder="Nhập tên người dùng"
+                                                {...register("userName", {
+                                                    required: 'Họ và tên không được để trống',
+                                                })}
+                                            />
+                                            {errors.userName && <label className="error">{errors.userName.message}</label>}
+                                        </div>
+                                        <div className="form-group">
+                                            <label className="form_label share_fsize_three share_clr_one cr_weight">
+                                                Nhập mật khẩu <span className="cr_red">*</span>
+                                            </label>
+                                            <input
+                                                type="password"
+                                                name="password"
+                                                className="form-control"
+                                                placeholder="Nhập mật khẩu"
+                                                {...register('password', {
+                                                    required: 'Vui lòng nhập mật khẩu',
+                                                    pattern: {
+                                                        value: passwordPattern,
+                                                        message:
+                                                            'Mật khẩu phải gồm 6 ký tự trở lên, bao gồm ít nhất một chữ cái và ít nhất một chữ số, không chứa khoảng trắng.',
+                                                    },
+                                                })}
+                                            />
+                                            {errors && errors.password && <label className="error">{errors.password.message}</label>}
+
+                                        </div>
+                                        <div className="form-group">
+                                            <label className="form_label share_fsize_three share_clr_one cr_weight">
+                                                Nhập lại mật khẩu <span className="cr_red">*</span>
+                                            </label>
+                                            <input
+                                                type="password"
+                                                name="res_password"
+                                                className="form-control"
+                                                placeholder="Nhập lại mật khẩu"
+                                                {...register('res_password', {
+                                                    required: 'Vui lòng nhập mật khẩu xác nhận',
+                                                    validate: (value) => {
+                                                        const password = watch('password');
+                                                        return value === password || 'Mật khẩu không khớp';
+                                                    },
+                                                })}
+                                            />
+                                            {errors && errors.res_password && <label className="error">{errors.res_password.message}</label>}
+                                        </div>
+                                        <div className="form-group">
+                                            <label className="form_label share_fsize_three share_clr_one cr_weight">
+                                                Số điện thoại
+                                            </label>
+                                            <input
+                                                type="text"
+                                                name="phoneContact"
+                                                className="form-control"
+                                                placeholder="Nhập số điện thoại"
+                                                onChange={e => { setPhoneNumber(e.currentTarget.value); }}
+                                                {...register('phoneContact', {
+                                                    validate: {
+                                                        validatePhone: (value) => validatePhone(value) || "Hãy nhập đúng định dạng số điện thoại"
+                                                    }
+                                                })}
+                                            />
+                                            {errors && errors.phoneContact && <label className="error">{errors.phoneContact.message}</label>}
+                                        </div>
+                                        <div className="form-group">
+                                            <label className="form_label share_fsize_three share_clr_one cr_weight">
+                                                Địa chỉ <span className="cr_red">*</span>
+                                            </label>
+                                            <input
+                                                type="text"
+                                                name="address"
+                                                className="form-control"
+                                                placeholder="Nhập địa chỉ"
+                                                {...register('address', {
+                                                    required: 'Địa chỉ không được để trống'
+                                                })}
+                                            />
+                                            {errors && errors.address && <label className="error">{errors.address.message}</label>}
                                         </div>
                                     </div>
-                                </form>
-                            </div>
+                                    <div className="form-butt-one">
+                                        <button
+                                            type="submit"
+                                            className="share_bgr_one cr_weight share_clr_tow share_fsize_tow share_cursor tiep_tuc_one"
+                                        >
+                                            Tiếp tục
+                                        </button>
+                                        <p className="bo_qua tex_center">
+                                            <a
+                                                href="/lua-chon-dang-ky.html"
+                                                className="share_fsize_three share_clr_one"
+                                            >
+                                                Quay lại
+                                            </a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
-                </div >
-                <link rel="stylesheet" href="https://timviec365.vn/css/footer_new.css?v=2" />
-            </>
+                </div>
+            </div >
+            <link rel="stylesheet" href="https://timviec365.vn/css/footer_new.css?v=2" />
         </>
     )
 };

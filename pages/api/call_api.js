@@ -74,7 +74,7 @@ class CallApi {
   static async loginCompany(data) {
     let response = '';
     try {
-      const call = await axios.post('http://210.245.108.202:3000/api/qlc/employee/login', data);
+      const call = await axios.post('http://210.245.108.202:3000/api/qlc/Company/login', data);
       response = call;
     } catch (error) {
       response = error.response.data.error.message
@@ -103,7 +103,7 @@ class CallApi {
           'Authorization': `Bearer ${token}`
         }
       });
-      response = call;
+      response = call.data.data.data;
     } catch (error) {
       response = error.response.data.error.message
     }
@@ -119,7 +119,23 @@ class CallApi {
           'Authorization': `Bearer ${token}`
         }
       })
-      response = call;
+      response = call.data.data.data;
+    } catch (error) {
+      response = error
+    }
+    return response
+  }
+
+  // api get infor company
+  static async getInfoCom(token) {
+    let response = ''
+    try {
+      const call = await axios.post('http://210.245.108.202:3000/api/qlc/Company/info', {}, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      response = call.data.data.data;
     } catch (error) {
       response = error
     }
@@ -223,14 +239,47 @@ class CallApi {
     return response
   }
 
+  // update info personal 
+  static async updatePersonal(token) {
+    let response = ''
+    try {
+      const call = await axios.post('http://210.245.108.202:3000/api/qlc/individual/updateInfoindividual', {}, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      response = call;
+    } catch (error) {
+      response = error.response.data.error.message
+    }
+    return response
+
+  }
+  // update info employee
+  static async updateEp(token) {
+    let response = ''
+    try {
+      const call = await axios.post('http://210.245.108.202:3000/api/qlc/employee/updateInfoEmployee', {}, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      response = call;
+    } catch (error) {
+      response = error.response.data.error.message
+    }
+    return response
+
+  }
+
   // api admin
   // api get list feedback
   static async listFeedback(currentPage) {
     let response = ''
     try {
-      const call = await axios.post('http://210.245.108.202:3001/api/timviec/appli/list', {page: currentPage})
+      const call = await axios.post('http://210.245.108.202:3001/api/timviec/appli/list', { page: currentPage })
       response = call
-    } catch(error) {
+    } catch (error) {
       response = error.response.data.error.message
     }
     return response
@@ -240,9 +289,9 @@ class CallApi {
   static async listCom(currentPage) {
     let response = ''
     try {
-      const call = await axios.post('http://210.245.108.202:3001/api/timviec/appli/list', {page:currentPage})
+      const call = await axios.post('http://210.245.108.202:3001/api/timviec/appli/list', { page: currentPage })
       response = call
-    } catch(error) {
+    } catch (error) {
       response = error.response.data.error.message
     }
     return response

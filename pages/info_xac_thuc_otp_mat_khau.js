@@ -1,15 +1,11 @@
 import React from "react"
 import Header from "/components/header/Header";
 import Footer from "/components/footer/Footer";
-import Head from "next/head";
+import Seo from '../components/head'
 import { useForm } from 'react-hook-form';
-
 import handleVerifyOtp from '../utils/firebaseEvents';
 import Cookies from "js-cookie";
 
-
-
-//const inter = Inter({ subsets: [latin] })
 export default function info_xac_thuc_otp_mat_khau() {
 
     const { register, handleSubmit, watch, formState: { errors } } = useForm();

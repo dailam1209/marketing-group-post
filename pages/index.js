@@ -1,9 +1,9 @@
 import React from "react"
-import Head from '../components/head'
+import Seo from '../components/head'
 export default function ecosystem() {
     return (
         <>
-            <Head
+            <Seo
                 seo='true'
                 title='Trang chủ Quản Lý Chung Chuyển đổi số 365'
                 des='Trang quản lý chung Chuyển đổi số 365. Quản lý các phần mềm, tiện ích trong hệ thống chuyển đổi số 365'

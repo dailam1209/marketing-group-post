@@ -1,16 +1,15 @@
 import React from "react"
-import Head from "../components/head";
+import Seo from "../components/head";
 import { useForm } from 'react-hook-form';
 import Cookies from "js-cookie";
 import callApi from '../pages/api/call_api';
-import axios from 'axios'
 
 export default function register_emp() {
     // Xử lý validate form
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = async data => {
         let checkVip = await callApi.checkVip(data.id_company)
-        if(checkVip == 0) {
+        if (checkVip == 0) {
             Cookies.set('idCom', data.id_company);
             window.location.href = "/thong-tin-dang-ky-nhan-vien.html"
         } else {
@@ -19,75 +18,14 @@ export default function register_emp() {
     };
 
     return (
-        <>  
-            <Head
-            
+        <>
+            <Seo
+                seo='true'
+                title='Tham gia hệ thống chuyển đổi số số 1 Việt Nam, tối giản và tiện ích'
+                des='Tham gia hệ sinh thái chuyển đổi số tân tiến số 1 của quanlychung.timviec365.vn, nhân viên sẽ có cơ hội tận hưởng những phần mềm tiện ích nhất. Đăng ký tài khoản ngay'
+                url='https://quanlychung.timviec365.vn/dang-ky-nhan-vien.html'
             />
-                <link rel="stylesheet" href="/css/style.css" />
-                <title>
-                    Tham gia hệ thống chuyển đổi số số 1 Việt Nam, tối giản và tiện ích
-                </title>
-                <meta
-                    name="description"
-                    content="Tham gia hệ sinh thái chuyển đổi số tân tiến số 1 của quanlychung.timviec365.vn, nhân viên sẽ có cơ hội tận hưởng những phần mềm tiện ích nhất. Đăng ký tài khoản ngay"
-                />
-                <meta
-                    property="og:title"
-                    content="Tham gia hệ thống chuyển đổi số số 1 Việt Nam, tối giản và tiện ích"
-                />
-                <meta
-                    property="og:description"
-                    content="Tham gia hệ sinh thái chuyển đổi số tân tiến số 1 của quanlychung.timviec365.vn, nhân viên sẽ có cơ hội tận hưởng những phần mềm tiện ích nhất. Đăng ký tài khoản ngay"
-                />
-                <meta
-                    property="og:url"
-                    content="https://quanlychung.timviec365.vn/dang-ky-nhan-vien.html"
-                />
-                <meta
-                    property="og:image:url"
-                    content="https://quanlychung.timviec365.vn/img/bgr_nentang.png"
-                />
-                <meta property="og:type" content="website" />
-                <meta property="og:locale" content="vi_VN" />
-                <link
-                    rel="canonical"
-                    href="https://quanlychung.timviec365.vn/dang-ky-nhan-vien.html"
-                />
-                <meta charSet="UTF-8" />
-                <meta name="robots" content="noindex,nofollow" />
-                <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon" />
-                <link
-                    rel="preload"
-                    href="../fonts/Roboto-Bold.woff2"
-                    as="font"
-                    type="font/woff2"
-                    crossOrigin="anonymous"
-                />
-                <link
-                    rel="preload"
-                    href="../fonts/Roboto-Medium.woff2"
-                    as="font"
-                    type="font/woff2"
-                    crossOrigin="anonymous"
-                />
-                <link
-                    rel="preload"
-                    href="../fonts/Roboto-Regular.woff2"
-                    as="font"
-                    type="font/woff2"
-                    crossOrigin="anonymous"
-                />
-                <link rel="preload" as="style" href="../css/style.css" />
-                <link
-                    rel="stylesheet"
-                    media="all"
-                    href="../css/style.css"
-                    onload="if (media != 'all')media='all'"
-                />
-            </Head>
-            <>
+            <div className="content_ql ctn_bgr_body">
                 <div className="content_nv">
                     <div className="ctn_register_nv">
                         <form onSubmit={handleSubmit(onSubmit)} className="regnv_form regnv_form_id" autoComplete="off">
@@ -146,8 +84,9 @@ export default function register_emp() {
                         </form>
                     </div>
                 </div>
-                <link rel="stylesheet" href="https://timviec365.vn/css/footer_new.css?v=2" />
-            </>
+
+            </div>
+            <link rel="stylesheet" href="https://timviec365.vn/css/footer_new.css?v=2" />
         </>
     )
 };
