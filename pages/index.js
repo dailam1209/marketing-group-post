@@ -1,6 +1,9 @@
 import React from "react"
 import Seo from '../components/head'
-export default function ecosystem() {
+import { CheckLogin } from "../utils/function"
+
+export default function Home() {
+    CheckLogin()
     return (
         <>
             <Seo

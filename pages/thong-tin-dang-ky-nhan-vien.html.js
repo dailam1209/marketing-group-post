@@ -3,20 +3,21 @@ import { useForm } from 'react-hook-form';
 import Cookies from "js-cookie";
 import CallApi from '../pages/api/call_api';
 import Seo from '../components/head'
+import { validatePhone } from "../utils/function";
+import { registerEp } from "../utils/handleApi";
+
 
 export default function RegisterEp() {
-    // xử lý validate
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
-    const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
-    const validatePhone = (value) => {
-        if (value) {
-            return /^(032|033|034|035|036|037|038|039|086|096|097|098|081|082|083|084|085|088|087|091|094|056|058|092|070|076|077|078|079|089|090|093|099|059)+([0-9]{7})$/i.test(value);
-        }
-        return true;
-    };
-
     // lấy cookie idCom
     let idCom = Cookies.get('idCom');
+
+    // validate and submit
+    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const onSubmit = async data => {
+        data.com_id = idCom;
+        delete data.res_password;
+        registerEp(data);
+    };
 
     // get list department, group, team
     const [deps, setDep] = useState([]);
@@ -35,7 +36,7 @@ export default function RegisterEp() {
         let response = await CallApi.listDepartments(idCom);
         setDep(response);
     };
-    
+
     // chose group
     useEffect(() => {
         if (selectedDep) {
@@ -52,7 +53,7 @@ export default function RegisterEp() {
     // chose team
     useEffect(() => {
         if (selectedGroup) {
-            apiTeams(selectedDep,selectedGroup, idCom);
+            apiTeams(selectedDep, selectedGroup, idCom);
         }
     }, [selectedGroup]);
 
@@ -61,20 +62,7 @@ export default function RegisterEp() {
         setTeam(response);
     };
 
-    const onSubmit = async data => {
-        console.log(data)
-        data.com_id = idCom;
-        delete data.res_password;
-        let response = await CallApi.registerEp(data);
-        if (response.data && response.data.data && response.data.data.result == true) {
-            Cookies.set('phone', data.phoneTK);
-            Cookies.set('acc_token', response.data.data.data.access_token)
-            Cookies.set('rf_token', response.data.data.data.refresh_token)
-            window.location.href = "xac-thuc-ma-otp-nhan-vien.html";
-        } else {
-            alert(response)
-        }
-    };
+
 
     return (
         <>
@@ -151,7 +139,7 @@ export default function RegisterEp() {
                                                             {...register('password', {
                                                                 required: 'Vui lòng nhập mật khẩu',
                                                                 pattern: {
-                                                                    value: passwordPattern,
+                                                                    value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/,
                                                                     message:
                                                                         'Mật khẩu phải gồm 6 ký tự trở lên, bao gồm ít nhất một chữ cái và ít nhất một chữ số, không chứa khoảng trắng.',
                                                                 },
@@ -377,12 +365,12 @@ export default function RegisterEp() {
                                                         <label className="form_label share_fsize_three share_clr_one cr_weight">
                                                             Nhóm
                                                         </label>
-                                                        <select 
-                                                         {...register('group_id')}
-                                                        name="group_id" 
-                                                        className="form-control"
-                                                        value={selectedTeam}
-                                                        onChange={(e) => setSelectedTeam(e.target.value)}
+                                                        <select
+                                                            {...register('group_id')}
+                                                            name="group_id"
+                                                            className="form-control"
+                                                            value={selectedTeam}
+                                                            onChange={(e) => setSelectedTeam(e.target.value)}
                                                         >
                                                             <option value="">Chọn nhóm</option>
                                                             {

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Seo from '../components/head'
 import SideBar from '../components/sideBar/SideBar';
 import HeaderLogin from '../components/headerLogin/HeaderLogin';
+import EditCom from '../components/editCom'
 import CallApi from '../pages/api/call_api';
 import Cookies from "js-cookie";
 import { getEducation } from "../utils/function";
@@ -28,7 +29,9 @@ export default function DetailEmployy() {
         getData()
         setHydrated(true);
     }, [])
-    console.log(data)
+
+    // popup update info success
+    const [updateStatus, setUpdateStatus] = useState(false)
 
     // show popup change password
     const [isClicked, setIsClicked] = useState(false);
@@ -70,32 +73,10 @@ export default function DetailEmployy() {
         setShowUpdate(false);
     }
 
-    // validate update info
-    const validatePhone = (value) => {
-        if (value) {
-            return /^(032|033|034|035|036|037|038|039|086|096|097|098|081|082|083|084|085|088|087|091|094|056|058|092|070|076|077|078|079|089|090|093|099|059)+([0-9]{7})$/i.test(value);
-        }
-        return true;
-    };
-
-    const updateInfo = async data => {
-        console.log(data)
-        // try {
-        //     let response = await CallApi.updateCom(token, data);
-        //     if (response.data && response.data.data && response.data.data.result == true) {
-        //         setIsSuccess(true);
-        //     } else {
-        //         alert(response)
-        //     }
-        // } catch (error) {
-        //     setIsFalse(true);
-        // }
-    }
     if (!hydrated) {
         // Returns null on first render, so the client and server match
         return null;
     }
-
 
     return (
         <>
@@ -129,8 +110,15 @@ export default function DetailEmployy() {
                                                 <div className="avt_taikhoan ">
                                                     <div className="container_avt">
                                                         <div className="position_r text_a_c com_log_n">
+                                                            <img src={data.avatarUser}
+                                                                alt="" className="img_avt" id="myimage" />
+                                                            <img src="../img/icon_mayanh.png" alt=""
+                                                                className="img_mayanh position_a" />
+                                                            <input type="file" className="img_taianh display_none"
+                                                                defaultValue={''} />
                                                         </div>
-                                                        <p className="id">ID - 97602</p>
+
+                                                        <p className="id">{data._id}</p>
                                                     </div>
                                                 </div>
                                                 <div className="info_taikhoan">
@@ -172,81 +160,25 @@ export default function DetailEmployy() {
                         </div>
                     </div>
 
-                    {/* popup cập nhật tt */}
-                    <div className="modal_share modal_share_tow edit_tt_taikhoan" style={{ display: showUpdate ? 'block' : 'none' }}>
-                        <div className="modal-content">
-                            <div className="info_modal">
-                                <div className="modal-header">
-                                    <div className="header_ctn_share">
-                                        <h4 className="ctn_share_h share_clr_tow tex_center cr_weight_bold">Chỉnh sửa thông tin</h4>
-                                        <span className="close_detl close_dectl" onClick={closePopupUpdate}>&times;</span>
-                                    </div>
-                                </div>
-                                <div className="modal-body">
-                                    <div className="ctn_body_modal">
-                                        <div className="madal_form">
-                                            <form onSubmit={handleSubmit(updateInfo)}
-                                                className="edit_share_form share_distance edit_tt_taikhoan_form">
-                                                <div className="form-group">
-                                                    <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
-                                                        Tên công ty <span className="cr_red">*</span></label>
-                                                    <input type="text" name="userName" className="form-control share_fsize_one share_clr_one"
-                                                        placeholder="Nhập tên công ty"
-                                                        {...register("userName", {
-                                                            required: 'Không được để trống',
-                                                        })}
-                                                        defaultValue={data.userName}
-                                                    />
-                                                    {errors.userName && <label className="error">{errors.userName.message}</label>} 
-                                                    {/* <textarea type="text" id="user_name" className="user_name" name="name_ct" style="resize: none;height: auto;min-height:92px;font-size: 16px;line-height: 24px;padding:10px 15px;width:100%;color: #666666;border-radius: 5px;border: 1px solid #DDDDDD;" placeholder="Nhập tên công ty" value="<?= $com_name ?>"></textarea> */}
+                    {(showUpdate) && <EditCom closePopupUpdate={closePopupUpdate} data={data} setUpdateStatus={setUpdateStatus}/>}
 
+                    {/* chỉnh sửa tt thành công */}
+                    <div class="modal_share modal_share_three edit_tt_success" style={{ display: updateStatus ? 'block' : 'none' }}>
+                        <div class="modal-content">
+                            <div class="info_modal">
+                                <div class="modal-body">
+                                    <div class="ctn_body_modal">
+                                        <div class="content_notif">
+                                            <div class="avt_notif notif_mar">
+                                                <img src="../img/thongbao.png" alt="" />
+                                            </div>
+                                            <p class="titl_notif">Chỉnh sửa thông tin thành công!</p>
+                                            <div class="form_butt_ht">
+                                                <div class="tow_butt_flex">
+                                                    <a type="button" href="/quan-ly-thong-tin-tai-khoan-cong-ty.html"
+                                                        class="font_s15 share_clr_tow share_bgr_one dong_button close_button_share" >Đóng</a>
                                                 </div>
-                                                <div className="form-group">
-                                                    <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
-                                                        Số điện thoại liên hệ <span className="cr_red">*</span></label>
-                                                    <input type="text" name="phone" className="form-control share_fsize_one share_clr_one"
-                                                        placeholder="Nhập số điện thoại" 
-                                                        {...register("phone", {
-                                                            validate: {
-                                                                validatePhone: (value) => validatePhone(value) || "Hãy nhập đúng định dạng số điện thoại"
-                                                            }
-                                                        })}
-                                                        defaultValue={data.phone || data.phoneTK || ''}
-                                                    />
-                                                    {errors.phone && <label className="error">{errors.phone.message}</label>}
-                                                </div>
-                                                <div className="form-group">
-                                                    <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
-                                                        Email <span className="cr_red">*</span></label>
-                                                    <input type="text" name="email" className="form-control share_fsize_one share_clr_one"
-                                                        placeholder=""
-                                                        value={data.email || ''} readOnly defaultValue={'data.email'} />
-                                                </div>
-                                                <div className="form-group">
-                                                    <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
-                                                        Địa chỉ <span className="cr_red">*</span></label>
-                                                    <input type="text" name="address" className="form-control share_fsize_one share_clr_one"
-                                                        placeholder="Nhập địa chỉ công ty"
-                                                        defaultValue={data.address}
-                                                        {...register("userName", {
-                                                            required: 'Không được để trống',
-                                                        })}
-                                                    />
-                                                    {errors.address && <label className="error">{errors.address.message}</label>}
-
-                                                    {/* <textarea type="text" id="user_address" className="user_address" name="address" value="<?= $com_address ?>" style="resize: none;height: auto;min-height:92px;font-size: 16px;line-height: 24px;padding:10px 15px;width:100%;color: #666666;border-radius: 5px;border: 1px solid #DDDDDD;" placeholder="Nhập địa chỉ"></textarea> */}
-                                                </div>
-                                                <div className="form_butt_ht">
-                                                    <div className="tow_butt_flex">
-                                                        <button type="button" className="js_btn_huy btn_d btn_trang btn_140" onClick={closePopupUpdate}>
-                                                            Hủy
-                                                        </button>
-                                                        <button type="submit" className="btn_d btn_xanh btn_140 com_save">
-                                                            Hoàn thành
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

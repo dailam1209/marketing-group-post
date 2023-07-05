@@ -1,14 +1,12 @@
 import { React, useEffect, useState } from 'react';
-import Link from 'next/link'
 import Cookies from "js-cookie";
-import CallApi from '../../pages/api/call_api';
 import OptionUser from '../optionUser/OptionUser';
+import { infoCom, infoEp, infoPersonal } from '../../utils/handleApi';
 
 export default function HeaderLogin() {
-    let token = Cookies.get('acc_token');
+
     let type = Cookies.get('role');
 
-    // gọi api lấy thông tin nhân viên
     const [data, setData] = useState([]);
 
     const [option, setOption] = useState(false);
@@ -24,14 +22,14 @@ export default function HeaderLogin() {
         const getData = async () => {
             try {
                 if (type == '2') {
-                    let response = await CallApi.getInfoEp(token);
-                    setData(response);
+                    let response = await infoEp();
+                    setData(response.data);
                 } else if (type == '1') {
-                    let response = await CallApi.getInfoCom(token);
-                    setData(response);
+                    let response = await infoCom();
+                    setData(response.data);
                 } else {
-                    let response = await CallApi.getInfoPersonal(token);
-                    setData(response);
+                    let response = await infoPersonal();
+                    setData(response.data);
                 }
             } catch (error) {
                 console.log('Error:', error);

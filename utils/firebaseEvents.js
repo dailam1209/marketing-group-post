@@ -50,8 +50,8 @@ const handleVerifyOtp = async (account) => {
                         const guiMa = document.querySelector('.gui_ma');
                         guiMa.classList.remove('hidden');
 
-                        const guiLai = document.querySelector('.gui_lai_otp');
-                        guiLai.classList.remove('hidden');
+                        // const guiLai = document.querySelector('.gui_lai_otp');
+                        // guiLai.classList.remove('hidden');
                     }).catch((error) => {
                         console.log(error)
                     });

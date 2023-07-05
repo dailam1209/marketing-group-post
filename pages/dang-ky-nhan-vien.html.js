@@ -3,9 +3,11 @@ import Seo from "../components/head";
 import { useForm } from 'react-hook-form';
 import Cookies from "js-cookie";
 import { checkVip } from "../utils/handleApi";
-
+import { CheckLogin } from "../utils/function"
 
 export default function RegisterEp() {
+    CheckLogin()
+    
     // Xử lý validate form
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = async data => {

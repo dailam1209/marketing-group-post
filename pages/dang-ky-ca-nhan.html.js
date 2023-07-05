@@ -1,30 +1,17 @@
 import React from "react"
 import Seo from "../components/head";
 import { useForm } from 'react-hook-form';
-import Cookies from "js-cookie";
-import CallApi from './api/call_api';
+import { CheckLogin, validatePhone } from "../utils/function"
+import { registerPersonal } from "../utils/handleApi";
 
 export default function RegisterPersonal() {
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
-    const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
-    const validatePhone = (value) => {
-        if (value) {
-            return /^(032|033|034|035|036|037|038|039|086|096|097|098|081|082|083|084|085|088|087|091|094|056|058|092|070|076|077|078|079|089|090|093|099|059)+([0-9]{7})$/i.test(value);
-        }
-        return true;
-    };
+    CheckLogin()
 
+    // validate and submit
+    const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const onSubmit = async data => {
         delete data.res_password;
-        let response = await CallApi.registerPersonal(data);
-        if (response.data && response.data.data && response.data.data.result == true) {
-            Cookies.set('phone', data.phoneTK);
-            Cookies.set('acc_token', response.data.data.data.access_token)
-            Cookies.set('rf_token', response.data.data.data.refresh_token)
-            window.location.href = "/xac-thuc-ma-otp-ca-nhan.html";
-        } else {
-            alert(response)
-        }
+        registerPersonal(data);
     };
 
     return (
@@ -94,7 +81,7 @@ export default function RegisterPersonal() {
                                                 {...register('password', {
                                                     required: 'Vui lòng nhập mật khẩu',
                                                     pattern: {
-                                                        value: passwordPattern,
+                                                        value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/,
                                                         message:
                                                             'Mật khẩu phải gồm 6 ký tự trở lên, bao gồm ít nhất một chữ cái và ít nhất một chữ số, không chứa khoảng trắng.',
                                                     },

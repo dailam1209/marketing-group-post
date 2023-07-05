@@ -1,4 +1,5 @@
 import { React, useState, useEffect } from 'react'
+import Cookies from 'js-cookie'
 
 export default function OptionUser(props) {
     const [link, setLink] = useState('')
@@ -9,6 +10,13 @@ export default function OptionUser(props) {
             setLink('/quan-ly-thong-tin-tai-khoan-nhan-vien.html')
         }
     })
+
+    const logout = () => {
+        Cookies.remove('acc_token');
+        Cookies.remove('rf_token');
+        Cookies.remove('role');
+        window.location.href = '/';
+    }
 
     return (
         <>
@@ -39,8 +47,8 @@ export default function OptionUser(props) {
                         )
                     }
                     <a className="nav-item">
-                        <li className="nav-child-item share_clr_one share_fsize_one btx_logout">
-                            <span className="item_ic"><img src="../img/dang-xuat.png" alt="" /></span>
+                        <li className="nav-child-item share_clr_one share_fsize_one btx_logout" onClick={logout}>
+                            <span className="item_ic"><img src="../img/dang-xuat.png" alt=""/></span>
                             Đăng xuất
                         </li>
                     </a>

@@ -1,41 +1,70 @@
-import {React, useState, useEffect} from "react"
+import { React, useState, useEffect } from "react"
 import ReactPaginate from 'react-paginate';
 import CallApi from '../api/call_api';
+import { ConvertIntToDate } from '../../utils/function'
+import HeaderAdmin from "../../components/headerAdmin";
+import Cookies from "js-cookie";
+import { useForm } from 'react-hook-form'
 
 export default function Admin() {
+    if (!Cookies.get('admin')) {
+        // window.location.href = "/admin"
+    }
+
+
+    const [currentPage, setCurrentPage] = useState()
+    const [valueSend, setValueSend] = useState({})
+
+    const { register, handleSubmit } = useForm();
+    const onSubmit = async data => {
+        setValueSend(data)
+        let response = await CallApi.listCom(data)
+        getlistCom(response.data.data.data)
+        const totalItems = response.data.data.count;
+        const itemsPerPage = 20
+        const totalPages = Math.ceil(totalItems / itemsPerPage);
+        getTotalPage(totalPages)
+        setCount(totalItems)
+    };
+
     // pagination and get list company
     const [listCom, getlistCom] = useState({})
     const [totalPages, getTotalPage] = useState()
     const [isLoad, getIsLoad] = useState(false)
+    const [count, setCount] = useState()
     const handlePageChange = async (selected) => {
+        valueSend.pageNumber = selected.selected + 1
         try {
-            let response = await CallApi.listCom(selected.selected + 1)
-            getlistCom(response.data.data.items)
+            let response = await CallApi.listCom(valueSend)
+            getlistCom(response.data.data.data)
             const totalItems = response.data.data.count;
-            const itemsPerPage = 20
+            const itemsPerPage = 25
             const totalPages = Math.ceil(totalItems / itemsPerPage);
-            getTotalPage(totalPages);
+            getTotalPage(totalPages)
+            setCurrentPage(selected.selected)
         } catch (error) {
             alert(error)
         }
     };
+    console.log(valueSend)
     useEffect(() => {
         const getData = async () => {
             try {
-                let response = await CallApi.listCom('')
-                getlistCom(response.data.data.items)
+                let response = await CallApi.listCom()
+                getlistCom(response.data.data.data)
                 const totalItems = response.data.data.count;
-                const itemsPerPage = 20; //
+                const itemsPerPage = 25; //
                 const totalPages = Math.ceil(totalItems / itemsPerPage);
-                getTotalPage(totalPages);
+                getTotalPage(totalPages)
+                setCount(totalItems)
             } catch (error) {
                 alert(error)
             }
             getIsLoad(true)
         }
-        console.log('test')
         getData()
     }, [])
+    console.log(listCom)
 
     // click for active user
     const activeUser = async (id) => {
@@ -49,9 +78,12 @@ export default function Admin() {
         console.log(active)
     }
 
+    console.log(listCom)
+
     if (!isLoad) {
         return
-    } else {
+    }
+    else {
         return (
             <>
                 <meta httpEquiv="content-type" content="text/html; charset=UTF-8" />
@@ -60,41 +92,27 @@ export default function Admin() {
                 {/* <link href="#" rel="shortcut icon" /> */}
                 <link rel="stylesheet" href="../css/admin.css" type="text/css" />
 
-                <div id="header">
-                    <div className="logo">
-                        <a href="https://vieclamtaihanoi.com.vn/admin">
-                            <img src="../img/admin-logo.png" />
-                        </a>
-                    </div>
-                    <div className="header-right">
-                        Chào{" "}
-                        <a
-                            href="https://vieclamtaihanoi.com.vn/admin/edit_thanhvien/2"
-                            className="name-admin"
-                        >
-                            Administrator
-                        </a>
-                        <a className="exit" href="https://vieclamtaihanoi.com.vn/admin/thoat">
-                            Thoát
-                        </a>
-                    </div>
-                </div>
+                <HeaderAdmin />
 
                 <div className="content-inner">
                     <div className="form-search" style={{ position: 'unset' }}>
-                        <form name="frmsearch" method="post" style={{ margin: '15px 0' }} action="https://vieclamtaihanoi.com.vn/admin/danhsachcongty">
-                            <input defaultValue='' style={{ float: 'left' }} className="text-search" name="findkey" id="findkey" type="text" value="" placeholder="Từ khóa tìm kiếm" />
+                        <form onSubmit={handleSubmit(onSubmit)} name="frmsearch" style={{ margin: '15px 0' }} >
+                            <input defaultValue='' style={{ float: 'left' }} className="text-search" name="find" id="findkey" type="text"  placeholder="Từ khóa tìm kiếm"
+                                {...register("find", {
+                                })} />
                             <div style={{ float: 'left', marginright: '10px' }}>
                                 <span>Từ Ngày : </span>
-                                <input type="date" id="startdate" name="startdate" className="startdate" defaultValue="" />
+                                <input type="date" id="startdate" name="inputOld" className="startdate" defaultValue="" {...register("inputOld", {
+                                })} />
                                 <br />
                             </div>
                             <div style={{ float: 'left' }}>
                                 <span>Đến Ngày : </span>
-                                <input type="date" id="enddate" name="enddate" className="enddate" defaultValue="" />
+                                <input type="date" id="enddate" name="inputNew" className="enddate" defaultValue="" {...register("inputNew", {
+                                })} />
                                 <br />
                             </div>
-                            <div style={{ float: 'left', marginleft: '10px' }}>
+                            {/* <div style={{ float: 'left', marginleft: '10px' }}>
                                 <span>Nguồn : </span>
                                 <select defaultValue={'0'} name="nguon">
                                     <option value="0">Tất cả</option>
@@ -102,20 +120,37 @@ export default function Admin() {
                                     <option value="2">PC 365</option>
                                 </select>
                                 <br />
+                            </div> */}
+                            <div style={{ float: 'left', marginleft: '10px' }}>
+                                <span>Loại công ty : </span>
+                                <select {...register("findConditions", {
+                                })} defaultValue={0}>
+                                    <option value="0">Tất cả</option>
+                                    <option value="1">Công ty đang vip</option>
+                                    <option value="2">Công ty từng vip</option>
+                                    <option value="3">Công ty chưa vip</option>
+                                    <option value="4">Công ty đăng kí lỗi, chưa kích hoạt</option>
+                                    <option value="5">Công ty đăng kí ltrong ngày</option>
+                                    <option value="6">Công ty sử dụng chấm công trong ngày</option>
+                                </select>
+                                <br />
                             </div>
                             <input className="button_w" type="submit" name="submit" defaultValue="Tìm kiếm" />
+                        <a className="link_feedback" href="/admin/danh-sach-tt-feedback">Lấy danh sách feedback</a>
                         </form>
                     </div >
-                    <form method="post"><button type="submit" name="export_excel" id="export_excel">Xuất Excel</button></form>
-                    <p style={{ marginbottom: '10px', float: 'left', width: '100%', fontsize: '14px' }}>Tổng 183 kết quả</p>
+                    {/* <form method="post"><button type="submit" name="export_excel" id="export_excel">Xuất Excel</button></form> */}
+                    <p style={{ marginbottom: '10px', float: 'left', width: '100%', fontsize: '14px' }}>Tổng {count} kết quả</p>
                     <table style={{ display: 'block', width: "100%" }}>
                         <thead>
                             <tr className="title">
-                                <td align="center" style={{ width: "5%" }} >STT</td>
+                                {/* <td align="center" style={{ width: "5%" }} >STT</td> */}
                                 <td align="center" style={{ width: "5%" }}>ID Công ty</td>
                                 <td align="center" style={{ width: "12%" }}>Tên công ty</td>
-                                <td>Email</td>
-                                <td>Số điện thoại</td>
+                                <td>Email(DN)</td>
+                                <td>Số điện thoại(DN)</td>
+                                <td>Số điện thoại(LH)</td>
+                                <td>Email(LH)</td>
                                 <td style={{ width: "8%" }}>Địa chỉ</td>
                                 <td>Ngày tạo</td>
                                 <td>Tình trạng</td>
@@ -129,29 +164,36 @@ export default function Admin() {
                         </thead>
                         <tbody>
                             {listCom?.map(item => (
-                            <tr>
-                                <td align="center">1</td>
-                                <td align="center">{item._id}</td>
-                                <td align="center">công ty may lgg</td>
-                                <td align="center">lethip421@gmail.com</td>
-                                <td align="center">0966181051</td>
-                                <td align="center">đoi giang an Hà lạng Giang Bắc Giang </td>
-                                <td align="center">2023-07-02 20:10:36</td>
-                                <td align="center">
-                                    <a className="status" onClick={() => activeUser(item._id)}><img src="../img/publish_x.png" /></a>
-                                </td>
-                                <td align="center">
-                                    <a className="status" onClick={() => activeVip(item._id)}><img src="../img/publish_x.png" /></a>
-                                </td>
-                                <td align="center">
-                                    <a>0 nhân viên</a>
-                                </td>
-                                {/* <td style={{align:"center"}} id='com_117930'> <span style={{display: block;cursor: pointer;}} onClick="change_nv(117930,5)"> 5</span></td> */}
-                                <td align="center" id='com_117930'> <span style={{ display: 'block', cursor: 'pointer' }}> 5</span></td>
-                                <td align="center"></td>
-                                <td align="center"><a target="_blank" href="/admin/changePassCom/117930">Sửa</a></td>
-                                <td align="center"><a target="_blank" href="/admin/thdoi_sluong_thhan/117930">Sửa</a></td>
-                            </tr>
+                                <tr>
+                                    {/* <td align="center">{(currentPage * 25) + 1}</td> */}
+                                    <td align="center">{item.idQLC}</td>
+                                    <td align="center">{item.userName}</td>
+                                    <td align="center">{item.email}</td>
+                                    <td align="center">{item.phoneTK}</td>
+                                    <td align="center">{item.phone}</td>
+                                    <td align="center">{item.emailContact}</td>
+                                    <td align="center">{item.address}</td>
+                                    <td align="center">{ConvertIntToDate(item.createdAt)}</td>
+                                    <td align="center">
+                                        <a className="status" onClick={() => activeUser(item._id)}>
+                                            {(item.authentic == 0) ? (<img src="../img/publish_x.png" />) : (<img src="../img/tick.png" />)}
+
+
+                                        </a>
+                                    </td>
+                                    <td align="center">
+                                        <a className="status" onClick={() => activeVip(item._id)}>
+                                            {(item.inForCompany && item.inForCompany.cds.com_vip == 0) ? (<img src="../img/publish_x.png" />) : (<img src="../img/tick.png" />)}
+                                        </a>
+                                    </td>
+                                    <td align="center">
+                                        <a>{item.count_emp} nhân viên</a>
+                                    </td>
+                                    <td align="center" id='com_117930'> <span style={{ display: 'block', cursor: 'pointer' }}>{item.inForCompany && (item.inForCompany.cds.com_ep_vip)}</span></td>
+                                    <td align="center">{item.inForCompany && item.inForCompany.cds.com_vip != 0 && (ConvertIntToDate(item.inForCompany.cds.com_vip_time))[0]}</td>
+                                    <td align="center"><a target="_blank" href={'/admin/change-pass-com?id=' + item.idQLC}>Sửa</a></td>
+                                    <td align="center"><a target="_blank" href={'/admin/update-vip?id=' + item.idQLC}>Sửa</a></td>
+                                </tr>
                             ))}
                         </tbody>
                     </table>

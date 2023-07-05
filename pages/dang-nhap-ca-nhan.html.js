@@ -1,9 +1,5 @@
 import React, { useState } from "react"
 import Seo from "../components/head";
-import { useForm } from 'react-hook-form';
-import Link from 'next/link'
-import { loginPersonal } from "../utils/handleApi";
-import { validatePhone } from "../utils/function";
 import LoginForm from "../components/loginForm"
 import LoginQr from "../components/loginQr"
 import QrGuild from "../components/qrGuild"
@@ -13,6 +9,7 @@ export default function LoginPersonal() {
     const [typeLogin, setTypeLogin] = useState('login_qr')
     const [active, setActive] = useState('login_qr')
     const [qrGuild, setQrGuild] = useState(false)
+    const [notiError, setNotiError] = useState(false)
 
     const loginByForm = () => {
         setTypeLogin('login_form');
@@ -66,7 +63,7 @@ export default function LoginPersonal() {
                                         Đăng nhập nền tảng chuyển đổi số chất lượng, bắt trọn cơ hội
                                         phát triển
                                     </h1>
-                                    <p className="error_lg hidden tex_center share_fsize_three">
+                                    <p className={`error_lg tex_center share_fsize_three ${(notiError == false) ? 'hidden' : ''}`}>
                                         Thông tin tài khoản hoặc mật khẩu không chính xác
                                     </p>
                                     <div className="box_select_type">
@@ -78,15 +75,15 @@ export default function LoginPersonal() {
                                             TÀI KHOẢN<span className="text">(email)</span>
                                         </button>
                                     </div>
-                                    {typeLogin == 'login_form' && <LoginForm/>}
-                                    {typeLogin == 'login_qr' && <LoginQr qrGuildShow={qrGuildShow}/>}
+                                    {typeLogin == 'login_form' && <LoginForm setNotiError={setNotiError} type='3' />}
+                                    {typeLogin == 'login_qr' && <LoginQr qrGuildShow={qrGuildShow} />}
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            {(qrGuild) && <QrGuild qrGuildHide={qrGuildHide}/>}
+            {(qrGuild) && <QrGuild qrGuildHide={qrGuildHide} />}
             <link rel="stylesheet" href="https://timviec365.vn/css/footer_new.css?v=2" />
 
         </>)
