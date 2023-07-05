@@ -1,7 +1,7 @@
 import { React, useEffect, useState } from 'react';
 import Link from 'next/link'
 import Cookies from "js-cookie";
-import callApi from '../../pages/api/call_api';
+import CallApi from '../../pages/api/call_api';
 import OptionUser from '../optionUser/OptionUser';
 
 export default function HeaderLogin() {
@@ -24,13 +24,13 @@ export default function HeaderLogin() {
         const getData = async () => {
             try {
                 if (type == '2') {
-                    let response = await callApi.getInfoEp(token);
+                    let response = await CallApi.getInfoEp(token);
                     setData(response);
                 } else if (type == '1') {
-                    let response = await callApi.getInfoCom(token);
+                    let response = await CallApi.getInfoCom(token);
                     setData(response);
                 } else {
-                    let response = await callApi.getInfoPersonal(token);
+                    let response = await CallApi.getInfoPersonal(token);
                     setData(response);
                 }
             } catch (error) {

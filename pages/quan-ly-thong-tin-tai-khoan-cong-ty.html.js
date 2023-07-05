@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import Seo from '../components/head'
 import SideBar from '../components/sideBar/SideBar';
 import HeaderLogin from '../components/headerLogin/HeaderLogin';
-import callApi from '../pages/api/call_api';
+import CallApi from '../pages/api/call_api';
 import Cookies from "js-cookie";
 import { getEducation } from "../utils/function";
 import { useForm } from 'react-hook-form';
 
-export default function detailEmployy() {
+export default function DetailEmployy() {
     // fix first render 
     const [hydrated, setHydrated] = useState(false);
 
@@ -18,18 +18,18 @@ export default function detailEmployy() {
     useEffect(() => {
         const getData = async () => {
             try {
-                let response = await callApi.getInfoCom(token);
-                setData(response.data.data.data)
+                let response = await CallApi.getInfoCom(token);
+                setData(response)
             }
             catch (error) {
-                alert(error.response.data.error.message);
+                console.log(error);
             }
         }
         getData()
         setHydrated(true);
     }, [])
     console.log(data)
-    
+
     // show popup change password
     const [isClicked, setIsClicked] = useState(false);
     const showPopup = () => {
@@ -50,7 +50,7 @@ export default function detailEmployy() {
 
     const onSubmit = async data => {
         try {
-            let response = await callApi.changePassCom(token, data);
+            let response = await CallApi.changePassCom(token, data);
             if (response.data && response.data.data && response.data.data.result == true) {
                 setIsSuccess(true);
             } else {
@@ -104,26 +104,26 @@ export default function detailEmployy() {
                                                 </div>
                                                 <div className="info_taikhoan">
                                                     <div className="cont">
-                                                        <p className="content d_title title_20" style={{ fontsize: '20px' }}>Công Ty Cổ Phần Phad                                                </p>
+                                                        <p className="content d_title title_20" style={{ fontsize: '20px' }}>{data.userName}</p>
                                                         <p className="content d_flex">
                                                             <span>Địa chỉ email:</span>
-                                                            <span>viettop8462@gmail.com</span>
+                                                            <span>{data.email || 'Chưa cập nhật'}</span>
                                                         </p>
                                                         <p className="content d_flex">
                                                             <span>Số điện thoại:</span>
-                                                            <span>0944531628</span>
+                                                            <span>{data.phone || data.phoneTK || 'Chưa cập nhật'}</span>
                                                         </p>
                                                         <p className="content d_flex">
                                                             <span>Địa chỉ:</span>
-                                                            <span>Cổ Nhuế 1</span>
+                                                            <span>{data.address}</span>
                                                         </p>
                                                         <p className="content d_flex">
                                                             <span>Phòng ban:</span>
-                                                            <span>0</span>
+                                                            <span>{data.departmentsNum}</span>
                                                         </p>
                                                         <p className="content d_flex">
                                                             <span>Nhân sự:</span>
-                                                            <span>1</span>
+                                                            <span>{data.userNum}</span>
                                                         </p>
                                                     </div>
                                                     <div className="d_flex container_btn">
@@ -141,6 +141,70 @@ export default function detailEmployy() {
                         </div>
                     </div>
 
+                    {/* popup cập nhật tt */}
+                    <div className="modal_share modal_share_tow edit_tt_taikhoan">
+                        <div className="modal-content">
+                            <div className="info_modal">
+                                <div className="modal-header">
+                                    <div className="header_ctn_share">
+                                        <h4 className="ctn_share_h share_clr_tow tex_center cr_weight_bold">Chỉnh sửa thông tin</h4>
+                                        <span className="close_detl close_dectl">&times;</span>
+                                    </div>
+                                </div>
+                                <div className="modal-body">
+                                    <div className="ctn_body_modal">
+                                        <div className="madal_form">
+                                            <form action="" method="" enctype="multipart/form-data"
+                                                className="edit_share_form share_distance edit_tt_taikhoan_form">
+                                                <div className="form-group">
+                                                    <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
+                                                        Tên công ty <span className="cr_red">*</span></label>
+                                                    <input type="text" name="name_ct" className="form-control share_fsize_one share_clr_one"
+                                                        placeholder="Nhập tên công ty"
+                                                        value={data.userName || ''} />
+                                                    {/* <textarea type="text" id="user_name" className="user_name" name="name_ct" style="resize: none;height: auto;min-height:92px;font-size: 16px;line-height: 24px;padding:10px 15px;width:100%;color: #666666;border-radius: 5px;border: 1px solid #DDDDDD;" placeholder="Nhập tên công ty" value="<?= $com_name ?>"></textarea> */}
+
+                                                </div>
+                                                <div className="form-group">
+                                                    <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
+                                                        Số điện thoại <span className="cr_red">*</span></label>
+                                                    <input type="text" name="phone" className="form-control share_fsize_one share_clr_one"
+                                                        placeholder="Nhập số điện thoại" value={data.phone || ''} />
+                                                </div>
+                                                <div className="form-group">
+                                                    <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
+                                                        Email <span className="cr_red">*</span></label>
+                                                    <input type="text" name="email" className="form-control share_fsize_one share_clr_one"
+                                                        placeholder="Nhập địa chỉ email"
+                                                        value={data.email || ''} readOnly />
+                                                </div>
+                                                <div className="form-group">
+                                                    <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
+                                                        Địa chỉ <span className="cr_red">*</span></label>
+                                                    <input type="text" name="address" className="form-control share_fsize_one share_clr_one"
+                                                        placeholder="Nhập địa chỉ công ty"
+                                                        value={data.address || ''} />
+                                                    {/* <textarea type="text" id="user_address" className="user_address" name="address" value="<?= $com_address ?>" style="resize: none;height: auto;min-height:92px;font-size: 16px;line-height: 24px;padding:10px 15px;width:100%;color: #666666;border-radius: 5px;border: 1px solid #DDDDDD;" placeholder="Nhập địa chỉ"></textarea> */}
+                                                </div>
+                                                <div className="form_butt_ht">
+                                                    <div className="tow_butt_flex">
+                                                        <button type="button" className="js_btn_huy btn_d btn_trang btn_140">
+                                                            Hủy
+                                                        </button>
+                                                        <button type="button" className="btn_d btn_xanh btn_140 com_save">
+                                                            Hoàn thành
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* popup đổi mk */}
                     <div className="modal_share modal_share_tow edit_tt_matkhau" style={{ display: isClicked ? 'block' : 'none' }}>
                         <div className="modal-content">
                             <div className="info_modal">

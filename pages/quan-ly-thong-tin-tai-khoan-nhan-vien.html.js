@@ -18,10 +18,10 @@ export default function detailEmployy() {
             try {
                 if (type == '2') {
                     let response = await callApi.getInfoEp(token);
-                    setData(response.data.data.data)
+                    setData(response)
                 } else {
                     let response = await callApi.getInfoPersonal(token);
-                    setData(response.data.data.data)
+                    setData(response)
                 }
             }
             catch (error) {
@@ -164,7 +164,7 @@ export default function detailEmployy() {
                                                         </p>
                                                         <p className="content d_flex">
                                                             <span>Số điện thoại:</span>
-                                                            <span>$ep_phone</span>
+                                                            <span>{data.phone}</span>
                                                         </p>
                                                         <p className="content d_flex">
                                                             <span>Ngày sinh:</span>
