@@ -281,11 +281,28 @@ class CallApi {
     return response
 
   }
+
   // update info employee
   static async updateEp(token) {
     let response = ''
     try {
       const call = await axios.post('http://210.245.108.202:3000/api/qlc/employee/updateInfoEmployee', {}, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      response = call;
+    } catch (error) {
+      response = error.response.data.error.message
+    }
+    return response
+  }
+
+  // update info company
+  static async updateCom(token) {
+    let response = ''
+    try {
+      const call = await axios.post('http://210.245.108.202:3000/api/qlc/Company/updateInfoCompany', {}, {
         headers: {
           'Authorization': `Bearer ${token}`
         }

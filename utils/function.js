@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 export function getEducation(id) {
     const arr = [];
@@ -28,12 +29,13 @@ export function validatePhone(value) {
 }
 
 // function call api
-export const functionAPI = async (url, data, token) => {
+export const functionAPI = async (url, data = null) => {
     let configHeader = {
         headers: {}
     };
-    if (token) {
-        configHeader.headers['Authorization'] = `Bearer ${token}`;
+
+    if (Cookies.get('acc_token')) {
+        configHeader.headers['Authorization'] = `Bearer ${Cookies.get('acc_token')}`;
     }
 
     let configData = {}
