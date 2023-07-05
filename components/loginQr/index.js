@@ -14,7 +14,7 @@ export default function LoginQr(props) {
                     />
                 </div>
                 <p className="text_qr">Sử dụng ứng dụng Chat365 để quét mã QR</p>
-                <button type="button" className="help_qr" onClick={props.helper_login}>Hướng dẫn quét</button>
+                <button type="button" className="help_qr" onClick={props.qrGuildShow}>Hướng dẫn quét</button>
             </div>
 
         </>

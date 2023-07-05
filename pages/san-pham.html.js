@@ -8,8 +8,8 @@ export default function Product() {
         seo=''
         title='Trang sản phẩm'
       />
-    
-      <div className="content_ql">
+
+      <div className="content_ql share_sp">
         <div className="cnt_ttone">
           <div className="one_bod_td">
             <div className="container">
@@ -1476,7 +1476,7 @@ export default function Product() {
               </div>
             </div>
           </div>
-        </div>{" "}
+        </div>
       </div>
       <link rel="stylesheet" href="https://timviec365.vn/css/footer_new.css?v=2" />
     </>

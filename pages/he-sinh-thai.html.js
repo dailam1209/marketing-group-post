@@ -9,7 +9,7 @@ export default function Ecosystem() {
         seo=''
       />
 
-      <div className="content_ql">
+      <div className="content_ql share_sp">
         <div className="ctn_ttthree">
           <div className="container">
             <div className="one_bod_td three_bod_td">

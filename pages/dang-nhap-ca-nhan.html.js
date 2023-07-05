@@ -6,45 +6,30 @@ import { loginPersonal } from "../utils/handleApi";
 import { validatePhone } from "../utils/function";
 import LoginForm from "../components/loginForm"
 import LoginQr from "../components/loginQr"
+import QrGuild from "../components/qrGuild"
 
 export default function LoginPersonal() {
     // handle interaction
     const [typeLogin, setTypeLogin] = useState('login_qr')
+    const [active, setActive] = useState('login_qr')
+    const [qrGuild, setQrGuild] = useState(false)
+
     const loginByForm = () => {
         setTypeLogin('login_form');
+        setActive('login_form');
     };
 
     const loginByQr = () => {
         setTypeLogin('login_qr');
+        setActive('login_qr');
     };
 
-    // const loginByAccount = () => {
-    //     const loginByAcc = document.querySelector('.account');
-    //     loginByAcc.classList.remove('dbn');
-    //     const btnAcc = document.querySelector('.login_tk');
-    //     btnAcc.classList.add('active');
-    //     const LoginByqr = document.querySelector('.scan_qr');
-    //     LoginByqr.classList.add('dbn');
-    //     const btnQr = document.querySelector('.lg_qr');
-    //     btnQr.classList.remove('active');
-    // }
-    // const loginByQr = () => {
-    //     const loginByAcc = document.querySelector('.account');
-    //     loginByAcc.classList.add('dbn');
-    //     const btnAcc = document.querySelector('.login_tk');
-    //     btnAcc.classList.remove('active');
-    //     const LoginByqr = document.querySelector('.scan_qr');
-    //     LoginByqr.classList.remove('dbn');
-    //     const btnQr = document.querySelector('.lg_qr');
-    //     btnQr.classList.add('active');
-    // }
-    const helper_login = () => {
-        const hidden_help = document.querySelector('.popup_helper_qr');
-        hidden_help.classList.remove('dbn');
+    const qrGuildShow = () => {
+        setQrGuild(true);
     }
-    const closeGuild = () => {
-        const close = document.querySelector('.popup_helper_qr');
-        close.classList.add('dbn');
+
+    const qrGuildHide = () => {
+        setQrGuild(false);
     }
 
     return (
@@ -85,69 +70,23 @@ export default function LoginPersonal() {
                                         Thông tin tài khoản hoặc mật khẩu không chính xác
                                     </p>
                                     <div className="box_select_type">
-                                        <button className="select_login lg_qr active" onClick={loginByQr}>
+                                        <button className={`select_login lg_qr ${(active == 'login_qr') ? 'active' : ''}`} onClick={loginByQr}>
                                             QUÉT MÃ QR
                                         </button>
                                         <div className="line" />
-                                        <button className="select_login login_tk" onClick={loginByForm}>
+                                        <button className={`select_login login_tk ${(active == 'login_form') ? 'active' : ''}`} onClick={loginByForm}>
                                             TÀI KHOẢN<span className="text">(email)</span>
                                         </button>
                                     </div>
                                     {typeLogin == 'login_form' && <LoginForm/>}
-                                    {typeLogin == 'login_qr' && <LoginQr helper_login={helper_login}/>}
-
-                                    
-                                    {/* ----- model popup hướng dẫn ----- */}
-                                    <div className="popup popup_helper_qr dbn" >
-                                        <div className="content_body">
-                                            <button type="button" className="btn_close" >
-                                                <span className="cl_c" aria-hidden="true">
-                                                    ×
-                                                </span>
-                                            </button>
-                                            <p className="title_popup">Hướng dẫn quét QR</p>
-                                            <div
-                                                className="img_qr"
-                                                id="qrcode_popup"
-                                                title='{"QRType":"QRLoginPc","idQR":"YTEyNjM0MmMtZjk1NS00YzkyLTgxOGQtMjhjNzM1ZGJkNWM5++","IdComputer":"a126342c-f955-4c92-818d-28c735dbd5c9","NameComputer":"Chrome, version: 113.0.0.0","latitude":"","longitude":"","Time":"30/5/2023 0:8"}'
-                                            >
-                                                <canvas width={185} height={185} style={{ display: "none" }} />
-                                                <img src="../img/qr_login.png"
-                                                    style={{ display: "block" }}
-                                                />
-                                            </div>
-                                            <div className="ct_list ">
-                                                <div className="item_l">
-                                                    <div className="cicle_list">1</div>
-                                                    <p>Đăng nhập ứng dụng Chat365 trên điện thoại của bạn</p>
-                                                </div>
-                                                <div className="item_l">
-                                                    <div className="cicle_list">2</div>
-                                                    <p>
-                                                        <span>Tại ứng dụng chọn biểu tượng</span>{" "}
-                                                        <span>
-                                                            <img
-                                                                style={{ marginBottom: "-5px" }}
-                                                                src="/img/qr-code.png"
-                                                                alt="QR core"
-                                                            />
-                                                        </span>
-                                                        <span>Trên thanh tìm kiếm</span>
-                                                    </p>
-                                                </div>
-                                                <div className="item_l">
-                                                    <div className="cicle_list">3</div>
-                                                    <p>Di chuyển Camera đến mã QR trên màn hình máy tính để đăng nhập</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    {typeLogin == 'login_qr' && <LoginQr qrGuildShow={qrGuildShow}/>}
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            {(qrGuild) && <QrGuild qrGuildHide={qrGuildHide}/>}
             <link rel="stylesheet" href="https://timviec365.vn/css/footer_new.css?v=2" />
 
         </>)
