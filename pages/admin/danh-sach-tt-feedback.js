@@ -1,40 +1,42 @@
 import { React, useState, useEffect } from "react";
 import CallApi from '../api/call_api';
 import ReactPaginate from 'react-paginate';
+import HeaderAdmin from "../../components/headerAdmin";
 
 export default function AdminFeedback() {
-        // xử lý phân trang và gọi api
+    // xử lý phân trang và gọi api
     const [listFeedback, getListFeedback] = useState({})
     const [totalPages, getTotalPage] = useState()
     const [isLoad, getIsLoad] = useState(false)
+    const [count, setCount] = useState()
+
     const handlePageChange = async (selected) => {
         try {
             let response = await CallApi.listFeedback(selected.selected + 1)
-            getListFeedback(response.data.data.items)
+            getListFeedback(response.data.data.data)
             const totalItems = response.data.data.count;
-            const itemsPerPage = 20
+            const itemsPerPage = 25
             const totalPages = Math.ceil(totalItems / itemsPerPage);
             getTotalPage(totalPages);
         } catch (error) {
             alert(error)
         }
-        console.log('test2')
     };
     useEffect(() => {
         const getData = async () => {
             try {
                 let response = await CallApi.listFeedback('')
-                getListFeedback(response.data.data.items)
+                getListFeedback(response.data.data.data)
                 const totalItems = response.data.data.count;
-                const itemsPerPage = 20; //
+                const itemsPerPage = 25; 
                 const totalPages = Math.ceil(totalItems / itemsPerPage);
                 getTotalPage(totalPages);
+                setCount(totalItems)
             } catch (error) {
                 alert(error)
             }
             getIsLoad(true)
         }
-        console.log('test')
         getData()
     }, [])
     if (!isLoad) {
@@ -48,29 +50,13 @@ export default function AdminFeedback() {
                 {/* <link href="#" rel="shortcut icon" /> */}
                 <link rel="stylesheet" href="../css/admin.css" type="text/css" />
 
-                <div id="header">
-                    <div className="logo">
-                        <a href="https://vieclamtaihanoi.com.vn/admin">
-                            <img src="../img/admin-logo.png" />
-                        </a>
-                    </div>
-                    <div className="header-right">
-                        Chào{" "}
-                        <a
-                            href="https://vieclamtaihanoi.com.vn/admin/edit_thanhvien/2"
-                            className="name-admin"
-                        >
-                            Administrator
-                        </a>
-                        <a className="exit" href="https://vieclamtaihanoi.com.vn/admin/thoat">
-                            Thoát
-                        </a>
-                    </div>
-                </div>
+                <HeaderAdmin />
 
                 <div className="content-inner">
                     <br />
-                    <p style={{ display: 'block', float: 'left', width: '100%', marginbottom: '15px', fontsize: '14px' }}>205 kết quả</p>
+                    <a className="link_cty" href="/admin/danh-sach-cong-ty">Lấy danh sách công ty</a>
+
+                    <p style={{ display: 'block', float: 'left', width: '100%', marginbottom: '15px', fontsize: '14px' }}>{count} kết quả</p>
                     <br />
                     <table style={{ display: 'block', width: '100%' }}>
                         <thead>
@@ -87,25 +73,16 @@ export default function AdminFeedback() {
                         </thead>
                         <tbody>
                             {listFeedback?.map(item => (
-                                    <tr>
-                                        <td align="center">{item?._id}</td>
-                                        <td align="center">Ngô Xuân Thưởng</td>
-                                        <td align="center">ngoxuanthuong11101970@gmail.com</td>
-                                        <td align="center">0912412325</td>
-                                        <td align="center">kém lắm hay bị lỗi</td>
-                                        <td align="center">3</td>
-                                        <td align="center">2023-05-08 10:36:25</td>
-                                    </tr>
-                                ))}
-                            <tr>
-                                <td align="center">185</td>
-                                <td align="center">kim Hằng</td>
-                                <td align="center"></td>
-                                <td align="center">0948068788</td>
-                                <td align="center">OK</td>
-                                <td align="center">5</td>
-                                <td align="center">2023-04-25 19:22:29</td>
-                            </tr>
+                                <tr>
+                                    <td align="center">{item?._id}</td>
+                                    <td align="center">{item.userName}</td>
+                                    <td align="center">{item.email}</td>
+                                    <td align="center">{item.phone}</td>
+                                    <td align="center">kém lắm hay bị lỗi</td>
+                                    <td align="center">3</td>
+                                    <td align="center">{item.inForCompany && item.inForCompany.cds.com_vip != 0 && (ConvertIntToDate(item.inForCompany.cds.com_vip_time))[0]}</td>
+                                </tr>
+                            ))}
                         </tbody>
                     </table>
                     <ReactPaginate

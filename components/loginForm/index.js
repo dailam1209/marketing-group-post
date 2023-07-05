@@ -1,15 +1,38 @@
 import { React, useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form';
 import Link from 'next/link'
-import { loginPersonal } from "../../utils/handleApi";
-import { validatePhone } from "../../utils/function";
+import { loginPersonal, loginEp, loginCom } from "../../utils/handleApi";
 
-export default function LoginForm(props) {
+
+export default function LoginForm({ setNotiError, type }) {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = async (data) => {
-        await loginPersonal(data);
-      };
-    
+        let result = ''
+        if (type == '2') {
+            result = await loginEp(data)
+        } else if (type == '1') {
+            result = await loginCom(data)
+        } else {
+            result = await loginPersonal(data);
+        }
+        if (result == 'err') {
+            setNotiError(true);
+        }
+    };
+
+    let linkLogout = ''
+    let linkForgetPW = ''
+    if (type == '2') {
+        linkLogout = '/dang-ky-nhan-vien.html'
+        linkForgetPW = '/quen-mat-khau.html?type=2'
+    } else if (type == '1') {
+        linkLogout = '/dang-ky-cong-ty.html'
+        linkForgetPW = '/quen-mat-khau.html?type=1'
+    } else {
+        linkLogout = '/dang-ky-ca-nhan.html'
+        linkForgetPW = '/quen-mat-khau.html?type=2'
+    }
+
     return (
         <>
             <form className="share_distance form_vali form_login_staff form_tk" onSubmit={handleSubmit(onSubmit)} >
@@ -25,8 +48,9 @@ export default function LoginForm(props) {
                         placeholder="Nhập email hoặc số điện thoại"
                         {...register("phoneTK", {
                             required: "Tài khoản đăng nhập không được để trống",
-                            validate: {
-                                validatePhone: (value) => validatePhone(value) || "Hãy nhập đúng định dạng số điện thoại"
+                            pattern: {
+                                value: /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})|([0-9]{10})+$/,
+                                message: "Nhập đúng định dạng email hoặc số điện thoại"
                             }
                         })}
 
@@ -52,7 +76,7 @@ export default function LoginForm(props) {
                 <div className="qmk_login">
                     <p className="tex_right">
                         <a
-                            href="/quen-mat-khau.html?type=2"
+                            href={linkForgetPW}
                             className="share_clr_four share_fsize_three cr_weight"
                         >
                             Quên mật khẩu?
@@ -68,7 +92,7 @@ export default function LoginForm(props) {
                 </div>
                 <p className="tex_center cr_weight share_fsize_three no_login">
                     Bạn chưa có tài khoản?{" "}
-                    <Link href="/dang-ky-ca-nhan.html">Đăng ký ngay</Link>
+                    <Link href={linkLogout}>Đăng ký ngay</Link>
                 </p>
             </form>
         </>

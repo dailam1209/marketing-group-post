@@ -1483,6 +1483,7 @@ ul li {
 .butt_header .bgr_header {
     width: 100%;
     float: left;
+    height: 678px;
 }
 
 .butt_header .bgr_header img {
@@ -1490,6 +1491,7 @@ ul li {
     float: left;
     background-size: 100% 100%;
     position: relative;
+    height: 678px;
 }
 
 .bgr_froh {

@@ -5,54 +5,45 @@ import HeaderLogin from '../components/headerLogin/HeaderLogin';
 import CallApi from '../pages/api/call_api';
 import Cookies from "js-cookie";
 import { useForm } from 'react-hook-form';
-
-import { getEducation, formatDate } from "../utils/function";
+import { infoEp, infoPersonal, updateEp, updatePersonal } from '../utils/handleApi';
+import { getEducation, formatDate, validatePhone } from "../utils/function";
 
 export default function EditEmployee() {
+    // fix first render 
+    const [hydrated, setHydrated] = useState(false);
+
     // gọi api lấy thông tin nhân viên
     const [data, setData] = useState([]);
-    let token = Cookies.get('acc_token');
     let role = Cookies.get('role');
 
     // set values in form
     const [selectedDate, setSelectedDate] = useState('');
-    const [phone, setPhone] = useState('');
     const handleDateChange = (event) => {
         setSelectedDate(event.target.value);
     };
 
-    const handlePhone = (event) => {
-        setPhone(event.target.value);
-    };
-
     useEffect(() => {
         const getData = async () => {
-            try {
-                if (role == 2) {
-                    let response = await CallApi.getInfoEp(token);
-                    setData(response.data.data.data[0])
-                    setSelectedDate(formatDate(response.birthday))
-                } else {
-                    let response = await CallApi.getInfoPersonal(token);
-                    setData(response)
-                    setSelectedDate(formatDate(response.birthday))
-                    setPhone((response.phone || response.phoneTK || ''))
-
-                }
-            }
-            catch (error) {
-                console.log('Error:', error);
+            if (role == 2) {
+                let response = await infoEp();
+                setData(response.data)
+                // setSelectedDate(formatDate(response.data.birthday))
+            } else {
+                let response = await infoPersonal();
+                setData(response.data)
+                // setSelectedDate(formatDate(response.data.birthday))
             }
         }
         getData()
+        setHydrated(true)
     }, [])
     console.log(data)
 
-    if (data.inForPerson && data.inForPerson.account && data.inForPerson.account.gender == 1) {
+    if (data.gender == 1) {
         var gender = 'Nam'
-    } else if (data.inForPerson && data.inForPerson.account && data.inForPerson.account.gender == 2) {
+    } else if (data.gender  == 2) {
         var gender = 'Nữ'
-    } else if (data.inForPerson && data.inForPerson.account && data.inForPerson.account.gender == 3) {
+    } else if (data.gender == 3) {
         var gender = ' Khác'
     } else {
         var gender = ''
@@ -69,31 +60,29 @@ export default function EditEmployee() {
     // handle validate form update
     const { register, handleSubmit, formState: { errors } } = useForm();
 
-    const validatePhone = (value) => {
-        if (value) {
-            return /^(032|033|034|035|036|037|038|039|086|096|097|098|081|082|083|084|085|088|087|091|094|056|058|092|070|076|077|078|079|089|090|093|099|059)+([0-9]{7})$/i.test(value);
-        }
-        return true;
-    };
-
     const onSubmit = async data => {
         console.log(data)
-        if(role == 2) {
-            let response = await CallApi.updatePersonal(data);
-            if (response.data && response.data.data && response.data.data.result == true) {
+        if (role == 2) {
+            let response = await updateEp(data);
+            if (response.result == true) {
                 alert('Chỉnh sửa thành công')
             } else {
-                alert(response)
+                alert(response.data.error.message)
             }
         } else {
-            let response = await CallApi.updateEp(data);
-            if (response.data && response.data.data && response.data.data.result == true) {
+            let response = await updatePersonal(data);
+            if (response.result && response.result == true) {
                 alert('Chỉnh sửa thành công')
             } else {
-                alert(response)
+                alert(response.data.error.message)
             }
         }
     };
+
+    if (!hydrated) {
+        // Returns null on first render, so the client and server match
+        return null;
+    }
 
     return (
         <>
@@ -141,7 +130,7 @@ export default function EditEmployee() {
                                                 <div className="form-group">
                                                     <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
                                                         Họ và tên<span className="cr_red">*</span></label>
-                                                    <input type="text" name="name_nv" className="form-control share_fsize_one share_clr_one" placeholder="Nhập họ và tên" value={data.userName || ''}
+                                                    <input type="text" name="userName" className="form-control share_fsize_one share_clr_one" placeholder="Nhập họ và tên" defaultValue={data.userName || ''}
                                                         {...register("userName", {
                                                             required: 'Họ và tên không được để trống',
                                                         })}
@@ -158,7 +147,7 @@ export default function EditEmployee() {
                                                 <div className="form-group">
                                                     <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
                                                         Số điện thoại <span className="cr_red"></span></label>
-                                                    <input type="text" name="phone" className="form-control share_fsize_one share_clr_one" placeholder="Nhập số điện thoại" defaultValue={phone}
+                                                    <input type="text" name="phone" className="form-control share_fsize_one share_clr_one" placeholder="Nhập số điện thoại" defaultValue={data.phone}
                                                         {...register("phone", {
                                                             validate: {
                                                                 validatePhone: (value) => validatePhone(value) || "Hãy nhập đúng định dạng số điện thoại"
@@ -184,9 +173,9 @@ export default function EditEmployee() {
                                                 <div className="form-group">
                                                     <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
                                                         Giới tính<span className="cr_red">*</span></label>
-                                                    <select {...register('gender')} value={data.gender} name="gioitinh" className="form-control">
-                                                        <option value="1" >Nam</option>
+                                                    <select {...register('gender')} defaultValue={data.gender} name="gioitinh" className="form-control">
                                                         <option value="2" >Nữ</option>
+                                                        <option value="1" >Nam</option>
                                                         <option value="3" >Khác</option>
                                                     </select>
                                                 </div>
@@ -212,7 +201,7 @@ export default function EditEmployee() {
                                                     <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
                                                         Trình độ học vấn <span className="cr_red">*</span></label>
                                                     <select {...register('education')} value={data.education} name="trinhdo" className="form-control"
-                                                    
+
                                                     >
                                                         <option value="1" >Trên đại học</option>
                                                         <option value="2" >Đại học</option>

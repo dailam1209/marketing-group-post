@@ -4,50 +4,43 @@ import SideBar from '../components/sideBar/SideBar';
 import HeaderLogin from '../components/headerLogin/HeaderLogin';
 import callApi from '../pages/api/call_api';
 import Cookies from "js-cookie";
-import { getEducation } from "../utils/function";
+import { getEducation, getGender, getExperience, getMarried } from "../utils/function";
 import { useForm } from 'react-hook-form';
+import { infoEp, infoPersonal, changePassEp, changePassPersonal } from '../utils/handleApi';
 
-export default function detailEmployy() {
+
+export default function DetailEmployee() {
+    // fix first render 
+    const [hydrated, setHydrated] = useState(false);
+
     // gọi api lấy thông tin nhân viên
     const [data, setData] = useState([]);
-    let token = Cookies.get('acc_token');
     let type = Cookies.get('role');
 
     useEffect(() => {
         const getData = async () => {
-            try {
-                if (type == '2') {
-                    let response = await callApi.getInfoEp(token);
-                    setData(response)
-                } else {
-                    let response = await callApi.getInfoPersonal(token);
-                    setData(response)
-                }
-            }
-            catch (error) {
-                alert(error.response.data.error.message);
+            if (type == '2') {
+                let response = await infoEp();
+                setData(response.data)
+                setGender()
+            } else {
+                let response = await infoPersonal();
+                setData(response.data)
             }
         }
         getData()
+        setHydrated(true)
     }, [])
-    console.log(data)
-    if (data.inForPerson && data.inForPerson.account && data.inForPerson.account.gender == 1) {
-        var gender = 'Nam'
-    } else if (data.inForPerson && data.inForPerson.account && data.inForPerson.account.gender == 2) {
-        var gender = 'Nữ'
-    } else if (data.inForPerson && data.inForPerson.account && data.inForPerson.account.gender == 3) {
-        var gender = ' Khác'
+
+    if (data.married == 1) {
+        let married = 'Độc thân'
+    } else if (data.married == 2) {
+        let married = "Đã kết hôn"
     } else {
-        var gender = 'Chưa cập nhập'
+        let married = "Chưa cập nhập"
     }
 
-    if (data.inForPerson && data.inForPerson.account && data.inForPerson.account.married == 1) {
-        var married = 'Độc thân'
-    } else if (data.inForPerson && data.inForPerson.account && data.inForPerson.account.married == 2) {
-        var married = "Đã kết hôn"
-    } else {
-        var married = "Chưa cập nhập"
-    }
+    // console.log(married)
 
     // show popup change password
     const [isClicked, setIsClicked] = useState(false);
@@ -65,41 +58,34 @@ export default function detailEmployy() {
 
     // validate form change password
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
-    const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
-
     const onSubmit = async data => {
-        console.log(data)
-        if(type == '2') {
-            try{
-                let response = await callApi.changePassEp(token, data);
-                if (response.data && response.data.data && response.data.data.result == true) {
-                    setIsSuccess(true);
-                } else {
-                    alert(response)
-                }
-            } catch(error) {
-                setIsFalse(true);
-
+        if (type == '2') {
+            let response = await changePassEp(data);
+            if (response.result == true) {
+                setIsSuccess(true);
+            } else {
+                alert(response.data.error.message)
             }
         } else {
-            try {
-                let response = await callApi.changePassPersonal(token, data);
-                if (response.data && response.data.data && response.data.data.result == true) {
-                    setIsSuccess(true);
-                } else {
-                    alert(response)
-                }
-            } catch(error) {
-                setIsFalse(true);
+            let response = await changePassPersonal(data);
+            if (response.result == true) {
+                setIsSuccess(true);
+            } else {
+                alert(response.data.error.message)
             }
         }
     };
 
+    if (!hydrated) {
+        // Returns null on first render, so the client and server match
+        return null;
+    }
+
     return (
         <>
             <Seo
-            seo = ''
-            title = 'Thông tin tài khoản nhân viên'
+                seo=''
+                title='Thông tin tài khoản nhân viên'
             />
             <div id="qly_ungdung_nv" className="qly_ungdung">
                 <div className="wrapper">
@@ -135,29 +121,33 @@ export default function detailEmployy() {
                                                                 defaultValue={''} />
                                                         </div>
 
-                                                        <p className="id">{data.id}</p>
+                                                        <p className="id">{data._id}</p>
                                                     </div>
                                                 </div>
                                                 <div className="info_taikhoan">
                                                     <div className="cont">
                                                         <p className="d_title font_20">{data.userName}</p>
-                                                        <p className="d_title font_18">$com_name</p>
-                                                        <p className="d_title font_16">$dep_name</p>
-                                                        {/* <p className="d_title font_16">Tổ 1</p>
-                                                        <p className="d_title font_16">Nhóm 1</p> */}
-                                                        <p className="content d_flex">
-                                                            <span style={{ fontsize: '15px' }}>$position_name</span>
-                                                        </p>
+                                                        {(type == 2) && (
+                                                            <>
+                                                                <p className="d_title font_18">$com_name</p>
+                                                                <p className="d_title font_16">$dep_name</p>
+                                                                <p className="content d_flex">
+                                                                    <span style={{ fontsize: '15px' }}>$position_name</span>
+                                                                </p>
+                                                            </>
+                                                        )}
                                                         <p className="content d_flex">
                                                             <span>Kinh nghiệm làm việc:</span>
-                                                            <span></span>
+                                                            <span>{getExperience(data.experience)}</span>
                                                         </p>
-                                                        <p className="content d_flex">
-                                                            <span>Ngày bắt đầu làm việc:</span>
-                                                            <span>
-                                                                ($tt_user['start_working_time'] == "") ? 'Chưa cập nhật' : date_format(date_create($tt_user['start_working_time']), 'd/m/Y');
-                                                            </span>
-                                                        </p>
+                                                        {(type == '2') ? (
+                                                            <p className="content d_flex">
+                                                                <span>Ngày bắt đầu làm việc:</span>
+                                                                <span>
+                                                                    ($tt_user['start_working_time'] == "") ? 'Chưa cập nhật' : date_format(date_create($tt_user['start_working_time']), 'd/m/Y');
+                                                                </span>
+                                                            </p>
+                                                        ) : ''}
                                                         <p className="content d_flex">
                                                             <span>Tài khoản đăng nhập:</span>
                                                             <span>{data.email ? data.email : data.phoneTK}</span>
@@ -168,15 +158,15 @@ export default function detailEmployy() {
                                                         </p>
                                                         <p className="content d_flex">
                                                             <span>Ngày sinh:</span>
-                                                            <span>{(data.inForPerson && data.inForPerson.account && data.inForPerson.account.birthday) ? data.inForPerson.account.birthday : 'Chưa cập nhật'}</span>
+                                                            <span>{(data.birthday) ? data.inForPerson.account.birthday : 'Chưa cập nhật'}</span>
                                                         </p>
                                                         <p className="content d_flex">
                                                             <span>Giới tính:</span>
-                                                            <span>{gender}</span>
+                                                            <span>{getGender(data.gender)}</span>
                                                         </p>
                                                         <p className="content d_flex">
                                                             <span>Trình độ học vấn:</span>
-                                                            <span>{(data.inForPerson && data.inForPerson.account && data.inForPerson.account.education) ? getEducation(data.inForPerson.account.education) : 'Chưa cập nhật'}</span>
+                                                            <span>{(data.education) ? getEducation(data.education) : 'Chưa cập nhật'}</span>
                                                         </p>
                                                         <p className="content d_flex">
                                                             <span>Địa chỉ:</span>
@@ -184,7 +174,7 @@ export default function detailEmployy() {
                                                         </p>
                                                         <p className="content d_flex">
                                                             <span>Tình trạng hôn nhân:</span>
-                                                            <span>{married}</span>
+                                                            <span>{getMarried(data.married)}</span>
                                                         </p>
                                                     </div>
                                                     <div className="d_flex container_btn">
@@ -233,7 +223,7 @@ export default function detailEmployy() {
                                                 placeholder="Nhật mật khẩu mới"  {...register('password', {
                                                     required: 'Vui lòng nhập mật khẩu',
                                                     pattern: {
-                                                        value: passwordPattern,
+                                                        value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/,
                                                         message:
                                                             'Mật khẩu phải gồm 6 ký tự trở lên, bao gồm ít nhất một chữ cái và ít nhất một chữ số, không chứa khoảng trắng.',
                                                     },

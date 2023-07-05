@@ -794,11 +794,40 @@ span.checked {
     padding: 0 5px;
 }
 
-.pagination strong {
-    font-size: 15px;
-    color: red
+.active {
+    width: fit-content;
+    height: 20px;
+    border: 1px solid;
+    text-align: center;
+    align-items: center;
+    display: flex;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+
 }
 
 td {
     border: 1px solid #000;
+}
+
+.link_feedback {
+    border-radius: 10px;
+    height: 20px;
+    margin-bottom: 20px;
+    border: 1px solid;
+    padding: 5px;
+    margin-left: 40px;
+}
+
+.link_cty {
+    border-radius: 10px;
+    height: 20px;
+    margin-bottom: 20px;
+    border: 1px solid;
+    padding: 5px;
+    line-height: 50px
 }

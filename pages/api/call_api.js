@@ -299,10 +299,10 @@ class CallApi {
   }
 
   // update info company
-  static async updateCom(token) {
+  static async updateCom(data, token) {
     let response = ''
     try {
-      const call = await axios.post('http://210.245.108.202:3000/api/qlc/Company/updateInfoCompany', {}, {
+      const call = await axios.post('http://210.245.108.202:3000/api/qlc/Company/updateInfoCompany', data, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -355,7 +355,7 @@ class CallApi {
   static async listFeedback(currentPage) {
     let response = ''
     try {
-      const call = await axios.post('http://210.245.108.202:3001/api/timviec/appli/list', { page: currentPage })
+      const call = await axios.post('http://210.245.108.202:3000/api/qlc/Admin/getListFeedback', { page: currentPage })
       response = call
     } catch (error) {
       response = error.response.data.error.message
@@ -364,10 +364,34 @@ class CallApi {
   }
 
   // api get list company
-  static async listCom(currentPage) {
+  static async listCom(data) {
     let response = ''
     try {
-      const call = await axios.post('http://210.245.108.202:3001/api/timviec/appli/list', { page: currentPage })
+      const call = await axios.post('http://210.245.108.202:3000/api/qlc/Admin/listCom', data)
+      response = call
+    } catch (error) {
+      response = error.response.data.error.message
+    }
+    return response
+  }
+
+  // api update vip
+  static async updateVip(data) {
+    let response = ''
+    try {
+      const call = await axios.post('http://210.245.108.202:3000/api/qlc/Admin/vip', data)
+      response = call
+    } catch (error) {
+      response = error.response.data.error.message
+    }
+    return response
+  }
+
+  // api change pw admin
+  static async updatePwAdmin(data) {
+    let response = ''
+    try {
+      const call = await axios.post('http://210.245.108.202:3000/api/qlc/Admin/updatePassword', data)
       response = call
     } catch (error) {
       response = error.response.data.error.message
