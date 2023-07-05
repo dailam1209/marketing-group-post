@@ -17,7 +17,7 @@ export const checkVip = async (idcom) => {
 }
 
 export const loginPersonal = async (data) => {
-    let result = await functionAPI('http://210.245.108.202:3000/api/qlc/individual/login', data, '')
+    let result = await functionAPI('http://210.245.108.202:3000/api/qlc/individual/login', data)
     if (result.result == true) {
         Cookies.set('acc_token', result.data.access_token);
         Cookies.set('rf_token', result.data.refresh_token);
