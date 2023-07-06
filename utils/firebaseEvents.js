@@ -69,7 +69,7 @@ const handleVerifyOtp = async (account) => {
                 let role = Cookies.get('role');
                 if (role == 2) {
                     var api = 'http://210.245.108.202:3000/api/qlc/employee/verify';
-                } else if(role == 1) {
+                } else if (role == 1) {
                     var api = 'http://210.245.108.202:3000/api/qlc/Company/verify';
                 } else {
                     var api = 'http://210.245.108.202:3000/api/qlc/individual/verify';
@@ -79,12 +79,16 @@ const handleVerifyOtp = async (account) => {
                         'Authorization': `Bearer ${token}`
                     }
                 })
-                if (authen.data && authen.data && authen.data.result == true) {
-                    alert('Xác thực thành công')
-                    window.location.href = "/";
+                
+                alert('Xác thực thành công')
+                if (role == 2) {
+                    window.location.href = '/quan-ly-ung-dung-nhan-vien.html'
+                } else if (role == 1) {
+                    window.location.href = '/quan-ly-ung-dung-cong-ty.html'
                 } else {
-                    alert(authen);
+                    window.location.href = '/quan-ly-ung-dung-ca-nhan.html'
                 }
+
             }).catch((error) => {
                 alert('Mã OTP không khớp, vui lòng thử lại!')
                 // $('.txt_nd_modal').html('Mã OTP không khớp, vui lòng thử lại!');

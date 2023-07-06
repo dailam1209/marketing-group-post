@@ -1,20 +1,15 @@
 import { React, useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form';
 import Link from 'next/link'
-import { loginPersonal, loginEp, loginCom } from "../../utils/handleApi";
+import { loginPersonal, loginEp, loginCom, login } from "../../utils/handleApi";
 
 
 export default function LoginForm({ setNotiError, type }) {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = async (data) => {
         let result = ''
-        if (type == '2') {
-            result = await loginEp(data)
-        } else if (type == '1') {
-            result = await loginCom(data)
-        } else {
-            result = await loginPersonal(data);
-        }
+        data.type = type
+        result = await login(data)
         if (result == 'err') {
             setNotiError(true);
         }
@@ -44,9 +39,9 @@ export default function LoginForm({ setNotiError, type }) {
                         type="text"
                         className="form-control"
                         id="dn_mail"
-                        name="phoneTK"
+                        name="account"
                         placeholder="Nhập email hoặc số điện thoại"
-                        {...register("phoneTK", {
+                        {...register("account", {
                             required: "Tài khoản đăng nhập không được để trống",
                             pattern: {
                                 value: /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})|([0-9]{10})+$/,
@@ -55,7 +50,7 @@ export default function LoginForm({ setNotiError, type }) {
                         })}
 
                     />
-                    {errors.phoneTK && <label className="error">{errors.phoneTK.message}</label>}
+                    {errors.account && <label className="error">{errors.account.message}</label>}
                 </div>
                 <div className="form-group">
                     <label className="form_label share_fsize_three share_clr_one cr_weight">

@@ -27,10 +27,9 @@ export default function AdminHome() {
     }
 
     return (
-        <>  <Seo
-            seo = ''
-            title = 'Admin'
-            />
+        <>
+            <meta httpEquiv="content-type" content="text/html; charset=UTF-8" />
+            <title>Administrator</title>
             {/* <base href="https://vieclamtaihanoi.com.vn/" /> */}
             {/* <link href="#" rel="shortcut icon" /> */}
             <link rel="stylesheet" href="../css/admin.css" type="text/css" />
@@ -40,7 +39,7 @@ export default function AdminHome() {
                 <form onSubmit={handleSubmit(onSubmit)} name="frmlogin" action="https://vieclamtaihanoi.com.vn/admin/dologin" method="post">
                     <table>
                         <tr>
-                            <td style={{border: 'none'}}><label>Tài khoản đăng nhập</label>
+                            <td style={{ border: 'none' }}><label>Tài khoản đăng nhập</label>
                                 <input type="text" name="name" defaultValue=""
                                     {...register("name", {
                                         required: 'Không để trống',
@@ -52,7 +51,7 @@ export default function AdminHome() {
                             </td>
                         </tr>
                         <tr>
-                            <td style={{border: 'none'}}><label>Mật khẩu</label>
+                            <td style={{ border: 'none' }}><label>Mật khẩu</label>
                                 <input type="password" name="pass" defaultValue=""
                                     {...register("password", {
                                         required: 'Không để trống',
@@ -63,14 +62,14 @@ export default function AdminHome() {
                             </td>
                         </tr>
                         <tr>
-                            <td style={{border: 'none'}} colspan="2">
+                            <td style={{ border: 'none' }} colspan="2">
                                 <input type="submit" value="Đăng nhập" />
                             </td>
                         </tr>
                     </table>
                 </form>
             </div>
-      <link rel="stylesheet" href="https://timviec365.vn/css/footer_new.css?v=2" />
+            <link rel="stylesheet" href="https://timviec365.vn/css/footer_new.css?v=2" />
 
         </>
     )

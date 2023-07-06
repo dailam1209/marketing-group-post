@@ -32,6 +32,33 @@ export function getExperience(id) {
     return arr[id] || 'Chưa cập nhật'
 }
 
+export function getPosition(id) {
+    const arr = [];
+    arr[0] = 'Chưa cập nhật';
+    arr[1] = 'SINH VIÊN THỰC TẬP'
+    arr[2] = 'NHÂN VIÊN THỬ VIỆC'
+    arr[9] = 'NHÂN VIÊN PART TIME'
+    arr[3] = 'NHÂN VIÊN CHÍNH THỨC'
+    arr[20] = 'NHÓM PHÓ'
+    arr[4] = 'TRƯỞNG NHÓM'
+    arr[12] = 'PHÓ TỔ TRƯỞNG'
+    arr[13] = 'TỔ TRƯỞNG'
+    arr[10] = 'PHÓ BAN DỰ ÁN'
+    arr[11] = 'TRƯỞNG BAN DỰ ÁN'
+    arr[5] = 'PHÓ TRƯỞNG PHÒNG'
+    arr[6] = 'TRƯỞNG PHÒNG'
+    arr[7] = 'PHÓ GIÁM ĐỐC'
+    arr[8] = 'GIÁM ĐỐC'
+    arr[14] = 'PHÓ TỔNG GIÁM ĐỐC'
+    arr[16] = 'TỔNG GIÁM ĐỐC'
+    arr[22] = 'PHÓ TỔNG GIÁM ĐỐC TẬP ĐOÀN'
+    arr[21] = 'TỔNG GIÁM ĐỐC TẬP ĐOÀN'
+    arr[18] = 'PHÓ CHỦ TỊCH HỘI ĐỒNG QUẢN TRỊ'
+    arr[19] = 'CHỦ TỊCH HỘI ĐỒNG QUẢN TRỊ'
+    arr[17] = 'THÀNH VIÊN HỘI ĐỒNG QUẢN TRỊ'
+    return arr[id] || 'Chưa cập nhật'
+}
+
 export function getGender(id) {
     switch (id) {
         case 1:
@@ -129,9 +156,10 @@ export function CheckLogin() {
         } else {
             redirectUrl = "/quan-ly-ung-dung-ca-nhan.html";
         }
-        if (redirectUrl != `/${window.location.href.split('/')[3]}`) {
-            router.push(redirectUrl);
-        }
+
+        // if (redirectUrl != `/${window.location.href.split('/')[3]}`) {
+        //     router.push(redirectUrl);
+        // }
     }
 }
 

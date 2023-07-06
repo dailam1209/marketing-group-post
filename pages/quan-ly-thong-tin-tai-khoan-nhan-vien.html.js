@@ -4,7 +4,7 @@ import SideBar from '../components/sideBar/SideBar';
 import HeaderLogin from '../components/headerLogin/HeaderLogin';
 import callApi from '../pages/api/call_api';
 import Cookies from "js-cookie";
-import { getEducation, getGender, getExperience, getMarried } from "../utils/function";
+import { getEducation, getGender, getExperience, getMarried, getPosition, ConvertIntToDate } from "../utils/function";
 import { useForm } from 'react-hook-form';
 import { infoEp, infoPersonal, changePassEp, changePassPersonal } from '../utils/handleApi';
 
@@ -22,7 +22,7 @@ export default function DetailEmployee() {
             if (type == '2') {
                 let response = await infoEp();
                 setData(response.data)
-                setGender()
+                // setGender()
             } else {
                 let response = await infoPersonal();
                 setData(response.data)
@@ -31,16 +31,6 @@ export default function DetailEmployee() {
         getData()
         setHydrated(true)
     }, [])
-
-    if (data.married == 1) {
-        let married = 'Độc thân'
-    } else if (data.married == 2) {
-        let married = "Đã kết hôn"
-    } else {
-        let married = "Chưa cập nhập"
-    }
-
-    // console.log(married)
 
     // show popup change password
     const [isClicked, setIsClicked] = useState(false);
@@ -129,10 +119,10 @@ export default function DetailEmployee() {
                                                         <p className="d_title font_20">{data.userName}</p>
                                                         {(type == 2) && (
                                                             <>
-                                                                <p className="d_title font_18">$com_name</p>
-                                                                <p className="d_title font_16">$dep_name</p>
+                                                                <p className="d_title font_18">{data.companyName}</p>
+                                                                <p className="d_title font_16">{data.departmentName}</p>
                                                                 <p className="content d_flex">
-                                                                    <span style={{ fontsize: '15px' }}>$position_name</span>
+                                                                    <span style={{ fontsize: '15px' }}>{getPosition(data.position_id)}</span>
                                                                 </p>
                                                             </>
                                                         )}
@@ -143,9 +133,7 @@ export default function DetailEmployee() {
                                                         {(type == '2') ? (
                                                             <p className="content d_flex">
                                                                 <span>Ngày bắt đầu làm việc:</span>
-                                                                <span>
-                                                                    ($tt_user['start_working_time'] == "") ? 'Chưa cập nhật' : date_format(date_create($tt_user['start_working_time']), 'd/m/Y');
-                                                                </span>
+                                                                <span>{(data.start_working_time != 0) ? ConvertIntToDate(data.start_working_time) : 'Chưa cập nhật'}</span>
                                                             </p>
                                                         ) : ''}
                                                         <p className="content d_flex">
