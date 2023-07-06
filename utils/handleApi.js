@@ -6,12 +6,13 @@ export const checkVip = async (idcom) => {
     const data = {
         com_id: idcom
     }
-    let checkVip = await functionAPI('http://210.245.108.202:3000/api/checkVip/before', data, '')
-    if (checkVip == 0) {
+    let checkVip = await functionAPI('http://210.245.108.202:3000/api/qlc/checkVip/before', data)
+    console.log(checkVip)
+    if (!checkVip.vip && !checkVip.is_add) {
+        window.location.href = '/thong-bao-tai-khoan-vip.html'
+    } else {
         Cookies.set('idCom', idcom);
         window.location.href = '/thong-tin-dang-ky-nhan-vien.html'
-    } else {
-        window.location.href = '/thong-bao-tai-khoan-vip.html'
     }
 }
 
@@ -67,7 +68,7 @@ export const loginPersonal = async (data) => {
     const err = 'err';
     let result = await functionAPI('http://210.245.108.202:3000/api/qlc/individual/login', data)
     if (result.result == true) {
-        Cookies.set('acc_token', result.data.access_token);
+        Cookies.set('acc_token', result.data.acc_token);
         Cookies.set('rf_token', result.data.refresh_token);
         Cookies.set('role', 3);
         window.location.href = '/quan-ly-ung-dung-ca-nhan.html';
@@ -80,7 +81,7 @@ export const loginEp = async (data) => {
     const err = 'err';
     let result = await functionAPI('http://210.245.108.202:3000/api/qlc/employee/login', data)
     if (result.result == true) {
-        Cookies.set('acc_token', result.data.access_token);
+        Cookies.set('acc_token', result.data.acc_token);
         Cookies.set('rf_token', result.data.refresh_token);
         Cookies.set('role', 2);
         window.location.href = '/quan-ly-ung-dung-nhan-vien.html';
@@ -93,10 +94,33 @@ export const loginCom = async (data) => {
     const err = 'err';
     let result = await functionAPI('http://210.245.108.202:3000/api/qlc/Company/login', data)
     if (result.result == true) {
-        Cookies.set('acc_token', result.data.access_token);
+        Cookies.set('acc_token', result.data.acc_token);
         Cookies.set('rf_token', result.data.refresh_token);
         Cookies.set('role', 1);
         window.location.href = '/quan-ly-ung-dung-cong-ty.html';
+    } else {
+        return err
+    }
+}
+
+
+export const login = async (data) => {
+    const err = 'err';
+    let result = await functionAPI('http://210.245.108.202:3000/api/qlc/employee/login', data)
+    if (result.result == true) {
+        const type = result.data.type,
+         acc_token = result.data.access_token,
+         refresh_token = result.data.refresh_token, role = result.data.type;
+        Cookies.set('acc_token', acc_token);
+        Cookies.set('rf_token', refresh_token);
+        Cookies.set('role', role);
+        if(type == 1) {
+            // window.location.href = '/quan-ly-ung-dung-cong-ty.html';
+        } else if (type == 2) {
+            window.location.href = '/quan-ly-ung-dung-nhan-vien.html';
+        } else {
+            window.location.href = '/quan-ly-ung-dung-ca-nhan.html';
+        }
     } else {
         return err
     }

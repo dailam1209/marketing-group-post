@@ -831,3 +831,11 @@ td {
     padding: 5px;
     line-height: 50px
 }
+
+.header_ql {
+ display: none !important;
+}
+
+.footer_main {
+    display: none !important;
+}

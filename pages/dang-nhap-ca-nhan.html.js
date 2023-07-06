@@ -75,7 +75,7 @@ export default function LoginPersonal() {
                                             TÀI KHOẢN<span className="text">(email)</span>
                                         </button>
                                     </div>
-                                    {typeLogin == 'login_form' && <LoginForm setNotiError={setNotiError} type='3' />}
+                                    {typeLogin == 'login_form' && <LoginForm setNotiError={setNotiError} type='0' />}
                                     {typeLogin == 'login_qr' && <LoginQr qrGuildShow={qrGuildShow} />}
                                 </div>
                             </div>

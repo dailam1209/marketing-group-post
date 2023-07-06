@@ -37,6 +37,7 @@ export default function HeaderLogin() {
         }
         getData()
     }, [])
+    console.log(data)
 
     return (
         <>
