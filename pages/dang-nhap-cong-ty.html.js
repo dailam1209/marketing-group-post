@@ -1,4 +1,4 @@
-import {React, useState} from "react"
+import { React, useState } from "react"
 import Seo from "../components/head";
 import LoginForm from "../components/loginForm"
 import LoginQr from "../components/loginQr"
@@ -7,6 +7,7 @@ import { CheckLogin } from "../utils/function"
 
 export default function LoginCompany() {
   CheckLogin()
+
   // handle interaction
   const [typeLogin, setTypeLogin] = useState('login_qr')
   const [active, setActive] = useState('login_qr')
@@ -61,8 +62,7 @@ export default function LoginCompany() {
               <div className="ctn_dangnhap">
                 <div className="cont_dangnhap">
                   <h1 className="share_clr_four cr_weight_bold tex_center qlc_tieude_moi">
-                    Cùng doanh nghiệp chuyển đổi số, phát triển bản thân, gây dựng
-                    tập thể
+                    Bứt phá thành công trong tương lai cùng hệ thống chuyển đổi số top 1
                   </h1>
                   <p className={`error_lg tex_center share_fsize_three ${(notiError == false) ? 'hidden' : ''}`}>
                     Thông tin tài khoản hoặc mật khẩu không chính xác
@@ -73,11 +73,11 @@ export default function LoginCompany() {
                     </button>
                     <div className="line" />
                     <button className={`select_login login_tk ${(active == 'login_form') ? 'active' : ''}`} onClick={loginByForm}>
-                      TÀI KHOẢN<span className="text">(email)</span>
+                      TÀI KHOẢN<span className="text">(email/số điện thoại)</span>
                     </button>
                   </div>
-                  {typeLogin == 'login_form' && <LoginForm setNotiError={setNotiError} type='1' />}
-                  {typeLogin == 'login_qr' && <LoginQr qrGuildShow={qrGuildShow} />}
+                  {typeLogin == 'login_form' && <LoginForm setNotiError={setNotiError} typeLogin='1' />}
+                  {typeLogin == 'login_qr' && <LoginQr qrGuildShow={qrGuildShow} setNotiError={setNotiError} typeLogin='1' />}
                 </div>
               </div>
             </div>

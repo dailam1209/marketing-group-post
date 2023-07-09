@@ -4,6 +4,7 @@ import { CheckLogin } from "../utils/function"
 
 export default function register() {
     CheckLogin()
+    
     return (
         <>
             <Seo
@@ -19,10 +20,10 @@ export default function register() {
                         <div className="form_log">
                             <div className="titl_log tex_center">
                                 <h1 className="share_clr_tow cr_weight_bold h1">
-                                    Chuyển đổi số nhanh, nhận ngay tiện ích lớn, đừng bỏ lỡ
+                                Vô vàn ứng dụng tiện ích tại hệ thống chuyển đổi số hàng đầu Việt Nam
                                 </h1>
                                 <p className="share_clr_tow share_fsize_tow">
-                                    Để tiếp tục đăng ký bạn vui lòng chọn loại tài khoản.
+                                Để tiếp tục đăng nhập bạn vui lòng chọn loại tài khoản.
                                 </p>
                             </div>
                             <div className="titl_form">

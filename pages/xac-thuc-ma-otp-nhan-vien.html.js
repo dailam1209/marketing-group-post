@@ -4,9 +4,10 @@ import Cookies from "js-cookie";
 import Header from "../components/header/Header"
 import Footer from "../components/footer/Footer"
 import Seo from '../components/head'
-import { checkLogin } from "../utils/function"
+import { CheckLogin } from "../utils/function"
 
 export default function AuthenticEp() {
+    CheckLogin()
     
     const onClickVerifyOtp = () => {
         const value = document.querySelector('.verify_otp');
@@ -14,7 +15,7 @@ export default function AuthenticEp() {
             let phone = Cookies.get('phone');
             handleVerifyOtp(phone);
         } else {
-            var otp = document.querySelector('#partitioned').value;
+            let otp = document.querySelector('#partitioned').value;
             handleVerifyOtp(otp);
         }
     };

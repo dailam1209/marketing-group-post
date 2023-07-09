@@ -1,31 +1,56 @@
 import { React, useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form';
 import Link from 'next/link'
-import { loginPersonal, loginEp, loginCom, login } from "../../utils/handleApi";
+import { login } from "../../utils/handleApi";
+import CheckTypeLogin from '../checkLogin';
+import Cookies from 'js-cookie';
 
-
-export default function LoginForm({ setNotiError, type }) {
+export default function LoginForm({ setNotiError, typeLogin }) {
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const [typeLoginComponent, setTypeLogincomponent] = useState()
+    const [result, setResult] = useState()
+    const [showPopup, setShowPopup] = useState(false)
+
     const onSubmit = async (data) => {
-        let result = ''
-        data.type = type
-        result = await login(data)
-        if (result == 'err') {
+        data.type = typeLogin
+        let result = await login(data, 0)
+        if (result.result == true) {
+            const type = result.data.type
+            if (type == typeLogin) {
+                let acc_token = result.data.access_token
+                let refresh_token = result.data.refresh_token
+                let role = result.data.type
+                Cookies.set('rf_token', refresh_token);
+                Cookies.set('token_base365', acc_token);
+                Cookies.set('role', role);
+                if (type == 1) {
+                    window.location.href = '/quan-ly-ung-dung-cong-ty.html';
+                } else if (type == 2) {
+                    window.location.href = '/quan-ly-ung-dung-nhan-vien.html';
+                } else {
+                    window.location.href = '/quan-ly-ung-dung-ca-nhan.html';
+                }
+            } else {
+                setTypeLogincomponent(type)
+                setResult(result)
+                setShowPopup(true)
+            }
+        } else {
             setNotiError(true);
         }
     };
 
     let linkLogout = ''
     let linkForgetPW = ''
-    if (type == '2') {
+    if (typeLogin == '2') {
         linkLogout = '/dang-ky-nhan-vien.html'
         linkForgetPW = '/quen-mat-khau.html?type=2'
-    } else if (type == '1') {
+    } else if (typeLogin == '1') {
         linkLogout = '/dang-ky-cong-ty.html'
         linkForgetPW = '/quen-mat-khau.html?type=1'
     } else {
         linkLogout = '/dang-ky-ca-nhan.html'
-        linkForgetPW = '/quen-mat-khau.html?type=2'
+        linkForgetPW = '/quen-mat-khau.html?type=0'
     }
 
     return (
@@ -82,7 +107,7 @@ export default function LoginForm({ setNotiError, type }) {
                     <input
                         type="submit"
                         className="share_bgr_one cr_weight share_clr_tow share_fsize_tow share_cursor btn_luu"
-                        defaultValue="Đăng nhập"
+                        value="Đăng nhập"
                     />
                 </div>
                 <p className="tex_center cr_weight share_fsize_three no_login">
@@ -90,6 +115,7 @@ export default function LoginForm({ setNotiError, type }) {
                     <Link href={linkLogout}>Đăng ký ngay</Link>
                 </p>
             </form>
+            {(showPopup) && <CheckTypeLogin result={result} setShowPopup={setShowPopup} typeLoginComponent={typeLoginComponent} setNotiError={setNotiError} />}
         </>
     )
 }

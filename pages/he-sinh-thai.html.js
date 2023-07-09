@@ -4,6 +4,7 @@ import { CheckLogin } from "../utils/function"
 
 export default function Ecosystem() {
   CheckLogin()
+  
   return (
     <>
       <Seo

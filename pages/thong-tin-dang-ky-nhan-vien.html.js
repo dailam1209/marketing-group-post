@@ -1,14 +1,12 @@
 import { React, useState, useEffect } from "react"
 import { useForm } from 'react-hook-form';
 import Cookies from "js-cookie";
-import CallApi from '../pages/api/call_api';
 import Seo from '../components/head'
 import { validatePhone } from "../utils/function";
-import { registerEp } from "../utils/handleApi";
-
+import { registerEp, listDepartments, listTeams, listGroups } from "../utils/handleApi";
 
 export default function RegisterEp() {
-    // lấy cookie idCom
+    // get cookie idCom
     let idCom = Cookies.get('idCom');
 
     // validate and submit
@@ -33,8 +31,11 @@ export default function RegisterEp() {
     }, []);
 
     const apiDeps = async () => {
-        let response = await CallApi.listDepartments(idCom);
-        setDep(response);
+        let data = {
+            com_id: idCom
+        }
+        let response = await listDepartments(data)
+        setDep(response.data);
     };
 
     // chose group
@@ -46,8 +47,12 @@ export default function RegisterEp() {
     }, [selectedDep]);
 
     const apiGroups = async (selectedDep, idCom) => {
-        let response = await CallApi.listGroups(idCom, selectedDep);
-        setGroup(response);
+        let data = {
+            com_id: idCom,
+            dep_id: selectedDep
+        }
+        let response = await listGroups(data);
+        setGroup(response.data.data);
     };
 
     // chose team
@@ -58,11 +63,36 @@ export default function RegisterEp() {
     }, [selectedGroup]);
 
     const apiTeams = async (selectedDep, selectedGroup, idCom) => {
-        let response = await CallApi.listTeams(idCom, selectedDep, selectedGroup);
+        let data = {
+            com_id: idCom,
+            dep_id: selectedDep,
+            team_id: selectedGroup
+        }
+        let response = await listTeams(data);
         setTeam(response);
     };
 
+    // hide pass
+    const [hidePass, setHidePass] = useState(true)
+    const [hidePass2, setHidePass2] = useState(true)
 
+    const showPass = () => {
+        if (hidePass == true) {
+            setHidePass(false)
+        } else {
+            setHidePass(true)
+        }
+    }
+
+    const showPass2 = () => {
+        if (hidePass2 == true) {
+            setHidePass2(false)
+        } else {
+            setHidePass2(true)
+        }
+    }
+
+    console.log(deps)
 
     return (
         <>
@@ -130,9 +160,12 @@ export default function RegisterEp() {
                                                         <label className="form_label share_fsize_three share_clr_one cr_weight">
                                                             Nhập mật khẩu <span className="cr_red">*</span>
                                                         </label>
-                                                        <span className="see_log" toggle="#password_nv" />
+                                                        <span
+                                                            className={`see_log ${hidePass ? '' : 'no_see_log'}`}
+                                                            toggle="#password_nv"
+                                                            onClick={showPass} />
                                                         <input
-                                                            type="password"
+                                                            type={hidePass ? 'password' : 'text'}
                                                             name="password"
                                                             className="form-control"
                                                             placeholder="Nhập mật khẩu"
@@ -152,11 +185,12 @@ export default function RegisterEp() {
                                                             Nhập lại mật khẩu <span className="cr_red">*</span>
                                                         </label>
                                                         <span
-                                                            className="see_log"
+                                                            className={`see_log ${hidePass2 ? '' : 'no_see_log'}`}
                                                             toggle="#password-field-six"
+                                                            onClick={showPass2}
                                                         />
                                                         <input
-                                                            type="password"
+                                                            type={hidePass2 ? 'password' : 'text'}
                                                             name="res_password"
                                                             className="form-control"
                                                             placeholder="Nhập lại mật khẩu"
@@ -177,10 +211,10 @@ export default function RegisterEp() {
                                                             Số điện thoại
                                                             <input
                                                                 type="text"
-                                                                name="phoneContact"
+                                                                name="phone"
                                                                 className="form-control"
                                                                 placeholder="Nhập số điện thoại liên hệ"
-                                                                {...register('phoneContact', {
+                                                                {...register('phone', {
                                                                     validate: {
                                                                         validatePhone: (value) => validatePhone(value) || "Hãy nhập đúng định dạng số điện thoại"
                                                                     }
@@ -331,11 +365,13 @@ export default function RegisterEp() {
                                                             onChange={(e) => setSelectedDep(e.target.value)}
                                                         >
                                                             <option value="">Chọn phòng ban</option>
-                                                            {deps.map((dep) => (
-                                                                <option key={dep._id} value={dep._id}>
-                                                                    {dep.deparmentName}
-                                                                </option>
-                                                            ))}
+                                                            {
+                                                                deps && deps != '' && deps.map((dep) => (
+                                                                    <option key={dep.dep_id} value={dep.dep_id}>
+                                                                        {dep.dep_name}
+                                                                    </option>
+                                                                ))
+                                                            }
                                                         </select>
                                                     </div>
                                                 </div>
@@ -353,7 +389,7 @@ export default function RegisterEp() {
                                                         >
                                                             <option value="">Chọn tổ</option>
                                                             {
-                                                                groups.map((group) => (
+                                                                groups && groups != '' && groups.map((group) => (
                                                                     <option key={group._id} value={group._id}>
                                                                         {group.teamName}
                                                                     </option>
@@ -374,7 +410,7 @@ export default function RegisterEp() {
                                                         >
                                                             <option value="">Chọn nhóm</option>
                                                             {
-                                                                teams.map((team) => (
+                                                                teams && teams != '' && teams.map((team) => (
                                                                     <option key={team._id} value={team._id}>
                                                                         {team.groupName}
                                                                     </option>

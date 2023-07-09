@@ -1,6 +1,7 @@
 import { React, useState, useEffect } from "react"
 import Cookies from "js-cookie";
 import { functionAPI } from "./function";
+import { data } from "autoprefixer";
 
 export const checkVip = async (idcom) => {
     const data = {
@@ -20,8 +21,7 @@ export const checkVip = async (idcom) => {
 export const registerCom = async (data) => {
     let result = await functionAPI('http://210.245.108.202:3000/api/qlc/Company/register', data)
     if (result.result == true) {
-        Cookies.set('acc_token', result.data.access_token);
-        Cookies.set('rf_token', result.data.refresh_token);
+        Cookies.set('token_base365', result.data.access_token);
         Cookies.set('role', 1);
         Cookies.set('phone', data.phoneTK);
         window.location.href = '/xac-thuc-ma-otp-cong-ty.html';
@@ -33,8 +33,7 @@ export const registerCom = async (data) => {
 export const registerEp = async (data) => {
     let result = await functionAPI('http://210.245.108.202:3000/api/qlc/employee/register', data)
     if (result.result == true) {
-        Cookies.set('acc_token', result.data.access_token);
-        Cookies.set('rf_token', result.data.refresh_token);
+        Cookies.set('token_base365', result.data.access_token);
         Cookies.set('role', 2);
         Cookies.set('phone', data.phoneTK);
 
@@ -47,8 +46,7 @@ export const registerEp = async (data) => {
 export const registerPersonal = async (data) => {
     let result = await functionAPI('http://210.245.108.202:3000/api/qlc/individual/register', data)
     if (result.result == true) {
-        Cookies.set('acc_token', result.data.access_token);
-        Cookies.set('rf_token', result.data.refresh_token);
+        Cookies.set('token_base365', result.data.access_token);
         Cookies.set('role', 3);
         Cookies.set('phone', data.phoneTK);
         window.location.href = '/xac-thuc-ma-otp-ca-nhan.html';
@@ -64,66 +62,10 @@ export const listDep = async (data) => {
 }
 
 // Login
-export const loginPersonal = async (data) => {
-    const err = 'err';
-    let result = await functionAPI('http://210.245.108.202:3000/api/qlc/individual/login', data)
-    if (result.result == true) {
-        Cookies.set('acc_token', result.data.acc_token);
-        Cookies.set('rf_token', result.data.refresh_token);
-        Cookies.set('role', 3);
-        window.location.href = '/quan-ly-ung-dung-ca-nhan.html';
-    } else {
-        return err
-    }
-}
-
-export const loginEp = async (data) => {
-    const err = 'err';
+export const login = async (data, pass_type) => {
+    data.pass_type = pass_type
     let result = await functionAPI('http://210.245.108.202:3000/api/qlc/employee/login', data)
-    if (result.result == true) {
-        Cookies.set('acc_token', result.data.acc_token);
-        Cookies.set('rf_token', result.data.refresh_token);
-        Cookies.set('role', 2);
-        window.location.href = '/quan-ly-ung-dung-nhan-vien.html';
-    } else {
-        return err
-    }
-}
-
-export const loginCom = async (data) => {
-    const err = 'err';
-    let result = await functionAPI('http://210.245.108.202:3000/api/qlc/Company/login', data)
-    if (result.result == true) {
-        Cookies.set('acc_token', result.data.acc_token);
-        Cookies.set('rf_token', result.data.refresh_token);
-        Cookies.set('role', 1);
-        window.location.href = '/quan-ly-ung-dung-cong-ty.html';
-    } else {
-        return err
-    }
-}
-
-
-export const login = async (data) => {
-    const err = 'err';
-    let result = await functionAPI('http://210.245.108.202:3000/api/qlc/employee/login', data)
-    if (result.result == true) {
-        const type = result.data.type,
-         acc_token = result.data.access_token,
-         refresh_token = result.data.refresh_token, role = result.data.type;
-        Cookies.set('acc_token', acc_token);
-        Cookies.set('rf_token', refresh_token);
-        Cookies.set('role', role);
-        if(type == 1) {
-            // window.location.href = '/quan-ly-ung-dung-cong-ty.html';
-        } else if (type == 2) {
-            window.location.href = '/quan-ly-ung-dung-nhan-vien.html';
-        } else {
-            window.location.href = '/quan-ly-ung-dung-ca-nhan.html';
-        }
-    } else {
-        return err
-    }
+    return result
 }
 
 // get information
@@ -173,6 +115,85 @@ export const changePassPersonal = async (data) => {
     let result = await functionAPI('http://210.245.108.202:3000/api/qlc/individual/updatePassword', data)
     return result
 }
+
+// change pass by forget pass
+export const changePwCom = async (data) => {
+    let result = await functionAPI('http://210.245.108.202:3000/api/qlc/Company/updatePasswordbyInput', data)
+    if (result.result) {
+        window.location.href = '/thay-doi-mat-khau-thanh-cong.html'
+    } else {
+        alert('Đổi mật khẩu thất bại')
+    }
+}
+
+export const changePwEp = async (data) => {
+    let result = await functionAPI('http://210.245.108.202:3000/api/qlc/employee/updatePasswordbyInput', data)
+    if (result.result) {
+        window.location.href = '/thay-doi-mat-khau-thanh-cong.html'
+    } else {
+        alert('Mật khẩu đã tồn tại, vui lòng nhập mật khẩu khác')
+    }
+}
+
+export const changePwPersonal = async (data) => {
+    let result = await functionAPI('http://210.245.108.202:3000/api/qlc/individual/updatePasswordbyInput', data)
+    if (result.result) {
+        window.location.href = '/thay-doi-mat-khau-thanh-cong.html'
+    } else {
+        alert('Mật khẩu đã tồn tại, vui lòng nhập mật khẩu khác')
+    }
+}
+
+// check account exist
+export const checkExist = async (data) => {
+    let result = await functionAPI('http://210.245.108.202:3000/api/qlc/individual/updatePassword', data)
+    return result
+}
+
+// vote
+export const vote = async (data) => {
+    let result = await functionAPI('http://210.245.108.202:3000/api/qlc/Feedback/createFeedEmp', data)
+    return result
+}
+
+// report error
+export const reportError = async (data) => {
+    let result = await functionAPI('http://210.245.108.202:3000/api/qlc/ReportError', data)
+    return result
+}
+
+// authentic 
+export const authenPersonal = async () => {
+    let result = await functionAPI('http://210.245.108.202:3000/api/qlc/individual/verify')
+    return result
+}
+
+export const authenEp = async () => {
+    let result = await functionAPI('http://210.245.108.202:3000/api/qlc/employee/verify')
+    return result
+}
+
+export const authenCom = async () => {
+    let result = await functionAPI('http://210.245.108.202:3000/api/qlc/Company/verify')
+    return result
+}
+
+// render phong ban, to, nhom
+export const listDepartments = async (data) => {
+    let result = await functionAPI('http://210.245.108.202:3000/api/qlc/department/list', data)
+    return result
+}
+
+export const listGroups = async (data) => {
+    let result = await functionAPI('http://210.245.108.202:3000/api/qlc/team/search', data)
+    return result
+}
+
+export const listTeams = async (data) => {
+    let result = await functionAPI('http://210.245.108.202:3000/api/qlc/group/search', data)
+    return result
+}
+
 
 
 

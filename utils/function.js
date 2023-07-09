@@ -2,7 +2,6 @@ import { React, useState, useEffect } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
-import { redirect } from 'next/navigation';
 
 export function getEducation(id) {
     const arr = [];
@@ -100,8 +99,7 @@ export function validatePhone(value) {
 }
 
 export function ConvertIntToDate(timestamp) {
-    let date = new Date(timestamp);
-
+    let date = new Date(timestamp * 1000);
     let year = date.getFullYear();
     let month = ("0" + (date.getMonth() + 1)).slice(-2); // Tháng được đếm từ 0, nên cần cộng 1 và định dạng kích thước 2 chữ số
     let day = ("0" + date.getDate()).slice(-2); // Định dạng ngày kích thước 2 chữ số
@@ -115,14 +113,26 @@ export function ConvertIntToDate(timestamp) {
     return formattedDate;
 }
 
+export function generateRandomString(length) {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+
+    for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        result += characters.charAt(randomIndex);
+    }
+
+    return result;
+}
+
 // function call api
 export const functionAPI = async (url, data = null) => {
     let configHeader = {
         headers: {}
     };
 
-    if (Cookies.get('acc_token')) {
-        configHeader.headers['Authorization'] = `Bearer ${Cookies.get('acc_token')}`;
+    if (Cookies.get('token_base365')) {
+        configHeader.headers['Authorization'] = `Bearer ${Cookies.get('token_base365')}`;
     }
 
     let configData = {}
@@ -144,10 +154,11 @@ export const functionAPI = async (url, data = null) => {
 
 // check login
 export function CheckLogin() {
-    const token = Cookies.get('acc_token');
+    const acc_token = Cookies.get('token_base365');
+    const rf_token = Cookies.get('rf_token');
     const role = Cookies.get('role');
     const router = useRouter();
-    if (role && token) {
+    if (role && acc_token && rf_token) {
         let redirectUrl = "";
         if (role === '1') {
             redirectUrl = "/quan-ly-ung-dung-cong-ty.html";
@@ -156,18 +167,24 @@ export function CheckLogin() {
         } else {
             redirectUrl = "/quan-ly-ung-dung-ca-nhan.html";
         }
-
-        // if (redirectUrl != `/${window.location.href.split('/')[3]}`) {
-        //     router.push(redirectUrl);
-        // }
+        if (redirectUrl != window.location.pathname) {
+            router.push(redirectUrl);
+        }
     }
 }
 
-// export function CheckLogin2() {
-//     const token = Cookies.get('acc_token');
-//     const role = Cookies.get('role');
-//     const router = useRouter();
-//     if (!role && !token) {
-//         router.push('/');
-//     }
-// }
+export function CheckLogin2() {
+    const acc_token = Cookies.get('token_base365');
+    const rf_token = Cookies.get('rf_token');
+    const role = Cookies.get('role');
+    if (!role && !acc_token && !rf_token) {
+        window.location.href = '/'
+    }
+}
+
+export function logout() {
+    Cookies.remove('token_base365');
+    Cookies.remove('rf_token');
+    Cookies.remove('role');
+    window.location.href = '/';
+}

@@ -3,8 +3,11 @@ import Seo from "../components/head";
 import LoginForm from "../components/loginForm"
 import LoginQr from "../components/loginQr"
 import QrGuild from "../components/qrGuild"
+import { CheckLogin } from "../utils/function"
 
 export default function LoginPersonal() {
+    CheckLogin()
+
     // handle interaction
     const [typeLogin, setTypeLogin] = useState('login_qr')
     const [active, setActive] = useState('login_qr')
@@ -72,11 +75,11 @@ export default function LoginPersonal() {
                                         </button>
                                         <div className="line" />
                                         <button className={`select_login login_tk ${(active == 'login_form') ? 'active' : ''}`} onClick={loginByForm}>
-                                            TÀI KHOẢN<span className="text">(email)</span>
+                                            TÀI KHOẢN<span className="text">(email/số điện thoại)</span>
                                         </button>
                                     </div>
-                                    {typeLogin == 'login_form' && <LoginForm setNotiError={setNotiError} type='0' />}
-                                    {typeLogin == 'login_qr' && <LoginQr qrGuildShow={qrGuildShow} />}
+                                    {typeLogin == 'login_form' && <LoginForm setNotiError={setNotiError} typeLogin='0' />}
+                                    {typeLogin == 'login_qr' && <LoginQr qrGuildShow={qrGuildShow} setNotiError={setNotiError} typeLogin = '0' />}
                                 </div>
                             </div>
                         </div>
