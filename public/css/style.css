@@ -6033,7 +6033,6 @@ a {
     }
 
     .btn_168:first-child {
-        margin-right: 0px;
         margin-bottom: 15px;
     }
 
@@ -6397,8 +6396,8 @@ a {
     }
 
     .ctn_bgr_body {
-        height: 620px;
-        background-image: url('../img/bgr_log.png');
+       height: unset;
+       background: none;
     }
 
     #quenmk_m .ctn_bgr_body {
@@ -6469,6 +6468,10 @@ a {
 
     .register_dk_vip .regnv_form.regnv_form_id {
         margin-top: 47px;
+    }
+
+    .box_error {
+        width: 100% !important;
     }
 }
 
@@ -6668,6 +6671,10 @@ input[type=number]::-webkit-outer-spin-button {
         display: block;
     }
 
+    .btn_168:first-child {
+        margin-right: 0 !important;
+    }
+
     /* .help_qr {
 
         background: none;
@@ -6833,5 +6840,9 @@ input[type=number]::-webkit-outer-spin-button {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.text_dg {
+    border: 1px solid;
 }
 

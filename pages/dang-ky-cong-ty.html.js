@@ -159,7 +159,7 @@ export default function info_register_emp() {
                       <label className="form_label share_fsize_three share_clr_one cr_weight">
                         Địa chỉ <span className="cr_red">*</span>
                       </label>
-                      <input type="text" name="address" class="form-control"
+                      <input type="text" name="address" className="form-control"
                         placeholder="Nhập địa chỉ"
                         {...register("address", {
                           required: 'Địa chỉ không được để trống',
