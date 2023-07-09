@@ -15,9 +15,9 @@ export default function Danhgia() {
 
     let role = Cookies.get('role')
     if (role == 2) {
-        window.location.href = '/quan-ly-ung-dung-nhan-vien'
+        window.location.href = '/quan-ly-ung-dung-nhan-vien.html'
     } else if (role == 0) {
-        window.location.href = '/quan-ly-ung-dung-ca-nhan'
+        window.location.href = '/quan-ly-ung-dung-ca-nhan.html'
     }
 
     const [comment, setComment] = useState('');
@@ -63,9 +63,6 @@ export default function Danhgia() {
                     <div className="right_ql">
                         <div className="header_rigth_qly">
                             <div className="ctn_header_qly">
-                                <div className="left_header_qly">
-                                    <p className="share_fsize_one ">Báo lỗi</p>
-                                </div>
                                 <HeaderLogin />
                             </div>
                         </div>

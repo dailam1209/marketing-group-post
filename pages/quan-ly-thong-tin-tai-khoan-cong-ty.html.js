@@ -80,7 +80,6 @@ export default function DetailEmployy() {
     };
 
     // Tạo đối tượng FileReader
-
     const handleFileChange = async (event) => {
         const file = event.target.files[0];
         // const imageUrl = URL.createObjectURL(file);
@@ -89,9 +88,7 @@ export default function DetailEmployy() {
             let data = {
                 avatarUser: file
             }
-            console.log(data)
             let result = await updateCom(data)
-            console.log(result)
         };
     }
 
@@ -114,12 +111,9 @@ export default function DetailEmployy() {
                     <div className="right_ql">
                         <div className="header_rigth_qly">
                             <div className="ctn_header_qly">
-                                <div className="left_header_qly">
-                                    <p className="share_fsize_one ">Ứng dụng / <span className="thay_doi">Tất cả</span></p>
-                                </div>
                                 <HeaderLogin />
-                            </div>
-                        </div>
+                            </div >
+                        </div >
                         <div className="ctn_right_qly ">
                             <div className="ctn_res_qly">
                                 <div className="left_header_qly">
@@ -185,9 +179,10 @@ export default function DetailEmployy() {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div >
 
-                    {(showUpdate) && <EditCom closePopupUpdate={closePopupUpdate} data={data} setUpdateStatus={setUpdateStatus} />}
+                    {(showUpdate) && <EditCom closePopupUpdate={closePopupUpdate} data={data} setUpdateStatus={setUpdateStatus} />
+                    }
 
                     {/* chỉnh sửa tt thành công */}
                     <div className="modal_share modal_share_three edit_tt_success" style={{ display: updateStatus ? 'block' : 'none' }}>
@@ -333,8 +328,8 @@ export default function DetailEmployy() {
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                </div >
+            </div >
         </>
     )
 }

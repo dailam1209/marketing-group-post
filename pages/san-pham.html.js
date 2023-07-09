@@ -1,4 +1,4 @@
-import {React, useState} from "react"
+import { React, useState } from "react"
 import Seo from '../components/head'
 import { CheckLogin } from "../utils/function"
 import QlNhanluc from "../components/ql_nhanluc"
@@ -102,46 +102,48 @@ export default function Product() {
           </div>
           <div className="cnt_count_detail tab_active">
             <div className="container t_flex">
-              {
-                (show == 'all') ? (
-                  <>
-                    <QlConlai />
-                    <QlNhanluc />
-                    <QlCongviec />
-                    <QlNoibo />
-                    <QlBanhang />
-                  </>
-                ) : ''
+              <div className="detal_titl">
+                {
+                  (show == 'all') ? (
+                    <>
+                      <QlConlai />
+                      <QlNhanluc />
+                      <QlCongviec />
+                      <QlNoibo />
+                      <QlBanhang />
+                    </>
+                  ) : ''
 
-              }
-              {
-                (show == 'nhan_luc') ? (
-                  <>
-                    <QlNhanluc />
-                  </>
-                ) : ''
-              }
-              {
-                (show == 'cong_viec') ? (
-                  <>
-                    <QlCongviec />
-                  </>
-                ) : ''
-              }
-              {
-                (show == 'noi_bo') ? (
-                  <>
-                    <QlNoibo />
-                  </>
-                ) : ''
-              }
-              {
-                (show == 'ban_hang') ? (
-                  <>
-                    <QlBanhang />
-                  </>
-                ) : ''
-              }
+                }
+                {
+                  (show == 'nhan_luc') ? (
+                    <>
+                      <QlNhanluc />
+                    </>
+                  ) : ''
+                }
+                {
+                  (show == 'cong_viec') ? (
+                    <>
+                      <QlCongviec />
+                    </>
+                  ) : ''
+                }
+                {
+                  (show == 'noi_bo') ? (
+                    <>
+                      <QlNoibo />
+                    </>
+                  ) : ''
+                }
+                {
+                  (show == 'ban_hang') ? (
+                    <>
+                      <QlBanhang />
+                    </>
+                  ) : ''
+                }
+              </div>
             </div>
           </div>
         </div>

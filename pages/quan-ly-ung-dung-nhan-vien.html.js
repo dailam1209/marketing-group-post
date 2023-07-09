@@ -85,9 +85,6 @@ export default function HomeEmployee() {
                     <div className="right_ql">
                         <div className="header_rigth_qly">
                             <div className="ctn_header_qly">
-                                <div className="left_header_qly">
-                                    <p className="share_fsize_one ">Ứng dụng / <span className="thay_doi">{nameList}</span></p>
-                                </div>
                                 <HeaderLogin />
                             </div>
                         </div>

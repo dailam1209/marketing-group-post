@@ -78,7 +78,7 @@ export default function SideBar() {
                     </div>
                     <div className="nav_qly">
                         <ul className="navbar-nav">
-                            <a href="quan-ly-ung-dung-cong-ty.html" className="nav-item <?= ($_SERVER['REDIRECT_URL'] == '/quan-ly-ung-dung-cong-ty.html')">
+                            <a href="/quan-ly-ung-dung-cong-ty.html" className="nav-item <?= ($_SERVER['REDIRECT_URL'] == '/quan-ly-ung-dung-cong-ty.html')">
                                 <li className="nav-child-item cr_weight_bold share_fsize_tow share_clr_tow d_flex">
                                     <span className="item_ic"><img src="../img/ung-dung.png" alt="Ứng dụng" /></span>
                                     Ứng dụng
@@ -102,7 +102,7 @@ export default function SideBar() {
                                     Quản lý công ty con
                                 </li>
                             </a >
-                            <a href="https://phanmemnhansu.timviec365.vn/co-cau-to-chuc.html" target="_blank" className="nav-item">
+                            <a href="#" target="_blank" className="nav-item">
                                 <li className="nav-child-item cr_weight_bold share_fsize_tow share_clr_tow d_flex">
                                     <span className="item_ic"><img src="../img/qly-cctochuc.png" alt="Sơ đồ cơ cấu tổ chức" /></span>
                                     Sơ đồ cơ cấu tổ chức
@@ -115,25 +115,25 @@ export default function SideBar() {
                                 </li>
                             </a >
 
-                            <a href="quan-ly-thong-tin-tai-khoan-cong-ty.html" className="nav-item <?= ($_SERVER['REDIRECT_URL'] == '/quan-ly-thong-tin-tai-khoan-cong-ty.html')" >
+                            <a href="/quan-ly-thong-tin-tai-khoan-cong-ty.html" className="nav-item <?= ($_SERVER['REDIRECT_URL'] == '/quan-ly-thong-tin-tai-khoan-cong-ty.html')" >
                                 <li className="nav-child-item cr_weight_bold share_fsize_tow share_clr_tow d_flex">
                                     <span className="item_ic"><img src="../img/qly-tttaikhoan.png" alt="Thông tin tài khoản" /></span>
                                     Thông tin tài khoản
                                 </li>
                             </a >
-                            <a target="_blank" href="/danh-gia.html" className="nav-item">
+                            <a href="/danh-gia.html" className="nav-item">
                                 <li className="nav-child-item cr_weight_bold share_fsize_tow share_clr_tow d_flex">
                                     <span className="item_ic"><img src="../img/ic_dg.png" alt="Đánh giá" /></span>
                                     Đánh giá
                                 </li>
                             </a>
-                            <a target="_blank" href="/bao-loi.html" className="nav-item">
+                            <a href="/bao-loi.html" className="nav-item">
                                 <li className="nav-child-item cr_weight_bold share_fsize_tow share_clr_tow d_flex">
                                     <span className="item_ic"><img src="../img/ic_bl.png" alt="Báo lỗi" /></span>
                                     Báo lỗi
                                 </li>
                             </a>
-                            <a href="cai-dat-thiet-lap-dai-ip-phan-mem.html" className="nav-item <?= (in_array($_SERVER['REDIRECT_URL'], $ct_caidat))" >
+                            <a href="/cai-dat-thiet-lap-dai-ip-phan-mem.html" className="nav-item <?= (in_array($_SERVER['REDIRECT_URL'], $ct_caidat))" >
                                 <li className="nav-child-item cr_weight_bold share_fsize_tow share_clr_tow d_flex">
                                     <span className="item_ic"><img src="../img/cai-dat.png" alt=" Cài đặt" /></span>
                                     Cài đặt

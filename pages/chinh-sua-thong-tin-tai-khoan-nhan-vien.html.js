@@ -6,7 +6,7 @@ import CallApi from '../pages/api/call_api';
 import Cookies from "js-cookie";
 import { useForm } from 'react-hook-form';
 import { infoEp, infoPersonal, updateEp, updatePersonal } from '../utils/handleApi';
-import { getEducation, formatDate, validatePhone } from "../utils/function";
+import { getEducation, validatePhone, getExperience, getGender, getMarried, ConvertIntToDate } from "../utils/function";
 
 export default function EditEmployee() {
     // fix first render 
@@ -15,46 +15,38 @@ export default function EditEmployee() {
     // gọi api lấy thông tin nhân viên
     const [data, setData] = useState([]);
     let role = Cookies.get('role');
+    useEffect(() => {
+        const getData = async () => {
+            if (role == 2) {
+                let response = await infoEp();
+                setData(response.data)
+                setValue('userName', response.data.userName)
+                setValue('address', response.data.address)
+                setValue('phone', response.data.phone || response.data.phoneTK)
+                setHydrated(true)
 
-    // set values in form
-    const [selectedDate, setSelectedDate] = useState('');
-    const handleDateChange = (event) => {
-        setSelectedDate(event.target.value);
-    };
-
-
-
-    if (data.gender == 1) {
-        var gender = 'Nam'
-    } else if (data.gender == 2) {
-        var gender = 'Nữ'
-    } else if (data.gender == 3) {
-        var gender = ' Khác'
-    } else {
-        var gender = ''
-    }
-
-    if (data.inForPerson && data.inForPerson.account && data.inForPerson.account.married == 1) {
-        var married = 'Độc thân'
-    } else if (data.inForPerson && data.inForPerson.account && data.inForPerson.account.married == 2) {
-        var married = "Đã kết hôn"
-    } else {
-        var married = "Chưa cập nhập"
-    }
-
-    const [updateSuccess, setUpdateSuccess] = useState(false)
-    const [updateFalse, setUpdateFalse] = useState(false)
-
-    const closeUpdate = () => {
-        setUpdateSuccess(false)
-        setUpdateFalse(false)
-        window.location.href = '/quan-ly-thong-tin-tai-khoan-nhan-vien.html'
-    }
+            } else {
+                let response = await infoPersonal();
+                setData(response.data)
+                setValue('userName', response.data.userName)
+                setValue('address', response.data.address)
+                setValue('phone', response.data.phone || response.data.phoneTK)
+                setHydrated(true)
+            }
+        }
+        getData()
+    }, [])
 
     // handle validate form update
     const { register, handleSubmit, formState: { errors }, setValue } = useForm();
 
     const onSubmit = async data => {
+        console.log(data)
+        let dateObject = new Date(data.birthday);
+        let birthday = dateObject.getTime();
+        birthday = Math.floor(birthday / 1000);
+        delete data.birthday
+        data.birthday = birthday
         console.log(data)
         if (role == 2) {
             let response = await updateEp(data);
@@ -73,26 +65,15 @@ export default function EditEmployee() {
         }
     };
 
-    useEffect(() => {
-        const getData = async () => {
-            if (role == 2) {
-                let response = await infoEp();
-                setData(response.data)
-                setValue('userName', response.data.userName)
-                setValue('address', response.data.address)
-                setValue('phone', response.data.phone || response.data.phoneTK)
-            } else {
-                let response = await infoPersonal();
-                setData(response.data)
-                setValue('userName', response.data.userName)
-                setValue('address', response.data.address)
-                setValue('phone', response.data.phone || response.data.phoneTK)
-            }
-        }
-        getData()
-        setHydrated(true)
-    }, [])
-    console.log(data)
+    // handle popup
+    const [updateSuccess, setUpdateSuccess] = useState(false)
+    const [updateFalse, setUpdateFalse] = useState(false)
+
+    const closeUpdate = () => {
+        setUpdateSuccess(false)
+        setUpdateFalse(false)
+        window.location.href = '/quan-ly-thong-tin-tai-khoan-nhan-vien.html'
+    }
 
     if (!hydrated) {
         // Returns null on first render, so the client and server match
@@ -114,9 +95,6 @@ export default function EditEmployee() {
                     <div className="right_ql">
                         <div className="header_rigth_qly">
                             <div className="ctn_header_qly">
-                                <div className="left_header_qly">
-                                    <p className="share_fsize_one ">Thông tin tài khoản</p>
-                                </div>
                                 <HeaderLogin />
                             </div>
                         </div>
@@ -189,10 +167,17 @@ export default function EditEmployee() {
                                                 <div className="form-group">
                                                     <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
                                                         Giới tính<span className="cr_red">*</span></label>
-                                                    <select {...register('gender')} defaultValue={data.gender} name="gioitinh" className="form-control">
-                                                        <option value="2" >Nữ</option>
-                                                        <option value="1" >Nam</option>
-                                                        <option value="3" >Khác</option>
+                                                    <select
+                                                        {...register('gender')}
+                                                        defaultValue={data.gender || 1}
+                                                        name="gioitinh"
+                                                        onChange={(e) => setValue('gender', e.target.value)}
+                                                        className="form-control">
+                                                        {
+                                                            getGender.map((item, index) => (
+                                                                <option key={item} value={index} style={{ display: (index != 0) ? 'block' : 'none' }}>{item}</option>
+                                                            ))
+                                                        }
                                                     </select>
                                                 </div>
                                                 <div className="form-group">
@@ -201,12 +186,11 @@ export default function EditEmployee() {
                                                     <input
                                                         type="date"
                                                         name="ngaysinh"
-                                                        value={selectedDate}
-                                                        onChange={handleDateChange}
+                                                        defaultValue={ConvertIntToDate(data.birthday)[1]}
                                                         className="form-control share_fsize_one share_clr_one"
                                                         placeholder="Nhập ngày sinh của bạn"
                                                         {...register("birthday", {
-                                                            // required: 'Không được để trống',
+                                                            required: 'Không được để trống',
                                                         })}
                                                     />
                                                     {errors.birthday && <label className="error">{errors.birthday.message}</label>}
@@ -216,25 +200,32 @@ export default function EditEmployee() {
                                                 <div className="form-group">
                                                     <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
                                                         Trình độ học vấn <span className="cr_red">*</span></label>
-                                                    <select {...register('education')} value={data.education} name="trinhdo" className="form-control"
-
+                                                    <select {...register('education')}
+                                                        defaultValue={data.education || 1}
+                                                        name="trinhdo"
+                                                        className="form-control"
+                                                        onChange={(e) => setValue('education', e.target.value)}
                                                     >
-                                                        <option value="1" >Trên đại học</option>
-                                                        <option value="2" >Đại học</option>
-                                                        <option value="3" >Cao đẳng</option>
-                                                        <option value="4" >Trung cấp</option>
-                                                        <option value="5" >Đào tạo nghề</option>
-                                                        <option value="6" >Trung học phổ thông</option>
-                                                        <option value="7" >Trung học cơ sở</option>
-                                                        <option value="8" >Tiểu học</option>
+                                                        {
+                                                            getEducation.map((item, index) => (
+                                                                <option key={item} value={index} style={{ display: (index != 0) ? 'block' : 'none' }}>{item}</option>
+                                                            ))
+                                                        }
                                                     </select >
                                                 </div >
                                                 <div className="form-group">
                                                     <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
                                                         Tình trạng hôn nhân<span className="cr_red">*</span></label>
-                                                    <select {...register('married')} value={data.married || 1} name="tinhtrang" className="form-control">
-                                                        <option value="1" >Độc thân</option>
-                                                        <option value="2" >Đã có gia đình</option>
+                                                    <select {...register('married')}
+                                                        defaultValue={data.married || 1}
+                                                        name="tinhtrang"
+                                                        onChange={(e) => setValue('married', e.target.value)}
+                                                        className="form-control">
+                                                        {
+                                                            getMarried.map((item, index) => (
+                                                                <option key={item} value={index} style={{ display: (index != 0) ? 'block' : 'none' }}>{item}</option>
+                                                            ))
+                                                        }
                                                     </select >
                                                 </div >
                                             </div >
@@ -242,15 +233,16 @@ export default function EditEmployee() {
                                                 <div className="form-group">
                                                     <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
                                                         Kinh nghiệm làm việc <span className="cr_red">*</span></label>
-                                                    <select {...register('experience')} value={data.experience || 1} name="kinhnghiem" className="form-control">
-                                                        <option value="1">Chưa có kinh nghiệm</option>
-                                                        <option value="2">Dưới 1 năm kinh nghiệm</option>
-                                                        <option value="3">1 năm</option>
-                                                        <option value="4"> 2 năm</option >
-                                                        <option value="5"> 3 năm</option >
-                                                        <option value="6"> 4 năm</option >
-                                                        <option value="7"> 5 năm</option >
-                                                        <option value="8"> Trên 5 năm</option >
+                                                    <select {...register('experience')}
+                                                        defaultValue={data.experience || 1}
+                                                        name="kinhnghiem"
+                                                        onChange={(e) => setValue('experience', e.target.value)}
+                                                        className="form-control">
+                                                        {
+                                                            getExperience.map((item, index) => (
+                                                                <option key={item} value={index} style={{ display: (index != 0) ? 'block' : 'none' }}>{item}</option>
+                                                            ))
+                                                        }
                                                     </select >
                                                 </div >
                                                 <div className="form-group share_done">
@@ -299,21 +291,21 @@ export default function EditEmployee() {
             </div >
 
             {/* chỉnh sửa tt thành công */}
-            <div class="modal_share modal_share_three edit_tt_success" style={{ display: updateSuccess ? 'block' : 'none' }}>
-                <div class="modal-content">
-                    <div class="info_modal">
-                        <div class="modal-body">
-                            <div class="ctn_body_modal">
-                                <div class="content_notif">
-                                    <div class="avt_notif notif_mar">
+            <div className="modal_share modal_share_three edit_tt_success" style={{ display: updateSuccess ? 'block' : 'none' }}>
+                <div className="modal-content">
+                    <div className="info_modal">
+                        <div className="modal-body">
+                            <div className="ctn_body_modal">
+                                <div className="content_notif">
+                                    <div className="avt_notif notif_mar">
                                         <img src="../img/thongbao.png" alt="" />
                                     </div>
-                                    <p class="titl_notif">Chỉnh sửa thông tin thành công!</p>
-                                    <div class="form_butt_ht">
-                                        <div class="tow_butt_flex">
+                                    <p className="titl_notif">Chỉnh sửa thông tin thành công!</p>
+                                    <div className="form_butt_ht">
+                                        <div className="tow_butt_flex">
                                             <button type="button"
                                                 onClick={closeUpdate}
-                                                class="font_s15 share_clr_tow share_bgr_one dong_button close_button_share">Đóng</button>
+                                                className="font_s15 share_clr_tow share_bgr_one dong_button close_button_share">Đóng</button>
                                         </div>
                                     </div>
                                 </div>
@@ -323,21 +315,21 @@ export default function EditEmployee() {
                 </div>
             </div>
             {/* chỉnh sửa tt thất bại */}
-            <div class="modal_share modal_share_three edit_tt_fall " style={{ display: updateFalse ? 'block' : 'none' }}>
-                <div class="modal-content">
-                    <div class="info_modal">
-                        <div class="modal-body">
-                            <div class="ctn_body_modal">
-                                <div class="content_notif">
-                                    <div class="avt_notif notif_mar">
+            <div className="modal_share modal_share_three edit_tt_fall " style={{ display: updateFalse ? 'block' : 'none' }}>
+                <div className="modal-content">
+                    <div className="info_modal">
+                        <div className="modal-body">
+                            <div className="ctn_body_modal">
+                                <div className="content_notif">
+                                    <div className="avt_notif notif_mar">
                                         <img src="../img/notif_thatbai.png" alt="" />
                                     </div>
-                                    <p class="titl_notif">Chỉnh sửa thông tin thất bại, vui lòng thử lại sau! </p>
-                                    <div class="form_butt_ht">
-                                        <div class="tow_butt_flex">
+                                    <p className="titl_notif">Chỉnh sửa thông tin thất bại, vui lòng thử lại sau! </p>
+                                    <div className="form_butt_ht">
+                                        <div className="tow_butt_flex">
                                             <button type="button"
                                                 onClick={closeUpdate}
-                                                class="font_s15 share_clr_tow share_bgr_one dong_button close_button_share">Đóng</button>
+                                                className="font_s15 share_clr_tow share_bgr_one dong_button close_button_share">Đóng</button>
                                         </div>
                                     </div>
                                 </div>
