@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Seo from '../components/head'
 import SideBar from '../components/sideBar/SideBar';
 import HeaderLogin from '../components/headerLogin/HeaderLogin';
-import callApi from '../pages/api/call_api';
 import Cookies from "js-cookie";
 import { getEducation, getGender, getExperience, getMarried, getPosition, ConvertIntToDate } from "../utils/function";
 import { useForm } from 'react-hook-form';
@@ -22,7 +21,6 @@ export default function DetailEmployee() {
             if (type == '2') {
                 let response = await infoEp();
                 setData(response.data)
-                // setGender()
             } else {
                 let response = await infoPersonal();
                 setData(response.data)
@@ -31,6 +29,7 @@ export default function DetailEmployee() {
         getData()
         setHydrated(true)
     }, [])
+    console.log(data)
 
     // show popup change password
     const [isClicked, setIsClicked] = useState(false);
@@ -86,7 +85,7 @@ export default function DetailEmployee() {
                         <div className="header_rigth_qly">
                             <div className="ctn_header_qly">
                                 <div className="left_header_qly">
-                                    <p className="share_fsize_one ">Ứng dụng / <span className="thay_doi">Tất cả</span></p>
+                                    <p className="share_fsize_one ">Thông tin tài khoản</p>
                                 </div>
                                 <HeaderLogin />
                             </div>
@@ -103,7 +102,7 @@ export default function DetailEmployee() {
                                                 <div className="avt_taikhoan ">
                                                     <div className="container_avt">
                                                         <div className="position_r text_a_c com_log_n">
-                                                            <img src={data.avatarUser}
+                                                            <img src={data.avatarUser || '../img/icon_avt.png'}
                                                                 alt="" className="img_avt" id="myimage" />
                                                             <img src="../img/icon_mayanh.png" alt=""
                                                                 className="img_mayanh position_a" />
@@ -133,7 +132,7 @@ export default function DetailEmployee() {
                                                         {(type == '2') ? (
                                                             <p className="content d_flex">
                                                                 <span>Ngày bắt đầu làm việc:</span>
-                                                                <span>{(data.start_working_time != 0) ? ConvertIntToDate(data.start_working_time) : 'Chưa cập nhật'}</span>
+                                                                <span>{(data.start_working_time != 0) ? ConvertIntToDate(data.start_working_time)[0] : 'Chưa cập nhật'}</span>
                                                             </p>
                                                         ) : ''}
                                                         <p className="content d_flex">

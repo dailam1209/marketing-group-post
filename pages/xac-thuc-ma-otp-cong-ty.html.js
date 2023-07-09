@@ -4,9 +4,10 @@ import Cookies from "js-cookie";
 import Header from "../components/header/Header"
 import Footer from "../components/footer/Footer"
 import Seo from '../components/head'
-import { checkLogin } from "../utils/function"
+import { CheckLogin } from "../utils/function"
 
 export default function sendOTP_Com() {
+  CheckLogin()
   
   const onClickVerifyOtp = () => {
     const value = document.querySelector('.verify_otp');

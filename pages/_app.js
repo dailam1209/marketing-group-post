@@ -5,9 +5,10 @@ import Cookies from "js-cookie";
 export default function App({ Component, pageProps }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   useEffect(() => {
-    const token = Cookies.get('acc_token');
+    const acc_token = Cookies.get('token_base365');
+    const rf_token = Cookies.get('rf_token');
     const admin = Cookies.get('admin');
-    setIsLoggedIn(!!token || admin);
+    setIsLoggedIn((!!acc_token && !! rf_token) || admin);
   }, []);
 
   return (

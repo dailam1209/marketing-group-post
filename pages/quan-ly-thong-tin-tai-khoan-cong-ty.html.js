@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Seo from '../components/head'
 import SideBar from '../components/sideBar/SideBar';
 import HeaderLogin from '../components/headerLogin/HeaderLogin';
 import EditCom from '../components/editCom'
-import CallApi from '../pages/api/call_api';
-import Cookies from "js-cookie";
-import { getEducation } from "../utils/function";
 import { useForm } from 'react-hook-form';
+import { infoCom, changePassCom, updateCom } from "../utils/handleApi";
 
 export default function DetailEmployy() {
     // fix first render 
@@ -14,13 +12,12 @@ export default function DetailEmployy() {
 
     // gọi api lấy thông tin nhân viên
     const [data, setData] = useState([]);
-    let token = Cookies.get('acc_token');
 
     useEffect(() => {
         const getData = async () => {
             try {
-                let response = await CallApi.getInfoCom(token);
-                setData(response)
+                let response = await infoCom();
+                setData(response.data)
             }
             catch (error) {
                 console.log(error);
@@ -30,9 +27,7 @@ export default function DetailEmployy() {
         setHydrated(true);
     }, [])
 
-    // popup update info success
-    const [updateStatus, setUpdateStatus] = useState(false)
-
+    // change password
     // show popup change password
     const [isClicked, setIsClicked] = useState(false);
     const showPopup = () => {
@@ -41,29 +36,30 @@ export default function DetailEmployy() {
     const closePopup = () => {
         setIsClicked(false);
     }
-
     // show popup change password success
     const [isSuccess, setIsSuccess] = useState(false);
     // show popup change password false
     const [isFalse, setIsFalse] = useState(false);
+    // show error
+    const [errorPass, setErrorPass] = useState(false)
 
     // validate form change password
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
-    const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
 
     const onSubmit = async data => {
         try {
-            let response = await CallApi.changePassCom(token, data);
-            if (response.data && response.data.data && response.data.data.result == true) {
+            let response = await changePassCom(data);
+            if (response.result && response.result == true) {
                 setIsSuccess(true);
             } else {
-                alert(response)
+                setErrorPass(true)
             }
         } catch (error) {
             setIsFalse(true);
         }
     };
 
+    // update info
     // show popup form update infor
     const [showUpdate, setShowUpdate] = useState(false)
     const showPopupUpdate = () => {
@@ -71,6 +67,32 @@ export default function DetailEmployy() {
     }
     const closePopupUpdate = () => {
         setShowUpdate(false);
+    }
+
+    // popup update info success
+    const [updateStatus, setUpdateStatus] = useState(false)
+
+    // handle upload avatar 
+    const fileInputRef = useRef(null);
+
+    const handleUploadAvt = () => {
+        fileInputRef.current.click();
+    };
+
+    // Tạo đối tượng FileReader
+
+    const handleFileChange = async (event) => {
+        const file = event.target.files[0];
+        // const imageUrl = URL.createObjectURL(file);
+
+        if (file) {
+            let data = {
+                avatarUser: file
+            }
+            console.log(data)
+            let result = await updateCom(data)
+            console.log(result)
+        };
     }
 
     if (!hydrated) {
@@ -109,15 +131,20 @@ export default function DetailEmployy() {
                                             <div className="item d_flex">
                                                 <div className="avt_taikhoan ">
                                                     <div className="container_avt">
-                                                        <div className="position_r text_a_c com_log_n">
-                                                            <img src={data.avatarUser}
+                                                        <div className="position_r text_a_c com_log_n" onClick={handleUploadAvt}>
+                                                            <img src={data.avatarUser || '../img/icon_avt.png'}
                                                                 alt="" className="img_avt" id="myimage" />
                                                             <img src="../img/icon_mayanh.png" alt=""
                                                                 className="img_mayanh position_a" />
-                                                            <input type="file" className="img_taianh display_none"
-                                                                defaultValue={''} />
+                                                            <input
+                                                                type="file"
+                                                                className="img_taianh display_none"
+                                                                defaultValue={''}
+                                                                accept="image/*"
+                                                                ref={fileInputRef}
+                                                                onChange={handleFileChange}
+                                                            />
                                                         </div>
-
                                                         <p className="id">{data._id}</p>
                                                     </div>
                                                 </div>
@@ -160,23 +187,23 @@ export default function DetailEmployy() {
                         </div>
                     </div>
 
-                    {(showUpdate) && <EditCom closePopupUpdate={closePopupUpdate} data={data} setUpdateStatus={setUpdateStatus}/>}
+                    {(showUpdate) && <EditCom closePopupUpdate={closePopupUpdate} data={data} setUpdateStatus={setUpdateStatus} />}
 
                     {/* chỉnh sửa tt thành công */}
-                    <div class="modal_share modal_share_three edit_tt_success" style={{ display: updateStatus ? 'block' : 'none' }}>
-                        <div class="modal-content">
-                            <div class="info_modal">
-                                <div class="modal-body">
-                                    <div class="ctn_body_modal">
-                                        <div class="content_notif">
-                                            <div class="avt_notif notif_mar">
+                    <div className="modal_share modal_share_three edit_tt_success" style={{ display: updateStatus ? 'block' : 'none' }}>
+                        <div className="modal-content">
+                            <div className="info_modal">
+                                <div className="modal-body">
+                                    <div className="ctn_body_modal">
+                                        <div className="content_notif">
+                                            <div className="avt_notif notif_mar">
                                                 <img src="../img/thongbao.png" alt="" />
                                             </div>
-                                            <p class="titl_notif">Chỉnh sửa thông tin thành công!</p>
-                                            <div class="form_butt_ht">
-                                                <div class="tow_butt_flex">
+                                            <p className="titl_notif">Chỉnh sửa thông tin thành công!</p>
+                                            <div className="form_butt_ht">
+                                                <div className="tow_butt_flex">
                                                     <a type="button" href="/quan-ly-thong-tin-tai-khoan-cong-ty.html"
-                                                        class="font_s15 share_clr_tow share_bgr_one dong_button close_button_share" >Đóng</a>
+                                                        className="font_s15 share_clr_tow share_bgr_one dong_button close_button_share" >Đóng</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -209,6 +236,7 @@ export default function DetailEmployy() {
                                                             required: 'Vui lòng nhập mật khẩu cũ',
                                                         })} />
                                                     {errors && errors.old_password && <label className="error">{errors.old_password.message}</label>}
+                                                    <label className="error" style={{ display: errorPass ? 'block' : 'none' }}>Mật khẩu cũ không chính xác</label>
                                                 </div>
                                                 <div className="form-group">
                                                     <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">Mật khẩu
@@ -218,7 +246,7 @@ export default function DetailEmployy() {
                                                         placeholder="Nhật mật khẩu mới"  {...register('password', {
                                                             required: 'Vui lòng nhập mật khẩu',
                                                             pattern: {
-                                                                value: passwordPattern,
+                                                                value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/,
                                                                 message:
                                                                     'Mật khẩu phải gồm 6 ký tự trở lên, bao gồm ít nhất một chữ cái và ít nhất một chữ số, không chứa khoảng trắng.',
                                                             },

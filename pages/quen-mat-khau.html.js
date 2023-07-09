@@ -1,20 +1,24 @@
-import {React, useState, useEffect} from "react"
+import { React, useState, useEffect } from "react"
 import { useForm } from 'react-hook-form';
-import callApi from './api/call_api';
 import Seo from '../components/head'
 import { useRouter } from 'next/router';
 import { CheckLogin } from "../utils/function"
+import { generateRandomString } from "../utils/function";
+import {checkExist} from '../utils/function'
 
 export default function forgetPassword() {
     CheckLogin()
-    // handle seo
+    
     const router = useRouter();
-    const type = router.query.type 
+    const type = router.query.type
     const [title, getTitle] = useState()
     const [des, getDes] = useState()
+    const [capchaRen, setCapchaRen] = useState()
+
+
     useEffect(() => {
-        console.log(type)
-        if(type == 2) {
+        setCapchaRen(generateRandomString(6))
+        if (type == 1 || type == 2) {
             getTitle('Khôi phục ngay tài khoản với tính năng lấy lại mật khẩu dễ dàng')
             getDes('Dễ dàng để Lấy lại mật khẩu cho tài khoản chuyển đổi số nhân viên khi bạn quên. Mật khẩu được khôi phục rất nhanh, đảm bảo quá trình sử dụng hiệu quả.')
         } else {
@@ -24,26 +28,26 @@ export default function forgetPassword() {
     }, [type])
 
     // handle validate
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = async data => {
-        // delete data.res_password;
-        // let response = await callApi.registerPersonal(data);
+        delete data.capcha
+        data.type = type
+        // let response = await checkExist(data);
         // if (response.data && response.data.data && response.data.data.result == true) {
-        //     Cookies.set('phone', data.phoneTK);
-        //     Cookies.set('acc_token', response.data.data.data.access_token)
-        //     Cookies.set('rf_token', response.data.data.data.refresh_token)
         //     window.location.href = "/xac-thuc-ma-otp-ca-nhan.html";
         // } else {
         //     alert(response)
         // }
+        window.location.href = '/xac-thuc-ma-otp-mk.html?account=' + data.account + '&type=' + type
+
     };
     return (
         <>
             <Seo
                 seo='true'
-                title = {title}
-                des = {des}
-                url = 'https://quanlychung.timviec365.vn/quen-mat-khau.html'
+                title={title}
+                des={des}
+                url='https://quanlychung.timviec365.vn/quen-mat-khau.html'
             />
 
             <div className="content_ql ctn_bgr_body">
@@ -53,10 +57,16 @@ export default function forgetPassword() {
                             <form action="" className="qmk_form" onSubmit={handleSubmit(onSubmit)}>
                                 <div className="one_page_qmk tow_reg_ql share_reg_log share_brd_radius share_bgr_tow">
                                     <div className="header_qmk">
+                                        {(type == 1) ? (
                                         <h1 className="share_clr_four cr_weight_bold tex_center qlc_tieude_moi">
+                                            Nhanh chóng, dễ dàng khôi phục tài khoản chuyển đổi số cho doanh nghiệp
+                                        </h1>
+                                        ) : (
+                                            <h1 className="share_clr_four cr_weight_bold tex_center qlc_tieude_moi">
                                             Lấy lại mật khẩu tài khoản chuyển đổi số nhân viên cực dễ, cực
                                             an toàn
                                         </h1>
+                                        )}
                                         <div className="qmk_avt_ic tex_center">
                                             <img src="../img/one_page_qmk.png" alt="" />
                                         </div>
@@ -74,7 +84,7 @@ export default function forgetPassword() {
                                                 id="email_qmk"
                                                 className="form-control"
                                                 placeholder="Nhập email hoặc số điện thoại đăng ký tài khoản của bạn"
-                                                {...register("email", {
+                                                {...register("account", {
                                                     required: "Không được để trống",
                                                     pattern: {
                                                         value: /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})|([0-9]{10})+$/,
@@ -83,41 +93,40 @@ export default function forgetPassword() {
                                                     }
                                                 })}
                                             />
-                                            {errors.email && <label className="error">{errors.email.message}</label>}
+                                            {errors.account && <label className="error">{errors.account.message}</label>}
                                         </div>
                                         <div className="form-group">
                                             <label className="form_label share_fsize_three share_clr_one cr_weight">
                                                 Mã Captcha <span className="cr_red">*</span>
                                             </label>
-                                            <img
-                                                style={{ float: "right", paddingTop: 5, marginRight: 5 }}
-                                                alt="captcha"
-                                                src="../captcha/image.php?rand=' + Math.random())"
-                                                id="img-captcha"
-                                            />
+                                            <br />
+
                                             <input
                                                 style={{ width: "calc(100% - 140px)" }}
+                                                defaultValue={''}
                                                 type="text"
                                                 name="captcha"
                                                 id="captcha_qmk"
                                                 className="form-control"
                                                 placeholder="Nhập mã Captcha"
-                                                {...register("p", {
+                                                {...register("capcha", {
                                                     required: "Không được để trống",
-
+                                                    validate: (value) => {
+                                                        return value === capchaRen || 'Mã Captcha không chính xác';
+                                                    },
                                                 })}
                                             />
-                                            {errors.email && <label className="error">{errors.email.message}</label>}
+                                            <input className="capcha" value={capchaRen} readOnly></input>
+                                            {errors.capcha && <label className="error">{errors.capcha.message}</label>}
                                         </div>
                                         <div className="form-butt-one">
                                             <input
-                                                //  type="button"
                                                 type="submit"
                                                 className="share_bgr_one cr_weight share_clr_tow share_fsize_tow share_cursor tiep_tuc_one"
-                                                defaultValue="Tiếp tục"
+                                                value="Tiếp tục"
                                             />
                                             <p className="bo_qua tex_center share_cursor" data={1}>
-                                                <a className="share_fsize_three share_clr_one">Quay lại</a>
+                                                <a className="share_fsize_three share_clr_one" href={(type == 1) ? '/dang-nhap-cong-ty.html' : "/dang-nhap-nhan-vien.html"}>Quay lại</a>
                                             </p>
                                         </div>
                                     </div>

@@ -22,26 +22,11 @@ export default function EditEmployee() {
         setSelectedDate(event.target.value);
     };
 
-    useEffect(() => {
-        const getData = async () => {
-            if (role == 2) {
-                let response = await infoEp();
-                setData(response.data)
-                // setSelectedDate(formatDate(response.data.birthday))
-            } else {
-                let response = await infoPersonal();
-                setData(response.data)
-                // setSelectedDate(formatDate(response.data.birthday))
-            }
-        }
-        getData()
-        setHydrated(true)
-    }, [])
-    console.log(data)
+
 
     if (data.gender == 1) {
         var gender = 'Nam'
-    } else if (data.gender  == 2) {
+    } else if (data.gender == 2) {
         var gender = 'Nữ'
     } else if (data.gender == 3) {
         var gender = ' Khác'
@@ -57,27 +42,57 @@ export default function EditEmployee() {
         var married = "Chưa cập nhập"
     }
 
+    const [updateSuccess, setUpdateSuccess] = useState(false)
+    const [updateFalse, setUpdateFalse] = useState(false)
+
+    const closeUpdate = () => {
+        setUpdateSuccess(false)
+        setUpdateFalse(false)
+        window.location.href = '/quan-ly-thong-tin-tai-khoan-nhan-vien.html'
+    }
+
     // handle validate form update
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors }, setValue } = useForm();
 
     const onSubmit = async data => {
         console.log(data)
         if (role == 2) {
             let response = await updateEp(data);
             if (response.result == true) {
-                alert('Chỉnh sửa thành công')
+                setUpdateSuccess(true)
             } else {
-                alert(response.data.error.message)
+                setUpdateFalse(true)
             }
         } else {
             let response = await updatePersonal(data);
             if (response.result && response.result == true) {
-                alert('Chỉnh sửa thành công')
+                setUpdateSuccess(true)
             } else {
-                alert(response.data.error.message)
+                setUpdateFalse(true)
             }
         }
     };
+
+    useEffect(() => {
+        const getData = async () => {
+            if (role == 2) {
+                let response = await infoEp();
+                setData(response.data)
+                setValue('userName', response.data.userName)
+                setValue('address', response.data.address)
+                setValue('phone', response.data.phone || response.data.phoneTK)
+            } else {
+                let response = await infoPersonal();
+                setData(response.data)
+                setValue('userName', response.data.userName)
+                setValue('address', response.data.address)
+                setValue('phone', response.data.phone || response.data.phoneTK)
+            }
+        }
+        getData()
+        setHydrated(true)
+    }, [])
+    console.log(data)
 
     if (!hydrated) {
         // Returns null on first render, so the client and server match
@@ -100,7 +115,7 @@ export default function EditEmployee() {
                         <div className="header_rigth_qly">
                             <div className="ctn_header_qly">
                                 <div className="left_header_qly">
-                                    <p className="share_fsize_one ">Ứng dụng / <span className="thay_doi">Tất cả</span></p>
+                                    <p className="share_fsize_one ">Thông tin tài khoản</p>
                                 </div>
                                 <HeaderLogin />
                             </div>
@@ -146,9 +161,10 @@ export default function EditEmployee() {
                                             <div className="d_form_item form_container d_flex">
                                                 <div className="form-group">
                                                     <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
-                                                        Số điện thoại <span className="cr_red"></span></label>
-                                                    <input type="text" name="phone" className="form-control share_fsize_one share_clr_one" placeholder="Nhập số điện thoại" defaultValue={data.phone}
+                                                        Số điện thoại liên hệ <span className="cr_red"></span></label>
+                                                    <input type="text" name="phone" className="form-control share_fsize_one share_clr_one" placeholder="Nhập số điện thoại" defaultValue={data.phone || data.phoneTK}
                                                         {...register("phone", {
+                                                            required: 'Số điện thoại không được để trống',
                                                             validate: {
                                                                 validatePhone: (value) => validatePhone(value) || "Hãy nhập đúng định dạng số điện thoại"
                                                             }
@@ -281,9 +297,57 @@ export default function EditEmployee() {
                     </div >
                 </div >
             </div >
-            <>
-                <link rel="stylesheet" href="https://timviec365.vn/css/footer_new.css?v=2" />
-            </>
+
+            {/* chỉnh sửa tt thành công */}
+            <div class="modal_share modal_share_three edit_tt_success" style={{ display: updateSuccess ? 'block' : 'none' }}>
+                <div class="modal-content">
+                    <div class="info_modal">
+                        <div class="modal-body">
+                            <div class="ctn_body_modal">
+                                <div class="content_notif">
+                                    <div class="avt_notif notif_mar">
+                                        <img src="../img/thongbao.png" alt="" />
+                                    </div>
+                                    <p class="titl_notif">Chỉnh sửa thông tin thành công!</p>
+                                    <div class="form_butt_ht">
+                                        <div class="tow_butt_flex">
+                                            <button type="button"
+                                                onClick={closeUpdate}
+                                                class="font_s15 share_clr_tow share_bgr_one dong_button close_button_share">Đóng</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {/* chỉnh sửa tt thất bại */}
+            <div class="modal_share modal_share_three edit_tt_fall " style={{ display: updateFalse ? 'block' : 'none' }}>
+                <div class="modal-content">
+                    <div class="info_modal">
+                        <div class="modal-body">
+                            <div class="ctn_body_modal">
+                                <div class="content_notif">
+                                    <div class="avt_notif notif_mar">
+                                        <img src="../img/notif_thatbai.png" alt="" />
+                                    </div>
+                                    <p class="titl_notif">Chỉnh sửa thông tin thất bại, vui lòng thử lại sau! </p>
+                                    <div class="form_butt_ht">
+                                        <div class="tow_butt_flex">
+                                            <button type="button"
+                                                onClick={closeUpdate}
+                                                class="font_s15 share_clr_tow share_bgr_one dong_button close_button_share">Đóng</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <link rel="stylesheet" href="https://timviec365.vn/css/footer_new.css?v=2" />
         </>
     )
 }

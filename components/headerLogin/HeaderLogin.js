@@ -2,8 +2,10 @@ import { React, useEffect, useState } from 'react';
 import Cookies from "js-cookie";
 import OptionUser from '../optionUser/OptionUser';
 import { infoCom, infoEp, infoPersonal } from '../../utils/handleApi';
+import { CheckLogin2 } from '../../utils/function';
 
 export default function HeaderLogin() {
+    CheckLogin2()
 
     let type = Cookies.get('role');
 
@@ -11,7 +13,7 @@ export default function HeaderLogin() {
 
     const [option, setOption] = useState(false);
     const optionUser = () => {
-        if(option) {
+        if (option) {
             setOption(false)
         } else {
             setOption(true)
@@ -37,7 +39,6 @@ export default function HeaderLogin() {
         }
         getData()
     }, [])
-    console.log(data)
 
     return (
         <>
@@ -70,9 +71,20 @@ export default function HeaderLogin() {
                         {
                             data.avatarUser ? (<img src={data.avatarUser} alt="" className="avt_img_tk" />) : (<img src="../img/logo_com.png" alt="" className="avt_img_tk" />)
                         }
-                        <p className="logout_fname share_clr_one" onClick={optionUser}>{data.userName}</p>
+                        {(type == 1) ? (
+                            <>
+                            <div className="logout_fname share_clr_one" onClick={optionUser}>
+                                <p className="show_dow_p" >{data.userName}</p>
+                                <p className="show_dow_p" >ID: {data._id}</p>
+                            </div>                
+                            </>
+                        ) : (
+                            <>
+                            <p className="logout_fname share_clr_one" onClick={optionUser}>{data.userName}</p>
+                            </>
+                        )}
                     </div>
-                    {(option) && <OptionUser type = {type}/>}
+                    {(option) && <OptionUser type={type} />}
                 </div>
             </div>
         </>

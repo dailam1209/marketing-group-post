@@ -7,6 +7,7 @@ import { CheckLogin } from "../utils/function"
 
 export default function loginEmployee() {
     CheckLogin()
+
     // handle interaction
     const [typeLogin, setTypeLogin] = useState('login_qr')
     const [active, setActive] = useState('login_qr')
@@ -60,10 +61,10 @@ export default function loginEmployee() {
                                     <div className="box_select_type">
                                         <button className={`select_login lg_qr ${(active == 'login_qr') ? 'active' : ''}`} onClick={loginByQr}>QUÉT MÃ QR</button>
                                         <div className="line"></div>
-                                        <button className={`select_login login_tk ${(active == 'login_form') ? 'active' : ''}`} onClick={loginByForm}>TÀI KHOẢN<span className="text">(email)</span></button>
+                                        <button className={`select_login login_tk ${(active == 'login_form') ? 'active' : ''}`} onClick={loginByForm}>TÀI KHOẢN<span className="text">(email/số điện thoại)</span></button>
                                     </div>
-                                    {typeLogin == 'login_form' && <LoginForm setNotiError={setNotiError} type='2' />}
-                                    {typeLogin == 'login_qr' && <LoginQr qrGuildShow={qrGuildShow} />}
+                                    {typeLogin == 'login_form' && <LoginForm setNotiError={setNotiError} typeLogin='2' />}
+                                    {typeLogin == 'login_qr' && <LoginQr qrGuildShow={qrGuildShow} setNotiError={setNotiError} typeLogin='2' />}
                                 </div>
                             </div>
                         </div>

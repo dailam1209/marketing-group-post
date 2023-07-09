@@ -1,6 +1,5 @@
 import { React, useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form';
-import Link from 'next/link'
 import { validatePhone } from '../../utils/function';
 import { updateCom } from "../../utils/handleApi";
 
@@ -8,7 +7,7 @@ import { updateCom } from "../../utils/handleApi";
 export default function EditCom({closePopupUpdate, data, setUpdateStatus}) {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = async (data) => {
-        let result = await updateCom(data)
+        await updateCom(data)
         setUpdateStatus(true)
     };  
 
@@ -56,7 +55,7 @@ export default function EditCom({closePopupUpdate, data, setUpdateStatus}) {
                                         </div>
                                         <div className="form-group">
                                             <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
-                                                Email <span className="cr_red">*</span></label>
+                                                Email</label>
                                             <input type="text" name="email" className="form-control share_fsize_one share_clr_one"
                                                 placeholder=""
                                                 value={data.email || ''} readOnly/>

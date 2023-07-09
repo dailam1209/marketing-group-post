@@ -1,4 +1,4 @@
-import React from "react"
+import {React, useState} from "react"
 import Seo from "../components/head";
 import { useForm } from 'react-hook-form';
 import { CheckLogin, validatePhone } from "../utils/function"
@@ -115,17 +115,17 @@ export default function RegisterPersonal() {
                                             </label>
                                             <input
                                                 type="text"
-                                                name="phoneContact"
+                                                name="phone"
                                                 className="form-control"
                                                 placeholder="Nhập số điện thoại"
                                                 onChange={e => { setPhoneNumber(e.currentTarget.value); }}
-                                                {...register('phoneContact', {
+                                                {...register('phone', {
                                                     validate: {
                                                         validatePhone: (value) => validatePhone(value) || "Hãy nhập đúng định dạng số điện thoại"
                                                     }
                                                 })}
                                             />
-                                            {errors && errors.phoneContact && <label className="error">{errors.phoneContact.message}</label>}
+                                            {errors && errors.phone && <label className="error">{errors.phone.message}</label>}
                                         </div>
                                         <div className="form-group">
                                             <label className="form_label share_fsize_three share_clr_one cr_weight">

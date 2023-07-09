@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from 'react'
-import Cookies from 'js-cookie'
+import Logout from '../logout'
 
 export default function OptionUser(props) {
     const [link, setLink] = useState('')
@@ -11,11 +11,10 @@ export default function OptionUser(props) {
         }
     })
 
+    const [showLogout, setShowLogout] = useState(false)
+    
     const logout = () => {
-        Cookies.remove('acc_token');
-        Cookies.remove('rf_token');
-        Cookies.remove('role');
-        window.location.href = '/';
+        setShowLogout(true)
     }
 
     return (
@@ -31,13 +30,13 @@ export default function OptionUser(props) {
                     {
                         (props.type == '1' || props.type == '2') && (
                             <>
-                                <a href="https://chamcong.timviec365.vn/quan-ly-cong-ty/danh-gia.html" target="_blank" className="nav-item">
+                                <a href="/danh-gia.html" className="nav-item">
                                     <li className="nav-child-item share_clr_one share_fsize_one">
                                         <span className="item_ic"><img src="../img/danh_gia.png" alt="" /></span>
                                         Đánh giá
                                     </li>
                                 </a>
-                                <a href="https://chamcong.timviec365.vn/quan-ly-cong-ty/gui-loi.html" target="_blank" className="nav-item">
+                                <a href="/bao-loi.html" className="nav-item">
                                     <li className="nav-child-item share_clr_one share_fsize_one">
                                         <span className="item_ic"><img src="../img/bao-loi.png" alt="" /></span>
                                         Báo lỗi
@@ -48,12 +47,13 @@ export default function OptionUser(props) {
                     }
                     <a className="nav-item">
                         <li className="nav-child-item share_clr_one share_fsize_one btx_logout" onClick={logout}>
-                            <span className="item_ic"><img src="../img/dang-xuat.png" alt=""/></span>
+                            <span className="item_ic"><img src="../img/dang-xuat.png" alt="" /></span>
                             Đăng xuất
                         </li>
                     </a>
                 </ul>
             </div>
+            <Logout showLogout={showLogout} setShowLogout={setShowLogout} />
         </>
     )
 }

@@ -1,13 +1,4 @@
 import React from "react"
-// import "../../Styles/globals.css"
-// import link from "next/link"
-// import { Link } from "react-router-dom"
-// import styles from "./Footer.module.css"
-// import Image from "next/image"
-// import { COLOR_WHITE } from "@/constants/style-constants"
-// import { LIST_KEYWORDS, LIST_MENU } from "./constants"
-// import { Col, Row } from "antd"
-// export interface FooterProp {}
 
 export default function Footer() {
 

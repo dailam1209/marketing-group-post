@@ -1,4 +1,4 @@
-import {React, useState, useEffect} from 'react';
+import { React, useState, useEffect } from 'react';
 import Seo from '../components/head'
 import SideBar from '../components/sideBar/SideBar';
 import HeaderLogin from '../components/headerLogin/HeaderLogin';
@@ -19,7 +19,7 @@ export default function HomePersonal() {
                 title='Quản lý ứng dụng'
             />
             <>
-            <link rel="stylesheet" href="../css/dat.css"/>
+                <link rel="stylesheet" href="../css/dat.css" />
             </>
             <div id="qly_ungdung_nv" className="qly_ungdung">
                 <div className="wrapper">
@@ -88,9 +88,7 @@ export default function HomePersonal() {
                                     </div>
                                 </div>
                                 <div className="left_header_qly">
-                                    <p className="share_fsize_one ">
-                                        Ứng dụng / <span className="thay_doi">Tất cả</span>
-                                    </p>
+                                    <p className="share_fsize_one ">Ứng dụng / <span className="thay_doi">Tất cả</span></p>
                                 </div>
                                 <HeaderLogin />
                             </div>

@@ -2,8 +2,9 @@ import axios from 'axios';
 import { initializeApp } from 'firebase/app';
 import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import Cookies from "js-cookie";
+import { authenCom, authenEp, authenPersonal } from './handleApi';
 
-const handleVerifyOtp = async (account) => {
+const handleVerifyOtp = async (account, type = null, phone = null) => {
     let token = Cookies.get('acc_token');
     const btn_confirm = document.querySelector('.verify_otp');
     const partitioned = document.querySelector('#partitioned');
@@ -66,27 +67,26 @@ const handleVerifyOtp = async (account) => {
     else {
         try {
             confirmationResult.confirm(account).then((result) => {
-                let role = Cookies.get('role');
-                if (role == 2) {
-                    var api = 'http://210.245.108.202:3000/api/qlc/employee/verify';
-                } else if (role == 1) {
-                    var api = 'http://210.245.108.202:3000/api/qlc/Company/verify';
-                } else {
-                    var api = 'http://210.245.108.202:3000/api/qlc/individual/verify';
-                }
-                const authen = axios.post(api, {}, {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
+                if(token) {
+                    let role = Cookies.get('role');
+                    if (role == 2) {
+                        authenEp()
+                    } else if (role == 1) {
+                        authenCom()
+                    } else {
+                        authenPersonal()
                     }
-                })
-                
-                alert('Xác thực thành công')
-                if (role == 2) {
-                    window.location.href = '/quan-ly-ung-dung-nhan-vien.html'
-                } else if (role == 1) {
-                    window.location.href = '/quan-ly-ung-dung-cong-ty.html'
+    
+                    alert('Xác thực thành công')
+                    if (role == 2) {
+                        window.location.href = '/quan-ly-ung-dung-nhan-vien.html'
+                    } else if (role == 1) {
+                        window.location.href = '/quan-ly-ung-dung-cong-ty.html'
+                    } else {
+                        window.location.href = '/quan-ly-ung-dung-ca-nhan.html'
+                    }
                 } else {
-                    window.location.href = '/quan-ly-ung-dung-ca-nhan.html'
+                    window.location.href = '/thay-doi-mat-khau.html?account=' + phone + '&type=' + type
                 }
 
             }).catch((error) => {

@@ -9,8 +9,11 @@ export default function SideBar() {
         if (type == '1') {
             setLinkHome('quan-ly-ung-dung-cong-ty.html')
         }
-        else if (type == '2' || type == '3') {
+        else if (type == '0') {
             setLinkHome('quan-ly-ung-dung-ca-nhan.html')
+        } else {
+            setLinkHome('quan-ly-ung-dung-nhan-vien.html')
+
         }
     }, [])
     
@@ -41,14 +44,14 @@ export default function SideBar() {
                                     Thông tin tài khoản
                                 </li>
                             </a>
-                            <a href="quan-ly-thong-tin-viec-lam.html" className="nav-item">
+                            <a href="#" className="nav-item">
                                 <li className="nav-child-item cr_weight_bold share_fsize_tow share_clr_tow d_flex">
                                     <span className="item_ic"><img src="../img/qly-ttvieclam.png" alt="Thiết lập tài khoản nhân viên" /></span>
                                     Thiết lập tài khoản nhân viên
                                 </li>
                             </a>
                             {(type == '2') && (
-                                <a href="quan-ly-nghi-viec.html" className="nav-item">
+                                <a href="#" className="nav-item">
                                     <li className="nav-child-item cr_weight_bold share_fsize_tow share_clr_tow d_flex">
                                         <span className="item_ic"><img src="../img/qly-ttnghiviec.png" alt="Chấm dứt lao động" /></span>
                                         Chấm dứt lao động
@@ -81,19 +84,19 @@ export default function SideBar() {
                                     Ứng dụng
                                 </li>
                             </a>
-                            <a href="quan-ly-nhan-vien.html" className="nav-item <?= (in_array($_SERVER['REDIRECT_URL'], $ct_nhanvien))">
+                            <a href="#" className="nav-item <?= (in_array($_SERVER['REDIRECT_URL'], $ct_nhanvien))">
                                 <li className="nav-child-item cr_weight_bold share_fsize_tow share_clr_tow d_flex">
                                     <span className="item_ic"><img src="../img/qly-nhanvien.png" alt="Quản lý nhân viên" /></span>
                                     Quản lý nhân viên
                                 </li>
                             </a>
-                            <a href="quan-ly-phong-ban.html" className="nav-item <?= (in_array($_SERVER['REDIRECT_URL'], $ct_phongban))">
+                            <a href="#" className="nav-item <?= (in_array($_SERVER['REDIRECT_URL'], $ct_phongban))">
                                 <li className="nav-child-item cr_weight_bold share_fsize_tow share_clr_tow d_flex">
                                     <span className="item_ic"><img src="../img/qly-phongban.png" alt="Quản lý phòng ban" /></span>
                                     Quản lý phòng ban
                                 </li>
                             </a>
-                            <a href="quan-ly-cong-ty-con.html" className="nav-item <?= ($_SERVER['REDIRECT_URL'] == '/quan-ly-cong-ty-con.html')">
+                            <a href="#" className="nav-item">
                                 <li className="nav-child-item cr_weight_bold share_fsize_tow share_clr_tow d_flex">
                                     <span className="item_ic"><img src="../img/qly-ctycon.png" alt="Quản lý công ty con" /></span>
                                     Quản lý công ty con
@@ -105,7 +108,7 @@ export default function SideBar() {
                                     Sơ đồ cơ cấu tổ chức
                                 </li>
                             </a>
-                            <a href="/xoa-du-lieu-ung-dung.html" className="nav-item <?= ($_SERVER['REDIRECT_URL'] == '/xoa-du-lieu-ung-dung.html')" >
+                            <a href="#" className="nav-item" >
                                 <li className="nav-child-item cr_weight_bold share_fsize_tow share_clr_tow d_flex">
                                     <span className="item_ic"><img src="../img/delete_data.png" alt="Xóa dữ liệu ứng dụng" /></span>
                                     Xóa dữ liệu ứng dụng
@@ -118,13 +121,13 @@ export default function SideBar() {
                                     Thông tin tài khoản
                                 </li>
                             </a >
-                            <a target="_blank" href="https://chamcong.timviec365.vn/quan-ly-cong-ty/danh-gia.html" className="nav-item">
+                            <a target="_blank" href="/danh-gia.html" className="nav-item">
                                 <li className="nav-child-item cr_weight_bold share_fsize_tow share_clr_tow d_flex">
                                     <span className="item_ic"><img src="../img/ic_dg.png" alt="Đánh giá" /></span>
                                     Đánh giá
                                 </li>
                             </a>
-                            <a target="_blank" href="https://chamcong.timviec365.vn/quan-ly-cong-ty/gui-loi.html" className="nav-item">
+                            <a target="_blank" href="/bao-loi.html" className="nav-item">
                                 <li className="nav-child-item cr_weight_bold share_fsize_tow share_clr_tow d_flex">
                                     <span className="item_ic"><img src="../img/ic_bl.png" alt="Báo lỗi" /></span>
                                     Báo lỗi

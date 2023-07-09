@@ -4,27 +4,32 @@ import Cookies from "js-cookie";
 import Header from "../components/header/Header"
 import Footer from "../components/footer/Footer"
 import Seo from '../components/head'
-import { checkLogin } from "../utils/function"
+import { CheckLogin } from "../utils/function"
+import { useRouter } from 'next/router';
 
 export default function XacthucQuenMK() {
+    CheckLogin()
     
+    const router = useRouter();
+    const type = router.query.type
+    const account = router.query.account
+
     const onClickVerifyOtp = () => {
         const value = document.querySelector('.verify_otp');
         if (value.classList.contains('nhan_ma')) {
-            let phone = Cookies.get('phone');
-            handleVerifyOtp(phone);
+            handleVerifyOtp(account);
         } else {
-            var otp = document.querySelector('#partitioned').value;
-            handleVerifyOtp(otp);
+            let otp = document.querySelector('#partitioned').value;
+            handleVerifyOtp(otp, type, account);
         }
     };
     return (
         <>
             <Seo
-            title = 'Trang xác thực mã OTP quên mật khẩu'
-            seo = ''
+                title='Trang xác thực mã OTP quên mật khẩu'
+                seo=''
             />
-            <Header/>
+            <Header />
             <>
                 <div className="content_ql ctn_bgr_body">
                     <div className="content_nv">
@@ -115,7 +120,7 @@ export default function XacthucQuenMK() {
                         </div>
                     </div>
                 </div> */}
-                <Footer/>
+                <Footer />
                 <link rel="stylesheet" href="https://timviec365.vn/css/footer_new.css?v=2" />
             </>
         </>

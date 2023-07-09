@@ -1,4 +1,4 @@
-import React from "react"
+import { React, useState } from "react"
 import { useForm } from 'react-hook-form';
 import Seo from "../components/head";
 import { validatePhone, CheckLogin } from "../utils/function";
@@ -14,6 +14,26 @@ export default function info_register_emp() {
     delete data.res_password;
     registerCom(data)
   };
+
+  // hide pass
+  const [hidePass, setHidePass] = useState(true)
+  const [hidePass2, setHidePass2] = useState(true)
+
+  const showPass = () => {
+    if (hidePass == true) {
+      setHidePass(false)
+    } else {
+      setHidePass(true)
+    }
+  }
+
+  const showPass2 = () => {
+    if (hidePass2 == true) {
+      setHidePass2(false)
+    } else {
+      setHidePass2(true)
+    }
+  }
 
   return (
     <>
@@ -53,7 +73,7 @@ export default function info_register_emp() {
                           required: 'Vui lòng nhập số điện thoại',
                           validate: {
                             validatePhone: (value) => validatePhone(value) || "Hãy nhập đúng định dạng số điện thoại"
-                        }
+                          }
                         })}
                       />
                       {errors && errors.phoneTK && <label className="error">{errors.phoneTK.message}</label>}
@@ -84,7 +104,7 @@ export default function info_register_emp() {
                         placeholder="Nhập số email"
                         {...register('emailContact', {
                           pattern: {
-                            value:  /^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-])+\.)*[a-zA-Z]{2,}$/,
+                            value: /^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-])+\.)*[a-zA-Z]{2,}$/,
                             message:
                               'Nhập đúng định dạng email',
                           }
@@ -96,9 +116,9 @@ export default function info_register_emp() {
                       <label className="form_label share_fsize_three share_clr_one cr_weight">
                         Nhập mật khẩu <span className="cr_red">*</span>
                       </label>
-                      <span className="see_log" toggle="#password-field-three" />
+                      <span className={`see_log ${hidePass ? '' : 'no_see_log'}`} toggle="#password-field-three" onClick={showPass} />
                       <input
-                        type="password"
+                        type={hidePass ? 'password' : 'text'}
                         name="password"
                         className="form-control"
                         id="password-field-three"
@@ -106,7 +126,7 @@ export default function info_register_emp() {
                         {...register('password', {
                           required: 'Vui lòng nhập mật khẩu',
                           pattern: {
-                            value:  /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/,
+                            value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/,
                             message:
                               'Mật khẩu phải gồm 6 ký tự trở lên, bao gồm ít nhất một chữ cái và ít nhất một chữ số, không chứa khoảng trắng.',
                           }
@@ -118,9 +138,9 @@ export default function info_register_emp() {
                       <label className="form_label share_fsize_three share_clr_one cr_weight">
                         Nhập lại mật khẩu <span className="cr_red">*</span>
                       </label>
-                      <span className="see_log" toggle="#password-field-four" />
+                      <span className={`see_log ${hidePass2 ? '' : 'no_see_log'}`} toggle="#password-field-four" onClick={showPass2} />
                       <input
-                        type="password"
+                        type={hidePass2 ? 'password' : 'text'}
                         name="res_password"
                         className="form-control"
                         id="password-field-four"
@@ -152,7 +172,7 @@ export default function info_register_emp() {
                     <input
                       type="submit"
                       className="share_bgr_one cr_weight share_clr_tow share_fsize_tow share_cursor tiep_tuc_one"
-                      defaultValue="Tiếp tục"
+                      value="Tiếp tục"
                     />
                     <p className="bo_qua tex_center">
                       <a
