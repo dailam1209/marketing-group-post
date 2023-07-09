@@ -5,7 +5,7 @@ import SideBar from '../components/sideBar/SideBar';
 import HeaderLogin from '../components/headerLogin/HeaderLogin';
 import { vote } from "../utils/handleApi";
 
-export default function Danhgia() {
+export default function SetupIp() {
 
     const [hydrated, setHydrated] = useState(false);
 
@@ -39,57 +39,125 @@ export default function Danhgia() {
                     <div className="right_ql">
                         <div className="header_rigth_qly">
                             <div className="ctn_header_qly">
-                                <div className="left_header_qly">
-                                    <p className="share_fsize_one ">Cài đặt / Thiết lập dải IP cho phần mềm</p>
-                                </div>
                                 <HeaderLogin />
                             </div>
                         </div>
-                        <div className="ctn_right_qly ">
-                            <div className="ctn_res_qly">
-                                <div className="left_header_qly">
-                                    <p className="share_clr_one font_14">Thông tin tài khoản</p>
+                        <div class="ctn_right_qly">
+                            <div class="ctn_res_qly">
+                                <div class="left_header_qly">
+                                    <p class="share_clr_one">Cài đặt / <span class="thay_doi">Thiết lập dải IP cho phần mềm</span></p>
                                 </div>
-                                <div className="list_all_qly">
-                                    <div className="main_tt main_tt_taikhoan">
-                                        <div className="container_taikhoan">
-                                            <div className="box_error">
-                                                <img src="../img/error_report.png" alt="bao_loi" />
-                                                <textarea className="text_dg" placeholder="Nhập mô tả lỗi để chúng tôi hiểu rõ hơn" onChange={handleCommentChange}></textarea>
-                                                <span className="error" style={{ textAlign: 'left', display: error ? ' block' : 'none' }}>Mô tả lỗi không được bỏ trống</span>
-                                                <p className="sm_danhgia" onClick={handleSubmit}>Gửi báo lỗi</p>
-                                                {/* <p className="img_error">Chọn ảnh lỗi </p> */}
-                                                {/* <input type="file" className="file_error hidden" multiple="multiple" accept=".png,.gif,.jpg,.jpeg,.jtif,.PNG"> */}
+                                <div class="list_all_qly">
+                                    <div class="ctn_nv_one top_share">
+                                        <div class="tab_sett_one tab_bor_bottom">
+                                            <div class="tab_titl share_dnone">
+                                                <label class="tab_label tab_label_one">
+                                                    <p class="share_fsize_one share_clr_one">
+                                                        <a href="/quan-ly-cai-dat-cong-ty.html" class="share_clr_one font_14">Cài đặt chung</a>
+                                                    </p>
+                                                </label>
                                             </div>
-                                            {/* <div style="float: left;width: 100%;margin: 35px 0;text-align: center;">
-                                                <iframe className="video_hd" width="800" height="420" src="https://www.youtube.com/embed/XMOT4egzVx0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                                            </div> */}
+                                            <div class="tab_titl share_dnone">
+                                                <label class="tab_label tab_label_four">
+                                                    <p class="share_fsize_one share_clr_one">Bảo mật theo dải IP</p>
+                                                </label>
+                                            </div>
                                         </div>
+                                        <div class="tab_sett_two tab_bor_bottom">
+                                            <div class="tab_titl">
+                                                <label class="tab_label tab_label_six active">
+                                                    <p class="share_fsize_one share_clr_one">
+                                                        <a href="/cai-dat-thiet-lap-dai-ip-phan-mem.html" class="share_clr_one font_14">Thiết lập dải IP cho phần mềm</a>
+                                                    </p>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="tab_sett_three tab_bor_bottom">
+                                            <div class="tab_titl share_dnone">
+                                                <label class="tab_label tab_label_tow">
+                                                    <p class="share_fsize_one share_clr_one">Nhật ký hoạt động</p>
+                                                </label>
+                                            </div>
+                                            <div class="tab_titl share_dnone">
+                                                <label class="tab_label tab_label_three">
+                                                    <p class="share_fsize_one share_clr_one">Quản lý thiết bị</p>
+                                                </label>
+                                            </div>
+                                            <div class="tab_titl share_dnone">
+                                                <label class="tab_label tab_label_five">
+                                                    <p class="share_fsize_one share_clr_one">Ứng dụng di động</p>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="ctn_chile_tow">
+                                        <div class="setting_delt setting_delt_six">
+                                            <div class="search_qly">
+                                                <div class="form_timkiem">
+                                                    <div class="tim-kiem share_form_select">
+                                                        <select name="search" class="form-serach" data="<?= $from_site ?>">
+                                                            <option value="">Tìm kiếm phần mềm</option>
+                                                        </select>
+                                                        <span class="share_search"><img src="../img/tim-kiem.png" alt="" /></span>
+                                                    </div>
+                                                </div>
+                                                <div class="btx_creart_ip_pm btn_dd btn_138 btn_xanh" data="<?= $id_com ?>">
+                                                    <div class="d_flex">
+                                                        <img src="../img/cre_nv.png" alt="" class="m_r10" />
+                                                        <p>Thêm mới</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="detl_nv_table detl_sett_table">
+                                                <div class="ctn_delt_table over_fl_sett">
+                                                    <div class="wid_overf_tabl">
+                                                        <table class="page_table_one">
+                                                            <thead class="share_thead share_bgr_one tabl_thead_four">
+                                                                <tr>
+                                                                    <th class="share_th share_clr_tow tex_center share_fsize_tow cr_weight">
+                                                                        STT</th>
+                                                                    <th class="share_th_eleven share_clr_tow tex_center share_fsize_tow cr_weight">
+                                                                        Ứng dụng</th>
+                                                                    <th class="share_th_nine share_clr_tow tex_center share_fsize_tow cr_weight">
+                                                                        Dải IP truy cập</th>
+                                                                    <th class="share_th_three share_clr_tow tex_center share_fsize_tow cr_weight">
+                                                                        Thời gian tạo</th>
+                                                                    <th class="share_th_three share_clr_tow tex_center share_fsize_tow cr_weight">
+                                                                        Chức năng</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
 
-                                        <div className="box_popup box_done">
-                                            <div className="popup_2">
-                                                <div className="box_popup_3">
-                                                    <img src="/images/bao_loi.png" alt="bao_loi" />
-                                                    <p className="pop_note">Cảm ơn các bạn đã đóng góp ý kiến về lỗi phần mềm của chúng tôi!!</p>
-                                                    <p className="sm_pop_3 sm_done">Xác nhận</p>
+                                                                <tr>
+                                                                    <td class="share_fsize_one share_clr_one tex_center" data=""></td>
+
+                                                                    <td class="share_fsize_one share_clr_one tex_left cr_weight">
+                                                                        <div class="cnt_ten_pm d_flex">
+
+                                                                            <p class="share_fsize_one share_clr_one ten_pm_cd"></p>
+                                                                        </div>
+                                                                    </td>
+
+                                                                    <td class="share_fsize_one share_clr_one tex_center"></td>
+                                                                    <td class="share_fsize_one share_clr_one tex_center"></td>
+                                                                    <td class="share_clr_one tex_center">
+                                                                        <div class="d_flex dflex_jc td_padd">
+                                                                            <p class="js_edit_pb share_cursor edit_pb share_clr_four cr_weight btx_edit_ip_pm" data="<?= $ip[$i]['id_acc'] ?>" onclick="id_sua(this)"> Sửa </p>
+                                                                            <span class="share_clr_four">|</span>
+                                                                            <p class="share_cursor js_delete_phong cr_red cr_weight" data="<?= $ip[$i]['id_acc'] ?>" data1="<?= $array_pm[$ip[$i]['from_site']] ?>" onclick="id_pm(this)"> Xóa</p>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-
-            <div className="box_popup box_done" style={{ display: popup ? 'block' : 'none' }}>
-                <div className="popup_2">
-                    <div className="box_popup_3">
-                        <img src="../img/bao_loi_success.png" alt="icon" />
-                        <p className="pop_note">Cảm ơn các bạn đã đóng góp ý kiến về lỗi phần mềm của chúng tôi!!</p>
-                        <p className="sm_pop_3 sm_done" onClick={closePopup}>Xác nhận</p>
                     </div>
                 </div>
             </div>

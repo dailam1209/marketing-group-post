@@ -84,9 +84,6 @@ export default function DetailEmployee() {
                     <div className="right_ql">
                         <div className="header_rigth_qly">
                             <div className="ctn_header_qly">
-                                <div className="left_header_qly">
-                                    <p className="share_fsize_one ">Thông tin tài khoản</p>
-                                </div>
                                 <HeaderLogin />
                             </div>
                         </div>
@@ -121,13 +118,13 @@ export default function DetailEmployee() {
                                                                 <p className="d_title font_18">{data.companyName}</p>
                                                                 <p className="d_title font_16">{data.departmentName}</p>
                                                                 <p className="content d_flex">
-                                                                    <span style={{ fontsize: '15px' }}>{getPosition(data.position_id)}</span>
+                                                                    <span style={{ fontsize: '15px' }}>{getPosition[data.position_id]}</span>
                                                                 </p>
                                                             </>
                                                         )}
                                                         <p className="content d_flex">
                                                             <span>Kinh nghiệm làm việc:</span>
-                                                            <span>{getExperience(data.experience)}</span>
+                                                            <span>{getExperience[data.experience]}</span>
                                                         </p>
                                                         {(type == '2') ? (
                                                             <p className="content d_flex">
@@ -145,15 +142,15 @@ export default function DetailEmployee() {
                                                         </p>
                                                         <p className="content d_flex">
                                                             <span>Ngày sinh:</span>
-                                                            <span>{(data.birthday) ? data.inForPerson.account.birthday : 'Chưa cập nhật'}</span>
+                                                            <span>{(data.birthday != 0) ? ConvertIntToDate(data.birthday)[0] : 'Chưa cập nhật'}</span>
                                                         </p>
-                                                        <p className="content d_flex">
+                                                        {/* <p className="content d_flex">
                                                             <span>Giới tính:</span>
                                                             <span>{getGender(data.gender)}</span>
-                                                        </p>
+                                                        </p> */}
                                                         <p className="content d_flex">
                                                             <span>Trình độ học vấn:</span>
-                                                            <span>{(data.education) ? getEducation(data.education) : 'Chưa cập nhật'}</span>
+                                                            <span>{(data.education) ? getEducation[data.education] : 'Chưa cập nhật'}</span>
                                                         </p>
                                                         <p className="content d_flex">
                                                             <span>Địa chỉ:</span>
@@ -161,7 +158,7 @@ export default function DetailEmployee() {
                                                         </p>
                                                         <p className="content d_flex">
                                                             <span>Tình trạng hôn nhân:</span>
-                                                            <span>{getMarried(data.married)}</span>
+                                                            <span>{getMarried[data.married]}</span>
                                                         </p>
                                                     </div>
                                                     <div className="d_flex container_btn">

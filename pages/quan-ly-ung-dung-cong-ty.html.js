@@ -86,16 +86,13 @@ export default function HomeCompany() {
                     <div className="right_ql">
                         <div className="header_rigth_qly">
                             <div className="ctn_header_qly">
-                                <div className="left_header_qly">
-                                    <p className="share_fsize_one ">Ứng dụng / <span className="thay_doi">{nameList}</span></p>
-                                </div>
                                 <HeaderLogin />
                             </div>
                         </div>
                         <div className="ctn_right_qly">
                             <div className="ctn_res_qly">
-                                <div class="left_header_qly">
-                                    <p class="share_clr_one share_fsize_one">Ứng dụng / <span class="thay_doi">{nameList}</span></p>
+                                <div className="left_header_qly">
+                                    <p className="share_clr_one share_fsize_one">Ứng dụng / <span className="thay_doi">{nameList}</span></p>
                                 </div>
                                 <div className="tbao_nangcap share_bgr_tow">
                                     <div className="tbao_ncap">

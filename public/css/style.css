@@ -1483,7 +1483,7 @@ ul li {
 .butt_header .bgr_header {
     width: 100%;
     float: left;
-    height: 678px;
+    /* height: 678px; */
 }
 
 .butt_header .bgr_header img {
@@ -3927,9 +3927,6 @@ ul li {
     display: block;
 }
 
-.ctn_chile_tow .setting_delt {
-    display: none;
-}
 
 #qly_sett_ip_pm .ctn_chile_tow .setting_delt {
     display: block;

@@ -43,45 +43,6 @@ export default function Home() {
                 des='Trang quản lý chung Chuyển đổi số 365. Quản lý các phần mềm, tiện ích trong hệ thống chuyển đổi số 365'
                 url='quanlychung.timviec365.vn'
             />
-
-            <div className="butt_header">
-                <div className="ctn_butth">
-                    <div className="bgr_header">
-                        <picture>
-                            <img src="../img/bgr_banner.png" alt="" />
-                        </picture>
-                    </div>
-                    <div className="bgr_froh">
-                        <div className="fonh_one">
-                            <h1 className="share_clr_tow cr_weight_bold">Chuyển đổi số 365</h1>
-                            <p className="share_clr_tow">
-                                Giải pháp chuyển đổi số được tin dùng bởi +10.000 doanh nghiệp hàng
-                                đầu. Chuyển đổi số 365 mang thành công đột phá đến doanh nghiệp.
-                            </p>
-                        </div>
-                        <div className="show_hide">
-                            <div className="name_title_dl">Tải App Chuyển đổi số 365 cho PC</div>
-                            <div>
-                                <div className="button_header">
-                                    <a
-                                        rel="nofollow"
-                                        style={{ marginRight: 24 }}
-                                        href="https://app.timviec365.vn/Download/AppElectron/Quanlychung1.0.8.exe"
-                                    >
-                                        <img src="../img/window.png" alt="" />
-                                    </a>
-                                    <a
-                                        rel="nofollow"
-                                        href="https://hungha365.com/upload_file/Quanlychung-1.0.2.dmg"
-                                    >
-                                        <img src="../img/mac.png" alt="" />
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div className="content_ql">
                 <div className="cnt_ttone">
                     <div className="one_bod_td">
@@ -100,7 +61,7 @@ export default function Home() {
                             <div className="cnt_counts">
                                 <label
                                     htmlFor=""
-                                    className= {`pmc_all ${(active == 'all') ? 'active' : ''}`}
+                                    className={`pmc_all ${(active == 'all') ? 'active' : ''}`}
                                     data-tab="list_detl_one"
                                 >
                                     <p className="share_fsize_three share_clr_one tex_center share_cursor" onClick={showAll}>
@@ -141,47 +102,49 @@ export default function Home() {
                         </div>
                     </div>
                     <div className="cnt_count_detail tab_active">
-                        <div className="container t_flex">
-                            {
-                                (show == 'all') ? (
-                                    <>
-                                        <QlConlai />
-                                        <QlNhanluc />
-                                        <QlCongviec />
-                                        <QlNoibo />
-                                        <QlBanhang />
-                                    </>
-                                ) : ''
+                        <div className="container">
+                            <div className="detal_titl">
+                                {
+                                    (show == 'all') ? (
+                                        <>
+                                            <QlConlai />
+                                            <QlNhanluc />
+                                            <QlCongviec />
+                                            <QlNoibo />
+                                            <QlBanhang />
+                                        </>
+                                    ) : ''
 
-                            }
-                            {
-                                (show == 'nhan_luc') ? (
-                                    <>
-                                        <QlNhanluc />
-                                    </>
-                                ) : ''
-                            }
-                            {
-                                (show == 'cong_viec') ? (
-                                    <>
-                                        <QlCongviec />
-                                    </>
-                                ) : ''
-                            }
-                            {
-                                (show == 'noi_bo') ? (
-                                    <>
-                                        <QlNoibo />
-                                    </>
-                                ) : ''
-                            }
-                            {
-                                (show == 'ban_hang') ? (
-                                    <>
-                                        <QlBanhang />
-                                    </>
-                                ) : ''
-                            }
+                                }
+                                {
+                                    (show == 'nhan_luc') ? (
+                                        <>
+                                            <QlNhanluc />
+                                        </>
+                                    ) : ''
+                                }
+                                {
+                                    (show == 'cong_viec') ? (
+                                        <>
+                                            <QlCongviec />
+                                        </>
+                                    ) : ''
+                                }
+                                {
+                                    (show == 'noi_bo') ? (
+                                        <>
+                                            <QlNoibo />
+                                        </>
+                                    ) : ''
+                                }
+                                {
+                                    (show == 'ban_hang') ? (
+                                        <>
+                                            <QlBanhang />
+                                        </>
+                                    ) : ''
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>

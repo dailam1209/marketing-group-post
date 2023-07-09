@@ -38,7 +38,6 @@ export default function LoginQr(props) {
         let type = props.typeLogin
         data.type = type
         let result = await login(data, 1)
-        console.log(result)
         if (result.result == true) {
             const type = result.data.type
             if (type == props.typeLogin) {

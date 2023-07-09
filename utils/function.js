@@ -3,87 +3,86 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 
-export function getEducation(id) {
-    const arr = [];
-    arr[0] = 'Chưa cập nhật';
-    arr[1] = 'Trên Đại học';
-    arr[2] = 'Đại học';
-    arr[3] = 'Cao đẳng';
-    arr[4] = 'Trung cấp';
-    arr[5] = 'Đào tạo nghề';
-    arr[6] = 'Trung học phổ thông';
-    arr[7] = 'Trung học cơ sở';
-    arr[8] = 'Tiểu học';
-    return arr[id] || 'Chưa cập nhật'
-}
+export const getEducation = [
+    'Chưa cập nhật',
+    'Trên Đại học',
+    'Đại học',
+    'Cao đẳng',
+    'Trung cấp',
+    'Đào tạo nghề',
+    'Trung học phổ thông',
+    'Trung học cơ sở',
+    'Tiểu học',
+]
 
-export function getExperience(id) {
-    const arr = [];
-    arr[0] = 'Chưa cập nhật';
-    arr[1] = 'Chưa có kinh nghiệm';
-    arr[2] = 'Dưới 1 năm kinh nghiệm';
-    arr[3] = '1 năm';
-    arr[4] = '2 năm';
-    arr[5] = '3 năm';
-    arr[6] = '4 năm';
-    arr[7] = '5 năm';
-    arr[8] = 'Trên 5 năm';
-    return arr[id] || 'Chưa cập nhật'
-}
+export const getExperience = [
+    'Chưa cập nhật',
+    'Chưa có kinh nghiệm',
+    'Dưới 1 năm kinh nghiệm',
+    '1 năm',
+    '2 năm',
+    '3 năm',
+    '4 năm',
+    '5 năm',
+    'Trên 5 năm',
+]
 
-export function getPosition(id) {
-    const arr = [];
-    arr[0] = 'Chưa cập nhật';
-    arr[1] = 'SINH VIÊN THỰC TẬP'
-    arr[2] = 'NHÂN VIÊN THỬ VIỆC'
-    arr[9] = 'NHÂN VIÊN PART TIME'
-    arr[3] = 'NHÂN VIÊN CHÍNH THỨC'
-    arr[20] = 'NHÓM PHÓ'
-    arr[4] = 'TRƯỞNG NHÓM'
-    arr[12] = 'PHÓ TỔ TRƯỞNG'
-    arr[13] = 'TỔ TRƯỞNG'
-    arr[10] = 'PHÓ BAN DỰ ÁN'
-    arr[11] = 'TRƯỞNG BAN DỰ ÁN'
-    arr[5] = 'PHÓ TRƯỞNG PHÒNG'
-    arr[6] = 'TRƯỞNG PHÒNG'
-    arr[7] = 'PHÓ GIÁM ĐỐC'
-    arr[8] = 'GIÁM ĐỐC'
-    arr[14] = 'PHÓ TỔNG GIÁM ĐỐC'
-    arr[16] = 'TỔNG GIÁM ĐỐC'
-    arr[22] = 'PHÓ TỔNG GIÁM ĐỐC TẬP ĐOÀN'
-    arr[21] = 'TỔNG GIÁM ĐỐC TẬP ĐOÀN'
-    arr[18] = 'PHÓ CHỦ TỊCH HỘI ĐỒNG QUẢN TRỊ'
-    arr[19] = 'CHỦ TỊCH HỘI ĐỒNG QUẢN TRỊ'
-    arr[17] = 'THÀNH VIÊN HỘI ĐỒNG QUẢN TRỊ'
-    return arr[id] || 'Chưa cập nhật'
-}
+export const getPosition = [
+    'Chưa cập nhật',
+    'SINH VIÊN THỰC TẬP',
+    'NHÂN VIÊN THỬ VIỆC',
+    'NHÂN VIÊN PART TIME',
+    'NHÂN VIÊN CHÍNH THỨC',
+    'NHÓM PHÓ',
+    'TRƯỞNG NHÓM',
+    'PHÓ TỔ TRƯỞNG',
+    'TỔ TRƯỞNG',
+    'PHÓ BAN DỰ ÁN',
+    'TRƯỞNG BAN DỰ ÁN',
+    'PHÓ TRƯỞNG PHÒNG',
+    'TRƯỞNG PHÒNG',
+    'PHÓ GIÁM ĐỐC',
+    'GIÁM ĐỐC',
+    'PHÓ TỔNG GIÁM ĐỐC',
+    'TỔNG GIÁM ĐỐC',
+    'PHÓ TỔNG GIÁM ĐỐC TẬP ĐOÀN',
+    'TỔNG GIÁM ĐỐC TẬP ĐOÀN',
+    'PHÓ CHỦ TỊCH HỘI ĐỒNG QUẢN TRỊ',
+    'CHỦ TỊCH HỘI ĐỒNG QUẢN TRỊ',
+    'THÀNH VIÊN HỘI ĐỒNG QUẢN TRỊ',
+]
 
-export function getGender(id) {
-    switch (id) {
-        case 1:
-            return "Nam";
-        case 2:
-            return "Nữ";
-        case 3:
-            return "Khác";
-        default:
-            return "Chưa cập nhật";
-    }
-}
 
-export function getMarried(id) {
-    switch (id) {
-        case 1:
-            return "Nam";
-        case 2:
-            return "Nữ";
-        case 3:
-            return "Khác";
-        default:
-            return "Chưa cập nhật";
-    }
-}
+export const getGender = [
+    'Chưa cập nhật',
+    "Nam",
+    "Nữ",
+    "Khác",
+]
 
+export const getMarried = [
+    'Chưa cập nhật',
+    'Độc thân',
+    'Đã kết hôn'
+]
+
+export const getSoftware = [
+    "Chấm công 365",
+    "Tính lương 365",
+    "Quản trị nhân sự",
+    "Văn thư lưu trữ",
+    "Truyền thông văn hóa",
+    "Chuyển đổi văn bản thành giọng nói",
+    "Quản lý lịch biểu",
+    "CRM",
+    "Biên phiên dịch",
+    "Đánh giá năng lực nhân viên",
+    "Quản lý KPI",
+    "DMS",
+    "Quản lý cung ứng",
+    "Quản lý kho vật tư xây dụng",
+    "Quản lý tài sản",
+]
 
 export function formatDate(dateString) {
     const parts = dateString.split('/');
@@ -150,7 +149,7 @@ export const functionAPI = async (url, data = null) => {
     }
 
     return response;
-}
+};
 
 // check login
 export function CheckLogin() {
@@ -180,11 +179,4 @@ export function CheckLogin2() {
     if (!role && !acc_token && !rf_token) {
         window.location.href = '/'
     }
-}
-
-export function logout() {
-    Cookies.remove('token_base365');
-    Cookies.remove('rf_token');
-    Cookies.remove('role');
-    window.location.href = '/';
 }
