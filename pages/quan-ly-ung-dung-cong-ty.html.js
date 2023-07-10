@@ -8,12 +8,6 @@ import QlNoibo from "../components/ql_noibo2"
 import QlBanhang from "../components/ql_banhang2"
 
 export default function HomeCompany() {
-    const [hydrated, setHydrated] = useState(false);
-
-    useEffect(() => {
-        setHydrated(true);
-    }, []);
-
     const [show, setShow] = useState('all')
     const [active, setActive] = useState('all')
     const [nameList, setNameList] = useState('Tất cả')
@@ -49,10 +43,9 @@ export default function HomeCompany() {
 
     // search
     function search() {
-        let searchTerm = document.getElementById("myInput").value.toLowerCase();
+        const searchTerm = document.getElementById("myInput").value.toLowerCase();
 
-        let items = document.getElementsByClassName("delt_titl_ud");
-        console.log(items)
+        const items = document.getElementsByClassName("delt_titl_ud");
 
         for (let i = 0; i < items.length; i++) {
             let item = items[i];
@@ -64,11 +57,6 @@ export default function HomeCompany() {
                 item.style.display = "none";
             }
         }
-    }
-
-    if (!hydrated) {
-        // Returns null on first render, so the client and server match
-        return null;
     }
 
     return (

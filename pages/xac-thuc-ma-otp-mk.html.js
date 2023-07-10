@@ -9,7 +9,7 @@ import { useRouter } from 'next/router';
 
 export default function XacthucQuenMK() {
     CheckLogin()
-    
+
     const router = useRouter();
     const type = router.query.type
     const account = router.query.account

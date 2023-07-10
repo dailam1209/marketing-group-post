@@ -7,9 +7,6 @@ import { useForm } from 'react-hook-form';
 import { infoCom, changePassCom, updateCom } from "../utils/handleApi";
 
 export default function DetailEmployy() {
-    // fix first render 
-    const [hydrated, setHydrated] = useState(false);
-
     // gọi api lấy thông tin nhân viên
     const [data, setData] = useState([]);
 
@@ -24,7 +21,6 @@ export default function DetailEmployy() {
             }
         }
         getData()
-        setHydrated(true);
     }, [])
 
     // change password
@@ -90,11 +86,6 @@ export default function DetailEmployy() {
             }
             let result = await updateCom(data)
         };
-    }
-
-    if (!hydrated) {
-        // Returns null on first render, so the client and server match
-        return null;
     }
 
     return (

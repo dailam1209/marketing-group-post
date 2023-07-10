@@ -36,7 +36,7 @@ export default function Header(props) {
 
     const [showSideBar, setShowSideBar] = useState(false)
     const handleSideBar = () => {
-        if(showSideBar == true) {
+        if (showSideBar == true) {
             setShowSideBar(false)
         } else {
             setShowSideBar(true)
@@ -203,7 +203,7 @@ export default function Header(props) {
                 </div>
             </div>
 
-            <div className="modal_ind share_res_header" style={{display: showSideBar ? 'block' : 'none'}} onClick={handleSideBar}>
+            <div className="modal_ind share_res_header" style={{ display: showSideBar ? 'block' : 'none' }} onClick={handleSideBar}>
                 <div className="modal-content">
                     <div className="ctn_ind share_bgr_one">
                         <div className="modal-body">

@@ -3,15 +3,7 @@ import Seo from '../components/head'
 import SideBar from '../components/sideBar/SideBar';
 import HeaderLogin from '../components/headerLogin/HeaderLogin';
 export default function HomePersonal() {
-    const [hydrated, setHydrated] = useState(false);
-    useEffect(() => {
-        setHydrated(true);
-    }, [])
 
-    if (!hydrated) {
-        // Returns null on first render, so the client and server match
-        return null;
-    }
     return (
         <>
             <Seo

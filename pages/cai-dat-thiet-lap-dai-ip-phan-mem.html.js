@@ -9,75 +9,11 @@ import { createIp, listIp, delIp } from '../utils/handleApi';
 
 export default function SetupIp() {
 
-    const [hydrated, setHydrated] = useState(false);
-    const [data, setData] = useState([])
-    const comId = Cookies.get('UID')
-
-    useEffect(() => {
-        const getData = async () => {
-            let data1 = { com_id: comId }
-            console.log(data1)
-            let result = await listIp(data1);
-            setData(result.data)
-        }
-        getData()
-        setHydrated(true)
-    }, [])
-
     let role = Cookies.get('role')
     if (role == 2) {
         window.location.href = '/quan-ly-ung-dung-nhan-vien'
     } else if (role == 0) {
         window.location.href = '/quan-ly-ung-dung-ca-nhan'
-    }
-
-    // popup
-    const [popupAdd, setPopupAdd] = useState(false)
-    const handlePopupAdd = () => {
-        if (popupAdd == false) {
-            setPopupAdd(true)
-        } else {
-            setPopupAdd(false)
-        }
-    }
-
-    const [popupDel, setPopupDel] = useState(false)
-    const [nameSoftware, setNameSoftWare] = useState('')
-    const [idIp, setIdIp] = useState()
-    const handlePopupDel = (name, id) => {
-        if (popupDel == false) {
-            setNameSoftWare(name)
-            setIdIp(id)
-            setPopupDel(true)
-        } else {
-            setPopupDel(false)
-        }
-    }
-    const deleteIp = () => {
-        let data = {
-            com_id: comId,
-            id: idIp
-        }
-        delIp(data)
-        alert('Xóa thành công')
-        window.location.reload()
-    }
-
-
-
-    // validate and submit
-    const { register, handleSubmit, formState: { errors } } = useForm();
-
-    const onSubmit = async data => {
-        data.com_id = comId
-        createIp(data)
-        alert('thêm thành công')
-        window.location.reload()
-    };
-
-    if (!hydrated) {
-        // Returns null on first render, so the client and server match
-        return null;
     }
 
     return (

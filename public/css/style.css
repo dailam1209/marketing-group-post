@@ -1631,9 +1631,13 @@ ul li {
     border-bottom: 2.5px solid #4C5BD4;
 }
 
+.detal_titl {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .ctn_detl_one {
     width: 23%;
-    float: left;
     margin: 10px 10px;
     background: #FFFFFF;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.16);
@@ -6396,8 +6400,8 @@ a {
     }
 
     .ctn_bgr_body {
-       height: unset;
-       background: none;
+        height: unset;
+        background: none;
     }
 
     #quenmk_m .ctn_bgr_body {
@@ -6849,6 +6853,3 @@ input[type=number]::-webkit-outer-spin-button {
 .text_dg {
     border: 1px solid;
 }
-
-
-
