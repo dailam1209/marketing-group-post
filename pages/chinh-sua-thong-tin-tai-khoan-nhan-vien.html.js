@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Seo from "../components/head";
 import SideBar from '../components/sideBar/SideBar';
 import HeaderLogin from '../components/headerLogin/HeaderLogin';
-import CallApi from '../pages/api/call_api';
 import Cookies from "js-cookie";
 import { useForm } from 'react-hook-form';
 import { infoEp, infoPersonal, updateEp, updatePersonal } from '../utils/handleApi';
