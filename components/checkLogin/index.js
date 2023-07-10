@@ -15,12 +15,10 @@ export default function checkTypeLogin(props) {
         let acc_token = props.result.data.access_token,
             refresh_token = props.result.data.refresh_token,
             role = props.result.data.type,
-            type = props.result.data.type,
-            UID = result.data.com_info.com_id;
+            type = props.result.data.type;
         Cookies.set('rf_token', refresh_token);
         Cookies.set('token_base365', acc_token);
         Cookies.set('role', role);
-        Cookies.set('UID', UID);
         if (type == 1) {
             window.location.href = '/quan-ly-ung-dung-cong-ty.html';
         } else if (type == 2) {

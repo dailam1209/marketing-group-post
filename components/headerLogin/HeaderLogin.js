@@ -49,6 +49,7 @@ export default function HeaderLogin() {
 
         }
     }, [])
+    console.log(data)
 
     const [showSideBar, setShowSideBar] = useState(false)
     const handleSideBar = () => {
