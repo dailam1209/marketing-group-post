@@ -23,7 +23,6 @@ export default function SetupIp() {
         getData()
         setHydrated(true)
     }, [])
-    console.log(data)
 
     let role = Cookies.get('role')
     if (role == 2) {
