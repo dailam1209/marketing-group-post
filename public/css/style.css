@@ -6477,6 +6477,10 @@ a {
     .box_error {
         width: 100% !important;
     }
+
+    .popup_2 {
+        width: 90% !important;
+    }
 }
 
 .name_title_dl {

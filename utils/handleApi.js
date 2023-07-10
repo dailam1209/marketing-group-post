@@ -1,7 +1,7 @@
 import { React, useState, useEffect } from "react"
 import Cookies from "js-cookie";
 import { functionAPI } from "./function";
-import { data } from "autoprefixer";
+import axios from 'axios';
 
 export const checkVip = async (idcom) => {
     const data = {
@@ -193,6 +193,31 @@ export const listTeams = async (data) => {
     let result = await functionAPI('http://210.245.108.202:3000/api/qlc/group/search', data)
     return result
 }
+
+// setup IP address
+export const createIp = async (data) => {
+    let result = await functionAPI('http://210.245.108.202:3000/api/qlc/SetIp/create', data)
+    return result
+}
+
+// setup IP address
+export const listIp = async (data) => {
+    let result = await functionAPI('http://210.245.108.202:3000/api/qlc/SetIp/get', data)
+    return result
+}
+
+// delete ip
+export const delIp = async (data) => {
+    let response = ''
+    try {
+        const call = await axios.delete('http://210.245.108.202:3000/api/qlc/SetIp/delete', {data});
+        response = call.data.data;
+    } catch (error) {
+        response = error.response;
+    }
+    return response
+}
+
 
 
 
