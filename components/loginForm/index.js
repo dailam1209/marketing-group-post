@@ -20,9 +20,11 @@ export default function LoginForm({ setNotiError, typeLogin }) {
                 let acc_token = result.data.access_token
                 let refresh_token = result.data.refresh_token
                 let role = result.data.type
+                let UID = result.data.com_info.com_id
                 Cookies.set('rf_token', refresh_token);
                 Cookies.set('token_base365', acc_token);
                 Cookies.set('role', role);
+                Cookies.set('UID', UID);
                 if (type == 1) {
                     window.location.href = '/quan-ly-ung-dung-cong-ty.html';
                 } else if (type == 2) {
