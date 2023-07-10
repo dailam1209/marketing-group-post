@@ -9,9 +9,6 @@ import { infoEp, infoPersonal, changePassEp, changePassPersonal } from '../utils
 
 
 export default function DetailEmployee() {
-    // fix first render 
-    const [hydrated, setHydrated] = useState(false);
-
     // gọi api lấy thông tin nhân viên
     const [data, setData] = useState([]);
     let type = Cookies.get('role');
@@ -27,7 +24,6 @@ export default function DetailEmployee() {
             }
         }
         getData()
-        setHydrated(true)
     }, [])
     console.log(data)
 
@@ -64,11 +60,6 @@ export default function DetailEmployee() {
             }
         }
     };
-
-    if (!hydrated) {
-        // Returns null on first render, so the client and server match
-        return null;
-    }
 
     return (
         <>

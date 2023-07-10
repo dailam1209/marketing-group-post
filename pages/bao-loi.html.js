@@ -7,12 +7,6 @@ import { vote } from "../utils/handleApi";
 
 export default function Danhgia() {
 
-    const [hydrated, setHydrated] = useState(false);
-
-    useEffect(() => {
-        setHydrated(true);
-    }, []);
-
     let role = Cookies.get('role')
     if (role == 2) {
         window.location.href = '/quan-ly-ung-dung-nhan-vien.html'
@@ -43,12 +37,6 @@ export default function Danhgia() {
     const closePopup = () => {
         setPopup(false)
     }
-
-    if (!hydrated) {
-        // Returns null on first render, so the client and server match
-        return null;
-    }
-
     return (
         <>
             <Seo

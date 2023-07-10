@@ -8,10 +8,7 @@ import QlNoibo from "../components/ql_noibo2"
 import QlBanhang from "../components/ql_banhang2"
 
 export default function HomeEmployee() {
-    const [hydrated, setHydrated] = useState(false);
-    useEffect(() => {
-        setHydrated(true);
-    }, [])
+
 
     const [show, setShow] = useState('all')
     const [active, setActive] = useState('all')
@@ -64,12 +61,6 @@ export default function HomeEmployee() {
             }
         }
     }
-
-    if (!hydrated) {
-        // Returns null on first render, so the client and server match
-        return null;
-    }
-
     return (
         <>
             <Seo

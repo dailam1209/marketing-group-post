@@ -1,23 +1,18 @@
-import {React, useState, useEffect} from 'react';
+import { React, useState, useEffect } from 'react';
 import Seo from "../components/head";
 import Header from '../components/header/Header'
 import Footer from "../components/footer/Footer"
 import Cookies from 'js-cookie';
 
 export default function noticeVip() {
-    let acc_token = Cookies.get('token_base365')
-    let rf_token = Cookies.get('rf_token')
-    let role = Cookies.get('role')
-
-    // fix first render 
-    const [hydrated, setHydrated] = useState(false);
-    useEffect(() => {
-        setHydrated(true);
-    }, [])
-
-    if (!hydrated) {
-        // Returns null on first render, so the client and server match
-        return null;
+    const acc_token = () => {
+        return Cookies.get('token_base365');
+    }
+    const rf_token = () => {
+        return Cookies.get('rf_token');
+    }
+    const role = () => {
+        return Cookies.get('role')
     }
 
     return (
@@ -26,8 +21,8 @@ export default function noticeVip() {
                 seo=''
                 title='Trang thông báo về tài khoản VIP'
             />
-            {(acc_token && rf_token && role) ? (
-                <Header acc_token= {acc_token} rf_token = {rf_token}/>
+            {(acc_token() && rf_token() && role()) ? (
+                <Header acc_token={acc_token()} rf_token={rf_token()} />
             ) : ''}
             <div className="content_ql ctn_bgr_body">
                 <div className="content_nv">
@@ -82,7 +77,7 @@ export default function noticeVip() {
                     </div>
                 </div>
             </div>
-            <Footer/>
+            <Footer />
             <link rel="stylesheet" href="https://timviec365.vn/css/footer_new.css?v=2" />
         </>
     )

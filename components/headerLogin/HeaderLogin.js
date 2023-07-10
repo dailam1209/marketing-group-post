@@ -7,7 +7,9 @@ import { CheckLogin2 } from '../../utils/function';
 export default function HeaderLogin() {
     CheckLogin2()
 
-    let type = Cookies.get('role');
+    const type = () => {
+        return Cookies.get('role');
+    };
 
     const [data, setData] = useState([]);
 
@@ -24,10 +26,10 @@ export default function HeaderLogin() {
     useEffect(() => {
         const getData = async () => {
             try {
-                if (type == '2') {
+                if (type() === '2') {
                     let response = await infoEp();
                     setData(response.data);
-                } else if (type == '1') {
+                } else if (type() === '1') {
                     let response = await infoCom();
                     setData(response.data);
                 } else {
@@ -39,10 +41,10 @@ export default function HeaderLogin() {
             }
         }
         getData()
-        if (type == '1') {
+        if (type() === '1') {
             setLinkHome('quan-ly-ung-dung-cong-ty.html')
         }
-        else if (type == '0') {
+        else if (type() === '0') {
             setLinkHome('quan-ly-ung-dung-ca-nhan.html')
         } else {
             setLinkHome('quan-ly-ung-dung-nhan-vien.html')
@@ -75,7 +77,7 @@ export default function HeaderLogin() {
                                 <div className="ind-tow">
                                     <div className="ctn_ulli">
                                         <ul className="navbar-nav">
-                                            {type == 1 && (
+                                            {type() === 1 && (
                                                 <>
                                                     <a href="/quan-ly-ung-dung-cong-ty.html"
                                                         className="nav-item">
@@ -150,7 +152,7 @@ export default function HeaderLogin() {
                                                     </a>
                                                 </>
                                             )}
-                                            {(type == 2 || type == 0) && (
+                                            {(linkHome !== 'quan-ly-ung-dung-cong-ty.html') && (
                                                 <>
                                                     <a href={linkHome} className="nav-item">
                                                         <li className="nav-child-item cr_weight_bold share_fsize_tow share_clr_tow d_flex">
@@ -170,7 +172,7 @@ export default function HeaderLogin() {
                                                             Thiết lập tài khoản nhân viên
                                                         </li>
                                                     </a>
-                                                    {(type == '2') && (
+                                                    {(type() === 2) && (
                                                         <a href="#" className="nav-item">
                                                             <li className="nav-child-item cr_weight_bold share_fsize_tow share_clr_tow d_flex">
                                                                 <span className="item_ic"><img src="../img/qly-ttnghiviec.png" alt="Chấm dứt lao động" /></span>
@@ -222,7 +224,7 @@ export default function HeaderLogin() {
                         {
                             data.avatarUser ? (<img src={data.avatarUser} alt="" className="avt_img_tk" />) : (<img src="../img/logo_com.png" alt="" className="avt_img_tk" />)
                         }
-                        {(type == 1) ? (
+                        {(linkHome === 'quan-ly-ung-dung-cong-ty.html') ? (
                             <>
                                 <div className="logout_fname share_clr_one" onClick={optionUser}>
                                     <p className="show_dow_p" >{data.userName}</p>
@@ -235,7 +237,7 @@ export default function HeaderLogin() {
                             </>
                         )}
                     </div>
-                    {(option) && <OptionUser type={type} />}
+                    {(option) && <OptionUser type={type()} />}
                 </div>
             </div>
         </>

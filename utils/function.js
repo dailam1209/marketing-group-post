@@ -173,10 +173,17 @@ export function CheckLogin() {
 }
 
 export function CheckLogin2() {
-    const acc_token = Cookies.get('token_base365');
-    const rf_token = Cookies.get('rf_token');
-    const role = Cookies.get('role');
-    if (!role && !acc_token && !rf_token) {
-        window.location.href = '/'
-    }
+    const router = useRouter();
+
+    useEffect(() => {
+        const acc_token = Cookies.get('token_base365');
+        const rf_token = Cookies.get('rf_token');
+        const role = Cookies.get('role');
+
+        if (!role && !acc_token && !rf_token) {
+            router.push('/');
+        }
+    }, []);
+
+    // Rest of your code...
 }

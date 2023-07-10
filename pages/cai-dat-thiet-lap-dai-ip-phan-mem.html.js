@@ -7,22 +7,11 @@ import { vote } from "../utils/handleApi";
 
 export default function SetupIp() {
 
-    const [hydrated, setHydrated] = useState(false);
-
-    useEffect(() => {
-        setHydrated(true);
-    }, []);
-
     let role = Cookies.get('role')
     if (role == 2) {
         window.location.href = '/quan-ly-ung-dung-nhan-vien'
     } else if (role == 0) {
         window.location.href = '/quan-ly-ung-dung-ca-nhan'
-    }
-
-    if (!hydrated) {
-        // Returns null on first render, so the client and server match
-        return null;
     }
 
     return (
