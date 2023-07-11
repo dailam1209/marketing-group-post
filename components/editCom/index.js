@@ -1,19 +1,19 @@
 import { React, useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form';
-import { validatePhone } from '../../utils/function';
+import { validatePhone, validateMail } from '../../utils/function';
 import { updateCom } from "../../utils/handleApi";
 
 
-export default function EditCom({closePopupUpdate, data, setUpdateStatus}) {
+export default function EditCom({ closePopupUpdate, data, setUpdateStatus }) {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = async (data) => {
         await updateCom(data)
         setUpdateStatus(true)
-    };  
+    };
 
     return (
         <>
-            <div className="modal_share modal_share_tow edit_tt_taikhoan" style={{ display: 'block'}}>
+            <div className="modal_share modal_share_tow edit_tt_taikhoan" style={{ display: 'block' }}>
                 <div className="modal-content">
                     <div className="info_modal">
                         <div className="modal-header">
@@ -55,10 +55,18 @@ export default function EditCom({closePopupUpdate, data, setUpdateStatus}) {
                                         </div>
                                         <div className="form-group">
                                             <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
-                                                Email</label>
+                                                Email <span className="cr_red">*</span></label>
                                             <input type="text" name="email" className="form-control share_fsize_one share_clr_one"
-                                                placeholder=""
-                                                value={data.email || ''} readOnly/>
+                                                placeholder="Nhập mail"
+                                                {...register("email", {
+                                                    required: 'Không được để trống',
+                                                    validate: {
+                                                        validateMail: (value) => validateMail(value) || 'Hãy nhập đúng định dạng Mail'
+                                                    }
+                                                })}
+                                                defaultValue={data.email || ''}
+                                            />
+                                            {errors.email && <label className="error">{errors.email.message}</label>}
                                         </div>
                                         <div className="form-group">
                                             <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">

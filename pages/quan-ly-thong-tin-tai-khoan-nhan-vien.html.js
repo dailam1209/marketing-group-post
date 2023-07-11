@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Seo from '../components/head'
 import SideBar from '../components/sideBar/SideBar';
 import HeaderLogin from '../components/headerLogin/HeaderLogin';
@@ -6,7 +6,7 @@ import Cookies from "js-cookie";
 import { getEducation, getGender, getExperience, getMarried, getPosition, ConvertIntToDate } from "../utils/function";
 import { useForm } from 'react-hook-form';
 import { infoEp, infoPersonal, changePassEp, changePassPersonal } from '../utils/handleApi';
-
+import { updateCom } from "../utils/handleApi";
 
 export default function DetailEmployee() {
     // gọi api lấy thông tin nhân viên
@@ -60,6 +60,26 @@ export default function DetailEmployee() {
             }
         }
     };
+    // handle upload avatar 
+    const fileInputRef = useRef(null);
+    const handleUploadAvt = () => {
+        fileInputRef.current.click();
+    };
+    const [getAvatar, setAvatar] = useState('');
+
+    // Tạo đối tượng FileReader
+    const handleFileChange = async (event) => {
+        const file = event.target.files[0];
+        const imageUrl = URL.createObjectURL(file);
+        console.log('imageUrl:', imageUrl)
+        setAvatar(imageUrl);
+        if (file) {
+            const data = new FormData();
+            data.append('avatarUser', file);
+            let result = await updateCom(data);
+
+        };
+    }
 
     return (
         <>
@@ -89,13 +109,19 @@ export default function DetailEmployee() {
                                             <div className="item dd_flex">
                                                 <div className="avt_taikhoan ">
                                                     <div className="container_avt">
-                                                        <div className="position_r text_a_c com_log_n">
-                                                            <img src={data.avatarUser || '../img/icon_avt.png'}
+                                                        <div className="position_r text_a_c com_log_n" onClick={handleUploadAvt}>
+                                                            <img src={(getAvatar == '' ? (data.avatarUser || '../img/icon_avt.png') : getAvatar)}
                                                                 alt="" className="img_avt" id="myimage" />
                                                             <img src="../img/icon_mayanh.png" alt=""
                                                                 className="img_mayanh position_a" />
-                                                            <input type="file" className="img_taianh display_none"
-                                                                defaultValue={''} />
+                                                            <input
+                                                                type="file"
+                                                                className="img_taianh display_none"
+                                                                defaultValue={''}
+                                                                accept="image/*"
+                                                                ref={fileInputRef}
+                                                                onChange={handleFileChange}
+                                                            />
                                                         </div>
 
                                                         <p className="id">{data._id}</p>

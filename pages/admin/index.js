@@ -16,16 +16,6 @@ export default function AdminHome() {
         }
     };
 
-    // fix first render 
-    const [hydrated, setHydrated] = useState(false); useEffect(() => {
-        setHydrated(true)
-    }, [])
-
-    if (!hydrated) {
-        // Returns null on first render, so the client and server match
-        return null;
-    }
-
     return (
         <>
             <meta httpEquiv="content-type" content="text/html; charset=UTF-8" />

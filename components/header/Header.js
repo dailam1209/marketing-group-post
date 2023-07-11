@@ -5,8 +5,10 @@ import { useRouter } from 'next/router'
 export default function Header(props) {
     // get pathname url
     const router = useRouter()
-    let slug = router.pathname
-
+    const slug = () => {
+        return router.pathname;
+    }
+    console.log(slug())
     const [popup, setPopup] = useState(false)
     const showPopup = () => {
         if (popup) {
@@ -63,14 +65,14 @@ export default function Header(props) {
                             <div className="nav">
                                 <ul>
                                     <li>
-                                        <Link href={'/'} className={`cr_weight_bold share_fsize_tow share_clr_tow  ${(slug == '/') ? 'active' : ''}`}>Trang chủ</Link>
+                                        <Link href={'/'} className={`cr_weight_bold share_fsize_tow share_clr_tow  ${(slug() == '/') ? 'active' : ''}`}>Trang chủ</Link>
                                     </li>
                                     <li>
-                                        <Link href={'/san-pham.html'} className={`cr_weight_bold share_fsize_tow share_clr_tow ${(slug == '/san-pham.html') ? 'active' : ''}`}>Sản phẩm</Link>
+                                        <Link href={'/san-pham.html'} className={`cr_weight_bold share_fsize_tow share_clr_tow ${(slug() == '/san-pham.html') ? 'active' : ''}`}>Sản phẩm</Link>
 
                                     </li>
                                     <li>
-                                        <Link href={'/he-sinh-thai.html'} className={`cr_weight_bold share_fsize_tow share_clr_tow ${(slug == '/he-sinh-thai.html') ? 'active' : ''}`}>Hệ sinh thái</Link>
+                                        <Link href={'/he-sinh-thai.html'} className={`cr_weight_bold share_fsize_tow share_clr_tow ${(slug() == '/he-sinh-thai.html') ? 'active' : ''}`}>Hệ sinh thái</Link>
 
                                     </li>
                                     <li>
@@ -79,7 +81,7 @@ export default function Header(props) {
                                     </li>
                                 </ul>
                                 {
-                                    (slug == '/thong-bao-tai-khoan-vip.html' && props.acc_token && props.rf_token) ? (
+                                    (slug() == '/thong-bao-tai-khoan-vip.html' && props.acc_token && props.rf_token) ? (
                                         <>
                                             <div className="hd_log">
                                                 <div className="bg_log_aff" data="97602">
@@ -116,7 +118,7 @@ export default function Header(props) {
                             </div>
                         </div>
                     </div>
-                    {(slug == '/' || slug == '/san-pham.html' || slug == '/he-sinh-thai.html') && (
+                    {(slug() == '/') && (
                         <>
                             <div className="butt_header">
                                 <div className="ctn_butth">

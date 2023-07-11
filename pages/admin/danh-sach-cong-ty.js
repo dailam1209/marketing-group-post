@@ -97,7 +97,7 @@ export default function Admin() {
                 <div className="content-inner">
                     <div className="form-search" style={{ position: 'unset' }}>
                         <form onSubmit={handleSubmit(onSubmit)} name="frmsearch" style={{ margin: '15px 0' }} >
-                            <input defaultValue='' style={{ float: 'left' }} className="text-search" name="find" id="findkey" type="text"  placeholder="Từ khóa tìm kiếm"
+                            <input defaultValue='' style={{ float: 'left' }} className="text-search" name="find" id="findkey" type="text" placeholder="Từ khóa tìm kiếm"
                                 {...register("find", {
                                 })} />
                             <div style={{ float: 'left', marginright: '10px' }}>
@@ -136,7 +136,7 @@ export default function Admin() {
                                 <br />
                             </div>
                             <input className="button_w" type="submit" name="submit" defaultValue="Tìm kiếm" />
-                        <a className="link_feedback" href="/admin/danh-sach-tt-feedback">Lấy danh sách feedback</a>
+                            <a className="link_feedback" href="/admin/danh-sach-tt-feedback">Lấy danh sách feedback</a>
                         </form>
                     </div >
                     {/* <form method="post"><button type="submit" name="export_excel" id="export_excel">Xuất Excel</button></form> */}

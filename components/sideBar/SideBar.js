@@ -48,7 +48,7 @@ export default function SideBar() {
                             Thiết lập tài khoản nhân viên
                         </li>
                     </a>
-                    {(type() == '2') && (
+                    {(linkHome === 'quan-ly-ung-dung-nhan-vien.html') && (
                         <a href="#" className="nav-item">
                             <li className="nav-child-item cr_weight_bold share_fsize_tow share_clr_tow d_flex">
                                 <span className="item_ic"><img src="../img/qly-ttnghiviec.png" alt="Chấm dứt lao động" /></span>

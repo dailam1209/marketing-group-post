@@ -5,6 +5,7 @@ import HeaderLogin from '../components/headerLogin/HeaderLogin';
 import EditCom from '../components/editCom'
 import { useForm } from 'react-hook-form';
 import { infoCom, changePassCom, updateCom } from "../utils/handleApi";
+import FormData from "form-data";
 
 export default function DetailEmployy() {
     // gọi api lấy thông tin nhân viên
@@ -75,18 +76,22 @@ export default function DetailEmployy() {
         fileInputRef.current.click();
     };
 
+    const [getAvatar, setAvatar] = useState('');
+
     // Tạo đối tượng FileReader
     const handleFileChange = async (event) => {
         const file = event.target.files[0];
-        // const imageUrl = URL.createObjectURL(file);
-
+        const imageUrl = URL.createObjectURL(file);
+        console.log('imageUrl:', imageUrl)
+        setAvatar(imageUrl);
         if (file) {
-            let data = {
-                avatarUser: file
-            }
-            let result = await updateCom(data)
+            const data = new FormData();
+            data.append('avatarUser', file);
+            let result = await updateCom(data);
+
         };
     }
+
 
     return (
         <>
@@ -117,7 +122,7 @@ export default function DetailEmployy() {
                                                 <div className="avt_taikhoan ">
                                                     <div className="container_avt">
                                                         <div className="position_r text_a_c com_log_n" onClick={handleUploadAvt}>
-                                                            <img src={data.avatarUser || '../img/icon_avt.png'}
+                                                            <img src={(getAvatar == '' ? (data.avatarUser || '../img/icon_avt.png') : getAvatar)}
                                                                 alt="" className="img_avt" id="myimage" />
                                                             <img src="../img/icon_mayanh.png" alt=""
                                                                 className="img_mayanh position_a" />

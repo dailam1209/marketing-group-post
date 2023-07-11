@@ -97,6 +97,15 @@ export function validatePhone(value) {
     return true;
 }
 
+export function validateMail(value) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (emailRegex.test(value)) {
+        return true;
+    }
+
+    return false;
+}
+
 export function ConvertIntToDate(timestamp) {
     let date = new Date(timestamp * 1000);
     let year = date.getFullYear();
@@ -176,11 +185,17 @@ export function CheckLogin2() {
     const router = useRouter();
 
     useEffect(() => {
-        const acc_token = Cookies.get('token_base365');
-        const rf_token = Cookies.get('rf_token');
-        const role = Cookies.get('role');
+        const acc_token = () => {
+            return Cookies.get('token_base365');
+        };
+        const rf_token = () => {
+            return Cookies.get('rf_token');
+        };
+        const role = () => {
+            return Cookies.get('role');
+        };
 
-        if (!role && !acc_token && !rf_token) {
+        if (!role() && !acc_token() && !rf_token()) {
             router.push('/');
         }
     }, []);

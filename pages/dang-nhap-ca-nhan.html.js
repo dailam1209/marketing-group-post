@@ -9,18 +9,18 @@ export default function LoginPersonal() {
     CheckLogin()
 
     // handle interaction
-    const [typeLogin, setTypeLogin] = useState('login_qr')
+    const [showTab, setShowTab] = useState(true);
     const [active, setActive] = useState('login_qr')
     const [qrGuild, setQrGuild] = useState(false)
     const [notiError, setNotiError] = useState(false)
 
     const loginByForm = () => {
-        setTypeLogin('login_form');
+        setShowTab(false);
         setActive('login_form');
     };
 
     const loginByQr = () => {
-        setTypeLogin('login_qr');
+        setShowTab(true);
         setActive('login_qr');
     };
 
@@ -78,8 +78,8 @@ export default function LoginPersonal() {
                                             TÀI KHOẢN<span className="text">(email/số điện thoại)</span>
                                         </button>
                                     </div>
-                                    {typeLogin == 'login_form' && <LoginForm setNotiError={setNotiError} typeLogin='0' />}
-                                    {typeLogin == 'login_qr' && <LoginQr qrGuildShow={qrGuildShow} setNotiError={setNotiError} typeLogin = '0' />}
+                                    {<LoginForm setNotiError={setNotiError} typeLogin='0' showTab={showTab} />}
+                                    {<LoginQr qrGuildShow={qrGuildShow} setNotiError={setNotiError} typeLogin='0' showTab={showTab} />}
                                 </div>
                             </div>
                         </div>

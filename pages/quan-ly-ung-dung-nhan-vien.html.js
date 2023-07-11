@@ -9,7 +9,6 @@ import QlBanhang from "../components/ql_banhang2"
 
 export default function HomeEmployee() {
 
-
     const [show, setShow] = useState('all')
     const [active, setActive] = useState('all')
     const [nameList, setNameList] = useState('Tất cảl')

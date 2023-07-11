@@ -106,7 +106,7 @@ export default function LoginQr(props) {
 
     return (
         <>
-            <div className="login_qr scan_qr ">
+            <div className={`login_qr scan_qr ${props.showTab === false ? 'hidden' : ''}`}>
                 <div
                     className="qrcode"
                     id="qrcode"
