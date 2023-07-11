@@ -28,7 +28,7 @@ export default function LoginForm({ setNotiError, typeLogin, showTab }) {
                 } else if (type == 2) {
                     window.location.href = '/quan-ly-ung-dung-nhan-vien.html';
                 } else {
-                    window.location.href = '/quan-ly-ung-dung-ca-nhan.html';
+                    // window.location.href = '/quan-ly-ung-dung-ca-nhan.html';
                 }
             } else {
                 setTypeLogincomponent(type)

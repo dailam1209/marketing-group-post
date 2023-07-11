@@ -5,23 +5,28 @@ import HeaderLogin from '../components/headerLogin/HeaderLogin';
 import Cookies from "js-cookie";
 import { getEducation, getGender, getExperience, getMarried, getPosition, ConvertIntToDate } from "../utils/function";
 import { useForm } from 'react-hook-form';
-import { infoEp, infoPersonal, changePassEp, changePassPersonal } from '../utils/handleApi';
+import { infoEp, infoPersonal, changePassEp, changePassPersonal, updatePersonal } from '../utils/handleApi';
 import { updateCom } from "../utils/handleApi";
 
 export default function DetailEmployee() {
     // gọi api lấy thông tin nhân viên
     const [data, setData] = useState([]);
-    let type = Cookies.get('role');
+    const type = () => {
+        return Cookies.get('role');
+    };
 
     useEffect(() => {
         const getData = async () => {
-            if (type == '2') {
+            if (type() === '2') {
                 let response = await infoEp();
                 setData(response.data)
+                console.log(response.data);
             } else {
                 let response = await infoPersonal();
                 setData(response.data)
+                console.log(response.data);
             }
+
         }
         getData()
     }, [])
@@ -76,7 +81,7 @@ export default function DetailEmployee() {
         if (file) {
             const data = new FormData();
             data.append('avatarUser', file);
-            let result = await updateCom(data);
+            let result = await updatePersonal(data);
 
         };
     }
@@ -95,7 +100,7 @@ export default function DetailEmployee() {
                     <div className="right_ql">
                         <div className="header_rigth_qly">
                             <div className="ctn_header_qly">
-                                <HeaderLogin />
+                                <HeaderLogin text={<>Thông tin tài khoản</>} />
                             </div>
                         </div>
                         <div className="ctn_right_qly ">

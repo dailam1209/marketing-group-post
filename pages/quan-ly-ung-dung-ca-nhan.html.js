@@ -37,7 +37,7 @@ export default function HomePersonal() {
                     <div className="right_ql">
                         <div className="header_rigth_qly">
                             <div className="ctn_header_qly">
-                                <HeaderLogin />
+                                <HeaderLogin text={<>Ứng dụng / <span className="thay_doi">Tất cả</span></>} />
                             </div>
                         </div>
                         <div className="ctn_right_qly">

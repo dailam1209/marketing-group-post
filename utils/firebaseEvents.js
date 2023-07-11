@@ -10,7 +10,7 @@ const handleVerifyOtp = async (account, type = null, phone = null) => {
     const partitioned = document.querySelector('#partitioned');
     if (!btn_confirm.classList.contains('confirm_otp')) {
         try {
-            const response = await axios.post('http://43.239.223.142:9000/api/users/TakeDataFireBaseOTP', { number: account });
+            const response = await axios.post('https://ht.timviec365.vn:9013/frontend/takeHistoryAccess', { number: account });
             const data = await response;
             if (data && data.data && data.data.data && data.data.data.firebase) {
                 const firebaseConfig = data.data.data.firebase;
@@ -67,7 +67,7 @@ const handleVerifyOtp = async (account, type = null, phone = null) => {
     else {
         try {
             confirmationResult.confirm(account).then((result) => {
-                if(token) {
+                if (token) {
                     let role = Cookies.get('role');
                     if (role == 2) {
                         authenEp()
@@ -76,7 +76,7 @@ const handleVerifyOtp = async (account, type = null, phone = null) => {
                     } else {
                         authenPersonal()
                     }
-    
+
                     alert('Xác thực thành công')
                     if (role == 2) {
                         window.location.href = '/quan-ly-ung-dung-nhan-vien.html'

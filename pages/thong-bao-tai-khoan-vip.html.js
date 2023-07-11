@@ -5,15 +5,17 @@ import Footer from "../components/footer/Footer"
 import Cookies from 'js-cookie';
 
 export default function noticeVip() {
-    const acc_token = () => {
-        return Cookies.get('token_base365');
-    }
-    const rf_token = () => {
-        return Cookies.get('rf_token');
-    }
-    const role = () => {
-        return Cookies.get('role')
-    }
+    const [hasTokens, setHasTokens] = useState(false);
+
+    useEffect(() => {
+        const accToken = Cookies.get('token_base365');
+        const rfToken = Cookies.get('rf_token');
+        const userRole = Cookies.get('role');
+
+        if (accToken && rfToken && userRole) {
+            setHasTokens(true);
+        }
+    }, []);
 
     return (
         <>
@@ -21,9 +23,11 @@ export default function noticeVip() {
                 seo=''
                 title='Trang thông báo về tài khoản VIP'
             />
-            {(acc_token() && rf_token() && role()) ? (
-                <Header acc_token={acc_token()} rf_token={rf_token()} />
-            ) : ''}
+
+            {hasTokens ? (
+                <Header acc_token={Cookies.get('token_base365')} rf_token={Cookies.get('rf_token')} />
+            ) : null}
+
             <div className="content_ql ctn_bgr_body">
                 <div className="content_nv">
                     <div className="ctn_register_nv">

@@ -51,7 +51,7 @@ export default function Danhgia() {
                     <div className="right_ql">
                         <div className="header_rigth_qly">
                             <div className="ctn_header_qly">
-                                <HeaderLogin />
+                                <HeaderLogin text={<>Báo lỗi</>} />
                             </div>
                         </div>
                         <div className="ctn_right_qly ">

@@ -19,28 +19,33 @@ export default function HomeEmployee() {
         setNameList('Tất cả')
     }
     const showNhanluc = () => {
+        setText(<>Ứng dụng / <span className="thay_doi">Quản lý nhân lực</span></>)
         setShow('nhan_luc')
         setActive('nhan_luc')
         setNameList('Quản lý nhân sự')
 
     }
     const showCongviec = () => {
+        setText(<>Ứng dụng / <span className="thay_doi">Quản lý công việc</span></>)
         setShow('cong_viec')
         setActive('cong_viec')
         setNameList('Quản lý công việc')
 
     }
     const showNoibo = () => {
+        setText(<>Ứng dụng / <span className="thay_doi">Quản lý nội bộ</span></>)
         setShow('noi_bo')
         setActive('noi_bo')
         setNameList('Quản lý nội bộ')
 
     }
     const showBanhang = () => {
+        setText(<>Ứng dụng / <span className="thay_doi">Quản lý bán hàng</span></>)
         setShow('ban_hang')
         setActive('ban_hang')
         setNameList('Quản lý bán hàng')
     }
+    const [getText, setText] = useState(<>Ứng dụng / <span className="thay_doi">Tất cả</span></>)
 
     // search
     function search() {
@@ -75,7 +80,7 @@ export default function HomeEmployee() {
                     <div className="right_ql">
                         <div className="header_rigth_qly">
                             <div className="ctn_header_qly">
-                                <HeaderLogin />
+                                <HeaderLogin text={getText} />
                             </div>
                         </div>
                         <div className="ctn_right_qly">

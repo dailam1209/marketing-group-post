@@ -88,7 +88,7 @@ export default function SetupIp() {
                     <div className="right_ql">
                         <div className="header_rigth_qly">
                             <div className="ctn_header_qly">
-                                <HeaderLogin />
+                                <HeaderLogin text={<>Cài đặt / <span className="thay_doi">Thiết lập dải IP cho phần mềm</span></>} />
                             </div>
                         </div>
                         <div className="ctn_right_qly">
@@ -176,7 +176,7 @@ export default function SetupIp() {
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                {data?.map((value, index) => (
+                                                                {/* {data?.map((value, index) => (
                                                                     <>
                                                                         <tr>
                                                                             <td className="share_fsize_one share_clr_one tex_center" data="">{index + 1}</td>
@@ -198,7 +198,7 @@ export default function SetupIp() {
                                                                             </td>
                                                                         </tr>
                                                                     </>
-                                                                ))}
+                                                                ))} */}
                                                             </tbody>
                                                         </table>
                                                     </div>
