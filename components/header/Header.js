@@ -8,7 +8,7 @@ export default function Header(props) {
     const slug = () => {
         return router.pathname;
     }
-    console.log(slug())
+    console.log(router.pathname)
     const [popup, setPopup] = useState(false)
     const showPopup = () => {
         if (popup) {
@@ -38,7 +38,7 @@ export default function Header(props) {
 
     const [showSideBar, setShowSideBar] = useState(false)
     const handleSideBar = () => {
-        if (showSideBar == true) {
+        if (showSideBar === true) {
             setShowSideBar(false)
         } else {
             setShowSideBar(true)
@@ -54,7 +54,6 @@ export default function Header(props) {
                             <p className="menu_popup btx_modal_ind">
                                 <img src="../img/menu.png" alt="menu" />
                             </p>
-                            <p></p>
                         </div>
                         <div className="bg_ima">
                             <a href="https://timviec365.vn/">
@@ -65,15 +64,13 @@ export default function Header(props) {
                             <div className="nav">
                                 <ul>
                                     <li>
-                                        <Link href={'/'} className={`cr_weight_bold share_fsize_tow share_clr_tow  ${(slug() == '/') ? 'active' : ''}`}>Trang chủ</Link>
+                                        <Link href={'/'} className={`cr_weight_bold share_fsize_tow share_clr_tow  ${(router.pathname === '/') ? 'active' : ''}`}>Trang chủ</Link>
                                     </li>
                                     <li>
-                                        <Link href={'/san-pham.html'} className={`cr_weight_bold share_fsize_tow share_clr_tow ${(slug() == '/san-pham.html') ? 'active' : ''}`}>Sản phẩm</Link>
-
+                                        <Link href={'/san-pham.html'} className={`cr_weight_bold share_fsize_tow share_clr_tow ${(router.pathname === '/san-pham.html') ? 'active' : ''}`}>Sản phẩm</Link>
                                     </li>
                                     <li>
-                                        <Link href={'/he-sinh-thai.html'} className={`cr_weight_bold share_fsize_tow share_clr_tow ${(slug() == '/he-sinh-thai.html') ? 'active' : ''}`}>Hệ sinh thái</Link>
-
+                                        <Link href={'/he-sinh-thai.html'} className={`cr_weight_bold share_fsize_tow share_clr_tow ${(router.pathname === '/he-sinh-thai.html') ? 'active' : ''}`}>Hệ sinh thái</Link>
                                     </li>
                                     <li>
                                         <Link href="https://timviec365.vn/blog" className="cr_weight_bold share_fsize_tow share_clr_tow">Tin tức</Link>
@@ -81,14 +78,14 @@ export default function Header(props) {
                                     </li>
                                 </ul>
                                 {
-                                    (slug() == '/thong-bao-tai-khoan-vip.html' && props.acc_token && props.rf_token) ? (
+                                    (router.pathname === '/thong-bao-tai-khoan-vip.html') ? (
                                         <>
                                             <div className="hd_log">
                                                 <div className="bg_log_aff" data="97602">
                                                     <div className="bg_log_img" onClick={showPopup}>
                                                         <img src="../img/add.png" alt="" />
                                                     </div>
-                                                    <div className="bg_logout">
+                                                    <div className="bg_logout" style={{ display: popup ? (router.pathname == '/thong-bao-tai-khoan-vip.html' ? 'block' : 'none') : 'none' }}>
                                                         <div className="chd_content">
                                                             <p className="chuyen_doi">
                                                                 <a href="/quan-ly-ung-dung-cong-ty.html">Chuyển đổi số 365</a>
@@ -118,7 +115,7 @@ export default function Header(props) {
                             </div>
                         </div>
                     </div>
-                    {(slug() == '/') && (
+                    {(router.pathname === '/') && (
                         <>
                             <div className="butt_header">
                                 <div className="ctn_butth">
@@ -162,7 +159,7 @@ export default function Header(props) {
                     )}
                 </div>
             </div>
-            <div className="bg_logout" style={{ display: popup ? 'block' : 'none' }}>
+            <div className="bg_logout" style={{ display: popup ? (router.pathname == '/thong-bao-tai-khoan-vip.html' ? 'none' : 'block') : 'none' }}>
                 <div className="chd_content" >
                     <p className="chuyen_doi">
                         <a href="/quan-ly-ung-dung-cong-ty.html">Chuyển đổi số 365</a>
@@ -230,7 +227,7 @@ export default function Header(props) {
                                                 <p>Hệ sinh thái</p>
                                             </li>
                                         </a>
-                                        <a href="#" className="nav-item">
+                                        <a href="https://timviec365.vn/blog" className="nav-item">
                                             <li className="nav-child-item cr_weight_bold share_fsize_tow share_clr_tow d_flex">
                                                 <span className="item_ic"><img src="../img/tin-tuc.png" alt="" /></span>
                                                 <p>Tin tức</p>

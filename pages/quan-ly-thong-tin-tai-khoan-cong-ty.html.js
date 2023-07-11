@@ -107,7 +107,7 @@ export default function DetailEmployy() {
                     <div className="right_ql">
                         <div className="header_rigth_qly">
                             <div className="ctn_header_qly">
-                                <HeaderLogin />
+                                <HeaderLogin text={<>Thông tin tài khoản</>} />
                             </div >
                         </div >
                         <div className="ctn_right_qly ">
@@ -123,7 +123,7 @@ export default function DetailEmployy() {
                                                     <div className="container_avt">
                                                         <div className="position_r text_a_c com_log_n" onClick={handleUploadAvt}>
                                                             <img src={(getAvatar == '' ? (data.avatarUser || '../img/icon_avt.png') : getAvatar)}
-                                                                alt="" className="img_avt" id="myimage" />
+                                                                alt="" className="img_avt" id="myimage" onError={(e) => { e.target.onerror = null; e.target.src = "../img/icon_avt.png"; }} />
                                                             <img src="../img/icon_mayanh.png" alt=""
                                                                 className="img_mayanh position_a" />
                                                             <input

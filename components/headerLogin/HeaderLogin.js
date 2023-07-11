@@ -4,7 +4,7 @@ import OptionUser from '../optionUser/OptionUser';
 import { infoCom, infoEp, infoPersonal } from '../../utils/handleApi';
 import { CheckLogin2 } from '../../utils/function';
 
-export default function HeaderLogin() {
+export default function HeaderLogin({ text }) {
     CheckLogin2()
 
     const type = () => {
@@ -60,7 +60,6 @@ export default function HeaderLogin() {
             setOption(false)
         } else {
             setShowSideBar(false)
-            setOption(true)
         }
     }
 
@@ -195,7 +194,7 @@ export default function HeaderLogin() {
             </div >
 
             <div className="left_header_qly">
-                <p className="share_fsize_one ">Ứng dụng / <span className="thay_doi">Tất cả</span></p>
+                <p className="share_fsize_one ">{text}</p>
             </div>
 
             <div className="right_header_qly" id="header_qly_nv">
@@ -230,7 +229,7 @@ export default function HeaderLogin() {
                 <div className="ic_nhanh_avt">
                     <div className="img_ic" onClick={optionUser}>
                         {
-                            data.avatarUser ? (<img src={data.avatarUser} alt="" className="avt_img_tk" />) : (<img src="../img/logo_com.png" alt="" className="avt_img_tk" />)
+                            data.avatarUser ? (<img src={data.avatarUser} className="avt_img_tk" onError={(e) => { e.target.onerror = null; e.target.src = "../img/logo_com.png"; }} />) : (<img src="../img/logo_com.png" alt="" className="avt_img_tk" />)
                         }
                         {(linkHome === 'quan-ly-ung-dung-cong-ty.html') ? (
                             <>

@@ -1,4 +1,4 @@
-export default function QlNhanluc2() {
+export default function QlNhanluc2({ userName }) {
     return (
         <>
             <div className="delt_titl_ud share_bgr_tow">
@@ -35,7 +35,7 @@ export default function QlNhanluc2() {
                 </div>
                 <div className="detl_nv_cty">
                     <p className="see_dvnv share_clr_one share_fsize_one">Tất cả thành viên trong:
-                        <span className="cr_weight com_name">$com_name</span>
+                        <span className="cr_weight com_name"> {userName} </span>
                     </p>
                 </div>
             </div>
@@ -64,7 +64,7 @@ export default function QlNhanluc2() {
                 </div>
                 <div className="detl_nv_cty">
                     <p className="see_dvnv share_clr_one share_fsize_one">Tất cả thành viên trong:
-                        <span className="cr_weight com_name">$com_name</span>
+                        <span className="cr_weight com_name">{userName}</span>
                     </p>
                 </div>
             </div>
@@ -93,7 +93,7 @@ export default function QlNhanluc2() {
                 </div>
                 <div className="detl_nv_cty">
                     <p className="see_dvnv share_clr_one share_fsize_one">Tất cả thành viên trong:
-                        <span className="cr_weight com_name">$com_name</span>
+                        <span className="cr_weight com_name">{userName}</span>
                     </p>
                 </div>
             </div>
@@ -122,7 +122,7 @@ export default function QlNhanluc2() {
                 </div>
                 <div className="detl_nv_cty">
                     <p className="see_dvnv share_clr_one share_fsize_one">Tất cả thành viên trong:
-                        <span className="cr_weight com_name">$com_name</span>
+                        <span className="cr_weight com_name">{userName}</span>
                     </p>
                 </div>
             </div>
@@ -151,7 +151,7 @@ export default function QlNhanluc2() {
                 </div>
                 <div className="detl_nv_cty">
                     <p className="see_dvnv share_clr_one share_fsize_one">Tất cả thành viên trong:
-                        <span className="cr_weight com_name">$com_name</span>
+                        <span className="cr_weight com_name">{userName}</span>
                     </p>
                 </div>
             </div>

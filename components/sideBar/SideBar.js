@@ -42,7 +42,7 @@ export default function SideBar() {
                             Thông tin tài khoản
                         </li>
                     </a>
-                    <a href="#" className="nav-item">
+                    {/* <a href="#" className="nav-item">
                         <li className="nav-child-item cr_weight_bold share_fsize_tow share_clr_tow d_flex">
                             <span className="item_ic"><img src="../img/qly-ttvieclam.png" alt="Thiết lập tài khoản nhân viên" /></span>
                             Thiết lập tài khoản nhân viên
@@ -55,7 +55,7 @@ export default function SideBar() {
                                 Chấm dứt lao động
                             </li>
                         </a >
-                    )}
+                    )} */}
                 </ul >
             </div >
         </div >

@@ -1833,9 +1833,8 @@ ul li {
 .bg_logout {
     position: absolute;
     float: left;
-    right: 20px;
-    top: 45px;
-    z-index: 1;
+    right: 0;
+    top: 38px;
     background: #FFFFFF;
     width: 200px;
     border-radius: 10px;
@@ -5918,7 +5917,7 @@ a {
     }
 
     .main_tt .container_taikhoan {
-        padding: 40px 0px 200px 30px;
+        padding: 40px 30px 200px 30px;
     }
 
     .main_tt .info_taikhoan {
@@ -6226,7 +6225,6 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .box_error {
-    width: 470px;
     margin: auto;
     text-align: center;
 }
