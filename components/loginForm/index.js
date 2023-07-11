@@ -5,7 +5,7 @@ import { login } from "../../utils/handleApi";
 import CheckTypeLogin from '../checkLogin';
 import Cookies from 'js-cookie';
 
-export default function LoginForm({ setNotiError, typeLogin }) {
+export default function LoginForm({ setNotiError, typeLogin, showTab }) {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [typeLoginComponent, setTypeLogincomponent] = useState()
     const [result, setResult] = useState()
@@ -55,7 +55,7 @@ export default function LoginForm({ setNotiError, typeLogin }) {
 
     return (
         <>
-            <form className="share_distance form_vali form_login_staff form_tk" onSubmit={handleSubmit(onSubmit)} >
+            <form className={`share_distance form_vali form_login_staff form_tk ${showTab === true ? 'hidden' : ''}`} onSubmit={handleSubmit(onSubmit)}  >
                 <div className="form-group">
                     <label className="form_label share_fsize_three share_clr_one cr_weight">
                         Tài khoản đăng nhập <span className="cr_red">*</span>

@@ -3,7 +3,23 @@ import Seo from '../components/head'
 import SideBar from '../components/sideBar/SideBar';
 import HeaderLogin from '../components/headerLogin/HeaderLogin';
 export default function HomePersonal() {
+    // search
+    function search() {
+        const searchTerm = document.getElementById("myInput").value.toLowerCase();
 
+        const items = document.getElementsByClassName("delt_titl_ud");
+
+        for (let i = 0; i < items.length; i++) {
+            let item = items[i];
+            let content = item.getElementsByTagName("h4")[0].innerText.toLowerCase();
+
+            if (content.includes(searchTerm)) {
+                item.style.display = "block";
+            } else {
+                item.style.display = "none";
+            }
+        }
+    }
     return (
         <>
             <Seo
@@ -38,6 +54,7 @@ export default function HomePersonal() {
                                                 type="text"
                                                 name="search"
                                                 id="myInput"
+                                                onKeyUp={search}
                                                 placeholder="Nhập tên phần mềm"
                                                 className="form-serach share_fsize_one share_clr_three share_bgr_tow"
                                             />

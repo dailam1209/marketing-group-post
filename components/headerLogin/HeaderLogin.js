@@ -14,11 +14,13 @@ export default function HeaderLogin() {
     const [data, setData] = useState([]);
 
     const [option, setOption] = useState(false);
+    const [showSideBar, setShowSideBar] = useState(false)
     const optionUser = () => {
         if (option) {
             setOption(false)
         } else {
             setOption(true)
+            setShowSideBar(false)
         }
     }
     const [linkHome, setLinkHome] = useState('')
@@ -51,14 +53,14 @@ export default function HeaderLogin() {
 
         }
     }, [])
-    console.log(data)
 
-    const [showSideBar, setShowSideBar] = useState(false)
     const handleSideBar = () => {
         if (showSideBar == false) {
             setShowSideBar(true)
+            setOption(false)
         } else {
             setShowSideBar(false)
+            setOption(true)
         }
     }
 
@@ -78,7 +80,7 @@ export default function HeaderLogin() {
                                 <div className="ind-tow">
                                     <div className="ctn_ulli">
                                         <ul className="navbar-nav">
-                                            {type() === 1 && (
+                                            {linkHome === 'quan-ly-ung-dung-cong-ty.html' && (
                                                 <>
                                                     <a href="/quan-ly-ung-dung-cong-ty.html"
                                                         className="nav-item">
@@ -87,7 +89,7 @@ export default function HeaderLogin() {
                                                             Ứng dụng
                                                         </li>
                                                     </a>
-                                                    <a href="#"
+                                                    {/* <a href="#"
                                                         className="nav-item">
                                                         <li className="nav-child-item cr_weight_bold share_fsize_tow share_clr_tow d_flex">
                                                             <span className="item_ic"><img src="../img/qly-nhanvien.png" alt="" /></span>
@@ -114,7 +116,7 @@ export default function HeaderLogin() {
                                                             <span className="item_ic"><img src="../img/qly-cctochuc.png" alt="" /></span>
                                                             Sơ đồ cơ cấu tổ chức
                                                         </li>
-                                                    </a>
+                                                    </a> */}
 
                                                     <a href="#"
                                                         className="nav-item">
@@ -200,6 +202,7 @@ export default function HeaderLogin() {
                 <div className="ic_nhanh">
                     <div className="img_ic share_cursor">
                         <picture>
+                            <source media="(max-width:1024px)" srcSet="../img/mobi_2.png" />
                             <img src="../img/mess-qly.png" alt="" className="cli_show_mess" />
                         </picture>
                         <span className="item_num">0</span>
@@ -208,14 +211,18 @@ export default function HeaderLogin() {
                 <div className="ic_nhanh">
                     <div className="img_ic share_cursor">
                         <picture>
-                            <img src="../img/nhac-nho.png" alt="" className="cli_show_mess ic_nhacnho" />
+                            <source media="(max-width:1024px)" srcSet="../img/mobi_1.png" />
+                            <img src="../img/nhac-nho.png" className="cli_show_mess ic_nhacnho" />
                         </picture>
                         <span className="item_num">0</span>
                     </div>
                 </div>
                 <div className="ic_nhanh">
                     <div className="img_ic share_cursor">
-                        <img src="../img/thong-bao.png" alt="" className="cli_show_mess ic_thongbao" />
+                        <picture>
+                            <source media="(max-width:1024px)" srcSet="../img/mobi_3.png" />
+                            <img src="../img/thong-bao.png" alt="" className="cli_show_mess ic_thongbao" />
+                        </picture>
                         <span className="item_num">0</span>
                     </div>
 

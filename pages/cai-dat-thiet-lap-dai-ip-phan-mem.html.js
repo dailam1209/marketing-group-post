@@ -8,6 +8,20 @@ import { useForm } from 'react-hook-form';
 import { createIp, listIp, delIp } from '../utils/handleApi';
 
 export default function SetupIp() {
+    const [data, setData] = useState([])
+    let comId = Cookies.get('UID');
+
+    useEffect(() => {
+        const getData = async () => {
+            let data1 = { com_id: comId }
+            console.log(data1)
+            let result = await listIp(data1);
+            setData(result.data)
+        }
+        getData()
+    }, [])
+
+    console.log(data)
 
     let role = Cookies.get('role')
     if (role == 2) {
@@ -15,6 +29,50 @@ export default function SetupIp() {
     } else if (role == 0) {
         window.location.href = '/quan-ly-ung-dung-ca-nhan'
     }
+
+    // popup
+    const [popupAdd, setPopupAdd] = useState(false)
+    const handlePopupAdd = () => {
+        if (popupAdd == false) {
+            setPopupAdd(true)
+        } else {
+            setPopupAdd(false)
+        }
+    }
+
+    const [popupDel, setPopupDel] = useState(false)
+    const [nameSoftware, setNameSoftWare] = useState('')
+    const [idIp, setIdIp] = useState()
+    const handlePopupDel = (name, id) => {
+        if (popupDel == false) {
+            setNameSoftWare(name)
+            setIdIp(id)
+            setPopupDel(true)
+        } else {
+            setPopupDel(false)
+        }
+    }
+    const deleteIp = () => {
+        let data = {
+            com_id: comId,
+            id: idIp
+        }
+        delIp(data)
+        alert('Xóa thành công')
+        window.location.reload()
+    }
+
+
+
+    // validate and submit
+    const { register, handleSubmit, formState: { errors } } = useForm();
+
+    const onSubmit = async data => {
+        data.com_id = comId
+        createIp(data)
+        alert('thêm thành công')
+        window.location.reload()
+    };
 
     return (
         <>
@@ -226,33 +284,59 @@ export default function SetupIp() {
             </div>
 
             {/* chinh sua */}
-            <div class="modal_share modal_share_tow edit_ip_pm">
-                <div class="modal-content">
-                    <div class="info_modal">
-                        <div class="modal-header">
-                            <div class="header_ctn_share">
-                                <h4 class="ctn_share_h share_clr_tow tex_center cr_weight_bold">Chỉnh sửa dải IP cho phần mềm</h4>
-                                <span class="close_detl close_dectl">&times;</span>
+            <div className="modal_share modal_share_tow edit_ip_pm">
+                <div className="modal-content">
+                    <div className="info_modal">
+                        <div className="modal-header">
+                            <div className="header_ctn_share">
+                                <h4 className="ctn_share_h share_clr_tow tex_center cr_weight_bold">
+                                    Chỉnh sửa dải IP cho phần mềm
+                                </h4>
+                                <span className="close_detl close_dectl">×</span>
                             </div>
                         </div>
-                        <div class="modal-body">
-                            <div class="ctn_body_modal">
-                                <div class="madal_form">
-                                    <form class="edit_share_form share_distance edit_ip_pm_form">
-                                        <div class="form-group share_select2">
-                                            <label class="form_label share_fsize_three">Phần mềm thiết lập dải IP* <span class="cr_red cr_weight">*</span></label>
-                                            <input type="text" class="form-control" value="" readonly />
+                        <div className="modal-body">
+                            <div className="ctn_body_modal">
+                                <div className="madal_form">
+                                    <form className="edit_share_form share_distance edit_ip_pm_form">
+                                        <div className="form-group share_select2">
+                                            <label className="form_label share_fsize_three">
+                                                Phần mềm thiết lập dải IP*{" "}
+                                                <span className="cr_red cr_weight">*</span>
+                                            </label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                defaultValue=""
+                                                readOnly=""
+                                            />
                                         </div>
-                                        <div class="form-group">
-                                            <label class="form_label share_fsize_three">Địa chỉ IP <span class="cr_red cr_weight">*</span></label>
-                                            <input type="text" name="diachi_ip" id="addr_ip" class="form-control" value="" />
+                                        <div className="form-group">
+                                            <label className="form_label share_fsize_three">
+                                                Địa chỉ IP <span className="cr_red cr_weight">*</span>
+                                            </label>
+                                            <input
+                                                type="text"
+                                                name="diachi_ip"
+                                                id="addr_ip"
+                                                className="form-control"
+                                                defaultValue=""
+                                            />
                                         </div>
-                                        <div class="form_butt_ht">
-                                            <div class="tow_butt_flex">
-                                                <button type="button"
-                                                    class="share_fsize_three cr_weight share_cursor share_clr_four share_bgr_tow huy_button">Hủy</button>
-                                                <button type="button"
-                                                    class="share_clr_tow cr_weight share_cursor share_fsize_three share_bgr_one hoan-thanh luu_save_ip_pm" >Hoàn thành</button>
+                                        <div className="form_butt_ht">
+                                            <div className="tow_butt_flex">
+                                                <button
+                                                    type="button"
+                                                    className="share_fsize_three cr_weight share_cursor share_clr_four share_bgr_tow huy_button"
+                                                >
+                                                    Hủy
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    className="share_clr_tow cr_weight share_cursor share_fsize_three share_bgr_one hoan-thanh luu_save_ip_pm"
+                                                >
+                                                    Hoàn thành
+                                                </button>
                                             </div>
                                         </div>
                                     </form>
@@ -264,26 +348,48 @@ export default function SetupIp() {
             </div>
 
             {/* xóa ip phần mềm */}
-            <div class="modal_share modal_share_tow delete_ip_pm" style={{ display: popupDel ? 'block' : 'none' }}>
-                <div class="modal-content">
-                    <div class="info_modal">
-                        <div class="modal-header">
-                            <div class="header_ctn_share">
-                                <h4 class="ctn_share_h share_clr_tow tex_center cr_weight_bold">Xóa địa chỉ IP phần mềm</h4>
-                                <span class="close_detl close_dectl" onClick={handlePopupDel}>&times;</span>
+            <div className="modal_share modal_share_tow delete_ip_pm" style={{ display: popupDel ? 'block' : 'none' }}>
+                <div className="modal-content">
+                    <div className="info_modal">
+                        <div className="modal-header">
+                            <div className="header_ctn_share">
+                                <h4 className="ctn_share_h share_clr_tow tex_center cr_weight_bold">
+                                    Xóa địa chỉ IP phần mềm
+                                </h4>
+                                <span className="close_detl close_dectl" onClick={handlePopupDel}>
+                                    ×
+                                </span>
                             </div>
                         </div>
-                        <div class="modal-body">
-                            <div class="ctn_body_modal">
-                                <div class="madal_form">
-                                    <div class="edit_share_form share_distance remove_nhom_form">
-                                        <p class="share_remove share_clr_one tex_center">Bạn có muốn xóa thiết lập dải IP truy cập cho phần mềm
-                                            <span class="cr_weight name_pm"> {nameSoftware}</span> ?
+                        <div className="modal-body">
+                            <div className="ctn_body_modal">
+                                <div className="madal_form">
+                                    <div className="edit_share_form share_distance remove_nhom_form">
+                                        <p className="share_remove share_clr_one tex_center">
+                                            Bạn có muốn xóa thiết lập dải IP truy cập cho phần mềm
+                                            <span className="cr_weight name_pm">
+                                                {" "}
+                                                {"{"}nameSoftware{"}"}
+                                            </span>{" "}
+                                            ?
                                         </p>
-                                        <div class="form_butt_ht">
-                                            <div class="tow_butt_flex">
-                                                <button type="button" class="share_fsize_three cr_weight share_cursor share_clr_four share_bgr_tow huy_button" onClick={handlePopupDel}>Hủy</button>
-                                                <button type="button" class="share_clr_tow cr_weight share_cursor share_fsize_three share_bgr_one dongy_button remove_ip_pm" data="" onClick={deleteIp}>Đồng ý</button>
+                                        <div className="form_butt_ht">
+                                            <div className="tow_butt_flex">
+                                                <button
+                                                    type="button"
+                                                    className="share_fsize_three cr_weight share_cursor share_clr_four share_bgr_tow huy_button"
+                                                    onClick={handlePopupDel}
+                                                >
+                                                    Hủy
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    className="share_clr_tow cr_weight share_cursor share_fsize_three share_bgr_one dongy_button remove_ip_pm"
+                                                    data=""
+                                                    onClick={deleteIp}
+                                                >
+                                                    Đồng ý
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -293,6 +399,7 @@ export default function SetupIp() {
                     </div>
                 </div>
             </div>
+
         </>
     )
 }

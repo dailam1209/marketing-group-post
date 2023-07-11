@@ -5,12 +5,9 @@ import HeaderLogin from '../components/headerLogin/HeaderLogin';
 import Cookies from "js-cookie";
 import { useForm } from 'react-hook-form';
 import { infoEp, infoPersonal, updateEp, updatePersonal } from '../utils/handleApi';
-import { getEducation, validatePhone, getExperience, getGender, getMarried, ConvertIntToDate } from "../utils/function";
+import { getEducation, validatePhone, getExperience, getGender, getMarried, ConvertIntToDate, validateMail } from "../utils/function";
 
 export default function EditEmployee() {
-    // fix first render 
-    const [hydrated, setHydrated] = useState(false);
-
     // gọi api lấy thông tin nhân viên
     const [data, setData] = useState([]);
     let role = Cookies.get('role');
@@ -22,15 +19,12 @@ export default function EditEmployee() {
                 setValue('userName', response.data.userName)
                 setValue('address', response.data.address)
                 setValue('phone', response.data.phone || response.data.phoneTK)
-                setHydrated(true)
-
             } else {
                 let response = await infoPersonal();
                 setData(response.data)
                 setValue('userName', response.data.userName)
                 setValue('address', response.data.address)
                 setValue('phone', response.data.phone || response.data.phoneTK)
-                setHydrated(true)
             }
         }
         getData()
@@ -72,11 +66,6 @@ export default function EditEmployee() {
         setUpdateSuccess(false)
         setUpdateFalse(false)
         window.location.href = '/quan-ly-thong-tin-tai-khoan-nhan-vien.html'
-    }
-
-    if (!hydrated) {
-        // Returns null on first render, so the client and server match
-        return null;
     }
 
     return (
@@ -121,7 +110,7 @@ export default function EditEmployee() {
                                             <div className="d_form_item form_container d_flex">
                                                 <div className="form-group">
                                                     <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
-                                                        Họ và tên<span className="cr_red">*</span></label>
+                                                        Họ và tên <span className="cr_red">*</span></label>
                                                     <input type="text" name="userName" className="form-control share_fsize_one share_clr_one" placeholder="Nhập họ và tên" defaultValue={data.userName || ''}
                                                         {...register("userName", {
                                                             required: 'Họ và tên không được để trống',
@@ -131,14 +120,22 @@ export default function EditEmployee() {
                                                 </div>
                                                 <div className="form-group">
                                                     <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
-                                                        Email<span className="cr_red"></span></label>
-                                                    <input type="text" name="email" className="form-control share_fsize_one share_clr_one" placeholder="Nhập email" value={data.email || ''} readOnly />
+                                                        Email <span className="cr_red">*</span></label>
+                                                    <input type="text" name="email" className="form-control share_fsize_one share_clr_one" placeholder="Nhập email" defaultValue={data.email || ''}
+                                                        {...register("email", {
+                                                            required: 'Không được để trống',
+                                                            validate: {
+                                                                validateMail: (value) => validateMail(value) || 'Hãy nhập đúng định dạng Mail'
+                                                            }
+                                                        })}
+                                                    />
+                                                    {errors.email && <label className="error">{errors.email.message}</label>}
                                                 </div>
                                             </div>
                                             <div className="d_form_item form_container d_flex">
                                                 <div className="form-group">
                                                     <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
-                                                        Số điện thoại liên hệ <span className="cr_red"></span></label>
+                                                        Số điện thoại liên hệ <span className="cr_red">*</span></label>
                                                     <input type="text" name="phone" className="form-control share_fsize_one share_clr_one" placeholder="Nhập số điện thoại" defaultValue={data.phone || data.phoneTK}
                                                         {...register("phone", {
                                                             required: 'Số điện thoại không được để trống',
@@ -214,7 +211,7 @@ export default function EditEmployee() {
                                                 </div >
                                                 <div className="form-group">
                                                     <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
-                                                        Tình trạng hôn nhân<span className="cr_red">*</span></label>
+                                                        Tình trạng hôn nhân <span className="cr_red">*</span></label>
                                                     <select {...register('married')}
                                                         defaultValue={data.married || 1}
                                                         name="tinhtrang"
@@ -246,7 +243,7 @@ export default function EditEmployee() {
                                                 </div >
                                                 <div className="form-group share_done">
                                                     <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
-                                                        Ngày bắt đầu làm việc<span className="cr_red">*</span>
+                                                        Ngày bắt đầu làm việc <span className="cr_red">*</span>
                                                     </label>
                                                     <input type="date" name="ngaylamviec" className="form-control share_fsize_one share_clr_one" value="" readOnly />
 
