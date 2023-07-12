@@ -4,15 +4,16 @@ import Seo from "../components/head";
 import SideBar from '../components/sideBar/SideBar';
 import HeaderLogin from '../components/headerLogin/HeaderLogin';
 import { vote } from "../utils/handleApi";
+import { useRouter } from 'next/router';
 
 export default function Danhgia() {
-
+    const router = new useRouter();
     let role = Cookies.get('role')
-    if (role == 2) {
-        window.location.href = '/quan-ly-ung-dung-nhan-vien.html'
-    } else if (role == 0) {
-        window.location.href = '/quan-ly-ung-dung-ca-nhan.html'
-    }
+    // if (role == 2) {
+    //     window.location.href = '/quan-ly-ung-dung-nhan-vien.html'
+    // } else if (role == 0) {
+    //     window.location.href = '/quan-ly-ung-dung-ca-nhan.html'
+    // }
 
     const [comment, setComment] = useState('');
     const [popup, setPopup] = useState(false);
@@ -35,7 +36,8 @@ export default function Danhgia() {
     };
 
     const closePopup = () => {
-        setPopup(false)
+        setPopup(false);
+        router.reload();
     }
     return (
         <>
@@ -57,7 +59,7 @@ export default function Danhgia() {
                         <div className="ctn_right_qly ">
                             <div className="ctn_res_qly">
                                 <div className="left_header_qly">
-                                    <p className="share_clr_one font_14">Thông tin tài khoản</p>
+                                    <p className="share_clr_one font_14">Báo lỗi</p>
                                 </div>
                                 <div className="list_all_qly">
                                     <div className="main_tt main_tt_taikhoan">

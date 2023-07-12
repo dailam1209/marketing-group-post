@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { createCanvas } from 'canvas';
 
 const ImageConverter = ({ text }) => {
+    console.log('text:', text)
     const [imageUrl, setImageUrl] = useState('');
 
     useEffect(() => {

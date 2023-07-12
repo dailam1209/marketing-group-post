@@ -4,13 +4,14 @@ import Link from 'next/link'
 import { login } from "../../utils/handleApi";
 import CheckTypeLogin from '../checkLogin';
 import Cookies from 'js-cookie';
+import { useRouter } from 'next/router';
 
 export default function LoginForm({ setNotiError, typeLogin, showTab }) {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [typeLoginComponent, setTypeLogincomponent] = useState()
     const [result, setResult] = useState()
     const [showPopup, setShowPopup] = useState(false)
-
+    const router = new useRouter();
     const onSubmit = async (data) => {
         data.type = typeLogin
         let result = await login(data, 0)
@@ -24,11 +25,23 @@ export default function LoginForm({ setNotiError, typeLogin, showTab }) {
                 Cookies.set('token_base365', acc_token);
                 Cookies.set('role', role);
                 if (type == 1) {
-                    window.location.href = '/quan-ly-ung-dung-cong-ty.html';
+                    if (result.data.authentic == 0) {
+                        router.push('/xac-thuc-ma-otp-ca-nhan.html')
+                    } else {
+                        window.location.href = '/quan-ly-ung-dung-cong-ty.html';
+                    }
                 } else if (type == 2) {
-                    window.location.href = '/quan-ly-ung-dung-nhan-vien.html';
+                    if (result.data.authentic == 0) {
+                        router.push('/xac-thuc-ma-otp-nhan-vien.html')
+                    } else {
+                        window.location.href = '/quan-ly-ung-dung-nhan-vien.html';
+                    }
                 } else {
-                    // window.location.href = '/quan-ly-ung-dung-ca-nhan.html';
+                    if (result.data.authentic == 0) {
+                        router.push('/xac-thuc-ma-otp-ca-nhan.html')
+                    } else {
+                        window.location.href = '/quan-ly-ung-dung-ca-nhan.html';
+                    }
                 }
             } else {
                 setTypeLogincomponent(type)
