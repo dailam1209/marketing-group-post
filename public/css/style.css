@@ -1120,17 +1120,6 @@ ul li {
     }
 
     @media screen and (max-width: 1024px) {
-        .box_select_type {
-            display: none !important;
-        }
-
-        form.form_tk {
-            display: block !important;
-        }
-
-        .login_qr.scan_qr {
-            display: none !important;
-        }
 
         .footer-right-bot:last-child {
             display: none;
@@ -5979,6 +5968,18 @@ a {
 }
 
 @media screen and (max-width: 600px) {
+    .box_select_type {
+        display: none !important;
+    }
+
+    form.form_tk {
+        display: block !important;
+    }
+
+    .login_qr.scan_qr {
+        display: none !important;
+    }
+
     .popup_nn {
         right: -120px;
     }

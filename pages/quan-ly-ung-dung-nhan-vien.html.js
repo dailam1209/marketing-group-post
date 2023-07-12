@@ -11,7 +11,7 @@ export default function HomeEmployee() {
 
     const [show, setShow] = useState('all')
     const [active, setActive] = useState('all')
-    const [nameList, setNameList] = useState('Tất cảl')
+    const [nameList, setNameList] = useState('Tất cả')
 
     const showAll = () => {
         setShow('all')

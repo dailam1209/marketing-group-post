@@ -8,24 +8,21 @@ import { CheckLogin } from "../utils/function"
 
 export default function AuthenticPersonal() {
     CheckLogin()
-    
+
+    const onClickSendOtp = () => {
+        handleVerifyOtp(true, Cookies.get('phone'), '');
+    }
+
     const onClickVerifyOtp = () => {
-        const value = document.querySelector('.verify_otp');
-        if (value.classList.contains('nhan_ma')) {
-            let phone = Cookies.get('phone');
-            handleVerifyOtp(phone);
-        } else {
-            var otp = document.querySelector('#partitioned').value;
-            handleVerifyOtp(otp);
-        }
+        handleVerifyOtp(false, Cookies.get('phone'), document.querySelector('#partitioned').value);
     };
     return (
         <>
             <Seo
-            seo = ''
-            title = 'Trang xác thực mã OTP cá nhân'
+                seo=''
+                title='Trang xác thực mã OTP cá nhân'
             />
-            <Header/>
+            <Header />
             <div className="content_ql ctn_bgr_body">
                 <div className="content_nv">
                     <div className="ctn_register_nv">
@@ -82,7 +79,7 @@ export default function AuthenticPersonal() {
                                                     type="button"
                                                     className="nhan_ma nhan_ma_2 share_bgr_one cr_weight share_clr_tow share_fsize_tow share_cursor tiep_tuc_one verify_otp otpSMS"
                                                     defaultValue="Nhận mã"
-                                                    onClick={onClickVerifyOtp}
+                                                    onClick={onClickSendOtp}
                                                 />
                                                 <input
                                                     type="button"
@@ -100,7 +97,7 @@ export default function AuthenticPersonal() {
                     </div>
                 </div>
             </div>
-            <Footer/>
+            <Footer />
             <link rel="stylesheet" href="https://timviec365.vn/css/footer_new.css?v=2" />
         </>
     )

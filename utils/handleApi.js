@@ -2,11 +2,12 @@ import { React, useState, useEffect } from "react"
 import Cookies from "js-cookie";
 import { functionAPI } from "./function";
 import axios from 'axios';
+import FormData from "form-data";
 
 export const checkVip = async (idcom) => {
-    const data = {
-        com_id: idcom
-    }
+    const data = new FormData();
+    data.append('com_id', idcom);
+    console.log(data);
     let checkVip = await functionAPI(process.env.NEXT_PUBLIC_API + '/api/qlc/checkVip/before', data)
     console.log(checkVip)
     if (!checkVip.vip && !checkVip.is_add) {

@@ -67,7 +67,7 @@ export default function RegisterEp() {
                                                         </button>
                                                         <p className="bo_qua tex_center">
                                                             <a
-                                                                href="/register/lua-chon-dang-ky.html"
+                                                                href="/lua-chon-dang-ky.html"
                                                                 className="share_fsize_three share_clr_one"
                                                             >
                                                                 Quay lại
