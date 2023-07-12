@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import handleVerifyOtp from '../utils/firebaseEvents';
 import Cookies from "js-cookie";
 import Header from "../components/header/Header"
@@ -9,16 +9,12 @@ import { CheckLogin } from "../utils/function"
 export default function sendOTP_Com() {
     CheckLogin()
 
+    const onClickSendOtp = () => {
+        handleVerifyOtp(true, Cookies.get('phone'), '');
+    }
+
     const onClickVerifyOtp = () => {
-        const value = document.querySelector('.verify_otp');
-        if (value.classList.contains('nhan_ma')) {
-            let phone = Cookies.get('phone');
-            console.log(phone)
-            handleVerifyOtp(phone);
-        } else {
-            var otp = document.querySelector('#partitioned').value;
-            handleVerifyOtp(otp);
-        }
+        handleVerifyOtp(false, Cookies.get('phone'), document.querySelector('#partitioned').value);
     };
     return (
         <>
@@ -84,7 +80,7 @@ export default function sendOTP_Com() {
                                                         type="button"
                                                         className="nhan_ma nhan_ma_2 share_bgr_one cr_weight share_clr_tow share_fsize_tow share_cursor tiep_tuc_one verify_otp otpSMS"
                                                         defaultValue="Nhận mã"
-                                                        onClick={onClickVerifyOtp}
+                                                        onClick={onClickSendOtp}
                                                     />
                                                     <input
                                                         type="button"

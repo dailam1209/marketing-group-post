@@ -4,13 +4,13 @@ import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth
 import Cookies from "js-cookie";
 import { authenCom, authenEp, authenPersonal } from './handleApi';
 
-const handleVerifyOtp = async (account, type = null, phone = null) => {
+const handleVerifyOtp = async (btn = null, account = null, otp = null, type = null) => {
     let token = Cookies.get('acc_token');
-    const btn_confirm = document.querySelector('.verify_otp');
     const partitioned = document.querySelector('#partitioned');
-    if (!btn_confirm.classList.contains('confirm_otp')) {
+    console.log(btn)
+    if (btn) {
         try {
-            const response = await axios.post('https://ht.timviec365.vn:9013/frontend/takeHistoryAccess', { number: account });
+            const response = await axios.post('https://ht.timviec365.vn:9013/api/users/TakeDataFireBaseOTP', { number: account });
             const data = await response;
             if (data && data.data && data.data.data && data.data.data.firebase) {
                 const firebaseConfig = data.data.data.firebase;
@@ -65,9 +65,10 @@ const handleVerifyOtp = async (account, type = null, phone = null) => {
     }
     // Xác thực OTP
     else {
+        console.log(3)
         try {
-            confirmationResult.confirm(account).then((result) => {
-                if (token) {
+            confirmationResult.confirm(otp).then((result) => {
+                if (!type) {
                     let role = Cookies.get('role');
                     if (role == 2) {
                         authenEp()
@@ -86,7 +87,7 @@ const handleVerifyOtp = async (account, type = null, phone = null) => {
                         window.location.href = '/quan-ly-ung-dung-ca-nhan.html'
                     }
                 } else {
-                    window.location.href = '/thay-doi-mat-khau.html?account=' + phone + '&type=' + type
+                    window.location.href = '/thay-doi-mat-khau.html?account=' + account + '&type=' + type
                 }
 
             }).catch((error) => {

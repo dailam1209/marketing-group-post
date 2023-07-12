@@ -14,14 +14,12 @@ export default function XacthucQuenMK() {
     const type = router.query.type
     const account = router.query.account
 
+    const onClickSendOtp = () => {
+        handleVerifyOtp(true, account, '', type);
+    }
+
     const onClickVerifyOtp = () => {
-        const value = document.querySelector('.verify_otp');
-        if (value.classList.contains('nhan_ma')) {
-            handleVerifyOtp(account);
-        } else {
-            let otp = document.querySelector('#partitioned').value;
-            handleVerifyOtp(otp, type, account);
-        }
+        handleVerifyOtp(false, account, document.querySelector('#partitioned').value, type);
     };
     return (
         <>
@@ -86,7 +84,7 @@ export default function XacthucQuenMK() {
                                                         type="button"
                                                         className="nhan_ma nhan_ma_2 share_bgr_one cr_weight share_clr_tow share_fsize_tow share_cursor tiep_tuc_one verify_otp otpSMS"
                                                         defaultValue="Nhận mã"
-                                                        onClick={onClickVerifyOtp}
+                                                        onClick={onClickSendOtp}
                                                     />
                                                     <input
                                                         type="button"

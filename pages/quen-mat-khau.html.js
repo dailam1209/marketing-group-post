@@ -1,22 +1,23 @@
 import { React, useState, useEffect } from "react"
-import { useForm } from 'react-hook-form';
+import { set, useForm } from 'react-hook-form';
 import Seo from '../components/head'
 import { useRouter } from 'next/router';
 import { CheckLogin } from "../utils/function"
 import { generateRandomString } from "../utils/function";
 import { checkExist } from '../utils/function'
+import Captcha from '../components/captcha/images'
 
 export default function forgetPassword() {
     CheckLogin()
-
     const router = useRouter();
     const type = router.query.type
     const [title, getTitle] = useState()
     const [des, getDes] = useState()
     const [capchaRen, setCapchaRen] = useState()
 
-
+    const [getCaptcha, setCaptcha] = useState('');
     useEffect(() => {
+
         setCapchaRen(generateRandomString(6))
         if (type == 1 || type == 2) {
             getTitle('Khôi phục ngay tài khoản với tính năng lấy lại mật khẩu dễ dàng')
@@ -117,7 +118,8 @@ export default function forgetPassword() {
                                                         },
                                                     })}
                                                 />
-                                                <input className="capcha" value={capchaRen} readOnly></input>
+                                                <Captcha text={generateRandomString(6)} />
+                                                {/* <input className="capcha" value={capchaRen} readOnly></input> */}
                                                 {errors.capcha && <label className="error">{errors.capcha.message}</label>}
                                             </div>
                                             <div className="form-butt-one">
