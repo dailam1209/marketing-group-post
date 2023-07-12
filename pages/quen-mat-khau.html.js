@@ -13,11 +13,9 @@ export default function forgetPassword() {
     const type = router.query.type
     const [title, getTitle] = useState()
     const [des, getDes] = useState()
-    const [capchaRen, setCapchaRen] = useState()
+    const [capchaRen, setCapchaRen] = useState('')
 
-    const [getCaptcha, setCaptcha] = useState('');
     useEffect(() => {
-
         setCapchaRen(generateRandomString(6))
         if (type == 1 || type == 2) {
             getTitle('Khôi phục ngay tài khoản với tính năng lấy lại mật khẩu dễ dàng')
@@ -118,8 +116,7 @@ export default function forgetPassword() {
                                                         },
                                                     })}
                                                 />
-                                                <Captcha text={generateRandomString(6)} />
-                                                {/* <input className="capcha" value={capchaRen} readOnly></input> */}
+                                                <Captcha text={capchaRen} />
                                                 {errors.capcha && <label className="error">{errors.capcha.message}</label>}
                                             </div>
                                             <div className="form-butt-one">

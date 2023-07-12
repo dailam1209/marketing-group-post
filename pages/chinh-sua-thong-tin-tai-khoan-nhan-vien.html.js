@@ -34,13 +34,12 @@ export default function EditEmployee() {
     const { register, handleSubmit, formState: { errors }, setValue } = useForm();
 
     const onSubmit = async data => {
-        console.log(data)
         let dateObject = new Date(data.birthday);
         let birthday = dateObject.getTime();
         birthday = Math.floor(birthday / 1000);
         delete data.birthday
         data.birthday = birthday
-        console.log(data)
+
         if (role == 2) {
             let response = await updateEp(data);
             if (response.result == true) {
@@ -83,7 +82,7 @@ export default function EditEmployee() {
                     <div className="right_ql">
                         <div className="header_rigth_qly">
                             <div className="ctn_header_qly">
-                                <HeaderLogin />
+                                <HeaderLogin text={<>Thông tin tài khoản / <span className="thay_doi">Chỉnh sửa thông tin tài khoản</span></>} />
                             </div>
                         </div>
                         <div className="ctn_right_qly color_gray">

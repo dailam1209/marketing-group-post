@@ -1,6 +1,7 @@
 import { React, useEffect, useState } from "react"
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+const Cookies = require('js-cookie');
 
 export default function Header(props) {
     // get pathname url
@@ -8,7 +9,7 @@ export default function Header(props) {
     const slug = () => {
         return router.pathname;
     }
-    console.log(router.pathname)
+
     const [popup, setPopup] = useState(false)
     const showPopup = () => {
         if (popup) {
@@ -56,7 +57,7 @@ export default function Header(props) {
                             </p>
                         </div>
                         <div className="bg_ima">
-                            <a href="https://timviec365.vn/">
+                            <a href="https://dev.timviec365.vn/">
                                 <img src="../img/logo.png" alt="logo công ty" />
                             </a>
                         </div>
@@ -73,12 +74,12 @@ export default function Header(props) {
                                         <Link href={'/he-sinh-thai.html'} className={`cr_weight_bold share_fsize_tow share_clr_tow ${(router.pathname === '/he-sinh-thai.html') ? 'active' : ''}`}>Hệ sinh thái</Link>
                                     </li>
                                     <li>
-                                        <Link href="https://timviec365.vn/blog" className="cr_weight_bold share_fsize_tow share_clr_tow">Tin tức</Link>
+                                        <Link href="https://dev.timviec365.vn/blog" className="cr_weight_bold share_fsize_tow share_clr_tow">Tin tức</Link>
 
                                     </li>
                                 </ul>
                                 {
-                                    (router.pathname === '/thong-bao-tai-khoan-vip.html') ? (
+                                    (router.pathname === '/thong-bao-tai-khoan-vip.html' || props.acc_token) ? (
                                         <>
                                             <div className="hd_log">
                                                 <div className="bg_log_aff" data="97602">
@@ -159,7 +160,7 @@ export default function Header(props) {
                     )}
                 </div>
             </div>
-            <div className="bg_logout" style={{ display: popup ? (router.pathname == '/thong-bao-tai-khoan-vip.html' ? 'none' : 'block') : 'none' }}>
+            <div className="bg_logout" style={{ display: popup ? (router.pathname == '/thong-bao-tai-khoan-vip.html' || props.acc_token ? 'none' : 'block') : 'none' }}>
                 <div className="chd_content" >
                     <p className="chuyen_doi">
                         <a href="/quan-ly-ung-dung-cong-ty.html">Chuyển đổi số 365</a>
@@ -227,7 +228,7 @@ export default function Header(props) {
                                                 <p>Hệ sinh thái</p>
                                             </li>
                                         </a>
-                                        <a href="https://timviec365.vn/blog" className="nav-item">
+                                        <a href="https://dev.timviec365.vn/blog" className="nav-item">
                                             <li className="nav-child-item cr_weight_bold share_fsize_tow share_clr_tow d_flex">
                                                 <span className="item_ic"><img src="../img/tin-tuc.png" alt="" /></span>
                                                 <p>Tin tức</p>

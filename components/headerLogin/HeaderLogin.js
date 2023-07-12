@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 import OptionUser from '../optionUser/OptionUser';
 import { infoCom, infoEp, infoPersonal } from '../../utils/handleApi';
 import { CheckLogin2 } from '../../utils/function';
+import { useRouter } from 'next/router';
 
 export default function HeaderLogin({ text }) {
     CheckLogin2()
@@ -24,10 +25,11 @@ export default function HeaderLogin({ text }) {
         }
     }
     const [linkHome, setLinkHome] = useState('')
-
+    const router = useRouter();
     useEffect(() => {
         const getData = async () => {
             try {
+
                 if (type() === '2') {
                     let response = await infoEp();
                     setData(response.data);
@@ -41,18 +43,18 @@ export default function HeaderLogin({ text }) {
             } catch (error) {
                 console.log('Error:', error);
             }
-        }
-        getData()
-        if (type() === '1') {
-            setLinkHome('quan-ly-ung-dung-cong-ty.html')
-        }
-        else if (type() === '0') {
-            setLinkHome('quan-ly-ung-dung-ca-nhan.html')
-        } else {
-            setLinkHome('quan-ly-ung-dung-nhan-vien.html')
+        };
 
+        getData();
+
+        if (type() === '1') {
+            setLinkHome('quan-ly-ung-dung-cong-ty.html');
+        } else if (type() === '0') {
+            setLinkHome('quan-ly-ung-dung-ca-nhan.html');
+        } else {
+            setLinkHome('quan-ly-ung-dung-nhan-vien.html');
         }
-    }, [])
+    }, []);
 
     const handleSideBar = () => {
         if (showSideBar == false) {
