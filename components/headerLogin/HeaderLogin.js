@@ -54,7 +54,23 @@ export default function HeaderLogin({ text }) {
         } else {
             setLinkHome('quan-ly-ung-dung-nhan-vien.html');
         }
-    }, []);
+
+        function handleClickOutside(event) {
+            if ((option && !event.target.closest('.img_ic')) || (showSideBar && !event.target.closest('.show_sidebar'))) {
+                setOption(false)
+                setShowSideBar(false)
+            }
+        }
+
+        // Đăng ký sự kiện click trên phần tử gốc của component
+        document.addEventListener('click', handleClickOutside);
+
+        return () => {
+            // Hủy đăng ký sự kiện khi component unmount hoặc trạng thái isPopupOpen thay đổi
+            document.removeEventListener('click', handleClickOutside);
+        };
+
+    }, [showSideBar]);
 
     const handleSideBar = () => {
         if (showSideBar == false) {
@@ -246,7 +262,7 @@ export default function HeaderLogin({ text }) {
                             </>
                         )}
                     </div>
-                    {(option) && <OptionUser type={type()} />}
+                    {<OptionUser type={type()} option={option} setOption={setOption} />}
                 </div>
             </div>
         </>

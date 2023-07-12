@@ -3,8 +3,7 @@ import Seo from '../components/head'
 import { CheckLogin } from "../utils/function"
 
 export default function register() {
-    CheckLogin()
-    
+
     return (
         <>
             <Seo

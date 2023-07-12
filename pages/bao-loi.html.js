@@ -68,13 +68,21 @@ export default function Danhgia() {
                                                 <img src="../img/error_report.png" alt="bao_loi" />
                                                 <textarea className="text_dg" placeholder="Nhập mô tả lỗi để chúng tôi hiểu rõ hơn" onChange={handleCommentChange}></textarea>
                                                 <span className="error" style={{ textAlign: 'left', display: error ? ' block' : 'none' }}>Mô tả lỗi không được bỏ trống</span>
-                                                <p className="sm_danhgia" onClick={handleSubmit}>Gửi báo lỗi</p>
-                                                {/* <p className="img_error">Chọn ảnh lỗi </p> */}
-                                                {/* <input type="file" className="file_error hidden" multiple="multiple" accept=".png,.gif,.jpg,.jpeg,.jtif,.PNG"> */}
+                                                <div className='box_btn'>
+                                                    <div className='bao_loi bl_btn'>
+                                                        <p className="img_error">Chọn ảnh lỗi </p>
+                                                        <input
+                                                            type="file"
+                                                            classname="file_error hidden"
+                                                            multiple="multiple"
+                                                            accept=".png,.gif,.jpg,.jpeg,.jtif,.PNG"
+                                                        />
+                                                    </div>
+                                                    <div className="sm_danhgia bl_btn" onClick={handleSubmit}>Gửi báo lỗi</div>
+                                                </div>
+
+
                                             </div>
-                                            {/* <div style="float: left;width: 100%;margin: 35px 0;text-align: center;">
-                                                <iframe className="video_hd" width="800" height="420" src="https://www.youtube.com/embed/XMOT4egzVx0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                                            </div> */}
                                         </div>
 
                                         <div className="box_popup box_done">
@@ -90,6 +98,27 @@ export default function Danhgia() {
                                     </div>
                                 </div>
                             </div>
+                            <div
+                                style={{
+                                    float: "left",
+                                    width: "100%",
+                                    margin: "35px 0",
+                                    textAlign: "center"
+                                }}
+                            >
+                                <iframe
+                                    className="video_hd"
+                                    width={800}
+                                    height={420}
+                                    src="https://www.youtube.com/embed/XMOT4egzVx0"
+                                    title="YouTube video player"
+                                    frameBorder={0}
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowFullScreen=""
+                                />
+                            </div>
+
+
                         </div>
                     </div>
                 </div>

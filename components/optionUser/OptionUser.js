@@ -12,14 +12,15 @@ export default function OptionUser(props) {
     })
 
     const [showLogout, setShowLogout] = useState(false)
-    
+
     const logout = () => {
+        props.setOption(true)
         setShowLogout(true)
     }
 
     return (
         <>
-            <div className="avt_log_posti share_bgr_tow">
+            <div className="avt_log_posti share_bgr_tow" style={{ display: props.option ? 'block' : 'none' }}>
                 <ul className="navbar-nav">
                     <a href={link} className="nav-item">
                         <li className="nav-child-item share_clr_one share_fsize_one">

@@ -99,7 +99,27 @@ export default function Danhgia() {
                                     </div>
                                 </div>
                             </div>
+                            <div
+                                style={{
+                                    float: "left",
+                                    width: "100%",
+                                    margin: "20px 0",
+                                    textAlign: "center"
+                                }}
+                            >
+                                <iframe
+                                    className="video_hd"
+                                    width={800}
+                                    height={420}
+                                    src="https://www.youtube.com/embed/9L4vVo4yPpA"
+                                    title="YouTube video player"
+                                    frameBorder={0}
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowFullScreen=""
+                                />
+                            </div>
                         </div>
+
                     </div>
                 </div>
             </div>
