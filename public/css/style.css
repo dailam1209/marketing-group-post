@@ -826,6 +826,40 @@ ul li {
     margin-bottom: 5px;
 }
 
+.box_btn {
+    display: flex;
+    gap: 20px;
+    padding-top: 20px;
+}
+
+.bl_btn {
+    width: calc(50% - 10px);
+}
+
+.hidden {
+    display: none !important;
+}
+
+.bao_loi.bl_btn {
+    text-align: center;
+    color: #fff;
+    background: #f46a6a;
+    cursor: pointer;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: roboto-medium, sans-serif;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+p.img_error {
+    font-family: roboto-medium, sans-serif;
+}
+
 @media all {
     .vieclam_container {
         width: 1170px;
@@ -6266,10 +6300,8 @@ input[type=number]::-webkit-outer-spin-button {
     color: #fff;
     padding: 12px 0;
     float: left;
-    width: 100%;
     font-family: roboto-medium, sans-serif;
     cursor: pointer;
-    margin-top: 15px;
     text-align: center;
 }
 
@@ -6357,8 +6389,8 @@ input[type=number]::-webkit-outer-spin-button {
     }
 
     .btn_168:first-child {
-        margin-right: 0px;
-        margin-bottom: 15px;
+        /* margin-right: 0px; */
+        /* margin-bottom: 15px; */
     }
 
     .ctn_selt {
@@ -6787,7 +6819,7 @@ input[type=number]::-webkit-outer-spin-button {
     }
 
     .register_ctnv.register_dk_vip .ctn_bgr_body {
-        background-image: url(/img/exp_banner_vip_768.jpg);
+        background-image: url('../img/exp_banner_vip_768.jpg');
         background-size: 100% 100%;
     }
 

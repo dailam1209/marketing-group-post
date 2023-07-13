@@ -8,7 +8,9 @@ import { CheckLogin2 } from '../utils/function';
 
 export default function sendOTP_Com() {
     CheckLogin2();
+    const [textNhanMa, setNhanMa] = useState('Vui lòng bấm "Nhận mã" để nhận mã xác thực về số điện thoại');
     const onClickSendOtp = () => {
+        setNhanMa(' Vui lòng nhập mã OTP gồm 6 chữ số được gửi về email hoặc số điện thoại đăng ký tài khoản!')
         handleVerifyOtp(true, Cookies.get('phone'), '');
     }
 
@@ -44,8 +46,8 @@ export default function sendOTP_Com() {
                                                     </div>
                                                 </div>
                                                 <p className="titl_form share_fsize_three share_clr_one tex_center">
-                                                    Vui lòng nhập mã OTP gồm 6 chữ số được gửi về email hoặc số
-                                                    điện thoại đăng ký tài khoản!
+                                                    {textNhanMa}
+
                                                 </p>
                                                 <div className="center_form">
                                                     <div className="form-group">

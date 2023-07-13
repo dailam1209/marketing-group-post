@@ -15,6 +15,7 @@ export default function DetailEmployy() {
         const getData = async () => {
             try {
                 let response = await infoCom();
+                console.log(response.data)
                 setData(response.data)
             }
             catch (error) {
@@ -82,7 +83,6 @@ export default function DetailEmployy() {
     const handleFileChange = async (event) => {
         const file = event.target.files[0];
         const imageUrl = URL.createObjectURL(file);
-        console.log('imageUrl:', imageUrl)
         setAvatar(imageUrl);
         if (file) {
             const data = new FormData();
@@ -135,7 +135,7 @@ export default function DetailEmployy() {
                                                                 onChange={handleFileChange}
                                                             />
                                                         </div>
-                                                        <p className="id">{data._id}</p>
+                                                        <p className="id">ID - {data._id}</p>
                                                     </div>
                                                 </div>
                                                 <div className="info_taikhoan">

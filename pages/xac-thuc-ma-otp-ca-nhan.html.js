@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import handleVerifyOtp from '../utils/firebaseEvents';
 import Cookies from "js-cookie";
 import Header from "../components/header/Header"
@@ -8,7 +8,9 @@ import { CheckLogin2 } from "../utils/function"
 
 export default function AuthenticPersonal() {
     CheckLogin2();
+    const [textNhanMa, setNhanMa] = useState('Vui lòng bấm "Nhận mã" để nhận mã xác thực về số điện thoại');
     const onClickSendOtp = () => {
+        setNhanMa(' Vui lòng nhập mã OTP gồm 6 chữ số được gửi về email hoặc số điện thoại đăng ký tài khoản!')
         handleVerifyOtp(true, Cookies.get('phone'), '');
     }
 
@@ -44,7 +46,7 @@ export default function AuthenticPersonal() {
                                                     </div>
                                                 </div>
                                                 <p className="titl_form share_fsize_three share_clr_one tex_center change_text">
-                                                    Vui lòng bấm "Nhận mã" để nhận mã xác thực về số điện thoại
+                                                    {textNhanMa}
                                                 </p>
                                                 <div className="center_form">
                                                     <div className="form-group">

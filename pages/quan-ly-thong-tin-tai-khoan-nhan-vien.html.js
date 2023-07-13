@@ -129,7 +129,7 @@ export default function DetailEmployee() {
                                                             />
                                                         </div>
 
-                                                        <p className="id">{data._id}</p>
+                                                        <p className="id">ID - {data._id}</p>
                                                     </div>
                                                 </div>
                                                 <div className="info_taikhoan">

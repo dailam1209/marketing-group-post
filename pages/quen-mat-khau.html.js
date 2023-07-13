@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { CheckLogin } from "../utils/function"
 import { generateRandomString } from "../utils/function";
 import { checkExist } from '../utils/function'
-import Captcha from '../components/captcha/images'
+// import Captcha from '../components/captcha/images'
 
 export default function forgetPassword() {
     CheckLogin()
@@ -116,7 +116,8 @@ export default function forgetPassword() {
                                                         },
                                                     })}
                                                 />
-                                                <Captcha text={capchaRen} />
+                                                <input className="capcha" value={capchaRen} readOnly></input>
+                                                {/* <Captcha text={capchaRen} /> */}
                                                 {errors.capcha && <label className="error">{errors.capcha.message}</label>}
                                             </div>
                                             <div className="form-butt-one">

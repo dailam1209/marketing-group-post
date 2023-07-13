@@ -13,6 +13,7 @@ export default function LoginForm({ setNotiError, typeLogin, showTab }) {
     const [showPopup, setShowPopup] = useState(false)
     const router = new useRouter();
     const onSubmit = async (data) => {
+        console.log(data)
         data.type = typeLogin
         let result = await login(data, 0)
         if (result.result == true) {

@@ -2,6 +2,7 @@ import { React, useEffect, useState } from "react"
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 const Cookies = require('js-cookie');
+import { infoCom, infoEp, infoPersonal } from '../../utils/handleApi';
 
 export default function Header(props) {
     // get pathname url
@@ -45,6 +46,26 @@ export default function Header(props) {
             setShowSideBar(true)
         }
     }
+    const type = () => {
+        return Cookies.get('role');
+    };
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        const getData = async () => {
+            try {
+                if (type() === '1') {
+                    let response = await infoCom();
+                    setData(response.data);
+                }
+            } catch (error) {
+                console.log('Error:', error);
+            }
+        };
+
+        getData();
+
+    }, []);
 
     return (
         <>
@@ -84,7 +105,7 @@ export default function Header(props) {
                                             <div className="hd_log">
                                                 <div className="bg_log_aff" data="97602">
                                                     <div className="bg_log_img" onClick={showPopup}>
-                                                        <img src="../img/add.png" alt="" />
+                                                        <img src={data.avatarUser ? data.avatarUser : `../img/add.png`} />
                                                     </div>
                                                     <div className="bg_logout" style={{ display: popup ? (router.pathname == '/thong-bao-tai-khoan-vip.html' ? 'block' : 'none') : 'none' }}>
                                                         <div className="chd_content">
@@ -207,6 +228,13 @@ export default function Header(props) {
                 <div className="modal-content">
                     <div className="ctn_ind share_bgr_one">
                         <div className="modal-body">
+                            <div className="ind_one">
+                                <div className="avt_log_ind share_clr_tow share_fsize_tow cr_weight_bold">
+                                    <img src={data.avatarUser ? data.avatarUser : `../img/add.png`} />
+                                    {data.userName}
+                                </div>
+                            </div>
+
                             <div className="ind-tow">
                                 <div className="ctn_ulli">
                                     <ul className="navbar-nav">
@@ -234,18 +262,21 @@ export default function Header(props) {
                                                 <p>Tin tức</p>
                                             </li>
                                         </a>
-                                        <a href="/lua-chon-dang-ky.html" className="nav-item">
-                                            <li className="nav-child-item cr_weight_bold share_fsize_tow share_clr_tow d_flex">
-                                                <span className="item_ic"><img src="../img/logout_i.png" alt="" /></span>
-                                                <p>Đăng ký</p>
-                                            </li>
-                                        </a>
-                                        <a href="/lua-chon-dang-nhap.html" className="nav-item">
-                                            <li className="nav-child-item cr_weight_bold share_fsize_tow share_clr_tow d_flex">
-                                                <span className="item_ic"><img src="../img/logout_ind.png" alt="" /></span>
-                                                <p>Đăng nhập</p>
-                                            </li>
-                                        </a>
+                                        {
+                                            !props.acc_token ? (<><a href="/lua-chon-dang-ky.html" className="nav-item">
+                                                <li className="nav-child-item cr_weight_bold share_fsize_tow share_clr_tow d_flex">
+                                                    <span className="item_ic"><img src="../img/logout_i.png" alt="" /></span>
+                                                    <p>Đăng ký</p>
+                                                </li>
+                                            </a>
+                                                <a href="/lua-chon-dang-nhap.html" className="nav-item">
+                                                    <li className="nav-child-item cr_weight_bold share_fsize_tow share_clr_tow d_flex">
+                                                        <span className="item_ic"><img src="../img/logout_ind.png" alt="" /></span>
+                                                        <p>Đăng nhập</p>
+                                                    </li>
+                                                </a></>) : ''
+                                        }
+
                                     </ul>
                                 </div>
                             </div>
