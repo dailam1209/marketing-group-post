@@ -199,6 +199,4 @@ export function CheckLogin2() {
             router.push('/');
         }
     }, []);
-
-    // Rest of your code...
 }

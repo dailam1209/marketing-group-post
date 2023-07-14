@@ -52,7 +52,6 @@ export default function HomeEmployee() {
         let searchTerm = document.getElementById("myInput").value.toLowerCase();
 
         let items = document.getElementsByClassName("delt_titl_ud");
-        console.log(items)
 
         for (let i = 0; i < items.length; i++) {
             let item = items[i];

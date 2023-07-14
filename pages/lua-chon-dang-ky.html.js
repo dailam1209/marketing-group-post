@@ -1,5 +1,7 @@
 import React from "react"
+import Footer from "../components/footer/Footer"
 import Seo from '../components/head'
+import Header from "../components/header/Header"
 import { CheckLogin } from "../utils/function"
 
 export default function register() {
@@ -13,7 +15,7 @@ export default function register() {
                 url='https://quanlychung.timviec365.vn/lua-chon-dang-ky.html'
 
             />
-
+            <Header></Header>
             <div className="content_ql ctn_bgr_body">
                 <div className="content_nv log_reg">
                     <div className="container">
@@ -59,5 +61,6 @@ export default function register() {
                 </div>
             </div>
             <link rel="stylesheet" href="https://timviec365.vn/css/footer_new.css?v=2" />
+            <Footer></Footer>
         </>)
 };

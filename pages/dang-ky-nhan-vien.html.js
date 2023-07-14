@@ -4,6 +4,8 @@ import { useForm } from 'react-hook-form';
 import Cookies from "js-cookie";
 import { checkVip } from "../utils/handleApi";
 import { CheckLogin } from "../utils/function"
+import Header from "../components/header/Header";
+import Footer from "../components/footer/Footer";
 
 export default function RegisterEp() {
     CheckLogin()
@@ -22,6 +24,7 @@ export default function RegisterEp() {
                 des='Tham gia hệ sinh thái chuyển đổi số tân tiến số 1 của quanlychung.timviec365.vn, nhân viên sẽ có cơ hội tận hưởng những phần mềm tiện ích nhất. Đăng ký tài khoản ngay'
                 url='https://quanlychung.timviec365.vn/dang-ky-nhan-vien.html'
             />
+            <Header />
             <div className="register_ctnv" id="register_cty">
                 <div className="content_ql ctn_bgr_body">
                     <div className="content_nv">
@@ -87,6 +90,7 @@ export default function RegisterEp() {
             </div>
 
             <link rel="stylesheet" href="https://timviec365.vn/css/footer_new.css?v=2" />
+            <Footer />
         </>
     )
 };

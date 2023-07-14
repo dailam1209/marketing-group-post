@@ -29,15 +29,25 @@ export default function HeaderLogin({ text }) {
     useEffect(() => {
         const getData = async () => {
             try {
-
                 if (type() === '2') {
                     let response = await infoEp();
+                    if (response.data.authentic == 0) {
+                        router.push('/xac-thuc-ma-otp-ca-nhan.html');
+                    }
                     setData(response.data);
                 } else if (type() === '1') {
                     let response = await infoCom();
+                    if (response.data.authentic == 0) {
+                        router.push('/xac-thuc-ma-otp-cong-ty.html');
+                    }
+                    Cookies.set('nameCompany', response.data.userName);
                     setData(response.data);
                 } else {
                     let response = await infoPersonal();
+                    if (response.data.authentic == 0) {
+                        router.push('/xac-thuc-ma-otp-nhan-vien.html');
+                    }
+                    Cookies.set('nameCompany', response.data.companyName);
                     setData(response.data);
                 }
             } catch (error) {
@@ -56,9 +66,12 @@ export default function HeaderLogin({ text }) {
         }
 
         function handleClickOutside(event) {
-            if ((option && !event.target.closest('.img_ic')) || (showSideBar && !event.target.closest('.show_sidebar'))) {
-                setOption(false)
+            if (showSideBar && !event.target.closest('.show_sidebar')) {
                 setShowSideBar(false)
+            }
+
+            if (option && !event.target.closest('.img_ic')) {
+                setOption(false);
             }
         }
 
@@ -70,7 +83,7 @@ export default function HeaderLogin({ text }) {
             document.removeEventListener('click', handleClickOutside);
         };
 
-    }, [showSideBar]);
+    }, [option, showSideBar]);
 
     const handleSideBar = () => {
         if (showSideBar == false) {

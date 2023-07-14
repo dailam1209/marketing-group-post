@@ -4,7 +4,11 @@ import Seo from '../components/head'
 import { useRouter } from 'next/router';
 import { CheckLogin } from "../utils/function"
 import { generateRandomString } from "../utils/function";
+import { checkAccount } from "../utils/handleApi";
 import { checkExist } from '../utils/function'
+import Header from "../components/header/Header";
+import Footer from "../components/footer/Footer";
+import FormData from "form-data";
 // import Captcha from '../components/captcha/images'
 
 export default function forgetPassword() {
@@ -31,14 +35,15 @@ export default function forgetPassword() {
     const onSubmit = async data => {
         delete data.capcha
         data.type = type
-        // let response = await checkExist(data);
-        // if (response.data && response.data.data && response.data.data.result == true) {
-        //     window.location.href = "/xac-thuc-ma-otp-ca-nhan.html";
-        // } else {
-        //     alert(response)
-        // }
-        window.location.href = '/xac-thuc-ma-otp-mk.html?account=' + data.account + '&type=' + type
+        const form = new FormData();
+        form.append('input', data.account);
+        let response = await checkAccount(form);
 
+        if (response.result === true) {
+            window.location.href = '/xac-thuc-ma-otp-mk.html?account=' + data.account + '&type=' + type
+        } else {
+            alert("Tài khoản không tồn tại!");
+        }
     };
     return (
         <>
@@ -48,7 +53,7 @@ export default function forgetPassword() {
                 des={des}
                 url='https://quanlychung.timviec365.vn/quen-mat-khau.html'
             />
-
+            <Header />
             <div className="register_ctnv" id="register_cty">
                 <div className="content_ql ctn_bgr_body">
                     <div className="content_nv">
@@ -139,6 +144,7 @@ export default function forgetPassword() {
                 </div>
             </div>
             <link rel="stylesheet" href="https://timviec365.vn/css/footer_new.css?v=2" />
+            <Footer />
         </>
     )
 };

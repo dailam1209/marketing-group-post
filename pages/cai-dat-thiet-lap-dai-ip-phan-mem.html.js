@@ -14,14 +14,11 @@ export default function SetupIp() {
     useEffect(() => {
         const getData = async () => {
             let data1 = { com_id: comId }
-            console.log(data1)
             let result = await listIp(data1);
             setData(result.data)
         }
         getData()
     }, [])
-
-    console.log(data)
 
     let role = Cookies.get('role')
     if (role == 2) {
@@ -55,14 +52,11 @@ export default function SetupIp() {
     const deleteIp = () => {
         let data = {
             com_id: comId,
-            id: idIp
+            _id: idIp
         }
         delIp(data)
-        alert('Xóa thành công')
-        window.location.reload()
+        // window.location.reload()
     }
-
-
 
     // validate and submit
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -70,7 +64,6 @@ export default function SetupIp() {
     const onSubmit = async data => {
         data.com_id = comId
         createIp(data)
-        alert('thêm thành công')
         window.location.reload()
     };
 
@@ -176,7 +169,7 @@ export default function SetupIp() {
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                {/* {data?.map((value, index) => (
+                                                                {data?.map((value, index) => (
                                                                     <>
                                                                         <tr>
                                                                             <td className="share_fsize_one share_clr_one tex_center" data="">{index + 1}</td>
@@ -198,7 +191,7 @@ export default function SetupIp() {
                                                                             </td>
                                                                         </tr>
                                                                     </>
-                                                                ))} */}
+                                                                ))}
                                                             </tbody>
                                                         </table>
                                                     </div>

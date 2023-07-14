@@ -93,7 +93,7 @@ export default function Danhgia() {
                                                 </div>
                                                 <textarea className="text_dg" placeholder="Nhập đánh giá của bạn" onChange={handleCommentChange}></textarea>
                                                 <span className="error" style={{ textAlign: 'left', display: error ? ' block' : 'none' }}>Đánh giá hoặc số sao không được bỏ trống</span>
-                                                <p className="sm_danhgia" onClick={handleSubmit}>Đánh giá</p>
+                                                <p className="sm_danhgia v_sm_danhgia" onClick={handleSubmit}>Đánh giá</p>
                                             </div>
                                         </div>
                                     </div>

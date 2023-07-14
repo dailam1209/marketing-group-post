@@ -15,7 +15,6 @@ export default function DetailEmployy() {
         const getData = async () => {
             try {
                 let response = await infoCom();
-                console.log(response.data)
                 setData(response.data)
             }
             catch (error) {

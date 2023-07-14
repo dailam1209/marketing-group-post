@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 const Cookies = require('js-cookie');
 import { infoCom, infoEp, infoPersonal } from '../../utils/handleApi';
 
-export default function Header(props) {
+export default function Header() {
     // get pathname url
     const router = useRouter()
     const slug = () => {
@@ -40,31 +40,43 @@ export default function Header(props) {
 
     const [showSideBar, setShowSideBar] = useState(false)
     const handleSideBar = () => {
-        if (showSideBar === true) {
-            setShowSideBar(false)
-        } else {
+
+        if (showSideBar === false) {
             setShowSideBar(true)
+        } else {
+            setShowSideBar(false)
         }
     }
     const type = () => {
         return Cookies.get('role');
-    };
+    }
+
     const [data, setData] = useState([]);
+    const [renderContent, setRenderContent] = useState(false);
 
     useEffect(() => {
-        const getData = async () => {
-            try {
-                if (type() === '1') {
-                    let response = await infoCom();
-                    setData(response.data);
+
+        if (typeof window !== 'undefined' && Cookies.get('token_base365')) {
+            const getData = async () => {
+                try {
+                    if (type() === '2') {
+                        let response = await infoEp();
+                        setData(response.data);
+                    } else if (type() === '1') {
+                        let response = await infoCom();
+                        setData(response.data);
+                    } else {
+                        let response = await infoPersonal();
+                        setData(response.data);
+                    }
+                } catch (error) {
+                    console.log('Error:', error);
                 }
-            } catch (error) {
-                console.log('Error:', error);
-            }
-        };
+            };
 
-        getData();
-
+            getData();
+            setRenderContent(true);
+        }
     }, []);
 
     return (
@@ -100,19 +112,19 @@ export default function Header(props) {
                                     </li>
                                 </ul>
                                 {
-                                    (router.pathname === '/thong-bao-tai-khoan-vip.html' || props.acc_token) ? (
+                                    (renderContent) ? (
                                         <>
                                             <div className="hd_log">
                                                 <div className="bg_log_aff" data="97602">
                                                     <div className="bg_log_img" onClick={showPopup}>
                                                         <img src={data.avatarUser ? data.avatarUser : `../img/add.png`} />
                                                     </div>
-                                                    <div className="bg_logout" style={{ display: popup ? (router.pathname == '/thong-bao-tai-khoan-vip.html' ? 'block' : 'none') : 'none' }}>
+                                                    <div className="bg_logout" style={{ display: popup ? (renderContent ? 'block' : 'none') : 'none' }}>
                                                         <div className="chd_content">
                                                             <p className="chuyen_doi">
                                                                 <a href="/quan-ly-ung-dung-cong-ty.html">Chuyển đổi số 365</a>
                                                             </p>
-                                                            <p className="dang_xuat btx_logout">
+                                                            <p className="dang_xuat btx_logout" onClick={show}>
                                                                 <a>Đăng xuất</a>
                                                             </p>
                                                         </div>
@@ -181,7 +193,7 @@ export default function Header(props) {
                     )}
                 </div>
             </div>
-            <div className="bg_logout" style={{ display: popup ? (router.pathname == '/thong-bao-tai-khoan-vip.html' || props.acc_token ? 'none' : 'block') : 'none' }}>
+            <div className="bg_logout" style={{ display: popup ? (renderContent ? 'none' : 'block') : 'none' }}>
                 <div className="chd_content" >
                     <p className="chuyen_doi">
                         <a href="/quan-ly-ung-dung-cong-ty.html">Chuyển đổi số 365</a>
@@ -228,12 +240,14 @@ export default function Header(props) {
                 <div className="modal-content">
                     <div className="ctn_ind share_bgr_one">
                         <div className="modal-body">
-                            <div className="ind_one">
-                                <div className="avt_log_ind share_clr_tow share_fsize_tow cr_weight_bold">
-                                    <img src={data.avatarUser ? data.avatarUser : `../img/add.png`} />
-                                    {data.userName}
-                                </div>
-                            </div>
+                            {
+                                (renderContent) ? (<><div className="ind_one">
+                                    <div className="avt_log_ind share_clr_tow share_fsize_tow cr_weight_bold">
+                                        <img src={data.avatarUser ? data.avatarUser : `../img/add.png`} />
+                                        {data.userName}
+                                    </div>
+                                </div></>) : <></>
+                            }
 
                             <div className="ind-tow">
                                 <div className="ctn_ulli">
@@ -263,18 +277,37 @@ export default function Header(props) {
                                             </li>
                                         </a>
                                         {
-                                            !props.acc_token ? (<><a href="/lua-chon-dang-ky.html" className="nav-item">
-                                                <li className="nav-child-item cr_weight_bold share_fsize_tow share_clr_tow d_flex">
-                                                    <span className="item_ic"><img src="../img/logout_i.png" alt="" /></span>
-                                                    <p>Đăng ký</p>
-                                                </li>
-                                            </a>
+                                            !renderContent ? (<>
+                                                <a href="/lua-chon-dang-ky.html" className="nav-item">
+                                                    <li className="nav-child-item cr_weight_bold share_fsize_tow share_clr_tow d_flex">
+                                                        <span className="item_ic"><img src="../img/logout_i.png" alt="" /></span>
+                                                        <p>Đăng ký</p>
+                                                    </li>
+                                                </a>
                                                 <a href="/lua-chon-dang-nhap.html" className="nav-item">
                                                     <li className="nav-child-item cr_weight_bold share_fsize_tow share_clr_tow d_flex">
                                                         <span className="item_ic"><img src="../img/logout_ind.png" alt="" /></span>
                                                         <p>Đăng nhập</p>
                                                     </li>
-                                                </a></>) : ''
+                                                </a>
+                                            </>) : (<>
+                                                <a href="/quan-ly-ung-dung-cong-ty.html" className="nav-item">
+                                                    <li className="nav-child-item cr_weight_bold share_fsize_tow share_clr_tow d_flex">
+                                                        <span className="item_ic">
+                                                            <img src="../img/chuyen_d.png" alt="" />
+                                                        </span>
+                                                        <p>Chuyển đổi số 365</p>
+                                                    </li>
+                                                </a>
+                                                <a className="nav-item btx_logout" onClick={show}>
+                                                    <li className="nav-child-item cr_weight_bold share_fsize_tow share_clr_tow d_flex">
+                                                        <span className="item_ic">
+                                                            <img src="../img/logout_ind.png" alt="" />
+                                                        </span>
+                                                        <p>Đăng xuất</p>
+                                                    </li>
+                                                </a>
+                                            </>)
                                         }
 
                                     </ul>
