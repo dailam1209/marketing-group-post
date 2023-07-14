@@ -2,7 +2,7 @@ import { React, useState, useEffect } from "react";
 import CallApi from '../api/call_api';
 import ReactPaginate from 'react-paginate';
 import HeaderAdmin from "../../components/headerAdmin";
-
+import { format } from 'date-fns';
 export default function AdminFeedback() {
     // xử lý phân trang và gọi api
     const [listFeedback, getListFeedback] = useState({})
@@ -27,6 +27,7 @@ export default function AdminFeedback() {
             try {
                 let response = await CallApi.listFeedback('')
                 getListFeedback(response.data.data.data)
+                console.log('response.data.data.data:', response.data.data.data)
                 const totalItems = response.data.data.count;
                 const itemsPerPage = 25;
                 const totalPages = Math.ceil(totalItems / itemsPerPage);
@@ -53,9 +54,6 @@ export default function AdminFeedback() {
                 <HeaderAdmin />
 
                 <div className="content-inner">
-                    <br />
-                    <a className="link_cty" href="/admin/danh-sach-cong-ty">Lấy danh sách công ty</a>
-
                     <p style={{ display: 'block', float: 'left', width: '100%', marginbottom: '15px', fontsize: '14px' }}>{count} kết quả</p>
                     <br />
                     <table style={{ display: 'block', width: '100%' }}>
@@ -78,9 +76,9 @@ export default function AdminFeedback() {
                                     <td align="center">{item.userName}</td>
                                     <td align="center">{item.email}</td>
                                     <td align="center">{item.phone}</td>
-                                    <td align="center">kém lắm hay bị lỗi</td>
-                                    <td align="center">3</td>
-                                    <td align="center">{item.inForCompany && item.inForCompany.cds.com_vip != 0 && (ConvertIntToDate(item.inForCompany.cds.com_vip_time))[0]}</td>
+                                    <td align="center">{item.feed_back}</td>
+                                    <td align="center">{item.rating}</td>
+                                    <td align="center">{(format(item.createdAt, 'dd-MM-yyyy HH:mm:ii'))}</td>
                                 </tr>
                             ))}
                         </tbody>

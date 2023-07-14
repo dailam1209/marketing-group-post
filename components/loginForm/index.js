@@ -8,9 +8,10 @@ import { useRouter } from 'next/router';
 
 export default function LoginForm({ setNotiError, typeLogin, showTab }) {
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const [typeLoginComponent, setTypeLogincomponent] = useState()
-    const [result, setResult] = useState()
-    const [showPopup, setShowPopup] = useState(false)
+    const [typeLoginComponent, setTypeLogincomponent] = useState();
+    const [result, setResult] = useState();
+    const [showPopup, setShowPopup] = useState(false);
+    const [getAuth, setAuth] = useState('');
     const router = new useRouter();
     const onSubmit = async (data) => {
         data.type = typeLogin
@@ -25,18 +26,21 @@ export default function LoginForm({ setNotiError, typeLogin, showTab }) {
                 Cookies.set('token_base365', acc_token);
                 Cookies.set('role', role);
                 if (type == 1) {
+                    setAuth(result.data.authentic);
                     if (result.data.authentic == 0) {
                         router.push('/xac-thuc-ma-otp-ca-nhan.html')
                     } else {
                         window.location.href = '/quan-ly-ung-dung-cong-ty.html';
                     }
                 } else if (type == 2) {
+                    setAuth(result.data.authentic);
                     if (result.data.authentic == 0) {
                         router.push('/xac-thuc-ma-otp-nhan-vien.html')
                     } else {
                         window.location.href = '/quan-ly-ung-dung-nhan-vien.html';
                     }
                 } else {
+                    setAuth(result.data.authentic);
                     if (result.data.authentic == 0) {
                         router.push('/xac-thuc-ma-otp-ca-nhan.html')
                     } else {

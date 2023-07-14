@@ -51,8 +51,8 @@ export default function OptionUser(props) {
                         </li>
                     </a>
                     {getHtml}
-                    <a className="nav-item">
-                        <li className="nav-child-item share_clr_one share_fsize_one btx_logout" onClick={logout}>
+                    <a className="nav-item" onClick={logout}>
+                        <li className="nav-child-item share_clr_one share_fsize_one btx_logout" >
                             <span className="item_ic"><img src="../img/dang-xuat.png" alt="" /></span>
                             Đăng xuất
                         </li>

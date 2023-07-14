@@ -1,5 +1,6 @@
 import { React } from "react"
 import Cookies from "js-cookie"
+import { useRouter } from "next/router"
 
 export default function checkTypeLogin(props) {
     let name = ''
@@ -11,6 +12,8 @@ export default function checkTypeLogin(props) {
         name = 'Cá nhân'
     }
 
+    const router = new useRouter;
+
     const yes = () => {
         let acc_token = props.result.data.access_token,
             refresh_token = props.result.data.refresh_token,
@@ -19,18 +22,35 @@ export default function checkTypeLogin(props) {
         Cookies.set('rf_token', refresh_token);
         Cookies.set('token_base365', acc_token);
         Cookies.set('role', role);
-        if (type == 1) {
-            window.location.href = '/quan-ly-ung-dung-cong-ty.html';
-        } else if (type == 2) {
-            window.location.href = '/quan-ly-ung-dung-nhan-vien.html';
+
+        if (type === 1) {
+            if (props.result.data.authentic === 0) {
+                router.push('/xac-thuc-ma-otp-cong-ty.html');
+            } else {
+                window.location.href = '/quan-ly-ung-dung-cong-ty.html';
+            }
+        } else if (type === 2) {
+            if (props.result.data.authentic === 0) {
+                router.push('/xac-thuc-ma-otp-nhan-vien.html');
+            } else {
+                window.location.href = '/quan-ly-ung-dung-nhan-vien.html';
+            }
         } else {
-            window.location.href = '/quan-ly-ung-dung-ca-nhan.html';
+            if (props.result.data.authentic === 0) {
+                router.push('/xac-thuc-ma-otp-nhan-vien.html');
+            } else {
+                window.location.href = '/quan-ly-ung-dung-ca-nhan.html';
+            }
+
         }
     }
 
     const no = () => {
         props.setShowPopup(false)
         props.setNotiError(true)
+        Cookies.remove('token_base365');
+        Cookies.remove('rf_token');
+        Cookies.remove('role');
     }
 
     return (

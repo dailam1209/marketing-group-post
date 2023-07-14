@@ -54,20 +54,24 @@ export default function Header() {
     const [data, setData] = useState([]);
     const [renderContent, setRenderContent] = useState(false);
 
-    useEffect(() => {
+    const [getLinkHome, setLinkHome] = useState('/');
 
+    useEffect(() => {
         if (typeof window !== 'undefined' && Cookies.get('token_base365')) {
             const getData = async () => {
                 try {
                     if (type() === '2') {
                         let response = await infoEp();
                         setData(response.data);
+                        setLinkHome('/quan-ly-ung-dung-nhan-vien.html');
                     } else if (type() === '1') {
                         let response = await infoCom();
                         setData(response.data);
+                        setLinkHome('/quan-ly-ung-dung-cong-ty.html');
                     } else {
                         let response = await infoPersonal();
                         setData(response.data);
+                        setLinkHome('/quan-ly-ung-dung-ca-nhan.html');
                     }
                 } catch (error) {
                     console.log('Error:', error);
@@ -98,7 +102,7 @@ export default function Header() {
                             <div className="nav">
                                 <ul>
                                     <li>
-                                        <Link href={'/'} className={`cr_weight_bold share_fsize_tow share_clr_tow  ${(router.pathname === '/') ? 'active' : ''}`}>Trang chủ</Link>
+                                        <Link href={getLinkHome} className={`cr_weight_bold share_fsize_tow share_clr_tow  ${(router.pathname === '/') ? 'active' : ''}`}>Trang chủ</Link>
                                     </li>
                                     <li>
                                         <Link href={'/san-pham.html'} className={`cr_weight_bold share_fsize_tow share_clr_tow ${(router.pathname === '/san-pham.html') ? 'active' : ''}`}>Sản phẩm</Link>
@@ -252,7 +256,7 @@ export default function Header() {
                             <div className="ind-tow">
                                 <div className="ctn_ulli">
                                     <ul className="navbar-nav">
-                                        <a href="/" className="nav-item">
+                                        <a href={getLinkHome} className="nav-item">
                                             <li className="nav-child-item cr_weight_bold share_fsize_tow share_clr_tow d_flex">
                                                 <span className="item_ic"><img src="../img/home_ind.png" alt="" /></span>
                                                 <p>Trang chủ</p>

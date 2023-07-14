@@ -398,6 +398,19 @@ class CallApi {
         }
         return response
     }
+
+    // api lay danh sach bao loi
+    static async dsBaoLoi() {
+        let response = '';
+        try {
+            const call = await axios.post(process.env.NEXT_PUBLIC_API + '/api/qlc/Admin/getListReportErr');
+            response = call;
+        } catch (error) {
+            response = error.response.data.error.message
+        }
+
+        return response;
+    }
 }
 
 export default CallApi;

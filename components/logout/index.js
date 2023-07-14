@@ -9,7 +9,6 @@ export default function Logout({ showLogout, setShowLogout }) {
         Cookies.remove('token_base365');
         Cookies.remove('rf_token');
         Cookies.remove('role');
-        Cookies.remove('nameCompany');
         window.location.href = '/';
     }
 

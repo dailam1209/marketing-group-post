@@ -13,7 +13,7 @@ export default function Admin() {
     }
 
     const [currentPage, setCurrentPage] = useState()
-    const [valueSend, setValueSend] = useState({})
+    const [valueSend, setValueSend] = useState([])
 
     const { register, handleSubmit } = useForm();
     const onSubmit = async data => {
@@ -108,22 +108,7 @@ export default function Admin() {
                                 })} />
                                 <br />
                             </div>
-                            <div style={{ float: 'left', marginleft: '10px' }}>
-                                <span>Loại công ty : </span>
-                                <select {...register("findConditions", {
-                                })} defaultValue={0}>
-                                    <option value="0">Tất cả</option>
-                                    <option value="1">Công ty đang vip</option>
-                                    <option value="2">Công ty từng vip</option>
-                                    <option value="3">Công ty chưa vip</option>
-                                    <option value="4">Công ty đăng kí lỗi, chưa kích hoạt</option>
-                                    <option value="5">Công ty đăng kí ltrong ngày</option>
-                                    <option value="6">Công ty sử dụng chấm công trong ngày</option>
-                                </select>
-                                <br />
-                            </div>
                             <input className="button_w" type="submit" name="submit" defaultValue="Tìm kiếm" />
-
                         </form>
                     </div >
                     {/* <form method="post"><button type="submit" name="export_excel" id="export_excel">Xuất Excel</button></form> */}
@@ -131,22 +116,12 @@ export default function Admin() {
                     <table style={{ display: 'block', width: "100%" }}>
                         <thead>
                             <tr className="title">
-                                {/* <td align="center" style={{ width: "5%" }} >STT</td> */}
                                 <td align="center" style={{ width: "5%" }}>ID Công ty</td>
                                 <td align="center" style={{ width: "12%" }}>Tên công ty</td>
                                 <td>Email(DN)</td>
-                                <td>Số điện thoại(DN)</td>
-                                <td>Số điện thoại(LH)</td>
-                                <td>Email(LH)</td>
+                                <td>Số điện thoại</td>
                                 <td style={{ width: "8%" }}>Địa chỉ</td>
                                 <td>Ngày tạo</td>
-                                <td>Tình trạng</td>
-                                <td>VIP</td>
-                                <td>Số nhân viên</td>
-                                <td>Nhân viên tối đa</td>
-                                <td>Thời hạn sử dụng</td>
-                                <td>Đổi mật khẩu</td>
-                                <td>Chỉnh sửa</td>
                             </tr>
                         </thead>
                         <tbody>
@@ -159,30 +134,6 @@ export default function Admin() {
                                     <td align="center">{item.phoneTK}</td>
                                     <td align="center">{item.phone}</td>
                                     <td align="center">{item.emailContact}</td>
-                                    <td align="center">{item.address}</td>
-                                    <td align="center">{format(item.createdAt, 'dd-MM-yyyy HH:m:ii')}</td>
-                                    <td align="center">
-                                        <a className="status" onClick={() => activeUser(item._id)}>
-                                            {(item.authentic == 0) ? (<img src="../img/publish_x.png" />) : (<img src="../img/tick.png" />)}
-                                        </a>
-                                    </td>
-                                    <td align="center">
-                                        {/* <select style={{ width: '100px' }}>
-                                            <option value={0}> Không VIP </option>
-                                            <option value={1}> VIP </option>
-                                            <option value={2}> Từng VIP </option>
-                                        </select> */}
-                                        <a className="status" onClick={() => activeVip(item._id)}>
-                                            {(item.inForCompany && item.inForCompany.cds.com_vip == 0) ? (<img src="../img/publish_x.png" />) : (<img src="../img/tick.png" />)}
-                                        </a>
-                                    </td>
-                                    <td align="center">
-                                        <a>{item.count_emp} nhân viên</a>
-                                    </td>
-                                    <td align="center" id='com_117930'> <span style={{ display: 'block', cursor: 'pointer' }}>{item.inForCompany && (item.inForCompany.cds.com_ep_vip)}</span></td>
-                                    <td align="center">{item.inForCompany && item.inForCompany.cds.com_vip != 0 && (format(item.inForCompany.cds.com_vip_time, 'dd-MM-yyyy HH:mm:ii'))}</td>
-                                    <td align="center"><a target="_blank" href={'/admin/change-pass-com?id=' + item.idQLC}>Sửa</a></td>
-                                    <td align="center"><a target="_blank" href={'/admin/update-vip?id=' + item.idQLC}>Sửa</a></td>
                                 </tr>
                             ))}
                         </tbody>

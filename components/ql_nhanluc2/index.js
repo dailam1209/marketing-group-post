@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
+import { infoCom, infoEp } from "../../utils/handleApi";
 import Cookies from "js-cookie";
-
 const QlNhanluc2 = () => {
     const elementRefs = useRef([]);
     const seeNvAllClickHandlerRef = useRef(null);
@@ -12,9 +12,27 @@ const QlNhanluc2 = () => {
                 hiddenElement.style.display === "none" ? "block" : "none";
         }
     };
+    const type = () => {
+        return Cookies.get('role');
+    };
     const [getNameCompany, setNameCompany] = useState('');
     useEffect(() => {
-        setNameCompany(Cookies.get('nameCompany'));
+        const getData = async () => {
+            try {
+                if (type() === '2') {
+                    let response = await infoEp();
+                    setNameCompany(response.data.companyName)
+                } else if (type() === '1') {
+                    let response = await infoCom();
+                    setNameCompany(response.data.userName)
+                }
+            } catch (error) {
+                console.log('Error:', error);
+            }
+        };
+
+        getData();
+
         seeNvAllClickHandlerRef.current = (event, index) => {
             event.stopPropagation();
             handleClick(index);
