@@ -1,4 +1,35 @@
+import { useEffect, useRef, useState } from "react";
+import Cookies from "js-cookie";
 export default function QlBanhang2() {
+    const elementRefs = useRef([]);
+    const seeNvAllClickHandlerRef = useRef(null);
+
+    const handleClick = (index) => {
+        const hiddenElement = elementRefs.current[index].nextElementSibling;
+        if (hiddenElement) {
+            hiddenElement.style.display =
+                hiddenElement.style.display === "none" ? "block" : "none";
+        }
+    };
+    const [getNameCompany, setNameCompany] = useState('');
+    useEffect(() => {
+        setNameCompany(Cookies.get('nameCompany'));
+        seeNvAllClickHandlerRef.current = (event, index) => {
+            event.stopPropagation();
+            handleClick(index);
+        };
+
+        const detlNvCtyClickHandler = (event) => {
+            event.stopPropagation();
+        };
+
+        document.addEventListener("click", detlNvCtyClickHandler);
+
+        return () => {
+            document.removeEventListener("click", detlNvCtyClickHandler);
+        };
+
+    }, [getNameCompany]);
     return (
         <>
             <div className="delt_titl_ud share_bgr_tow">
@@ -21,12 +52,13 @@ export default function QlBanhang2() {
 
                     </div>
                 </div>
-                <div className="see_nv_all">
+                <div className="see_nv_all" onClick={(event) => seeNvAllClickHandlerRef.current(event, 0)}
+                    ref={(el) => (elementRefs.current[0] = el)}>
                     <p className="see_dstv cr_weight share_clr_three share_cursor">THÀNH VIÊN SỬ DỤNG</p>
                 </div>
-                <div className="detl_nv_cty">
+                <div className="detl_nv_cty" style={{ display: 'none' }}>
                     <p className="see_dvnv share_clr_one share_fsize_one">Tất cả thành viên trong:
-                        <span className="cr_weight com_name">$com_name</span>
+                        <span className="cr_weight com_name"> {getNameCompany}</span>
                     </p>
                 </div>
             </div>
@@ -50,12 +82,13 @@ export default function QlBanhang2() {
 
                     </div>
                 </div>
-                <div className="see_nv_all">
+                <div className="see_nv_all" onClick={(event) => seeNvAllClickHandlerRef.current(event, 1)}
+                    ref={(el) => (elementRefs.current[1] = el)}>
                     <p className="see_dstv cr_weight share_clr_three share_cursor">THÀNH VIÊN SỬ DỤNG</p>
                 </div>
-                <div className="detl_nv_cty">
+                <div className="detl_nv_cty" style={{ display: 'none' }}>
                     <p className="see_dvnv share_clr_one share_fsize_one">Tất cả thành viên trong:
-                        <span className="cr_weight com_name">$com_name</span>
+                        <span className="cr_weight com_name"> {getNameCompany}</span>
                     </p>
                 </div>
             </div>
@@ -79,12 +112,13 @@ export default function QlBanhang2() {
 
                     </div>
                 </div>
-                <div className="see_nv_all">
+                <div className="see_nv_all" onClick={(event) => seeNvAllClickHandlerRef.current(event, 2)}
+                    ref={(el) => (elementRefs.current[2] = el)}>
                     <p className="see_dstv cr_weight share_clr_three share_cursor">THÀNH VIÊN SỬ DỤNG</p>
                 </div>
-                <div className="detl_nv_cty">
+                <div className="detl_nv_cty" style={{ display: 'none' }}>
                     <p className="see_dvnv share_clr_one share_fsize_one">Tất cả thành viên trong:
-                        <span className="cr_weight com_name">$com_name</span>
+                        <span className="cr_weight com_name"> {getNameCompany}</span>
                     </p>
                 </div>
             </div>
@@ -108,12 +142,13 @@ export default function QlBanhang2() {
 
                     </div>
                 </div>
-                <div className="see_nv_all">
+                <div className="see_nv_all" onClick={(event) => seeNvAllClickHandlerRef.current(event, 3)}
+                    ref={(el) => (elementRefs.current[3] = el)}>
                     <p className="see_dstv cr_weight share_clr_three share_cursor">THÀNH VIÊN SỬ DỤNG</p>
                 </div>
-                <div className="detl_nv_cty">
+                <div className="detl_nv_cty" style={{ display: 'none' }}>
                     <p className="see_dvnv share_clr_one share_fsize_one">Tất cả thành viên trong:
-                        <span className="cr_weight com_name">$com_name</span>
+                        <span className="cr_weight com_name"> {getNameCompany}</span>
                     </p>
                 </div>
             </div>
@@ -137,12 +172,13 @@ export default function QlBanhang2() {
 
                     </div>
                 </div>
-                <div className="see_nv_all">
+                <div className="see_nv_all" onClick={(event) => seeNvAllClickHandlerRef.current(event, 4)}
+                    ref={(el) => (elementRefs.current[4] = el)}>
                     <p className="see_dstv cr_weight share_clr_three share_cursor">THÀNH VIÊN SỬ DỤNG</p>
                 </div>
-                <div className="detl_nv_cty">
+                <div className="detl_nv_cty" style={{ display: 'none' }}>
                     <p className="see_dvnv share_clr_one share_fsize_one">Tất cả thành viên trong:
-                        <span className="cr_weight com_name">$com_name</span>
+                        <span className="cr_weight com_name"> {getNameCompany}</span>
                     </p>
                 </div>
             </div>
@@ -166,12 +202,13 @@ export default function QlBanhang2() {
 
                     </div>
                 </div>
-                <div className="see_nv_all">
+                <div className="see_nv_all" onClick={(event) => seeNvAllClickHandlerRef.current(event, 5)}
+                    ref={(el) => (elementRefs.current[5] = el)}>
                     <p className="see_dstv cr_weight share_clr_three share_cursor">THÀNH VIÊN SỬ DỤNG</p>
                 </div>
-                <div className="detl_nv_cty">
+                <div className="detl_nv_cty" style={{ display: 'none' }}>
                     <p className="see_dvnv share_clr_one share_fsize_one">Tất cả thành viên trong:
-                        <span className="cr_weight com_name">$com_name</span>
+                        <span className="cr_weight com_name"> {getNameCompany}</span>
                     </p>
                 </div>
             </div>
@@ -195,12 +232,13 @@ export default function QlBanhang2() {
 
                     </div>
                 </div>
-                <div className="see_nv_all">
+                <div className="see_nv_all" onClick={(event) => seeNvAllClickHandlerRef.current(event, 6)}
+                    ref={(el) => (elementRefs.current[6] = el)}>
                     <p className="see_dstv cr_weight share_clr_three share_cursor">THÀNH VIÊN SỬ DỤNG</p>
                 </div>
-                <div className="detl_nv_cty">
+                <div className="detl_nv_cty" style={{ display: 'none' }}>
                     <p className="see_dvnv share_clr_one share_fsize_one">Tất cả thành viên trong:
-                        <span className="cr_weight com_name">$com_name</span>
+                        <span className="cr_weight com_name"> {getNameCompany}</span>
                     </p>
                 </div>
             </div>
@@ -224,12 +262,13 @@ export default function QlBanhang2() {
 
                     </div>
                 </div>
-                <div className="see_nv_all">
+                <div className="see_nv_all" onClick={(event) => seeNvAllClickHandlerRef.current(event, 7)}
+                    ref={(el) => (elementRefs.current[7] = el)}>
                     <p className="see_dstv cr_weight share_clr_three share_cursor">THÀNH VIÊN SỬ DỤNG</p>
                 </div>
-                <div className="detl_nv_cty">
+                <div className="detl_nv_cty" style={{ display: 'none' }}>
                     <p className="see_dvnv share_clr_one share_fsize_one">Tất cả thành viên trong:
-                        <span className="cr_weight com_name">$com_name</span>
+                        <span className="cr_weight com_name"> {getNameCompany}</span>
                     </p>
                 </div>
             </div>
@@ -253,12 +292,13 @@ export default function QlBanhang2() {
 
                     </div>
                 </div>
-                <div className="see_nv_all">
+                <div className="see_nv_all" onClick={(event) => seeNvAllClickHandlerRef.current(event, 8)}
+                    ref={(el) => (elementRefs.current[8] = el)}>
                     <p className="see_dstv cr_weight share_clr_three share_cursor">THÀNH VIÊN SỬ DỤNG</p>
                 </div>
-                <div className="detl_nv_cty">
+                <div className="detl_nv_cty" style={{ display: 'none' }}>
                     <p className="see_dvnv share_clr_one share_fsize_one">Tất cả thành viên trong:
-                        <span className="cr_weight com_name">$com_name</span>
+                        <span className="cr_weight com_name"> {getNameCompany}</span>
                     </p>
                 </div>
             </div>
@@ -282,12 +322,13 @@ export default function QlBanhang2() {
 
                     </div>
                 </div>
-                <div className="see_nv_all">
+                <div className="see_nv_all" onClick={(event) => seeNvAllClickHandlerRef.current(event, 9)}
+                    ref={(el) => (elementRefs.current[9] = el)}>
                     <p className="see_dstv cr_weight share_clr_three share_cursor">THÀNH VIÊN SỬ DỤNG</p>
                 </div>
-                <div className="detl_nv_cty">
+                <div className="detl_nv_cty" style={{ display: 'none' }}>
                     <p className="see_dvnv share_clr_one share_fsize_one">Tất cả thành viên trong:
-                        <span className="cr_weight com_name">$com_name</span>
+                        <span className="cr_weight com_name"> {getNameCompany}</span>
                     </p>
                 </div>
             </div>

@@ -5,10 +5,15 @@ import Header from "../components/header/Header"
 import Footer from "../components/footer/Footer"
 import Seo from '../components/head'
 import { CheckLogin2 } from '../utils/function';
+import { useRouter } from 'next/router';
 
 export default function AuthenticEp() {
 
     CheckLogin2();
+    const router = useRouter();
+    const btnReSend = () => {
+        router.reload();
+    }
     const [textNhanMa, setNhanMa] = useState('Vui lòng bấm "Nhận mã" để nhận mã xác thực về số điện thoại');
     const onClickSendOtp = () => {
         setNhanMa(' Vui lòng nhập mã OTP gồm 6 chữ số được gửi về email hoặc số điện thoại đăng ký tài khoản!')
@@ -70,6 +75,7 @@ export default function AuthenticEp() {
                                                                     type="button"
                                                                     className="share_clr_four cr_weight share_fsize_three share_cursor gui_lai"
                                                                     data1={1}
+                                                                    onClick={btnReSend}
                                                                 >
                                                                     Gửi lại
                                                                 </button>

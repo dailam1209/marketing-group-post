@@ -7,7 +7,6 @@ import { authenCom, authenEp, authenPersonal } from './handleApi';
 const handleVerifyOtp = async (btn = null, account = null, otp = null, type = null) => {
     let token = Cookies.get('acc_token');
     const partitioned = document.querySelector('#partitioned');
-    console.log(btn)
     if (btn) {
         try {
             const response = await axios.post('https://ht.timviec365.vn:9013/api/users/TakeDataFireBaseOTP', { number: account });
@@ -51,8 +50,8 @@ const handleVerifyOtp = async (btn = null, account = null, otp = null, type = nu
                         const guiMa = document.querySelector('.gui_ma');
                         guiMa.classList.remove('hidden');
 
-                        // const guiLai = document.querySelector('.gui_lai_otp');
-                        // guiLai.classList.remove('hidden');
+                        const guiLai = document.querySelector('.gui_lai_otp');
+                        guiLai.classList.remove('hidden');
                     }).catch((error) => {
                         console.log(error)
                     });
@@ -65,7 +64,6 @@ const handleVerifyOtp = async (btn = null, account = null, otp = null, type = nu
     }
     // Xác thực OTP
     else {
-        console.log(3)
         try {
             confirmationResult.confirm(otp).then((result) => {
                 if (!type) {

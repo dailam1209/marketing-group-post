@@ -92,8 +92,6 @@ export default function RegisterEp() {
         }
     }
 
-    console.log(deps)
-
     return (
         <>
             <Seo

@@ -1,31 +1,17 @@
 import React, { useEffect, useState } from "react"
 import Seo from '../components/head'
-import { CheckLogin2 } from "../utils/function"
 import Cookies from 'js-cookie';
 import Header from '../components/header/Header'
 import Footer from "../components/footer/Footer"
 
 export default function Ecosystem() {
-    const [hasTokens, setHasTokens] = useState(false);
-
-    useEffect(() => {
-        const accToken = Cookies.get('token_base365');
-        const rfToken = Cookies.get('rf_token');
-        const userRole = Cookies.get('role');
-
-        if (accToken && rfToken && userRole) {
-            setHasTokens(true);
-        }
-    }, []);
     return (
         <>
             <Seo
                 title='Trang chủ Quản Lý Chung'
                 seo=''
             />
-            {hasTokens ? (
-                <Header acc_token={Cookies.get('token_base365')} rf_token={Cookies.get('rf_token')} />
-            ) : null}
+            <Header />
             <div className="content_ql share_sp">
                 <div className="ctn_ttthree">
                     <div className="container">
@@ -346,9 +332,9 @@ export default function Ecosystem() {
                 </div>{" "}
             </div>
             <link rel="stylesheet" href="https://timviec365.vn/css/footer_new.css?v=2" />
-            {hasTokens ? (
-                <Footer />
-            ) : null}
+
+            <Footer />
+
         </>
     )
 }

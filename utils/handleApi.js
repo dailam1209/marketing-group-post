@@ -7,9 +7,8 @@ import FormData from "form-data";
 export const checkVip = async (idcom) => {
     const data = new FormData();
     data.append('com_id', idcom);
-    console.log(data);
     let checkVip = await functionAPI(process.env.NEXT_PUBLIC_API + '/api/qlc/checkVip/before', data)
-    console.log(checkVip)
+
     if (!checkVip.vip && !checkVip.is_add) {
         window.location.href = '/thong-bao-tai-khoan-vip.html'
     } else {
@@ -207,11 +206,23 @@ export const listIp = async (data) => {
     return result
 }
 
+//Kiem tra SDT
+export const checkAccount = async (data) => {
+    let result = await functionAPI(process.env.NEXT_PUBLIC_API + '/api/qlc/Company/checkInput', data);
+    return result;
+}
+
 // delete ip
 export const delIp = async (data) => {
     let response = ''
     try {
-        const call = await axios.delete(process.env.NEXT_PUBLIC_API + '/api/qlc/SetIp/delete', { data });
+        let configHeader = {
+            headers: {}
+        };
+        if (Cookies.get('token_base365')) {
+            configHeader.headers['Authorization'] = `Bearer ${Cookies.get('token_base365')}`;
+        }
+        const call = await axios.delete(process.env.NEXT_PUBLIC_API + '/api/qlc/SetIp/delete', { data: data, ...configHeader });
         response = call.data.data;
     } catch (error) {
         response = error.response;

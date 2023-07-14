@@ -1,5 +1,7 @@
 import React from "react"
+import Footer from "../components/footer/Footer"
 import Seo from '../components/head'
+import Header from "../components/header/Header"
 import { CheckLogin2 } from "../utils/function"
 
 export default function register() {
@@ -12,7 +14,7 @@ export default function register() {
                 title='Chuyển đổi số tại timviec365.vn giúp tối ưu công việc hiệu quả'
                 des='Đăng nhập để trải nghiệm nhiêu phần mềm, ứng dụng tiện ích lớn như tính lương, chấm công, quản trị nhân sự, đánh giá năng lực, ... tại hệ thống chuyển đổi số 365.'
             />
-
+            <Header></Header>
             <div className="content_ql ctn_bgr_body">
                 <div className="content_nv log_reg">
                     <div className="container">
@@ -58,5 +60,6 @@ export default function register() {
                 </div>
             </div>
             <link rel="stylesheet" href="https://timviec365.vn/css/footer_new.css?v=2" />
+            <Footer></Footer>
         </>)
 };

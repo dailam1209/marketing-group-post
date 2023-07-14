@@ -13,9 +13,7 @@ export default function App({ Component, pageProps }) {
 
     return (
         <div>
-            <Layout isLoggedIn={isLoggedIn}>
-                <Component {...pageProps} />
-            </Layout>
+            <Component {...pageProps} />
         </div >
     )
 }

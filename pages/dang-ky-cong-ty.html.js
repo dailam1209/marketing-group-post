@@ -1,6 +1,8 @@
 import { React, useState } from "react"
 import { useForm } from 'react-hook-form';
+import Footer from "../components/footer/Footer";
 import Seo from "../components/head";
+import Header from "../components/header/Header";
 import { validatePhone, CheckLogin } from "../utils/function";
 import { registerCom } from "../utils/handleApi";
 
@@ -43,7 +45,7 @@ export default function info_register_emp() {
                 des='Khám phá một hệ sinh thái chuyển đổi số lớn, tích hợp nhiều tiện ích trong một nền tảng giúp công ty quản trị nguồn nhân lực hiệu quả, tối ưu và tiết kiệm.'
                 url='https://quanlychung.timviec365.vn/dang-ky-cong-ty.html'
             />
-
+            <Header></Header>
             <div className="register_ctnv" id="register_cty">
                 <div className="content_ql ctn_bgr_body">
                     <div className="content_nv">
@@ -192,6 +194,7 @@ export default function info_register_emp() {
                 </div>
             </div>
             <link rel="stylesheet" href="https://timviec365.vn/css/footer_new.css?v=2" />
+            <Footer></Footer>
         </>
     )
 }

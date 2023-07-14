@@ -20,17 +20,14 @@ export default function DetailEmployee() {
             if (type() === '2') {
                 let response = await infoEp();
                 setData(response.data)
-                console.log(response.data);
             } else {
                 let response = await infoPersonal();
                 setData(response.data)
-                console.log(response.data);
             }
 
         }
         getData()
     }, [])
-    console.log(data)
 
     // show popup change password
     const [isClicked, setIsClicked] = useState(false);
@@ -76,7 +73,6 @@ export default function DetailEmployee() {
     const handleFileChange = async (event) => {
         const file = event.target.files[0];
         const imageUrl = URL.createObjectURL(file);
-        console.log('imageUrl:', imageUrl)
         setAvatar(imageUrl);
         if (file) {
             const data = new FormData();

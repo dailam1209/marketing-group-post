@@ -860,6 +860,18 @@ p.img_error {
     font-family: roboto-medium, sans-serif;
 }
 
+.video_hd {
+    width: 100%;
+    padding: 20px;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+p.sm_danhgia.v_sm_danhgia {
+    margin-top: 15px;
+    width: 100%;
+}
+
 @media all {
     .vieclam_container {
         width: 1170px;

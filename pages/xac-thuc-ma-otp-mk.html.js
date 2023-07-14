@@ -14,6 +14,11 @@ export default function XacthucQuenMK() {
     const type = router.query.type
     const account = router.query.account
     const [textNhanMa, setNhanMa] = useState('Vui lòng bấm "Nhận mã" để nhận mã xác thực về số điện thoại');
+
+    const btnReSend = () => {
+        router.reload()
+    }
+
     const onClickSendOtp = () => {
         setNhanMa(' Vui lòng nhập mã OTP gồm 6 chữ số được gửi về email hoặc số điện thoại đăng ký tài khoản!')
         handleVerifyOtp(true, account, '', type);
@@ -74,6 +79,7 @@ export default function XacthucQuenMK() {
                                                                     type="button"
                                                                     className="share_clr_four cr_weight share_fsize_three share_cursor gui_lai"
                                                                     data1={1}
+                                                                    onClick={btnReSend}
                                                                 >
                                                                     Gửi lại
                                                                 </button>

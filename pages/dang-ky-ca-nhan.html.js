@@ -3,7 +3,8 @@ import Seo from "../components/head";
 import { useForm } from 'react-hook-form';
 import { CheckLogin, validatePhone } from "../utils/function"
 import { registerPersonal } from "../utils/handleApi";
-
+import Header from "../components/header/Header"
+import Footer from "../components/footer/Footer"
 export default function RegisterPersonal() {
     CheckLogin()
 
@@ -22,7 +23,7 @@ export default function RegisterPersonal() {
                 des='Thời đại công nghệ số đòi hỏi mỗi cá nhân phải tân tiến và tự mình “chuyển đổi số” để thành công. Cùng timviec365.vn chuyển đổi số, tận dụng nhiều phần mềm cần thiết.'
                 url='https://quanlychung.timviec365.vn/dang-ky-ca-nhan.html'
             />
-
+            <Header></Header>
             <div className="register_ctnv" id="register_cty">
                 <div className="content_ql ctn_bgr_body">
                     <div className="content_nv">
@@ -168,6 +169,7 @@ export default function RegisterPersonal() {
                 </div >
             </div>
             <link rel="stylesheet" href="https://timviec365.vn/css/footer_new.css?v=2" />
+            <Footer></Footer>
         </>
     )
 };

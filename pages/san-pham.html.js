@@ -1,6 +1,5 @@
 import { React, useEffect, useState } from "react"
-import Seo from '../components/head'
-import { CheckLogin2 } from "../utils/function"
+import Seo from '../components/head';
 import QlNhanluc from "../components/ql_nhanluc"
 import QlCongviec from "../components/ql_congviec"
 import QlNoibo from "../components/ql_noibo"
@@ -35,16 +34,12 @@ export default function Product() {
         setShow('ban_hang')
         setActive('ban_hang')
     }
-    const [hasTokens, setHasTokens] = useState(false);
 
     useEffect(() => {
         const accToken = Cookies.get('token_base365');
         const rfToken = Cookies.get('rf_token');
         const userRole = Cookies.get('role');
 
-        if (accToken && rfToken && userRole) {
-            setHasTokens(true);
-        }
     }, []);
 
     return (
@@ -53,9 +48,8 @@ export default function Product() {
                 seo=''
                 title='Trang sản phẩm'
             />
-            {hasTokens ? (
-                <Header acc_token={Cookies.get('token_base365')} rf_token={Cookies.get('rf_token')} />
-            ) : null}
+            <Header acc_token={Cookies.get('token_base365')} rf_token={Cookies.get('rf_token')} />
+
             <div className="content_ql share_sp">
                 <div className="cnt_ttone">
                     <div className="one_bod_td">
@@ -163,9 +157,9 @@ export default function Product() {
                 </div>
             </div>
             <link rel="stylesheet" href="https://timviec365.vn/css/footer_new.css?v=2" />
-            {hasTokens ? (
-                <Footer />
-            ) : null}
+
+            <Footer />
+
         </>
     )
 }

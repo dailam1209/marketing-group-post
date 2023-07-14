@@ -1,5 +1,7 @@
 import { React, useState } from "react"
+import Footer from "../components/footer/Footer";
 import Seo from "../components/head";
+import Header from "../components/header/Header";
 import LoginForm from "../components/loginForm"
 import LoginQr from "../components/loginQr"
 import QrGuild from "../components/qrGuild"
@@ -39,7 +41,7 @@ export default function LoginCompany() {
                 des='Hệ thống chuyển đổi số timviec365.vn đem đến cho công ty giải pháp tối ưu nhất để quản trị doanh nghiệp hiệu quả, thúc đẩy tối đa hiệu suất công việc.'
                 url='https://quanlychung.timviec365.vn/dang-nhap-cong-ty.html'
             />
-
+            <Header></Header>
             <div className="content_ql">
                 <div className="ctn_content">
                     <div className="left_bgr_nv">
@@ -86,6 +88,7 @@ export default function LoginCompany() {
             </div>
             {(qrGuild) && <QrGuild qrGuildHide={qrGuildHide} />}
             <link rel="stylesheet" href="https://timviec365.vn/css/footer_new.css?v=2" />
+            <Footer></Footer>
         </>
     )
 };

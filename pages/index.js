@@ -6,7 +6,8 @@ import QlCongviec from "../components/ql_congviec"
 import QlNoibo from "../components/ql_noibo"
 import QlBanhang from "../components/ql_banhang"
 import QlConlai from "../components/ql_conlai"
-
+import Header from "../components/header/Header"
+import Footer from "../components/footer/Footer"
 export default function Home() {
     CheckLogin()
 
@@ -43,6 +44,7 @@ export default function Home() {
                 des='Trang quản lý chung Chuyển đổi số 365. Quản lý các phần mềm, tiện ích trong hệ thống chuyển đổi số 365'
                 url='quanlychung.timviec365.vn'
             />
+            <Header />
             <div className="content_ql">
                 <div className="cnt_ttone">
                     <div className="one_bod_td">
@@ -521,6 +523,7 @@ export default function Home() {
                 </div>
             </div>
             <link rel="stylesheet" href="https://timviec365.vn/css/footer_new.css?v=2" />
+            <Footer></Footer>
         </>
     )
 }
