@@ -1,20 +1,16 @@
 import { React, useState, useEffect } from 'react'
-import Cookies from "js-cookie";
 import Seo from "../components/head";
 import SideBar from '../components/sideBar/SideBar';
 import HeaderLogin from '../components/headerLogin/HeaderLogin';
-import { vote } from "../utils/handleApi";
+import { reportError } from "../utils/handleApi";
 import { useRouter } from 'next/router';
+import { useRef } from 'react';
+import FormData from 'form-data';
 
 export default function Danhgia() {
     const router = new useRouter();
-    let role = Cookies.get('role')
-    // if (role == 2) {
-    //     window.location.href = '/quan-ly-ung-dung-nhan-vien.html'
-    // } else if (role == 0) {
-    //     window.location.href = '/quan-ly-ung-dung-ca-nhan.html'
-    // }
 
+    const fileInputRef = useRef(null);
     const [comment, setComment] = useState('');
     const [popup, setPopup] = useState(false);
     const [error, setError] = useState(false);
@@ -23,22 +19,40 @@ export default function Danhgia() {
         setComment(event.target.value);
     };
 
-    const handleSubmit = () => {
-        if (comment == '') {
-            setError(true)
-        } else {
-            let data = {
-                feed_back: comment
-            }
-            vote(data)
-            setPopup(true)
-        }
-    };
-
     const closePopup = () => {
         setPopup(false);
         router.reload();
     }
+    const [getSl, setSL] = useState('');
+    const [selectedFile, setSelectedFile] = useState(null);
+    const handleImageSelect = (event) => {
+        let file = event.target.files[0];
+        setSL(event.target.files.length)
+        setSelectedFile(file);
+    };
+    const chonAnh = () => {
+        fileInputRef.current.click();
+    }
+    const handleSubmit = () => {
+        if (comment == '') {
+            setError(true)
+        } else {
+            const data = new FormData();
+            data.append('detail_error', comment);
+            if (selectedFile) {
+                data.append('gallery_image_error', selectedFile);
+            }
+
+            let res = reportError(data);
+            if (res) {
+                setPopup(true)
+            } else {
+                alert("Có lỗi xảy ra trong quá trình xử lý!");
+                console.log(res)
+            }
+
+        }
+    };
     return (
         <>
             <Seo
@@ -69,13 +83,15 @@ export default function Danhgia() {
                                                 <textarea className="text_dg" placeholder="Nhập mô tả lỗi để chúng tôi hiểu rõ hơn" onChange={handleCommentChange}></textarea>
                                                 <span className="error" style={{ textAlign: 'left', display: error ? ' block' : 'none' }}>Mô tả lỗi không được bỏ trống</span>
                                                 <div className='box_btn'>
-                                                    <div className='bao_loi bl_btn'>
-                                                        <p className="img_error">Chọn ảnh lỗi </p>
+                                                    <div className='bao_loi bl_btn' onClick={chonAnh}>
+                                                        <p className="img_error">Chọn ảnh lỗi {getSl ? `(${getSl})` : ''} </p>
                                                         <input
+                                                            ref={fileInputRef}
                                                             type="file"
                                                             classname="file_error hidden"
-                                                            multiple="multiple"
+                                                            // multiple="multiple"
                                                             accept=".png,.gif,.jpg,.jpeg,.jtif,.PNG"
+                                                            onChange={handleImageSelect}
                                                         />
                                                     </div>
                                                     <div className="sm_danhgia bl_btn" onClick={handleSubmit}>Gửi báo lỗi</div>

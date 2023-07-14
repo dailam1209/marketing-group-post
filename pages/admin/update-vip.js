@@ -5,6 +5,7 @@ import { ConvertIntToDate } from '../../utils/function'
 import { useForm } from 'react-hook-form'
 import HeaderAdmin from "../../components/headerAdmin";
 import Cookies from "js-cookie";
+import { format } from 'date-fns';
 
 export default function UpdateVip() {
     if (!Cookies.get('admin')) {
@@ -24,8 +25,9 @@ export default function UpdateVip() {
     };
     const router = useRouter()
     const { id } = router.query
-    const [listCom, getlistCom] = useState({})
-    const [isLoad, getIsLoad] = useState(false)
+    const [listCom, getlistCom] = useState({});
+    const [isLoad, getIsLoad] = useState(false);
+    const [getTime, setTime] = useState('');
     useEffect(() => {
         if (id) {
             const getData = async () => {
@@ -33,8 +35,9 @@ export default function UpdateVip() {
                     com_id: id
                 }
                 try {
-                    let response = await CallApi.listCom(data)
-                    getlistCom(response.data.data.data[0])
+                    let response = await CallApi.listCom(data);
+                    getlistCom(response.data.data.data[0]);
+                    setTime(format(response.data.data.data[0].createdAt, 'yyyy-MM-dd'));
                 } catch (error) {
                     console.log(error)
                 }
@@ -43,11 +46,11 @@ export default function UpdateVip() {
             }
             getData()
         }
-    }, [id])
+    }, [id, getTime])
     if (!isLoad) {
         return
     }
-
+    console.log('getTime:', getTime)
     return (
         <>
             <meta httpEquiv="content-type" content="text/html; charset=UTF-8" />
@@ -78,9 +81,13 @@ export default function UpdateVip() {
                                     <tr className="second">
                                         <td width="200"><strong>Thời hạn sử dụng: </strong></td>
                                         <td>
-                                            <input type="date" name="com_vip_time" id="thoi_han" placeholder="Vui lòng nhập thời hạn" defaultValue={(ConvertIntToDate(listCom.inForCompany.cds.com_vip_time))[1]}
-                                                {...register("com_vip_time", {
-                                                })}
+                                            <input
+                                                type="date"
+                                                name="com_vip_time"
+                                                id="thoi_han"
+                                                placeholder="Vui lòng nhập thời hạn"
+                                                defaultValue={getTime}
+                                                {...register("com_vip_time")}
                                             />
                                         </td>
                                     </tr>

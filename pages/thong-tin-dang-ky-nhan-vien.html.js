@@ -4,6 +4,8 @@ import Cookies from "js-cookie";
 import Seo from '../components/head'
 import { validatePhone } from "../utils/function";
 import { registerEp, listDepartments, listTeams, listGroups } from "../utils/handleApi";
+import Header from "../components/header/Header";
+import Footer from "../components/footer/Footer";
 
 export default function RegisterEp() {
     // get cookie idCom
@@ -27,16 +29,17 @@ export default function RegisterEp() {
 
     // chose department
     useEffect(() => {
-        apiDeps();
+        // apiDeps();
     }, []);
 
-    const apiDeps = async () => {
-        let data = {
-            com_id: idCom
-        }
-        let response = await listDepartments(data)
-        setDep(response.data);
-    };
+    // const apiDeps = async () => {
+    //     let data = {
+    //         com_id: idCom
+    //     }
+    //     let response = await listDepartments(data)
+    //     console.log(response)
+    //     setDep(response.data);
+    // };
 
     // chose group
     useEffect(() => {
@@ -98,7 +101,7 @@ export default function RegisterEp() {
                 seo=''
                 title='Trang đăng ký nhân viên'
             />
-
+            <Header />
             <div className="content_ql ctn_bgr_body">
                 <div className="content_nv">
                     <div className="ctn_register_nv">
@@ -441,6 +444,7 @@ export default function RegisterEp() {
                 </div>
             </div >
             <link rel="stylesheet" href="https://timviec365.vn/css/footer_new.css?v=2" />
+            <Footer />
         </>
     )
 };

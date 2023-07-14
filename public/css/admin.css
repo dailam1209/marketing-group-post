@@ -833,9 +833,29 @@ td {
 }
 
 .header_ql {
- display: none !important;
+    display: none !important;
 }
 
 .footer_main {
     display: none !important;
+}
+
+.menu {
+    font: bold 11px Arial;
+    padding: 5px;
+    display: flex;
+    background: #000;
+    margin-bottom: 0;
+    clear: both;
+    width: 100%;
+}
+
+.link_menu {
+    border-left: 1px solid #FFF;
+    border-right: 1px solid #FFF;
+    display: inline;
+    float: left;
+    position: relative;
+    color: #FFFFFF;
+    padding: 0 10px;
 }

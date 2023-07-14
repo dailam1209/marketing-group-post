@@ -46,7 +46,7 @@ export default function DetailEmployee() {
     // validate form change password
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const onSubmit = async data => {
-        if (type == '2') {
+        if (type() === '2') {
             let response = await changePassEp(data);
             if (response.result == true) {
                 setIsSuccess(true);

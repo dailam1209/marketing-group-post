@@ -1,10 +1,11 @@
 import { React } from "react"
 import Seo from '../components/head'
-import { registerCom } from "../utils/handleApi";
 import { useForm } from 'react-hook-form';
 import { changePwCom, changePwEp, changePwPersonal } from "../utils/handleApi";
 import { useRouter } from 'next/router';
 import { CheckLogin } from "../utils/function"
+import Header from "../components/header/Header";
+import Footer from "../components/footer/Footer";
 
 export default function ChangePw() {
     CheckLogin()
@@ -33,6 +34,7 @@ export default function ChangePw() {
                 seo=''
                 title='Trang quên mật khẩu'
             />
+            <Header />
             <div className="register_ctnv" id="register_cty">
                 <div className="content_ql ctn_bgr_body">
                     <div className="content_nv">
@@ -89,6 +91,7 @@ export default function ChangePw() {
                 </div>
             </div>
             <link rel="stylesheet" href="https://timviec365.vn/css/footer_new.css?v=2" />
+            <Footer />
         </>
     )
 }

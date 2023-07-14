@@ -221,7 +221,7 @@ export default function SetupIp() {
                                 <div className="madal_form">
                                     <form onSubmit={handleSubmit(onSubmit)} className="edit_share_form share_distance creart_ip_pm_form">
                                         <div className="form-group share_select2">
-                                            <label className="form_label share_fsize_three">Phần mềm thiết lập dải IP* <span className="cr_red cr_weight">*</span></label>
+                                            <label className="form_label share_fsize_three">Phần mềm thiết lập dải IP <span className="cr_red cr_weight">*</span></label>
                                             <select
                                                 {...register("fromSite", {
                                                     required: 'Chưa chọn phần mềm',
@@ -240,7 +240,7 @@ export default function SetupIp() {
                                             {errors.fromSite && <label className="error">{errors.fromSite.message}</label>}
 
                                         </div>
-                                        <span className="thong_bao_n" style={{ display: 'none' }}>Khong duoc de trong</span>
+                                        <span className="thong_bao_n" style={{ display: 'none' }}>Không được để trống</span>
                                         <div className="form-group address_ip_t">
                                             <label className="form_label share_fsize_three">Địa chỉ IP <span className="cr_red cr_weight">*</span></label>
                                             <input

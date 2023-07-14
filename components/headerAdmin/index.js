@@ -22,10 +22,16 @@ export default function HeaderAdmin() {
                     >
                         Administrator
                     </a>
-                    <a className="exit" href="/admin"  onClick={logout}>
+                    <a className="exit" href="/admin" onClick={logout}>
                         Thoát
                     </a>
                 </div>
+            </div>
+            <div className="menu">
+                <a className="link_menu" href="/admin/danh-sach-cong-ty">Danh sách cônng ty</a>
+                <a className="link_menu" href="/admin/danh-sach-tt-feedback">Danh sách đánh giá</a>
+                <a className="link_menu" href="/admin/danh-sach-bao-loi">Danh sách báo lỗi</a>
+                <a className="link_menu" href="/admin/danh-sach-cong-ty-dang-ky-loi">Danh sách công ty đăng ký lỗi</a>
             </div>
         </>
     )

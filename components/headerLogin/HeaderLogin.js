@@ -40,14 +40,12 @@ export default function HeaderLogin({ text }) {
                     if (response.data.authentic == 0) {
                         router.push('/xac-thuc-ma-otp-cong-ty.html');
                     }
-                    Cookies.set('nameCompany', response.data.userName);
                     setData(response.data);
                 } else {
                     let response = await infoPersonal();
                     if (response.data.authentic == 0) {
                         router.push('/xac-thuc-ma-otp-nhan-vien.html');
                     }
-                    Cookies.set('nameCompany', response.data.companyName);
                     setData(response.data);
                 }
             } catch (error) {
