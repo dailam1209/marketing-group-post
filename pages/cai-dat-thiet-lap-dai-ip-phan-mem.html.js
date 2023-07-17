@@ -3,9 +3,12 @@ import Cookies from "js-cookie";
 import Seo from "../components/head";
 import SideBar from '../components/sideBar/SideBar';
 import HeaderLogin from '../components/headerLogin/HeaderLogin';
-import { getSoftware } from '../utils/function';
+import { getSoftware, renderNamePM, validateIP } from '../utils/function';
 import { useForm } from 'react-hook-form';
 import { createIp, listIp, delIp } from '../utils/handleApi';
+import FormData from 'form-data';
+import { async } from '@firebase/util';
+import EditIP from '../components/EditIP/editIP';
 
 export default function SetupIp() {
     const [data, setData] = useState([])
@@ -61,12 +64,43 @@ export default function SetupIp() {
     // validate and submit
     const { register, handleSubmit, formState: { errors } } = useForm();
 
+    const [getDataIP, setDataIP] = useState([]);
+    const [showBtn, setShowPopup] = useState(false);
+
     const onSubmit = async data => {
-        data.com_id = comId
-        createIp(data)
-        window.location.reload()
+        setDataIP([data, ...getDataIP])
+        setShowPopup(true);
     };
 
+    const deleteIP = (index) => {
+        if (index === 0) {
+            setShowPopup(false);
+        }
+        const updatedAddresses = [...getDataIP];
+        updatedAddresses.splice(index, 1);
+        setDataIP(updatedAddresses);
+    };
+
+    const addIP = () => {
+        console.log(getDataIP)
+    }
+
+    const [getEditID, setEditID] = useState([]);
+    const [showEdit, setShowEdit] = useState(false)
+    const editIP = (e, value) => {
+        const getData = async () => {
+            const form = new FormData();
+            form.append('id', value);
+            let result = await listIp(form);
+            setEditID(result.data)
+        }
+        getData()
+        setShowEdit(true);
+    }
+
+    const closePopEdit = () => {
+        setShowEdit(false);
+    }
     return (
         <>
             <Seo
@@ -176,7 +210,7 @@ export default function SetupIp() {
 
                                                                             <td className="share_fsize_one share_clr_one tex_left cr_weight">
                                                                                 <div className="cnt_ten_pm d_flex">
-                                                                                    <p className="share_fsize_one share_clr_one ten_pm_cd">{getSoftware[value.fromSite]}</p>
+                                                                                    <p className="share_fsize_one share_clr_one ten_pm_cd">{renderNamePM(value.fromSite)}</p>
                                                                                 </div>
                                                                             </td>
 
@@ -184,9 +218,9 @@ export default function SetupIp() {
                                                                             <td className="share_fsize_one share_clr_one tex_center">{value.createAt.split('T')[0]}</td>
                                                                             <td className="share_clr_one tex_center">
                                                                                 <div className="d_flex dflex_jc td_padd">
-                                                                                    <p className="js_edit_pb share_cursor edit_pb share_clr_four cr_weight btx_edit_ip_pm" data="<?= $ip[$i]['id_acc'] ?>"> Sửa </p>
+                                                                                    <p className="js_edit_pb share_cursor edit_pb share_clr_four cr_weight btx_edit_ip_pm" onClick={(e) => editIP(e, value._id)} > Sửa </p>
                                                                                     <span className="share_clr_four">|</span>
-                                                                                    <p className="share_cursor js_delete_phong cr_red cr_weight" data="<?= $ip[$i]['id_acc'] ?>" data1="<?= $array_pm[$ip[$i]['from_site']] ?>" onClick={(e) => handlePopupDel(getSoftware[value.fromSite], value._id)}> Xóa</p>
+                                                                                    <p className="share_cursor js_delete_phong cr_red cr_weight" onClick={(e) => handlePopupDel(renderNamePM(value.fromSite), value._id)}> Xóa</p>
                                                                                 </div>
                                                                             </td>
                                                                         </tr>
@@ -231,11 +265,11 @@ export default function SetupIp() {
                                                 id="all_name_pm"
                                             >
                                                 <option value="">Chọn phần mềm</option>
-                                                {
-                                                    getSoftware.map((item, index) => (
-                                                        <option key={item} value={index}>{item}</option>
-                                                    ))
+                                                {getSoftware.map((item) => (
+                                                    <option value={item.id}>{item.value}</option>
+                                                ))
                                                 }
+
                                             </select>
                                             {errors.fromSite && <label className="error">{errors.fromSite.message}</label>}
 
@@ -250,25 +284,58 @@ export default function SetupIp() {
                                                 placeholder="Nhập địa chỉ IP "
                                                 {...register("accessIP", {
                                                     required: 'Chưa điền địa chỉ IP',
+                                                    validate: {
+                                                        validateIP: (value) => validateIP(value) || 'Hãy nhập đúng định dạng IP'
+                                                    }
                                                 })}
                                             />
                                             {errors.accessIP && <label className="error">{errors.accessIP.message}</label>}
                                         </div>
                                         <div className="bang">
-                                            <div className="bang_ct">
-                                                <p className="box_share stt">STT</p>
-                                                <p className="box_share box_2">Dải IP</p>
-                                                <p className="box_share box_3">Tên phần mềm(viết tắt)</p>
-                                                <p className="box_share box_4"></p>
-                                            </div>
+                                            {
+                                                showBtn ?
+                                                    <>
+                                                        <div className="bang_ct">
+                                                            <p className="box_share stt">STT</p>
+                                                            <p className="box_share box_2">Dải IP</p>
+                                                            <p className="box_share box_3">Tên phần mềm(viết tắt)</p>
+                                                            <p className="box_share box_4"></p>
+                                                        </div>
+                                                    </> : ''
+                                            }
+
+                                            {
+                                                getDataIP.map((item, index) => {
+                                                    return (<>
+                                                        <div className="body_bang_ct">
+                                                            <p className="box_share stt one_stt">{index + 1}</p>
+                                                            <input
+                                                                type="hidden"
+                                                                name="diachi_ips"
+                                                                className="aa"
+                                                                defaultValue={item.accessIP}
+                                                            />
+                                                            <p className="box_share box_2">{item.accessIP}</p>
+                                                            <input type="hidden" name="ten_viet_t" defaultValue={item.fromSite} />
+                                                            <p className="box_share box_3">{item.fromSite}</p>
+                                                            <p className="box_share box_4" onClick={() => deleteIP(index)}>
+                                                                <img className="remove_tb" src="../img/xoa-tv.png" />
+                                                            </p>
+                                                        </div>
+
+                                                    </>)
+                                                })
+                                            }
                                         </div>
-                                        <div className="form_butt_ht">
-                                            <div className="tow_butt_flex">
-                                                <button type="button" className="share_fsize_three cr_weight share_cursor share_clr_four share_bgr_tow huy_button" onClick={handlePopupAdd}>Hủy</button>
-                                                <button type="submit" className="share_clr_tow cr_weight share_cursor share_fsize_three share_bgr_one hoan-thanh luu_ip">Hoàn thành</button>
-                                            </div>
+
+                                        <div className="v_form_butt_ht">
+                                            <button className='cl_btn_add' type='submit'>Thêm</button>
                                         </div>
                                     </form>
+                                    {showBtn ? (<><div className="v_tow_butt_flex">
+                                        <button type="button" className="share_fsize_three cr_weight share_cursor share_clr_four share_bgr_tow huy_button" onClick={handlePopupAdd}>Hủy</button>
+                                        <button type="submit" className="share_clr_tow cr_weight share_cursor share_fsize_three share_bgr_one hoan-thanh luu_ip" onClick={addIP}>Hoàn thành</button>
+                                    </div></>) : ''}
                                 </div>
                             </div>
                         </div>
@@ -276,69 +343,7 @@ export default function SetupIp() {
                 </div>
             </div>
 
-            {/* chinh sua */}
-            <div className="modal_share modal_share_tow edit_ip_pm">
-                <div className="modal-content">
-                    <div className="info_modal">
-                        <div className="modal-header">
-                            <div className="header_ctn_share">
-                                <h4 className="ctn_share_h share_clr_tow tex_center cr_weight_bold">
-                                    Chỉnh sửa dải IP cho phần mềm
-                                </h4>
-                                <span className="close_detl close_dectl">×</span>
-                            </div>
-                        </div>
-                        <div className="modal-body">
-                            <div className="ctn_body_modal">
-                                <div className="madal_form">
-                                    <form className="edit_share_form share_distance edit_ip_pm_form">
-                                        <div className="form-group share_select2">
-                                            <label className="form_label share_fsize_three">
-                                                Phần mềm thiết lập dải IP*{" "}
-                                                <span className="cr_red cr_weight">*</span>
-                                            </label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                defaultValue=""
-                                                readOnly=""
-                                            />
-                                        </div>
-                                        <div className="form-group">
-                                            <label className="form_label share_fsize_three">
-                                                Địa chỉ IP <span className="cr_red cr_weight">*</span>
-                                            </label>
-                                            <input
-                                                type="text"
-                                                name="diachi_ip"
-                                                id="addr_ip"
-                                                className="form-control"
-                                                defaultValue=""
-                                            />
-                                        </div>
-                                        <div className="form_butt_ht">
-                                            <div className="tow_butt_flex">
-                                                <button
-                                                    type="button"
-                                                    className="share_fsize_three cr_weight share_cursor share_clr_four share_bgr_tow huy_button"
-                                                >
-                                                    Hủy
-                                                </button>
-                                                <button
-                                                    type="button"
-                                                    className="share_clr_tow cr_weight share_cursor share_fsize_three share_bgr_one hoan-thanh luu_save_ip_pm"
-                                                >
-                                                    Hoàn thành
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <EditIP showEdit={showEdit} getEditID={getEditID} closePopEdit={closePopEdit} />
 
             {/* xóa ip phần mềm */}
             <div className="modal_share modal_share_tow delete_ip_pm" style={{ display: popupDel ? 'block' : 'none' }}>
@@ -362,7 +367,7 @@ export default function SetupIp() {
                                             Bạn có muốn xóa thiết lập dải IP truy cập cho phần mềm
                                             <span className="cr_weight name_pm">
                                                 {" "}
-                                                {"{"}nameSoftware{"}"}
+                                                {nameSoftware}
                                             </span>{" "}
                                             ?
                                         </p>

@@ -128,12 +128,12 @@ export default function Admin() {
                             {listCom?.map(item => (
                                 <tr>
                                     {/* <td align="center">{(currentPage * 25) + 1}</td> */}
-                                    <td align="center">{item.idQLC}</td>
-                                    <td align="center">{item.userName}</td>
-                                    <td align="center">{item.email}</td>
-                                    <td align="center">{item.phoneTK}</td>
-                                    <td align="center">{item.phone}</td>
-                                    <td align="center">{item.emailContact}</td>
+                                    <td align="center">{item.id}</td>
+                                    <td align="center">{item.com_name}</td>
+                                    <td align="center">{item.com_mail}</td>
+                                    <td align="center">{item.com_phone}</td>
+                                    <td align="center">{item.com_address}</td>
+                                    <td align="center">{item.com_time_err ? format(item.com_time_err, 'dd-MM-yyyy') : ''}</td>
                                 </tr>
                             ))}
                         </tbody>

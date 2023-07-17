@@ -32,7 +32,7 @@ export default function HeaderLogin({ text }) {
                 if (type() === '2') {
                     let response = await infoEp();
                     if (response.data.authentic == 0) {
-                        router.push('/xac-thuc-ma-otp-ca-nhan.html');
+                        router.push('/xac-thuc-ma-otp-nhan-vien.html');
                     }
                     setData(response.data);
                 } else if (type() === '1') {
@@ -44,7 +44,7 @@ export default function HeaderLogin({ text }) {
                 } else {
                     let response = await infoPersonal();
                     if (response.data.authentic == 0) {
-                        router.push('/xac-thuc-ma-otp-nhan-vien.html');
+                        router.push('/xac-thuc-ma-otp-ca-nhan.html');
                     }
                     setData(response.data);
                 }

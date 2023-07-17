@@ -25,13 +25,16 @@ export default function LoginQr(props) {
 
     if (socket) {
         socket.on('QRLogin', (device_id, account, password) => {
-            account = atob(account.replaceAll('+', ''));
-            password = atob(password.replaceAll('+', ''));
-            let data = {
-                account: account,
-                password: password,
+            let deviceID = Cookies.get('_DEVICEID_')
+            if (device_id == deviceID) {
+                account = atob(account.replaceAll('+', ''));
+                password = atob(password.replaceAll('+', ''));
+                let data = {
+                    account: account,
+                    password: password,
+                }
+                submit(data)
             }
-            submit(data)
         });
     }
     const submit = async (data) => {
