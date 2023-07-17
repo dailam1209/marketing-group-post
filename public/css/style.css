@@ -1935,7 +1935,6 @@ p.sm_danhgia.v_sm_danhgia {
 
 .modal_share {
     position: fixed;
-    display: none;
     z-index: 3;
     padding-top: 100px;
     left: 0;
@@ -4851,7 +4850,6 @@ a {
     width: 100%;
     float: left;
     background: #CCCCCC;
-    display: none;
 }
 
 .box_share {
@@ -4882,6 +4880,7 @@ a {
 .bang .box_4 {
     width: 10%;
     float: left;
+    cursor: pointer;
 }
 
 .body_bang_ct {
@@ -6849,4 +6848,41 @@ input[type=number]::-webkit-outer-spin-button {
     text-align: justify;
     color: #FFFFFF;
     margin-bottom: 16px;
+}
+
+.v_form_butt_ht {
+    display: flex;
+    width: 100%;
+    justify-content: right;
+    padding: 0 15px;
+}
+
+.cl_btn_add {
+    border: unset;
+    background: #FFFFFF;
+    color: #4C5BD4;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.tow_butt_flex {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    gap: 20px;
+}
+
+.v_tow_butt_flex button {
+    width: 35%;
+    padding: 5px;
+    border-radius: 10px;
+    border: 1px solid;
+}
+
+.popup_helper_qr {
+    z-index: 10;
+}
+
+.check_login {
+    z-index: 999;
 }

@@ -23,6 +23,7 @@ export default function DetailEmployy() {
         }
         getData()
     }, [])
+    console.log(data)
 
     // change password
     // show popup change password

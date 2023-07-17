@@ -67,22 +67,32 @@ export const getMarried = [
 ]
 
 export const getSoftware = [
-    "Chấm công 365",
-    "Tính lương 365",
-    "Quản trị nhân sự",
-    "Văn thư lưu trữ",
-    "Truyền thông văn hóa",
-    "Chuyển đổi văn bản thành giọng nói",
-    "Quản lý lịch biểu",
-    "CRM",
-    "Biên phiên dịch",
-    "Đánh giá năng lực nhân viên",
-    "Quản lý KPI",
-    "DMS",
-    "Quản lý cung ứng",
-    "Quản lý kho vật tư xây dụng",
-    "Quản lý tài sản",
-]
+    { id: 'cc365', value: 'Chấm công 365' },
+    { id: 'tl365', value: 'Tính lương 365' },
+    { id: 'hr365', value: 'Quản trị nhân sự' },
+    { id: 'vt365', value: 'Văn thư lưu trữ' },
+    { id: 'ttnb365', value: 'Truyền thông văn hóa' },
+    { id: 'tts365', value: 'Chuyển đổi văn bản thành giọng nói' },
+    { id: 'lb365', value: 'Quản lý lịch biểu' },
+    { id: 'crs365', value: 'CRM' },
+    { id: 'bp365', value: 'Biên phiên dịch' },
+    { id: 'dg365', value: 'Đánh giá năng lực nhân viên' },
+    { id: 'kpi365', value: 'Quản lý KPI' },
+    { id: 'dms365', value: 'DMS' },
+    { id: 'cu365', value: 'Quản lý cung ứng' },
+    { id: 'kvt365', value: 'Quản lý kho vật tư xây dụng' },
+    { id: 'qlts365', value: 'Quản lý tài sản' },
+];
+
+export function renderNamePM(value) {
+    let name = 'Chưa xác định';
+    getSoftware.find((item) => {
+        if (item.id === value) {
+            name = item.value;
+        }
+    })
+    return name;
+}
 
 export function formatDate(dateString) {
     const parts = dateString.split('/');
@@ -100,6 +110,16 @@ export function validatePhone(value) {
 export function validateMail(value) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (emailRegex.test(value)) {
+        return true;
+    }
+
+    return false;
+}
+
+export function validateIP(value) {
+    const ipRegex = /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/;
+    console.log(ipRegex.test(value))
+    if (ipRegex.test(value)) {
         return true;
     }
 

@@ -11,6 +11,7 @@ export default function HomeCompany() {
     const [show, setShow] = useState('all')
     const [active, setActive] = useState('all')
     const [nameList, setNameList] = useState('Tất cả')
+    const [textVip, setTextVip] = useState('');
 
     const showAll = () => {
         setShow('all')

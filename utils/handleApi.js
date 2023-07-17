@@ -206,6 +206,12 @@ export const listIp = async (data) => {
     return result
 }
 
+//edit ip address
+export const editIP = async (data) => {
+    let result = await functionAPI(process.env.NEXT_PUBLIC_API + '/api/qlc/SetIp/edit', data)
+    return result;
+}
+
 //Kiem tra SDT
 export const checkAccount = async (data) => {
     let result = await functionAPI(process.env.NEXT_PUBLIC_API + '/api/qlc/Company/checkInput', data);

@@ -293,12 +293,12 @@ export default function Footer() {
                                     <p className="footer_block2_header">Về Timviec365</p>
                                     <div className="arr_respon hidden">
                                         <img
-                                            src="https://dev.timviec365.vn/images/arr_up.svg"
+                                            src="https://timviec365.vn/images/arr_up.svg"
                                             className="hidden"
                                             alt="arrow_up"
                                         />
                                         <img
-                                            src="https://dev.timviec365.vn/images/arr_down.svg"
+                                            src="https://timviec365.vn/images/arr_down.svg"
                                             alt="arrow_down"
                                         />
                                     </div>
@@ -387,12 +387,12 @@ export default function Footer() {
                                         <p className="footer_block2_header">Dành cho ứng viên</p>
                                         <div className="arr_respon hidden">
                                             <img
-                                                src="https://dev.timviec365.vn/images/arr_up.svg"
+                                                src="https://timviec365.vn/images/arr_up.svg"
                                                 className="arr_up hidden"
                                                 alt="arrow_up"
                                             />
                                             <img
-                                                src="https://dev.timviec365.vn/images/arr_down.svg"
+                                                src="https://timviec365.vn/images/arr_down.svg"
                                                 className="arr_down"
                                                 alt="arrow_down"
                                             />
@@ -433,12 +433,12 @@ export default function Footer() {
                                         <p className="footer_block2_header">Dành cho nhà tuyển dụng</p>
                                         <div className="arr_respon hidden">
                                             <img
-                                                src="https://dev.timviec365.vn/images/arr_up.svg"
+                                                src="https://timviec365.vn/images/arr_up.svg"
                                                 className="arr_up hidden"
                                                 alt="arrow_up"
                                             />
                                             <img
-                                                src="https://dev.timviec365.vn/images/arr_down.svg"
+                                                src="https://timviec365.vn/images/arr_down.svg"
                                                 className="arr_down"
                                                 alt="arrow_down"
                                             />
@@ -474,12 +474,12 @@ export default function Footer() {
                                         <p className="footer_block2_header">Tiện ích</p>
                                         <div className="arr_respon hidden">
                                             <img
-                                                src="https://dev.timviec365.vn/images/arr_up.svg"
+                                                src="https://timviec365.vn/images/arr_up.svg"
                                                 className="arr_up hidden"
                                                 alt="arrow_up"
                                             />
                                             <img
-                                                src="https://dev.timviec365.vn/images/arr_down.svg"
+                                                src="https://timviec365.vn/images/arr_down.svg"
                                                 className="arr_down"
                                                 alt="arrow_down"
                                             />
@@ -525,12 +525,12 @@ export default function Footer() {
                                         <p className="footer_block2_header">Việc làm theo khu vực</p>
                                         <div className="arr_respon hidden">
                                             <img
-                                                src="https://dev.timviec365.vn/images/arr_up.svg"
+                                                src="https://timviec365.vn/images/arr_up.svg"
                                                 className="arr_up hidden"
                                                 alt="arrow_up"
                                             />
                                             <img
-                                                src="https://dev.timviec365.vn/images/arr_down.svg"
+                                                src="https://timviec365.vn/images/arr_down.svg"
                                                 className=" arr_down"
                                                 alt="arrow_down"
                                             />
@@ -574,7 +574,7 @@ export default function Footer() {
                                         >
                                             Xem tất cả{" "}
                                             <img
-                                                src="https://dev.timviec365.vn/images/2arr_right.svg"
+                                                src="https://timviec365.vn/images/2arr_right.svg"
                                                 alt="see_all"
                                             />
                                         </a>
@@ -590,12 +590,12 @@ export default function Footer() {
                                         <p className="footer_block2_header">Việc làm theo ngành nghề</p>
                                         <div className="arr_respon hidden">
                                             <img
-                                                src="https://dev.timviec365.vn/images/arr_up.svg"
+                                                src="https://timviec365.vn/images/arr_up.svg"
                                                 className="arr_up hidden"
                                                 alt="arrow_up"
                                             />
                                             <img
-                                                src="https://dev.timviec365.vn/images/arr_down.svg"
+                                                src="https://timviec365.vn/images/arr_down.svg"
                                                 className="arr_down"
                                                 alt="arrow_down"
                                             />
@@ -639,7 +639,7 @@ export default function Footer() {
                                         >
                                             Xem tất cả{" "}
                                             <img
-                                                src="https://dev.timviec365.vn/images/2arr_right.svg"
+                                                src="https://timviec365.vn/images/2arr_right.svg"
                                                 alt="see_all"
                                             />
                                         </a>
@@ -655,12 +655,12 @@ export default function Footer() {
                                         <p className="footer_block2_header">Việc làm theo tag</p>
                                         <div className="arr_respon hidden">
                                             <img
-                                                src="https://dev.timviec365.vn/images/arr_up.svg"
+                                                src="https://timviec365.vn/images/arr_up.svg"
                                                 className="arr_up hidden"
                                                 alt="arrow_up"
                                             />
                                             <img
-                                                src="https://dev.timviec365.vn/images/arr_down.svg"
+                                                src="https://timviec365.vn/images/arr_down.svg"
                                                 className="arr_down"
                                                 alt="arrow_down"
                                             />
@@ -704,7 +704,7 @@ export default function Footer() {
                                         >
                                             Xem tất cả{" "}
                                             <img
-                                                src="https://dev.timviec365.vn/images/2arr_right.svg"
+                                                src="https://timviec365.vn/images/2arr_right.svg"
                                                 alt="see_all"
                                             />
                                         </a>
@@ -718,7 +718,7 @@ export default function Footer() {
                                 <div>
                                     <img
                                         className="lazyload"
-                                        src="https://dev.timviec365.vn/images/365timviec.png"
+                                        src="https://timviec365.vn/images/365timviec.png"
                                         alt="timviec365"
                                     />
                                 </div>
@@ -730,7 +730,7 @@ export default function Footer() {
                                             rel="nofollow"
                                             target="_blank"
                                         >
-                                            <img src="https://dev.timviec365.vn/images/icon365.svg" alt="chat" />
+                                            <img src="https://timviec365.vn/images/icon365.svg" alt="chat" />
                                         </a>
                                     </div>
                                     <div className="wrap_icon_connet">
@@ -740,7 +740,7 @@ export default function Footer() {
                                             target="_blank"
                                         >
                                             <img
-                                                src="https://dev.timviec365.vn/images/icon_fb.svg"
+                                                src="https://timviec365.vn/images/icon_fb.svg"
                                                 alt="facebook"
                                             />
                                         </a>
@@ -752,7 +752,7 @@ export default function Footer() {
                                             target="_blank"
                                         >
                                             <img
-                                                src="https://dev.timviec365.vn/images/icon_witter.svg"
+                                                src="https://timviec365.vn/images/icon_witter.svg"
                                                 alt="witter"
                                             />
                                         </a>
@@ -764,7 +764,7 @@ export default function Footer() {
                                             target="_blank"
                                         >
                                             <img
-                                                src="https://dev.timviec365.vn/images/icon_youtube.svg"
+                                                src="https://timviec365.vn/images/icon_youtube.svg"
                                                 alt="youtube"
                                             />
                                         </a>
@@ -777,7 +777,7 @@ export default function Footer() {
                                     >
                                         <img
                                             className="lazyload icon_bct"
-                                            src="https://dev.timviec365.vn/images/DK_bocongthuong.png"
+                                            src="https://timviec365.vn/images/DK_bocongthuong.png"
                                             alt="Đã đăng ký bộ công thương"
                                         />
                                     </a>
@@ -787,7 +787,7 @@ export default function Footer() {
                                     >
                                         <img
                                             className="lazyload icon_dmca"
-                                            src="https://dev.timviec365.vn/images/dmca.png"
+                                            src="https://timviec365.vn/images/dmca.png"
                                             alt="DMCA.com Protection Status"
                                         />
                                     </a>
@@ -821,7 +821,7 @@ export default function Footer() {
                                         <img
                                             className="qr_img lazyload"
                                             style={{ width: "101.5%" }}
-                                            src="https://dev.timviec365.vn/images/qr_timviec_uv.png"
+                                            src="https://timviec365.vn/images/qr_timviec_uv.png"
                                             alt="download_app"
                                         />
                                         <p className="qr_txt">App Timviec365 UV</p>
@@ -829,7 +829,7 @@ export default function Footer() {
                                     <div className="wrap_qr_child">
                                         <img
                                             className="qr_img lazyload"
-                                            src="https://dev.timviec365.vn/images/New_images/new_qr_ft1.png"
+                                            src="https://timviec365.vn/images/New_images/new_qr_ft1.png"
                                             alt="download_app"
                                         />
                                         <p className="qr_txt">App Timviec365 NTD</p>
@@ -837,7 +837,7 @@ export default function Footer() {
                                     <div className="wrap_qr_child">
                                         <img
                                             className="qr_img lazyload"
-                                            src="https://dev.timviec365.vn/images/qr_cv_365.png"
+                                            src="https://timviec365.vn/images/qr_cv_365.png"
                                             alt="download_app"
                                         />
                                         <p className="qr_txt">App CV365</p>
@@ -845,7 +845,7 @@ export default function Footer() {
                                     <div className="wrap_qr_child">
                                         <img
                                             className="qr_img lazyload"
-                                            src="https://dev.timviec365.vn/images/qr_chat_365.png"
+                                            src="https://timviec365.vn/images/qr_chat_365.png"
                                             alt="download_app"
                                         />
                                         <p className="qr_txt">App Chat365</p>
@@ -857,7 +857,7 @@ export default function Footer() {
                             <div>
                                 <img
                                     className="lazyload"
-                                    src="https://dev.timviec365.vn/images/365timviec.png"
+                                    src="https://timviec365.vn/images/365timviec.png"
                                     alt="timviec365"
                                 />
                             </div>
@@ -885,7 +885,7 @@ export default function Footer() {
                                     >
                                         <img
                                             className="lazyload icon_bct"
-                                            src="https://dev.timviec365.vn/images/DK_bocongthuong.png"
+                                            src="https://timviec365.vn/images/DK_bocongthuong.png"
                                             alt="Đã đăng ký bộ công thương"
                                         />
                                     </a>
@@ -895,7 +895,7 @@ export default function Footer() {
                                     >
                                         <img
                                             className="lazyload icon_dmca"
-                                            src="https://dev.timviec365.vn/images/dmca.png"
+                                            src="https://timviec365.vn/images/dmca.png"
                                             alt="DMCA.com Protection Status"
                                         />
                                     </a>
@@ -907,7 +907,7 @@ export default function Footer() {
                                             rel="nofollow"
                                             target="_blank"
                                         >
-                                            <img src="https://dev.timviec365.vn/images/icon365.svg" alt="chat" />
+                                            <img src="https://timviec365.vn/images/icon365.svg" alt="chat" />
                                         </a>
                                     </div>
                                     <div className="wrap_icon_connet">
@@ -917,7 +917,7 @@ export default function Footer() {
                                             target="_blank"
                                         >
                                             <img
-                                                src="https://dev.timviec365.vn/images/icon_fb.svg"
+                                                src="https://timviec365.vn/images/icon_fb.svg"
                                                 alt="facebook"
                                             />
                                         </a>
@@ -929,7 +929,7 @@ export default function Footer() {
                                             target="_blank"
                                         >
                                             <img
-                                                src="https://dev.timviec365.vn/images/icon_witter.svg"
+                                                src="https://timviec365.vn/images/icon_witter.svg"
                                                 alt="witter"
                                             />
                                         </a>
@@ -941,7 +941,7 @@ export default function Footer() {
                                             target="_blank"
                                         >
                                             <img
-                                                src="https://dev.timviec365.vn/images/icon_youtube.svg"
+                                                src="https://timviec365.vn/images/icon_youtube.svg"
                                                 alt="youtube"
                                             />
                                         </a>
@@ -967,7 +967,7 @@ export default function Footer() {
                                         <p className="qr_txt">Tải app Timviec365 UV</p>
                                         <img
                                             className="download_img"
-                                            src="https://dev.timviec365.vn/images/download.svg"
+                                            src="https://timviec365.vn/images/download.svg"
                                             alt="download"
                                         />
                                     </a>
@@ -983,7 +983,7 @@ export default function Footer() {
                                         <p className="qr_txt">Tải app Timviec365 NTD</p>
                                         <img
                                             className="download_img"
-                                            src="https://dev.timviec365.vn/images/download.svg"
+                                            src="https://timviec365.vn/images/download.svg"
                                             alt="download"
                                         />
                                     </a>
@@ -999,7 +999,7 @@ export default function Footer() {
                                         <p className="qr_txt">Tải app CV365</p>
                                         <img
                                             className="download_img"
-                                            src="https://dev.timviec365.vn/images/download.svg"
+                                            src="https://timviec365.vn/images/download.svg"
                                             alt="download"
                                         />
                                     </a>
@@ -1015,7 +1015,7 @@ export default function Footer() {
                                         <p className="qr_txt">Tải app Chat365</p>
                                         <img
                                             className="download_img"
-                                            src="https://dev.timviec365.vn/images/download.svg"
+                                            src="https://timviec365.vn/images/download.svg"
                                             alt="download"
                                         />
                                     </a>
