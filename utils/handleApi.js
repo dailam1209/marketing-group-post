@@ -19,7 +19,7 @@ export const checkVip = async (idcom) => {
 
 // register
 export const registerCom = async (data) => {
-    let result = await functionAPI(process.env.NEXT_PUBLIC_API + '/api/qlc/Company/register', data)
+    let result = await functionAPI(process.env.NEXT_PUBLIC_API + '/api/qlc/company/register', data)
     if (result.result == true) {
         Cookies.set('token_base365', result.data.access_token);
         Cookies.set('role', 1);
@@ -37,7 +37,7 @@ export const registerEp = async (data) => {
         Cookies.set('role', 2);
         Cookies.set('phone', data.phoneTK);
 
-        // window.location.href = '/xac-thuc-ma-otp-nhan-vien.html';
+        window.location.href = '/xac-thuc-ma-otp-nhan-vien.html';
     } else {
         alert('Tài khoản đã tồn tại')
     }
@@ -75,7 +75,7 @@ export const infoEp = async () => {
 }
 
 export const infoCom = async () => {
-    let result = await functionAPI(process.env.NEXT_PUBLIC_API + '/api/qlc/Company/info')
+    let result = await functionAPI(process.env.NEXT_PUBLIC_API + '/api/qlc/company/info')
     return result
 }
 
@@ -86,7 +86,7 @@ export const infoPersonal = async () => {
 
 // update information
 export const updateCom = async (data) => {
-    let result = await functionAPI(process.env.NEXT_PUBLIC_API + '/api/qlc/Company/updateInfoCompany', data)
+    let result = await functionAPI(process.env.NEXT_PUBLIC_API + '/api/qlc/company/updateInfoCompany', data)
     return result
 }
 
@@ -102,7 +102,7 @@ export const updatePersonal = async (data) => {
 
 // change password
 export const changePassCom = async (data) => {
-    let result = await functionAPI(process.env.NEXT_PUBLIC_API + '/api/qlc/Company/updateNewPassword', data)
+    let result = await functionAPI(process.env.NEXT_PUBLIC_API + '/api/qlc/company/updateNewPassword', data)
     return result
 }
 
@@ -118,7 +118,7 @@ export const changePassPersonal = async (data) => {
 
 // change pass by forget pass
 export const changePwCom = async (data) => {
-    let result = await functionAPI(process.env.NEXT_PUBLIC_API + '/api/qlc/Company/updatePasswordbyInput', data)
+    let result = await functionAPI(process.env.NEXT_PUBLIC_API + '/api/qlc/company/updatePasswordbyInput', data)
     if (result.result) {
         window.location.href = '/thay-doi-mat-khau-thanh-cong.html'
     } else {
@@ -152,7 +152,7 @@ export const checkExist = async (data) => {
 
 // vote
 export const vote = async (data) => {
-    let result = await functionAPI(process.env.NEXT_PUBLIC_API + '/api/qlc/Feedback/createFeedEmp', data)
+    let result = await functionAPI(process.env.NEXT_PUBLIC_API + '/api/qlc/Feedback', data)
     return result
 }
 
@@ -174,7 +174,7 @@ export const authenEp = async () => {
 }
 
 export const authenCom = async () => {
-    let result = await functionAPI(process.env.NEXT_PUBLIC_API + '/api/qlc/Company/verify')
+    let result = await functionAPI(process.env.NEXT_PUBLIC_API + '/api/qlc/company/verify')
     return result
 }
 
@@ -232,7 +232,7 @@ export const editIP = async (data) => {
 
 //Kiem tra SDT
 export const checkAccount = async (data) => {
-    let result = await functionAPI(process.env.NEXT_PUBLIC_API + '/api/qlc/Company/checkInput', data);
+    let result = await functionAPI(process.env.NEXT_PUBLIC_API + '/api/qlc/company/checkInput', data);
     return result;
 }
 

@@ -60,7 +60,7 @@ export default function Header() {
                         let response = await infoEp();
                         setData(response.data);
 
-                        if (response.data.authentic === 0) {
+                        if (response.data.authentic == 0) {
                             setLinkHome(router.pathname);
                         } else {
                             setLinkHome('/quan-ly-ung-dung-nhan-vien.html');
@@ -70,7 +70,7 @@ export default function Header() {
                         let response = await infoCom();
                         setData(response.data);
 
-                        if (response.data.authentic === 0) {
+                        if (response.data.authentic == 0) {
                             setLinkHome(router.pathname);
                         } else {
                             setLinkHome('/quan-ly-ung-dung-cong-ty.html');
@@ -79,7 +79,7 @@ export default function Header() {
                         let response = await infoPersonal();
                         setData(response.data);
 
-                        if (response.data.authentic === 0) {
+                        if (response.data.authentic == 0) {
                             setLinkHome(router.pathname);
                         } else {
                             setLinkHome('/quan-ly-ung-dung-ca-nhan.html');
@@ -137,7 +137,7 @@ export default function Header() {
                                                     <div className="bg_logout" style={{ display: popup ? (renderContent ? 'block' : 'none') : 'none' }}>
                                                         <div className="chd_content">
                                                             <p className="chuyen_doi">
-                                                                <a href="/quan-ly-ung-dung-cong-ty.html">Chuyển đổi số 365</a>
+                                                                <a href={getLinkHome}>Chuyển đổi số 365</a>
                                                             </p>
                                                             <p className="dang_xuat btx_logout" onClick={show}>
                                                                 <a>Đăng xuất</a>

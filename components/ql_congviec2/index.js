@@ -22,7 +22,7 @@ export default function QlCongviec2() {
             try {
                 if (type() === '2') {
                     let response = await infoEp();
-                    setNameCompany(response.data.companyName)
+                    setNameCompany(response.data.companyName.userName)
                 } else if (type() === '1') {
                     let response = await infoCom();
                     setNameCompany(response.data.userName)

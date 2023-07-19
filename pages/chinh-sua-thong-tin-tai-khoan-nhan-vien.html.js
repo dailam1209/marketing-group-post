@@ -28,14 +28,29 @@ export default function EditEmployee() {
                 setValue('phone', res.phone || res.phoneTK);
                 setValue('experience', res.experience);
                 setValue('married', res.married);
-                setValue('education', res.education);
+                setValue('education', res.education != 0 ? res.education : 1);
                 setValue('email', res.emailContact);
             } else {
                 const response = await infoPersonal();
-                setData(response.data)
-                setValue('userName', response.data.userName)
-                setValue('address', response.data.address)
-                setValue('phone', response.data.phone || response.data.phoneTK)
+                let listData = response.data;
+                listData['userName'] = listData.ep_name;
+                listData['experience'] = listData.ep_exp;
+                listData['married'] = listData.ep_married;
+                listData['gender'] = listData.ep_gender;
+                listData['birthday'] = listData.ep_birth_day;
+                listData['address'] = listData.ep_address;
+                listData['phoneTK'] = listData.ep_phone_tk;
+                listData['phone'] = listData.ep_phone;
+                listData['emailContact'] = listData.ep_email_lh;
+                listData['education'] = listData.ep_education;
+                setData(listData)
+                setValue('userName', listData.userName)
+                setValue('address', listData.address)
+                setValue('phone', listData.phone || listData.phoneTK)
+                setValue('experience', listData.experience);
+                setValue('married', listData.married);
+                setValue('education', listData.education != 0 ? listData.education : 1);
+                setValue('email', listData.emailContact);
             }
         }
         getData()
@@ -63,7 +78,16 @@ export default function EditEmployee() {
                 setUpdateFalse(true)
             }
         } else {
-            let response = await updatePersonal(data);
+            let res
+            form.append('address', data.address);
+            form.append('birthday', data.birthday);
+            form.append('emailContact', data.email);
+            form.append('experience', data.experience);
+            form.append('gender', data.gender);
+            form.append('married', data.married);
+            form.append('phone', data.phone);
+            form.append('userName', data.userName);
+            let response = await updatePersonal(form);
             if (response.result && response.result == true) {
                 setUpdateSuccess(true)
             } else {

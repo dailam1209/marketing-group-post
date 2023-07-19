@@ -44,10 +44,13 @@ export default function HeaderLogin({ text }) {
                     setData(response.data);
                 } else {
                     let response = await infoPersonal();
-                    if (response.data.authentic == 0) {
+                    if (response.data.ep_authentic == 0) {
                         router.push('/xac-thuc-ma-otp-ca-nhan.html');
                     }
-                    setData(response.data);
+                    let listData = response.data;
+                    listData['userName'] = listData.ep_name;
+                    setData(listData);
+                    console.log('listData:', listData)
                 }
             } catch (error) {
                 console.log('Error:', error);
@@ -259,7 +262,7 @@ export default function HeaderLogin({ text }) {
                 <div className="ic_nhanh_avt">
                     <div className="img_ic" onClick={optionUser}>
                         {
-                            data.avatar ? (<img src={data.avatar} className="avt_img_tk" onError={(e) => { e.target.onerror = null; e.target.src = "../img/logo_com.png"; }} />) : (<img src="../img/logo_com.png" alt="" className="avt_img_tk" />)
+                            data.avatarUser ? (<img src={data.avatarUser} className="avt_img_tk" onError={(e) => { e.target.onerror = null; e.target.src = "../img/logo_com.png"; }} />) : (<img src="../img/logo_com.png" alt="" className="avt_img_tk" />)
                         }
                         {(linkHome === 'quan-ly-ung-dung-cong-ty.html') ? (
                             <>

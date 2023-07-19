@@ -14,7 +14,6 @@ export default function RegisterEp() {
     // validate and submit
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const onSubmit = async data => {
-        console.log(data)
         let form = new FormData();
         form.append('phoneTK', data.phoneTK);
         form.append('userName', data.userName);

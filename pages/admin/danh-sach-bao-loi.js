@@ -80,7 +80,7 @@ export default function Admin() {
                                 <td align="center">{item.phoneTK}</td>
                                 <td align="center">{item.detail_error}</td>
                                 <td align="center"><img width={'100px'} height={'100px'} src={item.gallery_image_error} /></td>
-                                <td align="center">{format(parseInt(item.createdAt), 'dd-MM-yyyy HH:mm:ii')}</td>
+                                <td align="center">{format(parseInt(item.time_create), 'dd-MM-yyyy')}</td>
                             </tr>
                         ))}
                     </tbody>

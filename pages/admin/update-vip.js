@@ -11,20 +11,21 @@ export default function UpdateVip() {
     if (!Cookies.get('admin')) {
         // window.location.href = '/admin'
     }
-
+    const router = useRouter()
     const { register, handleSubmit } = useForm();
     const onSubmit = async data => {
         data.com_id = id
         let result = await CallApi.updateVip(data)
         if (result.data && result.data.data.result == true) {
             alert('Cập nhật thành công')
-            window.location.reload()
+            router.push('/admin/danh-sach-cong-ty')
         } else {
             alert(result)
         }
     };
-    const router = useRouter()
-    const { id } = router.query
+
+    const { id, sl, date } = router.query;
+    console.log('sl:', sl, 'date:', date)
     const [listCom, getlistCom] = useState({});
     const [isLoad, getIsLoad] = useState(false);
     const [getTime, setTime] = useState('');
@@ -50,7 +51,7 @@ export default function UpdateVip() {
     if (!isLoad) {
         return
     }
-    console.log('getTime:', getTime)
+
     return (
         <>
             <meta httpEquiv="content-type" content="text/html; charset=UTF-8" />
@@ -86,7 +87,7 @@ export default function UpdateVip() {
                                                 name="com_vip_time"
                                                 id="thoi_han"
                                                 placeholder="Vui lòng nhập thời hạn"
-                                                defaultValue={getTime}
+                                                defaultValue={date != 0 ? format(parseInt(date) * 1000, 'yyyy-MM-dd') : getTime}
                                                 {...register("com_vip_time")}
                                             />
                                         </td>
