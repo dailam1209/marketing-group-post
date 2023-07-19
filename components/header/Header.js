@@ -7,9 +7,6 @@ import { infoCom, infoEp, infoPersonal } from '../../utils/handleApi';
 export default function Header() {
     // get pathname url
     const router = useRouter()
-    const slug = () => {
-        return router.pathname;
-    }
 
     const [popup, setPopup] = useState(false)
     const showPopup = () => {
@@ -19,7 +16,6 @@ export default function Header() {
             setPopup(true)
         }
     }
-
 
     const [showLogout, setShowLogout] = useState(false)
 
@@ -63,15 +59,31 @@ export default function Header() {
                     if (type() === '2') {
                         let response = await infoEp();
                         setData(response.data);
-                        setLinkHome('/quan-ly-ung-dung-nhan-vien.html');
+
+                        if (response.data.authentic === 0) {
+                            setLinkHome(router.pathname);
+                        } else {
+                            setLinkHome('/quan-ly-ung-dung-nhan-vien.html');
+                        }
+
                     } else if (type() === '1') {
                         let response = await infoCom();
                         setData(response.data);
-                        setLinkHome('/quan-ly-ung-dung-cong-ty.html');
+
+                        if (response.data.authentic === 0) {
+                            setLinkHome(router.pathname);
+                        } else {
+                            setLinkHome('/quan-ly-ung-dung-cong-ty.html');
+                        }
                     } else {
                         let response = await infoPersonal();
                         setData(response.data);
-                        setLinkHome('/quan-ly-ung-dung-ca-nhan.html');
+
+                        if (response.data.authentic === 0) {
+                            setLinkHome(router.pathname);
+                        } else {
+                            setLinkHome('/quan-ly-ung-dung-ca-nhan.html');
+                        }
                     }
                 } catch (error) {
                     console.log('Error:', error);
@@ -82,7 +94,6 @@ export default function Header() {
             setRenderContent(true);
         }
     }, []);
-
     return (
         <>
             <div className="header_ql">
@@ -121,7 +132,7 @@ export default function Header() {
                                             <div className="hd_log">
                                                 <div className="bg_log_aff" data="97602">
                                                     <div className="bg_log_img" onClick={showPopup}>
-                                                        <img src={data.avatarUser ? data.avatarUser : `../img/add.png`} />
+                                                        <img src={data.avatarUser ? data.avatarUser : `../img/add.png`} onError={(e) => { e.target.onerror = null; e.target.src = "../img/logo_com.png"; }} />
                                                     </div>
                                                     <div className="bg_logout" style={{ display: popup ? (renderContent ? 'block' : 'none') : 'none' }}>
                                                         <div className="chd_content">

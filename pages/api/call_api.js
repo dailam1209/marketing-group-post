@@ -25,86 +25,11 @@ class CallApi {
         return response;
     }
 
-    // api register employee
-    static async registerEp(data) {
-        let response = '';
-        try {
-            const call = await axios.post(process.env.NEXT_PUBLIC_API + '/api/qlc/employee/register', data);
-            response = call;
-        } catch (error) {
-            response = error.response.data.error.message
-        }
-        return response;
-    }
-
-    //api register company
-    static async registerCom(data) {
-        let response = '';
-        try {
-            const call = await axios.post(process.env.NEXT_PUBLIC_API + '/api/qlc/Company/register', data);
-            response = call;
-        } catch (error) {
-            response = error.response.data.error.message
-        }
-        return response;
-    }
-
-    // api register personal
-    static async registerPersonal(data) {
-        let response = '';
-        try {
-            const call = await axios.post(process.env.NEXT_PUBLIC_API + '/api/qlc/individual/register', data);
-            response = call;
-        } catch (error) {
-            response = error.response.data.error.message;
-        }
-        return response;
-    }
-
     // api check vip
     static async checkVip(idCom) {
         let response = '';
         const call = await axios.post('https://chamcong.24hpay.vn/service/verify_vip.php', { idCom: idCom });
         response = call;
-        return response;
-    }
-
-    // api login personal
-    static async loginPersonal(data) {
-        // let response = '';
-        // try {
-        //   const call = await axios.post('/api/qlc/individual/login', { phoneTK: data.email, password: data.password });
-        //   response = call;
-
-        // } catch (error) {
-        //   response = error;
-        // }
-        // return response;
-        let result = CallApi.callAPI(process.env.NEXT_PUBLIC_API + '/api/qlc/individual/login', data, '');
-        return result;
-    }
-
-    // api login employee
-    static async loginEmployee(data) {
-        let response = '';
-        try {
-            const call = await axios.post(process.env.NEXT_PUBLIC_API + '/api/qlc/employee/login', data);
-            response = call;
-        } catch (error) {
-            response = error.response.data.error.message
-        }
-        return response;
-    }
-
-    // api login company
-    static async loginCompany(data) {
-        let response = '';
-        try {
-            const call = await axios.post(process.env.NEXT_PUBLIC_API + '/api/qlc/Company/login', data);
-            response = call;
-        } catch (error) {
-            response = error.response.data.error.message
-        }
         return response;
     }
 
@@ -120,189 +45,11 @@ class CallApi {
         return response;
     }
 
-    // api get infor personal
-    static async getInfoPersonal(token) {
-        let response = '';
-        try {
-            const call = await axios.post(process.env.NEXT_PUBLIC_API + '/api/qlc/individual/info', {}, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            });
-            response = call.data.data.data;
-        } catch (error) {
-            response = error.response.data.error.message
-        }
-        return response;
-    }
-
-    // api get infor employee
-    static async getInfoEp(token) {
-        let response = ''
-        try {
-            const call = await axios.post(process.env.NEXT_PUBLIC_API + '/api/qlc/employee/info', {}, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            })
-            response = call.data.data.data;
-        } catch (error) {
-            response = error
-        }
-        return response
-    }
-
-    // api get infor company
-    static async getInfoCom(token) {
-        let response = ''
-        try {
-            const call = await axios.post(process.env.NEXT_PUBLIC_API + '/api/qlc/Company/info', {}, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            })
-            response = call.data.data.data;
-        } catch (error) {
-            response = error
-        }
-        return response
-    }
-
-    // api change password employee
-    static async changePassEp(token, data) {
-        let response = ''
-        try {
-            const call = await axios.post(process.env.NEXT_PUBLIC_API + '/api/qlc/employee/updatePassword', data, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            })
-            response = call;
-        } catch (error) {
-            response = error.response.data.error.message
-        }
-
-        return response
-    }
-
-    // api change password personal
-    static async changePassPersonal(token, data) {
-        let response = ''
-        try {
-            const call = await axios.post(process.env.NEXT_PUBLIC_API + '/api/qlc/individual/updatePassword', data, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            })
-            response = call;
-        } catch (error) {
-            response = error.response.data.error.message
-        }
-        return response
-    }
-
-    // api change password personal
-    static async changePassCom(token, data) {
-        let response = ''
-        try {
-            const call = await axios.post(process.env.NEXT_PUBLIC_API + '/api/qlc/Company/updateNewPassword', data, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            })
-            response = call;
-        } catch (error) {
-            response = error.response.data.error.message
-        }
-        return response
-    }
-
-    // api authen personal
-    static async authenPersonal(token) {
-        let response = ''
-        try {
-            const call = await axios.post(process.env.NEXT_PUBLIC_API + '/api/qlc/individual/verify', {}, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            })
-            response = call;
-        } catch (error) {
-            response = error.response.data.error.message
-        }
-        return response
-    }
-
-    // api authen employee
-    static async authenEp(token) {
-        let response = ''
-        try {
-            const call = await await axios.post(process.env.NEXT_PUBLIC_API + '/api/qlc/employee/verify', {}, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            })
-            response = call;
-        } catch (error) {
-            response = error.response.data.error.message
-        }
-        return response
-    }
-
-    // api authen company
-    static async authenCom(token) {
-        let response = ''
-        try {
-            const call = await axios.post(process.env.NEXT_PUBLIC_API + '/api/qlc/Company/verify', {}, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            })
-            response = call;
-        } catch (error) {
-            response = error.response.data.error.message
-        }
-        return response
-    }
-
-    // update info personal 
-    static async updatePersonal(token) {
-        let response = ''
-        try {
-            const call = await axios.post(process.env.NEXT_PUBLIC_API + '/api/qlc/individual/updateInfoindividual', {}, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            })
-            response = call;
-        } catch (error) {
-            response = error.response.data.error.message
-        }
-        return response
-
-    }
-
     // update info employee
     static async updateEp(token) {
         let response = ''
         try {
             const call = await axios.post(process.env.NEXT_PUBLIC_API + '/api/qlc/employee/updateInfoEmployee', {}, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            })
-            response = call;
-        } catch (error) {
-            response = error.response.data.error.message
-        }
-        return response
-    }
-
-    // update info company
-    static async updateCom(data, token) {
-        let response = ''
-        try {
-            const call = await axios.post(process.env.NEXT_PUBLIC_API + '/api/qlc/Company/updateInfoCompany', data, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -410,6 +157,31 @@ class CallApi {
         }
 
         return response;
+    }
+
+    //api lay danh sach cong ty dang ky loi
+    static async dsDangKyLoi() {
+        let response = '';
+        try {
+            const call = await axios.post(process.env.NEXT_PUBLIC_API + '/api/qlc/Admin/listComErr');
+            response = call;
+        } catch (error) {
+            response = error.response.data.error.message
+        }
+
+        return response;
+    }
+
+    //Api cap nhat trang thai vip + kich hoat tai khoan
+    static async updateVipAuth(data) {
+        let response = ''
+        try {
+            const call = await axios.post(process.env.NEXT_PUBLIC_API + '/api/qlc/Admin/put', data)
+            response = call
+        } catch (error) {
+            response = error.response.data.error.message
+        }
+        return response
     }
 }
 

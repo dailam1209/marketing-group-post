@@ -24,9 +24,7 @@ export default function noticeVip() {
                 title='Trang thông báo về tài khoản VIP'
             />
 
-            {hasTokens ? (
-                <Header acc_token={Cookies.get('token_base365')} rf_token={Cookies.get('rf_token')} />
-            ) : null}
+            <Header acc_token={Cookies.get('token_base365')} rf_token={Cookies.get('rf_token')} />
 
             <div className='register_ctnv register_dk_vip' id='register_nv'>
                 <div className="content_ql ctn_bgr_body">

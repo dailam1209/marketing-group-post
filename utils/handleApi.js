@@ -37,7 +37,7 @@ export const registerEp = async (data) => {
         Cookies.set('role', 2);
         Cookies.set('phone', data.phoneTK);
 
-        window.location.href = '/xac-thuc-ma-otp-nhan-vien.html';
+        // window.location.href = '/xac-thuc-ma-otp-nhan-vien.html';
     } else {
         alert('Tài khoản đã tồn tại')
     }
@@ -196,7 +196,25 @@ export const listTeams = async (data) => {
 
 // setup IP address
 export const createIp = async (data) => {
-    let result = await functionAPI(process.env.NEXT_PUBLIC_API + '/api/qlc/SetIp/create', data)
+    // let result = await functionAPI(process.env.NEXT_PUBLIC_API + '/api/qlc/SetIp/create', data)
+    let config = {
+        method: 'post',
+        maxBodyLength: Infinity,
+        url: process.env.NEXT_PUBLIC_API + '/api/qlc/SetIp/create',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${Cookies.get('token_base365')}`
+        },
+        data: data
+    };
+
+    let result = await axios.request(config)
+        .then((response) => {
+            console.log(JSON.stringify(response.data));
+        })
+        .catch((error) => {
+            console.log(error);
+        });
     return result
 }
 

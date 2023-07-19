@@ -62,13 +62,14 @@ export default function SetupIp() {
     }
 
     // validate and submit
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors }, setValue } = useForm();
 
     const [getDataIP, setDataIP] = useState([]);
     const [showBtn, setShowPopup] = useState(false);
 
     const onSubmit = async data => {
         setDataIP([data, ...getDataIP])
+        setValue('ip_access', '')
         setShowPopup(true);
     };
 
@@ -82,22 +83,25 @@ export default function SetupIp() {
     };
 
     const addIP = () => {
-        console.log(getDataIP)
+        console.log('getDataIP:', getDataIP)
+        const reorderedData = getDataIP.map(({ ip_access, from_site }) => ({ ip_access, from_site }));
+        createIp(JSON.stringify(reorderedData))
     }
 
     const [getEditID, setEditID] = useState([]);
     const [showEdit, setShowEdit] = useState(false)
     const editIP = (e, value) => {
         const getData = async () => {
+            console.log(value)
             const form = new FormData();
-            form.append('id', value);
+            form.append('id_acc', parseInt(value));
             let result = await listIp(form);
             setEditID(result.data)
         }
         getData()
         setShowEdit(true);
     }
-
+    console.log(getEditID)
     const closePopEdit = () => {
         setShowEdit(false);
     }
@@ -210,17 +214,17 @@ export default function SetupIp() {
 
                                                                             <td className="share_fsize_one share_clr_one tex_left cr_weight">
                                                                                 <div className="cnt_ten_pm d_flex">
-                                                                                    <p className="share_fsize_one share_clr_one ten_pm_cd">{renderNamePM(value.fromSite)}</p>
+                                                                                    <p className="share_fsize_one share_clr_one ten_pm_cd">{renderNamePM(value.from_site)}</p>
                                                                                 </div>
                                                                             </td>
 
-                                                                            <td className="share_fsize_one share_clr_one tex_center">{value.accessIP}</td>
-                                                                            <td className="share_fsize_one share_clr_one tex_center">{value.createAt.split('T')[0]}</td>
+                                                                            <td className="share_fsize_one share_clr_one tex_center">{value.ip_access}</td>
+                                                                            <td className="share_fsize_one share_clr_one tex_center">{value.createAt}</td>
                                                                             <td className="share_clr_one tex_center">
                                                                                 <div className="d_flex dflex_jc td_padd">
-                                                                                    <p className="js_edit_pb share_cursor edit_pb share_clr_four cr_weight btx_edit_ip_pm" onClick={(e) => editIP(e, value._id)} > Sửa </p>
+                                                                                    <p className="js_edit_pb share_cursor edit_pb share_clr_four cr_weight btx_edit_ip_pm" onClick={(e) => editIP(e, value.id_acc)} > Sửa </p>
                                                                                     <span className="share_clr_four">|</span>
-                                                                                    <p className="share_cursor js_delete_phong cr_red cr_weight" onClick={(e) => handlePopupDel(renderNamePM(value.fromSite), value._id)}> Xóa</p>
+                                                                                    <p className="share_cursor js_delete_phong cr_red cr_weight" onClick={(e) => handlePopupDel(renderNamePM(value.from_site), value._id)}> Xóa</p>
                                                                                 </div>
                                                                             </td>
                                                                         </tr>
@@ -257,10 +261,10 @@ export default function SetupIp() {
                                         <div className="form-group share_select2">
                                             <label className="form_label share_fsize_three">Phần mềm thiết lập dải IP <span className="cr_red cr_weight">*</span></label>
                                             <select
-                                                {...register("fromSite", {
+                                                {...register("from_site", {
                                                     required: 'Chưa chọn phần mềm',
                                                 })}
-                                                name="fromSite"
+                                                name="from_site"
                                                 className="form-control"
                                                 id="all_name_pm"
                                             >
@@ -271,7 +275,7 @@ export default function SetupIp() {
                                                 }
 
                                             </select>
-                                            {errors.fromSite && <label className="error">{errors.fromSite.message}</label>}
+                                            {errors.from_site && <label className="error">{errors.from_site.message}</label>}
 
                                         </div>
                                         <span className="thong_bao_n" style={{ display: 'none' }}>Không được để trống</span>
@@ -279,17 +283,17 @@ export default function SetupIp() {
                                             <label className="form_label share_fsize_three">Địa chỉ IP <span className="cr_red cr_weight">*</span></label>
                                             <input
                                                 text="text"
-                                                name="accessIP"
+                                                name="ip_access"
                                                 className="form-control diachi_ip"
                                                 placeholder="Nhập địa chỉ IP "
-                                                {...register("accessIP", {
+                                                {...register("ip_access", {
                                                     required: 'Chưa điền địa chỉ IP',
                                                     validate: {
                                                         validateIP: (value) => validateIP(value) || 'Hãy nhập đúng định dạng IP'
                                                     }
                                                 })}
                                             />
-                                            {errors.accessIP && <label className="error">{errors.accessIP.message}</label>}
+                                            {errors.ip_access && <label className="error">{errors.ip_access.message}</label>}
                                         </div>
                                         <div className="bang">
                                             {
@@ -313,11 +317,11 @@ export default function SetupIp() {
                                                                 type="hidden"
                                                                 name="diachi_ips"
                                                                 className="aa"
-                                                                defaultValue={item.accessIP}
+                                                                defaultValue={item.ip_access}
                                                             />
-                                                            <p className="box_share box_2">{item.accessIP}</p>
-                                                            <input type="hidden" name="ten_viet_t" defaultValue={item.fromSite} />
-                                                            <p className="box_share box_3">{item.fromSite}</p>
+                                                            <p className="box_share box_2">{item.ip_access}</p>
+                                                            <input type="hidden" name="ten_viet_t" defaultValue={item.from_site} />
+                                                            <p className="box_share box_3">{item.from_site}</p>
                                                             <p className="box_share box_4" onClick={() => deleteIP(index)}>
                                                                 <img className="remove_tb" src="../img/xoa-tv.png" />
                                                             </p>

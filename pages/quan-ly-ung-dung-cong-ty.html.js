@@ -6,6 +6,8 @@ import QlNhanluc from "../components/ql_nhanluc2"
 import QlCongviec from "../components/ql_congviec2"
 import QlNoibo from "../components/ql_noibo2"
 import QlBanhang from "../components/ql_banhang2"
+import { infoCom } from "../utils/handleApi";
+import { parse, format, differenceInSeconds } from 'date-fns';
 
 export default function HomeCompany() {
     const [show, setShow] = useState('all')
@@ -66,6 +68,35 @@ export default function HomeCompany() {
 
     const [getText, setText] = useState(<>Ứng dụng / <span className="thay_doi">Tất cả</span></>)
 
+    const [getVip, setVip] = useState([]);
+
+    useEffect(() => {
+        const getData = async () => {
+            try {
+                let response = await infoCom();
+                // Chuyển đổi chuỗi thành đối tượng ngày
+                const dateObj = parse('20-05-2023', 'dd-MM-yyyy', new Date());
+
+                // Lấy số giây kể từ ngày 1/1/1970
+                const seconds = differenceInSeconds(dateObj, new Date(0));
+                if (parseInt(seconds) > (parseInt(response.data.createdAt) / 1000)) {
+                    setVip('Tài khoản của bạn có thể đăng ký tối đa 10000 nhân viên');
+                } else {
+                    if (response.data.com_vip === 1) {
+                        setVip('Tài khoản của bạn có thể đăng ký tối đa 10000 nhân viên');
+                    } else {
+                        setVip('Tài khoản công ty bạn chưa phải là tài khoản VIP! Tài khoản của bạn chỉ đăng ký tối đa 5 nhân viên');
+                    }
+                }
+            } catch (error) {
+                console.log('Error:', error);
+            }
+        };
+
+        getData();
+
+    }, []);
+
     return (
         <>
             <Seo
@@ -92,7 +123,7 @@ export default function HomeCompany() {
                                 <div className="tbao_nangcap share_bgr_tow">
                                     <div className="tbao_ncap">
                                         <div className="tde_tbao_ncap">
-                                            <h4 className="hd_chuavip davip_ncap">Tài khoản công ty bạn chưa phải là tài khoản VIP! Tài khoản của bạn chỉ đăng ký tối đa 5 nhân viên</h4>
+                                            <h4 className="hd_chuavip davip_ncap">{getVip}</h4>
                                         </div>
                                         <div className="nang_capv">
                                             <p className="share_fsize_one ncap_tkhoan">

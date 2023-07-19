@@ -6886,3 +6886,10 @@ input[type=number]::-webkit-outer-spin-button {
 .check_login {
     z-index: 999;
 }
+
+.v_tow_butt_flex {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    gap: 25px;
+}

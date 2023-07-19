@@ -23,7 +23,6 @@ export default function DetailEmployy() {
         }
         getData()
     }, [])
-    console.log(data)
 
     // change password
     // show popup change password
@@ -135,7 +134,7 @@ export default function DetailEmployy() {
                                                                 onChange={handleFileChange}
                                                             />
                                                         </div>
-                                                        <p className="id">ID - {data._id}</p>
+                                                        <p className="id">ID - {data.idQLC}</p>
                                                     </div>
                                                 </div>
                                                 <div className="info_taikhoan">
@@ -143,7 +142,7 @@ export default function DetailEmployy() {
                                                         <p className="content d_title title_20" style={{ fontsize: '20px' }}>{data.userName}</p>
                                                         <p className="content d_flex">
                                                             <span>Địa chỉ email:</span>
-                                                            <span>{data.email || 'Chưa cập nhật'}</span>
+                                                            <span>{data.emailContact || 'Chưa cập nhật'}</span>
                                                         </p>
                                                         <p className="content d_flex">
                                                             <span>Số điện thoại:</span>

@@ -14,9 +14,25 @@ export default function RegisterEp() {
     // validate and submit
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const onSubmit = async data => {
-        data.com_id = idCom;
+        console.log(data)
+        let form = new FormData();
+        form.append('phoneTK', data.phoneTK);
+        form.append('userName', data.userName);
+        form.append('password', data.password);
+        form.append('address', data.address);
+        form.append('dep_id', data.dep_id);
+        form.append('com_id', idCom);
+        form.append('position_id', data.position);
+        form.append('birthday', data.birthday);
+        form.append('gender', data.gender);
+        form.append('married', data.married);
+        form.append('experience', data.experience);
+        form.append('education', data.education);
+        form.append('group_id', data.group_id);
+        form.append('team_id', data.team_id);
+        form.append('phone', data.phone);
         delete data.res_password;
-        registerEp(data);
+        registerEp(form);
     };
 
     // get list department, group, team
@@ -29,17 +45,17 @@ export default function RegisterEp() {
 
     // chose department
     useEffect(() => {
-        // apiDeps();
+        apiDeps();
     }, []);
 
-    // const apiDeps = async () => {
-    //     let data = {
-    //         com_id: idCom
-    //     }
-    //     let response = await listDepartments(data)
-    //     console.log(response)
-    //     setDep(response.data);
-    // };
+    const apiDeps = async () => {
+        let data = {
+            com_id: idCom
+        }
+        let response = await listDepartments(data)
+        console.log(response)
+        setDep(response.data);
+    };
 
     // chose group
     useEffect(() => {

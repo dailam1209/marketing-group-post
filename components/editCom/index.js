@@ -2,12 +2,17 @@ import { React, useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form';
 import { validatePhone, validateMail } from '../../utils/function';
 import { updateCom } from "../../utils/handleApi";
-
+import FormData from 'form-data';
 
 export default function EditCom({ closePopupUpdate, data, setUpdateStatus }) {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = async (data) => {
-        await updateCom(data)
+        const form = new FormData();
+        form.append('userName', data.userName)
+        form.append('emailContact', data.email)
+        form.append('phone', data.phone)
+        form.append('address', data.address)
+        await updateCom(form);
         setUpdateStatus(true)
     };
 
@@ -49,7 +54,7 @@ export default function EditCom({ closePopupUpdate, data, setUpdateStatus }) {
                                                         validatePhone: (value) => validatePhone(value) || "Hãy nhập đúng định dạng số điện thoại"
                                                     }
                                                 })}
-                                                defaultValue={data.phone || data.phoneTK || ''}
+                                                defaultValue={data.phone || ''}
                                             />
                                             {errors.phone && <label className="error">{errors.phone.message}</label>}
                                         </div>
@@ -64,7 +69,7 @@ export default function EditCom({ closePopupUpdate, data, setUpdateStatus }) {
                                                         validateMail: (value) => validateMail(value) || 'Hãy nhập đúng định dạng Mail'
                                                     }
                                                 })}
-                                                defaultValue={data.email || ''}
+                                                defaultValue={data.emailContact || ''}
                                             />
                                             {errors.email && <label className="error">{errors.email.message}</label>}
                                         </div>
