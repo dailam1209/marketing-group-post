@@ -54,11 +54,10 @@ export default function SetupIp() {
     }
     const deleteIp = () => {
         let data = {
-            com_id: comId,
-            _id: idIp
+            id_acc: idIp
         }
         delIp(data)
-        // window.location.reload()
+        window.location.reload()
     }
 
     // validate and submit
@@ -101,9 +100,20 @@ export default function SetupIp() {
         getData()
         setShowEdit(true);
     }
-    console.log(getEditID)
+
     const closePopEdit = () => {
         setShowEdit(false);
+    }
+
+    const searchPM = (e) => {
+        const getData = async () => {
+            let data1 = { com_id: comId }
+            let result = await listIp(data1);
+            const filteredItems = result.data.filter(item => item.from_site == e.target.value);
+            setData(filteredItems)
+        }
+        getData();
+        console.log(data)
     }
     return (
         <>
@@ -175,8 +185,12 @@ export default function SetupIp() {
                                             <div className="search_qly">
                                                 <div className="form_timkiem">
                                                     <div className="tim-kiem share_form_select">
-                                                        <select name="search" className="form-serach" data="<?= $from_site ?>">
+                                                        <select name="search" className="form-serach" onChange={(e) => searchPM(e)}>
                                                             <option value="">Tìm kiếm phần mềm</option>
+                                                            {getSoftware.map((item) => (
+                                                                <option value={item.id}>{item.value}</option>
+                                                            ))
+                                                            }
                                                         </select>
                                                         <span className="share_search"><img src="../img/tim-kiem.png" alt="" /></span>
                                                     </div>
@@ -224,7 +238,7 @@ export default function SetupIp() {
                                                                                 <div className="d_flex dflex_jc td_padd">
                                                                                     <p className="js_edit_pb share_cursor edit_pb share_clr_four cr_weight btx_edit_ip_pm" onClick={(e) => editIP(e, value.id_acc)} > Sửa </p>
                                                                                     <span className="share_clr_four">|</span>
-                                                                                    <p className="share_cursor js_delete_phong cr_red cr_weight" onClick={(e) => handlePopupDel(renderNamePM(value.from_site), value._id)}> Xóa</p>
+                                                                                    <p className="share_cursor js_delete_phong cr_red cr_weight" onClick={(e) => handlePopupDel(renderNamePM(value.from_site), value.id_acc)}> Xóa</p>
                                                                                 </div>
                                                                             </td>
                                                                         </tr>

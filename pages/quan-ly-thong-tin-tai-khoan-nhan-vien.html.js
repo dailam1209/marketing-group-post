@@ -22,7 +22,17 @@ export default function DetailEmployee() {
                 setHtml(true)
             } else {
                 let response = await infoPersonal();
-                setData(response.data)
+                let listData = response.data;
+                listData['userName'] = listData.ep_name;
+                listData['experience'] = listData.ep_exp;
+                listData['married'] = listData.ep_married;
+                listData['gender'] = listData.ep_gender;
+                listData['birthday'] = listData.ep_birth_day;
+                listData['address'] = listData.ep_address;
+                listData['phoneTK'] = listData.ep_phone_tk;
+                listData['phone'] = listData.ep_phone;
+                listData['emailContact'] = listData.ep_email_lh;
+                setData(listData)
             }
 
         }

@@ -102,7 +102,7 @@ class CallApi {
     static async listFeedback(currentPage) {
         let response = ''
         try {
-            const call = await axios.post(process.env.NEXT_PUBLIC_API + '/api/qlc/Admin/getListFeedback', { page: currentPage })
+            const call = await axios.post(process.env.NEXT_PUBLIC_API + '/api/qlc/admin/getListFeedback', { page: currentPage })
             response = call
         } catch (error) {
             response = error.response.data.error.message
@@ -114,7 +114,7 @@ class CallApi {
     static async listCom(data) {
         let response = ''
         try {
-            const call = await axios.post(process.env.NEXT_PUBLIC_API + '/api/qlc/Admin/listCom', data)
+            const call = await axios.post(process.env.NEXT_PUBLIC_API + '/api/qlc/admin/listCom', data)
             response = call
         } catch (error) {
             response = error.response.data.error.message
@@ -126,7 +126,7 @@ class CallApi {
     static async updateVip(data) {
         let response = ''
         try {
-            const call = await axios.post(process.env.NEXT_PUBLIC_API + '/api/qlc/Admin/vip', data)
+            const call = await axios.post(process.env.NEXT_PUBLIC_API + '/api/qlc/admin/vip', data)
             response = call
         } catch (error) {
             response = error.response.data.error.message
@@ -138,7 +138,7 @@ class CallApi {
     static async updatePwAdmin(data) {
         let response = ''
         try {
-            const call = await axios.post(process.env.NEXT_PUBLIC_API + '/api/qlc/Admin/updatePassword', data)
+            const call = await axios.post(process.env.NEXT_PUBLIC_API + '/api/qlc/admin/updatePassword', data)
             response = call
         } catch (error) {
             response = error.response.data.error.message
@@ -150,7 +150,7 @@ class CallApi {
     static async dsBaoLoi() {
         let response = '';
         try {
-            const call = await axios.post(process.env.NEXT_PUBLIC_API + '/api/qlc/Admin/getListReportErr');
+            const call = await axios.post(process.env.NEXT_PUBLIC_API + '/api/qlc/admin/getListReportErr');
             response = call;
         } catch (error) {
             response = error.response.data.error.message
@@ -163,7 +163,7 @@ class CallApi {
     static async dsDangKyLoi() {
         let response = '';
         try {
-            const call = await axios.post(process.env.NEXT_PUBLIC_API + '/api/qlc/Admin/listComErr');
+            const call = await axios.post(process.env.NEXT_PUBLIC_API + '/api/qlc/admin/listComErr');
             response = call;
         } catch (error) {
             response = error.response.data.error.message
@@ -176,7 +176,7 @@ class CallApi {
     static async updateVipAuth(data) {
         let response = ''
         try {
-            const call = await axios.post(process.env.NEXT_PUBLIC_API + '/api/qlc/Admin/put', data)
+            const call = await axios.post(process.env.NEXT_PUBLIC_API + '/api/qlc/admin/put', data)
             response = call
         } catch (error) {
             response = error.response.data.error.message

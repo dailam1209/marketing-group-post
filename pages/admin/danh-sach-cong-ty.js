@@ -81,18 +81,28 @@ export default function Admin() {
     }
 
     // click for active vip
-    const activeVip = async (id, vip) => {
+    const activeVip = async (id, vip, date) => {
+        const seconds = Math.floor(Date.now() / 1000);
+        const dateVip = date / 1000;
         let form = new FormData();
         form.append('com_id', id)
         let acVip = '';
-        if (vip === 0 || vip === 2) {
+        if (vip === 0) {
             acVip = 1;
+            if (dateVip > seconds) {
+                form.append('putVip', acVip)
+                await CallApi.updateVipAuth(form);
+                router.reload();
+            } else {
+                alert('Vui lòng chọn ngày hết hạn Vip lớn hơn hiện tại để cập nhật tài khoản về trạng thái Vip')
+            }
+
         } else {
             acVip = 2;
+            form.append('putVip', acVip)
+            await CallApi.updateVipAuth(form);
+            router.reload();
         }
-        form.append('putVip', acVip)
-        await CallApi.updateVipAuth(form);
-        router.reload();
     }
 
     if (!isLoad) {
@@ -103,8 +113,6 @@ export default function Admin() {
             <>
                 <meta httpEquiv="content-type" content="text/html; charset=UTF-8" />
                 <title>Administrator</title>
-                {/* <base href="https://vieclamtaihanoi.com.vn/" /> */}
-                {/* <link href="#" rel="shortcut icon" /> */}
                 <link rel="stylesheet" href="../css/admin.css" type="text/css" />
 
                 <HeaderAdmin />
@@ -179,29 +187,25 @@ export default function Admin() {
                                     <td align="center">{item.phone}</td>
                                     <td align="center">{item.emailContact}</td>
                                     <td align="center">{item.address}</td>
-                                    <td align="center">{format(item.createdAt, 'dd-MM-yyyy HH:m:ii')}</td>
+                                    <td align="center">{format(item.createdAt, 'dd-MM-yyyy')}</td>
                                     <td align="center">
                                         <a className="status" onClick={() => activeUser(item.idQLC, item.authentic)}>
                                             {(item.authentic == 0) ? (<img src="../img/publish_x.png" />) : (<img src="../img/tick.png" />)}
                                         </a>
                                     </td>
                                     <td align="center">
-                                        {/* <select style={{ width: '100px' }}>
-                                            <option value={0}> Không VIP </option>
-                                            <option value={1}> VIP </option>
-                                            <option value={2}> Từng VIP </option>
-                                        </select> */}
-                                        <a className="status" onClick={() => activeVip(item.idQLC, item.inForCompany.cds.com_vip)}>
-                                            {(item.inForCompany && item.inForCompany.cds.com_vip == 0) ? (<img src="../img/publish_x.png" />) : (<img src="../img/tick.png" />)}
+                                        <a className="status" onClick={() => activeVip(item.idQLC, item.inForCompany.cds.com_vip, item.inForCompany.cds.com_vip_time)}>
+
+                                            {(item.inForCompany && item.inForCompany.cds.com_vip != 1 || item.inForCompany && item.inForCompany.cds.com_vip == 1 && Math.floor(Date.now()) > item.inForCompany.cds.com_vip_time) ? (<img src="../img/publish_x.png" />) : (<img src="../img/tick.png" />)}
                                         </a>
                                     </td>
                                     <td align="center">
                                         <a>{item.count_emp} nhân viên</a>
                                     </td>
                                     <td align="center" id='com_117930'> <span style={{ display: 'block', cursor: 'pointer' }}>{item.inForCompany && (item.inForCompany.cds.com_ep_vip)}</span></td>
-                                    <td align="center">{item.inForCompany && item.inForCompany.cds.com_vip == 1 && (format(item.inForCompany.cds.com_vip_time, 'dd-MM-yyyy HH:MM:ii'))}</td>
-                                    <td align="center"><a target="_blank" href={'/admin/change-pass-com?id=' + item.idQLC}>Sửa</a></td>
-                                    <td align="center"><a target="_blank" href={'/admin/update-vip?id=' + item.idQLC}>Sửa</a></td>
+                                    <td align="center">{item.inForCompany && item.inForCompany.cds.com_vip == 1 && (format(parseInt(item.inForCompany.cds.com_vip_time) * 1000, 'dd-MM-yyyy'))}</td>
+                                    <td align="center"><a href={'/admin/change-pass-com?id=' + item.idQLC}>Sửa</a></td>
+                                    <td align="center"><a href={'/admin/update-vip?id=' + item.idQLC + '&&sl=' + item.inForCompany.cds.com_ep_vip + '&&date=' + item.inForCompany.cds.com_vip_time}>Sửa</a></td>
                                 </tr>
                             ))}
                         </tbody>

@@ -18,7 +18,7 @@ export default function EditIP(props) {
             await editIP(form);
         }
         edit();
-        // router.reload();
+        router.reload();
     }
     return (
         <>
