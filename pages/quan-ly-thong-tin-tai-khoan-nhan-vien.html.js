@@ -3,10 +3,9 @@ import Seo from '../components/head'
 import SideBar from '../components/sideBar/SideBar';
 import HeaderLogin from '../components/headerLogin/HeaderLogin';
 import Cookies from "js-cookie";
-import { getEducation, getGender, getExperience, getMarried, getPosition, ConvertIntToDate } from "../utils/function";
+import { getMarried, ConvertIntToDate, renderPosition, renderExp, renderEdu } from "../utils/function";
 import { useForm } from 'react-hook-form';
 import { infoEp, infoPersonal, changePassEp, changePassPersonal, updatePersonal } from '../utils/handleApi';
-import { updateCom } from "../utils/handleApi";
 
 export default function DetailEmployee() {
     // gọi api lấy thông tin nhân viên
@@ -14,12 +13,13 @@ export default function DetailEmployee() {
     const type = () => {
         return Cookies.get('role');
     };
-
+    const [getHtml, setHtml] = useState(false);
     useEffect(() => {
         const getData = async () => {
             if (type() === '2') {
                 let response = await infoEp();
                 setData(response.data)
+                setHtml(true)
             } else {
                 let response = await infoPersonal();
                 setData(response.data)
@@ -125,29 +125,29 @@ export default function DetailEmployee() {
                                                             />
                                                         </div>
 
-                                                        <p className="id">ID - {data._id}</p>
+                                                        <p className="id">ID - {data.idQLC}</p>
                                                     </div>
                                                 </div>
                                                 <div className="info_taikhoan">
                                                     <div className="cont">
                                                         <p className="d_title font_20">{data.userName}</p>
-                                                        {(type == 2) && (
+                                                        {(getHtml) ? (
                                                             <>
-                                                                <p className="d_title font_18">{data.companyName}</p>
-                                                                <p className="d_title font_16">{data.departmentName}</p>
+                                                                <p className="d_title font_18">{data.companyName ? data.companyName.userName : ''}</p>
+                                                                <p className="d_title font_16">{data.nameDeparment ? data.nameDeparment[0] : ''}</p>
                                                                 <p className="content d_flex">
-                                                                    <span style={{ fontsize: '15px' }}>{getPosition[data.position_id]}</span>
+                                                                    <span style={{ fontsize: '15px' }}>{renderPosition(data.position_id)}</span>
                                                                 </p>
                                                             </>
-                                                        )}
+                                                        ) : ''}
                                                         <p className="content d_flex">
                                                             <span>Kinh nghiệm làm việc:</span>
-                                                            <span>{getExperience[data.experience]}</span>
+                                                            <span>{renderExp(data.experience)}</span>
                                                         </p>
-                                                        {(type == '2') ? (
+                                                        {(getHtml) ? (
                                                             <p className="content d_flex">
                                                                 <span>Ngày bắt đầu làm việc:</span>
-                                                                <span>{(data.start_working_time != 0) ? ConvertIntToDate(data.start_working_time)[0] : 'Chưa cập nhật'}</span>
+                                                                <span>{(data.start_working_time != 0) ? ConvertIntToDate(data.start_working_time) : 'Chưa cập nhật'}</span>
                                                             </p>
                                                         ) : ''}
                                                         <p className="content d_flex">
@@ -168,7 +168,7 @@ export default function DetailEmployee() {
                                                         </p> */}
                                                         <p className="content d_flex">
                                                             <span>Trình độ học vấn:</span>
-                                                            <span>{(data.education) ? getEducation[data.education] : 'Chưa cập nhật'}</span>
+                                                            <span>{(data.education) ? renderEdu(data.education) : 'Chưa cập nhật'}</span>
                                                         </p>
                                                         <p className="content d_flex">
                                                             <span>Địa chỉ:</span>

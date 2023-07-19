@@ -1,17 +1,18 @@
 import { React, useState, useEffect } from "react"
 import ReactPaginate from 'react-paginate';
 import CallApi from '../api/call_api';
-import { ConvertIntToDate } from '../../utils/function'
 import HeaderAdmin from "../../components/headerAdmin";
 import Cookies from "js-cookie";
 import { useForm } from 'react-hook-form'
 import { format } from 'date-fns';
+import FormData from "form-data";
+import { useRouter } from "next/router";
 
 export default function Admin() {
     if (!Cookies.get('admin')) {
         // window.location.href = "/admin"
     }
-
+    const router = new useRouter();
     const [currentPage, setCurrentPage] = useState()
     const [valueSend, setValueSend] = useState({})
 
@@ -65,15 +66,33 @@ export default function Admin() {
     }, [])
 
     // click for active user
-    const activeUser = async (id) => {
-        let active = await CallApi.listCom(id)
-        console.log(active)
+    const activeUser = async (id, authentic) => {
+        let form = new FormData();
+        form.append('com_id', id)
+        let acVip = '';
+        if (authentic === 0) {
+            acVip = 1;
+        } else {
+            acVip = 0;
+        }
+        form.append('putAuthen', acVip)
+        await CallApi.updateVipAuth(form);
+        router.reload();
     }
 
     // click for active vip
-    const activeVip = async (id) => {
-        let active = await CallApi.listCom(id)
-        console.log(active)
+    const activeVip = async (id, vip) => {
+        let form = new FormData();
+        form.append('com_id', id)
+        let acVip = '';
+        if (vip === 0 || vip === 2) {
+            acVip = 1;
+        } else {
+            acVip = 2;
+        }
+        form.append('putVip', acVip)
+        await CallApi.updateVipAuth(form);
+        router.reload();
     }
 
     if (!isLoad) {
@@ -116,8 +135,8 @@ export default function Admin() {
                                     <option value="1">Công ty đang vip</option>
                                     <option value="2">Công ty từng vip</option>
                                     <option value="3">Công ty chưa vip</option>
-                                    <option value="4">Công ty đăng kí lỗi, chưa kích hoạt</option>
-                                    <option value="5">Công ty đăng kí ltrong ngày</option>
+                                    <option value="4">Công ty chưa kích hoạt</option>
+                                    <option value="5">Công ty đăng kí trong ngày</option>
                                     <option value="6">Công ty sử dụng chấm công trong ngày</option>
                                 </select>
                                 <br />
@@ -162,7 +181,7 @@ export default function Admin() {
                                     <td align="center">{item.address}</td>
                                     <td align="center">{format(item.createdAt, 'dd-MM-yyyy HH:m:ii')}</td>
                                     <td align="center">
-                                        <a className="status" onClick={() => activeUser(item._id)}>
+                                        <a className="status" onClick={() => activeUser(item.idQLC, item.authentic)}>
                                             {(item.authentic == 0) ? (<img src="../img/publish_x.png" />) : (<img src="../img/tick.png" />)}
                                         </a>
                                     </td>
@@ -172,7 +191,7 @@ export default function Admin() {
                                             <option value={1}> VIP </option>
                                             <option value={2}> Từng VIP </option>
                                         </select> */}
-                                        <a className="status" onClick={() => activeVip(item._id)}>
+                                        <a className="status" onClick={() => activeVip(item.idQLC, item.inForCompany.cds.com_vip)}>
                                             {(item.inForCompany && item.inForCompany.cds.com_vip == 0) ? (<img src="../img/publish_x.png" />) : (<img src="../img/tick.png" />)}
                                         </a>
                                     </td>
@@ -180,7 +199,7 @@ export default function Admin() {
                                         <a>{item.count_emp} nhân viên</a>
                                     </td>
                                     <td align="center" id='com_117930'> <span style={{ display: 'block', cursor: 'pointer' }}>{item.inForCompany && (item.inForCompany.cds.com_ep_vip)}</span></td>
-                                    <td align="center">{item.inForCompany && item.inForCompany.cds.com_vip != 0 && (format(item.inForCompany.cds.com_vip_time, 'dd-MM-yyyy HH:mm:ii'))}</td>
+                                    <td align="center">{item.inForCompany && item.inForCompany.cds.com_vip == 1 && (format(item.inForCompany.cds.com_vip_time, 'dd-MM-yyyy HH:MM:ii'))}</td>
                                     <td align="center"><a target="_blank" href={'/admin/change-pass-com?id=' + item.idQLC}>Sửa</a></td>
                                     <td align="center"><a target="_blank" href={'/admin/update-vip?id=' + item.idQLC}>Sửa</a></td>
                                 </tr>

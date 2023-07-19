@@ -4,54 +4,86 @@ import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 
 export const getEducation = [
-    'Chưa cập nhật',
-    'Trên Đại học',
-    'Đại học',
-    'Cao đẳng',
-    'Trung cấp',
-    'Đào tạo nghề',
-    'Trung học phổ thông',
-    'Trung học cơ sở',
-    'Tiểu học',
+    { id: 1, value: 'Chưa cập nhật' },
+    { id: 2, value: 'Trên Đại học' },
+    { id: 3, value: 'Đại học' },
+    { id: 4, value: 'Cao đẳng' },
+    { id: 5, value: 'Trung cấp' },
+    { id: 6, value: 'Đào tạo nghề' },
+    { id: 7, value: 'Trung học phổ thông' },
+    { id: 8, value: 'Trung học cơ sở' },
+    { id: 8, value: 'Tiểu học' },
 ]
 
 export const getExperience = [
-    'Chưa cập nhật',
-    'Chưa có kinh nghiệm',
-    'Dưới 1 năm kinh nghiệm',
-    '1 năm',
-    '2 năm',
-    '3 năm',
-    '4 năm',
-    '5 năm',
-    'Trên 5 năm',
+    { id: 0, value: 'Chưa cập nhật' },
+    { id: 1, value: 'Chưa có kinh nghiệm' },
+    { id: 2, value: 'Dưới 1 năm kinh nghiệm' },
+    { id: 3, value: '1 năm' },
+    { id: 4, value: '2 năm' },
+    { id: 5, value: '3 năm' },
+    { id: 6, value: '4 năm' },
+    { id: 7, value: '5 năm' },
+    { id: 8, value: 'Trên 5 năm' },
 ]
 
 export const getPosition = [
-    'Chưa cập nhật',
-    'SINH VIÊN THỰC TẬP',
-    'NHÂN VIÊN THỬ VIỆC',
-    'NHÂN VIÊN PART TIME',
-    'NHÂN VIÊN CHÍNH THỨC',
-    'NHÓM PHÓ',
-    'TRƯỞNG NHÓM',
-    'PHÓ TỔ TRƯỞNG',
-    'TỔ TRƯỞNG',
-    'PHÓ BAN DỰ ÁN',
-    'TRƯỞNG BAN DỰ ÁN',
-    'PHÓ TRƯỞNG PHÒNG',
-    'TRƯỞNG PHÒNG',
-    'PHÓ GIÁM ĐỐC',
-    'GIÁM ĐỐC',
-    'PHÓ TỔNG GIÁM ĐỐC',
-    'TỔNG GIÁM ĐỐC',
-    'PHÓ TỔNG GIÁM ĐỐC TẬP ĐOÀN',
-    'TỔNG GIÁM ĐỐC TẬP ĐOÀN',
-    'PHÓ CHỦ TỊCH HỘI ĐỒNG QUẢN TRỊ',
-    'CHỦ TỊCH HỘI ĐỒNG QUẢN TRỊ',
-    'THÀNH VIÊN HỘI ĐỒNG QUẢN TRỊ',
+    { id: 0, value: 'Chưa cập nhật' },
+    { id: 1, value: 'SINH VIÊN THỰC TẬP' },
+    { id: 2, value: 'NHÂN VIÊN THỬ VIỆC' },
+    { id: 9, value: 'NHÂN VIÊN PART TIME' },
+    { id: 3, value: 'NHÂN VIÊN CHÍNH THỨC' },
+    { id: 20, value: 'NHÓM PHÓ' },
+    { id: 4, value: 'TRƯỞNG NHÓM' },
+    { id: 12, value: 'PHÓ TỔ TRƯỞNG' },
+    { id: 13, value: 'TỔ TRƯỞNG' },
+    { id: 10, value: 'PHÓ BAN DỰ ÁN' },
+    { id: 11, value: 'TRƯỞNG BAN DỰ ÁN' },
+    { id: 5, value: 'PHÓ TRƯỞNG PHÒNG' },
+    { id: 6, value: 'TRƯỞNG PHÒNG' },
+    { id: 7, value: 'PHÓ GIÁM ĐỐC' },
+    { id: 8, value: 'GIÁM ĐỐC' },
+    { id: 14, value: 'PHÓ TỔNG GIÁM ĐỐC' },
+    { id: 16, value: 'TỔNG GIÁM ĐỐC' },
+    { id: 22, value: 'PHÓ TỔNG GIÁM ĐỐC TẬP ĐOÀN' },
+    { id: 21, value: 'TỔNG GIÁM ĐỐC TẬP ĐOÀN' },
+    { id: 18, value: 'PHÓ CHỦ TỊCH HỘI ĐỒNG QUẢN TRỊ' },
+    { id: 19, value: 'CHỦ TỊCH HỘI ĐỒNG QUẢN TRỊ' },
+    { id: 17, value: 'THÀNH VIÊN HỘI ĐỒNG QUẢN TRỊ' },
 ]
 
+export function renderEdu(id) {
+    let name = 'Chưa cập nhật';
+    getEducation.find((item) => {
+        if (item.id === id) {
+            name = item.value
+        }
+    })
+
+    return name
+}
+
+export function renderExp(id) {
+    let name = 'Chưa cập nhật';
+    getExperience.find((item) => {
+        if (item.id === id) {
+            name = item.value
+        }
+    })
+
+    return name
+}
+
+export function renderPosition(id) {
+    let name = 'Chưa cập nhật';
+    getPosition.find((item) => {
+        if (item.id === id) {
+            name = item.value
+        }
+    })
+
+    return name
+}
 
 export const getGender = [
     'Chưa cập nhật',

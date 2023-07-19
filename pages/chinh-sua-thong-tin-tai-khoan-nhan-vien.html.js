@@ -5,22 +5,33 @@ import HeaderLogin from '../components/headerLogin/HeaderLogin';
 import Cookies from "js-cookie";
 import { useForm } from 'react-hook-form';
 import { infoEp, infoPersonal, updateEp, updatePersonal } from '../utils/handleApi';
-import { getEducation, validatePhone, getExperience, getGender, getMarried, ConvertIntToDate, validateMail } from "../utils/function";
+import { getEducation, validatePhone, getExperience, getGender, getMarried, ConvertIntToDate, validateMail, renderPosition } from "../utils/function";
+import { format } from "date-fns";
+import FormData from "form-data";
 
 export default function EditEmployee() {
     // gọi api lấy thông tin nhân viên
     const [data, setData] = useState([]);
-    let role = Cookies.get('role');
+    const role = () => {
+        return Cookies.get('role');
+    };
+
     useEffect(() => {
         const getData = async () => {
-            if (role == 2) {
-                let response = await infoEp();
-                setData(response.data)
-                setValue('userName', response.data.userName)
-                setValue('address', response.data.address)
-                setValue('phone', response.data.phone || response.data.phoneTK)
+            if (role() === '2') {
+                const response = await infoEp();
+                const res = response.data;
+                setData(res);
+
+                setValue('userName', res.userName);
+                setValue('address', res.address);
+                setValue('phone', res.phone || res.phoneTK);
+                setValue('experience', res.experience);
+                setValue('married', res.married);
+                setValue('education', res.education);
+                setValue('email', res.emailContact);
             } else {
-                let response = await infoPersonal();
+                const response = await infoPersonal();
                 setData(response.data)
                 setValue('userName', response.data.userName)
                 setValue('address', response.data.address)
@@ -34,14 +45,18 @@ export default function EditEmployee() {
     const { register, handleSubmit, formState: { errors }, setValue } = useForm();
 
     const onSubmit = async data => {
-        let dateObject = new Date(data.birthday);
-        let birthday = dateObject.getTime();
-        birthday = Math.floor(birthday / 1000);
-        delete data.birthday
-        data.birthday = birthday
 
-        if (role == 2) {
-            let response = await updateEp(data);
+        const form = new FormData();
+        if (role() === '2') {
+            form.append('address', data.address);
+            form.append('birthday', data.birthday);
+            form.append('emailContact', data.email);
+            form.append('experience', data.experience);
+            form.append('gender', data.gender);
+            form.append('married', data.married);
+            form.append('phone', data.phone);
+            form.append('userName', data.userName);
+            let response = await updateEp(form);
             if (response.result == true) {
                 setUpdateSuccess(true)
             } else {
@@ -98,19 +113,19 @@ export default function EditEmployee() {
                                                 <div className="form-group">
                                                     <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
                                                         ID</label>
-                                                    <input type="text" name="name_id" className="form-control share_fsize_one share_clr_one" placeholder="Nhập ID" value={data._id || ''} readOnly />
+                                                    <input type="text" name="name_id" className="form-control share_fsize_one share_clr_one" placeholder="Nhập ID" value={data.idQLC || ''} readOnly />
                                                 </div>
                                                 <div className="form-group">
                                                     <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
                                                         Công ty</label>
-                                                    <input type="text" name="congty" className="form-control share_fsize_one share_clr_one" placeholder="Nhập tên công ty" value={data.companyName || ''} readOnly />
+                                                    <input type="text" name="congty" className="form-control share_fsize_one share_clr_one" placeholder="Nhập tên công ty" value={data.companyName ? data.companyName.userName : ''} readOnly />
                                                 </div>
                                             </div>
                                             <div className="d_form_item form_container d_flex">
                                                 <div className="form-group">
                                                     <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
                                                         Họ và tên <span className="cr_red">*</span></label>
-                                                    <input type="text" name="userName" className="form-control share_fsize_one share_clr_one" placeholder="Nhập họ và tên" defaultValue={data.userName || ''}
+                                                    <input type="text" name="userName" className="form-control share_fsize_one share_clr_one" placeholder="Nhập họ và tên" defaultValue={data.userName}
                                                         {...register("userName", {
                                                             required: 'Họ và tên không được để trống',
                                                         })}
@@ -120,7 +135,7 @@ export default function EditEmployee() {
                                                 <div className="form-group">
                                                     <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
                                                         Email <span className="cr_red">*</span></label>
-                                                    <input type="text" name="email" className="form-control share_fsize_one share_clr_one" placeholder="Nhập email" defaultValue={data.email || ''}
+                                                    <input type="text" name="email" className="form-control share_fsize_one share_clr_one" placeholder="Nhập email" defaultValue={data.emailContact ? data.emailContact : ''}
                                                         {...register("email", {
                                                             required: 'Không được để trống',
                                                             validate: {
@@ -202,8 +217,8 @@ export default function EditEmployee() {
                                                         onChange={(e) => setValue('education', e.target.value)}
                                                     >
                                                         {
-                                                            getEducation.map((item, index) => (
-                                                                <option key={item} value={index} style={{ display: (index != 0) ? 'block' : 'none' }}>{item}</option>
+                                                            getEducation.map((item) => (
+                                                                <option value={item.id}>{item.value}</option>
                                                             ))
                                                         }
                                                     </select >
@@ -212,7 +227,7 @@ export default function EditEmployee() {
                                                     <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
                                                         Tình trạng hôn nhân <span className="cr_red">*</span></label>
                                                     <select {...register('married')}
-                                                        defaultValue={data.married || 1}
+                                                        defaultValue={data.married}
                                                         name="tinhtrang"
                                                         onChange={(e) => setValue('married', e.target.value)}
                                                         className="form-control">
@@ -234,8 +249,8 @@ export default function EditEmployee() {
                                                         onChange={(e) => setValue('experience', e.target.value)}
                                                         className="form-control">
                                                         {
-                                                            getExperience.map((item, index) => (
-                                                                <option key={item} value={index} style={{ display: (index != 0) ? 'block' : 'none' }}>{item}</option>
+                                                            getExperience.map((item) => (
+                                                                <option value={item.id} >{item.value}</option>
                                                             ))
                                                         }
                                                     </select >
@@ -244,18 +259,18 @@ export default function EditEmployee() {
                                                     <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
                                                         Ngày bắt đầu làm việc <span className="cr_red">*</span>
                                                     </label>
-                                                    <input type="date" name="ngaylamviec" className="form-control share_fsize_one share_clr_one" value="" readOnly />
+                                                    <input type="date" name="ngaylamviec" className="form-control share_fsize_one share_clr_one" value={data.start_working_time > 0 ? format(data.start_working_time, 'dd-MM-yyyy') : ''} readOnly />
 
                                                 </div>
                                             </div>
                                             <div className="d_form_item form_container d_flex">
                                                 <div className="form-group">
                                                     <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">Phòng ban </label>
-                                                    <input type="text" name="phongban" className="form-control share_fsize_one share_clr_one" placeholder="Nhập tên phòng ban" defaultValue='' readOnly />
+                                                    <input type="text" name="phongban" className="form-control share_fsize_one share_clr_one" placeholder="Nhập tên phòng ban" defaultValue={data.nameDeparment ? data.nameDeparment : "Chưa xác định"} readOnly />
                                                 </div>
                                                 <div className="form-group">
                                                     <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">Chức vụ<span className="cr_red">*</span></label>
-                                                    <input type="text" className="form-control" name="chuc_vu" value={data.position_id || ''} readOnly />
+                                                    <input type="text" className="form-control" name="chuc_vu" value={data.position_id ? renderPosition(data.position_id) : 'Chưa xác định'} readOnly />
                                                 </div>
                                             </div>
                                             <div className="d_form_item form_container d_flex">

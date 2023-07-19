@@ -37,6 +37,7 @@ export default function HeaderLogin({ text }) {
                     setData(response.data);
                 } else if (type() === '1') {
                     let response = await infoCom();
+
                     if (response.data.authentic == 0) {
                         router.push('/xac-thuc-ma-otp-cong-ty.html');
                     }
@@ -258,13 +259,13 @@ export default function HeaderLogin({ text }) {
                 <div className="ic_nhanh_avt">
                     <div className="img_ic" onClick={optionUser}>
                         {
-                            data.avatarUser ? (<img src={data.avatarUser} className="avt_img_tk" onError={(e) => { e.target.onerror = null; e.target.src = "../img/logo_com.png"; }} />) : (<img src="../img/logo_com.png" alt="" className="avt_img_tk" />)
+                            data.avatar ? (<img src={data.avatar} className="avt_img_tk" onError={(e) => { e.target.onerror = null; e.target.src = "../img/logo_com.png"; }} />) : (<img src="../img/logo_com.png" alt="" className="avt_img_tk" />)
                         }
                         {(linkHome === 'quan-ly-ung-dung-cong-ty.html') ? (
                             <>
                                 <div className="logout_fname share_clr_one" onClick={optionUser}>
                                     <p className="show_dow_p" >{data.userName}</p>
-                                    <p className="show_dow_p" >ID: {data._id}</p>
+                                    <p className="show_dow_p" >ID: {data.idQLC}</p>
                                 </div>
                             </>
                         ) : (

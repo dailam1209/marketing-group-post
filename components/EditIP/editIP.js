@@ -4,15 +4,17 @@ import FormData from "form-data";
 import { editIP } from "../../utils/handleApi";
 import { useRouter } from "next/router";
 export default function EditIP(props) {
+    console.log('props:', props)
     // validate and submit
     const { register, handleSubmit, formState: { errors } } = useForm();
     const router = new useRouter();
     const onSubmit1 = async data => {
+        console.log(data)
         const edit = async () => {
             const form = new FormData();
-            form.append('_id', data.id)
-            form.append('fromSite', data.formSite)
-            form.append('accessIP', data.accessIP1)
+            form.append('id_acc', data.id)
+            form.append('from_site', data.formSite)
+            form.append('ip_access', data.accessIP1)
             await editIP(form);
         }
         edit();
@@ -45,13 +47,13 @@ export default function EditIP(props) {
                                                                 Phần mềm thiết lập dải IP*{" "}
                                                                 <span className="cr_red cr_weight">*</span>
                                                             </label>
-                                                            <input className="hidden" {...register('id')} value={item._id} />
+                                                            <input className="hidden" {...register('id')} value={item.id_acc} />
                                                             <input
                                                                 {...register('formSite')}
                                                                 type="text"
                                                                 className="form-control"
                                                                 name=""
-                                                                defaultValue={renderNamePM(item.fromSite)}
+                                                                defaultValue={renderNamePM(item.from_site)}
                                                                 readOnly
                                                             />
                                                         </div>
@@ -64,7 +66,7 @@ export default function EditIP(props) {
                                                                 name="diachi_ip"
                                                                 id="addr_ip"
                                                                 className="form-control"
-                                                                defaultValue={item.accessIP}
+                                                                defaultValue={item.ip_access}
                                                                 {...register("accessIP1", {
                                                                     required: 'Chưa điền địa chỉ IP',
                                                                     validate: {
