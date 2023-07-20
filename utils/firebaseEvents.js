@@ -5,8 +5,6 @@ import Cookies from "js-cookie";
 import { authenCom, authenEp, authenPersonal } from './handleApi';
 
 const handleVerifyOtp = async (btn = null, account = null, otp = null, type = null) => {
-    let token = Cookies.get('acc_token');
-    console.log(account)
     const partitioned = document.querySelector('#partitioned');
     if (btn) {
         try {

@@ -27,7 +27,7 @@ export default function AdminFeedback() {
             try {
                 let response = await CallApi.listFeedback('')
                 getListFeedback(response.data.data.data)
-                console.log('response.data.data.data:', response.data.data.data)
+
                 const totalItems = response.data.data.count;
                 const itemsPerPage = 25;
                 const totalPages = Math.ceil(totalItems / itemsPerPage);

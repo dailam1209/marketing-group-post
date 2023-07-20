@@ -211,7 +211,7 @@ export const createIp = async (data) => {
 
     let result = await axios.request(config)
         .then((response) => {
-            console.log(JSON.stringify(response.data));
+
         })
         .catch((error) => {
             console.log(error);

@@ -64,18 +64,6 @@ export default function Admin() {
         getData()
     }, [])
 
-    // click for active user
-    const activeUser = async (id) => {
-        let active = await CallApi.listCom(id)
-        console.log(active)
-    }
-
-    // click for active vip
-    const activeVip = async (id) => {
-        let active = await CallApi.listCom(id)
-        console.log(active)
-    }
-
     if (!isLoad) {
         return
     }

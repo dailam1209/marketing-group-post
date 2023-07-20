@@ -150,7 +150,6 @@ export function validateMail(value) {
 
 export function validateIP(value) {
     const ipRegex = /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/;
-    console.log(ipRegex.test(value))
     if (ipRegex.test(value)) {
         return true;
     }
