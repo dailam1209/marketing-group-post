@@ -13,7 +13,7 @@ export default function Admin() {
         // window.location.href = "/admin"
     }
     const router = new useRouter();
-    const [currentPage, setCurrentPage] = useState()
+    const [currentPage, setCurrentPage] = useState(0);
     const [valueSend, setValueSend] = useState({})
 
     const { register, handleSubmit } = useForm();
@@ -79,7 +79,7 @@ export default function Admin() {
         await CallApi.updateVipAuth(form);
         router.reload();
     }
-
+    console.log('currentPage:', currentPage)
     // click for active vip
     const activeVip = async (id, vip, date) => {
         const seconds = Math.floor(Date.now() / 1000);

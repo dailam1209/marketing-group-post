@@ -13,6 +13,7 @@ export default function Admin() {
     // pagination and get list company
     const [listCom, getlistCom] = useState([])
     const [totalPages, getTotalPage] = useState()
+    const [currentPage, setCurrentPage] = useState(0);
     const [count, setCount] = useState()
     const handlePageChange = async (selected) => {
         valueSend.pageNumber = selected.selected + 1
@@ -44,7 +45,7 @@ export default function Admin() {
         }
         getData()
     }, [])
-
+    console.log(listCom.length)
     return (
         <>
             <meta httpEquiv="content-type" content="text/html; charset=UTF-8" />
@@ -61,8 +62,7 @@ export default function Admin() {
                 <table style={{ display: 'block', width: "100%" }}>
                     <thead>
                         <tr className="title">
-                            {/* <td align="center" style={{ width: "5%" }} >STT</td> */}
-                            <td align="center" style={{ width: "5%" }}>ID</td>
+                            <td align="center" style={{ width: "5%" }}>STT</td>
                             <td align="center" style={{ width: "15%" }}>Tên</td>
                             <td style={{ width: "15%" }}>Email</td>
                             <td style={{ width: "10%" }}>Số điện thoại</td>
@@ -72,17 +72,24 @@ export default function Admin() {
                         </tr>
                     </thead>
                     <tbody>
-                        {listCom?.map(item => (
-                            <tr>
-                                <td align="center">{item._id}</td>
-                                <td align="center">{item.userName}</td>
-                                <td align="center">{item.email ? item.email : item.emailContact}</td>
-                                <td align="center">{item.phoneTK}</td>
-                                <td align="center">{item.detail_error}</td>
-                                <td align="center">{item.gallery_image_error ? (<img width={'100px'} height={'100px'} src={item.gallery_image_error} />) : ''} </td>
-                                <td align="center">{format(parseInt(item.time_create), 'dd-MM-yyyy')}</td>
-                            </tr>
-                        ))}
+                        {
+                            listCom?.map((item, index) => {
+
+                                return (
+                                    <>
+                                        <tr>
+                                            <td align="center">{count - currentPage * 25 - index}</td>
+                                            <td align="center">{item.userName}</td>
+                                            <td align="center">{item.email ? item.email : item.emailContact}</td>
+                                            <td align="center">{item.phoneTK}</td>
+                                            <td align="center">{item.detail_error}</td>
+                                            <td align="center">{item.gallery_image_error ? (<img width={'100px'} height={'100px'} src={item.gallery_image_error} />) : ''} </td>
+                                            <td align="center">{format(parseInt(item.time_create), 'dd-MM-yyyy')}</td>
+                                        </tr>
+
+                                    </>
+                                )
+                            })}
                     </tbody>
                 </table>
                 <ReactPaginate

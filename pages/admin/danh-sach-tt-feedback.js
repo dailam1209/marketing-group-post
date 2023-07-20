@@ -9,7 +9,7 @@ export default function AdminFeedback() {
     const [totalPages, getTotalPage] = useState()
     const [isLoad, getIsLoad] = useState(false)
     const [count, setCount] = useState()
-
+    const [currentPage, setCurrentPage] = useState(0);
     const handlePageChange = async (selected) => {
         try {
             let response = await CallApi.listFeedback(selected.selected + 1)
@@ -18,6 +18,7 @@ export default function AdminFeedback() {
             const itemsPerPage = 25
             const totalPages = Math.ceil(totalItems / itemsPerPage);
             getTotalPage(totalPages);
+            setCurrentPage(selected.selected)
         } catch (error) {
             alert(error)
         }
@@ -60,7 +61,7 @@ export default function AdminFeedback() {
                         <thead>
                             <tr className="title">
                                 {/* <td width="5%" align="center">STT</td> */}
-                                <td style={{ width: '3%' }} align="center">ID</td>
+                                <td style={{ width: '3%' }} align="center">STT</td>
                                 <td style={{ width: '10%' }} align="center">Tên</td>
                                 <td style={{ width: '6%' }} >Email</td>
                                 <td style={{ width: '5%' }} >Số điện thoại</td>
@@ -70,9 +71,9 @@ export default function AdminFeedback() {
                             </tr>
                         </thead>
                         <tbody>
-                            {listFeedback?.map(item => (
+                            {listFeedback?.map((item, index) => (
                                 <tr>
-                                    <td align="center">{item?._id}</td>
+                                    <td align="center">{count - currentPage * 25 - index}</td>
                                     <td align="center">{item.userName}</td>
                                     <td align="center">{item.email ? item.email : item.emailContact}</td>
                                     <td align="center">{item.phone}</td>
