@@ -196,7 +196,13 @@ export default function Admin() {
                                     <td align="center">
                                         <a className="status" onClick={() => activeVip(item.idQLC, item.inForCompany.cds.com_vip, item.inForCompany.cds.com_vip_time)}>
 
-                                            {(item.inForCompany && item.inForCompany.cds.com_vip != 1 || item.inForCompany && item.inForCompany.cds.com_vip == 1 && Math.floor(Date.now()) > item.inForCompany.cds.com_vip_time) ? (<img src="../img/publish_x.png" />) : (<img src="../img/tick.png" />)}
+                                            {item.inForCompany && item.inForCompany.cds.com_vip !== 1 || (item.inForCompany.cds.com_vip === 1 &&
+                                                parseInt(Date.now() / 1000) > parseInt(item.inForCompany.cds.com_vip_time)) ? (
+                                                <img src="../img/publish_x.png" alt="Publish X" />
+                                            ) : (
+                                                <img src="../img/tick.png" alt="Tick" />
+                                            )}
+
                                         </a>
                                     </td>
                                     <td align="center">

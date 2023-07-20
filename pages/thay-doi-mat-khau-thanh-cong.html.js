@@ -1,15 +1,18 @@
+import Footer from '../components/footer/Footer'
 import Seo from '../components/head'
+import Header from '../components/header/Header'
 import { CheckLogin } from '../utils/function'
 
 export default function ChangePwSuccess() {
     CheckLogin()
-    
+
     return (
-        <>  
-        <Seo
-        seo = ''
-        title = 'Trang quên mật khẩu'
-        />
+        <>
+            <Seo
+                seo=''
+                title='Trang quên mật khẩu'
+            />
+            <Header />
             <div class="content_ql ctn_bgr_body">
                 <div class="content_nv">
                     <div class="container">
@@ -17,11 +20,11 @@ export default function ChangePwSuccess() {
                             <div class="qmk_form">
                                 <div class="four_page_qmk tow_reg_ql share_reg_log share_brd_radius share_bgr_tow">
                                     <div class="avt_tb_qmk">
-                                        <img src="../img/thongbao.png" alt=""/>
+                                        <img src="../img/thongbao.png" alt="" />
                                     </div>
                                     <p class="titl_form share_clr_one tex_center">
-                                        Chúc mừng bạn đã thay đổi mật khẩu thành công<br/>
-                                            Đăng nhập ngay để sử dụng!
+                                        Chúc mừng bạn đã thay đổi mật khẩu thành công<br />
+                                        Đăng nhập ngay để sử dụng!
                                     </p>
                                     <div class="form-butt-one">
                                         <a href="/lua-chon-dang-nhap.html"
@@ -37,6 +40,7 @@ export default function ChangePwSuccess() {
                 </div>
             </div>
             <link rel="stylesheet" href="https://timviec365.vn/css/footer_new.css?v=2" />
+            <Footer />
         </>
     )
 }
