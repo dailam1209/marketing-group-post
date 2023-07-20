@@ -30,8 +30,8 @@ export const registerCom = async (data) => {
     }
 }
 
-export const registerEp = async (data) => {
-    let result = await functionAPI(process.env.NEXT_PUBLIC_API + '/api/qlc/employee/register', data)
+export const registerEp = async (form, data) => {
+    let result = await functionAPI(process.env.NEXT_PUBLIC_API + '/api/qlc/employee/register', form)
     if (result.result == true) {
         Cookies.set('token_base365', result.data.access_token);
         Cookies.set('role', 2);
