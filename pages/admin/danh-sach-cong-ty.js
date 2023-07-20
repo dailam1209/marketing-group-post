@@ -83,11 +83,11 @@ export default function Admin() {
     // click for active vip
     const activeVip = async (id, vip, date) => {
         const seconds = Math.floor(Date.now() / 1000);
-        const dateVip = date / 1000;
+        const dateVip = date;
         let form = new FormData();
         form.append('com_id', id)
         let acVip = '';
-        if (vip === 0) {
+        if (vip === 0 || vip === 2) {
             acVip = 1;
             if (dateVip > seconds) {
                 form.append('putVip', acVip)
@@ -98,7 +98,7 @@ export default function Admin() {
             }
 
         } else {
-            acVip = 2;
+            acVip = 0;
             form.append('putVip', acVip)
             await CallApi.updateVipAuth(form);
             router.reload();

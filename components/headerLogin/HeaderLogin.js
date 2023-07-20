@@ -31,26 +31,27 @@ export default function HeaderLogin({ text }) {
             try {
                 if (type() === '2') {
                     let response = await infoEp();
+                    Cookies.set('phone', response.data.phoneTK);
                     if (response.data.authentic == 0) {
                         router.push('/xac-thuc-ma-otp-nhan-vien.html');
                     }
                     setData(response.data);
                 } else if (type() === '1') {
                     let response = await infoCom();
-
+                    Cookies.set('phone', response.data.phoneTK);
                     if (response.data.authentic == 0) {
                         router.push('/xac-thuc-ma-otp-cong-ty.html');
                     }
                     setData(response.data);
                 } else {
                     let response = await infoPersonal();
+                    Cookies.set('phone', response.data.ep_phone_tk);
                     if (response.data.ep_authentic == 0) {
                         router.push('/xac-thuc-ma-otp-ca-nhan.html');
                     }
                     let listData = response.data;
                     listData['userName'] = listData.ep_name;
                     setData(listData);
-                    console.log('listData:', listData)
                 }
             } catch (error) {
                 console.log('Error:', error);

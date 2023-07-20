@@ -51,6 +51,7 @@ export default function checkTypeLogin(props) {
         Cookies.remove('token_base365');
         Cookies.remove('rf_token');
         Cookies.remove('role');
+        Cookies.remove('phone');
     }
 
     return (

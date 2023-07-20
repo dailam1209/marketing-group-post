@@ -58,6 +58,7 @@ export default function Header() {
                 try {
                     if (type() === '2') {
                         let response = await infoEp();
+                        Cookies.set('phone', response.data.phoneTK);
                         setData(response.data);
 
                         if (response.data.authentic == 0) {
@@ -68,6 +69,7 @@ export default function Header() {
 
                     } else if (type() === '1') {
                         let response = await infoCom();
+                        Cookies.set('phone', response.data.phoneTK);
                         setData(response.data);
 
                         if (response.data.authentic == 0) {
@@ -77,6 +79,7 @@ export default function Header() {
                         }
                     } else {
                         let response = await infoPersonal();
+                        Cookies.set('phone', response.data.ep_phone_tk);
                         setData(response.data);
 
                         if (response.data.authentic == 0) {
