@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from "react"
+import { React, useState, useEffect, useRef } from "react"
 import { set, useForm } from 'react-hook-form';
 import Seo from '../components/head'
 import { useRouter } from 'next/router';
@@ -9,7 +9,7 @@ import { checkExist } from '../utils/function'
 import Header from "../components/header/Header";
 import Footer from "../components/footer/Footer";
 import FormData from "form-data";
-// import Captcha from '../components/captcha/images'
+import Captcha from '../components/captcha/images';
 
 export default function forgetPassword() {
     CheckLogin()
@@ -17,9 +17,9 @@ export default function forgetPassword() {
     const type = router.query.type
     const [title, getTitle] = useState()
     const [des, getDes] = useState()
-    const [capchaRen, setCapchaRen] = useState('')
-
+    const [capchaRen, setCapchaRen] = useState('');
     useEffect(() => {
+        // context.fillText('Hello, world!', 10, 50);
         setCapchaRen(generateRandomString(6))
         if (type == 1 || type == 2) {
             getTitle('Khôi phục ngay tài khoản với tính năng lấy lại mật khẩu dễ dàng')
@@ -28,8 +28,7 @@ export default function forgetPassword() {
             getTitle('Chuyển đổi số nhanh, khôi phục mật khẩu không lo chậm')
             getDes('Trong 1 nốt nhạc, doanh nghiệp bạn có thể lấy lại mật khẩu tài khoản chuyển đổi số lỡ quên. Click tại Quên mật khẩu ngay và làm theo hướng dẫn vô cùng đơn giản.')
         }
-    }, [type])
-
+    }, [])
     // handle validate
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = async data => {
@@ -121,8 +120,8 @@ export default function forgetPassword() {
                                                         },
                                                     })}
                                                 />
-                                                <input className="capcha" value={capchaRen} readOnly></input>
-                                                {/* <Captcha text={capchaRen} /> */}
+                                                {/* <input className="capcha" value={capchaRen} readOnly></input> */}
+                                                <Captcha text={capchaRen} />
                                                 {errors.capcha && <label className="error">{errors.capcha.message}</label>}
                                             </div>
                                             <div className="form-butt-one">

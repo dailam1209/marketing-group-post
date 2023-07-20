@@ -122,16 +122,17 @@ export const changePwCom = async (data) => {
     if (result.result) {
         window.location.href = '/thay-doi-mat-khau-thanh-cong.html'
     } else {
-        alert('Đổi mật khẩu thất bại')
+        alert(result.data.error.message)
     }
 }
 
 export const changePwEp = async (data) => {
     let result = await functionAPI(process.env.NEXT_PUBLIC_API + '/api/qlc/employee/updatePasswordbyInput', data)
+
     if (result.result) {
         window.location.href = '/thay-doi-mat-khau-thanh-cong.html'
     } else {
-        alert('Mật khẩu đã tồn tại, vui lòng nhập mật khẩu khác')
+        alert(result.data.error.message)
     }
 }
 
@@ -140,7 +141,7 @@ export const changePwPersonal = async (data) => {
     if (result.result) {
         window.location.href = '/thay-doi-mat-khau-thanh-cong.html'
     } else {
-        alert('Mật khẩu đã tồn tại, vui lòng nhập mật khẩu khác')
+        alert(result.data.error.message)
     }
 }
 
