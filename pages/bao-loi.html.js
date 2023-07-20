@@ -48,7 +48,6 @@ export default function Danhgia() {
                 setPopup(true)
             } else {
                 alert("Có lỗi xảy ra trong quá trình xử lý!");
-                console.log(res)
             }
 
         }

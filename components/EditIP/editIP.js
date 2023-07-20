@@ -44,7 +44,7 @@ export default function EditIP(props) {
                                                     <>
                                                         <div className="form-group share_select2">
                                                             <label className="form_label share_fsize_three">
-                                                                Phần mềm thiết lập dải IP*{" "}
+                                                                Phần mềm thiết lập dải IP
                                                                 <span className="cr_red cr_weight">*</span>
                                                             </label>
                                                             <input className="hidden" {...register('id')} value={item.id_acc} />

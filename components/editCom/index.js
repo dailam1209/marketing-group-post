@@ -50,6 +50,7 @@ export default function EditCom({ closePopupUpdate, data, setUpdateStatus }) {
                                             <input type="text" name="phone" className="form-control share_fsize_one share_clr_one"
                                                 placeholder="Nhập số điện thoại"
                                                 {...register("phone", {
+                                                    required: 'Không được để trống',
                                                     validate: {
                                                         validatePhone: (value) => validatePhone(value) || "Hãy nhập đúng định dạng số điện thoại"
                                                     }

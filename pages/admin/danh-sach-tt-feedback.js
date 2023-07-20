@@ -74,11 +74,11 @@ export default function AdminFeedback() {
                                 <tr>
                                     <td align="center">{item?._id}</td>
                                     <td align="center">{item.userName}</td>
-                                    <td align="center">{item.emailContact}</td>
+                                    <td align="center">{item.email ? item.email : item.emailContact}</td>
                                     <td align="center">{item.phone}</td>
                                     <td align="center">{item.feed_back}</td>
                                     <td align="center">{item.rating}</td>
-                                    <td align="center">{(format(item.createdAt, 'dd-MM-yyyy'))}</td>
+                                    <td align="center">{(format(parseInt(item.createdAt) * 1000, 'dd-MM-yyyy'))}</td>
                                 </tr>
                             ))}
                         </tbody>

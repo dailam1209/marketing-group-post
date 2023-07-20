@@ -9,10 +9,12 @@ import { createIp, listIp, delIp } from '../utils/handleApi';
 import FormData from 'form-data';
 import { async } from '@firebase/util';
 import EditIP from '../components/EditIP/editIP';
+import { useRouter } from 'next/router';
 
 export default function SetupIp() {
     const [data, setData] = useState([])
     let comId = Cookies.get('UID');
+    const router = new useRouter();
 
     useEffect(() => {
         const getData = async () => {
@@ -84,6 +86,7 @@ export default function SetupIp() {
     const addIP = () => {
         const reorderedData = getDataIP.map(({ ip_access, from_site }) => ({ ip_access, from_site }));
         createIp(JSON.stringify(reorderedData))
+        router.reload();
     }
 
     const [getEditID, setEditID] = useState([]);

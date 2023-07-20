@@ -76,10 +76,10 @@ export default function Admin() {
                             <tr>
                                 <td align="center">{item._id}</td>
                                 <td align="center">{item.userName}</td>
-                                <td align="center">{item.email}</td>
+                                <td align="center">{item.email ? item.email : item.emailContact}</td>
                                 <td align="center">{item.phoneTK}</td>
                                 <td align="center">{item.detail_error}</td>
-                                <td align="center"><img width={'100px'} height={'100px'} src={item.gallery_image_error} /></td>
+                                <td align="center">{item.gallery_image_error ? (<img width={'100px'} height={'100px'} src={item.gallery_image_error} />) : ''} </td>
                                 <td align="center">{format(parseInt(item.time_create), 'dd-MM-yyyy')}</td>
                             </tr>
                         ))}
