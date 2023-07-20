@@ -446,7 +446,7 @@ export default function RegisterEp() {
                                                                 defaultValue="Tiếp tục"
                                                             />
                                                             <p className="quay_lai share_clr_one tex_center share_fsize_three share_cursor">
-                                                                Quay lại
+                                                                <a href="/dang-ky-nhan-vien.html">Quay lại</a>
                                                             </p>
                                                         </div>
                                                     </div>
