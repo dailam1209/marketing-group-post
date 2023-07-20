@@ -25,7 +25,7 @@ export default function UpdateVip() {
     };
 
     const { id, sl, date } = router.query;
-    console.log('sl:', sl, 'date:', date)
+
     const [listCom, getlistCom] = useState({});
     const [isLoad, getIsLoad] = useState(false);
     const [getTime, setTime] = useState('');
@@ -43,7 +43,7 @@ export default function UpdateVip() {
                     console.log(error)
                 }
                 getIsLoad(true)
-                console.log(data)
+
             }
             getData()
         }

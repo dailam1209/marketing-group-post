@@ -52,7 +52,7 @@ export default function RegisterEp() {
             com_id: idCom
         }
         let response = await listDepartments(data)
-        console.log(response)
+
         setDep(response.data);
     };
 

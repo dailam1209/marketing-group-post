@@ -4,12 +4,12 @@ import FormData from "form-data";
 import { editIP } from "../../utils/handleApi";
 import { useRouter } from "next/router";
 export default function EditIP(props) {
-    console.log('props:', props)
+
     // validate and submit
     const { register, handleSubmit, formState: { errors } } = useForm();
     const router = new useRouter();
     const onSubmit1 = async data => {
-        console.log(data)
+
         const edit = async () => {
             const form = new FormData();
             form.append('id_acc', data.id)

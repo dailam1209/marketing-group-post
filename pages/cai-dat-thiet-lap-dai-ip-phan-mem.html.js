@@ -82,7 +82,6 @@ export default function SetupIp() {
     };
 
     const addIP = () => {
-        console.log('getDataIP:', getDataIP)
         const reorderedData = getDataIP.map(({ ip_access, from_site }) => ({ ip_access, from_site }));
         createIp(JSON.stringify(reorderedData))
     }
@@ -91,7 +90,6 @@ export default function SetupIp() {
     const [showEdit, setShowEdit] = useState(false)
     const editIP = (e, value) => {
         const getData = async () => {
-            console.log(value)
             const form = new FormData();
             form.append('id_acc', parseInt(value));
             let result = await listIp(form);
@@ -113,7 +111,6 @@ export default function SetupIp() {
             setData(filteredItems)
         }
         getData();
-        console.log(data)
     }
     return (
         <>
