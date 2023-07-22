@@ -122,7 +122,7 @@ export default function Admin() {
                                     <td align="center">{item.com_mail}</td>
                                     <td align="center">{item.com_phone}</td>
                                     <td align="center">{item.com_address}</td>
-                                    <td align="center">{item.com_time_err ? format(item.com_time_err, 'dd-MM-yyyy') : ''}</td>
+                                    <td align="center">{item.com_time_err ? format(item.com_time_err * 1000, 'dd-MM-yyyy') : ''}</td>
                                 </tr>
                             ))}
                         </tbody>

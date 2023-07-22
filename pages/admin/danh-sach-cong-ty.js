@@ -18,6 +18,7 @@ export default function Admin() {
 
     const { register, handleSubmit } = useForm();
     const onSubmit = async data => {
+        console.log(data)
         setValueSend(data)
         let response = await CallApi.listCom(data)
         getlistCom(response.data.data.data)
@@ -119,7 +120,10 @@ export default function Admin() {
 
                 <div className="content-inner">
                     <div className="form-search" style={{ position: 'unset' }}>
-                        <form onSubmit={handleSubmit(onSubmit)} name="frmsearch" style={{ margin: '15px 0' }} >
+                        <form className="formSearch" onSubmit={handleSubmit(onSubmit)} name="frmsearch" style={{ margin: '15px 0' }} >
+                            <input defaultValue='' style={{ float: 'left' }} className="text-search" name="com_id" id="com_id" type="text" placeholder="ID công ty"
+                                {...register("com_id", {
+                                })} />
                             <input defaultValue='' style={{ float: 'left' }} className="text-search" name="find" id="findkey" type="text" placeholder="Từ khóa tìm kiếm"
                                 {...register("find", {
                                 })} />

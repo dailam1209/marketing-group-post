@@ -29,6 +29,7 @@ export default function EditEmployee() {
                 setValue('married', res.married);
                 setValue('education', res.education != 0 ? res.education : 1);
                 setValue('email', res.emailContact);
+                setValue('gioitinh', res.gender);
                 setValue('ngaysinh', format(res.birthday * 1000, 'yyyy-MM-dd'))
             } else {
                 const response = await infoPersonal();
@@ -52,6 +53,7 @@ export default function EditEmployee() {
                 setValue('married', listData.married);
                 setValue('education', listData.education != 0 ? listData.education : 1);
                 setValue('email', listData.emailContact);
+                setValue('gioitinh', listData.ep_gender);
             }
         }
         getData()
@@ -203,10 +205,10 @@ export default function EditEmployee() {
                                                     <label className="form_label share_fsize_three tex_left cr_weight share_clr_one">
                                                         Giới tính<span className="cr_red">*</span></label>
                                                     <select
-                                                        {...register('gender')}
+                                                        {...register('gioitinh')}
                                                         defaultValue={data.gender || 1}
                                                         name="gioitinh"
-                                                        onChange={(e) => setValue('gender', e.target.value)}
+                                                        onChange={(e) => setValue('gioitinh', e.target.value)}
                                                         className="form-control">
                                                         {
                                                             getGender.map((item, index) => (
@@ -269,7 +271,7 @@ export default function EditEmployee() {
                                                         Kinh nghiệm làm việc <span className="cr_red">*</span></label>
                                                     <select {...register('experience')}
                                                         defaultValue={data.experience || 1}
-                                                        name="kinhnghiem"
+                                                        name="experience"
                                                         onChange={(e) => setValue('experience', e.target.value)}
                                                         className="form-control">
                                                         {

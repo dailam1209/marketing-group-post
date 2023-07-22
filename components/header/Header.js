@@ -64,8 +64,7 @@ export default function Header() {
                         if (response.data.authentic == 0) {
                             setLinkHome(router.pathname);
                         } else {
-                            router.push('/quan-ly-ung-dung-nhan-vien.html');
-                            // setLinkHome('/quan-ly-ung-dung-nhan-vien.html');
+                            setLinkHome('/quan-ly-ung-dung-nhan-vien.html');
                         }
 
                     } else if (type() === '1') {
@@ -76,8 +75,7 @@ export default function Header() {
                         if (response.data.authentic == 0) {
                             setLinkHome(router.pathname);
                         } else {
-                            router.push('/quan-ly-ung-dung-cong-ty.html');
-                            // setLinkHome('/quan-ly-ung-dung-cong-ty.html');
+                            setLinkHome('/quan-ly-ung-dung-cong-ty.html');
                         }
                     } else {
                         let response = await infoPersonal();
@@ -86,7 +84,7 @@ export default function Header() {
                         if (response.data.ep_authentic == 0) {
                             setLinkHome(router.pathname);
                         } else {
-                            router.push('/quan-ly-ung-dung-ca-nhan.html');
+
                             setLinkHome('/quan-ly-ung-dung-ca-nhan.html');
                         }
                     }

@@ -9,11 +9,11 @@ export default function EditIP(props) {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const router = new useRouter();
     const onSubmit1 = async data => {
-
+        console.log(data)
         const edit = async () => {
             const form = new FormData();
             form.append('id_acc', data.id)
-            form.append('from_site', data.formSite)
+            form.append('from_site', data.form_site)
             form.append('ip_access', data.accessIP1)
             await editIP(form);
         }
@@ -48,6 +48,7 @@ export default function EditIP(props) {
                                                                 <span className="cr_red cr_weight">*</span>
                                                             </label>
                                                             <input className="hidden" {...register('id')} value={item.id_acc} />
+                                                            <input className="hidden" {...register('form_site')} value={item.from_site} />
                                                             <input
                                                                 {...register('formSite')}
                                                                 type="text"

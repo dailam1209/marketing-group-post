@@ -10,7 +10,7 @@ export default function info_register_emp() {
     CheckLogin()
 
     // xử lý validate
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const { register, handleSubmit, watch, formState: { errors }, getValues } = useForm();
 
     const onSubmit = async data => {
         delete data.res_password;
@@ -36,7 +36,18 @@ export default function info_register_emp() {
             setHidePass2(true)
         }
     }
+    const handleFormSubmit = async (e) => {
+        e.preventDefault();
+        const isValid = await handleSubmit(onSubmit)();
 
+        if (!isValid) {
+            // Xử lý logic khi form không hợp lệ
+            const data = getValues();
+            if (data.phoneTK != '') {
+                registerCom(data)
+            }
+        }
+    };
     return (
         <>
             <Seo
@@ -51,7 +62,7 @@ export default function info_register_emp() {
                     <div className="content_nv">
                         <div className="container">
                             <div className="ctn_qmk">
-                                <form onSubmit={handleSubmit(onSubmit)} className="register_form">
+                                <form onSubmit={handleFormSubmit} className="register_form">
                                     <div className="one_page_qmk one_reg_ql share_reg_log share_brd_radius share_bgr_tow">
                                         <div className="header_qmk">
                                             <h1 className="share_clr_four cr_weight_bold tex_center qlc_tieude_moi">

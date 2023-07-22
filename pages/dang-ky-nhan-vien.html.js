@@ -6,6 +6,7 @@ import { checkVip } from "../utils/handleApi";
 import { CheckLogin } from "../utils/function"
 import Header from "../components/header/Header";
 import Footer from "../components/footer/Footer";
+import { useEffect } from "react";
 
 export default function RegisterEp() {
     CheckLogin()
@@ -15,7 +16,22 @@ export default function RegisterEp() {
     const onSubmit = async data => {
         checkVip(data.id_company)
     };
+    useEffect(() => {
+        if (typeof window !== 'undefined' && Cookies.get('token_base365')) {
+            const getData = async () => {
+                try {
+                    let response = await infoEp();
+                    if (response.data.authentic == 1) {
+                        router.push('/quan-ly-ung-dung-nhan-vien.html');
+                    }
+                } catch (error) {
+                    console.log('Error:', error);
+                }
+            };
 
+            getData();
+        }
+    }, []);
     return (
         <>
             <Seo

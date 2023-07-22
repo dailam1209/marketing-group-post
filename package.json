@@ -34,6 +34,7 @@
     "react-hook-form": "^7.45.0",
     "react-paginate": "^8.2.0",
     "react-router-dom": "^6.14.0",
+    "request-ip": "^3.3.0",
     "socket.io-client": "^4.7.1",
     "sweetalert2": "^11.7.12",
     "typescript": "5.1.3"
