@@ -1,7 +1,6 @@
 import { React, useState, useEffect } from "react"
 import ReactPaginate from 'react-paginate';
 import CallApi from '../api/call_api';
-import { ConvertIntToDate } from '../../utils/function'
 import HeaderAdmin from "../../components/headerAdmin";
 import Cookies from "js-cookie";
 import { useForm } from 'react-hook-form'
@@ -16,9 +15,11 @@ export default function Admin() {
     const [valueSend, setValueSend] = useState([])
 
     const { register, handleSubmit } = useForm();
-    const onSubmit = async data => {
+    const onSubmit = async (data) => {
         setValueSend(data)
-        let response = await CallApi.listCom(data)
+        console.log(data)
+        let response = await CallApi.dsDangKyLoi(data);
+        console.log(response)
         getlistCom(response.data.data.data)
         const totalItems = response.data.data.count;
         const itemsPerPage = 20
@@ -35,7 +36,7 @@ export default function Admin() {
     const handlePageChange = async (selected) => {
         valueSend.pageNumber = selected.selected + 1
         try {
-            let response = await CallApi.dsDangKyLoi(valueSend)
+            let response = await CallApi.dsDangKyLoi()
             getlistCom(response.data.data.data)
             const totalItems = response.data.data.count;
             const itemsPerPage = 25
@@ -121,7 +122,7 @@ export default function Admin() {
                                     <td align="center">{item.com_mail}</td>
                                     <td align="center">{item.com_phone}</td>
                                     <td align="center">{item.com_address}</td>
-                                    <td align="center">{item.com_time_err ? format(item.com_time_err, 'dd-MM-yyyy') : ''}</td>
+                                    <td align="center">{item.com_time_err ? format(item.com_time_err * 1000, 'dd-MM-yyyy') : ''}</td>
                                 </tr>
                             ))}
                         </tbody>

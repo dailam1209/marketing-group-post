@@ -74,8 +74,9 @@ export default function SetupIp() {
         setShowPopup(true);
     };
 
-    const deleteIP = (index) => {
-        if (index === 0) {
+    const deleteIPAdd = (index) => {
+        console.log("getDataIP.length:", getDataIP.length)
+        if (getDataIP.length === 1) {
             setShowPopup(false);
         }
         const updatedAddresses = [...getDataIP];
@@ -336,7 +337,7 @@ export default function SetupIp() {
                                                             <p className="box_share box_2">{item.ip_access}</p>
                                                             <input type="hidden" name="ten_viet_t" defaultValue={item.from_site} />
                                                             <p className="box_share box_3">{item.from_site}</p>
-                                                            <p className="box_share box_4" onClick={() => deleteIP(index)}>
+                                                            <p className="box_share box_4" onClick={() => deleteIPAdd(index)}>
                                                                 <img className="remove_tb" src="../img/xoa-tv.png" />
                                                             </p>
                                                         </div>

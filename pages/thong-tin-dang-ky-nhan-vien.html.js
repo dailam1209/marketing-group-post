@@ -15,6 +15,7 @@ export default function RegisterEp() {
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const onSubmit = async data => {
         let form = new FormData();
+        console.log(data)
         form.append('phoneTK', data.phoneTK);
         form.append('userName', data.userName);
         form.append('password', data.password);
@@ -290,7 +291,7 @@ export default function RegisterEp() {
                                                             <label className="form_label share_fsize_three share_clr_one cr_weight">
                                                                 Trình độ học vấn <span className="cr_red"></span>
                                                             </label>
-                                                            <select {...register('education')} defaultValue={0} name="academic_level" className="form-control">
+                                                            <select {...register('education')} defaultValue={0} name="education" className="form-control">
                                                                 <option value={0}>Chọn trình độ học vấn</option>
                                                                 <option value={1}>Trên Đại học</option>
                                                                 <option value={2}>Đại học</option>
@@ -320,14 +321,14 @@ export default function RegisterEp() {
                                                                 Kinh nghiệm làm việc <span className="cr_red"></span>
                                                             </label>
                                                             <select {...register('experience')} defaultValue={2} name="exper_job" className="form-control">
-                                                                <option value={1}>Chưa có kinh nghiệm</option>
-                                                                <option value={2}>Dưới 1 năm kinh nghiệm</option>
-                                                                <option value={3}>1 năm</option>
-                                                                <option value={4}>2 năm</option>
-                                                                <option value={5}>3 năm</option>
-                                                                <option value={6}>4 năm</option>
-                                                                <option value={7}>5 năm</option>
-                                                                <option value={8}>Trên 5 năm</option>
+                                                                <option value={0}>Chưa có kinh nghiệm</option>
+                                                                <option value={1}>Dưới 1 năm kinh nghiệm</option>
+                                                                <option value={2}>1 năm</option>
+                                                                <option value={3}>2 năm</option>
+                                                                <option value={4}>3 năm</option>
+                                                                <option value={5}>4 năm</option>
+                                                                <option value={6}>5 năm</option>
+                                                                <option value={7}>Trên 5 năm</option>
                                                             </select>
                                                         </div>
                                                     </div>

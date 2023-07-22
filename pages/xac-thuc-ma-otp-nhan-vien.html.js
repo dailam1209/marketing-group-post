@@ -6,6 +6,8 @@ import Footer from "../components/footer/Footer"
 import Seo from '../components/head'
 import { CheckLogin2 } from '../utils/function';
 import { useRouter } from 'next/router';
+import { infoEp } from '../utils/handleApi';
+import { useEffect } from 'react';
 
 export default function AuthenticEp() {
 
@@ -23,6 +25,22 @@ export default function AuthenticEp() {
     const onClickVerifyOtp = () => {
         handleVerifyOtp(false, Cookies.get('phone'), document.querySelector('#partitioned').value);
     };
+    useEffect(() => {
+        if (typeof window !== 'undefined' && Cookies.get('token_base365')) {
+            const getData = async () => {
+                try {
+                    let response = await infoEp();
+                    if (response.data.authentic == 1) {
+                        router.push('/quan-ly-ung-dung-nhan-vien.html');
+                    }
+                } catch (error) {
+                    console.log('Error:', error);
+                }
+            };
+
+            getData();
+        }
+    }, []);
     return (
         <>
             <Seo

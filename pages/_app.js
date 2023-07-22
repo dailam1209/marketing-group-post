@@ -1,14 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import Layout from '../components/Layout'
 import Cookies from "js-cookie";
+import { useRouter } from 'next/router';
+export async function getServerSideProps({ req }) {
+    // console.log(req)
+    const ipAddress = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
 
-export default function App({ Component, pageProps }) {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    return {
+        props: {
+            ipAddress,
+        },
+    };
+}
+
+export default function App({ Component, pageProps, ipAddress }) {
+    // console.log('ipAddress:', ipAddress)
     useEffect(() => {
-        const acc_token = Cookies.get('token_base365');
-        const rf_token = Cookies.get('rf_token');
-        const admin = Cookies.get('admin');
-        setIsLoggedIn((!!acc_token && !!rf_token) || admin);
+
     }, []);
 
     return (

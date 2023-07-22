@@ -81,10 +81,10 @@ export default function Header() {
                         let response = await infoPersonal();
                         Cookies.set('phone', response.data.ep_phone_tk);
                         setData(response.data);
-
-                        if (response.data.authentic == 0) {
+                        if (response.data.ep_authentic == 0) {
                             setLinkHome(router.pathname);
                         } else {
+
                             setLinkHome('/quan-ly-ung-dung-ca-nhan.html');
                         }
                     }

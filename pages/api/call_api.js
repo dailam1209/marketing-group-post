@@ -160,10 +160,10 @@ class CallApi {
     }
 
     //api lay danh sach cong ty dang ky loi
-    static async dsDangKyLoi() {
+    static async dsDangKyLoi(data) {
         let response = '';
         try {
-            const call = await axios.post(process.env.NEXT_PUBLIC_API + '/api/qlc/admin/listComErr');
+            const call = await axios.post(process.env.NEXT_PUBLIC_API + '/api/qlc/admin/listComErr', data);
             response = call;
         } catch (error) {
             response = error.response.data.error.message

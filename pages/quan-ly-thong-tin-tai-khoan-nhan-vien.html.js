@@ -166,7 +166,7 @@ export default function DetailEmployee() {
                                                         </p>
                                                         <p className="content d_flex">
                                                             <span>Số điện thoại:</span>
-                                                            <span>{data.phone}</span>
+                                                            <span>{data.phone ? data.phone : 'Chưa cập nhật'}</span>
                                                         </p>
                                                         <p className="content d_flex">
                                                             <span>Ngày sinh:</span>
