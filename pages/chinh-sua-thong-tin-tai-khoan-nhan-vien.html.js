@@ -18,11 +18,10 @@ export default function EditEmployee() {
 
     useEffect(() => {
         const getData = async () => {
-            if (role() === '2') {
+            if (role() == 2) {
                 const response = await infoEp();
                 const res = response.data;
                 setData(res);
-
                 setValue('userName', res.userName);
                 setValue('address', res.address);
                 setValue('phone', res.phone || res.phoneTK);
@@ -30,6 +29,7 @@ export default function EditEmployee() {
                 setValue('married', res.married);
                 setValue('education', res.education != 0 ? res.education : 1);
                 setValue('email', res.emailContact);
+                setValue('ngaysinh', format(res.birthday * 1000, 'yyyy-MM-dd'))
             } else {
                 const response = await infoPersonal();
                 let listData = response.data;
@@ -44,6 +44,7 @@ export default function EditEmployee() {
                 listData['emailContact'] = listData.ep_email_lh;
                 listData['education'] = listData.ep_education;
                 setData(listData)
+                setValue('ngaysinh', format(listData.ep_birth_day * 1000, 'yyyy-MM-dd'))
                 setValue('userName', listData.userName)
                 setValue('address', listData.address)
                 setValue('phone', listData.phone || listData.phoneTK)
@@ -64,7 +65,7 @@ export default function EditEmployee() {
         const form = new FormData();
         if (role() === '2') {
             form.append('address', data.address);
-            form.append('birthday', data.birthday);
+            form.append('birthday', data.ngaysinh);
             form.append('emailContact', data.email);
             form.append('experience', data.experience);
             form.append('gender', data.gender);
@@ -78,9 +79,9 @@ export default function EditEmployee() {
                 setUpdateFalse(true)
             }
         } else {
-            let res
+            console.log(data)
             form.append('address', data.address);
-            form.append('birthday', data.birthday);
+            form.append('birthday', data.ngaysinh);
             form.append('emailContact', data.email);
             form.append('experience', data.experience);
             form.append('gender', data.gender);
@@ -220,10 +221,9 @@ export default function EditEmployee() {
                                                     <input
                                                         type="date"
                                                         name="ngaysinh"
-                                                        defaultValue={ConvertIntToDate(data.birthday)[1]}
                                                         className="form-control share_fsize_one share_clr_one"
                                                         placeholder="Nhập ngày sinh của bạn"
-                                                        {...register("birthday", {
+                                                        {...register("ngaysinh", {
                                                             required: 'Không được để trống',
                                                         })}
                                                     />
@@ -236,7 +236,7 @@ export default function EditEmployee() {
                                                         Trình độ học vấn <span className="cr_red">*</span></label>
                                                     <select {...register('education')}
                                                         defaultValue={data.education || 1}
-                                                        name="trinhdo"
+                                                        name="education"
                                                         className="form-control"
                                                         onChange={(e) => setValue('education', e.target.value)}
                                                     >

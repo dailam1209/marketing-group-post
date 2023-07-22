@@ -64,7 +64,8 @@ export default function Header() {
                         if (response.data.authentic == 0) {
                             setLinkHome(router.pathname);
                         } else {
-                            setLinkHome('/quan-ly-ung-dung-nhan-vien.html');
+                            router.push('/quan-ly-ung-dung-nhan-vien.html');
+                            // setLinkHome('/quan-ly-ung-dung-nhan-vien.html');
                         }
 
                     } else if (type() === '1') {
@@ -75,16 +76,17 @@ export default function Header() {
                         if (response.data.authentic == 0) {
                             setLinkHome(router.pathname);
                         } else {
-                            setLinkHome('/quan-ly-ung-dung-cong-ty.html');
+                            router.push('/quan-ly-ung-dung-cong-ty.html');
+                            // setLinkHome('/quan-ly-ung-dung-cong-ty.html');
                         }
                     } else {
                         let response = await infoPersonal();
                         Cookies.set('phone', response.data.ep_phone_tk);
                         setData(response.data);
-
-                        if (response.data.authentic == 0) {
+                        if (response.data.ep_authentic == 0) {
                             setLinkHome(router.pathname);
                         } else {
+                            router.push('/quan-ly-ung-dung-ca-nhan.html');
                             setLinkHome('/quan-ly-ung-dung-ca-nhan.html');
                         }
                     }
