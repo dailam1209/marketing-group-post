@@ -1,11 +1,27 @@
 import { React, useState } from "react"
 import Seo from "../components/head";
 import { useForm } from 'react-hook-form';
-import { CheckLogin, validatePhone } from "../utils/function"
+import { checkIP, CheckLogin, validatePhone } from "../utils/function"
 import { registerPersonal } from "../utils/handleApi";
-import Header from "../components/header/Header"
-import Footer from "../components/footer/Footer"
-export default function RegisterPersonal() {
+import Header from "../components/header/Header";
+import Footer from "../components/footer/Footer";
+import { useRouter } from "next/router";
+import requestIp from 'request-ip';
+import { useEffect } from "react";
+export async function getServerSideProps({ req }) {
+    const clientIp = requestIp.getClientIp(req);
+
+    return {
+        props: {
+            clientIp,
+        },
+    };
+}
+export default function RegisterPersonal({ clientIp }) {
+    const router = new useRouter();
+    useEffect(() => {
+        checkIP(clientIp, router)
+    }, [])
     CheckLogin()
 
     // validate and submit

@@ -1,12 +1,27 @@
+import { useRouter } from "next/router";
 import { React, useState } from "react"
 import { useForm } from 'react-hook-form';
 import Footer from "../components/footer/Footer";
 import Seo from "../components/head";
 import Header from "../components/header/Header";
-import { validatePhone, CheckLogin } from "../utils/function";
+import { validatePhone, CheckLogin, checkIP } from "../utils/function";
 import { registerCom } from "../utils/handleApi";
+import requestIp from 'request-ip';
+import { useEffect } from "react";
+export async function getServerSideProps({ req }) {
+    const clientIp = requestIp.getClientIp(req);
 
-export default function info_register_emp() {
+    return {
+        props: {
+            clientIp,
+        },
+    };
+}
+export default function info_register_emp({ clientIp }) {
+    const router = new useRouter();
+    useEffect(() => {
+        checkIP(clientIp, router)
+    }, [])
     CheckLogin()
 
     // xử lý validate

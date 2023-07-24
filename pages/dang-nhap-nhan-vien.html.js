@@ -1,13 +1,28 @@
-import React, { useState } from 'react';
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
 import Footer from '../components/footer/Footer';
 import Seo from "../components/head";
 import Header from '../components/header/Header';
 import LoginForm from "../components/loginForm"
 import LoginQr from "../components/loginQr"
 import QrGuild from "../components/qrGuild"
-import { CheckLogin } from "../utils/function"
+import { checkIP, CheckLogin } from "../utils/function"
+import requestIp from 'request-ip';
+export async function getServerSideProps({ req }) {
 
-export default function loginEmployee() {
+    const clientIp = requestIp.getClientIp(req);
+
+    return {
+        props: {
+            clientIp,
+        },
+    };
+}
+export default function loginEmployee({ clientIp }) {
+    const router = new useRouter();
+    useEffect(() => {
+        checkIP(clientIp, router)
+    }, [])
     CheckLogin()
 
     // handle interaction
