@@ -6,7 +6,9 @@ import QlNhanluc from "../components/ql_nhanluc2"
 import QlCongviec from "../components/ql_congviec2"
 import QlNoibo from "../components/ql_noibo2"
 import QlBanhang from "../components/ql_banhang2"
+import { getServerSideProps } from '../utils/function'
 
+export { getServerSideProps }
 export default function HomeEmployee() {
 
     const [show, setShow] = useState('all')

@@ -1,26 +1,13 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 import Seo from '../components/head'
-import Cookies from 'js-cookie';
+
 import Header from '../components/header/Header'
 import Footer from "../components/footer/Footer"
-import requestIp from 'request-ip';
-import { useRouter } from "next/router";
-import { checkIP } from "../utils/function";
-export async function getServerSideProps({ req }) {
+import { getServerSideProps } from '../utils/function'
 
-    const clientIp = requestIp.getClientIp(req);
+export { getServerSideProps }
+export default function Ecosystem() {
 
-    return {
-        props: {
-            clientIp,
-        },
-    };
-}
-export default function Ecosystem({ clientIp }) {
-    const router = new useRouter();
-    useEffect(() => {
-        checkIP(clientIp, router)
-    }, [])
     return (
         <>
             <Seo

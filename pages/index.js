@@ -8,20 +8,12 @@ import QlBanhang from "../components/ql_banhang"
 import QlConlai from "../components/ql_conlai"
 import Header from "../components/header/Header"
 import Footer from "../components/footer/Footer"
-import requestIp from 'request-ip';
 import { useRouter } from "next/router";
-import { checkIP } from '../utils/function';
-export async function getServerSideProps({ req }) {
-    const clientIp = requestIp.getClientIp(req);
+import { getServerSideProps } from '../utils/function'
 
-    return {
-        props: {
-            clientIp,
-        },
-    };
-}
+export { getServerSideProps }
 
-export default function Home({ clientIp }) {
+export default function Home() {
     const router = new useRouter();
 
     CheckLogin()
@@ -50,9 +42,6 @@ export default function Home({ clientIp }) {
         setActive('ban_hang')
     }
 
-    useEffect(() => {
-        checkIP(clientIp, router)
-    }, [])
     return (
         <>
             <Seo

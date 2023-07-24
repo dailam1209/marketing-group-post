@@ -8,24 +8,11 @@ import QlConlai from "../components/ql_conlai"
 import Cookies from 'js-cookie';
 import Header from '../components/header/Header'
 import Footer from "../components/footer/Footer"
-import requestIp from 'request-ip';
-import { useRouter } from "next/router";
-import { checkIP } from "../utils/function";
-export async function getServerSideProps({ req }) {
+import { getServerSideProps } from '../utils/function'
 
-    const clientIp = requestIp.getClientIp(req);
+export { getServerSideProps }
+export default function Product() {
 
-    return {
-        props: {
-            clientIp,
-        },
-    };
-}
-export default function Product({ clientIp }) {
-    const router = new useRouter();
-    useEffect(() => {
-        checkIP(clientIp, router)
-    }, [])
     const [show, setShow] = useState('all')
     const [active, setActive] = useState('all')
 

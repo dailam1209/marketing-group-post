@@ -6,7 +6,9 @@ import { useRouter } from 'next/router';
 import { CheckLogin } from "../utils/function"
 import Header from "../components/header/Header";
 import Footer from "../components/footer/Footer";
+import { getServerSideProps } from '../utils/function'
 
+export { getServerSideProps }
 export default function ChangePw() {
     CheckLogin()
 

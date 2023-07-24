@@ -6,22 +6,12 @@ import Seo from "../components/head";
 import Header from "../components/header/Header";
 import { validatePhone, CheckLogin, checkIP } from "../utils/function";
 import { registerCom } from "../utils/handleApi";
-import requestIp from 'request-ip';
-import { useEffect } from "react";
-export async function getServerSideProps({ req }) {
-    const clientIp = requestIp.getClientIp(req);
+import { getServerSideProps } from '../utils/function'
 
-    return {
-        props: {
-            clientIp,
-        },
-    };
-}
-export default function info_register_emp({ clientIp }) {
-    const router = new useRouter();
-    useEffect(() => {
-        checkIP(clientIp, router)
-    }, [])
+export { getServerSideProps }
+
+export default function info_register_emp() {
+
     CheckLogin()
 
     // xử lý validate

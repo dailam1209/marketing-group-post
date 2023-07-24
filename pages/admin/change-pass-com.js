@@ -4,7 +4,9 @@ import { useRouter } from 'next/router';
 import { ConvertIntToDate } from '../../utils/function'
 import { useForm } from 'react-hook-form'
 import HeaderAdmin from "../../components/headerAdmin";
+import { getServerSideProps } from '../../utils/function'
 
+export { getServerSideProps }
 export default function UpdateVip() {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = async data => {

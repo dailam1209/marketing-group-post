@@ -3,6 +3,9 @@ import CallApi from '../api/call_api';
 import ReactPaginate from 'react-paginate';
 import HeaderAdmin from "../../components/headerAdmin";
 import { format } from 'date-fns';
+import { getServerSideProps } from '../../utils/function'
+
+export { getServerSideProps }
 export default function AdminFeedback() {
     // xử lý phân trang và gọi api
     const [listFeedback, getListFeedback] = useState({})

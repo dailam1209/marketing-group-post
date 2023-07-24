@@ -8,7 +8,9 @@ import { CheckLogin2 } from '../utils/function';
 import { useRouter } from 'next/router';
 import { infoEp } from '../utils/handleApi';
 import { useEffect } from 'react';
+import { getServerSideProps } from '../utils/function'
 
+export { getServerSideProps }
 export default function AuthenticEp() {
 
     CheckLogin2();

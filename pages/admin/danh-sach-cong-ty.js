@@ -7,7 +7,9 @@ import { useForm } from 'react-hook-form'
 import { format } from 'date-fns';
 import FormData from "form-data";
 import { useRouter } from "next/router";
+import { getServerSideProps } from '../../utils/function'
 
+export { getServerSideProps }
 export default function Admin() {
     if (!Cookies.get('admin')) {
         // window.location.href = "/admin"
@@ -18,7 +20,6 @@ export default function Admin() {
 
     const { register, handleSubmit } = useForm();
     const onSubmit = async data => {
-        console.log(data)
         setValueSend(data)
         let response = await CallApi.listCom(data)
         getlistCom(response.data.data.data)
@@ -80,7 +81,6 @@ export default function Admin() {
         await CallApi.updateVipAuth(form);
         router.reload();
     }
-    console.log('currentPage:', currentPage)
     // click for active vip
     const activeVip = async (id, vip, date) => {
         const seconds = Math.floor(Date.now() / 1000);
@@ -191,7 +191,7 @@ export default function Admin() {
                                     <td align="center">{item.phone}</td>
                                     <td align="center">{item.emailContact}</td>
                                     <td align="center">{item.address}</td>
-                                    <td align="center">{format(item.createdAt, 'dd-MM-yyyy')}</td>
+                                    <td align="center">{format(item.createdAt * 1000, 'dd-MM-yyyy')}</td>
                                     <td align="center">
                                         <a className="status" onClick={() => activeUser(item.idQLC, item.authentic)}>
                                             {(item.authentic == 0) ? (<img src="../img/publish_x.png" />) : (<img src="../img/tick.png" />)}
@@ -200,7 +200,7 @@ export default function Admin() {
                                     <td align="center">
                                         <a className="status" onClick={() => activeVip(item.idQLC, item.inForCompany.cds.com_vip, item.inForCompany.cds.com_vip_time)}>
 
-                                            {item.inForCompany && item.inForCompany.cds.com_vip !== 1 || (item.inForCompany.cds.com_vip === 1 &&
+                                            {item.inForCompany && item.inForCompany.cds.com_vip !== 1 || (item.inForCompany && item.inForCompany.cds.com_vip === 1 &&
                                                 parseInt(Date.now() / 1000) > parseInt(item.inForCompany.cds.com_vip_time)) ? (
                                                 <img src="../img/publish_x.png" alt="Publish X" />
                                             ) : (
@@ -215,7 +215,7 @@ export default function Admin() {
                                     <td align="center" id='com_117930'> <span style={{ display: 'block', cursor: 'pointer' }}>{item.inForCompany && (item.inForCompany.cds.com_ep_vip)}</span></td>
                                     <td align="center">{item.inForCompany && item.inForCompany.cds.com_vip == 1 && (format(parseInt(item.inForCompany.cds.com_vip_time) * 1000, 'dd-MM-yyyy'))}</td>
                                     <td align="center"><a href={'/admin/change-pass-com?id=' + item.idQLC}>Sửa</a></td>
-                                    <td align="center"><a href={'/admin/update-vip?id=' + item.idQLC + '&&sl=' + item.inForCompany.cds.com_ep_vip + '&&date=' + item.inForCompany.cds.com_vip_time}>Sửa</a></td>
+                                    <td align="center"><a href={'/admin/update-vip?id=' + item.idQLC + '&&sl=' + (item.inForCompany ? item.inForCompany.cds.com_ep_vip : 5) + '&&date=' + (item.inForCompany ? item.inForCompany.cds.com_vip_time : 0)}>Sửa</a></td>
                                 </tr>
                             ))}
                         </tbody>

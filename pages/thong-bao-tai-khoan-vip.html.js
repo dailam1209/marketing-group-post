@@ -3,7 +3,9 @@ import Seo from "../components/head";
 import Header from '../components/header/Header'
 import Footer from "../components/footer/Footer"
 import Cookies from 'js-cookie';
+import { getServerSideProps } from '../utils/function'
 
+export { getServerSideProps }
 export default function noticeVip() {
     const [hasTokens, setHasTokens] = useState(false);
 
