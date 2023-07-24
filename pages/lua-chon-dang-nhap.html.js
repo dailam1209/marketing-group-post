@@ -3,7 +3,9 @@ import Footer from "../components/footer/Footer"
 import Seo from '../components/head'
 import Header from "../components/header/Header"
 import { CheckLogin2 } from "../utils/function"
+import { getServerSideProps } from '../utils/function'
 
+export { getServerSideProps }
 export default function register() {
 
     return (

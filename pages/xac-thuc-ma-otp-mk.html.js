@@ -6,7 +6,9 @@ import Footer from "../components/footer/Footer"
 import Seo from '../components/head'
 import { CheckLogin } from "../utils/function"
 import { useRouter } from 'next/router';
+import { getServerSideProps } from '../utils/function'
 
+export { getServerSideProps }
 export default function XacthucQuenMK() {
     CheckLogin()
 

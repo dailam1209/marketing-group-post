@@ -1,12 +1,13 @@
 import { React, useState, useEffect } from "react"
 import CallApi from '../api/call_api';
 import { useRouter } from 'next/router';
-import { ConvertIntToDate } from '../../utils/function'
 import { useForm } from 'react-hook-form'
 import HeaderAdmin from "../../components/headerAdmin";
 import Cookies from "js-cookie";
 import { format } from 'date-fns';
+import { getServerSideProps } from '../../utils/function'
 
+export { getServerSideProps }
 export default function UpdateVip() {
     if (!Cookies.get('admin')) {
         // window.location.href = '/admin'

@@ -10,7 +10,9 @@ import FormData from 'form-data';
 import { async } from '@firebase/util';
 import EditIP from '../components/EditIP/editIP';
 import { useRouter } from 'next/router';
+import { getServerSideProps } from '../utils/function'
 
+export { getServerSideProps }
 export default function SetupIp() {
     const [data, setData] = useState([])
     let comId = Cookies.get('UID');

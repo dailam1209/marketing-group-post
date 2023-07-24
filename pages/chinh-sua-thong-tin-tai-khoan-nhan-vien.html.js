@@ -8,7 +8,9 @@ import { infoEp, infoPersonal, updateEp, updatePersonal } from '../utils/handleA
 import { getEducation, validatePhone, getExperience, getGender, getMarried, ConvertIntToDate, validateMail, renderPosition } from "../utils/function";
 import { format } from "date-fns";
 import FormData from "form-data";
+import { getServerSideProps } from '../utils/function'
 
+export { getServerSideProps }
 export default function EditEmployee() {
     // gọi api lấy thông tin nhân viên
     const [data, setData] = useState([]);

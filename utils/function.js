@@ -2,6 +2,7 @@ import { React, useState, useEffect } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
+import requestIp from 'request-ip';
 
 export const getEducation = [
     { id: 0, value: 'Chưa cập nhật' },
@@ -15,7 +16,8 @@ export const getEducation = [
     { id: 8, value: 'Tiểu học' },
 ]
 
-export function checkIP(clientIp, router) {
+export async function getServerSideProps({ req }) {
+    const clientIp = requestIp.getClientIp(req);
     const allowedIPs = [
         "171.255.69.80",
         "14.162.144.184",
@@ -48,13 +50,21 @@ export function checkIP(clientIp, router) {
         "104.28.254.74",
         "104.28.222.73",
         "104.28.254.73",
-        "192.168.1.98"
     ];
-    if (!allowedIPs.includes(clientIp)) {
-        // Nếu địa chỉ IP không nằm trong danh sách cho phép, chuyển hướng đến trang lỗi hoặc trang khác
-        router.push('/404');
-        return;
-    }
+    // if (!allowedIPs.includes(clientIp)) {
+    //     // Nếu địa chỉ IP không nằm trong danh sách cho phép, chuyển hướng đến trang lỗi hoặc trang khác
+    //     return {
+    //         redirect: {
+    //             destination: '/404',
+    //             permanent: false,
+    //         },
+    //     };
+    // }
+    return {
+        props: {
+            clientIp,
+        },
+    };
 }
 
 export const getExperience = [

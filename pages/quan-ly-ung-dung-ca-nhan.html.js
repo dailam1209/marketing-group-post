@@ -2,6 +2,9 @@ import { React, useState, useEffect } from 'react';
 import Seo from '../components/head'
 import SideBar from '../components/sideBar/SideBar';
 import HeaderLogin from '../components/headerLogin/HeaderLogin';
+import { getServerSideProps } from '../utils/function'
+
+export { getServerSideProps }
 export default function HomePersonal() {
     // search
     function search() {

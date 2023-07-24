@@ -6,26 +6,13 @@ import Header from "../components/header/Header";
 import LoginForm from "../components/loginForm"
 import LoginQr from "../components/loginQr"
 import QrGuild from "../components/qrGuild"
-import { checkIP, CheckLogin } from "../utils/function";
-import requestIp from 'request-ip';
-import { useEffect } from "react";
-export async function getServerSideProps({ req }) {
+import { CheckLogin } from "../utils/function";
+import { getServerSideProps } from '../utils/function'
 
-    const clientIp = requestIp.getClientIp(req);
+export { getServerSideProps }
 
-    return {
-        props: {
-            clientIp,
-        },
-    };
-}
+export default function LoginPersonal() {
 
-export default function LoginPersonal({ clientIp }) {
-    CheckLogin()
-    const router = new useRouter();
-    useEffect(() => {
-        checkIP(clientIp, router)
-    }, [])
     CheckLogin()
     // handle interaction
     const [showTab, setShowTab] = useState(true);

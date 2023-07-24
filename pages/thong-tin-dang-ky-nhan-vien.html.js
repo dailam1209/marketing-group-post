@@ -6,24 +6,12 @@ import { validatePhone } from "../utils/function";
 import { registerEp, listDepartments, listTeams, listGroups } from "../utils/handleApi";
 import Header from "../components/header/Header";
 import Footer from "../components/footer/Footer";
-import requestIp from 'request-ip';
-import { useRouter } from "next/router";
-import { checkIP } from "../utils/function";
-export async function getServerSideProps({ req }) {
+import { getServerSideProps } from '../utils/function'
 
-    const clientIp = requestIp.getClientIp(req);
+export { getServerSideProps }
 
-    return {
-        props: {
-            clientIp,
-        },
-    };
-}
-export default function RegisterEp({ clientIp }) {
-    const router = new useRouter();
-    useEffect(() => {
-        checkIP(clientIp, router)
-    }, [])
+export default function RegisterEp() {
+
     // get cookie idCom
     let idCom = Cookies.get('idCom');
 

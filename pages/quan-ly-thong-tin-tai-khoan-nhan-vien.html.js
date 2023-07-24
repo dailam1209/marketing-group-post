@@ -6,7 +6,9 @@ import Cookies from "js-cookie";
 import { getMarried, ConvertIntToDate, renderPosition, renderExp, renderEdu } from "../utils/function";
 import { useForm } from 'react-hook-form';
 import { infoEp, infoPersonal, changePassEp, changePassPersonal, updatePersonal } from '../utils/handleApi';
+import { getServerSideProps } from '../utils/function'
 
+export { getServerSideProps }
 export default function DetailEmployee() {
     // gọi api lấy thông tin nhân viên
     const [data, setData] = useState([]);

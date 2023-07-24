@@ -8,7 +8,9 @@ import QlNoibo from "../components/ql_noibo2"
 import QlBanhang from "../components/ql_banhang2"
 import { infoCom } from "../utils/handleApi";
 import { parse, format, differenceInSeconds } from 'date-fns';
+import { getServerSideProps } from '../utils/function'
 
+export { getServerSideProps }
 export default function HomeCompany() {
     const [show, setShow] = useState('all')
     const [active, setActive] = useState('all')

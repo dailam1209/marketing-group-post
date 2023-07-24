@@ -6,7 +6,9 @@ import { reportError } from "../utils/handleApi";
 import { useRouter } from 'next/router';
 import { useRef } from 'react';
 import FormData from 'form-data';
+import { getServerSideProps } from '../utils/function'
 
+export { getServerSideProps }
 export default function Danhgia() {
     const router = new useRouter();
 

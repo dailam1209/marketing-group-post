@@ -4,7 +4,9 @@ import CallApi from '../api/call_api';
 import HeaderAdmin from "../../components/headerAdmin";
 import Cookies from "js-cookie";
 import { format } from 'date-fns';
+import { getServerSideProps } from '../../utils/function'
 
+export { getServerSideProps }
 export default function Admin() {
     if (!Cookies.get('admin')) {
         // window.location.href = "/admin"

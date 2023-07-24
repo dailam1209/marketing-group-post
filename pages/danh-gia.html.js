@@ -5,7 +5,9 @@ import SideBar from '../components/sideBar/SideBar';
 import HeaderLogin from '../components/headerLogin/HeaderLogin';
 import { vote } from "../utils/handleApi";
 import { useRouter } from 'next/router';
+import { getServerSideProps } from '../utils/function'
 
+export { getServerSideProps }
 export default function Danhgia() {
     const router = new useRouter();
     let role = Cookies.get('role')

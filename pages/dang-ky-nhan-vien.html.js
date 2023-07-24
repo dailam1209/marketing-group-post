@@ -8,22 +8,13 @@ import Header from "../components/header/Header";
 import Footer from "../components/footer/Footer";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
-import requestIp from 'request-ip';
-export async function getServerSideProps({ req }) {
+import { getServerSideProps } from '../utils/function'
 
-    const clientIp = requestIp.getClientIp(req);
+export { getServerSideProps }
 
-    return {
-        props: {
-            clientIp,
-        },
-    };
-}
-export default function RegisterEp({ clientIp }) {
+export default function RegisterEp() {
     const router = new useRouter();
-    useEffect(() => {
-        checkIP(clientIp, router)
-    }, [])
+
     CheckLogin()
 
     // Xử lý validate form

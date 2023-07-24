@@ -6,7 +6,9 @@ import EditCom from '../components/editCom'
 import { useForm } from 'react-hook-form';
 import { infoCom, changePassCom, updateCom } from "../utils/handleApi";
 import FormData from "form-data";
+import { getServerSideProps } from '../utils/function'
 
+export { getServerSideProps }
 export default function DetailEmployy() {
     // gọi api lấy thông tin nhân viên
     const [data, setData] = useState([]);
