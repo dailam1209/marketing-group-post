@@ -70,23 +70,25 @@ export default function EditEmployee() {
             form.append('birthday', data.ngaysinh);
             form.append('emailContact', data.email);
             form.append('experience', data.experience);
-            form.append('gender', data.gender);
+            form.append('gender', data.gioitinh);
             form.append('married', data.married);
             form.append('phone', data.phone);
             form.append('userName', data.userName);
             let response = await updateEp(form);
+            console.log(response)
             if (response.result == true) {
                 setUpdateSuccess(true)
             } else {
                 setUpdateFalse(true)
             }
+
         } else {
-            console.log(data)
+
             form.append('address', data.address);
             form.append('birthday', data.ngaysinh);
             form.append('emailContact', data.email);
             form.append('experience', data.experience);
-            form.append('gender', data.gender);
+            form.append('gender', data.gioitinh);
             form.append('married', data.married);
             form.append('phone', data.phone);
             form.append('userName', data.userName);

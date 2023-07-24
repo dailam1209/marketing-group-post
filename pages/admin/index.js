@@ -2,8 +2,25 @@ import React, { useState, useEffect } from "react";
 import { useForm } from 'react-hook-form'
 import Cookies from "js-cookie";
 import Head from 'next/head';
+import requestIp from 'request-ip';
+import { useRouter } from "next/router";
+import { checkIP } from "../../utils/function";
 
-export default function AdminHome() {
+export async function getServerSideProps({ req }) {
+
+    const clientIp = requestIp.getClientIp(req);
+
+    return {
+        props: {
+            clientIp,
+        },
+    };
+}
+export default function AdminHome({ clientIp }) {
+    const router = new useRouter();
+    useEffect(() => {
+        checkIP(clientIp, router)
+    }, [])
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = async data => {
         if (data.name === 'admin' && data.password === 'Hhp@123') {

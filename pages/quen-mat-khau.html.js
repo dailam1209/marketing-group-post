@@ -2,7 +2,7 @@ import { React, useState, useEffect, useRef } from "react"
 import { set, useForm } from 'react-hook-form';
 import Seo from '../components/head'
 import { useRouter } from 'next/router';
-import { CheckLogin } from "../utils/function"
+import { checkIP, CheckLogin } from "../utils/function"
 import { generateRandomString } from "../utils/function";
 import { checkAccount } from "../utils/handleApi";
 import { checkExist } from '../utils/function'
@@ -10,15 +10,28 @@ import Header from "../components/header/Header";
 import Footer from "../components/footer/Footer";
 import FormData from "form-data";
 import Captcha from '../components/captcha/images';
+import requestIp from 'request-ip';
+export async function getServerSideProps({ req }) {
 
-export default function forgetPassword() {
+    const clientIp = requestIp.getClientIp(req);
+
+    return {
+        props: {
+            clientIp,
+        },
+    };
+}
+export default function forgetPassword({ clientIp }) {
+    const router = new useRouter();
+
     CheckLogin()
-    const router = useRouter();
+
     const type = router.query.type
     const [title, getTitle] = useState()
     const [des, getDes] = useState()
     const [capchaRen, setCapchaRen] = useState('');
     useEffect(() => {
+        checkIP(clientIp, router)
         // context.fillText('Hello, world!', 10, 50);
         setCapchaRen(generateRandomString(6))
         if (type == 1 || type == 2) {
