@@ -261,7 +261,7 @@ export default function Header() {
                             {
                                 (renderContent) ? (<><div className="ind_one">
                                     <div className="avt_log_ind share_clr_tow share_fsize_tow cr_weight_bold">
-                                        <img src={data.avatarUser ? data.avatarUser : `../img/add.png`} />
+                                        <img src={data.avatarUser ? data.avatarUser : `../img/add.png`} onError={(e) => { e.target.onerror = null; e.target.src = "../img/logo_com.png"; }} />
                                         {data.userName}
                                     </div>
                                 </div></>) : <></>
