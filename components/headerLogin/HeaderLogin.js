@@ -107,7 +107,7 @@ export default function HeaderLogin({ text }) {
                             <div className="modal-body">
                                 <div className="ind__header_one">
                                     <div className="avt_log_head tex_center">
-                                        <a href="/"><img src="../img/logo.png" alt="" /></a>
+                                        <a href="/"><img src="../img/logo_h.svg" alt="" /></a>
                                     </div>
                                 </div>
                                 <div className="ind-tow">

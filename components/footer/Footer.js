@@ -715,10 +715,10 @@ export default function Footer() {
                         <div className="gach_ngang" />
                         <div className="footer_block3">
                             <div className="wrap_365">
-                                <div>
+                                <div className="logo_h">
                                     <img
                                         className="lazyload"
-                                        src="https://timviec365.vn/images/365timviec.png"
+                                        src="../img/logo_h.svg"
                                         alt="timviec365"
                                     />
                                 </div>
@@ -854,10 +854,10 @@ export default function Footer() {
                             </div>
                         </div>
                         <div className="footer_block3_2 hidden">
-                            <div>
+                            <div className="logo_h">
                                 <img
                                     className="lazyload"
-                                    src="https://timviec365.vn/images/365timviec.png"
+                                    src="../img/logo_h.svg"
                                     alt="timviec365"
                                 />
                             </div>

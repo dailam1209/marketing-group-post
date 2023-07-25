@@ -136,9 +136,11 @@ export default function HomeCompany() {
                                 </div>
                                 <div className="search_qly">
                                     <form className="form_timkiem">
-                                        <div className="tim-kiem">
-                                            <input type="text" name="search" id="myInput" onKeyUp={search} placeholder="Nhập tên phần mềm" className="form-serach share_fsize_one share_clr_three share_bgr_tow" />
-                                            <span className="ico_search"></span>
+                                        <div className="v_form_timkiem">
+                                            <div className="tim_kiem">
+                                                <input type="text" name="search" id="myInput" onKeyUp={search} placeholder="Nhập tên phần mềm" className="form-serach share_fsize_one share_clr_three share_bgr_tow" />
+                                                <span className="ico_search"></span>
+                                            </div>
                                         </div>
                                     </form>
                                 </div>
