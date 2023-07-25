@@ -3054,14 +3054,18 @@ p.sm_danhgia.v_sm_danhgia {
 }
 
 .search_qly .tim-kiem {
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
+    background: #FFFFFF;
+    overflow: hidden;
 }
 
 .search_qly .tim-kiem .form-serach {
-    padding: 9px 25px 9px 16px;
+    width: 100%;
+    height: 35px;
     border: 1px solid #666666;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
+    background: #FFFFFF;
     outline: 0;
 }
 
@@ -4855,9 +4859,9 @@ a {
 .box_share {
     text-align: center;
     color: #474747;
-    font-size: 14px;
+    font-size: 12px;
     line-height: 16px;
-    padding: 10px;
+    padding: 5px 0;
 }
 
 .bang .stt {
@@ -6435,7 +6439,7 @@ input[type=number]::-webkit-outer-spin-button {
     }
 
     .search_qly {
-        margin-bottom: 15px;
+        /* margin-bottom: 15px; */
     }
 
     .container {
@@ -6760,7 +6764,7 @@ input[type=number]::-webkit-outer-spin-button {
 
     .search_qly .tim-kiem,
     #btn_settq_five .creart_nv {
-        margin-bottom: 15px;
+        /* margin-bottom: 15px; */
     }
 
     .ctn_bgr_body {
@@ -6892,4 +6896,11 @@ input[type=number]::-webkit-outer-spin-button {
     width: 100%;
     justify-content: center;
     gap: 25px;
+}
+
+.search_qly {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }

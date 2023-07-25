@@ -15,6 +15,7 @@ export default function DetailEmployee() {
     const type = () => {
         return Cookies.get('role');
     };
+    const [getAvatar, setAvatar] = useState('');
     const [getHtml, setHtml] = useState(false);
     useEffect(() => {
         const getData = async () => {
@@ -22,6 +23,7 @@ export default function DetailEmployee() {
                 let response = await infoEp();
                 setData(response.data)
                 setHtml(true)
+                setAvatar(response.data.avatarUser);
             } else {
                 let response = await infoPersonal();
                 let listData = response.data;
@@ -35,6 +37,7 @@ export default function DetailEmployee() {
                 listData['phone'] = listData.ep_phone;
                 listData['emailContact'] = listData.ep_email_lh;
                 setData(listData)
+                setAvatar(response.data.avatarUser);
             }
 
         }
@@ -79,7 +82,7 @@ export default function DetailEmployee() {
     const handleUploadAvt = () => {
         fileInputRef.current.click();
     };
-    const [getAvatar, setAvatar] = useState('');
+
 
     // Tạo đối tượng FileReader
     const handleFileChange = async (event) => {
@@ -123,8 +126,8 @@ export default function DetailEmployee() {
                                                 <div className="avt_taikhoan ">
                                                     <div className="container_avt">
                                                         <div className="position_r text_a_c com_log_n" onClick={handleUploadAvt}>
-                                                            <img src={(getAvatar == '' ? (data.avatarUser || '../img/icon_avt.png') : getAvatar)}
-                                                                alt="" className="img_avt" id="myimage" />
+                                                            <img src={getAvatar ? getAvatar : '../img/icon_avt.png'}
+                                                                alt="" className="img_avt" id="myimage" onError={(e) => { e.target.onerror = null; e.target.src = "../img/icon_avt.png"; }} />
                                                             <img src="../img/icon_mayanh.png" alt=""
                                                                 className="img_mayanh position_a" />
                                                             <input

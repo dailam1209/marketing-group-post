@@ -6,9 +6,9 @@ import FormData from "form-data";
 export const checkVip = async (idcom) => {
     const data = new FormData();
     data.append('com_id', idcom);
-    let checkVip = await functionAPI(process.env.NEXT_PUBLIC_API + '/api/qlc/checkVip/before', data)
+    let checkVip = await functionAPI(process.env.NEXT_PUBLIC_API + '/api/qlc/checkVip/beforeLogin', data)
 
-    if (!checkVip.vip && !checkVip.is_add) {
+    if (!checkVip.is_add) {
         window.location.href = '/thong-bao-tai-khoan-vip.html'
     } else {
         Cookies.set('idCom', idcom);

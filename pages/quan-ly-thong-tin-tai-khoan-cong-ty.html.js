@@ -12,12 +12,13 @@ export { getServerSideProps }
 export default function DetailEmployy() {
     // gọi api lấy thông tin nhân viên
     const [data, setData] = useState([]);
-
+    const [getAvatar, setAvatar] = useState('');
     useEffect(() => {
         const getData = async () => {
             try {
                 let response = await infoCom();
                 setData(response.data)
+                setAvatar(response.data.avatarUser)
             }
             catch (error) {
                 console.log(error);
@@ -78,7 +79,7 @@ export default function DetailEmployy() {
         fileInputRef.current.click();
     };
 
-    const [getAvatar, setAvatar] = useState('');
+
 
     // Tạo đối tượng FileReader
     const handleFileChange = async (event) => {
@@ -123,7 +124,7 @@ export default function DetailEmployy() {
                                                 <div className="avt_taikhoan ">
                                                     <div className="container_avt">
                                                         <div className="position_r text_a_c com_log_n" onClick={handleUploadAvt}>
-                                                            <img src={(getAvatar == '' ? (data.avatarUser || '../img/icon_avt.png') : getAvatar)}
+                                                            <img src={getAvatar ? getAvatar : '../img/icon_avt.png'}
                                                                 alt="" className="img_avt" id="myimage" onError={(e) => { e.target.onerror = null; e.target.src = "../img/icon_avt.png"; }} />
                                                             <img src="../img/icon_mayanh.png" alt=""
                                                                 className="img_mayanh position_a" />
