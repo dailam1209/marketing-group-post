@@ -38,7 +38,7 @@ export default function Admin() {
     const handlePageChange = async (selected) => {
         valueSend.pageNumber = selected.selected + 1
         try {
-            let response = await CallApi.dsDangKyLoi()
+            let response = await CallApi.dsDangKyLoi(selected.selected + 1)
             getlistCom(response.data.data.data)
             const totalItems = response.data.data.count;
             const itemsPerPage = 25

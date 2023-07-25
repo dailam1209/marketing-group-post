@@ -159,7 +159,6 @@ export default function Admin() {
                         <tbody>
                             {listCom?.map(item => (
                                 <tr>
-                                    {/* <td align="center">{(currentPage * 25) + 1}</td> */}
                                     <td align="center">{item.idQLC}</td>
                                     <td align="center">{item.userName}</td>
                                     <td align="center">{item.email}</td>

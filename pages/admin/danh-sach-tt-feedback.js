@@ -12,6 +12,7 @@ export default function AdminFeedback() {
     const [totalPages, getTotalPage] = useState()
     const [isLoad, getIsLoad] = useState(false)
     const [count, setCount] = useState()
+
     const [currentPage, setCurrentPage] = useState(0);
     const handlePageChange = async (selected) => {
         try {
