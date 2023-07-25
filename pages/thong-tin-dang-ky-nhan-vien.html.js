@@ -231,19 +231,19 @@ export default function RegisterEp() {
                                                         <div className="form-group">
                                                             <label className="form_label share_fsize_three share_clr_one cr_weight">
                                                                 Số điện thoại
-                                                                <input
-                                                                    type="text"
-                                                                    name="phone"
-                                                                    className="form-control"
-                                                                    placeholder="Nhập số điện thoại liên hệ"
-                                                                    {...register('phone', {
-                                                                        validate: {
-                                                                            validatePhone: (value) => validatePhone(value) || "Hãy nhập đúng định dạng số điện thoại"
-                                                                        }
-                                                                    })}
-                                                                />
-                                                                {errors && errors.phoneContact && <label className="error">{errors.phoneContact.message}</label>}
                                                             </label>
+                                                            <input
+                                                                type="text"
+                                                                name="phone"
+                                                                className="form-control"
+                                                                placeholder="Nhập số điện thoại liên hệ"
+                                                                {...register('phone', {
+                                                                    validate: {
+                                                                        validatePhone: (value) => validatePhone(value) || "Hãy nhập đúng định dạng số điện thoại"
+                                                                    }
+                                                                })}
+                                                            />
+                                                            {errors && errors.phoneContact && <label className="error">{errors.phoneContact.message}</label>}
                                                         </div>
                                                         <div className="form-group">
                                                             <label className="form_label share_fsize_three share_clr_one cr_weight">

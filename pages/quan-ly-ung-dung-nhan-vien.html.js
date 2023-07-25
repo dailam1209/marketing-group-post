@@ -90,15 +90,8 @@ export default function HomeEmployee() {
                                     <p class="share_clr_one share_fsize_one">Ứng dụng / <span class="thay_doi">{nameList}</span></p>
                                 </div>
                                 <div className="search_qly">
-                                    <form className="form_timkiem">
-                                        {/* <div className="tim-kiem share_form_select">
-                                            <select name="search"
-                                                className="form-serach share_fsize_one share_clr_three share_bgr_tow">
-                                                <option></option>
-                                            </select>
-                                            <span className="ico_search"></span>
-                                        </div> */}
-                                        <div className="tim-kiem">
+                                    <form className="v_form_timkiem">
+                                        <div className="tim_kiem">
                                             <input type="text" name="search" id="myInput" onKeyUp={search} placeholder="Nhập tên phần mềm" className="form-serach share_fsize_one share_clr_three share_bgr_tow" />
                                             <span className="ico_search"></span>
                                         </div>

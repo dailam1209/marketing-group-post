@@ -51,8 +51,8 @@ export default function HomePersonal() {
                                     </p>
                                 </div>
                                 <div className="search_qly">
-                                    <form className="form_timkiem">
-                                        <div className="tim-kiem">
+                                    <form className="v_form_timkiem">
+                                        <div className="tim_kiem">
                                             <input
                                                 type="text"
                                                 name="search"
