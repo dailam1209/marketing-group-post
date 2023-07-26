@@ -7,7 +7,7 @@ export const checkVip = async (idcom) => {
     const data = new FormData();
     data.append('com_id', idcom);
     let checkVip = await functionAPI(process.env.NEXT_PUBLIC_API + '/api/qlc/checkVip/beforeLogin', data)
-
+    console.log(checkVip.is_add)
     if (!checkVip.is_add) {
         window.location.href = '/thong-bao-tai-khoan-vip.html'
     } else {

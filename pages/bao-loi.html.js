@@ -36,23 +36,20 @@ export default function Danhgia() {
         fileInputRef.current.click();
     }
     const handleSubmit = () => {
-        if (comment == '') {
-            setError(true)
-        } else {
-            const data = new FormData();
-            data.append('detail_error', comment);
-            if (selectedFile) {
-                data.append('gallery_image_error', selectedFile);
-            }
 
-            let res = reportError(data);
-            if (res) {
-                setPopup(true)
-            } else {
-                alert("Có lỗi xảy ra trong quá trình xử lý!");
-            }
-
+        const data = new FormData();
+        data.append('detail_error', comment);
+        if (selectedFile) {
+            data.append('gallery_image_error', selectedFile);
         }
+
+        let res = reportError(data);
+        if (res) {
+            setPopup(true)
+        } else {
+            alert("Có lỗi xảy ra trong quá trình xử lý!");
+        }
+
     };
     return (
         <>

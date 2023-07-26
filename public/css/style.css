@@ -6339,10 +6339,11 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .popup_2 {
-    width: 520px;
+    max-width: 520px;
     margin-top: 50px;
     margin-left: auto;
     margin-right: auto;
+    padding: 20px;
 }
 
 .box_popup_3 {
