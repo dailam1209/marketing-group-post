@@ -12,7 +12,7 @@ export { getServerSideProps }
 export default function DetailEmployy() {
     // gọi api lấy thông tin nhân viên
     const [data, setData] = useState([]);
-    const [getAvatar, setAvatar] = useState('');
+    const [getAvatar, setAvatar] = useState('../img/icon_avt.png');
     useEffect(() => {
         const getData = async () => {
             try {
@@ -124,8 +124,8 @@ export default function DetailEmployy() {
                                                 <div className="avt_taikhoan ">
                                                     <div className="container_avt">
                                                         <div className="position_r text_a_c com_log_n" onClick={handleUploadAvt}>
-                                                            <img src={getAvatar ? getAvatar : '../img/icon_avt.png'}
-                                                                alt="" className="img_avt" id="myimage" onError={(e) => { e.target.onerror = null; e.target.src = "../img/icon_avt.png"; }} />
+                                                            <img src={getAvatar}
+                                                                className="img_avt" id="myimage" onError={(e) => { e.target.onerror = null; e.target.src = "../img/icon_avt.png"; }} />
                                                             <img src="../img/icon_mayanh.png" alt=""
                                                                 className="img_mayanh position_a" />
                                                             <input

@@ -76,6 +76,7 @@ export default function EditEmployee() {
             form.append('married', data.married);
             form.append('phone', data.phone);
             form.append('userName', data.userName);
+            form.append('education', data.education);
             let response = await updateEp(form);
             console.log(response)
             if (response.result == true) {
@@ -94,6 +95,7 @@ export default function EditEmployee() {
             form.append('married', data.married);
             form.append('phone', data.phone);
             form.append('userName', data.userName);
+            form.append('education', data.education);
             let response = await updatePersonal(form);
             if (response.result && response.result == true) {
                 setUpdateSuccess(true)

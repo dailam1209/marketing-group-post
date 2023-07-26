@@ -81,7 +81,7 @@ export default function HomeCompany() {
 
                 // Lấy số giây kể từ ngày 1/1/1970
                 const seconds = differenceInSeconds(dateObj, new Date(0));
-                if (parseInt(seconds) > (parseInt(response.data.createdAt) / 1000)) {
+                if (parseInt(seconds) > (parseInt(response.data.createdAt))) {
                     setVip('Tài khoản của bạn có thể đăng ký tối đa 10000 nhân viên');
                 } else {
                     if (response.data.com_vip === 1) {

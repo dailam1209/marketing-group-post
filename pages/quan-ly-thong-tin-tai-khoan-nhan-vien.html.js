@@ -15,7 +15,7 @@ export default function DetailEmployee() {
     const type = () => {
         return Cookies.get('role');
     };
-    const [getAvatar, setAvatar] = useState('');
+    const [getAvatar, setAvatar] = useState('../img/icon_avt.png');
     const [getHtml, setHtml] = useState(false);
     useEffect(() => {
         const getData = async () => {
@@ -36,6 +36,7 @@ export default function DetailEmployee() {
                 listData['phoneTK'] = listData.ep_phone_tk;
                 listData['phone'] = listData.ep_phone;
                 listData['emailContact'] = listData.ep_email_lh;
+                listData['education'] = listData.ep_education;
                 setData(listData)
                 setAvatar(response.data.avatarUser);
             }
@@ -126,7 +127,7 @@ export default function DetailEmployee() {
                                                 <div className="avt_taikhoan ">
                                                     <div className="container_avt">
                                                         <div className="position_r text_a_c com_log_n" onClick={handleUploadAvt}>
-                                                            <img src={getAvatar ? getAvatar : '../img/icon_avt.png'}
+                                                            <img src={getAvatar}
                                                                 alt="" className="img_avt" id="myimage" onError={(e) => { e.target.onerror = null; e.target.src = "../img/icon_avt.png"; }} />
                                                             <img src="../img/icon_mayanh.png" alt=""
                                                                 className="img_mayanh position_a" />

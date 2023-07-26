@@ -147,10 +147,10 @@ class CallApi {
     }
 
     // api lay danh sach bao loi
-    static async dsBaoLoi() {
+    static async dsBaoLoi(data) {
         let response = '';
         try {
-            const call = await axios.post(process.env.NEXT_PUBLIC_API + '/api/qlc/admin/getListReportErr');
+            const call = await axios.post(process.env.NEXT_PUBLIC_API + '/api/qlc/admin/getListReportErr', data);
             response = call;
         } catch (error) {
             response = error.response.data.error.message
