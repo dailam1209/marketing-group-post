@@ -9,10 +9,11 @@ const handleVerifyOtp = async (btn = null, account = null, otp = null, type = nu
     const partitioned = document.querySelector('#partitioned');
     if (btn) {
         try {
-            const response = await axios.post('https://ht.timviec365.vn:9013/api/users/TakeDataFireBaseOTP', { number: account });
+            const response = await axios.post('https://ht.timviec365.vn:9013/api/users/TakeDataFireBaseOTP', { number: account,  type: "yhytgaudasd"});
             const data = await response;
             if (data && data.data && data.data.data && data.data.data.firebase) {
                 const firebaseConfig = data.data.data.firebase;
+                console.log(firebaseConfig);
                 // khởi tạo cấu hình firebase
 
                 const app = !getApps().length?initializeApp(firebaseConfig):getApp();

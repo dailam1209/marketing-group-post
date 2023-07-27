@@ -47,9 +47,10 @@ export default function info_register_emp() {
 
         if (!isValid) {
             // Xử lý logic khi form không hợp lệ
+            console.log("invalid")
             const data = getValues();
             if (data.phoneTK != '') {
-                registerCom(data)
+                registerCom(data, false);
             }
         }
     };

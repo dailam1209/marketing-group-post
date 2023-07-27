@@ -17,7 +17,7 @@ export const checkVip = async (idcom) => {
 }
 
 // register
-export const registerCom = async (data) => {
+export const registerCom = async (data, notifyErrors = true) => {
     let result = await functionAPI(process.env.NEXT_PUBLIC_API + '/api/qlc/company/register', data)
     console.log(result)
     if (result.result == true) {
@@ -25,6 +25,8 @@ export const registerCom = async (data) => {
         Cookies.set('role', 1);
         Cookies.set('phone', data.phoneTK);
         window.location.href = '/xac-thuc-ma-otp-cong-ty.html';
+    } else {
+        if (notifyErrors) alert('Tài khoản đã tồn tại');
     }
 }
 
