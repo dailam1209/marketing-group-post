@@ -18,7 +18,7 @@ export default function XacthucQuenMK() {
     const [textNhanMa, setNhanMa] = useState('Vui lòng bấm "Nhận mã" để nhận mã xác thực về số điện thoại');
 
     const btnReSend = () => {
-        router.reload()
+        handleVerifyOtp(true, account, '', type);
     }
 
     const onClickSendOtp = () => {
@@ -29,6 +29,13 @@ export default function XacthucQuenMK() {
     const onClickVerifyOtp = () => {
         handleVerifyOtp(false, account, document.querySelector('#partitioned').value, type);
     };
+
+    const handleEnterButtonPress = (e) => {
+        if(e.key === 'Enter') {
+            e.preventDefault();
+            onClickVerifyOtp();
+        }
+    }
     return (
         <>
             <Seo
@@ -69,6 +76,7 @@ export default function XacthucQuenMK() {
                                                                 maxLength={6}
                                                                 placeholder=""
                                                                 className="hidden_t"
+                                                                onKeyDown={handleEnterButtonPress}
                                                             />
                                                             <div id="recaptcha-container" className="recaptcha"></div>
                                                         </div>

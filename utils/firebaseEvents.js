@@ -1,10 +1,11 @@
 import axios from 'axios';
-import { initializeApp } from 'firebase/app';
+import { initializeApp, getApps, getApp } from 'firebase/app';
 import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import Cookies from "js-cookie";
 import { authenCom, authenEp, authenPersonal } from './handleApi';
 
 const handleVerifyOtp = async (btn = null, account = null, otp = null, type = null) => {
+    console.log("handleVerifyOtp");
     const partitioned = document.querySelector('#partitioned');
     if (btn) {
         try {
@@ -13,12 +14,14 @@ const handleVerifyOtp = async (btn = null, account = null, otp = null, type = nu
             if (data && data.data && data.data.data && data.data.data.firebase) {
                 const firebaseConfig = data.data.data.firebase;
                 // khởi tạo cấu hình firebase
-                const app = initializeApp(firebaseConfig);
+
+                const app = !getApps().length?initializeApp(firebaseConfig):getApp();
                 // hàm tạo captcha
-                const generateRecaptcha = () => {
+                const generateRecaptcha = (cb) => {
                     window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {
                         'size': 'normal',
                         'callback': (response) => {
+                            cb(response)
                         }
                     }, getAuth(app));
                     recaptchaVerifier.render();
@@ -31,29 +34,29 @@ const handleVerifyOtp = async (btn = null, account = null, otp = null, type = nu
                         text.innerHTML = '';
                     }
                 }
-                generateRecaptcha();
-                // hàm gửi otp 
-                let appVerifier = window.recaptchaVerifier;
-                signInWithPhoneNumber(getAuth(app), '+84' + account, appVerifier)
-                    .then((confirmationResult) => {
-                        window.confirmationResult = confirmationResult;
-                        const text = document.querySelector('.change_text');
-                        if (text) {
-                            text.innerHTML = 'Nhập mã OTP được gửi về điện thoại của bạn';
-                        }
-                        const recaptchaContainer = document.getElementById('recaptcha-container');
-                        if (recaptchaContainer) {
-                            recaptchaContainer.innerHTML = '';
-                        }
-                        partitioned.classList.remove('hidden_t');
-                        const guiMa = document.querySelector('.gui_ma');
-                        guiMa.classList.remove('hidden');
+                generateRecaptcha((res)=>{
+                    let appVerifier = window.recaptchaVerifier;
+                    signInWithPhoneNumber(getAuth(app), '+84' + account, appVerifier)
+                        .then((confirmationResult) => {
+                            window.confirmationResult = confirmationResult;
+                            const text = document.querySelector('.change_text');
+                            if (text) {
+                                text.innerHTML = 'Nhập mã OTP được gửi về điện thoại của bạn';
+                            }
+                            const recaptchaContainer = document.getElementById('recaptcha-container');
+                            if (recaptchaContainer) {
+                                recaptchaContainer.innerHTML = '';
+                            }
+                            partitioned.classList.remove('hidden_t');
+                            const guiMa = document.querySelector('.gui_ma');
+                            guiMa.classList.remove('hidden');
 
-                        const guiLai = document.querySelector('.gui_lai_otp');
-                        guiLai.classList.remove('hidden');
-                    }).catch((error) => {
-                        console.log(error)
-                    });
+                            const guiLai = document.querySelector('.gui_lai_otp');
+                            guiLai.classList.remove('hidden');
+                        }).catch((error) => {
+                            console.log(error)
+                        });
+                });
             } else {
                 alert('Bạn đã sử dụng hết lượt OTP nhận được trong ngày. Vui lòng liên hệ với tổng đài để được hỗ trợ hoặc trở lại vào ngày hôm sau!');
             }

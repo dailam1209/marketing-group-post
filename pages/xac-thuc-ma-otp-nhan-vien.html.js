@@ -16,7 +16,7 @@ export default function AuthenticEp() {
     CheckLogin2();
     const router = useRouter();
     const btnReSend = () => {
-        router.reload();
+        handleVerifyOtp(true, Cookies.get('phone'), '');
     }
     const [textNhanMa, setNhanMa] = useState('Vui lòng bấm "Nhận mã" để nhận mã xác thực về số điện thoại');
     const onClickSendOtp = () => {
@@ -27,6 +27,14 @@ export default function AuthenticEp() {
     const onClickVerifyOtp = () => {
         handleVerifyOtp(false, Cookies.get('phone'), document.querySelector('#partitioned').value);
     };
+
+    const handleEnterButtonPress = (e) => {
+        if(e.key === 'Enter') {
+            e.preventDefault();
+            onClickVerifyOtp();
+        }
+    }
+
     useEffect(() => {
         if (typeof window !== 'undefined' && Cookies.get('token_base365')) {
             const getData = async () => {
@@ -83,6 +91,7 @@ export default function AuthenticEp() {
                                                                 maxLength={6}
                                                                 placeholder=""
                                                                 className="hidden_t"
+                                                                onKeyDown={handleEnterButtonPress}
                                                             />
                                                             <div id="recaptcha-container" className="recaptcha"></div>
                                                         </div>

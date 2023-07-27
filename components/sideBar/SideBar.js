@@ -23,7 +23,7 @@ export default function SideBar() {
                 <div className="avt_qly">
                     <a href="https://timviec365.vn/" target="_blank">
                         <picture>
-                            <img src="../img/logo_qly.png" alt="timviec365.vn" />
+                            <img src="../img/logo_h.svg" alt="timviec365.vn" />
                         </picture>
                     </a>
                 </div>
@@ -67,7 +67,7 @@ export default function SideBar() {
                 <div className="avt_qly">
                     <a href="https://timviec365.vn/" target="_blank">
                         <picture>
-                            <img src="../img/logo_qly.png" alt="timviec365.vn" />
+                            <img src="../img/logo_h.svg" alt="timviec365.vn" />
                         </picture>
                     </a>
                 </div>
