@@ -22,6 +22,7 @@ export default function Admin() {
     const onSubmit = async data => {
         setValueSend(data)
         let response = await CallApi.listCom(data)
+        console.log(response);
         getlistCom(response.data.data.data)
         const totalItems = response.data.data.count;
         const itemsPerPage = 20

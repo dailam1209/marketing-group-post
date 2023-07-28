@@ -113,6 +113,7 @@ class CallApi {
     // api get list company
     static async listCom(data) {
         let response = ''
+        console.log(data);
         try {
             const call = await axios.post(process.env.NEXT_PUBLIC_API + '/api/qlc/admin/listCom', data)
             response = call

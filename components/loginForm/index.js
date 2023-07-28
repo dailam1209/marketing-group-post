@@ -15,7 +15,9 @@ export default function LoginForm({ setNotiError, typeLogin, showTab }) {
     const router = new useRouter();
     const onSubmit = async (data) => {
         data.type = typeLogin
+        console.log(data, typeLogin);
         let result = await login(data, 0)
+        console.log(result);
         if (result.result == true) {
             const type = result.data.type
             if (type == typeLogin) {

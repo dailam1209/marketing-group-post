@@ -78,7 +78,7 @@ export default function HomeCompany() {
                 let response = await infoCom();
                 // Chuyển đổi chuỗi thành đối tượng ngày
                 const dateObj = parse('20-05-2023', 'dd-MM-yyyy', new Date());
-
+                console.log(dateObj);
                 // Lấy số giây kể từ ngày 1/1/1970
                 const seconds = differenceInSeconds(dateObj, new Date(0));
                 if (parseInt(seconds) > (parseInt(response.data.createdAt))) {

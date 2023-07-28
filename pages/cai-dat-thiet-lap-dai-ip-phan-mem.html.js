@@ -12,6 +12,17 @@ import EditIP from '../components/EditIP/editIP';
 import { useRouter } from 'next/router';
 import { getServerSideProps } from '../utils/function'
 
+const formatDate = (date) => {
+    const day = date.getDate().toString().padStart(2,0);
+    const month = (date.getMonth() +1).toString().padStart(2,0);
+    const year = date.getFullYear();
+    const time = 
+    date.getHours().toString().padStart(2,0) + 
+    ':' + date.getMinutes().toString().padStart(2,0) + 
+    ':' + date.getSeconds().toString().padStart(2,0);
+    return `${day}/${month}/${year} - ${time}`
+}
+
 export { getServerSideProps }
 export default function SetupIp() {
     const [data, setData] = useState([])
@@ -236,7 +247,7 @@ export default function SetupIp() {
                                                                             </td>
 
                                                                             <td className="share_fsize_one share_clr_one tex_center">{value.ip_access}</td>
-                                                                            <td className="share_fsize_one share_clr_one tex_center">{value.createAt}</td>
+                                                                            <td className="share_fsize_one share_clr_one tex_center">{formatDate(new Date(value.created_time*1000))}</td>
                                                                             <td className="share_clr_one tex_center">
                                                                                 <div className="d_flex dflex_jc td_padd">
                                                                                     <p className="js_edit_pb share_cursor edit_pb share_clr_four cr_weight btx_edit_ip_pm" onClick={(e) => editIP(e, value.id_acc)} > Sửa </p>
