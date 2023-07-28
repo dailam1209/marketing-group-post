@@ -324,15 +324,15 @@ export default function RegisterEp() {
                                                             <label className="form_label share_fsize_three share_clr_one cr_weight">
                                                                 Kinh nghiệm làm việc <span className="cr_red"></span>
                                                             </label>
-                                                            <select {...register('experience')} defaultValue={2} name="exper_job" className="form-control">
-                                                                <option value={0}>Chưa có kinh nghiệm</option>
-                                                                <option value={1}>Dưới 1 năm kinh nghiệm</option>
-                                                                <option value={2}>1 năm</option>
-                                                                <option value={3}>2 năm</option>
-                                                                <option value={4}>3 năm</option>
-                                                                <option value={5}>4 năm</option>
-                                                                <option value={6}>5 năm</option>
-                                                                <option value={7}>Trên 5 năm</option>
+                                                            <select {...register('experience')} defaultValue={2} name="experience" className="form-control">
+                                                                <option value={1}>Chưa có kinh nghiệm</option>
+                                                                <option value={2}>Dưới 1 năm kinh nghiệm</option>
+                                                                <option value={3}>1 năm</option>
+                                                                <option value={4}>2 năm</option>
+                                                                <option value={5}>3 năm</option>
+                                                                <option value={6}>4 năm</option>
+                                                                <option value={7}>5 năm</option>
+                                                                <option value={8}>Trên 5 năm</option>
                                                             </select>
                                                         </div>
                                                     </div>

@@ -7,6 +7,8 @@ import { useRouter } from 'next/router';
 import { useRef } from 'react';
 import FormData from 'form-data';
 import { getServerSideProps } from '../utils/function'
+import Compressor from 'compressorjs';
+
 
 export { getServerSideProps }
 export default function Danhgia() {
@@ -29,8 +31,26 @@ export default function Danhgia() {
     const [selectedFile, setSelectedFile] = useState(null);
     const handleImageSelect = (event) => {
         let file = event.target.files[0];
-        setSL(event.target.files.length)
-        setSelectedFile(file);
+        console.log("file", file, event.target.files);
+        //If file size is larger than 1MB, compress it
+        if (file.size > (1024*1024)) {
+            new Compressor(file, {
+                maxHeight: 1024,
+                maxWidth: 1024,
+                success(result) {
+                    let compressedFile = new File([result], "image.jpg");
+                    console.log(compressedFile);
+                    setSL(event.target.files.length)
+                    setSelectedFile(compressedFile);
+                },
+                error(err) {
+                  console.log(err.message);
+                },
+              });
+        } else {
+            setSL(event.target.files.length);
+            setSelectedFile(file);
+        }
     };
     const chonAnh = () => {
         fileInputRef.current.click();
@@ -39,16 +59,21 @@ export default function Danhgia() {
 
         const data = new FormData();
         data.append('detail_error', comment);
+        console.log("Data trc append", data);
+        console.log("selected file", selectedFile);
         if (selectedFile) {
             data.append('gallery_image_error', selectedFile);
         }
+        console.log("Data sau append", data);
+        reportError(data).then(res => {
+            console.log(res);
+            if (res) {
+                setPopup(true);
+            } else {
+                alert("Có lỗi xảy ra trong quá trình xử lý!");
+            }
+        });
 
-        let res = reportError(data);
-        if (res) {
-            setPopup(true)
-        } else {
-            alert("Có lỗi xảy ra trong quá trình xử lý!");
-        }
 
     };
     return (

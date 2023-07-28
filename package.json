@@ -15,6 +15,7 @@
     "autoprefixer": "10.4.14",
     "axios": "^1.4.0",
     "canvas": "^2.11.2",
+    "compressorjs": "^1.2.1",
     "date-fns": "^2.30.0",
     "dom-image": "^2.5.2",
     "dom-to-image": "^2.6.0",
