@@ -10,12 +10,44 @@ import { infoCom } from "../utils/handleApi";
 import { useEffect } from "react";
 import { getServerSideProps } from '../utils/function'
 
+let intervalRef = null;
+let intervalCallback = ()=>{};
+if (!intervalRef) {
+    intervalRef = setInterval(()=>{
+        intervalCallback();
+    }, 1000);
+}
+
 export { getServerSideProps }
 export default function sendOTP_Com() {
     CheckLogin2();
     const router = useRouter();
+
+    const [timer, setTimer] = useState(0);
+    const [showResendButton, setShowResendButton] = useState(true);
+
+    const startTimer = () => {
+        setTimer(60);
+    }
+
+    intervalCallback = () => {
+        if (timer > 0) {
+            setTimer(timer - 1)
+        }
+    }
+
+    const getTimerText = () => {
+        if (timer > 0) return "(Đợi "+ timer + "s)";
+        return ""
+    }
+
     const btnReSend = () => {
-        handleVerifyOtp(true, Cookies.get('phone'), '');
+        if (timer > 0) return;
+        setShowResendButton(false);
+        handleVerifyOtp(true, Cookies.get('phone'), '', null, ()=>{
+            setShowResendButton(true);
+            startTimer();
+        });
     }
     const [textNhanMa, setNhanMa] = useState('Vui lòng bấm "Nhận mã" để nhận mã xác thực về số điện thoại');
     const onClickSendOtp = () => {
@@ -95,7 +127,7 @@ export default function sendOTP_Com() {
                                                         <div id="recaptcha-container"
                                                             className="recaptcha"></div>
 
-                                                        <div className="gui_lai_otp hidden">
+                                                        {showResendButton&&<div className="gui_lai_otp hidden">
                                                             <p>
                                                                 <span className="share_fsize_three share_clr_one">
                                                                     Bạn chưa nhận được mã OTP?
@@ -106,10 +138,10 @@ export default function sendOTP_Com() {
                                                                     className="share_clr_four cr_weight share_fsize_three share_cursor gui_lai verify_otp nhan_ma"
                                                                     data1={2}
                                                                 >
-                                                                    Gửi lại
+                                                                    Gửi lại{getTimerText()}
                                                                 </button>
                                                             </p>
-                                                        </div>
+                                                        </div>}
                                                     </div>
                                                     <div id="recaptcha-container" className="recaptcha" />
                                                     <div className="form-butt-one">

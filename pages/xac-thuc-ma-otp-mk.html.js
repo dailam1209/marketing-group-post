@@ -8,6 +8,15 @@ import { CheckLogin } from "../utils/function"
 import { useRouter } from 'next/router';
 import { getServerSideProps } from '../utils/function'
 
+let intervalRef = null;
+let intervalCallback = ()=>{};
+if (!intervalRef) {
+    intervalRef = setInterval(()=>{
+        intervalCallback();
+    }, 1000);
+}
+
+
 export { getServerSideProps }
 export default function XacthucQuenMK() {
     CheckLogin()
@@ -16,9 +25,31 @@ export default function XacthucQuenMK() {
     const type = router.query.type
     const account = router.query.account
     const [textNhanMa, setNhanMa] = useState('Vui lòng bấm "Nhận mã" để nhận mã xác thực về số điện thoại');
+    const [timer, setTimer] = useState(0);
+    const [showResendButton, setShowResendButton] = useState(true);
+
+    const startTimer = () => {
+        setTimer(60);
+    }
+
+    intervalCallback = () => {
+        if (timer > 0) {
+            setTimer(timer - 1)
+        }
+    }
+
+    const getTimerText = () => {
+        if (timer > 0) return "(Đợi "+ timer + "s)";
+        return ""
+    }
 
     const btnReSend = () => {
-        handleVerifyOtp(true, account, '', type);
+        if (timer > 0) return;
+        setShowResendButton(false);
+        handleVerifyOtp(true, account, '', type, ()=>{
+            setShowResendButton(true);
+            startTimer();
+        });
     }
 
     const onClickSendOtp = () => {
@@ -80,7 +111,7 @@ export default function XacthucQuenMK() {
                                                             />
                                                             <div id="recaptcha-container" className="recaptcha"></div>
                                                         </div>
-                                                        <div className="gui_lai_otp hidden">
+                                                        {showResendButton && <div className="gui_lai_otp hidden" >
                                                             <p>
                                                                 <span className="share_fsize_three share_clr_one">
                                                                     Bạn chưa nhận được mã OTP?
@@ -91,10 +122,10 @@ export default function XacthucQuenMK() {
                                                                     data1={1}
                                                                     onClick={btnReSend}
                                                                 >
-                                                                    Gửi lại
+                                                                    Gửi lại{getTimerText()}
                                                                 </button>
                                                             </p>
-                                                        </div>
+                                                        </div>}
                                                     </div>
                                                     <div id="recaptcha-container" className="recaptcha" />
                                                     <div className="form-butt-one">

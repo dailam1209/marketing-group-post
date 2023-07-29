@@ -4,7 +4,7 @@ import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth
 import Cookies from "js-cookie";
 import { authenCom, authenEp, authenPersonal } from './handleApi';
 
-const handleVerifyOtp = async (btn = null, account = null, otp = null, type = null) => {
+const handleVerifyOtp = async (btn = null, account = null, otp = null, type = null, captchaCb = ()=>{}) => {
     console.log("handleVerifyOtp");
     const partitioned = document.querySelector('#partitioned');
     if (btn) {
@@ -19,13 +19,20 @@ const handleVerifyOtp = async (btn = null, account = null, otp = null, type = nu
                 const app = !getApps().length?initializeApp(firebaseConfig):getApp();
                 // hàm tạo captcha
                 const generateRecaptcha = (cb) => {
-                    window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {
-                        'size': 'normal',
-                        'callback': (response) => {
-                            cb(response)
+                    try {
+                        if (!window.recaptchaContainer) {
+                            window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {
+                                'size': 'normal',
+                                'callback': (response) => {
+                                    cb(response)
+                                    captchaCb()
+                                }
+                            }, getAuth(app));
                         }
-                    }, getAuth(app));
-                    recaptchaVerifier.render();
+                        recaptchaVerifier.render();
+                    } catch (error) {
+                        console.log(error);
+                    }
                     const nhanMa = document.querySelector('.nhan_ma_2');
                     if (nhanMa) {
                         nhanMa.remove();

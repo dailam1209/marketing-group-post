@@ -18,10 +18,9 @@ export default function Admin() {
     const [count, setCount] = useState()
     const [valueSend, setValueSend] = useState({})
     const handlePageChange = async (selected) => {
-        valueSend.pageNumber = (totalPages - selected.selected - 1)
+        valueSend.pageNumber = selected.selected + 1
         try {
             let response = await CallApi.dsBaoLoi(valueSend)
-            console.log(response);
             getlistCom(response.data.data.data)
             const totalItems = response.data.data.count;
             const itemsPerPage = 25
@@ -35,12 +34,11 @@ export default function Admin() {
     useEffect(() => {
         const getData = async () => {
             try {
-                let res = await CallApi.dsBaoLoi(1)
-                const totalItems = res.data.data.count;
+                let response = await CallApi.dsBaoLoi(1)
+                getlistCom(response.data.data.data)
+                const totalItems = response.data.data.count;
                 const itemsPerPage = 25; //
                 const totalPages = Math.ceil(totalItems / itemsPerPage);
-                let response = await CallApi.dsBaoLoi(totalPages - 1)
-                getlistCom(response.data.data.data)
                 getTotalPage(totalPages)
                 setCount(totalItems)
             } catch (error) {
@@ -49,7 +47,6 @@ export default function Admin() {
         }
         getData()
     }, [])
-    console.log(listCom.length)
     return (
         <>
             <meta httpEquiv="content-type" content="text/html; charset=UTF-8" />
