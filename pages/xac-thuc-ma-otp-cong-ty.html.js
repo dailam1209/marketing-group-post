@@ -127,8 +127,8 @@ export default function sendOTP_Com() {
                                                         <div id="recaptcha-container"
                                                             className="recaptcha"></div>
 
-                                                        {showResendButton&&<div className="gui_lai_otp hidden">
-                                                            <p>
+                                                        <div className="gui_lai_otp hidden">
+                                                            <p className={`${showResendButton? '' : 'hidden'}`}>
                                                                 <span className="share_fsize_three share_clr_one">
                                                                     Bạn chưa nhận được mã OTP?
                                                                 </span>{" "}
@@ -141,7 +141,7 @@ export default function sendOTP_Com() {
                                                                     Gửi lại{getTimerText()}
                                                                 </button>
                                                             </p>
-                                                        </div>}
+                                                        </div>
                                                     </div>
                                                     <div id="recaptcha-container" className="recaptcha" />
                                                     <div className="form-butt-one">

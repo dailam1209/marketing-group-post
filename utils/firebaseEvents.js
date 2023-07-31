@@ -25,7 +25,6 @@ const handleVerifyOtp = async (btn = null, account = null, otp = null, type = nu
                                 'size': 'normal',
                                 'callback': (response) => {
                                     cb(response)
-                                    captchaCb()
                                 }
                             }, getAuth(app));
                         }
@@ -61,6 +60,7 @@ const handleVerifyOtp = async (btn = null, account = null, otp = null, type = nu
 
                             const guiLai = document.querySelector('.gui_lai_otp');
                             guiLai.classList.remove('hidden');
+                            captchaCb()
                         }).catch((error) => {
                             console.log(error)
                         });

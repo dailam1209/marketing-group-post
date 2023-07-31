@@ -167,7 +167,7 @@ export default function Admin() {
                                     <td align="center">{item.phone}</td>
                                     <td align="center">{item.emailContact}</td>
                                     <td align="center">{item.address}</td>
-                                    <td align="center">{format(item.createdAt * 1000, 'dd-MM-yyyy')}</td>
+                                    <td align="center">{format(item.createdAt * 1000, 'dd-MM-yyyy hh:mm:ss')}</td>
                                     <td align="center">
                                         <a className="status" onClick={() => activeUser(item.idQLC, item.authentic)}>
                                             {(item.authentic == 0) ? (<img src="../img/publish_x.png" />) : (<img src="../img/tick.png" />)}

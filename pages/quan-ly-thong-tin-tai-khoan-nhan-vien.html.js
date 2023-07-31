@@ -5,7 +5,7 @@ import HeaderLogin from '../components/headerLogin/HeaderLogin';
 import Cookies from "js-cookie";
 import { getMarried, ConvertIntToDate, renderPosition, renderExp, renderEdu } from "../utils/function";
 import { useForm } from 'react-hook-form';
-import { infoEp, infoPersonal, changePassEp, changePassPersonal, updatePersonal } from '../utils/handleApi';
+import { infoEp, infoPersonal, changePassEp, changePassPersonal, updateEp } from '../utils/handleApi';
 import { getServerSideProps } from '../utils/function'
 
 export { getServerSideProps }
@@ -93,7 +93,7 @@ export default function DetailEmployee() {
         if (file) {
             const data = new FormData();
             data.append('avatarUser', file);
-            let result = await updatePersonal(data);
+            let result = await updateEp(data);
 
         };
     }

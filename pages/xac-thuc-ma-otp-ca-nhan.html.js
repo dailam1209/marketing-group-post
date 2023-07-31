@@ -127,13 +127,13 @@ export default function AuthenticPersonal() {
 
                                                         <div id="recaptcha-container" className="recaptcha"></div>
                                                     </div>
-                                                    {showResendButton&&<div className="gui_lai_otp hidden">
-                                                        <p>
+                                                    <div className="gui_lai_otp hidden">
+                                                        <p className={`${showResendButton? '' : 'hidden'}`}>
                                                             <span className="share_fsize_three share_clr_one">
                                                                 Bạn chưa nhận được mã OTP?
                                                             </span>{" "}
                                                             <button
-                                                                type="submit"
+                                                                type="button"
                                                                 className="share_clr_four cr_weight share_fsize_three share_cursor gui_lai"
                                                                 data1={1}
                                                                 onClick={btnReSend}
@@ -141,7 +141,7 @@ export default function AuthenticPersonal() {
                                                                 Gửi lại{getTimerText()}
                                                             </button>
                                                         </p>
-                                                    </div>}
+                                                    </div>
                                                 </div>
                                                 <div id="recaptcha-container" className="recaptcha" />
                                                 <div className="form-butt-one">

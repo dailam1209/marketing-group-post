@@ -128,8 +128,8 @@ export default function AuthenticEp() {
                                                             />
                                                             <div id="recaptcha-container" className="recaptcha"></div>
                                                         </div>
-                                                        {showResendButton&&<div className="gui_lai_otp hidden">
-                                                            <p>
+                                                        <div className="gui_lai_otp hidden">
+                                                            <p className={`${showResendButton? '' : 'hidden'}`}>
                                                                 <span className="share_fsize_three share_clr_one">
                                                                     Bạn chưa nhận được mã OTP?
                                                                 </span>{" "}
@@ -142,7 +142,7 @@ export default function AuthenticEp() {
                                                                     Gửi lại{getTimerText()}
                                                                 </button>
                                                             </p>
-                                                        </div>}
+                                                        </div>
                                                     </div>
                                                     <div id="recaptcha-container" className="recaptcha" />
                                                     <div className="form-butt-one">

@@ -18,6 +18,10 @@ export default function info_register_emp() {
     const { register, handleSubmit, watch, formState: { errors }, getValues } = useForm();
 
     const onSubmit = async data => {
+        if (data.password !== data.res_password) {
+            errors.res_password = true;
+            return;
+        };
         delete data.res_password;
         registerCom(data)
     };
@@ -43,8 +47,10 @@ export default function info_register_emp() {
     }
     const handleFormSubmit = async (e) => {
         e.preventDefault();
-        const isValid = await handleSubmit(onSubmit)();
+        let data = getValues();
 
+        const isValid = await handleSubmit(onSubmit)();
+        if (data.password !== data.res_password) return;
         if (!isValid) {
             // Xử lý logic khi form không hợp lệ
             console.log("invalid")
