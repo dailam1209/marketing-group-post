@@ -1,52 +1,66 @@
-import React, { useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import Layout from "@/components/hr/Layout";
-import { useDrop, DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
-import { CheckLogIn, SignIn } from "./hr/api/Home/HomeService";
-import LoadingSpinner from "@/components/hr/loading/index";
-import "../styles/globals.css";
-
+import React, { useEffect, useState } from 'react'
+import '@/styles/globals.css'
+import { ConfigProvider } from 'antd'
+import { LayoutNs } from '../components/LayoutNs.tsx'
+import Bodyframe from '@/components/bodyFrameNs/bodyFrame.tsx'
+import { hasCookie, setCookie } from 'cookies-next'
+import { COOKIE_KEY } from './nhan-su/index.tsx'
+import axios from 'axios'
+import { useRouter } from 'next/router.js'
 export default function App({ Component, pageProps }) {
-  useEffect(() => {}, []);
-  const router = useRouter();
-  const [loading, setLoading] = useState(false);
-  // useEffect(() => {
-  //   const checkLoginAndRedirect = async () => {
-  //     const currentCookie = await CheckLogIn();
-  //     console.log(currentCookie);
-  //     if (currentCookie) {
-  //       setLoading(true);
-  //     } else {
-  //       setLoading(false);
-  //       router.push("https://hungha365.com/lua-chon-dang-nhap.html");
-  //     }
-  //   };
-  //   checkLoginAndRedirect();
-  // }, []);
+  const SignIn = async () => {
+    const currentCookie = hasCookie(COOKIE_KEY)
+    const currentUrl = process.env.NEXT_PUBLIC_BASE_URL_QLC
+
+    if (currentCookie === false) {
+      const body = {
+        account: 'duonghiepit1@gmail.com',
+        password: '123123a',
+        type: 1,
+      }
+      try {
+        const res = await axios.post(
+          `${currentUrl}/api/qlc/employee/login`,
+          body
+        )
+
+        if (res?.status === 200) {
+          const userInfo = res?.data?.data?.data
+          setCookie(COOKIE_KEY, userInfo)
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  }
 
   useEffect(() => {
-    SignIn();
-  }, []);
+    SignIn()
 
-  console.log("Current route:", router.pathname);
+    // save role to local storage - temp
+    // window.localStorage.setItem(ROLE_CURRENT, ADMIN_ROLE)
+  }, [])
+
+  const router = useRouter()
+
   return (
-    <div>
-      {router.pathname.includes("hr") ? (
-        <>
-          {loading ? (
-            <LoadingSpinner />
-          ) : (
-            <Layout>
-              <DndProvider backend={HTML5Backend}>
-                <Component {...pageProps} />
-              </DndProvider>
-            </Layout>
-          )}
-        </>
+    <ConfigProvider
+      theme={{
+        token: {
+          screenLG: 1025,
+          screenLGMin: 1025,
+          screenLGMax: 1025,
+          screenMD: 769,
+          screenMDMin: 769,
+        },
+      }}>
+      {router.pathname?.includes('nhan-su') ? (
+        <Bodyframe>
+          <Component {...pageProps} />
+        </Bodyframe>
       ) : (
         <Component {...pageProps} />
       )}
-    </div>
-  );
+    </ConfigProvider>
+  )
 }

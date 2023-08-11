@@ -1,10 +1,6 @@
 {
   "compilerOptions": {
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
@@ -24,9 +20,15 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
-, "pages/_app.js", "pages/_document.js", "pages/san-pham.html.js", "pages/layout.js", "components/header/Header.js", "components/Layout.js", "components/test.js", "components/footer/Footer.js"  ],
-  "exclude": [
-    "node_modules"
-  ]
+    "**/*.tsx",
+    "pages/_app.js",
+    "pages/_document.js",
+    "pages/san-pham.html.js",
+    "pages/layout.js",
+    "components/header/Header.js",
+    "components/Layout.js",
+    "components/test.js",
+    "components/footer/Footer.js"
+  ],
+  "exclude": ["node_modules"]
 }

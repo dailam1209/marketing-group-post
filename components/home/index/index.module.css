@@ -1,0 +1,31 @@
+.ribbon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 0;
+  border-bottom: 16px solid var(--theme-color);
+  border-top: 18px solid var(--theme-color);
+  border-right: 20px solid transparent;
+  border-left: 20px solid transparent;
+  margin: auto;
+  margin-bottom: 20px;
+
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-color);
+
+  .text {
+    color: var(--white-color);
+  }
+}
+
+@media screen and (max-width: 768px){
+  .indexWrapper {
+    padding: 0;
+  }
+}
+/* @media screen and (max-width: 414px) {
+  .indexWrapper {
+    padding: 4px 0px;
+  }
+} */

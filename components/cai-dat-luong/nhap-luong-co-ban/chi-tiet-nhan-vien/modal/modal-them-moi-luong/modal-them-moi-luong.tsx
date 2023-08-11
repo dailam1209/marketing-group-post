@@ -1,0 +1,191 @@
+import {
+  Modal,
+  Input,
+  Select,
+  Button,
+  Form,
+  List,
+  Checkbox,
+  DatePicker,
+} from 'antd'
+import styles from './modal-them-moi-luong.module.css'
+import Image from 'next/image'
+import { values } from 'lodash'
+import React, { useState } from 'react'
+import { Logo, IconSelect } from '@/components/cai-dat-luong/cai-dat-thue/danh-sach-nhan-su-chua-thiet-lap/anh'
+import moment from 'moment'
+import { POST_TL } from '@/pages/api/BaseApi'
+import { useRouter } from 'next/router'
+const { TextArea } = Input
+const loai = [
+  {
+    value: 'Thu nhập chịu thuế',
+    label: 'Thu nhập chịu thuế',
+  },
+  {
+    value: 'Thu nhập chịu thuế ok',
+    label: 'Thu nhập chịu thuế ok',
+  },
+]
+export function ModalThemMoiLuong(
+  open: boolean,
+  setOpen: Function,
+  key: any,
+  info: any
+) {
+  const [form] = Form.useForm()
+  const router = useRouter()
+  const handelSubmit = (event: any) => {
+    event.preventDefaut()
+  }
+  const onFinish = async (val) => {
+    const body = {
+      // sb_salary_basic: val?.sb_salary_basic,
+      // sb_lydo: val?.sb_lydo,
+      // sb_quyetdinh: val?.sb_quyetdinh,
+      ...val,
+      sb_time_up: moment(val?.sb_time_up)?.format('YYYY-MM-DD'),
+      sb_id_user: info?.info_dep_com?.user?.idQLC,
+      sb_id_com: info?.info_dep_com?.user?.inForPerson?.employee?.com_id,
+    }
+    // console.log(body)
+    const res = await POST_TL('api/tinhluong/congty/insert_basic_salary', body)
+    // console.log(res)
+
+    router.replace(router.asPath)
+  }
+
+  return (
+    <Modal
+      open={open}
+      onCancel={() => setOpen(false)}
+      width={600}
+      closable={false}
+      cancelButtonProps={{ style: { display: 'none' } }}
+      okButtonProps={{ style: { display: 'none' } }}>
+      <div className={styles.header}>
+        <div></div>
+        <div className={styles.textHead}>Thêm lương cơ bản</div>
+        <Image
+          alt='/'
+          src={'/cross.png'}
+          width={14}
+          height={14}
+          onClick={() => setOpen(false)}
+        />
+      </div>
+      <div className={styles.body}>
+        <div style={{ marginBottom: '20px' }}>
+          <Form form={form} onFinish={onFinish}>
+            <Form.Item
+              labelCol={{ span: 24 }}
+              label='Lương cơ bản'
+              name={'sb_salary_basic'}
+              rules={[
+                {
+                  required: true,
+                  message: 'Trường này là bắt buộc',
+                },
+              ]}>
+              <Input
+                size='large'
+                placeholder='Nhập lương'
+                className={styles.inputname}
+                suffix='VNĐ'
+              />
+            </Form.Item>
+            <Form.Item
+              labelCol={{ span: 24 }}
+              label='Lương đóng bảo hiểm'
+              name={'pc'}
+              rules={[
+                {
+                  required: true,
+                  message: 'Trường này là bắt buộc',
+                },
+              ]}>
+              <Input
+                size='large'
+                placeholder='Nhập lương đóng bảo hiểm'
+                className={styles.inputname}
+                suffix='VNĐ'
+              />
+            </Form.Item>
+            <Form.Item
+              labelCol={{ span: 24 }}
+              label='Phụ cấp đóng bảo hiểm'
+              name={'luong'}
+              rules={[
+                {
+                  required: true,
+                  message: 'Trường này là bắt buộc',
+                },
+              ]}>
+              <Input
+                size='large'
+                placeholder='Nhập lương'
+                className={styles.inputname}
+                suffix='VNĐ'
+              />
+            </Form.Item>
+            <Form.Item
+              labelCol={{ span: 24 }}
+              label='Thời gian áp dụng'
+              name={'sb_time_up'}
+              rules={[
+                {
+                  required: true,
+                  message: 'Trường này là bắt buộc',
+                },
+              ]}>
+              <DatePicker
+                size='large'
+                style={{ width: '100%' }}
+                placeholder='Chọn ngày'
+                className={styles.inputname}
+              />
+            </Form.Item>
+            <Form.Item label='Lý do' name={'sb_lydo'} labelCol={{ span: 24 }}>
+              <TextArea
+                style={{
+                  resize: 'none',
+                  borderRadius: '5px',
+                  border: '1px solid #9f9f9f',
+                }}
+                rows={5}
+                placeholder='Nhập ghi chú (nếu có)'
+              />
+            </Form.Item>
+
+            <Form.Item
+              label='Căn cứ quyết định'
+              name={'sb_quyetdinh'}
+              labelCol={{ span: 24 }}>
+              <Select
+                size='large'
+                placeholder='Căn cứ quyết định'
+                className={styles.inputname}
+                options={loai}
+                suffixIcon = {<IconSelect/>}
+              />
+            </Form.Item>
+
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                marginTop: '20px',
+              }}>
+              <button className={styles.huyb} onClick={() => setOpen(false)}>
+                <p className={styles.texthuyb}>Huỷ bỏ</p>
+              </button>
+              <button className={styles.luu} type='submit'>
+                <p className={styles.textluu}>Thêm mới</p>
+              </button>
+            </div>
+          </Form>
+        </div>
+      </div>
+    </Modal>
+  )
+}
