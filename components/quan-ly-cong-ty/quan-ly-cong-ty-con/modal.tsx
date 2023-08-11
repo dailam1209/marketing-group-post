@@ -397,13 +397,19 @@ export const MySeachBar = ({
   placeholder,
   name,
   hasPrefix,
+  value,
+  setValue
 }: {
   placeholder: string;
   name: string;
   hasPrefix: boolean;
+  value?: string;
+  setValue?: Function
 }) => (
-  <Form.Item>
+  <Form.Item name={name}>
     <Input
+    value={value && value}
+    onChange={(e) => setValue(e.target.value)}
       placeholder={placeholder}
       suffix={
         !hasPrefix && (

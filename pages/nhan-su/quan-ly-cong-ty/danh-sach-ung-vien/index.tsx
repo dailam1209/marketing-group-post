@@ -15,7 +15,7 @@ export default function QuanLyUngVien({
   //     children: <DanhSachUngVien listCandidatesOnProcess={listCandidatesOnProcess} />
   //   }
   // ]
-  console.log(listCandidatesOnProcess);
+  // console.log(listCandidatesOnProcess);
   return (
     <div>
       <Card>
