@@ -6,7 +6,7 @@ import {
 } from "@/components/cham-cong/duyet-thiet-bi/duyet-thiet-bi";
 import styles from "./duyet-thiet-bi.module.css";
 import { modalNhapLaiMat } from "@/components/cham-cong/nhap-lai-mat/modal";
-import { POST, POST_SS } from "@/pages/api/BaseApi";
+import { POST, POST_SS, getCompIdSS } from "@/pages/api/BaseApi";
 import { useRouter } from "next/router";
 
 export default function DuyetThietBi({
@@ -52,17 +52,49 @@ export default function DuyetThietBi({
     })
   );
 
+  const [listDataFiltered, setListDataFiltered] = useState([]);
+  const [epIdFilter, setEpIdFilter]: any = useState<any>();
+  const [depFilter, setDepFilter]: any = useState<any>();
+  useEffect(() => {
+    setListDataFiltered(data);
+  }, [data]);
+
+  useEffect(() => {
+    if (!depFilter) {
+      setListDataFiltered(data);
+    }
+  }, [depFilter]);
+
+  const handleFilter = () => {
+    if (depFilter) {
+      setListDataFiltered(
+        data?.filter((data: any) => data?.dep_name === depFilter?.label)
+      );
+    }
+    if (epIdFilter) {
+      setListDataFiltered(
+        data?.filter((data: any) => data?.idQLC === epIdFilter)
+      );
+    }
+  };
+
+  const handleChangeEp = (value: any, option: any) => {
+    setEpIdFilter(value)
+  }
+
+  const handleChangeDep = (value: any, option: any) => {
+    setDepFilter(option)
+  }
+
   const duyetThietBi = () => {
-    console.log(listAccept?.join(","));
+    // console.log(listAccept?.join(","));
     POST("api/qlc/checkdevice/add", { ed_id: listAccept?.join(",") }).then(
       (res) => console.log(res)
     );
 
     setModalState(true);
   };
-  const onFinish = (value: any) => {
-    console.log(value);
-  };
+
   const [modalState, setModalState] = useState(false);
   const [typeModal, setTypeModal] = useState("");
   return (
@@ -80,7 +112,7 @@ export default function DuyetThietBi({
           Danh sách thiết bị
         </div>
         <div style={{ marginBottom: "20px" }}>
-          <Form onFinish={onFinish}>
+          <Form >
             <Row
               gutter={[20, 5]}
               justify={{ xs: "center", sm: "start", md: "start" }}
@@ -97,8 +129,9 @@ export default function DuyetThietBi({
                   "Phòng ban(tất cả)",
                   true,
                   false,
-                  "phongBan",
-                  listDepLabel
+                  "dep_id",
+                  listDepLabel,
+                  handleChangeDep
                 )}
               </Col>
               <Col xl={8} lg={12} md={12} sm={12} xs={24}>
@@ -108,16 +141,17 @@ export default function DuyetThietBi({
                   "Nhập tên cần tìm",
                   true,
                   false,
-                  "ten",
-                  listEmpLabel
+                  "ep_id",
+                  listEmpLabel,
+                  handleChangeEp
                 )}
               </Col>
               <Col lg={3} sm={4} xs={8}>
-                <Form.Item>
+                <Form.Item name={"filter"}>
                   <Button
                     className={styles.buttons}
-                    htmlType="submit"
                     size="large"
+                    onClick={handleFilter}
                   >
                     <p className={styles.txt}>Lọc</p>
                   </Button>
@@ -127,7 +161,7 @@ export default function DuyetThietBi({
           </Form>
         </div>
         <div style={{ marginBottom: "20px" }}>
-          {MyTable2(data, setListAccept, setModalState, setTypeModal)}
+          {MyTable2(listDataFiltered, setListAccept, setModalState, setTypeModal)}
         </div>
         <Row justify="center">
           <Col lg={3} sm={4} xs={7}>
@@ -153,24 +187,27 @@ export default function DuyetThietBi({
 
 export const getServerSideProps = async (context) => {
   const infoCom = await POST_SS("api/qlc/company/info", {}, context);
+  let com_id = null;
+  com_id = getCompIdSS(context);
+  
 
   const listDepartments = await POST_SS(
     "api/qlc/department/list",
     {
-      com_id: 1763,
+      com_id: com_id,
     },
     context
   );
 
   const listEmps = await POST_SS(
     "api/qlc/managerUser/list",
-    { com_id: 1763 },
+    { com_id: com_id },
     context
   );
 
   const listDevices = await POST_SS(
     "api/qlc/checkdevice/list",
-    { com_id: 1763 },
+    { com_id: com_id },
     context
   );
 

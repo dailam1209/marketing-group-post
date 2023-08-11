@@ -331,7 +331,7 @@ export function ModalChinhSua_Them({
             item["shift_id"] === "" ? [] : item["shift_id"].split(","),
         };
       });
-      console.log(obj);
+      // console.log(obj);
 
       setAllCheck(obj);
     }
@@ -359,9 +359,9 @@ export function ModalChinhSua_Them({
     setListCheck(
       !(formatDate(current) in allCheck) ? [] : allCheck[formatDate(current)]
     );
-    if (formatDate(current) in allCheck) {
-      console.log(allCheck[formatDate(current)]);
-    }
+    // if (formatDate(current) in allCheck) {
+    //   console.log(allCheck[formatDate(current)]);
+    // }
   }, [current]);
 
   if (data?.apply_month) {

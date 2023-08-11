@@ -8,7 +8,7 @@ import {
   ModalCongThuc,
   ModalThemMoiChinhSachBaoHiem,
 } from "@/components/cai-dat-luong/cai-dat-bao-hiem/chinh-sach-bao-hiem/modal-them-moi-bao-hiem/modal-them-moi-chinh-sach-bao-hiem";
-import { POST, POST_SS, POST_SS_TL } from "@/pages/api/BaseApi";
+import { POST, POST_SS, POST_SS_TL, getCompIdSS } from "@/pages/api/BaseApi";
 
 export default function CaiDatBaoHiem({
   listInsurance,
@@ -113,16 +113,19 @@ export default function CaiDatBaoHiem({
 }
 
 export const getServerSideProps = async (context) => {
+  let com_id = null;
+  com_id = getCompIdSS(context);
+
   const listInsurance = await POST_SS_TL(
     "api/tinhluong/congty/takeinfo_insrc",
-    { cl_com: 3312 },
+    { cl_com: com_id },
     context
   );
 
   const listEmp = await POST_SS(
     "api/qlc/managerUser/list",
     {
-      com_id: 3312,
+      com_id: com_id,
     },
     context
   );
@@ -130,7 +133,7 @@ export const getServerSideProps = async (context) => {
   const listUserNoInsrc = await POST_SS_TL(
     "api/tinhluong/congty/show_list_user_noinsrc",
     {
-      cls_id_com: 3312,
+      cls_id_com: com_id,
     },
     context
   );
@@ -140,7 +143,7 @@ export const getServerSideProps = async (context) => {
     {
       start_date: "2023-01-01T00:00:00.000+00:00",
       end_date: "2023-08-01T00:00:00.000+00:00",
-      cls_id_com: 3312,
+      cls_id_com: com_id,
     },
     context
   );
@@ -152,7 +155,7 @@ export const getServerSideProps = async (context) => {
   const listDepartments = await POST_SS(
     "api/qlc/department/list",
     {
-      com_id: 3312,
+      com_id: com_id,
     },
     context
   );

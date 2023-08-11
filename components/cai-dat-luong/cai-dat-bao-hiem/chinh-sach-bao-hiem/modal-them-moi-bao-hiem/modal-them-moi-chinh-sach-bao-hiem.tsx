@@ -15,7 +15,7 @@ import Image from "next/image";
 import { MenuOutlined } from "@ant-design/icons";
 import { ItemList } from "./ItemList/ItemList";
 import { useState, useEffect } from "react";
-import { POST_TL } from "@/pages/api/BaseApi";
+import { POST_TL, getCompIdCS } from "@/pages/api/BaseApi";
 import { useRouter } from "next/router";
 
 const ImageToggle = ({
@@ -266,9 +266,10 @@ export function ModalThemMoiChinhSachBaoHiem(open: boolean, setOpen: Function) {
       //       ? Number(form.getFieldValue("fs_data"))
       //       : undefined,
       // })
-      
-      POST_TL("api/tinhluong/congty/insert_category_insrc", {
-        com_id: 1763,
+      let com_id = null
+      com_id = getCompIdCS()
+      com_id !== null && POST_TL("api/tinhluong/congty/insert_category_insrc", {
+        com_id: com_id,
         ...value,
         fs_data:
           form.getFieldValue("fs_data") !== ""

@@ -8,7 +8,7 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import styles from "./modal.module.css";
 import { useState } from "react";
-import { POST_HR } from "@/pages/api/BaseApi";
+import { POST_HR, getCompIdCS } from "@/pages/api/BaseApi";
 import { useEffect } from "react";
 
 const MyEditor = dynamic(() => import("../../../../commons/CkEditor"), {
@@ -57,8 +57,10 @@ export function UpdatePhongBanModal(
   }, [data])
 
   useEffect(() => {
+    let com_id = null;
+    com_id = getCompIdCS();
     form.setFieldValue("ep_id", selectedRow?.ep_id)
-    form.setFieldValue("com_id", 1763)
+    form.setFieldValue("com_id", com_id)
     form.setFieldValue("current_dep_id", selectedRow?.dep_name)
     form.setFieldValue("current_position", selectedRow?.position_name)
     form.setFieldValue("created_at", selectedRow?.time?.substring(0,10))

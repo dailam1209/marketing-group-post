@@ -83,7 +83,7 @@ export default function Congchuan({ listCompanyWorkdays }) {
 
   useEffect(() => {
     const dateSplit = data?.apply_month.split("-")
-    console.log(dateSplit)
+    // console.log(dateSplit)
     if (dateSplit) {
       setYear(dateSplit[0])
       setMonth(dateSplit[1])

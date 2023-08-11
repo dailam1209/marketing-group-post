@@ -5,7 +5,7 @@ import moment from 'moment'
 import { filterUnique } from '../nhap-luong-co-ban/nhap-luong-co-ban'
 import _, { filter } from 'lodash'
 import { useState, useEffect, useRef } from 'react'
-import { POST_TL } from '@/pages/api/BaseApi'
+import { POST_TL, getCompIdCS } from '@/pages/api/BaseApi'
 import { CSVLink } from 'react-csv'
 
 function secondsToMinutes(time) {
@@ -119,7 +119,9 @@ export function CpmDiMuonVeSom({ listEmpLateEarly, listPb }) {
         `${filterParam?.year}-${filterParam?.month}`,
         'YYYY-MM'
       )?.daysInMonth()
-
+      let com_id = null;
+      com_id = getCompIdCS();
+      
       const res = await POST_TL('api/tinhluong/congty/show_staff_late', {
         start_date: `${filterParam?.year}-${
           filterParam?.month >= 10
@@ -131,7 +133,7 @@ export function CpmDiMuonVeSom({ listEmpLateEarly, listPb }) {
             ? filterParam?.month
             : `0${filterParam?.month}`
         }-${daysInMonth}`,
-        com_id: 3312,
+        com_id: com_id,
         ...filterParam,
       })
 

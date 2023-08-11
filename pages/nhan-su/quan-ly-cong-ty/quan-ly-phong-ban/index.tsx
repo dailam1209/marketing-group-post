@@ -6,7 +6,7 @@ import { DanhSachNhom } from "@/components/quan-ly-cong-ty/quan-ly-phong-ban/dan
 import { LuanChuyen } from "@/components/quan-ly-cong-ty/quan-ly-phong-ban/luan-chuyen/LuanChuyen"
 import { GiamBienChe } from "@/components/quan-ly-cong-ty/quan-ly-phong-ban/giam-bien-che/GiamBienChe"
 import { NghiViec } from "@/components/quan-ly-cong-ty/quan-ly-phong-ban/nghi-viec/NghiViec"
-import { POST, POST_SS, POST_SS_HR } from "@/pages/api/BaseApi"
+import { POST, POST_SS, POST_SS_HR, getCompIdSS } from "@/pages/api/BaseApi"
 import { createContext, useState } from "react"
 
 export const PHONGBAN_ACTIVE_KEY = "key_phongban"
@@ -75,16 +75,19 @@ export default function QuanLyPhongBanPage({
 }
 
 export const getServerSideProps = async (context) => {
+  let com_id = null;
+  com_id = getCompIdSS(context);
+
   const listTeams = await POST_SS("api/qlc/team/list", {
-    com_id: 1763
+    com_id: com_id
   }, context)
 
   const listDepartments = await POST_SS("api/qlc/department/list", {
-    com_id: 1763
+    com_id: com_id
   }, context)
 
   const listGroups = await POST_SS("api/qlc/group/search", {
-    com_id: 1763,
+    com_id: com_id,
   }, context)
 
   const listTranferJob = await POST_SS_HR("api/hr/personalChange/getListTranferJob", {

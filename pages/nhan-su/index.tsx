@@ -272,7 +272,7 @@ export default function Home() {
       </Head>
       <main>
         <div className={styles.section1}>
-          <Row gutter={{ lg: 150, md: 100, sm: 30 }}>
+          <Row gutter={{ lg: 150, md: 100, sm: 30, xs: 10 }}>
             <Col lg={currentRole === ADMIN_ROLE ? 10 : 11} sm={11} xs={24}>
               {(currentRole === ADMIN_ROLE
                 ? LIST_BUTTONS_COMP

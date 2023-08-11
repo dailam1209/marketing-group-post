@@ -2,7 +2,7 @@ import { Card, Row, Col, Form, Select, Button } from 'antd'
 import styles from './index.module.css'
 import { TableThuongPhat } from '@/components/cai-dat-luong/thuong-phat/table-thuong-phat/table-thuong-phat'
 import Image from 'next/image'
-import { POST, POST_SS_TL, POST_TL } from '@/pages/api/BaseApi'
+import { POST, POST_SS_TL, POST_TL, getCompIdSS } from '@/pages/api/BaseApi'
 import moment from 'moment'
 import _ from 'lodash'
 import { useEffect, useState } from 'react'
@@ -208,6 +208,8 @@ export default function ThuongPhat({ tpList, listPb }) {
 
 export const getServerSideProps = async (context) => {
   const tpList: any[] = []
+  let com_id = null;
+  com_id = getCompIdSS(context);
 
   const currentMonth = moment().month() + 1
   const currentYear = moment().year()
@@ -217,13 +219,13 @@ export const getServerSideProps = async (context) => {
     {
       month: currentMonth,
       year: currentYear,
-      id_com: 3312,
+      id_com: com_id,
     },
     context
   )
 
   const listPbRes = await POST('api/qlc/department/list', {
-    com_id: 3312,
+    com_id: com_id,
   })
 
   return {

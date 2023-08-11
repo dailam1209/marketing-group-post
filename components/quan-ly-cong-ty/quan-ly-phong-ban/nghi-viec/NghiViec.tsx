@@ -14,7 +14,7 @@ import {
 } from "./modal/modal"
 import { MyTable } from "../table/Table"
 import { MyInput, MySelect } from "../../quan-ly-cong-ty-con/modal"
-import { POST } from "@/pages/api/BaseApi"
+import { POST, getCompIdCS } from "@/pages/api/BaseApi"
 
 // const mockdata = [
 //   {
@@ -64,8 +64,11 @@ export function NghiViec({ listQuitJobNew, listDepartments }) {
   const [listDepLabel, setListDepLabel]: any = useState(listDepartments?.data?.map(dep => ({ label: dep?.dep_name, value: dep?.dep_id })))
 
   useEffect(() => {
+    let com_id = null;
+    com_id = getCompIdCS();
+    com_id !== null &&
     POST('api/qlc/managerUser/list', {
-      com_id: 1763
+      com_id: com_id
     })
       .then(res => {
         if (res?.result === true) {

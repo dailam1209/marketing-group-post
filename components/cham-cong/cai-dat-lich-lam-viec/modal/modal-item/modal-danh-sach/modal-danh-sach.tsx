@@ -46,9 +46,7 @@ export function DanhSach(open: boolean, setOpen: Function, cySelected: any, list
   const [selectedRow, setSelectedRow]: any = useState({});
 
   useEffect(() => {
-    if (listEmpInCy?.length > 0) {
       setData(listEmpInCy)
-    }
   }, [listEmpInCy]);
 
   const columns: ColumnsType<DataType> = [

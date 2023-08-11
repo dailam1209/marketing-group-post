@@ -15,7 +15,7 @@ import {
 import { MyTable } from "../table/Table"
 import { MyInput, MySelect } from "../../quan-ly-cong-ty-con/modal"
 import { mySelect } from "@/components/cham-cong/duyet-thiet-bi/duyet-thiet-bi"
-import { POST } from "@/pages/api/BaseApi"
+import { POST, getCompIdCS } from "@/pages/api/BaseApi"
 
 // const mockdata = [
 //   {
@@ -86,7 +86,10 @@ export function GiamBienChe({ listQuitJob, listDepartments, infoCom }) {
   const [companyLabel, setCompanyLabel]: any = useState({ label: infoCom?.data?.userName, value: infoCom?.data?.idQLC })
 
   useEffect(() =>{
-     POST('api/qlc/managerUser/list',{com_id:1763}).then(
+    let com_id = null;
+    com_id = getCompIdCS();
+    com_id !== null &&
+     POST('api/qlc/managerUser/list',{com_id:com_id}).then(
         res => {
           if(res?.result === true){
             setListNV(res?.data)

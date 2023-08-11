@@ -374,20 +374,21 @@ export default function CaiDatPhucLoi({
 }
 
 export const getServerSideProps = async (context) => {
-  let companyId = getCompIdSS(context)
+  let com_id = null;
+  com_id = getCompIdSS(context);
   const listPhucLoi = await POST_SS_TL(
     "api/tinhluong/congty/take_phuc_loi",
-    { companyId: 3312 },
+    { companyId: com_id },
     context
   )
   const listNhanVien = await POST_SS_TL(
     "api/tinhluong/congty/list_em",
-    { id_com: 3312 },
+    { id_com: com_id },
     context
   )
   const listPhongBan = await POST_SS(
     "api/qlc/department/list",
-    { com_id: 3312 },
+    { com_id: com_id },
     context
   )
   return {

@@ -3,8 +3,8 @@ import { mySelect } from "@/components/cham-cong/duyet-thiet-bi/duyet-thiet-bi";
 import "./xuat-cong.module.css";
 import { xuatCong } from "@/components/cham-cong/xuat-cong/xuat-cong-cpn";
 import styles from "./xuat-cong.module.css";
-import { POST, POST_SS } from "@/pages/api/BaseApi";
-import { useState } from "react";
+import { POST, POST_SS, getCompIdCS, getCompIdSS } from "@/pages/api/BaseApi";
+import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 export interface DataType {
   key: React.Key;
@@ -72,10 +72,12 @@ export default function XuatCong({
   const [form] = Form.useForm();
 
   const handleSubmit = () => {
+    let com_id = null;
+    com_id = getCompIdCS();
     form.getFieldValue("from") !== undefined &&
       form.getFieldValue("to") !== undefined &&
       POST("api/qlc/timekeeping/com/success", {
-        com_id: 3312,
+        com_id: com_id,
         inputOld: dayjs(form.getFieldValue("from")).format(
           "YYYY-MM-DDTHH:mm:ss.SSSZ"
         ),
@@ -115,7 +117,41 @@ export default function XuatCong({
       });
   };
 
-  console.log(data);
+  // console.log(data);
+  const [listDataFiltered, setListDataFiltered] = useState([]);
+  const [epIdFilter, setEpIdFilter]: any = useState<any>();
+  const [depFilter, setDepFilter]: any = useState<any>();
+  useEffect(() => {
+    setListDataFiltered(data);
+  }, [data]);
+
+  useEffect(() => {
+    handleFilter()
+    if (!depFilter) {
+      setListDataFiltered(data);
+    }
+  }, [depFilter]);
+
+  const handleFilter = () => {
+    if (depFilter) {
+      setListDataFiltered(
+        data?.filter((data: any) => data?.dep_name === depFilter?.label)
+      );
+    }
+    if (epIdFilter) {
+      setListDataFiltered(
+        data?.filter((data: any) => data?.idQLC === epIdFilter)
+      );
+    }
+  };
+
+  const handleChangeEp = (value: any, option: any) => {
+    setEpIdFilter(value)
+  }
+
+  const handleChangeDep = (value: any, option: any) => {
+    setDepFilter(option)
+  }
   return (
     <Card>
       <div className={styles.main}>
@@ -128,20 +164,26 @@ export default function XuatCong({
               <Col xl={15} sm={24} xs={24}>
                 <Row gutter={[20, 10]}>
                   <Col xl={12} sm={12} xs={24}>
-                    {mySelect(false, "", "Chọn công ty", true, false, "com_id", [
-                      comLabel,
-                    ])}
+                    {mySelect(
+                      false,
+                      "",
+                      "Chọn công ty",
+                      false,
+                      false,
+                      "com_id",
+                      [comLabel]
+                    )}
                   </Col>
                   <Col xl={12} sm={12} xs={24}>
-                    {" "}
                     {mySelect(
                       false,
                       "",
                       "Phòng ban (tất cả)",
-                      true,
+                      false,
                       false,
                       "dep_id",
-                      listDepLabel
+                      listDepLabel,
+                      handleChangeDep
                     )}
                   </Col>
                 </Row>
@@ -198,13 +240,14 @@ export default function XuatCong({
             >
               <Col xl={8} sm={12} xs={24}>
                 {mySelect(
-                  true,
+                  false,
                   "",
                   "Nhập tên cần tìm",
-                  true,
+                  false,
                   false,
                   "ep_id",
-                  listEmpLabel
+                  listEmpLabel,
+                  handleChangeEp
                 )}
               </Col>
               <Col xl={8} sm={12} xs={24}>
@@ -218,11 +261,10 @@ export default function XuatCong({
                   nhanVien
                 )} */}
                 <Form.Item
-                  name={""}
-                  required={true}
-                  rules={[
-                    { required: true, message: "Vui lòng điền đủ thông tin" },
-                  ]}
+                  name={"type_timekeeping"}
+                  // rules={[
+                  //   { required: true, message: "Vui lòng điền đủ thông tin" },
+                  // ]}
                 >
                   <Select
                     size="large"
@@ -284,7 +326,7 @@ export default function XuatCong({
             </Row>
           </div>
         </Form>
-        <div>{xuatCong(data)}</div>
+        <div>{xuatCong(listDataFiltered)}</div>
       </div>
     </Card>
   );
@@ -299,23 +341,26 @@ export const getServerSideProps = async (context) => {
   let endDay = current.set("hour", 23);
   // console.log(dayjs(startDay).format('YYYY-MM-DDTHH:00:00.000Z'))
   // console.log(dayjs(endDay).format('YYYY-MM-DDTHH:59:59.000Z'))
+  let com_id = null;
+  com_id = getCompIdSS(context);
+  
 
   const listDepartments = await POST_SS(
     "api/qlc/department/list",
-    { com_id: 3312 },
+    { com_id: com_id },
     context
   );
 
   const listEmp = await POST_SS(
     "api/qlc/managerUser/list",
-    { com_id: 3312 },
+    { com_id: com_id },
     context
   );
 
   const listEmpTimekeeping = await POST_SS(
     "api/qlc/timekeeping/com/success",
     {
-      com_id: 3312,
+      com_id: com_id,
       inputOld: dayjs(startDay).format("YYYY-MM-DDTHH:00:00.000Z"),
       // inputOld: "2023-01-01T00:00:00.000+07:00",
       inputNew: dayjs(endDay).format("YYYY-MM-DDTHH:59:59.000Z"),

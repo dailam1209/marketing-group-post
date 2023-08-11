@@ -14,12 +14,23 @@
     justify-content: center;
     color: var(--white-color);
 }
+
+.button:hover {
+    border: 1px solid var(--theme-color) !important;
+    color: #fff !important;
+}
+
 .buttonPlus{
     background-color: #20cb5d;
 }
 .buttonCopy{
     background-color: #4C5BD4;
 }
+
+.buttonCopy:hover {
+    border: 1px solid var(--text-color) !important;
+}
+
 .plus{
     width:12px;
     height:12px;
@@ -27,6 +38,7 @@
     margin-right:10px;
     display:flex;
     align-items:center;
+    padding: 6px;
 }
 @media screen and (max-width:414px) {
     .nav{

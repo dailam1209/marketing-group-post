@@ -1,4 +1,4 @@
-import { POST_SS } from "@/pages/api/BaseApi";
+import { POST_SS, getCompIdSS } from "@/pages/api/BaseApi";
 import styles from "./index.module.css";
 import { DanhSachNhanVienTable } from "@/components/de-xuat/so-do-to-chuc/table/Table";
 
@@ -27,6 +27,8 @@ export default function DanhSachNhanVien({
 export const getServerSideProps = async (context) => {
   const type = context?.query?.type || null;
   const id = context?.query?.id || null;
+  let com_id = null;
+  com_id = getCompIdSS(context);
 
   const listEmUntimed = await POST_SS(
     "api/hr/organizationalStructure/listEmUntimed",
@@ -40,7 +42,7 @@ export const getServerSideProps = async (context) => {
   const listTeams = await POST_SS(
     "api/qlc/team/list",
     {
-      com_id: 1763,
+      com_id: com_id,
     },
     context
   );
@@ -48,7 +50,7 @@ export const getServerSideProps = async (context) => {
   const listDepartments = await POST_SS(
     "api/qlc/department/list",
     {
-      com_id: 1763,
+      com_id: com_id,
     },
     context
   );
@@ -56,7 +58,7 @@ export const getServerSideProps = async (context) => {
   const listGroups = await POST_SS(
     "api/qlc/group/search",
     {
-      com_id: 1763,
+      com_id: com_id,
     },
     context
   );

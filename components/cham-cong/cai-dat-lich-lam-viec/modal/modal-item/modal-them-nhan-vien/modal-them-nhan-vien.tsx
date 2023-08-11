@@ -108,11 +108,9 @@ export function ThemNhanVien(
   }, [listEmp]);
 
   useEffect(() => {
-    if (listEmpInCy.length > 0) {
       // console.log(listEmpInCy);
-      setListKeyBefore(listEmpInCy.map((emp) => `${emp?.ep_id}`));
-      setListKeyAfter(listEmpInCy.map((emp) => `${emp?.ep_id}`));
-    }
+      setListKeyBefore(listEmpInCy?.map((emp) => `${emp?.ep_id}`) || []);
+      setListKeyAfter(listEmpInCy?.map((emp) => `${emp?.ep_id}`) || []);
   }, [listEmpInCy]);
 
   const onChange = (key: any) => {
