@@ -11,6 +11,7 @@ import {
 import { MyTable } from "../table/Table";
 import { MyInput, MySelect } from "../../quan-ly-cong-ty-con/modal";
 import { POST, getCompIdCS } from "@/pages/api/BaseApi";
+import dayjs from "dayjs";
 
 // const mockdata = [
 //   {
@@ -112,7 +113,7 @@ export function LuanChuyen({ listTranferJob, listDepartments, listTeams, listGro
     },
     {
       title: <p className={styles.headerTxt}>Thời gian chuyển công tác</p>,
-      render: (record: any, index: any) => <p>{record?.created_at?.substring(0,10)}</p>,
+      render: (record: any, index: any) => <p>{dayjs(record?.created_at)?.format("YYYY-MM-DD")}</p>,
     },
     {
       title: <p className={styles.headerTxt}>Lý do</p>,
