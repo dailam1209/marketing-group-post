@@ -7,7 +7,7 @@ import { LuanChuyen } from "@/components/quan-ly-cong-ty/quan-ly-phong-ban/luan-
 import { GiamBienChe } from "@/components/quan-ly-cong-ty/quan-ly-phong-ban/giam-bien-che/GiamBienChe"
 import { NghiViec } from "@/components/quan-ly-cong-ty/quan-ly-phong-ban/nghi-viec/NghiViec"
 import { POST, POST_SS, POST_SS_HR, getCompIdSS } from "@/pages/api/BaseApi"
-import { createContext, useState } from "react"
+import { createContext, useEffect, useState } from "react"
 
 export const PHONGBAN_ACTIVE_KEY = "key_phongban"
 
@@ -21,8 +21,12 @@ export default function QuanLyPhongBanPage({
   infoCom,
 }) {
   const [currentKey, setCurrentKey] = useState(
-    window.localStorage.getItem(PHONGBAN_ACTIVE_KEY) || "1"
+    "1"
   )
+
+  useEffect(() => {
+    setCurrentKey(window?.localStorage?.getItem(PHONGBAN_ACTIVE_KEY))
+  }, [])
 
   const LIST_TABS = [
     {

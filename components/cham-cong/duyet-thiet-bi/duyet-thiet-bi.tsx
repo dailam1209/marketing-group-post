@@ -28,6 +28,7 @@ export const mySelect = (
       options={options}
       showSearch={hasSearch}
       listHeight={200}
+      allowClear={true}
       onChange={(value: any, option: any) => {handleChange && handleChange(value, option)}}
     />
   </Form.Item>

@@ -173,6 +173,49 @@ export function LuanChuyen({ listTranferJob, listDepartments, listTeams, listGro
     },
   ];
 
+  const [listDataFiltered, setListDataFiltered] = useState([]);
+  const [depFilter, setDepFilter]: any = useState<any>();
+  const [epIdFilter, setEpIdFilter]: any = useState<any>();
+  const [dateFilter, setDateFilter]: any = useState<any>(dayjs().format("YYYY-MM"));
+  useEffect(() => {
+    setListDataFiltered(data);
+  }, [data]);
+
+  useEffect(() => {
+    if (!depFilter) {
+      setListDataFiltered(data);
+    }
+    if (!dateFilter) {
+      setListDataFiltered(data);
+    }
+  }, [depFilter, dateFilter]);
+
+  const handleFilter = () => {
+    if (depFilter) {
+      setListDataFiltered(
+        data?.filter((data: any) => data?.old_dep_name === depFilter?.label || data?.new_dep_name === depFilter?.label)
+      );
+    }
+    
+    if (epIdFilter) {
+      setListDataFiltered(
+        data?.filter((data: any) => data?.ep_id === epIdFilter)
+      );
+    }
+
+    if (dateFilter) {
+      setListDataFiltered(data?.filter((data: any) => dayjs(data?.created_at).format("YYYY-MM") === dateFilter))
+    }
+  };
+
+  const handleChangeDep = (value: any, option: any) => {
+    setDepFilter(option);
+  };
+
+  const handleChangeEp = (value: any, option: any) => {
+    setEpIdFilter(value);
+  };
+
   return (
     <div>
       <Row gutter={{ lg: 20, md: 25, sm: 10, xs: 20 }}>
@@ -182,7 +225,7 @@ export function LuanChuyen({ listTranferJob, listDepartments, listTeams, listGro
           sm={12}
           xs={24}
         >
-          <div>{MySelect("", "Chọn phòng ban", false, false, "dep_id", listDepLabel)}</div>
+          <div>{MySelect("", "Chọn phòng ban", false, false, "dep_id", listDepLabel, null, () => null, handleChangeDep)}</div>
         </Col>
         <Col
           lg={{ span: 11, order: 1 }}
@@ -190,7 +233,7 @@ export function LuanChuyen({ listTranferJob, listDepartments, listTeams, listGro
           sm={12}
           xs={24}
         >
-          <div>{MySelect("", "Nhập tên nhân viên", false, false, "ep_id", data?.map(empQuit => ({ label: empQuit?.userName, value: empQuit?.ep_id })))}</div>
+          <div>{MySelect("", "Nhập tên nhân viên", false, false, "ep_id", data?.map(empQuit => ({ label: empQuit?.userName, value: empQuit?.ep_id })), null, () => null, handleChangeEp)}</div>
         </Col>
         <Col
           lg={{ span: 3, order: 1 }}
@@ -199,7 +242,7 @@ export function LuanChuyen({ listTranferJob, listDepartments, listTeams, listGro
           xs={{ span: 9, order: 1 }}
           className={styles.button}
         >
-          <div>{SearchButton("Tìm kiếm", () => null, false)}</div>
+          <div>{SearchButton("Tìm kiếm", handleFilter, false)}</div>
         </Col>
         <Col
           lg={{ span: 10, order: 1 }}
@@ -209,9 +252,12 @@ export function LuanChuyen({ listTranferJob, listDepartments, listTeams, listGro
         >
           <Input
             className={styles.input}
-            type="date"
-            placeholder="Chọn ngày"
+            type="month"
+            placeholder="Chọn tháng"
             size="large"
+            value={dateFilter ? dayjs(dateFilter).format("YYYY-MM") : undefined}
+            onChange={(e) => setDateFilter(e.target.value)}
+            allowClear={dateFilter ? true : false}
           ></Input>
         </Col>
         <Col
@@ -230,7 +276,7 @@ export function LuanChuyen({ listTranferJob, listDepartments, listTeams, listGro
       {/* table */}
       <MyTable
         colunms={columns}
-        data={data}
+        data={listDataFiltered}
         onRowClick={() => null}
         Footer={null}
         hasRowSelect={false}

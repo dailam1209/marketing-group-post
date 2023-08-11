@@ -8,6 +8,7 @@ import { DeleteEmpModal, EditEmpModal, SetRoleModal } from "../modal/modal"
 import { useRouter } from "next/router"
 import { AddButton } from "@/components/commons/Buttons"
 import { EDIT_ICON, KEY_ICON, TRASH_ICON } from "./icons"
+import dayjs from "dayjs"
 
 export function AllNhanVien({
   listStaffs,
@@ -119,15 +120,15 @@ export function AllNhanVien({
     },
     {
       title: <p className="tableHeader">SĐT</p>,
-      render: (record: any) => <p>{record?.phoneTK || "Chưa cập nhật"}</p>
+      render: (record: any) => <p>{record?.phoneTK || record?.phone || "Chưa cập nhật"}</p>
     },
     {
       title: <p className="tableHeader">Tài khoản đăng nhập</p>,
-      render: (record: any) => <p>{record?.phoneTK}</p>
+      render: (record: any) => <p>{record?.phoneTK || record?.email}</p>
     },
     {
       title: <p className="tableHeader">Email</p>,
-      render: (record: any) => <p>{record?.emailContact || record?.email}</p>
+      render: (record: any) => <p>{record?.emailContact || record?.email || "Chưa cập nhật"}</p>
     },
     {
       title: <p className="tableHeader">Phòng ban</p>,
@@ -172,6 +173,36 @@ export function AllNhanVien({
     router.push(`${router.pathname}/chi-tiet-nhan-vien/${id}`)
   }
 
+  const [listDataFiltered, setListDataFiltered] = useState([]);
+  const [depFilter, setDepFilter]: any = useState<any>("");
+  const [epNameFilter, setEpNameFilter]: any = useState<any>("");
+  
+  useEffect(() => {
+    setListDataFiltered(data);
+  }, [data]);
+
+  useEffect(() => {
+    if (depFilter === "" && epNameFilter === "") {
+      setListDataFiltered(data);
+    } 
+    if (depFilter !== "") {
+      setListDataFiltered(data?.filter(emp => emp?.nameDeparment?.toLowerCase()?.includes(depFilter?.toLowerCase())))
+    }
+    if (epNameFilter !== "") {
+      setListDataFiltered(data?.filter(emp => emp?.userName?.toLowerCase()?.includes(epNameFilter?.toLowerCase())))
+
+    }
+    
+  }, [depFilter, epNameFilter]);
+
+  const handleChangeDep = (value: any) => {
+    setDepFilter(value);
+  };
+
+  const handleChangeEp = (value: any) => {
+    setEpNameFilter(value);
+  };
+
   return (
     <div>
       <div>
@@ -186,6 +217,8 @@ export function AllNhanVien({
               placeholder="Nhập tên phòng ban"
               hasPrefix={false}
               name="dep_name"
+              value={depFilter}
+              setValue={handleChangeDep}
             />
           </Col>
 
@@ -193,7 +226,9 @@ export function AllNhanVien({
             <MySeachBar
               placeholder="Nhập tên cần tìm"
               hasPrefix={false}
-              name=""
+              name="ep_name"
+              value={epNameFilter}
+              setValue={handleChangeEp}
             />
           </Col>
           <Col md={0} sm={12} xs={24} className={styles.btnAdd}>
@@ -207,7 +242,7 @@ export function AllNhanVien({
       <div>
         <MyTable
           colunms={columns}
-          data={data}
+          data={listDataFiltered}
           onRowClick={(record, index) => onRowClicked(record?._id)}
           hasRowSelect={false}
           onSelectChange={() => null}

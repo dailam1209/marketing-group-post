@@ -31,6 +31,7 @@
     "cookies-next": "^2.1.2",
     "date-fns": "^2.30.0",
     "dayjs": "^1.11.9",
+    "dnd-core": "^16.0.1",
     "dom-image": "^2.5.2",
     "dom-to-image": "^2.6.0",
     "eslint": "8.43.0",
