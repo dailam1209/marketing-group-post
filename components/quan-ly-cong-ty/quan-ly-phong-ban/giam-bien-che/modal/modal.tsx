@@ -4,7 +4,7 @@ import {
   MyInput,
   MySelect
 } from "@/components/quan-ly-cong-ty/quan-ly-cong-ty-con/modal"
-import { POST_HR } from "@/pages/api/BaseApi"
+import { POST_HR, getCompIdCS } from "@/pages/api/BaseApi"
 import { Form, Select, Input } from "antd"
 import dynamic from "next/dynamic"
 import Image from "next/image"
@@ -35,10 +35,12 @@ export function UpdatePhongBanModal(
     // form.setFieldValue("company", options)
   }
   useEffect(() =>{
+    let com_id = null;
+    com_id = getCompIdCS();
     form.setFieldValue('ep_id', selectedRow?.ep_id)
     form.setFieldValue('current_dep_id', selectedRow?.dep_name)
     form.setFieldValue('current_position', selectedRow?.position_name)
-    form.setFieldValue('com_id', 1763)
+    form.setFieldValue('com_id', com_id)
     form.setFieldValue('created_at', selectedRow?.time?.substring(0,10))
     form.setFieldValue('shift_id', selectedRow?.shift_id)
     form.setFieldValue('type',selectedRow?.type)

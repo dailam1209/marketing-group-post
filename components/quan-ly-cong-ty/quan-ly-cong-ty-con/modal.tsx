@@ -42,7 +42,7 @@ export const MyInput = (
         message: `Vui lòng nhập ${title} của bạn!`,
       },
     ]}
-    label={hasLabel && <p style={{fontWeight:'500'}}>{title}</p>}
+    label={hasLabel && <p style={{ fontWeight: "500" }}>{title}</p>}
     labelCol={{ span: 24 }}
   >
     {type && type === "number" ? (
@@ -82,7 +82,7 @@ export const MyInputPwd = (
         message: `Vui lòng nhập ${title} của bạn!`,
       },
     ]}
-    label={hasLabel && <p style={{fontWeight:'500'}}>{title}</p>}
+    label={hasLabel && <p style={{ fontWeight: "500" }}>{title}</p>}
     labelCol={{ span: 24 }}
   >
     <Input.Password
@@ -113,7 +113,7 @@ export const MyDatePicker = (
           message: `Vui lòng nhập ${title} của bạn!`,
         },
       ]}
-      label={hasLabel && <p style={{fontWeight:'500'}}>{title}</p>}
+      label={hasLabel && <p style={{ fontWeight: "500" }}>{title}</p>}
       labelCol={{ span: 24 }}
     >
       <DatePicker
@@ -134,8 +134,6 @@ export const MyDatePicker = (
   );
 };
 
-
-
 export const MySelect = (
   title: string,
   placeholder: string,
@@ -144,7 +142,8 @@ export const MySelect = (
   name: string = "",
   options: Array<any> = [],
   defaultValue?: any,
-  handleChange: Function = () => null
+  handleChange: Function = () => null,
+  hanldeChangeOption: Function = () => null
 ) => (
   <Form.Item
     name={name}
@@ -154,7 +153,7 @@ export const MySelect = (
         message: `Vui lòng nhập ${title} của bạn!`,
       },
     ]}
-    label={hasLabel && <p style={{fontWeight:'500'}}>{title}</p>}
+    label={hasLabel && <p style={{ fontWeight: "500" }}>{title}</p>}
     labelCol={{ span: 24 }}
   >
     <Select
@@ -166,7 +165,11 @@ export const MySelect = (
       }}
       defaultValue={defaultValue ?? null}
       options={options}
-      onChange={(value) => handleChange(value)}
+      allowClear={true}
+      onChange={(value: any, option: any) => {
+        hanldeChangeOption(value, option);
+        handleChange(value);
+      }}
       suffixIcon={
         <Image alt="/" src={"/down-icon.png"} width={14} height={14} />
       }
@@ -192,7 +195,7 @@ export const MySelectMulti = (
         message: `Vui lòng nhập ${title} của bạn!`,
       },
     ]}
-    label={hasLabel && <p style={{fontWeight:'500'}}>{title}</p>}
+    label={hasLabel && <p style={{ fontWeight: "500" }}>{title}</p>}
     labelCol={{ span: 24 }}
   >
     <Select
@@ -243,7 +246,7 @@ export const MySelectTags = (
         message: `Vui lòng nhập ${title} của bạn!`,
       },
     ]}
-    label={hasLabel && <p style={{fontWeight:'500'}}>{title}</p>}
+    label={hasLabel && <p style={{ fontWeight: "500" }}>{title}</p>}
     labelCol={{ span: 24 }}
   >
     <Select
@@ -295,7 +298,7 @@ export const MySelectThemeColor = (
         message: `Vui lòng nhập ${title} của bạn!`,
       },
     ]}
-    label={hasLabel && <p style={{fontWeight:'500'}}>{title}</p>}
+    label={hasLabel && <p style={{ fontWeight: "500" }}>{title}</p>}
     labelCol={{ span: 24 }}
   >
     <Select
@@ -347,7 +350,7 @@ export const MyRating = ({
           message: `Vui lòng nhập ${title} của bạn!`,
         },
       ]}
-      label={hasLabel && <p style={{fontWeight:'500'}}>{title}</p>}
+      label={hasLabel && <p style={{ fontWeight: "500" }}>{title}</p>}
     >
       <Rate
         style={{
@@ -382,7 +385,7 @@ export const MyTextArea = ({
           message: `Vui lòng nhập ${title} của bạn!`,
         },
       ]}
-      label={hasLabel && <p style={{fontWeight:'500'}}>{title}</p>}
+      label={hasLabel && <p style={{ fontWeight: "500" }}>{title}</p>}
       labelCol={{ span: 24 }}
     >
       <TextArea rows={5} style={{ width: "100%" }} placeholder={placeholder} />

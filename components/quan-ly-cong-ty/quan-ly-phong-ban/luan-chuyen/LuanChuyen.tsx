@@ -10,7 +10,7 @@ import {
 } from "./modal/modal";
 import { MyTable } from "../table/Table";
 import { MyInput, MySelect } from "../../quan-ly-cong-ty-con/modal";
-import { POST } from "@/pages/api/BaseApi";
+import { POST, getCompIdCS } from "@/pages/api/BaseApi";
 
 // const mockdata = [
 //   {
@@ -88,8 +88,11 @@ export function LuanChuyen({ listTranferJob, listDepartments, listTeams, listGro
 
 
   useEffect(() => {
+    let com_id = null;
+    com_id = getCompIdCS();
+    com_id !== null &&
     POST('api/qlc/managerUser/list', {
-      com_id: 1763
+      com_id: com_id
     })
       .then(res => {
         if (res?.result === true) {

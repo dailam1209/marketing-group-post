@@ -60,14 +60,14 @@ export default function DiMuonVeSom({
 }
 
 export const getServerSideProps = async (context) => {
+  let com_id = null;
+  com_id = getCompIdSS(context);
   // const currentTime = moment().format("YYYY-MM-DD")
   const end = moment().subtract(14, 'd').format('YYYY-MM-DD')
   const start = moment()
     .subtract(14, 'd')
     .subtract(60, 'd')
     .format('YYYY-MM-DD')
-  // const com_id = getCompId(context)
-  const com_id = 3312
 
   const listApiRes = await Promise.all([
     POST_SS_TL(
@@ -102,7 +102,7 @@ export const getServerSideProps = async (context) => {
     ),
     POST_SS_TL(
       'api/tinhluong/congty/takeinfo_phat_ca_com',
-      { pc_com: 3312 },
+      { pc_com: com_id },
       context
     ),
     POST_SS('api/qlc/department/list', { com_id: com_id }, context),

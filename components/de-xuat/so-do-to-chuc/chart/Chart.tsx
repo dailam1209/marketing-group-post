@@ -48,6 +48,7 @@ export default function OChart({ infoCompany }: { infoCompany: any }) {
       )}
       <Link
         href={{ pathname: url, query: { name: name, type: type, id: id } }}
+        as={url}
         style={{ textDecoration: "underline" }}
         className={styles.link}
       >
@@ -75,6 +76,7 @@ export default function OChart({ infoCompany }: { infoCompany: any }) {
         />
         <Link
           href={{ pathname: url, query: { name: inputData?.companyName, type: type, id: id } }}
+          as={url}
           style={{ textDecoration: "underline" }}
           // className={styles.link}
         >

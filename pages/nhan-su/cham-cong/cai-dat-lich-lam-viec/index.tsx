@@ -11,6 +11,7 @@ import { ModalThemCa } from "@/components/cham-cong/cai-dat-lich-lam-viec/modal/
 import { SaoChepLich } from "@/components/cham-cong/cai-dat-lich-lam-viec/modal/modal-sao-chep-lich/sao-chep-lich";
 import { GET, POST, POST_SS } from "@/pages/api/BaseApi";
 import { useRouter } from "next/router";
+import dayjs from "dayjs";
 
 const years = [
   {
@@ -89,11 +90,11 @@ export default function LichLamViec({ listCalendar }) {
   const [totalData, setTotalData] = useState(listCalendar?.data);
   const [data, setData] = useState(
     listCalendar?.data.filter(
-      (item) => item.apply_month.substring(0, 7) === "2023-06"
+      (item) => item.apply_month.substring(0, 7) === dayjs().format("YYYY-MM")
     )
   );
   const [cySelected, setCySelected] = useState(Object());
-  const [dateFilter, setDateFilter] = useState("2023-06");
+  const [dateFilter, setDateFilter] = useState(dayjs().format("YYYY-MM"));
   const router = useRouter()
 
   const [form] = Form.useForm();
@@ -139,7 +140,7 @@ export default function LichLamViec({ listCalendar }) {
   return (
     <Card>
       <div>
-        <Form form={form} initialValues={{ year: "2023", month: "06" }}>
+        <Form form={form} initialValues={{ year: dayjs().format("YYYY"), month: dayjs().format("MM") }}>
           <div style={{ borderBottom: "1px #B6B6B6 solid" }}>
             <div className={styles.nav}>Lịch làm việc chung</div>
           </div>
@@ -155,7 +156,7 @@ export default function LichLamViec({ listCalendar }) {
                         showSearch
                         options={years}
                         onChange={handleChange}
-                        defaultValue="2023"
+                        defaultValue={dayjs().format("YYYY")}
                         style={{ width: "100%" }}
                       />
                     </Form.Item>
@@ -167,7 +168,7 @@ export default function LichLamViec({ listCalendar }) {
                         showSearch
                         options={months}
                         onChange={handleChange}
-                        defaultValue="06"
+                        defaultValue={dayjs().format("MM")}
                         style={{ width: "100%" }}
                       />
                     </Form.Item>
@@ -197,7 +198,8 @@ export default function LichLamViec({ listCalendar }) {
                         style={{
                           height: "22px",
                           width: "22px",
-                          marginRight: "10px",
+                          marginRight: "6px",
+                          marginLeft: "6px",
                         }}
                       ></img>
                       <div>Sao chép lịch</div>

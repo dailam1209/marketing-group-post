@@ -9,7 +9,7 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
-import { POST_HR } from "@/pages/api/BaseApi";
+import { POST_HR, getCompIdCS } from "@/pages/api/BaseApi";
 import { useRouter } from "next/router";
 
 const Editor = dynamic(() => import("../../../../commons/CkEditor"), {
@@ -68,34 +68,38 @@ export function UpdatePhongBanModal(
   };
 
   useEffect(() => {
-    const cDId = listDepLabel?.find(dep => {
+    const cDId = listDepLabel?.find((dep) => {
       if (dep?.label === selectedRow?.old_dep_name) {
-        return dep?.value
+        return dep?.value;
       }
-    })
-    const nCId = companyLabel?.label === selectedRow?.new_com_name ? companyLabel?.value : undefined
-    const nTId = listTeamLabel?.find(team => {
+    });
+    const nCId =
+      companyLabel?.label === selectedRow?.new_com_name
+        ? companyLabel?.value
+        : undefined;
+    const nTId = listTeamLabel?.find((team) => {
       if (team?.label === selectedRow?.team_name) {
-        return team?.value
+        return team?.value;
       }
-      
-    })
-    const nGId = listGrLabel?.find(gr => {
+    });
+    const nGId = listGrLabel?.find((gr) => {
       if (gr?.label === selectedRow?.gr_name) {
-        return gr?.value
+        return gr?.value;
       }
-    })
-    const nDId = listDepLabel?.find(dep => {
+    });
+    const nDId = listDepLabel?.find((dep) => {
       if (dep?.label === selectedRow?.new_dep_name) {
-        return dep?.value
+        return dep?.value;
       }
-    })
+    });
+    let com_id = null;
+    com_id = getCompIdCS();
 
     form.setFieldsValue({
       ep_id: selectedRow?.ep_id,
       current_dep_id: cDId,
       update_dep_id: nDId,
-      com_id: 1763,
+      com_id: com_id,
       new_com_id: nCId,
       new_team_id: nTId,
       new_group_id: nGId,
@@ -107,12 +111,7 @@ export function UpdatePhongBanModal(
 
   const children = (
     <div>
-      <Form
-        form={form}
-        className={`luan_chuyen`}
-        onFinish={handleSubmit}
-        
-      >
+      <Form form={form} className={`luan_chuyen`} onFinish={handleSubmit}>
         {MySelect(
           "Đơn vị công tác hiện tại",
           "Chọn công ty",
@@ -127,9 +126,7 @@ export function UpdatePhongBanModal(
           true,
           true,
           "current_dep_id",
-          [
-            ...listDepLabel,
-          ]
+          [...listDepLabel]
         )}
         <Form.Item
           name="ep_id"
@@ -188,9 +185,7 @@ export function UpdatePhongBanModal(
           true,
           true,
           "new_com_id",
-          [
-            companyLabel,
-          ]
+          [companyLabel]
         )}
         {MySelect(
           "Phòng ban mới",
@@ -215,7 +210,6 @@ export function UpdatePhongBanModal(
           [
             { label: "Nhân viên", value: 1 },
             { label: "Tổ trưởng", value: 2 },
-            
           ]
         )}
         {MyDatePicker(
@@ -342,25 +336,28 @@ export function AddNewModal(
 
   const handleSubmit = () => {
     form.validateFields().then((value) => {
-      console.log({
-        ...value,
-        created_at: dayjs(form.getFieldValue("created_at")).format(
-          "YYYY-MM-DD"
-        ),
-        com_id: 1763,
-      });
-      POST_HR("api/hr/personalChange/updateTranferJob", {
-        ...value,
-        created_at: dayjs(form.getFieldValue("created_at")).format(
-          "YYYY-MM-DD"
-        ),
-        com_id: 1763,
-      }).then((res) => {
-        if (res?.result === true) {
-          setOpen(false);
-          router.replace(router.asPath);
-        }
-      });
+      // console.log({
+      //   ...value,
+      //   created_at: dayjs(form.getFieldValue("created_at")).format(
+      //     "YYYY-MM-DD"
+      //   ),
+      //   com_id: 1763,
+      // });
+      let com_id = null;
+      com_id = getCompIdCS();
+      com_id !== null &&
+        POST_HR("api/hr/personalChange/updateTranferJob", {
+          ...value,
+          created_at: dayjs(form.getFieldValue("created_at")).format(
+            "YYYY-MM-DD"
+          ),
+          com_id: com_id,
+        }).then((res) => {
+          if (res?.result === true) {
+            setOpen(false);
+            router.replace(router.asPath);
+          }
+        });
     });
   };
 

@@ -3,7 +3,7 @@ import styles from "./modal-them-lich.module.css";
 import Image from "next/image";
 import React, { useState } from "react";
 import { ModalThietLapCongThuc } from "./modal-them-cong-thuc/modal-thiet-lap";
-import { POST_TL } from "@/pages/api/BaseApi";
+import { POST_TL, getCompIdCS } from "@/pages/api/BaseApi";
 import { useRouter } from "next/router";
 const { TextArea } = Input;
 export function ModalThemThue(
@@ -20,8 +20,10 @@ export function ModalThemThue(
     // setOpen(false);
     // console.log(form.getFieldsValue())
     form.validateFields().then((value) => {
-      POST_TL('api/tinhluong/congty/insert_category_tax', {
-        com_id: 1763,
+      let com_id = null
+      com_id = getCompIdCS()
+      com_id !== null && POST_TL('api/tinhluong/congty/insert_category_tax', {
+        com_id: com_id,
         ...value,
         fs_data: form.getFieldValue("fs_data") !== "" ? Number(form.getFieldValue("fs_data")) : undefined
       })

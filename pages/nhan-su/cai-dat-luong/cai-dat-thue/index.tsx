@@ -6,7 +6,7 @@ import styles from "./index.module.css";
 import { ChuaDuyet } from "@/components/cai-dat-luong/cai-dat-thue/danh-sach-nhan-su-chua-thiet-lap/danh-sach-nhan-su";
 import { DaDuyet } from "@/components/cai-dat-luong/cai-dat-thue/danh-sach-nhan-su-da-thiet-lap/danh-sach-nhan-su";
 import { ModalThemThue } from "@/components/cai-dat-luong/cai-dat-thue/chinh-sach-thue/modal/model";
-import { POST_SS, POST_SS_TL, POST_TL } from "@/pages/api/BaseApi";
+import { POST_SS, POST_SS_TL, POST_TL, getCompIdSS } from "@/pages/api/BaseApi";
 
 export default function CaiDatThue({
   listTax,
@@ -98,10 +98,12 @@ export default function CaiDatThue({
 }
 
 export const getServerSideProps = async (context) => {
+  let com_id = null;
+  com_id = getCompIdSS(context);
   const listTax = await POST_SS_TL(
     "api/tinhluong/congty/takeinfo_tax_com",
     {
-      com_id: 1763,
+      com_id: com_id,
     },
     context
   );
@@ -114,7 +116,7 @@ export const getServerSideProps = async (context) => {
     {
       start_date: "2023-01-01T00:00:00.000+00:00",
       end_date: "2023-08-01T00:00:00.000+00:00",
-      cls_id_com: 1664,
+      cls_id_com: com_id,
     },
     context
   );
@@ -122,7 +124,7 @@ export const getServerSideProps = async (context) => {
   const listEmpNoTax = await POST_SS_TL(
     "api/tinhluong/congty/show_list_user_no_tax",
     {
-      cls_id_com: 1763,
+      cls_id_com: com_id,
     },
     context
   );
@@ -130,7 +132,7 @@ export const getServerSideProps = async (context) => {
   const listDepartments = await POST_SS(
     "api/qlc/department/list",
     {
-      com_id: 1763,
+      com_id: com_id,
     },
     context
   );
@@ -138,7 +140,7 @@ export const getServerSideProps = async (context) => {
   const listEmp = await POST_SS(
     "api/qlc/managerUser/list",
     {
-      com_id: 1763,
+      com_id: com_id,
     },
     context
   );

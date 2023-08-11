@@ -5,7 +5,7 @@ import {
   MyInputPwd,
   MySelect,
 } from "@/components/quan-ly-cong-ty/quan-ly-cong-ty-con/modal";
-import { POST } from "@/pages/api/BaseApi";
+import { POST, getCompIdCS } from "@/pages/api/BaseApi";
 import { Col, Form, Input, Row, Select } from "antd";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -48,24 +48,29 @@ export function AddNewEmpModal(
   };
 
   useEffect(() => {
+    let com_id = null;
+    com_id = getCompIdCS();
+    com_id !== null &&
     POST("api/qlc/team/list", {
-      com_id: 1763}).then(res => {
+      com_id: com_id}).then(res => {
         if (res?.result === true){
           setListTeamLabel(res?.data?.map(team => ({ label: team?.team_name, value: team?.team_id })))
         }
       })
   
+    com_id !== null &&
     POST("api/qlc/department/list", {
-      com_id: 1763
+      com_id: com_id
     })
       .then(res => {
         if (res?.result === true) {
           setListDepLabel(res?.data?.map(dep => ({ label: dep?.dep_name, value: dep?.dep_id })))
         }
       })
-  
+      
+    com_id !== null &&
     POST("api/qlc/group/search", {
-      com_id: 1763,
+      com_id: com_id,
     })
       .then(res => {
         if (res?.result === true) {

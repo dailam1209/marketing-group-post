@@ -1,4 +1,4 @@
-import { POST } from '@/pages/api/BaseApi'
+import { DELETE, POST } from '@/pages/api/BaseApi'
 import styles from './modal-xoa.module.css'
 import { Modal, Button } from 'antd'
 import Image from 'next/image'
@@ -30,11 +30,12 @@ export function XoaLich(
                 })
         } else {
             // console.log(cySelected?.cy_id)
-            POST('api/qlc/cycle/del', {
+            DELETE('api/qlc/cycle/del', {
                 cy_id: cySelected?.cy_id
             })
                 .then(res => {
                     if (res?.result === true) {
+                        alert("Xóa thành công lịch làm việc!")
                         router.replace(router.asPath)
                     }   
                 })

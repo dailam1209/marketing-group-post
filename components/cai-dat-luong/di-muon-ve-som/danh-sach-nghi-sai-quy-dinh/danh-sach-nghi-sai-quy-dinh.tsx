@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react'
 import moment from 'moment'
 import { filterUnique } from '../../nhap-luong-co-ban/nhap-luong-co-ban'
 import _, { filter } from 'lodash'
-import { POST_TL } from '@/pages/api/BaseApi'
+import { POST_TL, getCompIdCS } from '@/pages/api/BaseApi'
 
 const TableDanhSachNghiSaiQD = ({ data }: { data: any }) => {
   const columns: any = [
@@ -89,6 +89,8 @@ export function CpmDanhSachNghiSaiQuyDinh({
         `${filterParam?.year}/${filterParam?.month}`,
         'YYYY/MM'
       )?.daysInMonth()
+      let com_id = null;
+      com_id = getCompIdCS();
 
       const res = await POST_TL(
         'api/tinhluong/congty/take_listuser_nghi_khong_phep',
@@ -99,7 +101,7 @@ export function CpmDanhSachNghiSaiQuyDinh({
           end_date: `${filterParam?.year || moment().year()}-${
             filterParam?.month || moment().month()
           }-${thisMonthDays}`,
-          com_id: 3312,
+          com_id: com_id,
           skip: 0,
           ...filterParam,
         }

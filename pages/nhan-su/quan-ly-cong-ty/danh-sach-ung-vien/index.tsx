@@ -1,7 +1,7 @@
 import { Card, Tabs } from "antd";
 import styles from "./index.module.css";
 import { DanhSachUngVien } from "@/components/danh-sach-ung-vien/DanhSachUngVien";
-import { POST_HR, POST_SS, POST_SS_HR } from "@/pages/api/BaseApi";
+import { POST_HR, POST_SS, POST_SS_HR, getCompIdSS } from "@/pages/api/BaseApi";
 
 export default function QuanLyUngVien({
   listCandidatesOnProcess,
@@ -31,6 +31,9 @@ export default function QuanLyUngVien({
 }
 
 export const getServerSideProps = async (context) => {
+  let com_id = null;
+  com_id = getCompIdSS(context);
+
   const listCandidatesOnProcess = await POST_SS_HR(
     "api/hr/recruitment/getListProcess",
     {},
@@ -44,7 +47,7 @@ export const getServerSideProps = async (context) => {
   );
 
   const listEmp = await POST_SS('api/qlc/managerUser/list', {
-    com_id: 1763
+    com_id: com_id
   }, context)
 
   return {

@@ -11,7 +11,7 @@ import { AddButton, ExportExcelButton } from '../commons/Buttons'
 import Link from 'next/link'
 import { PHONGBAN_ACTIVE_KEY } from '../../pages/nhan-su/quan-ly-cong-ty/quan-ly-phong-ban'
 import { CC_TK_CTY_URL, UPDATE_FACE_URL } from '../LayoutNs'
-import Footer from '../footer/Footer.js'
+import Footer from '../footer/Footer'
 export interface BodyFrame {}
 
 export default function Bodyframe({ children }: any) {
@@ -199,7 +199,7 @@ export default function Bodyframe({ children }: any) {
           rel='stylesheet'
           href='https://timviec365.vn/css/footer_new.css?v=2'
         />
-        <Footer />
+        <Footer></Footer>
       </div>
     </>
   )

@@ -6,7 +6,7 @@ import { useState } from "react";
 import { AddNewEmpModal } from "@/components/quan-ly-cong-ty/cai-dat-them-nhan-vien-moi/modal/modal";
 import { NhanVienChoDuyet } from "@/components/quan-ly-cong-ty/cai-dat-them-nhan-vien-moi/cho-duyet/NhanVienChoDuyet";
 import { useRouter } from "next/router";
-import { POST, POST_SS, getCurrentToken } from "@/pages/api/BaseApi";
+import { POST, POST_SS, getCompIdSS, getCurrentToken } from "@/pages/api/BaseApi";
 import { useEffect } from "react"
 
 export default function CaiDatThemNhanVienMoiPage({
@@ -73,10 +73,13 @@ export default function CaiDatThemNhanVienMoiPage({
 }
 
 export const getServerSideProps = async (context) => {
+  let com_id = null;
+  com_id = getCompIdSS(context);
+
   const listStaffs = await POST_SS(
     "api/qlc/managerUser/list",
     {
-      com_id: 1763,
+      com_id: com_id,
       pageNumber: 1,
     },
     context
@@ -85,15 +88,15 @@ export const getServerSideProps = async (context) => {
   const infoCom = await POST_SS("api/qlc/company/info", {}, context);
 
   const listTeams = await POST_SS("api/qlc/team/list", {
-    com_id: 1763
+    com_id: com_id
   }, context)
 
   const listDepartments = await POST_SS("api/qlc/department/list", {
-    com_id: 1763
+    com_id: com_id
   }, context)
 
   const listGroups = await POST_SS("api/qlc/group/search", {
-    com_id: 1763,
+    com_id: com_id,
   }, context)
 
   return {

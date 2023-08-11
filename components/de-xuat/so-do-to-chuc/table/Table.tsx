@@ -90,9 +90,6 @@ export const DanhSachNhanVienTable = ({
   );
 
   useEffect(() => {
-    console.log(listEmUntimed)
-    console.log(type)
-    console.log(id)
     switch (type) {
       case "company":
         setData(listEmUntimed?.filter(e => e?.com_id == id));

@@ -13,7 +13,8 @@ export const mySelect = (
   required: boolean,
   hasLabel: boolean,
   name: string,
-  options: Array<any> = []
+  options: Array<any> = [],
+  handleChange?: Function
 ) => (
   <Form.Item
     name={name}
@@ -27,6 +28,7 @@ export const mySelect = (
       options={options}
       showSearch={hasSearch}
       listHeight={200}
+      onChange={(value: any, option: any) => {handleChange && handleChange(value, option)}}
     />
   </Form.Item>
 );

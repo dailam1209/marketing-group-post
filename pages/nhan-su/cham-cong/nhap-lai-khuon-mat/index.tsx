@@ -17,7 +17,7 @@ import styles from "./nhap-lai-khuon-mat.module.css";
 import { modalNhapLaiMat } from "@/components/cham-cong/nhap-lai-mat/modal";
 import type { CheckboxChangeEvent } from "antd/es/checkbox";
 import classNames from "classnames";
-import { POST, POST_SS } from "@/pages/api/BaseApi";
+import { POST, POST_SS, getCompIdCS, getCompIdSS } from "@/pages/api/BaseApi";
 import Image from "next/image";
 interface DataType {
   key: React.Key;
@@ -51,10 +51,8 @@ const columns: ColumnsType<DataType> = [
 
   {
     title: <p style={{ color: "#fff" }}>Phòng ban</p>,
-    render: (record: any) =>
-        <p >{record?.dep_name || "Chưa cập nhật"}</p>
-      ,
-    align: "center"
+    render: (record: any) => <p>{record?.dep_name || "Chưa cập nhật"}</p>,
+    align: "center",
   },
 
   {
@@ -85,22 +83,36 @@ export default function UpdateFace({ infoCom, listDepartments }) {
   const [indeterminate, setIndeterminate] = useState(false);
   const router = useRouter();
   const [listData, setListData] = useState([]);
-  const [comLabel, setComLabel]: any = useState({})
-  const [listDepLabel, setListDepLabel]: any = useState([])
-  
+  const [comLabel, setComLabel]: any = useState({});
+  const [listDepLabel, setListDepLabel]: any = useState([]);
+  const [form] = Form.useForm();
+  const [listDataFiltered, setListDataFiltered] = useState([]);
+  const [epIdFilter, setEpIdFilter]: any = useState<any>();
+  const [depFilter, setDepFilter]: any = useState<any>();
+
   useEffect(() => {
     if (infoCom?.data && listDepartments?.data) {
-      setComLabel({ label: infoCom?.data?.userName, value: infoCom?.data?.idQLC })
-      setListDepLabel(listDepartments?.data?.map(dep => ({ label: dep?.dep_name, value: dep?.dep_id })))
-
+      setComLabel({
+        label: infoCom?.data?.userName,
+        value: infoCom?.data?.idQLC,
+      });
+      setListDepLabel(
+        listDepartments?.data?.map((dep) => ({
+          label: dep?.dep_name,
+          value: dep?.dep_id,
+        }))
+      );
     }
-  }, [infoCom, listDepartments])
+  }, [infoCom, listDepartments]);
 
   useEffect(() => {
     const getList = async () => {
-      const res = await POST("api/qlc/face/list", { com_id: 1763 });
+      let com_id = null;
+      com_id = getCompIdCS();
+      const res = await POST("api/qlc/face/list", { com_id: com_id });
       if (res?.result === true) {
         setListData(res?.data);
+
         setSelectedRowKeys(
           res?.data?.map((item: any) => {
             if (item?.allow_update_face === 1) {
@@ -113,6 +125,29 @@ export default function UpdateFace({ infoCom, listDepartments }) {
 
     getList();
   }, []);
+
+  useEffect(() => {
+    setListDataFiltered(listData);
+  }, [listData]);
+
+  useEffect(() => {
+    if (!depFilter) {
+      setListDataFiltered(listData);
+    }
+  }, [depFilter]);
+
+  const handleFilter = () => {
+    if (depFilter) {
+      setListDataFiltered(
+        listData?.filter((data: any) => data?.dep_name === depFilter?.label)
+      );
+    }
+    if (epIdFilter) {
+      setListDataFiltered(
+        listData?.filter((data: any) => data?.idQLC === epIdFilter)
+      );
+    }
+  };
 
   const handleUpdatePermissionForAUser = (permit, id) => {
     POST("api/qlc/face/add", {
@@ -168,7 +203,7 @@ export default function UpdateFace({ infoCom, listDepartments }) {
     setAlertModal(true);
   };
   const onFinish = (value: any) => {
-    console.log(value);
+    // console.log(value);
   };
 
   return (
@@ -232,11 +267,11 @@ export default function UpdateFace({ infoCom, listDepartments }) {
           </Col>
         </Row>
 
-        <Form onFinish={onFinish}>
+        <Form form={form}>
           <Row gutter={[20, 10]} style={{ marginBottom: "20px" }}>
             <Col xl={6} lg={12} md={12} sm={12} xs={24}>
               <Form.Item
-                name="congTy"
+                name="com_id"
                 rules={[
                   { required: true, message: "Vui lòng điền đủ thông tin" },
                 ]}
@@ -244,7 +279,7 @@ export default function UpdateFace({ infoCom, listDepartments }) {
                 <Select
                   size="large"
                   style={{ width: "100%" }}
-                  defaultValue="Chọn công ty"
+                  placeholder="Chọn công ty"
                   options={[comLabel]}
                   suffixIcon={<img src="/down-icon.png"></img>}
                 />
@@ -252,38 +287,41 @@ export default function UpdateFace({ infoCom, listDepartments }) {
             </Col>
             <Col xl={6} lg={12} md={12} sm={12} xs={24}>
               <Form.Item
-                name="phongBan"
+                name="dep_id"
                 rules={[
                   { required: true, message: "Vui lòng điền đủ thông tin" },
                 ]}
               >
                 <Select
                   size="large"
+                  allowClear={true}
                   style={{ width: "100%" }}
-                  defaultValue="Phòng ban(tất cả)"
+                  placeholder="Phòng ban(tất cả)"
                   options={listDepLabel}
+                  onChange={(value: any, option: any) => setDepFilter(option)}
                   suffixIcon={<img src="/down-icon.png"></img>}
                 />
               </Form.Item>
             </Col>
             <Col xl={9} lg={12} md={12} sm={12} xs={24}>
               <Form.Item
-                name="ten"
-                rules={[
-                  { required: true, message: "Vui lòng điền đủ thông tin" },
-                ]}
+                name="ep_id"
+                // rules={[
+                //   { required: true, message: "Vui lòng điền đủ thông tin" },
+                // ]}
               >
                 <Select
                   showSearch
+                  allowClear={true}
                   size="large"
                   style={{ width: "100%" }}
-                  defaultValue="Nhập tên cần tìm"
+                  placeholder="Nhập tên cần tìm"
                   options={listData?.map((item: any) => ({
                     label: item?.userName,
-                    value: item?._id,
+                    value: item?.idQLC,
                   }))}
+                  onChange={(value: any, option: any) => setEpIdFilter(value)}
                   suffixIcon={<img src="/down-icon.png"></img>}
-                  onChange={(value: string) => console.log(value)}
                   listHeight={180}
                 />
               </Form.Item>
@@ -303,7 +341,7 @@ export default function UpdateFace({ infoCom, listDepartments }) {
                     backgroundColor: "#4AA7FF",
                     border: "none",
                   }}
-                  htmlType="submit"
+                  onClick={handleFilter}
                 >
                   <p style={{ color: "var(--white-color)" }}>Lọc</p>
                 </Button>
@@ -332,7 +370,7 @@ export default function UpdateFace({ infoCom, listDepartments }) {
             columnWidth: "100px",
             selectedRowKeys: selectedRowKeys,
           }}
-          dataSource={listData && listData}
+          dataSource={listDataFiltered}
           scroll={{ x: "max-content" }}
           rowKey={(record: any) => record?._id}
         />
@@ -347,7 +385,7 @@ export default function UpdateFace({ infoCom, listDepartments }) {
           : type === "checkOneFalse"
           ? "Tài khoản đã bỏ quyền nhận diện khuôn mặt"
           : "Các tài khoản đã bỏ quyền nhận diện khuôn mặt",
-          router
+        router
       )}
     </Card>
   );
@@ -355,15 +393,21 @@ export default function UpdateFace({ infoCom, listDepartments }) {
 
 export const getServerSideProps = async (context) => {
   const infoCom = await POST_SS("api/qlc/company/info", {}, context);
+  let com_id = null;
+  com_id = getCompIdSS(context);
 
-  const listDepartments = await POST_SS("api/qlc/department/list", {
-    com_id: 1763
-  }, context)
+  const listDepartments = await POST_SS(
+    "api/qlc/department/list",
+    {
+      com_id: com_id,
+    },
+    context
+  );
 
   return {
     props: {
       infoCom,
-      listDepartments
-    }
-  }
-}
+      listDepartments,
+    },
+  };
+};

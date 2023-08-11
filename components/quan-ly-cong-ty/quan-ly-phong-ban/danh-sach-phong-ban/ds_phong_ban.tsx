@@ -3,7 +3,7 @@ import styles from "./ds_phong_ban.module.css"
 import { AddButton, SearchButton } from "@/components/commons/Buttons"
 import Image from "next/image"
 import { AlignType } from "rc-table/lib/interface"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import {
   AddNewModal,
   ConfirmDeleteModal,
@@ -97,6 +97,26 @@ export function DanhSachPhongBan({
     })
   }
 
+  const [listDataFiltered, setListDataFiltered] = useState([]);
+  const [depFilter, setDepFilter]: any = useState<any>();
+  useEffect(() => {
+    setListDataFiltered(data);
+  }, [data]);
+
+  useEffect(() => {
+    if (!depFilter) {
+      setListDataFiltered(data);
+    }
+  }, [depFilter]);
+
+  const handleFilter = () => {
+    if (depFilter) {
+      setListDataFiltered(
+        data?.filter((data: any) => data?.dep_name === depFilter?.label)
+      );
+    }
+  };
+
   return (
     <div>
       <Row gutter={[15, 0]}>
@@ -116,16 +136,18 @@ export function DanhSachPhongBan({
         </Col>
         <Col lg={9} md={10} sm={12} xs={24} className={styles.selectPb}>
           <Select
+            allowClear={true}
             size="large"
             suffixIcon={<img src="/down-icon.png"></img>}
             style={{ width: "100%" }}
             placeholder="Chọn phòng ban"
             options={listDepLabel}
+            onChange={(value: any, option: any) => setDepFilter(option)}
           />
         </Col>
         <Col lg={6} md={4} sm={0} className={styles.btnGroup}>
           <div className={styles.searchBtn}>
-            {SearchButton("Tìm kiếm", () => null, false)}
+            {SearchButton("Tìm kiếm", handleFilter, false)}
           </div>
           <div className={styles.addBtn}>
             {AddButton("Thêm mới", () => setOpenAddNew(true))}
@@ -135,7 +157,7 @@ export function DanhSachPhongBan({
       {/* table */}
       <MyTable
         colunms={columns}
-        data={data}
+        data={listDataFiltered}
         onRowClick={(record, index) =>
           onRowClicked(record?.dep_id, record?.dep_name)
         }
