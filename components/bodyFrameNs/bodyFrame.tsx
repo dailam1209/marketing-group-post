@@ -1,22 +1,29 @@
 import React, { useState } from 'react'
 import styles from './bodyFrame.module.css'
-import Header from '../header/Header'
+import Header from '../header/Header.js'
 import { Button, Card, Col, ConfigProvider, Popover, Row } from 'antd'
 import IndexSection from '../home/index'
 import Article from '../home/article/article'
 import { BackButton, MyBreadCrumb } from './bread-crump/BreadCrump'
-import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { AddButton, ExportExcelButton } from '../commons/Buttons'
-import Link from 'next/link'
-import { PHONGBAN_ACTIVE_KEY } from '../../pages/nhan-su/quan-ly-cong-ty/quan-ly-phong-ban'
 import { CC_TK_CTY_URL, UPDATE_FACE_URL } from '../LayoutNs'
 import Footer from '../footer/Footer'
+import { PHONGBAN_ACTIVE_KEY } from '@/pages/cai-dat-chung/quan-ly-cong-ty/quan-ly-phong-ban'
+import { Banner } from './banner/banner'
+import { CCBannerNV_TKCTY } from '../cham-cong-nhan-vien/cc-bang-tk-nv'
+import { BANNER_CCBNDKM_CHAMCONG365 } from '../cham-cong-nhan-vien/cham-cong-bang-nhan-dien-khuon-mat/cham-cong-365'
+import { BANNER_CCBNDKM_CHAT365 } from '../cham-cong-nhan-vien/cham-cong-bang-nhan-dien-khuon-mat/chat-365'
+import { BANNER_CCBNDKM_PC365NV } from '../cham-cong-nhan-vien/cham-cong-bang-nhan-dien-khuon-mat/pc-365-nhan-vien'
+import { ChamCong365 } from '../cham-cong-bang-QR/cham-cong-365/cham-cong-365'
+import { Chat365 } from '../cham-cong-bang-QR/chat-365/chat365'
+import { PC365 } from '../cham-cong-bang-QR/pc365/pc365'
+import { CCBanner } from './cai-dat-cham-cong-banner/cc-banner'
 export interface BodyFrame {}
 
 export default function Bodyframe({ children }: any) {
   const router = useRouter()
-  const CAI_DAT_VI_TRI_URL = '/cham-cong/cai-dat-vi-tri'
+  const CAI_DAT_VI_TRI_URL = '/cai-dat-chung/cai-dat-vi-tri'
   const NV_CCCTY_URL = '/cham-cong-nhan-vien/cc-bang-tai-khoan-cong-ty'
   const NV_CCBNDKM_CC365 =
     '/cham-cong-nhan-vien/cham-cong-bang-nhan-dien-khuon-mat/cham-cong-365'
@@ -154,8 +161,43 @@ export default function Bodyframe({ children }: any) {
     }
   }
 
+  const renderBanner = () => {
+    const pathname = router.pathname
+    if (pathname === '/cham-cong-nhan-vien/cc-bang-tai-khoan-cong-ty') {
+      return <CCBannerNV_TKCTY />
+    } else if (
+      pathname ===
+      '/cham-cong-nhan-vien/cham-cong-bang-nhan-dien-khuon-mat/cham-cong-365'
+    ) {
+      return <BANNER_CCBNDKM_CHAMCONG365 />
+    } else if (
+      pathname ===
+      '/cham-cong-nhan-vien/cham-cong-bang-nhan-dien-khuon-mat/chat-365'
+    ) {
+      return <BANNER_CCBNDKM_CHAT365 />
+    } else if (
+      pathname ===
+      '/cham-cong-nhan-vien/cham-cong-bang-nhan-dien-khuon-mat/pc-365-nhan-vien'
+    ) {
+      return <BANNER_CCBNDKM_PC365NV />
+    } else if (pathname === '/cham-cong-bang-QR/cham-cong-365') {
+      return <ChamCong365 />
+    } else if (pathname === '/cham-cong-bang-QR/chat-365') {
+      return <Chat365 />
+    } else if (pathname === '/cham-cong-bang-QR/pc-365') {
+      return <PC365 />
+    } else if (pathname === '/cai-dat-chung/cai-dat-vi-tri') {
+      return <CCBanner />
+    } else {
+      return <Banner />
+    }
+  }
+
   return (
     <>
+      <Header />
+      {/* <Banner /> */}
+      {renderBanner()}
       {renderBackButton()}
 
       <div

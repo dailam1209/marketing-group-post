@@ -4,7 +4,6 @@ import {
   MyBreadCrumb,
 } from '@/components/bodyFrame/bread-crump/BreadCrump'
 import styles from './index.module.css'
-import { HasBannerContext } from '@/components/Layout'
 import Image from 'next/image'
 import { useState, useContext } from 'react'
 import { Button } from 'antd'

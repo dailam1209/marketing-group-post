@@ -9,11 +9,7 @@ import Link from 'next/link'
 import { HasBannerContext } from '../../components/LayoutNs'
 import { useRouter } from 'next/router'
 import { ModalWrapper } from '@/components/modal/ModalWrapper'
-// import { ADMIN_ROLE, CurrentRoleContext, ROLE_CURRENT } from './_app'
-import { POST_VT } from './api/BaseApi'
-import { hasCookie, setCookie } from 'cookies-next'
-import axios from 'axios'
-import Footer from '@/components/footer/Footer'
+import { getCookie } from 'cookies-next'
 
 const ConfirmModal = ({
   open,
@@ -46,7 +42,7 @@ const ConfirmModal = ({
   )
 }
 
-export const COOKIE_KEY = 'userInfo_365'
+export const COOKIE_KEY = 'token_base365'
 export const ADMIN_ROLE = 'admin'
 export const EMP_ROLE = 'emp'
 export default function Home() {
@@ -222,7 +218,7 @@ export default function Home() {
             index1 + 1,
             stepData.title,
             stepData?.required,
-            `nhan-su/${stepData.url}`
+            `cai-dat-chung/${stepData.url}`
           )
         )}
       </div>
@@ -250,19 +246,34 @@ export default function Home() {
     return currentRole === ADMIN_ROLE ? ADMIN : EMP
   }
 
-  // const LoadingComp = () => {
-  //   return (
-  //     <Spin
-  //       indicator={<LoadingOutlined rev={null} />}
-  //       size='large'
-  //       style={{
-  //         position: 'fixed',
-  //         top: '50%',
-  //         left: '50%',
-  //       }}
-  //     />
-  //   )
-  // }
+  const [notType, setNotType] = useState(false)
+
+  useEffect(() => {}, [notType])
+
+  const RenderedBody = () => {
+    const type = getCookie('role')
+    return (
+      <div className={styles.section1}>
+        <Row gutter={{ lg: 150, md: 100, sm: 30, xs: 10 }}>
+          <Col lg={type === '1' ? 10 : 11} sm={11} xs={24}>
+            {(type === '1' ? LIST_BUTTONS_COMP : LIST_BUTTONS_EMP)?.map(
+              (item, index) =>
+                utilButton(item.icon, index + 1, item.title, item.color)
+            )}
+          </Col>
+          <Col lg={type === '1' ? 14 : 13} sm={13} xs={24}>
+            {renderSelection()}
+          </Col>
+        </Row>
+        <ConfirmModal
+          open={openConfirm}
+          setOpen={setOpenConfirm}
+          router={router}
+          url={selectedUrl}
+        />
+      </div>
+    )
+  }
 
   return (
     <>
@@ -271,28 +282,24 @@ export default function Home() {
         <meta name='keywords' content='coders' />
       </Head>
       <main>
-        <div className={styles.section1}>
-          <Row gutter={{ lg: 150, md: 100, sm: 30, xs: 10 }}>
-            <Col lg={currentRole === ADMIN_ROLE ? 10 : 11} sm={11} xs={24}>
-              {(currentRole === ADMIN_ROLE
-                ? LIST_BUTTONS_COMP
-                : LIST_BUTTONS_EMP
-              )?.map((item, index) =>
-                utilButton(item.icon, index + 1, item.title, item.color)
-              )}
-            </Col>
-            <Col lg={currentRole === ADMIN_ROLE ? 14 : 13} sm={13} xs={24}>
-              {renderSelection()}
-            </Col>
-          </Row>
-          <ConfirmModal
-            open={openConfirm}
-            setOpen={setOpenConfirm}
-            router={router}
-            url={selectedUrl}
-          />
-        </div>
+        <RenderedBody />
       </main>
     </>
   )
+}
+
+export const getServerSideProps = (context) => {
+  const role = context?.req?.cookies
+
+  if (!role) {
+    return {
+      redirect: {
+        destination: '/lua-chon-dang-nhap.html',
+      },
+    }
+  } else {
+    return {
+      props: {},
+    }
+  }
 }

@@ -1,6 +1,7 @@
 .mainWrapper {
-  background: url("/vitri-bg-2.png") 0 60px no-repeat,url("/vitri-bg.png") no-repeat;
-  background-size: contain,cover;
+  background: url('/vitri-bg-2.png') 0 60px no-repeat,
+    url('/vitri-bg.png') no-repeat;
+  background-size: contain, cover;
   padding-bottom: 90px;
   .breadcrumb {
     margin-left: 177px;
@@ -21,7 +22,7 @@
     .middleSection {
       margin: 0px 40px;
     }
-    .stepTwo{
+    .stepTwo {
       margin-right: 10px;
     }
     .headerText {
@@ -48,7 +49,7 @@
 }
 
 .stepText:hover {
-  color: #FED851 !important;
+  color: #fed851 !important;
 }
 
 .leftSectionRes {
@@ -59,7 +60,7 @@
   .main {
     padding: 40px 140px !important;
   }
-  .mainWrapper{
+  .mainWrapper {
     padding-bottom: 80px;
   }
   .leftSection {
@@ -80,7 +81,7 @@
   .main {
     padding: 40px 20px !important;
   }
-  .mainWrapper{
+  .mainWrapper {
     padding-bottom: 70px;
   }
   .breadcrumb {
@@ -89,8 +90,8 @@
   .headerText {
     font-size: 22px !important;
   }
-  .middleSection{
-    margin:0 40px 0 15px !important;
+  .middleSection {
+    margin: 0 40px 0 15px !important;
   }
 }
 
@@ -111,12 +112,12 @@
     font-size: 18px !important;
   }
   .middleSection {
-    margin: 0px 40px 0px 24px!important;
+    margin: 0px 40px 0px 24px !important;
   }
-  .stepTwo{
+  .stepTwo {
     margin-right: 24px !important;
   }
-  .mainWrapper{
+  .mainWrapper {
     padding-bottom: 70px;
   }
 }
@@ -128,13 +129,13 @@
     .img {
       margin-bottom: 20px;
     }
-    .stepTwo{
-      padding:0 16px;
+    .stepTwo {
+      padding: 0 16px;
     }
     .headerText {
       font-size: 18px !important;
     }
-    .middleSection{
+    .middleSection {
       margin-bottom: 40px !important;
     }
     .leftSectionRes {
@@ -142,14 +143,14 @@
       flex-direction: column;
       align-items: center;
       margin-bottom: 30px;
-      .headerText{
+      .headerText {
         width: 100%;
         text-align: left;
         padding-left: 16px;
       }
     }
   }
-  .mainWrapper{
+  .mainWrapper {
     padding-bottom: 60px;
   }
 }

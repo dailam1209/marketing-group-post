@@ -1,92 +1,188 @@
-.main {
+/* ket thuc footer */
+
+/* header */
+
+.header_ql,
+.cnt_header {
+  width: 100%;
+  float: left;
+}
+
+.cnt_header .bg_wra {
+  width: 100%;
+  float: left;
+  height: 52px;
+  position: fixed;
+  background: #4c5bd4;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  z-index: 1;
+}
+
+.bg_wra .bg_ima {
+  float: left;
   height: 100%;
-  background-color: var(--theme-color);
+}
 
-  padding: 15px 24px;
-  /* display */
+.bg_wra .bg_ima a {
+  width: 100%;
+  float: left;
+  text-decoration: none;
+  text-align: left;
+  padding: 11px 0 11px 33px;
+}
+
+.bg_wra .bg_ima a img {
+  width: 128px;
+  height: 28px;
+}
+
+.bg_wra .header_nav {
+  float: right;
+}
+
+.bg_ima_menu {
+  display: none;
+}
+
+.bg_wra .header_nav .nav {
+  float: right;
+  text-align: right;
+  padding-right: 25px;
+}
+
+.bg_wra .header_nav .nav > ul {
+  float: left;
+  list-style-type: none;
+  text-align: right;
+  padding-right: 25px;
+}
+
+.bg_wra .header_nav .nav > ul > li {
+  display: inline;
+  padding: 10px 15px;
+  line-height: 52px;
+}
+
+.bg_wra .header_nav .nav > ul > li a {
+  display: inline;
+  line-height: 46px;
+  text-decoration: none;
+}
+
+.bg_wra .header_nav .nav > ul > li a.active {
+  text-decoration: revert;
+}
+
+.bg_wra .hd_log {
+  float: right;
+  padding: 9px 0px;
+}
+
+.bg_wra .hd_log .bg_log,
+.bg_wra .hd_log .bg_log_aff {
+  float: right;
   display: flex;
-  justify-content: space-between;
 }
 
-.leftHeader {
-  display: flex;
-  align-items: center;
+.bg_wra .hd_log .bg_log {
+  display: block;
 }
 
-.singleLink {
-  margin-left: 28px;
+.hd_log .bg_log_aff .bg_log_img img {
+  width: 34px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
 }
 
-/* right header */
-.rightHeader {
-  width: 18%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.bg_wra .hd_log .bg_log p {
+  background: #232f87;
+  border-radius: 10px;
+  text-align: center;
+  color: #ffffff;
+  padding: 7px 11px 8px 11px;
 }
 
-.chatSection {
-  display: flex;
-  align-items: center;
-
-  .text {
-    color: var(--white-color);
-    margin-left: 10px;
-  }
-
-  .button {
-    background-color: var(--heavy-blue);
-  }
+.bg_wra .hd_log .bg_log a {
+  color: #ffffff;
+  text-decoration: none;
 }
 
-/* banner */
-.bannerWrapper {
-  height: 350px;
-  background-image: url("/section1-bg.png");
-  background-size: cover;
+/* ket thuc header */
+
+/* banner header */
+
+.butt_header,
+.butt_header .bgr_header {
+  width: 100%;
+  float: left;
+  /* height: 678px; */
 }
 
-.bannerLeft {
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.butt_header .bgr_header img {
+  width: 100%;
+  float: left;
+  background-size: 100% 100%;
+  position: relative;
+  height: 678px;
 }
 
-.bannerCenter {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-
-  .bannerText {
-    color: var(--white-color);
-    font-size: 26px;
-    font-weight: 600;
-    text-transform: uppercase;
-  }
-
-  .qrSection {
-    width: 50%;
-    display: flex;
-    justify-content: space-around;
-  }
-
-  .downloadBtn {
-    background-color: var(--white-color);
-    padding: 10px 20px;
-    border-radius: 20px;
-    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.25);
-
-    display: flex;
-    align-items: center;
-  }
+.bgr_froh {
+  width: 40%;
+  float: left;
+  position: absolute;
+  top: 210px;
+  margin-left: 151px;
 }
 
-.bannerRight {
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.fonh_one {
+  width: 100%;
+  float: left;
+  margin-bottom: 40px;
 }
+
+.fonh_one h1 {
+  width: 100%;
+  float: left;
+  font-size: 40px;
+  line-height: 47px;
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+.fonh_one p {
+  width: 100%;
+  float: left;
+  font-size: 20px;
+  line-height: 27px;
+  text-align: justify;
+}
+
+.fonh_tow {
+  float: left;
+}
+
+.name_title_dl {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 23px;
+  text-align: justify;
+  color: #ffffff;
+  margin-bottom: 16px;
+}
+
+.share_clr_tow {
+  color: #fff;
+}
+
+.fonh_tow a {
+  float: left;
+  font-size: 18px;
+  line-height: 21px;
+  padding: 9px 26px 12px 26px;
+  box-shadow: -3px 7px 6px rgba(0, 0, 0, 0.28);
+  border-radius: 60px;
+  text-decoration: none;
+}
+
+/* ket thuc banner header */
