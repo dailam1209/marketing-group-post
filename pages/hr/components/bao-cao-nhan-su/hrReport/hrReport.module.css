@@ -1,0 +1,92 @@
+.content {
+  margin-top: 50px;
+}
+.bg_search {
+  margin-bottom: 15px;
+  padding-top: 1px;
+  padding-left: 15px;
+  padding-right: 4px;
+  margin-top: 15px;
+}
+.search_new_t {
+  display: flex;
+  padding-bottom: 24px;
+}
+.div_no_pad {
+  width: 21%;
+}
+.div_no_pad_input {
+  width: 30% !important;
+}
+.div_no_pad_search {
+  width: 20%;
+}
+.search_can_new {
+  width: 95%;
+  height: 95%;
+}
+.icon_search_top {
+  display: inline-block;
+  background: #4c5bd4;
+  border-radius: 5px;
+  padding: 1px 25px;
+  width: 77%;
+  text-align: center;
+}
+.form_control {
+  width: 115%;
+  padding: 6px 12px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.form_control:focus {
+  border-color: #66afe9;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
+    0 0 8px rgba(102, 175, 233, 0.6);
+}
+.search_date {
+  width: 75% !important;
+}
+.div_search_hrreport {
+  width: 15% !important;
+}
+.chart_type {
+  width: 90% !important;
+  height: 100%;
+}
+@media screen and (max-width: 991px) {
+  .search_new_t {
+    display: block;
+  }
+  .div_no_pad {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  .div_no_pad_input {
+    width: 100% !important;
+  }
+  .div_search_hrreport {
+    width: 100%;
+  }
+  .search_date {
+    width: 92% !important;
+  }
+  .chart_type {
+    width: 95% !important;
+  }
+  .div_no_pad_search {
+    width: 100% !important;
+    text-align: center;
+  }
+}
+@media screen and (max-width: 465px) {
+  .search_date {
+    width: 88% !important;
+  }
+}

@@ -1,0 +1,162 @@
+.modal_open {
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Màu đen với độ trong suốt 50% */
+  z-index: 99;
+}
+.modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1050;
+  outline: 0;
+  overflow-y: auto !important;
+  overflow-x: hidden;
+}
+.fade {
+  transition: opacity 0.15s linear;
+}
+.fade .in {
+  opacity: 1;
+}
+.content_process {
+  width: 736px;
+  height: auto;
+  border-radius: 8px;
+}
+.modal_dialog {
+  position: relative;
+  margin: 30px auto;
+}
+.modal_content {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  position: relative;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  outline: 0;
+  background-clip: padding-box;
+}
+.header_process {
+  text-align: center;
+  background: #4c5bd4;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+.header_process h5 {
+  color: white;
+  font-size: 16x !important;
+}
+.modal_header {
+  border: none;
+  padding: 15px;
+}
+.body_process {
+  text-align: left;
+  padding-bottom: 0;
+  padding-top: 3%;
+  padding-left: 7%;
+  padding-right: 7%;
+}
+.body_process label {
+  color: #595959;
+  font-size: 14.5px;
+  font-weight: 600;
+  line-height: 23px;
+  letter-spacing: 0em;
+  width: 33%;
+}
+
+.footer_process {
+  margin-top: 2%;
+  padding-right: 13%;
+  text-align: right;
+  padding: 15px;
+  border: none;
+}
+.modal_footer button {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: 0em;
+  padding: 10px 30px;
+  border-radius: 4px;
+  color: inherit;
+  border: none;
+}
+.btn_add {
+  margin-left: 5px;
+  color: #fff !important;
+  background-color: #5cb85c;
+}
+.btn_add:hover {
+  background-color: #449d44;
+}
+.cke {
+  display: inline-block !important;
+}
+.infors,
+.infors1 {
+  display: inline-block;
+  width: 100%;
+}
+.info_left {
+  float: left;
+  width: 50%;
+}
+.infors li {
+  display: inline-block;
+  margin-bottom: 10px;
+  width: 100%;
+}
+.infors label {
+  float: left;
+  width: 45%;
+}
+.infors span {
+  float: right;
+  width: 55%;
+}
+.green {
+  color: #27ae60;
+}
+
+.info_right {
+  float: right;
+  width: 50%;
+}
+
+.infors1 {
+  margin-top: 5%;
+}
+
+@media screen and (min-width: 480px) and (max-width: 1024px) {
+  .content_process {
+    width: 95%;
+  }
+  .body_process .form_groups {
+    margin-top: 25px;
+    display: flex;
+    width: 100%;
+  }
+}
+@media screen and (max-width: 479px) {
+  .content_process {
+    width: 90%;
+  }
+  .body_process .form_groups {
+    margin-top: 25px;
+    display: grid;
+    width: 100%;
+  }
+  .input_right {
+    width: 100%;
+  }
+}
