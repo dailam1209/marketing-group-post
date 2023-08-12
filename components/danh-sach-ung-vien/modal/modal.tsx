@@ -46,39 +46,49 @@ export function AddNewStageModal({
   setData: any
 }) {
   const [form] = Form.useForm()
+  const router = useRouter()
 
   const onFinish = () => {
     form.validateFields().then((value: any) => {
-      const beforeStageIndex = data.findIndex(
-        (item: any) => item.title === value?.beforeStage
-      )
-      const newData = {
-        title: value?.stageName,
-        total: 0,
-        required: false,
-        bgColor: "#FFEDDA",
-        textColor: "#474747"
-      }
-      let newArr = data?.slice(0, beforeStageIndex + 1)
-      newArr.push(newData)
-      const restData = data?.slice(beforeStageIndex + 1, data?.length)
-      newArr = [...newArr, ...restData]
-      setData(newArr)
+      // const beforeStageIndex = data.findIndex(
+      //   (item: any) => item.title === value?.beforeStage
+      // )
+      // const newData = {
+      //   title: value?.stageName,
+      //   total: 0,
+      //   required: false,
+      //   bgColor: "#FFEDDA",
+      //   textColor: "#474747"
+      // }
+      // let newArr = data?.slice(0, beforeStageIndex + 1)
+      // newArr.push(newData)
+      // const restData = data?.slice(beforeStageIndex + 1, data?.length)
+      // newArr = [...newArr, ...restData]
+      // setData(newArr)
+
+      POST_HR('api/hr/recruitment/createProcess', value)
+        .then(res => {
+          if (res?.result === true) {
+            setOpen(false)
+            router.reload()
+          }
+        })
+
     })
   }
 
   const children = (
     <Form form={form}>
-      {MyInput("Tên giai đoạn", "Nhập  tên giai đoạn", true, true, "stageName")}
+      {MyInput("Tên giai đoạn", "Nhập tên giai đoạn", true, true, "name")}
       {MySelect(
         "Chọn giai đoạn đứng trước",
         "Chọn giai đoạn đứng trước",
         true,
         true,
-        "beforeStage",
+        "processBefore",
         data &&
-          data?.map((item: any, index: number) => ({
-            value: item?.title,
+          data?.filter(item => item?.id > 0 )?.map((item: any, index: number) => ({
+            value: item?.id,
             label: item?.title
           }))
       )}
@@ -100,7 +110,7 @@ export function UpdateStageModal({
   open,
   setOpen,
   selectedStage,
-  data
+  data,
 }: {
   open: boolean
   setOpen: any
@@ -108,30 +118,38 @@ export function UpdateStageModal({
   data: any
 }) {
   const [form] = Form.useForm()
-  const [options, setOptions] = useState(
-    data?.map((item) => {
-      if (!_.isEmpty(item)) {
-        return { label: item?.title, value: item?.title }
-      }
-    })
-  )
+  const router = useRouter()
 
-  const onFinish = () => {
+  const hanldeSubmit = () => {
     form.validateFields().then((value: any) => {
-      console.log(value)
+      POST_HR('api/hr/recruitment/updateProcess', {
+        name: value['name'],
+        processBefore: value['processBefore'],
+        processInterviewId: selectedStage?.id
+      })
+        .then(res => {
+          if (res?.result === true) {
+            setOpen(false)
+            router.reload()
+          }
+        })
     })
   }
 
+  useEffect(() => {
+    form.setFieldsValue(selectedStage)
+  }, [form, selectedStage])
+
   const Child = () => (
     <Form form={form} initialValues={selectedStage}>
-      {MyInput("Tên giai đoạn", "Nhập  tên giai đoạn", true, true, "title")}
+      {MyInput("Tên giai đoạn", "Nhập tên giai đoạn", true, true, "name")}
       {MySelect(
         "Chọn giai đoạn đứng trước",
         "Chọn giai đoạn đứng trước",
         true,
         true,
-        "beforeStage",
-        options && options
+        "processBefore",
+        data?.filter(item => item?.id > 0 && item?.id !== selectedStage?.id)?.map(item => ({ key: item?.id, value: item?.id, label: item?.name }))
       )}
     </Form>
   )
@@ -143,7 +161,7 @@ export function UpdateStageModal({
     600,
     "Chỉnh sửa giai đoạn",
     "Cập nhật",
-    () => onFinish()
+    hanldeSubmit
   )
 }
 
@@ -267,7 +285,7 @@ export function ChangeStageModal({
               .then((res) => {
                 if (res?.result === true) {
                   setOpen(false)
-                  router.replace(router.asPath)
+                  router.reload()
                 }
               })
               .catch((err) => console.error(err))
@@ -279,7 +297,7 @@ export function ChangeStageModal({
               .then((res) => {
                 if (res?.result === true) {
                   setOpen(false)
-                  router.replace(router.asPath)
+                  router.reload()
                 }
               })
               .catch((err) => console.error(err))
@@ -291,7 +309,7 @@ export function ChangeStageModal({
               .then((res) => {
                 if (res?.result === true) {
                   setOpen(false)
-                  router.replace(router.asPath)
+                  router.reload()
                 }
               })
               .catch((err) => console.error(err))
@@ -306,7 +324,7 @@ export function ChangeStageModal({
               .then((res) => {
                 if (res?.result === true) {
                   setOpen(false)
-                  router.replace(router.asPath)
+                  router.reload()
                 }
               })
               .catch((err) => console.error(err))
@@ -319,7 +337,7 @@ export function ChangeStageModal({
               .then((res) => {
                 if (res?.result === true) {
                   setOpen(false)
-                  router.replace(router.asPath)
+                  router.reload()
                 }
               })
               .catch((err) => console.error(err))
