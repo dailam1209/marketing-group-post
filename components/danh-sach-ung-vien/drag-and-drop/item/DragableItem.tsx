@@ -12,7 +12,8 @@ export const DragableContainer = ({
   setDragItem,
   currentCol,
   setOpenDeleteAttendantModal,
-  setCanIdSelected
+  setCanIdSelected,
+  userHiringName
 }: {
   data: any
   setModalOpen: any
@@ -20,7 +21,8 @@ export const DragableContainer = ({
   setDragItem: any
   currentCol: string
   setOpenDeleteAttendantModal: any
-  setCanIdSelected: any
+  setCanIdSelected: any,
+  userHiringName: any
 }) => {
   const router = useRouter()
   const [{ isDragging }, drag] = useDrag(() => ({
@@ -40,6 +42,7 @@ export const DragableContainer = ({
       handlerId: monitor.getHandlerId()
     })
   }))
+  // console.log(data)
 
   const opacity = isDragging ? 0.4 : 1
 
@@ -75,11 +78,11 @@ export const DragableContainer = ({
       <div className={styles.firstSection}>
         <Image alt="/" src={avatarUser} width={52} height={52} />
         <div className={styles.txtSection}>
-          <p>Tên: {data?.candidate?.[0]?.name}</p>
-          <p>SĐT: {data?.candidate?.[0]?.phone}</p>
-          <p>{data?.recruitmentNews?.title || "Chưa cập nhật"}</p>
+          <p>Tên: {data?.canName}</p>
+          <p>SĐT: {data?.phone}</p>
+          <p>{data?.title || data?.recruitmentNewsId || "Chưa cập nhật"}</p>
           <Rate
-            defaultValue={data?.candidate?.[0].starVote}
+            defaultValue={data?.starVote}
             disabled
             style={{ fontSize: 15 }}
           />
@@ -96,7 +99,7 @@ export const DragableContainer = ({
       </div>
       <div>
         <p className={styles.secondSection}>
-          Nhân viên thực hiện: {data?.candidate?.[0]?.userHiring}
+          Nhân viên thực hiện: {userHiringName}
         </p>
       </div>
     </div>
