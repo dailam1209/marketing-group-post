@@ -301,7 +301,7 @@ export const DxDatePicker = ({
 };
 
 // file input
-export const DXFileInput = ({ setFileData }: { setFileData?: any }) => {
+export const DXFileInput = ({ setFileData, label = "Tài liệu đính kèm" }: { setFileData?: any, label?: string}) => {
   const inputFileRef = useRef<any>(null);
   const [listFile, setListFile] = useState<any>();
   // console.log(listFile);
@@ -327,7 +327,7 @@ export const DXFileInput = ({ setFileData }: { setFileData?: any }) => {
         ref={inputFileRef}
       />
       <Form.Item
-        label={<p style={{ fontWeight: "600" }}>Tài liệu đính kèm</p>}
+        label={<p style={{ fontWeight: "600" }}>{label}</p>}
         labelCol={{ span: 24 }}
       >
         <div
