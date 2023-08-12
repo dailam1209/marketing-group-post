@@ -1,0 +1,77 @@
+.l_tr_show {
+    background: rgba(71, 71, 71, 0.1);
+    display: flex;
+    width: 100%;
+}
+
+.l_text_aligin_center {
+    text-align: center;
+}
+.l_td {
+    width: 20%;
+}
+
+.l_td_name {
+    width: 40%;
+    /* justify-content: center; */
+    cursor: pointer;
+}
+.l_display {
+    display: flex;
+}
+.pull-left {
+    float: left !important;
+}
+.show {
+    padding: 14px 56px 12px 36px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.show_id {
+    width: 25%;
+    text-align: left;
+}
+
+.nameQTTD {
+    display: flex;
+    width: 36%;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    
+}
+.date {
+   
+    display: flex;
+    justify-content: flex-start;
+}
+.nameQTTD p, .date {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    color: #666666;
+    padding-left: 5px;
+}
+.nameQTTD picture {
+    padding-right: 10px;
+    display: flex;
+}
+
+.nameQTTD p {
+    white-space: initial;
+    width: 75%;
+    text-align: left;
+    padding: 0;
+}
+.show_checkbox {
+width: 20px;height: 20px;flex: 1;
+}
+
+.checkbox {
+    width: 20px;
+    height: 100%;
+    float: right;
+}
