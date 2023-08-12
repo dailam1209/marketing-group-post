@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styles from "./bodyFrame.module.css";
 import BodyFrameHeader from "./bodyFrame_header/bodyFrame_header";
-import { EmployeeInfo, getDataCompany } from "../../pages/api/cai-dat/generalSettings";
+import { EmployeeInfo, getDataCompany } from "../../api/cai-dat/generalSettings";
 import jwt_decode from "jwt-decode";
-import { getToken } from "../../pages/api/token";
+import { getToken } from "../../api/token";
 export interface BodyFrame { }
 
 export default function Bodyframe({ children }: any) {
