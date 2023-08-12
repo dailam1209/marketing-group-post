@@ -1,360 +1,362 @@
-import axios from "axios";
-import { getCookie } from "cookies-next";
-import { COOKIE_KEY } from "../nhan-su";
-import jwtDecode from "jwt-decode";
+import axios from 'axios'
+import { getCookie } from 'cookies-next'
+import jwtDecode from 'jwt-decode'
+import { COOKIE_KEY } from '../cai-dat-chung'
+import { cookies } from 'next/headers'
 
-const currentUrlQlc = process.env.NEXT_PUBLIC_BASE_URL_QLC;
-const currentUrlHR = process.env.NEXT_PUBLIC_BASE_URL_HR;
-const currentUrlVT = process.env.NEXT_PUBLIC_BASE_URL_VT;
-const curentUrlTL = process.env.NEXT_PUBLIC_BASE_URL_TL;
+const currentUrlQlc = process.env.NEXT_PUBLIC_API
+const currentUrlHR = process.env.NEXT_PUBLIC_API
+const currentUrlVT = process.env.NEXT_PUBLIC_API
+const curentUrlTL = process.env.NEXT_PUBLIC_API
 
 export const getCurrentToken = () => {
-  const currentAccessToken = getCookie(COOKIE_KEY);
+  const currentAccessToken = getCookie(COOKIE_KEY)
+
   // console.log(currentAccessToken)
-  const tokenJson = currentAccessToken && JSON.parse(`${currentAccessToken}`);
-  return tokenJson && tokenJson["access_token"];
-};
+  // const tokenJson = currentAccessToken && JSON.parse(`${currentAccessToken}`)
+  return currentAccessToken
+}
 
 export const GET = async (url: string) => {
-  const currentToken = getCurrentToken();
+  const currentToken = getCurrentToken()
 
   // console.log(currentToken)
   const config = {
     headers: { Authorization: `Bearer ${currentToken}` },
-  };
+  }
 
   try {
-    const res = await axios.get(`${currentUrlQlc}/${url}`, config);
+    const res = await axios.get(`${currentUrlQlc}/${url}`, config)
     if (res?.status === 200) {
-      return res?.data?.data;
+      return res?.data?.data
     } else {
-      return null;
+      return null
     }
   } catch (error) {
-    console.log(error);
-    return null;
+    console.log(error)
+    return null
   }
-};
+}
 
 export const POST = async (url: string, body: any) => {
-  const currentToken = getCurrentToken();
+  const currentToken = getCurrentToken()
   const config = {
     headers: { Authorization: `Bearer ${currentToken}` },
-  };
+  }
 
   try {
-    const res = await axios.post(`${currentUrlQlc}/${url}`, body, config);
+    const res = await axios.post(`${currentUrlQlc}/${url}`, body, config)
     if (res?.status === 200) {
-      return res?.data?.data;
+      return res?.data?.data
     } else {
-      return null;
+      return null
     }
   } catch (error) {
-    console.log(error);
-    return null;
+    console.log(error)
+    return null
   }
-};
+}
 
 export async function DELETE(url: string, body: any) {
-  const currentToken = getCurrentToken();
+  const currentToken = getCurrentToken()
 
   const config = {
     headers: { Authorization: `Bearer ${currentToken}` },
     data: body,
-  };
+  }
   try {
-    const res = await axios.delete(`${currentUrlQlc}/${url}`, config);
+    const res = await axios.delete(`${currentUrlQlc}/${url}`, config)
     if (res?.status === 200) {
-      return res?.data;
+      return res?.data
     } else {
-      return null;
+      return null
     }
   } catch (error) {
-    console.log(error);
-    return null;
+    console.log(error)
+    return null
   }
 }
 
 export const getCookieSS = (context: any) => {
-  const cookieData = context?.req?.cookies[COOKIE_KEY];
-  const json = cookieData && JSON.parse(cookieData);
-  return json?.["access_token"];
-};
+  const cookieData = context?.req?.cookies[COOKIE_KEY]
+  // const json = cookieData && JSON.parse(cookieData)
+  return cookieData
+}
 
 export const getCompIdSS = (context) => {
-  const cookieData = context?.req?.cookies[COOKIE_KEY];
-  let data: any = cookieData && jwtDecode(cookieData);
-  return data?.data?.com_id;
-};
+  const cookieData = context?.req?.cookies[COOKIE_KEY]
+  let data: any = cookieData && jwtDecode(cookieData)
+  return data?.data?.com_id
+}
 
 export const getCompIdCS = () => {
-  const cookieData = getCookie(COOKIE_KEY)?.toString();
+  const cookieData = getCookie(COOKIE_KEY)?.toString()
 
   if (cookieData) {
     try {
-      let data: any = jwtDecode(cookieData);
+      let data: any = jwtDecode(cookieData)
 
-      return data?.data?.com_id;
+      return data?.data?.com_id
     } catch (e) {
-      return null;
+      return null
     }
   }
-  return null;
-};
+  return null
+}
 
 export const GET_SS = async (
   url: string,
   context: any,
-  type: string = "qlc"
+  type: string = 'qlc'
 ) => {
-  const currentToken = getCookieSS(context);
+  const currentToken = getCookieSS(context)
 
-  let domain = "";
+  let domain = ''
   switch (type) {
-    case "qlc":
-      domain = currentUrlQlc || "";
-      break;
-    case "hr":
-      domain = currentUrlHR || "";
-      break;
-    case "vt":
-      domain = currentUrlVT || "";
-      break;
-    case "tl":
-      domain = curentUrlTL || "";
-      break;
+    case 'qlc':
+      domain = currentUrlQlc || ''
+      break
+    case 'hr':
+      domain = currentUrlHR || ''
+      break
+    case 'vt':
+      domain = currentUrlVT || ''
+      break
+    case 'tl':
+      domain = curentUrlTL || ''
+      break
     default:
-      domain = "";
-      break;
+      domain = ''
+      break
   }
   const config = {
     headers: { Authorization: `Bearer ${currentToken}` },
-  };
+  }
 
   try {
-    const res = await axios.get(`${domain}/${url}`, config);
+    const res = await axios.get(`${domain}/${url}`, config)
     if (res?.status === 200) {
-      return res?.data?.data;
+      return res?.data?.data
     } else {
-      return null;
+      return null
     }
   } catch (error) {
-    console.log(error);
-    return null;
+    console.log(error)
+    return null
   }
-};
+}
 
 export const POST_SS = async (
   url: string,
   body: any,
   context: any,
-  type: string = "qlc"
+  type: string = 'qlc'
 ) => {
-  const currentToken = getCookieSS(context);
+  const currentToken = getCookieSS(context)
 
-  let domain = "";
+  let domain = ''
   switch (type) {
-    case "qlc":
-      domain = currentUrlQlc || "";
-      break;
-    case "hr":
-      domain = currentUrlHR || "";
-      break;
-    case "vt":
-      domain = currentUrlVT || "";
-      break;
-    case "tl":
-      domain = curentUrlTL || "";
-      break;
+    case 'qlc':
+      domain = currentUrlQlc || ''
+      break
+    case 'hr':
+      domain = currentUrlHR || ''
+      break
+    case 'vt':
+      domain = currentUrlVT || ''
+      break
+    case 'tl':
+      domain = curentUrlTL || ''
+      break
 
     default:
-      domain = "";
-      break;
+      domain = ''
+      break
   }
   const config = {
     headers: { Authorization: `Bearer ${currentToken}` },
-  };
+  }
 
   try {
-    const res = await axios.post(`${domain}/${url}`, body, config);
+    const res = await axios.post(`${domain}/${url}`, body, config)
     if (res?.status === 200) {
-      return res?.data?.data;
+      return res?.data?.data
     } else {
-      return null;
+      return null
     }
   } catch (error) {
-    console.log(error);
-    return null;
+    console.log(error)
+    return null
   }
-};
+}
 
 export const POST_SS_HR = async (url: string, body: any, context: any) => {
-  const currentToken = getCookieSS(context);
+  const currentToken = getCookieSS(context)
 
   const config = {
     headers: { Authorization: `Bearer ${currentToken}` },
-  };
+  }
 
   try {
-    const res = await axios.post(`${currentUrlHR}/${url}`, body, config);
+    const res = await axios.post(`${currentUrlHR}/${url}`, body, config)
     if (res?.status === 200) {
-      return res?.data?.data;
+      return res?.data?.data
     } else {
-      return null;
+      return null
     }
   } catch (error) {
-    console.log(error);
-    return null;
+    console.log(error)
+    return null
   }
-};
+}
 
 //HR
 
 export const GET_HR = async (url: string) => {
-  const currentToken = getCurrentToken();
+  const currentToken = getCurrentToken()
 
   // console.log(currentToken)
   const config = {
     headers: { Authorization: `Bearer ${currentToken}` },
-  };
+  }
 
   try {
-    const res = await axios.get(`${currentUrlHR}/${url}`, config);
+    const res = await axios.get(`${currentUrlHR}/${url}`, config)
     if (res?.status === 200) {
-      return res?.data?.data;
+      return res?.data?.data
     } else {
-      return null;
+      return null
     }
   } catch (error) {
-    console.log(error);
-    return null;
+    console.log(error)
+    return null
   }
-};
+}
 
 export const POST_HR = async (url: string, body: any) => {
-  const currentToken = getCurrentToken();
+  const currentToken = getCurrentToken()
   // console.log(currentToken)
   const config = {
     headers: { Authorization: `Bearer ${currentToken}` },
-  };
+  }
 
   try {
-    const res = await axios.post(`${currentUrlHR}/${url}`, body, config);
+    const res = await axios.post(`${currentUrlHR}/${url}`, body, config)
     if (res?.status === 200) {
-      return res?.data?.data;
+      return res?.data?.data
     } else {
-      return null;
+      return null
     }
   } catch (error) {
-    console.log(error);
-    return null;
+    console.log(error)
+    return null
   }
-};
+}
 
 export async function DELETE_HR(url: string, body: any) {
-  const currentToken = getCurrentToken();
+  const currentToken = getCurrentToken()
 
   const config = {
     headers: { Authorization: `Bearer ${currentToken}` },
     data: body,
-  };
+  }
   try {
-    const res = await axios.delete(`${currentUrlHR}/${url}`, config);
+    const res = await axios.delete(`${currentUrlHR}/${url}`, config)
     if (res?.status === 200) {
-      return res?.data;
+      return res?.data
     } else {
-      return null;
+      return null
     }
   } catch (error) {
-    console.log(error);
-    return null;
+    console.log(error)
+    return null
   }
 }
 
 // VT
 
 export const POST_SS_VT = async (url: string, body: any, context: any) => {
-  const currentToken = getCookieSS(context);
+  const currentToken = getCookieSS(context)
 
   const config = {
     headers: { Authorization: `Bearer ${currentToken}` },
-  };
+  }
 
   try {
-    const res = await axios.post(`${currentUrlVT}/${url}`, body, config);
+    const res = await axios.post(`${currentUrlVT}/${url}`, body, config)
     if (res?.status === 200) {
-      return res?.data?.data;
+      return res?.data?.data
     } else {
-      return null;
+      return null
     }
   } catch (error) {
-    console.log(error);
-    return null;
+    console.log(error)
+    return null
   }
-};
+}
 
 export const GET_VT = async (url: string) => {
-  const currentToken = getCurrentToken();
+  const currentToken = getCurrentToken()
 
   // console.log(currentToken)
   const config = {
     headers: { Authorization: `Bearer ${currentToken}` },
-  };
+  }
 
   try {
-    const res = await axios.get(`${currentUrlVT}/${url}`, config);
+    const res = await axios.get(`${currentUrlVT}/${url}`, config)
     if (res?.status === 200) {
-      return res?.data?.data;
+      return res?.data?.data
     } else {
-      return null;
+      return null
     }
   } catch (error) {
-    console.log(error);
-    return null;
+    console.log(error)
+    return null
   }
-};
+}
 
 export const POST_VT = async (url: string, body: any) => {
-  const currentToken = getCurrentToken();
+  const currentToken = getCurrentToken()
   // console.log(currentToken)
 
   const config = {
     headers: {
       Authorization: `Bearer ${currentToken}`,
-      "Content-Type": "multipart/form-data",
+      'Content-Type': 'multipart/form-data',
     },
-  };
+  }
 
   try {
-    const res = await axios.post(`${currentUrlVT}/${url}`, body, config);
+    const res = await axios.post(`${currentUrlVT}/${url}`, body, config)
     if (res?.status === 200) {
-      return res?.data?.data;
+      return res?.data?.data
     } else {
-      return null;
+      return null
     }
   } catch (error) {
-    console.log(error);
-    return null;
+    console.log(error)
+    return null
   }
-};
+}
 
 export async function DELETE_VT(url: string, body: any) {
-  const currentToken = getCurrentToken();
+  const currentToken = getCurrentToken()
 
   const config = {
     headers: { Authorization: `Bearer ${currentToken}` },
     data: body,
-  };
+  }
   try {
-    const res = await axios.delete(`${currentUrlVT}/${url}`, config);
+    const res = await axios.delete(`${currentUrlVT}/${url}`, config)
     if (res?.status === 200) {
-      return res?.data;
+      return res?.data
     } else {
-      return null;
+      return null
     }
   } catch (error) {
-    console.log(error);
-    return null;
+    console.log(error)
+    return null
   }
 }
 
@@ -363,27 +365,27 @@ export const POST_SS_TL = async (
   url: string,
   body: any,
   context: any,
-  type: string = "tl"
+  type: string = 'tl'
 ) => {
-  const currentToken = getCookieSS(context);
+  const currentToken = getCookieSS(context)
 
-  let domain = "";
+  let domain = ''
   switch (type) {
-    case "qlc":
-      domain = currentUrlQlc || "";
-      break;
-    case "hr":
-      domain = currentUrlHR || "";
-      break;
-    case "vt":
-      domain = currentUrlVT || "";
-      break;
-    case "tl":
-      domain = curentUrlTL || "";
-      break;
+    case 'qlc':
+      domain = currentUrlQlc || ''
+      break
+    case 'hr':
+      domain = currentUrlHR || ''
+      break
+    case 'vt':
+      domain = currentUrlVT || ''
+      break
+    case 'tl':
+      domain = curentUrlTL || ''
+      break
     default:
-      domain = "";
-      break;
+      domain = ''
+      break
   }
   // const config = {
   //   headers: { Authorization: `Bearer ${currentToken}` }
@@ -392,23 +394,23 @@ export const POST_SS_TL = async (
   const newBody = {
     token: currentToken,
     ...body,
-  };
+  }
 
   try {
-    const res = await axios.post(`${domain}/${url}`, newBody);
+    const res = await axios.post(`${domain}/${url}`, newBody)
     if (res?.status === 200) {
-      return res?.data;
+      return res?.data
     } else {
-      return null;
+      return null
     }
   } catch (error) {
-    console.log(error);
-    return null;
+    console.log(error)
+    return null
   }
-};
+}
 
 export const POST_TL = async (url: string, body: any) => {
-  const currentToken = getCurrentToken();
+  const currentToken = getCurrentToken()
   // const config = {
   //   headers: { Authorization: `Bearer ${currentToken}` }
   // }
@@ -416,23 +418,23 @@ export const POST_TL = async (url: string, body: any) => {
   const newBody = {
     token: currentToken,
     ...body,
-  };
+  }
 
   try {
-    const res = await axios.post(`${curentUrlTL}/${url}`, newBody);
+    const res = await axios.post(`${curentUrlTL}/${url}`, newBody)
     if (res?.status === 200) {
-      return res?.data;
+      return res?.data
     } else {
-      return null;
+      return null
     }
   } catch (error) {
-    console.log(error);
-    return null;
+    console.log(error)
+    return null
   }
-};
+}
 
 export async function DELETE_TL(url: string, body: any) {
-  const currentToken = getCurrentToken();
+  const currentToken = getCurrentToken()
 
   const config = {
     // headers: { Authorization: `Bearer ${currentToken}` },
@@ -440,16 +442,16 @@ export async function DELETE_TL(url: string, body: any) {
       token: currentToken,
       ...body,
     },
-  };
+  }
   try {
-    const res = await axios.delete(`${currentUrlQlc}/${url}`, config);
+    const res = await axios.delete(`${currentUrlQlc}/${url}`, config)
     if (res?.status === 200) {
-      return res?.data;
+      return res?.data
     } else {
-      return null;
+      return null
     }
   } catch (error) {
-    console.log(error);
-    return null;
+    console.log(error)
+    return null
   }
 }

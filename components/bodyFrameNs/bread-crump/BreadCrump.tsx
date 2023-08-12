@@ -1,18 +1,18 @@
-import { Breadcrumb } from "antd"
-import _ from "lodash"
-import { useRouter } from "next/router"
-import { LIST_ROUTES } from "./ListBreadcrumbs"
-import Image from "next/image"
-import styles from "./BreadCrump.module.css"
+import { Breadcrumb } from 'antd'
+import _ from 'lodash'
+import { useRouter } from 'next/router'
+import { LIST_ROUTES } from './ListBreadcrumbs'
+import Image from 'next/image'
+import styles from './BreadCrump.module.css'
 
 export const MyBreadCrumb = ({ color }: { color: string }) => {
   const router = useRouter()
   const currentPathname = router.pathname
   let splitted: any[] = []
 
-  if (currentPathname !== "/") {
-    splitted = currentPathname?.split("/")?.map((item) => {
-      if (item === "") {
+  if (currentPathname !== '/') {
+    splitted = currentPathname?.split('/')?.map((item) => {
+      if (item === '') {
         return null
       } else {
         const render = LIST_ROUTES(router?.query?.name)?.find(
@@ -33,7 +33,7 @@ export const MyBreadCrumb = ({ color }: { color: string }) => {
             // padding: "0px 20px"
             // marginTop: "10px",
             // display: "flex",
-            color: `${color}`
+            color: `${color}`,
           }}
           // separator={<p style={{ color: `${color}` }}>/</p>}
         >
@@ -41,7 +41,7 @@ export const MyBreadCrumb = ({ color }: { color: string }) => {
             (item, index) =>
               // <Breadcrumb.Item key={index}>
               // <span style={{ color: `${color}` }}>
-              item + `${index !== splitted?.length - 1 ? " / " : ""}`
+              item + `${index !== splitted?.length - 1 ? ' / ' : ''}`
 
             // </Breadcrumb.Item>
           )}
@@ -54,14 +54,14 @@ export const MyBreadCrumb = ({ color }: { color: string }) => {
 export const BackButton = ({
   router,
   color,
-  isCC
+  isCC,
 }: {
   router: any
   color: string
   isCC: boolean
 }) => {
   const onBackClick = () => {
-    if (router.pathname !== "/") {
+    if (router.pathname !== '/') {
       router.back()
     }
   }
@@ -69,12 +69,14 @@ export const BackButton = ({
   return (
     <div className={styles.backButton} onClick={onBackClick}>
       <Image
-        alt="/"
-        src={isCC ? "/back-w.png" : "/back.png"}
+        alt='/'
+        src={isCC ? '/back-w.png' : '/back.png'}
         width={16}
         height={16}
       />
-      <p className={styles.backTxt} style={{ color: `${color}`, fontSize: "16px" }}>
+      <p
+        className={styles.backTxt}
+        style={{ color: `${color}`, fontSize: '16px' }}>
         Quay lại
       </p>
     </div>
