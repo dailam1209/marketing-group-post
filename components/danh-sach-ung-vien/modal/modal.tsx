@@ -244,7 +244,7 @@ export function ChangeStageModal({
 
   const onFinish = () => {
     form.validateFields().then((value: any) => {
-      if (detailsCan?.id > -1) {
+      if (detailsCan?.id !== -1) {
         // console.log(form.getFieldValue('contentsend').get)
         const configValue = {
           ...value,
@@ -252,12 +252,18 @@ export function ChangeStageModal({
           timeSendCv: dayjs(form.getFieldValue("timeSendCv")).format(
             "YYYY-MM-DD"
           ),
-          canId: detailsCan?.id
+          canId: detailsCan?.id,
+          listSkill: JSON.stringify(value['listSkill'])
         }
+        const fd = new FormData()
+        Object.keys(configValue)?.forEach(key => {
+          fd.append(key, configValue[key])
+        })
         switch (dropCol?.title) {
           case "Trượt":
             // console.log("Trượt");
-            POST_HR("api/hr/recruitment/FailJob", { ...configValue, type: 1 })
+            fd.append('type', '1')
+            POST_HR("api/hr/recruitment/FailJob", fd)
               .then((res) => {
                 if (res?.result === true) {
                   setOpen(false)
@@ -268,7 +274,8 @@ export function ChangeStageModal({
             break
           case "Nhận việc":
             // console.log("Nhận việc");
-            POST_HR("api/hr/recruitment/addCandidateGetJob", configValue)
+            
+            POST_HR("api/hr/recruitment/addCandidateGetJob", fd)
               .then((res) => {
                 if (res?.result === true) {
                   setOpen(false)
@@ -279,10 +286,8 @@ export function ChangeStageModal({
             break
           case "Hủy":
             // console.log("Hủy");
-            POST_HR("api/hr/recruitment/cancelJob", {
-              ...configValue,
-              status: 1
-            })
+            fd.append('status', '1')
+            POST_HR("api/hr/recruitment/cancelJob", fd)
               .then((res) => {
                 if (res?.result === true) {
                   setOpen(false)
@@ -293,12 +298,11 @@ export function ChangeStageModal({
             break
           case "Ký hợp đồng":
             // console.log("Ký hợp đồng");
-            POST_HR("api/hr/recruitment/contactJob", {
-              ...configValue,
-              offerTime: dayjs(form.getFieldValue("offerTime")).format(
-                "YYYY-MM-DD"
-              )
-            })
+            fd.append('offerTime', dayjs(form.getFieldValue("offerTime")).format(
+              "YYYY-MM-DD"
+            ))
+
+            POST_HR("api/hr/recruitment/contactJob", fd)
               .then((res) => {
                 if (res?.result === true) {
                   setOpen(false)
@@ -309,11 +313,9 @@ export function ChangeStageModal({
             break
           default:
             // Các giai đoạn customize
-            POST_HR("api/hr/recruitment/scheduleInter", {
-              ...configValue,
-              processInterviewId: dropCol?.id,
-              checkEmail: 1
-            })
+            fd.append('processInterviewId', dropCol?.id)
+            fd.append('checkEmail', '1')
+            POST_HR("api/hr/recruitment/scheduleInter", fd)
               .then((res) => {
                 if (res?.result === true) {
                   setOpen(false)
@@ -350,6 +352,7 @@ export function ChangeStageModal({
                   alignItems: "center"
                 }}
               >
+                <Form.Item name={[name, "id"]}></Form.Item>
                 <Form.Item name={[name, "skillName"]} required={true}>
                   <Input placeholder="Tên kỹ năng" className={styles.input} />
                 </Form.Item>
@@ -385,6 +388,7 @@ export function ChangeStageModal({
         canId: draggedItem?.canId
       })
         .then((res) => {
+          console.log(res)
           if (_.isEmpty(res?.data?.[0]?.listSkill)) {
             setDetailsCan({
               ...res?.data?.[0],

@@ -25,11 +25,11 @@ import { useRouter } from "next/router"
 import { useEffect } from "react"
 
 export const DanhSachUngVien = ({
-  listCandidates,
+  // listCandidates,
   listCandidatesOnProcess,
   listEmp
 }: {
-  listCandidates: any
+  // listCandidates: any
   listCandidatesOnProcess: any
   listEmp: any
 }) => {
@@ -41,12 +41,14 @@ export const DanhSachUngVien = ({
   const [selectedStage, setSelectedStage] = useState()
   const [openAddNewCandi, setOpenAddNewCandi] = useState(false)
   const [dataCandidates, setDataCandidates] = useState(
-    listCandidates?.data?.filter((can) => can.isSwitch === 0)
+    // listCandidates?.data?.filter((can) => can.isSwitch === 0)
+    listCandidatesOnProcess?.listCandidate
   )
 
   const [listProcess, setListProcess] = useState(
     listCandidatesOnProcess
-      ? listCandidatesOnProcess?.listProcess?.map((item) => {
+      ? listCandidatesOnProcess?.data?.map((item) => {
+        if (item?.listCandidate) {
           return {
             ...item,
             required: false,
@@ -54,7 +56,8 @@ export const DanhSachUngVien = ({
             textColor: "#474747",
             title: item?.name
           }
-        })
+        } else return null
+        })?.filter((item) => item !== null)
       : null
   )
   const [listCols, setListCols] = useState([
@@ -64,15 +67,12 @@ export const DanhSachUngVien = ({
       bgColor: "#FFEDDA",
       textColor: "#474747",
       listCandidate: dataCandidates?.map((can) => {
-        if (can.isSwitch === 0) {
           return {
+            ...can,
             canId: can?.id,
-            candidate: [{ ...can }],
-            recruitmentNews: {
-              title: can?.Recruitment
-            }
+            canName: can?.name,
+
           }
-        }
       })
     },
     ...listProcess || [],
@@ -114,8 +114,6 @@ export const DanhSachUngVien = ({
 
   const router = useRouter()
 
-  useEffect(() => {}, [])
-
   const onDeleteClicked = (title: any) => {
     setListCols(listCols?.filter((item) => item.title !== title))
   }
@@ -147,25 +145,25 @@ export const DanhSachUngVien = ({
       <div>
         <Row gutter={[20, 0]}>
           <Col lg={6} md={8} sm={12} xs={24}>
-            {MySelect("", "dd/mm/yyyy", false, false, "")}
+            {MySelect("", "dd/mm/yyyy", false, false, "from")}
           </Col>
           <Col lg={6} md={8} sm={12} xs={24}>
-            {MySelect("", "dd/mm/yyyy", false, false, "")}
+            {MySelect("", "dd/mm/yyyy", false, false, "to")}
           </Col>
           <Col lg={6} md={8} sm={12} xs={24}>
-            {MyInput("", "Nhập tên ứng viên", false, false, "")}
+            {MyInput("", "Nhập tên ứng viên", false, false, "can_name")}
           </Col>
           <Col lg={6} md={8} sm={12} xs={24}>
-            {MySelect("", "Vị trí ứng tuyển", false, false, "")}
+            {MySelect("", "Vị trí ứng tuyển", false, false, "position_apply")}
           </Col>
           <Col lg={6} md={8} sm={12} xs={24}>
             {MySelect("", "Chọn nhân viên", false, false, "ep_id", listEmpLabel)}
           </Col>
           <Col lg={6} md={8} sm={12} xs={24}>
-            {MySelect("", "Chọn giới tính", false, false, "")}
+            {MySelect("", "Chọn giới tính", false, false, "gender")}
           </Col>
           <Col lg={6} md={8} sm={12} xs={24}>
-            {MySelect("", "Trạng thái", false, false, "")}
+            {MySelect("", "Trạng thái", false, false, "status")}
           </Col>
           <Col md={6} sm={12} xs={24}>
             <div className={styles.search}>
@@ -194,6 +192,7 @@ export const DanhSachUngVien = ({
               setOpenUpdateStage={setOnOpenStageUpdate}
               setSelectedStage={setSelectedStage}
               setCanIdSelected={setCanIdSelected}
+              listEmpLabel={listEmpLabel}
             />
           ))}
         </div>

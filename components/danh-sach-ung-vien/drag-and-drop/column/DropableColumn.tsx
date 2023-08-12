@@ -13,7 +13,8 @@ export const DropableColumn = ({
   setOpenDeleteAttendantModal,
   setOpenUpdateStage,
   setSelectedStage,
-  setCanIdSelected
+  setCanIdSelected,
+  listEmpLabel
 }: {
   item: any
   onDeleteClicked: (title: any) => void
@@ -26,6 +27,7 @@ export const DropableColumn = ({
   setOpenUpdateStage: any
   setSelectedStage: any
   setCanIdSelected: any
+  listEmpLabel: any
 }) => {
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
     accept: "any",
@@ -98,6 +100,7 @@ export const DropableColumn = ({
           currentCol={item?.title}
           setOpenDeleteAttendantModal={setOpenDeleteAttendantModal}
           setCanIdSelected={setCanIdSelected}
+          userHiringName={listEmpLabel?.find(emp => emp?.value === attd?.userHiring)?.label || "Chưa cập nhật"}
         />
       ))}
     </div>
