@@ -189,7 +189,7 @@ const QlNhanluc2 = () => {
             </a>
             <div className="titl_delt">
               <h4 className="share_fsize_tow share_clr_four">
-                <a href="/hr/pages" className="share_clr_four" target="_blank">
+                <a href="/hr" className="share_clr_four" target="_blank">
                   Quản trị nhân sự
                 </a>
               </h4>
