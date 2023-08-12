@@ -9,7 +9,7 @@ export default function App({ Component, pageProps }) {
   console.log(link);
   return (
     <div>
-      {link.includes("hr/pages") ? (
+      {link.includes("hr") ? (
         <Layout>
           <Component {...pageProps} />
         </Layout>
