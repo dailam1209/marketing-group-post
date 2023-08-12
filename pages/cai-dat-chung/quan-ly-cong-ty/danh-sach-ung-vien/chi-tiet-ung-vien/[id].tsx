@@ -3,40 +3,29 @@ import styles from "./[id].module.css";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { UpdateAttendantInfoModal } from "@/components/danh-sach-ung-vien/thong-tin-ung-vien/modal/modal";
-import { BackButton } from "@/components/bodyFrame/bread-crump/BreadCrump";
+import { BackButton } from "@/components/bodyFrameNs/bread-crump/BreadCrump";
 import { useRouter } from "next/router";
-import { POST_HR } from "@/pages/api/BaseApi";
+import { POST_HR, POST_SS, POST_SS_HR, getCompIdSS } from "@/pages/api/BaseApi";
 import dayjs from "dayjs";
 import _ from "lodash";
 
-export default function ChiTietUngVien() {
+export default function ChiTietUngVien({ listEmp, data }) {
   const [openEdit, setOpenEdit] = useState(false);
-  const [detailsCan, setDetailsCan]: any = useState({});
-  const [starVote, setStarVote]: any = useState(0);
+  const [detailsCan, setDetailsCan]: any = useState({
+    ...data?.data?.[0],
+    timeSendCv: dayjs(data?.data?.[0]?.createdAt).format("YYYY-MM-DD HH:mm A"),
+  });
+  const [starVote, setStarVote]: any = useState(data?.data?.[0]?.starVote);
+  const [listEmpLabel, setListEmpLabel]: any = useState(
+    listEmp?.data?.map((emp) => ({ label: emp?.userName, value: emp?.idQLC }))
+  );
 
   const router = useRouter();
-  const { id } = router.query;
 
   const headerText = (title: string) => (
     <p className={styles.headerTxt}>{title}</p>
   );
 
-  useEffect(() => {
-    POST_HR("api/hr/recruitment/listCandi", {
-      canId: Number(id),
-    })
-      .then((res) => {
-        if (res?.result === true) {
-          setStarVote(res?.data?.[0]?.starVote);
-
-          setDetailsCan({
-            ...res?.data?.[0],
-            timeSendCv: res?.data?.[0]?.createdAt?.substring(0, 10),
-          });
-        }
-      })
-      .catch((err) => console.error(err));
-  }, [id]);
 
   const item = (title: string, data: string) => (
     <p style={{ marginBottom: "10px" }}>
@@ -118,7 +107,7 @@ export default function ChiTietUngVien() {
                 <div className={styles.sectionWrapper}>
                   {headerText("Thông tin tuyển dụng")}
                   {item("Nguồn ứng viên", detailsCan?.cvFrom)}
-                  {item("Vị trí ứng tuyển", detailsCan?.Recruitment)}
+                  {item("Vị trí ứng tuyển", detailsCan?.Title)}
                   {item("Nhân viên tuyển dụng", detailsCan?.userHiring)}
                 </div>
               </div>
@@ -126,16 +115,17 @@ export default function ChiTietUngVien() {
                 {headerText("Quá trình tuyển dụng")}
                 {item("Thời gian nhận hồ sơ", detailsCan?.timeSendCv)}
                 {item("Giai đoạn chuyển", "Nhận hồ sơ")}
-                {item("Nhân viên tuyển dụng", detailsCan?.userHiring)}
+                {item("Nhân viên tuyển dụng", detailsCan?.NvTuyenDung)}
                 {rating("Đánh giá hồ sơ", starVote)}
                 <div style={{ marginLeft: "20px", marginTop: "20px" }}>
-                  {detailsCan?.listSkill?.length > 0 ? (
+                  {detailsCan?.listSkill?.length > 0 &&
                     detailsCan?.listSkill?.map((skill, index) => {
-                      ratingRow(skill?.skillName, skill?.skillVote, index);
-                    })
-                  ) : (
-                    <></>
-                  )}
+                      return ratingRow(
+                        skill?.skillName,
+                        skill?.skillVote,
+                        index
+                      );
+                    })}
                 </div>
               </div>
             </div>
@@ -145,7 +135,7 @@ export default function ChiTietUngVien() {
           <Image
             className={styles.imgcv}
             alt="/"
-            src={"/cv.png"}
+            src={detailsCan?.cv ? `/${detailsCan?.cv}` : "/cv.png"}
             width={0}
             height={0}
             sizes="100vh"
@@ -164,7 +154,44 @@ export default function ChiTietUngVien() {
         open={openEdit}
         setData={setDetailsCan}
         setOpen={setOpenEdit}
+        listEmpLabel={listEmpLabel}
       />
     </>
   );
 }
+
+export const getServerSideProps = async (context) => {
+  let com_id = null;
+  com_id = getCompIdSS(context);
+
+  let canId = context?.query?.id || null;
+
+  const data = await POST_SS_HR("api/hr/recruitment/listCandi", {
+    canId: Number(canId),
+  }, context);
+  // .then((res) => {
+  //   if (res?.result === true) {
+  //     setStarVote(res?.data?.[0]?.starVote);
+
+  // setDetailsCan({
+  //   ...res?.data?.[0],
+  //   timeSendCv: dayjs(res?.data?.[0]?.createdAt).format("YYYY-MM-DD HH:mm A"),
+  // });
+  //   }
+  // })
+
+  const listEmp = await POST_SS(
+    "api/qlc/managerUser/list",
+    {
+      com_id: com_id,
+    },
+    context
+  );
+
+  return {
+    props: {
+      listEmp,
+      data,
+    },
+  };
+};

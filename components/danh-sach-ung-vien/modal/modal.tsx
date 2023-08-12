@@ -46,39 +46,49 @@ export function AddNewStageModal({
   setData: any
 }) {
   const [form] = Form.useForm()
+  const router = useRouter()
 
   const onFinish = () => {
     form.validateFields().then((value: any) => {
-      const beforeStageIndex = data.findIndex(
-        (item: any) => item.title === value?.beforeStage
-      )
-      const newData = {
-        title: value?.stageName,
-        total: 0,
-        required: false,
-        bgColor: "#FFEDDA",
-        textColor: "#474747"
-      }
-      let newArr = data?.slice(0, beforeStageIndex + 1)
-      newArr.push(newData)
-      const restData = data?.slice(beforeStageIndex + 1, data?.length)
-      newArr = [...newArr, ...restData]
-      setData(newArr)
+      // const beforeStageIndex = data.findIndex(
+      //   (item: any) => item.title === value?.beforeStage
+      // )
+      // const newData = {
+      //   title: value?.stageName,
+      //   total: 0,
+      //   required: false,
+      //   bgColor: "#FFEDDA",
+      //   textColor: "#474747"
+      // }
+      // let newArr = data?.slice(0, beforeStageIndex + 1)
+      // newArr.push(newData)
+      // const restData = data?.slice(beforeStageIndex + 1, data?.length)
+      // newArr = [...newArr, ...restData]
+      // setData(newArr)
+
+      POST_HR('api/hr/recruitment/createProcess', value)
+        .then(res => {
+          if (res?.result === true) {
+            setOpen(false)
+            router.reload()
+          }
+        })
+
     })
   }
 
   const children = (
     <Form form={form}>
-      {MyInput("Tên giai đoạn", "Nhập  tên giai đoạn", true, true, "stageName")}
+      {MyInput("Tên giai đoạn", "Nhập tên giai đoạn", true, true, "name")}
       {MySelect(
         "Chọn giai đoạn đứng trước",
         "Chọn giai đoạn đứng trước",
         true,
         true,
-        "beforeStage",
+        "processBefore",
         data &&
-          data?.map((item: any, index: number) => ({
-            value: item?.title,
+          data?.filter(item => item?.id > 0 )?.map((item: any, index: number) => ({
+            value: item?.id,
             label: item?.title
           }))
       )}
@@ -100,7 +110,7 @@ export function UpdateStageModal({
   open,
   setOpen,
   selectedStage,
-  data
+  data,
 }: {
   open: boolean
   setOpen: any
@@ -108,30 +118,38 @@ export function UpdateStageModal({
   data: any
 }) {
   const [form] = Form.useForm()
-  const [options, setOptions] = useState(
-    data?.map((item) => {
-      if (!_.isEmpty(item)) {
-        return { label: item?.title, value: item?.title }
-      }
-    })
-  )
+  const router = useRouter()
 
-  const onFinish = () => {
+  const hanldeSubmit = () => {
     form.validateFields().then((value: any) => {
-      console.log(value)
+      POST_HR('api/hr/recruitment/updateProcess', {
+        name: value['name'],
+        processBefore: value['processBefore'],
+        processInterviewId: selectedStage?.id
+      })
+        .then(res => {
+          if (res?.result === true) {
+            setOpen(false)
+            router.reload()
+          }
+        })
     })
   }
 
+  useEffect(() => {
+    form.setFieldsValue(selectedStage)
+  }, [form, selectedStage])
+
   const Child = () => (
     <Form form={form} initialValues={selectedStage}>
-      {MyInput("Tên giai đoạn", "Nhập  tên giai đoạn", true, true, "title")}
+      {MyInput("Tên giai đoạn", "Nhập tên giai đoạn", true, true, "name")}
       {MySelect(
         "Chọn giai đoạn đứng trước",
         "Chọn giai đoạn đứng trước",
         true,
         true,
-        "beforeStage",
-        options && options
+        "processBefore",
+        data?.filter(item => item?.id > 0 && item?.id !== selectedStage?.id)?.map(item => ({ key: item?.id, value: item?.id, label: item?.name }))
       )}
     </Form>
   )
@@ -143,7 +161,7 @@ export function UpdateStageModal({
     600,
     "Chỉnh sửa giai đoạn",
     "Cập nhật",
-    () => onFinish()
+    hanldeSubmit
   )
 }
 
@@ -244,7 +262,7 @@ export function ChangeStageModal({
 
   const onFinish = () => {
     form.validateFields().then((value: any) => {
-      if (detailsCan?.id > -1) {
+      if (detailsCan?.id !== -1) {
         // console.log(form.getFieldValue('contentsend').get)
         const configValue = {
           ...value,
@@ -252,72 +270,74 @@ export function ChangeStageModal({
           timeSendCv: dayjs(form.getFieldValue("timeSendCv")).format(
             "YYYY-MM-DD"
           ),
-          canId: detailsCan?.id
+          canId: detailsCan?.id,
+          listSkill: JSON.stringify(value['listSkill'])
         }
+        const fd = new FormData()
+        Object.keys(configValue)?.forEach(key => {
+          fd.append(key, configValue[key])
+        })
         switch (dropCol?.title) {
           case "Trượt":
             // console.log("Trượt");
-            POST_HR("api/hr/recruitment/FailJob", { ...configValue, type: 1 })
+            fd.append('type', '1')
+            POST_HR("api/hr/recruitment/FailJob", fd)
               .then((res) => {
                 if (res?.result === true) {
                   setOpen(false)
-                  router.replace(router.asPath)
+                  router.reload()
                 }
               })
               .catch((err) => console.error(err))
             break
           case "Nhận việc":
             // console.log("Nhận việc");
-            POST_HR("api/hr/recruitment/addCandidateGetJob", configValue)
+            
+            POST_HR("api/hr/recruitment/addCandidateGetJob", fd)
               .then((res) => {
                 if (res?.result === true) {
                   setOpen(false)
-                  router.replace(router.asPath)
+                  router.reload()
                 }
               })
               .catch((err) => console.error(err))
             break
           case "Hủy":
             // console.log("Hủy");
-            POST_HR("api/hr/recruitment/cancelJob", {
-              ...configValue,
-              status: 1
-            })
+            fd.append('status', '1')
+            POST_HR("api/hr/recruitment/cancelJob", fd)
               .then((res) => {
                 if (res?.result === true) {
                   setOpen(false)
-                  router.replace(router.asPath)
+                  router.reload()
                 }
               })
               .catch((err) => console.error(err))
             break
           case "Ký hợp đồng":
             // console.log("Ký hợp đồng");
-            POST_HR("api/hr/recruitment/contactJob", {
-              ...configValue,
-              offerTime: dayjs(form.getFieldValue("offerTime")).format(
-                "YYYY-MM-DD"
-              )
-            })
+            fd.append('offerTime', dayjs(form.getFieldValue("offerTime")).format(
+              "YYYY-MM-DD"
+            ))
+
+            POST_HR("api/hr/recruitment/contactJob", fd)
               .then((res) => {
                 if (res?.result === true) {
                   setOpen(false)
-                  router.replace(router.asPath)
+                  router.reload()
                 }
               })
               .catch((err) => console.error(err))
             break
           default:
             // Các giai đoạn customize
-            POST_HR("api/hr/recruitment/scheduleInter", {
-              ...configValue,
-              processInterviewId: dropCol?.id,
-              checkEmail: 1
-            })
+            fd.append('processInterviewId', dropCol?.id)
+            fd.append('checkEmail', '1')
+            POST_HR("api/hr/recruitment/scheduleInter", fd)
               .then((res) => {
                 if (res?.result === true) {
                   setOpen(false)
-                  router.replace(router.asPath)
+                  router.reload()
                 }
               })
               .catch((err) => console.error(err))
@@ -350,6 +370,7 @@ export function ChangeStageModal({
                   alignItems: "center"
                 }}
               >
+                <Form.Item name={[name, "id"]}></Form.Item>
                 <Form.Item name={[name, "skillName"]} required={true}>
                   <Input placeholder="Tên kỹ năng" className={styles.input} />
                 </Form.Item>
@@ -385,6 +406,7 @@ export function ChangeStageModal({
         canId: draggedItem?.canId
       })
         .then((res) => {
+          console.log(res)
           if (_.isEmpty(res?.data?.[0]?.listSkill)) {
             setDetailsCan({
               ...res?.data?.[0],

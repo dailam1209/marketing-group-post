@@ -5,7 +5,7 @@ import { POST_HR, POST_SS, POST_SS_HR, getCompIdSS } from "@/pages/api/BaseApi";
 
 export default function QuanLyUngVien({
   listCandidatesOnProcess,
-  listCandidates,
+  // listCandidates,
   listEmp
 }) {
   // const LIST_TABS = [
@@ -22,7 +22,7 @@ export default function QuanLyUngVien({
         <p className={styles.headerTxt}>Danh sách ứng viên</p>
         <DanhSachUngVien
           listCandidatesOnProcess={listCandidatesOnProcess}
-          listCandidates={listCandidates}
+          // listCandidates={listCandidates}
           listEmp={listEmp}
         />
       </Card>
@@ -40,11 +40,11 @@ export const getServerSideProps = async (context) => {
     context
   );
 
-  const listCandidates = await POST_SS_HR(
-    "api/hr/recruitment/listCandi",
-    {},
-    context
-  );
+  // const listCandidates = await POST_SS_HR(
+  //   "api/hr/recruitment/listCandi",
+  //   {},
+  //   context
+  // );
 
   const listEmp = await POST_SS('api/qlc/managerUser/list', {
     com_id: com_id
@@ -53,7 +53,7 @@ export const getServerSideProps = async (context) => {
   return {
     props: {
       listCandidatesOnProcess,
-      listCandidates,
+      // listCandidates,
       listEmp
     },
   };
