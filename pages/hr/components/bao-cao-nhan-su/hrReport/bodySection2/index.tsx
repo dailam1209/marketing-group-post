@@ -1,8 +1,11 @@
 import React from 'react';
 import styles from './bodySection2.module.css'
+import { useRouter } from "next/router";
 
 const BodySection2 = ({ title, img1, img2, img3, img4, img5, img6, details_title1, details_title2, details_title3
-    , details_title4, details_title5, details_title6, number1, number2, number3, number4, number5, number6 }: any) => (
+    , details_title4, details_title5, details_title6, number1, number2, number3, number4, number5, number6, handleClickDetail,
+    link_title1, link_title2, link_title3, link_title4, link_title5, link_title6
+}: any) => (
     <div className={`${styles.t_rp}`}>
         <div className={`${styles.t_exp_header}`}>
             <p>{title}</p>
@@ -31,32 +34,32 @@ const BodySection2 = ({ title, img1, img2, img3, img4, img5, img6, details_title
             <div className={`${styles.body_row}`}>
                 <div className={`${styles.body_row_title}`}>
                     <p>
-                        <a href="">{details_title1}</a>
+                        <a href="" onClick={(event) => handleClickDetail(link_title1, event)}>{details_title1}</a>
                     </p>
                 </div>
                 <div className={`${styles.body_row_title}`}>
                     <p>
-                        <a href="">{details_title2}</a>
+                        <a href="" onClick={(event) => handleClickDetail(link_title2, event)}>{details_title2}</a>
                     </p>
                 </div>
                 <div className={`${styles.body_row_title}`}>
                     <p>
-                        <a href="">{details_title3}</a>
+                        <a href="" onClick={(event) => handleClickDetail(link_title3, event)}>{details_title3}</a>
                     </p>
                 </div>
                 <div className={`${styles.body_row_title}`}>
                     <p>
-                        <a href="">{details_title4}</a>
+                        <a href="" onClick={(event) => handleClickDetail(link_title4, event)}>{details_title4}</a>
                     </p>
                 </div>
                 <div className={`${styles.body_row_title}`}>
                     <p>
-                        <a href="">{details_title5}</a>
+                        <a href="" onClick={(event) => handleClickDetail(link_title5, event)}>{details_title5}</a>
                     </p>
                 </div>
                 <div className={`${styles.body_row_title}`}>
                     <p>
-                        <a href="">{details_title6}</a>
+                        <a href="" onClick={(event) => handleClickDetail(link_title6, event)}>{details_title6}</a>
                     </p>
                 </div>
             </div>
@@ -205,6 +208,17 @@ export default function InformationSection2({ hrReportList }: any) {
     const partime = countEmployeesByChucVu(employees?.countEmployee, 9);
     let sum2: number = thuctap + thuviec + partime + chinhthuc;
 
+    const router = useRouter()
+    const handleClickDetail = (link: any, event: React.MouseEvent<HTMLAnchorElement>) => {
+        event.preventDefault();
+        if (typeof link === "string") {
+            const link_slice: any = link.slice(0, -5)
+            router.push(
+                `/hr/${link_slice}`
+            );
+        }
+    };
+
     return (
         <>
             <div className={`${styles.wrapper}`}>
@@ -230,6 +244,13 @@ export default function InformationSection2({ hrReportList }: any) {
                             number4={workDurationCounts[2]}
                             number5={workDurationCounts[3]}
                             number6={workDurationCounts[4]}
+                            handleClickDetail={handleClickDetail}
+                            link_title1="/bieu-do-danh-sach-nhan-vien-theo-tham-nien-cong-tac.html"
+                            link_title2="/bieu-do-danh-sach-nhan-vien-theo-tham-nien-cong-tac?type=1.html"
+                            link_title3="/bieu-do-danh-sach-nhan-vien-theo-tham-nien-cong-tac?type=2.html"
+                            link_title4="/bieu-do-danh-sach-nhan-vien-theo-tham-nien-cong-tac?type=3.html"
+                            link_title5="/bieu-do-danh-sach-nhan-vien-theo-tham-nien-cong-tac?type=4.html"
+                            link_title6="/bieu-do-danh-sach-nhan-vien-theo-tham-nien-cong-tac?type=5.html"
                         />
                     </div>
                 </div>
@@ -252,6 +273,12 @@ export default function InformationSection2({ hrReportList }: any) {
                             number3={YearOlwCounts[1]}
                             number4={YearOlwCounts[2]}
                             number5={YearOlwCounts[3]}
+                            handleClickDetail={handleClickDetail}
+                            link_title1="/bieu-do-danh-sach-nhan-vien-theo-do-tuoi.html"
+                            link_title2="/bieu-do-danh-sach-nhan-vien-theo-do-tuoi?type=1.html"
+                            link_title3="/bieu-do-danh-sach-nhan-vien-theo-do-tuoi?type=2.html"
+                            link_title4="/bieu-do-danh-sach-nhan-vien-theo-do-tuoi?type=3.html"
+                            link_title5="/bieu-do-danh-sach-nhan-vien-theo-do-tuoi?type=4.html"
                         />
                     </div>
                 </div>
@@ -274,6 +301,12 @@ export default function InformationSection2({ hrReportList }: any) {
                             number3={partime}
                             number4={thuviec}
                             number5={chinhthuc}
+                            handleClickDetail={handleClickDetail}
+                            link_title1="/bieu-do-danh-sach-nhan-vien-theo-chuc-vu.html"
+                            link_title2="/bieu-do-danh-sach-nhan-vien-theo-chuc-vu?type=1.html"
+                            link_title3="/bieu-do-danh-sach-nhan-vien-theo-chuc-vu?type=2.html"
+                            link_title4="/bieu-do-danh-sach-nhan-vien-theo-chuc-vu?type=3.html"
+                            link_title5="/bieu-do-danh-sach-nhan-vien-theo-chuc-vu?type=4.html"
                         />
                     </div>
                 </div>

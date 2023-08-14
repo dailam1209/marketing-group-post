@@ -80,16 +80,117 @@ export default function DetailHrReport({ children }: any) {
     const comid: any = GetComId()
 
     useEffect(() => {
+        if (link.includes('bieu-do-danh-sach-nhan-vien')) {
+            setTitle("Biểu đồ danh sách nhân viên")
+        }
+        if (link.includes('bieu-do-danh-sach-nhan-vien-bo-nhiem')) {
+            setTitle("Danh sách nhân viên bổ nhiệm quy hoạch")
+        }
+        if (link.includes('bieu-do-danh-sach-nhan-vien-chuyen-cong-tac')) {
+            setTitle("Danh sách nhân viên luân chuyển công tác")
+        }
+        if (link.includes('bieu-do-danh-sach-nhan-vien-nghi-viec')) {
+            setTitle("Danh sách nhân viên nghỉ việc / giảm biên chế")
+        }
+        if (link.includes('bieu-do-danh-sach-nhan-vien-tang-giam-luong')) {
+            setTitle("Danh sách nhân viên nghỉ việc / giảm biên chế")
+        }
+        if (link.includes('bieu-do-danh-sach-nhan-vien-theo-do-tuoi')) {
+            setTitle("Danh sách nhân viên theo thâm niên công tác")
+        }
+        if (link.includes('bieu-do-danh-sach-nhan-vien-theo-do-tuoi')) {
+            setTitle("Danh sách nhân viên theo độ tuổi")
+        }
+        if (link.includes('bieu-do-danh-sach-nhan-vien-theo-chuc-vu.html')) {
+            setTitle("Danh sách nhân viên theo chức vụ")
+        }
         if (link.includes('gender=')) {
             const isGenders = link.split("=").pop();
             setGender(isGenders)
-            setTitle(parseInt(isGenders) === 1 ? "Nam" : "Nữ")
-
+            if (link.includes('bieu-do-danh-sach-nhan-vien?gender=1')) {
+                setTitle("Biểu đồ danh sách nhân viên Nam")
+            }
+            if (link.includes('bieu-do-danh-sach-nhan-vien?gender=2')) {
+                setTitle("Biểu đồ danh sách nhân viên Nữ")
+            }
+            if (link.includes('bieu-do-danh-sach-nhan-vien-bo-nhiem?gender=1')) {
+                setTitle("Danh sách nhân viên nam bổ nhiệm quy hoạch")
+            }
+            if (link.includes('bieu-do-danh-sach-nhan-vien-bo-nhiem?gender=2')) {
+                setTitle("Danh sách nhân viên nữ bổ nhiệm quy hoạch")
+            }
+            if (link.includes('bieu-do-danh-sach-nhan-vien-chuyen-cong-tac?gender=1')) {
+                setTitle("Danh sách nhân viên nam chuyển công tác")
+            }
+            if (link.includes('bieu-do-danh-sach-nhan-vien-chuyen-cong-tac?gender=1')) {
+                setTitle("Danh sách nhân viên nữ chuyển công tác")
+            }
         } else if (link.includes('type')) {
             const isTypes = link.split("=").pop();
             setType(isTypes)
+            if (link.includes('bieu-do-danh-sach-nhan-vien-nghi-viec?type=1')) {
+                setTitle("Danh sách nhân viên nghỉ việc")
+            }
+            if (link.includes('bieu-do-danh-sach-nhan-vien-nghi-viec?type=2')) {
+                setTitle("Danh sách nhân viên giảm biên chế")
+            }
+            if (link.includes('bieu-do-danh-sach-nhan-vien-tang-giam-luong?type=1') || link.includes('bieu-do-danh-sach-nhan-vien-tang-giam-luong?type=2')) {
+                setTitle("Danh sách nhân viên tăng / giảm lương")
+            }
+            if (link.includes('bieu-do-danh-sach-nhan-vien-theo-trang-hon-nhan?type=1')) {
+                setTitle("Danh sách nhân viên đã lập gia đình")
+            }
+            if (link.includes('bieu-do-danh-sach-nhan-vien-theo-trang-hon-nhan?type=2')) {
+                setTitle("Danh sách nhân viên độc thân")
+            }
+
+            if (link.includes('bieu-do-danh-sach-nhan-vien-theo-tham-nien-cong-tac?type=1')) {
+                setTitle("Danh sách nhân viên theo thâm niên công tác dưới 3 tháng")
+            }
+            if (link.includes('bieu-do-danh-sach-nhan-vien-theo-tham-nien-cong-tac?type=2')) {
+                setTitle("Danh sách nhân viên theo thâm niên công tác từ 3 tháng đến 1 năm")
+            }
+            if (link.includes('bieu-do-danh-sach-nhan-vien-theo-tham-nien-cong-tac?type=3')) {
+                setTitle("Danh sách nhân viên theo thâm niên công tác từ 1 năm đến 3 năm")
+            }
+            if (link.includes('bieu-do-danh-sach-nhan-vien-theo-tham-nien-cong-tac?type=4')) {
+                setTitle("Danh sách nhân viên theo thâm niên công tác từ 3 năm đến 5 năm")
+            }
+            if (link.includes('bieu-do-danh-sach-nhan-vien-theo-tham-nien-cong-tac?type=5')) {
+                setTitle("Danh sách nhân viên theo thâm niên công tác trên 5 năm")
+            }
+            if (link.includes('bieu-do-danh-sach-nhan-vien-theo-do-tuoi?type=1')) {
+                setTitle("Danh sách nhân viên theo độ tuổi dưới 30 tuổi")
+            }
+            if (link.includes('bieu-do-danh-sach-nhan-vien-theo-do-tuoi?type=2')) {
+                setTitle("Danh sách nhân viên theo độ tuổi từ 30 đến 44 tuổi")
+            }
+            if (link.includes('bieu-do-danh-sach-nhan-vien-theo-do-tuoi?type=3')) {
+                setTitle("Danh sách nhân viên theo độ tuổi từ 45 đến 59 tuổi")
+            }
+            if (link.includes('bieu-do-danh-sach-nhan-vien-theo-do-tuoi?type=4')) {
+                setTitle("Danh sách nhân viên theo độ tuổi trên 60 tuổi")
+            }
+            if (link.includes('bieu-do-danh-sach-nhan-vien-theo-chuc-vu?type=1')) {
+                setTitle("Danh sách nhân viên thực tập")
+            }
+            if (link.includes('bieu-do-danh-sach-nhan-vien-theo-chuc-vu?type=2')) {
+                setTitle("Danh sách nhân viên Partime")
+            }
+            if (link.includes('bieu-do-danh-sach-nhan-vien-theo-chuc-vu?type=3')) {
+                setTitle("Danh sách nhân viên thử việc")
+            }
+            if (link.includes('bieu-do-danh-sach-nhan-vien-theo-chuc-vu?type=4')) {
+                setTitle("Danh sách nhân viên chính thức")
+            }
+
+
         }
     }, [link])
+
+    console.log(link_cut);
+    console.log(isTitle);
+
 
     useEffect(() => {
 
@@ -230,10 +331,10 @@ export default function DetailHrReport({ children }: any) {
                     <div className={`${styles.d_back}`}>
                         <div className={`${styles.d_info}`}>
                             <a style={{ cursor: "pointer" }} onClick={handleBack} className={`${styles.d_img_back}`}>
-                                <Image style={{ verticalAlign: 'middle' }} src={"arrow-left.svg"} width={17} height={15} alt="" />
+                                <Image style={{ verticalAlign: 'middle' }} src="arrow_left.svg" width={17} height={15} alt="" />
                             </a>
                             <p className={`${styles.d_text_info}`}>
-                                <a onClick={handleBack} style={{ fontWeight: 600, color: '#337ab7', cursor: 'pointer' }} >Báo cáo nhân sự </a>/ {link}
+                                <a onClick={handleBack} style={{ fontWeight: 600, color: '#337ab7', cursor: 'pointer' }} >Báo cáo nhân sự </a>/ {isTitle}
                             </p>
                         </div>
                     </div>
