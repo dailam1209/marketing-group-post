@@ -43,9 +43,9 @@ export default function ListRecruitmentProcess({
     }, 300);
   };
 
-  const handleLinkClick = (e,id) => {
+  const handleLinkClick = (e, id) => {
     e.preventDefault()
-    router.push(`/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/danh-sach-quy-trinh/${id}`);
+    router.push(`/hr/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/danh-sach-quy-trinh/${id}`);
   };
   return (
     <>
@@ -60,10 +60,10 @@ export default function ListRecruitmentProcess({
               <div className={`${styles.quytrinh_item}`}>
                 <div className={`${styles.quytrinh_item1}`}>
                   <div className={`${styles.quytrinh_item11}`}>
-                  <a
-                      href= {`/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/danh-sach-quy-trinh/${item.id}`}
+                    <a
+                      href={`/hr/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/danh-sach-quy-trinh/${item.id}`}
                       className={`${styles.quytrinh_item11_link}`}
-                      onClick={(e) => handleLinkClick(e,item.id)}
+                      onClick={(e) => handleLinkClick(e, item.id)}
                     >
                       (QTTD{item.id}) {item.name}
                     </a>
@@ -78,10 +78,10 @@ export default function ListRecruitmentProcess({
                 </div>
                 {/* chi tiết */}
                 <div className={`${styles.quytrinh_item2}`}>
-                <a
-                    href= {`/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/danh-sach-quy-trinh/${item.id}`}
+                  <a
+                    href={`/hr/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/danh-sach-quy-trinh/${item.id}`}
                     className={`${styles.quytrinh_item11_link}`}
-                    onClick={(e) => handleLinkClick(e,item.id)}
+                    onClick={(e) => handleLinkClick(e, item.id)}
                   >
                     <picture>
                       <img src={`${"/detail-quytrinh.svg"}`} alt=""></img>

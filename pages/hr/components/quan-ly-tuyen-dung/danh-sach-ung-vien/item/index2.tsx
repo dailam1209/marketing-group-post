@@ -44,7 +44,7 @@ export default function ItemCandidate2({ data, process_id, setModalOpen, setDrop
     const handleClickDetail = (item: number) => {
         if (typeof item === "number" && !isNaN(item)) {
             router.push(
-                `/quan-ly-tuyen-dung/danh-sach-ung-vien/chi-tiet-ung-vien/u${item}p${process_id}`
+                `/hr/quan-ly-tuyen-dung/danh-sach-ung-vien/chi-tiet-ung-vien/u${item}p${process_id}`
             );
         }
     };

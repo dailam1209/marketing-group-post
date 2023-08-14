@@ -7,17 +7,17 @@ import { DetailNews } from "@/pages/hr/api/quan-ly-tuyen-dung/PerformRecruitment
 import Head from "next/head";
 import { getTokenFromCookie } from "@/pages/hr/api/token";
 
-export async function getServerSideProps({query}) {
+export async function getServerSideProps({ query }) {
   return {
-      props: {
-          query,
-      },
+    props: {
+      query,
+    },
   };
 }
 
 export default function IdRecruitment({ query }) {
   const router = useRouter();
-  const  idRecruitment  = query.idRecruitment;
+  const idRecruitment = query.idRecruitment;
   const [dataDetail, setDataDetail] = useState<any>()
   const getFormattedDate = (timeString) => {
     const date = new Date(timeString);
@@ -28,24 +28,24 @@ export default function IdRecruitment({ query }) {
   };
 
   useEffect(() => {
-    try{
-     const fetchDataDetail = async() => {
-      const response = await DetailNews(idRecruitment)
-      setDataDetail(response?.data?.data)
-     }
+    try {
+      const fetchDataDetail = async () => {
+        const response = await DetailNews(idRecruitment)
+        setDataDetail(response?.data?.data)
+      }
       fetchDataDetail()
-    }catch(error){
+    } catch (error) {
 
     }
-   
-  },[idRecruitment])
 
-  const dataRecruitment = dataDetail?.data.recruitmentNews;
-  const listCandidate = dataDetail?.data.listCandidate;
-  const listInterview = dataDetail?.data.listInterview;
-  const listInterviewFail = dataDetail?.data.listInterviewFail;
-  const listInterviewPass = dataDetail?.data.listInterviewPass;
-  const listOfferJob = dataDetail?.data.listOfferJob;
+  }, [idRecruitment])
+
+  const dataRecruitment = dataDetail?.data?.recruitmentNews;
+  const listCandidate = dataDetail?.data?.listCandidate;
+  const listInterview = dataDetail?.data?.listInterview;
+  const listInterviewFail = dataDetail?.data?.listInterviewFail;
+  const listInterviewPass = dataDetail?.data?.listInterviewPass;
+  const listOfferJob = dataDetail?.data?.listOfferJob;
 
 
   const [active, setActive] = useState(2);

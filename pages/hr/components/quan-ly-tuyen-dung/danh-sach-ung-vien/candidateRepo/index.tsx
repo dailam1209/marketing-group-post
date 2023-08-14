@@ -65,7 +65,7 @@ export default function CandidateRepo({ children }: any) {
     event.preventDefault();
     if (typeof item === "number" && !isNaN(item)) {
       router.push(
-        `/quan-ly-tuyen-dung/danh-sach-ung-vien/chi-tiet-ung-vien/u${item}`
+        `/hr/quan-ly-tuyen-dung/danh-sach-ung-vien/chi-tiet-ung-vien/u${item}`
       );
     }
   };
@@ -218,7 +218,7 @@ export default function CandidateRepo({ children }: any) {
                   {isCandidateList?.data?.map((item: any, index: any) => (
                     <tr key={index}>
                       <td>{item.id}</td>
-                      <td>   <a target="_blank" href={`/quan-ly-tuyen-dung/danh-sach-ung-vien/chi-tiet-ung-vien/u${item.id}`}
+                      <td>   <a target="_blank" href={`/hr/quan-ly-tuyen-dung/danh-sach-ung-vien/chi-tiet-ung-vien/u${item.id}`}
                         onClick={(event) => handleClickDetail(item.id, event)} rel="noreferrer">{item.name} ( xem chi tiết ) </a></td>
                       <td>
                         <p>Email:{item.email}</p>

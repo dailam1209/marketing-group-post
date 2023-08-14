@@ -264,7 +264,7 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
                               <Link
                                 passHref
                                 href={{
-                                  pathname: `/quan-ly-tuyen-dung/danh-sach-ung-vien/chi-tiet-ung-vien/u${item.id}`
+                                  pathname: `/hr/quan-ly-tuyen-dung/danh-sach-ung-vien/chi-tiet-ung-vien/u${item.id}`
                                 }}
                               >
                                 <h4>{item.name}</h4>
