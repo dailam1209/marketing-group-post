@@ -289,7 +289,7 @@ export default function Home() {
 }
 
 export const getServerSideProps = (context) => {
-  const role = context?.req?.cookies
+  const { role } = context?.req?.cookies
 
   if (!role) {
     return {
