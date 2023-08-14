@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styles from "./editRecruitmentStage.module.css";
-import MyEditor from "@/components/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/components/Editor";
+import MyEditor from "@/pages/hr/components/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/components/Editor";
 import DOMPurify from "dompurify";
 import * as Yup from "yup";
-import { EditDataRecruitmentStage } from "@/pages/api/quan-ly-tuyen-dung/RecruitmentManagerService";
+import { EditDataRecruitmentStage } from "@/pages/hr/api/quan-ly-tuyen-dung/RecruitmentManagerService";
 
 export interface EditRecruitmentStage { }
 

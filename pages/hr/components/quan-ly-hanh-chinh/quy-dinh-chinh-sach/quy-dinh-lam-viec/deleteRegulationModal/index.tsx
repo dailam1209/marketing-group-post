@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "../../../../quan-ly-tuyen-dung/quy-trinh-tuyen-dung/deleteRecruitmentProcess/DeleteRecruitmentProcess.module.css"
-import { GroupDelete } from "@/pages/api/quy_dinh_chinh_sach";
+import { GroupDelete } from "@/pages/hr/api/quy_dinh_chinh_sach";
 
 
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./organisationalStructureDiagram.module.css";
-import BodyFrameFooter from "@/components/bodyFrame/bodyFrame_footer/bodyFrame_footer";
+import BodyFrameFooter from "@/pages/hr/components/bodyFrame/bodyFrame_footer/bodyFrame_footer";
 import dynamic from "next/dynamic";
 import Head from "next/head";
 const StyledTreeExample = dynamic(
@@ -9,7 +9,7 @@ const StyledTreeExample = dynamic(
     ssr: false,
   }
 );
-export default function OrganisationalStructureDiagram({iconAdd, iconEdit}) {
+export default function OrganisationalStructureDiagram({ iconAdd, iconEdit }) {
   const [click, setClick] = useState(false);
   const [openModal, setOpenModal] = useState(0);
   const handleClick = () => {
@@ -26,15 +26,15 @@ export default function OrganisationalStructureDiagram({iconAdd, iconEdit}) {
           <div className={`${styles.recruitment2_3}`}>
             {iconAdd && (
               <button className={`${styles.adds}`} onClick={handleClick}>
-              <picture>
-                <img
-                  style={{ verticalAlign: "middle" }}
-                  src={`/add.png`}
-                  alt=""
-                />
-                Thêm mới
-              </picture>
-            </button>
+                <picture>
+                  <img
+                    style={{ verticalAlign: "middle" }}
+                    src={`/add.png`}
+                    alt=""
+                  />
+                  Thêm mới
+                </picture>
+              </button>
             )}
             {click === true && (
               <div className={`${styles.settings} ${styles.lefftset}`}>
@@ -79,7 +79,7 @@ export default function OrganisationalStructureDiagram({iconAdd, iconEdit}) {
         </div>
         <div className={`${styles.genealogy_body} ${styles.genealogy_scroll}`}>
           <div className={`${styles.genealogy_tree}`}>
-            <StyledTreeExample iconEdit = {iconEdit}></StyledTreeExample>
+            <StyledTreeExample iconEdit={iconEdit}></StyledTreeExample>
           </div>
         </div>
         <BodyFrameFooter src="https://www.youtube.com/embed/38OeJOTrTAE"></BodyFrameFooter>

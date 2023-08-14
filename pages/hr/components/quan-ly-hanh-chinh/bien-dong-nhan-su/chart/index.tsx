@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from './chart.module.css'
 import Chart from "./hightchart";
-import BodyFrameFooter from "@/components/bodyFrame/bodyFrame_footer/bodyFrame_footer";
+import BodyFrameFooter from "@/pages/hr/components/bodyFrame/bodyFrame_footer/bodyFrame_footer";
 import { format, addYears } from 'date-fns'
 
 export default function TabChart() {

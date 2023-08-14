@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import styles from "@/components/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/deleteRecruitmentProcess/DeleteRecruitmentProcess.module.css"
-import { CandidateDelete } from "@/pages/api/quan-ly-tuyen-dung/candidateList";
+import styles from "@/pages/hr/components/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/deleteRecruitmentProcess/DeleteRecruitmentProcess.module.css"
+import { CandidateDelete } from "@/pages/hr/api/quan-ly-tuyen-dung/candidateList";
 
 export default function DeleteCandidate({ onCancel, idCandidate, animation }: any) {
 

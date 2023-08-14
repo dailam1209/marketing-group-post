@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./DeleteRecruitmentProcess.module.css";
-import { DeleteDataRecruitment } from "../../../../pages/api/quan-ly-tuyen-dung/RecruitmentManagerService";
+import { DeleteDataRecruitment } from "@/pages/hr/api/quan-ly-tuyen-dung/RecruitmentManagerService";
 
 export interface DeleteRecruitmentProcess { }
 

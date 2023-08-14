@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./activityLog.module.css";
-import BodyFrameFooter from "@/components/bodyFrame/bodyFrame_footer/bodyFrame_footer";
+import BodyFrameFooter from "@/pages/hr/components/bodyFrame/bodyFrame_footer/bodyFrame_footer";
 
 export default function ActivityLog() {
 

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styles from "./AddModalPersonalDiscipline.module.css";
 import Select from "react-select";
-import { getDataUser } from "@/pages/api/quan-ly-tuyen-dung/PerformRecruitment";
-import { AddInfringes } from "@/pages/api/luong-thuong-phuc-loi/discipline";
+import { getDataUser } from "@/pages/hr/api/quan-ly-tuyen-dung/PerformRecruitment";
+import { AddInfringes } from "@/pages/hr/api/luong-thuong-phuc-loi/discipline";
 import * as Yup from "yup";
 function AddModalPersonalDiscipline({ animation, onClose, updateData }: any) {
   const [user, setUser] = useState<any>();
@@ -20,7 +20,7 @@ function AddModalPersonalDiscipline({ animation, onClose, updateData }: any) {
             label: `${item.userName} ${item.nameDeparment}`,
           }))
         );
-      } catch (err) {}
+      } catch (err) { }
     };
     getData();
   }, []);
@@ -56,7 +56,7 @@ function AddModalPersonalDiscipline({ animation, onClose, updateData }: any) {
     infringe_at: Yup.string().required("Thời gian không được để trống"),
     infringe_type: Yup.string().required("Hình thức không được để trống"),
   });
- 
+
   const mergedObject = { ...content, ...listUser };
 
   const handleSubmit = async (e: any) => {
@@ -83,9 +83,8 @@ function AddModalPersonalDiscipline({ animation, onClose, updateData }: any) {
     <>
       <div className={`${styles.overlay}`}></div>
       <div
-        className={`${styles.modal} ${styles.modal_setting}  ${
-          animation ? styles.fade_in : styles.fade_out
-        }`}
+        className={`${styles.modal} ${styles.modal_setting}  ${animation ? styles.fade_in : styles.fade_out
+          }`}
         style={{ display: "block" }}
       >
         <div className={`${styles.modal_dialog} ${styles.contentquytrinh}`}>
@@ -111,7 +110,7 @@ function AddModalPersonalDiscipline({ animation, onClose, updateData }: any) {
                       className={`${styles.inputquytrinh}`}
                       onChange={handleContentChange}
                     ></input>
-                  {errors.infringe_name && (
+                    {errors.infringe_name && (
                       <>
                         <picture>
                           <img
@@ -247,7 +246,7 @@ function AddModalPersonalDiscipline({ animation, onClose, updateData }: any) {
                     <span className={`${styles.red}`}> *</span>
                     {errors.list_user && (
                       <>
-                        <div className={`${styles.errors}`}style={{marginTop: 6}}>
+                        <div className={`${styles.errors}`} style={{ marginTop: 6 }}>
                           {errors.list_user}
                         </div>
                       </>
@@ -344,7 +343,7 @@ function AddModalPersonalDiscipline({ animation, onClose, updateData }: any) {
                   </label>
                   <div className={`${styles.inputright}`}>
                     <textarea
-                    name="resion"
+                      name="resion"
                       placeholder={'Lý do phạt'}
                       className={`${styles.inputquytrinh}`}
                       onChange={handleContentChange}

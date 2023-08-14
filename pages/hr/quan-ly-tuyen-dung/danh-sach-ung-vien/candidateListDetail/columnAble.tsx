@@ -1,11 +1,10 @@
 import React from 'react'
 import styles from './candidateListDetail.module.css'
-import ItemCandidate1 from "@/components/quan-ly-tuyen-dung/danh-sach-ung-vien/item/item1";
-import ItemCandidate2 from "@/components/quan-ly-tuyen-dung/danh-sach-ung-vien/item/index2";
-import ItemCandidate3 from "@/components/quan-ly-tuyen-dung/danh-sach-ung-vien/item/item3";
+import ItemCandidate1 from '@/pages/hr/components/quan-ly-tuyen-dung/danh-sach-ung-vien/item/item1';
+import ItemCandidate2 from '@/pages/hr/components/quan-ly-tuyen-dung/danh-sach-ung-vien/item/index2';
+import ItemCandidate3 from '@/pages/hr/components/quan-ly-tuyen-dung/danh-sach-ung-vien/item/item3';
 import { useDrop } from "react-dnd"
-import { ItemTypes } from "@/components/quan-ly-tuyen-dung/danh-sach-ung-vien/item/ItemType";
-
+import { ItemTypes } from '@/pages/hr/components/quan-ly-tuyen-dung/danh-sach-ung-vien/item/ItemType';
 export default function DropableColumn({
     item, isProcessList, handleUpdateProcess, setDeleteProcess, setModalOpen, setDragItem, setDropCol, setProcess_id, iconEdit, iconDelete
 }: any) {
@@ -30,22 +29,22 @@ export default function DropableColumn({
                                             `}>
                     {(item?.id !== 0 && item?.id !== 1 && item?.id !== 2 && item?.id !== 3 && item?.id !== 4) ? <p>
                         {item.name} (
-                            {iconEdit && (
-                                <a onClick={() =>
-                                    handleUpdateProcess({
-                                        name: item.name,
-                                        processBefore: item.processBefore,
-                                        processInterviewId: item.id,
-                                    })}
-                                    style={{ cursor: "pointer" }}>Sửa
-                                </a>
-                            )}
+                        {iconEdit && (
+                            <a onClick={() =>
+                                handleUpdateProcess({
+                                    name: item.name,
+                                    processBefore: item.processBefore,
+                                    processInterviewId: item.id,
+                                })}
+                                style={{ cursor: "pointer" }}>Sửa
+                            </a>
+                        )}
                         /
-                            {iconDelete && (
-                                 <a onClick={() => setDeleteProcess(item.id)}
-                                 style={{ cursor: "pointer" }}>Xóa
-                             </a>
-                            )}
+                        {iconDelete && (
+                            <a onClick={() => setDeleteProcess(item.id)}
+                                style={{ cursor: "pointer" }}>Xóa
+                            </a>
+                        )}
                         )
                     </p> : <>{item.name}</>}
                     <p>

@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import styles from './chinh-sach-nhan-vien.module.css'
-import BodyFrameFooter from '@/components/bodyFrame/bodyFrame_footer/bodyFrame_footer';
+import BodyFrameFooter from '@/pages/hr/components/bodyFrame/bodyFrame_footer/bodyFrame_footer';
 import AddEmployeePolicyModal from './addEmployeePolicyModal';
 import AddEmployeePolicyModal2 from './addEmployeePolicyModal/addEmployeePolicyModal2';
-import MyPagination from '@/components/pagination/Pagination';
+import MyPagination from '@/pages/hr/components/pagination/Pagination';
 import { format } from 'date-fns';
-import { PolicyList } from '@/pages/api/quy_dinh_chinh_sach';
-import { PolicyByGroupList } from '@/pages/api/quy_dinh_chinh_sach';
+import { PolicyList } from '@/pages/hr/api/quy_dinh_chinh_sach';
+import { PolicyByGroupList } from '@/pages/hr/api/quy_dinh_chinh_sach';
 import PolicyGroupDetailModal from './detailPolicyModal/policyGroupDetail';
 import UpdatePolicyGroupsModal from './updatePolicyModal/policyGroupUpdate';
 import DeletePolicyGroup from './deletePolicyGroupModal/PolicyGroupDelete';
 import PolicyDetailModal from './detailPolicyModal/policyDetail';
 import DeletePolicys from './deletePolicyGroupModal/PolicyDelete';
 
-export default function EmployeePolicy({iconAdd, iconEdit, iconDelete}) {
+export default function EmployeePolicy({ iconAdd, iconEdit, iconDelete }) {
     const [click, setClick] = useState(false)
     const [openModal, setOpenModal] = useState(0)
     const [currentPage, setCurrentPage] = useState(1);
@@ -113,11 +113,11 @@ export default function EmployeePolicy({iconAdd, iconEdit, iconDelete}) {
                             <div className={`${styles.recruitment2_3}`}>
                                 {iconAdd && (
                                     <button className={`${styles.adds}`} onClick={handleClick}>
-                                    <picture>
-                                        <img style={{ verticalAlign: 'middle' }} src={`	/add.png`} alt="" />
-                                        Thêm mới
-                                    </picture>
-                                </button>
+                                        <picture>
+                                            <img style={{ verticalAlign: 'middle' }} src={`	/add.png`} alt="" />
+                                            Thêm mới
+                                        </picture>
+                                    </button>
                                 )}
                                 {click === true && (<div className={`${styles.settings} ${styles.lefftset}`} >
                                     <li onClick={() => setOpenModal(1)}>Thêm nhóm chính sách</li>

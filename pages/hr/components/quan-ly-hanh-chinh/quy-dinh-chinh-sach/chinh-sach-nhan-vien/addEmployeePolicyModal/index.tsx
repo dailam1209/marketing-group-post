@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from '../../quy-dinh-lam-viec/addRegulationsModal/addRegulationsModal.module.css'
-import MyEditorNew from "@/components/myEditor/index"
-import { AddPolicy } from "@/pages/api/quy_dinh_chinh_sach";
+import MyEditorNew from "@/pages/hr/components/myEditor/index"
+import { AddPolicy } from "@/pages/hr/api/quy_dinh_chinh_sach";
 
 interface InputTextareaProps {
     onDescriptionChange: (data: any) => void

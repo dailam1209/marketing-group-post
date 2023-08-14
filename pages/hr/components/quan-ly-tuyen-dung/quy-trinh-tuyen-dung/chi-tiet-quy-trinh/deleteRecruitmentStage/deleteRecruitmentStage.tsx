@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import styles from "./deleteRecruitmentStage.module.css";
-import { DeleteDataRecruitmentStage } from "@/pages/api/quan-ly-tuyen-dung/RecruitmentManagerService";
+import { DeleteDataRecruitmentStage } from "@/pages/hr/api/quan-ly-tuyen-dung/RecruitmentManagerService";
 export interface DeleteRecruitmentStage { }
 
 export default function DeleteRecruitmentStage({ data, recruitment, animation, onCloseModal, newDataDelete }: any) {

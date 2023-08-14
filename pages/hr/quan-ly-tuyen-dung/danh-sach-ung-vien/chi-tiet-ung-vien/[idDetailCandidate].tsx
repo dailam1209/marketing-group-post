@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from "react";
 import styles from "./detailCandidate.module.css";
 import { useRouter } from 'next/router';
-import EditCandidateModal from "@/components/quan-ly-tuyen-dung/danh-sach-ung-vien/candidateRepo/EditCandidateModal";
-import EditCandidateGetJob from "@/components/quan-ly-tuyen-dung/danh-sach-ung-vien/candidateRepo/EditCandidateModal/editGetJob";
-import EditCandidateFailJob from "@/components/quan-ly-tuyen-dung/danh-sach-ung-vien/candidateRepo/EditCandidateModal/editFailJob";
-import EditCandidateCancelJob from "@/components/quan-ly-tuyen-dung/danh-sach-ung-vien/candidateRepo/EditCandidateModal/editCancelJob";
-import EditCandidateContactJob from "@/components/quan-ly-tuyen-dung/danh-sach-ung-vien/candidateRepo/EditCandidateModal/editContactJob";
-import EditCandidateIntrview from "@/components/quan-ly-tuyen-dung/danh-sach-ung-vien/candidateRepo/EditCandidateModal/editInterview";
-import { CandidateList } from "@/pages/api/quan-ly-tuyen-dung/candidateList";
-import { ProcessList } from "@/pages/api/quan-ly-tuyen-dung/candidateList";
+import EditCandidateModal from "@/pages/hr/components/quan-ly-tuyen-dung/danh-sach-ung-vien/candidateRepo/EditCandidateModal";
+import EditCandidateGetJob from "@/pages/hr/components/quan-ly-tuyen-dung/danh-sach-ung-vien/candidateRepo/EditCandidateModal/editGetJob";
+import EditCandidateFailJob from "@/pages/hr/components/quan-ly-tuyen-dung/danh-sach-ung-vien/candidateRepo/EditCandidateModal/editFailJob";
+import EditCandidateCancelJob from "@/pages/hr/components/quan-ly-tuyen-dung/danh-sach-ung-vien/candidateRepo/EditCandidateModal/editCancelJob";
+import EditCandidateContactJob from "@/pages/hr/components/quan-ly-tuyen-dung/danh-sach-ung-vien/candidateRepo/EditCandidateModal/editContactJob";
+import EditCandidateIntrview from "@/pages/hr/components/quan-ly-tuyen-dung/danh-sach-ung-vien/candidateRepo/EditCandidateModal/editInterview";
+import { CandidateList } from "@/pages/hr/api/quan-ly-tuyen-dung/candidateList";
+import { ProcessList } from "@/pages/hr/api/quan-ly-tuyen-dung/candidateList";
 import { parseISO, format } from 'date-fns';
 import { Rating } from 'react-simple-star-rating'
-import { ContactJobDetails } from "@/pages/api/quan-ly-tuyen-dung/candidateList";
-import { GetJobDetails } from "@/pages/api/quan-ly-tuyen-dung/candidateList";
-import { FailJobDetails } from "@/pages/api/quan-ly-tuyen-dung/candidateList";
-import { CancelJobDetails } from "@/pages/api/quan-ly-tuyen-dung/candidateList";
+import { ContactJobDetails } from "@/pages/hr/api/quan-ly-tuyen-dung/candidateList";
+import { GetJobDetails } from "@/pages/hr/api/quan-ly-tuyen-dung/candidateList";
+import { FailJobDetails } from "@/pages/hr/api/quan-ly-tuyen-dung/candidateList";
+import { CancelJobDetails } from "@/pages/hr/api/quan-ly-tuyen-dung/candidateList";
 import Head from "next/head";
-import { getDataAuthentication } from "@/pages/api/Home/HomeService";
+import { getDataAuthentication } from "@/pages/hr/api/Home/HomeService";
 interface Option {
   value: number;
   label: string;

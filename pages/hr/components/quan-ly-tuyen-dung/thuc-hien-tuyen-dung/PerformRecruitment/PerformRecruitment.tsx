@@ -3,15 +3,11 @@
 import React, { useEffect, useState } from "react";
 import styles from "./PerformRecruitment.module.css";
 import Link from "next/link";
-import BodyFrameFooter from "@/components/bodyFrame/bodyFrame_footer/bodyFrame_footer";
-import {
-  GetDataListNewActive,
-  GetListSchedule,
-  GetTotalCandi,
-} from "@/pages/api/quan-ly-tuyen-dung/PerformRecruitment";
-import MyPagination from "@/components/pagination/Pagination";
+import BodyFrameFooter from "../../../bodyFrame/bodyFrame_footer/bodyFrame_footer";
+import MyPagination from "../../../pagination/Pagination";
+import { GetDataListNewActive, GetListSchedule, } from "@/pages/hr/api/quan-ly-tuyen-dung/PerformRecruitment";
 
-export interface PerformRecruitment {}
+export interface PerformRecruitment { }
 
 export default function PerformRecruitment({ children, totalCandi }: any) {
   const [selectedButton, setSelectedButton] = useState("homnay");
@@ -21,7 +17,7 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
   const [currentPageListNewActive, setCurrentPageListNewActive] = useState(1);
   const [currentPageListSchedule, setCurrentPageLisSchedule] = useState(1);
 
-  
+
 
   useEffect(() => {
     const getDataRecruitmentOverview = async () => {
@@ -42,16 +38,16 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
   useEffect(() => {
     try {
       const GetDataListSchedule = async () => {
-      const responseListSchedule = await GetListSchedule(
-        currentPageListSchedule,
-        3
-      );
-      setListSchedule(responseListSchedule?.data.data);
-    };
-    GetDataListSchedule();
+        const responseListSchedule = await GetListSchedule(
+          currentPageListSchedule,
+          3
+        );
+        setListSchedule(responseListSchedule?.data.data);
+      };
+      GetDataListSchedule();
     }
     catch (err) {
-      
+
     }
   }, [currentPageListSchedule]);
 
@@ -105,81 +101,81 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
               {/* body map ở đây */}
               {messIsOpen?.recruitmentNew.length === 0 ? (
                 <p className={`${styles.data_empty}`}>Không có dữ liệu</p>
-              ) : ( 
-                messIsOpen?.recruitmentNew.map((item, index) =>{
+              ) : (
+                messIsOpen?.recruitmentNew.map((item, index) => {
                   const timeEnd = new Date(item.timeEnd).getTime();
                   if (currentTime > timeEnd) {
                     return null;
                   }
                   return (
                     <div
-                    key={item.id}
-                    className={`${styles.tin_all} ${styles.tin_all_t_left}`}
-                  >
-                    <div className={`${styles.tin_item}`}>
-                      <div className={`${styles.tin_item1}`}>
-                        <span>{item.number}</span>
-                        <p>ứng viên</p>
-                      </div>
+                      key={item.id}
+                      className={`${styles.tin_all} ${styles.tin_all_t_left}`}
+                    >
+                      <div className={`${styles.tin_item}`}>
+                        <div className={`${styles.tin_item1}`}>
+                          <span>{item.number}</span>
+                          <p>ứng viên</p>
+                        </div>
 
-                      <div className={`${styles.tin_item2}`}>
-                        <h4>
-                          
-                          <span>{item.title}</span>
-                        </h4>
-                        <div className={`${styles.tin_item3}`}>
+                        <div className={`${styles.tin_item2}`}>
+                          <h4>
+
+                            <span>{item.title}</span>
+                          </h4>
+                          <div className={`${styles.tin_item3}`}>
+                            <li>
+                              <picture>
+                                <img
+                                  className={`${styles.tin_item33_img}`}
+                                  src={`/calendar.png`}
+                                ></img>
+                                <span>
+                                  {new Date(item.timeStart).toLocaleDateString()}{" "}
+                                  - {new Date(item.timeEnd).toLocaleDateString()}
+                                </span>
+                              </picture>
+                            </li>
+
+                            <li>
+                              <span>{item.address}</span>
+                              <span>.</span>
+                              <span>{salary[item.salaryId]}</span>
+                            </li>
+                          </div>
+                          <hr></hr>
+                        </div>
+
+                        {/* Hồ sơ */}
+                        <div className={`${styles.tin_item4}`}>
                           <li>
-                            <picture>
-                              <img
-                                className={`${styles.tin_item33_img}`}
-                                src={`/calendar.png`}
-                              ></img>
-                              <span>
-                                {new Date(item.timeStart).toLocaleDateString()}{" "}
-                                - {new Date(item.timeEnd).toLocaleDateString()}
-                              </span>
-                            </picture>
+                            <span className={`${styles.blue} ${styles.text}`}>
+                              {item.sohoso}
+                            </span>
+                            <p>Hồ sơ</p>
                           </li>
-
                           <li>
-                            <span>{item.address}</span>
-                            <span>.</span>
-                            <span>{salary[item.salaryId]}</span>
+                            <span className={`${styles.yellow} ${styles.text}`}>
+                              {item.henphongvan}
+                            </span>
+                            <p>Phỏng vấn</p>
+                          </li>
+                          <li>
+                            <span className={`${styles.red} ${styles.text}`}>
+                              {item.truotphongvan}
+                            </span>
+                            <p>Bị loại</p>
+                          </li>
+                          <li>
+                            <span className={`${styles.green} ${styles.text}`}>
+                              {item.quaphongvan}
+                            </span>
+                            <p>Thử việc</p>
                           </li>
                         </div>
-                        <hr></hr>
                       </div>
-
-                      {/* Hồ sơ */}
-                      <div className={`${styles.tin_item4}`}>
-                        <li>
-                          <span className={`${styles.blue} ${styles.text}`}>
-                            {item.sohoso}
-                          </span>
-                          <p>Hồ sơ</p>
-                        </li>
-                        <li>
-                          <span className={`${styles.yellow} ${styles.text}`}>
-                            {item.henphongvan}
-                          </span>
-                          <p>Phỏng vấn</p>
-                        </li>
-                        <li>
-                          <span className={`${styles.red} ${styles.text}`}>
-                            {item.truotphongvan}
-                          </span>
-                          <p>Bị loại</p>
-                        </li>
-                        <li>
-                          <span className={`${styles.green} ${styles.text}`}>
-                            {item.quaphongvan}
-                          </span>
-                          <p>Thử việc</p>
-                        </li>
-                      </div>
+                      <hr></hr>
                     </div>
-                    <hr></hr>
-                  </div>
                   )
                 })
               )}
@@ -203,9 +199,8 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
               <hr></hr>
               <div className={`${styles.h_today}`}>
                 <li
-                  className={`${
-                    selectedButton === "homnay" ? styles.active_homnay : ""
-                  }`}
+                  className={`${selectedButton === "homnay" ? styles.active_homnay : ""
+                    }`}
                   onClick={() => handleClickColor("homnay")}
                 >
                   <span className={`${styles.green} ${styles.candidate_today}`}>
@@ -214,9 +209,8 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
                   <p>Hôm nay</p>
                 </li>
                 <li
-                  className={`${
-                    selectedButton === "tuannay" ? styles.active_tuannay : ""
-                  }`}
+                  className={`${selectedButton === "tuannay" ? styles.active_tuannay : ""
+                    }`}
                   onClick={() => handleClickColor("tuannay")}
                 >
                   <span className={`${styles.blue} ${styles.candidate_week}`}>
@@ -225,9 +219,8 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
                   <p>Tuần này</p>
                 </li>
                 <li
-                  className={`${
-                    selectedButton === "thangnay" ? styles.active_thangnay : ""
-                  }`}
+                  className={`${selectedButton === "thangnay" ? styles.active_thangnay : ""
+                    }`}
                   onClick={() => handleClickColor("thangnay")}
                 >
                   <span
@@ -276,7 +269,7 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
                               >
                                 <h4>{item.name}</h4>
                               </Link>
-                              
+
                               <p>
                                 {item.RecruitmentNews.title}
                                 <span> . </span>
@@ -293,18 +286,18 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
                   })
                 )}
               </div>
-           
+
             </div>
             {listSchedule?.totalSchedule > 3 && (
-                  <div className={`${styles.pagination}`} style={{marginRight:'8%'}}>
-                    <MyPagination
-                      current={currentPageListSchedule}
-                      total={listSchedule?.totalSchedule}
-                      pageSize={3}
-                      onChange={(page) => handlePageLisSchedule(page)}
-                    />
-                  </div>
-                )}
+              <div className={`${styles.pagination}`} style={{ marginRight: '8%' }}>
+                <MyPagination
+                  current={currentPageListSchedule}
+                  total={listSchedule?.totalSchedule}
+                  pageSize={3}
+                  onChange={(page) => handlePageLisSchedule(page)}
+                />
+              </div>
+            )}
           </>
         </div>
         <BodyFrameFooter src="https://www.youtube.com/embed/v8FmUlUI1bs"></BodyFrameFooter>

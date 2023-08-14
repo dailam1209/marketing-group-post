@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./EditRecruitmentProcess.module.css";
 import * as Yup from "yup";
-import { UpdateDataRecruitment } from "../../../../pages/api/quan-ly-tuyen-dung/RecruitmentManagerService";
+import { UpdateDataRecruitment } from "@/pages/hr/api/quan-ly-tuyen-dung/RecruitmentManagerService";
 
 export interface EditRecruitmentProcess { }
 export default function EditRecruitmentProcess({

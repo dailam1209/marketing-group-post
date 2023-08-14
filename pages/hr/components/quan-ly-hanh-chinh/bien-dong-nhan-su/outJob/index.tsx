@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useRef, MouseEventHandler, useCallback, useMemo } from "react";
 import Select from 'react-select'
 import styles from '../../thong-tin-nhan-su/tab/employeeManagement.module.css'
-import BodyFrameFooter from "@/components/bodyFrame/bodyFrame_footer/bodyFrame_footer";
+import BodyFrameFooter from "@/pages/hr/components/bodyFrame/bodyFrame_footer/bodyFrame_footer";
 import AddOutJobModal from "./addOutJobModal";
 import EditOutJobModal from "./editOutJobModal";
 import DeleteOutJobs from "./deleteOutJobModal";
 import { parseISO, format } from 'date-fns';
-import { DeleteOutJob, OutJobList } from "@/pages/api/bien_dong_nhan_su";
-import { EmployeeList } from "@/pages/api/listNhanVien";
-import { DepartmentList } from "@/pages/api/listPhongBan";
-import GetComId from "@/components/getComID";
+import { DeleteOutJob, OutJobList } from "@/pages/hr/api/bien_dong_nhan_su";
+import { EmployeeList } from "@/pages/hr/api/listNhanVien";
+import { DepartmentList } from "@/pages/hr/api/listPhongBan";
+import GetComId from "@/pages/hr/components/getComID";
 
 type SelectOptionType = { label: string, value: string }
 

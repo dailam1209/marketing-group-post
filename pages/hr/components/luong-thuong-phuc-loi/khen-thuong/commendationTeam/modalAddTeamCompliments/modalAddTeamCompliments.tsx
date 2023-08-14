@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 import styles from "./modalAddTeamCompliments.module.css";
 import Select from "react-select";
 import * as Yup from "yup";
-import { AddAchievementGroup, GetDepartmentList } from "@/pages/api/luong-thuong-phuc-loi/reward";
-import { getToken } from "@/pages/api/token";
+import { AddAchievementGroup, GetDepartmentList } from "@/pages/hr/api/luong-thuong-phuc-loi/reward";
+import { getToken } from "@/pages/hr/api/token";
 import jwt_decode from "jwt-decode";
 
 function ModalAddTeamCompliments({ animation, onClose, updateData }: any) {
@@ -28,7 +28,7 @@ function ModalAddTeamCompliments({ animation, onClose, updateData }: any) {
   });
 
   const [tokenComId, setComId] = useState<any>(null);
-  const COOKIE_KEY = "user_365";
+  const COOKIE_KEY = "token_base365";
 
   useEffect(() => {
     const currentCookie = getToken(COOKIE_KEY);

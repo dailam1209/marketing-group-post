@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { getToken } from "@/pages/api/token";
+import { getToken } from '../../api/token';
 import jwt_decode from "jwt-decode";
 
 const GetComId = () => {
-    const COOKIE_KEY = "user_365";
+    const COOKIE_KEY = "token_base365";
     const currentCookie = getToken(COOKIE_KEY);
     if (currentCookie) {
         const decodedToken: any = jwt_decode(currentCookie);

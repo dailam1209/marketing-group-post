@@ -1,9 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from "react";
 import styles from "./leaderBiography.module.css";
-import BodyFrameFooter from "@/components/bodyFrame/bodyFrame_footer/bodyFrame_footer";
-import { LeaderBiographyList } from "@/pages/api/co_cau_to_chuc";
-import MyPagination from "@/components/pagination/Pagination";
+import BodyFrameFooter from "@/pages/hr/components/bodyFrame/bodyFrame_footer/bodyFrame_footer";
+import { LeaderBiographyList } from "@/pages/hr/api/co_cau_to_chuc";
+import MyPagination from "@/pages/hr/components/pagination/Pagination";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import Link from "next/link";
@@ -24,7 +24,7 @@ export default function LeaderBiography({ iconAdd, iconEdit }) {
         formData.append("pageSize", pagesize);
         const response = await LeaderBiographyList(formData);
         setSignatureList(response?.data);
-      } catch (error) {}
+      } catch (error) { }
     };
     fetchData();
   }, [currentPageSignature, isKeywords]);
@@ -92,16 +92,16 @@ export default function LeaderBiography({ iconAdd, iconEdit }) {
                             <td style={{ color: "#4C5BD4", cursor: "pointer" }}>
                               {/* <a target='blank ' href={`/co-cau-to-chuc/leaderBiography/chi-tiet-lanh-dao/${item._id}`} rel="noreferrer" iconEdit = {iconEdit} iconAdd = {iconAdd}>{item?.userName} ( Xem chi tiết)</a> */}
                               <Link
-                              legacyBehavior
+                                legacyBehavior
                                 href={{
-                                  pathname: `/co-cau-to-chuc/leaderBiography/chi-tiet-lanh-dao/${item._id}`,
+                                  pathname: `/hr/co-cau-to-chuc/leaderBiography/chi-tiet-lanh-dao/${item._id}`,
                                 }}
-                                as={`/co-cau-to-chuc/leaderBiography/chi-tiet-lanh-dao/${item._id}`}
+                                as={`/hr/co-cau-to-chuc/leaderBiography/chi-tiet-lanh-dao/${item._id}`}
                                 passHref
                               >
-                                <a 
-                                target="blank"
-                                style={{ color: "#4C5BD4" }}>
+                                <a
+                                  target="blank"
+                                  style={{ color: "#4C5BD4" }}>
                                   {item?.userName} (Xem chi tiết)
                                 </a>
                               </Link>

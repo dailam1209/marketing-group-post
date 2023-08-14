@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styles from "./administration.module.css";
 import Link from "next/link";
-import TabEmployeeManagement from "@/components/quan-ly-hanh-chinh/thong-tin-nhan-su/tab";
+import TabEmployeeManagement from "@/pages/hr/components/quan-ly-hanh-chinh/thong-tin-nhan-su/tab";
 import Head from "next/head";
-import { getDataAuthentication } from "@/pages/api/Home/HomeService";
-import LoadingSpinner from "@/components/loading";
-import PageAuthenticator from "@/components/quyen-truy-cap";
+import { getDataAuthentication } from "@/pages/hr/api/Home/HomeService";
+import LoadingSpinner from "@/pages/hr/components/loading";
+import PageAuthenticator from "@/pages/hr/components/quyen-truy-cap";
 
 export interface EmployeeManagement { }
 
@@ -41,31 +41,31 @@ export default function EmployeeManagement({ children }: any) {
       {!isDataLoaded ? (
         <LoadingSpinner />
       ) : authen ? (
-      <div className={`${styles.wrapper}`}>
-        <ul className={`${styles.nav_tab} ${styles.nav}`}>
-          <li
-            className={`${active === 1 ? styles.active : ""}`}
-            onClick={() => setActive(1)}
-          >
-            <Link href="">Danh sách nhân viên</Link>
-          </li>
-          <li
-            className={`${active === 2 ? styles.active : ""}`}
-            onClick={() => setActive(2)}
-          >
-            <Link
-              target="blank"
-              href="https://chamcong.timviec365.vn/quan-ly-cong-ty/nhan-vien.html"
+        <div className={`${styles.wrapper}`}>
+          <ul className={`${styles.nav_tab} ${styles.nav}`}>
+            <li
+              className={`${active === 1 ? styles.active : ""}`}
+              onClick={() => setActive(1)}
             >
-              Nhân viên chờ duyệt
-            </Link>
-          </li>
-        </ul>
-        {active === 1 && <TabEmployeeManagement iconAdd={iconAdd} iconEdit={iconEdit}></TabEmployeeManagement>}
-      </div>
-       ) : (
+              <Link href="">Danh sách nhân viên</Link>
+            </li>
+            <li
+              className={`${active === 2 ? styles.active : ""}`}
+              onClick={() => setActive(2)}
+            >
+              <Link
+                target="blank"
+                href="https://chamcong.timviec365.vn/quan-ly-cong-ty/nhan-vien.html"
+              >
+                Nhân viên chờ duyệt
+              </Link>
+            </li>
+          </ul>
+          {active === 1 && <TabEmployeeManagement iconAdd={iconAdd} iconEdit={iconEdit}></TabEmployeeManagement>}
+        </div>
+      ) : (
         <PageAuthenticator />
-      )} 
+      )}
     </>
   );
 }

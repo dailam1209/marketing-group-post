@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Decentralization.module.css";
 import Select from "react-select";
-import { getDataUser } from "@/pages/api/quan-ly-tuyen-dung/PerformRecruitment";
-import { SettingPermission } from "@/pages/api/cai-dat/generalSettings";
+import { getDataUser } from "@/pages/hr/api/quan-ly-tuyen-dung/PerformRecruitment";
+import { SettingPermission } from "@/pages/hr/api/cai-dat/generalSettings";
 
-export default function Decentralization ({}) {
+export default function Decentralization({ }) {
   const [user, setUser] = useState<any>();
   const [userId, setUserId] = useState<any>();
   const [localListCheck, setLocalListCheck] = useState<any>([]);
@@ -22,7 +22,7 @@ export default function Decentralization ({}) {
     if (name === 'role_td') {
       setLocalListCheck((prev) => {
         const prevValueArray = prev[name] ? prev[name].split(',') : [];
-  
+
         if (checked) {
           if (!prevValueArray.includes(value)) {
             prevValueArray.push(value);
@@ -33,7 +33,7 @@ export default function Decentralization ({}) {
             prevValueArray.splice(index, 1);
           }
         }
-          return {
+        return {
           ...prev,
           [name]: prevValueArray.join(','),
         };
@@ -42,7 +42,7 @@ export default function Decentralization ({}) {
     if (name === 'role_ttns') {
       setLocalListCheck((prev) => {
         const prevValueArray = prev[name] ? prev[name].split(',') : [];
-  
+
         if (checked) {
           if (!prevValueArray.includes(value)) {
             prevValueArray.push(value);
@@ -53,15 +53,15 @@ export default function Decentralization ({}) {
             prevValueArray.splice(index, 1);
           }
         }
-          return {
+        return {
           ...prev,
           [name]: prevValueArray.join(','),
         };
       });
-    }if (name === 'role_ttvp') {
+    } if (name === 'role_ttvp') {
       setLocalListCheck((prev) => {
         const prevValueArray = prev[name] ? prev[name].split(',') : [];
-  
+
         if (checked) {
           if (!prevValueArray.includes(value)) {
             prevValueArray.push(value);
@@ -72,15 +72,15 @@ export default function Decentralization ({}) {
             prevValueArray.splice(index, 1);
           }
         }
-          return {
+        return {
           ...prev,
           [name]: prevValueArray.join(','),
         };
       });
-    }if (name === 'role_dldx') {
+    } if (name === 'role_dldx') {
       setLocalListCheck((prev) => {
         const prevValueArray = prev[name] ? prev[name].split(',') : [];
-  
+
         if (checked) {
           if (!prevValueArray.includes(value)) {
             prevValueArray.push(value);
@@ -91,15 +91,15 @@ export default function Decentralization ({}) {
             prevValueArray.splice(index, 1);
           }
         }
-          return {
+        return {
           ...prev,
           [name]: prevValueArray.join(','),
         };
       });
-    }if (name === 'role_hnnv') {
+    } if (name === 'role_hnnv') {
       setLocalListCheck((prev) => {
         const prevValueArray = prev[name] ? prev[name].split(',') : [];
-  
+
         if (checked) {
           if (!prevValueArray.includes(value)) {
             prevValueArray.push(value);
@@ -110,15 +110,15 @@ export default function Decentralization ({}) {
             prevValueArray.splice(index, 1);
           }
         }
-          return {
+        return {
           ...prev,
           [name]: prevValueArray.join(','),
         };
       });
-    }if (name === 'role_bcns') {
+    } if (name === 'role_bcns') {
       setLocalListCheck((prev) => {
         const prevValueArray = prev[name] ? prev[name].split(',') : [];
-  
+
         if (checked) {
           if (!prevValueArray.includes(value)) {
             prevValueArray.push(value);
@@ -129,15 +129,15 @@ export default function Decentralization ({}) {
             prevValueArray.splice(index, 1);
           }
         }
-          return {
+        return {
           ...prev,
           [name]: prevValueArray.join(','),
         };
       });
-    }if (name === 'role_tgl') {
+    } if (name === 'role_tgl') {
       setLocalListCheck((prev) => {
         const prevValueArray = prev[name] ? prev[name].split(',') : [];
-  
+
         if (checked) {
           if (!prevValueArray.includes(value)) {
             prevValueArray.push(value);
@@ -148,7 +148,7 @@ export default function Decentralization ({}) {
             prevValueArray.splice(index, 1);
           }
         }
-          return {
+        return {
           ...prev,
           [name]: prevValueArray.join(','),
         };
@@ -167,22 +167,22 @@ export default function Decentralization ({}) {
             label: `${item.userName} ${item.nameDeparment}`,
           }))
         );
-      } catch (err) {}
+      } catch (err) { }
     };
     getData();
   }, []);
 
-  const dataRes = {...userId, ...localListCheck}
+  const dataRes = { ...userId, ...localListCheck }
   const handleUpdateRole = async (event: any) => {
     try {
       const response = await SettingPermission(dataRes);
-        if( response?.status !== 200) {
-          alert('Cấp quyền thất bại')
-        }
+      if (response?.status !== 200) {
+        alert('Cấp quyền thất bại')
+      }
     } catch (error) {
     }
   };
-  
+
   const options = {
     tennhanvien: user
   };
@@ -644,7 +644,7 @@ export default function Decentralization ({}) {
                       onClick={(e) => handleClickCheckBox(e)}
                     ></input>
                   </div>
-                  
+
                 </div>
               </div>
 

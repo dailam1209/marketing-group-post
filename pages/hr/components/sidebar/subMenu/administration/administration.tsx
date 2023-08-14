@@ -17,13 +17,13 @@ export default function Administration({ children }: any) {
         {
             img: "		/vn_quanlynhanvien.svg",
             title: 'Quản lý nhân viên',
-            href: '/hr/pages/quan-ly-hanh-chinh/thong-tin-nhan-su',
+            href: '/hr/quan-ly-hanh-chinh/thong-tin-nhan-su',
             target: '',
         },
         {
             img: "/vn_quydinhchinhsach.svg",
             title: 'Quy định - chính sách',
-            href: '/hr/pages/quan-ly-hanh-chinh/quy-dinh-chinh-sach',
+            href: '/hr/quan-ly-hanh-chinh/quy-dinh-chinh-sach',
             target: '',
         },
         {
@@ -36,7 +36,7 @@ export default function Administration({ children }: any) {
         {
             img: "/vn_biendongnhansu.svg	",
             title: 'Biến động nhân sự',
-            href: '/hr/pages/quan-ly-hanh-chinh/bien-dong-nhan-su',
+            href: '/hr/quan-ly-hanh-chinh/bien-dong-nhan-su',
             target: '',
         },
         {

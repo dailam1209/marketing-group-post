@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useRef, MouseEventHandler, useMemo, useCallback } from "react";
 import Select from 'react-select'
 import styles from '../../thong-tin-nhan-su/tab/employeeManagement.module.css'
-import BodyFrameFooter from "@/components/bodyFrame/bodyFrame_footer/bodyFrame_footer";
+import BodyFrameFooter from "@/pages/hr/components/bodyFrame/bodyFrame_footer/bodyFrame_footer";
 import AddWorkingModal from "./addWorkingModal";
 import EditWorkingModal from "./editWorkingModal";
-import { WorkingRotaionList } from "@/pages/api/bien_dong_nhan_su";
+import { WorkingRotaionList } from "@/pages/hr/api/bien_dong_nhan_su";
 import { parseISO, format } from 'date-fns';
-import { EmployeeList } from "@/pages/api/listNhanVien";
-import { DepartmentList } from "@/pages/api/listPhongBan";
+import { EmployeeList } from "@/pages/hr/api/listNhanVien";
+import { DepartmentList } from "@/pages/hr/api/listPhongBan";
 import DeleteWorkingRotations from "./deleteWorkingModal";
-import GetComId from "@/components/getComID";
+import GetComId from "@/pages/hr/components/getComID";
 
 type SelectOptionType = { label: string, value: string }
 export interface TabWorkingRotation {

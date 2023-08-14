@@ -1,19 +1,17 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import Select from 'react-select'
 import styles from './sealAndSignature.module.css'
-import BodyFrameFooter from "@/components/bodyFrame/bodyFrame_footer/bodyFrame_footer";
+import BodyFrameFooter from "@/pages/hr/components/bodyFrame/bodyFrame_footer/bodyFrame_footer";
 import AddSealModal from "./addSealModal";
-import { SealAndSignatureData } from "@/pages/api/co_cau_to_chuc";
-import { SignatureList } from "@/pages/api/co_cau_to_chuc";
-import { UploadSignature } from "@/pages/api/co_cau_to_chuc";
-import { DepartmentList } from "@/pages/api/listPhongBan";
+import { SealAndSignatureData } from "@/pages/hr/api/co_cau_to_chuc";
+import { SignatureList } from "@/pages/hr/api/co_cau_to_chuc";
+import { UploadSignature } from "@/pages/hr/api/co_cau_to_chuc";
+import { DepartmentList } from "@/pages/hr/api/listPhongBan";
 import DeleteSealUseList from "./deleteSealModal/useSealListDelete";
 import DeleteSignatures from "./deleteSealModal/signatureListDelete";
-import MyPagination from '@/components/pagination/Pagination';
+import MyPagination from '@/pages/hr/components/pagination/Pagination';
 import Head from "next/head";
-import { getToken } from "@/pages/api/token";
-import jwt_decode from "jwt-decode";
-import GetComId from "@/components/getComID";
+import GetComId from "@/pages/hr/components/getComID";
 
 
 type SelectOptionType = { label: string, value: string }

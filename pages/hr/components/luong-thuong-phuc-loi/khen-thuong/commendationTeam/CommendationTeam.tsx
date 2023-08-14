@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import RewardTable from "../component/Component";
 import styles from "../component/Component.module.css";
-import { GetDataAchievement } from "@/pages/api/luong-thuong-phuc-loi/reward";
-import { SignIn } from "@/pages/api/Home/HomeService";
-import MyPagination from "@/components/pagination/Pagination";
-import BodyFrameFooter from "@/components/bodyFrame/bodyFrame_footer/bodyFrame_footer";
+import { GetDataAchievement } from "@/pages/hr/api/luong-thuong-phuc-loi/reward";
+import MyPagination from "@/pages/hr/components/pagination/Pagination";
+import BodyFrameFooter from "@/pages/hr/components/bodyFrame/bodyFrame_footer/bodyFrame_footer";
 import ModalAddTeamCompliments from "./modalAddTeamCompliments/modalAddTeamCompliments";
 
-export interface CommendationTeam {}
+export interface CommendationTeam { }
 export default function CommendationTeam({ iconAdd, iconEdit }: any) {
   const [data, setData] = useState<any>();
   const [currentPage, setCurrentPage] = useState<any>(1);
@@ -38,9 +37,9 @@ export default function CommendationTeam({ iconAdd, iconEdit }: any) {
         display="block"
         data={newData}
         modal={<ModalAddTeamCompliments></ModalAddTeamCompliments>}
-        keyWords = {handleSearch}
-        iconAdd = {iconAdd}
-        iconEdit = {iconEdit}
+        keyWords={handleSearch}
+        iconAdd={iconAdd}
+        iconEdit={iconEdit}
       ></RewardTable>
       <div className={`${styles.pagination}`}>
         <MyPagination

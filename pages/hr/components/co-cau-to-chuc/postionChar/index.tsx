@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import styles from '../organisationalStructureDiagram/tree/tree.module.css'
 import EditPositionCharModal from './editPositonCharModal';
 import DetailsPositionCharModal from './detailsPositionCharModal';
-import BodyFrameFooter from '@/components/bodyFrame/bodyFrame_footer/bodyFrame_footer';
-import { PostionCharData } from '@/pages/api/co_cau_to_chuc';
+import BodyFrameFooter from '@/pages/hr/components/bodyFrame/bodyFrame_footer/bodyFrame_footer';
+import { PostionCharData } from '@/pages/hr/api/co_cau_to_chuc';
 
 import dynamic from 'next/dynamic';
 

@@ -7,7 +7,7 @@ import EditGroupModal from './group/editGroupModal';
 import DetailsRoomModal from './room/detailRoomModal/detailRoomModal';
 import DetailsNestModal from './nest/detailNestModal';
 import DetailsGroupModal from './group/detailGroupModal';
-import { OrganizationalStructureData } from '@/pages/api/co_cau_to_chuc';
+import { OrganizationalStructureData } from '@/pages/hr/api/co_cau_to_chuc';
 
 import dynamic from 'next/dynamic';
 

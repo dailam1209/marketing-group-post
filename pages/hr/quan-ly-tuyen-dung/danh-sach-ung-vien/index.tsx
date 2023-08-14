@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import styles from "./candidateList.module.css";
 import Link from "next/link";
 import CandidateListDetail from "./candidateListDetail";
-import CandidateRepo from "@/components/quan-ly-tuyen-dung/danh-sach-ung-vien/candidateRepo";
-import { getDataAuthentication } from "@/pages/api/Home/HomeService";
-import LoadingSpinner from "@/components/loading";
-import PageAuthenticator from "@/components/quyen-truy-cap";
+import CandidateRepo from "@/pages/hr/components/quan-ly-tuyen-dung/danh-sach-ung-vien/candidateRepo";
+import { getDataAuthentication } from "@/pages/hr/api/Home/HomeService";
+import LoadingSpinner from "@/pages/hr/components/loading";
+import PageAuthenticator from "@/pages/hr/components/quyen-truy-cap";
 
 export interface CandidateList { }
 
@@ -14,7 +14,7 @@ export default function CandidateList({ children }: any) {
   const [displayIcon, setDisplayIcon] = useState<any>();
   const [isLoading, setIsLoading] = useState(true);
   const [isDataLoaded, setIsDataLoaded] = useState(false);
- 
+
 
   useEffect(() => {
     try {

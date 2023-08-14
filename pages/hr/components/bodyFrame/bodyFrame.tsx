@@ -9,7 +9,7 @@ export interface BodyFrame { }
 export default function Bodyframe({ children }: any) {
   const [dataHeader, setDataHeader] = useState<any>();
   const [tokenType, setTokenType] = useState<any>(null);
-  const COOKIE_KEY = "user_365";
+  const COOKIE_KEY = "token_base365";
 
   useEffect(() => {
     const fetchDataType = async () => {

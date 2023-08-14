@@ -33,12 +33,12 @@ export default function SalaryAndBenefits({ children }: any) {
     {
       img: "	/thanhtich.svg",
       title: 'Khen thưởng',
-      href: '/luong-thuong-phuc-loi/khen-thuong',
+      href: '/hr/luong-thuong-phuc-loi/khen-thuong',
     },
     {
       img: "	/vipham.svg",
       title: 'Kỷ luật( Vi phạm )',
-      href: '/hr/pages/luong-thuong-phuc-loi/ky-luat',
+      href: '/hr/luong-thuong-phuc-loi/ky-luat',
     },
     {
       img: "	/vn_phucloi.svg",

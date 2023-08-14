@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import styles from "../../personalReward/modalAddPersonalCompliments/ModalAddReward.module.css";
 import Select from "react-select";
-import { GetDepartmentList, UpdateAchievement } from "@/pages/api/luong-thuong-phuc-loi/reward";
-import { getDataUser } from "@/pages/api/quan-ly-tuyen-dung/PerformRecruitment";
+import { GetDepartmentList, UpdateAchievement } from "@/pages/hr/api/luong-thuong-phuc-loi/reward";
+import { getDataUser } from "@/pages/hr/api/quan-ly-tuyen-dung/PerformRecruitment";
 import { format } from "date-fns";
 import * as Yup from "yup";
-import { getToken } from "@/pages/api/token";
+import { getToken } from "@/pages/hr/api/token";
 import jwt_decode from "jwt-decode";
 
 function ModalEditAchievementList({ animation, onClose, dataOld }: any) {
-  const typeEdit= dataOld.depId 
+  const typeEdit = dataOld.depId
   const id = dataOld.id
   const achievement_id = dataOld.achievementId;
   const contentOld = dataOld.content;
@@ -37,7 +37,7 @@ function ModalEditAchievementList({ animation, onClose, dataOld }: any) {
   });
   const [listUser, setListUser] = useState<any>();
   const [errors, setErrors] = useState<any>({});
-  const mergedObject = {...content, ...achievementType, ...listUser}
+  const mergedObject = { ...content, ...achievementType, ...listUser }
 
   const schema = Yup.object().shape({
     achievement_id: Yup.string().required("Số quyết định không được để trống"),
@@ -49,19 +49,19 @@ function ModalEditAchievementList({ animation, onClose, dataOld }: any) {
     appellation: Yup.string().required("Danh hiệu không được để trống"),
     achievement_level: Yup.string().required("Cấp khen không được để trống"),
   });
-  
+
   const [tokenComId, setComId] = useState<any>(null);
-  const COOKIE_KEY = "user_365";
+  const COOKIE_KEY = "token_base365";
 
   useEffect(() => {
     const currentCookie = getToken(COOKIE_KEY);
     if (currentCookie) {
       const decodedToken: any = jwt_decode(currentCookie);
-      
+
       setComId(decodedToken?.data?.com_id);
     }
   }, []);
-  
+
   const handleContentChange = (event) => {
     const { name, value } = event.target;
     setContent((prevState) => ({
@@ -80,14 +80,14 @@ function ModalEditAchievementList({ animation, onClose, dataOld }: any) {
         list_user: selectedValues,
         list_user_name: selectedLabels,
       }));
-    }  
+    }
     else {
       const { value, label } = selectedOptions;
       setListUser((prevState) => ({
-      ...prevState,
-      depId: value,
-      depName: label
-    }));
+        ...prevState,
+        depId: value,
+        depName: label
+      }));
     }
   };
 
@@ -103,19 +103,19 @@ function ModalEditAchievementList({ animation, onClose, dataOld }: any) {
       }));
     }
   };
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
       const response = await UpdateAchievement(id, mergedObject);
-      if(response?.status !== 200) {
+      if (response?.status !== 200) {
         alert('Sửa khen thưởng không thành công')
       }
       else {
         onClose()
       }
-     
+
     } catch (error: any) {
       const validationErrors = {};
       if (error?.inner) {
@@ -128,7 +128,7 @@ function ModalEditAchievementList({ animation, onClose, dataOld }: any) {
   };
 
   useEffect(() => {
-    if( typeEdit === 0) {
+    if (typeEdit === 0) {
       const getData1 = async () => {
         try {
           const response = await getDataUser();
@@ -139,16 +139,16 @@ function ModalEditAchievementList({ animation, onClose, dataOld }: any) {
               label: `${item.userName} ${item.nameDeparment}`,
             }))
           );
-        } catch (err) {}
+        } catch (err) { }
       };
       getData1();
     }
     else {
-      const getData2 = async() => {
-        try{
+      const getData2 = async () => {
+        try {
           const response = await GetDepartmentList(tokenComId.toString())
-          setDep(response?.data.data.data.map(item => ({name:"depId", value: item.dep_id, label : `${item.dep_name}`})))
-        }catch(err) {
+          setDep(response?.data.data.data.map(item => ({ name: "depId", value: item.dep_id, label: `${item.dep_name}` })))
+        } catch (err) {
 
         }
       }
@@ -177,9 +177,8 @@ function ModalEditAchievementList({ animation, onClose, dataOld }: any) {
     <>
       <div className={`${styles.overlay}`}></div>
       <div
-        className={`${styles.modal} ${styles.modal_setting}  ${
-          animation ? styles.fade_in : styles.fade_out
-        }`}
+        className={`${styles.modal} ${styles.modal_setting}  ${animation ? styles.fade_in : styles.fade_out
+          }`}
         style={{ display: "block" }}
       >
         <div className={`${styles.modal_dialog} ${styles.contentquytrinh}`}>
@@ -240,93 +239,93 @@ function ModalEditAchievementList({ animation, onClose, dataOld }: any) {
                 </div>
 
                 {typeEdit === 0 && (
-                <>
-                   <div className={`${styles.form_groups}`}>
-                  <label>
-                    Tên đối tượng
-                    <span className={`${styles.red}`}> *</span>
-                    <div
-                      className={`${styles.red} ${styles.float_right}`}
-                    ></div>
-                  </label>
-                  <div
-                    style={{ marginRight: "2%" }}
-                    className={`${styles.select}`}
-                  >
-                    <Select
-                      isMulti
-                      options={options.tendoituong}
-                      placeholder="Chọn đối tượng"
-                      onChange={handleSelectionChange}
-                      styles={{
-                        control: (baseStyles, state) => ({
-                          ...baseStyles,
-                          borderRadius: 8,
-                          borderColor: "#4747477a",
-                          height: "auto",
-                          fontSize: state.isFocused ? 14 : 14,
-                          minHeight: state.isFocused ? 20 : 20,
-                          width: state.isFocused ? "100%" : baseStyles.width,
-                          fontWeight: state.isFocused ? 600 : 600,
-                        }),
-                        valueContainer: (baseStyles) => ({
-                          ...baseStyles,
-                          padding: "0",
-                        }),
-                        indicatorsContainer: (baseStyles) => ({
-                          ...baseStyles,
-                          height: 30,
-                        }),
-                      }}
-                    />
-                  </div>
-                </div>
-                </>
-               )}
-
-              {typeEdit !== 0 && (
-                <>
+                  <>
                     <div className={`${styles.form_groups}`}>
-                  <label>
-                    Tên phòng ban
-                    <span className={`${styles.red}`}> *</span>
-                    <div
-                      className={`${styles.red} ${styles.float_right}`}
-                    ></div>
-                  </label>
-                  <div
-                    style={{ marginRight: "2%" }}
-                    className={`${styles.select}`}
-                  >
-                    <Select
-                      options={options.tenphongban}
-                      placeholder="Chọn phòng ban"
-                      onChange={handleSelectionChange}
-                      styles={{
-                        control: (baseStyles, state) => ({
-                          ...baseStyles,
-                          borderRadius: 8,
-                          borderColor: "#4747477a",
-                          height: "auto",
-                          fontSize: state.isFocused ? 14 : 14,
-                          minHeight: state.isFocused ? 20 : 20,
-                          width: state.isFocused ? "100%" : baseStyles.width,
-                          fontWeight: state.isFocused ? 600 : 600,
-                        }),
-                        valueContainer: (baseStyles) => ({
-                          ...baseStyles,
-                          padding: "0",
-                        }),
-                        indicatorsContainer: (baseStyles) => ({
-                          ...baseStyles,
-                          height: 30,
-                        }),
-                      }}
-                    />
-                  </div>
-                </div>
-                </>
-              )}
+                      <label>
+                        Tên đối tượng
+                        <span className={`${styles.red}`}> *</span>
+                        <div
+                          className={`${styles.red} ${styles.float_right}`}
+                        ></div>
+                      </label>
+                      <div
+                        style={{ marginRight: "2%" }}
+                        className={`${styles.select}`}
+                      >
+                        <Select
+                          isMulti
+                          options={options.tendoituong}
+                          placeholder="Chọn đối tượng"
+                          onChange={handleSelectionChange}
+                          styles={{
+                            control: (baseStyles, state) => ({
+                              ...baseStyles,
+                              borderRadius: 8,
+                              borderColor: "#4747477a",
+                              height: "auto",
+                              fontSize: state.isFocused ? 14 : 14,
+                              minHeight: state.isFocused ? 20 : 20,
+                              width: state.isFocused ? "100%" : baseStyles.width,
+                              fontWeight: state.isFocused ? 600 : 600,
+                            }),
+                            valueContainer: (baseStyles) => ({
+                              ...baseStyles,
+                              padding: "0",
+                            }),
+                            indicatorsContainer: (baseStyles) => ({
+                              ...baseStyles,
+                              height: 30,
+                            }),
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </>
+                )}
+
+                {typeEdit !== 0 && (
+                  <>
+                    <div className={`${styles.form_groups}`}>
+                      <label>
+                        Tên phòng ban
+                        <span className={`${styles.red}`}> *</span>
+                        <div
+                          className={`${styles.red} ${styles.float_right}`}
+                        ></div>
+                      </label>
+                      <div
+                        style={{ marginRight: "2%" }}
+                        className={`${styles.select}`}
+                      >
+                        <Select
+                          options={options.tenphongban}
+                          placeholder="Chọn phòng ban"
+                          onChange={handleSelectionChange}
+                          styles={{
+                            control: (baseStyles, state) => ({
+                              ...baseStyles,
+                              borderRadius: 8,
+                              borderColor: "#4747477a",
+                              height: "auto",
+                              fontSize: state.isFocused ? 14 : 14,
+                              minHeight: state.isFocused ? 20 : 20,
+                              width: state.isFocused ? "100%" : baseStyles.width,
+                              fontWeight: state.isFocused ? 600 : 600,
+                            }),
+                            valueContainer: (baseStyles) => ({
+                              ...baseStyles,
+                              padding: "0",
+                            }),
+                            indicatorsContainer: (baseStyles) => ({
+                              ...baseStyles,
+                              height: 30,
+                            }),
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </>
+                )}
 
                 <div className={`${styles.form_groups}`}>
                   <label>

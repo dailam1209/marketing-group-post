@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useMemo } from "react";
 import styles from '../addPlanningModal/addPlanningModal.module.css'
 import Select from 'react-select';
-import MyEditorNew from "@/components/myEditor";
-import { FetchDataDep, FetchDataPosition, FetchDataSpecifiedGroup } from "@/components/util/listAll";
-import { AddPlanningAppointment } from "@/pages/api/bien_dong_nhan_su";
+import MyEditorNew from "@/pages/hr/components/myEditor";
+import { FetchDataDep, FetchDataPosition, FetchDataSpecifiedGroup } from "@/pages/hr/components/util/listAll";
+import { AddPlanningAppointment } from "@/pages/hr/api/bien_dong_nhan_su";
 import { parseISO, format } from 'date-fns';
 interface InputTextareaProps {
     onDescriptionChange: (data: any) => void

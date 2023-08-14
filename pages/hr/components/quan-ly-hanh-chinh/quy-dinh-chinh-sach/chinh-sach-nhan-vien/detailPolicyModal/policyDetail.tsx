@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from '../../quy-dinh-lam-viec/detailReguulationModal/detailRegulationModal.module.css'
-import MyEditor from "@/components/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/components/Editor";
-import { PolicyDetails } from "@/pages/api/quy_dinh_chinh_sach";
+import { PolicyDetails } from "@/pages/hr/api/quy_dinh_chinh_sach";
 import { format } from "date-fns";
 import UpdatePolicyModal from "../updatePolicyModal/policyUpdate";
 

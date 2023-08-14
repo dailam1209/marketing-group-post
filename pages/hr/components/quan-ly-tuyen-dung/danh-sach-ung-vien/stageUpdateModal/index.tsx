@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import Select from 'react-select';
 import styles from '../candidateAddModal/candidateAddModal.module.css'
-import { ProcessList } from '@/pages/api/quan-ly-tuyen-dung/candidateList';
-import { ProcessUpdate } from '@/pages/api/quan-ly-tuyen-dung/candidateList';
+import { ProcessList } from '@/pages/hr/api/quan-ly-tuyen-dung/candidateList';
+import { ProcessUpdate } from '@/pages/hr/api/quan-ly-tuyen-dung/candidateList';
 
 type SelectOptionType = { label: string, value: string }
 

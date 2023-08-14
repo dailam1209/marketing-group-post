@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./addRecruitmentProcess.module.css";
 import AddAdditionalRecruitmentProcess from "../addAdditionalRecruitmentProcess/addAdditionalRecruitmentProcess";
 import * as Yup from "yup";
-import { AddDataRecruitment } from "../../../../pages/api/quan-ly-tuyen-dung/RecruitmentManagerService";
+import { AddDataRecruitment } from "@/pages/hr/api/quan-ly-tuyen-dung/RecruitmentManagerService";
 export default function AddRecruitmentProcess({
   animation,
   handleCloseModalAdd,

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import styles from "./DetailTrainingProcess.module.css";
 import { useRouter } from "next/router";
-import ListDetailTrainingProcess from "@/components/dao-tao-phat-trien/quy-trinh-dao-tao/chi-tiet-quy-trinh/listDetailTrainingProcess/ListDetailTrainingProcess";
-import AddDetailTrainingProcess from "@/components/dao-tao-phat-trien/quy-trinh-dao-tao/chi-tiet-quy-trinh/addDetailTrainingProcess/AddDetailTrainingProcess";
-import BodyFrameFooter from "@/components/bodyFrame/bodyFrame_footer/bodyFrame_footer";
-import { DataDetailProcess, GetDataDetailProcess } from "@/pages/api/dao-tao-phat-trien/TrainingProcess";
+import ListDetailTrainingProcess from "@/pages/hr/components/dao-tao-phat-trien/quy-trinh-dao-tao/chi-tiet-quy-trinh/listDetailTrainingProcess/ListDetailTrainingProcess";
+import AddDetailTrainingProcess from "@/pages/hr/components/dao-tao-phat-trien/quy-trinh-dao-tao/chi-tiet-quy-trinh/addDetailTrainingProcess/AddDetailTrainingProcess";
+import BodyFrameFooter from "@/pages/hr/components/bodyFrame/bodyFrame_footer/bodyFrame_footer";
+import { DataDetailProcess, GetDataDetailProcess } from "@/pages/hr/api/dao-tao-phat-trien/TrainingProcess";
 import Head from "next/head";
-import { getToken2 } from "@/pages/api/token";
+import { getTokenFromCookie } from "@/pages/hr/api/token";
 
 export default function DetailTrainingProcess({ dataDetail }: any) {
 
@@ -29,10 +29,10 @@ export default function DetailTrainingProcess({ dataDetail }: any) {
   const iconDelete = iconDeleteQueryParam === "true";
 
   useEffect(() => {
-      const filteredStages = dataDetail?.listStage?.filter((stage) => stage.isDelete === 0);
-      setTrainingProcess(filteredStages);
-  },[dataDetail])
-  
+    const filteredStages = dataDetail?.listStage?.filter((stage) => stage.isDelete === 0);
+    setTrainingProcess(filteredStages);
+  }, [dataDetail])
+
   const handleOpenModal = (type: any) => {
     setOpenModal(type);
     setAnimateModal(true);
@@ -58,7 +58,7 @@ export default function DetailTrainingProcess({ dataDetail }: any) {
   useEffect(() => {
     const fetchDataDetailProcess = async () => {
       try {
-        
+
         const response = await DataDetailProcess(trainingProcessId);
         setTrainingProcess(response?.data.data.listStage?.filter((stage) => stage.isDelete === 0));
       } catch (error) {
@@ -69,9 +69,9 @@ export default function DetailTrainingProcess({ dataDetail }: any) {
   }, [newData]);
   return (
     <>
-     <Head>
-      <title>Quy trình đào tạo - Quản lý nhân sự - Timviec365.vn</title>
-    </Head>
+      <Head>
+        <title>Quy trình đào tạo - Quản lý nhân sự - Timviec365.vn</title>
+      </Head>
       <div className={`${styles.ct_quytrinh}`}>
         <div className={`${styles.l_body}`}>
           <ul className={`${styles.nav} ${styles.nav_tabs}`}>
@@ -79,9 +79,8 @@ export default function DetailTrainingProcess({ dataDetail }: any) {
               <div key={item.key}>
                 <li className={`${styles.li_tabs}`}>
                   <span
-                    className={`${
-                      active === item?.key ? styles.active : styles.hover
-                    } `}
+                    className={`${active === item?.key ? styles.active : styles.hover
+                      } `}
                     onClick={() => setActive(item.key)}
                   >
                     {item.header}
@@ -103,16 +102,16 @@ export default function DetailTrainingProcess({ dataDetail }: any) {
 
             {iconAdd && (
               <div className={`${styles.add_quytrinh1}`}>
-              <button
-                style={{ display: "flex" }}
-                onClick={() => handleOpenModal(1)}
-              >
-                <picture>
-                  <img src={`/add.png`} alt=""></img>
-                </picture>
-                <p>Thêm giai đoạn đào tạo</p>
-              </button>
-            </div>
+                <button
+                  style={{ display: "flex" }}
+                  onClick={() => handleOpenModal(1)}
+                >
+                  <picture>
+                    <img src={`/add.png`} alt=""></img>
+                  </picture>
+                  <p>Thêm giai đoạn đào tạo</p>
+                </button>
+              </div>
             )}
           </div>
           {openModal === 1 && (
@@ -137,8 +136,8 @@ export default function DetailTrainingProcess({ dataDetail }: any) {
                   item={item}
                   index={index}
                   setData={handleUpdateData}
-                  iconEdit = {iconEdit}
-                  iconDelete = {iconDelete}
+                  iconEdit={iconEdit}
+                  iconDelete={iconDelete}
                 ></ListDetailTrainingProcess>
               </div>
             ))}
@@ -152,9 +151,9 @@ export default function DetailTrainingProcess({ dataDetail }: any) {
 
 export const getServerSideProps = async ({ params, req }) => {
   const { idTrainingProcess } = params;
-  const isToken = getToken2(req.headers.cookie || '');
+  const token = getTokenFromCookie(req.headers.cookie || '');
   try {
-    const response = await GetDataDetailProcess(idTrainingProcess, isToken);
+    const response = await GetDataDetailProcess(idTrainingProcess, token);
     const dataDetail = response?.data.data;
     return {
       props: {

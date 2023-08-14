@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import styles from "./ListRecruitment.module.css";
-import EditPerformRecruitment from "@/components/quan-ly-tuyen-dung/thuc-hien-tuyen-dung/EditPerformRecruitment/EditPerformRecruitment";
-import DeleteRecruitment from "@/components/quan-ly-tuyen-dung/thuc-hien-tuyen-dung/DeletePerformRecruitment/DeleteRecruitment";
+import EditPerformRecruitment from "@/pages/hr/components/quan-ly-tuyen-dung/thuc-hien-tuyen-dung/EditPerformRecruitment/EditPerformRecruitment";
+import DeleteRecruitment from "@/pages/hr/components/quan-ly-tuyen-dung/thuc-hien-tuyen-dung/DeletePerformRecruitment/DeleteRecruitment";
 import Link from "next/link";
-import { setAsTemplate } from "@/pages/api/quan-ly-tuyen-dung/PerformRecruitment";
+import { setAsTemplate } from "@/pages/hr/api/quan-ly-tuyen-dung/PerformRecruitment";
 import Head from "next/head";
-export interface ListRecruitment {}
+export interface ListRecruitment { }
 
-export default function ListRecruitment({ data, onDelete, editData, iconEdit, iconDelete,tokenType }: any) {
+export default function ListRecruitment({ data, onDelete, editData, iconEdit, iconDelete, tokenType }: any) {
   const idRecruitment = data?.id;
   const [openModalEdit, setOpenModalEdit] = useState(false);
   const [openModalDelete, setOpenModalDelete] = useState(false);
@@ -90,16 +90,16 @@ export default function ListRecruitment({ data, onDelete, editData, iconEdit, ic
     return `${day}/${month}/${year}`;
   };
 
-  const handleSetTemplate = async(e: any, recruitmentNewsId:number) => {
+  const handleSetTemplate = async (e: any, recruitmentNewsId: number) => {
     const response = await setAsTemplate(recruitmentNewsId)
-    if(response?.status !== 200) {
+    if (response?.status !== 200) {
       alert('Thiết lập tin mẫu không thành công')
     }
   }
 
   return (
     <>
-      
+
       <div className={`${styles.new_r_t}`}>
         <div className={`${styles.new_r_t_left}`}>
           <div className={`${styles.new_r_t_header} ${styles.row}`}>
@@ -120,10 +120,10 @@ export default function ListRecruitment({ data, onDelete, editData, iconEdit, ic
                       passHref
                       href={{
                         pathname:
-                          `/quan-ly-tuyen-dung/thuc-hien-tuyen-dung/danh-sach-tuyen-dung/${data?.id}`,
-                       
+                          `/hr/quan-ly-tuyen-dung/thuc-hien-tuyen-dung/danh-sach-tuyen-dung/${data?.id}`,
+
                       }}
-                      as={`/quan-ly-tuyen-dung/thuc-hien-tuyen-dung/danh-sach-tuyen-dung/${data?.id}`}
+                      as={`/hr/quan-ly-tuyen-dung/thuc-hien-tuyen-dung/danh-sach-tuyen-dung/${data?.id}`}
                     >
                       <span>
                         (TD{data?.id}) {data?.title}
@@ -142,7 +142,7 @@ export default function ListRecruitment({ data, onDelete, editData, iconEdit, ic
               {dateBelieveTime(data?.timeEnd)}
             </div>
 
-              <div
+            <div
               className={`${styles.new_r_top_right}`}
               onMouseEnter={() => setVisible(true)}
               onMouseLeave={() => setVisible(false)}
@@ -154,7 +154,7 @@ export default function ListRecruitment({ data, onDelete, editData, iconEdit, ic
                 {visible && (
                   <div className={`${styles.settings}`}>
                     <button
-                       className={`${styles.detail_new}`}
+                      className={`${styles.detail_new}`}
                       style={{
                         border: "none",
                         backgroundColor: "transparent",
@@ -165,56 +165,56 @@ export default function ListRecruitment({ data, onDelete, editData, iconEdit, ic
                         style={{ paddingRight: "102px" }}
                         className={`${styles.detail_new}`}
                       >
-                        
-                        <Link 
+
+                        <Link
                           passHref
                           href={{
                             pathname:
-                            `/quan-ly-tuyen-dung/thuc-hien-tuyen-dung/danh-sach-tuyen-dung/${data?.id}`,
+                              `/hr/quan-ly-tuyen-dung/thuc-hien-tuyen-dung/danh-sach-tuyen-dung/${data?.id}`,
                           }}
-                         as={ `/quan-ly-tuyen-dung/thuc-hien-tuyen-dung/danh-sach-tuyen-dung/${data?.id}`}
+                          as={`/hr/quan-ly-tuyen-dung/thuc-hien-tuyen-dung/danh-sach-tuyen-dung/${data?.id}`}
                         >
                           Chi tiết
                         </Link>
                       </li>
                     </button>
 
-                    {tokenType === 1 ?(
+                    {tokenType === 1 ? (
                       <button
-                      style={{ paddingRight: "55px" }}
-                      className={`${styles.edit_new}`}
-                      onClick={handleOpenModalEdit}
-                    >
-                      Chỉnh sửa tin
-                    </button>
-                    ): (
-                      (!iconEdit) ? <></> : (
-                        <button
                         style={{ paddingRight: "55px" }}
                         className={`${styles.edit_new}`}
                         onClick={handleOpenModalEdit}
                       >
                         Chỉnh sửa tin
                       </button>
+                    ) : (
+                      (!iconEdit) ? <></> : (
+                        <button
+                          style={{ paddingRight: "55px" }}
+                          className={`${styles.edit_new}`}
+                          onClick={handleOpenModalEdit}
+                        >
+                          Chỉnh sửa tin
+                        </button>
                       )
                     )}
                     <hr style={{ marginTop: "0", marginBottom: "0" }}></hr>
                     {tokenType === 1 ? (
                       <li onClick={handleOpenModalDelete}>Gỡ tin tuyển dụng</li>
-                    ): (
-                      (!iconDelete) ? <></>: (
+                    ) : (
+                      (!iconDelete) ? <></> : (
                         <li onClick={handleOpenModalDelete}>Gỡ tin tuyển dụng</li>
                       )
                     )}
                     {tokenType === 1 ? (
                       <li
-                      onClick = {(e) => handleSetTemplate(e, idRecruitment)}
-                     >Thiết lập làm tin mẫu</li>
-                    ): (
-                      (!iconEdit) ? <></> :(
+                        onClick={(e) => handleSetTemplate(e, idRecruitment)}
+                      >Thiết lập làm tin mẫu</li>
+                    ) : (
+                      (!iconEdit) ? <></> : (
                         <li
-                      onClick = {(e) => handleSetTemplate(e, idRecruitment)}
-                     >Thiết lập làm tin mẫu</li>
+                          onClick={(e) => handleSetTemplate(e, idRecruitment)}
+                        >Thiết lập làm tin mẫu</li>
                       )
                     )}
                   </div>
@@ -229,7 +229,7 @@ export default function ListRecruitment({ data, onDelete, editData, iconEdit, ic
               animation={animateModal}
               handleCloseModal={handleCloseModal}
               data={data}
-              editData = {editData}
+              editData={editData}
             ></EditPerformRecruitment>
           )}
           {openModalDelete && (

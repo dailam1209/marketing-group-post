@@ -1,14 +1,15 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import styles from "./idRecruitment.module.css";
-import BodyFrameFooter from "@/components/bodyFrame/bodyFrame_footer/bodyFrame_footer";
-import { DetailNews } from "@/pages/api/quan-ly-tuyen-dung/PerformRecruitment";
-import { getToken2 } from "@/pages/api/token";
+import BodyFrameFooter from "@/pages/hr/components/bodyFrame/bodyFrame_footer/bodyFrame_footer";
+import { DetailNews } from "@/pages/hr/api/quan-ly-tuyen-dung/PerformRecruitment";
+
 import Head from "next/head";
+import { getTokenFromCookie } from "@/pages/hr/api/token";
 
-export interface IdRecruitment {}
+export interface IdRecruitment { }
 
-export default function IdRecruitment({dataDetail}) {
+export default function IdRecruitment({ dataDetail }) {
   const router = useRouter();
   const getFormattedDate = (timeString) => {
     const date = new Date(timeString);
@@ -61,7 +62,7 @@ export default function IdRecruitment({dataDetail}) {
   return (
 
     <>
-    <Head>
+      <Head>
         <title>Thực hiện tuyển dụng - Quản lý nhân sự - Timviec365.vn</title>
       </Head>
       <div className={`${styles.l_body}`}>
@@ -70,9 +71,8 @@ export default function IdRecruitment({dataDetail}) {
             <div key={item.key}>
               <li className={`${styles.li_tabs}`}>
                 <span
-                  className={`${
-                    active === item?.key ? styles.active : styles.hover
-                  } `}
+                  className={`${active === item?.key ? styles.active : styles.hover
+                    } `}
                   onClick={() => handleClick(item)}
                 >
                   {item.header}
@@ -127,7 +127,7 @@ export default function IdRecruitment({dataDetail}) {
                 listCandidate?.map((item, index) => (
                   <div key={item.id}>
                     <div
-                      
+
                       className={`${styles.lst_uv_body__r} ${styles.blue__r}`}
                     >
                       <p>{item.name}</p>
@@ -263,16 +263,16 @@ export default function IdRecruitment({dataDetail}) {
   );
 }
 
-export const getServerSideProps = async ({ params, req  }) => {
+export const getServerSideProps = async ({ params, req }) => {
   const { idRecruitment } = params;
-  const isToken = getToken2(req.headers.cookie || '');
+  const token = getTokenFromCookie(req.headers.cookie || '');
+
   try {
-    
-    const response = await DetailNews(idRecruitment, isToken);
-    const dataDetail = response?.data; 
+    const response = await DetailNews(idRecruitment, token);
+    const dataDetail = response?.data;
     return {
       props: {
-        dataDetail, 
+        dataDetail,
       },
     };
   } catch (error) {

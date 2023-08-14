@@ -2,10 +2,10 @@
 import React, { useState } from "react";
 import { format } from "date-fns";
 import styles from "./listRecruitmentProcess.module.css";
-import EditRecruitmentProcess from "../../../../components/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/editRecruitmentProcess/EditRecruitmentProcess";
-import DeleteRecruitmentProcess from "../../../../components/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/deleteRecruitmentProcess/DeleteRecruitmentProcess";
+import EditRecruitmentProcess from "../../../components/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/editRecruitmentProcess/EditRecruitmentProcess";
+import DeleteRecruitmentProcess from "../../../components/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/deleteRecruitmentProcess/DeleteRecruitmentProcess";
 
-import MyPagination from "../../../../components/pagination/Pagination";
+import MyPagination from "../../../components/pagination/Pagination";
 import Link from "next/link";
 import Head from "next/head";
 export interface listRecruitmentProcess { }
@@ -58,14 +58,14 @@ export default function ListRecruitmentProcess({
                     <Link
                       passHref
                       href={{
-                        pathname: `/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/danh-sach-quy-trinh/${item.id}`,
+                        pathname: `/hr/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/danh-sach-quy-trinh/${item.id}`,
                         query: {
                           iconAdd: iconAdd?.toString(),
                           iconEdit: iconEdit?.toString(),
                           iconDelete: iconDelete?.toString(),
                         },
                       }}
-                      as={`/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/danh-sach-quy-trinh/${item.id}`}
+                      as={`/hr/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/danh-sach-quy-trinh/${item.id}`}
                     >
                       <div className={`${styles.quytrinh_item11_link}`}>
                         (QTTD{item.id}) {item.name}
@@ -85,7 +85,7 @@ export default function ListRecruitmentProcess({
                   <Link
                     passHref
                     href={{
-                      pathname: `/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/danh-sach-quy-trinh/${item.id}`,
+                      pathname: `/hr/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/danh-sach-quy-trinh/${item.id}`,
                       query: {
                         iconAdd: iconAdd?.toString(),
                         iconEdit: iconEdit?.toString(),
@@ -93,7 +93,7 @@ export default function ListRecruitmentProcess({
                         tokenType: tokenType?.toString()
                       }
                     }}
-                    as={`/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/danh-sach-quy-trinh/${item.id}`}
+                    as={`/hr/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/danh-sach-quy-trinh/${item.id}`}
                   >
                     <picture>
                       <img src={`${"/detail-quytrinh.svg"}`} alt=""></img>

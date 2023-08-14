@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "../khoi-phuc/Restore.module.css";
-import { forceDelete } from "@/pages/api/du-lieu-da-xoa-gan-day/DeletedDataComPonentService";
+import { forceDelete } from "@/pages/hr/api/du-lieu-da-xoa-gan-day/DeletedDataComPonentService";
 
 export default function DeleteData({
   animation,
@@ -18,16 +18,15 @@ export default function DeleteData({
         }
       };
       fetchData();
-    } catch (error) {}
+    } catch (error) { }
   };
 
   return (
     <>
       <div className={`${styles.overlay}`}></div>
       <div
-        className={`${styles.modal} ${styles.modal_setting} ${
-          animation ? styles.fade_in : styles.fade_out
-        } `}
+        className={`${styles.modal} ${styles.modal_setting} ${animation ? styles.fade_in : styles.fade_out
+          } `}
         style={{ display: "block" }}
       >
         <div className={` ${styles.modal_dialog} ${styles.contentquytrinh}`}>

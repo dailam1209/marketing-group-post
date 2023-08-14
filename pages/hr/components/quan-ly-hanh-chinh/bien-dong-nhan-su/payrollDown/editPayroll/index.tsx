@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useMemo } from "react";
 import styles from '../../planningAppointment/addPlanningModal/addPlanningModal.module.css'
 import Select from 'react-select';
-import MyEditorNew from "@/components/myEditor";
+import MyEditorNew from "@/pages/hr/components/myEditor";
 import { parseISO, format } from 'date-fns';
-import { FetchDataOrganizationalStructure, FetchDataDep, FetchDataPosition, FetchDataSpecifiedGroup } from "@/components/util/listAll";
-import { ShiftList, AddPayrollDown } from "@/pages/api/bien_dong_nhan_su";
-import GetComId from "@/components/getComID";
+import { FetchDataOrganizationalStructure, FetchDataDep, FetchDataPosition, FetchDataSpecifiedGroup } from "@/pages/hr/components/util/listAll";
+import { ShiftList, AddPayrollDown } from "@/pages/hr/api/bien_dong_nhan_su";
+import GetComId from "@/pages/hr/components/getComID";
 interface InputTextareaProps {
     onDescriptionChange: (data: any) => void
     reason: any

@@ -15,13 +15,13 @@ export default function Home() {
   useEffect(() => {
     const fetchHomeData = async () => {
       try {
-        const token = getCookie("user_365");
+        const token = getCookie("token_base365");
         if (token) {
           const response = await getHomeData();
           setDataHome(response?.data.data);
         } else {
           const interval = setInterval(() => {
-            const updatedToken = getCookie("user_365");
+            const updatedToken = getCookie("token_base365");
             if (updatedToken) {
               clearInterval(interval);
               fetchHomeData();

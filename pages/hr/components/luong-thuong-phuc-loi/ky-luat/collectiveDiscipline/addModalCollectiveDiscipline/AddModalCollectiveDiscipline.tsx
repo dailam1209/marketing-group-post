@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styles from "./AddModalPersonalDiscipline.module.css";
 import Select from "react-select";
-import { GetDepartmentList } from "@/pages/api/luong-thuong-phuc-loi/reward";
-import { AddInfringesGroup } from "@/pages/api/luong-thuong-phuc-loi/discipline";
+import { GetDepartmentList } from "@/pages/hr/api/luong-thuong-phuc-loi/reward";
+import { AddInfringesGroup } from "@/pages/hr/api/luong-thuong-phuc-loi/discipline";
 import * as Yup from "yup";
-import { getToken } from "@/pages/api/token";
+import { getToken } from "@/pages/hr/api/token";
 import jwt_decode from "jwt-decode";
 
 function AddModalCollectiveDiscipline({ animation, onClose, updateData }: any) {
@@ -14,7 +14,7 @@ function AddModalCollectiveDiscipline({ animation, onClose, updateData }: any) {
   const [dep, setDep] = useState<any>()
   const [errors, setErrors] = useState<any>({});
   const [tokenComId, setComId] = useState<any>(null);
-  const COOKIE_KEY = "user_365";
+  const COOKIE_KEY = "token_base365";
 
   useEffect(() => {
     const currentCookie = getToken(COOKIE_KEY);

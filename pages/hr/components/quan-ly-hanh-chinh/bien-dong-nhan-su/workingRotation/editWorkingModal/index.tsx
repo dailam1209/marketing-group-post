@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useMemo } from "react";
 import styles from '../../planningAppointment/addPlanningModal/addPlanningModal.module.css'
 import Select from 'react-select';
-import MyEditorNew from "@/components/myEditor";
-import { AddWorkingRotation } from "@/pages/api/bien_dong_nhan_su";
-import { FetchDataOrganizationalStructure, FetchDataDep, FetchDataPosition, FetchDataSpecifiedGroup } from "@/components/util/listAll";
+import MyEditorNew from "@/pages/hr/components/myEditor";
+import { AddWorkingRotation } from "@/pages/hr/api/bien_dong_nhan_su";
+import { FetchDataOrganizationalStructure, FetchDataDep, FetchDataPosition, FetchDataSpecifiedGroup } from "@/pages/hr/components/util/listAll";
 
 type SelectOptionType = { label: string, value: string }
 

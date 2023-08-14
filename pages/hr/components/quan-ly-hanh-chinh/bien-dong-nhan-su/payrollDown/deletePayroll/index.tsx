@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import styles from '../../workingRotation/deleteWorkingModal/deleteWorkingModal.module.css'
-import { DeletePayrollDown } from "@/pages/api/bien_dong_nhan_su";
+import { DeletePayrollDown } from "@/pages/hr/api/bien_dong_nhan_su";
 
 export default function DeletePayrollDowns({ onCancel, ep_id }: any) {
 

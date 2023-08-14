@@ -1,6 +1,6 @@
 import axios from "axios";
 import { getToken } from "../token";
-const COOKIE_KEY = "user_365";
+const COOKIE_KEY = "token_base365";
 
 export const getDataCompany = async () => {
   const isToken = getToken(COOKIE_KEY);

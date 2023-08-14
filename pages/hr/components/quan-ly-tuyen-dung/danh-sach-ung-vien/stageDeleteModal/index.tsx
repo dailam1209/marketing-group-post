@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import styles from "@/components/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/deleteRecruitmentProcess/DeleteRecruitmentProcess.module.css"
-import { ProcessDelete } from "@/pages/api/quan-ly-tuyen-dung/candidateList";
+import styles from "@/pages/hr/components/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/deleteRecruitmentProcess/DeleteRecruitmentProcess.module.css"
+import { ProcessDelete } from "@/pages/hr/api/quan-ly-tuyen-dung/candidateList";
 
 export default function DeleteStage({ onCancel, process_id, animation }: any) {
 

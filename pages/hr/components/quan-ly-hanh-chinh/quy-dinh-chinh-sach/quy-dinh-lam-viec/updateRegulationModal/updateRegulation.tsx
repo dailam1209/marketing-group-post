@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styles from '../addRegulationsModal/addRegulationsModal.module.css'
-import MyEditorNew from "@/components/myEditor";
-import { SpecifiedGroupList } from "@/pages/api/quy_dinh_chinh_sach";
-import { UpdateRegulation } from "@/pages/api/quy_dinh_chinh_sach";
-import { RegulationsDetails } from "@/pages/api/quy_dinh_chinh_sach";
+import MyEditorNew from "@/pages/hr/components/myEditor";
+import { SpecifiedGroupList } from "@/pages/hr/api/quy_dinh_chinh_sach";
+import { UpdateRegulation } from "@/pages/hr/api/quy_dinh_chinh_sach";
+import { RegulationsDetails } from "@/pages/hr/api/quy_dinh_chinh_sach";
 import { format } from 'date-fns'
 
 

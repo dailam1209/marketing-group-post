@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./edit.module.css";
-import { updateInfoCompany } from "@/pages/api/cai-dat/generalSettings";
+import { updateInfoCompany } from "@/pages/hr/api/cai-dat/generalSettings";
 
 export default function Edit({ dataDisplay, onClickButton }) {
   console.log(dataDisplay);
@@ -26,11 +26,11 @@ export default function Edit({ dataDisplay, onClickButton }) {
 
   const handleClickEdit = async (e: any) => {
     try {
-        const response = await updateInfoCompany(inputValue)
-        if(response?.status !== 200) {
-          alert('Cập nhật thông tin công ty không thành công')
-        }
-    }catch (error) {
+      const response = await updateInfoCompany(inputValue)
+      if (response?.status !== 200) {
+        alert('Cập nhật thông tin công ty không thành công')
+      }
+    } catch (error) {
 
     }
   };
@@ -54,7 +54,7 @@ export default function Edit({ dataDisplay, onClickButton }) {
               <label>Điện thoại:</label>
               <div>
                 <input
-                  name = 'phone'
+                  name='phone'
                   className={`${styles.l_chinhsua_item_input}`}
                   defaultValue={defaultValueInputPhone}
                   onChange={handleInputChange}
@@ -80,7 +80,7 @@ export default function Edit({ dataDisplay, onClickButton }) {
               <label>Quy mô nhân sự:</label>
               <div>
                 <input
-                  name = 'com_size'
+                  name='com_size'
                   className={`${styles.l_chinhsua_item_input}`}
                   defaultValue={defaultValueInputCom_size}
                   onChange={handleInputChange}
@@ -94,7 +94,7 @@ export default function Edit({ dataDisplay, onClickButton }) {
               <label>Địa chỉ liên lạc:</label>
               <div>
                 <input
-                  name = 'address'
+                  name='address'
                   className={`${styles.l_chinhsua_item_input}`}
                   defaultValue={defaultValueInputAddress}
                   onChange={handleInputChange}

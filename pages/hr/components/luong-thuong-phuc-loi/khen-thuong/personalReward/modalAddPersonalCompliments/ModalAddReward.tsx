@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import styles from "./ModalAddReward.module.css";
 import Select from "react-select";
 import * as Yup from "yup";
-import { getDataUser } from "@/pages/api/quan-ly-tuyen-dung/PerformRecruitment";
-import { AddAchievement } from "@/pages/api/luong-thuong-phuc-loi/reward";
+import { getDataUser } from "@/pages/hr/api/quan-ly-tuyen-dung/PerformRecruitment";
+import { AddAchievement } from "@/pages/hr/api/luong-thuong-phuc-loi/reward";
 
-function ModalAddReward({ animation, onClose,updateData }: any) {
+function ModalAddReward({ animation, onClose, updateData }: any) {
   const [user, setUser] = useState<any>();
   const [content, setContent] = useState<any>();
   const [listUser, setListUser] = useState<any>();
@@ -37,7 +37,7 @@ function ModalAddReward({ animation, onClose,updateData }: any) {
             label: `${item.userName} ${item.nameDeparment}`,
           }))
         );
-      } catch (err) {}
+      } catch (err) { }
     };
     getData();
   }, []);
@@ -119,9 +119,8 @@ function ModalAddReward({ animation, onClose,updateData }: any) {
     <>
       <div className={`${styles.overlay}`}></div>
       <div
-        className={`${styles.modal} ${styles.modal_setting}  ${
-          animation ? styles.fade_in : styles.fade_out
-        }`}
+        className={`${styles.modal} ${styles.modal_setting}  ${animation ? styles.fade_in : styles.fade_out
+          }`}
         style={{ display: "block" }}
       >
         <div className={`${styles.modal_dialog} ${styles.contentquytrinh}`}>
@@ -202,7 +201,7 @@ function ModalAddReward({ animation, onClose,updateData }: any) {
                     <span className={`${styles.red}`}> *</span>
                     {errors.list_user && (
                       <>
-                        <div className={`${styles.errors}`} style={{marginTop: '6px'}}>
+                        <div className={`${styles.errors}`} style={{ marginTop: '6px' }}>
                           {errors.list_user}
                         </div>
                       </>
@@ -292,7 +291,7 @@ function ModalAddReward({ animation, onClose,updateData }: any) {
                     ></input>
                     {errors.achievement_at && (
                       <>
-                        
+
                         <div className={`${styles.errors}`}>
                           {errors.achievement_at}
                         </div>
@@ -307,7 +306,7 @@ function ModalAddReward({ animation, onClose,updateData }: any) {
                     <span className={`${styles.red}`}> *</span>
                     {errors.achievement_type && (
                       <>
-                        <div className={`${styles.errors}`} style={{marginTop: '6px'}}>
+                        <div className={`${styles.errors}`} style={{ marginTop: '6px' }}>
                           {errors.achievement_type}
                         </div>
                       </>

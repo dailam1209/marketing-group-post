@@ -1,14 +1,14 @@
 import React, { useState, useEffect, ChangeEvent, MouseEventHandler, useMemo } from 'react';
 import styles from './hrReport.module.css'
 import Select from 'react-select'
-import BodyFrameFooter from '@/components/bodyFrame/bodyFrame_footer/bodyFrame_footer';
+import BodyFrameFooter from '@/pages/hr/components/bodyFrame/bodyFrame_footer/bodyFrame_footer';
 import EmployeeInformation from './bodySection1';
 import InformationSection2 from './bodySection2';
 import InfomationSection3 from './bodySection3';
 import { addDays, format } from 'date-fns';
-import { GetDataHrReports, ReportCharts } from '@/pages/api/bao-cao-nhan-su/HrReportService'
-import { DepartmentList } from "@/pages/api/listPhongBan";
-import GetComId from '@/components/getComID';
+import { GetDataHrReports, ReportCharts } from '@/pages/hr/api/bao-cao-nhan-su/HrReportService'
+import { DepartmentList } from "@/pages/hr/api/listPhongBan";
+import GetComId from '@/pages/hr/components/getComID';
 type SelectOptionType = { label: string, value: any }
 
 export default function TabHRReport({ dateRangeDatas }: any) {
@@ -16,7 +16,7 @@ export default function TabHRReport({ dateRangeDatas }: any) {
     const defaultStartDate = format(addDays(new Date(), -12), 'yyyy-MM-dd');
     const defaultEndDate = format(new Date(), 'yyyy-MM-dd');
     const [tokenComId, setComId] = useState<any>(null);
-    const COOKIE_KEY = "user_365";
+    const COOKIE_KEY = "token_base365";
 
     const [selectedOption, setSelectedOption] = useState<SelectOptionType | null>(null);
     const [startDate, setStartDate] = useState(defaultStartDate);

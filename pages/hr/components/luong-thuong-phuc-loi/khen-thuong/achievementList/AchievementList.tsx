@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import RewardTable from "../component/Component";
 import styles from "../component/Component.module.css";
-import { SignIn } from "@/pages/api/Home/HomeService";
-import { GetDataAchievement } from "@/pages/api/luong-thuong-phuc-loi/reward";
-import MyPagination from "@/components/pagination/Pagination";
-import BodyFrameFooter from "@/components/bodyFrame/bodyFrame_footer/bodyFrame_footer";
+import { SignIn } from "@/pages/hr/api/Home/HomeService";
+import { GetDataAchievement } from "@/pages/hr/api/luong-thuong-phuc-loi/reward";
+import MyPagination from "@/pages/hr/components/pagination/Pagination";
+import BodyFrameFooter from "@/pages/hr/components/bodyFrame/bodyFrame_footer/bodyFrame_footer";
 
-export interface AchievementList {}
+export interface AchievementList { }
 export default function AchievementList({ iconEdit }: any) {
   const [data, setData] = useState<any>();
   const [currentPage, setCurrentPage] = useState<any>(1);
@@ -40,7 +40,7 @@ export default function AchievementList({ iconEdit }: any) {
         data={newData}
         modal={<></>}
         keyWords={handleSearch}
-        iconEdit = {iconEdit}
+        iconEdit={iconEdit}
       ></RewardTable>
       <div className={`${styles.pagination}`}>
         <MyPagination

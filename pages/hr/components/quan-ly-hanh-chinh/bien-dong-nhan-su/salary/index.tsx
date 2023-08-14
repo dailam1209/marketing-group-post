@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import Select from 'react-select'
 import styles from '../../thong-tin-nhan-su/tab/employeeManagement.module.css'
-import BodyFrameFooter from "@/components/bodyFrame/bodyFrame_footer/bodyFrame_footer";
-import { DetailReport } from "@/pages/api/bao-cao-nhan-su/HrReportService";
-import { EmployeeList } from "@/pages/api/listNhanVien";
+import BodyFrameFooter from "@/pages/hr/components/bodyFrame/bodyFrame_footer/bodyFrame_footer";
+import { DetailReport } from "@/pages/hr/api/bao-cao-nhan-su/HrReportService";
+import { EmployeeList } from "@/pages/hr/api/listNhanVien";
 import { format, parseISO } from "date-fns";
-import GetComId from "@/components/getComID";
+import GetComId from "@/pages/hr/components/getComID";
 
 type SelectOptionType = { value: string, label: string }
 export interface TabSalary {

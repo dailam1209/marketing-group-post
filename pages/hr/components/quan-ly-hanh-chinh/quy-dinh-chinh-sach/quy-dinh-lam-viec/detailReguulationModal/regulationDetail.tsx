@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from './detailRegulationModal.module.css'
-import MyEditor from "@/components/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/components/Editor";
-import { RegulationsDetails } from "@/pages/api/quy_dinh_chinh_sach";
-import { SpecifiedGroupList } from '@/pages/api/quy_dinh_chinh_sach';
+import { RegulationsDetails } from "@/pages/hr/api/quy_dinh_chinh_sach";
+import { SpecifiedGroupList } from '@/pages/hr/api/quy_dinh_chinh_sach';
 import { format } from "date-fns";
 import UpdateRegulationsModal from "../updateRegulationModal/updateRegulation";
 

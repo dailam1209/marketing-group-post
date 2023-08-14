@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import Select from 'react-select';
-import styles from '@/components/quan-ly-tuyen-dung/danh-sach-ung-vien/candidateAddModal/candidateAddModal.module.css'
-import { DepartmentList } from "@/pages/api/listPhongBan";
-import { EmployeeList } from "@/pages/api/listNhanVien";
-import { PostionCharData } from "@/pages/api/co_cau_to_chuc";
-import { AddUserSignature } from "@/pages/api/co_cau_to_chuc";
-import GetComId from "@/components/getComID";
+import styles from '@/pages/hr/components/quan-ly-tuyen-dung/danh-sach-ung-vien/candidateAddModal/candidateAddModal.module.css'
+import { DepartmentList } from "@/pages/hr/api/listPhongBan";
+import { EmployeeList } from "@/pages/hr/api/listNhanVien";
+import { PostionCharData } from "@/pages/hr/api/co_cau_to_chuc";
+import { AddUserSignature } from "@/pages/hr/api/co_cau_to_chuc";
+import GetComId from "@/pages/hr/components/getComID";
 
 type SelectOptionType = { label: string, value: string }
 

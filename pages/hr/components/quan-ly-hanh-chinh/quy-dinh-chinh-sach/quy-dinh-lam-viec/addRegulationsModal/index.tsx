@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from './addRegulationsModal.module.css'
-import MyEditorNew from "@/components/myEditor";
-import { AddSpecifiedGroup } from "@/pages/api/quy_dinh_chinh_sach";
+import MyEditorNew from "@/pages/hr/components/myEditor";
+import { AddSpecifiedGroup } from "@/pages/hr/api/quy_dinh_chinh_sach";
 import * as Yup from "yup";
 interface InputTextareaProps {
     onDescriptionChange: (data: any) => void;

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styles from '../addRegulationsModal/addRegulationsModal.module.css'
-import MyEditorNew from "@/components/myEditor";
-import { GroupUpdate } from "@/pages/api/quy_dinh_chinh_sach";
-import { GroupDetails } from "@/pages/api/quy_dinh_chinh_sach";
+import MyEditorNew from "@/pages/hr/components/myEditor";
+import { GroupUpdate } from "@/pages/hr/api/quy_dinh_chinh_sach";
+import { GroupDetails } from "@/pages/hr/api/quy_dinh_chinh_sach";
 import { format } from 'date-fns';
 
 interface InputTextareaProps {

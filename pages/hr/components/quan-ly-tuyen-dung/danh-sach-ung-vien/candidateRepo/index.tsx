@@ -2,10 +2,10 @@ import React, { useEffect, useState, useMemo, useCallback } from "react";
 import styles from './candidateRepo.module.css'
 import Select from 'react-select';
 import { useRouter } from "next/router";
-import { CandidateList } from "@/pages/api/quan-ly-tuyen-dung/candidateList";
-import { GetListNews } from "@/pages/api/quan-ly-tuyen-dung/PerformRecruitment";
+import { CandidateList } from "@/pages/hr/api/quan-ly-tuyen-dung/candidateList";
+import { GetListNews } from "@/pages/hr/api/quan-ly-tuyen-dung/PerformRecruitment";
 import { parseISO, format } from "date-fns";
-import MyPagination from "@/components/pagination/Pagination";
+import MyPagination from "@/pages/hr/components/pagination/Pagination";
 import Head from "next/head";
 
 type SelectOptionType = { label: string, value: any }

@@ -4,7 +4,7 @@ import Layout from "./components/Layout";
 import { useDrop, DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { useEffect, useState } from "react";
-import { CheckLogIn, SignIn } from "./api/Home/HomeService";
+import { CheckLogIn } from "./api/Home/HomeService";
 import { useRouter } from "next/router";
 import LoadingSpinner from "./components/loading";
 
@@ -15,6 +15,7 @@ export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
     const checkLoginAndRedirect = async () => {
       const currentCookie = await CheckLogIn();
+      console.log(currentCookie);
       if (currentCookie) {
         setLoading(true)
       } else {

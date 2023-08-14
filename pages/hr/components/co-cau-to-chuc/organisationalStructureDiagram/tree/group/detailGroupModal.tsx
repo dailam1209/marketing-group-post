@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from '../room/detailRoomModal/detailRoomModal.module.css'
 import Select from 'react-select';
-import { OrganizationalStructureDetail } from "@/pages/api/co_cau_to_chuc";
+import { OrganizationalStructureDetail } from "@/pages/hr/api/co_cau_to_chuc";
 
 export default function DetailsGroupModal({ groupId, onCancel }: any) {
 

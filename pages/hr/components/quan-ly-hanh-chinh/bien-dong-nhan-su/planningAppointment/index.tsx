@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useRef, MouseEventHandler, useMemo, useCallback } from "react";
 import Select from 'react-select'
 import styles from '../../thong-tin-nhan-su/tab/employeeManagement.module.css'
-import BodyFrameFooter from "@/components/bodyFrame/bodyFrame_footer/bodyFrame_footer";
+import BodyFrameFooter from "@/pages/hr/components/bodyFrame/bodyFrame_footer/bodyFrame_footer";
 import AddPlanningModal from "./addPlanningModal";
 import EditPlanningModal from "./editPlanningModal";
 import { parseISO, format } from 'date-fns';
-import { PlanningAppointmentList } from "@/pages/api/bien_dong_nhan_su";
-import { EmployeeList } from "@/pages/api/listNhanVien";
-import { DepartmentList } from "@/pages/api/listPhongBan";
+import { PlanningAppointmentList } from "@/pages/hr/api/bien_dong_nhan_su";
+import { EmployeeList } from "@/pages/hr/api/listNhanVien";
+import { DepartmentList } from "@/pages/hr/api/listPhongBan";
 import DeletePlanningAppointments from "./deletePlanningModal";
-import GetComId from "@/components/getComID";
+import GetComId from "@/pages/hr/components/getComID";
 
 type SelectOptionType = { label: string, value: string }
 

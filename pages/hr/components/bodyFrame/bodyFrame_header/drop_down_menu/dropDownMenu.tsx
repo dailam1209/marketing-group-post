@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import styles from './dropDownMenu.module.css'
 import Link from "next/link";
 import { deleteCookie } from 'cookies-next';
-export interface DropDownMenu {}
+export interface DropDownMenu { }
 
-export default function DropDownMenu({dataHeader}) {
+export default function DropDownMenu({ dataHeader }) {
     const [logoutClicked, setLogoutClicked] = useState(false);
     const [shouldOpenInNewTab, setShouldOpenInNewTab] = useState(true); // Thêm trạng thái
     const ListMenu = [
@@ -43,8 +43,8 @@ export default function DropDownMenu({dataHeader}) {
     ]
 
     const handleClearCookies = () => {
-        if( logoutClicked ) {
-            deleteCookie('user_365');
+        if (logoutClicked) {
+            deleteCookie('token_base365');
         }
     }
     return (
@@ -55,14 +55,14 @@ export default function DropDownMenu({dataHeader}) {
                 <div className={`${styles.menu_id}`}>{dataHeader?.data.idQLC || ''}</div>
                 {ListMenu.map((item, index) => (
                     <div key={index}>
-                        <Link 
-                         target={item.text === 'Đăng xuất' || item.img === '	/dangxuat.svg' && shouldOpenInNewTab ? "" : "_blank"}
-                         href={item.href}
-                               onClick={() => {
+                        <Link
+                            target={item.text === 'Đăng xuất' || item.img === '	/dangxuat.svg' && shouldOpenInNewTab ? "" : "_blank"}
+                            href={item.href}
+                            onClick={() => {
                                 if (item.text === 'Đăng xuất' || item.img === '	/dangxuat.svg') {
-                                    setLogoutClicked(true); 
+                                    setLogoutClicked(true);
                                 } else {
-                                    setLogoutClicked(false); 
+                                    setLogoutClicked(false);
                                 }
                                 handleClearCookies();
                             }}

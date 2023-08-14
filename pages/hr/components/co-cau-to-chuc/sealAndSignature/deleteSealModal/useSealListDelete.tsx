@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "../../../quan-ly-tuyen-dung/quy-trinh-tuyen-dung/deleteRecruitmentProcess/DeleteRecruitmentProcess.module.css"
-import { SealAndSignatureDelete } from "@/pages/api/co_cau_to_chuc";
+import { SealAndSignatureDelete } from "@/pages/hr/api/co_cau_to_chuc";
 
 
 export default function DeleteSealUseList({ onCancel, empId }: any) {

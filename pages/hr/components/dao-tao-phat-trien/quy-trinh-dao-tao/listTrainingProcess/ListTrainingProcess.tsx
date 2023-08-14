@@ -4,12 +4,12 @@ import styles from "./ListTrainingProcess.module.css";
 import { useRouter } from "next/router";
 import AddTrainingProcess from "../addTrainingProcess/AddTrainingProcess";
 import DeleteTrainingProcess from "../deleteTrainingProcess/DeleteTrainingProcess";
-import BodyFrameFooter from "@/components/bodyFrame/bodyFrame_footer/bodyFrame_footer";
-import MyPagination from "@/components/pagination/Pagination";
-import { getDataListProcessTrain } from "@/pages/api/dao-tao-phat-trien/TrainingProcess";
+import BodyFrameFooter from "@/pages/hr/components/bodyFrame/bodyFrame_footer/bodyFrame_footer";
+import MyPagination from "@/pages/hr/components/pagination/Pagination";
+import { getDataListProcessTrain } from "@/pages/hr/api/dao-tao-phat-trien/TrainingProcess";
 import Link from "next/link";
 
-export default function ListTrainingProcess({ iconAdd,iconEdit, iconDelete }: any) {
+export default function ListTrainingProcess({ iconAdd, iconEdit, iconDelete }: any) {
   const [openModal, setOpenModal] = useState(0);
   const [animateModal, setAnimateModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -20,7 +20,7 @@ export default function ListTrainingProcess({ iconAdd,iconEdit, iconDelete }: an
 
   const handlePageChange = (page: any) => {
     setCurrentPage(page);
-  };  
+  };
   const handleOpenModalAdd = (type: any) => {
     setOpenModal(type);
     setAnimateModal(true);
@@ -37,7 +37,7 @@ export default function ListTrainingProcess({ iconAdd,iconEdit, iconDelete }: an
       setOpenModal(0);
     }, 300);
   };
-  
+
   const handleSearch = (name) => {
     setName(name)
   }
@@ -47,11 +47,11 @@ export default function ListTrainingProcess({ iconAdd,iconEdit, iconDelete }: an
 
   useEffect(() => {
     const getListProcessTrain = async () => {
-      const response = await getDataListProcessTrain(currentPage, 5 ,name)
+      const response = await getDataListProcessTrain(currentPage, 5, name)
       setData(response?.data.data);
     }
     getListProcessTrain()
-  },[newData, currentPage, name])
+  }, [newData, currentPage, name])
 
   return (
     <>
@@ -64,21 +64,21 @@ export default function ListTrainingProcess({ iconAdd,iconEdit, iconDelete }: an
               <div className={`${styles.add_quytrinh1}`}>
                 {iconAdd && (
                   <button
-                  className={`${styles.adds}`}
-                  onClick={() => handleOpenModalAdd(1)}
-                >
-                  <picture>
-                    <img src={`/add.png`} alt="+" />
-                  </picture>
-                  <p>Thêm mới</p>
-                </button>
+                    className={`${styles.adds}`}
+                    onClick={() => handleOpenModalAdd(1)}
+                  >
+                    <picture>
+                      <img src={`/add.png`} alt="+" />
+                    </picture>
+                    <p>Thêm mới</p>
+                  </button>
                 )}
               </div>
               {openModal === 1 && (
                 <AddTrainingProcess
                   animation={animateModal}
                   closeModal={handleCloseModal}
-                  handleNewData = {handleNewData}
+                  handleNewData={handleNewData}
                 ></AddTrainingProcess>
               )}
               {openModal === 2 && (
@@ -86,7 +86,7 @@ export default function ListTrainingProcess({ iconAdd,iconEdit, iconDelete }: an
                   animation={animateModal}
                   closeModal={handleCloseModal}
                   id={id}
-                  handleNewData = {handleNewData}
+                  handleNewData={handleNewData}
                 ></DeleteTrainingProcess>
               )}
               <div className={`${styles.search_quytrinh}`}>
@@ -114,22 +114,22 @@ export default function ListTrainingProcess({ iconAdd,iconEdit, iconDelete }: an
 
             <div className={`${styles.all_quytrinh}`}>
               {data?.data.map((item) => (
-               <div key={item.id}>
+                <div key={item.id}>
                   <div className={`${styles.quytrinh_item}`}>
                     <div className={`${styles.quytrinh_item1}`}>
-                    <Link
-                      passHref
-                      href={{
-                        pathname:
-                          `/dao-tao-phat-trien/quy-trinh-dao-tao/${item.id}`,
-                          query: {iconAdd: iconAdd?.toString(),iconEdit: iconEdit?.toString(), iconDelete: iconDelete?.toString() }
-                      }}
-                      as = {`/dao-tao-phat-trien/quy-trinh-dao-tao/${item.id}`}
-                    >
-                      <div className={`${styles.quytrinh_item11_link}`}>
-                      (QTĐT{item.id}) {item.name}
-                      </div>
-                    </Link>
+                      <Link
+                        passHref
+                        href={{
+                          pathname:
+                            `/dao-tao-phat-trien/quy-trinh-dao-tao/${item.id}`,
+                          query: { iconAdd: iconAdd?.toString(), iconEdit: iconEdit?.toString(), iconDelete: iconDelete?.toString() }
+                        }}
+                        as={`/dao-tao-phat-trien/quy-trinh-dao-tao/${item.id}`}
+                      >
+                        <div className={`${styles.quytrinh_item11_link}`}>
+                          (QTĐT{item.id}) {item.name}
+                        </div>
+                      </Link>
 
                       <div className={`${styles.quytrinh_item12}`}>
                         <li>{item.description}</li>
@@ -138,12 +138,12 @@ export default function ListTrainingProcess({ iconAdd,iconEdit, iconDelete }: an
 
                     {iconDelete && (
                       <div className={`${styles.quytrinh_item2}`}>
-                      <button onClick={() => handleOpenModalDelete(item.id)}>
-                        <picture>
-                          <img src={`/trash.png`} alt="Xóa"></img>
-                        </picture>
-                      </button>
-                    </div>
+                        <button onClick={() => handleOpenModalDelete(item.id)}>
+                          <picture>
+                            <img src={`/trash.png`} alt="Xóa"></img>
+                          </picture>
+                        </button>
+                      </div>
                     )}
                   </div>
                   <hr className={`${styles.shr}`}></hr>
@@ -153,16 +153,16 @@ export default function ListTrainingProcess({ iconAdd,iconEdit, iconDelete }: an
           </div>
         </div>
         {data?.totalCount > 5 && (
-           <div className={`${styles.pagination}`}>
-          <MyPagination
-            current={currentPage}
-            total={data?.totalCount}
-            pageSize={5}
-            onChange={handlePageChange}
-          />
-        </div>
+          <div className={`${styles.pagination}`}>
+            <MyPagination
+              current={currentPage}
+              total={data?.totalCount}
+              pageSize={5}
+              onChange={handlePageChange}
+            />
+          </div>
         )}
-       
+
         <BodyFrameFooter src="https://www.youtube.com/embed/U0c_dQb-6z0"></BodyFrameFooter>
       </div>
     </>

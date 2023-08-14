@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./table.module.css";
 import { Space } from "antd";
-import CustomCollapse from "@/components/collapse/CustomCollapse";
+import CustomCollapse from "@/pages/hr/components/collapse/CustomCollapse";
 import DataQTTD from "./quy-trinh-tuyen-dung";
 import DataTTD from "./tin-tuyen-dung";
 import DataVTCV from "./vi-tri-cong-viec";
@@ -29,7 +29,7 @@ export default function TableData({ data, dataCheck, listCheck }) {
       };
 
       setLocalListCheck((prev) => (
-        {...prev,...dataObject}
+        { ...prev, ...dataObject }
       ));
       dataCheck(dataObject);
     } else if (name === "list_recuitment_new" && checked) {
@@ -40,7 +40,7 @@ export default function TableData({ data, dataCheck, listCheck }) {
       };
 
       setLocalListCheck((prev) => (
-        {...prev,...dataObject}
+        { ...prev, ...dataObject }
       ));
       dataCheck(dataObject);
     } else if (name === "list_job_desc" && checked) {
@@ -51,7 +51,7 @@ export default function TableData({ data, dataCheck, listCheck }) {
       };
 
       setLocalListCheck((prev) => (
-        {...prev,...dataObject}
+        { ...prev, ...dataObject }
       ));
       dataCheck(dataObject);
     } else if (name === "list_training_process" && checked) {
@@ -61,8 +61,8 @@ export default function TableData({ data, dataCheck, listCheck }) {
         [name]: idsAsString,
       };
 
-       setLocalListCheck((prev) => (
-        {...prev,...dataObject}
+      setLocalListCheck((prev) => (
+        { ...prev, ...dataObject }
       ));
       dataCheck(dataObject);
     } else if (name === "list_provision" && checked) {
@@ -72,8 +72,8 @@ export default function TableData({ data, dataCheck, listCheck }) {
         [name]: idsAsString,
       };
 
-       setLocalListCheck((prev) => (
-        {...prev,...dataObject}
+      setLocalListCheck((prev) => (
+        { ...prev, ...dataObject }
       ));
       dataCheck(dataObject);
     } else if (name === "list_employe_policy" && checked) {
@@ -82,8 +82,8 @@ export default function TableData({ data, dataCheck, listCheck }) {
       const dataObject = {
         [name]: idsAsString,
       };
-       setLocalListCheck((prev) => (
-        {...prev,...dataObject}
+      setLocalListCheck((prev) => (
+        { ...prev, ...dataObject }
       ));
       dataCheck(dataObject);
     } else if (name === "list_recuitment" && !checked) {
@@ -91,8 +91,8 @@ export default function TableData({ data, dataCheck, listCheck }) {
       const dataObject = {
         [name]: allIds,
       };
-       setLocalListCheck((prev) => (
-        {...prev,...dataObject}
+      setLocalListCheck((prev) => (
+        { ...prev, ...dataObject }
       ));
       dataCheck(dataObject);
     } else if (name === "list_recuitment_new" && !checked) {
@@ -101,8 +101,8 @@ export default function TableData({ data, dataCheck, listCheck }) {
         [name]: allIds,
       };
 
-       setLocalListCheck((prev) => (
-        {...prev,...dataObject}
+      setLocalListCheck((prev) => (
+        { ...prev, ...dataObject }
       ));
       dataCheck(dataObject);
     } else if (name === "list_job_desc" && !checked) {
@@ -111,8 +111,8 @@ export default function TableData({ data, dataCheck, listCheck }) {
         [name]: allIds,
       };
 
-       setLocalListCheck((prev) => (
-        {...prev,...dataObject}
+      setLocalListCheck((prev) => (
+        { ...prev, ...dataObject }
       ));
       dataCheck(dataObject);
     } else if (name === "list_training_process" && !checked) {
@@ -121,8 +121,8 @@ export default function TableData({ data, dataCheck, listCheck }) {
         [name]: allIds,
       };
 
-       setLocalListCheck((prev) => (
-        {...prev,...dataObject}
+      setLocalListCheck((prev) => (
+        { ...prev, ...dataObject }
       ));
       dataCheck(dataObject);
     } else if (name === "list_provision" && !checked) {
@@ -131,8 +131,8 @@ export default function TableData({ data, dataCheck, listCheck }) {
         [name]: allIds,
       };
 
-       setLocalListCheck((prev) => (
-        {...prev,...dataObject}
+      setLocalListCheck((prev) => (
+        { ...prev, ...dataObject }
       ));
       dataCheck(dataObject);
     } else if (name === "list_employe_policy" && !checked) {
@@ -140,8 +140,8 @@ export default function TableData({ data, dataCheck, listCheck }) {
       const dataObject = {
         [name]: allIds,
       };
-       setLocalListCheck((prev) => (
-        {...prev,...dataObject}
+      setLocalListCheck((prev) => (
+        { ...prev, ...dataObject }
       ));
       dataCheck(dataObject);
     }
@@ -203,7 +203,7 @@ export default function TableData({ data, dataCheck, listCheck }) {
               <DataQTTD
                 list_recuitment={list_recuitment}
                 dataCheckBox={handleListCheckChange}
-                localListCheck = {localListCheck}
+                localListCheck={localListCheck}
               ></DataQTTD>
             </CustomCollapse>
           </div>
@@ -244,7 +244,7 @@ export default function TableData({ data, dataCheck, listCheck }) {
               <DataTTD
                 list_recuitment_new={list_recuitment_new}
                 dataCheckBox={handleListCheckChange}
-                localListCheck = {localListCheck}
+                localListCheck={localListCheck}
               ></DataTTD>
             </CustomCollapse>
           </div>
@@ -285,7 +285,7 @@ export default function TableData({ data, dataCheck, listCheck }) {
               <DataVTCV
                 list_job_desc={list_job_desc}
                 dataCheckBox={handleListCheckChange}
-                localListCheck = {localListCheck}
+                localListCheck={localListCheck}
               ></DataVTCV>
             </CustomCollapse>
           </div>
@@ -326,7 +326,7 @@ export default function TableData({ data, dataCheck, listCheck }) {
               <DataQTDT
                 list_training_process={list_training_process}
                 dataCheckBox={handleListCheckChange}
-                localListCheck = {localListCheck}
+                localListCheck={localListCheck}
               ></DataQTDT>
             </CustomCollapse>
           </div>
@@ -367,7 +367,7 @@ export default function TableData({ data, dataCheck, listCheck }) {
               <DataQTLV
                 list_provision={list_provision}
                 dataCheckBox={handleListCheckChange}
-                localListCheck = {localListCheck}
+                localListCheck={localListCheck}
               ></DataQTLV>
             </CustomCollapse>
           </div>
@@ -408,7 +408,7 @@ export default function TableData({ data, dataCheck, listCheck }) {
               <DataCSNV
                 list_employe_policy={list_employe_policy}
                 dataCheckBox={handleListCheckChange}
-                localListCheck = {localListCheck}
+                localListCheck={localListCheck}
               ></DataCSNV>
             </CustomCollapse>
           </div>

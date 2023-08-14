@@ -1,6 +1,6 @@
 import React from "react";
 import styles from '../../workingRotation/deleteWorkingModal/deleteWorkingModal.module.css'
-import { DeleteOutJob } from "@/pages/api/bien_dong_nhan_su";
+import { DeleteOutJob } from "@/pages/hr/api/bien_dong_nhan_su";
 
 export default function DeleteOutJobs({ onCancel, ep_id }: any) {
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import styles from '../../workingRotation/deleteWorkingModal/deleteWorkingModal.module.css'
-import { DeletePlanningAppointment } from "@/pages/api/bien_dong_nhan_su";
+import { DeletePlanningAppointment } from "@/pages/hr/api/bien_dong_nhan_su";
 
 export default function DeletePlanningAppointments({ onCancel, ep_id }: any) {
 

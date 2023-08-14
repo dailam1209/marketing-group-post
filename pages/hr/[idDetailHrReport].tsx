@@ -1,14 +1,14 @@
 import React, { useEffect, useState, useMemo, useCallback } from "react";
-import styles from "./bao-cao-nhan-su/detailHrReport.module.css"
+import styles from "../hr/bao-cao-nhan-su/detailHrReport.module.css"
 import Select from 'react-select';
 import { useRouter } from "next/router";
 import { parseISO, format } from "date-fns";
-import MyPagination from "@/components/pagination/Pagination";
+import MyPagination from "@/pages/hr/components/pagination/Pagination";
 import Image from "next/image";
 import { DetailReport } from "./api/bao-cao-nhan-su/HrReportService";
-import { DepartmentList } from "@/pages/api/listPhongBan";
-import { PostionCharData } from '@/pages/api/co_cau_to_chuc';
-import GetComId from "@/components/getComID";
+import { DepartmentList } from "@/pages/hr/api/listPhongBan";
+import { PostionCharData } from '@/pages/hr/api/co_cau_to_chuc';
+import GetComId from "@/pages/hr/components/getComID";
 
 type SelectOptionType = { label: string, value: any }
 

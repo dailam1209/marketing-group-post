@@ -1,10 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from "react";
 import styles from "./PersonalInformation.module.css";
-import { EmployeeInfo, UpdateInfoEmployee } from "@/pages/api/cai-dat/generalSettings";
+import { EmployeeInfo, UpdateInfoEmployee } from "@/pages/hr/api/cai-dat/generalSettings";
 import { format } from "date-fns";
 
-export default function PersonalInformation({}) {
+export default function PersonalInformation({ }) {
   const [active, setActive] = useState<any>(true);
   const [dataUser, setDataUser] = useState<any>();
   const [content, setContent] = useState<any>();
@@ -16,7 +16,7 @@ export default function PersonalInformation({}) {
       try {
         const response = await EmployeeInfo();
         setDataUser(response?.data?.data);
-      } catch (error) {}
+      } catch (error) { }
     };
     fetchDataUser();
   }, []);
@@ -53,14 +53,14 @@ export default function PersonalInformation({}) {
     }));
   };
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    try{
-        const response = await UpdateInfoEmployee(content, birthday)
-        if(response?.status === 200) {
-            setActive(true)
-        }
-    }catch(error) {
+    try {
+      const response = await UpdateInfoEmployee(content, birthday)
+      if (response?.status === 200) {
+        setActive(true)
+      }
+    } catch (error) {
 
     }
   }
@@ -129,8 +129,8 @@ export default function PersonalInformation({}) {
                     {dataUser?.gender === 1
                       ? "Nam"
                       : dataUser?.gender === 2
-                      ? "Nữ"
-                      : "Khác"}
+                        ? "Nữ"
+                        : "Khác"}
                   </span>
                 </div>
               </div>
@@ -202,8 +202,8 @@ export default function PersonalInformation({}) {
                             dataUser?.gender === 1
                               ? "Nam"
                               : dataUser?.gender === 2
-                              ? "Nữ"
-                              : "Khác"
+                                ? "Nữ"
+                                : "Khác"
                           }
                           className={`${styles.l_input_edit}`}
                           style={{ width: "100%" }}
@@ -277,14 +277,14 @@ export default function PersonalInformation({}) {
                         />
                       </div>
                     </div>
-                    
+
                   </div>
                   <div className={`${styles.l_btn_info}`}>
-                        <div>
-                            <button className={`${styles.l_quaylai}`} onClick={() =>setActive(true)}>Quay lại</button>
-                            <button className={`${styles.l_luu}`} type="submit">Lưu thay đổi</button>
-                        </div>
+                    <div>
+                      <button className={`${styles.l_quaylai}`} onClick={() => setActive(true)}>Quay lại</button>
+                      <button className={`${styles.l_luu}`} type="submit">Lưu thay đổi</button>
                     </div>
+                  </div>
                 </form>
               </div>
             </>

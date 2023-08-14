@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from '../room/editRoomModal/editRoomModal.module.css'
 import Select from 'react-select';
-import { OrganizationalStructureUpdate } from "@/pages/api/co_cau_to_chuc";
+import { OrganizationalStructureUpdate } from "@/pages/hr/api/co_cau_to_chuc";
 
 type SelectOptionType = { label: any, value: any }
 type EditGorupModalProps = {

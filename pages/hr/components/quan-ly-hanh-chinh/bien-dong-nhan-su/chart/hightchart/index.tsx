@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
-import { PlanningAppointmentList, WorkingRotaionList, PayrollDownList, OutJobList } from "@/pages/api/bien_dong_nhan_su";
+import { PlanningAppointmentList, WorkingRotaionList, PayrollDownList, OutJobList } from "@/pages/hr/api/bien_dong_nhan_su";
 
 const Chart = (data: any) => {
 

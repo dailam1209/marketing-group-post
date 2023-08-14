@@ -3,7 +3,7 @@ import axios from "axios";
 import { hasCookie, setCookie } from "cookies-next";
 import { getToken } from "../token";
 import jwt from "jsonwebtoken";
-const COOKIE_KEY = "user_365";
+const COOKIE_KEY = "token_base365";
 
 export const getHomeData = async () => {
   const isToken = getToken(COOKIE_KEY);
@@ -40,13 +40,13 @@ export const SignIn = async () => {
         const userInfo = res?.data?.data?.data;
         setCookie(COOKIE_KEY, userInfo);
       }
-
     } catch (error) {}
   }
 };
 
 export const CheckLogIn = async () => {
   const currentCookie = hasCookie(COOKIE_KEY);
+  console.log(currentCookie);
   return currentCookie;
 };
 

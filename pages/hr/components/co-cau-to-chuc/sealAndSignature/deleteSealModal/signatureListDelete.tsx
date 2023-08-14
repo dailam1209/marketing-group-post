@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "../../../quan-ly-tuyen-dung/quy-trinh-tuyen-dung/deleteRecruitmentProcess/DeleteRecruitmentProcess.module.css"
-import { DeleteSignature } from "@/pages/api/co_cau_to_chuc";
+import { DeleteSignature } from "@/pages/hr/api/co_cau_to_chuc";
 
 
 export default function DeleteSignatures({ onCancel, empId }: any) {

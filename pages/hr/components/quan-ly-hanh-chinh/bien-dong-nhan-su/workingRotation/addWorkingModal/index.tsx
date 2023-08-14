@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useMemo } from "react";
 import styles from '../../planningAppointment/addPlanningModal/addPlanningModal.module.css'
 import Select from 'react-select';
-import MyEditorNew from "@/components/myEditor";
+import MyEditorNew from "@/pages/hr/components/myEditor";
 import * as Yup from "yup";
-import { AddWorkingRotation } from "@/pages/api/bien_dong_nhan_su";
-import { FetchDataDep, FetchDataOrganizationalStructure, FetchDataEmployee, FetchDataPosition, FetchDataSpecifiedGroup } from "@/components/util/listAll";
+import { AddWorkingRotation } from "@/pages/hr/api/bien_dong_nhan_su";
+import { FetchDataDep, FetchDataOrganizationalStructure, FetchDataEmployee, FetchDataPosition, FetchDataSpecifiedGroup } from "@/pages/hr/components/util/listAll";
 
 interface InputTextareaProps {
     onDescriptionChange: (data: any) => void

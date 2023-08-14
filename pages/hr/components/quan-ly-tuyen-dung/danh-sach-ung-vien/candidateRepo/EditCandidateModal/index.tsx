@@ -2,13 +2,13 @@ import React, { useState, useEffect, useMemo } from "react";
 import Select from "react-select";
 import styles from "../../candidateAddModal/candidateAddModal.module.css";
 import { Rating } from "react-simple-star-rating";
-import { CandidateUpdate } from "@/pages/api/quan-ly-tuyen-dung/candidateList";
-import { EmployeeList } from "@/pages/api/listNhanVien";
-import { GetListNews } from "@/pages/api/quan-ly-tuyen-dung/PerformRecruitment";
-import Selects from "@/components/select";
+import { CandidateUpdate } from "@/pages/hr/api/quan-ly-tuyen-dung/candidateList";
+import { EmployeeList } from "@/pages/hr/api/listNhanVien";
+import { GetListNews } from "@/pages/hr/api/quan-ly-tuyen-dung/PerformRecruitment";
+import Selects from "@/pages/hr/components/select";
 import * as Yup from "yup";
 import { parseISO, format } from "date-fns";
-import GetComId from "@/components/getComID";
+import GetComId from "@/pages/hr/components/getComID";
 
 type SelectOptionType = { label: string; value: any };
 

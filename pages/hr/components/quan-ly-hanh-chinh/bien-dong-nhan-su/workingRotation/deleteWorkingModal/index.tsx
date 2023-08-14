@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import styles from './deleteWorkingModal.module.css'
-import { DeleteWorkingRotation } from "@/pages/api/bien_dong_nhan_su";
+import { DeleteWorkingRotation } from "@/pages/hr/api/bien_dong_nhan_su";
 
 export default function DeleteWorkingRotations({ onCancel, ep_id }: any) {
 

@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import styles from "../component/Component.module.css";
 import RewardTable from "../component/Component";
 import ModalReward from "./modalAddPersonalCompliments/ModalAddReward";
-import { GetDataAchievement } from "@/pages/api/luong-thuong-phuc-loi/reward";
-import MyPagination from "@/components/pagination/Pagination";
-import BodyFrameFooter from "@/components/bodyFrame/bodyFrame_footer/bodyFrame_footer";
+import { GetDataAchievement } from "@/pages/hr/api/luong-thuong-phuc-loi/reward";
+import MyPagination from "@/pages/hr/components/pagination/Pagination";
+import BodyFrameFooter from "@/pages/hr/components/bodyFrame/bodyFrame_footer/bodyFrame_footer";
 
 export interface PersonalReward { }
 export default function PersonalReward({ iconAdd, iconEdit }: any) {

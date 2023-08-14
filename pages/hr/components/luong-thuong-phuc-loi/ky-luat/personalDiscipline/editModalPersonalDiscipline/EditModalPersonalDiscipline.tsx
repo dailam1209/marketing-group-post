@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styles from "./EditModalPersonalDiscipline.module.css";
 import Select from "react-select";
-import { getDataUser } from "@/pages/api/quan-ly-tuyen-dung/PerformRecruitment";
+import { getDataUser } from "@/pages/hr/api/quan-ly-tuyen-dung/PerformRecruitment";
 import { format } from "date-fns";
-import { UpdateInfringes } from "@/pages/api/luong-thuong-phuc-loi/discipline";
+import { UpdateInfringes } from "@/pages/hr/api/luong-thuong-phuc-loi/discipline";
 
-function EditModalPersonalDiscipline({animation, onClose, dataOld }: any) {
+function EditModalPersonalDiscipline({ animation, onClose, dataOld }: any) {
 
   const id = dataOld?.id
   const infringeName = dataOld?.infringeName
@@ -26,7 +26,7 @@ function EditModalPersonalDiscipline({animation, onClose, dataOld }: any) {
     regulatory_basis: regulatoryBasis,
     number_violation: numberViolation,
     infringe_at: formattedDate,
-    infringe_type:infringeType,
+    infringe_type: infringeType,
     created_by: createdBy,
   });
 
@@ -41,11 +41,11 @@ function EditModalPersonalDiscipline({animation, onClose, dataOld }: any) {
             label: `${item.userName} ${item.nameDeparment}`,
           }))
         );
-      } catch (err) {}
+      } catch (err) { }
     };
     getData();
   }, []);
-  
+
   const options = {
     tendoituong: user
   };
@@ -68,15 +68,15 @@ function EditModalPersonalDiscipline({animation, onClose, dataOld }: any) {
     }));
   };
 
-  const mergedObject = {...content, ...listUser}
+  const mergedObject = { ...content, ...listUser }
 
-  const handleSubmit = async (e:any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
       // await schema.validate(mergedObject, { abortEarly: false });
       const response = await UpdateInfringes(id, mergedObject);
 
-      if(response?.status !== 200) {
+      if (response?.status !== 200) {
         alert('Sửa khen thưởng không thành công')
       }
       else {
@@ -97,7 +97,7 @@ function EditModalPersonalDiscipline({animation, onClose, dataOld }: any) {
   return (
     <>
       <div className={`${styles.overlay}`}></div>
-      <div className={`${styles.modal} ${styles.modal_setting}  ${animation ? styles.fade_in : styles.fade_out }`} style={{display:'block'}}>
+      <div className={`${styles.modal} ${styles.modal_setting}  ${animation ? styles.fade_in : styles.fade_out}`} style={{ display: 'block' }}>
         <div className={`${styles.modal_dialog} ${styles.contentquytrinh}`}>
           <div className={`${styles.modal_content} `}>
             {/* header */}
@@ -122,7 +122,7 @@ function EditModalPersonalDiscipline({animation, onClose, dataOld }: any) {
                     ></input>
                     <picture style={{ display: "none" }}>
                       <img
-                        src = {`${'/danger.png'}`}
+                        src={`${'/danger.png'}`}
                         alt="Lỗi"
                       ></img>
                     </picture>
@@ -149,7 +149,7 @@ function EditModalPersonalDiscipline({animation, onClose, dataOld }: any) {
                     ></input>
                     <picture style={{ display: "none" }}>
                       <img
-                        src = {`${'/danger.png'}`}
+                        src={`${'/danger.png'}`}
                         alt="Lỗi"
                       ></img>
                     </picture>
@@ -172,10 +172,10 @@ function EditModalPersonalDiscipline({animation, onClose, dataOld }: any) {
                       name="number_violation"
                       className={`${styles.inputquytrinh}`}
                       onChange={handleContentChange}
-                      ></input>
+                    ></input>
                     <picture style={{ display: "none" }}>
                       <img
-                        src = {`${'/danger.png'}`}
+                        src={`${'/danger.png'}`}
                         alt="Lỗi"
                       ></img>
                     </picture>
@@ -197,12 +197,12 @@ function EditModalPersonalDiscipline({animation, onClose, dataOld }: any) {
                       defaultValue={formattedDate}
                       name="infringe_at"
                       className={`${styles.inputquytrinh}`}
-                      style={{height: "30.6px"}}
+                      style={{ height: "30.6px" }}
                       onChange={handleContentChange}
-                      ></input>
+                    ></input>
                     <picture style={{ display: "none" }}>
                       <img
-                        src = {`${'/danger.png'}`}
+                        src={`${'/danger.png'}`}
                         alt="Lỗi"
                       ></img>
                     </picture>
@@ -225,10 +225,10 @@ function EditModalPersonalDiscipline({animation, onClose, dataOld }: any) {
                       defaultValue={numberViolation}
                       name="infringe_type"
                       onChange={handleContentChange}
-                      ></input>
+                    ></input>
                     <picture style={{ display: "none" }}>
                       <img
-                       src = {`${'/danger.png'}`}
+                        src={`${'/danger.png'}`}
                         alt="Lỗi"
                       ></img>
                     </picture>
@@ -250,7 +250,7 @@ function EditModalPersonalDiscipline({animation, onClose, dataOld }: any) {
                   <div style={{ marginRight: "2%" }} className={`${styles.select}`}>
                     <Select
                       isMulti={true}
-                    
+
                       options={options.tendoituong}
                       placeholder={"--Vui lòng chọn--"}
                       onChange={(option) =>
@@ -292,10 +292,10 @@ function EditModalPersonalDiscipline({animation, onClose, dataOld }: any) {
                       defaultValue={createdBy}
                       name="created_by"
                       onChange={handleContentChange}
-                      ></input>
+                    ></input>
                     <picture style={{ display: "none" }}>
                       <img
-                        src = {`${'/danger.png'}`}
+                        src={`${'/danger.png'}`}
                         alt="Lỗi"
                       ></img>
                     </picture>

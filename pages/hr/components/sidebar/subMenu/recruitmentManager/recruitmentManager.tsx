@@ -16,17 +16,17 @@ export default function RecruitmentManager({ children }: any) {
         {
             img: "/quytrinh_td.svg",
             title: 'Quy trình tuyển dụng',
-            href: '/hr/pages/quan-ly-tuyen-dung/quy-trinh-tuyen-dung',
+            href: '/hr/quan-ly-tuyen-dung/quy-trinh-tuyen-dung',
         },
         {
             img: "/thuchien_td.svg",
             title: 'Thực hiện tuyển dụng',
-            href: '/hr/pages/quan-ly-tuyen-dung/thuc-hien-tuyen-dung'
+            href: '/hr/quan-ly-tuyen-dung/thuc-hien-tuyen-dung'
         },
         {
             img: "/ds_ungvien.svg",
             title: 'Danh sách ứng viên',
-            href: '/hr/pages/quan-ly-tuyen-dung/danh-sach-ung-vien'
+            href: '/hr/quan-ly-tuyen-dung/danh-sach-ung-vien'
         },
     ]
 

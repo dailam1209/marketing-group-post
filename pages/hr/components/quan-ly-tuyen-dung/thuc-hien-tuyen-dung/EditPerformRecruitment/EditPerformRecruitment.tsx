@@ -3,11 +3,11 @@ import styles from "./EditPerformRecruitment.module.css";
 import Select from "react-select";
 import * as Yup from "yup";
 import { format } from 'date-fns';
-import { EditNewsRecruitment, GetDataCategory, getDataAddress, getDataUser } from "@/pages/api/quan-ly-tuyen-dung/PerformRecruitment";
-import { GetDataRecruitment } from "@/pages/api/quan-ly-tuyen-dung/RecruitmentManagerService";
-export interface EditPerformRecruitment {}
+import { EditNewsRecruitment, GetDataCategory, getDataAddress, getDataUser } from "@/pages/hr/api/quan-ly-tuyen-dung/PerformRecruitment";
+import { GetDataRecruitment } from "@/pages/hr/api/quan-ly-tuyen-dung/RecruitmentManagerService";
+export interface EditPerformRecruitment { }
 
-export default function EditPerformRecruitment({ animation, handleCloseModal,data, editData }: any) {
+export default function EditPerformRecruitment({ animation, handleCloseModal, data, editData }: any) {
   const recruitmentNewsId = data.id
   const formattedTimeStart: string = format(new Date(data.timeStart), 'yyyy-MM-dd');
   const formattedTimeEnd: string = format(new Date(data.timeEnd), 'yyyy-MM-dd');
@@ -25,7 +25,7 @@ export default function EditPerformRecruitment({ animation, handleCloseModal,dat
     interest: data.interest,
     jobRequire: data.jobRequire
   });
-  
+
   const [address, setAddress] = useState<any>()
   const [recruitmentId, setRecruitmentId] = useState<any>()
   const [userMemberFollow, setUserMemberFollow] = useState<any>()
@@ -77,101 +77,101 @@ export default function EditPerformRecruitment({ animation, handleCloseModal,dat
     const getData = async () => {
       try {
         const responseAddress = await getDataAddress();
-        const responseRecruitmentId = await GetDataRecruitment(1, 10000,'')
+        const responseRecruitmentId = await GetDataRecruitment(1, 10000, '')
         const responseDataUser = await getDataUser()
         const responseCareer = await GetDataCategory()
 
-        Promise.all([responseAddress,responseRecruitmentId,responseDataUser,responseCareer])
-        .then(async (response) => {
-          const dataAddress = await response[0]?.data.data
-          const dataRecruitmentId = await response[1]?.data.data
-          const dataUser = await response[2]?.data.data
-          const dataCategory = await response[3]?.data.data
+        Promise.all([responseAddress, responseRecruitmentId, responseDataUser, responseCareer])
+          .then(async (response) => {
+            const dataAddress = await response[0]?.data.data
+            const dataRecruitmentId = await response[1]?.data.data
+            const dataUser = await response[2]?.data.data
+            const dataCategory = await response[3]?.data.data
 
-          setAddress(dataAddress?.data.map(item => ({value: item.cit_id, label: item.cit_name, name: "cityId"})))
-          setRecruitmentId(dataRecruitmentId?.data.map(item =>({value: item.id, label: (`QTTD${item.id} ${item.name}`), name: "recruitmentId"})))
-          setUserMemberFollow(dataUser?.data.map(item => ({name:"memberFollow", value: item.idQLC, label : `${item.userName} ${item.nameDeparment}`})))
-          setHrName(dataUser?.data.map(item => ({name:"hrName", value: item.idQLC, label : `${item.userName} ${item.nameDeparment}`})))
-          setCateId(dataCategory?.data.map(item => ({ value: item.cat_id , label: item.cat_name, name: 'cateId'})))
-        })
-      } catch (err) {}
+            setAddress(dataAddress?.data.map(item => ({ value: item.cit_id, label: item.cit_name, name: "cityId" })))
+            setRecruitmentId(dataRecruitmentId?.data.map(item => ({ value: item.id, label: (`QTTD${item.id} ${item.name}`), name: "recruitmentId" })))
+            setUserMemberFollow(dataUser?.data.map(item => ({ name: "memberFollow", value: item.idQLC, label: `${item.userName} ${item.nameDeparment}` })))
+            setHrName(dataUser?.data.map(item => ({ name: "hrName", value: item.idQLC, label: `${item.userName} ${item.nameDeparment}` })))
+            setCateId(dataCategory?.data.map(item => ({ value: item.cat_id, label: item.cat_name, name: 'cateId' })))
+          })
+      } catch (err) { }
     };
     getData();
   }, []);
- 
-  const options = { 
+
+  const options = {
 
     diaiemlamviec: address,
 
     vitrituyendung: [
-      {name: 'posApply', value: "1", label: "Mới tốt nghiệp" },
-      {name: 'posApply', value: "6", label: "Thực tập sinh" },
-      {name: 'posApply', value: "3", label: "Nhân viên" },
-      {name: 'posApply', value: "2", label: "Trưởng phòng" },
+      { name: 'posApply', value: "1", label: "Mới tốt nghiệp" },
+      { name: 'posApply', value: "6", label: "Thực tập sinh" },
+      { name: 'posApply', value: "3", label: "Nhân viên" },
+      { name: 'posApply', value: "2", label: "Trưởng phòng" },
     ],
     nganhnghe: cateId,
 
     mucluong: [
-      {name:'salaryId', value: "0", label: "Thỏa thuận" },
-      {name:'salaryId', value: "1", label: "1 - 3 triệu" },
-      {name:'salaryId', value: "2", label: "3 - 5 triệu" },
-      {name:'salaryId', value: "3", label: "5 - 7 triệu" },
-      {name:'salaryId', value: "4", label: "7 - 10 triệu" },
-      {name:'salaryId', value: "5", label: "10 - 15 triệu" },
-      {name:'salaryId', value: "6", label: "15 - 20 triệu" },
-      {name:'salaryId', value: "7", label: "20 - 30 triệu" },
-      {name:'salaryId', value: "8", label: "Trên 30 triệu" },
-      {name:'salaryId', value: "9", label: "Trên 50 Triệu" },
-      {name:'salaryId', value: "10", label: "Trên 100 Triệu" },
+      { name: 'salaryId', value: "0", label: "Thỏa thuận" },
+      { name: 'salaryId', value: "1", label: "1 - 3 triệu" },
+      { name: 'salaryId', value: "2", label: "3 - 5 triệu" },
+      { name: 'salaryId', value: "3", label: "5 - 7 triệu" },
+      { name: 'salaryId', value: "4", label: "7 - 10 triệu" },
+      { name: 'salaryId', value: "5", label: "10 - 15 triệu" },
+      { name: 'salaryId', value: "6", label: "15 - 20 triệu" },
+      { name: 'salaryId', value: "7", label: "20 - 30 triệu" },
+      { name: 'salaryId', value: "8", label: "Trên 30 triệu" },
+      { name: 'salaryId', value: "9", label: "Trên 50 Triệu" },
+      { name: 'salaryId', value: "10", label: "Trên 100 Triệu" },
     ],
 
     hinhthuclamviec: [
-      {name:'wokingForm', value: "1", label: "Toàn thời gian cố định" },
-      {name:'wokingForm', value: "2", label: "Toàn thời gian tạm thời" },
-      {name:'wokingForm', value: "3", label: "Bán thời gian" },
-      {name:'wokingForm', value: "4", label: "Bán thời gian tạm thời" },
-      {name:'wokingForm', value: "5", label: "Hợp đồng" },
-      {name:'wokingForm', value: "6", label: "Khác" },
+      { name: 'wokingForm', value: "1", label: "Toàn thời gian cố định" },
+      { name: 'wokingForm', value: "2", label: "Toàn thời gian tạm thời" },
+      { name: 'wokingForm', value: "3", label: "Bán thời gian" },
+      { name: 'wokingForm', value: "4", label: "Bán thời gian tạm thời" },
+      { name: 'wokingForm', value: "5", label: "Hợp đồng" },
+      { name: 'wokingForm', value: "6", label: "Khác" },
     ],
 
     maquytrinhapdung: recruitmentId,
 
     kinhnghiem: [
-      {name:'jobExp', value: "0", label: "Chưa có kinh nghiệm" },
-      {name:'jobExp', value: "1", label: "0 - 1 năm kinh nghiệm" },
-      {name:'jobExp', value: "2", label: "1 - 2 năm kinh nghiệm" },
-      {name:'jobExp', value: "3", label: "2 - 5 năm kinh nghiệm" },
-      {name:'jobExp', value: "4", label: "5 - 10 năm kinh nghiệm" },
-      {name:'jobExp', value: "5", label: "Trên 10 năm kinh nghiệm" },
+      { name: 'jobExp', value: "0", label: "Chưa có kinh nghiệm" },
+      { name: 'jobExp', value: "1", label: "0 - 1 năm kinh nghiệm" },
+      { name: 'jobExp', value: "2", label: "1 - 2 năm kinh nghiệm" },
+      { name: 'jobExp', value: "3", label: "2 - 5 năm kinh nghiệm" },
+      { name: 'jobExp', value: "4", label: "5 - 10 năm kinh nghiệm" },
+      { name: 'jobExp', value: "5", label: "Trên 10 năm kinh nghiệm" },
     ],
 
     gioitinh: [
-      {name:'gender', value: "1", label: "Nam" },
-      {name:'gender', value: "2", label: "Nữ" },
-      {name:'gender', value: "0", label: "Không yêu cầu" },
+      { name: 'gender', value: "1", label: "Nam" },
+      { name: 'gender', value: "2", label: "Nữ" },
+      { name: 'gender', value: "0", label: "Không yêu cầu" },
     ],
 
     yeucaubangcap: [
-      {name:"degree", value: "0", label: "Không yêu cầu" },
-      {name:"degree", value: "1", label: "THPT trở lên" },
-      {name:"degree", value: "2", label: "Trung học trở lên" },
-      {name:"degree", value: "3", label: "Chứng chỉ" },
-      {name:"degree", value: "4", label: "Trung cấp trở lên" },
-      {name:"degree", value: "5", label: "Cao đẳng trở lên" },
-      {name:"degree", value: "6", label: "Cử nhân trở lên" },
-      {name:"degree", value: "7", label: "Đại học trở lên" },
-      {name:"degree", value: "8", label: "Thạc sĩ trở lên" },
-      {name:"degree", value: "9", label: "Thạc sĩ Nghệ thuật" },
-      {name:"degree", value: "10", label: "Thạc sĩ Thương mại" },
-      {name:"degree", value: "11", label: "Thạc sĩ Khoa học" },
-      {name:"degree", value: "12", label: "Thạc sĩ Kiến trúc" },
-      {name:"degree", value: "13", label: "Thạc sĩ QTKD" },
-      {name:"degree", value : "14",label: "Thạc sĩ Kỹ thuật ứng dụng",},
-      {name:"degree", value: "15", label: "Thạc sĩ Luật" },
-      {name:"degree", value: "16", label: "Thạc sĩ Y học" },
-      {name:"degree", value: "17", label: "Thạc sĩ Dược phẩm" },
-      {name:"degree", value: "18", label: "Tiến sĩ" },
-      {name:"degree", value: "19", label: "Khác" },
+      { name: "degree", value: "0", label: "Không yêu cầu" },
+      { name: "degree", value: "1", label: "THPT trở lên" },
+      { name: "degree", value: "2", label: "Trung học trở lên" },
+      { name: "degree", value: "3", label: "Chứng chỉ" },
+      { name: "degree", value: "4", label: "Trung cấp trở lên" },
+      { name: "degree", value: "5", label: "Cao đẳng trở lên" },
+      { name: "degree", value: "6", label: "Cử nhân trở lên" },
+      { name: "degree", value: "7", label: "Đại học trở lên" },
+      { name: "degree", value: "8", label: "Thạc sĩ trở lên" },
+      { name: "degree", value: "9", label: "Thạc sĩ Nghệ thuật" },
+      { name: "degree", value: "10", label: "Thạc sĩ Thương mại" },
+      { name: "degree", value: "11", label: "Thạc sĩ Khoa học" },
+      { name: "degree", value: "12", label: "Thạc sĩ Kiến trúc" },
+      { name: "degree", value: "13", label: "Thạc sĩ QTKD" },
+      { name: "degree", value: "14", label: "Thạc sĩ Kỹ thuật ứng dụng", },
+      { name: "degree", value: "15", label: "Thạc sĩ Luật" },
+      { name: "degree", value: "16", label: "Thạc sĩ Y học" },
+      { name: "degree", value: "17", label: "Thạc sĩ Dược phẩm" },
+      { name: "degree", value: "18", label: "Tiến sĩ" },
+      { name: "degree", value: "19", label: "Khác" },
     ],
 
     nhanvientheodoi: userMemberFollow,
@@ -190,7 +190,7 @@ export default function EditPerformRecruitment({ animation, handleCloseModal,dat
     posApply: Number(foundObject?.value),
     salaryId: Number(foundObject3?.value),
     wokingForm: Number(foundObject2?.value),
-    jobExp: Number(foundObject4?.value) ,
+    jobExp: Number(foundObject4?.value),
     degree: Number(foundObject5?.value),
     gender: Number(foundObject6?.value),
   }
@@ -198,24 +198,24 @@ export default function EditPerformRecruitment({ animation, handleCloseModal,dat
   const [selectedOption, setSelectedOption] = useState<any>(dataSelect);
 
   const formData = Object.assign({}, content, selectedOption);
-  
-  const handleSubmit = async(e: any) => {
+
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    try{
+    try {
       await schema.validate(formData, { abortEarly: false });
       const response = await EditNewsRecruitment(recruitmentNewsId, content, selectedOption)
       console.log(response)
-      if(response?.status === 403) {
+      if (response?.status === 403) {
         alert('Bạn chưa được phân quyền trên phần mềm quản trị nhân sự 365. Vui lòng liên hệ quản trị viên để biết thêm chi tiết!')
       }
-      else if( response?.status !== 200) {
+      else if (response?.status !== 200) {
         alert('Sửa tin tuyển dụng không thành công')
       }
       else {
         handleCloseModal()
         editData(response?.data)
       }
-    }catch(error:any) {
+    } catch (error: any) {
       const validationErrors = {};
       if (error?.inner) {
         error.inner.forEach((err) => {
@@ -230,9 +230,8 @@ export default function EditPerformRecruitment({ animation, handleCloseModal,dat
     <>
       <div className={`${styles.overlay}`}></div>
       <div
-        className={`${styles.modal} ${styles.modal_setting}  ${
-          animation ? styles.fade_in : styles.fade_out
-        }`}
+        className={`${styles.modal} ${styles.modal_setting}  ${animation ? styles.fade_in : styles.fade_out
+          }`}
         style={{ display: "block" }}
       >
         <div className={` ${styles.modal_dialog} ${styles.contentquytrinh}`}>
@@ -249,7 +248,7 @@ export default function EditPerformRecruitment({ animation, handleCloseModal,dat
               <div className={`${styles.modal_body} ${styles.bodytuyendung}`}>
 
                 <div className={`${styles.form_groups}`}>
-                  <label style={{display: 'contents'}}>
+                  <label style={{ display: 'contents' }}>
                     Tiêu đề tin tuyển dụng
                     <span className={`${styles.red}`}> *</span>
                     {errors.title && (
@@ -428,7 +427,7 @@ export default function EditPerformRecruitment({ animation, handleCloseModal,dat
                   <div className={`${styles.tuyendungtext}`}>
                     <Select
                       className={`${styles.position_recruit}`}
-                      defaultValue={options.mucluong[data.salaryId -1]}
+                      defaultValue={options.mucluong[data.salaryId - 1]}
                       onChange={(option) =>
                         handleSelectionChange(option, options.mucluong)
                       }
@@ -485,7 +484,7 @@ export default function EditPerformRecruitment({ animation, handleCloseModal,dat
                     <span className={`${styles.red}`}> *</span>
                     {errors.timeStart || errors.timeEnd && (
                       <div className={`${styles.red} ${styles.float_right}`}>
-                        {errors.timeStart || errors.timeEnd }
+                        {errors.timeStart || errors.timeEnd}
                       </div>
                     )}
                   </label>
@@ -545,7 +544,7 @@ export default function EditPerformRecruitment({ animation, handleCloseModal,dat
                   <div className={`${styles.tuyendungtext}`}>
                     <Select
                       className={`${styles.position_recruit}`}
-                      defaultValue={options.hinhthuclamviec[data.wokingForm -1]}
+                      defaultValue={options.hinhthuclamviec[data.wokingForm - 1]}
                       onChange={(option) =>
                         handleSelectionChange(option, options.hinhthuclamviec)
                       }
@@ -584,7 +583,7 @@ export default function EditPerformRecruitment({ animation, handleCloseModal,dat
                   </label>
                   <div className={`${styles.tuyendungtext}`}>
                     <input
-                    style={{width: "96%"}}
+                      style={{ width: "96%" }}
                       type="text"
                       name="probationaryTime"
                       defaultValue={data.probationaryTime}
@@ -710,7 +709,7 @@ export default function EditPerformRecruitment({ animation, handleCloseModal,dat
                   <div className={`${styles.tuyendungtext}`}>
                     <Select
                       className={`${styles.position_recruit}`}
-                      defaultValue={options.kinhnghiem[data.jobExp -1]}
+                      defaultValue={options.kinhnghiem[data.jobExp - 1]}
                       onChange={(option) =>
                         handleSelectionChange(option, options.kinhnghiem)
                       }
@@ -752,7 +751,7 @@ export default function EditPerformRecruitment({ animation, handleCloseModal,dat
                   <div className={`${styles.tuyendungtext}`}>
                     <Select
                       className={`${styles.position_recruit}`}
-                      defaultValue={options.gioitinh[data.gender -1]}
+                      defaultValue={options.gioitinh[data.gender - 1]}
                       onChange={(option) =>
                         handleSelectionChange(option, options.gioitinh)
                       }
@@ -795,7 +794,7 @@ export default function EditPerformRecruitment({ animation, handleCloseModal,dat
                   <div className={`${styles.tuyendungtext}`}>
                     <Select
                       className={`${styles.position_recruit}`}
-                      defaultValue={options.yeucaubangcap[data.degree -1]}
+                      defaultValue={options.yeucaubangcap[data.degree - 1]}
                       onChange={(option) =>
                         handleSelectionChange(option, options.yeucaubangcap)
                       }

@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import styles from '../candidateAddModal/candidateAddModal.module.css'
-import { CandidateList } from "@/pages/api/quan-ly-tuyen-dung/candidateList";
-import { GetListNews } from "@/pages/api/quan-ly-tuyen-dung/PerformRecruitment";
+import { CandidateList } from '@/pages/hr/api/quan-ly-tuyen-dung/candidateList';
+import { GetListNews } from "@/pages/hr/api/quan-ly-tuyen-dung/PerformRecruitment";
 import { Rating } from 'react-simple-star-rating'
-import { EmployeeList } from "@/pages/api/listNhanVien";
+import { EmployeeList } from "@/pages/hr/api/listNhanVien";
 import { parseISO, format } from "date-fns";
-import Selects from "@/components/select";
+import Selects from '../../../select';
 import HandleAddAnotherSkill from '../candidateAddModal/addAnotherSkill';
-import MyEditorNew from '@/components/myEditor';
-import { AddFailJob } from '@/pages/api/quan-ly-tuyen-dung/candidateList';
+import MyEditorNew from "../../.././../components/myEditor"
+import { AddFailJob } from '@/pages/hr/api/quan-ly-tuyen-dung/candidateList';
 import * as Yup from "yup";
 interface InputTextareaProps {
     onDescriptionChange: (data: any) => void

@@ -80,7 +80,7 @@ export default function EmployeeInformation({ hrReportList }: any) {
         if (typeof link === "string") {
             const link_slice: any = link.slice(0, -5)
             router.push(
-                `/${link_slice}`
+                `/hr/${link_slice}`
             );
         }
     };

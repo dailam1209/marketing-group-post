@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from './editPositionModal.module.css'
 import Select from 'react-select';
-import { PostionCharUpdate } from "@/pages/api/co_cau_to_chuc";
+import { PostionCharUpdate } from "@/pages/hr/api/co_cau_to_chuc";
 
 export default function EditPositionCharModal({ idPosition, mission, onCancel }: any) {
 

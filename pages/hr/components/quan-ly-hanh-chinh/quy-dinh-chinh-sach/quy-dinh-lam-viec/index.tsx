@@ -1,19 +1,19 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { format } from 'date-fns'
 import styles from './quy-dinh-lam-viec.module.css'
-import BodyFrameFooter from '@/components/bodyFrame/bodyFrame_footer/bodyFrame_footer';
+import BodyFrameFooter from '@/pages/hr/components/bodyFrame/bodyFrame_footer/bodyFrame_footer';
 import AddRegulationsModal from './addRegulationsModal';
 import AddRegulationsModal2 from './addRegulationsModal/addRegulationsModal2';
-import MyPagination from '@/components/pagination/Pagination';
-import { SpecifiedGroupList } from '@/pages/api/quy_dinh_chinh_sach';
-import { RulesByGroupList } from '@/pages/api/quy_dinh_chinh_sach';
+import MyPagination from '@/pages/hr/components/pagination/Pagination';
+import { SpecifiedGroupList } from '@/pages/hr/api/quy_dinh_chinh_sach';
+import { RulesByGroupList } from '@/pages/hr/api/quy_dinh_chinh_sach';
 import GroupDetailModal from './detailReguulationModal/groupDetail';
 import RegulationDetailModal from './detailReguulationModal/regulationDetail';
 import UpdateRegulationsGroupsModal from './updateRegulationModal';
 import DeleteRegulationGroup from './deleteRegulationModal';
 import DeleteRegulation from './deleteRegulationModal/deleteRegulation';
 
-export default function RegulationsWork( {iconAdd, iconEdit, iconDelete}) {
+export default function RegulationsWork({ iconAdd, iconEdit, iconDelete }) {
     const [click, setClick] = useState(false)
     const [openModal, setOpenModal] = useState(0)
     const [openDetail, setOpentDetail] = useState(0)
@@ -118,11 +118,11 @@ export default function RegulationsWork( {iconAdd, iconEdit, iconDelete}) {
                         <div className={`${styles.recruitment2_3}`}>
                             {iconAdd && (
                                 <button className={`${styles.adds}`} onClick={handleClick}>
-                                <picture>
-                                    <img style={{ verticalAlign: 'middle' }} src={`/add.png`} alt="" />
-                                    Thêm mới
-                                </picture>
-                            </button>
+                                    <picture>
+                                        <img style={{ verticalAlign: 'middle' }} src={`/add.png`} alt="" />
+                                        Thêm mới
+                                    </picture>
+                                </button>
                             )}
                             {click === true && (<div className={`${styles.settings} ${styles.lefftset}`} >
                                 <li onClick={() => setOpenModal(1)}>Thêm nhóm quy định</li>
@@ -160,8 +160,8 @@ export default function RegulationsWork( {iconAdd, iconEdit, iconDelete}) {
                                             <img className={`${styles.icondown}`} src="/down.png" />
                                         </div>
                                         <a style={{ color: '#337ab7', fontWeight: 600, cursor: "pointer" }} onClick={() => handleOpendetail(item.id)} >Chi tiết/</a>
-                                        {iconEdit && <a style={{ color: '#337ab7', fontWeight: 600, cursor: "pointer" }} onClick={() => handleOpenUpdate(item.id)}>Sửa/</a>  }
-                                        {iconDelete && <a style={{ color: '#337ab7', fontWeight: 600, cursor: "pointer" }} onClick={() => handleOpenDelete(item.id)} >Xóa</a> }
+                                        {iconEdit && <a style={{ color: '#337ab7', fontWeight: 600, cursor: "pointer" }} onClick={() => handleOpenUpdate(item.id)}>Sửa/</a>}
+                                        {iconDelete && <a style={{ color: '#337ab7', fontWeight: 600, cursor: "pointer" }} onClick={() => handleOpenDelete(item.id)} >Xóa</a>}
                                     </div>
                                     <div className={`${styles.table_none}`} style={{ display: selectedItems.includes(item?.id) ? 'block' : 'none' }}>
                                         <table className={`${styles.tablelist}  ${styles.tablelist1}`}>

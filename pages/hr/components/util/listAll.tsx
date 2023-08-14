@@ -1,8 +1,8 @@
 import axios from "axios";
-import { EmployeeList } from "@/pages/api/listNhanVien";
-import { OrganizationalStructureData, PostionCharData } from "@/pages/api/co_cau_to_chuc";
-import { SpecifiedGroupList } from "@/pages/api/quy_dinh_chinh_sach";
-import { DepartmentList } from "@/pages/api/listPhongBan";
+import { EmployeeList } from "@/pages/hr/api/listNhanVien";
+import { OrganizationalStructureData, PostionCharData } from "@/pages/hr/api/co_cau_to_chuc";
+import { SpecifiedGroupList } from "@/pages/hr/api/quy_dinh_chinh_sach";
+import { DepartmentList } from "@/pages/hr/api/listPhongBan";
 import GetComId from "../getComID";
 
 

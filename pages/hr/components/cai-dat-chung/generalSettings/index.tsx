@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import styles from "./GeneralSettings.module.css";
 import { Space } from "antd";
-import BodyFrameFooter from "@/components/bodyFrame/bodyFrame_footer/bodyFrame_footer";
-import CustomCollapse from "@/components/collapse/CustomCollapse";
+import BodyFrameFooter from "@/pages/hr/components/bodyFrame/bodyFrame_footer/bodyFrame_footer";
+import CustomCollapse from "@/pages/hr/components/collapse/CustomCollapse";
 import PublicInformation from "./publicinformation";
 import Edit from "./edit";
 import NotificationSetting from "./notification/Notification";
 import Remind from "./remind/Remind";
 import Decentralization from "./decentralization";
 
-export default function   GeneralSettings({ dataCompany, tokenType }) {
+export default function GeneralSettings({ dataCompany, tokenType }) {
   const dataDisplay = dataCompany?.data.data;
 
   const componentObj2 = {
@@ -53,62 +53,62 @@ export default function   GeneralSettings({ dataCompany, tokenType }) {
             <>
               {tokenType === 1 ? (
                 <Space
-                direction="vertical"
-                style={{ width: "100%" }}
-                onClick={(e) => e.stopPropagation}
-              >
-                <div className={`${styles.content}`}>
-                  <CustomCollapse
-                    label={
-                      <>
-                        <div
-                          className={`${styles.content_1_left}`}
-                          onClick={(e) => {
-                            // e.stopPropagation()
-                            setComponent("city");
-                          }}
-                        >
-                          <p style={{ lineHeight: "36px" }}>
-                            THÔNG TIN CÔNG TY
-                          </p>
-                          <picture
-                            style={{ marginTop: "-3px", lineHeight: "36px" }}
+                  direction="vertical"
+                  style={{ width: "100%" }}
+                  onClick={(e) => e.stopPropagation}
+                >
+                  <div className={`${styles.content}`}>
+                    <CustomCollapse
+                      label={
+                        <>
+                          <div
+                            className={`${styles.content_1_left}`}
+                            onClick={(e) => {
+                              // e.stopPropagation()
+                              setComponent("city");
+                            }}
                           >
-                            <img src={`${"/icon_down.svg"}`} alt=""></img>
-                          </picture>
-                        </div>
-                        <div
-                          className={`${styles.content_1_right}`}
-                          onClick={(e) => {
-                            setComponent("edit");
-                          }}
-                        >
-                          <button>Chỉnh sửa</button>
-                        </div>
-                      </>
-                    }
-                  >
-                    {componentObj2[component]}
-                  </CustomCollapse>
-                </div>
-              </Space>
-              ): null}
+                            <p style={{ lineHeight: "36px" }}>
+                              THÔNG TIN CÔNG TY
+                            </p>
+                            <picture
+                              style={{ marginTop: "-3px", lineHeight: "36px" }}
+                            >
+                              <img src={`${"/icon_down.svg"}`} alt=""></img>
+                            </picture>
+                          </div>
+                          <div
+                            className={`${styles.content_1_right}`}
+                            onClick={(e) => {
+                              setComponent("edit");
+                            }}
+                          >
+                            <button>Chỉnh sửa</button>
+                          </div>
+                        </>
+                      }
+                    >
+                      {componentObj2[component]}
+                    </CustomCollapse>
+                  </div>
+                </Space>
+              ) : null}
 
               {tokenType === 1 ? (
                 <div className={`${styles.box}`} style={{ height: "60px" }}>
-                <div
-                  className={`${styles.content2}`}
-                  onClick={() => setPage(2)}
-                >
-                  <div className={`${styles.content_1_left}`}>
-                    <p style={{ lineHeight: "36px" }}>Phân quyền người dùng</p>
-                    <picture style={{ lineHeight: "56px" }}>
-                      <img src={`${"/icon_right.svg"}`} alt=""></img>
-                    </picture>
+                  <div
+                    className={`${styles.content2}`}
+                    onClick={() => setPage(2)}
+                  >
+                    <div className={`${styles.content_1_left}`}>
+                      <p style={{ lineHeight: "36px" }}>Phân quyền người dùng</p>
+                      <picture style={{ lineHeight: "56px" }}>
+                        <img src={`${"/icon_right.svg"}`} alt=""></img>
+                      </picture>
+                    </div>
                   </div>
                 </div>
-              </div>
-              ): null}
+              ) : null}
 
               <Space
                 direction="vertical"

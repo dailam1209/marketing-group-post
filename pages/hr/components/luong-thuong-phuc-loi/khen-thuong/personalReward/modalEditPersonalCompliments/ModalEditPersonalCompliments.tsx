@@ -3,12 +3,12 @@ import styles from "../modalAddPersonalCompliments/ModalAddReward.module.css";
 import Select from "react-select";
 import { format } from "date-fns";
 import * as Yup from "yup";
-import { getDataUser } from "@/pages/api/quan-ly-tuyen-dung/PerformRecruitment";
-import { UpdateAchievement } from "@/pages/api/luong-thuong-phuc-loi/reward";
+import { getDataUser } from "@/pages/hr/api/quan-ly-tuyen-dung/PerformRecruitment";
+import { UpdateAchievement } from "@/pages/hr/api/luong-thuong-phuc-loi/reward";
 
 
-function ModalEditPersonalCompliments({animation, onClose, dataOld }: any) {
- 
+function ModalEditPersonalCompliments({ animation, onClose, dataOld }: any) {
+
   const id = dataOld.id
   const achievement_id = dataOld.achievementId;
   const contentOld = dataOld.content;
@@ -35,8 +35,8 @@ function ModalEditPersonalCompliments({animation, onClose, dataOld }: any) {
     achievementType: achievementTypeOld.toString(),
   });
 
- 
-  const mergedObject = {...content, ...achievementType, ...listUser}
+
+  const mergedObject = { ...content, ...achievementType, ...listUser }
 
   const schema = Yup.object().shape({
     achievement_id: Yup.string().required("Số quyết định không được để trống"),
@@ -60,7 +60,7 @@ function ModalEditPersonalCompliments({animation, onClose, dataOld }: any) {
             label: `${item.userName} ${item.nameDeparment}`,
           }))
         );
-      } catch (err) {}
+      } catch (err) { }
     };
     getData();
   }, []);
@@ -112,17 +112,17 @@ function ModalEditPersonalCompliments({animation, onClose, dataOld }: any) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
       await schema.validate(mergedObject, { abortEarly: false });
       const response = await UpdateAchievement(id, mergedObject);
-      if(response?.status !== 200) {
+      if (response?.status !== 200) {
         alert('Sửa khen thưởng không thành công')
       }
       else {
         onClose()
       }
-     
+
     } catch (error: any) {
       const validationErrors = {};
       if (error?.inner) {
@@ -133,11 +133,11 @@ function ModalEditPersonalCompliments({animation, onClose, dataOld }: any) {
       setErrors(validationErrors);
     }
   };
-  
+
   return (
     <>
       <div className={`${styles.overlay}`}></div>
-      <div className={`${styles.modal} ${styles.modal_setting}  ${animation ? styles.fade_in : styles.fade_out }`} style={{display:'block'}}>
+      <div className={`${styles.modal} ${styles.modal_setting}  ${animation ? styles.fade_in : styles.fade_out}`} style={{ display: 'block' }}>
         <div className={`${styles.modal_dialog} ${styles.contentquytrinh}`}>
           <div className={`${styles.modal_content} `}>
             {/* header */}
@@ -148,7 +148,7 @@ function ModalEditPersonalCompliments({animation, onClose, dataOld }: any) {
             <form onSubmit={handleSubmit} className={`${styles.modal_form}`}>
               <div className={`${styles.modal_body} ${styles.bodyquytrinh}`}>
 
-              <div className={`${styles.form_groups}`}>
+                <div className={`${styles.form_groups}`}>
                   <label>
                     Số quyết định
                     <span className={`${styles.red}`}> *</span>
@@ -213,11 +213,11 @@ function ModalEditPersonalCompliments({animation, onClose, dataOld }: any) {
 
                 <div className={`${styles.form_groups}`}>
                   <label>
-                  Tên đối tượng
+                    Tên đối tượng
                     <span className={`${styles.red}`}> *</span>
                     {errors.list_user && (
                       <>
-                        <div className={`${styles.errors}`} style={{marginTop: '6px'}}>
+                        <div className={`${styles.errors}`} style={{ marginTop: '6px' }}>
                           {errors.list_user}
                         </div>
                       </>
@@ -228,10 +228,10 @@ function ModalEditPersonalCompliments({animation, onClose, dataOld }: any) {
                   </label>
                   <div style={{ marginRight: "2%" }} className={`${styles.select}`}>
                     <Select
-                    isMulti
-                    onChange={(option) =>
-                      handleSelectionChange(option, options.tendoituong)
-                    }
+                      isMulti
+                      onChange={(option) =>
+                        handleSelectionChange(option, options.tendoituong)
+                      }
                       options={options.tendoituong}
                       placeholder="Chọn đối tượng"
                       styles={{
@@ -301,7 +301,7 @@ function ModalEditPersonalCompliments({animation, onClose, dataOld }: any) {
                       defaultValue={formattedDate}
                       className={`${styles.inputquytrinh}`}
                       placeholder="Chọn thời điểm"
-                      style={{height: '30.6px'}}
+                      style={{ height: '30.6px' }}
                     ></input>
                     {errors.achievement_at && (
                       <>
@@ -326,8 +326,8 @@ function ModalEditPersonalCompliments({animation, onClose, dataOld }: any) {
                     <span className={`${styles.red}`}> *</span>
                     {errors.achievement_type && (
                       <>
-                      
-                        <div className={`${styles.errors}`} style={{marginTop: '6px'}}>
+
+                        <div className={`${styles.errors}`} style={{ marginTop: '6px' }}>
                           {errors.achievement_type}
                         </div>
                       </>
@@ -338,7 +338,7 @@ function ModalEditPersonalCompliments({animation, onClose, dataOld }: any) {
                   </label>
                   <div style={{ marginRight: "2%" }} className={`${styles.select}`}>
                     <Select
-                       onChange={(option) =>
+                      onChange={(option) =>
                         handleSelectionChangeAppellation(
                           option,
                           options.hinhthuckhenthuong

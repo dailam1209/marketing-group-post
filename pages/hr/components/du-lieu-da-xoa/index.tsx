@@ -4,14 +4,14 @@ import TableData from "./table/table";
 import BodyFrameFooter from "../bodyFrame/bodyFrame_footer/bodyFrame_footer";
 import Restore from "./khoi-phuc";
 import DeleteData from "./xoa-du-lieu";
-import { getDataDeleteComponent } from "@/pages/api/du-lieu-da-xoa-gan-day/DeletedDataComPonentService";
+import { getDataDeleteComponent } from "@/pages/hr/api/du-lieu-da-xoa-gan-day/DeletedDataComPonentService";
 
-export default function DeletedDataComPonent({iconEdit, iconDelete}) {
+export default function DeletedDataComPonent({ iconEdit, iconDelete }) {
 
   const [openModal, setOpenModal] = useState(0)
   const [animation, setAnimation] = useState(false)
   const [data, setData] = useState<any>()
-  const [ handleData, setHandleData] = useState<any>()
+  const [handleData, setHandleData] = useState<any>()
   const [listCheck, setListCheck] = useState([]);
   const [newData, setNewData] = useState<any>()
   const [search, setSearch] = useState<any>('')
@@ -19,7 +19,7 @@ export default function DeletedDataComPonent({iconEdit, iconDelete}) {
   const handleDataCheckChange = (newListCheck) => {
     setListCheck(newListCheck);
   };
- 
+
   const handleNewData = (newData) => {
     setNewData(newData)
   }
@@ -28,10 +28,10 @@ export default function DeletedDataComPonent({iconEdit, iconDelete}) {
   }
   const dataCheck = (data) => {
     setHandleData((prev) => ({
-      ...prev,...{...data},
+      ...prev, ...{ ...data },
     }))
   }
-  
+
   const handleClose = () => {
     setAnimation(false);
     setTimeout(() => {
@@ -51,7 +51,7 @@ export default function DeletedDataComPonent({iconEdit, iconDelete}) {
       }
       fetchData()
     } catch (error: any) {
-      
+
     }
   }, [newData, search])
 
@@ -81,20 +81,20 @@ export default function DeletedDataComPonent({iconEdit, iconDelete}) {
             <div className={`${styles.between}`}>
               {iconEdit && (
                 <div
-                className={`${styles.between_time}`}
-                onClick={() => handleOpen(1)}
-              >
-                <picture>
-                  <img src={`${"/icon-time.svg"}`} alt=""></img>
-                </picture>
-              </div>
+                  className={`${styles.between_time}`}
+                  onClick={() => handleOpen(1)}
+                >
+                  <picture>
+                    <img src={`${"/icon-time.svg"}`} alt=""></img>
+                  </picture>
+                </div>
               )}
               {iconDelete && (
                 <div className={`${styles.between_delete}`}>
-                <picture onClick={() => handleOpen(2)}>
-                  <img src={`${"/icon-trash.svg"}`} alt=""></img>
-                </picture>
-              </div>
+                  <picture onClick={() => handleOpen(2)}>
+                    <img src={`${"/icon-trash.svg"}`} alt=""></img>
+                  </picture>
+                </div>
               )}
             </div>
           ) : null}

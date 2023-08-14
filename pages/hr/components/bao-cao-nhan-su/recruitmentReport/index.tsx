@@ -3,11 +3,11 @@ import React, { useEffect, useState } from "react";
 import styles from "./RecruitmentReport.module.css";
 import FirstBlock from "../component/firstBlock/FirstBlock";
 import SecondBlock from "../component/secondBlock/SecondBlock";
-import MyPagination from "@/components/pagination/Pagination";
+import MyPagination from "@/pages/hr/components/pagination/Pagination";
 import ThirdBlock from "../component/thirdBlock/ThirdBlock";
 import FourthBlock from "../component/fourthBlock/FourthBlock";
-import BodyFrameFooter from "@/components/bodyFrame/bodyFrame_footer/bodyFrame_footer";
-import { GetDataHrReport, GetDataHrReport2, GetDataHrReport3, GetDataHrReport4 } from "@/pages/api/bao-cao-nhan-su/HrReportService";
+import BodyFrameFooter from "@/pages/hr/components/bodyFrame/bodyFrame_footer/bodyFrame_footer";
+import { GetDataHrReport, GetDataHrReport2, GetDataHrReport3, GetDataHrReport4 } from "@/pages/hr/api/bao-cao-nhan-su/HrReportService";
 
 export default function RecruitmentReport() {
   const [currentPageBox2, setCurrentPageBox2] = useState(1);
@@ -18,7 +18,7 @@ export default function RecruitmentReport() {
   const [dataResponse3, setDataResponse3] = useState<any>();
   const [dataResponse4, setDataResponse4] = useState<any>();
 
- 
+
   const handlePageChangeBox2 = (page: any) => {
     setCurrentPageBox2(page);
   };
@@ -37,7 +37,7 @@ export default function RecruitmentReport() {
       };
       GetDataRecruitment();
     } catch (error) {
-      
+
     }
   }, [currentPageBox2]);
 
@@ -49,7 +49,7 @@ export default function RecruitmentReport() {
       };
       GetDataRecruitment();
     } catch (error) {
-      
+
     }
   }, [currentPageBox3]);
 
@@ -61,7 +61,7 @@ export default function RecruitmentReport() {
       };
       GetDataRecruitment();
     } catch (error) {
-      
+
     }
   }, [currentPageBox4]);
 
@@ -73,7 +73,7 @@ export default function RecruitmentReport() {
       };
       GetDataRecruitment();
     } catch (error) {
-      
+
     }
   }, [currentPageBox2]);
   const data = [
@@ -121,7 +121,7 @@ export default function RecruitmentReport() {
   const dataLengthBox2 = dataResponse4?.mangThongTin?.length
   const dataLengthBox3 = dataResponse4?.thongKeNhanVienTuyenDung?.length
   const dataLengthBox4 = dataResponse4?.gioiThieuUngVien?.length
-  
+
 
   return (
     <>

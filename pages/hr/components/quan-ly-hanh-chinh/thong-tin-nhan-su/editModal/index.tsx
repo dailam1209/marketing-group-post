@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useMemo } from "react";
 import styles from './editModal.module.css'
 import Select from 'react-select';
-import { EmployeeUpdate } from "@/pages/api/quan_ly_nhan_vien";
-import { PostionCharData } from '@/pages/api/co_cau_to_chuc';
+import { EmployeeUpdate } from "@/pages/hr/api/quan_ly_nhan_vien";
+import { PostionCharData } from '@/pages/hr/api/co_cau_to_chuc';
 import { format, parseISO } from "date-fns";
 import * as Yup from "yup";
 type SelectOptionType = { label: string, value: any }

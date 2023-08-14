@@ -1,43 +1,43 @@
 import React, { useState } from "react";
 import styles from "./DeleteRecruitment.module.css";
-import { SoftDeleteNews } from "@/pages/api/quan-ly-tuyen-dung/PerformRecruitment";
-export interface DeleteRecruitment {}
-export default function DeleteRecruitment({ animation, handleCloseModal,newsId, onDelete }: any) {
+import { SoftDeleteNews } from "@/pages/hr/api/quan-ly-tuyen-dung/PerformRecruitment";
+export interface DeleteRecruitment { }
+export default function DeleteRecruitment({ animation, handleCloseModal, newsId, onDelete }: any) {
   const [deleteStatus, setDeleteStatus] = useState(false);
 
   const handleDelete = async (newsId) => {
     const deleteRecruitment = await SoftDeleteNews(newsId);
-    if(deleteRecruitment?.status === 403 ) {
+    if (deleteRecruitment?.status === 403) {
       alert('Bạn chưa được phân quyền trên phần mềm quản trị nhân sự 365. Vui lòng liên hệ quản trị viên để biết thêm chi tiết!')
     }
-    else if( deleteRecruitment?.status !== 200) {
+    else if (deleteRecruitment?.status !== 200) {
       alert(' Gỡ tin tuyển dụng thất bại')
     }
-    else{
+    else {
       setDeleteStatus(true);
       handleCloseModal()
       onDelete(deleteRecruitment?.data)
     }
   };
-  
+
   return (
     <>
       <div className={`${styles.overlay}`}></div>
-      <div className={`${styles.modal} ${styles.modal_setting}  ${animation ? styles.fade_in : styles.fade_out }`} style={{display:'block'}}>
+      <div className={`${styles.modal} ${styles.modal_setting}  ${animation ? styles.fade_in : styles.fade_out}`} style={{ display: 'block' }}>
         <div className={` ${styles.modal_dialog} ${styles.contentquytrinh}`}>
           <div className={`${styles.modal_content} `}>
             {/* header */}
             <div className={`${styles.modal_header} ${styles.headquytrinh}`}>
-            <h5 className={`${styles.modal_title}`}>
-               GỠ TIN TUYỂN DỤNG
-               </h5>
+              <h5 className={`${styles.modal_title}`}>
+                GỠ TIN TUYỂN DỤNG
+              </h5>
             </div>
 
             <div className={`${styles.modal_body} ${styles.bodyquytrinh}`}>
               <div className={`${styles.xoaquytrinh}`}>
-              Bạn có chắc muốn gỡ tin tuyển dụng này ?
+                Bạn có chắc muốn gỡ tin tuyển dụng này ?
                 <span className={`${styles.t_recruitment_name}`}>
-                  
+
                 </span>
               </div>
 
@@ -64,7 +64,7 @@ export default function DeleteRecruitment({ animation, handleCloseModal,newsId, 
                 Xóa
               </button>
             </div>
-            
+
           </div>
         </div>
       </div>

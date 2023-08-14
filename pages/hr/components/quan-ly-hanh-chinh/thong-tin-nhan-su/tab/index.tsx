@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import Select from 'react-select';
 import styles from './employeeManagement.module.css'
-import BodyFrameFooter from "@/components/bodyFrame/bodyFrame_footer/bodyFrame_footer";
+import BodyFrameFooter from "@/pages/hr/components/bodyFrame/bodyFrame_footer/bodyFrame_footer";
 import DetailCandidateList from "../detailModal";
 import EditCandidateList from "../editModal";
-import { EmployeeList } from "@/pages/api/quan_ly_nhan_vien";
-import { DepartmentList } from "@/pages/api/listPhongBan";
-import MyPagination from "@/components/pagination/Pagination";
-import { PostionCharData } from '@/pages/api/co_cau_to_chuc';
+import { EmployeeList } from "@/pages/hr/api/quan_ly_nhan_vien";
+import { DepartmentList } from "@/pages/hr/api/listPhongBan";
+import MyPagination from "@/pages/hr/components/pagination/Pagination";
+import { PostionCharData } from '@/pages/hr/api/co_cau_to_chuc';
 import { format, parseISO } from "date-fns";
-import GetComId from "@/components/getComID";
+import GetComId from "@/pages/hr/components/getComID";
 
 type SelectOptionType = { label: string, value: string }
 export interface TabEmployeeManagement {

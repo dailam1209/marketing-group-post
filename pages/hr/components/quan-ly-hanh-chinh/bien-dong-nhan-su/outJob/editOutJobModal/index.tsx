@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from '../../planningAppointment/addPlanningModal/addPlanningModal.module.css'
 import Select from 'react-select';
-import MyEditorNew from "@/components/myEditor";
+import MyEditorNew from "@/pages/hr/components/myEditor";
 
 function Input_textarea() {
     const [editorLoaded, setEditorLoaded] = useState(false);

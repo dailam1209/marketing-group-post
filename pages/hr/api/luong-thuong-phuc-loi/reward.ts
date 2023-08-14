@@ -1,6 +1,6 @@
 import axios from "axios";
 import { getToken } from "../token";
-const COOKIE_KEY = "user_365";
+const COOKIE_KEY = "token_base365";
 export const GetDataAchievement = async (page: any, pageSize: any, type:any, keyWords: any) => {
   
   const url = process.env.NEXT_PUBLIC_BASE_URL;

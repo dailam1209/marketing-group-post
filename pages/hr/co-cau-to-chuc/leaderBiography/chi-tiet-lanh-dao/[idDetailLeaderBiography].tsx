@@ -2,11 +2,11 @@
 import React, { useState, useEffect } from "react";
 import styles from "./idDetailLeaderBiography.module.css";
 import { useRouter } from "next/router";
-import { LeaderBiographyDetail } from "@/pages/api/co_cau_to_chuc";
-import { LeaderBiograpphyUpdate } from "@/pages/api/co_cau_to_chuc";
-import MyEditorNew from "@/components/myEditor";
+import { LeaderBiographyDetail } from "@/pages/hr/api/co_cau_to_chuc";
+import { LeaderBiograpphyUpdate } from "@/pages/hr/api/co_cau_to_chuc";
+import MyEditorNew from "@/pages/hr/components/myEditor";
 import Head from "next/head";
-import { getDataAuthentication } from "@/pages/api/Home/HomeService";
+import { getDataAuthentication } from "@/pages/hr/api/Home/HomeService";
 
 export interface listRecruitmentProcess { }
 
@@ -75,19 +75,19 @@ export default function DetailLeaderBiography({ onCancel }: any) {
 
     useEffect(() => {
         try {
-          const fetchData = async () => {
-            const response = await getDataAuthentication();
-            setDisplayIcon(response?.data?.data?.infoRoleHNNV);
-          };
-          fetchData();
-        } catch (error) {}
-      }, []);
-      
-      const perIdArray = displayIcon?.map((item) => item.perId);
-      const authen = perIdArray?.includes(1);
-      const iconAdd = perIdArray?.includes(2);
-      const iconEdit = perIdArray?.includes(3);
-      const iconDelete = perIdArray?.includes(4);
+            const fetchData = async () => {
+                const response = await getDataAuthentication();
+                setDisplayIcon(response?.data?.data?.infoRoleHNNV);
+            };
+            fetchData();
+        } catch (error) { }
+    }, []);
+
+    const perIdArray = displayIcon?.map((item) => item.perId);
+    const authen = perIdArray?.includes(1);
+    const iconAdd = perIdArray?.includes(2);
+    const iconEdit = perIdArray?.includes(3);
+    const iconDelete = perIdArray?.includes(4);
 
     useEffect(() => {
         if (idDetailLeaderBiography) { // Chỉ gọi API nếu idDetailLeaderBiography đã có giá trị
@@ -167,6 +167,12 @@ export default function DetailLeaderBiography({ onCancel }: any) {
         valuesArray.push(match[1]);
     }
 
+    console.log(valuesArray);
+    console.log(description);
+    console.log(isLeaderDetail);
+
+
+
     const initialValue = [
         { key: 'Thông tin cá nhân', value: '' },
         { key: 'Họ và tên:', value: isLeaderDetail?.result?.ep_name },
@@ -183,9 +189,9 @@ export default function DetailLeaderBiography({ onCancel }: any) {
 
     return (
         <>
-        <Head>
-            <title>Tiểu sử lãnh đạo - Quản lý nhân sự - Timviec365.vn</title>
-        </Head>
+            <Head>
+                <title>Tiểu sử lãnh đạo - Quản lý nhân sự - Timviec365.vn</title>
+            </Head>
             <div className={`${styles.l_body}`}>
                 <div className={`${styles.add_quytrinh}`}>
                     <div className={`${styles.back_quytrinh}`}>
@@ -200,9 +206,9 @@ export default function DetailLeaderBiography({ onCancel }: any) {
                         </span>
                         {iconAdd && (
                             <button className={`${styles.btn_add1}`} onClick={() => setAddField(true)} >
-                            <img src="/add.png" alt="" />
-                            Thêm trường
-                        </button>
+                                <img src="/add.png" alt="" />
+                                Thêm trường
+                            </button>
                         )}
                     </div>
                 </div>
@@ -215,8 +221,8 @@ export default function DetailLeaderBiography({ onCancel }: any) {
                             <div className={`${styles.text_right}`}>
                                 {iconEdit && (
                                     <a onClick={() => setOpenUpdate(true)} style={{ cursor: 'pointer' }} className={`${styles.edit_hs_uv}`}>
-                                    <img src="/icon-edit-white.svg" />
-                                </a>
+                                        <img src="/icon-edit-white.svg" />
+                                    </a>
                                 )}
                             </div>
                         </div>

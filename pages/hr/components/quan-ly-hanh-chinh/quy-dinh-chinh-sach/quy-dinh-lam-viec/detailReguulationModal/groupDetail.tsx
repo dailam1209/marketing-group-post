@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from './detailRegulationModal.module.css'
-import MyEditor from "@/components/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/components/Editor";
-import { AddSpecifiedGroup } from "@/pages/api/quy_dinh_chinh_sach";
-import { GroupDetails } from "@/pages/api/quy_dinh_chinh_sach";
+import { GroupDetails } from "@/pages/hr/api/quy_dinh_chinh_sach";
 import { format } from "date-fns";
 
 interface GroupDetailModalProps {

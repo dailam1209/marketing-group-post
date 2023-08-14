@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import PunishmentTable from "../component/Component";
-import { GetDataInfringes } from "@/pages/api/luong-thuong-phuc-loi/discipline";
-import MyPagination from "@/components/pagination/Pagination";
-import BodyFrameFooter from "@/components/bodyFrame/bodyFrame_footer/bodyFrame_footer";
+import { GetDataInfringes } from "@/pages/hr/api/luong-thuong-phuc-loi/discipline";
+import MyPagination from "@/pages/hr/components/pagination/Pagination";
+import BodyFrameFooter from "@/pages/hr/components/bodyFrame/bodyFrame_footer/bodyFrame_footer";
 import styles from "../component/Component.module.css";
 
-export interface DisciplineList {}
-export default function DisciplineList({iconEdit }: any) {
+export interface DisciplineList { }
+export default function DisciplineList({ iconEdit }: any) {
   const [data, setData] = useState<any>();
   const [currentPage, setCurrentPage] = useState<any>(1);
   const [keyWords, setKeyWords] = useState<any>("");
@@ -36,7 +36,7 @@ export default function DisciplineList({iconEdit }: any) {
         data={newData}
         violators="Cá nhân / phòng ban vi phạm"
         keyWords={handleSearch}
-        iconEdit = {iconEdit}
+        iconEdit={iconEdit}
       ></PunishmentTable>
       <div className={`${styles.pagination}`}>
         <MyPagination

@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import styles from "./styles.module.css";
-import PersonalReward from "@/components/luong-thuong-phuc-loi/khen-thuong/personalReward/PersonalReward";
-import CommendationTeam from "@/components/luong-thuong-phuc-loi/khen-thuong/commendationTeam/CommendationTeam";
-import AchievementList from "@/components/luong-thuong-phuc-loi/khen-thuong/achievementList/AchievementList";
+import PersonalReward from "@/pages/hr/components/luong-thuong-phuc-loi/khen-thuong/personalReward/PersonalReward";
+import CommendationTeam from "@/pages/hr/components/luong-thuong-phuc-loi/khen-thuong/commendationTeam/CommendationTeam";
+import AchievementList from "@/pages/hr/components/luong-thuong-phuc-loi/khen-thuong/achievementList/AchievementList";
 import Head from "next/head";
-import { getDataAuthentication } from "@/pages/api/Home/HomeService";
-import LoadingSpinner from "@/components/loading";
-import PageAuthenticator from "@/components/quyen-truy-cap";
+import { getDataAuthentication } from "@/pages/hr/api/Home/HomeService";
+import LoadingSpinner from "@/pages/hr/components/loading";
+import PageAuthenticator from "@/pages/hr/components/quyen-truy-cap";
 
- 
+
 export default function NavBar({ children }: any) {
   const [active, setActive] = useState(1);
   const [displayIcon, setDisplayIcon] = useState<any>();
@@ -20,15 +20,15 @@ export default function NavBar({ children }: any) {
       const fetchData = async () => {
         const response = await getDataAuthentication();
         setDisplayIcon(response?.data.data.infoRoleTTVP);
-        
+
       };
       fetchData();
-    } catch (error) {}
+    } catch (error) { }
     finally {
       setIsDataLoaded(true);
       setIsLoading(false);
     }
-    
+
   }, []);
 
   const perIdArray = displayIcon?.map((item) => item.perId);
@@ -75,9 +75,8 @@ export default function NavBar({ children }: any) {
               <div key={item.key}>
                 <li className={`${styles.li_tabs}`}>
                   <span
-                    className={`${
-                      active === item?.key ? styles.active : styles.hover
-                    } `}
+                    className={`${active === item?.key ? styles.active : styles.hover
+                      } `}
                     onClick={() => setActive(item.key)}
                   >
                     {item.header}
@@ -93,5 +92,5 @@ export default function NavBar({ children }: any) {
       )}
     </>
   );
-  
+
 }

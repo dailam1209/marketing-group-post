@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styles from "./headerForm.module.css";
-import PerformRecruitment from "../../../components/quan-ly-tuyen-dung/thuc-hien-tuyen-dung/PerformRecruitment/PerformRecruitment";
-import Recruitment from "../../../components/quan-ly-tuyen-dung/thuc-hien-tuyen-dung/Recruitment/recruitment";
+import PerformRecruitment from "../../components/quan-ly-tuyen-dung/thuc-hien-tuyen-dung/PerformRecruitment/PerformRecruitment";
+import Recruitment from "../../components/quan-ly-tuyen-dung/thuc-hien-tuyen-dung/Recruitment/recruitment";
 import { GetTotalCandi } from "../../api/quan-ly-tuyen-dung/PerformRecruitment";
-import PageAuthenticator from "../../../components/quyen-truy-cap";
-import LoadingSpinner from "../../../components/loading";
+import PageAuthenticator from "../../components/quyen-truy-cap";
+import LoadingSpinner from "../../components/loading";
 import Head from "next/head";
 import jwt_decode from "jwt-decode";
 import { getToken } from "../../api/token";
@@ -15,7 +15,7 @@ export default function HeaderForm({ children }: any) {
   const [isLoading, setIsLoading] = useState(true);
   const [active, setActive] = useState(1);
   const [tokenType, setTokenType] = useState<any>(null);
-  const COOKIE_KEY = "user_365";
+  const COOKIE_KEY = "token_base365";
 
   useEffect(() => {
 

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { getToken } from "../token";
-const COOKIE_KEY = "user_365";
+const COOKIE_KEY = "token_base365";
 export const GetDataRecruitment = async (
   page: number,
   pageSize: number,
@@ -90,9 +90,8 @@ export const UpdateDataRecruitment = async (
   }
 };
 
-export const DataRecruitmentStage = async (recruitmentId: string) => {
+export const DataRecruitmentStage = async (recruitmentId: string,isToken:any) => {
   const url = process.env.NEXT_PUBLIC_BASE_URL;
- const isToken = getToken(COOKIE_KEY)
   try {
     const response = await axios.post(
       `${url}api/hr/recruitment/getStage`,

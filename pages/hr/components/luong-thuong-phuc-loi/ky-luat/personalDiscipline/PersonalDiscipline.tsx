@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import PunishmentTable from "../component/Component";
-import { GetDataInfringes } from "@/pages/api/luong-thuong-phuc-loi/discipline";
-import MyPagination from "@/components/pagination/Pagination";
+import { GetDataInfringes } from "@/pages/hr/api/luong-thuong-phuc-loi/discipline";
+import MyPagination from "@/pages/hr/components/pagination/Pagination";
 import styles from "../component/Component.module.css";
-import BodyFrameFooter from "@/components/bodyFrame/bodyFrame_footer/bodyFrame_footer";
-export interface PersonalDiscipline {}
+import BodyFrameFooter from "@/pages/hr/components/bodyFrame/bodyFrame_footer/bodyFrame_footer";
+export interface PersonalDiscipline { }
 export default function PersonalDiscipline({ iconAdd, iconEdit }: any) {
   const [data, setData] = useState<any>();
   const [currentPage, setCurrentPage] = useState<any>(1);
@@ -12,7 +12,7 @@ export default function PersonalDiscipline({ iconAdd, iconEdit }: any) {
   const [updateData, setUpdateData] = useState<any>()
   const newData = data?.data.slice(0, -1);
   const myPagination = data?.data[data.data.length - 1];
-  
+
 
   const handlePageChange = (page: any) => {
     setCurrentPage(page);
@@ -40,9 +40,9 @@ export default function PersonalDiscipline({ iconAdd, iconEdit }: any) {
         data={newData}
         violators="Cá nhân vi phạm"
         keyWords={handleSearch}
-        updateData = {handleUpDateData}
-        iconAdd = {iconAdd}
-        iconEdit = {iconEdit}
+        updateData={handleUpDateData}
+        iconAdd={iconAdd}
+        iconEdit={iconEdit}
       ></PunishmentTable>
       <div className={`${styles.pagination}`}>
         <MyPagination

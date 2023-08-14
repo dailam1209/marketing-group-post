@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styles from "./styles.module.css";
-import PersonalDiscipline from "@/components/luong-thuong-phuc-loi/ky-luat/personalDiscipline/PersonalDiscipline";
-import DisciplineList from "@/components/luong-thuong-phuc-loi/ky-luat/disciplineList/DisciplineList";
-import CollectiveDiscipline from "@/components/luong-thuong-phuc-loi/ky-luat/collectiveDiscipline/CollectiveDiscipline";
+import PersonalDiscipline from "@/pages/hr/components/luong-thuong-phuc-loi/ky-luat/personalDiscipline/PersonalDiscipline";
+import DisciplineList from "@/pages/hr/components/luong-thuong-phuc-loi/ky-luat/disciplineList/DisciplineList";
+import CollectiveDiscipline from "@/pages/hr/components/luong-thuong-phuc-loi/ky-luat/collectiveDiscipline/CollectiveDiscipline";
 import Head from "next/head";
-import { getDataAuthentication } from "@/pages/api/Home/HomeService";
-import LoadingSpinner from "@/components/loading";
-import PageAuthenticator from "@/components/quyen-truy-cap";
+import { getDataAuthentication } from "@/pages/hr/api/Home/HomeService";
+import LoadingSpinner from "@/pages/hr/components/loading";
+import PageAuthenticator from "@/pages/hr/components/quyen-truy-cap";
 
 
 export default function NavBar({ children }: any) {
@@ -20,12 +20,12 @@ export default function NavBar({ children }: any) {
       const fetchData = async () => {
         const response = await getDataAuthentication();
         setDisplayIcon(response?.data?.data?.infoRoleTTVP);
-        setIsDataLoaded(true); 
-        setIsLoading(false); 
+        setIsDataLoaded(true);
+        setIsLoading(false);
       };
       fetchData();
-    } catch (error) {}
-   
+    } catch (error) { }
+
   }, []);
 
   const perIdArray = displayIcon?.map((item) => item.perId);
@@ -37,26 +37,26 @@ export default function NavBar({ children }: any) {
     {
       key: 1,
       header: "CÁ NHÂN",
-      component: <PersonalDiscipline iconAdd = {iconAdd} iconEdit = {iconEdit}></PersonalDiscipline>,
+      component: <PersonalDiscipline iconAdd={iconAdd} iconEdit={iconEdit}></PersonalDiscipline>,
     },
     {
       key: 2,
       header: "TẬP THỂ",
-      component: <CollectiveDiscipline iconAdd = {iconAdd} iconEdit = {iconEdit} ></CollectiveDiscipline>,
+      component: <CollectiveDiscipline iconAdd={iconAdd} iconEdit={iconEdit} ></CollectiveDiscipline>,
     },
     {
       key: 3,
       header: "DANH SÁCH VI PHẠM",
-      component: <DisciplineList iconEdit = {iconEdit} ></DisciplineList>,
+      component: <DisciplineList iconEdit={iconEdit} ></DisciplineList>,
     },
   ];
 
   return (
     <>
-     <Head>
-      <title>Kỷ luật - Quản lý nhân sự - Timviec365.vn</title>
-    </Head>
-    {!isDataLoaded ? (
+      <Head>
+        <title>Kỷ luật - Quản lý nhân sự - Timviec365.vn</title>
+      </Head>
+      {!isDataLoaded ? (
         <LoadingSpinner />
       ) : authen ? (
         <div className={`${styles.l_body}`}>
@@ -65,9 +65,8 @@ export default function NavBar({ children }: any) {
               <div key={item.key}>
                 <li className={`${styles.li_tabs}`}>
                   <span
-                    className={`${
-                      active === item?.key ? styles.active : styles.hover
-                    } `}
+                    className={`${active === item?.key ? styles.active : styles.hover
+                      } `}
                     onClick={() => setActive(item.key)}
                   >
                     {item.header}

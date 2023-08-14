@@ -18,13 +18,13 @@ export default function DevelopmentTraining({ children }: any) {
         {
             img: "/vn_vitricongviec.svg",
             title: 'Vị trí công việc',
-            href: '/hr/pages/dao-tao-phat-trien/vi-tri-cong-viec',
+            href: '/hr/dao-tao-phat-trien/vi-tri-cong-viec',
             target: ''
         },
         {
             img: "/vn_quytrinhdaotao.svg",
             title: 'Quy trình đào tạo',
-            href: '/hr/pages/dao-tao-phat-trien/quy-trinh-dao-tao',
+            href: '/hr/dao-tao-phat-trien/quy-trinh-dao-tao',
             target: ''
         },
         {

@@ -1,20 +1,20 @@
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 import styles from "./candidateListDetail.module.css";
-import CandidateAddModal from "@/components/quan-ly-tuyen-dung/danh-sach-ung-vien/candidateAddModal";
-import StageAddModal from "@/components/quan-ly-tuyen-dung/danh-sach-ung-vien/stageAddModal";
-import { ProcessList } from "@/pages/api/quan-ly-tuyen-dung/candidateList";
-import StageUpdateModal from "@/components/quan-ly-tuyen-dung/danh-sach-ung-vien/stageUpdateModal";
-import DeleteStage from "@/components/quan-ly-tuyen-dung/danh-sach-ung-vien/stageDeleteModal";
-import { EmployeeList } from "@/pages/api/listNhanVien";
-import { GetListNews } from "@/pages/api/quan-ly-tuyen-dung/PerformRecruitment";
-import Selects from "@/components/select";
+import CandidateAddModal from "@/pages/hr/components/quan-ly-tuyen-dung/danh-sach-ung-vien/candidateAddModal";
+import StageAddModal from "@/pages/hr/components/quan-ly-tuyen-dung/danh-sach-ung-vien/stageAddModal";
+import { ProcessList } from "@/pages/hr/api/quan-ly-tuyen-dung/candidateList";
+import StageUpdateModal from "@/pages/hr/components/quan-ly-tuyen-dung/danh-sach-ung-vien/stageUpdateModal";
+import DeleteStage from "@/pages/hr/components/quan-ly-tuyen-dung/danh-sach-ung-vien/stageDeleteModal";
+import { EmployeeList } from "@/pages/hr/api/listNhanVien";
+import { GetListNews } from "@/pages/hr/api/quan-ly-tuyen-dung/PerformRecruitment";
+import Selects from "@/pages/hr/components/select";
 import DropableColumn from "./columnAble";
-import StageGetJob from "@/components/quan-ly-tuyen-dung/danh-sach-ung-vien/stageTransitionModal/stageGetJob";
-import StageFailJob from "@/components/quan-ly-tuyen-dung/danh-sach-ung-vien/stageTransitionModal/stageFailJob";
-import StageCancelJob from "@/components/quan-ly-tuyen-dung/danh-sach-ung-vien/stageTransitionModal/stageCancelJob";
-import StageContactJob from "@/components/quan-ly-tuyen-dung/danh-sach-ung-vien/stageTransitionModal/stateContactJob";
+import StageGetJob from "@/pages/hr/components/quan-ly-tuyen-dung/danh-sach-ung-vien/stageTransitionModal/stageGetJob";
+import StageFailJob from "@/pages/hr/components/quan-ly-tuyen-dung/danh-sach-ung-vien/stageTransitionModal/stageFailJob";
+import StageCancelJob from "@/pages/hr/components/quan-ly-tuyen-dung/danh-sach-ung-vien/stageTransitionModal/stageCancelJob";
+import StageContactJob from "@/pages/hr/components/quan-ly-tuyen-dung/danh-sach-ung-vien/stageTransitionModal/stateContactJob";
 import Head from "next/head";
-import GetComId from "@/components/getComID";
+import GetComId from "@/pages/hr/components/getComID";
 
 type SelectOptionType = { label: string; value: any };
 export default function CandidateListDetail({ iconAdd, iconEdit, iconDelete }: any) {

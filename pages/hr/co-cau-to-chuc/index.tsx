@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 import styles from "../quan-ly-hanh-chinh/thong-tin-nhan-su/administration.module.css";
 import Link from "next/link";
-import OrganisationalStructureDiagram from "@/components/co-cau-to-chuc/organisationalStructureDiagram";
-import SealAndSignature from "@/components/co-cau-to-chuc/sealAndSignature";
+import OrganisationalStructureDiagram from "@/pages/hr/components/co-cau-to-chuc/organisationalStructureDiagram";
+import SealAndSignature from "@/pages/hr/components/co-cau-to-chuc/sealAndSignature";
 import LeaderBiography from "./leaderBiography";
 import dynamic from "next/dynamic";
 import Head from "next/head";
 import { getDataAuthentication } from "../api/Home/HomeService";
-import LoadingSpinner from "@/components/loading";
-import PageAuthenticator from "@/components/quyen-truy-cap";
+import LoadingSpinner from "@/pages/hr/components/loading";
+import PageAuthenticator from "@/pages/hr/components/quyen-truy-cap";
 const PostionCharTree = dynamic(
-  () => import("@/components/co-cau-to-chuc/postionChar"),
+  () => import("@/pages/hr/components/co-cau-to-chuc/postionChar"),
   {
     ssr: false,
   }
@@ -31,7 +31,7 @@ export default function OrganizationalStructure({ children }: any) {
         setIsLoading(false);
       };
       fetchData();
-    } catch (error) {}
+    } catch (error) { }
   }, []);
 
   const perIdArray = displayIcon?.map((item) => item.perId);
@@ -77,11 +77,11 @@ export default function OrganizationalStructure({ children }: any) {
             </li>
           </ul>
           {active === 1 && (
-            <OrganisationalStructureDiagram iconAdd = {iconAdd} iconEdit = {iconEdit}></OrganisationalStructureDiagram>
+            <OrganisationalStructureDiagram iconAdd={iconAdd} iconEdit={iconEdit}></OrganisationalStructureDiagram>
           )}
-          {active === 2 && <PostionCharTree  iconEdit = {iconEdit}></PostionCharTree>}
-          {active === 3 && <SealAndSignature iconAdd = {iconAdd} iconEdit = {iconEdit} iconDelete = {iconDelete}></SealAndSignature>}
-          {active === 4 && <LeaderBiography iconAdd = {iconAdd} iconEdit = {iconEdit}></LeaderBiography>}
+          {active === 2 && <PostionCharTree iconEdit={iconEdit}></PostionCharTree>}
+          {active === 3 && <SealAndSignature iconAdd={iconAdd} iconEdit={iconEdit} iconDelete={iconDelete}></SealAndSignature>}
+          {active === 4 && <LeaderBiography iconAdd={iconAdd} iconEdit={iconEdit}></LeaderBiography>}
         </div>
       ) : (
         <PageAuthenticator />

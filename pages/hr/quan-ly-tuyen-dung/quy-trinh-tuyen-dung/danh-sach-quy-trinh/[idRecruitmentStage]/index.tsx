@@ -2,17 +2,19 @@
 import React, { useEffect, useState } from "react";
 import styles from "./detailRecruitmentStage.module.css";
 import { useRouter } from "next/router";
-import AddRecruitmentStage from "@/components/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/chi-tiet-quy-trinh/addRecruitmentStage/them-giai-doan";
-import ListRecruitmentStage from "@/components/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/chi-tiet-quy-trinh/listRecruitmentStage/listRecruitmentStage";
-import { DataRecruitmentStage } from "@/pages/api/quan-ly-tuyen-dung/RecruitmentManagerService";
-import { getToken } from "@/pages/api/token";
-import { getDataAuthentication } from "@/pages/api/Home/HomeService";
+import AddRecruitmentStage from "@/pages/hr/components/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/chi-tiet-quy-trinh/addRecruitmentStage/them-giai-doan";
+import ListRecruitmentStage from "@/pages/hr/components/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/chi-tiet-quy-trinh/listRecruitmentStage/listRecruitmentStage";
+import { DataRecruitmentStage } from "@/pages/hr/api/quan-ly-tuyen-dung/RecruitmentManagerService";
+import { getToken } from "@/pages/hr/api/token";
+import { getDataAuthentication } from "@/pages/hr/api/Home/HomeService";
 import jwt_decode from "jwt-decode";
+import { getTokenFromCookie } from "@/pages/hr/api/token";
+import Head from "next/head";
 
-export interface listRecruitmentProcess {}
+export interface listRecruitmentProcess { }
 
-export default function listRecruitmentProcess({dataDetail}) {
-  
+export default function listRecruitmentProcess({ dataDetail }) {
+
   const router = useRouter();
   const { idRecruitmentStage } = router.query;
   const [openModalAdd, setOpenModalAdd] = useState(false);
@@ -22,8 +24,8 @@ export default function listRecruitmentProcess({dataDetail}) {
   const recruitment = recruitmentStage?.data.recruitment
   const [displayIcon, setDisplayIcon] = useState<any>();
   const [tokenType, setTokenType] = useState<any>(null);
-  
-  const COOKIE_KEY = "user_365";
+
+  const COOKIE_KEY = "token_base365";
 
   useEffect(() => {
     const currentCookie = getToken(COOKIE_KEY);
@@ -39,7 +41,7 @@ export default function listRecruitmentProcess({dataDetail}) {
         setDisplayIcon(response?.data?.data?.infoRoleTD);
       };
       fetchData();
-    } catch (error) {}
+    } catch (error) { }
   }, []);
 
   const perIdArray = displayIcon?.map((item) => item.perId);
@@ -47,23 +49,10 @@ export default function listRecruitmentProcess({dataDetail}) {
   const iconEdit = perIdArray?.includes(3);
   const iconDelete = perIdArray?.includes(4);
 
-
-
-  useEffect(() => {
-    const fetchDataRecruitmentStage = async (idRecruitmentStage: any) => {
-      try {
-        const response = await DataRecruitmentStage(idRecruitmentStage);
-        setRecruitmentStage(response?.data.data);
-      } catch (error) {
-      }
-    };
-    fetchDataRecruitmentStage(idRecruitmentStage);
-  }, [newData]);
-
   const handleBack = () => {
     router.back();
   };
-  
+
   const handleOpenModalAdd = () => {
     setOpenModalAdd(true);
     setAnimateModal(true);
@@ -78,6 +67,10 @@ export default function listRecruitmentProcess({dataDetail}) {
 
   return (
     <>
+      <Head>
+        <title>Giai đoạn tuyển dụng - Quản lý nhân sự - Timviec365.vn
+        </title>
+      </Head>
       <div className={`${styles.l_body}`}>
         <div className={`${styles.add_quytrinh}`}>
           <div className={`${styles.back_quytrinh}`}>
@@ -90,23 +83,23 @@ export default function listRecruitmentProcess({dataDetail}) {
           </div>
           {tokenType === 1 ? (
             <div className={`${styles.add_quytrinh1}`}>
-            <button className={`${styles.adds}`} onClick={handleOpenModalAdd}>
-              <picture>
-                <img src={`${"/add.png"}`} alt=""></img>
-              </picture>
-              Thêm giai đoạn tuyển dụng
-            </button>
-          </div>
-          ):(
-            ( !iconAdd) ? <></> : (
+              <button className={`${styles.adds}`} onClick={handleOpenModalAdd}>
+                <picture>
+                  <img src={`${"/add.png"}`} alt=""></img>
+                </picture>
+                Thêm giai đoạn tuyển dụng
+              </button>
+            </div>
+          ) : (
+            (!iconAdd) ? <></> : (
               <div className={`${styles.add_quytrinh1}`}>
-            <button className={`${styles.adds}`} onClick={handleOpenModalAdd}>
-              <picture>
-                <img src={`${"/add.png"}`} alt=""></img>
-              </picture>
-              Thêm giai đoạn tuyển dụng
-            </button>
-          </div>
+                <button className={`${styles.adds}`} onClick={handleOpenModalAdd}>
+                  <picture>
+                    <img src={`${"/add.png"}`} alt=""></img>
+                  </picture>
+                  Thêm giai đoạn tuyển dụng
+                </button>
+              </div>
             )
           )}
         </div>
@@ -115,45 +108,46 @@ export default function listRecruitmentProcess({dataDetail}) {
             recruitmentId={idRecruitmentStage}
             animation={animateModal}
             onCloseModal={handleCloseModalAdd}
-            setData= {setNewData}
+            setData={setNewData}
           ></AddRecruitmentStage>
         )}
 
         <div className={`${styles.giaidoans}`}>
-        <div className={`${styles.title_giaidoans}`}>
-        <h4>
-          ({`QTTD ${idRecruitmentStage}`}) {recruitment}
-        </h4>
-      </div>
+          <div className={`${styles.title_giaidoans}`}>
+            <h4>
+              ({`QTTD ${idRecruitmentStage}`}) {recruitment}
+            </h4>
+          </div>
           {recruitmentStage?.data?.listStage?.map((item, index) => (
             <div key={index}>
               <ListRecruitmentStage
                 item={item}
                 recruitment={dataDetail?.data.recruitment}
                 index={index}
-                onDelete = {setNewData}
-                onEdit = {setNewData}
-                iconEdit = {iconEdit}
-                iconDelete = {iconDelete}
-                tokenType = {tokenType}
+                onDelete={setNewData}
+                onEdit={setNewData}
+                iconEdit={iconEdit}
+                iconDelete={iconDelete}
+                tokenType={tokenType}
               ></ListRecruitmentStage>
             </div>
           ))}
         </div>
-        
+
       </div>
     </>
   );
 }
 
-export const getServerSideProps = async ({ params }) => {
+export const getServerSideProps = async ({ params, req }) => {
   const { idRecruitmentStage } = params;
+  const token = getTokenFromCookie(req.headers.cookie || '');
   try {
-    const response = await DataRecruitmentStage(idRecruitmentStage)
-    const dataDetail = response?.data.data; 
+    const response = await DataRecruitmentStage(idRecruitmentStage, token)
+    const dataDetail = response?.data.data;
     return {
       props: {
-        dataDetail, 
+        dataDetail,
       },
     };
   } catch (error) {

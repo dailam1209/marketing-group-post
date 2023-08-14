@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "../../../../quan-ly-tuyen-dung/quy-trinh-tuyen-dung/deleteRecruitmentProcess/DeleteRecruitmentProcess.module.css"
-import { DeleteRegulations } from "@/pages/api/quy_dinh_chinh_sach";
+import { DeleteRegulations } from "@/pages/hr/api/quy_dinh_chinh_sach";
 
 export default function DeleteRegulation({ onCancel, idGroup }: any) {
 

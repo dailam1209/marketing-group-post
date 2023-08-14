@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styles from "./EditModalCollectiveDiscipline.module.css";
 import Select from "react-select";
-import { UpdateInfringes } from "@/pages/api/luong-thuong-phuc-loi/discipline";
-import { GetDepartmentList } from "@/pages/api/luong-thuong-phuc-loi/reward";
-import { getDataUser } from "@/pages/api/quan-ly-tuyen-dung/PerformRecruitment";
+import { UpdateInfringes } from "@/pages/hr/api/luong-thuong-phuc-loi/discipline";
+import { GetDepartmentList } from "@/pages/hr/api/luong-thuong-phuc-loi/reward";
+import { getDataUser } from "@/pages/hr/api/quan-ly-tuyen-dung/PerformRecruitment";
 import { format } from "date-fns";
 
-function EditModalListDiscipline({ animation,onClose, dataOld }: any) {
+function EditModalListDiscipline({ animation, onClose, dataOld }: any) {
   const id = dataOld?.id
   const comId = dataOld?.comId;
   const typeEdit = dataOld.listUser.length
@@ -25,7 +25,7 @@ function EditModalListDiscipline({ animation,onClose, dataOld }: any) {
     regulatory_basis: regulatoryBasis,
     number_violation: numberViolation,
     infringe_at: infringeAt,
-    infringe_type:infringeType,
+    infringe_type: infringeType,
     created_by: createdBy,
   });
 
@@ -41,7 +41,7 @@ function EditModalListDiscipline({ animation,onClose, dataOld }: any) {
               label: `${item.userName} ${item.nameDeparment}`,
             }))
           );
-        } catch (err) {}
+        } catch (err) { }
       };
       getData1();
     } else {
@@ -55,7 +55,7 @@ function EditModalListDiscipline({ animation,onClose, dataOld }: any) {
               label: `${item.dep_name}`,
             }))
           );
-        } catch (err) {}
+        } catch (err) { }
       };
       getData2();
     }
@@ -84,27 +84,27 @@ function EditModalListDiscipline({ animation,onClose, dataOld }: any) {
         list_user: selectedValues,
         list_user_name: selectedLabels,
       }));
-    }  
+    }
     else {
       const { value, label } = selectedOptions;
       setListUser((prevState) => ({
-      ...prevState,
-      depId: value,
-      depName: label
-    }));
+        ...prevState,
+        depId: value,
+        depName: label
+      }));
     }
   };
 
-  const mergedObject = {...content, ...listUser}
+  const mergedObject = { ...content, ...listUser }
   console.log(mergedObject)
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       // await schema.validate(mergedObject, { abortEarly: false });
       const response = await UpdateInfringes(id, mergedObject);
       console.log(response)
-      if(response?.status !== 200) {
+      if (response?.status !== 200) {
         alert('Sửa khen thưởng không thành công')
       }
       else {
@@ -123,7 +123,7 @@ function EditModalListDiscipline({ animation,onClose, dataOld }: any) {
   return (
     <>
       <div className={`${styles.overlay}`}></div>
-      <div className={`${styles.modal} ${styles.modal_setting}  ${animation ? styles.fade_in : styles.fade_out }`} style={{display:'block'}}>
+      <div className={`${styles.modal} ${styles.modal_setting}  ${animation ? styles.fade_in : styles.fade_out}`} style={{ display: 'block' }}>
         <div className={`${styles.modal_dialog} ${styles.contentquytrinh}`}>
           <div className={`${styles.modal_content} `}>
             {/* header */}
@@ -133,7 +133,7 @@ function EditModalListDiscipline({ animation,onClose, dataOld }: any) {
             {/* body */}
             <form onSubmit={handleSubmit} className={`${styles.modal_form}`}>
               <div className={`${styles.modal_body} ${styles.bodyquytrinh}`}>
-                
+
                 <div className={`${styles.form_groups}`}>
                   <label>
                     Tên lỗi vi phạm
@@ -143,13 +143,13 @@ function EditModalListDiscipline({ animation,onClose, dataOld }: any) {
                     <input
                       type="text"
                       className={`${styles.inputquytrinh}`}
-                      name= 'infringe_name'
+                      name='infringe_name'
                       defaultValue={infringeName}
                       onChange={handleContentChange}
                     ></input>
                     <picture style={{ display: "none" }}>
                       <img
-                     src = {`${'/danger.png'}`}
+                        src={`${'/danger.png'}`}
                         alt="Lỗi"
                       ></img>
                     </picture>
@@ -169,13 +169,13 @@ function EditModalListDiscipline({ animation,onClose, dataOld }: any) {
                     <input
                       type="text"
                       className={`${styles.inputquytrinh}`}
-                      name= 'regulatory_basis'
+                      name='regulatory_basis'
                       defaultValue={regulatoryBasis}
                       onChange={handleContentChange}
                     ></input>
                     <picture style={{ display: "none" }}>
                       <img
-                        src = {`${'/danger.png'}`}
+                        src={`${'/danger.png'}`}
                         alt="Lỗi"
                       ></img>
                     </picture>
@@ -188,20 +188,20 @@ function EditModalListDiscipline({ animation,onClose, dataOld }: any) {
 
                 <div className={`${styles.form_groups}`}>
                   <label>
-                  Số quy định xử lý vi phạm
+                    Số quy định xử lý vi phạm
                     <span className={`${styles.red}`}> *</span>
                   </label>
                   <div className={`${styles.inputright}`}>
                     <input
                       type="text"
                       className={`${styles.inputquytrinh}`}
-                      name= 'number_violation'
+                      name='number_violation'
                       defaultValue={numberViolation}
                       onChange={handleContentChange}
                     ></input>
                     <picture style={{ display: "none" }}>
                       <img
-                        src = {`${'/danger.png'}`}
+                        src={`${'/danger.png'}`}
                         alt="Lỗi"
                       ></img>
                     </picture>
@@ -221,14 +221,14 @@ function EditModalListDiscipline({ animation,onClose, dataOld }: any) {
                     <input
                       type="date"
                       className={`${styles.inputquytrinh}`}
-                      style={{height: '30.6px'}}
-                      name= 'infringe_at'
+                      style={{ height: '30.6px' }}
+                      name='infringe_at'
                       defaultValue={infringeAt}
                       onChange={handleContentChange}
                     ></input>
                     <picture style={{ display: "none" }}>
                       <img
-                        src = {`${'/danger.png'}`}
+                        src={`${'/danger.png'}`}
                         alt="Lỗi"
                       ></img>
                     </picture>
@@ -248,13 +248,13 @@ function EditModalListDiscipline({ animation,onClose, dataOld }: any) {
                     <input
                       type="text"
                       className={`${styles.inputquytrinh}`}
-                      name= 'infringe_type'
+                      name='infringe_type'
                       defaultValue={infringeType}
                       onChange={handleContentChange}
                     ></input>
                     <picture style={{ display: "none" }}>
                       <img
-                        src = {`${'/danger.png'}`}
+                        src={`${'/danger.png'}`}
                         alt="Lỗi"
                       ></img>
                     </picture>
@@ -359,13 +359,13 @@ function EditModalListDiscipline({ animation,onClose, dataOld }: any) {
                     <input
                       type="text"
                       className={`${styles.inputquytrinh}`}
-                      name= 'created_by'
+                      name='created_by'
                       defaultValue={createdBy}
                       onChange={handleContentChange}
                     ></input>
                     <picture style={{ display: "none" }}>
                       <img
-                        src = {`${'/danger.png'}`}
+                        src={`${'/danger.png'}`}
                         alt="Lỗi"
                       ></img>
                     </picture>
