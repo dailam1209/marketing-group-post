@@ -1,20 +1,23 @@
 import axios from 'axios'
 import { getCookie } from 'cookies-next'
 import jwtDecode from 'jwt-decode'
-import { COOKIE_KEY } from '../cai-dat-chung'
+import { COOKIE_KEY } from '../quan-ly-nhan-luc'
 import { cookies } from 'next/headers'
 
 const currentUrlQlc = process.env.NEXT_PUBLIC_API
 const currentUrlHR = process.env.NEXT_PUBLIC_API
-const currentUrlVT = process.env.NEXT_PUBLIC_API
+const currentUrlVT = process.env.NEXT_PUBLIC_BASE_URL_VT
 const curentUrlTL = process.env.NEXT_PUBLIC_API
 
 export const getCurrentToken = () => {
+  let token = ''
   const currentAccessToken = getCookie(COOKIE_KEY)
-
+  if (currentAccessToken) {
+    token = currentAccessToken?.toString()
+  }
   // console.log(currentAccessToken)
   // const tokenJson = currentAccessToken && JSON.parse(`${currentAccessToken}`)
-  return currentAccessToken
+  return token
 }
 
 export const GET = async (url: string) => {

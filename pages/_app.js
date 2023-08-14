@@ -2,13 +2,8 @@ import React, { useEffect, useState } from 'react'
 import '@/styles/globals.css'
 // import '../public/css/style.css'
 import { ConfigProvider, Spin } from 'antd'
-import { LayoutNs } from '../components/LayoutNs.tsx'
 import Bodyframe from '@/components/bodyFrameNs/bodyFrame.tsx'
-import { hasCookie, setCookie } from 'cookies-next'
-import axios from 'axios'
 import { useRouter } from 'next/router.js'
-import { COOKIE_KEY } from './cai-dat-chung/index.tsx'
-import { FastForwardFilled } from '@ant-design/icons'
 export default function App({ Component, pageProps }) {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
@@ -61,7 +56,7 @@ export default function App({ Component, pageProps }) {
           screenMDMin: 769,
         },
       }}>
-      {router.pathname?.includes('cai-dat-chung') ? (
+      {router.pathname?.includes('quan-ly-nhan-luc') ? (
         <Bodyframe>
           <Component {...pageProps} />
         </Bodyframe>
