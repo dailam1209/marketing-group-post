@@ -1,89 +1,30 @@
 import { Button, Col, Form, Input,Row,Select } from 'antd'
 import styles from './tham-gia-du-an.module.css'
 import { IconSelect, Tep} from '@/components/cai-dat-luong/cai-dat-thue/danh-sach-nhan-su-chua-thiet-lap/anh'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { DXFileInput } from '@/components/tao-de-xuat-2/components/TaoDeXuatComps'
-import { POST_VT } from '@/pages/api/BaseApi'
-const chonchucvu =[
-    {
-        value:1,
-        label:'Chọn Chức vụ'
-    },
-    {
-        value:2,
-        label:'Sinh Viên Thực Tập'
-    },
-    {
-        value:3,
-        label:'Nhân Viên Past Time'
-    },
-    {
-        value:4,
-        label:'Nhân viên chính thức'
-    },
-    {
-        value:5,
-        label:'Chọn Chức vụ'
-    },
-   
-]
-const OPTIONS = [
-    {
-        label: 'Apples',
-        value: 1
-    },
-    {
-        label: 'Apples',
-        value: 2
-    },{
-        label: 'Apples',
-        value: 3
-    },
-];
-const options2 = [
-    {
-        label: 'Apples',
-        value: 1
-    },
-    {
-        label: 'Apples',
-        value: 2
-    },{
-        label: 'Apples',
-        value: 3
-    },
-];
-const chonphongban =[
-    {
-        value:1,
-        label:'Chọn phòng ban'
-    },
-    {
-        value:2,
-        label:'Kỹ Thuật'
-    },
-    {
-        value:3,
-        label:'Biên Tập'
-    }   
-]
+import { POST, POST_VT, getCompIdCS, getInfoUser } from '@/pages/api/BaseApi'
+import { getPosition } from '@/utils/function'
+
 export const ThamGiaDuAn:React.FC = () => {
     const [selectedFile, setSelectedFile] =useState<any>(null)
     const [form] = Form.useForm()
     const handleChange = (value: string) => {
         console.log(`selected ${value}`);
       };
-    const Router = useRouter()
+    const router = useRouter()
     const { TextArea } = Input
     const [selectedItems, setSelectedItems] = useState('');
-    const filteredChonChucVu= OPTIONS.filter((x:any) => !selectedItems.includes(x))
     const [selectTheoDoi, setSelectTheoDoi] = useState<string[]>([])
-    const theodoi = options2.filter((x:any) => !selectTheoDoi.includes(x))
+
     const handalSubmit = () =>{
         form.validateFields().then((value) => {
             const formData = new FormData();
-            formData.append('fileKem',selectedFile)
+            if (fileData) {
+
+                formData.append('file_kem',fileData)
+            }
             formData.append('name_dx', form.getFieldValue('name_dx'))
             formData.append('id_user_duyet', form.getFieldValue('id_user_duyet')?.join(','))
             formData.append('id_user_theo_doi', form.getFieldValue('id_user_theo_doi')?.join(','))
@@ -92,10 +33,69 @@ export const ThamGiaDuAn:React.FC = () => {
             formData.append('pb_nguoi_da', form.getFieldValue('pb_nguoi_da'))
             formData.append('dx_da', form.getFieldValue('dx_da'))
             POST_VT('api/vanthu/dexuat/De_Xuat_Tham_Gia_Du_An',formData).then((res) =>{
-                console.log(res)
+                // console.log(res)
+                alert("Tạo đề xuất tham gia dự án thành công!")
+                router.replace(router.asPath)
             })
         })
     } 
+
+    const [infoUser, setInfoUser] = useState<any>();
+    const [listDuyet, setListDuyet] = useState<any>({});
+    const [depLabel, setDepLabel] = useState<any>([]);
+    const [fileData, setFileData] = useState<any>([]);
+  
+    useEffect(() => {
+      const getListDuyet = async () => {
+        const res = await POST_VT('api/vanthu/dexuat/showadd', {});
+  
+        if (res?.result) {
+          setListDuyet({
+            listDuyet: res?.listUsersDuyet?.map((user) => ({
+              label: user?.userName,
+              value: user?.idQLC ? `/${user?.idQLC}` : "/nhanvien.png",
+              url: user?.avatarUser
+            })),
+            listTheoDoi: res?.listUsersTheoDoi?.map((user) => ({
+              label: user?.userName,
+              value: user?.idQLC,
+              url: user?.avatarUser
+            })),
+          });
+        }
+      };
+  
+      getListDuyet();
+      let com_id = null;
+    com_id = getCompIdCS();
+    com_id !== null &&
+      POST('api/qlc/department/list', {
+        com_id: com_id,
+      }).then((res) => {
+        if (res?.result === true) {
+          setDepLabel(
+            res?.data?.map((dep) => ({
+              label: dep?.dep_name,
+              value: dep?.dep_id,
+            }))
+          );
+        }
+      });
+        
+      setInfoUser(getInfoUser());
+    }, []);
+  
+    useEffect(() => {
+      if (infoUser?.idQLC) {
+        form.setFieldValue('name', infoUser?.userName);
+      }
+    }, [infoUser]);
+
+    const positionLabel = getPosition?.map((p) => ({
+        label: p?.value,
+        value: p?.id,
+      }));
+
     return(
         <div className={styles.khung}>
             <div className={styles.header}>
@@ -177,7 +177,7 @@ export const ThamGiaDuAn:React.FC = () => {
                             <Select
                                 className={styles.input}
                                 placeholder='Chọn phòng ban'
-                                options={chonphongban}
+                                options={depLabel}
                                 onChange={handleChange}
                                 size='large'
                                 suffixIcon = {<IconSelect/>}
@@ -204,7 +204,7 @@ export const ThamGiaDuAn:React.FC = () => {
                             <Select
                                 className={styles.input}
                                 placeholder='Chọn phòng ban'
-                                options={chonphongban}
+                                options={depLabel}
                                 onChange={handleChange}
                                 size='large'
                                 suffixIcon = {<IconSelect/>}
@@ -231,7 +231,7 @@ export const ThamGiaDuAn:React.FC = () => {
                             <Select 
                                 className={`select_taodexuat ${styles.input}`}
                                 placeholder='Chọn chức vụ'
-                                options={chonchucvu}
+                                options={positionLabel}
                                 size='large'
                                 suffixIcon = {<IconSelect/>}
                             />
@@ -316,10 +316,7 @@ export const ThamGiaDuAn:React.FC = () => {
                                 <Select
                                     className={styles.input}
                                     placeholder='Chọn người xét duyệt'
-                                    options={filteredChonChucVu.map((name) =>({
-                                        value:name,
-                                        label:name
-                                    }))}
+                                    options={listDuyet?.listDuyet}
                                     onChange={setSelectedItems}
                                     size='large'
                                     value={selectedItems}
@@ -347,10 +344,7 @@ export const ThamGiaDuAn:React.FC = () => {
                                 <Select 
                                     className={`select_taodexuat ${styles.input}`}
                                     placeholder='Chọn người theo dõi'
-                                    options={theodoi.map((name) =>({
-                                        value:name,
-                                        label:name
-                                    }))}
+                                    options={listDuyet?.listTheoDoi}
                                     onChange={setSelectTheoDoi}
                                     size='large'
                                     value={selectTheoDoi}
@@ -362,7 +356,7 @@ export const ThamGiaDuAn:React.FC = () => {
                     </Row>
                     <Row gutter={24} className={styles.body6}>
                         <Col sm={12} xs={24}>
-                        <DXFileInput setFileData ={() => null} />
+                        <DXFileInput setFileData ={setFileData} />
                         </Col>
                     </Row>
                 </Form>

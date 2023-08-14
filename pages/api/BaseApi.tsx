@@ -107,6 +107,19 @@ export const getCompIdCS = () => {
   return null
 }
 
+export const getInfoUser = () => {
+  const cookieData = getCookie(COOKIE_KEY)?.toString()
+
+  if (cookieData) {
+    try {
+      let data: any = jwtDecode(cookieData)
+      return data?.data
+    } catch(e) {
+      return null
+    }
+  }
+}
+
 export const GET_SS = async (
   url: string,
   context: any,

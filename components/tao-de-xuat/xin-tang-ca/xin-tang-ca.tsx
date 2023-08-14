@@ -4,44 +4,13 @@ import {
   IconSelect,
   Tep,
 } from "@/components/cai-dat-luong/cai-dat-thue/danh-sach-nhan-su-chua-thiet-lap/anh";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import dayjs from "dayjs";
-import { POST_VT } from "@/pages/api/BaseApi";
-const tangca = [
-  {
-    value: 1,
-    label: "Chọn ca tăng",
-  },
-  {
-    value: 2,
-    label: "Ca sáng LƯƠNG <= 5TR",
-  },
-  {
-    value: 2,
-    label: "Ca chiều LƯƠNG <= 5TR",
-  },
-  {
-    value: 3,
-    label: "Ca sáng 5TR < LƯƠNG <= 7TR",
-  },
-];
-const OPTIONS = ["Apples", "Nails", "Bananas", "Helicopters"];
-const options2 = ["Apples", "Nails", "Bananas", "Helicopters"];
-const chonphongban = [
-  {
-    value: 1,
-    label: "Chọn phòng ban",
-  },
-  {
-    value: 2,
-    label: "Kỹ Thuật",
-  },
-  {
-    value: 3,
-    label: "Biên Tập",
-  },
-];
+import { GET, POST_VT, getInfoUser } from "@/pages/api/BaseApi";
+import { DXFileInput } from "@/components/tao-de-xuat-2/components/TaoDeXuatComps";
+
+
 export const XinTangCa: React.FC = () => {
   const [form] = Form.useForm();
   const handleChange = (value: string) => {
@@ -50,15 +19,8 @@ export const XinTangCa: React.FC = () => {
   const router = useRouter();
   const { TextArea } = Input;
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
-  const filteredChonChucVu = OPTIONS.filter((x) => !selectedItems.includes(x));
   const [selectTheoDoi, setSelectTheoDoi] = useState<string[]>([]);
-  const theodoi = options2.filter((x) => !selectTheoDoi.includes(x));
 
-  const userLabel = [
-    { label: "Nguyễn Thu Trang", value: "1" },
-    { label: "Lại Thị Trang", value: "2" },
-    { label: "Phạm Xuân Nguyên Khôi", value: "3" },
-  ];
 
   const handleSubmit = () => {
     form.validateFields().then((value) => {
@@ -68,13 +30,19 @@ export const XinTangCa: React.FC = () => {
     //     id_user_theo_doi: value["id_user_theo_doi"]?.join(","),
     //     time_tc: dayjs(value["time_tc"]).unix(),
     //   });
-
-      POST_VT("api/vanthu/dexuat/De_Xuat_Xin_Bo_Nhiem", {
-        ...value,
+    const body = {
+      ...value,
         id_user_duyet: value["id_user_duyet"]?.join(","),
         id_user_theo_doi: value["id_user_theo_doi"]?.join(","),
         time_tc: dayjs(value["time_tc"]).unix(),
-      }).then((res) => {
+    }
+    const fd = new FormData();
+    Object.keys(body).forEach(key => {
+      fd.append(key, body[key])
+    })
+
+
+      POST_VT("api/vanthu/dexuat/addDXTC", fd).then((res) => {
         if (res?.result === true) {
           alert("Tạo đề xuất xin tăng ca thành công!");
           router.replace(router.asPath);
@@ -82,6 +50,56 @@ export const XinTangCa: React.FC = () => {
       });
     });
   };
+
+  const [infoUser, setInfoUser] = useState<any>();
+  const [listDuyet, setListDuyet] = useState<any>({});
+  const [fileData, setFileData] = useState<any>();
+  const [shiftLabel, setShiftLabel] = useState<any>([]);
+
+  useEffect(() => {
+    const getListDuyet = async () => {
+      const res = await POST_VT('api/vanthu/dexuat/showadd', {});
+
+      if (res?.result) {
+        setListDuyet({
+          listDuyet: res?.listUsersDuyet?.map((user) => ({
+            label: user?.userName,
+            value: user?.idQLC ? `/${user?.idQLC}` : "/nhanvien.png",
+            url: user?.avatarUser
+          })),
+          listTheoDoi: res?.listUsersTheoDoi?.map((user) => ({
+            label: user?.userName,
+            value: user?.idQLC,
+            url: user?.avatarUser
+          })),
+        });
+      }
+    };
+
+    getListDuyet();
+    GET("api/qlc/shift/list").then((res) => {
+      if (res?.result === true) {
+        setShiftLabel(
+          res?.list.map((item) => {
+            return {
+              value: `${item?.shift_id}`,
+              label: item?.shift_name,
+            };
+          })
+        );
+      }
+    });
+      
+    setInfoUser(getInfoUser());
+  }, []);
+
+  useEffect(() => {
+    if (infoUser?.idQLC) {
+      form.setFieldValue('name', infoUser?.userName);
+    }
+  }, [infoUser]);
+
+
   return (
     <div className={styles.khung}>
       <div className={styles.header}>
@@ -108,7 +126,7 @@ export const XinTangCa: React.FC = () => {
         <Form
           form={form}
           className={`${styles.bodyform} mc`}
-          initialValues={{ name: "khas" }}
+          initialValues={{ name: "Vũ Văn Khá" }}
         >
           <Row gutter={24} className={styles.body1}>
             <Col sm={12} xs={24}>
@@ -207,7 +225,7 @@ export const XinTangCa: React.FC = () => {
                 <Select
                   className={`select_taodexuat ${styles.input}`}
                   placeholder="Chọn ca tăng"
-                  options={tangca}
+                  options={shiftLabel}
                   size="large"
                   suffixIcon={<IconSelect />}
                 />
@@ -252,7 +270,7 @@ export const XinTangCa: React.FC = () => {
                 <Select
                   className={styles.input}
                   placeholder="Chọn người xét duyệt"
-                  options={userLabel}
+                  options={listDuyet?.listDuyet}
                   onChange={setSelectedItems}
                   size="large"
                   value={selectedItems}
@@ -276,7 +294,7 @@ export const XinTangCa: React.FC = () => {
                 <Select
                   className={`select_taodexuat ${styles.input}`}
                   placeholder="Chọn người theo dõi"
-                  options={userLabel}
+                  options={listDuyet?.listTheoDoi}
                   onChange={setSelectTheoDoi}
                   size="large"
                   value={selectTheoDoi}
@@ -288,24 +306,7 @@ export const XinTangCa: React.FC = () => {
           </Row>
           <Row gutter={24} className={styles.body6}>
             <Col sm={12} xs={24}>
-              <Form.Item
-                name={"file_kem"}
-                className={styles.bodyf}
-                label={
-                  <div className={styles.label}>
-                    <p className={styles.text}>Tài liệu đính kèm</p>
-                    <p className={styles.dau}>*</p>
-                  </div>
-                }
-                labelCol={{ span: 24 }}
-              >
-                <Input
-                  className={styles.input}
-                  placeholder="Thêm tài liệu đính kèm"
-                  size="large"
-                  suffix={<Tep />}
-                />
-              </Form.Item>
+              <DXFileInput setFileData={setFileData} />
             </Col>
           </Row>
         </Form>

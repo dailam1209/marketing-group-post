@@ -12,8 +12,8 @@ import {
 import { Button, Col, Form, Input, Row, Table } from 'antd'
 import { ColumnType, ColumnsType } from 'antd/es/table'
 import styles from './index.module.css'
-import { useState } from "react"
-import { POST_VT } from '@/pages/api/BaseApi'
+import { useEffect, useState } from "react"
+import { POST_VT, getInfoUser } from '@/pages/api/BaseApi'
 import { useRouter } from 'next/router'
 
 export default function DeXuatSuaChuaCSVC() {
@@ -22,11 +22,6 @@ export default function DeXuatSuaChuaCSVC() {
   const router = useRouter()
   form.setFieldValue('type_dx', 'Đề xuất sửa chữa cơ sở vật chất')
 
-  const userLabel = [
-    { label: "Nguyễn Thu Trang", value: "5" },
-    { label: "Lại Thị Trang", value: "2" },
-    { label: "Phạm Xuân Nguyên Khôi", value: "3" },
-  ];
 
   const handleSubmit = () => {
     form.validateFields().then((value) => {
@@ -61,6 +56,40 @@ export default function DeXuatSuaChuaCSVC() {
       });
     });
   };
+
+
+  const [infoUser, setInfoUser] = useState<any>();
+  const [listDuyet, setListDuyet] = useState<any>({});
+
+  useEffect(() => {
+    const getListDuyet = async () => {
+      const res = await POST_VT('api/vanthu/dexuat/showadd', {});
+
+      if (res?.result) {
+        setListDuyet({
+          listDuyet: res?.listUsersDuyet?.map((user) => ({
+            label: user?.userName,
+            value: user?.idQLC,
+          })),
+          listTheoDoi: res?.listUsersTheoDoi?.map((user) => ({
+            label: user?.userName,
+            value: user?.idQLC,
+          })),
+        });
+      }
+    };
+
+    getListDuyet();
+    
+    setInfoUser(getInfoUser());
+  }, []);
+
+  useEffect(() => {
+    if (infoUser?.idQLC) {
+      form.setFieldValue('name', infoUser?.userName);
+    }
+  }, [infoUser]);
+  
 
   const MyForm = () => {
     return (
@@ -206,7 +235,7 @@ export default function DeXuatSuaChuaCSVC() {
             <DxSelect
               isMulti
               name='id_user_duyet'
-              options={userLabel}
+              options={listDuyet?.listDuyet}
               placeholder='Người xét duyệt'
               required
               showSearch
@@ -217,7 +246,7 @@ export default function DeXuatSuaChuaCSVC() {
             <DxSelect
               isMulti
               name='id_user_theo_doi'
-              options={userLabel}
+              options={listDuyet?.listTheoDoi}
               placeholder='Người theo dõi'
               required
               showSearch
