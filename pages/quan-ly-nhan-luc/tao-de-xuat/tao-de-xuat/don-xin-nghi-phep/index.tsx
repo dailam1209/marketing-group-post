@@ -15,10 +15,11 @@ import {
 } from 'antd'
 import { useState, useRef, useEffect, useContext } from 'react'
 import { ColumnsType } from 'antd/es/table'
-import { POST_VT } from '@/pages/api/BaseApi'
+import { GET, POST_VT, getCompIdCS, getInfoUser } from '@/pages/api/BaseApi'
 import { useRouter } from 'next/router'
 import dayjs from 'dayjs'
 import { listUserDuyetContext } from '@/pages/quan-ly-nhan-luc'
+import { getPosition } from '@/utils/function'
 
 interface Menu {
   stt: React.Key
@@ -32,11 +33,6 @@ interface Menu {
 export default function DonXinNghiPhep() {
   const [form] = Form.useForm()
   const inputFileRef = useRef<any>(null)
-
-  const listDuyet = useContext(listUserDuyetContext)
-
-  console.log(listDuyet)
-
   const [stt, setStt] = useState(1)
   const [nameProposed, setNameProposed] = useState('')
   const [typeOfProposed, setTypeOfProposed] = useState('')
@@ -332,6 +328,56 @@ export default function DonXinNghiPhep() {
   const handleNameProposedChange = (e) => {
     setNameProposed(e.target.checked)
   }
+
+  const [infoUser, setInfoUser] = useState<any>();
+  const [listDuyet, setListDuyet] = useState<any>({});
+  const [listEmp, setListEmp]: any = useState([]);
+  const [listShift, setListShift]: any = useState([]);
+  const [depLabel, setDepLabel]: any = useState<any>([]);
+  const [fileData, setFileData] = useState<Blob>();
+
+  useEffect(() => {
+    const getListDuyet = async () => {
+      const res = await POST_VT('api/vanthu/dexuat/showadd', {});
+
+      if (res?.result) {
+        setListDuyet({
+          listDuyet: res?.listUsersDuyet?.map((user) => ({
+            label: user?.userName,
+            value: user?.idQLC ? `/${user?.idQLC}` : "/nhanvien.png",
+            url: user?.avatarUser
+          })),
+          listTheoDoi: res?.listUsersTheoDoi?.map((user) => ({
+            label: user?.userName,
+            value: user?.idQLC,
+            url: user?.avatarUser
+          })),
+        });
+      }
+    };
+
+    getListDuyet();
+    GET("api/qlc/shift/list").then((res) => {
+      if (res?.result === true) {
+        setListShift(
+          res?.list.map((item) => {
+            return {
+              value: `${item?.shift_id}`,
+              label: item?.shift_name,
+            };
+          })
+        );
+      }
+    });
+      
+    setInfoUser(getInfoUser());
+  }, []);
+
+  useEffect(() => {
+    if (infoUser?.idQLC) {
+      form.setFieldValue('name', infoUser?.userName);
+    }
+  }, [infoUser]);
 
   useEffect(() => {
     // console.log( (!(typeOfDate !== "5") || (typeOfDate === "")) )
@@ -634,24 +680,7 @@ export default function DonXinNghiPhep() {
                   <Select
                     placeholder='Chọn ca nghỉ'
                     size='large'
-                    options={[
-                      {
-                        value: '1',
-                        label: 'Chọn ca nghỉ',
-                      },
-                      {
-                        value: '2',
-                        label: 'Nghỉ cả ngày (tất cả các ca)',
-                      },
-                      {
-                        value: '3',
-                        label: 'Ca sáng 7TR < LƯƠNG <= 10TR',
-                      },
-                      {
-                        value: '4',
-                        label: 'Ca chiều 7TR < LƯƠNG <= 10TR',
-                      },
-                    ]}
+                    options={listShift}
                     suffixIcon={
                       <Image
                         src='/suffixIcon_1.svg'
@@ -751,7 +780,7 @@ export default function DonXinNghiPhep() {
                 <span style={{ fontSize: '16px', color: 'red' }}>*</span>
                 <Form.Item name={'id_user_duyet'}>
                   <Select
-                    mode='multiple'
+                    mode='tags'
                     allowClear
                     style={{ fontSize: '16px' }}
                     placeholder='Người xét duyệt'
@@ -763,13 +792,13 @@ export default function DonXinNghiPhep() {
                         label: (
                           <div
                             style={{ display: 'flex', alignItems: 'center' }}>
-                            <Avatar src={item?.avatarUser} />
+                            <Avatar src={item?.url} />
                             <p style={{ marginLeft: '10px' }}>
-                              {item?.userName}
+                              {item?.label}
                             </p>
                           </div>
                         ),
-                        value: item?.idQLC,
+                        value: item?.value,
                       }))
                     }
                     suffixIcon={
@@ -800,13 +829,13 @@ export default function DonXinNghiPhep() {
                         label: (
                           <div
                             style={{ display: 'flex', alignItems: 'center' }}>
-                            <Avatar src={item?.avatarUser} />
+                            <Avatar src={item?.url} />
                             <p style={{ marginLeft: '10px' }}>
-                              {item?.userName}
+                              {item?.label}
                             </p>
                           </div>
                         ),
-                        value: item?.idQLC,
+                        value: item?.value,
                       }))
                     }
                     suffixIcon={

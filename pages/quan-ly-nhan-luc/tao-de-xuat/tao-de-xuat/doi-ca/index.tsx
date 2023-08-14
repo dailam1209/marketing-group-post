@@ -14,7 +14,7 @@ import {
 } from 'antd'
 import { useState, useRef, useEffect } from 'react'
 
-import { POST_VT } from '@/pages/api/BaseApi'
+import { GET, POST_VT, getInfoUser } from '@/pages/api/BaseApi'
 import dayjs from 'dayjs'
 import { useRouter } from 'next/router'
 
@@ -47,14 +47,14 @@ export default function DonXinDoiCa() {
   const [reasion, setReasion] = useState('')
   const [reviewer, setReviewer] = useState([])
   const [follower, setFollower] = useState([])
-  const [selectedFile, setSelectedFile] = useState('')
+  const [selectedFile, setSelectedFile] = useState<any>()
   const [showTable, setShowTable] = useState(false)
   const [dataSource, setDataSource] = useState<Menu[]>([])
 
   const handleFileInputChange = (e) => {
     const file = e.target.files[0]
     if (file) {
-      setSelectedFile(file.name)
+      setSelectedFile(file)
       //   console.log(file.name);
     }
   }
@@ -133,13 +133,27 @@ export default function DonXinDoiCa() {
       //     ngay_can_doi: dayjs(value['ngay_can_doi']).unix(),
       //     ngay_muon_doi: dayjs(value['ngay_muon_doi']).unix(),
       // })
-      POST_VT('api/vanthu/dexuat/De_Xuat_Xin_Doi_Ca', {
+      const body = {
         ...value,
         id_user_duyet: value['id_user_duyet']?.join(','),
         id_user_theo_doi: value['id_user_theo_doi']?.join(','),
         ngay_can_doi: dayjs(value['ngay_can_doi']).unix(),
         ngay_muon_doi: dayjs(value['ngay_muon_doi']).unix(),
-      }).then((res) => {
+      }
+
+      const fd = new FormData();
+
+      Object.keys(body)?.forEach((k) => {
+        fd.append(k, body[k]);
+      });
+
+      if (fileData) {
+      // console.log(fileData)
+
+        fd.append('file_kem', fileData);
+      }
+
+      POST_VT('api/vanthu/dexuat/De_Xuat_Xin_Doi_Ca', fd).then((res) => {
         if (res?.result === true) {
           alert('Tạo đề xuất đổi ca thành công!')
           router.replace(router.asPath)
@@ -186,6 +200,57 @@ export default function DonXinDoiCa() {
       }
     }
   }, [timeTo, dateTo, shift, dateFrom, timeFrom])
+
+
+  const [infoUser, setInfoUser] = useState<any>();
+  const [listDuyet, setListDuyet] = useState<any>({});
+  const [listEmp, setListEmp]: any = useState([]);
+  const [listShift, setListShift]: any = useState([]);
+  const [fileData, setFileData] = useState<Blob>();
+
+  useEffect(() => {
+    const getListDuyet = async () => {
+      const res = await POST_VT('api/vanthu/dexuat/showadd', {});
+
+      if (res?.result) {
+        setListDuyet({
+          listDuyet: res?.listUsersDuyet?.map((user) => ({
+            label: user?.userName,
+            value: user?.idQLC ? `/${user?.idQLC}` : "/nhanvien.png",
+            url: user?.avatarUser
+          })),
+          listTheoDoi: res?.listUsersTheoDoi?.map((user) => ({
+            label: user?.userName,
+            value: user?.idQLC,
+            url: user?.avatarUser
+          })),
+        });
+      }
+    };
+
+    getListDuyet();
+    GET("api/qlc/shift/list").then((res) => {
+      if (res?.result === true) {
+        setListShift(
+          res?.list.map((item) => {
+            return {
+              value: `${item?.shift_id}`,
+              label: item?.shift_name,
+            };
+          })
+        );
+      }
+    });
+      
+    setInfoUser(getInfoUser());
+  }, []);
+
+  useEffect(() => {
+    if (infoUser?.idQLC) {
+      form.setFieldValue('name', infoUser?.userName);
+    }
+  }, [infoUser]);
+
   return (
     <>
       <div style={{ width: '100%', justifyContent: 'center' }}>
@@ -210,7 +275,7 @@ export default function DonXinDoiCa() {
               </div>
               <div className={styles.bodyItem2}>
                 <span style={{ fontSize: '16px' }}>Họ và tên</span>
-                <Form.Item>
+                <Form.Item name={"name"}>
                   <Input
                     className={`input_donXinNghiPhep`}
                     size='large'
@@ -253,24 +318,7 @@ export default function DonXinDoiCa() {
                   <Select
                     size='large'
                     placeholder='Chọn ca nghỉ'
-                    options={[
-                      {
-                        value: '1',
-                        label: 'Chọn ca nghỉ',
-                      },
-                      {
-                        value: '2',
-                        label: 'Nghỉ cả ngày (tất cả các ca)',
-                      },
-                      {
-                        value: '3',
-                        label: 'Ca sáng 7TR < LƯƠNG <= 10TR',
-                      },
-                      {
-                        value: '4',
-                        label: 'Ca chiều 7TR < LƯƠNG <= 10TR',
-                      },
-                    ]}
+                    options={listShift}
                     suffixIcon={
                       <Image
                         src='/suffixIcon_1.svg'
@@ -302,24 +350,7 @@ export default function DonXinDoiCa() {
                   <Select
                     size='large'
                     placeholder='Chọn ca nghỉ'
-                    options={[
-                      {
-                        value: '1',
-                        label: 'Chọn ca nghỉ',
-                      },
-                      {
-                        value: '2',
-                        label: 'Nghỉ cả ngày (tất cả các ca)',
-                      },
-                      {
-                        value: '3',
-                        label: 'Ca sáng 7TR < LƯƠNG <= 10TR',
-                      },
-                      {
-                        value: '4',
-                        label: 'Ca chiều 7TR < LƯƠNG <= 10TR',
-                      },
-                    ]}
+                    options={listShift}
                     suffixIcon={
                       <Image
                         src='/suffixIcon_1.svg'
@@ -352,30 +383,13 @@ export default function DonXinDoiCa() {
                 <Form.Item name={'id_user_duyet'}>
                   <Select
                     size='large'
-                    mode='multiple'
+                    mode='tags'
                     allowClear
                     style={{ fontSize: '16px' }}
                     placeholder='Người xét duyệt'
                     onChange={handleReviewerChange}
                     className={`select_donXinPhepNghi`}
-                    options={[
-                      {
-                        value: '1',
-                        label: 'Lại Thị Trang',
-                      },
-                      {
-                        value: '2',
-                        label: 'Lại Thị Trang',
-                      },
-                      {
-                        value: '3',
-                        label: 'Lại Thị Trang',
-                      },
-                      {
-                        value: '4',
-                        label: 'Lại Thị Trang',
-                      },
-                    ]}
+                    options={listDuyet?.listDuyet}
                     suffixIcon={
                       <Image
                         src='/suffixIcon_1.svg'
@@ -411,24 +425,7 @@ export default function DonXinDoiCa() {
                     placeholder='Người theo dõi'
                     onChange={handleFollowerChange}
                     className={`select_donXinPhepNghi`}
-                    options={[
-                      {
-                        value: '1',
-                        label: 'Nguyễn Thu Trang',
-                      },
-                      {
-                        value: '2',
-                        label: 'Lại Thị Trang',
-                      },
-                      {
-                        value: '3',
-                        label: 'Lại Thị Trang',
-                      },
-                      {
-                        value: '4',
-                        label: 'Lại Thị Trang',
-                      },
-                    ]}
+                    options={listDuyet?.listTheoDoi}
                     suffixIcon={
                       <Image
                         src='/suffixIcon_1.svg'
@@ -464,7 +461,7 @@ export default function DonXinDoiCa() {
                     }
                     onClick={() => inputFileRef.current.click()}
                     style={{ fontSize: '16px' }}
-                    value={selectedFile}
+                    value={selectedFile?.name}
                     readOnly
                   />
                   <input

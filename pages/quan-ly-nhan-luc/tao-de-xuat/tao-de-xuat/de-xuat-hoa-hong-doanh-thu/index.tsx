@@ -13,19 +13,15 @@ import {
   MySelect,
   MyTextArea,
 } from "@/components/quan-ly-cong-ty/quan-ly-cong-ty-con/modal";
-import { POST_VT } from "@/pages/api/BaseApi";
+import { POST_VT, getInfoUser } from "@/pages/api/BaseApi";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 export default function DeXuatHoaHongDoanhThu() {
   const [form] = Form.useForm();
   const router = useRouter()
 
-  const userLabel = [
-    { label: "Nguyễn Thu Trang", value: "5" },
-    { label: "Lại Thị Trang", value: "2" },
-    { label: "Phạm Xuân Nguyên Khôi", value: "995619" },
-  ];
 
   const handleSubmit = () => {
     form.validateFields().then((value) => {
@@ -43,6 +39,41 @@ export default function DeXuatHoaHongDoanhThu() {
           });
     })
   }
+
+  const [infoUser, setInfoUser] = useState<any>();
+  const [listDuyet, setListDuyet] = useState<any>({});
+
+  useEffect(() => {
+    const getListDuyet = async () => {
+      const res = await POST_VT('api/vanthu/dexuat/showadd', {});
+
+      if (res?.result) {
+        setListDuyet({
+          listDuyet: res?.listUsersDuyet?.map((user) => ({
+            label: user?.userName,
+            value: user?.idQLC ? `/${user?.idQLC}` : "/nhanvien.png",
+            url: user?.avatarUser
+          })),
+          listTheoDoi: res?.listUsersTheoDoi?.map((user) => ({
+            label: user?.userName,
+            value: user?.idQLC,
+            url: user?.avatarUser
+          })),
+        });
+      }
+    };
+
+    getListDuyet();
+    
+      
+    setInfoUser(getInfoUser());
+  }, []);
+
+  useEffect(() => {
+    if (infoUser?.idQLC) {
+      form.setFieldValue('name', infoUser?.userName);
+    }
+  }, [infoUser]);
 
   return (
     <div>
@@ -157,7 +188,7 @@ export default function DeXuatHoaHongDoanhThu() {
                 true,
                 true,
                 "id_user_duyet",
-                userLabel
+                listDuyet?.listDuyet
               )}
             </Col>
             <Col sm={12} xs={24}>
@@ -167,7 +198,7 @@ export default function DeXuatHoaHongDoanhThu() {
                 true,
                 true,
                 "id_user_theo_doi",
-                userLabel
+                listDuyet?.listTheoDoi
               )}
             </Col>
           </Row>

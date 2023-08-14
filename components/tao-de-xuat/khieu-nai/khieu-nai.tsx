@@ -4,48 +4,13 @@ import {
   IconSelect,
   Tep,
 } from "@/components/cai-dat-luong/cai-dat-thue/danh-sach-nhan-su-chua-thiet-lap/anh";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import dayjs from "dayjs";
-import { POST_VT } from "@/pages/api/BaseApi";
-const chonchucvu = [
-  {
-    value: 1,
-    label: "Chọn Chức vụ",
-  },
-  {
-    value: 2,
-    label: "Sinh Viên Thực Tập",
-  },
-  {
-    value: 3,
-    label: "Nhân Viên Past Time",
-  },
-  {
-    value: 4,
-    label: "Nhân viên chính thức",
-  },
-  {
-    value: 5,
-    label: "Chọn Chức vụ",
-  },
-];
-const OPTIONS = ["Apples", "Nails", "Bananas", "Helicopters"];
-const options2 = ["Apples", "Nails", "Bananas", "Helicopters"];
-const chonphongban = [
-  {
-    value: 1,
-    label: "Chọn phòng ban",
-  },
-  {
-    value: 2,
-    label: "Kỹ Thuật",
-  },
-  {
-    value: 3,
-    label: "Biên Tập",
-  },
-];
+import { POST_VT, getInfoUser } from "@/pages/api/BaseApi";
+import { DXFileInput } from "@/components/tao-de-xuat-2/components/TaoDeXuatComps";
+
+
 export const KhieuNai: React.FC = () => {
   const [form] = Form.useForm();
   const handleChange = (value: string) => {
@@ -55,14 +20,7 @@ export const KhieuNai: React.FC = () => {
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   //   const filteredChonChucVu = OPTIONS.filter((x) => !selectedItems.includes(x));
   const [selectTheoDoi, setSelectTheoDoi] = useState<string[]>([]);
-  const theodoi = options2.filter((x) => !selectTheoDoi.includes(x));
   const [fileData, setFileData] = useState<Blob>();
-
-  const userLabel = [
-    { label: "Nguyễn Thu Trang", value: "1" },
-    { label: "Lại Thị Trang", value: "2" },
-    { label: "Phạm Xuân Nguyên Khôi", value: "3" },
-  ];
 
   const router = useRouter();
 
@@ -82,7 +40,7 @@ export const KhieuNai: React.FC = () => {
       });
 
       if (fileData) {
-        fd.append("fileKem", fileData);
+        fd.append("file_kem", fileData);
       }
 
       POST_VT("api/vanthu/dexuat/addDXKN", fd).then((res) => {
@@ -93,6 +51,41 @@ export const KhieuNai: React.FC = () => {
       });
     });
   };
+
+  const [infoUser, setInfoUser] = useState<any>();
+  const [listDuyet, setListDuyet] = useState<any>({});
+
+  useEffect(() => {
+    const getListDuyet = async () => {
+      const res = await POST_VT('api/vanthu/dexuat/showadd', {});
+
+      if (res?.result) {
+        setListDuyet({
+          listDuyet: res?.listUsersDuyet?.map((user) => ({
+            label: user?.userName,
+            value: user?.idQLC ? `/${user?.idQLC}` : "/nhanvien.png",
+            url: user?.avatarUser
+          })),
+          listTheoDoi: res?.listUsersTheoDoi?.map((user) => ({
+            label: user?.userName,
+            value: user?.idQLC,
+            url: user?.avatarUser
+          })),
+        });
+      }
+    };
+
+    getListDuyet();
+      
+    setInfoUser(getInfoUser());
+  }, []);
+
+  useEffect(() => {
+    if (infoUser?.idQLC) {
+      form.setFieldValue('name', infoUser?.userName);
+    }
+  }, [infoUser]);
+
   return (
     <div className={styles.khung}>
       <div className={styles.header}>
@@ -220,11 +213,11 @@ export const KhieuNai: React.FC = () => {
                 <Select
                   className={styles.input}
                   placeholder="Chọn người xét duyệt"
-                  options={userLabel}
+                  options={listDuyet?.listDuyet}
                   onChange={setSelectedItems}
                   size="large"
                   value={selectedItems}
-                  mode="multiple"
+                  mode="tags"
                   suffixIcon={<IconSelect />}
                 />
               </Form.Item>
@@ -244,7 +237,7 @@ export const KhieuNai: React.FC = () => {
                 <Select
                   className={`select_taodexuat ${styles.input}`}
                   placeholder="Chọn người theo dõi"
-                  options={userLabel}
+                  options={listDuyet?.listTheoDoi}
                   onChange={setSelectTheoDoi}
                   size="large"
                   value={selectTheoDoi}
@@ -256,24 +249,7 @@ export const KhieuNai: React.FC = () => {
           </Row>
           <Row gutter={24} className={styles.body6}>
             <Col sm={12} xs={24}>
-              <Form.Item
-                name={"file_kem"}
-                className={styles.bodyf}
-                label={
-                  <div className={styles.label}>
-                    <p className={styles.text}>Tài liệu đính kèm</p>
-                    <p className={styles.dau}>*</p>
-                  </div>
-                }
-                labelCol={{ span: 24 }}
-              >
-                <Input
-                  className={styles.input}
-                  placeholder="Tài liệu đính kèm"
-                  size="large"
-                  suffix={<Tep />}
-                />
-              </Form.Item>
+              <DXFileInput setFileData={setFileData} />
             </Col>
           </Row>
         </Form>

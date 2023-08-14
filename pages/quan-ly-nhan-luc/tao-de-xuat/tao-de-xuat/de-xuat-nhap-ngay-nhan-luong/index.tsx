@@ -13,10 +13,11 @@ import {
   MyTime,
 } from "@/components/tao-de-xuat/loai-de-xuat/tao-de-xuat/component/ChiTiet";
 import { Col, Form, Row } from "antd";
-import { POST_VT } from "@/pages/api/BaseApi";
+import { POST, POST_VT, getCompIdCS, getInfoUser } from "@/pages/api/BaseApi";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { DXFileInput } from "@/components/tao-de-xuat-2/components/TaoDeXuatComps";
 
 export default function DeXuatNhapNgayNhanLuong() {
   const [fileData, setFileData] = useState<any>();
@@ -24,35 +25,7 @@ export default function DeXuatNhapNgayNhanLuong() {
   const router = useRouter();
   const [form] = Form.useForm();
 
-  const shiftLabel = [
-    { label: "Ca sáng Lương <= 5TR", value: "1" },
-    { label: "Ca chiều Lương <= 5TR", value: "2" },
-    {
-      label: "Ca sáng 7TR < Lương <= 10TR",
-      value: "3",
-    },
-    {
-      label: "Ca chiều 7TR < Lương <= 10TR",
-      value: "4",
-    },
-  ];
 
-  const depLabel = [
-    { label: "Phòng 1", value: "1" },
-    { label: "Phòng 2", value: "2" },
-    { label: "Phòng 3", value: "3" },
-  ];
-
-  const userLabel = [
-    { label: "Nguyễn Thu Trang", value: "5" },
-    { label: "Lại Thị Trang", value: "2" },
-    { label: "Phạm Xuân Nguyên Khôi", value: "995619" },
-  ];
-
-  const typeOffLabel = [
-    { label: "Nghỉ giữa ca", value: 1 },
-    { label: "Nghỉ hết ca", value: 2 },
-  ];
 
   const handleSubmit = () => {
     form.validateFields().then((value) => {
@@ -80,6 +53,58 @@ export default function DeXuatNhapNgayNhanLuong() {
       });
     });
   };
+
+  const [infoUser, setInfoUser] = useState<any>();
+  const [listDuyet, setListDuyet] = useState<any>({});
+  const [depLabel, setDepLabel] = useState<any>([]);
+
+  useEffect(() => {
+    const getListDuyet = async () => {
+      const res = await POST_VT('api/vanthu/dexuat/showadd', {});
+
+      if (res?.result) {
+        setListDuyet({
+          listDuyet: res?.listUsersDuyet?.map((user) => ({
+            label: user?.userName,
+            value: user?.idQLC ? `/${user?.idQLC}` : "/nhanvien.png",
+            url: user?.avatarUser
+          })),
+          listTheoDoi: res?.listUsersTheoDoi?.map((user) => ({
+            label: user?.userName,
+            value: user?.idQLC,
+            url: user?.avatarUser
+          })),
+        });
+      }
+    };
+
+    getListDuyet();
+    let com_id = null;
+    com_id = getCompIdCS();
+    
+    com_id !== null &&
+      POST('api/qlc/department/list', {
+        com_id: com_id,
+      }).then((res) => {
+        if (res?.result === true) {
+          setDepLabel(
+            res?.data?.map((dep) => ({
+              label: dep?.dep_name,
+              value: dep?.dep_id,
+            }))
+          );
+        }
+      });
+      
+    setInfoUser(getInfoUser());
+  }, []);
+
+  useEffect(() => {
+    if (infoUser?.idQLC) {
+      form.setFieldValue('name', infoUser?.userName);
+    }
+  }, [infoUser]);
+
   return (
     <div>
       <div className={styles.header}>
@@ -160,7 +185,7 @@ export default function DeXuatNhapNgayNhanLuong() {
                 true,
                 true,
                 "id_user_duyet",
-                userLabel
+                listDuyet?.listDuyet
               )}
             </Col>
             <Col sm={12} xs={24}>
@@ -170,17 +195,18 @@ export default function DeXuatNhapNgayNhanLuong() {
                 true,
                 true,
                 "id_user_theo_doi",
-                userLabel
+                listDuyet?.listTheoDoi
               )}
             </Col>
             <Col sm={12} xs={24}>
-              {MyInputFile(
+              <DXFileInput setFileData={setFileData} />
+              {/* {MyInputFile(
                 "Tài liệu dính kèm",
                 "Thêm tài liệu đính kèm",
                 true,
                 true,
                 "file_kem"
-              )}
+              )} */}
             </Col>
           </Row>
         </div>

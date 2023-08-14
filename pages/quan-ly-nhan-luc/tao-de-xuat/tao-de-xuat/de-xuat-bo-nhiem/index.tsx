@@ -6,32 +6,78 @@ import {
   DxInputTxt,
   DxSelect,
   TaoDeXuatWrapper,
-} from "@/components/tao-de-xuat-2/components/TaoDeXuatComps";
-import { POST_VT } from "@/pages/api/BaseApi";
-import { Col, Form, Row } from "antd";
-import { useRouter } from "next/router";
+} from '@/components/tao-de-xuat-2/components/TaoDeXuatComps';
+import { POST, POST_VT, getCompIdCS, getInfoUser } from '@/pages/api/BaseApi';
+import { listUserDuyetContext } from '@/pages/quan-ly-nhan-luc';
+import { getPosition } from '@/utils/function';
+import { Col, Form, Row } from 'antd';
+import { useRouter } from 'next/router';
+import { useContext, useEffect, useState } from 'react';
 
 export default function DeXuatTangLuong() {
   const [form] = Form.useForm();
-  const router = useRouter()
+  const router = useRouter();
+  const [infoUser, setInfoUser] = useState<any>();
+  const [listDuyet, setListDuyet] = useState<any>({});
+  const [listEmp, setListEmp]: any = useState([]);
+  const [depLabel, setDepLabel]: any = useState<any>([]);
+  const [fileData, setFileData] = useState<Blob>();
 
-  const userLabel = [
-    { label: "Nguyễn Thu Trang", value: "5" },
-    { label: "Lại Thị Trang", value: "2" },
-    { label: "Phạm Xuân Nguyên Khôi", value: "3" },
-  ];
+  useEffect(() => {
+    const getListDuyet = async () => {
+      const res = await POST_VT('api/vanthu/dexuat/showadd', {});
 
-  const depLabel = [
-    { label: "Phòng 1", value: "1" },
-    { label: "Phòng 2", value: "2" },
-    { label: "Phòng 3", value: "3" },
-  ];
+      if (res?.result) {
+        setListDuyet({
+          listDuyet: res?.listUsersDuyet?.map((user) => ({
+            label: user?.userName,
+            value: user?.idQLC,
+          })),
+          listTheoDoi: res?.listUsersTheoDoi?.map((user) => ({
+            label: user?.userName,
+            value: user?.idQLC,
+          })),
+        });
+      }
+    };
 
-  const positionLabel = [
-    { label: "Nhân viên thử việc", value: "1" },
-    { label: "Nhân viên chính thức", value: "2" },
-    { label: "Trưởng phòng", value: "3" },
-  ];
+    getListDuyet();
+    let com_id = null;
+    com_id = getCompIdCS();
+    com_id !== null &&
+      POST('api/qlc/managerUser/list', {
+        com_id: com_id,
+      }).then((res) => {
+        if (res?.result === true) {
+          setListEmp(res?.data);
+        }
+      });
+    com_id !== null &&
+      POST('api/qlc/department/list', {
+        com_id: com_id,
+      }).then((res) => {
+        if (res?.result === true) {
+          setDepLabel(
+            res?.data?.map((dep) => ({
+              label: dep?.dep_name,
+              value: dep?.dep_id,
+            }))
+          );
+        }
+      });
+    setInfoUser(getInfoUser());
+  }, []);
+
+  useEffect(() => {
+    if (infoUser?.idQLC) {
+      form.setFieldValue('name', infoUser?.userName);
+    }
+  }, [infoUser]);
+
+  const positionLabel = getPosition?.map((p) => ({
+    label: p?.value,
+    value: p?.id,
+  }));
 
   const handleSubmit = () => {
     form.validateFields().then((value) => {
@@ -40,18 +86,47 @@ export default function DeXuatTangLuong() {
       //   id_user_duyet: value["id_user_duyet"]?.join(","),
       //   id_user_theo_doi: value["id_user_theo_doi"]?.join(","),
       // });
-      POST_VT('api/vanthu/dexuat/De_Xuat_Xin_Bo_Nhiem', {
+      const dep = depLabel?.find(dep => dep?.label === value['name_ph_bn'])
+      const po = positionLabel?.find(dep => dep?.label === value['chucvu_hientai'])
+      const body = {
         ...value,
-        id_user_duyet: value["id_user_duyet"]?.join(","),
-        id_user_theo_doi: value["id_user_theo_doi"]?.join(","),
-      })
-        .then(res => {
-          if (res?.result === true) {
-            alert("Tạo đề xuất xin bổ nhiệm thành công!")
-            router.replace(router.asPath)
-          }
-        })
+        id_user_duyet: value['id_user_duyet']?.join(','),
+        id_user_theo_doi: value['id_user_theo_doi']?.join(','),
+        name_ph_bn: dep?.value,
+        chucvu_hientai: po?.value
+      };
+      // console.log(body);
+
+      const fd = new FormData();
+
+      Object.keys(body)?.forEach((k) => {
+        fd.append(k, body[k]);
+      });
+
+      if (fileData) {
+      // console.log(fileData)
+
+        fd.append('file_kem', fileData);
+      }
+
+      POST_VT('api/vanthu/dexuat/De_Xuat_Xin_Bo_Nhiem', fd).then((res) => {
+        if (res?.result === true) {
+          alert('Tạo đề xuất xin bổ nhiệm thành công!');
+          router.replace(router.asPath);
+        }
+      });
     });
+  };
+
+  const handleSelectEmpAppointed = (value: any, option: any) => {
+    form.setFieldValue(
+      'name_ph_bn',
+      depLabel?.find((dep) => dep?.value === option?.dep_id)?.label
+    );
+    form.setFieldValue(
+      'chucvu_hientai',
+      positionLabel?.find((p) => p?.value === option?.position_id)?.label
+    );
   };
 
   const MyForm = () => {
@@ -59,10 +134,10 @@ export default function DeXuatTangLuong() {
       <Form
         form={form}
         initialValues={{
-          name: "Khas",
-          type_dx: "1",
-          name_ph_bn: "1",
-          chucvu_hientai: "1",
+          name: 'Vũ Văn Khá',
+          type_dx: 'Đề xuất bổ nhiệm',
+          name_ph_bn: '',
+          chucvu_hientai: '',
         }}
       >
         <Row gutter={[20, 10]}>
@@ -98,11 +173,17 @@ export default function DeXuatTangLuong() {
             <DxSelect
               isMulti={false}
               name="thanhviendc_bn"
-              options={userLabel}
+              options={listEmp?.map((e) => ({
+                label: e?.userName,
+                value: e?.idQLC,
+                dep_id: e?.dep_id,
+                position_id: e?.position_id,
+              }))}
               placeholder="Chọn thành viên"
               required
               showSearch
               title="Thành viên được bổ nhiệm"
+              handleChange={handleSelectEmpAppointed}
             />
           </Col>
           <Col md={6} sm={12} xs={24}>
@@ -119,7 +200,7 @@ export default function DeXuatTangLuong() {
               name="chucvu_hientai"
               placeholder="Chức vụ hiện tại"
               required
-              title="Nhân viên chính thức"
+              title="Chức vụ hiện tại"
               disabled
             />
           </Col>
@@ -160,7 +241,7 @@ export default function DeXuatTangLuong() {
             <DxSelect
               isMulti
               name="id_user_duyet"
-              options={userLabel}
+              options={listDuyet?.listDuyet}
               placeholder="Người xét duyệt"
               required
               showSearch
@@ -171,7 +252,7 @@ export default function DeXuatTangLuong() {
             <DxSelect
               isMulti
               name="id_user_theo_doi"
-              options={userLabel}
+              options={listDuyet?.listTheoDoi}
               placeholder="Người theo dõi"
               required
               showSearch
@@ -179,7 +260,7 @@ export default function DeXuatTangLuong() {
             />
           </Col>
           <Col md={12} sm={12} xs={24}>
-            <DXFileInput />
+            <DXFileInput setFileData={setFileData} />
           </Col>
         </Row>
       </Form>

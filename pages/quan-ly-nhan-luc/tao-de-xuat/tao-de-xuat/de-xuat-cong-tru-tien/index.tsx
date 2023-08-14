@@ -16,17 +16,15 @@ import {
 import { Col, Form, Radio, Row } from "antd";
 import { useRouter } from "next/router";
 import dayjs from "dayjs";
-import { POST_VT } from "@/pages/api/BaseApi";
+import { POST_VT, getInfoUser } from "@/pages/api/BaseApi";
+import { useEffect, useState } from "react";
 
 export default function DeXuatCongTruTien() {
   const [form] = Form.useForm();
   const router = useRouter();
+  const [infoUser, setInfoUser] = useState<any>();
+  const [listDuyet, setListDuyet] = useState<any>({});
 
-  const userLabel = [
-    { label: "Nguyễn Thu Trang", value: "5" },
-    { label: "Lại Thị Trang", value: "2" },
-    { label: "Phạm Xuân Nguyên Khôi", value: "3" },
-  ];
 
   const handleSubmit = () => {
 
@@ -52,6 +50,37 @@ export default function DeXuatCongTruTien() {
             })
     })
   }
+
+  useEffect(() => {
+    const getListDuyet = async () => {
+      const res = await POST_VT('api/vanthu/dexuat/showadd', {});
+
+      if (res?.result) {
+        setListDuyet({
+          listDuyet: res?.listUsersDuyet?.map((user) => ({
+            label: user?.userName,
+            value: user?.idQLC ? `/${user?.idQLC}` : "/nhanvien.png",
+            url: user?.avatarUser
+          })),
+          listTheoDoi: res?.listUsersTheoDoi?.map((user) => ({
+            label: user?.userName,
+            value: user?.idQLC,
+            url: user?.avatarUser
+          })),
+        });
+      }
+    };
+
+    getListDuyet();
+      
+    setInfoUser(getInfoUser());
+  }, []);
+
+  useEffect(() => {
+    if (infoUser?.idQLC) {
+      form.setFieldValue('name', infoUser?.userName);
+    }
+  }, [infoUser]);
 
   return (
     <div>
@@ -135,7 +164,7 @@ export default function DeXuatCongTruTien() {
                 true,
                 true,
                 "id_user_duyet",
-                userLabel
+                listDuyet?.listDuyet
               )}
             </Col>
             <Col sm={12} xs={24}>
@@ -145,7 +174,7 @@ export default function DeXuatCongTruTien() {
                 true,
                 true,
                 "id_user_theo_doi",
-                userLabel
+                listDuyet?.listTheoDoi
               )}
             </Col>
           </Row>

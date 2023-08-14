@@ -225,6 +225,7 @@ export const DxSelect = ({
   options,
   showSearch,
   isMulti,
+  handleChange
 }: {
   title: string;
   name: string;
@@ -233,6 +234,7 @@ export const DxSelect = ({
   options: any[];
   showSearch: boolean;
   isMulti: boolean;
+  handleChange?: Function
 }) => {
   return (
     <Form.Item
@@ -258,6 +260,7 @@ export const DxSelect = ({
         size="large"
         mode={isMulti ? "tags" : undefined}
         suffixIcon={<DROPDOWN_ICON />}
+        onChange={(value: any, option: any) => handleChange && handleChange(value, option)}
       />
     </Form.Item>
   );
@@ -430,3 +433,4 @@ export const DXInputMoney = ({
     </Form.Item>
   );
 };
+
