@@ -61,7 +61,7 @@ export const ChamCong365: React.FC = () => {
       <div className={styles.breadcrumb}>Chấm công bằng QR / Chamcong365</div>
       <Row gutter={15} className={styles.options}>
         <Col xxl={4} xl={7} sm={8} xs={24}>
-          <Link href='/cham-cong-bang-QR/cham-cong-365'>
+          <Link href='/quan-ly-nhan-luc/cham-cong-bang-QR/cham-cong-365'>
             <div className={styles.cc365} style={{ background: '#FFC460' }}>
               <Image
                 src='/cc.png'
@@ -77,7 +77,7 @@ export const ChamCong365: React.FC = () => {
           </Link>
         </Col>
         <Col xxl={4} xl={7} sm={8} xs={24}>
-          <Link href='/cham-cong-bang-QR/chat-365'>
+          <Link href='/quan-ly-nhan-luc/cham-cong-bang-QR/chat-365'>
             <div className={styles.chat365} style={{ background: `#fff` }}>
               <div className={styles.iconlogo}>
                 <svg
@@ -143,7 +143,7 @@ export const ChamCong365: React.FC = () => {
           </Link>
         </Col>
         <Col xxl={4} xl={7} sm={8} xs={24}>
-          <Link href='/cham-cong-bang-QR/pc-365'>
+          <Link href='/quan-ly-nhan-luc/cham-cong-bang-QR/pc-365'>
             <div className={styles.pc365} style={{ background: '#fff' }}>
               <div className={styles.iconlogo}>
                 <svg
@@ -344,7 +344,7 @@ export const ChamCong365: React.FC = () => {
           </div>
         </div>
       </div>
-      <Link href='/cham-cong-bang-QR/chat-365'>
+      <Link href='/quan-ly-nhan-luc/cham-cong-bang-QR/chat-365'>
         <div className={styles.end}>
           <p className={styles.textend}>Chuyển tiếp</p>
           <div className={styles.iconend}>

@@ -1,7 +1,7 @@
-import React from "react"
-import { CKEditor } from "@ckeditor/ckeditor5-react"
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic"
-import { Form } from "antd"
+import React from 'react'
+import { CKEditor } from '@ckeditor/ckeditor5-react'
+import { Form } from 'antd'
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 
 export default function ClassicCKEditor({
   data,
@@ -9,10 +9,10 @@ export default function ClassicCKEditor({
   required,
   title,
   name,
-  form
+  form,
 }: {
   data: string
-  onChange: (event: any, editor: ClassicEditor) => void
+  onChange: (event: any, editor: any) => void
   required: boolean
   title: string
   name: string
@@ -23,16 +23,15 @@ export default function ClassicCKEditor({
       required={required}
       // label={hasLabel && <p>{title}</p>}
       // labelCol={{ span: 24 }}
-      name={name}
-    >
+      name={name}>
       <CKEditor
         config={{}}
         editor={ClassicEditor}
         data={data}
         onReady={(editor) => {
-          console.log("ClassicCKEditor is ready to use!", editor)
+          console.log('ClassicCKEditor is ready to use!', editor)
         }}
-        onChange={(event, editor) => {
+        onChange={(event, editor: typeof ClassicEditor) => {
           const data = editor.getData()
           console.log({ event, editor, data })
           form && form.setFieldValue(name, data)
@@ -40,10 +39,10 @@ export default function ClassicCKEditor({
           form?.setFieldValue(name, editor.getData())
         }}
         onBlur={(event, editor) => {
-          console.log("Blur.", editor)
+          console.log('Blur.', editor)
         }}
         onFocus={(event, editor) => {
-          console.log("Focus.", editor)
+          console.log('Focus.', editor)
         }}
       />
     </Form.Item>
