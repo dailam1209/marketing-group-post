@@ -7,9 +7,8 @@ import Article from '../home/article/article'
 import { BackButton, MyBreadCrumb } from './bread-crump/BreadCrump'
 import { useRouter } from 'next/router'
 import { AddButton, ExportExcelButton } from '../commons/Buttons'
-import { CC_TK_CTY_URL, UPDATE_FACE_URL } from '../LayoutNs'
 import Footer from '../footer/Footer'
-import { PHONGBAN_ACTIVE_KEY } from '@/pages/cai-dat-chung/quan-ly-cong-ty/quan-ly-phong-ban'
+import { PHONGBAN_ACTIVE_KEY } from '@/pages/quan-ly-nhan-luc/quan-ly-cong-ty/quan-ly-phong-ban'
 import { Banner } from './banner/banner'
 import { CCBannerNV_TKCTY } from '../cham-cong-nhan-vien/cc-bang-tk-nv'
 import { BANNER_CCBNDKM_CHAMCONG365 } from '../cham-cong-nhan-vien/cham-cong-bang-nhan-dien-khuon-mat/cham-cong-365'
@@ -23,15 +22,16 @@ export interface BodyFrame {}
 
 export default function Bodyframe({ children }: any) {
   const router = useRouter()
-  const CAI_DAT_VI_TRI_URL = '/cai-dat-chung/cai-dat-vi-tri'
-  const NV_CCCTY_URL = '/cham-cong-nhan-vien/cc-bang-tai-khoan-cong-ty'
+  const CAI_DAT_VI_TRI_URL = '/quan-ly-nhan-luc/cai-dat-vi-tri'
+  const NV_CCCTY_URL =
+    '/quan-ly-nhan-luc/cham-cong-nhan-vien/cc-bang-tai-khoan-cong-ty'
   const NV_CCBNDKM_CC365 =
-    '/cham-cong-nhan-vien/cham-cong-bang-nhan-dien-khuon-mat/cham-cong-365'
+    '/quan-ly-nhan-luc/cham-cong-nhan-vien/cham-cong-bang-nhan-dien-khuon-mat/cham-cong-365'
   const NV_CCBNDKM_CHAT365 =
-    '/cham-cong-nhan-vien/cham-cong-bang-nhan-dien-khuon-mat/chat-365'
+    '/quan-ly-nhan-luc/cham-cong-nhan-vien/cham-cong-bang-nhan-dien-khuon-mat/chat-365'
   const NV_CCBNDKM_PC365 =
-    '/cham-cong-nhan-vien/cham-cong-bang-nhan-dien-khuon-mat/pc-365-nhan-vien'
-  const NV_CCQR_URL = '/cham-cong-bang-QR'
+    '/quan-ly-nhan-luc/cham-cong-nhan-vien/cham-cong-bang-nhan-dien-khuon-mat/pc-365-nhan-vien'
+  const NV_CCQR_URL = '/quan-ly-nhan-luc/cham-cong-bang-QR/cham-cong-365'
 
   const AddNewPopoverContent = () => {
     const listAdds = [
@@ -79,20 +79,16 @@ export default function Bodyframe({ children }: any) {
     )
   }
 
-  const DEXUAT_TO_CHUC_URL = '/de-xuat/so-do-to-chuc'
+  const DEXUAT_TO_CHUC_URL = '/quan-ly-nhan-luc/de-xuat/so-do-to-chuc'
   const DEXUAT_SO_DO_TO_CHUC_DANHSACHNHANVIEN =
-    '/de-xuat/so-do-to-chuc/danh-sach-nhan-vien'
+    '/quan-ly-nhan-luc/de-xuat/so-do-to-chuc/danh-sach-nhan-vien'
   const DEXUAT_SO_DO_TO_CHUC_DANHSACHNHANVIENCC =
-    '/de-xuat/so-do-to-chuc/danh-sach-nhan-vien-cham-cong'
+    '/quan-ly-nhan-luc/de-xuat/so-do-to-chuc/danh-sach-nhan-vien-cham-cong'
   const DEXUAT_SO_DO_TO_CHUC_DANHSACHNHANVIEN_CHUACC =
-    '/de-xuat/so-do-to-chuc/danh-sach-nhan-vien-chua-cham-cong'
-
+    '/quan-ly-nhan-luc/de-xuat/so-do-to-chuc/danh-sach-nhan-vien-chua-cham-cong'
+  const UPDATE_FACE_URL = '/quan-ly-nhan-luc/cap-nhat-du-lieu-khuon-mat'
+  const CC_TK_CTY_URL = '/quan-ly-nhan-luc/cham-cong-bang-tai-khoan-cong-ty'
   const renderBackButton = () => {
-    // console.log(
-    //   router.pathname?.includes(
-    //     "/quan-ly-cong-ty/danh-sach-ung-vien/chi-tiet-ung-vien"
-    //   )
-    // )
     if (
       router.pathname !== CAI_DAT_VI_TRI_URL &&
       router.pathname !== NV_CCCTY_URL &&
@@ -119,9 +115,11 @@ export default function Bodyframe({ children }: any) {
     if (
       router.pathname?.includes(
         'quan-ly-cong-ty/cai-dat-them-nhan-vien-moi/chi-tiet-nhan-vien'
-      )
+      ) ||
+      router.pathname === UPDATE_FACE_URL ||
+      router.pathname === CC_TK_CTY_URL
     ) {
-      return <div style={{ marginTop: '20px' }}></div>
+      return <div></div>
     } else {
       return (
         <Row gutter={[20, 20]} className={styles.moreSection}>
@@ -163,31 +161,40 @@ export default function Bodyframe({ children }: any) {
 
   const renderBanner = () => {
     const pathname = router.pathname
-    if (pathname === '/cham-cong-nhan-vien/cc-bang-tai-khoan-cong-ty') {
+    if (
+      pathname ===
+      '/quan-ly-nhan-luc/cham-cong-nhan-vien/cc-bang-tai-khoan-cong-ty'
+    ) {
       return <CCBannerNV_TKCTY />
     } else if (
       pathname ===
-      '/cham-cong-nhan-vien/cham-cong-bang-nhan-dien-khuon-mat/cham-cong-365'
+      '/quan-ly-nhan-luc/cham-cong-nhan-vien/cham-cong-bang-nhan-dien-khuon-mat/cham-cong-365'
     ) {
       return <BANNER_CCBNDKM_CHAMCONG365 />
     } else if (
       pathname ===
-      '/cham-cong-nhan-vien/cham-cong-bang-nhan-dien-khuon-mat/chat-365'
+      '/quan-ly-nhan-luc/cham-cong-nhan-vien/cham-cong-bang-nhan-dien-khuon-mat/chat-365'
     ) {
       return <BANNER_CCBNDKM_CHAT365 />
     } else if (
       pathname ===
-      '/cham-cong-nhan-vien/cham-cong-bang-nhan-dien-khuon-mat/pc-365-nhan-vien'
+      '/quan-ly-nhan-luc/cham-cong-nhan-vien/cham-cong-bang-nhan-dien-khuon-mat/pc-365-nhan-vien'
     ) {
       return <BANNER_CCBNDKM_PC365NV />
-    } else if (pathname === '/cham-cong-bang-QR/cham-cong-365') {
+    } else if (
+      pathname === '/quan-ly-nhan-luc/cham-cong-bang-QR/cham-cong-365'
+    ) {
       return <ChamCong365 />
-    } else if (pathname === '/cham-cong-bang-QR/chat-365') {
+    } else if (pathname === '/quan-ly-nhan-luc/cham-cong-bang-QR/chat-365') {
       return <Chat365 />
-    } else if (pathname === '/cham-cong-bang-QR/pc-365') {
+    } else if (pathname === '/quan-ly-nhan-luc/cham-cong-bang-QR/pc-365') {
       return <PC365 />
-    } else if (pathname === '/cai-dat-chung/cai-dat-vi-tri') {
+    } else if (
+      pathname === '/quan-ly-nhan-luc/quan-ly-nhan-luc/cai-dat-vi-tri'
+    ) {
       return <CCBanner />
+    } else if (pathname === UPDATE_FACE_URL || pathname === CC_TK_CTY_URL) {
+      return null
     } else {
       return <Banner />
     }
@@ -197,7 +204,16 @@ export default function Bodyframe({ children }: any) {
     <>
       <Header />
       {/* <Banner /> */}
-      {renderBanner()}
+      <div
+        style={{
+          paddingTop:
+            router.pathname === UPDATE_FACE_URL ||
+            router.pathname === CC_TK_CTY_URL
+              ? '0px'
+              : '50px',
+        }}>
+        {renderBanner()}
+      </div>
       {renderBackButton()}
 
       <div
@@ -208,7 +224,7 @@ export default function Bodyframe({ children }: any) {
         className={styles.breadcrumb}>
         {router.pathname !== CAI_DAT_VI_TRI_URL &&
           router.pathname !== NV_CCCTY_URL &&
-          router.pathname !== UPDATE_FACE_URL &&
+          // router.pathname !== UPDATE_FACE_URL &&
           router.pathname !== NV_CCBNDKM_CC365 &&
           router.pathname !== NV_CCBNDKM_PC365 &&
           router.pathname !== NV_CCBNDKM_CHAT365 && (
@@ -230,7 +246,9 @@ export default function Bodyframe({ children }: any) {
         <div
           style={{ marginTop: '10px' }}
           className={
-            router.pathname === DEXUAT_TO_CHUC_URL
+            router.pathname === DEXUAT_TO_CHUC_URL ||
+            router.pathname === UPDATE_FACE_URL ||
+            router.pathname === CC_TK_CTY_URL
               ? styles.mainNoPadding
               : styles.main
           }>
@@ -241,7 +259,10 @@ export default function Bodyframe({ children }: any) {
           rel='stylesheet'
           href='https://timviec365.vn/css/footer_new.css?v=2'
         />
-        <Footer></Footer>
+        {router.pathname === UPDATE_FACE_URL ||
+        router.pathname === CC_TK_CTY_URL ? null : (
+          <Footer></Footer>
+        )}
       </div>
     </>
   )

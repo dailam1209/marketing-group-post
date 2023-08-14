@@ -111,7 +111,7 @@ export default function Header() {
             </div>
             <div className={styles.bg_ima}>
               <a href='https://dev.timviec365.vn/'>
-                {/* <img src='../img/logo_h.svg' alt='logo công ty' /> */}
+                <img src='/img/logo_h.svg' alt='logo công ty' />
               </a>
             </div>
             <div className={styles.header_nav}>
@@ -266,51 +266,57 @@ export default function Header() {
         </div>
       </div>
       <div
-        className='bg_logout'
+        className={styles.bg_logout}
         style={{
           display: popup ? (renderContent ? 'none' : 'block') : 'none',
         }}>
-        <div className='chd_content'>
-          <p className='chuyen_doi'>
+        <div className={styles.chd_content}>
+          <p className={styles.chuyen_doi}>
             <a href='/quan-ly-ung-dung-cong-ty.html'>Chuyển đổi số 365</a>
           </p>
-          <p className='dang_xuat btx_logout' onClick={show}>
+          <p
+            className={`${styles.dang_xuat} ${styles.btx_logout}`}
+            onClick={show}>
             <a>Đăng xuất</a>
           </p>
         </div>
       </div>
       <div
-        className='modal_share modal_share_four logout_ht'
+        className={`${styles.modal_share} ${styles.modal_share_four} ${styles.logout_ht}`}
         style={{ display: showLogout ? 'block' : 'none' }}>
-        <div className='modal-content'>
-          <div className='info_modal'>
-            <div className='modal-header'>
-              <div className='header_ctn_share'>
-                <h4 className='ctn_share_h share_clr_tow tex_center cr_weight_bold'>
+        <div className={styles['modal-content']}>
+          <div className={styles.info_modal}>
+            <div className={styles['modal-header']}>
+              <div className={styles.header_ctn_share}>
+                <h4
+                  className={`${styles.ctn_share_h} ${styles.share_clr_tow} ${styles.tex_center} ${styles.cr_weight_bold}`}>
                   Đăng xuất
                 </h4>
               </div>
             </div>
-            <div className='modal-body'>
-              <div className='ctn_body_modal'>
-                <div className='madal_form'>
-                  <div className='edit_share_form share_distance_big logout_ht_form'>
-                    <div className='titl_dele_nv'>
-                      <p className='share_fsize_tow share_clr_one tex_center log_tlt'>
+            <div className={styles['modal-body']}>
+              <div className={styles.ctn_body_modal}>
+                <div className={styles.madal_form}>
+                  <div
+                    className={`${styles.edit_share_form} ${styles.share_distance_big} ${styles.logout_ht_form}`}>
+                    <div className={styles.titl_dele_nv}>
+                      <p
+                        className={`${styles.share_fsize_tow} ${styles.share_clr_one} ${styles.tex_center} ${styles.log_tlt}`}>
                         Bạn có muốn đăng xuất ra khỏi hệ thống?
                       </p>
                     </div>
-                    <div className='form_butt_ht'>
-                      <div className='tow_butt_flex'>
+                    <div className={styles.form_butt_ht}>
+                      <div className={styles.tow_butt_flex}>
                         <button
                           type='button'
-                          className='share_fsize_three cr_weight share_cursor share_clr_four share_bgr_tow huy_button'
+                          className={`${styles.share_fsize_three} ${styles.cr_weight} ${styles.share_cursor} ${styles.share_clr_four} ${styles.share_bgr_tow} ${styles.huy_button}`}
                           onClick={no}>
                           Hủy
                         </button>
                         <button
                           type='button'
-                          className='share_clr_tow cr_weight share_cursor share_fsize_three share_bgr_one dongy_button logout_all'
+                          style={{ color: '#000' }}
+                          className={`${styles.share_clr_tow} ${styles.cr_weight} ${styles.share_cursor} ${styles.share_fsize_three}${styles.share_bgr_one} ${styles.dongy_button} ${styles.logout_all} `}
                           onClick={yes}>
                           Đồng ý
                         </button>
@@ -341,7 +347,7 @@ export default function Header() {
                         }
                         onError={(e) => {
                           e.target.onerror = null
-                          // e.target.src = '../img/logo_com.png'
+                          e.target.src = '/img/logo_com.png'
                         }}
                       />
                       {data.userName}

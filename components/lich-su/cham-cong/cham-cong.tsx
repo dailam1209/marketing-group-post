@@ -157,12 +157,12 @@ export const ChamCong = ({ ccData }: { ccData: any }) => {
       <div className={styles.khung1}>
         <p className={styles.nameNV}>Xin Chào ...</p>
         <div className={styles.khungbutton}>
-          <Link href='/cap-nhat-du-lieu-khuon-mat'>
+          <Link href='/quan-ly-nhan-luc/cap-nhat-du-lieu-khuon-mat'>
             <Button size='large' className={styles.Button} icon={<KhuonMat />}>
               <p className={styles.namebutton}>Cập nhật dữ liệu khuôn mặt</p>
             </Button>
           </Link>
-          <Link href={'/cham-cong-bang-tai-khoan-cong-ty'}>
+          <Link href={'/quan-ly-nhan-luc/cham-cong-bang-tai-khoan-cong-ty'}>
             <Button size='large' className={styles.Button} icon={<CapNhat />}>
               <p className={styles.namebutton}>Chấm công nhân viên</p>
             </Button>
@@ -425,12 +425,15 @@ export const ChamCong = ({ ccData }: { ccData: any }) => {
                   Số lần chấm công
                 </text>
                 <CartesianGrid strokeDasharray='3 3' />
-                <XAxis dataKey='name' tick={{ fontSize: 16, color: '#474747' }} />
+                <XAxis
+                  dataKey='name'
+                  tick={{ fontSize: 16, color: '#474747' }}
+                />
                 <YAxis
                   ticks={yAxisTicks}
                   domain={[0, 5]}
                   allowDataOverflow={true}
-                  tick={{ fontSize: 16, color:'#474747' }}
+                  tick={{ fontSize: 16, color: '#474747' }}
                 />
 
                 <Bar dataKey='uv' fill='#4C5BD4'>
