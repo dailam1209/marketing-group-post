@@ -76,7 +76,7 @@
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^18.2.0",
-    "react-hook-form": "^7.45.0",
+    "react-hook-form": "^7.45.4",
     "react-icons": "^4.9.0",
     "react-organizational-chart": "^2.2.1",
     "react-paginate": "^8.2.0",
