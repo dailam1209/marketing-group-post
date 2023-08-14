@@ -52,3 +52,18 @@
     width: 100%;
   }
 }
+
+.btnOk {
+  width: 250px;
+  padding: 10px 30px;
+  border-radius: 20px;
+  background: linear-gradient(180deg, #4c5bd4 0%, #5667f2 100%);
+}
+
+.btnCancel {
+  width: 250px;
+  margin-left: 30px;
+  padding: 10px 30px;
+  border-radius: 20px;
+  background: linear-gradient(180deg, #ffd059 0%, #ffbd00 100%);
+}

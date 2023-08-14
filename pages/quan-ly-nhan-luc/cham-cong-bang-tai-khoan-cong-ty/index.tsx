@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import styles from './index.module.css'
-import { Button } from 'antd'
+import { Button, Modal, Spin } from 'antd'
 import Webcam from 'react-webcam'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import axios from 'axios'
@@ -11,7 +11,11 @@ import Head from 'next/head'
 
 export default function ChamCongCongTy() {
   const [openCam, setOpenCam] = useState(false)
+  const [undetectedModal, setUndetectedModal] = useState(false)
   const [countdown, setCountdown] = useState(3)
+  const [userData, setUserData] = useState<any>()
+  const [modalDetail, setModalDetail] = useState(false)
+  const [reload, setReload] = useState(false)
   const videoConstraints = {
     width: 971,
     height: 971,
@@ -36,19 +40,55 @@ export default function ChamCongCongTy() {
     // console.log(comId)
     if (comId && imageSrc) {
       try {
-        const res = await axios.post(
+        const res: any = await axios.post(
           'http://43.239.223.154:8081/',
           {
             company_id: 3312,
-            image: imageSrc?.split(',')?.[1],
+            image: imageSrc,
             // image: imageSrc,
           },
           {
             headers: {
-              'content-type': 'application/x-www-form-urlencoded',
+              'Content-type': 'application/x-www-form-urlencoded',
             },
           }
         )
+        const resp = res?.data?.data
+        if (
+          !resp?.user_id ||
+          resp?.user_id === 'Unknown' ||
+          resp?.user_id === 'Undetected'
+        ) {
+          setUndetectedModal(true)
+        } else {
+          // const userInfo = await axios.get(
+
+          // )
+          // console.log(userInfo)
+          // if (userInfo) {
+          //   setUserData(userInfo)
+          // }
+          const token = getCookie(COOKIE_KEY)
+          const resdata = await axios.post(
+            `http://43.239.223.154:8081/detail`,
+            {
+              userId: resp?.user_id,
+              token: token,
+            },
+            {
+              headers: {
+                'Content-type': 'application/x-www-form-urlencoded',
+              },
+            }
+          )
+
+          const respDetail = resdata?.data?.data
+
+          if (respDetail?.result) {
+            setUserData(resdata?.data?.data?.user_info_result)
+            setModalDetail(true)
+          }
+        }
       } catch (err) {
         console.log(err)
       }
@@ -57,6 +97,9 @@ export default function ChamCongCongTy() {
 
   useEffect(() => {
     if (openCam) {
+      // if (countdown === 0) {
+      //   setCountdown(3)
+      // }
       const interval = setInterval(() => {
         if (countdown === 0) {
           try {
@@ -71,7 +114,7 @@ export default function ChamCongCongTy() {
 
       return () => clearInterval(interval)
     }
-  }, [countdown, openCam])
+  }, [countdown, openCam, reload])
 
   return (
     <>
@@ -123,6 +166,86 @@ export default function ChamCongCongTy() {
           </>
         )}
       </div>
+      <Modal
+        centered
+        width={700}
+        closable={false}
+        open={undetectedModal}
+        cancelButtonProps={{ style: { display: 'none' } }}
+        okButtonProps={{ style: { display: 'none' } }}>
+        <div
+          style={{
+            padding: '30px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'column',
+          }}>
+          <Image alt='/' src={'/err-x.png'} width={120} height={120} />
+          <p
+            style={{
+              fontSize: '22px',
+              marginTop: '20px',
+              color: 'red',
+              textAlign: 'center',
+            }}>
+            Dữ liệu khuôn mặt không hợp lệ! Vui lòng chấm công lại hoặc liên hệ
+            với kỹ thuật để biết thêm !
+          </p>
+          <div style={{ marginTop: '20px' }}>
+            <Button className={styles.btnOk} size='large'>
+              <p style={{ color: '#fff' }}>Trang chủ</p>
+            </Button>
+            <Button
+              size='large'
+              className={styles.btnCancel}
+              onClick={() => {
+                setUndetectedModal(false)
+                setReload(!reload)
+              }}>
+              <p style={{ color: '#fff' }}>Tiếp tục chấm công</p>
+            </Button>
+          </div>
+        </div>
+      </Modal>
+      <Modal
+        centered
+        width={700}
+        closable={false}
+        open={modalDetail}
+        cancelButtonProps={{ style: { display: 'none' } }}
+        okButtonProps={{ style: { display: 'none' } }}>
+        <div
+          style={{
+            padding: '30px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'column',
+          }}>
+          <Image alt='/' src={'/check-tc.png'} width={120} height={120} />
+          <p style={{ fontSize: '22px', marginTop: '20px' }}>
+            Xin chào bạn có phải là
+          </p>
+          <p style={{ fontSize: '25px', color: '#4C5BD4' }}>
+            {userData && userData?.ep_name}
+          </p>
+          <div style={{ marginTop: '20px' }}>
+            <Button className={styles.btnOk} size='large'>
+              <p style={{ color: '#fff' }}>Là tôi, tiếp tục chấm công</p>
+            </Button>
+            <Button
+              size='large'
+              className={styles.btnCancel}
+              onClick={() => {
+                setModalDetail(false)
+                setReload(!reload)
+              }}>
+              <p style={{ color: '#fff' }}>Không phải là tôi</p>
+            </Button>
+          </div>
+        </div>
+      </Modal>
     </>
   )
 }
