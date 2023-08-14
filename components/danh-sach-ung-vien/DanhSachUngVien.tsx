@@ -1,12 +1,12 @@
-import { Col, Rate, Row } from "antd";
-import { AddButton, ExportExcelButton, SearchButton } from "../commons/Buttons";
-import styles from "./DanhSachUngVien.module.css";
+import { Col, Rate, Row } from 'antd';
+import { AddButton, ExportExcelButton, SearchButton } from '../commons/Buttons';
+import styles from './DanhSachUngVien.module.css';
 import {
   MyInput,
   MySelect,
-} from "../quan-ly-cong-ty/quan-ly-cong-ty-con/modal";
-import Image from "next/image";
-import { useState } from "react";
+} from '../quan-ly-cong-ty/quan-ly-cong-ty-con/modal';
+import Image from 'next/image';
+import { useState } from 'react';
 import {
   AddNewCandiModal,
   AddNewStageModal,
@@ -15,17 +15,17 @@ import {
   ConfirmDeleteModal,
   ConfirmDeleteStageModal,
   UpdateStageModal,
-} from "./modal/modal";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
-import { DragableContainer } from "./drag-and-drop/item/DragableItem";
-import { DropableColumn } from "./drag-and-drop/column/DropableColumn";
-import dayjs from "dayjs";
-import { mockdata } from "../de-xuat/cai-dat-duyet-phep/qua-1-cap/DuyetQua1Cap";
-import { POST_HR } from "@/pages/api/BaseApi";
-import _ from "lodash";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
+} from './modal/modal';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import { DragableContainer } from './drag-and-drop/item/DragableItem';
+import { DropableColumn } from './drag-and-drop/column/DropableColumn';
+import dayjs from 'dayjs';
+import { mockdata } from '../de-xuat/cai-dat-duyet-phep/qua-1-cap/DuyetQua1Cap';
+import { POST_HR } from '@/pages/api/BaseApi';
+import _ from 'lodash';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 export const DanhSachUngVien = ({
   // listCandidates,
@@ -56,8 +56,8 @@ export const DanhSachUngVien = ({
               return {
                 ...item,
                 required: false,
-                bgColor: "#FFEDDA",
-                textColor: "#474747",
+                bgColor: '#FFEDDA',
+                textColor: '#474747',
                 title: item?.name,
               };
             } else return null;
@@ -67,10 +67,10 @@ export const DanhSachUngVien = ({
   );
   const [listCols, setListCols] = useState([
     {
-      title: "Nhận hồ sơ ứng viên",
+      title: 'Nhận hồ sơ ứng viên',
       required: true,
-      bgColor: "#FFEDDA",
-      textColor: "#474747",
+      bgColor: '#FFEDDA',
+      textColor: '#474747',
       listCandidate: dataCandidates?.map((can) => {
         return {
           ...can,
@@ -81,31 +81,31 @@ export const DanhSachUngVien = ({
     },
     ...(listProcess || []),
     {
-      title: "Nhận việc",
+      title: 'Nhận việc',
       required: true,
-      bgColor: "#42CA73",
-      textColor: "#fff",
+      bgColor: '#42CA73',
+      textColor: '#fff',
       listCandidate: listCandidatesOnProcess?.listCandidateGetJob,
     },
     {
-      title: "Trượt",
+      title: 'Trượt',
       required: true,
-      bgColor: "#FF5B4D",
-      textColor: "#fff",
+      bgColor: '#FF5B4D',
+      textColor: '#fff',
       listCandidate: listCandidatesOnProcess?.listCandidateFailJob,
     },
     {
-      title: "Hủy",
+      title: 'Hủy',
       required: true,
-      bgColor: "#FFA13B",
-      textColor: "#fff",
+      bgColor: '#FFA13B',
+      textColor: '#fff',
       listCandidate: listCandidatesOnProcess?.listCandidateCancelJob,
     },
     {
-      title: "Ký hợp đồng",
+      title: 'Ký hợp đồng',
       required: true,
-      bgColor: "#4C5BD4",
-      textColor: "#fff",
+      bgColor: '#4C5BD4',
+      textColor: '#fff',
       listCandidate: listCandidatesOnProcess?.listCandidateContactJob,
     },
   ]);
@@ -125,7 +125,7 @@ export const DanhSachUngVien = ({
   };
 
   const handleDeleteCandidate = () => {
-    POST_HR("api/hr/recruitment/softDeleteCandi", {
+    POST_HR('api/hr/recruitment/softDeleteCandi', {
       candidateId: canIdSelected,
     }).then((res) => {
       if (res?.result === true) {
@@ -137,7 +137,7 @@ export const DanhSachUngVien = ({
 
   const handleDeleteStage = () => {
     if (selectedStage !== null) {
-      POST_HR("api/hr/recruitment/deleteProcess", {
+      POST_HR('api/hr/recruitment/deleteProcess', {
         processInterId: selectedStage?.id,
       }).then((res) => {
         if (res?.result === true) {
@@ -203,31 +203,31 @@ export const DanhSachUngVien = ({
           {ExportExcelButton(() => null)}
         </div>
         <div className={styles.btn}>
-          {AddButton("Thêm giai đoạn", () => setOpenAddNew(true))}
+          {AddButton('Thêm giai đoạn', () => setOpenAddNew(true))}
         </div>
         <div className={styles.btn}>
-          {AddButton("Thêm ứng viên", () => setOpenAddNewCandi(true))}
+          {AddButton('Thêm ứng viên', () => setOpenAddNewCandi(true))}
         </div>
       </div>
       <div>
         <Row gutter={[20, 0]}>
           <Col lg={6} md={8} sm={12} xs={24}>
-            {MySelect("", "dd/mm/yyyy", false, false, "from")}
+            {MySelect('', 'dd/mm/yyyy', false, false, 'from')}
           </Col>
           <Col lg={6} md={8} sm={12} xs={24}>
-            {MySelect("", "dd/mm/yyyy", false, false, "to")}
+            {MySelect('', 'dd/mm/yyyy', false, false, 'to')}
           </Col>
           <Col lg={6} md={8} sm={12} xs={24}>
-            {MyInput("", "Nhập tên ứng viên", false, false, "can_name")}
+            {MyInput('', 'Nhập tên ứng viên', false, false, 'can_name')}
           </Col>
           <Col lg={6} md={8} sm={12} xs={24}>
             {MySelect(
-              "",
-              "Vị trí ứng tuyển",
+              '',
+              'Vị trí ứng tuyển',
               false,
               false,
-              "position_apply",
-              [{ label: "Tuyển nhân viên nhập liệu 2", value: 187 }],
+              'position_apply',
+              [{ label: 'Tuyển nhân viên nhập liệu 2', value: 187 }],
               null,
               () => null,
               handleChangePosition
@@ -235,11 +235,11 @@ export const DanhSachUngVien = ({
           </Col>
           <Col lg={6} md={8} sm={12} xs={24}>
             {MySelect(
-              "",
-              "Chọn nhân viên",
+              '',
+              'Chọn nhân viên',
               false,
               false,
-              "ep_id",
+              'ep_id',
               listEmpLabel,
               null,
               () => null,
@@ -247,14 +247,14 @@ export const DanhSachUngVien = ({
             )}
           </Col>
           <Col lg={6} md={8} sm={12} xs={24}>
-            {MySelect("", "Chọn giới tính", false, false, "gender")}
+            {MySelect('', 'Chọn giới tính', false, false, 'gender')}
           </Col>
           <Col lg={6} md={8} sm={12} xs={24}>
-            {MySelect("", "Trạng thái", false, false, "status")}
+            {MySelect('', 'Trạng thái', false, false, 'status')}
           </Col>
           <Col md={6} sm={12} xs={24}>
             <div className={styles.search} onClick={handleFilter}>
-              <Image alt="/" src={"/search.png"} width={24} height={24} />
+              <Image alt="/" src={'/search.png'} width={24} height={24} />
               <p className={styles.text}>Tìm kiếm</p>
             </div>
           </Col>

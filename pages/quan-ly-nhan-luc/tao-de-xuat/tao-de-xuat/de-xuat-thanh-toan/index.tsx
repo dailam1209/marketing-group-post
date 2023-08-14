@@ -7,11 +7,11 @@ import {
   DxSelect,
   TaoDeXuatWrapper,
 } from "@/components/tao-de-xuat-2/components/TaoDeXuatComps";
-import { POST_VT } from "@/pages/api/BaseApi";
+import { POST_VT, getInfoUser } from "@/pages/api/BaseApi";
 import { Col, Form, Row } from "antd";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function DeXuatThanhToan() {
   const [form] = Form.useForm();
@@ -19,12 +19,6 @@ export default function DeXuatThanhToan() {
   const router = useRouter();
 
   form.setFieldValue("type_dx", "Đề xuất thanh toán");
-
-  const userLabel = [
-    { label: "Nguyễn Thu Trang", value: "5" },
-    { label: "Lại Thị Trang", value: "2" },
-    { label: "Phạm Xuân Nguyên Khôi", value: "3" },
-  ];
 
   const handleSubmit = () => {
     form.validateFields().then((value) => {
@@ -53,6 +47,38 @@ export default function DeXuatThanhToan() {
       });
     });
   };
+
+  const [infoUser, setInfoUser] = useState<any>();
+  const [listDuyet, setListDuyet] = useState<any>({});
+
+  useEffect(() => {
+    const getListDuyet = async () => {
+      const res = await POST_VT('api/vanthu/dexuat/showadd', {});
+
+      if (res?.result) {
+        setListDuyet({
+          listDuyet: res?.listUsersDuyet?.map((user) => ({
+            label: user?.userName,
+            value: user?.idQLC,
+          })),
+          listTheoDoi: res?.listUsersTheoDoi?.map((user) => ({
+            label: user?.userName,
+            value: user?.idQLC,
+          })),
+        });
+      }
+    };
+
+    getListDuyet();
+    
+    setInfoUser(getInfoUser());
+  }, []);
+
+  useEffect(() => {
+    if (infoUser?.idQLC) {
+      form.setFieldValue('name', infoUser?.userName);
+    }
+  }, [infoUser]);
 
   const MyForm = () => {
     return (
@@ -107,7 +133,7 @@ export default function DeXuatThanhToan() {
             <DxSelect
               isMulti
               name="id_user_duyet"
-              options={userLabel}
+              options={listDuyet?.listDuyet}
               placeholder="Người xét duyệt"
               required
               showSearch
@@ -118,7 +144,7 @@ export default function DeXuatThanhToan() {
             <DxSelect
               isMulti
               name="id_user_theo_doi"
-              options={userLabel}
+              options={listDuyet?.listTheoDoi}
               placeholder="Người theo dõi"
               required
               showSearch

@@ -4,10 +4,11 @@ import {
   IconSelect,
   Tep,
 } from "@/components/cai-dat-luong/cai-dat-thue/danh-sach-nhan-su-chua-thiet-lap/anh";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { POST_VT } from "@/pages/api/BaseApi";
+import { POST_VT, getInfoUser } from "@/pages/api/BaseApi";
 import dayjs from "dayjs";
+import { DXFileInput } from "@/components/tao-de-xuat-2/components/TaoDeXuatComps";
 const loainghiphep = [
   {
     value: 1,
@@ -16,22 +17,6 @@ const loainghiphep = [
   {
     value: 2,
     label: "Có lương",
-  },
-];
-const OPTIONS = ["Apples", "Nails", "Bananas", "Helicopters"];
-const options2 = ["Apples", "Nails", "Bananas", "Helicopters"];
-const chonphongban = [
-  {
-    value: 1,
-    label: "Chọn phòng ban",
-  },
-  {
-    value: 2,
-    label: "Kỹ Thuật",
-  },
-  {
-    value: 3,
-    label: "Biên Tập",
   },
 ];
 export const SuDungXeCong = ({
@@ -49,16 +34,8 @@ export const SuDungXeCong = ({
   const router = useRouter();
   const { TextArea } = Input;
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
-  const filteredChonChucVu = OPTIONS.filter((x) => !selectedItems.includes(x));
   const [selectTheoDoi, setSelectTheoDoi] = useState<string[]>([]);
-  const theodoi = options2.filter((x) => !selectTheoDoi.includes(x));
   
-
-  const userLabel = [
-    { label: "Nguyễn Thu Trang", value: "5" },
-    { label: "Lại Thị Trang", value: "2" },
-    { label: "Phạm Xuân Nguyên Khôi", value: "3" },
-  ];
 
   const handleSubmit = () => {
     form?.validateFields().then((value) => {
@@ -91,6 +68,41 @@ export const SuDungXeCong = ({
             })
     });
   };
+
+  const [infoUser, setInfoUser] = useState<any>();
+  const [listDuyet, setListDuyet] = useState<any>({});
+
+  useEffect(() => {
+    const getListDuyet = async () => {
+      const res = await POST_VT('api/vanthu/dexuat/showadd', {});
+
+      if (res?.result) {
+        setListDuyet({
+          listDuyet: res?.listUsersDuyet?.map((user) => ({
+            label: user?.userName,
+            value: user?.idQLC ? `/${user?.idQLC}` : "/nhanvien.png",
+            url: user?.avatarUser
+          })),
+          listTheoDoi: res?.listUsersTheoDoi?.map((user) => ({
+            label: user?.userName,
+            value: user?.idQLC,
+            url: user?.avatarUser
+          })),
+        });
+      }
+    };
+
+    getListDuyet();
+    
+      
+    setInfoUser(getInfoUser());
+  }, []);
+
+  useEffect(() => {
+    if (infoUser?.idQLC) {
+      form.setFieldValue('name', infoUser?.userName);
+    }
+  }, [infoUser]);
 
   return (
     <div className={styles.khung}>
@@ -314,7 +326,7 @@ export const SuDungXeCong = ({
                 <Select
                   className={styles.input}
                   placeholder="Chọn người xét duyệt"
-                  options={userLabel}
+                  options={listDuyet?.listDuyet}
                   size="large"
                   mode="multiple"
                   suffixIcon={<IconSelect />}
@@ -336,7 +348,7 @@ export const SuDungXeCong = ({
                 <Select
                   className={`select_taodexuat ${styles.input}`}
                   placeholder="Chọn người theo dõi"
-                  options={userLabel}
+                  options={listDuyet?.listTheoDoi}
                   size="large"
                   mode="multiple"
                   suffixIcon={<IconSelect />}
@@ -346,24 +358,7 @@ export const SuDungXeCong = ({
           </Row>
           <Row gutter={24} className={styles.body6}>
             <Col sm={12} xs={24}>
-              <Form.Item
-                name={"file_kem"}
-                className={styles.bodyf}
-                label={
-                  <div className={styles.label}>
-                    <p className={styles.text}>Tài liệu đính kèm</p>
-                    <p className={styles.dau}>*</p>
-                  </div>
-                }
-                labelCol={{ span: 24 }}
-              >
-                <Input
-                  className={styles.input}
-                  placeholder="Thêm tài liệu đính kèm"
-                  size="large"
-                  suffix={<Tep />}
-                />
-              </Form.Item>
+              <DXFileInput setFileData={setFileData} />
             </Col>
           </Row>
         </Form>

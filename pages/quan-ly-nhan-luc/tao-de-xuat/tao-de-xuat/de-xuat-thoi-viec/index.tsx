@@ -7,10 +7,11 @@ import {
   DxSelect,
   TaoDeXuatWrapper,
 } from "@/components/tao-de-xuat-2/components/TaoDeXuatComps";
-import { POST_VT } from "@/pages/api/BaseApi";
+import { GET, POST_VT, getInfoUser } from "@/pages/api/BaseApi";
 import { Col, Form, Row } from "antd";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 export default function DeXuatThoiViec() {
   const [form] = Form.useForm();
@@ -18,18 +19,6 @@ export default function DeXuatThoiViec() {
 
   form.setFieldValue("type_dx", "Đơn xin thôi việc");
 
-  const shiftLabel = [
-    { label: "Ca sáng 5tr <= 7TR", value: 1 },
-    { label: "Ca chiều 5tr <= 7TR", value: 2 },
-    { label: "Ca sáng 7tr < 10TR", value: 3 },
-    { label: "Ca chiều 7tr < 10TR", value: 4 },
-  ];
-
-  const userLabel = [
-    { label: "Nguyễn Thu Trang", value: "5" },
-    { label: "Lại Thị Trang", value: "2" },
-    { label: "Phạm Xuân Nguyên Khôi", value: "3" },
-  ];
 
   const handleSubmit = () => {
     form.validateFields().then((value) => {
@@ -53,6 +42,52 @@ export default function DeXuatThoiViec() {
       });
     });
   };
+
+  
+  const [infoUser, setInfoUser] = useState<any>();
+  const [listDuyet, setListDuyet] = useState<any>({});
+  const [shiftLabel, setShiftLabel] = useState<any>([]);
+
+  useEffect(() => {
+    const getListDuyet = async () => {
+      const res = await POST_VT('api/vanthu/dexuat/showadd', {});
+
+      if (res?.result) {
+        setListDuyet({
+          listDuyet: res?.listUsersDuyet?.map((user) => ({
+            label: user?.userName,
+            value: user?.idQLC,
+          })),
+          listTheoDoi: res?.listUsersTheoDoi?.map((user) => ({
+            label: user?.userName,
+            value: user?.idQLC,
+          })),
+        });
+      }
+    };
+
+    getListDuyet();
+    GET("api/qlc/shift/list").then((res) => {
+      if (res?.result === true) {
+        setShiftLabel(
+          res?.list.map((item) => {
+            return {
+              value: `${item?.shift_id}`,
+              label: item?.shift_name,
+            };
+          })
+        );
+      }
+    });
+    
+    setInfoUser(getInfoUser());
+  }, []);
+
+  useEffect(() => {
+    if (infoUser?.idQLC) {
+      form.setFieldValue('name', infoUser?.userName);
+    }
+  }, [infoUser]);
 
   const MyForm = () => {
     return (
@@ -119,7 +154,7 @@ export default function DeXuatThoiViec() {
             <DxSelect
               isMulti
               name="id_user_duyet"
-              options={userLabel}
+              options={listDuyet?.listDuyet}
               placeholder="Người xét duyệt"
               required
               showSearch
@@ -130,7 +165,7 @@ export default function DeXuatThoiViec() {
             <DxSelect
               isMulti
               name="id_user_theo_doi"
-              options={userLabel}
+              options={listDuyet?.listTheoDoi}
               placeholder="Người theo dõi"
               required
               showSearch

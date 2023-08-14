@@ -25,13 +25,14 @@ import {
   TableLich,
 } from "@/components/tao-de-xuat/de-xuat-lich-lam-viec/modal/modal";
 import dayjs, { Dayjs } from "dayjs";
+import { GET, POST_VT, getInfoUser } from "@/pages/api/BaseApi";
 
 export default function Page() {
   const [current, setCurrent]: any = useState(new Date());
   const [listCheck, setListCheck]: any = useState([]);
   const [openCheck, setOpenCheck] = useState(false);
   const [allCheck, setAllCheck]: any = useState({});
-  const [listShift, setListShift]: any = useState([]);
+  const [shiftLabel, setShiftLabel]: any = useState([]);
   const [data, setData]: any = useState({ apply_month: "2023-08-01" });
   const [listShiftSelected, setListShiftSelected]: any[] = useState([
     "1",
@@ -51,33 +52,10 @@ export default function Page() {
   const [isAddHour, setIsAddHour] = useState<boolean>(false);
   const [form] = Form.useForm();
 
-  // useEffect(() => {
-
-  // }, [listShift])
-
   const values = Form.useWatch(
     ["thang_ap_dung", "time-start-shift", "time-end-shift"],
     form
   );
-
-  const userConfirmLabel = [
-    { label: "Nguyễn Thu Trang", value: "1" },
-    { label: "Lại Thị Trang", value: "2" },
-    { label: "Phạm Xuân Nguyên Khôi", value: "3" },
-  ];
-
-  const shiftLabel = [
-    { label: "Ca sáng Lương <= 5TR", value: "1" },
-    { label: "Ca chiều Lương <= 5TR", value: "2" },
-    {
-      label: "Ca sáng 7TR < Lương <= 10TR",
-      value: "3",
-    },
-    {
-      label: "Ca chiều 7TR < Lương <= 10TR",
-      value: "4",
-    },
-  ];
 
   useEffect(() => {
     const today = new Date();
@@ -348,6 +326,52 @@ export default function Page() {
     }
   };
 
+  const [infoUser, setInfoUser] = useState<any>();
+  const [listDuyet, setListDuyet] = useState<any>({});
+
+  useEffect(() => {
+    const getListDuyet = async () => {
+      const res = await POST_VT('api/vanthu/dexuat/showadd', {});
+
+      if (res?.result) {
+        setListDuyet({
+          listDuyet: res?.listUsersDuyet?.map((user) => ({
+            label: user?.userName,
+            value: user?.idQLC ? `/${user?.idQLC}` : "/nhanvien.png",
+            url: user?.avatarUser
+          })),
+          listTheoDoi: res?.listUsersTheoDoi?.map((user) => ({
+            label: user?.userName,
+            value: user?.idQLC,
+            url: user?.avatarUser
+          })),
+        });
+      }
+    };
+
+    getListDuyet();
+    GET("api/qlc/shift/list").then((res) => {
+      if (res?.result === true) {
+        setShiftLabel(
+          res?.list.map((item) => {
+            return {
+              value: `${item?.shift_id}`,
+              label: item?.shift_name,
+            };
+          })
+        );
+      }
+    });
+      
+    setInfoUser(getInfoUser());
+  }, []);
+
+  useEffect(() => {
+    if (infoUser?.idQLC) {
+      form.setFieldValue('name', infoUser?.userName);
+    }
+  }, [infoUser]);
+
   return (
     <div className={styles.main}>
       <Form
@@ -424,7 +448,7 @@ export default function Page() {
                   true,
                   true,
                   "id_user_duyet",
-                  userConfirmLabel,
+                  listDuyet?.listDuyet,
                   []
                 )}
               </Col>
@@ -435,7 +459,7 @@ export default function Page() {
                   true,
                   true,
                   "id_user_theo_doi",
-                  userConfirmLabel,
+                  listDuyet?.listTheoDoi,
                   []
                 )}
               </Col>

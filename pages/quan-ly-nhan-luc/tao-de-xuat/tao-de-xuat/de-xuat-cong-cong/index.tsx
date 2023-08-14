@@ -16,39 +16,67 @@ import {
 } from "@/components/tao-de-xuat/loai-de-xuat/tao-de-xuat/component/ChiTiet";
 
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import dayjs from "dayjs";
-import { POST_VT } from "@/pages/api/BaseApi";
+import { GET, POST_VT, getInfoUser } from "@/pages/api/BaseApi";
 
 export default function DeXuatCongCong() {
   const [form] = Form.useForm();
   const [fileData, setFileData] = useState<Blob>();
+  const [infoUser, setInfoUser] = useState<any>();
+  const [listDuyet, setListDuyet] = useState<any>({});
+  const [shiftLabel, setShiftLabel] = useState<any>([]);
+
+  useEffect(() => {
+    const getListDuyet = async () => {
+      const res = await POST_VT('api/vanthu/dexuat/showadd', {});
+
+      if (res?.result) {
+        setListDuyet({
+          listDuyet: res?.listUsersDuyet?.map((user) => ({
+            label: user?.userName,
+            value: user?.idQLC ? `/${user?.idQLC}` : "/nhanvien.png",
+            url: user?.avatarUser
+          })),
+          listTheoDoi: res?.listUsersTheoDoi?.map((user) => ({
+            label: user?.userName,
+            value: user?.idQLC,
+            url: user?.avatarUser
+          })),
+        });
+      }
+    };
+
+    getListDuyet();
+    GET("api/qlc/shift/list").then((res) => {
+      if (res?.result === true) {
+        setShiftLabel(
+          res?.list?.map((item) => {
+            return {
+              value: `${item?.shift_id}`,
+              label: item?.shift_name,
+            };
+          })
+        );
+      }
+    });
+      
+    setInfoUser(getInfoUser());
+  }, []);
+
+  useEffect(() => {
+    if (infoUser?.idQLC) {
+      form.setFieldValue('name', infoUser?.userName);
+    }
+  }, [infoUser]);
 
   const router = useRouter();
-
-  const userLabel = [
-    { label: "Nguyễn Thu Trang", value: "5" },
-    { label: "Lại Thị Trang", value: "2" },
-    { label: "Phạm Xuân Nguyên Khôi", value: "3" },
-  ];
 
   const typeCcLabel = [
     { label: "Cộng công theo ca", value: 1 },
     { label: "Cộng công theo giờ", value: 2 },
   ];
 
-  const shiftLabel = [
-    { label: "Ca sáng Lương <= 5TR", value: "1" },
-    { label: "Ca chiều Lương <= 5TR", value: "2" },
-    {
-      label: "Ca sáng 7TR < Lương <= 10TR",
-      value: "3",
-    },
-    {
-      label: "Ca chiều 7TR < Lương <= 10TR",
-      value: "4",
-    },
-  ];
 
   const handleSubmit = () => {
     form.validateFields().then((value) => {
@@ -92,7 +120,7 @@ export default function DeXuatCongCong() {
         <Image src={"/back-w.png"} alt="" width={24} height={24}></Image>
         <p className={styles.headerText}>Đề xuất cộng công</p>
       </div>
-      <Form form={form} initialValues={{ name: "khas" }}>
+      <Form form={form} initialValues={{ name: "Vũ Văn Khá" }}>
         <div className={styles.body}>
           <Row gutter={[20, 10]}>
             <Col sm={12} xs={24}>
@@ -181,7 +209,7 @@ export default function DeXuatCongCong() {
                 true,
                 true,
                 "id_user_duyet",
-                userLabel
+                listDuyet?.listDuyet
               )}
             </Col>
             <Col sm={12} xs={24}>
@@ -191,7 +219,7 @@ export default function DeXuatCongCong() {
                 true,
                 true,
                 "id_user_theo_doi",
-                userLabel
+                listDuyet?.listTheoDoi
               )}
             </Col>
             <Col sm={12} xs={24}>

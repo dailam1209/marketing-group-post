@@ -13,9 +13,9 @@ import {
   MyTime,
 } from '@/components/tao-de-xuat/loai-de-xuat/tao-de-xuat/component/ChiTiet'
 import { Col, Form, Row } from 'antd'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { POST_VT } from '@/pages/api/BaseApi'
+import { POST, POST_VT, getCompIdCS, getInfoUser } from '@/pages/api/BaseApi'
 
 export default function DeXuatXinTaiTaiLieu() {
   const [fileData, setFileData] = useState<any>();
@@ -23,35 +23,6 @@ export default function DeXuatXinTaiTaiLieu() {
   const router = useRouter();
   const [form] = Form.useForm();
 
-  const shiftLabel = [
-    { label: "Ca sáng Lương <= 5TR", value: "1" },
-    { label: "Ca chiều Lương <= 5TR", value: "2" },
-    {
-      label: "Ca sáng 7TR < Lương <= 10TR",
-      value: "3",
-    },
-    {
-      label: "Ca chiều 7TR < Lương <= 10TR",
-      value: "4",
-    },
-  ];
-
-  const depLabel = [
-    { label: "Phòng 1", value: "1" },
-    { label: "Phòng 2", value: "2" },
-    { label: "Phòng 3", value: "3" },
-  ];
-
-  const userLabel = [
-    { label: "Nguyễn Thu Trang", value: "5" },
-    { label: "Lại Thị Trang", value: "2" },
-    { label: "Phạm Xuân Nguyên Khôi", value: "995619" },
-  ];
-
-  const typeOffLabel = [
-    { label: "Nghỉ giữa ca", value: 1 },
-    { label: "Nghỉ hết ca", value: 2 },
-  ];
 
   const handleSubmit = () => {
     form.validateFields().then((value) => {
@@ -79,13 +50,62 @@ export default function DeXuatXinTaiTaiLieu() {
       });
     });
   };
+
+  const [infoUser, setInfoUser] = useState<any>();
+  const [listDuyet, setListDuyet] = useState<any>({});
+  const [depLabel, setDepLabel]: any = useState<any>([]);
+
+  useEffect(() => {
+    const getListDuyet = async () => {
+      const res = await POST_VT('api/vanthu/dexuat/showadd', {});
+
+      if (res?.result) {
+        setListDuyet({
+          listDuyet: res?.listUsersDuyet?.map((user) => ({
+            label: user?.userName,
+            value: user?.idQLC,
+          })),
+          listTheoDoi: res?.listUsersTheoDoi?.map((user) => ({
+            label: user?.userName,
+            value: user?.idQLC,
+          })),
+        });
+      }
+    };
+
+    getListDuyet();
+    let com_id = null;
+    com_id = getCompIdCS();
+    
+    com_id !== null &&
+      POST('api/qlc/department/list', {
+        com_id: com_id,
+      }).then((res) => {
+        if (res?.result === true) {
+          setDepLabel(
+            res?.data?.map((dep) => ({
+              label: dep?.dep_name,
+              value: dep?.dep_id,
+            }))
+          );
+        }
+      });
+    setInfoUser(getInfoUser());
+  }, []);
+
+  useEffect(() => {
+    if (infoUser?.idQLC) {
+      form.setFieldValue('name', infoUser?.userName);
+    }
+  }, [infoUser]);
+
   return (
     <div className="dxXinTaiTL">
       <div className={styles.header}>
         <Image src={'/back-w.png'} alt='' width={24} height={24}></Image>
         <p className={styles.headerText}>Đề xuất xin tải tài liệu</p>
       </div>
-      <Form form={form} initialValues={{ name: "Khas", phong_ban: depLabel?.[0]?.value, ten_tai_lieu: "Số hóa tài liệu" }}>
+      <Form form={form} initialValues={{ name: "Vũ Văn Khá", phong_ban: depLabel?.[0]?.value, ten_tai_lieu: "Số hóa tài liệu" }}>
         <div className={styles.body}>
           <Row gutter={[20, 10]}>
             <Col sm={12} xs={24}>
@@ -163,7 +183,7 @@ export default function DeXuatXinTaiTaiLieu() {
                 true,
                 true,
                 'id_user_duyet',
-                userLabel
+                listDuyet?.listDuyet
               )}
             </Col>
             <Col sm={12} xs={24}>
@@ -173,7 +193,7 @@ export default function DeXuatXinTaiTaiLieu() {
                 true,
                 true,
                 'id_user_theo_doi',
-                userLabel
+                listDuyet?.listTheoDoi
               )}
             </Col>
             <Col sm={12} xs={24}>
