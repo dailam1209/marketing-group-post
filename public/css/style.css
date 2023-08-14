@@ -7295,6 +7295,7 @@ QLC */
    .cnt_ttone .search_input input {
       border: none;
       outline: none;
+      width: 100%;
    }
    .cnt_ttone .notify_vip {
       display: flex;
