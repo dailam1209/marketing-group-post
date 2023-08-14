@@ -84,8 +84,10 @@ export const deleteDataTrainingPosition = async (processTrainId: number) => {
     }
   };
 
-    export const GetDataDetailProcess= async (processTrainId: string, isToken) => {
+    export const GetDataDetailProcess= async (processTrainId: string) => {
     const url = process.env.NEXT_PUBLIC_BASE_URL;
+    const isToken = getToken(COOKIE_KEY)
+
     try {
       const response = await axios.post(
         `${url}api/hr/training/detailProcess`,

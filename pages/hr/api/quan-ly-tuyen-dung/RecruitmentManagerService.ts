@@ -90,8 +90,9 @@ export const UpdateDataRecruitment = async (
   }
 };
 
-export const DataRecruitmentStage = async (recruitmentId: string,isToken:any) => {
+export const DataRecruitmentStage = async (recruitmentId: string) => {
   const url = process.env.NEXT_PUBLIC_BASE_URL;
+  const isToken = getToken(COOKIE_KEY)
   try {
     const response = await axios.post(
       `${url}api/hr/recruitment/getStage`,

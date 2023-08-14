@@ -8,16 +8,22 @@ import { DataDetailProcess, GetDataDetailProcess } from "@/pages/hr/api/dao-tao-
 import Head from "next/head";
 import { getTokenFromCookie } from "@/pages/hr/api/token";
 
-export default function DetailTrainingProcess({ dataDetail }: any) {
-
+export async function getServerSideProps({query}) {
+  return {
+      props: {
+          query,
+      },
+  };
+}
+export default function DetailTrainingProcess({ query }: any) {
+  const  idTrainingProcess  = query.idTrainingProcess;
   const [active, setActive] = useState(1);
   const [openModal, setOpenModal] = useState(0);
   const [animateModal, setAnimateModal] = useState(false);
   const [newData, setNewData] = useState<any>();
   const router = useRouter();
-
+  const [dataDetail, setDataDetail] = useState<any>()
   const trainingProcessName = dataDetail?.processTrain.name;
-  const trainingProcessId = dataDetail?.processTrain.id;
   const [trainingProcess, setTrainingProcess] = useState<any>();
 
   const iconAddQueryParam = router.query.iconAdd;
@@ -32,6 +38,19 @@ export default function DetailTrainingProcess({ dataDetail }: any) {
     const filteredStages = dataDetail?.listStage?.filter((stage) => stage.isDelete === 0);
     setTrainingProcess(filteredStages);
   }, [dataDetail])
+
+  useEffect(() => {
+    try {
+      const fetchData = async () => {
+        const response = await GetDataDetailProcess(idTrainingProcess);
+        setDataDetail(response?.data?.data)
+
+      }
+      fetchData()
+    } catch (error) {
+      
+    }
+  }, [])
 
   const handleOpenModal = (type: any) => {
     setOpenModal(type);
@@ -59,7 +78,7 @@ export default function DetailTrainingProcess({ dataDetail }: any) {
     const fetchDataDetailProcess = async () => {
       try {
 
-        const response = await DataDetailProcess(trainingProcessId);
+        const response = await DataDetailProcess(idTrainingProcess);
         setTrainingProcess(response?.data.data.listStage?.filter((stage) => stage.isDelete === 0));
       } catch (error) {
 
@@ -118,7 +137,7 @@ export default function DetailTrainingProcess({ dataDetail }: any) {
             <AddDetailTrainingProcess
               animation={animateModal}
               closeModal={handleCloseModal}
-              id={trainingProcessId}
+              id={idTrainingProcess}
               setData={setNewData}
             ></AddDetailTrainingProcess>
           )}
@@ -126,7 +145,7 @@ export default function DetailTrainingProcess({ dataDetail }: any) {
           <div className={`${styles.giaidoans}`}>
             <div className={`${styles.title_giaidoans}`}>
               <h4>
-                QTDT{`${trainingProcessId}`} {trainingProcessName}
+                QTDT{`${idTrainingProcess}`} {trainingProcessName}
               </h4>
             </div>
 
@@ -148,19 +167,3 @@ export default function DetailTrainingProcess({ dataDetail }: any) {
     </>
   );
 }
-
-export const getServerSideProps = async ({ params, req }) => {
-  const { idTrainingProcess } = params;
-  const token = getTokenFromCookie(req.headers.cookie || '');
-  try {
-    const response = await GetDataDetailProcess(idTrainingProcess, token);
-    const dataDetail = response?.data.data;
-    return {
-      props: {
-        dataDetail,
-      },
-    };
-  } catch (error) {
-    return { props: {} };
-  }
-};

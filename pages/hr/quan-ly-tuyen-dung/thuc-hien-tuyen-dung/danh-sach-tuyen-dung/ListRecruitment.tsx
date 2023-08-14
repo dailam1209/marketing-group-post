@@ -5,9 +5,19 @@ import DeleteRecruitment from "@/pages/hr/components/quan-ly-tuyen-dung/thuc-hie
 import Link from "next/link";
 import { setAsTemplate } from "@/pages/hr/api/quan-ly-tuyen-dung/PerformRecruitment";
 import Head from "next/head";
-export interface ListRecruitment { }
+import { useRouter } from "next/router";
 
-export default function ListRecruitment({ data, onDelete, editData, iconEdit, iconDelete, tokenType }: any) {
+export interface ListRecruitment {}
+
+export default function ListRecruitment({
+  data,
+  onDelete,
+  editData,
+  iconEdit,
+  iconDelete,
+  tokenType,
+}: any) {
+  const router = useRouter();
   const idRecruitment = data?.id;
   const [openModalEdit, setOpenModalEdit] = useState(false);
   const [openModalDelete, setOpenModalDelete] = useState(false);
@@ -91,15 +101,20 @@ export default function ListRecruitment({ data, onDelete, editData, iconEdit, ic
   };
 
   const handleSetTemplate = async (e: any, recruitmentNewsId: number) => {
-    const response = await setAsTemplate(recruitmentNewsId)
+    const response = await setAsTemplate(recruitmentNewsId);
     if (response?.status !== 200) {
-      alert('Thiết lập tin mẫu không thành công')
+      alert("Thiết lập tin mẫu không thành công");
     }
-  }
+  };
 
+  const handleLinkClick = (e, id) => {
+    e.preventDefault();
+    router.push(
+      `/quan-ly-tuyen-dung/thuc-hien-tuyen-dung/danh-sach-tuyen-dung/${id}`
+    );
+  };
   return (
     <>
-
       <div className={`${styles.new_r_t}`}>
         <div className={`${styles.new_r_t_left}`}>
           <div className={`${styles.new_r_t_header} ${styles.row}`}>
@@ -116,19 +131,15 @@ export default function ListRecruitment({ data, onDelete, editData, iconEdit, ic
                     style={{ cursor: "default" }}
                     className={`${styles.new_r_t_left_link}`}
                   >
-                    <Link
-                      passHref
-                      href={{
-                        pathname:
-                          `/hr/quan-ly-tuyen-dung/thuc-hien-tuyen-dung/danh-sach-tuyen-dung/${data?.id}`,
-
-                      }}
-                      as={`/hr/quan-ly-tuyen-dung/thuc-hien-tuyen-dung/danh-sach-tuyen-dung/${data?.id}`}
+                    <a
+                      href={`/quan-ly-tuyen-dung/thuc-hien-tuyen-dung/danh-sach-tuyen-dung/${data?.id}`}
+                      className={`${styles.quytrinh_item11_link}`}
+                      onClick={(e) => handleLinkClick(e, data.id)}
                     >
                       <span>
                         (TD{data?.id}) {data?.title}
                       </span>
-                    </Link>
+                    </a>
                   </p>
                 </button>
               </h3>
@@ -165,17 +176,12 @@ export default function ListRecruitment({ data, onDelete, editData, iconEdit, ic
                         style={{ paddingRight: "102px" }}
                         className={`${styles.detail_new}`}
                       >
-
-                        <Link
-                          passHref
-                          href={{
-                            pathname:
-                              `/hr/quan-ly-tuyen-dung/thuc-hien-tuyen-dung/danh-sach-tuyen-dung/${data?.id}`,
-                          }}
-                          as={`/hr/quan-ly-tuyen-dung/thuc-hien-tuyen-dung/danh-sach-tuyen-dung/${data?.id}`}
+                        <a
+                          href={`/quan-ly-tuyen-dung/thuc-hien-tuyen-dung/danh-sach-tuyen-dung/${data?.id}`}
+                          className={`${styles.quytrinh_item11_link}`}
                         >
                           Chi tiết
-                        </Link>
+                        </a>
                       </li>
                     </button>
 
@@ -187,42 +193,40 @@ export default function ListRecruitment({ data, onDelete, editData, iconEdit, ic
                       >
                         Chỉnh sửa tin
                       </button>
+                    ) : !iconEdit ? (
+                      <></>
                     ) : (
-                      (!iconEdit) ? <></> : (
-                        <button
-                          style={{ paddingRight: "55px" }}
-                          className={`${styles.edit_new}`}
-                          onClick={handleOpenModalEdit}
-                        >
-                          Chỉnh sửa tin
-                        </button>
-                      )
+                      <button
+                        style={{ paddingRight: "55px" }}
+                        className={`${styles.edit_new}`}
+                        onClick={handleOpenModalEdit}
+                      >
+                        Chỉnh sửa tin
+                      </button>
                     )}
                     <hr style={{ marginTop: "0", marginBottom: "0" }}></hr>
                     {tokenType === 1 ? (
                       <li onClick={handleOpenModalDelete}>Gỡ tin tuyển dụng</li>
+                    ) : !iconDelete ? (
+                      <></>
                     ) : (
-                      (!iconDelete) ? <></> : (
-                        <li onClick={handleOpenModalDelete}>Gỡ tin tuyển dụng</li>
-                      )
+                      <li onClick={handleOpenModalDelete}>Gỡ tin tuyển dụng</li>
                     )}
                     {tokenType === 1 ? (
-                      <li
-                        onClick={(e) => handleSetTemplate(e, idRecruitment)}
-                      >Thiết lập làm tin mẫu</li>
+                      <li onClick={(e) => handleSetTemplate(e, idRecruitment)}>
+                        Thiết lập làm tin mẫu
+                      </li>
+                    ) : !iconEdit ? (
+                      <></>
                     ) : (
-                      (!iconEdit) ? <></> : (
-                        <li
-                          onClick={(e) => handleSetTemplate(e, idRecruitment)}
-                        >Thiết lập làm tin mẫu</li>
-                      )
+                      <li onClick={(e) => handleSetTemplate(e, idRecruitment)}>
+                        Thiết lập làm tin mẫu
+                      </li>
                     )}
                   </div>
                 )}
               </div>
             </div>
-
-
           </div>
           {openModalEdit && (
             <EditPerformRecruitment
