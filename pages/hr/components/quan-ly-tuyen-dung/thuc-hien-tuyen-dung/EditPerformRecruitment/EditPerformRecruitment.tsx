@@ -232,6 +232,7 @@ export default function EditPerformRecruitment({ animation, handleCloseModal, da
       <div
         className={`${styles.modal} ${styles.modal_setting}  ${animation ? styles.fade_in : styles.fade_out
           }`}
+          
         style={{ display: "block" }}
       >
         <div className={` ${styles.modal_dialog} ${styles.contentquytrinh}`}>
