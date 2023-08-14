@@ -269,7 +269,7 @@ export function CheckLogin() {
     if (role === '1') {
       redirectUrl = '/quan-ly-ung-dung-cong-ty.html'
     } else if (role === '2') {
-      redirectUrl = '/quan-ly-ung-dung-nhan-vien.html'
+      redirectUrl = '/'
     } else {
       redirectUrl = '/quan-ly-ung-dung-ca-nhan.html'
     }
