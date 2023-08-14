@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styles from "./headerForm.module.css";
-import PerformRecruitment from "../../components/quan-ly-tuyen-dung/thuc-hien-tuyen-dung/PerformRecruitment/PerformRecruitment";
-import Recruitment from "../../components/quan-ly-tuyen-dung/thuc-hien-tuyen-dung/Recruitment/recruitment";
+import PerformRecruitment from "@/components/hr/quan-ly-tuyen-dung/thuc-hien-tuyen-dung/PerformRecruitment/PerformRecruitment";
+import Recruitment from "@/components/hr/quan-ly-tuyen-dung/thuc-hien-tuyen-dung/Recruitment/recruitment";
 import { GetTotalCandi } from "../../api/quan-ly-tuyen-dung/PerformRecruitment";
-import PageAuthenticator from "../../components/quyen-truy-cap";
-import LoadingSpinner from "../../components/loading";
+import PageAuthenticator from "@/components/hr/quyen-truy-cap";
+import LoadingSpinner from "@/components/hr/loading";
 import Head from "next/head";
 import jwt_decode from "jwt-decode";
 import { getToken } from "../../api/token";

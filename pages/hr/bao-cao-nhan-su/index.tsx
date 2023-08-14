@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../quan-ly-hanh-chinh/thong-tin-nhan-su/administration.module.css'
 import Link from 'next/link';
-import TabHRReport from '@/pages/hr/components/bao-cao-nhan-su/hrReport';
-import RecruitmentReport from '@/pages/hr/components/bao-cao-nhan-su/recruitmentReport';
+import TabHRReport from '@/components/hr/bao-cao-nhan-su/hrReport';
+import RecruitmentReport from '@/components/hr/bao-cao-nhan-su/recruitmentReport';
 import { addDays, format } from 'date-fns';
 import Head from 'next/head';
 import { getDataAuthentication } from '../api/Home/HomeService';
-import LoadingSpinner from '@/pages/hr/components/loading';
-import PageAuthenticator from '@/pages/hr/components/quyen-truy-cap';
+import LoadingSpinner from '@/components/hr/loading';
+import PageAuthenticator from '@/components/hr/quyen-truy-cap';
 
 
 

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./ListRecruitment.module.css";
-import EditPerformRecruitment from "@/pages/hr/components/quan-ly-tuyen-dung/thuc-hien-tuyen-dung/EditPerformRecruitment/EditPerformRecruitment";
-import DeleteRecruitment from "@/pages/hr/components/quan-ly-tuyen-dung/thuc-hien-tuyen-dung/DeletePerformRecruitment/DeleteRecruitment";
+import EditPerformRecruitment from "@/components/hr/quan-ly-tuyen-dung/thuc-hien-tuyen-dung/EditPerformRecruitment/EditPerformRecruitment";
+import DeleteRecruitment from "@/components/hr/quan-ly-tuyen-dung/thuc-hien-tuyen-dung/DeletePerformRecruitment/DeleteRecruitment";
 import Link from "next/link";
 import { setAsTemplate } from "@/pages/hr/api/quan-ly-tuyen-dung/PerformRecruitment";
 import Head from "next/head";

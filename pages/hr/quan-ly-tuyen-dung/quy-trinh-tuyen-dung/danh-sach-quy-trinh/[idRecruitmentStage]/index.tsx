@@ -2,8 +2,8 @@
 import React, { useEffect, useState } from "react";
 import styles from "./detailRecruitmentStage.module.css";
 import { useRouter } from "next/router";
-import AddRecruitmentStage from "@/pages/hr/components/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/chi-tiet-quy-trinh/addRecruitmentStage/them-giai-doan";
-import ListRecruitmentStage from "@/pages/hr/components/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/chi-tiet-quy-trinh/listRecruitmentStage/listRecruitmentStage";
+import AddRecruitmentStage from "@/components/hr/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/chi-tiet-quy-trinh/addRecruitmentStage/them-giai-doan";
+import ListRecruitmentStage from "@/components/hr/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/chi-tiet-quy-trinh/listRecruitmentStage/listRecruitmentStage";
 import { DataRecruitmentStage } from "@/pages/hr/api/quan-ly-tuyen-dung/RecruitmentManagerService";
 import { getToken } from "@/pages/hr/api/token";
 import { getDataAuthentication } from "@/pages/hr/api/Home/HomeService";
@@ -11,18 +11,18 @@ import jwt_decode from "jwt-decode";
 import { getTokenFromCookie } from "@/pages/hr/api/token";
 import Head from "next/head";
 
-export async function getServerSideProps({query}) {
+export async function getServerSideProps({ query }) {
   return {
-      props: {
-          query,
-      },
+    props: {
+      query,
+    },
   };
 }
 
 export default function listRecruitmentProcess({ query }) {
 
   const router = useRouter();
-  const  idRecruitmentStage  = query.idRecruitmentStage;
+  const idRecruitmentStage = query.idRecruitmentStage;
   const [openModalAdd, setOpenModalAdd] = useState(false);
   const [animateModal, setAnimateModal] = useState(false);
   const [recruitmentStage, setRecruitmentStage] = useState<any>()
@@ -57,17 +57,17 @@ export default function listRecruitmentProcess({ query }) {
 
 
   useEffect(() => {
-    try{
-     const fetchDataDetail = async() => {
-      const response = await DataRecruitmentStage(idRecruitmentStage)
-      setRecruitmentStage(response?.data?.data)
-     }
+    try {
+      const fetchDataDetail = async () => {
+        const response = await DataRecruitmentStage(idRecruitmentStage)
+        setRecruitmentStage(response?.data?.data)
+      }
       fetchDataDetail()
-    }catch(error){
+    } catch (error) {
 
     }
-   
-  },[idRecruitmentStage])
+
+  }, [idRecruitmentStage])
   const handleBack = () => {
     router.back();
   };

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import styles from "./detailCandidate.module.css";
 import { useRouter } from 'next/router';
-import EditCandidateModal from "@/pages/hr/components/quan-ly-tuyen-dung/danh-sach-ung-vien/candidateRepo/EditCandidateModal";
-import EditCandidateGetJob from "@/pages/hr/components/quan-ly-tuyen-dung/danh-sach-ung-vien/candidateRepo/EditCandidateModal/editGetJob";
-import EditCandidateFailJob from "@/pages/hr/components/quan-ly-tuyen-dung/danh-sach-ung-vien/candidateRepo/EditCandidateModal/editFailJob";
-import EditCandidateCancelJob from "@/pages/hr/components/quan-ly-tuyen-dung/danh-sach-ung-vien/candidateRepo/EditCandidateModal/editCancelJob";
-import EditCandidateContactJob from "@/pages/hr/components/quan-ly-tuyen-dung/danh-sach-ung-vien/candidateRepo/EditCandidateModal/editContactJob";
-import EditCandidateIntrview from "@/pages/hr/components/quan-ly-tuyen-dung/danh-sach-ung-vien/candidateRepo/EditCandidateModal/editInterview";
+import EditCandidateModal from "@/components/hr/quan-ly-tuyen-dung/danh-sach-ung-vien/candidateRepo/EditCandidateModal";
+import EditCandidateGetJob from "@/components/hr/quan-ly-tuyen-dung/danh-sach-ung-vien/candidateRepo/EditCandidateModal/editGetJob";
+import EditCandidateFailJob from "@/components/hr/quan-ly-tuyen-dung/danh-sach-ung-vien/candidateRepo/EditCandidateModal/editFailJob";
+import EditCandidateCancelJob from "@/components/hr/quan-ly-tuyen-dung/danh-sach-ung-vien/candidateRepo/EditCandidateModal/editCancelJob";
+import EditCandidateContactJob from "@/components/hr/quan-ly-tuyen-dung/danh-sach-ung-vien/candidateRepo/EditCandidateModal/editContactJob";
+import EditCandidateIntrview from "@/components/hr/quan-ly-tuyen-dung/danh-sach-ung-vien/candidateRepo/EditCandidateModal/editInterview";
 import { CandidateList } from "@/pages/hr/api/quan-ly-tuyen-dung/candidateList";
 import { ProcessList } from "@/pages/hr/api/quan-ly-tuyen-dung/candidateList";
 import { parseISO, format } from 'date-fns';

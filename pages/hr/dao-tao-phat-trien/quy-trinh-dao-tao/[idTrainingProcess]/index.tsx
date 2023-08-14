@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from "react";
 import styles from "./DetailTrainingProcess.module.css";
 import { useRouter } from "next/router";
-import ListDetailTrainingProcess from "@/pages/hr/components/dao-tao-phat-trien/quy-trinh-dao-tao/chi-tiet-quy-trinh/listDetailTrainingProcess/ListDetailTrainingProcess";
-import AddDetailTrainingProcess from "@/pages/hr/components/dao-tao-phat-trien/quy-trinh-dao-tao/chi-tiet-quy-trinh/addDetailTrainingProcess/AddDetailTrainingProcess";
-import BodyFrameFooter from "@/pages/hr/components/bodyFrame/bodyFrame_footer/bodyFrame_footer";
+import ListDetailTrainingProcess from "@/components/hr/dao-tao-phat-trien/quy-trinh-dao-tao/chi-tiet-quy-trinh/listDetailTrainingProcess/ListDetailTrainingProcess";
+import AddDetailTrainingProcess from "@/components/hr/dao-tao-phat-trien/quy-trinh-dao-tao/chi-tiet-quy-trinh/addDetailTrainingProcess/AddDetailTrainingProcess";
+import BodyFrameFooter from "@/components/hr/bodyFrame/bodyFrame_footer/bodyFrame_footer";
 import { DataDetailProcess, GetDataDetailProcess } from "@/pages/hr/api/dao-tao-phat-trien/TrainingProcess";
 import Head from "next/head";
 import { getTokenFromCookie } from "@/pages/hr/api/token";
 
-export async function getServerSideProps({query}) {
+export async function getServerSideProps({ query }) {
   return {
-      props: {
-          query,
-      },
+    props: {
+      query,
+    },
   };
 }
 export default function DetailTrainingProcess({ query }: any) {
-  const  idTrainingProcess  = query.idTrainingProcess;
+  const idTrainingProcess = query.idTrainingProcess;
   const [active, setActive] = useState(1);
   const [openModal, setOpenModal] = useState(0);
   const [animateModal, setAnimateModal] = useState(false);
@@ -48,7 +48,7 @@ export default function DetailTrainingProcess({ query }: any) {
       }
       fetchData()
     } catch (error) {
-      
+
     }
   }, [])
 

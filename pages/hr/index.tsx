@@ -1,9 +1,9 @@
 
-import BodyFrameSection1 from "./components/bodyFrame/bodyFrame_section1/bodyFrame_section1";
-import BodyFrameSection2 from "./components/bodyFrame/bodyFrame_section2/bodyFrame_section2";
-import BodyFrameSection3 from "./components/bodyFrame/bodyFrame_section3/bodyFrame_section3";
-import BodyFrameFooter from "./components/bodyFrame/bodyFrame_footer/bodyFrame_footer";
-import styles from "./components/bodyFrame/bodyFrame.module.css";
+import BodyFrameSection1 from "@/components/hr/bodyFrame/bodyFrame_section1/bodyFrame_section1";
+import BodyFrameSection2 from "@/components/hr/bodyFrame/bodyFrame_section2/bodyFrame_section2";
+import BodyFrameSection3 from "@/components/hr/bodyFrame/bodyFrame_section3/bodyFrame_section3";
+import BodyFrameFooter from "@/components/hr/bodyFrame/bodyFrame_footer/bodyFrame_footer";
+import styles from "@/components/hr/bodyFrame/bodyFrame.module.css";
 import { useEffect, useState } from "react";
 import { getCookie } from "cookies-next";
 import { getHomeData } from "./api/Home/HomeService";

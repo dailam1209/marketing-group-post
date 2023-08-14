@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styles from "./administration.module.css";
 import Link from "next/link";
-import TabEmployeeManagement from "@/pages/hr/components/quan-ly-hanh-chinh/thong-tin-nhan-su/tab";
+import TabEmployeeManagement from "@/components/hr/quan-ly-hanh-chinh/thong-tin-nhan-su/tab";
 import Head from "next/head";
 import { getDataAuthentication } from "@/pages/hr/api/Home/HomeService";
-import LoadingSpinner from "@/pages/hr/components/loading";
-import PageAuthenticator from "@/pages/hr/components/quyen-truy-cap";
+import LoadingSpinner from "@/components/hr/loading";
+import PageAuthenticator from "@/components/hr/quyen-truy-cap";
 
 export interface EmployeeManagement { }
 

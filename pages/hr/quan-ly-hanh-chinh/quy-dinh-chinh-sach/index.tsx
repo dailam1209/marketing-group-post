@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styles from './quy-dinh-chinh-sach.module.css'
 import Link from "next/link";
-import RegulationsWork from "@/pages/hr/components/quan-ly-hanh-chinh/quy-dinh-chinh-sach/quy-dinh-lam-viec";
-import EmployeePolicy from "@/pages/hr/components/quan-ly-hanh-chinh/quy-dinh-chinh-sach/chinh-sach-nhan-vien";
+import RegulationsWork from "@/components/hr/quan-ly-hanh-chinh/quy-dinh-chinh-sach/quy-dinh-lam-viec";
+import EmployeePolicy from "@/components/hr/quan-ly-hanh-chinh/quy-dinh-chinh-sach/chinh-sach-nhan-vien";
 import Head from "next/head";
 import { getDataAuthentication } from "@/pages/hr/api/Home/HomeService";
 

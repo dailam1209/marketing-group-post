@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import styles from "./candidateList.module.css";
 import Link from "next/link";
 import CandidateListDetail from "./candidateListDetail";
-import CandidateRepo from "@/pages/hr/components/quan-ly-tuyen-dung/danh-sach-ung-vien/candidateRepo";
+import CandidateRepo from "@/components/hr/quan-ly-tuyen-dung/danh-sach-ung-vien/candidateRepo";
 import { getDataAuthentication } from "@/pages/hr/api/Home/HomeService";
-import LoadingSpinner from "@/pages/hr/components/loading";
-import PageAuthenticator from "@/pages/hr/components/quyen-truy-cap";
+import LoadingSpinner from "@/components/hr/loading";
+import PageAuthenticator from "@/components/hr/quyen-truy-cap";
 
 export interface CandidateList { }
 

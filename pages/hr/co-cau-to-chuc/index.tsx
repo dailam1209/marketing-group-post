@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 import styles from "../quan-ly-hanh-chinh/thong-tin-nhan-su/administration.module.css";
 import Link from "next/link";
-import OrganisationalStructureDiagram from "@/pages/hr/components/co-cau-to-chuc/organisationalStructureDiagram";
-import SealAndSignature from "@/pages/hr/components/co-cau-to-chuc/sealAndSignature";
+import OrganisationalStructureDiagram from "@/components/hr/co-cau-to-chuc/organisationalStructureDiagram";
+import SealAndSignature from "@/components/hr/co-cau-to-chuc/sealAndSignature";
 import LeaderBiography from "./leaderBiography";
 import dynamic from "next/dynamic";
 import Head from "next/head";
 import { getDataAuthentication } from "../api/Home/HomeService";
-import LoadingSpinner from "@/pages/hr/components/loading";
-import PageAuthenticator from "@/pages/hr/components/quyen-truy-cap";
+import LoadingSpinner from "@/components/hr/loading";
+import PageAuthenticator from "@/components/hr/quyen-truy-cap";
 const PostionCharTree = dynamic(
-  () => import("@/pages/hr/components/co-cau-to-chuc/postionChar"),
+  () => import("@/components/hr/co-cau-to-chuc/postionChar"),
   {
     ssr: false,
   }

@@ -2,10 +2,10 @@
 import React, { useState } from "react";
 import { format } from "date-fns";
 import styles from "./listRecruitmentProcess.module.css";
-import EditRecruitmentProcess from "../../../components/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/editRecruitmentProcess/EditRecruitmentProcess";
-import DeleteRecruitmentProcess from "../../../components/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/deleteRecruitmentProcess/DeleteRecruitmentProcess";
+import EditRecruitmentProcess from "@/components/hr/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/editRecruitmentProcess/EditRecruitmentProcess";
+import DeleteRecruitmentProcess from "@/components/hr/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/deleteRecruitmentProcess/DeleteRecruitmentProcess";
 import { useRouter } from "next/router";
-import MyPagination from "../../../components/pagination/Pagination";
+import MyPagination from "@/components/hr/pagination/Pagination";
 import Link from "next/link";
 import Head from "next/head";
 export interface listRecruitmentProcess { }

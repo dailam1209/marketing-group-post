@@ -4,7 +4,7 @@ import styles from "./idDetailLeaderBiography.module.css";
 import { useRouter } from "next/router";
 import { LeaderBiographyDetail } from "@/pages/hr/api/co_cau_to_chuc";
 import { LeaderBiograpphyUpdate } from "@/pages/hr/api/co_cau_to_chuc";
-import MyEditorNew from "@/pages/hr/components/myEditor";
+import MyEditorNew from "@/components/hr/myEditor";
 import Head from "next/head";
 import { getDataAuthentication } from "@/pages/hr/api/Home/HomeService";
 
