@@ -36,6 +36,9 @@ export default function Home() {
                setOpenSB(true);
             } else if (window.innerWidth < 1024) {
                setOpenSB(false);
+               setNarrow(false);
+            } else if (window.innerWidth === 1024) {
+               setNarrow(false);
             }
          },
          true,
