@@ -1,12 +1,12 @@
 // import "@/pages/hr/styles/global.css";
 import type { AppProps } from "next/app";
-import Layout from "./components/Layout";
+import Layout from "@/components/hr/Layout";
 import { useDrop, DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { useEffect, useState } from "react";
 import { CheckLogIn } from "./api/Home/HomeService";
 import { useRouter } from "next/router";
-import LoadingSpinner from "./components/loading";
+import LoadingSpinner from "@/components/hr/loading";
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();

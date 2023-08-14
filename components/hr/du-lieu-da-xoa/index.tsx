@@ -98,7 +98,6 @@ export default function DeletedDataComPonent({ iconEdit, iconDelete }) {
               )}
             </div>
           ) : null}
-
           <div className={`${styles.right}`}>
             <form className={`${styles.form}`}>
               <div className={`${styles.t_div_search}`}>
