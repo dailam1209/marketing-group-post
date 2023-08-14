@@ -50,7 +50,7 @@ export default function DropDownMenu({ dataHeader }) {
     return (
         <>
             <div className={`${styles.wrapper}`}>
-                <div className={`${styles.avatar}`}><img className={`${styles.img_avatar}`} src={`/app_1686633773283.jpg`} alt="" /></div>
+                <div className={`${styles.avatar}`}><img className={`${styles.img_avatar}`}  src={dataHeader?.data?.avatarUser ? dataHeader?.data?.avatarUser : "/app_1686633773283.jpg"} alt=""  /></div>
                 <div className={`${styles.menu_cpn}`}>{dataHeader?.data.userName}</div>
                 <div className={`${styles.menu_id}`}>{dataHeader?.data.idQLC || ''}</div>
                 {ListMenu.map((item, index) => (

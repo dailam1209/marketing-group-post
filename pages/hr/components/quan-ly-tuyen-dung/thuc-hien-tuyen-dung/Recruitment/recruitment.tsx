@@ -10,7 +10,7 @@ import Head from "next/head";
 
 export interface Recruitment { }
 
-export default function Recruitment({ tokenType }: any) {
+export default function Recruitment() {
   const [animateModal, setAnimateModal] = useState(false);
   const [openModalAdd, setOpenModalAdd] = useState(false);
   const [currentPage, setCurrenPage] = useState<any>(1);
@@ -27,14 +27,8 @@ export default function Recruitment({ tokenType }: any) {
     const GetDataListNews = async () => {
       try {
         const response = await GetListNews(currentPage, 4, title, formDate, toDate);
-        if (response?.status === 403) {
-          alert('Bạn chưa được phân quyền trên phần mềm quản trị nhân sự 365. Vui lòng liên hệ quản trị viên để biết thêm chi tiết!')
-        }
-        if (response?.status !== 200) {
-          alert("Lấy dữ liệu thất bại");
-        } else {
           setDataListNews(response?.data);
-        }
+       
       } catch (err) {
       }
     };
@@ -105,23 +99,14 @@ export default function Recruitment({ tokenType }: any) {
       </Head>
       <div className={`${styles.tintuyendung}`}>
         <div className={`${styles.tuyendung1}`}>
-          {tokenType === 1 ? (
-            <button className={`${styles.adds}`} onClick={handleOpenModalAdd}>
-              <picture style={{ paddingLeft: "12px" }}>
-                <img src={`/add.png`} alt=""></img>
-                <p>Thêm tin tuyển dụng</p>
-              </picture>
-            </button>
-          ) : (
-            (!iconAdd) ? <></> : (
-              <button className={`${styles.adds}`} onClick={handleOpenModalAdd}>
-                <picture style={{ paddingLeft: "12px" }}>
-                  <img src={`/add.png`} alt=""></img>
-                  <p>Thêm tin tuyển dụng</p>
-                </picture>
-              </button>
-            )
-          )}
+         {iconAdd && (
+          <button className={`${styles.adds}`} onClick={handleOpenModalAdd}>
+          <picture style={{ paddingLeft: "12px" }}>
+            <img src={`/add.png`} alt=""></img>
+            <p>Thêm tin tuyển dụng</p>
+          </picture>
+        </button>
+         )}
         </div>
         {openModalAdd && (
           <AddPerformRecruitment
@@ -182,7 +167,7 @@ export default function Recruitment({ tokenType }: any) {
         >
           {dataMapping?.data.length === 0 ? <p className={`${styles.data_empty}`}>Không có dữ liệu</p> : dataMapping?.data.map((item: any) => (
             <div key={item.id}>
-              <ListRecruitment data={item} onDelete={handleDelete} editData={EditDataRecruitment} iconEdit={iconEdit} iconDelete={iconDelete} tokenType={tokenType}></ListRecruitment>
+              <ListRecruitment data={item} onDelete={handleDelete} editData={EditDataRecruitment} iconEdit={iconEdit} iconDelete={iconDelete} ></ListRecruitment>
             </div>
           ))}
           {dataListNews?.data.totalCount > 4 && (

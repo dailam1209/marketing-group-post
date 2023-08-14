@@ -18,20 +18,10 @@ export default function RecruitmentProcess() {
   const [dataAdd, setDataAdd] = useState<any>("");
   const [currentPage, setCurrentPage] = useState(1);
   const [dataRecruitment, setDataRecruitment] = useState<any>([]);
-  const [authen, setAuthen] = useState<any>();
   const [isLoading, setIsLoading] = useState(true);
   const [isDataLoaded, setIsDataLoaded] = useState(false);
   const [displayIcon, setDisplayIcon] = useState<any>();
-  const [tokenType, setTokenType] = useState<any>(null);
-  const COOKIE_KEY = "token_base365";
 
-  useEffect(() => {
-    const currentCookie = getToken(COOKIE_KEY);
-    if (currentCookie) {
-      const decodedToken: any = jwt_decode(currentCookie);
-      setTokenType(decodedToken?.data?.type);
-    }
-  }, []);
   useEffect(() => {
     try {
       const fetchData = async () => {
@@ -43,6 +33,7 @@ export default function RecruitmentProcess() {
   }, []);
 
   const perIdArray = displayIcon?.map((item) => item.perId);
+  const authen = perIdArray?.includes(1);
   const iconAdd = perIdArray?.includes(2);
   const iconEdit = perIdArray?.includes(3);
   const iconDelete = perIdArray?.includes(4);
@@ -51,10 +42,7 @@ export default function RecruitmentProcess() {
     const fetchData = async () => {
       try {
         const response = await GetDataRecruitment(currentPage, 5, key);
-        if (response?.status === 403) {
-          setAuthen(false);
-        } else if (response?.status === 200) {
-          setAuthen(true);
+         if (response?.status === 200) {
           setDataRecruitment(response?.data.data);
         }
       } catch (error) {
@@ -115,53 +103,14 @@ export default function RecruitmentProcess() {
           <>
             <div className={styles.add_quytrinh}>
               <div className={styles.add_quytrinh1}>
-                {tokenType === 1 ? (
-                  <button
-                    type="submit"
-                    className="adds"
-                    style={{ outline: "none", border: "none", padding: "0" }}
-                  >
-                    <div
-                      className={styles.add_quytrinh2}
-                      onClick={handleOpenModalAdd}
-                    >
-                      <picture>
-                        <img
-                          src={"/add.png"}
-                          alt=""
-                          style={{ marginRight: "10px", marginTop: "-3px" }}
-                        ></img>
-                      </picture>
-                      <div className={styles.add_quytrinh2_title}>
-                        Thêm quy trình tuyển dụng
-                      </div>
-                    </div>
-                  </button>
-                ) : (
-                  (!iconAdd) ? <></> : (
-                    <button
-                      type="submit"
-                      className="adds"
-                      style={{ outline: "none", border: "none", padding: "0" }}
-                    >
-                      <div
-                        className={styles.add_quytrinh2}
-                        onClick={handleOpenModalAdd}
-                      >
-                        <picture>
-                          <img
-                            src={"/add.png"}
-                            alt=""
-                            style={{ marginRight: "10px", marginTop: "-3px" }}
-                          ></img>
-                        </picture>
-                        <div className={styles.add_quytrinh2_title}>
-                          Thêm quy trình tuyển dụng
-                        </div>
-                      </div>
-                    </button>
-                  )
-                )}
+              {iconAdd && (
+              <button className={`${styles.adds}`} onClick={handleOpenModalAdd}>
+                <picture style={{ paddingLeft: "12px" }} className={`${styles.display}`}>
+                  <img src={`/add.png`} alt=""></img>
+                  <p>Thêm tin tuyển dụng</p>
+                </picture>
+              </button>
+            )}
               </div>
               {openModalAdd && (
                 <AddRecruitmentProcess
@@ -203,7 +152,6 @@ export default function RecruitmentProcess() {
               iconAdd={iconAdd}
               iconEdit={iconEdit}
               iconDelete={iconDelete}
-              tokenType={tokenType}
             ></ListRecruitmentProcess>
 
             <BodyFrameFooter src="https://www.youtube.com/embed/J7JEoQkqarA"></BodyFrameFooter>

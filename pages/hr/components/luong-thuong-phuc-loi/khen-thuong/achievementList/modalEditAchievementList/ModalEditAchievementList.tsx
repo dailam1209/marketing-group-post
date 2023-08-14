@@ -175,7 +175,7 @@ function ModalEditAchievementList({ animation, onClose, dataOld }: any) {
 
   return (
     <>
-      <div className={`${styles.overlay}`}></div>
+      <div className={`${styles.overlay}`} onClick={onClose}></div>
       <div
         className={`${styles.modal} ${styles.modal_setting}  ${animation ? styles.fade_in : styles.fade_out
           }`}

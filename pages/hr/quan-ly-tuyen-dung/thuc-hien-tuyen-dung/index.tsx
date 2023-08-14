@@ -14,27 +14,13 @@ export default function HeaderForm({ children }: any) {
   const [authentication, setAuthentication] = useState<any>();
   const [isLoading, setIsLoading] = useState(true);
   const [active, setActive] = useState(1);
-  const [tokenType, setTokenType] = useState<any>(null);
-  const COOKIE_KEY = "token_base365";
 
-  useEffect(() => {
-
-    const currentCookie = getToken(COOKIE_KEY);
-    if (currentCookie) {
-      const decodedToken: any = jwt_decode(currentCookie);
-      setTokenType(decodedToken?.data?.type);
-    }
-  }, []);
 
   useEffect(() => {
     try {
       const GetDataTotalCandi = async () => {
         const responseTotalCandi = await GetTotalCandi();
-        if (responseTotalCandi?.status === 403) {
-          setAuthentication(true);
-          setIsLoading(false);
-        } else if (responseTotalCandi?.status === 200) {
-          setAuthentication(false);
+        if (responseTotalCandi?.status === 200) {
           setIsLoading(false);
           setTotalCandi(responseTotalCandi?.data.data);
         }
@@ -56,7 +42,7 @@ export default function HeaderForm({ children }: any) {
     {
       key: 2,
       header: "TIN TUYỂN DỤNG",
-      component: <Recruitment tokenType={tokenType}></Recruitment>,
+      component: <Recruitment ></Recruitment>,
     },
   ];
   return (

@@ -22,7 +22,7 @@ export default function DeleteRecruitment({ animation, handleCloseModal, newsId,
 
   return (
     <>
-      <div className={`${styles.overlay}`}></div>
+      <div className={`${styles.overlay}`} onClick={handleCloseModal}></div>
       <div className={`${styles.modal} ${styles.modal_setting}  ${animation ? styles.fade_in : styles.fade_out}`} style={{ display: 'block' }}>
         <div className={` ${styles.modal_dialog} ${styles.contentquytrinh}`}>
           <div className={`${styles.modal_content} `}>

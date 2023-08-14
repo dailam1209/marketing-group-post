@@ -13,7 +13,6 @@ export default function ListRecruitmentStage({
   onEdit,
   iconEdit,
   iconDelete,
-  tokenType
 }) {
   const [animateModal, setAnimateModal] = useState(false);
   const [openModalEdit, setOpenModalEdit] = useState(false);
@@ -26,8 +25,8 @@ export default function ListRecruitmentStage({
     setIsExpanded(!isExpanded);
   };
   const getFirstSentence = (description) => {
-    if (!description || typeof description !== 'string') {
-      return '';
+    if (!description || typeof description !== "string") {
+      return "";
     }
     const sentences = description.split(".");
     if (sentences.length > 0) {
@@ -58,35 +57,6 @@ export default function ListRecruitmentStage({
     setAnimateModal(true);
   };
 
-
-  if (openModalEdit) {
-    return (
-      <>
-        <EditRecruitmentStage
-          data={item}
-          animation={animateModal}
-          onCloseModal={handleCloseModal}
-          newDataEdit = {onEdit}
-        />
-      </>
-    );
-  }
-
-  if (openModalDelete) {
-    return (
-      <>
-        <DeleteRecruitmentStage
-          data={item}
-          recruitment={recruitment}
-          animation={animateModal}
-          onCloseModal={handleCloseModal}
-          newDataDelete = {onDelete}
-        />
-      </>
-    );
-  }
-
-
   return (
     <div key={item?.id}>
       <div className={`${styles.all_giaidoans}`}>
@@ -98,50 +68,58 @@ export default function ListRecruitmentStage({
                 <div className={`${styles.row_top_right}`}>
                   <p>{item.name}</p>
                 </div>
-               
-                 <div
-                 className={`${styles.setting}`}
-                 onMouseEnter={() => setVisible(true)}
-                 onMouseLeave={() => setVisible(false)}
-               >
-                 <picture>
-                   <img src={`${"/3cham.png"}`} alt="setting"></img>
-                 </picture>
-                 {visible && (
-                   <>
-                     {!hidden && (
-                       <div className={`${styles.settings_hover}`}>
-                         {tokenType === 1 ? (
-                           <li onClick={() => handleItemClickEdit(item)}>
-                           Chỉnh sửa
-                         </li>
-                         ): (
-                          ( !iconEdit) ? <></> : (
+
+                <div
+                  className={`${styles.setting}`}
+                  onMouseEnter={() => setVisible(true)}
+                  onMouseLeave={() => setVisible(false)}
+                >
+                  <picture>
+                    <img src={`${"/3cham.png"}`} alt="setting"></img>
+                  </picture>
+                  {visible && (
+                    <>
+                      {!hidden && (
+                        <div className={`${styles.settings_hover}`}>
+                          {iconEdit && (
                             <li onClick={() => handleItemClickEdit(item)}>
                             Chỉnh sửa
                           </li>
-                          )
-                        )}
-                         <hr
-                           style={{ marginTop: "0", marginBottom: "0" }}
-                         ></hr>
-                         {tokenType ===1 ? (
-                           <li onClick={() => handleItemClickDelete(item)}>
-                           Xóa
-                         </li>
-                         ): (
-                          (!iconDelete) ? <></> : (
+                          )}
+                          <hr
+                            style={{ marginTop: "0", marginBottom: "0" }}
+                          ></hr>
+                          {iconDelete && (
                             <li onClick={() => handleItemClickDelete(item)}>
-                           Xóa
-                         </li>
-                          )
-                        )}
-                       </div>
-                     )}
-                   </>
-                 )}
-               </div>
-               
+                            Xóa
+                          </li>
+                          )}
+                        </div>
+                      )}
+                    </>
+                  )}
+                </div>
+                {openModalEdit && (
+                  <>
+                    <EditRecruitmentStage
+                      data={item}
+                      animation={animateModal}
+                      onCloseModal={handleCloseModal}
+                      newDataEdit={onEdit}
+                    />
+                  </>
+                )}
+                {openModalDelete && (
+                  <>
+                    <DeleteRecruitmentStage
+                      data={item}
+                      recruitment={recruitment}
+                      animation={animateModal}
+                      onCloseModal={handleCloseModal}
+                      newDataDelete={onDelete}
+                    />
+                  </>
+                )}
               </div>
               <ul>
                 <li>
@@ -192,4 +170,3 @@ export default function ListRecruitmentStage({
     </div>
   );
 }
-

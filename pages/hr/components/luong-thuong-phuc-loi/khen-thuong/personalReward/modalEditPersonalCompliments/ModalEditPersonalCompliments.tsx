@@ -136,7 +136,7 @@ function ModalEditPersonalCompliments({ animation, onClose, dataOld }: any) {
 
   return (
     <>
-      <div className={`${styles.overlay}`}></div>
+      <div className={`${styles.overlay}`} onClick = {onClose}></div>
       <div className={`${styles.modal} ${styles.modal_setting}  ${animation ? styles.fade_in : styles.fade_out}`} style={{ display: 'block' }}>
         <div className={`${styles.modal_dialog} ${styles.contentquytrinh}`}>
           <div className={`${styles.modal_content} `}>

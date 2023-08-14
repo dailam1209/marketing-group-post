@@ -20,7 +20,6 @@ export async function getServerSideProps({query}) {
 }
 
 export default function listRecruitmentProcess({ query }) {
-
   const router = useRouter();
   const  idRecruitmentStage  = query.idRecruitmentStage;
   const [openModalAdd, setOpenModalAdd] = useState(false);
@@ -29,17 +28,7 @@ export default function listRecruitmentProcess({ query }) {
   const [newData, setNewData] = useState<any>();
   const recruitment = recruitmentStage?.data.recruitment
   const [displayIcon, setDisplayIcon] = useState<any>();
-  const [tokenType, setTokenType] = useState<any>(null);
 
-  const COOKIE_KEY = "token_base365";
-
-  useEffect(() => {
-    const currentCookie = getToken(COOKIE_KEY);
-    if (currentCookie) {
-      const decodedToken: any = jwt_decode(currentCookie);
-      setTokenType(decodedToken?.data?.type);
-    }
-  }, []);
   useEffect(() => {
     try {
       const fetchData = async () => {
@@ -100,26 +89,15 @@ export default function listRecruitmentProcess({ query }) {
               Danh sách quy trình tuyển dụng
             </span>
           </div>
-          {tokenType === 1 ? (
-            <div className={`${styles.add_quytrinh1}`}>
-              <button className={`${styles.adds}`} onClick={handleOpenModalAdd}>
-                <picture>
-                  <img src={`${"/add.png"}`} alt=""></img>
-                </picture>
-                Thêm giai đoạn tuyển dụng
-              </button>
-            </div>
-          ) : (
-            (!iconAdd) ? <></> : (
-              <div className={`${styles.add_quytrinh1}`}>
-                <button className={`${styles.adds}`} onClick={handleOpenModalAdd}>
-                  <picture>
-                    <img src={`${"/add.png"}`} alt=""></img>
-                  </picture>
-                  Thêm giai đoạn tuyển dụng
-                </button>
-              </div>
-            )
+          {iconAdd && (
+             <div className={`${styles.add_quytrinh1}`}>
+             <button className={`${styles.adds}`} onClick={handleOpenModalAdd}>
+               <picture>
+                 <img src={`${"/add.png"}`} alt=""></img>
+               </picture>
+               Thêm giai đoạn tuyển dụng
+             </button>
+           </div>
           )}
         </div>
         {openModalAdd && (
@@ -147,7 +125,6 @@ export default function listRecruitmentProcess({ query }) {
                 onEdit={setNewData}
                 iconEdit={iconEdit}
                 iconDelete={iconDelete}
-                tokenType={tokenType}
               ></ListRecruitmentStage>
             </div>
           ))}

@@ -15,7 +15,6 @@ export default function ListRecruitment({
   editData,
   iconEdit,
   iconDelete,
-  tokenType,
 }: any) {
   const router = useRouter();
   const idRecruitment = data?.id;
@@ -185,43 +184,23 @@ export default function ListRecruitment({
                       </li>
                     </button>
 
-                    {tokenType === 1 ? (
+                    {iconEdit && (
                       <button
-                        style={{ paddingRight: "55px" }}
-                        className={`${styles.edit_new}`}
-                        onClick={handleOpenModalEdit}
-                      >
-                        Chỉnh sửa tin
-                      </button>
-                    ) : !iconEdit ? (
-                      <></>
-                    ) : (
-                      <button
-                        style={{ paddingRight: "55px" }}
-                        className={`${styles.edit_new}`}
-                        onClick={handleOpenModalEdit}
-                      >
-                        Chỉnh sửa tin
-                      </button>
+                      style={{ paddingRight: "55px" }}
+                      className={`${styles.edit_new}`}
+                      onClick={handleOpenModalEdit}
+                    >
+                      Chỉnh sửa tin
+                    </button>
                     )}
                     <hr style={{ marginTop: "0", marginBottom: "0" }}></hr>
-                    {tokenType === 1 ? (
-                      <li onClick={handleOpenModalDelete}>Gỡ tin tuyển dụng</li>
-                    ) : !iconDelete ? (
-                      <></>
-                    ) : (
+                    {iconDelete && (
                       <li onClick={handleOpenModalDelete}>Gỡ tin tuyển dụng</li>
                     )}
-                    {tokenType === 1 ? (
+                    {iconEdit && (
                       <li onClick={(e) => handleSetTemplate(e, idRecruitment)}>
-                        Thiết lập làm tin mẫu
-                      </li>
-                    ) : !iconEdit ? (
-                      <></>
-                    ) : (
-                      <li onClick={(e) => handleSetTemplate(e, idRecruitment)}>
-                        Thiết lập làm tin mẫu
-                      </li>
+                      Thiết lập làm tin mẫu
+                    </li>
                     )}
                   </div>
                 )}

@@ -29,7 +29,7 @@ export default function DeleteRecruitmentStage({ data, recruitment, animation, o
 
   return (
     <>
-      <div className={`${styles.overlay}`}></div>
+      <div className={`${styles.overlay}`} onClick={handleCancel}></div>
       <div className={`${styles.modal} ${styles.modal_setting}  ${animation ? styles.fade_in : styles.fade_out}`}>
         <div className={`${styles.contentquytrinh}`}>
           <div className={`${styles.modal_content} ${styles.contentdel}`}>

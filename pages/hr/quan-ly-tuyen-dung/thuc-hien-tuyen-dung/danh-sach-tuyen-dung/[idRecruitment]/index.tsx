@@ -2,10 +2,8 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import styles from "./idRecruitment.module.css";
 import BodyFrameFooter from "@/pages/hr/components/bodyFrame/bodyFrame_footer/bodyFrame_footer";
-import { DetailNews } from "@/pages/hr/api/quan-ly-tuyen-dung/PerformRecruitment";
-
 import Head from "next/head";
-import { getTokenFromCookie } from "@/pages/hr/api/token";
+import { DetailNews } from "@/pages/hr/api/quan-ly-tuyen-dung/PerformRecruitment";
 
 export async function getServerSideProps({ query }) {
   return {
@@ -19,6 +17,7 @@ export default function IdRecruitment({ query }) {
   const router = useRouter();
   const idRecruitment = query.idRecruitment;
   const [dataDetail, setDataDetail] = useState<any>()
+
   const getFormattedDate = (timeString) => {
     const date = new Date(timeString);
     const year = date.getFullYear();
@@ -31,7 +30,8 @@ export default function IdRecruitment({ query }) {
     try {
       const fetchDataDetail = async () => {
         const response = await DetailNews(idRecruitment)
-        setDataDetail(response?.data?.data)
+        console.log(response?.data)
+        setDataDetail(response?.data)
       }
       fetchDataDetail()
     } catch (error) {

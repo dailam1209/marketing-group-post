@@ -19,7 +19,6 @@ export default function ListRecruitmentProcess({
   iconAdd,
   iconEdit,
   iconDelete,
-  tokenType,
 }: any) {
   const router = useRouter();
   const [openModal, setOpenModal] = useState(0);
@@ -94,58 +93,31 @@ export default function ListRecruitmentProcess({
                     </span>
                   </a>
                   {/* edit */}
-                  {tokenType === 1 ? (
+                  {iconEdit && (
                     <button
-                      className={`${styles.button_option}`}
-                      onClick={() => handleOpenModal(1, item)}
-                    >
-                      <picture>
-                        <img src={`${"/icon-edit-quytrinh.svg"}`} alt=""></img>
-                      </picture>
-                      <span className={`${styles.span_a}`}>Sửa</span>
-                    </button>
-                  ) : (
-                    (!iconEdit) ? <></> : (
-                      <button
-                        className={`${styles.button_option}`}
-                        onClick={() => handleOpenModal(1, item)}
-                      >
-                        <picture>
-                          <img src={`${"/icon-edit-quytrinh.svg"}`} alt=""></img>
-                        </picture>
-                        <span className={`${styles.span_a}`}>Sửa</span>
-                      </button>
-                    )
+                    className={`${styles.button_option}`}
+                    onClick={() => handleOpenModal(1, item)}
+                  >
+                    <picture>
+                      <img src={`${"/icon-edit-quytrinh.svg"}`} alt=""></img>
+                    </picture>
+                    <span className={`${styles.span_a}`}>Sửa</span>
+                  </button>
                   )}
                   {/* xóa */}
-                  {tokenType === 1 ? (
+                  {iconDelete && (
                     <button
-                      className={`${styles.button_option}`}
-                      onClick={() => handleOpenModal(2, item)}
-                    >
-                      <picture>
-                        <img
-                          src={`${"/icon-remove-quytrinh.svg"}`}
-                          alt=""
-                        ></img>
-                      </picture>
-                      <span className={`${styles.span_a}`}>Xóa</span>
-                    </button>
-                  ) : (
-                    (!iconDelete) ? <></> : (
-                      <button
-                        className={`${styles.button_option}`}
-                        onClick={() => handleOpenModal(2, item)}
-                      >
-                        <picture>
-                          <img
-                            src={`${"/icon-remove-quytrinh.svg"}`}
-                            alt=""
-                          ></img>
-                        </picture>
-                        <span className={`${styles.span_a}`}>Xóa</span>
-                      </button>
-                    )
+                    className={`${styles.button_option}`}
+                    onClick={() => handleOpenModal(2, item)}
+                  >
+                    <picture>
+                      <img
+                        src={`${"/icon-remove-quytrinh.svg"}`}
+                        alt=""
+                      ></img>
+                    </picture>
+                    <span className={`${styles.span_a}`}>Xóa</span>
+                  </button>
                   )}
                 </div>
               </div>

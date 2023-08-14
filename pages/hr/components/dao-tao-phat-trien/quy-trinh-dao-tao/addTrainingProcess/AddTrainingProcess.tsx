@@ -45,7 +45,7 @@ export default function AddTrainingProcess({ animation, closeModal, handleNewDat
 
   return (
     <>
-      <div className={`${styles.overlay}`}></div>
+      <div className={`${styles.overlay}`} onClick={handleCloseModalAdd}></div>
       <div
         className={`${styles.modal} ${styles.modal_setting}  ${
           animation ? styles.fade_in : styles.fade_out
