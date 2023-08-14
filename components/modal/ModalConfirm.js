@@ -13,10 +13,22 @@ export default function ModalConfirm({setOpenModalConfirm, setOpenModalRegister,
                <div className={styles.content_1}>Bạn cần đăng nhập để tiếp tục sử dụng các tiện ích</div>
                <div className={styles.content_2}>Nếu chưa có tài khoản, hãy đăng ký tài khoản mới</div>
                <div className={styles.btn}>
-                  <button className={styles.btn_register} onClick={() => setOpenModalRegister(true)}>
+                  <button
+                     className={styles.btn_register}
+                     onClick={() => {
+                        setOpenModalRegister(true);
+                        setOpenModalConfirm(false);
+                     }}
+                  >
                      Đăng ký{' '}
                   </button>
-                  <button className={styles.btn_login} onClick={() => setOpenModalLogin(true)}>
+                  <button
+                     className={styles.btn_login}
+                     onClick={() => {
+                        setOpenModalLogin(true);
+                        setOpenModalConfirm(false);
+                     }}
+                  >
                      Đăng nhập
                   </button>
                </div>

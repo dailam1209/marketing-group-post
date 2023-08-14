@@ -1,0 +1,118 @@
+/** @format */
+
+.footer_main {
+   margin-top: 50px;
+}
+.ft_bottom {
+   padding: 62px 100px;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   .left {
+      padding-right: 200px;
+      .left_top {
+         display: flex;
+         flex-direction: column;
+         gap: 14px;
+         span {
+            color: #fff;
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            font-size: 16px;
+         }
+         h2 {
+            color: #fff;
+            font-size: 20px;
+         }
+      }
+      .left_bottom {
+         display: flex;
+         align-items: center;
+         justify-content: space-between;
+         margin-top: 30px;
+         span {
+            color: #fff;
+         }
+         .left_bottom_left {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            .left_bottom_left_item {
+               display: flex;
+               align-items: center;
+               gap: 5px;
+            }
+         }
+         .left_bottom_right {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            .left_bottom_right_item {
+               display: flex;
+               align-items: center;
+               gap: 5px;
+            }
+            .icon_left {
+               width: 100px;
+               margin-right: 5px;
+            }
+            .icon_right {
+               width: 100px;
+            }
+         }
+      }
+   }
+   .right {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      gap: 20px;
+      span {
+         color: #fff;
+      }
+      img {
+         width: 220px;
+      }
+   }
+}
+.app_mb {
+   display: none;
+}
+@media screen and (max-width: 768px) {
+   .ft_bottom {
+      padding: 62px 0px;
+      .left {
+         padding-right: 90px;
+      }
+      .right {
+      }
+   }
+}
+@media screen and (max-width: 600px) {
+   .ft_bottom {
+      padding: 62px 0px;
+      .left {
+         padding-right: 0px;
+      }
+      .right {
+         display: none;
+      }
+   }
+   .app_mb {
+      display: block;
+      text-align: center;
+      span {
+         color: #fff;
+         font-size: 18px;
+      }
+      .icon_app {
+         display: flex;
+         align-items: center;
+         margin-top: 20px;
+         justify-content: space-between;
+         padding: 0 20px;
+      }
+   }
+}
