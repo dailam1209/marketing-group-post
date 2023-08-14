@@ -17,6 +17,7 @@ export default function ListTrainingProcess({ iconAdd, iconEdit, iconDelete }: a
   const [data, setData] = useState<any>();
   const [newData, setNewData] = useState<any>()
   const [id, setId] = useState<any>();
+  const router = useRouter();
 
   const handlePageChange = (page: any) => {
     setCurrentPage(page);
@@ -53,6 +54,10 @@ export default function ListTrainingProcess({ iconAdd, iconEdit, iconDelete }: a
     getListProcessTrain()
   }, [newData, currentPage, name])
 
+  const handleLinkClick = (e,id) => {
+    e.preventDefault()
+    router.push(`/dao-tao-phat-trien/quy-trinh-dao-tao/${id}`);
+  };
   return (
     <>
       <div className={`${styles.tab_content}`}>
@@ -117,19 +122,15 @@ export default function ListTrainingProcess({ iconAdd, iconEdit, iconDelete }: a
                 <div key={item.id}>
                   <div className={`${styles.quytrinh_item}`}>
                     <div className={`${styles.quytrinh_item1}`}>
-                      <Link
-                        passHref
-                        href={{
-                          pathname:
-                            `/dao-tao-phat-trien/quy-trinh-dao-tao/${item.id}`,
-                          query: { iconAdd: iconAdd?.toString(), iconEdit: iconEdit?.toString(), iconDelete: iconDelete?.toString() }
-                        }}
-                        as={`/dao-tao-phat-trien/quy-trinh-dao-tao/${item.id}`}
-                      >
-                        <div className={`${styles.quytrinh_item11_link}`}>
-                          (QTĐT{item.id}) {item.name}
-                        </div>
-                      </Link>
+                    <a
+                       href= {`/dao-tao-phat-trien/quy-trinh-dao-tao/${item.id}`}
+                       className={`${styles.quytrinh_item11_link}`}
+                       onClick={(e) => handleLinkClick(e,item.id)}
+                    >
+                      <div className={`${styles.quytrinh_item11_link}`}>
+                      (QTĐT{item.id}) {item.name}
+                      </div>
+                    </a>
 
                       <div className={`${styles.quytrinh_item12}`}>
                         <li>{item.description}</li>

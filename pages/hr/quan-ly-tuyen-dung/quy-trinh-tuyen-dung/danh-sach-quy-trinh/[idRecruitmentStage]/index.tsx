@@ -11,15 +11,21 @@ import jwt_decode from "jwt-decode";
 import { getTokenFromCookie } from "@/pages/hr/api/token";
 import Head from "next/head";
 
-export interface listRecruitmentProcess { }
+export async function getServerSideProps({query}) {
+  return {
+      props: {
+          query,
+      },
+  };
+}
 
-export default function listRecruitmentProcess({ dataDetail }) {
+export default function listRecruitmentProcess({ query }) {
 
   const router = useRouter();
-  const { idRecruitmentStage } = router.query;
+  const  idRecruitmentStage  = query.idRecruitmentStage;
   const [openModalAdd, setOpenModalAdd] = useState(false);
   const [animateModal, setAnimateModal] = useState(false);
-  const [recruitmentStage, setRecruitmentStage] = useState<any>(dataDetail)
+  const [recruitmentStage, setRecruitmentStage] = useState<any>()
   const [newData, setNewData] = useState<any>();
   const recruitment = recruitmentStage?.data.recruitment
   const [displayIcon, setDisplayIcon] = useState<any>();
@@ -49,6 +55,19 @@ export default function listRecruitmentProcess({ dataDetail }) {
   const iconEdit = perIdArray?.includes(3);
   const iconDelete = perIdArray?.includes(4);
 
+
+  useEffect(() => {
+    try{
+     const fetchDataDetail = async() => {
+      const response = await DataRecruitmentStage(idRecruitmentStage)
+      setRecruitmentStage(response?.data?.data)
+     }
+      fetchDataDetail()
+    }catch(error){
+
+    }
+   
+  },[idRecruitmentStage])
   const handleBack = () => {
     router.back();
   };
@@ -122,7 +141,7 @@ export default function listRecruitmentProcess({ dataDetail }) {
             <div key={index}>
               <ListRecruitmentStage
                 item={item}
-                recruitment={dataDetail?.data.recruitment}
+                recruitment={recruitmentStage?.data.recruitment}
                 index={index}
                 onDelete={setNewData}
                 onEdit={setNewData}
@@ -139,20 +158,6 @@ export default function listRecruitmentProcess({ dataDetail }) {
   );
 }
 
-export const getServerSideProps = async ({ params, req }) => {
-  const { idRecruitmentStage } = params;
-  const token = getTokenFromCookie(req.headers.cookie || '');
-  try {
-    const response = await DataRecruitmentStage(idRecruitmentStage, token)
-    const dataDetail = response?.data.data;
-    return {
-      props: {
-        dataDetail,
-      },
-    };
-  } catch (error) {
-    return { props: {} };
-  }
-};
+
 
 

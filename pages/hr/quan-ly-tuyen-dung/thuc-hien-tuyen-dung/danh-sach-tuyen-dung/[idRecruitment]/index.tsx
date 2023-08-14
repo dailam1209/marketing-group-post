@@ -7,10 +7,18 @@ import { DetailNews } from "@/pages/hr/api/quan-ly-tuyen-dung/PerformRecruitment
 import Head from "next/head";
 import { getTokenFromCookie } from "@/pages/hr/api/token";
 
-export interface IdRecruitment { }
+export async function getServerSideProps({query}) {
+  return {
+      props: {
+          query,
+      },
+  };
+}
 
-export default function IdRecruitment({ dataDetail }) {
+export default function IdRecruitment({ query }) {
   const router = useRouter();
+  const  idRecruitment  = query.idRecruitment;
+  const [dataDetail, setDataDetail] = useState<any>()
   const getFormattedDate = (timeString) => {
     const date = new Date(timeString);
     const year = date.getFullYear();
@@ -18,6 +26,19 @@ export default function IdRecruitment({ dataDetail }) {
     const day = String(date.getDate()).padStart(2, "0");
     return `${day}/${month}/${year}`;
   };
+
+  useEffect(() => {
+    try{
+     const fetchDataDetail = async() => {
+      const response = await DetailNews(idRecruitment)
+      setDataDetail(response?.data?.data)
+     }
+      fetchDataDetail()
+    }catch(error){
+
+    }
+   
+  },[idRecruitment])
 
   const dataRecruitment = dataDetail?.data.recruitmentNews;
   const listCandidate = dataDetail?.data.listCandidate;
@@ -263,19 +284,3 @@ export default function IdRecruitment({ dataDetail }) {
   );
 }
 
-export const getServerSideProps = async ({ params, req }) => {
-  const { idRecruitment } = params;
-  const token = getTokenFromCookie(req.headers.cookie || '');
-
-  try {
-    const response = await DetailNews(idRecruitment, token);
-    const dataDetail = response?.data;
-    return {
-      props: {
-        dataDetail,
-      },
-    };
-  } catch (error) {
-    return { props: {} };
-  }
-};

@@ -40,7 +40,7 @@ export default function Sidebar(props: SideBarProp) {
     {
       label: "Quản lý tuyển dụng",
       icon: "/tuyendung.svg",
-      href: '',
+      href: '#',
       submenu: <RecruitmentManager />,
       imgWithd: 20,
       imgheight: 18,
@@ -49,7 +49,7 @@ export default function Sidebar(props: SideBarProp) {
     {
       label: "Lương thưởng và phúc lợi",
       icon: "/thanhtich_vipham.svg",
-      href: '',
+      href: '#',
       submenu: <SalaryAndBenefits />,
       imgWithd: 20,
       imgheight: 20,
@@ -58,7 +58,7 @@ export default function Sidebar(props: SideBarProp) {
     {
       label: "Quản lý hành chính",
       icon: "	/vn-hanhchinh.svg",
-      href: '',
+      href: '#',
       submenu: <Administration />,
       imgWithd: 20,
       imgheight: 18,
@@ -67,7 +67,7 @@ export default function Sidebar(props: SideBarProp) {
     {
       label: "Đào tạo phát triển",
       icon: "	/vn_daotao.svg",
-      href: '',
+      href: '#',
       submenu: < DevelopmentTraining />,
       imgWithd: 21,
       imgheight: 21,
