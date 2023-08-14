@@ -1,10 +1,10 @@
 import React from 'react'
 import styles from './candidateListDetail.module.css'
-import ItemCandidate1 from '@/pages/hr/components/quan-ly-tuyen-dung/danh-sach-ung-vien/item/item1';
-import ItemCandidate2 from '@/pages/hr/components/quan-ly-tuyen-dung/danh-sach-ung-vien/item/index2';
-import ItemCandidate3 from '@/pages/hr/components/quan-ly-tuyen-dung/danh-sach-ung-vien/item/item3';
+import ItemCandidate1 from '@/components/hr/quan-ly-tuyen-dung/danh-sach-ung-vien/item/item1';
+import ItemCandidate2 from '@/components/hr/quan-ly-tuyen-dung/danh-sach-ung-vien/item/index2';
+import ItemCandidate3 from '@/components/hr/quan-ly-tuyen-dung/danh-sach-ung-vien/item/item3';
 import { useDrop } from "react-dnd"
-import { ItemTypes } from '@/pages/hr/components/quan-ly-tuyen-dung/danh-sach-ung-vien/item/ItemType';
+import { ItemTypes } from '@/components/hr/quan-ly-tuyen-dung/danh-sach-ung-vien/item/ItemType';
 export default function DropableColumn({
     item, isProcessList, handleUpdateProcess, setDeleteProcess, setModalOpen, setDragItem, setDropCol, setProcess_id, iconEdit, iconDelete
 }: any) {

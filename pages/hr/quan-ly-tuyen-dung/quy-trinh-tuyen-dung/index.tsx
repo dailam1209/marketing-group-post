@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styles from "./recruitmentProcess.module.css";
-import AddRecruitmentProcess from "../../components/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/addRecruitmentProcess/addRecruitmentProcess";
+import AddRecruitmentProcess from "@/components/hr/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/addRecruitmentProcess/addRecruitmentProcess";
 import ListRecruitmentProcess from "./danh-sach-quy-trinh";
-import BodyFrameFooter from "../../components/bodyFrame/bodyFrame_footer/bodyFrame_footer";
+import BodyFrameFooter from "@/components/hr/bodyFrame/bodyFrame_footer/bodyFrame_footer";
 import { GetDataRecruitment } from "../../api/quan-ly-tuyen-dung/RecruitmentManagerService";
-import PageAuthenticator from "../../components/quyen-truy-cap";
-import LoadingSpinner from "../../components/loading";
+import PageAuthenticator from "@/components/hr/quyen-truy-cap";
+import LoadingSpinner from "@/components/hr/loading";
 import { getDataAuthentication } from "../../api/Home/HomeService";
 import Head from "next/head";
 import { getToken } from "../../api/token";

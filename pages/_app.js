@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import Layout from "./hr/components/Layout";
+import Layout from "@/components/hr/Layout";
 import { useDrop, DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { CheckLogIn, SignIn } from "./hr/api/Home/HomeService";
-import LoadingSpinner from "./hr/components/loading";
+import LoadingSpinner from "@/components/hr/loading/index";
 import "../styles/globals.css";
 
 export default function App({ Component, pageProps }) {

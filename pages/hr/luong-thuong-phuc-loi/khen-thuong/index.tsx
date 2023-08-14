@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styles from "./styles.module.css";
-import PersonalReward from "@/pages/hr/components/luong-thuong-phuc-loi/khen-thuong/personalReward/PersonalReward";
-import CommendationTeam from "@/pages/hr/components/luong-thuong-phuc-loi/khen-thuong/commendationTeam/CommendationTeam";
-import AchievementList from "@/pages/hr/components/luong-thuong-phuc-loi/khen-thuong/achievementList/AchievementList";
+import PersonalReward from "@/components/hr/luong-thuong-phuc-loi/khen-thuong/personalReward/PersonalReward";
+import CommendationTeam from "@/components/hr/luong-thuong-phuc-loi/khen-thuong/commendationTeam/CommendationTeam";
+import AchievementList from "@/components/hr/luong-thuong-phuc-loi/khen-thuong/achievementList/AchievementList";
 import Head from "next/head";
 import { getDataAuthentication } from "@/pages/hr/api/Home/HomeService";
-import LoadingSpinner from "@/pages/hr/components/loading";
-import PageAuthenticator from "@/pages/hr/components/quyen-truy-cap";
+import LoadingSpinner from "@/components/hr/loading";
+import PageAuthenticator from "@/components/hr/quyen-truy-cap";
 
 
 export default function NavBar({ children }: any) {

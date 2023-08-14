@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import styles from "../thong-tin-nhan-su/administration.module.css";
 import Link from "next/link";
-import TabSalary from "@/pages/hr/components/quan-ly-hanh-chinh/bien-dong-nhan-su/salary";
-import TabPlaningAppointment from "@/pages/hr/components/quan-ly-hanh-chinh/bien-dong-nhan-su/planningAppointment";
-import TabWorkingRotation from "@/pages/hr/components/quan-ly-hanh-chinh/bien-dong-nhan-su/workingRotation";
-import TabPayrollDown from "@/pages/hr/components/quan-ly-hanh-chinh/bien-dong-nhan-su/payrollDown";
-import TabOutJob from "@/pages/hr/components/quan-ly-hanh-chinh/bien-dong-nhan-su/outJob";
-import TabChart from "@/pages/hr/components/quan-ly-hanh-chinh/bien-dong-nhan-su/chart";
+import TabSalary from "@/components/hr/quan-ly-hanh-chinh/bien-dong-nhan-su/salary";
+import TabPlaningAppointment from "@/components/hr/quan-ly-hanh-chinh/bien-dong-nhan-su/planningAppointment";
+import TabWorkingRotation from "@/components/hr/quan-ly-hanh-chinh/bien-dong-nhan-su/workingRotation";
+import TabPayrollDown from "@/components/hr/quan-ly-hanh-chinh/bien-dong-nhan-su/payrollDown";
+import TabOutJob from "@/components/hr/quan-ly-hanh-chinh/bien-dong-nhan-su/outJob";
+import TabChart from "@/components/hr/quan-ly-hanh-chinh/bien-dong-nhan-su/chart";
 import Head from "next/head";
 import { getDataAuthentication } from "@/pages/hr/api/Home/HomeService";
-import LoadingSpinner from "@/pages/hr/components/loading";
-import PageAuthenticator from "@/pages/hr/components/quyen-truy-cap";
+import LoadingSpinner from "@/components/hr/loading";
+import PageAuthenticator from "@/components/hr/quyen-truy-cap";
 
 export default function PersonnalChange({ children }: any) {
   const [active, setActive] = useState(1);

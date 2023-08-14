@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styles from "./styles.module.css";
-import PersonalDiscipline from "@/pages/hr/components/luong-thuong-phuc-loi/ky-luat/personalDiscipline/PersonalDiscipline";
-import DisciplineList from "@/pages/hr/components/luong-thuong-phuc-loi/ky-luat/disciplineList/DisciplineList";
-import CollectiveDiscipline from "@/pages/hr/components/luong-thuong-phuc-loi/ky-luat/collectiveDiscipline/CollectiveDiscipline";
+import PersonalDiscipline from "@/components/hr/luong-thuong-phuc-loi/ky-luat/personalDiscipline/PersonalDiscipline";
+import DisciplineList from "@/components/hr/luong-thuong-phuc-loi/ky-luat/disciplineList/DisciplineList";
+import CollectiveDiscipline from "@/components/hr/luong-thuong-phuc-loi/ky-luat/collectiveDiscipline/CollectiveDiscipline";
 import Head from "next/head";
 import { getDataAuthentication } from "@/pages/hr/api/Home/HomeService";
-import LoadingSpinner from "@/pages/hr/components/loading";
-import PageAuthenticator from "@/pages/hr/components/quyen-truy-cap";
+import LoadingSpinner from "@/components/hr/loading";
+import PageAuthenticator from "@/components/hr/quyen-truy-cap";
 
 
 export default function NavBar({ children }: any) {

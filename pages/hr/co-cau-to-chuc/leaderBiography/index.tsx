@@ -1,9 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from "react";
 import styles from "./leaderBiography.module.css";
-import BodyFrameFooter from "@/pages/hr/components/bodyFrame/bodyFrame_footer/bodyFrame_footer";
+import BodyFrameFooter from "@/components/hr/bodyFrame/bodyFrame_footer/bodyFrame_footer";
 import { LeaderBiographyList } from "@/pages/hr/api/co_cau_to_chuc";
-import MyPagination from "@/pages/hr/components/pagination/Pagination";
+import MyPagination from "@/components/hr/pagination/Pagination";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import Link from "next/link";

@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 import styles from "./styles.module.css";
-import ListJobPosition from "@/components/dao-tao-phat-trien/vi-tri-cong-viec/listJobPosition/ListJobPosition";
+import ListJobPosition from "@/components/hr/dao-tao-phat-trien/vi-tri-cong-viec/listJobPosition/ListJobPosition";
 import Head from "next/head";
-import { getDataAuthentication } from "@/pages/api/Home/HomeService";
-import LoadingSpinner from "@/components/loading";
-import PageAuthenticator from "@/components/quyen-truy-cap";
-import { getToken } from "@/pages/api/token";
-import jwt_decode from "jwt-decode";
+import { getDataAuthentication } from "@/pages/hr/api/Home/HomeService";
+import LoadingSpinner from "@/components/hr/loading";
+import PageAuthenticator from "@/components/hr/quyen-truy-cap";
 
 export default function JobPosition({ children }: any) {
   const [active, setActive] = useState(1);
@@ -23,7 +21,7 @@ export default function JobPosition({ children }: any) {
         setIsLoading(false);
       };
       fetchData();
-    } catch (error) {}
+    } catch (error) { }
   }, []);
 
   const perIdArray = displayIcon?.map((item) => item.perId);
@@ -36,7 +34,7 @@ export default function JobPosition({ children }: any) {
     {
       key: 1,
       header: "VỊ TRÍ CÔNG VIỆC",
-      component: <ListJobPosition iconAdd = {iconAdd} iconDelete = {iconDelete}></ListJobPosition>,
+      component: <ListJobPosition iconAdd={iconAdd} iconDelete={iconDelete}></ListJobPosition>,
     },
   ];
 
@@ -54,9 +52,8 @@ export default function JobPosition({ children }: any) {
               <div key={item.key} className={`${styles.w_480}`}>
                 <li className={`${styles.li_tabs}`}>
                   <span
-                    className={`${
-                      active === item?.key ? styles.active : styles.hover
-                    } `}
+                    className={`${active === item?.key ? styles.active : styles.hover
+                      } `}
                     onClick={() => setActive(item.key)}
                   >
                     {item.header}

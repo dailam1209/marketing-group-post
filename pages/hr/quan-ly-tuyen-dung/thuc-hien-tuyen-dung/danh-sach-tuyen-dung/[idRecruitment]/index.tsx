@@ -1,9 +1,10 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import styles from "./idRecruitment.module.css";
-import BodyFrameFooter from "@/pages/hr/components/bodyFrame/bodyFrame_footer/bodyFrame_footer";
-import Head from "next/head";
+import BodyFrameFooter from "@/components/hr/bodyFrame/bodyFrame_footer/bodyFrame_footer";
 import { DetailNews } from "@/pages/hr/api/quan-ly-tuyen-dung/PerformRecruitment";
+
+import Head from "next/head";
 
 export async function getServerSideProps({ query }) {
   return {

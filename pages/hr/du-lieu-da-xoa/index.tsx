@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import DeletedDataComPonent from "@/pages/hr/components/du-lieu-da-xoa";
+import DeletedDataComPonent from "@/components/hr/du-lieu-da-xoa";
 import Head from "next/head";
 import { getDataAuthentication } from "../api/Home/HomeService";
-import PageAuthenticator from "@/pages/hr/components/quyen-truy-cap";
-import LoadingSpinner from "@/pages/hr/components/loading";
+import PageAuthenticator from "@/components/hr/quyen-truy-cap";
+import LoadingSpinner from "@/components/hr/loading";
 
 export default function DeletedData() {
   const [displayIcon, setDisplayIcon] = useState<any>();

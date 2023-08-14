@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 import styles from "../quan-ly-hanh-chinh/thong-tin-nhan-su/administration.module.css";
 import Link from "next/link";
-import SecurityInfomation from "@/pages/hr/components/cai-dat-chung/securityInformation";
-import GeneralSettings from "@/pages/hr/components/cai-dat-chung/generalSettings";
-import ActivityLog from "@/pages/hr/components/cai-dat-chung/activityLog";
+import SecurityInfomation from "@/components/hr/cai-dat-chung/securityInformation";
+import GeneralSettings from "@/components/hr/cai-dat-chung/generalSettings";
+import ActivityLog from "@/components/hr/cai-dat-chung/activityLog";
 import { getDataCompany } from "../api/cai-dat/generalSettings";
 import Head from "next/head";
 import { getToken } from "../api/token";
 import jwt_decode from 'jwt-decode';
-import PersonalInformation from "@/pages/hr/components/cai-dat-chung/personalInformation";
+import PersonalInformation from "@/components/hr/cai-dat-chung/personalInformation";
 export default function Setting({ children }: any) {
-  const COOKIE_KEY = "user_365";
+  const COOKIE_KEY = "token_base365";
 
   const [active, setActive] = useState(1);
   const [dataCompany, setDataCompany] = useState<any>();
@@ -27,8 +27,10 @@ export default function Setting({ children }: any) {
 
   useEffect(() => {
     const currentCookie = getToken(COOKIE_KEY);
+    console.log(currentCookie)
     if (currentCookie) {
       const decodedToken: any = jwt_decode(currentCookie);
+      console.log(decodedToken)
       setTokenType(decodedToken?.data?.type);
     }
 
