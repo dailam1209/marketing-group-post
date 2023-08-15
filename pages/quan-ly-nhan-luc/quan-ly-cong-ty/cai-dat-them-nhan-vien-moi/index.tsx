@@ -6,7 +6,7 @@ import { useState } from "react";
 import { AddNewEmpModal } from "@/components/quan-ly-cong-ty/cai-dat-them-nhan-vien-moi/modal/modal";
 import { NhanVienChoDuyet } from "@/components/quan-ly-cong-ty/cai-dat-them-nhan-vien-moi/cho-duyet/NhanVienChoDuyet";
 import { useRouter } from "next/router";
-import { POST, POST_SS, getCompIdSS, getCurrentToken } from "@/pages/api/BaseApi";
+import { POST, POST_SS, POST_SS_TL, getCompIdSS, getCurrentToken } from "@/pages/api/BaseApi";
 import { useEffect } from "react"
 
 export default function CaiDatThemNhanVienMoiPage({
@@ -18,14 +18,14 @@ export default function CaiDatThemNhanVienMoiPage({
 }) {
   const temp = getCurrentToken();
   const [openAddNew, setOpenAddNew] = useState(false);
-  const [data, setData] = useState(listStaffs?.data?.filter(emp => emp?.ep_status === "Active"));
+  const [data, setData] = useState(listStaffs?.data?.listUser?.filter(emp => emp?.inForPerson?.employee?.ep_status === "Active"));
   const [activeKey, setActiveKey] = useState("1");
   const [listDepLabel, setListDepLabel]: any[] = useState(listDepartments?.data?.map(dep => ({ label: dep?.dep_name, value: dep?.dep_id })))
   const [listTeamLabel, setListTeamLabel]: any[] = useState(listTeams?.data?.map(team => ({ label: team?.team_name, value: team?.team_id })))
   const [listGrLabel, setListGrLabel]: any[] = useState(listGroups?.data?.map(gr => ({ label: gr?.gr_name, value: gr?.gr_id })))
   const [comLabel, setComLabel]: any = useState({ label: infoCom?.data?.userName, value: infoCom?.data?.idQLC })
-  const [listPendingEmp, setListPendingEmp]: any[] = useState(listStaffs?.data?.filter(emp => emp?.ep_status === "Pending"))
-
+  const [listPendingEmp, setListPendingEmp]: any[] = useState(listStaffs?.data?.listUser?.filter(emp => emp?.inForPerson?.employee?.ep_status === "Pending"))
+// console.log(listStaffs)
 
   const router = useRouter();
   const LIST_TABS = [
@@ -47,7 +47,7 @@ export default function CaiDatThemNhanVienMoiPage({
     {
       key: "2",
       label: `Nhân viên chờ duyệt (${listPendingEmp?.length || 0})`,
-      children: <NhanVienChoDuyet listStaffs={listPendingEmp} comLabel={comLabel} />,
+      children: <NhanVienChoDuyet listStaffs={listPendingEmp} comLabel={comLabel} listDepLabel={listDepLabel} />,
     },
   ];
 
@@ -76,11 +76,10 @@ export const getServerSideProps = async (context) => {
   let com_id = null;
   com_id = getCompIdSS(context);
 
-  const listStaffs = await POST_SS(
-    "api/qlc/managerUser/list",
+  const listStaffs = await POST_SS_TL(
+    "api/tinhluong/congty/list_em",
     {
-      com_id: com_id,
-      pageNumber: 1,
+      id_com: com_id
     },
     context
   );

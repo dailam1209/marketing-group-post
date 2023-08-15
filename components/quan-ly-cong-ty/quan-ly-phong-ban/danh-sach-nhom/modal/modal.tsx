@@ -7,6 +7,7 @@ import { DELETE, POST } from "@/pages/api/BaseApi";
 import { Form } from "antd";
 import { error } from "console";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { useEffect } from "react";
 
 export function UpdateNhomModal(
@@ -143,35 +144,35 @@ export function AddNewModal(
   open: boolean,
   setOpen: Function,
   data?: any,
-  setData?: Function
+  setData?: Function,
+  comLabel?: any,
+  listDepLabel?: any,
+  listTeamLabel?: any
 ) {
   const [form] = Form.useForm();
+  const router = useRouter()
 
   const handleSubmit = () => {
     // console.log("create a new group!");
     // console.log(form.getFieldsValue());
     
     //close modal
-    setOpen(false)
+    // setOpen(false)
+    form.validateFields().then(value => {
 
-    POST('api/qlc/group/create', form.getFieldsValue())
-      .then(res => {
-        console.log(res?.message)
-        setData && setData([...data, res?.data])
-      })
+      POST('api/qlc/group/create', value)
+        .then(res => {
+          router.replace(router.asPath)
+        })
+    })
+
   };
 
   const children = (
-    <Form form={form} initialValues={{ gr_name: '', dep_id: 1, team_id: 1}}>
-      {MySelect("Công ty", "Chọn công ty", true, true, "com_id", [{ label: "Công ty thanh toán Hưng Hà 2", value: 3312}])}
-      {MySelect("Phòng ban", "Chọn phòng ban", true, true, "dep_id", [
-        { label: "Phòng kỹ thuật", value: 1 },
-        { label: "Phòng kinh doanh", value: 2 },
-      ])}
-      {MySelect("Tổ", "Chọn tổ", true, true, "team_id", [
-        { label: "Tổ NodeJs", value: 1 },
-        { label: "Tổ tester", value: 2 },
-      ])}
+    <Form form={form}>
+      {MySelect("Công ty", "Chọn công ty", true, true, "com_id", comLabel && [comLabel])}
+      {MySelect("Phòng ban", "Chọn phòng ban", true, true, "dep_id", listDepLabel && listDepLabel)}
+      {MySelect("Tổ", "Chọn tổ", true, true, "team_id", listTeamLabel && listTeamLabel)}
       {MyInput("Tên nhóm", "Nhập tên nhóm", true, true, "gr_name")}
     </Form>
   );

@@ -7,6 +7,7 @@ import { MySelect } from "../../quan-ly-cong-ty-con/modal";
 import { AddButton, SearchButton } from "@/components/commons/Buttons";
 import { AddNewToModal, ConfirmDeleteModal, EditToModal } from "./modal/Modals";
 import { useRouter } from "next/router";
+import { listDep } from "@/utils/handleApi";
 
 export function DanhSachTo({
   listTeams,
@@ -30,6 +31,7 @@ export function DanhSachTo({
       value: dep?.dep_id,
     }))
   );
+  const [comLabel, setComlabel] = useState({ label: infoCom?.data?.userName, value: infoCom?.data?.idQLC })
 
   const columns = [
     {
@@ -141,57 +143,14 @@ export function DanhSachTo({
 
   return (
     <div>
-      {/* header */}
-      {/* <Row gutter={{ lg: 15, md: 20 }}>
-        <Col span={10}>
-          <Row gutter={20}>
-            <Col md={24}>
-              <div>
-                {MySelect(
-                  "",
-                  "Công ty cổ phần thanh toán Hưng Hà 2",
-                  false,
-                  false,
-                  "com_id",
-                  [{ label: "Công ty thanh toán Hưng Hà 2", value: 3312 }]
-                )}
-              </div>
-            </Col>
-            <Col md={24} className={styles.hidden}>
-              <div>
-                {MySelect("", "Chọn phòng ban", false, false, "dep_id", [
-                  { label: "Phòng kỹ thuật", value: 1 },
-                ])}
-              </div>
-            </Col>
-            <Col md={24}>
-              <div>{MySelect("", "Chọn tổ", false, false)}</div>
-            </Col>
-          </Row>
-        </Col>
-        <Col span={14}>
-          <Row gutter={{ lg: 15, md: 20 }} justify={"end"}>
-            <Col lg={19} md={17}>
-              <div>{MySelect("", "Chọn phòng ban", false, false, "dep_id", [
-                  { label: "Phòng kỹ thuật", value: 1 },
-                ])}</div>
-            </Col>
-            <Col lg={5} md={7}>
-              <div>{SearchButton("Tìm kiếm", () => null, false)}</div>
-            </Col>
-            <Col lg={5} md={7}>
-              <div>{AddButton("Thêm mới", () => setOpenAddNew(true))}</div>
-            </Col>
-          </Row>
-        </Col>
-      </Row> */}
+      
       <Row gutter={{ lg: 15, md: 20, sm: 20 }}>
         <Col lg={10} md={11} sm={12} xs={24}>
           <Row gutter={20}>
             <Col sm={24} xs={24}>
               <div>
                 {MySelect("", "Chọn công ty", false, false, "com_id", [
-                  { label: company?.userName, value: company?.idQLC },
+                 comLabel
                 ])}
               </div>
             </Col>
@@ -271,7 +230,7 @@ export function DanhSachTo({
         rowKey="_id"
         selectedRowKeys={null}
       />
-      {AddNewToModal(openAddNew, setOpenAddNew, data, setData)}
+      {AddNewToModal(openAddNew, setOpenAddNew, data, setData, comLabel, listDepLabel)}
       {EditToModal(openEdit, setOpenEdit, data, setData, selectedRow)}
       {ConfirmDeleteModal(
         openConfirmDel,

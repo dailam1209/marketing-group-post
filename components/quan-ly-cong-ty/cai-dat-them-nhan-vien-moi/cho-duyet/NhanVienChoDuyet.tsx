@@ -6,6 +6,8 @@ import Image from "next/image"
 import { SearchButton } from "@/components/commons/Buttons"
 import { useState } from "react"
 import { ConfirmDuyetModal } from "./modal/modal"
+import { getPosition } from "@/utils/function"
+import { POST } from "@/pages/api/BaseApi"
 
 const mockdata = [
   {
@@ -64,15 +66,16 @@ const mockdata = [
   }
 ]
 
-export function NhanVienChoDuyet({ listStaffs, comLabel }) {
+export function NhanVienChoDuyet({ listStaffs, comLabel, listDepLabel }) {
   const [selectedRowKeys, setSelectedRowKeys] = useState()
   const [openDuyetModal, setOpenDuyetModal] = useState(false)
+  const positionLabel = getPosition?.map(p => ({ label: p?.value, value: p?.id }))
 
   const columns = [
     {
       title: <p className="tableHeader">Ảnh</p>,
       render: (record: any) => (
-        <Image alt="/" src={record?.img || "/avatar.png"} width={46} height={46} />
+        <Image alt="/" src={record?.avatarUser || "/avatar.png"} width={46} height={46} />
       )
     },
     {
@@ -86,22 +89,29 @@ export function NhanVienChoDuyet({ listStaffs, comLabel }) {
     },
     {
       title: <p className="tableHeader">Phòng ban</p>,
-      render: (record: any) => <p>{record?.dep_id}</p>
+      render: (record: any) => <p>{listDepLabel?.find(dep => dep?.value === record?.inForPerson?.employee?.dep_id)?.label}</p>
     },
     {
       title: <p className="tableHeader">Chức vụ</p>,
-      render: (record: any) => <p>{record?.position_id}</p>
+      render: (record: any) => <p>{positionLabel?.find(p => p?.value === record?.inForPerson?.employee?.position_id)?.label}</p>
     },
     {
       title: <p className="tableHeader">Email</p>,
-      render: (record: any) => <p>{record?.emailContact}</p>
+      render: (record: any) => <p>{record?.email || record?.emailContact}</p>
     },
     {
       title: <p className="tableHeader">SĐT</p>,
-      render: (record: any) => <p>{record?.phoneTK}</p>
+      render: (record: any) => <p>{record?.phone || record?.phoneTK}</p>
     },
     Table.SELECTION_COLUMN
   ]
+
+  const handleSubmit = () => {
+    // POST('api/qlc/managerUser/edit', {
+      
+    // })
+    setOpenDuyetModal(true)
+  }
 
   return (
     <div>
@@ -158,7 +168,7 @@ export function NhanVienChoDuyet({ listStaffs, comLabel }) {
               <Button style={{ backgroundColor: "#4C5BD4" }} size="large">
                 <p
                   style={{ color: "#fff", padding: "0px 20px" }}
-                  onClick={() => setOpenDuyetModal(true)}
+                  onClick={handleSubmit}
                 >
                   Duyệt
                 </p>

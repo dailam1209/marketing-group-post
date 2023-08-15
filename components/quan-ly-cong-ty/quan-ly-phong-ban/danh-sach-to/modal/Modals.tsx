@@ -8,6 +8,7 @@ import { Form } from "antd"
 import Image from "next/image"
 import { useEffect } from "react"
 import styles from "./Modals.module.scss"
+import { useRouter } from "next/router"
 
 export function EditToModal(
   open: boolean,
@@ -155,37 +156,36 @@ export function AddNewToModal(
   open: boolean,
   setOpen: Function,
   data?: any,
-  setData?: Function
+  setData?: Function,
+  comLabel?: any,
+  listDepLabel?: any
 ) {
   const [form] = Form.useForm()
+  const router = useRouter()
 
   const handleSubmit = () => {
-    console.log(form.getFieldsValue())
+    // console.log(form.getFieldsValue())
     // model "Confirm" popup
     // code for popup confirm
 
 
     //close modal
-    setOpen(false)
+    form.validateFields().then(value => {
 
-    // add data
-    POST(`api/qlc/team/create`, form.getFieldsValue())
-      .then((res) => {
-        console.log(res?.message)
-
-        // update data after creation
-        setData && setData([...data, res?.team])
-      })
-      .catch((err) => console.log(err))
+      // add data
+      POST(`api/qlc/team/create`, value)
+        .then((res) => {
+          router.replace(router.asPath)
+        })
+    })
   }
 
   const children = (
     <Form
       form={form}
-      initialValues={{ com_id: 3312, teamName: "", dep_id: 1, total_emp: 0 }}
     >
-      {MySelect("Công ty", "Chọn công ty", true, true, "com_id", [
-        { label: "Công ty thanh toán Hưng Hà 2", value: 3312 },
+      {MySelect("Công ty", "Chọn công ty", true, true, "com_id", comLabel && [
+        comLabel
       ])}
       {/* {MyInput("Tổ trưởng", "Bùi Văn Huy", false, false, "teamLeader")} */}
       {/* {MyInput(
@@ -195,10 +195,8 @@ export function AddNewToModal(
         true,
         "teamSubLeader"
       )} */}
-      {MySelect("Phòng ban", "Kỹ thuật", true, true, "dep_id", [
-        { label: "Phòng kỹ thuật", value: 1 }
-      ])}
-      {MyInput("Tên tổ", "Nhập tên tổ", true, true, "teamName")}
+      {MySelect("Phòng ban", "Kỹ thuật", true, true, "dep_id", listDepLabel && listDepLabel)}
+      {MyInput("Tên tổ", "Nhập tên tổ", true, true, "team_name")}
       {/* undefined properties total_emp */}
       {/* {MyInput(
         "Số lượng nhân viên",
