@@ -228,10 +228,13 @@ export default function CandidateRepo({ children }: any) {
                       <td>{item.Title}</td>
                       <td>{item.matinungtuyen}</td>
                       <td>{item.maquytrinhtuyendungapdung}</td>
-                      <td>{format(
-                        parseISO(item.timeSendCv),
-                        "yyyy-MM-dd"
-                      )}</td>
+                      {item?.timeSendCv &&
+                        <td>{format(
+                          parseISO(item?.timeSendCv),
+                          "yyyy-MM-dd"
+                        )}</td>
+                      }
+
                       <td><a href="">{item.cv}</a></td>
                       <td className={`${styles.r_t_top_right}`} style={{ position: 'relative' }}>
                         <img src={`/3cham.png`} alt=" " />
