@@ -1399,3 +1399,9 @@ label.ant-form-item-required {
   padding-bottom: 4px !important;
 }
 
+.draggerNhapLuong.ant-upload-wrapper .ant-upload-drag {
+  padding: 20px 0 !important;
+    border-radius: 10px !important;
+    border: 1px dashed #474747 !important;
+}
+

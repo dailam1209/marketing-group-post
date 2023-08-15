@@ -37,30 +37,6 @@ const info = [
     tinhtranghonnhan: 'FA',
   },
 ]
-interface DataType1 {
-  luongcb: any
-  luongdongbaohiem: any
-  phucapdongbaohiem: any
-  timeapdung: any
-}
-interface DataType2 {
-  hopdongnhanvien: any
-  ngaythuchien: any
-  ngayhethan: any
-  luong: any
-}
-interface DataType1 {
-  luongcb: any
-  luongdongbaohiem: any
-  phucapdongbaohiem: any
-  timeapdung: any
-}
-interface DataType2 {
-  hopdongnhanvien: any
-  ngaythuchien: any
-  ngayhethan: any
-  luong: any
-}
 export default function ChiTietNhanVien() {
   const router = useRouter()
   //   return (

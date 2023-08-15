@@ -5,23 +5,10 @@ import { values } from "lodash";
 import React, { useState } from "react";
 import { IconSelect } from "@/components/cai-dat-luong/cai-dat-thue/danh-sach-nhan-su-chua-thiet-lap/anh";
 import moment from "moment";
-import { POST_TL } from "@/pages/api/BaseApi";
+import { POST_TL, getCompIdCS } from "@/pages/api/BaseApi";
 import { useRouter } from "next/router";
 const { TextArea } = Input;
-const caLamViec = [
-  {
-    value: 1,
-    lable: "Ca sáng 7TR < LƯƠNG <= 10TR",
-  },
-  {
-    value: 2,
-    lable: "Ca sáng LƯƠNG <= 5TR",
-  },
-  {
-    value: 3,
-    lable: "Ca chiều 5TR < LƯƠNG <= 7TR",
-  },
-];
+
 export function ModalThemPhuCapTheoCa(
   open: boolean,
   setOpen: Function,
@@ -43,12 +30,14 @@ export function ModalThemPhuCapTheoCa(
     setND(event.target.value);
   };
   const handelSubmit = () => {
+    let com_id = null
+    com_id = getCompIdCS()
     shiftSelected
       ? fromDate
         ? toDate
           ? money
             ? POST_TL('api/tinhluong/congty/insert_wf_shift', {
-              wf_com: 3312,
+              wf_com: com_id,
               wf_money: money,
               wf_time: fromDate,
               wf_time_end: toDate,

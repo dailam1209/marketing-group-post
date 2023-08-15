@@ -1,10 +1,10 @@
-import { Modal, Input, Select, Button, Form } from "antd";
-import styles from "./modal-chinh-sua.module.css";
-import Image from "next/image";
-import React, { useState, useEffect } from "react";
-import { ModalThietLapCongThuc } from "../modal-them-cong-thuc/modal-thiet-lap";
-import { POST_TL } from "@/pages/api/BaseApi";
-import { useRouter } from "next/router";
+import { Modal, Input, Select, Button, Form } from 'antd';
+import styles from './modal-chinh-sua.module.css';
+import Image from 'next/image';
+import React, { useState, useEffect } from 'react';
+import { ModalThietLapCongThuc } from '../modal-them-cong-thuc/modal-thiet-lap';
+import { POST_TL } from '@/pages/api/BaseApi';
+import { useRouter } from 'next/router';
 const { TextArea } = Input;
 export function ModalChinhSua(
   open: boolean,
@@ -15,25 +15,30 @@ export function ModalChinhSua(
   const [modalAdd, setModalAdd] = useState(false);
   const [modalNext, setModalNext] = useState(false);
   const [form] = Form.useForm();
-  const router = useRouter()
+  const router = useRouter();
 
   useEffect(() => {
     if (taxSelected?.cl_id) {
-      form.setFieldsValue(taxSelected)
+      form.setFieldsValue(taxSelected);
     }
-  }, [form, taxSelected])
+  }, [form, taxSelected]);
 
   const handleSubmit = () => {
-    form.validateFields().then(value => {
+    form.validateFields().then((value) => {
       // console.log({...taxSelected, ...value, fs_id: taxSelected?.TinhluongFormSalary?.[0]?.fs_id})
-      POST_TL('api/tinhluong/congty/update_tax_com', {...taxSelected, ...value, fs_id: taxSelected?.TinhluongFormSalary?.[0]?.fs_id})
-        .then(res => {
-          if (res?.message === "success") {
-            router.replace(router.asPath)
-          }
-        })
-    })
-  }
+      POST_TL('api/tinhluong/congty/update_tax_com', {
+        ...taxSelected,
+        ...value,
+        fs_id: taxSelected?.TinhluongFormSalary?.[0]?.fs_id,
+      }).then((res) => {
+        if (res?.message === 'success') {
+          router.replace(router.asPath);
+        } else {
+          alert('Vui lòng thiết lập công thức thuế!');
+        }
+      });
+    });
+  };
 
   return (
     <Modal
@@ -41,15 +46,15 @@ export function ModalChinhSua(
       onCancel={() => setOpen(false)}
       width={710}
       closable={false}
-      cancelButtonProps={{ style: { display: "none" } }}
-      okButtonProps={{ style: { display: "none" } }}
+      cancelButtonProps={{ style: { display: 'none' } }}
+      okButtonProps={{ style: { display: 'none' } }}
     >
       <div className={styles.header}>
         <div></div>
         <div className={styles.textHead}>Chỉnh sửa chính sách thuế</div>
         <Image
           alt="/"
-          src={"/cross.png"}
+          src={'/cross.png'}
           width={14}
           height={14}
           onClick={() => setOpen(false)}
@@ -58,21 +63,25 @@ export function ModalChinhSua(
       <Form form={form}>
         <div className={styles.body}>
           <div className={styles.bodyItem}>
-            <div style={{ display: "flex", gap: "5px" }}>
+            <div style={{ display: 'flex', gap: '5px' }}>
               <p className={styles.titlename}>Tên chính sách thuế</p>
               <p className={styles.titledau}>*</p>
             </div>
-            <Form.Item name={"cl_name"}>
+            <Form.Item name={'cl_name'}>
               <Input
                 placeholder="Nhập tên thuế"
-                style={{ border: "1px solid #9F9F9F", borderRadius: "5px" }}
+                style={{ border: '1px solid #9F9F9F', borderRadius: '5px' }}
               ></Input>
             </Form.Item>
           </div>
-          <Form.Item name={"cl_note"} label={<p>Miêu tả chính sách</p>} labelCol={{ span: 24 }}>
+          <Form.Item
+            name={'cl_note'}
+            label={<p>Miêu tả chính sách</p>}
+            labelCol={{ span: 24 }}
+          >
             <TextArea
               placeholder="Nhập miêu tả"
-              style={{ resize: "none", width: "100%" }}
+              style={{ resize: 'none', width: '100%' }}
               rows={6}
               className={styles.inputMota}
             />
@@ -94,12 +103,18 @@ export function ModalChinhSua(
               </svg>
             </div>
           </div>
-          {ModalThietLapCongThuc(modalAdd, setModalAdd, setModalNext, form, taxSelected)}
+          {ModalThietLapCongThuc(
+            modalAdd,
+            setModalAdd,
+            setModalNext,
+            form,
+            taxSelected
+          )}
           <div
             style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
             }}
           >
             <button className={styles.Luu} onClick={handleSubmit}>
