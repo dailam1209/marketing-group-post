@@ -144,11 +144,11 @@ export function ModalDanhSachNhanVien(
         <DanhSachNhanVien listEmp={listEmp} taxSelected={taxSelected} />
       ),
     },
-    {
-      key: "2",
-      label: `Nhóm (${datanhom.length})`,
-      children: <DanhSachNhom />,
-    },
+    // {
+    //   key: "2",
+    //   label: `Nhóm (${datanhom.length})`,
+    //   children: <DanhSachNhom />,
+    // },
   ];
   const checklabel = (key: any) => {
     if (key === "1") return "nhân viên";

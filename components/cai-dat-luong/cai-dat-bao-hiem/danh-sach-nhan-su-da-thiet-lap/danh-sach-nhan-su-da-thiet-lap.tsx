@@ -83,23 +83,22 @@ export const DanhSachNhanSuDaThietLap = ({
       const year2 = toDate?.getFullYear();
 
       const userId = user.cls_id_user ? user.cls_id_user : "";
-      const luong_co_ban = POST_TL(
-        "api/tinhluong/congty/take_salary_contract",
-        {
-          time: "2023-04-01T00:00:00.000+00:00",
-          array: `[${userId}]`,
-        }
-      ).then((res) => {
-        if (res?.message == "success") {
-          return res?.data[0]?.sb_salary_basic;
-        } else return 0;
-      });
+      // const luong_co_ban = POST_TL(
+      //   "api/tinhluong/congty/take_salary_contract",
+      //   {
+      //     time: "2023-04-01T00:00:00.000+00:00",
+      //     array: `[${userId}]`,
+      //   }
+      // ).then((res) => {
+      //   if (res?.message == "success") {
+      //     return res?.data[0]?.sb_salary_basic;
+      //   } else return 0;
+      // });
 
       const insuranceMoney = user?.TinhluongFormSalary[0]?.fs_repica.includes(
         "Lương cơ bản"
       )
-        ? luong_co_ban
-        : "Chưa xác định";
+
       return {
         key: index,
         url: user?.avatarUser ? `/${user?.avatarUser}` : "/anhnhanvien.png",
@@ -262,20 +261,6 @@ export const DanhSachNhanSuDaThietLap = ({
     },
   ];
 
-  // interface DataType {
-  //   key: React.Key;
-  //   url: React.ReactNode;
-  //   name: string;
-  //   room: string;
-  //   position: string;
-  //   email: string;
-  //   ID: string;
-  //   policy: string;
-  //   fromDate: string;
-  //   toDate: string;
-  //   insuranceMoney: string;
-  // }
-
   const selectMonth: SelectProps["options"] = [
     { value: "Tháng 1", label: "Tháng 1" },
     { value: "Tháng 2", label: "Tháng 2" },
@@ -297,34 +282,9 @@ export const DanhSachNhanSuDaThietLap = ({
     { value: "Năm 2024", label: "Năm 2024" },
   ];
 
-  const selectDepartment: SelectProps["options"] = [
-    { value: "Phòng ban (tất cả)", label: "Phòng ban (tất cả)" },
-    { value: "Kỹ thuật", label: "Kỹ thuật" },
-    { value: "Biên tập", label: "Biên tập" },
-    { value: "Kinh Doanh", label: "Kinh Doanh" },
-    { value: "Đề án", label: "Đề án" },
-    { value: "Phòng Seo", label: "Phòng Seo" },
-    { value: "Phòng Đào Tạo", label: "Phòng Đào Tạo" },
-    { value: "Phòng Sáng Tạo", label: "Phòng Sáng Tạo" },
-  ];
 
-  const selectStaff: SelectProps["options"] = [
-    { value: "Tất cả nhân viên", label: "Tất cả nhân viên" },
-    {
-      value: "(147310) Phạm Xuân Nguyên Khôi",
-      label: "(147310) Phạm Xuân Nguyên Khôi",
-    },
-    { value: "(131845) Phùng Ngọc Anh 1", label: "(131845) Phùng Ngọc Anh" },
-    { value: "(131845) Phùng Ngọc Anh 2", label: "(131845) Phùng Ngọc Anh" },
-    { value: "(131845) Phùng Ngọc Anh 3", label: "(131845) Phùng Ngọc Anh" },
-    { value: "(131845) Phùng Ngọc Anh 4", label: "(131845) Phùng Ngọc Anh" },
-    { value: "(131845) Phùng Ngọc Anh 5", label: "(131845) Phùng Ngọc Anh" },
-  ];
 
-  const handleClickSetting = (key: string) => {
-    setKey(key);
-    setOpenModalThietLap(true);
-  };
+
   return (
     <>
       <div className={styles.title}>
@@ -371,7 +331,7 @@ export const DanhSachNhanSuDaThietLap = ({
             }}
             placeholder="Chọn phòng ban"
             onChange={() => {}}
-            options={selectDepartment}
+            options={listDepLabel}
             className={styles.selectDepartment}
           />
         </div>
@@ -381,7 +341,7 @@ export const DanhSachNhanSuDaThietLap = ({
             style={{ pointerEvents: "visibleFill", fontSize: "16px" }}
             placeholder="Chọn nhân viên"
             onChange={() => {}}
-            options={selectStaff}
+            options={listEmpLabel}
             className={styles.selectStaff}
           />
         </div>
