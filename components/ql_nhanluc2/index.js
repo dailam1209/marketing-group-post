@@ -49,12 +49,12 @@ const QlNhanluc2 = ({ checkCookie }) => {
     };
   }, [getNameCompany]);
 
-  const [isRoleExists, setRoleExists] = useState(!!Cookies.get("role")); // Khởi tạo giá trị ban đầu
+  // const [isRoleExists, setRoleExists] = useState(!!Cookies.get("role")); // Khởi tạo giá trị ban đầu
 
-  useEffect(() => {
-    const roleExists = !!Cookies.get("role");
-    setRoleExists(roleExists);
-  }, [isRoleExists]); // Sử dụng isRoleExists trong mảng dependency để theo dõi sự thay đổi
+  // useEffect(() => {
+  //   const roleExists = !!Cookies.get("role");
+  //   setRoleExists(roleExists);
+  // }, [isRoleExists]); // Sử dụng isRoleExists trong mảng dependency để theo dõi sự thay đổi
 
   return (
     <>
@@ -196,11 +196,7 @@ const QlNhanluc2 = ({ checkCookie }) => {
             </a>
             <div className="titl_delt">
               <h4 className="share_fsize_tow share_clr_four">
-                <a
-                  href={isRoleExists ? "/hr" : "/"}
-                  className="share_clr_four"
-                  target="_blank"
-                >
+                <a href="/hr" className="share_clr_four" target="_blank">
                   Quản trị nhân sự
                 </a>
               </h4>

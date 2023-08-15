@@ -1,536 +1,1094 @@
-import { React, useState, useEffect } from "react"
-import Seo from '../components/head'
-import { CheckLogin } from "../utils/function"
-import QlNhanluc from "../components/ql_nhanluc"
-import QlCongviec from "../components/ql_congviec"
-import QlNoibo from "../components/ql_noibo"
-import QlBanhang from "../components/ql_banhang"
-import QlConlai from "../components/ql_conlai"
-import Header from "../components/header/Header"
-import Footer from "../components/footer/Footer"
-import { useRouter } from "next/router";
-import { getServerSideProps } from '../utils/function'
+/** @format */
 
+import { React, useState, useEffect } from 'react'
+import Seo from '../components/head'
+import { CheckLogin } from '../utils/function'
+import Footer from '../components/footer/Footer'
+import { getServerSideProps } from '../utils/function'
+import QLC_item from '../components/QLC_item'
+import { Col, Row, Tabs } from 'antd'
+import SidebarQLC from '../components/sidebarQLC/SidebarQLC'
+import FooterQLC from '../components/footerQLC/FooterQLC'
+import ModalRegsiter from '@/components/modal/ModalRegsiter'
+import ModalLogin from '@/components/modal/ModalLogin'
+import ModalConfirm from '@/components/modal/ModalConfirm'
+import HeaderQLC from '../components/headerQLC'
 export { getServerSideProps }
 
 export default function Home() {
-    const router = new useRouter();
+  CheckLogin()
 
-    CheckLogin()
+  const [show, setShow] = useState('all')
+  const [narrow, setNarrow] = useState(false)
+  const [currentPage, setCurrentPage] = useState('Tất cả')
+  const [openMenu, setOpenMenu] = useState(false)
+  const [openModalConfirm, setOpenModalConfirm] = useState(false)
+  const [openModalLogin, setOpenModalLogin] = useState(false)
+  const [openModalRegister, setOpenModalRegister] = useState(false)
+  const [openSB, setOpenSB] = useState(true)
 
-    const [show, setShow] = useState('all')
-    const [active, setActive] = useState('all')
-
-    const showAll = () => {
-        setShow('all')
-        setActive('all')
-    }
-    const showNhanluc = () => {
-        setShow('nhan_luc')
-        setActive('nhan_luc')
-    }
-    const showCongviec = () => {
-        setShow('cong_viec')
-        setActive('cong_viec')
-    }
-    const showNoibo = () => {
-        setShow('noi_bo')
-        setActive('noi_bo')
-    }
-    const showBanhang = () => {
-        setShow('ban_hang')
-        setActive('ban_hang')
-    }
-
-    return (
-        <>
-            <Seo
-                seo='true'
-                title='Trang chủ Quản Lý Chung Chuyển đổi số 365'
-                des='Trang quản lý chung Chuyển đổi số 365. Quản lý các phần mềm, tiện ích trong hệ thống chuyển đổi số 365'
-                url='quanlychung.timviec365.vn'
-            />
-            <Header />
-            <div className="content_ql">
-                <div className="cnt_ttone">
-                    <div className="one_bod_td">
-                        <div className="container">
-                            <h2 className="share_clr_one cr_weight_bold tex_center h_share">
-                                Hệ thống phần mềm chuyển đổi số 365
-                            </h2>
-                            <p className="tieu_de share_clr_one tex_center">
-                                Tích hợp tất cả các ứng dụng doanh nghiệp của bạn đang cần trên cùng
-                                một nền tảng duy nhất.
-                            </p>
-                        </div>
-                    </div>
-                    <div className="cnt_count_tab">
-                        <div className="cnt_counts_one">
-                            <div className="cnt_counts">
-                                <label
-                                    htmlFor=""
-                                    className={`pmc_all ${(active == 'all') ? 'active' : ''}`}
-                                    data-tab="list_detl_one"
-                                >
-                                    <p className="share_fsize_three share_clr_one tex_center share_cursor" onClick={showAll}>
-                                        Tất cả
-                                    </p>
-                                </label>
-                            </div>
-                            <div className="cnt_counts">
-                                <label htmlFor="" className={`pmc_all ${(active == 'nhan_luc') ? 'active' : ''}`} data-tab="list_detl_two">
-                                    <p className="share_fsize_three share_clr_one tex_center share_cursor" onClick={showNhanluc}>
-                                        Quản lý nhân lực
-                                    </p>
-                                </label>
-                            </div>
-                            <div className="cnt_counts">
-                                <label htmlFor="" className={`pmc_all ${(active == 'cong_viec') ? 'active' : ''}`} data-tab="list_detl_three">
-                                    <p className="share_fsize_three share_clr_one tex_center share_cursor" onClick={showCongviec}>
-                                        Quản lý công việc
-                                    </p>
-                                </label>
-                            </div>
-                        </div>
-                        <div className="cnt_counts_tow">
-                            <div className="cnt_counts">
-                                <label htmlFor="" className={`pmc_all ${(active == 'noi_bo') ? 'active' : ''}`} data-tab="list_detl_four">
-                                    <p className="share_fsize_three share_clr_one tex_center share_cursor" onClick={showNoibo}>
-                                        Quản lý nội bộ
-                                    </p>
-                                </label>
-                            </div>
-                            <div className="cnt_counts">
-                                <label htmlFor="" className={`pmc_all ${(active == 'ban_hang') ? 'active' : ''}`} data-tab="list_detl_five">
-                                    <p className="share_fsize_three share_clr_one tex_center share_cursor" onClick={showBanhang}>
-                                        Quản lý bán hàng
-                                    </p>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="cnt_count_detail tab_active">
-                        <div className="container">
-                            <div className="detal_titl">
-                                {
-                                    (show == 'all') ? (
-                                        <>
-                                            <QlConlai />
-                                            <QlNhanluc />
-                                            <QlCongviec />
-                                            <QlNoibo />
-                                            <QlBanhang />
-                                        </>
-                                    ) : ''
-
-                                }
-                                {
-                                    (show == 'nhan_luc') ? (
-                                        <>
-                                            <QlNhanluc />
-                                        </>
-                                    ) : ''
-                                }
-                                {
-                                    (show == 'cong_viec') ? (
-                                        <>
-                                            <QlCongviec />
-                                        </>
-                                    ) : ''
-                                }
-                                {
-                                    (show == 'noi_bo') ? (
-                                        <>
-                                            <QlNoibo />
-                                        </>
-                                    ) : ''
-                                }
-                                {
-                                    (show == 'ban_hang') ? (
-                                        <>
-                                            <QlBanhang />
-                                        </>
-                                    ) : ''
-                                }
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="ctn_tttow">
-                    <div className="container">
-                        <div className="ctn_mr">
-                            <div className="tow_bod_bgr">
-                                <div className="img_bgr">
-                                    <img
-                                        src="../img/bgr_nentang.png"
-                                        alt="Trang chủ Quản Lý Chung Chuyển đổi số 365"
-                                    />
-                                </div>
-                            </div>
-                            <div className="one_bod_td">
-                                <h2 className="ntq_titl tex_left share_clr_one h_share">
-                                    Nền tảng quản trị doanh nghiệp phổ biến nhất
-                                </h2>
-                                <p className="ntq_titlp share_clr_one">
-                                    <span className="cr_weight">Chuyển đổi số 365</span> là nền tảng
-                                    quản trị doanh nghiệp phổ biến, được tin dùng bởi hơn 10,000 doanh
-                                    nghiệp thuộc nhiều lĩnh vực khác nhau. Hầu hết các doanh nghiệp
-                                    dẫn đầu thị trường và các công ty tăng trưởng nhanh đang dùng một
-                                    trong số các sản phẩm của{" "}
-                                    <span className="cr_weight">chuyển đổi số 365</span>
-                                </p>
-                                <p className="ntq_titlp share_clr_one">
-                                    Tất cả các ứng dụng trên{" "}
-                                    <span className="cr_weight">Chuyển đổi số 365</span> có thể sử
-                                    dụng dễ dàng trên trình duyệt, smartphone (iOS, Android), máy tính
-                                    bảng, hoặc cài đặt trên máy tính để bàn.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="ctn_ttthree">
-                    <div className="container">
-                        <div className="one_bod_td three_bod_td">
-                            <h2 className="share_clr_one cr_weight_bold tex_center h_share">
-                                Hệ sinh thái phục vụ doanh nghiệp
-                            </h2>
-                        </div>
-                        <div className="cnt_count_detail">
-                            <div className="list_detl">
-                                <div className="detal_titl">
-                                    <div className="ctn_detl_one">
-                                        <a
-                                            rel="nofollow"
-                                            href="https://nhatro.timviec365.vn"
-                                            className="pmc_detl_one"
-                                            target="_blank"
-                                        >
-                                            <div className="pcm_detl_img tex_center">
-                                                <img src="../img/nha-tro.png" alt="tìm nhà trọ" />
-                                            </div>
-                                            <div className="pcm_detl_titl">
-                                                <h4 className="share_clr_four cr_weight_bold tex_left">
-                                                    Tìm nhà trọ
-                                                </h4>
-                                                <p className="share_clr_one tex_left share_fsize_one">
-                                                    Giải pháp tìm phòng trọ, người thuê trọ nhanh chóng, miễn
-                                                    phí.
-                                                </p>
-                                            </div>
-                                            <div className="pcn_delt_hrf">
-                                                <p className="share_fsize_three share_clr_four tex_center delt_see_pm">
-                                                    Xem chi tiết{" "}
-                                                    <span>
-                                                        {" "}
-                                                        <img src="../img/detl_bgr.png" alt="" />
-                                                    </span>
-                                                </p>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div className="ctn_detl_one">
-                                        <a
-                                            rel="nofollow"
-                                            href="https://freelancer.timviec365.vn/"
-                                            className="pmc_detl_one"
-                                            target="_blank"
-                                        >
-                                            <div className="pcm_detl_img tex_center">
-                                                <img src="../img/viec-lam-tu-do.png" alt="Việc làm tự do" />
-                                            </div>
-                                            <div className="pcm_detl_titl">
-                                                <h4 className="share_clr_four cr_weight_bold tex_left">
-                                                    Việc làm tự do
-                                                </h4>
-                                                <p className="share_clr_one tex_left share_fsize_one">
-                                                    Cập nhật hàng triệu việc làm tự do với mức lương hấp dẫn.
-                                                </p>
-                                            </div>
-                                            <div className="pcn_delt_hrf">
-                                                <p className="share_fsize_three share_clr_four tex_center delt_see_pm">
-                                                    Xem chi tiết{" "}
-                                                    <span>
-                                                        {" "}
-                                                        <img src="../img/detl_bgr.png" alt="" />
-                                                    </span>
-                                                </p>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div className="ctn_detl_one">
-                                        <a
-                                            rel="nofollow"
-                                            href="https://vieclamtheogio.timviec365.vn"
-                                            className="pmc_detl_one"
-                                            target="_blank"
-                                        >
-                                            <div className="pcm_detl_img tex_center">
-                                                <img
-                                                    src="../img/viec-lam-theo-gio.png"
-                                                    alt="Việc làm theo giờ"
-                                                />
-                                            </div>
-                                            <div className="pcm_detl_titl">
-                                                <h4 className="share_clr_four cr_weight_bold tex_left">
-                                                    Việc làm theo giờ
-                                                </h4>
-                                                <p className="share_clr_one tex_left share_fsize_one">
-                                                    Việc làm theo giờ với kho tin tuyển dụng đa dạng, mức
-                                                    lương hấp dẫn.
-                                                </p>
-                                            </div>
-                                            <div className="pcn_delt_hrf">
-                                                <p className="share_fsize_three share_clr_four tex_center delt_see_pm">
-                                                    Xem chi tiết{" "}
-                                                    <span>
-                                                        {" "}
-                                                        <img src="../img/detl_bgr.png" alt="" />
-                                                    </span>
-                                                </p>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div className="ctn_detl_one">
-                                        <a
-                                            rel="nofollow"
-                                            href="https://giasu.timviec365.vn/"
-                                            className="pmc_detl_one"
-                                            target="_blank"
-                                        >
-                                            <div className="pcm_detl_img tex_center">
-                                                <img src="../img/gia-su.png" alt="Gia sư" />
-                                            </div>
-                                            <div className="pcm_detl_titl">
-                                                <h4 className="share_clr_four cr_weight_bold tex_left">
-                                                    Gia sư
-                                                </h4>
-                                                <p className="share_clr_one tex_left share_fsize_one">
-                                                    Kết nối với gia sư đa môn học, ở mọi tỉnh thành, dễ dàng,
-                                                    nhanh chóng.
-                                                </p>
-                                            </div>
-                                            <div className="pcn_delt_hrf">
-                                                <p className="share_fsize_three share_clr_four tex_center delt_see_pm">
-                                                    Xem chi tiết{" "}
-                                                    <span>
-                                                        {" "}
-                                                        <img src="../img/detl_bgr.png" alt="" />
-                                                    </span>
-                                                </p>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div className="ctn_detl_one">
-                                        <a
-                                            rel="nofollow"
-                                            href="#"
-                                            className="pmc_detl_one"
-                                            target="_blank"
-                                        >
-                                            <div className="pcm_detl_img tex_center">
-                                                <img src="../img/khoa-hoc.png" alt="Khóa học" />
-                                            </div>
-                                            <div className="pcm_detl_titl">
-                                                <h4 className="share_clr_four cr_weight_bold tex_left">
-                                                    Khóa học
-                                                </h4>
-                                                <p className="share_clr_one tex_left share_fsize_one">
-                                                    Cập nhật liên tục các khóa học đa dạng môn học từ offline
-                                                    và online.
-                                                </p>
-                                            </div>
-                                            <div className="pcn_delt_hrf">
-                                                <p className="share_fsize_three share_clr_four tex_center delt_see_pm">
-                                                    Xem chi tiết{" "}
-                                                    <span>
-                                                        {" "}
-                                                        <img src="../img/detl_bgr.png" alt="" />
-                                                    </span>
-                                                </p>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div className="ctn_detl_one">
-                                        <a
-                                            href="https://timviec365.vn/trang-vang-doanh-nghiep.html"
-                                            className="pmc_detl_one"
-                                            target="_blank"
-                                        >
-                                            <div className="pcm_detl_img tex_center">
-                                                <img
-                                                    src="../img/trang-vang-mien-phi.png"
-                                                    alt="Trang vàng miễn phí"
-                                                />
-                                            </div>
-                                            <div className="pcm_detl_titl">
-                                                <h4 className="share_clr_four cr_weight_bold tex_left">
-                                                    Trang vàng miễn phí
-                                                </h4>
-                                                <p className="share_clr_one tex_left share_fsize_one">
-                                                    Cung cấp danh bạ của tất cả các công ty lớn nhỏ trên toàn
-                                                    quốc.
-                                                </p>
-                                            </div>
-                                            <div className="pcn_delt_hrf">
-                                                <p className="share_fsize_three share_clr_four tex_center delt_see_pm">
-                                                    Xem chi tiết{" "}
-                                                    <span>
-                                                        {" "}
-                                                        <img src="../img/detl_bgr.png" alt="" />
-                                                    </span>
-                                                </p>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div className="ctn_detl_one">
-                                        <a
-                                            href="https://timviec365.vn/ssl/so-sanh-luong.html"
-                                            className="pmc_detl_one"
-                                            target="_blank"
-                                        >
-                                            <div className="pcm_detl_img tex_center">
-                                                <img src="../img/tra-cuu-luong.png" alt="Tra cứu lương" />
-                                            </div>
-                                            <div className="pcm_detl_titl">
-                                                <h4 className="share_clr_four cr_weight_bold tex_left">
-                                                    Tra cứu lương
-                                                </h4>
-                                                <p className="share_clr_one tex_left share_fsize_one">
-                                                    Tra cứu thông tin lương theo vị trí công việc chính xác,
-                                                    nhanh chóng.
-                                                </p>
-                                            </div>
-                                            <div className="pcn_delt_hrf">
-                                                <p className="share_fsize_three share_clr_four tex_center delt_see_pm">
-                                                    Xem chi tiết{" "}
-                                                    <span>
-                                                        {" "}
-                                                        <img src="../img/detl_bgr.png" alt="" />
-                                                    </span>
-                                                </p>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div className="ctn_detl_one">
-                                        <a
-                                            href="https://raonhanh365.vn/"
-                                            className="pmc_detl_one"
-                                            rel="nofollow"
-                                            target="_blank"
-                                        >
-                                            <div className="pcm_detl_img tex_center">
-                                                <img src="../img/rao-vat.png" alt="Rao vặt" />
-                                            </div>
-                                            <div className="pcm_detl_titl">
-                                                <h4 className="share_clr_four cr_weight_bold tex_left">
-                                                    Rao vặt
-                                                </h4>
-                                                <p className="share_clr_one tex_left share_fsize_one">
-                                                    Đăng tải thông tin rao vặt miễn phí, cập nhật liên tục mỗi
-                                                    ngày.
-                                                </p>
-                                            </div>
-                                            <div className="pcn_delt_hrf">
-                                                <p className="share_fsize_three share_clr_four tex_center delt_see_pm">
-                                                    Xem chi tiết{" "}
-                                                    <span>
-                                                        {" "}
-                                                        <img src="../img/detl_bgr.png" alt="" />
-                                                    </span>
-                                                </p>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div className="ctn_detl_one">
-                                        <a
-                                            href="https://hunghabay.vn/"
-                                            className="pmc_detl_one"
-                                            rel="nofollow"
-                                            target="_blank"
-                                        >
-                                            <div className="pcm_detl_img tex_center">
-                                                <img src="../img/ve-may-bay.png" alt="Vé máy bay" />
-                                            </div>
-                                            <div className="pcm_detl_titl">
-                                                <h4 className="share_clr_four cr_weight_bold tex_left">
-                                                    Vé máy bay
-                                                </h4>
-                                                <p className="share_clr_one tex_left share_fsize_one">
-                                                    Thỏa sức vi vu với kho vé máy bay nội địa, quốc tế với giá
-                                                    rẻ bất ngờ.
-                                                </p>
-                                            </div>
-                                            <div className="pcn_delt_hrf">
-                                                <p className="share_fsize_three share_clr_four tex_center delt_see_pm">
-                                                    Xem chi tiết{" "}
-                                                    <span>
-                                                        {" "}
-                                                        <img src="../img/detl_bgr.png" alt="" />
-                                                    </span>
-                                                </p>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div className="ctn_detl_one">
-                                        <a
-                                            href="https://banthe24h.vn/"
-                                            className="pmc_detl_one"
-                                            rel="nofollow"
-                                            target="_blank"
-                                        >
-                                            <div className="pcm_detl_img tex_center">
-                                                <img src="../img/theo-cao.png" alt="Thẻ cào điện thoại" />
-                                            </div>
-                                            <div className="pcm_detl_titl">
-                                                <h4 className="share_clr_four cr_weight_bold tex_left">
-                                                    Thẻ cào điện thoại
-                                                </h4>
-                                                <p className="share_clr_one tex_left share_fsize_one">
-                                                    Thẻ điện thoại đa dạng mệnh giá, an toàn, bảo mật cao.
-                                                </p>
-                                            </div>
-                                            <div className="pcn_delt_hrf">
-                                                <p className="share_fsize_three share_clr_four tex_center delt_see_pm">
-                                                    Xem chi tiết{" "}
-                                                    <span>
-                                                        {" "}
-                                                        <img src="../img/detl_bgr.png" alt="" />
-                                                    </span>
-                                                </p>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="ctn_ttfour share_dnone">
-                    <div className="container">
-                        <div className="detail_four">
-                            <h4 className="cds_titl share_clr_one cr_weight_bold">
-                                Chuyển đổi số 365 là gì?
-                            </h4>
-                            <p className="cds_titl share_clr_one">
-                                Ngay từ thời điểm doanh nghiệp hình thành,các thiết bị chấm công kết
-                                hợp với việc điểm danh cơ học của nhân sự trở thành căn cứ tiêu biểu
-                                giúp các công ty ghi lại được thời điểm đến làm việc, tan làm, nghỉ
-                                phép của người lao động từ đó, tính công và lương, thưởng cho người
-                                lao động vào cuối tháng một cách chính xác, đồng thời góp phần nâng
-                                cao ý thức làm việc và kỷ luật của nhân viên tại nơi làm việc.
-                            </p>
-                            <div className="bgr_ima tex_center">
-                                <img src="../img/bg_tran.jpg" alt="" />
-                            </div>
-                            <p className="title_bgr share_clr_one">Chuyển đổi số là gì?</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <link rel="stylesheet" href="https://timviec365.vn/css/footer_new.css?v=2" />
-            <Footer></Footer>
-        </>
+  useEffect(() => {
+    window.addEventListener(
+      'resize',
+      function (event) {
+        console.log(window.innerWidth)
+        if (window.innerWidth >= 1024) {
+          setOpenSB(true)
+        } else if (window.innerWidth < 1024) {
+          setOpenSB(false)
+          setNarrow(false)
+        } else if (window.innerWidth === 1024) {
+          setNarrow(false)
+        }
+      },
+      true
     )
-}
+  })
 
+  const items = [
+    {
+      label: 'Tất cả',
+      key: '1',
+    },
+    {
+      label: 'Quản lý nhân sự',
+      key: '2',
+    },
+    {
+      label: 'Quản lý công việc',
+      key: '3',
+    },
+    {
+      label: 'Quản lý nội bộ',
+      key: '4',
+    },
+    {
+      label: 'Quản lý bán hàng',
+      key: '5',
+    },
+    {
+      label: 'Hệ sinh thái 365',
+      key: '6',
+    },
+  ]
+  const handleOnChange = (key) => {
+    console.log(key)
+    if (key === '1') {
+      setShow('all')
+      setCurrentPage('Tất cả')
+      setOpenMenu(false)
+    } else if (key === '2') {
+      setShow('nhan_luc')
+      setCurrentPage('Nhân sự')
+      setOpenMenu(false)
+    } else if (key === '3') {
+      setShow('cong_viec')
+      setOpenMenu(false)
+      setCurrentPage('Quản lý công việc')
+    } else if (key === '4') {
+      setShow('noi_bo')
+      setOpenMenu(false)
+      setCurrentPage('Quản lý nội bộ')
+    } else if (key === '5') {
+      setShow('ban_hang')
+      setOpenMenu(false)
+      setCurrentPage('Quản lý bán hàng')
+    } else if (key === '6') {
+      setShow('he_sinh_thai')
+      setOpenMenu(false)
+      setCurrentPage('Hệ sinh thái 365')
+    }
+  }
+
+  return (
+    <>
+      <Seo
+        seo='true'
+        title='Trang chủ Quản Lý Chung Chuyển đổi số 365'
+        des='Trang quản lý chung Chuyển đổi số 365. Quản lý các phần mềm, tiện ích trong hệ thống chuyển đổi số 365'
+        url='quanlychung.timviec365.vn'
+      />
+      <div className='tc_wrap'>
+        <div
+          className={'khoi_sidebar'}
+          style={{ display: openSB ? 'block' : 'none' }}>
+          <SidebarQLC
+            narrow={narrow}
+            setNarrow={setNarrow}
+            openSB={openSB}
+            setOpenModalLogin={setOpenModalLogin}
+            setOpenModalRegister={setOpenModalRegister}
+          />
+        </div>
+
+        <div
+          className={
+            narrow ? 'khoi_header_content_narrow' : 'khoi_header_content'
+          }>
+          <div className='content_ql'>
+            <div className='cnt_ttone'>
+              <HeaderQLC
+                currentPage={currentPage}
+                setOpenSB={setOpenSB}
+                openSB={openSB}
+                setOpenModalLogin={setOpenModalLogin}
+                setOpenModalRegister={setOpenModalRegister}
+              />
+              {/* <HeaderLogin /> */}
+              <div className='title_input' style={{ display: 'none' }}>
+                <div className='title'>
+                  <span className='prev_page'>Ứng dụng</span>
+                  <span> / </span>
+                  <span className='curent_page'>{currentPage}</span>
+                </div>
+                <div className='search_input'>
+                  <input type='text' placeholder='Nhập nội dung' />
+                  <span>
+                    <img src='../img/search_icon.png' alt='' />
+                  </span>
+                </div>
+              </div>
+              <div className='notify_vip'>
+                <div className='left'>
+                  <div className='text_1'>
+                    Tài khoản công ty bạn chưa phải là tài khoản VIP!
+                  </div>
+                  <div className='text2'>
+                    Tài khoản của bạn chỉ đăng ký tối đa 5 nhân viên
+                  </div>
+                </div>
+                <div className='right'>
+                  <img src='../img/crown.png' alt='' />
+                  <span className='text'>Nâng cấp thành tài khoản VIP</span>
+                </div>
+              </div>
+              <div className='one_bod_td'>
+                <h2 className='share_clr_one cr_weight_bold '>
+                  Hệ thống phần mềm chuyển đổi số 365
+                </h2>
+              </div>
+              <div className='tab_pane'>
+                <Tabs items={items} onChange={(key) => handleOnChange(key)} />{' '}
+                <Tabs />
+              </div>
+              <div className='tab_pane_mb'>
+                <div
+                  className='tab_pane_mb_title'
+                  onClick={() => {
+                    setOpenMenu(!openMenu)
+                  }}>
+                  <div className='text'>{currentPage}</div>
+                  <img src='./Expand_down_light.png' alt='' />
+                </div>
+
+                {openMenu && (
+                  <div className='list'>
+                    <div
+                      className='item'
+                      key={1}
+                      onClick={() => handleOnChange('1')}>
+                      Tất cả
+                    </div>
+                    <div
+                      className='item'
+                      key={2}
+                      onClick={() => handleOnChange('2')}>
+                      Quản lý nhân sự
+                    </div>
+                    <div
+                      className='item'
+                      key={3}
+                      onClick={() => handleOnChange('3')}>
+                      Quản lý công việc
+                    </div>
+                    <div
+                      className='item'
+                      key={4}
+                      onClick={() => handleOnChange('4')}>
+                      Quản lý nội bộ
+                    </div>
+                    <div
+                      className='item'
+                      key={5}
+                      onClick={() => handleOnChange('5')}>
+                      Quản lý bán hàng
+                    </div>
+                    <div
+                      className='item'
+                      key={6}
+                      onClick={() => handleOnChange('6')}>
+                      Hệ sinh thái 365
+                    </div>
+                  </div>
+                )}
+              </div>
+              <div className='cnt_count_detail tab_active'>
+                <div>
+                  <div>
+                    {show == 'all' ? (
+                      <Row gutter={[24, 36]}>
+                        <Col
+                          xxl={6}
+                          sm={12}
+                          md={12}
+                          xl={8}
+                          xs={24}
+                          onClick={() => setOpenModalConfirm(true)}>
+                          <QLC_item
+                            title='Chấm công'
+                            img={'../img/qlc_cc.png'}
+                          />
+                        </Col>
+                        <Col
+                          xxl={6}
+                          sm={12}
+                          md={12}
+                          xl={8}
+                          xs={24}
+                          onClick={() => setOpenModalConfirm(true)}>
+                          <QLC_item
+                            title='Chat365'
+                            img={'../img/qlc_chat.png'}
+                          />
+                        </Col>
+                        <Col
+                          xxl={6}
+                          sm={12}
+                          md={12}
+                          xl={8}
+                          xs={24}
+                          onClick={() => setOpenModalConfirm(true)}>
+                          <QLC_item
+                            title='Tính lương'
+                            img={'../img/qlc_tl.png'}
+                          />
+                        </Col>
+                        <Col
+                          xxl={6}
+                          sm={12}
+                          md={12}
+                          xl={8}
+                          xs={24}
+                          onClick={() => setOpenModalConfirm(true)}>
+                          <QLC_item
+                            title='Quản trị nhân sự'
+                            img={'../img/qlc_ns.png'}
+                            url='/quan-ly-nhan-luc'
+                          />
+                        </Col>
+                        <Col
+                          xxl={6}
+                          sm={12}
+                          md={12}
+                          xl={8}
+                          xs={24}
+                          onClick={() => setOpenModalConfirm(true)}>
+                          <QLC_item
+                            title='Phần mềm giao việc'
+                            img={'../img/qlc_gv.png'}
+                          />
+                        </Col>
+                        <Col
+                          xxl={6}
+                          sm={12}
+                          md={12}
+                          xl={8}
+                          xs={24}
+                          onClick={() => setOpenModalConfirm(true)}>
+                          <QLC_item
+                            title='Văn thư lưu trữ'
+                            img={'../img/qlc_vt.png'}
+                          />
+                        </Col>
+                        <Col
+                          xxl={6}
+                          sm={12}
+                          md={12}
+                          xl={8}
+                          xs={24}
+                          onClick={() => setOpenModalConfirm(true)}>
+                          <QLC_item
+                            title='Phần mềm CRM'
+                            img={'../img/qlc_crm.png'}
+                          />
+                        </Col>
+                        <Col
+                          xxl={6}
+                          sm={12}
+                          md={12}
+                          xl={8}
+                          xs={24}
+                          onClick={() => setOpenModalConfirm(true)}>
+                          <QLC_item
+                            title='Quản lý tài sản'
+                            img={'../img/qlc_qlts.png'}
+                          />
+                        </Col>
+                        <Col
+                          xxl={6}
+                          sm={12}
+                          md={12}
+                          xl={8}
+                          xs={24}
+                          onClick={() => setOpenModalConfirm(true)}>
+                          <QLC_item
+                            title='Đánh giá năng lực nhân viên'
+                            img={'../img/qlc_dgnl.png'}
+                          />
+                        </Col>
+                        <Col
+                          xxl={6}
+                          sm={12}
+                          md={12}
+                          xl={8}
+                          xs={24}
+                          onClick={() => setOpenModalConfirm(true)}>
+                          <QLC_item
+                            title='Quản lý KPI'
+                            img={'../img/qlc_kpi.png'}
+                          />
+                        </Col>
+                        <Col
+                          xxl={6}
+                          sm={12}
+                          md={12}
+                          xl={8}
+                          xs={24}
+                          onClick={() => setOpenModalConfirm(true)}>
+                          <QLC_item
+                            title='Số hóa tài liệu'
+                            img={'../img/qlc_shtl.png'}
+                          />
+                        </Col>
+                        <Col
+                          xxl={6}
+                          sm={12}
+                          md={12}
+                          xl={8}
+                          xs={24}
+                          onClick={() => setOpenModalConfirm(true)}>
+                          <QLC_item
+                            title='Phần mềm DMS'
+                            img={'../img/qlc_dms.png'}
+                          />
+                        </Col>
+                        <Col
+                          xxl={6}
+                          sm={12}
+                          md={12}
+                          xl={8}
+                          xs={24}
+                          onClick={() => setOpenModalConfirm(true)}>
+                          <QLC_item
+                            title='SmartID 365'
+                            img={'../img/qlc_sm365.png'}
+                          />
+                        </Col>
+                        <Col
+                          xxl={6}
+                          sm={12}
+                          md={12}
+                          xl={8}
+                          xs={24}
+                          onClick={() => setOpenModalConfirm(true)}>
+                          <QLC_item
+                            title='Chuyển văn bản thành giọng nói'
+                            img={'../img/qlc_vb_gn.png'}
+                          />
+                        </Col>
+                        <Col
+                          xxl={6}
+                          sm={12}
+                          md={12}
+                          xl={8}
+                          xs={24}
+                          onClick={() => setOpenModalConfirm(true)}>
+                          <QLC_item
+                            title='Phần mềm quản lý Gara ô tô'
+                            img={'../img/qlc_gara.png'}
+                          />
+                        </Col>
+                        <Col
+                          xxl={6}
+                          sm={12}
+                          md={12}
+                          xl={8}
+                          xs={24}
+                          onClick={() => setOpenModalConfirm(true)}>
+                          <QLC_item
+                            title='Phần mềm phiên dịch'
+                            img={'../img/qlc_pd.png'}
+                          />
+                        </Col>
+                        <Col
+                          xxl={6}
+                          sm={12}
+                          md={12}
+                          xl={8}
+                          xs={24}
+                          onClick={() => setOpenModalConfirm(true)}>
+                          <QLC_item
+                            title='Phần mềm quản lý kho vật tư xây dựng'
+                            img={'../img/qlc_qlkho.png'}
+                          />
+                        </Col>
+                        <Col
+                          xxl={6}
+                          sm={12}
+                          md={12}
+                          xl={8}
+                          xs={24}
+                          onClick={() => setOpenModalConfirm(true)}>
+                          <QLC_item
+                            title='Phần mềm Loyalty'
+                            img={'../img/qlc_loyalty.png'}
+                          />
+                        </Col>
+                        <Col
+                          xxl={6}
+                          sm={12}
+                          md={12}
+                          xl={8}
+                          xs={24}
+                          onClick={() => setOpenModalConfirm(true)}>
+                          <QLC_item
+                            title='Phần mềm quản lý tài chính công trình'
+                            img={'../img/qlc_qltc.png'}
+                          />
+                        </Col>
+                        <Col
+                          xxl={6}
+                          sm={12}
+                          md={12}
+                          xl={8}
+                          xs={24}
+                          onClick={() => setOpenModalConfirm(true)}>
+                          <QLC_item
+                            title='Phần mềm quản lý đầu tư xây dựng'
+                            img={'../img/qlc_qldtxd.png'}
+                          />
+                        </Col>
+                        <Col
+                          xxl={6}
+                          sm={12}
+                          md={12}
+                          xl={8}
+                          xs={24}
+                          onClick={() => setOpenModalConfirm(true)}>
+                          <QLC_item
+                            title='Phần mềm quản lý công trình'
+                            img={'../img/qlc_qldtxd.png'}
+                          />
+                        </Col>
+                        <Col
+                          xxl={6}
+                          sm={12}
+                          md={12}
+                          xl={8}
+                          xs={24}
+                          onClick={() => setOpenModalConfirm(true)}>
+                          <QLC_item
+                            title='Phần mềm quản lý quy trình sản xuất'
+                            img={'../img/qlc_qldtxd.png'}
+                          />
+                        </Col>
+                        <Col
+                          xxl={6}
+                          sm={12}
+                          md={12}
+                          xl={8}
+                          xs={24}
+                          onClick={() => setOpenModalConfirm(true)}>
+                          <QLC_item
+                            title='Phần mềm quản lý vận tải'
+                            img={'../img/qlc_qldtxd.png'}
+                          />
+                        </Col>
+                        <Col
+                          xxl={6}
+                          sm={12}
+                          md={12}
+                          xl={8}
+                          xs={24}
+                          onClick={() => setOpenModalConfirm(true)}>
+                          <QLC_item
+                            title='Phần mềm quản lý cung ứng'
+                            img={'../img/qlc_qlcu.png'}
+                          />
+                        </Col>
+                        <Col
+                          xxl={6}
+                          sm={12}
+                          md={12}
+                          xl={8}
+                          xs={24}
+                          onClick={() => setOpenModalConfirm(true)}>
+                          <QLC_item
+                            title='Phần mềm quản lý lịch biểu'
+                            img={'../img/qlc_qllb.png'}
+                          />
+                        </Col>
+                        <Col
+                          xxl={6}
+                          sm={12}
+                          md={12}
+                          xl={8}
+                          xs={24}
+                          onClick={() => setOpenModalConfirm(true)}>
+                          <QLC_item
+                            title='Phần mềm quản lý kho 365'
+                            img={'../img/qlc_qlkho365.png'}
+                          />
+                        </Col>
+                        <Col
+                          xxl={6}
+                          sm={12}
+                          md={12}
+                          xl={8}
+                          xs={24}
+                          onClick={() => setOpenModalConfirm(true)}>
+                          <QLC_item
+                            title='Truyền thông văn hóa'
+                            img={'../img/qlc_tt_vh.png'}
+                          />
+                        </Col>
+                      </Row>
+                    ) : (
+                      ''
+                    )}
+                    {show == 'nhan_luc' ? (
+                      <>
+                        <Row gutter={[24, 36]}>
+                          <Col
+                            xxl={6}
+                            sm={12}
+                            md={12}
+                            xl={8}
+                            xs={24}
+                            onClick={() => setOpenModalConfirm(true)}>
+                            <QLC_item
+                              title='Chấm công'
+                              img={'../img/qlc_cc.png'}
+                            />
+                          </Col>
+                          <Col
+                            xxl={6}
+                            sm={12}
+                            md={12}
+                            xl={8}
+                            xs={24}
+                            onClick={() => setOpenModalConfirm(true)}>
+                            <QLC_item
+                              title='Tính lương'
+                              img={'../img/qlc_tl.png'}
+                            />
+                          </Col>{' '}
+                          <Col
+                            xxl={6}
+                            sm={12}
+                            md={12}
+                            xl={8}
+                            xs={24}
+                            onClick={() => setOpenModalConfirm(true)}>
+                            <QLC_item
+                              title='Quản trị nhân sự'
+                              img={'../img/qlc_ns.png'}
+                              url='/quan-ly-nhan-luc'
+                            />
+                          </Col>{' '}
+                          <Col
+                            xxl={6}
+                            sm={12}
+                            md={12}
+                            xl={8}
+                            xs={24}
+                            onClick={() => setOpenModalConfirm(true)}>
+                            <QLC_item
+                              title='Quản lý tài sản'
+                              img={'../img/qlc_qlts.png'}
+                            />
+                          </Col>{' '}
+                          <Col
+                            xxl={6}
+                            sm={12}
+                            md={12}
+                            xl={8}
+                            xs={24}
+                            onClick={() => setOpenModalConfirm(true)}>
+                            <QLC_item
+                              title='Quản lý cuộc họp'
+                              img={'../img/qlc_qlts.png'}
+                            />
+                          </Col>
+                        </Row>
+                      </>
+                    ) : (
+                      ''
+                    )}
+                    {show == 'cong_viec' ? (
+                      <>
+                        <Row gutter={[24, 36]}>
+                          <Col
+                            xxl={6}
+                            sm={12}
+                            md={12}
+                            xl={8}
+                            xs={24}
+                            onClick={() => setOpenModalConfirm(true)}>
+                            <QLC_item
+                              title='Phần mềm giao việc'
+                              img={'../img/qlc_gv.png'}
+                            />
+                          </Col>
+                          <Col
+                            xxl={6}
+                            sm={12}
+                            md={12}
+                            xl={8}
+                            xs={24}
+                            onClick={() => setOpenModalConfirm(true)}>
+                            <QLC_item
+                              title='Quản lý KPI'
+                              img={'../img/qlc_kpi.png'}
+                            />
+                          </Col>{' '}
+                          <Col
+                            xxl={6}
+                            sm={12}
+                            md={12}
+                            xl={8}
+                            xs={24}
+                            onClick={() => setOpenModalConfirm(true)}>
+                            <QLC_item
+                              title='Phần mềm quản lý lịch biểu'
+                              img={'../img/qlc_qllb.png'}
+                            />
+                          </Col>{' '}
+                        </Row>
+                      </>
+                    ) : (
+                      ''
+                    )}
+                    {show == 'noi_bo' ? (
+                      <>
+                        <Row gutter={[24, 36]}>
+                          <Col
+                            xxl={6}
+                            sm={12}
+                            md={12}
+                            xl={8}
+                            xs={24}
+                            onClick={() => setOpenModalConfirm(true)}>
+                            <QLC_item
+                              title='Văn thư lưu trữ'
+                              img={'../img/qlc_vt.png'}
+                            />
+                          </Col>
+                          <Col
+                            xxl={6}
+                            sm={12}
+                            md={12}
+                            xl={8}
+                            xs={24}
+                            onClick={() => setOpenModalConfirm(true)}>
+                            <QLC_item
+                              title='Quản lý tài sản'
+                              img={'../img/qlc_qlts.png'}
+                            />
+                          </Col>{' '}
+                          <Col
+                            xxl={6}
+                            sm={12}
+                            md={12}
+                            xl={8}
+                            xs={24}
+                            onClick={() => setOpenModalConfirm(true)}>
+                            <QLC_item
+                              title='Chuyển văn bản thành giọng nói'
+                              img={'../img/qlc_vb_gn.png'}
+                            />
+                          </Col>{' '}
+                          <Col
+                            xxl={6}
+                            sm={12}
+                            md={12}
+                            xl={8}
+                            xs={24}
+                            onClick={() => setOpenModalConfirm(true)}>
+                            <QLC_item
+                              title='Phần mềm phiên dịch'
+                              img={'../img/qlc_pd.png'}
+                            />
+                          </Col>
+                          <Col
+                            xxl={6}
+                            sm={12}
+                            md={12}
+                            xl={8}
+                            xs={24}
+                            onClick={() => setOpenModalConfirm(true)}>
+                            <QLC_item
+                              title='Phần mềm quản lý kho 365'
+                              img={'../img/qlc_qlkho365.png'}
+                            />
+                          </Col>{' '}
+                          <Col
+                            xxl={6}
+                            sm={12}
+                            md={12}
+                            xl={8}
+                            xs={24}
+                            onClick={() => setOpenModalConfirm(true)}>
+                            <QLC_item
+                              title='Truyền thông văn hóa'
+                              img={'../img/qlc_tt_vh.png'}
+                            />
+                          </Col>{' '}
+                        </Row>
+                      </>
+                    ) : (
+                      ''
+                    )}
+                    {show == 'ban_hang' ? (
+                      <>
+                        <Row gutter={[24, 36]}>
+                          <Col
+                            xxl={6}
+                            sm={12}
+                            md={12}
+                            xl={8}
+                            xs={24}
+                            onClick={() => setOpenModalConfirm(true)}>
+                            <QLC_item
+                              title='Phần mềm CRM'
+                              img={'../img/qlc_crm.png'}
+                            />
+                          </Col>
+                          <Col
+                            xxl={6}
+                            sm={12}
+                            md={12}
+                            xl={8}
+                            xs={24}
+                            onClick={() => setOpenModalConfirm(true)}>
+                            <QLC_item
+                              title='Phần mềm DMS'
+                              img={'../img/qlc_dms.png'}
+                            />
+                          </Col>{' '}
+                          <Col
+                            xxl={6}
+                            sm={12}
+                            md={12}
+                            xl={8}
+                            xs={24}
+                            onClick={() => setOpenModalConfirm(true)}>
+                            <QLC_item
+                              title='Phần mềm quản lý cung ứng'
+                              img={'../img/qlc_vb_qlcu.png'}
+                            />
+                          </Col>{' '}
+                          <Col
+                            xxl={6}
+                            sm={12}
+                            md={12}
+                            xl={8}
+                            xs={24}
+                            onClick={() => setOpenModalConfirm(true)}>
+                            <QLC_item
+                              title='Phần mềm quản lý kho 365'
+                              img={'../img/qlc_qlkho365.png'}
+                            />
+                          </Col>
+                        </Row>
+                      </>
+                    ) : (
+                      ''
+                    )}
+                    {show == 'he_sinh_thai' ? (
+                      <>
+                        <Row gutter={[24, 36]}>
+                          <Col
+                            xxl={6}
+                            sm={12}
+                            md={12}
+                            xl={8}
+                            xs={24}
+                            onClick={() => setOpenModalConfirm(true)}>
+                            <QLC_item
+                              title='Việc làm tự do'
+                              img={'../img/qlc_vltd.png'}
+                              desc='Cập nhật hàng triệu việc làm tự do với mức lương hấp dẫn.'
+                            />
+                          </Col>
+                          <Col
+                            xxl={6}
+                            sm={12}
+                            md={12}
+                            xl={8}
+                            xs={24}
+                            onClick={() => setOpenModalConfirm(true)}>
+                            <QLC_item
+                              title='Việc làm theo giờ'
+                              img={'../img/qlc_vltg.png'}
+                              desc='Việc làm theo giờ với kho tin tuyển dụng đa dạng, mức lương hấp dẫn.'
+                            />
+                          </Col>{' '}
+                          <Col
+                            xxl={6}
+                            sm={12}
+                            md={12}
+                            xl={8}
+                            xs={24}
+                            onClick={() => setOpenModalConfirm(true)}>
+                            <QLC_item
+                              title='Gia sư'
+                              img={'../img/qlc_gs.png'}
+                              desc='Kết nối với gia sư đa môn học, ở mọi tỉnh thành, dễ dàng, nhanh chóng.'
+                            />
+                          </Col>{' '}
+                          <Col
+                            xxl={6}
+                            sm={12}
+                            md={12}
+                            xl={8}
+                            xs={24}
+                            onClick={() => setOpenModalConfirm(true)}>
+                            <QLC_item
+                              title='Tìm nhà trọ'
+                              img={'../img/qlc_gs.png'}
+                              desc='Giải pháp tìm phòng trọ, người thuê trọ nhanh chóng, miễn phí.'
+                            />
+                          </Col>
+                          <Col
+                            xxl={6}
+                            sm={12}
+                            md={12}
+                            xl={8}
+                            xs={24}
+                            onClick={() => setOpenModalConfirm(true)}>
+                            <QLC_item
+                              title='Khóa học'
+                              img={'../img/qlc_nt.png'}
+                              desc='Cập nhật divên tục các khóa học đa dạng môn học từ offdivne và online.'
+                            />
+                          </Col>
+                          <Col
+                            xxl={6}
+                            sm={12}
+                            md={12}
+                            xl={8}
+                            xs={24}
+                            onClick={() => setOpenModalConfirm(true)}>
+                            <QLC_item
+                              title='Trang vàng miễn phí'
+                              img={'../img/qlc_trangvang.png'}
+                              desc='Cung cấp danh bạ của tất cả các công ty lớn nhỏ trên toàn quốc.'
+                            />
+                          </Col>
+                          <Col
+                            xxl={6}
+                            sm={12}
+                            md={12}
+                            xl={8}
+                            xs={24}
+                            onClick={() => setOpenModalConfirm(true)}>
+                            <QLC_item
+                              title='Tra cứu lương'
+                              img={'../img/qlc_tracuuluong.png'}
+                              desc='Tra cứu thông tin lương theo vị trí công việc chính xác, nhanh chóng.'
+                            />
+                          </Col>
+                          <Col
+                            xxl={6}
+                            sm={12}
+                            md={12}
+                            xl={8}
+                            xs={24}
+                            onClick={() => setOpenModalConfirm(true)}>
+                            <QLC_item
+                              title='Rao vặt'
+                              img={'../img/qlc_raovat.png'}
+                              desc='Đăng tải thông tin rao vặt miễn phí, cập nhật liên tục mỗi ngày.'
+                            />
+                          </Col>
+                          <Col
+                            xxl={6}
+                            sm={12}
+                            md={12}
+                            xl={8}
+                            xs={24}
+                            onClick={() => setOpenModalConfirm(true)}>
+                            <QLC_item
+                              title='Vé máy bay'
+                              img={'../img/qlc_vemaybay.png'}
+                              desc='Thỏa sức vi vu với kho vé máy bay nội địa, quốc tế với giá rẻ bất ngờ.'
+                            />
+                          </Col>{' '}
+                          <Col
+                            xxl={6}
+                            sm={12}
+                            md={12}
+                            xl={8}
+                            xs={24}
+                            onClick={() => setOpenModalConfirm(true)}>
+                            <QLC_item
+                              title='Thẻ cào điện thoại'
+                              img={'../img/qlc_thedt.png'}
+                              desc='Thẻ điện thoại đa dạng mệnh giá, an toàn, bảo mật cao.'
+                            />
+                          </Col>
+                        </Row>
+                      </>
+                    ) : (
+                      ''
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className='ctn_1'>
+              <div className='ctn_1_left'>
+                <div className='img_bgr'>
+                  <img
+                    src='../img/bgr_nentang.png'
+                    alt='Trang chủ Quản Lý Chung Chuyển đổi số 365'
+                  />
+                </div>
+              </div>
+              <div className='ctn_1_right'>
+                <h2>Nền tảng quản trị doanh nghiệp phổ biến nhất</h2>
+                <span>
+                  Chuyển đổi số 365 là nền tảng quản trị doanh nghiệp phổ biến,
+                  được tin dùng bởi hơn 10,000 doanh nghiệp thuộc nhiều lĩnh vực
+                  khác nhau. Hầu hết các doanh nghiệp dẫn đầu thị trường và các
+                  công ty tăng trưởng nhanh đang dùng một trong số các sản phẩm
+                  của chuyển đổi số 365
+                </span>
+                <span>
+                  Tất cả các ứng dụng trên Chuyển đổi số 365 có thể sử dụng dễ
+                  dàng trên trình duyệt, smartphone (iOS, Android), máy tính
+                  bảng, hoặc cài đặt trên máy tính để bàn.
+                </span>
+              </div>
+            </div>
+            <div className='cnt_2'>
+              <div className='cnt_2_left'>
+                <h2>
+                  Bước 1: Tải app chat365 cài đặt chấm công + chấm công tại mục
+                  tiện ích
+                </h2>
+                <span>
+                  Để có cơ sở dữ liệu phục vụ công việc tính lương, trước hết
+                  bạn cần tải app chấm công 365 bằng cách truy cập link{' '}
+                  <a href='/https://chamcong.timviec365.vn/download.html'>
+                    https://chamcong.timviec365.vn/download.html{' '}
+                  </a>
+                  hoặc truy cập CH play/ App store tìm kiếm Chấm công 365 và tải
+                  về.
+                </span>
+              </div>
+              <div className='cnt_2_right'>
+                <div className='img_bgr'>
+                  <img
+                    src='../pc_QLC.png'
+                    alt='Trang chủ Quản Lý Chung Chuyển đổi số 365'
+                  />
+                </div>
+              </div>
+            </div>
+            <div className='ctn_3'>
+              <div className='title'>
+                <h2>Bước 2: Đăng ký tài khoản</h2>
+              </div>
+              <div className='ctn_3_wrap'>
+                <div className='ctn_3_left'>
+                  <div className='img_bgr'>
+                    <img
+                      src='../lt_QLC.png'
+                      alt='Trang chủ Quản Lý Chung Chuyển đổi số 365'
+                    />
+                  </div>
+                </div>
+                <div className='ctn_3_right'>
+                  <h2>Bước 2: Đăng ký tài khoản</h2>
+                  <span>
+                    Bạn hãy truy cập website hoặc app Chấm công 365 để đăng ký
+                    tài khoản. Đối với tài khoản công ty, chọn mục "Công ty" và
+                    điền đầy đủ thông tin đăng ký tài khoản. Lưu ý đối với tạo
+                    tài khoản nhân viên có 2 cách để tạo tài khoản:
+                  </span>
+                  <span>
+                    Cách 1: Nhân viên tự đăng ký tài khoản bằng cách nhập ID
+                    công ty do nhân sự cung cấp và điền đầy đủ thông tin đăng ký
+                  </span>
+                  <span>
+                    Cách 2: Công ty tạo tài khoản cho nhân viên bằng cách đăng
+                    nhập tài khoản công ty và thêm mới tài khoản cho nhân viên.
+                  </span>
+                  <span>
+                    Sau khi điền đầy đủ thông tin, hệ thống sẽ gửi về email đăng
+                    ký mã OTP để xác thực tài khoản, người dùng nhập mã OTP để
+                    có thể bắt đầu sử dụng.
+                  </span>
+                  <span>
+                    Công ty và nhân viên đăng nhập bằng tài khoản đó trên các
+                    phần mềm của hệ sinh thái 365 để quản lý doanh nghiệp, trong
+                    đó có phần mềm tính lương 365 để thiết lập, quản lý và theo
+                    dõi công lương.
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div className='ctn_4'>
+              <div className='title'>
+                <h2>Bước 3: Thiết lập dữ liệu</h2>
+              </div>
+              <div className='ctn_4_wrap'>
+                <div className='ctn_4_left'>
+                  <div className='img_bgr'>
+                    <img
+                      src='../gd_QLC.png'
+                      alt='Trang chủ Quản Lý Chung Chuyển đổi số 365'
+                    />
+                  </div>
+                </div>
+                <div className='ctn_4_right'>
+                  <h2>Bước 3: Thiết lập dữ liệu</h2>
+                  <span>
+                    Sau khi hoàn tất quá trình đăng ký, bạn đăng nhập hệ thống
+                    để thiết lập các trường nhằm mục đích hỗ trợ hệ thống tính
+                    lương chính xác nhất.{' '}
+                  </span>
+                  <span>
+                    Danh sách nhân viên: toàn bộ nhân viên trong công ty đã đăng
+                    ký tài khoản trên hệ thống. Nhân sự thao tác nhập lương cơ
+                    bản, lương tính bảo hiểm (nếu không tính bảo hiểm theo lương
+                    cơ bản), Hợp đồng và phần trăm lương tương ứng, số người
+                  </span>
+                  <button>+ Xem Thêm</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <link
+        rel='stylesheet'
+        href='https://timviec365.vn/css/footer_new.css?v=2'
+      />
+      <FooterQLC></FooterQLC>
+      {openModalConfirm && (
+        <ModalConfirm
+          setOpenModalConfirm={setOpenModalConfirm}
+          setOpenModalRegister={setOpenModalRegister}
+          setOpenModalLogin={setOpenModalLogin}
+        />
+      )}
+      {openModalRegister && (
+        <ModalRegsiter setOpenModalRegister={setOpenModalRegister} />
+      )}
+      {openModalLogin && <ModalLogin setOpenModalLogin={setOpenModalLogin} />}
+    </>
+  )
+}
