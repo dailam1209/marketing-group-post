@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import Select from 'react-select';
 import styles from '../candidateAddModal/candidateAddModal.module.css'
 import { ProcessList } from '@/pages/hr/api/quan-ly-tuyen-dung/candidateList';
@@ -12,6 +12,22 @@ export default function StageAddModal({ onCancel, animation }: any) {
     const [isProcessList, setProcessList] = useState<any>(null)
     const [isProcess_id, setProcess_id] = useState<any>(null)
     const [errors, setErrors] = useState<any>({});
+    const modalRef = useRef(null);
+
+    useEffect(() => {
+        const handleOutsideClick = (event: any) => {
+            if (modalRef.current && !modalRef.current.contains(event.target)) {
+                onCancel();
+            }
+        };
+
+        document.addEventListener('mousedown', handleOutsideClick);
+
+        return () => {
+            document.removeEventListener('mousedown', handleOutsideClick);
+        };
+    }, [onCancel]);
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -99,7 +115,7 @@ export default function StageAddModal({ onCancel, animation }: any) {
                 <div className={`${styles.modal} ${styles.modal_setting} ${animation ? styles.fade_in : styles.fade_out
                     }`}>
                     <div className={` ${styles.modal_dialog} ${styles.content_process}`}>
-                        <div className={`${styles.modal_content}`}>
+                        <div className={`${styles.modal_content}`} ref={modalRef}>
                             <div className={`${styles.modal_header} ${styles.header_process}`}>
                                 <h5 className={`${styles.modal_tittle}`}>THÊM GIAI ĐOẠN</h5>
                             </div>

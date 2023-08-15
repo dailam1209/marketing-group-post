@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import styles from '../../planningAppointment/addPlanningModal/addPlanningModal.module.css'
 import Select from 'react-select';
 import MyEditorNew from "@/components/hr/myEditor";
@@ -64,6 +64,21 @@ export default function AddPayrollModal({ onCancel }: any) {
     const [isType_id, setType_id] = useState<any>(null)
     const [isShift_id, setShift_id] = useState<any>(null)
     const comid: any = GetComId()
+    const modalRef = useRef(null);
+
+    useEffect(() => {
+        const handleOutsideClick = (event: any) => {
+            if (modalRef.current && !modalRef.current.contains(event.target)) {
+                onCancel()
+            }
+        };
+
+        document.addEventListener('mousedown', handleOutsideClick);
+
+        return () => {
+            document.removeEventListener('mousedown', handleOutsideClick);
+        };
+    }, [onCancel]);
 
     useEffect(() => {
         fetchData();
@@ -254,7 +269,7 @@ export default function AddPayrollModal({ onCancel }: any) {
             <div className={`${styles.modal_open}`}>
                 <div className={`${styles.modal} ${styles.fade} ${styles.in}`}>
                     <div className={` ${styles.modal_dialog} ${styles.content_process}`}>
-                        <div className={`${styles.modal_content}`}>
+                        <div className={`${styles.modal_content}`} ref={modalRef}>
                             <div className={`${styles.modal_header} ${styles.header_process}`}>
                                 <h5 className={`${styles.modal_tittle}`}>THÊM MỚI GIẢM BIÊN CHẾ</h5>
                             </div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from '../../quy-dinh-lam-viec/addRegulationsModal/addRegulationsModal.module.css'
 import MyEditorNew from "@/components/hr/myEditor";
 import { SpecifiedGroupList } from "@/pages/hr/api/quy_dinh_chinh_sach";
@@ -45,6 +45,21 @@ export default function UpdatePolicyModal({ onCancel, idGroup }: UpdatePolicyMod
     const [provisionId, setProvisionId] = useState<number | null>(null)
     const [DetailData, setDetailData] = useState<any | null>(null)
     const [keyWords, setKeyWords] = useState('')
+    const modalRef = useRef(null);
+
+    useEffect(() => {
+        const handleOutsideClick = (event: any) => {
+            if (modalRef.current && !modalRef.current.contains(event.target)) {
+                onCancel()
+            }
+        };
+
+        document.addEventListener('mousedown', handleOutsideClick);
+
+        return () => {
+            document.removeEventListener('mousedown', handleOutsideClick);
+        };
+    }, [onCancel]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -141,7 +156,7 @@ export default function UpdatePolicyModal({ onCancel, idGroup }: UpdatePolicyMod
             <div className={`${styles.modal_open}`}>
                 <div className={`${styles.modal} ${styles.fade} ${styles.in}`}>
                     <div className={` ${styles.modal_dialog} ${styles.content_process}`}>
-                        <div className={`${styles.modal_content}`}>
+                        <div className={`${styles.modal_content}`} ref={modalRef}>
                             <div className={`${styles.modal_header} ${styles.header_process}`}>
                                 <h5 className={`${styles.modal_tittle}`}>CHỈNH SỬA CHÍNH SÁCH</h5>
                             </div>

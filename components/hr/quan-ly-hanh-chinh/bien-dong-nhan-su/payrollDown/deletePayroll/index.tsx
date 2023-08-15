@@ -1,8 +1,23 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import styles from '../../workingRotation/deleteWorkingModal/deleteWorkingModal.module.css'
 import { DeletePayrollDown } from "@/pages/hr/api/bien_dong_nhan_su";
 
 export default function DeletePayrollDowns({ onCancel, ep_id }: any) {
+    const modalRef = useRef(null);
+
+    useEffect(() => {
+        const handleOutsideClick = (event: any) => {
+            if (modalRef.current && !modalRef.current.contains(event.target)) {
+                onCancel()
+            }
+        };
+
+        document.addEventListener('mousedown', handleOutsideClick);
+
+        return () => {
+            document.removeEventListener('mousedown', handleOutsideClick);
+        };
+    }, [onCancel]);
 
     const handleSubmit = async () => {
         try {
@@ -22,7 +37,7 @@ export default function DeletePayrollDowns({ onCancel, ep_id }: any) {
             <div className={`${styles.modal_open}`}>
                 <div className={`${styles.modal} ${styles.fade} ${styles.in}`}>
                     <div className={` ${styles.modal_dialog} ${styles.content_process}`}>
-                        <div className={`${styles.modal_content}`}>
+                        <div className={`${styles.modal_content}`} ref={modalRef}>
                             <div className={`${styles.modal_header} ${styles.header_process}`}>
                                 <p className={`${styles.modal_title}`}>Giảm biên chế, nghỉ việc</p>
                             </div>

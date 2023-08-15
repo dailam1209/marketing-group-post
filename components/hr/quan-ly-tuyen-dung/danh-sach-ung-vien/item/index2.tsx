@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from './item.module.css'
 import { Rating } from 'react-simple-star-rating'
 import { useDrag } from 'react-dnd';
@@ -11,6 +11,22 @@ export default function ItemCandidate2({ data, process_id, setModalOpen, setDrop
     const [isOpenOption, setOpenOption] = useState(false)
     const [isDelete, setDelete] = useState(0)
     const [animateModal, setAnimateModal] = useState(true);
+    const modalRef = useRef(null);
+
+    useEffect(() => {
+        const handleOutsideClick = (event: any) => {
+            if (modalRef.current && !modalRef.current.contains(event.target)) {
+                setOpenOption(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleOutsideClick);
+
+        return () => {
+            document.removeEventListener('mousedown', handleOutsideClick);
+        };
+    }, [isOpenOption]);
+
 
     const [{ isDragging }, drag] = useDrag({
         type: ItemTypes.INTERVIEW,
@@ -72,7 +88,7 @@ export default function ItemCandidate2({ data, process_id, setModalOpen, setDrop
                         <div className={`${styles.hs_body_card_no3}`}>
                             <a className={`${styles.hs_dot} ${styles.hs_dot1}`} style={{ cursor: 'pointer' }}>
                                 <img onClick={() => setOpenOption(!isOpenOption)} src="https://phanmemnhansu.timviec365.vn/assets/images/t_images/hs-t-dot.svg" />
-                                <div className={`${styles.choose_option} ${styles.choose_option1}`} style={{ display: isOpenOption ? 'block' : 'none' }}>
+                                <div ref={modalRef} className={`${styles.choose_option} ${styles.choose_option1}`} style={{ display: isOpenOption ? 'block' : 'none' }}>
                                     <ul style={{ marginBottom: 0, marginTop: 0 }}>
                                         <li onClick={() => handleClickDetail(data?.id)}>Xem chi tiết</li>
                                         {iconDelete && <li onClick={() => setDelete(data?.id)}>Xóa hồ sơ</li>}

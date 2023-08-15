@@ -42,7 +42,7 @@ export default function RecruitmentProcess() {
     const fetchData = async () => {
       try {
         const response = await GetDataRecruitment(currentPage, 5, key);
-         if (response?.status === 200) {
+        if (response?.status === 200) {
           setDataRecruitment(response?.data.data);
         }
       } catch (error) {
@@ -103,14 +103,14 @@ export default function RecruitmentProcess() {
           <>
             <div className={styles.add_quytrinh}>
               <div className={styles.add_quytrinh1}>
-              {iconAdd && (
-              <button className={`${styles.adds}`} onClick={handleOpenModalAdd}>
-                <picture style={{ paddingLeft: "12px" }} className={`${styles.display}`}>
-                  <img src={`/add.png`} alt=""></img>
-                  <p>Thêm tin tuyển dụng</p>
-                </picture>
-              </button>
-            )}
+                {iconAdd && (
+                  <button className={`${styles.adds}`} onClick={handleOpenModalAdd}>
+                    <picture style={{ paddingLeft: "12px" }} className={`${styles.display}`}>
+                      <img src={`/add.png`} alt=""></img>
+                      <p>Thêm tin tuyển dụng</p>
+                    </picture>
+                  </button>
+                )}
               </div>
               {openModalAdd && (
                 <AddRecruitmentProcess

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styles from '../room/editRoomModal/editRoomModal.module.css'
 import Select from 'react-select';
 import { OrganizationalStructureUpdate } from "@/pages/hr/api/co_cau_to_chuc";
@@ -13,7 +13,21 @@ type EditGorupModalProps = {
 };
 
 export default function EditGroupModal({ gr_id, defaultValue, options, mota, onCancel }: EditGorupModalProps) {
+    const modalRef = useRef(null);
 
+    useEffect(() => {
+        const handleOutsideClick = (event: any) => {
+            if (modalRef.current && !modalRef.current.contains(event.target)) {
+                onCancel()
+            }
+        };
+
+        document.addEventListener('mousedown', handleOutsideClick);
+
+        return () => {
+            document.removeEventListener('mousedown', handleOutsideClick);
+        };
+    }, [onCancel]);
     const handleSubmit = async () => {
 
         try {
@@ -64,7 +78,7 @@ export default function EditGroupModal({ gr_id, defaultValue, options, mota, onC
             <div className={`${styles.modal_open}`}>
                 <div className={`${styles.modal} ${styles.fade} ${styles.in}`}>
                     <div className={` ${styles.modal_dialog} ${styles.content_process}`}>
-                        <div className={`${styles.modal_content}`}>
+                        <div className={`${styles.modal_content}`} ref={modalRef}>
                             <div className={`${styles.modal_header} ${styles.header_process}`}>
                                 <h5 className={`${styles.modal_tittle}`}>CHỈNH SỬA CHI TIẾT PHÒNG BAN</h5>
                             </div>

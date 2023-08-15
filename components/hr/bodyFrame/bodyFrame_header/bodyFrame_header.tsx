@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styles from './bodyFrame_header.module.css'
 import DropDownMenu from './drop_down_menu/dropDownMenu';
 import Notify from './notify/notify';
@@ -14,6 +14,27 @@ export default function BodyFrameHeader({ dataHeader }: any) {
     const [remind, setRemind] = useState(false)
     const [openSidebar, setOpenSidebar] = useState(false)
     const [windowWidth, setWindowWidth] = useState<number>(typeof window !== 'undefined' ? window.innerWidth : 0);
+    const dropDownMenuRef = useRef(null);
+
+    const handleOutsideClick = (event: any) => {
+        if (dropDownMenuRef.current && !dropDownMenuRef.current.contains(event.target)) {
+            setMenuClick(false);
+            setNoti(false);
+            setRemind(false);
+        }
+    };
+
+    useEffect(() => {
+        if (menuClick || noti || remind) {
+            document.addEventListener('mousedown', handleOutsideClick);
+        } else {
+            document.removeEventListener('mousedown', handleOutsideClick);
+        }
+
+        return () => {
+            document.removeEventListener('mousedown', handleOutsideClick);
+        };
+    }, [menuClick, noti, remind]);
 
     useEffect(() => {
         const handleResize = () => {
@@ -50,10 +71,12 @@ export default function BodyFrameHeader({ dataHeader }: any) {
     const handleOpenSidebar = () => {
         setOpenSidebar(!openSidebar)
     }
+
     return (
         <>
-            <div className={`${styles.wrapper}`}>
-                <div className={`${styles.header}`}>
+            <div className={`${styles.wrapper}`}
+            >
+                <div className={`${styles.header}`} >
                     <div className={`${styles.header_left}`} >
                         <div className={`${styles.sidebar_renative}`}>
                             <div>
@@ -89,10 +112,12 @@ export default function BodyFrameHeader({ dataHeader }: any) {
                     </div>
 
                 </div>
-                {openSidebar && <Sidebar></Sidebar>}
-                {menuClick && <DropDownMenu dataHeader={dataHeader}></DropDownMenu>}
-                {noti && <Notify></Notify>}
-                {remind && <Remind></Remind>}
+                <div ref={dropDownMenuRef}>
+                    {menuClick && <DropDownMenu dataHeader={dataHeader}></DropDownMenu>}
+                    {openSidebar && <Sidebar></Sidebar>}
+                    {noti && <Notify></Notify>}
+                    {remind && <Remind></Remind>}
+                </div>
             </div>
         </>
     )

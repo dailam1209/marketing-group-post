@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from '../../planningAppointment/addPlanningModal/addPlanningModal.module.css'
 import Select from 'react-select';
 import MyEditorNew from "@/components/hr/myEditor";
@@ -31,6 +31,21 @@ type SelectOptionType = { label: string, value: string }
 
 export default function EditOutJobModal({ onCancel }: any) {
     const [content, setContent] = useState('');
+    const modalRef = useRef(null);
+
+    useEffect(() => {
+        const handleOutsideClick = (event: any) => {
+            if (modalRef.current && !modalRef.current.contains(event.target)) {
+                onCancel()
+            }
+        };
+
+        document.addEventListener('mousedown', handleOutsideClick);
+
+        return () => {
+            document.removeEventListener('mousedown', handleOutsideClick);
+        };
+    }, [onCancel]);
 
     const handleContentChange = (value: string) => {
         setContent(value);
@@ -97,7 +112,7 @@ export default function EditOutJobModal({ onCancel }: any) {
             <div className={`${styles.modal_open}`}>
                 <div className={`${styles.modal} ${styles.fade} ${styles.in}`}>
                     <div className={` ${styles.modal_dialog} ${styles.content_process}`}>
-                        <div className={`${styles.modal_content}`}>
+                        <div className={`${styles.modal_content}`} ref={modalRef}>
                             <div className={`${styles.modal_header} ${styles.header_process}`}>
                                 <h5 className={`${styles.modal_tittle}`}>THÊM MỚI NGHỈ VIỆC SAI QUY ĐỊNH</h5>
                             </div>

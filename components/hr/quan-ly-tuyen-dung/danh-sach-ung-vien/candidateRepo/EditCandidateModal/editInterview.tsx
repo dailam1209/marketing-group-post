@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import styles from "../../candidateAddModal/candidateAddModal.module.css";
 import { Rating } from "react-simple-star-rating";
 import { EmployeeList } from "@/pages/hr/api/listNhanVien";
@@ -34,6 +34,21 @@ export default function EditCandidateIntrview({ onCancel, candidate, processName
     const [isCandidate, setCandidate] = useState<any>(null);
     const [errors, setErrors] = useState<any>({});
     const comid: any = GetComId()
+    const modalRef = useRef(null);
+
+    useEffect(() => {
+        const handleOutsideClick = (event: any) => {
+            if (modalRef.current && !modalRef.current.contains(event.target)) {
+                onCancel()
+            }
+        };
+
+        document.addEventListener('mousedown', handleOutsideClick);
+
+        return () => {
+            document.removeEventListener('mousedown', handleOutsideClick);
+        };
+    }, [onCancel]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -315,7 +330,7 @@ export default function EditCandidateIntrview({ onCancel, candidate, processName
             <div className={`${styles.modal_open}`}>
                 <div className={`${styles.modal} ${styles.fade} ${styles.in}`}>
                     <div className={` ${styles.modal_dialog} ${styles.content_process}`}>
-                        <div className={`${styles.modal_content}`}>
+                        <div className={`${styles.modal_content}`} ref={modalRef}>
                             <div
                                 className={`${styles.modal_header} ${styles.header_process}`}
                             >

@@ -275,8 +275,8 @@ export default function TabOutJob({ iconAdd, iconEdit, iconDelete }: any) {
                                                 <td>{format(parseISO(item?.time), 'dd/MM/yyyy')}</td>
                                                 {iconDelete || iconEdit ? (
                                                     <td>
-                                                        {iconEdit && <a onClick={() => handleOpenEdit(item)} className={`${styles.btn_edit}`}><img src={`/icon_edit.svg`} alt="" /></a>}
-                                                        {iconDelete && <a onClick={() => setOpenDeleteModal(item.ep_id)} className={`${styles.btn_delete}`}><img src={`/icon_delete.svg`} alt="" /></a>}
+                                                        {iconEdit && <a onClick={() => handleOpenEdit(item)} className={`${styles.btn_edit}`} style={{ cursor: "pointer" }}><img src={`/icon_edit.svg`} alt="" /></a>}
+                                                        {iconDelete && <a onClick={() => setOpenDeleteModal(item.ep_id)} className={`${styles.btn_delete}`} style={{ cursor: 'pointer' }}><img src={`/icon_delete.svg`} alt="" /></a>}
                                                     </td>
                                                 ) : null}
                                             </tr>

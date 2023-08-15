@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from './addRegulationsModal.module.css'
 import MyEditorNew from "@/components/hr/myEditor";
 import { AddRulesByGroupList } from "@/pages/hr/api/quy_dinh_chinh_sach";
@@ -40,6 +40,21 @@ export default function AddRegulationsModal2({ onCancel }: AddRegulationsModal2P
     const [provisionId, setProvisionId] = useState<number | null>(null)
     const [keyWords, setKeyWords] = useState('')
     const [errors, setErrors] = useState<any>({});
+    const modalRef = useRef(null);
+
+    useEffect(() => {
+        const handleOutsideClick = (event: any) => {
+            if (modalRef.current && !modalRef.current.contains(event.target)) {
+                onCancel()
+            }
+        };
+
+        document.addEventListener('mousedown', handleOutsideClick);
+
+        return () => {
+            document.removeEventListener('mousedown', handleOutsideClick);
+        };
+    }, [onCancel]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -138,7 +153,7 @@ export default function AddRegulationsModal2({ onCancel }: AddRegulationsModal2P
             <div className={`${styles.modal_open}`}>
                 <div className={`${styles.modal} ${styles.fade} ${styles.in}`}>
                     <div className={` ${styles.modal_dialog} ${styles.content_process}`}>
-                        <div className={`${styles.modal_content}`}>
+                        <div className={`${styles.modal_content}`} ref={modalRef}>
                             <div className={`${styles.modal_header} ${styles.header_process}`}>
                                 <h5 className={`${styles.modal_tittle}`}>THÊM QUY ĐỊNH</h5>
                             </div>

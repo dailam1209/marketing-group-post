@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import styles from '../addPlanningModal/addPlanningModal.module.css'
 import Select from 'react-select';
 import MyEditorNew from "@/components/hr/myEditor";
@@ -55,6 +55,21 @@ export default function EditPlanningModal({ onCancel, infoList }: any) {
     const [isDep_idNew, setDep_idNew] = useState<any>(infoList?.new_dep_id)
     const [isSpecified_idnew, setSpecified_idnew] = useState<any>(infoList?.decision_id)
     const [isSpecified_name, setSpecified_name] = useState<any>(null)
+    const modalRef = useRef(null);
+
+    useEffect(() => {
+        const handleOutsideClick = (event: any) => {
+            if (modalRef.current && !modalRef.current.contains(event.target)) {
+                onCancel()
+            }
+        };
+
+        document.addEventListener('mousedown', handleOutsideClick);
+
+        return () => {
+            document.removeEventListener('mousedown', handleOutsideClick);
+        };
+    }, [onCancel]);
 
     useEffect(() => {
         fetchData();
@@ -178,7 +193,7 @@ export default function EditPlanningModal({ onCancel, infoList }: any) {
             <div className={`${styles.modal_open}`}>
                 <div className={`${styles.modal} ${styles.fade} ${styles.in}`}>
                     <div className={` ${styles.modal_dialog} ${styles.content_process}`}>
-                        <div className={`${styles.modal_content}`}>
+                        <div className={`${styles.modal_content}`} ref={modalRef}>
                             <div className={`${styles.modal_header} ${styles.header_process}`}>
                                 <h5 className={`${styles.modal_tittle}`}>CẬP NHẬT BỔ NHIỆM, QUY HOẠCH</h5>
                             </div>

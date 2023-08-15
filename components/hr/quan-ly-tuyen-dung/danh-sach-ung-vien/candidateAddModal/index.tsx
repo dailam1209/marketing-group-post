@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import Select from 'react-select';
 import styles from './candidateAddModal.module.css'
 import { Rating } from 'react-simple-star-rating'
@@ -31,6 +31,21 @@ export default function CandidateAddModal({ onCancel, animation }: any) {
     const [isNewList, setNewsList] = useState<any>(null);
     const [errors, setErrors] = useState<any>({});
     const comid: any = GetComId()
+    const modalRef = useRef(null);
+
+    useEffect(() => {
+        const handleOutsideClick = (event: any) => {
+            if (modalRef.current && !modalRef.current.contains(event.target)) {
+                onCancel();
+            }
+        };
+
+        document.addEventListener('mousedown', handleOutsideClick);
+
+        return () => {
+            document.removeEventListener('mousedown', handleOutsideClick);
+        };
+    }, [onCancel]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -253,14 +268,13 @@ export default function CandidateAddModal({ onCancel, animation }: any) {
         vitrituyendung: chonvitrituyendungOptions,
 
     };
-
     return (
         <>
             <div className={`${styles.modal_open}`}>
                 <div className={`${styles.modal} ${styles.modal_setting} ${animation ? styles.fade_in : styles.fade_out
                     }`}>
                     <div className={` ${styles.modal_dialog} ${styles.content_process}`}>
-                        <div className={`${styles.modal_content}`}>
+                        <div className={`${styles.modal_content}`} ref={modalRef}>
                             <div className={`${styles.modal_header} ${styles.header_process}`}>
                                 <h5 className={`${styles.modal_tittle}`}>THÊM ỨNG VIÊN</h5>
                             </div>

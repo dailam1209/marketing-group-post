@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import styles from '../candidateAddModal/candidateAddModal.module.css'
 import { CandidateList } from '@/pages/hr/api/quan-ly-tuyen-dung/candidateList';
 import { GetListNews } from '@/pages/hr/api/quan-ly-tuyen-dung/PerformRecruitment';
@@ -25,6 +25,21 @@ export default function StageCancelJob({ onCancel, process_id, data, process_id_
     const [isUserHiring, setUserHiring] = useState<any>("")
     const [type, setType] = useState<any>(1);
     const [errors, setErrors] = useState<any>({});
+    const modalRef = useRef(null);
+
+    useEffect(() => {
+        const handleOutsideClick = (event: any) => {
+            if (modalRef.current && !modalRef.current.contains(event.target)) {
+                onCancel();
+            }
+        };
+
+        document.addEventListener('mousedown', handleOutsideClick);
+
+        return () => {
+            document.removeEventListener('mousedown', handleOutsideClick);
+        };
+    }, [onCancel]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -209,7 +224,7 @@ export default function StageCancelJob({ onCancel, process_id, data, process_id_
             <div className={`${styles.modal_open}`}>
                 <div className={`${styles.modal} ${styles.fade} ${styles.in}`}>
                     <div className={` ${styles.modal_dialog} ${styles.content_process}`}>
-                        <div className={`${styles.modal_content}`}>
+                        <div className={`${styles.modal_content}`} ref={modalRef}>
                             <div className={`${styles.modal_header} ${styles.header_process}`}>
                                 <h5 className={`${styles.modal_tittle}`}>CHUYỂN TRẠNG THÁI</h5>
                             </div>

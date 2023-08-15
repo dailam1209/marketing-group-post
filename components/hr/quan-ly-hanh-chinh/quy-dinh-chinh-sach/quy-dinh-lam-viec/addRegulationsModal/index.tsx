@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from './addRegulationsModal.module.css'
 import MyEditorNew from "@/components/hr/myEditor";
 import { AddSpecifiedGroup } from "@/pages/hr/api/quy_dinh_chinh_sach";
@@ -39,6 +39,21 @@ export default function AddRegulationsModal({ onCancel }: AddRegulationsModalPro
     const [provisionFile, setProvisionFile] = useState<File | null>(null);
     const [descriptions, setDescription] = useState("");
     const [errors, setErrors] = useState<any>({});
+    const modalRef = useRef(null);
+
+    useEffect(() => {
+        const handleOutsideClick = (event: any) => {
+            if (modalRef.current && !modalRef.current.contains(event.target)) {
+                onCancel()
+            }
+        };
+
+        document.addEventListener('mousedown', handleOutsideClick);
+
+        return () => {
+            document.removeEventListener('mousedown', handleOutsideClick);
+        };
+    }, [onCancel]);
 
     const validationSchema = Yup.object().shape({
         name: Yup.string().required("Tên nhóm quy định không được để trống"),
@@ -113,7 +128,7 @@ export default function AddRegulationsModal({ onCancel }: AddRegulationsModalPro
             <div className={`${styles.modal_open}`}>
                 <div className={`${styles.modal} ${styles.fade} ${styles.in}`}>
                     <div className={` ${styles.modal_dialog} ${styles.content_process}`}>
-                        <div className={`${styles.modal_content}`}>
+                        <div className={`${styles.modal_content}`} ref={modalRef}>
                             <div className={`${styles.modal_header} ${styles.header_process}`}>
                                 <h5 className={`${styles.modal_tittle}`}>THÊM NHÓM QUY ĐỊNH</h5>
                             </div>

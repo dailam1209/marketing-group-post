@@ -121,6 +121,7 @@ export default function AddRecruitmentProcess({
     }
   };
 
+
   return (
     <>
       <div className={`${styles.overlay} `} onClick={handleCloseModalAdd}></div>

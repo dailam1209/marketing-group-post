@@ -1,8 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styles from "@/components/hr/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/deleteRecruitmentProcess/DeleteRecruitmentProcess.module.css"
 import { ProcessDelete } from "@/pages/hr/api/quan-ly-tuyen-dung/candidateList";
 
 export default function DeleteStage({ onCancel, process_id, animation }: any) {
+
+    const modalRef = useRef(null);
+
+    useEffect(() => {
+        const handleOutsideClick = (event: any) => {
+            if (modalRef.current && !modalRef.current.contains(event.target)) {
+                onCancel();
+            }
+        };
+
+        document.addEventListener('mousedown', handleOutsideClick);
+
+        return () => {
+            document.removeEventListener('mousedown', handleOutsideClick);
+        };
+    }, [onCancel]);
 
     const handleSubmit = async () => {
         try {
@@ -25,7 +41,7 @@ export default function DeleteStage({ onCancel, process_id, animation }: any) {
             <div className={`${styles.modal} ${styles.modal_setting} ${animation ? styles.fade_in : styles.fade_out
                 }`}>
                 <div className={`${styles.contentquytrinh}`}>
-                    <div className={`${styles.modal_content} ${styles.contentdel}`}>
+                    <div className={`${styles.modal_content} ${styles.contentdel}`} ref={modalRef}>
                         <div className={`${styles.modal_header} ${styles.headquytrinh}`}>
                             <h5 className={`${styles.modal_title}`}>
                                 XÓA GIAI ĐOẠN

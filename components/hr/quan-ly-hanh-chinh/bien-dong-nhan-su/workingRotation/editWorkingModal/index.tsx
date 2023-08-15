@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import styles from '../../planningAppointment/addPlanningModal/addPlanningModal.module.css'
 import Select from 'react-select';
 import MyEditorNew from "@/components/hr/myEditor";
@@ -14,6 +14,7 @@ interface InputTextareaProps {
 function Input_textarea({ onDescriptionChange }: InputTextareaProps) {
     const [editorLoaded, setEditorLoaded] = useState(false);
     const [data, setData] = useState("");
+
 
     useEffect(() => {
         setEditorLoaded(true);
@@ -61,6 +62,21 @@ export default function EditWorkingModal({ onCancel, infoList }: any) {
     const [isPosition_id, setPosition_id] = useState<any>(null)
     const [isPosition_idNew, setPosition_idNew] = useState<any>(null)
     const [isSpecified_id, setSpecified_id] = useState<any>(null)
+    const modalRef = useRef(null);
+
+    useEffect(() => {
+        const handleOutsideClick = (event: any) => {
+            if (modalRef.current && !modalRef.current.contains(event.target)) {
+                onCancel()
+            }
+        };
+
+        document.addEventListener('mousedown', handleOutsideClick);
+
+        return () => {
+            document.removeEventListener('mousedown', handleOutsideClick);
+        };
+    }, [onCancel]);
 
     useEffect(() => {
         fetchData();
@@ -222,7 +238,7 @@ export default function EditWorkingModal({ onCancel, infoList }: any) {
             <div className={`${styles.modal_open}`}>
                 <div className={`${styles.modal} ${styles.fade} ${styles.in}`}>
                     <div className={` ${styles.modal_dialog} ${styles.content_process}`}>
-                        <div className={`${styles.modal_content}`}>
+                        <div className={`${styles.modal_content}`} ref={modalRef}>
                             <div className={`${styles.modal_header} ${styles.header_process}`}>
                                 <h5 className={`${styles.modal_tittle}`}>CẬP NHẬT LUÂN PHIÊN CÔNG TÁC</h5>
                             </div>

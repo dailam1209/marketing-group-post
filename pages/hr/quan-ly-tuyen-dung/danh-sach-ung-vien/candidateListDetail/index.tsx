@@ -35,7 +35,11 @@ export default function CandidateListDetail({ iconAdd, iconEdit, iconDelete }: a
   const [isDropCol, setDropCol] = useState<any>(null);
   const [isProcess_id, setProcess_id] = useState<any>(null);
   const [animateModal, setAnimateModal] = useState(true);
+  const [isProcessBeforeName, setProcessBeforeName] = useState<any>("")
   const comid: any = GetComId()
+
+  console.log(isProcessList);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -106,8 +110,6 @@ export default function CandidateListDetail({ iconAdd, iconEdit, iconDelete }: a
     setDeleteProcess(null);
     setModalOpen(false);
     setOpenModal(null)
-
-
   };
 
   const handleSearch = useCallback(() => {
@@ -172,8 +174,8 @@ export default function CandidateListDetail({ iconAdd, iconEdit, iconDelete }: a
       <Head>
         <title>Danh sách ứng viên - Quản lý nhân sự - Timviec365.vn</title>
       </Head>
-      <div className={`${styles.tab_content}`}>
-        <div className={`${styles.tab_pane}`}>
+      <div className={`${styles.tab_content}`} >
+        <div className={`${styles.tab_pane}`} >
           <div className={`${styles.body}`}>
             {iconAdd && (
               <div className={`${styles.recruitment}`}>
@@ -201,8 +203,6 @@ export default function CandidateListDetail({ iconAdd, iconEdit, iconDelete }: a
                 </button>
               </div>
             )}
-
-
             {openModal === 1 ? (<CandidateAddModal animation={animateModal} onCancel={handleCloseModal}></CandidateAddModal>) : ("")}
             {openModal === 2 ? (<StageAddModal animation={animateModal} onCancel={handleCloseModal}></StageAddModal>) : ("")}
             {isUpdateProcess && (<StageUpdateModal animation={animateModal} onCancel={handleCloseModal} infoList={isUpdateProcess} />)}
@@ -219,7 +219,6 @@ export default function CandidateListDetail({ iconAdd, iconEdit, iconDelete }: a
             {isOpenModal && isDropCol?.id === 4
               && <StageContactJob data={isDragItem} process_id_from={isProcess_id} process_id={isDropCol?.id} onCancel={handleCloseModal}
               />}
-
             <div className={`${styles.bg_search}`}>
               <div className={`${styles.search_top}`}>
                 <div

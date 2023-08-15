@@ -7,7 +7,7 @@ function MyEditorNew({ onChange, editorLoaded, name, value }) {
   useEffect(() => {
     editorRef.current = {
       CKEditor: require("@ckeditor/ckeditor5-react").CKEditor,
-      Editor: require("@/pages/hr/ckeditor5/build/ckeditor"),
+      Editor: require("@/components/ckeditor5/build/ckeditor"),
     };
   }, []);
 

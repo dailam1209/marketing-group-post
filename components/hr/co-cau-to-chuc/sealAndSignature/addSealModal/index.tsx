@@ -17,6 +17,21 @@ export default function AddSealModal({ onCancel }: any) {
     const [isPosition_id, setIsPosition_id] = useState<any>("")
     const [isEmp_id, setIsEmp_id] = useState<any>("")
     const [PostionCharDatas, setPosttionCharData] = useState<any>(null)
+    const modalRef = useRef(null);
+
+    useEffect(() => {
+        const handleOutsideClick = (event: any) => {
+            if (modalRef.current && !modalRef.current.contains(event.target)) {
+                onCancel()
+            }
+        };
+
+        document.addEventListener('mousedown', handleOutsideClick);
+
+        return () => {
+            document.removeEventListener('mousedown', handleOutsideClick);
+        };
+    }, [onCancel]);
 
     const com_id: any = GetComId()
 
@@ -154,7 +169,7 @@ export default function AddSealModal({ onCancel }: any) {
             <div className={`${styles.modal_open}`}>
                 <div className={`${styles.modal} ${styles.fade} ${styles.in}`}>
                     <div className={` ${styles.modal_dialog} ${styles.content_process}`}>
-                        <div className={`${styles.modal_content}`}>
+                        <div className={`${styles.modal_content}`} ref={modalRef}>
                             <div className={`${styles.modal_header} ${styles.header_process}`}>
                                 <h5 className={`${styles.modal_tittle}`}>THÊM MỚI NHÂN VIÊN ĐƯỢC SỬ DỤNG DẤU CÔNG TY</h5>
                             </div>
