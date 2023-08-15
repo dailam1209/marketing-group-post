@@ -141,50 +141,6 @@ export function DanhSachTo({
 
   return (
     <div>
-      {/* header */}
-      {/* <Row gutter={{ lg: 15, md: 20 }}>
-        <Col span={10}>
-          <Row gutter={20}>
-            <Col md={24}>
-              <div>
-                {MySelect(
-                  "",
-                  "Công ty cổ phần thanh toán Hưng Hà 2",
-                  false,
-                  false,
-                  "com_id",
-                  [{ label: "Công ty thanh toán Hưng Hà 2", value: 3312 }]
-                )}
-              </div>
-            </Col>
-            <Col md={24} className={styles.hidden}>
-              <div>
-                {MySelect("", "Chọn phòng ban", false, false, "dep_id", [
-                  { label: "Phòng kỹ thuật", value: 1 },
-                ])}
-              </div>
-            </Col>
-            <Col md={24}>
-              <div>{MySelect("", "Chọn tổ", false, false)}</div>
-            </Col>
-          </Row>
-        </Col>
-        <Col span={14}>
-          <Row gutter={{ lg: 15, md: 20 }} justify={"end"}>
-            <Col lg={19} md={17}>
-              <div>{MySelect("", "Chọn phòng ban", false, false, "dep_id", [
-                  { label: "Phòng kỹ thuật", value: 1 },
-                ])}</div>
-            </Col>
-            <Col lg={5} md={7}>
-              <div>{SearchButton("Tìm kiếm", () => null, false)}</div>
-            </Col>
-            <Col lg={5} md={7}>
-              <div>{AddButton("Thêm mới", () => setOpenAddNew(true))}</div>
-            </Col>
-          </Row>
-        </Col>
-      </Row> */}
       <Row gutter={{ lg: 15, md: 20, sm: 20 }}>
         <Col lg={10} md={11} sm={12} xs={24}>
           <Row gutter={20}>

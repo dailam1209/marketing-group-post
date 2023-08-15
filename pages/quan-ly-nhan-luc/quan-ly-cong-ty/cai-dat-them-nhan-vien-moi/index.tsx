@@ -104,8 +104,7 @@ export const getServerSideProps = async (context) => {
   const listStaffs = await POST_SS(
     'api/qlc/managerUser/listAllEmps',
     {
-      com_id: com_id,
-      pageNumber: 1,
+      id_com: com_id,
     },
     context
   )

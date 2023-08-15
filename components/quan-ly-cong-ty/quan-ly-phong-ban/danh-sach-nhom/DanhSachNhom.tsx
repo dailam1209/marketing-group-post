@@ -43,6 +43,8 @@ export function DanhSachNhom({
       value: team?.team_id,
     }))
   );
+  const [comLabel, setComlabel] = useState({ label: infoCom?.data?.userName, value: infoCom?.data?.idQLC })
+
 
   const columns = [
     {
@@ -174,7 +176,7 @@ export function DanhSachNhom({
       <Row gutter={[20, 10]} justify={"end"}>
         <Col lg={10} md={10} sm={12} xs={24}>
           {MySelect("", "Chọn công ty", false, false, "com_id", [
-            { label: company?.userName, value: company?.idQLC },
+            comLabel
           ])}
           {MySelect("", "Chọn tổ", false, false, "team_id", listTeamLabel, null, () => null, handleChangeTeam)}
         </Col>
@@ -220,7 +222,7 @@ export function DanhSachNhom({
         setData,
         selectedRow
       )}
-      {AddNewModal(openAddNew, setOpenAddNew, data, setData)}
+      {AddNewModal(openAddNew, setOpenAddNew, data, setData, comLabel, listDepLabel, listTeamLabel)}
     </div>
   );
 }
