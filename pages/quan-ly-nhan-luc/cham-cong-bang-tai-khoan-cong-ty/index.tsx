@@ -96,7 +96,7 @@ export default function ChamCongCongTy() {
           const respDetail = resdata?.data
           console.log(respDetail?.data)
 
-          if (!_.isEmpty(respDetail)) {
+          if (respDetail?.data?.ep_name) {
             setUserData(respDetail?.data)
             setModalDetail(true)
           } else {
@@ -282,10 +282,10 @@ export default function ChamCongCongTy() {
             justifyContent: 'center',
             flexDirection: 'column',
           }}>
-          <div
-            dangerouslySetInnerHTML={{
-              __html: userData && userData?.shift,
-            }}></div>
+          <p>
+            <span>{userData && userData?.shift_name}</span>
+            <span>{userData && userData?.time_sheet}</span>
+          </p>
         </div>
       </Modal>
     </>
