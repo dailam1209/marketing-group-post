@@ -1,52 +1,70 @@
-import React, { useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import Layout from "@/components/hr/Layout";
-import { useDrop, DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
-import { CheckLogIn, SignIn } from "./hr/api/Home/HomeService";
-import LoadingSpinner from "@/components/hr/loading/index";
-import "../styles/globals.css";
-
+import React, { useEffect, useState } from 'react'
+import '@/styles/globals.css'
+// import '../public/css/style.css'
+import { ConfigProvider, Spin } from 'antd'
+import Bodyframe from '@/components/bodyFrameNs/bodyFrame.tsx'
+import { useRouter } from 'next/router.js'
 export default function App({ Component, pageProps }) {
-  useEffect(() => {}, []);
-  const router = useRouter();
-  const [loading, setLoading] = useState(false);
-  // useEffect(() => {
-  //   const checkLoginAndRedirect = async () => {
-  //     const currentCookie = await CheckLogIn();
-  //     console.log(currentCookie);
-  //     if (currentCookie) {
-  //       setLoading(true);
-  //     } else {
-  //       setLoading(false);
-  //       router.push("https://hungha365.com/lua-chon-dang-nhap.html");
-  //     }
-  //   };
-  //   checkLoginAndRedirect();
-  // }, []);
-
+  const router = useRouter()
+  const [loading, setLoading] = useState(false)
   useEffect(() => {
-    SignIn();
-  }, []);
+    const doLoading = () => {
+      const start = () => {
+        setLoading(true)
+      }
+      const end = () => {
+        setLoading(false)
+      }
+      setTimeout(() => {
+        router.events.on('routeChangeStart', start)
+      }, 200)
+      setTimeout(() => {
+        router.events.on('routeChangeComplete', end)
+      }, 200)
+      router.events.on('routeChangeError', end)
+      return () => {
+        router.events.off('routeChangeStart', start)
+        router.events.off('routeChangeComplete', end)
+        router.events.off('routeChangeError', end)
+      }
+    }
 
-  console.log("Current route:", router.pathname);
-  return (
-    <div>
-      {router.pathname.includes("hr") ? (
-        <>
-          {loading ? (
-            <LoadingSpinner />
-          ) : (
-            <Layout>
-              <DndProvider backend={HTML5Backend}>
-                <Component {...pageProps} />
-              </DndProvider>
-            </Layout>
-          )}
-        </>
+    doLoading()
+  }, [])
+
+  const LoadingComp = () => {
+    return (
+      <Spin
+        // indicator={<LoadingOutlined rev={null} />}
+        style={{
+          position: 'fixed',
+          top: '50%',
+          left: '50%',
+        }}
+      />
+    )
+  }
+
+  return !loading ? (
+    <ConfigProvider
+      theme={{
+        token: {
+          screenLG: 1025,
+          screenLGMin: 1025,
+          screenLGMax: 1025,
+          screenMD: 769,
+          screenMDMin: 769,
+        },
+      }}>
+      {router.pathname?.includes('quan-ly-nhan-luc') ? (
+        <Bodyframe>
+          <Component {...pageProps} />
+        </Bodyframe>
       ) : (
         <Component {...pageProps} />
       )}
-    </div>
-  );
+    </ConfigProvider>
+  ) : (
+    <div>{LoadingComp()}</div>
+  )
 }

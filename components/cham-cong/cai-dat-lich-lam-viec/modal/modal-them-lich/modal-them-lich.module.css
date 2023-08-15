@@ -1,0 +1,56 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px 15px 20px;
+    background-color: var(--theme-color);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+  }
+  .textHead{
+    font-size: 20px;
+    color: var(--white-color);
+  }
+  .body{
+    font-size: 16px;
+    padding: 20px;
+  }
+  .bodyItem{
+    margin-bottom: 20px;
+  }
+  .bodyItemNext{
+    display: flex;
+    justify-content: center;
+    padding-bottom: 20px;
+  }
+  .Button{
+    padding: 3px 30px 3px 30px;
+    display: flex;
+    justify-content: center;
+    background-color: var(--theme-color);
+    height: auto;
+    .txt{
+        color: var(--white-color);
+        font-size: 18px;
+    }
+  }
+  .ButtonWhite{
+    height: auto;
+    margin-right: 50px;
+    padding: 3px 30px 3px 30px;
+    display: flex;
+    align-items: center;
+    background-color: var(--white-color);
+    .text{
+        color: var(--theme-color);
+        font-size: 18px;
+        margin-left: 10px;
+    }
+  }
+  .hasButton{
+    display: flex;
+    justify-content: center;
+  }
+  .input{
+    font-size: 16px;
+  }
