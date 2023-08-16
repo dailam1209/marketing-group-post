@@ -32,7 +32,6 @@ export default function TabPayrollDown({ iconAdd, iconEdit, iconDelete }: any) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const pagesize: any = 20
                 const formData = new FormData();
                 const fromDate = (document.getElementById('from_date') as HTMLInputElement)?.value
                 const toDate = (document.getElementById('to_date') as HTMLInputElement)?.value
@@ -40,14 +39,14 @@ export default function TabPayrollDown({ iconAdd, iconEdit, iconDelete }: any) {
                 formData.append('current_dep_id', isDep_id)
                 formData.append('fromDate', fromDate)
                 formData.append('toDate', toDate)
-                formData.append('pageSize', pagesize)
+                formData.append('pageSize', isPageSize)
                 const response = await PayrollDownList(formData)
                 setPayrollDownList(response?.data)
             } catch (error) {
             }
         }
         fetchData()
-    }, [isSeach])
+    }, [isSeach, isPageSize])
 
     // -- lấy dữ liệu phòng ban --
     useEffect(() => {

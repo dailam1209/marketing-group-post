@@ -54,8 +54,10 @@ export default function App({ Component, pageProps }) {
         router.events.off("routeChangeError", end);
       };
     };
-
-    doLoading();
+    if (router.pathname.includes("hr")) {
+    } else {
+      doLoading();
+    }
   }, []);
 
   const LoadingComp = () => {
@@ -73,7 +75,6 @@ export default function App({ Component, pageProps }) {
 
   const importGlobalStyles = () => {
     if (router.pathname?.includes("hr")) {
-      ("../styles/globals_hr.css");
       import("../styles/globals_hr.css");
     } else {
       import("@/styles/globals.css");

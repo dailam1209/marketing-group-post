@@ -32,12 +32,12 @@ export default function TabWorkingRotation({ iconAdd, iconEdit, iconDelete }: an
     const [isEmp_id, setEmp_id] = useState<any>("")
     const [isSeach, setSearch] = useState<any>(null)
     const [infoList, setInfoList] = useState<any>(null)
+    const [isPageSize, setPageSize] = useState<any>(10)
     const comid: any = GetComId()
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const pagesize: any = 20
                 const formData = new FormData();
                 const fromDate = (document.getElementById('from_date') as HTMLInputElement)?.value
                 const toDate = (document.getElementById('to_date') as HTMLInputElement)?.value
@@ -45,14 +45,14 @@ export default function TabWorkingRotation({ iconAdd, iconEdit, iconDelete }: an
                 formData.append('update_dep_id', isDep_id)
                 formData.append('fromDate', fromDate)
                 formData.append('toDate', toDate)
-                formData.append('pageSize', pagesize)
+                formData.append('pageSize', isPageSize)
                 const response = await WorkingRotaionList(formData)
                 setWorkingRotationList(response?.data)
             } catch (error) {
             }
         }
         fetchData()
-    }, [isSeach])
+    }, [isSeach, isPageSize])
 
     // -- lấy dữ liệu phòng ban --
     useEffect(() => {
@@ -114,6 +114,12 @@ export default function TabWorkingRotation({ iconAdd, iconEdit, iconDelete }: an
     const handleSearch = useCallback(() => {
         setSearch({ isDep_id, isEmp_id });
     }, [isDep_id, isEmp_id]);
+
+    const handleChoose = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const value = parseInt(event.target.value);
+        setPageSize(value)
+        window.scrollTo(0, 0);
+    }
 
 
 
@@ -288,6 +294,13 @@ export default function TabWorkingRotation({ iconAdd, iconEdit, iconDelete }: an
                                     </tbody>
                                 </table>
                             </div>
+                        </div>
+                        <div id="choose_limit" className={`${styles.pull_left}`}>
+                            <select name="" id="choose_limit_page" className={`${styles.form_control}`} onChange={(event) => handleChoose(event)}>
+                                <option value="10"  >10</option>
+                                <option value="20" >20</option>
+                                <option value="30">30</option>
+                            </select>
                         </div>
                     </div>
                     <BodyFrameFooter src="https://www.youtube.com/embed/e29o-TSnbeE"></BodyFrameFooter>
