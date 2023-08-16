@@ -1,49 +1,63 @@
-import React, { useEffect, useState } from 'react'
-import '@/styles/globals.css'
+import React, { useEffect, useState } from "react";
+import "@/styles/globals.css";
+import { AccessContextComponent } from "@/components/crm/context/accessContext";
+import { SidebarResize } from "@/components/crm/context/resizeContext";
+import Header from "@/components/crm/header/header";
+import useModal from "@/components/crm/hooks/useModal";
+import Sidebar from "@/components/crm/sidebar/sidebar";
 // import '../public/css/style.css'
-import { ConfigProvider, Spin } from 'antd'
-import Bodyframe from '@/components/bodyFrameNs/bodyFrame.tsx'
-import { useRouter } from 'next/router.js'
+import { ConfigProvider, Spin } from "antd";
+import Bodyframe from "@/components/bodyFrameNs/bodyFrame.tsx";
+import { useRouter } from "next/router.js";
+import ChatBusiness from "@/components/crm/chat/chat";
+import { NavigateContextComponent } from "@/components/crm/context/navigateContext";
+import TitleHeaderMobile from "@/components/crm/header/title_header_mobile";
+import styles from "@/components/crm/sidebar/sidebar.module.css";
+import "@/styles/crm/stylecrm.css";
+import "@/styles/crm/styles.css"
+import "@/styles/crm/hight_chart.css"
+
 export default function App({ Component, pageProps }) {
-  const router = useRouter()
-  const [loading, setLoading] = useState(false)
+  const { isOpen, toggleModal } = useModal("icon_menu_nav", [styles.sidebar]);
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     const doLoading = () => {
       const start = () => {
-        setLoading(true)
-      }
+        setLoading(true);
+      };
       const end = () => {
-        setLoading(false)
-      }
+        setLoading(false);
+      };
       setTimeout(() => {
-        router.events.on('routeChangeStart', start)
-      }, 200)
+        router.events.on("routeChangeStart", start);
+      }, 200);
       setTimeout(() => {
-        router.events.on('routeChangeComplete', end)
-      }, 200)
-      router.events.on('routeChangeError', end)
+        router.events.on("routeChangeComplete", end);
+      }, 200);
+      router.events.on("routeChangeError", end);
       return () => {
-        router.events.off('routeChangeStart', start)
-        router.events.off('routeChangeComplete', end)
-        router.events.off('routeChangeError', end)
-      }
-    }
+        router.events.off("routeChangeStart", start);
+        router.events.off("routeChangeComplete", end);
+        router.events.off("routeChangeError", end);
+      };
+    };
 
-    doLoading()
-  }, [])
+    doLoading();
+  }, []);
 
   const LoadingComp = () => {
     return (
       <Spin
         // indicator={<LoadingOutlined rev={null} />}
         style={{
-          position: 'fixed',
-          top: '50%',
-          left: '50%',
+          position: "fixed",
+          top: "50%",
+          left: "50%",
         }}
       />
-    )
-  }
+    );
+  };
 
   return !loading ? (
     <ConfigProvider
@@ -55,16 +69,29 @@ export default function App({ Component, pageProps }) {
           screenMD: 769,
           screenMDMin: 769,
         },
-      }}>
-      {router.pathname?.includes('quan-ly-nhan-luc') ? (
+      }}
+    >
+      {router.pathname?.includes("quan-ly-nhan-luc") ? (
         <Bodyframe>
           <Component {...pageProps} />
         </Bodyframe>
-      ) : (
+      ): router.pathname?.includes("crm") ?(
+        <AccessContextComponent>
+          <SidebarResize>
+            <NavigateContextComponent>
+              <Header toggleModal={toggleModal} />
+              <Sidebar isOpened={isOpen} />
+              <ChatBusiness />
+              <TitleHeaderMobile />
+              <Component {...pageProps} />
+            </NavigateContextComponent>
+          </SidebarResize>
+        </AccessContextComponent>
+      ):(
         <Component {...pageProps} />
       )}
     </ConfigProvider>
   ) : (
     <div>{LoadingComp()}</div>
-  )
+  );
 }
