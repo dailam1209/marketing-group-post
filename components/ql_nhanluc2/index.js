@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { infoCom, infoEp } from "../../utils/handleApi";
 import Cookies from "js-cookie";
-const QlNhanluc2 = () => {
+const QlNhanluc2 = ({ checkCookie }) => {
   const elementRefs = useRef([]);
   const seeNvAllClickHandlerRef = useRef(null);
 
@@ -48,6 +48,13 @@ const QlNhanluc2 = () => {
       document.removeEventListener("click", detlNvCtyClickHandler);
     };
   }, [getNameCompany]);
+
+  // const [isRoleExists, setRoleExists] = useState(!!Cookies.get("role")); // Khởi tạo giá trị ban đầu
+
+  // useEffect(() => {
+  //   const roleExists = !!Cookies.get("role");
+  //   setRoleExists(roleExists);
+  // }, [isRoleExists]); // Sử dụng isRoleExists trong mảng dependency để theo dõi sự thay đổi
 
   return (
     <>
