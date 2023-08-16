@@ -4,6 +4,7 @@ import Select from 'react-select';
 import MyEditorNew from "@/components/hr/myEditor";
 import { AddWorkingRotation } from "@/pages/hr/api/bien_dong_nhan_su";
 import { FetchDataOrganizationalStructure, FetchDataDep, FetchDataPosition, FetchDataSpecifiedGroup } from "@/components/hr/util/listAll";
+import * as Yup from "yup";
 
 type SelectOptionType = { label: string, value: string }
 
@@ -62,6 +63,7 @@ export default function EditWorkingModal({ onCancel, infoList }: any) {
     const [isPosition_id, setPosition_id] = useState<any>(null)
     const [isPosition_idNew, setPosition_idNew] = useState<any>(null)
     const [isSpecified_id, setSpecified_id] = useState<any>(null)
+    const [errors, setErrors] = useState<any>({});
     const modalRef = useRef(null);
 
     useEffect(() => {
@@ -113,9 +115,36 @@ export default function EditWorkingModal({ onCancel, infoList }: any) {
         }
     }, [infoList.dep_id, isDepList, isPositionList, infoList.position_name]);
 
+
+    const validationSchema = Yup.object().shape({
+        chonnhanvien: Yup.string().required("Vui lòng chọn nhân viên"),
+        donvicongtacmoi: Yup.string().required("Vui lòng chọn đơn vị công tác mới"),
+        phongbanmoi: Yup.string().required("Vui lòng chọn phòng ban mới"),
+        chucvuhientai: Yup.string().required("Vui lòng chọn chức vụ hiện tại"),
+        chucvumoi: Yup.string().required("Vui lòng chọn chức vụ mới"),
+        created_at: Yup.string().required("Vui lòng chọn thời gian luân chuyển công tác"),
+        mission: Yup.string().required("Vui lòng nhập nhiệm vụ"),
+    });
+
+
     const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
         try {
+
+            const formDatas = {
+                chonnhanvien: infoList.ep_id || "",
+                donvicongtacmoi: isCom_idNew || "",
+                phongbanmoi: isDep_idNew || "",
+                chucvuhientai: isPosition_id || "",
+                chucvumoi: isPosition_idNew || "",
+                created_at: (document.getElementById('created_at') as HTMLInputElement)?.value || "",
+                mission: isMission || "",
+            };
+
+            await validationSchema.validate(formDatas, {
+                abortEarly: false,
+            });
+
             const created_at = (document.getElementById('created_at') as HTMLInputElement)?.value
             const formData = new FormData();
             formData.append('ep_id', infoList.ep_id)
@@ -135,7 +164,15 @@ export default function EditWorkingModal({ onCancel, infoList }: any) {
                 onCancel()
             }, 2000)
         } catch (error) {
-            throw error
+            if (error instanceof Yup.ValidationError) {
+                const yupErrors = {};
+                error.inner.forEach((yupError: any) => {
+                    yupErrors[yupError.path] = yupError.message;
+                });
+                setErrors(yupErrors);
+            } else {
+                console.error("Lỗi validate form:", error);
+            }
         }
     }
 
@@ -295,7 +332,9 @@ export default function EditWorkingModal({ onCancel, infoList }: any) {
                                         </div>
                                     </div>
                                     <div className={`${styles.form_groups}`}>
-                                        <label htmlFor="">Tên nhân viên <span style={{ color: 'red' }}> * </span></label>
+                                        <label htmlFor="">Tên nhân viên <span style={{ color: 'red' }}> *
+                                            <span> {errors.chonnhanvien && <div className={`${styles.t_require} `}>{errors.chonnhanvien}</div>}</span>
+                                        </span></label>
                                         <div className={`${styles.input_right}`}>
                                             <Select
                                                 options={options.chonnhanvien}
@@ -319,7 +358,9 @@ export default function EditWorkingModal({ onCancel, infoList }: any) {
                                         </div>
                                     </div>
                                     <div className={`${styles.form_groups}`}>
-                                        <label htmlFor="">Chức vụ hiện tại <span style={{ color: 'red' }}> * </span></label>
+                                        <label htmlFor="">Chức vụ hiện tại <span style={{ color: 'red' }}> *
+                                            <span> {errors.chucvuhientai && <div className={`${styles.t_require} `}>{errors.chucvuhientai}</div>}</span>
+                                        </span></label>
                                         <div className={`${styles.input_right}`}>
                                             <Select
                                                 value={options.chucvuhientai}
@@ -343,7 +384,8 @@ export default function EditWorkingModal({ onCancel, infoList }: any) {
                                         </div>
                                     </div>
                                     <div className={`${styles.form_groups}`}>
-                                        <label htmlFor="">Đơn vị công tác mới <span style={{ color: 'red' }}> * </span></label>
+                                        <label htmlFor="">Đơn vị công tác mới <span style={{ color: 'red' }}> *
+                                            <span> {errors.donvicongtacmoi && <div className={`${styles.t_require} `}>{errors.donvicongtacmoi}</div>}</span> </span></label>
                                         <div className={`${styles.input_right}`}>
                                             <Select
                                                 defaultValue={selectedOption}
@@ -368,7 +410,8 @@ export default function EditWorkingModal({ onCancel, infoList }: any) {
                                         </div>
                                     </div>
                                     <div className={`${styles.form_groups}`}>
-                                        <label htmlFor="">Phòng ban mới <span style={{ color: 'red' }}> * </span></label>
+                                        <label htmlFor="">Phòng ban mới <span style={{ color: 'red' }}> *
+                                            <span> {errors.phongbanmoi && <div className={`${styles.t_require} `}>{errors.phongbanmoi}</div>}</span> </span></label>
                                         <div className={`${styles.input_right}`}>
                                             <Select
                                                 defaultValue={selectedOption}
@@ -443,7 +486,9 @@ export default function EditWorkingModal({ onCancel, infoList }: any) {
                                         </div>
                                     </div>
                                     <div className={`${styles.form_groups}`}>
-                                        <label htmlFor="">Chức vụ mới <span style={{ color: 'red' }}> * </span></label>
+                                        <label htmlFor="">Chức vụ mới <span style={{ color: 'red' }}> *
+                                            <span> {errors.chucvumoi && <div className={`${styles.t_require} `}>{errors.chucvumoi}</div>}</span>
+                                        </span></label>
                                         <div className={`${styles.input_right}`}>
                                             <Select
                                                 defaultValue={selectedOption}
@@ -469,7 +514,9 @@ export default function EditWorkingModal({ onCancel, infoList }: any) {
                                     </div>
 
                                     <div className={`${styles.form_groups}`}>
-                                        <label htmlFor="">Thời gian luân chuyển công tác <span style={{ color: 'red' }}> * </span></label>
+                                        <label htmlFor="">Thời gian luân chuyển công tác <span style={{ color: 'red' }}> *
+                                            <span> {errors.created_at && <div className={`${styles.t_require} `}>{errors.created_at}</div>}</span>
+                                        </span></label>
                                         <div className={`${styles.input_right}`}>
                                             <input type="date" id="created_at" placeholder="dd/mm/yyyy" className={`${styles.input_process}`} />
                                         </div>
@@ -500,7 +547,9 @@ export default function EditWorkingModal({ onCancel, infoList }: any) {
                                         </div>
                                     </div>
                                     <div className={`${styles.form_groups} ${styles.cke}`}>
-                                        <label htmlFor="">Nhiệm vụ công việc mới <span style={{ color: 'red' }}> * </span></label>
+                                        <label htmlFor="">Nhiệm vụ công việc mới <span style={{ color: 'red' }}> *
+                                            <span> {errors.mission && <div className={`${styles.t_require} `}>{errors.mission}</div>}</span>
+                                        </span></label>
                                         <div className={`${styles.ckeditor}`}>
                                             <Input_textarea onDescriptionChange={(data) => handleInputAreaChange(data, setMission)} />
                                         </div>

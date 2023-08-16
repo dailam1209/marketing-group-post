@@ -15,6 +15,8 @@ import { ContactJobDetails } from "@/pages/hr/api/quan-ly-tuyen-dung/candidateLi
 import { GetJobDetails } from "@/pages/hr/api/quan-ly-tuyen-dung/candidateList";
 import { FailJobDetails } from "@/pages/hr/api/quan-ly-tuyen-dung/candidateList";
 import { CancelJobDetails } from "@/pages/hr/api/quan-ly-tuyen-dung/candidateList";
+import { EmployeeList } from "@/pages/hr/api/listNhanVien";
+
 import Head from "next/head";
 import { getDataAuthentication } from "@/pages/hr/api/Home/HomeService";
 interface Option {
@@ -38,7 +40,20 @@ export default function DetailCandidate({ onCancel }: any) {
   const [isCandidateProcess, setCandidateProcess] = useState<any>(null)
   const [isProcessName, setProcessName] = useState<any>(null);
   const [displayIcon, setDisplayIcon] = useState<any>();
+  const [EmpData, setEmpData] = useState<any>(null)
   console.log(isCandidateProcess);
+  console.log(EmpData);
+  console.log(isCandidate);
+
+
+  const EmpMatchProcess = EmpData?.data?.find((item: any) => item.idQLC ===
+    isCandidateProcess?.detail_get_job?.empInterview
+    || isCandidateProcess?.detail_fail_job?.empInterview
+    || isCandidateProcess?.detail_cancel_job?.empInterview
+    || isCandidateProcess?.detail_contact_job?.epOffer
+  )
+  console.log(EmpMatchProcess);
+
 
   useEffect(() => {
     try {
@@ -51,8 +66,19 @@ export default function DetailCandidate({ onCancel }: any) {
     }
   }, []);
 
-  const perIdArray = displayIcon?.map((item) => item.perId);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const formData = new FormData();
+        const response = await EmployeeList(formData)
+        setEmpData(response?.data)
+      } catch (error) {
+      }
+    }
+    fetchData()
+  }, [])
 
+  const perIdArray = displayIcon?.map((item) => item.perId);
   const iconEdit = perIdArray?.includes(3);
 
   useEffect(() => {
@@ -230,12 +256,12 @@ export default function DetailCandidate({ onCancel }: any) {
 
     ],
     kinhnghiemlamviec: [
-      { value: 0, label: 'Chưa có kinh nghiệm' },
-      { value: 1, label: '0 - 1 năm kinh nghiệm' },
-      { value: 2, label: '1 - 2 năm kinh nghiệm' },
-      { value: 3, label: '2 - 5 năm kinh nghiệm' },
-      { value: 4, label: '5 - 10 năm kinh nghiệm' },
-      { value: 5, label: 'Hơn 10 năm kinh nghiệm' },
+      { value: "0", label: "Chưa có kinh nghiệm" },
+      { value: "1", label: "0 - 1 năm kinh nghiệm" },
+      { value: "2", label: "1 - 2 năm kinh nghiệm" },
+      { value: "3", label: "2 - 5 năm kinh nghiệm" },
+      { value: "4", label: "5 - 10 năm kinh nghiệm" },
+      { value: "5", label: "Hơn 10 năm kinh nghiệm" },
     ],
     tinhtranghonnhan: [
       { value: 1, label: 'Độc thân' },
@@ -246,7 +272,7 @@ export default function DetailCandidate({ onCancel }: any) {
 
   const selectedGender: any = options.chongioitinh.find((item) => item.value === isCandidate?.gender);
   const selectedEducation: any = options.trinhdohocvan.find((item) => item.value === isCandidate?.education);
-  const selectedExp: any = options.kinhnghiemlamviec.find((item) => item.value === isCandidate?.exp);
+  const selectedExp: any = options.kinhnghiemlamviec.find((item) => item.value === isCandidate?.exp.toString());
   const selectedMarried: any = options.tinhtranghonnhan.find((item) => item.value === isCandidate?.isMarried);
 
   return (
@@ -309,7 +335,7 @@ export default function DetailCandidate({ onCancel }: any) {
               <p className={`${styles.l_body_2_left_body_title}`}>Thông tin tuyển dụng</p>
               <p>Nguồn ứng viên: <span className={`${styles.txt_op}`}>{isCandidate?.cvFrom}</span></p>
               <p>Vị trí ứng tuyển: <span className={`${styles.txt_op}`}>{isCandidate?.Title}</span></p>
-              <p>Nhân viên tuyển dụng: <span className={`${styles.txt_op}`}>{isCandidate?.userHiring}</span></p>
+              <p>Nhân viên tuyển dụng: <span className={`${styles.txt_op}`}>{isCandidate?.NvTuyenDung}</span></p>
             </div>
             <div className={`${styles.l_body_2_left_body}`}>
               <p className={`${styles.l_body_2_left_body_title}`}>Quá trình tuyển dụng</p>
@@ -333,12 +359,12 @@ export default function DetailCandidate({ onCancel }: any) {
             {id?.includes("p") && (
               <div className={`${styles.l_body_2_left_body}`}>
                 {isProcessName && <p className={`${styles.l_body_2_left_body_title}`}>Giai đoạn chuyển: {isProcessName}</p>}
-                <p>Thời gian chuyển giai đoạn: <span className={`${styles.txt_op}`}>{isCandidate?.userHiring}</span></p>
-                <p>Mức lương mong muốn: <span className={`${styles.txt_op}`}>{isCandidate?.cvFrom}</span></p>
-                <p>Mức lương thực: <span className={`${styles.txt_op}`}>{isCandidate?.Recruitment}</span></p>
-                <p>Thời gian hẹn: <span className={`${styles.txt_op}`}>{isCandidate?.userHiring}</span></p>
-                <p>Nhân viên tham gia: <span className={`${styles.txt_op}`}>{isCandidate?.userHiring}</span></p>
-                <p>Ghi chú: <span className={`${styles.txt_op}`}>{isCandidate?.userHiring}</span></p>
+                <p>Thời gian chuyển giai đoạn: <span className={`${styles.txt_op}`}>{""}</span></p>
+                <p>Mức lương mong muốn: <span className={`${styles.txt_op}`}>{""}</span></p>
+                <p>Mức lương thực: <span className={`${styles.txt_op}`}>{""}</span></p>
+                <p>Thời gian hẹn: <span className={`${styles.txt_op}`}>{""}</span></p>
+                <p>Nhân viên tham gia: <span className={`${styles.txt_op}`}>{EmpMatchProcess?.userName}</span></p>
+                <p>Ghi chú: <span className={`${styles.txt_op}`}>{""}</span></p>
               </div>
             )}
             {id?.charAt(0) === 'g' && (
@@ -349,7 +375,7 @@ export default function DetailCandidate({ onCancel }: any) {
                 {isCandidateProcess?.detail_get_job?.interviewTime &&
                   <p>Thời gian hẹn: <span className={`${styles.txt_op}`}>{format(parseISO(isCandidateProcess?.detail_get_job?.interviewTime), 'dd-MM-yyyy')}</span></p>
                 }
-                <p>Nhân viên tham gia: <span className={`${styles.txt_op}`}>{isCandidateProcess?.detail_get_job?.empInterview}</span></p>
+                <p>Nhân viên tham gia: <span className={`${styles.txt_op}`}>{EmpMatchProcess?.userName}</span></p>
                 <p>Ghi chú: <span className={`${styles.txt_op}`}>{isCandidateProcess?.detail_get_job?.note}</span></p>
               </div>
             )}
@@ -376,20 +402,20 @@ export default function DetailCandidate({ onCancel }: any) {
             {id?.charAt(0) === 's' && (
               <>
                 <div className={`${styles.l_body_2_left_body}`}>
-                  <p className={`${styles.l_body_2_left_body_title}`}>Giai đoạn chuyển: Chờ phỏng vấn</p>
-                  <p>Thời gian chuyển giai đoạn: <span className={`${styles.txt_op}`}>{isCandidate?.userHiring}</span></p>
-                  <p>Mức lương mong muốn: <span className={`${styles.txt_op}`}>{isCandidate?.cvFrom}</span></p>
-                  <p>Mức lương thực: <span className={`${styles.txt_op}`}>{isCandidate?.Recruitment}</span></p>
-                  <p>Thời gian hẹn: <span className={`${styles.txt_op}`}>{isCandidate?.userHiring}</span></p>
-                  <p>Nhân viên tham gia: <span className={`${styles.txt_op}`}>{isCandidate?.userHiring}</span></p>
-                  <p>Ghi chú: <span className={`${styles.txt_op}`}>{isCandidate?.userHiring}</span></p>
+                  {isProcessName && <p className={`${styles.l_body_2_left_body_title}`}>Giai đoạn chuyển: {isProcessName}</p>}
+                  <p>Thời gian chuyển giai đoạn: <span className={`${styles.txt_op}`}>{""}</span></p>
+                  <p>Mức lương mong muốn: <span className={`${styles.txt_op}`}>{""}</span></p>
+                  <p>Mức lương thực: <span className={`${styles.txt_op}`}>{""}</span></p>
+                  <p>Thời gian hẹn: <span className={`${styles.txt_op}`}>{""}</span></p>
+                  <p>Nhân viên tham gia: <span className={`${styles.txt_op}`}>{EmpMatchProcess?.userName}</span></p>
+                  <p>Ghi chú: <span className={`${styles.txt_op}`}>{""}</span></p>
                 </div>
                 <div className={`${styles.l_body_2_left_body}`}>
-                  <p className={`${styles.l_body_2_left_body_title}`}>Giai đoạn chuyển: Hủy phỏng vấn</p>
+                  <p className={`${styles.l_body_2_left_body_title}`}>Giai đoạn chuyển: Ký hợp đồng</p>
                   {isCandidateProcess?.detail_contact_job?.offerTime &&
                     <p>Thời gian kí hợp đồng: <span className={`${styles.txt_op}`}>{format(parseISO(isCandidateProcess?.detail_contact_job?.offerTime), 'dd-MM-yyyy')}</span></p>
                   }
-                  <p>Nhân viên tham gia: <span className={`${styles.txt_op}`}>{isCandidateProcess?.detail_contact_job?.epOffer}</span></p>
+                  <p>Nhân viên tham gia: <span className={`${styles.txt_op}`}>{EmpMatchProcess?.userName}</span></p>
                   <p>Mức lương mong muốn: <span className={`${styles.txt_op}`}>{isCandidateProcess?.detail_contact_job?.resiredSalary}</span></p>
                   <p>Mức lương thực: <span className={`${styles.txt_op}`}>{isCandidateProcess?.detail_contact_job?.salary}</span></p>
                   <p>Ghi chú: <span className={`${styles.txt_op}`}>{isCandidateProcess?.detail_contact_job?.note}</span></p>

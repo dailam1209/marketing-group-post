@@ -15,12 +15,8 @@ type SelectOptionType = { label: string; value: any };
 export default function EditCandidateModal({ onCancel, candidate }: any) {
     const [rating, setRating] = useState<any>(candidate?.starVote);
     const [addAnotherSkill, setAddAnotherSkill] = useState<JSX.Element[]>([]);
-    const [skills, setSkills] = useState<{ skillName: string; skillVote: any }[]>(
-        []
-    );
-    const [selectedOption, setSelectedOption] = useState<SelectOptionType | null>(
-        null
-    );
+    const [skills, setSkills] = useState<{ skillName: string; skillVote: any }[]>([]);
+    const [selectedOption, setSelectedOption] = useState<SelectOptionType | null>(null);
     const [lastAddedIndex, setLastAddedIndex] = useState(-1);
     const [provisionFile, setProvisionFile] = useState<File | null>(null);
     const [isGender, setGender] = useState<any>(candidate?.gender);
@@ -28,12 +24,8 @@ export default function EditCandidateModal({ onCancel, candidate }: any) {
     const [isUserHiring, setUserHiring] = useState<any>(candidate?.userHiring);
     const [isExp, setExp] = useState<any>(candidate?.exp);
     const [isMarried, setMarried] = useState<any>(candidate?.isMarried);
-    const [isUserRecommend, setUserRecommend] = useState<any>(
-        candidate?.userRecommend
-    );
-    const [isRecruitmentNewsId, setRecruitmentNewsId] = useState<any>(
-        candidate?.recruitmentNewsId
-    );
+    const [isUserRecommend, setUserRecommend] = useState<any>(candidate?.userRecommend);
+    const [isRecruitmentNewsId, setRecruitmentNewsId] = useState<any>(candidate?.recruitmentNewsId);
     const [isEmpList, setEmpList] = useState<any>(null);
     const [isNewList, setNewsList] = useState<any>(null);
     const [errors, setErrors] = useState<any>({});
@@ -348,12 +340,12 @@ export default function EditCandidateModal({ onCancel, candidate }: any) {
             { value: 19, label: "Khác" },
         ],
         kinhnghiemlamviec: [
-            { value: 0, label: "Chưa có kinh nghiệm" },
-            { value: 1, label: "0 - 1 năm kinh nghiệm" },
-            { value: 2, label: "1 - 2 năm kinh nghiệm" },
-            { value: 3, label: "2 - 5 năm kinh nghiệm" },
-            { value: 4, label: "5 - 10 năm kinh nghiệm" },
-            { value: 5, label: "Hơn 10 năm kinh nghiệm" },
+            { value: "0", label: "Chưa có kinh nghiệm" },
+            { value: "1", label: "0 - 1 năm kinh nghiệm" },
+            { value: "2", label: "1 - 2 năm kinh nghiệm" },
+            { value: "3", label: "2 - 5 năm kinh nghiệm" },
+            { value: "4", label: "5 - 10 năm kinh nghiệm" },
+            { value: "5", label: "Hơn 10 năm kinh nghiệm" },
         ],
         tinhtranghonnhan: [
             { value: 1, label: "Độc thân" },
@@ -375,7 +367,7 @@ export default function EditCandidateModal({ onCancel, candidate }: any) {
         (item) => item.value === candidate?.education
     );
     const selectedExp: any = options.kinhnghiemlamviec?.find(
-        (item) => item.value === candidate?.exp
+        (item) => item.value === candidate?.exp.toString()
     );
     const selectedMarried: any = options.tinhtranghonnhan?.find(
         (item) => item.value === candidate?.isMarried

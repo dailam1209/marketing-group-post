@@ -76,6 +76,11 @@ export default function AddOutJobModal({ onCancel }: any) {
     }, [onCancel]);
 
     useEffect(() => {
+        const fetchDataEmp = async () => {
+            const empData = await FetchDataEmployee();
+            setEmpList(empData);
+        }
+        fetchDataEmp()
         fetchData();
     }, []);
 
@@ -83,9 +88,6 @@ export default function AddOutJobModal({ onCancel }: any) {
         try {
             const organizationStructure = await FetchDataOrganizationalStructure();
             setOrganizationalStructureList(organizationStructure);
-
-            const empData = await FetchDataEmployee();
-            setEmpList(empData);
 
             const position = await FetchDataPosition()
             setPositionList(position)

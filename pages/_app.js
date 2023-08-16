@@ -14,21 +14,6 @@ export default function App({ Component, pageProps }) {
   useEffect(() => {}, []);
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  // useEffect(() => {
-  //   const checkLoginAndRedirect = async () => {
-  //     const currentCookie = await CheckLogIn();
-  //     console.log(currentCookie);
-  //     if (currentCookie) {
-  //       setLoading(true);
-  //       console.log(currentCookie);
-  //     } else {
-  //       setLoading(false);
-  //       window.location.href = "/";
-  //     }
-  //   };
-  //   checkLoginAndRedirect();
-  // }, []);
-
   useEffect(() => {
     SignIn();
   }, []);

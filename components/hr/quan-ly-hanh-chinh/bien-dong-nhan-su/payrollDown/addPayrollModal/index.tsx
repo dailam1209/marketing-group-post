@@ -5,6 +5,7 @@ import MyEditorNew from "@/components/hr/myEditor";
 import { FetchDataDep, FetchDataOrganizationalStructure, FetchDataEmployee, FetchDataPosition, FetchDataSpecifiedGroup } from "@/components/hr/util/listAll";
 import { ShiftList, AddPayrollDown } from "@/pages/hr/api/bien_dong_nhan_su";
 import GetComId from "@/components/hr/getComID";
+import * as Yup from "yup";
 interface InputTextareaProps {
     onDescriptionChange: (data: any) => void
 }
@@ -63,6 +64,7 @@ export default function AddPayrollModal({ onCancel }: any) {
     const [isDep_id, setDep_id] = useState<any>(null)
     const [isType_id, setType_id] = useState<any>(null)
     const [isShift_id, setShift_id] = useState<any>(null)
+    const [errors, setErrors] = useState<any>({});
     const comid: any = GetComId()
     const modalRef = useRef(null);
 
@@ -81,6 +83,11 @@ export default function AddPayrollModal({ onCancel }: any) {
     }, [onCancel]);
 
     useEffect(() => {
+        const fetchDataEmp = async () => {
+            const empData = await FetchDataEmployee();
+            setEmpList(empData);
+        }
+        fetchDataEmp()
         fetchData();
     }, []);
 
@@ -88,9 +95,6 @@ export default function AddPayrollModal({ onCancel }: any) {
         try {
             const organizationStructure = await FetchDataOrganizationalStructure();
             setOrganizationalStructureList(organizationStructure);
-
-            const empData = await FetchDataEmployee();
-            setEmpList(empData);
 
             const position = await FetchDataPosition()
             setPositionList(position)
@@ -152,10 +156,31 @@ export default function AddPayrollModal({ onCancel }: any) {
         }
     }, [isDep_id])
 
+    const validationSchema = Yup.object().shape({
+        chonnhanvien: Yup.string().required("Vui lòng chọn nhân viên"),
+        chucvuhientai: Yup.string().required("Vui lòng chọn chức vụ hiện tại"),
+        chonhinhthuc: Yup.string().required("Vui lòng chọn hình thức"),
+        created_at: Yup.string().required("Vui lòng chọn thời gian giảm biên chế"),
+    });
+
     const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
         try {
             const created_at = (document.getElementById('created_at') as HTMLInputElement)?.value
+
+            const formDatas = {
+                chonnhanvien: selectedOption?.value || "",
+                chucvuhientai: isPosition_id || "",
+                created_at: created_at || "",
+                chonhinhthuc: isType_id || ""
+
+            };
+
+            await validationSchema.validate(formDatas, {
+                abortEarly: false,
+            });
+
+
             const formData = new FormData();
             formData.append('ep_id', isEmp_id)
             formData.append('current_position', isPosition_id)
@@ -172,7 +197,15 @@ export default function AddPayrollModal({ onCancel }: any) {
                 onCancel()
             }, 2000)
         } catch (error) {
-            throw error
+            if (error instanceof Yup.ValidationError) {
+                const yupErrors = {};
+                error.inner.forEach((yupError: any) => {
+                    yupErrors[yupError.path] = yupError.message;
+                });
+                setErrors(yupErrors);
+            } else {
+                console.error("Lỗi validate form:", error);
+            }
         }
     }
 
@@ -276,7 +309,9 @@ export default function AddPayrollModal({ onCancel }: any) {
                             <div className={`${styles.modal_body}`}>
                                 <form action="">
                                     <div className={`${styles.form_groups}`}>
-                                        <label htmlFor="">Tên nhân viên <span style={{ color: 'red' }}> * </span></label>
+                                        <label htmlFor="">Tên nhân viên <span style={{ color: 'red' }}> *
+                                            <span> {errors.chonnhanvien && <div className={`${styles.t_require} `}>{errors.chonnhanvien}</div>}</span>
+                                        </span></label>
                                         <div className={`${styles.input_right}`}>
                                             <Select
                                                 defaultValue={selectedOption}
@@ -301,7 +336,9 @@ export default function AddPayrollModal({ onCancel }: any) {
                                         </div>
                                     </div>
                                     <div className={`${styles.form_groups}`}>
-                                        <label htmlFor="">Chức vụ hiện tại <span style={{ color: 'red' }}> * </span></label>
+                                        <label htmlFor="">Chức vụ hiện tại <span style={{ color: 'red' }}> *
+                                            <span> {errors.chucvuhientai && <div className={`${styles.t_require}`}>{errors.chucvuhientai}</div>}</span>
+                                        </span></label>
                                         <div className={`${styles.input_right}`}>
                                             <Select
                                                 value={options.chucvuhientai}
@@ -377,9 +414,12 @@ export default function AddPayrollModal({ onCancel }: any) {
                                         </div>
                                     </div>
                                     <div className={`${styles.form_groups}`}>
-                                        <label htmlFor="">Thời gian bắt đầu nghỉ <span style={{ color: 'red' }}> * </span></label>
+                                        <label htmlFor="">Thời gian bắt đầu nghỉ <span style={{ color: 'red' }}> *
+                                            <span> {errors.created_at && <div className={`${styles.t_require}`}>{errors.created_at}</div>}</span>
+                                        </span></label>
                                         <div className={`${styles.input_right}`}>
                                             <input type="date" id="created_at" placeholder="dd/mm/yyyy" className={`${styles.input_process}`} />
+
                                         </div>
                                     </div>
                                     <div className={`${styles.form_groups}`}>
@@ -408,7 +448,9 @@ export default function AddPayrollModal({ onCancel }: any) {
                                         </div>
                                     </div>
                                     <div className={`${styles.form_groups}`}>
-                                        <label htmlFor="">Hình thức </label>
+                                        <label htmlFor="">Hình thức <span style={{ color: 'red' }}> *
+                                            <span> {errors.chonhinhthuc && <div className={`${styles.t_require}`}>{errors.chonhinhthuc}</div>}</span>
+                                        </span> </label>
                                         <div className={`${styles.input_right}`}>
                                             <Select
                                                 defaultValue={selectedOption}
@@ -433,7 +475,7 @@ export default function AddPayrollModal({ onCancel }: any) {
                                         </div>
                                     </div>
                                     <div className={`${styles.form_groups}`}>
-                                        <label htmlFor="">Chọn quy định <span style={{ color: 'red' }}> * </span></label>
+                                        <label htmlFor="">Chọn quy định </label>
                                         <div className={`${styles.input_right}`}>
                                             <Select
                                                 defaultValue={selectedOption}

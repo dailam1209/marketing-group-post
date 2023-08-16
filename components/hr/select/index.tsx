@@ -17,7 +17,8 @@ const Selects = ({ selectedOption, onChange, setState, option, placeholder, padd
             menu: (baseStyles, state) => ({
                 ...baseStyles,
                 width: `${width_menu}%`,
-                color: "black"
+                color: "black",
+                zIndex: 1000
             }),
             control: (baseStyles, state) => ({
                 ...baseStyles,
