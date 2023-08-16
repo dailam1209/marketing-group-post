@@ -6,6 +6,7 @@ import { parseISO, format } from 'date-fns';
 import { FetchDataOrganizationalStructure, FetchDataDep, FetchDataPosition, FetchDataSpecifiedGroup } from "@/components/hr/util/listAll";
 import { ShiftList, AddPayrollDown } from "@/pages/hr/api/bien_dong_nhan_su";
 import GetComId from "@/components/hr/getComID";
+import * as Yup from "yup";
 interface InputTextareaProps {
     onDescriptionChange: (data: any) => void
     reason: any
@@ -46,6 +47,9 @@ function Input_textarea({ onDescriptionChange, reason }: InputTextareaProps) {
 }
 export default function EditPayroll({ onCancel, infoList }: any) {
 
+    console.log(infoList);
+
+
     const [selectedOption, setSelectedOption] = useState<SelectOptionType | null>(null);
     const [isDepList, setDepList] = useState<any>(null)
     const [isPositionList, setPositionList] = useState<any>(null)
@@ -53,15 +57,14 @@ export default function EditPayroll({ onCancel, infoList }: any) {
     const [isOrganizationalStructureList, setOrganizationalStructureList] = useState<any>(null)
     const [isShiftList, setShiftList] = useState<any>(null)
 
-    const [isReason, setReason] = useState<any>("")
+    const [isReason, setReason] = useState<any>(infoList?.note)
     const [isCom_id, setCom_id] = useState<any>("")
     const [isDep_id, setDep_id] = useState<any>("")
     const [isType_id, setType_id] = useState<any>("")
-    const [isShift_id, setShift_id] = useState<any>("")
-    const [isPosition_name, setPosition_name] = useState<any>("")
-    const [isSpecified_id, setSpecified_id] = useState<any>("")
+    const [isShift_id, setShift_id] = useState<any>(infoList?.shift_id)
+    const [isSpecified_id, setSpecified_id] = useState<any>(infoList?.decision_id)
     const [isPosition_id, setPosition_id] = useState<any>("")
-    const [isDep_name, setDep_name] = useState<any>("")
+    const [errors, setErrors] = useState<any>({});
     const comid: any = GetComId()
     const modalRef = useRef(null);
 
@@ -85,7 +88,6 @@ export default function EditPayroll({ onCancel, infoList }: any) {
 
     async function fetchData() {
         try {
-
             const organizationStructure = await FetchDataOrganizationalStructure();
             setOrganizationalStructureList(organizationStructure);
 
@@ -103,8 +105,12 @@ export default function EditPayroll({ onCancel, infoList }: any) {
     }
 
     useEffect(() => {
+        console.log(isDepList?.data);
+        console.log(infoList?.dep_name);
         const matchingDep = isDepList?.data?.find((item: any) => item?.dep_name === infoList?.dep_name);
         const matchingPos = isPositionList?.data?.flat()?.find((item: any) => item?.positionName === infoList.position_name)
+        console.log(matchingDep, matchingPos);
+
         if (matchingDep) {
             setDep_id(matchingDep.dep_id);
             setCom_id(matchingDep.com_id)
@@ -128,10 +134,29 @@ export default function EditPayroll({ onCancel, infoList }: any) {
         fetchData()
     }, [])
 
+
+    const validationSchema = Yup.object().shape({
+        chonnhanvien: Yup.string().required("Vui lòng chọn nhân viên"),
+        chucvuhientai: Yup.string().required("Vui lòng chọn chức vụ hiện tại"),
+        chonhinhthuc: Yup.string().required("Vui lòng chọn hình thức"),
+        created_at: Yup.string().required("Vui lòng chọn thời gian giảm biên chế"),
+    });
+
     const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
         try {
             const created_at = (document.getElementById('created_at') as HTMLInputElement)?.value
+
+            const formDatas = {
+                chonnhanvien: infoList.ep_id || "",
+                chucvuhientai: isPosition_id || "",
+                created_at: created_at || "",
+                chonhinhthuc: isType_id || ""
+            };
+            await validationSchema.validate(formDatas, {
+                abortEarly: false,
+            });
+
             const formData = new FormData();
             formData.append('ep_id', infoList.ep_id)
             formData.append('current_position', isPosition_id)
@@ -148,7 +173,15 @@ export default function EditPayroll({ onCancel, infoList }: any) {
                 onCancel()
             }, 2000)
         } catch (error) {
-            throw error
+            if (error instanceof Yup.ValidationError) {
+                const yupErrors = {};
+                error.inner.forEach((yupError: any) => {
+                    yupErrors[yupError.path] = yupError.message;
+                });
+                setErrors(yupErrors);
+            } else {
+                console.error("Lỗi validate form:", error);
+            }
         }
     }
 
@@ -209,7 +242,6 @@ export default function EditPayroll({ onCancel, infoList }: any) {
         [isSpecifiedList]
     );
 
-
     const options = {
         chonchinhanh: chonchinhanhOptions,
         chonphongban: [
@@ -243,7 +275,9 @@ export default function EditPayroll({ onCancel, infoList }: any) {
                             <div className={`${styles.modal_body}`}>
                                 <form action="">
                                     <div className={`${styles.form_groups}`}>
-                                        <label htmlFor="">Tên nhân viên <span style={{ color: 'red' }}> * </span></label>
+                                        <label htmlFor="">Tên nhân viên <span style={{ color: 'red' }}> *
+                                            <span> {errors.chonnhanvien && <div className={`${styles.t_require} `}>{errors.chonnhanvien}</div>}</span>
+                                        </span></label>
                                         <div className={`${styles.input_right}`}>
                                             <Select
                                                 value={options.chonnhanvien}
@@ -268,7 +302,9 @@ export default function EditPayroll({ onCancel, infoList }: any) {
                                         </div>
                                     </div>
                                     <div className={`${styles.form_groups}`}>
-                                        <label htmlFor="">Chức vụ hiện tại <span style={{ color: 'red' }}> * </span></label>
+                                        <label htmlFor="">Chức vụ hiện tại <span style={{ color: 'red' }}> *
+                                            <span> {errors.chucvuhientai && <div className={`${styles.t_require}`}>{errors.chucvuhientai}</div>}</span>
+                                        </span></label>
                                         <div className={`${styles.input_right}`}>
                                             <Select
                                                 value={options.chucvuhientai}
@@ -344,7 +380,9 @@ export default function EditPayroll({ onCancel, infoList }: any) {
                                         </div>
                                     </div>
                                     <div className={`${styles.form_groups}`}>
-                                        <label htmlFor="">Thời gian bắt đầu nghỉ <span style={{ color: 'red' }}> * </span></label>
+                                        <label htmlFor="">Thời gian bắt đầu nghỉ <span style={{ color: 'red' }}> *
+                                            <span> {errors.created_at && <div className={`${styles.t_require}`}>{errors.created_at}</div>}</span>
+                                        </span></label>
                                         <div className={`${styles.input_right}`}>
                                             <input type="date" id="created_at" defaultValue={format(parseISO(infoList?.time), 'yyyy-MM-dd')} className={`${styles.input_process}`} />
                                         </div>
@@ -375,7 +413,9 @@ export default function EditPayroll({ onCancel, infoList }: any) {
                                         </div>
                                     </div>
                                     <div className={`${styles.form_groups}`}>
-                                        <label htmlFor="">Hình thức </label>
+                                        <label htmlFor="">Hình thức <span style={{ color: 'red' }}> *
+                                            <span> {errors.chonhinhthuc && <div className={`${styles.t_require}`}>{errors.chonhinhthuc}</div>}</span>   </span>
+                                        </label>
                                         <div className={`${styles.input_right}`}>
                                             <Select
                                                 defaultValue={selectedOption}
@@ -400,7 +440,7 @@ export default function EditPayroll({ onCancel, infoList }: any) {
                                         </div>
                                     </div>
                                     <div className={`${styles.form_groups}`} >
-                                        <label htmlFor="">Chọn quy định <span style={{ color: 'red' }}> * </span></label>
+                                        <label htmlFor="">Chọn quy định </label>
                                         <div className={`${styles.input_right}`}>
                                             <Select
                                                 defaultValue={selectedOption}

@@ -80,8 +80,8 @@ export default function ItemCandidate2({ data, process_id, setModalOpen, setDrop
                             <img className={`${styles.hs_avt}`} src="https://phanmemnhansu.timviec365.vn/assets/images/t_images/logo_com.png" alt="" />
                         </div>
                         <div className={`${styles.hs_body_card_no2}`}>
-                            <p>{data?.canName}</p>
-                            <p>SĐT: <span>{data?.phone}</span></p>
+                            <p className={`${styles.word_wrap}`}>{data?.canName}</p>
+                            <p className={`${styles.word_wrap}`}>SĐT: <span>{data?.phone}</span></p>
                             <p className={`${styles.word_wrap}`}>{data?.title}</p>
                             <Rating size={27} initialValue={data?.starVote} disableFillHover className={`${styles.star_rating}`} />
                         </div>

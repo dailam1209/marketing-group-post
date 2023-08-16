@@ -110,7 +110,7 @@ export default function RegulationDetailModal({ onCancel, idGroup }: RegulationD
                                     </div>
                                     <div className={`${styles.infors1}`}>
                                         <p>Nội dung quy định</p>
-                                        <div className={`${styles.info_left}`} style={{ width: '100%' }}>
+                                        <div className={`${styles.info_left}`} style={{ width: '100%', minHeight: 50, overflow: 'hidden', wordWrap: 'break-word' }}>
                                             <li className={`${styles.nqd_content}`}>
                                                 <p>{DetailData?.data[0]?.content}</p>
                                             </li>

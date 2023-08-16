@@ -90,7 +90,6 @@ export default function TabOutJob({ iconAdd, iconEdit, iconDelete }: any) {
         }
     };
 
-
     const handleChoose = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const value = parseInt(event.target.value);
         setPageSize(value)
@@ -127,7 +126,6 @@ export default function TabOutJob({ iconAdd, iconEdit, iconDelete }: any) {
         event.preventDefault();
         setOpenEditModal(true);
     }
-
 
     const chonphongbanOptions = useMemo(
         () =>

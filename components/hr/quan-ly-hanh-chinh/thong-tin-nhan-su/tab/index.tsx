@@ -18,8 +18,6 @@ export interface TabEmployeeManagement {
 
 export default function TabEmployeeManagement({ iconAdd, iconEdit }: any) {
 
-    const [activeButton, setActiveButton] = useState(0)
-    const [employeeCount, setEmployeeCount] = useState(10)
     const [detailModal, setDetailModal] = useState(false)
     const [editModal, setEditmodal] = useState<any>(null)
     const [EmpData, setEmpData] = useState<any>(null)
@@ -32,9 +30,6 @@ export default function TabEmployeeManagement({ iconAdd, iconEdit }: any) {
     const [isSeach, setSearch] = useState<any>(null)
     const [visible, setVisible] = useState(false);
     const comid: any = GetComId()
-
-    console.log(editModal);
-
 
     // -- đóng mở modal --
     const handleOpenDetailModal = () => {
@@ -291,10 +286,12 @@ export default function TabEmployeeManagement({ iconAdd, iconEdit }: any) {
                                                         <p>SDT: {item?.phoneTK}</p>
                                                         <p>Email: {item.email}</p>
                                                     </td>
-                                                    <td>{format(
-                                                        parseISO(new Date(item?.start_working_time * 1000).toISOString()),
-                                                        "yyyy-MM-dd"
-                                                    )}</td>
+                                                    {item?.start_working_time &&
+                                                        <td>{format(
+                                                            parseISO(new Date(item?.start_working_time * 1000).toISOString()),
+                                                            "yyyy-MM-dd"
+                                                        )}</td>
+                                                    }
                                                     <td
                                                         className={`${styles.r_t_top_right}`} style={{ position: 'relative' }}>
                                                         <img src={`	/icon-settting.png`} alt=" " />

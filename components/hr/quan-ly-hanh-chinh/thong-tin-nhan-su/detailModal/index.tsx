@@ -72,10 +72,12 @@ export default function DetailCandidateList({ onCancel, infoList }: any) {
                                         <div className={`${styles.content_left}`}>
                                             <div className={`${styles.form_groups} ${styles.form_groups3} `}>
                                                 <label htmlFor="">Ngày sinh </label>
-                                                <input style={{ height: 20 }} type="date" defaultValue={format(
-                                                    parseISO(new Date(infoList?.infoList?.birthday * 1000).toISOString()),
-                                                    "yyyy-MM-dd"
-                                                )} id="names" placeholder="" className={`${styles.form_control} `} />
+                                                {infoList?.infoList?.birthday &&
+                                                    <input style={{ height: 20 }} type="date" defaultValue={format(
+                                                        parseISO(new Date(infoList?.infoList?.birthday * 1000).toISOString()),
+                                                        "yyyy-MM-dd"
+                                                    )} id="names" placeholder="" className={`${styles.form_control} `} />
+                                                }
                                             </div>
                                         </div>
                                         <div className={`${styles.content_right}`}>

@@ -5,6 +5,7 @@ import MyEditorNew from "@/components/hr/myEditor";
 import { FetchDataDep, FetchDataPosition, FetchDataSpecifiedGroup } from "@/components/hr/util/listAll";
 import { AddPlanningAppointment } from "@/pages/hr/api/bien_dong_nhan_su";
 import { parseISO, format } from 'date-fns';
+import * as Yup from "yup";
 interface InputTextareaProps {
     onDescriptionChange: (data: any) => void
     reason: any
@@ -45,8 +46,10 @@ function Input_textarea({ onDescriptionChange, reason }: InputTextareaProps) {
 }
 export default function EditPlanningModal({ onCancel, infoList }: any) {
 
+    console.log(infoList);
+
     const [selectedOption, setSelectedOption] = useState<SelectOptionType | null>(null);
-    const [isReason, setReason] = useState<any>("")
+    const [isReason, setReason] = useState<any>(infoList?.note)
     const [isPositionList, setPositionList] = useState<any>(null)
     const [isSpecifiedList, setSpecifiedList] = useState<any>(null)
     const [isDepList, setDeptList] = useState<any>(null)
@@ -55,6 +58,7 @@ export default function EditPlanningModal({ onCancel, infoList }: any) {
     const [isDep_idNew, setDep_idNew] = useState<any>(infoList?.new_dep_id)
     const [isSpecified_idnew, setSpecified_idnew] = useState<any>(infoList?.decision_id)
     const [isSpecified_name, setSpecified_name] = useState<any>(null)
+    const [errors, setErrors] = useState<any>({});
     const modalRef = useRef(null);
 
     useEffect(() => {
@@ -100,11 +104,39 @@ export default function EditPlanningModal({ onCancel, infoList }: any) {
         }
     }, [isSpecifiedList, infoList])
 
+
+    const validationSchema = Yup.object().shape({
+        chonnhanvien: Yup.string().required("Vui lòng chọn nhân viên"),
+        chucvuhientai: Yup.string().required("Vui lòng chọn chức vụ hiện tại"),
+        chonphongban: Yup.string().required("Vui lòng chọn phòng ban"),
+        quyhoachbonhiem: Yup.string().required("Vui lòng chọn quy hoạch bổ nhiệm"),
+        phongbanmoi: Yup.string().required("Vui lòng chọn phòng ban mới"),
+        chonquydinh: Yup.string().required("Vui lòng chọn quy định"),
+        created_at: Yup.string().required("Vui lòng chọn thời gian quy hoạch bổ nhiệm"),
+        note: Yup.string().required("Vui lòng nhập lý do"),
+    });
+
     const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
         try {
             const created_at = (document.getElementById('created_at') as HTMLInputElement)?.value
             const formData = new FormData();
+
+            const formDatas = {
+                chonnhanvien: infoList.ep_id || "",
+                chucvuhientai: infoList.old_position_id || "",
+                chonphongban: infoList.old_dep_id || "",
+                quyhoachbonhiem: isPosition_idnew || "",
+                phongbanmoi: isDep_idNew || "",
+                chonquydinh: isSpecified_idnew || "",
+                created_at: created_at || "",
+                note: isReason || "",
+            };
+
+            await validationSchema.validate(formDatas, {
+                abortEarly: false,
+            });
+
             formData.append('ep_id', infoList.ep_id)
             formData.append('current_position', infoList.old_position_id)
             formData.append('current_dep_id', infoList.old_dep_id)
@@ -119,7 +151,15 @@ export default function EditPlanningModal({ onCancel, infoList }: any) {
                 onCancel()
             }, 2000)
         } catch (error) {
-            throw error
+            if (error instanceof Yup.ValidationError) {
+                const yupErrors = {};
+                error.inner.forEach((yupError: any) => {
+                    yupErrors[yupError.path] = yupError.message;
+                });
+                setErrors(yupErrors);
+            } else {
+                console.error("Lỗi validate form:", error);
+            }
         }
     }
 
@@ -200,7 +240,9 @@ export default function EditPlanningModal({ onCancel, infoList }: any) {
                             <div className={`${styles.modal_body}`}>
                                 <form action="">
                                     <div className={`${styles.form_groups}`}>
-                                        <label htmlFor="">Tên nhân viên <span style={{ color: 'red' }}> * </span></label>
+                                        <label htmlFor="">Tên nhân viên <span style={{ color: 'red' }}> *
+                                            <span> {errors.chonnhanvien && <div className={`${styles.t_require} `}>{errors.chonnhanvien}</div>}</span>
+                                        </span></label>
                                         <div className={`${styles.input_right}`}>
                                             <Select
                                                 value={options.chonnhanvien}
@@ -225,7 +267,9 @@ export default function EditPlanningModal({ onCancel, infoList }: any) {
                                         </div>
                                     </div>
                                     <div className={`${styles.form_groups}`}>
-                                        <label htmlFor="">Chức vụ hiện tại <span style={{ color: 'red' }}> * </span></label>
+                                        <label htmlFor="">Chức vụ hiện tại <span style={{ color: 'red' }}> *
+                                            <span> {errors.chucvuhientai && <div className={`${styles.t_require}`}>{errors.chucvuhientai}</div>}</span>
+                                        </span></label>
                                         <div className={`${styles.input_right}`}>
                                             <Select
                                                 value={options.chucvuhientai}
@@ -250,7 +294,9 @@ export default function EditPlanningModal({ onCancel, infoList }: any) {
                                         </div>
                                     </div>
                                     <div className={`${styles.form_groups}`}>
-                                        <label htmlFor="">Phòng ban <span style={{ color: 'red' }}> * </span></label>
+                                        <label htmlFor="">Phòng ban <span style={{ color: 'red' }}> *
+                                            <span> {errors.chonphongban && <div className={`${styles.t_require}`}>{errors.chonphongban}</div>}</span>
+                                        </span></label>
                                         <div className={`${styles.input_right}`}>
                                             <Select
                                                 value={options.chonphongban}
@@ -275,7 +321,9 @@ export default function EditPlanningModal({ onCancel, infoList }: any) {
                                         </div>
                                     </div>
                                     <div className={`${styles.form_groups}`}>
-                                        <label htmlFor=""> Quy hoạch bổ nhiệm <span style={{ color: 'red' }}> * </span></label>
+                                        <label htmlFor=""> Quy hoạch bổ nhiệm <span style={{ color: 'red' }}> *
+                                            <span> {errors.quyhoachbonhiem && <div className={`${styles.t_require}`}>{errors.quyhoachbonhiem}</div>}</span>
+                                        </span></label>
                                         <div className={`${styles.input_right}`}>
                                             <Select
                                                 defaultValue={options.quyhoachbonhiem}
@@ -300,7 +348,9 @@ export default function EditPlanningModal({ onCancel, infoList }: any) {
                                         </div>
                                     </div>
                                     <div className={`${styles.form_groups}`}>
-                                        <label htmlFor="">Phòng ban mới <span style={{ color: 'red' }}> * </span></label>
+                                        <label htmlFor="">Phòng ban mới <span style={{ color: 'red' }}> *
+                                            <span> {errors.phongbanmoi && <div className={`${styles.t_require}`}>{errors.phongbanmoi}</div>}</span>
+                                        </span></label>
                                         <div className={`${styles.input_right}`}>
                                             <Select
                                                 defaultValue={options.phongbanmoi}
@@ -325,13 +375,17 @@ export default function EditPlanningModal({ onCancel, infoList }: any) {
                                         </div>
                                     </div>
                                     <div className={`${styles.form_groups}`}>
-                                        <label htmlFor="">Thời gian quy hoạch bổ nhiệm <span style={{ color: 'red' }}> * </span></label>
+                                        <label htmlFor="">Thời gian quy hoạch bổ nhiệm <span style={{ color: 'red' }}> *
+                                            <span> {errors.created_at && <div className={`${styles.t_require}`}>{errors.created_at}</div>}</span>
+                                        </span></label>
                                         <div className={`${styles.input_right}`}>
                                             <input type="date" id="created_at" defaultValue={format(parseISO(infoList?.time), 'yyyy-MM-dd')} placeholder="dd/mm/yyyy" className={`${styles.input_process}`} />
                                         </div>
                                     </div>
                                     <div className={`${styles.form_groups}`}>
-                                        <label htmlFor="">Chọn quy định <span style={{ color: 'red' }}> * </span></label>
+                                        <label htmlFor="">Chọn quy định <span style={{ color: 'red' }}> *
+                                            <span> {errors.chonquydinh && <div className={`${styles.t_require}`}>{errors.chonquydinh}</div>}</span>
+                                        </span></label>
                                         <div className={`${styles.input_right}`}>
                                             {isSpecified_name && (
                                                 <Select
@@ -359,7 +413,9 @@ export default function EditPlanningModal({ onCancel, infoList }: any) {
                                         </div>
                                     </div>
                                     <div className={`${styles.form_groups} ${styles.cke}`}>
-                                        <label htmlFor="">Lý do <span style={{ color: 'red' }}> * </span></label>
+                                        <label htmlFor="">Lý do <span style={{ color: 'red' }}> *
+                                            <span> {errors.note && <div className={`${styles.t_require}`}>{errors.note}</div>}</span>
+                                        </span></label>
                                         <div className={`${styles.ckeditor}`}>
                                             <Input_textarea onDescriptionChange={handleInputAreaChange} reason={infoList.note} />
                                         </div>
