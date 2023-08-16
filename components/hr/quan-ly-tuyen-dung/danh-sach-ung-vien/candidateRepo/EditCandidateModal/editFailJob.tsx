@@ -210,12 +210,12 @@ export default function EditCandidateFailJob({ onCancel, candidate }: any) {
             { value: 19, label: "Khác" },
         ],
         kinhnghiemlamviec: [
-            { value: 0, label: "Chưa có kinh nghiệm" },
-            { value: 1, label: "0 - 1 năm kinh nghiệm" },
-            { value: 2, label: "1 - 2 năm kinh nghiệm" },
-            { value: 3, label: "2 - 5 năm kinh nghiệm" },
-            { value: 4, label: "5 - 10 năm kinh nghiệm" },
-            { value: 5, label: "Hơn 10 năm kinh nghiệm" },
+            { value: "0", label: "Chưa có kinh nghiệm" },
+            { value: "1", label: "0 - 1 năm kinh nghiệm" },
+            { value: "2", label: "1 - 2 năm kinh nghiệm" },
+            { value: "3", label: "2 - 5 năm kinh nghiệm" },
+            { value: "4", label: "5 - 10 năm kinh nghiệm" },
+            { value: "5", label: "Hơn 10 năm kinh nghiệm" },
         ],
         tinhtranghonnhan: [
             { value: 1, label: "Độc thân" },
@@ -237,7 +237,7 @@ export default function EditCandidateFailJob({ onCancel, candidate }: any) {
         (item) => item.value === candidate?.education
     );
     const selectedExp: any = options.kinhnghiemlamviec?.find(
-        (item) => item.value === candidate?.exp
+        (item) => item.value === candidate?.exp.toString()
     );
     const selectedMarried: any = options.tinhtranghonnhan?.find(
         (item) => item.value === candidate?.isMarried

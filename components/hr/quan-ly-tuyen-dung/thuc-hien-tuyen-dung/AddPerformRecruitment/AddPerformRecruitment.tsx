@@ -166,11 +166,14 @@ export default function AddPerformRecruitment({ animation, handleCloseModalAdd, 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(formData);
     try {
+
       await schema.validate(formData, { abortEarly: false });
+      console.log(1111)
       const response = await CreateNewsRecruitment(content, selectedOption)
+
       if (response?.status !== 200) {
-        alert('Thêm tin tuyển dụng không thành công')
       }
       else {
         handleCloseModalAdd()

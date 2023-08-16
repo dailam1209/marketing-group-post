@@ -75,7 +75,7 @@ export default function GroupDetailModal({ onCancel, idGroup }: GroupDetailModal
                                     </div>
                                     <div className={`${styles.infors1}`}>
                                         <p>Nội dung nhóm quy định</p>
-                                        <div className={`${styles.info_left}`} style={{ width: '100%' }}>
+                                        <div className={`${styles.info_left}`} style={{ width: '100%', minHeight: 50, overflow: 'hidden', wordWrap: 'break-word' }}>
                                             <li className={`${styles.nqd_content}`}>
                                                 <p>{DetailData?.data[0]?.supervisorName}</p>
                                             </li>

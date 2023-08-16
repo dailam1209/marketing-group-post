@@ -14,6 +14,9 @@ export default function StageAddModal({ onCancel, animation }: any) {
     const [errors, setErrors] = useState<any>({});
     const modalRef = useRef(null);
 
+    console.log(isProcess_id);
+
+
     useEffect(() => {
         const handleOutsideClick = (event: any) => {
             if (modalRef.current && !modalRef.current.contains(event.target)) {
@@ -46,22 +49,23 @@ export default function StageAddModal({ onCancel, animation }: any) {
 
     const validationSchema = Yup.object().shape({
         name: Yup.string().required("Tên giai đoạn không được để trống"),
-        process_befor: Yup.lazy((value) =>
-            value.isProcess_id === 0
-                ? Yup.number()
-                : Yup.string().required("Chọn giai đoạn đứng trước")
-        ),
+        process_befor: Yup.lazy((value) => {
+            if (value && value === 0) {
+                return Yup.string();
+            }
+            return Yup.string().required("Chọn giai đoạn đứng trước");
+        }),
     });
 
     const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault()
         try {
-
             const formData = new FormData()
             const processName = (document.getElementById('names') as HTMLInputElement)?.value
+            console.log('isProcess_id:', isProcess_id)
             const formDatas = {
                 name: processName || "",
-                process_befor: isProcess_id || "",
+                process_befor: isProcess_id.toString() || "",
             };
 
             await validationSchema.validate(formDatas, {

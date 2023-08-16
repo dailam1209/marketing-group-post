@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import styles from '../../planningAppointment/addPlanningModal/addPlanningModal.module.css'
 import Select from 'react-select';
 import MyEditorNew from "@/components/hr/myEditor";
+import * as Yup from "yup";
 
 function Input_textarea() {
     const [editorLoaded, setEditorLoaded] = useState(false);
@@ -32,6 +33,7 @@ type SelectOptionType = { label: string, value: string }
 export default function EditOutJobModal({ onCancel }: any) {
     const [content, setContent] = useState('');
     const modalRef = useRef(null);
+    const [errors, setErrors] = useState<any>({});
 
     useEffect(() => {
         const handleOutsideClick = (event: any) => {

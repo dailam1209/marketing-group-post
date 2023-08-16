@@ -83,8 +83,8 @@ export default function ItemCandidate1({ data, setProcess_id, process_id, curren
                             <img className={`${styles.hs_avt}`} src="https://phanmemnhansu.timviec365.vn/assets/images/t_images/logo_com.png" alt="" />
                         </div>
                         <div className={`${styles.hs_body_card_no2}`}>
-                            <p>{data?.name}</p>
-                            <p>SĐT: <span>{data?.phone}</span></p>
+                            <p className={`${styles.word_wrap}`}>{data?.name}</p>
+                            <p className={`${styles.word_wrap}`}>SĐT: <span>{data?.phone}</span></p>
                             <p className={`${styles.word_wrap}`}>{data?.title}</p>
                             <Rating size={27} disableFillHover initialValue={data?.starVote} className={`${styles.star_rating}`} />
                         </div>

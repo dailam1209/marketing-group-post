@@ -79,14 +79,16 @@ export default function AddPlanningModal({ onCancel }: any) {
     }, [onCancel]);
 
     useEffect(() => {
+        const fetchDataEmp = async () => {
+            const empData = await FetchDataEmployee();
+            setEmpList(empData);
+        }
+        fetchDataEmp()
         fetchData();
     }, []);
 
     async function fetchData() {
         try {
-            const empData = await FetchDataEmployee();
-            setEmpList(empData);
-
             const position = await FetchDataPosition()
             setPositionList(position)
 
