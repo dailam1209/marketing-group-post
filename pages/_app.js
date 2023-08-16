@@ -29,9 +29,9 @@ export default function App({ Component, pageProps }) {
   //   checkLoginAndRedirect();
   // }, []);
 
-  // useEffect(() => {
-  //   SignIn();
-  // }, []);
+  useEffect(() => {
+    SignIn();
+  }, []);
 
   useEffect(() => {
     const doLoading = () => {
