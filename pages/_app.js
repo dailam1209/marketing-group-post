@@ -1,23 +1,28 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { useRouter } from "next/router";
-import Layout from "@/components/hr/Layout";
+import React, { useEffect, useState } from "react";
+// import "@/styles/globals.css";
+import { AccessContextComponent } from "@/components/crm/context/accessContext";
+import { SidebarResize } from "@/components/crm/context/resizeContext";
+import Header from "@/components/crm/header/header";
+import useModal from "@/components/crm/hooks/useModal";
+import Sidebar from "@/components/crm/sidebar/sidebar";
 import { useDrop, DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { CheckLogIn, SignIn } from "./hr/api/Home/HomeService";
-import LoadingSpinner from "@/components/hr/loading/index";
 import { ConfigProvider, Spin } from "antd";
 import Bodyframe from "@/components/bodyFrameNs/bodyFrame.tsx";
-// import "../styles/globals_hr.css";
-import Cookies from "js-cookie";
+import { useRouter } from "next/router.js";
+import ChatBusiness from "@/components/crm/chat/chat";
+import { NavigateContextComponent } from "@/components/crm/context/navigateContext";
+import TitleHeaderMobile from "@/components/crm/header/title_header_mobile";
+import styles from "@/components/crm/sidebar/sidebar.module.css";
+// import "@/styles/crm/stylecrm.css";
+// import "@/styles/crm/styles.css"
+// import "@/styles/crm/hight_chart.css"
+import Layout from "@/components/hr/Layout";
 
 export default function App({ Component, pageProps }) {
-  useEffect(() => {}, []);
+  const { isOpen, toggleModal } = useModal("icon_menu_nav", [styles.sidebar]);
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  useEffect(() => {
-    SignIn();
-  }, []);
-
   useEffect(() => {
     const doLoading = () => {
       const start = () => {
@@ -39,9 +44,9 @@ export default function App({ Component, pageProps }) {
         router.events.off("routeChangeError", end);
       };
     };
-    if (router.pathname.includes("hr")) {
-    } else {
+    if (!router.pathname.includes("hr")) {
       doLoading();
+    } else {
     }
   }, []);
 
@@ -61,6 +66,10 @@ export default function App({ Component, pageProps }) {
   const importGlobalStyles = () => {
     if (router.pathname?.includes("hr")) {
       import("../styles/globals_hr.css");
+    } else if (router.pathname?.includes("crm")) {
+      import("../styles/crm/stylecrm.css");
+      import("../styles/crm/styles.css");
+      import("../styles/crm/hight_chart.css");
     } else {
       import("@/styles/globals.css");
     }
@@ -69,8 +78,6 @@ export default function App({ Component, pageProps }) {
   useEffect(() => {
     importGlobalStyles();
   }, [router.pathname]);
-
-  console.log("Current route:", router.pathname);
 
   return !loading ? (
     <ConfigProvider
@@ -88,6 +95,18 @@ export default function App({ Component, pageProps }) {
         <Bodyframe>
           <Component {...pageProps} />
         </Bodyframe>
+      ) : router.pathname?.includes("crm") ? (
+        <AccessContextComponent>
+          <SidebarResize>
+            <NavigateContextComponent>
+              <Header toggleModal={toggleModal} />
+              <Sidebar isOpened={isOpen} />
+              <ChatBusiness />
+              <TitleHeaderMobile />
+              <Component {...pageProps} />
+            </NavigateContextComponent>
+          </SidebarResize>
+        </AccessContextComponent>
       ) : router.pathname?.includes("hr") ? (
         <Layout>
           <DndProvider backend={HTML5Backend}>
@@ -99,8 +118,6 @@ export default function App({ Component, pageProps }) {
       )}
     </ConfigProvider>
   ) : (
-    <div>
-      <LoadingComp />
-    </div>
+    <div>{LoadingComp()}</div>
   );
 }
