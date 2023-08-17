@@ -9,7 +9,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { ModalWrapper } from '@/components/modal/ModalWrapper'
 import { getCookie } from 'cookies-next'
-import { POST_VT } from '../api/BaseApi'
+import Cookies from 'js-cookie'
 
 const ConfirmModal = ({
   open,
@@ -155,8 +155,19 @@ export default function HomeQLNS() {
     url: string,
     isButton: boolean = false,
     btnIcon: string = ''
-  ) =>
-    !isButton ? (
+  ) => {
+    const checkLogin = () => {
+      const acc_token = Cookies.get('token_base365')
+      const rf_token = Cookies.get('rf_token')
+      const role = Cookies.get('role')
+
+      if (acc_token && rf_token && role) {
+        return true
+      }
+      return false
+    }
+
+    return !isButton ? (
       <div className={styles.singleStep} key={index}>
         <div className={styles.roundIndex}>
           <span className={styles.index}>{index}</span>
@@ -164,11 +175,15 @@ export default function HomeQLNS() {
         <span
           className={styles.title}
           onClick={(e) => {
-            if (hasExplain) {
-              setSelectedUrl(url)
-              setOpenConfirm(true)
+            if (checkLogin()) {
+              if (hasExplain) {
+                setSelectedUrl(url)
+                setOpenConfirm(true)
+              } else {
+                router.push(url)
+              }
             } else {
-              router.push(url)
+              alert('Bạn chưa đăng nhập')
             }
           }}>
           {title}
@@ -187,17 +202,22 @@ export default function HomeQLNS() {
       <div
         className={styles.btnEmp}
         onClick={(e) => {
-          if (hasExplain) {
-            setSelectedUrl(url)
-            setOpenConfirm(true)
+          if (checkLogin()) {
+            if (hasExplain) {
+              setSelectedUrl(url)
+              setOpenConfirm(true)
+            } else {
+              router.push(url)
+            }
           } else {
-            router.push(url)
+            alert('Bạn chưa đăng nhập')
           }
         }}>
         <Image alt='/' src={btnIcon} width={40} height={40} />
         <p className={styles.btnTitle}>{title}</p>
       </div>
     )
+  }
 
   const renderSelection = (type) => {
     const ADMIN = (
@@ -240,7 +260,7 @@ export default function HomeQLNS() {
   }
 
   const RenderedBody = () => {
-    const type = getCookie('role')
+    const type = getCookie('role') || 2
     if (type)
       return (
         <div className={styles.section1}>

@@ -13,7 +13,7 @@ export default function SideBar() {
     } else if (type() == '0') {
       setLinkHome('/')
     } else {
-      setLinkHome('quan-ly-ung-dung-nhan-vien.html')
+      setLinkHome('/')
     }
   }, [])
   const html1 = (

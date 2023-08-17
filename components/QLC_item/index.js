@@ -6,14 +6,23 @@ import styles from './QLCitem.module.scss'
 import { CheckLogin } from '../../utils/function'
 import { useRouter } from 'next/router'
 import Cookies from 'js-cookie'
-export default function QLC_item({ img, title, desc, url = '/' }) {
+export default function QLC_item({
+  img,
+  title,
+  desc,
+  url = '/',
+  hasCheckLogin = true,
+}) {
   const router = useRouter()
   const checkLoginAndRedirect = () => {
     const acc_token = Cookies.get('token_base365')
     const rf_token = Cookies.get('rf_token')
     const role = Cookies.get('role')
 
-    if (acc_token && rf_token && role) {
+    if (!hasCheckLogin) {
+      router.push(url)
+    }
+    if (hasCheckLogin && acc_token && rf_token && role) {
       router.push(url)
     }
     // else {

@@ -112,7 +112,7 @@ const handleVerifyOtp = async (
 
             alert('Xác thực thành công')
             if (role == 2) {
-              window.location.href = '/quan-ly-ung-dung-nhan-vien.html'
+              window.location.href = '/'
             } else if (role == 1) {
               window.location.href = '/'
             } else {
