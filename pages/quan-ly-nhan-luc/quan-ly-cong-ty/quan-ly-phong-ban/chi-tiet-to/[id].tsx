@@ -3,7 +3,7 @@ import { Card, Col, Input, Row } from "antd"
 import Image from "next/image"
 import { useRouter } from "next/router"
 import styles from "./[id].module.css"
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { DeleteEmpFromGroup } from "@/components/quan-ly-cong-ty/danh-sach-nhom/modal"
 import { POST_SS, getCompIdSS } from "@/pages/api/BaseApi"
 import { renderPosition } from "@/utils/function"
@@ -15,6 +15,17 @@ export default function ChiTietTo({ listEmpInTeam }) {
   const [openDel, setOpenDel] = useState(false)
   const [selectedRow, setSelectedRow] = useState()
   const [data, setData] = useState<any>(listEmpInTeam?.data)
+  const [dataFilter, setDataFilter] = useState<any>(listEmpInTeam?.data)
+  const [inputValue, setInputValue] = useState<string>("")
+  // console.log(data)
+
+  useEffect(() => {
+    if (inputValue === "") {
+      setDataFilter(data)
+    } else {
+      setDataFilter(data?.filter(e => e?.userName?.toLowerCase()?.includes(inputValue?.toLowerCase())))
+    }
+  }, [inputValue])
 
   const columns = [
     {
@@ -76,6 +87,8 @@ export default function ChiTietTo({ listEmpInTeam }) {
             <Input
               placeholder={"Tìm kiếm nhân viên"}
               size="large"
+              value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
               suffix={
                 <Image
                   alt="/"
@@ -90,7 +103,7 @@ export default function ChiTietTo({ listEmpInTeam }) {
 
         <MyTable
           colunms={columns}
-          data={data}
+          data={dataFilter}
           onRowClick={() => null}
           Footer={null}
           hasRowSelect={false}
