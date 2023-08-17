@@ -297,7 +297,7 @@ export default function Home() {
                               <QLC_item
                                 title='Quản trị nhân sự'
                                 img={'../img/qlc_ns.png'}
-                                url='/quan-ly-nhan-luc'
+                                url='/hr'
                               />
                             </Col>
                             <Col
@@ -334,6 +334,7 @@ export default function Home() {
                               <QLC_item
                                 title='Phần mềm CRM'
                                 img={'../img/qlc_crm.png'}
+                                url='/crm'
                               />
                             </Col>
                             <Col
@@ -618,7 +619,7 @@ export default function Home() {
                                 <QLC_item
                                   title='Quản trị nhân sự'
                                   img={'../img/qlc_ns.png'}
-                                  url='/quan-ly-nhan-luc'
+                                  url='/hr'
                                 />
                               </Col>{' '}
                               <Col
@@ -787,6 +788,7 @@ export default function Home() {
                                 <QLC_item
                                   title='Phần mềm CRM'
                                   img={'../img/qlc_crm.png'}
+                                  url='/crm'
                                 />
                               </Col>
                               <Col
