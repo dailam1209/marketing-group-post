@@ -44,13 +44,10 @@ const ConfirmModal = ({
 export const COOKIE_KEY = 'token_base365'
 export default function HomeQLNS() {
   const router = useRouter()
-  // const { setHasBanner } = useContext(HasBannerContext)
   const [selectedUrl, setSelectedUrl] = useState('')
   const [openConfirm, setOpenConfirm] = useState(false)
-  // setHasBanner(true)
   const [selectedBtn, setSelectedBtn] = useState<any>()
   // set to localStorage
-  // getCurrentToken()
   useEffect(() => {
     const value = localStorage.getItem('selectedBtnIndex') || '0'
     setSelectedBtn(value)
@@ -244,27 +241,28 @@ export default function HomeQLNS() {
 
   const RenderedBody = () => {
     const type = getCookie('role')
-    return (
-      <div className={styles.section1}>
-        <Row gutter={{ lg: 150, md: 100, sm: 30, xs: 10 }}>
-          <Col lg={type === '1' ? 10 : 11} sm={11} xs={24}>
-            {(type === '1' ? LIST_BUTTONS_COMP : LIST_BUTTONS_EMP)?.map(
-              (item, index) =>
-                utilButton(item.icon, index + 1, item.title, item.color)
-            )}
-          </Col>
-          <Col lg={type === '1' ? 14 : 13} sm={13} xs={24}>
-            {renderSelection(type)}
-          </Col>
-        </Row>
-        <ConfirmModal
-          open={openConfirm}
-          setOpen={setOpenConfirm}
-          router={router}
-          url={selectedUrl}
-        />
-      </div>
-    )
+    if (type)
+      return (
+        <div className={styles.section1}>
+          <Row gutter={{ lg: 150, md: 100, sm: 30, xs: 10 }}>
+            <Col lg={type === '1' ? 10 : 11} sm={11} xs={24}>
+              {(type === '1' ? LIST_BUTTONS_COMP : LIST_BUTTONS_EMP)?.map(
+                (item, index) =>
+                  utilButton(item.icon, index + 1, item.title, item.color)
+              )}
+            </Col>
+            <Col lg={type === '1' ? 14 : 13} sm={13} xs={24}>
+              {renderSelection(type)}
+            </Col>
+          </Row>
+          <ConfirmModal
+            open={openConfirm}
+            setOpen={setOpenConfirm}
+            router={router}
+            url={selectedUrl}
+          />
+        </div>
+      )
   }
 
   return (
@@ -280,18 +278,8 @@ export default function HomeQLNS() {
   )
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-export const getServerSideProps = (context) => {
-  const role = context?.req?.cookies?.role
-=======
 // export const getServerSideProps = (context) => {
 //   const { role } = context?.req?.cookies
->>>>>>> e36fa4a (fix css)
-=======
-// export const getServerSideProps = (context) => {
-//   const { role } = context?.req?.cookies
->>>>>>> 919440867b58f69b27b5eec91de46b7b9ac8bb6c
 
 //   if (!role) {
 //     return {
