@@ -35,7 +35,7 @@ export function AllNhanVien({
   const [currentRow, setCurrentRow] = useState()
   const [data, setData] = useState(listStaffs)
   const [comLabel, setComLabel]: any = useState({ label: infoCom?.data?.userName, value: infoCom?.data?.idQLC })
-
+  // console.log(listDepLabel)
   
 
   useEffect(() => {
@@ -106,6 +106,7 @@ export function AllNhanVien({
     )
   }
   const positionLabel = getPosition?.map(p => ({ label: p?.value, value: p?.id }))
+  // console.log(listStaffs)
 
   const columns = [
     {
@@ -134,11 +135,11 @@ export function AllNhanVien({
     },
     {
       title: <p className="tableHeader">Phòng ban</p>,
-      render: (record: any) => <p>{listDepLabel?.find(dep => dep?.value === record?.inForPerson?.employee?.dep_id)?.label || "Chưa cập nhật"}</p>
+      render: (record: any) => <p>{listDepLabel?.find(dep => dep?.value === record?.dep_id)?.label || "Chưa cập nhật"}</p>
     },
     {
       title: <p className="tableHeader">Chức vụ</p>,
-      render: (record: any) => <p>{positionLabel?.find(p => p?.value === record?.inForPerson?.employee?.position_id)?.label || "Chưa cập nhật"}</p>
+      render: (record: any) => <p>{positionLabel?.find(p => p?.value === record?.position_id)?.label || "Chưa cập nhật"}</p>
     },
     {
       title: <p className="tableHeader">Tùy chỉnh</p>,

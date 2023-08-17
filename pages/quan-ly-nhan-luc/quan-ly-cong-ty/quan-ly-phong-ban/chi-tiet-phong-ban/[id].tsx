@@ -5,84 +5,46 @@ import { useRouter } from "next/router"
 import styles from "./[id].module.css"
 import { useState, useContext } from "react"
 import { DeleteEmpFromGroup } from "@/components/quan-ly-cong-ty/danh-sach-nhom/modal"
+import { POST_SS, getCompIdSS } from "@/pages/api/BaseApi"
+import dayjs from "dayjs"
+import { getPosition } from "@/utils/function"
 
-const mockData = [
-  {
-    id: "147310",
-    avatar: "/avatar.png",
-    name: "Phạm Xuân Nguyên Khôi",
-    job: "Nhân Viên Chính Thức",
-    groupName: "Nhóm 1",
-    date: "16-02-2023"
-  },
-  {
-    id: "147310",
-    avatar: "/avatar.png",
-    name: "Phạm Xuân Nguyên Khôi",
-    job: "Nhân Viên Chính Thức",
-    groupName: "Nhóm 1",
-    date: "16-02-2023"
-  },
-  {
-    id: "147310",
-    avatar: "/avatar.png",
-    name: "Phạm Xuân Nguyên Khôi",
-    job: "Nhân Viên Chính Thức",
-    groupName: "Nhóm 1",
-    date: "16-02-2023"
-  },
-  {
-    id: "147310",
-    avatar: "/avatar.png",
-    name: "Phạm Xuân Nguyên Khôi",
-    job: "Nhân Viên Chính Thức",
-    groupName: "Nhóm 1",
-    date: "16-02-2023"
-  },
-  {
-    id: "147310",
-    avatar: "/avatar.png",
-    name: "Phạm Xuân Nguyên Khôi",
-    job: "Nhân Viên Chính Thức",
-    groupName: "Nhóm 1",
-    date: "16-02-2023"
-  },
-  {
-    id: "147310",
-    avatar: "/avatar.png",
-    name: "Phạm Xuân Nguyên Khôi",
-    job: "Nhân Viên Chính Thức",
-    groupName: "Nhóm 1",
-    date: "16-02-2023"
-  }
-]
 
-export default function ChiTietPhongBan() {
+export default function ChiTietPhongBan({ listEmpInDep }) {
   const router = useRouter()
   const [openDel, setOpenDel] = useState(false)
   const [selectedRow, setSelectedRow] = useState()
+  const [data, setData] = useState<any>(listEmpInDep?.data)
+  // console.log(data)
+
+  
+  // console.log(id)
+  const positionLabel = getPosition?.map((p) => ({
+    label: p?.value,
+    value: p?.id,
+  }));
 
   const columns = [
     {
       title: <p className={styles.headertxt}>Ảnh</p>,
       render: (record: any) => (
-        <Image alt="/" src={record?.avatar} width={30} height={30} />
+        <Image alt="/" src={record?.avatarUser ? `/${record?.avatarUser}` : '/anhnhanvien.png'} width={30} height={30} />
       ),
       align: "center"
     },
     {
       title: <p className={styles.headertxt}>ID</p>,
-      render: (record: any) => <p>{record?.id}</p>,
+      render: (record: any) => <p>{record?.idQLC}</p>,
       align: "center"
     },
     {
       title: <p className={styles.headertxt}>Họ và tên</p>,
-      render: (record: any) => <p>{record?.name}</p>,
+      render: (record: any) => <p>{record?.userName}</p>,
       align: "center"
     },
     {
       title: <p className={styles.headertxt}>Chức vụ</p>,
-      render: (record: any) => <p>{record?.job}</p>,
+      render: (record: any) => <p>{positionLabel?.find(p => p?.value === record?.position_id)?.label}</p>,
       align: "center"
     },
     // {
@@ -92,7 +54,7 @@ export default function ChiTietPhongBan() {
     // },
     {
       title: <p className={styles.headertxt}>Ngày bắt đầu</p>,
-      render: (record: any) => <p>{record?.date}</p>,
+      render: (record: any) => <p>{dayjs.unix(record?.start_working_time).format("YYYY-MM-DD")}</p>,
       align: "center"
     },
     {
@@ -115,7 +77,7 @@ export default function ChiTietPhongBan() {
       <Card>
         <Row className={styles.header}>
           <Col sm={12} xs={24}>
-            <p className={styles.title}>Chi tiết phòng {router.query?.id}</p>
+            <p className={styles.title}>Chi tiết {router.query?.name}</p>
           </Col>
           <Col sm={12} xs={24}>
             <div className={styles.input}>
@@ -136,7 +98,7 @@ export default function ChiTietPhongBan() {
         </Row>
         <MyTable
           colunms={columns}
-          data={mockData}
+          data={data}
           onRowClick={() => null}
           Footer={null}
           hasRowSelect={false}
@@ -155,4 +117,21 @@ export default function ChiTietPhongBan() {
       />
     </div>
   )
+}
+
+export const getServerSideProps = async (context) => {
+  const id = context.query?.id || null
+  let com_id = null
+  com_id = getCompIdSS(context)
+  
+  const listEmpInDep = await POST_SS('api/qlc/managerUser/list', {
+    com_id: com_id,
+    dep_id: id
+  }, context)
+
+  return {
+    props: {
+      listEmpInDep
+    }
+  }
 }
