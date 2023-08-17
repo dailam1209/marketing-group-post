@@ -271,7 +271,7 @@ export function AddNewEmpModal(
           {MySelect('Chức vụ', 'Chọn chức vụ', true, true, 'position_id', positionLabel)}
         </Col>
         <Col md={12} sm={24} xs={24}>
-          {MySelect('Tổ', 'Chọn tổ', false, true, 'team_id', teamLabel, setTeamFilter)}
+          {MySelect('Tổ', 'Chọn tổ', false, true, 'team_id', teamLabel, null, setTeamFilter)}
         </Col>
         <Col md={12} sm={24} xs={24}>
           {MySelect('Nhóm', 'Chọn nhóm', false, true, 'group_id', grLabel)}
