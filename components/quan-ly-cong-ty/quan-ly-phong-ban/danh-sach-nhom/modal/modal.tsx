@@ -1,14 +1,14 @@
-import { ModalWrapper } from "@/components/modal/ModalWrapper";
+import { ModalWrapper } from '@/components/modal/ModalWrapper';
 import {
   MyInput,
   MySelect,
-} from "@/components/quan-ly-cong-ty/quan-ly-cong-ty-con/modal";
-import { DELETE, POST } from "@/pages/api/BaseApi";
-import { Form } from "antd";
-import { error } from "console";
-import Image from "next/image";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+} from '@/components/quan-ly-cong-ty/quan-ly-cong-ty-con/modal';
+import { DELETE, POST } from '@/pages/api/BaseApi';
+import { Form } from 'antd';
+import { error } from 'console';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 
 export function UpdateNhomModal(
   open: boolean,
@@ -18,60 +18,46 @@ export function UpdateNhomModal(
   selectedRow?: any
 ) {
   const [form] = Form.useForm();
+  const router = useRouter()
 
   useEffect(() => {
-    form.setFieldsValue(selectedRow);
+    form.setFieldsValue({ gr_name: selectedRow?.gr_name });
   }, [form, selectedRow]);
+  // console.log(selectedRow)
 
   const handleSubmit = () => {
-    // console.log("update a group!");
-    // console.log({
-    //   ...form.getFieldsValue(),
-    //   gr_id: selectedRow?.gr_id,
-    //   dep_id: selectedRow?.dep_id,
-    //   team_id: selectedRow?.team_id,
-    // });
+    // setOpen(false);
+    form.validateFields().then(value => {
 
-    //close modal
-    setOpen(false)
-
-    POST("api/qlc/group/edit", {
-      ...form.getFieldsValue(),
-      gr_id: selectedRow?.gr_id,
-      dep_id: selectedRow?.dep_id,
-      team_id: selectedRow?.team_id,
-    }).then((res) => {
-      console.log(res?.message);
-      setData &&
-        setData(
-          data.map((gr) => {
-            if (gr === selectedRow) {
-              return {
-                ...form.getFieldsValue(),
-                gr_id: selectedRow?.gr_id,
-                dep_id: selectedRow?.dep_id,
-                team_id: selectedRow?.team_id,
-              };
-            }
-            return gr;
-          })
-        );
-    });
+      POST('api/qlc/group/edit', {
+        ...value,
+        gr_id: selectedRow?.gr_id,
+        dep_id: selectedRow?.dep_id,
+        team_id: selectedRow?.team_id,
+      }).then((res) => {
+        // console.log(res?.message);
+        if (res?.result === true) {
+          router.replace(router.asPath)
+        }
+      });
+    })
   };
 
   const children = (
     <div>
       <Form form={form} initialValues={selectedRow}>
-        {MySelect("Công ty", "Chọn công ty", true, true, "com_id", [{ label: "Công ty thanh toán Hưng Hà 2", value: 3312}])}
-        {MySelect("Phòng ban", "Chọn phòng ban", true, true, "dep_id", [
-          { label: "Phòng kỹ thuật", value: 1 },
-          { label: "Phòng kinh doanh", value: 2 },
+        {/* {MySelect('Công ty', 'Chọn công ty', true, true, 'com_id', [
+          { label: 'Công ty thanh toán Hưng Hà 2', value: 3312 },
         ])}
-        {MySelect("Tổ", "Chọn tổ", true, true, "team_id", [
-          { label: "Tổ NodeJs", value: 1 },
-          { label: "Tổ tester", value: 2 },
+        {MySelect('Phòng ban', 'Chọn phòng ban', true, true, 'dep_id', [
+          { label: 'Phòng kỹ thuật', value: 1 },
+          { label: 'Phòng kinh doanh', value: 2 },
         ])}
-        {MyInput("Tên nhóm", "Nhập tên nhóm", true, true, "gr_name")}
+        {MySelect('Tổ', 'Chọn tổ', true, true, 'team_id', [
+          { label: 'Tổ NodeJs', value: 1 },
+          { label: 'Tổ tester', value: 2 },
+        ])} */}
+        {MyInput('Tên nhóm', 'Nhập tên nhóm', true, true, 'gr_name')}
       </Form>
     </div>
   );
@@ -81,8 +67,8 @@ export function UpdateNhomModal(
     setOpen,
     children,
     600,
-    "Chỉnh sửa nhóm",
-    "Cập nhật",
+    'Chỉnh sửa nhóm',
+    'Cập nhật',
     handleSubmit
   );
 }
@@ -98,14 +84,14 @@ export function ConfirmDeleteModal(
   const children = (
     <div
       style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
       }}
     >
-      <Image alt="/" src={"/big-x.png"} width={50} height={50} />
-      <p style={{ marginTop: "20px" }}>Bạn có chắc chắn muốn xóa {name} ?</p>
+      <Image alt="/" src={'/big-x.png'} width={50} height={50} />
+      <p style={{ marginTop: '20px' }}>Bạn có chắc chắn muốn xóa {name} ?</p>
     </div>
   );
 
@@ -114,18 +100,19 @@ export function ConfirmDeleteModal(
     // console.log({ gr_id: selectedRow?.gr_id })
 
     //close modal
-    setOpen(false)
-
-    if (selectedRow) {
-      if (selectedRow.gr_id) {
-        DELETE('api/qlc/group/del', { gr_id: selectedRow.gr_id })
-          .then(res => {
-            // console.log(res)
-            setData && setData(data?.filter((item: any) => item !== selectedRow));
-          })
-          .catch(error => console.log(error))
-      }
-
+    
+    if (selectedRow?.gr_id) {
+      DELETE('api/qlc/group/del', { gr_id: selectedRow.gr_id })
+      .then((res) => {
+        // console.log(res)
+        if (res?.result === true) {
+            setOpen(false);
+            alert('Xóa nhóm thành công!');
+            setData &&
+              setData(data?.filter((item: any) => item !== selectedRow));
+          }
+        })
+        .catch((error) => console.log(error));
     }
   };
 
@@ -134,8 +121,8 @@ export function ConfirmDeleteModal(
     setOpen,
     children,
     450,
-    "Xóa nhóm",
-    "Đồng ý",
+    'Xóa nhóm',
+    'Đồng ý',
     onConfirm
   );
 }
@@ -150,38 +137,58 @@ export function AddNewModal(
   listTeamLabel?: any
 ) {
   const [form] = Form.useForm();
-  const router = useRouter()
-  const [depFilter, setDepFilter] = useState<any>()
-  const [listTeamLabelFilter, setTeamLabelFilter] = useState<any>()
+  const router = useRouter();
+  const [depFilter, setDepFilter] = useState<any>();
+  const [listTeamLabelFilter, setTeamLabelFilter] = useState<any>();
 
   const handleSubmit = () => {
     // console.log("create a new group!");
     // console.log(form.getFieldsValue());
-    
+
     //close modal
     // setOpen(false)
-    form.validateFields().then(value => {
-
-      POST('api/qlc/group/create', value)
-        .then(res => {
-          router.replace(router.asPath)
-        })
-    })
-
+    form.validateFields().then((value) => {
+      POST('api/qlc/group/create', value).then((res) => {
+        router.replace(router.asPath);
+      });
+    });
   };
 
   useEffect(() => {
     if (depFilter) {
-      setTeamLabelFilter(listTeamLabel?.filter(t => t?.dep_id === depFilter))
-    } 
-  }, [depFilter])
+      setTeamLabelFilter(listTeamLabel?.filter((t) => t?.dep_id === depFilter));
+    }
+  }, [depFilter]);
 
   const children = (
     <Form form={form}>
-      {MySelect("Công ty", "Chọn công ty", true, true, "com_id", comLabel && [comLabel])}
-      {MySelect("Phòng ban", "Chọn phòng ban", true, true, "dep_id", listDepLabel && listDepLabel, null, setDepFilter)}
-      {MySelect("Tổ", "Chọn tổ", true, true, "team_id", listTeamLabelFilter && listTeamLabelFilter)}
-      {MyInput("Tên nhóm", "Nhập tên nhóm", true, true, "gr_name")}
+      {MySelect(
+        'Công ty',
+        'Chọn công ty',
+        true,
+        true,
+        'com_id',
+        comLabel && [comLabel]
+      )}
+      {MySelect(
+        'Phòng ban',
+        'Chọn phòng ban',
+        true,
+        true,
+        'dep_id',
+        listDepLabel && listDepLabel,
+        null,
+        setDepFilter
+      )}
+      {MySelect(
+        'Tổ',
+        'Chọn tổ',
+        true,
+        true,
+        'team_id',
+        listTeamLabelFilter && listTeamLabelFilter
+      )}
+      {MyInput('Tên nhóm', 'Nhập tên nhóm', true, true, 'gr_name')}
     </Form>
   );
 
@@ -190,8 +197,8 @@ export function AddNewModal(
     setOpen,
     children,
     600,
-    "Thêm mới nhóm",
-    "Thêm mới",
+    'Thêm mới nhóm',
+    'Thêm mới',
     handleSubmit
   );
 }
