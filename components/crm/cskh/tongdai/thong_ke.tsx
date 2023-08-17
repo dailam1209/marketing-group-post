@@ -7,6 +7,9 @@ import PaginationCSKH from "./pagination";
 import { CallContext } from "@/components/crm/context/tongdaiContext";
 import Filter from "./filter";
 import { useSelector } from "react-redux";
+import FilterTongdai from "./filterTongdai";
+import FilterTongDai from "./filterTongdai";
+import FilterThongKe from "./fillterThongKe";
 type Props = {};
 
 const Recording = (props: Props) => {
@@ -27,7 +30,6 @@ const Recording = (props: Props) => {
     setIsShowModalAdd(false);
   };
 
-  console.log("check datame", listData);
   const getCurrentFormattedDate = () => {
     const currentDate = new Date();
 
@@ -58,16 +60,33 @@ const Recording = (props: Props) => {
   const end_T = getEndOfDayFormattedDate();
   const [fillStart, setFillStart] = useState<any>();
   const [fillEnd, setFillEnd] = useState<any>();
-  const [query, setQuery] = useState(
-    `http://s02.oncall.vn:8899/api/call_logs/list?pagesize=100000000&start_time=${start_T} &end_time=${end_T}&callee=0846812358%09`
-  );
+  const [listNV, setListNV] = useState([]);
 
+  const [query, setQuery] = useState(
+    `http://s02.oncall.vn:8899/api/call_logs/list?pagesize=100000000&start_time=${start_T} &end_time=${end_T}&`
+  );
+  const handleGetNhanVienPhuTrach = async () => {
+    const res = await fetch(
+      "http://210.245.108.202:3000/api/qlc/managerUser/list",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ com_id: 1763 }),
+      }
+    );
+    const data = await res.json();
+    setListNV(data?.data?.data);
+  };
+  
   const handleGet = async () => {
     setListData([]);
     setIsModalOpen(false);
     if (fillEnd && fillStart) {
       setQuery(
-        `http://s02.oncall.vn:8899/api/call_logs/list?pagesize=100000000&start_time=${fillStart} &end_time=${fillEnd}&callee=0846812358%09`
+        `http://s02.oncall.vn:8899/api/call_logs/list?pagesize=100000000&start_time=${fillStart} &end_time=${fillEnd}&`
       );
     }
     //lay datatable
@@ -130,18 +149,23 @@ const Recording = (props: Props) => {
     const data = await res.json();
     setlistLine(data?.data);
   };
-  const datane:any = outputArray?.map((item: any) => {
+ const output2= outputArray.filter(item=>{
+    return item.caller.length < 4
+  })
+  const datane:any = output2?.map((item: any) => {
     let name2 = ""
     let phong=""
-    console.log('check list le',listLine)
     for (var key of Object.keys(listLine)) {
-    
       var value = listLine[key];  
      if(value?.extension_number ==item.caller){
       name2 = value?.userName
-      phong = value?.nameDeparment
      }
     }
+  for(let key of listNV){
+    if(key.userName == name2){
+      phong=key.nameDeparment
+    }
+  }
     return {
       caller: item.caller,
       ring_duration: item.ring_duration,
@@ -157,6 +181,7 @@ const Recording = (props: Props) => {
   useEffect(() => {
     handleGetLine()
     handleGet();
+    handleGetNhanVienPhuTrach()
   }, [query]);
 
   const Colums = [
@@ -179,22 +204,22 @@ const Recording = (props: Props) => {
       render: (text: any) => <div>{text}</div>,
     },
     {
-      width: "12%",
+      width: "10%",
       title: "Tổng số cuộc gọi",
       dataIndex: "countSDT",
     },
     {
-      width: "12%",
+      width: "10%",
       title: "Tổng số đã trả lời",
       dataIndex: "countStatus",
     },
     {
-      width: "15%",
+      width: "12%",
       title: "Tổng số không trả lời",
       dataIndex: "nocountStatus",
     },
     {
-      width: "15%",
+      width: "12%",
       title: "Tổng thời gian gọi (s)",
       dataIndex: "ring_duration",
       render: (text: any, record: any) => <div>{text}s</div>,
@@ -210,8 +235,8 @@ const Recording = (props: Props) => {
   return (
     <div>
       <div className={styles.group_button}>
-        <Filter
-          datane={datane}
+        <FilterThongKe
+          datatable={datane}
           isModalOpen={isModalOpen}
           setIsModalOpen={setIsModalOpen}
           fillStart={fillStart}
@@ -233,8 +258,8 @@ const Recording = (props: Props) => {
           dataSource={datane}
           columns={Colums}
           bordered
-          scroll={{ x: 1000, y: 300 }}
-          pagination={false}
+          scroll={{ x: "fit-content",}}
+          pagination={{pageSize:10}}
         />
         <ModalConnect
           isShowModalAdd={isShowModalAdd}

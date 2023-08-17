@@ -8,8 +8,9 @@ import stylex from "../setting.module.css";
 import ModalCompleteStep from "../email_step/complete_modal";
 import { CallContext } from "@/components/crm/context/tongdaiContext";
 import { useDispatch, useSelector } from "react-redux";
-import { dataSaveTD } from "@/components/crm/redux/user/userSlice";
+import { dataSaveTD, doDisConnect } from "@/components/crm/redux/user/userSlice";
 import { notification } from "antd";
+import { useRouter } from "next/router";
 const SwitchFPTTable: React.FC = () => {
   const [connectionData, setConnectionData] = useState<
     { name: string; password: string; domain: string }[]
@@ -39,14 +40,12 @@ const SwitchFPTTable: React.FC = () => {
     setCurrentPath("/setting/switch_board");
   }, [setHeaderTitle, setShowBackButton, setCurrentPath]);
   const { isConnected, setIsConnected } = useContext<any>(CallContext);
-  const [isVerify, setisVerify] = useState();
-  console.log(isConnected);
-
+  const [isVerify, setisVerify] = useState(false);
+  const show = useSelector((state:any)=>state.auth.account)
   const dispatch = useDispatch();
 
   const handleConnect = async () => {
     const data = await Verify();
-    console.log("check daaaa", data);
     dispatch(dataSaveTD(data.access_token));
 
     if (data && data.access_token) {
@@ -54,6 +53,7 @@ const SwitchFPTTable: React.FC = () => {
       setConnectionData((prevData) => [...prevData, newConnection]);
       setIsConnected(true);
       setModal1Open(true);
+
     } else {
       notification.error({ message: `${data.msg}` });
     }
@@ -65,13 +65,14 @@ const SwitchFPTTable: React.FC = () => {
     const newConnection = { ...inputData };
     setConnectionData((prevData) => [...prevData, newConnection]);
     const data = await Verify();
-    console.log("check daaaa", data);
     if (data && data.access_token) {
+      dispatch(dataSaveTD(data.access_token));
       const newConnection = { ...inputData };
       setConnectionData((prevData) => [...prevData, newConnection]);
       setIsConnected(true);
       setModal1Open(true);
     } else {
+      dispatch(doDisConnect(''))
       setIsConnected(false);
       notification.error({ message: `${data.msg}` });
     }
@@ -87,7 +88,11 @@ const SwitchFPTTable: React.FC = () => {
     const data = await response.json();
     return data;
   };
+
   useEffect(() => {
+    if(show){
+      setisVerify(true)
+    }
     const handleget = async () => {
       if (oldData) {
         setIsConnected(true)
@@ -184,11 +189,11 @@ const SwitchFPTTable: React.FC = () => {
           >
             Cập nhật
           </button>
-          {isConnected ? (
+          {isVerify ? (
             <button
               style={{ color: "red", border: "1px solid" }}
               type="button"
-              onClick={() => setIsConnected(false)}
+              onClick={() => (setisVerify(false),dispatch(doDisConnect("")),alert("Hủy kết nối thành công"))}
             >
               Huỷ kết nối
             </button>

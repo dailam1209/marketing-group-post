@@ -12,20 +12,22 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     doRefresh:(state, action) => {
-      console.log('ceck payload',action.payload)
       state.account=action.payload;
       state.auth=action.payload.auth;
       state.isloading=action.payload.isloading
     },
     dataSaveTD: (state, action) => {
-      console.log("check action", action.payload);
       state.account = action.payload;
       // state.accountConnect=action.payload
     },
     doSaveconnectTD: (state,action) =>{
 
+    },
+    doDisConnect:(state,action) => {
+            state.account=action.payload
+
     }
   },
 })
-export const {doRefresh,dataSaveTD,doSaveconnectTD} = userSlice.actions;
+export const {doRefresh,dataSaveTD,doSaveconnectTD,doDisConnect} = userSlice.actions;
 export default userSlice.reducer;

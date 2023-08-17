@@ -736,3 +736,8 @@ label {
   margin-top: 10px !important;
   display: inline-block;
 }
+.ant-modal.css-dev-only-do-not-override-18w4yg9 button.ant-modal-close{
+margin-top: -8px;
+font-size: 20px;
+color: #fff;
+}

@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { Button, Input, Modal, Select } from "antd";
 import styles from "./tongdai.module.css";
 import { NodeIndexOutlined } from "@ant-design/icons";
+import Image from "next/image";
 
-const App: React.FC = (props:any) => {
-let {datane,setFillStart,setFillEnd,handleGet,isModalOpen,setIsModalOpen,datatable} = props
+const App: React.FC = (props?:any) => {
+const {datatable,isModalOpen,setIsModalOpen,fillStart,setFillStart,fillEnd,setFillEnd,handleGet} = props
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -28,7 +29,12 @@ const uniqueCounts = Array.from(new Set(datatable?.map(item => item.caller))); /
   return (
     <>
       <button className={styles.filter} onClick={showModal}>
-        <NodeIndexOutlined />
+      <Image
+            width={23}
+            height={23}
+            src={"filter_alt.svg"}
+            alt=""
+            />
         <p>Bộ lọc</p>
       </button>
       <Modal

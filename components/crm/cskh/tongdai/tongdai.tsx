@@ -8,10 +8,12 @@ import cskh from "../csks.module.css";
 import { CallContext } from "@/components/crm/context/tongdaiContext";
 import Filter from "./filter";
 import Image from "next/image";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { da } from "date-fns/locale";
 import { useApi } from "../../hooks/useApi";
 import { current } from "@reduxjs/toolkit";
+import FilterTongDai from "./filterTongdai";
+import { doDisConnect } from "../../redux/user/userSlice";
 type Props = {};
 
 const TongDaiPage = (props: Props) => {
@@ -22,7 +24,7 @@ const TongDaiPage = (props: Props) => {
   const show = useSelector((state: any) => state.auth.account);
   const [current, setcurrent] = useState(1);
   const [pageSize, setpageSize] = useState(10);
-
+  const [showKetNoi, setShowKetNoi] = useState(false);
   const onClose = () => {
     setIsShowModalAdd(false);
     setIsShowModal(false);
@@ -36,7 +38,7 @@ const TongDaiPage = (props: Props) => {
   );
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const datatable:any = listData?.map((item: any) => {
+  const datatable: any = listData?.map((item: any) => {
     return {
       caller: item.caller,
       callee: item.callee,
@@ -81,12 +83,13 @@ const TongDaiPage = (props: Props) => {
     const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
     return formattedDate;
   };
+  const dispatch = useDispatch();
   const start_T = getCurrentFormattedDate();
   const end_T = getEndOfDayFormattedDate();
   const [fillStart, setFillStart] = useState<any>();
   const [fillEnd, setFillEnd] = useState<any>();
   const [query, setQuery] = useState(
-    `http://s02.oncall.vn:8899/api/call_logs/list?pagesize=100000000&start_time=${start_T} &end_time=${end_T}&callee=0846812358%09`
+    `http://s02.oncall.vn:8899/api/call_logs/list?pagesize=100000000&start_time=${start_T} &end_time=${end_T}`
   );
 
   const handleGet = async () => {
@@ -94,7 +97,7 @@ const TongDaiPage = (props: Props) => {
     setIsModalOpen(false);
     if (fillEnd && fillStart) {
       setQuery(
-        `http://s02.oncall.vn:8899/api/call_logs/list?pagesize=100000000&start_time=${fillStart} &end_time=${fillEnd}&callee=0846812358%09`
+        `http://s02.oncall.vn:8899/api/call_logs/list?pagesize=100000000&start_time=${fillStart} &end_time=${fillEnd}`
       );
     }
 
@@ -106,29 +109,33 @@ const TongDaiPage = (props: Props) => {
       },
     });
     const data = await response.json();
-    console.log("databackend", data.items);
-    setListData(data?.items);
+    if (data && data.items) {
+      setListData(data?.items);
+    } else {
+      dispatch(doDisConnect(''));
+    }
     return data;
   };
-
   useEffect(() => {
+    if (show) {
+      setShowKetNoi(true);
+    }
     handleGet();
-  }, [query]);
-
+  }, [query, show]);
   const Colums = [
     {
       key: "1",
       width: "10%",
       title: "Số gọi",
       dataIndex: "caller",
-      render: (text: any, record: any) => <div >{text}</div>,
+      render: (text: any, record: any) => <div>{text}</div>,
     },
     {
       key: "2",
       width: "10%",
       title: "Số nghe",
       dataIndex: "callee",
-      render: (text: any, record: any) => <div >{text}</div>,
+      render: (text: any, record: any) => <div>{text}</div>,
     },
     {
       key: "3",
@@ -159,17 +166,20 @@ const TongDaiPage = (props: Props) => {
   ];
   const customLocale = {
     emptyText: (
-      <div style={{ fontWeight: 400, color: "black", fontSize: 15 }}>
-        Đang phân tích kết quả ...
+      <div
+        key={"empty"}
+        style={{ fontWeight: 400, color: "black", fontSize: 15 }}
+      >
+        {showKetNoi ? " Đang phân tích kết quả ..." : ""}
       </div>
     ), // Thay thế nội dung "No Data" bằng "Hello"
   };
   return (
-    <div key="1">
-      {show !==undefined ? (
-        <div>
-          <div className={styles.group_button}>
-            <Filter
+    <div>
+      {showKetNoi && (
+        <div className={styles.group_button} style={{ display: "block" }}>
+          <div>
+            <FilterTongDai
               datatable={datatable}
               isModalOpen={isModalOpen}
               setIsModalOpen={setIsModalOpen}
@@ -179,19 +189,24 @@ const TongDaiPage = (props: Props) => {
               setFillEnd={setFillEnd}
               handleGet={handleGet}
             />
-            <div className={styles.group_button_right}>
-              <Link href={"/crm/ghi-am"}>
-                <button>Ghi âm</button>
-              </Link>
-
-              <Link href={"/crm/thong-ke-tong-dai"}>
-                <button>Thống kê</button>
-              </Link>
-              <Link href={"/crm/switchboard/manager/line"}>
-                <button>Quản lý line</button>
-              </Link>
-            </div>
           </div>
+
+          <div
+            className={styles.group_button_right}
+            style={{ float: "right", marginTop: -40 }}
+          >
+            <Link href={"/crm/ghi-am"}>
+              <button>Ghi âm</button>
+            </Link>
+
+            <Link href={"/crm/thong-ke-tong-dai"}>
+              <button>Thống kê</button>
+            </Link>
+            <Link href={"/crm/switchboard/manager/line"}>
+              <button>Quản lý line</button>
+            </Link>
+          </div>
+
           <ul className={styles.cskh_info_call} style={{ fontSize: 16 }}>
             <li>Số cuộc gọi: {listData?.length}</li>
             <li>Tổng số nghe máy: {count || ""}</li>
@@ -202,9 +217,10 @@ const TongDaiPage = (props: Props) => {
             </li>
           </ul>
         </div>
-      ) : (
-        <div className={cskh.connect_tongdai}>
-          <Link href={"/setting/switch_board"}>
+      )}
+      {!showKetNoi && (
+        <div className={cskh.connect_tongdai} style={{ paddingBottom: 20 }}>
+          <Link href={"/crm/setting/switch_board"}>
             <Button
               style={{ height: 40, width: 200 }}
               className={`${cskh.dropbtn_add} `}
@@ -221,13 +237,14 @@ const TongDaiPage = (props: Props) => {
           </Link>
         </div>
       )}
+
       <div style={{ paddingTop: 20 }}>
         <Table
           locale={customLocale}
           columns={Colums as any}
           dataSource={datatable}
           bordered
-          scroll={{ x: 1000, y: 300 }}
+          scroll={{ x: 1000 }}
           pagination={{
             current: current,
             pageSize: pageSize,

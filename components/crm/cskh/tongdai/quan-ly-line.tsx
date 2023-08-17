@@ -19,6 +19,7 @@ const Recording = (props: Props) => {
   const [id, setId] = useState();
   const [name, setname] = useState();
   const [option, setOption] = useState();
+  const [showKetNoi,setShowKetNoi] = useState(false)
 
   let arr = [];
   for (var key of Object.keys(listLine)) {
@@ -120,6 +121,9 @@ const Recording = (props: Props) => {
   };
   console.log("check list nv", listNV);
   useEffect(() => {
+    if(show){
+      setShowKetNoi(true)
+    } 
     handleGetLine();
     handleGetNhanVienPhuTrach();
   }, [isShowModalEdit]);
@@ -141,13 +145,16 @@ const Recording = (props: Props) => {
 
   return (
     <div>
+      {showKetNoi && 
       <div style={{ paddingTop: 20 }}>
         <Table
           columns={Colums as any}
           dataSource={data}
           bordered
-          scroll={{ x: 1000, y: 300 }}
-          pagination={false}
+          scroll={{ x: 1000 }}
+          pagination={{
+            pageSize:8
+          }}
         />
         <ModalConnect
           isShowModalAdd={isShowModalAdd}
@@ -210,6 +217,7 @@ const Recording = (props: Props) => {
           </div>
         </Modal>
       </div>
+}
     </div>
   );
 };

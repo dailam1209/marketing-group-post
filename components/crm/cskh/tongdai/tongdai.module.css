@@ -55,9 +55,8 @@
 }
 .containerfillter .item1{
   display: flex;
-  /* padding-top: 20px; */
+  padding-top: 20px;
   align-items: center;
-  padding: 10px;
 }
 .footerBTN{
   display: flex;
