@@ -4,8 +4,9 @@ import styles from "./tongdai.module.css";
 import Link from "next/link";
 import ModalConnect from "../modal/modal-connect";
 import PaginationCSKH from "./pagination";
-import { CallContext } from "@/components/context/tongdaiContext";
+import { CallContext } from "@/components/crm/context/tongdaiContext";
 import Filter from "./filter";
+import { useSelector } from "react-redux";
 type Props = {};
 
 const Recording = (props: Props) => {
@@ -13,73 +14,215 @@ const Recording = (props: Props) => {
   const [isShowModalAdd, setIsShowModalAdd] = useState(false);
   const { isConnected } = useContext<any>(CallContext);
 
+  const [listData, setListData] = useState([]);
+  const show = useSelector((state: any) => state.auth.account);
+  const [current, setcurrent] = useState(1);
+  const [pageSize, setpageSize] = useState(10);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const onClose = () => {
     setIsShowModalAdd(false);
     setIsShowModal(false);
   };
-
   const handleAddDB = () => {
     setIsShowModalAdd(false);
   };
-  const data: any = [null];
+
+  console.log("check datame", listData);
+  const getCurrentFormattedDate = () => {
+    const currentDate = new Date();
+
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, "0");
+    const day = String(currentDate.getDate()).padStart(2, "0");
+    const hours = "00";
+    const minutes = "00";
+    const seconds = "00";
+
+    const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    return formattedDate;
+  };
+
+  const getEndOfDayFormattedDate = () => {
+    const currentDate = new Date();
+
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, "0");
+    const day = String(currentDate.getDate()).padStart(2, "0");
+    const hours = "23";
+    const minutes = "59";
+    const seconds = "59";
+    const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    return formattedDate;
+  };
+  const start_T = getCurrentFormattedDate();
+  const end_T = getEndOfDayFormattedDate();
+  const [fillStart, setFillStart] = useState<any>();
+  const [fillEnd, setFillEnd] = useState<any>();
+  const [query, setQuery] = useState(
+    `http://s02.oncall.vn:8899/api/call_logs/list?pagesize=100000000&start_time=${start_T} &end_time=${end_T}&callee=0846812358%09`
+  );
+
+  const handleGet = async () => {
+    setListData([]);
+    setIsModalOpen(false);
+    if (fillEnd && fillStart) {
+      setQuery(
+        `http://s02.oncall.vn:8899/api/call_logs/list?pagesize=100000000&start_time=${fillStart} &end_time=${fillEnd}&callee=0846812358%09`
+      );
+    }
+    //lay datatable
+    const response = await fetch(`${query}`, {
+      method: "GET",
+      headers: {
+        access_token: show,
+        // "Content-Type":"S"
+      },
+    });
+    const data = await response.json();
+    setListData(data?.items);
+  };
+
+  var outputArray = [];
+
+  listData?.forEach(function (call) {
+    var existingCall = outputArray.find(function (item) {
+      return item.caller === call.caller;
+    });
+
+    var ringDuration = parseInt(call.ring_duration); // Chuyển đổi chuỗi thành số
+
+    if (existingCall) {
+      existingCall.ring_duration += ringDuration;
+      existingCall.countSDT += 1;
+
+      if (call.status === "ANSWERED") {
+        existingCall.countStatus += 1;
+      }
+    } else {
+      var newCall = {
+        caller: call.caller,
+        ring_duration: ringDuration,
+        countSDT: 1,
+        countStatus: 0,
+      };
+
+      if (call.status === "ANSWERED") {
+        newCall.countStatus = 1;
+      }
+
+      outputArray.push(newCall);
+    }
+  });
+  const [listLine, setlistLine] = useState([]);
+  const token =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6MzgwOTg5LCJpZFRpbVZpZWMzNjUiOjIwMjU4NSwiaWRRTEMiOjE3NjMsImlkUmFvTmhhbmgzNjUiOjAsImVtYWlsIjoiZHVvbmdoaWVwaXQxQGdtYWlsLmNvbSIsInBob25lVEsiOiIiLCJjcmVhdGVkQXQiOjE2MDA2NTg0NzgsInR5cGUiOjEsImNvbV9pZCI6MTc2MywidXNlck5hbWUiOiJDw7RuZyBUeSBUTkhIIEggTSBMIFBwbyJ9LCJpYXQiOjE2OTIyNTExOTcsImV4cCI6MTY5MjMzNzU5N30.nVKoqGDAC7kCxytrqrpmjy0wf-WFmgKNxEM6LmmqiSU";
+  const handleGetLine = async () => {
+    const res = await fetch(
+      "http://210.245.108.202:3007/api/crm/cutomerCare/listLine",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const data = await res.json();
+    setlistLine(data?.data);
+  };
+  const datane:any = outputArray?.map((item: any) => {
+    let name2 = ""
+    let phong=""
+    console.log('check list le',listLine)
+    for (var key of Object.keys(listLine)) {
+    
+      var value = listLine[key];  
+     if(value?.extension_number ==item.caller){
+      name2 = value?.userName
+      phong = value?.nameDeparment
+     }
+    }
+    return {
+      caller: item.caller,
+      ring_duration: item.ring_duration,
+      countStatus: item.countStatus,
+      countSDT: item.countSDT,
+      nocountStatus: item.countSDT - item.countStatus,
+      adv: (item.ring_duration / item.countSDT).toFixed(2),
+      name:name2,
+      nameDeparment:phong
+      // status: item.status,
+    };
+  });
+  useEffect(() => {
+    handleGetLine()
+    handleGet();
+  }, [query]);
 
   const Colums = [
     {
       width: "10%",
       title: "Số gọi",
-      dataIndex: "name",
-      render: (text: any, record: any) => <Link href={``}>{text}</Link>,
+      dataIndex: "caller",
+      render: (text: any, record: any) => <div>{text}</div>,
     },
     {
       width: "10%",
       title: "Người phụ trách",
-      dataIndex: "des",
-      render: (text: any, record: any) => <Link href={``}>{text}</Link>,
+      dataIndex: "name",
+      render: (text: any, record: any) => <div>{text}</div>,
     },
     {
       width: "10%",
       title: "Phòng ban",
-      dataIndex: "des",
+      dataIndex: "nameDeparment",
       render: (text: any) => <div>{text}</div>,
     },
     {
       width: "12%",
       title: "Tổng số cuộc gọi",
-      dataIndex: "date",
+      dataIndex: "countSDT",
     },
     {
       width: "12%",
       title: "Tổng số đã trả lời",
-      dataIndex: "name",
+      dataIndex: "countStatus",
     },
     {
       width: "15%",
       title: "Tổng số không trả lời",
-      dataIndex: "name",
+      dataIndex: "nocountStatus",
     },
     {
       width: "15%",
       title: "Tổng thời gian gọi (s)",
-      dataIndex: "name",
+      dataIndex: "ring_duration",
+      render: (text: any, record: any) => <div>{text}s</div>,
     },
     {
       width: "20%",
       title: "Trung bình cuộc gọi (s/ cuộc gọi)",
-      dataIndex: "name",
+      dataIndex: "adv",
+      render: (text: any, record: any) => <div>{text}s</div>,
     },
   ];
-
-  useEffect(() => {
-    console.log(isConnected);
-  }, []);
 
   return (
     <div>
       <div className={styles.group_button}>
-        <Filter />
+        <Filter
+          datane={datane}
+          isModalOpen={isModalOpen}
+          setIsModalOpen={setIsModalOpen}
+          fillStart={fillStart}
+          setFillStart={setFillStart}
+          fillEnd={fillEnd}
+          setFillEnd={setFillEnd}
+          handleGet={handleGet}
+        />
 
         <div className={styles.group_button_right}>
-          <Link href={"/tong-dai"}>
+          <Link href={"/crm/tong-dai"}>
             <button>Chi tiết</button>
           </Link>
         </div>
@@ -87,8 +230,8 @@ const Recording = (props: Props) => {
 
       <div style={{ paddingTop: 20 }}>
         <Table
-          columns={Colums as any}
-          dataSource={data}
+          dataSource={datane}
+          columns={Colums}
           bordered
           scroll={{ x: 1000, y: 300 }}
           pagination={false}
@@ -98,9 +241,6 @@ const Recording = (props: Props) => {
           onClose={onClose}
           handleAddDB={handleAddDB}
         />
-      </div>
-      <div className={styles.pagination}>
-        <PaginationCSKH />
       </div>
     </div>
   );

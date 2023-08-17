@@ -1,17 +1,32 @@
-import { Table } from "antd";
+import { Input, Modal, Select, Table } from "antd";
 import React, { useContext, useEffect, useState } from "react";
 import styles from "./tongdai.module.css";
 import Link from "next/link";
 import ModalConnect from "../modal/modal-connect";
 import PaginationCSKH from "./pagination";
-import { CallContext } from "@/components/context/tongdaiContext";
+import { CallContext } from "@/components/crm/context/tongdaiContext";
 import Filter from "./filter";
+import { useSelector } from "react-redux";
 type Props = {};
 
 const Recording = (props: Props) => {
   const [isShowModal, setIsShowModal] = useState(false);
+  const [isShowModalEdit, setIsShowModalEdit] = useState(false);
   const [isShowModalAdd, setIsShowModalAdd] = useState(false);
   const { isConnected } = useContext<any>(CallContext);
+  const [listLine, setlistLine] = useState([]);
+  const [listNV, setListNV] = useState([]);
+  const [id, setId] = useState();
+  const [name, setname] = useState();
+  const [option, setOption] = useState();
+
+  let arr = [];
+  for (var key of Object.keys(listLine)) {
+    var value = listLine[key];
+    arr.push(value);
+  }
+
+  const show = useSelector((state: any) => state.auth.account);
 
   const onClose = () => {
     setIsShowModalAdd(false);
@@ -21,45 +36,108 @@ const Recording = (props: Props) => {
   const handleAddDB = () => {
     setIsShowModalAdd(false);
   };
-  const data: any = [null];
+  arr.pop();
+  arr.pop();
+  const handleChange = (value, name) => {
+    setIsShowModalEdit(true);
+    setname(name);
+    setId(value);
+  };
+  const data = arr?.map((item, index) => {
+    return {
+      key: index + 1,
+      extension_number: item?.extension_number,
+      userName: item?.userName,
+      status: item?.status,
+    };
+  });
 
   const Colums = [
     {
       width: "10%",
       title: "STT",
-      dataIndex: "name",
+      dataIndex: "key",
     },
     {
       width: "10%",
       title: "Line",
-      dataIndex: "des",
+      dataIndex: "extension_number",
     },
     {
       width: "10%",
       title: "Người phụ trách",
-      dataIndex: "des",
+      dataIndex: "userName",
     },
     {
       width: "12%",
       title: "Trạng thái",
-      dataIndex: "date",
+      dataIndex: "status",
     },
     {
       width: "12%",
       title: "Chức năng",
       dataIndex: "action",
-      render: (text: any) => {
-        if (text) {
-          return <button>Sửa</button>;
-        }
-        return null;
-      },
+      render: (text: any, record: any) => (
+        <button
+          onClick={() => handleChange(record.extension_number, record.userName)}
+        >
+          Sửa
+        </button>
+      ),
     },
   ];
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6MzgwOTg5LCJpZFRpbVZpZWMzNjUiOjIwMjU4NSwiaWRRTEMiOjE3NjMsImlkUmFvTmhhbmgzNjUiOjAsImVtYWlsIjoiZHVvbmdoaWVwaXQxQGdtYWlsLmNvbSIsInBob25lVEsiOiIiLCJjcmVhdGVkQXQiOjE2MDA2NTg0NzgsInR5cGUiOjEsImNvbV9pZCI6MTc2MywidXNlck5hbWUiOiJDw7RuZyBUeSBUTkhIIEggTSBMIFBwbyJ9LCJpYXQiOjE2OTIyNTExOTcsImV4cCI6MTY5MjMzNzU5N30.nVKoqGDAC7kCxytrqrpmjy0wf-WFmgKNxEM6LmmqiSU";
+  const handleGetLine = async () => {
+    const res = await fetch(
+      "http://210.245.108.202:3007/api/crm/cutomerCare/listLine",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const data = await res.json();
+    setlistLine(data?.data);
+  };
 
+  const handleGetNhanVienPhuTrach = async () => {
+    const res = await fetch(
+      "http://210.245.108.202:3000/api/qlc/managerUser/list",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ com_id: 1763 }),
+      }
+    );
+    const data = await res.json();
+    setListNV(data?.data?.data);
+  };
+  console.log("check list nv", listNV);
   useEffect(() => {
-    console.log(isConnected);
-  }, []);
+    handleGetLine();
+    handleGetNhanVienPhuTrach();
+  }, [isShowModalEdit]);
+  const handleChangeOption = (value: any) => {
+    console.log("check options", event);
+    setOption(value);
+  };
+  const handleOK = async () => {
+    setIsShowModalEdit(false);
+    await fetch("http://210.245.108.202:3007/api/crm/cutomerCare/update", {
+      method: "POST",
+      headers:{
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ ext_number: id, emp_id: option }),
+    });
+  };
 
   return (
     <div>
@@ -76,9 +154,61 @@ const Recording = (props: Props) => {
           onClose={onClose}
           handleAddDB={handleAddDB}
         />
-      </div>
-      <div className={styles.pagination}>
-        <PaginationCSKH />
+        <Modal
+          onCancel={() => setIsShowModalEdit(false)}
+          onOk={() => handleOK()}
+          title={
+            <div
+              style={{
+                background: "#4C5BD4",
+                width: "114%",
+                margin: "-20px -25px",
+              }}
+            >
+              <div
+                style={{
+                  color: "white",
+                  fontSize: 16,
+                  textAlign: "center",
+                  paddingTop: 10,
+                }}
+              >
+                Thiết lập
+              </div>
+            </div>
+          }
+          open={isShowModalEdit}
+        >
+          <div style={{ paddingTop: 20 }}>
+            <div>Số điện thoại</div>
+            <div>
+              <Input
+                type="text"
+                disabled
+                value={id}
+                style={{ color: "black" }}
+              />
+            </div>
+            <div>Nhân viên phụ trách</div>
+            <div>
+              <Select
+                style={{ width: "100%" }}
+                defaultValue={` ${name}`}
+                onChange={handleChangeOption}
+              >
+                {listNV &&
+                  listNV?.map((item: any, index) => {
+                    return (
+                      <option
+                        key={index}
+                        value={item.idQLC}
+                      >{`(${item.idQLC}) ${item.userName}`}</option>
+                    );
+                  })}
+              </Select>
+            </div>
+          </div>
+        </Modal>
       </div>
     </div>
   );

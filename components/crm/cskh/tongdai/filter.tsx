@@ -3,20 +3,27 @@ import { Button, Input, Modal, Select } from "antd";
 import styles from "./tongdai.module.css";
 import { NodeIndexOutlined } from "@ant-design/icons";
 
-const App: React.FC = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
+const App: React.FC = (props:any) => {
+let {datane,setFillStart,setFillEnd,handleGet,isModalOpen,setIsModalOpen,datatable} = props
   const showModal = () => {
     setIsModalOpen(true);
   };
 
   const handleOk = () => {
     setIsModalOpen(false);
+    handleGet()
   };
 
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+const handleDateChange = (e:any)=>{
+  setFillStart(`${e.target.value} 00:00:00`)
+}
+const handleDateChange2 = (e:any)=>{
+  setFillEnd(`${e.target.value} 23:59:59`)
+}
+const uniqueCounts = Array.from(new Set(datatable?.map(item => item.caller))); // Lọc giá trị duy nhất
 
   return (
     <>
@@ -38,13 +45,13 @@ const App: React.FC = () => {
             <div style={{ display: "flex", alignItems: "center",paddingRight:10, gap: 10 }}>
               <div>Từ</div>
               <div>
-                <Input type="date"></Input>
+                <Input onChange={handleDateChange}  type="date"></Input>
               </div>
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
               <div>Đến</div>
               <div>
-                <Input type="date"></Input>
+                <Input onChange={handleDateChange2} type="date"></Input>
               </div>
             </div>
           </div>
@@ -53,8 +60,13 @@ const App: React.FC = () => {
             <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
               
               <div style={{width:"100%"}}>
+                
                 <Select style={{width:145}} placeholder="Chọn nhân viên">
-                  <option value="">Chọn nhân viên</option>
+                {uniqueCounts.map((count:any,index:number) => {
+                  return (
+                    <option key={index} value={count}>{count}</option>
+                  )
+                })}
                 </Select>
               </div>
             </div>
@@ -75,7 +87,7 @@ const App: React.FC = () => {
       <Button onClick={handleCancel} style={{color:"#4c5bd4",border:"1px solid #4c5bd4"}}> Hủy</Button>
             </div>
             <div>
-            <Button style={{color:"#fff",background:"#4c5bd4"}}>
+            <Button style={{color:"#fff",background:"#4c5bd4"}} onClick={handleGet}>
               Tìm kiếm
             </Button>
 

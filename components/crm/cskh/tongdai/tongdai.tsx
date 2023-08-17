@@ -20,8 +20,9 @@ const TongDaiPage = (props: Props) => {
   const { isConnected } = useContext<any>(CallContext);
   const [listData, setListData] = useState([]);
   const show = useSelector((state: any) => state.auth.account);
-  const [current, setcurrent] = useState(1)
-  const [pageSize, setpageSize] = useState(10)
+  const [current, setcurrent] = useState(1);
+  const [pageSize, setpageSize] = useState(10);
+
   const onClose = () => {
     setIsShowModalAdd(false);
     setIsShowModal(false);
@@ -33,10 +34,9 @@ const TongDaiPage = (props: Props) => {
     (acc, current) => acc + +current.ring_duration,
     0
   );
-  
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  console.log("check222", totalSum);
-  const datatable = listData?.map((item: any) => {
+  const datatable:any = listData?.map((item: any) => {
     return {
       caller: item.caller,
       callee: item.callee,
@@ -53,59 +53,67 @@ const TongDaiPage = (props: Props) => {
     }
     return acc;
   }, 0);
-//gettime start
-function getCurrentFormattedDate() {
-  const currentDate = new Date();
+  //gettime start
+  const getCurrentFormattedDate = () => {
+    const currentDate = new Date();
 
-  const year = currentDate.getFullYear();
-  const month = String(currentDate.getMonth() + 1).padStart(2, "0");
-  const day = String(currentDate.getDate()).padStart(2, "0");
-  const hours = "00";
-  const minutes = "00";
-  const seconds = "00";
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, "0");
+    const day = String(currentDate.getDate()).padStart(2, "0");
+    const hours = "00";
+    const minutes = "00";
+    const seconds = "00";
 
-  const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-  return formattedDate;
-}
-getEndOfDayFormattedDate()
-getCurrentFormattedDate()
-function getEndOfDayFormattedDate() {
-  const currentDate = new Date();
+    const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    return formattedDate;
+  };
 
-  const year = currentDate.getFullYear();
-  const month = String(currentDate.getMonth() + 1).padStart(2, "0");
-  const day = String(currentDate.getDate()).padStart(2, "0");
-  const hours = "23";
-  const minutes = "59";
-  const seconds = "59";
+  const getEndOfDayFormattedDate = () => {
+    const currentDate = new Date();
 
-  const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-  return formattedDate;
-}
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, "0");
+    const day = String(currentDate.getDate()).padStart(2, "0");
+    const hours = "23";
+    const minutes = "59";
+    const seconds = "59";
 
-  console.log("check count",count)
+    const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    return formattedDate;
+  };
+  const start_T = getCurrentFormattedDate();
+  const end_T = getEndOfDayFormattedDate();
+  const [fillStart, setFillStart] = useState<any>();
+  const [fillEnd, setFillEnd] = useState<any>();
+  const [query, setQuery] = useState(
+    `http://s02.oncall.vn:8899/api/call_logs/list?pagesize=100000000&start_time=${start_T} &end_time=${end_T}&callee=0846812358%09`
+  );
+
   const handleGet = async () => {
-    const response = await fetch(
-      `http://s02.oncall.vn:8899/api/call_logs/list?pagesize=1000000&start_time=${getCurrentFormattedDate()
-    }&end_time=${getEndOfDayFormattedDate()}`,
-      {
-        method: "GET",
-        headers: {
-          access_token: show,
-          // "Content-Type":"S"
-        },
-      }
-    );
+    setListData([]);
+    setIsModalOpen(false);
+    if (fillEnd && fillStart) {
+      setQuery(
+        `http://s02.oncall.vn:8899/api/call_logs/list?pagesize=100000000&start_time=${fillStart} &end_time=${fillEnd}&callee=0846812358%09`
+      );
+    }
+
+    const response = await fetch(`${query}`, {
+      method: "GET",
+      headers: {
+        access_token: show,
+        // "Content-Type":"S"
+      },
+    });
     const data = await response.json();
     console.log("databackend", data.items);
     setListData(data?.items);
     return data;
   };
-  console.log("check show ne", show);
 
   useEffect(() => {
     handleGet();
-  }, []);
+  }, [query]);
 
   const Colums = [
     {
@@ -113,14 +121,14 @@ function getEndOfDayFormattedDate() {
       width: "10%",
       title: "Số gọi",
       dataIndex: "caller",
-      render: (text: any, record: any) => <Link href={``}>{text}</Link>,
+      render: (text: any, record: any) => <div >{text}</div>,
     },
     {
       key: "2",
       width: "10%",
       title: "Số nghe",
       dataIndex: "callee",
-      render: (text: any, record: any) => <Link href={``}>{text}</Link>,
+      render: (text: any, record: any) => <div >{text}</div>,
     },
     {
       key: "3",
@@ -149,32 +157,49 @@ function getEndOfDayFormattedDate() {
       dataIndex: "status",
     },
   ];
-
+  const customLocale = {
+    emptyText: (
+      <div style={{ fontWeight: 400, color: "black", fontSize: 15 }}>
+        Đang phân tích kết quả ...
+      </div>
+    ), // Thay thế nội dung "No Data" bằng "Hello"
+  };
   return (
     <div key="1">
-      {show !== "undefine" ? (
+      {show !==undefined ? (
         <div>
-          <div className={styles.group_button} >
-            <Filter />
+          <div className={styles.group_button}>
+            <Filter
+              datatable={datatable}
+              isModalOpen={isModalOpen}
+              setIsModalOpen={setIsModalOpen}
+              fillStart={fillStart}
+              setFillStart={setFillStart}
+              fillEnd={fillEnd}
+              setFillEnd={setFillEnd}
+              handleGet={handleGet}
+            />
             <div className={styles.group_button_right}>
-              <Link href={"/ghi-am"}>
+              <Link href={"/crm/ghi-am"}>
                 <button>Ghi âm</button>
               </Link>
 
-              <Link href={"/thong-ke-tong-dai"}>
+              <Link href={"/crm/thong-ke-tong-dai"}>
                 <button>Thống kê</button>
               </Link>
-              <Link href={"/switchboard/manager/line"}>
+              <Link href={"/crm/switchboard/manager/line"}>
                 <button>Quản lý line</button>
               </Link>
             </div>
           </div>
-          <ul className={styles.cskh_info_call} style={{fontSize:16}}>
+          <ul className={styles.cskh_info_call} style={{ fontSize: 16 }}>
             <li>Số cuộc gọi: {listData?.length}</li>
-            <li>Tổng số nghe máy: {count||''}</li>
-            <li>Tổng số không trả lời: {listData?.length-count}</li>
-            <li>Tổng thời gian gọi: {totalSum || ''}(s)</li>
-            <li>Trung bình: {(totalSum / listData?.length).toFixed(2)}s/ cuộc gọi</li>
+            <li>Tổng số nghe máy: {count || ""}</li>
+            <li>Tổng số không trả lời: {listData?.length - count}</li>
+            <li>Tổng thời gian gọi: {totalSum || ""}(s)</li>
+            <li>
+              Trung bình: {(totalSum / listData?.length).toFixed(2)}s/ cuộc gọi
+            </li>
           </ul>
         </div>
       ) : (
@@ -198,16 +223,17 @@ function getEndOfDayFormattedDate() {
       )}
       <div style={{ paddingTop: 20 }}>
         <Table
+          locale={customLocale}
           columns={Colums as any}
           dataSource={datatable}
           bordered
           scroll={{ x: 1000, y: 300 }}
           pagination={{
-            current:current,
-            pageSize:pageSize,
+            current: current,
+            pageSize: pageSize,
             onChange(page, pageSize) {
-              if(page!=current){
-                setcurrent(page)
+              if (page != current) {
+                setcurrent(page);
               }
             },
           }}
