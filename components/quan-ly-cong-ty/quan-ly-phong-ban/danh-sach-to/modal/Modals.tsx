@@ -156,36 +156,36 @@ export function AddNewToModal(
   setOpen: Function,
   listDeps: any[],
   data?: any,
-  setData?: Function
+  setData?: Function,
+  comLabel?: any,
+  listDepLabel?: any
 ) {
   const [form] = Form.useForm()
   const router = useRouter()
-  // const comp_id =
   const handleSubmit = () => {
-    console.log(form.getFieldsValue())
+    // console.log(form.getFieldsValue())
     // model "Confirm" popup
     // code for popup confirm
 
     //close modal
-    setOpen(false)
-
-    // add data
-    POST(`api/qlc/team/create`, form.getFieldsValue())
-      .then((res) => {
-        console.log(res?.message)
-
-        // update data after creation
-        // setData && setData([...data, res?.team])
-        router.reload()
+    form.validateFields().then((value) => {
+      // add data
+      POST(`api/qlc/team/create`, value).then((res) => {
+        router.replace(router.asPath)
       })
-      .catch((err) => console.log(err))
+    })
   }
 
   const children = (
     <Form form={form}>
-      {MySelect('Công ty', 'Chọn công ty', true, true, 'com_id', [
-        { label: 'Công ty thanh toán Hưng Hà 2', value: 3312 },
-      ])}
+      {MySelect(
+        'Công ty',
+        'Chọn công ty',
+        true,
+        true,
+        'com_id',
+        comLabel && [comLabel]
+      )}
       {/* {MyInput("Tổ trưởng", "Bùi Văn Huy", false, false, "teamLeader")} */}
       {/* {MyInput(
         "Phó tổ trưởng",

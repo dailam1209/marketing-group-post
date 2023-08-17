@@ -68,6 +68,10 @@ const mockdata = [
 export function NhanVienChoDuyet({ listStaffs, comLabel }) {
   const [selectedRowKeys, setSelectedRowKeys] = useState<any[]>()
   const [openDuyetModal, setOpenDuyetModal] = useState(false)
+  // const positionLabel = getPosition?.map((p) => ({
+  //   label: p?.value,
+  //   value: p?.id,
+  // }))
 
   const columns = [
     {
