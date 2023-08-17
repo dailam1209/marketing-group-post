@@ -1,9 +1,12 @@
-import { useRouter } from "next/router"
-import styles from "./index.module.css"
-import { Button, Card, Col, Row, Upload } from "antd"
-import Image from "next/image"
+import { useRouter } from 'next/router'
+import styles from './index.module.css'
+import { Button, Card, Col, Row, Upload } from 'antd'
+import Image from 'next/image'
+import { POST, POST_SS } from '@/pages/api/BaseApi'
 
-export default function ChiTietNhanVien() {
+export default function ChiTietNhanVien({ data }) {
+  console.log(data)
+
   const router = useRouter()
   const param = router.query
   const SingleItem = ({ title, data }: { title: string; data: string }) => {
@@ -23,7 +26,7 @@ export default function ChiTietNhanVien() {
     //   (item, index) => (pathname += index !== item?.length ? `${item}/` : item)
     // )
     router.push(
-      `/quan-ly-cong-ty/cai-dat-them-nhan-vien-moi/chinh-sua-thong-tin/${param?.id}`
+      `/quan-ly-nhan-luc/quan-ly-cong-ty/cai-dat-them-nhan-vien-moi/chinh-sua-thong-tin/${param?.id}`
     )
   }
   return (
@@ -32,48 +35,49 @@ export default function ChiTietNhanVien() {
         <div className={styles.wrapper}>
           <div className={styles.leftSection}>
             <div className={styles.avatar}>
-              <Image alt="/" src={"/ava-detail.png"} width={200} height={200} />
+              <Image alt='/' src={'/ava-detail.png'} width={200} height={200} />
               <Upload
                 maxCount={1}
                 onChange={(data: any) => {
                   console.log(data)
                 }}
-                showUploadList={false}
-              >
+                showUploadList={false}>
                 <span className={styles.editAvatar}>
                   <Image
-                    src={"/editAvatar.png"}
-                    alt=""
+                    src={'/editAvatar.png'}
+                    alt=''
                     width={20}
-                    height={20}
-                  ></Image>
+                    height={20}></Image>
                 </span>
               </Upload>
             </div>
             <p className={styles.id}>ID - {param?.id}</p>
           </div>
           <div className={styles.rightSection}>
-            <p className={styles.name}>Nguyễn Thị Hồng Anh</p>
+            <p className={styles.name}>{data?.userName || 'Chưa cập nhật'}</p>
             <p className={styles.companyName}>
-              Công ty cổ phần Thanh toán Hưng Hà 2
+              {data?.companyName?.userName || 'Chưa cập nhật'}
             </p>
-            <SingleItem data="Kỹ thuật" title="Phòng ban" />
             <SingleItem
-              data="Chưa có kinh nghiệm"
-              title="Kinh nghiệm làm việc"
+              data={data?.nameDeparment || 'Chưa cập nhật'}
+              title='Phòng ban'
             />
-            <SingleItem data="05-06-2023" title="Ngày bắt đầu làm việc" />
-            <SingleItem data="abc@gmail.com" title="Địa chỉ email" />
-            <SingleItem data="0183128312" title="Số điện thoại" />
-            <SingleItem data="13-06-1997" title="Ngày sinh" />
-            <SingleItem data="Nữ" title="Giới tính" />
             <SingleItem
-              data="Số 3, Hoàng Quốc Việt, Cầu Giấy, Hà Nội"
-              title="Địa chỉ"
+              data='Chưa có kinh nghiệm'
+              title='Kinh nghiệm làm việc'
             />
-            <SingleItem data="Độc thân" title="Tình trạng hôn nhân" />
+            <SingleItem data='05-06-2023' title='Ngày bắt đầu làm việc' />
+            <SingleItem data='abc@gmail.com' title='Địa chỉ email' />
+            <SingleItem data='0183128312' title='Số điện thoại' />
+            <SingleItem data='13-06-1997' title='Ngày sinh' />
+            <SingleItem data='Nữ' title='Giới tính' />
+            <SingleItem
+              data='Số 3, Hoàng Quốc Việt, Cầu Giấy, Hà Nội'
+              title='Địa chỉ'
+            />
+            <SingleItem data='Độc thân' title='Tình trạng hôn nhân' />
             <div className={styles.footer}>
-              <Button className={styles.btn} size="large">
+              <Button className={styles.btn} size='large'>
                 <p className={styles.text} onClick={onEditClicked}>
                   Chỉnh sửa thông tin
                 </p>
@@ -84,4 +88,26 @@ export default function ChiTietNhanVien() {
       </Card>
     </div>
   )
+}
+
+export const getServerSideProps = async (context) => {
+  let data = {}
+  const idQLC = context.query.id
+  const res = await POST_SS(
+    'api/qlc/employee/info',
+    {
+      idQLC: idQLC,
+    },
+    context
+  )
+
+  if (res?.result) {
+    data = res?.data
+  }
+
+  return {
+    props: {
+      data: data,
+    },
+  }
 }
