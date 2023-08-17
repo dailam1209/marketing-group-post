@@ -1,37 +1,38 @@
-import React, { useState } from "react";
+import React, { useState } from 'react'
 
-import styles from "./DeleteTrainingProcess.module.css";
-import { deleteDataTrainingPosition } from "@/pages/hr/api/dao-tao-phat-trien/TrainingProcess";
-export interface DeleteTrainingProcess { }
+import styles from './DeleteTrainingProcess.module.css'
+import { deleteDataTrainingPosition } from '@/pages/api/api-hr/dao-tao-phat-trien/TrainingProcess'
+export interface DeleteTrainingProcess {}
 
-export default function DeleteTrainingProcess({ animation, closeModal, id, handleNewData }: any) {
-
+export default function DeleteTrainingProcess({
+  animation,
+  closeModal,
+  id,
+  handleNewData,
+}: any) {
   const handleCancel = () => {
-    closeModal();
-  };
+    closeModal()
+  }
 
   const handleDelete = async (e: any) => {
-    e.preventDefault();
+    e.preventDefault()
     try {
       const response = await deleteDataTrainingPosition(id)
       if (response?.status !== 200) {
         alert('Xóa dữ liệu thất bại')
-      }
-      else {
+      } else {
         closeModal()
         handleNewData(response?.data)
       }
-    } catch (error) {
-
-    }
+    } catch (error) {}
   }
   return (
     <>
       <div className={`${styles.overlay}`} onClick={handleCancel}></div>
       <div
-        className={`${styles.modal} ${styles.modal_setting}  ${animation ? styles.fade_in : styles.fade_out
-          }`}
-      >
+        className={`${styles.modal} ${styles.modal_setting}  ${
+          animation ? styles.fade_in : styles.fade_out
+        }`}>
         <div className={`${styles.contentquytrinh}`}>
           <div className={`${styles.modal_content} ${styles.contentdel}`}>
             <div className={`${styles.modal_header} ${styles.headquytrinh}`}>
@@ -52,16 +53,14 @@ export default function DeleteTrainingProcess({ animation, closeModal, id, handl
 
             <form onSubmit={(e) => handleDelete(e)}>
               <div
-                className={`${styles.modal_footer} ${styles.footerquytrinh}`}
-              >
+                className={`${styles.modal_footer} ${styles.footerquytrinh}`}>
                 <button
-                  type="button"
+                  type='button'
                   className={`${styles.btn_huy}`}
-                  onClick={handleCancel}
-                >
+                  onClick={handleCancel}>
                   <span>Hủy</span>
                 </button>
-                <button type="submit" className={`${styles.delete}`}>
+                <button type='submit' className={`${styles.delete}`}>
                   Xóa
                 </button>
               </div>
@@ -70,5 +69,5 @@ export default function DeleteTrainingProcess({ animation, closeModal, id, handl
         </div>
       </div>
     </>
-  );
+  )
 }

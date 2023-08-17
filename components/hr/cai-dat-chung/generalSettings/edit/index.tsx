@@ -1,28 +1,28 @@
-import React, { useEffect, useState } from "react";
-import styles from "./edit.module.css";
-import { updateInfoCompany } from "@/pages/hr/api/cai-dat/generalSettings";
+import React, { useEffect, useState } from 'react'
+import styles from './edit.module.css'
+import { updateInfoCompany } from '@/pages/api/api-hr/cai-dat/generalSettings'
 
 export default function Edit({ dataDisplay, onClickButton }) {
-  console.log(dataDisplay);
-  const defaultValueInputName = dataDisplay?.userName;
-  const defaultValueInputPhone = dataDisplay?.phone;
-  const defaultValueInputDep = dataDisplay?.description;
-  const defaultValueInputCom_size = dataDisplay?.com_size;
-  const defaultValueInputAddress = dataDisplay?.address;
-  const defaultValueInputEmail = dataDisplay?.emailContact;
+  console.log(dataDisplay)
+  const defaultValueInputName = dataDisplay?.userName
+  const defaultValueInputPhone = dataDisplay?.phone
+  const defaultValueInputDep = dataDisplay?.description
+  const defaultValueInputCom_size = dataDisplay?.com_size
+  const defaultValueInputAddress = dataDisplay?.address
+  const defaultValueInputEmail = dataDisplay?.emailContact
 
   const [inputValue, setInputValue] = useState({
     userName: dataDisplay?.userName,
-    emailContact: dataDisplay?.emailContact
-  });
+    emailContact: dataDisplay?.emailContact,
+  })
 
   const handleInputChange = (e: any) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target
     setInputValue((prev) => ({
       ...prev,
       [name]: value,
-    }));
-  };
+    }))
+  }
 
   const handleClickEdit = async (e: any) => {
     try {
@@ -30,10 +30,8 @@ export default function Edit({ dataDisplay, onClickButton }) {
       if (response?.status !== 200) {
         alert('Cập nhật thông tin công ty không thành công')
       }
-    } catch (error) {
-
-    }
-  };
+    } catch (error) {}
+  }
   return (
     <>
       <div className={`${styles.l_drop_chinhsua}`}>
@@ -68,7 +66,7 @@ export default function Edit({ dataDisplay, onClickButton }) {
               <label>Lĩnh vực hoạt động:</label>
               <div>
                 <input
-                  name="description"
+                  name='description'
                   className={`${styles.l_chinhsua_item_input}`}
                   defaultValue={defaultValueInputDep}
                   onChange={handleInputChange}
@@ -120,7 +118,7 @@ export default function Edit({ dataDisplay, onClickButton }) {
             </div>
 
             <div className={`${styles.l_button_right}`}>
-              <button type="submit" onClick={(e) => handleClickEdit(e)}>
+              <button type='submit' onClick={(e) => handleClickEdit(e)}>
                 Lưu thay đổi
               </button>
             </div>
@@ -128,5 +126,5 @@ export default function Edit({ dataDisplay, onClickButton }) {
         </form>
       </div>
     </>
-  );
+  )
 }
