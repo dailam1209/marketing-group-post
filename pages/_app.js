@@ -4,9 +4,24 @@ import '@/styles/globals.css'
 import { ConfigProvider, Spin } from 'antd'
 import Bodyframe from '@/components/bodyFrameNs/bodyFrame.tsx'
 import { useRouter } from 'next/router.js'
+
+export const LoadingComp = () => {
+  return (
+    <Spin
+      // indicator={<LoadingOutlined rev={null} />}
+      style={{
+        position: 'fixed',
+        top: '50%',
+        left: '50%',
+      }}
+    />
+  )
+}
+
 export default function App({ Component, pageProps }) {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
+  const [firstLoad, setFirstLoad] = useState(true)
   useEffect(() => {
     const doLoading = () => {
       const start = () => {
@@ -32,20 +47,16 @@ export default function App({ Component, pageProps }) {
     doLoading()
   }, [])
 
-  const LoadingComp = () => {
-    return (
-      <Spin
-        // indicator={<LoadingOutlined rev={null} />}
-        style={{
-          position: 'fixed',
-          top: '50%',
-          left: '50%',
-        }}
-      />
-    )
-  }
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setFirstLoad(false)
+    }, 100)
+    return () => clearTimeout(timeout)
+  }, [])
 
-  return !loading ? (
+  return loading ? (
+    <LoadingComp />
+  ) : !firstLoad ? (
     <ConfigProvider
       theme={{
         token: {
@@ -65,6 +76,6 @@ export default function App({ Component, pageProps }) {
       )}
     </ConfigProvider>
   ) : (
-    <div>{LoadingComp()}</div>
+    <LoadingComp />
   )
 }

@@ -254,9 +254,9 @@ export const getServerSideProps = async (context) => {
   )
   return {
     props: {
-      deXuatSend: deXuatSend?.showAll || [],
-      deXuatReceive: deXuatReceive?.showAll || [],
-      deXuatFollow: deXuatFollow?.showAll || [],
+      deXuatSend: deXuatSend?.data || [],
+      deXuatReceive: deXuatReceive?.data || [],
+      deXuatFollow: deXuatFollow?.data || [],
     },
   }
 }

@@ -76,7 +76,6 @@ export const renderInfoDx = (input, setOpen) => {
 
   const dataObj = {
     name: renderName(),
-
     dxInfo: {},
     commonInfo: {},
     duyetInf: {
@@ -91,7 +90,7 @@ export const renderInfoDx = (input, setOpen) => {
         ? listUserTheodoi?.map((item) => ({
             name: item?.userName,
             id: item?.idQLC,
-            avatar: '/avatar.png',
+            avatar: `https://cdn.timviec365.vn/upload/employee/${item?.avatarUser}`,
           }))
         : [],
       //   type :1: gửi, 2: tiếp nhận, 3: duyệt
@@ -128,14 +127,11 @@ export const renderInfoDx = (input, setOpen) => {
     admin: !_.isEmpty(
       listUserDuyet?.find((item) => item?.idQLC === decodedToken?.data?.idQLC)
     ),
-    active: input?.type_duyet === 5,
-    companyAcp: true,
-    id1: true,
-    id2: true,
-    overtime: timeDiff > 0,
-    deny: false,
+    type: input?.type_duyet,
+    overtime: input?.qua_han_duyet,
   }
   console.log(input)
+
   if (input) {
     switch (input?.nhom_de_xuat) {
       // đề xuất xin nghỉ ra ngoài

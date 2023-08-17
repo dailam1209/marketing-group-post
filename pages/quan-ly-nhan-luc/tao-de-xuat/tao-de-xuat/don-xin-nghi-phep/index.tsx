@@ -18,7 +18,6 @@ import { ColumnsType } from 'antd/es/table'
 import { GET, POST_VT, getCompIdCS, getInfoUser } from '@/pages/api/BaseApi'
 import { useRouter } from 'next/router'
 import dayjs from 'dayjs'
-import { listUserDuyetContext } from '@/pages/quan-ly-nhan-luc'
 import { getPosition } from '@/utils/function'
 
 interface Menu {
@@ -230,7 +229,9 @@ export default function DonXinNghiPhep() {
               alt=''
               height={18}
               width={18}
-              onClick={() => handleDeleteRecord(text)}></Image>
+              onClick={() =>
+                handleDeleteRecord(record?.stt?.toString())
+              }></Image>
           </div>
         </div>
       ),
@@ -329,55 +330,55 @@ export default function DonXinNghiPhep() {
     setNameProposed(e.target.checked)
   }
 
-  const [infoUser, setInfoUser] = useState<any>();
-  const [listDuyet, setListDuyet] = useState<any>({});
-  const [listEmp, setListEmp]: any = useState([]);
-  const [listShift, setListShift]: any = useState([]);
-  const [depLabel, setDepLabel]: any = useState<any>([]);
-  const [fileData, setFileData] = useState<Blob>();
+  const [infoUser, setInfoUser] = useState<any>()
+  const [listDuyet, setListDuyet] = useState<any>({})
+  const [listEmp, setListEmp]: any = useState([])
+  const [listShift, setListShift]: any = useState([])
+  const [depLabel, setDepLabel]: any = useState<any>([])
+  const [fileData, setFileData] = useState<Blob>()
 
   useEffect(() => {
     const getListDuyet = async () => {
-      const res = await POST_VT('api/vanthu/dexuat/showadd', {});
+      const res = await POST_VT('api/vanthu/dexuat/showadd', {})
 
       if (res?.result) {
         setListDuyet({
           listDuyet: res?.listUsersDuyet?.map((user) => ({
             label: user?.userName,
-            value: user?.idQLC ? `/${user?.idQLC}` : "/nhanvien.png",
-            url: user?.avatarUser
+            value: user?.idQLC ? `/${user?.idQLC}` : '/nhanvien.png',
+            url: user?.avatarUser,
           })),
           listTheoDoi: res?.listUsersTheoDoi?.map((user) => ({
             label: user?.userName,
             value: user?.idQLC,
-            url: user?.avatarUser
+            url: user?.avatarUser,
           })),
-        });
+        })
       }
-    };
+    }
 
-    getListDuyet();
-    GET("api/qlc/shift/list").then((res) => {
+    getListDuyet()
+    GET('api/qlc/shift/list').then((res) => {
       if (res?.result === true) {
         setListShift(
           res?.list.map((item) => {
             return {
               value: `${item?.shift_id}`,
               label: item?.shift_name,
-            };
+            }
           })
-        );
+        )
       }
-    });
-      
-    setInfoUser(getInfoUser());
-  }, []);
+    })
+
+    setInfoUser(getInfoUser())
+  }, [])
 
   useEffect(() => {
     if (infoUser?.idQLC) {
-      form.setFieldValue('name', infoUser?.userName);
+      form.setFieldValue('name', infoUser?.userName)
     }
-  }, [infoUser]);
+  }, [infoUser])
 
   useEffect(() => {
     // console.log( (!(typeOfDate !== "5") || (typeOfDate === "")) )
@@ -398,13 +399,14 @@ export default function DonXinNghiPhep() {
     } else {
       if (shift !== '' && dateFrom !== '' && timeTo !== '' && timeFrom !== '') {
         const newMenu: Menu = {
-          stt: '1',
+          stt: stt,
           shift: shift,
           dateFrom: dateFrom,
           dateTo: dateTo,
           timeTo: timeTo,
           timeFrom: timeFrom,
         }
+
         setDataSource((prevMenuData) => [...prevMenuData, newMenu])
         setStt((prevSttCount) => prevSttCount + 1)
         setShowTable(true)
@@ -706,13 +708,20 @@ export default function DonXinNghiPhep() {
                   <Input
                     placeholder='Chọn giờ'
                     type='time'
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       form.setFieldValue(
                         'time_from',
                         e.target.value.substring(0, 7)
                       )
                       handleTimeFromChange(e)
                     }}
+                    // onChange={(e) => {
+                    //   form.setFieldValue(
+                    //     'time_from',
+                    //     e.target.value.substring(0, 7)
+                    //   )
+                    //   handleTimeFromChange(e)
+                    // }}
                     style={{ fontSize: '16px' }}></Input>
                 </Form.Item>
               </div>
@@ -728,13 +737,20 @@ export default function DonXinNghiPhep() {
                   <Input
                     placeholder='Chọn giờ'
                     type='time'
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       form.setFieldValue(
                         'time_to',
                         e.target.value.substring(0, 7)
                       )
                       handleTimeToChange(e)
                     }}
+                    // onChange={(e) => {
+                    //   form.setFieldValue(
+                    //     'time_to',
+                    //     e.target.value.substring(0, 7)
+                    //   )
+                    //   handleTimeToChange(e)
+                    // }}
                     style={{ fontSize: '16px' }}></Input>
                 </Form.Item>
               </div>
@@ -786,21 +802,26 @@ export default function DonXinNghiPhep() {
                     placeholder='Người xét duyệt'
                     onChange={handleReviewerChange}
                     size='large'
-                    options={
-                      listDuyet &&
-                      listDuyet?.listDuyet?.map((item) => ({
-                        label: (
-                          <div
-                            style={{ display: 'flex', alignItems: 'center' }}>
-                            <Avatar src={item?.url} />
-                            <p style={{ marginLeft: '10px' }}>
-                              {item?.label}
-                            </p>
-                          </div>
-                        ),
-                        value: item?.value,
-                      }))
-                    }
+                    options={[
+                      { value: '168', label: 'TEST1' },
+                      ...(listDuyet.listDuyet
+                        ? listDuyet.listDuyet.map((item) => ({
+                            label: (
+                              <div
+                                style={{
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                }}>
+                                <Avatar src={item?.url} />
+                                <p style={{ marginLeft: '10px' }}>
+                                  {item?.label}
+                                </p>
+                              </div>
+                            ),
+                            value: item?.value,
+                          }))
+                        : []),
+                    ]}
                     suffixIcon={
                       <Image
                         src='/suffixIcon_1.svg'
@@ -830,9 +851,7 @@ export default function DonXinNghiPhep() {
                           <div
                             style={{ display: 'flex', alignItems: 'center' }}>
                             <Avatar src={item?.url} />
-                            <p style={{ marginLeft: '10px' }}>
-                              {item?.label}
-                            </p>
+                            <p style={{ marginLeft: '10px' }}>{item?.label}</p>
                           </div>
                         ),
                         value: item?.value,
