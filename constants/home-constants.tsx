@@ -33,6 +33,11 @@ export const LIST_ACTIONS = [
         url: 'cham-cong/xuat-cong',
         required: false,
       },
+      {
+        title: 'Chấm công',
+        url: 'cham-cong/cham-cong-cong-ty',
+        required: false,
+      },
     ],
   },
   {
