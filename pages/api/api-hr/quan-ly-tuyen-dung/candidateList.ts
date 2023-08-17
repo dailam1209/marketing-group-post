@@ -221,6 +221,23 @@ export const CandidateUpdate = async (formData: FormData) => {
 
 /* -------------------------------------- DETAILS ----------------------------------------------*/
 
+export const AllDetails = async (formData: FormData) => {
+  try {
+    const isToken = getToken(COOKIE_KEY);
+    const response = await axios.post(
+      `${url}api/hr/recruitment/detailCandidateV2`,
+      formData,
+      {
+        headers: {
+          authorization: `Bearer ${isToken}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {}
+};
+
+
 export const GetJobDetails = async (formData: FormData) => {
   try {
     const isToken = getToken(COOKIE_KEY);

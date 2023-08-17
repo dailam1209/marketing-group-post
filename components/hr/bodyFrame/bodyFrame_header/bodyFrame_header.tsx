@@ -102,7 +102,7 @@ export default function BodyFrameHeader({ dataHeader }: any) {
                         </div>
                         <div className={`${styles.header_right_item2}`} onClick={toggleMenu}>
                             <div className={`${styles.header_avatar}`}>
-                                <img className={`${styles.image_avatar}`} src={dataHeader?.data?.avatarUser ? dataHeader?.data?.avatarUser : "logo_com.png"} alt="" />
+                                <img className={`${styles.image_avatar}`} src={dataHeader?.data?.avatarUser ? dataHeader?.data?.avatarUser : "/logo_com (2).png"} alt="" />
                             </div>
                             <div className={`${styles.name}`}>{dataHeader?.data?.userName || ''}</div>
                             <div className={`${styles.drop_down}`}>

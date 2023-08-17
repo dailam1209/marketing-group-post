@@ -40,7 +40,7 @@ export default function OrganisationalStructureDiagram({ iconAdd, iconEdit }) {
               <div className={`${styles.settings} ${styles.lefftset}`}>
                 <li>
                   <a
-                    href="https://chamcong.timviec365.vn/quan-ly-cong-ty/cong-ty-con.html"
+                    href="/quan-ly-nhan-luc/quan-ly-cong-ty/quan-ly-cong-ty-con"
                     target="blank"
                   >
                     Thêm mới công ty con
@@ -49,7 +49,7 @@ export default function OrganisationalStructureDiagram({ iconAdd, iconEdit }) {
                 <hr style={{ marginTop: 0, marginBottom: 0 }} />
                 <li>
                   <a
-                    href="https://chamcong.timviec365.vn/quan-ly-cong-ty/phong-ban.html"
+                    href="/quan-ly-nhan-luc/quan-ly-cong-ty/quan-ly-phong-ban"
                     target="blank"
                   >
                     Thêm mới phòng ban
@@ -58,7 +58,7 @@ export default function OrganisationalStructureDiagram({ iconAdd, iconEdit }) {
                 <hr style={{ marginTop: 0, marginBottom: 0 }} />
                 <li>
                   <a
-                    href="https://chamcong.timviec365.vn/quan-ly-cong-ty/ql-ds-to.html"
+                    href="/quan-ly-nhan-luc/quan-ly-cong-ty/quan-ly-phong-ban"
                     target="blank"
                   >
                     Thêm mới tổ
@@ -67,7 +67,7 @@ export default function OrganisationalStructureDiagram({ iconAdd, iconEdit }) {
                 <hr style={{ marginTop: 0, marginBottom: 0 }} />
                 <li>
                   <a
-                    href="https://chamcong.timviec365.vn/quan-ly-cong-ty/ql-ds-nhom.html"
+                    href="/quan-ly-nhan-luc/quan-ly-cong-ty/quan-ly-phong-ban"
                     target="blank"
                   >
                     Thêm mới nhóm
