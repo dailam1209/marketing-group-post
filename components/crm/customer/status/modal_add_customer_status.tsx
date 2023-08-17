@@ -7,7 +7,7 @@ import ModalCompleteStep from "@/components/crm/setting/complete_modal";
 interface MyComponentProps {
   isModalCancel: boolean;
   setIsModalCancel: (value: boolean) => void;
-  updateData: any;
+  updateData?: any;
 }
 
 const AddStatusCustomerModal: React.FC<MyComponentProps> = ({

@@ -4,7 +4,7 @@ import { SetStateAction, useContext, useEffect, useRef, useState } from "react";
 import { useHeader } from "@/components/crm/hooks/useHeader";
 
 import { TableRowSelection } from "antd/es/table/interface";
-import HomeList from "./@/components/crm/delete_data/delete_data.list";
+import HomeList from "@/components/crm/delete_data/delete_data.list";
 import HomeFollow from "@/components/crm/theo-doi-thu-chi/theo-doi-thu-chi";
 import HomePhieuThu from "@/components/crm/theo-doi-thu-chi/phieu-thu";
 import HomePhieuChi from "@/components/crm/theo-doi-thu-chi/phieu-chi";

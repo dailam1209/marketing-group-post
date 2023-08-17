@@ -1,5 +1,5 @@
 import Image from "next/image";
-import styles from "../customer/crm/customer.module.css";
+import styles from "@/components/crm/customer/customer.module.css";
 import { useEffect } from "react";
 export default function ApiSetting({ disabled, label, value, setValue }: any) {
     const handleEditValue = (e: any) => {

@@ -2,7 +2,7 @@ import { SidebarContext } from "@/components/crm/context/resizeContext";
 import styleHome from "@/components/crm/home/home.module.css"
 import { SetStateAction, useContext, useEffect, useRef, useState } from "react";
 import { useHeader } from "@/components/crm/hooks/useHeader";
-import { ColumCustomer } from "@/components/crm/delete_data/colums_field/crm/customer";
+import { ColumCustomer } from "@/components/crm/delete_data/colums_field/customer"; 
 import { dataPotential } from "@/components/crm/delete_data/colums_field/data"
 import Table_Customer from "@/components/crm/table_delete/table-custumer-delete";
 export default function Customer_List_Delete() {
