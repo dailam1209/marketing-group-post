@@ -18,6 +18,8 @@ import styles from '@/components/crm/sidebar/sidebar.module.css'
 // import "@/styles/crm/styles.css"
 // import "@/styles/crm/hight_chart.css"
 import Layout from '@/components/hr/Layout'
+import Head from 'next/head'
+import Seo from '@/components/head'
 
 export const LoadingComp = () => {
   return (
@@ -87,46 +89,51 @@ export default function App({ Component, pageProps }) {
     importGlobalStyles()
   }, [router.pathname])
 
-  return loading ? (
-    <LoadingComp />
-  ) : !firstLoad ? (
-    <ConfigProvider
-      theme={{
-        token: {
-          screenLG: 1025,
-          screenLGMin: 1025,
-          screenLGMax: 1025,
-          screenMD: 769,
-          screenMDMin: 769,
-        },
-      }}>
-      {router.pathname?.includes('quan-ly-nhan-luc') ? (
-        <Bodyframe>
-          <Component {...pageProps} />
-        </Bodyframe>
-      ) : router.pathname?.includes('crm') ? (
-        <AccessContextComponent>
-          <SidebarResize>
-            <NavigateContextComponent>
-              <Header toggleModal={toggleModal} />
-              <Sidebar isOpened={isOpen} />
-              <ChatBusiness />
-              <TitleHeaderMobile />
+  return (
+    <>
+      <Seo />
+      {loading ? (
+        <LoadingComp />
+      ) : !firstLoad ? (
+        <ConfigProvider
+          theme={{
+            token: {
+              screenLG: 1025,
+              screenLGMin: 1025,
+              screenLGMax: 1025,
+              screenMD: 769,
+              screenMDMin: 769,
+            },
+          }}>
+          {router.pathname?.includes('quan-ly-nhan-luc') ? (
+            <Bodyframe>
               <Component {...pageProps} />
-            </NavigateContextComponent>
-          </SidebarResize>
-        </AccessContextComponent>
-      ) : router.pathname?.includes('hr') ? (
-        <Layout>
-          <DndProvider backend={HTML5Backend}>
+            </Bodyframe>
+          ) : router.pathname?.includes('crm') ? (
+            <AccessContextComponent>
+              <SidebarResize>
+                <NavigateContextComponent>
+                  <Header toggleModal={toggleModal} />
+                  <Sidebar isOpened={isOpen} />
+                  <ChatBusiness />
+                  <TitleHeaderMobile />
+                  <Component {...pageProps} />
+                </NavigateContextComponent>
+              </SidebarResize>
+            </AccessContextComponent>
+          ) : router.pathname?.includes('hr') ? (
+            <Layout>
+              <DndProvider backend={HTML5Backend}>
+                <Component {...pageProps} />
+              </DndProvider>
+            </Layout>
+          ) : (
             <Component {...pageProps} />
-          </DndProvider>
-        </Layout>
+          )}
+        </ConfigProvider>
       ) : (
-        <Component {...pageProps} />
+        <LoadingComp />
       )}
-    </ConfigProvider>
-  ) : (
-    <LoadingComp />
+    </>
   )
 }
