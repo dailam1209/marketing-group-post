@@ -36,7 +36,7 @@ export default function LoginForm({ setNotiError, typeLogin, showTab }) {
           if (result.data.authentic == 0) {
             router.push('/xac-thuc-ma-otp-ca-nhan.html')
           } else {
-            window.location.href = '/quan-ly-ung-dung-cong-ty.html'
+            window.location.href = '/'
           }
         } else if (type == 2) {
           setAuth(result.data.authentic)

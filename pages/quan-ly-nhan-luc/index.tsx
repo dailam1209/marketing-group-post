@@ -41,9 +41,8 @@ const ConfirmModal = ({
     false
   )
 }
-export const listUserDuyetContext = createContext({} as any)
 export const COOKIE_KEY = 'token_base365'
-export default function Home() {
+export default function HomeQLNS() {
   const router = useRouter()
   // const { setHasBanner } = useContext(HasBannerContext)
   const [selectedUrl, setSelectedUrl] = useState('')
@@ -55,23 +54,6 @@ export default function Home() {
   useEffect(() => {
     const value = localStorage.getItem('selectedBtnIndex') || '0'
     setSelectedBtn(value)
-  }, [])
-
-  const [listDuyet, setListDuyet] = useState({})
-
-  useEffect(() => {
-    const getListDuyet = async () => {
-      const res = await POST_VT('api/vanthu/dexuat/showadd', {})
-
-      if (res?.result) {
-        setListDuyet({
-          listDuyet: res?.listUsersDuyet,
-          listTheoDoi: res?.listUsersTheoDoi,
-        })
-      }
-    }
-
-    getListDuyet()
   }, [])
 
   const LIST_BUTTONS_COMP = [
@@ -286,32 +268,35 @@ export default function Home() {
   }
 
   return (
-    <listUserDuyetContext.Provider value={{ listDuyet }}>
-      <>
-        <Head>
-          <title> Page Chấm Công </title>
-          <meta name='keywords' content='coders' />
-        </Head>
-        <main>
-          <RenderedBody />
-        </main>
-      </>
-    </listUserDuyetContext.Provider>
+    <>
+      <Head>
+        <title> Page Chấm Công </title>
+        <meta name='keywords' content='coders' />
+      </Head>
+      <main>
+        <RenderedBody />
+      </main>
+    </>
   )
 }
 
+<<<<<<< HEAD
 export const getServerSideProps = (context) => {
   const role = context?.req?.cookies?.role
+=======
+// export const getServerSideProps = (context) => {
+//   const { role } = context?.req?.cookies
+>>>>>>> e36fa4a (fix css)
 
-  if (!role) {
-    return {
-      redirect: {
-        destination: '/lua-chon-dang-nhap.html',
-      },
-    }
-  } else {
-    return {
-      props: {},
-    }
-  }
-}
+//   if (!role) {
+//     return {
+//       redirect: {
+//         destination: '/lua-chon-dang-nhap.html',
+//       },
+//     }
+//   } else {
+//     return {
+//       props: {},
+//     }
+//   }
+// }

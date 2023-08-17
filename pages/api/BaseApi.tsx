@@ -4,10 +4,10 @@ import jwtDecode from 'jwt-decode'
 import { COOKIE_KEY } from '../quan-ly-nhan-luc'
 import { cookies } from 'next/headers'
 
-const currentUrlQlc = process.env.NEXT_PUBLIC_BASE_URL_QLC
+const currentUrlQlc = process.env.NEXT_PUBLIC_API
 const currentUrlHR = process.env.NEXT_PUBLIC_BASE_URL_HR
 const currentUrlVT = process.env.NEXT_PUBLIC_BASE_URL_VT
-const curentUrlTL = process.env.NEXT_PUBLIC_BASE_URL_TL
+const curentUrlTL = process.env.NEXT_PUBLIC_API
 
 export const getCurrentToken = () => {
   let token = ''
@@ -89,6 +89,8 @@ export const getCookieSS = (context: any) => {
 export const getCompIdSS = (context) => {
   const cookieData = context?.req?.cookies[COOKIE_KEY]
   let data: any = cookieData && jwtDecode(cookieData)
+  console.log(data?.data?.com_id)
+
   return data?.data?.com_id
 }
 
@@ -114,7 +116,7 @@ export const getInfoUser = () => {
     try {
       let data: any = jwtDecode(cookieData)
       return data?.data
-    } catch(e) {
+    } catch (e) {
       return null
     }
   }
