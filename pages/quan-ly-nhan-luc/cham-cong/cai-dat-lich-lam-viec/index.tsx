@@ -96,6 +96,7 @@ export default function LichLamViec({ listCalendar }) {
   const [cySelected, setCySelected] = useState(Object());
   const [dateFilter, setDateFilter] = useState(dayjs().format("YYYY-MM"));
   const router = useRouter()
+  console.log(listCalendar)
 
   const [form] = Form.useForm();
 
