@@ -27,13 +27,13 @@ export default function checkTypeLogin(props) {
       if (props.result.data.authentic === 0) {
         router.push('/xac-thuc-ma-otp-cong-ty.html')
       } else {
-        window.location.href = '/quan-ly-ung-dung-cong-ty.html'
+        window.location.href = '/'
       }
     } else if (type === 2) {
       if (props.result.data.authentic === 0) {
         router.push('/xac-thuc-ma-otp-nhan-vien.html')
       } else {
-        window.location.href = '/quan-ly-ung-dung-nhan-vien.html'
+        window.location.href = '/'
       }
     } else {
       if (props.result.data.authentic === 0) {

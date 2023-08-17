@@ -256,7 +256,7 @@ export function ModalDanhSachNhanSu({
         }
       });
     }
-  });
+  }, [insureSelected]);
   const columns: ColumnsType<Staff> = [
     {
       title: "Ảnh",

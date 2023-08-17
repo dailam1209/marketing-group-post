@@ -51,9 +51,9 @@ export default function LoginQr(props) {
         Cookies.set('token_base365', acc_token)
         Cookies.set('role', role)
         if (type == 1) {
-          window.location.href = '/quan-ly-ung-dung-cong-ty.html'
+          window.location.href = '/'
         } else if (type == 2) {
-          window.location.href = '/quan-ly-ung-dung-nhan-vien.html'
+          window.location.href = '/'
         } else {
           window.location.href = '/quan-ly-ung-dung-ca-nhan.html'
         }
