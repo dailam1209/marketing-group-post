@@ -1,74 +1,24 @@
-import { Button, Col, Popover, Row, Table } from 'antd'
-import { MyTable } from '../../quan-ly-phong-ban/table/Table'
-import { MySeachBar, MySelect } from '../../quan-ly-cong-ty-con/modal'
-import styles from './NhanVienChoDuyet.module.css'
-import Image from 'next/image'
-import { SearchButton } from '@/components/commons/Buttons'
-import { useState } from 'react'
-import { ConfirmDuyetModal } from './modal/modal'
-import { POST } from '@/pages/api/BaseApi'
+import { Button, Col, Popover, Row, Table } from 'antd';
+import { MyTable } from '../../quan-ly-phong-ban/table/Table';
+import { MySeachBar, MySelect } from '../../quan-ly-cong-ty-con/modal';
+import styles from './NhanVienChoDuyet.module.css';
+import Image from 'next/image';
+import { SearchButton } from '@/components/commons/Buttons';
+import { useState } from 'react';
+import { ConfirmDuyetModal } from './modal/modal';
+import { getPosition } from '@/utils/function';
+import { POST } from '@/pages/api/BaseApi';
+import { useRouter } from 'next/router';
+import dayjs from 'dayjs';
 
-const mockdata = [
-  {
-    id: '147310',
-    img: '/avatar.png',
-    name: 'Phạm Nguyễn Xuân Khôi',
-    phone: '01231231231',
-    email: 'phamxuannguyenkhoi@gmail.com',
-    apartment: 'Biên tập',
-    job: 'Nhân viên chính thức',
-  },
-  {
-    id: '147312',
-    img: '/avatar.png',
-    name: 'Phạm Nguyễn Xuân Khôi',
-    phone: '01231231231',
-    email: 'phamxuannguyenkhoi@gmail.com',
-    apartment: 'Biên tập',
-    job: 'Nhân viên chính thức',
-  },
-  {
-    id: '147313',
-    img: '/avatar.png',
-    name: 'Phạm Nguyễn Xuân Khôi',
-    phone: '01231231231',
-    email: 'phamxuannguyenkhoi@gmail.com',
-    apartment: 'Biên tập',
-    job: 'Nhân viên chính thức',
-  },
-  {
-    id: '147314',
-    img: '/avatar.png',
-    name: 'Phạm Nguyễn Xuân Khôi',
-    phone: '01231231231',
-    email: 'phamxuannguyenkhoi@gmail.com',
-    apartment: 'Biên tập',
-    job: 'Nhân viên chính thức',
-  },
-  {
-    id: '147315',
-    img: '/avatar.png',
-    name: 'Phạm Nguyễn Xuân Khôi',
-    phone: '01231231231',
-    email: 'phamxuannguyenkhoi@gmail.com',
-    apartment: 'Biên tập',
-    job: 'Nhân viên chính thức',
-  },
-  {
-    id: '147316',
-    img: '/avatar.png',
-    name: 'Phạm Nguyễn Xuân Khôi',
-    phone: '01231231231',
-    email: 'phamxuannguyenkhoi@gmail.com',
-    apartment: 'Biên tập',
-    job: 'Nhân viên chính thức',
-  },
-]
-
-export function NhanVienChoDuyet({ listStaffs, comLabel }) {
-  const [selectedRowKeys, setSelectedRowKeys] = useState<any[]>()
-  const [openDuyetModal, setOpenDuyetModal] = useState(false)
-  // const positionLabel = getPosition?.map(p => ({ label: p?.value, value: p?.id }))
+export function NhanVienChoDuyet({ listStaffs, comLabel, listDepLabel }) {
+  const [selectedRowKeys, setSelectedRowKeys] = useState<any>([]);
+  const [openDuyetModal, setOpenDuyetModal] = useState(false);
+  const positionLabel = getPosition?.map((p) => ({
+    label: p?.value,
+    value: p?.id,
+  }));
+  const router = useRouter()
 
   const columns = [
     {
@@ -94,23 +44,39 @@ export function NhanVienChoDuyet({ listStaffs, comLabel }) {
       align: 'center',
     },
     {
-      title: <p className='tableHeader'>Phòng ban</p>,
-      render: (record: any) => <p>{record?.dep_id}</p>,
+      title: <p className="tableHeader">Phòng ban</p>,
+      render: (record: any) => (
+        <p>
+          {
+            listDepLabel?.find(
+              (dep) => dep?.value === record?.inForPerson?.employee?.dep_id
+            )?.label
+          }
+        </p>
+      ),
       align: 'center',
     },
     {
-      title: <p className='tableHeader'>Chức vụ</p>,
-      render: (record: any) => <p>{record?.position_id}</p>,
+      title: <p className="tableHeader">Chức vụ</p>,
+      render: (record: any) => (
+        <p>
+          {
+            positionLabel?.find(
+              (p) => p?.value === record?.inForPerson?.employee?.position_id
+            )?.label
+          }
+        </p>
+      ),
       align: 'center',
     },
     {
-      title: <p className='tableHeader'>Email</p>,
-      render: (record: any) => <p>{record?.emailContact}</p>,
+      title: <p className="tableHeader">Email</p>,
+      render: (record: any) => <p>{record?.email || record?.emailContact}</p>,
       align: 'center',
     },
     {
-      title: <p className='tableHeader'>SĐT</p>,
-      render: (record: any) => <p>{record?.phoneTK}</p>,
+      title: <p className="tableHeader">SĐT</p>,
+      render: (record: any) => <p>{record?.phone || record?.phoneTK}</p>,
       align: 'center',
     },
     Table.SELECTION_COLUMN,
@@ -192,5 +158,5 @@ export function NhanVienChoDuyet({ listStaffs, comLabel }) {
         data={selectedRowKeys}
       />
     </div>
-  )
+  );
 }
