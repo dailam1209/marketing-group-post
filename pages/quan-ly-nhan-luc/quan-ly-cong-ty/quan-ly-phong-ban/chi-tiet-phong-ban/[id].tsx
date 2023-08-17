@@ -103,7 +103,7 @@ export default function ChiTietPhongBan({ listEmpInDep }) {
           Footer={null}
           hasRowSelect={false}
           onSelectChange={() => null}
-          rowKey="name"
+          rowKey="dep_id"
           selectedRowKeys={null}
         />
       </Card>
