@@ -25,7 +25,7 @@ const ModalCompleteStep: React.FC<ModalCompleteStepProps> = ({
       <div className="sucess-mdal">
         <Modal
           title={
-            <Image width={112} height={112} alt="logo" src={"/success.svg"} />
+            <Image width={112} height={112} alt="logo" src={"/crm/success.svg"} />
           }
           style={{ top: 20 }}
           open={modal1Open}

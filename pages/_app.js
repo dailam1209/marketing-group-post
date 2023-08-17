@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-// import "@/styles/globals.css";
 import { AccessContextComponent } from "@/components/crm/context/accessContext";
 import { SidebarResize } from "@/components/crm/context/resizeContext";
 import Header from "@/components/crm/header/header";
@@ -14,10 +13,11 @@ import ChatBusiness from "@/components/crm/chat/chat";
 import { NavigateContextComponent } from "@/components/crm/context/navigateContext";
 import TitleHeaderMobile from "@/components/crm/header/title_header_mobile";
 import styles from "@/components/crm/sidebar/sidebar.module.css";
-// import "@/styles/crm/stylecrm.css";
-// import "@/styles/crm/styles.css"
-// import "@/styles/crm/hight_chart.css"
 import Layout from "@/components/hr/Layout";
+import { Provider } from "react-redux";
+import { store } from "@/components/crm/redux/store";
+import { TongDaiContext } from "@/components/crm/context/tongdaiContext";
+console.log("1")
 
 export default function App({ Component, pageProps }) {
   const { isOpen, toggleModal } = useModal("icon_menu_nav", [styles.sidebar]);
@@ -96,6 +96,7 @@ export default function App({ Component, pageProps }) {
           <Component {...pageProps} />
         </Bodyframe>
       ) : router.pathname?.includes("crm") ? (
+        <Provider store={store}>
         <AccessContextComponent>
           <SidebarResize>
             <NavigateContextComponent>
@@ -103,10 +104,15 @@ export default function App({ Component, pageProps }) {
               <Sidebar isOpened={isOpen} />
               <ChatBusiness />
               <TitleHeaderMobile />
+              <TongDaiContext>
               <Component {...pageProps} />
+              </TongDaiContext>
+
             </NavigateContextComponent>
           </SidebarResize>
         </AccessContextComponent>
+        </Provider>
+
       ) : router.pathname?.includes("hr") ? (
         <Layout>
           <DndProvider backend={HTML5Backend}>

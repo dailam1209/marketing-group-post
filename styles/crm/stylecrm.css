@@ -74,7 +74,7 @@ align-items: center !important;
   /* display: none; */
   padding-left: 10px;
 }
-button.ant-switch.status_cus.css-dev-only-do-not-override-fpg3f5.ant-switch-checked{
+button.ant-switch.status_cus.css-dev-only-do-not-override-18w4yg9.ant-switch-checked{
  background-color: #76B51B;
 }
 /* .status_cus td.ant-table-cell{
@@ -539,14 +539,14 @@ tr {
   display: flex;
   justify-content: center;
   margin-top: 50px;
+  gap: 40px;
 }
 
 .custom_mdal_sucess .ant-btn-primary {
   display: block;
   margin-bottom: 0;
   margin-inline-start: 0;
-  width: 100%;
-  margin: auto;
+  width: 20%;
   justify-content: center;
 }
 

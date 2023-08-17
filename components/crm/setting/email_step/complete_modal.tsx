@@ -24,15 +24,17 @@ const ModalCompleteStep: React.FC<ModalCompleteStepProps> = ({
     };
   return (
     <div>
-      <div className="sucess-mdal">
+      <div >
         <Modal
           title={
-            <Image width={112} height={112} alt="logo" src={"/success.svg"} />
+            <Image width={112} height={112} alt="logo" src="/crm/success.svg" />
           }
           style={{ top: 20 }}
           open={modal1Open}
           onOk={handleClick}
           className="custom_mdal_sucess"
+          onCancel={()=>setModal1Open(false)}
+          
         >
           <div style={{ textAlign: "center" }}>
             {title}
