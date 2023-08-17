@@ -92,9 +92,11 @@ export default function AddRegulationsModal({ onCancel }: AddRegulationsModalPro
                 formData.append("provision", provisionFile);
             }
 
-            // Gọi API AddSpecifiedGroup
             const response = await AddSpecifiedGroup(formData);
-            onCancel()
+            if (response) {
+                onCancel()
+            }
+
         } catch (error) {
             if (error instanceof Yup.ValidationError) {
                 const yupErrors = {};

@@ -331,7 +331,7 @@ export default function DetailHrReport({ children }: any) {
                     <div className={`${styles.d_back}`}>
                         <div className={`${styles.d_info}`}>
                             <a style={{ cursor: "pointer" }} onClick={handleBack} className={`${styles.d_img_back}`}>
-                                <Image style={{ verticalAlign: 'middle' }} src="arrow_left.svg" width={17} height={15} alt="" />
+                                <Image style={{ verticalAlign: 'middle' }} src="/arrow-left.svg" width={17} height={15} alt="" />
                             </a>
                             <p className={`${styles.d_text_info}`}>
                                 <a onClick={handleBack} style={{ fontWeight: 600, color: '#337ab7', cursor: 'pointer' }} >Báo cáo nhân sự </a>/ {isTitle}

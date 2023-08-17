@@ -112,7 +112,7 @@ export default function Sidebar(props: SideBarProp) {
     {
       label: "Chuyển đổi số",
       icon: "		/vn_chuyendoiso.svg",
-      href: 'https://quanlychung.timviec365.vn/quan-ly-ung-dung-cong-ty.html',
+      href: 'https://hungha365.com/',
       submenu: '',
       imgWithd: 20,
       imgheight: 20,

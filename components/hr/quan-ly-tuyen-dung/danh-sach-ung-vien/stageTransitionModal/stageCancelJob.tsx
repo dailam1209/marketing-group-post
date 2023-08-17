@@ -96,6 +96,7 @@ export default function StageCancelJob({ onCancel, process_id, data, process_id_
         recruitment: Yup.string().required("Chọn vị trí tuyển dụng"),
         timeSendCv: Yup.string().required("Thời gian gửi không được để trống"),
         type: Yup.string().required("Chọn giai đoạn chuyển"),
+
     });
 
 

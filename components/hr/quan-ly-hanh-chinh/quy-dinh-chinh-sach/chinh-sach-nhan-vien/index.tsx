@@ -27,6 +27,7 @@ export default function EmployeePolicy({ iconAdd, iconEdit, iconDelete }) {
     const [isOpenDetail, setIsOpenDetail] = useState(0)
     const [isOpenDeletePolicy, setIsOpenDeletePolicy] = useState(0)
     const [isKey, setIsKey] = useState('')
+    const [newData, setNewData] = useState(false)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -37,7 +38,7 @@ export default function EmployeePolicy({ iconAdd, iconEdit, iconDelete }) {
             }
         }
         fetchData()
-    }, [currentPage, isKey])
+    }, [currentPage, isKey, newData])
 
 
     const setIdParent = async (itemId: number) => {
@@ -64,6 +65,7 @@ export default function EmployeePolicy({ iconAdd, iconEdit, iconDelete }) {
         setClick(prevState => !prevState)
     }
     const handleCloseModal = () => {
+        setNewData(pre => !pre)
         setOpenModal(0)
         setIsOpenDetailGroup(0)
         setIsOpenUpdateGroup(0)
@@ -102,7 +104,6 @@ export default function EmployeePolicy({ iconAdd, iconEdit, iconDelete }) {
         });
         setIdParent(itemId);
     };
-
 
     return (
         <>

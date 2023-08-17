@@ -5,7 +5,7 @@ import { SpecifiedGroupList } from "@/pages/hr/api/quy_dinh_chinh_sach";
 import { UpdateRegulation } from "@/pages/hr/api/quy_dinh_chinh_sach";
 import { RegulationsDetails } from "@/pages/hr/api/quy_dinh_chinh_sach";
 import { format } from 'date-fns'
-
+import * as Yup from "yup";
 
 interface InputTextareaProps {
     onDescriptionChange: (data: any) => void;
@@ -18,7 +18,7 @@ interface UpdateRegulationsModal2Props {
 
 function Input_textarea({ onDescriptionChange, content }: InputTextareaProps) {
     const [editorLoaded, setEditorLoaded] = useState(false);
-    const [data, setData] = useState("");
+    const [data, setData] = useState(content);
 
     useEffect(() => {
         setEditorLoaded(true);
@@ -45,6 +45,7 @@ export default function UpdateRegulationsModal({ onCancel, idGroup }: UpdateRegu
     const [provisionId, setProvisionId] = useState<number | null>(null)
     const [DetailData, setDetailData] = useState<any | null>(null)
     const [keyWords, setKeyWords] = useState('')
+    const [errors, setErrors] = useState<any>({});
     const modalRef = useRef(null);
 
     useEffect(() => {
@@ -95,6 +96,14 @@ export default function UpdateRegulationsModal({ onCancel, idGroup }: UpdateRegu
         }
     }, [DetailData]);
 
+    const validationSchema = Yup.object().shape({
+        name: Yup.string().required("Tên quy định không được để trống"),
+        provision_id: Yup.string().required("Nhóm quy định không được để trống"),
+        time: Yup.string().required("Thời gian không được để trống"),
+        supervisor: Yup.string().required("Người giám sát không được để trống"),
+        apply_for: Yup.string().required("Đối tượng thi hành không được để trống"),
+        note: Yup.string().required("Mô tả không được để trống không được để trống"),
+    });
 
     const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
@@ -106,6 +115,19 @@ export default function UpdateRegulationsModal({ onCancel, idGroup }: UpdateRegu
             const apply_for = (document.getElementById('apply_for') as HTMLInputElement)?.value
             const content = descriptions
 
+            const formDatas = {
+                name: name || "",
+                time: time_start || "",
+                provision_id: provision_id || "",
+                apply_for: apply_for || "",
+                supervisor: supervisor_name || "",
+                note: content || DetailData?.data[0]?.content || "",
+            };
+
+            await validationSchema.validate(formDatas, {
+                abortEarly: false,
+            });
+
             const formData = new FormData()
             formData.append('provision_id', DetailData?.data[0]?.provisionId)
             formData.append('name', name)
@@ -114,17 +136,32 @@ export default function UpdateRegulationsModal({ onCancel, idGroup }: UpdateRegu
             formData.append('supervisor_name', supervisor_name)
             formData.append('apply_for', apply_for)
             formData.append('content', content)
+            if (content) {
+                formData.append("content", content);
+            }
+            else {
+                formData.append("content", DetailData?.data[0]?.content);
+            }
             if (provisionFile) {
                 formData.append("policy", provisionFile);
             }
 
             const response = await UpdateRegulation(formData)
+            if (response) {
+                onCancel()
+            }
         } catch (error) {
-            throw error
+            if (error instanceof Yup.ValidationError) {
+                const yupErrors = {};
+                error.inner.forEach((yupError: any) => {
+                    yupErrors[yupError.path] = yupError.message;
+                });
+                setErrors(yupErrors);
+            } else {
+                console.error("Lỗi validate form:", error);
+            }
         }
     }
-
-
 
     function handleUploadClick(event: React.MouseEvent<HTMLAnchorElement>) {
         event.preventDefault();
@@ -164,6 +201,7 @@ export default function UpdateRegulationsModal({ onCancel, idGroup }: UpdateRegu
                                             <label htmlFor="">Tên quy định <span style={{ color: 'red' }}> * </span></label>
                                             <div className={`${styles.input_right}`}>
                                                 <input type="text" defaultValue={DetailData?.data[0]?.name} id="names" placeholder="Nhập tên quy định" className={`${styles.input_process}`} />
+                                                <span> {errors.name && <div className={`${styles.t_require} `}>{errors.name}</div>}</span>
                                             </div>
                                         </div>
                                         <div className={`${styles.form_groups}`}>
@@ -174,12 +212,14 @@ export default function UpdateRegulationsModal({ onCancel, idGroup }: UpdateRegu
                                                         <option selected={item.id === DetailData?.data[0]?.provisionId} value={item.id} key={index}>-- {item.name} --</option>
                                                     ))}
                                                 </select>
+                                                <span> {errors.provision_id && <div className={`${styles.provision_id} `}>{errors.phone}</div>}</span>
                                             </div>
                                         </div>
                                         <div className={`${styles.form_groups}`}>
                                             <label htmlFor="">Thời gian bắt đầu hiệu lực <span style={{ color: 'red' }}> * </span></label>
                                             <div className={`${styles.input_right}`}>
                                                 <input type="date" id="time_start" placeholder="dd/mm/yyyy" className={`${styles.input_process}`} />
+                                                <span> {errors.time && <div className={`${styles.t_require} `}>{errors.time}</div>}</span>
                                             </div>
                                         </div>
                                         <div className={`${styles.form_groups}`}>
@@ -192,6 +232,7 @@ export default function UpdateRegulationsModal({ onCancel, idGroup }: UpdateRegu
                                             <label htmlFor="">Đối tượng thi hành <span style={{ color: 'red' }}> * </span></label>
                                             <div className={`${styles.input_right}`}>
                                                 <input type="text" value={DetailData?.data[0]?.applyFor} id="apply_for" placeholder="Đối tượng thi hành" className={`${styles.input_process}`} />
+                                                <span> {errors.supervisor && <div className={`${styles.t_require} `}>{errors.supervisor}</div>}</span>
                                             </div>
                                         </div>
                                         <div className={`${styles.form_groups} ${styles.cke}`}>

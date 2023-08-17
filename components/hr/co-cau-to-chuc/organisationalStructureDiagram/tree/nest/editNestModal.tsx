@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import styles from '../room/editRoomModal/editRoomModal.module.css'
 import Select from 'react-select';
 import { OrganizationalStructureUpdate } from "@/pages/hr/api/co_cau_to_chuc";
-
+import * as Yup from "yup";
 type SelectOptionType = { label: any, value: any }
 type EditNestModalProps = {
     gr_id: any,
@@ -14,7 +14,7 @@ type EditNestModalProps = {
 
 export default function EditNestModal({ gr_id, defaultValue, options, mota, onCancel }: EditNestModalProps) {
     const modalRef = useRef(null);
-
+    const [errors, setErrors] = useState<any>({});
     useEffect(() => {
         const handleOutsideClick = (event: any) => {
             if (modalRef.current && !modalRef.current.contains(event.target)) {
@@ -29,17 +29,42 @@ export default function EditNestModal({ gr_id, defaultValue, options, mota, onCa
         };
     }, [onCancel]);
 
-    const handleSubmit = async () => {
+    const validationSchema = Yup.object().shape({
+        description: Yup.string().required("Mô tả không được để trống"),
+    });
 
+
+    const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
         try {
             const description = (document.getElementById('description') as HTMLInputElement)?.value
             const formData = new FormData()
 
+            const formDatas = {
+                description: description || ""
+
+            };
+            await validationSchema.validate(formDatas, {
+                abortEarly: false,
+            });
+
+
             formData.append('teamId', gr_id)
             formData.append('description', description)
             const response = await OrganizationalStructureUpdate(formData)
+            if (response) {
+                onCancel()
+            }
         } catch (error) {
-            throw error
+            if (error instanceof Yup.ValidationError) {
+                const yupErrors = {};
+                error.inner.forEach((yupError: any) => {
+                    yupErrors[yupError.path] = yupError.message;
+                });
+                setErrors(yupErrors);
+            } else {
+                console.error("Lỗi validate form:", error);
+            }
         }
     }
 
@@ -113,7 +138,9 @@ export default function EditNestModal({ gr_id, defaultValue, options, mota, onCa
                                         </div>
                                     </div>
                                     <div className={`${styles.form_groups}`}>
-                                        <label htmlFor="">Mô tả <span style={{ color: 'red' }}> * </span></label>
+                                        <label htmlFor="">Mô tả <span style={{ color: 'red' }}> *
+                                            <span> {errors.description && <div className={`${styles.t_require} `}>{errors.description}</div>}</span>
+                                        </span></label>
                                         <div className={`${styles.input_right}`}>
                                             <textarea style={{ height: 100 }} defaultValue={mota} id="description" placeholder="" className={`${styles.input_process}`} />
                                         </div>

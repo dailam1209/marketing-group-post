@@ -11,10 +11,7 @@ import { CandidateList } from "@/pages/hr/api/quan-ly-tuyen-dung/candidateList";
 import { ProcessList } from "@/pages/hr/api/quan-ly-tuyen-dung/candidateList";
 import { parseISO, format } from 'date-fns';
 import { Rating } from 'react-simple-star-rating'
-import { ContactJobDetails } from "@/pages/hr/api/quan-ly-tuyen-dung/candidateList";
-import { GetJobDetails } from "@/pages/hr/api/quan-ly-tuyen-dung/candidateList";
-import { FailJobDetails } from "@/pages/hr/api/quan-ly-tuyen-dung/candidateList";
-import { CancelJobDetails } from "@/pages/hr/api/quan-ly-tuyen-dung/candidateList";
+import { ContactJobDetails, FailJobDetails, CancelJobDetails, AllDetails, GetJobDetails } from "@/pages/hr/api/quan-ly-tuyen-dung/candidateList";
 import { EmployeeList } from "@/pages/hr/api/listNhanVien";
 
 import Head from "next/head";
@@ -38,13 +35,11 @@ export default function DetailCandidate({ onCancel }: any) {
   const [animateModal, setAnimateModal] = useState(false);
   const [isCandidate, setCandidate] = useState<any>(null)
   const [isCandidateProcess, setCandidateProcess] = useState<any>(null)
+  const [isCandidateAll, setCandidateAll] = useState<any>(null)
   const [isProcessName, setProcessName] = useState<any>(null);
   const [displayIcon, setDisplayIcon] = useState<any>();
   const [EmpData, setEmpData] = useState<any>(null)
-  console.log(isCandidateProcess);
-  console.log(EmpData);
-  console.log(isCandidate);
-
+  const [newData, setNewData] = useState<any>(false)
 
   const EmpMatchProcess = EmpData?.data?.find((item: any) => item.idQLC ===
     isCandidateProcess?.detail_get_job?.empInterview
@@ -52,8 +47,29 @@ export default function DetailCandidate({ onCancel }: any) {
     || isCandidateProcess?.detail_cancel_job?.empInterview
     || isCandidateProcess?.detail_contact_job?.epOffer
   )
-  console.log(EmpMatchProcess);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      if (id?.includes("p")) {
+        const formData = new FormData();
+        const regex = /u(\d+)p/g
+        const matches: any = [];
+        let match: any;
+        while ((match = regex.exec(id)) !== null) {
+          matches.push(match[1]);
+        }
+        const matchesid: any = id?.match(/p(\d+)/);
+        const numberAfterP: any = Number(matchesid[1]);
+        formData.append('id', matches[0])
+        formData.append('idgiaidoan', numberAfterP)
+        const response = await AllDetails(formData);
+        if (response) {
+          setCandidateAll(response.data);
+        }
+      }
+    }
+    fetchData()
+  }, [])
 
   useEffect(() => {
     try {
@@ -76,7 +92,7 @@ export default function DetailCandidate({ onCancel }: any) {
       }
     }
     fetchData()
-  }, [])
+  }, [newData])
 
   const perIdArray = displayIcon?.map((item) => item.perId);
   const iconEdit = perIdArray?.includes(3);
@@ -95,7 +111,6 @@ export default function DetailCandidate({ onCancel }: any) {
               let match: any;
               while ((match = regex.exec(id)) !== null) {
                 matches.push(match[1]);
-
               }
               const item = data?.data?.find((item: any) => item.id = Number(matches[0]))
               setCandidate(item)
@@ -111,7 +126,7 @@ export default function DetailCandidate({ onCancel }: any) {
       }
     }
     fetchData()
-  }, [id])
+  }, [id, newData])
 
   useEffect(() => {
     const fetchData = async () => {
@@ -132,31 +147,7 @@ export default function DetailCandidate({ onCancel }: any) {
       }
     };
     fetchData();
-  }, [id]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        if (id?.includes("p")) {
-          const regex = /u(\d+)p/g
-          const matches: any = [];
-          let match: any;
-          while ((match = regex.exec(id)) !== null) {
-            matches.push(match[1]);
-          }
-          const formData = new FormData();
-          formData.append('canId', matches[0])
-          const response = await ContactJobDetails(formData);
-          if (response) {
-            setCandidateProcess(response.data);
-          }
-        }
-      } catch (error) {
-        throw error;
-      }
-    };
-    fetchData();
-  }, [id]);
+  }, [id, newData]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -203,14 +194,7 @@ export default function DetailCandidate({ onCancel }: any) {
       }
     };
     fetchData();
-  }, [id]);
-
-  // useEffect(() => {
-  //     if (isDelete === 0) {
-  //         setAnimateModal(true)
-  //     }
-  // }, [isDelete])
-
+  }, [id, newData]);
 
   const handleBack = () => {
     router.back()
@@ -225,6 +209,7 @@ export default function DetailCandidate({ onCancel }: any) {
   const handleCloseModal = () => {
     setAnimateModal(false);
     setOpenModalDetail(false)
+    setNewData(pre => !pre)
   };
 
   const options = {
@@ -359,12 +344,18 @@ export default function DetailCandidate({ onCancel }: any) {
             {id?.includes("p") && (
               <div className={`${styles.l_body_2_left_body}`}>
                 {isProcessName && <p className={`${styles.l_body_2_left_body_title}`}>Giai đoạn chuyển: {isProcessName}</p>}
-                <p>Thời gian chuyển giai đoạn: <span className={`${styles.txt_op}`}>{""}</span></p>
-                <p>Mức lương mong muốn: <span className={`${styles.txt_op}`}>{""}</span></p>
-                <p>Mức lương thực: <span className={`${styles.txt_op}`}>{""}</span></p>
-                <p>Thời gian hẹn: <span className={`${styles.txt_op}`}>{""}</span></p>
-                <p>Nhân viên tham gia: <span className={`${styles.txt_op}`}>{EmpMatchProcess?.userName}</span></p>
-                <p>Ghi chú: <span className={`${styles.txt_op}`}>{""}</span></p>
+                {isCandidateAll?.createdAt &&
+                  <p>Thời gian chuyển giai đoạn: <span className={`${styles.txt_op}`}>{format(parseISO(isCandidateAll?.createdAt), 'dd-MM-yyyy')}</span></p>
+                }
+
+                <p>Mức lương mong muốn: <span className={`${styles.txt_op}`}>{isCandidateAll?.resiredSalary}</span></p>
+                <p>Mức lương thực: <span className={`${styles.txt_op}`}>{isCandidateAll?.salary}</span></p>
+                {isCandidateAll?.interviewTime &&
+                  <p>Thời gian hẹn: <span className={`${styles.txt_op}`}>{format(parseISO(isCandidateAll?.interviewTime), 'dd-MM-yyyy')}</span></p>
+                }
+
+                <p>Nhân viên tham gia: <span className={`${styles.txt_op}`}>{isCandidateAll?.nhanvien}</span></p>
+                <p>Ghi chú: <span className={`${styles.txt_op}`}>{isCandidateAll?.note}</span></p>
               </div>
             )}
             {id?.charAt(0) === 'g' && (

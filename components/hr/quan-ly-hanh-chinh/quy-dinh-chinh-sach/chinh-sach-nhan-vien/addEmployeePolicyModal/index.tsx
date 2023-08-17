@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import styles from '../../quy-dinh-lam-viec/addRegulationsModal/addRegulationsModal.module.css'
 import MyEditorNew from "@/components/hr/myEditor/index"
 import { AddPolicy } from "@/pages/hr/api/quy_dinh_chinh_sach";
-
+import * as Yup from "yup";
 interface InputTextareaProps {
     onDescriptionChange: (data: any) => void
 }
@@ -38,6 +38,7 @@ export default function AddEmployeePolicyModal({ onCancel }: AddEmployeePolicyMo
 
     const [descriptions, setDescription] = useState("");
     const [provisionFile, setProvisionFile] = useState<File | null>(null)
+    const [errors, setErrors] = useState<any>({});
     const modalRef = useRef(null);
 
     useEffect(() => {
@@ -63,6 +64,13 @@ export default function AddEmployeePolicyModal({ onCancel }: AddEmployeePolicyMo
         }
     }
 
+    const validationSchema = Yup.object().shape({
+        name: Yup.string().required("Tên nhóm quy định không được để trống"),
+        time: Yup.string().required("Thời gian không được để trống"),
+        supervisor: Yup.string().required("Người giám sát không được để trống"),
+        note: Yup.string().required("Mô tả không được để trống không được để trống"),
+    });
+
     const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
 
@@ -72,6 +80,17 @@ export default function AddEmployeePolicyModal({ onCancel }: AddEmployeePolicyMo
             const supervisor_name = (document.getElementById('supervisor_name') as HTMLInputElement).value
             const description = descriptions
 
+            const formDatas = {
+                name: name || "",
+                time: time_start || "",
+                supervisor: supervisor_name || "",
+                note: description || "",
+            };
+
+            await validationSchema.validate(formDatas, {
+                abortEarly: false,
+            });
+
             const formData = new FormData()
             formData.append('name', name)
             formData.append('time_start', time_start)
@@ -80,10 +99,20 @@ export default function AddEmployeePolicyModal({ onCancel }: AddEmployeePolicyMo
             if (provisionFile) {
                 formData.append('employeePolicy', provisionFile)
             }
-
             const response = await AddPolicy(formData)
+            if (response) {
+                onCancel()
+            }
         } catch (error) {
-            throw error
+            if (error instanceof Yup.ValidationError) {
+                const yupErrors = {};
+                error.inner.forEach((yupError: any) => {
+                    yupErrors[yupError.path] = yupError.message;
+                });
+                setErrors(yupErrors);
+            } else {
+                console.error("Lỗi validate form:", error);
+            }
         }
     }
 
@@ -111,22 +140,27 @@ export default function AddEmployeePolicyModal({ onCancel }: AddEmployeePolicyMo
                                         <label htmlFor="">Tên nhóm <span style={{ color: 'red' }}> * </span></label>
                                         <div className={`${styles.input_right}`}>
                                             <input type="text" id="names" placeholder="Nhập tên ứng viên" className={`${styles.input_process}`} />
+                                            <span> {errors.name && <div className={`${styles.t_require} `}>{errors.name}</div>}</span>
                                         </div>
                                     </div>
                                     <div className={`${styles.form_groups}`}>
                                         <label htmlFor="">Thời gian bắt đầu hiệu lực <span style={{ color: 'red' }}> * </span></label>
                                         <div className={`${styles.input_right}`}>
                                             <input type="date" id="time_start" placeholder="dd/mm/yyyy" className={`${styles.input_process}`} />
+                                            <span> {errors.time && <div className={`${styles.t_require} `}>{errors.time}</div>}</span>
                                         </div>
                                     </div>
                                     <div className={`${styles.form_groups}`}>
                                         <label htmlFor="">Người giám sát <span style={{ color: 'red' }}> * </span></label>
                                         <div className={`${styles.input_right}`}>
                                             <input type="text" id="supervisor_name" placeholder="Người giám sát" className={`${styles.input_process}`} />
+                                            <span> {errors.supervisor && <div className={`${styles.t_require} `}>{errors.supervisor}</div>}</span>
                                         </div>
                                     </div>
                                     <div className={`${styles.form_groups} ${styles.cke}`}>
-                                        <label htmlFor="">Mô tả ngắn <span style={{ color: 'red' }}> * </span></label>
+                                        <label htmlFor="">Mô tả ngắn <span style={{ color: 'red' }}> *
+                                            <span > {errors.note && <div className={`${styles.t_require} `}>{errors.note}</div>}</span>
+                                        </span></label>
                                         <div className={`${styles.ckeditor}`}>
                                             <Input_textarea onDescriptionChange={handleDescriptionChange} />
                                         </div>

@@ -25,12 +25,13 @@ export default function DeleteSealUseList({ onCancel, empId }: any) {
             const formData = new FormData()
             formData.append('empId', empId)
             const response = await SealAndSignatureDelete(formData)
-            onCancel()
+            if (response) {
+                onCancel()
+            }
         } catch (error) {
             throw error
         }
     }
-
 
     return (
         <>

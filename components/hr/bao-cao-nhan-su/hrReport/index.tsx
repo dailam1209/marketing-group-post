@@ -36,9 +36,27 @@ export default function TabHRReport({ dateRangeDatas }: any) {
         const fetchData = async () => {
             try {
                 const formData = new FormData();
+                const start_month = (document.getElementById("start_month") as HTMLInputElement)?.value
+                const end_month = (document.getElementById("end_month") as HTMLInputElement)?.value
+                const type_date: any = 3
+                const type_month: any = 2
+                const type_year: any = 1
                 formData.append('depId', isDep_id)
-                formData.append('from_date', startDate)
-                formData.append('to_date', endDate)
+                if (isSelect === "date") {
+                    formData.append('type', type_date)
+                    formData.append('from_date', startDate)
+                    formData.append('to_date', endDate)
+                }
+                if (isSelect === "month") {
+                    formData.append('type', type_month)
+                    formData.append('from_date', start_month)
+                    formData.append('to_date', end_month)
+                }
+                if (isSelect === "year") {
+                    formData.append('type', type_year)
+                    formData.append('from_date', isStartYear)
+                    formData.append('to_date', isEndYear)
+                }
                 const response = await GetDataHrReports(formData)
                 if (response) {
                     setHrReportList(response.data)

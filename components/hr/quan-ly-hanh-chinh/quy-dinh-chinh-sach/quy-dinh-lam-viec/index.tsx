@@ -32,6 +32,7 @@ export default function RegulationsWork({ iconAdd, iconEdit, iconDelete }) {
     const [idDelete, setIdDelete] = useState(0);
     const [idDeleteRegulation, setIdDeleteRegulation] = useState(0);
     const [keyWords, setKeyWords] = useState('')
+    const [newData, setNewData] = useState(false)
 
     const fetchData = useCallback(async () => {
         try {
@@ -39,7 +40,7 @@ export default function RegulationsWork({ iconAdd, iconEdit, iconDelete }) {
             setData(response?.data);
         } catch (error) {
         }
-    }, [currentPage, keyWords]);
+    }, [currentPage, keyWords, newData]);
 
     useEffect(() => {
         fetchData();
@@ -67,6 +68,7 @@ export default function RegulationsWork({ iconAdd, iconEdit, iconDelete }) {
         setClick(prevState => !prevState)
     }
     const handleCloseModal = () => {
+        setNewData(pre => !pre)
         setOpenModal(0)
         setOpentDetail(0)
         setOpenUpdate(0)

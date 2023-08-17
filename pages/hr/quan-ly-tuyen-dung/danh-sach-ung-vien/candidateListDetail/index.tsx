@@ -69,6 +69,11 @@ export default function CandidateListDetail({ iconAdd, iconEdit, iconDelete }: a
     fetchData();
   }, [isSeach]);
 
+  const handleAddCandidate = () => {
+    // Gọi khi thêm ứng viên thành công từ component con
+    setSearch(prevValue => !prevValue);
+  };
+
   // -- lấy dữ liệu nhân viên --
   useEffect(() => {
     const fetchData = async () => {
@@ -110,6 +115,7 @@ export default function CandidateListDetail({ iconAdd, iconEdit, iconDelete }: a
     setDeleteProcess(null);
     setModalOpen(false);
     setOpenModal(null)
+    setSearch(prevValue => !prevValue);
   };
 
   const handleSearch = useCallback(() => {
@@ -343,6 +349,7 @@ export default function CandidateListDetail({ iconAdd, iconEdit, iconDelete }: a
                       setProcess_id={setProcess_id}
                       iconEdit={iconEdit}
                       iconDelete={iconDelete}
+                      onCancel={handleCloseModal}
                     />
                   )
                 })}

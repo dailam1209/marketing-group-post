@@ -3,7 +3,7 @@ import styles from '../../quy-dinh-lam-viec/addRegulationsModal/addRegulationsMo
 import { AddPolicyByGroup } from "@/pages/hr/api/quy_dinh_chinh_sach";
 import { PolicyList } from "@/pages/hr/api/quy_dinh_chinh_sach";
 import MyEditorNew from "@/components/hr/myEditor";
-
+import * as Yup from "yup";
 interface InputTextareaProps {
     onDescriptionChange: (data: any) => void
 }
@@ -39,6 +39,7 @@ export default function AddEmployeePolicyModal2({ onCancel }: AddEmployeePolicyM
     const [provisionFile, setProvisionFile] = useState<File | null>(null);
     const [descriptions, setDescription] = useState("");
     const [ListPolicyGroup, setListPolicyGroup] = useState<any | null>(null)
+    const [errors, setErrors] = useState<any>({});
     const modalRef = useRef(null);
 
     useEffect(() => {
@@ -67,6 +68,15 @@ export default function AddEmployeePolicyModal2({ onCancel }: AddEmployeePolicyM
         fetchData()
     }, [])
 
+    const validationSchema = Yup.object().shape({
+        name: Yup.string().required("Tên quy định không được để trống"),
+        provision_id: Yup.string().required("Nhóm quy định không được để trống"),
+        time: Yup.string().required("Thời gian không được để trống"),
+        supervisor: Yup.string().required("Người giám sát không được để trống"),
+        apply_for: Yup.string().required("Đối tượng thi hành không được để trống"),
+        note: Yup.string().required("Mô tả không được để trống không được để trống"),
+    });
+
     const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
         try {
@@ -76,6 +86,19 @@ export default function AddEmployeePolicyModal2({ onCancel }: AddEmployeePolicyM
             const supervisor_name = (document.getElementById('supervisor_name') as HTMLInputElement)?.value
             const apply_for = (document.getElementById('apply_for') as HTMLInputElement)?.value
             const content = descriptions
+
+            const formDatas = {
+                name: name || "",
+                time: time_start || "",
+                provision_id: provision_id || "",
+                apply_for: apply_for || "",
+                supervisor: supervisor_name || "",
+                note: content || "",
+            };
+
+            await validationSchema.validate(formDatas, {
+                abortEarly: false,
+            });
 
             const formData = new FormData()
             formData.append('name', name)
@@ -88,8 +111,19 @@ export default function AddEmployeePolicyModal2({ onCancel }: AddEmployeePolicyM
                 formData.append("policy", provisionFile);
             }
             const response = await AddPolicyByGroup(formData)
+            if (response) {
+                onCancel()
+            }
         } catch (error) {
-            throw error
+            if (error instanceof Yup.ValidationError) {
+                const yupErrors = {};
+                error.inner.forEach((yupError: any) => {
+                    yupErrors[yupError.path] = yupError.message;
+                });
+                setErrors(yupErrors);
+            } else {
+                console.error("Lỗi validate form:", error);
+            }
         }
     }
 
@@ -126,10 +160,11 @@ export default function AddEmployeePolicyModal2({ onCancel }: AddEmployeePolicyM
                                         <label htmlFor="">Tên chính sách <span style={{ color: 'red' }}> * </span></label>
                                         <div className={`${styles.input_right}`}>
                                             <input type="text" id="names" placeholder="Nhập tên chính sách" className={`${styles.input_process}`} />
+                                            <span> {errors.name && <div className={`${styles.t_require} `}>{errors.name}</div>}</span>
                                         </div>
                                     </div>
                                     <div className={`${styles.form_groups}`}>
-                                        <label htmlFor="">Chọn nhóm quy định <span style={{ color: 'red' }}> * </span></label>
+                                        <label htmlFor="">Chọn nhóm chính sách <span style={{ color: 'red' }}> * </span></label>
                                         <div className={`${styles.input_right}`}>
                                             <select name="" id="employe_policy_id" className={`${styles.input_process}`}>
                                                 {ListPolicyGroup?.data?.map((item: any, index: any) => (
@@ -137,28 +172,34 @@ export default function AddEmployeePolicyModal2({ onCancel }: AddEmployeePolicyM
                                                 ))}
 
                                             </select>
+                                            <span> {errors.provision_id && <div className={`${styles.provision_id} `}>{errors.provision_id}</div>}</span>
                                         </div>
                                     </div>
                                     <div className={`${styles.form_groups}`}>
                                         <label htmlFor="">Thời gian bắt đầu hiệu lực <span style={{ color: 'red' }}> * </span></label>
                                         <div className={`${styles.input_right}`}>
                                             <input type="date" id="time_start" placeholder="dd/mm/yyyy" className={`${styles.input_process}`} />
+                                            <span> {errors.time && <div className={`${styles.t_require} `}>{errors.time}</div>}</span>
                                         </div>
                                     </div>
                                     <div className={`${styles.form_groups}`}>
                                         <label htmlFor="">Người giám sát <span style={{ color: 'red' }}> * </span></label>
                                         <div className={`${styles.input_right}`}>
                                             <input type="text" id="supervisor_name" placeholder="Người giám sát" className={`${styles.input_process}`} />
+                                            <span> {errors.supervisor && <div className={`${styles.t_require} `}>{errors.supervisor}</div>}</span>
                                         </div>
                                     </div>
                                     <div className={`${styles.form_groups}`}>
                                         <label htmlFor="">Đối tượng thi hành <span style={{ color: 'red' }}> * </span></label>
                                         <div className={`${styles.input_right}`}>
                                             <input type="text" id="apply_for" placeholder="Đối tượng thi hành" className={`${styles.input_process}`} />
+                                            <span> {errors.apply_for && <div className={`${styles.t_require} `}>{errors.apply_for}</div>}</span>
                                         </div>
                                     </div>
                                     <div className={`${styles.form_groups} ${styles.cke}`}>
-                                        <label htmlFor="">Nội dung quy định <span style={{ color: 'red' }}> * </span></label>
+                                        <label htmlFor="">Nội dung quy định <span style={{ color: 'red' }}> *
+                                            <span > {errors.note && <div className={`${styles.t_require} `}>{errors.note}</div>}</span>
+                                        </span></label>
                                         <div className={`${styles.ckeditor}`}>
                                             <Input_textarea onDescriptionChange={handleDescriptionChange} />
                                         </div>

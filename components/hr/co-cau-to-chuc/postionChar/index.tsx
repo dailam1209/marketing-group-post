@@ -70,7 +70,8 @@ const PostionCharTree = ({ iconEdit }) => {
 
     const [openModalEdit, setOpenModalEdit] = useState<any>(null)
     const [isMission, setIsMission] = useState<any>(null)
-    const [openModalDetails, setOpenModalDetails] = useState('')
+    const [openModalDetails, setOpenModalDetails] = useState(null)
+    const [newData, setNewdata] = useState(false)
 
     const handleUpdatePosition = ({ idPosition, mission }: any) => {
         setOpenModalEdit(idPosition)
@@ -78,8 +79,9 @@ const PostionCharTree = ({ iconEdit }) => {
     };
 
     const handleModalClose = () => {
-        setOpenModalEdit(0);
-        setOpenModalDetails('')
+        setNewdata(pre => !pre)
+        setOpenModalEdit(null);
+        setOpenModalDetails(null)
     };
 
     const [PostionCharDatas, setPosttionCharData] = useState<any>(null)
@@ -93,7 +95,7 @@ const PostionCharTree = ({ iconEdit }) => {
             }
         }
         fetchData()
-    }, [])
+    }, [newData])
 
     return (
 

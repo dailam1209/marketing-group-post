@@ -6,7 +6,7 @@ import { ItemTypes } from "./ItemType";
 import DeleteCandidate from "../candidateDeleteModal";
 import { useRouter } from "next/router";
 
-export default function ItemCandidate1({ data, setProcess_id, process_id, currentCol, setDragItem, setDropCol, setModalOpen, iconDelete }: any) {
+export default function ItemCandidate1({ onCancel, data, setProcess_id, process_id, currentCol, setDragItem, setDropCol, setModalOpen, iconDelete }: any) {
     const [isOpenOption, setOpenOption] = useState(0)
     const [isDelete, setDelete] = useState(0)
     const [animateModal, setAnimateModal] = useState(true);
@@ -56,6 +56,7 @@ export default function ItemCandidate1({ data, setProcess_id, process_id, curren
 
     const handleClosemodal = () => {
         setDelete(0)
+        onCancel()
         setAnimateModal(false)
     }
 

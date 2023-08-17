@@ -24,7 +24,6 @@ export default function PersonalReward({ iconAdd, iconEdit }: any) {
   const handleUpDateData = (newData) => {
     setUpdateData(newData)
   }
-
   useEffect(() => {
     const GetDataPersonalReward = async () => {
       const response = await GetDataAchievement(currentPage, 10, 1, keyWords);

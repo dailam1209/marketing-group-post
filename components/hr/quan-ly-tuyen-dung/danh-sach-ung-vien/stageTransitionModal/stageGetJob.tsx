@@ -165,6 +165,7 @@ export default function StageGetJob({ onCancel, process_id, data, process_id_fro
         email: Yup.string().required("email không được để trống"),
         empInterview: Yup.string().required("Chọn nhân viên tham gia"),
         timeInterView: Yup.string().required("Thời gian hẹn không được để trống"),
+        contentsend: Yup.string().required("Ghi chú không được để trống"),
     });
 
     const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -202,6 +203,7 @@ export default function StageGetJob({ onCancel, process_id, data, process_id_fro
                 timeSendCv: timeSendCv || "",
                 empInterview: empInterview || "",
                 timeInterView: interviewTime || "",
+                contentsend: descriptions || ""
 
             };
             await validationSchema.validate(formDatas, {
@@ -492,6 +494,7 @@ export default function StageGetJob({ onCancel, process_id, data, process_id_fro
                                     </div>
                                     <div className={`${styles.form_groupss}`}>
                                         <div className={`${styles.ckeditor}`}>
+                                            <span> {errors.contentsend && <div className={`${styles.t_require} `}>{errors.contentsend}</div>}</span>
                                             <Input_textarea onDescriptionChange={handleDescriptionChange} process_id={process_id} />
                                         </div>
                                     </div>

@@ -177,10 +177,13 @@ export default function EditCandidateList({ onCancel, infoList, position }: any)
                                         <div className={`${styles.content_left}`}>
                                             <div className={`${styles.form_groups} ${styles.form_groups3}`}>
                                                 <label htmlFor="">Ngày sinh </label>
-                                                <input style={{ height: 20 }} type="date" defaultValue={format(
-                                                    parseISO(new Date(infoList?.infoList?.birthday * 1000).toISOString()),
-                                                    "yyyy-MM-dd"
-                                                )} id="birthday" placeholder="" className={`${styles.form_control} `} />
+                                                {infoList?.infoList?.birthday &&
+                                                    <input style={{ height: 20 }} type="date" defaultValue={format(
+                                                        parseISO(new Date(infoList?.infoList?.birthday * 1000).toISOString()),
+                                                        "yyyy-MM-dd"
+                                                    )} id="birthday" placeholder="" className={`${styles.form_control} `} />
+                                                }
+
                                             </div>
                                         </div>
                                         <div className={`${styles.content_right}`}>
@@ -337,10 +340,12 @@ export default function EditCandidateList({ onCancel, infoList, position }: any)
                                     </div>
                                     <div className={`${styles.form_groups}`}>
                                         <label htmlFor="">Ngày vào công ty </label>
-                                        <input type="date" id="date_in_com" defaultValue={format(
-                                            parseISO(new Date(infoList?.infoList?.start_working_time * 1000).toISOString()),
-                                            "yyyy-MM-dd"
-                                        )} placeholder="" className={`${styles.form_control}`} />
+                                        {infoList?.infoList?.start_working_time &&
+                                            <input type="date" id="date_in_com" defaultValue={format(
+                                                parseISO(new Date(infoList?.infoList?.start_working_time * 1000).toISOString()),
+                                                "yyyy-MM-dd"
+                                            )} placeholder="" className={`${styles.form_control}`} />
+                                        }
                                     </div>
                                     <div className={`${styles.form_groups}`}>
                                         <label htmlFor="">Trình độ học vấn </label>

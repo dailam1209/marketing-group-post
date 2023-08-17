@@ -29,6 +29,7 @@ export default function TabEmployeeManagement({ iconAdd, iconEdit }: any) {
     const [PostionCharDatas, setPosttionCharData] = useState<any>(null)
     const [isSeach, setSearch] = useState<any>(null)
     const [visible, setVisible] = useState(false);
+    const [newData, setData] = useState(false);
     const comid: any = GetComId()
 
     // -- đóng mở modal --
@@ -40,6 +41,7 @@ export default function TabEmployeeManagement({ iconAdd, iconEdit }: any) {
         setDetailModal(false)
         setEditmodal(false)
         setVisible(false);
+        setData(pre => !pre)
     }
 
     // -- lấy dữ liệu phòng ban --
@@ -84,7 +86,7 @@ export default function TabEmployeeManagement({ iconAdd, iconEdit }: any) {
             }
         }
         fetchData()
-    }, [currentPage, isSeach])
+    }, [currentPage, isSeach, newData])
 
     // -- di chuyển trái phải của bảng --
     const tableContentRef = useRef<HTMLDivElement>(null);

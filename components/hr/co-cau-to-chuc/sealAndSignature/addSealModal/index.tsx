@@ -6,6 +6,7 @@ import { EmployeeList } from "@/pages/hr/api/listNhanVien";
 import { PostionCharData } from "@/pages/hr/api/co_cau_to_chuc";
 import { AddUserSignature } from "@/pages/hr/api/co_cau_to_chuc";
 import GetComId from "@/components/hr/getComID";
+import * as Yup from "yup";
 
 type SelectOptionType = { label: string, value: string }
 
@@ -17,6 +18,7 @@ export default function AddSealModal({ onCancel }: any) {
     const [isPosition_id, setIsPosition_id] = useState<any>("")
     const [isEmp_id, setIsEmp_id] = useState<any>("")
     const [PostionCharDatas, setPosttionCharData] = useState<any>(null)
+    const [errors, setErrors] = useState<any>({});
     const modalRef = useRef(null);
 
     useEffect(() => {
@@ -79,14 +81,42 @@ export default function AddSealModal({ onCancel }: any) {
         fetchData()
     }, [])
 
+    const validationSchema = Yup.object().shape({
+        chonnhanvien: Yup.string().required("Vui lòng chọn nhân viên"),
+        chucvuhientai: Yup.string().required("Vui lòng chọn chức vụ hiện tại"),
+        chonphongban: Yup.string().required("Vui lòng chọn phòng ban")
+    });
+
+
     const handleAddUserSignature = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
         try {
             const formData = new FormData();
+
+            const formDatas = {
+                chonnhanvien: isEmp_id || "",
+                chucvuhientai: isPosition_id || "",
+                chonphongban: isDep_id || ""
+            };
+            await validationSchema.validate(formDatas, {
+                abortEarly: false,
+            });
+
             formData.append('empId', isEmp_id)
             const response = await AddUserSignature(formData)
+            if (response) {
+                onCancel()
+            }
         } catch (error) {
-            throw error
+            if (error instanceof Yup.ValidationError) {
+                const yupErrors = {};
+                error.inner.forEach((yupError: any) => {
+                    yupErrors[yupError.path] = yupError.message;
+                });
+                setErrors(yupErrors);
+            } else {
+                console.error("Lỗi validate form:", error);
+            }
         }
 
     }
@@ -199,6 +229,7 @@ export default function AddSealModal({ onCancel }: any) {
                                                         }),
                                                     }}
                                                 />
+                                                <span> {errors.chonphongban && <div className={`${styles.t_require} `}>{errors.chonphongban}</div>}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -226,6 +257,7 @@ export default function AddSealModal({ onCancel }: any) {
                                                         }),
                                                     }}
                                                 />
+                                                <span> {errors.chucvuhientai && <div className={`${styles.t_require} `}>{errors.chucvuhientai}</div>}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -237,7 +269,7 @@ export default function AddSealModal({ onCancel }: any) {
                                                     defaultValue={selectedOption}
                                                     onChange={handleSelectChangeEmployee}
                                                     options={options.chonnhanvien}
-                                                    placeholder="Chọn phòng ban"
+                                                    placeholder="Chọn nhân viên"
                                                     styles={{
                                                         control: (baseStyles, state) => ({
                                                             ...baseStyles,
@@ -253,6 +285,7 @@ export default function AddSealModal({ onCancel }: any) {
                                                         }),
                                                     }}
                                                 />
+                                                <span> {errors.chonnhanvien && <div className={`${styles.t_require} `}>{errors.chonnhanvien}</div>}</span>
                                             </div>
                                         </div>
                                     </div>

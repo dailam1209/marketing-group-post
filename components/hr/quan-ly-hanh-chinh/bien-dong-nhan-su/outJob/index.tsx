@@ -29,6 +29,7 @@ export default function TabOutJob({ iconAdd, iconEdit, iconDelete }: any) {
     const [departmentList, setDepartmentList] = useState<any>(null)
     const tableContentRef = useRef<HTMLDivElement>(null);
     const currentPositionRef = useRef(0);
+    const [newData, setNewData] = useState(false)
     const com_id: any = GetComId()
 
     useEffect(() => {
@@ -48,7 +49,7 @@ export default function TabOutJob({ iconAdd, iconEdit, iconDelete }: any) {
             }
         }
         fetchData()
-    }, [isPageSize, isSeach])
+    }, [isPageSize, isSeach, newData])
 
     // -- lấy dữ liệu phòng ban --
     useEffect(() => {
@@ -117,6 +118,7 @@ export default function TabOutJob({ iconAdd, iconEdit, iconDelete }: any) {
     };
 
     const handleCloseModal = () => {
+        setNewData(pre => !pre)
         setOpenModal(0)
         setOpenEditModal(false)
         setOpenDeleteModal(0)

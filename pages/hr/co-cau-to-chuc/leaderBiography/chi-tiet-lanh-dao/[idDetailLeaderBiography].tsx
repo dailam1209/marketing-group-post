@@ -71,7 +71,7 @@ export default function DetailLeaderBiography({ onCancel }: any) {
     const [personalInfoData, setPersonalInfoData] = useState<any>(null)
     const { idDetailLeaderBiography }: any = router.query;
     const [displayIcon, setDisplayIcon] = useState<any>();
-
+    const [newData, setNewData] = useState(false);
 
     useEffect(() => {
         try {
@@ -110,7 +110,7 @@ export default function DetailLeaderBiography({ onCancel }: any) {
             // const parsedDescriptions = JSON.parse(descriptions);
 
         }
-    }, [idDetailLeaderBiography, descriptions]);
+    }, [idDetailLeaderBiography, descriptions, newData]);
 
     const handleDescriptionChange = (updatedData: any) => {
         setPersonalInfoData(updatedData)
@@ -152,6 +152,10 @@ export default function DetailLeaderBiography({ onCancel }: any) {
             formData.append('empId', idDetailLeaderBiography)
             formData.append('description', personalInfoDatas)
             const response = await LeaderBiograpphyUpdate(formData)
+            if (response) {
+                setOpenUpdate(false)
+                setNewData(pre => !pre)
+            }
         } catch (error) {
             throw error
         }
@@ -166,12 +170,6 @@ export default function DetailLeaderBiography({ onCancel }: any) {
     while ((match = regex.exec(cleanDescription)) !== null) {
         valuesArray.push(match[1]);
     }
-
-    console.log(valuesArray);
-    console.log(description);
-    console.log(isLeaderDetail);
-
-
 
     const initialValue = [
         { key: 'Thông tin cá nhân', value: '' },

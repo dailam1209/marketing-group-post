@@ -129,6 +129,7 @@ export default function StageFailJob({ onCancel, process_id, data, process_id_fr
         timeSendCv: Yup.string().required("Thời gian gửi không được để trống"),
         email: Yup.string().required("email không được để trống"),
         type: Yup.string().required("Chọn giai đoạn chuyển"),
+        contentsend: Yup.string().required("Ghi chú không được để trống"),
     });
 
 
@@ -156,6 +157,7 @@ export default function StageFailJob({ onCancel, process_id, data, process_id_fr
                 recruitment: isRecruitmentNewsId || "",
                 timeSendCv: timeSendCv || "",
                 type: type || "",
+                contentsend: descriptions || ""
             };
             await validationSchema.validate(formDatas, {
                 abortEarly: false,
@@ -393,6 +395,7 @@ export default function StageFailJob({ onCancel, process_id, data, process_id_fr
                                     </div>
                                     <div className={`${styles.form_groupss}`}>
                                         <div className={`${styles.ckeditor}`}>
+                                            <span> {errors.contentsend && <div className={`${styles.t_require} `}>{errors.contentsend}</div>}</span>
                                             <Input_textarea onDescriptionChange={handleDescriptionChange} process_id={process_id} />
                                         </div>
                                     </div>

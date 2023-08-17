@@ -26,8 +26,8 @@ export default function TabPayrollDown({ iconAdd, iconEdit, iconDelete }: any) {
     const [isSeach, setSearch] = useState<any>(null)
     const [infoList, setInfoList] = useState<any>(null)
     const [isPageSize, setPageSize] = useState<any>(10)
+    const [newData, setNewData] = useState(false)
     const comid: any = GetComId()
-
 
     useEffect(() => {
         const fetchData = async () => {
@@ -46,7 +46,7 @@ export default function TabPayrollDown({ iconAdd, iconEdit, iconDelete }: any) {
             }
         }
         fetchData()
-    }, [isSeach, isPageSize])
+    }, [isSeach, isPageSize, newData])
 
     // -- lấy dữ liệu phòng ban --
     useEffect(() => {
@@ -99,6 +99,7 @@ export default function TabPayrollDown({ iconAdd, iconEdit, iconDelete }: any) {
     }
 
     const handleCloseModal = () => {
+        setNewData(pre => !pre)
         setOpenModal(0)
         setOpenEditModal(false)
         setOpenDeleteModal(0)

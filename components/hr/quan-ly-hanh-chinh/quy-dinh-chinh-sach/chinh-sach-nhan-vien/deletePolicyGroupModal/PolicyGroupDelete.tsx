@@ -26,7 +26,9 @@ export default function DeletePolicyGroup({ onCancel, idGroup }: any) {
             const formData = new FormData()
             formData.append('id', idGroup)
             const response = await GroupPolicyDelete(formData)
-            onCancel()
+            if (response) {
+                onCancel()
+            }
         } catch (error) {
             throw error
         }

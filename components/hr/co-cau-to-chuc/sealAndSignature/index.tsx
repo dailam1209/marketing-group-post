@@ -34,6 +34,7 @@ export default function SealAndSignature({ iconAdd, iconEdit, iconDelete }: any)
     const [isKeySignature, setKeySignature] = useState<any>("")
     const [isSeachSeal, setSearchSeal] = useState<any>(null)
     const [isSeachSignature, setSearchSignature] = useState<any>(null)
+    const [newData, setNewData] = useState(false)
 
     const com_id: any = GetComId()
 
@@ -53,7 +54,7 @@ export default function SealAndSignature({ iconAdd, iconEdit, iconDelete }: any)
             }
         }
         fetchData()
-    }, [isSeachSeal, currentPageSeal])
+    }, [isSeachSeal, currentPageSeal, newData])
 
 
     // Fetch data for signatures
@@ -73,7 +74,7 @@ export default function SealAndSignature({ iconAdd, iconEdit, iconDelete }: any)
             }
         }
         fetchData()
-    }, [isSeachSignature, currentPageSignature])
+    }, [isSeachSignature, currentPageSignature, newData])
 
 
     // Fetch data for department
@@ -155,6 +156,7 @@ export default function SealAndSignature({ iconAdd, iconEdit, iconDelete }: any)
     };
 
     const handleCloseModal = () => {
+        setNewData(pre => !pre)
         setOpenModal(0)
         setOpenDeleteSealList(0)
         setOpenDeleteSignature(0)

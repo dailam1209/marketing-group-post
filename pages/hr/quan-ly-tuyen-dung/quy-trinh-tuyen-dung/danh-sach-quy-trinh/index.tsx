@@ -19,6 +19,7 @@ export default function ListRecruitmentProcess({
   iconAdd,
   iconEdit,
   iconDelete,
+  newRecruitmentProcess
 }: any) {
   const router = useRouter();
   const [openModal, setOpenModal] = useState(0);
@@ -37,6 +38,7 @@ export default function ListRecruitmentProcess({
 
   const handleCloseModal = () => {
     setAnimateModal(false);
+    newRecruitmentProcess()
     setTimeout(() => {
       setOpenModal(0);
     }, 300);
@@ -95,29 +97,29 @@ export default function ListRecruitmentProcess({
                   {/* edit */}
                   {iconEdit && (
                     <button
-                    className={`${styles.button_option}`}
-                    onClick={() => handleOpenModal(1, item)}
-                  >
-                    <picture>
-                      <img src={`${"/icon-edit-quytrinh.svg"}`} alt=""></img>
-                    </picture>
-                    <span className={`${styles.span_a}`}>Sửa</span>
-                  </button>
+                      className={`${styles.button_option}`}
+                      onClick={() => handleOpenModal(1, item)}
+                    >
+                      <picture>
+                        <img src={`${"/icon-edit-quytrinh.svg"}`} alt=""></img>
+                      </picture>
+                      <span className={`${styles.span_a}`}>Sửa</span>
+                    </button>
                   )}
                   {/* xóa */}
                   {iconDelete && (
                     <button
-                    className={`${styles.button_option}`}
-                    onClick={() => handleOpenModal(2, item)}
-                  >
-                    <picture>
-                      <img
-                        src={`${"/icon-remove-quytrinh.svg"}`}
-                        alt=""
-                      ></img>
-                    </picture>
-                    <span className={`${styles.span_a}`}>Xóa</span>
-                  </button>
+                      className={`${styles.button_option}`}
+                      onClick={() => handleOpenModal(2, item)}
+                    >
+                      <picture>
+                        <img
+                          src={`${"/icon-remove-quytrinh.svg"}`}
+                          alt=""
+                        ></img>
+                      </picture>
+                      <span className={`${styles.span_a}`}>Xóa</span>
+                    </button>
                   )}
                 </div>
               </div>

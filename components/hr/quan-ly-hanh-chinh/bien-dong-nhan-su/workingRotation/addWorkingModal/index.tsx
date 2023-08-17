@@ -173,9 +173,9 @@ export default function AddWorkingModal({ onCancel }: any) {
             formData.append('note', isNote)
 
             const response = await AddWorkingRotation(formData)
-            setTimeout(() => {
+            if (response) {
                 onCancel()
-            }, 2000)
+            }
         } catch (error) {
             if (error instanceof Yup.ValidationError) {
                 const yupErrors = {};

@@ -41,9 +41,9 @@ function ModalAddTeamCompliments({ animation, onClose, updateData }: any) {
     const getData = async () => {
       try {
         const response = await GetDepartmentList(tokenComId.toString())
-        setDep(response?.data.data.data.map(item => ({ name: "depId", value: item.dep_id, label: `${item.dep_name}` })))
+        setDep(response?.data?.data?.data?.map(item => ({ name: "depId", value: item.dep_id, label: `${item.dep_name}` })))
+
       } catch (err) {
-        console.log(err)
       }
     }
     getData()

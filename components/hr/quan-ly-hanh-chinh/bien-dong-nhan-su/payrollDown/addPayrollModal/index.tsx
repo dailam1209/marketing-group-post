@@ -55,15 +55,15 @@ export default function AddPayrollModal({ onCancel }: any) {
     const [isReason, setReason] = useState<any>("")
 
     const [isPosition_name, setPosition_name] = useState<any>(null)
-    const [isSpecified_id, setSpecified_id] = useState<any>(null)
-    const [isPosition_id, setPosition_id] = useState<any>(null)
-    const [isDep_name, setDep_name] = useState<any>(null)
+    const [isSpecified_id, setSpecified_id] = useState<any>("")
+    const [isPosition_id, setPosition_id] = useState<any>("")
+    const [isDep_name, setDep_name] = useState<any>("")
     const [infoList, setInfoList] = useState<any>(null)
-    const [isEmp_id, setEmp_id] = useState<any>(null)
-    const [isCom_id, setCom_id] = useState<any>(null)
-    const [isDep_id, setDep_id] = useState<any>(null)
-    const [isType_id, setType_id] = useState<any>(null)
-    const [isShift_id, setShift_id] = useState<any>(null)
+    const [isEmp_id, setEmp_id] = useState<any>("")
+    const [isCom_id, setCom_id] = useState<any>("")
+    const [isDep_id, setDep_id] = useState<any>("")
+    const [isType_id, setType_id] = useState<any>("")
+    const [isShift_id, setShift_id] = useState<any>("")
     const [errors, setErrors] = useState<any>({});
     const comid: any = GetComId()
     const modalRef = useRef(null);
@@ -193,9 +193,9 @@ export default function AddPayrollModal({ onCancel }: any) {
             formData.append('shift_id', isShift_id)
 
             const response = await AddPayrollDown(formData)
-            setTimeout(() => {
+            if (response) {
                 onCancel()
-            }, 2000)
+            }
         } catch (error) {
             if (error instanceof Yup.ValidationError) {
                 const yupErrors = {};

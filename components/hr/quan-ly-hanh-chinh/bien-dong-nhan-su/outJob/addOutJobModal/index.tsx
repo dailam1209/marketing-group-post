@@ -160,9 +160,9 @@ export default function AddOutJobModal({ onCancel }: any) {
             formData.append('note', isReason)
 
             const response = await AddOutJob(formData)
-            setTimeout(() => {
+            if (response) {
                 onCancel()
-            }, 2000)
+            }
         } catch (error) {
             if (error instanceof Yup.ValidationError) {
                 const yupErrors = {};

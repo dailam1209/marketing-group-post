@@ -111,6 +111,9 @@ export default function AddRegulationsModal2({ onCancel }: AddRegulationsModal2P
             }
 
             const response = await AddRulesByGroupList(formData)
+            if (response) {
+                onCancel()
+            }
         } catch (error) {
             if (error instanceof Yup.ValidationError) {
                 const yupErrors = {};
@@ -174,7 +177,7 @@ export default function AddRegulationsModal2({ onCancel }: AddRegulationsModal2P
                                                     <option value={item.id} key={index}>-- {item.name} --</option>
                                                 ))}
                                             </select>
-                                            <span> {errors.provision_id && <div className={`${styles.provision_id} `}>{errors.phone}</div>}</span>
+                                            <span> {errors.provision_id && <div className={`${styles.provision_id} `}>{errors.provision_id}</div>}</span>
                                         </div>
                                     </div>
                                     <div className={`${styles.form_groups}`}>

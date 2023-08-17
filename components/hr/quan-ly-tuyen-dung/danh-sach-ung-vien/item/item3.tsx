@@ -6,7 +6,7 @@ import { ItemTypes } from "./ItemType";
 import { useRouter } from "next/router";
 import DeleteCandidate from "../candidateDeleteModal";
 
-export default function ItemCandidate3({ process_id, setProcess_id, type, data, currentCol, setDragItem, setDropCol, setModalOpen, iconDelete }: any) {
+export default function ItemCandidate3({ onCancel, process_id, setProcess_id, type, data, currentCol, setDragItem, setDropCol, setModalOpen, iconDelete }: any) {
 
     const [isOpenOption, setOpenOption] = useState(0)
     const [isDelete, setDelete] = useState(0)
@@ -58,6 +58,7 @@ export default function ItemCandidate3({ process_id, setProcess_id, type, data, 
 
     const handleClosemodal = () => {
         setDelete(0)
+        onCancel()
         setAnimateModal(false)
 
     }
@@ -97,7 +98,7 @@ export default function ItemCandidate3({ process_id, setProcess_id, type, data, 
                                 <div ref={modalRef} className={`${styles.choose_option} ${styles.choose_option1}`} style={{ display: isOpenOption || isDelete ? 'block' : 'none' }}>
                                     <ul style={{ marginBottom: 0, marginTop: 0 }}>
                                         <li onClick={() => handleClickDetail(data?.canId)}>Xem chi tiết</li>
-                                        {iconDelete && <li onClick={() => setDelete(data?.id)}>Xóa hồ sơ</li>}
+                                        {iconDelete && <li onClick={() => setDelete(data?.canId)}>Xóa hồ sơ</li>}
                                         {isDelete !== 0 && <DeleteCandidate animation={animateModal} onCancel={handleClosemodal} idCandidate={isDelete} />}
                                     </ul>
                                 </div>

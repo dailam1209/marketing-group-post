@@ -205,7 +205,10 @@ const StyledTreeExample = ({ iconEdit }) => {
 
     const [openModalEdit, setOpenModalEdit] = useState(0)
     const [openModalDetails, setOpenModalDetails] = useState(0)
+    const [newData, setNewData] = useState(false)
+
     const handleCloseModal = () => {
+        setNewData(pre => !pre)
         setOpenModalEdit(0);
         setOpenModalDetails(0);
     }
@@ -213,6 +216,7 @@ const StyledTreeExample = ({ iconEdit }) => {
     const [openModalEditNest, setOpenModalEditNest] = useState(0)
     const [openModalDetailsNest, setOpenModalDetailsNest] = useState(0)
     const handleCloseModalNest = () => {
+        setNewData(pre => !pre)
         setOpenModalEditNest(0);
         setOpenModalDetailsNest(0);
     }
@@ -220,6 +224,7 @@ const StyledTreeExample = ({ iconEdit }) => {
     const [openModalEditGroup, setOpenModalEditGroup] = useState(0)
     const [openModalDetailsGroup, setOpenModalDetailsGroup] = useState(0)
     const handleCloseModalGroup = () => {
+        setNewData(pre => !pre)
         setOpenModalEditGroup(0);
         setOpenModalDetailsGroup(0);
     }
@@ -287,7 +292,7 @@ const StyledTreeExample = ({ iconEdit }) => {
             }
         }
         fetchData()
-    }, [])
+    }, [newData])
 
     return (
         <>

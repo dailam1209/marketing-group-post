@@ -25,7 +25,11 @@ export default function DeleteSignatures({ onCancel, empId }: any) {
             const formData = new FormData()
             formData.append('empId', empId)
             const response = await DeleteSignature(formData)
-            onCancel()
+            if (response) {
+                onCancel()
+            } else {
+                alert("Không được xóa lãnh đạo chưa có chữ kí")
+            }
         } catch (error) {
             throw error
         }

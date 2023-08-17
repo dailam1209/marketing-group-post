@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import styles from '../room/editRoomModal/editRoomModal.module.css'
 import Select from 'react-select';
 import { OrganizationalStructureUpdate } from "@/pages/hr/api/co_cau_to_chuc";
+import * as Yup from "yup";
 
 type SelectOptionType = { label: any, value: any }
 type EditGorupModalProps = {
@@ -14,6 +15,7 @@ type EditGorupModalProps = {
 
 export default function EditGroupModal({ gr_id, defaultValue, options, mota, onCancel }: EditGorupModalProps) {
     const modalRef = useRef(null);
+    const [errors, setErrors] = useState<any>({});
 
     useEffect(() => {
         const handleOutsideClick = (event: any) => {
@@ -28,17 +30,43 @@ export default function EditGroupModal({ gr_id, defaultValue, options, mota, onC
             document.removeEventListener('mousedown', handleOutsideClick);
         };
     }, [onCancel]);
-    const handleSubmit = async () => {
 
+    const validationSchema = Yup.object().shape({
+        description: Yup.string().required("Mô tả không được để trống"),
+    });
+
+
+    const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
         try {
             const description = (document.getElementById('description') as HTMLInputElement)?.value
             const formData = new FormData()
 
+            const formDatas = {
+                description: description || ""
+
+            };
+            await validationSchema.validate(formDatas, {
+                abortEarly: false,
+            });
+
+
             formData.append('groupId', gr_id)
             formData.append('description', description)
             const response = await OrganizationalStructureUpdate(formData)
+            if (response) {
+                onCancel()
+            }
         } catch (error) {
-            throw error
+            if (error instanceof Yup.ValidationError) {
+                const yupErrors = {};
+                error.inner.forEach((yupError: any) => {
+                    yupErrors[yupError.path] = yupError.message;
+                });
+                setErrors(yupErrors);
+            } else {
+                console.error("Lỗi validate form:", error);
+            }
         }
     }
 
@@ -88,7 +116,7 @@ export default function EditGroupModal({ gr_id, defaultValue, options, mota, onC
                                         <label htmlFor="">Tên phòng  <span style={{ color: 'red' }}> * </span></label>
                                         <div className={`${styles.input_right}  ${styles.edit_right}`}>
                                             <Select
-                                                defaultValue={selectedOptions.chonphongban ? selectedOptions.chonphongban : selectedOption}
+                                                value={selectedOptions.chonphongban ? selectedOptions.chonphongban : selectedOption}
                                                 onChange={(option) => handleSelectionChange(option, 'chonphongban')}
                                                 options={options?.chonphongban}
                                                 placeholder="Cập nhật phòng ban"
@@ -148,7 +176,9 @@ export default function EditGroupModal({ gr_id, defaultValue, options, mota, onC
                                         </div>
                                     </div>
                                     <div className={`${styles.form_groups}`}>
-                                        <label htmlFor="">Mô tả <span style={{ color: 'red' }}> * </span></label>
+                                        <label htmlFor="">Mô tả <span style={{ color: 'red' }}> *
+                                            <span> {errors.description && <div className={`${styles.t_require} `}>{errors.description}</div>}</span>
+                                        </span></label>
                                         <div className={`${styles.input_right}`}>
                                             <textarea style={{ height: 100 }} defaultValue={mota} id="description" placeholder="" className={`${styles.input_process}`} />
                                         </div>

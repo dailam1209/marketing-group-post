@@ -2,9 +2,11 @@ import React, { useState, useRef, useEffect } from "react";
 import styles from './editPositionModal.module.css'
 import Select from 'react-select';
 import { PostionCharUpdate } from "@/pages/hr/api/co_cau_to_chuc";
+import * as Yup from "yup";
 
 export default function EditPositionCharModal({ idPosition, mission, onCancel }: any) {
     const modalRef = useRef(null);
+    const [errors, setErrors] = useState<any>({});
 
     useEffect(() => {
         const handleOutsideClick = (event: any) => {
@@ -20,15 +22,40 @@ export default function EditPositionCharModal({ idPosition, mission, onCancel }:
         };
     }, [onCancel]);
 
-    const handleSubmit = async () => {
+    const validationSchema = Yup.object().shape({
+        description: Yup.string().required("Mô tả không được để trống"),
+    });
+
+
+    const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
         try {
             const description = (document.getElementById('mota_nhiemvu') as HTMLTextAreaElement)?.value
             const formData = new FormData();
+
+            const formDatas = {
+                description: description || ""
+
+            };
+            await validationSchema.validate(formDatas, {
+                abortEarly: false,
+            });
             formData.append('positionId', idPosition)
             formData.append('description', description)
             const response = await PostionCharUpdate(formData)
+            if (response) {
+                onCancel()
+            }
         } catch (error) {
-            throw error
+            if (error instanceof Yup.ValidationError) {
+                const yupErrors = {};
+                error.inner.forEach((yupError: any) => {
+                    yupErrors[yupError.path] = yupError.message;
+                });
+                setErrors(yupErrors);
+            } else {
+                console.error("Lỗi validate form:", error);
+            }
         }
     }
 
@@ -44,7 +71,9 @@ export default function EditPositionCharModal({ idPosition, mission, onCancel }:
                             <div className={`${styles.modal_body}`}>
                                 <form action="">
                                     <div className={`${styles.form_groups}`}>
-                                        <label htmlFor="">Mô tả <span style={{ color: 'red' }}> * </span></label>
+                                        <label htmlFor="">Mô tả <span style={{ color: 'red' }}> *
+                                            <span> {errors.description && <div className={`${styles.t_require} `}>{errors.description}</div>}</span>
+                                        </span></label>
                                         <div className={`${styles.input_right}`}>
                                             <textarea defaultValue={mission} className={`${styles.inputquytrinh} ${styles.textareapolicy}`} id="mota_nhiemvu"></textarea>
                                         </div>

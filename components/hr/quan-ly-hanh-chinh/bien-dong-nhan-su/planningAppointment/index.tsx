@@ -28,6 +28,7 @@ export default function TabPlaningAppointment({ iconAdd, iconEdit, iconDelete }:
     const [isEmp_id, setEmp_id] = useState<any>("")
     const [isSeach, setSearch] = useState<any>(null)
     const [infoList, setInfoList] = useState<any>(null)
+    const [newData, setNewData] = useState(false)
     const comid: any = GetComId()
 
     useEffect(() => {
@@ -47,7 +48,7 @@ export default function TabPlaningAppointment({ iconAdd, iconEdit, iconDelete }:
             }
         }
         fetchData()
-    }, [isPageSize, isSeach])
+    }, [isPageSize, isSeach, newData])
 
 
     // -- lấy dữ liệu phòng ban --
@@ -118,6 +119,7 @@ export default function TabPlaningAppointment({ iconAdd, iconEdit, iconDelete }:
     }
 
     const handleCloseModal = () => {
+        setNewData(pre => !pre)
         setOpenModal(0)
         setOpenEditModal(false)
         setOpenDeleteModal(0)

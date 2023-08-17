@@ -5,7 +5,7 @@ import { SpecifiedGroupList } from "@/pages/hr/api/quy_dinh_chinh_sach";
 import { UpdatePolicy } from "@/pages/hr/api/quy_dinh_chinh_sach";
 import { PolicyDetails } from "@/pages/hr/api/quy_dinh_chinh_sach";
 import { format } from 'date-fns'
-
+import * as Yup from "yup";
 
 interface InputTextareaProps {
     onDescriptionChange: (data: any) => void;
@@ -45,6 +45,7 @@ export default function UpdatePolicyModal({ onCancel, idGroup }: UpdatePolicyMod
     const [provisionId, setProvisionId] = useState<number | null>(null)
     const [DetailData, setDetailData] = useState<any | null>(null)
     const [keyWords, setKeyWords] = useState('')
+    const [errors, setErrors] = useState<any>({});
     const modalRef = useRef(null);
 
     useEffect(() => {
@@ -73,9 +74,6 @@ export default function UpdatePolicyModal({ onCancel, idGroup }: UpdatePolicyMod
         fetchData()
     }, [])
 
-
-
-
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -98,6 +96,14 @@ export default function UpdatePolicyModal({ onCancel, idGroup }: UpdatePolicyMod
         }
     }, [DetailData]);
 
+    const validationSchema = Yup.object().shape({
+        name: Yup.string().required("Tên quy định không được để trống"),
+        provision_id: Yup.string().required("Nhóm quy định không được để trống"),
+        time: Yup.string().required("Thời gian không được để trống"),
+        supervisor: Yup.string().required("Người giám sát không được để trống"),
+        apply_for: Yup.string().required("Đối tượng thi hành không được để trống"),
+        note: Yup.string().required("Mô tả không được để trống không được để trống"),
+    });
 
     const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
@@ -109,6 +115,19 @@ export default function UpdatePolicyModal({ onCancel, idGroup }: UpdatePolicyMod
             const apply_for = (document.getElementById('apply_for') as HTMLInputElement)?.value
             const content = descriptions
 
+            const formDatas = {
+                name: name || "",
+                time: time_start || "",
+                provision_id: provision_id || "",
+                apply_for: apply_for || "",
+                supervisor: supervisor_name || "",
+                note: content || DetailData?.data[0]?.content || "",
+            };
+
+            await validationSchema.validate(formDatas, {
+                abortEarly: false,
+            });
+
             const formData = new FormData()
             formData.append('provision_id', DetailData?.data[0]?.provisionId)
             formData.append('name', name)
@@ -117,17 +136,32 @@ export default function UpdatePolicyModal({ onCancel, idGroup }: UpdatePolicyMod
             formData.append('supervisor_name', supervisor_name)
             formData.append('apply_for', apply_for)
             formData.append('content', content)
+            if (content) {
+                formData.append("content", content);
+            }
+            else {
+                formData.append("content", DetailData?.data[0]?.content);
+            }
             if (provisionFile) {
                 formData.append("policy", provisionFile);
             }
 
             const response = await UpdatePolicy(formData)
+            if (response) {
+                onCancel()
+            }
         } catch (error) {
-            throw error
+            if (error instanceof Yup.ValidationError) {
+                const yupErrors = {};
+                error.inner.forEach((yupError: any) => {
+                    yupErrors[yupError.path] = yupError.message;
+                });
+                setErrors(yupErrors);
+            } else {
+                console.error("Lỗi validate form:", error);
+            }
         }
     }
-
-
 
     function handleUploadClick(event: React.MouseEvent<HTMLAnchorElement>) {
         event.preventDefault();
@@ -167,6 +201,7 @@ export default function UpdatePolicyModal({ onCancel, idGroup }: UpdatePolicyMod
                                             <label htmlFor="">Tên chính sách <span style={{ color: 'red' }}> * </span></label>
                                             <div className={`${styles.input_right}`}>
                                                 <input type="text" defaultValue={DetailData?.data[0]?.name} id="names" placeholder="Nhập tên chính sách" className={`${styles.input_process}`} />
+                                                <span> {errors.name && <div className={`${styles.t_require} `}>{errors.name}</div>}</span>
                                             </div>
                                         </div>
                                         <div className={`${styles.form_groups}`}>
@@ -177,6 +212,7 @@ export default function UpdatePolicyModal({ onCancel, idGroup }: UpdatePolicyMod
                                                         <option selected={item.id === DetailData?.data[0]?.provisionId} value={item.id} key={index}>-- {item.name} --</option>
                                                     ))}
                                                 </select>
+                                                <span> {errors.provision_id && <div className={`${styles.provision_id} `}>{errors.provision_id}</div>}</span>
                                             </div>
                                         </div>
                                         <div className={`${styles.form_groups}`}>
@@ -189,16 +225,20 @@ export default function UpdatePolicyModal({ onCancel, idGroup }: UpdatePolicyMod
                                             <label htmlFor="">Người giám sát <span style={{ color: 'red' }}> * </span></label>
                                             <div className={`${styles.input_right}`}>
                                                 <input type="text" value={DetailData?.data[0]?.supervisorName} id="supervisor_name" placeholder="Người giám sát" className={`${styles.input_process}`} />
+                                                <span> {errors.time && <div className={`${styles.t_require} `}>{errors.time}</div>}</span>
                                             </div>
                                         </div>
                                         <div className={`${styles.form_groups}`}>
                                             <label htmlFor="">Đối tượng thi hành <span style={{ color: 'red' }}> * </span></label>
                                             <div className={`${styles.input_right}`}>
                                                 <input type="text" value={DetailData?.data[0]?.applyFor} id="apply_for" placeholder="Đối tượng thi hành" className={`${styles.input_process}`} />
+                                                <span> {errors.apply_for && <div className={`${styles.t_require} `}>{errors.apply_for}</div>}</span>
                                             </div>
                                         </div>
                                         <div className={`${styles.form_groups} ${styles.cke}`}>
-                                            <label htmlFor="">Nội dung chính sách <span style={{ color: 'red' }}> * </span></label>
+                                            <label htmlFor="">Nội dung chính sách <span style={{ color: 'red' }}> *
+                                                <span > {errors.note && <div className={`${styles.t_require} `}>{errors.note}</div>}</span>
+                                            </span></label>
                                             <div className={`${styles.ckeditor}`}>
                                                 <Input_textarea onDescriptionChange={handleDescriptionChange} content={DetailData?.data[0]?.content} />
                                             </div>

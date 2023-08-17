@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import styles from './editRoomModal.module.css'
 import Select from 'react-select';
 import { OrganizationalStructureUpdate } from "@/pages/hr/api/co_cau_to_chuc";
-
+import * as Yup from "yup";
 type SelectOptionType = { label: any, value: any }
 type EditRoomModalProps = {
     idRoom: any
@@ -15,7 +15,7 @@ type EditRoomModalProps = {
 
 export default function EditRoomModal({ idRoom, defaultValue, options, soluongnhanvien, mota, onCancel }: EditRoomModalProps) {
     const modalRef = useRef(null);
-
+    const [errors, setErrors] = useState<any>({});
     useEffect(() => {
         const handleOutsideClick = (event: any) => {
             if (modalRef.current && !modalRef.current.contains(event.target)) {
@@ -30,17 +30,41 @@ export default function EditRoomModal({ idRoom, defaultValue, options, soluongnh
         };
     }, [onCancel]);
 
-    const handleSubmit = async () => {
+    const validationSchema = Yup.object().shape({
+        description: Yup.string().required("Mô tả không được để trống"),
+    });
 
+
+    const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
         try {
             const description = (document.getElementById('description') as HTMLInputElement)?.value
             const formData = new FormData()
 
+            const formDatas = {
+                description: description || ""
+
+            };
+            await validationSchema.validate(formDatas, {
+                abortEarly: false,
+            });
+
             formData.append('depId', idRoom)
             formData.append('description', description)
             const response = await OrganizationalStructureUpdate(formData)
+            if (response) {
+                onCancel()
+            }
         } catch (error) {
-            throw error
+            if (error instanceof Yup.ValidationError) {
+                const yupErrors = {};
+                error.inner.forEach((yupError: any) => {
+                    yupErrors[yupError.path] = yupError.message;
+                });
+                setErrors(yupErrors);
+            } else {
+                console.error("Lỗi validate form:", error);
+            }
         }
     }
 
@@ -136,11 +160,13 @@ export default function EditRoomModal({ idRoom, defaultValue, options, soluongnh
                                     <div className={`${styles.form_groups} ${styles.edit_room}`}>
                                         <label htmlFor="">Số lượng nhân viên <span style={{ color: 'red' }}> * </span></label>
                                         <div className={`${styles.input_right}  ${styles.edit_right}`}>
-                                            <input defaultValue={soluongnhanvien} type="text" id="names" placeholder="" className={`${styles.input_process}`} />
+                                            <input value={soluongnhanvien} type="text" id="names" placeholder="" className={`${styles.input_process}`} />
                                         </div>
                                     </div>
                                     <div className={`${styles.form_groups}`}>
-                                        <label htmlFor="">Mô tả <span style={{ color: 'red' }}> * </span></label>
+                                        <label htmlFor="">Mô tả <span style={{ color: 'red' }}> *
+                                            <span> {errors.description && <div className={`${styles.t_require} `}>{errors.description}</div>}</span>
+                                        </span></label>
                                         <div className={`${styles.input_right}`}>
                                             <textarea style={{ height: 100 }} defaultValue={mota} id="description" placeholder="" className={`${styles.input_process}`} />
                                         </div>

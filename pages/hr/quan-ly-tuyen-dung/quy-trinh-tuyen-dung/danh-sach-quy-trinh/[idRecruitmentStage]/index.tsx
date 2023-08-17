@@ -25,7 +25,7 @@ export default function listRecruitmentProcess({ query }) {
   const [openModalAdd, setOpenModalAdd] = useState(false);
   const [animateModal, setAnimateModal] = useState(false);
   const [recruitmentStage, setRecruitmentStage] = useState<any>()
-  const [newData, setNewData] = useState<any>();
+  const [newData, setNewData] = useState<any>(false);
   const recruitment = recruitmentStage?.data.recruitment
   const [displayIcon, setDisplayIcon] = useState<any>();
 
@@ -37,7 +37,7 @@ export default function listRecruitmentProcess({ query }) {
       };
       fetchData();
     } catch (error) { }
-  }, []);
+  }, [newData]);
 
   const perIdArray = displayIcon?.map((item) => item.perId);
   const iconAdd = perIdArray?.includes(2);
@@ -56,7 +56,7 @@ export default function listRecruitmentProcess({ query }) {
 
     }
 
-  }, [idRecruitmentStage])
+  }, [idRecruitmentStage, newData])
   const handleBack = () => {
     router.back();
   };
@@ -68,6 +68,7 @@ export default function listRecruitmentProcess({ query }) {
 
   const handleCloseModalAdd = () => {
     setAnimateModal(false);
+    setNewData(pre => !pre)
     setTimeout(() => {
       setOpenModalAdd(false);
     }, 300);
@@ -90,14 +91,14 @@ export default function listRecruitmentProcess({ query }) {
             </span>
           </div>
           {iconAdd && (
-             <div className={`${styles.add_quytrinh1}`}>
-             <button className={`${styles.adds}`} onClick={handleOpenModalAdd}>
-               <picture>
-                 <img src={`${"/add.png"}`} alt=""></img>
-               </picture>
-               Thêm giai đoạn tuyển dụng
-             </button>
-           </div>
+            <div className={`${styles.add_quytrinh1}`}>
+              <button className={`${styles.adds}`} onClick={handleOpenModalAdd}>
+                <picture>
+                  <img src={`${"/add.png"}`} alt=""></img>
+                </picture>
+                Thêm giai đoạn tuyển dụng
+              </button>
+            </div>
           )}
         </div>
         {openModalAdd && (
@@ -121,8 +122,8 @@ export default function listRecruitmentProcess({ query }) {
                 item={item}
                 recruitment={recruitmentStage?.data.recruitment}
                 index={index}
-                onDelete={setNewData}
-                onEdit={setNewData}
+                onDelete={handleCloseModalAdd}
+                onEdit={handleCloseModalAdd}
                 iconEdit={iconEdit}
                 iconDelete={iconDelete}
               ></ListRecruitmentStage>

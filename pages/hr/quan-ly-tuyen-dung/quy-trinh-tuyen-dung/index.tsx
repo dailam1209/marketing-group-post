@@ -152,6 +152,7 @@ export default function RecruitmentProcess() {
               iconAdd={iconAdd}
               iconEdit={iconEdit}
               iconDelete={iconDelete}
+              newRecruitmentProcess={newRecruitmentProcess}
             ></ListRecruitmentProcess>
 
             <BodyFrameFooter src="https://www.youtube.com/embed/J7JEoQkqarA"></BodyFrameFooter>

@@ -49,7 +49,7 @@ export default function EditRecruitmentProcess({
       }
     } catch (error: any) {
       const validationErrors = {};
-      error.inner.forEach((err) => {
+      error?.inner?.forEach((err) => {
         validationErrors[err.path] = err.message;
       });
       setErrors(validationErrors);
@@ -62,7 +62,7 @@ export default function EditRecruitmentProcess({
   return (
     <>
       <div className={`${styles.overlay}`} onClick={handleCancel}
-></div>
+      ></div>
       <div
         className={`${styles.modal} ${styles.modal_setting}  ${animation ? styles.fade_in : styles.fade_out
           }`}

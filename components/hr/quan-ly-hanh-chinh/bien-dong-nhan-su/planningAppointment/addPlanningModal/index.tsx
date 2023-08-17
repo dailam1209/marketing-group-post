@@ -167,11 +167,10 @@ export default function AddPlanningModal({ onCancel }: any) {
             formData.append('update_position', isPosition_idNew)
             formData.append('update_dep_id', isDep_idNew)
             formData.append('note', isReason)
-
             const response = await AddPlanningAppointment(formData)
-            setTimeout(() => {
+            if (response) {
                 onCancel()
-            }, 2000)
+            }
         } catch (error) {
             if (error instanceof Yup.ValidationError) {
                 const yupErrors = {};

@@ -47,9 +47,6 @@ function Input_textarea({ onDescriptionChange, reason }: InputTextareaProps) {
 }
 export default function EditPayroll({ onCancel, infoList }: any) {
 
-    console.log(infoList);
-
-
     const [selectedOption, setSelectedOption] = useState<SelectOptionType | null>(null);
     const [isDepList, setDepList] = useState<any>(null)
     const [isPositionList, setPositionList] = useState<any>(null)
@@ -169,9 +166,9 @@ export default function EditPayroll({ onCancel, infoList }: any) {
             formData.append('shift_id', isShift_id)
 
             const response = await AddPayrollDown(formData)
-            setTimeout(() => {
+            if (response) {
                 onCancel()
-            }, 2000)
+            }
         } catch (error) {
             if (error instanceof Yup.ValidationError) {
                 const yupErrors = {};

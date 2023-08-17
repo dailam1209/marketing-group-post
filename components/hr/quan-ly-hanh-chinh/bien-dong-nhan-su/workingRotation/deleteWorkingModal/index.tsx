@@ -24,9 +24,9 @@ export default function DeleteWorkingRotations({ onCancel, ep_id }: any) {
             const formData = new FormData();
             formData.append('ep_id', ep_id);
             const response = await DeleteWorkingRotation(formData)
-            setTimeout(() => {
+            if (response) {
                 onCancel()
-            }, 1500)
+            }
         } catch (error) {
             throw error
         }

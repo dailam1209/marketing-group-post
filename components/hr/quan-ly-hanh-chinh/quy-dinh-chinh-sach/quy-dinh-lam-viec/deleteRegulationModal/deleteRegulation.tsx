@@ -24,7 +24,9 @@ export default function DeleteRegulation({ onCancel, idGroup }: any) {
             const formData = new FormData()
             formData.append('id', idGroup)
             const response = await DeleteRegulations(formData)
-            onCancel()
+            if (response) {
+                onCancel()
+            }
         } catch (error) {
             throw error
         }

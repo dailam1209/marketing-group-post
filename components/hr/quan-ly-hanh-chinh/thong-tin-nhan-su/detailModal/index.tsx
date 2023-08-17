@@ -271,10 +271,13 @@ export default function DetailCandidateList({ onCancel, infoList }: any) {
                                     </div>
                                     <div className={`${styles.form_groups}`}>
                                         <label htmlFor="">Ngày vào công ty </label>
-                                        <input type="date" id="names" defaultValue={format(
-                                            parseISO(new Date(infoList?.infoList?.start_working_time * 1000).toISOString()),
-                                            "yyyy-MM-dd"
-                                        )} placeholder="" className={`${styles.form_control}`} />
+                                        {infoList?.infoList?.start_working_time &&
+                                            <input type="date" id="names" defaultValue={format(
+                                                parseISO(new Date(infoList?.infoList?.start_working_time * 1000).toISOString()),
+                                                "yyyy-MM-dd"
+                                            )} placeholder="" className={`${styles.form_control}`} />
+                                        }
+
                                     </div>
                                     <div className={`${styles.form_groups}`}>
                                         <label htmlFor="">Kinh nghiệm làm việc </label>
