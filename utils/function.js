@@ -267,7 +267,7 @@ export function CheckLogin() {
   if (role && acc_token && rf_token) {
     let redirectUrl = ''
     if (role === '1') {
-      redirectUrl = '/quan-ly-ung-dung-cong-ty.html'
+      redirectUrl = '/'
     } else if (role === '2') {
       redirectUrl = '/'
     } else {

@@ -1,0 +1,357 @@
+
+.overlay {
+    position: fixed;
+    z-index: 9998;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    animation: fadeInOverlay 0.5s ease-in-out forwards;
+}
+
+@keyframes fadeInOverlay {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+.modal_setting {
+    display: block;
+    padding-right: 2px;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    z-index: 9999;
+    overflow-x: hidden;
+    overflow-y: scroll; /* Hiển thị thanh cuộn dọc */
+    scrollbar-width: none; /* Ẩn thanh cuộn mặc định trên Firefox */
+    -ms-overflow-style: none;
+}
+.modal::-webkit-scrollbar {
+    width: 0; /* Đặt chiều rộng của thanh cuộn thành 0 */
+    height: 0;
+  }
+.fade_in {
+    animation-name: fade-in;
+  }
+
+  .fade_out {
+    animation-name: fade-out;
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(-150%);
+      
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fade-out {
+    from {
+      transform: translateY(0);
+      opacity: 1;
+     
+    }
+    to {
+      opacity: 0;
+      transform: translateY(-150%);
+    
+    }
+  }
+.modal_dialog {
+    position: relative;
+    margin: 30px auto;
+}
+
+.contentquytrinh {
+    width: 736px;
+    height: auto;
+    border-radius: 8px;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.modal_content {
+    position: relative;
+    background-color: #fff;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid #999;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    outline: 0;
+    -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+    height: auto;
+}
+
+.modal_header {
+    border: none;
+    padding: 15px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.headquytrinh {
+    text-align: center;
+    background: #4C5BD4;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.headquytrinh h5 {
+    color: white;
+    font-size: 14px;
+}
+.modal_title {
+    margin: 0;
+    line-height: 28px;
+    font-weight: 600;
+    font-style: normal;
+}
+
+.modal_form {
+    display: block;
+    margin-top: 0em;
+}
+
+.modal_body {
+    position: relative;
+    padding: 15px;
+}
+.bodyquytrinh {
+    text-align: left;
+    padding-bottom: 0;
+    padding-top: 3%;
+    padding-left: 7%;
+    padding-right: 7%;
+}
+.bodyquytrinh .form_groups {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+}
+.form_groups label {
+    color: #333333;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 23px;
+    letter-spacing: 0em;
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+}
+.bodyquytrinh span {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: bold;
+    line-height: 24px;
+    letter-spacing: 0em;
+}
+.red {
+    color: #EB5757;
+}
+.inputright {
+    width: 66%;
+    float: right;
+}
+.input_full {
+    width: 100%;
+}
+.inputright input {
+    outline: none;
+    margin: 0;
+}
+.inputright picture {
+    margin-left: 3px;
+}
+.inputquytrinh {
+    line-height: 23px;
+    background-color: white;
+    border: 1px solid rgba(71, 71, 71, 0.48);
+    width: 95.5%;
+    height: 27px;
+    border-radius: 8px;
+    font-weight: 600;
+    opacity: 0.8;
+}
+.inputright input::placeholder {
+    background-color: #FFFFFF;
+    color: #333333;
+    font-size: 14px;
+    font-weight: 600;
+    opacity: 0.7;
+}
+.errors {
+    background: #FFFFFF;
+    box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.12);
+    border-radius: 8px;
+    font-style: italic;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 14px;
+    color: #EB5757;
+    position: absolute;
+    padding: 5px;
+    right: 15%;
+}
+
+.footerquytrinh {
+    margin-top: 2%;
+    padding-right: 13%;
+    text-align: right;
+}
+.modal_footer {
+    border: none;
+    padding: 15px;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 95px;
+}
+.modal_footer button {
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 16px;
+    letter-spacing: 0em;
+    padding: 10px 30px;
+    border: none;
+    border-radius: 4px;
+    margin-right: 16px;
+    
+} 
+.clearfix {
+    width: 631.6px;
+    height: 56px;
+}
+.pull_right {
+    margin: 0;
+    float: right !important;
+    position: relative;
+}
+.add_gd {
+    margin-top: 10px;
+    margin-bottom: 30px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 16px;
+    align-items: center;
+    text-decoration-line: underline;
+    color: #4C5BD4;
+}
+
+.footerquytrinh + button {
+   color: #EB5757;
+}
+.btn_huy:hover {
+    cursor: pointer;
+}
+.btn_huy span {
+    opacity: 0.8;
+}
+.btn_huy:active {
+    cursor: pointer;
+    background-image: none;
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+
+.success {
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+}
+.success:hover {
+    cursor: pointer;
+    color: #fff;
+    background-color: #449d44;
+}
+.success:active {
+    color: #fff;
+    cursor: pointer;
+    background-color: #449d44;
+    background-image: none;
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.3);
+}
+
+
+@media (min-width: 480px) and (max-width: 1024px) {
+    .contentquytrinh {
+        width: 95%;
+    }
+}
+
+@media (min-width: 480px) and (max-width: 1024px) {
+    .bodyquytrinh label {
+        font-size: 11px;
+    }
+}
+
+@media (min-width: 480px) and (max-width: 1024px) {
+    .modal_footer {
+        padding-right: 10%;
+    }
+}
+@media (max-width: 480px) {
+    .modal_footer {
+        padding-right: 8%;
+    }
+}
+
+@media (max-width: 480px) {
+    .contentquytrinh {
+        width: 95%;
+    }
+}
+@media (max-width: 500px) {
+    .bodyquytrinh .form_groups {
+    margin-top: 0px;
+    display: block;
+ 
+}
+}
+@media (max-width: 500px) {
+    .inputright {
+        width: 100%;
+        float: left;
+    }
+}
+
+@media (max-width: 500px) {
+    .select {
+        width: 95.5%;
+       
+    }
+}
+@media (min-width: 500px) {
+    .select {
+        width: 64%;
+       
+    }
+}
+
+@media(min-width: 500px) and (max-width: 500px){
+    .bodyquytrinh .form_groups {
+    margin-top: 0px;
+    display: block;
+ 
+}
+}
+@media (min-width: 500px) and (max-width: 500px) {
+ .select {
+    width: 95.5%;   
+    }
+}

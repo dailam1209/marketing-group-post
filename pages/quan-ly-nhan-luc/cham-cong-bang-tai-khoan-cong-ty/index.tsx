@@ -8,6 +8,8 @@ import { getCookie } from 'cookies-next'
 import { COOKIE_KEY } from '..'
 import jwtDecode from 'jwt-decode'
 import Head from 'next/head'
+import { getCompIdCS } from '@/pages/api/BaseApi'
+import _ from 'lodash'
 
 export default function ChamCongCongTy() {
   const [openCam, setOpenCam] = useState(false)
@@ -15,7 +17,9 @@ export default function ChamCongCongTy() {
   const [countdown, setCountdown] = useState(3)
   const [userData, setUserData] = useState<any>()
   const [modalDetail, setModalDetail] = useState(false)
+  const [modalDetailCC, setModalDetailCC] = useState(false)
   const [reload, setReload] = useState(false)
+  const [listCa, list_ca] = useState()
   const videoConstraints = {
     width: 971,
     height: 971,
@@ -69,11 +73,18 @@ export default function ChamCongCongTy() {
           //   setUserData(userInfo)
           // }
           const token = getCookie(COOKIE_KEY)
+          let compId: any = ''
+          if (token) {
+            console.log(jwtDecode(token?.toString()))
+            compId = jwtDecode(token?.toString())?.['data']?.['com_id']
+          }
+
           const resdata = await axios.post(
             `http://43.239.223.154:8081/detail`,
             {
               userId: resp?.user_id,
-              token: token,
+              // compId: comId,
+              compId: 3312,
             },
             {
               headers: {
@@ -82,11 +93,15 @@ export default function ChamCongCongTy() {
             }
           )
 
-          const respDetail = resdata?.data?.data
+          const respDetail = resdata?.data
+          console.log(respDetail?.data)
 
-          if (respDetail?.result) {
-            setUserData(resdata?.data?.data?.user_info_result)
+          if (respDetail?.data?.ep_name) {
+            setUserData(respDetail?.data)
             setModalDetail(true)
+          } else {
+            setModalDetail(false)
+            setUndetectedModal(true)
           }
         }
       } catch (err) {
@@ -231,7 +246,13 @@ export default function ChamCongCongTy() {
             {userData && userData?.ep_name}
           </p>
           <div style={{ marginTop: '20px' }}>
-            <Button className={styles.btnOk} size='large'>
+            <Button
+              className={styles.btnOk}
+              size='large'
+              onClick={() => {
+                setModalDetail(false)
+                setModalDetailCC(true)
+              }}>
               <p style={{ color: '#fff' }}>Là tôi, tiếp tục chấm công</p>
             </Button>
             <Button
@@ -244,6 +265,27 @@ export default function ChamCongCongTy() {
               <p style={{ color: '#fff' }}>Không phải là tôi</p>
             </Button>
           </div>
+        </div>
+      </Modal>
+      <Modal
+        centered
+        width={700}
+        closable={false}
+        open={modalDetailCC}
+        cancelButtonProps={{ style: { display: 'none' } }}
+        okButtonProps={{ style: { display: 'none' } }}>
+        <div
+          style={{
+            padding: '30px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'column',
+          }}>
+          <p>
+            <span>{userData && userData?.shift_name}</span>
+            <span>{userData && userData?.time_sheet}</span>
+          </p>
         </div>
       </Modal>
     </>

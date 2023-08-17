@@ -22,24 +22,26 @@ export function NhanVienChoDuyet({ listStaffs, comLabel, listDepLabel }) {
 
   const columns = [
     {
-      title: <p className="tableHeader">Ảnh</p>,
+      title: <p className='tableHeader'>Ảnh</p>,
       render: (record: any) => (
         <Image
-          alt="/"
-          src={record?.avatarUser || '/avatar.png'}
+          alt='/'
+          src={record?.img || '/avatar.png'}
           width={46}
           height={46}
         />
       ),
+      align: 'center',
     },
     {
-      title: <p className="tableHeader">Họ và tên (ID)</p>,
+      title: <p className='tableHeader'>Họ và tên (ID)</p>,
       render: (record: any) => (
         <div>
           <p>{record?.userName}</p>
           <p style={{ textAlign: 'center' }}>({record?.idQLC})</p>
         </div>
       ),
+      align: 'center',
     },
     {
       title: <p className="tableHeader">Phòng ban</p>,
@@ -52,6 +54,7 @@ export function NhanVienChoDuyet({ listStaffs, comLabel, listDepLabel }) {
           }
         </p>
       ),
+      align: 'center',
     },
     {
       title: <p className="tableHeader">Chức vụ</p>,
@@ -64,47 +67,29 @@ export function NhanVienChoDuyet({ listStaffs, comLabel, listDepLabel }) {
           }
         </p>
       ),
+      align: 'center',
     },
     {
       title: <p className="tableHeader">Email</p>,
       render: (record: any) => <p>{record?.email || record?.emailContact}</p>,
+      align: 'center',
     },
     {
       title: <p className="tableHeader">SĐT</p>,
       render: (record: any) => <p>{record?.phone || record?.phoneTK}</p>,
+      align: 'center',
     },
     Table.SELECTION_COLUMN,
-  ];
-
-  const handleSubmit = () => {
-    selectedRowKeys?.map(idQLC => {
-      const emp = listStaffs?.find(staff => staff.idQLC === idQLC);
-
-      emp &&
-      POST('api/qlc/managerUser/edit', {
-        com_id: emp?.inForPerson?.employee?.com_id,
-        role: '0',
-        userName: emp?.userName,
-        address: emp?.address,
-        position_id: emp?.inForPerson?.employee?.position_id,
-        gender: `${emp?.inForPerson?.account?.gender}`,
-        birthday: dayjs(emp?.inForPerson?.account?.birthday).format("YYYY-MM-DD HH:mm:ss Z"),
-        start_working_time: dayjs().format("YYYY-MM-DD HH:mm:ss Z"),
-        // ep_status: "Active",
-        _id: emp?._id,
-        // password: ""
+  ]
+  const duyet = async () => {
+    if (selectedRowKeys?.length > 0) {
+      const res = await POST('api/qlc/managerUser/verifyListUsers', {
+        listUsers: selectedRowKeys,
       })
-        .then(res => {
-
-        })
-    })
-    
-    // console.log(selectedRowKeys);
-    // setOpenDuyetModal(true);
-    alert("Duyệt nhân viên thành công!")
-    router.replace(router.asPath)
-  };
-
+      console.log(res)
+      setOpenDuyetModal(true)
+    }
+  }
   return (
     <div>
       <div>
@@ -121,16 +106,16 @@ export function NhanVienChoDuyet({ listStaffs, comLabel, listDepLabel }) {
           </Col>
           <Col lg={7} sm={12} xs={24}>
             <MySeachBar
-              placeholder="Nhập tên phòng ban"
+              placeholder='Nhập tên phòng ban'
               hasPrefix={false}
-              name=""
+              name=''
             />
           </Col>
           <Col lg={7} sm={12} xs={24} className={styles.inputName}>
             <MySeachBar
-              placeholder="Nhập tên cần tìm"
+              placeholder='Nhập tên cần tìm'
               hasPrefix={false}
-              name="12"
+              name='12'
             />
           </Col>
           <Col lg={3} sm={12} xs={24} className={styles.searchBtn}>
@@ -148,20 +133,18 @@ export function NhanVienChoDuyet({ listStaffs, comLabel, listDepLabel }) {
             setSelectedRowKeys(newSelectedRowKeys)
           }
           selectedRowKeys={selectedRowKeys}
-          rowKey="idQLC"
+          rowKey='idQLC'
           Footer={
             <div
               style={{
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-              }}
-            >
-              <Button style={{ backgroundColor: '#4C5BD4' }} size="large">
+              }}>
+              <Button style={{ backgroundColor: '#4C5BD4' }} size='large'>
                 <p
                   style={{ color: '#fff', padding: '0px 20px' }}
-                  onClick={handleSubmit}
-                >
+                  onClick={duyet}>
                   Duyệt
                 </p>
               </Button>

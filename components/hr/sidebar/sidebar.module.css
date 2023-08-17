@@ -1,0 +1,140 @@
+.sidebar {
+  width: 56px;
+  height: 100%;
+  left: 0px;
+  top: 0px;
+  background: #4c5bd4;
+  padding-left: 0px;
+}
+
+.sidebar_wrapper {
+  background: #ffffff;
+  box-shadow: 0px 12px 12px rgba(0, 0, 0, 0.05);
+  border-radius: 0px 12px 0px 0px;
+}
+.sidebar_home {
+  display: flex;
+}
+.footer_sidebar {
+  height: 500px;
+}
+.sidebar_home_img {
+  width: 52px;
+  height: 100%;
+  background: #4c5bd4;
+  text-align: center;
+  border-bottom: 1px solid #bbbbbb;
+}
+
+.sidebar_img {
+}
+.sidebar_text {
+  width: 100%;
+  background: white;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  display: flex;
+  align-items: center;
+  color: #474747;
+  padding: 14.5px;
+}
+.sidebar_text1:hover {
+  border-right: 4px solid #4c5bd4;
+  background: #f1f9fc;
+}
+.sidebar_text2:hover {
+  border-right: 4px solid #fc9797;
+  background: #fff6e5;
+}
+.logo {
+  height: 27.2px;
+  padding: 24px;
+  text-align: center;
+  border-bottom: 1px solid #ececec;
+}
+
+.ic_box1 {
+  margin-top: 80px;
+}
+.ic_box2 {
+  margin-top: 50px;
+}
+
+.button1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  gap: 10px;
+  width: 52px;
+  height: 45px;
+  background: #4c5bd4;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  border: none;
+  border-bottom: 1px solid #bbbbbb;
+}
+.button2 {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  gap: 10px;
+  width: 52px;
+  height: 45px;
+  background: none;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  border: none;
+}
+
+.button1 img {
+  z-index: 1;
+}
+.img_1 {
+  width: 20px;
+  height: 17px;
+}
+
+.clicked {
+  border-right: 4px solid #4c5bd4;
+  background-color: rgb(241, 249, 252);
+}
+.clicked2 {
+  background: #fff6e5;
+}
+.subMenu {
+  overflow: hidden;
+  transition: max-height 2s ease-out;
+}
+
+/* Responsive Styling */
+@media screen and (max-width: 1024px) {
+  .sidebar_wrapper {
+    position: absolute;
+    z-index: 3;
+    left: 15px;
+    width: 320px;
+    top: 80px;
+  }
+  .footer_sidebar {
+    height: 100px;
+  }
+  .sidebar_text1:hover {
+    border-right: 4px solid #4c5bd4;
+    background: #f1f9fc;
+  }
+  .sidebar_text2:hover {
+    border-right: 4px solid #fc9797;
+    background: #fff6e5;
+  }
+}
+
+@media (max-width: 768px) {
+}

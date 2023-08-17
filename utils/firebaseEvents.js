@@ -114,7 +114,7 @@ const handleVerifyOtp = async (
             if (role == 2) {
               window.location.href = '/quan-ly-ung-dung-nhan-vien.html'
             } else if (role == 1) {
-              window.location.href = '/quan-ly-ung-dung-cong-ty.html'
+              window.location.href = '/'
             } else {
               window.location.href = '/quan-ly-ung-dung-ca-nhan.html'
             }

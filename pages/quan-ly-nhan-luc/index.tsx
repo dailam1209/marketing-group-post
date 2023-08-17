@@ -41,37 +41,16 @@ const ConfirmModal = ({
     false
   )
 }
-export const listUserDuyetContext = createContext({} as any)
 export const COOKIE_KEY = 'token_base365'
-export default function Home() {
+export default function HomeQLNS() {
   const router = useRouter()
-  // const { setHasBanner } = useContext(HasBannerContext)
   const [selectedUrl, setSelectedUrl] = useState('')
   const [openConfirm, setOpenConfirm] = useState(false)
-  // setHasBanner(true)
   const [selectedBtn, setSelectedBtn] = useState<any>()
   // set to localStorage
-  // getCurrentToken()
   useEffect(() => {
     const value = localStorage.getItem('selectedBtnIndex') || '0'
     setSelectedBtn(value)
-  }, [])
-
-  const [listDuyet, setListDuyet] = useState({})
-
-  useEffect(() => {
-    const getListDuyet = async () => {
-      const res = await POST_VT('api/vanthu/dexuat/showadd', {})
-
-      if (res?.result) {
-        setListDuyet({
-          listDuyet: res?.listUsersDuyet,
-          listTheoDoi: res?.listUsersTheoDoi,
-        })
-      }
-    }
-
-    getListDuyet()
   }, [])
 
   const LIST_BUTTONS_COMP = [
@@ -262,56 +241,55 @@ export default function Home() {
 
   const RenderedBody = () => {
     const type = getCookie('role')
-    return (
-      <div className={styles.section1}>
-        <Row gutter={{ lg: 150, md: 100, sm: 30, xs: 10 }}>
-          <Col lg={type === '1' ? 10 : 11} sm={11} xs={24}>
-            {(type === '1' ? LIST_BUTTONS_COMP : LIST_BUTTONS_EMP)?.map(
-              (item, index) =>
-                utilButton(item.icon, index + 1, item.title, item.color)
-            )}
-          </Col>
-          <Col lg={type === '1' ? 14 : 13} sm={13} xs={24}>
-            {renderSelection(type)}
-          </Col>
-        </Row>
-        <ConfirmModal
-          open={openConfirm}
-          setOpen={setOpenConfirm}
-          router={router}
-          url={selectedUrl}
-        />
-      </div>
-    )
+    if (type)
+      return (
+        <div className={styles.section1}>
+          <Row gutter={{ lg: 150, md: 100, sm: 30, xs: 10 }}>
+            <Col lg={type === '1' ? 10 : 11} sm={11} xs={24}>
+              {(type === '1' ? LIST_BUTTONS_COMP : LIST_BUTTONS_EMP)?.map(
+                (item, index) =>
+                  utilButton(item.icon, index + 1, item.title, item.color)
+              )}
+            </Col>
+            <Col lg={type === '1' ? 14 : 13} sm={13} xs={24}>
+              {renderSelection(type)}
+            </Col>
+          </Row>
+          <ConfirmModal
+            open={openConfirm}
+            setOpen={setOpenConfirm}
+            router={router}
+            url={selectedUrl}
+          />
+        </div>
+      )
   }
 
   return (
-    <listUserDuyetContext.Provider value={{ listDuyet }}>
-      <>
-        <Head>
-          <title> Page Chấm Công </title>
-          <meta name='keywords' content='coders' />
-        </Head>
-        <main>
-          <RenderedBody />
-        </main>
-      </>
-    </listUserDuyetContext.Provider>
+    <>
+      <Head>
+        <title> Page Chấm Công </title>
+        <meta name='keywords' content='coders' />
+      </Head>
+      <main>
+        <RenderedBody />
+      </main>
+    </>
   )
 }
 
-export const getServerSideProps = (context) => {
-  const { role } = context?.req?.cookies
+// export const getServerSideProps = (context) => {
+//   const { role } = context?.req?.cookies
 
-  if (!role) {
-    return {
-      redirect: {
-        destination: '/lua-chon-dang-nhap.html',
-      },
-    }
-  } else {
-    return {
-      props: {},
-    }
-  }
-}
+//   if (!role) {
+//     return {
+//       redirect: {
+//         destination: '/lua-chon-dang-nhap.html',
+//       },
+//     }
+//   } else {
+//     return {
+//       props: {},
+//     }
+//   }
+// }
