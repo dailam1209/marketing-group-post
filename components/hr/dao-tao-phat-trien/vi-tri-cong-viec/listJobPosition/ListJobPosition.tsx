@@ -1,62 +1,61 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from "react";
-import styles from "./ListJobPosition.module.css";
-import AddJobPosition from "../addJobPosition/AddJobPosition";
-import DeleteJobPosition from "../deleteJobPosition/DeleteJobPosition";
-import BodyFrameFooter from "@/components/hr/bodyFrame/bodyFrame_footer/bodyFrame_footer";
-import MyPagination from "@/components/hr/pagination/Pagination";
-import { getDataJobPosition } from "@/pages/hr/api/dao-tao-phat-trien/JobPosition";
+import React, { useState, useEffect } from 'react'
+import styles from './ListJobPosition.module.css'
+import AddJobPosition from '../addJobPosition/AddJobPosition'
+import DeleteJobPosition from '../deleteJobPosition/DeleteJobPosition'
+import BodyFrameFooter from '@/components/hr/bodyFrame/bodyFrame_footer/bodyFrame_footer'
+import MyPagination from '@/components/hr/pagination/Pagination'
+import { getDataJobPosition } from '@/pages/api/api-hr/dao-tao-phat-trien/JobPosition'
 
 export default function ListJobPosition({ iconAdd, iconDelete }: any) {
-  const [openModal, setOpenModal] = useState(0);
-  const [animateModal, setAnimateModal] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [data, setData] = useState<any>();
-  const [id, setId] = useState<any>();
-  const [newData, setNewData] = useState<any>();
+  const [openModal, setOpenModal] = useState(0)
+  const [animateModal, setAnimateModal] = useState(false)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [data, setData] = useState<any>()
+  const [id, setId] = useState<any>()
+  const [newData, setNewData] = useState<any>()
 
   const handleOpenModalDelete = (id: any) => {
-    setOpenModal(2);
-    setAnimateModal(true);
-    setId(id);
-  };
+    setOpenModal(2)
+    setAnimateModal(true)
+    setId(id)
+  }
   const handleOpenModalAdd = () => {
-    setOpenModal(1);
-    setAnimateModal(true);
-  };
+    setOpenModal(1)
+    setAnimateModal(true)
+  }
 
   const handleCloseModal = () => {
-    setAnimateModal(false);
+    setAnimateModal(false)
     setTimeout(() => {
-      setOpenModal(0);
-    }, 300);
-  };
+      setOpenModal(0)
+    }, 300)
+  }
   const handlePageChange = (page: any) => {
-    setCurrentPage(page);
-  };
+    setCurrentPage(page)
+  }
 
   const handleNewData = (newData) => {
-    setNewData(newData);
-  };
+    setNewData(newData)
+  }
   useEffect(() => {
     const GetJobPosition = async () => {
-      const response = await getDataJobPosition(currentPage, 10);
-      setData(response?.data.data);
-    };
-    GetJobPosition();
-  }, [currentPage, newData]);
+      const response = await getDataJobPosition(currentPage, 10)
+      setData(response?.data.data)
+    }
+    GetJobPosition()
+  }, [currentPage, newData])
 
   return (
     <>
-      <div className={`${styles.tuyendung2}`} style={{ display: "block" }}>
+      <div className={`${styles.tuyendung2}`} style={{ display: 'block' }}>
         <div className={`${styles.tuyendung2_3}`}>
           {iconAdd && (
             <button
               onClick={() => handleOpenModalAdd()}
-              className={`${styles.adds}`}
-            >
+              className={`${styles.adds}`}>
               <picture>
-                <img src={`/add.png`} alt="+"></img>
+                <img src={`/add.png`} alt='+'></img>
               </picture>
               Thêm mới
             </button>
@@ -67,34 +66,30 @@ export default function ListJobPosition({ iconAdd, iconDelete }: any) {
           <AddJobPosition
             animation={animateModal}
             closeModal={handleCloseModal}
-            addData={handleNewData}
-          ></AddJobPosition>
+            addData={handleNewData}></AddJobPosition>
         )}
         {openModal === 2 && (
           <DeleteJobPosition
             animation={animateModal}
             closeModal={handleCloseModal}
             id={id}
-            deleteData={handleNewData}
-          ></DeleteJobPosition>
+            deleteData={handleNewData}></DeleteJobPosition>
         )}
         <div className={`${styles.tuyendung2_2}`}>
           <form className={`${styles.t_form_search}`}>
             <div
               className={`${styles.t_div_search}`}
-              style={{ display: "none" }}
-            >
+              style={{ display: 'none' }}>
               <input
-                type="search"
-                placeholder="Tìm kiếm"
-                name="search"
-                spellCheck="false"
-                autoComplete="off"
-                className={`${styles.search_text}`}
-              ></input>
+                type='search'
+                placeholder='Tìm kiếm'
+                name='search'
+                spellCheck='false'
+                autoComplete='off'
+                className={`${styles.search_text}`}></input>
               <button className={`${styles.search_button}`}>
                 <picture>
-                  <img src={`${"/icon-search.png"}`} alt="search"></img>
+                  <img src={`${'/icon-search.png'}`} alt='search'></img>
                 </picture>
               </button>
             </div>
@@ -104,8 +99,7 @@ export default function ListJobPosition({ iconAdd, iconDelete }: any) {
       <div className={`${styles.tab_content}`}>
         <div
           className={`${styles.member_list}`}
-          style={{ overflowY: "scroll" }}
-        >
+          style={{ overflowY: 'scroll' }}>
           <table className={`${styles.table} ${styles.tablelist}`}>
             <thead>
               <tr>
@@ -121,10 +115,10 @@ export default function ListJobPosition({ iconAdd, iconDelete }: any) {
             <tbody className={`${styles.filter}`}>
               {data?.data.map((item: any) => {
                 if (item.isDelete !== 0) {
-                  return;
+                  return
                 } else {
                   return (
-                    <tr key={item.id} style={{ height: "37px" }}>
+                    <tr key={item.id} style={{ height: '37px' }}>
                       <td>{item.id}</td>
                       <td>{item.name}</td>
                       <td>{item.depName}</td>
@@ -143,20 +137,19 @@ export default function ListJobPosition({ iconAdd, iconDelete }: any) {
                           onClick={() => handleOpenModalDelete(item.id)}
                           className={`${styles.r_t_top_right}`}
                           style={{
-                            position: "relative",
-                            width: "110px",
-                            opacity: "1",
-                          }}
-                        >
+                            position: 'relative',
+                            width: '110px',
+                            opacity: '1',
+                          }}>
                           <img
                             src={`/trash.png`}
-                            alt="Tùy chỉnh"
-                            style={{ paddingTop: "6px" }}
+                            alt='Tùy chỉnh'
+                            style={{ paddingTop: '6px' }}
                           />
                         </td>
                       )}
                     </tr>
-                  );
+                  )
                 }
               })}
             </tbody>
@@ -174,7 +167,7 @@ export default function ListJobPosition({ iconAdd, iconDelete }: any) {
         </div>
       )}
 
-      <BodyFrameFooter src="https://www.youtube.com/embed/6k7iZ3ZrW2s"></BodyFrameFooter>
+      <BodyFrameFooter src='https://www.youtube.com/embed/6k7iZ3ZrW2s'></BodyFrameFooter>
     </>
-  );
+  )
 }

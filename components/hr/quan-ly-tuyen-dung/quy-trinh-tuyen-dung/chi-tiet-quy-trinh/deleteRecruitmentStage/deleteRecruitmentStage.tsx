@@ -1,42 +1,48 @@
-import React, { useState } from "react";
+import React, { useState } from 'react'
 
-import styles from "./deleteRecruitmentStage.module.css";
-import { DeleteDataRecruitmentStage } from "@/pages/hr/api/quan-ly-tuyen-dung/RecruitmentManagerService";
-export interface DeleteRecruitmentStage { }
+import styles from './deleteRecruitmentStage.module.css'
+import { DeleteDataRecruitmentStage } from '@/pages/api/api-hr/quan-ly-tuyen-dung/RecruitmentManagerService'
+export interface DeleteRecruitmentStage {}
 
-export default function DeleteRecruitmentStage({ data, recruitment, animation, onCloseModal, newDataDelete }: any) {
+export default function DeleteRecruitmentStage({
+  data,
+  recruitment,
+  animation,
+  onCloseModal,
+  newDataDelete,
+}: any) {
   const id = data.id
 
   const handleDelete = async (id: number) => {
     try {
       const response = await DeleteDataRecruitmentStage(id)
       if (response?.status === 403) {
-        alert('Bạn chưa được phân quyền trên phần mềm quản trị nhân sự 365. Vui lòng liên hệ quản trị viên để biết thêm chi tiết!')
-      }
-      else if (response?.status !== 200) {
+        alert(
+          'Bạn chưa được phân quyền trên phần mềm quản trị nhân sự 365. Vui lòng liên hệ quản trị viên để biết thêm chi tiết!'
+        )
+      } else if (response?.status !== 200) {
         alert('Xóa giai đoạn thất bại')
       } else {
         onCloseModal()
         newDataDelete(response?.data)
       }
-    } catch (error) {
-    }
+    } catch (error) {}
   }
   const handleCancel = () => {
-    onCloseModal();
-  };
-
+    onCloseModal()
+  }
 
   return (
     <>
       <div className={`${styles.overlay}`} onClick={handleCancel}></div>
-      <div className={`${styles.modal} ${styles.modal_setting}  ${animation ? styles.fade_in : styles.fade_out}`}>
+      <div
+        className={`${styles.modal} ${styles.modal_setting}  ${
+          animation ? styles.fade_in : styles.fade_out
+        }`}>
         <div className={`${styles.contentquytrinh}`}>
           <div className={`${styles.modal_content} ${styles.contentdel}`}>
             <div className={`${styles.modal_header} ${styles.headquytrinh}`}>
-              <h5 className={`${styles.modal_title}`}>
-                XÓA GIAI ĐOẠN
-              </h5>
+              <h5 className={`${styles.modal_title}`}>XÓA GIAI ĐOẠN</h5>
             </div>
 
             <div className={`${styles.modal_body} ${styles.bodyquytrinh}`}>
@@ -55,12 +61,16 @@ export default function DeleteRecruitmentStage({ data, recruitment, animation, o
             </div>
 
             <div className={`${styles.modal_footer} ${styles.footerquytrinh}`}>
-              <button type="button" className={`${styles.btn_huy}`} onClick={handleCancel}>
+              <button
+                type='button'
+                className={`${styles.btn_huy}`}
+                onClick={handleCancel}>
                 <span>Hủy</span>
               </button>
-              <button type="button" className={`${styles.delete}`}
-                onClick={() => handleDelete(id)}
-              >
+              <button
+                type='button'
+                className={`${styles.delete}`}
+                onClick={() => handleDelete(id)}>
                 Xóa
               </button>
             </div>
@@ -68,5 +78,5 @@ export default function DeleteRecruitmentStage({ data, recruitment, animation, o
         </div>
       </div>
     </>
-  );
+  )
 }

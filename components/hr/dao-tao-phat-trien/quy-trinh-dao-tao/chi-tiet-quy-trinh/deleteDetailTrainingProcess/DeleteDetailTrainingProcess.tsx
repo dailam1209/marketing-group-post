@@ -1,41 +1,41 @@
-import React, { useState } from "react";
+import React, { useState } from 'react'
 
-import styles from "./DeleteDetailTrainingProcess.module.css";
-import { deleteDetailTrainingStage } from "@/pages/hr/api/dao-tao-phat-trien/TrainingProcess";
-export interface DeleteDetailTrainingProcess { }
+import styles from './DeleteDetailTrainingProcess.module.css'
+import { deleteDetailTrainingStage } from '@/pages/api/api-hr/dao-tao-phat-trien/TrainingProcess'
+export interface DeleteDetailTrainingProcess {}
 
-export default function DeleteDetailTrainingProcess({ data, animation, onCloseModal, newData }: any) {
+export default function DeleteDetailTrainingProcess({
+  data,
+  animation,
+  onCloseModal,
+  newData,
+}: any) {
   const idDetailTrainingProcess = data?.id
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
     try {
       const response = await deleteDetailTrainingStage(idDetailTrainingProcess)
       if (response?.status !== 200) {
         alert('Xóa giai đoạn đào tạo không thành công')
-      }
-      else {
+      } else {
         onCloseModal()
         newData(response?.data)
       }
-    } catch (error: any) {
-
-    }
+    } catch (error: any) {}
   }
 
-
   const handleCancel = () => {
-    onCloseModal();
-  };
-
+    onCloseModal()
+  }
 
   return (
     <>
       <div className={`${styles.overlay}`} onClick={onCloseModal}></div>
       <div
-        className={`${styles.modal} ${styles.modal_setting}  ${animation ? styles.fade_in : styles.fade_out
-          }`}
-      >
+        className={`${styles.modal} ${styles.modal_setting}  ${
+          animation ? styles.fade_in : styles.fade_out
+        }`}>
         <div className={`${styles.contentquytrinh}`}>
           <div className={`${styles.modal_content} ${styles.contentdel}`}>
             <div className={`${styles.modal_header} ${styles.headquytrinh}`}>
@@ -49,9 +49,9 @@ export default function DeleteDetailTrainingProcess({ data, animation, onCloseMo
 
               <div className={`${styles.xoaquytrinh}`}>
                 Tất cả nội dung giai đoạn sẽ được lưu trữ ở
-                <span style={{ color: "black", fontWeight: "600" }}>
-                  {" "}
-                  {`"DỮ LIỆU ĐÃ XÓA GẦN ĐÂY"`}{" "}
+                <span style={{ color: 'black', fontWeight: '600' }}>
+                  {' '}
+                  {`"DỮ LIỆU ĐÃ XÓA GẦN ĐÂY"`}{' '}
                 </span>
                 trong thời gian 5 ngày trước khi bị xóa vĩnh viễn.
               </div>
@@ -59,16 +59,14 @@ export default function DeleteDetailTrainingProcess({ data, animation, onCloseMo
 
             <form onSubmit={(e) => handleSubmit(e)}>
               <div
-                className={`${styles.modal_footer} ${styles.footerquytrinh}`}
-              >
+                className={`${styles.modal_footer} ${styles.footerquytrinh}`}>
                 <button
-                  type="button"
+                  type='button'
                   className={`${styles.btn_huy}`}
-                  onClick={handleCancel}
-                >
+                  onClick={handleCancel}>
                   <span>Hủy</span>
                 </button>
-                <button type="submit" className={`${styles.delete}`}>
+                <button type='submit' className={`${styles.delete}`}>
                   Xóa
                 </button>
               </div>
@@ -77,5 +75,5 @@ export default function DeleteDetailTrainingProcess({ data, animation, onCloseMo
         </div>
       </div>
     </>
-  );
+  )
 }
