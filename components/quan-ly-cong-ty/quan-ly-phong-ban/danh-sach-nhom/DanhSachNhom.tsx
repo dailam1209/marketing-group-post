@@ -44,7 +44,7 @@ export function DanhSachNhom({
     }))
   );
   const [comLabel, setComlabel] = useState({ label: infoCom?.data?.userName, value: infoCom?.data?.idQLC })
-
+// console.log(listGroups)
 
   const columns = [
     {

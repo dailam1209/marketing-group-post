@@ -139,6 +139,10 @@ export function DanhSachTo({
     setDepFilter(option)
   }
 
+  console.log([
+    { label: company?.userName, value: company?.idQLC },
+  ])
+
   return (
     <div>
       <Row gutter={{ lg: 15, md: 20, sm: 20 }}>
@@ -226,7 +230,7 @@ export function DanhSachTo({
         rowKey='_id'
         selectedRowKeys={null}
       />
-      {AddNewToModal(openAddNew, setOpenAddNew, listDepLabel, data, setData)}
+      {AddNewToModal(openAddNew, setOpenAddNew, listDepLabel, data, setData, { label: company?.userName, value: company?.idQLC }, listDepLabel)}
       {EditToModal(openEdit, setOpenEdit, data, setData, selectedRow)}
       {ConfirmDeleteModal(
         openConfirmDel,
