@@ -281,12 +281,17 @@ export default function HomeQLNS() {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 export const getServerSideProps = (context) => {
   const role = context?.req?.cookies?.role
 =======
 // export const getServerSideProps = (context) => {
 //   const { role } = context?.req?.cookies
 >>>>>>> e36fa4a (fix css)
+=======
+// export const getServerSideProps = (context) => {
+//   const { role } = context?.req?.cookies
+>>>>>>> 919440867b58f69b27b5eec91de46b7b9ac8bb6c
 
 //   if (!role) {
 //     return {

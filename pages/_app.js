@@ -19,10 +19,24 @@ import styles from '@/components/crm/sidebar/sidebar.module.css'
 // import "@/styles/crm/hight_chart.css"
 import Layout from '@/components/hr/Layout'
 
+export const LoadingComp = () => {
+  return (
+    <Spin
+      // indicator={<LoadingOutlined rev={null} />}
+      style={{
+        position: 'fixed',
+        top: '50%',
+        left: '50%',
+      }}
+    />
+  )
+}
+
 export default function App({ Component, pageProps }) {
   const { isOpen, toggleModal } = useModal('icon_menu_nav', [styles.sidebar])
   const router = useRouter()
   const [loading, setLoading] = useState(false)
+  const [firstLoad, setFirstLoad] = useState(true)
   useEffect(() => {
     const doLoading = () => {
       const start = () => {
@@ -50,18 +64,12 @@ export default function App({ Component, pageProps }) {
     }
   }, [])
 
-  const LoadingComp = () => {
-    return (
-      <Spin
-        // indicator={<LoadingOutlined rev={null} />}
-        style={{
-          position: 'fixed',
-          top: '50%',
-          left: '50%',
-        }}
-      />
-    )
-  }
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setFirstLoad(false)
+    }, 100)
+    return () => clearTimeout(timeout)
+  }, [])
 
   const importGlobalStyles = () => {
     if (router.pathname?.includes('hr')) {
