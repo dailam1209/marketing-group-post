@@ -9,6 +9,7 @@ import { useRouter } from "next/router"
 import { AddButton } from "@/components/commons/Buttons"
 import { EDIT_ICON, KEY_ICON, TRASH_ICON } from "./icons"
 import dayjs from "dayjs"
+import { getPosition } from "@/utils/function"
 
 export function AllNhanVien({
   listStaffs,
@@ -104,6 +105,7 @@ export function AllNhanVien({
       </div>
     )
   }
+  const positionLabel = getPosition?.map(p => ({ label: p?.value, value: p?.id }))
 
   const columns = [
     {
@@ -120,7 +122,7 @@ export function AllNhanVien({
     },
     {
       title: <p className="tableHeader">SĐT</p>,
-      render: (record: any) => <p>{record?.phoneTK || record?.phone || "Chưa cập nhật"}</p>
+      render: (record: any) => <p>{record?.phone || record?.phoneTK || "Chưa cập nhật"}</p>
     },
     {
       title: <p className="tableHeader">Tài khoản đăng nhập</p>,
@@ -128,15 +130,15 @@ export function AllNhanVien({
     },
     {
       title: <p className="tableHeader">Email</p>,
-      render: (record: any) => <p>{record?.emailContact || record?.email || "Chưa cập nhật"}</p>
+      render: (record: any) => <p>{record?.email || record?.emailContact || "Chưa cập nhật"}</p>
     },
     {
       title: <p className="tableHeader">Phòng ban</p>,
-      render: (record: any) => <p>{record?.nameDeparment || "Chưa cập nhật"}</p>
+      render: (record: any) => <p>{listDepLabel?.find(dep => dep?.value === record?.inForPerson?.employee?.dep_id)?.label || "Chưa cập nhật"}</p>
     },
     {
       title: <p className="tableHeader">Chức vụ</p>,
-      render: (record: any) => <p>{record?.position_id || "Chưa cập nhật"}</p>
+      render: (record: any) => <p>{positionLabel?.find(p => p?.value === record?.inForPerson?.employee?.position_id)?.label || "Chưa cập nhật"}</p>
     },
     {
       title: <p className="tableHeader">Tùy chỉnh</p>,
