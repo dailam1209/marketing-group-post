@@ -161,7 +161,7 @@ export default function Home() {
                                  </span>
                               </div>
                            </div>
-                           <div className='notify_vip'>
+                           <div className='notify_vip' onClick={handleClickCheckVip}>
                               <div className='left'>
                                  <div className='text_1'>Tài khoản công ty bạn chưa phải là tài khoản VIP!</div>
                                  <div className='text2'>Tài khoản của bạn chỉ đăng ký tối đa 5 nhân viên</div>
@@ -445,8 +445,7 @@ export default function Home() {
                            <div className='cnt_2_left'>
                               <h2>Bước 1: Tải app chat365 cài đặt chấm công + chấm công tại mục tiện ích</h2>
                               <span>
-                                 Để có cơ sở dữ liệu phục vụ công việc tính lương, trước hết bạn cần tải app chấm công 365 bằng cách truy cập link <a href='/https://chamcong.timviec365.vn/download.html'>https://chamcong.timviec365.vn/download.html </a>
-                                 hoặc truy cập CH play/ App store tìm kiếm Chấm công 365 và tải về.
+                                 Để có cơ sở dữ liệu phục vụ công việc tính lương, trước hết bạn cần tải app chấm công 365 bằng cách truy cập link <a href='https://chamcong.timviec365.vn/download.html'>https://chamcong.timviec365.vn/download.html</a> hoặc truy cập CH play/ App store tìm kiếm Chấm công 365 và tải về.
                               </span>
                            </div>
                            <div className='cnt_2_right'>
