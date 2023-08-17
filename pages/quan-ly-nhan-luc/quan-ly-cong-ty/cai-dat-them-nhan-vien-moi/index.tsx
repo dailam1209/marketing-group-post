@@ -100,15 +100,15 @@ export default function CaiDatThemNhanVienMoiPage({
 export const getServerSideProps = async (context) => {
   let com_id = null
   com_id = getCompIdSS(context)
-
+  console.log(com_id)
   const listStaffs = await POST_SS(
     'api/qlc/managerUser/listAllEmps',
     {
-      id_com: com_id,
+      com_id: com_id,
     },
     context
   )
-  console.log(listStaffs)
+  // console.log(listStaffs)
 
   const infoCom = await POST_SS('api/qlc/company/info', {}, context)
 

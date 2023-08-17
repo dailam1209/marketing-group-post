@@ -1,72 +1,76 @@
-import React, { useState } from "react";
-import styles from "./EditRecruitmentProcess.module.css";
-import * as Yup from "yup";
-import { UpdateDataRecruitment } from "@/pages/hr/api/quan-ly-tuyen-dung/RecruitmentManagerService";
+import React, { useState } from 'react'
+import styles from './EditRecruitmentProcess.module.css'
+import * as Yup from 'yup'
+import { UpdateDataRecruitment } from '@/pages/api/api-hr/quan-ly-tuyen-dung/RecruitmentManagerService'
 
-export interface EditRecruitmentProcess { }
+export interface EditRecruitmentProcess {}
 export default function EditRecruitmentProcess({
   animation,
   onClose,
   data,
   setData,
 }: any) {
-  const nameProcess = data.name;
-  const applyFor = data.applyFor;
-  const recruitId = data.id;
-  const [errors, setErrors] = useState<any>({});
+  const nameProcess = data.name
+  const applyFor = data.applyFor
+  const recruitId = data.id
+  const [errors, setErrors] = useState<any>({})
   const [formData, setFormData] = useState({
     nameProcess: nameProcess,
     applyFor: applyFor,
-  });
+  })
 
   const schema = Yup.object().shape({
-    nameProcess: Yup.string().required("Vui lòng nhập tên quy trình"),
-    applyFor: Yup.string().required("Vui lòng nhập đối tượng áp dụng"),
-  });
+    nameProcess: Yup.string().required('Vui lòng nhập tên quy trình'),
+    applyFor: Yup.string().required('Vui lòng nhập đối tượng áp dụng'),
+  })
 
   const handleChange = (event) => {
-    const { name, value } = event.target;
+    const { name, value } = event.target
     setFormData((prevState) => ({
       ...prevState,
       [name]: value,
-    }));
-  };
+    }))
+  }
 
-  const handleSubmitUpdate = async (e: any, recruitId: number, formData: any) => {
+  const handleSubmitUpdate = async (
+    e: any,
+    recruitId: number,
+    formData: any
+  ) => {
     try {
-      e.preventDefault();
-      await schema.validate(formData, { abortEarly: false });
-      const response = await UpdateDataRecruitment(recruitId, formData);
+      e.preventDefault()
+      await schema.validate(formData, { abortEarly: false })
+      const response = await UpdateDataRecruitment(recruitId, formData)
       console.log(response)
       if (response?.status === 403) {
-        alert('Bạn chưa được phân quyền trên phần mềm quản trị nhân sự 365. Vui lòng liên hệ quản trị viên để biết thêm chi tiết!')
-      }
-      else if (response?.status !== 200) {
-        alert("Cập nhật quy trình thất bại");
+        alert(
+          'Bạn chưa được phân quyền trên phần mềm quản trị nhân sự 365. Vui lòng liên hệ quản trị viên để biết thêm chi tiết!'
+        )
+      } else if (response?.status !== 200) {
+        alert('Cập nhật quy trình thất bại')
       } else {
-        onClose();
-        setData(response.data);
+        onClose()
+        setData(response.data)
       }
     } catch (error: any) {
-      const validationErrors = {};
+      const validationErrors = {}
       error.inner.forEach((err) => {
-        validationErrors[err.path] = err.message;
-      });
-      setErrors(validationErrors);
+        validationErrors[err.path] = err.message
+      })
+      setErrors(validationErrors)
     }
-  };
+  }
 
   const handleCancel = () => {
-    onClose();
-  };
+    onClose()
+  }
   return (
     <>
-      <div className={`${styles.overlay}`} onClick={handleCancel}
-></div>
+      <div className={`${styles.overlay}`} onClick={handleCancel}></div>
       <div
-        className={`${styles.modal} ${styles.modal_setting}  ${animation ? styles.fade_in : styles.fade_out
-          }`}
-      >
+        className={`${styles.modal} ${styles.modal_setting}  ${
+          animation ? styles.fade_in : styles.fade_out
+        }`}>
         <div className={`${styles.modal_dialog} ${styles.contentquytrinh}`}>
           <div className={`${styles.modal_content} `}>
             {/* header */}
@@ -79,8 +83,7 @@ export default function EditRecruitmentProcess({
             {/* body */}
             <form
               className={`${styles.modal_form}`}
-              onSubmit={(e) => handleSubmitUpdate(e, recruitId, formData)}
-            >
+              onSubmit={(e) => handleSubmitUpdate(e, recruitId, formData)}>
               <div className={`${styles.modal_body} ${styles.bodyquytrinh}`}>
                 <div className={`${styles.form_groups}`}>
                   <label>
@@ -89,21 +92,19 @@ export default function EditRecruitmentProcess({
                   </label>
                   <div className={`${styles.inputright}`}>
                     <input
-                      name="nameProcess"
+                      name='nameProcess'
                       defaultValue={data.name}
-                      type="text"
+                      type='text'
                       className={`${styles.inputquytrinh}`}
-                      placeholder="Nhập tên giai đoạn"
-                      onChange={handleChange}
-                    ></input>
+                      placeholder='Nhập tên giai đoạn'
+                      onChange={handleChange}></input>
                     {errors.nameProcess && (
                       <>
                         <picture>
                           <img
                             className={`${styles.icon_err}`}
-                            src={`${"/danger.png"}`}
-                            alt="Lỗi"
-                          ></img>
+                            src={`${'/danger.png'}`}
+                            alt='Lỗi'></img>
                         </picture>
                         <div className={`${styles.errors}`}>
                           {errors.nameProcess}
@@ -120,20 +121,24 @@ export default function EditRecruitmentProcess({
                   </label>
                   <div className={`${styles.inputright}`}>
                     <input
-                      name="applyFor"
+                      name='applyFor'
                       defaultValue={data.applyFor}
-                      type="text"
+                      type='text'
                       className={`${styles.inputquytrinh}`}
-                      placeholder="Nhập tên giai đoạn"
-                      onChange={handleChange}
-                    ></input>
+                      placeholder='Nhập tên giai đoạn'
+                      onChange={handleChange}></input>
                     {errors.applyFor && (
                       <div>
-                        <picture style={{ float: 'right', marginTop: '-30px', marginRight: '4%' }}>
+                        <picture
+                          style={{
+                            float: 'right',
+                            marginTop: '-30px',
+                            marginRight: '4%',
+                          }}>
                           <img
                             className={`${styles.icon_err}`}
-                            src={`${"/danger.png"}`}
-                            alt="Lỗi"
+                            src={`${'/danger.png'}`}
+                            alt='Lỗi'
                           />
                         </picture>
                         <div className={`${styles.errors}`}>
@@ -146,16 +151,14 @@ export default function EditRecruitmentProcess({
               </div>
 
               <div
-                className={`${styles.modal_footer} ${styles.footerquytrinh}`}
-              >
+                className={`${styles.modal_footer} ${styles.footerquytrinh}`}>
                 <button
-                  type="button"
+                  type='button'
                   className={`${styles.btn_huy}`}
-                  onClick={handleCancel}
-                >
+                  onClick={handleCancel}>
                   <span>Hủy</span>
                 </button>
-                <button type="submit" className={`${styles.success}`}>
+                <button type='submit' className={`${styles.success}`}>
                   Cập nhật
                 </button>
               </div>
@@ -164,5 +167,5 @@ export default function EditRecruitmentProcess({
         </div>
       </div>
     </>
-  );
+  )
 }

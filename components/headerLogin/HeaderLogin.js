@@ -65,7 +65,7 @@ export default function HeaderLogin({ text }) {
     } else if (type() === '0') {
       setLinkHome('/')
     } else {
-      setLinkHome('quan-ly-ung-dung-nhan-vien.html')
+      setLinkHome('/')
     }
 
     function handleClickOutside(event) {

@@ -1,23 +1,24 @@
 /* eslint-disable react/jsx-key */
 /* eslint-disable jsx-a11y/alt-text */
-import React, { useEffect, useState } from "react";
-import styles from "./PerformRecruitment.module.css";
-import Link from "next/link";
-import BodyFrameFooter from "../../../bodyFrame/bodyFrame_footer/bodyFrame_footer";
-import MyPagination from "../../../pagination/Pagination";
-import { GetDataListNewActive, GetListSchedule, } from "@/pages/hr/api/quan-ly-tuyen-dung/PerformRecruitment";
+import React, { useEffect, useState } from 'react'
+import styles from './PerformRecruitment.module.css'
+import Link from 'next/link'
+import BodyFrameFooter from '../../../bodyFrame/bodyFrame_footer/bodyFrame_footer'
+import MyPagination from '../../../pagination/Pagination'
+import {
+  GetDataListNewActive,
+  GetListSchedule,
+} from '@/pages/api/api-hr/quan-ly-tuyen-dung/PerformRecruitment'
 
-export interface PerformRecruitment { }
+export interface PerformRecruitment {}
 
 export default function PerformRecruitment({ children, totalCandi }: any) {
-  const [selectedButton, setSelectedButton] = useState("homnay");
-  const [messIsOpen, setMessIsOpen] = useState<any>();
+  const [selectedButton, setSelectedButton] = useState('homnay')
+  const [messIsOpen, setMessIsOpen] = useState<any>()
 
-  const [listSchedule, setListSchedule] = useState<any>();
-  const [currentPageListNewActive, setCurrentPageListNewActive] = useState(1);
-  const [currentPageListSchedule, setCurrentPageLisSchedule] = useState(1);
-
-
+  const [listSchedule, setListSchedule] = useState<any>()
+  const [currentPageListNewActive, setCurrentPageListNewActive] = useState(1)
+  const [currentPageListSchedule, setCurrentPageLisSchedule] = useState(1)
 
   useEffect(() => {
     const getDataRecruitmentOverview = async () => {
@@ -25,15 +26,12 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
         const responseListNewActive = await GetDataListNewActive(
           currentPageListNewActive,
           3
-        );
-        setMessIsOpen(responseListNewActive?.data.data);
-      } catch (err) {
-      }
-    };
-    getDataRecruitmentOverview();
-  }, [currentPageListNewActive]);
-
-
+        )
+        setMessIsOpen(responseListNewActive?.data.data)
+      } catch (err) {}
+    }
+    getDataRecruitmentOverview()
+  }, [currentPageListNewActive])
 
   useEffect(() => {
     try {
@@ -41,58 +39,53 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
         const responseListSchedule = await GetListSchedule(
           currentPageListSchedule,
           3
-        );
-        setListSchedule(responseListSchedule?.data.data);
-      };
-      GetDataListSchedule();
-    }
-    catch (err) {
+        )
+        setListSchedule(responseListSchedule?.data.data)
+      }
+      GetDataListSchedule()
+    } catch (err) {}
+  }, [currentPageListSchedule])
 
-    }
-  }, [currentPageListSchedule]);
-
-  const currentTime = Date.now();
+  const currentTime = Date.now()
 
   const handleClickColor = (buttonId: any) => {
-    setSelectedButton(buttonId);
-  };
+    setSelectedButton(buttonId)
+  }
 
   const handlePageListNewActive = (page: any) => {
-    setCurrentPageListNewActive(page);
-  };
+    setCurrentPageListNewActive(page)
+  }
 
   const handlePageLisSchedule = (page: any) => {
-    setCurrentPageLisSchedule(page);
-  };
+    setCurrentPageLisSchedule(page)
+  }
 
   const salary = {
-    1: "Thỏa thuận",
-    2: "1 - 3 triệu",
-    3: "3 - 5 triệu",
-    4: "5 - 7 triệu",
-    5: "7 - 10 triệu",
-    6: "10 - 15 triệu",
-    7: "10 - 15 triệu",
-    8: "15 - 20 triệu",
-    9: "20 - 30 triệu",
-    10: "Trên 30 triệu",
-    11: "Trên 50 triệu",
-    12: "Trên 100 triệu",
-  };
+    1: 'Thỏa thuận',
+    2: '1 - 3 triệu',
+    3: '3 - 5 triệu',
+    4: '5 - 7 triệu',
+    5: '7 - 10 triệu',
+    6: '10 - 15 triệu',
+    7: '10 - 15 triệu',
+    8: '15 - 20 triệu',
+    9: '20 - 30 triệu',
+    10: 'Trên 30 triệu',
+    11: 'Trên 50 triệu',
+    12: 'Trên 100 triệu',
+  }
 
   return (
     <>
       <div className={`${styles.tab_content}`}>
         <div
-          id="tongquan"
-          className={`${styles.fade} ${styles.in} ${styles.active}`}
-        >
+          id='tongquan'
+          className={`${styles.fade} ${styles.in} ${styles.active}`}>
           <>
             <div
               className={`${styles.tindangmo}`}
-              id="tindangmo_left"
-              style={{ minHeight: "500px" }}
-            >
+              id='tindangmo_left'
+              style={{ minHeight: '500px' }}>
               {/* title */}
               <div className={`${styles.tin_title}`}>
                 <h5>Tin đang mở</h5>
@@ -103,15 +96,14 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
                 <p className={`${styles.data_empty}`}>Không có dữ liệu</p>
               ) : (
                 messIsOpen?.recruitmentNew.map((item, index) => {
-                  const timeEnd = new Date(item.timeEnd).getTime();
+                  const timeEnd = new Date(item.timeEnd).getTime()
                   if (currentTime > timeEnd) {
-                    return null;
+                    return null
                   }
                   return (
                     <div
                       key={item.id}
-                      className={`${styles.tin_all} ${styles.tin_all_t_left}`}
-                    >
+                      className={`${styles.tin_all} ${styles.tin_all_t_left}`}>
                       <div className={`${styles.tin_item}`}>
                         <div className={`${styles.tin_item1}`}>
                           <span>{item.number}</span>
@@ -120,7 +112,6 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
 
                         <div className={`${styles.tin_item2}`}>
                           <h4>
-
                             <span>{item.title}</span>
                           </h4>
                           <div className={`${styles.tin_item3}`}>
@@ -128,11 +119,13 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
                               <picture>
                                 <img
                                   className={`${styles.tin_item33_img}`}
-                                  src={`/calendar.png`}
-                                ></img>
+                                  src={`/calendar.png`}></img>
                                 <span>
-                                  {new Date(item.timeStart).toLocaleDateString()}{" "}
-                                  - {new Date(item.timeEnd).toLocaleDateString()}
+                                  {new Date(
+                                    item.timeStart
+                                  ).toLocaleDateString()}{' '}
+                                  -{' '}
+                                  {new Date(item.timeEnd).toLocaleDateString()}
                                 </span>
                               </picture>
                             </li>
@@ -199,33 +192,32 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
               <hr></hr>
               <div className={`${styles.h_today}`}>
                 <li
-                  className={`${selectedButton === "homnay" ? styles.active_homnay : ""
-                    }`}
-                  onClick={() => handleClickColor("homnay")}
-                >
+                  className={`${
+                    selectedButton === 'homnay' ? styles.active_homnay : ''
+                  }`}
+                  onClick={() => handleClickColor('homnay')}>
                   <span className={`${styles.green} ${styles.candidate_today}`}>
                     {totalCandi?.totalCandidateDay}
                   </span>
                   <p>Hôm nay</p>
                 </li>
                 <li
-                  className={`${selectedButton === "tuannay" ? styles.active_tuannay : ""
-                    }`}
-                  onClick={() => handleClickColor("tuannay")}
-                >
+                  className={`${
+                    selectedButton === 'tuannay' ? styles.active_tuannay : ''
+                  }`}
+                  onClick={() => handleClickColor('tuannay')}>
                   <span className={`${styles.blue} ${styles.candidate_week}`}>
                     {totalCandi?.totalCandidateMonth}
                   </span>
                   <p>Tuần này</p>
                 </li>
                 <li
-                  className={`${selectedButton === "thangnay" ? styles.active_thangnay : ""
-                    }`}
-                  onClick={() => handleClickColor("thangnay")}
-                >
+                  className={`${
+                    selectedButton === 'thangnay' ? styles.active_thangnay : ''
+                  }`}
+                  onClick={() => handleClickColor('thangnay')}>
                   <span
-                    className={`${styles.yellow} ${styles.candidate_month}`}
-                  >
+                    className={`${styles.yellow} ${styles.candidate_month}`}>
                     {totalCandi?.totalCandidateWeek}
                   </span>
                   <p>Tháng này</p>
@@ -233,7 +225,7 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
               </div>
             </div>
 
-            <div className={`${styles.tindangmo}`} style={{ marginTop: "3%" }}>
+            <div className={`${styles.tindangmo}`} style={{ marginTop: '3%' }}>
               <div className={`${styles.tin_title}`}>
                 <h5>Đến phỏng vấn</h5>
               </div>
@@ -242,12 +234,12 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
                   <p className={`${styles.data_empty}`}>Không có dữ liệu</p>
                 ) : (
                   listSchedule?.listSchedule.map((item, index) => {
-                    const processTimeSendCv = item.timeSendCv;
-                    const dateObj = new Date(processTimeSendCv);
-                    const hour = dateObj.getHours();
-                    const day = dateObj.getDay() + 1;
-                    const date = dateObj.getDate();
-                    const month = dateObj.getMonth() + 1;
+                    const processTimeSendCv = item.timeSendCv
+                    const dateObj = new Date(processTimeSendCv)
+                    const hour = dateObj.getHours()
+                    const day = dateObj.getDay() + 1
+                    const date = dateObj.getDate()
+                    const month = dateObj.getMonth() + 1
                     return (
                       <div key={item.id}>
                         <div className={`${styles.h_phongvan}`}>
@@ -264,9 +256,8 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
                               <Link
                                 passHref
                                 href={{
-                                  pathname: `/hr/quan-ly-tuyen-dung/danh-sach-ung-vien/chi-tiet-ung-vien/u${item.id}`
-                                }}
-                              >
+                                  pathname: `/hr/quan-ly-tuyen-dung/danh-sach-ung-vien/chi-tiet-ung-vien/u${item.id}`,
+                                }}>
                                 <h4>{item.name}</h4>
                               </Link>
 
@@ -282,14 +273,15 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
                           </div>
                         </div>
                       </div>
-                    );
+                    )
                   })
                 )}
               </div>
-
             </div>
             {listSchedule?.totalSchedule > 3 && (
-              <div className={`${styles.pagination}`} style={{ marginRight: '8%' }}>
+              <div
+                className={`${styles.pagination}`}
+                style={{ marginRight: '8%' }}>
                 <MyPagination
                   current={currentPageListSchedule}
                   total={listSchedule?.totalSchedule}
@@ -300,8 +292,8 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
             )}
           </>
         </div>
-        <BodyFrameFooter src="https://www.youtube.com/embed/v8FmUlUI1bs"></BodyFrameFooter>
+        <BodyFrameFooter src='https://www.youtube.com/embed/v8FmUlUI1bs'></BodyFrameFooter>
       </div>
     </>
-  );
+  )
 }

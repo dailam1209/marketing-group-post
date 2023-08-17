@@ -7,26 +7,27 @@ import Footer from '../components/footer/Footer';
 import {getServerSideProps} from '../utils/function';
 import QLC_item from '../components/QLC_item';
 import {Col, Row, Spin, Tabs} from 'antd';
-import HeaderQLC from '../components/headerQLC/HeaderQLC';
+import HeaderQLC from '../components/headerQLC/headerQLC';
 import SidebarQLC from '../components/sidebarQLC/SidebarQLC';
 import FooterQLC from '../components/footerQLC/FooterQLC';
-import {LoadingComp} from './_app';
 import ModalRegsiter from '@/components/modal/ModalRegsiter';
 import ModalLogin from '@/components/modal/ModalLogin';
 import ModalConfirm from '@/components/modal/ModalConfirm';
-export {getServerSideProps};
+import {LoadingComp} from './_app';
 import {useRouter} from 'next/router';
 import Cookies from 'js-cookie';
+export {getServerSideProps};
 
 export default function Home() {
    CheckLogin();
-   const [openModalConfirm, setOpenModalConfirm] = useState(false);
-   const [openModalLogin, setOpenModalLogin] = useState(false);
-   const [openModalRegister, setOpenModalRegister] = useState(false);
+
    const [show, setShow] = useState('all');
    const [narrow, setNarrow] = useState(false);
    const [currentPage, setCurrentPage] = useState('Tất cả');
    const [openMenu, setOpenMenu] = useState(false);
+   const [openModalConfirm, setOpenModalConfirm] = useState(false);
+   const [openModalLogin, setOpenModalLogin] = useState(false);
+   const [openModalRegister, setOpenModalRegister] = useState(false);
    const [openSB, setOpenSB] = useState(false);
    const [loading, setLoading] = useState(true);
    const [hasTokens, setHasTokens] = useState(false);
@@ -139,13 +140,13 @@ export default function Home() {
             <>
                <div className='tc_wrap'>
                   <div className={'khoi_sidebar'} style={{display: openSB ? 'block' : 'none'}}>
-                     <SidebarQLC narrow={narrow} setNarrow={setNarrow} openSB={openSB} />
+                     <SidebarQLC narrow={narrow} setNarrow={setNarrow} openSB={openSB} setOpenModalLogin={setOpenModalLogin} setOpenModalRegister={setOpenModalRegister} />
                   </div>
 
                   <div className={narrow ? 'khoi_header_content_narrow' : 'khoi_header_content'}>
                      <div className='content_ql'>
                         <div className='cnt_ttone'>
-                           <HeaderQLC currentPage={currentPage} setOpenSB={setOpenSB} openSB={openSB} />
+                           <HeaderQLC currentPage={currentPage} setOpenSB={setOpenSB} openSB={openSB} setOpenModalLogin={setOpenModalLogin} setOpenModalRegister={setOpenModalRegister} />
                            {/* <HeaderLogin /> */}
                            <div className='title_input' style={{display: 'none'}}>
                               <div className='title'>
@@ -160,14 +161,12 @@ export default function Home() {
                                  </span>
                               </div>
                            </div>
-
                            <div className='notify_vip'>
                               <div className='left'>
                                  <div className='text_1'>Tài khoản công ty bạn chưa phải là tài khoản VIP!</div>
                                  <div className='text2'>Tài khoản của bạn chỉ đăng ký tối đa 5 nhân viên</div>
                               </div>
-
-                              <div className='right' onClick={handleClickCheckVip}>
+                              <div className='right'>
                                  <img src='../img/crown.png' alt='' />
                                  <span className='text'>Nâng cấp thành tài khoản VIP</span>
                               </div>
@@ -446,10 +445,7 @@ export default function Home() {
                            <div className='cnt_2_left'>
                               <h2>Bước 1: Tải app chat365 cài đặt chấm công + chấm công tại mục tiện ích</h2>
                               <span>
-                                 Để có cơ sở dữ liệu phục vụ công việc tính lương, trước hết bạn cần tải app chấm công 365 bằng cách truy cập link{' '}
-                                 <a href='https://chamcong.timviec365.vn/download.html' target='_blank'>
-                                    https://chamcong.timviec365.vn/download.html
-                                 </a>{' '}
+                                 Để có cơ sở dữ liệu phục vụ công việc tính lương, trước hết bạn cần tải app chấm công 365 bằng cách truy cập link <a href='/https://chamcong.timviec365.vn/download.html'>https://chamcong.timviec365.vn/download.html </a>
                                  hoặc truy cập CH play/ App store tìm kiếm Chấm công 365 và tải về.
                               </span>
                            </div>

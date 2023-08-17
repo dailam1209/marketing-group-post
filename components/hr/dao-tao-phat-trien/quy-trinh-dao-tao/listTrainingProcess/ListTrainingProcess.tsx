@@ -1,43 +1,47 @@
 /* eslint-disable react/jsx-key */
-import React, { useState, useEffect } from "react";
-import styles from "./ListTrainingProcess.module.css";
-import { useRouter } from "next/router";
-import AddTrainingProcess from "../addTrainingProcess/AddTrainingProcess";
-import DeleteTrainingProcess from "../deleteTrainingProcess/DeleteTrainingProcess";
-import BodyFrameFooter from "@/components/hr/bodyFrame/bodyFrame_footer/bodyFrame_footer";
-import MyPagination from "@/components/hr/pagination/Pagination";
-import { getDataListProcessTrain } from "@/pages/hr/api/dao-tao-phat-trien/TrainingProcess";
-import Link from "next/link";
+import React, { useState, useEffect } from 'react'
+import styles from './ListTrainingProcess.module.css'
+import { useRouter } from 'next/router'
+import AddTrainingProcess from '../addTrainingProcess/AddTrainingProcess'
+import DeleteTrainingProcess from '../deleteTrainingProcess/DeleteTrainingProcess'
+import BodyFrameFooter from '@/components/hr/bodyFrame/bodyFrame_footer/bodyFrame_footer'
+import MyPagination from '@/components/hr/pagination/Pagination'
+import Link from 'next/link'
+import { getDataListProcessTrain } from '@/pages/api/api-hr/dao-tao-phat-trien/TrainingProcess'
 
-export default function ListTrainingProcess({ iconAdd, iconEdit, iconDelete }: any) {
-  const [openModal, setOpenModal] = useState(0);
-  const [animateModal, setAnimateModal] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
+export default function ListTrainingProcess({
+  iconAdd,
+  iconEdit,
+  iconDelete,
+}: any) {
+  const [openModal, setOpenModal] = useState(0)
+  const [animateModal, setAnimateModal] = useState(false)
+  const [currentPage, setCurrentPage] = useState(1)
   const [name, setName] = useState<any>()
-  const [data, setData] = useState<any>();
+  const [data, setData] = useState<any>()
   const [newData, setNewData] = useState<any>()
-  const [id, setId] = useState<any>();
-  const router = useRouter();
+  const [id, setId] = useState<any>()
+  const router = useRouter()
 
   const handlePageChange = (page: any) => {
-    setCurrentPage(page);
-  };
+    setCurrentPage(page)
+  }
   const handleOpenModalAdd = (type: any) => {
-    setOpenModal(type);
-    setAnimateModal(true);
-  };
+    setOpenModal(type)
+    setAnimateModal(true)
+  }
   const handleOpenModalDelete = (id: any) => {
-    setOpenModal(2);
-    setAnimateModal(true);
-    setId(id);
-  };
+    setOpenModal(2)
+    setAnimateModal(true)
+    setId(id)
+  }
 
   const handleCloseModal = () => {
-    setAnimateModal(false);
+    setAnimateModal(false)
     setTimeout(() => {
-      setOpenModal(0);
-    }, 300);
-  };
+      setOpenModal(0)
+    }, 300)
+  }
 
   const handleSearch = (name) => {
     setName(name)
@@ -49,31 +53,29 @@ export default function ListTrainingProcess({ iconAdd, iconEdit, iconDelete }: a
   useEffect(() => {
     const getListProcessTrain = async () => {
       const response = await getDataListProcessTrain(currentPage, 5, name)
-      setData(response?.data.data);
+      setData(response?.data.data)
     }
     getListProcessTrain()
   }, [newData, currentPage, name])
 
   const handleLinkClick = (e, id) => {
     e.preventDefault()
-    router.push(`/hr/dao-tao-phat-trien/quy-trinh-dao-tao/${id}`);
-  };
+    router.push(`/hr/dao-tao-phat-trien/quy-trinh-dao-tao/${id}`)
+  }
   return (
     <>
       <div className={`${styles.tab_content}`}>
         <div
-          className={`${styles.margintop5} ${styles.tab_pane} ${styles.fade} ${styles.in}  ${styles.active}`}
-        >
+          className={`${styles.margintop5} ${styles.tab_pane} ${styles.fade} ${styles.in}  ${styles.active}`}>
           <div className={`${styles.list_quytrinh}`}>
             <div className={`${styles.add_quytrinh}`}>
               <div className={`${styles.add_quytrinh1}`}>
                 {iconAdd && (
                   <button
                     className={`${styles.adds}`}
-                    onClick={() => handleOpenModalAdd(1)}
-                  >
+                    onClick={() => handleOpenModalAdd(1)}>
                     <picture>
-                      <img src={`/add.png`} alt="+" />
+                      <img src={`/add.png`} alt='+' />
                     </picture>
                     <p>Thêm mới</p>
                   </button>
@@ -83,33 +85,27 @@ export default function ListTrainingProcess({ iconAdd, iconEdit, iconDelete }: a
                 <AddTrainingProcess
                   animation={animateModal}
                   closeModal={handleCloseModal}
-                  handleNewData={handleNewData}
-                ></AddTrainingProcess>
+                  handleNewData={handleNewData}></AddTrainingProcess>
               )}
               {openModal === 2 && (
                 <DeleteTrainingProcess
                   animation={animateModal}
                   closeModal={handleCloseModal}
                   id={id}
-                  handleNewData={handleNewData}
-                ></DeleteTrainingProcess>
+                  handleNewData={handleNewData}></DeleteTrainingProcess>
               )}
               <div className={`${styles.search_quytrinh}`}>
-                <form className={`${styles.t_form_search}`} method="POST">
+                <form className={`${styles.t_form_search}`} method='POST'>
                   <div className={`${styles.t_div_search}`}>
                     <input
-                      type="search"
-                      placeholder="Tìm kiếm"
+                      type='search'
+                      placeholder='Tìm kiếm'
                       spellCheck={false}
-                      name="search"
-                      onChange={(e) => handleSearch(e.target.value)}
-                    ></input>
+                      name='search'
+                      onChange={(e) => handleSearch(e.target.value)}></input>
                     <button className={`${styles.button_search}`}>
                       <picture>
-                        <img
-                          src={`/icon-search.png`}
-                          alt="search"
-                        ></img>
+                        <img src={`/icon-search.png`} alt='search'></img>
                       </picture>
                     </button>
                   </div>
@@ -125,8 +121,7 @@ export default function ListTrainingProcess({ iconAdd, iconEdit, iconDelete }: a
                       <a
                         href={`/hr/dao-tao-phat-trien/quy-trinh-dao-tao/${item.id}`}
                         className={`${styles.quytrinh_item11_link}`}
-                        onClick={(e) => handleLinkClick(e, item.id)}
-                      >
+                        onClick={(e) => handleLinkClick(e, item.id)}>
                         <div className={`${styles.quytrinh_item11_link}`}>
                           (QTĐT{item.id}) {item.name}
                         </div>
@@ -141,7 +136,7 @@ export default function ListTrainingProcess({ iconAdd, iconEdit, iconDelete }: a
                       <div className={`${styles.quytrinh_item2}`}>
                         <button onClick={() => handleOpenModalDelete(item.id)}>
                           <picture>
-                            <img src={`/trash.png`} alt="Xóa"></img>
+                            <img src={`/trash.png`} alt='Xóa'></img>
                           </picture>
                         </button>
                       </div>
@@ -164,8 +159,8 @@ export default function ListTrainingProcess({ iconAdd, iconEdit, iconDelete }: a
           </div>
         )}
 
-        <BodyFrameFooter src="https://www.youtube.com/embed/U0c_dQb-6z0"></BodyFrameFooter>
+        <BodyFrameFooter src='https://www.youtube.com/embed/U0c_dQb-6z0'></BodyFrameFooter>
       </div>
     </>
-  );
+  )
 }
