@@ -8,7 +8,7 @@ import { Form } from "antd";
 import { error } from "console";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export function UpdateNhomModal(
   open: boolean,
@@ -151,6 +151,8 @@ export function AddNewModal(
 ) {
   const [form] = Form.useForm();
   const router = useRouter()
+  const [depFilter, setDepFilter] = useState<any>()
+  const [listTeamLabelFilter, setTeamLabelFilter] = useState<any>()
 
   const handleSubmit = () => {
     // console.log("create a new group!");
@@ -168,11 +170,17 @@ export function AddNewModal(
 
   };
 
+  useEffect(() => {
+    if (depFilter) {
+      setTeamLabelFilter(listTeamLabel?.filter(t => t?.dep_id === depFilter))
+    } 
+  }, [depFilter])
+
   const children = (
     <Form form={form}>
       {MySelect("Công ty", "Chọn công ty", true, true, "com_id", comLabel && [comLabel])}
-      {MySelect("Phòng ban", "Chọn phòng ban", true, true, "dep_id", listDepLabel && listDepLabel)}
-      {MySelect("Tổ", "Chọn tổ", true, true, "team_id", listTeamLabel && listTeamLabel)}
+      {MySelect("Phòng ban", "Chọn phòng ban", true, true, "dep_id", listDepLabel && listDepLabel, null, setDepFilter)}
+      {MySelect("Tổ", "Chọn tổ", true, true, "team_id", listTeamLabelFilter && listTeamLabelFilter)}
       {MyInput("Tên nhóm", "Nhập tên nhóm", true, true, "gr_name")}
     </Form>
   );

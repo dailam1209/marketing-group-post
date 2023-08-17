@@ -195,7 +195,7 @@ export function AddNewToModal(
         "teamSubLeader"
       )} */}
       {MySelect('Phòng ban', 'Kỹ thuật', true, true, 'dep_id', listDeps)}
-      {MyInput('Tên tổ', 'Nhập tên tổ', true, true, 'teamName')}
+      {MyInput('Tên tổ', 'Nhập tên tổ', true, true, 'team_name')}
       {/* undefined properties total_emp */}
       {/* {MyInput(
         "Số lượng nhân viên",
