@@ -60,15 +60,11 @@ export default function DiMuonVeSom({
 }
 
 export const getServerSideProps = async (context) => {
-  let com_id = null;
-  com_id = getCompIdSS(context);
+  let com_id = null
+  com_id = getCompIdSS(context)
   // const currentTime = moment().format("YYYY-MM-DD")
-  const end = moment().subtract(14, 'd').format('YYYY-MM-DD')
-  const start = moment()
-    .subtract(14, 'd')
-    .subtract(60, 'd')
-    .format('YYYY-MM-DD')
-
+  const end = moment().format('YYYY-MM-DD')
+  const start = '1970/01/01'
   const listApiRes = await Promise.all([
     POST_SS_TL(
       'api/tinhluong/congty/takeinfo_phat_muon',
@@ -107,6 +103,8 @@ export const getServerSideProps = async (context) => {
     ),
     POST_SS('api/qlc/department/list', { com_id: com_id }, context),
   ])
+
+  console.log(listApiRes)
 
   //render list staff late
   const listStaffLate: any[] = []
