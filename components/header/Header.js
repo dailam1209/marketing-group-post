@@ -6,10 +6,16 @@ import styles from './Header.module.css'
 
 import { infoCom, infoEp, infoPersonal } from '../../utils/handleApi'
 import { Button } from 'antd'
+import ModalRegsiter from '../modal/ModalRegsiter'
+import ModalLogin from '../modal/ModalLogin'
+import ModalConfirm from '../modal/ModalConfirm'
 
 export default function Header() {
   // get pathname url
   const router = useRouter()
+  const [openModalConfirm, setOpenModalConfirm] = useState(false)
+  const [openModalRegister, setOpenModalRegister] = useState(false)
+  const [openModalLogin, setOpenModalLogin] = useState(false)
 
   const [popup, setPopup] = useState(false)
   const showPopup = () => {
@@ -219,10 +225,13 @@ export default function Header() {
                         style={{
                           backgroundColor: '#FFAF52',
                           marginRight: '10px',
-                        }}>
+                        }}
+                        onClick={() => setOpenModalLogin(true)}>
                         <p style={{ color: '#fff' }}>Đăng nhập</p>
                       </Button>
-                      <Button className={'btnU'}>
+                      <Button
+                        className={'btnU'}
+                        onClick={() => setOpenModalRegister(true)}>
                         <p style={{ color: '#4C5BD4' }}>Đăng ký</p>
                       </Button>
                     </div>
@@ -472,6 +481,17 @@ export default function Header() {
           </div>
         </div>
       </div>
+      {openModalConfirm && (
+        <ModalConfirm
+          setOpenModalConfirm={setOpenModalConfirm}
+          setOpenModalRegister={setOpenModalRegister}
+          setOpenModalLogin={setOpenModalLogin}
+        />
+      )}
+      {openModalRegister && (
+        <ModalRegsiter setOpenModalRegister={setOpenModalRegister} />
+      )}
+      {openModalLogin && <ModalLogin setOpenModalLogin={setOpenModalLogin} />}
     </>
   )
 }
