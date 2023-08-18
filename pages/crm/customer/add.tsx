@@ -97,7 +97,7 @@ const AddFilesCustomerList: React.FC = () => {
   useEffect(() => {
     setHeaderTitle("Khách hàng / Thêm mới");
     setShowBackButton(true);
-    setCurrentPath("/customer/list");
+    setCurrentPath("/crm/customer/list");
   }, [setHeaderTitle, setShowBackButton, setCurrentPath]);
 
   const handleClickImg = () => {

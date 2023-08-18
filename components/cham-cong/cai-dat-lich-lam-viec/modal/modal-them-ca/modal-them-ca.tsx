@@ -1,45 +1,45 @@
-import { Checkbox, Modal, List, Button, Form } from 'antd';
-import styles from './modal-them-ca.module.css';
-import { useState, useEffect } from 'react';
-import _, { divide } from 'lodash';
-import { GET, POST } from '@/pages/api/BaseApi';
-import { useRouter } from 'next/router';
+import { Checkbox, Modal, List, Button, Form } from 'antd'
+import styles from './modal-them-ca.module.css'
+import { useState, useEffect } from 'react'
+import _, { divide } from 'lodash'
+import { GET, POST } from '@/pages/api/BaseApi'
+import { useRouter } from 'next/router'
 
-const TYPE_NOTFULL = 'T2T6';
-const TYPE_MALFULL = 'T2T7';
-const TYPE_FULL = 'T2CN';
+const TYPE_NOTFULL = 'T2T6'
+const TYPE_MALFULL = 'T2T7'
+const TYPE_FULL = 'T2CN'
 
 function dates(current: any) {
-  let month = new Array();
-  let m = current.getMonth();
-  current.setDate(current.getDate() - current.getDay());
+  let month = new Array()
+  let m = current.getMonth()
+  current.setDate(current.getDate() - current.getDay())
   do {
-    const date = new Date(current);
-    date.setHours(7);
-    month.push(date);
-    current.setDate(current.getDate() + 1);
+    const date = new Date(current)
+    date.setHours(7)
+    month.push(date)
+    current.setDate(current.getDate() + 1)
     //console.log(current)
-  } while (current.getMonth() <= m || current.getDay() != 0);
-  return month;
+  } while (current.getMonth() <= m || current.getDay() != 0)
+  return month
 }
 function filterDate(item: any, type: String) {
   switch (type) {
     case TYPE_FULL:
-      return true;
+      return true
     case TYPE_MALFULL:
-      return item.getDay() === 0 ? false : true;
+      return item.getDay() === 0 ? false : true
     case TYPE_NOTFULL:
-      return item.getDay() === 0 || item.getDay() === 6 ? false : true;
+      return item.getDay() === 0 || item.getDay() === 6 ? false : true
   }
 }
 
 const formatDate = (date = new Date()) => {
-  const year = date?.toLocaleString('default', { year: 'numeric' });
-  const month = date?.toLocaleString('default', { month: '2-digit' });
-  const day = date?.toLocaleString('default', { day: '2-digit' });
+  const year = date?.toLocaleString('default', { year: 'numeric' })
+  const month = date?.toLocaleString('default', { month: '2-digit' })
+  const day = date?.toLocaleString('default', { day: '2-digit' })
 
-  return [year, month, day].join('-');
-};
+  return [year, month, day].join('-')
+}
 
 export function ModalThemCa(
   open: boolean,
@@ -50,59 +50,57 @@ export function ModalThemCa(
   type: any,
   listShiftSelected: any
 ) {
-  const [listShift, setListShift]: any[] = useState([]);
+  const [listShift, setListShift]: any[] = useState([])
   const [applyMonth, setApplyMonth]: any = useState(
     form?.getFieldValue('apply_month')
-  );
-  const [current, setCurrent]: any = useState(new Date());
-  const [firstDate, setFirstDate]: any = useState(new Date());
-  const [listCheck, setListCheck]: any = useState([]);
-  const [openCheck, setOpenCheck] = useState(false);
-  const [allCheck, setAllCheck]: any = useState({});
-  const [month, setMonth]: any = useState(dates(new Date()));
+  )
+  const [current, setCurrent]: any = useState(new Date())
+  const [firstDate, setFirstDate]: any = useState(new Date())
+  const [listCheck, setListCheck]: any = useState([])
+  const [openCheck, setOpenCheck] = useState(false)
+  const [allCheck, setAllCheck]: any = useState({})
+  const [month, setMonth]: any = useState(dates(new Date()))
   const [typeWeek, setTypeWeek] = useState<any>(form.getFieldValue('type_week'))
-
-  
 
   const getDaysInMonth = (
     thang_ap_dung,
     listShiftSelected,
     weekType,
-    type: "shift" | "hour" = "shift"
+    type: 'shift' | 'hour' = 'shift'
   ) => {
     var date: Date = new Date(
       Number(thang_ap_dung?.substring(0, 4)),
       Number(thang_ap_dung?.substring(5, 7)) - 1,
       1
-    );
-    var days = {};
+    )
+    var days = {}
     var current: Date = new Date(new Date(thang_ap_dung).setHours(0))
     while (date.getMonth() === Number(thang_ap_dung?.substring(5, 7)) - 1) {
       if (date >= current) {
         switch (weekType) {
           case 2:
             if (date.getDay() !== 0) {
-              days = { ...days, [formatDate(date)]: listShiftSelected };
+              days = { ...days, [formatDate(date)]: listShiftSelected }
             }
-            break;
+            break
           case 1:
             if (date.getDay() === 0 || date.getDay() === 6) {
             } else {
-              days = { ...days, [formatDate(date)]: listShiftSelected };
+              days = { ...days, [formatDate(date)]: listShiftSelected }
             }
-            break;
+            break
           case 3:
-            days = { ...days, [formatDate(date)]: listShiftSelected };
-            break;
+            days = { ...days, [formatDate(date)]: listShiftSelected }
+            break
           default:
-            break;
+            break
         }
       }
-      date.setDate(date.getDate() + 1);
+      date.setDate(date.getDate() + 1)
     }
-    setAllCheck(days);
-    return days;
-  };
+    setAllCheck(days)
+    return days
+  }
 
   useEffect(() => {
     // console.log(applyMonth)
@@ -113,14 +111,14 @@ export function ModalThemCa(
           Number(applyMonth?.substring(5, 7)) - 1,
           1
         )
-      );
+      )
       setFirstDate(
         new Date(
           Number(applyMonth?.substring(0, 4)),
           Number(applyMonth?.substring(5, 7)) - 1,
           Number(applyMonth?.substring(8))
         )
-      );
+      )
       setMonth(
         dates(
           new Date(
@@ -129,14 +127,14 @@ export function ModalThemCa(
             1
           )
         )
-      );
-      setOpenCheck(true);
+      )
+      setOpenCheck(true)
     }
-  }, [applyMonth]);
+  }, [applyMonth])
 
   useEffect(() => {
-    setApplyMonth(form.getFieldValue('apply_month'));
-  }, [form.getFieldValue('apply_month')]);
+    setApplyMonth(form.getFieldValue('apply_month'))
+  }, [form.getFieldValue('apply_month')])
 
   useEffect(() => {
     GET('api/qlc/shift/list').then((res) => {
@@ -146,12 +144,12 @@ export function ModalThemCa(
             return {
               key: `${item?.shift_id}`,
               content: item?.shift_name,
-            };
+            }
           })
-        );
+        )
       }
-    });
-  }, []);
+    })
+  }, [])
 
   const handleSubmit = () => {
     // handleSubmitAddCy()
@@ -162,29 +160,29 @@ export function ModalThemCa(
         return {
           date: item[0],
           shift_id: item[1].join(','),
-        };
-      });
+        }
+      })
 
-    form.setFieldValue('cy_detail', details);
-    handleSubmitAddCy();
-  };
+    form.setFieldValue('cy_detail', details)
+    handleSubmitAddCy()
+  }
 
   useEffect(() => {
     getDaysInMonth(applyMonth, listShiftSelected, typeWeek)
-  }, []);
+  }, [])
 
   useEffect(() => {
-    setAllCheck({ ...allCheck, [formatDate(current)]: listCheck });
-  }, [listCheck]);
+    setAllCheck({ ...allCheck, [formatDate(current)]: listCheck })
+  }, [listCheck])
 
   useEffect(() => {
     setListCheck(
       !(formatDate(current) in allCheck) ? [] : allCheck[formatDate(current)]
-    );
+    )
     if (formatDate(current) in allCheck) {
       // console.log(allCheck[formatDate(current)]);
     }
-  }, [current]);
+  }, [current])
 
   const Calender = (dates: any) => (
     <div className={styles.day}>
@@ -208,9 +206,9 @@ export function ModalThemCa(
           dataSource={dates.map((d: any) => d)}
           renderItem={(item: any, index: number) => {
             const onClick = () => {
-              setCurrent(item);
-              setOpenCheck(true);
-            };
+              setCurrent(item)
+              setOpenCheck(true)
+            }
             // console.log(listCheck)
             // console.log(allCheck)
             return (
@@ -219,8 +217,7 @@ export function ModalThemCa(
                   style={{
                     display: 'flex',
                     justifyContent: 'center',
-                  }}
-                >
+                  }}>
                   <span
                     onClick={() => onClick()}
                     className={`${styles.cover} ${
@@ -234,18 +231,17 @@ export function ModalThemCa(
                             item.getMonth() ===
                               Number(applyMonth?.substring(5, 7) - 1) &&
                             filterDate(item, typeWeek)
-                            ? "choose"
-                            : item.getMonth() ===
-                                Number(applyMonth?.substring(5, 7) - 1) &&
-                              filterDate(item, typeWeek)
-                            ? "overDay"
-                            : item.getMonth() ===
-                              Number(applyMonth?.substring(5, 7) - 1)
-                            ? "normal"
-                            : "disable"
+                          ? 'choose'
+                          : item.getMonth() ===
+                              Number(applyMonth?.substring(5, 7) - 1) &&
+                            filterDate(item, typeWeek)
+                          ? 'overDay'
+                          : item.getMonth() ===
+                            Number(applyMonth?.substring(5, 7) - 1)
+                          ? 'normal'
+                          : 'disable'
                       ]
-                    } `}
-                  >
+                    } `}>
                     {item.getDate()}
                   </span>
                   <span
@@ -269,38 +265,36 @@ export function ModalThemCa(
                                               : 'count_blue'
                                           ]
                                         }
-                                    `}
-                  >
+                                    `}>
                     {allCheck[formatDate(item)] &&
                       allCheck[formatDate(item)].length}
                   </span>
                 </div>
               </List.Item>
-            );
+            )
           }}
         />
       </div>
     </div>
-  );
+  )
 
   const checkCa = () => {
     const onChange = async (key: string) => {
       listCheck.includes(key)
         ? setListCheck(listCheck.filter((d: any) => d !== key))
-        : setListCheck([...listCheck, key]);
-    };
-    const checked = (key: any): boolean => listCheck.includes(key);
+        : setListCheck([...listCheck, key])
+    }
+    const checked = (key: any): boolean => listCheck.includes(key)
     const checkComponent = (key: string, content: string) => (
       <li>
         <Checkbox
           key={key}
           className={styles.checkbox}
           onChange={() => onChange(key)}
-          checked={checked(key)}
-        ></Checkbox>
+          checked={checked(key)}></Checkbox>
         {content}
       </li>
-    );
+    )
     return (
       <div style={{ marginTop: '20px' }}>
         <div style={{ marginBottom: '5px', color: 'red' }}>
@@ -317,8 +311,8 @@ export function ModalThemCa(
           </ul>
         </div>
       </div>
-    );
-  };
+    )
+  }
   return (
     <Modal
       open={open}
@@ -326,8 +320,7 @@ export function ModalThemCa(
       width={600}
       closable={false}
       cancelButtonProps={{ style: { display: 'none' } }}
-      okButtonProps={{ style: { display: 'none' } }}
-    >
+      okButtonProps={{ style: { display: 'none' } }}>
       <Form.Item name={'cy_detail'}>
         <div style={{ padding: '20px' }}>
           <div style={{ fontSize: '16px', fontWeight: '500' }}>
@@ -340,22 +333,19 @@ export function ModalThemCa(
               marginTop: '20px',
               display: 'flex',
               justifyContent: 'center',
-            }}
-          >
+            }}>
             <Button
               className={styles.button_white}
               onClick={() => {
-                setOpen(false), setBack(true);
-              }}
-            >
-              <img src="/quay_lai.png" alt="" />
+                setOpen(false), setBack(true)
+              }}>
+              <img src='/quay_lai.png' alt='' />
               <p
                 style={{
                   color: '#4C5BD4',
                   fontSize: '18px',
                   marginLeft: '10px',
-                }}
-              >
+                }}>
                 Quay lại
               </p>
             </Button>
@@ -366,26 +356,26 @@ export function ModalThemCa(
         </div>
       </Form.Item>
     </Modal>
-  );
+  )
 }
 export function ModalChinhSua_Them({
   data,
   form,
   setOpen,
 }: {
-  data: any;
-  form: any;
-  setOpen: Function;
+  data: any
+  form: any
+  setOpen: Function
 }) {
-  const [current, setCurrent]: any = useState(new Date(2023, 6, 1));
-  const [listCheck, setListCheck]: any = useState([]);
-  const [openCheck, setOpenCheck] = useState(false);
-  const [allCheck, setAllCheck]: any = useState({});
-  const [listShift, setListShift]: any = useState([]);
+  const [current, setCurrent]: any = useState(new Date(2023, 6, 1))
+  const [listCheck, setListCheck]: any = useState([])
+  const [openCheck, setOpenCheck] = useState(false)
+  const [allCheck, setAllCheck]: any = useState({})
+  const [listShift, setListShift]: any = useState([])
   // const [date, setDate]:any = useState(new Date(2023,6,1))
   //console.log(new Date(data?.apply_month))
 
-  const router = useRouter();
+  const router = useRouter()
 
   useEffect(() => {
     GET('api/qlc/shift/list').then((res) => {
@@ -395,12 +385,12 @@ export function ModalChinhSua_Them({
             return {
               key: `${item?.shift_id}`,
               content: item?.shift_name,
-            };
+            }
           })
-        );
+        )
       }
-    });
-  }, []);
+    })
+  }, [])
 
   useEffect(() => {
     if (data) {
@@ -410,45 +400,43 @@ export function ModalChinhSua_Them({
           Number(data?.apply_month?.substring(5, 7)) - 1
         ),
         1
-      );
+      )
 
-      let obj = {};
+      let obj = {}
       data?.cy_detail?.map((item) => {
         obj = {
           ...obj,
           [item['date']]:
             item['shift_id'] === '' ? [] : item['shift_id'].split(','),
-        };
-      });
+        }
+      })
       // console.log(obj);
 
-      setAllCheck(obj);
+      setAllCheck(obj)
     }
-  }, [data]);
+  }, [data])
 
-  
-
-  let date = new Date(2023, 6, 1);
+  let date = new Date(2023, 6, 1)
   useEffect(() => {
-    setAllCheck({ ...allCheck, [formatDate(current)]: listCheck });
-    setOpenCheck(true);
-  }, []);
+    setAllCheck({ ...allCheck, [formatDate(current)]: listCheck })
+    setOpenCheck(true)
+  }, [])
 
   useEffect(() => {
-    setAllCheck({ ...allCheck, [formatDate(current)]: listCheck });
-  }, [listCheck]);
+    setAllCheck({ ...allCheck, [formatDate(current)]: listCheck })
+  }, [listCheck])
 
   useEffect(() => {
     setListCheck(
       !(formatDate(current) in allCheck) ? [] : allCheck[formatDate(current)]
-    );
+    )
     // if (formatDate(current) in allCheck) {
     //   console.log(allCheck[formatDate(current)]);
     // }
-  }, [current]);
+  }, [current])
 
   if (data?.apply_month) {
-    date = new Date(data?.apply_month);
+    date = new Date(data?.apply_month)
   }
 
   const Calender = (dates: any) => (
@@ -473,9 +461,9 @@ export function ModalChinhSua_Them({
           dataSource={dates.map((d: any) => d)}
           renderItem={(item: any, index: number) => {
             const onClick = () => {
-              setCurrent(item);
-              setOpenCheck(true);
-            };
+              setCurrent(item)
+              setOpenCheck(true)
+            }
             // console.log(listCheck)
             // console.log(allCheck)
             return (
@@ -484,22 +472,22 @@ export function ModalChinhSua_Them({
                   style={{
                     display: 'flex',
                     justifyContent: 'center',
-                  }}
-                >
+                  }}>
                   <span
                     onClick={() => onClick()}
                     className={`${styles.cover} circleDate ${
                       styles[
-                        _.isEqual(`${item?.getDate()} ${item?.getMonth()}`,
-                        `${current?.getDate()} ${current?.getMonth()}`)
+                        _.isEqual(
+                          `${item?.getDate()} ${item?.getMonth()}`,
+                          `${current?.getDate()} ${current?.getMonth()}`
+                        )
                           ? 'active'
                           : item.getMonth() ===
                             Number(data?.apply_month.substring(5, 7)) - 1
                           ? 'choose'
                           : 'normal'
                       ]
-                    } `}
-                  >
+                    } `}>
                     {item.getDate()}
                   </span>
                   <span
@@ -510,37 +498,35 @@ export function ModalChinhSua_Them({
                           ? 'count_base'
                           : 'count_none'
                       ]
-                    }`}
-                  >
+                    }`}>
                     {allCheck[formatDate(item)] &&
                       allCheck[formatDate(item)].length}
                   </span>
                 </div>
               </List.Item>
-            );
+            )
           }}
         />
       </div>
     </div>
-  );
+  )
   const checkCa = () => {
     const onChange = async (key: string) => {
       listCheck.includes(key)
         ? setListCheck(listCheck.filter((d: any) => d !== key))
-        : setListCheck([...listCheck, key]);
-    };
-    const checked = (key: any): boolean => listCheck.includes(key);
+        : setListCheck([...listCheck, key])
+    }
+    const checked = (key: any): boolean => listCheck.includes(key)
     const checkComponent = (key: string, content: string) => (
       <li>
         <Checkbox
           key={key}
           className={styles.checkbox}
           onChange={() => onChange(key)}
-          checked={checked(key)}
-        ></Checkbox>
+          checked={checked(key)}></Checkbox>
         {content}
       </li>
-    );
+    )
     return (
       <div style={{ marginTop: '20px' }}>
         <div style={{ marginBottom: '5px', color: 'red' }}>
@@ -557,10 +543,10 @@ export function ModalChinhSua_Them({
           </ul>
         </div>
       </div>
-    );
-  };
+    )
+  }
 
-  let month = dates(date);
+  let month = dates(date)
 
   const handleSubmit = () => {
     // change typical allCheck data from {"2023-06-02": [12,13]} to [{date: "2023-06-02", shift_id: "12,13"}]
@@ -574,8 +560,8 @@ export function ModalChinhSua_Them({
         return {
           date: item[0],
           shift_id: item[1].join(','),
-        };
-      });
+        }
+      })
 
     form.validateFields().then((value) => {
       POST('api/qlc/cycle/edit', {
@@ -585,13 +571,13 @@ export function ModalChinhSua_Them({
         cy_detail: JSON.stringify(details),
       }).then((res) => {
         if (res?.result === true) {
-          alert(res?.message);
-          setOpen(false);
-          router.replace(router.asPath);
+          alert(res?.message)
+          setOpen(false)
+          router.reload()
         }
-      });
-    });
-  };
+      })
+    })
+  }
 
   return (
     <div style={{ padding: '20px' }}>
@@ -604,15 +590,17 @@ export function ModalChinhSua_Them({
       <div>{Calender(month)}</div>
       <div style={{ fontSize: '16px' }}>{openCheck && checkCa()}</div>
       <div
-        style={{ marginTop: '20px', display: 'flex', justifyContent: 'center' }}
-      >
+        style={{
+          marginTop: '20px',
+          display: 'flex',
+          justifyContent: 'center',
+        }}>
         <Button
           style={{ backgroundColor: '#4C5BD4', width: '100%', height: 'auto' }}
-          onClick={handleSubmit}
-        >
+          onClick={handleSubmit}>
           <p className={styles.buttonTxt}>Lưu lại</p>
         </Button>
       </div>
     </div>
-  );
+  )
 }

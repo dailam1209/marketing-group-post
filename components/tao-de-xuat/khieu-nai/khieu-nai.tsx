@@ -11,17 +11,17 @@ import { POST_VT, getInfoUser } from '@/pages/api/BaseApi';
 import { DXFileInput } from '@/components/tao-de-xuat-2/components/TaoDeXuatComps';
 
 export const KhieuNai: React.FC = () => {
-  const [form] = Form.useForm();
+  const [form] = Form.useForm()
   const handleChange = (value: string) => {
-    console.log(`selected ${value}`);
-  };
-  const { TextArea } = Input;
-  const [selectedItems, setSelectedItems] = useState<string[]>([]);
+    console.log(`selected ${value}`)
+  }
+  const { TextArea } = Input
+  const [selectedItems, setSelectedItems] = useState<string[]>([])
   //   const filteredChonChucVu = OPTIONS.filter((x) => !selectedItems.includes(x));
-  const [selectTheoDoi, setSelectTheoDoi] = useState<string[]>([]);
-  const [fileData, setFileData] = useState<Blob>();
+  const [selectTheoDoi, setSelectTheoDoi] = useState<string[]>([])
+  const [fileData, setFileData] = useState<Blob>()
 
-  const router = useRouter();
+  const router = useRouter()
 
   const handleSubmit = () => {
     form.validateFields().then((value) => {
@@ -32,11 +32,11 @@ export const KhieuNai: React.FC = () => {
       };
       // console.log(body);
 
-      const fd = new FormData();
+      const fd = new FormData()
 
       Object.keys(body)?.forEach((k) => {
-        fd.append(k, body[k]);
-      });
+        fd.append(k, body[k])
+      })
 
       if (fileData) {
         fd.append('file_kem', fileData);
@@ -47,16 +47,16 @@ export const KhieuNai: React.FC = () => {
           alert('Tạo đề xuất khiếu nại thành công!');
           router.replace(router.asPath);
         }
-      });
-    });
-  };
+      })
+    })
+  }
 
-  const [infoUser, setInfoUser] = useState<any>();
-  const [listDuyet, setListDuyet] = useState<any>({});
+  const [infoUser, setInfoUser] = useState<any>()
+  const [listDuyet, setListDuyet] = useState<any>({})
 
   useEffect(() => {
     const getListDuyet = async () => {
-      const res = await POST_VT('api/vanthu/dexuat/showadd', {});
+      const res = await POST_VT('api/vanthu/dexuat/showadd', {})
 
       if (res?.result) {
         setListDuyet({
@@ -70,9 +70,9 @@ export const KhieuNai: React.FC = () => {
             value: user?.idQLC,
             url: user?.avatarUser,
           })),
-        });
+        })
       }
-    };
+    }
 
     getListDuyet();
 
@@ -81,27 +81,26 @@ export const KhieuNai: React.FC = () => {
 
   useEffect(() => {
     if (infoUser?.idQLC) {
-      form.setFieldValue('name', infoUser?.userName);
+      form.setFieldValue('name', infoUser?.userName)
     }
-  }, [infoUser]);
+  }, [infoUser])
 
   return (
     <div className={styles.khung}>
       <div className={styles.header}>
         <div className={styles.iconheader} onClick={() => router.back()}>
           <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="12"
-            height="22"
-            viewBox="0 0 12 22"
-            fill="none"
-          >
+            xmlns='http://www.w3.org/2000/svg'
+            width='12'
+            height='22'
+            viewBox='0 0 12 22'
+            fill='none'>
             <path
-              d="M10.5996 1.66189L1.12587 11.1356L10.5996 20.6094"
-              stroke="white"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              d='M10.5996 1.66189L1.12587 11.1356L10.5996 20.6094'
+              stroke='white'
+              stroke-width='2'
+              stroke-linecap='round'
+              stroke-linejoin='round'
             />
           </svg>
         </div>
@@ -124,12 +123,11 @@ export const KhieuNai: React.FC = () => {
                     <p className={styles.dau}>*</p>
                   </div>
                 }
-                labelCol={{ span: 24 }}
-              >
+                labelCol={{ span: 24 }}>
                 <Input
                   className={styles.input}
-                  placeholder="Nhập tên đề xuất"
-                  size="large"
+                  placeholder='Nhập tên đề xuất'
+                  size='large'
                 />
               </Form.Item>
             </Col>
@@ -142,14 +140,13 @@ export const KhieuNai: React.FC = () => {
                     <p className={styles.text}>Họ và tên</p>
                   </div>
                 }
-                labelCol={{ span: 24 }}
-              >
+                labelCol={{ span: 24 }}>
                 <Input
                   style={{ backgroundColor: '#EDF3FF' }}
                   className={styles.input}
-                  defaultValue="Vu Van Kha"
+                  defaultValue='Vu Van Kha'
                   disabled
-                  size="large"
+                  size='large'
                 />
               </Form.Item>
             </Col>
@@ -162,14 +159,13 @@ export const KhieuNai: React.FC = () => {
                     <p className={styles.text}>Loại đề xuất</p>
                   </div>
                 }
-                labelCol={{ span: 24 }}
-              >
+                labelCol={{ span: 24 }}>
                 <Input
                   style={{ backgroundColor: '#EDF3FF' }}
                   className={styles.input}
-                  defaultValue="Đề xuất khiếu nại"
+                  defaultValue='Đề xuất khiếu nại'
                   disabled
-                  size="large"
+                  size='large'
                 />
               </Form.Item>
             </Col>
@@ -185,13 +181,12 @@ export const KhieuNai: React.FC = () => {
                     <p className={styles.dau}>*</p>
                   </div>
                 }
-                labelCol={{ span: 24 }}
-              >
+                labelCol={{ span: 24 }}>
                 <TextArea
                   style={{ resize: 'none' }}
                   className={styles.input}
                   rows={5}
-                  placeholder="Nhập nội dung khiếu nại"
+                  placeholder='Nhập nội dung khiếu nại'
                 />
               </Form.Item>
             </Col>
@@ -207,16 +202,15 @@ export const KhieuNai: React.FC = () => {
                     <p className={styles.dau}>*</p>
                   </div>
                 }
-                labelCol={{ span: 24 }}
-              >
+                labelCol={{ span: 24 }}>
                 <Select
                   className={styles.input}
-                  placeholder="Chọn người xét duyệt"
+                  placeholder='Chọn người xét duyệt'
                   options={listDuyet?.listDuyet}
                   onChange={setSelectedItems}
-                  size="large"
+                  size='large'
                   value={selectedItems}
-                  mode="tags"
+                  mode='tags'
                   suffixIcon={<IconSelect />}
                 />
               </Form.Item>
@@ -231,16 +225,15 @@ export const KhieuNai: React.FC = () => {
                     <p className={styles.dau}>*</p>
                   </div>
                 }
-                labelCol={{ span: 24 }}
-              >
+                labelCol={{ span: 24 }}>
                 <Select
                   className={`select_taodexuat ${styles.input}`}
-                  placeholder="Chọn người theo dõi"
+                  placeholder='Chọn người theo dõi'
                   options={listDuyet?.listTheoDoi}
                   onChange={setSelectTheoDoi}
-                  size="large"
+                  size='large'
                   value={selectTheoDoi}
-                  mode="multiple"
+                  mode='multiple'
                   suffixIcon={<IconSelect />}
                 />
               </Form.Item>
@@ -262,5 +255,5 @@ export const KhieuNai: React.FC = () => {
         </Button>
       </div>
     </div>
-  );
-};
+  )
+}

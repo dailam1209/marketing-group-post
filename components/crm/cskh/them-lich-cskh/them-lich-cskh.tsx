@@ -332,10 +332,6 @@ export default function ThemLichCSKH() {
   ];
   const options: SelectProps["options"] = [
     {
-      value: "Từng khách hàng",
-      label: "Từng khách hàng",
-    },
-    {
       value: "Nhóm",
       label: "Nhóm",
     },

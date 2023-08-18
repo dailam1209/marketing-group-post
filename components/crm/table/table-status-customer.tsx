@@ -8,7 +8,7 @@ import EditStatusCustomerModal from "../customer/status/modal_status_customer";
 import { useApi } from "@/components/crm/hooks/useApi";
 import Image from "next/image";
 import AddStatusCustomerModal from "../customer/status/modal_add_customer_status";
-
+const Cookies = require("js-cookie");
 interface DataType {
   key: number;
   name: string;
@@ -30,7 +30,7 @@ const TableStatusCustomer: React.FC<TableStatusCustomerProps> = ({}: any) => {
   const [name, setName] = useState();
   const { data, loading, error, fetchData, updateData, deleteData } = useApi(
     "http://210.245.108.202:3007/api/crm/customerStatus/list",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6MzgwOTg5LCJpZFRpbVZpZWMzNjUiOjIwMjU4NSwiaWRRTEMiOjE3NjMsImlkUmFvTmhhbmgzNjUiOjAsImVtYWlsIjoiZHVvbmdoaWVwaXQxQGdtYWlsLmNvbSIsInBob25lVEsiOiIiLCJjcmVhdGVkQXQiOjE2MDA2NTg0NzgsInR5cGUiOjEsImNvbV9pZCI6MTc2MywidXNlck5hbWUiOiJDw7RuZyBUeSBUTkhIIEggTSBMIFBwbyJ9LCJpYXQiOjE2OTIxNTY1MTksImV4cCI6MTY5MjI0MjkxOX0.1M55PZxSpovkNVmdGkd10pz-a7D0ApuqLOmsmBghh7w",
+    `${Cookies.get("token_base365")}`,
     "POST",
     { stt_name: `${stt}`, pageSize: 10000 }
   );
@@ -51,13 +51,15 @@ const TableStatusCustomer: React.FC<TableStatusCustomerProps> = ({}: any) => {
     if (!e && id) {
       updateData(
         "http://210.245.108.202:3007/api/crm/customerStatus/update",
-"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6MzgwOTg5LCJpZFRpbVZpZWMzNjUiOjIwMjU4NSwiaWRRTEMiOjE3NjMsImlkUmFvTmhhbmgzNjUiOjAsImVtYWlsIjoiZHVvbmdoaWVwaXQxQGdtYWlsLmNvbSIsInBob25lVEsiOiIiLCJjcmVhdGVkQXQiOjE2MDA2NTg0NzgsInR5cGUiOjEsImNvbV9pZCI6MTc2MywidXNlck5hbWUiOiJDw7RuZyBUeSBUTkhIIEggTSBMIFBwbyJ9LCJpYXQiOjE2OTIxNTY1MTksImV4cCI6MTY5MjI0MjkxOX0.1M55PZxSpovkNVmdGkd10pz-a7D0ApuqLOmsmBghh7w",        "POST",
+        `${Cookies.get("token_base365")}`,
+        "POST",
         { stt_id: id, status: 0 }
       );
     } else {
       updateData(
         "http://210.245.108.202:3007/api/crm/customerStatus/update",
- "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6MzgwOTg5LCJpZFRpbVZpZWMzNjUiOjIwMjU4NSwiaWRRTEMiOjE3NjMsImlkUmFvTmhhbmgzNjUiOjAsImVtYWlsIjoiZHVvbmdoaWVwaXQxQGdtYWlsLmNvbSIsInBob25lVEsiOiIiLCJjcmVhdGVkQXQiOjE2MDA2NTg0NzgsInR5cGUiOjEsImNvbV9pZCI6MTc2MywidXNlck5hbWUiOiJDw7RuZyBUeSBUTkhIIEggTSBMIFBwbyJ9LCJpYXQiOjE2OTIxNTY1MTksImV4cCI6MTY5MjI0MjkxOX0.1M55PZxSpovkNVmdGkd10pz-a7D0ApuqLOmsmBghh7w",       "POST",
+        `${Cookies.get("token_base365")}`,
+        "POST",
         { stt_id: id, status: 1 }
       );
     }

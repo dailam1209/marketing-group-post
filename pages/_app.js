@@ -20,7 +20,9 @@ import styles from '@/components/crm/sidebar/sidebar.module.css'
 import Layout from '@/components/hr/Layout'
 import Head from 'next/head'
 import Seo from '@/components/head'
-
+import { Provider } from "react-redux";
+import { store } from "@/components/crm/redux/store";
+import { TongDaiContext } from "@/components/crm/context/tongdaiContext";
 export const LoadingComp = () => {
   return (
     <Spin
@@ -110,6 +112,7 @@ export default function App({ Component, pageProps }) {
               <Component {...pageProps} />
             </Bodyframe>
           ) : router.pathname?.includes('crm') ? (
+            <Provider store={store}>
             <AccessContextComponent>
               <SidebarResize>
                 <NavigateContextComponent>
@@ -117,10 +120,13 @@ export default function App({ Component, pageProps }) {
                   <Sidebar isOpened={isOpen} />
                   <ChatBusiness />
                   <TitleHeaderMobile />
+                  <TongDaiContext>
                   <Component {...pageProps} />
+                 </TongDaiContext>
                 </NavigateContextComponent>
               </SidebarResize>
             </AccessContextComponent>
+            </Provider>
           ) : router.pathname?.includes('hr') ? (
             <Layout>
               <DndProvider backend={HTML5Backend}>
