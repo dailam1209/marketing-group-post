@@ -86,11 +86,13 @@ export function ModalDanhSachNhanVien({
   setOpenFilterListClick,
   id,
   listPhongBan,
+  choosen
 }: {
   openFilterListClick: boolean;
   setOpenFilterListClick: any;
   id: any;
   listPhongBan: any;
+  choosen: any
 }) {
   const [openFilterDeleteClick, setOpenFilterDeleteClick] = useState(false);
   const [openFilterSettingClick, setOpenFilterSettingClick] = useState(false);
@@ -282,7 +284,7 @@ export function ModalDanhSachNhanVien({
       <div className={styles.body}>
         <div className={`${styles.bodyItem}`}>
           <span className={styles.titleList}>
-            Danh sách nhân viên hưởng Phúc lợi 1
+            Danh sách nhân viên hưởng Phúc lợi {choosen?.cl_name}
           </span>
         </div>
         <div className={`${styles.bodyItem}`}>

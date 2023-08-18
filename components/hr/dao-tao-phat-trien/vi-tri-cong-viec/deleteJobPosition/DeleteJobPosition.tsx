@@ -1,41 +1,43 @@
-import React, { useState } from "react";
+import React, { useState } from 'react'
 
-import styles from "./DeleteJobPosition.module.css";
-import { deleteDataJobPosition } from "@/pages/hr/api/dao-tao-phat-trien/JobPosition";
-export interface DeleteJobPosition { }
+import styles from './DeleteJobPosition.module.css'
+import { deleteDataJobPosition } from '@/pages/api/api-hr/dao-tao-phat-trien/JobPosition'
+export interface DeleteJobPosition {}
 
-export default function DeleteJobPosition({ animation, closeModal, id, deleteData }: any) {
+export default function DeleteJobPosition({
+  animation,
+  closeModal,
+  id,
+  deleteData,
+}: any) {
   const handleCancel = () => {
-    closeModal();
-  };
+    closeModal()
+  }
 
   const handleDelete = async (e: any) => {
-    e.preventDefault();
+    e.preventDefault()
     try {
       const response = await deleteDataJobPosition(id)
       if (response?.status !== 200) {
         alert('Xóa dữ liệu thất bại')
-      }
-      else {
+      } else {
         closeModal()
         deleteData(response?.data)
       }
-    } catch (error) {
-
-    }
+    } catch (error) {}
   }
-
 
   return (
     <>
       <div className={`${styles.overlay}`} onClick={handleCancel}></div>
-      <div className={`${styles.modal} ${styles.modal_setting}  ${animation ? styles.fade_in : styles.fade_out }`}>
+      <div
+        className={`${styles.modal} ${styles.modal_setting}  ${
+          animation ? styles.fade_in : styles.fade_out
+        }`}>
         <div className={`${styles.contentquytrinh}`}>
           <div className={`${styles.modal_content} ${styles.contentdel}`}>
             <div className={`${styles.modal_header} ${styles.headquytrinh}`}>
-              <h5 className={`${styles.modal_title}`}>
-                XÓA VỊ TRÍ CÔNG VIỆC
-              </h5>
+              <h5 className={`${styles.modal_title}`}>XÓA VỊ TRÍ CÔNG VIỆC</h5>
             </div>
 
             <div className={`${styles.modal_body} ${styles.bodyquytrinh}`}>
@@ -51,19 +53,22 @@ export default function DeleteJobPosition({ animation, closeModal, id, deleteDat
             </div>
 
             <form onSubmit={(e) => handleDelete(e)}>
-              <div className={`${styles.modal_footer} ${styles.footerquytrinh}`}>
-                <button type="button" className={`${styles.btn_huy}`} onClick={handleCancel}>
+              <div
+                className={`${styles.modal_footer} ${styles.footerquytrinh}`}>
+                <button
+                  type='button'
+                  className={`${styles.btn_huy}`}
+                  onClick={handleCancel}>
                   <span>Hủy</span>
                 </button>
-                <button type="submit" className={`${styles.delete}`}>
+                <button type='submit' className={`${styles.delete}`}>
                   Xóa
                 </button>
               </div>
             </form>
-
           </div>
         </div>
       </div>
     </>
-  );
+  )
 }

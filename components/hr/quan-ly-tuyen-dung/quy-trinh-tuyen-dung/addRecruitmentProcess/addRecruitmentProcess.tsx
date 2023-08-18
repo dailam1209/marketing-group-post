@@ -1,10 +1,10 @@
 /* eslint-disable react/jsx-key */
 
-import React, { useEffect, useState } from "react";
-import styles from "./addRecruitmentProcess.module.css";
-import AddAdditionalRecruitmentProcess from "../addAdditionalRecruitmentProcess/addAdditionalRecruitmentProcess";
-import * as Yup from "yup";
-import { AddDataRecruitment } from "@/pages/hr/api/quan-ly-tuyen-dung/RecruitmentManagerService";
+import React, { useEffect, useState } from 'react'
+import styles from './addRecruitmentProcess.module.css'
+import AddAdditionalRecruitmentProcess from '../addAdditionalRecruitmentProcess/addAdditionalRecruitmentProcess'
+import * as Yup from 'yup'
+import { AddDataRecruitment } from '@/pages/api/api-hr/quan-ly-tuyen-dung/RecruitmentManagerService'
 export default function AddRecruitmentProcess({
   animation,
   handleCloseModalAdd,
@@ -12,79 +12,79 @@ export default function AddRecruitmentProcess({
 }: any) {
   const [additionalProcesses, setAdditionalProcesses] = useState<JSX.Element[]>(
     []
-  );
-  const [lastAddedIndex, setLastAddedIndex] = useState(-1);
-  const [errors, setErrors] = useState<any>({});
+  )
+  const [lastAddedIndex, setLastAddedIndex] = useState(-1)
+  const [errors, setErrors] = useState<any>({})
   const [formData, setFormData] = useState<any>({
-    nameProcess: "",
-    applyFor: "",
+    nameProcess: '',
+    applyFor: '',
     listStage: [{}],
-  });
+  })
   const schema = Yup.object().shape({
-    nameProcess: Yup.string().required("Tên quy trình không được để trống"),
-    applyFor: Yup.string().required("Đối tượng không được để trống"),
-  });
+    nameProcess: Yup.string().required('Tên quy trình không được để trống'),
+    applyFor: Yup.string().required('Đối tượng không được để trống'),
+  })
 
   const handleChange = (event) => {
-    const { name, value } = event.target;
+    const { name, value } = event.target
     setFormData((prevState) => ({
       ...prevState,
       [name]: value,
-    }));
-  };
+    }))
+  }
 
   const handleAddProcess = () => {
     const newStage = {
-      nameStage: "",
-      posAssum: "",
-      target: "",
-      time: "",
-      des: "",
-    };
+      nameStage: '',
+      posAssum: '',
+      target: '',
+      time: '',
+      des: '',
+    }
 
     const updatedFormData = {
       ...formData,
       listStage: [...formData.listStage, newStage],
-    };
+    }
     const newProcess = (
       <AddAdditionalRecruitmentProcess
         postData={(data) => createListData(data, additionalProcesses.length)}
         key={additionalProcesses.length}
       />
-    );
-    setAdditionalProcesses([...additionalProcesses, newProcess]);
-    setLastAddedIndex(additionalProcesses.length);
-    setFormData(updatedFormData);
-  };
+    )
+    setAdditionalProcesses([...additionalProcesses, newProcess])
+    setLastAddedIndex(additionalProcesses.length)
+    setFormData(updatedFormData)
+  }
 
   const createListData = (data, index) => {
     setFormData((prevState) => {
       const updatedListStage = prevState.listStage.map((stage, i) => {
         if (i === index) {
-          return data;
+          return data
         }
-        return stage;
-      });
+        return stage
+      })
 
       return {
         ...prevState,
         listStage: updatedListStage,
-      };
-    });
-  };
+      }
+    })
+  }
 
   const handleDeleteProcess = (index) => {
-    const updatedProcesses = [...additionalProcesses];
-    updatedProcesses.splice(lastAddedIndex, 1);
-    setAdditionalProcesses(updatedProcesses);
-    setLastAddedIndex(updatedProcesses.length - 1);
-    const updatedStages = [...formData.listStage];
-    updatedStages.splice(index, 1);
+    const updatedProcesses = [...additionalProcesses]
+    updatedProcesses.splice(lastAddedIndex, 1)
+    setAdditionalProcesses(updatedProcesses)
+    setLastAddedIndex(updatedProcesses.length - 1)
+    const updatedStages = [...formData.listStage]
+    updatedStages.splice(index, 1)
     setFormData((prevFormData) => ({
       ...prevFormData,
       listStage: updatedStages,
-    }));
-  };
+    }))
+  }
 
   useEffect(() => {
     setAdditionalProcesses([
@@ -92,43 +92,42 @@ export default function AddRecruitmentProcess({
         postData={(data) => createListData(data, additionalProcesses.length)}
         key={additionalProcesses.length}
       />,
-    ]);
-  }, []);
-
+    ])
+  }, [])
 
   const handleSubmit = async (e: any) => {
-    e.preventDefault();
+    e.preventDefault()
     try {
-      await schema.validate(formData, { abortEarly: false });
-      const response = await AddDataRecruitment(formData);
+      await schema.validate(formData, { abortEarly: false })
+      const response = await AddDataRecruitment(formData)
       if (response?.status === 403) {
-        alert('Bạn chưa được phân quyền trên phần mềm quản trị nhân sự 365. Vui lòng liên hệ quản trị viên để biết thêm chi tiết!')
-      }
-      else if (response?.status !== 200) {
-        alert("Thêm giai đoạn không thành công");
+        alert(
+          'Bạn chưa được phân quyền trên phần mềm quản trị nhân sự 365. Vui lòng liên hệ quản trị viên để biết thêm chi tiết!'
+        )
+      } else if (response?.status !== 200) {
+        alert('Thêm giai đoạn không thành công')
       } else {
-        addRecruitmentProcess(response?.data);
-        handleCloseModalAdd();
+        addRecruitmentProcess(response?.data)
+        handleCloseModalAdd()
       }
     } catch (error: any) {
-      const validationErrors = {};
+      const validationErrors = {}
       if (error?.inner) {
         error.inner.forEach((err) => {
-          validationErrors[err.path] = err.message;
-        });
+          validationErrors[err.path] = err.message
+        })
       }
-      setErrors(validationErrors);
+      setErrors(validationErrors)
     }
-  };
-
+  }
 
   return (
     <>
       <div className={`${styles.overlay} `} onClick={handleCloseModalAdd}></div>
       <div
-        className={`${styles.modal} ${styles.modal_setting}  ${animation ? styles.fade_in : styles.fade_out
-          }`}
-      >
+        className={`${styles.modal} ${styles.modal_setting}  ${
+          animation ? styles.fade_in : styles.fade_out
+        }`}>
         <div className={`${styles.modal_dialog} ${styles.contentquytrinh}`}>
           <div className={`${styles.modal_content} `}>
             {/* header */}
@@ -141,8 +140,7 @@ export default function AddRecruitmentProcess({
             {/* body */}
             <form
               onSubmit={(e) => handleSubmit(e)}
-              className={`${styles.modal_form}`}
-            >
+              className={`${styles.modal_form}`}>
               <div className={`${styles.modal_body} ${styles.bodyquytrinh}`}>
                 <div className={`${styles.form_groups}`}>
                   <label>
@@ -151,20 +149,18 @@ export default function AddRecruitmentProcess({
                   </label>
                   <div className={`${styles.inputright}`}>
                     <input
-                      type="text"
-                      name="nameProcess"
+                      type='text'
+                      name='nameProcess'
                       className={`${styles.inputquytrinh}`}
-                      placeholder="Nhập tên quy trình tuyển dụng"
-                      onChange={handleChange}
-                    ></input>
+                      placeholder='Nhập tên quy trình tuyển dụng'
+                      onChange={handleChange}></input>
                     {errors.nameProcess && (
                       <>
                         <picture>
                           <img
                             className={`${styles.icon_err}`}
-                            src={`${"/danger.png"}`}
-                            alt="Lỗi"
-                          ></img>
+                            src={`${'/danger.png'}`}
+                            alt='Lỗi'></img>
                         </picture>
                         <div className={`${styles.errors}`}>
                           {errors.nameProcess}
@@ -181,20 +177,18 @@ export default function AddRecruitmentProcess({
                   </label>
                   <div className={`${styles.inputright}`}>
                     <input
-                      type="text"
-                      name="applyFor"
+                      type='text'
+                      name='applyFor'
                       className={`${styles.inputquytrinh}`}
-                      placeholder="Nhập đối tượng áp dụng"
-                      onChange={handleChange}
-                    ></input>
+                      placeholder='Nhập đối tượng áp dụng'
+                      onChange={handleChange}></input>
                     {errors.applyFor && (
                       <>
                         <picture>
                           <img
                             className={`${styles.icon_err}`}
-                            src={`${"/danger.png"}`}
-                            alt="Lỗi"
-                          ></img>
+                            src={`${'/danger.png'}`}
+                            alt='Lỗi'></img>
                         </picture>
                         <div className={`${styles.errors}`}>
                           {errors.applyFor}
@@ -211,17 +205,16 @@ export default function AddRecruitmentProcess({
                         <button
                           onClick={() => handleDeleteProcess(index)}
                           style={{
-                            border: "none",
-                            backgroundColor: "transparent",
-                            marginLeft: "94%",
-                            position: "relative",
-                            top: "25px",
-                          }}
-                        >
+                            border: 'none',
+                            backgroundColor: 'transparent',
+                            marginLeft: '94%',
+                            position: 'relative',
+                            top: '25px',
+                          }}>
                           <picture>
                             <img
-                              src={`${"/icon-remove-quytrinh.svg"}`}
-                              alt="Xóa"
+                              src={`${'/icon-remove-quytrinh.svg'}`}
+                              alt='Xóa'
                             />
                           </picture>
                         </button>
@@ -234,26 +227,23 @@ export default function AddRecruitmentProcess({
                 {/* thêm giai đoạn */}
                 <div className={`${styles.clearfix}`}>
                   <p
-                    style={{ cursor: "default" }}
+                    style={{ cursor: 'default' }}
                     className={`${styles.pull_right} ${styles.add_gd}`}
-                    onClick={handleAddProcess}
-                  >
+                    onClick={handleAddProcess}>
                     Thêm mới giai đoạn
                   </p>
                 </div>
               </div>
 
               <div
-                className={`${styles.modal_footer} ${styles.footerquytrinh}`}
-              >
+                className={`${styles.modal_footer} ${styles.footerquytrinh}`}>
                 <button
-                  type="button"
+                  type='button'
                   className={`${styles.btn_huy}`}
-                  onClick={handleCloseModalAdd}
-                >
+                  onClick={handleCloseModalAdd}>
                   <span>Hủy</span>
                 </button>
-                <button type="submit" className={`${styles.success}`}>
+                <button type='submit' className={`${styles.success}`}>
                   Thêm
                 </button>
               </div>
@@ -262,5 +252,5 @@ export default function AddRecruitmentProcess({
         </div>
       </div>
     </>
-  );
+  )
 }

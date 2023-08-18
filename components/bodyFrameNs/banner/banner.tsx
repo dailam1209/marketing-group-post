@@ -42,7 +42,7 @@ export const Banner = () => {
         <div className={styles.imgWrapper}>
           <Image
             alt='/'
-            src={'/phone.png'}
+            src={'/phone-banner.png'}
             width={0}
             height={0}
             sizes='100vw'

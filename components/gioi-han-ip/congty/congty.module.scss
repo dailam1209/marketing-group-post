@@ -1,0 +1,223 @@
+/** @format */
+
+.table_form {
+   display: flex;
+   flex-direction: column;
+   gap: 24px;
+   .btn {
+      display: flex;
+      align-items: center;
+      background-color: #4c5bd4;
+      gap: 10px;
+      padding: 13px;
+      border-radius: 4px;
+      width: 141px;
+      cursor: pointer;
+      span {
+         color: #fff;
+      }
+   }
+   .form_select_search {
+      & > div {
+         align-items: flex-end;
+      }
+      .select_wrap {
+         display: flex;
+         flex-direction: column;
+         gap: 8px;
+         .title {
+            color: #333;
+            font-family: Roboto;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+         }
+         .select {
+            & > div {
+               height: auto;
+               padding: 7px 11px;
+               display: flex;
+               align-items: center;
+               span {
+                  color: #605866;
+                  font-family: Roboto;
+                  font-size: 16px;
+                  font-style: normal;
+                  font-weight: 300;
+                  line-height: normal;
+               }
+            }
+            span {
+               width: 13px;
+            }
+         }
+      }
+
+      .search {
+         display: flex;
+         height: 46px;
+         padding: 7px 16px;
+         gap: 12px;
+         align-items: center;
+         border-radius: 8px;
+         border: 1px solid #d9d9d9;
+         background: #fff;
+         input {
+            outline: none;
+            border: none;
+            width: 100%;
+            &::placeholder {
+               color: #605866;
+               font-family: Roboto;
+               font-size: 16px;
+               font-style: normal;
+               font-weight: 300;
+               line-height: normal;
+            }
+         }
+      }
+      .btn {
+         .icon_search {
+            height: 18px;
+         }
+      }
+   }
+}
+
+//custom table
+.card {
+   .table {
+      border-radius: 6px;
+
+      & > div {
+         border-radius: 6px;
+      }
+      thead {
+         & > tr > th {
+            background-color: #4c5bd4 !important;
+            color: #fff;
+            padding: 12px 12px;
+            & > div {
+               justify-content: center;
+            }
+            & > div span {
+               color: #fff;
+               font-family: Roboto;
+               font-size: 16px;
+               font-style: normal;
+               font-weight: 500;
+               line-height: normal;
+            }
+         }
+      }
+      tbody {
+         tr {
+            background-color: #f4f5ff;
+            td {
+               text-align: center;
+               border: 1px solid #fff;
+               padding: 10px 10px;
+            }
+         }
+      }
+
+      & > div {
+         border: none;
+         span {
+            button {
+            }
+            .p-highlight {
+               background-color: #4c5bd4 !important;
+               color: #fff !important;
+            }
+         }
+      }
+
+      .action_wrap {
+         display: flex;
+         gap: 10px;
+         justify-content: center;
+         img {
+            cursor: pointer;
+         }
+      }
+
+      .idCop_wrap {
+         display: flex;
+         flex-wrap: wrap;
+         justify-content: center;
+         gap: 10px;
+         span {
+            color: #4c5bd4;
+            font-family: Roboto;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            text-decoration-line: underline;
+            cursor: pointer;
+         }
+      }
+      .dep_wrap {
+         & > div {
+            margin-bottom: 5px;
+         }
+         span {
+            color: #4c5bd4;
+            font-family: Roboto;
+            font-size: 16px;
+            font-style: italic;
+            font-weight: 400;
+            line-height: normal;
+            cursor: pointer;
+         }
+      }
+      .name_wrap {
+         span {
+            color: #4c5bd4;
+            font-family: Roboto;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+            cursor: pointer;
+         }
+      }
+   }
+}
+@media screen and (max-width: 1712px) {
+   .card {
+      .table {
+         ::-webkit-scrollbar {
+            width: 0px;
+            height: 6px;
+         }
+         ::-webkit-scrollbar-thumb {
+            background-color: #4c5bd4 !important;
+            outline: 1px solid #4c5bd4;
+            border-radius: 10px;
+         }
+         & > div {
+            table {
+               overflow: hidden;
+               overflow-x: scroll;
+               overflow-y: scroll;
+               width: 1524px;
+            }
+         }
+      }
+   }
+}
+@media screen and (max-width: 1024px) {
+   .table_form {
+      padding: 12px;
+   }
+}
+@media screen and (max-width: 600px) {
+   .select_wrap {
+      .title {
+         display: none;
+      }
+   }
+}

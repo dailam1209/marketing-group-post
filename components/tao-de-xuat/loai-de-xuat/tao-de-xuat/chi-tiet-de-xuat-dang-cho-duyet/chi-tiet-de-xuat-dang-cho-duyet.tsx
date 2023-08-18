@@ -4,11 +4,13 @@ import Image from 'next/image'
 import { Status } from '../../de-xuat-cua-toi/chi-tiet-de-xuat/chi-tiet-de-xuat'
 import { GroupButton } from '../component/ChiTiet'
 import { ModalDetailsLLV } from '@/components/tao-de-xuat/de-xuat-lich-lam-viec/chi-tiet-de-xuat/modal'
+import { Col, Row } from 'antd'
 
 export function ChiTietDeXuatDangChoDuyet(data: any) {
   const targetRef: any = useRef()
   const targetRef414: any = useRef()
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 })
+  console.log(data)
 
   useLayoutEffect(() => {
     if (targetRef.current) {
@@ -33,97 +35,79 @@ export function ChiTietDeXuatDangChoDuyet(data: any) {
             <Image src={'/print.png'} alt='' width={30} height={30}></Image>
           </div>
           <div className={styles.body}>
-            <div className={styles.bodyLeft}>
-              <p className={styles.bodyHeader}>{data?.name}</p>
-              <div className={styles.groupButton}>
-                {GroupButton(
-                  data?.admin,
-                  data?.active,
-                  data?.companyAcp,
-                  data?.id1,
-                  data?.id2,
-                  data?.overtime,
-                  targetRef414,
-                  dimensions,
-                  'accept414',
-                  data?.deny
-                )}
-              </div>
-              <div className={styles.tab}>
-                <p className={styles.headerTab}>Thông tin đề xuất</p>
-                {Object.keys(data?.dxInfo)?.map((k, index) => (
-                  <p key={index}>
-                    {k}:{' '}
-                    <span style={{ color: data?.dxInfo?.[k]?.color }}>
-                      {data?.dxInfo?.[k]?.value}
-                    </span>
-                  </p>
-                ))}
-              </div>
-              <div className={styles.tab}>
-                <p className={styles.headerTab}>Thông tin chung</p>
-                {Object.keys(data?.commonInfo)?.map((k, index) => (
-                  <div key={index} className={styles.gap}>
-                    <p>
-                      {!data?.commonInfo?.[k]?.noIndex && `${index + 1}.`}
+            <Row>
+              <Col span={18}>
+                <p className={styles.bodyHeader}>{data?.name}</p>
+
+                <div className={styles.tab}>
+                  <p className={styles.headerTab}>Thông tin đề xuất</p>
+                  {Object.keys(data?.dxInfo)?.map((k, index) => (
+                    <p key={index}>
                       {k}:{' '}
-                      <span style={{ color: data?.commonInfo?.[k]?.color }}>
-                        {data?.commonInfo?.[k]?.value}
-                        {data?.commonInfo?.[k]?.component &&
-                          data?.commonInfo?.[k]?.component}
+                      <span style={{ color: data?.dxInfo?.[k]?.color }}>
+                        {data?.dxInfo?.[k]?.value}
                       </span>
                     </p>
+                  ))}
+                </div>
+                <div className={styles.tab}>
+                  <p className={styles.headerTab}>Thông tin chung</p>
+                  {Object.keys(data?.commonInfo)?.map((k, index) => (
+                    <div key={index} className={styles.gap}>
+                      <p>
+                        {!data?.commonInfo?.[k]?.noIndex && `${index + 1}.`}
+                        {k}:{' '}
+                        <span style={{ color: data?.commonInfo?.[k]?.color }}>
+                          {data?.commonInfo?.[k]?.value}
+                          {data?.commonInfo?.[k]?.component &&
+                            data?.commonInfo?.[k]?.component}
+                        </span>
+                      </p>
 
-                    {data?.commonInfo?.[k]?.more &&
-                      Object.keys(data?.commonInfo?.[k]?.more).map(
-                        (key, indx) => (
-                          <>
-                            <span
-                              key={indx}
-                              style={{
-                                color:
-                                  data?.commonInfo?.[k]?.more?.[key]?.color,
-                              }}>
-                              {key}: {data?.commonInfo?.[k]?.more?.[key]?.value}
-                            </span>
-                            {data?.commonInfo?.[k]?.more?.[key]?.more &&
-                              Object.keys(
-                                data?.commonInfo?.[k]?.more?.[key]?.more
-                              )?.map((k1, index1) => (
-                                <span
-                                  key={index1}
-                                  style={{
-                                    color:
+                      {data?.commonInfo?.[k]?.more &&
+                        Object.keys(data?.commonInfo?.[k]?.more).map(
+                          (key, indx) => (
+                            <>
+                              <span
+                                key={indx}
+                                style={{
+                                  color:
+                                    data?.commonInfo?.[k]?.more?.[key]?.color,
+                                }}>
+                                {key}:{' '}
+                                {data?.commonInfo?.[k]?.more?.[key]?.value}
+                              </span>
+                              {data?.commonInfo?.[k]?.more?.[key]?.more &&
+                                Object.keys(
+                                  data?.commonInfo?.[k]?.more?.[key]?.more
+                                )?.map((k1, index1) => (
+                                  <span
+                                    key={index1}
+                                    style={{
+                                      color:
+                                        data?.commonInfo?.[k]?.more?.[key]
+                                          ?.more?.[k1]?.color,
+                                    }}>
+                                    {k1}:{' '}
+                                    {
                                       data?.commonInfo?.[k]?.more?.[key]
-                                        ?.more?.[k1]?.color,
-                                  }}>
-                                  {k1}:{' '}
-                                  {
-                                    data?.commonInfo?.[k]?.more?.[key]?.more?.[
-                                      k1
-                                    ]?.value
-                                  }
-                                </span>
-                              ))}
-                          </>
-                        )
-                      )}
-                  </div>
-                ))}
-              </div>
-              {GroupButton(
-                data?.admin,
-                data?.active,
-                data?.companyAcp,
-                data?.id1,
-                data?.id2,
-                data?.overtime,
-                targetRef,
-                dimensions,
-                'accept',
-                data?.deny
-              )}
-            </div>
+                                        ?.more?.[k1]?.value
+                                    }
+                                  </span>
+                                ))}
+                            </>
+                          )
+                        )}
+                    </div>
+                  ))}
+                </div>
+              </Col>
+              <Col span={6}>
+                <div className={styles.groupButton}>
+                  {GroupButton(data?.admin, data?.type, data?.overtime)}
+                </div>
+              </Col>
+            </Row>
           </div>
         </div>
         <div className={styles.rightSide}>
@@ -155,6 +139,7 @@ export function ChiTietDeXuatDangChoDuyet(data: any) {
                 <div className={styles.itemPeople} key={indx}>
                   <Image
                     src={item?.avatar}
+                    loader={() => item?.avatar}
                     alt=''
                     width={60}
                     height={60}></Image>

@@ -68,7 +68,7 @@ export default function Header() {
             if (response.data.authentic == 0) {
               setLinkHome(router.pathname)
             } else {
-              setLinkHome('/quan-ly-ung-dung-nhan-vien.html')
+              setLinkHome('/')
             }
           } else if (type() === '1') {
             let response = await infoCom()
@@ -78,7 +78,7 @@ export default function Header() {
             if (response.data.authentic == 0) {
               setLinkHome(router.pathname)
             } else {
-              setLinkHome('/quan-ly-ung-dung-cong-ty.html')
+              setLinkHome('/')
             }
           } else {
             let response = await infoPersonal()
@@ -101,7 +101,7 @@ export default function Header() {
   }, [])
   return (
     <>
-      <div className={styles.header_ql} style={{ background: 'red' }}>
+      <div className={styles.header_ql} style={{ background: '#4c5bd4' }}>
         <div className={styles.cnt_header}>
           <div className={styles.bg_wra}>
             <div className={styles.bg_ima_menu} onClick={handleSideBar}>
@@ -196,7 +196,7 @@ export default function Header() {
                   <>
                     <div className={styles.hd_log}>
                       <div className={styles.bg_log}>
-                        <p>
+                        <p style={{ color: '#fff' }}>
                           <Link
                             href={'lua-chon-dang-ky.html/'}
                             className='cr_weight_bold share_fsize_tow share_clr_tow'>
@@ -272,7 +272,7 @@ export default function Header() {
         }}>
         <div className={styles.chd_content}>
           <p className={styles.chuyen_doi}>
-            <a href='/quan-ly-ung-dung-cong-ty.html'>Chuyển đổi số 365</a>
+            <a href='/'>Chuyển đổi số 365</a>
           </p>
           <p
             className={`${styles.dang_xuat} ${styles.btx_logout}`}
@@ -331,16 +331,17 @@ export default function Header() {
       </div>
 
       <div
-        className='modal_ind share_res_header'
+        className={`${styles.modal_ind} ${styles.share_res_header}`}
         style={{ display: showSideBar ? 'block' : 'none' }}
         onClick={handleSideBar}>
-        <div className='modal-content'>
-          <div className='ctn_ind share_bgr_one'>
-            <div className='modal-body'>
+        <div className={styles['modal-content']}>
+          <div className={`${styles.ctn_ind} ${styles.share_bgr_one}`}>
+            <div className={styles['modal-body']}>
               {renderContent ? (
                 <>
-                  <div className='ind_one'>
-                    <div className='avt_log_ind share_clr_tow share_fsize_tow cr_weight_bold'>
+                  <div className={styles.ind_one}>
+                    <div
+                      className={`${styles.avt_log_ind} ${styles.share_clr_tow} ${styles.share_fsize_tow} ${styles.cr_weight_bold}`}>
                       <img
                         src={
                           data.avatarUser ? data.avatarUser : `../img/add.png`
@@ -358,59 +359,71 @@ export default function Header() {
                 <></>
               )}
 
-              <div className='ind-tow'>
-                <div className='ctn_ulli'>
-                  <ul className='navbar-nav'>
-                    <a href={getLinkHome} className='nav-item'>
-                      <li className='nav-child-item cr_weight_bold share_fsize_tow share_clr_tow d_flex'>
-                        <span className='item_ic'>
+              <div className={styles['ind-tow']}>
+                <div className={styles.ctn_ulli}>
+                  <ul className={styles['navbar-nav']}>
+                    <a href={getLinkHome} className={styles['nav-item']}>
+                      <li
+                        className={`${styles['nav-child-item']} ${styles.cr_weight_bold} ${styles.share_fsize_tow} ${styles.share_clr_tow} ${styles.d_flex}`}>
+                        <span className={styles.item_ic}>
                           <img src='../img/home_ind.png' alt='' />
                         </span>
-                        <p>Trang chủ</p>
+                        <p style={{ color: '#fff' }}>Trang chủ</p>
                       </li>
                     </a>
-                    <a href='/san-pham.html' className='nav-item'>
-                      <li className='nav-child-item cr_weight_bold share_fsize_tow share_clr_tow d_flex'>
-                        <span className='item_ic'>
+                    <a href='/san-pham.html' className={styles['nav-item']}>
+                      <li
+                        className={`${styles['nav-child-item']} ${styles.cr_weight_bold} ${styles.share_fsize_tow} ${styles.share_clr_tow} ${styles.d_flex}`}>
+                        <span className={styles.item_ic}>
                           <img src='../img/ung-dung.png' alt='' />
                         </span>
-                        <p>Sản phẩm</p>
+                        <p style={{ color: '#fff' }}>Sản phẩm</p>
                       </li>
                     </a>
-                    <a href='/he-sinh-thai.html' className='nav-item'>
-                      <li className='nav-child-item cr_weight_bold share_fsize_tow share_clr_tow d_flex'>
-                        <span className='item_ic'>
+                    <a href='/he-sinh-thai.html' className={styles['nav-item']}>
+                      <li
+                        style={{ display: 'flex', alignItems: 'center' }}
+                        className={`${styles['nav-child-item']} ${styles.cr_weight_bold} ${styles.share_fsize_tow} ${styles.share_clr_tow} ${styles.d_flex}`}>
+                        <span className={styles.item_ic}>
                           <img src='../img/he_sinhthai.png' alt='' />
                         </span>
-                        <p>Hệ sinh thái</p>
+                        <p style={{ color: '#fff' }}>Hệ sinh thái</p>
                       </li>
                     </a>
                     <a
                       href='https://dev.timviec365.vn/blog'
-                      className='nav-item'>
-                      <li className='nav-child-item cr_weight_bold share_fsize_tow share_clr_tow d_flex'>
-                        <span className='item_ic'>
+                      className={styles['nav-item']}>
+                      <li
+                        style={{ display: 'flex', alignItems: 'center' }}
+                        className={`${styles['nav-child-item']} ${styles.cr_weight_bold} ${styles.share_fsize_tow} ${styles.share_clr_tow} ${styles.d_flex}`}>
+                        <span className={styles.item_ic}>
                           <img src='../img/tin-tuc.png' alt='' />
                         </span>
-                        <p>Tin tức</p>
+                        <p style={{ color: '#fff' }}>Tin tức</p>
                       </li>
                     </a>
                     {!renderContent ? (
                       <>
-                        <a href='/lua-chon-dang-ky.html' className='nav-item'>
-                          <li className='nav-child-item cr_weight_bold share_fsize_tow share_clr_tow d_flex'>
-                            <span className='item_ic'>
+                        <a
+                          href='/lua-chon-dang-ky.html'
+                          className={styles['nav-item']}>
+                          <li
+                            className={`${styles['nav-child-item']} ${styles.cr_weight_bold} ${styles.share_fsize_tow} ${styles.share_clr_tow} ${styles.d_flex}`}>
+                            <span className={styles.item_ic}>
                               <img src='../img/logout_i.png' alt='' />
                             </span>
-                            <p>Đăng ký</p>
+                            <p style={{ color: '#fff' }}>Đăng ký</p>
                           </li>
                         </a>
-                        <a href='/lua-chon-dang-nhap.html' className='nav-item'>
-                          <li className='nav-child-item cr_weight_bold share_fsize_tow share_clr_tow d_flex'>
-                            <span className='item_ic'>
+                        <a
+                          href='/lua-chon-dang-nhap.html'
+                          className={styles['nav-item']}>
+                          <li
+                            className={`${styles['nav-child-item']} ${styles.cr_weight_bold} ${styles.share_fsize_tow} ${styles.share_clr_tow} ${styles.d_flex}`}>
+                            <span className={styles.item_ic}>
                               <img src='../img/logout_ind.png' alt='' />
                             </span>
-                            <p>Đăng nhập</p>
+                            <p style={{ color: '#fff' }}>Đăng nhập</p>
                           </li>
                         </a>
                       </>
@@ -418,20 +431,22 @@ export default function Header() {
                       <>
                         <a
                           href='/quan-ly-ung-dung-cong-ty.html'
-                          className='nav-item'>
-                          <li className='nav-child-item cr_weight_bold share_fsize_tow share_clr_tow d_flex'>
-                            <span className='item_ic'>
+                          className={styles['nav-item']}>
+                          <li
+                            className={`${styles['nav-child-item']} ${styles.cr_weight_bold} ${styles.share_fsize_tow} ${styles.share_clr_tow} ${styles.d_flex}`}>
+                            <span className={styles.item_ic}>
                               <img src='../img/chuyen_d.png' alt='' />
                             </span>
-                            <p>Chuyển đổi số 365</p>
+                            <p style={{ color: '#fff' }}>Chuyển đổi số 365</p>
                           </li>
                         </a>
                         <a className='nav-item btx_logout' onClick={show}>
-                          <li className='nav-child-item cr_weight_bold share_fsize_tow share_clr_tow d_flex'>
-                            <span className='item_ic'>
+                          <li
+                            className={`${styles['nav-child-item']} ${styles.cr_weight_bold} ${styles.share_fsize_tow} ${styles.share_clr_tow} ${styles.d_flex}`}>
+                            <span className={styles.item_ic}>
                               <img src='../img/logout_ind.png' alt='' />
                             </span>
-                            <p>Đăng xuất</p>
+                            <p style={{ color: '#fff' }}>Đăng xuất</p>
                           </li>
                         </a>
                       </>

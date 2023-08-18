@@ -12,7 +12,7 @@ import { ModalChinhSuaLuongCoBan } from '@/components/cai-dat-luong/nhap-luong-c
 import { ModalThemHopDong } from '@/components/cai-dat-luong/nhap-luong-co-ban/chi-tiet-nhan-vien/modal/modal-them-hop-dong-lam-viec/modal-them-hop-dong-lam-viec'
 import { ModalChinhSuaHopDong } from '@/components/cai-dat-luong/nhap-luong-co-ban/chi-tiet-nhan-vien/modal/modal-chinh-sua-hop-dong/modal-chinh-sua-hop-dong'
 import { IconSelect } from '@/components/cai-dat-luong/cai-dat-thue/danh-sach-nhan-su-chua-thiet-lap/anh'
-import { POST, POST_SS_TL, POST_TL } from '@/pages/api/BaseApi'
+import { POST, POST_SS_TL, POST_TL, getCompIdSS } from '@/pages/api/BaseApi'
 import {
   MyDatePicker,
   MyInput,
@@ -20,6 +20,7 @@ import {
 } from '@/components/quan-ly-cong-ty/quan-ly-cong-ty-con/modal'
 import moment from 'moment'
 import dayjs from 'dayjs'
+import { getPosition } from '@/utils/function'
 
 export default function ChiTietNhanVien({ detailInfo }) {
   const router = useRouter()
@@ -35,7 +36,7 @@ export default function ChiTietNhanVien({ detailInfo }) {
   const [modalChinhSuaLuongCoBan, setModalChinhSuaLuongCoBan] = useState(false)
   const [modalThemHopDong, setModalThemHopDong] = useState(false)
   const [modalXoaCon, setModalXoaCon] = useState(false)
-  const [ND, setND] = useState('Thanh tich')
+  const [ND, setND] = useState(detailInfo?.info_dep_com?.user?.inForPerson?.employee?.ep_description)
   const [selectedBasicSalRow, setSelectedBasicSalRow] = useState()
   const [selectedCon, setSelectedCon] = useState()
 
@@ -352,6 +353,16 @@ export default function ChiTietNhanVien({ detailInfo }) {
     }
   }
 
+  const positionLabel = getPosition?.map((p) => ({
+    label: p?.value,
+    value: p?.id,
+  }));
+
+  const  handleSaveDescriptionEmp = () => {
+    setModalGioiThieu(false)
+    setModalText(true)
+  }
+
   return (
     <>
       <Card
@@ -389,8 +400,8 @@ export default function ChiTietNhanVien({ detailInfo }) {
                 </p>
                 <p className={styles.vitri}>
                   {
-                    detailInfo?.info_dep_com?.user?.inForPerson?.employee
-                      ?.position_id
+                    positionLabel?.find( p => p?.value === detailInfo?.info_dep_com?.user?.inForPerson?.employee
+                      ?.position_id)?.label
                   }
                 </p>
               </div>
@@ -404,7 +415,8 @@ export default function ChiTietNhanVien({ detailInfo }) {
               <button
                 style={{ border: 'none' }}
                 onClick={() => {
-                  setModalGioiThieu(true), setModalText(false)
+                  setModalGioiThieu(true), 
+                  setModalText(false)
                 }}>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
@@ -423,7 +435,7 @@ export default function ChiTietNhanVien({ detailInfo }) {
               </button>
             </div>
             {modalText ? (
-              <p className={styles.thanhtich}>{'Thanh tich'}</p>
+              <p className={styles.thanhtich}>{ND}</p>
             ) : (
               <></>
             )}
@@ -444,7 +456,7 @@ export default function ChiTietNhanVien({ detailInfo }) {
                     }}>
                     <p className={styles.textb1}>Huỷ</p>
                   </button>
-                  <button className={styles.buttonb2}>
+                  <button className={styles.buttonb2} onClick={handleSaveDescriptionEmp}>
                     <p className={styles.textb2}>Lưu thông tin</p>
                   </button>
                 </div>
@@ -769,12 +781,14 @@ export default function ChiTietNhanVien({ detailInfo }) {
 
 export const getServerSideProps = async (context) => {
   const emp_id = context?.query?.id
+  let com_id = null
+  com_id = getCompIdSS(context)
 
   const res = await POST_SS_TL(
     'api/tinhluong/nhanvien/qly_ho_so_ca_nhan',
     {
       ep_id: emp_id,
-      cp: 3312,
+      cp: com_id,
     },
     context
   )

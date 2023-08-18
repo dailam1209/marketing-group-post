@@ -163,7 +163,7 @@ export default function CaiDatPhucLoi({
           <a
             onClick={() => {
               setOpenFilterListClick(true)
-              POST_TL("api/tinhluong/congty/take_list_nv_nhom", {
+              choosen && POST_TL("api/tinhluong/congty/take_list_nv_nhom", {
                 cls_id_cl: choosen.cl_id
               }).then((res) => {})
             }}
@@ -356,7 +356,8 @@ export default function CaiDatPhucLoi({
         openFilterListClick,
         setOpenFilterListClick,
         id: choosen?.cl_id,
-        listPhongBan
+        listPhongBan,
+        choosen
       })}
       {ModalThemMoiPhucLoi(
         openFilterAddWelfareClick,

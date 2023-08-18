@@ -1,24 +1,23 @@
-import React, { useEffect, useState } from "react";
-import styles from "./styles.module.css";
-import TableData from "./table/table";
-import BodyFrameFooter from "../bodyFrame/bodyFrame_footer/bodyFrame_footer";
-import Restore from "./khoi-phuc";
-import DeleteData from "./xoa-du-lieu";
-import { getDataDeleteComponent } from "@/pages/hr/api/du-lieu-da-xoa-gan-day/DeletedDataComPonentService";
+import React, { useEffect, useState } from 'react'
+import styles from './styles.module.css'
+import TableData from './table/table'
+import BodyFrameFooter from '../bodyFrame/bodyFrame_footer/bodyFrame_footer'
+import Restore from './khoi-phuc'
+import DeleteData from './xoa-du-lieu'
+import { getDataDeleteComponent } from '@/pages/api/api-hr/du-lieu-da-xoa-gan-day/DeletedDataComPonentService'
 
 export default function DeletedDataComPonent({ iconEdit, iconDelete }) {
-
   const [openModal, setOpenModal] = useState(0)
   const [animation, setAnimation] = useState(false)
   const [data, setData] = useState<any>()
   const [handleData, setHandleData] = useState<any>()
-  const [listCheck, setListCheck] = useState([]);
+  const [listCheck, setListCheck] = useState([])
   const [newData, setNewData] = useState<any>()
   const [search, setSearch] = useState<any>('')
 
   const handleDataCheckChange = (newListCheck) => {
-    setListCheck(newListCheck);
-  };
+    setListCheck(newListCheck)
+  }
 
   const handleNewData = (newData) => {
     setNewData(newData)
@@ -28,16 +27,17 @@ export default function DeletedDataComPonent({ iconEdit, iconDelete }) {
   }
   const dataCheck = (data) => {
     setHandleData((prev) => ({
-      ...prev, ...{ ...data },
+      ...prev,
+      ...{ ...data },
     }))
   }
 
   const handleClose = () => {
-    setAnimation(false);
+    setAnimation(false)
     setTimeout(() => {
-      setOpenModal(0);
-    }, 300);
-  };
+      setOpenModal(0)
+    }, 300)
+  }
   const handleOpen = (number: any) => {
     setOpenModal(number)
     setAnimation(true)
@@ -50,9 +50,7 @@ export default function DeletedDataComPonent({ iconEdit, iconDelete }) {
         setData(response?.data)
       }
       fetchData()
-    } catch (error: any) {
-
-    }
+    } catch (error: any) {}
   }, [newData, search])
 
   return (
@@ -61,15 +59,13 @@ export default function DeletedDataComPonent({ iconEdit, iconDelete }) {
         <Restore
           animation={animation}
           handleClose={handleClose}
-          handleData={handleData}
-        ></Restore>
+          handleData={handleData}></Restore>
       )}
       {openModal === 2 && (
         <DeleteData
           animation={animation}
           handleClose={handleClose}
-          handleData={handleData}
-        ></DeleteData>
+          handleData={handleData}></DeleteData>
       )}
       <div className={`${styles.l_body}`}>
         <div className={`${styles.t_delete_head}`}>
@@ -82,17 +78,16 @@ export default function DeletedDataComPonent({ iconEdit, iconDelete }) {
               {iconEdit && (
                 <div
                   className={`${styles.between_time}`}
-                  onClick={() => handleOpen(1)}
-                >
+                  onClick={() => handleOpen(1)}>
                   <picture>
-                    <img src={`${"/icon-time.svg"}`} alt=""></img>
+                    <img src={`${'/icon-time.svg'}`} alt=''></img>
                   </picture>
                 </div>
               )}
               {iconDelete && (
                 <div className={`${styles.between_delete}`}>
                   <picture onClick={() => handleOpen(2)}>
-                    <img src={`${"/icon-trash.svg"}`} alt=""></img>
+                    <img src={`${'/icon-trash.svg'}`} alt=''></img>
                   </picture>
                 </div>
               )}
@@ -102,14 +97,13 @@ export default function DeletedDataComPonent({ iconEdit, iconDelete }) {
             <form className={`${styles.form}`}>
               <div className={`${styles.t_div_search}`}>
                 <input
-                  type="search"
-                  placeholder="Tìm kiếm"
-                  name="search"
+                  type='search'
+                  placeholder='Tìm kiếm'
+                  name='search'
                   spellCheck={false}
-                  onChange={(e) => handleSearch(e.target.value)}
-                ></input>
+                  onChange={(e) => handleSearch(e.target.value)}></input>
                 <picture>
-                  <img src={`${"/t-icon-search.png"}`} alt=""></img>
+                  <img src={`${'/t-icon-search.png'}`} alt=''></img>
                 </picture>
               </div>
             </form>
@@ -118,12 +112,9 @@ export default function DeletedDataComPonent({ iconEdit, iconDelete }) {
         <TableData
           data={data}
           dataCheck={dataCheck}
-          listCheck={listCheck}
-        ></TableData>
-        <BodyFrameFooter src="https://www.youtube.com/embed/XEAFwQRkBfQ"></BodyFrameFooter>
+          listCheck={listCheck}></TableData>
+        <BodyFrameFooter src='https://www.youtube.com/embed/XEAFwQRkBfQ'></BodyFrameFooter>
       </div>
     </>
-  );
+  )
 }
-
-

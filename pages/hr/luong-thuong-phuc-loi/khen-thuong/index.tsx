@@ -1,65 +1,61 @@
-import React, { useEffect, useState } from "react";
-import styles from "./styles.module.css";
-import PersonalReward from "@/components/hr/luong-thuong-phuc-loi/khen-thuong/personalReward/PersonalReward";
-import CommendationTeam from "@/components/hr/luong-thuong-phuc-loi/khen-thuong/commendationTeam/CommendationTeam";
-import AchievementList from "@/components/hr/luong-thuong-phuc-loi/khen-thuong/achievementList/AchievementList";
-import Head from "next/head";
-import { getDataAuthentication } from "@/pages/hr/api/Home/HomeService";
-import LoadingSpinner from "@/components/hr/loading";
-import PageAuthenticator from "@/components/hr/quyen-truy-cap";
-
+import React, { useEffect, useState } from 'react'
+import styles from './styles.module.css'
+import PersonalReward from '@/components/hr/luong-thuong-phuc-loi/khen-thuong/personalReward/PersonalReward'
+import CommendationTeam from '@/components/hr/luong-thuong-phuc-loi/khen-thuong/commendationTeam/CommendationTeam'
+import AchievementList from '@/components/hr/luong-thuong-phuc-loi/khen-thuong/achievementList/AchievementList'
+import Head from 'next/head'
+import { getDataAuthentication } from '@/pages/api/api-hr/Home/HomeService'
+import LoadingSpinner from '@/components/hr/loading'
+import PageAuthenticator from '@/components/hr/quyen-truy-cap'
 
 export default function NavBar({ children }: any) {
-  const [active, setActive] = useState(1);
-  const [displayIcon, setDisplayIcon] = useState<any>();
-  const [isLoading, setIsLoading] = useState(true);
-  const [isDataLoaded, setIsDataLoaded] = useState(false);
+  const [active, setActive] = useState(1)
+  const [displayIcon, setDisplayIcon] = useState<any>()
+  const [isLoading, setIsLoading] = useState(true)
+  const [isDataLoaded, setIsDataLoaded] = useState(false)
 
   useEffect(() => {
     try {
       const fetchData = async () => {
-        const response = await getDataAuthentication();
-        setDisplayIcon(response?.data.data.infoRoleTTVP);
-
-      };
-      fetchData();
-    } catch (error) { }
-    finally {
-      setIsDataLoaded(true);
-      setIsLoading(false);
+        const response = await getDataAuthentication()
+        setDisplayIcon(response?.data.data.infoRoleTTVP)
+      }
+      fetchData()
+    } catch (error) {
+    } finally {
+      setIsDataLoaded(true)
+      setIsLoading(false)
     }
+  }, [])
 
-  }, []);
-
-  const perIdArray = displayIcon?.map((item) => item.perId);
-  const authen = perIdArray?.includes(1);
-  const iconAdd = perIdArray?.includes(2);
-  const iconEdit = perIdArray?.includes(3);
-  const iconDelete = perIdArray?.includes(4);
+  const perIdArray = displayIcon?.map((item) => item.perId)
+  const authen = perIdArray?.includes(1)
+  const iconAdd = perIdArray?.includes(2)
+  const iconEdit = perIdArray?.includes(3)
+  const iconDelete = perIdArray?.includes(4)
   const NavBarList = [
     {
       key: 1,
-      header: "CÁ NHÂN",
+      header: 'CÁ NHÂN',
       component: (
-        <PersonalReward iconAdd={iconAdd} iconEdit={iconEdit} ></PersonalReward>
+        <PersonalReward iconAdd={iconAdd} iconEdit={iconEdit}></PersonalReward>
       ),
     },
     {
       key: 2,
-      header: "TẬP THỂ",
+      header: 'TẬP THỂ',
       component: (
         <CommendationTeam
           iconAdd={iconAdd}
-          iconEdit={iconEdit}
-        ></CommendationTeam>
+          iconEdit={iconEdit}></CommendationTeam>
       ),
     },
     {
       key: 3,
-      header: "DANH SÁCH THÀNH TÍCH",
-      component: <AchievementList iconEdit={iconEdit} ></AchievementList>,
+      header: 'DANH SÁCH THÀNH TÍCH',
+      component: <AchievementList iconEdit={iconEdit}></AchievementList>,
     },
-  ];
+  ]
 
   return (
     <>
@@ -75,10 +71,10 @@ export default function NavBar({ children }: any) {
               <div key={item.key}>
                 <li className={`${styles.li_tabs}`}>
                   <span
-                    className={`${active === item?.key ? styles.active : styles.hover
-                      } `}
-                    onClick={() => setActive(item.key)}
-                  >
+                    className={`${
+                      active === item?.key ? styles.active : styles.hover
+                    } `}
+                    onClick={() => setActive(item.key)}>
                     {item.header}
                   </span>
                 </li>
@@ -91,6 +87,5 @@ export default function NavBar({ children }: any) {
         <PageAuthenticator />
       )}
     </>
-  );
-
+  )
 }

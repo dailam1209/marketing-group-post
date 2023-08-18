@@ -1,40 +1,39 @@
-
-import BodyFrameSection1 from "@/components/hr/bodyFrame/bodyFrame_section1/bodyFrame_section1";
-import BodyFrameSection2 from "@/components/hr/bodyFrame/bodyFrame_section2/bodyFrame_section2";
-import BodyFrameSection3 from "@/components/hr/bodyFrame/bodyFrame_section3/bodyFrame_section3";
-import BodyFrameFooter from "@/components/hr/bodyFrame/bodyFrame_footer/bodyFrame_footer";
-import styles from "@/components/hr/bodyFrame/bodyFrame.module.css";
-import { useEffect, useState } from "react";
-import { getCookie } from "cookies-next";
-import { getHomeData } from "./api/Home/HomeService";
-import Head from "next/head";
+import BodyFrameSection1 from '@/components/hr/bodyFrame/bodyFrame_section1/bodyFrame_section1'
+import BodyFrameSection2 from '@/components/hr/bodyFrame/bodyFrame_section2/bodyFrame_section2'
+import BodyFrameSection3 from '@/components/hr/bodyFrame/bodyFrame_section3/bodyFrame_section3'
+import BodyFrameFooter from '@/components/hr/bodyFrame/bodyFrame_footer/bodyFrame_footer'
+import styles from '@/components/hr/bodyFrame/bodyFrame.module.css'
+import { useEffect, useState } from 'react'
+import { getCookie } from 'cookies-next'
+import Head from 'next/head'
+import { getHomeData } from '../api/api-hr/Home/HomeService'
 
 export default function Home() {
-  const [dataHome, setDataHome] = useState<any>(null);
+  const [dataHome, setDataHome] = useState<any>(null)
 
   useEffect(() => {
     const fetchHomeData = async () => {
       try {
-        const token = getCookie("token_base365");
+        const token = getCookie('token_base365')
         if (token) {
-          const response = await getHomeData();
-          setDataHome(response?.data.data);
+          const response = await getHomeData()
+          setDataHome(response?.data.data)
         } else {
           const interval = setInterval(() => {
-            const updatedToken = getCookie("token_base365");
+            const updatedToken = getCookie('token_base365')
             if (updatedToken) {
-              clearInterval(interval);
-              fetchHomeData();
+              clearInterval(interval)
+              fetchHomeData()
             }
-          }, 1000);
+          }, 1000)
         }
       } catch (error) {
-        console.error("Error fetching home data:", error);
+        console.error('Error fetching home data:', error)
       }
-    };
+    }
 
-    fetchHomeData();
-  }, []);
+    fetchHomeData()
+  }, [])
 
   return (
     <>
@@ -45,8 +44,8 @@ export default function Home() {
         <BodyFrameSection1></BodyFrameSection1>
         <BodyFrameSection2 dataHome={dataHome}></BodyFrameSection2>
         <BodyFrameSection3></BodyFrameSection3>
-        <BodyFrameFooter src="https://www.youtube.com/embed/2wS-x1li7QQ"></BodyFrameFooter>
+        <BodyFrameFooter src='https://www.youtube.com/embed/2wS-x1li7QQ'></BodyFrameFooter>
       </div>
     </>
-  );
+  )
 }

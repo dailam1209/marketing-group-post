@@ -81,7 +81,7 @@ export function ModalThoiGianApDung({
       //   dayjs().format('YYYY-MM-[01T00:00:00.000]Z'),
       //   dayjs().format('YYYY-MM-[01T00:00:00.000]Z')
       // )
-      await POST_TL("api/tinhluong/congty/them_nv_nhom_other_money", {
+      await POST_TL("api/tinhluong/congty/them_nv_nhom_insrc", {
         cls_id_cl: insureSelected?.cl_id,
         cls_id_com: insureSelected?.cl_com,
         cls_id_user: emp?.id,
@@ -206,33 +206,33 @@ export function ModalThemNhanVien({
     }))
   );
 
-  const ListGroup = [
-    {
-      id: "1",
-      quantity: "2",
-      name: "Nhóm 1",
-    },
-    {
-      id: "2",
-      quantity: "3",
-      name: "Nhóm 2",
-    },
-    {
-      id: "3",
-      quantity: "4",
-      name: "Nhóm 3",
-    },
-    {
-      id: "4",
-      quantity: "5",
-      name: "Nhóm 4",
-    },
-    {
-      id: "5",
-      quantity: "6",
-      name: "Nhóm 5",
-    },
-  ];
+  // const ListGroup = [
+  //   {
+  //     id: "1",
+  //     quantity: "2",
+  //     name: "Nhóm 1",
+  //   },
+  //   {
+  //     id: "2",
+  //     quantity: "3",
+  //     name: "Nhóm 2",
+  //   },
+  //   {
+  //     id: "3",
+  //     quantity: "4",
+  //     name: "Nhóm 3",
+  //   },
+  //   {
+  //     id: "4",
+  //     quantity: "5",
+  //     name: "Nhóm 4",
+  //   },
+  //   {
+  //     id: "5",
+  //     quantity: "6",
+  //     name: "Nhóm 5",
+  //   },
+  // ];
 
   const [checkedListStaff, setCheckedListStaff] = useState<Staff[]>([]);
   const [checkedListGroup, setCheckedListGroup] = useState<Group[]>([]);
@@ -348,69 +348,69 @@ export function ModalThemNhanVien({
         </div>
       ),
     },
-    {
-      key: "2",
-      label: "Nhóm",
-      children: (
-        <div style={{ marginBottom: "20px" }}>
-          <div className={styles.listStaff}>
-            {ListGroup.map((item, index) => (
-              <div
-                key={index}
-                style={{
-                  marginBottom: "0px",
-                  marginTop: "0px",
-                  width: "100%",
-                }}
-              >
-                <Checkbox
-                  key={index}
-                  value={item}
-                  style={{ width: "100%" }}
-                  checked={checkedListGroup.some(
-                    (group) => group.id === item.id
-                  )}
-                  onChange={(e) => {
-                    const checkedItem = e.target.checked ? item : null;
-                    onChange2(
-                      checkedItem
-                        ? [...checkedListGroup, checkedItem]
-                        : checkedListGroup.filter(
-                            (group) => group.id !== item.id
-                          )
-                    );
-                  }}
-                >
-                  <Row style={{ margin: "10px", width: "100%" }}>
-                    <Col
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        margin: "10px",
-                      }}
-                    >
-                      <div style={{ color: "#4C5BD4", fontSize: "18px" }}>
-                        {item.name}
-                      </div>
-                      <div style={{ fontSize: "16px" }}>
-                        {"(" + item.quantity + " người)"}
-                      </div>
-                    </Col>
-                  </Row>
-                </Checkbox>
-                <div
-                  style={{
-                    width: "100%",
-                    height: "1px",
-                    borderBottom: "1px dashed rgba(0, 0, 0, 0.3)",
-                  }}
-                ></div>
-              </div>
-            ))}
-          </div>
-        </div>
-      ),
-    },
+    // {
+    //   key: "2",
+    //   label: "Nhóm",
+    //   children: (
+    //     <div style={{ marginBottom: "20px" }}>
+    //       <div className={styles.listStaff}>
+    //         {ListGroup.map((item, index) => (
+    //           <div
+    //             key={index}
+    //             style={{
+    //               marginBottom: "0px",
+    //               marginTop: "0px",
+    //               width: "100%",
+    //             }}
+    //           >
+    //             <Checkbox
+    //               key={index}
+    //               value={item}
+    //               style={{ width: "100%" }}
+    //               checked={checkedListGroup.some(
+    //                 (group) => group.id === item.id
+    //               )}
+    //               onChange={(e) => {
+    //                 const checkedItem = e.target.checked ? item : null;
+    //                 onChange2(
+    //                   checkedItem
+    //                     ? [...checkedListGroup, checkedItem]
+    //                     : checkedListGroup.filter(
+    //                         (group) => group.id !== item.id
+    //                       )
+    //                 );
+    //               }}
+    //             >
+    //               <Row style={{ margin: "10px", width: "100%" }}>
+    //                 <Col
+    //                   style={{
+    //                     display: "flex",
+    //                     flexDirection: "column",
+    //                     margin: "10px",
+    //                   }}
+    //                 >
+    //                   <div style={{ color: "#4C5BD4", fontSize: "18px" }}>
+    //                     {item.name}
+    //                   </div>
+    //                   <div style={{ fontSize: "16px" }}>
+    //                     {"(" + item.quantity + " người)"}
+    //                   </div>
+    //                 </Col>
+    //               </Row>
+    //             </Checkbox>
+    //             <div
+    //               style={{
+    //                 width: "100%",
+    //                 height: "1px",
+    //                 borderBottom: "1px dashed rgba(0, 0, 0, 0.3)",
+    //               }}
+    //             ></div>
+    //           </div>
+    //         ))}
+    //       </div>
+    //     </div>
+    //   ),
+    // },
   ];
 
   return (
