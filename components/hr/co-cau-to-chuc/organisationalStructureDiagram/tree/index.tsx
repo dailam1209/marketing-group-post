@@ -363,8 +363,8 @@ const StyledTreeExample = ({ iconEdit }) => {
                         checkInLink={`danh-sach-nhan-vien-cham-cong-theo-to-c${comid}-t1-d${dep?.dep_id}-n${team?.gr_id}`}
                         absenceLink={`danh-sach-nhan-vien-chua-cham-cong-theo-to-c${comid}-t2-d${dep?.dep_id}-n${team?.gr_id}`}
                         employeeNumber={team?.tong_nv}
-                        registered='15'
-                        noAttendance='12'
+                        registered={team?.tong_nv_da_diem_danh}
+                        noAttendance={team?.tong_nv - team?.tong_nv_da_diem_danh}
                         setOpenModalEditNest={() => setOpenModalEditNest(team?.gr_id)}
                         handleDataUpdateNest={handleDataUpdateNest}
                         setOpenModalDetailsNest={() => setOpenModalDetailsNest(team?.gr_id)}
@@ -388,8 +388,8 @@ const StyledTreeExample = ({ iconEdit }) => {
                               checkInLink={`danh-sach-nhan-vien-cham-cong-theo-nhom-c${comid}-t1-d${dep?.dep_id}-n${team?.gr_id}-g${group?.gr_id}`}
                               absenceLink={`danh-sach-nhan-vien-chua-cham-cong-theo-nhom-c${comid}-t2-d${dep?.dep_id}-n${team?.gr_id}-g${group?.gr_id}`}
                               employeeNumber={group?.group_tong_nv}
-                              registered='15'
-                              noAttendance='12'
+                              registered={group?.tong_nv_da_diem_danh}
+                              noAttendance={group?.group_tong_nv - group?.tong_nv_da_diem_danh}
                               setOpenModalEditGroup={() => setOpenModalEditGroup(group?.gr_id)}
                               handleDataUpdateGroup={handleDataUpdateGroup}
                               setOpenModalDetailsGroup={() => setOpenModalDetailsGroup(group?.gr_id)}
@@ -451,8 +451,8 @@ const StyledTreeExample = ({ iconEdit }) => {
                               checkInLink={`danh-sach-nhan-vien-cham-cong-theo-to-c${com?.com_id}-t1-d${dep?.dep_id}-n${team?.gr_id}`}
                               absenceLink={`danh-sach-nhan-vien-chua-cham-cong-theo-to-c${com?.com_id}-t2-d${dep?.dep_id}-n${team?.gr_id}`}
                               employeeNumber={team?.tong_nv}
-                              registered='15'
-                              noAttendance='12'
+                              registered={team?.tong_nv_da_diem_danh}
+                              noAttendance={team?.tong_nv - team?.tong_nv_da_diem_danh}
                               setOpenModalEditNest={() => setOpenModalEditNest(team?.gr_id)}
                               setOpenModalDetailsNest={() => setOpenModalDetailsNest(team?.gr_id)}
                               iconEdit={iconEdit}
@@ -470,8 +470,8 @@ const StyledTreeExample = ({ iconEdit }) => {
                                     checkInLink={`danh-sach-nhan-vien-cham-cong-theo-nhom-c${com?.com_id}-t1-d${dep?.dep_id}-n${team?.gr_id}-g${group?.gr_id}`}
                                     absenceLink={`danh-sach-nhan-vien-chua-cham-cong-theo-nhom-c${com?.com_id}-t2-d${dep?.dep_id}-n${team?.gr_id}-g${group?.gr_id}`}
                                     employeeNumber={group?.group_tong_nv}
-                                    registered='15'
-                                    noAttendance='12'
+                                    registered={group?.tong_nv_da_diem_danh}
+                                    noAttendance={group?.group_tong_nv - group?.tong_nv_da_diem_danh}
                                     setOpenModalEditGroup={() => setOpenModalEditGroup(group?.gr_id)}
                                     setOpenModalDetailsGroup={() => setOpenModalDetailsGroup(group?.gr_id)}
                                     iconEdit={iconEdit}
