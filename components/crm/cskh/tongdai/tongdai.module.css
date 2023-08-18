@@ -1,0 +1,67 @@
+.filter {
+  margin-right: 10px;
+  width: 113px;
+  height: 40px;
+  background: #fff;
+  font-size: 16px;
+  font-weight: normal;
+  color: #474747;
+  border-radius: 10px;
+  border: 1px solid #666666;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.group_button {
+  display: flex;
+  justify-content: space-between;
+}
+
+.group_button_right button {
+  width: 153px;
+  height: 40px;
+  color: #fff;
+  background: #4c5bd4;
+  box-shadow: 0px 0px 10px rgb(0 0 0 / 10%);
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.cskh_info_call {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  font-size: 18px;
+  padding-top: 25px;
+}
+
+.pagination {
+  padding-top: 40px;
+}
+
+.main_filter {
+}
+.containerfillter{
+  display: block;
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.containerfillter .item1{
+  display: flex;
+  padding-top: 20px;
+  align-items: center;
+}
+.footerBTN{
+  display: flex;
+  padding-top: 20px;
+  justify-content: center;
+  gap: 30px;
+  padding-bottom: 20px;
+}

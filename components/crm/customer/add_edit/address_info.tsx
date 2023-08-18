@@ -1,5 +1,5 @@
 import PotentialSelectBoxStep from "@/components/crm/potential/potential_steps/select_box_step";
-import styles from "./add_file_potential.module.css";
+import styles from "@/components/crm/potential/potential_add_files/add_file_potential.module.css";
 import InputText from "@/components/crm/potential/detail/text_info";
 export default function AddAddressInfoCustomer({
   formData,

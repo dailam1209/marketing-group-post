@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import styleHome from "@/components/crm/home/home.module.css"
+import styleHome from "@/components/crm/home/home.module.css";
 import { SidebarContext } from "@/components/crm/context/resizeContext";
 import { useHeader } from "@/components/crm/hooks/useHeader";
-import TongDaiPage from "@/components/crm/cskh/tongdai/tongdai";
+import GhiAmPage from "@/components/crm/cskh/tongdai/ghi-am";
 
-const TongDai: React.FC = () => {
+const GhiAm: React.FC = () => {
   const mainRef = useRef<HTMLDivElement>(null);
   const { isOpen } = useContext<any>(SidebarContext);
   const imgRef = useRef<HTMLInputElement>(null);
@@ -12,8 +12,8 @@ const TongDai: React.FC = () => {
     useHeader();
 
   useEffect(() => {
-    setHeaderTitle("Tổng đài");
-    setShowBackButton(false);
+    setHeaderTitle("Tổng Đài");
+    setShowBackButton(true);
     setCurrentPath("/crm/tong-dai");
   }, [setHeaderTitle, setShowBackButton, setCurrentPath]);
 
@@ -31,9 +31,9 @@ const TongDai: React.FC = () => {
 
   return (
     <div className={styleHome.main} ref={mainRef}>
-      <TongDaiPage />
+      <GhiAmPage />
     </div>
   );
 };
 
-export default TongDai;
+export default GhiAm;
