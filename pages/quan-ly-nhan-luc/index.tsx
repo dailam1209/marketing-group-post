@@ -79,7 +79,7 @@ export default function HomeQLNS() {
   const LIST_BUTTONS_EMP = [
     {
       color: '#97C25F',
-      title: 'Chấm Công Bằng QR',
+      title: 'Chấm công bằng QR',
       icon: '/qr-icon.png',
     },
     {
@@ -126,7 +126,7 @@ export default function HomeQLNS() {
         </div>
       </Col>
       <Col
-        span={13}
+        span={15}
         style={{
           display: 'flex',
           alignItems: 'center',
@@ -141,7 +141,7 @@ export default function HomeQLNS() {
           {title}
         </p>
       </Col>
-      <Col span={6} className={styles.rightDiv}>
+      <Col span={4} className={styles.rightDiv}>
         <div className={styles.verticalDivider}></div>
         <Image alt='' src={icon} width={30} height={30} />
       </Col>
@@ -260,18 +260,18 @@ export default function HomeQLNS() {
   }
 
   const RenderedBody = () => {
-    const type = getCookie('role') || 2
+    const type = getCookie('role') || '1'
     if (type)
       return (
         <div className={styles.section1}>
-          <Row gutter={{ lg: 150, md: 100, sm: 30, xs: 10 }}>
-            <Col lg={type === '1' ? 10 : 11} sm={11} xs={24}>
+          <Row gutter={[{ xl: 100, lg: 60 , md: 60, sm: 48, xs: 10 }, { xl: 0, lg: 0 , md: 24, sm: 24, xs: 0 }]}>
+            <Col lg={type === '1' ? 10 : 11} md={11} sm={12} xs={24}>
               {(type === '1' ? LIST_BUTTONS_COMP : LIST_BUTTONS_EMP)?.map(
                 (item, index) =>
                   utilButton(item.icon, index + 1, item.title, item.color)
               )}
             </Col>
-            <Col lg={type === '1' ? 14 : 13} sm={13} xs={24}>
+            <Col lg={type === '1' ? 14 : 13} md={13} sm={12} xs={24}>
               {renderSelection(type)}
             </Col>
           </Row>

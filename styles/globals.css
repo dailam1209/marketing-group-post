@@ -59,12 +59,12 @@ button {
 }
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: transparent;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: rgb(76, 91, 212);
+  background: var(--theme-color);
 }
 
 /* Handle on hover */
@@ -1465,4 +1465,22 @@ label.ant-form-item-required {
   padding: 20px 0 !important;
   border-radius: 10px !important;
   border: 1px dashed #474747 !important;
+}
+
+.deXuatCuaToiTable .ant-row {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+.deXuatCuaToiTable .ant-form-item {
+  margin-bottom: 0;
+}
+
+.bannerQLC.ant-row {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+.btnU.ant-btn {
+  border-radius: 6px !important;
+  border-color: transparent !important;
 }

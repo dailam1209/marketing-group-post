@@ -19,4 +19,21 @@
     display: flex;
     align-items: center;
     font-size: 16px;
+    white-space: nowrap;
 }
+
+@media screen and (max-width: 1024px) {
+    .leftSide {
+        padding: 10px;
+    }
+    .text {
+        white-space: nowrap;
+        font-size: 18px;
+    }
+    .rightSide {
+        padding: 10px;
+    }
+}   
+@media screen and (max-width: 768px) {
+    
+}  
