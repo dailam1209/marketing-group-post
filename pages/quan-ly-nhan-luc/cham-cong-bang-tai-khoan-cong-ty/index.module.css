@@ -67,3 +67,9 @@
   border-radius: 20px;
   background: linear-gradient(180deg, #ffd059 0%, #ffbd00 100%);
 }
+
+.wrapper {
+  border: 1px solid blue;
+  border-radius: 20px;
+  padding: 10px 30px;
+}

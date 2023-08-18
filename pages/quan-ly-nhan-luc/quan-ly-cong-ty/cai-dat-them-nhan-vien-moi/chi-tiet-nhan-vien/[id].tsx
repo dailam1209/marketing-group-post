@@ -1,8 +1,10 @@
 import { useRouter } from 'next/router'
 import styles from './index.module.css'
-import { Button, Card, Col, Row, Upload } from 'antd'
+import { Avatar, Button, Card, Col, Row, Upload } from 'antd'
 import Image from 'next/image'
 import { POST, POST_SS } from '@/pages/api/BaseApi'
+import { genderLabel, marriedLabel, renderExp } from '@/utils/function'
+import moment from 'moment'
 
 export default function ChiTietNhanVien({ data }) {
   console.log(data)
@@ -35,11 +37,26 @@ export default function ChiTietNhanVien({ data }) {
         <div className={styles.wrapper}>
           <div className={styles.leftSection}>
             <div className={styles.avatar}>
-              <Image alt='/' src={'/ava-detail.png'} width={200} height={200} />
+              <Avatar
+                alt='/'
+                src={data?.avatarUser}
+                style={{ width: 200, height: 200 }}
+              />
               <Upload
                 maxCount={1}
-                onChange={(data: any) => {
-                  console.log(data)
+                beforeUpload={async (fileData: any) => {
+                  console.log(fileData)
+
+                  const fd = new FormData()
+                  fd.append('idQLC', data?.idQLC)
+                  fd.append('avatarUser', fileData)
+
+                  const res = await POST('api/qlc/employee/updateEmpAvatar', fd)
+
+                  if (res?.result) {
+                    alert('Cập nhật thành công')
+                    router.reload()
+                  }
                 }}
                 showUploadList={false}>
                 <span className={styles.editAvatar}>
@@ -63,19 +80,49 @@ export default function ChiTietNhanVien({ data }) {
               title='Phòng ban'
             />
             <SingleItem
-              data='Chưa có kinh nghiệm'
+              data={renderExp(data?.experience)}
               title='Kinh nghiệm làm việc'
             />
-            <SingleItem data='05-06-2023' title='Ngày bắt đầu làm việc' />
-            <SingleItem data='abc@gmail.com' title='Địa chỉ email' />
-            <SingleItem data='0183128312' title='Số điện thoại' />
-            <SingleItem data='13-06-1997' title='Ngày sinh' />
-            <SingleItem data='Nữ' title='Giới tính' />
             <SingleItem
-              data='Số 3, Hoàng Quốc Việt, Cầu Giấy, Hà Nội'
+              data={
+                data?.start_working_time
+                  ? moment.unix(data?.start_working_time).format('DD-MM-YYYY')
+                  : 'Chưa cập nhật'
+              }
+              title='Ngày bắt đầu làm việc'
+            />
+            <SingleItem
+              data={data?.emailContact || 'Chưa cập nhật'}
+              title='Địa chỉ email'
+            />
+            <SingleItem
+              data={data?.phoneTK || 'Chưa cập nhật'}
+              title='Số điện thoại'
+            />
+            <SingleItem
+              data={
+                data?.birthday
+                  ? moment.unix(data?.birthday).format('DD-MM-YYYY')
+                  : 'Chưa cập nhật'
+              }
+              title='Ngày sinh'
+            />
+            <SingleItem
+              data={
+                genderLabel?.find((item) => item.value === data?.gender)?.label
+              }
+              title='Giới tính'
+            />
+            <SingleItem
+              data={data?.address || 'Chưa cập nhật'}
               title='Địa chỉ'
             />
-            <SingleItem data='Độc thân' title='Tình trạng hôn nhân' />
+            <SingleItem
+              data={
+                marriedLabel.find((item) => item.value === data?.married)?.label
+              }
+              title='Tình trạng hôn nhân'
+            />
             <div className={styles.footer}>
               <Button className={styles.btn} size='large'>
                 <p className={styles.text} onClick={onEditClicked}>
