@@ -1,28 +1,19 @@
-import {
-  Button,
-  Col,
-  Form,
-  Input,
-  InputNumber,
-  Modal,
-  Row,
-  Select,
-} from 'antd';
-import styles from './modal.module.css';
-import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import { ModalWrapper } from '@/components/modal/ModalWrapper';
-import { MyInput, MySelect } from '../quan-ly-cong-ty-con/modal';
-import { ModalXacNhan } from '@/components/cham-cong/cong-chuan/modal-xac-nhan-cong-chuan';
-import { GET, POST } from '@/pages/api/BaseApi';
-import { useRouter } from 'next/router';
+import { Button, Col, Form, Input, InputNumber, Modal, Row, Select } from 'antd'
+import styles from './modal.module.css'
+import Image from 'next/image'
+import { useEffect, useState } from 'react'
+import { ModalWrapper } from '@/components/modal/ModalWrapper'
+import { MyInput, MySelect } from '../quan-ly-cong-ty-con/modal'
+import { ModalXacNhan } from '@/components/cham-cong/cong-chuan/modal-xac-nhan-cong-chuan'
+import { GET, POST } from '@/pages/api/BaseApi'
+import { useRouter } from 'next/router'
 
-export const TYPE_ADD = 'add';
-export const TYPE_UPDATE = 'update';
+export const TYPE_ADD = 'add'
+export const TYPE_UPDATE = 'update'
 
-const THEO_SO_CA = 'theo so ca';
-const THEO_TIEN = 'theo tien';
-const THEO_GIO = 'theo gio';
+const THEO_SO_CA = 'theo so ca'
+const THEO_TIEN = 'theo tien'
+const THEO_GIO = 'theo gio'
 
 export function AddCaModal(
   open: boolean,
@@ -32,17 +23,17 @@ export function AddCaModal(
   setData?: Function,
   selectedShift?: any
 ) {
-  const [form] = Form.useForm();
-  const [showMore, setShowMore] = useState(false);
-  const [selectedPayMethod, setSelectedPayMethod] = useState(THEO_SO_CA);
-  const [modalXacNhan, setModalXacNhan] = useState(false);
-  const router = useRouter();
+  const [form] = Form.useForm()
+  const [showMore, setShowMore] = useState(false)
+  const [selectedPayMethod, setSelectedPayMethod] = useState(THEO_SO_CA)
+  const [modalXacNhan, setModalXacNhan] = useState(false)
+  const router = useRouter()
 
   // console.log(selectedShift);
 
   useEffect(() => {
-    form.setFieldsValue(selectedShift);
-  }, [form, selectedShift]);
+    form.setFieldsValue(selectedShift)
+  }, [form, selectedShift])
 
   const handleSubmit = () => {
     // update
@@ -55,10 +46,10 @@ export function AddCaModal(
         .then((res) => {
           if (res?.result === true) {
             // ok
-            router.replace(router.asPath);
+            router.reload()
           }
         })
-        .catch((err) => console.error(err));
+        .catch((err) => console.error(err))
     }
     if (type === TYPE_ADD) {
       // create
@@ -68,18 +59,18 @@ export function AddCaModal(
         shift_type: 1,
       }).then((res) => {
         if (res?.result === true) {
-          router.replace(router.asPath);
+          router.reload()
         }
-      });
+      })
     }
-  };
+  }
 
   const SelectPaymentMethodBtn = ({
     type,
     title,
   }: {
-    type: string;
-    title: string;
+    type: string
+    title: string
   }) => {
     return (
       <div
@@ -87,19 +78,17 @@ export function AddCaModal(
         style={{
           backgroundColor: selectedPayMethod === type ? '#4C5BD4' : '#fff',
         }}
-        onClick={() => setSelectedPayMethod(type)}
-      >
+        onClick={() => setSelectedPayMethod(type)}>
         <p
           className={styles.text}
           style={{
             color: selectedPayMethod === type ? '#fff' : '',
-          }}
-        >
+          }}>
           {title}
         </p>
       </div>
-    );
-  };
+    )
+  }
   return (
     <div>
       <Modal
@@ -108,15 +97,14 @@ export function AddCaModal(
         width={600}
         closable={false}
         cancelButtonProps={{ style: { display: 'none' } }}
-        okButtonProps={{ style: { display: 'none' } }}
-      >
+        okButtonProps={{ style: { display: 'none' } }}>
         <div className={styles.header}>
           <div></div>
           <p className={styles.headerText}>
             {type === TYPE_ADD ? 'Thêm ca làm việc' : 'Sửa ca làm việc'}
           </p>
           <Image
-            alt="/"
+            alt='/'
             src={'/cross.png'}
             width={14}
             height={14}
@@ -135,8 +123,7 @@ export function AddCaModal(
                 num_to_calculate: 1,
                 shift_type: 1,
               }
-            }
-          >
+            }>
             {MyInput(
               'Tên ca làm việc',
               'Nhập tên ca làm việc',
@@ -147,28 +134,32 @@ export function AddCaModal(
             <Row gutter={30}>
               <Col sm={12} xs={24}>
                 <Form.Item
-                  name="start_time"
+                  name='start_time'
                   required={true}
                   label={<p>{'Giờ vào ca (check in)'}</p>}
-                  labelCol={{ span: 24 }}
-                >
+                  labelCol={{ span: 24 }}>
                   <Input
-                    type="time"
-                    style={{ fontSize: '16px', padding: '6px', width: '100%' }}
-                  ></Input>
+                    type='time'
+                    style={{
+                      fontSize: '16px',
+                      padding: '6px',
+                      width: '100%',
+                    }}></Input>
                 </Form.Item>
               </Col>
               <Col sm={12} xs={24}>
                 <Form.Item
-                  name="end_time"
+                  name='end_time'
                   required={true}
                   label={<p>{'Giờ hết ca (check out)'}</p>}
-                  labelCol={{ span: 24 }}
-                >
+                  labelCol={{ span: 24 }}>
                   <Input
-                    type="time"
-                    style={{ fontSize: '16px', padding: '6px', width: '100%' }}
-                  ></Input>
+                    type='time'
+                    style={{
+                      fontSize: '16px',
+                      padding: '6px',
+                      width: '100%',
+                    }}></Input>
                 </Form.Item>
               </Col>
             </Row>
@@ -195,26 +186,30 @@ export function AddCaModal(
               )} */}
 
                 <Form.Item
-                  name="start_time_latest"
+                  name='start_time_latest'
                   label={<p>{'Ghi nhận check in sớm nhất (không bắt buộc)'}</p>}
-                  labelCol={{ span: 24 }}
-                >
+                  labelCol={{ span: 24 }}>
                   <Input
-                    type="time"
-                    style={{ fontSize: '16px', padding: '6px', width: '100%' }}
-                  ></Input>
+                    type='time'
+                    style={{
+                      fontSize: '16px',
+                      padding: '6px',
+                      width: '100%',
+                    }}></Input>
                 </Form.Item>
                 <Form.Item
-                  name="end_time_earliest"
+                  name='end_time_earliest'
                   label={
                     <p>{'Ghi nhận check out muộn nhất (không bắt buộc)'}</p>
                   }
-                  labelCol={{ span: 24 }}
-                >
+                  labelCol={{ span: 24 }}>
                   <Input
-                    type="time"
-                    style={{ fontSize: '16px', padding: '6px', width: '100%' }}
-                  ></Input>
+                    type='time'
+                    style={{
+                      fontSize: '16px',
+                      padding: '6px',
+                      width: '100%',
+                    }}></Input>
                 </Form.Item>
               </div>
             )}
@@ -226,17 +221,17 @@ export function AddCaModal(
               <Col sm={12} xs={24}>
                 <SelectPaymentMethodBtn
                   type={THEO_SO_CA}
-                  title="Tính công theo số ca"
+                  title='Tính công theo số ca'
                 />
                 <SelectPaymentMethodBtn
                   type={THEO_GIO}
-                  title="Tính công theo số giờ"
+                  title='Tính công theo số giờ'
                 />
               </Col>
               <Col sm={12} xs={24}>
                 <SelectPaymentMethodBtn
                   type={THEO_TIEN}
-                  title="Tính công theo tiền"
+                  title='Tính công theo tiền'
                 />
               </Col>
             </Row>
@@ -267,11 +262,10 @@ export function AddCaModal(
 
             <Form.Item style={{ display: 'flex', justifyContent: 'center' }}>
               <Button
-                htmlType="submit"
+                htmlType='submit'
                 className={styles.addNewBtn}
-                size="large"
-                onClick={handleSubmit}
-              >
+                size='large'
+                onClick={handleSubmit}>
                 <p className={styles.btnText}>
                   {type === TYPE_ADD ? 'Thêm ca ' : 'Cập nhật'}
                 </p>
@@ -288,7 +282,7 @@ export function AddCaModal(
           : 'Bạn đã cập nhật ca làm việc thành công'
       )}
     </div>
-  );
+  )
 }
 
 export function ConfirmDeleteShiftModal(
@@ -303,12 +297,11 @@ export function ConfirmDeleteShiftModal(
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-      }}
-    >
-      <Image alt="/" src={'/big-x.png'} width={50} height={50} />
+      }}>
+      <Image alt='/' src={'/big-x.png'} width={50} height={50} />
       <p style={{ marginTop: '20px' }}>Bạn chắc chắn muốn xóa ca?</p>
     </div>
-  );
+  )
 
   return ModalWrapper(
     open,
@@ -318,5 +311,5 @@ export function ConfirmDeleteShiftModal(
     'Xóa ca làm việc',
     'Xóa',
     onConfirm
-  );
+  )
 }
