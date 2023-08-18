@@ -5,6 +5,7 @@ const Cookies = require('js-cookie')
 import styles from './Header.module.css'
 
 import { infoCom, infoEp, infoPersonal } from '../../utils/handleApi'
+import { Button } from 'antd'
 
 export default function Header() {
   // get pathname url
@@ -123,7 +124,7 @@ export default function Header() {
                       className={`cr_weight_bold share_fsize_tow share_clr_tow  ${
                         router.pathname === '/' ? 'active' : ''
                       }`}>
-                      Trang chủ
+                      Giới thiệu
                     </Link>
                   </li>
                   <li>
@@ -132,10 +133,10 @@ export default function Header() {
                       className={`cr_weight_bold share_fsize_tow share_clr_tow ${
                         router.pathname === '/san-pham.html' ? 'active' : ''
                       }`}>
-                      Sản phẩm
+                      Hướng dẫn
                     </Link>
                   </li>
-                  <li>
+                  {/* <li>
                     <Link
                       href={'/he-sinh-thai.html'}
                       className={`cr_weight_bold share_fsize_tow share_clr_tow ${
@@ -143,7 +144,7 @@ export default function Header() {
                       }`}>
                       Hệ sinh thái
                     </Link>
-                  </li>
+                  </li> */}
                   <li>
                     <Link
                       href='https://dev.timviec365.vn/blog'
@@ -194,7 +195,7 @@ export default function Header() {
                   </>
                 ) : (
                   <>
-                    <div className={styles.hd_log}>
+                    {/* <div className={styles.hd_log}>
                       <div className={styles.bg_log}>
                         <p style={{ color: '#fff' }}>
                           <Link
@@ -211,6 +212,19 @@ export default function Header() {
                           </Link>
                         </p>
                       </div>
+                    </div> */}
+                    <div className={styles.hd_log}>
+                      <Button
+                        className={'btnU'}
+                        style={{
+                          backgroundColor: '#FFAF52',
+                          marginRight: '10px',
+                        }}>
+                        <p style={{ color: '#fff' }}>Đăng nhập</p>
+                      </Button>
+                      <Button className={'btnU'}>
+                        <p style={{ color: '#4C5BD4' }}>Đăng ký</p>
+                      </Button>
                     </div>
                   </>
                 )}

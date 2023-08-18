@@ -1480,3 +1480,7 @@ label.ant-form-item-required {
   margin-left: 0 !important;
   margin-right: 0 !important;
 }
+.btnU.ant-btn {
+  border-radius: 6px !important;
+  border-color: transparent !important;
+}
