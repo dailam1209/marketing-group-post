@@ -64,7 +64,7 @@ const handleClose= () =>{
                 >
                   
                   Chọn hợp đồng từ máy tính của bạn
-                  <img src="/taihopdong.svg" alt="upload" />
+                  <img src="/crm/taihopdong.svg" alt="upload" />
                   <input
                     type="file"
                     className={styles.upload}

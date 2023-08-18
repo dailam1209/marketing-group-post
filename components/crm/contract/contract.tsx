@@ -31,7 +31,7 @@ export default function Contract() {
   return (
     <div ref={mainRef} className={styleHome.main}>
       <ContractInputGroup isSelectedRow={isSelectedRow} />
-      <TableDataContract setSelected={setIsSelectedRow} />
+      <TableDataContract />
     </div>
   );
 }
