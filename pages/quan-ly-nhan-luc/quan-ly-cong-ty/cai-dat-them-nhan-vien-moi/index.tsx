@@ -71,7 +71,11 @@ export default function CaiDatThemNhanVienMoiPage({
       key: '2',
       label: `Nhân viên chờ duyệt (${listPendingEmp?.length || 0})`,
       children: (
-        <NhanVienChoDuyet listStaffs={listPendingEmp} comLabel={comLabel} listDepLabel={listDepLabel} />
+        <NhanVienChoDuyet
+          listStaffs={listPendingEmp}
+          comLabel={comLabel}
+          listDepLabel={listDepLabel}
+        />
       ),
     },
   ]
