@@ -1,7 +1,7 @@
 import { Modal, Form, Select, Input, Button } from 'antd'
 import Image from 'next/image'
 import styles from './modal.module.css'
-import { POST_TL } from '@/pages/api/BaseApi'
+import { POST_TL, getCompIdCS } from '@/pages/api/BaseApi'
 import moment from 'moment'
 import { useRouter } from 'next/router'
 
@@ -219,9 +219,10 @@ export const ModalCaiDatDiMuonVeSom = (
   const router = useRouter()
   const onFinish = async (value) => {
     if (value) {
+      const comp_id = getCompIdCS()
       const res = await POST_TL('api/tinhluong/congty/insert_phat_muon', {
         ...value,
-        pm_id_com: 3312,
+        pm_id_com: comp_id,
       })
 
       if (res?.data) {
