@@ -20,50 +20,57 @@ import dayjs from 'dayjs'
 
 export default function DonXinNghiPhepOut() {
   const [form] = Form.useForm()
-  const [fileData, setFileData] = useState<any>();
-  const router = useRouter();
+  const [fileData, setFileData] = useState<any>()
+  const router = useRouter()
 
   const typeOffLabel = [
-    { label: "Nghỉ giữa ca", value: 1 },
-    { label: "Nghỉ hết ca", value: 2 }
+    { label: 'Nghỉ giữa ca', value: 1 },
+    { label: 'Nghỉ hết ca', value: 2 },
   ]
 
   const handleSubmit = () => {
     form.validateFields().then((value) => {
-
       const body = {
         ...value,
-        id_user_duyet: value["id_user_duyet"]?.join(","),
-        id_user_theo_doi: value["id_user_theo_doi"]?.join(","),
-        bd_nghi: dayjs(`${dayjs(value["bd_nghi"]).format("YYYY-MM-DD")} ${value["bd_nghi_time"]}`).format("YYYY-MM-DDTHH:mm:ss.SSS[Z]"),
-        kt_nghi: dayjs(`${dayjs(value["kt_nghi"]).format("YYYY-MM-DD")} ${value["kt_nghi_time"]}`).format("YYYY-MM-DDTHH:mm:ss.SSS[Z]"),
-      };
-
-      // console.log(body);
-      const fd = new FormData();
-
-      Object.keys(body)?.forEach((k) => {
-        fd.append(k, body[k]);
-      });
-
-      if (fileData) {
-        fd.append("file_kem", fileData);
+        id_user_duyet: value['id_user_duyet']?.join(','),
+        id_user_theo_doi: value['id_user_theo_doi']?.join(','),
+        bd_nghi: dayjs(
+          `${dayjs(value['bd_nghi']).format('YYYY-MM-DD')} ${
+            value['bd_nghi_time']
+          }`
+        ).format('YYYY-MM-DDTHH:mm:ss.SSS[Z]'),
+        kt_nghi: dayjs(
+          `${dayjs(value['kt_nghi']).format('YYYY-MM-DD')} ${
+            value['kt_nghi_time']
+          }`
+        ).format('YYYY-MM-DDTHH:mm:ss.SSS[Z]'),
       }
 
-      POST_VT("api/vanthu/dexuat/addDXXNRN", fd).then((res) => {
-          alert("Tạo đề xuất xin nghỉ phép ra ngoài thành công!");
-          router.replace(router.asPath);
-      });
-    });
+      // console.log(body);
+      const fd = new FormData()
+
+      Object.keys(body)?.forEach((k) => {
+        fd.append(k, body[k])
+      })
+
+      if (fileData) {
+        fd.append('file_kem', fileData)
+      }
+
+      POST_VT('api/vanthu/dexuat/addDXXNRN', fd).then((res) => {
+        alert('Tạo đề xuất xin nghỉ phép ra ngoài thành công!')
+        router.reload()
+      })
+    })
   }
 
-  const [infoUser, setInfoUser] = useState<any>();
-  const [listDuyet, setListDuyet] = useState<any>({});
-  const [shiftLabel, setShiftLabel] = useState<any>([]);
+  const [infoUser, setInfoUser] = useState<any>()
+  const [listDuyet, setListDuyet] = useState<any>({})
+  const [shiftLabel, setShiftLabel] = useState<any>([])
 
   useEffect(() => {
     const getListDuyet = async () => {
-      const res = await POST_VT('api/vanthu/dexuat/showadd', {});
+      const res = await POST_VT('api/vanthu/dexuat/showadd', {})
 
       if (res?.result) {
         setListDuyet({
@@ -75,32 +82,32 @@ export default function DonXinNghiPhepOut() {
             label: user?.userName,
             value: user?.idQLC,
           })),
-        });
+        })
       }
-    };
+    }
 
-    getListDuyet();
-    GET("api/qlc/shift/list").then((res) => {
+    getListDuyet()
+    GET('api/qlc/shift/list').then((res) => {
       if (res?.result === true) {
         setShiftLabel(
           res?.list.map((item) => {
             return {
               value: `${item?.shift_id}`,
               label: item?.shift_name,
-            };
+            }
           })
-        );
+        )
       }
-    });
-    
-    setInfoUser(getInfoUser());
-  }, []);
+    })
+
+    setInfoUser(getInfoUser())
+  }, [])
 
   useEffect(() => {
     if (infoUser?.idQLC) {
-      form.setFieldValue('name', infoUser?.userName);
+      form.setFieldValue('name', infoUser?.userName)
     }
-  }, [infoUser]);
+  }, [infoUser])
 
   return (
     <div>
@@ -108,7 +115,7 @@ export default function DonXinNghiPhepOut() {
         <Image src={'/back-w.png'} alt='' width={24} height={24}></Image>
         <p className={styles.headerText}>Đơn xin nghỉ phép ra ngoài</p>
       </div>
-      <Form form={form} initialValues={{ name: "khas" }}>
+      <Form form={form} initialValues={{ name: 'khas' }}>
         <div className={styles.body}>
           <Row gutter={[20, 10]}>
             <Col sm={12} xs={24}>
@@ -157,13 +164,32 @@ export default function DonXinNghiPhepOut() {
               )}
             </Col>
             <Col sm={12} xs={24}>
-              {MyDatePicker('Từ ngày', 'Chọn ngày bắt đầu', true, true, 'bd_nghi')}
+              {MyDatePicker(
+                'Từ ngày',
+                'Chọn ngày bắt đầu',
+                true,
+                true,
+                'bd_nghi'
+              )}
             </Col>
             <Col sm={12} xs={24}>
-              {MyDatePicker('Đến ngày', 'Chọn ngày kết thúc', true, true, 'kt_nghi')}
+              {MyDatePicker(
+                'Đến ngày',
+                'Chọn ngày kết thúc',
+                true,
+                true,
+                'kt_nghi'
+              )}
             </Col>
             <Col md={12} sm={24} xs={24}>
-              {MySelect('Ca làm việc', 'Chọn ca làm việc', true, true, 'ca_nghi', shiftLabel)}
+              {MySelect(
+                'Ca làm việc',
+                'Chọn ca làm việc',
+                true,
+                true,
+                'ca_nghi',
+                shiftLabel
+              )}
             </Col>
             <Col md={6} sm={12} xs={24}>
               {MyTime('Thời gian ra ngoài', true, true, 'bd_nghi_time')}
@@ -211,10 +237,7 @@ export default function DonXinNghiPhepOut() {
             </Col>
           </Row>
         </div>
-        {DeXuatCongCongFooter(
-          handleSubmit,
-          () => null
-        )}
+        {DeXuatCongCongFooter(handleSubmit, () => null)}
       </Form>
     </div>
   )
