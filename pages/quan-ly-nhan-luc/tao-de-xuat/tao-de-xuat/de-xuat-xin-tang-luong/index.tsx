@@ -6,55 +6,54 @@ import {
   DxInputTxt,
   DxSelect,
   TaoDeXuatWrapper,
-} from "@/components/tao-de-xuat-2/components/TaoDeXuatComps";
-import { POST_VT, getInfoUser } from "@/pages/api/BaseApi";
-import { Col, Form, Row } from "antd";
-import dayjs from "dayjs";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+} from '@/components/tao-de-xuat-2/components/TaoDeXuatComps'
+import { POST_VT, getInfoUser } from '@/pages/api/BaseApi'
+import { Col, Form, Row } from 'antd'
+import dayjs from 'dayjs'
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
 
 export default function DeXuatTangLuong() {
-  const [fileData, setFileData] = useState<Blob>();
-  const [form] = Form.useForm();
+  const [fileData, setFileData] = useState<Blob>()
+  const [form] = Form.useForm()
 
-  const router = useRouter();
+  const router = useRouter()
 
-
-  form.setFieldValue("type_dx", "Đề xuất xin tăng lương");
+  form.setFieldValue('type_dx', 'Đề xuất xin tăng lương')
 
   const handleSubmit = () => {
     form.validateFields().then((value) => {
       const body = {
         ...value,
-        id_user_duyet: value["id_user_duyet"]?.join(","),
-        id_user_theo_doi: value["id_user_theo_doi"]?.join(","),
-        date_tang_luong: dayjs(value["date_tang_luong"]).unix(),
-      };
+        id_user_duyet: value['id_user_duyet']?.join(','),
+        id_user_theo_doi: value['id_user_theo_doi']?.join(','),
+        date_tang_luong: dayjs(value['date_tang_luong']).unix(),
+      }
       // console.log(body);
-      const fd = new FormData();
+      const fd = new FormData()
 
       Object.keys(body)?.forEach((k) => {
-        fd.append(k, body[k]);
-      });
+        fd.append(k, body[k])
+      })
 
       if (fileData) {
-        fd.append("fileKem", fileData);
+        fd.append('fileKem', fileData)
       }
 
-      POST_VT("api/vanthu/dexuat/De_Xuat_Xin_Tang_Luong", fd).then((res) => {
+      POST_VT('api/vanthu/dexuat/De_Xuat_Xin_Tang_Luong', fd).then((res) => {
         if (res?.result === true) {
-          alert("Tạo đề xuất xin tăng lương thành công!");
-          router.replace(router.asPath);
+          alert('Tạo đề xuất xin tăng lương thành công!')
+          router.reload()
         }
-      });
-    });
-  };
-  const [infoUser, setInfoUser] = useState<any>();
-  const [listDuyet, setListDuyet] = useState<any>({});
+      })
+    })
+  }
+  const [infoUser, setInfoUser] = useState<any>()
+  const [listDuyet, setListDuyet] = useState<any>({})
 
   useEffect(() => {
     const getListDuyet = async () => {
-      const res = await POST_VT('api/vanthu/dexuat/showadd', {});
+      const res = await POST_VT('api/vanthu/dexuat/showadd', {})
 
       if (res?.result) {
         setListDuyet({
@@ -66,108 +65,107 @@ export default function DeXuatTangLuong() {
             label: user?.userName,
             value: user?.idQLC,
           })),
-        });
+        })
       }
-    };
+    }
 
-    getListDuyet();
-    
-    
-    setInfoUser(getInfoUser());
-  }, []);
+    getListDuyet()
+
+    setInfoUser(getInfoUser())
+  }, [])
 
   useEffect(() => {
     if (infoUser?.idQLC) {
-      form.setFieldValue('name', infoUser?.userName);
+      form.setFieldValue('name', infoUser?.userName)
     }
-  }, [infoUser]);
+  }, [infoUser])
 
   const MyForm = () => {
     return (
-      <Form form={form} initialValues={{ name: "khas" }}>
+      <Form form={form} initialValues={{ name: 'khas' }}>
         <Row gutter={[20, 10]}>
           <Col md={12} sm={12} xs={24}>
             <DxInputTxt
-              name="name_dx"
-              placeholder="Nhập tên đề xuất"
+              name='name_dx'
+              placeholder='Nhập tên đề xuất'
               required
-              title="Tên đề xuất"
+              title='Tên đề xuất'
               disabled={false}
             />
           </Col>
           <Col md={6} sm={12} xs={24}>
             <DxInputTxt
-              name="name"
-              placeholder="Họ và tên"
+              name='name'
+              placeholder='Họ và tên'
               required
-              title="Họ và tên"
+              title='Họ và tên'
               disabled
             />
           </Col>
           <Col md={6} sm={12} xs={24}>
             <DxInputTxt
-              name="type_dx"
-              placeholder="Loại đề xuất"
+              name='type_dx'
+              placeholder='Loại đề xuất'
               required
-              title="Loại đề xuất"
+              title='Loại đề xuất'
               disabled
             />
           </Col>
 
           <Col md={6} sm={12} xs={24}>
             <DXInputMoney
-              name="mucluong_ht"
-              placeholder="Tiền lương hiện tại"
+              name='mucluong_ht'
+              placeholder='Tiền lương hiện tại'
               required
-              title="Mức lương hiện tại"
+              title='Mức lương hiện tại'
             />
           </Col>
           <Col md={6} sm={12} xs={24}>
             <DXInputMoney
-              name="mucluong_tang"
-              placeholder="Lương đề xuất tăng"
+              name='mucluong_tang'
+              placeholder='Lương đề xuất tăng'
               required
-              title="Mức lương đề xuất tăng"
+              title='Mức lương đề xuất tăng'
             />
           </Col>
 
           <Col md={12} sm={12} xs={24}>
             <DxDatePicker
-              name="date_tang_luong"
-              placeholder="Chọn ngày"
+              name='date_tang_luong'
+              placeholder='Chọn ngày'
               required
-              title="Đề xuất tăng từ ngày"
+              title='Đề xuất tăng từ ngày'
             />
           </Col>
 
           <Col md={24} sm={24} xs={24}>
             <DXTextArea
-              name="ly_do"
-              placeholder="Nhập lý do xin tăng lương"
+              name='ly_do'
+              placeholder='Nhập lý do xin tăng lương'
               required
-              title="Lý do xin tăng lương"
+              title='Lý do xin tăng lương'
             />
           </Col>
           <Col md={12} sm={12} xs={24}>
             <DxSelect
               isMulti
-              name="id_user_duyet"
+              name='id_user_duyet'
               options={listDuyet?.listDuyet}
-              placeholder="Người xét duyệt"
+              placeholder='Người xét duyệt'
               required
               showSearch
-              title="Người xét duyệt"
+              title='Người xét duyệt'
             />
           </Col>
           <Col md={12} sm={12} xs={24}>
             <DxSelect
               isMulti
-              name="id_user_theo_doi"
+              name='id_user_theo_doi'
               options={listDuyet?.listTheoDoi}
-              placeholder="Người theo dõi"
+              placeholder='Người theo dõi'
               required
               showSearch
-              title="Người theo dõi"
+              title='Người theo dõi'
             />
           </Col>
           <Col md={12} sm={12} xs={24}>
@@ -175,15 +173,14 @@ export default function DeXuatTangLuong() {
           </Col>
         </Row>
       </Form>
-    );
-  };
+    )
+  }
 
   return (
     <TaoDeXuatWrapper
-      header="Đề xuất xin tăng lương"
-      onCreateClicked={handleSubmit}
-    >
+      header='Đề xuất xin tăng lương'
+      onCreateClicked={handleSubmit}>
       <MyForm />
     </TaoDeXuatWrapper>
-  );
+  )
 }
