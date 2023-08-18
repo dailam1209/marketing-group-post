@@ -96,7 +96,8 @@ export default function LichLamViec({ listCalendar }) {
   const [cySelected, setCySelected] = useState(Object());
   const [dateFilter, setDateFilter] = useState(dayjs().format("YYYY-MM"));
   const router = useRouter()
-  console.log(listCalendar)
+  const [listShiftSelected, setListShiftSelected] = useState<any>([])
+  
 
   const [form] = Form.useForm();
 
@@ -222,14 +223,15 @@ export default function LichLamViec({ listCalendar }) {
             setCySelected,
             form
           )}
-          {ModalTiepTuc(modalNext, setModalNext, setModalAdd, setModalCa, form)}
+          {ModalTiepTuc(modalNext, setModalNext, setModalAdd, setModalCa, form, listShiftSelected, setListShiftSelected)}
           {ModalThemCa(
             modalCa,
             setModalCa,
             setModalNext,
             form,
             handleSubmitAddCy,
-            "T2T7"
+            "T2T7",
+            listShiftSelected
           )}
           {SaoChepLich(modelSaoChep, setModalSaoChep, data, dateFilter)}
         </Form>
