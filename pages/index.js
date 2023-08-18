@@ -64,7 +64,7 @@ export default function Home() {
   })
 
   useEffect(() => {
-    if (window.innerWidth < 1024) {
+    if (window.innerWidth > 1024) {
       setOpenSB(true)
     }
   }, [])
@@ -278,6 +278,7 @@ export default function Home() {
                                 title='Chấm công'
                                 img={'../img/qlc_cc.png'}
                                 url='/quan-ly-nhan-luc'
+                                hasCheckLogin={false}
                               />
                             </Col>
                             <Col
@@ -612,6 +613,7 @@ export default function Home() {
                                   title='Chấm công'
                                   img={'../img/qlc_cc.png'}
                                   url='/quan-ly-nhan-luc'
+                                  hasCheckLogin={false}
                                 />
                               </Col>
                               <Col
@@ -1144,4 +1146,3 @@ export default function Home() {
     </>
   )
 }
-g
