@@ -120,7 +120,19 @@ const GhiAmPage = (props: Props) => {
   );
 
   const handleGet = async () => {
-    setListData([]);
+    // setListData([]);
+    if(soNghe){
+      let dataFill = listData.filter(item => item.callee ===soNghe)
+      setListData(dataFill)
+      setIsModalOpen(false);
+      return;
+     }
+     if(nv){
+       let dataFill = listData.filter(item => +item.caller ===nv)
+       setListData(dataFill)
+       setIsModalOpen(false);
+       return;
+     }
     setIsModalOpen(false);
     if (fillEnd && fillStart) {
       setQuery(
