@@ -21,7 +21,6 @@ import Layout from '@/components/hr/Layout'
 import Head from 'next/head'
 import Seo from '@/components/head'
 import { Provider } from "react-redux";
-import { store } from "@/components/crm/redux/store";
 import { TongDaiContext } from "@/components/crm/context/tongdaiContext";
 import store from "@/store";
 import Layout_admin from "@/components/VanThu/Layout_admin";
