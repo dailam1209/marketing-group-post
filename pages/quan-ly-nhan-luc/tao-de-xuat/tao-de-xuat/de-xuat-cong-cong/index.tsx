@@ -236,11 +236,7 @@ export default function DeXuatCongCong() {
           </Row>
         </div>
       </Form>
-<<<<<<< HEAD
       {DeXuatCongCongFooter(handleSubmit, () => null)}
-=======
-        {DeXuatCongCongFooter(handleSubmit, () => null)}
->>>>>>> b9cf9891474786b6326cdb3ce8b425d0f709159b
     </div>
   )
 }
