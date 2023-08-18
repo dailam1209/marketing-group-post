@@ -1,5 +1,5 @@
 import { useState } from "react";
-import styles from "@/components/potential/potential_add_files/add_file_potential.module.css";
+import styles from "@/components/crm/potential/potential_add_files/add_file_potential.module.css";
 import ModalCompleteStep from "@/components/crm/potential/potential_steps/complete_modal";
 import CancelModal from "@/components/crm/potential/potential_steps/cancel_modal";
 
