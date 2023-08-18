@@ -4,6 +4,7 @@ import { Button, Input, Modal, Select } from "antd";
 import styles from "./tongdai.module.css";
 import { NodeIndexOutlined } from "@ant-design/icons";
 import Image from "next/image";
+
 interface MyComponentProps {
     datatable: any;
     isModalOpen: any,
@@ -13,6 +14,10 @@ interface MyComponentProps {
     fillEnd: any,
     setFillEnd: any,
     handleGet: any,
+    soNghe:any,
+    setSoNghe:any,
+    nv:any,
+    setnv:any
 }
 const FilterTongDai: React.FC<MyComponentProps> = ({
     datatable,
@@ -22,7 +27,11 @@ const FilterTongDai: React.FC<MyComponentProps> = ({
     setFillStart,
     fillEnd,
     setFillEnd,
-    handleGet
+    handleGet,
+    soNghe,
+    setSoNghe,
+    nv,
+    setnv
 }) => {
     const showModal = () => {
         setIsModalOpen(true);
@@ -42,8 +51,8 @@ const FilterTongDai: React.FC<MyComponentProps> = ({
     const handleDateChange2 = (e:any)=>{
       setFillEnd(`${e.target.value} 23:59:59`)
     }
-    const uniqueCounts = Array.from(new Set(datatable?.map(item => item.caller))); // Lọc giá trị duy nhất
-    
+    // const uniqueCounts = Array.from(new Set(datatable?.map(item => item.caller))); // Lọc giá trị duy nhất
+    const uniqueCounts = [101,102,103,104,105,106,107,108,109,110,201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,216,217,218,219,220]
       return (
         <>
           <button className={styles.filter} onClick={showModal}>
@@ -105,7 +114,7 @@ const FilterTongDai: React.FC<MyComponentProps> = ({
                   
                   <div style={{width:"100%"}}>
                     
-                    <Select style={{width:145}} placeholder="Chọn nhân viên">
+                    <Select style={{width:145}} placeholder="Chọn nhân viên" value={nv} onChange={(value) => setnv(value)}>
                     {uniqueCounts.map((count:any,index:number) => {
                       return (
                         <option key={index} value={count}>{count}</option>
@@ -121,7 +130,7 @@ const FilterTongDai: React.FC<MyComponentProps> = ({
                 <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                   
                 <div style={{width:145}}>
-                    <Input type="text"></Input>
+                    <Input type="text" value={soNghe} onChange={(event)=>setSoNghe(event.target.value)}></Input>
                   </div>
                 </div>
     

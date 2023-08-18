@@ -25,6 +25,8 @@ const TongDaiPage = (props: Props) => {
   const [current, setcurrent] = useState(1);
   const [pageSize, setpageSize] = useState(10);
   const [showKetNoi, setShowKetNoi] = useState(false);
+  const [soNghe,setSoNghe] = useState()
+  const [nv, setnv] = useState()
   const onClose = () => {
     setIsShowModalAdd(false);
     setIsShowModal(false);
@@ -93,7 +95,19 @@ const TongDaiPage = (props: Props) => {
   );
 
   const handleGet = async () => {
-    setListData([]);
+    // setListData([]);
+    if(soNghe){
+     let dataFill = listData.filter(item => item.callee ===soNghe)
+     setListData(dataFill)
+     setIsModalOpen(false);
+     return;
+    }
+    if(nv){
+      let dataFill = listData.filter(item => +item.caller ===nv)
+      setListData(dataFill)
+      setIsModalOpen(false);
+      return;
+    }
     setIsModalOpen(false);
     if (fillEnd && fillStart) {
       setQuery(
@@ -174,6 +188,7 @@ const TongDaiPage = (props: Props) => {
       </div>
     ), // Thay thế nội dung "No Data" bằng "Hello"
   };
+  console.log("check nv",nv)
   return (
     <div>
       {showKetNoi && (
@@ -188,6 +203,11 @@ const TongDaiPage = (props: Props) => {
               fillEnd={fillEnd}
               setFillEnd={setFillEnd}
               handleGet={handleGet}
+              soNghe={soNghe}
+              setSoNghe={setSoNghe}
+              nv={nv}
+              setnv={setnv}
+ 
             />
           </div>
 
