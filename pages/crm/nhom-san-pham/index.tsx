@@ -21,7 +21,7 @@ export default function TheoDoiThuChi() {
   useEffect(() => {
     setHeaderTitle('Danh sách nhóm sản phẩm')
     setShowBackButton(false)
-    setCurrentPath('/crmphieu-chi')
+    setCurrentPath('/crm/phieu-chi')
   }, [setHeaderTitle, setShowBackButton, setCurrentPath])
 
   useEffect(() => {

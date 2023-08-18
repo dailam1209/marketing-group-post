@@ -1,10 +1,10 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
-import styleHome from '../../../home/home.module.css'
-import styles from '../../../potential/potential.module.css'
-import { SidebarContext } from '@/components/crm/context/resizeContext'
-import InforText from '../../detail/text_info'
-import stylesCustomer from '../../../customer/customer.module.css'
-import TextAndIconInfo from '../../detail/text_and_icon_infor'
+import React, { useContext, useEffect, useRef, useState } from "react";
+import styleHome from "../../../home/home.module.css";
+import styles from "../../../potential/potential.module.css";
+import { SidebarContext } from "@/components/crm/context/resizeContext";
+import InforText from "../../detail/text_info";
+import stylesCustomer from "@/components/crm/customer/customer.module.css"
+import TextAndIconInfo from "../../detail/text_and_icon_infor";
 
 interface ComponentProps {}
 
