@@ -18,6 +18,7 @@ interface MyComponentProps {
     setSoNghe:any,
     nv:any,
     setnv:any
+    
 }
 const FilterGhiAm: React.FC<MyComponentProps> = ({
     datatable,
