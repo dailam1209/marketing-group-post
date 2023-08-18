@@ -15,13 +15,13 @@ export default function SalaryAndBenefits({ children }: any) {
     {
       img: "	/vn_chamcong.svg",
       title: 'Chấm công',
-      href: 'https://chamcong.timviec365.vn/quan-ly-cong-ty.html',
+      href: 'https://hungha365.com/quan-ly-nhan-luc',
       target: 'blank'
     },
     {
       img: "	/vn_tinhluong.svg",
       title: 'Tính lương',
-      href: 'https://tinhluong.timviec365.vn/',
+      href: 'https://hungha365.com/quan-ly-nhan-luc/cai-dat-luong/nhap-luong-co-ban',
       target: 'blank'
     },
     {
@@ -43,7 +43,7 @@ export default function SalaryAndBenefits({ children }: any) {
     {
       img: "	/vn_phucloi.svg",
       title: 'Phúc lợi',
-      href: 'https://tinhluong.timviec365.vn/quan-ly-phuc-loi.html',
+      href: 'https://hungha365.com/quan-ly-nhan-luc/cai-dat-luong/cai-dat-phuc-loi',
       target: 'blank'
     },
   ]

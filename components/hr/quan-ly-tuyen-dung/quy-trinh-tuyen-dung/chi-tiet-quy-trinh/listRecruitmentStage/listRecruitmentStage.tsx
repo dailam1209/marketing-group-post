@@ -3,7 +3,7 @@ import styles from "./ListRecruitmentStage.module.css";
 import EditRecruitmentStage from "../editRecruitmentStage/editRecruitmentStage";
 import DeleteRecruitmentStage from "../deleteRecruitmentStage/deleteRecruitmentStage";
 
-export interface ListRecruitmentStage {}
+export interface ListRecruitmentStage { }
 
 export default function ListRecruitmentStage({
   item,
@@ -41,6 +41,8 @@ export default function ListRecruitmentStage({
 
   const handleCloseModal = () => {
     setAnimateModal(false);
+    onDelete()
+    onEdit()
     setTimeout(() => {
       setOpenModalEdit(false);
       setOpenModalDelete(false);
@@ -83,16 +85,16 @@ export default function ListRecruitmentStage({
                         <div className={`${styles.settings_hover}`}>
                           {iconEdit && (
                             <li onClick={() => handleItemClickEdit(item)}>
-                            Chỉnh sửa
-                          </li>
+                              Chỉnh sửa
+                            </li>
                           )}
                           <hr
                             style={{ marginTop: "0", marginBottom: "0" }}
                           ></hr>
                           {iconDelete && (
                             <li onClick={() => handleItemClickDelete(item)}>
-                            Xóa
-                          </li>
+                              Xóa
+                            </li>
                           )}
                         </div>
                       )}
