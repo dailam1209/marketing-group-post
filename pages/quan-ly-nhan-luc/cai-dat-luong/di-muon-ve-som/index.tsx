@@ -99,9 +99,7 @@ export const getServerSideProps = async (context) => {
     POST_SS_TL(
       'api/tinhluong/congty/takeinfo_phat_muon',
       {
-        pm_time_begin: `${month === 1 ? year - 1 : year}-${
-          month === 1 ? 12 : month - 1
-        }`,
+        pm_time_begin: `${year}-${month}`,
         pm_time_end: `${year}-${month}`,
         pm_id_com: com_id,
       },
@@ -141,8 +139,6 @@ export const getServerSideProps = async (context) => {
     POST_SS('api/qlc/department/list', { com_id: com_id }, context),
   ])
 
-  console.log(listApiRes)
-
   //render list staff late
   const listStaffLate: any[] = []
   const resInfo = listApiRes?.[1]?.['data']?.['listUserDetail']
@@ -181,6 +177,7 @@ export const getServerSideProps = async (context) => {
         dep_name: item?.dep_name,
       })
     })
+  console.log(listApiRes?.[0]?.['phat_muon_info'])
 
   return {
     props: {
