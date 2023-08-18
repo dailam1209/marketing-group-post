@@ -319,6 +319,13 @@
     }
     .chat365{
         margin: 10px 0;
+        height: 45px;
+    }
+    .cc365{
+        height: 45px;
+    }
+    .pc365{
+        height: 45px;
     }
     .checknext{
         padding-bottom: 30px;

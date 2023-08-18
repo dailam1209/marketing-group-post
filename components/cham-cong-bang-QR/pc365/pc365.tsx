@@ -60,7 +60,7 @@ export const PC365: React.FC = () => {
         <p className={styles.texttitle}>CÁC CHỨC NĂNG CƠ BẢN CHẤM CÔNG</p>
       </div>
       <div className={styles.breadcrumb}>Chấm công bằng QR / PC365</div>
-      <Row gutter={15} className={styles.options}>
+      <Row gutter={{sm: 32, xs: 32}} className={styles.options}>
         <Col xxl={4} xl={7} sm={8} xs={24}>
           <Link href='/quan-ly-nhan-luc/cham-cong-bang-QR/cham-cong-365'>
             <div className={styles.cc365} style={{ background: '#fff' }}>
