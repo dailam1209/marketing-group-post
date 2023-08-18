@@ -14,16 +14,15 @@ import ChatBusiness from '@/components/crm/chat/chat'
 import { NavigateContextComponent } from '@/components/crm/context/navigateContext'
 import TitleHeaderMobile from '@/components/crm/header/title_header_mobile'
 import styles from '@/components/crm/sidebar/sidebar.module.css'
-import { Provider } from "react-redux";
-import { TongDaiContext } from "@/components/crm/context/tongdaiContext";
-import { store } from "@/components/crm/redux/store";
 // import "@/styles/crm/stylecrm.css";
 // import "@/styles/crm/styles.css"
 // import "@/styles/crm/hight_chart.css"
 import Layout from '@/components/hr/Layout'
 import Head from 'next/head'
 import Seo from '@/components/head'
-
+import { Provider } from "react-redux";
+import { store } from "@/components/crm/redux/store";
+import { TongDaiContext } from "@/components/crm/context/tongdaiContext";
 export const LoadingComp = () => {
   return (
     <Spin
@@ -123,7 +122,7 @@ export default function App({ Component, pageProps }) {
                   <TitleHeaderMobile />
                   <TongDaiContext>
                   <Component {...pageProps} />
-                  </TongDaiContext>
+                 </TongDaiContext>
                 </NavigateContextComponent>
               </SidebarResize>
             </AccessContextComponent>
