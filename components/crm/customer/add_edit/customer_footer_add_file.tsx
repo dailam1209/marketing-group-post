@@ -2,7 +2,7 @@ import { useState } from "react";
 import styles from "@/components/crm/potential/potential_add_files/add_file_potential.module.css";
 import ModalCompleteStep from "@/components/crm/potential/potential_steps/complete_modal";
 import CancelModal from "@/components/crm/potential/potential_steps/cancel_modal";
-
+const Cookies = require('js-cookie')
 export default function CustomomerFooterAddFile({
   link = "/potential/list",
   title,
@@ -13,8 +13,6 @@ export default function CustomomerFooterAddFile({
   const [isModalCancel, setIsModalCancel] = useState(false);
   const [modal1Open, setModal1Open] = useState(false);
 
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6MzgwOTg5LCJpZFRpbVZpZWMzNjUiOjIwMjU4NSwiaWRRTEMiOjE3NjMsImlkUmFvTmhhbmgzNjUiOjAsImVtYWlsIjoiZHVvbmdoaWVwaXQxQGdtYWlsLmNvbSIsInBob25lVEsiOiIiLCJjcmVhdGVkQXQiOjE2MDA2NTg0NzgsInR5cGUiOjEsImNvbV9pZCI6MTc2MywidXNlck5hbWUiOiJDw7RuZyBUeSBUTkhIIEggTSBMIFBwbyJ9LCJpYXQiOjE2OTIyNTg4OTEsImV4cCI6MTY5MjM0NTI5MX0.KCMDnnZEk-pIsgd6yP0obVzsF30aTa7_McjgEr9lqwE";
   const handleSubmit = async () => {
     try {
       const response = await fetch(
@@ -23,7 +21,7 @@ export default function CustomomerFooterAddFile({
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${Cookies.get("token_base365")}`,
           },
           body: JSON.stringify({ name: formData.name }),
         }

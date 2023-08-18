@@ -6,7 +6,8 @@ export default function CustomerGroupSelect({
   value = "Tất cả",
   placeholder = "",
   data = [],
-  setValueGroupCustomer
+  setValueGroupCustomer,
+  cusId
 }: any) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -53,6 +54,7 @@ export default function CustomerGroupSelect({
         data-select2-id={1}
         tabIndex={-1}
         aria-hidden="true"
+        
       >
         <option value="" data-select2-id={3}>
           {/* {value} */}
@@ -79,7 +81,7 @@ export default function CustomerGroupSelect({
               id="select2-g0q1-container"
               // title="Chọn người dùng"
             >
-              {valueOption}
+              {valueOption} 
             </span>
             <span
               className={styles.select2_selection__arrow}
@@ -90,7 +92,7 @@ export default function CustomerGroupSelect({
           </span>
         </span>
         {isOpen && (
-          <CustomerGroupSelectDropdownData data={data} value={value} setValueOption={setValueOption} setValueGroupCustomer={setValueGroupCustomer}/>
+          <CustomerGroupSelectDropdownData cus_id={cusId} data={data} value={value} setValueOption={setValueOption} setValueGroupCustomer={setValueGroupCustomer}/>
         )}
       </span>
     </div>

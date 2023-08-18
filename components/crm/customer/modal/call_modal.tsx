@@ -8,15 +8,16 @@ import Image from "next/image";
 interface MyComponentProps {
   isModalCancel: boolean;
   setIsModalCancel: (value: boolean) => void;
+  cusId: any;
 }
 
 const CallModal: React.FC<MyComponentProps> = ({
   isModalCancel,
   setIsModalCancel,
+  cusId,
 }) => {
   const [isOpenMdalSuccess, setIsOpenMdalSuccess] = useState(false);
   const [isOpenMdalZoom, setIsOpenModalZoom] = useState(false);
-
   const handleOK = () => {
     setIsModalCancel(false);
     setIsOpenMdalSuccess(true);
@@ -60,15 +61,24 @@ const CallModal: React.FC<MyComponentProps> = ({
                   width={16}
                   height={16}
                   alt="zoom"
-                  src="https://crm.timviec365.vn/assets/icons/crm/customer/zoom_out.svg"
+                  src="/crm/zoom_out.svg"
                 />
-                Phóng to
+                <p style={{ color: "#4C5BD4" }}> Phóng to</p>
               </button>
             </div>
           </div>
           <div style={{ flex: 1 }}>
-            <div style={{textAlign:'left', fontSize:'15px', paddingLeft:'20px', textDecoration:'underline'}}>Thông tin khách hàng</div>
-            <ChatBusinessBody />
+            <div
+              style={{
+                textAlign: "left",
+                fontSize: "15px",
+                paddingLeft: "20px",
+                textDecoration: "underline",
+              }}
+            >
+              Thông tin khách hàng
+            </div>
+            <ChatBusinessBody cusId={cusId} />
           </div>
         </div>
       </Modal>

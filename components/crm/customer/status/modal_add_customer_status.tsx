@@ -3,7 +3,7 @@ import { Input, Modal } from "antd";
 import styles from "../../potential/potential.module.css";
 import InputText from "@/components/crm/potential/potential_add_files/input_text";
 import ModalCompleteStep from "@/components/crm/setting/complete_modal";
-
+const Cookies = require('js-cookie')
 interface MyComponentProps {
   isModalCancel: boolean;
   setIsModalCancel: (value: boolean) => void;
@@ -22,7 +22,7 @@ const AddStatusCustomerModal: React.FC<MyComponentProps> = ({
     setIsOpenMdalSuccess(true);
     updateData(
       "http://210.245.108.202:3007/api/crm/customerStatus/create",
-"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6MzgwOTg5LCJpZFRpbVZpZWMzNjUiOjIwMjU4NSwiaWRRTEMiOjE3NjMsImlkUmFvTmhhbmgzNjUiOjAsImVtYWlsIjoiZHVvbmdoaWVwaXQxQGdtYWlsLmNvbSIsInBob25lVEsiOiIiLCJjcmVhdGVkQXQiOjE2MDA2NTg0NzgsInR5cGUiOjEsImNvbV9pZCI6MTc2MywidXNlck5hbWUiOiJDw7RuZyBUeSBUTkhIIEggTSBMIFBwbyJ9LCJpYXQiOjE2OTIxNTY1MTksImV4cCI6MTY5MjI0MjkxOX0.1M55PZxSpovkNVmdGkd10pz-a7D0ApuqLOmsmBghh7w",      "POST",
+`${Cookies.get("token_base365")}`,      "POST",
       { stt_name: `${sttName}` }
     );
     setsttName("")

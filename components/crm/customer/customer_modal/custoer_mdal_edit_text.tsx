@@ -7,13 +7,18 @@ import TextEditor from "@/components/crm/text-editor/text_editor";
 interface MyComponentProps {
   isModalCancel: boolean;
   setIsModalCancel: (value: boolean) => void;
+  cusId:any,
+  des:any
 }
 
 const EditTextCustomerList: React.FC<MyComponentProps> = ({
   isModalCancel,
   setIsModalCancel,
+  cusId,
+  des
 }) => {
   const [isOpenMdalSuccess, setIsOpenMdalSuccess] = useState(false);
+  const [editorContent, setEditorContent] = useState("");
 
   const handleOK = () => {
     setIsModalCancel(false);
@@ -22,7 +27,7 @@ const EditTextCustomerList: React.FC<MyComponentProps> = ({
       setIsOpenMdalSuccess(false);
     }, 2000);
   };
-
+console.log(editorContent)
   return (
     <>
       <Modal
@@ -39,14 +44,20 @@ const EditTextCustomerList: React.FC<MyComponentProps> = ({
           <label className={`${styles.form_label}`} style={{textAlign:"left", marginBottom:"6px", marginLeft:"4.5px"}}>
             {"Mô tả"}
           </label>
-          <TextEditor />
+          <TextEditor 
+          cusId={cusId}
+          setEditorContent={setEditorContent}
+          des={des}
+          />
         </div>
       </Modal>
       <ModalCompleteStep
+      editorContent={editorContent}
+      cusId={cusId}
         modal1Open={isOpenMdalSuccess}
         setModal1Open={setIsOpenMdalSuccess}
         title={"Cập nhật thành công"}
-        link={"customer/list"}
+        link={"/crm/customer/list"}
       />
     </>
   );
