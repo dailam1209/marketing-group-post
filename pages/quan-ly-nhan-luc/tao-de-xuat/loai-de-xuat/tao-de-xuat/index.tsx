@@ -5,15 +5,36 @@ import Image from 'next/image'
 import { BlockItem } from '@/components/tao-de-xuat-2/block-item/block-item'
 import { useEffect, useState } from 'react'
 import React from 'react'
+import { useRouter } from 'next/router'
 
 export default function TaoDeXuat() {
   const [seeMore, setSeeMore] = useState(false)
-  const [choice, setChoice] = useState('')
+  const [choice, setChoice] = useState<any>(undefined)
   const [value, setValue] = useState('')
   const [optionSearch, setOptionSearch] = useState<
     { value: string; label: string; urlRouter: string }[]
   >([])
   const [onSearch, setOnSearch] = useState(false)
+  const router = useRouter()
+
+  const SelectedEle = (icon: any, value: any) => {
+
+    return (<div
+      style={{ display: 'flex', alignItems: 'center' }}
+      className={styles.divHover}>
+      <Image
+        src={icon}
+        alt=''
+        width={20}
+        height={20}
+        className={styles.hoverImage}></Image>
+      <span
+        style={{ marginLeft: '12px', fontSize: '16px' }}
+        className={`taoDeXuatSelectTxt ${styles.hoverText}`}>
+        {value}
+      </span>
+    </div>)
+  }
 
   const handleSetSeeMore = () => {
     setSeeMore(true)
@@ -22,6 +43,7 @@ export default function TaoDeXuat() {
     const foundObject = options.find((item) => item.value === value)
 
     if (foundObject) {
+      router.push(`/quan-ly-nhan-luc/${foundObject?.urlRouter}`)
       setOptionSearch([foundObject])
       setOnSearch(true)
     } else {
@@ -171,11 +193,11 @@ export default function TaoDeXuat() {
             className={styles.hoverImage}></Image>
           <span
             style={{ marginLeft: '12px', fontSize: '16px' }}
-            className={styles.hoverText}>
+            className={`taoDeXuatSelectTxt ${styles.hoverText}`}>
             Nghỉ phép
           </span>
         </div>
-      ),
+      )
     },
     {
       value: '2',
@@ -191,7 +213,7 @@ export default function TaoDeXuat() {
             className={styles.hoverImage}></Image>
           <span
             style={{ marginLeft: '12px', fontSize: '16px' }}
-            className={styles.hoverText}>
+            className={`taoDeXuatSelectTxt ${styles.hoverText}`}>
             Đổi ca
           </span>
         </div>
@@ -211,7 +233,7 @@ export default function TaoDeXuat() {
             className={styles.hoverImage}></Image>
           <span
             style={{ marginLeft: '12px', fontSize: '16px' }}
-            className={styles.hoverText}>
+            className={`taoDeXuatSelectTxt ${styles.hoverText}`}>
             Tạm ứng tiền
           </span>
         </div>
@@ -231,7 +253,7 @@ export default function TaoDeXuat() {
             className={styles.hoverImage}></Image>
           <span
             style={{ marginLeft: '12px', fontSize: '16px' }}
-            className={styles.hoverText}>
+            className={`taoDeXuatSelectTxt ${styles.hoverText}`}>
             Cấp phát tài sản
           </span>
         </div>
@@ -251,7 +273,7 @@ export default function TaoDeXuat() {
             className={styles.hoverImage}></Image>
           <span
             style={{ marginLeft: '12px', fontSize: '16px' }}
-            className={styles.hoverText}>
+            className={`taoDeXuatSelectTxt ${styles.hoverText}`}>
             Thôi việc
           </span>
         </div>
@@ -271,7 +293,7 @@ export default function TaoDeXuat() {
             className={styles.hoverImage}></Image>
           <span
             style={{ marginLeft: '12px', fontSize: '16px' }}
-            className={styles.hoverText}>
+            className={`taoDeXuatSelectTxt ${styles.hoverText}`}>
             Tăng lương
           </span>
         </div>
@@ -291,7 +313,7 @@ export default function TaoDeXuat() {
             className={styles.hoverImage}></Image>
           <span
             style={{ marginLeft: '12px', fontSize: '16px' }}
-            className={styles.hoverText}>
+            className={`taoDeXuatSelectTxt ${styles.hoverText}`}>
             Bổ nhiệm
           </span>
         </div>
@@ -311,7 +333,7 @@ export default function TaoDeXuat() {
             className={styles.hoverImage}></Image>
           <span
             style={{ marginLeft: '12px', fontSize: '16px' }}
-            className={styles.hoverText}>
+            className={`taoDeXuatSelectTxt ${styles.hoverText}`}>
             Luân chuyển công tác
           </span>
         </div>
@@ -331,7 +353,7 @@ export default function TaoDeXuat() {
             className={styles.hoverImage}></Image>
           <span
             style={{ marginLeft: '12px', fontSize: '16px' }}
-            className={styles.hoverText}>
+            className={`taoDeXuatSelectTxt ${styles.hoverText}`}>
             Tham gia dự án
           </span>
         </div>
@@ -351,7 +373,7 @@ export default function TaoDeXuat() {
             className={styles.hoverImage}></Image>
           <span
             style={{ marginLeft: '12px', fontSize: '16px' }}
-            className={styles.hoverText}>
+            className={`taoDeXuatSelectTxt ${styles.hoverText}`}>
             Xin tăng ca
           </span>
         </div>
@@ -371,7 +393,7 @@ export default function TaoDeXuat() {
             className={styles.hoverImage}></Image>
           <span
             style={{ marginLeft: '12px', fontSize: '16px' }}
-            className={styles.hoverText}>
+            className={`taoDeXuatSelectTxt ${styles.hoverText}`}>
             Xin nghỉ chế độ thai sản
           </span>
         </div>
@@ -391,7 +413,7 @@ export default function TaoDeXuat() {
             className={styles.hoverImage}></Image>
           <span
             style={{ marginLeft: '12px', fontSize: '16px' }}
-            className={styles.hoverText}>
+            className={`taoDeXuatSelectTxt ${styles.hoverText}`}>
             Đăng ký sử dụng phòng họp
           </span>
         </div>
@@ -411,7 +433,7 @@ export default function TaoDeXuat() {
             className={styles.hoverImage}></Image>
           <span
             style={{ marginLeft: '12px', fontSize: '16px' }}
-            className={styles.hoverText}>
+            className={`taoDeXuatSelectTxt ${styles.hoverText}`}>
             Đăng ký sử dụng xe công
           </span>
         </div>
@@ -431,7 +453,7 @@ export default function TaoDeXuat() {
             className={styles.hoverImage}></Image>
           <span
             style={{ marginLeft: '12px', fontSize: '16px' }}
-            className={styles.hoverText}>
+            className={`taoDeXuatSelectTxt ${styles.hoverText}`}>
             Sửa chữa cơ sở vật chất
           </span>
         </div>
@@ -451,7 +473,7 @@ export default function TaoDeXuat() {
             className={styles.hoverImage}></Image>
           <span
             style={{ marginLeft: '12px', fontSize: '16px' }}
-            className={styles.hoverText}>
+            className={`taoDeXuatSelectTxt ${styles.hoverText}`}>
             Thanh toán
           </span>
         </div>
@@ -471,7 +493,7 @@ export default function TaoDeXuat() {
             className={styles.hoverImage}></Image>
           <span
             style={{ marginLeft: '12px', fontSize: '16px' }}
-            className={styles.hoverText}>
+            className={`taoDeXuatSelectTxt ${styles.hoverText}`}>
             Khiếu nại
           </span>
         </div>
@@ -491,7 +513,7 @@ export default function TaoDeXuat() {
             className={styles.hoverImage}></Image>
           <span
             style={{ marginLeft: '12px', fontSize: '16px' }}
-            className={styles.hoverText}>
+            className={`taoDeXuatSelectTxt ${styles.hoverText}`}>
             Cộng công
           </span>
         </div>
@@ -511,7 +533,7 @@ export default function TaoDeXuat() {
             className={styles.hoverImage}></Image>
           <span
             style={{ marginLeft: '12px', fontSize: '16px' }}
-            className={styles.hoverText}>
+            className={`taoDeXuatSelectTxt ${styles.hoverText}`}>
             Cộng tiền/trừ tiền
           </span>
         </div>
@@ -531,7 +553,7 @@ export default function TaoDeXuat() {
             className={styles.hoverImage}></Image>
           <span
             style={{ marginLeft: '12px', fontSize: '16px' }}
-            className={styles.hoverText}>
+            className={`taoDeXuatSelectTxt ${styles.hoverText}`}>
             Hoa hồng doanh thu
           </span>
         </div>
@@ -551,7 +573,7 @@ export default function TaoDeXuat() {
             className={styles.hoverImage}></Image>
           <span
             style={{ marginLeft: '12px', fontSize: '16px' }}
-            className={styles.hoverText}>
+            className={`taoDeXuatSelectTxt ${styles.hoverText}`}>
             Lịch làm việc
           </span>
         </div>
@@ -571,7 +593,7 @@ export default function TaoDeXuat() {
             className={styles.hoverImage}></Image>
           <span
             style={{ marginLeft: '12px', fontSize: '16px' }}
-            className={styles.hoverText}>
+            className={`taoDeXuatSelectTxt ${styles.hoverText}`}>
             Nghỉ phép ra ngoài
           </span>
         </div>
@@ -591,7 +613,7 @@ export default function TaoDeXuat() {
             className={styles.hoverImage}></Image>
           <span
             style={{ marginLeft: '12px', fontSize: '16px' }}
-            className={styles.hoverText}>
+            className={`taoDeXuatSelectTxt ${styles.hoverText}`}>
             Xin đi muộn về sớm
           </span>
         </div>
@@ -611,7 +633,7 @@ export default function TaoDeXuat() {
             className={styles.hoverImage}></Image>
           <span
             style={{ marginLeft: '12px', fontSize: '16px' }}
-            className={styles.hoverText}>
+            className={`taoDeXuatSelectTxt ${styles.hoverText}`}>
             Xin tải tài liệu
           </span>
         </div>
@@ -631,7 +653,7 @@ export default function TaoDeXuat() {
             className={styles.hoverImage}></Image>
           <span
             style={{ marginLeft: '12px', fontSize: '16px' }}
-            className={styles.hoverText}>
+            className={`taoDeXuatSelectTxt ${styles.hoverText}`}>
             Nhập ngày nhận lương
           </span>
         </div>
@@ -642,7 +664,10 @@ export default function TaoDeXuat() {
   const handleSelectChange = (value: string) => {
     setValue(value)
     const foundObjects = options2.filter((item) => item.value === value)[0]
+    // console.log(foundObjects)
     const label = foundObjects.label.props.children[1].props.children
+    const ele = foundObjects.label
+    
     setChoice(label)
   }
 
@@ -664,10 +689,11 @@ export default function TaoDeXuat() {
         <div className={styles.groupSearch}>
           <div className={styles.selecteDiv}>
             <Select
-              showSearch={true}
               onChange={handleSelectChange}
               defaultValue={'Tìm kiếm đề xuất'}
-              value={choice}
+              // value={choice}
+              // open={true}
+              
               className={`select_taoDeXuat ${styles.selectInput}`}
               style={{ width: 426 }}
               options={options2}
@@ -694,12 +720,15 @@ export default function TaoDeXuat() {
 
         <div className={styles.body}>
           <Row
-            gutter={[25, 20]}
+            gutter={[{xl: 30, sm: 10}, 20]} 
             className={styles.row1}
             style={{ display: onSearch ? 'none' : 'flex' }}>
             {options.map((object, index) => (
-              <>
+              <React.Fragment key={index}>
                 <Col
+                  md={8}
+                  sm={12}
+                  xs={24}
                   style={{ padding: '0px' }}
                   key={object.value}
                   className={`${styles.col1} ${
@@ -721,7 +750,7 @@ export default function TaoDeXuat() {
                     `/quan-ly-nhan-luc${object.urlRouter}`
                   )}
                 </Col>
-              </>
+              </React.Fragment>
             ))}
           </Row>
           <Row

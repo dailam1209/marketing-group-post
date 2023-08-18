@@ -90,7 +90,7 @@ export default function DeXuatSuaChuaCSVC() {
 
   const MyForm = () => {
     return (
-      <Form form={form} initialValues={{ name: 'khas' }}>
+      <Form form={form} initialValues={{ name: "Vũ Văn Khá" }}>
         <Row gutter={[20, 10]}>
           <Col md={12} sm={12} xs={24}>
             <DxInputTxt

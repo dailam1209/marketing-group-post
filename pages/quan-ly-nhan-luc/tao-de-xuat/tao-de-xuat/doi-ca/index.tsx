@@ -254,12 +254,12 @@ export default function DonXinDoiCa() {
   return (
     <>
       <div style={{ width: '100%', justifyContent: 'center' }}>
-        <div className={styles.form}>
+        <div className={`shadowForm ${styles.form}`}>
           <div className={styles.header}>
-            <Image src='/back-w.png' alt='' height={24} width={24}></Image>
+            <Image src='/back-w.png' alt='' height={24} width={24} onClick={() => router.back()}></Image>
             <div className={styles.text}>Đơn xin đổi ca</div>
           </div>
-          <Form style={{ width: '100%' }} form={form}>
+          <Form style={{ width: '100%' }} form={form} className='taoDeXuatForm'>
             <div className={styles.body}>
               <div className={styles.bodyItem1}>
                 <span style={{ fontSize: '16px' }}>Tên đề xuất </span>
@@ -289,6 +289,7 @@ export default function DonXinDoiCa() {
                 <span style={{ fontSize: '16px' }}>Loại đề xuất</span>
                 <Form.Item>
                   <Input
+                    value={'Đơn xin đổi ca'}
                     size='large'
                     placeholder='Đơn xin đổi ca'
                     style={{
@@ -301,7 +302,7 @@ export default function DonXinDoiCa() {
               </div>
               <div className={styles.bodyItem15}></div>
               <div className={styles.bodyItem4}>
-                <span style={{ fontSize: '16px' }}>Ngày đổi</span>
+                <span style={{ fontSize: '16px' }}>Ngày đổi </span>
                 <span style={{ fontSize: '16px', color: 'red' }}>*</span>
                 <Form.Item name={'ngay_can_doi'}>
                   <Input
@@ -333,7 +334,7 @@ export default function DonXinDoiCa() {
                 </Form.Item>
               </div>
               <div className={styles.bodyItem6}>
-                <span style={{ fontSize: '16px' }}>Ngày cần đổi</span>
+                <span style={{ fontSize: '16px' }}>Ngày cần đổi </span>
                 <span style={{ fontSize: '16px', color: 'red' }}>*</span>
                 <Form.Item name={'ngay_muon_doi'}>
                   <Input

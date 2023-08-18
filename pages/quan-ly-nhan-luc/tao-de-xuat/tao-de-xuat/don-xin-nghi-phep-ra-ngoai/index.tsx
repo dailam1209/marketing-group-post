@@ -112,10 +112,10 @@ export default function DonXinNghiPhepOut() {
   return (
     <div>
       <div className={styles.header}>
-        <Image src={'/back-w.png'} alt='' width={24} height={24}></Image>
+        <Image src={'/back-w.png'} alt='' width={24} height={24} onClick={() => router.back()}></Image>
         <p className={styles.headerText}>Đơn xin nghỉ phép ra ngoài</p>
       </div>
-      <Form form={form} initialValues={{ name: 'khas' }}>
+      <Form form={form} className='shadowForm taoDeXuatForm' initialValues={{ name: "khas" }}>
         <div className={styles.body}>
           <Row gutter={[20, 10]}>
             <Col sm={12} xs={24}>

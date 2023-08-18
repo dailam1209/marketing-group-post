@@ -149,7 +149,7 @@ export const TaoDeXuatWrapper = ({
           </div>
           <p className={styles.headerTxt}>{header}</p>
         </div>
-        <div className={styles.wrapper}>{children}</div>
+        <div className={`taoDeXuatForm ${styles.wrapper}`}>{children}</div>
       </div>
 
       <div className={styles.btnGroup}>

@@ -1,14 +1,14 @@
-import { Button, Col, Form, Input, Row, Select } from 'antd'
-import styles from './khieu-nai.module.css'
+import { Button, Col, Form, Input, Row, Select } from 'antd';
+import styles from './khieu-nai.module.css';
 import {
   IconSelect,
   Tep,
-} from '@/components/cai-dat-luong/cai-dat-thue/danh-sach-nhan-su-chua-thiet-lap/anh'
-import { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
-import dayjs from 'dayjs'
-import { POST_VT, getInfoUser } from '@/pages/api/BaseApi'
-import { DXFileInput } from '@/components/tao-de-xuat-2/components/TaoDeXuatComps'
+} from '@/components/cai-dat-luong/cai-dat-thue/danh-sach-nhan-su-chua-thiet-lap/anh';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import dayjs from 'dayjs';
+import { POST_VT, getInfoUser } from '@/pages/api/BaseApi';
+import { DXFileInput } from '@/components/tao-de-xuat-2/components/TaoDeXuatComps';
 
 export const KhieuNai: React.FC = () => {
   const [form] = Form.useForm()
@@ -29,7 +29,7 @@ export const KhieuNai: React.FC = () => {
         ...value,
         id_user_duyet: value['id_user_duyet']?.join(','),
         id_user_theo_doi: value['id_user_theo_doi']?.join(','),
-      }
+      };
       // console.log(body);
 
       const fd = new FormData()
@@ -39,13 +39,13 @@ export const KhieuNai: React.FC = () => {
       })
 
       if (fileData) {
-        fd.append('file_kem', fileData)
+        fd.append('file_kem', fileData);
       }
 
       POST_VT('api/vanthu/dexuat/addDXKN', fd).then((res) => {
         if (res?.result === true) {
-          alert('Tạo đề xuất khiếu nại thành công!')
-          router.reload()
+          alert('Tạo đề xuất khiếu nại thành công!');
+          router.replace(router.asPath);
         }
       })
     })
@@ -74,10 +74,10 @@ export const KhieuNai: React.FC = () => {
       }
     }
 
-    getListDuyet()
+    getListDuyet();
 
-    setInfoUser(getInfoUser())
-  }, [])
+    setInfoUser(getInfoUser());
+  }, []);
 
   useEffect(() => {
     if (infoUser?.idQLC) {
@@ -88,7 +88,7 @@ export const KhieuNai: React.FC = () => {
   return (
     <div className={styles.khung}>
       <div className={styles.header}>
-        <div className={styles.iconheader}>
+        <div className={styles.iconheader} onClick={() => router.back()}>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             width='12'
@@ -106,11 +106,12 @@ export const KhieuNai: React.FC = () => {
         </div>
         <p className={styles.textheader}>Đề xuất khiếu nại</p>
       </div>
-      <div className={styles.body}>
+      <div className={`shadowForm  ${styles.body}`}>
         <Form
           form={form}
-          className={`${styles.bodyform} mc`}
-          initialValues={{ name: 'khas' }}>
+          className={`${styles.bodyform} mc taoDeXuatForm`}
+          initialValues={{ name: 'khas' }}
+        >
           <Row gutter={24} className={styles.body1}>
             <Col sm={12} xs={24}>
               <Form.Item
@@ -169,7 +170,7 @@ export const KhieuNai: React.FC = () => {
               </Form.Item>
             </Col>
           </Row>
-          <Row className={styles.body4}>
+          <Row gutter={20} className={styles.body1}>
             <Col sm={24} xs={24}>
               <Form.Item
                 name={'ly_do'}

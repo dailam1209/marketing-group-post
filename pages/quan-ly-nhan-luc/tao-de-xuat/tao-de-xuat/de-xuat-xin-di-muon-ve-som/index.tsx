@@ -119,10 +119,10 @@ export default function DeXuatXinDiMuonVeSom() {
   return (
     <div>
       <div className={styles.header}>
-        <Image src={'/back-w.png'} alt='' width={24} height={24}></Image>
+        <Image src={"/back-w.png"} alt="" width={24} height={24} onClick={() => router.back()}></Image>
         <p className={styles.headerText}>Đề xuất xin đi muộn về sớm</p>
       </div>
-      <Form form={form} initialValues={{ name: 'Vũ Văn Khá' }}>
+      <Form form={form} className='shadowForm taoDeXuatForm' initialValues={{ name: "Vũ Văn Khá" }}>
         <div className={styles.body}>
           <Row gutter={[20, 10]}>
             <Col sm={12} xs={24}>
