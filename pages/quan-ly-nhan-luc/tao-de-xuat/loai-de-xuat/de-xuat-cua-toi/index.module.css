@@ -1,3 +1,5 @@
+
+
 .header {
   margin-bottom: 60px;
 }
@@ -9,13 +11,14 @@
 @media screen and (max-width: 768px) {
   .header {
     margin-bottom: 40px;
+    row-gap: 20px !important  ;
+    margin-left:0 !important;
+    margin-right:0 !important;
   }
 }
 @media screen and (max-width: 414px) {
   .header {
     margin-bottom: 30px;
-  }
-  .body {
-    padding: 16px;
+    row-gap: 20px !important;
   }
 }

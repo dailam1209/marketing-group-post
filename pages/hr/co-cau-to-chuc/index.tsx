@@ -9,6 +9,8 @@ import Head from 'next/head'
 import LoadingSpinner from '@/components/hr/loading'
 import PageAuthenticator from '@/components/hr/quyen-truy-cap'
 import { getDataAuthentication } from '@/pages/api/api-hr/Home/HomeService'
+import { useRouter } from "next/router.js";
+import { ConfigProvider, Spin } from "antd";
 const PostionCharTree = dynamic(
   () => import('@/components/hr/co-cau-to-chuc/postionChar'),
   {
@@ -16,11 +18,59 @@ const PostionCharTree = dynamic(
   }
 )
 
+export const LoadingComp = () => {
+  return (
+    <Spin
+      // indicator={<LoadingOutlined rev={null} />}
+      style={{
+        position: "fixed",
+        top: "50%",
+        left: "50%",
+      }}
+    />
+  );
+};
+
 export default function OrganizationalStructure({ children }: any) {
   const [active, setActive] = useState(1)
   const [displayIcon, setDisplayIcon] = useState<any>()
   const [isLoading, setIsLoading] = useState(true)
   const [isDataLoaded, setIsDataLoaded] = useState(false)
+  const [loading, setLoading] = useState(false);
+  const [firstLoad, setFirstLoad] = useState(true);
+  const router = useRouter();
+  useEffect(() => {
+    const doLoading = () => {
+      const start = () => {
+        setLoading(true);
+      };
+      const end = () => {
+        setLoading(false);
+      };
+      setTimeout(() => {
+        router.events.on("routeChangeStart", start);
+      }, 200);
+      setTimeout(() => {
+        router.events.on("routeChangeComplete", end);
+      }, 200);
+      router.events.on("routeChangeError", end);
+      return () => {
+        router.events.off("routeChangeStart", start);
+        router.events.off("routeChangeComplete", end);
+        router.events.off("routeChangeError", end);
+      };
+    };
+    doLoading();
+  }, []);
+
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setFirstLoad(false);
+    }, 100);
+    return () => clearTimeout(timeout);
+  }, []);
+
 
   useEffect(() => {
     try {
@@ -31,7 +81,7 @@ export default function OrganizationalStructure({ children }: any) {
         setIsLoading(false)
       }
       fetchData()
-    } catch (error) {}
+    } catch (error) { }
   }, [])
 
   const perIdArray = displayIcon?.map((item) => item.perId)

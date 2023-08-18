@@ -6,7 +6,7 @@ import ItemCandidate3 from '@/components/hr/quan-ly-tuyen-dung/danh-sach-ung-vie
 import { useDrop } from "react-dnd"
 import { ItemTypes } from '@/components/hr/quan-ly-tuyen-dung/danh-sach-ung-vien/item/ItemType';
 export default function DropableColumn({
-    item, isProcessList, handleUpdateProcess, setDeleteProcess, setModalOpen, setDragItem, setDropCol, setProcess_id, iconEdit, iconDelete
+    item, isProcessList, handleUpdateProcess, onCancel, setDeleteProcess, setModalOpen, setDragItem, setDropCol, setProcess_id, iconEdit, iconDelete
 }: any) {
 
     const [{ canDrop, isOver }, drop] = useDrop(() => ({
@@ -83,6 +83,7 @@ export default function DropableColumn({
                                 setDragItem={setDragItem}
                                 setDropCol={setDropCol}
                                 iconDelete={iconDelete}
+                                onCancel={onCancel}
                             />
                         )
                     })}
@@ -98,6 +99,7 @@ export default function DropableColumn({
                                 setDropCol={setDropCol}
                                 setProcess_id={setProcess_id}
                                 iconDelete={iconDelete}
+                                onCancel={onCancel}
                             />
                         )
                     })
@@ -115,6 +117,7 @@ export default function DropableColumn({
                                 iconDelete={iconDelete}
                                 process_id={item?.id}
                                 setProcess_id={setProcess_id}
+                                onCancel={onCancel}
                             />
                         )
                     })}
@@ -131,6 +134,7 @@ export default function DropableColumn({
                                 iconDelete={iconDelete}
                                 process_id={item?.id}
                                 setProcess_id={setProcess_id}
+                                onCancel={onCancel}
                             />
                         )
                     })}
@@ -146,6 +150,7 @@ export default function DropableColumn({
                                 setDropCol={setDropCol}
                                 iconDelete={iconDelete} process_id={item?.id}
                                 setProcess_id={setProcess_id}
+                                onCancel={onCancel}
                             />
                         )
                     })}
@@ -162,6 +167,7 @@ export default function DropableColumn({
                                 iconDelete={iconDelete}
                                 process_id={item?.id}
                                 setProcess_id={setProcess_id}
+                                onCancel={onCancel}
                             />
                         )
                     })}
