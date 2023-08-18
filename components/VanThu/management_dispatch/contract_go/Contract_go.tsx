@@ -51,7 +51,7 @@ const Contract_go: React.FC<ComponentProps> = ({ data, total_vb }) => {
             <Btn_Add title={"Thêm mới hợp đồng đi"} />
           </div>
           <Modal_contract_go
-            href="/ds-hop-dong/hop-dong-di"
+            href="/VanThu/ds-hop-dong/hop-dong-di"
             isOpen={modalOpen}
             onClose={handleCloseModal}
             title="Thêm mới hợp đồng đi"
@@ -67,7 +67,7 @@ const Contract_go: React.FC<ComponentProps> = ({ data, total_vb }) => {
           </div>
           <Table_contract
             listContracts={isSearch ? dataArray : data}
-            href="/ds-hop-dong/hop-dong-di/"
+            href="/VanThu/ds-hop-dong/hop-dong-di/"
           />
           <div style={{ marginTop: "15px" }}>
             {!isSearch && data && (
@@ -78,7 +78,7 @@ const Contract_go: React.FC<ComponentProps> = ({ data, total_vb }) => {
                 ).map((pageNumber: any) => (
                   <li key={pageNumber} className={styles.li_navi}>
                     <Link
-                      href="/ds-hop-dong/hop-dong-di/"
+                      href="/VanThu/ds-hop-dong/hop-dong-di/"
                       onClick={() => handlePageChange(pageNumber)}
                       style={{
                         backgroundColor:

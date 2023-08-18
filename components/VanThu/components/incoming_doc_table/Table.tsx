@@ -24,7 +24,7 @@ const Table: React.FC<ListDocs> = ({ listdocs, href_url }) => {
         </p>
         <div className={`${styles.table_element}`}>
           <Link
-            href={`/van-ban-den/${href_url}/${item?._id}`}
+            href={`/VanThu/van-ban-den/${href_url}/${item?._id}`}
             // onClick={() => {
             //   router.push({
             //     ...router,

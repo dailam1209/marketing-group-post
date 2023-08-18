@@ -25,10 +25,10 @@ import { store } from "@/components/crm/redux/store";
 import { TongDaiContext } from "@/components/crm/context/tongdaiContext";
 import store from "@/store";
 import Layout_admin from "@/components/VanThu/Layout_admin";
+import Cookies from "js-cookie";
+import jwtDecode from "jwt-decode";
 import Layout_user from "@/components/VanThu/Layout_user";
 import { setCookie } from "cookies-next";
-import jwtDecode from "jwt-decode";
-
 
 export const LoadingComp = () => {
   return (
@@ -101,7 +101,7 @@ export default function App({ Component, pageProps }) {
   useEffect(() => {
     importGlobalStyles()
   }, [router.pathname])
-
+  
   const role = Cookies.get('role')
   const VanThu_token = Cookies.get('token_base365');
   if(VanThu_token){

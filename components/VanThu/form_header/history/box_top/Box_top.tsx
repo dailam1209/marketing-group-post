@@ -46,7 +46,7 @@ export const Box_top_data_del: React.FC<ListBoxs> = ({ listboxs }) => {
           </div>
         </div>
         <Link 
-          href={`/trang-chu-quan-ly-cong-van/lich-su-cap-nhat/${item.id}`}
+          href={`/VanThu/trang-chu-quan-ly-cong-van/lich-su-cap-nhat/${item.id}`}
           className={styles.link_ct}
         >
           Xem chi tiết
