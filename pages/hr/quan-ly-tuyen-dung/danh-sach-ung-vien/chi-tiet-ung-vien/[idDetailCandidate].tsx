@@ -48,6 +48,9 @@ export default function DetailCandidate({ onCancel }: any) {
     || isCandidateProcess?.detail_contact_job?.epOffer
   )
 
+  console.log(isCandidateAll);
+
+
   useEffect(() => {
     const fetchData = async () => {
       if (id?.includes("p")) {
@@ -295,7 +298,7 @@ export default function DetailCandidate({ onCancel }: any) {
                 )}
               </div>
               {openModalDetail && id?.charAt(0) === 'u' && !id?.includes("p") ? <EditCandidateModal candidate={isCandidate} onCancel={handleCloseModal} /> : ''}
-              {openModalDetail && id?.includes("p") ? <EditCandidateIntrview candidate={isCandidate} onCancel={handleCloseModal} processName={isProcessName} /> : ''}
+              {openModalDetail && id?.includes("p") ? <EditCandidateIntrview candidateAll={isCandidateAll} candidate={isCandidate} onCancel={handleCloseModal} processName={isProcessName} /> : ''}
               {openModalDetail && id?.charAt(0) === 'g' ? <EditCandidateGetJob candidate={isCandidate} onCancel={handleCloseModal} /> : ''}
               {openModalDetail && id?.charAt(0) === 'f' ? <EditCandidateFailJob candidate={isCandidate} onCancel={handleCloseModal} /> : ''}
               {openModalDetail && id?.charAt(0) === 'c' ? <EditCandidateCancelJob candidate={isCandidate} onCancel={handleCloseModal} /> : ''}
@@ -324,7 +327,10 @@ export default function DetailCandidate({ onCancel }: any) {
             </div>
             <div className={`${styles.l_body_2_left_body}`}>
               <p className={`${styles.l_body_2_left_body_title}`}>Quá trình tuyển dụng</p>
-              <p>Thời gian nhận hồ sơ: <span className={`${styles.txt_op}`}>07-07-2023</span></p>
+              {isCandidate?.timeSendCv &&
+                <p>Thời gian nhận hồ sơ: <span className={`${styles.txt_op}`}>{format(parseISO(isCandidate?.timeSendCv), 'dd-MM-yyyy')}</span></p>
+              }
+
               <p>Giai đoạn chuyển: <span className={`${styles.txt_op}`}>Nhận hồ sơ</span></p>
               <div>
                 <p style={{ display: 'inline-block' }}>Đánh giá hồ sơ: </p>
@@ -344,18 +350,18 @@ export default function DetailCandidate({ onCancel }: any) {
             {id?.includes("p") && (
               <div className={`${styles.l_body_2_left_body}`}>
                 {isProcessName && <p className={`${styles.l_body_2_left_body_title}`}>Giai đoạn chuyển: {isProcessName}</p>}
-                {isCandidateAll?.createdAt &&
-                  <p>Thời gian chuyển giai đoạn: <span className={`${styles.txt_op}`}>{format(parseISO(isCandidateAll?.createdAt), 'dd-MM-yyyy')}</span></p>
+                {isCandidateAll?.data?.createdAt &&
+                  <p>Thời gian chuyển giai đoạn: <span className={`${styles.txt_op}`}>{format(parseISO(isCandidateAll?.data?.createdAt), 'dd-MM-yyyy')}</span></p>
                 }
 
-                <p>Mức lương mong muốn: <span className={`${styles.txt_op}`}>{isCandidateAll?.resiredSalary}</span></p>
-                <p>Mức lương thực: <span className={`${styles.txt_op}`}>{isCandidateAll?.salary}</span></p>
-                {isCandidateAll?.interviewTime &&
-                  <p>Thời gian hẹn: <span className={`${styles.txt_op}`}>{format(parseISO(isCandidateAll?.interviewTime), 'dd-MM-yyyy')}</span></p>
+                <p>Mức lương mong muốn: <span className={`${styles.txt_op}`}>{isCandidateAll?.data?.resiredSalary}</span></p>
+                <p>Mức lương thực: <span className={`${styles.txt_op}`}>{isCandidateAll?.data?.salary}</span></p>
+                {isCandidateAll?.data?.interviewTime &&
+                  <p>Thời gian hẹn: <span className={`${styles.txt_op}`}>{format(parseISO(isCandidateAll?.data?.interviewTime), 'dd-MM-yyyy')}</span></p>
                 }
 
-                <p>Nhân viên tham gia: <span className={`${styles.txt_op}`}>{isCandidateAll?.nhanvien}</span></p>
-                <p>Ghi chú: <span className={`${styles.txt_op}`}>{isCandidateAll?.note}</span></p>
+                <p>Nhân viên tham gia: <span className={`${styles.txt_op}`}>{isCandidateAll?.data?.nhanvien}</span></p>
+                <p>Ghi chú: <span className={`${styles.txt_op}`}>{isCandidateAll?.data?.note}</span></p>
               </div>
             )}
             {id?.charAt(0) === 'g' && (

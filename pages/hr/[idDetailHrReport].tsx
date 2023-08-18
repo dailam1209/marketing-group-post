@@ -7,8 +7,9 @@ import MyPagination from "@/components/hr/pagination/Pagination";
 import Image from "next/image";
 import { DetailReport } from "../api/api-hr/bao-cao-nhan-su/HrReportService";
 import { DepartmentList } from "@/pages/api/api-hr/listPhongBan";
-import { PostionCharData } from '@/pages/api/api-hr/co_cau_to_chuc';
+import { PostionCharData, EmpStatusDetail } from '@/pages/api/api-hr/co_cau_to_chuc';
 import GetComId from "@/components/hr/getComID";
+
 
 type SelectOptionType = { label: string, value: any }
 
@@ -60,6 +61,7 @@ export default function DetailHrReport({ children }: any) {
 
   const [selectedOption, setSelectedOption] = useState<SelectOptionType | null>(null);
   const [isReportList, setReportList] = useState<any>(null)
+  const [isOrganisationalList, setOrganisationalList] = useState<any>(null)
   const [currentPage, setCurrentPage] = useState<any>(1);
   const [isGender, setGender] = useState<any>("");
   const [isType, setType] = useState<any>("");
@@ -188,10 +190,6 @@ export default function DetailHrReport({ children }: any) {
     }
   }, [link])
 
-  console.log(link_cut);
-  console.log(isTitle);
-
-
   useEffect(() => {
 
     const fetchData = async () => {
@@ -245,6 +243,104 @@ export default function DetailHrReport({ children }: any) {
         formData.append('com_id', comid)
         const response = await DepartmentList(formData)
         setDepartmentList(response?.data)
+      } catch (error) {
+        throw error
+      }
+    }
+    fetchData()
+  }, [])
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const formData = new FormData()
+        if (link?.includes("danh-sach-nhan-vien-cua-tong-cong-ty")
+          || link?.includes("danh-sach-nhan-vien-cham-cong-tong-cong-ty")
+          || link?.includes("danh-sach-nhan-vien-chua-cham-cong-tong-cong-ty")
+        ) {
+          if (link?.includes("danh-sach-nhan-vien-cua-tong-cong-ty")) {
+            setTitle("Danh sách nhân viên của công ty")
+          }
+          if (link?.includes("danh-sach-nhan-vien-cham-cong-tong-cong-ty")) {
+            setTitle("Danh sách nhân viên chấm công của công ty")
+          }
+          if (link?.includes("danh-sach-nhan-vien-chua-cham-cong-tong-cong-ty")) {
+            setTitle("Danh sách nhân viên chưa chấm công của công ty")
+          }
+          const regex = /c(\d+)-t(\d+)/;
+          const match = link.match(regex);
+          formData.append('type_timekeep', match[2])
+          formData.append('comId', match[1])
+        }
+        if (link?.includes("danh-sach-nhan-vien-theo-phong-ban")
+          || link?.includes("danh-sach-nhan-vien-cham-cong-phong-ban")
+          || link?.includes("danh-sach-nhan-vien-chua-cham-cong-phong-ban")
+        ) {
+          if (link?.includes("danh-sach-nhan-vien-theo-phong-ban")) {
+            setTitle("Danh sách nhân viên theo phòng ban")
+          }
+          if (link?.includes("danh-sach-nhan-vien-cham-cong-phong-ban")) {
+            setTitle("Danh sách nhân viên chấm công theo phòng ban")
+          }
+          if (link?.includes("danh-sach-nhan-vien-chua-cham-cong-phong-ban")) {
+            setTitle("Danh sách nhân viên chưa chấm công theo phòng ban")
+          }
+          const regex = /c(\d+)-t(\d+)-d(\d+)/;
+          const match = link.match(regex);
+          const lastCharacter = link.slice(-1)
+          formData.append('type_timekeep', match[2])
+          formData.append('dep_id', match[3])
+          formData.append('comId', match[1])
+        }
+        if (link?.includes("danh-sach-nhan-vien-theo-to")
+          || link?.includes("danh-sach-nhan-vien-cham-cong-theo-to")
+          || link?.includes("danh-sach-nhan-vien-chua-cham-cong-theo-to")
+        ) {
+          if (link?.includes("danh-sach-nhan-vien-theo-to")) {
+            setTitle("Danh sách nhân viên theo tổ")
+          }
+          if (link?.includes("danh-sach-nhan-vien-cham-cong-theo-to")) {
+            setTitle("Danh sách nhân viên chấm công theo tổ")
+          }
+          if (link?.includes("danh-sach-nhan-vien-chua-cham-cong-theo-to")) {
+            setTitle("Danh sách nhân viên chưa chấm công theo tổ")
+          }
+          const regex = /c(\d+)-t(\d+)-d(\d+)-n(\d+)/;
+          const match = link.match(regex);
+          formData.append('type_timekeep', match[2])
+          formData.append('dep_id', match[3])
+          formData.append('comId', match[1])
+          formData.append('team_id', match[4])
+        }
+        if (link?.includes("danh-sach-nhan-vien-theo-nhom")
+          || link?.includes("danh-sach-nhan-vien-cham-cong-theo-nhom")
+          || link?.includes("danh-sach-nhan-vien-chua-cham-cong-theo-nhom")
+        ) {
+          if (link?.includes("danh-sach-nhan-vien-theo-nhom")) {
+            setTitle("Danh sách nhân viên theo nhóm")
+          }
+          if (link?.includes("danh-sach-nhan-vien-cham-cong-theo-nhom")) {
+            setTitle("Danh sách nhân viên chấm công theo nhóm")
+          }
+          if (link?.includes("danh-sach-nhan-vien-chua-cham-cong-theo-nhom")) {
+            setTitle("Danh sách nhân viên chưa chấm công theo nhóm")
+          }
+          const regex = /c(\d+)-t(\d+)-d(\d+)-n(\d+)-g(\d+)/;
+          const matches = link.match(regex);
+          formData.append('type_timekeep', matches[2])
+          formData.append('dep_id', matches[3])
+          formData.append('comId', matches[1])
+          formData.append('team_id', matches[4])
+          formData.append('group_id', matches[5])
+        }
+        formData.append("position_id", isPosition_id)
+        formData.append("gender", isGender)
+        formData.append("married", isMaried)
+        formData.append("birthday", isMaried)
+        formData.append("team", isMaried)
+        const response = await EmpStatusDetail(formData);
+        if (response) {
+          setOrganisationalList(response?.data)
+        }
       } catch (error) {
         throw error
       }
@@ -321,9 +417,20 @@ export default function DetailHrReport({ children }: any) {
     tinhtranghonnhan: [
       { value: 1, label: "Đã có gia đình" },
       { value: 2, label: "Độc thân" },
-
+    ],
+    kinhnghiemlamviec: [
+      { value: "0", label: 'Chưa có kinh nghiệm' },
+      { value: "1", label: '0 - 1 năm kinh nghiệm' },
+      { value: "2", label: '1 - 2 năm kinh nghiệm' },
+      { value: "3", label: '2 - 5 năm kinh nghiệm' },
+      { value: "4", label: '5 - 10 năm kinh nghiệm' },
+      { value: "5", label: 'Hơn 10 năm kinh nghiệm' },
     ],
   };
+
+  console.log(isOrganisationalList);
+
+
   return (
     <>
       <div className={`${styles.wrapper}`}>
@@ -427,6 +534,50 @@ export default function DetailHrReport({ children }: any) {
                       <td>{item?.chucvu}</td>
                     </tr>
                   ))}
+                  {isOrganisationalList?.listEmployee?.map((item: any, index: any) => {
+                    const positionData = PostionCharDatas?.data?.find(
+                      (position: any) => position?.positionId === item?.position_id
+                    );
+                    const positionNameToShow = positionData ? positionData.positionName : item.vitri;
+                    return (
+                      <tr key={index}>
+                        <td>{index + 1}</td>
+                        <td>{item?.idQLC} </td>
+                        <td>{item?.userName}</td>
+                        <td>{item?.Department}</td>
+                        <td>{positionNameToShow}</td>
+                        <td>Chưa cập nhật</td>
+                        <td>Chưa cập nhật</td>
+                        <td>{item?.gender === 1 ? "Nam" : "Nữ"}</td>
+                        {item?.birthday ? <td> {format(
+                          parseISO(new Date(item?.birthday * 1000).toISOString()),
+                          "yyyy-MM-dd"
+                        )}</td> : <td>Chưa cập nhật</td>}
+                        <td>{item?.married === 1
+                          ? "Đã có gia đình"
+                          : item?.married === 2
+                            ? "Độc thân"
+                            : "Chưa cập nhật"}
+                        </td>
+                        <td>
+                          <p>Email:{item?.email}</p>
+                          <p>SDT: {item?.phoneTK}</p>
+                          <p>Địa chỉ: {item.address}</p>
+                        </td>
+                        {item?.start_working_time ? <td>{format(
+                          parseISO(new Date(item?.start_working_time * 1000).toISOString()),
+                          "yyyy-MM-dd"
+                        )}</td> : <td>Chưa cập nhật</td>}
+                        <td>{item?.experience === 0 ? "Chưa có kinhh nghiệm" :
+                          item?.experience === 1 ? "0 - 1 năm kinh nghiệm" :
+                            item?.experience === 2 ? "1 - 2 năm kinh nghiệm" :
+                              item?.experience === 3 ? "2 - 5 năm kinh nghiệm" :
+                                item?.experience === 4 ? "5 - 10 năm kinh nghiệm" :
+                                  "trên 10 năm kinh nghiệm"
+                        }</td>
+                      </tr>
+                    )
+                  })}
                 </tbody>
               </table>
             </div>

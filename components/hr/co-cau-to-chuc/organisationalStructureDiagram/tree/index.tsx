@@ -9,6 +9,9 @@ import DetailsNestModal from './nest/detailNestModal';
 import DetailsGroupModal from './group/detailGroupModal';
 import { OrganizationalStructureData } from '@/pages/api/api-hr/co_cau_to_chuc';
 import dynamic from 'next/dynamic';
+import { useRouter } from "next/router";
+import GetComId from '@/components/hr/getComID';
+
 
 const Tree = dynamic(() =>
   import('react-organizational-chart').then((module) => {
@@ -41,7 +44,8 @@ const MemberViewBoxRoom = ({
   setOpenModalEdit,
   handleDataUpdateRoom,
   setOpenModalDetails,
-  iconEdit
+  iconEdit,
+  handleClickDetail
 }: any) => (
   <div className={`${styles.member_view_box} ${styles.member_view_box_top_3}`} style={{ display: 'flex', width: 'inherit' }}>
     <div className={`${styles.member_detail}`} style={{ width: '100%' }}>
@@ -69,9 +73,9 @@ const MemberViewBoxRoom = ({
         <p>Mô tả: {describe} <button className={`${styles.see_more}`} onClick={() => setOpenModalDetails()}>( Chi tiết )</button></p>
         <p>Trưởng phòng: {manager}</p>
         <p>Phó phòng: {deputy}</p>
-        <a href={employeeLink} target="_blank" rel="noreferrer" className={`${styles.link_a_2}`}>Số nhân viên: {employeeNumber}</a>
-        <a href={checkInLink} target="_blank" rel="noreferrer" className={`${styles.link_a_2}`}>Số nhân viên đã điểm danh: {registered}</a>
-        <a href={absenceLink} target="_blank" rel="noreferrer" className={`${styles.link_a_2}`}>Số nhân viên chưa điểm danh: {noAttendance}</a>
+        <a href='' onClick={(event) => handleClickDetail(employeeLink, event)} target="_blank" rel="noreferrer" className={`${styles.link_a_2}`}>Số nhân viên: {employeeNumber}</a>
+        <a href='' onClick={(event) => handleClickDetail(checkInLink, event)} target="_blank" rel="noreferrer" className={`${styles.link_a_2}`}>Số nhân viên đã điểm danh: {registered}</a>
+        <a href='' onClick={(event) => handleClickDetail(absenceLink, event)} target="_blank" rel="noreferrer" className={`${styles.link_a_2}`}>Số nhân viên chưa điểm danh: {noAttendance}</a>
       </div>
     </div>
   </div>
@@ -93,7 +97,8 @@ const MemberViewBoxNest = ({
   setOpenModalEditNest,
   setOpenModalDetailsNest,
   handleDataUpdateNest,
-  iconEdit
+  iconEdit,
+  handleClickDetail
 }: any) => (
   <div className={`${styles.member_view_box} ${styles.member_view_box_top_3}`} style={{ display: 'flex', width: 'inherit' }}>
     <div className={`${styles.member_detail}`} style={{ width: '100%' }}>
@@ -116,9 +121,9 @@ const MemberViewBoxNest = ({
         <p>Mô tả: {describe} <button className={`${styles.see_more}`} onClick={() => setOpenModalDetailsNest()}>( Chi tiết )</button></p>
         <p>Tổ trưởng: {leader}</p>
         <p>Phó tổ trưởng: {deputy_leader}</p>
-        <a href={employeeLink} target="_blank" rel="noreferrer" className={`${styles.link_a_2}`}>Số nhân viên: {employeeNumber}</a>
-        <a href={checkInLink} target="_blank" rel="noreferrer" className={`${styles.link_a_2}`}>Số nhân viên đã điểm danh: {registered}</a>
-        <a href={absenceLink} target="_blank" rel="noreferrer" className={`${styles.link_a_2}`}>Số nhân viên chưa điểm danh: {noAttendance}</a>
+        <a href='' onClick={(event) => handleClickDetail(employeeLink, event)} target="_blank" rel="noreferrer" className={`${styles.link_a_2}`}>Số nhân viên: {employeeNumber}</a>
+        <a href='' onClick={(event) => handleClickDetail(checkInLink, event)} target="_blank" rel="noreferrer" className={`${styles.link_a_2}`}>Số nhân viên đã điểm danh: {registered}</a>
+        <a href='' onClick={(event) => handleClickDetail(absenceLink, event)} target="_blank" rel="noreferrer" className={`${styles.link_a_2}`}>Số nhân viên chưa điểm danh: {noAttendance}</a>
       </div>
     </div>
   </div>
@@ -142,7 +147,8 @@ const MemberViewBoxGroup = ({
   setOpenModalEditGroup,
   setOpenModalDetailsGroup,
   handleDataUpdateGroup,
-  iconEdit
+  iconEdit,
+  handleClickDetail
 }: any) => (
   <div className={`${styles.member_view_box} ${styles.member_view_box_top_3}`} style={{ display: 'flex', width: 'inherit' }}>
     <div className={`${styles.member_detail}`} style={{ width: '100%' }}>
@@ -166,9 +172,9 @@ const MemberViewBoxGroup = ({
         <p>Mô tả: {describe} <button className={`${styles.see_more}`} onClick={() => setOpenModalDetailsGroup()}>( Chi tiết )</button></p>
         <p>Trưởng nhóm: {group_captain}</p>
         <p>Phó nhóm: {deputy_group_captain}</p>
-        <a href={employeeLink} target="_blank" rel="noreferrer" className={`${styles.link_a_2}`}>Số nhân viên: {employeeNumber}</a>
-        <a href={checkInLink} target="_blank" rel="noreferrer" className={`${styles.link_a_2}`}>Số nhân viên đã điểm danh: {registered}</a>
-        <a href={absenceLink} target="_blank" rel="noreferrer" className={`${styles.link_a_2}`}>Số nhân viên chưa điểm danh: {noAttendance}</a>
+        <a href='' onClick={(event) => handleClickDetail(employeeLink, event)} target="_blank" rel="noreferrer" className={`${styles.link_a_2}`}>Số nhân viên: {employeeNumber}</a>
+        <a href='' onClick={(event) => handleClickDetail(checkInLink, event)} target="_blank" rel="noreferrer" className={`${styles.link_a_2}`}>Số nhân viên đã điểm danh: {registered}</a>
+        <a href='' onClick={(event) => handleClickDetail(absenceLink, event)} target="_blank" rel="noreferrer" className={`${styles.link_a_2}`}>Số nhân viên chưa điểm danh: {noAttendance}</a>
       </div>
     </div>
   </div>
@@ -184,7 +190,8 @@ const MemberViewBoxCompany = ({
   absenceLink,
   employeeNumber,
   registered,
-  noAttendance
+  noAttendance,
+  handleClickDetail
 }: any) => (
   <div className={`${styles.member_view_box} ${styles.member_view_box_top_2}`} style={{ display: 'flex', width: 'inherit' }}>
     <div className={`${styles.member_detail}`} style={{ width: '100%' }}>
@@ -192,9 +199,9 @@ const MemberViewBoxCompany = ({
       <span className={`${styles.text_ita}`}>({describe})</span>
       <p>Giám đốc: {CEO}</p>
       <p>Phó giám đốc: {deputy_CEO}</p>
-      <a href={employeeLink} target="_blank" rel="noreferrer" className={`${styles.link_a_2}`}>Số nhân viên: {employeeNumber}</a>
-      <a href={checkInLink} target="_blank" rel="noreferrer" className={`${styles.link_a_2}`}>Số nhân viên đã điểm danh: {registered}</a>
-      <a href={absenceLink} target="_blank" rel="noreferrer" className={`${styles.link_a_2}`}>Số nhân viên chưa điểm danh: {noAttendance}</a>
+      <a href='' onClick={(event) => handleClickDetail(employeeLink, event)} target="_blank" rel="noreferrer" className={`${styles.link_a_2}`}>Số nhân viên: {employeeNumber}</a>
+      <a href='' onClick={(event) => handleClickDetail(checkInLink, event)} target="_blank" rel="noreferrer" className={`${styles.link_a_2}`}>Số nhân viên đã điểm danh: {registered}</a>
+      <a href='' onClick={(event) => handleClickDetail(absenceLink, event)} target="_blank" rel="noreferrer" className={`${styles.link_a_2}`}>Số nhân viên chưa điểm danh: {noAttendance}</a>
     </div>
   </div>
 
@@ -260,6 +267,16 @@ const StyledTreeExample = ({ iconEdit }) => {
     setOpenModalEditGroup(gr_id)
   }
 
+  const comid = GetComId()
+  const router = useRouter()
+  const handleClickDetail = (link: any, event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    if (typeof link === "string") {
+      router.push(
+        `/hr/${link}`
+      );
+    }
+  };
 
   const options = {
     chonphongban: [
@@ -306,23 +323,24 @@ const StyledTreeExample = ({ iconEdit }) => {
                 <p className={`${styles.text_center}`}>{data?.infoCompany.companyName}</p>
                 <p>Giám đốc: {data?.infoCompany?.parent_manager}</p>
                 <p>Phó giám đốc: {data?.infoCompany.parent_deputy}</p>
-                <a href="/hr/quan-ly-hanh-chinh/thong-tin-nhan-su" target="_blank" className={`${styles.link_a}`}>Tổng nhân viên: {data?.infoCompany.tong_nv}</a>
-                <a href="/danh-sach-nhan-vien-cham-cong-tong-cong-ty-c1664-ty1-tk1.html" target="_blank" className={`${styles.link_a}`}>Tổng nhân viên đã điểm danh: {data?.infoCompany.tong_nv_da_diem_danh}</a>
-                <a href="/danh-sach-nhan-vien-chua-cham-cong-tong-cong-ty-c1664-ty1-tk2.html" target="_blank" className={`${styles.link_a}`}>Tổng nhân viên chưa điểm danh: {data?.infoCompany.tong_nv - data?.infoCompany.tong_nv_da_diem_danh}</a>
+                <a href='' onClick={(event) => handleClickDetail(`danh-sach-nhan-vien-cua-tong-cong-ty-c${comid}-t0`, event)} target="_blank" className={`${styles.link_a}`}>Tổng nhân viên: {data?.infoCompany.tong_nv}</a>
+                <a href='' onClick={(event) => handleClickDetail(`danh-sach-nhan-vien-cham-cong-tong-cong-ty-c${comid}-t1`, event)} target="_blank" className={`${styles.link_a}`}>Tổng nhân viên đã điểm danh: {data?.infoCompany.tong_nv_da_diem_danh}</a>
+                <a href='' onClick={(event) => handleClickDetail(`danh-sach-nhan-vien-chua-cham-cong-tong-cong-ty-c${comid}-t2`, event)} target="_blank" className={`${styles.link_a}`}>Tổng nhân viên chưa điểm danh: {data?.infoCompany.tong_nv - data?.infoCompany.tong_nv_da_diem_danh}</a>
               </div>
             </div></StyledNode>}
           >
             {data?.infoCompany?.infoDep?.map((dep: any) => {
               return (
                 <TreeNode key={dep?.dep_id} label={<StyledNode><MemberViewBoxRoom
+                  handleClickDetail={handleClickDetail}
                   idRoom={dep?.dep_id}
                   text_part={dep?.dep_name}
                   describe={dep?.description}
                   manager={dep?.manager}
                   deputy={dep?.deputy}
-                  employeeLink="/danh-sach-nhan-vien-cua-tong-cong-ty-c1664-t1.html"
-                  checkInLink="/danh-sach-nhan-vien-cham-cong-tong-cong-ty-c1664-ty1-tk1.html"
-                  absenceLink="/danh-sach-nhan-vien-chua-cham-cong-tong-cong-ty-c1664-ty1-tk2.html"
+                  employeeLink={`danh-sach-nhan-vien-theo-phong-ban-c${comid}-t0-d${dep?.dep_id}`}
+                  checkInLink={`danh-sach-nhan-vien-cham-cong-phong-ban-c${comid}-t1-d${dep?.dep_id}`}
+                  absenceLink={`danh-sach-nhan-vien-chua-cham-cong-phong-ban-c${comid}-t2-d${dep?.dep_id}`}
                   employeeNumber={dep?.total_emp}
                   registered={dep?.tong_nv_da_diem_danh}
                   noAttendance={dep?.total_emp - dep?.tong_nv_da_diem_danh}
@@ -334,15 +352,16 @@ const StyledTreeExample = ({ iconEdit }) => {
                   {dep?.infoTeam?.map((team: any) => {
                     return (
                       <TreeNode key={team?.gr_id} label={<StyledNode><MemberViewBoxNest
+                        handleClickDetail={handleClickDetail}
                         gr_id={team?.gr_id}
                         dep_name={dep?.dep_name}
                         text_part={team?.gr_name}
                         describe={team?.description}
                         leader={team?.to_truong}
                         deputy_leader={team?.pho_to_truong}
-                        employeeLink="/danh-sach-nhan-vien-cua-tong-cong-ty-c1664-t1.html"
-                        checkInLink="/danh-sach-nhan-vien-cham-cong-tong-cong-ty-c1664-ty1-tk1.html"
-                        absenceLink="/danh-sach-nhan-vien-chua-cham-cong-tong-cong-ty-c1664-ty1-tk2.html"
+                        employeeLink={`danh-sach-nhan-vien-theo-to-c${comid}-t0-d${dep?.dep_id}-n${team?.gr_id}`}
+                        checkInLink={`danh-sach-nhan-vien-cham-cong-theo-to-c${comid}-t1-d${dep?.dep_id}-n${team?.gr_id}`}
+                        absenceLink={`danh-sach-nhan-vien-chua-cham-cong-theo-to-c${comid}-t2-d${dep?.dep_id}-n${team?.gr_id}`}
                         employeeNumber={team?.tong_nv}
                         registered='15'
                         noAttendance='12'
@@ -357,6 +376,7 @@ const StyledTreeExample = ({ iconEdit }) => {
                         ).map((group: any) => {
                           return (
                             <TreeNode key={group?.gr_id} label={<StyledNode><MemberViewBoxGroup
+                              handleClickDetail={handleClickDetail}
                               dep_name={dep?.dep_name}
                               nest_name={team?.gr_name}
                               gr_id={group?.gr_id}
@@ -364,9 +384,9 @@ const StyledTreeExample = ({ iconEdit }) => {
                               describe={group?.description}
                               group_captain={group?.truong_nhom}
                               deputy_group_captain={group?.pho_truong_nhom}
-                              employeeLink="/danh-sach-nhan-vien-cua-tong-cong-ty-c1664-t1.html"
-                              checkInLink="/danh-sach-nhan-vien-cham-cong-tong-cong-ty-c1664-ty1-tk1.html"
-                              absenceLink="/danh-sach-nhan-vien-chua-cham-cong-tong-cong-ty-c1664-ty1-tk2.html"
+                              employeeLink={`danh-sach-nhan-vien-theo-nhom-c${comid}-t0-d${dep?.dep_id}-n${team?.gr_id}-g${group?.gr_id}`}
+                              checkInLink={`danh-sach-nhan-vien-cham-cong-theo-nhom-c${comid}-t1-d${dep?.dep_id}-n${team?.gr_id}-g${group?.gr_id}`}
+                              absenceLink={`danh-sach-nhan-vien-chua-cham-cong-theo-nhom-c${comid}-t2-d${dep?.dep_id}-n${team?.gr_id}-g${group?.gr_id}`}
                               employeeNumber={group?.group_tong_nv}
                               registered='15'
                               noAttendance='12'
@@ -386,13 +406,14 @@ const StyledTreeExample = ({ iconEdit }) => {
             {data?.infoCompany?.infoChildCompany?.map((com: any) => {
               return (
                 <TreeNode key={com?.com_id} label={<StyledNode><MemberViewBoxCompany
+                  handleClickDetail={handleClickDetail}
                   text_part={com?.com_name}
                   describe="Công ty con"
                   CEO={com?.manager}
                   deputy_CEO={com?.deputy}
-                  employeeLink="/danh-sach-nhan-vien-cua-tong-cong-ty-c1664-t1.html"
-                  checkInLink="/danh-sach-nhan-vien-cham-cong-tong-cong-ty-c1664-ty1-tk1.html"
-                  absenceLink="/danh-sach-nhan-vien-chua-cham-cong-tong-cong-ty-c1664-ty1-tk2.html"
+                  employeeLink={`danh-sach-nhan-vien-cua-tong-cong-ty-c${com?.com_id}-t0`}
+                  checkInLink={`danh-sach-nhan-vien-cham-cong-tong-cong-ty-c${com?.com_id}-t1`}
+                  absenceLink={`danh-sach-nhan-vien-chua-cham-cong-tong-cong-ty-c${com?.com_id}-t2`}
                   employeeNumber={com?.tong_nv}
                   registered={com?.tong_nv_da_diem_danh}
                   noAttendance={com?.tong_nv - com?.tong_nv_da_diem_danh}
@@ -402,13 +423,14 @@ const StyledTreeExample = ({ iconEdit }) => {
                   {com?.infoDep?.map((dep: any) => {
                     return (
                       <TreeNode key={dep?.dep_id} label={<StyledNode><MemberViewBoxRoom
+                        handleClickDetail={handleClickDetail}
                         text_part={dep?.dep_name}
                         describe={dep?.description}
                         manager={dep?.manager}
                         deputy={dep?.deputy}
-                        employeeLink="/danh-sach-nhan-vien-cua-tong-cong-ty-c1664-t1.html"
-                        checkInLink="/danh-sach-nhan-vien-cham-cong-tong-cong-ty-c1664-ty1-tk1.html"
-                        absenceLink="/danh-sach-nhan-vien-chua-cham-cong-tong-cong-ty-c1664-ty1-tk2.html"
+                        employeeLink={`danh-sach-nhan-vien-theo-phong-ban-c${com?.com_id}-t0-d${dep?.dep_id}`}
+                        checkInLink={`danh-sach-nhan-vien-cham-cong-phong-ban-c${com?.com_id}-t1-d${dep?.dep_id}`}
+                        absenceLink={`danh-sach-nhan-vien-chua-cham-cong-phong-ban-c${com?.com_id}-t2-d${dep?.dep_id}`}
                         employeeNumber={dep?.total_emp}
                         registered={dep?.tong_nv_da_diem_danh}
                         noAttendance={dep?.total_emp - dep?.tong_nv_da_diem_danh}
@@ -420,13 +442,14 @@ const StyledTreeExample = ({ iconEdit }) => {
                         {dep?.infoTeam?.map((team: any) => {
                           return (
                             <TreeNode key={team?.gr_id} label={<StyledNode><MemberViewBoxNest
+                              handleClickDetail={handleClickDetail}
                               text_part={team?.gr_name}
                               describe={team?.description}
                               leader={team?.to_truong}
                               deputy_leader={team?.pho_to_truong}
-                              employeeLink="/danh-sach-nhan-vien-cua-tong-cong-ty-c1664-t1.html"
-                              checkInLink="/danh-sach-nhan-vien-cham-cong-tong-cong-ty-c1664-ty1-tk1.html"
-                              absenceLink="/danh-sach-nhan-vien-chua-cham-cong-tong-cong-ty-c1664-ty1-tk2.html"
+                              employeeLink={`danh-sach-nhan-vien-theo-to-c${com?.com_id}-t0-d${dep?.dep_id}-n${team?.gr_id}`}
+                              checkInLink={`danh-sach-nhan-vien-cham-cong-theo-to-c${com?.com_id}-t1-d${dep?.dep_id}-n${team?.gr_id}`}
+                              absenceLink={`danh-sach-nhan-vien-chua-cham-cong-theo-to-c${com?.com_id}-t2-d${dep?.dep_id}-n${team?.gr_id}`}
                               employeeNumber={team?.tong_nv}
                               registered='15'
                               noAttendance='12'
@@ -438,13 +461,14 @@ const StyledTreeExample = ({ iconEdit }) => {
                               {team?.infoGroup?.map((group: any) => {
                                 return (
                                   <TreeNode key={group?.gr_id} label={<StyledNode><MemberViewBoxGroup
+                                    handleClickDetail={handleClickDetail}
                                     text_part={group?.gr_name}
                                     describe={group?.description}
                                     group_captain={group?.truong_nhom}
                                     deputy_group_captain={group?.pho_truong_nhom}
-                                    employeeLink="/danh-sach-nhan-vien-cua-tong-cong-ty-c1664-t1.html"
-                                    checkInLink="/danh-sach-nhan-vien-cham-cong-tong-cong-ty-c1664-ty1-tk1.html"
-                                    absenceLink="/danh-sach-nhan-vien-chua-cham-cong-tong-cong-ty-c1664-ty1-tk2.html"
+                                    employeeLink={`danh-sach-nhan-vien-theo-nhom-c${com?.com_id}-t0-d${dep?.dep_id}-n${team?.gr_id}-g${group?.gr_id}`}
+                                    checkInLink={`danh-sach-nhan-vien-cham-cong-theo-nhom-c${com?.com_id}-t1-d${dep?.dep_id}-n${team?.gr_id}-g${group?.gr_id}`}
+                                    absenceLink={`danh-sach-nhan-vien-chua-cham-cong-theo-nhom-c${com?.com_id}-t2-d${dep?.dep_id}-n${team?.gr_id}-g${group?.gr_id}`}
                                     employeeNumber={group?.group_tong_nv}
                                     registered='15'
                                     noAttendance='12'
