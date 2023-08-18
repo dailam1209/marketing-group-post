@@ -97,7 +97,7 @@ export const XinSuDungPhongHop: React.FC = () => {
   return (
     <div className={styles.khung}>
       <div className={styles.header}>
-        <div className={styles.iconheader}>
+        <div className={styles.iconheader} onClick={() => router.back()}>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             width='12'
@@ -115,10 +115,10 @@ export const XinSuDungPhongHop: React.FC = () => {
         </div>
         <p className={styles.textheader}>Đề xuất xin sử dụng phòng họp</p>
       </div>
-      <div className={styles.body}>
+      <div className={`shadowForm  ${styles.body}`}>
         <Form
           form={form}
-          className={`${styles.bodyform} mc`}
+          className={`${styles.bodyform} mc taoDeXuatForm`}
           initialValues={{ name: 'Vũ Văn Khá' }}>
           <Row gutter={24} className={styles.body1}>
             <Col sm={12} xs={24}>
@@ -246,7 +246,7 @@ export const XinSuDungPhongHop: React.FC = () => {
               </Form.Item>
             </Col>
           </Row>
-          <Row className={styles.body4}>
+          <Row gutter={20} className={styles.body1}>
             <Col sm={24} xs={24}>
               <Form.Item
                 name={'ly_do'}

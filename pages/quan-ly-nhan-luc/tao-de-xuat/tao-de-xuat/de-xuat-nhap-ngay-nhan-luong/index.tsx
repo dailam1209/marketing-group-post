@@ -106,10 +106,18 @@ export default function DeXuatNhapNgayNhanLuong() {
   return (
     <div>
       <div className={styles.header}>
-        <Image src={'/back-w.png'} alt='' width={24} height={24}></Image>
+        <Image
+          src={'/back-w.png'}
+          alt=''
+          width={24}
+          height={24}
+          onClick={() => router.back()}></Image>
         <p className={styles.headerText}>Đề xuất nhập ngày nhận lương</p>
       </div>
-      <Form form={form} initialValues={{ name: 'Khas' }}>
+      <Form
+        form={form}
+        className='shadowForm taoDeXuatForm'
+        initialValues={{ name: 'Vũ Văn Khá' }}>
         <div className={styles.body}>
           <Row gutter={[20, 10]}>
             <Col sm={12} xs={24}>

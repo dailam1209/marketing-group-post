@@ -33,6 +33,7 @@ export default function Bodyframe({ children }: any) {
     '/quan-ly-nhan-luc/cham-cong-nhan-vien/cham-cong-bang-nhan-dien-khuon-mat/pc-365-nhan-vien'
   const NV_CCQR_URL = '/quan-ly-nhan-luc/cham-cong-bang-QR/cham-cong-365'
   const CTY_CCCTY = '/quan-ly-nhan-luc/cham-cong/cham-cong-cong-ty'
+  const ADD_DX = '/quan-ly-nhan-luc/tao-de-xuat/tao-de-xuat'
 
   const AddNewPopoverContent = () => {
     const listAdds = [
@@ -125,7 +126,7 @@ export default function Bodyframe({ children }: any) {
       return <div></div>
     } else {
       return (
-        <Row gutter={[20, 20]} className={styles.moreSection}>
+        <Row gutter={[20, 20]} className={`bannerQLC ${styles.moreSection}`}>
           <Col lg={6} md={8} sm={8} xs={24}>
             <Card className={styles.cardArticleSection}>
               <IndexSection className={styles.idxSection} />
@@ -212,6 +213,7 @@ export default function Bodyframe({ children }: any) {
       <Header />
       {/* <Banner /> */}
       <div
+        className='bannerQLC'
         style={{
           paddingTop:
             router.pathname === UPDATE_FACE_URL ||
@@ -249,7 +251,7 @@ export default function Bodyframe({ children }: any) {
         )}
         {renderExportExcelBtn()}
       </div>
-      <div>
+      <div className='bannerQLC'>
         <div
           style={{ marginTop: '10px' }}
           className={
@@ -258,7 +260,7 @@ export default function Bodyframe({ children }: any) {
             router.pathname === CC_TK_CTY_URL ||
             router.pathname === CTY_CCCTY
               ? styles.mainNoPadding
-              : styles.main
+              : router.pathname.includes(ADD_DX)  ? styles.noPaddingForm : styles.main
           }>
           {children}
         </div>

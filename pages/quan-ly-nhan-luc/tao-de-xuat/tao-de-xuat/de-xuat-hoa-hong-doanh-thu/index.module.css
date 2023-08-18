@@ -22,7 +22,7 @@
     margin-left: 10px;
 }
 .body{
-    padding: 20px;
+    padding: 20px 10px;
     background-color: #fff ;
     margin-bottom: 30px;
 }
@@ -31,7 +31,7 @@
         font-size: 18px;
     }
     .body{
-        padding: 16px;
+        padding: 6px;
     }
     .header{
         border-radius: 0px;
