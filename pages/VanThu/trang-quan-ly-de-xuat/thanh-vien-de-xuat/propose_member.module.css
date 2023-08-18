@@ -1,0 +1,62 @@
+.box{
+    padding: 40px 20px;
+}
+.box_list{
+
+}
+.tab_content{
+    background: #fff;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+.tab_items{
+
+}
+.tab_group{
+    padding: 0 28px 15px 25px;
+}
+.tab_group1{
+    border-bottom: 1px solid rgba(71, 71, 71, 0.5);
+    font-size: 16px;
+}
+.form{
+    border: none;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-bottom: 15px;
+    padding-top: 30px;
+    color: #474747;
+}
+.form_id{
+    width: 8%;
+    text-align: center;
+}
+.form_name{
+    width: 25%;
+    text-align: center;
+}
+.form_email{
+    width: 25%;
+    text-align: center;
+}
+.form_position{
+    width: 12%;
+    text-align: center;
+}
+.form_department{
+    width: 25%;
+    text-align: center;
+}
+@media (max-width: 900px) {
+    .box{
+        padding: 40px 20px;
+    }
+    .list_tab{
+        width: 1053px;
+    }
+    .box_list{
+        width: 100%;
+        overflow-x: scroll;
+    }
+}

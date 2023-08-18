@@ -11,12 +11,16 @@ import {
   ContactJobDetails,
 } from '@/pages/api/api-hr/quan-ly-tuyen-dung/candidateList'
 import { EmployeeList } from '@/pages/api/api-hr/listNhanVien'
+import Select from 'react-select';
 
 type SelectOptionType = { label: string; value: any }
 
 export default function EditCandidateContactJob({ onCancel, candidate }: any) {
-  const [rating, setRating] = useState<any>(candidate?.starVote)
 
+  console.log(candidate);
+
+
+  const [rating, setRating] = useState<any>(candidate?.starVote)
   const [isGender, setGender] = useState<any>(candidate?.gender)
   const [isEducation, setEducation] = useState<any>(candidate?.education)
   const [isUserHiring, setUserHiring] = useState<any>(candidate?.userHiring)
@@ -100,12 +104,14 @@ export default function EditCandidateContactJob({ onCancel, candidate }: any) {
     starVote: Yup.string().required('Đánh giá không được để trống'),
     resiredSalary: Yup.string().required('Nhập mức lương mong muốn'),
     salary: Yup.string().required('Mức lương thực không được để trống'),
-    empInterview: Yup.string().required('Chọn nhân viên tham gia'),
-    timeInterView: Yup.string().required('Thời gian hẹn không được để trống'),
   })
+
+  console.log(1)
 
   const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
+
+    console.log(1);
 
     try {
       const name = (document.getElementById('name') as HTMLInputElement)?.value
@@ -296,7 +302,7 @@ export default function EditCandidateContactJob({ onCancel, candidate }: any) {
               <div
                 className={`${styles.modal_header} ${styles.header_process}`}>
                 <h5 className={`${styles.modal_tittle}`}>
-                  CHỈNH SỬA HỒ SƠ ỨNG VIÊN GIAI ĐOẠN KÍ HỚP ĐỒNG
+                  CHỈNH SỬA HỒ SƠ ỨNG VIÊN GIAI ĐOẠN KÍ HỢP ĐỒNG
                 </h5>
               </div>
               <form action=''>
@@ -501,16 +507,24 @@ export default function EditCandidateContactJob({ onCancel, candidate }: any) {
                     </label>
                     <div className={`${styles.input_right}`}>
                       <div className={`${styles.div_no_pad} `}>
-                        <Selects
-                          selectedOption={selectedUseHiring}
-                          onChange={handleSelectChange}
-                          padding={15}
-                          width_control={100}
-                          width_menu={97}
-                          height={33.6}
-                          setState={setUserHiring}
-                          option={options.tennhanvientuyendung}
-                          placeholder={'Chọn nhân viên'}
+                        <Select
+                          value={selectedUseHiring}
+                          placeholder="Nhân viên tuyển dụng"
+                          styles={{
+                            control: (baseStyles, state) => ({
+                              ...baseStyles,
+                              borderRadius: 4,
+                              fontSize: state.isFocused ? 14 : 14,
+                              minHeight: state.isFocused ? 20 : 20,
+                              width: '97%',
+                              color: state.isFocused ? '#444444' : '#444444',
+                              fontWeight: state.isFocused ? 600 : 600
+                            }),
+                            placeholder: (baseStyles) => ({
+                              ...baseStyles,
+                              color: "#444444",
+                            }),
+                          }}
                         />
                       </div>
                     </div>
@@ -522,16 +536,24 @@ export default function EditCandidateContactJob({ onCancel, candidate }: any) {
                     </label>
                     <div className={`${styles.input_right}`}>
                       <div className={`${styles.div_no_pad} `}>
-                        <Selects
-                          selectedOption={selectedUseRecomment}
-                          onChange={handleSelectChange}
-                          padding={15}
-                          width_control={100}
-                          width_menu={97}
-                          height={33.6}
-                          setState={setUserRecommend}
-                          option={options.tennhanviengioithieu}
-                          placeholder={'Chọn nhân viên'}
+                        <Select
+                          value={selectedUseRecomment}
+                          placeholder="Nhân viên giới thiệu"
+                          styles={{
+                            control: (baseStyles, state) => ({
+                              ...baseStyles,
+                              borderRadius: 4,
+                              fontSize: state.isFocused ? 14 : 14,
+                              minHeight: state.isFocused ? 20 : 20,
+                              width: '97%',
+                              color: state.isFocused ? '#444444' : '#444444',
+                              fontWeight: state.isFocused ? 600 : 600
+                            }),
+                            placeholder: (baseStyles) => ({
+                              ...baseStyles,
+                              color: "#444444",
+                            }),
+                          }}
                         />
                       </div>
                     </div>

@@ -2,15 +2,15 @@ import React, { useState } from "react";
 import { Button, Modal } from "antd";
 import styles from "../potential.module.css";
 import { useRouter } from "next/router";
-
+const Cookies = require("js-cookie");
 interface MyComponentProps {
   isModalCancel: boolean;
   setIsModalCancel: (value: boolean) => void;
   content: string;
   title: string;
   link: string;
-  id?:any,
-  updateData?:any
+  id?: any;
+  updateData?: any;
 }
 const CancelModal: React.FC<MyComponentProps> = ({
   isModalCancel,
@@ -19,15 +19,16 @@ const CancelModal: React.FC<MyComponentProps> = ({
   title = "Xác nhận hủy nhập tiềm năng từ file",
   link = "/potential/list",
   id,
-  updateData
+  updateData,
 }) => {
   const router = useRouter();
   const handleOK = () => {
     setIsModalCancel(false);
     updateData(
       "http://210.245.108.202:3007/api/crm/customerStatus/delete",
-"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6MzgwOTg5LCJpZFRpbVZpZWMzNjUiOjIwMjU4NSwiaWRRTEMiOjE3NjMsImlkUmFvTmhhbmgzNjUiOjAsImVtYWlsIjoiZHVvbmdoaWVwaXQxQGdtYWlsLmNvbSIsInBob25lVEsiOiIiLCJjcmVhdGVkQXQiOjE2MDA2NTg0NzgsInR5cGUiOjEsImNvbV9pZCI6MTc2MywidXNlck5hbWUiOiJDw7RuZyBUeSBUTkhIIEggTSBMIFBwbyJ9LCJpYXQiOjE2OTIxNTY1MTksImV4cCI6MTY5MjI0MjkxOX0.1M55PZxSpovkNVmdGkd10pz-a7D0ApuqLOmsmBghh7w",      "POST",
-      {stt_id:id}
+      `${Cookies.get("token_base365")}`,
+      "POST",
+      { stt_id: id }
     );
   };
   return (

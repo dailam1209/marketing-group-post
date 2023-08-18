@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useApi } from "../hooks/useApi";
+const Cookies = require('js-cookie')
 
 interface MyProps {
   data: any;
@@ -42,33 +43,39 @@ const SelectDataInputBox: React.FC<MyProps> = ({
   useEffect(() => {
     fetchDataDetail();
   }, []);
-
+  console.log('dataDetailCustomer',dataDetailCustomer)
   const dataStatus = dataDetailCustomer?.data?.data1
     ? dataDetailCustomer?.data?.data1
     : dataDetailCustomer?.data?.data2;
   //   console.log(dataStatus?.status);
 
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6MzgwOTg5LCJpZFRpbVZpZWMzNjUiOjIwMjU4NSwiaWRRTEMiOjE3NjMsImlkUmFvTmhhbmgzNjUiOjAsImVtYWlsIjoiZHVvbmdoaWVwaXQxQGdtYWlsLmNvbSIsInBob25lVEsiOiIiLCJjcmVhdGVkQXQiOjE2MDA2NTg0NzgsInR5cGUiOjEsImNvbV9pZCI6MTc2MywidXNlck5hbWUiOiJDw7RuZyBUeSBUTkhIIEggTSBMIFBwbyJ9LCJpYXQiOjE2OTIzMjY0MzEsImV4cCI6MTY5MjQxMjgzMX0.TJG5cB9vOUaAW0fd5XD0toeH3dkVtrksTNs_apbI0-4";
   const handleChangeApi = async (e: any, data: any) => {
-    await fetch(
-      "http://210.245.108.202:3007/api/crm/customerdetails/editCustomer",
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6MzgwOTg5LCJpZFRpbVZpZWMzNjUiOjIwMjU4NSwiaWRRTEMiOjE3NjMsImlkUmFvTmhhbmgzNjUiOjAsImVtYWlsIjoiZHVvbmdoaWVwaXQxQGdtYWlsLmNvbSIsInBob25lVEsiOiIiLCJjcmVhdGVkQXQiOjE2MDA2NTg0NzgsInR5cGUiOjEsImNvbV9pZCI6MTc2MywidXNlck5hbWUiOiJDw7RuZyBUeSBUTkhIIEggTSBMIFBwbyJ9LCJpYXQiOjE2OTIyOTc4NjMsImV4cCI6MTY5MjM4NDI2M30.XMyMzNsvPn1yInnlVLO-XTnm9mDLMDohaSxQSOvtczo`, // Sử dụng Bearer token
-          "Content-Type": "application/json", // Thêm header Content-Type
-        },
-        body: JSON.stringify({
-          status: e.target.value,
-          type: dataDetailCustomer?.data?.data1 ? 1 : 2,
-          cus_id: cusId,
-        }),
-      }
-    );
-    console.log("heheheheh: ", {
-      status: e.target.value,
-      type: dataDetailCustomer?.data?.data1 ? 1 : 2,
-      cus_id: cusId,
-    });
+    const url =
+      "http://210.245.108.202:3007/api/crm/customerdetails/editCustomer";
+
+    const formData = new FormData();
+    formData.append("status", e.target.value);
+    formData.append("type", dataDetailCustomer?.data?.data1 ? "1" : "2");
+    formData.append("cus_id", cusId);
+
+    const headers = {
+      Authorization: `Bearer ${Cookies.get("token_base365")}`,
+    };
+
+    const config = {
+      method: "POST",
+      headers: headers,
+      body: formData,
+    };
+    try {
+      const response = await fetch(url, config);
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

@@ -25,8 +25,8 @@ const TongDaiPage = (props: Props) => {
   const [current, setcurrent] = useState(1);
   const [pageSize, setpageSize] = useState(10);
   const [showKetNoi, setShowKetNoi] = useState(false);
-  const [soNghe,setSoNghe] = useState()
-  const [nv, setnv] = useState()
+  const [soNghe, setSoNghe] = useState();
+  const [nv, setnv] = useState();
   const onClose = () => {
     setIsShowModalAdd(false);
     setIsShowModal(false);
@@ -96,15 +96,15 @@ const TongDaiPage = (props: Props) => {
 
   const handleGet = async () => {
     // setListData([]);
-    if(soNghe){
-     let dataFill = listData.filter(item => item.callee ===soNghe)
-     setListData(dataFill)
-     setIsModalOpen(false);
-     return;
+    if (soNghe) {
+      let dataFill = listData.filter((item) => item.callee === soNghe);
+      setListData(dataFill);
+      setIsModalOpen(false);
+      return;
     }
-    if(nv){
-      let dataFill = listData.filter(item => +item.caller ===nv)
-      setListData(dataFill)
+    if (nv) {
+      let dataFill = listData.filter((item) => +item.caller === nv);
+      setListData(dataFill);
       setIsModalOpen(false);
       return;
     }
@@ -126,7 +126,7 @@ const TongDaiPage = (props: Props) => {
     if (data && data.items) {
       setListData(data?.items);
     } else {
-      dispatch(doDisConnect(''));
+      dispatch(doDisConnect(""));
     }
     return data;
   };
@@ -188,7 +188,7 @@ const TongDaiPage = (props: Props) => {
       </div>
     ), // Thay thế nội dung "No Data" bằng "Hello"
   };
-  console.log("check nv",nv)
+  console.log("check nv", nv);
   return (
     <div>
       {showKetNoi && (
@@ -207,7 +207,6 @@ const TongDaiPage = (props: Props) => {
               setSoNghe={setSoNghe}
               nv={nv}
               setnv={setnv}
- 
             />
           </div>
 

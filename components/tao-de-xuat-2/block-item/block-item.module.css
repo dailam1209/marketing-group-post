@@ -1,3 +1,12 @@
+.fullDiv {
+  padding: 10px;
+}
+
+.body {
+  padding: 10px 0 0;
+  width: 100%;
+}
+
 @media (min-width: 1920px) {
   .animation {
     .header {
@@ -12,7 +21,6 @@
         flex-direction: column;
         align-items: flex-start;
         gap: 5px;
-        flex: 1 0 0;
         /* margin-left: 10px; */
       }
       .txt1 {
@@ -60,7 +68,7 @@
         flex-direction: column;
         align-items: flex-start;
         gap: 5px;
-        flex: 1 0 0;
+        /* flex: 1 0 0; */
         /* margin-left: 10px; */
       }
       .txt1 {
@@ -83,7 +91,6 @@
     }
     .body {
       display: flex;
-      padding: 10px;
       justify-content: center;
       align-items: center;
       gap: 10px;
@@ -122,7 +129,7 @@
         flex-direction: column;
         align-items: flex-start;
         gap: 5px;
-        flex: 1 0 0;
+        /* flex: 1 0 0; */
         /* margin-left: 10px; */
       }
       .txt1 {
@@ -170,7 +177,7 @@
         flex-direction: column;
         align-items: flex-start;
         gap: 5px;
-        flex: 1 0 0;
+        /* flex: 1 0 0; */
         /* margin-left: 10px; */
       }
       .txt1 {
@@ -193,7 +200,6 @@
     }
     .body {
       display: flex;
-      padding: 10px;
       justify-content: center;
       align-items: center;
       gap: 10px;
@@ -232,7 +238,7 @@
         flex-direction: column;
         align-items: flex-start;
         gap: 5px;
-        flex: 1 0 0;
+        /* flex: 1 0 0; */
         /* margin-left: 10px; */
       }
       .txt1 {
@@ -285,7 +291,7 @@
         flex-direction: column;
         align-items: flex-start;
         gap: 5px;
-        flex: 1 0 0;
+        /* flex: 1 0 0; */
         /* margin-left: 10px; */
       }
       .txt1 {
@@ -312,7 +318,6 @@
     }
     .body {
       display: flex;
-      padding: 10px;
       justify-content: center;
       align-items: center;
       gap: 10px;
@@ -336,6 +341,16 @@
       display: flex;
     }
   }
+
+  .animation .header .blockItemGutter {
+    margin-left: -5px !important;
+    margin-right: -5px !important;
+  }
+
+  .animation .fullDiv .blockItemGutter {
+    margin-left: -5px !important;
+    margin-right: -5px !important;
+  }
 }
 @media (min-width: 768px) and (max-width: 1023px) {
   .animation {
@@ -351,7 +366,7 @@
         flex-direction: column;
         align-items: flex-start;
         gap: 5px;
-        flex: 1 0 0;
+        /* flex: 1 0 0; */
         /* margin-left: 10px; */
       }
       .txt1 {
@@ -399,7 +414,7 @@
         flex-direction: column;
         align-items: flex-start;
         gap: 5px;
-        flex: 1 0 0;
+        /* flex: 1 0 0; */
         /* margin-left: 10px; */
       }
       .txt1 {
@@ -422,7 +437,6 @@
     }
     .body {
       display: flex;
-      padding: 10px;
       justify-content: center;
       align-items: center;
       gap: 10px;
@@ -461,7 +475,7 @@
         flex-direction: column;
         align-items: flex-start;
         gap: 5px;
-        flex: 1 0 0;
+        /* flex: 1 0 0; */
         /* margin-left: 10px; */
       }
       .txt1 {
@@ -509,7 +523,7 @@
         flex-direction: column;
         align-items: flex-start;
         gap: 5px;
-        flex: 1 0 0;
+        /* flex: 1 0 0; */
         /* margin-left: 10px; */
       }
       .txt1 {
@@ -532,8 +546,6 @@
     }
     .body {
       display: flex;
-      width: 382px;
-      padding: 10px;
       justify-content: center;
       align-items: center;
       gap: 10px;
@@ -557,4 +569,9 @@
       display: flex;
     }
   }
+}
+
+.centerItem {
+  display: flex;
+  justify-content: center;
 }

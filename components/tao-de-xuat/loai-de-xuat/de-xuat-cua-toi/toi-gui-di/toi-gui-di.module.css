@@ -34,4 +34,7 @@
     .textCenter{
         font-size: 18px;
     }
+    .filter {
+        row-gap: 20px !important;
+    }
 }

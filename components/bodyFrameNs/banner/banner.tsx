@@ -4,7 +4,7 @@ import styles from './banner.module.css'
 
 export const Banner = () => {
   return (
-    <Row className={styles.bannerWrapper}>
+    <Row className={`${styles.bannerWrapper} bannerQLC`}>
       <Col span={6} className={styles.bannerLeft}>
         <Image
           alt='/'

@@ -36,7 +36,7 @@
   }
 
   .singleCard {
-    margin-right: 20px;
+    /* margin-right: 20px; */
     display: flex;
     height: 100%;
     padding: 20px;
@@ -60,10 +60,14 @@
     }
   }
 
-  .singleCard:not(:last-child) {
-    margin-right: 20px;
-  }
+  
 }
+
+.summary .singleCard:not(:last-child) {
+  margin-right: 20px;
+}
+
+
 
 .recentDxTitle {
   margin: 50px 0px 30px 0px;
@@ -105,15 +109,27 @@
   }
 }
 
+.progress {
+  margin-inline-end: 0 !important;
+}
+
 @media screen and (max-width: 1024px) {
   .progress {
     padding: 0px 10px;
+
+  }
+  .date {
+    font-size: 20px !important;
+  }
+  .txt {
+    font-size: 20px !important;
   }
 }
 
 @media screen and (max-width: 768px) {
   .mainWrapper {
-    overflow: scroll;
+    overflow-x: scroll;
+    padding: 4px;
   }
 
   .summary {
@@ -123,5 +139,33 @@
   .cardWrapper {
     /* width: 290px !important; */
     width: auto;
+  }
+
+  .date {
+    font-size: 18px !important;
+  }
+  .txt {
+    font-size: 18px !important;
+  }
+}
+
+@media screen and (max-width: 414px) {
+  .heading {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .date {
+    width: 100%;
+  }
+
+  .btnGroup {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .btnGroup .btn {
+    padding: 0 30px;
   }
 }

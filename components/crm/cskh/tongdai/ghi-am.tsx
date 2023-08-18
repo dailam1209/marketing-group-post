@@ -211,7 +211,7 @@ const GhiAmPage = (props: Props) => {
               id={`play-${record.id}`}
               onClick={() => toggleAudio(`audio-${record.id}`, `play-${record.id}`, `pause-${record.id}`)}
             >
-              <img src="https://crm.timviec365.vn/assets/icons/ghiam.svg" alt="" width={15} height={15}/>
+              <img src="/crm/ghiam.svg" alt="" width={15} height={15}/>
             </button>
           </div>
           <div className={`${styles.audio_buttons_pause}`}>
@@ -220,7 +220,7 @@ const GhiAmPage = (props: Props) => {
               onClick={() => toggleAudio(`audio-${record.id}`, `play-${record.id}`, `pause-${record.id}`)}
               style={{ display: "none" }}
             >
-              <img src="https://crm.timviec365.vn/assets/icons/pause.svg" alt="" width={15} height={15}/>
+              <img src="/crm/pause.svg" alt="" width={15} height={15}/>
             </button>
           </div>
           

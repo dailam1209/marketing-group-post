@@ -1,14 +1,14 @@
-import { ModalWrapper } from '@/components/modal/ModalWrapper';
+import { ModalWrapper } from '@/components/modal/ModalWrapper'
 import {
   MyInput,
   MySelect,
-} from '@/components/quan-ly-cong-ty/quan-ly-cong-ty-con/modal';
-import { DELETE, POST } from '@/pages/api/BaseApi';
-import { Form } from 'antd';
-import { error } from 'console';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+} from '@/components/quan-ly-cong-ty/quan-ly-cong-ty-con/modal'
+import { DELETE, POST } from '@/pages/api/BaseApi'
+import { Form } from 'antd'
+import { error } from 'console'
+import Image from 'next/image'
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
 
 export function UpdateNhomModal(
   open: boolean,
@@ -17,18 +17,17 @@ export function UpdateNhomModal(
   setData?: Function,
   selectedRow?: any
 ) {
-  const [form] = Form.useForm();
+  const [form] = Form.useForm()
   const router = useRouter()
 
   useEffect(() => {
-    form.setFieldsValue({ gr_name: selectedRow?.gr_name });
-  }, [form, selectedRow]);
+    form.setFieldsValue({ gr_name: selectedRow?.gr_name })
+  }, [form, selectedRow])
   // console.log(selectedRow)
 
   const handleSubmit = () => {
     // setOpen(false);
-    form.validateFields().then(value => {
-
+    form.validateFields().then((value) => {
       POST('api/qlc/group/edit', {
         ...value,
         gr_id: selectedRow?.gr_id,
@@ -37,11 +36,12 @@ export function UpdateNhomModal(
       }).then((res) => {
         // console.log(res?.message);
         if (res?.result === true) {
-          router.replace(router.asPath)
+          router.reload()
+          setOpen(false)
         }
-      });
+      })
     })
-  };
+  }
 
   const children = (
     <div>
@@ -60,7 +60,7 @@ export function UpdateNhomModal(
         {MyInput('Tên nhóm', 'Nhập tên nhóm', true, true, 'gr_name')}
       </Form>
     </div>
-  );
+  )
 
   return ModalWrapper(
     open,
@@ -70,7 +70,7 @@ export function UpdateNhomModal(
     'Chỉnh sửa nhóm',
     'Cập nhật',
     handleSubmit
-  );
+  )
 }
 
 export function ConfirmDeleteModal(
@@ -88,33 +88,32 @@ export function ConfirmDeleteModal(
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-      }}
-    >
-      <Image alt="/" src={'/big-x.png'} width={50} height={50} />
+      }}>
+      <Image alt='/' src={'/big-x.png'} width={50} height={50} />
       <p style={{ marginTop: '20px' }}>Bạn có chắc chắn muốn xóa {name} ?</p>
     </div>
-  );
+  )
 
   const onConfirm = () => {
     // console.log(selectedRow)
     // console.log({ gr_id: selectedRow?.gr_id })
 
     //close modal
-    
+
     if (selectedRow?.gr_id) {
       DELETE('api/qlc/group/del', { gr_id: selectedRow.gr_id })
-      .then((res) => {
-        // console.log(res)
-        if (res?.result === true) {
-            setOpen(false);
-            alert('Xóa nhóm thành công!');
+        .then((res) => {
+          // console.log(res)
+          if (res?.result === true) {
+            setOpen(false)
+            alert('Xóa nhóm thành công!')
             setData &&
-              setData(data?.filter((item: any) => item !== selectedRow));
+              setData(data?.filter((item: any) => item !== selectedRow))
           }
         })
-        .catch((error) => console.log(error));
+        .catch((error) => console.log(error))
     }
-  };
+  }
 
   return ModalWrapper(
     open,
@@ -124,7 +123,7 @@ export function ConfirmDeleteModal(
     'Xóa nhóm',
     'Đồng ý',
     onConfirm
-  );
+  )
 }
 
 export function AddNewModal(
@@ -136,10 +135,10 @@ export function AddNewModal(
   listDepLabel?: any,
   listTeamLabel?: any
 ) {
-  const [form] = Form.useForm();
-  const router = useRouter();
-  const [depFilter, setDepFilter] = useState<any>();
-  const [listTeamLabelFilter, setTeamLabelFilter] = useState<any>();
+  const [form] = Form.useForm()
+  const router = useRouter()
+  const [depFilter, setDepFilter] = useState<any>()
+  const [listTeamLabelFilter, setTeamLabelFilter] = useState<any>()
 
   const handleSubmit = () => {
     // console.log("create a new group!");
@@ -149,16 +148,17 @@ export function AddNewModal(
     // setOpen(false)
     form.validateFields().then((value) => {
       POST('api/qlc/group/create', value).then((res) => {
-        router.replace(router.asPath);
-      });
-    });
-  };
+        router.reload()
+        setOpen(false)
+      })
+    })
+  }
 
   useEffect(() => {
     if (depFilter) {
-      setTeamLabelFilter(listTeamLabel?.filter((t) => t?.dep_id === depFilter));
+      setTeamLabelFilter(listTeamLabel?.filter((t) => t?.dep_id === depFilter))
     }
-  }, [depFilter]);
+  }, [depFilter])
 
   const children = (
     <Form form={form}>
@@ -190,7 +190,7 @@ export function AddNewModal(
       )}
       {MyInput('Tên nhóm', 'Nhập tên nhóm', true, true, 'gr_name')}
     </Form>
-  );
+  )
 
   return ModalWrapper(
     open,
@@ -200,5 +200,5 @@ export function AddNewModal(
     'Thêm mới nhóm',
     'Thêm mới',
     handleSubmit
-  );
+  )
 }

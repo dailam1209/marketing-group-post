@@ -2,21 +2,54 @@ import styles from "./chat.module.css";
 import InputPhone from "./input_phone";
 import InputNameCustomer from "./input_name_customer";
 import InputEmailCustomer from "./input_email_customer";
-import TextEditor from "../text-editor/text_editor";
 import SelectBoxInput from "./select_box_input";
 import { dataOptions } from "../ultis/consntant";
 import CalenderInput from "./calender_input";
 import SaveBtnChat from "./saveBtnChat";
-
-export default function ChatBusinessBody() {
+import TextEditor from "../text-editor/text_editor_phone";
+import { useEffect, useState } from "react";
+import TextEditorND from "../text-editor/text_editor_nd";
+const Cookies = require('js-cookie')
+export default function ChatBusinessBody({cusId}:any) {
+  const [infoCus,setInfoCus] = useState({})
+  const handleGetInfoCus =async () =>{
+    const res = await fetch(
+      "http://210.245.108.202:3007/api/crm/customerdetails/detail",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get("token_base365")}`,
+        },
+        body:JSON.stringify({cus_id:`${cusId}`?`${cusId}`:""})
+      }
+    );
+    const data = await res.json()
+    if(data && data.data.data1 || data && data.data.data2)
+    setInfoCus(data.data.data1 ||data.data.data2)
+  }
+  console.log(infoCus)
+  useEffect(()=>{
+    handleGetInfoCus()
+  },[])
   return (
     <div className={styles.business_assistant_body}>
       <div className={styles.form_business_assistant}>
-        <InputPhone />
-        <InputNameCustomer />
-        <InputEmailCustomer />
-        <TextEditor title={"Mô tả khách hàng" as any} className={"1"} />
-        <TextEditor title={"Nội dung cuộc gọi" as any} className={"2"} />
+        <InputPhone 
+        infoCus={infoCus}
+        />
+        <InputNameCustomer
+          infoCus={infoCus}
+        />
+        <InputEmailCustomer
+          infoCus={infoCus}
+        />
+        <TextEditor
+          infoCus={infoCus}
+        title={"Mô tả khách hàng" as any} className={"1"} />
+        <TextEditorND 
+         infoCus={infoCus}
+        title={"Nội dung cuộc gọi" as any} className={"2"} />
         <div className={styles.business_assistant_calendar_care}>
           <SelectBoxInput
             dataOption={dataOptions[2]}

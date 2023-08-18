@@ -7,7 +7,7 @@ import Footer from '../components/footer/Footer'
 import { getServerSideProps } from '../utils/function'
 import QLC_item from '../components/QLC_item'
 import { Col, Row, Spin, Tabs } from 'antd'
-import HeaderQLC from '../components/headerQLC/headerQLC'
+import HeaderQLC from '../components/headerQLC/HeaderQLC'
 import SidebarQLC from '../components/sidebarQLC/SidebarQLC'
 import FooterQLC from '../components/footerQLC/FooterQLC'
 import ModalRegsiter from '@/components/modal/ModalRegsiter'
@@ -64,7 +64,7 @@ export default function Home() {
   })
 
   useEffect(() => {
-    if (window.innerWidth < 1024) {
+    if (window.innerWidth > 1024) {
       setOpenSB(true)
     }
   }, [])
@@ -185,7 +185,7 @@ export default function Home() {
                       </span>
                     </div>
                   </div>
-                  <div className='notify_vip' onClick={handleClickCheckVip}>
+                  <div className='notify_vip'>
                     <div className='left'>
                       <div className='text_1'>
                         Tài khoản công ty bạn chưa phải là tài khoản VIP!
@@ -196,7 +196,9 @@ export default function Home() {
                     </div>
                     <div className='right'>
                       <img src='../img/crown.png' alt='' />
-                      <span className='text'>Nâng cấp thành tài khoản VIP</span>
+                      <span className='text' onClick={handleClickCheckVip}>
+                        Nâng cấp thành tài khoản VIP
+                      </span>
                     </div>
                   </div>
                   <div className='one_bod_td'>
@@ -273,11 +275,13 @@ export default function Home() {
                               md={12}
                               xl={8}
                               xs={24}
-                              onClick={() => setOpenModalConfirm(true)}>
+                              // onClick={() => setOpenModalConfirm(true)}
+                            >
                               <QLC_item
                                 title='Chấm công'
                                 img={'../img/qlc_cc.png'}
                                 url='/quan-ly-nhan-luc'
+                                hasCheckLogin={false}
                               />
                             </Col>
                             <Col
@@ -607,11 +611,13 @@ export default function Home() {
                                 md={12}
                                 xl={8}
                                 xs={24}
-                                onClick={() => setOpenModalConfirm(true)}>
+                                //   onClick={() => setOpenModalConfirm(true)}
+                              >
                                 <QLC_item
                                   title='Chấm công'
                                   img={'../img/qlc_cc.png'}
                                   url='/quan-ly-nhan-luc'
+                                  hasCheckLogin={false}
                                 />
                               </Col>
                               <Col
@@ -1019,17 +1025,18 @@ export default function Home() {
                 <div className='cnt_2'>
                   <div className='cnt_2_left'>
                     <h2>
-                      Bước 1: Tải app chat365 cài đặt chấm công + chấm công tại
-                      mục tiện ích
+                      Bước 1: Tải app chat365 để chấm công tại mục Tiện ích
                     </h2>
                     <span>
-                      Để có cơ sở dữ liệu phục vụ công việc tính lương, trước
-                      hết bạn cần tải app chấm công 365 bằng cách truy cập link{' '}
-                      <a href='https://chamcong.timviec365.vn/download.html'>
-                        https://chamcong.timviec365.vn/download.html
+                      Để có cơ sở dữ liệu chấm công phục vụ việc tính lương,
+                      trước hết bạn cần tải app chat365 bằng cách truy cập trực
+                      tiếp tại đường link{' '}
+                      <a href='https://chat365.timviec365.vn/trang-chu.html '>
+                        https://chat365.timviec365.vn/trang-chu.html
                       </a>{' '}
-                      hoặc truy cập CH play/ App store tìm kiếm Chấm công 365 và
-                      tải về.
+                      hoặc truy cập vào CH Play/App store, gõ tìm kiếm từ khóa
+                      <span style={{ fontWeight: '600' }}> Chat365</span> sau đó
+                      thực hiện thao tác tải về và cài đặt.
                     </span>
                   </div>
                   <div className='cnt_2_right'>

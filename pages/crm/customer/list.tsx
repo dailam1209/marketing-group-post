@@ -6,6 +6,7 @@ import TableListCustomer from "@/components/crm/table/table-list-customer";
 import CustomerListInputGroup from "@/components/crm/customer/customer_input_group";
 import { TableRowSelection } from "antd/es/table/interface";
 import { useApi } from "@/components/crm/hooks/useApi";
+const Cookies = require("js-cookie");
 
 export default function CustomerList() {
   const mainRef = useRef<HTMLDivElement>(null);
@@ -13,13 +14,14 @@ export default function CustomerList() {
   const [selected, setSelected] = useState(false);
   const [numberSelected, setNumberSelected] = useState(0);
   const [selectedRowKeys, setSelectedRowKeys] = useState<any>([]);
+
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
   const { data, loading, fetchData, updateData, deleteData } = useApi(
-    "http://210.245.108.202:3007/api/crm/customer/list?pageSize=1000",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6MzgwOTg5LCJpZFRpbVZpZWMzNjUiOjIwMjU4NSwiaWRRTEMiOjE3NjMsImlkUmFvTmhhbmgzNjUiOjAsImVtYWlsIjoiZHVvbmdoaWVwaXQxQGdtYWlsLmNvbSIsInBob25lVEsiOiIiLCJjcmVhdGVkQXQiOjE2MDA2NTg0NzgsInR5cGUiOjEsImNvbV9pZCI6MTc2MywidXNlck5hbWUiOiJDw7RuZyBUeSBUTkhIIEggTSBMIFBwbyJ9LCJpYXQiOjE2OTIyOTc4NjMsImV4cCI6MTY5MjM4NDI2M30.XMyMzNsvPn1yInnlVLO-XTnm9mDLMDohaSxQSOvtczo",
+    "http://210.245.108.202:3007/api/crm/customer/list",
+    `${Cookies.get("token_base365")}`,
     "POST",
-    { limit: 1000 }
+    { perPage: 10000 }
   );
 
   const {
@@ -29,7 +31,7 @@ export default function CustomerList() {
     // ... other properties returned by the useApi hook
   } = useApi(
     "http://210.245.108.202:3007/api/crm/customerStatus/list",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6MzgwOTg5LCJpZFRpbVZpZWMzNjUiOjIwMjU4NSwiaWRRTEMiOjE3NjMsImlkUmFvTmhhbmgzNjUiOjAsImVtYWlsIjoiZHVvbmdoaWVwaXQxQGdtYWlsLmNvbSIsInBob25lVEsiOiIiLCJjcmVhdGVkQXQiOjE2MDA2NTg0NzgsInR5cGUiOjEsImNvbV9pZCI6MTc2MywidXNlck5hbWUiOiJDw7RuZyBUeSBUTkhIIEggTSBMIFBwbyJ9LCJpYXQiOjE2OTIyOTc4NjMsImV4cCI6MTY5MjM4NDI2M30.XMyMzNsvPn1yInnlVLO-XTnm9mDLMDohaSxQSOvtczo",
+    `${Cookies.get("token_base365")}`,
     "POST"
   );
 
@@ -40,7 +42,7 @@ export default function CustomerList() {
     // ... other properties returned by the useApi hook
   } = useApi(
     "http://210.245.108.202:3007/api/crm/group/list_group_khach_hang",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6MzgwOTg5LCJpZFRpbVZpZWMzNjUiOjIwMjU4NSwiaWRRTEMiOjE3NjMsImlkUmFvTmhhbmgzNjUiOjAsImVtYWlsIjoiZHVvbmdoaWVwaXQxQGdtYWlsLmNvbSIsInBob25lVEsiOiIiLCJjcmVhdGVkQXQiOjE2MDA2NTg0NzgsInR5cGUiOjEsImNvbV9pZCI6MTc2MywidXNlck5hbWUiOiJDw7RuZyBUeSBUTkhIIEggTSBMIFBwbyJ9LCJpYXQiOjE2OTIyOTc4NjMsImV4cCI6MTY5MjM4NDI2M30.XMyMzNsvPn1yInnlVLO-XTnm9mDLMDohaSxQSOvtczo",
+    `${Cookies.get("token_base365")}`,
     "POST"
   );
 
@@ -61,6 +63,8 @@ export default function CustomerList() {
     emp_name: string;
     userCrete: string;
     user_handing_over_work: string;
+    userName: string;
+    userNameCreate: string;
   }
 
   const onSelectChange = (
@@ -86,22 +90,40 @@ export default function CustomerList() {
     fetchDataStatus();
     fetchDataCustomerGroup();
   }, []);
-
+  const ArrNguonKK: any = [
+    { name: "Chưa cập nhật", id: 0 },
+    { name: "Facebook", id: 1 },
+    { name: "Website", id: 2 },
+    { name: "Zalo", id: 3 },
+    { name: "Dữ liệu bên thứ 3", id: 4 },
+    { name: "Khách hàng giới thiệu", id: 5 },
+    { name: "Giới thiệu", id: 6 },
+    { name: "Chăm sóc khach hàng", id: 7 },
+    { name: "Email", id: 8 },
+  ];
+  console.log("check data", data);
   const datatable = data?.data?.showCty.map((item: DataType, index: number) => {
+    let nguonKH = "";
+    for (let key of ArrNguonKK) {
+      if (key.id == item.resoure) {
+        nguonKH = key.name;
+      }
+    }
     return {
       key: index + 1,
       cus_id: item.cus_id,
       email: item.email,
       name: item.name,
       phone_number: item.phone_number,
-      resoure: item.resoure,
+      resoure: nguonKH,
       description: item.description,
       group_id: item.group_id,
       status: item,
       updated_at: item.updated_at,
       emp_name: item.emp_name,
-      userCrete: item.userCrete,
+      userNameCreate: item.userNameCreate,
       user_handing_over_work: item.user_handing_over_work,
+      userName: item.userName,
     };
   });
 

@@ -1,4 +1,4 @@
-.main {
+.main, .noPaddingForm {
   padding-right: 360px;
   padding-left: 360px;
 
@@ -34,7 +34,7 @@
 
 /* responsive */
 @media screen and (max-width: 1669px) {
-  .main {
+  .main, .noPaddingForm {
     padding-right: 100px;
     padding-left: 100px;
   }
@@ -42,7 +42,7 @@
 
 /* 1366px */
 @media screen and (max-width: 1366px) {
-  .main {
+  .main, .noPaddingForm {
     padding-right: 83px;
     padding-left: 83px;
   }
@@ -55,7 +55,7 @@
 }
 
 @media screen and (max-width: 1024px) {
-  .main {
+  .main, .noPaddingForm {
     padding-right: 30px;
     padding-left: 30px;
   }
@@ -69,7 +69,7 @@
 }
 
 @media screen and (max-width: 768px) {
-  .main {
+  .main, .noPaddingForm {
     padding-right: 24px;
     padding-left: 24px;
   }
@@ -98,8 +98,8 @@
 
 @media screen and (max-width: 444px) {
   .main {
-    padding-right: 0px;
-    padding-left: 0px;
+    padding-right: 16px;
+    padding-left: 16px;
   }
   .moreSection {
     margin-top: 30px;
@@ -116,5 +116,9 @@
   }
   .cardArticleSection > div {
     padding: 20px 16px 16px 16px !important;
+  }
+  .noPaddingForm {
+    padding-right: 0;
+    padding-left: 0;
   }
 }

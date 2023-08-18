@@ -7,6 +7,7 @@ import PaginationCSKH from "./pagination";
 import { CallContext } from "@/components/crm/context/tongdaiContext";
 import Filter from "./filter";
 import { useSelector } from "react-redux";
+const Cookies = require('js-cookie')
 type Props = {};
 
 const Recording = (props: Props) => {
@@ -87,8 +88,7 @@ const Recording = (props: Props) => {
       ),
     },
   ];
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6MzgwOTg5LCJpZFRpbVZpZWMzNjUiOjIwMjU4NSwiaWRRTEMiOjE3NjMsImlkUmFvTmhhbmgzNjUiOjAsImVtYWlsIjoiZHVvbmdoaWVwaXQxQGdtYWlsLmNvbSIsInBob25lVEsiOiIiLCJjcmVhdGVkQXQiOjE2MDA2NTg0NzgsInR5cGUiOjEsImNvbV9pZCI6MTc2MywidXNlck5hbWUiOiJDw7RuZyBUeSBUTkhIIEggTSBMIFBwbyJ9LCJpYXQiOjE2OTIyNTExOTcsImV4cCI6MTY5MjMzNzU5N30.nVKoqGDAC7kCxytrqrpmjy0wf-WFmgKNxEM6LmmqiSU";
+ 
   const handleGetLine = async () => {
     const res = await fetch(
       "http://210.245.108.202:3007/api/crm/cutomerCare/listLine",
@@ -96,7 +96,7 @@ const Recording = (props: Props) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${Cookies.get("token_base365")}`,
         },
       }
     );
@@ -111,7 +111,7 @@ const Recording = (props: Props) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${Cookies.get("token_base365")}`,
         },
         body: JSON.stringify({ com_id: 1763 }),
       }
@@ -137,7 +137,7 @@ const Recording = (props: Props) => {
       method: "POST",
       headers:{
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${Cookies.get("token_base365")}`,
       },
       body: JSON.stringify({ ext_number: id, emp_id: option }),
     });
