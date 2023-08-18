@@ -1,9 +1,9 @@
-import { Modal, Input, Select, Button, Form } from "antd";
+import { Modal, Input, Select, Button, Form, Checkbox } from "antd";
 import styles from "./modal-them-lich.module.css";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
-import { POST } from "@/pages/api/BaseApi";
+import { useEffect, useState } from "react";
+import { GET, POST } from "@/pages/api/BaseApi";
 import { ModalThemCa } from "../modal-them-ca/modal-them-ca";
 
 export function ModalTiepTuc(
@@ -11,8 +11,27 @@ export function ModalTiepTuc(
   setOpen: Function,
   setBack: Function,
   setNext: Function,
-  form: any
+  form: any,
+  listShiftSelected: any,
+  setListShiftSelected: Function
 ) {
+  const [listShift, setListShift] = useState<any>()
+
+  useEffect(() => {
+    GET("api/qlc/shift/list").then((res) => {
+      if (res?.result === true) {
+        setListShift(
+          res?.list.map((item) => {
+            return {
+              key: `${item?.shift_id}`,
+              content: item?.shift_name,
+            };
+          })
+        );
+      }
+    });
+  }, []);
+
   return (
     <Modal
       open={open}
@@ -34,14 +53,28 @@ export function ModalTiepTuc(
         />
       </div>
       <div style={{ padding: "20px 20px 0px 20px", fontSize: "16px" }}>
-        <div className={styles.bodyItem}>
+        {listShift?.length <= 0 ? <div className={styles.bodyItem}>
           Chọn ca làm việc <br />
           Bạn cần thiết lập ca làm việc{" "}
           <Link href={"/quan-ly-cong-ty/quan-ly-ca"} style={{ color: "red" }}>
             tại đây{" "}
           </Link>
           trước
-        </div>
+        </div> : listShift?.map((shift, index) => {
+          const onChange = async (key: string) => {
+            listShiftSelected?.includes(key)
+              ? setListShiftSelected(listShiftSelected?.filter((d: any) => d !== key))
+              : setListShiftSelected([...listShiftSelected, key]);
+          };
+          return <li key={index}>
+          <Checkbox
+            key={shift?.key}  
+            onChange={() => onChange(shift?.key)}
+            checked={listShiftSelected?.includes(shift?.key)}
+          ></Checkbox>
+          {shift?.content}
+        </li>
+        })}
         <div className={`${styles.bodyItem} ${styles.bodyItemNext}`}>
           <Button
             className={styles.ButtonWhite}
@@ -148,7 +181,7 @@ export function ModalThemLichLamViec(
           </Form.Item>
           <Form.Item
             initialValue={"T2T7"}
-            name={"type"}
+            name={"type_week"}
             label="Chọn lịch làm việc"
             labelCol={{ span: 24 }}
             rules={[
@@ -165,15 +198,15 @@ export function ModalThemLichLamViec(
               options={[
                 {
                   label: "Thứ 2 - Thứ 6",
-                  value: "T2T6",
+                  value: 1,
                 },
                 {
                   label: "Thứ 2 - Thứ 7",
-                  value: "T2T7",
+                  value: 2,
                 },
                 {
                   label: "Thứ 2 - CN",
-                  value: "T2CN",
+                  value: 3,
                 },
               ]}
             ></Select>
