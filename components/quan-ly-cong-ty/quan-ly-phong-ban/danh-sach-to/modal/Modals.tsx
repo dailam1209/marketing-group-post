@@ -18,50 +18,34 @@ export function EditToModal(
   selectedRow?: any
 ) {
   const [form] = Form.useForm()
+  const router = useRouter();
 
   useEffect(() => {
-    // change selectedRow to change form
-    form.setFieldsValue({ ...selectedRow, teamLeader: '', teamSubLeader: '' })
-  }, [form, selectedRow])
+    form.setFieldsValue({ team_name: selectedRow?.team_name });
+  }, [form, selectedRow]);
 
   const handleSubmit = () => {
-    console.log({ ...form.getFieldsValue(), _id: selectedRow._id })
-    // popup "Confirm"
-    // code for popup confim
-
-    //close modal
-    setOpen(false)
-
-    // update edit data
-    POST(`api/qlc/team/edit`, {
-      team_id: selectedRow?.team_id,
-      ...form.getFieldsValue(),
-    })
-      .then((response) => {
-        if (response?.result === true) {
-          console.log(response?.message)
-          // update data after edition
-          setData &&
-            setData(
-              data.map((team) => {
-                if (team === selectedRow) {
-                  return { selectedRow, ...form.getFieldsValue() }
-                }
-                return team
-              })
-            )
-        }
+    form.validateFields().then((value) => {
+      POST(`api/qlc/team/edit`, {
+        ...value,
+        dep_id: selectedRow?.dep_id,
+        team_id: selectedRow?.team_id,
       })
-      .catch((error) => console.error(error))
-  }
+        .then((response) => {
+          if (response?.result === true) {
+            router.replace(router.asPath);
+          }
+        })
+        .catch((error) => console.error(error));
+    });
+  };
 
-  // console.log(selectedRow);
 
   const children = (
     <Form form={form} initialValues={selectedRow}>
-      {MySelect('Công ty', 'Chọn công ty', true, true, 'com_id', [
+      {/* {MySelect('Công ty', 'Chọn công ty', true, true, 'com_id', [
         { label: 'Công ty thanh toán Hưng Hà 2', value: 3312 },
-      ])}
+      ])} */}
       {/* {MyInput("Tổ trưởng", "Bùi Văn Huy", false, false, "teamLeader")} */}
       {/* {MyInput(
         "Phó tổ trưởng",
@@ -70,10 +54,10 @@ export function EditToModal(
         true,
         "teamSubLeader"
       )} */}
-      {MySelect('Phòng ban', 'Chọn phòng ban', true, true, 'dep_id', [
+      {/* {MySelect('Phòng ban', 'Chọn phòng ban', true, true, 'dep_id', [
         { label: 'Phòng kỹ thuật', value: 1 },
-      ])}
-      {MyInput('Tên tổ', 'Nhập tên tổ', true, true, 'teamName')}
+      ])} */}
+      {MyInput('Tên tổ', 'Nhập tên tổ', true, true, 'team_name')}
       {/* total_emp can not update */}
       {/* {MyInput(
         "Số lượng nhân viên",
@@ -195,7 +179,7 @@ export function AddNewToModal(
         "teamSubLeader"
       )} */}
       {MySelect('Phòng ban', 'Kỹ thuật', true, true, 'dep_id', listDeps)}
-      {MyInput('Tên tổ', 'Nhập tên tổ', true, true, 'teamName')}
+      {MyInput('Tên tổ', 'Nhập tên tổ', true, true, 'team_name')}
       {/* undefined properties total_emp */}
       {/* {MyInput(
         "Số lượng nhân viên",

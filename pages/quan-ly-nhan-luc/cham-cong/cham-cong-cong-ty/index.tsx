@@ -26,6 +26,8 @@ export default function ChamCongCongTy() {
     facingMode: 'user',
   }
 
+  const [listDevices, setListDevices] = useState<any[]>()
+
   const webcamRef = useRef<Webcam>(null)
   const capture = useCallback(async () => {
     const imageSrc = webcamRef.current?.getScreenshot({
@@ -111,25 +113,41 @@ export default function ChamCongCongTy() {
   }, [webcamRef])
 
   useEffect(() => {
-    if (openCam) {
-      // if (countdown === 0) {
-      //   setCountdown(3)
-      // }
-      const interval = setInterval(() => {
-        if (countdown === 0) {
-          try {
-            capture()
-          } catch (error) {}
+    const countDevices = async () => {
+      const res = await navigator.mediaDevices.enumerateDevices()
 
-          clearInterval(interval)
-        } else {
-          setCountdown(countdown - 1)
-        }
-      }, 1000)
-
-      return () => clearInterval(interval)
+      const devices = res?.filter((item) => item?.kind === 'videoinput')
+      setListDevices(devices)
     }
-  }, [countdown, openCam, reload])
+
+    countDevices()
+  }, [])
+  console.log(listDevices)
+
+  useEffect(() => {
+    if (_.isEmpty(listDevices) || !listDevices) {
+      alert('Không tìm thấy camera')
+    } else {
+      if (openCam) {
+        // if (countdown === 0) {
+        //   setCountdown(3)
+        // }
+        const interval = setInterval(() => {
+          if (countdown === 0) {
+            try {
+              capture()
+            } catch (error) {}
+
+            clearInterval(interval)
+          } else {
+            setCountdown(countdown - 1)
+          }
+        }, 1000)
+
+        return () => clearInterval(interval)
+      }
+    }
+  }, [countdown, openCam, reload, listDevices])
 
   return (
     <>
@@ -154,7 +172,7 @@ export default function ChamCongCongTy() {
               <p style={{ color: '#fff', padding: '0px 20px' }}> Bắt đầu</p>
             </Button>
           </div>
-        ) : (
+        ) : _.isEmpty(listDevices) ? null : (
           <>
             <div
               style={{

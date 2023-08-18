@@ -104,8 +104,11 @@ export function ThemNhanVien(
           };
         })
       );
+    } else {
+      setData([])
     }
   }, [listEmp]);
+
 
   useEffect(() => {
       // console.log(listEmpInCy);
@@ -144,7 +147,8 @@ export function ThemNhanVien(
             setModalXacNhan(true);
             setOpen(false);
           }
-        });
+        })
+        ;
       }
 
       // Delete employee from cycle when unchecked
