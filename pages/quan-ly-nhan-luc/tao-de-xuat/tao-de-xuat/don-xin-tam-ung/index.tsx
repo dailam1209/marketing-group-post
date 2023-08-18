@@ -84,7 +84,7 @@ export default function DonXinTamUng() {
 
   const MyForm = () => {
     return (
-      <Form form={form} onFinish={onFinish} initialValues={{ name: "khas" }}>
+      <Form form={form} onFinish={onFinish} initialValues={{ name: "Vũ Văn Khá" }}>
         <Row gutter={[20, 10]}>
           <Col md={12} sm={12} xs={24}>
             <DxInputTxt

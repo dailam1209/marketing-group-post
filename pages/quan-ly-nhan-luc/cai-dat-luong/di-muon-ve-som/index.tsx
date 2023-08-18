@@ -4,9 +4,16 @@ import { CpmDiMuonVeSom } from '@/components/cai-dat-luong/di-muon-ve-som/di-muo
 import { CpmCaiDatDiMuonVeSom } from '@/components/cai-dat-luong/di-muon-ve-som/cai-dat-di-muon-ve-som/cai-dat-di-muon-ve-som'
 import { CpmNghiSaiQuyDinh } from '@/components/cai-dat-luong/di-muon-ve-som/nghi-sai-quy-dinh/nghi-sai-quy-dinh'
 import { CpmDanhSachNghiSaiQuyDinh } from '@/components/cai-dat-luong/di-muon-ve-som/danh-sach-nghi-sai-quy-dinh/danh-sach-nghi-sai-quy-dinh'
-import { POST_SS, POST_SS_TL, getCompIdSS } from '@/pages/api/BaseApi'
+import {
+  POST_SS,
+  POST_SS_TL,
+  POST_TL,
+  getCompIdCS,
+  getCompIdSS,
+} from '@/pages/api/BaseApi'
 import moment from 'moment'
 import _ from 'lodash'
+import { useEffect } from 'react'
 
 export default function DiMuonVeSom({
   pmInfo,
@@ -47,6 +54,25 @@ export default function DiMuonVeSom({
     },
   ]
 
+  useEffect(() => {
+    const get = async () => {
+      const year = moment().year()
+      const month = moment().month() + 1
+      const daysInMonths = moment().daysInMonth()
+      const com_id = getCompIdCS()
+      const res = await POST_TL('api/tinhluong/congty/takeinfo_phat_muon', {
+        pm_time_begin: `${year}-${month}/01`,
+        pm_time_end: `${month === 1 ? year - 1 : year}-${
+          month === 1 ? 12 : month - 1
+        }-01`,
+        pm_id_com: com_id,
+      })
+      console.log(res)
+    }
+
+    get()
+  }, [])
+
   return (
     <Card>
       <Tabs
@@ -60,21 +86,21 @@ export default function DiMuonVeSom({
 }
 
 export const getServerSideProps = async (context) => {
-  let com_id = null;
-  com_id = getCompIdSS(context);
+  const com_id = getCompIdSS(context)
   // const currentTime = moment().format("YYYY-MM-DD")
-  const end = moment().subtract(14, 'd').format('YYYY-MM-DD')
-  const start = moment()
-    .subtract(14, 'd')
-    .subtract(60, 'd')
-    .format('YYYY-MM-DD')
+  const year = moment().year()
+  const month = moment().month() + 1
+  console.log(year)
 
+  const daysInMonths = moment().daysInMonth()
+  // const end = moment().format('YYYY-MM-DD')
+  // const start = moment().month()
   const listApiRes = await Promise.all([
     POST_SS_TL(
       'api/tinhluong/congty/takeinfo_phat_muon',
       {
-        pm_time_begin: start,
-        pm_time_end: end,
+        pm_time_begin: `${year}-${month}`,
+        pm_time_end: `${year}-${month}`,
         pm_id_com: com_id,
       },
       context
@@ -82,8 +108,11 @@ export const getServerSideProps = async (context) => {
     POST_SS_TL(
       'api/tinhluong/congty/show_staff_late',
       {
-        start_date: '2023-01-01',
-        end_date: '2023-05-07',
+        start_date: `${month === 1 ? year - 1 : year}-${
+          month === 1 ? 12 : month - 1
+        }`,
+        end_date: `${year}-${month}`,
+
         com_id: com_id,
       },
       context
@@ -91,8 +120,10 @@ export const getServerSideProps = async (context) => {
     POST_SS_TL(
       'api/tinhluong/congty/take_listuser_nghi_khong_phep',
       {
-        start_date: start,
-        end_date: end,
+        start_date: `${month === 1 ? year - 1 : year}-${
+          month === 1 ? 12 : month - 1
+        }`,
+        end_date: `${year}-${month}`,
         com_id: com_id,
         skip: 0,
         month: moment().month(),
@@ -146,6 +177,7 @@ export const getServerSideProps = async (context) => {
         dep_name: item?.dep_name,
       })
     })
+  console.log(listApiRes?.[0]?.['phat_muon_info'])
 
   return {
     props: {

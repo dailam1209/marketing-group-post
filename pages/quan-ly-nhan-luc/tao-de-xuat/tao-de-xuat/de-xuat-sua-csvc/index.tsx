@@ -12,16 +12,15 @@ import {
 import { Button, Col, Form, Input, Row, Table } from 'antd'
 import { ColumnType, ColumnsType } from 'antd/es/table'
 import styles from './index.module.css'
-import { useEffect, useState } from "react"
+import { useEffect, useState } from 'react'
 import { POST_VT, getInfoUser } from '@/pages/api/BaseApi'
 import { useRouter } from 'next/router'
 
 export default function DeXuatSuaChuaCSVC() {
-  const [fileData, setFileData] = useState<Blob>();
+  const [fileData, setFileData] = useState<Blob>()
   const [form] = Form.useForm()
   const router = useRouter()
   form.setFieldValue('type_dx', 'Đề xuất sửa chữa cơ sở vật chất')
-
 
   const handleSubmit = () => {
     form.validateFields().then((value) => {
@@ -33,37 +32,36 @@ export default function DeXuatSuaChuaCSVC() {
 
       const body = {
         ...value,
-        id_user_duyet: value["id_user_duyet"]?.join(","),
-        id_user_theo_doi: value["id_user_theo_doi"]?.join(","),
-        input_csv: JSON.stringify(value['input_csv'])
-      };
+        id_user_duyet: value['id_user_duyet']?.join(','),
+        id_user_theo_doi: value['id_user_theo_doi']?.join(','),
+        input_csv: JSON.stringify(value['input_csv']),
+      }
       // console.log(body);
-      const fd = new FormData();
+      const fd = new FormData()
 
       Object.keys(body)?.forEach((k) => {
-        fd.append(k, body[k]);
-      });
+        fd.append(k, body[k])
+      })
 
       if (fileData) {
-        fd.append("file_kem", fileData);
+        fd.append('file_kem', fileData)
       }
 
-      POST_VT("api/vanthu/dexuat/addDXVC", fd).then((res) => {
+      POST_VT('api/vanthu/dexuat/addDXVC', fd).then((res) => {
         if (res?.result === true) {
-          alert("Tạo đề xuất sửa chữa cơ sở vật chất thành công!");
-          router.replace(router.asPath);
+          alert('Tạo đề xuất sửa chữa cơ sở vật chất thành công!')
+          router.reload()
         }
-      });
-    });
-  };
+      })
+    })
+  }
 
-
-  const [infoUser, setInfoUser] = useState<any>();
-  const [listDuyet, setListDuyet] = useState<any>({});
+  const [infoUser, setInfoUser] = useState<any>()
+  const [listDuyet, setListDuyet] = useState<any>({})
 
   useEffect(() => {
     const getListDuyet = async () => {
-      const res = await POST_VT('api/vanthu/dexuat/showadd', {});
+      const res = await POST_VT('api/vanthu/dexuat/showadd', {})
 
       if (res?.result) {
         setListDuyet({
@@ -75,25 +73,24 @@ export default function DeXuatSuaChuaCSVC() {
             label: user?.userName,
             value: user?.idQLC,
           })),
-        });
+        })
       }
-    };
+    }
 
-    getListDuyet();
-    
-    setInfoUser(getInfoUser());
-  }, []);
+    getListDuyet()
+
+    setInfoUser(getInfoUser())
+  }, [])
 
   useEffect(() => {
     if (infoUser?.idQLC) {
-      form.setFieldValue('name', infoUser?.userName);
+      form.setFieldValue('name', infoUser?.userName)
     }
-  }, [infoUser]);
-  
+  }, [infoUser])
 
   const MyForm = () => {
     return (
-      <Form form={form} initialValues={{ name: "khas" }}>
+      <Form form={form} initialValues={{ name: 'Vũ Văn Khá' }}>
         <Row gutter={[20, 10]}>
           <Col md={12} sm={12} xs={24}>
             <DxInputTxt

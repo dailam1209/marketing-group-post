@@ -18,11 +18,11 @@ export function EditToModal(
   selectedRow?: any
 ) {
   const [form] = Form.useForm()
-  const router = useRouter();
+  const router = useRouter()
 
   useEffect(() => {
-    form.setFieldsValue({ team_name: selectedRow?.team_name });
-  }, [form, selectedRow]);
+    form.setFieldsValue({ team_name: selectedRow?.team_name })
+  }, [form, selectedRow])
 
   const handleSubmit = () => {
     form.validateFields().then((value) => {
@@ -33,13 +33,12 @@ export function EditToModal(
       })
         .then((response) => {
           if (response?.result === true) {
-            router.replace(router.asPath);
+            router.reload()
           }
         })
-        .catch((error) => console.error(error));
-    });
-  };
-
+        .catch((error) => console.error(error))
+    })
+  }
 
   const children = (
     <Form form={form} initialValues={selectedRow}>
@@ -155,7 +154,7 @@ export function AddNewToModal(
     form.validateFields().then((value) => {
       // add data
       POST(`api/qlc/team/create`, value).then((res) => {
-        router.replace(router.asPath)
+        router.reload()
       })
     })
   }

@@ -1,0 +1,7 @@
+.wrapper_body {
+    width: 100%;
+    height: auto;
+    padding: 50px 16px;
+    background-color: #ebeef5;
+    overflow-y: scroll;
+}

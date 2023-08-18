@@ -385,6 +385,7 @@ export const POST_SS_TL = async (
   type: string = 'tl'
 ) => {
   const currentToken = getCookieSS(context)
+  console.log(currentToken)
 
   let domain = ''
   switch (type) {

@@ -10,7 +10,7 @@ export default function QLC_item({
   img,
   title,
   desc,
-  url = '/',
+  url = '/VanThu/quanly-cong-van',
   hasCheckLogin = true,
 }) {
   const router = useRouter()

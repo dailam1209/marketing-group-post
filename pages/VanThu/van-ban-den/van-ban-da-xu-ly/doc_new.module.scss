@@ -1,0 +1,26 @@
+.body_general_management {
+  width: 100%;
+  height: 100vh;
+  padding: 50px 16px;
+  background-color: #ebeef5;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+  /* Track */
+  //   &::-webkit-scrollbar-track {
+  //     background: #f1f1f1;
+  //   }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: #b7b7b7;
+    border-radius: 6px;
+  }
+
+  /* Handle on hover */
+  // &::-webkit-scrollbar-thumb:hover {
+  //   background: #b7b7b7;
+  // }
+}

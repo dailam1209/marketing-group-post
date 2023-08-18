@@ -1,0 +1,33 @@
+.infor {
+    border-bottom: 1px solid rgba(71, 71, 71, 0.3);
+}
+
+.infor h3 {
+    font-size: 20px;
+    line-height: 23px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-family: Roboto-Medium, sans-serif;
+    font-weight: 500;
+}
+
+.infor_check_user {
+    display: flex;
+    align-items: center;
+    padding-bottom: 20px;
+}
+
+.infor_check_user img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.infor_check_user .check_user_box {
+    padding-left: 7px;
+}
+
+.bold {
+    font-family: "Roboto-Bold", sans-serif;
+}

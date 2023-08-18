@@ -1,8 +1,8 @@
-import { Modal, Input, Select, Button, Form } from "antd";
-import styles from "./modal-xoa.module.css";
-import Image from "next/image";
-import { POST_TL } from "@/pages/api/BaseApi";
-import { useRouter } from "next/router";
+import { Modal, Input, Select, Button, Form } from 'antd'
+import styles from './modal-xoa.module.css'
+import Image from 'next/image'
+import { POST_TL } from '@/pages/api/BaseApi'
+import { useRouter } from 'next/router'
 export function ModalXoa(
   open: boolean,
   setOpen: Function,
@@ -11,19 +11,19 @@ export function ModalXoa(
   setListEmpX: Function,
   taxSelected: any
 ) {
-  const router = useRouter();
+  const router = useRouter()
   // console.log(listEmp);
   const onConfirm = () => {
-    POST_TL("api/tinhluong/congty/delete_nv_tax", {
+    POST_TL('api/tinhluong/congty/delete_nv_tax', {
       cls_id_cl: taxSelected?.cl_id,
       cls_id_user: key?.id,
     }).then((res) => {
-      //   router.replace(router.asPath);
-      alert("Xóa thành công nhân viên ra khỏi chính sách thuế!")
-      setListEmpX(listEmp.filter((emp) => emp !== key));
-      setOpen(false);
-    });
-  };
+      //   router.reload()
+      alert('Xóa thành công nhân viên ra khỏi chính sách thuế!')
+      setListEmpX(listEmp.filter((emp) => emp !== key))
+      setOpen(false)
+    })
+  }
   // console.log(key);
   return (
     <Modal
@@ -31,48 +31,46 @@ export function ModalXoa(
       onCancel={() => setOpen(false)}
       width={500}
       closable={false}
-      cancelButtonProps={{ style: { display: "none" } }}
-      okButtonProps={{ style: { display: "none" } }}
-    >
+      cancelButtonProps={{ style: { display: 'none' } }}
+      okButtonProps={{ style: { display: 'none' } }}>
       <div className={styles.body}>
         <div className={styles.logo}>
           <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="50"
-            height="50"
-            viewBox="0 0 50 50"
-            fill="none"
-          >
-            <g clip-path="url(#clip0_897_133047)">
-              <circle cx="25" cy="25" r="25" fill="#FF5B4D" />
+            xmlns='http://www.w3.org/2000/svg'
+            width='50'
+            height='50'
+            viewBox='0 0 50 50'
+            fill='none'>
+            <g clip-path='url(#clip0_897_133047)'>
+              <circle cx='25' cy='25' r='25' fill='#FF5B4D' />
               <path
-                d="M15 15L35 35"
-                stroke="white"
-                stroke-width="4"
-                stroke-linecap="round"
+                d='M15 15L35 35'
+                stroke='white'
+                stroke-width='4'
+                stroke-linecap='round'
               />
               <path
-                d="M35 15L15 35"
-                stroke="white"
-                stroke-width="4"
-                stroke-linecap="round"
+                d='M35 15L15 35'
+                stroke='white'
+                stroke-width='4'
+                stroke-linecap='round'
               />
               <path
-                d="M15 15L35 35"
-                stroke="white"
-                stroke-width="4"
-                stroke-linecap="round"
+                d='M15 15L35 35'
+                stroke='white'
+                stroke-width='4'
+                stroke-linecap='round'
               />
               <path
-                d="M35 15L15 35"
-                stroke="white"
-                stroke-width="4"
-                stroke-linecap="round"
+                d='M35 15L15 35'
+                stroke='white'
+                stroke-width='4'
+                stroke-linecap='round'
               />
             </g>
             <defs>
-              <clipPath id="clip0_897_133047">
-                <rect width="50" height="50" fill="white" />
+              <clipPath id='clip0_897_133047'>
+                <rect width='50' height='50' fill='white' />
               </clipPath>
             </defs>
           </svg>
@@ -90,5 +88,5 @@ export function ModalXoa(
         </div>
       </div>
     </Modal>
-  );
+  )
 }
