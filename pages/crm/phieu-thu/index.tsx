@@ -10,39 +10,38 @@ import HomePhieuThu from "@/components/crm/theo-doi-thu-chi/phieu-thu";
 
 
 export default function TheoDoiThuChi() {
-  const mainRef = useRef<HTMLDivElement>(null);
-  const { isOpen } = useContext<any>(SidebarContext);
-  const [selected, setSelected] = useState(false);
-  const [numberSelected, setNumberSelected] = useState(0);
-  const [selectedRowKeys, setSelectedRowKeys] = useState<any>([]);
+  const mainRef = useRef<HTMLDivElement>(null)
+  const { isOpen } = useContext<any>(SidebarContext)
+  const [selected, setSelected] = useState(false)
+  const [numberSelected, setNumberSelected] = useState(0)
+  const [selectedRowKeys, setSelectedRowKeys] = useState<any>([])
   const {
     headerTitle,
     setHeaderTitle,
     setShowBackButton,
     setCurrentPath,
-  }: any = useHeader();
+  }: any = useHeader()
   const handleDeselectAll = () => {
-    setSelectedRowKeys([]);
-    setNumberSelected(0);
-  };
+    setSelectedRowKeys([])
+    setNumberSelected(0)
+  }
   useEffect(() => {
-    setHeaderTitle("Phiếu thu");
-    setShowBackButton(false);
-    setCurrentPath("/crm/phieu-thu");
-
-  }, [setHeaderTitle, setShowBackButton, setCurrentPath]);
+    setHeaderTitle('Phiếu thu')
+    setShowBackButton(false)
+    setCurrentPath('/crm/phieu-thu')
+  }, [setHeaderTitle, setShowBackButton, setCurrentPath])
 
   useEffect(() => {
     if (isOpen) {
-      mainRef.current?.classList.add("content_resize");
+      mainRef.current?.classList.add('content_resize')
     } else {
-      mainRef.current?.classList.remove("content_resize");
+      mainRef.current?.classList.remove('content_resize')
     }
-  }, [isOpen]);
-  
+  }, [isOpen])
+
   return (
     <div ref={mainRef} className={styleHome.main}>
       <HomePhieuThu />
     </div>
-  );
+  )
 }

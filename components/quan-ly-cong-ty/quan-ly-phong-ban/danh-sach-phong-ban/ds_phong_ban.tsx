@@ -26,6 +26,7 @@ export function DanhSachPhongBan({
   const [openAddNew, setOpenAddNew] = useState(false)
   const [data, setData] = useState(listDepartments?.data)
   const [company, setCompany] = useState(infoCom?.data)
+  const [comLabel, setComlabel] = useState({ label: infoCom?.data?.userName, value: infoCom?.data?.idQLC })
   const [listDepLabel, setListDepLabel]: any[] = useState(listDepartments?.data?.map(dep => ({ label: dep?.dep_name, value: dep?.dep_id })))
   // console.log(company)
   const columns = [
@@ -126,11 +127,7 @@ export function DanhSachPhongBan({
             suffixIcon={<img src="/down-icon.png"></img>}
             style={{ width: "100%" }}
             placeholder="Chọn công ty"
-            options={[
-              {
-                label: company?.userName,
-                value: company?.idQLC
-              }
+            options={[comLabel
             ]}
           />
         </Col>
@@ -176,7 +173,7 @@ export function DanhSachPhongBan({
         setData,
         selectedRow
       )}
-      {AddNewModal(openAddNew, setOpenAddNew, data, setData)}
+      {AddNewModal(openAddNew, setOpenAddNew, data, setData, comLabel)}
     </div>
   )
 }

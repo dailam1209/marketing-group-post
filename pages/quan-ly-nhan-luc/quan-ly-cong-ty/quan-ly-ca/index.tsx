@@ -1,106 +1,100 @@
-import { Button, Card, Col, Row, Select } from "antd"
-import styles from "./index.module.css"
-import Image from "next/image"
+import { Button, Card, Col, Row, Select } from 'antd';
+import styles from './index.module.css';
+import Image from 'next/image';
 import {
   AddCaModal,
   ConfirmDeleteShiftModal,
   TYPE_ADD,
-  TYPE_UPDATE
-} from "@/components/quan-ly-cong-ty/quan-ly-ca/modal"
-import { useState } from "react"
-import { MySelect } from "@/components/quan-ly-cong-ty/quan-ly-cong-ty-con/modal"
-import { useRouter } from "next/router"
-import { DELETE, GET, POST } from "@/pages/api/BaseApi"
-import { useEffect } from "react"
+  TYPE_UPDATE,
+} from '@/components/quan-ly-cong-ty/quan-ly-ca/modal';
+import { useState } from 'react';
+import { MySelect } from '@/components/quan-ly-cong-ty/quan-ly-cong-ty-con/modal';
+import { useRouter } from 'next/router';
+import { DELETE, GET, POST } from '@/pages/api/BaseApi';
+import { useEffect } from 'react';
 
 export default function QuanLyCaLamViecPage() {
-  const router = useRouter()
+  const router = useRouter();
 
-  const [isOpenAdd, setIsOpenAdd] = useState(false)
-  const [isOpenUpdate, setIsOpenUpdate] = useState(false)
-  const [isOpenDel, setIsOpenDel] = useState(false)
-  const [listShifts, setListShifts] = useState([
-    {
-      shift_name: "",
-      start_time: "",
-      end_time: "",
-      shift_id: 0
-    }
-  ])
-  const [shiftIdSelected, setShiftIdSelected] = useState(0)
-  const [company, setCompany]: any = useState({})
+  const [isOpenAdd, setIsOpenAdd] = useState(false);
+  const [isOpenUpdate, setIsOpenUpdate] = useState(false);
+  const [isOpenDel, setIsOpenDel] = useState(false);
+  const [listShifts, setListShifts] = useState<any>([]);
+  const [shiftIdSelected, setShiftIdSelected] = useState(0);
+  const [company, setCompany]: any = useState({});
 
   // console.log(shiftIdSelected)
 
   useEffect(() => {
-    GET("api/qlc/shift/list")
+    GET('api/qlc/shift/list')
       .then((res) => {
         // console.log(res);
-        setListShifts(res.list)
+        setListShifts(res.list);
       })
-      .catch((err) => console.error(err))
-    POST('api/qlc/company/info', {})
-      .then((res) => {
-        if (res?.result === true) {
-          setCompany({ value: res?.data?.idQLC, label: res?.data?.userName })
-        }
-      })
-  }, [])
+      .catch((err) => console.error(err));
+    POST('api/qlc/company/info', {}).then((res) => {
+      if (res?.result === true) {
+        setCompany({ value: res?.data?.idQLC, label: res?.data?.userName });
+      }
+    });
+  }, []);
 
   const handleSubmitDelete = () => {
     if (shiftIdSelected) {
-      console.log(shiftIdSelected)
+      // console.log(shiftIdSelected);
       // expected: delete by shif_id | reality: delete all
       POST(`api/qlc/shift/delete`, { shift_id: shiftIdSelected })
         .then((res) => {
           if (res?.result === true) {
-            alert(res.message)
-            setListShifts(listShifts.filter(item => item.shift_id !== shiftIdSelected))
-            setIsOpenDel(false)
+            alert(res.message);
+            setListShifts(
+              listShifts.filter((item) => item.shift_id !== shiftIdSelected)
+            );
+            setIsOpenDel(false);
           }
         })
         .catch((err) => console.error(err));
     }
-  }
+  };
 
   const SingleItem = ({
     name,
     from,
     to,
-    shift_id
+    shift_id,
   }: {
-    name: string
-    from: string
-    to: string
-    shift_id: number
+    name: string;
+    from: string;
+    to: string;
+    shift_id: number;
   }) => {
-    const [hover, setHover] = useState(false)
+    const [hover, setHover] = useState(false);
 
     const FunctionalBtn = ({
       img,
       title,
-      onclick
+      onclick,
     }: {
-      img: string
-      title: string
-      onclick: () => void
+      img: string;
+      title: string;
+      onclick: () => void;
     }) => (
-      <div style={{ display: "flex" }} onClick={onclick}>
+      <div style={{ display: 'flex' }} onClick={onclick}>
         <Image alt="/" src={img} width={24} height={24} />
-        <p style={{ marginLeft: "10px", color: "#fff" }}>{title}</p>
+        <p style={{ marginLeft: '10px', color: '#fff' }}>{title}</p>
       </div>
-    )
+    );
 
     return (
       <Col
         className={styles.itemWrapper}
-        style={{ display: "flex", flexDirection: "column" }}
+        style={{ display: 'flex', flexDirection: 'column' }}
         // onClick={() => setIsOpenUpdate(true)}
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
       >
         {!hover ? (
-          <div style={{ display: "flex", flexDirection: "column" }}>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
             <div className={styles.caNameWrapper}>
               <p className={styles.nameText}>{name}</p>
             </div>
@@ -113,13 +107,13 @@ export default function QuanLyCaLamViecPage() {
         ) : (
           <div className={styles.functionGroupWrapper}>
             <div className={styles.functionGroup}>
-              <div style={{ marginRight: "20px" }}>
+              <div style={{ marginRight: '20px' }}>
                 <FunctionalBtn
                   img="/edit-w.png"
                   title="Sửa"
                   onclick={() => {
-                    setShiftIdSelected(shift_id)
-                    setIsOpenUpdate(true)
+                    setShiftIdSelected(shift_id);
+                    setIsOpenUpdate(true);
                   }}
                 />
               </div>
@@ -127,16 +121,16 @@ export default function QuanLyCaLamViecPage() {
                 img="/trash-w.png"
                 title="Xóa"
                 onclick={() => {
-                  setShiftIdSelected(shift_id)
-                  setIsOpenDel(true)
+                  setShiftIdSelected(shift_id);
+                  setIsOpenDel(true);
                 }}
               />
             </div>
           </div>
         )}
       </Col>
-    )
-  }
+    );
+  };
 
   return (
     <div className={styles.main}>
@@ -145,15 +139,21 @@ export default function QuanLyCaLamViecPage() {
           <p className={styles.headerText}>Quản lý ca làm việc</p>
           <Button
             className={styles.btn}
-            onClick={() => router.push("/cham-cong/cai-dat-lich-lam-viec")}
+            onClick={() => router.push('/cham-cong/cai-dat-lich-lam-viec')}
           >
             <p className={styles.btnText}>Lịch làm việc</p>
           </Button>
         </div>
         <div className={styles.selectSection}>
-          {MySelect("", "Chọn công ty", false, false, "com_id", [
-            company
-          ], company?.value)}
+          {MySelect(
+            '',
+            'Chọn công ty',
+            false,
+            false,
+            'com_id',
+            [company],
+            company?.value
+          )}
         </div>
         <Row className={styles.listCaWrapper} gutter={0}>
           {listShifts.map((item, indx) => (
@@ -168,11 +168,11 @@ export default function QuanLyCaLamViecPage() {
           <Col
             className={styles.addCaBTn}
             onClick={() => {
-              setShiftIdSelected(0)
-              setIsOpenAdd(true)
+              setShiftIdSelected(0);
+              setIsOpenAdd(true);
             }}
           >
-            <Image alt="/" src={"/plus.png"} width={60} height={60} />
+            <Image alt="/" src={'/plus.png'} width={60} height={60} />
             <p className={styles.addText}>Thêm ca</p>
           </Col>
         </Row>
@@ -195,5 +195,5 @@ export default function QuanLyCaLamViecPage() {
         {ConfirmDeleteShiftModal(isOpenDel, setIsOpenDel, handleSubmitDelete)}
       </Card>
     </div>
-  )
+  );
 }

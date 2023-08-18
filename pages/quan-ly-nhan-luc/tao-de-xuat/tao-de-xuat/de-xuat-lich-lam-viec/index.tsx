@@ -167,7 +167,7 @@ export default function Page() {
           });
   }, [timeEndShift, shiftType]);
 
-  const getDaysInMonth = (
+const getDaysInMonth = (
     thang_ap_dung,
     listShiftSelected,
     weekType,

@@ -9,7 +9,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { ModalWrapper } from '@/components/modal/ModalWrapper'
 import { getCookie } from 'cookies-next'
-import { POST_VT } from '../api/BaseApi'
+import Cookies from 'js-cookie'
 
 const ConfirmModal = ({
   open,
@@ -41,37 +41,16 @@ const ConfirmModal = ({
     false
   )
 }
-export const listUserDuyetContext = createContext({} as any)
 export const COOKIE_KEY = 'token_base365'
-export default function Home() {
+export default function HomeQLNS() {
   const router = useRouter()
-  // const { setHasBanner } = useContext(HasBannerContext)
   const [selectedUrl, setSelectedUrl] = useState('')
   const [openConfirm, setOpenConfirm] = useState(false)
-  // setHasBanner(true)
   const [selectedBtn, setSelectedBtn] = useState<any>()
   // set to localStorage
-  // getCurrentToken()
   useEffect(() => {
     const value = localStorage.getItem('selectedBtnIndex') || '0'
     setSelectedBtn(value)
-  }, [])
-
-  const [listDuyet, setListDuyet] = useState({})
-
-  useEffect(() => {
-    const getListDuyet = async () => {
-      const res = await POST_VT('api/vanthu/dexuat/showadd', {})
-
-      if (res?.result) {
-        setListDuyet({
-          listDuyet: res?.listUsersDuyet,
-          listTheoDoi: res?.listUsersTheoDoi,
-        })
-      }
-    }
-
-    getListDuyet()
   }, [])
 
   const LIST_BUTTONS_COMP = [
@@ -176,8 +155,19 @@ export default function Home() {
     url: string,
     isButton: boolean = false,
     btnIcon: string = ''
-  ) =>
-    !isButton ? (
+  ) => {
+    const checkLogin = () => {
+      const acc_token = Cookies.get('token_base365')
+      const rf_token = Cookies.get('rf_token')
+      const role = Cookies.get('role')
+
+      if (acc_token && rf_token && role) {
+        return true
+      }
+      return false
+    }
+
+    return !isButton ? (
       <div className={styles.singleStep} key={index}>
         <div className={styles.roundIndex}>
           <span className={styles.index}>{index}</span>
@@ -185,11 +175,15 @@ export default function Home() {
         <span
           className={styles.title}
           onClick={(e) => {
-            if (hasExplain) {
-              setSelectedUrl(url)
-              setOpenConfirm(true)
+            if (checkLogin()) {
+              if (hasExplain) {
+                setSelectedUrl(url)
+                setOpenConfirm(true)
+              } else {
+                router.push(url)
+              }
             } else {
-              router.push(url)
+              alert('Bạn chưa đăng nhập')
             }
           }}>
           {title}
@@ -208,17 +202,22 @@ export default function Home() {
       <div
         className={styles.btnEmp}
         onClick={(e) => {
-          if (hasExplain) {
-            setSelectedUrl(url)
-            setOpenConfirm(true)
+          if (checkLogin()) {
+            if (hasExplain) {
+              setSelectedUrl(url)
+              setOpenConfirm(true)
+            } else {
+              router.push(url)
+            }
           } else {
-            router.push(url)
+            alert('Bạn chưa đăng nhập')
           }
         }}>
         <Image alt='/' src={btnIcon} width={40} height={40} />
         <p className={styles.btnTitle}>{title}</p>
       </div>
     )
+  }
 
   const renderSelection = (type) => {
     const ADMIN = (
@@ -261,57 +260,56 @@ export default function Home() {
   }
 
   const RenderedBody = () => {
-    const type = getCookie('role')
-    return (
-      <div className={styles.section1}>
-        <Row gutter={{ lg: 150, md: 100, sm: 30, xs: 10 }}>
-          <Col lg={type === '1' ? 10 : 11} sm={11} xs={24}>
-            {(type === '1' ? LIST_BUTTONS_COMP : LIST_BUTTONS_EMP)?.map(
-              (item, index) =>
-                utilButton(item.icon, index + 1, item.title, item.color)
-            )}
-          </Col>
-          <Col lg={type === '1' ? 14 : 13} sm={13} xs={24}>
-            {renderSelection(type)}
-          </Col>
-        </Row>
-        <ConfirmModal
-          open={openConfirm}
-          setOpen={setOpenConfirm}
-          router={router}
-          url={selectedUrl}
-        />
-      </div>
-    )
+    const type = getCookie('role') || 2
+    if (type)
+      return (
+        <div className={styles.section1}>
+          <Row gutter={{ lg: 150, md: 100, sm: 30, xs: 10 }}>
+            <Col lg={type === '1' ? 10 : 11} sm={11} xs={24}>
+              {(type === '1' ? LIST_BUTTONS_COMP : LIST_BUTTONS_EMP)?.map(
+                (item, index) =>
+                  utilButton(item.icon, index + 1, item.title, item.color)
+              )}
+            </Col>
+            <Col lg={type === '1' ? 14 : 13} sm={13} xs={24}>
+              {renderSelection(type)}
+            </Col>
+          </Row>
+          <ConfirmModal
+            open={openConfirm}
+            setOpen={setOpenConfirm}
+            router={router}
+            url={selectedUrl}
+          />
+        </div>
+      )
   }
 
   return (
-    <listUserDuyetContext.Provider value={{ listDuyet }}>
-      <>
-        <Head>
-          <title> Page Chấm Công </title>
-          <meta name='keywords' content='coders' />
-        </Head>
-        <main>
-          <RenderedBody />
-        </main>
-      </>
-    </listUserDuyetContext.Provider>
+    <>
+      <Head>
+        <title> Page Chấm Công </title>
+        <meta name='keywords' content='coders' />
+      </Head>
+      <main>
+        <RenderedBody />
+      </main>
+    </>
   )
 }
 
-export const getServerSideProps = (context) => {
-  const role = context?.req?.cookies?.role
+// export const getServerSideProps = (context) => {
+//   const { role } = context?.req?.cookies
 
-  if (!role) {
-    return {
-      redirect: {
-        destination: '/lua-chon-dang-nhap.html',
-      },
-    }
-  } else {
-    return {
-      props: {},
-    }
-  }
-}
+//   if (!role) {
+//     return {
+//       redirect: {
+//         destination: '/lua-chon-dang-nhap.html',
+//       },
+//     }
+//   } else {
+//     return {
+//       props: {},
+//     }
+//   }
+// }

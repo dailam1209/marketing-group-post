@@ -30,11 +30,11 @@ export function ModalThemNhanVien(
             label:'Nhân viên',
             children:<DanhSachNhanVien listEmp ={listEmp} taxSelected={taxSelected}/>
         },
-        {
-            key:'2',
-            label:'Nhóm',
-            children:<DanhSachNhom/>
-        }
+        // {
+        //     key:'2',
+        //     label:'Nhóm',
+        //     children:<DanhSachNhom/>
+        // }
     ]
     const [checkButton, setCheckButton] = useState('1')
     return (

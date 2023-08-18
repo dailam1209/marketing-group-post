@@ -22,7 +22,7 @@ export const getServerSideProps = async (context) => {
       "api/tinhluong/congty/list_user_cong_cong",
       {
         com_id: com_id,
-        start_date: "2023-04-01",
+        start_date: "2021-04-01",
         end_date: "2023-09-01",
       },
       context

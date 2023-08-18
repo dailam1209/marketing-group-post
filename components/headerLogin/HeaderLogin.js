@@ -61,11 +61,11 @@ export default function HeaderLogin({ text }) {
     getData()
 
     if (type() === '1') {
-      setLinkHome('quan-ly-ung-dung-cong-ty.html')
+      setLinkHome('/')
     } else if (type() === '0') {
-      setLinkHome('quan-ly-ung-dung-ca-nhan.html')
+      setLinkHome('/')
     } else {
-      setLinkHome('quan-ly-ung-dung-nhan-vien.html')
+      setLinkHome('/')
     }
 
     function handleClickOutside(event) {
@@ -119,11 +119,9 @@ export default function HeaderLogin({ text }) {
                 <div className='ind-tow'>
                   <div className='ctn_ulli'>
                     <ul className='navbar-nav'>
-                      {linkHome === 'quan-ly-ung-dung-cong-ty.html' && (
+                      {linkHome === '/' && (
                         <>
-                          <a
-                            href='/quan-ly-ung-dung-cong-ty.html'
-                            className='nav-item'>
+                          <a href='/' className='nav-item'>
                             <li className='nav-child-item cr_weight_bold share_fsize_tow share_clr_tow d_flex'>
                               <span className='item_ic'>
                                 <img src='../img/ung-dung.png' alt='' />
@@ -209,7 +207,7 @@ export default function HeaderLogin({ text }) {
                           </a>
                         </>
                       )}
-                      {linkHome !== 'quan-ly-ung-dung-cong-ty.html' && (
+                      {linkHome !== '/' && (
                         <>
                           <a href={linkHome} className='nav-item'>
                             <li className='nav-child-item cr_weight_bold share_fsize_tow share_clr_tow d_flex'>

@@ -21,6 +21,7 @@ import _ from 'lodash'
 import { ModalNhapLuongCoBan } from './modal/nhap-luong-co-ban'
 import { CSVDownload, CSVLink } from 'react-csv'
 import moment from 'moment'
+import { getPosition } from '@/utils/function'
 
 export const filterUnique = (input: any[], name: string) => {
   const uniqueIds: any[] = []
@@ -47,12 +48,18 @@ export const NhapLuongCoBan = ({
   listPb: any[]
   listIds: any[]
 }) => {
+
   const [modalChinhSua, setModalChinhSua] = useState(false)
   const [modalKey, setModalKey] = useState('')
   const [date, setDate] = useState<String>()
   const router = useRouter()
   const [listData, setListData] = useState(data)
   const [nhapluongcoban, setModalnhapluongcoban] = useState(false)
+
+  const positionLabel = getPosition?.map((p) => ({
+    label: p?.value,
+    value: p?.id,
+  }));
 
   useEffect(() => {
     const getData = async () => {
@@ -106,7 +113,7 @@ export const NhapLuongCoBan = ({
       title: 'Họ và Tên (ID)',
       dataIndex: '',
       render: (record: any) => (
-        <div
+        <div  
           style={{
             display: 'flex',
             gap: '10px',
@@ -114,8 +121,8 @@ export const NhapLuongCoBan = ({
             width: '260px',
           }}>
           <div>
-            <p className={styles.textname}>{record.userName}</p>
-            <p className={styles.text}>ID: {record?._id}</p>
+            <p className={styles.textname}>{record?.userName}</p>
+            <p className={styles.text}>ID: {record?.idQLC}</p>
           </div>
           <div
             className={`chinhsua ${styles.editInfo}`}
@@ -173,7 +180,7 @@ export const NhapLuongCoBan = ({
       key: 'chucVu',
       render: (record) => (
         <p className={styles.text}>
-          Chức vụ: {record?.inForPerson?.employee?.position_id || 0}{' '}
+         {positionLabel?.find(p => p?.value === record?.inForPerson?.employee?.position_id)?.label || "Chưa cập nhật"}
         </p>
       ),
     },
@@ -183,8 +190,8 @@ export const NhapLuongCoBan = ({
       key: '',
       render: (record: any) => (
         <div>
-          <p>{record.phoneTK}</p>
-          <p>{record.email}</p>
+          <p>{record.phoneTK || record?.phone}</p>
+          <p>{record.email || record?.emailContact}</p>
           <p>{record.address}</p>
         </div>
       ),
@@ -253,7 +260,7 @@ export const NhapLuongCoBan = ({
                 data && [
                   { value: 'all', label: 'Tất cả nhân viên' },
                   ...data?.map((item: any) => ({
-                    value: item?.userName,
+                    value: item?.idQLC,
                     label: item?.userName,
                   })),
                 ]

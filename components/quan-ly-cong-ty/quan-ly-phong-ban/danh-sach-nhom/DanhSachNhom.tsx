@@ -41,8 +41,10 @@ export function DanhSachNhom({
     listTeams?.data?.map((team) => ({
       label: team?.team_name,
       value: team?.team_id,
+      dep_id: team?.dep_id
     }))
   );
+  const [comLabel, setComlabel] = useState({ label: infoCom?.data?.userName, value: infoCom?.data?.idQLC })
 
   const columns = [
     {
@@ -82,7 +84,7 @@ export function DanhSachNhom({
 
     {
       title: <p className={styles.headerTxt}>Số lượng</p>,
-      render: (record: any, index: any) => <p>{record?.total || 0}</p>,
+      render: (record: any, index: any) => <p>{record?.total_emp || 0}</p>,
     },
     {
       title: <p className={styles.headerTxt}>Chức năng</p>,
@@ -174,7 +176,7 @@ export function DanhSachNhom({
       <Row gutter={[20, 10]} justify={"end"}>
         <Col lg={10} md={10} sm={12} xs={24}>
           {MySelect("", "Chọn công ty", false, false, "com_id", [
-            { label: company?.userName, value: company?.idQLC },
+            comLabel
           ])}
           {MySelect("", "Chọn tổ", false, false, "team_id", listTeamLabel, null, () => null, handleChangeTeam)}
         </Col>
@@ -220,7 +222,7 @@ export function DanhSachNhom({
         setData,
         selectedRow
       )}
-      {AddNewModal(openAddNew, setOpenAddNew, data, setData)}
+      {AddNewModal(openAddNew, setOpenAddNew, data, setData, comLabel, listDepLabel, listTeamLabel)}
     </div>
   );
 }

@@ -7,17 +7,15 @@ import CancelModal from "../potential/potential_steps/cancel_modal";
 import EditStatusCustomerModal from "../customer/status/modal_status_customer";
 import { useApi } from "@/components/crm/hooks/useApi";
 import Image from "next/image";
-import H1 from "@/public/crm/h_edit_cus.svg";
-import H2 from "@/public/crm/h_delete_cus.svg";
 import AddStatusCustomerModal from "../customer/status/modal_add_customer_status";
-import Add from "@/public/crm/add.svg";
 
 interface DataType {
   key: number;
   name: string;
   created_user: number;
   created_at: string;
-  status: string;
+  status: number;
+  stt_id: any;
 }
 
 interface TableStatusCustomerProps {}
@@ -28,21 +26,15 @@ const TableStatusCustomer: React.FC<TableStatusCustomerProps> = ({}: any) => {
   const handleClickSelectoption = () => {};
   const [isOpen, setIsOpen] = useState(false);
   const [stt, setStt] = useState<any>("");
+  const [id, setId] = useState();
+  const [name, setName] = useState();
   const { data, loading, error, fetchData, updateData, deleteData } = useApi(
     "http://210.245.108.202:3007/api/crm/customerStatus/list",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6Mjg3MjMxLCJpZFRpbVZpZWMzNjUiOjAsImlkUUxDIjoxNzYzLCJpZFJhb05oYW5oMzY1IjowLCJlbWFpbCI6ImR1b25naGllcGl0MUBnbWFpbC5jb20iLCJwaG9uZVRLIjoiIiwiY3JlYXRlZEF0IjoxNjI3NTQ5NDcxLCJ0eXBlIjoxLCJjb21faWQiOjE3NjMsInVzZXJOYW1lIjoibGUgYW5oIHR1YW4xMiJ9LCJpYXQiOjE2OTIwNjQ1MDIsImV4cCI6MTY5MjE1MDkwMn0.klqKzWkaYeTdK6VKR07R8cV7y9YrmWdFUJC2z6hCil8",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6MzgwOTg5LCJpZFRpbVZpZWMzNjUiOjIwMjU4NSwiaWRRTEMiOjE3NjMsImlkUmFvTmhhbmgzNjUiOjAsImVtYWlsIjoiZHVvbmdoaWVwaXQxQGdtYWlsLmNvbSIsInBob25lVEsiOiIiLCJjcmVhdGVkQXQiOjE2MDA2NTg0NzgsInR5cGUiOjEsImNvbV9pZCI6MTc2MywidXNlck5hbWUiOiJDw7RuZyBUeSBUTkhIIEggTSBMIFBwbyJ9LCJpYXQiOjE2OTIxNTY1MTksImV4cCI6MTY5MjI0MjkxOX0.1M55PZxSpovkNVmdGkd10pz-a7D0ApuqLOmsmBghh7w",
     "POST",
-    { stt_name: `${stt}` }
+    { stt_name: `${stt}`, pageSize: 10000 }
   );
-  console.log("check", data?.data?.listStatus);
   useEffect(() => {
-    if (stt == null) {
-      fetchData(
-        "http://210.245.108.202:3007/api/crm/customerStatus/list",
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6Mjg3MjMxLCJpZFRpbVZpZWMzNjUiOjAsImlkUUxDIjoxNzYzLCJpZFJhb05oYW5oMzY1IjowLCJlbWFpbCI6ImR1b25naGllcGl0MUBnbWFpbC5jb20iLCJwaG9uZVRLIjoiIiwiY3JlYXRlZEF0IjoxNjI3NTQ5NDcxLCJ0eXBlIjoxLCJjb21faWQiOjE3NjMsInVzZXJOYW1lIjoibGUgYW5oIHR1YW4xMiJ9LCJpYXQiOjE2OTIwNjQ1MDIsImV4cCI6MTY5MjE1MDkwMn0.klqKzWkaYeTdK6VKR07R8cV7y9YrmWdFUJC2z6hCil8",
-        "POST"
-      );
-    }
     fetchData();
   }, []);
   const datatable = data?.data?.listStatus.map((item: any, index: number) => {
@@ -51,19 +43,33 @@ const TableStatusCustomer: React.FC<TableStatusCustomerProps> = ({}: any) => {
       name: item.stt_name,
       created_user: item.created_user,
       created_at: item.created_at,
-      status: item.stt,
+      status: item.status,
+      stt_id: item.stt_id,
     };
   });
-  const handelChangeSwicth = (e: boolean) => {
-    return e;
+  const handelChangeSwicth = (e: any, id: any) => {
+    if (!e && id) {
+      updateData(
+        "http://210.245.108.202:3007/api/crm/customerStatus/update",
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6MzgwOTg5LCJpZFRpbVZpZWMzNjUiOjIwMjU4NSwiaWRRTEMiOjE3NjMsImlkUmFvTmhhbmgzNjUiOjAsImVtYWlsIjoiZHVvbmdoaWVwaXQxQGdtYWlsLmNvbSIsInBob25lVEsiOiIiLCJjcmVhdGVkQXQiOjE2MDA2NTg0NzgsInR5cGUiOjEsImNvbV9pZCI6MTc2MywidXNlck5hbWUiOiJDw7RuZyBUeSBUTkhIIEggTSBMIFBwbyJ9LCJpYXQiOjE2OTIxNTY1MTksImV4cCI6MTY5MjI0MjkxOX0.1M55PZxSpovkNVmdGkd10pz-a7D0ApuqLOmsmBghh7w",        "POST",
+        { stt_id: id, status: 0 }
+      );
+    } else {
+      updateData(
+        "http://210.245.108.202:3007/api/crm/customerStatus/update",
+ "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6MzgwOTg5LCJpZFRpbVZpZWMzNjUiOjIwMjU4NSwiaWRRTEMiOjE3NjMsImlkUmFvTmhhbmgzNjUiOjAsImVtYWlsIjoiZHVvbmdoaWVwaXQxQGdtYWlsLmNvbSIsInBob25lVEsiOiIiLCJjcmVhdGVkQXQiOjE2MDA2NTg0NzgsInR5cGUiOjEsImNvbV9pZCI6MTc2MywidXNlck5hbWUiOiJDw7RuZyBUeSBUTkhIIEggTSBMIFBwbyJ9LCJpYXQiOjE2OTIxNTY1MTksImV4cCI6MTY5MjI0MjkxOX0.1M55PZxSpovkNVmdGkd10pz-a7D0ApuqLOmsmBghh7w",       "POST",
+        { stt_id: id, status: 1 }
+      );
+    }
   };
-
+  const [current, setcurrent] = useState(1);
+  const [pageSize, setpageSize] = useState(10);
   const columns: ColumnsType<DataType> = [
     {
       title: "STT",
       width: 100,
       dataIndex: "key",
-      key: "age",
+      key: "1",
     },
     {
       title: "Tên tình trạng",
@@ -76,7 +82,7 @@ const TableStatusCustomer: React.FC<TableStatusCustomerProps> = ({}: any) => {
       title: "Người tạo",
       width: 160,
       dataIndex: "created_user",
-      key: "age",
+      key: "5",
     },
     {
       title: "Thời gian cập nhật",
@@ -87,13 +93,13 @@ const TableStatusCustomer: React.FC<TableStatusCustomerProps> = ({}: any) => {
     {
       title: "Trạng thái",
       dataIndex: "status",
-      key: "2",
+      key: "8",
       width: 180,
-      render: (data) => (
+      render: (data, record) => (
         <Switch
           className="status_cus"
-          defaultChecked
-          onChange={handelChangeSwicth}
+          defaultChecked={record.status === 1 ? true : false}
+          onChange={(e) => handelChangeSwicth(e, record.stt_id)}
         />
       ),
     },
@@ -103,22 +109,32 @@ const TableStatusCustomer: React.FC<TableStatusCustomerProps> = ({}: any) => {
       key: "6",
       width: 200,
       // fixed:"right",
-      render: (id) => (
+      render: (text, record: any) => (
         <>
-          {/* <Link href={`/crm/customer/group/edit/${id}`}> */}
-          <button onClick={() => setOpenSharedModal(true)}>
+          {/* <Link href={`/customer/group/edit/${id}`}> */}
+          <button
+            onClick={() => (
+              setOpenSharedModal(true),
+              setName(record.name),
+              setId(record.stt_id)
+            )}
+          >
             <Image
-              src={H1} // Đường dẫn tới tệp tin SVG trong thư mục 'public'
+              src="h_edit_cus.svg" // Đường dẫn tới tệp tin SVG trong thư mục 'public'
               alt="My SVG Image"
+              width={15}
+              height={15}
               className={styles.icon_edit}
             />
             Sửa
           </button>
           {/* </Link> */}
-          <button onClick={() => setIsOpenCancel(true)}>
+          <button onClick={() => (setIsOpenCancel(true), setId(record.stt_id))}>
             <Image
-              src={H2} // Đường dẫn tới tệp tin SVG trong thư mục 'public'
+              src="h_delete_cus.svg" // Đường dẫn tới tệp tin SVG trong thư mục 'public'
               alt="My SVG Image"
+              width={15}
+              height={15}
               className={styles.icon_delete}
             />
             Xóa
@@ -127,12 +143,18 @@ const TableStatusCustomer: React.FC<TableStatusCustomerProps> = ({}: any) => {
       ),
     },
   ];
+  const handleChangePage = (currents: number, pageSizes: number) => {
+    console.log(current);
+    if (currents != current) {
+      setcurrent(currents);
+    }
+  };
   const handleSubmit = (event: any) => {
     event.preventDefault();
     fetchData();
   };
   return (
-    <div className="custom_table">
+    <div className="custom_table" style={{ marginTop: 10 }}>
       <div className={styles.main__control} style={{ paddingBottom: 40 }}>
         <div className={`${styles.main__control_btn} flex_between`}>
           <div className={styles.main__control_search}>
@@ -143,6 +165,7 @@ const TableStatusCustomer: React.FC<TableStatusCustomerProps> = ({}: any) => {
               onSubmit={() => handleSubmit(event)}
             >
               <input
+                style={{ height: 40, fontSize: 16 }}
                 type="text"
                 className={styles.input__search}
                 name="search"
@@ -157,6 +180,7 @@ const TableStatusCustomer: React.FC<TableStatusCustomerProps> = ({}: any) => {
                 }}
               >
                 <img
+                  style={{ marginBottom: 100 }}
                   className={styles.img__search}
                   src="https://crm.timviec365.vn/assets/icons/search.svg"
                   alt=""
@@ -171,7 +195,7 @@ const TableStatusCustomer: React.FC<TableStatusCustomerProps> = ({}: any) => {
               onClick={() => setIsOpen(true)}
               className={`${styles.dropbtn_add} flex_align_center`}
             >
-              <Image src={Add} alt="My SVG Image" />
+              <Image src="add.svg" alt="My SVG Image" width={15} height={15} />
               Thêm mới
             </button>
           </div>
@@ -180,14 +204,21 @@ const TableStatusCustomer: React.FC<TableStatusCustomerProps> = ({}: any) => {
         <AddStatusCustomerModal
           isModalCancel={isOpen}
           setIsModalCancel={setIsOpen}
+          updateData={updateData}
         />
       </div>
       <Table
         columns={columns}
         dataSource={datatable}
         bordered
-        pagination={false}
-        scroll={{ x: 992, y: 300 }}
+        pagination={{
+          current: current,
+          pageSize: pageSize,
+          onChange: (currents, pageSizes) => {
+            handleChangePage(currents, pageSizes);
+          },
+        }}
+        scroll={{ x: 992, y: 400 }}
       />
 
       <CancelModal
@@ -196,11 +227,16 @@ const TableStatusCustomer: React.FC<TableStatusCustomerProps> = ({}: any) => {
         content={"Bạn có chắc chắn muốn xóa ???"}
         title={"Xác nhận xóa tình trạng khách hàng"}
         link={"#"}
+        id={id}
+        updateData={updateData}
       />
 
       <EditStatusCustomerModal
         isModalCancel={openSharedModal}
         setIsModalCancel={setOpenSharedModal}
+        updateData={updateData}
+        name={name}
+        id={id}
       />
     </div>
   );

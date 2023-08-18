@@ -9,6 +9,7 @@ interface MyComponentProps {
   setIsModalCancel: (value: boolean) => void;
   id: any
 }
+
 const DelActionModalContactCustomer: React.FC<MyComponentProps> = ({
   isModalCancel,
   setIsModalCancel,
