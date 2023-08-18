@@ -18,7 +18,7 @@ const Recent_dispatch: React.FC<ArrayTemps> = ({ dataArray }) => {
             <Link
               className={`${styles.body_row_box_list_item1}`}
               // href={dataArray.link}
-              href={`/quanly-cong-van/${item?._id}`}
+              href={`/VanThu/quanly-cong-van/${item?._id}`}
             >
               <Image
                 src={"/icon/google-docs.png"}

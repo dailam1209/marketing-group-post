@@ -35,7 +35,7 @@ const Box_element_right: React.FC<MyComponentBox> = (props) => {
           />
           <p className={`${styles.text_top}`}>Truy cập duyệt văn bản ngay!</p>
         </div>
-        <Link href="/van-ban-den/van-ban-can-duyet">
+        <Link href="/VanThu/van-ban-den/van-ban-can-duyet">
           <div className={`${styles.element_part_bottom}`}>
             <Image
               src={"/icon/icon_document.png"}

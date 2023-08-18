@@ -24,7 +24,7 @@ const Table_vanbandi: React.FC<ListDocs> = ({ listdocs, href_url }) => {
         </p>
         <div className={`${styles.table_element}`}>
           <Link
-            href={`/van-ban-di/${href_url}/${item?._id}`}
+            href={`/VanThu/van-ban-di/${href_url}/${item?._id}`}
             className={`${styles.text_xanh_kochan} ${styles.size_14}`}
           >
             {item.title_vb}

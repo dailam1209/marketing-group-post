@@ -45,7 +45,7 @@ const Text_go: React.FC<ComponentProps> = ({ data, total_vb }) => {
             <Btn_Add title={"Thêm mới văn bản đi"} />
           </div>
           <Modal_dis_go
-            href="/ds-van-ban/vb-di"
+            href="/VanThu/ds-van-ban/vb-di"
             isOpen={modalOpen}
             onClose={handleCloseModal}
             title="Thêm mới văn bản đi"
@@ -63,7 +63,7 @@ const Text_go: React.FC<ComponentProps> = ({ data, total_vb }) => {
             <div className={styles.frame_table}>
               <div className={styles.frame_scroll}>
                 <Table_text
-                  href="/ds-van-ban/vb-di/"
+                  href="/VanThu/ds-van-ban/vb-di/"
                   listTexts={isSearch ? dataArray : data}
                 />
               </div>
@@ -75,7 +75,7 @@ const Text_go: React.FC<ComponentProps> = ({ data, total_vb }) => {
                 (pageNumber: any) => (
                   <li key={pageNumber} className={styles.li_navi}>
                     <Link
-                      href="/ds-van-ban/vb-di"
+                      href="/VanThu/ds-van-ban/vb-di"
                       onClick={() => handlePageChange(pageNumber)}
                       style={{
                         backgroundColor:
