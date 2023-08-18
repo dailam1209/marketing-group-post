@@ -107,7 +107,7 @@ const Payment_propose = ({ inuse }: { inuse?: boolean }) => {
         const res = await post_payment_propose(form_data)
         console.log(res);
         alert('Tạo đề xuất thành công')
-        router.push('/trang-quan-ly-de-xuat/de-xuat');
+        router.push('/VanThu/trang-quan-ly-de-xuat/de-xuat');
       } 
       catch (error: any) {
         const newErrors : any = {};

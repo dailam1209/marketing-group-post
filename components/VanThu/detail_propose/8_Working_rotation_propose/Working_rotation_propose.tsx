@@ -118,7 +118,7 @@ const Working_rotation_propose = ({ inuse }: { inuse?: boolean }) => {
         console.log(form_data);
         const res = await post_working_rotation_propose(form_data)
         alert('Tạo đề xuất thành công')
-        router.push('/trang-quan-ly-de-xuat/de-xuat');
+        router.push('/VanThu/trang-quan-ly-de-xuat/de-xuat');
       } 
       catch (error: any) {
         const newErrors : any = {};

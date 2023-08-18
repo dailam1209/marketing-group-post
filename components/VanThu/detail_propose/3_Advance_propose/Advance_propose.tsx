@@ -149,7 +149,7 @@ const Switch_shift_propose = ({ inuse }: { inuse?: boolean }) => {
       }
       const res = await post_switch_shift_propose(form_data);
       alert("Tạo đề xuất thành công");
-      router.push("/trang-quan-ly-de-xuat/de-xuat");
+      router.push("/VanThu/trang-quan-ly-de-xuat/de-xuat");
     } catch (error: any) {
       const newErrors: any = {};
       if (error?.inner) {

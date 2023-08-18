@@ -119,7 +119,7 @@ const Asset_allocation_propose = ({ inuse }: { inuse?: boolean }) => {
       }
       const res = await post_asset_allocation_propose(form_data);
       alert("Tạo đề xuất thành công");
-      router.push("/trang-quan-ly-de-xuat/de-xuat");
+      router.push("/VanThu/trang-quan-ly-de-xuat/de-xuat");
     } catch (error: any) {
       const newErrors: any = {};
       if (error?.inner) {
