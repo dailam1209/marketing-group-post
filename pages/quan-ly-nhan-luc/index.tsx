@@ -260,7 +260,7 @@ export default function HomeQLNS() {
   }
 
   const RenderedBody = () => {
-    const type = getCookie('role') || 2
+    const type = getCookie('role') || '1'
     if (type)
       return (
         <div className={styles.section1}>
