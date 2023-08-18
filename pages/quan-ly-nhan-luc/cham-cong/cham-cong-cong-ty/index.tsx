@@ -7,7 +7,7 @@ import axios from 'axios'
 import { getCookie } from 'cookies-next'
 import jwtDecode from 'jwt-decode'
 import Head from 'next/head'
-import { getCompIdCS } from '@/pages/api/BaseApi'
+import { POST, getCompIdCS } from '@/pages/api/BaseApi'
 import _ from 'lodash'
 import { COOKIE_KEY } from '../..'
 
@@ -20,11 +20,28 @@ export default function ChamCongCongTy() {
   const [modalDetailCC, setModalDetailCC] = useState(false)
   const [reload, setReload] = useState(false)
   const [listCa, list_ca] = useState()
+  const [id, setId] = useState()
+  const [lat, setLat] = useState<Number>()
+  const [long, setLong] = useState<Number>()
+  const [ip, setIp] = useState()
   const videoConstraints = {
     width: 971,
     height: 971,
     facingMode: 'user',
   }
+
+  useEffect(() => {
+    fetch('https://geolocation-db.com/json/')
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data)
+
+        setIp(data.IPv4)
+        setLong(data.longitude)
+        setLat(data.latitude)
+      })
+      .catch((error) => console.log(error))
+  }, [])
 
   const [listDevices, setListDevices] = useState<any[]>()
 
@@ -60,6 +77,7 @@ export default function ChamCongCongTy() {
           }
         )
         const resp = res?.data?.data
+        console.log(resp)
         if (
           !resp?.user_id ||
           resp?.user_id === 'Unknown' ||
@@ -74,6 +92,7 @@ export default function ChamCongCongTy() {
           // if (userInfo) {
           //   setUserData(userInfo)
           // }
+          setId(resp?.user_id)
           const token = getCookie(COOKIE_KEY)
           let compId: any = ''
           if (token) {
@@ -111,43 +130,60 @@ export default function ChamCongCongTy() {
       }
     }
   }, [webcamRef])
+  console.log(id)
+
+  // useEffect(() => {
+  //   const countDevices = async () => {
+  //     const res = await navigator.mediaDevices.enumerateDevices()
+
+  //     const devices = res?.filter((item) => item?.kind === 'videoinput')
+  //     setListDevices(devices)
+  //   }
+
+  //   countDevices()
+  // }, [])
+  // console.log(listDevices)
 
   useEffect(() => {
-    const countDevices = async () => {
-      const res = await navigator.mediaDevices.enumerateDevices()
+    // if (_.isEmpty(listDevices) || !listDevices) {
+    //   alert('Không tìm thấy camera')
+    // } else {
+    if (openCam) {
+      // if (countdown === 0) {
+      //   setCountdown(3)
+      // }
+      const interval = setInterval(() => {
+        if (countdown === 0) {
+          try {
+            capture()
+          } catch (error) {}
 
-      const devices = res?.filter((item) => item?.kind === 'videoinput')
-      setListDevices(devices)
+          clearInterval(interval)
+        } else {
+          setCountdown(countdown - 1)
+        }
+      }, 1000)
+
+      return () => clearInterval(interval)
     }
+    // }
+  }, [countdown, openCam, reload])
+  console.log(userData)
 
-    countDevices()
-  }, [])
-  console.log(listDevices)
+  const diemdanh = async () => {
+    const res = await POST('api/qlc/timekeeping/create/webComp', {
+      wifi_ip: ip,
+      shift_id: userData?.shift_id,
+      type: 2,
+      ep_id: userData?.ep_id,
+    })
 
-  useEffect(() => {
-    if (_.isEmpty(listDevices) || !listDevices) {
-      alert('Không tìm thấy camera')
-    } else {
-      if (openCam) {
-        // if (countdown === 0) {
-        //   setCountdown(3)
-        // }
-        const interval = setInterval(() => {
-          if (countdown === 0) {
-            try {
-              capture()
-            } catch (error) {}
-
-            clearInterval(interval)
-          } else {
-            setCountdown(countdown - 1)
-          }
-        }, 1000)
-
-        return () => clearInterval(interval)
-      }
+    if (res?.result) {
+      alert('Điểm danh thành công')
+      setReload(!reload)
+      setModalDetailCC(false)
     }
-  }, [countdown, openCam, reload, listDevices])
+  }
 
   return (
     <>
@@ -172,7 +208,7 @@ export default function ChamCongCongTy() {
               <p style={{ color: '#fff', padding: '0px 20px' }}> Bắt đầu</p>
             </Button>
           </div>
-        ) : _.isEmpty(listDevices) ? null : (
+        ) : (
           <>
             <div
               style={{
@@ -300,10 +336,45 @@ export default function ChamCongCongTy() {
             justifyContent: 'center',
             flexDirection: 'column',
           }}>
-          <p>
-            <span>{userData && userData?.shift_name}</span>
-            <span>{userData && userData?.time_sheet}</span>
-          </p>
+          <div>
+            <div>
+              <div className={styles.wrapper2}>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  <Image
+                    alt='/'
+                    src={'/tdo.png'}
+                    width={24}
+                    height={21}
+                    style={{ marginRight: '10px' }}
+                  />
+                  <p className={styles.txt}>Địa chỉ IP: {ip}</p>
+                </div>
+
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  <Image
+                    alt='/'
+                    src={'/ip.png'}
+                    width={24}
+                    height={21}
+                    style={{ marginRight: '10px' }}
+                  />
+                  <p className={styles.txt}>{` Tọa độ: ${long}, ${lat}`}</p>
+                </div>
+              </div>
+            </div>
+            <div className={styles.wrapper}>
+              <p className={styles.txt}>{userData && userData?.shift_name}</p>
+              <p className={styles.txt}>{userData && userData?.time_sheet}</p>
+            </div>
+          </div>
+          <div style={{ marginTop: '20px' }}>
+            <Button className={styles.btnClear} size='large'>
+              <p style={{ color: '#4c5bd4' }}>Trang chủ</p>
+            </Button>
+            <Button size='large' className={styles.btnOk1} onClick={diemdanh}>
+              <p style={{ color: '#fff' }}>Điểm danh</p>
+            </Button>
+          </div>
         </div>
       </Modal>
     </>

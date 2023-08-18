@@ -47,7 +47,7 @@ export default function Home() {
   })
 
   useEffect(() => {
-    if (window.innerWidth > 768) {
+    if (window.innerWidth > 1024) {
       setOpenSB(true)
     }
   }, [])
