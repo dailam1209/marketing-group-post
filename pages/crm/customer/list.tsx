@@ -6,7 +6,7 @@ import TableListCustomer from "@/components/crm/table/table-list-customer";
 import CustomerListInputGroup from "@/components/crm/customer/customer_input_group";
 import { TableRowSelection } from "antd/es/table/interface";
 import { useApi } from "@/components/crm/hooks/useApi";
-const Cookies = require('js-cookie')
+const Cookies = require("js-cookie");
 
 export default function CustomerList() {
   const mainRef = useRef<HTMLDivElement>(null);
@@ -14,12 +14,13 @@ export default function CustomerList() {
   const [selected, setSelected] = useState(false);
   const [numberSelected, setNumberSelected] = useState(0);
   const [selectedRowKeys, setSelectedRowKeys] = useState<any>([]);
-  
+
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
   const { data, loading, fetchData, updateData, deleteData } = useApi(
     "http://210.245.108.202:3007/api/crm/customer/list",
-    `${Cookies.get("token_base365")}`,    "POST",
+    `${Cookies.get("token_base365")}`,
+    "POST",
     { perPage: 10000 }
   );
 
@@ -62,8 +63,8 @@ export default function CustomerList() {
     emp_name: string;
     userCrete: string;
     user_handing_over_work: string;
-    userName:string,
-    userNameCreate:string
+    userName: string;
+    userNameCreate: string;
   }
 
   const onSelectChange = (
@@ -100,12 +101,12 @@ export default function CustomerList() {
     { name: "Chăm sóc khach hàng", id: 7 },
     { name: "Email", id: 8 },
   ];
-  console.log("check data",data)
+  console.log("check data", data);
   const datatable = data?.data?.showCty.map((item: DataType, index: number) => {
     let nguonKH = "";
-    for(let key of ArrNguonKK){
-      if(key.id == item.resoure){
-        nguonKH=key.name
+    for (let key of ArrNguonKK) {
+      if (key.id == item.resoure) {
+        nguonKH = key.name;
       }
     }
     return {
@@ -122,7 +123,7 @@ export default function CustomerList() {
       emp_name: item.emp_name,
       userNameCreate: item.userNameCreate,
       user_handing_over_work: item.user_handing_over_work,
-      userName:item.userName
+      userName: item.userName,
     };
   });
 
