@@ -20,7 +20,9 @@ import styles from '@/components/crm/sidebar/sidebar.module.css'
 import Layout from '@/components/hr/Layout'
 import Head from 'next/head'
 import Seo from '@/components/head'
-
+import { Provider } from "react-redux";
+import { store } from "@/components/crm/redux/store";
+import { TongDaiContext } from "@/components/crm/context/tongdaiContext";
 export const LoadingComp = () => {
   return (
     <Spin
@@ -38,36 +40,33 @@ export default function App({ Component, pageProps }) {
   const { isOpen, toggleModal } = useModal('icon_menu_nav', [styles.sidebar])
   const router = useRouter()
   const [loading, setLoading] = useState(false)
-  const [firstLoad, setFirstLoad] = useState(
-    !router.pathname.includes('/hr') ? true : false
-  )
-  // useEffect(() => {
-  //   const doLoading = () => {
-  //     const start = () => {
-  //       setLoading(true)
-  //     }
-  //     const end = () => {
-  //       setLoading(false)
-  //     }
-  //     setTimeout(() => {
-  //       router.events.on('routeChangeStart', start)
-  //     }, 200)
-  //     setTimeout(() => {
-  //       router.events.on('routeChangeComplete', end)
-  //     }, 200)
-  //     router.events.on('routeChangeError', end)
-  //     return () => {
-  //       router.events.off('routeChangeStart', start)
-  //       router.events.off('routeChangeComplete', end)
-  //       router.events.off('routeChangeError', end)
-  //     }
-  //   }
-
-  //   if (!router.pathname.includes('hr')) {
-  //     console.log(123213213)
-  //     doLoading()
-  //   }
-  // }, [router.pathname])
+  const [firstLoad, setFirstLoad] = useState(true)
+  useEffect(() => {
+    const doLoading = () => {
+      const start = () => {
+        setLoading(true)
+      }
+      const end = () => {
+        setLoading(false)
+      }
+      setTimeout(() => {
+        router.events.on('routeChangeStart', start)
+      }, 200)
+      setTimeout(() => {
+        router.events.on('routeChangeComplete', end)
+      }, 200)
+      router.events.on('routeChangeError', end)
+      return () => {
+        router.events.off('routeChangeStart', start)
+        router.events.off('routeChangeComplete', end)
+        router.events.off('routeChangeError', end)
+      }
+    }
+    if (!router.pathname.includes('hr')) {
+      doLoading()
+    } else {
+    }
+  }, [])
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -95,52 +94,52 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <Seo />
-      {
-        // loading ? (
-        //   <LoadingComp />
-        // ) :
-
-        !firstLoad ? (
-          <ConfigProvider
-            theme={{
-              token: {
-                screenLG: 1025,
-                screenLGMin: 1025,
-                screenLGMax: 1025,
-                screenMD: 769,
-                screenMDMin: 769,
-              },
-            }}>
-            {router.pathname?.includes('quan-ly-nhan-luc') ? (
-              <Bodyframe>
-                <Component {...pageProps} />
-              </Bodyframe>
-            ) : router.pathname?.includes('crm') ? (
-              <AccessContextComponent>
-                <SidebarResize>
-                  <NavigateContextComponent>
-                    <Header toggleModal={toggleModal} />
-                    <Sidebar isOpened={isOpen} />
-                    <ChatBusiness />
-                    <TitleHeaderMobile />
-                    <Component {...pageProps} />
-                  </NavigateContextComponent>
-                </SidebarResize>
-              </AccessContextComponent>
-            ) : router.pathname?.includes('hr') ? (
-              <Layout>
-                <DndProvider backend={HTML5Backend}>
-                  <Component {...pageProps} />
-                </DndProvider>
-              </Layout>
-            ) : (
+      {loading ? (
+        <LoadingComp />
+      ) : !firstLoad ? (
+        <ConfigProvider
+          theme={{
+            token: {
+              screenLG: 1025,
+              screenLGMin: 1025,
+              screenLGMax: 1025,
+              screenMD: 769,
+              screenMDMin: 769,
+            },
+          }}>
+          {router.pathname?.includes('quan-ly-nhan-luc') ? (
+            <Bodyframe>
               <Component {...pageProps} />
-            )}
-          </ConfigProvider>
-        ) : (
-          <LoadingComp />
-        )
-      }
+            </Bodyframe>
+          ) : router.pathname?.includes('crm') ? (
+            <Provider store={store}>
+            <AccessContextComponent>
+              <SidebarResize>
+                <NavigateContextComponent>
+                  <Header toggleModal={toggleModal} />
+                  <Sidebar isOpened={isOpen} />
+                  <ChatBusiness />
+                  <TitleHeaderMobile />
+                  <TongDaiContext>
+                  <Component {...pageProps} />
+                 </TongDaiContext>
+                </NavigateContextComponent>
+              </SidebarResize>
+            </AccessContextComponent>
+            </Provider>
+          ) : router.pathname?.includes('hr') ? (
+            <Layout>
+              <DndProvider backend={HTML5Backend}>
+                <Component {...pageProps} />
+              </DndProvider>
+            </Layout>
+          ) : (
+            <Component {...pageProps} />
+          )}
+        </ConfigProvider>
+      ) : (
+        <LoadingComp />
+      )}
     </>
   )
 }
