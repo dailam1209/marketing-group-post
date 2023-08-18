@@ -400,15 +400,7 @@ export default function DetailCandidate({ onCancel }: any) {
             )}
             {id?.charAt(0) === 's' && (
               <>
-                <div className={`${styles.l_body_2_left_body}`}>
-                  {isProcessName && <p className={`${styles.l_body_2_left_body_title}`}>Giai đoạn chuyển: {isProcessName}</p>}
-                  <p>Thời gian chuyển giai đoạn: <span className={`${styles.txt_op}`}>{""}</span></p>
-                  <p>Mức lương mong muốn: <span className={`${styles.txt_op}`}>{""}</span></p>
-                  <p>Mức lương thực: <span className={`${styles.txt_op}`}>{""}</span></p>
-                  <p>Thời gian hẹn: <span className={`${styles.txt_op}`}>{""}</span></p>
-                  <p>Nhân viên tham gia: <span className={`${styles.txt_op}`}>{EmpMatchProcess?.userName}</span></p>
-                  <p>Ghi chú: <span className={`${styles.txt_op}`}>{""}</span></p>
-                </div>
+
                 <div className={`${styles.l_body_2_left_body}`}>
                   <p className={`${styles.l_body_2_left_body_title}`}>Giai đoạn chuyển: Ký hợp đồng</p>
                   {isCandidateProcess?.detail_contact_job?.offerTime &&
