@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "../customer/customer.module.css";
-import { Table, Tooltip } from "antd";
+import { Select, Table, Tooltip, notification } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import Link from "next/link";
 import Image from "next/image";
@@ -11,7 +11,7 @@ import CallModal from "../customer/modal/call_modal";
 import { useApi } from "@/components/crm/hooks/useApi";
 import SelectDataInputBox from "../select/select_data";
 import CustomerGroupSelect from "../select/select_data_group_customer";
-
+const Cookies = require('js-cookie')
 interface DataType {
   key: React.Key;
   cus_id: number;
@@ -46,31 +46,74 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   const router = useRouter();
   const [openEditText, setOpenEditText] = useState(false);
   const [valueStatus, setValueStatus] = useState();
-  const [cusId, setCusId] = useState();
-
-  
+  const [cusId, setCusId] = useState<any>();
+  const [pageSize, setpageSize] = useState<any>();
+  const [des, setDes] = useState();
   const handleDetail = (data: any) => {
     router.push(`/customer/detail/${data}`);
   };
-
   const handleChangeStatus = (e: any, data: any) => {
     setValueStatus(e.target.value);
     console.log(valueStatus);
-  
   };
 
-  const renderTitle = () => (
-    <button onClick={() => setOpenEditText(true)}>
+  const renderTitle = (record, text) => (
+    <button
+      onClick={() => (setOpenEditText(true), setCusId(record), setDes(text))}
+    >
       <Image
         style={{ marginRight: "8px" }}
-        src="/h_edit_cus.svg"
-        alt="filter"
-        width={13}
-        height={13}
+        src="/crm/h_edit_cus.svg"
+        alt=""
+        width={15}
+        height={15}
       />
       Chỉnh sửa
     </button>
   );
+    const handleChangeSelect =async (e:any,record)=>{
+      //get type
+    const res = await fetch("http://210.245.108.202:3007/api/crm/customerdetails/detail",{
+        method:"POST",
+        headers:{
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get("token_base365")}`,
+        },
+        body:JSON.stringify({cus_id:record?.cus_id})
+      })
+      const type = await res.json()
+      // const
+
+      const url =
+      "http://210.245.108.202:3007/api/crm/customerdetails/editCustomer";
+  
+    const formData = new FormData();
+    formData.append("resoure", e.target.value);
+    formData.append("type", type?.data?.data1?.loai_hinh_khach_hang||type?.data?.data2?.loai_hinh_khach_hang);
+    formData.append("cus_id", record.cus_id);
+  
+    const headers = {
+      Authorization: `Bearer ${Cookies.get("token_base365")}`,
+    };
+  
+    const config = {
+      method: "POST",
+      headers: headers,
+      body: formData,
+    };
+    try {
+      const response = await fetch(url, config);
+      const data = await response.json();
+      console.log("check res", data);
+      if(data?.error){
+        notification.error({message:data.error.message})
+      }
+    } catch (error) {
+      console.error(error);
+     
+    }
+
+    }
 
   const columns: ColumnsType<DataType> = [
     {
@@ -113,16 +156,18 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       title: "Nhóm khách hàng",
       dataIndex: "group_id",
       key: "3",
-      width: 200,
-      render: (data) => (
+      width: 300,
+      render: (data, record) => (
         <div
           style={{ padding: "5px", paddingLeft: "11px" }}
           className={stylesPotentialSelect.wrap_select}
+          onClick={() => setCusId(record.cus_id)}
         >
           <CustomerGroupSelect
             data={dataGroup}
             value={data}
             placeholder={data}
+            cusId={cusId}
           />
         </div>
       ),
@@ -140,25 +185,6 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
             handleChange={handleChangeStatus}
             cusId={data.cus_id}
           />
-          {/* <select
-            onChange={(e: any) => {
-              handleChangeStatus(e, data);
-            }}
-            // defaultValue={data.status}
-            value={valueStatus}
-            style={{ border: 0 }}
-          >
-            <option value={""}>Chưa cập nhật</option>
-            {dataStatusCustomer?.map((item: any, index: number) => (
-              <>
-                {item.status !== 0 && (
-                  <option key={index} value={item.stt_id}>
-                    {item.stt_name}
-                  </option>
-                )}
-              </>
-            ))}
-          </select> */}
         </div>
       ),
     },
@@ -167,9 +193,9 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       dataIndex: "description",
       key: "3",
       width: 200,
-      render: (text) => (
-        <Tooltip title={renderTitle} color={"white"}>
-          {text}
+      render: (text, record) => (
+        <Tooltip title={renderTitle(record.cus_id, text)} color={"white"}>
+          {text ? text : "Chưa cập nhật"}
         </Tooltip>
       ),
     },
@@ -178,36 +204,44 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       dataIndex: "resoure",
       key: "3",
       width: 180,
-      render: () => (
-        <select style={{ border: 0 }}>
-          <option value={0}>Chưa cập nhật</option>
-          <option value={0}>Facebook</option>
-          <option value={0}>Zalo</option>
-          <option value={0}>Website</option>
-          <option value={0}>Bên thứ 3</option>
-          <option value={0}>Khách hàng giới thiệu</option>
-          <option value={0}>Giới thiệu</option>
-          <option value={""}>Chăm sóc khách hàng</option>
-        </select>
+      render: (text,record) => (
+        <div>
+          <select style={{ border: 0, width: "100%" }} onChange={(e)=>handleChangeSelect(e,record)}>
+            <option value={0}>{text ? text : " Chưa cập nhật"}</option>
+            <option value={1}>{" Facebook"}</option>
+            <option value={2}>{" Zalo"}</option>
+            <option value={3}>{" Website"}</option>
+            <option value={4}>{" Dữ liệu bên thứ 3"}</option>
+            <option value={5}>{" Khách hàng giới thiệu"}</option>
+            <option value={6}>{" Giới thiệu"}</option>
+            <option value={7}>{" Chăm sóc khách hàng"}</option>
+            <option value={8}>{" Email"}</option>
+          </select>
+        </div>
       ),
     },
     {
       title: "Nhân viên tạo khách hàng",
-      dataIndex: "userCrete",
+      dataIndex: "userNameCreate",
       key: "3",
       width: 200,
+      render:(text)=><div style={{display:"flex",alignItems:"center",gap:10 }}><Image width={25} height={25} alt="" src={"/crm/user.svg"}/> {text} </div>
     },
     {
       title: "Nhân viên phụ trách",
-      dataIndex: "emp_name",
+      dataIndex: "userName",
       key: "3",
       width: 200,
+      render:(text)=><div style={{display:"flex",alignItems:"center",gap:10 }}><Image width={25} height={25} alt="" src={"/crm/user.svg"}/> {text} </div>
+
     },
     {
       title: "Nhân viên bàn giao",
       dataIndex: "user_handing_over_work",
       key: "3",
       width: 200,
+      render:(text)=><div style={{display:"flex",alignItems:"center",gap:10 }}><Image width={25} height={25} alt="" src={"/crm/user.svg"}/> {text} </div>
+
     },
     {
       title: "Ngày cập nhật",
@@ -237,10 +271,13 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
     },
   ];
   //nut select
-
-  useEffect(()=>{
-    console.log("hello cus")
-  },[])
+  const handleChangePageSize = (value: any) => {
+    console.log("check value:", value);
+    setpageSize(value);
+  };
+  useEffect(() => {
+    console.log("hello cus");
+  }, [des]);
 
   return (
     <>
@@ -251,19 +288,28 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
           rowSelection={{ ...rowSelection }}
           bordered
           // pagination={true}
-          scroll={{ x: 1500, y: 300 }}
+          scroll={{ x: 1500, y: "auto" }}
+          pagination={{
+            pageSize: pageSize,
+          }}
         />
         {datatable?.length && (
           <div className="main__footer flex_between" id="">
             <div className="show_number_item">
               <b>Hiển thị:</b>
-              <select className="show_item">
+              <Select
+                style={{ width: 200 }}
+                placeholder={
+                  <div style={{ color: "black" }}>10 bản ghi trên trang</div>
+                }
+                onChange={(value) => handleChangePageSize(value)}
+              >
                 <option value={10}>10 bản ghi trên trang</option>
                 <option value={20}>20 bản ghi trên trang</option>
                 <option value={30}>30 bản ghi trên trang</option>
                 <option value={40}>40 bản ghi trên trang</option>
                 <option value={50}>50 bản ghi trên trang</option>
-              </select>
+              </Select>
             </div>
             <div className="total">
               Tổng số: <b>{datatable?.length}</b> Khách hàng
@@ -275,6 +321,8 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       <EditTextCustomerList
         isModalCancel={openEditText}
         setIsModalCancel={setOpenEditText}
+        cusId={cusId}
+        des={des}
       />
 
       <CallModal

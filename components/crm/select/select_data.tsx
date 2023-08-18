@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useApi } from "../hooks/useApi";
+const Cookies = require('js-cookie')
 
 interface MyProps {
   data: any;
@@ -42,7 +43,7 @@ const SelectDataInputBox: React.FC<MyProps> = ({
   useEffect(() => {
     fetchDataDetail();
   }, []);
-
+  console.log('dataDetailCustomer',dataDetailCustomer)
   const dataStatus = dataDetailCustomer?.data?.data1
     ? dataDetailCustomer?.data?.data1
     : dataDetailCustomer?.data?.data2;
@@ -60,7 +61,7 @@ const SelectDataInputBox: React.FC<MyProps> = ({
     formData.append("cus_id", cusId);
 
     const headers = {
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${Cookies.get("token_base365")}`,
     };
 
     const config = {

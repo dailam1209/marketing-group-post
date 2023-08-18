@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import FilterTongdai from "./filterTongdai";
 import FilterTongDai from "./filterTongdai";
 import FilterThongKe from "./fillterThongKe";
+const Cookies = require("js-cookie");
 type Props = {};
 
 const Recording = (props: Props) => {
@@ -72,7 +73,7 @@ const Recording = (props: Props) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${Cookies.get("token_base365")}`,
         },
         body: JSON.stringify({ com_id: 1763 }),
       }
@@ -80,7 +81,7 @@ const Recording = (props: Props) => {
     const data = await res.json();
     setListNV(data?.data?.data);
   };
-  
+
   const handleGet = async () => {
     setListData([]);
     setIsModalOpen(false);
@@ -133,8 +134,8 @@ const Recording = (props: Props) => {
     }
   });
   const [listLine, setlistLine] = useState([]);
-  const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6MzgwOTg5LCJpZFRpbVZpZWMzNjUiOjIwMjU4NSwiaWRRTEMiOjE3NjMsImlkUmFvTmhhbmgzNjUiOjAsImVtYWlsIjoiZHVvbmdoaWVwaXQxQGdtYWlsLmNvbSIsInBob25lVEsiOiIiLCJjcmVhdGVkQXQiOjE2MDA2NTg0NzgsInR5cGUiOjEsImNvbV9pZCI6MTc2MywidXNlck5hbWUiOiJDw7RuZyBUeSBUTkhIIEggTSBMIFBwbyJ9LCJpYXQiOjE2OTIyNTExOTcsImV4cCI6MTY5MjMzNzU5N30.nVKoqGDAC7kCxytrqrpmjy0wf-WFmgKNxEM6LmmqiSU";
+
+
   const handleGetLine = async () => {
     const res = await fetch(
       "http://210.245.108.202:3007/api/crm/cutomerCare/listLine",
@@ -142,30 +143,30 @@ const Recording = (props: Props) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${Cookies.get("token_base365")}`,
         },
       }
     );
     const data = await res.json();
     setlistLine(data?.data);
   };
- const output2= outputArray.filter(item=>{
-    return item.caller.length < 4
-  })
-  const datane:any = output2?.map((item: any) => {
-    let name2 = ""
-    let phong=""
+  const output2 = outputArray.filter((item) => {
+    return item.caller.length < 4;
+  });
+  const datane: any = output2?.map((item: any) => {
+    let name2 = "";
+    let phong = "";
     for (var key of Object.keys(listLine)) {
-      var value = listLine[key];  
-     if(value?.extension_number ==item.caller){
-      name2 = value?.userName
-     }
+      var value = listLine[key];
+      if (value?.extension_number == item.caller) {
+        name2 = value?.userName;
+      }
     }
-  for(let key of listNV){
-    if(key.userName == name2){
-      phong=key.nameDeparment
+    for (let key of listNV) {
+      if (key.userName == name2) {
+        phong = key.nameDeparment;
+      }
     }
-  }
     return {
       caller: item.caller,
       ring_duration: item.ring_duration,
@@ -173,15 +174,15 @@ const Recording = (props: Props) => {
       countSDT: item.countSDT,
       nocountStatus: item.countSDT - item.countStatus,
       adv: (item.ring_duration / item.countSDT).toFixed(2),
-      name:name2,
-      nameDeparment:phong
+      name: name2,
+      nameDeparment: phong,
       // status: item.status,
     };
   });
   useEffect(() => {
-    handleGetLine()
+    handleGetLine();
     handleGet();
-    handleGetNhanVienPhuTrach()
+    handleGetNhanVienPhuTrach();
   }, [query]);
 
   const Colums = [
@@ -258,8 +259,8 @@ const Recording = (props: Props) => {
           dataSource={datane}
           columns={Colums}
           bordered
-          scroll={{ x: "fit-content",}}
-          pagination={{pageSize:10}}
+          scroll={{ x: "fit-content" }}
+          pagination={{ pageSize: 10 }}
         />
         <ModalConnect
           isShowModalAdd={isShowModalAdd}
