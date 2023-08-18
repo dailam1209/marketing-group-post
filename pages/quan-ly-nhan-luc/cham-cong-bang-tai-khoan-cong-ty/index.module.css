@@ -69,10 +69,98 @@
   background: linear-gradient(180deg, #ffd059 0%, #ffbd00 100%);
 }
 
-.wrapper {
-  border: 1px solid blue;
-  border-radius: 20px;
-  padding: 10px 30px;
+@media only screen and (max-width: 1920px) {
+  
+  .main {
+    padding: 0 100px;
+    padding-bottom: 24px;
+  }
+}
+
+
+@media only screen and (max-width: 1366px) {
+  
+  .main {
+    padding: 0 83px;
+    padding-bottom: 24px;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  
+  .main {
+    padding: 0 30px;
+    padding-bottom: 24px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .webcamCapture {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+  }
+  .main {
+    padding: 0 24px;
+    padding-bottom: 24px;
+  }
+}
+
+
+@media only screen and (max-width: 414px) {
+  .webcamCapture {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+  }
+  .main {
+    padding: 0 16px;
+    padding-bottom: 24px;
+  }
+}
+@media only screen and (max-width: 1920px) {
+  .main {
+    padding: 0 100px;
+    padding-bottom: 24px;
+  }
+}
+
+@media only screen and (max-width: 1366px) {
+  .main {
+    padding: 0 83px;
+    padding-bottom: 24px;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .main {
+    padding: 0 30px;
+    padding-bottom: 24px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .webcamCapture {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+  }
+  .main {
+    padding: 0 24px;
+    padding-bottom: 24px;
+  }
+}
+
+@media only screen and (max-width: 414px) {
+  .webcamCapture {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+  }
+  .main {
+    padding: 0 16px;
+    padding-bottom: 24px;
+  }
 }
 @media only screen and (max-width: 1920px) {
   
