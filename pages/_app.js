@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+// import "@/styles/globals.css";
 import { AccessContextComponent } from "@/components/crm/context/accessContext";
 import { SidebarResize } from "@/components/crm/context/resizeContext";
 import Header from "@/components/crm/header/header";
@@ -13,18 +14,31 @@ import ChatBusiness from "@/components/crm/chat/chat";
 import { NavigateContextComponent } from "@/components/crm/context/navigateContext";
 import TitleHeaderMobile from "@/components/crm/header/title_header_mobile";
 import styles from "@/components/crm/sidebar/sidebar.module.css";
+// import "@/styles/crm/stylecrm.css";
+// import "@/styles/crm/styles.css"
+// import "@/styles/crm/hight_chart.css"
 import Layout from "@/components/hr/Layout";
-import { Provider } from "react-redux";
-import { store } from "@/components/crm/redux/store";
-import { TongDaiContext } from "@/components/crm/context/tongdaiContext";
-import { dispatch } from "d3";
-import { doDisConnect } from "@/components/crm/redux/user/userSlice";
-console.log("1");
+import Head from "next/head";
+import Seo from "@/components/head";
+
+export const LoadingComp = () => {
+  return (
+    <Spin
+      // indicator={<LoadingOutlined rev={null} />}
+      style={{
+        position: "fixed",
+        top: "50%",
+        left: "50%",
+      }}
+    />
+  );
+};
 
 export default function App({ Component, pageProps }) {
   const { isOpen, toggleModal } = useModal("icon_menu_nav", [styles.sidebar]);
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [firstLoad, setFirstLoad] = useState(true);
   useEffect(() => {
     const doLoading = () => {
       const start = () => {
@@ -52,18 +66,12 @@ export default function App({ Component, pageProps }) {
     }
   }, []);
 
-  const LoadingComp = () => {
-    return (
-      <Spin
-        // indicator={<LoadingOutlined rev={null} />}
-        style={{
-          position: "fixed",
-          top: "50%",
-          left: "50%",
-        }}
-      />
-    );
-  };
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setFirstLoad(false);
+    }, 100);
+    return () => clearTimeout(timeout);
+  }, []);
 
   const importGlobalStyles = () => {
     if (router.pathname?.includes("hr")) {
@@ -72,7 +80,7 @@ export default function App({ Component, pageProps }) {
       import("../styles/crm/stylecrm.css");
       import("../styles/crm/styles.css");
       import("../styles/crm/hight_chart.css");
-    } else if (router.pathname?.includes("quan-ly-nhan-luc")) {
+    } else if (router.pathname.includes("/quan-ly-nhan-luc")) {
       import("@/styles/globals.css");
     }
   };
@@ -81,49 +89,52 @@ export default function App({ Component, pageProps }) {
     importGlobalStyles();
   }, [router.pathname]);
 
-  return !loading ? (
-    <ConfigProvider
-      theme={{
-        token: {
-          screenLG: 1025,
-          screenLGMin: 1025,
-          screenLGMax: 1025,
-          screenMD: 769,
-          screenMDMin: 769,
-        },
-      }}
-    >
-      {router.pathname?.includes("quan-ly-nhan-luc") ? (
-        <Bodyframe>
-          <Component {...pageProps} />
-        </Bodyframe>
-      ) : router.pathname?.includes("crm") ? (
-        <Provider store={store}>
-          <AccessContextComponent>
-            <SidebarResize>
-              <NavigateContextComponent>
-                <Header toggleModal={toggleModal} />
-                <Sidebar isOpened={isOpen} />
-                <ChatBusiness />
-                <TitleHeaderMobile />
-                <TongDaiContext>
+  return (
+    <>
+      <Seo />
+      {loading ? (
+        <LoadingComp />
+      ) : !firstLoad ? (
+        <ConfigProvider
+          theme={{
+            token: {
+              screenLG: 1025,
+              screenLGMin: 1025,
+              screenLGMax: 1025,
+              screenMD: 769,
+              screenMDMin: 769,
+            },
+          }}
+        >
+          {router.pathname?.includes("quan-ly-nhan-luc") ? (
+            <Bodyframe>
+              <Component {...pageProps} />
+            </Bodyframe>
+          ) : router.pathname?.includes("crm") ? (
+            <AccessContextComponent>
+              <SidebarResize>
+                <NavigateContextComponent>
+                  <Header toggleModal={toggleModal} />
+                  <Sidebar isOpened={isOpen} />
+                  <ChatBusiness />
+                  <TitleHeaderMobile />
                   <Component {...pageProps} />
-                </TongDaiContext>
-              </NavigateContextComponent>
-            </SidebarResize>
-          </AccessContextComponent>
-        </Provider>
-      ) : router.pathname?.includes("hr") ? (
-        <Layout>
-          <DndProvider backend={HTML5Backend}>
+                </NavigateContextComponent>
+              </SidebarResize>
+            </AccessContextComponent>
+          ) : router.pathname?.includes("hr") ? (
+            <Layout>
+              <DndProvider backend={HTML5Backend}>
+                <Component {...pageProps} />
+              </DndProvider>
+            </Layout>
+          ) : (
             <Component {...pageProps} />
-          </DndProvider>
-        </Layout>
+          )}
+        </ConfigProvider>
       ) : (
-        <Component {...pageProps} />
+        <LoadingComp />
       )}
-    </ConfigProvider>
-  ) : (
-    <div>{LoadingComp()}</div>
+    </>
   );
 }
