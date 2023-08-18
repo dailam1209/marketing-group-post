@@ -67,3 +67,41 @@
   border-radius: 20px;
   background: linear-gradient(180deg, #ffd059 0%, #ffbd00 100%);
 }
+
+.wrapper {
+  border: 1px solid #4c5bd4;
+  border-radius: 15px;
+  padding: 10px 30px;
+
+  display: flex;
+
+  .txt {
+    font-size: 18px;
+  }
+}
+.wrapper2 {
+  border: 1px solid #4c5bd4;
+  border-radius: 15px;
+  padding: 10px 30px;
+
+  margin-bottom: 20px;
+
+  .txt {
+    font-size: 18px;
+  }
+}
+
+.btnClear {
+  width: 180px;
+  padding: 10px 30px;
+  border-radius: 20px;
+  border: 1px solid #4c5bd4;
+  margin-right: 10px;
+}
+
+.btnOk1 {
+  width: 180px;
+  padding: 10px 30px;
+  border-radius: 20px;
+  background: linear-gradient(180deg, #4c5bd4 0%, #5667f2 100%);
+}
