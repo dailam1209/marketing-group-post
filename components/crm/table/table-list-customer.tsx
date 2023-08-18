@@ -80,7 +80,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   // "http://210.245.108.202:3007/api/crm/customerdetails/editCustomer"
 
   const handleDetail = (data: any) => {
-    router.push(`/customer/detail/${data}`);
+    router.push(`/crm/customer/detail/${data}`);
   };
 
   const handleChangeStatus = (e: any, data: any) => {
@@ -262,7 +262,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       // fixed:"right",
       render: (data, record: any) => (
         <>
-          <Link href={`/customer/edit/${record.cus_id}`}>
+          <Link href={`/crm/customer/edit/${record.name}`}>
             <button className={styles.icon_edit}>
               <img
                 style={{ marginRight: "8px" }}

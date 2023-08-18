@@ -16,7 +16,7 @@ export default function CustomerList() {
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
   const { data, loading, fetchData, updateData, deleteData } = useApi(
-    "http://210.245.108.202:3007/api/crm/customer/list",
+    "http://210.245.108.202:3007/api/crm/customer/list?pageSize=1000",
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6MzgwOTg5LCJpZFRpbVZpZWMzNjUiOjIwMjU4NSwiaWRRTEMiOjE3NjMsImlkUmFvTmhhbmgzNjUiOjAsImVtYWlsIjoiZHVvbmdoaWVwaXQxQGdtYWlsLmNvbSIsInBob25lVEsiOiIiLCJjcmVhdGVkQXQiOjE2MDA2NTg0NzgsInR5cGUiOjEsImNvbV9pZCI6MTc2MywidXNlck5hbWUiOiJDw7RuZyBUeSBUTkhIIEggTSBMIFBwbyJ9LCJpYXQiOjE2OTIyOTc4NjMsImV4cCI6MTY5MjM4NDI2M30.XMyMzNsvPn1yInnlVLO-XTnm9mDLMDohaSxQSOvtczo",
     "POST",
     { limit: 1000 }
