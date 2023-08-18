@@ -20,34 +20,34 @@ export function BlockItem(
         <>
             <div className={styles.animation}>
                 <div className={styles.header}> 
-                    <Row>
-                        <Col>
-                            <Image src="/list-clipboard.svg" alt="" width={24} height={24} style={{ marginRight:"10px" }}></Image>
+                    <Row gutter={10} className={styles.blockItemGutter}>
+                        <Col lg={2} xs={4} className={styles.centerItem}>
+                            <Image src="/list-clipboard.svg" alt="" width={24} height={24} ></Image>
                         </Col>
-                        <Col className={styles.col1}>
+                        <Col lg={20} xs={16} className={styles.col1}>
                             <div className={styles.txt1}>{ten_de_xuat}</div>
                             <div className={styles.txt2}>{mauDeXuat(ten_de_xuat)}</div>
                         </Col>
-                        <Col> 
+                        <Col lg={2} xs={4} className={styles.centerItem}> 
                             <Image className={styles.col2} src="/flag_finish_light.png" alt="" width={24} height={24}></Image>
                         </Col>
                     </Row>
                 </div>
 
-                <div className={styles.fullDiv}> 
-                    <Row style={{ padding:"10px" }}>
-                        <Col>
-                            <Image src="/list-clipboard.svg" alt="" width={24} height={24} style={{ marginRight:"10px" }}></Image>
+                <div className={`blockItemTaoDeXuat ${styles.fullDiv}`}> 
+                    <Row gutter={10} className={styles.blockItemGutter}>
+                        <Col lg={2} xs={4} className={styles.centerItem}>
+                            <Image src="/list-clipboard.svg" alt="" width={24} height={24} ></Image>
                         </Col>
-                        <Col className={styles.col1}>
+                        <Col lg={20} xs={16} className={styles.col1}>
                             <div className={styles.txt1}>{ten_de_xuat}</div>
                             <div className={styles.txt2}>{mauDeXuat(ten_de_xuat)}</div>
                         </Col>
-                        <Col> 
+                        <Col lg={2} xs={4} className={styles.centerItem}> 
                             <Image className={styles.col2} src="/flag_finish_light.png" alt="" width={24} height={24}></Image>
                         </Col>
                     </Row>
-                    <div className={styles.body}>
+                    <div className={`${styles.body} ${styles.centerItem}`} >
                         <Image src="/add_round.png" alt="" height={24} width={24} style={{ cursor: "pointer" }} onClick={()=>{HandleNavigation(url)}}></Image>
                         <div className={styles.txt} onClick={()=>{HandleNavigation(url)}}>Tạo đề xuất</div>
                     </div>

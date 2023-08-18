@@ -120,7 +120,7 @@ export default function DeXuatCongCong() {
         <Image src={"/back-w.png"} alt="" width={24} height={24}></Image>
         <p className={styles.headerText}>Đề xuất cộng công</p>
       </div>
-      <Form form={form} initialValues={{ name: "Vũ Văn Khá" }}>
+      <Form form={form} className='shadowForm taoDeXuatForm' initialValues={{ name: "Vũ Văn Khá" }}>
         <div className={styles.body}>
           <Row gutter={[20, 10]}>
             <Col sm={12} xs={24}>
@@ -233,8 +233,8 @@ export default function DeXuatCongCong() {
             </Col>
           </Row>
         </div>
-        {DeXuatCongCongFooter(handleSubmit, () => null)}
       </Form>
+        {DeXuatCongCongFooter(handleSubmit, () => null)}
     </div>
   );
 }

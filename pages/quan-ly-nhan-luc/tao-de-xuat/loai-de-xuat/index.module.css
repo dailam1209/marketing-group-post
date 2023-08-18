@@ -109,9 +109,14 @@
   }
 }
 
+.progress {
+  margin-inline-end: 0 !important;
+}
+
 @media screen and (max-width: 1024px) {
   .progress {
     padding: 0px 10px;
+
   }
   .date {
     font-size: 20px !important;

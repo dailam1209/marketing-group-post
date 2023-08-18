@@ -1,15 +1,14 @@
-import { Button, Col, Form, Input, Row, Select } from "antd";
-import styles from "./khieu-nai.module.css";
+import { Button, Col, Form, Input, Row, Select } from 'antd';
+import styles from './khieu-nai.module.css';
 import {
   IconSelect,
   Tep,
-} from "@/components/cai-dat-luong/cai-dat-thue/danh-sach-nhan-su-chua-thiet-lap/anh";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import dayjs from "dayjs";
-import { POST_VT, getInfoUser } from "@/pages/api/BaseApi";
-import { DXFileInput } from "@/components/tao-de-xuat-2/components/TaoDeXuatComps";
-
+} from '@/components/cai-dat-luong/cai-dat-thue/danh-sach-nhan-su-chua-thiet-lap/anh';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import dayjs from 'dayjs';
+import { POST_VT, getInfoUser } from '@/pages/api/BaseApi';
+import { DXFileInput } from '@/components/tao-de-xuat-2/components/TaoDeXuatComps';
 
 export const KhieuNai: React.FC = () => {
   const [form] = Form.useForm();
@@ -28,8 +27,8 @@ export const KhieuNai: React.FC = () => {
     form.validateFields().then((value) => {
       const body = {
         ...value,
-        id_user_duyet: value["id_user_duyet"]?.join(","),
-        id_user_theo_doi: value["id_user_theo_doi"]?.join(","),
+        id_user_duyet: value['id_user_duyet']?.join(','),
+        id_user_theo_doi: value['id_user_theo_doi']?.join(','),
       };
       // console.log(body);
 
@@ -40,12 +39,12 @@ export const KhieuNai: React.FC = () => {
       });
 
       if (fileData) {
-        fd.append("file_kem", fileData);
+        fd.append('file_kem', fileData);
       }
 
-      POST_VT("api/vanthu/dexuat/addDXKN", fd).then((res) => {
+      POST_VT('api/vanthu/dexuat/addDXKN', fd).then((res) => {
         if (res?.result === true) {
-          alert("Tạo đề xuất khiếu nại thành công!");
+          alert('Tạo đề xuất khiếu nại thành công!');
           router.replace(router.asPath);
         }
       });
@@ -63,20 +62,20 @@ export const KhieuNai: React.FC = () => {
         setListDuyet({
           listDuyet: res?.listUsersDuyet?.map((user) => ({
             label: user?.userName,
-            value: user?.idQLC ? `/${user?.idQLC}` : "/nhanvien.png",
-            url: user?.avatarUser
+            value: user?.idQLC ? `/${user?.idQLC}` : '/nhanvien.png',
+            url: user?.avatarUser,
           })),
           listTheoDoi: res?.listUsersTheoDoi?.map((user) => ({
             label: user?.userName,
             value: user?.idQLC,
-            url: user?.avatarUser
+            url: user?.avatarUser,
           })),
         });
       }
     };
 
     getListDuyet();
-      
+
     setInfoUser(getInfoUser());
   }, []);
 
@@ -89,7 +88,7 @@ export const KhieuNai: React.FC = () => {
   return (
     <div className={styles.khung}>
       <div className={styles.header}>
-        <div className={styles.iconheader}>
+        <div className={styles.iconheader} onClick={() => router.back()}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="12"
@@ -108,16 +107,16 @@ export const KhieuNai: React.FC = () => {
         </div>
         <p className={styles.textheader}>Đề xuất khiếu nại</p>
       </div>
-      <div className={styles.body}>
+      <div className={`shadowForm  ${styles.body}`}>
         <Form
           form={form}
-          className={`${styles.bodyform} mc`}
-          initialValues={{ name: "khas" }}
+          className={`${styles.bodyform} mc taoDeXuatForm`}
+          initialValues={{ name: 'khas' }}
         >
           <Row gutter={24} className={styles.body1}>
             <Col sm={12} xs={24}>
               <Form.Item
-                name={"name_dx"}
+                name={'name_dx'}
                 className={styles.bodyk1}
                 label={
                   <div className={styles.label}>
@@ -136,7 +135,7 @@ export const KhieuNai: React.FC = () => {
             </Col>
             <Col md={6} xs={24} sm={12}>
               <Form.Item
-                name={"name"}
+                name={'name'}
                 className={styles.bodyk2}
                 label={
                   <div>
@@ -146,7 +145,7 @@ export const KhieuNai: React.FC = () => {
                 labelCol={{ span: 24 }}
               >
                 <Input
-                  style={{ backgroundColor: "#EDF3FF" }}
+                  style={{ backgroundColor: '#EDF3FF' }}
                   className={styles.input}
                   defaultValue="Vu Van Kha"
                   disabled
@@ -156,7 +155,7 @@ export const KhieuNai: React.FC = () => {
             </Col>
             <Col md={6} xs={24} sm={12}>
               <Form.Item
-                name={"type_dx"}
+                name={'type_dx'}
                 className={styles.bodyk2}
                 label={
                   <div>
@@ -166,7 +165,7 @@ export const KhieuNai: React.FC = () => {
                 labelCol={{ span: 24 }}
               >
                 <Input
-                  style={{ backgroundColor: "#EDF3FF" }}
+                  style={{ backgroundColor: '#EDF3FF' }}
                   className={styles.input}
                   defaultValue="Đề xuất khiếu nại"
                   disabled
@@ -175,10 +174,10 @@ export const KhieuNai: React.FC = () => {
               </Form.Item>
             </Col>
           </Row>
-          <Row className={styles.body4}>
+          <Row gutter={20} className={styles.body1}>
             <Col sm={24} xs={24}>
               <Form.Item
-                name={"ly_do"}
+                name={'ly_do'}
                 className={styles.bodyd}
                 label={
                   <div className={styles.label}>
@@ -189,7 +188,7 @@ export const KhieuNai: React.FC = () => {
                 labelCol={{ span: 24 }}
               >
                 <TextArea
-                  style={{ resize: "none" }}
+                  style={{ resize: 'none' }}
                   className={styles.input}
                   rows={5}
                   placeholder="Nhập nội dung khiếu nại"
@@ -200,7 +199,7 @@ export const KhieuNai: React.FC = () => {
           <Row gutter={24} className={styles.body5}>
             <Col sm={12} xs={24}>
               <Form.Item
-                name={"id_user_duyet"}
+                name={'id_user_duyet'}
                 className={styles.bodye}
                 label={
                   <div className={styles.label}>
@@ -224,7 +223,7 @@ export const KhieuNai: React.FC = () => {
             </Col>
             <Col sm={12} xs={24}>
               <Form.Item
-                name={"id_user_theo_doi"}
+                name={'id_user_theo_doi'}
                 className={styles.bodye}
                 label={
                   <div className={styles.label}>

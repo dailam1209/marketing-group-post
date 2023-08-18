@@ -81,7 +81,7 @@ export default function DeXuatHoaHongDoanhThu() {
         <Image src={"/back-w.png"} alt="" width={24} height={24}></Image>
         <p className={styles.headerText}>Đề xuất hoa hồng doanh thu </p>
       </div>
-      <Form form={form} initialValues={{ name: "khas" }}>
+      <Form form={form}  className='shadowForm taoDeXuatForm' initialValues={{ name: "Vũ Văn Khá" }}>
         <div className={styles.body}>
           <Row gutter={[20, 10]}>
             <Col sm={12} xs={24}>
