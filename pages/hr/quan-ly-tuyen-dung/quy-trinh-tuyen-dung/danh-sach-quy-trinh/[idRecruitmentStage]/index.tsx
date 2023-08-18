@@ -1,48 +1,49 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useEffect, useState } from 'react'
-import styles from './detailRecruitmentStage.module.css'
-import { useRouter } from 'next/router'
-import AddRecruitmentStage from '@/components/hr/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/chi-tiet-quy-trinh/addRecruitmentStage/them-giai-doan'
-import ListRecruitmentStage from '@/components/hr/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/chi-tiet-quy-trinh/listRecruitmentStage/listRecruitmentStage'
-import { DataRecruitmentStage } from '@/pages/api/api-hr/quan-ly-tuyen-dung/RecruitmentManagerService'
-import { getToken } from '@/pages/api/api-hr/token'
-import { getDataAuthentication } from '@/pages/api/api-hr/Home/HomeService'
-import jwt_decode from 'jwt-decode'
-import { getTokenFromCookie } from '@/pages/api/api-hr/token'
-import Head from 'next/head'
+import React, { useEffect, useState } from "react";
+import styles from "./detailRecruitmentStage.module.css";
+import { useRouter } from "next/router";
+import AddRecruitmentStage from "@/components/hr/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/chi-tiet-quy-trinh/addRecruitmentStage/them-giai-doan";
+import ListRecruitmentStage from "@/components/hr/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/chi-tiet-quy-trinh/listRecruitmentStage/listRecruitmentStage";
+import { DataRecruitmentStage } from "@/pages/api/api-hr/quan-ly-tuyen-dung/RecruitmentManagerService";
+import { getToken } from "@/pages/api/api-hr/token";
+import { getDataAuthentication } from "@/pages/api/api-hr/Home/HomeService";
+import jwt_decode from "jwt-decode";
+import { getTokenFromCookie } from "@/pages/api/api-hr/token";
+import Head from "next/head";
 
 export async function getServerSideProps({ query }) {
   return {
     props: {
       query,
     },
-  }
+  };
 }
 
 export default function listRecruitmentProcess({ query }) {
-  const router = useRouter()
-  const idRecruitmentStage = query.idRecruitmentStage
-  const [openModalAdd, setOpenModalAdd] = useState(false)
-  const [animateModal, setAnimateModal] = useState(false)
+  const router = useRouter();
+  const idRecruitmentStage = query.idRecruitmentStage;
+  const [openModalAdd, setOpenModalAdd] = useState(false);
+  const [animateModal, setAnimateModal] = useState(false);
   const [recruitmentStage, setRecruitmentStage] = useState<any>()
-  const [newData, setNewData] = useState<any>()
+  const [newData, setNewData] = useState<any>(false);
   const recruitment = recruitmentStage?.data.recruitment
-  const [displayIcon, setDisplayIcon] = useState<any>()
+  const [displayIcon, setDisplayIcon] = useState<any>();
 
   useEffect(() => {
     try {
       const fetchData = async () => {
-        const response = await getDataAuthentication()
-        setDisplayIcon(response?.data?.data?.infoRoleTD)
-      }
-      fetchData()
-    } catch (error) {}
-  }, [])
+        const response = await getDataAuthentication();
+        setDisplayIcon(response?.data?.data?.infoRoleTD);
+      };
+      fetchData();
+    } catch (error) { }
+  }, [newData]);
 
-  const perIdArray = displayIcon?.map((item) => item.perId)
-  const iconAdd = perIdArray?.includes(2)
-  const iconEdit = perIdArray?.includes(3)
-  const iconDelete = perIdArray?.includes(4)
+  const perIdArray = displayIcon?.map((item) => item.perId);
+  const iconAdd = perIdArray?.includes(2);
+  const iconEdit = perIdArray?.includes(3);
+  const iconDelete = perIdArray?.includes(4);
+
 
   useEffect(() => {
     try {
@@ -51,35 +52,40 @@ export default function listRecruitmentProcess({ query }) {
         setRecruitmentStage(response?.data?.data)
       }
       fetchDataDetail()
-    } catch (error) {}
-  }, [idRecruitmentStage])
+    } catch (error) {
+
+    }
+
+  }, [idRecruitmentStage, newData])
   const handleBack = () => {
-    router.back()
-  }
+    router.back();
+  };
 
   const handleOpenModalAdd = () => {
-    setOpenModalAdd(true)
-    setAnimateModal(true)
-  }
+    setOpenModalAdd(true);
+    setAnimateModal(true);
+  };
 
   const handleCloseModalAdd = () => {
-    setAnimateModal(false)
+    setAnimateModal(false);
+    setNewData(pre => !pre)
     setTimeout(() => {
-      setOpenModalAdd(false)
-    }, 300)
-  }
+      setOpenModalAdd(false);
+    }, 300);
+  };
 
   return (
     <>
       <Head>
-        <title>Giai đoạn tuyển dụng - Quản lý nhân sự - Timviec365.vn</title>
+        <title>Giai đoạn tuyển dụng - Quản lý nhân sự - Timviec365.vn
+        </title>
       </Head>
       <div className={`${styles.l_body}`}>
         <div className={`${styles.add_quytrinh}`}>
           <div className={`${styles.back_quytrinh}`}>
             <span onClick={handleBack}>
               <picture>
-                <img src={`${'/left_arrow.png'}`} alt='Back'></img>
+                <img src={`${"/left_arrow.png"}`} alt="Back"></img>
               </picture>
               Danh sách quy trình tuyển dụng
             </span>
@@ -88,7 +94,7 @@ export default function listRecruitmentProcess({ query }) {
             <div className={`${styles.add_quytrinh1}`}>
               <button className={`${styles.adds}`} onClick={handleOpenModalAdd}>
                 <picture>
-                  <img src={`${'/add.png'}`} alt=''></img>
+                  <img src={`${"/add.png"}`} alt=""></img>
                 </picture>
                 Thêm giai đoạn tuyển dụng
               </button>
@@ -100,7 +106,8 @@ export default function listRecruitmentProcess({ query }) {
             recruitmentId={idRecruitmentStage}
             animation={animateModal}
             onCloseModal={handleCloseModalAdd}
-            setData={setNewData}></AddRecruitmentStage>
+            setData={setNewData}
+          ></AddRecruitmentStage>
         )}
 
         <div className={`${styles.giaidoans}`}>
@@ -115,14 +122,16 @@ export default function listRecruitmentProcess({ query }) {
                 item={item}
                 recruitment={recruitmentStage?.data.recruitment}
                 index={index}
-                onDelete={setNewData}
-                onEdit={setNewData}
+                onDelete={handleCloseModalAdd}
+                onEdit={handleCloseModalAdd}
                 iconEdit={iconEdit}
-                iconDelete={iconDelete}></ListRecruitmentStage>
+                iconDelete={iconDelete}
+              ></ListRecruitmentStage>
             </div>
           ))}
         </div>
+
       </div>
     </>
-  )
+  );
 }

@@ -137,7 +137,7 @@ export default function CustomerListInputGroup({
         />
 
         <div className={`${styles.main__control_add}`}>
-          <Link href="crm/customer/add">
+          <Link href="/crm/customer/add">
             <button
               type="button"
               className={`${styles.dropbtn_add} flex_align_center`}

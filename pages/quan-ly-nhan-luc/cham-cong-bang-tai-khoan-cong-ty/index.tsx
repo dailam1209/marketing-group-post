@@ -282,10 +282,15 @@ export default function ChamCongCongTy() {
             justifyContent: 'center',
             flexDirection: 'column',
           }}>
-          <p>
-            <span>{userData && userData?.shift_name}</span>
-            <span>{userData && userData?.time_sheet}</span>
-          </p>
+          <div>
+            <div></div>
+            <div className={styles.wrapper}>
+              <p>
+                <span>{userData && userData?.shift_name}</span>
+                <span>{userData && userData?.time_sheet}</span>
+              </p>
+            </div>
+          </div>
         </div>
       </Modal>
     </>

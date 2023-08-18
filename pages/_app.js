@@ -80,7 +80,7 @@ export default function App({ Component, pageProps }) {
       import('../styles/crm/stylecrm.css')
       import('../styles/crm/styles.css')
       import('../styles/crm/hight_chart.css')
-    } else {
+    } else if (router.pathname.includes('/quan-ly-nhan-luc')) {
       import('@/styles/globals.css')
     }
   }
