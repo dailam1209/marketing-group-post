@@ -10,9 +10,6 @@ import {
   XAxis,
   YAxis,
   CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
   LabelList,
 } from 'recharts'
 import Link from 'next/link'
@@ -245,7 +242,7 @@ export const ChamCong = ({ ccData }: { ccData: any }) => {
             </div>
           </div>
           <div className={styles.divxnumber}>
-            <p className={styles.textnumber}>{ccData?.count_late}0 lần</p>
+            <p className={styles.textnumber}>{ccData?.count_late ? Number(ccData?.count_late)?.toLocaleString('en-US', {minimumIntegerDigits: 2}) : '00'} lần</p>
           </div>
         </Card>
         <Card className={`theIcon ${styles.divx}`}>
@@ -311,7 +308,7 @@ export const ChamCong = ({ ccData }: { ccData: any }) => {
             </div>
           </div>
           <div className={styles.divxnumber}>
-            <p className={styles.textnumber}>{ccData?.count_success} lần</p>
+            <p className={styles.textnumber}>{ccData?.count_success ? Number(ccData?.count_success)?.toLocaleString('en-US', {minimumIntegerDigits: 2}) : '00'} lần</p>
           </div>
         </Card>
         <Card className={`theIcon ${styles.divx}`}>
@@ -379,7 +376,7 @@ export const ChamCong = ({ ccData }: { ccData: any }) => {
           </div>
           <div className={styles.divxnumber}>
             <p className={styles.textnumber}>
-              {ccData?.time_keeping_not_invalid} lần
+              {ccData?.time_keeping_not_invalid ? Number(ccData?.time_keeping_not_invalid)?.toLocaleString('en-US', {minimumIntegerDigits: 2}) : '00'} lần
             </p>
           </div>
         </Card>
