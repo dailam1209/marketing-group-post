@@ -11,7 +11,7 @@ import CallModal from "../customer/modal/call_modal";
 import { useApi } from "@/components/crm/hooks/useApi";
 import SelectDataInputBox from "../select/select_data";
 import CustomerGroupSelect from "../select/select_data_group_customer";
-const Cookies = require('js-cookie')
+const Cookies = require("js-cookie");
 interface DataType {
   key: React.Key;
   cus_id: number;
@@ -71,31 +71,38 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       Chỉnh sửa
     </button>
   );
-    const handleChangeSelect =async (e:any,record)=>{
-      //get type
-    const res = await fetch("http://210.245.108.202:3007/api/crm/customerdetails/detail",{
-        method:"POST",
-        headers:{
+  const handleChangeSelect = async (e: any, record) => {
+    //get type
+    const res = await fetch(
+      "http://210.245.108.202:3007/api/crm/customerdetails/detail",
+      {
+        method: "POST",
+        headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${Cookies.get("token_base365")}`,
         },
-        body:JSON.stringify({cus_id:record?.cus_id})
-      })
-      const type = await res.json()
-      // const
+        body: JSON.stringify({ cus_id: record?.cus_id }),
+      }
+    );
+    const type = await res.json();
+    // const
 
-      const url =
+    const url =
       "http://210.245.108.202:3007/api/crm/customerdetails/editCustomer";
-  
+
     const formData = new FormData();
     formData.append("resoure", e.target.value);
-    formData.append("type", type?.data?.data1?.loai_hinh_khach_hang||type?.data?.data2?.loai_hinh_khach_hang);
+    formData.append(
+      "type",
+      type?.data?.data1?.loai_hinh_khach_hang ||
+        type?.data?.data2?.loai_hinh_khach_hang
+    );
     formData.append("cus_id", record.cus_id);
-  
+
     const headers = {
       Authorization: `Bearer ${Cookies.get("token_base365")}`,
     };
-  
+
     const config = {
       method: "POST",
       headers: headers,
@@ -105,15 +112,13 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       const response = await fetch(url, config);
       const data = await response.json();
       console.log("check res", data);
-      if(data?.error){
-        notification.error({message:data.error.message})
+      if (data?.error) {
+        notification.error({ message: data.error.message });
       }
     } catch (error) {
       console.error(error);
-     
     }
-
-    }
+  };
 
   const columns: ColumnsType<DataType> = [
     {
@@ -141,16 +146,20 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       title: "Điện thoại",
       dataIndex: "phone_number",
       key: "1",
-      width: 200,
-      render: (data) => (
-        <button onClick={() => setOpenModalCall(true)}>{data}</button>
+      width: 100,
+      render: (data, record) => (
+        <button
+          onClick={() => (setOpenModalCall(true), setCusId(record.cus_id))}
+        >
+          {data}
+        </button>
       ),
     },
     {
       title: "Email",
       dataIndex: "email",
       key: "2",
-      width: 150,
+      width: 200,
     },
     {
       title: "Nhóm khách hàng",
@@ -204,9 +213,12 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       dataIndex: "resoure",
       key: "3",
       width: 180,
-      render: (text,record) => (
+      render: (text, record) => (
         <div>
-          <select style={{ border: 0, width: "100%" }} onChange={(e)=>handleChangeSelect(e,record)}>
+          <select
+            style={{ border: 0, width: "100%" }}
+            onChange={(e) => handleChangeSelect(e, record)}
+          >
             <option value={0}>{text ? text : " Chưa cập nhật"}</option>
             <option value={1}>{" Facebook"}</option>
             <option value={2}>{" Zalo"}</option>
@@ -225,23 +237,33 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       dataIndex: "userNameCreate",
       key: "3",
       width: 200,
-      render:(text)=><div style={{display:"flex",alignItems:"center",gap:10 }}><Image width={25} height={25} alt="" src={"/crm/user.svg"}/> {text} </div>
+      render: (text) => (
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <Image width={25} height={25} alt="" src={"/crm/user.svg"} /> {text}{" "}
+        </div>
+      ),
     },
     {
       title: "Nhân viên phụ trách",
       dataIndex: "userName",
       key: "3",
       width: 200,
-      render:(text)=><div style={{display:"flex",alignItems:"center",gap:10 }}><Image width={25} height={25} alt="" src={"/crm/user.svg"}/> {text} </div>
-
+      render: (text) => (
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <Image width={25} height={25} alt="" src={"/crm/user.svg"} /> {text}{" "}
+        </div>
+      ),
     },
     {
       title: "Nhân viên bàn giao",
       dataIndex: "user_handing_over_work",
       key: "3",
       width: 200,
-      render:(text)=><div style={{display:"flex",alignItems:"center",gap:10 }}><Image width={25} height={25} alt="" src={"/crm/user.svg"}/> {text} </div>
-
+      render: (text) => (
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <Image width={25} height={25} alt="" src={"/crm/user.svg"} /> {text}{" "}
+        </div>
+      ),
     },
     {
       title: "Ngày cập nhật",
@@ -328,6 +350,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       <CallModal
         isModalCancel={openModalCall}
         setIsModalCancel={setOpenModalCall}
+        cusId={cusId}
       />
     </>
   );
