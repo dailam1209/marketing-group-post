@@ -1,0 +1,64 @@
+.img_forward {
+    margin-right: 19px;
+    object-fit: cover;
+}
+
+.content h3 {
+    font-size: 18px;
+    font-family: "Roboto-Bold", sans-serif;
+
+}
+
+.content span {
+    font-size: 16px;
+    line-height: 19px;
+    color: #474747;
+}
+
+.content {
+    padding: 10px 0 16px 0px;
+    border-bottom: 1px dashed #999999;
+}
+
+.info_user {
+    display: flex;
+    border-radius: 10px;
+}
+
+.info_user div p {
+    padding: 5px 0;
+
+}
+
+.flex {
+    display: flex;
+    justify-content: space-around;
+    padding: 14px 25px 16px 25px;
+    border-radius: 10px;
+}
+
+.btn_rep {
+    border: 1px solid #4c5bd4;
+    color: #4c5bd4;
+    outline: none;
+    background-color: #fff;
+    padding: 10px 0px;
+    border-radius: 5px;
+    font-family: "Roboto-Medium", sans-serif;
+    font-size: 16px;
+    line-height: 19px;
+    width: 23.6%;
+}
+
+.btn_delete {
+    border: 1px solid red;
+    color: red;
+    outline: none;
+    background-color: #fff;
+    padding: 10px 0px;
+    border-radius: 5px;
+    font-family: "Roboto-Medium", sans-serif;
+    font-size: 16px;
+    line-height: 19px;
+    width: 23.6%;
+}

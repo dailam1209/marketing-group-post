@@ -23,6 +23,13 @@ import Seo from '@/components/head'
 import { Provider } from "react-redux";
 import { store } from "@/components/crm/redux/store";
 import { TongDaiContext } from "@/components/crm/context/tongdaiContext";
+import store from "@/store";
+import Layout_admin from "@/components/VanThu/Layout_admin";
+import Layout_user from "@/components/VanThu/Layout_user";
+import { setCookie } from "cookies-next";
+import jwtDecode from "jwt-decode";
+
+
 export const LoadingComp = () => {
   return (
     <Spin
@@ -83,6 +90,10 @@ export default function App({ Component, pageProps }) {
       import('../styles/crm/styles.css')
       import('../styles/crm/hight_chart.css')
     } else if (router.pathname.includes('/quan-ly-nhan-luc')) {
+    } else if(router.pathname?.includes('VanThu')){
+      import('../styles/globals_vanthu.css')
+    }
+     else {
       import('@/styles/globals.css')
     }
   }
@@ -90,6 +101,21 @@ export default function App({ Component, pageProps }) {
   useEffect(() => {
     importGlobalStyles()
   }, [router.pathname])
+
+  const role = Cookies.get('role')
+  const VanThu_token = Cookies.get('token_base365');
+  if(VanThu_token){
+    const user_infor = jwtDecode(VanThu_token);
+    sessionStorage.setItem("token", VanThu_token);
+    const halfLength = Math.ceil(VanThu_token?.length / 2);
+    const firstHalf = VanThu_token?.slice(0, halfLength);
+    const secondHalf = VanThu_token?.slice(halfLength);
+    setCookie("token_first", firstHalf, { maxAge: 60 * 60 * 1 });
+    setCookie("token_hafl", secondHalf, { maxAge: 60 * 60 * 1 });
+    setCookie("userName", user_infor?.data.userName);
+    setCookie("userID", user_infor?.data.idQLC);
+    setCookie("com_id", user_infor?.data.com_id);
+  }
 
   return (
     <>
@@ -133,7 +159,33 @@ export default function App({ Component, pageProps }) {
                 <Component {...pageProps} />
               </DndProvider>
             </Layout>
-          ) : (
+          ) : router.pathname?.includes('VanThu') ? (
+            <Provider store={store}>
+              {/* 
+              -  Khi đăng nhập sẽ lưu session giá trị để duy trì các phiên trong site
+              -  Giá trị này có thể thay đổi tùy theo tài khoản của công ty hoặc nhân viên
+              */}
+              {!VanThu_token ? (
+                <>
+                  <p>Vui lòng đăng nhập</p>
+                </>
+              ) : (
+                <>
+                  {role && role === '2' && (
+                    <Layout_user>
+                      <Component {...pageProps} />
+                    </Layout_user>
+                  )}
+                  {role && role === '1' && (
+                    <Layout_admin>
+                      <Component {...pageProps} />
+                    </Layout_admin>
+                  )}
+                </>
+              )}
+            </Provider>
+          )
+          : (
             <Component {...pageProps} />
           )}
         </ConfigProvider>
