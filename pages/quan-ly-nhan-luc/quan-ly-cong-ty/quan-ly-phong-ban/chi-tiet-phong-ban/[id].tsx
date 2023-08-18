@@ -3,7 +3,7 @@ import { Card, Col, Input, Row } from "antd"
 import Image from "next/image"
 import { useRouter } from "next/router"
 import styles from "./[id].module.css"
-import { useState, useContext } from "react"
+import { useState, useContext, useEffect } from "react"
 import { DeleteEmpFromGroup } from "@/components/quan-ly-cong-ty/danh-sach-nhom/modal"
 import { POST_SS, getCompIdSS } from "@/pages/api/BaseApi"
 import dayjs from "dayjs"
@@ -15,9 +15,17 @@ export default function ChiTietPhongBan({ listEmpInDep }) {
   const [openDel, setOpenDel] = useState(false)
   const [selectedRow, setSelectedRow] = useState()
   const [data, setData] = useState<any>(listEmpInDep?.data)
+  const [dataFilter, setDataFilter] = useState<any>(listEmpInDep?.data)
+  const [inputValue, setInputValue] = useState<string>("")
   // console.log(data)
 
-  
+  useEffect(() => {
+    if (inputValue === "") {
+      setDataFilter(data)
+    } else {
+      setDataFilter(data?.filter(e => e?.userName?.toLowerCase()?.includes(inputValue?.toLowerCase())))
+    }
+  }, [inputValue])
   // console.log(id)
   const positionLabel = getPosition?.map((p) => ({
     label: p?.value,
@@ -84,6 +92,8 @@ export default function ChiTietPhongBan({ listEmpInDep }) {
               <Input
                 placeholder={"Tìm kiếm nhân viên"}
                 size="large"
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
                 suffix={
                   <Image
                     alt="/"
@@ -98,12 +108,12 @@ export default function ChiTietPhongBan({ listEmpInDep }) {
         </Row>
         <MyTable
           colunms={columns}
-          data={data}
+          data={dataFilter}
           onRowClick={() => null}
           Footer={null}
           hasRowSelect={false}
           onSelectChange={() => null}
-          rowKey="name"
+          rowKey="dep_id"
           selectedRowKeys={null}
         />
       </Card>
