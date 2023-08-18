@@ -9,10 +9,10 @@ import { POST_SS_VT } from '@/pages/api/BaseApi'
 
 export default function DeXuatCuaToi({ dxFrom, dxTo, dxFollow, listDuyet }) {
   const [active, setActive] = useState('1')
-  console.log(listDuyet)
+  // console.log(listDuyet)
   return (
     <div className={styles.body}>
-      <Row gutter={[30, 20]} className={styles.header}>
+      <Row gutter={[{lg:30, md: 30, sm: 20}, {md:20, sm: 20}]} className={styles.header}>
         <Col md={8} sm={12} xs={24} onClick={() => setActive('1')}>
           {ButtonDeXuatCuaToi(
             active === '1' ? 'active' : 'normal',
@@ -35,7 +35,7 @@ export default function DeXuatCuaToi({ dxFrom, dxTo, dxFollow, listDuyet }) {
           )}
         </Col>
       </Row>
-      <div>
+      <div className='deXuatCuaToiTable'>
         {active === '1' ? (
           <ToiGuiDi dxFrom={dxFrom} listDuyet={listDuyet}></ToiGuiDi>
         ) : active === '2' ? (

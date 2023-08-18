@@ -75,7 +75,7 @@ export default function LoaiDeXuat({
     }
 
     return (
-      <div className={styles.heading}>
+      <div className={styles.heading}>  
         <p className={styles.date}>Hôm nay, ngày {currentDate}</p>
         <div className={styles.btnGroup}>
           <MyButton
@@ -113,7 +113,7 @@ export default function LoaiDeXuat({
       color: string
     }) => {
       return (
-        <div className={styles.singleCard}>
+        <div className={styles.singleCard} style={{ marginRight: title === 'Đề xuất gửi đi' ? '0px' : '20px' }}>
           <p className={styles.numtxt} style={{ color: color }}>
             {total}
           </p>
@@ -165,10 +165,10 @@ export default function LoaiDeXuat({
             total={receive}
           />
         </div>
-        <div className={styles.cardWrapper}>
+        <div className={`${styles.cardWrapper}`}>
           <SingleCard
             isFirst={false}
-            color='#97C25F'
+            color='#70BE28'
             percent={0.7}
             title='Đề xuất gửi đi'
             total={send}
