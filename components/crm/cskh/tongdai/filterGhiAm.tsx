@@ -61,7 +61,7 @@ const FilterGhiAm: React.FC<MyComponentProps> = ({
             <Image
             width={23}
             height={23}
-            src={"https://crm.timviec365.vn/assets/icons/filter_alt.svg"}
+            src={"/crm/filter_alt.svg"}
             alt=""
             />
             <p>Bộ lọc</p>
