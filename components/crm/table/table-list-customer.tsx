@@ -1,51 +1,101 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../customer/customer.module.css";
 import { Table, Tooltip } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import { TableRowSelection } from "antd/es/table/interface";
 import Link from "next/link";
 import Image from "next/image";
 import stylesPotentialSelect from "@/components/crm/potential/potential.module.css";
-import PotentialSelectBoxStep from "../potential/potential_steps/select_box_step";
 import EditTextCustomerList from "../customer/customer_modal/custoer_mdal_edit_text";
 import { useRouter } from "next/router";
 import CallModal from "../customer/modal/call_modal";
+import { useApi } from "@/components/crm/hooks/useApi";
+import SelectDataInputBox from "../select/select_data";
+import CustomerGroupSelect from "../select/select_data_group_customer";
 
 interface DataType {
   key: React.Key;
-  personname: string;
-  date1: string;
-  date2: string;
-  filename: string;
-  operation: string;
+  cus_id: number;
+  email: string;
+  name: string;
+  phone_number: number;
+  resoure: number;
+  description: string;
+  group_id: number;
+  status: number;
+  updated_at: string;
+  emp_name: string;
+  userCrete: string;
+  user_handing_over_work: string;
 }
 
 interface TableDataContracDrops {
   // Define other props here
-  rowSelection: TableRowSelection<DataType>;
-}
-
-export const data: DataType[] = [];
-for (let i = 0; i < 100; i++) {
-  data.push({
-    key: i + 1,
-    filename: `Dulich.docx ${i}`,
-    personname: `NguyenVanHung`,
-    operation: "",
-    date1: `10/07/2023`,
-    date2: `17/07/2023`,
-  });
+  rowSelection: any;
+  datatable: any;
+  dataStatusCustomer: any;
+  dataGroup: any;
 }
 
 const TableListCustomer: React.FC<TableDataContracDrops> = ({
   rowSelection,
+  datatable,
+  dataStatusCustomer,
+  dataGroup,
 }: any) => {
   const [openModalCall, setOpenModalCall] = useState(false);
   const router = useRouter();
   const [openEditText, setOpenEditText] = useState(false);
+  const [valueStatus, setValueStatus] = useState();
+  const [cusId, setCusId] = useState();
+
+  // const {
+  //   data: dataStatus,
+  //   loading: loadingStatus,
+  //   // updateData,
+  //   // ... other properties returned by the useApi hook
+  // } = useApi(
+  //   "http://210.245.108.202:3007/api/crm/customerdetails/editCustomer",
+  //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6Mjg3MjMxLCJpZFRpbVZpZWMzNjUiOjAsImlkUUxDIjoxNzYzLCJpZFJhb05oYW5oMzY1IjowLCJlbWFpbCI6ImR1b25naGllcGl0MUBnbWFpbC5jb20iLCJwaG9uZVRLIjoiIiwiY3JlYXRlZEF0IjoxNjI3NTQ5NDcxLCJ0eXBlIjoxLCJjb21faWQiOjE3NjMsInVzZXJOYW1lIjoibGUgYW5oIHR1YW4xMiJ9LCJpYXQiOjE2OTIwNjQ1MDIsImV4cCI6MTY5MjE1MDkwMn0.klqKzWkaYeTdK6VKR07R8cV7y9YrmWdFUJC2z6hCil8",
+  //   "POST",
+  //   { status: `${valueStatus}` }
+  // );
+
+  // const {
+  //   data: dataDetailCustomer,
+  //   loading,
+  //   fetchData: fetchDataDetail,
+  //   updateData: updateDataDetail,
+  //   // ... other properties returned by the useApi hook
+  // } = useApi(
+  //   "http://210.245.108.202:3007/api/crm/customerdetails/detail",
+  //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6Mjg3MjMxLCJpZFRpbVZpZWMzNjUiOjAsImlkUUxDIjoxNzYzLCJpZFJhb05oYW5oMzY1IjowLCJlbWFpbCI6ImR1b25naGllcGl0MUBnbWFpbC5jb20iLCJwaG9uZVRLIjoiIiwiY3JlYXRlZEF0IjoxNjI3NTQ5NDcxLCJ0eXBlIjoxLCJjb21faWQiOjE3NjMsInVzZXJOYW1lIjoibGUgYW5oIHR1YW4xMiJ9LCJpYXQiOjE2OTIwNjQ1MDIsImV4cCI6MTY5MjE1MDkwMn0.klqKzWkaYeTdK6VKR07R8cV7y9YrmWdFUJC2z6hCil8",
+  //   "POST",
+  //   { cus_id: cusId }
+  // );
+
+  // useEffect(()=>{
+  //   fetchDataDetail()
+  // },[])
+
+  // "http://210.245.108.202:3007/api/crm/customerdetails/editCustomer"
 
   const handleDetail = (data: any) => {
-    router.push(`/crm/customer/detail/${data}`);
+    router.push(`/customer/detail/${data}`);
+  };
+
+  const handleChangeStatus = (e: any, data: any) => {
+    setValueStatus(e.target.value);
+    console.log(valueStatus);
+    // updateData(
+    //   "http://210.245.108.202:3007/api/crm/customerdetails/editCustomer",
+    //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6Mjg3MjMxLCJpZFRpbVZpZWMzNjUiOjAsImlkUUxDIjoxNzYzLCJpZFJhb05oYW5oMzY1IjowLCJlbWFpbCI6ImR1b25naGllcGl0MUBnbWFpbC5jb20iLCJwaG9uZVRLIjoiIiwiY3JlYXRlZEF0IjoxNjI3NTQ5NDcxLCJ0eXBlIjoxLCJjb21faWQiOjE3NjMsInVzZXJOYW1lIjoibGUgYW5oIHR1YW4xMiJ9LCJpYXQiOjE2OTIwNjQ1MDIsImV4cCI6MTY5MjE1MDkwMn0.klqKzWkaYeTdK6VKR07R8cV7y9YrmWdFUJC2z6hCil8",
+    //   "POST",
+    //   {
+    //     status: `${valueStatus}`,
+    //     cus_id: data.cus_id,
+    //     type: 2,
+    //   }
+    // );
   };
 
   const renderTitle = () => (
@@ -65,23 +115,27 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
     {
       title: "Mã KH",
       width: 100,
-      dataIndex: "key",
-      key: "key",
+      dataIndex: "cus_id",
+      key: "cus_id",
     },
     {
       title: "Tên khách hàng",
       width: 200,
-      dataIndex: "filename",
+      dataIndex: "name",
       key: "0",
-      render: (data) => (
-        <span style={{ cursor: "pointer" }} onClick={() => handleDetail(data)}>
+      render: (data, record) => (
+        <Link
+          style={{ cursor: "pointer" }}
+          onClick={() => handleDetail(record.cus_id)}
+          href={""}
+        >
           {data}
-        </span>
+        </Link>
       ),
     },
     {
       title: "Điện thoại",
-      dataIndex: "personname",
+      dataIndex: "phone_number",
       key: "1",
       width: 200,
       render: (data) => (
@@ -90,44 +144,66 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
     },
     {
       title: "Email",
-      dataIndex: "date1",
+      dataIndex: "email",
       key: "2",
       width: 150,
     },
     {
       title: "Nhóm khách hàng",
-      dataIndex: "date2",
+      dataIndex: "group_id",
       key: "3",
       width: 200,
-      render: () => (
+      render: (data) => (
         <div
           style={{ padding: "5px", paddingLeft: "11px" }}
           className={stylesPotentialSelect.wrap_select}
         >
-          <PotentialSelectBoxStep value="CBA" placeholder="CBA" />
+          <CustomerGroupSelect
+            data={dataGroup}
+            value={data}
+            placeholder={data}
+          />
         </div>
       ),
     },
     {
       title: "Tình trạng khách hàng",
-      dataIndex: "date2",
+      dataIndex: "status",
       key: "3",
       width: 200,
-      render: () => (
+      render: (data) => (
         <div style={{ padding: "5px" }}>
-          <select style={{ border: 0 }}>
+          <SelectDataInputBox
+            data={dataStatusCustomer}
+            value={undefined}
+            handleChange={handleChangeStatus}
+            cusId={data.cus_id}
+          />
+          {/* <select
+            onChange={(e: any) => {
+              handleChangeStatus(e, data);
+            }}
+            // defaultValue={data.status}
+            value={valueStatus}
+            style={{ border: 0 }}
+          >
             <option value={""}>Chưa cập nhật</option>
-            <option value={"b"}>Bệnh</option>
-            <option value={"k"}>Khoẻ</option>
-            <option value={"t"}>Tốt</option>
-            <option value={"n"}>Bình thường</option>
-          </select>
+            {dataStatusCustomer?.map((item: any, index: number) => (
+              <>
+                {item.status !== 0 && (
+                  <option key={index} value={item.stt_id}>
+                    {item.stt_name}
+                  </option>
+                )}
+              </>
+            ))}
+          </select> */}
         </div>
       ),
     },
     {
       title: "Mô tả",
-      dataIndex: "date2",
+      dataIndex: "description",
       key: "3",
       width: 200,
       render: (text) => (
@@ -138,45 +214,45 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
     },
     {
       title: "Nguồn khách hàng",
-      dataIndex: "date2",
+      dataIndex: "resoure",
       key: "3",
       width: 180,
       render: () => (
         <select style={{ border: 0 }}>
-          <option value={""}>Chưa cập nhật</option>
-          <option>Facebook</option>
-          <option>Zalo</option>
-          <option>Website</option>
-          <option>Bên thứ 3</option>
-          <option>Khách hàng giới thiệu</option>
-          <option>Giới thiệu</option>
+          <option value={0}>Chưa cập nhật</option>
+          <option value={0}>Facebook</option>
+          <option value={0}>Zalo</option>
+          <option value={0}>Website</option>
+          <option value={0}>Bên thứ 3</option>
+          <option value={0}>Khách hàng giới thiệu</option>
+          <option value={0}>Giới thiệu</option>
           <option value={""}>Chăm sóc khách hàng</option>
         </select>
       ),
     },
     {
       title: "Nhân viên tạo khách hàng",
-      dataIndex: "date2",
+      dataIndex: "userCrete",
       key: "3",
       width: 200,
     },
     {
       title: "Nhân viên phụ trách",
-      dataIndex: "date2",
+      dataIndex: "emp_name",
       key: "3",
       width: 200,
     },
     {
       title: "Nhân viên bàn giao",
-      dataIndex: "date2",
+      dataIndex: "user_handing_over_work",
       key: "3",
       width: 200,
     },
     {
       title: "Ngày cập nhật",
-      dataIndex: "date2",
+      dataIndex: "updated_at",
       key: "3",
-      width: 100,
+      width: 150,
     },
     {
       title: "Chức năng",
@@ -184,9 +260,9 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       key: "4",
       width: 150,
       // fixed:"right",
-      render: (data) => (
+      render: (data, record: any) => (
         <>
-          <Link href={`/crm/customer/edit/data`}>
+          <Link href={`/customer/edit/${record.cus_id}`}>
             <button className={styles.icon_edit}>
               <img
                 style={{ marginRight: "8px" }}
@@ -205,27 +281,29 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       <div className="custom_table">
         <Table
           columns={columns}
-          dataSource={data}
+          dataSource={datatable}
           rowSelection={{ ...rowSelection }}
           bordered
           // pagination={true}
           scroll={{ x: 1500, y: 300 }}
         />
-        <div className="main__footer flex_between" id="">
-          <div className="show_number_item">
-            <b>Hiển thị:</b>
-            <select className="show_item">
-              <option value={10}>10 bản ghi trên trang</option>
-              <option value={20}>20 bản ghi trên trang</option>
-              <option value={30}>30 bản ghi trên trang</option>
-              <option value={40}>40 bản ghi trên trang</option>
-              <option value={50}>50 bản ghi trên trang</option>
-            </select>
+        {datatable?.length && (
+          <div className="main__footer flex_between" id="">
+            <div className="show_number_item">
+              <b>Hiển thị:</b>
+              <select className="show_item">
+                <option value={10}>10 bản ghi trên trang</option>
+                <option value={20}>20 bản ghi trên trang</option>
+                <option value={30}>30 bản ghi trên trang</option>
+                <option value={40}>40 bản ghi trên trang</option>
+                <option value={50}>50 bản ghi trên trang</option>
+              </select>
+            </div>
+            <div className="total">
+              Tổng số: <b>{datatable?.length}</b> Khách hàng
+            </div>
           </div>
-          <div className="total">
-            Tổng số: <b>{data.length}</b> Khách hàng
-          </div>
-        </div>
+        )}
       </div>
 
       <EditTextCustomerList

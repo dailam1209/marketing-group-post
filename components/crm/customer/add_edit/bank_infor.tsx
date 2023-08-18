@@ -1,7 +1,7 @@
 import PotentialSelectBoxStep from "@/components/crm/potential/potential_steps/select_box_step";
 import styles from "../../potential/potential_add_files/add_file_potential.module.css";
 import InputText from "@/components/crm/potential/potential_add_files/input_text";
-export default function AddCustomerBankInfo() {
+export default function AddCustomerBankInfo(editData) {
   return (
     <div>
       <p className={styles.main__body__type}>Thông tin bổ sung</p>

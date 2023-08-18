@@ -10,13 +10,36 @@ import AddPersonalCustomerInfor from "@/components/crm/customer/add_edit/persona
 import AddCustomerBankInfo from "@/components/crm/customer/add_edit/bank_infor";
 import TextEditor from "@/components/crm/text-editor/text_editor";
 import GeneralCustomerInfor from "@/components/crm/customer/add_edit/general_customer_info";
+import { useApi } from "@/components/crm/hooks/useApi";
+import { useRouter } from "next/router";
+import EditPersonalCustomerInfor from "@/components/crm/customer/editData/personal_infor";
 
 const EditFilesCustomerList: React.FC = () => {
   const mainRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
+  const { id } = router.query;
   const { isOpen } = useContext<any>(SidebarContext);
   const imgRef = useRef<HTMLInputElement>(null);
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
+  const [edited, setEdited] = useState(false);
+
+  const { data, loading, fetchData, updateData, deleteData } = useApi(
+    "http://210.245.108.202:3007/api/crm/customerdetails/detail",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6MzgwOTg5LCJpZFRpbVZpZWMzNjUiOjIwMjU4NSwiaWRRTEMiOjE3NjMsImlkUmFvTmhhbmgzNjUiOjAsImVtYWlsIjoiZHVvbmdoaWVwaXQxQGdtYWlsLmNvbSIsInBob25lVEsiOiIiLCJjcmVhdGVkQXQiOjE2MDA2NTg0NzgsInR5cGUiOjEsImNvbV9pZCI6MTc2MywidXNlck5hbWUiOiJDw7RuZyBUeSBUTkhIIEggTSBMIFBwbyJ9LCJpYXQiOjE2OTIyOTc4NjMsImV4cCI6MTY5MjM4NDI2M30.XMyMzNsvPn1yInnlVLO-XTnm9mDLMDohaSxQSOvtczo",
+    "POST",
+    { cus_id: id, limit: 1000 }
+  );
+
+  useEffect(() => {
+    fetchData();
+    console.log(data);
+    console.log(id);
+  }, [id]);
+  console.log(data);
+
+  const dataEdit = data?.data?.data1 ? data?.data?.data1 : data?.data?.data2;
+  console.log("value:  ", dataEdit);
 
   useEffect(() => {
     setHeaderTitle("Chỉnh sửa khách hàng");
@@ -52,9 +75,15 @@ const EditFilesCustomerList: React.FC = () => {
                       <input
                         type="radio"
                         defaultChecked
-                        defaultValue={2}
                         className="get_data"
                         name="type"
+                        onChange={(e) =>
+                          setEdited({
+                            ...data,
+                            type: parseInt(e.target.value),
+                          })
+                        }
+                        value={2}
                       />
                       Khách hàng doanh nghiệp
                       <span className="checkmark" />
@@ -62,9 +91,15 @@ const EditFilesCustomerList: React.FC = () => {
                     <label className="lbl_container">
                       <input
                         type="radio"
-                        name="type"
-                        defaultValue={1}
                         className="get_data"
+                        name="type"
+                        onChange={(e) =>
+                          setEdited({
+                            ...data,
+                            type: parseInt(e.target.value),
+                          })
+                        }
+                        value={1}
                       />
                       Khách hàng cá nhân
                       <span className="checkmark" />
@@ -92,10 +127,16 @@ const EditFilesCustomerList: React.FC = () => {
                   </div>
                 </div>
 
-                <AddPersonalCustomerInfor />
-                <AddAddressInfo title="Thông tin viết hóa đơn" />
-                <AddAddressInfo title="Thông tin giao hàng" />
-                <AddCustomerBankInfo />
+                <EditPersonalCustomerInfor editData={dataEdit} />
+                <AddAddressInfo
+                  editData={dataEdit}
+                  title="Thông tin viết hóa đơn"
+                />
+                <AddAddressInfo
+                  editData={dataEdit}
+                  title="Thông tin giao hàng"
+                />
+                <AddCustomerBankInfo editData={dataEdit} />
 
                 {/* Text Editor */}
                 <div
