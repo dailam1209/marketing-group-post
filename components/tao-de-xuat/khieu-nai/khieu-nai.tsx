@@ -109,7 +109,7 @@ export const KhieuNai: React.FC = () => {
       <div className={`shadowForm  ${styles.body}`}>
         <Form
           form={form}
-          className={`${styles.bodyform} mc`}
+          className={`${styles.bodyform} mc taoDeXuatForm`}
           initialValues={{ name: 'khas' }}>
           <Row gutter={24} className={styles.body1}>
             <Col sm={12} xs={24}>
