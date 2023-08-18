@@ -18,6 +18,12 @@ import styles from '@/components/crm/sidebar/sidebar.module.css'
 // import "@/styles/crm/styles.css"
 // import "@/styles/crm/hight_chart.css"
 import Layout from '@/components/hr/Layout'
+import { Provider } from "react-redux";
+import store from "@/store";
+import Layout_admin from "@/components/VanThu/Layout_admin";
+import { setCookie } from "cookies-next";
+import jwtDecode from "jwt-decode";
+import Layout_user from "@/components/VanThu/Layout_user";
 
 export const LoadingComp = () => {
   return (
@@ -78,7 +84,10 @@ export default function App({ Component, pageProps }) {
       import('../styles/crm/stylecrm.css')
       import('../styles/crm/styles.css')
       import('../styles/crm/hight_chart.css')
-    } else {
+    } else if(router.pathname?.includes('VanThu')){
+      import('../styles/globals_vanthu.css')
+    }
+     else {
       import('@/styles/globals.css')
     }
   }
@@ -86,6 +95,34 @@ export default function App({ Component, pageProps }) {
   useEffect(() => {
     importGlobalStyles()
   }, [router.pathname])
+
+  const [layout, setLayout] = useState("");
+  const token_staff =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6MTQxNzU2MCwiaWRUaW1WaWVjMzY1IjoxMDgzODYxLCJpZFFMQyI6MzQ1NTQsImlkUmFvTmhhbmgzNjUiOjMyLCJlbWFpbCI6bnVsbCwicGhvbmVUSyI6IjA5ODk4Nzg3NDEiLCJjcmVhdGVkQXQiOjE2OTIyMzUyMDIsInR5cGUiOjIsImNvbV9pZCI6MTIxNTk3LCJ1c2VyTmFtZSI6IkJWNDEifSwiaWF0IjoxNjkyMjU3MDgxLCJleHAiOjE2OTIzNDM0ODF9.5Cnou9Ihe4haEghZHokqhx2byx6BQkhhht4Zs7D91Jc";
+  const token_company =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6MTQxNzUzMCwiaWRUaW1WaWVjMzY1IjoyNDU1NTgsImlkUUxDIjoxMjE1OTcsImlkUmFvTmhhbmgzNjUiOjEsImVtYWlsIjpudWxsLCJwaG9uZVRLIjoiMDk4OTg3ODcxNCIsImNyZWF0ZWRBdCI6MTY5MDkzODY4NCwidHlwZSI6MSwiY29tX2lkIjoxMjE1OTcsInVzZXJOYW1lIjoiY29uZyB0eSBCaW5oVkgifSwiaWF0IjoxNjkyMjYyNTgyLCJleHAiOjE2OTIzNDg5ODJ9.JAp3bQZQ9A6KUouTeIuLNxxvPk1B5tX8mx2x_fBa05I";
+  useEffect(() => {
+    const storedData = sessionStorage.getItem("layout");
+    if (storedData) {
+      setLayout(storedData);
+    }
+  }, []);
+  // Chia đoạn string thành 2 nửa và lưu vào 2 cookies
+  const handleClick = (layout, newToken) => {
+    setLayout(layout);
+    const user_infor = jwtDecode(newToken);
+    sessionStorage.setItem("layout", layout);
+    sessionStorage.setItem("token", newToken);
+    const halfLength = Math.ceil(newToken?.length / 2);
+    const firstHalf = newToken?.slice(0, halfLength);
+    const secondHalf = newToken?.slice(halfLength);
+    setCookie("token_first", firstHalf, { maxAge: 60 * 60 * 1 });
+    setCookie("token_hafl", secondHalf, { maxAge: 60 * 60 * 1 });
+    setCookie("userName", user_infor?.data.userName);
+    setCookie("userID", user_infor?.data.idQLC);
+    setCookie("com_id", user_infor?.data.com_id)
+    router.push("/VanThu/quanly-cong-van");
+  };
 
   return loading ? (
     <LoadingComp />
@@ -122,6 +159,35 @@ export default function App({ Component, pageProps }) {
             <Component {...pageProps} />
           </DndProvider>
         </Layout>
+      ) : router.pathname?.includes('VanThu') ? (
+        <Provider store={store}>
+          {/* 
+          -  Khi đăng nhập sẽ lưu session giá trị để duy trì các phiên trong site
+          -  Giá trị này có thể thay đổi tùy theo tài khoản của công ty hoặc nhân viên
+          */}
+          {layout === "" ? (
+            <>
+              <button onClick={() => handleClick("user", token_staff)}>
+                Nhân viên
+              </button>
+              <button onClick={() => handleClick("admin", token_company)}>
+                Công ty
+              </button>
+            </>
+          ) : (
+            <>
+              {layout && layout !== "" && layout === "user" ? (
+                <Layout_user>
+                  <Component {...pageProps} />
+                </Layout_user>
+              ) : (
+                <Layout_admin>
+                  <Component {...pageProps} />
+                </Layout_admin>
+              )}
+            </>
+          )}
+        </Provider>
       ) : (
         <Component {...pageProps} />
       )}

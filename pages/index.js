@@ -7,7 +7,7 @@ import Footer from '../components/footer/Footer';
 import {getServerSideProps} from '../utils/function';
 import QLC_item from '../components/QLC_item';
 import {Col, Row, Spin, Tabs} from 'antd';
-import HeaderQLC from '../components/headerQLC/headerQLC';
+import HeaderQLC from '../components/headerQLC/HeaderQLC';
 import SidebarQLC from '../components/sidebarQLC/SidebarQLC';
 import FooterQLC from '../components/footerQLC/FooterQLC';
 import ModalRegsiter from '@/components/modal/ModalRegsiter';
