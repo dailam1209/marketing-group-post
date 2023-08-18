@@ -1029,8 +1029,9 @@ label.ant-form-item-required {
 }
 .select_taoDeXuat .ant-select-selector .ant-select-selection-item {
   font-size: 18px;
-  padding: 5px 15px;
+  padding: 7px 15px;
   height: 44px !important;
+  display: flex;
 }
 .select_taoDeXuat
   .ant-select-selector
@@ -1038,7 +1039,7 @@ label.ant-form-item-required {
   .ant-select-selection-search-input {
   font-size: 18px;
   padding: 5px 15px;
-  height: 44px !important;
+  height: 44px !important; 
 }
 .select_donXinPhepNghi
   .ant-select-selector
@@ -1048,6 +1049,14 @@ label.ant-form-item-required {
   .ant-select-selection-item-remove {
   color: #ff5b4d !important;
 }
+.ant-select-item-option-active .ant-select-item-option-content .taoDeXuatSelectTxt {
+  color: #fff !important;
+}
+
+.select_taoDeXuat .ant-select-selector .taoDeXuatSelectTxt {
+  color: #474747;
+}
+
 .input_donXinNghiPhep {
   color: #717b7f !important;
 }
@@ -1480,7 +1489,40 @@ label.ant-form-item-required {
   margin-left: 0 !important;
   margin-right: 0 !important;
 }
+.bannerQLC .ant-row {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  row-gap: 0 !important;
+}
 .btnU.ant-btn {
   border-radius: 6px !important;
   border-color: transparent !important;
+}
+
+.shadowForm {
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.15);
+}
+
+.taoDeXuatForm .ant-row .ant-col {
+  padding-bottom: 5px;
+}
+
+.taoDeXuatForm .ant-row .ant-col label {
+  height: auto;
+}
+
+.taoDeXuatForm .ant-row .ant-col label::after {
+  content: none;
+}
+
+.taoDeXuatForm .ant-row .ant-col label p {
+  font-weight: 500 !important;
+}
+
+.taoDeXuatForm .ant-input[disabled] {
+  color: #474747 !important;
+}
+
+.taoDeXuatForm .ant-form-item {
+  margin-bottom: 4px;
 }

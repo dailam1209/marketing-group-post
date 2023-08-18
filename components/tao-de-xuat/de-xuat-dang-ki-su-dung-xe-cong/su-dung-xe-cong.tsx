@@ -107,7 +107,7 @@ export const SuDungXeCong = ({
   return (
     <div className={styles.khung}>
       <div className={styles.header}>
-        <div className={styles.iconheader}>
+        <div className={styles.iconheader} onClick={() => router.back()}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="12"
@@ -126,10 +126,10 @@ export const SuDungXeCong = ({
         </div>
         <p className={styles.textheader}>Đề xuất đăng ký sử dụng xe công</p>
       </div>
-      <div className={styles.body}>
+      <div className={`shadowForm  ${styles.body}`}>
         <Form
           form={form}
-          className={`${styles.bodyform} mc`}
+          className={`${styles.bodyform} mc taoDeXuatForm`}
           initialValues={{ name: "Khas" }}
         >
           <Row gutter={24} className={styles.body1}>
@@ -286,7 +286,7 @@ export const SuDungXeCong = ({
               </Form.Item>
             </Col>
           </Row>
-          <Row className={styles.body4}>
+          <Row gutter={20} className={styles.body1}>
             <Col sm={24} xs={24}>
               <Form.Item
                 name={"ly_do"}

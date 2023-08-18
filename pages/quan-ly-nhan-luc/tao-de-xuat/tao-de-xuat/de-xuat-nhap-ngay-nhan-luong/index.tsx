@@ -3,85 +3,83 @@ import {
   MyInput,
   MySelect,
   MyTextArea,
-} from "@/components/quan-ly-cong-ty/quan-ly-cong-ty-con/modal";
-import styles from "./index.module.css";
-import Image from "next/image";
+} from '@/components/quan-ly-cong-ty/quan-ly-cong-ty-con/modal'
+import styles from './index.module.css'
+import Image from 'next/image'
 import {
   DeXuatCongCongFooter,
   MyInputFile,
   MySelectAcp,
   MyTime,
-} from "@/components/tao-de-xuat/loai-de-xuat/tao-de-xuat/component/ChiTiet";
-import { Col, Form, Row } from "antd";
-import { POST, POST_VT, getCompIdCS, getInfoUser } from "@/pages/api/BaseApi";
-import dayjs from "dayjs";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { DXFileInput } from "@/components/tao-de-xuat-2/components/TaoDeXuatComps";
+} from '@/components/tao-de-xuat/loai-de-xuat/tao-de-xuat/component/ChiTiet'
+import { Col, Form, Row } from 'antd'
+import { POST, POST_VT, getCompIdCS, getInfoUser } from '@/pages/api/BaseApi'
+import dayjs from 'dayjs'
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
+import { DXFileInput } from '@/components/tao-de-xuat-2/components/TaoDeXuatComps'
 
 export default function DeXuatNhapNgayNhanLuong() {
-  const [fileData, setFileData] = useState<any>();
+  const [fileData, setFileData] = useState<any>()
 
-  const router = useRouter();
-  const [form] = Form.useForm();
-
-
+  const router = useRouter()
+  const [form] = Form.useForm()
 
   const handleSubmit = () => {
     form.validateFields().then((value) => {
       const body = {
         ...value,
-        id_user_duyet: value["id_user_duyet"]?.join(","),
-        id_user_theo_doi: value["id_user_theo_doi"]?.join(","),
+        id_user_duyet: value['id_user_duyet']?.join(','),
+        id_user_theo_doi: value['id_user_theo_doi']?.join(','),
         kieu_duyet: 0,
-      };
-
-      // console.log(body);
-      const fd = new FormData();
-
-      Object.keys(body)?.forEach((k) => {
-        fd.append(k, body[k]);
-      });
-
-      if (fileData) {
-        fd.append("file_kem", fileData);
       }
 
-      POST_VT("api/vanthu/dexuat/addDXNNNL", fd).then((res) => {
-          alert("Tạo đề xuất nhập ngày nhận lương thành công!");
-          router.replace(router.asPath);
-      });
-    });
-  };
+      // console.log(body);
+      const fd = new FormData()
 
-  const [infoUser, setInfoUser] = useState<any>();
-  const [listDuyet, setListDuyet] = useState<any>({});
-  const [depLabel, setDepLabel] = useState<any>([]);
+      Object.keys(body)?.forEach((k) => {
+        fd.append(k, body[k])
+      })
+
+      if (fileData) {
+        fd.append('file_kem', fileData)
+      }
+
+      POST_VT('api/vanthu/dexuat/addDXNNNL', fd).then((res) => {
+        alert('Tạo đề xuất nhập ngày nhận lương thành công!')
+        router.reload()
+      })
+    })
+  }
+
+  const [infoUser, setInfoUser] = useState<any>()
+  const [listDuyet, setListDuyet] = useState<any>({})
+  const [depLabel, setDepLabel] = useState<any>([])
 
   useEffect(() => {
     const getListDuyet = async () => {
-      const res = await POST_VT('api/vanthu/dexuat/showadd', {});
+      const res = await POST_VT('api/vanthu/dexuat/showadd', {})
 
       if (res?.result) {
         setListDuyet({
           listDuyet: res?.listUsersDuyet?.map((user) => ({
             label: user?.userName,
-            value: user?.idQLC ? `/${user?.idQLC}` : "/nhanvien.png",
-            url: user?.avatarUser
+            value: user?.idQLC ? `/${user?.idQLC}` : '/nhanvien.png',
+            url: user?.avatarUser,
           })),
           listTheoDoi: res?.listUsersTheoDoi?.map((user) => ({
             label: user?.userName,
             value: user?.idQLC,
-            url: user?.avatarUser
+            url: user?.avatarUser,
           })),
-        });
+        })
       }
-    };
+    }
 
-    getListDuyet();
-    let com_id = null;
-    com_id = getCompIdCS();
-    
+    getListDuyet()
+    let com_id = null
+    com_id = getCompIdCS()
+
     com_id !== null &&
       POST('api/qlc/department/list', {
         com_id: com_id,
@@ -92,109 +90,117 @@ export default function DeXuatNhapNgayNhanLuong() {
               label: dep?.dep_name,
               value: dep?.dep_id,
             }))
-          );
+          )
         }
-      });
-      
-    setInfoUser(getInfoUser());
-  }, []);
+      })
+
+    setInfoUser(getInfoUser())
+  }, [])
 
   useEffect(() => {
     if (infoUser?.idQLC) {
-      form.setFieldValue('name', infoUser?.userName);
+      form.setFieldValue('name', infoUser?.userName)
     }
-  }, [infoUser]);
+  }, [infoUser])
 
   return (
     <div>
       <div className={styles.header}>
-        <Image src={"/back-w.png"} alt="" width={24} height={24}></Image>
+        <Image
+          src={'/back-w.png'}
+          alt=''
+          width={24}
+          height={24}
+          onClick={() => router.back()}></Image>
         <p className={styles.headerText}>Đề xuất nhập ngày nhận lương</p>
       </div>
-      <Form form={form} initialValues={{ name: "Khas" }}>
+      <Form
+        form={form}
+        className='shadowForm taoDeXuatForm'
+        initialValues={{ name: 'Vũ Văn Khá' }}>
         <div className={styles.body}>
           <Row gutter={[20, 10]}>
             <Col sm={12} xs={24}>
               {MyInput(
-                "Tên đề xuất",
-                "Nhập tên đề xuất",
+                'Tên đề xuất',
+                'Nhập tên đề xuất',
                 true,
                 true,
-                "name_dx",
-                "",
+                'name_dx',
+                '',
                 false
               )}
             </Col>
             <Col lg={6} sm={12} xs={24}>
               {MyInput(
-                "Họ và tên",
-                "Vũ Văn Khá",
+                'Họ và tên',
+                'Vũ Văn Khá',
                 false,
                 true,
-                "name",
-                "",
+                'name',
+                '',
                 true,
-                "#EDF3FF"
+                '#EDF3FF'
               )}
             </Col>
             <Col lg={6} sm={12} xs={24}>
               {MyInput(
-                "Loại đề xuất",
-                "Đề xuất nhập này nhận lương",
+                'Loại đề xuất',
+                'Đề xuất nhập này nhận lương',
                 false,
                 true,
-                "type_dx",
-                "",
+                'type_dx',
+                '',
                 true,
-                "#EDF3FF"
+                '#EDF3FF'
               )}
             </Col>
             <Col sm={12} xs={24} className={styles.addElement}></Col>
             <Col sm={12} xs={24}>
               {MySelect(
-                "Phòng ban",
-                "Chọn phòng ban",
+                'Phòng ban',
+                'Chọn phòng ban',
                 true,
                 true,
-                "phong_ban",
+                'phong_ban',
                 depLabel
               )}
             </Col>
             <Col sm={12} xs={24}>
               {MyDatePicker(
-                "Ngày nhận lương",
-                "Chọn ngày nhận lương",
+                'Ngày nhận lương',
+                'Chọn ngày nhận lương',
                 true,
                 true,
-                "ngay_nhan_luong"
+                'ngay_nhan_luong'
               )}
             </Col>
             <Col sm={24} xs={24}>
               <MyTextArea
-                name="ly_do"
+                name='ly_do'
                 required={true}
-                title="Lý do đề xuất nhận lương"
+                title='Lý do đề xuất nhận lương'
                 hasLabel={true}
-                placeholder="Nhập lý do đề xuất nhận lương"
+                placeholder='Nhập lý do đề xuất nhận lương'
               />
             </Col>
             <Col sm={12} xs={24}>
               {MySelectAcp(
-                "Người xét duyệt",
-                "Chọn người xét duyệt",
+                'Người xét duyệt',
+                'Chọn người xét duyệt',
                 true,
                 true,
-                "id_user_duyet",
+                'id_user_duyet',
                 listDuyet?.listDuyet
               )}
             </Col>
             <Col sm={12} xs={24}>
               {MySelectAcp(
-                "Người theo dõi",
-                "Chọn người theo dõi",
+                'Người theo dõi',
+                'Chọn người theo dõi',
                 true,
                 true,
-                "id_user_theo_doi",
+                'id_user_theo_doi',
                 listDuyet?.listTheoDoi
               )}
             </Col>
@@ -213,5 +219,5 @@ export default function DeXuatNhapNgayNhanLuong() {
         {DeXuatCongCongFooter(handleSubmit, () => null)}
       </Form>
     </div>
-  );
+  )
 }
