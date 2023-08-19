@@ -25,11 +25,9 @@
     line-height: normal;
 }
 .body{
-    padding: 20px;
+    padding: 20px 10px;
     background: #fff;
-    border-radius: 10px;
     margin-bottom: 30px;
-    border-radius: 10px 10px 0px 0px;
 }
 .body1{
     display: flex;
@@ -156,8 +154,10 @@
     }
     .header{
         border-radius: 0px;
+        padding: 16px;
     }
     .body{
         border-radius: 0px;
+        padding: 6px;
     }
 }

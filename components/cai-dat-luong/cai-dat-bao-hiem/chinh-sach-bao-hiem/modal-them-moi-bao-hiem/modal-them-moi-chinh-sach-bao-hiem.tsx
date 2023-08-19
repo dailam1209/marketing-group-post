@@ -9,60 +9,59 @@ import {
   Divider,
   Skeleton,
   Form,
-} from "antd";
-import styles from "./modal-them-moi-chinh-sach-bao-hiem.module.css";
-import Image from "next/image";
-import { MenuOutlined } from "@ant-design/icons";
-import { ItemList } from "./ItemList/ItemList";
-import { useState, useEffect } from "react";
-import { POST_TL, getCompIdCS } from "@/pages/api/BaseApi";
-import { useRouter } from "next/router";
+} from 'antd'
+import styles from './modal-them-moi-chinh-sach-bao-hiem.module.css'
+import Image from 'next/image'
+import { MenuOutlined } from '@ant-design/icons'
+import { ItemList } from './ItemList/ItemList'
+import { useState, useEffect } from 'react'
+import { POST_TL, getCompIdCS } from '@/pages/api/BaseApi'
+import { useRouter } from 'next/router'
 
 const ImageToggle = ({
   value,
   setFsData,
-  fsData
+  fsData,
 }: {
-  value: string;
-  fsData: string;
-  setFsData: Function;
+  value: string
+  fsData: string
+  setFsData: Function
 }) => {
-  const [currentImage, setCurrentImage] = useState("/checkbox-design-1.svg");
+  const [currentImage, setCurrentImage] = useState('/checkbox-design-1.svg')
 
   useEffect(() => {
-    if (fsData !== "") {
+    if (fsData !== '') {
       if (fsData === value) {
-        setCurrentImage("/checkbox-design-1.svg")
+        setCurrentImage('/checkbox-design-1.svg')
       } else {
-        setCurrentImage("/checkbox-design-2.svg")
+        setCurrentImage('/checkbox-design-2.svg')
       }
     }
-  } , [fsData])
+  }, [fsData])
 
   const handleImageToggle = () => {
-      if (currentImage === "/checkbox-design-1.svg") {
-        setFsData(value);
-      } else {
-        setFsData("")
-      }
-  };
+    if (currentImage === '/checkbox-design-1.svg') {
+      setFsData(value)
+    } else {
+      setFsData('')
+    }
+  }
 
   return (
     <div
-      style={{ display: "flex", alignItems: "center" }}
-      onClick={handleImageToggle}
-    >
+      style={{ display: 'flex', alignItems: 'center' }}
+      onClick={handleImageToggle}>
       <Image
         src={currentImage}
-        alt=""
+        alt=''
         width={24}
         height={24}
-        style={{ marginRight: "10px" }}
+        style={{ marginRight: '10px' }}
       />
       <span>{value}</span>
     </div>
-  );
-};
+  )
+}
 
 export function ModalCongThuc(
   open: boolean,
@@ -70,72 +69,72 @@ export function ModalCongThuc(
   form: any,
   insureSelected?: any
 ) {
-  const [fsData, setFsData]: any = useState("");
-  const [listCt, setListCt]: any[] = useState([]);
-  const [fsRepica, setFsRepica]: any = useState("");
+  const [fsData, setFsData]: any = useState('')
+  const [listCt, setListCt]: any[] = useState([])
+  const [fsRepica, setFsRepica]: any = useState('')
 
   const ListFormula = [
     {
-      key: "1",
-      luong_co_ban: "luong_co_ban",
-      muc_luong_co_ban: "Mức lương cơ bản",
+      key: '1',
+      luong_co_ban: 'luong_co_ban',
+      muc_luong_co_ban: 'Mức lương cơ bản',
     },
     {
-      key: "2",
-      luong_co_ban: "luong_co_ban",
-      muc_luong_co_ban: "Mức lương cơ bản",
+      key: '2',
+      luong_co_ban: 'luong_co_ban',
+      muc_luong_co_ban: 'Mức lương cơ bản',
     },
     {
-      key: "3",
-      luong_co_ban: "luong_co_ban",
-      muc_luong_co_ban: "Mức lương cơ bản",
+      key: '3',
+      luong_co_ban: 'luong_co_ban',
+      muc_luong_co_ban: 'Mức lương cơ bản',
     },
     {
-      key: "4",
-      luong_co_ban: "luong_co_ban",
-      muc_luong_co_ban: "Mức lương cơ bản",
+      key: '4',
+      luong_co_ban: 'luong_co_ban',
+      muc_luong_co_ban: 'Mức lương cơ bản',
     },
     {
-      key: "5",
-      luong_co_ban: "luong_co_ban",
-      muc_luong_co_ban: "Mức lương cơ bản",
+      key: '5',
+      luong_co_ban: 'luong_co_ban',
+      muc_luong_co_ban: 'Mức lương cơ bản',
     },
     {
-      key: "6",
-      luong_co_ban: "luong_co_ban",
-      muc_luong_co_ban: "Mức lương cơ bản",
+      key: '6',
+      luong_co_ban: 'luong_co_ban',
+      muc_luong_co_ban: 'Mức lương cơ bản',
     },
-  ];
+  ]
   const options = [
-    { label: "Hằng số", value: "Hằng số" },
-    { label: "Công thức", value: "Công thức" },
-  ];
+    { label: 'Hằng số', value: 'Hằng số' },
+    { label: 'Công thức', value: 'Công thức' },
+  ]
   const handleSetFormula = (decreptionAdd: string) => {
-    setFsRepica(fsRepica + ` ${decreptionAdd}`);
-  };
+    setFsRepica(fsRepica + ` ${decreptionAdd}`)
+  }
 
   useEffect(() => {
     if (insureSelected?.cl_id) {
-      form.setFieldsValue(insureSelected);
-      setListCt(insureSelected?.TinhluongFormSalary);
-      setFsData(`${insureSelected?.TinhluongFormSalary?.[0]?.fs_data}`);
+      form.setFieldsValue(insureSelected)
+      setListCt(insureSelected?.TinhluongFormSalary)
+      setFsData(`${insureSelected?.TinhluongFormSalary?.[0]?.fs_data}`)
     }
-  }, [form, insureSelected]);
+  }, [form, insureSelected])
 
   useEffect(() => {
     if (listCt?.length > 0) {
-      form.setFieldValue("fs_name", listCt?.[0]?.fs_name);
-      let repica = "";
+      form.setFieldValue('fs_name', listCt?.[0]?.fs_name)
+      let repica = ''
       listCt?.map((ct, index) => {
         if (index === listCt?.length - 1) {
-          repica += `${ct?.fs_repica}`;
+          repica += `${ct?.fs_repica}`
         } else {
-          repica += `${ct?.fs_repica} `;
+          repica += `${ct?.fs_repica} `
         }
-      });
-      setFsRepica(repica);
+      })
+      setFsRepica(repica)
     }
-  }, [listCt]);
+  }, [listCt])
 
   return (
     <Modal
@@ -143,16 +142,15 @@ export function ModalCongThuc(
       onCancel={() => setOpen(false)}
       width={700}
       closable={false}
-      cancelButtonProps={{ style: { display: "none" } }}
-      okButtonProps={{ style: { display: "none" } }}
-      className={`modal_congthuc`}
-    >
+      cancelButtonProps={{ style: { display: 'none' } }}
+      okButtonProps={{ style: { display: 'none' } }}
+      className={`modal_congthuc`}>
       <div className={styles.header}>
         <div className={styles.textHead}>Công thức</div>
         <div className={styles.crossImage}>
           <Image
-            alt="/"
-            src={"/cross.png"}
+            alt='/'
+            src={'/cross.png'}
             width={14}
             height={14}
             onClick={() => setOpen(false)}
@@ -161,61 +159,57 @@ export function ModalCongThuc(
       </div>
       <Form
         form={form}
-        initialValues={{ fs_name: "", fs_data: "", fs_repica: "" }}
-      >
+        initialValues={{ fs_name: '', fs_data: '', fs_repica: '' }}>
         <div className={styles.addFormula}>Thêm công thức</div>
         <div className={styles.formBody}>
           <div className={styles.formItem1}>
-            <Form.Item name={"fs_name"}>
+            <Form.Item name={'fs_name'}>
               <Input
                 className={styles.inputForm}
-                placeholder="Nhập tên công thức"
-                prefix={<MenuOutlined rev={""} />}
+                placeholder='Nhập tên công thức'
+                prefix={<MenuOutlined rev={''} />}
               />
             </Form.Item>
 
-            <Form.Item name={"fs_data"}>
+            <Form.Item name={'fs_data'}>
               <div className={styles.option}>
-                  <div style={{ display: "flex", flex: "1" }}>
-                    <input
-                      type="radio"
-                      className={styles.nut}
-                      value="1"
-                      id="hangso"
-                      name="drone"
-                      onChange={(e) => {
-                        setFsData(e.target.value);
-                      }}
-                      checked={fsData === "1" ? true : false}
-                    ></input>
-                    <label className={styles.hs}>Hằng số</label>
-                  </div>
-                  <div style={{ display: "flex", flex: "1" }}>
-                    <input
-                      type="radio"
-                      className={styles.nut}
-                      value="2"
-                      id="congthuc"
-                      name="drone"
-                      onChange={(e) => {
-                        setFsData(e.target.value);
-                      }}
-                      checked={fsData === "2" ? true : false}
-                    ></input>
-                    <label className={styles.hs}>Công thức</label>
-                  </div>
+                <div style={{ display: 'flex', flex: '1' }}>
+                  <input
+                    type='radio'
+                    className={styles.nut}
+                    value='1'
+                    id='hangso'
+                    name='drone'
+                    onChange={(e) => {
+                      setFsData(e.target.value)
+                    }}
+                    checked={fsData === '1' ? true : false}></input>
+                  <label className={styles.hs}>Hằng số</label>
                 </div>
+                <div style={{ display: 'flex', flex: '1' }}>
+                  <input
+                    type='radio'
+                    className={styles.nut}
+                    value='2'
+                    id='congthuc'
+                    name='drone'
+                    onChange={(e) => {
+                      setFsData(e.target.value)
+                    }}
+                    checked={fsData === '2' ? true : false}></input>
+                  <label className={styles.hs}>Công thức</label>
+                </div>
+              </div>
             </Form.Item>
           </div>
 
-          <Form.Item name={"fs_repica"}></Form.Item>
+          <Form.Item name={'fs_repica'}></Form.Item>
           <div className={styles.formItem2}>
             <Input.TextArea
               className={styles.textAreaItem}
-              placeholder="Nhập miêu tả"
+              placeholder='Nhập miêu tả'
               value={fsRepica}
-              onChange={(e) => setFsRepica(e.target.value)}
-            ></Input.TextArea>
+              onChange={(e) => setFsRepica(e.target.value)}></Input.TextArea>
           </div>
 
           <div className={styles.formItem3}>
@@ -235,24 +229,23 @@ export function ModalCongThuc(
             <Button
               className={styles.Button2}
               onClick={() => {
-                form.setFieldValue("fs_data", fsData);
-                form.setFieldValue("fs_repica", fsRepica);
-                setOpen(false);
-              }}
-            >
+                form.setFieldValue('fs_data', fsData)
+                form.setFieldValue('fs_repica', fsRepica)
+                setOpen(false)
+              }}>
               <p className={styles.txt}>Thêm công thức</p>
             </Button>
           </div>
         </div>
       </Form>
     </Modal>
-  );
+  )
 }
 
 export function ModalThemMoiChinhSachBaoHiem(open: boolean, setOpen: Function) {
-  const [form] = Form.useForm();
-  const [next, setNext] = useState(false);
-  const router = useRouter();
+  const [form] = Form.useForm()
+  const [next, setNext] = useState(false)
+  const router = useRouter()
 
   const handleSubmit = () => {
     // setOpen(false);
@@ -268,36 +261,36 @@ export function ModalThemMoiChinhSachBaoHiem(open: boolean, setOpen: Function) {
       // })
       let com_id = null
       com_id = getCompIdCS()
-      com_id !== null && POST_TL("api/tinhluong/congty/insert_category_insrc", {
-        com_id: com_id,
-        ...value,
-        fs_data:
-          form.getFieldValue("fs_data") !== ""
-            ? Number(form.getFieldValue("fs_data"))
-            : undefined,
-      }).then((res) => {
-        if (res?.message === "success") {
-          setOpen(false);
-          router.replace(router.asPath);
-        }
-      });
-    });
-  };
+      com_id !== null &&
+        POST_TL('api/tinhluong/congty/insert_category_insrc', {
+          com_id: com_id,
+          ...value,
+          fs_data:
+            form.getFieldValue('fs_data') !== ''
+              ? Number(form.getFieldValue('fs_data'))
+              : undefined,
+        }).then((res) => {
+          if (res?.message === 'success') {
+            setOpen(false)
+            router.reload()
+          }
+        })
+    })
+  }
 
   return (
     <Modal
       open={open}
       width={600}
       closable={false}
-      cancelButtonProps={{ style: { display: "none" } }}
-      okButtonProps={{ style: { display: "none" } }}
-    >
+      cancelButtonProps={{ style: { display: 'none' } }}
+      okButtonProps={{ style: { display: 'none' } }}>
       <div className={styles.header}>
         <div className={styles.textHead}>Thêm mới chính sách bảo hiểm</div>
         <div className={styles.crossImage}>
           <Image
-            alt="/"
-            src={"/cross.png"}
+            alt='/'
+            src={'/cross.png'}
             width={14}
             height={14}
             onClick={() => setOpen(false)}
@@ -308,41 +301,37 @@ export function ModalThemMoiChinhSachBaoHiem(open: boolean, setOpen: Function) {
         <Form
           form={form}
           initialValues={{
-            cl_name: "",
-            cl_note: "",
-          }}
-        >
+            cl_name: '',
+            cl_note: '',
+          }}>
           <div className={styles.bodyItem}>
-            <span style={{ fontSize: "16px" }}>
-              Tên chính sách bảo hiểm <span style={{ color: "red" }}>*</span>
+            <span style={{ fontSize: '16px' }}>
+              Tên chính sách bảo hiểm <span style={{ color: 'red' }}>*</span>
             </span>
-            <Form.Item name={"cl_name"}>
+            <Form.Item name={'cl_name'}>
               <Input
-                style={{ fontSize: "16px", border: "1px solid #9F9F9F" }}
-                placeholder="Nhập tên bảo hiểm"
-              ></Input>
+                style={{ fontSize: '16px', border: '1px solid #9F9F9F' }}
+                placeholder='Nhập tên bảo hiểm'></Input>
             </Form.Item>
           </div>
           <div className={styles.bodyItem}>
-            <span style={{ fontSize: "16px" }}>Miêu tả chính sách</span>
-            <Form.Item name={"cl_note"}>
+            <span style={{ fontSize: '16px' }}>Miêu tả chính sách</span>
+            <Form.Item name={'cl_note'}>
               <Input.TextArea
-                placeholder="Nhập miêu tả"
+                placeholder='Nhập miêu tả'
                 className={styles.textArea}
-                style={{ fontSize: "16px" }}
-              ></Input.TextArea>
+                style={{ fontSize: '16px' }}></Input.TextArea>
             </Form.Item>
           </div>
         </Form>
         <Button className={styles.ButtonContinue} onClick={() => setNext(true)}>
-          <span style={{ color: "#4C5BD4" }}>
+          <span style={{ color: '#4C5BD4' }}>
             <strong
-              style={{ marginRight: "5px" }}
-              className={styles.buttonThietLap}
-            >
+              style={{ marginRight: '5px' }}
+              className={styles.buttonThietLap}>
               Thiết lập công thức
             </strong>
-            <Image src="/right-arrow.svg" alt="" width={17.4} height={13} />
+            <Image src='/right-arrow.svg' alt='' width={17.4} height={13} />
           </span>
         </Button>
         {ModalCongThuc(next, setNext, form)}
@@ -353,5 +342,5 @@ export function ModalThemMoiChinhSachBaoHiem(open: boolean, setOpen: Function) {
         </div>
       </div>
     </Modal>
-  );
+  )
 }

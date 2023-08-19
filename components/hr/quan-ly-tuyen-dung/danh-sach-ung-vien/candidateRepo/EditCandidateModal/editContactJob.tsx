@@ -16,8 +16,11 @@ import Select from 'react-select';
 type SelectOptionType = { label: string; value: any }
 
 export default function EditCandidateContactJob({ onCancel, candidate }: any) {
-  const [rating, setRating] = useState<any>(candidate?.starVote)
 
+  console.log(candidate);
+
+
+  const [rating, setRating] = useState<any>(candidate?.starVote)
   const [isGender, setGender] = useState<any>(candidate?.gender)
   const [isEducation, setEducation] = useState<any>(candidate?.education)
   const [isUserHiring, setUserHiring] = useState<any>(candidate?.userHiring)
@@ -101,12 +104,14 @@ export default function EditCandidateContactJob({ onCancel, candidate }: any) {
     starVote: Yup.string().required('Đánh giá không được để trống'),
     resiredSalary: Yup.string().required('Nhập mức lương mong muốn'),
     salary: Yup.string().required('Mức lương thực không được để trống'),
-    empInterview: Yup.string().required('Chọn nhân viên tham gia'),
-    timeInterView: Yup.string().required('Thời gian hẹn không được để trống'),
   })
+
+  console.log(1)
 
   const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
+
+    console.log(1);
 
     try {
       const name = (document.getElementById('name') as HTMLInputElement)?.value
@@ -297,7 +302,7 @@ export default function EditCandidateContactJob({ onCancel, candidate }: any) {
               <div
                 className={`${styles.modal_header} ${styles.header_process}`}>
                 <h5 className={`${styles.modal_tittle}`}>
-                  CHỈNH SỬA HỒ SƠ ỨNG VIÊN GIAI ĐOẠN KÍ HỚP ĐỒNG
+                  CHỈNH SỬA HỒ SƠ ỨNG VIÊN GIAI ĐOẠN KÍ HỢP ĐỒNG
                 </h5>
               </div>
               <form action=''>

@@ -1,0 +1,223 @@
+.section {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-top: 20px;
+    overflow: visible !important;
+}
+
+.custom_section {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-top: 20px;
+}
+
+.small_section {
+    position: relative;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 31.80%;
+    display: inline-block;
+    margin-right: 1.5%;
+    margin-top: 20px;
+    overflow: visible !important;
+}
+
+.medium_section {
+    width: calc(50% - 10px);
+    flex-direction: column;
+    position: relative;
+    display: flex !important;
+    overflow: visible !important;
+}
+
+.inline_section {
+    width: 100%;
+    position: relative;
+    align-items: center;
+    display: flex !important;
+    overflow: visible !important;
+}
+
+/* Page tạo mới đề xuất */
+.col_2 {
+    width: calc(50% - 20px);
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.col_4 {
+    width: calc(24% - 20px);
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.col3 {
+    width: calc(32% - 20px);
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.full {
+    width: calc(100% - 20px);
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.w_50_g20 {
+    width: calc(50% - 10px);
+}
+
+.w_50_g20:not(:first-child) {
+    margin-left: 20px;
+}
+
+.input_select_full {
+    width: 100%;
+}
+
+.receiver_section {
+    width: 45%;
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-top: 20px;
+}
+
+/*-------------------------*/
+.filter_area_33 {
+
+    width: 32%;
+    display: inline-block;
+    height: 40px;
+    white-space: nowrap;
+    overflow: visible !important;
+    text-overflow: ellipsis;
+}
+
+.filter_area_24 {
+    width: 24%;
+    height: 40px;
+    white-space: nowrap;
+    overflow: visible !important;
+    text-overflow: ellipsis;
+}
+
+.filter_area_36_2 {
+    width: 36.5%;
+    height: 40px;
+    white-space: nowrap;
+    overflow: visible !important;
+    text-overflow: ellipsis;
+}
+
+.filter_area_23_5 {
+    width: 23.5%;
+    height: 40px;
+    white-space: nowrap;
+    overflow: visible !important;
+    text-overflow: ellipsis;
+}
+
+.filter_area_49 {
+    width: 49%;
+    height: 40px;
+    white-space: nowrap;
+    overflow: visible !important;
+    text-overflow: ellipsis;
+}
+
+.filter_area_25 {
+    width: 24%;
+    height: 40px;
+    white-space: nowrap;
+    overflow: visible !important;
+    text-overflow: ellipsis;
+    padding: 0 10px;
+}
+@media (max-width: 900px) {
+    .small_section {
+        width: 100%;
+    }
+
+    .medium_section {
+        width: 100%;
+        flex-direction: column;
+        margin-top: 20px;
+    }
+
+    .col_2 {
+        width: 100%;
+    }
+
+
+    .w_50_g20 {
+        width: 100%;
+    }
+
+    .col3 {
+        width: 100%;
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-bottom: 15px;
+        font-size: 16px;
+    }
+
+    .w_50_g20:not(:first-child) {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+
+    .filter_area_24 {
+        width: 100%;
+        overflow: visible !important;
+        margin-bottom: 5px;
+    }
+
+    .filter_area_33 {
+        width: 100%;
+        overflow: visible !important;
+        margin-bottom: 5px;
+    }
+
+    .filter_area_36_2 {
+        width: 100%;
+        overflow: visible !important;
+        margin-bottom: 5px;
+    }
+
+    .filter_area_23_5 {
+        width: 100%;
+        overflow: visible !important;
+        margin-bottom: 5px;
+    }
+
+    .filter_area_49 {
+        width: 100%;
+        overflow: visible !important;
+        margin-bottom: 5px;
+    }
+    .filter_area_25 {
+        width: 100%;
+        height: 40px;
+        white-space: nowrap;
+        overflow: visible !important;
+        text-overflow: ellipsis;
+        /* padding: 0 10px; */
+        margin-bottom: 10px;
+    }
+}

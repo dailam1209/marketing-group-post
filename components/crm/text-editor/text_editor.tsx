@@ -4,6 +4,7 @@ export default function TextEditor({ title = null, className,cusId,setEditorCont
   console.log("chchschashcek",cusId)
   const editorRef = useRef<any>();
   const [editorLoaded, setEditorLoaded] = useState(false);
+  // const [editorContent, setEditorContent] = useState("");
   const { CKEditor, ClassicEditor } = editorRef.current || {};
   const handleEditorChange = (event, editor) => {
     const data = editor.getData();

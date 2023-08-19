@@ -22,7 +22,7 @@ export default function LoginForm({ setNotiError, typeLogin, showTab }) {
     console.log(data, typeLogin)
     let result = await login(data, 0)
     console.log(result)
-    if (result.result == true) {
+    if (result?.result == true) {
       const type = result.data.type
       if (type == typeLogin) {
         let acc_token = result.data.access_token

@@ -34,9 +34,7 @@ export default function Page() {
   const [allCheck, setAllCheck]: any = useState({});
   const [shiftLabel, setShiftLabel]: any = useState([]);
   const [data, setData]: any = useState({ apply_month: "2023-08-01" });
-  const [listShiftSelected, setListShiftSelected]: any[] = useState([
-    "1",
-  ]);
+  const [listShiftSelected, setListShiftSelected]: any[] = useState([]);
   const [isMenuSelectShiftOpen, setIsMenuSelectShiftOpen]: any = useState([]);
   const [modalAlertChooseShift, setModalAlertChooseShift]: any =
     useState(false);
@@ -383,6 +381,7 @@ const getDaysInMonth = (
           lich_lam_viec: 2,
           ca_lam_viec: ["Ca sáng Lương <= 5TR"],
         }}
+        className='taoDeXuatForm'
       >
         <Row gutter={[20, 10]} style={{ rowGap: "20px" }}>
           <Col xl={12} className={styles.column}>
@@ -390,7 +389,7 @@ const getDaysInMonth = (
               <p className={styles.headerText}>Đề xuất lịch làm việc</p>
             </div>
 
-            <div className={`${styles.colContent} contentFormItemLLV`}>
+            <div className={`${styles.colContent} contentFormItemLLV shadowForm`}>
               <Col xl={24} className={styles.colItem}>
                 {MyInput(
                   "Tên đề xuất",

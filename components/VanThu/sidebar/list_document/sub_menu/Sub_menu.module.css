@@ -1,0 +1,23 @@
+/* // */
+.ul_item_sidebar {
+    padding-left: 40px;
+}
+
+.a_item_sidebar .li_item_sidebar {
+    padding: 13px 15px;
+    margin-top: 5px;
+    border-radius: 10px;
+    width: 100%;
+}
+
+.a_item_sidebar .li_item_sidebar:hover,
+.a_item_sidebar .active {
+    background: #3B46A0;
+}
+
+.a_item_sidebar .li_item_sidebar p {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    color: #FFFFFF;
+}   

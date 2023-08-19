@@ -12,7 +12,7 @@ const GhiAm: React.FC = () => {
     useHeader();
 
   useEffect(() => {
-    setHeaderTitle("Tổng Đài");
+    setHeaderTitle("Tổng Đài/ Ghi âm");
     setShowBackButton(true);
     setCurrentPath("/crm/tong-dai");
   }, [setHeaderTitle, setShowBackButton, setCurrentPath]);

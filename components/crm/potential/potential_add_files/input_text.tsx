@@ -10,11 +10,8 @@ export default function InputText({
   setFormData,
   keyValue = "",
 }: any) {
-
   const handleChangeInput = (e: any) => {
-    
     if (keyValue !== "") {
-      
       setFormData((preData: any) => {
         return {
           ...preData,

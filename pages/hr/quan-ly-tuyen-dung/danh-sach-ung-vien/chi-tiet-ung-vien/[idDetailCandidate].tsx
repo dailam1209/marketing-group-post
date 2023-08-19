@@ -37,6 +37,7 @@ export default function DetailCandidate({ onCancel }: any) {
   const [isCandidateProcess, setCandidateProcess] = useState<any>(null)
   const [isCandidateAll, setCandidateAll] = useState<any>(null)
   const [isProcessName, setProcessName] = useState<any>(null);
+  const [isProcessBefore, setProcessBefore] = useState<any>(null);
   const [displayIcon, setDisplayIcon] = useState<any>();
   const [EmpData, setEmpData] = useState<any>(null)
   const [newData, setNewData] = useState<any>(false)
@@ -140,6 +141,7 @@ export default function DetailCandidate({ onCancel }: any) {
           const processData: any = response?.data
           const matches: any = id?.match(/p(\d+)/);
           const numberAfterP = matches[1];
+          setProcessBefore(Number(numberAfterP))
           const processFind = processData?.data?.find((item: any) => item?.id === Number(numberAfterP))
           if (processFind) {
             setProcessName(processFind?.name)
@@ -298,7 +300,7 @@ export default function DetailCandidate({ onCancel }: any) {
                 )}
               </div>
               {openModalDetail && id?.charAt(0) === 'u' && !id?.includes("p") ? <EditCandidateModal candidate={isCandidate} onCancel={handleCloseModal} /> : ''}
-              {openModalDetail && id?.includes("p") ? <EditCandidateIntrview candidateAll={isCandidateAll} candidate={isCandidate} onCancel={handleCloseModal} processName={isProcessName} /> : ''}
+              {openModalDetail && id?.includes("p") ? <EditCandidateIntrview processBefore={isProcessBefore} candidateAll={isCandidateAll} candidate={isCandidate} onCancel={handleCloseModal} processName={isProcessName} /> : ''}
               {openModalDetail && id?.charAt(0) === 'g' ? <EditCandidateGetJob candidate={isCandidate} onCancel={handleCloseModal} /> : ''}
               {openModalDetail && id?.charAt(0) === 'f' ? <EditCandidateFailJob candidate={isCandidate} onCancel={handleCloseModal} /> : ''}
               {openModalDetail && id?.charAt(0) === 'c' ? <EditCandidateCancelJob candidate={isCandidate} onCancel={handleCloseModal} /> : ''}
@@ -398,15 +400,7 @@ export default function DetailCandidate({ onCancel }: any) {
             )}
             {id?.charAt(0) === 's' && (
               <>
-                <div className={`${styles.l_body_2_left_body}`}>
-                  {isProcessName && <p className={`${styles.l_body_2_left_body_title}`}>Giai đoạn chuyển: {isProcessName}</p>}
-                  <p>Thời gian chuyển giai đoạn: <span className={`${styles.txt_op}`}>{""}</span></p>
-                  <p>Mức lương mong muốn: <span className={`${styles.txt_op}`}>{""}</span></p>
-                  <p>Mức lương thực: <span className={`${styles.txt_op}`}>{""}</span></p>
-                  <p>Thời gian hẹn: <span className={`${styles.txt_op}`}>{""}</span></p>
-                  <p>Nhân viên tham gia: <span className={`${styles.txt_op}`}>{EmpMatchProcess?.userName}</span></p>
-                  <p>Ghi chú: <span className={`${styles.txt_op}`}>{""}</span></p>
-                </div>
+
                 <div className={`${styles.l_body_2_left_body}`}>
                   <p className={`${styles.l_body_2_left_body_title}`}>Giai đoạn chuyển: Ký hợp đồng</p>
                   {isCandidateProcess?.detail_contact_job?.offerTime &&

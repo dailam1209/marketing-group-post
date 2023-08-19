@@ -1,21 +1,21 @@
-import styles from "./cai-dat-di-muon-ve-som.module.css"
-import { Row, Col, Select, Button, Table, Form } from "antd"
-import Image from "next/image"
-import type { ColumnsType } from "antd/es/table"
+import styles from './cai-dat-di-muon-ve-som.module.css'
+import { Row, Col, Select, Button, Table, Form } from 'antd'
+import Image from 'next/image'
+import type { ColumnsType } from 'antd/es/table'
 import {
   ModalCaiDatDiMuonVeSom,
   ModalUpDateCaiDatDiMuonVeSom,
-  ModalXoaCaiDaiDMVS
-} from "./modal/modal"
-import { useState, useEffect } from "react"
-import moment from "moment"
-import { POST_SS, POST_TL } from "@/pages/api/BaseApi"
+  ModalXoaCaiDaiDMVS,
+} from './modal/modal'
+import { useState, useEffect } from 'react'
+import moment from 'moment'
+import { GET, POST, POST_SS, POST_TL } from '@/pages/api/BaseApi'
 
 const TableCaiDatDiMuonVeSom = ({
   data,
   setModalChinhSua,
   setModalXoa,
-  setSelectedRow
+  setSelectedRow,
 }: {
   data: any[]
   setModalChinhSua: (a: boolean) => void
@@ -24,20 +24,20 @@ const TableCaiDatDiMuonVeSom = ({
 }) => {
   const columns: any[] = [
     {
-      key: "1",
-      title: "Loại phạt",
+      key: '1',
+      title: 'Loại phạt',
       render: (record) => <p>{record?.pm_type_phat}</p>,
-      align: "center"
+      align: 'center',
     },
     {
-      key: "2",
-      title: "Ca làm việc áp dụng",
+      key: '2',
+      title: 'Ca làm việc áp dụng',
       render: (record) => <p>{record?.pm_shift}</p>,
-      align: "center"
+      align: 'center',
     },
     {
-      key: "3",
-      title: "Từ tháng",
+      key: '3',
+      title: 'Từ tháng',
       render: (record) => (
         <p>
           {record?.pm_time_begin &&
@@ -46,11 +46,11 @@ const TableCaiDatDiMuonVeSom = ({
             )?.year()}`}
         </p>
       ),
-      align: "center"
+      align: 'center',
     },
     {
-      key: "4",
-      title: "Đến tháng",
+      key: '4',
+      title: 'Đến tháng',
       render: (record) => (
         <p>
           {record?.pm_time_end &&
@@ -59,31 +59,31 @@ const TableCaiDatDiMuonVeSom = ({
             )?.year()}`}
         </p>
       ),
-      align: "center"
+      align: 'center',
     },
     {
-      key: "5",
-      title: "Thời gian tính phạt",
+      key: '5',
+      title: 'Thời gian tính phạt',
       render: (record) => (
         <p>{record?.pm_minute && `Đi muộn ${record?.pm_minute} phút`}</p>
       ),
-      align: "center"
+      align: 'center',
     },
     {
-      key: "6",
-      title: "Mức phạt",
-      align: "center",
-      render: (record: any) => <>{record?.pm_monney}/ca</>
+      key: '6',
+      title: 'Mức phạt',
+      align: 'center',
+      render: (record: any) => <>{record?.pm_monney}/ca</>,
     },
     {
-      key: "7",
-      title: "Tùy chỉnh",
-      align: "center",
+      key: '7',
+      title: 'Tùy chỉnh',
+      align: 'center',
       render: (record: any) => (
         <div className={styles.actionGroup}>
           <Image
-            alt="/"
-            src={"/edit.png"}
+            alt='/'
+            src={'/edit.png'}
             width={24}
             height={24}
             onClick={() => {
@@ -94,8 +94,8 @@ const TableCaiDatDiMuonVeSom = ({
           />
           <div className={styles.divider}></div>
           <Image
-            alt="/"
-            src={"/delete-icon.png"}
+            alt='/'
+            src={'/delete-icon.png'}
             width={24}
             height={24}
             onClick={() => {
@@ -104,8 +104,8 @@ const TableCaiDatDiMuonVeSom = ({
             }}
           />
         </div>
-      )
-    }
+      ),
+    },
   ]
   return (
     <div>
@@ -113,15 +113,14 @@ const TableCaiDatDiMuonVeSom = ({
         className={`green-table-bodyBorder`}
         columns={columns}
         dataSource={data}
-        scroll={{ x: "max-content" }}
-        pagination={{ position: ["bottomCenter"] }}
-      ></Table>
+        scroll={{ x: 'max-content' }}
+        pagination={{ position: ['bottomCenter'] }}></Table>
     </div>
   )
 }
 
 export function CpmCaiDatDiMuonVeSom({
-  lateInfoList
+  lateInfoList,
 }: {
   lateInfoList: any[]
 }) {
@@ -132,6 +131,20 @@ export function CpmCaiDatDiMuonVeSom({
   const [modalXoa, setModalXoa] = useState(false)
   const [reload, setReload] = useState(false)
   const [selectedRow, setSelectedRow] = useState()
+  const [listCa, setListCa] = useState()
+
+  useEffect(() => {
+    const getListCa = async () => {
+      const res = await GET('api/qlc/shift/list')
+      console.log(res)
+
+      if (res?.result) {
+        setListCa(res?.list)
+      }
+    }
+
+    getListCa()
+  }, [])
 
   return (
     <div>
@@ -139,41 +152,37 @@ export function CpmCaiDatDiMuonVeSom({
         <Row>
           <Col sm={3} xs={1}></Col>
           <Col sm={21} xs={24}>
-            <Row gutter={20} justify={"end"}>
+            <Row gutter={20} justify={'end'}>
               <Col
                 lg={4}
                 md={4}
                 sm={5}
                 xs={10}
-                className={`${styles.button} ${styles.button2}`}
-              >
-                <Button size="large" onClick={() => setModalCaiDatDMVS(true)}>
+                className={`${styles.button} ${styles.button2}`}>
+                <Button size='large' onClick={() => setModalCaiDatDMVS(true)}>
                   <Image
-                    src="/plus-w.png"
+                    src='/plus-w.png'
                     width={24}
                     height={24}
-                    alt=""
-                    style={{ marginRight: "10px" }}
-                  ></Image>
+                    alt=''
+                    style={{ marginRight: '10px' }}></Image>
                   Thêm mới
                 </Button>
               </Col>
               <Col lg={6} md={7} sm={8} xs={24} className={styles.selects}>
-                <Form.Item name={"year"}>
+                <Form.Item name={'year'}>
                   <Select
-                    size="large"
-                    placeholder="Chọn năm"
-                    suffixIcon={<img src="/search-black.png"></img>}
-                  ></Select>
+                    size='large'
+                    placeholder='Chọn năm'
+                    suffixIcon={<img src='/search-black.png'></img>}></Select>
                 </Form.Item>
               </Col>
               <Col lg={6} md={7} sm={8} xs={24} className={styles.selects}>
-                <Form.Item name={"month"}>
+                <Form.Item name={'month'}>
                   <Select
-                    size="large"
-                    placeholder="Chọn tháng"
-                    suffixIcon={<img src="/search-black.png"></img>}
-                  ></Select>
+                    size='large'
+                    placeholder='Chọn tháng'
+                    suffixIcon={<img src='/search-black.png'></img>}></Select>
                 </Form.Item>
               </Col>
               <Col
@@ -181,16 +190,14 @@ export function CpmCaiDatDiMuonVeSom({
                 md={5}
                 sm={6}
                 xs={9}
-                className={`${styles.button} ${styles.button1}`}
-              >
-                <Button size="large" onClick={() => setModalCaiDatDMVS(true)}>
+                className={`${styles.button} ${styles.button1}`}>
+                <Button size='large' onClick={() => setModalCaiDatDMVS(true)}>
                   <Image
-                    src="/plus-w.png"
+                    src='/plus-w.png'
                     width={24}
                     height={24}
-                    alt=""
-                    style={{ marginRight: "10px" }}
-                  ></Image>
+                    alt=''
+                    style={{ marginRight: '10px' }}></Image>
                   Thêm mới
                 </Button>
               </Col>
@@ -211,7 +218,8 @@ export function CpmCaiDatDiMuonVeSom({
         modalCaiDatDMVS,
         setModalCaiDatDMVS,
         listData,
-        setListData
+        setListData,
+        listCa
       )}
       {ModalUpDateCaiDatDiMuonVeSom(
         modalChinhSua,
