@@ -20,10 +20,10 @@ import styles from '@/components/crm/sidebar/sidebar.module.css'
 import Layout from '@/components/hr/Layout'
 import { Provider } from "react-redux";
 import store from "@/store";
-import Layout_admin from "@/components/VanThu/Layout_admin";
+import Layout_admin from "@/components/van-thu-luu-tru/Layout_admin";
 import Cookies from "js-cookie";
 import jwtDecode from "jwt-decode";
-import Layout_user from "@/components/VanThu/Layout_user";
+import Layout_user from "@/components/van-thu-luu-tru/Layout_user";
 import { setCookie } from "cookies-next";
 
 export const LoadingComp = () => {
@@ -85,7 +85,7 @@ export default function App({ Component, pageProps }) {
       import('../styles/crm/stylecrm.css')
       import('../styles/crm/styles.css')
       import('../styles/crm/hight_chart.css')
-    } else if(router.pathname?.includes('VanThu')){
+    } else if(router.pathname?.includes('van-thu-luu-tru')){
       import('../styles/globals_vanthu.css')
     }
      else {
@@ -146,7 +146,7 @@ export default function App({ Component, pageProps }) {
             <Component {...pageProps} />
           </DndProvider>
         </Layout>
-      ) : router.pathname?.includes('VanThu') ? (
+      ) : router.pathname?.includes('van-thu-luu-tru') ? (
         <Provider store={store}>
           {/* 
           -  Khi đăng nhập sẽ lưu session giá trị để duy trì các phiên trong site
