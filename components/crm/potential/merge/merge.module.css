@@ -46,7 +46,7 @@
 }
 
 .main_table th {
-  font-family: "Roboto-Medium";
+  font-family: 'Roboto-Medium';
   border: 1px solid #ccc;
   border-collapse: collapse;
   color: #474747 !important;
@@ -59,15 +59,15 @@
   font-weight: bold;
 }
 
-.main_table th button{
-  color: #4C5BD4;;
+.main_table th button {
+  color: #4c5bd4;
 }
 
 .main_table td {
   text-align: left;
   border: 1px solid #ccc;
   color: #474747;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: normal;
   padding: 15px 20px;
   position: relative;
@@ -156,9 +156,9 @@
   font-family: Roboto-Bold;
   width: 138px;
   height: 36px;
-  background: #4C5BD4;
+  background: #4c5bd4;
   border: none;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .btn_cancle {
@@ -175,7 +175,7 @@
 }
 
 .not_update {
-  color: #CCCCCC !important;
+  color: #cccccc !important;
 }
 
 @media (max-width: 768px) {
