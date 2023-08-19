@@ -43,6 +43,10 @@
   font-family: 'Roboto-Regular';
 }
 
+p {
+  /* margin-block-start: 1rem; */
+}
+
 .ant-upload-list {
   display: flex;
   justify-content: center;
@@ -756,16 +760,5 @@ label {
 .ant-modal.css-dev-only-do-not-override-18w4yg9 button.ant-modal-close {
   margin-top: -8px;
   font-size: 20px;
-  color: #fff;
-}
-
-.ant-popover.header_custom-popover__dJECQ.css-dev-only-do-not-override-18w4yg9.css-dev-only-do-not-override-18w4yg9.ant-popover-placement-bottomLeft
-  .ant-popover-arrow {
-  visibility: hidden;
-}
-
-.ant-popover.header_custom-popover__dJECQ.css-dev-only-do-not-override-18w4yg9.css-dev-only-do-not-override-18w4yg9.ant-popover-placement-bottomLeft
-  .ant-popover-inner {
-  background-color: #4c5bd4;
   color: #fff;
 }
