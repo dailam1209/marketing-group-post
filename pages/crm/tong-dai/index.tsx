@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import styleHome from "@/components/crm/home/home.module.css"
 import { SidebarContext } from "@/components/crm/context/resizeContext";
 import { useHeader } from "@/components/crm/hooks/useHeader";
-import TongDaiPage from "@/components/crm/cskh/tongdai/tongtai";
+import TongDaiPage from "@/components/crm/cskh/tongdai/tongdai";
 
 const TongDai: React.FC = () => {
   const mainRef = useRef<HTMLDivElement>(null);

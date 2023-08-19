@@ -6,6 +6,7 @@ import TableListCustomer from "@/components/crm/table/table-list-customer";
 import CustomerListInputGroup from "@/components/crm/customer/customer_input_group";
 import { TableRowSelection } from "antd/es/table/interface";
 import { useApi } from "@/components/crm/hooks/useApi";
+const Cookies = require("js-cookie");
 
 export default function CustomerList() {
   const mainRef = useRef<HTMLDivElement>(null);
@@ -13,12 +14,14 @@ export default function CustomerList() {
   const [selected, setSelected] = useState(false);
   const [numberSelected, setNumberSelected] = useState(0);
   const [selectedRowKeys, setSelectedRowKeys] = useState<any>([]);
+  const [name,setName] = useState()
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
   const { data, loading, fetchData, updateData, deleteData } = useApi(
     "http://210.245.108.202:3007/api/crm/customer/list",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6Mjg3MjMxLCJpZFRpbVZpZWMzNjUiOjAsImlkUUxDIjoxNzYzLCJpZFJhb05oYW5oMzY1IjowLCJlbWFpbCI6ImR1b25naGllcGl0MUBnbWFpbC5jb20iLCJwaG9uZVRLIjoiIiwiY3JlYXRlZEF0IjoxNjI3NTQ5NDcxLCJ0eXBlIjoxLCJjb21faWQiOjE3NjMsInVzZXJOYW1lIjoibGUgYW5oIHR1YW4xMiJ9LCJpYXQiOjE2OTIwODIyNDEsImV4cCI6MTY5MjE2ODY0MX0.bgcBfc9XItPy6KySr12Lz2LMyuQuXC8u1lsbhcEJfNI",
-    "POST"
+    `${Cookies.get("token_base365")}`,
+    "POST",
+    { perPage: 10000 }
   );
 
   const {
@@ -28,7 +31,7 @@ export default function CustomerList() {
     // ... other properties returned by the useApi hook
   } = useApi(
     "http://210.245.108.202:3007/api/crm/customerStatus/list",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6Mjg3MjMxLCJpZFRpbVZpZWMzNjUiOjAsImlkUUxDIjoxNzYzLCJpZFJhb05oYW5oMzY1IjowLCJlbWFpbCI6ImR1b25naGllcGl0MUBnbWFpbC5jb20iLCJwaG9uZVRLIjoiIiwiY3JlYXRlZEF0IjoxNjI3NTQ5NDcxLCJ0eXBlIjoxLCJjb21faWQiOjE3NjMsInVzZXJOYW1lIjoibGUgYW5oIHR1YW4xMiJ9LCJpYXQiOjE2OTIwNjQ1MDIsImV4cCI6MTY5MjE1MDkwMn0.klqKzWkaYeTdK6VKR07R8cV7y9YrmWdFUJC2z6hCil8",
+    `${Cookies.get("token_base365")}`,
     "POST"
   );
 
@@ -39,7 +42,7 @@ export default function CustomerList() {
     // ... other properties returned by the useApi hook
   } = useApi(
     "http://210.245.108.202:3007/api/crm/group/list_group_khach_hang",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6Mjg3MjMxLCJpZFRpbVZpZWMzNjUiOjAsImlkUUxDIjoxNzYzLCJpZFJhb05oYW5oMzY1IjowLCJlbWFpbCI6ImR1b25naGllcGl0MUBnbWFpbC5jb20iLCJwaG9uZVRLIjoiIiwiY3JlYXRlZEF0IjoxNjI3NTQ5NDcxLCJ0eXBlIjoxLCJjb21faWQiOjE3NjMsInVzZXJOYW1lIjoibGUgYW5oIHR1YW4xMiJ9LCJpYXQiOjE2OTIwNjQ1MDIsImV4cCI6MTY5MjE1MDkwMn0.klqKzWkaYeTdK6VKR07R8cV7y9YrmWdFUJC2z6hCil8",
+    `${Cookies.get("token_base365")}`,
     "POST"
   );
 
@@ -60,6 +63,8 @@ export default function CustomerList() {
     emp_name: string;
     userCrete: string;
     user_handing_over_work: string;
+    userName: string;
+    userNameCreate: string;
   }
 
   const onSelectChange = (
@@ -76,34 +81,55 @@ export default function CustomerList() {
   };
 
   useEffect(() => {
+    // fetchData(
+    //   "http://210.245.108.202:3007/api/crm/customer/list",
+    //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6Mjg3MjMxLCJpZFRpbVZpZWMzNjUiOjAsImlkUUxDIjoxNzYzLCJpZFJhb05oYW5oMzY1IjowLCJlbWFpbCI6ImR1b25naGllcGl0MUBnbWFpbC5jb20iLCJwaG9uZVRLIjoiIiwiY3JlYXRlZEF0IjoxNjI3NTQ5NDcxLCJ0eXBlIjoxLCJjb21faWQiOjE3NjMsInVzZXJOYW1lIjoibGUgYW5oIHR1YW4xMiJ9LCJpYXQiOjE2OTIwNzE5MzksImV4cCI6MTY5MjE1ODMzOX0.N6YvQv8Y_Ma6IVLSbh-JwBc7qdL8T-8XQk3SSQFmrJw",
+    //   "POST"
+    // );
     fetchData();
     fetchDataStatus();
     fetchDataCustomerGroup();
   }, []);
-
+  const ArrNguonKK: any = [
+    { name: "Chưa cập nhật", id: 0 },
+    { name: "Facebook", id: 1 },
+    { name: "Website", id: 2 },
+    { name: "Zalo", id: 3 },
+    { name: "Dữ liệu bên thứ 3", id: 4 },
+    { name: "Khách hàng giới thiệu", id: 5 },
+    { name: "Giới thiệu", id: 6 },
+    { name: "Chăm sóc khach hàng", id: 7 },
+    { name: "Email", id: 8 },
+  ];
+  console.log("check data", data);
   const datatable = data?.data?.showCty.map((item: DataType, index: number) => {
+    let nguonKH = "";
+    for (let key of ArrNguonKK) {
+      if (key.id == item.resoure) {
+        nguonKH = key.name;
+      }
+    }
     return {
       key: index + 1,
       cus_id: item.cus_id,
       email: item.email,
       name: item.name,
       phone_number: item.phone_number,
-      resoure: item.resoure,
+      resoure: nguonKH,
       description: item.description,
       group_id: item.group_id,
       status: item,
       updated_at: item.updated_at,
       emp_name: item.emp_name,
-      userCrete: item.userCrete,
+      userNameCreate: item.userNameCreate,
       user_handing_over_work: item.user_handing_over_work,
+      userName: item.userName,
     };
   });
 
   const dataStatusCustomer = dataStatus?.data?.listStatus;
 
   const dataGroup = dataCustomerGroup?.data?.showGr;
-
-  console.log("props: ", dataGroup);
 
   const handleSelectAll = () => {
     const allRowKeys = datatable.map((item: { key: any }) => item.key);

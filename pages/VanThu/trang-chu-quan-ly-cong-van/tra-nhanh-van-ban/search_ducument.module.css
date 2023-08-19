@@ -1,0 +1,74 @@
+.app{
+    padding: 30px 30px 50px 30px;
+}
+.form{
+    box-shadow: 1px 3px 10px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    padding: 15px 20px 5px 20px;
+    background: #fff;
+    margin-bottom: 20px;
+    /* display: flex; */
+    /* justify-content: space-between; */
+    /* align-items: center; */
+}
+.flex{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btnfooter{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btnfooter button{
+    margin-left: 6px;
+    background: #4C5BD4;
+    width: 96%;
+    line-height: 37px;
+    color: #fff;
+    border-radius: 15px;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.content2{
+    padding: 0 27px;
+}
+.btnfooter button div{
+    margin-top: 5px;
+}
+.btnfooter button span{
+    padding: 0 8px;
+}
+.col_full{
+    width: 100%;
+}
+.image{
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+}
+
+@media (max-width: 900px) {
+    .flex{
+        flex-direction: column;
+    }
+    .content2{
+        padding: 0;
+    }
+    .col_full{
+        width: 104%;
+    }
+}
+@media (max-width: 768px) {
+    .flex{
+        flex-direction: column;
+    }
+    .app{
+        padding: 15px 10px 50px 10px;
+    }
+}

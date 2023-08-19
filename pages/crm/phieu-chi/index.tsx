@@ -1,9 +1,14 @@
-import { SidebarContext } from '@/components/crm/context/resizeContext'
-import styleHome from '@/components/crm/home/home.module.css'
-import { SetStateAction, useContext, useEffect, useRef, useState } from 'react'
-import { useHeader } from '@/components/crm/hooks/useHeader'
+import { SidebarContext } from "@/components/crm/context/resizeContext";
+import styleHome from "@/components/crm/home/home.module.css";
+import { SetStateAction, useContext, useEffect, useRef, useState } from "react";
+import { useHeader } from "@/components/crm/hooks/useHeader";
 
-import HomePhieuChi from '@/components/crm/theo-doi-thu-chi/phieu-chi'
+import { TableRowSelection } from "antd/es/table/interface";
+import HomeList from "@/components/crm/delete_data/delete_data.list";
+import HomeFollow from "@/components/crm/theo-doi-thu-chi/theo-doi-thu-chi";
+import HomePhieuThu from "@/components/crm/theo-doi-thu-chi/phieu-thu";
+import HomePhieuChi from "@/components/crm/theo-doi-thu-chi/phieu-chi";
+
 
 export default function TheoDoiThuChi() {
   const mainRef = useRef<HTMLDivElement>(null)

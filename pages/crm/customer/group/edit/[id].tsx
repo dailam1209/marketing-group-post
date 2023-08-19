@@ -18,6 +18,7 @@ import { log } from "console";
 import { filter } from "lodash";
 import Image from "next/image";
 import ModalDelEmpGroup from "@/components/crm/modals/modal_del_group";
+import TextEditorGr from "@/components/crm/text-editor/text_editor_gr";
 
 interface CustomJwtPayload extends jwt.JwtPayload {
   idQLC: string; // hoặc kiểu dữ liệu thích hợp
@@ -281,7 +282,7 @@ const GroupCustomerAdd: React.FC = () => {
 
                 {/* Text Editor */}
                 <div style={{ marginBottom: -20 }}>Mô tả</div>
-                <TextEditor
+                <TextEditorGr
                   editorContent={
                     valueGroupCustomer?.gr_description ||
                     dataPassFromId?.gr_description

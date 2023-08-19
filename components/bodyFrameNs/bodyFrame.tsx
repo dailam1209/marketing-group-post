@@ -32,6 +32,8 @@ export default function Bodyframe({ children }: any) {
   const NV_CCBNDKM_PC365 =
     '/quan-ly-nhan-luc/cham-cong-nhan-vien/cham-cong-bang-nhan-dien-khuon-mat/pc-365-nhan-vien'
   const NV_CCQR_URL = '/quan-ly-nhan-luc/cham-cong-bang-QR/cham-cong-365'
+  const CTY_CCCTY = '/quan-ly-nhan-luc/cham-cong/cham-cong-cong-ty'
+  const ADD_DX = '/quan-ly-nhan-luc/tao-de-xuat/tao-de-xuat'
 
   const AddNewPopoverContent = () => {
     const listAdds = [
@@ -97,7 +99,8 @@ export default function Bodyframe({ children }: any) {
       router.pathname !== NV_CCBNDKM_PC365 &&
       router.pathname !== CC_TK_CTY_URL &&
       router.pathname !== NV_CCQR_URL &&
-      router.pathname !== UPDATE_FACE_URL
+      router.pathname !== UPDATE_FACE_URL &&
+      router.pathname !== CTY_CCCTY
     ) {
       if (
         router.pathname?.includes(
@@ -117,12 +120,13 @@ export default function Bodyframe({ children }: any) {
         'quan-ly-cong-ty/cai-dat-them-nhan-vien-moi/chi-tiet-nhan-vien'
       ) ||
       router.pathname === UPDATE_FACE_URL ||
-      router.pathname === CC_TK_CTY_URL
+      router.pathname === CC_TK_CTY_URL ||
+      router.pathname === CTY_CCCTY
     ) {
       return <div></div>
     } else {
       return (
-        <Row gutter={[20, 20]} className={styles.moreSection}>
+        <Row gutter={[20, 20]} className={`bannerQLC ${styles.moreSection}`}>
           <Col lg={6} md={8} sm={8} xs={24}>
             <Card className={styles.cardArticleSection}>
               <IndexSection className={styles.idxSection} />
@@ -193,7 +197,11 @@ export default function Bodyframe({ children }: any) {
       pathname === '/quan-ly-nhan-luc/quan-ly-nhan-luc/cai-dat-vi-tri'
     ) {
       return <CCBanner />
-    } else if (pathname === UPDATE_FACE_URL || pathname === CC_TK_CTY_URL) {
+    } else if (
+      pathname === UPDATE_FACE_URL ||
+      pathname === CC_TK_CTY_URL ||
+      pathname === CTY_CCCTY
+    ) {
       return null
     } else {
       return <Banner />
@@ -205,10 +213,12 @@ export default function Bodyframe({ children }: any) {
       <Header />
       {/* <Banner /> */}
       <div
+        className='bannerQLC'
         style={{
           paddingTop:
             router.pathname === UPDATE_FACE_URL ||
-            router.pathname === CC_TK_CTY_URL
+            router.pathname === CC_TK_CTY_URL ||
+            router.pathname === CTY_CCCTY
               ? '0px'
               : '50px',
         }}>
@@ -227,9 +237,8 @@ export default function Bodyframe({ children }: any) {
           // router.pathname !== UPDATE_FACE_URL &&
           router.pathname !== NV_CCBNDKM_CC365 &&
           router.pathname !== NV_CCBNDKM_PC365 &&
-          router.pathname !== NV_CCBNDKM_CHAT365 && (
-            <MyBreadCrumb color='#474747' />
-          )}
+          router.pathname !== NV_CCBNDKM_CHAT365 &&
+          router.pathname !== CTY_CCCTY && <MyBreadCrumb color='#474747' />}
         {router.pathname === DEXUAT_TO_CHUC_URL && (
           <Popover content={AddNewPopoverContent()} trigger={'click'}>
             <div
@@ -242,15 +251,16 @@ export default function Bodyframe({ children }: any) {
         )}
         {renderExportExcelBtn()}
       </div>
-      <div>
+      <div className='bannerQLC'>
         <div
           style={{ marginTop: '10px' }}
           className={
             router.pathname === DEXUAT_TO_CHUC_URL ||
             router.pathname === UPDATE_FACE_URL ||
-            router.pathname === CC_TK_CTY_URL
+            router.pathname === CC_TK_CTY_URL ||
+            router.pathname === CTY_CCCTY
               ? styles.mainNoPadding
-              : styles.main
+              : router.pathname.includes(ADD_DX)  ? styles.noPaddingForm : styles.main
           }>
           {children}
         </div>
@@ -260,7 +270,8 @@ export default function Bodyframe({ children }: any) {
           href='https://timviec365.vn/css/footer_new.css?v=2'
         />
         {router.pathname === UPDATE_FACE_URL ||
-        router.pathname === CC_TK_CTY_URL ? null : (
+        router.pathname === CC_TK_CTY_URL ||
+        router.pathname === CTY_CCCTY ? null : (
           <Footer></Footer>
         )}
       </div>

@@ -1,36 +1,22 @@
-import React, {
-  useState,
-  useEffect,
-  useRef,
-  MouseEventHandler,
-  useMemo,
-  useCallback,
-} from 'react'
+import React, { useState, useEffect, useRef, MouseEventHandler, useMemo, useCallback } from "react";
 import Select from 'react-select'
 import styles from '../../thong-tin-nhan-su/tab/employeeManagement.module.css'
-import BodyFrameFooter from '@/components/hr/bodyFrame/bodyFrame_footer/bodyFrame_footer'
-import AddPlanningModal from './addPlanningModal'
-import EditPlanningModal from './editPlanningModal'
-import { parseISO, format } from 'date-fns'
+import BodyFrameFooter from "@/components/hr/bodyFrame/bodyFrame_footer/bodyFrame_footer";
+import AddPlanningModal from "./addPlanningModal";
+import EditPlanningModal from "./editPlanningModal";
+import { parseISO, format } from 'date-fns';
+import { PlanningAppointmentList } from "@/pages/api/api-hr/bien_dong_nhan_su";
+import { EmployeeList } from "@/pages/api/api-hr/listNhanVien";
+import { DepartmentList } from "@/pages/api/api-hr/listPhongBan";
+import DeletePlanningAppointments from "./deletePlanningModal";
+import GetComId from "@/components/hr/getComID";
 
-import DeletePlanningAppointments from './deletePlanningModal'
-import GetComId from '@/components/hr/getComID'
-import { PlanningAppointmentList } from '@/pages/api/api-hr/bien_dong_nhan_su'
-import { DepartmentList } from '@/pages/api/api-hr/listPhongBan'
-import { EmployeeList } from '@/pages/api/api-hr/listNhanVien'
+type SelectOptionType = { label: string, value: string }
 
-type SelectOptionType = { label: string; value: string }
+export default function TabPlaningAppointment({ iconAdd, iconEdit, iconDelete }: any) {
 
-export default function TabPlaningAppointment({
-  iconAdd,
-  iconEdit,
-  iconDelete,
-}: any) {
-  const [isPlanningAppointmentList, setPlanningAppointmentList] =
-    useState<any>(null)
-  const [selectedOption, setSelectedOption] = useState<SelectOptionType | null>(
-    null
-  )
+  const [isPlanningAppointmentList, setPlanningAppointmentList] = useState<any>(null)
+  const [selectedOption, setSelectedOption] = useState<SelectOptionType | null>(null);
   const [activeButton, setActiveButton] = useState(0)
   const [openModal, setOpenModal] = useState(0)
   const [openEditModal, setOpenEditModal] = useState(false)
@@ -38,32 +24,32 @@ export default function TabPlaningAppointment({
   const [isPageSize, setPageSize] = useState<any>(10)
   const [EmpData, setEmpData] = useState<any>(null)
   const [departmentList, setDepartmentList] = useState<any>(null)
-  const [isDep_id, setDep_id] = useState<any>('')
-  const [isEmp_id, setEmp_id] = useState<any>('')
+  const [isDep_id, setDep_id] = useState<any>("")
+  const [isEmp_id, setEmp_id] = useState<any>("")
   const [isSeach, setSearch] = useState<any>(null)
   const [infoList, setInfoList] = useState<any>(null)
+  const [newData, setNewData] = useState(false)
   const comid: any = GetComId()
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const formData = new FormData()
+        const formData = new FormData();
         formData.append('pageSize', isPageSize)
-        const fromDate = (
-          document.getElementById('from_date') as HTMLInputElement
-        )?.value
-        const toDate = (document.getElementById('to_date') as HTMLInputElement)
-          ?.value
+        const fromDate = (document.getElementById('from_date') as HTMLInputElement)?.value
+        const toDate = (document.getElementById('to_date') as HTMLInputElement)?.value
         formData.append('ep_id', isEmp_id)
         formData.append('update_dep_id', isDep_id)
         formData.append('fromDate', fromDate)
         formData.append('toDate', toDate)
         const response = await PlanningAppointmentList(formData)
         setPlanningAppointmentList(response?.data)
-      } catch (error) {}
+      } catch (error) {
+      }
     }
     fetchData()
-  }, [isPageSize, isSeach])
+  }, [isPageSize, isSeach, newData])
+
 
   // -- lấy dữ liệu phòng ban --
   useEffect(() => {
@@ -73,7 +59,8 @@ export default function TabPlaningAppointment({
         formData.append('com_id', comid)
         const response = await DepartmentList(formData)
         setDepartmentList(response?.data)
-      } catch (error) {}
+      } catch (error) {
+      }
     }
     fetchData()
   }, [])
@@ -82,69 +69,64 @@ export default function TabPlaningAppointment({
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const formData = new FormData()
+        const formData = new FormData();
         const response = await EmployeeList(formData)
         setEmpData(response?.data)
-      } catch (error) {}
+      } catch (error) {
+      }
     }
     fetchData()
   }, [])
 
-  const handleSelectChange = (
-    selectedOption: SelectOptionType | null,
-    setState: any
-  ) => {
-    setSelectedOption(selectedOption)
+  const handleSelectChange = (selectedOption: SelectOptionType | null, setState: any) => {
+    setSelectedOption(selectedOption);
     if (selectedOption) {
-      setState(selectedOption.value) // Set giá trị đã chọn vào state setIsDep_id
+      setState(selectedOption.value); // Set giá trị đã chọn vào state setIsDep_id
     }
-  }
+  };
 
   const handleSearch = useCallback(() => {
-    setSearch({ isDep_id, isEmp_id })
-  }, [isDep_id, isEmp_id])
+    setSearch({ isDep_id, isEmp_id });
+  }, [isDep_id, isEmp_id]);
 
-  const tableContentRef = useRef<HTMLDivElement>(null)
-  const currentPositionRef = useRef(0)
+  const tableContentRef = useRef<HTMLDivElement>(null);
+  const currentPositionRef = useRef(0);
 
   const handleLeftClick = () => {
     if (tableContentRef.current) {
-      const newPosition = currentPositionRef.current - 100
+      const newPosition = currentPositionRef.current - 100;
       if (newPosition >= 0) {
-        tableContentRef.current.scrollLeft = newPosition
-        currentPositionRef.current = newPosition
+        tableContentRef.current.scrollLeft = newPosition;
+        currentPositionRef.current = newPosition;
       }
     }
-  }
+  };
 
   const handleRightClick = () => {
     if (tableContentRef.current) {
-      const newPosition = currentPositionRef.current + 100
-      if (
-        newPosition <=
-        tableContentRef.current.scrollWidth -
-          tableContentRef.current.clientWidth
-      ) {
-        tableContentRef.current.scrollLeft = newPosition
-        currentPositionRef.current = newPosition
+      const newPosition = currentPositionRef.current + 100;
+      if (newPosition <= tableContentRef.current.scrollWidth - tableContentRef.current.clientWidth) {
+        tableContentRef.current.scrollLeft = newPosition;
+        currentPositionRef.current = newPosition;
       }
     }
-  }
+  };
 
   const handleChoose = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = parseInt(event.target.value)
+    const value = parseInt(event.target.value);
     setPageSize(value)
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
   }
 
   const handleCloseModal = () => {
+    setNewData(pre => !pre)
     setOpenModal(0)
     setOpenEditModal(false)
     setOpenDeleteModal(0)
   }
 
   const handleOpenEdit = (item: any) => {
-    setOpenEditModal(true)
+    setOpenEditModal(true);
     setInfoList(item)
   }
 
@@ -155,7 +137,7 @@ export default function TabPlaningAppointment({
         label: department.dep_name,
       })),
     [departmentList?.data]
-  )
+  );
 
   const chonnhanvienOptions = useMemo(
     () =>
@@ -164,12 +146,13 @@ export default function TabPlaningAppointment({
         label: emp.userName,
       })),
     [EmpData?.data]
-  )
+  );
 
   const options = {
     chonnhanvien: chonnhanvienOptions,
-    chonphongban: chonphongbanOptions,
-  }
+    chonphongban: chonphongbanOptions
+  };
+
 
   return (
     <>
@@ -177,54 +160,31 @@ export default function TabPlaningAppointment({
         <div className={`${styles.tab_pane}`}>
           <div className={`${styles.body} ${styles.body_planning}`}>
             <div className={`${styles.recruitment}`}>
-              {iconAdd && (
-                <button
-                  className={`${styles.add} ${styles.add_planning}`}
-                  onClick={() => setOpenModal(1)}>
-                  <img
-                    style={{ verticalAlign: 'middle' }}
-                    src={`/add.png`}
-                    alt=''
-                  />
-                  Thêm mới bổ nhiệm, quy hoạch
-                </button>
-              )}
+              {iconAdd && <button className={`${styles.add} ${styles.add_planning}`} onClick={() => setOpenModal(1)}>
+                <img style={{ verticalAlign: 'middle' }} src={`/add.png`} alt="" />Thêm mới bổ nhiệm, quy hoạch
+              </button>}
             </div>
-            {openModal === 1 && (
-              <AddPlanningModal onCancel={handleCloseModal}></AddPlanningModal>
-            )}
-            {openEditModal === true ? (
-              <EditPlanningModal
-                onCancel={handleCloseModal}
-                infoList={infoList}></EditPlanningModal>
-            ) : (
-              ''
-            )}
-            {openDeleteModal !== 0 && (
-              <DeletePlanningAppointments
-                onCancel={handleCloseModal}
-                ep_id={openDeleteModal}
-              />
-            )}
+            {openModal === 1 && <AddPlanningModal onCancel={handleCloseModal}></AddPlanningModal>}
+            {openEditModal === true ? <EditPlanningModal onCancel={handleCloseModal} infoList={infoList}></EditPlanningModal> : ''}
+            {openDeleteModal !== 0 && <DeletePlanningAppointments onCancel={handleCloseModal} ep_id={openDeleteModal} />}
             <div className={`${styles.bg_search}`}>
               <div className={`${styles.search_new_t}`}>
-                <div
-                  className={`${styles.div_no_pad} ${styles.div_no_pad_planning} `}>
+                <div className={`${styles.div_no_pad} ${styles.div_no_pad_planning} `}>
                   <Select
                     defaultValue={selectedOption}
                     onChange={(option) => handleSelectChange(option, setEmp_id)}
                     options={options.chonnhanvien}
-                    placeholder='Chọn nhân viên'
+                    placeholder="Chọn nhân viên"
                     styles={{
                       control: (baseStyles, state) => ({
                         ...baseStyles,
                         borderRadius: 4,
-                        borderColor: '#4747477a',
-                        height: 'auto',
+                        borderColor: "#4747477a",
+                        height: "auto",
                         fontSize: state.isFocused ? 14 : 14,
                         width: '100%',
                         fontWeight: state.isFocused ? 600 : 600,
-                        minHeight: 20,
+                        minHeight: 20
                       }),
                       valueContainer: (baseStyles) => ({
                         ...baseStyles,
@@ -236,28 +196,27 @@ export default function TabPlaningAppointment({
                       }),
                       placeholder: (baseStyles) => ({
                         ...baseStyles,
-                        color: '#444444',
+                        color: "#444444",
                       }),
                     }}
                   />
                 </div>
-                <div
-                  className={`${styles.div_no_pad} ${styles.div_no_pad_planning} `}>
+                <div className={`${styles.div_no_pad} ${styles.div_no_pad_planning} `}>
                   <Select
                     defaultValue={selectedOption}
                     onChange={(option) => handleSelectChange(option, setDep_id)}
                     options={options.chonphongban}
-                    placeholder='Chọn phòng ban'
+                    placeholder="Chọn phòng ban"
                     styles={{
                       control: (baseStyles, state) => ({
                         ...baseStyles,
                         borderRadius: 4,
-                        borderColor: '#4747477a',
-                        height: 'auto',
+                        borderColor: "#4747477a",
+                        height: "auto",
                         fontSize: state.isFocused ? 14 : 14,
                         width: '100%',
                         fontWeight: state.isFocused ? 600 : 600,
-                        minHeight: 20,
+                        minHeight: 20
                       }),
                       valueContainer: (baseStyles) => ({
                         ...baseStyles,
@@ -269,59 +228,35 @@ export default function TabPlaningAppointment({
                       }),
                       placeholder: (baseStyles) => ({
                         ...baseStyles,
-                        color: '#444444',
+                        color: "#444444",
                       }),
                     }}
                   />
                 </div>
-                <div
-                  className={`${styles.div_no_pad} ${styles.div_no_pad_planning} `}>
-                  <input
-                    type='date'
-                    id='from_date'
-                    className={`${styles.search_date} ${styles.form_control}`}
-                    placeholder='Từ dd/mm/yyyy'
-                  />
+                <div className={`${styles.div_no_pad} ${styles.div_no_pad_planning} `}>
+                  <input type="date" id="from_date" className={`${styles.search_date} ${styles.form_control}`} placeholder='Từ dd/mm/yyyy' />
                 </div>
-                <div
-                  className={`${styles.div_no_pad} ${styles.div_no_pad_planning}`}>
-                  <input
-                    type='date'
-                    id='to_date'
-                    className={`${styles.search_date} ${styles.form_control}`}
-                    placeholder='Từ dd/mm/yyyy'
-                  />
+                <div className={`${styles.div_no_pad} ${styles.div_no_pad_planning}`}>
+                  <input type="date" id="to_date" className={`${styles.search_date} ${styles.form_control}`} placeholder='Từ dd/mm/yyyy' />
                 </div>
                 <div className={`${styles.div_no_pad_search}   `}>
-                  <a
-                    onClick={handleSearch}
-                    className={`${styles.icon_search_top} ${styles.div_search_salary} `}>
-                    <img
-                      style={{ verticalAlign: '-webkit-baseline-middle' }}
-                      src={`/t-icon-search-n.svg`}
-                      alt=''
-                    />
+                  <a onClick={handleSearch} className={`${styles.icon_search_top} ${styles.div_search_salary} `}>
+                    <img style={{ verticalAlign: '-webkit-baseline-middle' }} src={`/t-icon-search-n.svg`} alt="" />
                   </a>
                 </div>
               </div>
             </div>
-            <div
-              className={`${styles.member_list} ${styles.member_list_salary}`}>
-              <div
-                className={`${styles.navigate_next} ${styles.navigate_next_salary}`}>
-                <div
-                  className={`${styles.turn} ${styles.turn_left}`}
-                  onClick={handleLeftClick}>
-                  <img src={`/arrow_left.png`} alt='' />
+            <div className={`${styles.member_list} ${styles.member_list_salary}`}>
+              <div className={`${styles.navigate_next} ${styles.navigate_next_salary}`} >
+                <div className={`${styles.turn} ${styles.turn_left}`} onClick={handleLeftClick}>
+                  <img src={`/arrow_left.png`} alt="" />
                 </div>
-                <div
-                  className={`${styles.turn} ${styles.turn_right}`}
-                  onClick={handleRightClick}>
-                  <img src={`/arrow_right.png`} alt='' />
+                <div className={`${styles.turn} ${styles.turn_right}`} onClick={handleRightClick}>
+                  <img src={`/arrow_right.png`} alt="" />
                 </div>
               </div>
               <div className={`${styles.table_content}`} ref={tableContentRef}>
-                <table className={`${styles.table} ${styles.table_list}`}>
+                <table className={`${styles.table} ${styles.table_list}`} >
                   <thead>
                     <tr>
                       <th>ID nhân viên</th>
@@ -335,56 +270,36 @@ export default function TabPlaningAppointment({
                     </tr>
                   </thead>
                   <tbody className={`${styles.filter_body}`}>
-                    {isPlanningAppointmentList?.data?.map(
-                      (item: any, index: any) => (
-                        <tr key={index}>
-                          <td>{item.ep_id}</td>
-                          <td>{item.ep_name}</td>
-                          <td>{item.old_dep_name}</td>
-                          <td>{item.old_position_name}</td>
-                          <td>{item.new_position_name}</td>
-                          <td>{item.new_dep_name}</td>
-                          <td>{format(parseISO(item?.time), 'dd/MM/yyyy')}</td>
-                          {iconDelete || iconEdit ? (
-                            <td>
-                              {iconEdit && (
-                                <a
-                                  onClick={() => handleOpenEdit(item)}
-                                  className={`${styles.btn_edit}`}
-                                  style={{ cursor: 'pointer' }}>
-                                  <img src={`/icon_edit.svg`} alt='' />
-                                </a>
-                              )}
-                              {iconDelete && (
-                                <a
-                                  onClick={() => setOpenDeleteModal(item.ep_id)}
-                                  className={`${styles.btn_delete}`}
-                                  style={{ cursor: 'pointer' }}>
-                                  <img src={`/icon_delete.svg`} alt='' />
-                                </a>
-                              )}
-                            </td>
-                          ) : null}
-                        </tr>
-                      )
-                    )}
+                    {isPlanningAppointmentList?.data?.map((item: any, index: any) => (
+                      <tr key={index}>
+                        <td>{item.ep_id}</td>
+                        <td>{item.ep_name}</td>
+                        <td>{item.old_dep_name}</td>
+                        <td>{item.old_position_name}</td>
+                        <td>{item.new_position_name}</td>
+                        <td>{item.new_dep_name}</td>
+                        <td>{format(parseISO(item?.time), 'dd/MM/yyyy')}</td>
+                        {iconDelete || iconEdit ? (
+                          <td>
+                            {iconEdit && <a onClick={() => handleOpenEdit(item)} className={`${styles.btn_edit}`} style={{ cursor: 'pointer' }}><img src={`/icon_edit.svg`} alt="" /></a>}
+                            {iconDelete && <a onClick={() => setOpenDeleteModal(item.ep_id)} className={`${styles.btn_delete}`} style={{ cursor: 'pointer' }}><img src={`/icon_delete.svg`} alt="" /></a>}
+                          </td>
+                        ) : null}
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               </div>
             </div>
-            <div id='choose_limit' className={`${styles.pull_left}`}>
-              <select
-                name=''
-                id='choose_limit_page'
-                className={`${styles.form_control}`}
-                onChange={(event) => handleChoose(event)}>
-                <option value='10'>10</option>
-                <option value='20'>20</option>
-                <option value='30'>30</option>
+            <div id="choose_limit" className={`${styles.pull_left}`}>
+              <select name="" id="choose_limit_page" className={`${styles.form_control}`} onChange={(event) => handleChoose(event)}>
+                <option value="10"  >10</option>
+                <option value="20" >20</option>
+                <option value="30">30</option>
               </select>
             </div>
           </div>
-          <BodyFrameFooter src='https://www.youtube.com/embed/KcajsnqbFPQ'></BodyFrameFooter>
+          <BodyFrameFooter src="https://www.youtube.com/embed/KcajsnqbFPQ"></BodyFrameFooter>
         </div>
       </div>
     </>

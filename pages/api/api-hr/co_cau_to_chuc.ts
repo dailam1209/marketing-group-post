@@ -136,6 +136,22 @@ export const LeaderBiographyDetail = async (formData: FormData) => {
   } catch (error) {}
 };
 
+export const EmpStatusDetail = async (formData: FormData) => {
+  try {
+    const isToken = getToken(COOKIE_KEY);
+    const response = await axios.post(
+      `${url}api/hr/organizationalStructure/listEmUntimed`,
+      formData,
+      {
+        headers: {
+          authorization: `Bearer ${isToken}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {}
+};
+
 /* -------------------------------------- UPDATE ----------------------------------------------*/
 
 export const OrganizationalStructureUpdate = async (formData: FormData) => {

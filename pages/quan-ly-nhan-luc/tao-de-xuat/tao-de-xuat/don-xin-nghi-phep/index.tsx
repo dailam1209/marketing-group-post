@@ -468,18 +468,24 @@ export default function DonXinNghiPhep() {
       })
     })
   }
+
+  const handlePrevious = () => {
+    router.back()
+  }
+
   return (
     <>
       <div style={{ width: '100%', justifyContent: 'center' }}>
-        <div className={styles.form}>
+        <div className={`shadowForm ${styles.form}`}>
           <div className={styles.header}>
-            <Image src='/back-w.png' alt='' height={24} width={24}></Image>
+            <Image src='/back-w.png' alt='' height={24} width={24} onClick={handlePrevious}></Image>
             <div className={styles.text}>Đơn xin nghỉ phép</div>
           </div>
           <Form
             form={form}
             style={{ width: '100%' }}
-            initialValues={{ name: 'Khas' }}>
+            initialValues={{ name: 'Khas' }}
+            className='taoDeXuatForm'>
             <div className={styles.body}>
               <div className={styles.bodyItem1}>
                 <span style={{ fontSize: '16px' }}>Tên đề xuất </span>
@@ -533,7 +539,7 @@ export default function DonXinNghiPhep() {
                       <span style={{ fontSize: '16px', color: 'red' }}>*</span>
                     </Checkbox>
                     <Checkbox
-                      style={{ fontSize: '16px' }}
+                      style={{ fontSize: '16px', marginLeft: '16px' }}
                       checked={isUrgentChecked}
                       onChange={handleUrgentChange}>
                       <span style={{ fontSize: '16px' }}>

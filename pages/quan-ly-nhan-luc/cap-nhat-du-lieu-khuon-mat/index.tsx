@@ -13,7 +13,7 @@ export default function UpdateFace() {
     // width: 971,
     // height: 971,
     facingMode: 'user',
-  }
+  } 
 
   const webcamRef = useRef<Webcam>(null)
 
@@ -90,7 +90,7 @@ export default function UpdateFace() {
             alt='/'
             style={{ marginTop: '50px' }}
           />
-          <p style={{ color: '#fff', margin: '20px 0px' }}>
+          <p style={{ color: '#fff', margin: '20px 0px', textAlign: 'center' }}>
             Vui lòng hướng khuôn mặt theo khung trên màn hình, nhìn thẳng và
             xoay nhẹ sang 2 bên để nhận được kết quả tốt nhất
           </p>

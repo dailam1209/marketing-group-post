@@ -1,6 +1,6 @@
-import Image from 'next/image'
-import styles from '../customer/customer.module.css'
-import { useEffect } from 'react'
+import Image from "next/image";
+import styles from "@/components/crm/customer/customer.module.css";
+import { useEffect } from "react";
 export default function ApiSetting({ disabled, label, value, setValue }: any) {
   const handleEditValue = (e: any) => {
     setValue(e.target.value)

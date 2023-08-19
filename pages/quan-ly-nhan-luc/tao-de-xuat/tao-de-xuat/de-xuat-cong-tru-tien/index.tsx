@@ -85,7 +85,7 @@ export default function DeXuatCongTruTien() {
         <Image src={'/back-w.png'} alt='' width={24} height={24}></Image>
         <p className={styles.headerText}>Đề xuất cộng tiền/trừ tiền</p>
       </div>
-      <Form form={form} initialValues={{ name: 'khas', type_tp: 1 }}>
+      <Form form={form} className='shadowForm taoDeXuatForm' initialValues={{ name: 'khas', type_tp: 1 }}>
         <div className={styles.body}>
           <Row gutter={[20, 10]}>
             <Col sm={12} xs={24}>

@@ -7,7 +7,7 @@ import { cookies } from 'next/headers'
 const currentUrlQlc = process.env.NEXT_PUBLIC_API
 const currentUrlHR = process.env.NEXT_PUBLIC_BASE_URL_HR
 const currentUrlVT = process.env.NEXT_PUBLIC_BASE_URL_VT
-const curentUrlTL = process.env.NEXT_PUBLIC_API
+const curentUrlTL = process.env.NEXT_PUBLIC_BASE_URL_TL
 
 export const getCurrentToken = () => {
   let token = ''
@@ -171,7 +171,6 @@ export const POST_SS = async (
   type: string = 'qlc'
 ) => {
   const currentToken = getCookieSS(context)
-
   let domain = ''
   switch (type) {
     case 'qlc':
@@ -386,6 +385,7 @@ export const POST_SS_TL = async (
   type: string = 'tl'
 ) => {
   const currentToken = getCookieSS(context)
+  console.log(currentToken)
 
   let domain = ''
   switch (type) {

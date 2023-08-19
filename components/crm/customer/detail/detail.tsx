@@ -8,6 +8,8 @@ import WriteBillRowInforText from "./write_data_row";
 import BonusInfoRow from "./bonus_infor_row";
 import CCCDInforRow from "./cccd_infor_row";
 import SystemCustomerInfo from "./system_infor";
+import { useRouter } from "next/router";
+import { useApi } from "@/components/crm/hooks/useApi";
 
 interface ComponentProps {
   cccd: boolean;
@@ -18,6 +20,8 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
   const { isOpen } = useContext<any>(SidebarContext);
   const imgRef = useRef<HTMLInputElement>(null);
 
+  const router = useRouter();
+  console.log("check", router.query.id);
   useEffect(() => {
     if (isOpen) {
       mainRef.current?.classList.add("content_resize");
@@ -25,6 +29,13 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
       mainRef.current?.classList.remove("content_resize");
     }
   }, [isOpen]);
+
+  const { data, loading, fetchData, updateData, deleteData } = useApi(
+    "http://210.245.108.202:3007/api/crm/customer/list",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6MzgwOTg5LCJpZFRpbVZpZWMzNjUiOjIwMjU4NSwiaWRRTEMiOjE3NjMsImlkUmFvTmhhbmgzNjUiOjAsImVtYWlsIjoiZHVvbmdoaWVwaXQxQGdtYWlsLmNvbSIsInBob25lVEsiOiIiLCJjcmVhdGVkQXQiOjE2MDA2NTg0NzgsInR5cGUiOjEsImNvbV9pZCI6MTc2MywidXNlck5hbWUiOiJDw7RuZyBUeSBUTkhIIEggTSBMIFBwbyJ9LCJpYXQiOjE2OTIyOTc4NjMsImV4cCI6MTY5MjM4NDI2M30.XMyMzNsvPn1yInnlVLO-XTnm9mDLMDohaSxQSOvtczo",
+    "POST",
+    { cus_id: router.query.id }
+  );
 
   return (
     <>
@@ -62,7 +73,7 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
                     >
                       Thông tin chung
                     </p>
-                    <GeneralRowInforText />
+                    <GeneralRowInforText formData={data?.data?.showCty[0]} />
 
                     {/* Thoong tin hoa don */}
                     <p

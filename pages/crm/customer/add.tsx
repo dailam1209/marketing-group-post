@@ -2,20 +2,95 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import styleHome from "@/components/crm/home/home.module.css";
 import styles from "@/components/crm/potential/potential.module.css";
 import { SidebarContext } from "@/components/crm/context/resizeContext";
-import PotentialFooterAddFiles from "@/components/crm/potential/potential_add_files/potential_footer_add_files";
-import AddDesriptionAndSystemInfo from "@/components/crm/potential/potential_add_files/description_system_add_files";
-import AddAddressInfo from "@/components/crm/potential/potential_add_files/address_info";
+import AddAddressInfoCustomer from "@/components/crm/customer/add_edit/address_info";
 import AddDeliveryInfo from "@/components/crm/potential/potential_add_files/delivery_info";
 import { useHeader } from "@/components/crm/hooks/useHeader";
 import AddPersonalCustomerInfor from "@/components/crm/customer/add_edit/personal_infor";
 import AddCustomerBankInfo from "@/components/crm/customer/add_edit/bank_infor";
 import TextEditor from "@/components/crm/text-editor/text_editor";
 import GeneralCustomerInfor from "@/components/crm/customer/add_edit/general_customer_info";
+import CustomomerFooterAddFile from "@/components/crm/customer/add_edit/customer_footer_add_file";
 
 const AddFilesCustomerList: React.FC = () => {
   const mainRef = useRef<HTMLDivElement>(null);
   const { isOpen } = useContext<any>(SidebarContext);
   const imgRef = useRef<HTMLInputElement>(null);
+
+  // const [formData, setFormData] = useState<any>({
+  //   name: "",
+  //   email: "",
+  //   cus_id: "",
+  //   stand_name: "",
+  //   logo: "",
+  //   birthday: "",
+  //   tax_code: "",
+  //   cit_id: "",
+  //   district_id: "",
+  //   ward: "",
+  //   address: "",
+  //   ship_invoice_address: "",
+  //   gender: "",
+  //   cmnd_ccnd_number: "",
+  //   cmnd_ccnd_address: "",
+  //   cmnd_ccnd_time: "",
+  //   description: "",
+  //   introducer: "",
+  //   contact_name: "",
+  //   contact_email: "",
+  //   contact_phone: "",
+  //   contact_gender: "",
+  //   company_id: "",
+  //   emp_id: "",
+  //   user_create_id: "",
+  //   user_create_type: "",
+  //   user_edit_id: "",
+  //   user_edit_type: "",
+  //   group_id: "",
+  //   status: "",
+  //   business_areas: "",
+  //   category: "",
+  //   business_type: "",
+  //   classify: "",
+  //   bill_city: "",
+  //   bil_district: "",
+  //   bill_ward: "",
+  //   bill_address: "",
+  //   bill_area_code: "",
+  //   bill_invoice_address: "",
+  //   bill_invoice_address_email: "",
+  //   ship_city: "",
+  //   ship_area: "",
+  //   bank_id: "",
+  //   bank_account: "",
+  //   revenue: "",
+  //   size: "",
+  //   rank: "",
+  //   website: "",
+  //   number_of_day_owed: "",
+  //   deb_limit: "",
+  //   share_all: "",
+  //   type: 1,
+  //   is_input: "",
+  //   is_delete: "",
+  //   created_at: "",
+  //   updated_at: "",
+  //   id_cus_from: "",
+  //   cus_from: "",
+  //   link: "",
+  // });
+  const [formData, setFormData] = useState({
+    logo: "",
+    name: "",
+    address: "",
+    cmnd_ccnd_number: "",
+    cmnd_ccnd_address: "",
+    type: 1,
+    tax_code: "",
+    phone: "",
+    stand_name: "",
+  });
+  console.log(formData);
+
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
 
@@ -26,9 +101,20 @@ const AddFilesCustomerList: React.FC = () => {
   }, [setHeaderTitle, setShowBackButton, setCurrentPath]);
 
   const handleClickImg = () => {
-    imgRef?.current?.click();
+    const img = imgRef?.current?.click();
   };
+  const handleImageChange = (e: any) => {
+    const selectedImage = e.target.files[0];
 
+    if (selectedImage) {
+      setFormData((preData: any) => {
+        return {
+          ...preData,
+          logo: selectedImage,
+        };
+      });
+    }
+  };
   useEffect(() => {
     if (isOpen) {
       mainRef.current?.classList.add("content_resize");
@@ -53,9 +139,15 @@ const AddFilesCustomerList: React.FC = () => {
                       <input
                         type="radio"
                         defaultChecked
-                        defaultValue={2}
                         className="get_data"
                         name="type"
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            type: parseInt(e.target.value),
+                          })
+                        }
+                        value={1}
                       />
                       Khách hàng doanh nghiệp
                       <span className="checkmark" />
@@ -63,9 +155,15 @@ const AddFilesCustomerList: React.FC = () => {
                     <label className="lbl_container">
                       <input
                         type="radio"
-                        name="type"
-                        defaultValue={1}
                         className="get_data"
+                        name="type"
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            type: parseInt(e.target.value),
+                          })
+                        }
+                        value={2}
                       />
                       Khách hàng cá nhân
                       <span className="checkmark" />
@@ -76,7 +174,7 @@ const AddFilesCustomerList: React.FC = () => {
                   <p className={styles["main__body__type"]}>Ảnh</p>
                   <div id="upload">
                     <img
-                      src="/assets/img/crm/customer/upload_logo.png"
+                      src="/assets/img/customer/upload_logo.png"
                       alt=""
                       className={styles["show_avatar"]}
                       onClick={handleClickImg}
@@ -89,12 +187,20 @@ const AddFilesCustomerList: React.FC = () => {
                       id="logo"
                       hidden
                       accept="image/png,image/gif,image/jpeg"
+                      onChange={handleImageChange}
                     />
                   </div>
                 </div>
 
-                <AddPersonalCustomerInfor />
-                <AddAddressInfo title="Thông tin viết hóa đơn" />
+                <AddPersonalCustomerInfor
+                  formData={formData}
+                  setFormData={setFormData}
+                />
+                <AddAddressInfoCustomer
+                  formData={formData}
+                  setFormData={setFormData}
+                  title="Thông tin viết hóa đơn"
+                />
                 <AddDeliveryInfo title="Thông tin giao hàng" />
                 <AddCustomerBankInfo />
 
@@ -108,11 +214,12 @@ const AddFilesCustomerList: React.FC = () => {
                 <TextEditor />
                 <GeneralCustomerInfor />
               </div>
-              <PotentialFooterAddFiles
-                link="/crm/customer/list"
+              <CustomomerFooterAddFile
+                link="/customer/list"
                 titleCancel="Xác nhận hủy thêm mới khách hàng"
                 title="Thêm mới khách hàng qwe thành công!"
                 contentCancel="Bạn có chắc chắn muốn hủy thêm mới khách hàng Nguyễn Trần Kim Phượng không ?"
+                formData={formData}
               />
             </div>
           </div>

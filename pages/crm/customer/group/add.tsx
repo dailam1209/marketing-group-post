@@ -13,6 +13,7 @@ import CustomerGroupSelect from "@/components/crm/select/select_data_group_custo
 import { useApi } from "@/components/crm/hooks/useApi";
 import ModalDelEmpGroup from "@/components/crm/modals/modal_del_group";
 import Image from "next/image";
+import TextEditorGr from "@/components/crm/text-editor/text_editor_gr";
 
 const GroupCustomerAdd: React.FC = () => {
   const [valAllDepartment, setValAllDepartment] = useState(false);
@@ -218,7 +219,7 @@ const GroupCustomerAdd: React.FC = () => {
 
                 {/* Text Editor */}
                 <div style={{ marginBottom: -20 }}>Mô tả</div>
-                <TextEditor
+                <TextEditorGr
                   editorContent={valueGroupCustomer.groupDescription}
                   setEditorValue={(val: any) => {
                     setValueGroupCustomer((pre: any) => {

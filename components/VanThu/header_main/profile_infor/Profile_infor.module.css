@@ -1,0 +1,103 @@
+.block_profile {
+    position: absolute;
+    top: 75px;
+    width: 315px;
+    padding: 20px 20px 40px;
+    right: 0;
+    background: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    z-index: 100;
+}
+
+.block_profile .profile_div_img {
+    width: 102px;
+    height: 102px;
+    margin: 0 auto;
+}
+
+.profile_div_img img {
+    border-radius: 50%;
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+}
+
+
+.block_profile .profile_infor_name {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.profile_infor_name .fullname {
+    margin-top: 10px;
+    font-size: 20px;
+    color: #474747;
+}
+
+.profile_infor_name .job {
+    font-weight: 600;
+    font-size: 16px;
+    margin-top: 5px;
+    color: #4c5bd4;
+}
+
+.profile_infor_name .id_staff {
+    font-weight: lighter;
+    margin-top: 5px;
+    color: #4c5bd4;
+    font-size: 16px;
+}
+
+.profile_infor_list {
+    margin-top: 40px;
+}
+
+.profile_infor_list_detail {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.profile_infor_list_detail .item_left a {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    text-decoration: none;
+    color: #474747;
+    font-weight: lighter;
+}
+
+.profile_infor_list_detail .item_left img {
+    width: 25px;
+    height: 25px;
+    margin-right: 15px;
+    object-fit: contain;
+}
+
+.profile_infor_list_detail .item_right {
+    width: 10px;
+    height: 17px;
+}
+
+.profile_infor_list_detail .item_right img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+@media (max-width: 768px) {
+
+    .profile {
+        margin-left: 12px;
+    }
+
+    .profile .a_profile img {
+        width: 44px;
+        height: 44px;
+    }
+}
