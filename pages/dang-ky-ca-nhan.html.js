@@ -14,9 +14,21 @@ export default function RegisterPersonal() {
 
     // validate and submit
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
-    const onSubmit = async data => {
+    const onSubmit = async (data) => {
+        let text = '';
+        if (query && query.urlRedeict) {
+            text = '?url=' + query.url + '&urlRedeict' + query.urlRedeict
+        }
         delete data.res_password;
-        registerPersonal(data);
+
+        const response = await registerPersonal(data, text)
+        if (response) {
+            //Kiểm tra nguồn đăng nhập từ site khác
+            if (urlRedeict != '') {
+                const urlSite = query.url ? query.url + '?account=' + data.phoneTK + '&password=' + data.password + '&type=' + 0 : '';
+                setUrl(urlSite)
+            }
+        }
     };
 
     return (

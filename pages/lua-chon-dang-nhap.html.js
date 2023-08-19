@@ -1,4 +1,6 @@
-import React from "react"
+import { useRouter } from "next/router"
+import { useEffect, useState } from "react"
+import { parse } from "url"
 import Footer from "../components/footer/Footer"
 import Seo from '../components/head'
 import Header from "../components/header/Header"
@@ -6,8 +8,12 @@ import { CheckLogin2 } from "../utils/function"
 import { getServerSideProps } from '../utils/function'
 
 export { getServerSideProps }
-export default function register() {
-
+export default function Login({ query }) {
+    const [getUrl, setUrl] = useState('');
+    useEffect(() => {
+        const url = '?url=' + query.url + '&urlRedeict=' + query.urlRedeict;
+        setUrl(url);
+    }, []);
     return (
         <>
             <Seo
@@ -31,7 +37,7 @@ export default function register() {
                             </div>
                             <div className="titl_form">
                                 <div className="ctn_log_butt">
-                                    <a href="/dang-nhap-cong-ty.html" className="ct_butt">
+                                    <a href={`/dang-nhap-cong-ty.html${getUrl}`} className="ct_butt">
                                         <div className="titl_del">
                                             <p className="share_fsize_tow cr_weight">Công ty</p>
                                             <p className="share_fsize_one share_clr_three">
@@ -39,7 +45,7 @@ export default function register() {
                                             </p>
                                         </div>
                                     </a>
-                                    <a href="/dang-nhap-nhan-vien.html" className="nv_butt">
+                                    <a href={`/dang-nhap-nhan-vien.html${getUrl}`} className="nv_butt">
                                         <div className="titl_del">
                                             <p className="share_fsize_tow cr_weight">Nhân viên</p>
                                             <p className="share_fsize_one share_clr_three">
@@ -47,7 +53,7 @@ export default function register() {
                                             </p>
                                         </div>
                                     </a>
-                                    <a href="/dang-nhap-ca-nhan.html" className="nv_butt">
+                                    <a href={`/dang-nhap-ca-nhan.html${getUrl}`} className="nv_butt">
                                         <div className="titl_del">
                                             <p className="share_fsize_tow cr_weight">Cá nhân</p>
                                             <p className="share_fsize_one share_clr_three">
@@ -61,7 +67,7 @@ export default function register() {
                     </div>
                 </div>
             </div>
-            <link rel="stylesheet" href="https://timviec365.vn/css/footer_new.css?v=2" />
+            <link rel="stylesheet" href="https://timviec365.vn/css/footer_new.css" />
             <Footer></Footer>
         </>)
 };

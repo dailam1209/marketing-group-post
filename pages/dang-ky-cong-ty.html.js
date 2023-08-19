@@ -10,20 +10,33 @@ import { getServerSideProps } from '../utils/function'
 
 export { getServerSideProps }
 
-export default function info_register_emp() {
+export default function info_register_emp({ query }) {
 
     CheckLogin()
 
     // xử lý validate
     const { register, handleSubmit, watch, formState: { errors }, getValues } = useForm();
+    const [getUrl, setUrl] = useState('');
+    const onSubmit = async (data) => {
+        console.log('query:', query)
+        let text = '';
+        if (query && query.urlRedeict) {
+            text = '?url=' + query.url + '&urlRedeict' + query.urlRedeict
+        }
 
-    const onSubmit = async data => {
         if (data.password !== data.res_password) {
             errors.res_password = true;
             return;
         };
         delete data.res_password;
-        registerCom(data)
+        const response = await registerCom(data, '', text);
+        if (response) {
+            //Kiểm tra nguồn đăng nhập từ site khác
+            if (urlRedeict != '') {
+                const urlSite = query.url ? query.url + '?account=' + data.phoneTK + '&password=' + data.password + '&type=' + 1 : '';
+                setUrl(urlSite)
+            }
+        }
     };
 
     // hide pass
@@ -53,7 +66,6 @@ export default function info_register_emp() {
         if (data.password !== data.res_password) return;
         if (!isValid) {
             // Xử lý logic khi form không hợp lệ
-            console.log("invalid")
             const data = getValues();
             if (data.phoneTK != '') {
                 registerCom(data, false);
@@ -218,6 +230,18 @@ export default function info_register_emp() {
             </div>
             <link rel="stylesheet" href="https://timviec365.vn/css/footer_new.css?v=2" />
             <Footer></Footer>
+            {
+                getUrl != '' ? (
+                    <>
+                        <iframe
+                            src={getUrl}
+                            width="100%"
+                            height="100%"
+                            style={{ display: 'none' }}
+                        />
+                    </>
+                ) : ''
+            }
         </>
     )
 }
