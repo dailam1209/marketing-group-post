@@ -20,7 +20,7 @@
   display: block;
   width: 85%;
   padding: 6px 12px;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.42857143;
   color: #555;
   background-color: #fff;
@@ -124,7 +124,7 @@
   border-top: 1px solid #ddd;
 }
 .table td {
-  font-size: 14px;
+  font-size: 16px;
   border: 1px solid rgba(102, 102, 102, 0.24);
 }
 
