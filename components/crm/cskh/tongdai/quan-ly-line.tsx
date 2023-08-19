@@ -28,7 +28,7 @@ const Recording = (props: Props) => {
     arr.push(value);
   }
 
-  const show = useSelector((state: any) => state.auth.account);
+  const show = useSelector((state: any) => state?.auth?.account);
 
   const onClose = () => {
     setIsShowModalAdd(false);
