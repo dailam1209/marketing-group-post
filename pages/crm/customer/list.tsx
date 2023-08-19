@@ -14,14 +14,14 @@ export default function CustomerList() {
   const [selected, setSelected] = useState(false);
   const [numberSelected, setNumberSelected] = useState(0);
   const [selectedRowKeys, setSelectedRowKeys] = useState<any>([]);
-  const [name,setName] = useState()
+  const [name, setName] = useState();
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
   const { data, loading, fetchData, updateData, deleteData } = useApi(
     "http://210.245.108.202:3007/api/crm/customer/list",
     `${Cookies.get("token_base365")}`,
     "POST",
-    { perPage: 10000 }
+    { perPage: 10000, name: name }
   );
 
   const {
@@ -66,7 +66,7 @@ export default function CustomerList() {
     userName: string;
     userNameCreate: string;
   }
-
+  console.log("check com_id",Cookies.get("user"))
   const onSelectChange = (
     selectedRowKeys: any,
     selectedRows: string | any[]
@@ -81,11 +81,6 @@ export default function CustomerList() {
   };
 
   useEffect(() => {
-    // fetchData(
-    //   "http://210.245.108.202:3007/api/crm/customer/list",
-    //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6Mjg3MjMxLCJpZFRpbVZpZWMzNjUiOjAsImlkUUxDIjoxNzYzLCJpZFJhb05oYW5oMzY1IjowLCJlbWFpbCI6ImR1b25naGllcGl0MUBnbWFpbC5jb20iLCJwaG9uZVRLIjoiIiwiY3JlYXRlZEF0IjoxNjI3NTQ5NDcxLCJ0eXBlIjoxLCJjb21faWQiOjE3NjMsInVzZXJOYW1lIjoibGUgYW5oIHR1YW4xMiJ9LCJpYXQiOjE2OTIwNzE5MzksImV4cCI6MTY5MjE1ODMzOX0.N6YvQv8Y_Ma6IVLSbh-JwBc7qdL8T-8XQk3SSQFmrJw",
-    //   "POST"
-    // );
     fetchData();
     fetchDataStatus();
     fetchDataCustomerGroup();
@@ -168,6 +163,8 @@ export default function CustomerList() {
   return (
     <div ref={mainRef} className={styleHome.main}>
       <CustomerListInputGroup
+        setName={setName}
+        fetchData={fetchData}
         isSelectedRow={selected}
         numberSelected={numberSelected}
         clearOption={handleDeselectAll}

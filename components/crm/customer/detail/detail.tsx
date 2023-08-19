@@ -10,7 +10,8 @@ import CCCDInforRow from "./cccd_infor_row";
 import SystemCustomerInfo from "./system_infor";
 import { useRouter } from "next/router";
 import { useApi } from "@/components/crm/hooks/useApi";
-
+import WriteBillRowInforText2 from "./thongtingiaohang";
+const Cookies = require("js-cookie");
 interface ComponentProps {
   cccd: boolean;
 }
@@ -19,7 +20,7 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
   const mainRef = useRef<HTMLDivElement>(null);
   const { isOpen } = useContext<any>(SidebarContext);
   const imgRef = useRef<HTMLInputElement>(null);
-
+  const [listData, setListData] = useState([]);
   const router = useRouter();
   console.log("check", router.query.id);
   useEffect(() => {
@@ -30,12 +31,26 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
     }
   }, [isOpen]);
 
-  const { data, loading, fetchData, updateData, deleteData } = useApi(
-    "http://210.245.108.202:3007/api/crm/customer/list",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6MzgwOTg5LCJpZFRpbVZpZWMzNjUiOjIwMjU4NSwiaWRRTEMiOjE3NjMsImlkUmFvTmhhbmgzNjUiOjAsImVtYWlsIjoiZHVvbmdoaWVwaXQxQGdtYWlsLmNvbSIsInBob25lVEsiOiIiLCJjcmVhdGVkQXQiOjE2MDA2NTg0NzgsInR5cGUiOjEsImNvbV9pZCI6MTc2MywidXNlck5hbWUiOiJDw7RuZyBUeSBUTkhIIEggTSBMIFBwbyJ9LCJpYXQiOjE2OTIyOTc4NjMsImV4cCI6MTY5MjM4NDI2M30.XMyMzNsvPn1yInnlVLO-XTnm9mDLMDohaSxQSOvtczo",
-    "POST",
-    { cus_id: router.query.id }
-  );
+  const handleGetInfoCus = async () => {
+    const res = await fetch(
+      "http://210.245.108.202:3007/api/crm/customerdetails/detail",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get("token_base365")}`,
+        },
+        body: JSON.stringify({ cus_id: `${router.query.id}` }),
+      }
+    );
+    const data = await res.json();
+    if ((data && data.data.data1) || (data && data.data.data2))
+      setListData(data.data.data1 || data.data.data2);
+  };
+  console.log("check dada", listData);
+  useEffect(() => {
+    handleGetInfoCus();
+  }, []);
 
   return (
     <>
@@ -73,7 +88,7 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
                     >
                       Thông tin chung
                     </p>
-                    <GeneralRowInforText formData={data?.data?.showCty[0]} />
+                    <GeneralRowInforText formData={listData} />
 
                     {/* Thoong tin hoa don */}
                     <p
@@ -82,7 +97,7 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
                     >
                       Thông tin viết hóa đơn
                     </p>
-                    <WriteBillRowInforText />
+                    <WriteBillRowInforText formData={listData} />
 
                     {/* Thong tin giao hang */}
                     <p
@@ -91,7 +106,7 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
                     >
                       Thông tin giao hàng
                     </p>
-                    <WriteBillRowInforText />
+                    <WriteBillRowInforText2 formData={listData} />
 
                     {/* Thong tin bo sung */}
                     <p
@@ -100,7 +115,7 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
                     >
                       Thông tin bổ sung
                     </p>
-                    <BonusInfoRow />
+                    <BonusInfoRow formData={listData} />
 
                     {/* Thong tin CCCD */}
                     {cccd && (
@@ -111,7 +126,7 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
                         >
                           Thông tin CMND/CCCD
                         </p>
-                        <CCCDInforRow />
+                        <CCCDInforRow formData={listData} />
                       </>
                     )}
 
@@ -138,7 +153,9 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
                             stylesCustomer.main__profile__body__item__value
                           }
                         >
-                          ádsdasd
+                          {listData[0]?.thong_tin_mo_ta
+                            ? listData[0]?.thong_tin_mo_ta
+                            : "Chưa cập nhật"}
                         </div>
                       </div>
                     </div>
@@ -152,7 +169,7 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
         </div>
       </div>
 
-      <SystemCustomerInfo />
+      <SystemCustomerInfo formData={listData} />
     </>
   );
 };

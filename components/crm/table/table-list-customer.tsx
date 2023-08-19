@@ -49,9 +49,6 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   const [cusId, setCusId] = useState<any>();
   const [pageSize, setpageSize] = useState<any>();
   const [des, setDes] = useState();
-  const handleDetail = (data: any) => {
-    router.push(`/customer/detail/${data}`);
-  };
 
   const handleChangeStatus = (e: any, data: any) => {
     setValueStatus(e.target.value);
@@ -150,8 +147,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       render: (data, record) => (
         <Link
           style={{ cursor: "pointer" }}
-          onClick={() => handleDetail(record.cus_id)}
-          href={""}
+          href={`/crm/customer/detail/${record.cus_id}`}
         >
           {data}
         </Link>
@@ -294,7 +290,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       // fixed:"right",
       render: (data, record: any) => (
         <>
-          <Link href={`/crm/customer/edit/${record.name}`}>
+          <Link href={`/crm/customer/edit/${record.cus_id}`}>
             <button className={styles.icon_edit}>
               <img
                 style={{ marginRight: "8px" }}
