@@ -38,7 +38,7 @@
 
 .wrapper:hover {
   overflow: overlay;
-  padding-bottom: 0
+  padding-bottom: 0;
 }
 
 .wrapper::-webkit-scrollbar {
@@ -55,7 +55,7 @@
 }
 
 .wrapper::-webkit-scrollbar-thumb {
-  background-color: var(--theme-color);
+  background-color: #4c5bd4;
   width: auto;
   height: 8px;
   border-radius: 10px;

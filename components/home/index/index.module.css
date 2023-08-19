@@ -3,8 +3,8 @@
   align-items: center;
   justify-content: center;
   height: 0;
-  border-bottom: 16px solid var(--theme-color);
-  border-top: 18px solid var(--theme-color);
+  border-bottom: 16px solid #4c5bd4;
+  border-top: 18px solid #4c5bd4;
   border-right: 20px solid transparent;
   border-left: 20px solid transparent;
   margin: auto;
@@ -15,11 +15,11 @@
   color: var(--text-color);
 
   .text {
-    color: var(--white-color);
+    color: #fff;
   }
 }
 
-@media screen and (max-width: 768px){
+@media screen and (max-width: 768px) {
   .indexWrapper {
     padding: 0;
   }
