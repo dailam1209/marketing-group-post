@@ -2,14 +2,13 @@ import CustomerSelectBoxStep from "./select_box_step";
 import styles from "../../potential/potential_add_files/add_file_potential.module.css";
 import InputText from "@/components/crm/potential/potential_add_files/input_text";
 import Link from "next/link";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 
 export default function EditPersonalCustomerInfor({
   formData,
   setFormData,
-  editData,
 }: any) {
-  console.log(editData);
+  console.log("abc", formData);
 
   return (
     <div>
@@ -18,16 +17,15 @@ export default function EditPersonalCustomerInfor({
       <div className={styles.row_input}>
         <InputText
           label="Tên khách hàng"
-          placeholder="Nhập tên khách hàng"
-          value={` ${editData?.ten_khach_hang}`}
+          value={`${formData?.ten_khach_hang}`}
           setFormData={setFormData}
-          // keyValue={editData?.ten_khach_hang}
+          keyValue="ten_khach_hang"
         />
         <InputText
           label="Tên viết tắt"
           placeholder="Tên viết tắt"
           setFormData={setFormData}
-          value={` ${editData?.ten_viet_tat}`}
+          value={` ${formData?.ten_viet_tat}`}
           keyValue="stand_name"
         />
       </div>
@@ -37,15 +35,15 @@ export default function EditPersonalCustomerInfor({
           label="Mã số thuế"
           placeholder="Nhập mã số thuế"
           setFormData={setFormData}
-          value={` ${editData?.ma_so_thue}`}
+          value={` ${formData?.ma_so_thue}`}
           keyValue="tax_code"
         />
         <InputText
           label="Điện thoại"
           placeholder="Nhập số điện thoại"
-          value={` ${editData?.dien_thoai}`}
+          value={`${formData?.dien_thoai}`}
           setFormData={setFormData}
-          keyValue="phone"
+          keyValue="dien_thoai"
         />
       </div>
 
@@ -53,17 +51,19 @@ export default function EditPersonalCustomerInfor({
         <InputText
           label="Email"
           placeholder="Nhập email"
-          value={` ${editData?.email}`}
+          value={`${formData?.email}`}
+          setFormData={setFormData}
+          keyValue="email"
         />
         <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
           <label className={`${styles["form-label"]}`}>Nguồn khách hàng</label>
           <CustomerSelectBoxStep
             placeholder="Chọn nguồn khách hàng"
-            value={` ${editData?.thanh_pho}`}
+            value={` ${formData?.thanh_pho}`}
           />
         </div>
       </div>
-
+    
       <div className={styles.row_input}>
         <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
           <label className={`${styles["form-label"]}`}>

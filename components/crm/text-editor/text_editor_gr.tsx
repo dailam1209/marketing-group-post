@@ -1,7 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 
-export default function TextEditor({ title = null, className,cusId,setEditorContent,des }: any) {
-  console.log("chchschashcek",cusId)
+export default function TextEditorGr({
+  title = null,
+  className,
+  editorContent,
+  setEditorValue,
+}: any) {
   const editorRef = useRef<any>();
   const [editorLoaded, setEditorLoaded] = useState(false);
   // const [editorContent, setEditorContent] = useState("");
@@ -25,7 +29,17 @@ export default function TextEditor({ title = null, className,cusId,setEditorCont
     >
       <label className="title_label">{title}</label>
       {editorLoaded ? (
-        <CKEditor data={des} onChange={handleEditorChange} editor={ClassicEditor} />
+        <CKEditor
+          data={editorContent}
+          onChange={(event: any, editor: any) => {
+            const content = editor.getData();
+            // console.log(content)
+            if (typeof setEditorValue !== undefined) {
+              setEditorValue(content);
+            }
+          }}
+          editor={ClassicEditor}
+        />
       ) : (
         "loading..."
       )}

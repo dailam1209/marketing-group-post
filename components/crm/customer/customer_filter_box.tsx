@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Select, TimePicker } from "antd";
+import { Input, Select, TimePicker } from "antd";
 import dayjs from "dayjs";
 import styles from "./customer.module.css";
 import stylePotentialSlect from "@/components/crm/potential/potential.module.css";
 import PotentialSelectBoxStep from "../potential/potential_steps/select_box_step";
+import moment from "moment";
 
 const format = "HH:mm";
 
@@ -19,11 +20,8 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({ setOpen }) => {
     setValueSelectStatus(value);
   };
 
-  const options = [
-    { value: "test1", label: "test1" },
-    { value: "test2", label: "test2" },
-    { value: "test3", label: "test3" },
-  ];
+  const currentTime = moment(); // Thời điểm hiện tại
+  const pastTime = currentTime.subtract(2, "days");
 
   return (
     <>
@@ -34,52 +32,72 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({ setOpen }) => {
             <div className={`${styles["col-lg-6"]}`}>
               <TimePicker
                 style={{ width: "100%", height: "37px" }}
-                defaultValue={dayjs("12:08", format)}
+                defaultValue={dayjs("12:00", format)}
                 format={format}
               />
+            </div>
+            <div className={`${styles["col-lg-6"]}`}>
+              <div
+                className={styles.box_input}
+                style={{ width: "100%", marginBottom: "5px" }}
+              >
+                <Input
+                  type="date"
+                  defaultValue={pastTime.format("YYYY-MM-DD")}
+                />
               </div>
-              <div className={`${styles["col-lg-6"]}`}>
-                <div className={styles.box_input} style={{ width: "100%",marginBottom: "5px" }}>
-                  <input type="date" value={"2023-07-03"} />
-                </div>
-              </div>
-            
+            </div>
           </div>
           <div className={styles.row}>
             <div className={`${styles["col-lg-6"]}`}>
               <TimePicker
-                  style={{ width: "100%", height: "37px" }}
-                  defaultValue={dayjs("00:00", format)}
-                  format={format}
-                />
+                style={{ width: "100%", height: "37px" }}
+                defaultValue={dayjs("00:00", format)}
+                format={format}
+              />
             </div>
             <div className={`${styles["col-lg-6"]}`}>
-              <div className={styles.box_input} style={{ width: "100%",marginBottom: "5px" }}>
+              <div
+                className={styles.box_input}
+                style={{ width: "100%", marginBottom: "5px" }}
+              >
                 <input type="date" />
               </div>
             </div>
-            
-            
           </div>
-          
-          
         </div>
 
         <div className={styles.form_group}>
           <div className={styles.label}>Tình trạng khách hàng</div>
           <Select
-            style={{ width: "100%" }}
+            style={{
+              width: "100%",
+              border: "1px solid black",
+              borderRadius: 5,
+            }}
             onChange={handleChange}
-            options={options}
             value={valueSelectStatus}
-          />
+          >
+            <option value="Chưa tư vấn">Chưa tư vấn</option>
+            <option value="Đã tư vấn xong">Đã tư vấn xong</option>
+          </Select>
         </div>
-
         <div className={styles.form_group}>
           <div className={styles.label}>Nguồn khách hàng</div>
-          <div className={stylePotentialSlect.customer_list}>
-            <PotentialSelectBoxStep value="Tất cả" placeholder="Tất cả" />
-          </div>
+          <Select
+            style={{ width: "100%", border: "1px solid black" }}
+            onChange={handleChange}
+            value={valueSelectStatus}
+          >
+            <option value={1}>{" Facebook"}</option>
+            <option value={2}>{" Zalo"}</option>
+            <option value={3}>{" Website"}</option>
+            <option value={4}>{" Dữ liệu bên thứ 3"}</option>
+            <option value={5}>{" Khách hàng giới thiệu"}</option>
+            <option value={6}>{" Giới thiệu"}</option>
+            <option value={7}>{" Chăm sóc khách hàng"}</option>
+            <option value={8}>{" Email"}</option>
+          </Select>
         </div>
 
         <div className={styles.form_group}>
@@ -99,36 +117,67 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({ setOpen }) => {
               Ghim nhóm
             </div>
           </div>
-          <div className={stylePotentialSlect.customer_list}>
-            <PotentialSelectBoxStep value="Tất cả" placeholder="Tất cả" />
-          </div>
+          <Select
+            style={{
+              width: "100%",
+              border: "1px solid black",
+              borderRadius: 5,
+            }}
+            onChange={handleChange}
+            value={valueSelectStatus}
+          >
+            <option value="Chưa tư vấn">Chưa tư vấn</option>
+            <option value="Đã tư vấn xong">Đã tư vấn xong</option>
+          </Select>
         </div>
 
         <div className={styles.form_group}>
           <div className={styles.label}>Nhóm khách hàng con</div>
           <div className={stylePotentialSlect.customer_list}>
-            <PotentialSelectBoxStep value="Tất cả" placeholder="Tất cả" />
+            <Select
+              style={{
+                width: "100%",
+                border: "1px solid black",
+                borderRadius: 5,
+              }}
+              onChange={handleChange}
+              value={valueSelectStatus}
+            >
+              <option value="Chưa tư vấn">Chưa tư vấn</option>
+              <option value="Đã tư vấn xong">Đã tư vấn xong</option>
+            </Select>
           </div>
         </div>
 
         <div className={styles.form_group}>
           <div className={styles.label}>Nhân viên phụ trách</div>
           <div className={stylePotentialSlect.customer_list}>
-            <PotentialSelectBoxStep value="Tất cả" placeholder="Tất cả" />
-          </div>
-        </div>
-
-        <div className={styles.form_group}>
-          <div className={styles.label}>Nhân viên bàn giao</div>
-          <div className={stylePotentialSlect.customer_list}>
-            <PotentialSelectBoxStep value="Tất cả" placeholder="Tất cả" />
+            <Select
+              style={{
+                width: "100%",
+                border: "1px solid black",
+                borderRadius: 5,
+              }}
+              onChange={handleChange}
+              value={valueSelectStatus}
+            >
+              <option value="Chưa tư vấn">Chưa tư vấn</option>
+              <option value="Đã tư vấn xong">Đã tư vấn xong</option>
+            </Select>
           </div>
         </div>
 
         <div className={styles.form_group}>
           <div className={styles.label}>Nhân viên tạo khách hàng</div>
           <div className={stylePotentialSlect.customer_list}>
-            <PotentialSelectBoxStep value="Tất cả" placeholder="Tất cả" />
+            <Select
+              style={{ width: "100%", border: "1px solid black" }}
+              onChange={handleChange}
+              value={valueSelectStatus}
+            >
+              <option value="Chưa tư vấn">Chưa tư vấn</option>
+              <option value="Đã tư vấn xong">Đã tư vấn xong</option>
+            </Select>
           </div>
         </div>
       </div>

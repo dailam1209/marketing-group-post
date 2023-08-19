@@ -17,7 +17,6 @@ const ModalCompleteStep: React.FC<ModalCompleteStepProps> = ({
   modal1Open = true,
   setModal1Open,
   title,
-  link = "/",
   editorContent,
   cusId,
 }: any) => {
