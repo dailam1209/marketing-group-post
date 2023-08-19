@@ -1,14 +1,16 @@
 import Image from 'next/image'
-import React from 'react'
+import React, { useRef } from 'react'
 import styles from './article.module.css'
 import { Button } from 'antd'
 
 export default function Article({
   className,
   showMore,
+  setShowmore,
 }: {
   className: string
   showMore: boolean
+  setShowmore: any
 }) {
   return (
     <>
@@ -40,7 +42,7 @@ export default function Article({
             </p>{' '}
             <h2 dir='ltr' style={{}} id='cham-cong'>
               <span style={{}}>
-                <span>1. Chấm công&nbsp;</span>
+                <span id='1'>1. Chấm công&nbsp;</span>
               </span>
             </h2>{' '}
             <p dir='ltr' style={{}}>
@@ -13121,6 +13123,8 @@ export default function Article({
                 <span>
                   <span id='docs-internal-guid-86c67cd3-7fff-c945-7eb5-a81725520fb7'>
                     <span
+                      id='42'
+                      onClick={() => scrollTo(42)}
                       style={{
                         fontVariantNumeric: 'normal',
                         fontVariantEastAsian: 'normal',
