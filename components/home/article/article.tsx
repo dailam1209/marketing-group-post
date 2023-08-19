@@ -23,7 +23,6 @@ export default function Article({
         <p className={styles.tieuDe}>
           HƯỚNG DẪN SỬ DỤNG PHẦN MỀM CHAMCONG VÀ CÁC ỨNG DỤNG CHUYỂN ĐỔI SỐ 365
         </p>
-
         <div
         // className='blog_detail news-detail'
         >
