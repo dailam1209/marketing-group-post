@@ -508,6 +508,11 @@ tr {
   background: #4c5bd4 !important;
 }
 
+.ant-dropdown-open {
+  /* display: none !important;
+  visibility: hidden !important; */
+}
+
 .mdal_cancel .ant-modal-title {
   color: white !important;
 }
