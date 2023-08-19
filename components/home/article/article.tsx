@@ -17,12 +17,13 @@ export default function Article({
       <div
         className={className}
         style={{
-          height: `${showMore ? 'max-content' : '1800px'}`,
+          height: `${showMore ? 'max-content' : '1600px'}`,
           overflow: 'hidden',
         }}>
         <p className={styles.tieuDe}>
           HƯỚNG DẪN SỬ DỤNG PHẦN MỀM CHAMCONG VÀ CÁC ỨNG DỤNG CHUYỂN ĐỔI SỐ 365
         </p>
+
         <div
         // className='blog_detail news-detail'
         >
@@ -63,12 +64,14 @@ export default function Article({
               style={{}}
               id='huong-dan-cai-dat-tai-khoan-cham-cong-cong-ty'>
               <span style={{}}>
-                <span>1.1. Hướng dẫn cài đặt tài khoản chấm công công ty</span>
+                <span id='1_1'>
+                  1.1. Hướng dẫn cài đặt tài khoản chấm công công ty
+                </span>
               </span>
             </h3>{' '}
             <h4 dir='ltr' style={{}} id='dang-ky'>
               <span style={{}}>
-                <span>1.1.1. Đăng ký</span>
+                <span id='1_1_1'>1.1.1. Đăng ký</span>
               </span>
             </h4>{' '}
             <p dir='ltr' style={{}}>
@@ -551,6 +554,7 @@ export default function Article({
                 <span>
                   <span id='docs-internal-guid-9785a806-7fff-168e-7352-f0b84c6a1e50'>
                     <span
+                      id='1_1_2'
                       style={{
                         fontVariantNumeric: 'normal',
                         fontVariantEastAsian: 'normal',
@@ -934,7 +938,8 @@ export default function Article({
                         fontVariantEastAsian: 'normal',
                         fontVariantAlternates: 'normal',
                         verticalAlign: 'baseline',
-                      }}>
+                      }}
+                      id='1_2'>
                       1.2. Thiết lập cấu hình chấm công
                     </span>
                   </span>
@@ -2333,7 +2338,8 @@ export default function Article({
                         fontVariantEastAsian: 'normal',
                         fontVariantAlternates: 'normal',
                         verticalAlign: 'baseline',
-                      }}>
+                      }}
+                      id='1_3'>
                       1.3.&nbsp; Cài đặt Ca làm việc
                     </span>
                   </span>
@@ -2579,7 +2585,8 @@ export default function Article({
                         fontVariantEastAsian: 'normal',
                         fontVariantAlternates: 'normal',
                         verticalAlign: 'baseline',
-                      }}>
+                      }}
+                      id='1_4'>
                       1.4. Cài đặt lịch làm việc
                     </span>
                   </span>
@@ -3903,7 +3910,8 @@ export default function Article({
                         fontVariantEastAsian: 'normal',
                         fontVariantAlternates: 'normal',
                         verticalAlign: 'baseline',
-                      }}>
+                      }}
+                      id='1_5'>
                       1.5. Cài đặt Công chuẩn của tháng
                     </span>
                   </span>
@@ -4142,7 +4150,8 @@ export default function Article({
                         fontVariantEastAsian: 'normal',
                         fontVariantAlternates: 'normal',
                         verticalAlign: 'baseline',
-                      }}>
+                      }}
+                      id='1_6'>
                       1.6. Cập nhật lại khuôn mặt
                     </span>
                   </span>
@@ -4344,7 +4353,8 @@ export default function Article({
                         fontVariantEastAsian: 'normal',
                         fontVariantAlternates: 'normal',
                         verticalAlign: 'baseline',
-                      }}>
+                      }}
+                      id='1_7'>
                       1.7. Duyệt thiết bị mới khi chấm công&nbsp;
                     </span>
                   </span>
@@ -4573,7 +4583,8 @@ export default function Article({
                         fontVariantEastAsian: 'normal',
                         fontVariantAlternates: 'normal',
                         verticalAlign: 'baseline',
-                      }}>
+                      }}
+                      id='1_8'>
                       1.8. Xuất công
                     </span>
                   </span>
@@ -4691,7 +4702,8 @@ export default function Article({
                         fontVariantEastAsian: 'normal',
                         fontVariantAlternates: 'normal',
                         verticalAlign: 'baseline',
-                      }}>
+                      }}
+                      id='2'>
                       2. Quản lý công ty&nbsp;
                     </span>
                   </span>
@@ -4762,7 +4774,8 @@ export default function Article({
                         fontVariantEastAsian: 'normal',
                         fontVariantAlternates: 'normal',
                         verticalAlign: 'baseline',
-                      }}>
+                      }}
+                      id='2_1'>
                       2.1. Quản lý ca làm việc
                     </span>
                   </span>
@@ -5247,7 +5260,8 @@ export default function Article({
                         fontVariantEastAsian: 'normal',
                         fontVariantAlternates: 'normal',
                         verticalAlign: 'baseline',
-                      }}>
+                      }}
+                      id='2_3'>
                       2.3. Cài đặt Quản lý phòng ban
                     </span>
                   </span>
@@ -6102,7 +6116,8 @@ export default function Article({
                         fontVariantEastAsian: 'normal',
                         fontVariantAlternates: 'normal',
                         verticalAlign: 'baseline',
-                      }}>
+                      }}
+                      id='2_4'>
                       2.4. Cài đặt thêm nhân viên mới
                     </span>
                   </span>
@@ -6316,7 +6331,8 @@ export default function Article({
                         fontVariantEastAsian: 'normal',
                         fontVariantAlternates: 'normal',
                         verticalAlign: 'baseline',
-                      }}>
+                      }}
+                      id='2_5'>
                       2.5. Cài đặt biến động nhân sự
                     </span>
                   </span>
@@ -6402,7 +6418,8 @@ export default function Article({
                         fontVariantEastAsian: 'normal',
                         fontVariantAlternates: 'normal',
                         verticalAlign: 'baseline',
-                      }}>
+                      }}
+                      id='2_5_1'>
                       2.5.1. Luân chuyển công tác
                     </span>
                   </span>
@@ -6827,7 +6844,8 @@ export default function Article({
                         fontVariantEastAsian: 'normal',
                         fontVariantAlternates: 'normal',
                         verticalAlign: 'baseline',
-                      }}>
+                      }}
+                      id='2_5_2'>
                       2.5.2. Giảm biên chế
                     </span>
                   </span>
@@ -7190,7 +7208,8 @@ export default function Article({
                         fontVariantEastAsian: 'normal',
                         fontVariantAlternates: 'normal',
                         verticalAlign: 'baseline',
-                      }}>
+                      }}
+                      id='2_5_3'>
                       2.5.3. Nghỉ việc sai quy định
                     </span>
                   </span>
@@ -7312,7 +7331,8 @@ export default function Article({
                         fontVariantEastAsian: 'normal',
                         fontVariantAlternates: 'normal',
                         verticalAlign: 'baseline',
-                      }}>
+                      }}
+                      id='2_5_4'>
                       2.5.4. Bổ nhiệm, quy hoạch
                     </span>
                   </span>
@@ -7571,7 +7591,8 @@ export default function Article({
                         fontVariantEastAsian: 'normal',
                         fontVariantAlternates: 'normal',
                         verticalAlign: 'baseline',
-                      }}>
+                      }}
+                      id='3'>
                       3. Cài đặt lương
                     </span>
                   </span>
@@ -7595,7 +7616,8 @@ export default function Article({
                         fontVariantEastAsian: 'normal',
                         fontVariantAlternates: 'normal',
                         verticalAlign: 'baseline',
-                      }}>
+                      }}
+                      id='3_1'>
                       3.1. Cài đặt nhập lương cơ bản
                     </span>
                   </span>
@@ -8290,7 +8312,8 @@ export default function Article({
                         fontVariantEastAsian: 'normal',
                         fontVariantAlternates: 'normal',
                         verticalAlign: 'baseline',
-                      }}>
+                      }}
+                      id='3_2'>
                       3.2. Cài đặt thiết lập phạt đi muộn/về sớm
                     </span>
                   </span>
@@ -8648,7 +8671,8 @@ export default function Article({
                         fontVariantEastAsian: 'normal',
                         fontVariantAlternates: 'normal',
                         verticalAlign: 'baseline',
-                      }}>
+                      }}
+                      id='3_3'>
                       3.3. Cài đặt Bảo hiểm
                     </span>
                   </span>
@@ -8967,7 +8991,8 @@ export default function Article({
                         fontVariantEastAsian: 'normal',
                         fontVariantAlternates: 'normal',
                         verticalAlign: 'baseline',
-                      }}>
+                      }}
+                      id='3_4'>
                       3.4. Cài đặt Phúc lợi
                     </span>
                   </span>
@@ -9572,7 +9597,8 @@ export default function Article({
                         fontVariantEastAsian: 'normal',
                         fontVariantAlternates: 'normal',
                         verticalAlign: 'baseline',
-                      }}>
+                      }}
+                      id='3_5'>
                       3.5. Cài đặt phụ cấp khác
                     </span>
                   </span>
@@ -10391,7 +10417,8 @@ export default function Article({
                         fontVariantEastAsian: 'normal',
                         fontVariantAlternates: 'normal',
                         verticalAlign: 'baseline',
-                      }}>
+                      }}
+                      id='3_6'>
                       3.6. Cài đặt thuế
                     </span>
                   </span>
@@ -10551,7 +10578,8 @@ export default function Article({
                         fontVariantEastAsian: 'normal',
                         fontVariantAlternates: 'normal',
                         verticalAlign: 'baseline',
-                      }}>
+                      }}
+                      id='3_7'>
                       3.7. Cộng công
                     </span>
                   </span>
@@ -10678,7 +10706,8 @@ export default function Article({
                         fontVariantEastAsian: 'normal',
                         fontVariantAlternates: 'normal',
                         verticalAlign: 'baseline',
-                      }}>
+                      }}
+                      id='3_8'>
                       3.8. Thưởng, phạt
                     </span>
                   </span>
@@ -11194,7 +11223,8 @@ export default function Article({
                         fontVariantEastAsian: 'normal',
                         fontVariantAlternates: 'normal',
                         verticalAlign: 'baseline',
-                      }}>
+                      }}
+                      id='3_9'>
                       3.9. Hoa hồng
                     </span>
                   </span>
@@ -11265,7 +11295,8 @@ export default function Article({
                         fontVariantEastAsian: 'normal',
                         fontVariantAlternates: 'normal',
                         verticalAlign: 'baseline',
-                      }}>
+                      }}
+                      id='3_9_1'>
                       + Hoa hồng tiền
                     </span>
                   </span>
@@ -11288,7 +11319,8 @@ export default function Article({
                         fontVariantEastAsian: 'normal',
                         fontVariantAlternates: 'normal',
                         verticalAlign: 'baseline',
-                      }}>
+                      }}
+                      id='3_9_2'>
                       + Hoa hồng doanh thu&nbsp;
                     </span>
                   </span>
@@ -12270,7 +12302,8 @@ export default function Article({
                         fontVariantEastAsian: 'normal',
                         fontVariantAlternates: 'normal',
                         verticalAlign: 'baseline',
-                      }}>
+                      }}
+                      id='3_10'>
                       3.10. Xuất lương
                     </span>
                   </span>
@@ -12450,7 +12483,8 @@ export default function Article({
                         fontVariantEastAsian: 'normal',
                         fontVariantAlternates: 'normal',
                         verticalAlign: 'baseline',
-                      }}>
+                      }}
+                      id='4'>
                       1. Chấm công nhân viên
                     </span>
                   </span>
@@ -12526,7 +12560,8 @@ export default function Article({
                         fontVariantEastAsian: 'normal',
                         fontVariantAlternates: 'normal',
                         verticalAlign: 'baseline',
-                      }}>
+                      }}
+                      id='4_1'>
                       1.1. Chấm công bằng QR
                     </span>
                   </span>
@@ -12604,7 +12639,8 @@ export default function Article({
                         fontVariantEastAsian: 'normal',
                         fontVariantAlternates: 'normal',
                         verticalAlign: 'baseline',
-                      }}>
+                      }}
+                      id='4_2'>
                       1.2. Chấm công bằng nhận diện khuôn mặt
                     </span>
                   </span>
@@ -12656,7 +12692,8 @@ export default function Article({
                         fontVariantEastAsian: 'normal',
                         fontVariantAlternates: 'normal',
                         verticalAlign: 'baseline',
-                      }}>
+                      }}
+                      id='4_3'>
                       1.3. Chấm công bằng tài khoản công ty
                     </span>
                   </span>
@@ -12697,7 +12734,7 @@ export default function Article({
                 marginBottom: '0pt',
               }}
               id='tao-de-xuat'>
-              <span style={{}}>
+              <span style={{}} id='5'>
                 <span>
                   <span id='docs-internal-guid-86c67cd3-7fff-c945-7eb5-a81725520fb7'>
                     <span
@@ -12706,7 +12743,8 @@ export default function Article({
                         fontVariantEastAsian: 'normal',
                         fontVariantAlternates: 'normal',
                         verticalAlign: 'baseline',
-                      }}>
+                      }}
+                      id='5'>
                       2. Tạo đề xuất&nbsp;
                     </span>
                   </span>
@@ -12907,7 +12945,8 @@ export default function Article({
                         fontVariantEastAsian: 'normal',
                         fontVariantAlternates: 'normal',
                         verticalAlign: 'baseline',
-                      }}>
+                      }}
+                      id='6'>
                       3. Lịch sử&nbsp;
                     </span>
                   </span>
@@ -12931,7 +12970,8 @@ export default function Article({
                         fontVariantEastAsian: 'normal',
                         fontVariantAlternates: 'normal',
                         verticalAlign: 'baseline',
-                      }}>
+                      }}
+                      id='6_1'>
                       3.1. Lịch sử chấm công
                     </span>
                   </span>
@@ -13123,8 +13163,7 @@ export default function Article({
                 <span>
                   <span id='docs-internal-guid-86c67cd3-7fff-c945-7eb5-a81725520fb7'>
                     <span
-                      id='42'
-                      onClick={() => scrollTo(42)}
+                      id='6_1'
                       style={{
                         fontVariantNumeric: 'normal',
                         fontVariantEastAsian: 'normal',

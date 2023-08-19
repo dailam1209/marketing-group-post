@@ -66,7 +66,7 @@ export default function ChamCongCongTy() {
         const res: any = await axios.post(
           'http://43.239.223.154:8081/',
           {
-            company_id: 3312,
+            company_id: comId,
             image: imageSrc,
             // image: imageSrc,
           },
@@ -105,7 +105,7 @@ export default function ChamCongCongTy() {
             {
               userId: resp?.user_id,
               // compId: comId,
-              compId: 3312,
+              compId: comId,
             },
             {
               headers: {

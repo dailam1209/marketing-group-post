@@ -13,7 +13,7 @@ export default function UpdateFace() {
     // width: 971,
     // height: 971,
     facingMode: 'user',
-  } 
+  }
 
   const webcamRef = useRef<Webcam>(null)
 
@@ -46,7 +46,7 @@ export default function UpdateFace() {
           fd.append('logo', file)
 
           const res = await axios.post(
-            'https://chamcong.24hpay.vn/service/update_featured_recognition.php',
+            'http://43.239.223.154:8081/updateFace',
             fd,
             {
               headers: {
