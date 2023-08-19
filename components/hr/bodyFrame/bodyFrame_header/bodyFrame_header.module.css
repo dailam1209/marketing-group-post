@@ -19,7 +19,7 @@
 .header_left_item1 {
   font-style: normal;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 16px;
   color: #4c5bd4;
   width: 25%;
 }
@@ -27,12 +27,12 @@
   display: none;
   font-style: normal;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 16px;
 }
 .header_left_item2 {
   font-style: normal;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 16px;
   border-left: 2px solid #474747;
   color: #474747;
   display: -webkit-box;
@@ -79,7 +79,7 @@
   font-style: normal;
   padding-right: 40px;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 16px;
   color: #666666;
   max-width: 120px;
   overflow: hidden; /* Ẩn đoạn văn bản dài hơn giới hạn chiều rộng */

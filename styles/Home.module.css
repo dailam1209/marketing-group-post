@@ -40,7 +40,6 @@
   }
 }
 
-
 .singleBtn:hover {
   cursor: pointer;
 }
@@ -60,12 +59,12 @@
     justify-content: center;
 
     margin-right: 14px;
-    background-color: var(--theme-color);
+    background-color: #4c5bd4;
 
     .index {
       font-size: 24px;
       font-family: 'Salsa', cursive !important;
-      color: var(--white-color);
+      color: #fff;
     }
   }
 
@@ -79,7 +78,7 @@
   .circleExplain {
     width: 35px;
     height: 35px;
-    border: 1px solid var(--theme-color);
+    border: 1px solid #4c5bd4;
     display: flex;
     align-items: center;
     justify-content: center;

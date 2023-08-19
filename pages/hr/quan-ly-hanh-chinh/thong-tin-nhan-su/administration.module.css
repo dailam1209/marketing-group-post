@@ -38,7 +38,7 @@
   padding: 10px 15px;
   color: #474747;
   font-weight: 600;
-  font-size: 14px;
+  font-size: 16px;
 }
 .nav_tab li a:hover {
   border-color: #eee #eee #ddd;
@@ -52,7 +52,7 @@
   display: flex;
   justify-content: space-evenly;
   font-weight: 500 !important;
-  font-size: 14px;
+  font-size: 16px;
 }
 .wrapper .nav_tab_setting li a {
   font-weight: 500;

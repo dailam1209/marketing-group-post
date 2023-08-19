@@ -5,13 +5,13 @@
     justify-content: center;
     align-items: center;
     align-self: stretch;
-    background-color: var(--theme-color);
+    background-color: #4c5bd4;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
   }
   .textHead {
     font-size: 20px;
-    color: var(--white-color);
+    color: #fff;
   }
   .crossImage {
     position: absolute;
@@ -41,11 +41,11 @@
     margin-top: 20px;
     border-radius: 10px !important;
     justify-content: center;
-    background-color: var(--theme-color);
+    background-color: #4c5bd4;
     height: 34px;
     width: 131px;
     .txt {
-      color: var(--white-color);
+      color: #fff;
       font-size: 16px;
     }
   }
@@ -61,7 +61,7 @@
     height: 39px;
     width: 192px;
     .txt {
-      color: var(--white-color);
+      color: #fff;
       font-size: 18px;
     }
   }
@@ -81,9 +81,9 @@
     padding-right: 30px;
     display: flex;
     align-items: center;
-    background-color: var(--white-color);
+    background-color: #fff;
     .text {
-      color: var(--theme-color);
+      color: #4c5bd4;
       font-size: 18px;
       margin-left: 10px;
     }
@@ -118,7 +118,7 @@
     margin: 10px 0px;
   }
   .buttonAddFormula {
-    width: "100%";
+    width: '100%';
     margin-bottom: 20px;
     margin-top: 20px;
   }
@@ -191,7 +191,7 @@
     padding: 16px 20px 15px 16px;
     justify-content: center;
     align-items: center;
-    background-color: var(--theme-color);
+    background-color: #4c5bd4;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
   }
@@ -210,7 +210,7 @@
   }
   .textHead {
     font-size: 18px;
-    color: var(--white-color);
+    color: #fff;
     flex: 1;
     text-align: center;
   }
@@ -234,11 +234,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--theme-color);
+    background-color: #4c5bd4;
     height: 34px;
     width: 131px;
     .txt {
-      color: var(--white-color);
+      color: #fff;
       font-size: 16px;
     }
   }
@@ -254,7 +254,7 @@
     height: 39px;
     width: 157px;
     .txt {
-      color: var(--white-color);
+      color: #fff;
       font-size: 16px;
     }
   }
@@ -273,9 +273,9 @@
     padding-right: 30px;
     display: flex;
     align-items: center;
-    background-color: var(--white-color);
+    background-color: #fff;
     .text {
-      color: var(--theme-color);
+      color: #4c5bd4;
       font-size: 18px;
       margin-left: 10px;
     }

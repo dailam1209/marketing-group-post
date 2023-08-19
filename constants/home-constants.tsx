@@ -14,6 +14,11 @@ export const LIST_ACTIONS = [
         required: true,
       },
       {
+        title: 'Cài đặt Quản lý ca làm việc',
+        url: 'quan-ly-cong-ty/quan-ly-ca',
+        required: true,
+      },
+      {
         title: 'Cài đặt Công chuẩn của tháng',
         url: 'cham-cong/cai-dat-cong-chuan',
         required: true,
@@ -44,11 +49,6 @@ export const LIST_ACTIONS = [
     key: '1',
     title: 'Quản lý công ty',
     steps: [
-      {
-        title: 'Cài đặt Quản lý ca làm việc',
-        url: 'quan-ly-cong-ty/quan-ly-ca',
-        required: true,
-      },
       {
         title: 'Cài đặt Quản lý công ty con',
         url: 'quan-ly-cong-ty/quan-ly-cong-ty-con',
