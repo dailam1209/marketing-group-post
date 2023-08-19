@@ -55,7 +55,7 @@
 }
 
 .wrapper::-webkit-scrollbar-thumb {
-  background-color: var(--theme-color);
+  background-color: #4C5BD4;
   width: auto;
   height: 8px;
   border-radius: 10px;

@@ -2,19 +2,19 @@
     width:100%;
     padding: 10px 30px 10px 30px;
     height: auto;
-    background-color:var(--theme-color);
+    background-color:#4C5BD4;
     .txt{
-        color: var(--white-color);
+        color: #fff;
     }
 }
 .buttons:hover{
-    background-color:var(--white-color);
+    background-color:#fff;
     .txt{
-        color: var(--theme-color) !important;
+        color: #4C5BD4 !important;
     }
 }
 .buttons:active{
-    background-color:var(--theme-color);
+    background-color:#4C5BD4;
     .txt{
         color: rebeccapurple !important;
     }

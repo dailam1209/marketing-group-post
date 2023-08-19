@@ -1,15 +1,15 @@
-import Head from 'next/head'
-import styles from '../../styles/Home.module.css'
-import { Row, Col, Card, ConfigProvider } from 'antd'
-import Image from 'next/image'
-import { useContext, useState, useEffect, createContext } from 'react'
-import { THEME_COLOR } from '../../constants/style-constants'
-import { LIST_ACTIONS, LIST_ACTIONS_EMP } from '@/constants/home-constants'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { ModalWrapper } from '@/components/modal/ModalWrapper'
-import { getCookie } from 'cookies-next'
-import Cookies from 'js-cookie'
+import Head from 'next/head';
+import styles from '../../styles/Home.module.css';
+import { Row, Col, Card, ConfigProvider } from 'antd';
+import Image from 'next/image';
+import { useContext, useState, useEffect, createContext } from 'react';
+import { THEME_COLOR } from '../../constants/style-constants';
+import { LIST_ACTIONS, LIST_ACTIONS_EMP } from '@/constants/home-constants';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { ModalWrapper } from '@/components/modal/ModalWrapper';
+import { getCookie } from 'cookies-next';
+import Cookies from 'js-cookie';
 
 const ConfirmModal = ({
   open,
@@ -17,18 +17,18 @@ const ConfirmModal = ({
   router,
   url,
 }: {
-  open: boolean
-  setOpen: any
-  router: any
-  url: string
+  open: boolean;
+  setOpen: any;
+  router: any;
+  url: string;
 }) => {
   const children = (
     <p style={{ textAlign: 'center' }}>Bạn có muốn tiến hành cài đặt không?</p>
-  )
+  );
 
   const onConfirm = () => {
-    router?.push(url)
-  }
+    router?.push(url);
+  };
 
   return ModalWrapper(
     open,
@@ -39,19 +39,19 @@ const ConfirmModal = ({
     'Cài đặt',
     onConfirm,
     false
-  )
-}
-export const COOKIE_KEY = 'token_base365'
+  );
+};
+export const COOKIE_KEY = 'token_base365';
 export default function HomeQLNS() {
-  const router = useRouter()
-  const [selectedUrl, setSelectedUrl] = useState('')
-  const [openConfirm, setOpenConfirm] = useState(false)
-  const [selectedBtn, setSelectedBtn] = useState<any>()
+  const router = useRouter();
+  const [selectedUrl, setSelectedUrl] = useState('');
+  const [openConfirm, setOpenConfirm] = useState(false);
+  const [selectedBtn, setSelectedBtn] = useState<any>();
   // set to localStorage
   useEffect(() => {
-    const value = localStorage.getItem('selectedBtnIndex') || '0'
-    setSelectedBtn(value)
-  }, [])
+    const value = localStorage.getItem('selectedBtnIndex') || '0';
+    setSelectedBtn(value);
+  }, []);
 
   const LIST_BUTTONS_COMP = [
     {
@@ -74,7 +74,7 @@ export default function HomeQLNS() {
       title: 'Cài đặt lương',
       icon: '/database.png',
     },
-  ]
+  ];
 
   const LIST_BUTTONS_EMP = [
     {
@@ -102,7 +102,7 @@ export default function HomeQLNS() {
       title: 'Lịch sử',
       icon: '/history-icon.png',
     },
-  ]
+  ];
 
   const utilButton = (
     icon: string,
@@ -111,42 +111,48 @@ export default function HomeQLNS() {
     color: string
   ) => (
     <Row
+      gutter={[{xs:30, sm: 20}, {xs: 15}]}
       key={index}
       className={styles.singleBtn}
       style={{ borderRight: `8px solid ${color}` }}
       onClick={() => {
-        localStorage.setItem('selectedBtnIndex', `${index - 1}`)
-        setSelectedBtn(`${index - 1}`)
-      }}>
-      <Col span={5}>
+        localStorage.setItem('selectedBtnIndex', `${index - 1}`);
+        setSelectedBtn(`${index - 1}`);
+      }}
+    >
+      <Col sm={5} xs={6}>
         <div
           className={styles.indexWithBorder}
-          style={{ border: `5px solid ${color}` }}>
-          <span className={styles.index}> {index}</span>
+          style={{ border: `5px solid ${color}` }}
+        >
+          <span className={styles.index}>{index}</span>
         </div>
       </Col>
       <Col
-        span={15}
+        sm={15}
+        xs={12}
         style={{
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'flex-start',
-        }}>
+        }}
+      >
         <p
           className={styles.title}
           style={{
             color: `${index - 1}` === selectedBtn ? THEME_COLOR : '#474747',
             // marginLeft: currentRole === ADMIN_ROLE ? '10px' : '0px',
-          }}>
+          }}
+        >
           {title}
         </p>
       </Col>
-      <Col span={4} className={styles.rightDiv}>
-        <div className={styles.verticalDivider}></div>
-        <Image alt='' src={icon} width={30} height={30} />
+      <Col sm={4} xs={6} className={styles.rightDiv}>
+        {/* <div className={styles.verticalDivider}></div> */}
+        <Image alt="" src={icon} width={30} height={30} />
       </Col>
     </Row>
-  )
+  );
 
   const step = (
     index: number,
@@ -157,15 +163,15 @@ export default function HomeQLNS() {
     btnIcon: string = ''
   ) => {
     const checkLogin = () => {
-      const acc_token = Cookies.get('token_base365')
-      const rf_token = Cookies.get('rf_token')
-      const role = Cookies.get('role')
+      const acc_token = Cookies.get('token_base365');
+      const rf_token = Cookies.get('rf_token');
+      const role = Cookies.get('role');
 
       if (acc_token && rf_token && role) {
-        return true
+        return true;
       }
-      return false
-    }
+      return false;
+    };
 
     return !isButton ? (
       <div className={styles.singleStep} key={index}>
@@ -177,20 +183,21 @@ export default function HomeQLNS() {
           onClick={(e) => {
             if (checkLogin()) {
               if (hasExplain) {
-                setSelectedUrl(url)
-                setOpenConfirm(true)
+                setSelectedUrl(url);
+                setOpenConfirm(true);
               } else {
-                router.push(url)
+                router.push(url);
               }
             } else {
-              alert('Bạn chưa đăng nhập')
+              alert('Bạn chưa đăng nhập');
             }
-          }}>
+          }}
+        >
           {title}
         </span>
         {hasExplain && (
           <Image
-            alt='/'
+            alt="/"
             src={'/question.png'}
             width={44}
             height={44}
@@ -204,20 +211,21 @@ export default function HomeQLNS() {
         onClick={(e) => {
           if (checkLogin()) {
             if (hasExplain) {
-              setSelectedUrl(url)
-              setOpenConfirm(true)
+              setSelectedUrl(url);
+              setOpenConfirm(true);
             } else {
-              router.push(url)
+              router.push(url);
             }
           } else {
-            alert('Bạn chưa đăng nhập')
+            alert('Bạn chưa đăng nhập');
           }
-        }}>
-        <Image alt='/' src={btnIcon} width={40} height={40} />
+        }}
+      >
+        <Image alt="/" src={btnIcon} width={40} height={40} />
         <p className={styles.btnTitle}>{title}</p>
       </div>
-    )
-  }
+    );
+  };
 
   const renderSelection = (type) => {
     const ADMIN = (
@@ -235,7 +243,7 @@ export default function HomeQLNS() {
           )
         )}
       </div>
-    )
+    );
 
     const EMP = (
       <div>
@@ -254,17 +262,22 @@ export default function HomeQLNS() {
           )
         )}
       </div>
-    )
+    );
 
-    return type === '1' ? ADMIN : EMP
-  }
+    return type === '1' ? ADMIN : EMP;
+  };
 
   const RenderedBody = () => {
-    const type = getCookie('role') || '1'
+    const type = getCookie('role') || '1';
     if (type)
       return (
         <div className={styles.section1}>
-          <Row gutter={[{ xl: 100, lg: 60 , md: 60, sm: 48, xs: 10 }, { xl: 0, lg: 0 , md: 24, sm: 24, xs: 0 }]}>
+          <Row
+            gutter={[
+              { xl: 100, lg: 60, md: 60, sm: 48, xs: 10 },
+              { xl: 0, lg: 0, md: 24, sm: 24, xs: 0 },
+            ]}
+          >
             <Col lg={type === '1' ? 10 : 11} md={11} sm={12} xs={24}>
               {(type === '1' ? LIST_BUTTONS_COMP : LIST_BUTTONS_EMP)?.map(
                 (item, index) =>
@@ -282,20 +295,20 @@ export default function HomeQLNS() {
             url={selectedUrl}
           />
         </div>
-      )
-  }
+      );
+  };
 
   return (
     <>
       <Head>
         <title> Page Chấm Công </title>
-        <meta name='keywords' content='coders' />
+        <meta name="keywords" content="coders" />
       </Head>
       <main>
         <RenderedBody />
       </main>
     </>
-  )
+  );
 }
 
 // export const getServerSideProps = (context) => {

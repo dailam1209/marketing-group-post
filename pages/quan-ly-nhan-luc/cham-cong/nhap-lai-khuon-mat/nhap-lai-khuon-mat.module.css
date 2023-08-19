@@ -1,12 +1,12 @@
 .buttons{
-    background-color:var(--theme-color);
+    background-color:#4C5BD4;
     height: auto;
     width: fit-content;
     padding: 5px 20px;
 
 
     .txt{
-        color: var(--white-color) !important;
+        color: #fff !important;
         font-size: 18px;
         }   
 

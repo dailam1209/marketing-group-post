@@ -93,7 +93,7 @@ export const LIST_ACTIONS = [
       {
         title: 'Tạm ứng tiền',
         url: 'de-xuat/tam-ung-tien',
-        required: true,
+        required: false,
       },
       {
         title: 'Sơ đồ tổ chức',

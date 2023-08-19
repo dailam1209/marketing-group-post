@@ -3,7 +3,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 15px 20px 15px 20px;
-    background-color: var(--theme-color);
+    background-color: #4C5BD4;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
   }
@@ -17,9 +17,9 @@
     margin-top: 20px;
     padding: 7px 30px 7px 30px;
     height: auto;
-    background-color: var(--theme-color);
+    background-color: #4C5BD4;
     .txt{
-        color: var(--white-color);
+        color: #fff;
     }
   }
   .body{

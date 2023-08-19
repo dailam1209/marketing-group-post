@@ -245,8 +245,8 @@ a {
     border-radius: 15px !important;
   }
   .table_lich_lam_viec .ant-table-thead > tr > th {
-    background-color: var(--theme-color) !important;
-    color: var(--white-color) !important;
+    background-color: #4C5BD4 !important;
+    color: #fff !important;
   }
   .table_lich_lam_viec
     .ant-spin-nested-loading
@@ -257,8 +257,8 @@ a {
     table
     thead.ant-table-thead
     > tr > th {
-      background-color: var(--theme-color) !important;
-      color: var(--white-color) !important;
+      background-color: #4C5BD4 !important;
+      color: #fff !important;
     }
 
   .table_lich_lam_viec
@@ -270,12 +270,12 @@ a {
     table
     thead.ant-table-thead
     > tr > td {
-    background-color: var(--theme-color) !important;
-    color: var(--white-color) !important;
+    background-color: #4C5BD4 !important;
+    color: #fff !important;
   }
   /* > th {
-      background-color: var(--theme-color) !important;
-      color: var(--white-color) !important;
+      background-color: #4C5BD4 !important;
+      color: #fff !important;
       font-weight: bold;
     } */
   
@@ -322,8 +322,8 @@ a {
     thead.ant-table-thead
     > tr
     > th {
-    background-color: var(--theme-color) !important;
-    color: var(--white-color) !important;
+    background-color: #4C5BD4 !important;
+    color: #fff !important;
   }
   
   .ant-pagination-item-active {
@@ -366,8 +366,8 @@ a {
     thead.ant-table-thead
     > tr
     > th {
-    background-color: var(--theme-color) !important;
-    color: var(--white-color) !important;
+    background-color: #4C5BD4 !important;
+    color: #fff !important;
   }
   .ant-form-item {
     margin-bottom: 10px;

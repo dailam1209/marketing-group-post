@@ -48,7 +48,7 @@
     width: 150px;
     height: 40px;
     margin-right: 20px;
-  background-color: var(--theme-color);
+  background-color: #4C5BD4;
   border: 1px solid #fff;
 }
 .footer {
@@ -123,13 +123,13 @@
 
   .Button {
     .txt {
-      color: var(--white-color);
+      color: #fff;
       font-size: 20px;
     }
   }
   .ButtonWhite {
     .txt {
-      color: var(--theme-color);
+      color: #4C5BD4;
       font-size: 20px;
     }
   }
@@ -203,13 +203,13 @@
 
   .Button {
     .txt {
-      color: var(--white-color);
+      color: #fff;
       font-size: 20px;
     }
   }
   .ButtonWhite {
     .txt {
-      color: var(--theme-color);
+      color: #4C5BD4;
       font-size: 20px;
     }
   }
@@ -283,13 +283,13 @@
 
   .Button {
     .txt {
-      color: var(--white-color);
+      color: #fff;
       font-size: 18px;
     }
   }
   .ButtonWhite {
     .txt {
-      color: var(--theme-color);
+      color: #4C5BD4;
       font-size: 18px;
     }
   }
@@ -364,13 +364,13 @@
 
   .Button {
     .txt {
-      color: var(--white-color);
+      color: #fff;
       font-size: 16px;
     }
   }
   .ButtonWhite {
     .txt {
-      color: var(--theme-color);
+      color: #4C5BD4;
       font-size: 16px;
     }
   }
@@ -463,13 +463,13 @@
 
   .Button {
     .txt {
-      color: var(--white-color);
+      color: #fff;
       font-size: 16px;
     }
   }
   .ButtonWhite {
     .txt {
-      color: var(--theme-color);
+      color: #4C5BD4;
       font-size: 16px;
     }
   }

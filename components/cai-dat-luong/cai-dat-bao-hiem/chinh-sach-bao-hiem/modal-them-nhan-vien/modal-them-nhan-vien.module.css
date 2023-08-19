@@ -6,13 +6,13 @@
       justify-content: center;
       align-items: center;
       align-self: stretch;
-      background-color: var(--theme-color);
+      background-color: #4C5BD4;
       border-top-left-radius: 8px;
       border-top-right-radius: 8px; 
     }
     .textHead{
       font-size: 20px;
-      color: var(--white-color);
+      color: #fff;
     }
     .crossImage{
       position: absolute;
@@ -52,12 +52,12 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: var(--theme-color);
+      background-color: #4C5BD4;
       height: 34px;
       width: 106px;
       border-radius: 10px !important;
       .txt{
-          color: var(--white-color);
+          color: #fff;
           font-size: 18px;
       }
     }
@@ -71,7 +71,7 @@
       border-radius: 10px !important;
       background: #4C5BD4;
       .txt{
-          color: var(--white-color);
+          color: #fff;
           font-size: 18px;
       }
     }
@@ -91,9 +91,9 @@
       padding-right: 30px;
       display: flex;
       align-items: center;
-      background-color: var(--white-color);
+      background-color: #fff;
       .text{
-          color: var(--theme-color);
+          color: #4C5BD4;
           font-size: 18px;
           margin-left: 10px;
       }
@@ -186,7 +186,7 @@
         justify-content: center;
         align-items: center;
         align-self: stretch;
-        background-color: var(--theme-color);
+        background-color: #4C5BD4;
         border-top-left-radius: 8px;
         border-top-right-radius: 8px; 
       }
@@ -204,7 +204,7 @@
       }
       .textHead{
         font-size: 18px;
-        color: var(--white-color);
+        color: #fff;
         flex: 1;
         text-align: center;
       }
@@ -253,12 +253,12 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: var(--theme-color);
+        background-color: #4C5BD4;
         height: 34px;
         width: 106px;
         border-radius: 10px !important;
         .txt{
-            color: var(--white-color);
+            color: #fff;
             font-size: 18px;
         }
       }
@@ -272,7 +272,7 @@
         border-radius: 10px !important;
         background: #4C5BD4;
         .txt{
-            color: var(--white-color);
+            color: #fff;
             font-size: 16px;
         }
       }
@@ -291,9 +291,9 @@
         padding-right: 30px;
         display: flex;
         align-items: center;
-        background-color: var(--white-color);
+        background-color: #fff;
         .text{
-            color: var(--theme-color);
+            color: #4C5BD4;
             font-size: 18px;
             margin-left: 10px;
         }

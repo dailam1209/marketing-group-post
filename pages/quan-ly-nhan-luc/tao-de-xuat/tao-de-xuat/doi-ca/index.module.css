@@ -49,13 +49,14 @@
   width: 150px;
   height: 40px;
   margin-right: 20px;
-  background-color: var(--theme-color);
+  background-color: #4C5BD4;
   border: 1px solid #fff;
 }
 .footer {
   margin-top: 30px;
   gap: 0 !important;
 }
+
 @media (min-width: 1920px) {
   .bodyItem1 {
     grid-column: 1 / span 2;
@@ -128,15 +129,19 @@
 
   .Button {
     .txt {
-      color: var(--white-color);
+      color: #fff;
       font-size: 20px;
     }
   }
   .ButtonWhite {
     .txt {
-      color: var(--theme-color);
+      color: #4C5BD4;
       font-size: 20px;
     }
+  }
+  .bodyItem10 {
+    display: flex;
+      align-items: center;
   }
 }
 @media (max-width: 1919px) and (min-width: 1366px) {
@@ -175,6 +180,8 @@
   .bodyItem10 {
     grid-column: span 2;
     margin-top: 20px;
+      display: flex;
+        align-items: center;
   }
   .bodyItem11 {
     grid-column: span 2;
@@ -182,6 +189,8 @@
   .bodyItem12 {
     grid-column: span 2;
     margin-top: 20px;
+    display: flex;
+    align-items: center;
   }
   .bodyItem13 {
     grid-column: span 2;
@@ -203,13 +212,13 @@
 
   .Button {
     .txt {
-      color: var(--white-color);
+      color: #fff;
       font-size: 20px;
     }
   }
   .ButtonWhite {
     .txt {
-      color: var(--theme-color);
+      color: #4C5BD4;
       font-size: 20px;
     }
   }
@@ -254,6 +263,8 @@
   .bodyItem10 {
     grid-column: span 2;
     margin-top: 20px;
+    display: flex;
+    align-items: center;
   }
   .bodyItem11 {
     grid-column: span 2;
@@ -261,6 +272,8 @@
   .bodyItem12 {
     grid-column: span 2;
     margin-top: 20px;
+    display: flex;
+    align-items: center;
   }
   .bodyItem13 {
     grid-column: span 2;
@@ -282,13 +295,13 @@
 
   .Button {
     .txt {
-      color: var(--white-color);
+      color: #fff;
       font-size: 18px;
     }
   }
   .ButtonWhite {
     .txt {
-      color: var(--theme-color);
+      color: #4C5BD4;
       font-size: 18px;
     }
   }
@@ -335,6 +348,8 @@
   .bodyItem10 {
     grid-column: span 2;
     margin-top: 20px;
+    display: flex;
+    align-items: center;
   }
   .bodyItem11 {
     grid-column: span 2;
@@ -342,6 +357,8 @@
   .bodyItem12 {
     grid-column: span 2;
     margin-top: 20px;
+    display: flex;
+    align-items: center;
   }
   .bodyItem13 {
     grid-column: span 2;
@@ -363,13 +380,13 @@
 
   .Button {
     .txt {
-      color: var(--white-color);
+      color: #fff;
       font-size: 16px;
     }
   }
   .ButtonWhite {
     .txt {
-      color: var(--theme-color);
+      color: #4C5BD4;
       font-size: 16px;
     }
   }
@@ -455,13 +472,13 @@
 
   .Button {
     .txt {
-      color: var(--white-color);
+      color: #fff;
       font-size: 16px;
     }
   }
   .ButtonWhite {
     .txt {
-      color: var(--theme-color);
+      color: #4C5BD4;
       font-size: 16px;
     }
   }

@@ -27,7 +27,7 @@
     background-image: linear-gradient(to right, #4c5bd4, #1184c0);
 
     .text {
-      color: var(--white-color);
+      color: #fff;
     }
   }
 }

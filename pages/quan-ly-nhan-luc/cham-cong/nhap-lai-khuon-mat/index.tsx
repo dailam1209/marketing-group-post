@@ -343,7 +343,7 @@ export default function UpdateFace({ infoCom, listDepartments }) {
                   }}
                   onClick={handleFilter}
                 >
-                  <p style={{ color: "var(--white-color)" }}>Lọc</p>
+                  <p style={{ color: "#fff" }}>Lọc</p>
                 </Button>
               </Form.Item>
             </Col>

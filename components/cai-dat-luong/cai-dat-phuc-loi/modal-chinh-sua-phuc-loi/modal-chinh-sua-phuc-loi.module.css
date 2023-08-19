@@ -15,13 +15,13 @@
     justify-content: center;
     align-items: center;
     align-self: stretch;
-    background-color: var(--theme-color);
+    background-color: #4C5BD4;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
   }
   .textHead{
     font-size: 20px;
-    color: var(--white-color);
+    color: #fff;
   }
 
   .crossImage{
@@ -42,12 +42,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--theme-color);
+    background-color: #4C5BD4;
     height: 35px;
     width: 130px;
     border: 1px solid #4C5BD4;
     .txt{
-        color: var(--white-color);
+        color: #fff;
         font-size: 18px;
     }
   }
@@ -62,12 +62,12 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: var(--white-color);
+      background-color: #fff;
       height: 35px;
       width: 130px;
       border: 1px solid #4C5BD4;
       .txt{
-        color: var(--theme-color);
+        color: #4C5BD4;
         font-size: 18px;
     }
   }
@@ -81,7 +81,7 @@
           padding: 17px 0px;
           justify-content: space-between;
           align-items: center;
-          background-color: var(--theme-color);
+          background-color: #4C5BD4;
           border-top-left-radius: 10px;
           border-top-right-radius: 10px;
       }
@@ -91,7 +91,7 @@
       }
       .textHead{
           font-size: 18px;
-          color: var(--white-color);
+          color: #fff;
           flex: 1;
           text-align: center;
       }
@@ -113,13 +113,13 @@
           display: flex;
           justify-content: center;
           align-items: center;
-          background-color: var(--theme-color);
+          background-color: #4C5BD4;
           height: 35px;
           width: 130px;
           border: 1px solid #4C5BD4;
 
         .txt{
-            color: var(--white-color);
+            color: #fff;
             font-size: 16px;
         }
   }
@@ -134,12 +134,12 @@
           display: flex;
           justify-content: center;
           align-items: center;
-          background-color: var(--white-color);
+          background-color: #fff;
           height: 35px;
           width: 130px;
           border: 1px solid #4C5BD4;
           .txt{
-            color: var(--theme-color);
+            color: #4C5BD4;
             font-size: 16px;
         }
       }

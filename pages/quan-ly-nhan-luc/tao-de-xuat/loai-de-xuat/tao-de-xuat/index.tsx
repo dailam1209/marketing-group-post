@@ -686,8 +686,9 @@ export default function TaoDeXuat() {
           </div>
         </div>
 
-        <div className={styles.groupSearch}>
-          <div className={styles.selecteDiv}>
+        <Row className={styles.groupSearch}>
+          <Col xl={12} lg={9}></Col>
+          <Col xl={9} lg={12} className={styles.selecteDiv}>
             <Select
               onChange={handleSelectChange}
               defaultValue={'Tìm kiếm đề xuất'}
@@ -711,12 +712,14 @@ export default function TaoDeXuat() {
                   width={12}></Image>
               }
             />
-          </div>
-          <Button className={styles.buttonSearch} onClick={handleSearch}>
-            <Image src='/search.png' alt='' height={24} width={24}></Image>{' '}
-            <span className={styles.txt}>Tìm kiếm</span>
-          </Button>
-        </div>
+          </Col>
+          <Col xl={3} lg={3}>
+            <Button className={styles.buttonSearch} onClick={handleSearch}>
+              <Image src='/search.png' alt='' height={24} width={24}></Image>{' '}
+              <span className={styles.txt}>Tìm kiếm</span>
+            </Button>
+          </Col>
+        </Row>
 
         <div className={styles.body}>
           <Row
@@ -729,7 +732,6 @@ export default function TaoDeXuat() {
                   md={8}
                   sm={12}
                   xs={24}
-                  style={{ padding: '0px' }}
                   key={object.value}
                   className={`${styles.col1} ${
                     index >= 20 ? (seeMore ? styles.col : styles.hover) : ''
@@ -740,7 +742,6 @@ export default function TaoDeXuat() {
                   )}
                 </Col>
                 <Col
-                  style={{ padding: '0px' }}
                   key={object.value}
                   className={`${styles.col2} ${
                     index >= 10 ? (seeMore ? styles.col : styles.hover) : ''

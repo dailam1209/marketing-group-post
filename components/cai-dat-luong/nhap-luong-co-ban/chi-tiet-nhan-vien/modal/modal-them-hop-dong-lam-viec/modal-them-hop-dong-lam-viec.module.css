@@ -3,13 +3,13 @@
     justify-content: space-between;
     align-items: center;
     padding: 15px 20px 15px 20px;
-    background-color: var(--theme-color);
+    background-color: #4C5BD4;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
   }
   .textHead{
     font-size: 20px;
-    color: var(--white-color);
+    color: #fff;
   }
   .body{
     font-size: 16px;

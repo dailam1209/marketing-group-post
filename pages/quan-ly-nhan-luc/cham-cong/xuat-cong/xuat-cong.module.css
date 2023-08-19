@@ -3,11 +3,11 @@
     color: #474747;
 }
 .button{
-    background-color:var(--theme-color);
+    background-color:#4C5BD4;
     height: auto;
     width: 100%;
     .txt{
-        color: var(--white-color) !important;
+        color: #fff !important;
     }
       
 
@@ -17,7 +17,7 @@
     height: auto;
     width: 100%;
     .excel{
-        color: var(--white-color) !important;
+        color: #fff !important;
     }
 }
 .After{
