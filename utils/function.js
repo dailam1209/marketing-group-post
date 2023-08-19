@@ -16,9 +16,9 @@ export const getEducation = [
   { id: 8, value: 'Tiểu học' },
 ]
 
-export const eduLabel = getEducation.map(e => ({ label: e?.value, value: e?.id}))
+export const eduLabel = getEducation.map(e => ({ label: e?.value, value: e?.id }))
 
-export async function getServerSideProps({ req }) {
+export async function getServerSideProps({ req, query }) {
   const clientIp = requestIp.getClientIp(req)
   const allowedIPs = [
     '171.255.69.80',
@@ -65,6 +65,7 @@ export async function getServerSideProps({ req }) {
   return {
     props: {
       clientIp,
+      query
     },
   }
 }
@@ -151,11 +152,11 @@ export function renderPosition(id) {
 
 export const getGender = ['Chưa cập nhật', 'Nam', 'Nữ', 'Khác']
 
-export const genderLabel = getGender.map((g, index) => ({ label: g, value: index}))
+export const genderLabel = getGender.map((g, index) => ({ label: g, value: index }))
 
 export const getMarried = ['Chưa cập nhật', 'Độc thân', 'Đã kết hôn']
 
-export const marriedLabel = getMarried.map((g, index) => ({ label: g, value: index}))
+export const marriedLabel = getMarried.map((g, index) => ({ label: g, value: index }))
 
 
 export const getSoftware = [

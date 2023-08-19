@@ -11,7 +11,7 @@ import { useEffect } from 'react'
 import { getServerSideProps } from '../utils/function'
 
 let intervalRef = null
-let intervalCallback = () => {}
+let intervalCallback = () => { }
 if (!intervalRef) {
   intervalRef = setInterval(() => {
     intervalCallback()
@@ -19,7 +19,8 @@ if (!intervalRef) {
 }
 
 export { getServerSideProps }
-export default function sendOTP_Com() {
+export default function sendOTP_Com({ query }) {
+  console.log('query:', query)
   CheckLogin2()
   const router = useRouter()
 
@@ -60,10 +61,12 @@ export default function sendOTP_Com() {
   }
 
   const onClickVerifyOtp = () => {
+    const urlRedeict = query.urlRedeict ? query.urlRedeict : '';
     handleVerifyOtp(
       false,
       Cookies.get('phone'),
-      document.querySelector('#partitioned').value
+      document.querySelector('#partitioned').value,
+      urlRedeict
     )
   }
 
@@ -131,9 +134,8 @@ export default function sendOTP_Com() {
 
                             <div className='gui_lai_otp hidden'>
                               <p
-                                className={`${
-                                  showResendButton ? '' : 'hidden'
-                                }`}>
+                                className={`${showResendButton ? '' : 'hidden'
+                                  }`}>
                                 <span className='share_fsize_three share_clr_one'>
                                   Bạn chưa nhận được mã OTP?
                                 </span>{' '}
