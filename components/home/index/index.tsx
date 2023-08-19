@@ -9,10 +9,17 @@ export default function IndexSection({
   className: string
   setShowmore: any
 }) {
-  const scrollTo = (id) => {
-    const section = document.querySelector(`#${id}`)
+  const scrollTo = async (id) => {
     setShowmore(true)
-    section.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    try {
+      setShowmore(true)
+      await document.getElementById(id).scrollIntoView()
+    } catch (error) {
+      console.log(error)
+    }
+    // const section = document.querySelector(`#${id}`)
+
+    // section.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
   return (
