@@ -50,12 +50,27 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   const [pageSize, setpageSize] = useState<any>();
   const [des, setDes] = useState();
   const handleDetail = (data: any) => {
-    router.push(`/crm/customer/detail/${data}`);
+    router.push(`/customer/detail/${data}`);
   };
+
   const handleChangeStatus = (e: any, data: any) => {
     setValueStatus(e.target.value);
     console.log(valueStatus);
+    // updateData(
+    //   "http://210.245.108.202:3007/api/crm/customerdetails/editCustomer",
+    //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6Mjg3MjMxLCJpZFRpbVZpZWMzNjUiOjAsImlkUUxDIjoxNzYzLCJpZFJhb05oYW5oMzY1IjowLCJlbWFpbCI6ImR1b25naGllcGl0MUBnbWFpbC5jb20iLCJwaG9uZVRLIjoiIiwiY3JlYXRlZEF0IjoxNjI3NTQ5NDcxLCJ0eXBlIjoxLCJjb21faWQiOjE3NjMsInVzZXJOYW1lIjoibGUgYW5oIHR1YW4xMiJ9LCJpYXQiOjE2OTIwNjQ1MDIsImV4cCI6MTY5MjE1MDkwMn0.klqKzWkaYeTdK6VKR07R8cV7y9YrmWdFUJC2z6hCil8",
+    //   "POST",
+    //   {
+    //     status: `${valueStatus}`,
+    //     cus_id: data.cus_id,
+    //     type: 2,
+    //   }
+    // );
   };
+  // const handleChangeStatus = (e: any, data: any) => {
+  //   setValueStatus(e.target.value);
+  //   console.log(valueStatus);
+  // };
 
   const renderTitle = (record, text) => (
     <button
@@ -300,6 +315,8 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   useEffect(() => {
     console.log("hello cus");
   }, [des]);
+
+
 
   return (
     <>

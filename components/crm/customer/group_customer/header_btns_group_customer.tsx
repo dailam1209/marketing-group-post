@@ -2,7 +2,11 @@ import React from "react";
 import styles from "../../potential/potential.module.css";
 import Link from "next/link";
 import GroupCustomerAction from "./group_customert_action";
-export default function HeaderBtnsCustomerGroup({ isSelectedRow }: any) {
+export default function HeaderBtnsCustomerGroup({
+  isSelectedRow,
+  selectedRow,
+  updateData,
+}: any) {
   const handleClickSelectoption = () => {};
 
   return (
@@ -39,7 +43,11 @@ export default function HeaderBtnsCustomerGroup({ isSelectedRow }: any) {
         </div>
       </div>
 
-      <GroupCustomerAction isSelectedRow={isSelectedRow} />
+      <GroupCustomerAction
+        isSelectedRow={isSelectedRow}
+        selectedRow={selectedRow}
+        updateData={updateData}
+      />
     </div>
   );
 }
