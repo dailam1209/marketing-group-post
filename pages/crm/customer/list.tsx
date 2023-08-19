@@ -2,9 +2,7 @@ import { SidebarContext } from "@/components/crm/context/resizeContext";
 import styleHome from "@/components/crm/home/home.module.css";
 import { SetStateAction, useContext, useEffect, useRef, useState } from "react";
 import { useHeader } from "@/components/crm/hooks/useHeader";
-import TableListCustomer, {
-  data,
-} from "@/components/crm/table/table-list-customer";
+import TableListCustomer from "@/components/crm/table/table-list-customer";
 import CustomerListInputGroup from "@/components/crm/customer/customer_input_group";
 import { TableRowSelection } from "antd/es/table/interface";
 import { useApi } from "@/components/crm/hooks/useApi";
@@ -17,41 +15,51 @@ export default function CustomerList() {
   const [selectedRowKeys, setSelectedRowKeys] = useState<any>([]);
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
-  // Ví dụ (  Về sau nhớ thay giá trị vào :)))  )
-  const { data, loading, error, fetchData, updateData, deleteData } = useApi(
-    "URL_TO_API_ENDPOINT",
-    "YOUR_ACCESS_TOKEN"
-    //method
-    //body
+  const { data, loading, fetchData, updateData, deleteData } = useApi(
+    "http://210.245.108.202:3007/api/crm/customer/list",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6Mjg3MjMxLCJpZFRpbVZpZWMzNjUiOjAsImlkUUxDIjoxNzYzLCJpZFJhb05oYW5oMzY1IjowLCJlbWFpbCI6ImR1b25naGllcGl0MUBnbWFpbC5jb20iLCJwaG9uZVRLIjoiIiwiY3JlYXRlZEF0IjoxNjI3NTQ5NDcxLCJ0eXBlIjoxLCJjb21faWQiOjE3NjMsInVzZXJOYW1lIjoibGUgYW5oIHR1YW4xMiJ9LCJpYXQiOjE2OTIwODIyNDEsImV4cCI6MTY5MjE2ODY0MX0.bgcBfc9XItPy6KySr12Lz2LMyuQuXC8u1lsbhcEJfNI",
+    "POST"
   );
 
-  // Hàm get Data (state là data đươc khai báo ở useApi)
-  useEffect(() => {
-    fetchData(); // Chỉ việc sử dụng lại data là được
-  }, []);
+  const {
+    data: dataStatus,
+    loading: loadingStatus,
+    fetchData: fetchDataStatus,
+    // ... other properties returned by the useApi hook
+  } = useApi(
+    "http://210.245.108.202:3007/api/crm/customerStatus/list",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6Mjg3MjMxLCJpZFRpbVZpZWMzNjUiOjAsImlkUUxDIjoxNzYzLCJpZFJhb05oYW5oMzY1IjowLCJlbWFpbCI6ImR1b25naGllcGl0MUBnbWFpbC5jb20iLCJwaG9uZVRLIjoiIiwiY3JlYXRlZEF0IjoxNjI3NTQ5NDcxLCJ0eXBlIjoxLCJjb21faWQiOjE3NjMsInVzZXJOYW1lIjoibGUgYW5oIHR1YW4xMiJ9LCJpYXQiOjE2OTIwNjQ1MDIsImV4cCI6MTY5MjE1MDkwMn0.klqKzWkaYeTdK6VKR07R8cV7y9YrmWdFUJC2z6hCil8",
+    "POST"
+  );
 
-  // Hàm update data lên API (data đã được tự động fetch về khi gọi hàm này)
-  const handleUpdate = async (updatedData: any) => {
-    await updateData(
-      "URL_TO_UPDATE_API_ENDPOINT",
-      "YOUR_ACCESS_TOKEN",
-      "PUT",
-      updatedData
-    );
-  };
+  const {
+    data: dataCustomerGroup,
+    loading: loadingCustomerGroup,
+    fetchData: fetchDataCustomerGroup,
+    // ... other properties returned by the useApi hook
+  } = useApi(
+    "http://210.245.108.202:3007/api/crm/group/list_group_khach_hang",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6Mjg3MjMxLCJpZFRpbVZpZWMzNjUiOjAsImlkUUxDIjoxNzYzLCJpZFJhb05oYW5oMzY1IjowLCJlbWFpbCI6ImR1b25naGllcGl0MUBnbWFpbC5jb20iLCJwaG9uZVRLIjoiIiwiY3JlYXRlZEF0IjoxNjI3NTQ5NDcxLCJ0eXBlIjoxLCJjb21faWQiOjE3NjMsInVzZXJOYW1lIjoibGUgYW5oIHR1YW4xMiJ9LCJpYXQiOjE2OTIwNjQ1MDIsImV4cCI6MTY5MjE1MDkwMn0.klqKzWkaYeTdK6VKR07R8cV7y9YrmWdFUJC2z6hCil8",
+    "POST"
+  );
 
-  // Hàm Delete data (Tương tự ở trên)
-  const handleDelete = async (id: string) => {
-    await deleteData(`URL_TO_DELETE_API_ENDPOINT/${id}`, "YOUR_ACCESS_TOKEN");
-  };
+  console.log(data);
+  console.log("group: ", dataCustomerGroup);
 
   interface DataType {
     key: React.Key;
-    personname: string;
-    date1: string;
-    date2: string;
-    filename: string;
-    operation: string;
+    cus_id: number;
+    email: string;
+    name: string;
+    phone_number: number;
+    resoure: number;
+    description: string;
+    group_id: number;
+    status: number;
+    updated_at: string;
+    emp_name: string;
+    userCrete: string;
+    user_handing_over_work: string;
   }
 
   const onSelectChange = (
@@ -67,10 +75,40 @@ export default function CustomerList() {
     }
   };
 
+  useEffect(() => {
+    fetchData();
+    fetchDataStatus();
+    fetchDataCustomerGroup();
+  }, []);
+
+  const datatable = data?.data?.showCty.map((item: DataType, index: number) => {
+    return {
+      key: index + 1,
+      cus_id: item.cus_id,
+      email: item.email,
+      name: item.name,
+      phone_number: item.phone_number,
+      resoure: item.resoure,
+      description: item.description,
+      group_id: item.group_id,
+      status: item,
+      updated_at: item.updated_at,
+      emp_name: item.emp_name,
+      userCrete: item.userCrete,
+      user_handing_over_work: item.user_handing_over_work,
+    };
+  });
+
+  const dataStatusCustomer = dataStatus?.data?.listStatus;
+
+  const dataGroup = dataCustomerGroup?.data?.showGr;
+
+  console.log("props: ", dataGroup);
+
   const handleSelectAll = () => {
-    const allRowKeys = data.map((item: { key: any }) => item.key);
+    const allRowKeys = datatable.map((item: { key: any }) => item.key);
     setSelectedRowKeys(allRowKeys);
-    setNumberSelected(data.length);
+    setNumberSelected(datatable.length);
   };
 
   const handleDeselectAll = () => {
@@ -100,6 +138,7 @@ export default function CustomerList() {
       mainRef.current?.classList.remove("content_resize");
     }
   }, [isOpen]);
+
   return (
     <div ref={mainRef} className={styleHome.main}>
       <CustomerListInputGroup
@@ -108,7 +147,12 @@ export default function CustomerList() {
         clearOption={handleDeselectAll}
         chooseAllOption={handleSelectAll}
       />
-      <TableListCustomer rowSelection={rowSelection} />
+      <TableListCustomer
+        rowSelection={rowSelection}
+        datatable={datatable}
+        dataStatusCustomer={dataStatusCustomer}
+        dataGroup={dataGroup}
+      />
     </div>
   );
 }

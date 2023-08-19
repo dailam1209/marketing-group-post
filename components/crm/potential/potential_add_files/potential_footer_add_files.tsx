@@ -8,6 +8,7 @@ export default function PotentialFooterAddFiles({
   title,
   contentCancel,
   titleCancel,
+  handleSave = ()=>{},
 }: any) {
   const [isModalCancel, setIsModalCancel] = useState(false);
   const [modal1Open, setModal1Open] = useState(false);
@@ -19,7 +20,10 @@ export default function PotentialFooterAddFiles({
       <button
         className={styles.save}
         type="submit"
-        onClick={() => setModal1Open(true)}
+        onClick={() => {
+          handleSave()
+          setModal1Open(true)
+        }}
       >
         Lưu
       </button>
@@ -30,7 +34,7 @@ export default function PotentialFooterAddFiles({
           setIsModalCancel={setIsModalCancel}
           content={contentCancel}
           title={titleCancel}
-          link = "/potential/list"
+          link = {link}
         />
       }
 
