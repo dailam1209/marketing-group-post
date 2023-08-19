@@ -13,6 +13,7 @@ export default function ChiTietDangChoDuyet({ dxDetail }) {
     llvData = JSON.parse(
       dxDetail?.thong_tin_chung?.lich_lam_viec?.ngay_lam_viec
     )?.[0]
+    console.log(llvData)
   }
 
   const data = renderInfoDx(dxDetail, setOpenModal)
