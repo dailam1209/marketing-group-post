@@ -6,30 +6,17 @@ const Cookies = require("js-cookie");
 interface MyComponentProps {
   isModalCancel: boolean;
   setIsModalCancel: (value: boolean) => void;
-  content?: string;
-  title?: string;
-  link?: string;
   id?: any;
   updateData?: any;
 }
-const CancelModal: React.FC<MyComponentProps> = ({
+const CancelModalAdd: React.FC<MyComponentProps> = ({
   isModalCancel,
   setIsModalCancel,
-  content = "Bạn có chắc chắn muốn hủy nhập tiềm năng từ file, mọi thông tin bạn nhập sẽ không được lưu lại?",
-  title = "Xác nhận hủy nhập tiềm năng từ file",
-  link = "/potential/list",
-  id,
-  updateData,
 }) => {
   const router = useRouter();
   const handleOK = () => {
     setIsModalCancel(false);
-    updateData(
-      "http://210.245.108.202:3007/api/crm/customerStatus/delete",
-      `${Cookies.get("token_base365")}`,
-      "POST",
-      { stt_id: id }
-    );
+    router.back()
   };
   return (
     <>
@@ -37,7 +24,7 @@ const CancelModal: React.FC<MyComponentProps> = ({
         Vertically centered modal dialog
       </Button> */}
       <Modal
-        title={title}
+        title={"Xác nhận hủy thêm mới khách hàng"}
         centered
         open={isModalCancel}
         onOk={() => handleOK()}
@@ -46,10 +33,10 @@ const CancelModal: React.FC<MyComponentProps> = ({
         okText="Đồng ý"
         cancelText="Huỷ"
       >
-        <div>{content}</div>
+        <div>Bạn có chắc chắn muốn hủy thêm mới khách hàng?</div>
       </Modal>
     </>
   );
 };
 
-export default CancelModal;
+export default CancelModalAdd;

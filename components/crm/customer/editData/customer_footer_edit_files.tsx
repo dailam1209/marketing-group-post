@@ -1,11 +1,13 @@
 import { useState } from "react";
+import CancelModal from "@/components/crm/potential/potential_steps/cancel_modal";
 import styles from "@/components/crm/potential/potential_add_files/add_file_potential.module.css";
 import ModalCompleteStep from "@/components/crm/potential/potential_steps/complete_modal";
-import CancelModal from "@/components/crm/potential/potential_steps/cancel_modal";
+import { useRouter } from "next/router";
 import ModalCompleteStepADD from "../../potential/potential_steps/complete_mdaladd";
-import CancelModalAdd from "../../potential/potential_steps/cancel_them_moi";
+import CancelModalEdit from "../../potential/potential_steps/cancel_edit";
 const Cookies = require("js-cookie");
-export default function CustomomerFooterAddFile({
+
+export default function CustomerFooterEditFiles({
   link = "/potential/list",
   title,
   contentCancel,
@@ -14,29 +16,35 @@ export default function CustomomerFooterAddFile({
 }: any) {
   const [isModalCancel, setIsModalCancel] = useState(false);
   const [modal1Open, setModal1Open] = useState(false);
+  const router = useRouter();
+  const { id } = router.query;
+  console.log(id);
+
+  const token = Cookies.get("token_base365");
 
   const handleSubmit = async () => {
     try {
       const response = await fetch(
-        "http://210.245.108.202:3007/api/crm/customer/addCustomer/",
+        `http://210.245.108.202:3007/api/crm/customerdetails/editCustomer/`,
         {
           method: "POST",
           headers: {
+            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
-            Authorization: `Bearer ${Cookies.get("token_base365")}`,
           },
           body: JSON.stringify({
-            name: formData.name,
+            cus_id: +id,
+            name: formData.ten_khach_hang,
             email: formData.email,
+            phone_number: formData.dien_thoai,
             stand_name: formData.stand_name,
             logo: formData.logo,
-            phone_number:formData.phone_number,
-            birthday:formData.birthday,
+            birthday: formData.birthday,
             tax_code: formData.tax_code,
             cit_id: formData.cit_id,
             district_id: formData.district_id,
-            ward:formData.ward,
-            address:formData.address,
+            ward: formData.ward,
+            address: formData.address,
             ship_invoice_address: formData.ship_invoice_address,
             gender: formData.gender,
             cmnd_ccnd_number: formData.cmnd_ccnd_number,
@@ -47,16 +55,16 @@ export default function CustomomerFooterAddFile({
             contact_name: formData.contact_name,
             contact_email: formData.contact_email,
             contact_phone: formData.contact_phone,
-            contact_gender:formData.contact_gender,
+            contact_gender: formData.contact_gender,
             company_id: formData.company_id,
-            emp_id:formData.emp_id,
+            emp_id: formData.emp_id,
             user_create_id: formData.user_create_id,
             user_create_type: formData.user_create_type,
             user_edit_id: formData.user_edit_id,
             user_edit_type: formData.user_edit_type,
-            group_id:formData.group_id,
+            group_id: 0,
             status: formData.status,
-            business_areas:formData.business_areas,
+            business_areas: formData.business_areas,
             category: formData.category,
             business_type: formData.business_type,
             classify: formData.classify,
@@ -65,11 +73,11 @@ export default function CustomomerFooterAddFile({
             bill_ward: formData.bill_ward,
             bill_address: formData.bill_address,
             bill_area_code: formData.bill_area_code,
-            bill_invoice_address:formData.bill_invoice_address,
+            bill_invoice_address: formData.bill_invoice_address,
             bill_invoice_address_email: formData.bill_invoice_address_email,
             ship_city: formData.ship_city,
             ship_area: formData.ship_area,
-            bank_id:formData.bank_id,
+            bank_id: formData.bank_id,
             bank_account: formData.bank_account,
             revenue: formData.revenue,
             size: formData.size,
@@ -78,7 +86,7 @@ export default function CustomomerFooterAddFile({
             number_of_day_owed: formData.number_of_day_owed,
             deb_limit: formData.deb_limit,
             share_all: formData.share_all,
-            type: formData.type,
+            type: 1,
             is_input: formData.is_input,
             id_cus_from: formData.id_cus_from,
             cus_from: formData.cus_from,
@@ -87,13 +95,9 @@ export default function CustomomerFooterAddFile({
         }
       );
       const data = await response.json();
-      if (response.status === 200) {
-        console.log("Data successfully submitted!");
-      } else {
-        console.error("Error submitting data.");
-      }
+      console.log("Dữ liệu khách hàng đã được sửa:", data);
     } catch (error) {
-      console.error("An error occurred:", error);
+      console.error("Lỗi khi sửa dữ liệu khách hàng:", error);
     }
   };
 
@@ -104,21 +108,21 @@ export default function CustomomerFooterAddFile({
       </button>
       <button
         className={styles.save}
-        type="submit"
-        onClick={() => (handleSubmit(),setModal1Open(true))}
+        type="button"
+        onClick={() => {
+          handleSubmit();
+          setModal1Open(true);
+        }}
       >
         Lưu
       </button>
 
-      {
-        <CancelModalAdd
+      {isModalCancel && (
+        <CancelModalEdit
           isModalCancel={isModalCancel}
           setIsModalCancel={setIsModalCancel}
-          content={contentCancel}
-          title={titleCancel}
-          link="/potential/list"
         />
-      }
+      )}
 
       <ModalCompleteStepADD
         modal1Open={modal1Open}

@@ -8,14 +8,6 @@ export default function AddPersonalCustomerInfor({
   formData,
   setFormData,
 }: any) {
-  const handleInputChange = (e: any, key: any) => {
-    setFormData((preData: any) => {
-      return {
-        ...preData,
-        nameCustomer: e.target.value,
-      };
-    });
-  };
   return (
     <div>
       <p className={styles.main__body__type}>Thông tin chung</p>
@@ -48,14 +40,19 @@ export default function AddPersonalCustomerInfor({
         <InputText
           label="Điện thoại"
           placeholder="Nhập số điện thoại"
-          value={formData?.phone}
+          value={formData?.phone_number}
           setFormData={setFormData}
-          keyValue="phone"
+          keyValue="phone_number"
         />
       </div>
-
       <div className={styles.row_input}>
-        <InputText label="Email" placeholder="Nhập email" />
+        <InputText
+          label="Email"
+          placeholder="Nhập email"
+          value={formData?.email}
+          setFormData={setFormData}
+          keyValue="email"
+        />
         <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
           <label className={`${styles["form-label"]}`}>Nguồn khách hàng</label>
           <PotentialSelectBoxStep

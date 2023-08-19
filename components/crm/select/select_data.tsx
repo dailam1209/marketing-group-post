@@ -23,23 +23,11 @@ const SelectDataInputBox: React.FC<MyProps> = ({
     // ... other properties returned by the useApi hook
   } = useApi(
     "http://210.245.108.202:3007/api/crm/customerdetails/detail",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6MzgwOTg5LCJpZFRpbVZpZWMzNjUiOjIwMjU4NSwiaWRRTEMiOjE3NjMsImlkUmFvTmhhbmgzNjUiOjAsImVtYWlsIjoiZHVvbmdoaWVwaXQxQGdtYWlsLmNvbSIsInBob25lVEsiOiIiLCJjcmVhdGVkQXQiOjE2MDA2NTg0NzgsInR5cGUiOjEsImNvbV9pZCI6MTc2MywidXNlck5hbWUiOiJDw7RuZyBUeSBUTkhIIEggTSBMIFBwbyJ9LCJpYXQiOjE2OTIyOTc4NjMsImV4cCI6MTY5MjM4NDI2M30.XMyMzNsvPn1yInnlVLO-XTnm9mDLMDohaSxQSOvtczo",
+    `${Cookies.get("token_base365")}`,
     "POST",
     { cus_id: cusId }
   );
-
-  //   const {
-  //     data: dataStatusDetailCustomer,
-  //     loading: loadingStatus,
-  //     updateData,
-  //     // ... other properties returned by the useApi hook
-  //   } = useApi(
-  //     "http://210.245.108.202:3007/api/crm/customerdetails/editCustomer",
-  //     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6MzgwOTg5LCJpZFRpbVZpZWMzNjUiOjIwMjU4NSwiaWRRTEMiOjE3NjMsImlkUmFvTmhhbmgzNjUiOjAsImVtYWlsIjoiZHVvbmdoaWVwaXQxQGdtYWlsLmNvbSIsInBob25lVEsiOiIiLCJjcmVhdGVkQXQiOjE2MDA2NTg0NzgsInR5cGUiOjEsImNvbV9pZCI6MTc2MywidXNlck5hbWUiOiJDw7RuZyBUeSBUTkhIIEggTSBMIFBwbyJ9LCJpYXQiOjE2OTIyOTc4NjMsImV4cCI6MTY5MjM4NDI2M30.XMyMzNsvPn1yInnlVLO-XTnm9mDLMDohaSxQSOvtczo",
-  //     "POST",
-  //     { cus_id: cusId, type: 1 }
-  //   );
-
+  console.log('cjecl da',data)
   useEffect(() => {
     fetchDataDetail();
   }, []);
@@ -49,8 +37,6 @@ const SelectDataInputBox: React.FC<MyProps> = ({
     : dataDetailCustomer?.data?.data2;
   //   console.log(dataStatus?.status);
 
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6MzgwOTg5LCJpZFRpbVZpZWMzNjUiOjIwMjU4NSwiaWRRTEMiOjE3NjMsImlkUmFvTmhhbmgzNjUiOjAsImVtYWlsIjoiZHVvbmdoaWVwaXQxQGdtYWlsLmNvbSIsInBob25lVEsiOiIiLCJjcmVhdGVkQXQiOjE2MDA2NTg0NzgsInR5cGUiOjEsImNvbV9pZCI6MTc2MywidXNlck5hbWUiOiJDw7RuZyBUeSBUTkhIIEggTSBMIFBwbyJ9LCJpYXQiOjE2OTIzMjY0MzEsImV4cCI6MTY5MjQxMjgzMX0.TJG5cB9vOUaAW0fd5XD0toeH3dkVtrksTNs_apbI0-4";
   const handleChangeApi = async (e: any, data: any) => {
     const url =
       "http://210.245.108.202:3007/api/crm/customerdetails/editCustomer";
@@ -72,7 +58,7 @@ const SelectDataInputBox: React.FC<MyProps> = ({
     try {
       const response = await fetch(url, config);
       const data = await response.json();
-      console.log(data);
+      console.log('check',data);
     } catch (error) {
       console.error(error);
     }

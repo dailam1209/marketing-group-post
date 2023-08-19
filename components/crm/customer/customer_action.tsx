@@ -72,8 +72,8 @@ export default function CustomerListAction({
     <>
       <div className={styles.div__thaotac}>
         <div>
-          <label>Đã chọn:</label>
-          <b className={styles.checked_count}>0</b>
+          <label>Đã chọn: &nbsp;</label>
+          <b className={styles.checked_count}>{numberSelected}</b>
         </div>
         <div className={styles.box_check_customer}>
           <button

@@ -5,17 +5,20 @@ import exportToExcel from "../ultis/export_xlxs";
 import { data } from "../table/table-potential";
 import Image from "next/image";
 import CustomerListAction from "./customer_action";
-import { Drawer } from "antd";
+import { Drawer, Input } from "antd";
 import CustomerListFilterBox from "./customer_filter_box";
 export default function CustomerListInputGroup({
   isSelectedRow,
   numberSelected,
   clearOption,
   chooseAllOption,
+  setName,
+  setPhone,
+  fetchData,
 }: any) {
   const [open, setOpen] = useState(false);
   const inputFileRef = useRef<HTMLInputElement>(null);
-
+  const [data, setData] = useState<any>();
   const showDrawer = () => {
     setOpen(true);
   };
@@ -71,14 +74,16 @@ export default function CustomerListInputGroup({
       "Mô tả loại hình",
       "Người tạo",
     ];
-    console.log(data);
     exportToExcel(datas, filename, sheetName, columnHeaders);
   };
 
   const handleClickFile = () => {
     inputFileRef.current?.click();
   };
-
+  const handleSearchKH = async (e) => {
+    setName(e.target.value), setData(e.target.value);
+    await fetchData();
+  };
   return (
     <>
       <div className={`${styles.main__control} ${styles.customer_custom}`}>
@@ -86,43 +91,76 @@ export default function CustomerListInputGroup({
           <div
             className={`${styles.main__control_search} ${styles.f_search_customer}`}
           >
-            <form onSubmit={() => false} className={styles.form_search}>
-              <input
+            <form
+              onSubmit={() => false}
+              className={styles.form_search}
+              style={{ width: "100%", padding: 1 }}
+            >
+              <div></div>
+              <Input
                 type="text"
-                //   className={styles.input__search}
+                value={data}
+                onChange={(e) => handleSearchKH(e)}
                 name="search"
                 defaultValue=""
-                placeholder="Tìm kiếm theo Id, tên khách hàng, số điện thoại, email"
+                placeholder="Tìm kiếm theo Id, tên khách hàng, điện thoại, email"
+                style={{ border: "none", width: "82%", fontSize: 15 }}
               />
-              <button type="button">Tìm kiếm</button>
+              <button type="button" style={{ width: "18%" }}>
+                Tìm kiếm
+              </button>
             </form>
           </div>
           <div className={styles.main_control_new}>
             <div className={styles.dropdown_action_btn}>
-              <button onClick={showDrawer} className={styles.btn_light_filter}>
-                <Image
-                  src={
-                    "/crm/icon_search.svg"
-                  }
-                  alt="filter"
-                  width={13}
-                  height={13}
-                />
-                Bộ lọc
+              <button
+                onClick={showDrawer}
+                className={styles.btn_light_filter}
+                style={{ color: "#4C5BD4", fontWeight: 600, fontSize: 15 }}
+              >
+                <div style={{ display: "flex", justifyContent: "center",      paddingTop:4, }}>
+                  <div>
+                    <Image
+                      src={"/crm/icon_search.svg"}
+                      alt="filter"
+                      width={15}
+                      height={15}
+                    />
+                  </div>
+                  <div>Bộ lọc</div>
+                </div>
               </button>
             </div>
             <div className={styles.dropdown_action_btn}>
               <Link className={styles.api_connect_btn} href={"/setting/api"}>
-                <button className={styles.btn_light_api}>
-                  <Image
-                    src={
-                      "/crm/h_export_cus.svg"
-                    }
-                    alt="filter"
-                    width={13}
-                    height={13}
-                  />
-                  Kết nối API
+                <button
+                  className={styles.btn_light_api}
+                  style={{
+                    color: "#fff",
+                    fontSize: 14,
+                    fontWeight: 500,
+                    fontFamily: "'Roboto-Medium'",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      fontFamily: "Roboto-Medium",
+                    paddingTop:4,
+                    fontWeight:600
+                    }}
+                  >
+                    <div>
+                      <Image
+                        src={"/crm/h_export_cus.svg"}
+                        alt="filter"
+                        width={15}
+                        height={15}
+                      />
+                    </div>
+                    <div>Kết nối API</div>
+                  </div>
                 </button>
               </Link>
             </div>
@@ -178,7 +216,9 @@ export default function CustomerListInputGroup({
         headerStyle={{ textAlign: "center", background: "#4C5BD4" }}
       >
         <div>
-          <CustomerListFilterBox setOpen={setOpen} />
+          <CustomerListFilterBox
+          
+          setOpen={setOpen} />
         </div>
       </Drawer>
     </>

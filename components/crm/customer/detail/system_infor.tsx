@@ -5,8 +5,10 @@ import stylesCustomer from "../customer.module.css";
 import { SidebarContext } from "@/components/crm/context/resizeContext";
 import InforText from "./text_info";
 import TextAndIconInfo from "./text_and_icon_infor";
-
-const SystemCustomerInfo: React.FC = () => {
+export interface Props {
+  formData:any
+}
+const SystemCustomerInfo: React.FC<Props> = ({formData}:any) => {
   const mainRef = useRef<HTMLDivElement>(null);
   const { isOpen } = useContext<any>(SidebarContext);
 
@@ -17,6 +19,26 @@ const SystemCustomerInfo: React.FC = () => {
       mainRef.current?.classList.remove("content_resize");
     }
   }, [isOpen]);
+  var seconds = formData?.ngay_tao / 1000;  // Chia cho 1000 để chuyển từ milliseconds thành seconds
+
+  // Tạo đối tượng Date từ số giây
+  var date = new Date(seconds * 1000);  // Nhân cho 1000 để chuyển từ seconds thành milliseconds
+  
+  // Lấy ngày, tháng và năm
+  var day = date.getDate();
+  var month = date.getMonth() + 1;  // Lưu ý rằng tháng trong JavaScript bắt đầu từ 0
+  var year = date.getFullYear();
+  
+  // Định dạng ngày theo yêu cầu (thêm '0' ở trước nếu cần)
+  var ngay_tao = (day < 10 ? '0' : '') + day + '/' + (month < 10 ? '0' : '') + month + '/' + year;
+  
+  
+  var seconds2 = formData?.ngay_sua / 1000; 
+  var date2 = new Date(seconds2 * 1000);  // Nhân cho 1000 để chuyển từ seconds thành milliseconds
+  var day = date2.getDate();
+  var month = date2.getMonth() + 1;  // Lưu ý rằng tháng trong JavaScript bắt đầu từ 0
+  var year = date2.getFullYear();
+  var ngay_sua = (day < 10 ? '0' : '') + day + '/' + (month < 10 ? '0' : '') + month + '/' + year;
 
   return (
     <>
@@ -31,23 +53,27 @@ const SystemCustomerInfo: React.FC = () => {
                     <div className={stylesCustomer.row_input_text}>
                       <TextAndIconInfo
                         field="Người tạo:"
-                        src="https://crm.timviec365.vn/assets/img/user_kh.png"
+                        src={formData?.anh_dai_dien?formData?.anh_dai_dien:"https://crm.timviec365.vn/assets/img/user_kh.png"}
+                        value={formData?.nguoi_tao}
                       />
-                      <InforText field="Ngày tạo:" value="12/12/2024" />
+                      <InforText field="Ngày tạo:"  value={ngay_tao?ngay_tao:"Chưa cập nhật"}/>
                       <TextAndIconInfo
                         field="Người sửa:"
-                        src="https://crm.timviec365.vn/assets/img/user_kh.png"
-                      />
-                      <InforText field="Ngày sửa:" value="26/07/2023" />
+                        src={formData?.anh_dai_dien?formData?.anh_dai_dien:"https://crm.timviec365.vn/assets/img/user_kh.png"}
+                        value={formData?.nguoi_sua}
+                     />
+
+                      <InforText field="Ngày sửa:" value={ngay_sua?ngay_sua:"Chưa cập nhật"}/>
                       <InforText field="Đơn vị:" />
                       <TextAndIconInfo
                         field="Loại hình:"
-                        value="Khách hàng cá nhân"
+                        value={formData?.loai_hinh?formData?.loai_hinh:"Chưa cập nhật"}
                         src="https://crm.timviec365.vn/assets/icons/edit_blue.svg"
                       />
                       <InforText
                         field="Ngày giao dịch gần nhất:"
-                        value="Chưa cập nhật"
+                        value={"Chưa cập nhật"}
+                        
                       />
                       <InforText
                         field="Ngày mua hàng gần nhất:"
