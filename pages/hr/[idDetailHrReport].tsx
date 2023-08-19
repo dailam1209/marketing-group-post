@@ -270,6 +270,15 @@ export default function DetailHrReport({ children }: any) {
           const match = link.match(regex);
           formData.append('type_timekeep', match[2])
           formData.append('comId', match[1])
+          formData.append("position_id", isPosition_id)
+          formData.append("gender", isGender)
+          formData.append("married", isMaried)
+          formData.append("birthday", isMaried)
+          formData.append("team", isMaried)
+          const response = await EmpStatusDetail(formData);
+          if (response) {
+            setOrganisationalList(response?.data)
+          }
         }
         if (link?.includes("danh-sach-nhan-vien-theo-phong-ban")
           || link?.includes("danh-sach-nhan-vien-cham-cong-phong-ban")
@@ -290,6 +299,15 @@ export default function DetailHrReport({ children }: any) {
           formData.append('type_timekeep', match[2])
           formData.append('dep_id', match[3])
           formData.append('comId', match[1])
+          formData.append("position_id", isPosition_id)
+          formData.append("gender", isGender)
+          formData.append("married", isMaried)
+          formData.append("birthday", isMaried)
+          formData.append("team", isMaried)
+          const response = await EmpStatusDetail(formData);
+          if (response) {
+            setOrganisationalList(response?.data)
+          }
         }
         if (link?.includes("danh-sach-nhan-vien-theo-to")
           || link?.includes("danh-sach-nhan-vien-cham-cong-theo-to")
@@ -310,6 +328,15 @@ export default function DetailHrReport({ children }: any) {
           formData.append('dep_id', match[3])
           formData.append('comId', match[1])
           formData.append('team_id', match[4])
+          formData.append("position_id", isPosition_id)
+          formData.append("gender", isGender)
+          formData.append("married", isMaried)
+          formData.append("birthday", isMaried)
+          formData.append("team", isMaried)
+          const response = await EmpStatusDetail(formData);
+          if (response) {
+            setOrganisationalList(response?.data)
+          }
         }
         if (link?.includes("danh-sach-nhan-vien-theo-nhom")
           || link?.includes("danh-sach-nhan-vien-cham-cong-theo-nhom")
@@ -331,16 +358,17 @@ export default function DetailHrReport({ children }: any) {
           formData.append('comId', matches[1])
           formData.append('team_id', matches[4])
           formData.append('group_id', matches[5])
+          formData.append("position_id", isPosition_id)
+          formData.append("gender", isGender)
+          formData.append("married", isMaried)
+          formData.append("birthday", isMaried)
+          formData.append("team", isMaried)
+          const response = await EmpStatusDetail(formData);
+          if (response) {
+            setOrganisationalList(response?.data)
+          }
         }
-        formData.append("position_id", isPosition_id)
-        formData.append("gender", isGender)
-        formData.append("married", isMaried)
-        formData.append("birthday", isMaried)
-        formData.append("team", isMaried)
-        const response = await EmpStatusDetail(formData);
-        if (response) {
-          setOrganisationalList(response?.data)
-        }
+
       } catch (error) {
         throw error
       }
@@ -502,7 +530,7 @@ export default function DetailHrReport({ children }: any) {
                   </tr>
                 </thead>
                 <tbody className={`${styles.filter_body}`}>
-                  {isReportList?.data?.map((item: any, index: any) => (
+                  {isReportList?.data && isReportList?.data?.map((item: any, index: any) => (
                     <tr key={index}>
                       <td>{index + 1}</td>
                       <td>{item?.idQLC} </td>
@@ -534,7 +562,7 @@ export default function DetailHrReport({ children }: any) {
                       <td>{item?.chucvu}</td>
                     </tr>
                   ))}
-                  {isOrganisationalList?.listEmployee?.map((item: any, index: any) => {
+                  {isOrganisationalList?.listEmployee && isOrganisationalList?.listEmployee?.map((item: any, index: any) => {
                     const positionData = PostionCharDatas?.data?.find(
                       (position: any) => position?.positionId === item?.position_id
                     );

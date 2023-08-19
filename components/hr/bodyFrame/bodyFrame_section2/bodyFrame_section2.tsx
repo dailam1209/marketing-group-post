@@ -4,14 +4,14 @@ import { format, addSeconds } from "date-fns";
 import { enGB } from "date-fns/locale";
 import Weather from "../weather/Weather";
 
-export interface BodyFrameSection2 {}
+export interface BodyFrameSection2 { }
 
 export default function BodyFrameSection2({ dataHome }: any) {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [currentTime, setCurrentTime] = useState(new Date());
   const [currentDay, setCurrentDay] = useState("");
   const [currentMonth, setCurrentMonth] = useState("");
-  
+
 
   useEffect(() => {
     if (typeof window == "object") {
