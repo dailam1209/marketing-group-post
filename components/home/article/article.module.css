@@ -1,15 +1,15 @@
-.tieuDe{
-    font-size:17px;
-    text-transform: uppercase;
-    margin:20px 0;
-    font-weight:500;
+.tieuDe {
+  font-size: 34px;
+  text-transform: uppercase;
+  margin: 20px 0;
+  font-weight: 500;
 }
-.noiDung{
-    font-size:16px;
-    text-align:justify;
+.noiDung {
+  font-size: 16px;
+  text-align: justify;
 }
-@media screen and (max-width:414px) {
-    .tieuDe{
-        margin-top: 12px;
-    }
+@media screen and (max-width: 414px) {
+  .tieuDe {
+    margin-top: 12px;
+  }
 }
