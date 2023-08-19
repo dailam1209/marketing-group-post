@@ -11,6 +11,7 @@ type Profile_inforProps = {
   id_staff?: string;
 };
 import { getCookies, getCookie, setCookie, deleteCookie } from "cookies-next";
+import Cookies from "js-cookie";
 const Profile_infor: React.FC<Profile_inforProps> = ({ ...props }) => {
   const router = useRouter();
 
@@ -139,6 +140,8 @@ const Profile_infor: React.FC<Profile_inforProps> = ({ ...props }) => {
                   "token_test=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC; samesite=lax";
                 deleteCookie("token_first");
                 deleteCookie("token_hafl");
+                Cookies.remove('token_base365');
+                Cookies.remove('role');
               }}
             >
               <Link rel="nofollow" href="">

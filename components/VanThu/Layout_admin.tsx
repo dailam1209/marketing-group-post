@@ -5,10 +5,12 @@ import { useRouter } from "next/router";
 import { RootState } from "@/reducers";
 import styles from "./Layout.module.css";
 import Header_main from "./header_main/Header_main";
-import { fetch_infor_account } from "@/utils/ShareApi";
+import { fetch_com_info, fetch_infor_account } from "@/utils/ShareApi";
 import Sidebar_dexuat_admin from "./company_sidebar/Sidebar_dexuat_admin";
 import Sidebar_quanlycongvan_admin from "./company_sidebar/Sidebar_quanlycongvan_admin";
 import Sidebar_admin from "./company_sidebar/Sidebar_send_admin";
+import { getCookie } from "cookies-next";
+import Cookies from "js-cookie";
 
 interface ParentComponentProps {
   id?: string | undefined | null;
@@ -26,7 +28,7 @@ const ParentComponent: React.FC<ParentComponentProps> = ({ id }) => {
   return <>{renderedComponent}</>;
 };
 let idNavBar: any;
-const Layout_admin = ({ children }: any) => {
+const Layout_admin = ({ children,info }: any) => {
   idNavBar = useSelector((state: RootState) => state?.navbar?.activeNavbarId);
   const isOpen = useSelector((state: RootState) => state?.sidebar?.isOpen);
   const router = useRouter();
@@ -53,14 +55,17 @@ const Layout_admin = ({ children }: any) => {
   ) {
     componentToRender = <Sidebar_quanlycongvan_admin />;
   }
-  const [info, setInfo] = useState<any>();
-  useEffect(() => {
-    try{
-      setInfo(fetch_infor_account());
-    }catch(e){
-      console.log(e);
+  const [com,setCom] = useState<any>()
+  useEffect(()=>{
+    const token = Cookies.get('token_base365')
+    const fetch = async ()=>{
+      if (token){
+        const res = await fetch_com_info(token)
+        setCom(res?.data.data)
+      }
     }
-  },[]);
+    fetch()
+  },[router.pathname])
   return (
     <div className={`${styles.page}`}>
       <div className={`${styles.side_bar} ${isOpen ? styles.visible : ""}`}>
@@ -68,8 +73,7 @@ const Layout_admin = ({ children }: any) => {
           <div className={`${styles.profile}`}>
             <Avartar />
             <div className={`${styles.profile_content}`}>
-              <p>{info?.userName}</p>
-              <p>{info?.type == 1 ? "Quản lý" : ""}</p>
+              <p>{com?.userName}</p>
             </div>
           </div>
           <>

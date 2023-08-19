@@ -10,7 +10,8 @@ import { toggleSidebar } from "@/actions/actions";
 import { useRouter } from "next/router";
 import Profile_infor from "./profile_infor/Profile_infor";
 import { fetchData } from "@/utils/BaseApi";
-import { fetch_infor_account } from "@/utils/ShareApi";
+import { fetch_com_info, fetch_emp_info, fetch_infor_account } from "@/utils/ShareApi";
+import Cookies from "js-cookie";
 
 interface ItemLink {
   id: string;
@@ -103,14 +104,25 @@ const General_header = () => {
   const handleOpenModal = () => {
     setModalOpen(!modalOpen);
   };
-  const [info, setInfo] = useState<any>();
-  useEffect(() => {
-    try{
-      setInfo(fetch_infor_account());
-    }catch(e){
-      console.log(e);
+  const [user,setUser] = useState<any>()
+  const [com,setCom] = useState<any>()
+  useEffect(()=>{
+    console.log('navigate')
+    const token = Cookies.get('token_base365')
+    const fetch = async ()=>{
+      if (token){
+        try{
+          const res = await fetch_emp_info(token)
+          setUser(res?.data.data)
+        }catch(err){
+          const res = await fetch_com_info(token)
+          setCom(res?.data.data)
+        }
+        
+      }
     }
-  },[]);
+    fetch()
+  },[router.pathname])
   return (
     <div className={`${styles.header_content}`}>
       {/* None */}
@@ -159,10 +171,10 @@ const General_header = () => {
             {/* {storedData === "user" ? ( */}
             <Profile_infor
               isOpen={modalOpen}
-              fullname={info?.userName}
-              id_staff={info?._id}
+              fullname={user ? user?.userName : com?.userName}
+              id_staff={user ? user?.idQLC : com?.idQLC}
               img="/avatar.jpg"
-              job={info?.type == 1 ? "Quản lý" : "Nhân viên"}
+              job={com ? "Quản lý" : "Nhân viên"}
             />
             {/* ) : (
               <Profile_infor

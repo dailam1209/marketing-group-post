@@ -5,10 +5,12 @@ import { useRouter } from "next/router";
 import { RootState } from "@/reducers";
 import styles from "./Layout.module.css";
 import Header_main from "./header_main/Header_main";
-import { fetch_infor_account } from "@/utils/ShareApi";
+import { fetch_emp_info, fetch_infor_account } from "@/utils/ShareApi";
 import Sidebar_quanlycongvan from "./staff_sidebar/Sidebar_quanlycongvan";
 import Sidebar_dexuat from "./staff_sidebar/Sidebar_dexuat";
 import Sidebar from "./staff_sidebar/Sidebar_send";
+import { getCookie } from "cookies-next";
+import Cookies from "js-cookie";
 
 interface ParentComponentProps {
   id?: string | undefined | null;
@@ -26,7 +28,7 @@ const ParentComponent: React.FC<ParentComponentProps> = ({ id }) => {
   return <>{renderedComponent}</>;
 };
 let idNavBar: any;
-const Layout_user = ({ children }: any) => {
+const Layout_user = ({ children,info }: any) => {
   idNavBar = useSelector((state: RootState) => state?.navbar?.activeNavbarId);
   const isOpen = useSelector((state: RootState) => state?.sidebar?.isOpen);
   const router = useRouter();
@@ -49,14 +51,17 @@ const Layout_user = ({ children }: any) => {
   } else if (pathname === "/VanThu/trang-chu-quan-ly-cong-van") {
     componentToRender = <Sidebar_quanlycongvan />;
   }
-  const [info, setInfo] = useState<any>();
-  useEffect(() => {
-    try{
-      setInfo(fetch_infor_account());
-    }catch(e){
-      console.log(e);
+  const [user,setUser] = useState<any>()
+  useEffect(()=>{
+    const token = Cookies.get('token_base365');
+    const fetch = async ()=>{
+      if(token){
+        const res = await fetch_emp_info(token)
+        setUser(res?.data.data)
+      }
     }
-  },[]);
+    fetch()
+  },[router.pathname])
   return (
     <div className={`${styles.page}`}>
       <div className={`${styles.side_bar} ${isOpen ? styles.visible : ""}`}>
@@ -64,8 +69,7 @@ const Layout_user = ({ children }: any) => {
           <div className={`${styles.profile}`}>
             <Avartar />
             <div className={`${styles.profile_content}`}>
-              <p>{info?.userName}</p>
-              <p>{info?.type == 1 ? "Quản lý" : ""}</p>
+              <p>{user?.userName}</p>
             </div>
           </div>
           <>

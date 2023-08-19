@@ -178,7 +178,7 @@ export const fetch_list_employs = async () => {
     }
   }
 };
-export const fetch_position = ({ name, value, label }: any) => {
+export const fetch_position = ({ name }: any) => {
   return [
     { name: name, value: "", label: "Tất cả" },
     { name: name, value: "1", label: "SINH VIÊN THỰC TẬP" },
@@ -204,3 +204,35 @@ export const fetch_position = ({ name, value, label }: any) => {
     { name: name, value: "17", label: "THÀNH VIÊN HỘI ĐỒNG QUẢN TRỊ" },
   ];
 };
+export const fetch_emp_info = async (token:any) => {
+  try {
+    const response = await axios.post(
+      `${baseURLQLC}/api/qlc/employee/info`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response?.data;
+  } catch (err) {
+    console.error("Error fetching employee data:", err);
+  }
+}
+export const fetch_com_info = async (token:any) => {
+  try {
+    const response = await axios.post(
+      `${baseURLQLC}/api/qlc/company/info`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response?.data;
+  } catch (err) {
+    console.error("Error fetching company data:", err);
+  }
+}
