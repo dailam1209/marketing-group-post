@@ -45,10 +45,17 @@
   border-radius: 15px !important;
 }
 .Button {
+<<<<<<< HEAD:pages/quan-ly-nhan-luc/tao-de-xuat/tao-de-xuat/don-xin-nghi-phep/index.module.css
+    width: 150px;
+    height: 40px;
+    margin-right: 20px;
+  background-color: #4C5BD4;
+=======
   width: 150px;
   height: 40px;
   margin-right: 20px;
   background-color: #4c5bd4;
+>>>>>>> 29dbb889b1f278636ac7c54a81e9a38422604e52:pages/cham-cong/tao-de-xuat/tao-de-xuat/don-xin-nghi-phep/index.module.css
   border: 1px solid #fff;
 }
 .footer {
@@ -129,7 +136,11 @@
   }
   .ButtonWhite {
     .txt {
+<<<<<<< HEAD:pages/quan-ly-nhan-luc/tao-de-xuat/tao-de-xuat/don-xin-nghi-phep/index.module.css
+      color: #4C5BD4;
+=======
       color: #4c5bd4;
+>>>>>>> 29dbb889b1f278636ac7c54a81e9a38422604e52:pages/cham-cong/tao-de-xuat/tao-de-xuat/don-xin-nghi-phep/index.module.css
       font-size: 20px;
     }
   }
@@ -209,7 +220,11 @@
   }
   .ButtonWhite {
     .txt {
+<<<<<<< HEAD:pages/quan-ly-nhan-luc/tao-de-xuat/tao-de-xuat/don-xin-nghi-phep/index.module.css
+      color: #4C5BD4;
+=======
       color: #4c5bd4;
+>>>>>>> 29dbb889b1f278636ac7c54a81e9a38422604e52:pages/cham-cong/tao-de-xuat/tao-de-xuat/don-xin-nghi-phep/index.module.css
       font-size: 20px;
     }
   }
@@ -289,7 +304,11 @@
   }
   .ButtonWhite {
     .txt {
+<<<<<<< HEAD:pages/quan-ly-nhan-luc/tao-de-xuat/tao-de-xuat/don-xin-nghi-phep/index.module.css
+      color: #4C5BD4;
+=======
       color: #4c5bd4;
+>>>>>>> 29dbb889b1f278636ac7c54a81e9a38422604e52:pages/cham-cong/tao-de-xuat/tao-de-xuat/don-xin-nghi-phep/index.module.css
       font-size: 18px;
     }
   }
@@ -370,7 +389,11 @@
   }
   .ButtonWhite {
     .txt {
+<<<<<<< HEAD:pages/quan-ly-nhan-luc/tao-de-xuat/tao-de-xuat/don-xin-nghi-phep/index.module.css
+      color: #4C5BD4;
+=======
       color: #4c5bd4;
+>>>>>>> 29dbb889b1f278636ac7c54a81e9a38422604e52:pages/cham-cong/tao-de-xuat/tao-de-xuat/don-xin-nghi-phep/index.module.css
       font-size: 16px;
     }
   }
@@ -469,7 +492,11 @@
   }
   .ButtonWhite {
     .txt {
+<<<<<<< HEAD:pages/quan-ly-nhan-luc/tao-de-xuat/tao-de-xuat/don-xin-nghi-phep/index.module.css
+      color: #4C5BD4;
+=======
       color: #4c5bd4;
+>>>>>>> 29dbb889b1f278636ac7c54a81e9a38422604e52:pages/cham-cong/tao-de-xuat/tao-de-xuat/don-xin-nghi-phep/index.module.css
       font-size: 16px;
     }
   }

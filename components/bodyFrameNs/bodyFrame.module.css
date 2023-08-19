@@ -1,5 +1,4 @@
-.main,
-.noPaddingForm {
+.main, .noPaddingForm {
   padding-right: 360px;
   padding-left: 360px;
 
@@ -35,8 +34,7 @@
 
 /* responsive */
 @media screen and (max-width: 1669px) {
-  .main,
-  .noPaddingForm {
+  .main, .noPaddingForm {
     padding-right: 100px;
     padding-left: 100px;
   }
@@ -44,8 +42,7 @@
 
 /* 1366px */
 @media screen and (max-width: 1366px) {
-  .main,
-  .noPaddingForm {
+  .main, .noPaddingForm {
     padding-right: 83px;
     padding-left: 83px;
   }
@@ -58,8 +55,7 @@
 }
 
 @media screen and (max-width: 1024px) {
-  .main,
-  .noPaddingForm {
+  .main, .noPaddingForm {
     padding-right: 30px;
     padding-left: 30px;
   }
@@ -73,8 +69,7 @@
 }
 
 @media screen and (max-width: 768px) {
-  .main,
-  .noPaddingForm {
+  .main, .noPaddingForm {
     padding-right: 24px;
     padding-left: 24px;
   }

@@ -4,7 +4,14 @@ import Image from 'next/image'
 import styles from './cham-cong.module.css'
 import { KhuonMat } from './icon/icon'
 import { CapNhat } from './icon/icon'
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, LabelList } from 'recharts'
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  LabelList,
+} from 'recharts'
 import Link from 'next/link'
 import moment from 'moment'
 import _ from 'lodash'
@@ -147,12 +154,12 @@ export const ChamCong = ({ ccData }: { ccData: any }) => {
       <div className={styles.khung1}>
         <p className={styles.nameNV}>Xin Chào ...</p>
         <div className={styles.khungbutton}>
-          <Link href='/cham-cong/cap-nhat-du-lieu-khuon-mat'>
+          <Link href='/quan-ly-nhan-luc/cap-nhat-du-lieu-khuon-mat'>
             <Button size='large' className={styles.Button} icon={<KhuonMat />}>
               <p className={styles.namebutton}>Cập nhật dữ liệu khuôn mặt</p>
             </Button>
           </Link>
-          <Link href={'/cham-cong/cham-cong-bang-tai-khoan-cong-ty'}>
+          <Link href={'/quan-ly-nhan-luc/cham-cong-bang-tai-khoan-cong-ty'}>
             <Button size='large' className={styles.Button} icon={<CapNhat />}>
               <p className={styles.namebutton}>Chấm công nhân viên</p>
             </Button>
@@ -235,14 +242,7 @@ export const ChamCong = ({ ccData }: { ccData: any }) => {
             </div>
           </div>
           <div className={styles.divxnumber}>
-            <p className={styles.textnumber}>
-              {ccData?.count_late
-                ? Number(ccData?.count_late)?.toLocaleString('en-US', {
-                    minimumIntegerDigits: 2,
-                  })
-                : '00'}{' '}
-              lần
-            </p>
+            <p className={styles.textnumber}>{ccData?.count_late ? Number(ccData?.count_late)?.toLocaleString('en-US', {minimumIntegerDigits: 2}) : '00'} lần</p>
           </div>
         </Card>
         <Card className={`theIcon ${styles.divx}`}>
@@ -308,14 +308,7 @@ export const ChamCong = ({ ccData }: { ccData: any }) => {
             </div>
           </div>
           <div className={styles.divxnumber}>
-            <p className={styles.textnumber}>
-              {ccData?.count_success
-                ? Number(ccData?.count_success)?.toLocaleString('en-US', {
-                    minimumIntegerDigits: 2,
-                  })
-                : '00'}{' '}
-              lần
-            </p>
+            <p className={styles.textnumber}>{ccData?.count_success ? Number(ccData?.count_success)?.toLocaleString('en-US', {minimumIntegerDigits: 2}) : '00'} lần</p>
           </div>
         </Card>
         <Card className={`theIcon ${styles.divx}`}>
@@ -383,13 +376,7 @@ export const ChamCong = ({ ccData }: { ccData: any }) => {
           </div>
           <div className={styles.divxnumber}>
             <p className={styles.textnumber}>
-              {ccData?.time_keeping_not_invalid
-                ? Number(ccData?.time_keeping_not_invalid)?.toLocaleString(
-                    'en-US',
-                    { minimumIntegerDigits: 2 }
-                  )
-                : '00'}{' '}
-              lần
+              {ccData?.time_keeping_not_invalid ? Number(ccData?.time_keeping_not_invalid)?.toLocaleString('en-US', {minimumIntegerDigits: 2}) : '00'} lần
             </p>
           </div>
         </Card>

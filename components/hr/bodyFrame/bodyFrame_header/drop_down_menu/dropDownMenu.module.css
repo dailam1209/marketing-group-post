@@ -33,7 +33,7 @@
 .menu_id {
   font-style: normal;
   font-weight: normal;
-  font-size: 16px;
+  font-size: 14px;
   text-align: center;
   color: #929292;
   font-weight: 600;
@@ -43,6 +43,7 @@
   padding: 14px 0;
   display: flex;
   align-items: center;
+
 }
 .menu_icon {
   width: 23%;

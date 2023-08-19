@@ -1,144 +1,42 @@
 export const INDEX_DATA = [
   {
-    title: 'Chấm công',
+    title: "CV xin việc là gì?"
+  },
+  {
+    title: "Vì sao cần viết CV xin việc?"
+  },
+  {
+    title: "Những yếu tố quan trọng không thể thiếu trong CV"
+  },
+  {
+    title: "Cách tạo CV xin việc hiệu quả",
     sub: [
       {
-        title: 'Hướng dẫn cài đặt tài khoản chấm công công ty',
+        title: "Hướng dẫn chi tiết cách viết các thành phần trong CV",
         sub: [
           {
-            title: 'Đăng ký',
+            title: "Thông tin cá nhân trong CV"
           },
           {
-            title: 'Cách đăng nhập',
-          },
-        ],
-      },
-      {
-        title: 'Thiết lập cấu hình chấm công',
-      },
-      {
-        title: 'Cài đặt ca làm việc',
-      },
-      {
-        title: 'Cài đặt lịch làm việc',
-      },
-      {
-        title: 'Cài đặt Công chuẩn hàng tháng',
-      },
-      {
-        title: 'Cập nhật khuôn mặt',
-      },
-      {
-        title: 'Duyệt thiết bị mới chấm công',
-      },
-      {
-        title: 'Xuất công',
-      },
-    ],
-  },
-  {
-    title: 'Quản lý công ty',
-    sub: [
-      {
-        title: 'Quản lý ca làm việc',
-      },
-      {
-        title: 'Cài đặt quản lý công ty con',
-      },
-      {
-        title: 'Cài đặt quản lý phòng ban',
-      },
-      {
-        title: 'Cài đặt thêm nhân viên mới',
-      },
-      {
-        title: 'Cài đặt biến động nhân sự',
-        sub: [
-          {
-            title: 'Luân chuyển công tác',
+            title: "Kinh nghiệm làm việc"
           },
           {
-            title: 'Giảm biên chế',
+            title: "Trình độ học vấn"
           },
           {
-            title: 'Nghỉ việc sai quy định',
+            title: "Các kĩ năng liên quan đến công việc ứng tuyển"
           },
           {
-            title: 'Bổ nhiệm, quy hoạch',
-          },
-        ],
-      },
-    ],
-  },
-  {
-    title: 'Cài đặt lương',
-    sub: [
-      {
-        title: 'Cài đặt nhập lương cơ bản',
-      },
-      {
-        title: 'Cài đặt thiết lập phạt đi muộn/về sớm',
-      },
-      {
-        title: 'Cài đặt bảo hiểm',
-      },
-      {
-        title: 'Cài đặt phúc lợi',
-      },
-      {
-        title: 'Cài đặt phụ cấp khác',
-      },
-      {
-        title: 'Cài đặt thuế',
-      },
-      {
-        title: 'Cộng công',
-      },
-      {
-        title: 'Thưởng phạt',
-      },
-      {
-        title: 'Hoa hồng',
-        sub: [
-          {
-            title: 'Cài hoa hồng tiền',
+            title: "Mục tiêu nghề nghiệp"
           },
           {
-            title: 'Cài đặt hoa hồng doanh thu',
-          },
-        ],
+            title: "Chứng chỉ, giải thưởng"
+          }
+        ]
       },
       {
-        title: 'Xuất lương',
-      },
-    ],
-  },
-  {
-    title: 'Chấm công nhân viên',
-    sub: [
-      {
-        title: 'Chấm công bằng QR',
-      },
-      {
-        title: 'Chấm công bằng nhận diện khuôn mặt',
-      },
-      {
-        title: 'Chấm công bằng tài khoản công ty',
-      },
-    ],
-  },
-  {
-    title: 'Tạo đề xuất',
-  },
-  {
-    title: 'Lịch sử',
-    sub: [
-      {
-        title: 'Lịch sử chấm công',
-      },
-      {
-        title: 'Xem lương',
-      },
-    ],
-  },
+        title: "Viết CV hoàn hảo, cần lưu ý điều gì?"
+      }
+    ]
+  }
 ]

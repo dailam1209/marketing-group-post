@@ -5,7 +5,7 @@
     justify-content: center;
     align-items: center;
     align-self: stretch;
-    background-color: #4c5bd4;
+    background-color: #4C5BD4;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
   }
@@ -41,7 +41,7 @@
     margin-top: 20px;
     border-radius: 10px !important;
     justify-content: center;
-    background-color: #4c5bd4;
+    background-color: #4C5BD4;
     height: 34px;
     width: 131px;
     .txt {
@@ -83,7 +83,7 @@
     align-items: center;
     background-color: #fff;
     .text {
-      color: #4c5bd4;
+      color: #4C5BD4;
       font-size: 18px;
       margin-left: 10px;
     }
@@ -118,7 +118,7 @@
     margin: 10px 0px;
   }
   .buttonAddFormula {
-    width: '100%';
+    width: "100%";
     margin-bottom: 20px;
     margin-top: 20px;
   }
@@ -191,7 +191,7 @@
     padding: 16px 20px 15px 16px;
     justify-content: center;
     align-items: center;
-    background-color: #4c5bd4;
+    background-color: #4C5BD4;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
   }
@@ -234,7 +234,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #4c5bd4;
+    background-color: #4C5BD4;
     height: 34px;
     width: 131px;
     .txt {
@@ -275,7 +275,7 @@
     align-items: center;
     background-color: #fff;
     .text {
-      color: #4c5bd4;
+      color: #4C5BD4;
       font-size: 18px;
       margin-left: 10px;
     }

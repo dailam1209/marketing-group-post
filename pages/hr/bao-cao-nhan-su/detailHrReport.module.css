@@ -21,7 +21,7 @@
   display: block;
   width: 85%;
   padding: 6px 12px;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 1.42857143;
   color: #555;
   background-color: #fff;
@@ -120,7 +120,7 @@
 }
 .text_content {
   text-align: center;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 1.42857143;
   color: #333;
   font-weight: 600;
@@ -132,7 +132,7 @@
   border-top: 1px solid #ddd;
 }
 .table td {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   border: 1px solid rgba(102, 102, 102, 0.24);
 }

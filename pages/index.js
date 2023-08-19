@@ -280,7 +280,7 @@ export default function Home() {
                               <QLC_item
                                 title='Chấm công'
                                 img={'../img/qlc_cc.png'}
-                                url='/cham-cong'
+                                url='/quan-ly-nhan-luc'
                                 hasCheckLogin={false}
                               />
                             </Col>
@@ -616,7 +616,7 @@ export default function Home() {
                                 <QLC_item
                                   title='Chấm công'
                                   img={'../img/qlc_cc.png'}
-                                  url='/cham-cong'
+                                  url='/quan-ly-nhan-luc'
                                   hasCheckLogin={false}
                                 />
                               </Col>

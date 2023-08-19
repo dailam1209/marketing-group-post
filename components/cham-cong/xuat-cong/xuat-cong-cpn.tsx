@@ -1,4 +1,4 @@
-import { DataType } from '@/pages/cham-cong/cham-cong/xuat-cong'
+import { DataType } from '@/pages/quan-ly-nhan-luc/cham-cong/xuat-cong'
 import './xuat-cong-cpn.module.css'
 import { Table } from 'antd'
 import type { ColumnsType } from 'antd/es/table'

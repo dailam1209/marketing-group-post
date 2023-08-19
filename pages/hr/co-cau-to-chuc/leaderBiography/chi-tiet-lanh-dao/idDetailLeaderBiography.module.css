@@ -12,7 +12,7 @@
   color: #337ab7;
   text-decoration: none !important;
   background-color: transparent;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   cursor: default;
 }
@@ -40,7 +40,7 @@
   padding: 14px 15px;
   font-family: Roboto;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 16px;
   align-items: center;
   color: #ffffff;
@@ -141,7 +141,7 @@
   background: none;
   color: #333333;
   border: none;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
 }
 .footer_process {
@@ -152,7 +152,7 @@
   border: none;
 }
 .modal_footer button {
-  font-size: 16px;
+  font-size: 14px;
   font-style: normal;
   font-weight: 500;
   line-height: 16px;

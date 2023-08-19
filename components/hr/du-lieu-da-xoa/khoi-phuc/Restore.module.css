@@ -47,6 +47,7 @@
   from {
     opacity: 0;
     transform: translateY(-150%);
+    
   }
   to {
     opacity: 1;
@@ -58,10 +59,12 @@
   from {
     transform: translateY(0);
     opacity: 1;
+   
   }
   to {
     opacity: 0;
     transform: translateY(-150%);
+  
   }
 }
 
@@ -79,6 +82,7 @@
   border-radius: 6px;
   outline: none;
 }
+
 
 .modal_header p {
   font-style: normal;
@@ -113,26 +117,27 @@
 .modal_footer button {
   border: none;
   color: #fff;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
+
 }
 
 .l_btn_cancel {
-  background: #bdbdbd;
+  background: #BDBDBD;
   padding: 8px 20px;
   border-radius: 8px;
   margin: 0 5px;
 }
 
 .btn_restore {
-  background: #27ae60;
+  background: #27AE60;
   padding: 8px 20px;
   border-radius: 8px;
   margin: 0 5px;
 }
 
 .btn_delete {
-  background: #eb5757;
+  background: #EB5757;;
   padding: 8px 20px;
   border-radius: 8px;
   margin: 0 5px;

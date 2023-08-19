@@ -111,6 +111,7 @@ export default function HomeQLNS() {
     color: string
   ) => (
     <Row
+      gutter={[{ xs: 30, sm: 20 }, { xs: 15 }]}
       key={index}
       className={styles.singleBtn}
       style={{ borderRight: `8px solid ${color}` }}
@@ -118,15 +119,16 @@ export default function HomeQLNS() {
         localStorage.setItem('selectedBtnIndex', `${index - 1}`)
         setSelectedBtn(`${index - 1}`)
       }}>
-      <Col span={5}>
+      <Col sm={5} xs={6}>
         <div
           className={styles.indexWithBorder}
           style={{ border: `5px solid ${color}` }}>
-          <span className={styles.index}> {index}</span>
+          <span className={styles.index}>{index}</span>
         </div>
       </Col>
       <Col
-        span={15}
+        sm={15}
+        xs={12}
         style={{
           display: 'flex',
           alignItems: 'center',
@@ -141,8 +143,8 @@ export default function HomeQLNS() {
           {title}
         </p>
       </Col>
-      <Col span={4} className={styles.rightDiv}>
-        <div className={styles.verticalDivider}></div>
+      <Col sm={4} xs={6} className={styles.rightDiv}>
+        {/* <div className={styles.verticalDivider}></div> */}
         <Image alt='' src={icon} width={30} height={30} />
       </Col>
     </Row>

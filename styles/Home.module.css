@@ -9,7 +9,7 @@
   .indexWithBorder {
     width: 71px;
     height: 71px;
-    border-radius: 50px;
+    border-radius: 50%;
 
     display: flex;
     align-items: center;
@@ -33,12 +33,29 @@
     }
   }
 
+  .rightDiv::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 2px;
+    height: 60%;
+    background-color: #717b7f;
+    transform: translateY(-50%);
+  }
+
   .title {
     font-size: 22px;
     font-weight: 600;
     /* color: #000 !important; */
   }
 }
+
+.singleBtn > div:first-child {
+  padding-left: 0 !important;
+
+}
+
 
 .singleBtn:hover {
   cursor: pointer;
@@ -59,7 +76,7 @@
     justify-content: center;
 
     margin-right: 14px;
-    background-color: #4c5bd4;
+    background-color: #4C5BD4;
 
     .index {
       font-size: 24px;
@@ -70,7 +87,7 @@
 
   .title {
     font-size: 20px;
-    color: var(--text-color);
+    color: #474747;
     font-weight: 600;
     cursor: pointer;
   }
@@ -78,7 +95,7 @@
   .circleExplain {
     width: 35px;
     height: 35px;
-    border: 1px solid #4c5bd4;
+    border: 1px solid #4C5BD4;
     display: flex;
     align-items: center;
     justify-content: center;

@@ -8,7 +8,7 @@ import { BackButton, MyBreadCrumb } from './bread-crump/BreadCrump'
 import { useRouter } from 'next/router'
 import { AddButton, ExportExcelButton } from '../commons/Buttons'
 import Footer from '../footer/Footer'
-import { PHONGBAN_ACTIVE_KEY } from '@/pages/cham-cong/quan-ly-cong-ty/quan-ly-phong-ban'
+import { PHONGBAN_ACTIVE_KEY } from '@/pages/quan-ly-nhan-luc/quan-ly-cong-ty/quan-ly-phong-ban'
 import { Banner } from './banner/banner'
 import { CCBannerNV_TKCTY } from '../cham-cong-nhan-vien/cc-bang-tk-nv'
 import { BANNER_CCBNDKM_CHAMCONG365 } from '../cham-cong-nhan-vien/cham-cong-bang-nhan-dien-khuon-mat/cham-cong-365'
@@ -21,21 +21,20 @@ import { CCBanner } from './cai-dat-cham-cong-banner/cc-banner'
 export interface BodyFrame {}
 
 export default function Bodyframe({ children }: any) {
-  const [showMore, setShowmore] = useState<boolean>(false)
-
+  const [showMore, setShowmore] = useState(false)
   const router = useRouter()
-  const CAI_DAT_VI_TRI_URL = '/cham-cong/cai-dat-vi-tri'
+  const CAI_DAT_VI_TRI_URL = '/quan-ly-nhan-luc/cai-dat-vi-tri'
   const NV_CCCTY_URL =
-    '/cham-cong/cham-cong-nhan-vien/cc-bang-tai-khoan-cong-ty'
+    '/quan-ly-nhan-luc/cham-cong-nhan-vien/cc-bang-tai-khoan-cong-ty'
   const NV_CCBNDKM_CC365 =
-    '/cham-cong/cham-cong-nhan-vien/cham-cong-bang-nhan-dien-khuon-mat/cham-cong-365'
+    '/quan-ly-nhan-luc/cham-cong-nhan-vien/cham-cong-bang-nhan-dien-khuon-mat/cham-cong-365'
   const NV_CCBNDKM_CHAT365 =
-    '/cham-cong/cham-cong-nhan-vien/cham-cong-bang-nhan-dien-khuon-mat/chat-365'
+    '/quan-ly-nhan-luc/cham-cong-nhan-vien/cham-cong-bang-nhan-dien-khuon-mat/chat-365'
   const NV_CCBNDKM_PC365 =
-    '/cham-cong/cham-cong-nhan-vien/cham-cong-bang-nhan-dien-khuon-mat/pc-365-nhan-vien'
-  const NV_CCQR_URL = '/cham-cong/cham-cong-bang-QR/cham-cong-365'
-  const CTY_CCCTY = '/cham-cong/cham-cong/cham-cong-cong-ty'
-  const ADD_DX = '/cham-cong/tao-de-xuat/tao-de-xuat'
+    '/quan-ly-nhan-luc/cham-cong-nhan-vien/cham-cong-bang-nhan-dien-khuon-mat/pc-365-nhan-vien'
+  const NV_CCQR_URL = '/quan-ly-nhan-luc/cham-cong-bang-QR/cham-cong-365'
+  const CTY_CCCTY = '/quan-ly-nhan-luc/cham-cong/cham-cong-cong-ty'
+  const ADD_DX = '/quan-ly-nhan-luc/tao-de-xuat/tao-de-xuat'
 
   const AddNewPopoverContent = () => {
     const listAdds = [
@@ -83,15 +82,15 @@ export default function Bodyframe({ children }: any) {
     )
   }
 
-  const DEXUAT_TO_CHUC_URL = '/cham-cong/de-xuat/so-do-to-chuc'
+  const DEXUAT_TO_CHUC_URL = '/quan-ly-nhan-luc/de-xuat/so-do-to-chuc'
   const DEXUAT_SO_DO_TO_CHUC_DANHSACHNHANVIEN =
-    '/cham-cong/de-xuat/so-do-to-chuc/danh-sach-nhan-vien'
+    '/quan-ly-nhan-luc/de-xuat/so-do-to-chuc/danh-sach-nhan-vien'
   const DEXUAT_SO_DO_TO_CHUC_DANHSACHNHANVIENCC =
-    '/cham-cong/de-xuat/so-do-to-chuc/danh-sach-nhan-vien-cham-cong'
+    '/quan-ly-nhan-luc/de-xuat/so-do-to-chuc/danh-sach-nhan-vien-cham-cong'
   const DEXUAT_SO_DO_TO_CHUC_DANHSACHNHANVIEN_CHUACC =
-    '/cham-cong/de-xuat/so-do-to-chuc/danh-sach-nhan-vien-chua-cham-cong'
-  const UPDATE_FACE_URL = '/cham-cong/cap-nhat-du-lieu-khuon-mat'
-  const CC_TK_CTY_URL = '/cham-cong/cham-cong-bang-tai-khoan-cong-ty'
+    '/quan-ly-nhan-luc/de-xuat/so-do-to-chuc/danh-sach-nhan-vien-chua-cham-cong'
+  const UPDATE_FACE_URL = '/quan-ly-nhan-luc/cap-nhat-du-lieu-khuon-mat'
+  const CC_TK_CTY_URL = '/quan-ly-nhan-luc/cham-cong-bang-tai-khoan-cong-ty'
   const renderBackButton = () => {
     if (
       router.pathname !== CAI_DAT_VI_TRI_URL &&
@@ -146,9 +145,7 @@ export default function Bodyframe({ children }: any) {
               />
             </Card>
             <div className={styles.btnWrapper}>
-              <Button
-                className={styles.moreBtn}
-                onClick={() => setShowmore(!showMore)}>
+              <Button className={styles.moreBtn}>
                 <p className={styles.text}>Xem thêm</p>
               </Button>
             </div>
@@ -177,31 +174,36 @@ export default function Bodyframe({ children }: any) {
   const renderBanner = () => {
     const pathname = router.pathname
     if (
-      pathname === '/cham-cong/cham-cong-nhan-vien/cc-bang-tai-khoan-cong-ty'
+      pathname ===
+      '/quan-ly-nhan-luc/cham-cong-nhan-vien/cc-bang-tai-khoan-cong-ty'
     ) {
       return <CCBannerNV_TKCTY />
     } else if (
       pathname ===
-      '/cham-cong/cham-cong-nhan-vien/cham-cong-bang-nhan-dien-khuon-mat/cham-cong-365'
+      '/quan-ly-nhan-luc/cham-cong-nhan-vien/cham-cong-bang-nhan-dien-khuon-mat/cham-cong-365'
     ) {
       return <BANNER_CCBNDKM_CHAMCONG365 />
     } else if (
       pathname ===
-      '/cham-cong/cham-cong-nhan-vien/cham-cong-bang-nhan-dien-khuon-mat/chat-365'
+      '/quan-ly-nhan-luc/cham-cong-nhan-vien/cham-cong-bang-nhan-dien-khuon-mat/chat-365'
     ) {
       return <BANNER_CCBNDKM_CHAT365 />
     } else if (
       pathname ===
-      '/cham-cong/cham-cong-nhan-vien/cham-cong-bang-nhan-dien-khuon-mat/pc-365-nhan-vien'
+      '/quan-ly-nhan-luc/cham-cong-nhan-vien/cham-cong-bang-nhan-dien-khuon-mat/pc-365-nhan-vien'
     ) {
       return <BANNER_CCBNDKM_PC365NV />
-    } else if (pathname === '/cham-cong/cham-cong-bang-QR/cham-cong-365') {
+    } else if (
+      pathname === '/quan-ly-nhan-luc/cham-cong-bang-QR/cham-cong-365'
+    ) {
       return <ChamCong365 />
-    } else if (pathname === '/cham-cong/cham-cong-bang-QR/chat-365') {
+    } else if (pathname === '/quan-ly-nhan-luc/cham-cong-bang-QR/chat-365') {
       return <Chat365 />
-    } else if (pathname === '/cham-cong/cham-cong-bang-QR/pc-365') {
+    } else if (pathname === '/quan-ly-nhan-luc/cham-cong-bang-QR/pc-365') {
       return <PC365 />
-    } else if (pathname === '/cham-cong/cham-cong/cai-dat-vi-tri') {
+    } else if (
+      pathname === '/quan-ly-nhan-luc/quan-ly-nhan-luc/cai-dat-vi-tri'
+    ) {
       return <CCBanner />
     } else if (
       pathname === UPDATE_FACE_URL ||

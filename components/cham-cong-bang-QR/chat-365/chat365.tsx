@@ -66,9 +66,9 @@ export const Chat365: React.FC = () => {
         <p className={styles.texttitle}>CÁC CHỨC NĂNG CƠ BẢN CHẤM CÔNG</p>
       </div>
       <div className={styles.breadcrumb}>Chấm công bằng QR / Chat365</div>
-      <Row gutter={{ sm: 32, xs: 32 }} className={styles.options}>
+      <Row gutter={{sm: 32, xs: 32}} className={styles.options}>
         <Col xxl={4} xl={7} sm={8} xs={24}>
-          <Link href='/cham-cong/cham-cong-bang-QR/cham-cong-365'>
+          <Link href='/quan-ly-nhan-luc/cham-cong-bang-QR/cham-cong-365'>
             <div className={styles.cc365} style={{ background: '#fff' }}>
               <Image
                 src='/cc.png'
@@ -150,7 +150,7 @@ export const Chat365: React.FC = () => {
           </Link>
         </Col>
         <Col xxl={4} xl={7} sm={8} xs={24}>
-          <Link href='/cham-cong/cham-cong-bang-QR/pc-365'>
+          <Link href='/quan-ly-nhan-luc/cham-cong-bang-QR/pc-365'>
             <div className={styles.pc365} style={{ background: '#fff' }}>
               <div className={styles.iconlogo}>
                 <svg
@@ -347,7 +347,7 @@ export const Chat365: React.FC = () => {
           </div>
         </div>
       </div>
-      <Link href='/cham-cong/cham-cong-bang-QR/pc-365'>
+      <Link href='/quan-ly-nhan-luc/cham-cong-bang-QR/pc-365'>
         <div className={styles.end}>
           <p className={styles.textend}>Chuyển tiếp</p>
           <div className={styles.iconend}>

@@ -12,7 +12,7 @@
   color: #337ab7;
   text-decoration: none !important;
   background-color: transparent;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   cursor: default;
 }
@@ -41,7 +41,7 @@
   padding: 14px 15px;
   font-family: Roboto;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 16px;
   align-items: center;
   color: #ffffff;
@@ -67,7 +67,7 @@
 }
 .l_body_2_left_body p {
   font-weight: 600;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 16px;
   color: #474747;
   margin-bottom: 15px;
@@ -91,7 +91,7 @@
   color: #ebebeb;
 }
 .star:before {
-  content: '\2605';
+  content: "\2605";
   font-size: 30px;
 }
 @media screen and (max-width: 992px) {

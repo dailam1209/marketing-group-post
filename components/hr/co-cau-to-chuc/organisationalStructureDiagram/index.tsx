@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from 'react'
-import styles from './organisationalStructureDiagram.module.css'
-import BodyFrameFooter from '@/components/hr/bodyFrame/bodyFrame_footer/bodyFrame_footer'
-import dynamic from 'next/dynamic'
-import Head from 'next/head'
+import React, { useState, useEffect } from "react";
+import styles from "./organisationalStructureDiagram.module.css";
+import BodyFrameFooter from "@/components/hr/bodyFrame/bodyFrame_footer/bodyFrame_footer";
+import dynamic from "next/dynamic";
+import Head from "next/head";
 const StyledTreeExample = dynamic(
-  () => import('../organisationalStructureDiagram/tree/index'),
+  () => import("../organisationalStructureDiagram/tree/index"),
   {
     ssr: false,
   }
-)
+);
 export default function OrganisationalStructureDiagram({ iconAdd, iconEdit }) {
-  const [click, setClick] = useState(false)
-  const [openModal, setOpenModal] = useState(0)
+  const [click, setClick] = useState(false);
+  const [openModal, setOpenModal] = useState(0);
   const handleClick = () => {
-    setClick((prevState) => !prevState)
-  }
+    setClick((prevState) => !prevState);
+  };
 
   return (
     <>
@@ -28,9 +28,9 @@ export default function OrganisationalStructureDiagram({ iconAdd, iconEdit }) {
               <button className={`${styles.adds}`} onClick={handleClick}>
                 <picture>
                   <img
-                    style={{ verticalAlign: 'middle' }}
+                    style={{ verticalAlign: "middle" }}
                     src={`/add.png`}
-                    alt=''
+                    alt=""
                   />
                   Thêm mới
                 </picture>
@@ -40,32 +40,36 @@ export default function OrganisationalStructureDiagram({ iconAdd, iconEdit }) {
               <div className={`${styles.settings} ${styles.lefftset}`}>
                 <li>
                   <a
-                    href='/cham-cong/quan-ly-cong-ty/quan-ly-cong-ty-con'
-                    target='blank'>
+                    href="/quan-ly-nhan-luc/quan-ly-cong-ty/quan-ly-cong-ty-con"
+                    target="blank"
+                  >
                     Thêm mới công ty con
                   </a>
                 </li>
                 <hr style={{ marginTop: 0, marginBottom: 0 }} />
                 <li>
                   <a
-                    href='/cham-cong/quan-ly-cong-ty/quan-ly-phong-ban'
-                    target='blank'>
+                    href="/quan-ly-nhan-luc/quan-ly-cong-ty/quan-ly-phong-ban"
+                    target="blank"
+                  >
                     Thêm mới phòng ban
                   </a>
                 </li>
                 <hr style={{ marginTop: 0, marginBottom: 0 }} />
                 <li>
                   <a
-                    href='/cham-cong/quan-ly-cong-ty/quan-ly-phong-ban'
-                    target='blank'>
+                    href="/quan-ly-nhan-luc/quan-ly-cong-ty/quan-ly-phong-ban"
+                    target="blank"
+                  >
                     Thêm mới tổ
                   </a>
                 </li>
                 <hr style={{ marginTop: 0, marginBottom: 0 }} />
                 <li>
                   <a
-                    href='/cham-cong/quan-ly-cong-ty/quan-ly-phong-ban'
-                    target='blank'>
+                    href="/quan-ly-nhan-luc/quan-ly-cong-ty/quan-ly-phong-ban"
+                    target="blank"
+                  >
                     Thêm mới nhóm
                   </a>
                 </li>
@@ -78,8 +82,8 @@ export default function OrganisationalStructureDiagram({ iconAdd, iconEdit }) {
             <StyledTreeExample iconEdit={iconEdit}></StyledTreeExample>
           </div>
         </div>
-        <BodyFrameFooter src='https://www.youtube.com/embed/38OeJOTrTAE'></BodyFrameFooter>
+        <BodyFrameFooter src="https://www.youtube.com/embed/38OeJOTrTAE"></BodyFrameFooter>
       </div>
     </>
-  )
+  );
 }

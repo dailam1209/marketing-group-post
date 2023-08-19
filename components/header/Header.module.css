@@ -7,7 +7,7 @@
 }
 
 .share_fsize_one {
-  font-size: 16px;
+  font-size: 14px;
   line-height: 16px;
 }
 
@@ -116,7 +116,7 @@
 }
 
 .form-group .form-control {
-  font-size: 16px;
+  font-size: 14px;
   line-height: 20px;
   display: flex;
   align-items: center;
@@ -141,7 +141,7 @@
   border: 1px solid #666666;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .share_form_select
@@ -162,7 +162,7 @@
   .select2-selection--single
   .select2-selection__rendered {
   line-height: 36px;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .share_select2
@@ -416,7 +416,7 @@
 }
 
 .ft-ico p {
-  font-size: 16px;
+  font-size: 14px;
   width: 100%;
   line-height: 25px;
   position: relative;
@@ -837,7 +837,7 @@ p.sm_danhgia.v_sm_danhgia {
     height: auto;
     padding-bottom: 30px;
     float: left;
-    font-size: 16px;
+    font-size: 14px;
   }
 
   .footer-left {
@@ -864,11 +864,11 @@ p.sm_danhgia.v_sm_danhgia {
   }
 
   .foot-cod.foot-hid li:nth-child(1) span {
-    font-size: 16px;
+    font-size: 14px;
   }
 
   .foot-cod.foot-hid li:nth-child(2) a {
-    font-size: 16px;
+    font-size: 14px;
     color: #fff;
   }
 
@@ -1008,7 +1008,7 @@ p.sm_danhgia.v_sm_danhgia {
   .qr_timviec p,
   .qr_cv p {
     color: #fff;
-    font-size: 16px;
+    font-size: 14px;
     padding-right: 6px;
     line-height: 14px;
     margin-top: 10px;
@@ -1051,7 +1051,7 @@ p.sm_danhgia.v_sm_danhgia {
   .bot_btn_tv a,
   .bot_btn_tv_uv a,
   .bot_btn_app a {
-    font-size: 16px;
+    font-size: 14px;
     color: #474747;
     line-height: 44px;
     padding-left: 50px;
@@ -1148,7 +1148,7 @@ p.sm_danhgia.v_sm_danhgia {
     .footer-left {
       width: 100%;
       margin-right: 0;
-      font-size: 16px;
+      font-size: 14px;
       border: none;
       padding: 0;
       padding-bottom: 190px;
@@ -1328,7 +1328,7 @@ p.sm_danhgia.v_sm_danhgia {
 
     .bot_btn_tv a,
     .bot_btn_app a {
-      font-size: 16px;
+      font-size: 14px;
       line-height: 49px;
       padding-left: 47px;
     }
@@ -3403,7 +3403,7 @@ p.sm_danhgia.v_sm_danhgia {
 .ctn_table .table thead th {
   padding: 17px 0px;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 16px;
   color: #474747;
   text-align: center;
@@ -3530,7 +3530,7 @@ p.sm_danhgia.v_sm_danhgia {
   .select2-selection--single
   .select2-selection__rendered {
   line-height: 36px;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .content_selt
@@ -3911,7 +3911,7 @@ p.sm_danhgia.v_sm_danhgia {
   float: left;
   padding: 9px 15px;
   border-radius: 10px;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 16px;
   color: #666666;
   height: 36px;
@@ -4440,7 +4440,7 @@ p.sm_danhgia.v_sm_danhgia {
 }
 
 .titl_tb_nn p {
-  font-size: 16px;
+  font-size: 14px;
   line-height: 20px;
 }
 
@@ -4476,7 +4476,7 @@ label.error {
   color: #ff3333;
   text-align: right;
   margin-top: 5px;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 16px;
   display: flex;
   align-items: center;
@@ -4520,7 +4520,7 @@ label.error {
 span.error {
   width: 100%;
   text-align: right;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 16px;
   color: #ff3333;
   margin-top: 5px;
@@ -4628,7 +4628,7 @@ label.tab_label.active::before {
   .select2-selection__rendered {
   color: #666666;
   line-height: 36px;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .see_log.no_see_log::after {
@@ -4640,7 +4640,7 @@ label.tab_label.active::before {
 }
 
 .font_14 {
-  font-size: 16px;
+  font-size: 14px;
   line-height: 16.41px;
   font-weight: 400px;
 }
@@ -4818,7 +4818,7 @@ label.tab_label.active::before {
   width: 100%;
   float: left;
   padding: 9px 25px 9px 10px;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 16px;
   outline: 0;
   border-radius: 10px;
@@ -4911,7 +4911,7 @@ label.tab_label.active::before {
 
 .loi_error {
   color: #ff3333;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 16px;
   width: 100%;
   float: right;
@@ -5165,13 +5165,13 @@ label.tab_label.active::before {
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 16px;
   color: #666666;
 }
 
 .content_dl label {
-  font-size: 16px;
+  font-size: 14px;
   line-height: 16px;
   color: #474747;
 }
@@ -5191,7 +5191,7 @@ label.tab_label.active::before {
   float: left;
   border-bottom: dotted 1px #474747;
   margin-bottom: 20px;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 18px;
 }
 
@@ -5316,7 +5316,7 @@ label.tab_label.active::before {
 
 .popup_notif_login .leave_content {
   /*font-family: anybody;*/
-  font-size: 16px;
+  font-size: 14px;
   line-height: 171%;
   font-weight: 600;
   text-align: center;
@@ -6665,7 +6665,7 @@ label.tab_label.active::before {
 
   .footer .btn-tv a,
   .contact .txt-dc .coweb {
-    font-size: 16px;
+    font-size: 14px;
     line-height: 16px;
   }
 
@@ -6974,7 +6974,7 @@ QLC */
 .ant-tabs .ant-tabs-tab .ant-tabs-tab-btn {
   color: #000;
   font-family: Roboto;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
   line-height: normal;
 }

@@ -49,13 +49,18 @@
   width: 150px;
   height: 40px;
   margin-right: 20px;
+<<<<<<< HEAD:pages/quan-ly-nhan-luc/tao-de-xuat/tao-de-xuat/doi-ca/index.module.css
+  background-color: #4C5BD4;
+=======
   background-color: #4c5bd4;
+>>>>>>> 29dbb889b1f278636ac7c54a81e9a38422604e52:pages/cham-cong/tao-de-xuat/tao-de-xuat/doi-ca/index.module.css
   border: 1px solid #fff;
 }
 .footer {
   margin-top: 30px;
   gap: 0 !important;
 }
+
 @media (min-width: 1920px) {
   .bodyItem1 {
     grid-column: 1 / span 2;
@@ -134,9 +139,17 @@
   }
   .ButtonWhite {
     .txt {
+<<<<<<< HEAD:pages/quan-ly-nhan-luc/tao-de-xuat/tao-de-xuat/doi-ca/index.module.css
+      color: #4C5BD4;
+=======
       color: #4c5bd4;
+>>>>>>> 29dbb889b1f278636ac7c54a81e9a38422604e52:pages/cham-cong/tao-de-xuat/tao-de-xuat/doi-ca/index.module.css
       font-size: 20px;
     }
+  }
+  .bodyItem10 {
+    display: flex;
+      align-items: center;
   }
 }
 @media (max-width: 1919px) and (min-width: 1366px) {
@@ -175,6 +188,8 @@
   .bodyItem10 {
     grid-column: span 2;
     margin-top: 20px;
+      display: flex;
+        align-items: center;
   }
   .bodyItem11 {
     grid-column: span 2;
@@ -182,6 +197,8 @@
   .bodyItem12 {
     grid-column: span 2;
     margin-top: 20px;
+    display: flex;
+    align-items: center;
   }
   .bodyItem13 {
     grid-column: span 2;
@@ -209,7 +226,11 @@
   }
   .ButtonWhite {
     .txt {
+<<<<<<< HEAD:pages/quan-ly-nhan-luc/tao-de-xuat/tao-de-xuat/doi-ca/index.module.css
+      color: #4C5BD4;
+=======
       color: #4c5bd4;
+>>>>>>> 29dbb889b1f278636ac7c54a81e9a38422604e52:pages/cham-cong/tao-de-xuat/tao-de-xuat/doi-ca/index.module.css
       font-size: 20px;
     }
   }
@@ -254,6 +275,8 @@
   .bodyItem10 {
     grid-column: span 2;
     margin-top: 20px;
+    display: flex;
+    align-items: center;
   }
   .bodyItem11 {
     grid-column: span 2;
@@ -261,6 +284,8 @@
   .bodyItem12 {
     grid-column: span 2;
     margin-top: 20px;
+    display: flex;
+    align-items: center;
   }
   .bodyItem13 {
     grid-column: span 2;
@@ -288,7 +313,11 @@
   }
   .ButtonWhite {
     .txt {
+<<<<<<< HEAD:pages/quan-ly-nhan-luc/tao-de-xuat/tao-de-xuat/doi-ca/index.module.css
+      color: #4C5BD4;
+=======
       color: #4c5bd4;
+>>>>>>> 29dbb889b1f278636ac7c54a81e9a38422604e52:pages/cham-cong/tao-de-xuat/tao-de-xuat/doi-ca/index.module.css
       font-size: 18px;
     }
   }
@@ -335,6 +364,8 @@
   .bodyItem10 {
     grid-column: span 2;
     margin-top: 20px;
+    display: flex;
+    align-items: center;
   }
   .bodyItem11 {
     grid-column: span 2;
@@ -342,6 +373,8 @@
   .bodyItem12 {
     grid-column: span 2;
     margin-top: 20px;
+    display: flex;
+    align-items: center;
   }
   .bodyItem13 {
     grid-column: span 2;
@@ -369,7 +402,11 @@
   }
   .ButtonWhite {
     .txt {
+<<<<<<< HEAD:pages/quan-ly-nhan-luc/tao-de-xuat/tao-de-xuat/doi-ca/index.module.css
+      color: #4C5BD4;
+=======
       color: #4c5bd4;
+>>>>>>> 29dbb889b1f278636ac7c54a81e9a38422604e52:pages/cham-cong/tao-de-xuat/tao-de-xuat/doi-ca/index.module.css
       font-size: 16px;
     }
   }
@@ -461,7 +498,11 @@
   }
   .ButtonWhite {
     .txt {
+<<<<<<< HEAD:pages/quan-ly-nhan-luc/tao-de-xuat/tao-de-xuat/doi-ca/index.module.css
+      color: #4C5BD4;
+=======
       color: #4c5bd4;
+>>>>>>> 29dbb889b1f278636ac7c54a81e9a38422604e52:pages/cham-cong/tao-de-xuat/tao-de-xuat/doi-ca/index.module.css
       font-size: 16px;
     }
   }

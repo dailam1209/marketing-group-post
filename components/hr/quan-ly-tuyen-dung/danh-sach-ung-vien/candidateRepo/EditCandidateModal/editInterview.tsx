@@ -19,9 +19,9 @@ export default function EditCandidateIntrview({
   onCancel,
   candidate,
   processName,
-  candidateAll,
-  processBefore
+  candidateAll
 }: any) {
+  console.log(candidateAll);
 
   const [rating, setRating] = useState<any>(candidate?.starVote)
   const [addAnotherSkill, setAddAnotherSkill] = useState<JSX.Element[]>([])
@@ -187,6 +187,7 @@ export default function EditCandidateIntrview({
       })
 
       const formData = new FormData()
+      const process_id: any = 348
       formData.append('name', name)
       formData.append('email', email)
       formData.append('phone', phone)
@@ -209,7 +210,7 @@ export default function EditCandidateIntrview({
       formData.append('resiredSalary', resiredSalary)
       formData.append('empInterview', isEmpInterview)
       formData.append('interviewTime', timeInterView)
-      formData.append('processInterviewId', processBefore)
+      formData.append('processInterviewId', process_id)
       formData.append('note', note)
       formData.append('contentsend', note)
 

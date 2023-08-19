@@ -149,7 +149,7 @@ export default function HomeEmployee() {
                       <div
                         className='ctn_detl_tab'
                         // onClick={showNhanluc}
-                        onClick={() => router.push('/cham-cong')}>
+                        onClick={() => router.push('/quan-ly-nhan-luc')}>
                         <label className='tab_label'>
                           <h3>05</h3>
                           <p>Quản lý nhân lực</p>
