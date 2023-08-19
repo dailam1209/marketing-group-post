@@ -32,7 +32,7 @@ const SwitchFPTTable: React.FC = () => {
     password: "",
     domain: "",
   });
-  const oldData = useSelector((state: any) => state.auth.account);
+  const oldData = useSelector((state: any) => state?.auth?.account);
 
   useEffect(() => {
     setHeaderTitle("Cài đặt/ Tổng đài/ FPT");
@@ -41,7 +41,7 @@ const SwitchFPTTable: React.FC = () => {
   }, [setHeaderTitle, setShowBackButton, setCurrentPath]);
   const { isConnected, setIsConnected } = useContext<any>(CallContext);
   const [isVerify, setisVerify] = useState(false);
-  const show = useSelector((state:any)=>state.auth.account)
+  const show = useSelector((state:any)=>state?.auth?.account)
   const dispatch = useDispatch();
 
   const handleConnect = async () => {

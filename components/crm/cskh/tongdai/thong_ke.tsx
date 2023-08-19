@@ -19,7 +19,7 @@ const Recording = (props: Props) => {
   const { isConnected } = useContext<any>(CallContext);
 
   const [listData, setListData] = useState([]);
-  const show = useSelector((state: any) => state.auth.account);
+  const show = useSelector((state: any) => state?.auth?.account);
   const [current, setcurrent] = useState(1);
   const [pageSize, setpageSize] = useState(10);
   const [isModalOpen, setIsModalOpen] = useState(false);
