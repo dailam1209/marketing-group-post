@@ -25,6 +25,8 @@ import Cookies from "js-cookie";
 import jwtDecode from "jwt-decode";
 import Layout_user from "@/components/van-thu-luu-tru/Layout_user";
 import { setCookie } from "cookies-next";
+import Pre_login from './van-thu-luu-tru/pre_login'
+
 
 export const LoadingComp = () => {
   return (
@@ -153,9 +155,7 @@ export default function App({ Component, pageProps }) {
           -  Giá trị này có thể thay đổi tùy theo tài khoản của công ty hoặc nhân viên
           */}
           {!VanThu_token ? (
-            <>
-              <p>Vui lòng đăng nhập</p>
-            </>
+            <Pre_login />
           ) : (
             <>
               {role && role === '2' && (
