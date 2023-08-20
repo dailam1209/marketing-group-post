@@ -63,9 +63,9 @@ export default function CustomerList() {
   } = useApi(
     "http://210.245.108.202:3007/api/crm/customerStatus/list",
     `${Cookies.get("token_base365")}`,
-    "POST"
+    "POST",
+   { pageSize:1000000}
   );
-
   const {
     data: dataCustomerGroup,
     loading: loadingCustomerGroup,
@@ -74,7 +74,8 @@ export default function CustomerList() {
   } = useApi(
     "http://210.245.108.202:3007/api/crm/group/list_group_khach_hang",
     `${Cookies.get("token_base365")}`,
-    "POST"
+    "POST",
+    { pageSize:1000000}
   );
 
   const onSelectChange = (
@@ -166,8 +167,10 @@ export default function CustomerList() {
   useEffect(() => {
     fetchData();
     fetchDataStatus();
-    fetchDataCustomerGroup();
   }, [name, selectedRowKeys, des, selectedCus]);
+  useEffect(()=>{
+    fetchDataCustomerGroup();
+  },[data])
   useEffect(() => {
     setHeaderTitle("Danh sách khách hàng");
     setShowBackButton(false);

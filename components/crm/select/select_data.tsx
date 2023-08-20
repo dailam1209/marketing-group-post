@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useApi } from "../hooks/useApi";
-const Cookies = require('js-cookie')
+import { useRouter } from "next/router";
+const Cookies = require("js-cookie");
 
 interface MyProps {
   data: any;
@@ -27,9 +28,7 @@ const SelectDataInputBox: React.FC<MyProps> = ({
     "POST",
     { cus_id: cusId }
   );
-  useEffect(() => {
-    fetchDataDetail();
-  }, []);
+  const router = useRouter()
   const dataStatus = dataDetailCustomer?.data?.data1
     ? dataDetailCustomer?.data?.data1
     : dataDetailCustomer?.data?.data2;
@@ -59,7 +58,9 @@ const SelectDataInputBox: React.FC<MyProps> = ({
       console.error(error);
     }
   };
-
+  useEffect(() => {
+    fetchDataDetail();
+  }, [data,dataStatus]);
   return (
     <>
       {dataStatus && (
@@ -67,20 +68,20 @@ const SelectDataInputBox: React.FC<MyProps> = ({
           onChange={(e: any) => {
             handleChangeApi(e, data);
           }}
-          defaultValue={dataStatus?.status}
-          //   value={value}
+          // defaultValue={dataStatus?.status}
+            value={dataStatus?.status}
           style={{ border: 0 }}
         >
           <option value={""}>Chưa cập nhật</option>
-          {data?.map((item: any, index: number) => (
-            <option
+          {data?.map((item: any, index: number) => {
+            return <option
               style={{ display: item.status !== 0 ? "block" : "none" }}
               key={index}
               value={item.stt_id}
             >
               {item.stt_name}
             </option>
-          ))}
+          })}
         </select>
       )}
     </>

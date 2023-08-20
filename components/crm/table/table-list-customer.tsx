@@ -61,7 +61,6 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   const handleChangeStatus = (e: any, data: any) => {
     setValueStatus(e.target.value);
   };
-
   const renderTitle = (record, text) => (
     <div className="tooltip-content">
       <button
@@ -191,7 +190,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       dataIndex: "status",
       key: "3",
       width: 200,
-      render: (data) => (
+      render: (data, record) => (
         <div style={{ padding: "5px" }}>
           <SelectDataInputBox
             data={dataStatusCustomer}
@@ -199,6 +198,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
             handleChange={handleChangeStatus}
             cusId={data.cus_id}
           />
+          {/* {data} */}
         </div>
       ),
     },

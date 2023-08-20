@@ -20,7 +20,7 @@ const ModalCompleteStep: React.FC<ModalCompleteStepProps> = ({
     const router = useRouter()
     const handleClick = () => {
         setModal1Open(false)
-        router.reload()
+        router.push("/crm/setting/switch_fpt")
     };
   return (
     <div>
