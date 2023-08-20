@@ -14,6 +14,7 @@ import { useApi } from "../../hooks/useApi";
 import { current } from "@reduxjs/toolkit";
 import FilterTongDai from "./filterTongdai";
 import { doDisConnect } from "../../redux/user/userSlice";
+import { useRouter } from "next/router";
 type Props = {};
 
 const TongDaiPage = (props: Props) => {
@@ -131,9 +132,14 @@ const TongDaiPage = (props: Props) => {
     }
     return data;
   };
+  const router = useRouter()
+
   useEffect(() => {
     if (show.length) {
       setShowKetNoi(true);
+    }
+    else{
+      
     }
     handleGet();
   }, [query, show]);
@@ -189,6 +195,7 @@ const TongDaiPage = (props: Props) => {
       </div>
     ), // Thay thế nội dung "No Data" bằng "Hello"
   };
+
   return (
     <div>
       {showKetNoi && (

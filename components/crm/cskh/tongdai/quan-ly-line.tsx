@@ -100,7 +100,6 @@ const Recording = (props: Props) => {
       }
     );
     const data = await res.json();
-    console.log("check data",data)
     setlistLine(data?.data);
   };
 
