@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useApi } from "../hooks/useApi";
 import { useRouter } from "next/router";
 const Cookies = require("js-cookie");
@@ -60,7 +60,8 @@ const SelectDataInputBox: React.FC<MyProps> = ({
   };
   useEffect(() => {
     fetchDataDetail();
-  }, [data,dataStatus]);
+  }, [cusId]);
+  //dataStatus la thay doi duoc
   return (
     <>
       {dataStatus && (

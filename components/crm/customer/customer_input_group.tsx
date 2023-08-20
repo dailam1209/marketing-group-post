@@ -100,7 +100,7 @@ export default function CustomerListInputGroup({
             className={`${styles.main__control_search} ${styles.f_search_customer}`}
           >
             <form
-              onSubmit={() => false}
+              onSubmit={(e) =>  e.preventDefault()}
               className={styles.form_search}
               style={{ width: "100%", padding: 1 }}
             >

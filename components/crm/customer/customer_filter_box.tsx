@@ -40,7 +40,6 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
   const handleChangeStt = (value: any) => {
     setValueSelectStatus(value);
     setStatus(value);
-    console.log(value)
   };
   const handleChangeResource = (value: any) => {
     sevalueResoure(value);

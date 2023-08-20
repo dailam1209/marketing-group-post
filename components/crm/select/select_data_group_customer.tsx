@@ -55,7 +55,7 @@ export default function CustomerGroupSelect({
         data-select2-id={1}
         tabIndex={-1}
         aria-hidden="true"
-        
+        value={valueOption}
       >
         <option value="" data-select2-id={3}>
           {/* {value} */}

@@ -26,13 +26,11 @@ export default function InputPhone({ infoCus }: any) {
     if(data && data.error){
       notification.error({message:data.error.message})
     }
-    console.log("check data", data);
   };
 
   const handleDisConnectCalling = () => {
     setIsCalling(false);
   };
-  console.log("first", infoCus);
   return (
     <div
       className={`${styles.business_assistant_item} ${styles.business_assistant_item_phone}`}
