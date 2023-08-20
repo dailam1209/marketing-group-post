@@ -33,7 +33,7 @@ export default function Page() {
   const [allCheck, setAllCheck]: any = useState({});
   const [listShift, setListShift]: any = useState([]);
   const [data, setData]: any = useState({ apply_month: "2023-08-01" });
-  const [listShiftSelected, setListShiftSelected]: any[] = useState(["1"]);
+  const [listShiftSelected, setListShiftSelected]: any[] = useState([]);
   const [isMenuSelectShiftOpen, setIsMenuSelectShiftOpen]: any = useState([]);
   const [modalAlertChooseShift, setModalAlertChooseShift]: any =
     useState(false);
