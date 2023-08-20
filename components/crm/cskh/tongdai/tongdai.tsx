@@ -31,6 +31,7 @@ const TongDaiPage = (props: Props) => {
     setIsShowModalAdd(false);
     setIsShowModal(false);
   };
+
   const handleAddDB = () => {
     setIsShowModalAdd(false);
   };
@@ -131,7 +132,7 @@ const TongDaiPage = (props: Props) => {
     return data;
   };
   useEffect(() => {
-    if (show) {
+    if (show.length) {
       setShowKetNoi(true);
     }
     handleGet();
@@ -188,7 +189,6 @@ const TongDaiPage = (props: Props) => {
       </div>
     ), // Thay thế nội dung "No Data" bằng "Hello"
   };
-  console.log("check nv", nv);
   return (
     <div>
       {showKetNoi && (
@@ -263,8 +263,9 @@ const TongDaiPage = (props: Props) => {
           columns={Colums as any}
           dataSource={datatable}
           bordered
-          scroll={{ x: 1000 }}
+          scroll={{ x: 1000, y: "auto" }}
           pagination={{
+            style: { display: "flex", float: "left" },
             current: current,
             pageSize: pageSize,
             onChange(page, pageSize) {

@@ -5,12 +5,14 @@ import Link from "next/link";
 import { dataCustomerListAction } from "../ultis/consntant";
 import { useState } from "react";
 import HandeOverModalCustomer from "./customer_modal/customer_handover_mdal";
+import DelCustomerModal from "./modal/delete_list_Cus";
 
 export default function CustomerListAction({
   isSelectedRow,
   clearOption,
   chooseAllOption,
   numberSelected,
+  selectedCus,
 }: any) {
   const [isOpenCampaign, setIsOpenCampaign] = useState(false);
   const [isOpenEmail, setIsOpenIsEmail] = useState(false);
@@ -111,6 +113,11 @@ export default function CustomerListAction({
         <HandeOverModalCustomer
         isModalCancel={isHandOverOpen}
         setIsModalCancel={setIsHandOverOpen}
+      />
+      <DelCustomerModal
+      isModalCancel={isDelOpen}
+      setIsModalCancel={setIsDelOpen}
+      selectedCus={selectedCus}
       />
       </div>
 

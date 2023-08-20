@@ -1,7 +1,6 @@
 import styles from "../customer.module.css";
 import InforText from "./text_info";
 export default function GeneralRowInforText({formData}: any) {
-console.log("check ma",formData.nguoi_tao)
   return (
     <div className={styles.row_input_text}>
       <InforText field="Mã khách hàng:" value={formData?.ma_khach_hang} />
@@ -16,8 +15,8 @@ console.log("check ma",formData.nguoi_tao)
       <InforText field="Loại hình:" value={formData?.loai_hinh?formData?.loai_hinh:"Chưa cập nhật"} />
       <InforText field="Ngành nghề:" value={formData?.nganh_nghe?formData?.nganh_nghe:"Chưa cập nhật"} />
       <InforText field="Nhóm khách hàng:" value={formData?.nhom_khach_hang?formData?.nhom_khach_hang:"Chưa cập nhật"} />
-      <InforText field="Tình trạng khách hàng:" value={formData?.dien_thoai?formData?.dien_thoai:"Chưa cập nhật"} />
-      <InforText field="Nhân viên phụ trách:" value={formData?.dien_thoai?formData?.dien_thoai:"Chưa cập nhật"} />
+      <InforText field="Tình trạng khách hàng:" value={formData?.status?formData?.status:"Chưa cập nhật"} />
+      <InforText field="Nhân viên phụ trách:" value={formData?.nhan_vien_phu_trach?.userName?formData?.nhan_vien_phu_trach?.userName:"Chưa cập nhật"} />
     </div>
   );
 }

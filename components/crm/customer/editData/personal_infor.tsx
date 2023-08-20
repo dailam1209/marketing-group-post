@@ -8,7 +8,6 @@ export default function EditPersonalCustomerInfor({
   formData,
   setFormData,
 }: any) {
-  console.log("abc", formData);
 
   return (
     <div>

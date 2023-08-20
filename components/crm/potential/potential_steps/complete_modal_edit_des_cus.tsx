@@ -11,9 +11,10 @@ interface ModalCompleteStepProps {
   link: string;
   editorContent?: any;
   cusId?: any;
+  
 }
 
-const ModalCompleteStep: React.FC<ModalCompleteStepProps> = ({
+const ModalCompleteEditDesCus: React.FC<ModalCompleteStepProps> = ({
   modal1Open = true,
   setModal1Open,
   title,
@@ -45,12 +46,12 @@ const ModalCompleteStep: React.FC<ModalCompleteStepProps> = ({
   try {
     const response = await fetch(url, config);
     const data = await response.json();
-    console.log("check res", data);
+
   } catch (error) {
     console.error(error);
   }
- router.push('#')
-  };
+  router.push("/crm/customer/list");
+};
   return (
     <div>
       <div className="sucess-mdal">
@@ -75,4 +76,4 @@ const ModalCompleteStep: React.FC<ModalCompleteStepProps> = ({
   );
 };
 
-export default ModalCompleteStep;
+export default ModalCompleteEditDesCus;

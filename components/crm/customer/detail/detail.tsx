@@ -11,6 +11,7 @@ import SystemCustomerInfo from "./system_infor";
 import { useRouter } from "next/router";
 import { useApi } from "@/components/crm/hooks/useApi";
 import WriteBillRowInforText2 from "./thongtingiaohang";
+import Image from "next/image";
 const Cookies = require("js-cookie");
 interface ComponentProps {
   cccd: boolean;
@@ -21,8 +22,9 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
   const { isOpen } = useContext<any>(SidebarContext);
   const imgRef = useRef<HTMLInputElement>(null);
   const [listData, setListData] = useState([]);
+  const [name, setname] = useState<any>()
   const router = useRouter();
-  console.log("check", router.query.id);
+  const {id} = router.query
   useEffect(() => {
     if (isOpen) {
       mainRef.current?.classList.add("content_resize");
@@ -47,9 +49,24 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
     if ((data && data.data.data1) || (data && data.data.data2))
       setListData(data.data.data1 || data.data.data2);
   };
-  console.log("check dada", listData);
+  const getNameDetail = async () => {
+    const res = await fetch(
+      "http://210.245.108.202:3007/api/crm/customerdetails/detail",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get("token_base365")}`,
+        },
+        body: JSON.stringify({ cus_id: id }),
+      }
+    );
+    const data = await res.json();
+      setname(data?.data?.data1 || data?.data?.data2);
+  };
   useEffect(() => {
     handleGetInfoCus();
+    getNameDetail
   }, []);
 
   return (
@@ -66,8 +83,10 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
                     <p className={styles["main__body__type"]}>Ảnh</p>
                     <div id="upload">
                       <img
-                        src="/assets/img/crm/customer/upload_logo.png"
+                        src={`${name?.anh_dai_dien}`}
                         alt=""
+                        width={15}
+                        height={15}
                         className={styles["show_avatar"]}
                       />
                       <input

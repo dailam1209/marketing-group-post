@@ -27,15 +27,12 @@ const SelectDataInputBox: React.FC<MyProps> = ({
     "POST",
     { cus_id: cusId }
   );
-  console.log('cjecl da',data)
   useEffect(() => {
     fetchDataDetail();
   }, []);
-  console.log('dataDetailCustomer',dataDetailCustomer)
   const dataStatus = dataDetailCustomer?.data?.data1
     ? dataDetailCustomer?.data?.data1
     : dataDetailCustomer?.data?.data2;
-  //   console.log(dataStatus?.status);
 
   const handleChangeApi = async (e: any, data: any) => {
     const url =
@@ -58,7 +55,6 @@ const SelectDataInputBox: React.FC<MyProps> = ({
     try {
       const response = await fetch(url, config);
       const data = await response.json();
-      console.log('check',data);
     } catch (error) {
       console.error(error);
     }
