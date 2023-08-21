@@ -11,6 +11,7 @@ import CallModal from "../customer/modal/call_modal";
 import { useApi } from "@/components/crm/hooks/useApi";
 import SelectDataInputBox from "../select/select_data";
 import CustomerGroupSelect from "../select/select_data_group_customer";
+import { base_url } from "../service/function";
 const Cookies = require("js-cookie");
 interface DataType {
   key: React.Key;
@@ -81,7 +82,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   const handleChangeSelect = async (e: any, record) => {
     //get type
     const res = await fetch(
-      "http://210.245.108.202:3007/api/crm/customerdetails/detail",
+     `${base_url}/api/crm/customerdetails/detail`,
       {
         method: "POST",
         headers: {
@@ -95,7 +96,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
     // const
 
     const url =
-      "http://210.245.108.202:3007/api/crm/customerdetails/editCustomer";
+    `${base_url}/api/crm/customerdetails/editCustomer`;
 
     const formData = new FormData();
     formData.append("resoure", e.target.value);

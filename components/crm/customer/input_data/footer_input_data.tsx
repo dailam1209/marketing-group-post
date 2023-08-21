@@ -6,6 +6,7 @@ import Cookies from "js-cookie";
 import ModalCompleteStepADDInput from "../../potential/potential_steps/complete_nhap_lieu";
 import { notification } from "antd";
 import { useRouter } from "next/router";
+import { base_url } from "../../service/function";
 
 export default function PotentialFooterAddFiles({
   link,
@@ -22,7 +23,7 @@ export default function PotentialFooterAddFiles({
     if (dataAdd.name) {
       setModal1Open(true),
         await fetch(
-          "http://210.245.108.202:3007/api/crm/customer/addCustomer",
+          `${base_url}/api/crm/customer/addCustomer`,
           {
             method: "POST",
             headers: {

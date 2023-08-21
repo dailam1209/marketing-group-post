@@ -19,9 +19,10 @@ import { filter } from "lodash";
 import Image from "next/image";
 import ModalDelEmpGroup from "@/components/crm/modals/modal_del_group";
 import TextEditorGr from "@/components/crm/text-editor/text_editor_gr";
+import { base_url } from "@/components/crm/service/function";
 import Cookies from "js-cookie";
-import GrFooterAddFiles from "@/components/crm/potential/potential_add_files/gr_customer_footer";
 import CustomerGroupSelectCpmponent from "@/components/crm/select/group_components_select";
+import GrFooterAddFiles from "@/components/crm/potential/potential_add_files/gr_customer_footer";
 
 interface CustomJwtPayload extends jwt.JwtPayload {
   idQLC: string; // hoặc kiểu dữ liệu thích hợp
@@ -69,8 +70,8 @@ const GroupCustomerAdd: React.FC = () => {
     updateData,
     deleteData,
   } = useApi(
-    "http://210.245.108.202:3007/api/crm/group/list_group_khach_hang",
-    accessToken,
+    `${base_url}/api/crm/group/list_group_khach_hang`,
+    `${Cookies.get("token_base365")}`,
     "POST"
   );
 
@@ -79,10 +80,10 @@ const GroupCustomerAdd: React.FC = () => {
     fetchData: fetchDataDepartment,
     updateData: updateDataDepartment,
   } = useApi(
-    "http://210.245.108.202:3000/api/qlc/department/list",
-    accessToken,
+`${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/department/list`,
+`${Cookies.get("token_base365")}`,
     "POST",
-    { com_id: 1664 }
+    { com_id:`${Cookies.get("com_id")}`}
   );
 
   const {
@@ -97,8 +98,8 @@ const GroupCustomerAdd: React.FC = () => {
   );
 
   const { updateData: updateDataEdit } = useApi(
-    "http://210.245.108.202:3007/api/crm/group/update_GroupKH",
-    accessToken,
+    `${base_url}/api/crm/group/update_GroupKH`,
+    `${Cookies.get("token_base365")}`,
     "POST",
     valueGroupCustomer
   );
@@ -108,8 +109,8 @@ const GroupCustomerAdd: React.FC = () => {
     fetchData: fetchDataEmp,
     updateData: updateDataEmp,
   } = useApi(
-    "http://210.245.108.202:3000/api/qlc/managerUser/list",
-    accessToken,
+    `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/list`,
+    `${Cookies.get("token_base365")}`,
     "POST",
     {
       dep_id: selectedValueDepartments?.join(",") || "",
@@ -178,10 +179,10 @@ const GroupCustomerAdd: React.FC = () => {
     if (selectedValueDepartments?.length > 0) {
       // selectedValueDepartments?.forEach((depId: any) => {
       fetchDataEmp(
-        "http://210.245.108.202:3000/api/qlc/managerUser/list",
-        accessToken,
+        `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/list`,
+        `${Cookies.get("token_base365")}`,
         "POST",
-        { com_id: Number(com_id) }
+        { com_id: `${Cookies.get("com_id")}` }
       );
       setValueGroupCustomer((prev) => {
         return {
@@ -247,10 +248,10 @@ const GroupCustomerAdd: React.FC = () => {
 
   useEffect(() => {
     fetchDataEmp(
-      "http://210.245.108.202:3000/api/qlc/managerUser/list",
-      accessToken,
+      `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/list`,
+      `${Cookies.get("token_base365")}`,
       "POST",
-      { com_id: Number(com_id) }
+      { com_id: `${Cookies.get("com_id")}` }
     );
 
     setTimeout(() => {
@@ -267,7 +268,6 @@ const GroupCustomerAdd: React.FC = () => {
             value: employee._id,
           };
         });
-      console.log("dataaaaa: ", dataEmp);
       setEmployeeOptions(employeeOption);
     }, 0);
   }, [clickOptionEmp]);
@@ -518,8 +518,8 @@ const GroupCustomerAdd: React.FC = () => {
                     gr_id: id,
                   });
                   await updateDataEdit(
-                    "http://210.245.108.202:3007/api/crm/group/update_GroupKH",
-                    accessToken,
+                    `${base_url}/api/crm/group/update_GroupKH`,
+                    `${Cookies.get("token_base365")}`,
                     "POST",
                     {
                       ...valueGroupCustomer,

@@ -2,6 +2,7 @@ import { useState } from "react";
 import styles from "./chat.module.css";
 import Image from "next/image";
 import { notification } from "antd";
+import { base_url } from "../service/function";
 const Cookies = require("js-cookie");
 export default function InputPhone({ infoCus }: any) {
   const [numberValue, setNumberValue] = useState("");
@@ -12,7 +13,7 @@ export default function InputPhone({ infoCus }: any) {
       setIsCalling(true);
     }
     const res = await fetch(
-      "http://210.245.108.202:3007/api/crm/cutomerCare/Call",
+      `${base_url}/api/crm/cutomerCare/Call`,
       {
         method: "POST",
         headers: {

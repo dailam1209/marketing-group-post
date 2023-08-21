@@ -11,6 +11,7 @@ import GeneralCustomerInfor from "@/components/crm/customer/add_edit/general_cus
 import { useApi } from "@/components/crm/hooks/useApi";
 import { useRouter } from "next/router";
 import EditPersonalCustomerInfor from "@/components/crm/customer/editData/personal_infor";
+import { base_url } from "@/components/crm/service/function";
 const Cookies = require("js-cookie");
 
 const EditFilesCustomerList: React.FC = () => {
@@ -82,7 +83,7 @@ const EditFilesCustomerList: React.FC = () => {
 
   const handleGetDataEdit = async () => {
     const response = await fetch(
-      "http://210.245.108.202:3007/api/crm/customerdetails/detail",
+      `${base_url}/api/crm/customerdetails/detail`,
       {
         method: "POST",
         headers: {

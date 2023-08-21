@@ -11,6 +11,7 @@ import DOMPurify from "dompurify";
 
 import { useApi } from "../hooks/useApi";
 import CancelModalDelGroup from "../customer/group_customer/delete_mdal_gr_cus";
+import { base_url } from "../service/function";
 import Cookies from "js-cookie";
 
 interface TableDataGroupListCustomerProps {

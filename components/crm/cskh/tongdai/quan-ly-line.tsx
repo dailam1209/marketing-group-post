@@ -7,6 +7,7 @@ import PaginationCSKH from "./pagination";
 import { CallContext } from "@/components/crm/context/tongdaiContext";
 import Filter from "./filter";
 import { useSelector } from "react-redux";
+import { base_url } from "../../service/function";
 const Cookies = require("js-cookie");
 type Props = {};
 
@@ -90,7 +91,7 @@ const Recording = (props: Props) => {
   ];
   const handleGetLine = async () => {
     const res = await fetch(
-      "http://210.245.108.202:3007/api/crm/cutomerCare/listLine",
+      `${base_url}/api/crm/cutomerCare/listLine`,
       {
         method: "POST",
         headers: {
@@ -106,7 +107,7 @@ const Recording = (props: Props) => {
   
   const handleGetNhanVienPhuTrach = async () => {
     const res = await fetch(
-      "http://210.245.108.202:3000/api/qlc/managerUser/list",
+      `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/list`,
       {
         method: "POST",
         headers: {
@@ -131,7 +132,7 @@ const Recording = (props: Props) => {
   };
   const handleOK = async () => {
     setIsShowModalEdit(false);
-   const res = await fetch("http://210.245.108.202:3007/api/crm/cutomerCare/update", {
+   const res = await fetch(`${base_url}/api/crm/cutomerCare/update`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

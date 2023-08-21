@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useApi } from "../hooks/useApi";
 import { useRouter } from "next/router";
+import { base_url } from "../service/function";
 const Cookies = require("js-cookie");
 
 interface MyProps {
@@ -23,7 +24,7 @@ const SelectDataInputBox: React.FC<MyProps> = ({
     updateData: updateDataDetail,
     // ... other properties returned by the useApi hook
   } = useApi(
-    "http://210.245.108.202:3007/api/crm/customerdetails/detail",
+    `${base_url}/api/crm/customerdetails/detail`,
     `${Cookies.get("token_base365")}`,
     "POST",
     { cus_id: cusId }
@@ -35,7 +36,7 @@ const SelectDataInputBox: React.FC<MyProps> = ({
 
   const handleChangeApi = async (e: any, data: any) => {
     const url =
-      "http://210.245.108.202:3007/api/crm/customerdetails/editCustomer";
+    `${base_url}/api/crm/customerdetails/editCustomer`;
 
     const formData = new FormData();
     formData.append("status", e.target.value);
