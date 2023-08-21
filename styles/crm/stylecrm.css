@@ -54,29 +54,32 @@ p {
 }
 
 /*nhom khach hang  */
-.ant-table-wrapper.contract_custom_table_children_row__5etMc.css-dev-only-do-not-override-fpg3f5 td.ant-table-cell.ant-table-cell-with-append{
-display: flex !important;
-width: 100% !important;
-justify-content: space-between !important;
-flex-direction: row-reverse !important;
-align-items: center !important; 
+.ant-table-wrapper.contract_custom_table_children_row__5etMc.css-dev-only-do-not-override-fpg3f5 td.ant-table-cell.ant-table-cell-with-append {
+  display: flex !important;
+  width: 100% !important;
+  justify-content: space-between !important;
+  flex-direction: row-reverse !important;
+  align-items: center !important;
 
 }
-.ant-table-wrapper.contract_custom_table_children_row__5etMc.css-dev-only-do-not-override-fpg3f5 span.ant-table-row-indent.indent-level-0{
+
+.ant-table-wrapper.contract_custom_table_children_row__5etMc.css-dev-only-do-not-override-fpg3f5 span.ant-table-row-indent.indent-level-0 {
   display: none;
 }
 
-.ant-table-wrapper.contract_custom_table_children_row__5etMc.css-dev-only-do-not-override-fpg3f5 tr.ant-table-row.ant-table-row-level-1 a{
+.ant-table-wrapper.contract_custom_table_children_row__5etMc.css-dev-only-do-not-override-fpg3f5 tr.ant-table-row.ant-table-row-level-1 a {
   color: rgb(7, 7, 7)
-
 }
-.ant-table-wrapper.contract_custom_table_children_row__5etMc.css-dev-only-do-not-override-fpg3f5 span{
+
+.ant-table-wrapper.contract_custom_table_children_row__5etMc.css-dev-only-do-not-override-fpg3f5 span {
   /* display: none; */
   padding-left: 10px;
 }
-button.ant-switch.status_cus.css-dev-only-do-not-override-18w4yg9.ant-switch-checked{
- background-color: #76B51B;
+
+button.ant-switch.status_cus.css-dev-only-do-not-override-18w4yg9.ant-switch-checked {
+  background-color: #76B51B;
 }
+
 /* .status_cus td.ant-table-cell{
 display: none;} */
 
@@ -612,6 +615,8 @@ tr {
 
 .email_add_mdal .ant-modal-header {
   padding: 14px;
+  position: relative;
+  z-index: 10;
 }
 
 .d-flex-radio-mdal {
@@ -736,8 +741,9 @@ label {
   margin-top: 10px !important;
   display: inline-block;
 }
-.ant-modal.css-dev-only-do-not-override-18w4yg9 button.ant-modal-close{
-margin-top: -8px;
-font-size: 20px;
-color: #fff;
+
+.ant-modal.css-dev-only-do-not-override-18w4yg9 button.ant-modal-close {
+  margin-top: -8px;
+  font-size: 20px;
+  color: #fff;
 }

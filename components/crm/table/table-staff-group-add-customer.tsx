@@ -8,6 +8,7 @@ import PotentialSelectBox from "../potential/potential_selectt";
 import CancelModal from "../potential/potential_steps/cancel_modal";
 import { TableRowSelection } from "antd/es/table/interface";
 import ModalDelEmpGroup from "../modals/modal_del_group";
+import { number } from "yup";
 
 interface DataType {
   key: React.Key;
@@ -32,10 +33,17 @@ const TableStaffCustomerGroupAdd: React.FC<TableStaffCustomerGroupAddProps> = ({
 }) => {
   const router = useRouter();
   const { id } = router.query;
+  console.log(typeof valueSelected);
   const [isOpenModalDel, setIsOpenModalDel] = useState(false);
   const [idDel, setIdDel] = useState();
 
-  const newArray = dataEmp?.filter((item) => valueSelected?.includes(item._id));
+  const newArray = dataEmp?.filter((item) => {
+    if (typeof valueSelected === "object") {
+      return valueSelected?.includes(item._id);
+    } else {
+      return [valueSelected]?.includes(item._id);
+    }
+  });
   console.log(newArray);
 
   const data: DataType[] = newArray?.map((item) => {

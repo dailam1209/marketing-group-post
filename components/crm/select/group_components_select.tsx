@@ -1,19 +1,22 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "../potential/potential.module.css";
 import CustomerGroupSelectDropdownData from "./dropdown_data_group_customer";
-export default function CustomerGroupSelect({
+import CustomerGroupSelectDropdownDataComponent from "./data_dropdown_gr_components";
+export default function CustomerGroupSelectCpmponent({
   title = "",
   value = "Tất cả",
   placeholder = "",
   data = [],
   setValueGroupCustomer,
-  cusId
 }: any) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  console.log(
+    data?.filter((item: any) => item.group_parent === placeholder)
+  );
   const [valueOption, setValueOption] = useState(
-    data?.filter((item: any) => item.gr_id === placeholder)[0]?.group_cus_parent
-      ? data?.filter((item: any) => item.gr_id === placeholder)[0]?.group_cus_parent
+    data?.filter((item: any) => item.gr_id === placeholder)[0]?.group_parent
+      ? data?.filter((item: any) => item.gr_id === placeholder)[0]?.group_parent
       : "Chọn"
   );
   const handleClickSelectoption = (e: any) => {
@@ -34,10 +37,10 @@ export default function CustomerGroupSelect({
 
   useEffect(() => {
     document.addEventListener("click", handleClickOutside);
-    // document.addEventListener("scroll", handleScrollkOutside);
+    document.addEventListener("scroll", handleScrollkOutside);
 
     return () => {
-      // document.removeEventListener("scroll", handleScrollkOutside);
+      document.removeEventListener("scroll", handleScrollkOutside);
     };
   }, []);
 
@@ -54,7 +57,6 @@ export default function CustomerGroupSelect({
         data-select2-id={1}
         tabIndex={-1}
         aria-hidden="true"
-        
       >
         <option value="" data-select2-id={3}>
           {/* {value} */}
@@ -81,7 +83,7 @@ export default function CustomerGroupSelect({
               id="select2-g0q1-container"
               // title="Chọn người dùng"
             >
-              {valueOption} 
+              {valueOption}
             </span>
             <span
               className={styles.select2_selection__arrow}
@@ -92,7 +94,12 @@ export default function CustomerGroupSelect({
           </span>
         </span>
         {isOpen && (
-          <CustomerGroupSelectDropdownData cus_id={cusId} data={data} value={value} setValueOption={setValueOption} setValueGroupCustomer={setValueGroupCustomer}/>
+          <CustomerGroupSelectDropdownDataComponent
+            data={data}
+            value={value}
+            setValueOption={setValueOption}
+            setValueGroupCustomer={setValueGroupCustomer}
+          />
         )}
       </span>
     </div>
