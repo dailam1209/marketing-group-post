@@ -1420,6 +1420,8 @@ export const renderInfoDx = (input, setOpen) => {
             value: input?.thong_tin_chung?.lich_lam_viec?.ly_do,
           },
         }
+
+        return dataObj
       //Đề xuất xin đi muôn vbeef sớm
       case 21:
         dataObj.dxInfo = {
