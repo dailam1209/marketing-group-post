@@ -43,10 +43,6 @@
   font-family: "Roboto-Regular";
 }
 
-p {
-  /* margin-block-start: 1rem; */
-}
-
 .ant-upload-list {
   display: flex;
   justify-content: center;
@@ -508,11 +504,6 @@ tr {
   background: #4c5bd4 !important;
 }
 
-.ant-dropdown-open {
-  /* display: none !important;
-  visibility: hidden !important; */
-}
-
 .mdal_cancel .ant-modal-title {
   color: white !important;
 }
@@ -762,52 +753,25 @@ label {
   margin-top: 10px !important;
   display: inline-block;
 }
-.ant-modal.css-dev-only-do-not-override-18w4yg9 button.ant-modal-close {
-  margin-top: -8px;
-  font-size: 20px;
+.ant-modal.css-dev-only-do-not-override-18w4yg9 button.ant-modal-close{
+margin-top: -8px;
+font-size: 20px;
+color: #fff;
+}
+
+.ant-popover.header_custom-popover__dJECQ.css-dev-only-do-not-override-18w4yg9.css-dev-only-do-not-override-18w4yg9.ant-popover-placement-bottomLeft
+  .ant-popover-arrow {
+  visibility: hidden;
+}
+
+.ant-popover.header_custom-popover__dJECQ.css-dev-only-do-not-override-18w4yg9.css-dev-only-do-not-override-18w4yg9.ant-popover-placement-bottomLeft
+  .ant-popover-inner {
+  background-color: #4c5bd4;
   color: #fff;
 }
-.ant-table-body::-webkit-scrollbar {
-  width: 2px;
-  height: 5px;
-}
-.ant-table-body::-webkit-scrollbar-thumb {
-  background-color: #1677ff;
-}
-.ant-table-body::-webkit-scrollbar-thumb:hover {
-  background: #a2b8d0;
-}
 
-.custom-cellCus {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(255, 255, 255, 0.9);
-  pointer-events: painted;
-  overflow: hidden;
-  pointer-events: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Hiển thị nội dung khi hover vào ô */
-.ant-table-cell:hover .custom-cellCus {
-  opacity: 1;
-  z-index: 999;
-  height: fit-content;
-  background-color: #f3e9e9;
-  pointer-events: painted;
-  padding: 18px;
-}
-.ant-table-cell .custom-cellCus {
-  padding: 10px;
-  text-align: start;
-  display: flex;
-  height: 100%;
-  flex-direction: column;
-  justify-content: start;
+.ant-popover.header_custom-popover__dJECQ.css-dev-only-do-not-override-18w4yg9.css-dev-only-do-not-override-18w4yg9.ant-popover-placement-bottomLeft
+  .ant-popover-content {
+  right: 16px;
+  top: 4px;
 }

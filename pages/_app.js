@@ -85,6 +85,8 @@ export default function App({ Component, pageProps }) {
     }
   }, [router.pathname]);
 
+  const shouldShowSidebarAndHeader = !pathname.includes("/crm");
+
   const importGlobalStyles = () => {
     if (router.pathname?.includes("hr")) {
       import("../styles/globals_hr.css");
@@ -144,9 +146,13 @@ export default function App({ Component, pageProps }) {
               <AccessContextComponent>
                 <SidebarResize>
                   <NavigateContextComponent>
-                    <Header toggleModal={toggleModal} />
-                    <Sidebar isOpened={isOpen} />
-                    <ChatBusiness />
+                  {/* {shouldShowSidebarAndHeader && ( */}
+                    <>
+                      <Header toggleModal={toggleModal} />
+                      <Sidebar isOpened={isOpen} />
+                      <ChatBusiness />
+                    </>
+                  {/* )} */}
                     <TitleHeaderMobile />
                     <TongDaiContext>
                       <Component {...pageProps} />
