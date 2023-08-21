@@ -1,16 +1,17 @@
-import { MySwitch } from "@/components/de-xuat/cai-dat-duyet-phep/qua-nhieu-cap/DuyetQuaNhieuCap";
+import { MySwitch } from '@/components/de-xuat/cai-dat-duyet-phep/qua-nhieu-cap/DuyetQuaNhieuCap';
 import {
   MyInput,
   MySelect,
-} from "@/components/quan-ly-cong-ty/quan-ly-cong-ty-con/modal";
-import { Button, Card, Col, Form, Row, Space, Switch } from "antd";
-import { useEffect, useState } from "react";
-import styles from "./index.module.css";
-import { HorizontalLine, MySelectTime } from "@/components/commons/Components";
-import { UpdateSuccessModal } from "@/components/de-xuat/cai-dat-thoi-gian-de-xuat/CaiDatThoiGianDeXuat";
-import { POST, POST_SS_VT, POST_VT } from "@/pages/api/BaseApi";
-import dayjs from "dayjs";
-import _, { sample } from "lodash";
+} from '@/components/quan-ly-cong-ty/quan-ly-cong-ty-con/modal';
+import { Button, Card, Col, Form, Row, Space, Switch } from 'antd';
+import { useEffect, useState } from 'react';
+import styles from './index.module.css';
+import { HorizontalLine, MySelectTime } from '@/components/commons/Components';
+import { UpdateSuccessModal } from '@/components/de-xuat/cai-dat-thoi-gian-de-xuat/CaiDatThoiGianDeXuat';
+import { POST, POST_SS_VT, POST_VT } from '@/pages/api/BaseApi';
+import dayjs from 'dayjs';
+import _, { sample } from 'lodash';
+import { useRouter } from 'next/router';
 
 export default function CaiDatThoiGianDuyetPage({ ListDataSetting }) {
   const [iSchedule, setIsSchedule] = useState(true);
@@ -19,24 +20,27 @@ export default function CaiDatThoiGianDuyetPage({ ListDataSetting }) {
   const [isPusnish, setIsPunish] = useState(true);
   const [openUpdateSuccessModal, setOpenUpdateSuccessModal] = useState(false);
   const [dataSudden, setDataSudden] = useState(
-    ListDataSetting?.settingDx.time_limit_l
+    ListDataSetting?.settingDx?.time_limit_l
   );
-  const [listShifts, setListShifts] = useState(Array<any>());
+  // console.log(ListDataSetting)
+  const [listShifts, setListShifts] = useState<any>([]);
   const [data, setData] = useState(ListDataSetting?.settingDx);
   const [isObtainData, setIsObtainData] = useState(false);
+  console.log(isObtainData);
   const [form] = Form.useForm();
   const [formListShift] = Form.useForm();
+  const router = useRouter();
 
   const getData = async () => {
     let listShiftsData: any[] = [];
 
-    JSON.parse(dataSudden).map(async (item) => {
-      const sample = await POST("api/qlc/shift/detail", {
+    await JSON.parse(dataSudden)?.map(async (item: any) => {
+      const sample = await POST('api/qlc/shift/detail', {
         shift_id: Number(item[0]),
       });
       listShiftsData.push({ ...sample?.shift, preview_time: item[1] });
     });
-
+    setIsObtainData(listShiftsData.length > 0);
     setListShifts(listShiftsData);
   };
 
@@ -46,53 +50,47 @@ export default function CaiDatThoiGianDuyetPage({ ListDataSetting }) {
     }
   }, [dataSudden]);
 
-  useEffect(() => {
-    if (!_.isEmpty(listShifts)) {
-      setIsObtainData(true);
-    } else {
-      setIsObtainData(false);
-    }
-  }, [listShifts]);
-
   const UpdateBtn = ({ onclick }: { onclick: (e: any) => void }) => (
     <Button
       size="large"
       style={{
-        backgroundColor: "#4C5BD4",
-        borderRadius: "10px",
-        marginBottom: "20px",
+        backgroundColor: '#4C5BD4',
+        borderRadius: '10px',
+        marginBottom: '20px',
       }}
       onClick={onclick}
     >
-      <p style={{ color: "#fff", padding: "0px 10px" }}>Cập nhật</p>
+      <p style={{ color: '#fff', padding: '0px 10px' }}>Cập nhật</p>
     </Button>
   );
 
   const handleUpdateTime = () => {
-    console.log(form.getFieldValue("time_tp"));
-    POST_VT("api/vanthu/setting/editSetting", {
-      time_limit: form.getFieldValue("time_limit"),
-      time_tp: form.getFieldValue("time_tp"),
-      time_hh: form.getFieldValue("time_hh"),
+    // console.log(form.getFieldValue("time_tp"));
+    POST_VT('api/vanthu/setting/editSetting', {
+      time_limit: form.getFieldValue('time_limit'),
+      time_tp: form.getFieldValue('time_tp'),
+      time_hh: form.getFieldValue('time_hh'),
     }).then((res) => {
       if (res?.result === true) {
         setOpenUpdateSuccessModal(true);
+        router.reload();
       }
     });
   };
 
   const handleUpdateListTime = () => {
     const bodySuddenTime = form.getFieldsValue();
-    delete bodySuddenTime["time_tp"];
-    delete bodySuddenTime["time_limit"];
-    delete bodySuddenTime["time_hh"];
+    delete bodySuddenTime['time_tp'];
+    delete bodySuddenTime['time_limit'];
+    delete bodySuddenTime['time_hh'];
 
-    POST_VT("api/vanthu/setting/editSetting", {
+    POST_VT('api/vanthu/setting/editSetting', {
       time_limit_l: JSON.stringify(Object.entries(bodySuddenTime)),
     }).then((res) => {
       if (res?.result === true) {
         setOpenUpdateSuccessModal(true);
-        setDataSudden(JSON.stringify(Object.entries(bodySuddenTime)));
+        // setDataSudden(JSON.stringify(Object.entries(bodySuddenTime)));
+        router.reload();
       }
     });
   };
@@ -104,6 +102,10 @@ export default function CaiDatThoiGianDuyetPage({ ListDataSetting }) {
   useEffect(() => {
     form.setFieldsValue(data);
   }, [form, data]);
+
+  // if (!isObtainData) {
+  //   return <>Loading...</>;
+  // }
 
   return (
     <>
@@ -122,11 +124,11 @@ export default function CaiDatThoiGianDuyetPage({ ListDataSetting }) {
               <>
                 <div className={styles.input}>
                   {MyInput(
-                    "Thời gian duyệt đề xuất có kế hoạch (Giờ)",
-                    "Giờ",
+                    'Thời gian duyệt đề xuất có kế hoạch (Giờ)',
+                    'Giờ',
                     false,
                     true,
-                    "time_limit"
+                    'time_limit'
                   )}
                 </div>
                 <UpdateBtn onclick={handleUpdateTime} />
@@ -145,7 +147,7 @@ export default function CaiDatThoiGianDuyetPage({ ListDataSetting }) {
                     hệ thống tính lương sẽ xét đó vào diện nghỉ sai quy định.
                   </li>
                   <li>
-                    <span style={{ color: "red" }}>Lưu ý:</span> chỗ này nếu để
+                    <span style={{ color: 'red' }}>Lưu ý:</span> chỗ này nếu để
                     trống, tức là không cài đặt thời gian thì lãnh đạo có thể
                     duyệt phép bất cứ khi nào.
                   </li>
@@ -165,8 +167,9 @@ export default function CaiDatThoiGianDuyetPage({ ListDataSetting }) {
               <>
                 <p className={styles.formHeader}>Danh sách ca làm việc</p>
                 <Row gutter={{ sm: 20 }}>
-                  {!_.isEmpty(listShifts) &&
+                  {listShifts?.length > 0 &&
                     listShifts.map((item, index) => {
+                      // console.log(item)
                       return (
                         <Col sm={12} xs={24} key={index}>
                           <MySelectTime
@@ -220,11 +223,11 @@ export default function CaiDatThoiGianDuyetPage({ ListDataSetting }) {
               <>
                 <div className={styles.input}>
                   {MyInput(
-                    "Thời gian duyệt đề xuất thưởng phạt (Giờ)",
-                    "Giờ",
+                    'Thời gian duyệt đề xuất thưởng phạt (Giờ)',
+                    'Giờ',
                     false,
                     true,
-                    "time_tp"
+                    'time_tp'
                   )}
                 </div>
                 <UpdateBtn onclick={handleUpdateTime} />
@@ -250,11 +253,11 @@ export default function CaiDatThoiGianDuyetPage({ ListDataSetting }) {
               <>
                 <div className={styles.input}>
                   {MyInput(
-                    "Thời gian duyệt đề xuất hoa hồng doanh thu (Giờ)",
-                    "Giờ",
+                    'Thời gian duyệt đề xuất hoa hồng doanh thu (Giờ)',
+                    'Giờ',
                     false,
                     true,
-                    "time_hh"
+                    'time_hh'
                   )}
                 </div>
                 <UpdateBtn onclick={handleUpdateTime} />
@@ -273,7 +276,7 @@ export default function CaiDatThoiGianDuyetPage({ ListDataSetting }) {
 
 export const getServerSideProps = async (context) => {
   const ListDataSetting = await POST_SS_VT(
-    "api/vanthu/setting/createF",
+    'api/vanthu/setting/createF',
     {},
     context
   );

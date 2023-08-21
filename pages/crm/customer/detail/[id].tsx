@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { base_url } from "@/components/crm/service/function";
+import { checkAndRedirectToHomeIfNotLoggedIn } from "@/components/crm/ultis/checkLogin";
 const Cookies = require("js-cookie");
 export default function DetailCustomer() {
   const pathname = usePathname();

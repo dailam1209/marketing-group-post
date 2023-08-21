@@ -30,7 +30,7 @@ export default function Sidebar(props: SideBarProp) {
     {
       label: "Trang chủ",
       icon: "/home.svg",
-      href: '/hr',
+      href: '/phan-mem-nhan-su/quan-ly-chung',
       submenu: null,
       imgWithd: 20,
       imgheight: 17,
@@ -76,7 +76,7 @@ export default function Sidebar(props: SideBarProp) {
     {
       label: "Sơ đồ tổ chức",
       icon: "/vn_sodotochuc.svg",
-      href: '/hr/co-cau-to-chuc',
+      href: '/phan-mem-nhan-su/co-cau-to-chuc',
       submenu: '',
       imgWithd: 20,
       imgheight: 20,
@@ -85,7 +85,7 @@ export default function Sidebar(props: SideBarProp) {
     {
       label: "Báo cáo nhân sự",
       icon: "		/baocao_ns.svg",
-      href: '/hr/bao-cao-nhan-su',
+      href: '/phan-mem-nhan-su/bao-cao-nhan-su',
       submenu: '',
       imgWithd: 18,
       imgheight: 18,
@@ -94,7 +94,7 @@ export default function Sidebar(props: SideBarProp) {
     {
       label: "Cài đặt",
       icon: "		/vn_icon_setting.svg",
-      href: '/hr/cai-dat-chung',
+      href: '/phan-mem-nhan-su/cai-dat-chung',
       submenu: '',
       imgWithd: 20,
       imgheight: 20,
@@ -103,7 +103,7 @@ export default function Sidebar(props: SideBarProp) {
     {
       label: "Dữ liệu gần đây đã xóa",
       icon: "		/daxoa.svg",
-      href: '/hr/du-lieu-da-xoa',
+      href: '/phan-mem-nhan-su/du-lieu-da-xoa',
       submenu: '',
       imgWithd: 14,
       imgheight: 18,

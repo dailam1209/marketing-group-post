@@ -131,7 +131,7 @@ function ModalEditCommendationTeam({ animation, onClose, dataOld }: any) {
       }
       getData2()
     }
-  }, []);
+  }, [tokenComId]);
 
   const options = {
     tendoituong: user,

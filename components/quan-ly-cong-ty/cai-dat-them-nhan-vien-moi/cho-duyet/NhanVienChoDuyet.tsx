@@ -4,7 +4,7 @@ import { MySeachBar, MySelect } from '../../quan-ly-cong-ty-con/modal';
 import styles from './NhanVienChoDuyet.module.css';
 import Image from 'next/image';
 import { SearchButton } from '@/components/commons/Buttons';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ConfirmDuyetModal } from './modal/modal';
 import { getPosition } from '@/utils/function';
 import { POST } from '@/pages/api/BaseApi';
@@ -18,6 +18,43 @@ export function NhanVienChoDuyet({ listStaffs, comLabel, listDepLabel }) {
     label: p?.value,
     value: p?.id,
   }));
+  const [data, setData] = useState(listStaffs);
+  // console.log(comLabel)
+  
+  const [depFilter, setDepFilter]: any = useState<any>(undefined);
+  const [epNameFilter, setEpNameFilter]: any = useState<any>(undefined);
+  const [listEmpLabel, setListEmpLabel] = useState<any>(
+    listStaffs?.map((e) => ({ label: e?.userName, value: e?.idQLC }))
+  );
+  const [listDataFiltered, setListDataFiltered] = useState([]);
+
+  useEffect(() => {
+    setListDataFiltered(data);
+  }, [data]);
+
+  useEffect(() => {
+    if (depFilter === undefined) {
+      setListDataFiltered(data);
+    }
+    if (depFilter !== undefined) {
+      setListDataFiltered(data?.filter((emp) => emp?.dep_id === depFilter));
+    }
+    if (epNameFilter !== undefined) {
+      if (depFilter === undefined) {
+        setListDataFiltered(data);
+      } else {
+        setListDataFiltered(data?.filter((emp) => emp?.idQLC === epNameFilter));
+      }
+    }
+  }, [depFilter, epNameFilter]);
+
+  useEffect(() => {
+    setData(listStaffs);
+    setListEmpLabel(
+      listStaffs?.map((e) => ({ label: e?.userName, value: e?.idQLC }))
+    );
+  }, [listStaffs]);
+
   const router = useRouter()
 
   const columns = [
@@ -26,7 +63,7 @@ export function NhanVienChoDuyet({ listStaffs, comLabel, listDepLabel }) {
       render: (record: any) => (
         <Image
           alt='/'
-          src={record?.img || '/avatar.png'}
+          src={record?.avatarUser ? `/${record?.avatarUser}` : '/avatar.png'}
           width={46}
           height={46}
         />
@@ -47,11 +84,8 @@ export function NhanVienChoDuyet({ listStaffs, comLabel, listDepLabel }) {
       title: <p className="tableHeader">Phòng ban</p>,
       render: (record: any) => (
         <p>
-          {
-            listDepLabel?.find(
-              (dep) => dep?.value === record?.inForPerson?.employee?.dep_id
-            )?.label
-          }
+          {listDepLabel?.find((dep) => dep?.value === record?.dep_id)?.label ||
+            'Chưa cập nhật'}
         </p>
       ),
       align: 'center',
@@ -60,23 +94,20 @@ export function NhanVienChoDuyet({ listStaffs, comLabel, listDepLabel }) {
       title: <p className="tableHeader">Chức vụ</p>,
       render: (record: any) => (
         <p>
-          {
-            positionLabel?.find(
-              (p) => p?.value === record?.inForPerson?.employee?.position_id
-            )?.label
-          }
+          {positionLabel?.find((p) => p?.value === record?.position_id)
+            ?.label || 'Chưa cập nhật'}
         </p>
       ),
       align: 'center',
     },
     {
       title: <p className="tableHeader">Email</p>,
-      render: (record: any) => <p>{record?.email || record?.emailContact}</p>,
+      render: (record: any) => <p>{record?.email || record?.emailContact || 'Chưa cập nhật'}</p>,
       align: 'center',
     },
     {
       title: <p className="tableHeader">SĐT</p>,
-      render: (record: any) => <p>{record?.phone || record?.phoneTK}</p>,
+      render: (record: any) => <p>{record?.phone || record?.phoneTK || 'Chưa cập nhật'}</p>,
       align: 'center',
     },
     Table.SELECTION_COLUMN,
@@ -97,7 +128,7 @@ export function NhanVienChoDuyet({ listStaffs, comLabel, listDepLabel }) {
           <Col lg={7} sm={12} xs={24}>
             {MySelect(
               '',
-              'Công ty cổ phần thanh toán Hưng Hà 2',
+              'Chọn công ty',
               false,
               false,
               'com_id',
@@ -105,18 +136,28 @@ export function NhanVienChoDuyet({ listStaffs, comLabel, listDepLabel }) {
             )}
           </Col>
           <Col lg={7} sm={12} xs={24}>
-            <MySeachBar
-              placeholder='Nhập tên phòng ban'
-              hasPrefix={false}
-              name=''
-            />
+          {MySelect(
+              'Phòng ban',
+              'Chọn phòng ban',
+              false,
+              false,
+              'dep_id',
+              listDepLabel,
+              undefined,
+              setDepFilter
+            )}
           </Col>
           <Col lg={7} sm={12} xs={24} className={styles.inputName}>
-            <MySeachBar
-              placeholder='Nhập tên cần tìm'
-              hasPrefix={false}
-              name='12'
-            />
+          {MySelect(
+              'Nhân viên',
+              'Nhập tên cần tìm',
+              false,
+              false,
+              'ep_id',
+              listEmpLabel,
+              undefined,
+              setEpNameFilter
+            )}
           </Col>
           <Col lg={3} sm={12} xs={24} className={styles.searchBtn}>
             {SearchButton('Tìm kiếm', () => null, false)}
@@ -126,7 +167,7 @@ export function NhanVienChoDuyet({ listStaffs, comLabel, listDepLabel }) {
       <div>
         <MyTable
           colunms={columns}
-          data={listStaffs}
+          data={listDataFiltered}
           onRowClick={() => null}
           hasRowSelect={true}
           onSelectChange={(newSelectedRowKeys) =>

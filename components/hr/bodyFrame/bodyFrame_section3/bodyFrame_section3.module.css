@@ -10,7 +10,7 @@
 }
 .text {
   font-weight: 500;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 19px;
   color: #4c5bd4;
   margin-top: 10px;
@@ -35,7 +35,7 @@
 }
 .item_title {
   font-weight: 600;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 20px;
   text-align: center;
   color: #474747;
@@ -44,7 +44,7 @@
 }
 .item_text {
   font-weight: 600;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 20px;
   text-align: justify;
   color: #666666;
@@ -61,7 +61,7 @@
 @media only screen and (min-width: 1200px) {
   .item_text {
     font-weight: 600;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 20px;
     text-align: justify;
     color: #666666;
@@ -114,7 +114,7 @@
   }
   .item_text {
     height: 105px;
-    font-size: 16px;
+    font-size: 14px;
     text-align: center;
   }
   .text {

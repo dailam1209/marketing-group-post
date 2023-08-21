@@ -11,22 +11,22 @@ export default function RecruitmentManager({ children }: any) {
         // @ts-ignore
         setActiveButton(buttonIndex);
     };
-
+    const link = "phan-mem-nhan-su"
     const submenu = [
         {
             img: "/quytrinh_td.svg",
             title: 'Quy trình tuyển dụng',
-            href: '/hr/quan-ly-tuyen-dung/quy-trinh-tuyen-dung',
+            href: `/${link}/quan-ly-tuyen-dung/quy-trinh-tuyen-dung`,
         },
         {
             img: "/thuchien_td.svg",
             title: 'Thực hiện tuyển dụng',
-            href: '/hr/quan-ly-tuyen-dung/thuc-hien-tuyen-dung'
+            href: `/${link}/quan-ly-tuyen-dung/thuc-hien-tuyen-dung`
         },
         {
             img: "/ds_ungvien.svg",
             title: 'Danh sách ứng viên',
-            href: '/hr/quan-ly-tuyen-dung/danh-sach-ung-vien'
+            href: `/${link}/quan-ly-tuyen-dung/danh-sach-ung-vien`
         },
     ]
 

@@ -397,13 +397,12 @@ const StyledTreeExample = ({ iconEdit }) => {
 
   const comid = GetComId()
   const router = useRouter()
-  const handleClickDetail = (
-    link: any,
-    event: React.MouseEvent<HTMLAnchorElement>
-  ) => {
-    event.preventDefault()
-    if (typeof link === 'string') {
-      router.push(`/hr/${link}`)
+  const handleClickDetail = (link: any, event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    if (typeof link === "string") {
+      router.push(
+        `/phan-mem-nhan-su/${link}`
+      );
     }
   }
 
@@ -422,7 +421,7 @@ const StyledTreeExample = ({ iconEdit }) => {
       try {
         const response = await OrganizationalStructureData()
         setData(response?.data)
-      } catch (error) {}
+      } catch (error) { }
     }
     fetchData()
   }, [newData])
@@ -637,7 +636,7 @@ const StyledTreeExample = ({ iconEdit }) => {
                         registered={com?.tong_nv_da_diem_danh}
                         noAttendance={com?.tong_nv - com?.tong_nv_da_diem_danh}
                         iconEdit={iconEdit}
-                        // setOpenModalEdit={() => setOpenModalEdit(true)}
+                      // setOpenModalEdit={() => setOpenModalEdit(true)}
                       />
                     </StyledNode>
                   }>
