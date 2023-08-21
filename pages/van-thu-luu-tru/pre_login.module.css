@@ -742,3 +742,265 @@
     width: 670px;
     height: 350px;
 }
+/* QLCV */
+#main_qlcv {
+    padding-bottom: 150px;
+    padding-top: 54px;
+}
+.banner_qlcv {
+    padding: 88px 93px;
+}
+.position_r {
+    position: relative;
+}
+.back_x {
+    background: #4C5BD4;
+}
+.flex_start {
+    justify-content: flex-start;
+}
+.d_flex {
+    display: flex;
+}
+.banner_qlcv .banner_qlcv_left {
+    z-index: 1;
+    width: 55%;
+}
+.img_banner {
+    position: absolute;
+    top: 61px;
+    right: 3px;
+}
+.text_banner{
+
+}
+.banner_qlcv_left .img_app_banner {
+    margin-top: 50px;
+    margin-bottom: 55px;
+}
+.banner_qlcv_left .btn_t {
+    display: inline-block;
+    padding: 13px 47px;
+    border-radius: 33px;
+}
+.banner_qlcv_left .h1_banner_l {
+    font-size: 48px;
+    line-height: 56px;
+    margin-bottom: 31px;
+}
+.color_t {
+    color: #ffffff;
+}
+.banner_qlcv_left .p_banner_l {
+    font-size: 24px;
+    line-height: 30px;
+}
+.img_app_banner .app_left {
+    margin-right: 28px;
+}
+.flex_column {
+    flex-direction: column;
+}
+.space_b {
+    justify-content: space-between;
+}
+.app_right{
+
+}
+.app_left img {
+    object-fit: cover;
+}
+.img_app_banner .app_right .img_app {
+    filter: drop-shadow(3px 7px 5px rgba(0, 0, 0, 0.25));
+    object-fit: cover;
+}
+.banner_qlcv_left .btn_t {
+    display: inline-block;
+    padding: 13px 47px;
+    border-radius: 33px;
+}
+.btn_t {
+    color: #4C5BD4;
+    background: #ffffff;
+    border: 1px solid #4C5BD4;
+    cursor: pointer;
+}
+.banner_qlcv_left .btn_t p {
+    font-size: 20px;
+    line-height: 25px;
+}
+.font_wB {
+    font-weight: bold;
+}
+.img_banner {
+    position: absolute;
+    top: 61px;
+    right: 3px;
+}
+.list_qlcv {
+    padding: 30px 0px;
+}
+.back_eee {
+    background: #EEEEEE;
+}
+.container_l {
+    width: 1180px;
+    margin: 0px auto;
+}
+#main_qlcv .title_qlcv {
+    font-size: 36px;
+    line-height: 50px;
+}
+.list_qlcv .title_qlcv {
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+.title_qlcv {
+    font-size: 24px;
+    line-height: 28px;
+}
+.text_c {
+    text-align: center!important;
+}
+.color_blue {
+    color: #4C5BD4;
+}
+.list_qlcv .h3_qlcv {
+    font-size: 24px;
+    line-height: 25px;
+}
+.color_x {
+    color: #474747;
+}
+.box_list_qlcv {
+    margin-top: 35px;
+}
+.w_100 {
+    width: 100%;
+}
+.box_list_qlcv .item_qlcv {
+    width: calc(100%/3 - 10px);
+    border-radius: 15px;
+    margin-bottom: 30px;
+}
+.back_w {
+    background: #ffffff;
+}
+.text_item_qlcv .name_tiem {
+    font-size: 20px;
+    line-height: 23px;
+    margin-bottom: 13px;
+}
+ul.ul_item_qcv, ul.ul_item_qcv li {
+    list-style: disc;
+}
+ul.ul_item_qcv {
+    padding-left: 18px;
+}
+ul.ul_item_qcv li {
+    padding-bottom: 22px;
+}
+ul.ul_item_qcv li p {
+    font-size: 18px;
+    line-height: 24px;
+    text-align: justify;
+}
+.img_item_qlcv img {
+    object-fit: cover;
+}
+.item_qlcv .text_item_qlcv {
+    padding: 6px 18px 25px 18px;
+}
+.item_qlcv .img_item_qlcv {
+    padding: 0px 10px 10px 10px;
+    min-height: 269px;
+}
+.list_tnnb{
+
+}
+.list_tnnb .list_tnnb_header {
+    background: url(../../public/back1.png);
+    background-size: 100% 100%;
+    padding: 50px 0px;
+}
+.color_t {
+    color: #ffffff;
+}
+.list_tnnb_header .p_list_tnnb_header {
+    font-size: 18px;
+    line-height: 21px;
+    margin-top: 20px;
+}
+.title_qlcv {
+    font-size: 36px;
+    line-height: 50px;
+}
+.list_tnnb_body{
+
+}
+.box_list_tnnb_body {
+    padding-top: 70px;
+}
+.box_list_tnnb_body .item_tnnb {
+    margin-bottom: 30px;
+}
+.align_c {
+    align-items: center;
+}
+.box_list_tnnb_body .text_item_tnnb {
+    width: calc(55% - 30px);
+}
+.box_list_tnnb_body .img_item_tnnb {
+    width: calc(45% - 30px);
+}
+.text_item_tnnb .name_item_tnnb {
+    font-size: 24px;
+    line-height: 28px;
+    margin-bottom: 45px;
+    width: 90%;
+}
+.font_wB {
+    font-weight: bold;
+}
+.color_blue {
+    color: #4C5BD4;
+}
+.ul_item_tnnb{
+    list-style: none;
+}
+.img_item_tnnb img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+.img_li_item_tnnb{
+
+}
+.img_li_item_tnnb img{
+    object-fit: cover;
+}
+.p_item_tnnb {
+    font-size: 18px;
+    line-height: 25px;
+    text-align: justify;
+    margin-left: 20px;
+}
+.ul_item_tnnb li {
+    margin-bottom: 20px;
+}
+.video_qlcv {
+    width: 804px;
+    margin: 0px auto;
+    padding: 20px 0px 50px 0px;
+}
+.title_qlcv {
+    font-size: 36px;
+    line-height: 50px;
+}
+.video_qlcv .title_qlcv {
+    margin-bottom: 50px;
+}
+.box_video {
+    width: 100%;
+    height: 450px;
+}
