@@ -85,7 +85,7 @@ export default function App({ Component, pageProps }) {
     }
   }, [router.pathname])
 
-  const shouldShowSidebarAndHeader = !pathname.includes('/crm')
+  // const shouldShowSidebarAndHeader = !pathname?.includes('/crm')
 
   const importGlobalStyles = () => {
     if (router.pathname?.includes('hr')) {

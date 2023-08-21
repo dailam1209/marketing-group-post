@@ -53,29 +53,27 @@ p {
 }
 
 /*nhom khach hang  */
-.ant-table-wrapper.contract_custom_table_children_row__5etMc.css-dev-only-do-not-override-fpg3f5
-  td.ant-table-cell.ant-table-cell-with-append {
+.ant-table-wrapper.contract_custom_table_children_row__5etMc.css-dev-only-do-not-override-fpg3f5 td.ant-table-cell.ant-table-cell-with-append {
   display: flex !important;
   width: 100% !important;
   justify-content: space-between !important;
   flex-direction: row-reverse !important;
   align-items: center !important;
 }
-.ant-table-wrapper.contract_custom_table_children_row__5etMc.css-dev-only-do-not-override-fpg3f5
-  span.ant-table-row-indent.indent-level-0 {
+
+.ant-table-wrapper.contract_custom_table_children_row__5etMc.css-dev-only-do-not-override-fpg3f5 span.ant-table-row-indent.indent-level-0 {
   display: none;
 }
 
-.ant-table-wrapper.contract_custom_table_children_row__5etMc.css-dev-only-do-not-override-fpg3f5
-  tr.ant-table-row.ant-table-row-level-1
-  a {
+.ant-table-wrapper.contract_custom_table_children_row__5etMc.css-dev-only-do-not-override-fpg3f5 tr.ant-table-row.ant-table-row-level-1 a {
   color: rgb(7, 7, 7);
 }
-.ant-table-wrapper.contract_custom_table_children_row__5etMc.css-dev-only-do-not-override-fpg3f5
-  span {
+
+.ant-table-wrapper.contract_custom_table_children_row__5etMc.css-dev-only-do-not-override-fpg3f5 span {
   /* display: none; */
   padding-left: 10px;
 }
+
 button.ant-switch.status_cus.css-dev-only-do-not-override-18w4yg9.ant-switch-checked {
   background-color: #76b51b;
 }
@@ -330,7 +328,7 @@ svg {
   margin-top: 20px;
 }
 
-tr > th {
+tr>th {
   background-color: #4c5bd4 !important;
   color: #fff !important;
   text-align: center !important;
@@ -352,7 +350,7 @@ tr {
   margin: auto;
 }
 
-.ant-table-tbody > tr {
+.ant-table-tbody>tr {
   height: 58px;
 }
 
@@ -433,9 +431,7 @@ tr {
   top: -6px !important;
 }
 
-:where(.css-dev-only-do-not-override-1m62vyb).ant-steps
-  .ant-steps-item-process
-  .ant-steps-item-icon {
+:where(.css-dev-only-do-not-override-1m62vyb).ant-steps .ant-steps-item-process .ant-steps-item-icon {
   background-color: #1677ff !important;
 }
 
@@ -531,8 +527,7 @@ tr {
   justify-content: center !important;
 }
 
-.custom_mdal_sucess
-  :where(.css-dev-only-do-not-override-1m62vyb).ant-btn-default {
+.custom_mdal_sucess :where(.css-dev-only-do-not-override-1m62vyb).ant-btn-default {
   display: none !important;
 }
 
@@ -555,8 +550,7 @@ tr {
   display: none !important;
 }
 
-.mdal_cancel:where(.css-dev-only-do-not-override-1m62vyb).ant-modal
-  .ant-modal-close {
+.mdal_cancel:where(.css-dev-only-do-not-override-1m62vyb).ant-modal .ant-modal-close {
   display: block !important;
 }
 
@@ -572,8 +566,7 @@ tr {
   width: auto !important;
 }
 
-.campign_mdal:where(.css-dev-only-do-not-override-1m62vyb).ant-modal
-  .ant-modal-close {
+.campign_mdal:where(.css-dev-only-do-not-override-1m62vyb).ant-modal .ant-modal-close {
   display: block !important;
 }
 
@@ -633,37 +626,23 @@ tr {
   background-color: white;
 }
 
-:where(.css-dev-only-do-not-override-1m62vyb).ant-table-wrapper
-  .ant-table.ant-table-bordered
-  > .ant-table-container
-  > .ant-table-header
-  > table
-  > thead
-  > tr
-  > th,
-:where(.css-dev-only-do-not-override-1m62vyb).ant-table-wrapper
-  .ant-table.ant-table-bordered
-  > .ant-table-container
-  > .ant-table-body
-  > table
-  > tbody
-  > tr
-  > td,
-:where(.css-dev-only-do-not-override-1m62vyb).ant-table-wrapper
-  .ant-table.ant-table-bordered
-  > .ant-table-container
-  > .ant-table-body
-  > table
-  > tfoot
-  > tr
-  > td {
+:where(.css-dev-only-do-not-override-1m62vyb).ant-table-wrapper .ant-table.ant-table-bordered>.ant-table-container>.ant-table-header>table>thead>tr>th,
+:where(.css-dev-only-do-not-override-1m62vyb).ant-table-wrapper .ant-table.ant-table-bordered>.ant-table-container>.ant-table-body>table>tbody>tr>td,
+:where(.css-dev-only-do-not-override-1m62vyb).ant-table-wrapper .ant-table.ant-table-bordered>.ant-table-container>.ant-table-body>table>tfoot>tr>td {
   border-inline-end: 1px solid #ccc !important;
 }
 
-.custom_review_mdal
-  :where(.css-dev-only-do-not-override-1m62vyb).ant-btn-default {
+.custom_review_mdal :where(.css-dev-only-do-not-override-1m62vyb).ant-btn-default {
   display: none;
 }
+
+.ant-table-row-level-1 a span {
+  color: black !important;
+}
+
+/* .ant-table-row-level-0 .ant-table-row-expand-icon {
+  display: none !important;
+} */
 
 /* Custom DropDown */
 
@@ -693,8 +672,7 @@ tr {
 
 /* Custom Drawer */
 
-:where(.css-dev-only-do-not-override-1m62vyb).ant-drawer
-  .ant-drawer-header-title {
+:where(.css-dev-only-do-not-override-1m62vyb).ant-drawer .ant-drawer-header-title {
   flex-direction: row-reverse;
 }
 
@@ -762,6 +740,7 @@ label {
   margin-top: 10px !important;
   display: inline-block;
 }
+
 .ant-modal.css-dev-only-do-not-override-18w4yg9 button.ant-modal-close {
   margin-top: -8px;
   font-size: 20px;
