@@ -48,7 +48,7 @@ export default function CustomerList() {
     "POST",
     {
       perPage: 10000,
-      name: name === null ? null : name,
+      keyword: name === null ? null : name,
       status: status,
       resoure: resoure,
       userName: nvPhuTrach,
