@@ -255,7 +255,12 @@ export function TableLich({
                           ? "normal"
                           : "disable"
                       ]
-                    } `}
+                    } ${styles[
+                      allCheck[formatDate(item)] &&
+                      allCheck[formatDate(item)].length > 0 
+                        ? "circleActive"
+                        : "circleBase"
+                    ]} `}
                   >
                     <span className={styles.dateTxt}>{item.getDate()}</span>
                     <i className={styles.iconX}>

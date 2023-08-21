@@ -9,7 +9,7 @@
   .indexWithBorder {
     width: 71px;
     height: 71px;
-    border-radius: 50px;
+    border-radius: 50%;
 
     display: flex;
     align-items: center;
@@ -31,6 +31,17 @@
       width: 2px;
       height: 60%;
     }
+  }
+
+  .rightDiv::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 2px;
+    height: 60%;
+    background-color: #717b7f;
+    transform: translateY(-50%);
   }
 
   .title {
@@ -70,7 +81,7 @@
 
   .title {
     font-size: 20px;
-    color: var(--text-color);
+    color: #474747;
     font-weight: 600;
     cursor: pointer;
   }
