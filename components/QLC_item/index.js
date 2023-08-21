@@ -26,8 +26,11 @@ export default function QLC_item({
     if (hasCheckLogin && acc_token && rf_token && role) {
       router.push(url)
     }
-    if ((url = '/hr' && hasCheckLogin)) {
+    if ((url === '/hr' && hasCheckLogin)) {
       router.push('/trang-chu-truoc-dang-nhap')
+    }
+    if ((url === '/crm' && hasCheckLogin)) {
+      router.push('/crm')
     }
     // else {
     //   alert('Làm ơn hãy đăng ký/đăng nhập')

@@ -2,10 +2,10 @@ import style from "./sidebar.module.css";
 import Image from "next/image";
 import { useState } from "react";
 
-export default function HeaderBar({dataHeader}) {
+export default function HeaderBar({ dataHeader, isOpen }: any) {
   return (
     <div className={style.header_bar}>
-      <div className={style.header_icon}>
+      <div className={`${style.header_icon} ${!isOpen ? null : "none"}`}>
         <img
           className={style.img_icon}
           src={
@@ -16,8 +16,10 @@ export default function HeaderBar({dataHeader}) {
           alt=""
         />
       </div>
-      <div className={style.header_info}>
-      <div className={style.name_staff}>{dataHeader?.data?.userName || ''}</div>
+      <div className={`${style.header_info} ${!isOpen ? null : "none"}`}>
+        <div className={style.name_staff}>
+          {dataHeader?.data?.userName || ""}
+        </div>
         {/* <p className={style.sub_text}>NHÂN VIÊN THỬ VIỆC</p> */}
       </div>
     </div>

@@ -38,6 +38,7 @@ const ModalCompleteStepGr: React.FC<ModalCompleteStepGrProps> = ({
           open={modal1Open}
           onOk={handleClick}
           className="custom_mdal_sucess"
+          onCancel={handleClick}
         >
           <div style={{ textAlign: "center" }}>{title}</div>
         </Modal>
