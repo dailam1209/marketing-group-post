@@ -11,9 +11,6 @@ export default function CustomerGroupSelectCpmponent({
 }: any) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  console.log(
-    data?.filter((item: any) => item.group_parent === placeholder)
-  );
   const [valueOption, setValueOption] = useState(
     data?.filter((item: any) => item.gr_id === placeholder)[0]?.group_parent
       ? data?.filter((item: any) => item.gr_id === placeholder)[0]?.group_parent

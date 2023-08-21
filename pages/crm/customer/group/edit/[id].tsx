@@ -7,7 +7,7 @@ import PotentialFooterAddFiles from "@/components/crm/potential/potential_add_fi
 import { useHeader } from "@/components/crm/hooks/useHeader";
 import TextEditor from "@/components/crm/text-editor/text_editor";
 import InputText from "@/components/crm/potential/potential_add_files/input_text";
-import { Checkbox, Select } from "antd";
+import { Checkbox, Select, notification } from "antd";
 import PotentialSelectBoxStep from "@/components/crm/potential/potential_steps/select_box_step";
 import TableStaffCustomerGroupAdd from "@/components/crm/table/table-staff-group-add-customer";
 import { useApi } from "@/components/crm/hooks/useApi";
@@ -36,6 +36,7 @@ const GroupCustomerAdd: React.FC = () => {
   const router = useRouter();
   const { id } = router.query;
   const { isOpen } = useContext<any>(SidebarContext);
+  const [modal1Open, setModal1Open] = useState(false);
   const [erroeMdal, setErrModal] = useState(false);
   const [selectedValueDepartments, setSelectedValueDepartments] = useState<any>(
     []
@@ -47,6 +48,7 @@ const GroupCustomerAdd: React.FC = () => {
   const [employeeOptions, setEmployeeOptions] = useState([]);
   const [isOpenModalDel, setIsOpenModalDel] = useState(false);
   const [clickOptionEmp, setClickOptionEmp] = useState(false);
+  const [api, contextHolder] = notification.useNotification();
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
   const [valueGroupCustomer, setValueGroupCustomer] = useState({
@@ -80,10 +82,10 @@ const GroupCustomerAdd: React.FC = () => {
     fetchData: fetchDataDepartment,
     updateData: updateDataDepartment,
   } = useApi(
-`${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/department/list`,
-`${Cookies.get("token_base365")}`,
+    `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/department/list`,
+    `${Cookies.get("token_base365")}`,
     "POST",
-    { com_id:`${Cookies.get("com_id")}`}
+    { com_id: `${Cookies.get("com_id")}` }
   );
 
   const {
@@ -147,7 +149,6 @@ const GroupCustomerAdd: React.FC = () => {
   }, [isOpen]);
 
   function handleChange(val: any): void {
-    console.log(val);
     setSelectedValueDepartments(val);
   }
 
@@ -168,7 +169,6 @@ const GroupCustomerAdd: React.FC = () => {
         }
       });
     } else {
-      console.log("Giá trị đã tồn tại trong mảng dataTableEmp");
       setErrModal(true);
     }
 
@@ -244,8 +244,6 @@ const GroupCustomerAdd: React.FC = () => {
     // setValAllEmp(dataDetails?.data?.checkGroup?.emp_id ? false :true)
   }, []);
 
-  console.log(valueGroupCustomer);
-
   useEffect(() => {
     fetchDataEmp(
       `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/list`,
@@ -271,9 +269,17 @@ const GroupCustomerAdd: React.FC = () => {
       setEmployeeOptions(employeeOption);
     }, 0);
   }, [clickOptionEmp]);
-  // console.log(dataTableEmp);
+
+  const openNotificationWithIcon = () => {
+    api.error({
+      message: "Notification Title",
+      description: "Trường tên nhóm khách hàng đã tồn tại hoặc không được nhập",
+    });
+  };
+
   return (
     <div className={styleHome.main} ref={mainRef}>
+      {contextHolder}
       <div className={styles.main_importfile}>
         <div className={styles.formInfoStep}>
           <div className={styles.info_step}>
@@ -510,28 +516,33 @@ const GroupCustomerAdd: React.FC = () => {
                 contentCancel={
                   "Bạn có đồng ý hủy? \n Mọi dữ liệu bạn vừa nhập sẽ bị xóa?"
                 }
+                modal1Open={modal1Open}
+                setModal1Open={setModal1Open}
                 handleSave={async () => {
-                  console.log("qtwyugihjjj", {
-                    ...valueGroupCustomer,
-                    name: valueGroupCustomer.gr_name,
-                    description: valueGroupCustomer.gr_description,
-                    gr_id: id,
-                  });
-                  await updateDataEdit(
-                    `${base_url}/api/crm/group/update_GroupKH`,
-                    `${Cookies.get("token_base365")}`,
-                    "POST",
-                    {
-                      ...valueGroupCustomer,
-                      name: valueGroupCustomer.gr_name,
-                      description: valueGroupCustomer.gr_description,
-                      gr_id: id,
-                      emp_id: valAllEmp ? null : dataTableEmp?.join(","),
-                      dep_id: valAllDepartment
-                        ? null
-                        : selectedValueDepartments?.join(","),
-                    }
-                  );
+                  if (
+                    valueGroupCustomer.gr_name ===
+                      dataDetails?.data?.data?.gr_name ||
+                    valueGroupCustomer.gr_name === ""
+                  ) {
+                    openNotificationWithIcon();
+                  } else {
+                    await updateDataEdit(
+                      `${base_url}/api/crm/group/update_GroupKH`,
+                      `${Cookies.get("token_base365")}`,
+                      "POST",
+                      {
+                        ...valueGroupCustomer,
+                        name: valueGroupCustomer.gr_name,
+                        description: valueGroupCustomer.gr_description,
+                        gr_id: id,
+                        emp_id: valAllEmp ? null : dataTableEmp?.join(","),
+                        dep_id: valAllDepartment
+                          ? null
+                          : selectedValueDepartments?.join(","),
+                      }
+                    );
+                    setModal1Open(true);
+                  }
                 }}
               />
             </div>

@@ -6,7 +6,7 @@ import PotentialFooterAddFiles from "@/components/crm/potential/potential_add_fi
 import { useHeader } from "@/components/crm/hooks/useHeader";
 import TextEditor from "@/components/crm/text-editor/text_editor";
 import InputText from "@/components/crm/potential/potential_add_files/input_text";
-import { Checkbox, Select } from "antd";
+import { Checkbox, Select, notification } from "antd";
 import PotentialSelectBoxStep from "@/components/crm/potential/potential_steps/select_box_step";
 import TableStaffCustomerGroupAdd from "@/components/crm/table/table-staff-group-add-customer";
 import CustomerGroupSelect from "@/components/crm/select/select_data_group_customer";
@@ -26,6 +26,8 @@ const GroupCustomerAdd: React.FC = () => {
   const valueOptionRef = useRef<HTMLDivElement>(null);
   const { isOpen } = useContext<any>(SidebarContext);
   const [erroeMdal, setErrModal] = useState(false);
+  const [modal1Open, setModal1Open] = useState(false);
+  const [api, contextHolder] = notification.useNotification();
   const [selectedValueDepartments, setSelectedValueDepartments] = useState<any>(
     []
   );
@@ -172,8 +174,16 @@ const GroupCustomerAdd: React.FC = () => {
     setDataTableEmp(newData);
   };
 
+  const openNotificationWithIcon = (error: any) => {
+    api[error]({
+      message: "Notification Title",
+      description: "Bạn chưa nhập tên nhóm khách hàng",
+    });
+  };
+
   return (
     <div className={styleHome.main} ref={mainRef}>
+      {contextHolder}
       <div className={styles.main_importfile}>
         <div className={styles.formInfoStep}>
           <div className={styles.info_step}>
@@ -355,21 +365,35 @@ const GroupCustomerAdd: React.FC = () => {
                 contentCancel={
                   "Bạn có đồng ý hủy? \n Mọi dữ liệu bạn vừa nhập sẽ bị xóa?"
                 }
+                setModal1Open={setModal1Open}
+                modal1Open={modal1Open}
                 handleSave={async () => {
-                  if (valueGroupCustomer.groupName !== "") {
+                  if (valueGroupCustomer?.groupName !== "") {
                     await updateDataAddGroup(
                       urlCreate,
                       `${Cookies.get("token_base365")}`,
                       "POST",
                       {
-                        ...valueGroupCustomer,
-                        emp_id: dataTableEmp?.join(","),
-                        dep_id: selectedValueDepartments?.join(","),
+                        groupName: valueGroupCustomer?.groupName,
+                        emp_id:
+                          dataTableEmp?.length > 0
+                            ? dataTableEmp?.join(",")
+                            : "all",
+                        dep_id:
+                          selectedValueDepartments?.length > 0
+                            ? selectedValueDepartments?.join(",")
+                            : "all",
+                        groupParents: valueGroupCustomer?.groupParents
+                          ? valueGroupCustomer?.groupParents
+                          : 0,
+                        groupDescription: valueGroupCustomer?.groupDescription,
                       }
                     );
-                    return true;
+
+                    setModal1Open(true);
+                  } else {
+                    openNotificationWithIcon("error");
                   }
-                  return false;
                 }}
               />
             </div>

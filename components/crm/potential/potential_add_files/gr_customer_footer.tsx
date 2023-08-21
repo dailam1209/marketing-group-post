@@ -13,9 +13,10 @@ export default function GrFooterAddFiles({
   handleSave = () => {
     return false;
   },
+  setModal1Open,
+  modal1Open
 }: any) {
   const [isModalCancel, setIsModalCancel] = useState(false);
-  const [modal1Open, setModal1Open] = useState(false);
   return (
     <div className={styles.main__footer}>
       <button type="button" onClick={() => setIsModalCancel(true)}>
@@ -26,7 +27,6 @@ export default function GrFooterAddFiles({
         type="submit"
         onClick={async () => {
           await handleSave();
-          setModal1Open(true);
         }}
       >
         Lưu
