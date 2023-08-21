@@ -4,6 +4,8 @@ import Image from "next/image";
 import { setInterval } from "timers/promises";
 import { Alert, Button } from "antd";
 import { useRouter } from "next/router";
+import { saveAs } from 'file-saver';
+import htmlToImage from 'html-to-image';
 
 export default function AddContract({ setCheckFile }: any) {
   const inputFileRef = useRef<HTMLInputElement>(null);
@@ -35,6 +37,41 @@ export default function AddContract({ setCheckFile }: any) {
     }, 1500);
   };
 
+
+const DocxToImage = () => {
+  const containerRef = useRef(null);
+
+  const convertToImage = () => {
+    const container = containerRef.current;
+
+    // Chuyển đổi nội dung HTML thành hình ảnh
+    htmlToImage.toPng(container)
+      .then(function (dataUrl) {
+        // Tạo Blob từ dữ liệu hình ảnh
+        const blob = dataURLtoBlob(dataUrl);
+
+      })
+      .catch(function (error) {
+        console.error('Error converting to image:', error);
+      });
+  };
+
+  
+  const dataURLtoBlob = (dataURL) => {
+    const arr = dataURL.split(',');
+    const mime = arr[0].match(/:(.*?);/)[1];
+    const bstr = atob(arr[1]);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
+
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+
+    return new Blob([u8arr], { type: mime });
+  };
+};
+
   useEffect(() => {
     if (showAlert) {
       const confirm = window.confirm(
@@ -55,7 +92,7 @@ export default function AddContract({ setCheckFile }: any) {
       <div style={{ display: "flex", justifyContent: "end", gap: 30 }}>
         <div>
           <Button
-            onClick={() => router.push("/contract/edit_contract")}
+            onClick={() => router.push("/crm/contract/edit_contract")}
             style={{
               width: 150,
               borderRadius: 10,

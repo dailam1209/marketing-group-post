@@ -12,6 +12,7 @@ import { useRouter } from "next/router";
 import { useApi } from "@/components/crm/hooks/useApi";
 import WriteBillRowInforText2 from "./thongtingiaohang";
 import Image from "next/image";
+import { base_url } from "../../service/function";
 const Cookies = require("js-cookie");
 interface ComponentProps {
   cccd: boolean;
@@ -35,7 +36,7 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
 
   const handleGetInfoCus = async () => {
     const res = await fetch(
-      "http://210.245.108.202:3007/api/crm/customerdetails/detail",
+      `${base_url}/api/crm/customerdetails/detail`,
       {
         method: "POST",
         headers: {
@@ -51,7 +52,7 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
   };
   const getNameDetail = async () => {
     const res = await fetch(
-      "http://210.245.108.202:3007/api/crm/customerdetails/detail",
+      `${base_url}/api/crm/customerdetails/detail`,
       {
         method: "POST",
         headers: {

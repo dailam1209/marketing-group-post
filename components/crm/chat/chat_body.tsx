@@ -9,12 +9,13 @@ import SaveBtnChat from "./saveBtnChat";
 import TextEditor from "../text-editor/text_editor_phone";
 import { useEffect, useState } from "react";
 import TextEditorND from "../text-editor/text_editor_nd";
+import { base_url } from "../service/function";
 const Cookies = require('js-cookie')
 export default function ChatBusinessBody({cusId}:any) {
   const [infoCus,setInfoCus] = useState({})
   const handleGetInfoCus =async () =>{
     const res = await fetch(
-      "http://210.245.108.202:3007/api/crm/customerdetails/detail",
+      `${base_url}/api/crm/customerdetails/detail`,
       {
         method: "POST",
         headers: {

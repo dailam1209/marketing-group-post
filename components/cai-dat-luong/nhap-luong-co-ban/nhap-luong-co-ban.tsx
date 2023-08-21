@@ -48,7 +48,6 @@ export const NhapLuongCoBan = ({
   listPb: any[]
   listIds: any[]
 }) => {
-
   const [modalChinhSua, setModalChinhSua] = useState(false)
   const [modalKey, setModalKey] = useState('')
   const [date, setDate] = useState<String>()
@@ -59,7 +58,7 @@ export const NhapLuongCoBan = ({
   const positionLabel = getPosition?.map((p) => ({
     label: p?.value,
     value: p?.id,
-  }));
+  }))
 
   useEffect(() => {
     const getData = async () => {
@@ -113,7 +112,7 @@ export const NhapLuongCoBan = ({
       title: 'Họ và Tên (ID)',
       dataIndex: '',
       render: (record: any) => (
-        <div  
+        <div
           style={{
             display: 'flex',
             gap: '10px',
@@ -180,7 +179,9 @@ export const NhapLuongCoBan = ({
       key: 'chucVu',
       render: (record) => (
         <p className={styles.text}>
-         {positionLabel?.find(p => p?.value === record?.inForPerson?.employee?.position_id)?.label || "Chưa cập nhật"}
+          {positionLabel?.find(
+            (p) => p?.value === record?.inForPerson?.employee?.position_id
+          )?.label || 'Chưa cập nhật'}
         </p>
       ),
     },
@@ -246,14 +247,15 @@ export const NhapLuongCoBan = ({
               placeholder='Tìm kiếm theo tên nhân viên'
               suffixIcon={<Logo />}
               showSearch
+              optionFilterProp='label'
               onChange={(value) => {
+                console.log(value)
+
                 // setListData(data)
                 if (value === 'all') {
                   setListData(data)
                 } else {
-                  setListData(
-                    listData?.filter((item) => item?.userName === value)
-                  )
+                  setListData(listData?.filter((item) => item?.idQLC === value))
                 }
               }}
               options={

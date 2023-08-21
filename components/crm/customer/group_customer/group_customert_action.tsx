@@ -5,6 +5,7 @@ import { Button, Dropdown, Space } from "antd";
 import { useState } from "react";
 import CancelModalDelGroup from "./delete_mdal_gr_cus";
 import { useApi } from "../../hooks/useApi";
+import { base_url } from "../../service/function";
 import Cookies from "js-cookie";
 
 export default function GroupCustomerAction({
@@ -24,8 +25,8 @@ export default function GroupCustomerAction({
     updateData: updateDataDel,
     deleteData,
   } = useApi(
-    "http://210.245.108.202:3007/api/crm/group/list_group_khach_hang",
-    accessToken,
+    `${base_url}/api/crm/group/list_group_khach_hang`,
+    `${Cookies.get("token_base365")}`,
     "POST",
     { page: 1, perPage: 1000 }
   );

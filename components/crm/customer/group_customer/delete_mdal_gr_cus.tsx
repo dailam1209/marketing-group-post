@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button, Modal } from "antd";
 import styles from "../potential.module.css";
 import { useRouter } from "next/router";
+import { base_url } from "../../service/function";
 import Cookies from "js-cookie";
 import { random } from "lodash";
 
@@ -34,17 +35,17 @@ const CancelModalDelGroup: React.FC<MyComponentProps> = ({
   const handleOK = async () => {
     setIsModalCancel(false);
     if (typeof keyDeleted === "number") {
-      await updateData(
-        "http://210.245.108.202:3007/api/crm/group/delete_khach_hang",
-        accessToken,
+      updateData(
+        `${base_url}/api/crm/group/delete_khach_hang`,
+        `${Cookies.get("token_base365")}`,
         "POST",
         { listDeleteId: [keyDeleted] }
       );
     } else {
       const delArray = keyDeleted?.map((keyDel) => {
         updateData(
-          "http://210.245.108.202:3007/api/crm/group/delete_khach_hang",
-          accessToken,
+          `${base_url}/api/crm/group/delete_khach_hang`,
+          `${Cookies.get("token_base365")}`,
           "POST",
           { listDeleteId: [keyDel] }
         );

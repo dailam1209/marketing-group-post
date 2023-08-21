@@ -5,6 +5,7 @@ import { useHeader } from "@/components/crm/hooks/useHeader";
 import { useRouter } from "next/router";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { base_url } from "@/components/crm/service/function";
 const Cookies = require("js-cookie");
 export default function DetailCustomer() {
   const pathname = usePathname();
@@ -15,7 +16,7 @@ export default function DetailCustomer() {
     useHeader();
   const getNameDetail = async () => {
     const res = await fetch(
-      "http://210.245.108.202:3007/api/crm/customerdetails/detail",
+      `${base_url}/api/crm/customerdetails/detail`,
       {
         method: "POST",
         headers: {

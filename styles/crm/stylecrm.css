@@ -1,37 +1,37 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap'); */
 
 @font-face {
-  src: url("/crm/fonts/Roboto-Regular.ttf");
+  src: url('/crm/fonts/Roboto-Regular.ttf');
   font-display: swap;
   font-family: Roboto-Regular;
 }
 
 @font-face {
-  src: url("/crm/fonts/Roboto-Italic.ttf");
+  src: url('/crm/fonts/Roboto-Italic.ttf');
   font-display: swap;
   font-family: Roboto-Italic;
 }
 
 @font-face {
-  src: url("/crm/fonts/Roboto-Bold.ttf");
+  src: url('/crm/fonts/Roboto-Bold.ttf');
   font-display: swap;
   font-family: Roboto-Bold;
 }
 
 @font-face {
-  src: url("/crm/fonts/Roboto-Medium.ttf");
+  src: url('/crm/fonts/Roboto-Medium.ttf');
   font-display: swap;
   font-family: Roboto-Medium;
 }
 
 @font-face {
-  src: url("/crm/fonts/Roboto-MediumItalic.ttf");
+  src: url('/crm/fonts/Roboto-MediumItalic.ttf');
   font-display: swap;
   font-family: Roboto-MediumItalic;
 }
 
 @font-face {
-  src: url("/crm/fonts/Roboto-Light.ttf");
+  src: url('/crm/fonts/Roboto-Light.ttf');
   font-display: swap;
   font-family: Roboto-Light;
 }
@@ -40,7 +40,7 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  font-family: "Roboto-Regular";
+  font-family: 'Roboto-Regular';
 }
 
 p {
@@ -159,7 +159,7 @@ a {
 }
 
 .required:after {
-  content: "*";
+  content: '*';
   margin-left: 3px;
   color: #ff3333;
   font-size: 15px;
@@ -307,10 +307,10 @@ svg {
   white-space: nowrap;
   padding: 5px 3px;
   align-items: center;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 16px;
   color: #474747 !important;
-  font-family: "Roboto-Medium";
+  font-family: 'Roboto-Medium';
   height: auto !important;
   cursor: pointer;
   background: transparent;
@@ -342,8 +342,8 @@ tr {
 }
 
 .action_table {
-  font-family: "Roboto-Medium";
-  font-size: 14px;
+  font-family: 'Roboto-Medium';
+  font-size: 16px;
   color: #4c5bd4;
   height: 26px;
   position: relative;
@@ -484,7 +484,7 @@ tr {
   border: 1px solid #4c5bd4;
   width: 140px;
   height: 36px;
-  font-family: "Roboto-Bold";
+  font-family: 'Roboto-Bold';
   font-size: 16px;
   font-weight: bold;
   line-height: 23px;
@@ -493,7 +493,7 @@ tr {
 .mdal_cancel :where(.css-dev-only-do-not-override-1m62vyb).ant-btn-primary {
   width: 140px;
   height: 36px;
-  font-family: "Roboto-Bold";
+  font-family: 'Roboto-Bold';
   font-size: 16px;
   font-weight: bold;
   line-height: 23px;
@@ -622,7 +622,7 @@ tr {
 .d-flex-radio-mdal {
   align-items: center;
   column-gap: 5px;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 16px;
   color: #474747;
   margin-bottom: 1rem;
@@ -675,10 +675,10 @@ tr {
   white-space: nowrap;
   padding: 5px 4px;
   align-items: center;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 16px;
   color: #474747;
-  font-family: "Roboto-Medium";
+  font-family: 'Roboto-Medium';
   height: auto;
 }
 
@@ -717,7 +717,7 @@ tr {
   padding-left: 21px;
   margin-bottom: 20px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 16px;
   user-select: none;
   margin-right: 30px;
@@ -766,48 +766,4 @@ label {
   margin-top: -8px;
   font-size: 20px;
   color: #fff;
-}
-.ant-table-body::-webkit-scrollbar {
-  width: 2px;
-  height: 5px;
-}
-.ant-table-body::-webkit-scrollbar-thumb {
-  background-color: #1677ff;
-}
-.ant-table-body::-webkit-scrollbar-thumb:hover {
-  background: #a2b8d0;
-}
-
-.custom-cellCus {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(255, 255, 255, 0.9);
-  pointer-events: painted;
-  overflow: hidden;
-  pointer-events: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Hiển thị nội dung khi hover vào ô */
-.ant-table-cell:hover .custom-cellCus {
-  opacity: 1;
-  z-index: 999;
-  height: fit-content;
-  background-color: #f3e9e9;
-  pointer-events: painted;
-  padding: 18px;
-}
-.ant-table-cell .custom-cellCus {
-  padding: 10px;
-  text-align: start;
-  display: flex;
-  height: 100%;
-  flex-direction: column;
-  justify-content: start;
 }

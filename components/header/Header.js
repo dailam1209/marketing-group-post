@@ -73,7 +73,7 @@ export default function Header() {
             setData(response.data)
 
             if (response.data.authentic == 0) {
-              setLinkHome(router.pathname)
+              setLinkHome('/')
             } else {
               setLinkHome('/')
             }
@@ -172,7 +172,7 @@ export default function Header() {
                             }
                             onError={(e) => {
                               e.target.onerror = null
-                              // e.target.src = '../img/logo_com.png'
+                              e.target.src = '/img/logo_com.png'
                             }}
                           />
                         </div>

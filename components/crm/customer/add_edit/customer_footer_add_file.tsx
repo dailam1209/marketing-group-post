@@ -4,6 +4,7 @@ import ModalCompleteStep from "@/components/crm/potential/potential_steps/comple
 import CancelModal from "@/components/crm/potential/potential_steps/cancel_modal";
 import ModalCompleteStepADD from "../../potential/potential_steps/complete_mdaladd";
 import CancelModalAdd from "../../potential/potential_steps/cancel_them_moi";
+import { base_url } from "../../service/function";
 const Cookies = require("js-cookie");
 export default function CustomomerFooterAddFile({
   link = "/potential/list",
@@ -18,7 +19,7 @@ export default function CustomomerFooterAddFile({
   const handleSubmit = async () => {
     try {
       const response = await fetch(
-        "http://210.245.108.202:3007/api/crm/customer/addCustomer/",
+        `${base_url}/api/crm/customer/addCustomer/`,
         {
           method: "POST",
           headers: {

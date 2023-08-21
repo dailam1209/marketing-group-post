@@ -1,6 +1,7 @@
 import { Key, useState } from "react";
 import styles from "../potential/potential.module.css";
 import { notification } from "antd";
+import { base_url } from "../service/function";
 const Cookies = require('js-cookie')
 export default function CustomerGroupSelectDropdownData({
   data = [],
@@ -11,7 +12,7 @@ export default function CustomerGroupSelectDropdownData({
 }: any) {
   
   const handleClcikOptions = async (item: any) => {
-    const res = await fetch("http://210.245.108.202:3007/api/crm/customerdetails/detail",{
+    const res = await fetch(`${base_url}/api/crm/customerdetails/detail`,{
       method:"POST",
       headers:{
         "Content-Type": "application/json",
@@ -23,7 +24,7 @@ export default function CustomerGroupSelectDropdownData({
     // const
     setValueOption(item.gr_name)
     const url =
-      "http://210.245.108.202:3007/api/crm/customerdetails/editCustomer";
+    `${base_url}/api/crm/customerdetails/editCustomer`;
 
     const formData = new FormData();
     formData.append("group_id", item.gr_id);

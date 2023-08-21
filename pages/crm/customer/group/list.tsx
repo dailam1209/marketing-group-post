@@ -6,8 +6,8 @@ import PotentialInputGroups from "@/components/crm/potential/potential_input_gro
 import TableDataGroupListCustomer from "@/components/crm/table/table-group-list";
 import HeaderBtnsCustomerGroup from "@/components/crm/customer/group_customer/header_btns_group_customer";
 import { useApi } from "@/components/crm/hooks/useApi";
+import { base_url } from "@/components/crm/service/function";
 import Cookies from "js-cookie";
-import { filter } from "lodash";
 
 export default function GroupCustomer() {
   const mainRef = useRef<HTMLDivElement>(null);
@@ -23,14 +23,15 @@ export default function GroupCustomer() {
   const accessToken = Cookies.get("token_base365");
 
   const { data, loading, error, fetchData, updateData, deleteData } = useApi(
-    "http://210.245.108.202:3007/api/crm/group/list_group_khach_hang",
-    accessToken,
+    `${base_url}/api/crm/group/list_group_khach_hang`,
+    `${Cookies.get("token_base365")}`,
     "POST",
-    { page: 1, perPage: 1000 }
+    { page: 1, perPage: 10000000 }
   );
 
   console.log(change);
   useEffect(() => {
+    fetchData();
     setHeaderTitle("Danh sách nhóm khách hàng");
     setShowBackButton(false);
     // setCurrentPath("/crm/customer/roup/list");

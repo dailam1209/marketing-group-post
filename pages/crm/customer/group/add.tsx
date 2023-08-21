@@ -14,6 +14,7 @@ import { useApi } from "@/components/crm/hooks/useApi";
 import ModalDelEmpGroup from "@/components/crm/modals/modal_del_group";
 import Image from "next/image";
 import TextEditorGr from "@/components/crm/text-editor/text_editor_gr";
+import { base_url } from "@/components/crm/service/function";
 import Cookies from "js-cookie";
 import GrFooterAddFiles from "@/components/crm/potential/potential_add_files/gr_customer_footer";
 import CustomerGroupSelectCpmponent from "@/components/crm/select/group_components_select";
@@ -48,27 +49,27 @@ const GroupCustomerAdd: React.FC = () => {
   const accessToken = Cookies.get("token_base365");
   const com_id = Cookies.get("com_id");
 
-  const urlCreate = "http://210.245.108.202:3007/api/crm/group/create_GroupKH";
+  const urlCreate = `${base_url}/api/crm/group/create_GroupKH`;
   const {
     data: dataAddGroup,
     fetchData: fetchDataAddGroup,
     updateData: updateDataAddGroup,
-  } = useApi(urlCreate, accessToken, "POST");
+  } = useApi(urlCreate, `${Cookies.get("token_base365")}`, "POST");
 
   const {
     data: dataDepartment,
     fetchData: fetchDataDepartment,
     updateData: updateDataDepartment,
   } = useApi(
-    "http://210.245.108.202:3000/api/qlc/department/list",
-    process.env.ACCESS_TOKEN || accessToken,
+    `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/department/list`,
+    `${Cookies.get("token_base365")}`,
     "POST",
     { com_id: com_id }
   );
 
   const { data, loading, error, fetchData, updateData, deleteData } = useApi(
-    "http://210.245.108.202:3007/api/crm/group/list_group_khach_hang",
-    process.env.ACCESS_TOKEN || accessToken,
+    `${base_url}/api/crm/group/list_group_khach_hang`,
+    `${Cookies.get("token_base365")}`,
     "POST"
   );
 
@@ -77,8 +78,8 @@ const GroupCustomerAdd: React.FC = () => {
     fetchData: fetchDataEmp,
     updateData: updateDataEmp,
   } = useApi(
-    "http://210.245.108.202:3000/api/qlc/managerUser/list",
-    process.env.ACCESS_TOKEN || accessToken,
+    `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/list`,
+    `${Cookies.get("token_base365")}`,
     "POST",
     { dep_id: selectedValueDepartments?.join(",") || "", com_id: com_id }
   );
@@ -124,8 +125,8 @@ const GroupCustomerAdd: React.FC = () => {
     if (selectedValueDepartments?.length > 0) {
       // selectedValueDepartments?.forEach((depId: any) => {
       fetchDataEmp(
-        "http://210.245.108.202:3000/api/qlc/managerUser/list",
-        process.env.ACCESS_TOKEN || accessToken,
+        `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/list`,
+        `${Cookies.get("token_base365")}`,
         "POST",
         { com_id: com_id }
       );
@@ -358,7 +359,7 @@ const GroupCustomerAdd: React.FC = () => {
                   if (valueGroupCustomer.groupName !== "") {
                     await updateDataAddGroup(
                       urlCreate,
-                      process.env.ACCESS_TOKEN || accessToken,
+                      `${Cookies.get("token_base365")}`,
                       "POST",
                       {
                         ...valueGroupCustomer,

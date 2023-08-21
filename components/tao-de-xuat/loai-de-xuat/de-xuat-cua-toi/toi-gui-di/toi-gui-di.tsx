@@ -17,7 +17,7 @@ import { useRouter } from 'next/router'
 import moment from 'moment'
 
 export const children = (data: any, columns: any, router: any) => (
-  <div>
+  <div className={styles.searchFormToiGuiDi}>
     <Form>
       <Row
         gutter={{sm:20, xs: 40}}
