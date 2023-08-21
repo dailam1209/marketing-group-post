@@ -1,4 +1,4 @@
-import styless from "./modal_sass.module.scss";
+import styless from './modal_sass.module.scss';
 import {
   Button,
   Checkbox,
@@ -14,14 +14,14 @@ import {
   Row,
   Select,
   TimePicker,
-} from "antd";
-import styles from "./modal.module.css";
-import Image from "next/image";
-import { TYPE_ADD, TYPE_UPDATE } from "../quan-ly-ca/modal";
-import { NamePath } from "antd/es/form/interface";
-import { useEffect } from "react";
-import { POST } from "@/pages/api/BaseApi";
-import { SearchOutlined } from "@ant-design/icons";
+} from 'antd';
+import styles from './modal.module.css';
+import Image from 'next/image';
+import { TYPE_ADD, TYPE_UPDATE } from '../quan-ly-ca/modal';
+import { NamePath } from 'antd/es/form/interface';
+import { useEffect } from 'react';
+import { POST } from '@/pages/api/BaseApi';
+import { SearchOutlined } from '@ant-design/icons';
 const { TextArea } = Input;
 
 export const MyInput = (
@@ -30,9 +30,9 @@ export const MyInput = (
   required: boolean,
   hasLabel: boolean,
   name: string,
-  type?: "number" | "",
+  type?: 'number' | '',
   disabled: boolean = false,
-  bgColor: string = "#fff"
+  bgColor: string = '#fff'
 ) => (
   <Form.Item
     name={name}
@@ -42,13 +42,13 @@ export const MyInput = (
         message: `Vui lòng nhập ${title} của bạn!`,
       },
     ]}
-    label={hasLabel && <p style={{ fontWeight: "500" }}>{title}</p>}
+    label={hasLabel && <p style={{ fontWeight: '500' }}>{title}</p>}
     labelCol={{ span: 24 }}
   >
-    {type && type === "number" ? (
+    {type && type === 'number' ? (
       <InputNumber
         placeholder={placeholder}
-        style={{ width: "100%", border: "1px solid #9F9F9F" }}
+        style={{ width: '100%', border: '1px solid #9F9F9F' }}
         size="large"
         disabled={disabled}
       />
@@ -56,8 +56,8 @@ export const MyInput = (
       <Input
         placeholder={placeholder}
         style={{
-          width: "100%",
-          border: "1px solid #9F9F9F",
+          width: '100%',
+          border: '1px solid #9F9F9F',
           backgroundColor: `${bgColor}`,
         }}
         size="large"
@@ -82,12 +82,12 @@ export const MyInputPwd = (
         message: `Vui lòng nhập ${title} của bạn!`,
       },
     ]}
-    label={hasLabel && <p style={{ fontWeight: "500" }}>{title}</p>}
+    label={hasLabel && <p style={{ fontWeight: '500' }}>{title}</p>}
     labelCol={{ span: 24 }}
   >
     <Input.Password
       placeholder={placeholder}
-      style={{ width: "100%", border: "1px solid #9F9F9F" }}
+      style={{ width: '100%', border: '1px solid #9F9F9F' }}
       size="large"
     />
   </Form.Item>
@@ -99,8 +99,8 @@ export const MyDatePicker = (
   required: boolean,
   hasLabel: boolean,
   name: string,
-  type?: any | "",
-  bgColor?: string | "",
+  type?: any | '',
+  bgColor?: string | '',
   disabled: boolean = false,
   handleChange?: Function
 ) => {
@@ -113,7 +113,7 @@ export const MyDatePicker = (
           message: `Vui lòng nhập ${title} của bạn!`,
         },
       ]}
-      label={hasLabel && <p style={{ fontWeight: "500" }}>{title}</p>}
+      label={hasLabel && <p style={{ fontWeight: '500' }}>{title}</p>}
       labelCol={{ span: 24 }}
     >
       <DatePicker
@@ -121,8 +121,8 @@ export const MyDatePicker = (
         picker={type}
         placeholder={placeholder}
         style={{
-          border: "1px solid #9F9F9F",
-          width: "100%",
+          border: '1px solid #9F9F9F',
+          width: '100%',
           backgroundColor: `${bgColor}`,
         }}
         disabled={disabled}
@@ -139,7 +139,7 @@ export const MySelect = (
   placeholder: string,
   required: boolean,
   hasLabel: boolean,
-  name: string = "",
+  name: string = '',
   options: Array<any> = [],
   defaultValue?: any,
   handleChange: Function = () => null,
@@ -153,16 +153,24 @@ export const MySelect = (
         message: `Vui lòng nhập ${title} của bạn!`,
       },
     ]}
-    label={hasLabel && <p style={{ fontWeight: "500" }}>{title}</p>}
+    label={hasLabel && <p style={{ fontWeight: '500' }}>{title}</p>}
     labelCol={{ span: 24 }}
   >
     <Select
       placeholder={placeholder}
       style={{
-        width: "100%",
-        border: "1px solid #9F9F9F",
-        borderRadius: "10px",
+        width: '100%',
+        border: '1px solid #9F9F9F',
+        borderRadius: '10px',
       }}
+      optionFilterProp="label"
+      filterOption={(input, option) => {
+        return (
+          // option.value.toLowerCase().indexOf(input.toLowerCase()) >= 0 ||
+          option.label.toLowerCase().indexOf(input.toLowerCase()) >= 0
+        );
+      }}
+      showSearch={true}
       defaultValue={defaultValue ?? null}
       options={options}
       allowClear={true}
@@ -171,7 +179,7 @@ export const MySelect = (
         handleChange(value);
       }}
       suffixIcon={
-        <Image alt="/" src={"/down-icon.png"} width={14} height={14} />
+        <Image alt="/" src={'/down-icon.png'} width={14} height={14} />
       }
       size="large"
     />
@@ -183,7 +191,7 @@ export const MySelectMulti = (
   placeholder: string,
   required: boolean,
   hasLabel: boolean,
-  name: string = "",
+  name: string = '',
   options: Array<any> = [],
   defaultValue?: any
 ) => (
@@ -195,7 +203,7 @@ export const MySelectMulti = (
         message: `Vui lòng nhập ${title} của bạn!`,
       },
     ]}
-    label={hasLabel && <p style={{ fontWeight: "500" }}>{title}</p>}
+    label={hasLabel && <p style={{ fontWeight: '500' }}>{title}</p>}
     labelCol={{ span: 24 }}
   >
     <Select
@@ -203,7 +211,7 @@ export const MySelectMulti = (
       allowClear
       placeholder={placeholder}
       style={{
-        width: "100%",
+        width: '100%',
       }}
       defaultValue={defaultValue ?? null}
       options={options}
@@ -234,7 +242,7 @@ export const MySelectTags = (
   placeholder: string,
   required: boolean,
   hasLabel: boolean,
-  name: string = "",
+  name: string = '',
   options: Array<any> = [],
   defaultValue?: any
 ) => (
@@ -246,7 +254,7 @@ export const MySelectTags = (
         message: `Vui lòng nhập ${title} của bạn!`,
       },
     ]}
-    label={hasLabel && <p style={{ fontWeight: "500" }}>{title}</p>}
+    label={hasLabel && <p style={{ fontWeight: '500' }}>{title}</p>}
     labelCol={{ span: 24 }}
   >
     <Select
@@ -255,7 +263,7 @@ export const MySelectTags = (
       placeholder={placeholder}
       searchValue=""
       style={{
-        width: "100%",
+        width: '100%',
       }}
       defaultValue={defaultValue ?? null}
       options={options}
@@ -286,7 +294,7 @@ export const MySelectThemeColor = (
   placeholder: string,
   required: boolean,
   hasLabel: boolean,
-  name: string = "",
+  name: string = '',
   options: Array<any> = [],
   defaultValue?: any
 ) => (
@@ -298,13 +306,13 @@ export const MySelectThemeColor = (
         message: `Vui lòng nhập ${title} của bạn!`,
       },
     ]}
-    label={hasLabel && <p style={{ fontWeight: "500" }}>{title}</p>}
+    label={hasLabel && <p style={{ fontWeight: '500' }}>{title}</p>}
     labelCol={{ span: 24 }}
   >
     <Select
       placeholder={placeholder}
       style={{
-        width: "100%",
+        width: '100%',
       }}
       defaultValue={defaultValue ?? null}
       options={options}
@@ -350,12 +358,12 @@ export const MyRating = ({
           message: `Vui lòng nhập ${title} của bạn!`,
         },
       ]}
-      label={hasLabel && <p style={{ fontWeight: "500" }}>{title}</p>}
+      label={hasLabel && <p style={{ fontWeight: '500' }}>{title}</p>}
     >
       <Rate
         style={{
-          display: "flex",
-          alignItems: "center",
+          display: 'flex',
+          alignItems: 'center',
         }}
         // disabled
       />
@@ -385,10 +393,10 @@ export const MyTextArea = ({
           message: `Vui lòng nhập ${title} của bạn!`,
         },
       ]}
-      label={hasLabel && <p style={{ fontWeight: "500" }}>{title}</p>}
+      label={hasLabel && <p style={{ fontWeight: '500' }}>{title}</p>}
       labelCol={{ span: 24 }}
     >
-      <TextArea rows={5} style={{ width: "100%" }} placeholder={placeholder} />
+      <TextArea rows={5} style={{ width: '100%' }} placeholder={placeholder} />
     </Form.Item>
   );
 };
@@ -398,36 +406,36 @@ export const MySeachBar = ({
   name,
   hasPrefix,
   value,
-  setValue
+  setValue,
 }: {
   placeholder: string;
   name: string;
   hasPrefix: boolean;
   value?: string;
-  setValue?: Function
+  setValue?: Function;
 }) => (
   <Form.Item name={name}>
     <Input
-    value={value && value}
-    onChange={(e) => setValue(e.target.value)}
+      value={value && value}
+      onChange={(e) => setValue(e.target.value)}
       placeholder={placeholder}
       suffix={
         !hasPrefix && (
-          <Image alt="/" src={"/search-black.png"} width={24} height={24} />
+          <Image alt="/" src={'/search-black.png'} width={24} height={24} />
         )
       }
       prefix={
         hasPrefix && (
           <Image
-            style={{ marginRight: "10px" }}
+            style={{ marginRight: '10px' }}
             alt="/"
-            src={"/search-black.png"}
+            src={'/search-black.png'}
             width={24}
             height={24}
           />
         )
       }
-      style={{ width: "100%" }}
+      style={{ width: '100%' }}
       size="large"
     />
   </Form.Item>
@@ -452,20 +460,20 @@ export function ModalQuanLyCongTyCon(
   const handleSubmit = () => {
     // console.log(form.getFieldsValue());
     if (type === TYPE_ADD) {
-      console.log("create a child company!");
-      POST("api/qlc/company/child/create", form.getFieldsValue())
+      console.log('create a child company!');
+      POST('api/qlc/company/child/create', form.getFieldsValue())
         .then((response) => console.log(response?.message))
         .catch((error) => console.error(error));
       setCloseModal && setCloseModal(false);
-      POST("api/qlc/childCompany/list", {})
+      POST('api/qlc/childCompany/list', {})
         .then((res) => {
           setData && setData(res?.data);
         })
         .catch((error) => console.error(error));
     }
     if (type === TYPE_UPDATE && companySelected) {
-      console.log("update a child company!");
-      POST("api/qlc/company/child/edit", {
+      console.log('update a child company!');
+      POST('api/qlc/company/child/edit', {
         ...form.getFieldsValue(),
         com_id: companySelected?.idQLC,
       })
@@ -496,20 +504,20 @@ export function ModalQuanLyCongTyCon(
       onCancel={() => setOpen(false)}
       width={800}
       closable={false}
-      cancelButtonProps={{ style: { display: "none" } }}
-      okButtonProps={{ style: { display: "none" } }}
+      cancelButtonProps={{ style: { display: 'none' } }}
+      okButtonProps={{ style: { display: 'none' } }}
     >
       <div className={styles.header}>
         <div></div>
         <p className={styles.headerText}>
-          {type === TYPE_ADD ? "Thêm công ty con" : "Chỉnh sửa công ty con"}
+          {type === TYPE_ADD ? 'Thêm công ty con' : 'Chỉnh sửa công ty con'}
         </p>
         <Image
           alt="/"
-          src={"/cross.png"}
+          src={'/cross.png'}
           width={14}
           height={14}
-          style={{ marginRight: "20px" }}
+          style={{ marginRight: '20px' }}
           onClick={() => setOpen(false)}
         />
       </div>
@@ -523,12 +531,12 @@ export function ModalQuanLyCongTyCon(
           <div className={styles.logoSection}>
             <p>
               {type === TYPE_ADD
-                ? "Logo công ty (nếu có)"
-                : "Cập nhật logo công ty"}
+                ? 'Logo công ty (nếu có)'
+                : 'Cập nhật logo công ty'}
             </p>
             <Image
               alt="/"
-              src={companySelected?.avatarUser || "/logo_demo.png"}
+              src={companySelected?.avatarUser || '/logo_demo.png'}
               width={147}
               height={80}
             />
@@ -538,40 +546,40 @@ export function ModalQuanLyCongTyCon(
           <Row gutter={30}>
             <Col sm={12} xs={24}>
               {MyInput(
-                "Tên công ty",
-                "Nhập tên công ty",
+                'Tên công ty',
+                'Nhập tên công ty',
                 true,
                 true,
-                "userName"
+                'userName'
               )}
             </Col>
             <Col sm={12} xs={24}>
               {MyInput(
-                "Số điện thoại",
-                "Nhập số điện thoại",
+                'Số điện thoại',
+                'Nhập số điện thoại',
                 true,
                 true,
-                "phone"
+                'phone'
               )}
             </Col>
 
             <Col sm={12} xs={24}>
               {MyInput(
-                "Email công ty",
-                "Nhập email công ty",
+                'Email công ty',
+                'Nhập email công ty',
                 true,
                 true,
-                "email"
+                'email'
               )}
             </Col>
 
             <Col sm={12} xs={24}>
-              {MyInput("Địa chỉ", "Nhập địa chỉ", true, true, "address")}
+              {MyInput('Địa chỉ', 'Nhập địa chỉ', true, true, 'address')}
             </Col>
 
             {type === TYPE_ADD && (
               <Col sm={12} xs={24}>
-                {MySelect("Chọn công ty mẹ", "Chọn công ty mẹ", true, true, "")}
+                {MySelect('Chọn công ty mẹ', 'Chọn công ty mẹ', true, true, '')}
               </Col>
             )}
           </Row>
@@ -579,7 +587,7 @@ export function ModalQuanLyCongTyCon(
           {/* note */}
           {type === TYPE_ADD ? (
             <div className={styles.noteWrapper}>
-              <Image alt="/" src={"/alert.png"} width={24} height={24} />
+              <Image alt="/" src={'/alert.png'} width={24} height={24} />
               <p className={styles.note}>
                 Ghi chú: Mật khẩu đăng nhập vào tài khoản công ty con sẽ được
                 gửi về email đăng ký sau khi hoàn tác. Vui lòng kiểm tra email !
@@ -587,10 +595,10 @@ export function ModalQuanLyCongTyCon(
             </div>
           ) : null}
 
-          <Form.Item style={{ display: "flex", justifyContent: "center" }}>
+          <Form.Item style={{ display: 'flex', justifyContent: 'center' }}>
             <Button size="large" htmlType="submit" className={styles.addNewBtn}>
               <p className={styles.btnText}>
-                {type === TYPE_ADD ? "Thêm công ty " : "Cập nhật"}
+                {type === TYPE_ADD ? 'Thêm công ty ' : 'Cập nhật'}
               </p>
             </Button>
           </Form.Item>

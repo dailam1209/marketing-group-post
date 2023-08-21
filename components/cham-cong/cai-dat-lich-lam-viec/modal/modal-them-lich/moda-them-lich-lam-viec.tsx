@@ -12,26 +12,12 @@ export function ModalTiepTuc(
   setBack: Function,
   setNext: Function,
   form: any,
+  listShift: any,
   listShiftSelected: any,
   setListShiftSelected: Function
 ) {
-  const [listShift, setListShift] = useState<any>()
-
-  useEffect(() => {
-    GET('api/qlc/shift/list').then((res) => {
-      if (res?.result === true) {
-        setListShift(
-          res?.list.map((item) => {
-            return {
-              key: `${item?.shift_id}`,
-              content: item?.shift_name,
-            }
-          })
-        )
-      }
-    })
-  }, [])
-
+  console.log(listShift)
+  
   return (
     <Modal
       open={open}
@@ -56,7 +42,7 @@ export function ModalTiepTuc(
           <div className={styles.bodyItem}>
             Chọn ca làm việc <br />
             Bạn cần thiết lập ca làm việc{' '}
-            <Link href={'/quan-ly-cong-ty/quan-ly-ca'} style={{ color: 'red' }}>
+            <Link href={'/cham-cong/quan-ly-cong-ty/quan-ly-ca'} style={{ color: 'red' }}>
               tại đây{' '}
             </Link>
             trước
@@ -73,10 +59,9 @@ export function ModalTiepTuc(
             return (
               <li key={index}>
                 <Checkbox
-                  key={shift?.key}
-                  onChange={() => onChange(shift?.key)}
-                  checked={listShiftSelected?.includes(shift?.key)}></Checkbox>
-                {shift?.content}
+                  onChange={() => onChange(shift?.shift_id)}
+                  checked={listShiftSelected?.includes(shift?.shift_id)}></Checkbox>
+                <span className={styles.shiftNameTxt}>{shift?.shift_name}</span>
               </li>
             )
           })
