@@ -1,4 +1,5 @@
 .header {
+<<<<<<< HEAD
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -33,6 +34,42 @@
   flex: 1;
 }
 .inputname {
+=======
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px 15px 20px;
+    background-color: #4C5BD4;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+  }
+  .textHead{
+    font-size: 20px;
+    color: #fff;
+  }
+  .body{
+    font-size: 16px;
+    padding: 20px;
+  }
+  .bodyItem{
+    margin-bottom: 20px;
+  }
+  .date{
+    margin-bottom: 20px;
+    display: flex;
+    flex: 1;
+    width: 100%;
+  }
+  .date1{
+    margin-right: 10px;
+    flex: 1;
+  }
+  .date2{
+    margin-left: 10px;
+    flex: 1;
+  }
+.inputname{
+>>>>>>> 1b66000 (fix ui qlc new --pvh)
   display: flex;
   align-items: flex-start;
   align-self: stretch;

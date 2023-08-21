@@ -495,3 +495,283 @@
     font-size: 18px;
   }
 }
+.footer .cancelBtn {
+  height: 34px;
+  border: 1px solid #4c5bd4;
+  border-radius: 10px;
+  width: 130px !important;
+}
+.footer .cancelBtn .txt {
+  color: #4c5bd4;
+
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 136%;
+}
+.okBtn {
+  height: 34px;
+  background-color: #4c5bd4;
+  border-radius: 10px !important;
+  margin-left: 20px;
+  margin-inline-start: 20px !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.okBtn .txt {
+  color: #fff;
+
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 136%;
+}
+.modalChecked {
+  top: 70px;
+  width: 274px !important;
+  box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.25);
+  width: auto;
+  height: auto;
+  border: 1px solid transparent;
+  box-sizing: border-box;
+  padding: 0 !important;
+  border-radius: 10px !important;
+}
+
+.footerChecked {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 20px;
+}
+.footerChecked .cancelBtn {
+  height: 34px;
+  border: 1px solid #4c5bd4;
+  border-radius: 10px;
+}
+.footerChecked .cancelBtn .txt {
+  color: #4c5bd4;
+
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 136%;
+}
+.okBtn {
+  height: 34px;
+  background-color: #4c5bd4;
+  border-radius: 10px;
+  margin-left: 20px;
+  margin-inline-start: 20px !important;
+  width: 130px !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.okBtn .okBtnModalOk {
+  height: 34px;
+  background-color: #4c5bd4;
+  border-radius: 10px !important;
+  width: 64px !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.okBtn .okBtnModalOk .txt {
+  color: #fff;
+
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 136%;
+}
+
+.tableHeaderHour {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btnHeaderHour {
+  background-color: #4c5bd4;
+  display: flex;
+  height: auto;
+  padding: 5px 20px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 20px !important;
+}
+
+.checkCaHeaderTxt {
+  color: #474747;
+
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 136%; /* 21.76px */
+  margin-top: 20px;
+  margin-bottom: 5px;
+}
+
+.btnFooterShift {
+  display: flex;
+  padding: 5px 30px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 10px !important;
+  background: #4c5bd4;
+}
+
+.btnFooterCancelHour {
+  display: flex;
+  width: 82px;
+  height: 32px;
+  padding: 5px 20px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  border-radius: 15px !important;
+  border: 1px solid #4c5bd4;
+}
+
+.btnFooterAddHour {
+  background-color: #4c5bd4;
+  display: flex;
+  height: 32px;
+  padding: 5px 20px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 15px !important;
+}
+
+.listli > li {
+  margin-bottom: 10px;
+  list-style: none;
+  color: #474747;
+
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 136%; /* 21.76px */
+}
+
+.modalTxt {
+  color: #474747;
+  text-align: center;
+
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 136%;
+}
+
+.nameTxt {
+  font-weight: bold;
+}
+
+.headerAlertContent {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.modalChecked.modalOkConfirm {
+  width: 320px !important;
+}
+
+.modalOkConfirm .modalTxt {
+  white-space: nowrap;
+}
+
+.btnFooterWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.hourItem {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  height: 40px;
+  margin-bottom: 5px;
+}
+
+.hourItem:last-child {
+  margin-bottom: 0;
+}
+
+.hourItem > span {
+  color: #4c5bd4;
+
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 136%; /* 21.76px */
+}
+
+.divider {
+  margin: 10px 0 0;
+}
+
+.removeIcon {
+  display: flex;
+}
+
+.removeIcon:hover {
+  cursor: pointer;
+}
+
+.btnConfirmAddHour {
+  margin-top: 20px;
+  display: flex;
+  height: 39px;
+  padding: 5px 20px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 15px;
+  background: #4c5bd4;
+}
+
+.btnConfirmAddHour > span {
+  color: #fff;
+}
+
+@media screen and (max-width: 600px) {
+  .footer .cancelBtn {
+    width: 104px !important;
+  }
+  .okBtn {
+    width: 104px !important;
+  }
+
+  .footerChecked .cancelBtn {
+    width: 85px !important;
+  }
+  .okBtn {
+    width: 85px !important;
+  }
+}
+
+@media screen and (max-width: 414px) {
+  .dayname {
+    font-size: 16px;
+  }
+  .buttonTxt {
+    font-size: 16px;
+  }
+
+  .tableHeaderTxt {
+    font-size: 18px;
+  }
+}
