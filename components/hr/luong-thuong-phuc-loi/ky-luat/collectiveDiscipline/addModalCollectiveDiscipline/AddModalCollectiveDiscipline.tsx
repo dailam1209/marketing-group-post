@@ -34,10 +34,10 @@ function AddModalCollectiveDiscipline({ animation, onClose, updateData }: any) {
             label: `${item.dep_name}`,
           }))
         )
-      } catch (err) {}
+      } catch (err) { }
     }
     getData()
-  }, [])
+  }, [tokenComId])
 
   const options = {
     tenphongban: listDep,
@@ -94,9 +94,8 @@ function AddModalCollectiveDiscipline({ animation, onClose, updateData }: any) {
     <>
       <div className={`${styles.overlay}`} onClick={onClose}></div>
       <div
-        className={`${styles.modal} ${styles.modal_setting}  ${
-          animation ? styles.fade_in : styles.fade_out
-        }`}
+        className={`${styles.modal} ${styles.modal_setting}  ${animation ? styles.fade_in : styles.fade_out
+          }`}
         style={{ display: 'block' }}>
         <div className={`${styles.modal_dialog} ${styles.contentquytrinh}`}>
           <div className={`${styles.modal_content} `}>

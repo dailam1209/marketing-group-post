@@ -13,24 +13,25 @@ export default function DevelopmentTraining({ children }: any) {
         // @ts-ignore
         setActiveButton(buttonIndex);
     };
+    const link = "phan-mem-nhan-su"
 
     const submenu = [
         {
             img: "/vn_vitricongviec.svg",
             title: 'Vị trí công việc',
-            href: '/hr/dao-tao-phat-trien/vi-tri-cong-viec',
+            href: `/${link}/dao-tao-phat-trien/vi-tri-cong-viec`,
             target: ''
         },
         {
             img: "/vn_quytrinhdaotao.svg",
             title: 'Quy trình đào tạo',
-            href: '/hr/dao-tao-phat-trien/quy-trinh-dao-tao',
+            href: `/${link}/dao-tao-phat-trien/quy-trinh-dao-tao`,
             target: ''
         },
         {
             img: "/vn_danhgianangluc.svg",
             title: 'Đánh giá năng lực nhân viên',
-            href: 'https://phanmemdanhgiananglucnhanvien.timviec365.vn/trang_chu_sau_dang_nhap.html',
+            href: '#',
             target: 'blank'
         },
     ]

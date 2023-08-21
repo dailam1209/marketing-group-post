@@ -1,10 +1,10 @@
-import { Modal, Input, Select, Button, Form, Checkbox } from "antd";
-import styles from "./modal-them-lich.module.css";
-import Image from "next/image";
-import Link from "next/link";
-import { useEffect, useState } from "react";
-import { GET, POST } from "@/pages/api/BaseApi";
-import { ModalThemCa } from "../modal-them-ca/modal-them-ca";
+import { Modal, Input, Select, Button, Form, Checkbox } from 'antd'
+import styles from './modal-them-lich.module.css'
+import Image from 'next/image'
+import Link from 'next/link'
+import { useEffect, useState } from 'react'
+import { GET, POST } from '@/pages/api/BaseApi'
+import { ModalThemCa } from '../modal-them-ca/modal-them-ca'
 
 export function ModalTiepTuc(
   open: boolean,
@@ -12,93 +12,82 @@ export function ModalTiepTuc(
   setBack: Function,
   setNext: Function,
   form: any,
+  listShift: any,
   listShiftSelected: any,
   setListShiftSelected: Function
 ) {
-  const [listShift, setListShift] = useState<any>()
-
-  useEffect(() => {
-    GET("api/qlc/shift/list").then((res) => {
-      if (res?.result === true) {
-        setListShift(
-          res?.list.map((item) => {
-            return {
-              key: `${item?.shift_id}`,
-              content: item?.shift_name,
-            };
-          })
-        );
-      }
-    });
-  }, []);
-
+  console.log(listShift)
+  
   return (
     <Modal
       open={open}
       onCancel={() => setOpen(false)}
       width={600}
       closable={false}
-      cancelButtonProps={{ style: { display: "none" } }}
-      okButtonProps={{ style: { display: "none" } }}
-    >
+      cancelButtonProps={{ style: { display: 'none' } }}
+      okButtonProps={{ style: { display: 'none' } }}>
       <div className={styles.header}>
         <div></div>
         <div className={styles.textHead}>Thêm mới lịch làm việc</div>
         <Image
-          alt="/"
-          src={"/cross.png"}
+          alt='/'
+          src={'/cross.png'}
           width={14}
           height={14}
           onClick={() => setOpen(false)}
         />
       </div>
-      <div style={{ padding: "20px 20px 0px 20px", fontSize: "16px" }}>
-        {listShift?.length <= 0 ? <div className={styles.bodyItem}>
-          Chọn ca làm việc <br />
-          Bạn cần thiết lập ca làm việc{" "}
-          <Link href={"/quan-ly-cong-ty/quan-ly-ca"} style={{ color: "red" }}>
-            tại đây{" "}
-          </Link>
-          trước
-        </div> : listShift?.map((shift, index) => {
-          const onChange = async (key: string) => {
-            listShiftSelected?.includes(key)
-              ? setListShiftSelected(listShiftSelected?.filter((d: any) => d !== key))
-              : setListShiftSelected([...listShiftSelected, key]);
-          };
-          return <li key={index}>
-          <Checkbox
-            key={shift?.key}  
-            onChange={() => onChange(shift?.key)}
-            checked={listShiftSelected?.includes(shift?.key)}
-          ></Checkbox>
-          {shift?.content}
-        </li>
-        })}
+      <div style={{ padding: '20px 20px 0px 20px', fontSize: '16px' }}>
+        {listShift?.length <= 0 ? (
+          <div className={styles.bodyItem}>
+            Chọn ca làm việc <br />
+            Bạn cần thiết lập ca làm việc{' '}
+            <Link href={'/cham-cong/quan-ly-cong-ty/quan-ly-ca'} style={{ color: 'red' }}>
+              tại đây{' '}
+            </Link>
+            trước
+          </div>
+        ) : (
+          listShift?.map((shift, index) => {
+            const onChange = async (key: string) => {
+              listShiftSelected?.includes(key)
+                ? setListShiftSelected(
+                    listShiftSelected?.filter((d: any) => d !== key)
+                  )
+                : setListShiftSelected([...listShiftSelected, key])
+            }
+            return (
+              <li key={index}>
+                <Checkbox
+                  onChange={() => onChange(shift?.shift_id)}
+                  checked={listShiftSelected?.includes(shift?.shift_id)}></Checkbox>
+                <span className={styles.shiftNameTxt}>{shift?.shift_name}</span>
+              </li>
+            )
+          })
+        )}
         <div className={`${styles.bodyItem} ${styles.bodyItemNext}`}>
           <Button
             className={styles.ButtonWhite}
             onClick={() => {
-              setOpen(false);
-              setBack(true);
-            }}
-          >
-            <img src="/quay_lai.png" alt="/" />
+              setOpen(false)
+              setBack(true)
+            }}>
+            <img src='/quay_lai.png' alt='/' />
             <p className={styles.text}>Quay lại</p>
           </Button>
           <Button
             className={styles.Button}
             onClick={() => {
-              setNext(true);
-              setOpen(false);
-            }}
-          >
+              setNext(true)
+              setOpen(false)
+            }}>
             <p className={styles.txt}>Tiếp tục</p>
           </Button>
         </div>
       </div>
     </Modal>
-  );
+  )
 }
 
 export function ModalThemLichLamViec(
@@ -110,35 +99,32 @@ export function ModalThemLichLamViec(
   setCySelected: Function,
   formData: any
 ) {
-  const [form, setForm]: any = useState(formData) 
-  
+  const [form, setForm]: any = useState(formData)
 
   const formatDate = (date = new Date()) => {
-    const year = date?.toLocaleString("default", { year: "numeric" });
-    const month = date?.toLocaleString("default", { month: "2-digit" });
-    const day = date?.toLocaleString("default", { day: "2-digit" });
+    const year = date?.toLocaleString('default', { year: 'numeric' })
+    const month = date?.toLocaleString('default', { month: '2-digit' })
+    const day = date?.toLocaleString('default', { day: '2-digit' })
 
-    return [year, month, day].join("-");
-  };
+    return [year, month, day].join('-')
+  }
 
   const getDaysInMonth = (month, year) => {
-    var date: Date = new Date(year, month, 1);
-    var days = Array<any>();
+    var date: Date = new Date(year, month, 1)
+    var days = Array<any>()
     while (date.getMonth() === month) {
-      days.push({ date: formatDate(date), shift_id: "" });
-      date.setDate(date.getDate() + 1);
+      days.push({ date: formatDate(date), shift_id: '' })
+      date.setDate(date.getDate() + 1)
     }
-    return days;
-  };
+    return days
+  }
 
   const handleNext = () => {
-    form.validateFields().then(value => {
+    form.validateFields().then((value) => {
       setOpen(false)
       setNext(true)
     })
   }
-
-  
 
   return (
     <Modal
@@ -146,15 +132,14 @@ export function ModalThemLichLamViec(
       onCancel={() => setOpen(false)}
       width={600}
       closable={false}
-      cancelButtonProps={{ style: { display: "none" } }}
-      okButtonProps={{ style: { display: "none" } }}
-    >
+      cancelButtonProps={{ style: { display: 'none' } }}
+      okButtonProps={{ style: { display: 'none' } }}>
       <div className={styles.header}>
         <div></div>
         <div className={styles.textHead}>Thêm mới lịch làm việc</div>
         <Image
-          alt="/"
-          src={"/cross.png"}
+          alt='/'
+          src={'/cross.png'}
           width={14}
           height={14}
           onClick={() => setOpen(false)}
@@ -163,101 +148,95 @@ export function ModalThemLichLamViec(
       <div className={styles.body}>
         <Form form={form}>
           <Form.Item
-            name={"cy_name"}
-            label="Tên lịch làm việc"
+            name={'cy_name'}
+            label='Tên lịch làm việc'
             labelCol={{ span: 24 }}
             rules={[
               {
                 required: true,
-                message: "Trường này là bắt buộc",
+                message: 'Trường này là bắt buộc',
               },
-            ]}
-          >
+            ]}>
             <Input
-              placeholder="Nhập tên"
+              placeholder='Nhập tên'
               className={styles.input}
               // onChange={(value)=>setData({...data,name:value.target.value})}
             ></Input>
           </Form.Item>
           <Form.Item
-            initialValue={"T2T7"}
-            name={"type_week"}
-            label="Chọn lịch làm việc"
+            initialValue={'T2-T7'}
+            name={'type_week'}
+            label='Chọn lịch làm việc'
             labelCol={{ span: 24 }}
             rules={[
               {
                 required: true,
-                message: "Trường này là bắt buộc",
+                message: 'Trường này là bắt buộc',
               },
-            ]}
-          >
+            ]}>
             <Select
               className={styles.input}
-              style={{ width: "100%" }}
-              suffixIcon={<img src="/down-icon.png"></img>}
+              style={{ width: '100%' }}
+              suffixIcon={<img src='/down-icon.png'></img>}
               options={[
                 {
-                  label: "Thứ 2 - Thứ 6",
+                  label: 'Thứ 2 - Thứ 6',
                   value: 1,
                 },
                 {
-                  label: "Thứ 2 - Thứ 7",
+                  label: 'Thứ 2 - Thứ 7',
                   value: 2,
                 },
                 {
-                  label: "Thứ 2 - CN",
+                  label: 'Thứ 2 - CN',
                   value: 3,
                 },
-              ]}
-            ></Select>
+              ]}></Select>
           </Form.Item>
           <Form.Item
-            name={"month_add"}
-            label="Tháng áp dụng"
+            name={'month_add'}
+            label='Tháng áp dụng'
             labelCol={{ span: 24 }}
             rules={[
               {
                 required: true,
-                message: "Trường này là bắt buộc",
+                message: 'Trường này là bắt buộc',
               },
-            ]}
-          >
+            ]}>
             <Input
-              placeholder="Chọn tháng"
-              type="month"
+              placeholder='Chọn tháng'
+              type='month'
               className={styles.input}
               // onChange={(value)=>setData({...data,month:value.target.value})}
             ></Input>
           </Form.Item>
           <Form.Item
-            name={"apply_month"}
-            label="Ngày bắt đầu làm việc"
+            name={'apply_month'}
+            label='Ngày bắt đầu làm việc'
             labelCol={{ span: 24 }}
             rules={[
               {
                 required: true,
-                message: "Trường này là bắt buộc",
+                message: 'Trường này là bắt buộc',
               },
-            ]}
-          >
+            ]}>
             <Input
-              placeholder="dd/mm/yyyy"
-              type="date"
+              placeholder='dd/mm/yyyy'
+              type='date'
               className={styles.input}
               onChange={(e) =>
-                form.setFieldValue("month_add", e.target.value.substring(0, 7))
+                form.setFieldValue('month_add', e.target.value.substring(0, 7))
               }
               // onChange={(value)=>setData({...data,date:value.target.value})}
             ></Input>
           </Form.Item>
           <div className={styles.hasButton}>
-            <Button className={styles.Button} onClick={handleNext} >
+            <Button className={styles.Button} onClick={handleNext}>
               <p className={styles.txt}>Tiếp tục</p>
             </Button>
           </div>
-        
         </Form>
       </div>
     </Modal>
-  );
+  )
 }

@@ -11,15 +11,15 @@ export default function AddContract({ setCheckFile }: any) {
   const inputFileRef = useRef<HTMLInputElement>(null);
   const [fileUpload, setFileUpload] = useState<any[]>([]);
   const [show, setShow] = useState(false);
-  const [isShowModal,setIsShowModal] = useState(false)
+  const [isShowModal, setIsShowModal] = useState(false);
   const [openSuccess, setOpenSuccess] = useState(false);
 
   const handleClickSelectFileUpdload = () => {
     inputFileRef.current?.click();
   };
-const onClose = () =>{
-  setIsShowModal(false)
-}
+  const onClose = () => {
+    setIsShowModal(false);
+  };
   const handleFileChange = (event: any) => {
     const file = event.target.files[0];
     if (file && file.size <= 20 * 1024 * 1024) {
@@ -30,21 +30,50 @@ const onClose = () =>{
       alert("Error !");
     }
   };
-  const handleshow= () =>{
+  const handleshow = () => {
     setShow(false);
-  }
-const handleClose= () =>{
-  setTimeout(() => {
-    // console.log("first")
-    setShow(false);
-    
-  }, 100);
-}
+  };
+  const handleClose = () => {
+    setTimeout(() => {
+      // console.log("first")
+      setShow(false);
+    }, 100);
+  };
   useEffect(() => {
-    handleshow()
-    handleClose()
-  },[show]);
-  const router = useRouter()
+    handleshow();
+    handleClose();
+  }, [show]);
+  const router = useRouter();
+
+  const handleUpload = async (event) => {
+    const file = event.target.files[0];
+
+    if (file) {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      try {
+        const res = await fetch(
+          "http://43.239.223.117:4000/upload_file?sess_id=3312",
+          {
+            method: "POST",
+            body: formData,
+            mode: "no-cors",
+          }
+        );
+
+        if (res.ok) {
+          const data = await res.json();
+          console.log("checkresfile", data);
+        } else {
+          throw new Error("Request failed with status: " + res.status);
+        }
+      } catch (error) {
+        console.error("Error:", error.message);
+      }
+    }
+  };
+  
   return (
     <>
       <div className={styles.main__body}>
@@ -62,16 +91,15 @@ const handleClose= () =>{
                   className={`${styles.form_control} ${styles.upload_contract} ${styles.upload_text}`}
                   onClick={handleClickSelectFileUpdload}
                 >
-                  
                   Chọn hợp đồng từ máy tính của bạn
-                  <img src="/taihopdong.svg" alt="upload" />
+                  <img src="/crm/taihopdong.svg" alt="upload" />
                   <input
                     type="file"
                     className={styles.upload}
                     name="file"
                     multiple
                     // ref={inputFileRef}
-                    onChange={handleFileChange}
+                    onChange={(event) => handleUpload(event)}
                   />
                 </label>
               </div>
@@ -125,53 +153,57 @@ const handleClose= () =>{
             </div>
           </div>
           <div className={styles.btn_submit}>
-            <button style={{borderRadius:10}} onClick={()=>setIsShowModal(true)} className={styles.sub1}>Hủy</button>
-            <button style={{borderRadius:10}} onClick={()=>setOpenSuccess(true)} className={styles.sub2}>Lưu</button>
-          </div>
-    <ModalCancel
-    isShowModal={isShowModal}
-    onClose={onClose}
-    />
-       <Modal
-        width={500}
-        open={openSuccess}
-        centered
-        closable={true}
-        footer={[
-          <div
-            key={"1"}
-            style={{
-              display: "flex",
-              justifyContent: "space-around",
-            }}
-          >
-            <Button
-              key={"2"}
-              style={{
-                width: "100%",
-                height: 36,
-                background: "#4C5BD4",
-                fontSize: 16,
-                fontWeight: 1000,
-              }}
-              type="primary"
-              onClick={() => setOpenSuccess(false)}
+            <button
+              style={{ borderRadius: 10 }}
+              onClick={() => setIsShowModal(true)}
+              className={styles.sub1}
             >
-              Đóng
-            </Button>
-            ,
-          </div>,
-        ]}
-      >
-        {" "}
-        <div></div>
-        <Result
-                    status="success"
-                    title={<div>Chỉnh sửa thành công
-
-                     </div>}
-                />
-      </Modal>
+              Hủy
+            </button>
+            <button
+              style={{ borderRadius: 10 }}
+              onClick={() => setOpenSuccess(true)}
+              className={styles.sub2}
+            >
+              Lưu
+            </button>
+          </div>
+          <ModalCancel isShowModal={isShowModal} onClose={onClose} />
+          <Modal
+            width={500}
+            open={openSuccess}
+            centered
+            closable={true}
+            footer={[
+              <div
+                key={"1"}
+                style={{
+                  display: "flex",
+                  justifyContent: "space-around",
+                }}
+              >
+                <Button
+                  key={"2"}
+                  style={{
+                    width: "100%",
+                    height: 36,
+                    background: "#4C5BD4",
+                    fontSize: 16,
+                    fontWeight: 1000,
+                  }}
+                  type="primary"
+                  onClick={() => setOpenSuccess(false)}
+                >
+                  Đóng
+                </Button>
+                ,
+              </div>,
+            ]}
+          >
+            {" "}
+            <div></div>
+            <Result status="success" title={<div>Chỉnh sửa thành công</div>} />
+          </Modal>
         </>
       </div>
     </>

@@ -33,7 +33,6 @@ const GroupSharedAFactorModal: React.FC<MyComponentProps> = ({
 
   const empIdArr = empId?.split(",").map((item) => parseInt(item.trim(), 10));
 
-  console.log("depIDDDDDD:----", depId, empId);
 
   return (
     <>

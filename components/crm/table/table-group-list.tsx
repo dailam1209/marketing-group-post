@@ -48,7 +48,6 @@ const TableDataGroupListCustomer: React.FC<TableDataGroupListCustomerProps> = ({
   //   { page: 1, perPage: 1000 }
   // );
 
-
   interface DataType {
     key: React.Key;
     gr_id: number;
@@ -73,7 +72,6 @@ const TableDataGroupListCustomer: React.FC<TableDataGroupListCustomerProps> = ({
   //   //   "POST"
   //   // );
   //   fetchData();
-  //   console.log(data);
   // }, [change]);
 
   const columns: ColumnsType<DataType> = [
@@ -245,8 +243,6 @@ const TableDataGroupListCustomer: React.FC<TableDataGroupListCustomerProps> = ({
       }
     },
     onSelect: (record, selected, selectedRows) => {
-      // console.log(record.gr_id)
-      console.log("check2", selectedRows);
 
       setNumberSelected(selectedRows?.length);
     },

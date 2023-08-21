@@ -1,46 +1,13 @@
-import { Button, Checkbox, Switch, Table, Tooltip } from "antd"
-import { useState } from "react"
-import styles from "./DuyetQua1Cap.module.css"
-import Image from "next/image"
-import { DanhSachNhanVienModal } from "../modal/modal"
-import { ModalWrapper } from "@/components/modal/ModalWrapper"
-
-export const mockdata = [
-  {
-    id: "441444",
-    name: "Lê Nhật Minh",
-    apartment: "kỹ thuật",
-    job: "Tổ trưởng"
-  },
-  {
-    id: "441445",
-    name: "Lê Nhật Minh",
-    apartment: "kỹ thuật",
-    job: "Nhân viên chính thức"
-  },
-  {
-    id: "441446",
-    name: "Lê Nhật Minh",
-    apartment: "kỹ thuật",
-    job: "Tổ trưởng"
-  },
-  {
-    id: "441447",
-    name: "Lê Nhật Minh",
-    apartment: "kỹ thuật",
-    job: "Tổ trưởng"
-  },
-  {
-    id: "441448",
-    name: "Lê Nhật Minh",
-    apartment: "kỹ thuật",
-    job: "Tổ trưởng"
-  }
-]
+import { Button, Checkbox, Switch, Table, Tooltip } from 'antd'
+import { useState } from 'react'
+import styles from './DuyetQua1Cap.module.css'
+import Image from 'next/image'
+import { DanhSachNhanVienModal } from '../modal/modal'
+import { ModalWrapper } from '@/components/modal/ModalWrapper'
 
 const DeleteConfirmModal = ({
   open,
-  setOpen
+  setOpen,
 }: {
   open: boolean
   setOpen: any
@@ -48,10 +15,10 @@ const DeleteConfirmModal = ({
   return ModalWrapper(
     open,
     setOpen,
-    <p style={{ textAlign: "center" }}>Bạn có chắc muốn xóa ?</p>,
+    <p style={{ textAlign: 'center' }}>Bạn có chắc muốn xóa ?</p>,
     400,
-    "",
-    "Xóa",
+    '',
+    'Xóa',
     () => null,
     false,
     true,
@@ -65,41 +32,41 @@ export const DuyetQua1Cap = () => {
   const [selectedRowKeys, setSelectedRowKeys] = useState<string[]>([])
   const [isOpenModal, setIsOpenModal] = useState(false)
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false)
-
+  const [data, setData] = useState([])
   const columns = [
     {
       title: <p className={styles.headerTxt}>STT</p>,
       render: (_: any, record: any, index: number) => <p>{index + 1}</p>,
-      align: "center"
+      align: 'center',
     },
     {
       title: <p className={styles.headerTxt}>ID</p>,
       render: (record: any, index: number) => <p>{record?.id}</p>,
-      align: "center"
+      align: 'center',
     },
     {
       title: <p className={styles.headerTxt}>Họ và tên</p>,
       render: (record: any, index: number) => <p>{record?.name}</p>,
-      align: "center"
+      align: 'center',
     },
     {
       title: <p className={styles.headerTxt}>Phòng ban</p>,
       render: (record: any, index: number) => (
-        <p style={{ textTransform: "uppercase" }}>{record?.apartment}</p>
+        <p style={{ textTransform: 'uppercase' }}>{record?.apartment}</p>
       ),
-      align: "center"
+      align: 'center',
     },
     {
       title: <p className={styles.headerTxt}>Chức vụ</p>,
       render: (record: any, index: number) => <p>{record?.job}</p>,
-      align: "center"
+      align: 'center',
     },
-    Table.SELECTION_COLUMN
+    Table.SELECTION_COLUMN,
   ]
 
   const onCheckAll = () => {
-    const allIds: any[] = mockdata.map((item) => item?.id)
-    selectedRowKeys?.length === mockdata.length
+    const allIds: any[] = data.map((item) => item?.id)
+    selectedRowKeys?.length === data?.length
       ? setSelectedRowKeys([])
       : setSelectedRowKeys(allIds)
   }
@@ -109,36 +76,34 @@ export const DuyetQua1Cap = () => {
       <p className={styles.firstText}>
         Là để xuất nghỉ bắt buộc chọn 1 người duyệt
       </p>
-      <div style={{ display: "flex", margin: "20px 0px" }}>
+      <div style={{ display: 'flex', margin: '20px 0px' }}>
         <Switch
-          style={{ backgroundColor: isOn ? "#29B66E" : "grey" }}
+          style={{ backgroundColor: isOn ? '#29B66E' : 'grey' }}
           checked={isOn}
           onChange={(checked) => setIsOn(checked)}
         />
-        <p style={{ marginLeft: "12px" }}>Duyệt đề xuất nghỉ phép qua 1 cấp</p>
+        <p style={{ marginLeft: '12px' }}>Duyệt đề xuất nghỉ phép qua 1 cấp</p>
       </div>
       {isOn && (
         <>
           <p
             className={styles.firstText}
-            style={{ fontWeight: "600", marginBottom: "10px" }}
-          >
+            style={{ fontWeight: '600', marginBottom: '10px' }}>
             Danh sách những nhân sự duyệt qua nhiều cấp (nếu có)
           </p>
           <Button
             onClick={() => setIsOpenModal(true)}
-            size="large"
+            size='large'
             style={{
-              borderRadius: "5px",
-              background: "#4C5BD4",
-              display: "flex",
-              alignItems: "center"
+              borderRadius: '5px',
+              background: '#4C5BD4',
+              display: 'flex',
+              alignItems: 'center',
             }}
             icon={
-              <Image alt="/" src={"/check-circle.png"} width={24} height={24} />
-            }
-          >
-            <p style={{ color: "#fff", padding: "10px 0px" }}>Chọn Nhân viên</p>
+              <Image alt='/' src={'/check-circle.png'} width={24} height={24} />
+            }>
+            <p style={{ color: '#fff', padding: '10px 0px' }}>Chọn Nhân viên</p>
           </Button>
 
           {/* table */}
@@ -146,11 +111,11 @@ export const DuyetQua1Cap = () => {
             className={`${styles.table} blue-table`}
             rowClassName={styles.row}
             columns={columns}
-            dataSource={mockdata}
-            scroll={{ x: "max-content" }}
+            dataSource={data}
+            scroll={{ x: 'max-content' }}
             rowKey={(record) => record?.id}
             pagination={{
-              position: ["bottomCenter"]
+              position: ['bottomCenter'],
             }}
             rowSelection={{
               selectedRowKeys,
@@ -160,15 +125,14 @@ export const DuyetQua1Cap = () => {
               columnTitle: (
                 <div
                   style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center"
-                  }}
-                >
-                  <Tooltip title={<p style={{ color: "#fff" }}>Xóa tất cả</p>}>
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                  <Tooltip title={<p style={{ color: '#fff' }}>Xóa tất cả</p>}>
                     <Image
-                      alt="/"
-                      src={"/trash-red.png"}
+                      alt='/'
+                      src={'/trash-red.png'}
                       width={24}
                       height={24}
                       onClick={() => setIsOpenDeleteModal(true)}
@@ -176,13 +140,17 @@ export const DuyetQua1Cap = () => {
                   </Tooltip>
                   <Checkbox
                     onChange={onCheckAll}
-                    style={{ marginLeft: "10px" }}
+                    style={{ marginLeft: '10px' }}
                   />
                 </div>
-              )
+              ),
             }}
           />
-          <DanhSachNhanVienModal open={isOpenModal} setOpen={setIsOpenModal} />
+          <DanhSachNhanVienModal
+            open={isOpenModal}
+            setOpen={setIsOpenModal}
+            data={[]}
+          />
           <DeleteConfirmModal
             open={isOpenDeleteModal}
             setOpen={setIsOpenDeleteModal}

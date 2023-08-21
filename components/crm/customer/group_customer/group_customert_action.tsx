@@ -31,9 +31,7 @@ export default function GroupCustomerAction({
     { page: 1, perPage: 1000 }
   );
 
-  console.log("check", data?.data?.showGr);
   const handleClickAction = (e: any) => {
-    console.log(selectedRow);
     setIsDelOpen(true);
   };
   const items: MenuProps["items"] = [

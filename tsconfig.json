@@ -30,6 +30,6 @@
     "components/Layout.js",
     "components/test.js",
     "components/footer/Footer.js"
-  ],
+, "components/crm/logout/index.js"  ],
   "exclude": ["node_modules"]
 }

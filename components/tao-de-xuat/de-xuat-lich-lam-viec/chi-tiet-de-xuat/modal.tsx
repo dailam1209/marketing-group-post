@@ -84,16 +84,20 @@ export const ModalDetailsLLV = ({ open, setOpen, data, shiftType }) => {
                       data
                         ?.find((detail) => detail?.date === formatDate(item))
                         ?.shift_id?.split(',')
-                        ?.map((shiftItem, index) => (
-                          <div key={index} className={styles.shiftItem}>
-                            <p className={styles.shiftTxt}>
-                              {listShifts &&
-                                listShifts?.find(
-                                  (item: any) => item?.shift_id === shiftItem
-                                )}
-                            </p>
-                          </div>
-                        ))}
+                        ?.map((shiftItem, index) => {
+                          return (
+                            <div key={index} className={styles.shiftItem}>
+                              <p className={styles.shiftTxt}>
+                                {listShifts &&
+                                  listShifts?.find(
+                                    (item: any) =>
+                                      item?.shift_id?.toString() ===
+                                      shiftItem?.toString()
+                                  )?.shift_name}
+                              </p>
+                            </div>
+                          )
+                        })}
                   </div>
                 )}
               </div>

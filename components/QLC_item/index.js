@@ -6,12 +6,11 @@ import styles from "./QLCitem.module.scss";
 import { CheckLogin } from "../../utils/function";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
-import HomePageBeforLogin from "@/pages/trang-chu-truoc-dang-nhap";
 export default function QLC_item({
   img,
   title,
   desc,
-  url = "/VanThu/quanly-cong-van",
+  url,
   hasCheckLogin = true,
 }) {
   const router = useRouter();
@@ -26,8 +25,11 @@ export default function QLC_item({
     if (hasCheckLogin && acc_token && rf_token && role) {
       router.push(url);
     }
-    if ((url = "/hr" && hasCheckLogin)) {
-      router.push("/trang-chu-truoc-dang-nhap");
+    if (url === "/phan-mem-nhan-su/quan-ly-chung" && hasCheckLogin) {
+      router.push("/phan-mem-nhan-su");
+    }
+    if (url === "/crm" && hasCheckLogin) {
+      router.push("/crm");
     }
     // else {
     //   alert('Làm ơn hãy đăng ký/đăng nhập')

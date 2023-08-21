@@ -47,7 +47,7 @@ export default function App({ Component, pageProps }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [firstLoad, setFirstLoad] = useState(
-    router?.pathname?.includes("/hr") ? false : true
+    router?.pathname?.includes("/phan-mem-nhan-su/") ? false : true
   );
   useEffect(() => {
     const doLoading = () => {
@@ -70,14 +70,14 @@ export default function App({ Component, pageProps }) {
         router.events.off("routeChangeError", end);
       };
     };
-    if (!router?.pathname?.includes("hr")) {
+    if (!router?.pathname?.includes("/phan-mem-nhan-su/")) {
       doLoading();
     } else {
     }
   }, [router?.pathname]);
 
   useEffect(() => {
-    if (!router.pathname.includes("hr")) {
+    if (!router.pathname.includes("/phan-mem-nhan-su/")) {
       const timeout = setTimeout(() => {
         setFirstLoad(false);
       }, 100);
@@ -85,8 +85,10 @@ export default function App({ Component, pageProps }) {
     }
   }, [router.pathname]);
 
+  // const shouldShowSidebarAndHeader = !router.pathname.includes('/crm')
+
   const importGlobalStyles = () => {
-    if (router.pathname?.includes("hr")) {
+    if (router.pathname?.includes("/phan-mem-nhan-su/")) {
       import("../styles/globals_hr.css");
     } else if (router.pathname?.includes("crm")) {
       import("../styles/crm/stylecrm.css");
@@ -96,6 +98,7 @@ export default function App({ Component, pageProps }) {
       import("../styles/globals_vanthu.css");
     } else if (router.pathname.includes("/quan-ly-nhan-luc")) {
       import("@/styles/globals.css");
+    } else {
     }
   };
 
@@ -135,7 +138,7 @@ export default function App({ Component, pageProps }) {
             },
           }}
         >
-          {router.pathname?.includes("quan-ly-nhan-luc") ? (
+          {router.pathname?.includes("cham-cong") ? (
             <Bodyframe>
               <Component {...pageProps} />
             </Bodyframe>
@@ -144,9 +147,13 @@ export default function App({ Component, pageProps }) {
               <AccessContextComponent>
                 <SidebarResize>
                   <NavigateContextComponent>
-                    <Header toggleModal={toggleModal} />
-                    <Sidebar isOpened={isOpen} />
-                    <ChatBusiness />
+                    { (
+                      <>
+                        <Header toggleModal={toggleModal} />
+                        <Sidebar isOpened={isOpen} />
+                        <ChatBusiness />
+                      </>
+                    )}
                     <TitleHeaderMobile />
                     <TongDaiContext>
                       <Component {...pageProps} />
@@ -155,7 +162,7 @@ export default function App({ Component, pageProps }) {
                 </SidebarResize>
               </AccessContextComponent>
             </Provider>
-          ) : router.pathname?.includes("hr") ? (
+          ) : router.pathname?.includes("/phan-mem-nhan-su/") ? (
             <Layout>
               <DndProvider backend={HTML5Backend}>
                 <Component {...pageProps} />

@@ -114,7 +114,7 @@
 }
 .t_require {
   color: red;
-  font-size: 14px;
+  font-size: 16px;
   margin-left: 5px;
   margin-right: 5px;
   display: inline-block;
@@ -139,7 +139,7 @@
   color: #ebebeb;
 }
 .star:before {
-  content: "\2605";
+  content: '\2605';
   font-size: 30px;
 }
 .rating > li::before {
@@ -169,7 +169,7 @@
   display: block;
   width: 96%;
   padding: 6px 12px;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.42857143;
   color: #555;
   background-color: #fff;
@@ -209,7 +209,7 @@
   border: none;
 }
 .modal_footer button {
-  font-size: 14px;
+  font-size: 16px;
   font-style: normal;
   font-weight: 500;
   line-height: 16px;

@@ -5,9 +5,9 @@ import _, { divide } from 'lodash'
 import { GET, POST } from '@/pages/api/BaseApi'
 import { useRouter } from 'next/router'
 
-const TYPE_NOTFULL = 'T2T6'
-const TYPE_MALFULL = 'T2T7'
-const TYPE_FULL = 'T2CN'
+const TYPE_NOTFULL = 'T2-T6'
+const TYPE_MALFULL = 'T2-T7'
+const TYPE_FULL = 'T2-CN'
 
 function dates(current: any) {
   let month = new Array()
@@ -48,15 +48,15 @@ export function ModalThemCa(
   form: any,
   handleSubmitAddCy: Function,
   type: any,
+  listShift: any,
   listShiftSelected: any
 ) {
-  const [listShift, setListShift]: any[] = useState([])
   const [applyMonth, setApplyMonth]: any = useState(
     form?.getFieldValue('apply_month')
   )
   const [current, setCurrent]: any = useState(new Date())
   const [firstDate, setFirstDate]: any = useState(new Date())
-  const [listCheck, setListCheck]: any = useState([])
+  const [listCheck, setListCheck]: any = useState(listShiftSelected)
   const [openCheck, setOpenCheck] = useState(false)
   const [allCheck, setAllCheck]: any = useState({})
   const [month, setMonth]: any = useState(dates(new Date()))
@@ -136,20 +136,6 @@ export function ModalThemCa(
     setApplyMonth(form.getFieldValue('apply_month'))
   }, [form.getFieldValue('apply_month')])
 
-  useEffect(() => {
-    GET('api/qlc/shift/list').then((res) => {
-      if (res?.result === true) {
-        setListShift(
-          res?.list.map((item) => {
-            return {
-              key: `${item?.shift_id}`,
-              content: item?.shift_name,
-            }
-          })
-        )
-      }
-    })
-  }, [])
 
   const handleSubmit = () => {
     // handleSubmitAddCy()
@@ -281,12 +267,12 @@ export function ModalThemCa(
   const checkCa = () => {
     const onChange = async (key: string) => {
       listCheck.includes(key)
-        ? setListCheck(listCheck.filter((d: any) => d !== key))
+        ? setListCheck(listCheck?.filter((d: any) => d !== key))
         : setListCheck([...listCheck, key])
     }
-    const checked = (key: any): boolean => listCheck.includes(key)
-    const checkComponent = (key: string, content: string) => (
-      <li>
+    const checked = (key: any): boolean => listCheck?.includes(key)
+    const checkComponent = (index: number, key: string, content: string) => (
+      <li key={index}>
         <Checkbox
           key={key}
           className={styles.checkbox}
@@ -307,7 +293,7 @@ export function ModalThemCa(
         </div>
         <div>
           <ul className={styles.listli}>
-            {listShift?.map((d: any) => checkComponent(d.key, d.content))}
+            {listShift?.map((d: any, index: number) => checkComponent(index, d?.shift_id, d?.shift_name))}
           </ul>
         </div>
       </div>
@@ -539,7 +525,7 @@ export function ModalChinhSua_Them({
         </div>
         <div>
           <ul className={styles.listli}>
-            {listShift?.map((d: any) => checkComponent(d.key, d.content))}
+            {listShift?.map((d: any) => checkComponent(d?.shift_id, d?.shift_name))}
           </ul>
         </div>
       </div>

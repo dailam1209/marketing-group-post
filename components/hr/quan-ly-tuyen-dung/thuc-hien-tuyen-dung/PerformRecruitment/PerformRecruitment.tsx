@@ -10,7 +10,7 @@ import {
   GetListSchedule,
 } from '@/pages/api/api-hr/quan-ly-tuyen-dung/PerformRecruitment'
 
-export interface PerformRecruitment {}
+export interface PerformRecruitment { }
 
 export default function PerformRecruitment({ children, totalCandi }: any) {
   const [selectedButton, setSelectedButton] = useState('homnay')
@@ -28,7 +28,7 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
           3
         )
         setMessIsOpen(responseListNewActive?.data.data)
-      } catch (err) {}
+      } catch (err) { }
     }
     getDataRecruitmentOverview()
   }, [currentPageListNewActive])
@@ -43,7 +43,7 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
         setListSchedule(responseListSchedule?.data.data)
       }
       GetDataListSchedule()
-    } catch (err) {}
+    } catch (err) { }
   }, [currentPageListSchedule])
 
   const currentTime = Date.now()
@@ -192,9 +192,8 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
               <hr></hr>
               <div className={`${styles.h_today}`}>
                 <li
-                  className={`${
-                    selectedButton === 'homnay' ? styles.active_homnay : ''
-                  }`}
+                  className={`${selectedButton === 'homnay' ? styles.active_homnay : ''
+                    }`}
                   onClick={() => handleClickColor('homnay')}>
                   <span className={`${styles.green} ${styles.candidate_today}`}>
                     {totalCandi?.totalCandidateDay}
@@ -202,9 +201,8 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
                   <p>Hôm nay</p>
                 </li>
                 <li
-                  className={`${
-                    selectedButton === 'tuannay' ? styles.active_tuannay : ''
-                  }`}
+                  className={`${selectedButton === 'tuannay' ? styles.active_tuannay : ''
+                    }`}
                   onClick={() => handleClickColor('tuannay')}>
                   <span className={`${styles.blue} ${styles.candidate_week}`}>
                     {totalCandi?.totalCandidateMonth}
@@ -212,9 +210,8 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
                   <p>Tuần này</p>
                 </li>
                 <li
-                  className={`${
-                    selectedButton === 'thangnay' ? styles.active_thangnay : ''
-                  }`}
+                  className={`${selectedButton === 'thangnay' ? styles.active_thangnay : ''
+                    }`}
                   onClick={() => handleClickColor('thangnay')}>
                   <span
                     className={`${styles.yellow} ${styles.candidate_month}`}>
@@ -256,7 +253,7 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
                               <Link
                                 passHref
                                 href={{
-                                  pathname: `/hr/quan-ly-tuyen-dung/danh-sach-ung-vien/chi-tiet-ung-vien/u${item.id}`,
+                                  pathname: `/phan-mem-nhan-su/quan-ly-tuyen-dung/danh-sach-ung-vien/chi-tiet-ung-vien/u${item.id}`,
                                 }}>
                                 <h4>{item.name}</h4>
                               </Link>

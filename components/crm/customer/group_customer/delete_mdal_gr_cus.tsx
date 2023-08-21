@@ -28,10 +28,8 @@ const CancelModalDelGroup: React.FC<MyComponentProps> = ({
   keyDeleted,
   setChange,
 }) => {
-  console.log(typeof keyDeleted);
   const router = useRouter();
   const accessToken = Cookies.get("token_base365");
-  console.log(keyDeleted);
   const handleOK = async () => {
     setIsModalCancel(false);
     if (typeof keyDeleted === "number") {
