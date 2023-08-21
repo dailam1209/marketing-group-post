@@ -640,9 +640,12 @@ tr {
   color: black !important;
 }
 
-/* .ant-table-row-level-0 .ant-table-row-expand-icon {
-  display: none !important;
+/* .ant-table-row-level-0 .ant-table-row-expand-icon::after {
+  content: '';
 } */
+:where(.css-dev-only-do-not-override-o95mle).ant-table-wrapper .ant-table-row-expand-icon {
+  float: right;
+}
 
 /* Custom DropDown */
 
@@ -745,4 +748,21 @@ label {
   margin-top: -8px;
   font-size: 20px;
   color: #fff;
+}
+
+.ant-popover.header_custom-popover__dJECQ.css-dev-only-do-not-override-18w4yg9.css-dev-only-do-not-override-18w4yg9.ant-popover-placement-bottomLeft
+  .ant-popover-arrow {
+  visibility: hidden;
+}
+
+.ant-popover.header_custom-popover__dJECQ.css-dev-only-do-not-override-18w4yg9.css-dev-only-do-not-override-18w4yg9.ant-popover-placement-bottomLeft
+  .ant-popover-inner {
+  background-color: #4c5bd4;
+  color: #fff;
+}
+
+.ant-popover.header_custom-popover__dJECQ.css-dev-only-do-not-override-18w4yg9.css-dev-only-do-not-override-18w4yg9.ant-popover-placement-bottomLeft
+  .ant-popover-content {
+  right: 16px;
+  top: 4px;
 }
