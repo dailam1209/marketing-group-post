@@ -61,9 +61,16 @@ const GroupCustomerAdd: React.FC = () => {
   const accessToken = Cookies.get("token_base365");
   const com_id = Cookies.get("com_id");
 
-  const { data, loading, error, fetchData, updateData, deleteData } = useApi(
+  const {
+    data: dataAll,
+    loading,
+    error,
+    fetchData,
+    updateData,
+    deleteData,
+  } = useApi(
     "http://210.245.108.202:3007/api/crm/group/list_group_khach_hang",
-    process.env.ACCESS_TOKEN || accessToken,
+    accessToken,
     "POST"
   );
 
@@ -73,7 +80,7 @@ const GroupCustomerAdd: React.FC = () => {
     updateData: updateDataDepartment,
   } = useApi(
     "http://210.245.108.202:3000/api/qlc/department/list",
-    process.env.ACCESS_TOKEN || accessToken,
+    accessToken,
     "POST",
     { com_id: 1664 }
   );
@@ -84,14 +91,14 @@ const GroupCustomerAdd: React.FC = () => {
     updateData: updateDataDetails,
   } = useApi(
     "http://210.245.108.202:3007/api/crm/group/details",
-    process.env.ACCESS_TOKEN || accessToken,
+    accessToken,
     "POST",
     { gr_id: Number(id) }
   );
 
   const { updateData: updateDataEdit } = useApi(
     "http://210.245.108.202:3007/api/crm/group/update_GroupKH",
-    process.env.ACCESS_TOKEN || accessToken,
+    accessToken,
     "POST",
     valueGroupCustomer
   );
@@ -102,7 +109,7 @@ const GroupCustomerAdd: React.FC = () => {
     updateData: updateDataEmp,
   } = useApi(
     "http://210.245.108.202:3000/api/qlc/managerUser/list",
-    process.env.ACCESS_TOKEN || accessToken,
+    accessToken,
     "POST",
     {
       dep_id: selectedValueDepartments?.join(",") || "",
@@ -110,7 +117,7 @@ const GroupCustomerAdd: React.FC = () => {
     }
   );
 
-  const dataPassFromId = data?.data?.showGr?.filter(
+  const dataPassFromId = dataAll?.data?.showGr?.filter(
     (item: any) => item?.gr_id === Number(id)
   )?.[0];
 
@@ -121,7 +128,7 @@ const GroupCustomerAdd: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    setValueGroupCustomer(dataPassFromId);
+    setValueGroupCustomer(dataDetails?.data?.checkGroup);
   }, []);
 
   useEffect(() => {
@@ -172,7 +179,7 @@ const GroupCustomerAdd: React.FC = () => {
       // selectedValueDepartments?.forEach((depId: any) => {
       fetchDataEmp(
         "http://210.245.108.202:3000/api/qlc/managerUser/list",
-        process.env.ACCESS_TOKEN || accessToken,
+        accessToken,
         "POST",
         { com_id: Number(com_id) }
       );
@@ -196,7 +203,7 @@ const GroupCustomerAdd: React.FC = () => {
     setEmployeeOptions(employeeOption);
   }, [selectedValueDepartments]);
 
-  const dataSelectGroupParent = data?.data?.showGr;
+  const dataSelectGroupParent = dataAll?.data?.showGr;
   const dataDepartments = dataDepartment?.data?.data;
   const options = dataDepartments?.map((item) => {
     return {
@@ -221,19 +228,19 @@ const GroupCustomerAdd: React.FC = () => {
 
   useEffect(() => {
     setSelectedValueDepartments(
-      dataPassFromId?.dep_id
+      dataDetails?.data?.checkGroup?.dep_id
         ?.split(",")
         .map((item) => parseInt(item.trim(), 10))
     );
 
     setDataTableEmp(
-      dataPassFromId?.emp_id
+      dataDetails?.data?.checkGroup?.emp_id
         ?.split(",")
         .map((item) => parseInt(item.trim(), 10))
     );
 
-    // setValAllDepartment(dataPassFromId?.dep_id ? false: true)
-    // setValAllEmp(dataPassFromId?.emp_id ? false :true)
+    // setValAllDepartment(dataDetails?.data?.checkGroup?.dep_id ? false: true)
+    // setValAllEmp(dataDetails?.data?.checkGroup?.emp_id ? false :true)
   }, []);
 
   console.log(valueGroupCustomer);
@@ -241,7 +248,7 @@ const GroupCustomerAdd: React.FC = () => {
   useEffect(() => {
     fetchDataEmp(
       "http://210.245.108.202:3000/api/qlc/managerUser/list",
-      process.env.ACCESS_TOKEN || accessToken,
+      accessToken,
       "POST",
       { com_id: Number(com_id) }
     );
@@ -249,7 +256,7 @@ const GroupCustomerAdd: React.FC = () => {
     setTimeout(() => {
       const employeeOption = dataEmp?.data?.data
         ?.filter((emp) =>
-          dataPassFromId?.dep_id
+          dataDetails?.data?.checkGroup?.dep_id
             ?.split(",")
             .map((item) => parseInt(item.trim(), 10))
             ?.includes(emp.dep_id)
@@ -285,7 +292,8 @@ const GroupCustomerAdd: React.FC = () => {
                   <InputText
                     required
                     value={
-                      valueGroupCustomer?.gr_name || dataPassFromId?.gr_name
+                      valueGroupCustomer?.gr_name ||
+                      dataDetails?.data?.checkGroup?.gr_name
                     }
                     setFormData={setValueGroupCustomer}
                     label={"Tên nhóm khách hàng"}
@@ -297,7 +305,9 @@ const GroupCustomerAdd: React.FC = () => {
                     <div ref={valueOptionRef}>
                       <CustomerGroupSelectCpmponent
                         value="Chọn nhóm khách hàng cha"
-                        placeholder={dataPassFromId?.group_parent}
+                        placeholder={
+                          dataDetails?.data?.checkGroup?.group_parent
+                        }
                         data={dataSelectGroupParent}
                         setValueGroupCustomer={setValueGroupCustomer}
                       />
@@ -310,7 +320,7 @@ const GroupCustomerAdd: React.FC = () => {
                 <TextEditorGr
                   editorContent={
                     valueGroupCustomer?.gr_description ||
-                    dataPassFromId?.gr_description
+                    dataDetails?.data?.checkGroup?.gr_description
                   }
                   setEditorValue={(val: any) => {
                     setValueGroupCustomer((pre: any) => {
@@ -358,7 +368,9 @@ const GroupCustomerAdd: React.FC = () => {
                     >
                       <label>Phòng ban</label>
                       <Checkbox
-                        defaultChecked={dataPassFromId?.dep_id === null}
+                        defaultChecked={
+                          dataDetails?.data?.checkGroup?.dep_id === null
+                        }
                         checked={valAllDepartment}
                         onChange={() => {
                           setValAllDepartment(!valAllDepartment);
@@ -384,12 +396,12 @@ const GroupCustomerAdd: React.FC = () => {
                           height: "40px !important",
                         }}
                         placeholder="Chọn phòng ban"
-                        defaultValue={dataPassFromId?.dep_id
+                        defaultValue={dataDetails?.data?.checkGroup?.dep_id
                           ?.split(",")
                           .map((item) => parseInt(item.trim(), 10))}
                         value={
                           selectedValueDepartments ||
-                          dataPassFromId?.dep_id
+                          dataDetails?.data?.checkGroup?.dep_id
                             ?.split(",")
                             .map((item) => parseInt(item.trim(), 10))
                         }
@@ -408,7 +420,9 @@ const GroupCustomerAdd: React.FC = () => {
                     <div style={{ height: "27px" }} className="flex_between">
                       <label>Nhân viên</label>
                       <Checkbox
-                        defaultChecked={dataPassFromId?.emp_id === null}
+                        defaultChecked={
+                          dataDetails?.data?.checkGroup?.emp_id === null
+                        }
                         onChange={() => {
                           setValAllEmp(!valAllEmp);
                         }}
@@ -471,15 +485,15 @@ const GroupCustomerAdd: React.FC = () => {
 
                 {!valAllDepartment &&
                 !valAllEmp &&
-                dataPassFromId?.dep_id !== null &&
-                dataPassFromId?.emp_id !== null &&
-                dataPassFromId?.dep_id !== "all" &&
-                dataPassFromId?.emp_id !== "all" ? (
+                dataDetails?.data?.checkGroup?.dep_id !== null &&
+                dataDetails?.data?.checkGroup?.emp_id !== null &&
+                dataDetails?.data?.checkGroup?.dep_id !== "all" &&
+                dataDetails?.data?.checkGroup?.emp_id !== "all" ? (
                   <TableStaffCustomerGroupAdd
                     dataEmp={dataEmp?.data?.data}
                     valueSelected={
                       dataTableEmp ||
-                      dataPassFromId?.emp_id
+                      dataDetails?.data?.checkGroup?.emp_id
                         ?.split(",")
                         .map((item) => parseInt(item.trim(), 10))
                     }
@@ -505,7 +519,7 @@ const GroupCustomerAdd: React.FC = () => {
                   });
                   await updateDataEdit(
                     "http://210.245.108.202:3007/api/crm/group/update_GroupKH",
-                    process.env.ACCESS_TOKEN || accessToken,
+                    accessToken,
                     "POST",
                     {
                       ...valueGroupCustomer,

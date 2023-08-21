@@ -14,8 +14,8 @@ export default function CustomerGroupSelect({
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [valueOption, setValueOption] = useState(
-    data?.filter((item: any) => item.gr_id === placeholder)[0]?.group_cus_parent
-      ? data?.filter((item: any) => item.gr_id === placeholder)[0]?.group_cus_parent
+    data?.filter((item: any) => item.gr_id === placeholder)[0]?.gr_name
+      ? data?.filter((item: any) => item.gr_id === placeholder)[0]?.gr_name
       : "Chọn"
   );
   const handleClickSelectoption = (e: any) => {
@@ -35,10 +35,10 @@ export default function CustomerGroupSelect({
 
   useEffect(() => {
     document.addEventListener("click", handleClickOutside);
-    // document.addEventListener("scroll", handleScrollkOutside);
+    document.addEventListener("scroll", handleScrollkOutside);
 
     return () => {
-      // document.removeEventListener("scroll", handleScrollkOutside);
+      document.removeEventListener("scroll", handleScrollkOutside);
     };
   }, []);
 

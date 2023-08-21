@@ -61,6 +61,7 @@ const TableDataGroupListCustomer: React.FC<TableDataGroupListCustomerProps> = ({
     is_delete: number;
     created_at: number;
     updated_at: number;
+    list_gr_child: [];
   }
 
   // useEffect(() => {
@@ -215,14 +216,21 @@ const TableDataGroupListCustomer: React.FC<TableDataGroupListCustomerProps> = ({
       gr_id: item.gr_id,
       dep_id: item?.dep_id,
       emp_id: item?.emp_id,
-      children: item.group_parent
-        ? [
-            {
-              key: item.group_parent,
-              gr_name: item.gr_name,
-            },
-          ]
-        : null,
+      children:
+        item.list_gr_child?.length > 0
+          ? item?.list_gr_child.map((items: DataType) => {
+              return {
+                key: items.gr_id,
+                gr_name: items.gr_name,
+                group_parent: items.group_parent,
+                gr_description: items.gr_description,
+                updated_at: items.updated_at,
+                gr_id: items.gr_id,
+                dep_id: items?.dep_id,
+                emp_id: items?.emp_id,
+              };
+            })
+          : null,
     };
   });
 
@@ -249,7 +257,7 @@ const TableDataGroupListCustomer: React.FC<TableDataGroupListCustomerProps> = ({
       <Table
         columns={columns}
         dataSource={datatable}
-        rowSelection={{ ...rowSelection }}
+        rowSelection={{ ...rowSelection, checkStrictly: true }}
         bordered
         scroll={{ x: 1024, y: 400 }}
         pagination={{ pageSize: numberDat }}
