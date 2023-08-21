@@ -2,6 +2,7 @@
   background: blue !important;
 }
 
+<<<<<<< HEAD
 .header {
   padding-top: 29px;
   padding-bottom: 29px;
@@ -10,6 +11,16 @@
   display: flex;
   justify-content: center;
   position: relative;
+=======
+.header{
+    padding-top: 29px;
+    padding-bottom: 29px;
+    color: #fff;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+>>>>>>> 1b66000 (fix ui qlc new --pvh)
 }
 .imagin {
   margin-right: 10px;

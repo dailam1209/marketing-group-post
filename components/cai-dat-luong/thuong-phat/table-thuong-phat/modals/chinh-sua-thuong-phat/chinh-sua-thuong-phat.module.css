@@ -1,4 +1,5 @@
 .header {
+<<<<<<< HEAD
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -75,6 +76,34 @@
 }
 @media screen and (max-width: 768px) {
   .bodyLeft {
+=======
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px 15px 20px;
+    background-color: #4C5BD4;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+  }
+  .textHead{
+    font-size: 20px;
+    color: #fff;
+  }
+  .body{
+    padding: 30px 20px;
+    display: flex;
+  }
+  .bodyLeft{
+    padding: 0 20px;
+    border-right: 1px dotted #C4C4C4;
+  }
+  .bodyRight{
+    margin-left: 20px;
+    width: calc(100%*8/12 - 20px);
+    padding: 0 20px;
+  }
+  .formItem{
+>>>>>>> 1b66000 (fix ui qlc new --pvh)
     width: 100%;
     padding: 0;
     border: none;
