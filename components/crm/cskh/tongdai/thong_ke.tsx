@@ -23,6 +23,8 @@ const Recording = (props: Props) => {
   const [current, setcurrent] = useState(1);
   const [pageSize, setpageSize] = useState(10);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [phongban,setPhongban] = useState() 
+
   const onClose = () => {
     setIsShowModalAdd(false);
     setIsShowModal(false);
@@ -81,27 +83,6 @@ const Recording = (props: Props) => {
     const data = await res.json();
     setListNV(data?.data?.data);
   };
-
-  const handleGet = async () => {
-    setListData([]);
-    setIsModalOpen(false);
-    if (fillEnd && fillStart) {
-      setQuery(
-        `http://s02.oncall.vn:8899/api/call_logs/list?pagesize=100000000&start_time=${fillStart} &end_time=${fillEnd}&`
-      );
-    }
-    //lay datatable
-    const response = await fetch(`${query}`, {
-      method: "GET",
-      headers: {
-        access_token: show,
-        // "Content-Type":"S"
-      },
-    });
-    const data = await response.json();
-    setListData(data?.items);
-  };
-
   var outputArray = [];
 
   listData?.forEach(function (call) {
@@ -164,7 +145,7 @@ const Recording = (props: Props) => {
     }
     if(listNV){
       for (let key of listNV) {
-        if (key.userName == name2) {
+        if (key.userName === name2) {
           phong = key.nameDeparment;
         }
       }
@@ -182,6 +163,29 @@ const Recording = (props: Props) => {
       // status: item.status,
     };
   });
+  const handleGet = async () => {
+    if(phongban){
+     datane.filter((item) =>{return item.nameDeparment === phongban});
+      setIsModalOpen(false);
+    }
+    setListData([]);
+    setIsModalOpen(false);
+    if (fillEnd && fillStart) {
+      setQuery(
+        `http://s02.oncall.vn:8899/api/call_logs/list?pagesize=100000000&start_time=${fillStart} &end_time=${fillEnd}&`
+      );
+    }
+    //lay datatable
+    const response = await fetch(`${query}`, {
+      method: "GET",
+      headers: {
+        access_token: show,
+        // "Content-Type":"S"
+      },
+    });
+    const data = await response.json();
+    setListData(data?.items);
+  };
   useEffect(() => {
     handleGetLine();
     handleGet();
@@ -235,7 +239,6 @@ const Recording = (props: Props) => {
       render: (text: any, record: any) => <div>{text}s</div>,
     },
   ];
-
   return (
     <div>
       <div className={styles.group_button}>
@@ -248,6 +251,8 @@ const Recording = (props: Props) => {
           fillEnd={fillEnd}
           setFillEnd={setFillEnd}
           handleGet={handleGet}
+        setPhongban={setPhongban}
+
         />
 
         <div className={styles.group_button_right}>

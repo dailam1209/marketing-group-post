@@ -32,13 +32,14 @@ interface DataType {
 
 interface TableDataContracDrops {
   // Define other props here
-  rowSelection: any;
-  datatable: any;
-  dataStatusCustomer: any;
-  dataGroup: any;
-  fetchData: any;
-  des: any;
-  setDes: any;
+  rowSelection?: any;
+  datatable?: any;
+  dataStatusCustomer?: any;
+  dataGroup?: any;
+  fetchData?: any;
+  des?: any;
+  setDes?: any;
+
 }
 
 const TableListCustomer: React.FC<TableDataContracDrops> = ({

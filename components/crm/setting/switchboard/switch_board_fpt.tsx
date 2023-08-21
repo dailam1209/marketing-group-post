@@ -118,14 +118,15 @@ const SwitchFPTTable: React.FC = () => {
       setisVerify(true);
     }
     const handleget = async () => {
-      if (oldData) {
+      // if (oldData) {
         setIsConnected(true);
+        setisVerify(true)
         setInputData({
           name: "HNCX00693",
           password: "v2ohO6B1Nf4F",
           domain: "hncx00693.oncall",
         });
-        await fetch(
+      const res =  await fetch(
           "https://s02.oncall.vn:8900/api/account/credentials/verify",
           {
             method: "POST",
@@ -136,9 +137,12 @@ const SwitchFPTTable: React.FC = () => {
             }),
           }
         );
-      }
+        const data = await res.json()
+        dispatch(dataSaveTD(data.access_token));
+      // }
     };
     handleget();
+
   }, []);
   return (
     <>
