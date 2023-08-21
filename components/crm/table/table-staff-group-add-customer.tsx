@@ -33,7 +33,6 @@ const TableStaffCustomerGroupAdd: React.FC<TableStaffCustomerGroupAddProps> = ({
 }) => {
   const router = useRouter();
   const { id } = router.query;
-  console.log(typeof valueSelected);
   const [isOpenModalDel, setIsOpenModalDel] = useState(false);
   const [idDel, setIdDel] = useState();
 
@@ -44,7 +43,6 @@ const TableStaffCustomerGroupAdd: React.FC<TableStaffCustomerGroupAddProps> = ({
       return [valueSelected]?.includes(item._id);
     }
   });
-  console.log(newArray);
 
   const data: DataType[] = newArray?.map((item) => {
     return {
@@ -57,7 +55,6 @@ const TableStaffCustomerGroupAdd: React.FC<TableStaffCustomerGroupAddProps> = ({
 
   function handleDelRow(item: any): void {
     setIsOpenModalDel(true);
-    console.log(valueSelected?.findIndex((items) => items === item._id));
     setIdDel(item?._id);
   }
 
@@ -68,11 +65,9 @@ const TableStaffCustomerGroupAdd: React.FC<TableStaffCustomerGroupAddProps> = ({
     setData(arrVal);
   };
 
-  console.log("-------: ", newArray);
 
   const rowSelection: TableRowSelection<DataType> = {
     onChange: (selectedRowKeys: any, selectedRows: string | any[]) => {
-      console.log(`selectedRowKeys: ${selectedRowKeys}`, "selectedRows: ");
       setSelectedRow(selectedRows?.length);
       setDataRowSelect(selectedRowKeys);
     },

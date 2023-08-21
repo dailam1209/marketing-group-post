@@ -8,7 +8,6 @@ export default function CustomerGroupSelectDropdownDataComponent({
   setValueGroupCustomer,
 }: any) {
   const handleClcikOptions = (item: any) => {
-    console.log(item);
     setValueOption(item?.gr_name);
     setValueGroupCustomer((pre: any) => {
       return {

@@ -29,7 +29,6 @@ export default function GroupCustomer() {
     { page: 1, perPage: 10000000 }
   );
 
-  console.log(change);
   useEffect(() => {
     fetchData();
     setHeaderTitle("Danh sách nhóm khách hàng");
@@ -39,7 +38,6 @@ export default function GroupCustomer() {
 
   useEffect(() => {
     fetchData();
-    console.log(data);
   }, [change]);
 
   useEffect(() => {
@@ -53,13 +51,11 @@ export default function GroupCustomer() {
   const dataFilter = data?.data?.showGr?.filter((item) => {
     if (valFilter) {
       const defaultVal = item?.gr_name?.toLowerCase();
-      console.log(defaultVal)
       return defaultVal?.includes(valFilter.toLowerCase());
     }
     return item;
   });
 
-  console.log(data);
 
   return (
     <div ref={mainRef} className={styleHome.main}>
