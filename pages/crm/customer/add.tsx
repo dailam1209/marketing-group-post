@@ -10,6 +10,7 @@ import AddCustomerBankInfo from "@/components/crm/customer/add_edit/bank_infor";
 import TextEditor from "@/components/crm/text-editor/text_editor";
 import GeneralCustomerInfor from "@/components/crm/customer/add_edit/general_customer_info";
 import CustomomerFooterAddFile from "@/components/crm/customer/add_edit/customer_footer_add_file";
+import { checkAndRedirectToHomeIfNotLoggedIn } from "@/components/crm/ultis/checkLogin";
 
 const AddFilesCustomerList: React.FC = () => {
   const mainRef = useRef<HTMLDivElement>(null);
@@ -36,7 +37,7 @@ const AddFilesCustomerList: React.FC = () => {
     description: "",
     introducer: "",
     contact_name: "",
-    phone_number:"",
+    phone_number: "",
     contact_email: "",
     contact_phone: "",
     contact_gender: "",
@@ -125,108 +126,112 @@ const AddFilesCustomerList: React.FC = () => {
   }, [isOpen]);
 
   return (
-    <div className={styleHome.main} ref={mainRef}>
-      <div className={styles.main_importfile}>
-        <div className={styles.formInfoStep}>
-          <div className={styles.info_step}>
-            <div className={styles.main__title}>Thêm mới khách hàng</div>
-            <div className={styles.form_add_potential}>
-              <div className={styles.main__body}>
-                <div className={styles["main__body_item"]}>
-                  {/* Type Customer */}
-                  <p className={styles["main__body__type"]}>Loại hình</p>
-                  <div className="d_flex">
-                    <label className="lbl_container">
-                      <input
-                        type="radio"
-                        defaultChecked
-                        className="get_data"
-                        name="type"
-                        onChange={(e) =>
-                          setFormData({
-                            ...formData,
-                            type: parseInt(e.target.value),
-                          })
-                        }
-                        value={1}
-                      />
-                      Khách hàng doanh nghiệp
-                      <span className="checkmark" />
-                    </label>
-                    <label className="lbl_container">
-                      <input
-                        type="radio"
-                        className="get_data"
-                        name="type"
-                        onChange={(e) =>
-                          setFormData({
-                            ...formData,
-                            type: parseInt(e.target.value),
-                          })
-                        }
-                        value={2}
-                      />
-                      Khách hàng cá nhân
-                      <span className="checkmark" />
-                    </label>
-                  </div>
+    <>
+      {!checkAndRedirectToHomeIfNotLoggedIn() ? null : (
+        <div className={styleHome.main} ref={mainRef}>
+          <div className={styles.main_importfile}>
+            <div className={styles.formInfoStep}>
+              <div className={styles.info_step}>
+                <div className={styles.main__title}>Thêm mới khách hàng</div>
+                <div className={styles.form_add_potential}>
+                  <div className={styles.main__body}>
+                    <div className={styles["main__body_item"]}>
+                      {/* Type Customer */}
+                      <p className={styles["main__body__type"]}>Loại hình</p>
+                      <div className="d_flex">
+                        <label className="lbl_container">
+                          <input
+                            type="radio"
+                            defaultChecked
+                            className="get_data"
+                            name="type"
+                            onChange={(e) =>
+                              setFormData({
+                                ...formData,
+                                type: parseInt(e.target.value),
+                              })
+                            }
+                            value={1}
+                          />
+                          Khách hàng doanh nghiệp
+                          <span className="checkmark" />
+                        </label>
+                        <label className="lbl_container">
+                          <input
+                            type="radio"
+                            className="get_data"
+                            name="type"
+                            onChange={(e) =>
+                              setFormData({
+                                ...formData,
+                                type: parseInt(e.target.value),
+                              })
+                            }
+                            value={2}
+                          />
+                          Khách hàng cá nhân
+                          <span className="checkmark" />
+                        </label>
+                      </div>
 
-                  {/* Image */}
-                  <p className={styles["main__body__type"]}>Ảnh</p>
-                  <div id="upload">
-                    <img
-                      src="/assets/img/customer/upload_logo.png"
-                      alt=""
-                      className={styles["show_avatar"]}
-                      onClick={handleClickImg}
+                      {/* Image */}
+                      <p className={styles["main__body__type"]}>Ảnh</p>
+                      <div id="upload">
+                        <img
+                          src="/assets/img/customer/upload_logo.png"
+                          alt=""
+                          className={styles["show_avatar"]}
+                          onClick={handleClickImg}
+                        />
+                        <input
+                          ref={imgRef}
+                          type="file"
+                          name="logo"
+                          className=""
+                          id="logo"
+                          hidden
+                          accept="image/png,image/gif,image/jpeg"
+                          onChange={handleImageChange}
+                        />
+                      </div>
+                    </div>
+
+                    <AddPersonalCustomerInfor
+                      formData={formData}
+                      setFormData={setFormData}
                     />
-                    <input
-                      ref={imgRef}
-                      type="file"
-                      name="logo"
-                      className=""
-                      id="logo"
-                      hidden
-                      accept="image/png,image/gif,image/jpeg"
-                      onChange={handleImageChange}
+                    <AddAddressInfoCustomer
+                      formData={formData}
+                      setFormData={setFormData}
+                      title="Thông tin viết hóa đơn"
                     />
+                    <AddDeliveryInfo title="Thông tin giao hàng" />
+                    <AddCustomerBankInfo />
+
+                    {/* Text Editor */}
+                    <div
+                      style={{ marginBottom: -10 }}
+                      className={styles["main__body__type"]}
+                    >
+                      Thông tin mô tả
+                    </div>
+                    <TextEditor />
+                    <GeneralCustomerInfor />
                   </div>
+                  <CustomomerFooterAddFile
+                    link="/customer/list"
+                    titleCancel="Xác nhận hủy thêm mới khách hàng"
+                    title="Thêm mới khách hàng qwe thành công!"
+                    contentCancel="Bạn có chắc chắn muốn hủy thêm mới khách hàng Nguyễn Trần Kim Phượng không ?"
+                    formData={formData}
+                  />
                 </div>
-
-                <AddPersonalCustomerInfor
-                  formData={formData}
-                  setFormData={setFormData}
-                />
-                <AddAddressInfoCustomer
-                  formData={formData}
-                  setFormData={setFormData}
-                  title="Thông tin viết hóa đơn"
-                />
-                <AddDeliveryInfo title="Thông tin giao hàng" />
-                <AddCustomerBankInfo />
-
-                {/* Text Editor */}
-                <div
-                  style={{ marginBottom: -10 }}
-                  className={styles["main__body__type"]}
-                >
-                  Thông tin mô tả
-                </div>
-                <TextEditor />
-                <GeneralCustomerInfor />
               </div>
-              <CustomomerFooterAddFile
-                link="/customer/list"
-                titleCancel="Xác nhận hủy thêm mới khách hàng"
-                title="Thêm mới khách hàng qwe thành công!"
-                contentCancel="Bạn có chắc chắn muốn hủy thêm mới khách hàng Nguyễn Trần Kim Phượng không ?"
-                formData={formData}
-              />
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 

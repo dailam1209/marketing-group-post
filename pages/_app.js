@@ -46,7 +46,7 @@ export default function App({ Component, pageProps }) {
   const { isOpen, toggleModal } = useModal("icon_menu_nav", [styles.sidebar]);
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const { pathname } = router;
+ 
   const [firstLoad, setFirstLoad] = useState(
     router?.pathname?.includes("/hr") ? false : true
   );
@@ -86,7 +86,7 @@ export default function App({ Component, pageProps }) {
     }
   }, [router.pathname]);
 
-  const shouldShowSidebarAndHeader = pathname.includes("/crm/");
+  const shouldShowSidebarAndHeader = router.pathname.includes("/crm/");
 
   const importGlobalStyles = () => {
     if (router.pathname?.includes("hr")) {

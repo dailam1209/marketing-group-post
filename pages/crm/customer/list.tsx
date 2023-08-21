@@ -10,6 +10,7 @@ const Cookies = require("js-cookie");
 import { format } from "date-fns";
 import { te } from "date-fns/locale";
 import { base_url } from "@/components/crm/service/function";
+import { checkAndRedirectToHomeIfNotLoggedIn } from "@/components/crm/ultis/checkLogin";
 export interface DataType {
   key: React.Key;
   cus_id: number;
@@ -41,6 +42,8 @@ export default function CustomerList() {
   const [resoure, setResoure] = useState();
   const [nvPhuTrach, setnvPhuTrach] = useState();
   const [userNameCreate, setuserNameCreate] = useState();
+  const [isLoading, setLoading] = useState(true);
+
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
   const { data, loading, fetchData, updateData, deleteData } = useApi(
@@ -65,7 +68,7 @@ export default function CustomerList() {
     `${base_url}/api/crm/customerStatus/list`,
     `${Cookies.get("token_base365")}`,
     "POST",
-   { pageSize:1000000}
+    { pageSize: 1000000 }
   );
   const {
     data: dataCustomerGroup,
@@ -76,7 +79,7 @@ export default function CustomerList() {
     `${base_url}/api/crm/group/list_group_khach_hang`,
     `${Cookies.get("token_base365")}`,
     "POST",
-    { pageSize:1000000}
+    { pageSize: 1000000 }
   );
 
   const onSelectChange = (
@@ -169,9 +172,10 @@ export default function CustomerList() {
     fetchData();
     fetchDataStatus();
   }, [name, selectedRowKeys, des, selectedCus]);
-  useEffect(()=>{
+  useEffect(() => {
     fetchDataCustomerGroup();
-  },[data])
+  }, [data]);
+
   useEffect(() => {
     setHeaderTitle("Danh sách khách hàng");
     setShowBackButton(false);
@@ -185,33 +189,37 @@ export default function CustomerList() {
     }
   }, [isOpen]);
   return (
-    <div ref={mainRef} className={styleHome.main}>
-      <CustomerListInputGroup
-        setName={setName}
-        fetchData={fetchData}
-        isSelectedRow={selected}
-        numberSelected={numberSelected}
-        clearOption={handleDeselectAll}
-        chooseAllOption={handleSelectAll}
-        selectedCus={selectedCus}
-        dataStatusCustomer={dataStatusCustomer}
-        setStatus={setStatus}
-        setResoure={setResoure}
-        datatable={datatable}
-        nvPhuTrach={nvPhuTrach}
-        setnvPhuTrach={setnvPhuTrach}
-        userNameCreate={userNameCreate}
-        setuserNameCreate={setuserNameCreate}
-      />
-      <TableListCustomer
-        fetchData={fetchData}
-        rowSelection={rowSelection}
-        datatable={datatable}
-        dataStatusCustomer={dataStatusCustomer}
-        dataGroup={dataGroup}
-        des={des}
-        setDes={setDes}
-      />
-    </div>
+    <>
+      {!checkAndRedirectToHomeIfNotLoggedIn() ? null : (
+        <div ref={mainRef} className={styleHome.main}>
+          <CustomerListInputGroup
+            setName={setName}
+            fetchData={fetchData}
+            isSelectedRow={selected}
+            numberSelected={numberSelected}
+            clearOption={handleDeselectAll}
+            chooseAllOption={handleSelectAll}
+            selectedCus={selectedCus}
+            dataStatusCustomer={dataStatusCustomer}
+            setStatus={setStatus}
+            setResoure={setResoure}
+            datatable={datatable}
+            nvPhuTrach={nvPhuTrach}
+            setnvPhuTrach={setnvPhuTrach}
+            userNameCreate={userNameCreate}
+            setuserNameCreate={setuserNameCreate}
+          />
+          <TableListCustomer
+            fetchData={fetchData}
+            rowSelection={rowSelection}
+            datatable={datatable}
+            dataStatusCustomer={dataStatusCustomer}
+            dataGroup={dataGroup}
+            des={des}
+            setDes={setDes}
+          />
+        </div>
+      )}
+    </>
   );
 }
