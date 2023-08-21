@@ -1,9 +1,15 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
-import styles from "../quan-ly-hanh-chinh/bien-dong-nhan-su/workingRotation/deleteWorkingModal/deleteWorkingModal.module.css";
+// import styles from "../../quan-ly-hanh-chinh/bien-dong-nhan-su/workingRotation/deleteWorkingModal/deleteWorkingModal.module.css";
 import Cookies from "js-cookie";
+import CancelModal from "../bill/bill_steps/cancel_modal";
 
-export default function LogoutCrm({ setShowLogout, showLogout }: any) {
+export default function LogoutCrm({ setShowLogout, showLogout }) {
   const modalRef = useRef(null);
+
+  
+  const show = () => {
+    setShowLogout(true)
+  }
 
   const no = () => {
     setShowLogout(false);
@@ -17,7 +23,7 @@ export default function LogoutCrm({ setShowLogout, showLogout }: any) {
   };
 
   useEffect(() => {
-    const handleOutsideClick = (event: any) => {
+    const handleOutsideClick = (event) => {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
         // onCancel()
       }
