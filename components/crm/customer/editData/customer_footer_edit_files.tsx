@@ -5,6 +5,7 @@ import ModalCompleteStep from "@/components/crm/potential/potential_steps/comple
 import { useRouter } from "next/router";
 import ModalCompleteStepADD from "../../potential/potential_steps/complete_mdaladd";
 import CancelModalEdit from "../../potential/potential_steps/cancel_edit";
+import { base_url } from "../../service/function";
 const Cookies = require("js-cookie");
 
 export default function CustomerFooterEditFiles({
@@ -24,7 +25,7 @@ export default function CustomerFooterEditFiles({
   const handleSubmit = async () => {
     try {
       const response = await fetch(
-        `http://210.245.108.202:3007/api/crm/customerdetails/editCustomer/`,
+        `${base_url}/api/crm/customerdetails/editCustomer/`,
         {
           method: "POST",
           headers: {

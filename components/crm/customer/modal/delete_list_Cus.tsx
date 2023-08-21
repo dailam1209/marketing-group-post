@@ -6,6 +6,7 @@ import ModalCompleteStep from "@/components/crm/potential/potential_steps/comple
 import PotentialSelectBoxStep from "@/components/crm/potential/potential_steps/select_box_step";
 import type { SelectProps } from "antd";
 import ModalCompleteStepDEl from "../../potential/potential_steps/mdaldel_completeCus";
+import { base_url } from "../../service/function";
 const Cookies = require("js-cookie");
 interface MyComponentProps {
   isModalCancel: boolean;
@@ -29,7 +30,7 @@ const DelCustomerModal: React.FC<MyComponentProps> = ({
     setIsModalCancel(false);
     setIsOpenMdalSuccess(true);
     try {
-      await fetch("http://210.245.108.202:3007/api/crm/customer/deleteKH", {
+      await fetch(`${base_url}/api/crm/customer/deleteKH`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

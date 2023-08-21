@@ -49,7 +49,7 @@ const FilterThongKe: React.FC<MyComponentProps> = ({
   };
   const handleGetPhongBan = async () => {
     const res = await fetch(
-      "http://210.245.108.202:3000/api/qlc/department/list",
+      `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/department/list`,
       {
         method: "POST",
         headers: {
