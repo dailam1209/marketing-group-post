@@ -232,8 +232,8 @@ export default function HomeQLNS() {
           step(
             index1 + 1,
             stepData.title,
-            // stepData?.required,
-            false,
+            stepData?.required,
+
             `cham-cong/${stepData.url}`
           )
         )}

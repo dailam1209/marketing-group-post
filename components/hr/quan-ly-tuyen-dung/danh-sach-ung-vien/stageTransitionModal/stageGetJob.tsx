@@ -78,10 +78,6 @@ function Input_textarea({ onDescriptionChange, process_id }: InputTextareaProps)
 type SelectOptionType = { label: string, value: string }
 
 export default function StageGetJob({ onCancel, process_id, data, process_id_from }: any) {
-
-  console.log(data);
-
-
   const [selectedOption, setSelectedOption] = useState<SelectOptionType | null>(null);
   const [isCandidate, setCandidate] = useState<any>(null)
   const [isEmpList, setEmpList] = useState<any>(null);
@@ -91,7 +87,7 @@ export default function StageGetJob({ onCancel, process_id, data, process_id_fro
   const [addAnotherSkill, setAddAnotherSkill] = useState<JSX.Element[]>([]);
   const [skills, setSkills] = useState<{ skillName: string; skillVote: any }[]>([]);
   const [lastAddedIndex, setLastAddedIndex] = useState(-1);
-  const [rating, setRating] = useState<any>(data?.starVote)
+  const [rating, setRating] = useState<any>(0)
   const [descriptions, setDescription] = useState("");
   const [isUserHiring, setUserHiring] = useState<any>("")
   const [checked, setChecked] = useState<any>(0);

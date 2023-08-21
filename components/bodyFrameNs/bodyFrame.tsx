@@ -65,7 +65,7 @@ export default function Bodyframe({ children }: any) {
       <p
         style={{ color: '#4C5BD4', cursor: 'pointer' }}
         onClick={() => {
-          window.localStorage.setItem(PHONGBAN_ACTIVE_KEY, item?.tabIndex)
+          // window.localStorage.setItem(PHONGBAN_ACTIVE_KEY, item?.tabIndex)
           router.push(item?.url)
         }}>
         {item?.title}

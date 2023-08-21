@@ -117,7 +117,7 @@ export default function DetailHrReport({ children }: any) {
       setTitle('Danh sách nhân viên nghỉ việc / giảm biên chế')
     }
     if (link.includes('bieu-do-danh-sach-nhan-vien-tang-giam-luong')) {
-      setTitle('Danh sách nhân viên tăng giảm lương')
+      setTitle('Danh sách nhân viên nghỉ việc / giảm biên chế')
     }
     if (link.includes('bieu-do-danh-sach-nhan-vien-theo-do-tuoi')) {
       setTitle('Danh sách nhân viên theo thâm niên công tác')

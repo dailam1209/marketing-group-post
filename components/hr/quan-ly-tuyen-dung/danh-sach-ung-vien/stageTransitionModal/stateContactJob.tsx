@@ -31,7 +31,7 @@ export default function StageContactJob({
     []
   )
   const [lastAddedIndex, setLastAddedIndex] = useState(-1)
-  const [rating, setRating] = useState<any>(data?.starVote)
+  const [rating, setRating] = useState<any>(0)
   const [isUserHiring, setUserHiring] = useState<any>('')
   const [errors, setErrors] = useState<any>({})
   const modalRef = useRef(null)
