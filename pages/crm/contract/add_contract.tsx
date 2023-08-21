@@ -29,7 +29,7 @@ const AddContractComponent: React.FC = () => {
     <div className={styleHome.main} ref={mainRef}>
       <div className={styles.main_addContract}>
         <div className={styles.formAddContract}>
-          {/* <AddContract setCheckFile={setCheckFile} /> */}
+          <AddContract />
         </div>
       </div>
     </div>
