@@ -35,16 +35,19 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
   const Cookies = require("js-cookie");
 
   const handleUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const response = await axios.get('http://localhost:3000');
+    const file = event.target.files[0]; // Lấy tệp tin từ sự kiện
     let data = new FormData();
     data.append("file", file);
-    
+    const response = await axios.post(
+      "https://work247.vn/api_crm/read_file.php",
+      data
+    );
     let config = {
       method: "post",
       maxBodyLength: Infinity,
       url: "https://work247.vn/api_crm/read_file.php",
       headers: {
-        "Access-Control-Allow-Origin": "http://localhost:3000"
+        "Access-Control-Allow-Origin": '*',
       },
       data: data,
     };
