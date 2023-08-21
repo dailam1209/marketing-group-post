@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import styles from '../../quy-dinh-lam-viec/detailReguulationModal/detailRegulationModal.module.css'
 import { format } from 'date-fns'
 import { PolicyGroupDetail } from '@/pages/api/api-hr/quy_dinh_chinh_sach'
-
+import FilePolicyGroupDetail from './filePolicyGroupDetail'
 interface GroupDetailModalProps {
   onCancel: () => void
   idGroup: number
@@ -13,7 +13,11 @@ export default function PolicyGroupDetailModal({
   idGroup,
 }: GroupDetailModalProps) {
   const [DetailData, setDetailData] = useState<any | null>(null)
+  const [isopenDetailFile, setOpenDetailFile] = useState<any | null>(false)
   const modalRef = useRef(null)
+
+  console.log(DetailData);
+
 
   useEffect(() => {
     const handleOutsideClick = (event: any) => {
@@ -40,6 +44,10 @@ export default function PolicyGroupDetailModal({
     }
     fetchData()
   }, [])
+
+  const handlecloseModal = () => {
+    setOpenDetailFile(false)
+  }
 
   return (
     <>
@@ -102,11 +110,12 @@ export default function PolicyGroupDetailModal({
                     </div>
                   </div>
                   <div
-                    className={`${styles.infors1} ${styles.preview_file_provision}`}>
-                    <a style={{ color: '#337ab7', fontWeight: 600 }} href=''>
+                    className={`${styles.infors1} ${styles.preview_file_provision}`} onClick={() => setOpenDetailFile(!isopenDetailFile)}>
+                    <a style={{ color: '#337ab7', fontWeight: 600, cursor: "pointer" }} >
                       Xem chi tiết file đính kèm
                     </a>
                   </div>
+                  {isopenDetailFile && <FilePolicyGroupDetail file={DetailData?.data[0]?.file} onCancel={handlecloseModal} />}
                 </div>
               )}
               <div

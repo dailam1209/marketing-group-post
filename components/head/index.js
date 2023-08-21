@@ -56,7 +56,11 @@ export default function Seo(props) {
         <link
           rel="stylesheet"
           type="text/css"
-          href={router.pathname?.includes("hr") ? "" : "/css/style.css"}
+          href={
+            router.pathname?.includes("phan-mem-nhan-su/")
+              ? ""
+              : "/css/style.css"
+          }
         />
         <link rel="stylesheet" type="text/css" href="/css/login_qr.css" />
       </Head>

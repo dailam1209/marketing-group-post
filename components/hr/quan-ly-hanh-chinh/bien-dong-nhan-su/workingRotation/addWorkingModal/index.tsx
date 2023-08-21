@@ -288,7 +288,6 @@ export default function AddWorkingModal({ onCancel }: any) {
   }
 
   const groupInfo = getGroupInfoByTeamId(isTeam_idNew);
-  console.log(groupInfo);
 
   const chonchinhanhOptions = useMemo(
     () =>
@@ -347,6 +346,10 @@ export default function AddWorkingModal({ onCancel }: any) {
     [isEmpList, isDep_id]
   );
 
+  console.log(isDep_id);
+  console.log(chonnhanvientheophongOptions);
+
+
   const chonnhanvienOptions = useMemo(
     () =>
       isEmpList &&
@@ -384,7 +387,6 @@ export default function AddWorkingModal({ onCancel }: any) {
     [PositionInfoArray]
   );
 
-
   const chonchucvumoiOptions = useMemo(
     () =>
       PositionList &&
@@ -408,7 +410,7 @@ export default function AddWorkingModal({ onCancel }: any) {
   const options = {
     chonchinhanh: chonchinhanhOptions,
     chonphongban: chonphongbanOptions,
-    chonnhanvien: chonnhanvientheophongOptions?.length === 0 ? chonnhanvienOptions : chonnhanvientheophongOptions,
+    chonnhanvien: chonnhanvientheophongOptions,
     chucvuhientai: chonchucvuOptions,
     donvicongtacmoi: chonchinhanhOptions,
     phongbanmoi: chonphongbanmoiOptions,

@@ -42,7 +42,7 @@ function EditModalListDiscipline({ animation, onClose, dataOld }: any) {
               label: `${item.userName} ${item.nameDeparment}`,
             }))
           )
-        } catch (err) {}
+        } catch (err) { }
       }
       getData1()
     } else {
@@ -50,17 +50,17 @@ function EditModalListDiscipline({ animation, onClose, dataOld }: any) {
         try {
           const response = await GetDepartmentList(comId.toString())
           setDep(
-            response?.data.data.data.map((item) => ({
+            response?.data?.data?.data?.map((item) => ({
               name: 'depId',
               value: item.dep_id,
               label: `${item.dep_name}`,
             }))
           )
-        } catch (err) {}
+        } catch (err) { }
       }
       getData2()
     }
-  }, [])
+  }, [comId])
 
   const options = {
     tendoituong: user,
@@ -123,9 +123,8 @@ function EditModalListDiscipline({ animation, onClose, dataOld }: any) {
     <>
       <div className={`${styles.overlay}`} onClick={onClose}></div>
       <div
-        className={`${styles.modal} ${styles.modal_setting}  ${
-          animation ? styles.fade_in : styles.fade_out
-        }`}
+        className={`${styles.modal} ${styles.modal_setting}  ${animation ? styles.fade_in : styles.fade_out
+          }`}
         style={{ display: 'block' }}>
         <div className={`${styles.modal_dialog} ${styles.contentquytrinh}`}>
           <div className={`${styles.modal_content} `}>

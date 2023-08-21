@@ -1,0 +1,132 @@
+.scrollableModal {
+  overflow: hidden;
+}
+.l_body {
+  display: inline-block;
+  width: 100%;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.add_quytrinh {
+  display: inline-block;
+  width: 100%;
+}
+
+.add_quytrinh1 {
+  float: left;
+  width: 50%;
+  cursor: pointer;
+}
+.add_quytrinh2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fafafa;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 16px;
+  color: #4c5bd4;
+  padding: 0;
+}
+
+.add_quytrinh2_title {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 16px;
+  color: #4c5bd4;
+}
+.add_quytrinh2_title {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 16px;
+  color: #4c5bd4;
+}
+.adds {
+  border: none;
+  background: transparent;
+}
+
+.adds img {
+  margin-right: 10px;
+  margin-top: -3px;
+  width: 15px;
+  height: 15px;
+}
+.display {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: #4c5bd4;
+}
+
+.search_quytrinh {
+  float: right;
+  width: 50%;
+}
+.t_form_search {
+  display: block;
+  margin-top: 0em;
+}
+
+.t_div_search {
+  background: #ffffff;
+  border: 0.5px solid rgba(71, 71, 71, 0.24);
+  box-sizing: border-box;
+  border-radius: 50px;
+  height: 36px;
+  padding: 8px 13px;
+  width: 73%;
+  display: flex;
+  flex-wrap: nowrap;
+}
+.t_div_search input {
+  outline: none;
+  border: none;
+  width: 345px;
+  outline: none;
+  font-size: 14px;
+  line-height: inherit;
+  margin: 0;
+  font: inherit;
+  color: #333333;
+  font-weight: 600;
+  background-color: transparent;
+  opacity: 0.9;
+}
+
+.t_div_search input[type="search"]::-webkit-search-cancel-button,
+.t_div_search input[type="search"]::-webkit-search-decoration,
+.t_div_search input[type="search"]::-webkit-search-results-button,
+.t_div_search input[type="search"]::-webkit-search-results-decoration {
+  display: none;
+}
+
+.t_div_search input[type="search"]::-moz-search-cancel-button {
+  display: none;
+}
+
+.t_div_search input[type="search"]::-ms-clear {
+  display: none;
+}
+
+.t_div_search input[type="search"]::ms-reveal,
+.t_div_search input[type="search"]::-ms-clear {
+  display: none;
+}
+
+.button_search {
+  border: none;
+  background-color: transparent;
+}
+
+@media (max-width: 650px) {
+  .t_div_search input {
+    width: 85%;
+  }
+}
