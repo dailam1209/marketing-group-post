@@ -28,6 +28,7 @@ export function ModalWrapper(
         top: 0,
         padding: "20px"
       }}
+      className="bannerQLC"
       footer={
         hasFooter && (
           <div className={styles.footer}>
@@ -116,6 +117,7 @@ export function ModalWrapper2(
       width={width}
       closable={false}
       destroyOnClose={true}
+      className="bannerQLC"
       style={{
         top: 0,
         padding: "20px"

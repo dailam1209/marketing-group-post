@@ -35,7 +35,7 @@ export function UpdatePhongBanModal(
       dep_id: selectedRow?.dep_id,
     })
       .then((res) => {
-        console.log(res?.message)
+        // console.log(res?.message)
 
         // update data after edit successful
         // POST("api/qlc/department/list", {}).then((res) => {
