@@ -255,7 +255,7 @@ export const NhapLuongCoBan = ({
                 if (value === 'all') {
                   setListData(data)
                 } else {
-                  setListData(listData?.filter((item) => item?.idQLC === value))
+                  setListData(data?.filter((item) => item?.idQLC === value))
                 }
               }}
               options={

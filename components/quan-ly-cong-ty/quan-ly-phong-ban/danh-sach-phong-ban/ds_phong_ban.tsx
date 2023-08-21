@@ -1,22 +1,22 @@
-import { Col, ConfigProvider, Row, Select, Table } from "antd"
-import styles from "./ds_phong_ban.module.css"
-import { AddButton, SearchButton } from "@/components/commons/Buttons"
-import Image from "next/image"
-import { AlignType } from "rc-table/lib/interface"
-import { useEffect, useState } from "react"
+import { Col, ConfigProvider, Row, Select, Table } from 'antd'
+import styles from './ds_phong_ban.module.css'
+import { AddButton, SearchButton } from '@/components/commons/Buttons'
+import Image from 'next/image'
+import { AlignType } from 'rc-table/lib/interface'
+import { useEffect, useState } from 'react'
 import {
   AddNewModal,
   ConfirmDeleteModal,
-  UpdatePhongBanModal
-} from "./modal/modal"
-import { MyTable } from "../table/Table"
-import { useRouter } from "next/router"
+  UpdatePhongBanModal,
+} from './modal/modal'
+import { MyTable } from '../table/Table'
+import { useRouter } from 'next/router'
 
 export function DanhSachPhongBan({
   listDepartments,
-  infoCom
+  infoCom,
 }: {
-  listDepartments: any,
+  listDepartments: any
   infoCom: any
 }) {
   const router = useRouter()
@@ -26,27 +26,35 @@ export function DanhSachPhongBan({
   const [openAddNew, setOpenAddNew] = useState(false)
   const [data, setData] = useState(listDepartments?.items)
   const [company, setCompany] = useState(infoCom?.data)
-  const [comLabel, setComlabel] = useState({ label: infoCom?.data?.com_name, value: infoCom?.data?.com_id })
-  const [listDepLabel, setListDepLabel]: any[] = useState(listDepartments?.items?.map(dep => ({ label: dep?.dep_name, value: dep?.dep_id })))
+  const [comLabel, setComlabel] = useState({
+    label: infoCom?.data?.com_name,
+    value: infoCom?.data?.com_id,
+  })
+  const [listDepLabel, setListDepLabel]: any[] = useState(
+    listDepartments?.items?.map((dep) => ({
+      label: dep?.dep_name,
+      value: dep?.dep_id,
+    }))
+  )
   // console.log(company)
   const columns = [
     {
       title: <p className={styles.headerTxt}>STT</p>,
-      render: (_: any, record: any, index: number) => <p>{index + 1}</p>
+      render: (_: any, record: any, index: number) => <p>{index + 1}</p>,
     },
     {
       title: <p className={styles.headerTxt}>Tên phòng ban</p>,
       render: (record: any) => (
-        <p style={{ color: "#4c5bd4" }}>{record?.dep_name}</p>
-      )
+        <p style={{ color: '#4c5bd4' }}>{record?.dep_name}</p>
+      ),
     },
     {
       title: <p className={styles.headerTxt}>Trưởng phòng</p>,
-      render: (record: any) => <p>{record?.manager || "Đang cập nhật"}</p>
+      render: (record: any) => <p>{record?.manager || 'Đang cập nhật'}</p>,
     },
     {
       title: <p className={styles.headerTxt}>Phó phòng</p>,
-      render: (record: any) => <p>{record?.deputy || "Đang cập nhật"}</p>
+      render: (record: any) => <p>{record?.deputy || 'Đang cập nhật'}</p>,
     },
     // can not access undefined properties
     // {
@@ -55,15 +63,15 @@ export function DanhSachPhongBan({
     // },
     {
       title: <p className={styles.headerTxt}>Số lượng nhân viên</p>,
-      render: (record: any) => <p>{record?.total_emp || 0}</p>
+      render: (record: any) => <p>{record?.total_emp || 0}</p>,
     },
     {
       title: <p className={styles.headerTxt}>Chức năng</p>,
       render: (record: any) => (
         <div className={styles.actionGroup}>
           <Image
-            alt="/"
-            src={"/edit.png"}
+            alt='/'
+            src={'/edit.png'}
             width={24}
             height={24}
             onClick={(e) => {
@@ -74,8 +82,8 @@ export function DanhSachPhongBan({
           />
           <div className={styles.divider}></div>
           <Image
-            alt="/"
-            src={"/delete-icon.png"}
+            alt='/'
+            src={'/delete-icon.png'}
             width={24}
             height={24}
             onClick={(e) => {
@@ -85,69 +93,68 @@ export function DanhSachPhongBan({
             }}
           />
         </div>
-      )
-    }
+      ),
+    },
   ]
 
   const onRowClicked = (id: string, name: string) => {
     router.push({
       pathname: `${router.pathname}/chi-tiet-phong-ban/${id}`,
       query: {
-        name: name
-      }
+        name: name,
+      },
     })
   }
 
-  const [listDataFiltered, setListDataFiltered] = useState([]);
-  const [depFilter, setDepFilter]: any = useState<any>();
+  const [listDataFiltered, setListDataFiltered] = useState([])
+  const [depFilter, setDepFilter]: any = useState<any>()
   useEffect(() => {
-    setListDataFiltered(data);
-  }, [data]);
+    setListDataFiltered(data)
+  }, [data])
 
   useEffect(() => {
     if (!depFilter) {
-      setListDataFiltered(data);
+      setListDataFiltered(data)
     }
-  }, [depFilter]);
+  }, [depFilter])
 
   const handleFilter = () => {
     if (depFilter) {
       setListDataFiltered(
         data?.filter((data: any) => data?.dep_name === depFilter?.label)
-      );
+      )
     }
-  };
+  }
 
   return (
     <div>
       <Row gutter={[15, 0]}>
         <Col lg={9} md={10} sm={12} xs={24}>
           <Select
-            size="large"
-            suffixIcon={<img src="/down-icon.png"></img>}
-            style={{ width: "100%" }}
-            placeholder="Chọn công ty"
-            options={[comLabel
-            ]}
+            size='large'
+            suffixIcon={<img src='/down-icon.png'></img>}
+            style={{ width: '100%' }}
+            placeholder='Chọn công ty'
+            options={[comLabel]}
           />
         </Col>
         <Col lg={9} md={10} sm={12} xs={24} className={styles.selectPb}>
           <Select
             allowClear={true}
-            size="large"
-            suffixIcon={<img src="/down-icon.png"></img>}
-            style={{ width: "100%" }}
-            placeholder="Chọn phòng ban"
+            size='large'
+            suffixIcon={<img src='/down-icon.png'></img>}
+            style={{ width: '100%' }}
+            placeholder='Chọn phòng ban'
             options={listDepLabel}
             onChange={(value: any, option: any) => setDepFilter(option)}
           />
         </Col>
         <Col lg={6} md={4} sm={0} className={styles.btnGroup}>
           <div className={styles.searchBtn}>
-            {SearchButton("Tìm kiếm", handleFilter, false)}
+            {SearchButton('Tìm kiếm', handleFilter, false)}
           </div>
           <div className={styles.addBtn}>
-            {AddButton("Thêm mới", () => setOpenAddNew(true))}
+            {AddButton('Thêm mới', () => setOpenAddNew(true))}
           </div>
         </Col>
       </Row>
@@ -162,13 +169,13 @@ export function DanhSachPhongBan({
         Footer={null}
         onSelectChange={() => null}
         selectedRowKeys={null}
-        rowKey={"name"}
+        rowKey={'name'}
       />
       {UpdatePhongBanModal(openEdit, setOpenEdit, data, setData, selectedRow)}
       {ConfirmDeleteModal(
         openConfirmDel,
         setOpenConfirmDel,
-        selectedRow ? selectedRow["name"] : "",
+        selectedRow ? selectedRow['name'] : '',
         data,
         setData,
         selectedRow

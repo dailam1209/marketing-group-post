@@ -52,8 +52,8 @@ export default function Article({
                   Link truy cập:{' '}
                   <a
                     style={{ color: 'blue' }}
-                    href='https://chamcong.timviec365.vn/quan-ly-cong-ty.html'>
-                    https://chamcong.timviec365.vn/quan-ly-cong-ty.html
+                    href='https://hungha365.com/cham-cong'>
+                    https://hungha365.com/cham-cong
                   </a>
                   &nbsp;
                 </span>
