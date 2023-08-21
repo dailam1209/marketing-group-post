@@ -78,12 +78,12 @@ export default function CustomerList() {
         clearOption={handleDeselectAll}
         chooseAllOption={handleSelectAll}
       />
-      <TableListCustomer
+      {/* <TableListCustomer
         rowSelection={rowSelection}
         dataGroup={[]}
         dataStatusCustomer={[]}
         datatable={[]}
-      />
+      /> */}
     </div>
   )
 }

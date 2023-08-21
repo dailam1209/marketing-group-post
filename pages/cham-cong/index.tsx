@@ -11,36 +11,36 @@ import { ModalWrapper } from '@/components/modal/ModalWrapper'
 import { getCookie } from 'cookies-next'
 import Cookies from 'js-cookie'
 
-const ConfirmModal = ({
-  open,
-  setOpen,
-  router,
-  url,
-}: {
-  open: boolean
-  setOpen: any
-  router: any
-  url: string
-}) => {
-  const children = (
-    <p style={{ textAlign: 'center' }}>Bạn có muốn tiến hành cài đặt không?</p>
-  )
+// const ConfirmModal = ({
+//   open,
+//   setOpen,
+//   router,
+//   url,
+// }: {
+//   open: boolean
+//   setOpen: any
+//   router: any
+//   url: string
+// }) => {
+//   const children = (
+//     <p style={{ textAlign: 'center' }}>Bạn có muốn tiến hành cài đặt không?</p>
+//   )
 
-  const onConfirm = () => {
-    router?.push(url)
-  }
+//   const onConfirm = () => {
+//     router?.push(url)
+//   }
 
-  return ModalWrapper(
-    open,
-    setOpen,
-    children,
-    450,
-    '',
-    'Cài đặt',
-    onConfirm,
-    false
-  )
-}
+//   return ModalWrapper(
+//     open,
+//     setOpen,
+//     children,
+//     450,
+//     '',
+//     'Cài đặt',
+//     onConfirm,
+//     false
+//   )
+// }
 export const COOKIE_KEY = 'token_base365'
 export default function HomeQLNS() {
   const router = useRouter()
@@ -111,7 +111,7 @@ export default function HomeQLNS() {
     color: string
   ) => (
     <Row
-      gutter={[{ xs: 30, sm: 20 }, { xs: 15 }]}
+      // gutter={[{ xs: 30, sm: 20 }, { xs: 15 }]}
       key={index}
       className={styles.singleBtn}
       style={{ borderRight: `8px solid ${color}` }}
@@ -232,7 +232,8 @@ export default function HomeQLNS() {
           step(
             index1 + 1,
             stepData.title,
-            stepData?.required,
+            // stepData?.required,
+            false,
             `cham-cong/${stepData.url}`
           )
         )}
@@ -281,12 +282,12 @@ export default function HomeQLNS() {
               {renderSelection(type)}
             </Col>
           </Row>
-          <ConfirmModal
+          {/* <ConfirmModal
             open={openConfirm}
             setOpen={setOpenConfirm}
             router={router}
             url={selectedUrl}
-          />
+          /> */}
         </div>
       )
   }
