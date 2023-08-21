@@ -15,15 +15,12 @@ var year = date.getFullYear();
 // Định dạng ngày theo yêu cầu (thêm '0' ở trước nếu cần)
 var formatted_date = (day < 10 ? '0' : '') + day + '/' + (month < 10 ? '0' : '') + month + '/' + year;
 
-console.log(formatted_date);  // Kết quả: 12/12/2023
-
 var seconds2 = formData?.so_ngay_duoc_no / 1000; 
 var date2 = new Date(seconds2 * 1000);  // Nhân cho 1000 để chuyển từ seconds thành milliseconds
 var day = date2.getDate();
 var month = date2.getMonth() + 1;  // Lưu ý rằng tháng trong JavaScript bắt đầu từ 0
 var year = date2.getFullYear();
 var so_ngay_duoc_no = (day < 10 ? '0' : '') + day + '/' + (month < 10 ? '0' : '') + month + '/' + year;
-
 
   return (
     <div className={styles.row_input_text}>
@@ -34,7 +31,7 @@ var so_ngay_duoc_no = (day < 10 ? '0' : '') + day + '/' + (month < 10 ? '0' : ''
       <InforText field="Doanh thu/Ngân sách:" value="937843" />
       <InforText field="Website:" value={formData?.website?formData?.website:"Chưa cập nhật"}/>
       <InforText field="Xếp hạng khách hàng:" value={formData?.xep_hang_kh?formData?.xep_hang_kh:"Chưa cập nhật"}/>
-      <InforText field="Hạn mức nợ:" value={formData?.han_muc_no?formData?.han_muc_no:"Chưa cập nhật"}/>
+      <InforText field="Hạn mức nợ:" value={formData.han_muc_no?formData.han_muc_no:"Chưa cập nhật"}/>
       <InforText field="Số ngày được nợ:" value={so_ngay_duoc_no?so_ngay_duoc_no:"Chưa cập nhật"}/>
       <InforText field="Giới tính:"  value={formData?.gender?formData?.gender:"Chưa cập nhật"}/>
     </div>

@@ -162,11 +162,14 @@ const Recording = (props: Props) => {
         name2 = value?.userName;
       }
     }
-    for (let key of listNV) {
-      if (key.userName == name2) {
-        phong = key.nameDeparment;
+    if(listNV){
+      for (let key of listNV) {
+        if (key.userName == name2) {
+          phong = key.nameDeparment;
+        }
       }
     }
+   
     return {
       caller: item.caller,
       ring_duration: item.ring_duration,

@@ -1,13 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
 import DOMPurify from "dompurify";
 
-export default function TextEditor({
+export default function TextEditorNhapLieu({
   title = null,
   className,
   cusId,
   setEditorContent,
   des,
   setDes,
+  dataAdd,
+  setDataAdd,
 }: any) {
   const editorRef = useRef<any>();
   const [editorLoaded, setEditorLoaded] = useState(false);
@@ -15,11 +17,11 @@ export default function TextEditor({
   const handleEditorChange = (event, editor) => {
     const data = editor.getData();
     const sanitizedData = sanitizeContent(data);
-    setEditorContent(sanitizedData);
+    setDataAdd({...dataAdd,description:sanitizedData});
   };
 
   const sanitizeContent = (content) => {
-    const cleanContent = content.replace("&nbsp;"," "); // Loại bỏ các thẻ <p> trống và &nbsp;
+    const cleanContent = content.replace("&nbsp;", " "); // Loại bỏ các thẻ <p> trống và &nbsp;
     const sanitizedContent = DOMPurify.sanitize(cleanContent, {
       ALLOWED_TAGS: [], // Để loại bỏ tất cả các thẻ
       ALLOWED_ATTR: [], // Để loại bỏ tất cả các thuộc tính

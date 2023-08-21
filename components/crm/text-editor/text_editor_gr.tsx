@@ -5,6 +5,7 @@ export default function TextEditorGr({
   className,
   editorContent,
   setEditorValue,
+  setEditorContent
 }: any) {
   const editorRef = useRef<any>();
   const [editorLoaded, setEditorLoaded] = useState(false);

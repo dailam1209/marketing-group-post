@@ -114,9 +114,6 @@ export default function CustomomerFooterAddFile({
         <CancelModalAdd
           isModalCancel={isModalCancel}
           setIsModalCancel={setIsModalCancel}
-          content={contentCancel}
-          title={titleCancel}
-          link="/potential/list"
         />
       }
 

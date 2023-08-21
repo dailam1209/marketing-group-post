@@ -3,6 +3,7 @@ import styleHome from "@/components/crm/home/home.module.css"
 import { SidebarContext } from "@/components/crm/context/resizeContext";
 import { useHeader } from "@/components/crm/hooks/useHeader";
 import TongDaiPage from "@/components/crm/cskh/tongdai/tongdai";
+import { useRouter } from "next/router";
 
 const TongDai: React.FC = () => {
   const mainRef = useRef<HTMLDivElement>(null);
@@ -10,7 +11,7 @@ const TongDai: React.FC = () => {
   const imgRef = useRef<HTMLInputElement>(null);
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
-
+  const router = useRouter()
   useEffect(() => {
     setHeaderTitle("Tổng đài");
     setShowBackButton(false);

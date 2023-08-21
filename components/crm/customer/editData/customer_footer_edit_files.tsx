@@ -18,7 +18,6 @@ export default function CustomerFooterEditFiles({
   const [modal1Open, setModal1Open] = useState(false);
   const router = useRouter();
   const { id } = router.query;
-  console.log(id);
 
   const token = Cookies.get("token_base365");
 
@@ -95,7 +94,6 @@ export default function CustomerFooterEditFiles({
         }
       );
       const data = await response.json();
-      console.log("Dữ liệu khách hàng đã được sửa:", data);
     } catch (error) {
       console.error("Lỗi khi sửa dữ liệu khách hàng:", error);
     }

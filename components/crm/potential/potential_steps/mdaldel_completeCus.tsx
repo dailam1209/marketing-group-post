@@ -7,37 +7,39 @@ import { useRouter } from "next/router";
 interface ModalCompleteStepProps {
   modal1Open: boolean;
   setModal1Open: any;
-  title: string
-  routerback: string
 }
 
-const ModalCompleteStep: React.FC<ModalCompleteStepProps> = ({
-  modal1Open = true,
+const ModalCompleteStepDEl: React.FC<ModalCompleteStepProps> = ({
+  modal1Open,
   setModal1Open,
-  title,
-  routerback,
 }: any) => {
-    const router = useRouter()
-    const handleClick = () => {
-        setModal1Open(false)
-        router.push("/crm/setting/switch_fpt")
-    };
+  const router = useRouter();
+  const handleClick = () => {
+    setModal1Open(false);
+    router.push("/crm/customer/list");
+  };
   return (
     <div>
-      <div >
+      <div className="sucess-mdal">
         <Modal
           title={
-            <Image width={112} height={112} alt="logo" src="/crm/success.svg" />
+            <Image
+              width={112}
+              height={112}
+              alt="logo"
+              src={"/crm/success.svg"}
+            />
           }
           style={{ top: 20 }}
           open={modal1Open}
           onOk={handleClick}
           className="custom_mdal_sucess"
-          onCancel={()=>setModal1Open(false)}
-          
+          onCancel={() => setModal1Open(false)}
         >
           <div style={{ textAlign: "center" }}>
-            {title}
+       
+              Xóa khách hàng thành công
+            
           </div>
         </Modal>
       </div>
@@ -45,4 +47,4 @@ const ModalCompleteStep: React.FC<ModalCompleteStepProps> = ({
   );
 };
 
-export default ModalCompleteStep;
+export default ModalCompleteStepDEl;

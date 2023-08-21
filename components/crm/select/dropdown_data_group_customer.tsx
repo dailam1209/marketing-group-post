@@ -21,9 +21,6 @@ export default function CustomerGroupSelectDropdownData({
     })
     const type = await res.json()
     // const
-
-
-    console.log("cjeck item", item.gr_id);
     setValueOption(item.gr_name)
     const url =
       "http://210.245.108.202:3007/api/crm/customerdetails/editCustomer";
