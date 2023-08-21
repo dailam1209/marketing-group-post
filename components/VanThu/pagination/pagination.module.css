@@ -1,48 +1,48 @@
 .pagination {
-    display: flex;
-    justify-content: center;
-    list-style: none;
-    padding: 0;
-    margin-bottom: 50px;
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+  margin-bottom: 50px;
 }
 .toiguidi {
-    display: flex;
-    justify-content: center;
-    list-style: none;
-    padding: 0;
-    margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+  margin-top: 50px;
 }
-  
+
 .page {
-    font-size: 14px;
-    color: #767676;
-    padding: 7px 12px;
-    margin-left: 2px;
-    border-radius: 5px;
-    align-items: center;
-    justify-content: center;
-    display: flex;
+  font-size: 16px;
+  color: #767676;
+  padding: 7px 12px;
+  margin-left: 2px;
+  border-radius: 5px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
 }
-  
+
 .active {
-    color: #767676!important;
-    border: 2px solid #DDD;
+  color: #767676 !important;
+  border: 2px solid #ddd;
 }
-  
+
 .previous,
 .next {
-    color: #fff;
-    background: #4C5BD4;
-    font-size: 14px;
-    padding: 7px 12px;
-    margin-left: 2px;
-    border-radius: 5px;
+  color: #fff;
+  background: #4c5bd4;
+  font-size: 16px;
+  padding: 7px 12px;
+  margin-left: 2px;
+  border-radius: 5px;
 }
-  
+
 .break {
-    padding: 4px;
-    margin: 2px;
+  padding: 4px;
+  margin: 2px;
 }
-.disabled{
-    display: none;
+.disabled {
+  display: none;
 }

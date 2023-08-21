@@ -1,5 +1,4 @@
 .all_quytrinh {
- 
   border: 0.5px solid rgba(71, 71, 71, 0.24);
   box-sizing: border-box;
   border-radius: 8px;
@@ -56,7 +55,6 @@
 }
 .span_a_detail {
   width: 52px;
-
 }
 
 .qtrspan1 {
@@ -68,12 +66,10 @@
   margin-top: 10px;
 }
 .quytrinh_item {
-
   padding: 13px;
   border-left: 4px solid #4c5bd4;
   box-sizing: border-box;
   height: auto;
- 
 }
 
 .quytrinh_item1 {
@@ -98,10 +94,10 @@
   height: 0;
 }
 .pagination {
-    float: right;
-    margin-top: 10px;
-    border: #333333;
-    margin-right: 40px;
+  float: right;
+  margin-top: 10px;
+  border: #333333;
+  margin-right: 40px;
 }
 @media (max-width: 280px) {
   .quytrinh_item {

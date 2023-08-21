@@ -8,6 +8,7 @@ import EditStatusCustomerModal from "../customer/status/modal_status_customer";
 import { useApi } from "@/components/crm/hooks/useApi";
 import Image from "next/image";
 import AddStatusCustomerModal from "../customer/status/modal_add_customer_status";
+import { base_url } from "../service/function";
 const Cookies = require("js-cookie");
 interface DataType {
   key: number;
@@ -29,7 +30,7 @@ const TableStatusCustomer: React.FC<TableStatusCustomerProps> = ({}: any) => {
   const [id, setId] = useState();
   const [name, setName] = useState();
   const { data, loading, error, fetchData, updateData, deleteData } = useApi(
-    "http://210.245.108.202:3007/api/crm/customerStatus/list",
+    `${base_url}/api/crm/customerStatus/list`,
     `${Cookies.get("token_base365")}`,
     "POST",
     { stt_name: `${stt}`, pageSize: 10000 }
@@ -50,14 +51,14 @@ const TableStatusCustomer: React.FC<TableStatusCustomerProps> = ({}: any) => {
   const handelChangeSwicth = (e: any, id: any) => {
     if (!e && id) {
       updateData(
-        "http://210.245.108.202:3007/api/crm/customerStatus/update",
+        `${base_url}/api/crm/customerStatus/update`,
         `${Cookies.get("token_base365")}`,
         "POST",
         { stt_id: id, status: 0 }
       );
     } else {
       updateData(
-        "http://210.245.108.202:3007/api/crm/customerStatus/update",
+        `${base_url}/api/crm/customerStatus/update`,
         `${Cookies.get("token_base365")}`,
         "POST",
         { stt_id: id, status: 1 }

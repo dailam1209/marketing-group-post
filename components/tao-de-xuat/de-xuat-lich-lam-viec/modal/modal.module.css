@@ -15,17 +15,16 @@
   position: relative;
   z-index: 10;
   background-color: #4c5bd4;
-  padding-left: 1px !important;
   border-color: #fff;
   position: absolute;
-  right: 25%;
+  right: 27%;
   padding: 0px;
   width: 14px;
   height: 14px;
   line-height: 18px;
   font-size: 9px;
-  border-radius: 7px;
-  top: 57%;
+  border-radius: 50%;
+  top: 42%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -34,21 +33,21 @@
 .count_none {
   display: none;
 }
+
 .count_red {
   position: relative;
   z-index: 10;
   background-color: #f46a6a;
-  padding-left: 1px !important;
   border-color: #fff;
   position: absolute;
-  right: 25%;
+  right: 27%;
   padding: 0px;
   width: 14px;
   height: 14px;
   line-height: 18px;
   font-size: 9px;
-  border-radius: 7px;
-  top: 57%;
+  border-radius: 50%;
+  top: 42%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -85,11 +84,13 @@
 
 .normal {
   border: none;
+  pointer-events: none;
 }
 
 .overDay {
   border: 1px #cfcfcf solid;
   border-radius: 50%;
+  pointer-events: none;
 }
 
 .disable {
@@ -106,10 +107,14 @@
   cursor: pointer;
 }
 
+.cover.circleActive {
+  border: 1px #4c5bd4 solid;
+}
+
 .iconX {
   display: none;
   position: absolute;
-  top: 57%;
+  top: 41%;
   left: 51%;
   transform: translate(-50%, -50%);
   z-index: 1;
@@ -326,7 +331,7 @@
 }
 
 .btnHeaderHour {
-  background-color: var(--theme-color);
+  background-color: #4c5bd4;
   display: flex;
   height: auto;
   padding: 5px 20px;
@@ -371,7 +376,7 @@
 }
 
 .btnFooterAddHour {
-  background-color: var(--theme-color);
+  background-color: #4c5bd4;
   display: flex;
   height: 32px;
   padding: 5px 20px;
@@ -443,7 +448,7 @@
 }
 
 .hourItem > span {
-  color: var(--theme-color);
+  color: #4c5bd4;
   font-family: Roboto;
   font-size: 16px;
   font-style: normal;
@@ -479,7 +484,14 @@
   color: #fff;
 }
 
-@media screen and (max-width: 600px) {
+
+@media screen and (max-width: 1024px) {
+  .count_red, .count_base {
+    right: 20%;
+  }
+}
+
+@media screen and (max-width: 768px) {
   .footer {
     .cancelBtn {
       width: 104px !important;
@@ -497,6 +509,10 @@
       width: 85px !important;
     }
   }
+  .count_red,
+  .count_base {
+    right: 30%;
+  }
 }
 
 @media screen and (max-width: 414px) {
@@ -509,5 +525,16 @@
 
   .tableHeaderTxt {
     font-size: 18px;
+  }
+  .count_red,
+  .count_base {
+    right: 15%;
+    padding: 0px;
+    width: 14px;
+    height: 14px;
+    line-height: 18px;
+    font-size: 9px;
+    border-radius: 7px;
+    top: 42%;
   }
 }

@@ -7,10 +7,27 @@
   width: 100%;
 }
 
+.animation {
+  width: 100%;
+}
+
+.txt1 {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.txt2 {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 @media (min-width: 1920px) {
   .animation {
     .header {
-      width: 380px;
+      width: 100%;
       padding: 10px;
       border-radius: 10px;
       background: #fff;
@@ -57,7 +74,7 @@
     }
     .fullDiv {
       display: flex;
-      width: 380px;
+      width: 100%;
       border-radius: 10px;
       background: #fff;
       flex-direction: column;
@@ -118,7 +135,7 @@
 @media (min-width: 1366px) and (max-width: 1919px) {
   .animation {
     .header {
-      width: 380px;
+      width: 100%;
       padding: 10px;
       border-radius: 10px;
       background: #fff;
@@ -166,7 +183,7 @@
     }
     .fullDiv {
       display: flex;
-      width: 380px;
+      width: 100%;
       border-radius: 10px;
       flex-direction: column;
       background: #fff;
@@ -227,7 +244,7 @@
 @media (min-width: 1024px) and (max-width: 1365px) {
   .animation {
     .header {
-      width: 314px;
+      width: 100%;
       padding: 10px;
       border-radius: 10px;
       background: #fff;
@@ -248,10 +265,7 @@
         font-style: normal;
         font-weight: 500;
         line-height: 136%;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        width: 260px !important;
+        
       }
 
       .txt2 {
@@ -280,7 +294,7 @@
     }
     .fullDiv{
       display: flex;
-      width: 314px;
+      width: 100%;
       background: #fff;
       flex-direction: column;
       box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
@@ -301,10 +315,6 @@
         font-style: normal;
         font-weight: 500;
         line-height: 136%; 
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        width: 230px !important;
       }
 
       .txt2 {
@@ -355,7 +365,7 @@
 @media (min-width: 768px) and (max-width: 1023px) {
   .animation {
     .header {
-      width: 350px;
+      width: 100%;
       padding: 10px;
       border-radius: 10px;
       background: #fff;
@@ -403,7 +413,7 @@
     }
     .fullDiv{
       display: flex;
-      width: 350px;
+      width: 100%;
       border-radius: 10px;
       flex-direction: column;
       background: #fff;
@@ -464,7 +474,7 @@
 @media (max-width: 767px) {
   .animation {
     .header {
-      width: 382px;
+      width: 100%;
       padding: 10px;
       border-radius: 10px;
       background: #fff;
@@ -513,7 +523,7 @@
     .fullDiv{
       display: flex;
       flex-direction: column;
-      width: 382px;
+      width: 100%;
       border-radius: 10px !important;
       background: #fff;
       box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);

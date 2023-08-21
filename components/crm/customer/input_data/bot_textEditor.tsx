@@ -2,28 +2,58 @@ import React, { useEffect, useState } from "react";
 import style from "@/components/crm/customer/customer.module.css";
 import { Checkbox, Input, Select } from "antd";
 import Cookies from "js-cookie";
+import { base_url } from "../../service/function";
 
 type Props = {};
 
-const Bot_textEditor = ({dataAdd,setDataAdd}: any) => {
+const Bot_textEditor = ({ dataAdd, setDataAdd }: any) => {
   const [listNV, setlistNV] = useState([]);
+  const [listGr, setListGr] = useState([]);
+  const [listGr_Child,setlistGr_Child] = useState([])
   const handleGetNV = async () => {
-    const res = await fetch(
-      "http://210.245.108.202:3000/api/qlc/managerUser/list",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${Cookies.get("token_base365")}`,
-        },
-        body: JSON.stringify({ com_id: Cookies.get("com_id") }),
-      }
-    );
-    const data = await res.json();
-    setlistNV(data?.data?.data);
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/list`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${Cookies.get("token_base365")}`,
+          },
+          body: JSON.stringify({ com_id: Cookies.get("com_id") }),
+        }
+      );
+      const data = await res.json();
+      setlistNV(data?.data?.data);
+    } catch (error) {
+      console.log("error:", error);
+    }
   };
+  const handleGetGr = async () => {
+    try {
+      const res = await fetch(
+       `${base_url}/api/crm/group/list_group_khach_hang`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${Cookies.get("token_base365")}`,
+          },
+          body: JSON.stringify({ com_id: Cookies.get("com_id") }),
+        }
+      );
+      const data = await res.json();
+      setListGr(data?.data?.showGr);
+    } catch (error) {
+      console.log("error:", error);
+    }
+  };
+const handleSelecGrParent = (value) =>{
+console.log(value)
+}
   useEffect(() => {
     handleGetNV();
+    handleGetGr();
   }, []);
 
   return (
@@ -47,10 +77,16 @@ const Bot_textEditor = ({dataAdd,setDataAdd}: any) => {
           <Select
             style={{ fontWeight: 1000, width: "100%" }}
             placeholder="Chọn nhóm khách hàng cha"
+            onChange={handleSelecGrParent}
           >
-            <option value="">Khách hàng cha 1</option>
-            <option value="">Khách hàng cha 2</option>
-            <option value="">Khách hàng cha 3</option>
+            {" "}
+            {listGr?.map((item, index) => {
+              return (
+                <option key={index} value={item?.gr_id}>
+                  {item?.gr_name}
+                </option>
+              );
+            })}
           </Select>
         </div>
         <div>&nbsp;</div> <div>&nbsp;</div> <div>&nbsp;</div>
@@ -60,8 +96,10 @@ const Bot_textEditor = ({dataAdd,setDataAdd}: any) => {
             style={{ fontWeight: 1000, width: "100%" }}
             placeholder="Chọn nhân viên nhập liệu"
             value={dataAdd?.user_create_id}
-            onChange={(value) => setDataAdd({...dataAdd,user_create_id:value})}
-            >
+            onChange={(value) =>
+              setDataAdd({ ...dataAdd, user_create_id: value })
+            }
+          >
             {listNV?.map((item, index) => {
               return (
                 <option key={index} value={item?.idQLC}>
@@ -93,9 +131,13 @@ const Bot_textEditor = ({dataAdd,setDataAdd}: any) => {
             style={{ fontWeight: 1000, width: "50%" }}
             placeholder="Chọn nhóm khách hàng con"
           >
-            <option value="">Khách hàng con 1</option>
-            <option value="">Khách hàng con 2</option>
-            <option value="">Khách hàng con 3</option>
+                {listGr?.map((item, index) => {
+              return (
+                <option key={index} value={item?.gr_id}>
+                  {item?.gr_name}
+                </option>
+              );
+            })}
           </Select>
         </div>
       </div>

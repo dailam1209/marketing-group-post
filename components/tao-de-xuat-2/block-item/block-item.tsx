@@ -24,13 +24,13 @@ export function BlockItem(
                         <Col lg={2} xs={4} className={styles.centerItem}>
                             <Image src="/list-clipboard.svg" alt="" width={24} height={24} ></Image>
                         </Col>
-                        <Col lg={20} xs={16} className={styles.col1}>
+                        <Col lg={22} xs={20} className={styles.col1}>
                             <div className={styles.txt1}>{ten_de_xuat}</div>
                             <div className={styles.txt2}>{mauDeXuat(ten_de_xuat)}</div>
                         </Col>
-                        <Col lg={2} xs={4} className={styles.centerItem}> 
+                        {/* <Col lg={2} xs={4} className={styles.centerItem}> 
                             <Image className={styles.col2} src="/flag_finish_light.png" alt="" width={24} height={24}></Image>
-                        </Col>
+                        </Col> */}
                     </Row>
                 </div>
 

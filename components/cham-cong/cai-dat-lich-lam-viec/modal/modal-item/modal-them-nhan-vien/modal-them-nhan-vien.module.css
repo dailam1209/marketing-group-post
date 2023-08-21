@@ -3,35 +3,35 @@
   justify-content: space-between;
   align-items: center;
   padding: 15px 20px 15px 20px;
-  background-color: var(--theme-color);
+  background-color: #4c5bd4;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
 }
-.textHead{
+.textHead {
   font-size: 18px;
-  color: var(--white-color);
+  color: #fff;
 }
-.body{
+.body {
   padding: 0 20px 20px 20px;
 }
-.bodyItem{
+.bodyItem {
   margin-top: 20px;
 }
-.hasButton{
+.hasButton {
   display: flex;
   justify-content: center;
   margin-top: 20px;
-  .button{
-      background-color: #4C5BD4;
-      padding: 10px 30px 10px 30px;
-      height: auto;
-      .txt{
-          color: white;
-      }
+  .button {
+    background-color: #4c5bd4;
+    padding: 10px 30px 10px 30px;
+    height: auto;
+    .txt {
+      color: white;
+    }
   }
 }
-.scrollbar{
+.scrollbar {
   height: 160px;
-  overflow-y:scroll;
-  overflow-x:hidden;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }

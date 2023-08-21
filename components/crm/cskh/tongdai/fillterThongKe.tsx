@@ -13,6 +13,7 @@ interface MyComponentProps {
   fillEnd: any;
   setFillEnd: any;
   handleGet: any;
+  setPhongban:any
 }
 const FilterThongKe: React.FC<MyComponentProps> = ({
   datatable,
@@ -23,6 +24,8 @@ const FilterThongKe: React.FC<MyComponentProps> = ({
   fillEnd,
   setFillEnd,
   handleGet,
+  setPhongban
+  
 }) => {
   const [listPB, setlistPB] = useState([]);
 
@@ -44,10 +47,9 @@ const FilterThongKe: React.FC<MyComponentProps> = ({
   const handleDateChange2 = (e: any) => {
     setFillEnd(`${e.target.value} 23:59:59`);
   };
-
   const handleGetPhongBan = async () => {
     const res = await fetch(
-      "http://210.245.108.202:3000/api/qlc/department/list",
+      `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/department/list`,
       {
         method: "POST",
         headers: {
@@ -61,7 +63,7 @@ const FilterThongKe: React.FC<MyComponentProps> = ({
     setlistPB(data?.data?.data);
   };
   const handleSlectPB = (value:any) =>{
-    
+    setPhongban(value)
   }
   useEffect(() => {
     handleGetPhongBan();
@@ -132,7 +134,7 @@ const FilterThongKe: React.FC<MyComponentProps> = ({
                     listPB.length > 0 &&
                     listPB?.map((item: any, index: number) => {
                       return (
-                        <option key={index} value={item?.dep_id}>
+                        <option key={index} value={item?.dep_name}>
                           {item?.dep_name}
                         </option>
                       );

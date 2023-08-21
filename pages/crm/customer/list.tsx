@@ -9,6 +9,7 @@ import { useApi } from "@/components/crm/hooks/useApi";
 const Cookies = require("js-cookie");
 import { format } from "date-fns";
 import { te } from "date-fns/locale";
+import { base_url } from "@/components/crm/service/function";
 export interface DataType {
   key: React.Key;
   cus_id: number;
@@ -43,12 +44,12 @@ export default function CustomerList() {
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
   const { data, loading, fetchData, updateData, deleteData } = useApi(
-    "http://210.245.108.202:3007/api/crm/customer/list",
+    `${base_url}/api/crm/customer/list`,
     `${Cookies.get("token_base365")}`,
     "POST",
     {
       perPage: 10000,
-      name: name === null ? null : name,
+      keyword: name === null ? null : name,
       status: status,
       resoure: resoure,
       userName: nvPhuTrach,
@@ -61,7 +62,7 @@ export default function CustomerList() {
     fetchData: fetchDataStatus,
     // ... other properties returned by the useApi hook
   } = useApi(
-    "http://210.245.108.202:3007/api/crm/customerStatus/list",
+    `${base_url}/api/crm/customerStatus/list`,
     `${Cookies.get("token_base365")}`,
     "POST",
    { pageSize:1000000}
@@ -72,7 +73,7 @@ export default function CustomerList() {
     fetchData: fetchDataCustomerGroup,
     // ... other properties returned by the useApi hook
   } = useApi(
-    "http://210.245.108.202:3007/api/crm/group/list_group_khach_hang",
+    `${base_url}/api/crm/group/list_group_khach_hang`,
     `${Cookies.get("token_base365")}`,
     "POST",
     { pageSize:1000000}

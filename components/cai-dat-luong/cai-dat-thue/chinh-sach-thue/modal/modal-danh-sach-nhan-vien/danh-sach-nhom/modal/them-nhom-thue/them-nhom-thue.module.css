@@ -1,127 +1,126 @@
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 20px 15px 20px;
-    background-color: var(--theme-color);
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-  }
-  .textHead{
-    font-size: 20px;
-    color: var(--white-color);
-  }
-  .body{
-    padding: 20px;
-  }
-  .nameCT{
-    display: flex;
-    padding: 10px;
-    align-items: center;
-    gap: 10px;
-    align-self: stretch;
-    margin-bottom: 20px;
-    width: 100%;
-    border-radius: 5px;
-  border: 1px solid #9F9F9F;
-  }
-.apdung{
-    width: 100%;
-    margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px 15px 20px;
+  background-color: #4c5bd4;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 }
-.text{
-    display: flex;
-    width: 100%;
-    gap: 5px;
-    margin-bottom: 5px;
+.textHead {
+  font-size: 20px;
+  color: #fff;
 }
-.title{
-    color: #474747;
-    font-family: Roboto;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 136%; /* 21.76px */
+.body {
+  padding: 20px;
 }
-.dau{
-    color: #FF5B4D;
-    font-family: Roboto;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 136%;
+.nameCT {
+  display: flex;
+  padding: 10px;
+  align-items: center;
+  gap: 10px;
+  align-self: stretch;
+  margin-bottom: 20px;
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid #9f9f9f;
 }
-.inputap{
-    border-radius: 5px;
-    border: 1px solid #9F9F9F;
+.apdung {
+  width: 100%;
+  margin-bottom: 20px;
 }
-.khungbutton{
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    gap: 20px;
+.text {
+  display: flex;
+  width: 100%;
+  gap: 5px;
+  margin-bottom: 5px;
 }
-.button1{
-    display: flex;
-    padding: 5px 40px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    border-radius: 10px;
-    border: 1px solid #4C5BD4;
-    background: #fff;
+.title {
+  color: #474747;
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 136%; /* 21.76px */
 }
-.textbutton1{
-    color: #4C5BD4;
-    font-family: Roboto;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 136%; /* 24.48px */
+.dau {
+  color: #ff5b4d;
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 136%;
 }
-.button2{
-    display: flex;
-    padding: 5px 20px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    border-radius: 10px;
-    background: #4C5BD4;
-    border: none;
+.inputap {
+  border-radius: 5px;
+  border: 1px solid #9f9f9f;
 }
-.textbutton2{
-    color: #FFF;
-    font-family: Roboto;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 136%; /* 24.48px */
+.khungbutton {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  gap: 20px;
 }
-.nhanvien{
-    display: flex;
-    padding: 5px 15px;
-    align-items: center;
-    gap: 6px;
-    border-radius: 15px;
-    background: #DFEAFF;
+.button1 {
+  display: flex;
+  padding: 5px 40px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 10px;
+  border: 1px solid #4c5bd4;
+  background: #fff;
 }
-.name{
-    color: #474747;
-    font-family: Roboto;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 136%; /* 21.76px */
+.textbutton1 {
+  color: #4c5bd4;
+  font-family: Roboto;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 136%; /* 24.48px */
 }
-.khungnhanvien{
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
+.button2 {
+  display: flex;
+  padding: 5px 20px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 10px;
+  background: #4c5bd4;
+  border: none;
+}
+.textbutton2 {
+  color: #fff;
+  font-family: Roboto;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 136%; /* 24.48px */
+}
+.nhanvien {
+  display: flex;
+  padding: 5px 15px;
+  align-items: center;
+  gap: 6px;
+  border-radius: 15px;
+  background: #dfeaff;
+}
+.name {
+  color: #474747;
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 136%; /* 21.76px */
+}
+.khungnhanvien {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
 }
 @media screen and (max-width: 480px) {
-    .textHead{
-        font-size: 18px;
-    }
-    
+  .textHead {
+    font-size: 18px;
+  }
 }

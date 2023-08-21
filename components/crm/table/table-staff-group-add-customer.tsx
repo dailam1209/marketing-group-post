@@ -8,6 +8,7 @@ import PotentialSelectBox from "../potential/potential_selectt";
 import CancelModal from "../potential/potential_steps/cancel_modal";
 import { TableRowSelection } from "antd/es/table/interface";
 import ModalDelEmpGroup from "../modals/modal_del_group";
+import { number } from "yup";
 
 interface DataType {
   key: React.Key;
@@ -35,8 +36,13 @@ const TableStaffCustomerGroupAdd: React.FC<TableStaffCustomerGroupAddProps> = ({
   const [isOpenModalDel, setIsOpenModalDel] = useState(false);
   const [idDel, setIdDel] = useState();
 
-  const newArray = dataEmp?.filter((item) => valueSelected?.includes(item._id));
-  console.log(newArray);
+  const newArray = dataEmp?.filter((item) => {
+    if (typeof valueSelected === "object") {
+      return valueSelected?.includes(item._id);
+    } else {
+      return [valueSelected]?.includes(item._id);
+    }
+  });
 
   const data: DataType[] = newArray?.map((item) => {
     return {
@@ -49,7 +55,6 @@ const TableStaffCustomerGroupAdd: React.FC<TableStaffCustomerGroupAddProps> = ({
 
   function handleDelRow(item: any): void {
     setIsOpenModalDel(true);
-    console.log(valueSelected?.findIndex((items) => items === item._id));
     setIdDel(item?._id);
   }
 
@@ -60,11 +65,9 @@ const TableStaffCustomerGroupAdd: React.FC<TableStaffCustomerGroupAddProps> = ({
     setData(arrVal);
   };
 
-  console.log("-------: ", newArray);
 
   const rowSelection: TableRowSelection<DataType> = {
     onChange: (selectedRowKeys: any, selectedRows: string | any[]) => {
-      console.log(`selectedRowKeys: ${selectedRowKeys}`, "selectedRows: ");
       setSelectedRow(selectedRows?.length);
       setDataRowSelect(selectedRowKeys);
     },
