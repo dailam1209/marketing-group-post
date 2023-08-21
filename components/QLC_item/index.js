@@ -28,6 +28,9 @@ export default function QLC_item({
     if (url === "/phan-mem-nhan-su/quan-ly-chung" && hasCheckLogin) {
       router.push("/phan-mem-nhan-su");
     }
+    if (url === "/crm" && hasCheckLogin) {
+      router.push("/crm");
+    }
     // else {
     //   alert('Làm ơn hãy đăng ký/đăng nhập')
     // }

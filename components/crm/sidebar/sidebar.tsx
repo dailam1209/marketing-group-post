@@ -6,15 +6,18 @@ import { SidebarContext } from "../context/resizeContext";
 import { useContext, useEffect, useRef, useState } from "react";
 import { AccessContext } from "../context/accessContext";
 import { getToken } from "@/pages/api/api-hr/token";
-import jwt_decode from 'jwt-decode'
-import { EmployeeInfo, getDataCompany } from "@/pages/api/api-hr/cai-dat/generalSettings";
+import jwt_decode from "jwt-decode";
+import {
+  EmployeeInfo,
+  getDataCompany,
+} from "@/pages/api/api-hr/cai-dat/generalSettings";
 
-export default function SideBar({ isOpened }: any ) {
+export default function SideBar({ isOpened }: any) {
   const { isOpen, setIsOpen } = useContext<any>(SidebarContext);
   const sidebarRef = useRef<HTMLElement>(null);
-  const [dataHeader, setDataHeader] = useState<any>()
-  const COOKIE_KEY = 'token_base365'
-  const [tokenType, setTokenType] = useState<any>(null)
+  const [dataHeader, setDataHeader] = useState<any>();
+  const COOKIE_KEY = "token_base365";
+  const [tokenType, setTokenType] = useState<any>(null);
   const { accessAcountRole, setAccessAcountRole }: any =
     useContext(AccessContext);
 
@@ -33,56 +36,56 @@ export default function SideBar({ isOpened }: any ) {
     };
   }, []);
 
-  // useEffect(() => {
-  //   if (isOpen) {
-  //     sidebarRef.current?.classList.add("active_resize");
-  //   } else {
-  //     sidebarRef.current?.classList?.remove("active_resize");
-  //   }
-  // }, [isOpen]);
+  useEffect(() => {
+    if (isOpen) {
+      sidebarRef.current?.classList.add("active_resize");
+    } else {
+      sidebarRef.current?.classList?.remove("active_resize");
+    }
+  }, [isOpen]);
 
   useEffect(() => {
     const fetchDataType = async () => {
-      const currentCookie = getToken(COOKIE_KEY)
+      const currentCookie = getToken(COOKIE_KEY);
       if (currentCookie) {
-        const decodedToken: any = jwt_decode(currentCookie)
-        setTokenType(decodedToken?.data?.type)
+        const decodedToken: any = jwt_decode(currentCookie);
+        setTokenType(decodedToken?.data?.type);
       } else {
         const interval = setInterval(async () => {
-          clearInterval(interval)
-          fetchDataType()
-        }, 500)
+          clearInterval(interval);
+          fetchDataType();
+        }, 500);
       }
-    }
-    fetchDataType()
-  }, [])
+    };
+    fetchDataType();
+  }, []);
 
   useEffect(() => {
     const fetchInfo = async () => {
       try {
         if (tokenType) {
-          if (tokenType === 1 || tokenType === '1') {
-            const response = await getDataCompany()
-            setDataHeader(response?.data)
+          if (tokenType === 1 || tokenType === "1") {
+            const response = await getDataCompany();
+            setDataHeader(response?.data);
           } else {
-            const response = await EmployeeInfo()
-            setDataHeader(response?.data)
+            const response = await EmployeeInfo();
+            setDataHeader(response?.data);
           }
         } else {
           const interval = setInterval(async () => {
-            const updatedToken = tokenType
-            if (updatedToken === 1 || updatedToken === '1') {
-              clearInterval(interval)
-              fetchInfo()
+            const updatedToken = tokenType;
+            if (updatedToken === 1 || updatedToken === "1") {
+              clearInterval(interval);
+              fetchInfo();
             }
-          }, 1000)
+          }, 1000);
         }
       } catch (error) {
         // Xử lý lỗi ở đây
       }
-    }
-    fetchInfo()
-  }, [tokenType])
+    };
+    fetchInfo();
+  }, [tokenType]);
 
   return (
     <div
@@ -90,7 +93,7 @@ export default function SideBar({ isOpened }: any ) {
       // style={{ width: isOpen ? "70px" : "302px" }}
       className={`${style.sidebar} ${!isOpened ? `${style.mSideBar}` : null}`}
     >
-      <HeaderBar dataHeader={dataHeader}/>
+      <HeaderBar dataHeader={dataHeader} isOpen={isOpen} />
       <SiebarContent isOpen={isOpen} toggleModal={setIsOpen} />
     </div>
   );

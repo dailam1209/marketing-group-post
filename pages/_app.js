@@ -22,12 +22,12 @@ import Head from "next/head";
 import Seo from "@/components/head";
 import { Provider } from "react-redux";
 import { TongDaiContext } from "@/components/crm/context/tongdaiContext";
-import store from "@/store";
 import Layout_admin from "@/components/VanThu/Layout_admin";
 import Cookies from "js-cookie";
 import jwtDecode from "jwt-decode";
 import Layout_user from "@/components/VanThu/Layout_user";
 import { setCookie } from "cookies-next";
+import { store } from "@/components/crm/redux/store";
 
 export const LoadingComp = () => {
   return (
@@ -85,7 +85,7 @@ export default function App({ Component, pageProps }) {
     }
   }, [router.pathname]);
 
-  // const shouldShowSidebarAndHeader = !pathname.includes("/crm");
+  const shouldShowSidebarAndHeader = pathname.includes("/crm/");
 
   const importGlobalStyles = () => {
     if (router.pathname?.includes("/phan-mem-nhan-su/")) {
@@ -147,13 +147,13 @@ export default function App({ Component, pageProps }) {
               <AccessContextComponent>
                 <SidebarResize>
                   <NavigateContextComponent>
-                    {/* {shouldShowSidebarAndHeader && ( */}
-                    <>
-                      <Header toggleModal={toggleModal} />
-                      <Sidebar isOpened={isOpen} />
-                      <ChatBusiness />
-                    </>
-                    {/* )} */}
+                    {shouldShowSidebarAndHeader && (
+                      <>
+                        <Header toggleModal={toggleModal} />
+                        <Sidebar isOpened={isOpen} />
+                        <ChatBusiness />
+                      </>
+                    )}
                     <TitleHeaderMobile />
                     <TongDaiContext>
                       <Component {...pageProps} />
