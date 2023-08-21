@@ -15,6 +15,8 @@ export default function GroupCustomerAction({
 }: any) {
   const [isDelOpen, setIsDelOpen] = useState(false);
 
+  const accessToken = Cookies.get("token_base365");
+
   const {
     data,
     loading,

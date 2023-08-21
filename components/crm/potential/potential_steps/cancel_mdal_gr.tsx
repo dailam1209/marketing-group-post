@@ -2,10 +2,7 @@ import React, { useState } from "react";
 import { Button, Modal } from "antd";
 import styles from "../potential.module.css";
 import { useRouter } from "next/router";
-import { base_url } from "../../service/function";
-import Cookies from "js-cookie";
-import { random } from "lodash";
-
+const Cookies = require("js-cookie");
 interface MyComponentProps {
   isModalCancel: boolean;
   setIsModalCancel: (value: boolean) => void;
@@ -13,46 +10,19 @@ interface MyComponentProps {
   title: string;
   link: string;
   id?: any;
-  updateData?: any;
-  keyDeleted?: any;
-  setChange: any;
 }
-const CancelModalDelGroup: React.FC<MyComponentProps> = ({
+const CancelModalGroupCustomer: React.FC<MyComponentProps> = ({
   isModalCancel,
   setIsModalCancel,
   content = "Bạn có chắc chắn muốn hủy nhập tiềm năng từ file, mọi thông tin bạn nhập sẽ không được lưu lại?",
   title = "Xác nhận hủy nhập tiềm năng từ file",
   link = "/potential/list",
   id,
-  updateData,
-  keyDeleted,
-  setChange,
 }) => {
-  console.log(typeof keyDeleted);
   const router = useRouter();
-  const accessToken = Cookies.get("token_base365");
-  console.log(keyDeleted);
-  const handleOK = async () => {
+  const handleOK = () => {
     setIsModalCancel(false);
-    if (typeof keyDeleted === "number") {
-      updateData(
-        `${base_url}/api/crm/group/delete_khach_hang`,
-        `${Cookies.get("token_base365")}`,
-        "POST",
-        { listDeleteId: [keyDeleted] }
-      );
-    } else {
-      const delArray = keyDeleted?.map((keyDel) => {
-        updateData(
-          `${base_url}/api/crm/group/delete_khach_hang`,
-          `${Cookies.get("token_base365")}`,
-          "POST",
-          { listDeleteId: [keyDel] }
-        );
-      });
-      await Promise.all(delArray);
-    }
-    setChange(Math.random());
+    router.push("/crm/customer/group/list")
   };
   return (
     <>
@@ -75,4 +45,4 @@ const CancelModalDelGroup: React.FC<MyComponentProps> = ({
   );
 };
 
-export default CancelModalDelGroup;
+export default CancelModalGroupCustomer;

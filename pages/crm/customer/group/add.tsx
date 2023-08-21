@@ -16,6 +16,8 @@ import Image from "next/image";
 import TextEditorGr from "@/components/crm/text-editor/text_editor_gr";
 import { base_url } from "@/components/crm/service/function";
 import Cookies from "js-cookie";
+import GrFooterAddFiles from "@/components/crm/potential/potential_add_files/gr_customer_footer";
+import CustomerGroupSelectCpmponent from "@/components/crm/select/group_components_select";
 
 const GroupCustomerAdd: React.FC = () => {
   const [valAllDepartment, setValAllDepartment] = useState(false);
@@ -45,6 +47,8 @@ const GroupCustomerAdd: React.FC = () => {
     useHeader();
 
   console.log(valueGroupCustomer);
+  const accessToken = Cookies.get("token_base365");
+  const com_id = Cookies.get("com_id");
 
   const urlCreate = `${base_url}/api/crm/group/create_GroupKH`;
   const {
@@ -61,7 +65,7 @@ const GroupCustomerAdd: React.FC = () => {
     `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/department/list`,
     `${Cookies.get("token_base365")}`,
     "POST",
-    { com_id: 1664 }
+    { com_id: com_id }
   );
 
   const { data, loading, error, fetchData, updateData, deleteData } = useApi(
@@ -78,7 +82,7 @@ const GroupCustomerAdd: React.FC = () => {
     `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/list`,
     `${Cookies.get("token_base365")}`,
     "POST",
-    { dep_id: selectedValueDepartments?.join(",") || "", com_id: 1664 }
+    { dep_id: selectedValueDepartments?.join(",") || "", com_id: com_id }
   );
 
   useEffect(() => {
@@ -128,7 +132,7 @@ const GroupCustomerAdd: React.FC = () => {
         `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/list`,
         `${Cookies.get("token_base365")}`,
         "POST",
-        { com_id: 1664 }
+        { com_id: com_id }
       );
       setValueGroupCustomer((prev) => {
         return {
@@ -200,9 +204,9 @@ const GroupCustomerAdd: React.FC = () => {
                   <div style={{ width: "50%" }}>
                     <label>Nhóm khách hàng cha </label>
                     <div ref={valueOptionRef}>
-                      <CustomerGroupSelect
+                      <CustomerGroupSelectCpmponent
                         value="Chọn nhóm khách hàng cha"
-                        placeholder="Chọn"
+                        placeholder=""
                         data={dataSelectGroupParent}
                         setValueGroupCustomer={setValueGroupCustomer}
                       />
@@ -281,24 +285,26 @@ const GroupCustomerAdd: React.FC = () => {
                       <label>Nhân viên</label>
                       <Checkbox onChange={() => {}}>Tất cả</Checkbox>
                     </div>
-                    <Select
-                      // mode="multiple"
-                      // allowClear
-                      style={{
-                        width: "100%",
-                        height: "40px !important",
-                      }}
-                      // disabled={selectedValueDepartments?.length === 0}
-                      placeholder="Chọn nhân viên"
-                      // defaultValue={dataDepartments?.dep_id}
-                      value={valEmp}
-                      onChange={handleChangeEmps}
-                      options={
-                        selectedValueDepartments?.length === 0
-                          ? []
-                          : employeeOptions
-                      }
-                    />
+                    {!valAllDepartment && (
+                      <Select
+                        // mode="multiple"
+                        // allowClear
+                        style={{
+                          width: "100%",
+                          height: "40px !important",
+                        }}
+                        // disabled={selectedValueDepartments?.length === 0}
+                        placeholder="Chọn nhân viên"
+                        // defaultValue={dataDepartments?.dep_id}
+                        value={valEmp}
+                        onChange={handleChangeEmps}
+                        options={
+                          selectedValueDepartments?.length === 0
+                            ? []
+                            : employeeOptions
+                        }
+                      />
+                    )}
                   </div>
 
                   {selectedRow >= 2 && (
@@ -346,7 +352,7 @@ const GroupCustomerAdd: React.FC = () => {
                   />
                 )}
               </div>
-              <PotentialFooterAddFiles
+              <GrFooterAddFiles
                 link="/crm/customer/group/list"
                 titleCancel="Xác nhận hủy thêm mới nhóm khách hàng "
                 title="Thêm nhóm khách hàng thành công!"
@@ -354,16 +360,20 @@ const GroupCustomerAdd: React.FC = () => {
                   "Bạn có đồng ý hủy? \n Mọi dữ liệu bạn vừa nhập sẽ bị xóa?"
                 }
                 handleSave={async () => {
-                  await updateDataAddGroup(
-                    urlCreate,
-                    `${Cookies.get("token_base365")}`,
-                    "POST",
-                    {
-                      ...valueGroupCustomer,
-                      emp_id: dataTableEmp?.join(","),
-                      dep_id: selectedValueDepartments?.join(","),
-                    }
-                  );
+                  if (valueGroupCustomer.groupName !== "") {
+                    await updateDataAddGroup(
+                      urlCreate,
+                      `${Cookies.get("token_base365")}`,
+                      "POST",
+                      {
+                        ...valueGroupCustomer,
+                        emp_id: dataTableEmp?.join(","),
+                        dep_id: selectedValueDepartments?.join(","),
+                      }
+                    );
+                    return true;
+                  }
+                  return false;
                 }}
               />
             </div>

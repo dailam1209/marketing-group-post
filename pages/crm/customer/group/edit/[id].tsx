@@ -21,6 +21,8 @@ import ModalDelEmpGroup from "@/components/crm/modals/modal_del_group";
 import TextEditorGr from "@/components/crm/text-editor/text_editor_gr";
 import { base_url } from "@/components/crm/service/function";
 import Cookies from "js-cookie";
+import CustomerGroupSelectCpmponent from "@/components/crm/select/group_components_select";
+import GrFooterAddFiles from "@/components/crm/potential/potential_add_files/gr_customer_footer";
 
 interface CustomJwtPayload extends jwt.JwtPayload {
   idQLC: string; // hoặc kiểu dữ liệu thích hợp
@@ -54,9 +56,20 @@ const GroupCustomerAdd: React.FC = () => {
     group_parent: "",
     dep_id: null,
     emp_id: null,
+    group_cus_parent: null,
   });
 
-  const { data, loading, error, fetchData, updateData, deleteData } = useApi(
+  const accessToken = Cookies.get("token_base365");
+  const com_id = Cookies.get("com_id");
+
+  const {
+    data: dataAll,
+    loading,
+    error,
+    fetchData,
+    updateData,
+    deleteData,
+  } = useApi(
     `${base_url}/api/crm/group/list_group_khach_hang`,
     `${Cookies.get("token_base365")}`,
     "POST"
@@ -67,10 +80,21 @@ const GroupCustomerAdd: React.FC = () => {
     fetchData: fetchDataDepartment,
     updateData: updateDataDepartment,
   } = useApi(
-    `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/department/list`,
-    `${Cookies.get("token_base365")}`,
+`${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/department/list`,
+`${Cookies.get("token_base365")}`,
     "POST",
-    { com_id: 1664 }
+    { com_id:`${Cookies.get("com_id")}`}
+  );
+
+  const {
+    data: dataDetails,
+    fetchData: fetchDataDetails,
+    updateData: updateDataDetails,
+  } = useApi(
+    "http://210.245.108.202:3007/api/crm/group/details",
+    accessToken,
+    "POST",
+    { gr_id: Number(id) }
   );
 
   const { updateData: updateDataEdit } = useApi(
@@ -88,20 +112,24 @@ const GroupCustomerAdd: React.FC = () => {
     `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/list`,
     `${Cookies.get("token_base365")}`,
     "POST",
-    { dep_id: selectedValueDepartments?.join(",") || "", com_id: 1664 }
+    {
+      dep_id: selectedValueDepartments?.join(",") || "",
+      com_id: Number(com_id),
+    }
   );
 
-  const dataPassFromId = data?.data?.showGr?.filter(
+  const dataPassFromId = dataAll?.data?.showGr?.filter(
     (item: any) => item?.gr_id === Number(id)
   )?.[0];
 
   useEffect(() => {
     fetchData();
     fetchDataDepartment();
+    fetchDataDetails();
   }, []);
 
   useEffect(() => {
-    setValueGroupCustomer(dataPassFromId);
+    setValueGroupCustomer(dataDetails?.data?.checkGroup);
   }, []);
 
   useEffect(() => {
@@ -127,11 +155,18 @@ const GroupCustomerAdd: React.FC = () => {
     const valueExists = dataTableEmp?.some((item) => item === val);
 
     if (!valueExists) {
-      if (dataTableEmp) {
-        setDataTableEmp((prevData) => [...prevData, val]);
-      } else {
-        setDataTableEmp(val);
-      }
+      // if (dataTableEmp) {
+      //   setDataTableEmp((prevData) => [...prevData, val]);
+      // } else {
+      //   setDataTableEmp([val]);
+      // }
+      setDataTableEmp((prevData) => {
+        if (prevData) {
+          return [...prevData, val];
+        } else {
+          return [val];
+        }
+      });
     } else {
       console.log("Giá trị đã tồn tại trong mảng dataTableEmp");
       setErrModal(true);
@@ -169,7 +204,7 @@ const GroupCustomerAdd: React.FC = () => {
     setEmployeeOptions(employeeOption);
   }, [selectedValueDepartments]);
 
-  const dataSelectGroupParent = data?.data?.showGr;
+  const dataSelectGroupParent = dataAll?.data?.showGr;
   const dataDepartments = dataDepartment?.data?.data;
   const options = dataDepartments?.map((item) => {
     return {
@@ -194,20 +229,22 @@ const GroupCustomerAdd: React.FC = () => {
 
   useEffect(() => {
     setSelectedValueDepartments(
-      dataPassFromId?.dep_id
+      dataDetails?.data?.checkGroup?.dep_id
         ?.split(",")
         .map((item) => parseInt(item.trim(), 10))
     );
 
     setDataTableEmp(
-      dataPassFromId?.emp_id
+      dataDetails?.data?.checkGroup?.emp_id
         ?.split(",")
         .map((item) => parseInt(item.trim(), 10))
     );
 
-    // setValAllDepartment(dataPassFromId?.dep_id ? false: true)
-    // setValAllEmp(dataPassFromId?.emp_id ? false :true)
+    // setValAllDepartment(dataDetails?.data?.checkGroup?.dep_id ? false: true)
+    // setValAllEmp(dataDetails?.data?.checkGroup?.emp_id ? false :true)
   }, []);
+
+  console.log(valueGroupCustomer);
 
   useEffect(() => {
     fetchDataEmp(
@@ -220,7 +257,7 @@ const GroupCustomerAdd: React.FC = () => {
     setTimeout(() => {
       const employeeOption = dataEmp?.data?.data
         ?.filter((emp) =>
-          dataPassFromId?.dep_id
+          dataDetails?.data?.checkGroup?.dep_id
             ?.split(",")
             .map((item) => parseInt(item.trim(), 10))
             ?.includes(emp.dep_id)
@@ -255,7 +292,8 @@ const GroupCustomerAdd: React.FC = () => {
                   <InputText
                     required
                     value={
-                      valueGroupCustomer?.gr_name || dataPassFromId?.gr_name
+                      valueGroupCustomer?.gr_name ||
+                      dataDetails?.data?.checkGroup?.gr_name
                     }
                     setFormData={setValueGroupCustomer}
                     label={"Tên nhóm khách hàng"}
@@ -265,9 +303,11 @@ const GroupCustomerAdd: React.FC = () => {
                   <div style={{ width: "50%" }}>
                     <label>Nhóm khách hàng cha </label>
                     <div ref={valueOptionRef}>
-                      <CustomerGroupSelect
+                      <CustomerGroupSelectCpmponent
                         value="Chọn nhóm khách hàng cha"
-                        placeholder="Chọn"
+                        placeholder={
+                          dataDetails?.data?.checkGroup?.group_parent
+                        }
                         data={dataSelectGroupParent}
                         setValueGroupCustomer={setValueGroupCustomer}
                       />
@@ -280,7 +320,7 @@ const GroupCustomerAdd: React.FC = () => {
                 <TextEditorGr
                   editorContent={
                     valueGroupCustomer?.gr_description ||
-                    dataPassFromId?.gr_description
+                    dataDetails?.data?.checkGroup?.gr_description
                   }
                   setEditorValue={(val: any) => {
                     setValueGroupCustomer((pre: any) => {
@@ -292,6 +332,26 @@ const GroupCustomerAdd: React.FC = () => {
                   }}
                 />
                 <div>Danh sách chia sẻ</div>
+                {valueGroupCustomer?.group_cus_parent == null &&
+                  valueOptionRef?.current?.querySelector(".value_options")
+                    .innerHTML === "Chọn" && (
+                    <div style={{ display: "flex", gap: "5px" }}>
+                      <p
+                        className="d-flex info_system"
+                        style={{ fontSize: "14px" }}
+                      >
+                        <input
+                          type="checkbox"
+                          value="1"
+                          name="share_group_child"
+                          id="share_group_child"
+                          className="input_choose"
+                          style={{ marginRight: "10px" }}
+                        />
+                        Chia sẻ nhóm khách hàng con
+                      </p>
+                    </div>
+                  )}
                 <div
                   className="flex_between"
                   style={{
@@ -308,7 +368,9 @@ const GroupCustomerAdd: React.FC = () => {
                     >
                       <label>Phòng ban</label>
                       <Checkbox
-                        defaultChecked={dataPassFromId?.dep_id === null}
+                        defaultChecked={
+                          dataDetails?.data?.checkGroup?.dep_id === null
+                        }
                         checked={valAllDepartment}
                         onChange={() => {
                           setValAllDepartment(!valAllDepartment);
@@ -334,12 +396,12 @@ const GroupCustomerAdd: React.FC = () => {
                           height: "40px !important",
                         }}
                         placeholder="Chọn phòng ban"
-                        defaultValue={dataPassFromId?.dep_id
+                        defaultValue={dataDetails?.data?.checkGroup?.dep_id
                           ?.split(",")
                           .map((item) => parseInt(item.trim(), 10))}
                         value={
                           selectedValueDepartments ||
-                          dataPassFromId?.dep_id
+                          dataDetails?.data?.checkGroup?.dep_id
                             ?.split(",")
                             .map((item) => parseInt(item.trim(), 10))
                         }
@@ -358,7 +420,9 @@ const GroupCustomerAdd: React.FC = () => {
                     <div style={{ height: "27px" }} className="flex_between">
                       <label>Nhân viên</label>
                       <Checkbox
-                        defaultChecked={dataPassFromId?.emp_id === null}
+                        defaultChecked={
+                          dataDetails?.data?.checkGroup?.emp_id === null
+                        }
                         onChange={() => {
                           setValAllEmp(!valAllEmp);
                         }}
@@ -421,13 +485,15 @@ const GroupCustomerAdd: React.FC = () => {
 
                 {!valAllDepartment &&
                 !valAllEmp &&
-                dataPassFromId?.dep_id !== null &&
-                dataPassFromId?.emp_id !== null ? (
+                dataDetails?.data?.checkGroup?.dep_id !== null &&
+                dataDetails?.data?.checkGroup?.emp_id !== null &&
+                dataDetails?.data?.checkGroup?.dep_id !== "all" &&
+                dataDetails?.data?.checkGroup?.emp_id !== "all" ? (
                   <TableStaffCustomerGroupAdd
                     dataEmp={dataEmp?.data?.data}
                     valueSelected={
                       dataTableEmp ||
-                      dataPassFromId?.emp_id
+                      dataDetails?.data?.checkGroup?.emp_id
                         ?.split(",")
                         .map((item) => parseInt(item.trim(), 10))
                     }
@@ -437,7 +503,7 @@ const GroupCustomerAdd: React.FC = () => {
                   />
                 ) : null}
               </div>
-              <PotentialFooterAddFiles
+              <GrFooterAddFiles
                 link="/crm/customer/group/list"
                 titleCancel="Xác nhận hủy cập nhật nhóm khách hàng "
                 title="Cập nhật nhóm khách hàng thành công!"
