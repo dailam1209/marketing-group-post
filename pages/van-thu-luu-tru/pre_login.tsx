@@ -575,7 +575,187 @@ const Pre_login = () => {
                 </div>
             )}
             {page === 2 && (
-                <div></div>
+                <div>
+                    <div className={s.bg_quanlycongvan}>
+                        <div className={s.text_v_banner_quanlycongvan}>
+                            <div className={s.text_banner}>
+                                <h1 className={`${s.h1}`}>QUẢN LÝ CÔNG VĂN 365</h1>
+                                <p className={`${s.p}`}>Hệ thống được phân chia các hình thức văn bản đến/đi/nội bộ.Cho phép xây dựng các tủ tài liệu để lưu trữ một cách khoa học</p>
+                            </div>
+                            <div className={s.bg_quanlycongvan_img}>
+                                <div className={s.bg_quanlycongvan_img1}>
+                                    <img src='/img_1.png' alt='' ></img>
+                                </div>
+                                <div className={s.bg_quanlycongvan_img2}>
+                                    <img src='/quanlycongvan_img2.png' alt='' ></img>
+                                </div>
+                            </div>
+                            <a className={s.try_now} >Dùng thử ngay</a>
+                        </div>
+                    </div> 
+                    <div className={`${s.container_vip} ${s.conten_index}`}>
+                        <div className={s.content__index__title}>
+                            <p className={s.content__index__title1}>QUẢN LÝ CÔNG VĂN</p>
+                            <p className={s.content__index__title2}>GIẢI PHÁP TỐI ƯU DÀNH CHO QUẢN LÝ VĂN BẢN - TÀI LIỆU CỦA DOANH NGHIỆP</p>
+                        </div>
+                        <div className={s.page_gioithieu_box_vip}>
+                            <div className={`${s.box_1} ${s.page_gioithieu_box}`}>
+                                <div className={s.box_1_1}>
+                                    <div className={s.box_1_1_content}> 
+                                        <h3 className={`${s.h3} ${s.title_box}`}>TẠO VĂN BẢN</h3>
+                                        <ul>
+                                            <li>Văn thư lưu trữ hỗ trợ bạn soạn thảo văn bản, thông báo, hợp đồng theo những mẫu có sẵn một cách nhanh chóng và thuận lợi</li>
+                                        </ul>
+                                    </div>
+                                    <img src='/box_1_1_1.png'/>
+                                </div>
+                                <div className={s.box_1_1}>
+                                    <div className={s.box_1_1_content}>
+                                        <h3 className={`${s.h3} ${s.title_box}`}>VĂN BẢN NỘI BỘ</h3>
+                                        <ul>
+                                            <li>
+                                                <p className={s.box_1_1_content_main}>Dễ dàng gửi văn bản đến một số hoặc toàn bộ thành viên trong doanh nghiệp</p>
+                                            </li>
+                                            <li>
+                                                <p className={s.box_1_1_content_main}>Kiểm soát văn bản đến và văn bản gửi đi</p>
+                                            </li>
+                                            <li>
+                                                <p className={s.box_1_1_content_main}>Theo dõi sát sao tình hình xử lý của văn bản</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <img src='/box_1_2.png'/>
+                                </div>
+                                <div className={s.box_1_1}>
+                                    <div className={s.box_1_1_content}>
+                                        <h3 className={`${s.h3} ${s.title_box}`}>VĂN BẢN BAN HÀNH NGOÀI</h3>
+                                        <ul>
+                                            <li>
+                                                <p className={s.box_1_1_content_main}>Dễ dàng gửi văn bản đến một số hoặc toàn bộ thành viên trong doanh nghiệp</p>
+                                            </li>
+                                            <li>
+                                                <p className={s.box_1_1_content_main}>Dễ dàng gửi văn bản đến một số hoặc toàn bộ thành viên trong doanh nghiệp</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <img src='/box_1_3.png'/>
+                                </div>
+                                <div className={s.box_1_1}>
+                                    <div className={s.box_1_1_content}>
+                                        <h3 className={`${s.h3} ${s.title_box}`}>THAO TÁC XỬ LÝ VĂN BẢN</h3>
+                                        <ul>
+                                            <li>
+                                                <p className={s.box_1_1_content_main}>Dễ dàng gửi văn bản đến một số hoặc toàn bộ thành viên trong doanh nghiệp</p>
+                                            </li>
+                                            <li>
+                                                <p className={s.box_1_1_content_main}>Dễ dàng gửi văn bản đến một số hoặc toàn bộ thành viên trong doanh nghiệp</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <img src='/box_1_4.png'/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={s.banner_index_quanlycongvan}>
+                        <div>
+                            <h3 className={s.h3}>Các tính năng nổi bật của Quản lý công văn </h3>
+                            <p className={s.p}>Giải pháp quản lý văn bản- tài liệu của doanh nghiệp</p>
+                        </div>
+                    </div> 
+                    <div className={`${s.container} ${s.conten_index_congvan}`}>  
+                        <div className={`${s.box_1} ${s.h_flex} ${s.space}`}>
+                            <div className={s.box_2_1_img}>
+                                <img src='/box_2_1.png'/>
+                            </div>
+                            <div className={s.box_2_1_content}>
+                                <h3 className={s.h3}>THEO DÕI VĂN THƯ THUẬN LỢI</h3>
+                                <ul>
+                                    <li>
+                                        <img src='/V.png'/>
+                                        <p>Các văn bản được phân loại theo từng nhóm tùy theo nhu cầu của doanh nghiệp</p>
+                                    </li>
+                                    <li>
+                                        <img src='/V.png'/>
+                                        <p>Các văn bản được phân loại theo từng nhóm tùy theo nhu cầu của doanh nghiệp</p>
+                                    </li>
+                                    <li>
+                                        <img src='/V.png'/>
+                                        <p>Các văn bản được phân loại theo từng nhóm tùy theo nhu cầu của doanh nghiệp</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div className={`${s.box_1} ${s.h_flex} ${s.space}`}>
+                            <div className={s.box_2_1_content}>
+                                <h3 className={s.h3}>LƯU TRỮ KHỐI LƯỢNG LỚN CÔNG VĂN</h3>
+                                <ul>
+                                    <li>
+                                        <img src='/V.png'/>
+                                        <p>Hệ thống hỗ trợ lưu trữ văn bản không giới hạn cho mọi tài khoản</p>
+                                    </li>
+                                    <li>
+                                        <img src='/V.png'/>
+                                        <p>Lưu trữ miễn phí trọn đời</p>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div className={s.box_2_1_img}>
+                                <img src='/box_2_2.png'/>
+                            </div>
+                        </div>
+                        <div className={`${s.box_1} ${s.h_flex} ${s.space}`}>
+                            <div className={s.box_2_1_img}>
+                                <img src='/box_2_3.png'/>
+                            </div>
+                            <div className={s.box_2_1_content}>
+                                <h3 className={s.h3}>NHẮC NHỞ KỊP THỜI</h3>
+                                <ul>
+                                    <li>
+                                        <img src='/V.png'/>
+                                        <p>Thông báo nhanh chóng đến các tài khoản cá nhân về tình trạng của văn bản liên quan</p>
+                                    </li>
+                                    <li>
+                                        <img src='/V.png'/>
+                                        <p>Nhắc nhở người dùng khi văn bản đến , tình trạng văn bản sắp hết hạn phê duyệt, xử lý văn bản</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div className={`${s.box_1} ${s.h_flex} ${s.space}`}>
+                            <div className={s.box_2_1_content}>
+                                <h3 className={s.h3}>XÉT DUYỆT TRỰC TUYẾN</h3>
+                                <ul>
+                                    <li>
+                                        <img src='/V.png'/>
+                                        <p>Xét duyệt văn bản và ban hành cho các thành viên khác ngay trên hệ thống</p>
+                                    </li>
+                                    <li>
+                                        <img src='/V.png'/>
+                                        <p>Người tạo văn bản có thể dễ dàng gửi cho người phê duyệt bằng cách gắn tên người đó vào</p>
+                                    </li>
+                                    <li>
+                                        <img src='/V.png'/>
+                                        <p>Văn bản được sắp xếp thông minh, đầy đủ. Linh hoạt trong việc xử lý văn bản</p>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div className={s.box_2_1_img}>
+                                <img src='/box_2_4.png'/>
+                            </div>
+                        </div>
+                    </div>  
+                    <div className={`${s.container} ${s.conten_video_vt}`}>
+                        <h4 className={s.title_vd}>Video hướng dẫn chi tiết</h4>
+                        <div className={s.video_yt}>
+                            <iframe width='100%' height='100%' src='https://www.youtube.com/embed/OWLFAl0fAe8' 
+                                title='YouTube video player' frameBorder='0' 
+                                allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+                                allowFullScreen
+                            ></iframe> 
+                        </div>
+                    </div>
+                </div>
             )}
             {page === 3 && (
                 <div></div>
