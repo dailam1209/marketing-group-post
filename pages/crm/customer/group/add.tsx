@@ -45,7 +45,6 @@ const GroupCustomerAdd: React.FC = () => {
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
 
-  console.log(valueGroupCustomer);
   const accessToken = Cookies.get("token_base365");
   const com_id = Cookies.get("com_id");
 
@@ -54,7 +53,7 @@ const GroupCustomerAdd: React.FC = () => {
     data: dataAddGroup,
     fetchData: fetchDataAddGroup,
     updateData: updateDataAddGroup,
-  } = useApi(urlCreate, process.env.ACCESS_TOKEN || accessToken, "POST");
+  } = useApi(urlCreate, accessToken, "POST");
 
   const {
     data: dataDepartment,
@@ -104,7 +103,6 @@ const GroupCustomerAdd: React.FC = () => {
   }, [isOpen]);
 
   function handleChange(val: any): void {
-    console.log(val);
     setSelectedValueDepartments(val);
   }
 
@@ -114,7 +112,6 @@ const GroupCustomerAdd: React.FC = () => {
     if (!valueExists) {
       setDataTableEmp((prevData) => [...prevData, val]);
     } else {
-      console.log("Giá trị đã tồn tại trong mảng dataTableEmp");
       setErrModal(true);
     }
 
@@ -122,7 +119,6 @@ const GroupCustomerAdd: React.FC = () => {
   }
 
   const dataSelectGroupParent = data?.data?.showGr;
-  console.log(valueGroupCustomer);
 
   useEffect(() => {
     if (selectedValueDepartments?.length > 0) {
@@ -359,7 +355,6 @@ const GroupCustomerAdd: React.FC = () => {
                   "Bạn có đồng ý hủy? \n Mọi dữ liệu bạn vừa nhập sẽ bị xóa?"
                 }
                 handleSave={async () => {
-                  console.log(valueGroupCustomer.groupName);
                   if (valueGroupCustomer.groupName !== "") {
                     await updateDataAddGroup(
                       urlCreate,
