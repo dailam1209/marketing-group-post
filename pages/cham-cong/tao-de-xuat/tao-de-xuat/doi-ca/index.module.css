@@ -56,6 +56,7 @@
   margin-top: 30px;
   gap: 0 !important;
 }
+
 @media (min-width: 1920px) {
   .bodyItem1 {
     grid-column: 1 / span 2;
@@ -138,6 +139,10 @@
       font-size: 20px;
     }
   }
+  .bodyItem10 {
+    display: flex;
+    align-items: center;
+  }
 }
 @media (max-width: 1919px) and (min-width: 1366px) {
   .bodyItem1 {
@@ -175,6 +180,8 @@
   .bodyItem10 {
     grid-column: span 2;
     margin-top: 20px;
+    display: flex;
+    align-items: center;
   }
   .bodyItem11 {
     grid-column: span 2;
@@ -182,6 +189,8 @@
   .bodyItem12 {
     grid-column: span 2;
     margin-top: 20px;
+    display: flex;
+    align-items: center;
   }
   .bodyItem13 {
     grid-column: span 2;
@@ -254,6 +263,8 @@
   .bodyItem10 {
     grid-column: span 2;
     margin-top: 20px;
+    display: flex;
+    align-items: center;
   }
   .bodyItem11 {
     grid-column: span 2;
@@ -261,6 +272,8 @@
   .bodyItem12 {
     grid-column: span 2;
     margin-top: 20px;
+    display: flex;
+    align-items: center;
   }
   .bodyItem13 {
     grid-column: span 2;
@@ -335,6 +348,8 @@
   .bodyItem10 {
     grid-column: span 2;
     margin-top: 20px;
+    display: flex;
+    align-items: center;
   }
   .bodyItem11 {
     grid-column: span 2;
@@ -342,6 +357,8 @@
   .bodyItem12 {
     grid-column: span 2;
     margin-top: 20px;
+    display: flex;
+    align-items: center;
   }
   .bodyItem13 {
     grid-column: span 2;
