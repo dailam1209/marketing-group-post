@@ -8,7 +8,6 @@ import { BackButton, MyBreadCrumb } from './bread-crump/BreadCrump'
 import { useRouter } from 'next/router'
 import { AddButton, ExportExcelButton } from '../commons/Buttons'
 import Footer from '../footer/Footer'
-import { PHONGBAN_ACTIVE_KEY } from '@/pages/cham-cong/quan-ly-cong-ty/quan-ly-phong-ban'
 import { Banner } from './banner/banner'
 import { CCBannerNV_TKCTY } from '../cham-cong-nhan-vien/cc-bang-tk-nv'
 import { BANNER_CCBNDKM_CHAMCONG365 } from '../cham-cong-nhan-vien/cham-cong-bang-nhan-dien-khuon-mat/cham-cong-365'
@@ -65,7 +64,7 @@ export default function Bodyframe({ children }: any) {
       <p
         style={{ color: '#4C5BD4', cursor: 'pointer' }}
         onClick={() => {
-          window.localStorage.setItem(PHONGBAN_ACTIVE_KEY, item?.tabIndex)
+          // window.localStorage.setItem(PHONGBAN_ACTIVE_KEY, item?.tabIndex)
           router.push(item?.url)
         }}>
         {item?.title}

@@ -51,7 +51,7 @@ export default function StageFailJob({ onCancel, process_id, data, process_id_fr
   const [addAnotherSkill, setAddAnotherSkill] = useState<JSX.Element[]>([]);
   const [skills, setSkills] = useState<{ skillName: string; skillVote: any }[]>([]);
   const [lastAddedIndex, setLastAddedIndex] = useState(-1);
-  const [rating, setRating] = useState<any>(data?.starVote)
+  const [rating, setRating] = useState<any>(0)
   const [descriptions, setDescription] = useState("");
   const [isUserHiring, setUserHiring] = useState<any>("")
   const [type, setType] = useState<any>(1);

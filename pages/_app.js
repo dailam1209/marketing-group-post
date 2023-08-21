@@ -92,10 +92,10 @@ export default function App({ Component, pageProps }) {
       import('../styles/crm/stylecrm.css')
       import('../styles/crm/styles.css')
       import('../styles/crm/hight_chart.css')
-    } else if (router.pathname?.includes('VanThu')) {
-      import('../styles/globals_vanthu.css')
     } else if (router.pathname.includes('/cham-cong')) {
       import('@/styles/globals.css')
+    } else if (router.pathname?.includes('VanThu')) {
+      import('../styles/globals_vanthu.css')
     }
   }
 
