@@ -83,7 +83,7 @@ export default function listRecruitmentProcess({ query }) {
       <div className={`${styles.l_body}`}>
         <div className={`${styles.add_quytrinh}`}>
           <div className={`${styles.back_quytrinh}`}>
-            <span onClick={handleBack}>
+            <span onClick={handleBack} style={{ cursor: 'pointer' }}>
               <picture>
                 <img src={`${"/left_arrow.png"}`} alt="Back"></img>
               </picture>
