@@ -42,10 +42,6 @@
   font-family: 'Roboto-Regular';
 }
 
-p {
-  /* margin-block-start: 1rem; */
-}
-
 .ant-upload-list {
   display: flex;
   justify-content: center;
@@ -508,11 +504,6 @@ tr {
   background: #4C5BD4 !important;
 }
 
-.ant-dropdown-open {
-  /* display: none !important;
-  visibility: hidden !important; */
-}
-
 .mdal_cancel .ant-modal-title {
   color: white !important;
 }
@@ -740,4 +731,21 @@ label {
 margin-top: -8px;
 font-size: 20px;
 color: #fff;
+}
+
+.ant-popover.header_custom-popover__dJECQ.css-dev-only-do-not-override-18w4yg9.css-dev-only-do-not-override-18w4yg9.ant-popover-placement-bottomLeft
+  .ant-popover-arrow {
+  visibility: hidden;
+}
+
+.ant-popover.header_custom-popover__dJECQ.css-dev-only-do-not-override-18w4yg9.css-dev-only-do-not-override-18w4yg9.ant-popover-placement-bottomLeft
+  .ant-popover-inner {
+  background-color: #4c5bd4;
+  color: #fff;
+}
+
+.ant-popover.header_custom-popover__dJECQ.css-dev-only-do-not-override-18w4yg9.css-dev-only-do-not-override-18w4yg9.ant-popover-placement-bottomLeft
+  .ant-popover-content {
+  right: 16px;
+  top: 4px;
 }

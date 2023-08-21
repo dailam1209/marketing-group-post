@@ -5,6 +5,8 @@ import { useApi } from "@/components/crm/hooks/useApi";
 import AddContractrModal from "../modal_add_contract";
 import CancelModal from "../../price_policy/price_policy_steps/cancel_modal";
 import ModalCompleteStep from "../../price_policy/price_policy_steps/complete_modal";
+import axios from "axios";
+import { json } from "d3";
 
 interface MyComponentProps {
   isModalCancel: boolean;
@@ -23,40 +25,67 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
   const [ismodal1Open, setIsmodal1Open] = useState(false);
   const [isModalCancel, setIsModalCancel] = useState(false);
   const [imageData, setImageData] = useState<any>();
+  const axios = require("axios");
+  // const fs = require("fs");
+  const FormData = require("form-data");
   const handleClickSelectFileUpdload = () => {
     inputFileRef.current?.click();
   };
+
   const Cookies = require("js-cookie");
+
   const handleUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files[0];
- 
-  
-    if (file) {
-      const formData = new FormData();
-      formData.append("file", file);
-
-      try {
-        const res = await fetch(
-          "http://43.239.223.117:4000/upload_file?sess_id=3312",
-          {
-            method: "POST",
-            body: formData,
-            mode: "no-cors",
-
-          }
-        );
-          const data = await res.json();
-          console.log("checkresfile", data);
-
-      } catch (error) {
-        console.error("Error:", error.message);
-      };
-    };
+    const response = await axios.get('http://localhost:3000');
+    let data = new FormData();
+    data.append("file", file);
     
+    let config = {
+      method: "post",
+      maxBodyLength: Infinity,
+      url: "https://work247.vn/api_crm/read_file.php",
+      headers: {
+        "Access-Control-Allow-Origin": "http://localhost:3000"
+      },
+      data: data,
+    };
+
+    axios
+      .request(config)
+      .then((response) => {
+        console.log(JSON.stringify(response.data));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
+
+  //   var formdata = new FormData();
+  //   var fileInput = document.getElementById("fileInput") as HTMLInputElement;
+
+  //   if (fileInput.files && fileInput.files.length > 0) {
+  //     formdata.append("file", fileInput.files[0], "[PROXY]");
+
+  //     var requestOptions: RequestInit  = {
+  //       method: "POST",
+  //       body: formdata,
+  //       mode: "no-cors",
+  //       redirect: "follow", // Đảm bảo giá trị 'redirect' ở đây là 'follow' hoặc 'manual'
+  //     };
+
+  //     fetch("https://work247.vn/api_crm/read_file.php", requestOptions)
+  //       .then((response) => response.text())
+  //       .then((result) => console.log(result))
+  //       .catch((error) => console.log("error", error));
+  //   } else {
+  //     console.log("No file selected.");
+  //   }
+  // };
+
+  //  TÌM KIẾM
+
   // const handleFind = async (event: React.ChangeEvent<HTMLInputElement>) => {
   //   const text_change = event.target.text_change;
-    
+
   //   if (text_change) {
   //     const formData = new FormData();
   //     formData.append("text_change", text_change);
@@ -80,24 +109,24 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
   // };
 
   const ImageComponent = () => {
-    const [imageData, setImageData] = useState("");
-  
+    const [imageData, setImageData] = useState([]);
+
     useEffect(() => {
       fetchData();
     }, []);
-  
+
     const fetchData = () => {
-      fetch("http://43.239.223.117:4000/upload_file?sess_id=3312")
+      fetch("https://crm.timviec365.vn/Handles/Contracts/read_contract")
         .then((response) => response.json())
-        .then((data) => setImageData(data.imageData))
+        .then((data) => {
+          if (data.lists_image && Array.isArray(data.lists_image)) {
+            setImageData(data.lists_image);
+          }
+        })
         .catch((error) => console.log(error));
     };
-
-    const imageUrl = `data:image/png;base64, ${imageData}`;
   };
-  
 
-   
   return (
     <>
       <div className={styles.main__body}>
@@ -144,6 +173,16 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
                     />
                   </label>
                 </div>
+                <div className={styles.loading}>
+                  {imageData.map((imageSrc, index) => (
+                    <img
+                      key={index}
+                      src={imageSrc}
+                      alt={`Image ${index}`}
+                      className="img_contract"
+                    />
+                  ))}
+                </div>
               </div>
               <div className={styles.col_md_6}>
                 <div className={styles.title}>
@@ -185,9 +224,14 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
               </div>
               <div className={styles.content_contract}>
                 <div className={styles.loading}>
-                <img className="img_contract" 
-                // src={imageUrl}
-                 alt="Contract" />
+                  {imageData.map((imageSrc, index) => (
+                    <img
+                      key={index}
+                      src={imageSrc}
+                      alt={`Image ${index}`}
+                      className="img_contract"
+                    />
+                  ))}
                 </div>
               </div>
             </div>
@@ -248,6 +292,7 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
                     />
                     <input
                       type="file"
+                      id="fileInput"
                       className={styles.upload}
                       name="file"
                       multiple
@@ -266,9 +311,7 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
         )}
       </div>
     </>
-    
   );
-
 };
 
 export default TableAddContract;
