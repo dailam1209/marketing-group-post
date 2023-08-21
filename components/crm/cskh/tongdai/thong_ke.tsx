@@ -83,33 +83,6 @@ const Recording = (props: Props) => {
     const data = await res.json();
     setListNV(data?.data?.data);
   };
-
-  const handleGet = async () => {
-    if(phongban){
-      let dataFill = listData.filter((item) => +item.nameDeparment === phongban);
-      setListData(dataFill);
-      setIsModalOpen(false);
-      return;
-    }
-    setListData([]);
-    setIsModalOpen(false);
-    if (fillEnd && fillStart) {
-      setQuery(
-        `http://s02.oncall.vn:8899/api/call_logs/list?pagesize=100000000&start_time=${fillStart} &end_time=${fillEnd}&`
-      );
-    }
-    //lay datatable
-    const response = await fetch(`${query}`, {
-      method: "GET",
-      headers: {
-        access_token: show,
-        // "Content-Type":"S"
-      },
-    });
-    const data = await response.json();
-    setListData(data?.items);
-  };
-
   var outputArray = [];
 
   listData?.forEach(function (call) {
@@ -190,6 +163,29 @@ const Recording = (props: Props) => {
       // status: item.status,
     };
   });
+  const handleGet = async () => {
+    if(phongban){
+     datane.filter((item) =>{return item.nameDeparment === phongban});
+      setIsModalOpen(false);
+    }
+    setListData([]);
+    setIsModalOpen(false);
+    if (fillEnd && fillStart) {
+      setQuery(
+        `http://s02.oncall.vn:8899/api/call_logs/list?pagesize=100000000&start_time=${fillStart} &end_time=${fillEnd}&`
+      );
+    }
+    //lay datatable
+    const response = await fetch(`${query}`, {
+      method: "GET",
+      headers: {
+        access_token: show,
+        // "Content-Type":"S"
+      },
+    });
+    const data = await response.json();
+    setListData(data?.items);
+  };
   useEffect(() => {
     handleGetLine();
     handleGet();
