@@ -7,7 +7,7 @@ import { setAsTemplate } from '@/pages/api/api-hr/quan-ly-tuyen-dung/PerformRecr
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 
-export interface ListRecruitment {}
+export interface ListRecruitment { }
 
 export default function ListRecruitment({
   data,
@@ -107,7 +107,7 @@ export default function ListRecruitment({
   const handleLinkClick = (e, id) => {
     e.preventDefault()
     router.push(
-      `/hr/quan-ly-tuyen-dung/thuc-hien-tuyen-dung/danh-sach-tuyen-dung/${id}`
+      `/phan-mem-nhan-su/quan-ly-tuyen-dung/thuc-hien-tuyen-dung/danh-sach-tuyen-dung/${id}`
     )
   }
   return (
@@ -127,7 +127,7 @@ export default function ListRecruitment({
                     style={{ cursor: 'default' }}
                     className={`${styles.new_r_t_left_link}`}>
                     <a
-                      href={`/hr/quan-ly-tuyen-dung/thuc-hien-tuyen-dung/danh-sach-tuyen-dung/${data?.id}`}
+                      href={`/phan-mem-nhan-su/quan-ly-tuyen-dung/thuc-hien-tuyen-dung/danh-sach-tuyen-dung/${data?.id}`}
                       className={`${styles.quytrinh_item11_link}`}
                       onClick={(e) => handleLinkClick(e, data.id)}>
                       <span>
@@ -168,7 +168,7 @@ export default function ListRecruitment({
                         style={{ paddingRight: '102px' }}
                         className={`${styles.detail_new}`}>
                         <a
-                          href={`/hr/quan-ly-tuyen-dung/thuc-hien-tuyen-dung/danh-sach-tuyen-dung/${data?.id}`}
+                          href={`/phan-mem-nhan-su/quan-ly-tuyen-dung/thuc-hien-tuyen-dung/danh-sach-tuyen-dung/${data?.id}`}
                           className={`${styles.quytrinh_item11_link}`}>
                           Chi tiết
                         </a>

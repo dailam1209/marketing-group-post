@@ -196,7 +196,11 @@ const QlNhanluc2 = ({ checkCookie }) => {
             </a>
             <div className="titl_delt">
               <h4 className="share_fsize_tow share_clr_four">
-                <a href="/hr" className="share_clr_four" target="_blank">
+                <a
+                  href="/phan-mem-nhan-su/quan-ly-chung"
+                  className="share_clr_four"
+                  target="_blank"
+                >
                   Quản trị nhân sự
                 </a>
               </h4>

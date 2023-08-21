@@ -4,15 +4,20 @@ import Image from 'next/image';
 import Head from 'next/head';
 import Footer from "../components/footer/Footer"
 import DropDownHeaderHr from './HomeBefore/hr/dropdownHeader';
+import ModalLogin from '@/components/modal/ModalLogin';
+import ModalRegsiter from '@/components/modal/ModalRegsiter';
 
 export default function HomePageBeforLogin({ children }: any) {
     const [openMenu, setOpenMenu] = useState<any>(false)
+    const [openModalLogin, setOpenModalLogin] = useState(false)
+    const [openModalRegister, setOpenModalRegister] = useState(false)
     const handleOpenMenu = () => {
         setOpenMenu(!openMenu)
     }
     const handleCloseMenu = () => {
         setOpenMenu(false)
     }
+
 
     return (
         <>
@@ -126,9 +131,13 @@ export default function HomePageBeforLogin({ children }: any) {
                                 <li><a target="_blank" href="/">Chuyển đổi số</a></li>
                             </ul>
                             <ul className={`${styles.t_ul_1} ${styles.t_ul_1_right} `}>
-                                <li><a href="/lua-chon-dang-nhap.html">Đăng nhập</a></li>
-                                <li><a href="/lua-chon-dang-ky.html">Đăng ký</a></li>
+                                <li><a style={{ cursor: "pointer" }} onClick={() => setOpenModalLogin(true)}>Đăng nhập</a></li>
+                                <li><a style={{ cursor: "pointer" }} onClick={() => setOpenModalRegister(true)}>Đăng ký</a></li>
                             </ul>
+                            {openModalRegister && (
+                                <ModalRegsiter setOpenModalRegister={setOpenModalRegister} />
+                            )}
+                            {openModalLogin && <ModalLogin setOpenModalLogin={setOpenModalLogin} />}
                         </div>
                     </div>
                     <div className={`${styles.t_header_home_mb}`}>
@@ -156,7 +165,7 @@ export default function HomePageBeforLogin({ children }: any) {
                             <span className={`${styles.span_line_under}`}></span>
                             <p>Nền tảng quản trị nhân sự và phát triển đội ngũ toàn diện</p>
                             <p>Bảo mật thông tin khách hàng. Phương pháp lưu trữ dữ liệu dưới điện toán đám mây</p>
-                            <a href="/lua-chon-dang-nhap.html" className={`${styles.use_free}`}>Dùng miễn phí ngay</a>
+                            <a style={{ cursor: "pointer" }} onClick={() => setOpenModalLogin(true)} className={`${styles.use_free}`}>Dùng miễn phí ngay</a>
                             <div className={`${styles.download_app}`}>
                                 <p>Tải App dành cho PC</p>
                                 <div className={`${styles.download_app_list}`}>

@@ -23,7 +23,7 @@ export default function LeaderBiography({ iconAdd, iconEdit }) {
         formData.append('pageSize', pagesize)
         const response = await LeaderBiographyList(formData)
         setSignatureList(response?.data)
-      } catch (error) {}
+      } catch (error) { }
     }
     fetchData()
   }, [currentPageSignature, isKeywords])
@@ -92,9 +92,9 @@ export default function LeaderBiography({ iconAdd, iconEdit }) {
                               <Link
                                 legacyBehavior
                                 href={{
-                                  pathname: `/hr/co-cau-to-chuc/leaderBiography/chi-tiet-lanh-dao/${item._id}`,
+                                  pathname: `/phan-mem-nhan-su/co-cau-to-chuc/leaderBiography/chi-tiet-lanh-dao/${item._id}`,
                                 }}
-                                as={`/hr/co-cau-to-chuc/leaderBiography/chi-tiet-lanh-dao/${item._id}`}
+                                as={`/phan-mem-nhan-su/co-cau-to-chuc/leaderBiography/chi-tiet-lanh-dao/${item._id}`}
                                 passHref>
                                 <a target='blank' style={{ color: '#4C5BD4' }}>
                                   {item?.userName} (Xem chi tiết)

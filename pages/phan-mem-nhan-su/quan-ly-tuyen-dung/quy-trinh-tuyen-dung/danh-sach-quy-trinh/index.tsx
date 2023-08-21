@@ -46,7 +46,7 @@ export default function ListRecruitmentProcess({
 
   const handleLinkClick = (e, id) => {
     e.preventDefault()
-    router.push(`/hr/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/danh-sach-quy-trinh/${id}`);
+    router.push(`/phan-mem-nhan-su/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/danh-sach-quy-trinh/${id}`);
   };
   return (
     <>
@@ -62,7 +62,7 @@ export default function ListRecruitmentProcess({
                 <div className={`${styles.quytrinh_item1}`}>
                   <div className={`${styles.quytrinh_item11}`}>
                     <a
-                      href={`/hr/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/danh-sach-quy-trinh/${item.id}`}
+                      href={`/phan-mem-nhan-su/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/danh-sach-quy-trinh/${item.id}`}
                       className={`${styles.quytrinh_item11_link}`}
                       onClick={(e) => handleLinkClick(e, item.id)}
                     >
@@ -80,7 +80,7 @@ export default function ListRecruitmentProcess({
                 {/* chi tiết */}
                 <div className={`${styles.quytrinh_item2}`}>
                   <a
-                    href={`/hr/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/danh-sach-quy-trinh/${item.id}`}
+                    href={`/phan-mem-nhan-su/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/danh-sach-quy-trinh/${item.id}`}
                     className={`${styles.quytrinh_item11_link}`}
                     onClick={(e) => handleLinkClick(e, item.id)}
                   >

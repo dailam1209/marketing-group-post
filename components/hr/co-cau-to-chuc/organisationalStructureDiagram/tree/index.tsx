@@ -273,7 +273,7 @@ const StyledTreeExample = ({ iconEdit }) => {
     event.preventDefault();
     if (typeof link === "string") {
       router.push(
-        `/hr/${link}`
+        `/phan-mem-nhan-su/${link}`
       );
     }
   };

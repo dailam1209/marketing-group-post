@@ -10,7 +10,7 @@ export default function SalaryAndBenefits({ children }: any) {
     // @ts-ignore
     setActiveButton(buttonIndex);
   };
-
+  const link = "phan-mem-nhan-su"
   const submenu = [
     {
       img: "	/vn_chamcong.svg",
@@ -27,18 +27,18 @@ export default function SalaryAndBenefits({ children }: any) {
     {
       img: "	/vn_kpi.svg",
       title: 'KPI',
-      href: 'https://kpi.timviec365.vn/quan-ly-chung.html',
+      href: '#',
       target: 'blank'
     },
     {
       img: "	/thanhtich.svg",
       title: 'Khen thưởng',
-      href: '/hr/luong-thuong-phuc-loi/khen-thuong',
+      href: `/${link}/luong-thuong-phuc-loi/khen-thuong`,
     },
     {
       img: "	/vipham.svg",
       title: 'Kỷ luật( Vi phạm )',
-      href: '/hr/luong-thuong-phuc-loi/ky-luat',
+      href: `/${link}/luong-thuong-phuc-loi/ky-luat`,
     },
     {
       img: "	/vn_phucloi.svg",
