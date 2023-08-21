@@ -1,10 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import style from "@/components/crm/customer/customer.module.css";
 import { Checkbox, Input, Select } from "antd";
+import Cookies from "js-cookie";
 
 type Props = {};
 
-const Bot_textEditor = (props: Props) => {
+const Bot_textEditor = ({dataAdd,setDataAdd}: any) => {
+  const [listNV, setlistNV] = useState([]);
+  const handleGetNV = async () => {
+    const res = await fetch(
+      "http://210.245.108.202:3000/api/qlc/managerUser/list",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get("token_base365")}`,
+        },
+        body: JSON.stringify({ com_id: Cookies.get("com_id") }),
+      }
+    );
+    const data = await res.json();
+    setlistNV(data?.data?.data);
+  };
+  useEffect(() => {
+    handleGetNV();
+  }, []);
+
   return (
     <div className={style.container_bot}>
       <div className={style.top_bot}>
@@ -29,19 +50,25 @@ const Bot_textEditor = (props: Props) => {
           >
             <option value="">Khách hàng cha 1</option>
             <option value="">Khách hàng cha 2</option>
-            <option value="">Khách hàng cha 3</option> 
+            <option value="">Khách hàng cha 3</option>
           </Select>
         </div>
         <div>&nbsp;</div> <div>&nbsp;</div> <div>&nbsp;</div>
         <div className={style.right}>
-          <div className={style.titlebot} >Nhân viên nhập liệu</div>
+          <div className={style.titlebot}>Nhân viên nhập liệu</div>
           <Select
             style={{ fontWeight: 1000, width: "100%" }}
-            placeholder="Chọn nhóm khách hàng cha"
-          >
-           <option value="">Nhân viên nhập liệu 1</option>
-            <option value="">Nhân viên nhập liệu 2</option>
-            <option value="">Nhân viên nhập liệu 3</option> 
+            placeholder="Chọn nhân viên nhập liệu"
+            value={dataAdd?.user_create_id}
+            onChange={(value) => setDataAdd({...dataAdd,user_create_id:value})}
+            >
+            {listNV?.map((item, index) => {
+              return (
+                <option key={index} value={item?.idQLC}>
+                  ({item?.idQLC}) {item?.userName}
+                </option>
+              );
+            })}
           </Select>
         </div>
       </div>

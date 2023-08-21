@@ -38,6 +38,7 @@ const CallModal: React.FC<MyComponentProps> = ({
         okText="Đồng ý"
         cancelText="Huỷ"
         style={{ textAlign: "left" }}
+        centered
       >
         <div
           style={{ display: "flex", flexWrap: "wrap" }}
@@ -85,7 +86,6 @@ const CallModal: React.FC<MyComponentProps> = ({
 
       <Modal
         title={"Trợ lý kinh doanh"}
-        centered
         open={isOpenMdalZoom}
         onOk={() => handleOK()}
         onCancel={() => {
@@ -119,7 +119,7 @@ const CallModal: React.FC<MyComponentProps> = ({
                   width={16}
                   height={16}
                   alt="zoom"
-                  src="	https://crm.timviec365.vn/assets/icons/crm/customer/zoom_in.svg"
+                  src="/crm/zoom_out.svg"
                 />
                 Thu nhỏ
               </button>

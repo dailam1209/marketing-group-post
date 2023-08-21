@@ -17,14 +17,14 @@ export const checkVip = async (idcom) => {
 }
 
 // register
-export const registerCom = async (data, notifyErrors = true) => {
+export const registerCom = async (data, notifyErrors = true, text = '') => {
     let result = await functionAPI(process.env.NEXT_PUBLIC_API + '/api/qlc/company/register', data)
-    console.log(result)
+
     if (result.result == true) {
         Cookies.set('token_base365', result.data.access_token);
         Cookies.set('role', 1);
         Cookies.set('phone', data.phoneTK);
-        window.location.href = '/xac-thuc-ma-otp-cong-ty.html';
+        window.location.href = '/xac-thuc-ma-otp-cong-ty.html' + text;
     } else {
         if (notifyErrors) alert('Tài khoản đã tồn tại');
     }
@@ -43,13 +43,13 @@ export const registerEp = async (form, data) => {
     }
 }
 
-export const registerPersonal = async (data) => {
+export const registerPersonal = async (data, text = '') => {
     let result = await functionAPI(process.env.NEXT_PUBLIC_API + '/api/qlc/individual/register', data)
     if (result.result == true) {
         Cookies.set('token_base365', result.data.access_token);
         Cookies.set('role', 3);
         Cookies.set('phone', data.phoneTK);
-        window.location.href = '/xac-thuc-ma-otp-ca-nhan.html';
+        window.location.href = '/xac-thuc-ma-otp-ca-nhan.html' + text;
     } else {
         alert('Tài khoản đã tồn tại')
     }

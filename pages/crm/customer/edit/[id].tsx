@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import styleHome from "@/components/crm/home/home.module.css";
 import styles from "@/components/crm/potential/potential.module.css";
 import { SidebarContext } from "@/components/crm/context/resizeContext";
-import PotentialFooterAddFiles from "@/components/crm/potential/potential_add_files/potential_footer_add_files";
+import CustomerFooterEditFiles from "@/components/crm/customer/editData/customer_footer_edit_files";
 import AddAddressInfo from "@/components/crm/potential/potential_add_files/address_info";
 import { useHeader } from "@/components/crm/hooks/useHeader";
 import AddCustomerBankInfo from "@/components/crm/customer/add_edit/bank_infor";
@@ -11,6 +11,7 @@ import GeneralCustomerInfor from "@/components/crm/customer/add_edit/general_cus
 import { useApi } from "@/components/crm/hooks/useApi";
 import { useRouter } from "next/router";
 import EditPersonalCustomerInfor from "@/components/crm/customer/editData/personal_infor";
+const Cookies = require("js-cookie");
 
 const EditFilesCustomerList: React.FC = () => {
   const mainRef = useRef<HTMLDivElement>(null);
@@ -20,24 +21,84 @@ const EditFilesCustomerList: React.FC = () => {
   const imgRef = useRef<HTMLInputElement>(null);
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
-  const [edited, setEdited] = useState(false);
+  const [formData, setFormData] = useState({
+    ten_khach_hang: "",
+    email:"",
+    stand_name: "",
+    birthday:"",
+    tax_code: "",
+    cit_id:"",
+    dien_thoai:"",
+    district_id: "",
+    ward:"",
+    address:"",
+    ship_invoice_address: "",
+    gender: "",
+    cmnd_ccnd_number: "",
+    cmnd_ccnd_address: "",
+    cmnd_ccnd_time: "",
+    description: "",
+    introducer: "",
+    contact_name: "",
+    contact_email:"",
+    contact_phone: "",
+    contact_gender:"",
+    company_id: "",
+    emp_id:"",
+    user_create_id: "",
+    user_create_type:"",
+    user_edit_id:"",
+    user_edit_type: "",
+    group_id:1,
+    status: "",
+    business_areas:"",
+    category: "",
+    business_type: "",
+    classify: "",
+    bill_city: "",
+    bil_district: "",
+    bill_ward: "",
+    bill_address: "",
+    bill_area_code: "",
+    bill_invoice_address:"",
+    bill_invoice_address_email: "",
+    ship_city: "",
+    ship_area: "",
+    bank_id:"",
+    bank_account:"",
+    revenue: "",
+    size:"",
+    rank: "",
+    website: "",
+    number_of_day_owed:"",
+    deb_limit:"",
+    share_all: "",
+    type: "",
+    is_input: "",
+    id_cus_from: "",
+    cus_from:"",
+    link:"",
+  });
 
-  const { data, loading, fetchData, updateData, deleteData } = useApi(
-    "http://210.245.108.202:3007/api/crm/customerdetails/detail",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6MzgwOTg5LCJpZFRpbVZpZWMzNjUiOjIwMjU4NSwiaWRRTEMiOjE3NjMsImlkUmFvTmhhbmgzNjUiOjAsImVtYWlsIjoiZHVvbmdoaWVwaXQxQGdtYWlsLmNvbSIsInBob25lVEsiOiIiLCJjcmVhdGVkQXQiOjE2MDA2NTg0NzgsInR5cGUiOjEsImNvbV9pZCI6MTc2MywidXNlck5hbWUiOiJDw7RuZyBUeSBUTkhIIEggTSBMIFBwbyJ9LCJpYXQiOjE2OTIyOTc4NjMsImV4cCI6MTY5MjM4NDI2M30.XMyMzNsvPn1yInnlVLO-XTnm9mDLMDohaSxQSOvtczo",
-    "POST",
-    { cus_id: id, limit: 1000 }
-  );
+  const handleGetDataEdit = async () => {
+    const response = await fetch(
+      "http://210.245.108.202:3007/api/crm/customerdetails/detail",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get("token_base365")}`,
+        },
+        body: JSON.stringify({ cus_id: id }),
+      }
+    );
+    const data = await response.json();
+    setFormData(data?.data?.data1 || data?.data?.data2);
+  };
 
   useEffect(() => {
-    fetchData();
-    console.log(data);
-    console.log(id);
+    handleGetDataEdit();
   }, [id]);
-  console.log(data);
-
-  const dataEdit = data?.data?.data1 ? data?.data?.data1 : data?.data?.data2;
-  console.log("value:  ", dataEdit);
 
   useEffect(() => {
     setHeaderTitle("Chỉnh sửa khách hàng");
@@ -49,6 +110,18 @@ const EditFilesCustomerList: React.FC = () => {
     imgRef?.current?.click();
   };
 
+  const handleImageChange = (e: any) => {
+    const selectedImage = e.target.files[0];
+
+    if (selectedImage) {
+      setFormData((preData: any) => {
+        return {
+          ...preData,
+          logo: selectedImage,
+        };
+      });
+    }
+  };
   useEffect(() => {
     if (isOpen) {
       mainRef.current?.classList.add("content_resize");
@@ -75,12 +148,12 @@ const EditFilesCustomerList: React.FC = () => {
                         defaultChecked
                         className="get_data"
                         name="type"
-                        onChange={(e) =>
-                          setEdited({
-                            ...data,
-                            type: parseInt(e.target.value),
-                          })
-                        }
+                        // onChange={(e) =>
+                        //   setFormData({
+                        //     ...data,
+                        //     type: parseInt(e.target.value),
+                        //   })
+                        // }
                         value={2}
                       />
                       Khách hàng doanh nghiệp
@@ -91,12 +164,12 @@ const EditFilesCustomerList: React.FC = () => {
                         type="radio"
                         className="get_data"
                         name="type"
-                        onChange={(e) =>
-                          setEdited({
-                            ...data,
-                            type: parseInt(e.target.value),
-                          })
-                        }
+                        // onChange={(e) =>
+                        //   setFormData({
+                        //     ...data,
+                        //     type: parseInt(e.target.value),
+                        //   })
+                        // }
                         value={1}
                       />
                       Khách hàng cá nhân
@@ -108,7 +181,7 @@ const EditFilesCustomerList: React.FC = () => {
                   <p className={styles["main__body__type"]}>Ảnh</p>
                   <div id="upload">
                     <img
-                      src="/assets/img/crm/customer/upload_logo.png"
+                      src="/assets/img/customer/upload_logo.png"
                       alt=""
                       className={styles["show_avatar"]}
                       onClick={handleClickImg}
@@ -121,20 +194,29 @@ const EditFilesCustomerList: React.FC = () => {
                       id="logo"
                       hidden
                       accept="image/png,image/gif,image/jpeg"
+                      onChange={handleImageChange}
                     />
                   </div>
                 </div>
 
-                <EditPersonalCustomerInfor editData={dataEdit} />
+                <EditPersonalCustomerInfor
+                  setFormData={setFormData}
+                  formData={formData}
+                />
                 <AddAddressInfo
-                  editData={dataEdit}
+                  setFormData={setFormData}
+                  formData={formData}
                   title="Thông tin viết hóa đơn"
                 />
                 <AddAddressInfo
-                  editData={dataEdit}
+                  setFormData={setFormData}
+                  formData={formData}
                   title="Thông tin giao hàng"
                 />
-                <AddCustomerBankInfo editData={dataEdit} />
+                <AddCustomerBankInfo
+                  setFormData={setFormData}
+                  formData={formData}
+                />
 
                 {/* Text Editor */}
                 <div
@@ -146,11 +228,12 @@ const EditFilesCustomerList: React.FC = () => {
                 <TextEditor />
                 <GeneralCustomerInfor />
               </div>
-              <PotentialFooterAddFiles
+              <CustomerFooterEditFiles
+                formData={formData}
                 link="/crm/customer/list"
                 titleCancel="Xác nhận hủy thêm mới khách hàng"
-                title="Thêm mới khách hàng qwe thành công!"
-                contentCancel="Bạn có chắc chắn muốn hủy thêm mới khách hàng Nguyễn Trần Kim Phượng không ?"
+                title="Thêm mới khách hàng thành công!"
+                contentCancel="Bạn có chắc chắn muốn hủy thêm mới ?"
               />
             </div>
           </div>

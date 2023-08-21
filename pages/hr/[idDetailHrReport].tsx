@@ -216,8 +216,8 @@ export default function DetailHrReport({ children }: any) {
         formData.append("birthday", isBirthday);
         formData.append("married", isMaried);
         formData.append("page", currentPage);
-        formData.append("teamId", isTeam_id);
-        formData.append("groupId", isGroup_id);
+        formData.append("team_id", isTeam_id);
+        formData.append("group_id", isGroup_id);
         if (link.includes("type=") || link.includes("gender=")) {
           if (link_cut !== "[idDetailHrReport].html") {
             formData.append("link", link_cut);

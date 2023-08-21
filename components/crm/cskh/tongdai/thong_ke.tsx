@@ -19,7 +19,7 @@ const Recording = (props: Props) => {
   const { isConnected } = useContext<any>(CallContext);
 
   const [listData, setListData] = useState([]);
-  const show = useSelector((state: any) => state.auth.account);
+  const show = useSelector((state: any) => state?.auth?.account);
   const [current, setcurrent] = useState(1);
   const [pageSize, setpageSize] = useState(10);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -162,11 +162,14 @@ const Recording = (props: Props) => {
         name2 = value?.userName;
       }
     }
-    for (let key of listNV) {
-      if (key.userName == name2) {
-        phong = key.nameDeparment;
+    if(listNV){
+      for (let key of listNV) {
+        if (key.userName == name2) {
+          phong = key.nameDeparment;
+        }
       }
     }
+   
     return {
       caller: item.caller,
       ring_duration: item.ring_duration,
