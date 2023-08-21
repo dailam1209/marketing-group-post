@@ -310,6 +310,11 @@ const StyledTreeExample = ({ iconEdit }) => {
     fetchData()
   }, [newData])
 
+  console.log(data);
+  console.log(data?.infoCompany?.infoDep);
+
+
+
   return (
     <>
       {typeof window !== 'undefined' && (
@@ -320,12 +325,21 @@ const StyledTreeExample = ({ iconEdit }) => {
             lineBorderRadius={'10px'}
             label={<StyledNode><div className={`${styles.member_view_box} ${styles.member_view_box_top}`}>
               <div className={`${styles.member_detail}`}>
-                <p className={`${styles.text_center}`}>{data?.infoCompany.companyName}</p>
-                <p>Giám đốc: {data?.infoCompany?.parent_manager}</p>
-                <p>Phó giám đốc: {data?.infoCompany.parent_deputy}</p>
-                <a href='' onClick={(event) => handleClickDetail(`danh-sach-nhan-vien-cua-tong-cong-ty-c${comid}-t0`, event)} target="_blank" className={`${styles.link_a}`}>Tổng nhân viên: {data?.infoCompany.tong_nv}</a>
-                <a href='' onClick={(event) => handleClickDetail(`danh-sach-nhan-vien-cham-cong-tong-cong-ty-c${comid}-t1`, event)} target="_blank" className={`${styles.link_a}`}>Tổng nhân viên đã điểm danh: {data?.infoCompany.tong_nv_da_diem_danh}</a>
-                <a href='' onClick={(event) => handleClickDetail(`danh-sach-nhan-vien-chua-cham-cong-tong-cong-ty-c${comid}-t2`, event)} target="_blank" className={`${styles.link_a}`}>Tổng nhân viên chưa điểm danh: {data?.infoCompany.tong_nv - data?.infoCompany.tong_nv_da_diem_danh}</a>
+                <p className={`${styles.text_center}`}>{data?.infoCompany?.companyName}</p>
+                {data?.infoCompany?.parent_manager?.map((item: any, index: any) => {
+                  return (
+                    <p>Giám đốc: {item?.userName}</p>
+                  )
+                })}
+                {data?.infoCompany?.parent_deputy?.map((item: any, index: any) => {
+                  return (
+                    <p>Phó giám đốc: {item?.userName}</p>
+                  )
+                })}
+
+                <a href='' onClick={(event) => handleClickDetail(`danh-sach-nhan-vien-cua-tong-cong-ty-c${comid}-t0`, event)} target="_blank" className={`${styles.link_a}`}>Tổng nhân viên: {data?.infoCompany?.tong_nv}</a>
+                <a href='' onClick={(event) => handleClickDetail(`danh-sach-nhan-vien-cham-cong-tong-cong-ty-c${comid}-t1`, event)} target="_blank" className={`${styles.link_a}`}>Tổng nhân viên đã điểm danh: {data?.infoCompany?.tong_nv_da_diem_danh}</a>
+                <a href='' onClick={(event) => handleClickDetail(`danh-sach-nhan-vien-chua-cham-cong-tong-cong-ty-c${comid}-t2`, event)} target="_blank" className={`${styles.link_a}`}>Tổng nhân viên chưa điểm danh: {data?.infoCompany?.tong_nv - data?.infoCompany?.tong_nv_da_diem_danh}</a>
               </div>
             </div></StyledNode>}
           >

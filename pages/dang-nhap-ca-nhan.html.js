@@ -11,7 +11,7 @@ import { getServerSideProps } from '../utils/function'
 
 export { getServerSideProps }
 
-export default function LoginPersonal() {
+export default function LoginPersonal({ query }) {
 
     CheckLogin()
     // handle interaction
@@ -84,7 +84,7 @@ export default function LoginPersonal() {
                                             TÀI KHOẢN<span className="text">(email/số điện thoại)</span>
                                         </button>
                                     </div>
-                                    {<LoginForm setNotiError={setNotiError} typeLogin='0' showTab={showTab} />}
+                                    {<LoginForm setNotiError={setNotiError} typeLogin='0' showTab={showTab} query={query} />}
                                     {<LoginQr qrGuildShow={qrGuildShow} setNotiError={setNotiError} typeLogin='0' showTab={showTab} />}
                                 </div>
                             </div>

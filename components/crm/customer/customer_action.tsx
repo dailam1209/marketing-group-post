@@ -5,12 +5,14 @@ import Link from "next/link";
 import { dataCustomerListAction } from "../ultis/consntant";
 import { useState } from "react";
 import HandeOverModalCustomer from "./customer_modal/customer_handover_mdal";
+import DelCustomerModal from "./modal/delete_list_Cus";
 
 export default function CustomerListAction({
   isSelectedRow,
   clearOption,
   chooseAllOption,
   numberSelected,
+  selectedCus,
 }: any) {
   const [isOpenCampaign, setIsOpenCampaign] = useState(false);
   const [isOpenEmail, setIsOpenIsEmail] = useState(false);
@@ -72,8 +74,8 @@ export default function CustomerListAction({
     <>
       <div className={styles.div__thaotac}>
         <div>
-          <label>Đã chọn:</label>
-          <b className={styles.checked_count}>0</b>
+          <label>Đã chọn: &nbsp;</label>
+          <b className={styles.checked_count}>{numberSelected}</b>
         </div>
         <div className={styles.box_check_customer}>
           <button
@@ -111,6 +113,11 @@ export default function CustomerListAction({
         <HandeOverModalCustomer
         isModalCancel={isHandOverOpen}
         setIsModalCancel={setIsHandOverOpen}
+      />
+      <DelCustomerModal
+      isModalCancel={isDelOpen}
+      setIsModalCancel={setIsDelOpen}
+      selectedCus={selectedCus}
       />
       </div>
 

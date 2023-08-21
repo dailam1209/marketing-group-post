@@ -1,6 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useApi } from "../hooks/useApi";
-const Cookies = require('js-cookie')
+import { useRouter } from "next/router";
+const Cookies = require("js-cookie");
 
 interface MyProps {
   data: any;
@@ -23,34 +24,15 @@ const SelectDataInputBox: React.FC<MyProps> = ({
     // ... other properties returned by the useApi hook
   } = useApi(
     "http://210.245.108.202:3007/api/crm/customerdetails/detail",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6MzgwOTg5LCJpZFRpbVZpZWMzNjUiOjIwMjU4NSwiaWRRTEMiOjE3NjMsImlkUmFvTmhhbmgzNjUiOjAsImVtYWlsIjoiZHVvbmdoaWVwaXQxQGdtYWlsLmNvbSIsInBob25lVEsiOiIiLCJjcmVhdGVkQXQiOjE2MDA2NTg0NzgsInR5cGUiOjEsImNvbV9pZCI6MTc2MywidXNlck5hbWUiOiJDw7RuZyBUeSBUTkhIIEggTSBMIFBwbyJ9LCJpYXQiOjE2OTIyOTc4NjMsImV4cCI6MTY5MjM4NDI2M30.XMyMzNsvPn1yInnlVLO-XTnm9mDLMDohaSxQSOvtczo",
+    `${Cookies.get("token_base365")}`,
     "POST",
     { cus_id: cusId }
   );
-
-  //   const {
-  //     data: dataStatusDetailCustomer,
-  //     loading: loadingStatus,
-  //     updateData,
-  //     // ... other properties returned by the useApi hook
-  //   } = useApi(
-  //     "http://210.245.108.202:3007/api/crm/customerdetails/editCustomer",
-  //     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6MzgwOTg5LCJpZFRpbVZpZWMzNjUiOjIwMjU4NSwiaWRRTEMiOjE3NjMsImlkUmFvTmhhbmgzNjUiOjAsImVtYWlsIjoiZHVvbmdoaWVwaXQxQGdtYWlsLmNvbSIsInBob25lVEsiOiIiLCJjcmVhdGVkQXQiOjE2MDA2NTg0NzgsInR5cGUiOjEsImNvbV9pZCI6MTc2MywidXNlck5hbWUiOiJDw7RuZyBUeSBUTkhIIEggTSBMIFBwbyJ9LCJpYXQiOjE2OTIyOTc4NjMsImV4cCI6MTY5MjM4NDI2M30.XMyMzNsvPn1yInnlVLO-XTnm9mDLMDohaSxQSOvtczo",
-  //     "POST",
-  //     { cus_id: cusId, type: 1 }
-  //   );
-
-  useEffect(() => {
-    fetchDataDetail();
-  }, []);
-  console.log('dataDetailCustomer',dataDetailCustomer)
+  const router = useRouter()
   const dataStatus = dataDetailCustomer?.data?.data1
     ? dataDetailCustomer?.data?.data1
     : dataDetailCustomer?.data?.data2;
-  //   console.log(dataStatus?.status);
 
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6MzgwOTg5LCJpZFRpbVZpZWMzNjUiOjIwMjU4NSwiaWRRTEMiOjE3NjMsImlkUmFvTmhhbmgzNjUiOjAsImVtYWlsIjoiZHVvbmdoaWVwaXQxQGdtYWlsLmNvbSIsInBob25lVEsiOiIiLCJjcmVhdGVkQXQiOjE2MDA2NTg0NzgsInR5cGUiOjEsImNvbV9pZCI6MTc2MywidXNlck5hbWUiOiJDw7RuZyBUeSBUTkhIIEggTSBMIFBwbyJ9LCJpYXQiOjE2OTIzMjY0MzEsImV4cCI6MTY5MjQxMjgzMX0.TJG5cB9vOUaAW0fd5XD0toeH3dkVtrksTNs_apbI0-4";
   const handleChangeApi = async (e: any, data: any) => {
     const url =
       "http://210.245.108.202:3007/api/crm/customerdetails/editCustomer";
@@ -72,12 +54,14 @@ const SelectDataInputBox: React.FC<MyProps> = ({
     try {
       const response = await fetch(url, config);
       const data = await response.json();
-      console.log(data);
     } catch (error) {
       console.error(error);
     }
   };
-
+  useEffect(() => {
+    fetchDataDetail();
+  }, [cusId]);
+  //dataStatus la thay doi duoc
   return (
     <>
       {dataStatus && (
@@ -85,20 +69,20 @@ const SelectDataInputBox: React.FC<MyProps> = ({
           onChange={(e: any) => {
             handleChangeApi(e, data);
           }}
-          defaultValue={dataStatus?.status}
-          //   value={value}
+          // defaultValue={dataStatus?.status}
+            value={dataStatus?.status}
           style={{ border: 0 }}
         >
           <option value={""}>Chưa cập nhật</option>
-          {data?.map((item: any, index: number) => (
-            <option
+          {data?.map((item: any, index: number) => {
+            return <option
               style={{ display: item.status !== 0 ? "block" : "none" }}
               key={index}
               value={item.stt_id}
             >
               {item.stt_name}
             </option>
-          ))}
+          })}
         </select>
       )}
     </>

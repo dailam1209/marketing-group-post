@@ -8,7 +8,10 @@ import stylex from "../setting.module.css";
 import ModalCompleteStep from "../email_step/complete_modal";
 import { CallContext } from "@/components/crm/context/tongdaiContext";
 import { useDispatch, useSelector } from "react-redux";
-import { dataSaveTD, doDisConnect } from "@/components/crm/redux/user/userSlice";
+import {
+  dataSaveTD,
+  doDisConnect,
+} from "@/components/crm/redux/user/userSlice";
 import { notification } from "antd";
 import { useRouter } from "next/router";
 const SwitchFPTTable: React.FC = () => {
@@ -41,7 +44,7 @@ const SwitchFPTTable: React.FC = () => {
   }, [setHeaderTitle, setShowBackButton, setCurrentPath]);
   const { isConnected, setIsConnected } = useContext<any>(CallContext);
   const [isVerify, setisVerify] = useState(false);
-  const show = useSelector((state:any)=>state?.auth?.account)
+  const show = useSelector((state: any) => state?.auth?.account);
   const dispatch = useDispatch();
 
   const handleConnect = async () => {
@@ -53,7 +56,6 @@ const SwitchFPTTable: React.FC = () => {
       setConnectionData((prevData) => [...prevData, newConnection]);
       setIsConnected(true);
       setModal1Open(true);
-
     } else {
       notification.error({ message: `${data.msg}` });
     }
@@ -72,7 +74,7 @@ const SwitchFPTTable: React.FC = () => {
       setIsConnected(true);
       setModal1Open(true);
     } else {
-      dispatch(doDisConnect(''))
+      dispatch(doDisConnect(""));
       setIsConnected(false);
       notification.error({ message: `${data.msg}` });
     }
@@ -89,19 +91,42 @@ const SwitchFPTTable: React.FC = () => {
     return data;
   };
 
+  //Khong de het access_token tong dai sau 600s
+  if (show) {
+    setTimeout(async () => {
+      setIsConnected(true);
+      setInputData({
+        name: "HNCX00693",
+        password: "v2ohO6B1Nf4F",
+        domain: "hncx00693.oncall",
+      });
+      await fetch(
+        "https://s02.oncall.vn:8900/api/account/credentials/verify",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            name: "HNCX00693",
+            password: "v2ohO6B1Nf4F",
+            domain: "hncx00693.oncall",
+          }),
+        }
+      );
+    }, 590000);
+  }
   useEffect(() => {
-    if(show){
-      setisVerify(true)
+    if (show) {
+      setisVerify(true);
     }
     const handleget = async () => {
-      if (oldData) {
-        setIsConnected(true)
+      // if (oldData) {
+        setIsConnected(true);
+        setisVerify(true)
         setInputData({
           name: "HNCX00693",
           password: "v2ohO6B1Nf4F",
           domain: "hncx00693.oncall",
-        })
-        await fetch(
+        });
+      const res =  await fetch(
           "https://s02.oncall.vn:8900/api/account/credentials/verify",
           {
             method: "POST",
@@ -112,9 +137,12 @@ const SwitchFPTTable: React.FC = () => {
             }),
           }
         );
-      }
+        const data = await res.json()
+        dispatch(dataSaveTD(data.access_token));
+      // }
     };
     handleget();
+
   }, []);
   return (
     <>
@@ -193,7 +221,11 @@ const SwitchFPTTable: React.FC = () => {
             <button
               style={{ color: "red", border: "1px solid" }}
               type="button"
-              onClick={() => (setisVerify(false),dispatch(doDisConnect("")),alert("Hủy kết nối thành công"))}
+              onClick={() => (
+                setisVerify(false),
+                dispatch(doDisConnect("")),
+                alert("Hủy kết nối thành công")
+              )}
             >
               Huỷ kết nối
             </button>

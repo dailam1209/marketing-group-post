@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "../potential/potential.module.css";
 import CustomerGroupSelectDropdownData from "./dropdown_data_group_customer";
+import { useApi } from "../hooks/useApi";
+const Cookies =require("js-cookie");
 export default function CustomerGroupSelect({
   title = "",
   value = "Tất cả",
@@ -21,7 +23,6 @@ export default function CustomerGroupSelect({
       setIsOpen(!isOpen);
     }
   };
-
   const handleScrollkOutside = (e: any) => {
     setIsOpen(false);
   };
@@ -54,7 +55,7 @@ export default function CustomerGroupSelect({
         data-select2-id={1}
         tabIndex={-1}
         aria-hidden="true"
-        
+        value={valueOption}
       >
         <option value="" data-select2-id={3}>
           {/* {value} */}

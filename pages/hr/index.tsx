@@ -11,14 +11,20 @@ import { getHomeData } from '../api/api-hr/Home/HomeService'
 export default function Home() {
   const [dataHome, setDataHome] = useState<any>(null)
 
+  console.log(dataHome)
+
   useEffect(() => {
     const fetchHomeData = async () => {
       try {
         const token = getCookie('token_base365')
         if (token) {
+          console.log(1);
           const response = await getHomeData()
+          console.log(response);
+
           setDataHome(response?.data.data)
         } else {
+          console.log(2);
           const interval = setInterval(() => {
             const updatedToken = getCookie('token_base365')
             if (updatedToken) {
@@ -31,7 +37,6 @@ export default function Home() {
         console.error('Error fetching home data:', error)
       }
     }
-
     fetchHomeData()
   }, [])
 

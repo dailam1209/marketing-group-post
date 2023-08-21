@@ -166,7 +166,7 @@ export default function TabEmployeeManagement({ iconAdd, iconEdit }: any) {
         <div className={`${styles.tab_pane}`}>
           <div className={`${styles.body}`}>
             <div className={`${styles.recruitment}`}>
-              {iconAdd && <a target="blank" href="https://chamcong.timviec365.vn/quan-ly-cong-ty/nhan-vien.html" className={`${styles.add}`} >
+              {iconAdd && <a target="blank" href="/quan-ly-nhan-luc/quan-ly-cong-ty/cai-dat-them-nhan-vien-moi" className={`${styles.add}`} >
                 <img src={`/add.png`} alt="" />Thêm mới nhân viên
               </a>}
             </div>

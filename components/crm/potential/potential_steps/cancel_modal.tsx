@@ -6,9 +6,9 @@ const Cookies = require("js-cookie");
 interface MyComponentProps {
   isModalCancel: boolean;
   setIsModalCancel: (value: boolean) => void;
-  content: string;
-  title: string;
-  link: string;
+  content?: string;
+  title?: string;
+  link?: string;
   id?: any;
   updateData?: any;
 }

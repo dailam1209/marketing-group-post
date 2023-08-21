@@ -17,7 +17,6 @@ const ModalCompleteStep: React.FC<ModalCompleteStepProps> = ({
   modal1Open = true,
   setModal1Open,
   title,
-  link = "/",
   editorContent,
   cusId,
 }: any) => {
@@ -50,7 +49,7 @@ const ModalCompleteStep: React.FC<ModalCompleteStepProps> = ({
   } catch (error) {
     console.error(error);
   }
-  router.push("#")
+ router.push('#')
   };
   return (
     <div>

@@ -7,12 +7,24 @@ import { useHeader } from "@/components/crm/hooks/useHeader";
 import TextEditor from "@/components/crm/text-editor/text_editor";
 import Info_cus from "@/components/crm/customer/input_data/info_cus";
 import Bot_textEditor from "@/components/crm/customer/input_data/bot_textEditor";
+import Cookies from "js-cookie";
+import { useApi } from "@/components/crm/hooks/useApi";
+import TextEditorNhapLieu from "@/components/crm/text-editor/text_editor_nhaplieu";
 const AddFilesCustomerList: React.FC = () => {
   const mainRef = useRef<HTMLDivElement>(null);
   const { isOpen } = useContext<any>(SidebarContext);
+  const [dataAdd,setDataAdd] = useState({
+    name:'',
+    phone_number:null,
+    email:'',
+    resoure:null,
+    description:'',
+    parent_group:null,
+    user_create_id:null
+  })
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
-
+ 
   useEffect(() => {
     setHeaderTitle("Thêm mới khách hàng");
     setShowBackButton(true);
@@ -38,7 +50,10 @@ const AddFilesCustomerList: React.FC = () => {
                 <div className={styles["main__body_item"]}>
                   {/* Type Customer */}
                   {/* Image */}
-                  <Info_cus />
+                  <Info_cus
+                  dataAdd={dataAdd}
+                  setDataAdd={setDataAdd}
+                  />
                 </div>
 
                 {/* Text Editor */}
@@ -48,14 +63,22 @@ const AddFilesCustomerList: React.FC = () => {
                 >
                   Mô tả khách hàng{" "}
                 </div>
-                <TextEditor />
-                <Bot_textEditor/>
+                <TextEditorNhapLieu 
+                   dataAdd={dataAdd}
+                   setDataAdd={setDataAdd}
+                />
+                <Bot_textEditor 
+                     dataAdd={dataAdd}
+                     setDataAdd={setDataAdd}
+                />
               </div>
               <PotentialFooterAddFiles
                 link="/crm/customer/list"
                 titleCancel="Xác nhận hủy thêm mới khách hàng"
-                title="Thêm mới khách hàng qwe thành công!"
-                contentCancel="Bạn có chắc chắn muốn hủy thêm mới khách hàng Nguyễn Trần Kim Phượng không ?"
+                title="Thêm mới khách hàng thành công!"
+                contentCancel="Bạn có chắc chắn muốn hủy thêm mới khách hàng không ?"
+                dataAdd={dataAdd}
+                setDataAdd={setDataAdd}
               />
             </div>
           </div>

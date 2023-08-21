@@ -247,7 +247,7 @@ const ApiSettingConnect: React.FC = () => {
           modal1Open={openModalSuccess}
           setModal1Open={setOpenModalSuccess}
           title={"Cập nhật API thành công"}
-          link={"/setting/api"}
+          link={"/crm/setting/api"}
           handleClose={() => {
             setIsEdit(false);
           }}

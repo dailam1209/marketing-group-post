@@ -10,7 +10,6 @@ export default function ChatBusiness() {
   const handleOpenChatBody = () => {
     toggleModal();
     if (isOpen) {
-      console.log(chatRef.current);
       chatRef.current?.classList.remove("active_open_chat");
     } else {
       chatRef.current?.classList.add("active_open_chat");
