@@ -67,7 +67,7 @@
   min-width: 160px;
   padding: 5px 0;
   margin: 2px 0 0;
-  font-size: 16px;
+  font-size: 14px;
   text-align: left;
   list-style: none;
   background-color: #fff;
@@ -115,7 +115,7 @@
   padding: 20px 0;
   font-style: normal;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 16px;
   color: #4c5bd4;
   cursor: pointer;
@@ -133,7 +133,7 @@
   z-index: 1;
 }
 .menu2_logout {
-  font-size: 16px;
+  font-size: 14px;
   line-height: 16px;
   color: #4c5bd4;
   width: 100%;
@@ -142,7 +142,7 @@
   cursor: pointer;
 }
 .menu2_logout_text {
-  font-size: 16px;
+  font-size: 14px;
   line-height: 16px;
   color: #4c5bd4;
   /* text-align: right; */
@@ -154,7 +154,7 @@
   padding: 20px 35px;
   font-style: normal;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 16px;
   color: #4c5bd4;
   cursor: pointer;
@@ -191,7 +191,7 @@
 }
 .slider::before {
   position: absolute;
-  content: '';
+  content: "";
   height: 17px;
   width: 17px;
   left: 1px;
@@ -228,7 +228,7 @@ input:checked + .slider:before {
   width: 50%;
 }
 .retyprPass_text {
-  font-size: 16px;
+  font-size: 14px;
   line-height: 16px;
   color: #474747;
   padding: 15px;

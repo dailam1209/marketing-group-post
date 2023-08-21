@@ -16,7 +16,7 @@
   color: #337ab7;
   text-decoration: none !important;
   background-color: transparent;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   cursor: default;
 }
@@ -34,7 +34,7 @@
 .add_quytrinh1 .adds {
   font-style: normal;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 16px;
   background: none;
   color: #4c5bd4;
@@ -98,7 +98,7 @@
 .row_top_right p {
   margin: 0;
   height: 20px;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   color: #333333;
 }
@@ -137,7 +137,7 @@
   border-left: 3px solid #ffffff;
   cursor: pointer;
   padding: 16px 40px 14px 13px;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
 }
 .settings_hover li:hover {
@@ -153,12 +153,12 @@
   padding-left: 40px;
 }
 .giaidoans_item_2 li {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   color: #333333;
 }
 .giaidoans_item_2 span {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
   color: #333333;
   height: 16px;
