@@ -10,9 +10,12 @@
     width: 71px;
     height: 71px;
     border-radius: 50%;
+<<<<<<< HEAD
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     box-shadow: 0px 0px 0px 1px #fff;
+=======
+>>>>>>> 1b66000 (fix ui qlc new --pvh)
 
     display: flex;
     align-items: center;
@@ -37,7 +40,11 @@
   }
 
   .rightDiv::before {
+<<<<<<< HEAD
     content: '';
+=======
+    content: "";
+>>>>>>> 1b66000 (fix ui qlc new --pvh)
     position: absolute;
     left: 0;
     top: 50%;
@@ -54,6 +61,15 @@
   }
 }
 
+<<<<<<< HEAD
+=======
+.singleBtn > div:first-child {
+  padding-left: 0 !important;
+
+}
+
+
+>>>>>>> 1b66000 (fix ui qlc new --pvh)
 .singleBtn:hover {
   cursor: pointer;
 }
@@ -73,7 +89,11 @@
     justify-content: center;
 
     margin-right: 14px;
+<<<<<<< HEAD
     background-color: #4c5bd4;
+=======
+    background-color: #4C5BD4;
+>>>>>>> 1b66000 (fix ui qlc new --pvh)
 
     .index {
       font-size: 24px;
@@ -92,7 +112,11 @@
   .circleExplain {
     width: 35px;
     height: 35px;
+<<<<<<< HEAD
     border: 1px solid #4c5bd4;
+=======
+    border: 1px solid #4C5BD4;
+>>>>>>> 1b66000 (fix ui qlc new --pvh)
     display: flex;
     align-items: center;
     justify-content: center;

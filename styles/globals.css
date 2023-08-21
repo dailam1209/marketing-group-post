@@ -65,7 +65,11 @@ button {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
+<<<<<<< HEAD
   background: #4c5bd4;
+=======
+  background: #4C5BD4;
+>>>>>>> 1b66000 (fix ui qlc new --pvh)
 }
 
 /* Handle on hover */
@@ -295,7 +299,11 @@ label.ant-form-item-required {
   border-radius: 15px !important;
 }
 .table_lich_lam_viec .ant-table-thead > tr > th {
+<<<<<<< HEAD
   background-color: #4c5bd4 !important;
+=======
+  background-color: #4C5BD4 !important;
+>>>>>>> 1b66000 (fix ui qlc new --pvh)
   color: #fff !important;
 }
 .table_lich_lam_viec
@@ -308,16 +316,28 @@ label.ant-form-item-required {
   thead.ant-table-thead
   > tr {
   > th {
+<<<<<<< HEAD
     background-color: #4c5bd4 !important;
     color: #fff !important;
   }
   > td {
     background-color: #4c5bd4 !important;
+=======
+    background-color: #4C5BD4 !important;
+    color: #fff !important;
+  }
+  > td {
+    background-color: #4C5BD4 !important;
+>>>>>>> 1b66000 (fix ui qlc new --pvh)
     color: #fff !important;
   }
 }
 /* > th {
+<<<<<<< HEAD
     background-color: #4c5bd4 !important;
+=======
+    background-color: #4C5BD4 !important;
+>>>>>>> 1b66000 (fix ui qlc new --pvh)
     color: #fff !important;
     font-weight: bold;
   } */
@@ -365,7 +385,11 @@ label.ant-form-item-required {
   thead.ant-table-thead
   > tr
   > th {
+<<<<<<< HEAD
   background-color: #4c5bd4 !important;
+=======
+  background-color: #4C5BD4 !important;
+>>>>>>> 1b66000 (fix ui qlc new --pvh)
   color: #fff !important;
 }
 
@@ -409,7 +433,11 @@ label.ant-form-item-required {
   thead.ant-table-thead
   > tr
   > th {
+<<<<<<< HEAD
   background-color: #4c5bd4 !important;
+=======
+  background-color: #4C5BD4 !important;
+>>>>>>> 1b66000 (fix ui qlc new --pvh)
   color: #fff !important;
 }
 .ant-form-item {
@@ -469,7 +497,11 @@ label.ant-form-item-required {
 }
 
 .ant-table-content::-webkit-scrollbar-thumb {
+<<<<<<< HEAD
   background-color: #4c5bd4;
+=======
+  background-color: #4C5BD4;
+>>>>>>> 1b66000 (fix ui qlc new --pvh)
   width: auto;
   height: 13px;
 }
@@ -484,7 +516,11 @@ label.ant-form-item-required {
   border-bottom-left-radius: 0;
 }
 .list_nhanvien::-webkit-scrollbar-thumb {
+<<<<<<< HEAD
   background-color: #4c5bd4 !important;
+=======
+  background-color: #4C5BD4 !important;
+>>>>>>> 1b66000 (fix ui qlc new --pvh)
   border-radius: 15px;
 }
 .cusScrollTable .ant-table-content {
@@ -534,7 +570,11 @@ label.ant-form-item-required {
   border-bottom-left-radius: 10px;
 }
 .table_nhansu .ant-table-content::-webkit-scrollbar-thumb {
+<<<<<<< HEAD
   background-color: #4c5bd4 !important;
+=======
+  background-color: #4C5BD4 !important;
+>>>>>>> 1b66000 (fix ui qlc new --pvh)
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
 }
@@ -554,7 +594,11 @@ label.ant-form-item-required {
   border-bottom-left-radius: 10px;
 }
 .table_danhsachnhanvienthue .ant-table-content::-webkit-scrollbar-thumb {
+<<<<<<< HEAD
   background-color: #4c5bd4 !important;
+=======
+  background-color: #4C5BD4 !important;
+>>>>>>> 1b66000 (fix ui qlc new --pvh)
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
 }
@@ -587,7 +631,11 @@ label.ant-form-item-required {
   border-top: none;
 }
 .table_phucap .ant-table-content::-webkit-scrollbar-thumb {
+<<<<<<< HEAD
   background-color: #4c5bd4 !important;
+=======
+  background-color: #4C5BD4 !important;
+>>>>>>> 1b66000 (fix ui qlc new --pvh)
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
 }
@@ -674,7 +722,11 @@ label.ant-form-item-required {
 }
 
 .ant-table-content::-webkit-scrollbar-thumb {
+<<<<<<< HEAD
   background-color: #4c5bd4;
+=======
+  background-color: #4C5BD4;
+>>>>>>> 1b66000 (fix ui qlc new --pvh)
   height: 13px;
 }
 
@@ -934,7 +986,11 @@ label.ant-form-item-required {
   border-bottom-left-radius: 10px;
 }
 .table_luongcoban .ant-table-content::-webkit-scrollbar-thumb {
+<<<<<<< HEAD
   background-color: #4c5bd4 !important;
+=======
+  background-color: #4C5BD4 !important;
+>>>>>>> 1b66000 (fix ui qlc new --pvh)
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
 }
@@ -1145,7 +1201,11 @@ label.ant-form-item-required {
   line-height: auto !important;
 }
 .contentFormItemLLV .themeColor .ant-select-selection-item {
+<<<<<<< HEAD
   color: #4c5bd4;
+=======
+  color: #4C5BD4;
+>>>>>>> 1b66000 (fix ui qlc new --pvh)
 }
 
 .contentFormItemLLV .themeColor .ant-btn {
@@ -1166,7 +1226,11 @@ label.ant-form-item-required {
 }
 
 .contentFormItemLLV .themeColor .ant-btn span {
+<<<<<<< HEAD
   color: #4c5bd4;
+=======
+  color: #4C5BD4;
+>>>>>>> 1b66000 (fix ui qlc new --pvh)
   font-family: Roboto;
   font-size: 16px;
   font-style: normal;
@@ -1191,7 +1255,11 @@ label.ant-form-item-required {
 }
 
 .contentFormItemLLV .ant-select-focused.ant-select {
+<<<<<<< HEAD
   border: 1px solid #4c5bd4 !important;
+=======
+  border: 1px solid #4C5BD4 !important;
+>>>>>>> 1b66000 (fix ui qlc new --pvh)
   box-shadow: none !important;
 }
 .contentFormItemLLV .ant-select-focused.ant-select .ant-select-selector {
@@ -1201,12 +1269,20 @@ label.ant-form-item-required {
 
 .contentFormItemLLV .ant-input:focus {
   box-shadow: none !important;
+<<<<<<< HEAD
   border: 1px solid #4c5bd4 !important;
+=======
+  border: 1px solid #4C5BD4 !important;
+>>>>>>> 1b66000 (fix ui qlc new --pvh)
 }
 
 .contentFormItemLLV .ant-picker-focused {
   box-shadow: none !important;
+<<<<<<< HEAD
   border: 1px solid #4c5bd4 !important;
+=======
+  border: 1px solid #4C5BD4 !important;
+>>>>>>> 1b66000 (fix ui qlc new --pvh)
 }
 
 .contentFormItemLLV .ant-picker {
@@ -1223,7 +1299,11 @@ label.ant-form-item-required {
   margin: 0 !important;
   padding: 10px !important;
   border-radius: 5px !important;
+<<<<<<< HEAD
   color: #4c5bd4 !important;
+=======
+  color: #4C5BD4 !important;
+>>>>>>> 1b66000 (fix ui qlc new --pvh)
   background-color: #fff;
   border: 1px solid #acacac !important;
   width: 100%;
@@ -1231,12 +1311,20 @@ label.ant-form-item-required {
 
 .multiSelectShift .ant-menu-submenu-title:hover {
   background-color: #fff !important;
+<<<<<<< HEAD
   color: #4c5bd4 !important;
+=======
+  color: #4C5BD4 !important;
+>>>>>>> 1b66000 (fix ui qlc new --pvh)
 }
 
 .multiSelectShift .ant-menu-title-content {
   background-color: #fff !important;
+<<<<<<< HEAD
   color: #4c5bd4 !important;
+=======
+  color: #4C5BD4 !important;
+>>>>>>> 1b66000 (fix ui qlc new --pvh)
 }
 
 .multiSelectShift .ant-menu-item {
@@ -1254,7 +1342,11 @@ label.ant-form-item-required {
 }
 
 .multiSelectShift .ant-menu-item:hover {
+<<<<<<< HEAD
   color: #4c5bd4 !important;
+=======
+  color: #4C5BD4 !important;
+>>>>>>> 1b66000 (fix ui qlc new --pvh)
   background-color: #fff !important;
 }
 
@@ -1265,7 +1357,11 @@ label.ant-form-item-required {
 .multiSelectShift
   .ant-checkbox-wrapper.ant-checkbox-wrapper-checked.ant-checkbox-wrapper-in-form-item.ant-menu-item-icon
   ~ span {
+<<<<<<< HEAD
   color: #4c5bd4 !important;
+=======
+  color: #4C5BD4 !important;
+>>>>>>> 1b66000 (fix ui qlc new --pvh)
 }
 
 .multiSelectShift
@@ -1367,7 +1463,11 @@ label.ant-form-item-required {
 }
 
 .tableLLV .ant-checkbox-wrapper-checked ~ span {
+<<<<<<< HEAD
   color: #4c5bd4 !important;
+=======
+  color: #4C5BD4 !important;
+>>>>>>> 1b66000 (fix ui qlc new --pvh)
 }
 
 .tableLLV .ant-checkbox .ant-checkbox-inner,
@@ -1396,7 +1496,11 @@ label.ant-form-item-required {
 }
 
 .tableLLV .labelItemHourTxt .ant-row .ant-form-item-label-left > label > span {
+<<<<<<< HEAD
   color: #4c5bd4;
+=======
+  color: #4C5BD4;
+>>>>>>> 1b66000 (fix ui qlc new --pvh)
   font-family: Roboto;
   font-size: 16px;
   font-style: normal;
@@ -1405,7 +1509,11 @@ label.ant-form-item-required {
 }
 
 .tableLLV .labelItemHourTxt .ant-row .ant-form-item-label-left > label::after {
+<<<<<<< HEAD
   color: #4c5bd4;
+=======
+  color: #4C5BD4;
+>>>>>>> 1b66000 (fix ui qlc new --pvh)
   margin-inline-end: 4px;
 }
 
@@ -1455,7 +1563,11 @@ label.ant-form-item-required {
 }
 
 .modalTableDetailsLLV .ant-modal-content::-webkit-scrollbar-thumb {
+<<<<<<< HEAD
   background-color: #4c5bd4;
+=======
+  background-color: #4C5BD4;
+>>>>>>> 1b66000 (fix ui qlc new --pvh)
   height: 10px;
 }
 
