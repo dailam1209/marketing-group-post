@@ -11,6 +11,7 @@ import CallModal from "../customer/modal/call_modal";
 import { useApi } from "@/components/crm/hooks/useApi";
 import SelectDataInputBox from "../select/select_data";
 import CustomerGroupSelect from "../select/select_data_group_customer";
+import { base_url } from "../service/function";
 const Cookies = require("js-cookie");
 interface DataType {
   key: React.Key;
@@ -26,14 +27,20 @@ interface DataType {
   emp_name: string;
   userCrete: string;
   user_handing_over_work: string;
+  NameHandingOverWork: string;
+  userNameCreate: string;
 }
 
 interface TableDataContracDrops {
   // Define other props here
-  rowSelection: any;
-  datatable: any;
-  dataStatusCustomer: any;
-  dataGroup: any;
+  rowSelection?: any;
+  datatable?: any;
+  dataStatusCustomer?: any;
+  dataGroup?: any;
+  fetchData?: any;
+  des?: any;
+  setDes?: any;
+
 }
 
 const TableListCustomer: React.FC<TableDataContracDrops> = ({
@@ -41,6 +48,10 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   datatable,
   dataStatusCustomer,
   dataGroup,
+  fetchData,
+  des,
+  setDes,
+  setTest:any,
 }: any) => {
   const [openModalCall, setOpenModalCall] = useState(false);
   const router = useRouter();
@@ -48,33 +59,30 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   const [valueStatus, setValueStatus] = useState();
   const [cusId, setCusId] = useState<any>();
   const [pageSize, setpageSize] = useState<any>();
-  const [des, setDes] = useState();
-  const handleDetail = (data: any) => {
-    router.push(`/crm/customer/detail/${data}`);
-  };
+
   const handleChangeStatus = (e: any, data: any) => {
     setValueStatus(e.target.value);
-    console.log(valueStatus);
   };
-
   const renderTitle = (record, text) => (
-    <button
-      onClick={() => (setOpenEditText(true), setCusId(record), setDes(text))}
-    >
-      <Image
-        style={{ marginRight: "8px" }}
-        src="/crm/h_edit_cus.svg"
-        alt=""
-        width={15}
-        height={15}
-      />
-      Chỉnh sửa
-    </button>
+    <div className="tooltip-content">
+      <button
+        onClick={() => (setOpenEditText(true), setCusId(record), setDes(text))}
+      >
+        <Image
+          className="edit-icon"
+          src="/crm/h_edit_cus.svg"
+          alt=""
+          width={15}
+          height={15}
+        />
+        Chỉnh sửa
+      </button>
+    </div>
   );
   const handleChangeSelect = async (e: any, record) => {
     //get type
     const res = await fetch(
-      "http://210.245.108.202:3007/api/crm/customerdetails/detail",
+     `${base_url}/api/crm/customerdetails/detail`,
       {
         method: "POST",
         headers: {
@@ -88,7 +96,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
     // const
 
     const url =
-      "http://210.245.108.202:3007/api/crm/customerdetails/editCustomer";
+    `${base_url}/api/crm/customerdetails/editCustomer`;
 
     const formData = new FormData();
     formData.append("resoure", e.target.value);
@@ -111,7 +119,6 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
     try {
       const response = await fetch(url, config);
       const data = await response.json();
-      console.log("check res", data);
       if (data?.error) {
         notification.error({ message: data.error.message });
       }
@@ -135,8 +142,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       render: (data, record) => (
         <Link
           style={{ cursor: "pointer" }}
-          onClick={() => handleDetail(record.cus_id)}
-          href={""}
+          href={`/crm/customer/detail/${record.cus_id}`}
         >
           {data}
         </Link>
@@ -186,7 +192,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       dataIndex: "status",
       key: "3",
       width: 200,
-      render: (data) => (
+      render: (data, record) => (
         <div style={{ padding: "5px" }}>
           <SelectDataInputBox
             data={dataStatusCustomer}
@@ -194,6 +200,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
             handleChange={handleChangeStatus}
             cusId={data.cus_id}
           />
+          {/* {data} */}
         </div>
       ),
     },
@@ -204,7 +211,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       width: 200,
       render: (text, record) => (
         <Tooltip title={renderTitle(record.cus_id, text)} color={"white"}>
-          {text ? text : "Chưa cập nhật"}
+          <div className="custom-cellCus">{text ? text : "Chưa cập nhật"}</div>
         </Tooltip>
       ),
     },
@@ -220,9 +227,9 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
             onChange={(e) => handleChangeSelect(e, record)}
           >
             <option value={0}>{text ? text : " Chưa cập nhật"}</option>
-            <option value={1}>{" Facebook"}</option>
-            <option value={2}>{" Zalo"}</option>
-            <option value={3}>{" Website"}</option>
+            <option value={1}>{" Facebook"}</option>Zalo
+            <option value={2}>{" Website"}</option>
+            <option value={3}>{" Zalo"}</option>
             <option value={4}>{" Dữ liệu bên thứ 3"}</option>
             <option value={5}>{" Khách hàng giới thiệu"}</option>
             <option value={6}>{" Giới thiệu"}</option>
@@ -256,7 +263,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
     },
     {
       title: "Nhân viên bàn giao",
-      dataIndex: "user_handing_over_work",
+      dataIndex: "NameHandingOverWork",
       key: "3",
       width: 200,
       render: (text) => (
@@ -279,7 +286,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       // fixed:"right",
       render: (data, record: any) => (
         <>
-          <Link href={`/crm/customer/edit/${record.name}`}>
+          <Link href={`/crm/customer/edit/${record.cus_id}`}>
             <button className={styles.icon_edit}>
               <img
                 style={{ marginRight: "8px" }}
@@ -294,12 +301,9 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   ];
   //nut select
   const handleChangePageSize = (value: any) => {
-    console.log("check value:", value);
     setpageSize(value);
   };
-  useEffect(() => {
-    console.log("hello cus");
-  }, [des]);
+  useEffect(() => {}, [des]);
 
   return (
     <>
@@ -312,11 +316,16 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
           // pagination={true}
           scroll={{ x: 1500, y: "auto" }}
           pagination={{
+            style: { paddingBottom: 20 },
             pageSize: pageSize,
           }}
         />
         {datatable?.length && (
-          <div className="main__footer flex_between" id="">
+          <div
+            className="main__footer flex_between"
+            id=""
+            style={{ marginBottom: 25 }}
+          >
             <div className="show_number_item">
               <b>Hiển thị:</b>
               <Select
@@ -345,6 +354,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
         setIsModalCancel={setOpenEditText}
         cusId={cusId}
         des={des}
+        setDes={setDes}
       />
 
       <CallModal

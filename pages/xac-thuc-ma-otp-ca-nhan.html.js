@@ -11,15 +11,15 @@ import { useEffect } from 'react';
 import { getServerSideProps } from '../utils/function'
 
 let intervalRef = null;
-let intervalCallback = ()=>{};
+let intervalCallback = () => { };
 if (!intervalRef) {
-    intervalRef = setInterval(()=>{
+    intervalRef = setInterval(() => {
         intervalCallback();
     }, 1000);
 }
 
 export { getServerSideProps }
-export default function AuthenticPersonal() {
+export default function AuthenticPersonal({ query }) {
     CheckLogin2();
 
     const [timer, setTimer] = useState(0);
@@ -36,14 +36,14 @@ export default function AuthenticPersonal() {
     }
 
     const getTimerText = () => {
-        if (timer > 0) return "(Đợi "+ timer + "s)";
+        if (timer > 0) return "(Đợi " + timer + "s)";
         return ""
     }
 
     const btnReSend = () => {
         if (timer > 0) return;
         setShowResendButton(false);
-        handleVerifyOtp(true, Cookies.get('phone'), '', null, ()=>{
+        handleVerifyOtp(true, Cookies.get('phone'), '', null, () => {
             setShowResendButton(true);
             startTimer();
         });
@@ -56,11 +56,12 @@ export default function AuthenticPersonal() {
     }
 
     const onClickVerifyOtp = () => {
-        handleVerifyOtp(false, Cookies.get('phone'), document.querySelector('#partitioned').value);
+        const urlRedeict = query.urlRedeict ? query.urlRedeict : '';
+        handleVerifyOtp(false, Cookies.get('phone'), document.querySelector('#partitioned').value, urlRedeict);
     };
 
     const handleEnterButtonPress = (e) => {
-        if(e.key === 'Enter') {
+        if (e.key === 'Enter') {
             e.preventDefault();
             onClickVerifyOtp();
         }
@@ -128,7 +129,7 @@ export default function AuthenticPersonal() {
                                                         <div id="recaptcha-container" className="recaptcha"></div>
                                                     </div>
                                                     <div className="gui_lai_otp hidden">
-                                                        <p className={`${showResendButton? '' : 'hidden'}`}>
+                                                        <p className={`${showResendButton ? '' : 'hidden'}`}>
                                                             <span className="share_fsize_three share_clr_one">
                                                                 Bạn chưa nhận được mã OTP?
                                                             </span>{" "}

@@ -1,4 +1,4 @@
-import { Input, Modal, Select, Table } from "antd";
+import { Input, Modal, Select, Table, notification } from "antd";
 import React, { useContext, useEffect, useState } from "react";
 import styles from "./tongdai.module.css";
 import Link from "next/link";
@@ -7,7 +7,8 @@ import PaginationCSKH from "./pagination";
 import { CallContext } from "@/components/crm/context/tongdaiContext";
 import Filter from "./filter";
 import { useSelector } from "react-redux";
-const Cookies = require('js-cookie')
+import { base_url } from "../../service/function";
+const Cookies = require("js-cookie");
 type Props = {};
 
 const Recording = (props: Props) => {
@@ -20,7 +21,7 @@ const Recording = (props: Props) => {
   const [id, setId] = useState();
   const [name, setname] = useState();
   const [option, setOption] = useState();
-  const [showKetNoi,setShowKetNoi] = useState(false)
+  const [showKetNoi, setShowKetNoi] = useState(false);
 
   let arr = [];
   for (var key of Object.keys(listLine)) {
@@ -28,7 +29,7 @@ const Recording = (props: Props) => {
     arr.push(value);
   }
 
-  const show = useSelector((state: any) => state.auth.account);
+  const show = useSelector((state: any) => state?.auth?.account);
 
   const onClose = () => {
     setIsShowModalAdd(false);
@@ -88,10 +89,9 @@ const Recording = (props: Props) => {
       ),
     },
   ];
- 
   const handleGetLine = async () => {
     const res = await fetch(
-      "http://210.245.108.202:3007/api/crm/cutomerCare/listLine",
+      `${base_url}/api/crm/cutomerCare/listLine`,
       {
         method: "POST",
         headers: {
@@ -104,120 +104,123 @@ const Recording = (props: Props) => {
     setlistLine(data?.data);
   };
 
+  
   const handleGetNhanVienPhuTrach = async () => {
     const res = await fetch(
-      "http://210.245.108.202:3000/api/qlc/managerUser/list",
+      `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/list`,
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${Cookies.get("token_base365")}`,
         },
-        body: JSON.stringify({ com_id: 1763 }),
+        body: JSON.stringify({ com_id: `${Cookies.get("com_id")}`  }),
       }
     );
     const data = await res.json();
     setListNV(data?.data?.data);
   };
-  console.log("check list nv", listNV);
   useEffect(() => {
-    if(show){
-      setShowKetNoi(true)
-    } 
+    if (show) {
+      setShowKetNoi(true);
+    }
     handleGetLine();
     handleGetNhanVienPhuTrach();
   }, [isShowModalEdit]);
   const handleChangeOption = (value: any) => {
-    console.log("check options", event);
     setOption(value);
   };
   const handleOK = async () => {
     setIsShowModalEdit(false);
-    await fetch("http://210.245.108.202:3007/api/crm/cutomerCare/update", {
+   const res = await fetch(`${base_url}/api/crm/cutomerCare/update`, {
       method: "POST",
-      headers:{
+      headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${Cookies.get("token_base365")}`,
       },
       body: JSON.stringify({ ext_number: id, emp_id: option }),
     });
+    const data = await res.json()
+    if(data && data.error){
+      notification.error({message:data?.error?.message})
+    }
   };
 
   return (
     <div>
-      {showKetNoi && 
-      <div style={{ paddingTop: 20 }}>
-        <Table
-          columns={Colums as any}
-          dataSource={data}
-          bordered
-          scroll={{ x: 1000 }}
-          pagination={{
-            pageSize:8
-          }}
-        />
-        <ModalConnect
-          isShowModalAdd={isShowModalAdd}
-          onClose={onClose}
-          handleAddDB={handleAddDB}
-        />
-        <Modal
-          onCancel={() => setIsShowModalEdit(false)}
-          onOk={() => handleOK()}
-          title={
-            <div
-              style={{
-                background: "#4C5BD4",
-                width: "114%",
-                margin: "-20px -25px",
-              }}
-            >
+      {showKetNoi && (
+        <div style={{ paddingTop: 20 }}>
+          <Table
+            columns={Colums as any}
+            dataSource={data}
+            bordered
+            scroll={{ x: 1000 }}
+            pagination={{style:{display:"flex",float:"left"},
+              pageSize: 8,
+            }}
+          />
+          <ModalConnect
+            isShowModalAdd={isShowModalAdd}
+            onClose={onClose}
+            handleAddDB={handleAddDB}
+          />
+          <Modal
+            onCancel={() => setIsShowModalEdit(false)}
+            onOk={() => handleOK()}
+            title={
               <div
                 style={{
-                  color: "white",
-                  fontSize: 16,
-                  textAlign: "center",
-                  paddingTop: 10,
+                  background: "#4C5BD4",
+                  width: "114%",
+                  margin: "-20px -25px",
                 }}
               >
-                Thiết lập
+                <div
+                  style={{
+                    color: "white",
+                    fontSize: 16,
+                    textAlign: "center",
+                    paddingTop: 10,
+                  }}
+                >
+                  Thiết lập
+                </div>
+              </div>
+            }
+            open={isShowModalEdit}
+          >
+            <div style={{ paddingTop: 20 }}>
+              <div>Số điện thoại</div>
+              <div>
+                <Input
+                  type="text"
+                  disabled
+                  value={id}
+                  style={{ color: "black" }}
+                />
+              </div>
+              <div>Nhân viên phụ trách</div>
+              <div>
+                <Select
+                  style={{ width: "100%" }}
+                  defaultValue={` ${name}`}
+                  onChange={handleChangeOption}
+                >
+                  {listNV &&
+                    listNV?.map((item: any, index) => {
+                      return (
+                        <option
+                          key={index}
+                          value={item.idQLC}
+                        >{`(${item.idQLC}) ${item.userName}`}</option>
+                      );
+                    })}
+                </Select>
               </div>
             </div>
-          }
-          open={isShowModalEdit}
-        >
-          <div style={{ paddingTop: 20 }}>
-            <div>Số điện thoại</div>
-            <div>
-              <Input
-                type="text"
-                disabled
-                value={id}
-                style={{ color: "black" }}
-              />
-            </div>
-            <div>Nhân viên phụ trách</div>
-            <div>
-              <Select
-                style={{ width: "100%" }}
-                defaultValue={` ${name}`}
-                onChange={handleChangeOption}
-              >
-                {listNV &&
-                  listNV?.map((item: any, index) => {
-                    return (
-                      <option
-                        key={index}
-                        value={item.idQLC}
-                      >{`(${item.idQLC}) ${item.userName}`}</option>
-                    );
-                  })}
-              </Select>
-            </div>
-          </div>
-        </Modal>
-      </div>
-}
+          </Modal>
+        </div>
+      )}
     </div>
   );
 };

@@ -13,9 +13,10 @@ const handleVerifyOtp = async (
   account = null,
   otp = null,
   type = null,
-  captchaCb = () => {}
+  urlRedeict = '',
+  captchaCb = () => { }
 ) => {
-  console.log('handleVerifyOtp')
+
   const partitioned = document.querySelector('#partitioned')
   if (btn) {
     try {
@@ -109,15 +110,18 @@ const handleVerifyOtp = async (
             } else {
               authenPersonal()
             }
-
-            alert('Xác thực thành công')
-            if (role == 2) {
-              window.location.href = '/'
-            } else if (role == 1) {
-              window.location.href = '/'
+            if (urlRedeict == '') {
+              if (role == 2) {
+                window.location.href = '/'
+              } else if (role == 1) {
+                window.location.href = '/'
+              } else {
+                window.location.href = '/quan-ly-ung-dung-ca-nhan.html'
+              }
             } else {
-              window.location.href = '/quan-ly-ung-dung-ca-nhan.html'
+              window.location.assign(urlRedeict);
             }
+
           } else {
             window.location.href =
               '/thay-doi-mat-khau.html?account=' + account + '&type=' + type

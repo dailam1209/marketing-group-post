@@ -3,6 +3,7 @@ import { Input, Modal } from "antd";
 import styles from "../../potential/potential.module.css";
 import InputText from "@/components/crm/potential/potential_add_files/input_text";
 import ModalCompleteStep from "@/components/crm/setting/complete_modal";
+import { base_url } from "../../service/function";
 const Cookies = require("js-cookie");
 interface MyComponentProps {
   isModalCancel: boolean;
@@ -26,7 +27,7 @@ const EditStatusCustomerModal: React.FC<MyComponentProps> = ({
     setIsOpenMdalSuccess(true);
     if (dataUpdate != "") {
       updateData(
-        "http://210.245.108.202:3007/api/crm/customerStatus/update",
+        `${base_url}/api/crm/customerStatus/update`,
         `${Cookies.get("token_base365")}`,
         "POST",
         { stt_name: `${dataUpdate}`, stt_id: id }

@@ -3,11 +3,37 @@ import styles from "../../potential/potential.module.css";
 import type { MenuProps } from "antd";
 import { Button, Dropdown, Space } from "antd";
 import { useState } from "react";
+import CancelModalDelGroup from "./delete_mdal_gr_cus";
+import { useApi } from "../../hooks/useApi";
+import { base_url } from "../../service/function";
+import Cookies from "js-cookie";
 
-export default function GroupCustomerAction({ isSelectedRow }: any) {
+export default function GroupCustomerAction({
+  isSelectedRow,
+  selectedRow,
+  updateData,
+}: any) {
   const [isDelOpen, setIsDelOpen] = useState(false);
 
+  const accessToken = Cookies.get("token_base365");
+
+  const {
+    data,
+    loading,
+    error,
+    fetchData,
+    updateData: updateDataDel,
+    deleteData,
+  } = useApi(
+    `${base_url}/api/crm/group/list_group_khach_hang`,
+    `${Cookies.get("token_base365")}`,
+    "POST",
+    { page: 1, perPage: 1000 }
+  );
+
+  console.log("check", data?.data?.showGr);
   const handleClickAction = (e: any) => {
+    console.log(selectedRow);
     setIsDelOpen(true);
   };
   const items: MenuProps["items"] = [
@@ -81,12 +107,15 @@ export default function GroupCustomerAction({ isSelectedRow }: any) {
         </button>
       </Dropdown>
 
-      <CancelModal
+      <CancelModalDelGroup
         isModalCancel={isDelOpen}
         setIsModalCancel={setIsDelOpen}
         content={"Bạn có đồng ý xóa nhóm khách hàng này không?"}
         title={"Xác nhận xóa nhóm khách hàng"}
         link={"#"}
+        keyDeleted={selectedRow}
+        updateData={updateDataDel}
+        setChange={updateData}
       />
     </div>
   );

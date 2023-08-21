@@ -9,7 +9,7 @@ export const SidebarResize: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const token_connect = useSelector((state: any) => state.auth?.account);
+  const token_connect = useSelector((state: any) => state?.auth?.account);
   const dispatch = useDispatch();
 
   const handlegetTokenConnect = () => {

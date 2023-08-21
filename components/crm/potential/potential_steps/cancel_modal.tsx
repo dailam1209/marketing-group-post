@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import { Button, Modal } from "antd";
 import styles from "../potential.module.css";
 import { useRouter } from "next/router";
+import { base_url } from "../../service/function";
 const Cookies = require("js-cookie");
 interface MyComponentProps {
   isModalCancel: boolean;
   setIsModalCancel: (value: boolean) => void;
-  content: string;
-  title: string;
-  link: string;
+  content?: string;
+  title?: string;
+  link?: string;
   id?: any;
   updateData?: any;
 }
@@ -25,7 +26,7 @@ const CancelModal: React.FC<MyComponentProps> = ({
   const handleOK = () => {
     setIsModalCancel(false);
     updateData(
-      "http://210.245.108.202:3007/api/crm/customerStatus/delete",
+      `${base_url}/api/crm/customerStatus/delete`,
       `${Cookies.get("token_base365")}`,
       "POST",
       { stt_id: id }

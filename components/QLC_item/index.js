@@ -1,51 +1,56 @@
 /** @format */
 
-import React from 'react'
-import Link from 'next/link'
-import styles from './QLCitem.module.scss'
-import { CheckLogin } from '../../utils/function'
-import { useRouter } from 'next/router'
-import Cookies from 'js-cookie'
+import React from "react";
+import Link from "next/link";
+import styles from "./QLCitem.module.scss";
+import { CheckLogin } from "../../utils/function";
+import { useRouter } from "next/router";
+import Cookies from "js-cookie";
+import HomePageBeforLogin from "@/pages/trang-chu-truoc-dang-nhap";
 export default function QLC_item({
   img,
   title,
   desc,
-  url = '/VanThu/quanly-cong-van',
+  url = "/VanThu/quanly-cong-van",
   hasCheckLogin = true,
 }) {
-  const router = useRouter()
+  const router = useRouter();
   const checkLoginAndRedirect = () => {
-    const acc_token = Cookies.get('token_base365')
-    const rf_token = Cookies.get('rf_token')
-    const role = Cookies.get('role')
+    const acc_token = Cookies.get("token_base365");
+    const rf_token = Cookies.get("rf_token");
+    const role = Cookies.get("role");
 
     if (!hasCheckLogin) {
-      router.push(url)
+      router.push(url);
     }
     if (hasCheckLogin && acc_token && rf_token && role) {
-      router.push(url)
+      router.push(url);
+    }
+    if ((url = "/hr" && hasCheckLogin)) {
+      router.push("/trang-chu-truoc-dang-nhap");
     }
     // else {
     //   alert('Làm ơn hãy đăng ký/đăng nhập')
     // }
-  }
+  };
   return (
     <div
       className={styles.QLC_item_wrap}
-      onClick={() => checkLoginAndRedirect()}>
+      onClick={() => checkLoginAndRedirect()}
+    >
       <div className={styles.QLC_item}>
         <div className={styles.img}>
-          <img src={img} alt='' />
+          <img src={img} alt="" />
         </div>
         <div className={styles.content}>
           <div className={styles.title}>{title}</div>
           <div className={styles.detail}>
             <div className={styles.desc}>{desc}</div>
-            <img src='../img/right.png' alt='' />
+            <img src="../img/right.png" alt="" />
             <span>Xem chi tiết</span>
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }

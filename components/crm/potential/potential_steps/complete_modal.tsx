@@ -3,6 +3,7 @@ import React from "react";
 import { Modal } from "antd";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { base_url } from "../../service/function";
 const Cookies = require('js-cookie')
 interface ModalCompleteStepProps {
   modal1Open: boolean;
@@ -17,7 +18,6 @@ const ModalCompleteStep: React.FC<ModalCompleteStepProps> = ({
   modal1Open = true,
   setModal1Open,
   title,
-  link = "/",
   editorContent,
   cusId,
 }: any) => {
@@ -27,7 +27,7 @@ const ModalCompleteStep: React.FC<ModalCompleteStepProps> = ({
     setModal1Open(false);
     // router.push(link);
     const url =
-    "http://210.245.108.202:3007/api/crm/customerdetails/editCustomer";
+    `${base_url}/api/crm/customerdetails/editCustomer`;
 
   const formData = new FormData();
   formData.append("description", editorContent);
@@ -50,7 +50,7 @@ const ModalCompleteStep: React.FC<ModalCompleteStepProps> = ({
   } catch (error) {
     console.error(error);
   }
-  router.push("#")
+ router.push('#')
   };
   return (
     <div>

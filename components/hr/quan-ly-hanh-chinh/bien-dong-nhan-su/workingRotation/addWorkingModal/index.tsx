@@ -60,12 +60,17 @@ export default function AddWorkingModal({ onCancel }: any) {
   const [isCom_idNew, setCom_idNew] = useState<any>(null)
   const [isDep_id, setDep_id] = useState<any>(null)
   const [isDep_idNew, setDep_idNew] = useState<any>(null)
+  const [isTeam_idNew, setTeam_idNew] = useState<any>(null)
+  const [isGroup_idNew, setGroup_idNew] = useState<any>(null)
   const [isEmp_id, setEmp_id] = useState<any>(null)
   const [isPosition_id, setPosition_id] = useState<any>(null)
   const [isPosition_idNew, setPosition_idNew] = useState<any>(null)
   const [isSpecified_id, setSpecified_id] = useState<any>(null)
   const [errors, setErrors] = useState<any>({});
   const modalRef = useRef(null);
+
+  console.log(isOrganizationalStructureList);
+
 
   useEffect(() => {
     const handleOutsideClick = (event: any) => {
@@ -169,6 +174,8 @@ export default function AddWorkingModal({ onCancel }: any) {
       formData.append('decision_id', isSpecified_id)
       formData.append('update_position', isPosition_idNew)
       formData.append('update_dep_id', isDep_idNew)
+      formData.append('new_team_id', isTeam_idNew)
+      formData.append('new_group_id', isGroup_idNew)
       formData.append('mission', isMission)
       formData.append('note', isNote)
 
@@ -212,6 +219,7 @@ export default function AddWorkingModal({ onCancel }: any) {
 
   const depInfoArray: any = [];
   const depInfoArrayNew: any = [];
+  const teamInfoArray: any = [];
   function isValidComId(com_id: any) {
     return isOrganizationalStructureList?.infoCompany?.parent_com_id === com_id ||
       isOrganizationalStructureList?.infoChildCompany?.some(company => company.com_id === com_id);
@@ -239,6 +247,49 @@ export default function AddWorkingModal({ onCancel }: any) {
     }
   }
 
+  function getTeamInfoByDepId(dep_id: any) {
+    const teamInfoArray: any = [];
+
+    if (isOrganizationalStructureList?.infoCompany) {
+      const selectedDep = isOrganizationalStructureList.infoCompany.infoDep.find((infoDep: any) => infoDep.dep_id === dep_id);
+
+      if (selectedDep) {
+        for (const infoTeam of selectedDep.infoTeam) {
+          teamInfoArray.push({
+            gr_id: infoTeam.gr_id,
+            gr_name: infoTeam.gr_name
+          });
+        }
+      }
+    }
+    return teamInfoArray;
+  }
+  const teamInfo = getTeamInfoByDepId(isDep_idNew);
+
+  function getGroupInfoByTeamId(team_id: any) {
+    const groupInfoArray: any = [];
+
+    if (isOrganizationalStructureList?.infoCompany) {
+      for (const infoDep of isOrganizationalStructureList?.infoCompany?.infoDep) {
+        for (const infoTeam of infoDep?.infoTeam) {
+          if (infoTeam.gr_id === team_id) {
+            for (const infoGroup of infoTeam.infoGroup) {
+              groupInfoArray.push({
+                gr_id: infoGroup.gr_id,
+                gr_name: infoGroup.gr_name
+              });
+            }
+          }
+        }
+      }
+    }
+
+    return groupInfoArray;
+  }
+
+  const groupInfo = getGroupInfoByTeamId(isTeam_idNew);
+  console.log(groupInfo);
+
   const chonchinhanhOptions = useMemo(
     () =>
       companyNames && companyNames?.map((organizational: any) => ({
@@ -262,6 +313,24 @@ export default function AddWorkingModal({ onCancel }: any) {
       depInfoArrayNew && depInfoArrayNew?.map((dep: any) => ({
         value: dep.dep_id,
         label: dep.dep_name,
+      })),
+    [depInfoArrayNew]
+  );
+
+  const chontotheophongbanOptions = useMemo(
+    () =>
+      teamInfo && teamInfo?.map((team: any) => ({
+        value: team.gr_id,
+        label: team.gr_name,
+      })),
+    [depInfoArrayNew]
+  );
+
+  const chonnhomtheotoOptions = useMemo(
+    () =>
+      groupInfo && groupInfo?.map((group: any) => ({
+        group: group.gr_id,
+        label: group.gr_name,
       })),
     [depInfoArrayNew]
   );
@@ -343,14 +412,8 @@ export default function AddWorkingModal({ onCancel }: any) {
     chucvuhientai: chonchucvuOptions,
     donvicongtacmoi: chonchinhanhOptions,
     phongbanmoi: chonphongbanmoiOptions,
-    to: [
-      { value: '  BAN GIÁM ĐỐC', label: 'BAN GIÁM ĐỐC' },
-      { value: 'KỸ THUẬT', label: 'KỸ THUẬT' },
-    ],
-    nhom: [
-      { value: '  BAN GIÁM ĐỐC', label: 'BAN GIÁM ĐỐC' },
-      { value: 'KỸ THUẬT', label: 'KỸ THUẬT' },
-    ],
+    to: chontotheophongbanOptions,
+    nhom: chonnhomtheotoOptions,
     chucvumoi: chonchucvumoiOptions,
     chonquydinh: chonquydinhOptions,
   };
@@ -531,7 +594,7 @@ export default function AddWorkingModal({ onCancel }: any) {
                     <div className={`${styles.input_right}`}>
                       <Select
                         defaultValue={selectedOption}
-                        onChange={(option) => handleSelectionChange(option, options.to)}
+                        onChange={(option) => handleSelectChange(option, setTeam_idNew)}
                         options={options.to}
                         placeholder="Chọn tổ"
                         styles={{
@@ -556,7 +619,7 @@ export default function AddWorkingModal({ onCancel }: any) {
                     <div className={`${styles.input_right}`}>
                       <Select
                         defaultValue={selectedOption}
-                        onChange={(option) => handleSelectionChange(option, options.nhom)}
+                        onChange={(option) => handleSelectChange(option, setGroup_idNew)}
                         options={options.nhom}
                         placeholder="Chọn nhóm"
                         styles={{

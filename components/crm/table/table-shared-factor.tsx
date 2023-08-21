@@ -7,55 +7,61 @@ import Image from "next/image";
 import PotentialSelectBox from "../potential/potential_selectt";
 import CancelModal from "../potential/potential_steps/cancel_modal";
 import { TableRowSelection } from "antd/es/table/interface";
+import { data } from "./table-bill";
 
 interface DataType {
   key: React.Key;
-  personname: string;
-  date1: string;
-  date2: string;
-  filename: string;
-  operation: string;
+  userName: string;
+  nameDeparment: string;
 }
 
-const data: DataType[] = [];
-for (let i = 0; i < 2; i++) {
-  data.push({
-    key: i + 1,
-    filename: `Dulich.docx ${i}`,
-    personname: `NguyenVanHung`,
-    operation: "",
-    date1: `10/07/2023`,
-    date2: `17/07/2023`,
-  });
+interface TableSharedFactorProps {
+  data: any;
+  empIdArr: any;
 }
 
-interface TableSharedFactorProps {}
-
-const TableSharedFactor: React.FC<TableSharedFactorProps> = () => {
+const TableSharedFactor: React.FC<TableSharedFactorProps> = ({
+  data,
+  empIdArr,
+}: any) => {
   const router = useRouter();
   const { id } = router.query;
   const [isOpenModalDel, setIsOpenModalDel] = useState(false);
 
+  const dataFilter = data?.data?.data?.filter((item) =>
+    empIdArr.includes(item?._id)
+  );
+
+  const dataTble: DataType[] = dataFilter?.map((item) => {
+    return {
+      key: item.id,
+      nameDeparment: item?.nameDeparment,
+      userName: item?.userName,
+      item: item,
+    };
+  });
+
   const columns: ColumnsType<DataType> = [
     {
-        // title: "Tên nhân viên",
-      dataIndex: "personname",
+      title: "Tên nhân viên",
+      dataIndex: "userName",
       key: "1",
       width: 200,
     },
     {
-        // title: "Phòng ban",
-      dataIndex: "date1",
+      title: "Phòng ban",
+      dataIndex: "nameDeparment",
       key: "2",
       width: 150,
     },
   ];
+
   return (
     <>
       <div className="custom_table product_return">
         <Table
           columns={columns}
-          dataSource={data}
+          dataSource={dataTble}
           bordered
           pagination={false}
           // scroll={{ x: 992, y: 1100 }}

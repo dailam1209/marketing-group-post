@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import FilterTongdai from "./filterTongdai";
 import FilterTongDai from "./filterTongdai";
 import FilterThongKe from "./fillterThongKe";
+import { base_url } from "../../service/function";
 const Cookies = require("js-cookie");
 type Props = {};
 
@@ -19,10 +20,12 @@ const Recording = (props: Props) => {
   const { isConnected } = useContext<any>(CallContext);
 
   const [listData, setListData] = useState([]);
-  const show = useSelector((state: any) => state.auth.account);
+  const show = useSelector((state: any) => state?.auth?.account);
   const [current, setcurrent] = useState(1);
   const [pageSize, setpageSize] = useState(10);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [phongban,setPhongban] = useState() 
+
   const onClose = () => {
     setIsShowModalAdd(false);
     setIsShowModal(false);
@@ -68,7 +71,7 @@ const Recording = (props: Props) => {
   );
   const handleGetNhanVienPhuTrach = async () => {
     const res = await fetch(
-      "http://210.245.108.202:3000/api/qlc/managerUser/list",
+      `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/list`,
       {
         method: "POST",
         headers: {
@@ -81,27 +84,6 @@ const Recording = (props: Props) => {
     const data = await res.json();
     setListNV(data?.data?.data);
   };
-
-  const handleGet = async () => {
-    setListData([]);
-    setIsModalOpen(false);
-    if (fillEnd && fillStart) {
-      setQuery(
-        `http://s02.oncall.vn:8899/api/call_logs/list?pagesize=100000000&start_time=${fillStart} &end_time=${fillEnd}&`
-      );
-    }
-    //lay datatable
-    const response = await fetch(`${query}`, {
-      method: "GET",
-      headers: {
-        access_token: show,
-        // "Content-Type":"S"
-      },
-    });
-    const data = await response.json();
-    setListData(data?.items);
-  };
-
   var outputArray = [];
 
   listData?.forEach(function (call) {
@@ -138,7 +120,7 @@ const Recording = (props: Props) => {
 
   const handleGetLine = async () => {
     const res = await fetch(
-      "http://210.245.108.202:3007/api/crm/cutomerCare/listLine",
+      `${base_url}/api/crm/cutomerCare/listLine`,
       {
         method: "POST",
         headers: {
@@ -162,11 +144,14 @@ const Recording = (props: Props) => {
         name2 = value?.userName;
       }
     }
-    for (let key of listNV) {
-      if (key.userName == name2) {
-        phong = key.nameDeparment;
+    if(listNV){
+      for (let key of listNV) {
+        if (key.userName === name2) {
+          phong = key.nameDeparment;
+        }
       }
     }
+   
     return {
       caller: item.caller,
       ring_duration: item.ring_duration,
@@ -179,6 +164,29 @@ const Recording = (props: Props) => {
       // status: item.status,
     };
   });
+  const handleGet = async () => {
+    if(phongban){
+     datane.filter((item) =>{return item.nameDeparment === phongban});
+      setIsModalOpen(false);
+    }
+    setListData([]);
+    setIsModalOpen(false);
+    if (fillEnd && fillStart) {
+      setQuery(
+        `http://s02.oncall.vn:8899/api/call_logs/list?pagesize=100000000&start_time=${fillStart} &end_time=${fillEnd}&`
+      );
+    }
+    //lay datatable
+    const response = await fetch(`${query}`, {
+      method: "GET",
+      headers: {
+        access_token: show,
+        // "Content-Type":"S"
+      },
+    });
+    const data = await response.json();
+    setListData(data?.items);
+  };
   useEffect(() => {
     handleGetLine();
     handleGet();
@@ -232,7 +240,6 @@ const Recording = (props: Props) => {
       render: (text: any, record: any) => <div>{text}s</div>,
     },
   ];
-
   return (
     <div>
       <div className={styles.group_button}>
@@ -245,6 +252,8 @@ const Recording = (props: Props) => {
           fillEnd={fillEnd}
           setFillEnd={setFillEnd}
           handleGet={handleGet}
+        setPhongban={setPhongban}
+
         />
 
         <div className={styles.group_button_right}>

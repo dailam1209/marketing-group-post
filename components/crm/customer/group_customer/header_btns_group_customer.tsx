@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useCallback } from "react";
 import styles from "../../potential/potential.module.css";
 import Link from "next/link";
 import GroupCustomerAction from "./group_customert_action";
-export default function HeaderBtnsCustomerGroup({ isSelectedRow }: any) {
+export default function HeaderBtnsCustomerGroup({
+  isSelectedRow,
+  selectedRow,
+  updateData,
+  valFilter,
+  setValFilter,
+}: any) {
   const handleClickSelectoption = () => {};
+  const handleChangeInput = useCallback((e: any) => {
+    setValFilter(e.target.value);
+  }, []);
 
   return (
     <div className={styles.main__control}>
@@ -15,7 +24,9 @@ export default function HeaderBtnsCustomerGroup({ isSelectedRow }: any) {
               className={styles.input__search}
               name="search"
               defaultValue=""
-              placeholder="Tìm kiếm theo tên tiềm năng"
+              placeholder="Tìm kiếm theo tên nhóm khách hàng"
+              value={valFilter}
+              onChange={handleChangeInput}
             />
             <button className={styles.kinh_lup}>
               <img
@@ -39,7 +50,11 @@ export default function HeaderBtnsCustomerGroup({ isSelectedRow }: any) {
         </div>
       </div>
 
-      <GroupCustomerAction isSelectedRow={isSelectedRow} />
+      <GroupCustomerAction
+        isSelectedRow={isSelectedRow}
+        selectedRow={selectedRow}
+        updateData={updateData}
+      />
     </div>
   );
 }

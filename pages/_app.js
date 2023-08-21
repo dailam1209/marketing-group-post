@@ -46,7 +46,6 @@ export default function App({ Component, pageProps }) {
   const { isOpen, toggleModal } = useModal("icon_menu_nav", [styles.sidebar]);
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const { pathname } = router;
   const [firstLoad, setFirstLoad] = useState(
     router?.pathname?.includes("/hr") ? false : true
   );

@@ -14,6 +14,7 @@ import { useApi } from "../../hooks/useApi";
 import { current } from "@reduxjs/toolkit";
 import FilterTongDai from "./filterTongdai";
 import { doDisConnect } from "../../redux/user/userSlice";
+import { useRouter } from "next/router";
 type Props = {};
 
 const TongDaiPage = (props: Props) => {
@@ -21,16 +22,18 @@ const TongDaiPage = (props: Props) => {
   const [isShowModalAdd, setIsShowModalAdd] = useState(false);
   const { isConnected } = useContext<any>(CallContext);
   const [listData, setListData] = useState([]);
-  const show = useSelector((state: any) => state.auth.account);
+  const show = useSelector((state: any) => state?.auth?.account);
   const [current, setcurrent] = useState(1);
   const [pageSize, setpageSize] = useState(10);
   const [showKetNoi, setShowKetNoi] = useState(false);
   const [soNghe, setSoNghe] = useState();
   const [nv, setnv] = useState();
+  const [token,setToken] = useState()
   const onClose = () => {
     setIsShowModalAdd(false);
     setIsShowModal(false);
   };
+
   const handleAddDB = () => {
     setIsShowModalAdd(false);
   };
@@ -108,6 +111,7 @@ const TongDaiPage = (props: Props) => {
       setIsModalOpen(false);
       return;
     }
+    
     setIsModalOpen(false);
     if (fillEnd && fillStart) {
       setQuery(
@@ -130,12 +134,15 @@ const TongDaiPage = (props: Props) => {
     }
     return data;
   };
+  const router = useRouter()
+
   useEffect(() => {
-    if (show) {
+    if (show.length) {
       setShowKetNoi(true);
     }
     handleGet();
   }, [query, show]);
+
   const Colums = [
     {
       key: "1",
@@ -188,7 +195,7 @@ const TongDaiPage = (props: Props) => {
       </div>
     ), // Thay thế nội dung "No Data" bằng "Hello"
   };
-  console.log("check nv", nv);
+
   return (
     <div>
       {showKetNoi && (
@@ -263,8 +270,9 @@ const TongDaiPage = (props: Props) => {
           columns={Colums as any}
           dataSource={datatable}
           bordered
-          scroll={{ x: 1000 }}
+          scroll={{ x: 1000, y: "auto" }}
           pagination={{
+            style: { display: "flex", float: "left" },
             current: current,
             pageSize: pageSize,
             onChange(page, pageSize) {
