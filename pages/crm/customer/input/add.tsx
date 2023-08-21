@@ -13,18 +13,19 @@ import TextEditorNhapLieu from "@/components/crm/text-editor/text_editor_nhaplie
 const AddFilesCustomerList: React.FC = () => {
   const mainRef = useRef<HTMLDivElement>(null);
   const { isOpen } = useContext<any>(SidebarContext);
-  const [dataAdd,setDataAdd] = useState({
-    name:'',
-    phone_number:null,
-    email:'',
-    resoure:null,
-    description:'',
+  const [dataAdd, setDataAdd] = useState({
+    name: "",
+    phone_number: null,
+    email: "",
+    resoure: null,
+    description: "",
     parent_group:null,
-    user_create_id:null
-  })
+    user_create_id: null,
+    // child_group:null
+  });
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
- 
+
   useEffect(() => {
     setHeaderTitle("Thêm mới khách hàng");
     setShowBackButton(true);
@@ -50,10 +51,7 @@ const AddFilesCustomerList: React.FC = () => {
                 <div className={styles["main__body_item"]}>
                   {/* Type Customer */}
                   {/* Image */}
-                  <Info_cus
-                  dataAdd={dataAdd}
-                  setDataAdd={setDataAdd}
-                  />
+                  <Info_cus dataAdd={dataAdd} setDataAdd={setDataAdd} />
                 </div>
 
                 {/* Text Editor */}
@@ -63,14 +61,8 @@ const AddFilesCustomerList: React.FC = () => {
                 >
                   Mô tả khách hàng{" "}
                 </div>
-                <TextEditorNhapLieu 
-                   dataAdd={dataAdd}
-                   setDataAdd={setDataAdd}
-                />
-                <Bot_textEditor 
-                     dataAdd={dataAdd}
-                     setDataAdd={setDataAdd}
-                />
+                <TextEditorNhapLieu dataAdd={dataAdd} setDataAdd={setDataAdd} />
+                <Bot_textEditor dataAdd={dataAdd} setDataAdd={setDataAdd} />
               </div>
               <PotentialFooterAddFiles
                 link="/crm/customer/list"

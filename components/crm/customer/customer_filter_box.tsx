@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Input, Select, TimePicker } from "antd";
 import dayjs from "dayjs";
 import styles from "./customer.module.css";
@@ -7,6 +7,8 @@ import PotentialSelectBoxStep from "../potential/potential_steps/select_box_step
 import moment from "moment";
 import { CaretDownOutlined, DownCircleTwoTone } from "@ant-design/icons";
 import { Router, useRouter } from "next/router";
+import { base_url } from "../service/function";
+import Cookies from "js-cookie";
 
 const format = "HH:mm";
 
@@ -21,6 +23,10 @@ interface PropsComponent {
   setnvPhuTrach: any;
   userNameCreate: any;
   setuserNameCreate: any;
+  nhomCha:any,
+  setnhomCha:any,
+  nhomCon:any,
+  setnhomCon:any,
 }
 
 const CustomerListFilterBox: React.FC<PropsComponent> = ({
@@ -34,9 +40,15 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
   setnvPhuTrach,
   setuserNameCreate,
   userNameCreate,
+  nhomCha,
+  setnhomCha,
+  nhomCon,
+  setnhomCon
 }) => {
   const [valueSelectStatus, setValueSelectStatus] = useState<any>();
   const [valueResoure, sevalueResoure] = useState<any>();
+  const [listGr_Child, setlistGr_Child] = useState([]);
+
   const handleChangeStt = (value: any) => {
     setValueSelectStatus(value);
     setStatus(value);
@@ -54,6 +66,38 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
   const router = useRouter()
   const currentTime = moment(); // Thời điểm hiện tại
   const pastTime = currentTime.subtract(2, "days");
+
+  const [listGr,setListGr] = useState([])
+  const handleGetGr = async () => {
+    try {
+      const res = await fetch(
+        `${base_url}/api/crm/group/list_group_khach_hang`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${Cookies.get("token_base365")}`,
+          },
+          body: JSON.stringify({ com_id: Cookies.get("com_id") }),
+        }
+      );
+      let arr=[]
+      const data = await res.json();
+      setListGr(data?.data?.showGr);
+      data?.data?.showGr?.map((item) => {
+        item?.list_gr_child.map((item) => {
+          arr.push(item);
+        });
+        setlistGr_Child(arr);
+      });
+    } catch (error) {
+      console.log("error:", error);
+    }
+  };
+  
+useEffect(()=>{
+  handleGetGr()
+},[])
 
   return (
     <>
@@ -173,6 +217,8 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
             </div>
           </div>
           <Select
+          value={nhomCha}
+          onChange={(value)=>setnhomCha(value)}
                defaultValue={"Tất cả"}
             suffixIcon={
               <i
@@ -185,8 +231,10 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
               border: "1px solid black",
               borderRadius: 7,
             }}
-          >
-            {/* <option value="Chưa tư vấn">Chưa tư vấn</option> */}
+          >{listGr?.map((item:any,index)=>{
+            return  <option key={index} value={item?.gr_id}>{item.gr_name}</option>
+          })}
+            
           </Select>
         </div>
 
@@ -194,6 +242,8 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
           <div className={styles.label}>Nhóm khách hàng con</div>
           <div className={stylePotentialSlect.customer_list}>
             <Select
+             value={nhomCon}
+             onChange={(value)=>setnhomCon(value)}
               suffixIcon={
                 <i
                   style={{ color: "black" }}
@@ -206,7 +256,9 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
                 borderRadius: 7,
               }}
             >
-              {/* <option value="Chưa tư vấn">Chưa tư vấn</option> */}
+           {listGr_Child?.map((item:any,index)=>{
+            return  <option key={index} value={item?.gr_id}>{item.gr_name}</option>
+          })}
             </Select>
           </div>
         </div>

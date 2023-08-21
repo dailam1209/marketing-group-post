@@ -12,6 +12,7 @@ export default function TextEditor({ title = null, className,  infoCus }: any) {
     };
     setEditorLoaded(true);  
   }, []);
+  console.log(infoCus)
   return (
     <div
       className={`text_editor_${className}`}

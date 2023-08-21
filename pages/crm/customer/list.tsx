@@ -40,6 +40,9 @@ export default function CustomerList() {
   const [status, setStatus] = useState();
   const [resoure, setResoure] = useState();
   const [nvPhuTrach, setnvPhuTrach] = useState();
+  const [nhomCha, setnhomCha] = useState();
+  const [nhomCon,setnhomCon]= useState()
+
   const [userNameCreate, setuserNameCreate] = useState();
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
@@ -202,6 +205,10 @@ export default function CustomerList() {
         setnvPhuTrach={setnvPhuTrach}
         userNameCreate={userNameCreate}
         setuserNameCreate={setuserNameCreate}
+        nhomCha={nhomCha}
+        setnhomCha ={setnhomCha}
+        nhomCon={nhomCon}
+        setnhomCon={setnhomCon}
       />
       <TableListCustomer
         fetchData={fetchData}

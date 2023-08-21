@@ -47,7 +47,7 @@ const TableDataGroupListCustomer: React.FC<TableDataGroupListCustomerProps> = ({
   //   "POST",
   //   { page: 1, perPage: 1000 }
   // );
-  console.log("check", data);
+
 
   interface DataType {
     key: React.Key;
