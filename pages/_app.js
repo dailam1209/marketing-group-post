@@ -46,7 +46,9 @@ export default function App({ Component, pageProps }) {
   const { isOpen, toggleModal } = useModal("icon_menu_nav", [styles.sidebar]);
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [firstLoad, setFirstLoad] = useState(true);
+  const [firstLoad, setFirstLoad] = useState(
+    router?.pathname?.includes("/hr") ? false : true
+  );
   useEffect(() => {
     const doLoading = () => {
       const start = () => {
@@ -68,11 +70,11 @@ export default function App({ Component, pageProps }) {
         router.events.off("routeChangeError", end);
       };
     };
-    if (!router.pathname.includes("hr")) {
+    if (!router?.pathname?.includes("hr")) {
       doLoading();
     } else {
     }
-  }, [router.pathname]);
+  }, [router?.pathname]);
 
   useEffect(() => {
     if (!router.pathname.includes("hr")) {

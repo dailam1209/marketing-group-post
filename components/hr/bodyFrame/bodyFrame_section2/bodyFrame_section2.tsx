@@ -70,7 +70,7 @@ export default function BodyFrameSection2({ dataHome }: any) {
             <div className={`${styles.item_content} ${styles.content_number}`}>
               <div className={`${styles.contennt_text}`}>Tổng số ứng viên</div>
               <div className={`${styles.content_number1}`}>
-                {dataHome?.totalCandidateGetJob}
+                {dataHome?.totalCandi}
               </div>
             </div>
             <div className={`${styles.item_content}`}>
@@ -88,7 +88,7 @@ export default function BodyFrameSection2({ dataHome }: any) {
                 Số ứng viên hẹn đi làm
               </div>
               <div className={`${styles.content_number3}`}>
-                {dataHome?.totalCandi}
+                {dataHome?.totalCandidateGetJob}
               </div>
             </div>
           </div>

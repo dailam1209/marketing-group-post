@@ -12,8 +12,8 @@ export default function EditCandidateList({ onCancel, infoList, position }: any)
   console.log(infoList);
 
   const [selectedOption, setSelectedOption] = useState<SelectOptionType | null>(null);
-  const [isGender, setGender] = useState<any>(1)
-  const [isMaritalStatus, setMaritalStatus] = useState<any>("")
+  const [isGender, setGender] = useState<any>(infoList?.infoList?.gender)
+  const [isMaritalStatus, setMaritalStatus] = useState<any>(infoList?.infoList?.married)
   const [isPosition_id, setPosition_id] = useState<any>(infoList?.infoList?.position_id)
   const [isExp, setExp] = useState<any>("")
   const [isEducation, setEducation] = useState<any>("")

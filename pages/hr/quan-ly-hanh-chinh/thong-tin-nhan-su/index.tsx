@@ -7,7 +7,7 @@ import { getDataAuthentication } from '@/pages/api/api-hr/Home/HomeService'
 import LoadingSpinner from '@/components/hr/loading'
 import PageAuthenticator from '@/components/hr/quyen-truy-cap'
 
-export interface EmployeeManagement {}
+export interface EmployeeManagement { }
 
 export default function EmployeeManagement({ children }: any) {
   const [active, setActive] = useState(1)
@@ -24,7 +24,7 @@ export default function EmployeeManagement({ children }: any) {
         setIsLoading(false) // Move this line here
       }
       fetchData()
-    } catch (error) {}
+    } catch (error) { }
   }, [])
 
   const perIdArray = displayIcon?.map((item) => item.perId)
@@ -53,7 +53,7 @@ export default function EmployeeManagement({ children }: any) {
               onClick={() => setActive(2)}>
               <Link
                 target='blank'
-                href='https://chamcong.timviec365.vn/quan-ly-cong-ty/nhan-vien.html'>
+                href='/quan-ly-nhan-luc/quan-ly-cong-ty/cai-dat-them-nhan-vien-moi'>
                 Nhân viên chờ duyệt
               </Link>
             </li>
