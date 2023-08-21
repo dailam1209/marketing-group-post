@@ -96,12 +96,12 @@ html *::-webkit-scrollbar-track {
 }
 h2 {
   font-size: 16px;
-  color: var(--text-color);
+  color: #474747;
 }
 
 span {
   font-size: 16px;
-  color: var(--text-color);
+  color: #474747;
 }
 
 a {
@@ -113,7 +113,7 @@ a {
 ul,
 li {
   font-size: 16px;
-  color: var(--text-color);
+  color: #474747;
 }
 
 hr {
@@ -979,7 +979,7 @@ label.ant-form-item-required {
 .ant-tabs-tab .ant-tabs-tab-btn {
   font-weight: 600;
   font-size: 20px;
-  color: var(--text-color);
+  color: #474747;
 }
 
 .table_nhan_su_chua_thiet_lap td.ant-table-cell {
@@ -1245,7 +1245,7 @@ label.ant-form-item-required {
 }
 
 .multiSelectShift .ant-menu-item > span {
-  color: var(--text-color) !important;
+  color: #474747 !important;
   font-family: Roboto;
   font-size: 16px;
   font-style: normal;
