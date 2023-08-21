@@ -53,7 +53,7 @@ export default function EmployeeManagement({ children }: any) {
               onClick={() => setActive(2)}>
               <Link
                 target='blank'
-                href='/quan-ly-nhan-luc/quan-ly-cong-ty/cai-dat-them-nhan-vien-moi'>
+                href='/cham-cong/quan-ly-cong-ty/cai-dat-them-nhan-vien-moi'>
                 Nhân viên chờ duyệt
               </Link>
             </li>

@@ -22,6 +22,23 @@ export const OrganizationalStructureData = async () => {
   } catch (error) {}
 };
 
+export const ChildCompanyData = async () => {
+  try {
+    const isToken = getToken(COOKIE_KEY);
+    const response = await axios.post(
+      `${url}api/qlc/company/child/list`,
+      {},
+      {
+        headers: {
+          authorization: `Bearer ${isToken}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {}
+};
+
+
 export const PostionCharData = async () => {
   try {
     const isToken = getToken(COOKIE_KEY);

@@ -47,6 +47,9 @@ export default function CandidateRepo({ children }: any) {
     fetchData()
   }, [isSeach, currentPage, isGender, isRecruitmentNewsId])
 
+  console.log(isCandidateList);
+
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -254,8 +257,8 @@ export default function CandidateRepo({ children }: any) {
                       </td>
                       <td>{item.cvFrom}</td>
                       <td>{item.Title}</td>
-                      <td>{item.matinungtuyen}</td>
-                      <td>{item.maquytrinhtuyendungapdung}</td>
+                      <td>{`TD${item.recruitmentNewsId}(${item.Title})`}</td>
+                      <td>{`QTTD${item.RecruitmentId}`}</td>
                       {item?.timeSendCv && (
                         <td>
                           {format(parseISO(item?.timeSendCv), 'yyyy-MM-dd')}

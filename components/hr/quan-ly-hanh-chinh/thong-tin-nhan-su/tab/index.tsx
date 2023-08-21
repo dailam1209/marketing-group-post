@@ -7,7 +7,7 @@ import EditCandidateList from "../editModal";
 import { EmployeeList } from "@/pages/api/api-hr/quan_ly_nhan_vien";
 import { DepartmentList } from "@/pages/api/api-hr/listPhongBan";
 import MyPagination from "@/components/hr/pagination/Pagination";
-import { PostionCharData } from '@/pages/api/api-hr/co_cau_to_chuc';
+import { PostionCharData, OrganizationalStructureData } from '@/pages/api/api-hr/co_cau_to_chuc';
 import { format, parseISO } from "date-fns";
 import GetComId from "@/components/hr/getComID";
 
@@ -27,9 +27,11 @@ export default function TabEmployeeManagement({ iconAdd, iconEdit }: any) {
   const [isUserName, setIsUserName] = useState<any>("")
   const [currentPage, setCurrentPage] = useState<any>(1);
   const [PostionCharDatas, setPosttionCharData] = useState<any>(null)
+  const [OrganizationalDatas, setOrganizationalData] = useState<any>(null)
   const [isSeach, setSearch] = useState<any>(null)
   const [visible, setVisible] = useState(false);
   const [newData, setData] = useState(false);
+  const [comName, setComName] = useState<any>("");
   const comid: any = GetComId()
 
   // -- đóng mở modal --
@@ -69,6 +71,34 @@ export default function TabEmployeeManagement({ iconAdd, iconEdit }: any) {
     }
     fetchData()
   }, [])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await OrganizationalStructureData()
+        setOrganizationalData(response?.data)
+      } catch (error) {
+      }
+    }
+    fetchData()
+  }, [])
+
+  console.log(OrganizationalDatas);
+
+
+  function getCompanyNameByChinhanh(com_id: any, apiData: any) {
+    if (com_id === apiData?.infoCompany?.parent_com_id) {
+      return apiData?.infoCompany?.companyName;
+    } else {
+      const childCompanies = apiData?.infoCompany?.infoChildCompany;
+      const matchingChildCompany = childCompanies?.find(child => com_id === child.com_id);
+      if (matchingChildCompany) {
+        return matchingChildCompany?.com_name;
+      } else {
+        return "";
+      }
+    }
+  }
 
 
   // -- lấy dữ liệu và phân trang --
@@ -282,7 +312,7 @@ export default function TabEmployeeManagement({ iconAdd, iconEdit }: any) {
                           <td>{item.isMeried === 1 ? "Đã cưới" : item.isMeried === 2 ? "Độc thân" : "Khác"}</td>
                           <td>{positionNameToShow}</td>
                           <td>{item.nameDeparment}</td>
-                          <td>{item.chinhanh}</td>
+                          <td>{getCompanyNameByChinhanh(item.com_id, OrganizationalDatas)}</td>
                           <td>
                             <p>Địa chỉ liên hệ:{item.address}</p>
                             <p>SDT: {item?.phoneTK}</p>

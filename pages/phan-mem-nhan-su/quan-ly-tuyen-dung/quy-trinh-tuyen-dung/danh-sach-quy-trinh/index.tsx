@@ -64,6 +64,7 @@ export default function ListRecruitmentProcess({
                     <a
                       href={`/phan-mem-nhan-su/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/danh-sach-quy-trinh/${item.id}`}
                       className={`${styles.quytrinh_item11_link}`}
+                      style={{ cursor: 'pointer' }}
                       onClick={(e) => handleLinkClick(e, item.id)}
                     >
                       (QTTD{item.id}) {item.name}
@@ -89,7 +90,7 @@ export default function ListRecruitmentProcess({
                     </picture>
                     <span
                       className={`${styles.span_a} ${styles.span_a_detail}`}
-                      style={{ cursor: "default" }}
+                      style={{ cursor: "pointer" }}
                     >
                       Chi tiết
                     </span>
