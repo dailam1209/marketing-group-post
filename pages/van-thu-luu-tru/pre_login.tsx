@@ -758,7 +758,126 @@ const Pre_login = () => {
                 </div>
             )}
             {page === 3 && (
-                <div></div>
+                <div>
+                    <div className={s.bg_quanlydexuat}>
+                        <div className={s.bg_quanlydexuat_content}>
+                            <h1 className={`${s.h1} ${s.title_box}`}>ĐỀ XUẤT 365</h1>
+                            <p className={`${s.p} ${s.text_box}`}>Số hóa để xử lý nhanh chóng toàn bộ yêu cầu, đề xuất trong nội bộ doanh nghiệp, giúp bạn tiết kiệm đến 90% thời gian làm việc.</p>
+                            <div className={s.bg_quanlydexuat_img}>
+                                <div className={s.bg_quanlydexuat_img1}>
+                                    <img src='/img_1.png' alt='' ></img>
+                                </div>
+                                <div className={s.bg_quanlydexuat_img2}>
+                                    <img src='/quanlycongvan_img2.png' alt='' ></img>
+                                </div>
+                            </div>
+                            <a className={s.try_now} >Dùng thử ngay</a>
+                        </div>
+                    </div>
+                    <div className={s.dexuat_box_1}>
+                        <h1 className={s.h1}>ĐỀ XUẤT 365</h1>
+                        <p className={s.p}>GIẢI PHÁP TOÀN DIỆN DÀNH CHO DOANH NGHIỆP</p>
+                        <div className={`${s.box_1}`}>
+                            <div className={s.box_1_dexuat_item}>
+                                <img src='/3_1 1.png'/>
+                                <div className={s.box_1_dexuat_item_content}>
+                                    <h3 className={s.h3}>TẠO ĐỀ XUẤT</h3>
+                                    <ul>
+                                        <li><p>Đa dạng hóa các mẫu đề xuất</p></li>
+                                        <li><p>Cá nhân dễ dàng thao tác khi nhập thông tin</p></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div className={s.box_1_dexuat_item}>
+                                <img src='/3_2 1.png'/>
+                                <div className={s.box_1_dexuat_item_content}>
+                                    <h3 className={s.h3}>QUẢN LÝ ĐỀ XUẤT</h3>
+                                    <ul>
+                                        <li><p>Cập nhật liên tục trạng thái của đề xuất từ phía người phê duyệt</p></li>
+                                        <li><p>Theo dõi đề xuất được gửi đến theo từng trạng thái</p></li>
+                                        <li><p>Nhắc nhở xử lý đề xuất đến và theo dõi thời hạn</p></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div className={s.box_1_dexuat_item}>
+                                <img src='/3_3 1.png'/>
+                                <div className={s.box_1_dexuat_item_content}>
+                                    <h3 className={s.h3}>TƯƠNG TÁC</h3>
+                                    <ul>
+                                        <li><p>Trao đổi trực tiếp trên hệ thống mà không cần công cụ thứ 2</p></li>
+                                        <li><p>Đồng ý, từ chối, chuyển tiếp đơn giản với mỗi đề xuất</p></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={s.banner_index_quanlycongvan}>
+                        <div>
+                            <h3 className={s.h3}>GIẢI PHÁP VĂN PHÒNG ĐIỆN TỬ</h3>
+                            <p className={s.p}>Mọi đề xuất, tờ trình đều trở nên dễ dàng, nhanh chóng, thuận lợi</p>
+                        </div>
+                    </div> 
+                    <div className={s.container}>
+                        <div className={s.box_2_dexuat}>
+                            <div className={s.box_2_dexuat_item}>
+                                <img src='/HOP_DONG_1.png'/>
+                            </div>
+                            <div className={s.box_2_dexuat_item}>
+                                <ul>
+                                    <li>
+                                        <img src='/V-circle.png'/>
+                                        Số hóa quy trình xử lý
+                                    </li>
+                                    <li>
+                                        <img src='/V-circle.png'/>
+                                        Sử dụng mọi lúc mọi nơi
+                                    </li>
+                                    <li>
+                                        <img src='/V-circle.png'/>
+                                        Phân quyền rõ ràng thành viên có thẩm quyền phê duyệt
+                                    </li>
+                                    <li>
+                                        <img src='/V-circle.png'/>
+                                        Tối đa hóa thời gian làm việc
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={`${s.container} ${s.conten_video_vt}`}>
+                        <h4 className={s.title_vd}>Video hướng dẫn chi tiết</h4>
+                        <div className={s.video_yt}>
+                            <iframe width='100%' height='100%' src='https://www.youtube.com/embed/YlCpIuU1yfQ' 
+                                title='YouTube video player' frameBorder='0' 
+                                allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+                                allowFullScreen
+                            ></iframe> 
+                        </div>
+                    </div>
+                    <div className={`${s.container} ${s.sub_dexuat}`}>
+                        <div className={s.sub_dexuat_title}>
+                            <h3 className={s.h3}>Hỗ trợ khách hàng của Đề xuất 365</h3>
+                        </div>
+                        <div className={s.sub_dexuat_body}>
+                            <div className={s.sub_dexuat_body_item}>
+                                <img src='/seller 1.png'/>
+                                <p>Tư vấn chuyên nghiệp</p>
+                            </div>
+                            <div className={s.sub_dexuat_body_item}>
+                                <img src='/clipboard 1.png'/>
+                                <p>Nhanh chóng, chính xác</p>
+                            </div>
+                            <div className={s.sub_dexuat_body_item}>
+                                <img src='/customer-service 1.png'/>
+                                <p>Hỗ trợ 24/7, trả lời 3s</p>
+                            </div>
+                        </div>
+                        <div className={s.sub_dexuat_bot}>
+                            <p>Trải nghiệm những tiện ích dành cho doanh nghiệp của bạn</p>
+                            <button >ĐĂNG KÍ NGAY</button>
+                        </div>
+                    </div>
+                </div>
             )}
             <div className={s.footer_main}>
                 <div className={s.footer_content}>
