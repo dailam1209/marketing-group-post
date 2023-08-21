@@ -23,6 +23,8 @@ const Recording = (props: Props) => {
   const [current, setcurrent] = useState(1);
   const [pageSize, setpageSize] = useState(10);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [phongban,setPhongban] = useState() 
+
   const onClose = () => {
     setIsShowModalAdd(false);
     setIsShowModal(false);
@@ -83,6 +85,12 @@ const Recording = (props: Props) => {
   };
 
   const handleGet = async () => {
+    if(phongban){
+      let dataFill = listData.filter((item) => +item.nameDeparment === phongban);
+      setListData(dataFill);
+      setIsModalOpen(false);
+      return;
+    }
     setListData([]);
     setIsModalOpen(false);
     if (fillEnd && fillStart) {
@@ -164,7 +172,7 @@ const Recording = (props: Props) => {
     }
     if(listNV){
       for (let key of listNV) {
-        if (key.userName == name2) {
+        if (key.userName === name2) {
           phong = key.nameDeparment;
         }
       }
@@ -235,7 +243,6 @@ const Recording = (props: Props) => {
       render: (text: any, record: any) => <div>{text}s</div>,
     },
   ];
-
   return (
     <div>
       <div className={styles.group_button}>
@@ -248,6 +255,8 @@ const Recording = (props: Props) => {
           fillEnd={fillEnd}
           setFillEnd={setFillEnd}
           handleGet={handleGet}
+        setPhongban={setPhongban}
+
         />
 
         <div className={styles.group_button_right}>

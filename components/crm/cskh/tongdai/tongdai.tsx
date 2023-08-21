@@ -28,6 +28,7 @@ const TongDaiPage = (props: Props) => {
   const [showKetNoi, setShowKetNoi] = useState(false);
   const [soNghe, setSoNghe] = useState();
   const [nv, setnv] = useState();
+  const [token,setToken] = useState()
   const onClose = () => {
     setIsShowModalAdd(false);
     setIsShowModal(false);
@@ -110,6 +111,7 @@ const TongDaiPage = (props: Props) => {
       setIsModalOpen(false);
       return;
     }
+    
     setIsModalOpen(false);
     if (fillEnd && fillStart) {
       setQuery(
@@ -138,11 +140,9 @@ const TongDaiPage = (props: Props) => {
     if (show.length) {
       setShowKetNoi(true);
     }
-    else{
-      
-    }
     handleGet();
   }, [query, show]);
+
   const Colums = [
     {
       key: "1",
