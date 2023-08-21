@@ -25,7 +25,7 @@ const Index = () => {
           const res_department = await fetch_department(token);
           const res_pos = await fetch_position()
           setTableRecords(res_propose_list?.data.data)
-          setDep(res_department?.data.data)
+          setDep(res_department?.data.items)
           setPos(res_pos);
           setTotalpage(res_propose_list?.data.totalPages)
       }

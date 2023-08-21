@@ -101,7 +101,7 @@ const Index = () => {
       const res_department = await fetch_department(token);
       const res_employee = await fetch_employee(token);
       const res_dxtype = await fetch_dxtype();
-      setDepartment(res_department?.data.data);
+      setDepartment(res_department?.data.items);
       setEmployee(res_employee?.data.data);
       setDxtype(res_dxtype?.data.showcatedx);
       setTableRecords(res_absentAccount_list?.data.shownghi);

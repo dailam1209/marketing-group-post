@@ -35,7 +35,7 @@ const Working_rotation_propose = ({ inuse }: { inuse?: boolean }) => {
             const res_position = await fetch_position('cv_nguoi_lc');
             setSuperVisor(response?.data.listUsersTheoDoi)
             setApprover(response?.data.listUsersDuyet)
-            setDepartment(res_department?.data.data)
+            setDepartment(res_department?.data.items)
             setPosition(res_position)
         }
       }

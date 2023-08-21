@@ -208,7 +208,7 @@ const Index = () => {
       const res_shift = await fetch_shift(token);
       const res_position = await fetch_position("chucvu_dx_bn");
       const res_setting = await fetch_setting();
-      setDepartment(res_department?.data.data);
+      setDepartment(res_department?.data.items);
       setEmployee(res_employee?.data.data);
       setPosition(res_position);
       setShift(res_shift?.data.list);

@@ -37,7 +37,7 @@ const Join_project_propose = ({ inuse }: { inuse?: boolean }) => {
             const res_position = await fetch_position('cv_nguoi_da');
             setSuperVisor(response?.data.listUsersTheoDoi)
             setApprover(response?.data.listUsersDuyet)
-            setDepartment(res_department?.data.data)
+            setDepartment(res_department?.data.items)
             setEmpoyee_infor(res_employee?.data.data.filter((rec:any) => rec.idQLC.toString() === getCookie("userID")?.toString()))
             setPosition(res_position)
         }

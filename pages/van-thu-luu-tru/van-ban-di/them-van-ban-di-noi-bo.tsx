@@ -99,7 +99,7 @@ const Index = () => {
       const res_employee = await fetch_employee(token);
       const res_position_nhan = await fetch_position("cv_nguoinhan_vanban");
       const res_position_ky = await fetch_position("cv_nguoiky_vanban");
-      setDepartment(res_department?.data.data);
+      setDepartment(res_department?.data.items);
       setEmployee(res_employee?.data.data);
       setPosition_nhan(res_position_nhan);
       setPosition_ky(res_position_ky);
