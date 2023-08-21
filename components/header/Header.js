@@ -73,7 +73,7 @@ export default function Header() {
             setData(response.data)
 
             if (response.data.authentic == 0) {
-              setLinkHome(router.pathname)
+              setLinkHome('/')
             } else {
               setLinkHome('/')
             }
@@ -117,7 +117,7 @@ export default function Header() {
               </p>
             </div>
             <div className={styles.bg_ima}>
-              <a href='/'>
+              <a href='https://dev.timviec365.vn/'>
                 <img src='/img/logo_h.svg' alt='logo công ty' />
               </a>
             </div>
@@ -172,7 +172,7 @@ export default function Header() {
                             }
                             onError={(e) => {
                               e.target.onerror = null
-                              // e.target.src = '../img/logo_com.png'
+                              e.target.src = '/img/logo_com.png'
                             }}
                           />
                         </div>

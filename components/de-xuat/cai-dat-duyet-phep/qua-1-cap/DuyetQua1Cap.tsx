@@ -146,7 +146,11 @@ export const DuyetQua1Cap = () => {
               ),
             }}
           />
-          <DanhSachNhanVienModal open={isOpenModal} setOpen={setIsOpenModal} />
+          <DanhSachNhanVienModal
+            open={isOpenModal}
+            setOpen={setIsOpenModal}
+            data={[]}
+          />
           <DeleteConfirmModal
             open={isOpenDeleteModal}
             setOpen={setIsOpenDeleteModal}
