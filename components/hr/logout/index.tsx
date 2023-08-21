@@ -13,7 +13,7 @@ export default function LogoutHr({ setShowLogout, showLogout }: any) {
         Cookies.remove("rf_token");
         Cookies.remove("role");
         Cookies.remove("phone");
-        window.location.href = "/";
+        window.location.href = "/trang-chu-truoc-dang-nhap";
     };
 
     useEffect(() => {
