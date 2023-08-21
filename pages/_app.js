@@ -83,9 +83,9 @@ export default function App({ Component, pageProps }) {
       }, 100);
       return () => clearTimeout(timeout);
     }
-  }, [router.pathname]);
+  }, [router?.pathname]);
 
-  const shouldShowSidebarAndHeader = router.pathname.includes("/crm/");
+  // const shouldShowSidebarAndHeader = !router.pathname.includes('/crm')
 
   const importGlobalStyles = () => {
     if (router.pathname?.includes("/phan-mem-nhan-su/")) {

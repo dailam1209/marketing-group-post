@@ -237,7 +237,7 @@ export default function Bodyframe({ children }: any) {
           display: 'flex',
           alignItems: 'center',
         }}
-        className={styles.breadcrumb}>
+        className={`bannerQLC ${styles.breadcrumb}`}>
         {router.pathname !== CAI_DAT_VI_TRI_URL &&
           router.pathname !== NV_CCCTY_URL &&
           // router.pathname !== UPDATE_FACE_URL &&
