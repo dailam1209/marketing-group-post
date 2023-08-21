@@ -5,9 +5,9 @@ import _, { divide } from 'lodash'
 import { GET, POST } from '@/pages/api/BaseApi'
 import { useRouter } from 'next/router'
 
-const TYPE_NOTFULL = 'T2T6'
-const TYPE_MALFULL = 'T2T7'
-const TYPE_FULL = 'T2CN'
+const TYPE_NOTFULL = 'T2-T6'
+const TYPE_MALFULL = 'T2-T7'
+const TYPE_FULL = 'T2-CN'
 
 function dates(current: any) {
   let month = new Array()
