@@ -101,7 +101,7 @@ useEffect(()=>{
 
   return (
     <>
-      <div className={styles.mdal_body} style={{padding:1}}>
+      <div className={styles.mdal_body} style={{padding:0,maxHeight:"100%"}}>
         <div className={styles.form_group}>
           <div className={styles.label}>Thời gian tạo khách hàng</div>
           <div className={styles.row}>

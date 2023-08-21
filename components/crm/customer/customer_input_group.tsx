@@ -231,7 +231,7 @@ export default function CustomerListInputGroup({
         placement="right"
         onClose={onClose}
         open={open}
-        style={{ overflowY: "hidden" }}
+        style={{ overflowY: "hidden"}}
         className="custom_drawer"
         footer
         closable

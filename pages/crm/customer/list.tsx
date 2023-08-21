@@ -145,6 +145,29 @@ export default function CustomerList() {
     }
   );
   const dataStatusCustomer = dataStatus?.data?.listStatus;
+    const [listGr,setListGr] = useState([])
+    const [list_gr_child, setlistGr_Child] = useState([]);
+
+  const handleGetGr = async () => {
+    const res = await fetch(`${base_url}/api/crm/group/list_group_khach_hang`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${Cookies.get("token_base365")}`,
+      },
+      body: JSON.stringify({ com_id: Cookies.get("com_id") }),
+    });
+    const data = await res.json();
+    setListGr(data?.data?.showGr);
+    let arr = [];
+    data?.data?.showGr?.map((item) => {
+      item?.list_gr_child.map((item) => {
+        arr.push(item);
+      });
+      setlistGr_Child(arr);
+    });
+  };
+
 
   const dataGroup = dataCustomerGroup?.data?.showGr;
   const [idSelect, setIdSelect] = useState<any>();
@@ -169,6 +192,7 @@ export default function CustomerList() {
     onSelectAll: handleSelectAll,
   };
   useEffect(() => {
+    handleGetGr()
     fetchData();
     fetchDataStatus();
   }, [name, selectedRowKeys, des, selectedCus]);
@@ -215,7 +239,7 @@ export default function CustomerList() {
         rowSelection={rowSelection}
         datatable={datatable}
         dataStatusCustomer={dataStatusCustomer}
-        dataGroup={dataGroup}
+        dataGroup={listGr}
         des={des}
         setDes={setDes}
       />

@@ -4,7 +4,7 @@ import { notification } from "antd";
 import { base_url } from "../service/function";
 const Cookies = require('js-cookie')
 export default function CustomerGroupSelectDropdownData({
-  data = [],
+  data,
   value = " Chọn người dùng",
   setValueOption,
   setValueGroupCustomer,
