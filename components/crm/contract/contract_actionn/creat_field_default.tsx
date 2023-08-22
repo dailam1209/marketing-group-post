@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { Modal } from "antd";
 import styles from "../../potential/potential.module.css";
-import ModalCompleteStep from "../../potential/potential_steps/complete_modal";
+import FieldSelectBoxStep from "../../potential/potential_steps/select_box_step";
 // import PotentialSelectBoxStep from "../potential_steps/select_box_step";
 // import ModalCompleteStep from "../potential_steps/complete_modal";
 
@@ -10,7 +10,7 @@ interface MyComponentProps {
   setIsModalCancel: (value: boolean) => void;
 }
 
-const HandeOverModal: React.FC<MyComponentProps> = ({
+const CreatFieldDefaultModal: React.FC<MyComponentProps> = ({
   isModalCancel,
   setIsModalCancel,
 }) => {
@@ -27,26 +27,32 @@ const HandeOverModal: React.FC<MyComponentProps> = ({
   return (
     <>
       <Modal
-        title={"Tạo trường thay đổi thông tin"}
+        title={"Trường hệ thống xây dựng mặc định"}
         centered
         open={isModalCancel}
         onOk={() => handleOK()}
         onCancel={() => setIsModalCancel(false)}
         className={"mdal_cancel email_add_mdal"}
-        okText="Tạo"
-        cancelText="Huỷ"
+        okText="Đóng lại"
+        cancelText="Lưu"
       >
         <div className={styles.row_mdal} style={{minHeight: "fit-content"}}>
           <div className={styles.choose_obj}>
-            <label className={`${styles.form_label} required`}>
-              Đặt tên trường
-            </label>
-            <input type="text" className={styles.form_control} id="field_name" name="field_name" placeholder="Nhập tên trường" aria-required="true" aria-invalid="false"/>
+            <FieldSelectBoxStep
+              value="Chọn trường mặc định"
+              placeholder="Chọn trường mặc định"
+            />
           </div>
         </div>
       </Modal>
+      {/* <ModalCompleteStep
+        modal1Open={isOpenMdalSuccess}
+        setModal1Open={setIsOpenMdalSuccess}
+        title={"Bàn giao công việc cho Nguyễn Văn Nam thành công!"}
+        link={"/potential/list"}
+      /> */}
     </>
   );
 };
 
-export default HandeOverModal;
+export default CreatFieldDefaultModal;
