@@ -99,12 +99,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Điền thông tin đăng ký tài khoản công ty'
                   height={729}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/dien-thong-tin(1).jpg'
                   data-src='https://timviec365.vn/pictures/images_06_2023/dien-thong-tin(1).jpg'
-                  style={{ marginLeft: '0px', marginTop: '10px' }}
                   width={800}
                 />{' '}
                 <figcaption>
@@ -490,12 +495,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Cài đặt thêm nhân vên đầu tiên'
                   height={740}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/them-nhan-vien-dau-tien(1).jpg'
                   data-src='https://timviec365.vn/pictures/images_06_2023/them-nhan-vien-dau-tien(1).jpg'
-                  style={{ marginLeft: '0px', marginTop: '10px' }}
                   width={800}
                 />{' '}
                 <figcaption>Cài đặt thêm nhân vên đầu tiên</figcaption>{' '}
@@ -531,12 +541,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Thông báo đăng ký tài khoản thành công'
                   height={486}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/thong-bao-dang-ky-thanh-cong(1).jpg'
                   data-src='https://timviec365.vn/pictures/images_06_2023/thong-bao-dang-ky-thanh-cong(1).jpg'
-                  style={{ marginLeft: '0px', marginTop: '10px' }}
                   width={800}
                 />{' '}
                 <figcaption>Thông báo đăng ký tài khoản thành công</figcaption>{' '}
@@ -571,12 +586,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Đăng nhập tài khoản công ty'
                   height={630}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/dang-nhap(1).jpg'
                   data-src='https://timviec365.vn/pictures/images_06_2023/dang-nhap(1).jpg'
-                  style={{ marginLeft: '0px', marginTop: '10px' }}
                   width={800}
                 />{' '}
                 <figcaption>Đăng nhập tài khoản công ty</figcaption>{' '}
@@ -867,12 +887,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Huong-dan-quet-qr-de-dang-nhap'
                   height={507}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/Huong-dan-quet-qr-de-dang-nhap.jpg'
                   data-src='https://timviec365.vn/pictures/images_06_2023/Huong-dan-quet-qr-de-dang-nhap.jpg'
-                  style={{ marginLeft: '0px', marginTop: '10px' }}
                   width={800}
                 />{' '}
                 <figcaption>Hướng dẫn quét QR để đăng nhập</figcaption>{' '}
@@ -908,12 +933,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Đăng nhập bằng tài khoản như thế nào'
                   height={628}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/dang-nhap-bang-tai-khoan.jpg'
                   data-src='https://timviec365.vn/pictures/images_06_2023/dang-nhap-bang-tai-khoan.jpg'
-                  style={{ marginLeft: '0px', marginTop: '10px' }}
                   width={800}
                 />{' '}
                 <figcaption>
@@ -999,12 +1029,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Chọn ứng dụng chấm công'
                   height={438}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/chon-ung-dung-cham-cong.jpg'
                   data-src='https://timviec365.vn/pictures/images_06_2023/chon-ung-dung-cham-cong.jpg'
-                  style={{ marginLeft: '0px', marginTop: '10px' }}
                   width={800}
                 />{' '}
                 <figcaption>Chọn ứng dụng chấm công</figcaption>{' '}
@@ -1483,12 +1518,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Cài đặt wifi'
                   height={417}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/cai-dat-wifi.jpg'
                   data-src='https://timviec365.vn/pictures/images_06_2023/cai-dat-wifi.jpg'
-                  style={{ marginLeft: '0px', marginTop: '10px' }}
                   width={800}
                 />{' '}
                 <figcaption>Cài đặt wifi</figcaption>{' '}
@@ -1525,12 +1565,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Cài wifi để chấm công'
                   height={403}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/cai-dat-wifi-cham-cong.jpg'
                   data-src='https://timviec365.vn/pictures/images_06_2023/cai-dat-wifi-cham-cong.jpg'
-                  style={{ marginLeft: '0px', marginTop: '10px' }}
                   width={800}
                 />{' '}
                 <figcaption>Cài wifi để chấm công</figcaption>{' '}
@@ -1568,12 +1613,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Cập nhật wifi mặc định để chấm công'
                   height={360}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/cap-nhat-wifi-mac-dinh.jpg'
                   data-src='https://timviec365.vn/pictures/images_06_2023/cap-nhat-wifi-mac-dinh.jpg'
-                  style={{ marginLeft: '0px', marginTop: '10px' }}
                   width={800}
                 />{' '}
                 <figcaption>Cập nhật wifi mặc định để chấm công</figcaption>{' '}
@@ -2123,12 +2173,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Thêm vị trí chấm công QR'
                   height={666}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/them-vi-tri-cham-cong-qr(1).jpg'
                   data-src='https://timviec365.vn/pictures/images_06_2023/them-vi-tri-cham-cong-qr(1).jpg'
-                  style={{ marginLeft: '0px', marginTop: '10px' }}
                   width={800}
                 />{' '}
                 <figcaption>Thêm vị trí chấm công QR</figcaption>{' '}
@@ -2310,12 +2365,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Cài đặt chấm công QR'
                   height={461}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/cai-dat-vi-tri-cham-cong-qr.jpg'
                   data-src='https://timviec365.vn/pictures/images_06_2023/cai-dat-vi-tri-cham-cong-qr.jpg'
-                  style={{ marginLeft: '0px', marginTop: '10px' }}
                   width={800}
                 />{' '}
                 <figcaption>Cài đặt chấm công QR</figcaption>{' '}
@@ -2424,6 +2484,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Cài ca làm việc'
                   height={738}
                   className=' lazyloaded'
@@ -2558,6 +2624,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Hoàn thành thiết lập ca làm việc'
                   height={349}
                   className=' lazyloaded'
@@ -2669,12 +2741,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Cài đặt lịch làm việc'
                   height={745}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/Cai-lich-lam-viec.jpg'
                   data-src='https://timviec365.vn/pictures/images_06_2023/Cai-lich-lam-viec.jpg'
-                  style={{ marginLeft: '0px', marginTop: '10px' }}
                   width={800}
                 />{' '}
                 <figcaption>Cài đặt lịch làm việc</figcaption>{' '}
@@ -2862,12 +2939,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Thiếp lập chọn lịch làm việc'
                   height={219}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/Chon-lich.jpg'
                   data-src='https://timviec365.vn/pictures/images_06_2023/Chon-lich.jpg'
-                  style={{ marginLeft: '0px', marginTop: '10px' }}
                   width={800}
                 />{' '}
                 <figcaption>Thiếp lập chọn lịch làm việc</figcaption>{' '}
@@ -3012,12 +3094,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Tạo lịch làm việc'
                   height={554}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/Tao-lich-lam-viec.jpg'
                   data-src='https://timviec365.vn/pictures/images_06_2023/Tao-lich-lam-viec.jpg'
-                  style={{ marginLeft: '0px', marginTop: '10px' }}
                   width={800}
                 />{' '}
                 <figcaption>Tạo lịch làm việc</figcaption>{' '}
@@ -3073,12 +3160,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Tích vào ca làm việc mà bạn muốn áp dụng'
                   height={331}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/tich-chon-ca-ap-dung.jpg'
                   data-src='https://timviec365.vn/pictures/images_06_2023/tich-chon-ca-ap-dung.jpg'
-                  style={{ marginLeft: '0px', marginTop: '10px' }}
                   width={800}
                 />{' '}
                 <figcaption>
@@ -3247,12 +3339,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Cài chu ky cho lịch làm việc'
                   height={758}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/cai-chu-ky-cho-lich-lam-viec.jpg'
                   data-src='https://timviec365.vn/pictures/images_06_2023/cai-chu-ky-cho-lich-lam-viec.jpg'
-                  style={{ marginLeft: '0px', marginTop: '10px' }}
                   width={800}
                 />{' '}
                 <figcaption>Cài chu ky cho lịch làm việc</figcaption>{' '}
@@ -3424,12 +3521,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Thêm nhân viên vào lịch làm việc'
                   height={523}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/them-nhan-vien-vao-lich-lam-viec.jpg'
                   data-src='https://timviec365.vn/pictures/images_06_2023/them-nhan-vien-vao-lich-lam-viec.jpg'
-                  style={{ marginLeft: '0px', marginTop: '10px' }}
                   width={800}
                 />{' '}
                 <figcaption>Thêm nhân viên vào lịch làm việc</figcaption>{' '}
@@ -3463,12 +3565,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Add nhân viên mới vào lịch'
                   height={553}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/them-nhan-vien-moi-vao-lich.jpg'
                   data-src='https://timviec365.vn/pictures/images_06_2023/them-nhan-vien-moi-vao-lich.jpg'
-                  style={{ marginLeft: '0px', marginTop: '10px' }}
                   width={800}
                 />{' '}
                 <figcaption>Add nhân viên mới vào lịch</figcaption>{' '}
@@ -3650,12 +3757,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Danh sách nhân viên'
                   height={332}
                   className='lazyload'
                   src='/images/load.gif'
                   data-src='https://timviec365.vn/pictures/images_06_2023/danh-sach-nhan-vien.jpg'
-                  style={{ marginLeft: '0px', marginTop: '10px' }}
                   width={800}
                 />{' '}
                 <figcaption>Danh sách nhân viên trong lịch làm việc</figcaption>{' '}
@@ -4099,6 +4211,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Nhập vào công chuẩn'
                   height={468}
                   className=' lazyloaded'
@@ -4275,6 +4393,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Duyệt cho phép cập nhật khuôn mặt'
                   height={403}
                   className=' lazyloaded'
@@ -4554,6 +4678,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Duyệt cho nhân viên có thể chấm được công'
                   height={404}
                   className=' lazyloaded'
@@ -4836,6 +4966,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Tùy chọn cài đặt ca làm việc'
                   height={327}
                   className=' lazyloaded'
@@ -4876,6 +5012,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Sửa ca làm việc '
                   height={636}
                   className=' lazyloaded'
@@ -5000,6 +5142,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Thêm công ty con'
                   height={607}
                   className=' lazyloaded'
@@ -5475,6 +5623,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Cấu trúc phòng ban'
                   height={232}
                   className=' lazyloaded'
@@ -5594,6 +5748,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Thêm mới cho tổ'
                   height={126}
                   className=' lazyloaded'
@@ -5655,6 +5815,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Thêm tổ vào các phòng ban'
                   height={433}
                   className=' lazyloaded'
@@ -5739,6 +5905,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Thêm mới nhóm'
                   height={130}
                   className=' lazyloaded'
@@ -5801,6 +5973,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Thêm nhóm mới'
                   height={502}
                   className=' lazyloaded'
@@ -5924,6 +6102,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Cài nhân viên vào các phòng ban'
                   height={703}
                   className=' lazyloaded'
@@ -5987,6 +6171,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Thêm nhân viên vào phòng ban'
                   height={305}
                   className='lazyload'
@@ -6050,6 +6240,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Chọn phòng ban'
                   height={630}
                   className=' lazyloaded'
@@ -6089,6 +6285,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Cập nhật phòng ban cho nhân viên'
                   height={468}
                   className=' lazyloaded'
@@ -6266,6 +6468,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Thêm nhân viên mới'
                   height={420}
                   className=' lazyloaded'
@@ -6304,6 +6512,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Hoàn tất tạo nhân viên mới'
                   height={616}
                   className=' lazyloaded'
@@ -6454,6 +6668,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Quản lý nhân viên'
                   height={777}
                   className=' lazyloaded'
@@ -6515,6 +6735,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Thêm luân chuyển công tác'
                   height={784}
                   className=' lazyloaded'
@@ -6880,6 +7106,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Giảm biên chế'
                   height={335}
                   className='lazyload'
@@ -7721,6 +7953,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Cài đặt lương thưởng phúc lợi'
                   height={584}
                   className='lazyload'
@@ -7829,6 +8067,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Ứng dụng tính lương'
                   height={827}
                   className='lazyload'
@@ -7985,6 +8229,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Nhập lương cơ bản'
                   height={191}
                   className='lazyload'
@@ -8024,6 +8274,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Add file lương để cài đặt lương'
                   height={524}
                   className='lazyload'
@@ -8062,6 +8318,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='File lương mẫu'
                   height={550}
                   className='lazyload'
@@ -8203,6 +8465,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Thêm lương cơ bản'
                   height={113}
                   className='lazyload'
@@ -8285,6 +8553,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Thêm mức lương cơ bản'
                   height={773}
                   className='lazyload'
@@ -8372,6 +8646,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Cài đặt chế độ phạt đi muộn về sớm'
                   height={325}
                   className='lazyload'
@@ -8644,6 +8924,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Cài đặt các mức phạt cho đi muộn về sớm'
                   height={357}
                   className='lazyload'
@@ -8833,6 +9119,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Bảo hiểm'
                   height={296}
                   className='lazyload'
@@ -8964,6 +9256,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Tạo chính sách bảo hiểm'
                   height={653}
                   className='lazyload'
@@ -9287,6 +9585,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Thêm nhân viên vào phúc lợi'
                   height={290}
                   className='lazyload'
@@ -9490,6 +9794,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Chỉnh sửa phúc lợi'
                   height={362}
                   className='lazyload'
@@ -9527,6 +9837,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Xem danh sách nhân viên sẽ được hưởng phúc lợi'
                   height={323}
                   className='lazyload'
@@ -9568,6 +9884,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Chỉnh sửa danh sách nhân viên được hưởng phúc lợi'
                   height={374}
                   className='lazyload'
@@ -9702,6 +10024,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Cài đặt danh sách phụ cấp'
                   height={271}
                   className='lazyload'
@@ -9739,6 +10067,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Điền phụ cấp'
                   height={649}
                   className='lazyload'
@@ -9919,6 +10253,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Chỉnh sửa phụ cấp'
                   height={289}
                   className='lazyload'
@@ -10203,6 +10543,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Tạo các khoản tiền khác'
                   height={546}
                   className='lazyload'
@@ -10240,6 +10586,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Chọn tạo khoản tiền mới'
                   height={141}
                   className='lazyload'
@@ -10326,6 +10678,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Thêm nhân viên vào khoản tiền khác'
                   height={352}
                   className='lazyload'
@@ -10388,6 +10746,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Danh sách nhân viên áp dụng khoản tiền đã tạo'
                   height={241}
                   className='lazyload'
@@ -10452,6 +10816,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Cài đặt thuế'
                   height={610}
                   className='lazyload'
@@ -10640,6 +11010,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Duyệt cộng công'
                   height={291}
                   className='lazyload'
@@ -10679,6 +11055,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Thông báo duyệt cộng công thành công'
                   height={394}
                   className='lazyload'
@@ -10901,6 +11283,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Lọc tìm kiếm nhân viên trong danh sách thưởng phạt'
                   height={259}
                   className='lazyload'
@@ -10964,6 +11352,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Chọn nhân viên cần cài đặt thưởng phạt'
                   height={384}
                   className='lazyload'
@@ -11001,6 +11395,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Thưởng phạt'
                   height={416}
                   className='lazyload'
@@ -11156,6 +11556,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Danh sách thưởng phạt'
                   height={430}
                   className='lazyload'
@@ -11194,6 +11600,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Danh sách tổng thưởng phạt'
                   height={399}
                   className='lazyload'
@@ -11533,6 +11945,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Hoa hồng tiền'
                   height={426}
                   className='lazyload'
@@ -11576,6 +11994,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Tải file hoa hồng tiền'
                   height={476}
                   className='lazyload'
@@ -11944,6 +12368,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Thêm hoa hồng doanh thu'
                   height={245}
                   className='lazyload'
@@ -11982,6 +12412,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Cài hoa hồng doanh thu'
                   height={719}
                   className='lazyload'
@@ -12832,6 +13268,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Chọn đề xuất cần tạo'
                   height={221}
                   className='lazyload'
@@ -12869,6 +13311,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Các mẫu đề xuất'
                   height={439}
                   className='lazyload'
@@ -13055,6 +13503,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Xem lịch sử chấm công theo ngày'
                   height={313}
                   className='lazyload'
@@ -13139,6 +13593,12 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Xem lịch sử chấm công theo khoảng thời gian'
                   height={345}
                   className='lazyload'

@@ -1,10 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styles from './index.module.css'
 import { NhapLuongCoBan } from '@/components/cai-dat-luong/nhap-luong-co-ban/nhap-luong-co-ban'
-import { POST, POST_SS_TL, getCompIdSS } from '@/pages/api/BaseApi'
+import {
+  POST,
+  POST_SS_TL,
+  POST_TL,
+  getCompIdCS,
+  getCompIdSS,
+} from '@/pages/api/BaseApi'
 import _ from 'lodash'
 import moment from 'moment'
 export default function CaiDatNhapLuongCoBan({ data, listPb, listIds }) {
+  console.log(data)
+
   return (
     <div>
       <NhapLuongCoBan data={data} listPb={listPb} listIds={listIds} />
@@ -16,40 +24,29 @@ export const getServerSideProps = async (context) => {
   let com_id = null
   com_id = getCompIdSS(context)
   const currentTime = moment().format('YYYY-MM-DD')
-
+  const currentMonth = moment().month() + 1
   const finalData: any[] = []
 
-  const listEmp = await POST_SS_TL(
-    'api/tinhluong/congty/list_em',
+  const res = await POST_SS_TL(
+    'api/tinhluong/congty/show_bangluong_coban',
     {
-      // id_com: comp_id
-      id_com: com_id,
+      com_id: com_id,
+      month: moment().month() + 1,
+      year: moment().year(),
+      start_date: `${moment().year()}-${moment().month() + 1}-01`,
+      end_date: `${moment().year()}-${
+        moment().month() + 1
+      }-${moment().daysInMonth()}`,
     },
     context
   )
-
-  const listIds =
-    listEmp &&
-    listEmp?.data?.['listUser']?.map((item) => {
-      return item?.idQLC
-    })
-
-  if (!_.isEmpty(listIds)) {
-    const resSal = await POST_SS_TL(
-      'api/tinhluong/congty/take_salary_contract',
-      { time: currentTime, array: `[${listIds?.toString()}]` },
-      context
-    )
-
-    if (resSal?.data) {
-      listEmp?.data?.['listUser']?.forEach((user: any, index: number) => {
-        const salData = resSal?.data?.find(
-          (item) => item?.userId === user?.idQLC
-        )
-
-        finalData.push({ ...user, ...salData })
+  if (res) {
+    res?.listUser?.forEach((item, index) => {
+      finalData.push({
+        ...item,
+        ...res?.listResult?.[index],
       })
-    }
+    })
   }
 
   // get list phong ban
@@ -58,7 +55,6 @@ export const getServerSideProps = async (context) => {
     props: {
       data: finalData,
       listPb: listPbRes?.items || [],
-      listIds: listIds || [],
     },
   }
 }

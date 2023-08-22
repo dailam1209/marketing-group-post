@@ -118,6 +118,9 @@ export default function HomeQLNS() {
       onClick={() => {
         localStorage.setItem('selectedBtnIndex', `${index - 1}`)
         setSelectedBtn(`${index - 1}`)
+        window.scrollTo({
+          top: 500,
+        })
       }}>
       <Col sm={5} xs={6}>
         <div
@@ -227,7 +230,7 @@ export default function HomeQLNS() {
                 router.push(url)
               }
             } else {
-              alert('Bạn chưa đăng nhập')
+              router.push('/dang-nhap-cong-ty.html')
             }
           }}>
           {title}

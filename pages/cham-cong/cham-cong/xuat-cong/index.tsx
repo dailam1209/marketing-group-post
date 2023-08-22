@@ -42,9 +42,9 @@ export default function XuatCong({
   )
   const [listEmpLabel, setListEmpLabel] = useState(
     listEmp?.items?.map((emp) => ({
-      label: emp?.userName,
-      value: emp?.idQLC,
-      avatarUser: emp?.avatarUser,
+      label: emp?.ep_name,
+      value: emp?.ep_id,
+      avatarUser: emp?.ep_image,
     }))
   )
   const [data, setData] = useState(

@@ -33,6 +33,9 @@ export function DanhSachNhom({
       value: dep?.dep_id,
     }))
   )
+
+  console.log(listDepartments)
+
   const [listTeamLabel, setListTeamLabel]: any = useState(
     listTeams?.data?.map((team) => ({
       label: team?.team_name,
@@ -41,9 +44,10 @@ export function DanhSachNhom({
     }))
   )
   const [comLabel, setComlabel] = useState({
-    label: infoCom?.data?.userName,
-    value: infoCom?.data?.idQLC,
+    label: infoCom?.data?.com_name,
+    value: infoCom?.data?.com_id,
   })
+  console.log(infoCom)
 
   const columns = [
     {

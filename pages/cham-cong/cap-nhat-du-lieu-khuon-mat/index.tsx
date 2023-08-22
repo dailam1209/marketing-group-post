@@ -5,6 +5,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 // import Image as IMG from 'next/image'
 import axios from 'axios'
 import { getCurrentToken } from '@/pages/api/BaseApi'
+import jwtDecode from 'jwt-decode'
 
 export default function UpdateFace() {
   const [openCam, setOpenCam] = useState(false)
@@ -27,7 +28,9 @@ export default function UpdateFace() {
     const imageSrc = webcamRef.current?.getScreenshot()
     const currToken = getCurrentToken()
 
-    if (currToken) {
+    const decoded = jwtDecode(currToken)
+    const id = decoded?.['data']?.idQLC
+    if (currToken && decoded) {
       try {
         // const res = await axios.post(
         //   'http://43.239.223.147:5001/verify_web_company',
@@ -41,7 +44,7 @@ export default function UpdateFace() {
         const fd = new FormData()
         if (imageSrc) {
           const file = await imgSrcToFile(imageSrc)
-          fd.append('id_ep', '998776')
+          fd.append('id_ep', id)
           fd.append('arr_featured', '1')
           fd.append('logo', file)
 
@@ -56,7 +59,11 @@ export default function UpdateFace() {
             }
           )
 
-          console.log(res)
+          console.log(res?.data?.data?.error)
+
+          if (res?.data?.data?.error) {
+            alert(res?.data?.data?.error?.message)
+          }
         }
       } catch (e) {
         console.log(e)

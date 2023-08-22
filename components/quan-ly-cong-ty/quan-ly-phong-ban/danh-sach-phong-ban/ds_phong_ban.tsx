@@ -24,19 +24,19 @@ export function DanhSachPhongBan({
   const [openConfirmDel, setOpenConfirmDel] = useState(false)
   const [selectedRow, setSelectedRow] = useState({})
   const [openAddNew, setOpenAddNew] = useState(false)
-  const [data, setData] = useState(listDepartments?.items)
+  const [data, setData] = useState(listDepartments)
   const [company, setCompany] = useState(infoCom?.data)
   const [comLabel, setComlabel] = useState({
     label: infoCom?.data?.com_name,
     value: infoCom?.data?.com_id,
   })
   const [listDepLabel, setListDepLabel]: any[] = useState(
-    listDepartments?.items?.map((dep) => ({
+    listDepartments?.map((dep) => ({
       label: dep?.dep_name,
       value: dep?.dep_id,
     }))
   )
-  // console.log(company)
+  console.log(company)
   const columns = [
     {
       title: <p className={styles.headerTxt}>STT</p>,
