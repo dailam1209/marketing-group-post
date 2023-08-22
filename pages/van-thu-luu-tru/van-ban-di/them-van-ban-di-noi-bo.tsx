@@ -79,7 +79,7 @@ const Index = () => {
   const [position_ky, setPosition_ky] = useState<any>();
   const [formData, setFormData] = useState<any>({
     nam_vb: "2023",
-    xet_duyet_van_ban: "2",
+    xet_duyet_van_ban: 1,
     loai_xet_duyet: "1",
     nhom_van_ban: "1",
     type_nhieu_nguoi_ky: "off",
@@ -212,7 +212,7 @@ const Index = () => {
       if (formData.type_thay_the === "1") {
         await optionalSchema.validate(formData, { abortEarly: false });
       }
-      if(duyet_type === "1") {
+      if(duyet_type === 2) {
         await optionalSchema2.validate(formData, { abortEarly: false });
       }
       var form_data = new FormData();
@@ -652,10 +652,16 @@ const Index = () => {
       handleSwitchChange({ name: "type_thay_the", value: "" });
     }
   };
-  const [duyet_type,setDuyet_type] = useState('0')
+  const [duyet_type,setDuyet_type] = useState(1)
   const handleXetDuyetTypeChange = (e: any)=>{
     const { name, value } = e.target;
-    setDuyet_type(value);
+    setDuyet_type(Number(value));
+    setFormData((prev:any)=>{
+      return {
+        ...prev,
+        xet_duyet_van_ban: Number(value)
+      }
+    })
   }
   return (
     <div>
@@ -921,13 +927,13 @@ const Index = () => {
                 <div className={styles.khoixetduyet_2}>
                   <Required_label title="Xét duyệt văn bản"/>
                   <select name='xet_duyet_van_ban' onChange={handleXetDuyetTypeChange} className={styles.xetduyet_select}>
-                      <option value='0' className={styles.xetduyet_option}>Ban hành</option>
-                      <option value='1' className={styles.xetduyet_option}>Xét duyệt</option>
+                      <option value={1} className={styles.xetduyet_option}>Ban hành</option>
+                      <option value={2} className={styles.xetduyet_option}>Xét duyệt</option>
                   </select>
                   <Image src={"/icon/arr_down_select.png"} alt="arrow" width={13} height={15} className={styles.xetduyet_arrow_icon} />
                   </div>
               </div>
-              {duyet_type === '1' && (
+              {duyet_type === 2 && (
                 <div>
                 <div className={styles.confirm_area_top}>
                   <Section
