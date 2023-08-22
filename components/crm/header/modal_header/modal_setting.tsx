@@ -7,22 +7,22 @@ export default function SettingModal({ dataHeader }) {
   const [showLogout, setShowLogout] = useState(false);
 
   const show = () => {
-    setShowLogout(true)
-  }
+    setShowLogout(true);
+  };
 
   const no = () => {
-    setShowLogout(false)
-  }
+    setShowLogout(false);
+  };
 
   const yes = () => {
     document.cookie =
-      'token_base365' + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
+      "token_base365" + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     document.cookie =
-      'rf_token' + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
+      "rf_token" + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     document.cookie =
-      'role' + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
-    window.location.href = '/'
-  }
+      "role" + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    window.location.href = "/";
+  };
   return (
     <div className={style.setting_open}>
       <div className={style.avatar_staff}>
@@ -39,7 +39,7 @@ export default function SettingModal({ dataHeader }) {
           alt=""
         /> */}
         <div className={style.name_staff}>
-          {dataHeader?.data?.userName || ""}
+          {dataHeader?.data?.com_name || ""}
         </div>
         {/* <p className={style.name_staff}>Tran Quang Duc Dung</p> */}
         {/* <p className={style.chuc_vu}>NHÂN VIÊN THỬ VIỆC </p> */}
@@ -76,11 +76,7 @@ export default function SettingModal({ dataHeader }) {
         />
       </Link>
 
-      <button
-        className={style.selecter}
-        onClick={show}
-        style ={{width: "100%"}}
-      >
+      <div className={style.selecter} onClick={show} style={{ width: "100%" }}>
         <div
           style={{ justifyContent: "space-between" }}
           className={style.selecter_left}
@@ -89,22 +85,18 @@ export default function SettingModal({ dataHeader }) {
             src="https://crm.timviec365.vn/assets/icons/icon-logout.svg"
             alt=""
           />
-          <p id={style.logout_acc} className={style.text_selecter}>
-            {showLogout && (
-              <LogoutCRM
-                showLogout={showLogout}
-                setShowLogout={setShowLogout}
-              />
-            )}
+          <div id={style.logout_acc} className={style.text_selecter}>
             Đăng xuất
-          </p>
           </div>
-          <img
-            src="https://crm.timviec365.vn/assets/icons/icon-arrow-right.svg"
-            alt=""
-          />
-        
-      </button>
+        </div>
+        <img
+          src="https://crm.timviec365.vn/assets/icons/icon-arrow-right.svg"
+          alt=""
+        />
+      </div>
+      {showLogout && (
+        <LogoutCRM showLogout={showLogout} setShowLogout={setShowLogout} />
+      )}
     </div>
   );
 }
