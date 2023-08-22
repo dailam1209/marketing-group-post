@@ -127,8 +127,6 @@
     opacity: 0;
 }
 
-.path {}
-
 .form_control {
     display: block;
     width: 100%;
@@ -226,4 +224,54 @@
     color: #FFFFFF;
     font-family: 'Roboto-Bold';
     margin-bottom: 0px;
+}
+
+.text_change{
+    margin-right: 15px;
+    margin-left: 5px;
+}
+
+.taotruong {
+    padding: 5px 9px;
+    background: #2A38A2;
+    border-radius: 5px;
+    color: #FFFFFF;
+    font-size: 14px;
+    margin-left: 15px;
+}
+
+.tieptuc {
+    padding: 5px 9px;
+    background: #666666;
+    border-radius: 5px;
+    color: #FFFFFF;
+    font-size: 14px;
+    margin-left: 15px;
+}
+
+.xoatruong {
+    padding: 5px 9px;
+    background: #FF3333;
+    border-radius: 5px;
+    color: #FFFFFF;
+    font-size: 14px;
+}
+
+.suatruong {
+    padding: 5px 9px;
+    background: #2A38A2;
+    border-radius: 5px;
+    color: #FFFFFF;
+    font-size: 14px;
+    margin-left: 15px;
+}
+
+.fm_fd {
+    margin-bottom: 16px;
+    width: 100%;
+}
+
+.btn_form_contract {
+    width: 100%;
+    text-align: right;
 }

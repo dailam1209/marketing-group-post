@@ -57,6 +57,7 @@ export default function CustomerList() {
       resoure: resoure,
       userName: nvPhuTrach,
       userNameCreate: userNameCreate,
+      group_id: Number(id),
     }
   );
   const {
@@ -68,7 +69,7 @@ export default function CustomerList() {
     `${base_url}/api/crm/customerStatus/list`,
     `${Cookies.get("token_base365")}`,
     "POST",
-    { pageSize: 1000000, group_id: Number(id) }
+    { pageSize: 1000000 }
   );
   const {
     data: dataCustomerGroup,
