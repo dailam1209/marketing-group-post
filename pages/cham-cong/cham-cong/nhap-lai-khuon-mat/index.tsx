@@ -91,13 +91,13 @@ export default function UpdateFace({ infoCom, listDepartments }) {
   const [depFilter, setDepFilter]: any = useState<any>()
 
   useEffect(() => {
-    if (infoCom?.data && listDepartments?.data) {
+    if (infoCom?.data && listDepartments?.items) {
       setComLabel({
         label: infoCom?.data?.userName,
         value: infoCom?.data?.idQLC,
       })
       setListDepLabel(
-        listDepartments?.data?.map((dep) => ({
+        listDepartments?.items?.map((dep) => ({
           label: dep?.dep_name,
           value: dep?.dep_id,
         }))

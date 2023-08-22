@@ -49,7 +49,7 @@ export default function DeXuatTangLuong() {
         com_id: com_id,
       }).then((res) => {
         if (res?.result === true) {
-          setListEmp(res?.data);
+          setListEmp(res?.items);
         }
       });
     com_id !== null &&
@@ -58,7 +58,7 @@ export default function DeXuatTangLuong() {
       }).then((res) => {
         if (res?.result === true) {
           setDepLabel(
-            res?.data?.map((dep) => ({
+            res?.items?.map((dep) => ({
               label: dep?.dep_name,
               value: dep?.dep_id,
             }))

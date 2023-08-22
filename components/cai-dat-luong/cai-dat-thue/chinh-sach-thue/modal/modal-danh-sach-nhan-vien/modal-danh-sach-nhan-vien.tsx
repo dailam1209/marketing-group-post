@@ -95,7 +95,7 @@ export function ModalDanhSachNhanVien(
   const [modalKey, setModalKey] = useState("");
   const [checkButton, setCheckButton] = useState("1");
   const [listEmp, setListEmp]: any[] = useState([]);
-  const info = listEmpX?.data?.map((emp, index) => {
+  const info = listEmpX?.items?.map((emp, index) => {
     return {
       key: `${index + 1}`,
       name: emp?.userName,

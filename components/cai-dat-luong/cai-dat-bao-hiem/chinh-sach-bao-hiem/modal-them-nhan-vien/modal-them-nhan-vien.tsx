@@ -196,7 +196,7 @@ export function ModalThemNhanVien({
   setListEmpSelected: Function
 }) {
   const [listStaff, setListStaff]: any[] = useState(
-    listEmp?.data?.map((e, index) => ({
+    listEmp?.items?.map((e, index) => ({
       key: `${index + 1}`,
       id: `${e?.idQLC}`,
       url: e?.avatarUser ? `/${e?.avatarUser}` : '/anhnhanvien.png',

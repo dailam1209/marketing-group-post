@@ -165,7 +165,7 @@ export const ChinhSachBaoHiem = ({
   const [activeTabGroup, setActiveTabGroup] = useState<boolean>(false)
   const [key, setKey] = useState('')
   const [listEmpLabel, setListEmpLabel]: any = useState(
-    listEmp?.data?.map((e) => ({ label: e?.userName, value: e?.idQLC }))
+    listEmp?.items?.map((e) => ({ label: e?.userName, value: e?.idQLC }))
   )
   const [listEmpSelected, setListEmpSelected]: any = useState([])
   const [data, setData]: any = useState(

@@ -34,13 +34,13 @@ export default function XuatCong({
     value: comData?.data?.idQLC,
   });
   const [listDepLabel, setListDepLabel] = useState(
-    listDepartments?.data?.map((dep) => ({
+    listDepartments?.items?.map((dep) => ({
       label: dep?.dep_name,
       value: dep?.dep_id,
     }))
   );
   const [listEmpLabel, setListEmpLabel] = useState(
-    listEmp?.data?.map((emp) => ({
+    listEmp?.items?.map((emp) => ({
       label: emp?.userName,
       value: emp?.idQLC,
       avatarUser: emp?.avatarUser,

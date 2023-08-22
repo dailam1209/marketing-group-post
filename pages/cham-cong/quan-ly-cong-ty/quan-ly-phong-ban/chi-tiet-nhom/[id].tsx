@@ -18,8 +18,8 @@ export default function ChiTietNhom({ listEmpInGr }) {
   const [openAddState, setOpenAddState] = useState(false);
   const [openDel, setOpenDel] = useState(false);
   const [selectedRow, setSelectedRow] = useState();
-  const [data, setData] = useState(listEmpInGr?.data);
-  const [dataFilter, setDataFilter] = useState<any>(listEmpInGr?.data);
+  const [data, setData] = useState(listEmpInGr?.items);
+  const [dataFilter, setDataFilter] = useState<any>(listEmpInGr?.items);
   const [inputValue, setInputValue] = useState<string>('');
 
   useEffect(() => {

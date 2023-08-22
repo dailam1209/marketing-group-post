@@ -59,7 +59,7 @@ export const getServerSideProps = async (context) => {
       listEmpX,
       listPhuCap: listPhucLoi?.data?.list_welfa ?? [],
       listPhuCapTheoCa: listPhucLoi?.data?.wf_shift ?? [],
-      listPhongBan: listPhongBan?.data ?? [],
+      listPhongBan: listPhongBan?.items ?? [],
       listNhanVien: listNhanVien?.data?.listUser ?? [],
       listShift: listShift?.list ?? [],
     },

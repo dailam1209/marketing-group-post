@@ -231,7 +231,7 @@ export const getServerSideProps = async (context) => {
   return {
     props: {
       tpList: res?.data?.data_final || [],
-      listPb: listPbRes?.data || [],
+      listPb: listPbRes?.items || [],
     },
   }
 }
