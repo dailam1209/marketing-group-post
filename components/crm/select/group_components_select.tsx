@@ -11,11 +11,7 @@ export default function CustomerGroupSelectCpmponent({
 }: any) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const [valueOption, setValueOption] = useState(
-    data?.filter((item: any) => item.gr_id === placeholder)[0]?.group_parent
-      ? data?.filter((item: any) => item.gr_id === placeholder)[0]?.group_parent
-      : "Chọn"
-  );
+  const [valueOption, setValueOption] = useState();
   const handleClickSelectoption = (e: any) => {
     if (e.target.getAttribute("class") !== styles.select2_search__field) {
       setIsOpen(!isOpen);
@@ -34,10 +30,10 @@ export default function CustomerGroupSelectCpmponent({
 
   useEffect(() => {
     document.addEventListener("click", handleClickOutside);
-    document.addEventListener("scroll", handleScrollkOutside);
+    // document.addEventListener("scroll", handleScrollkOutside);
 
     return () => {
-      document.removeEventListener("scroll", handleScrollkOutside);
+      // document.removeEventListener("scroll", handleScrollkOutside);
     };
   }, []);
 
@@ -80,7 +76,10 @@ export default function CustomerGroupSelectCpmponent({
               id="select2-g0q1-container"
               // title="Chọn người dùng"
             >
-              {valueOption}
+              {valueOption ||
+                data?.filter((item: any) => item.gr_id === placeholder)[0]
+                  ?.gr_name ||
+                "Chọn"}
             </span>
             <span
               className={styles.select2_selection__arrow}
@@ -96,6 +95,9 @@ export default function CustomerGroupSelectCpmponent({
             value={value}
             setValueOption={setValueOption}
             setValueGroupCustomer={setValueGroupCustomer}
+            placeholder={data?.filter(
+              (item: any) => item.gr_id === placeholder
+            )}
           />
         )}
       </span>

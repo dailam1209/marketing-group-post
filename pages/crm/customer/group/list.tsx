@@ -17,12 +17,13 @@ export default function GroupCustomer() {
   const [selectedRows, setSelectedRow] = useState<any>([]);
   const [change, setChange] = useState(0);
   const [valFilter, setValFilter] = useState("");
+  const [dataFilter, setDataFilter] = useState();
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
 
   const accessToken = Cookies.get("token_base365");
 
-  const { data, loading, error, fetchData, updateData, deleteData } = useApi(
+  const { data, fetchData, updateData } = useApi(
     `${base_url}/api/crm/group/list_group_khach_hang`,
     `${Cookies.get("token_base365")}`,
     "POST",
@@ -38,6 +39,7 @@ export default function GroupCustomer() {
 
   useEffect(() => {
     fetchData();
+    setDataFilter(data?.data?.showGr);
   }, [change]);
 
   useEffect(() => {
@@ -48,14 +50,16 @@ export default function GroupCustomer() {
     }
   }, [isOpen]);
 
-  const dataFilter = data?.data?.showGr?.filter((item) => {
-    if (valFilter) {
-      const defaultVal = item?.gr_name?.toLowerCase();
-      return defaultVal?.includes(valFilter.toLowerCase());
-    }
-    return item;
-  });
-
+  const handleClickSearch = () => {
+    const newDataFilter = data?.data?.showGr?.filter((item) => {
+      if (valFilter) {
+        const defaultVal = item?.gr_name?.toLowerCase();
+        return defaultVal?.includes(valFilter.toLowerCase());
+      }
+      return item;
+    });
+    setDataFilter(newDataFilter);
+  };
 
   return (
     <div ref={mainRef} className={styleHome.main}>
@@ -65,6 +69,7 @@ export default function GroupCustomer() {
         updateData={setChange}
         valFilter={valFilter}
         setValFilter={setValFilter}
+        handleClickSearch={handleClickSearch}
       />
       <TableDataGroupListCustomer
         setSelected={setIsSelectedRow}
@@ -72,7 +77,7 @@ export default function GroupCustomer() {
         setSelectedRow={setSelectedRow}
         setChange={setChange}
         change={change}
-        data={dataFilter}
+        data={dataFilter || data?.data?.showGr}
         updateData={updateData}
       />
     </div>

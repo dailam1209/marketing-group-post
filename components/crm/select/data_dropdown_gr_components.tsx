@@ -1,4 +1,4 @@
-import { Key } from "react";
+import { Key, useEffect } from "react";
 import styles from "../potential/potential.module.css";
 
 export default function CustomerGroupSelectDropdownDataComponent({
@@ -6,6 +6,7 @@ export default function CustomerGroupSelectDropdownDataComponent({
   value = " Chọn người dùng",
   setValueOption,
   setValueGroupCustomer,
+  placeholder,
 }: any) {
   const handleClcikOptions = (item: any) => {
     setValueOption(item?.gr_name);
@@ -16,6 +17,16 @@ export default function CustomerGroupSelectDropdownDataComponent({
       };
     });
   };
+
+  useEffect(() => {
+    setValueOption(placeholder?.gr_name);
+    setValueGroupCustomer((pre: any) => {
+      return {
+        ...pre,
+        group_cus_parent: placeholder?.gr_id,
+      };
+    });
+  }, []);
 
   return (
     <span
@@ -52,6 +63,12 @@ export default function CustomerGroupSelectDropdownDataComponent({
           >
             <li
               className={`${styles.select2_results__option} ${styles.select2_results__option_highlighted}`}
+              onClick={() =>
+                handleClcikOptions({
+                  gr_id: 0,
+                  gr_name: "Chọn nhóm khách hàng",
+                })
+              }
             >
               {data?.filter((item: any) => item.gr_id === value)[0]?.gr_name
                 ? data?.filter((item: any) => item.gr_id === value)[0]?.gr_name
