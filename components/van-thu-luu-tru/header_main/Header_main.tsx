@@ -104,21 +104,28 @@ const General_header = () => {
   const handleOpenModal = () => {
     setModalOpen(!modalOpen);
   };
+  const role = Cookies.get('role')
   const [user,setUser] = useState<any>()
-  const [com,setCom] = useState<any>()
   useEffect(()=>{
     console.log('navigate')
     const token = Cookies.get('token_base365')
     const fetch = async ()=>{
       if (token){
         try{
-          const res = await fetch_emp_info(token)
-          setUser(res?.data.data)
-        }catch(err){
-          const res = await fetch_com_info(token)
-          setCom(res?.data.data)
+          if(role){
+            if(role === '2'){
+              const res = await fetch_emp_info(token)
+              setUser(res?.data.data)
+            }
+            else{
+              const res = await fetch_com_info(token)
+              setUser(res?.data.data)
+            }
+          }
         }
-        
+        catch(err) {
+          console.log(err)
+        }
       }
     }
     fetch()
@@ -166,15 +173,15 @@ const General_header = () => {
           />
           <button className={`${styles.profile}`} onClick={handleOpenModal}>
             <a href="#" className={`${styles.a_profile}`}>
-              <Avartar />
+              <img src={user && user?.avatarUser ? user?.avatarUser : "/avatar.jpg"} width={50} height={50} alt="Avatar" />
             </a>
             {/* {storedData === "user" ? ( */}
             <Profile_infor
               isOpen={modalOpen}
-              fullname={user ? user?.userName : com?.userName}
-              id_staff={user ? user?.idQLC : com?.idQLC}
-              img="/avatar.jpg"
-              job={com ? "Quản lý" : "Nhân viên"}
+              fullname={user && user?.userName}
+              id_staff={user && user?.idQLC}
+              img={user && user?.avatarUser ? user?.avatarUser : "/avatar.jpg"}
+              job={role === '1' ? "Quản lý" : "Nhân viên"}
             />
             {/* ) : (
               <Profile_infor

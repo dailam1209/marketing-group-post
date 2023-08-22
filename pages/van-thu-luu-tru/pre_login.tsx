@@ -27,11 +27,11 @@ const Pre_login = () => {
                         <a className={s.them_border_bot}>Đề xuất</a>
                     </li>
                     <li className={s.header_list}>
-                        <a className={s.them_border_bot}>Chuyển đổi số</a>
+                        <a href='/' className={s.them_border_bot}>Chuyển đổi số</a>
                     </li>
                     <li className={s.header_list}>
-                        <a className={s.them_border_bot}> Đăng nhập / </a>
-                        <a className={s.them_border_bot}> Đăng ký</a>
+                        <a href='/' className={s.them_border_bot}> Đăng nhập / </a>
+                        <a href='/' className={s.them_border_bot}> Đăng ký</a>
                     </li>
                 </ul>
                 <ul className={s.header_pagele_menu_background_hidden_h_flex}>

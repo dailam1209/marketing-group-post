@@ -11,6 +11,7 @@ import Sidebar_quanlycongvan_admin from "./company_sidebar/Sidebar_quanlycongvan
 import Sidebar_admin from "./company_sidebar/Sidebar_send_admin";
 import { getCookie } from "cookies-next";
 import Cookies from "js-cookie";
+import Image from "next/image";
 
 interface ParentComponentProps {
   id?: string | undefined | null;
@@ -71,7 +72,7 @@ const Layout_admin = ({ children,info }: any) => {
       <div className={`${styles.side_bar} ${isOpen ? styles.visible : ""}`}>
         <div className={`${styles.general_management}`}>
           <div className={`${styles.profile}`}>
-            <Avartar />
+            <img src={com && com?.avatarUser ? com?.avatarUser : "/avatar.jpg"} width={50} height={50} alt="Avatar" />
             <div className={`${styles.profile_content}`}>
               <p>{com?.userName}</p>
             </div>

@@ -11,6 +11,7 @@ import Sidebar_dexuat from "./staff_sidebar/Sidebar_dexuat";
 import Sidebar from "./staff_sidebar/Sidebar_send";
 import { getCookie } from "cookies-next";
 import Cookies from "js-cookie";
+import Image from "next/image";
 
 interface ParentComponentProps {
   id?: string | undefined | null;
@@ -67,7 +68,7 @@ const Layout_user = ({ children,info }: any) => {
       <div className={`${styles.side_bar} ${isOpen ? styles.visible : ""}`}>
         <div className={`${styles.general_management}`}>
           <div className={`${styles.profile}`}>
-            <Avartar />
+            <img src={user && user?.avatarUser ? user?.avatarUser : "/avatar.jpg"} width={50} height={50} alt="Avatar" />
             <div className={`${styles.profile_content}`}>
               <p>{user?.userName}</p>
             </div>

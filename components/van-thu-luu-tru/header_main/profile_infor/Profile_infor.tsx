@@ -21,7 +21,7 @@ const Profile_infor: React.FC<Profile_inforProps> = ({ ...props }) => {
       <div className={`${styles.profile_infor}`}>
         <div className={`${styles.profile_div_img}`}>
           <a href="">
-            <Image src={`${props.img}`} width={102} height={102} alt="Avatar" />
+            <img src={`${props.img}`} width={102} height={102} alt="Avatar" />
           </a>
         </div>
         <div className={`${styles.profile_infor_name}`}>
@@ -37,7 +37,7 @@ const Profile_infor: React.FC<Profile_inforProps> = ({ ...props }) => {
                 rel="nofollow"
                 href="https://chamcong.timviec365.vn/quan-ly-cong-ty/thong-tin-tai-khoan.html"
               >
-                <Image
+                <img
                   src={"/icon/icon_profile.png"}
                   width={25}
                   height={25}
@@ -136,6 +136,7 @@ const Profile_infor: React.FC<Profile_inforProps> = ({ ...props }) => {
               onClick={() => {
                 router.push("/");
                 sessionStorage.setItem("layout", "");
+                sessionStorage.setItem("link", "");
                 document.cookie =
                   "token_test=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC; samesite=lax";
                 deleteCookie("token_first");
