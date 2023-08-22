@@ -44,7 +44,7 @@ export function DanhSachNhom({
       dep_id: team?.dep_id
     }))
   );
-  const [comLabel, setComlabel] = useState({ label: infoCom?.data?.userName, value: infoCom?.data?.idQLC })
+  const [comLabel, setComlabel] = useState({ label: infoCom?.data?.com_name, value: infoCom?.data?.com_id })
 
   const columns = [
     {

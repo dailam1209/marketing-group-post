@@ -30,8 +30,8 @@ export function UpdatePhongBanModal(
   const [form] = Form.useForm();
   const [className, setClassName] = useState('');
   const [companyLabel, setCompanyLabel] = useState({
-    label: infoCom?.data?.userName,
-    value: infoCom?.data?.idQLC,
+    label: infoCom?.data?.com_name,
+    value: infoCom?.data?.com_id,
   });
   const [listEmpTranferLabel, setListEmpTranferLabel]: any = useState(
     data?.map((emp) => ({ label: emp?.userName, value: emp?.ep_id }))

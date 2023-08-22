@@ -18,8 +18,8 @@ export default function DuyetThietBi({
   const router = useRouter();
   const [listAccept, setListAccept] = useState([]);
   const [comLabel, setComLabel]: any = useState({
-    label: infoCom?.data?.userName,
-    value: infoCom?.data?.idQLC,
+    label: infoCom?.data?.com_name,
+    value: infoCom?.data?.com_id,
   });
   const [listDepLabel, setListDepLabel]: any = useState(
     listDepartments?.items?.map((dep) => ({

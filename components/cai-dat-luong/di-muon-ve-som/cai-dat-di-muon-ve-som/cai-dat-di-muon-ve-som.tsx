@@ -143,7 +143,7 @@ export function CpmCaiDatDiMuonVeSom({
       // console.log(res)
 
       if (res?.result) {
-        setListCa(res?.list);
+        setListCa(res?.items);
       }
     };
 
