@@ -122,7 +122,15 @@ export default function HomeQLNS() {
       <Col sm={5} xs={6}>
         <div
           className={styles.indexWithBorder}
-          style={{ border: `5px solid ${color}` }}>
+          style={{
+            border: `5px solid ${color}`,
+            borderRadius: '50%',
+            width: '71px',
+            height: '71px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
           <span className={styles.index}>{index}</span>
         </div>
       </Col>
@@ -145,7 +153,17 @@ export default function HomeQLNS() {
       </Col>
       <Col sm={4} xs={6} className={styles.rightDiv}>
         {/* <div className={styles.verticalDivider}></div> */}
-        <Image alt='' src={icon} width={30} height={30} />
+        <Image
+          alt=''
+          src={icon}
+          width={30}
+          height={30}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        />
       </Col>
     </Row>
   )
@@ -170,9 +188,33 @@ export default function HomeQLNS() {
     }
 
     return !isButton ? (
-      <div className={styles.singleStep} key={index}>
-        <div className={styles.roundIndex}>
-          <span className={styles.index}>{index}</span>
+      <div
+        className={styles.singleStep}
+        key={index}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+        }}>
+        <div
+          className={styles.roundIndex}
+          style={{
+            minWidth: '44px',
+            height: '44px',
+            borderRadius: '50%',
+            backgroundColor: '#4c5bd4',
+          }}>
+          <span
+            className={styles.index}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: '#fff',
+              fontFamily: 'Salsa, cursive !important',
+              fontSize: '24px',
+            }}>
+            {index}
+          </span>
         </div>
         <span
           className={styles.title}
