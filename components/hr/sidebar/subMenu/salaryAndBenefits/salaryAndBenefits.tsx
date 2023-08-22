@@ -2,15 +2,15 @@ import React, { useState } from 'react'
 import styles from '../../sidebar.module.css'
 import Link from 'next/link'
 
-export interface SalaryAndBenefits {}
+export interface SalaryAndBenefits { }
 
 export default function SalaryAndBenefits({ children }: any) {
   const [activeButton, setActiveButton] = useState(null)
   const handleClick = (buttonIndex: number) => {
     // @ts-ignore
-    setActiveButton(buttonIndex)
-  }
-
+    setActiveButton(buttonIndex);
+  };
+  const link = "phan-mem-nhan-su"
   const submenu = [
     {
       img: '	/vn_chamcong.svg',
@@ -27,18 +27,18 @@ export default function SalaryAndBenefits({ children }: any) {
     {
       img: '	/vn_kpi.svg',
       title: 'KPI',
-      href: 'https://kpi.timviec365.vn/quan-ly-chung.html',
-      target: 'blank',
+      href: '#',
+      target: 'blank'
     },
     {
       img: '	/thanhtich.svg',
       title: 'Khen thưởng',
-      href: '/hr/luong-thuong-phuc-loi/khen-thuong',
+      href: `/${link}/luong-thuong-phuc-loi/khen-thuong`,
     },
     {
       img: '	/vipham.svg',
       title: 'Kỷ luật( Vi phạm )',
-      href: '/hr/luong-thuong-phuc-loi/ky-luat',
+      href: `/${link}/luong-thuong-phuc-loi/ky-luat`,
     },
     {
       img: '	/vn_phucloi.svg',
@@ -67,9 +67,8 @@ export default function SalaryAndBenefits({ children }: any) {
                   />
                 </div>
                 <div
-                  className={`${styles.sidebar_text} ${styles.sidebar_text2} ${
-                    activeButton === index ? styles.clicked2 : ''
-                  }`}>
+                  className={`${styles.sidebar_text} ${styles.sidebar_text2} ${activeButton === index ? styles.clicked2 : ''
+                    }`}>
                   {item.title}
                 </div>
               </div>

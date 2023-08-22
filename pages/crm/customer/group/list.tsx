@@ -8,6 +8,7 @@ import HeaderBtnsCustomerGroup from "@/components/crm/customer/group_customer/he
 import { useApi } from "@/components/crm/hooks/useApi";
 import { base_url } from "@/components/crm/service/function";
 import Cookies from "js-cookie";
+import { checkAndRedirectToHomeIfNotLoggedIn } from "@/components/crm/ultis/checkLogin";
 
 export default function GroupCustomer() {
   const mainRef = useRef<HTMLDivElement>(null);
@@ -62,24 +63,28 @@ export default function GroupCustomer() {
   };
 
   return (
-    <div ref={mainRef} className={styleHome.main}>
-      <HeaderBtnsCustomerGroup
-        isSelectedRow={isSelectedRow}
-        selectedRow={selectedRows}
-        updateData={setChange}
-        valFilter={valFilter}
-        setValFilter={setValFilter}
-        handleClickSearch={handleClickSearch}
-      />
-      <TableDataGroupListCustomer
-        setSelected={setIsSelectedRow}
-        setNumberSelected={setNumberSelected}
-        setSelectedRow={setSelectedRow}
-        setChange={setChange}
-        change={change}
-        data={dataFilter || data?.data?.showGr}
-        updateData={updateData}
-      />
-    </div>
+    <>
+      {!checkAndRedirectToHomeIfNotLoggedIn() ? null : (
+        <div ref={mainRef} className={styleHome.main}>
+          <HeaderBtnsCustomerGroup
+            isSelectedRow={isSelectedRow}
+            selectedRow={selectedRows}
+            updateData={setChange}
+            valFilter={valFilter}
+            setValFilter={setValFilter}
+            handleClickSearch={handleClickSearch}
+          />
+          <TableDataGroupListCustomer
+            setSelected={setIsSelectedRow}
+            setNumberSelected={setNumberSelected}
+            setSelectedRow={setSelectedRow}
+            setChange={setChange}
+            change={change}
+            data={dataFilter || data?.data?.showGr}
+            updateData={updateData}
+          />
+        </div>
+      )}
+    </>
   );
 }

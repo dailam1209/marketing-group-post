@@ -766,3 +766,47 @@ label {
   right: 16px;
   top: 4px;
 }
+.ant-table-body::-webkit-scrollbar {
+  width: 2px;
+  height: 5px;
+}
+.ant-table-body::-webkit-scrollbar-thumb {
+  background-color: #1677ff;
+}
+.ant-table-body::-webkit-scrollbar-thumb:hover {
+  background: #a2b8d0;
+}
+
+.custom-cellCus {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.9);
+  pointer-events: painted;
+  overflow: hidden;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Hiển thị nội dung khi hover vào ô */
+.ant-table-cell:hover .custom-cellCus {
+  opacity: 1;
+  z-index: 999;
+  height: fit-content;
+  background-color: #f3e9e9;
+  pointer-events: painted;
+  padding: 18px;
+}
+.ant-table-cell .custom-cellCus {
+  padding: 10px;
+  text-align: start;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: start;
+}

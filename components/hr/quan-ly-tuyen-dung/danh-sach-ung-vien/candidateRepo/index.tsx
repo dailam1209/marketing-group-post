@@ -47,6 +47,9 @@ export default function CandidateRepo({ children }: any) {
     fetchData()
   }, [isSeach, currentPage, isGender, isRecruitmentNewsId])
 
+  console.log(isCandidateList);
+
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -69,7 +72,7 @@ export default function CandidateRepo({ children }: any) {
     event.preventDefault()
     if (typeof item === 'number' && !isNaN(item)) {
       router.push(
-        `/hr/quan-ly-tuyen-dung/danh-sach-ung-vien/chi-tiet-ung-vien/u${item}`
+        `/phan-mem-nhan-su/quan-ly-tuyen-dung/danh-sach-ung-vien/chi-tiet-ung-vien/u${item}`
       )
     }
   }
@@ -242,7 +245,7 @@ export default function CandidateRepo({ children }: any) {
                         {' '}
                         <a
                           target='_blank'
-                          href={`/hr/quan-ly-tuyen-dung/danh-sach-ung-vien/chi-tiet-ung-vien/u${item.id}`}
+                          href={`/phan-mem-nhan-su/quan-ly-tuyen-dung/danh-sach-ung-vien/chi-tiet-ung-vien/u${item.id}`}
                           onClick={(event) => handleClickDetail(item.id, event)}
                           rel='noreferrer'>
                           {item.name} ( xem chi tiết ){' '}
@@ -254,8 +257,8 @@ export default function CandidateRepo({ children }: any) {
                       </td>
                       <td>{item.cvFrom}</td>
                       <td>{item.Title}</td>
-                      <td>{item.matinungtuyen}</td>
-                      <td>{item.maquytrinhtuyendungapdung}</td>
+                      <td>{`TD${item.recruitmentNewsId}(${item.Title})`}</td>
+                      <td>{`QTTD${item.RecruitmentId}`}</td>
                       {item?.timeSendCv && (
                         <td>
                           {format(parseISO(item?.timeSendCv), 'yyyy-MM-dd')}

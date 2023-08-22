@@ -27,6 +27,10 @@ export default function CustomerListInputGroup({
   setuserNameCreate,
   setNameHandingOverWork,
   NameHandingOverWork,
+  nhomCha,
+  setnhomCha,
+  nhomCon,
+  setnhomCon
 }: any) {
   const [open, setOpen] = useState(false);
   const inputFileRef = useRef<HTMLInputElement>(null);
@@ -84,13 +88,12 @@ export default function CustomerListInputGroup({
     ];
     exportToExcel(datas, filename, sheetName, columnHeaders);
   };
-
+  const [nameFill,setNameFill] = useState<any>()
   const handleClickFile = () => {
     inputFileRef.current?.click();
   };
-  const handleSearchKH = async (e) => {
-    setName(e.target.value.trim()), setData(e.target.value);
-    await fetchData();
+  const handleSearchKH = async () => {
+    setName(nameFill)
   };
   return (
     <>
@@ -100,7 +103,7 @@ export default function CustomerListInputGroup({
             className={`${styles.main__control_search} ${styles.f_search_customer}`}
           >
             <form
-              onSubmit={(e) =>  e.preventDefault()}
+              onSubmit={(e) =>  (e.preventDefault(),handleSearchKH())}
               className={styles.form_search}
               style={{ width: "100%", padding: 1 }}
             >
@@ -108,7 +111,7 @@ export default function CustomerListInputGroup({
               <Input
                 type="text"
                 value={data}
-                onChange={(e) => handleSearchKH(e)}
+                onChange={(e) =>(setNameFill(e.target.value.trim()), setData(e.target.value))}
                 name="search"
                 defaultValue=""
                 placeholder="Tìm kiếm theo Id, tên khách hàng, điện thoại, email"
@@ -228,7 +231,7 @@ export default function CustomerListInputGroup({
         placement="right"
         onClose={onClose}
         open={open}
-        style={{ overflowY: "hidden" }}
+        style={{ overflowY: "hidden"}}
         className="custom_drawer"
         footer
         closable
@@ -246,6 +249,10 @@ export default function CustomerListInputGroup({
             setnvPhuTrach={setnvPhuTrach}
             userNameCreate={userNameCreate}
             setuserNameCreate={setuserNameCreate}
+            nhomCha={nhomCha}
+            setnhomCha={setnhomCha}
+            nhomCon={nhomCon}
+            setnhomCon={setnhomCon}
           />
         </div>
       </Drawer>

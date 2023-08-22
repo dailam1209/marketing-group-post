@@ -1,5 +1,7 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styles from './dropdownHeader.module.css'
+import ModalRegsiter from "@/components/modal/ModalRegsiter";
+import ModalLogin from "@/components/modal/ModalLogin";
 
 export default function DropDownHeaderHr({ onCancel }: any) {
     const modalRef = useRef(null);
@@ -16,6 +18,9 @@ export default function DropDownHeaderHr({ onCancel }: any) {
             document.removeEventListener('mousedown', handleOutsideClick);
         };
     }, [onCancel]);
+
+    const [openModalLogin, setOpenModalLogin] = useState(false)
+    const [openModalRegister, setOpenModalRegister] = useState(false)
 
     return (
         <>
@@ -37,11 +42,16 @@ export default function DropDownHeaderHr({ onCancel }: any) {
                                     <a target="_blank" href="https://quanlychung.timviec365.vn/">Chuyển đổi số</a>
                                 </li>
                             </ul>
-                            <a href="/lua-chon-dang-nhap.html" className={`${styles.btn_mb_login}`}>Đăng nhập</a>
-                            <a href="/lua-chon-dang-ky.html" className={`${styles.btn_mb_register}`}>Đăng ký</a>
+                            <a style={{ cursor: "pointer" }} onClick={() => setOpenModalLogin(true)} className={`${styles.btn_mb_login}`}>Đăng nhập</a>
+                            <a style={{ cursor: "pointer" }} onClick={() => setOpenModalRegister(true)} className={`${styles.btn_mb_register}`}>Đăng ký</a>
+
                         </div>
                     </div>
                 </div>
+                {openModalRegister && (
+                    <ModalRegsiter setOpenModalRegister={setOpenModalRegister} />
+                )}
+                {openModalLogin && <ModalLogin setOpenModalLogin={setOpenModalLogin} />}
             </div>
         </>
     )

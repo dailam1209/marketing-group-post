@@ -54,3 +54,10 @@
 .input {
   font-size: 16px;
 }
+
+.shiftNameTxt {
+  font-size: 16px;
+  font-weight: 400;
+  color: #474747;
+  margin-left: 10px;
+}

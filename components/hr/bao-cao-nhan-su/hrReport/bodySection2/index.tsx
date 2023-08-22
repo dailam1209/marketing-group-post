@@ -214,7 +214,7 @@ export default function InformationSection2({ hrReportList }: any) {
         if (typeof link === "string") {
             const link_slice: any = link.slice(0, -5)
             router.push(
-                `/hr/${link_slice}`
+                `/phan-mem-nhan-su/${link_slice}`
             );
         }
     };

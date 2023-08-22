@@ -1,9 +1,6 @@
-import HomePage from '@/components/crm/home/home_page'
+import HomePage from "@/components/crm/home/home_page";
+import { checkAndRedirectToHomeIfNotLoggedIn } from "@/components/crm/ultis/checkLogin";
 
 export default function Home() {
-  return (
-    <>
-       <HomePage />
-    </>
-  )
+  return <>{!checkAndRedirectToHomeIfNotLoggedIn() ? null : <HomePage />}</>;
 }

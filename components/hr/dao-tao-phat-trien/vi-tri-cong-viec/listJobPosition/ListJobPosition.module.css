@@ -16,7 +16,7 @@
 .adds {
   font-style: normal;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 16px;
   background: none;
   color: #4c5bd4;
@@ -58,28 +58,28 @@
   width: 345px;
 }
 
-.t_div_search input[type='search']::-webkit-search-cancel-button,
-.t_div_search input[type='search']::-webkit-search-decoration,
-.t_div_search input[type='search']::-webkit-search-results-button,
-.t_div_search input[type='search']::-webkit-search-results-decoration {
+.t_div_search input[type="search"]::-webkit-search-cancel-button,
+.t_div_search input[type="search"]::-webkit-search-decoration,
+.t_div_search input[type="search"]::-webkit-search-results-button,
+.t_div_search input[type="search"]::-webkit-search-results-decoration {
   display: none;
 }
 
-.t_div_search input[type='search']::-moz-search-cancel-button {
+.t_div_search input[type="search"]::-moz-search-cancel-button {
   display: none;
 }
 
-.t_div_search input[type='search']::-ms-clear {
+.t_div_search input[type="search"]::-ms-clear {
   display: none;
 }
 
-.t_div_search input[type='search']::ms-reveal,
-.t_div_search input[type='search']::-ms-clear {
+.t_div_search input[type="search"]::ms-reveal,
+.t_div_search input[type="search"]::-ms-clear {
   display: none;
 }
 
 .t_div_search .search_text::placeholder {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   color: #333333;
   opacity: 0.6;
@@ -124,7 +124,7 @@
 
 .tablelist thead {
   font-weight: 500;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 19px;
   padding-top: 12px;
   padding-bottom: 12px;
@@ -163,7 +163,7 @@
   max-width: 1670px;
   border: 1px solid rgba(102, 102, 102, 0.24);
   color: #333333;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   text-align: center;
   white-space: nowrap; /* Ngăn văn bản xuống dòng */

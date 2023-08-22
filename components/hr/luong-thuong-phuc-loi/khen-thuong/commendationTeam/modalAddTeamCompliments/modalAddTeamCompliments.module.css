@@ -112,7 +112,7 @@
 
 .headquytrinh h5 {
   color: white;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .modal_title {
@@ -148,7 +148,7 @@
 
 .form_groups label {
   color: #333333;
-  font-size: 16px;
+  font-size: 14px;
   font-style: normal;
   font-weight: 600;
   line-height: 23px;
@@ -159,7 +159,7 @@
 }
 
 .bodyquytrinh span {
-  font-size: 16px;
+  font-size: 14px;
   font-style: normal;
   font-weight: bold;
   line-height: 24px;
@@ -202,7 +202,7 @@
 .inputright input::placeholder {
   background-color: #ffffff;
   color: #333333;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   opacity: 0.7;
 }
@@ -240,7 +240,7 @@
 }
 
 .modal_footer button {
-  font-size: 16px;
+  font-size: 14px;
   font-style: normal;
   font-weight: 600;
   line-height: 16px;
@@ -265,7 +265,7 @@
 .add_gd {
   margin-top: 10px;
   margin-bottom: 30px;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   line-height: 16px;
   align-items: center;

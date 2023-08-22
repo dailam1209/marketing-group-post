@@ -6,11 +6,12 @@ const Cookies = require("js-cookie");
 export default function CustomerGroupSelect({
   title = "",
   value = "Tất cả",
-  placeholder = "",
-  data = [],
+  placeholder,
+  data,
   setValueGroupCustomer,
   cusId,
 }: any) {
+  console.log("first,", data);
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [valueOption, setValueOption] = useState(
@@ -18,6 +19,7 @@ export default function CustomerGroupSelect({
       ? data?.filter((item: any) => item.gr_id === placeholder)[0]?.gr_name
       : "Chọn"
   );
+
   const handleClickSelectoption = (e: any) => {
     if (e.target.getAttribute("class") !== styles.select2_search__field) {
       setIsOpen(!isOpen);

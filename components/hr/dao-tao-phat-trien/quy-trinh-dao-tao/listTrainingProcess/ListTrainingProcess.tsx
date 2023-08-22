@@ -60,7 +60,7 @@ export default function ListTrainingProcess({
 
   const handleLinkClick = (e, id) => {
     e.preventDefault()
-    router.push(`/hr/dao-tao-phat-trien/quy-trinh-dao-tao/${id}`)
+    router.push(`/phan-mem-nhan-su/dao-tao-phat-trien/quy-trinh-dao-tao/${id}`)
   }
   return (
     <>
@@ -119,7 +119,7 @@ export default function ListTrainingProcess({
                   <div className={`${styles.quytrinh_item}`}>
                     <div className={`${styles.quytrinh_item1}`}>
                       <a
-                        href={`/hr/dao-tao-phat-trien/quy-trinh-dao-tao/${item.id}`}
+                        href={`/phan-mem-nhan-su/dao-tao-phat-trien/quy-trinh-dao-tao/${item.id}`}
                         className={`${styles.quytrinh_item11_link}`}
                         onClick={(e) => handleLinkClick(e, item.id)}>
                         <div className={`${styles.quytrinh_item11_link}`}>
