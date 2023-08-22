@@ -27,7 +27,7 @@ export function GiamBienChe({ listQuitJob, listDepartments, infoCom }) {
   const [NV, setNV]: any = useState({});
   const [listNV, setListNV]: any = useState([]);
   const [listDepLabel, setListDepLabel]: any = useState(
-    listDepartments?.data?.map((dep) => ({
+    listDepartments?.items?.map((dep) => ({
       label: dep?.dep_name,
       value: dep?.dep_id,
     }))
@@ -43,7 +43,7 @@ export function GiamBienChe({ listQuitJob, listDepartments, infoCom }) {
     com_id !== null &&
       POST("api/qlc/managerUser/list", { com_id: com_id }).then((res) => {
         if (res?.result === true) {
-          setListNV(res?.data);
+          setListNV(res?.items);
         }
       });
   }, []);

@@ -28,7 +28,7 @@ export default function CaiDatThemNhanVienMoiPage({
   )
   const [activeKey, setActiveKey] = useState('1')
   const [listDepLabel, setListDepLabel]: any[] = useState(
-    listDepartments?.data?.map((dep) => ({
+    listDepartments?.items?.map((dep) => ({
       label: dep?.dep_name,
       value: dep?.dep_id,
     }))

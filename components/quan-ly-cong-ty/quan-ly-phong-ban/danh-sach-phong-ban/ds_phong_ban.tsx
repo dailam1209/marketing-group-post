@@ -24,10 +24,10 @@ export function DanhSachPhongBan({
   const [openConfirmDel, setOpenConfirmDel] = useState(false)
   const [selectedRow, setSelectedRow] = useState({})
   const [openAddNew, setOpenAddNew] = useState(false)
-  const [data, setData] = useState(listDepartments?.data)
+  const [data, setData] = useState(listDepartments?.items)
   const [company, setCompany] = useState(infoCom?.data)
   const [comLabel, setComlabel] = useState({ label: infoCom?.data?.userName, value: infoCom?.data?.idQLC })
-  const [listDepLabel, setListDepLabel]: any[] = useState(listDepartments?.data?.map(dep => ({ label: dep?.dep_name, value: dep?.dep_id })))
+  const [listDepLabel, setListDepLabel]: any[] = useState(listDepartments?.items?.map(dep => ({ label: dep?.dep_name, value: dep?.dep_id })))
   // console.log(company)
   const columns = [
     {

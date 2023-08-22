@@ -14,8 +14,8 @@ export default function ChiTietPhongBan({ listEmpInDep }) {
   const router = useRouter()
   const [openDel, setOpenDel] = useState(false)
   const [selectedRow, setSelectedRow] = useState()
-  const [data, setData] = useState<any>(listEmpInDep?.data)
-  const [dataFilter, setDataFilter] = useState<any>(listEmpInDep?.data)
+  const [data, setData] = useState<any>(listEmpInDep?.items)
+  const [dataFilter, setDataFilter] = useState<any>(listEmpInDep?.items)
   const [inputValue, setInputValue] = useState<string>("")
   // console.log(data)
 

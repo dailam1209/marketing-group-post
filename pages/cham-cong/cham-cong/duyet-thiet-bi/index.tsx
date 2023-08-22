@@ -22,7 +22,7 @@ export default function DuyetThietBi({
     value: infoCom?.data?.idQLC,
   });
   const [listDepLabel, setListDepLabel]: any = useState(
-    listDepartments?.data?.map((dep) => ({
+    listDepartments?.items?.map((dep) => ({
       label: dep?.dep_name,
       value: dep?.dep_id,
     }))
@@ -35,7 +35,7 @@ export default function DuyetThietBi({
   );
   const [data, setData] = useState(
     listDevices?.data?.map((emp) => {
-      const empData = listEmps?.data?.map((e) => e?.idQLC === emp?.idQLC);
+      const empData = listEmps?.items?.map((e) => e?.idQLC === emp?.idQLC);
 
       return {
         key: emp?.ed_id,

@@ -104,7 +104,7 @@ export const LuanChuyenCongTac: React.FC = () => {
       }).then((res) => {
         if (res?.result === true) {
           setDepLabel(
-            res?.data?.map((dep) => ({
+            res?.items?.map((dep) => ({
               label: dep?.dep_name,
               value: dep?.dep_id,
             }))
