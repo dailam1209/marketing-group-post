@@ -147,7 +147,7 @@ export default function App({ Component, pageProps }) {
               <AccessContextComponent>
                 <SidebarResize>
                   <NavigateContextComponent>
-                    { (
+                    {shouldShowSidebarAndHeader && (
                       <>
                         <Header toggleModal={toggleModal} />
                         <Sidebar isOpened={isOpen} />

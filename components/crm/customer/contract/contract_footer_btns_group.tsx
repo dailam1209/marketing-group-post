@@ -2,8 +2,7 @@
 import { useRouter } from "next/router";
 import styles from "../../potential/potential.module.css";
 import { useState } from "react";
-import CancelModal from "@/components/crm/potential/potential_steps/cancel_modal";
-import Image from "next/image";
+import CancelModalContract from "./cancel_modal_contract";
 
 export default function ContractBtsGroupFooter({ id }: any) {
   const router = useRouter();
@@ -14,7 +13,7 @@ export default function ContractBtsGroupFooter({ id }: any) {
   const handleClickComplete = () => {
     setIsModalSuccess(true);
     setTimeout(() => {
-      router.push(`customer/contract/list/${id}`);
+      router.push(`/crm/customer/contract/list/${id}`);
     }, 2000);
   };
 
@@ -42,14 +41,14 @@ export default function ContractBtsGroupFooter({ id }: any) {
         </button>
 
         {isModalCancel ? (
-          <CancelModal
+          <CancelModalContract
             isModalCancel={isModalCancel}
             setIsModalCancel={setIsModalCancel}
             content={
               "Bạn có đồng ý hủy? \n  Mọi dữ liệu bạn vừa nhập sẽ bị xóa?"
             }
             title={"Xác nhận hủy thêm hợp đồng"}
-            link={`customer/contract/list/${id}`}
+            link={`/crm/customer/contract/list/${id}`}
           />
         ) : null}
       </div>

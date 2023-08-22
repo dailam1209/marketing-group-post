@@ -13,7 +13,9 @@ interface MyComponentProps {
   setIsModalCancel: (value: boolean) => void;
   fetchData: any;
 }
-interface TableAddContractProps {}
+interface TableAddContractProps {
+  setCheckFile
+}
 
 const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
   const inputFileRef = useRef<HTMLInputElement>(null);
