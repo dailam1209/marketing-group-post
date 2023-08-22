@@ -30,17 +30,17 @@ export default function XuatCong({
   listEmpTimekeeping,
 }) {
   const [comLabel, setComLabel] = useState({
-    label: comData?.data?.userName,
-    value: comData?.data?.idQLC,
+    label: comData?.data?.com_name,
+    value: comData?.data?.com_id,
   });
   const [listDepLabel, setListDepLabel] = useState(
-    listDepartments?.data?.map((dep) => ({
+    listDepartments?.items?.map((dep) => ({
       label: dep?.dep_name,
       value: dep?.dep_id,
     }))
   );
   const [listEmpLabel, setListEmpLabel] = useState(
-    listEmp?.data?.map((emp) => ({
+    listEmp?.items?.map((emp) => ({
       label: emp?.userName,
       value: emp?.idQLC,
       avatarUser: emp?.avatarUser,

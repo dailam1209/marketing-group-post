@@ -173,13 +173,13 @@ export const getServerSideProps = async (context) => {
   //render list phòng ban
   const listPb: any[] = [];
   listApiRes &&
-    listApiRes?.[4]?.data?.forEach((item) => {
+    listApiRes?.[4]?.items?.forEach((item) => {
       listPb.push({
         dep_id: item?.dep_id,
         dep_name: item?.dep_name,
       });
     });
-  console.log(listApiRes?.[0]?.['phat_muon_info']);
+  // console.log(listApiRes?.[0]?.['phat_muon_info']);
 
   return {
     props: {

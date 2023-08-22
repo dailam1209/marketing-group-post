@@ -9,17 +9,17 @@ export const LIST_ACTIONS = [
         required: true,
       },
       {
-        title: 'Cài đặt Lịch làm việc của tháng',
+        title: 'Cài đặt lịch làm việc của tháng',
         url: 'cham-cong/cai-dat-lich-lam-viec',
         required: true,
       },
       {
-        title: 'Cài đặt Quản lý ca làm việc',
+        title: 'Cài đặt quản lý ca làm việc',
         url: 'quan-ly-cong-ty/quan-ly-ca',
         required: true,
       },
       {
-        title: 'Cài đặt Công chuẩn của tháng',
+        title: 'Cài đặt công chuẩn của tháng',
         url: 'cham-cong/cai-dat-cong-chuan',
         required: true,
       },
@@ -50,7 +50,7 @@ export const LIST_ACTIONS = [
     title: 'Quản lý công ty',
     steps: [
       {
-        title: 'Cài đặt Quản lý công ty con',
+        title: 'Cài đặt quản lý công ty con',
         url: 'quan-ly-cong-ty/quan-ly-cong-ty-con',
         required: true,
       },
@@ -122,7 +122,7 @@ export const LIST_ACTIONS = [
         required: true,
       },
       {
-        title: 'Cài đặt Bảo hiểm',
+        title: 'Cài đặt bảo hiểm',
         url: 'cai-dat-luong/cai-dat-bao-hiem',
         required: true,
       },
@@ -132,7 +132,7 @@ export const LIST_ACTIONS = [
         required: true,
       },
       {
-        title: 'Cài đặt Phụ cấp khác',
+        title: 'Cài đặt phụ cấp khác',
         url: 'cai-dat-luong/cai-dat-phu-cap-khac',
         required: true,
       },

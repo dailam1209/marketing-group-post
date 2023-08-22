@@ -232,7 +232,7 @@ export default function DonXinDoiCa() {
     GET("api/qlc/shift/list").then((res) => {
       if (res?.result === true) {
         setListShift(
-          res?.list.map((item) => {
+          res?.items.map((item) => {
             return {
               value: `${item?.shift_id}`,
               label: item?.shift_name,

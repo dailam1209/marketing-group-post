@@ -88,7 +88,7 @@ export function AddNewEmpModal(
       }).then((res) => {
         if (res?.result === true) {
           setListDepLabel(
-            res?.data?.map((dep) => ({
+            res?.items?.map((dep) => ({
               label: dep?.dep_name,
               value: dep?.dep_id,
             }))
@@ -109,7 +109,7 @@ export function AddNewEmpModal(
 
     POST('api/qlc/company/info', {}).then((res) => {
       if (res?.result === true) {
-        setComLabel({ label: res?.data?.userName, value: res?.data?.idQLC })
+        setComLabel({ label: res?.data?.com_name, value: res?.data?.com_id })
       }
     })
   }, [])

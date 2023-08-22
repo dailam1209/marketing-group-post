@@ -28,7 +28,7 @@ export default function CaiDatThemNhanVienMoiPage({
   )
   const [activeKey, setActiveKey] = useState('1')
   const [listDepLabel, setListDepLabel]: any[] = useState(
-    listDepartments?.data?.map((dep) => ({
+    listDepartments?.items?.map((dep) => ({
       label: dep?.dep_name,
       value: dep?.dep_id,
     }))
@@ -43,8 +43,8 @@ export default function CaiDatThemNhanVienMoiPage({
     listGroups?.data?.map((gr) => ({ label: gr?.gr_name, value: gr?.gr_id }))
   )
   const [comLabel, setComLabel]: any = useState({
-    label: infoCom?.data?.userName,
-    value: infoCom?.data?.idQLC,
+    label: infoCom?.data?.com_name,
+    value: infoCom?.data?.com_id,
   })
   const [listPendingEmp, setListPendingEmp]: any[] = useState(
     listStaffs?.data?.filter((emp) => emp?.ep_status === 'Pending')

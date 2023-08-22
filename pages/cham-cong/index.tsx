@@ -233,7 +233,6 @@ export default function HomeQLNS() {
             index1 + 1,
             stepData.title,
             stepData?.required,
-
             `cham-cong/${stepData.url}`
           )
         )}
@@ -258,7 +257,6 @@ export default function HomeQLNS() {
         )}
       </div>
     )
-
     return type === '1' ? ADMIN : EMP
   }
 

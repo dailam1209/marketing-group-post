@@ -14,8 +14,8 @@ export default function ChiTietTo({ listEmpInTeam }) {
   const router = useRouter()
   const [openDel, setOpenDel] = useState(false)
   const [selectedRow, setSelectedRow] = useState()
-  const [data, setData] = useState<any>(listEmpInTeam?.data)
-  const [dataFilter, setDataFilter] = useState<any>(listEmpInTeam?.data)
+  const [data, setData] = useState<any>(listEmpInTeam?.items)
+  const [dataFilter, setDataFilter] = useState<any>(listEmpInTeam?.items)
   const [inputValue, setInputValue] = useState<string>("")
   // console.log(data)
 

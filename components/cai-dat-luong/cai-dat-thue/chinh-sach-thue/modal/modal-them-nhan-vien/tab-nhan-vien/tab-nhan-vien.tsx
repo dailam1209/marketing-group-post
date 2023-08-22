@@ -38,7 +38,7 @@ export const DanhSachNhanVien = ({listEmp, taxSelected}:{listEmp:any, taxSelecte
     const [idNV, setIdNV] = useState(Array<Number>)
     const router = useRouter()
     // console.log(modalKey)
-    const info = listEmp?.data?.map((emp, index) => {
+    const info = listEmp?.items?.map((emp, index) => {
 
         return {
             key: `${index+1}`,
