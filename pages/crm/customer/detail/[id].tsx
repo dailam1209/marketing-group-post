@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { base_url } from "@/components/crm/service/function";
+import { checkAndRedirectToHomeIfNotLoggedIn } from "@/components/crm/ultis/checkLogin";
 const Cookies = require("js-cookie");
 export default function DetailCustomer() {
   const pathname = usePathname();
@@ -15,19 +16,16 @@ export default function DetailCustomer() {
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
   const getNameDetail = async () => {
-    const res = await fetch(
-      `${base_url}/api/crm/customerdetails/detail`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${Cookies.get("token_base365")}`,
-        },
-        body: JSON.stringify({ cus_id: id }),
-      }
-    );
+    const res = await fetch(`${base_url}/api/crm/customerdetails/detail`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${Cookies.get("token_base365")}`,
+      },
+      body: JSON.stringify({ cus_id: id }),
+    });
     const data = await res.json();
-      setname(data?.data?.data1 || data?.data?.data2);
+    setname(data?.data?.data1 || data?.data?.data2);
   };
   useEffect(() => {
     getNameDetail();
@@ -35,11 +33,21 @@ export default function DetailCustomer() {
     setHeaderTitle(`${name?.ten_khach_hang} / Thông tin khách hàng`);
 
     setCurrentPath("/crm/customer/list");
-  }, [setHeaderTitle, setShowBackButton, setCurrentPath, id,name?.ten_khach_hang]);
+  }, [
+    setHeaderTitle,
+    setShowBackButton,
+    setCurrentPath,
+    id,
+    name?.ten_khach_hang,
+  ]);
   return (
-    <div>
-      <CustomerHeaderTab activeName={"Thông tin khách hàng"} />
-      <DetailInformation cccd={true} />
-    </div>
+    <>
+      {!checkAndRedirectToHomeIfNotLoggedIn() ? null : (
+        <div>
+          <CustomerHeaderTab activeName={"Thông tin khách hàng"} />
+          <DetailInformation cccd={true} />
+        </div>
+      )}
+    </>
   );
 }

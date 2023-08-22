@@ -103,7 +103,7 @@
 
 .headquytrinh h5 {
   color: white;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .modal_title {
@@ -124,13 +124,13 @@
   position: relative;
 }
 .xoaquytrinh {
-  font-size: 16px;
+  font-size: 14px;
   color: #333333;
   font-weight: 600;
 }
 .t_recruitment_name {
   color: #474747;
-  font-size: 16px;
+  font-size: 14px;
   font-style: normal;
   font-weight: bold;
   line-height: 24px;
@@ -150,7 +150,7 @@
   padding-right: 10%;
 }
 .modal_footer button {
-  font-size: 16px;
+  font-size: 14px;
   font-style: normal;
   font-weight: 600;
   line-height: 16px;

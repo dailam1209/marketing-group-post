@@ -14,13 +14,13 @@
 .member_view_box_top p:nth-child(1) {
   display: inline-block;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 16px;
   margin-bottom: 15px;
 }
 .member_view_box_top p {
   font-weight: bold;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 16px;
   margin-bottom: 10px;
 }
@@ -28,7 +28,7 @@
   text-align: center;
 }
 .link_a {
-  font-size: 16px;
+  font-size: 14px;
   background: #4c5bd4;
   border-radius: 8px;
   font-family: Roboto;
@@ -41,7 +41,7 @@
 }
 .link_a_2 {
   border-radius: 8px;
-  font-size: 16px;
+  font-size: 14px;
   font-family: Roboto;
   font-style: normal;
   text-align: center;
@@ -59,7 +59,7 @@
   font-family: Roboto;
   font-style: normal;
   font-weight: normal;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 20px;
   color: #474747;
 }
@@ -92,18 +92,18 @@
 .see_more {
   color: #4c5bd4;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 14px;
 }
 .member_details_body {
   padding-top: 15px;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 14px;
 }
 .member_details_body p {
   margin-bottom: 10px;
 }
 .member_details_body a {
-  font-size: 16px;
+  font-size: 14px;
 }
 .text_ita {
   font-family: Roboto !important;
@@ -118,7 +118,7 @@
 }
 .member_view_box_top_2 p {
   font-weight: bold;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 14px;
   color: #474747;
   margin-bottom: 10px;
@@ -148,7 +148,7 @@
 .adds {
   font-style: normal;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 16px;
   background: none;
   color: #4c5bd4;

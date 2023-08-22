@@ -117,7 +117,7 @@
 
 .headquytrinh h5 {
   color: white;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .modal_title {
@@ -151,7 +151,7 @@
 
 .form_groups label {
   color: #333333;
-  font-size: 16px;
+  font-size: 14px;
   font-style: normal;
   font-weight: 600;
   line-height: 23px;
@@ -162,7 +162,7 @@
 }
 
 .bodyquytrinh span {
-  font-size: 16px;
+  font-size: 14px;
   font-style: normal;
   font-weight: bold;
   line-height: 24px;
@@ -179,7 +179,7 @@
 }
 
 .inputright input {
-  font-size: 16px;
+  font-size: 14px;
   color: #333333;
   font-weight: 600;
   outline: none;
@@ -215,13 +215,13 @@
 .inputright input::placeholder {
   background-color: #ffffff;
   color: #333333;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   opacity: 0.7;
 }
 
 .textarea {
-  font-size: 16px;
+  font-size: 14px;
   color: #333333;
   font-weight: 600;
 }
@@ -241,7 +241,7 @@
 }
 
 .modal_footer button {
-  font-size: 16px;
+  font-size: 14px;
   font-style: normal;
   font-weight: 600;
   line-height: 16px;

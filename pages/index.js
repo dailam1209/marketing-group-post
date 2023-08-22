@@ -371,6 +371,7 @@ export default function Home() {
                                 title="Phần mềm CRM"
                                 img={"../img/qlc_crm.png"}
                                 url="/crm"
+                                // url="/crm/home"
                               />
                             </Col>
                             <Col
