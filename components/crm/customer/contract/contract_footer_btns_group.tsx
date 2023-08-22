@@ -53,7 +53,7 @@ export default function ContractBtsGroupFooter({ id }: any) {
         ) : null}
       </div>
       {liveiew && (
-        <div style={{ marginTop: "30px", border: "1px solid #ccc" }}>
+        <div style={{ marginTop: "30px", border: "1px solid #fff" }}>
           <div style={{ textAlign: "center" }}>
             <img
               alt="loading"
