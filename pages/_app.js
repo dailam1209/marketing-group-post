@@ -15,8 +15,8 @@ import { NavigateContextComponent } from "@/components/crm/context/navigateConte
 import TitleHeaderMobile from "@/components/crm/header/title_header_mobile";
 import styles from "@/components/crm/sidebar/sidebar.module.css";
 // import "@/styles/crm/stylecrm.css";
-// import "@/styles/crm/styles.css"
-// import "@/styles/crm/hight_chart.css"
+// import "@/styles/crm/styles.css";
+// import "@/styles/crm/hight_chart.css";
 import Layout from "@/components/hr/Layout";
 import Head from "next/head";
 import Seo from "@/components/head";
