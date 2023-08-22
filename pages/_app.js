@@ -19,13 +19,16 @@ import styles from '@/components/crm/sidebar/sidebar.module.css'
 // import "@/styles/crm/hight_chart.css"
 import Layout from '@/components/hr/Layout'
 import { Provider } from "react-redux";
-import store from "@/store";
+import store_vanthu from "@/store";
 import Layout_admin from "@/components/van-thu-luu-tru/Layout_admin";
 import Cookies from "js-cookie";
 import jwtDecode from "jwt-decode";
 import Layout_user from "@/components/van-thu-luu-tru/Layout_user";
 import { setCookie } from "cookies-next";
 import Pre_login from './van-thu-luu-tru/pre_login'
+import Seo from "@/components/head";
+import { TongDaiContext } from "@/components/crm/context/tongdaiContext";
+import { store } from "@/components/crm/redux/store";
 
 
 export const LoadingComp = () => {
@@ -45,7 +48,9 @@ export default function App({ Component, pageProps }) {
   const { isOpen, toggleModal } = useModal('icon_menu_nav', [styles.sidebar])
   const router = useRouter()
   const [loading, setLoading] = useState(false)
-  const [firstLoad, setFirstLoad] = useState(true)
+  const [firstLoad, setFirstLoad] = useState(
+    router?.pathname?.includes("/phan-mem-nhan-su/") ? false : true
+  );
   useEffect(() => {
     const doLoading = () => {
       const start = () => {
@@ -67,21 +72,22 @@ export default function App({ Component, pageProps }) {
         router.events.off('routeChangeError', end)
       }
     }
-    if (!router.pathname.includes('hr')) {
+    if (!router?.pathname?.includes("/phan-mem-nhan-su/")) {
       doLoading()
     } else {
     }
   }, [])
 
   useEffect(() => {
+    if (!router.pathname.includes("/phan-mem-nhan-su/")) {
     const timeout = setTimeout(() => {
       setFirstLoad(false)
     }, 100)
-    return () => clearTimeout(timeout)
-  }, [])
+    return () => clearTimeout(timeout)}
+  }, [router?.pathname])
 
   const importGlobalStyles = () => {
-    if (router.pathname?.includes('hr')) {
+    if (router.pathname?.includes("/phan-mem-nhan-su/")) {
       import('../styles/globals_hr.css')
     } else if (router.pathname?.includes('crm')) {
       import('../styles/crm/stylecrm.css')
@@ -113,69 +119,82 @@ export default function App({ Component, pageProps }) {
     setCookie("userID", user_infor?.data.idQLC);
     setCookie("com_id", user_infor?.data.com_id);
   }
-  return loading ? (
-    <LoadingComp />
-  ) : !firstLoad ? (
-    <ConfigProvider
-      theme={{
-        token: {
-          screenLG: 1025,
-          screenLGMin: 1025,
-          screenLGMax: 1025,
-          screenMD: 769,
-          screenMDMin: 769,
-        },
-      }}>
-      {router.pathname?.includes('quan-ly-nhan-luc') ? (
-        <Bodyframe>
-          <Component {...pageProps} />
-        </Bodyframe>
-      ) : router.pathname?.includes('crm') ? (
-        <AccessContextComponent>
-          <SidebarResize>
-            <NavigateContextComponent>
-              <Header toggleModal={toggleModal} />
-              <Sidebar isOpened={isOpen} />
-              <ChatBusiness />
-              <TitleHeaderMobile />
+  return (
+    <>
+      <Seo />
+      {loading ? (
+      <LoadingComp />
+      ) : !firstLoad ? (
+      <ConfigProvider
+        theme={{
+          token: {
+            screenLG: 1025,
+            screenLGMin: 1025,
+            screenLGMax: 1025,
+            screenMD: 769,
+            screenMDMin: 769,
+          },
+        }}>
+        {router.pathname?.includes("cham-cong") ? (
+            <Bodyframe>
               <Component {...pageProps} />
-            </NavigateContextComponent>
-          </SidebarResize>
-        </AccessContextComponent>
-      ) : router.pathname?.includes('hr') ? (
-        <Layout>
-          <DndProvider backend={HTML5Backend}>
-            <Component {...pageProps} />
-          </DndProvider>
-        </Layout>
-      ) : router.pathname?.includes('van-thu-luu-tru') ? (
-        <Provider store={store}>
-          {/* 
-          -  Khi đăng nhập sẽ lưu session giá trị để duy trì các phiên trong site
-          -  Giá trị này có thể thay đổi tùy theo tài khoản của công ty hoặc nhân viên
-          */}
-          {!VanThu_token ? (
-            <Pre_login />
+            </Bodyframe>
+          ) : router.pathname?.includes("crm") ? (
+            <Provider store={store}>
+              <AccessContextComponent>
+                <SidebarResize>
+                  <NavigateContextComponent>
+                    {shouldShowSidebarAndHeader && (
+                      <>
+                        <Header toggleModal={toggleModal} />
+                        <Sidebar isOpened={isOpen} />
+                        <ChatBusiness />
+                      </>
+                    )}
+                    <TitleHeaderMobile />
+                    <TongDaiContext>
+                      <Component {...pageProps} />
+                    </TongDaiContext>
+                  </NavigateContextComponent>
+                </SidebarResize>
+              </AccessContextComponent>
+            </Provider>
+          ) : router.pathname?.includes("/phan-mem-nhan-su/") ? (
+            <Layout>
+              <DndProvider backend={HTML5Backend}>
+                <Component {...pageProps} />
+              </DndProvider>
+            </Layout>
+          ) : router.pathname?.includes('van-thu-luu-tru') ? (
+            <Provider store={store_vanthu}>
+              {/* 
+              -  Khi đăng nhập sẽ lưu session giá trị để duy trì các phiên trong site
+              -  Giá trị này có thể thay đổi tùy theo tài khoản của công ty hoặc nhân viên
+              */}
+              {!VanThu_token ? (
+                <Pre_login />
+              ) : (
+                <>
+                  {role && role === '2' && (
+                    <Layout_user>
+                      <Component {...pageProps} />
+                    </Layout_user>
+                  )}
+                  {role && role === '1' && (
+                    <Layout_admin>
+                      <Component {...pageProps} />
+                    </Layout_admin>
+                  )}
+                </>
+              )}
+            </Provider>
           ) : (
-            <>
-              {role && role === '2' && (
-                <Layout_user>
-                  <Component {...pageProps} />
-                </Layout_user>
-              )}
-              {role && role === '1' && (
-                <Layout_admin>
-                  <Component {...pageProps} />
-                </Layout_admin>
-              )}
-            </>
-          )}
-        </Provider>
+          <Component {...pageProps} />
+        )}
+      </ConfigProvider>
       ) : (
-        <Component {...pageProps} />
+      <LoadingComp />
       )}
-    </ConfigProvider>
-  ) : (
-    <LoadingComp />
+    </>
   )
 }

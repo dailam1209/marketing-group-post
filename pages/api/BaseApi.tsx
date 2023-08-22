@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { getCookie } from 'cookies-next'
 import jwtDecode from 'jwt-decode'
-import { COOKIE_KEY } from '../quan-ly-nhan-luc'
+import { COOKIE_KEY } from '../cham-cong'
 import { cookies } from 'next/headers'
 
 const currentUrlQlc = process.env.NEXT_PUBLIC_API
@@ -385,6 +385,7 @@ export const POST_SS_TL = async (
   type: string = 'tl'
 ) => {
   const currentToken = getCookieSS(context)
+  console.log(currentToken)
 
   let domain = ''
   switch (type) {

@@ -8,7 +8,12 @@ import WriteBillRowInforText from "./write_data_row";
 import BonusInfoRow from "./bonus_infor_row";
 import CCCDInforRow from "./cccd_infor_row";
 import SystemCustomerInfo from "./system_infor";
-
+import { useRouter } from "next/router";
+import { useApi } from "@/components/crm/hooks/useApi";
+import WriteBillRowInforText2 from "./thongtingiaohang";
+import Image from "next/image";
+import { base_url } from "../../service/function";
+const Cookies = require("js-cookie");
 interface ComponentProps {
   cccd: boolean;
 }
@@ -17,7 +22,10 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
   const mainRef = useRef<HTMLDivElement>(null);
   const { isOpen } = useContext<any>(SidebarContext);
   const imgRef = useRef<HTMLInputElement>(null);
-
+  const [listData, setListData] = useState([]);
+  const [name, setname] = useState<any>()
+  const router = useRouter();
+  const {id} = router.query
   useEffect(() => {
     if (isOpen) {
       mainRef.current?.classList.add("content_resize");
@@ -25,6 +33,42 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
       mainRef.current?.classList.remove("content_resize");
     }
   }, [isOpen]);
+
+  const handleGetInfoCus = async () => {
+    const res = await fetch(
+      `${base_url}/api/crm/customerdetails/detail`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get("token_base365")}`,
+        },
+        body: JSON.stringify({ cus_id: `${router.query.id}` }),
+      }
+    );
+    const data = await res.json();
+    if ((data && data.data.data1) || (data && data.data.data2))
+      setListData(data.data.data1 || data.data.data2);
+  };
+  const getNameDetail = async () => {
+    const res = await fetch(
+      `${base_url}/api/crm/customerdetails/detail`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get("token_base365")}`,
+        },
+        body: JSON.stringify({ cus_id: id }),
+      }
+    );
+    const data = await res.json();
+      setname(data?.data?.data1 || data?.data?.data2);
+  };
+  useEffect(() => {
+    handleGetInfoCus();
+    getNameDetail
+  }, []);
 
   return (
     <>
@@ -40,8 +84,10 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
                     <p className={styles["main__body__type"]}>Ảnh</p>
                     <div id="upload">
                       <img
-                        src="/assets/img/crm/customer/upload_logo.png"
+                        src={`${name?.anh_dai_dien}`}
                         alt=""
+                        width={15}
+                        height={15}
                         className={styles["show_avatar"]}
                       />
                       <input
@@ -62,7 +108,7 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
                     >
                       Thông tin chung
                     </p>
-                    <GeneralRowInforText />
+                    <GeneralRowInforText formData={listData} />
 
                     {/* Thoong tin hoa don */}
                     <p
@@ -71,7 +117,7 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
                     >
                       Thông tin viết hóa đơn
                     </p>
-                    <WriteBillRowInforText />
+                    <WriteBillRowInforText formData={listData} />
 
                     {/* Thong tin giao hang */}
                     <p
@@ -80,7 +126,7 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
                     >
                       Thông tin giao hàng
                     </p>
-                    <WriteBillRowInforText />
+                    <WriteBillRowInforText2 formData={listData} />
 
                     {/* Thong tin bo sung */}
                     <p
@@ -89,7 +135,7 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
                     >
                       Thông tin bổ sung
                     </p>
-                    <BonusInfoRow />
+                    <BonusInfoRow formData={listData} />
 
                     {/* Thong tin CCCD */}
                     {cccd && (
@@ -100,7 +146,7 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
                         >
                           Thông tin CMND/CCCD
                         </p>
-                        <CCCDInforRow />
+                        <CCCDInforRow formData={listData} />
                       </>
                     )}
 
@@ -127,7 +173,9 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
                             stylesCustomer.main__profile__body__item__value
                           }
                         >
-                          ádsdasd
+                          {listData[0]?.thong_tin_mo_ta
+                            ? listData[0]?.thong_tin_mo_ta
+                            : "Chưa cập nhật"}
                         </div>
                       </div>
                     </div>
@@ -141,7 +189,7 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
         </div>
       </div>
 
-      <SystemCustomerInfo />
+      <SystemCustomerInfo formData={listData} />
     </>
   );
 };

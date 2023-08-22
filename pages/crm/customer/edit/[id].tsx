@@ -2,21 +2,102 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import styleHome from "@/components/crm/home/home.module.css";
 import styles from "@/components/crm/potential/potential.module.css";
 import { SidebarContext } from "@/components/crm/context/resizeContext";
-import PotentialFooterAddFiles from "@/components/crm/potential/potential_add_files/potential_footer_add_files";
-import AddDesriptionAndSystemInfo from "@/components/crm/potential/potential_add_files/description_system_add_files";
+import CustomerFooterEditFiles from "@/components/crm/customer/editData/customer_footer_edit_files";
 import AddAddressInfo from "@/components/crm/potential/potential_add_files/address_info";
 import { useHeader } from "@/components/crm/hooks/useHeader";
-import AddPersonalCustomerInfor from "@/components/crm/customer/add_edit/personal_infor";
 import AddCustomerBankInfo from "@/components/crm/customer/add_edit/bank_infor";
 import TextEditor from "@/components/crm/text-editor/text_editor";
 import GeneralCustomerInfor from "@/components/crm/customer/add_edit/general_customer_info";
+import { useApi } from "@/components/crm/hooks/useApi";
+import { useRouter } from "next/router";
+import EditPersonalCustomerInfor from "@/components/crm/customer/editData/personal_infor";
+import { base_url } from "@/components/crm/service/function";
+import { checkAndRedirectToHomeIfNotLoggedIn } from "@/components/crm/ultis/checkLogin";
+const Cookies = require("js-cookie");
 
 const EditFilesCustomerList: React.FC = () => {
   const mainRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
+  const { id } = router.query;
   const { isOpen } = useContext<any>(SidebarContext);
   const imgRef = useRef<HTMLInputElement>(null);
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
+  const [formData, setFormData] = useState({
+    ten_khach_hang: "",
+    email: "",
+    stand_name: "",
+    birthday: "",
+    tax_code: "",
+    cit_id: "",
+    dien_thoai: "",
+    district_id: "",
+    ward: "",
+    address: "",
+    ship_invoice_address: "",
+    gender: "",
+    cmnd_ccnd_number: "",
+    cmnd_ccnd_address: "",
+    cmnd_ccnd_time: "",
+    description: "",
+    introducer: "",
+    contact_name: "",
+    contact_email: "",
+    contact_phone: "",
+    contact_gender: "",
+    company_id: "",
+    emp_id: "",
+    user_create_id: "",
+    user_create_type: "",
+    user_edit_id: "",
+    user_edit_type: "",
+    group_id: 1,
+    status: "",
+    business_areas: "",
+    category: "",
+    business_type: "",
+    classify: "",
+    bill_city: "",
+    bil_district: "",
+    bill_ward: "",
+    bill_address: "",
+    bill_area_code: "",
+    bill_invoice_address: "",
+    bill_invoice_address_email: "",
+    ship_city: "",
+    ship_area: "",
+    bank_id: "",
+    bank_account: "",
+    revenue: "",
+    size: "",
+    rank: "",
+    website: "",
+    number_of_day_owed: "",
+    deb_limit: "",
+    share_all: "",
+    type: "",
+    is_input: "",
+    id_cus_from: "",
+    cus_from: "",
+    link: "",
+  });
+
+  const handleGetDataEdit = async () => {
+    const response = await fetch(`${base_url}/api/crm/customerdetails/detail`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${Cookies.get("token_base365")}`,
+      },
+      body: JSON.stringify({ cus_id: id }),
+    });
+    const data = await response.json();
+    setFormData(data?.data?.data1 || data?.data?.data2);
+  };
+
+  useEffect(() => {
+    handleGetDataEdit();
+  }, [id]);
 
   useEffect(() => {
     setHeaderTitle("Chỉnh sửa khách hàng");
@@ -28,6 +109,18 @@ const EditFilesCustomerList: React.FC = () => {
     imgRef?.current?.click();
   };
 
+  const handleImageChange = (e: any) => {
+    const selectedImage = e.target.files[0];
+
+    if (selectedImage) {
+      setFormData((preData: any) => {
+        return {
+          ...preData,
+          logo: selectedImage,
+        };
+      });
+    }
+  };
   useEffect(() => {
     if (isOpen) {
       mainRef.current?.classList.add("content_resize");
@@ -37,87 +130,119 @@ const EditFilesCustomerList: React.FC = () => {
   }, [isOpen]);
 
   return (
-    <div className={styleHome.main} ref={mainRef}>
-      <div className={styles.main_importfile}>
-        <div className={styles.formInfoStep}>
-          <div className={styles.info_step}>
-            <div className={styles.main__title}>Chỉnh sửa khách hàng</div>
-            <div className={styles.form_add_potential}>
-              <div className={styles.main__body}>
-                <div className={styles["main__body_item"]}>
-                  {/* Type Customer */}
-                  <p className={styles["main__body__type"]}>Loại hình</p>
-                  <div className="d_flex">
-                    <label className="lbl_container">
-                      <input
-                        type="radio"
-                        defaultChecked
-                        defaultValue={2}
-                        className="get_data"
-                        name="type"
-                      />
-                      Khách hàng doanh nghiệp
-                      <span className="checkmark" />
-                    </label>
-                    <label className="lbl_container">
-                      <input
-                        type="radio"
-                        name="type"
-                        defaultValue={1}
-                        className="get_data"
-                      />
-                      Khách hàng cá nhân
-                      <span className="checkmark" />
-                    </label>
-                  </div>
+    <>
+      {!checkAndRedirectToHomeIfNotLoggedIn() ? null : (
+        <div className={styleHome.main} ref={mainRef}>
+          <div className={styles.main_importfile}>
+            <div className={styles.formInfoStep}>
+              <div className={styles.info_step}>
+                <div className={styles.main__title}>Chỉnh sửa khách hàng</div>
+                <div className={styles.form_add_potential}>
+                  <div className={styles.main__body}>
+                    <div className={styles["main__body_item"]}>
+                      {/* Type Customer */}
+                      <p className={styles["main__body__type"]}>Loại hình</p>
+                      <div className="d_flex">
+                        <label className="lbl_container">
+                          <input
+                            type="radio"
+                            defaultChecked
+                            className="get_data"
+                            name="type"
+                            // onChange={(e) =>
+                            //   setFormData({
+                            //     ...data,
+                            //     type: parseInt(e.target.value),
+                            //   })
+                            // }
+                            value={2}
+                          />
+                          Khách hàng doanh nghiệp
+                          <span className="checkmark" />
+                        </label>
+                        <label className="lbl_container">
+                          <input
+                            type="radio"
+                            className="get_data"
+                            name="type"
+                            // onChange={(e) =>
+                            //   setFormData({
+                            //     ...data,
+                            //     type: parseInt(e.target.value),
+                            //   })
+                            // }
+                            value={1}
+                          />
+                          Khách hàng cá nhân
+                          <span className="checkmark" />
+                        </label>
+                      </div>
 
-                  {/* Image */}
-                  <p className={styles["main__body__type"]}>Ảnh</p>
-                  <div id="upload">
-                    <img
-                      src="/assets/img/crm/customer/upload_logo.png"
-                      alt=""
-                      className={styles["show_avatar"]}
-                      onClick={handleClickImg}
+                      {/* Image */}
+                      <p className={styles["main__body__type"]}>Ảnh</p>
+                      <div id="upload">
+                        <img
+                          src="/assets/img/customer/upload_logo.png"
+                          alt=""
+                          className={styles["show_avatar"]}
+                          onClick={handleClickImg}
+                        />
+                        <input
+                          ref={imgRef}
+                          type="file"
+                          name="logo"
+                          className=""
+                          id="logo"
+                          hidden
+                          accept="image/png,image/gif,image/jpeg"
+                          onChange={handleImageChange}
+                        />
+                      </div>
+                    </div>
+
+                    <EditPersonalCustomerInfor
+                      setFormData={setFormData}
+                      formData={formData}
                     />
-                    <input
-                      ref={imgRef}
-                      type="file"
-                      name="logo"
-                      className=""
-                      id="logo"
-                      hidden
-                      accept="image/png,image/gif,image/jpeg"
+                    <AddAddressInfo
+                      setFormData={setFormData}
+                      formData={formData}
+                      title="Thông tin viết hóa đơn"
                     />
+                    <AddAddressInfo
+                      setFormData={setFormData}
+                      formData={formData}
+                      title="Thông tin giao hàng"
+                    />
+                    <AddCustomerBankInfo
+                      setFormData={setFormData}
+                      formData={formData}
+                    />
+
+                    {/* Text Editor */}
+                    <div
+                      style={{ marginBottom: -10 }}
+                      className={styles["main__body__type"]}
+                    >
+                      Thông tin mô tả
+                    </div>
+                    <TextEditor />
+                    <GeneralCustomerInfor />
                   </div>
+                  <CustomerFooterEditFiles
+                    formData={formData}
+                    link="/crm/customer/list"
+                    titleCancel="Xác nhận hủy thêm mới khách hàng"
+                    title="Thêm mới khách hàng thành công!"
+                    contentCancel="Bạn có chắc chắn muốn hủy thêm mới ?"
+                  />
                 </div>
-
-                <AddPersonalCustomerInfor />
-                <AddAddressInfo title="Thông tin viết hóa đơn" />
-                <AddAddressInfo title="Thông tin giao hàng" />
-                <AddCustomerBankInfo />
-
-                {/* Text Editor */}
-                <div
-                  style={{ marginBottom: -10 }}
-                  className={styles["main__body__type"]}
-                >
-                  Thông tin mô tả
-                </div>
-                <TextEditor />
-                <GeneralCustomerInfor />
               </div>
-              <PotentialFooterAddFiles
-                link="/crm/customer/list"
-                titleCancel="Xác nhận hủy thêm mới khách hàng"
-                title="Thêm mới khách hàng qwe thành công!"
-                contentCancel="Bạn có chắc chắn muốn hủy thêm mới khách hàng Nguyễn Trần Kim Phượng không ?"
-              />
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 

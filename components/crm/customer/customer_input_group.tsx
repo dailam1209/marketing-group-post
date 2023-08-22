@@ -5,52 +5,67 @@ import exportToExcel from "../ultis/export_xlxs";
 import { data } from "../table/table-potential";
 import Image from "next/image";
 import CustomerListAction from "./customer_action";
-import { Drawer } from "antd";
+import { Drawer, Input } from "antd";
 import CustomerListFilterBox from "./customer_filter_box";
+import { DataType } from "@/pages/crm/customer/list";
 export default function CustomerListInputGroup({
   isSelectedRow,
   numberSelected,
   clearOption,
   chooseAllOption,
+  setName,
+  setPhone,
+  fetchData,
+  selectedCus,
+  dataStatusCustomer,
+  setStatus,
+  setResoure,
+  datatable,
+  nvPhuTrach,
+  setnvPhuTrach,
+  userNameCreate,
+  setuserNameCreate,
+  setNameHandingOverWork,
+  NameHandingOverWork,
+  nhomCha,
+  setnhomCha,
+  nhomCon,
+  setnhomCon
 }: any) {
   const [open, setOpen] = useState(false);
   const inputFileRef = useRef<HTMLInputElement>(null);
-
+  const [data, setData] = useState<any>();
   const showDrawer = () => {
     setOpen(true);
   };
-
   const onClose = () => {
     setOpen(false);
   };
-
-  const datas = [
-    {
-      "Mã tiềm năng": "TN001",
-      "Xưng hô": "Mr.",
-      "Họ tên": "John Doe",
-      "Chức danh": "Manager",
-      "Điện thoại cá nhân": "123-456-7890",
-      "Email cá nhân": "john.doe@example.com",
-      "Điện thoại cơ quan": "098-765-4321",
-      "Email cơ quan": "john.doe@company.com",
-      "Địa chỉ": "123 Main St",
-      "Tỉnh/Thành phố": "New York",
-      "Quận/Huyện": "Manhattan",
-      "Phường xã": "Central Park",
-      "Nguồn gốc": "Website",
-      "Loại hình": "B2B",
-      "Lĩnh vực": "Technology",
-      "Mô tả": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      "Mô tả loại hình": "Lorem ipsum dolor sit amet.",
-      "Người tạo": "Admin",
-    },
-    // Add more sample data objects here if needed
-  ];
-
+  const datas:any = datatable?.map((item:DataType) => {
+    return {
+      "Mã tiềm năng": item?.cus_id,
+      "Xưng hô": "",
+      "Họ tên": item?.name,
+      "Chức danh": "",
+      "Điện thoại cá nhân": item?.phone_number,
+      "Email cá nhân": item?.email,
+      "Điện thoại cơ quan": "",
+      "Email cơ quan": "",
+      "Địa chỉ": "",
+      "Tỉnh/Thành phố": "",
+      "Quận/Huyện": "",
+      "Phường xã": "",
+      "Nguồn gốc": "",
+      "Loại hình": "",
+      "Lĩnh vực": "",
+      "Mô tả": item?.description,
+      "Mô tả loại hình": "",
+      "Người tạo":item?.userNameCreate,
+    };
+  });
   const handleExportToExcel = () => {
-    const filename = "Danh sách tiềm năng.xlsx";
-    const sheetName = "Danh sách tiềm năng";
+    const filename = "Danh sách khách hàng.xlsx";
+    const sheetName = "Danh sách khách hàng";
     const columnHeaders = [
       "Mã tiềm năng",
       "Xưng hô",
@@ -71,14 +86,15 @@ export default function CustomerListInputGroup({
       "Mô tả loại hình",
       "Người tạo",
     ];
-    console.log(data);
     exportToExcel(datas, filename, sheetName, columnHeaders);
   };
-
+  const [nameFill,setNameFill] = useState<any>()
   const handleClickFile = () => {
     inputFileRef.current?.click();
   };
-
+  const handleSearchKH = async () => {
+    setName(nameFill)
+  };
   return (
     <>
       <div className={`${styles.main__control} ${styles.customer_custom}`}>
@@ -86,43 +102,85 @@ export default function CustomerListInputGroup({
           <div
             className={`${styles.main__control_search} ${styles.f_search_customer}`}
           >
-            <form onSubmit={() => false} className={styles.form_search}>
-              <input
+            <form
+              onSubmit={(e) =>  (e.preventDefault(),handleSearchKH())}
+              className={styles.form_search}
+              style={{ width: "100%", padding: 1 }}
+            >
+              <div></div>
+              <Input
                 type="text"
-                //   className={styles.input__search}
+                value={data}
+                onChange={(e) =>(setNameFill(e.target.value.trim()), setData(e.target.value))}
                 name="search"
                 defaultValue=""
-                placeholder="Tìm kiếm theo Id, tên khách hàng, số điện thoại, email"
+                placeholder="Tìm kiếm theo Id, tên khách hàng, điện thoại, email"
+                style={{ border: "none", width: "82%", fontSize: 15 }}
               />
-              <button type="button">Tìm kiếm</button>
+              <button type="button" style={{ width: "18%" }}>
+                Tìm kiếm
+              </button>
             </form>
           </div>
           <div className={styles.main_control_new}>
             <div className={styles.dropdown_action_btn}>
-              <button onClick={showDrawer} className={styles.btn_light_filter}>
-                <Image
-                  src={
-                    "/crm/icon_search.svg"
-                  }
-                  alt="filter"
-                  width={13}
-                  height={13}
-                />
-                Bộ lọc
+              <button
+                onClick={showDrawer}
+                className={styles.btn_light_filter}
+                style={{ color: "#4C5BD4", fontWeight: 600, fontSize: 15 }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    paddingTop: 4,
+                  }}
+                >
+                  <div>
+                    <Image
+                      src={"/crm/icon_search.svg"}
+                      alt="filter"
+                      width={15}
+                      height={15}
+                    />
+                  </div>
+                  <div>Bộ lọc</div>
+                </div>
               </button>
             </div>
             <div className={styles.dropdown_action_btn}>
-              <Link className={styles.api_connect_btn} href={"/setting/api"}>
-                <button className={styles.btn_light_api}>
-                  <Image
-                    src={
-                      "/crm/h_export_cus.svg"
-                    }
-                    alt="filter"
-                    width={13}
-                    height={13}
-                  />
-                  Kết nối API
+              <Link
+                className={styles.api_connect_btn}
+                href={"/crm/setting/api"}
+              >
+                <button
+                  className={styles.btn_light_api}
+                  style={{
+                    color: "#fff",
+                    fontSize: 14,
+                    fontWeight: 500,
+                    fontFamily: "'Roboto-Medium'",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      fontFamily: "Roboto-Medium",
+                      paddingTop: 4,
+                      fontWeight: 600,
+                    }}
+                  >
+                    <div>
+                      <Image
+                        src={"/crm/h_export_cus.svg"}
+                        alt="filter"
+                        width={15}
+                        height={15}
+                      />
+                    </div>
+                    <div>Kết nối API</div>
+                  </div>
                 </button>
               </Link>
             </div>
@@ -134,10 +192,11 @@ export default function CustomerListInputGroup({
           chooseAllOption={chooseAllOption}
           isSelectedRow={isSelectedRow}
           numberSelected={numberSelected}
+          selectedCus={selectedCus}
         />
 
         <div className={`${styles.main__control_add}`}>
-          <Link href="crm/customer/add">
+          <Link href="/crm/customer/add">
             <button
               type="button"
               className={`${styles.dropbtn_add} flex_align_center`}
@@ -168,17 +227,33 @@ export default function CustomerListInputGroup({
       </div>
 
       <Drawer
-        title="Bộ lọc"
+        title={<div style={{ color: "#fff" }}>Bộ lọc</div>}
         placement="right"
         onClose={onClose}
         open={open}
-        style={{ overflowY: "hidden" }}
+        style={{ overflowY: "hidden"}}
         className="custom_drawer"
         footer
+        closable
         headerStyle={{ textAlign: "center", background: "#4C5BD4" }}
       >
         <div>
-          <CustomerListFilterBox setOpen={setOpen} />
+          <CustomerListFilterBox
+            dataStatusCustomer={dataStatusCustomer}
+            setOpen={setOpen}
+            setStatus={setStatus}
+            fetchData={fetchData}
+            setResoure={setResoure}
+            datatable={datatable}
+            nvPhuTrach={nvPhuTrach}
+            setnvPhuTrach={setnvPhuTrach}
+            userNameCreate={userNameCreate}
+            setuserNameCreate={setuserNameCreate}
+            nhomCha={nhomCha}
+            setnhomCha={setnhomCha}
+            nhomCon={nhomCon}
+            setnhomCon={setnhomCon}
+          />
         </div>
       </Drawer>
     </>

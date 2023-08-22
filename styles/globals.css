@@ -35,6 +35,7 @@ li,
 input,
 select {
   font-family: Roboto;
+  font-size: 16px;
   list-style: none;
   margin: 0;
 }
@@ -59,12 +60,12 @@ button {
 }
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: transparent;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: rgb(76, 91, 212);
+  background: #4c5bd4;
 }
 
 /* Handle on hover */
@@ -95,24 +96,24 @@ html *::-webkit-scrollbar-track {
 }
 h2 {
   font-size: 16px;
-  color: var(--text-color);
+  color: #474747;
 }
 
 span {
   font-size: 16px;
-  color: var(--text-color);
+  color: #474747;
 }
 
 a {
   font-weight: 400;
   text-decoration: none;
-  color: var(--white-color);
+  color: #fff;
 }
 
 ul,
 li {
   font-size: 16px;
-  color: var(--text-color);
+  color: #474747;
 }
 
 hr {
@@ -294,8 +295,8 @@ label.ant-form-item-required {
   border-radius: 15px !important;
 }
 .table_lich_lam_viec .ant-table-thead > tr > th {
-  background-color: var(--theme-color) !important;
-  color: var(--white-color) !important;
+  background-color: #4c5bd4 !important;
+  color: #fff !important;
 }
 .table_lich_lam_viec
   .ant-spin-nested-loading
@@ -307,17 +308,17 @@ label.ant-form-item-required {
   thead.ant-table-thead
   > tr {
   > th {
-    background-color: var(--theme-color) !important;
-    color: var(--white-color) !important;
+    background-color: #4c5bd4 !important;
+    color: #fff !important;
   }
   > td {
-    background-color: var(--theme-color) !important;
-    color: var(--white-color) !important;
+    background-color: #4c5bd4 !important;
+    color: #fff !important;
   }
 }
 /* > th {
-    background-color: var(--theme-color) !important;
-    color: var(--white-color) !important;
+    background-color: #4c5bd4 !important;
+    color: #fff !important;
     font-weight: bold;
   } */
 
@@ -364,8 +365,8 @@ label.ant-form-item-required {
   thead.ant-table-thead
   > tr
   > th {
-  background-color: var(--theme-color) !important;
-  color: var(--white-color) !important;
+  background-color: #4c5bd4 !important;
+  color: #fff !important;
 }
 
 .ant-pagination-item-active {
@@ -408,8 +409,8 @@ label.ant-form-item-required {
   thead.ant-table-thead
   > tr
   > th {
-  background-color: var(--theme-color) !important;
-  color: var(--white-color) !important;
+  background-color: #4c5bd4 !important;
+  color: #fff !important;
 }
 .ant-form-item {
   margin-bottom: 10px;
@@ -468,7 +469,7 @@ label.ant-form-item-required {
 }
 
 .ant-table-content::-webkit-scrollbar-thumb {
-  background-color: var(--theme-color);
+  background-color: #4c5bd4;
   width: auto;
   height: 13px;
 }
@@ -483,7 +484,7 @@ label.ant-form-item-required {
   border-bottom-left-radius: 0;
 }
 .list_nhanvien::-webkit-scrollbar-thumb {
-  background-color: var(--theme-color) !important;
+  background-color: #4c5bd4 !important;
   border-radius: 15px;
 }
 .cusScrollTable .ant-table-content {
@@ -533,7 +534,7 @@ label.ant-form-item-required {
   border-bottom-left-radius: 10px;
 }
 .table_nhansu .ant-table-content::-webkit-scrollbar-thumb {
-  background-color: var(--theme-color) !important;
+  background-color: #4c5bd4 !important;
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
 }
@@ -553,7 +554,7 @@ label.ant-form-item-required {
   border-bottom-left-radius: 10px;
 }
 .table_danhsachnhanvienthue .ant-table-content::-webkit-scrollbar-thumb {
-  background-color: var(--theme-color) !important;
+  background-color: #4c5bd4 !important;
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
 }
@@ -586,7 +587,7 @@ label.ant-form-item-required {
   border-top: none;
 }
 .table_phucap .ant-table-content::-webkit-scrollbar-thumb {
-  background-color: var(--theme-color) !important;
+  background-color: #4c5bd4 !important;
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
 }
@@ -673,7 +674,7 @@ label.ant-form-item-required {
 }
 
 .ant-table-content::-webkit-scrollbar-thumb {
-  background-color: var(--theme-color);
+  background-color: #4c5bd4;
   height: 13px;
 }
 
@@ -933,7 +934,7 @@ label.ant-form-item-required {
   border-bottom-left-radius: 10px;
 }
 .table_luongcoban .ant-table-content::-webkit-scrollbar-thumb {
-  background-color: var(--theme-color) !important;
+  background-color: #4c5bd4 !important;
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
 }
@@ -978,7 +979,7 @@ label.ant-form-item-required {
 .ant-tabs-tab .ant-tabs-tab-btn {
   font-weight: 600;
   font-size: 20px;
-  color: var(--text-color);
+  color: #474747;
 }
 
 .table_nhan_su_chua_thiet_lap td.ant-table-cell {
@@ -1029,8 +1030,9 @@ label.ant-form-item-required {
 }
 .select_taoDeXuat .ant-select-selector .ant-select-selection-item {
   font-size: 18px;
-  padding: 5px 15px;
+  padding: 7px 15px;
   height: 44px !important;
+  display: flex;
 }
 .select_taoDeXuat
   .ant-select-selector
@@ -1048,6 +1050,16 @@ label.ant-form-item-required {
   .ant-select-selection-item-remove {
   color: #ff5b4d !important;
 }
+.ant-select-item-option-active
+  .ant-select-item-option-content
+  .taoDeXuatSelectTxt {
+  color: #fff !important;
+}
+
+.select_taoDeXuat .ant-select-selector .taoDeXuatSelectTxt {
+  color: #474747;
+}
+
 .input_donXinNghiPhep {
   color: #717b7f !important;
 }
@@ -1133,7 +1145,7 @@ label.ant-form-item-required {
   line-height: auto !important;
 }
 .contentFormItemLLV .themeColor .ant-select-selection-item {
-  color: var(--theme-color);
+  color: #4c5bd4;
 }
 
 .contentFormItemLLV .themeColor .ant-btn {
@@ -1146,15 +1158,15 @@ label.ant-form-item-required {
 }
 
 .contentFormItemLLV .themeColor .ant-btn:hover {
-  background-color: var(--white-color);
+  background-color: #fff;
 }
 
 .contentFormItemLLV .themeColor .ant-btn:active {
-  background-color: var(--white-color);
+  background-color: #fff;
 }
 
 .contentFormItemLLV .themeColor .ant-btn span {
-  color: var(--theme-color);
+  color: #4c5bd4;
   font-family: Roboto;
   font-size: 16px;
   font-style: normal;
@@ -1179,7 +1191,7 @@ label.ant-form-item-required {
 }
 
 .contentFormItemLLV .ant-select-focused.ant-select {
-  border: 1px solid var(--theme-color) !important;
+  border: 1px solid #4c5bd4 !important;
   box-shadow: none !important;
 }
 .contentFormItemLLV .ant-select-focused.ant-select .ant-select-selector {
@@ -1189,12 +1201,12 @@ label.ant-form-item-required {
 
 .contentFormItemLLV .ant-input:focus {
   box-shadow: none !important;
-  border: 1px solid var(--theme-color) !important;
+  border: 1px solid #4c5bd4 !important;
 }
 
 .contentFormItemLLV .ant-picker-focused {
   box-shadow: none !important;
-  border: 1px solid var(--theme-color) !important;
+  border: 1px solid #4c5bd4 !important;
 }
 
 .contentFormItemLLV .ant-picker {
@@ -1211,7 +1223,7 @@ label.ant-form-item-required {
   margin: 0 !important;
   padding: 10px !important;
   border-radius: 5px !important;
-  color: var(--theme-color) !important;
+  color: #4c5bd4 !important;
   background-color: #fff;
   border: 1px solid #acacac !important;
   width: 100%;
@@ -1219,12 +1231,12 @@ label.ant-form-item-required {
 
 .multiSelectShift .ant-menu-submenu-title:hover {
   background-color: #fff !important;
-  color: var(--theme-color) !important;
+  color: #4c5bd4 !important;
 }
 
 .multiSelectShift .ant-menu-title-content {
   background-color: #fff !important;
-  color: var(--theme-color) !important;
+  color: #4c5bd4 !important;
 }
 
 .multiSelectShift .ant-menu-item {
@@ -1233,7 +1245,7 @@ label.ant-form-item-required {
 }
 
 .multiSelectShift .ant-menu-item > span {
-  color: var(--text-color) !important;
+  color: #474747 !important;
   font-family: Roboto;
   font-size: 16px;
   font-style: normal;
@@ -1242,7 +1254,7 @@ label.ant-form-item-required {
 }
 
 .multiSelectShift .ant-menu-item:hover {
-  color: var(--theme-color) !important;
+  color: #4c5bd4 !important;
   background-color: #fff !important;
 }
 
@@ -1253,7 +1265,7 @@ label.ant-form-item-required {
 .multiSelectShift
   .ant-checkbox-wrapper.ant-checkbox-wrapper-checked.ant-checkbox-wrapper-in-form-item.ant-menu-item-icon
   ~ span {
-  color: var(--theme-color) !important;
+  color: #4c5bd4 !important;
 }
 
 .multiSelectShift
@@ -1355,7 +1367,7 @@ label.ant-form-item-required {
 }
 
 .tableLLV .ant-checkbox-wrapper-checked ~ span {
-  color: var(--theme-color) !important;
+  color: #4c5bd4 !important;
 }
 
 .tableLLV .ant-checkbox .ant-checkbox-inner,
@@ -1384,7 +1396,7 @@ label.ant-form-item-required {
 }
 
 .tableLLV .labelItemHourTxt .ant-row .ant-form-item-label-left > label > span {
-  color: var(--theme-color);
+  color: #4c5bd4;
   font-family: Roboto;
   font-size: 16px;
   font-style: normal;
@@ -1393,7 +1405,7 @@ label.ant-form-item-required {
 }
 
 .tableLLV .labelItemHourTxt .ant-row .ant-form-item-label-left > label::after {
-  color: var(--theme-color);
+  color: #4c5bd4;
   margin-inline-end: 4px;
 }
 
@@ -1411,7 +1423,7 @@ label.ant-form-item-required {
   .ant-form-item-control
   .ant-form-item-control-input
   input {
-  color: var(--theme-color);
+  color: #4c5bd4;
   padding: 0;
   font-family: Roboto;
   font-size: 16px;
@@ -1443,7 +1455,7 @@ label.ant-form-item-required {
 }
 
 .modalTableDetailsLLV .ant-modal-content::-webkit-scrollbar-thumb {
-  background-color: var(--theme-color);
+  background-color: #4c5bd4;
   height: 10px;
 }
 
@@ -1465,4 +1477,55 @@ label.ant-form-item-required {
   padding: 20px 0 !important;
   border-radius: 10px !important;
   border: 1px dashed #474747 !important;
+}
+
+.deXuatCuaToiTable .ant-row {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+.deXuatCuaToiTable .ant-form-item {
+  margin-bottom: 0;
+}
+
+.bannerQLC.ant-row {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+.bannerQLC .ant-row {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  row-gap: 0 !important;
+}
+.btnU.ant-btn {
+  border-radius: 6px !important;
+  border-color: transparent !important;
+}
+
+.shadowForm {
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.15);
+}
+
+.taoDeXuatForm .ant-row .ant-col {
+  padding-bottom: 5px;
+}
+
+.taoDeXuatForm .ant-row .ant-col label {
+  height: auto;
+}
+
+.taoDeXuatForm .ant-row .ant-col label::after {
+  content: none;
+}
+
+.taoDeXuatForm .ant-row .ant-col label p {
+  font-weight: 500 !important;
+}
+
+.taoDeXuatForm .ant-input[disabled] {
+  color: #474747 !important;
+}
+
+.taoDeXuatForm .ant-form-item {
+  margin-bottom: 4px;
 }

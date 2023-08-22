@@ -1,72 +1,70 @@
 .tintuyendung {
-    width: 100%;
-    max-width: 1120px;
+  width: 100%;
+  max-width: 1120px;
 }
 .tintuyendung li {
-    list-style: none;
+  list-style: none;
 }
 .tuyendung1 {
-    width: 100%;
+  width: 100%;
 }
 .tuyendung1 button {
-    outline: none !important;
-    border: none !important;
-    font-family: inherit;
-    text-transform: none;
-    overflow: visible;
-    margin: 0;
-    font: inherit;
+  outline: none !important;
+  border: none !important;
+  font-family: inherit;
+  text-transform: none;
+  overflow: visible;
+  margin: 0;
+  font: inherit;
 }
 .adds {
-    
-    height: 18px;
-    background: none;
-    color: #4C5BD4;
-    padding: 1px 6px;
+  height: 18px;
+  background: none;
+  color: #4c5bd4;
+  padding: 1px 6px;
 }
 .adds picture {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 .adds img {
-    width: 15px;
-    height: 15px;
-    object-fit: cover;
-    margin: -3px 10px 0 0;
-    padding: 0;
+  width: 15px;
+  height: 15px;
+  object-fit: cover;
+  margin: -3px 10px 0 0;
+  padding: 0;
 }
 .adds p {
-    margin: 0;
-    padding: 0;
-    font-size: 14px;
-    font-weight: 500;
-
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  font-weight: 500;
 }
 .tuyendung2 {
-    display: flex;
-    width: 100%;
-    margin-top: 35px;
-    flex-wrap: wrap;
-    justify-content: space-between;
+  display: flex;
+  width: 100%;
+  margin-top: 35px;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 .tuyendung2_1 {
-    display: flex;
-    margin-bottom: 5px;
+  display: flex;
+  margin-bottom: 5px;
 }
 .tuyendung2_1 span {
-    margin-right: 5px;
-    font-size: 14px;
-    color: #333333;
-    font-weight: 700;
+  margin-right: 5px;
+  font-size: 14px;
+  color: #333333;
+  font-weight: 700;
 }
 .tuyendung2_1 input {
-    background: white;
-    border: 1px solid rgba(71, 71, 71, 0.24);
-    border-radius: 8px;
-    padding: 5px;
+  background: white;
+  border: 1px solid rgba(71, 71, 71, 0.24);
+  border-radius: 8px;
+  padding: 5px;
 }
 .tuyendung2_1 input:active {
-    color: #ffffff;
+  color: #ffffff;
 }
 
 .tuyendung2_1 input[type="date"]::-webkit-datetime-edit-text,
@@ -75,7 +73,7 @@
 .tuyendung2_1 input[type="date"]::-webkit-datetime-edit-day-field {
   /* Các thuộc tính CSS để tuỳ chỉnh kiểu hiển thị */
   text-align: center;
-  font-size: 16px;
+  font-size: 14px;
   color: #333333;
   padding: 2px;
   font-weight: 600;
@@ -87,51 +85,50 @@
   color: white;
 }
 .search_from_date {
-    margin-right: 22px;
+  margin-right: 22px;
 }
 .search_from_date .search_to_date {
-    font-size: 14px;
-    font-weight: 700;
-    color: #333333;
+  font-size: 14px;
+  font-weight: 700;
+  color: #333333;
 }
 
-
 .t_form_search {
-    display: block;
-    margin-top: 0em;
+  display: block;
+  margin-top: 0em;
 }
 
 .t_div_search {
-    background: #FFFFFF;
-    border: 0.5px solid rgba(71, 71, 71, 0.24);
-    box-sizing: border-box;
-    border-radius: 50px;
-    height: 36px;
-    padding: 8px 13px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  background: #ffffff;
+  border: 0.5px solid rgba(71, 71, 71, 0.24);
+  box-sizing: border-box;
+  border-radius: 50px;
+  height: 36px;
+  padding: 8px 13px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .t_new_dom {
-    width: 70%;
-    width: 784px;
+  width: 70%;
+  width: 784px;
 }
 
-@media (max-width : 740px) {
-    .t_div_search {
-        width: 416px;
-    }
+@media (max-width: 740px) {
+  .t_div_search {
+    width: 416px;
+  }
 }
 .t_div_search input {
-    color: #333333;
-    font-weight: 600;
-    border: none;
-    width: 345px;
-    outline: none;
-    font-size: 14px;
-    line-height: inherit;
-    margin: 0;
-    background-color: transparent;
+  color: #333333;
+  font-weight: 600;
+  border: none;
+  width: 345px;
+  outline: none;
+  font-size: 14px;
+  line-height: inherit;
+  margin: 0;
+  background-color: transparent;
 }
 
 .t_div_search input[type="search"]::-webkit-search-cancel-button,
@@ -154,38 +151,38 @@
   display: none;
 }
 .button_search {
-    border: none;
-    background-color: transparent;
+  border: none;
+  background-color: transparent;
 }
 .tuyendung2_2 {
-    float: right;
-    width: 40%;
+  float: right;
+  width: 40%;
 }
 .data_empty {
-    margin-top: 20px;
-    font-weight: 600;
+  margin-top: 20px;
+  font-weight: 600;
 }
 
 .pagination {
-    float: right;
-    margin-top: 10px;
-    border: #333333;
-    margin-right: 40px;
+  float: right;
+  margin-top: 10px;
+  border: #333333;
+  margin-right: 40px;
 }
 
 @media (max-width: 1024px) {
-    .tuyendung2_2 {
-        margin-right: 4%;
-    }
+  .tuyendung2_2 {
+    margin-right: 4%;
+  }
 }
 
 @media (max-width: 765px) {
-    .t_new_dom {
-        margin-right: 4%;
-    }
+  .t_new_dom {
+    margin-right: 4%;
+  }
 }
 @media (max-width: 840px) {
-    .t_new_dom {
-        width: 96%;
-    }
+  .t_new_dom {
+    width: 96%;
+  }
 }

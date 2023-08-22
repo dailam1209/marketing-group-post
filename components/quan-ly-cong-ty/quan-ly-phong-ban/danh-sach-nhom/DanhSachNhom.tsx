@@ -32,7 +32,7 @@ export function DanhSachNhom({
   const [data, setData] = useState(listGroups?.data);
   const [company, setCompany]: any = useState(infoCom?.data);
   const [listDepLabel, setListDepLabel]: any = useState(
-    listDepartments?.data?.map((dep) => ({
+    listDepartments?.items?.map((dep) => ({
       label: dep?.dep_name,
       value: dep?.dep_id,
     }))
@@ -41,10 +41,10 @@ export function DanhSachNhom({
     listTeams?.data?.map((team) => ({
       label: team?.team_name,
       value: team?.team_id,
+      dep_id: team?.dep_id
     }))
   );
-  const [comLabel, setComlabel] = useState({ label: infoCom?.data?.userName, value: infoCom?.data?.idQLC })
-
+  const [comLabel, setComlabel] = useState({ label: infoCom?.data?.com_name, value: infoCom?.data?.com_id })
 
   const columns = [
     {
@@ -84,7 +84,7 @@ export function DanhSachNhom({
 
     {
       title: <p className={styles.headerTxt}>Số lượng</p>,
-      render: (record: any, index: any) => <p>{record?.total || 0}</p>,
+      render: (record: any, index: any) => <p>{record?.total_emp || 0}</p>,
     },
     {
       title: <p className={styles.headerTxt}>Chức năng</p>,

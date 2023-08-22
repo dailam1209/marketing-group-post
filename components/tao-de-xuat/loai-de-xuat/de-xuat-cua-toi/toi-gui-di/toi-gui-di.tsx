@@ -17,10 +17,10 @@ import { useRouter } from 'next/router'
 import moment from 'moment'
 
 export const children = (data: any, columns: any, router: any) => (
-  <div>
+  <div className={styles.searchFormToiGuiDi}>
     <Form>
       <Row
-        gutter={20}
+        gutter={{sm:20, xs: 40}}
         justify={{ sm: 'start', xs: 'center' }}
         className={styles.filter}>
         <Col lg={7} md={6} sm={12} xs={24}>

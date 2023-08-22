@@ -1,33 +1,37 @@
 import React, { useRef, useState } from "react";
-import { Modal } from "antd";
+import { Input, Modal } from "antd";
 import styles from "../../potential/potential.module.css";
 import InputText from "@/components/crm/potential/potential_add_files/input_text";
 import ModalCompleteStep from "@/components/crm/setting/complete_modal";
-
+import { base_url } from "../../service/function";
+const Cookies = require('js-cookie')
 interface MyComponentProps {
   isModalCancel: boolean;
   setIsModalCancel: (value: boolean) => void;
+  updateData?: any;
 }
 
 const AddStatusCustomerModal: React.FC<MyComponentProps> = ({
   isModalCancel,
   setIsModalCancel,
+  updateData,
 }) => {
   const [isOpenMdalSuccess, setIsOpenMdalSuccess] = useState(false);
-
+  const [sttName, setsttName] = useState("");
   const handleOK = () => {
     setIsModalCancel(false);
     setIsOpenMdalSuccess(true);
-    setTimeout(() => {
-      setIsOpenMdalSuccess(false);
-    }, 2000);
+    updateData(
+      `${base_url}/api/crm/customerStatus/create`,
+`${Cookies.get("token_base365")}`,      "POST",
+      { stt_name: `${sttName}` }
+    );
+    setsttName("")
   };
-
   return (
     <>
       <Modal
         title={"Thêm tình trạng khách hàng"}
-        centered
         open={isModalCancel}
         onOk={() => handleOK()}
         onCancel={() => setIsModalCancel(false)}
@@ -35,14 +39,13 @@ const AddStatusCustomerModal: React.FC<MyComponentProps> = ({
         okText="Đồng ý"
         cancelText="Huỷ"
       >
-        <div className={styles.row_mdal}>
-          <div className={styles.choose_obj}>
-            <InputText
-              label="Tên tình trạng"
-              placeholder="Tên tình trạng"
-              require={true}
-            />
-          </div>
+        <div className={styles.choose_obj}>
+          Tên tình trạng
+          <Input
+            placeholder="Tên tình trạng"
+            value={sttName}
+            onChange={(e: { target: { value: React.SetStateAction<string>; }; }) => setsttName(e.target.value)}
+          />
         </div>
       </Modal>
       <ModalCompleteStep

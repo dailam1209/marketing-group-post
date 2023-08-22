@@ -6,6 +6,7 @@ import TableDataGroupListCustomer from "@/components/crm/table/table-group-list"
 import HeaderBtnsCustomerGroup from "@/components/crm/customer/group_customer/header_btns_group_customer";
 import HeaderBtnsCustomerStatus from "@/components/crm/customer/status/header_btns_status_customer";
 import TableStatusCustomer from "@/components/crm/table/table-status-customer";
+import { checkAndRedirectToHomeIfNotLoggedIn } from "@/components/crm/ultis/checkLogin";
 
 export default function GroupCustomer() {
   const mainRef = useRef<HTMLDivElement>(null);
@@ -29,9 +30,13 @@ export default function GroupCustomer() {
     }
   }, [isOpen]);
   return (
-    <div ref={mainRef} className={styleHome.main}>
-      {/* <HeaderBtnsCustomerStatus /> */}
-      <TableStatusCustomer />
-    </div>
+    <>
+      {!checkAndRedirectToHomeIfNotLoggedIn() ? null : (
+        <div ref={mainRef} className={styleHome.main}>
+          {/* <HeaderBtnsCustomerStatus /> */}
+          <TableStatusCustomer />
+        </div>
+      )}
+    </>
   );
 }

@@ -36,10 +36,10 @@
 .g_input {
   display: flex;
 }
-.ipSearch{
+.ipSearch {
   width: 40%;
 }
-@media screen and (max-width:480px) {
+@media screen and (max-width: 480px) {
   .g_input {
     display: block;
   }
@@ -49,11 +49,11 @@
 }
 
 @media screen and (max-width: 739px) {
-  .day{
+  .day {
     display: none;
   }
-  .ipSearch{
-    width:50%;
+  .ipSearch {
+    width: 50%;
   }
   .main__control_search_delete {
     width: 55%;
@@ -139,7 +139,7 @@
 
 .select {
   height: 35px;
-  font-size: 14px;
+  font-size: 16px;
   border: 0px;
   border-radius: 0px;
   border-bottom: 1px solid black;

@@ -25,7 +25,7 @@ export function DanhSachTo({
   const [data, setData] = useState(listTeams?.data)
   const [company, setCompany]: any = useState(infoCom?.data)
   const [listDepLabel, setListDepLabel]: any[] = useState(
-    listDepartments?.data.map((dep) => ({
+    listDepartments?.items.map((dep) => ({
       label: dep?.dep_name,
       value: dep?.dep_id,
     }))
@@ -139,6 +139,8 @@ export function DanhSachTo({
     setDepFilter(option)
   }
 
+  
+
   return (
     <div>
       <Row gutter={{ lg: 15, md: 20, sm: 20 }}>
@@ -147,7 +149,7 @@ export function DanhSachTo({
             <Col sm={24} xs={24}>
               <div>
                 {MySelect('', 'Chọn công ty', false, false, 'com_id', [
-                  { label: company?.userName, value: company?.idQLC },
+                  { label: company?.com_name, value: company?.com_id },
                 ])}
               </div>
             </Col>
@@ -226,7 +228,7 @@ export function DanhSachTo({
         rowKey='_id'
         selectedRowKeys={null}
       />
-      {AddNewToModal(openAddNew, setOpenAddNew, listDepLabel, data, setData)}
+      {AddNewToModal(openAddNew, setOpenAddNew, listDepLabel, data, setData, { label: company?.com_name, value: company?.com_id }, listDepLabel)}
       {EditToModal(openEdit, setOpenEdit, data, setData, selectedRow)}
       {ConfirmDeleteModal(
         openConfirmDel,

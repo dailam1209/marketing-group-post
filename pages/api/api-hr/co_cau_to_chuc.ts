@@ -22,6 +22,23 @@ export const OrganizationalStructureData = async () => {
   } catch (error) {}
 };
 
+export const ChildCompanyData = async () => {
+  try {
+    const isToken = getToken(COOKIE_KEY);
+    const response = await axios.post(
+      `${url}api/qlc/company/child/list`,
+      {},
+      {
+        headers: {
+          authorization: `Bearer ${isToken}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {}
+};
+
+
 export const PostionCharData = async () => {
   try {
     const isToken = getToken(COOKIE_KEY);
@@ -125,6 +142,22 @@ export const LeaderBiographyDetail = async (formData: FormData) => {
     const isToken = getToken(COOKIE_KEY);
     const response = await axios.post(
       `${url}api/hr/organizationalStructure/leaderDetail`,
+      formData,
+      {
+        headers: {
+          authorization: `Bearer ${isToken}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {}
+};
+
+export const EmpStatusDetail = async (formData: FormData) => {
+  try {
+    const isToken = getToken(COOKIE_KEY);
+    const response = await axios.post(
+      `${url}api/hr/organizationalStructure/listEmUntimed`,
       formData,
       {
         headers: {

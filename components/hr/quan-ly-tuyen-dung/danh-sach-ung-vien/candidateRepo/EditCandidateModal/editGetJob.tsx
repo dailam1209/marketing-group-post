@@ -11,8 +11,10 @@ import {
   GetJobDetails,
 } from '@/pages/api/api-hr/quan-ly-tuyen-dung/candidateList'
 import { GetListNews } from '@/pages/api/api-hr/quan-ly-tuyen-dung/PerformRecruitment'
+import Select from 'react-select';
 
 type SelectOptionType = { label: string; value: any }
+
 
 export default function EditCandidateGetJob({ onCancel, candidate }: any) {
   const [rating, setRating] = useState<any>(candidate?.starVote)
@@ -501,15 +503,24 @@ export default function EditCandidateGetJob({ onCancel, candidate }: any) {
                     </label>
                     <div className={`${styles.input_right}`}>
                       <div className={`${styles.div_no_pad} `}>
-                        <Selects
-                          selectedOption={selectedUseHiring}
-                          onChange={handleSelectChange}
-                          padding={15}
-                          width_control={100}
-                          width_menu={97}
-                          height={33.6}
-                          // option={options.tennhanvientuyendung}
-                          placeholder={'Chọn nhân viên'}
+                        <Select
+                          value={selectedUseHiring}
+                          placeholder="Nhân viên tuyển dụng"
+                          styles={{
+                            control: (baseStyles, state) => ({
+                              ...baseStyles,
+                              borderRadius: 4,
+                              fontSize: state.isFocused ? 14 : 14,
+                              minHeight: state.isFocused ? 20 : 20,
+                              width: '97%',
+                              color: state.isFocused ? '#444444' : '#444444',
+                              fontWeight: state.isFocused ? 600 : 600
+                            }),
+                            placeholder: (baseStyles) => ({
+                              ...baseStyles,
+                              color: "#444444",
+                            }),
+                          }}
                         />
                       </div>
                     </div>
@@ -521,16 +532,24 @@ export default function EditCandidateGetJob({ onCancel, candidate }: any) {
                     </label>
                     <div className={`${styles.input_right}`}>
                       <div className={`${styles.div_no_pad} `}>
-                        <Selects
-                          selectedOption={selectedUseRecomment}
-                          onChange={handleSelectChange}
-                          padding={15}
-                          width_control={100}
-                          width_menu={97}
-                          height={33.6}
-                          // setState={setUserRecommend}
-                          // option={options.tennhanviengioithieu}
-                          placeholder={'Chọn nhân viên'}
+                        <Select
+                          value={selectedUseRecomment}
+                          placeholder="Nhân viên giới thiệu"
+                          styles={{
+                            control: (baseStyles, state) => ({
+                              ...baseStyles,
+                              borderRadius: 4,
+                              fontSize: state.isFocused ? 14 : 14,
+                              minHeight: state.isFocused ? 20 : 20,
+                              width: '97%',
+                              color: state.isFocused ? '#444444' : '#444444',
+                              fontWeight: state.isFocused ? 600 : 600
+                            }),
+                            placeholder: (baseStyles) => ({
+                              ...baseStyles,
+                              color: "#444444",
+                            }),
+                          }}
                         />
                       </div>
                     </div>

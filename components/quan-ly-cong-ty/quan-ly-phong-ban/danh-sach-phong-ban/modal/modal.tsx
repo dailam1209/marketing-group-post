@@ -1,14 +1,14 @@
-import { ModalWrapper } from '@/components/modal/ModalWrapper';
+import { ModalWrapper } from '@/components/modal/ModalWrapper'
 import {
   MyInput,
   MySelect,
-} from '@/components/quan-ly-cong-ty/quan-ly-cong-ty-con/modal';
-import { Form } from 'antd';
-import Image from 'next/image';
-import styless from './modal_ds_phong_ban.module.scss';
-import { useEffect } from 'react';
-import { DELETE, POST } from '@/pages/api/BaseApi';
-import { useRouter } from 'next/router';
+} from '@/components/quan-ly-cong-ty/quan-ly-cong-ty-con/modal'
+import { Form } from 'antd'
+import Image from 'next/image'
+import styless from './modal_ds_phong_ban.module.scss'
+import { useEffect } from 'react'
+import { DELETE, POST } from '@/pages/api/BaseApi'
+import { useRouter } from 'next/router'
 
 export function UpdatePhongBanModal(
   open: boolean,
@@ -17,25 +17,25 @@ export function UpdatePhongBanModal(
   setData?: Function,
   selectedRow?: any
 ) {
-  const [form] = Form.useForm();
+  const [form] = Form.useForm()
 
   useEffect(() => {
-    form.setFieldsValue(selectedRow);
-  }, [form, selectedRow]);
+    form.setFieldsValue(selectedRow)
+  }, [form, selectedRow])
 
   const handleSubmit = () => {
     // console.log({...form.getFieldsValue(), dep_id: selectedRow?.dep_id})
     // console.log("update a department!")
 
     //close modal
-    setOpen(false);
+    setOpen(false)
 
     POST('api/qlc/department/edit', {
       ...form.getFieldsValue(),
       dep_id: selectedRow?.dep_id,
     })
       .then((res) => {
-        console.log(res?.message);
+        // console.log(res?.message)
 
         // update data after edit successful
         // POST("api/qlc/department/list", {}).then((res) => {
@@ -45,14 +45,14 @@ export function UpdatePhongBanModal(
           setData(
             data.map((item) => {
               if (item === selectedRow) {
-                return form.getFieldsValue();
+                return form.getFieldsValue()
               }
-              return item;
+              return item
             })
-          );
+          )
       })
-      .catch((err) => console.error(err));
-  };
+      .catch((err) => console.error(err))
+  }
 
   const children = (
     <div>
@@ -81,7 +81,7 @@ export function UpdatePhongBanModal(
         )} */}
       </Form>
     </div>
-  );
+  )
 
   return ModalWrapper(
     open,
@@ -91,7 +91,7 @@ export function UpdatePhongBanModal(
     'Chỉnh sửa phòng ban',
     'Cập nhật',
     handleSubmit
-  );
+  )
 }
 
 export function ConfirmDeleteModal(
@@ -109,22 +109,21 @@ export function ConfirmDeleteModal(
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-      }}
-    >
-      <Image alt="/" src={'/big-x.png'} width={50} height={50} />
+      }}>
+      <Image alt='/' src={'/big-x.png'} width={50} height={50} />
       <p style={{ marginTop: '20px' }}>Bạn có chắc chắn muốn xóa {name} ?</p>
     </div>
-  );
+  )
 
   const onConfirm = () => {
-    console.log('delete a department!');
-    setOpen(false);
+    console.log('delete a department!')
+    setOpen(false)
     DELETE('api/qlc/department/del', { dep_id: selectedRow?.dep_id })
       .then((res) => {
-        setData && setData(data?.filter((item: any) => item !== selectedRow));
+        setData && setData(data?.filter((item: any) => item !== selectedRow))
       })
-      .catch((error) => console.log(error));
-  };
+      .catch((error) => console.log(error))
+  }
 
   return ModalWrapper(
     open,
@@ -137,7 +136,7 @@ export function ConfirmDeleteModal(
     true,
     true,
     false
-  );
+  )
 }
 
 export function AddNewModal(
@@ -147,18 +146,18 @@ export function AddNewModal(
   setData?: Function,
   comLabel?: any
 ) {
-  const [form] = Form.useForm();
-  const router = useRouter();
+  const [form] = Form.useForm()
+  const router = useRouter()
 
   const handleSubmit = () => {
     // console.log(form.getFieldsValue());
-    setOpen(false);
+    setOpen(false)
     form.validateFields().then((value) => {
       POST('api/qlc/department/create', value).then((res) => {
-        router.replace(router.asPath);
-      });
-    });
-  };
+        router.reload()
+      })
+    })
+  }
 
   const children = (
     <Form form={form} className={`${styless.addform}`}>
@@ -192,7 +191,7 @@ export function AddNewModal(
         "number"
       )} */}
     </Form>
-  );
+  )
 
   return ModalWrapper(
     open,
@@ -202,5 +201,5 @@ export function AddNewModal(
     'Thêm mới phòng ban',
     'Thêm mới',
     handleSubmit
-  );
+  )
 }

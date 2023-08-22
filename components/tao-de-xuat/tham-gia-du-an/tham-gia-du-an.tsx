@@ -74,7 +74,7 @@ export const ThamGiaDuAn:React.FC = () => {
       }).then((res) => {
         if (res?.result === true) {
           setDepLabel(
-            res?.data?.map((dep) => ({
+            res?.items?.map((dep) => ({
               label: dep?.dep_name,
               value: dep?.dep_id,
             }))
@@ -99,15 +99,15 @@ export const ThamGiaDuAn:React.FC = () => {
     return(
         <div className={styles.khung}>
             <div className={styles.header}>
-                <div className={styles.iconheader}>
+                <div className={styles.iconheader} onClick={() => router.back()}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="22" viewBox="0 0 12 22" fill="none">
                     <path d="M10.5996 1.66189L1.12587 11.1356L10.5996 20.6094" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </div>
                 <p className={styles.textheader}>Đề xuất tham gia dự án</p>
             </div>
-            <div className={styles.body}>
-                <Form className={`${styles.bodyform} mc`} onFinish={handalSubmit}>
+            <div className={`shadowForm  ${styles.body}`}>
+                <Form className={`${styles.bodyform} mc taoDeXuatForm`} onFinish={handalSubmit}>
                     <Row gutter={24} className={styles.body1}>
                         <Col sm={12} xs={24}>
                             <Form.Item
@@ -121,7 +121,6 @@ export const ThamGiaDuAn:React.FC = () => {
                                 className={styles.bodyk1}
                                 label={<div className={styles.label}>
                                     <p className={styles.text}>Tên đề xuất</p>
-                                    <p className={styles.dau}>*</p>
                                 </div>}
                                 labelCol={{ span: 24 }}
                                 >
@@ -169,7 +168,6 @@ export const ThamGiaDuAn:React.FC = () => {
                             className={styles.bodya}
                             label={<div className={styles.label}>
                                     <p className={styles.text}>Phòng ban</p>
-                                    <p className={styles.dau}>*</p>
                                 </div>}
                                 labelCol={{ span: 24 }}
                                 style={{width:'100%'}}
@@ -223,7 +221,6 @@ export const ThamGiaDuAn:React.FC = () => {
                             className={styles.bodya}
                             label={<div className={styles.label}>
                                     <p className={styles.text}>Chức vụ</p>
-                                    <p className={styles.dau}>*</p>
                                 </div>}
                                 labelCol={{ span: 24 }}
                             >
@@ -271,7 +268,7 @@ export const ThamGiaDuAn:React.FC = () => {
                             </Form.Item>
                         </Col>
                     </Row>
-                    <Row className={styles.body4}>
+                    <Row gutter={20} className={styles.body1}>
                         <Col sm={24} xs={24}>
                             <Form.Item 
                              rules={[
@@ -309,7 +306,6 @@ export const ThamGiaDuAn:React.FC = () => {
                             className={styles.bodye}
                             label={<div className={styles.label}>
                                     <p className={styles.text}>Người xét duyệt</p>
-                                    <p className={styles.dau}>*</p>
                                 </div>}
                                 labelCol={{ span: 24 }}
                             >
@@ -337,7 +333,6 @@ export const ThamGiaDuAn:React.FC = () => {
                             className={styles.bodye}
                             label={<div className={styles.label}>
                                     <p className={styles.text}>Người theo dõi</p>
-                                    <p className={styles.dau}>*</p>
                                 </div>}
                                 labelCol={{ span: 24 }}
                             >

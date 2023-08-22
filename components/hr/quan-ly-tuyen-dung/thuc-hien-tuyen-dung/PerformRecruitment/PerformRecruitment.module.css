@@ -1,325 +1,308 @@
-
-
-
 /* tin dang mo */
 
 .tab_content {
-    height: auto;
+  height: auto;
 }
 
 .tab_content > .active {
-    display: block;
+  display: block;
 }
 #tongquan {
-    margin-top: 50px;
-    
+  margin-top: 50px;
 }
 .fade .in {
-    opacity: 1;
+  opacity: 1;
 }
 .fade {
-    transition: opacity 0.15s linear;
+  transition: opacity 0.15s linear;
 }
 .tindangmo {
-    background: #FFFFFF;
-    float: left;
-    padding: 20px;
-    border-radius: 8px;
-    width: 41%;
-    margin-right: 3%;
-    max-width: 510px;
+  background: #ffffff;
+  float: left;
+  padding: 20px;
+  border-radius: 8px;
+  width: 41%;
+  margin-right: 3%;
+  max-width: 510px;
 }
-
 
 .tin_title {
-
 }
 .tin_title h5 {
-    font-size: 14px;
-    font-weight: 700;
-    margin-top: 0;
-    margin-bottom: 0;
-    color: #333333;
-    
+  font-size: 14px;
+  font-weight: 700;
+  margin-top: 0;
+  margin-bottom: 0;
+  color: #333333;
 }
 
 .tin_all .tin_item {
-    display: inline-block;
-    width: 100%;
-    margin-bottom: 10px;
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 10px;
 }
 
 .tindangmo hr {
-    height: 0 ;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    border: 0;
-    border-top: 1px solid #eee;
+  height: 0;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: 0;
+  border-top: 1px solid #eee;
 }
 
 .tin_item1 {
-    font-size: 14px;
-    float: left;
-    text-align: center;
-    border: 1px solid #4C5BD4;
-    border-radius: 8px;
-    padding: 14px 8px
+  font-size: 14px;
+  float: left;
+  text-align: center;
+  border: 1px solid #4c5bd4;
+  border-radius: 8px;
+  padding: 14px 8px;
 }
 .tin_item1 p {
-    margin: 0;
-    padding: 0;
-    color: #333333; 
-    font-weight: 700;
+  margin: 0;
+  padding: 0;
+  color: #333333;
+  font-weight: 700;
 }
 .tin_item1 span {
-    color: #4C5BD4;
-    font-family: Roboto;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 20px;
-    letter-spacing: 0em;
+  color: #4c5bd4;
+  font-family: Roboto;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: 0em;
 }
 .tin_item2 {
-    width: 77%;
-    float: left;
-    margin-left: 15px;
-    max-width: 357px;
-    
+  width: 77%;
+  float: left;
+  margin-left: 15px;
+  max-width: 357px;
 }
 
 .tin_all h4 {
-    font-style: normal;
-    font-size: 16px;
-    line-height: 18px;
-    letter-spacing: 0em;
-    margin-bottom: 10px;
-    
+  font-style: normal;
+  font-size: 14px;
+  line-height: 18px;
+  letter-spacing: 0em;
+  margin-bottom: 10px;
 }
 .tin_all h4 span {
-    color: #337ab7;
-    height: 19px;
-    font-size: 16px;
+  color: #337ab7;
+  height: 19px;
+  font-size: 14px;
 }
 
-
-
 .tin_item3 li {
-    list-style: none;
-    
+  list-style: none;
 }
 .tin_item3 li:nth-child(2) {
   display: flex;
-  
 }
 .tin_item33_img {
-    width: 12px;
-    height: 14px;
-    margin: 0 5px 0 0;
+  width: 12px;
+  height: 14px;
+  margin: 0 5px 0 0;
 }
 .tin_item3 span {
-    position: relative;
-    bottom: 2px;
-    margin: 0 30px 13px 0;
-    color: #666666;
-    font-size: 13px;
-    font-weight: 600;
+  position: relative;
+  bottom: 2px;
+  margin: 0 30px 13px 0;
+  color: #666666;
+  font-size: 13px;
+  font-weight: 600;
 }
 .tin_item4 {
-    display: inline-flex;
-
+  display: inline-flex;
 }
 .tin_item4 li {
-    list-style: none;
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 14px;
-    letter-spacing: 0em;
-    color: #666666;
-    margin-right: 56px;
+  list-style: none;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 14px;
+  letter-spacing: 0em;
+  color: #666666;
+  margin-right: 56px;
 }
 .tin_item4 span {
-    text-align: center;
+  text-align: center;
 }
 .tin_item4 p {
-    margin-top: 10px;
-    font-size: 13px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 14px;
-    letter-spacing: 0em;
-    text-align: left;
-    color: #474747;
+  margin-top: 10px;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 14px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #474747;
 }
 .blue {
-    color: #4C5BD4;
+  color: #4c5bd4;
 }
 .red {
-    color: #EB5757;
+  color: #eb5757;
 }
 .yellow {
-    color: #FFA800;
+  color: #ffa800;
 }
 .green {
-    color: #27AE60;
+  color: #27ae60;
 }
 .text {
-    width: 11px;
-    height: 24px;
-    font-size: 20px;
-    font-weight: 700;
+  width: 11px;
+  height: 24px;
+  font-size: 20px;
+  font-weight: 700;
 }
 .h_today {
-    text-align: center;
-    display: flex;
-    height: 74px;
-    width: 100%;
-    flex-wrap: nowrap;
+  text-align: center;
+  display: flex;
+  height: 74px;
+  width: 100%;
+  flex-wrap: nowrap;
 }
 .h_today li {
-    list-style: none;
-    padding-bottom: 20px;
-    width: 100%;
-    cursor: pointer;
-    padding: 4px;
+  list-style: none;
+  padding-bottom: 20px;
+  width: 100%;
+  cursor: pointer;
+  padding: 4px;
 }
 .active_homnay .active_tuannay .active_thangnay {
-    width: 154.8px;
-    height: 54px;
+  width: 154.8px;
+  height: 54px;
 }
 .active_homnay {
-    border-bottom: 5px solid #4CD49B;
+  border-bottom: 5px solid #4cd49b;
 }
 .active_tuannay {
-    border-bottom: 5px solid #4C5BD4;
+  border-bottom: 5px solid #4c5bd4;
 }
 .active_thangnay {
-    border-bottom: 5px solid #FFA800;
+  border-bottom: 5px solid #ffa800;
 }
 .h_today span {
-    
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 28px;
-    letter-spacing: 0em;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 28px;
+  letter-spacing: 0em;
 }
 .h_today p {
-    margin: 0;
-    width: auto;
-    height: 20px;
-    font-size: 14px;
-    color: #333333;
-    font-weight: 700;
+  margin: 0;
+  width: auto;
+  height: 20px;
+  font-size: 14px;
+  color: #333333;
+  font-weight: 700;
 }
 
 .h_phongvan hr {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    border: 0;
-    border-top: 1px solid #eee;
-    height: 0;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: 0;
+  border-top: 1px solid #eee;
+  height: 0;
 }
 .h_pv_item {
-    display: inline-block;
-    width: 100%;
+  display: inline-block;
+  width: 100%;
 }
 .h_pvitem_1 {
-    float: left;
-    text-align: center;
-    border-radius: 8px;
-    border: 1px solid rgba(71, 71, 71, 0.24);
+  float: left;
+  text-align: center;
+  border-radius: 8px;
+  border: 1px solid rgba(71, 71, 71, 0.24);
 }
 .yellow2 {
-    background: #FFA800;
-    color: white;
+  background: #ffa800;
+  color: white;
 }
 .h_pvitem_1 li {
-    padding: 5px 15px;
-    font-size: 14px;
-    font-weight: 600;
+  padding: 5px 15px;
+  font-size: 14px;
+  font-weight: 600;
 }
 .h_pvitem_2 {
-    width: 72%;
+  width: 72%;
 }
-.h_pvitem_2, .h_pvitem_3 {
-    float: left;
-    margin-left: 5%;
+.h_pvitem_2,
+.h_pvitem_3 {
+  float: left;
+  margin-left: 5%;
 }
 .h_pvitem_2 h4 {
-    color: #337ab7;
-    font-size: 18px;
-    font-weight: 600;
+  color: #337ab7;
+  font-size: 18px;
+  font-weight: 600;
 }
 
 .h_pvitem_2 p {
-    margin-top: 8px;
-    font-family: Roboto;
-    font-size: 13px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 27px;
-    letter-spacing: 0em;
-    opacity: 0.9;
+  margin-top: 8px;
+  font-family: Roboto;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 27px;
+  letter-spacing: 0em;
+  opacity: 0.9;
 }
 .data_empty {
-    margin-top: 20px;
-    font-weight: 600;
+  margin-top: 20px;
+  font-weight: 600;
 }
 .pagination {
-    float: right;
-    margin-top: 10px;
-    border: #333333;
-    margin-right: 40px;
+  float: right;
+  margin-top: 10px;
+  border: #333333;
+  margin-right: 40px;
 }
 @media (max-width: 776px) {
-    .tin_item4 li {
-        margin-right: 10px;
-        padding: 4px 4px;
-    }
+  .tin_item4 li {
+    margin-right: 10px;
+    padding: 4px 4px;
+  }
 }
- 
 
 @media (min-width: 1025px) and (max-width: 1256px) {
-    .tin_item2 {
-        width: 71%;
-    }
+  .tin_item2 {
+    width: 71%;
+  }
 }
 @media (min-width: 650px) and (max-width: 950px) {
-    .tin_item2 {
-        width: 68%;
-    }
+  .tin_item2 {
+    width: 68%;
+  }
 }
 @media (max-width: 420px) {
-    .tin_item {
-        width: 135.5px;
-    }
+  .tin_item {
+    width: 135.5px;
+  }
 }
 
 @media (max-width: 700px) {
-    .tindangmo {
-        width: 37%;
-    }
-    
+  .tindangmo {
+    width: 37%;
+  }
 }
 @media (max-width: 420px) {
-    .tindangmo {
-        width: 100%;
-    }
-    .tindangmo:nth-child(2) {
-        margin-top: 3%;
-    }
+  .tindangmo {
+    width: 100%;
+  }
+  .tindangmo:nth-child(2) {
+    margin-top: 3%;
+  }
 }
 @media (max-width: 402px) {
-    .tindangmo {
-        width: 100%;
-    }
+  .tindangmo {
+    width: 100%;
+  }
 }
 
-
 @media (max-width: 402px) {
-    .tab_content div:nth-child(2) {
-        margin-top: 20px !important;
-    }
+  .tab_content div:nth-child(2) {
+    margin-top: 20px !important;
+  }
 }

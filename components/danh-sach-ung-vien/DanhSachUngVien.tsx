@@ -1,12 +1,9 @@
-import { Col, Rate, Row } from 'antd';
-import { AddButton, ExportExcelButton, SearchButton } from '../commons/Buttons';
-import styles from './DanhSachUngVien.module.css';
-import {
-  MyInput,
-  MySelect,
-} from '../quan-ly-cong-ty/quan-ly-cong-ty-con/modal';
-import Image from 'next/image';
-import { useState } from 'react';
+import { Col, Rate, Row } from 'antd'
+import { AddButton, ExportExcelButton, SearchButton } from '../commons/Buttons'
+import styles from './DanhSachUngVien.module.css'
+import { MyInput, MySelect } from '../quan-ly-cong-ty/quan-ly-cong-ty-con/modal'
+import Image from 'next/image'
+import { useState } from 'react'
 import {
   AddNewCandiModal,
   AddNewStageModal,
@@ -15,17 +12,16 @@ import {
   ConfirmDeleteModal,
   ConfirmDeleteStageModal,
   UpdateStageModal,
-} from './modal/modal';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
-import { DragableContainer } from './drag-and-drop/item/DragableItem';
-import { DropableColumn } from './drag-and-drop/column/DropableColumn';
-import dayjs from 'dayjs';
-import { mockdata } from '../de-xuat/cai-dat-duyet-phep/qua-1-cap/DuyetQua1Cap';
-import { POST_HR } from '@/pages/api/BaseApi';
-import _ from 'lodash';
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+} from './modal/modal'
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
+import { DragableContainer } from './drag-and-drop/item/DragableItem'
+import { DropableColumn } from './drag-and-drop/column/DropableColumn'
+import dayjs from 'dayjs'
+import { POST_HR } from '@/pages/api/BaseApi'
+import _ from 'lodash'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 
 export const DanhSachUngVien = ({
   // listCandidates,
@@ -33,20 +29,20 @@ export const DanhSachUngVien = ({
   listEmp,
 }: {
   // listCandidates: any
-  listCandidatesOnProcess: any;
-  listEmp: any;
+  listCandidatesOnProcess: any
+  listEmp: any
 }) => {
-  const [openAddNew, setOpenAddNew] = useState(false);
-  const [openChangeStage, setOpenChangeStage] = useState(false);
-  const [openDeleteStage, setOpenDeleteStage] = useState(false);
-  const [openDeleteAttendant, setOpenDeleteAttendant] = useState(false);
-  const [onOpenStageUpdate, setOnOpenStageUpdate] = useState(false);
-  const [selectedStage, setSelectedStage] = useState<any>(null);
-  const [openAddNewCandi, setOpenAddNewCandi] = useState(false);
+  const [openAddNew, setOpenAddNew] = useState(false)
+  const [openChangeStage, setOpenChangeStage] = useState(false)
+  const [openDeleteStage, setOpenDeleteStage] = useState(false)
+  const [openDeleteAttendant, setOpenDeleteAttendant] = useState(false)
+  const [onOpenStageUpdate, setOnOpenStageUpdate] = useState(false)
+  const [selectedStage, setSelectedStage] = useState<any>(null)
+  const [openAddNewCandi, setOpenAddNewCandi] = useState(false)
   const [dataCandidates, setDataCandidates] = useState(
     // listCandidates?.data?.filter((can) => can.isSwitch === 0)
     listCandidatesOnProcess?.listCandidate
-  );
+  )
 
   const [listProcess, setListProcess] = useState(
     listCandidatesOnProcess
@@ -59,12 +55,12 @@ export const DanhSachUngVien = ({
                 bgColor: '#FFEDDA',
                 textColor: '#474747',
                 title: item?.name,
-              };
-            } else return null;
+              }
+            } else return null
           })
           ?.filter((item) => item !== null)
       : null
-  );
+  )
   const [listCols, setListCols] = useState([
     {
       title: 'Nhận hồ sơ ứng viên',
@@ -76,7 +72,7 @@ export const DanhSachUngVien = ({
           ...can,
           canId: can?.id,
           canName: can?.name,
-        };
+        }
       }),
     },
     ...(listProcess || []),
@@ -108,32 +104,32 @@ export const DanhSachUngVien = ({
       textColor: '#fff',
       listCandidate: listCandidatesOnProcess?.listCandidateContactJob,
     },
-  ]);
+  ])
 
   // const [listCols, setListCols] = useState(mockdata)
-  const [draggedItem, setDraggedItem] = useState();
-  const [dropCol, setDropCol] = useState();
-  const [canIdSelected, setCanIdSelected] = useState(-1);
+  const [draggedItem, setDraggedItem] = useState()
+  const [dropCol, setDropCol] = useState()
+  const [canIdSelected, setCanIdSelected] = useState(-1)
   const [listEmpLabel, setListEmpLabel]: any = useState(
-    listEmp?.data?.map((emp) => ({ label: emp?.userName, value: emp?.idQLC }))
-  );
+    listEmp?.items?.map((emp) => ({ label: emp?.userName, value: emp?.idQLC }))
+  )
 
-  const router = useRouter();
+  const router = useRouter()
 
   const onDeleteClicked = (title: any) => {
-    setListCols(listCols?.filter((item) => item.title !== title));
-  };
+    setListCols(listCols?.filter((item) => item.title !== title))
+  }
 
   const handleDeleteCandidate = () => {
     POST_HR('api/hr/recruitment/softDeleteCandi', {
       candidateId: canIdSelected,
     }).then((res) => {
       if (res?.result === true) {
-        setOpenDeleteAttendant(false);
-        router.reload();
+        setOpenDeleteAttendant(false)
+        router.reload()
       }
-    });
-  };
+    })
+  }
 
   const handleDeleteStage = () => {
     if (selectedStage !== null) {
@@ -141,37 +137,37 @@ export const DanhSachUngVien = ({
         processInterId: selectedStage?.id,
       }).then((res) => {
         if (res?.result === true) {
-          setOpenDeleteStage(false);
-          router.reload();
+          setOpenDeleteStage(false)
+          router.reload()
         }
-      });
+      })
     }
-  };
+  }
 
-  const [listColsFilter, setListColsFilter] = useState<any[]>(listCols);
-  const [epIdFilter, setEpIdFilter] = useState<any>();
-  const [positionFilter, setPositionFilter] = useState<any>();
+  const [listColsFilter, setListColsFilter] = useState<any[]>(listCols)
+  const [epIdFilter, setEpIdFilter] = useState<any>()
+  const [positionFilter, setPositionFilter] = useState<any>()
 
   useEffect(() => {
-    setListColsFilter(listCols);
-  }, [listCols]);
+    setListColsFilter(listCols)
+  }, [listCols])
 
   useEffect(() => {
     if (!positionFilter) {
-      setListColsFilter(listCols);
+      setListColsFilter(listCols)
     }
     if (!epIdFilter) {
-      setListColsFilter(listCols);
+      setListColsFilter(listCols)
     }
-  }, [epIdFilter, positionFilter]);
+  }, [epIdFilter, positionFilter])
 
   const handleChangeEp = (value: any, option: any) => {
-    setEpIdFilter(value);
-  };
+    setEpIdFilter(value)
+  }
 
   const handleChangePosition = (value: any, option: any) => {
-    setPositionFilter(value);
-  };
+    setPositionFilter(value)
+  }
 
   const handleFilter = () => {
     if (positionFilter) {
@@ -182,7 +178,7 @@ export const DanhSachUngVien = ({
             (can) => can?.recruitmentNewsId === positionFilter
           ),
         }))
-      );
+      )
     }
     if (epIdFilter) {
       setListColsFilter(
@@ -192,9 +188,9 @@ export const DanhSachUngVien = ({
             (can) => can?.userHiring === epIdFilter
           ),
         }))
-      );
+      )
     }
-  };
+  }
 
   return (
     <DndProvider backend={HTML5Backend}>
@@ -254,7 +250,7 @@ export const DanhSachUngVien = ({
           </Col>
           <Col md={6} sm={12} xs={24}>
             <div className={styles.search} onClick={handleFilter}>
-              <Image alt="/" src={'/search.png'} width={24} height={24} />
+              <Image alt='/' src={'/search.png'} width={24} height={24} />
               <p className={styles.text}>Tìm kiếm</p>
             </div>
           </Col>
@@ -321,5 +317,5 @@ export const DanhSachUngVien = ({
         selectedStage={selectedStage}
       />
     </DndProvider>
-  );
-};
+  )
+}

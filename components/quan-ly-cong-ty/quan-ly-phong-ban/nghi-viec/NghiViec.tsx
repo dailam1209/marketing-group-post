@@ -25,7 +25,7 @@ export function NghiViec({ listQuitJobNew, listDepartments }) {
   const [data, setData] = useState(listQuitJobNew?.data);
   const [listEmp, setListEmp] = useState([]);
   const [listDepLabel, setListDepLabel]: any = useState(
-    listDepartments?.data?.map((dep) => ({
+    listDepartments?.items?.map((dep) => ({
       label: dep?.dep_name,
       value: dep?.dep_id,
     }))
@@ -39,7 +39,7 @@ export function NghiViec({ listQuitJobNew, listDepartments }) {
         com_id: com_id,
       }).then((res) => {
         if (res?.result === true) {
-          setListEmp(res?.data);
+          setListEmp(res?.items);
         }
       });
   }, []);

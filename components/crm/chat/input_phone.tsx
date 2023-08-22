@@ -1,21 +1,37 @@
 import { useState } from "react";
 import styles from "./chat.module.css";
 import Image from "next/image";
-
-export default function InputPhone() {
+import { notification } from "antd";
+import { base_url } from "../service/function";
+const Cookies = require("js-cookie");
+export default function InputPhone({ infoCus }: any) {
   const [numberValue, setNumberValue] = useState("");
   const [isCalling, setIsCalling] = useState(false);
 
-  const handleCallBtn = () => {
+  const handleCallBtn = async () => {
     if (numberValue) {
       setIsCalling(true);
+    }
+    const res = await fetch(
+      `${base_url}/api/crm/cutomerCare/Call`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get("token_base365")}`,
+        },
+        body: JSON.stringify({ phone: `${+infoCus?.dien_thoai}` }),
+      }
+    );
+    const data = await res.json();
+    if(data && data.error){
+      notification.error({message:data.error.message})
     }
   };
 
   const handleDisConnectCalling = () => {
     setIsCalling(false);
   };
-
   return (
     <div
       className={`${styles.business_assistant_item} ${styles.business_assistant_item_phone}`}
@@ -27,9 +43,7 @@ export default function InputPhone() {
         <form action="" onSubmit={() => false} style={{ width: "100%" }}>
           <input
             type="text"
-            value={numberValue}
-            onChange={(e) => setNumberValue(e.target.value)}
-            placeholder="Nhập số điện thoại"
+            value={infoCus?.dien_thoai}
             className={styles.input_phone}
           />
         </form>

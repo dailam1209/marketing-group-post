@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
-import styles from "../quan-ly-hanh-chinh/bien-dong-nhan-su/workingRotation/deleteWorkingModal/deleteWorkingModal.module.css"
+import styles from "./logout.module.css"
 import Cookies from "js-cookie";
 
 export default function LogoutHr({ setShowLogout, showLogout }: any) {
@@ -13,7 +13,7 @@ export default function LogoutHr({ setShowLogout, showLogout }: any) {
         Cookies.remove("rf_token");
         Cookies.remove("role");
         Cookies.remove("phone");
-        window.location.href = "/";
+        window.location.href = "/phan-mem-nhan-su";
     };
 
     useEffect(() => {
@@ -34,7 +34,7 @@ export default function LogoutHr({ setShowLogout, showLogout }: any) {
         <>
             <div className={`${styles.modal_open}`}>
                 <div className={`${styles.modal} ${styles.fade} ${styles.in}`}>
-                    <div className={` ${styles.modal_dialog} ${styles.content_process}`}>
+                    <div className={` ${styles.modal_dialog} ${styles.content_process}`} style={{ width: 360 }}>
                         <div className={`${styles.modal_content}`} ref={modalRef}>
                             <div className={`${styles.modal_header} ${styles.header_process}`}>
                                 <p className={`${styles.modal_title}`}>Đăng xuất</p>
@@ -44,7 +44,7 @@ export default function LogoutHr({ setShowLogout, showLogout }: any) {
                             </div>
                             <div className={`${styles.modal_footer} ${styles.footer_process}`}>
                                 <button style={{ cursor: 'pointer' }} className={`${styles.btn_cancel}`} onClick={no}>Không</button>
-                                <button style={{ cursor: 'pointer' }} className={`${styles.btn_add}`} onClick={yes} >Có</button>
+                                <button style={{ cursor: 'pointer', color: '#27AE60' }} className={`${styles.btn_add}`} onClick={yes} >Đồng ý</button>
                             </div>
                         </div>
                     </div>

@@ -1,18 +1,18 @@
-import { ModalWrapper } from "@/components/modal/ModalWrapper";
+import { ModalWrapper } from '@/components/modal/ModalWrapper';
 import {
   MyDatePicker,
   MyInput,
   MySelect,
-} from "@/components/quan-ly-cong-ty/quan-ly-cong-ty-con/modal";
-import { Form, Select } from "antd";
-import dynamic from "next/dynamic";
-import Image from "next/image";
-import { useEffect, useState } from "react";
-import dayjs from "dayjs";
-import { POST_HR, getCompIdCS } from "@/pages/api/BaseApi";
-import { useRouter } from "next/router";
+} from '@/components/quan-ly-cong-ty/quan-ly-cong-ty-con/modal';
+import { Form, Select } from 'antd';
+import dynamic from 'next/dynamic';
+import Image from 'next/image';
+import { useEffect, useState } from 'react';
+import dayjs from 'dayjs';
+import { POST_HR, getCompIdCS } from '@/pages/api/BaseApi';
+import { useRouter } from 'next/router';
 
-const Editor = dynamic(() => import("../../../../commons/CkEditor"), {
+const Editor = dynamic(() => import('../../../../commons/CkEditor'), {
   ssr: false,
 });
 
@@ -28,10 +28,10 @@ export function UpdatePhongBanModal(
   listGrLabel: any
 ) {
   const [form] = Form.useForm();
-  const [className, setClassName] = useState("");
+  const [className, setClassName] = useState('');
   const [companyLabel, setCompanyLabel] = useState({
-    label: infoCom?.data?.userName,
-    value: infoCom?.data?.idQLC,
+    label: infoCom?.data?.com_name,
+    value: infoCom?.data?.com_id,
   });
   const [listEmpTranferLabel, setListEmpTranferLabel]: any = useState(
     data?.map((emp) => ({ label: emp?.userName, value: emp?.ep_id }))
@@ -40,7 +40,7 @@ export function UpdatePhongBanModal(
   const router = useRouter();
 
   const onchangeName = (options: any) => {
-    !options.value ? setClassName("hasColor") : setClassName("");
+    !options.value ? setClassName('hasColor') : setClassName('');
     // form.setFieldValue("position", options);
   };
 
@@ -53,15 +53,15 @@ export function UpdatePhongBanModal(
       //   ),
       // });
 
-      POST_HR("api/hr/personalChange/updateTranferJob", {
+      POST_HR('api/hr/personalChange/updateTranferJob', {
         ...value,
-        created_at: dayjs(form.getFieldValue("created_at")).format(
-          "YYYY-MM-DD"
+        created_at: dayjs(form.getFieldValue('created_at')).format(
+          'YYYY-MM-DD'
         ),
       }).then((res) => {
         if (res?.result === true) {
           setOpen(false);
-          router.replace(router.asPath);
+          router.reload();
         }
       });
     });
@@ -113,38 +113,38 @@ export function UpdatePhongBanModal(
     <div>
       <Form form={form} className={`luan_chuyen`} onFinish={handleSubmit}>
         {MySelect(
-          "Đơn vị công tác hiện tại",
-          "Chọn công ty",
+          'Đơn vị công tác hiện tại',
+          'Chọn công ty',
           true,
           true,
-          "com_id",
+          'com_id',
           [companyLabel]
         )}
         {MySelect(
-          "Phòng ban hiện tại",
-          "Chọn phòng ban",
+          'Phòng ban hiện tại',
+          'Chọn phòng ban',
           true,
           true,
-          "current_dep_id",
-          [...listDepLabel]
+          'current_dep_id',
+          listDepLabel
         )}
         <Form.Item
           name="ep_id"
           required={true}
-          label={<p>{"Tên nhân viên"}</p>}
+          label={<p>{'Tên nhân viên'}</p>}
           labelCol={{ span: 24 }}
         >
           <Select
             onChange={(options: any) => onchangeName(options)}
-            placeholder={"Chọn nhân viên"}
+            placeholder={'Chọn nhân viên'}
             style={{
-              width: "100%",
-              border: "1px solid #9F9F9F",
-              borderRadius: "10px",
+              width: '100%',
+              border: '1px solid #9F9F9F',
+              borderRadius: '10px',
             }}
             options={listEmpTranferLabel}
             suffixIcon={
-              <Image alt="/" src={"/down-icon.png"} width={14} height={14} />
+              <Image alt="/" src={'/down-icon.png'} width={14} height={14} />
             }
             size="large"
           />
@@ -152,86 +152,86 @@ export function UpdatePhongBanModal(
         <Form.Item
           name="current_position"
           required={true}
-          label={<p>{"Chức vụ hiện tại"}</p>}
+          label={<p>{'Chức vụ hiện tại'}</p>}
           labelCol={{ span: 24 }}
         >
           <Select
             className={`${className}`}
-            placeholder={"Chọn chức vụ"}
+            placeholder={'Chọn chức vụ'}
             style={{
-              width: "100%",
-              border: "1px solid #9F9F9F",
-              borderRadius: "10px",
+              width: '100%',
+              border: '1px solid #9F9F9F',
+              borderRadius: '10px',
             }}
             options={[
               {
-                label: "Nhân viên",
+                label: 'Nhân viên',
                 value: 1,
               },
               {
-                label: "Trưởng phòng",
+                label: 'Trưởng phòng',
                 value: 2,
               },
             ]}
             suffixIcon={
-              <Image alt="/" src={"/down-icon.png"} width={14} height={14} />
+              <Image alt="/" src={'/down-icon.png'} width={14} height={14} />
             }
             size="large"
           />
         </Form.Item>
         {MySelect(
-          "Đơn vị công tác mới",
-          "Chọn công ty",
+          'Đơn vị công tác mới',
+          'Chọn công ty',
           true,
           true,
-          "new_com_id",
+          'new_com_id',
           [companyLabel]
         )}
         {MySelect(
-          "Phòng ban mới",
-          "Chọn phòng ban",
+          'Phòng ban mới',
+          'Chọn phòng ban',
           true,
           true,
-          "update_dep_id",
+          'update_dep_id',
           listDepLabel
         )}
-        {MySelect("Chọn tổ", "Chọn tổ", false, true, "new_team_id", [
+        {MySelect('Chọn tổ', 'Chọn tổ', false, true, 'new_team_id', [
           ...listTeamLabel,
         ])}
-        {MySelect("Chọn nhóm", "Chọn nhóm", false, true, "new_group_id", [
+        {MySelect('Chọn nhóm', 'Chọn nhóm', false, true, 'new_group_id', [
           ...listGrLabel,
         ])}
         {MySelect(
-          "Chức vụ mới",
-          "Chọn chức vụ mới",
+          'Chức vụ mới',
+          'Chọn chức vụ mới',
           true,
           true,
-          "update_position",
+          'update_position',
           [
-            { label: "Nhân viên", value: 1 },
-            { label: "Tổ trưởng", value: 2 },
+            { label: 'Nhân viên', value: 1 },
+            { label: 'Tổ trưởng', value: 2 },
           ]
         )}
         {MyDatePicker(
-          "Thời gian luân chuyển công tác",
-          "YYYY-MM-DD",
+          'Thời gian luân chuyển công tác',
+          'YYYY-MM-DD',
           true,
           true,
-          "created_at"
+          'created_at'
         )}
         {MySelect(
-          "Chọn quy định",
-          "Chọn quy định",
+          'Chọn quy định',
+          'Chọn quy định',
           false,
           true,
-          "decision_id",
+          'decision_id',
           [
-            { label: "Quy định tăng chức", value: 1 },
-            { label: "Quy định chuyển công tác", value: 2 },
+            { label: 'Quy định tăng chức', value: 1 },
+            { label: 'Quy định chuyển công tác', value: 2 },
           ]
         )}
         <Editor
-          data={selectedRow?.mission ?? ""}
+          data={selectedRow?.mission ?? ''}
           onChange={() => null}
           required={true}
           title="Nhiệm vụ công tác mới"
@@ -239,7 +239,7 @@ export function UpdatePhongBanModal(
           form={form}
         />
         <Editor
-          data={selectedRow?.note ?? ""}
+          data={selectedRow?.note ?? ''}
           onChange={() => null}
           required={false}
           title="Ghi chú"
@@ -255,8 +255,8 @@ export function UpdatePhongBanModal(
     setOpen,
     children,
     800,
-    "Chỉnh sửa luân chuyển công tác",
-    "Cập nhật",
+    'Chỉnh sửa luân chuyển công tác',
+    'Cập nhật',
     handleSubmit
   );
 }
@@ -272,21 +272,21 @@ export function ConfirmDeleteModal(
   const children = (
     <div
       style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
       }}
     >
-      <Image alt="/" src={"/big-x.png"} width={50} height={50} />
-      <p style={{ marginTop: "20px", textAlign: "center" }}>
+      <Image alt="/" src={'/big-x.png'} width={50} height={50} />
+      <p style={{ marginTop: '20px', textAlign: 'center' }}>
         Bạn có chắc chắn muốn xóa chuyển công tác này không ?
       </p>
     </div>
   );
 
   const onConfirm = () => {
-    POST_HR("api/hr/personalChange/deleteTranferJob", {
+    POST_HR('api/hr/personalChange/deleteTranferJob', {
       ep_id: selectedRow?.ep_id,
     }).then((res) => {
       if (res?.result === true) {
@@ -301,8 +301,8 @@ export function ConfirmDeleteModal(
     setOpen,
     children,
     450,
-    "Xóa luân chuyển công tác",
-    "Đồng ý",
+    'Xóa luân chuyển công tác',
+    'Đồng ý',
     onConfirm
   );
 }
@@ -317,20 +317,20 @@ export function AddNewModal(
   listGr: any
 ) {
   const [form] = Form.useForm();
-  const [className, setClassName] = useState("");
+  const [className, setClassName] = useState('');
   const [empSelected, setEmpSelected]: any = useState({});
   const router = useRouter();
 
   const onchangeName = (options: any) => {
-    !options.value ? setClassName("hasColor") : setClassName("");
+    !options.value ? setClassName('hasColor') : setClassName('');
     // form.setFieldValue("position", options);
     setEmpSelected(listEmp.find((emp) => emp?.idQLC === options));
   };
 
   useEffect(() => {
     if (empSelected?.idQLC) {
-      form.setFieldValue("current_dep_id", empSelected?.dep_id);
-      form.setFieldValue("current_position", empSelected?.position_id);
+      form.setFieldValue('current_dep_id', empSelected?.dep_id);
+      form.setFieldValue('current_position', empSelected?.position_id);
     }
   }, [form, empSelected]);
 
@@ -346,16 +346,16 @@ export function AddNewModal(
       let com_id = null;
       com_id = getCompIdCS();
       com_id !== null &&
-        POST_HR("api/hr/personalChange/updateTranferJob", {
+        POST_HR('api/hr/personalChange/updateTranferJob', {
           ...value,
-          created_at: dayjs(form.getFieldValue("created_at")).format(
-            "YYYY-MM-DD"
+          created_at: dayjs(form.getFieldValue('created_at')).format(
+            'YYYY-MM-DD'
           ),
           com_id: com_id,
         }).then((res) => {
           if (res?.result === true) {
             setOpen(false);
-            router.replace(router.asPath);
+            router.reload();
           }
         });
     });
@@ -372,33 +372,33 @@ export function AddNewModal(
         [{ label: "Công ty thanh toán Hưng Hà", value: 3312 }]
       )} */}
       {MySelect(
-        "Phòng ban hiện tại",
-        "Chọn phòng ban",
+        'Phòng ban hiện tại',
+        'Chọn phòng ban',
         true,
         true,
-        "current_dep_id",
+        'current_dep_id',
         listDepLabel
       )}
       <Form.Item
         name="ep_id"
         required={true}
-        label={<p>{"Tên nhân viên"}</p>}
+        label={<p>{'Tên nhân viên'}</p>}
         labelCol={{ span: 24 }}
       >
         <Select
           onChange={(options: any) => onchangeName(options)}
-          placeholder={"Chọn nhân viên"}
+          placeholder={'Chọn nhân viên'}
           style={{
-            width: "100%",
-            border: "1px solid #9F9F9F",
-            borderRadius: "10px",
+            width: '100%',
+            border: '1px solid #9F9F9F',
+            borderRadius: '10px',
           }}
           options={listEmp?.map((emp) => ({
             label: emp?.userName,
             value: emp?.idQLC,
           }))}
           suffixIcon={
-            <Image alt="/" src={"/down-icon.png"} width={14} height={14} />
+            <Image alt="/" src={'/down-icon.png'} width={14} height={14} />
           }
           size="large"
         />
@@ -407,23 +407,23 @@ export function AddNewModal(
       <Form.Item
         name="current_position"
         required={true}
-        label={<p>{"Chức vụ hiện tại"}</p>}
+        label={<p>{'Chức vụ hiện tại'}</p>}
         labelCol={{ span: 24 }}
       >
         <Select
           className={`${className}`}
-          placeholder={"Chọn chức vụ"}
+          placeholder={'Chọn chức vụ'}
           style={{
-            width: "100%",
-            border: "1px solid #9F9F9F",
-            borderRadius: "10px",
+            width: '100%',
+            border: '1px solid #9F9F9F',
+            borderRadius: '10px',
           }}
           options={[
-            { label: "Nhân viên", value: 1 },
-            { label: "Trưởng phòng", value: 2 },
+            { label: 'Nhân viên', value: 1 },
+            { label: 'Trưởng phòng', value: 2 },
           ]}
           suffixIcon={
-            <Image alt="/" src={"/down-icon.png"} width={14} height={14} />
+            <Image alt="/" src={'/down-icon.png'} width={14} height={14} />
           }
           size="large"
         />
@@ -436,61 +436,61 @@ export function AddNewModal(
         'position',[{ value: 'jack', label: 'Jack',key:'1' },{ value: 'lucy', label: 'Lucy',key:'2' }]
       )} */}
       {MySelect(
-        "Đơn vị công tác mới",
-        "Chọn công ty",
+        'Đơn vị công tác mới',
+        'Chọn công ty',
         true,
         true,
-        "new_com_id",
-        [{ label: "Công ty thanh toán snowmoon", value: 1763 }]
+        'new_com_id',
+        [{ label: 'Công ty thanh toán snowmoon', value: 1763 }]
       )}
       {MySelect(
-        "Phòng ban mới",
-        "Chọn phòng ban",
+        'Phòng ban mới',
+        'Chọn phòng ban',
         true,
         true,
-        "update_dep_id",
+        'update_dep_id',
         listDepLabel
       )}
       {MySelect(
-        "Chọn tổ",
-        "Chọn tổ",
+        'Chọn tổ',
+        'Chọn tổ',
         false,
         true,
-        "new_team_id",
+        'new_team_id',
         listTeam?.map((team) => ({
           label: team?.team_name,
           value: team?.team_id,
         }))
       )}
       {MySelect(
-        "Chọn nhóm",
-        "Chọn nhóm",
+        'Chọn nhóm',
+        'Chọn nhóm',
         false,
         true,
-        "new_group_id",
+        'new_group_id',
         listGr?.map((group) => ({ label: group?.gr_name, value: group?.gr_id }))
       )}
       {MySelect(
-        "Chức vụ mới",
-        "Chọn chức vụ mới",
+        'Chức vụ mới',
+        'Chọn chức vụ mới',
         true,
         true,
-        "update_position",
+        'update_position',
         [
-          { label: "Nhân viên", value: 1 },
-          { label: "Tổ trưởng", value: 2 },
+          { label: 'Nhân viên', value: 1 },
+          { label: 'Tổ trưởng', value: 2 },
         ]
       )}
       {MyDatePicker(
-        "Thời gian luân chuyển công tác",
-        "YYYY-MM-DD",
+        'Thời gian luân chuyển công tác',
+        'YYYY-MM-DD',
         true,
         true,
-        "created_at"
+        'created_at'
       )}
-      {MySelect("Chọn quy định", "Chọn quy định", false, true, "decision_id", [
-        { label: "Quy định tăng chức", value: 1 },
-        { label: "Quy định chuyển công tác", value: 2 },
+      {MySelect('Chọn quy định', 'Chọn quy định', false, true, 'decision_id', [
+        { label: 'Quy định tăng chức', value: 1 },
+        { label: 'Quy định chuyển công tác', value: 2 },
       ])}
       <Editor
         data=""
@@ -516,8 +516,8 @@ export function AddNewModal(
     setOpen,
     children,
     800,
-    "Thêm mới luân chuyển công tác",
-    "Thêm mới",
+    'Thêm mới luân chuyển công tác',
+    'Thêm mới',
     handleSubmit
   );
 }

@@ -1,15 +1,15 @@
-import { Col, Popover, Row } from "antd"
-import { MyTable } from "../../quan-ly-phong-ban/table/Table"
-import { MySeachBar, MySelect } from "../../quan-ly-cong-ty-con/modal"
-import styles from "./AllNhanVien.module.css"
-import { useEffect, useState } from "react"
-import Image from "next/image"
-import { DeleteEmpModal, EditEmpModal, SetRoleModal } from "../modal/modal"
-import { useRouter } from "next/router"
-import { AddButton } from "@/components/commons/Buttons"
-import { EDIT_ICON, KEY_ICON, TRASH_ICON } from "./icons"
-import dayjs from "dayjs"
-import { getPosition } from "@/utils/function"
+import { Col, Popover, Row } from 'antd';
+import { MyTable } from '../../quan-ly-phong-ban/table/Table';
+import { MySeachBar, MySelect } from '../../quan-ly-cong-ty-con/modal';
+import styles from './AllNhanVien.module.css';
+import { useEffect, useState } from 'react';
+import Image from 'next/image';
+import { DeleteEmpModal, EditEmpModal, SetRoleModal } from '../modal/modal';
+import { useRouter } from 'next/router';
+import { AddButton } from '@/components/commons/Buttons';
+import { EDIT_ICON, KEY_ICON, TRASH_ICON } from './icons';
+import dayjs from 'dayjs';
+import { getPosition } from '@/utils/function';
 
 export function AllNhanVien({
   listStaffs,
@@ -18,69 +18,76 @@ export function AllNhanVien({
   infoCom,
   listDepLabel,
   listTeamLabel,
-  listGrLabel
+  listGrLabel,
 }: {
-  listStaffs: any
-  openAddNew?: any
-  setOpenAddNew?: Function,
-  infoCom: any,
-  listDepLabel: any,
-  listTeamLabel: any,
-  listGrLabel: any
+  listStaffs: any;
+  openAddNew?: any;
+  setOpenAddNew?: Function;
+  infoCom: any;
+  listDepLabel: any;
+  listTeamLabel: any;
+  listGrLabel: any;
 }) {
-  const router = useRouter()
-  const [openEdit, setOpenEdit] = useState(false)
-  const [openSetRole, setOpenSetRole] = useState(false)
-  const [openDelete, setOpenDelete] = useState(false)
-  const [currentRow, setCurrentRow] = useState()
-  const [data, setData] = useState(listStaffs)
-  const [comLabel, setComLabel]: any = useState({ label: infoCom?.data?.userName, value: infoCom?.data?.idQLC })
-
-  
+  const router = useRouter();
+  const [openEdit, setOpenEdit] = useState(false);
+  const [openSetRole, setOpenSetRole] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
+  const [currentRow, setCurrentRow] = useState();
+  const [data, setData] = useState(listStaffs);
+  const [comLabel, setComLabel]: any = useState({
+    label: infoCom?.data?.com_name,
+    value: infoCom?.data?.com_id,
+  });
+  const [listEmpLabel, setListEmpLabel] = useState<any>(
+    listStaffs?.map((e) => ({ label: e?.userName, value: e?.idQLC }))
+  );
 
   useEffect(() => {
-    setData(listStaffs)
-  }, [listStaffs])
+    setData(listStaffs);
+    setListEmpLabel(
+      listStaffs?.map((e) => ({ label: e?.userName, value: e?.idQLC }))
+    );
+  }, [listStaffs]);
 
   const CustomPopover = () => {
     const SingleItem = ({
       title,
       icon,
       onClick,
-      isBlue
+      isBlue,
     }: {
-      title: string
-      icon: any
-      onClick: (event: any) => void
-      isBlue: boolean
+      title: string;
+      icon: any;
+      onClick: (event: any) => void;
+      isBlue: boolean;
     }) => (
       <div
         style={{
-          display: "flex",
-          alignItems: "center",
-          marginBottom: "10px",
-          marginTop: "10px"
+          display: 'flex',
+          alignItems: 'center',
+          marginBottom: '10px',
+          marginTop: '10px',
         }}
         onClick={(event) => onClick(event)}
       >
         {icon}
         <p
-          style={{ marginLeft: "10px", color: isBlue ? "#4C5BD4" : "#FF5B4D" }}
+          style={{ marginLeft: '10px', color: isBlue ? '#4C5BD4' : '#FF5B4D' }}
         >
           {title}
         </p>
       </div>
-    )
+    );
 
     return (
-      <div style={{ padding: "5px 15px" }}>
+      <div style={{ padding: '5px 15px' }}>
         <SingleItem
           icon={<EDIT_ICON />}
           title="Chỉnh sửa thông tin tài khoản"
           onClick={(event) => {
-            event.stopPropagation()
+            event.stopPropagation();
 
-            setOpenEdit(true)
+            setOpenEdit(true);
           }}
           isBlue={true}
         />
@@ -88,8 +95,8 @@ export function AllNhanVien({
           icon={<KEY_ICON />}
           title="Phân quyền"
           onClick={(event) => {
-            event.stopPropagation()
-            setOpenSetRole(true)
+            event.stopPropagation();
+            setOpenSetRole(true);
           }}
           isBlue={true}
         />
@@ -97,145 +104,163 @@ export function AllNhanVien({
           icon={<TRASH_ICON />}
           title="Xóa thành viên"
           onClick={(event) => {
-            event.stopPropagation()
-            setOpenDelete(true)
+            event.stopPropagation();
+            setOpenDelete(true);
           }}
           isBlue={false}
         />
       </div>
-    )
-  }
-  const positionLabel = getPosition?.map(p => ({ label: p?.value, value: p?.id }))
+    );
+  };
+  const positionLabel = getPosition?.map((p) => ({
+    label: p?.value,
+    value: p?.id,
+  }));
+  // console.log(listStaffs)
 
   const columns = [
     {
       title: <p className="tableHeader">ID</p>,
-      render: (record: any, index: number) => <p>{record?.idQLC}</p>
+      render: (record: any, index: number) => <p>{record?.idQLC}</p>,
     },
     {
       title: <p className="tableHeader">Họ và tên</p>,
       render: (record: any) => (
-        <p style={{ color: "#4C5BD4" }}>
-          {record?.userName || "Chưa cập nhật"}
+        <p style={{ color: '#4C5BD4' }}>
+          {record?.userName || 'Chưa cập nhật'}
         </p>
-      )
+      ),
     },
     {
       title: <p className="tableHeader">SĐT</p>,
-      render: (record: any) => <p>{record?.phone || record?.phoneTK || "Chưa cập nhật"}</p>
+      render: (record: any) => (
+        <p>{record?.phone || record?.phoneTK || 'Chưa cập nhật'}</p>
+      ),
     },
     {
       title: <p className="tableHeader">Tài khoản đăng nhập</p>,
-      render: (record: any) => <p>{record?.phoneTK || record?.email}</p>
+      render: (record: any) => <p>{record?.phoneTK || record?.email}</p>,
     },
     {
       title: <p className="tableHeader">Email</p>,
-      render: (record: any) => <p>{record?.email || record?.emailContact || "Chưa cập nhật"}</p>
+      render: (record: any) => (
+        <p>{record?.email || record?.emailContact || 'Chưa cập nhật'}</p>
+      ),
     },
     {
       title: <p className="tableHeader">Phòng ban</p>,
-      render: (record: any) => <p>{listDepLabel?.find(dep => dep?.value === record?.inForPerson?.employee?.dep_id)?.label || "Chưa cập nhật"}</p>
+      render: (record: any) => (
+        <p>
+          {listDepLabel?.find((dep) => dep?.value === record?.dep_id)?.label ||
+            'Chưa cập nhật'}
+        </p>
+      ),
     },
     {
       title: <p className="tableHeader">Chức vụ</p>,
-      render: (record: any) => <p>{positionLabel?.find(p => p?.value === record?.inForPerson?.employee?.position_id)?.label || "Chưa cập nhật"}</p>
+      render: (record: any) => (
+        <p>
+          {positionLabel?.find((p) => p?.value === record?.position_id)
+            ?.label || 'Chưa cập nhật'}
+        </p>
+      ),
     },
     {
       title: <p className="tableHeader">Tùy chỉnh</p>,
       render: (record: any) => (
         <div
           onClick={(e) => {
-            e.stopPropagation()
+            e.stopPropagation();
           }}
         >
           <Popover
             content={<CustomPopover />}
             onOpenChange={(e) => {
-              setCurrentRow(record)
+              setCurrentRow(record);
             }}
-            trigger={["click", "hover"]}
+            trigger={['click', 'hover']}
           >
             <div
               style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center"
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
               }}
             >
-              <Image alt="/" src={"/3dots.png"} width={3} height={15} />
-              <p style={{ marginLeft: "5px", color: "#4C5BD4" }}>Tùy chỉnh</p>
+              <Image alt="/" src={'/3dots.png'} width={3} height={15} />
+              <p style={{ marginLeft: '5px', color: '#4C5BD4' }}>Tùy chỉnh</p>
             </div>
           </Popover>
         </div>
-      )
-    }
-  ]
+      ),
+    },
+  ];
 
   const onRowClicked = (id: any) => {
-    router.push(`${router.pathname}/chi-tiet-nhan-vien/${id}`)
-  }
+    router.push(`${router.pathname}/chi-tiet-nhan-vien/${id}`);
+  };
 
   const [listDataFiltered, setListDataFiltered] = useState([]);
-  const [depFilter, setDepFilter]: any = useState<any>("");
-  const [epNameFilter, setEpNameFilter]: any = useState<any>("");
-  
+  const [depFilter, setDepFilter]: any = useState<any>(undefined);
+  const [epNameFilter, setEpNameFilter]: any = useState<any>(undefined);
+
   useEffect(() => {
     setListDataFiltered(data);
   }, [data]);
 
   useEffect(() => {
-    if (depFilter === "" && epNameFilter === "") {
+    if (depFilter === undefined) {
       setListDataFiltered(data);
-    } 
-    if (depFilter !== "") {
-      setListDataFiltered(data?.filter(emp => emp?.nameDeparment?.toLowerCase()?.includes(depFilter?.toLowerCase())))
     }
-    if (epNameFilter !== "") {
-      setListDataFiltered(data?.filter(emp => emp?.userName?.toLowerCase()?.includes(epNameFilter?.toLowerCase())))
-
+    if (depFilter !== undefined) {
+      setListDataFiltered(data?.filter((emp) => emp?.dep_id === depFilter));
     }
-    
+    if (epNameFilter !== undefined) {
+      if (depFilter === undefined) {
+        setListDataFiltered(data);
+      } else {
+        setListDataFiltered(data?.filter((emp) => emp?.idQLC === epNameFilter));
+      }
+    }
   }, [depFilter, epNameFilter]);
-
-  const handleChangeDep = (value: any) => {
-    setDepFilter(value);
-  };
-
-  const handleChangeEp = (value: any) => {
-    setEpNameFilter(value);
-  };
 
   return (
     <div>
       <div>
         <Row gutter={{ xs: 20, sm: 20 }}>
           <Col md={8} sm={12} xs={24}>
-            {MySelect("Công ty", "Chọn công ty", false, false, "com_id", [
-              comLabel
+            {MySelect('Công ty', 'Chọn công ty', false, false, 'com_id', [
+              comLabel,
             ])}
           </Col>
           <Col md={8} sm={12} xs={24}>
-            <MySeachBar
-              placeholder="Nhập tên phòng ban"
-              hasPrefix={false}
-              name="dep_name"
-              value={depFilter}
-              setValue={handleChangeDep}
-            />
+            {MySelect(
+              'Phòng ban',
+              'Chọn phòng ban',
+              false,
+              false,
+              'dep_id',
+              listDepLabel,
+              undefined,
+              setDepFilter
+            )}
           </Col>
 
           <Col md={8} sm={12} xs={24} className={styles.nameInput}>
-            <MySeachBar
-              placeholder="Nhập tên cần tìm"
-              hasPrefix={false}
-              name="ep_name"
-              value={epNameFilter}
-              setValue={handleChangeEp}
-            />
+            {MySelect(
+              'Nhân viên',
+              'Nhập tên cần tìm',
+              false,
+              false,
+              'ep_id',
+              listEmpLabel,
+              undefined,
+              setEpNameFilter
+            )}
           </Col>
           <Col md={0} sm={12} xs={24} className={styles.btnAdd}>
             {AddButton(
-              "Thêm mới nhân viên",
+              'Thêm mới nhân viên',
               () => setOpenAddNew && setOpenAddNew(!openAddNew)
             )}
           </Col>
@@ -245,7 +270,7 @@ export function AllNhanVien({
         <MyTable
           colunms={columns}
           data={listDataFiltered}
-          onRowClick={(record, index) => onRowClicked(record?._id)}
+          onRowClick={(record, index) => onRowClicked(record?.idQLC)}
           hasRowSelect={false}
           onSelectChange={() => null}
           selectedRowKeys={[]}
@@ -253,14 +278,24 @@ export function AllNhanVien({
           Footer={null}
         />
       </div>
-      {EditEmpModal(openEdit, setOpenEdit, { label: infoCom?.data?.userName, value: infoCom?.data?.idQLC } ,listDepLabel, listTeamLabel, listGrLabel, data, setData, currentRow, )}
+      {EditEmpModal(
+        openEdit,
+        setOpenEdit,
+        { label: infoCom?.data?.com_name, value: infoCom?.data?.com_id },
+        listDepLabel,
+        listTeamLabel,
+        listGrLabel,
+        data,
+        setData,
+        currentRow
+      )}
       {SetRoleModal(openSetRole, setOpenSetRole)}
       {DeleteEmpModal(
         openDelete,
         setOpenDelete,
-        currentRow ? currentRow["name"] : "",
+        currentRow ? currentRow['name'] : '',
         currentRow
       )}
     </div>
-  )
+  );
 }

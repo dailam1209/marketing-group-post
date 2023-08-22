@@ -11,6 +11,7 @@ import {
   GetJobDetails,
 } from '@/pages/api/api-hr/quan-ly-tuyen-dung/candidateList'
 import { EmployeeList } from '@/pages/api/api-hr/listNhanVien'
+import Select from 'react-select';
 
 type SelectOptionType = { label: string; value: any }
 
@@ -18,7 +19,10 @@ export default function EditCandidateIntrview({
   onCancel,
   candidate,
   processName,
+  candidateAll
 }: any) {
+  console.log(candidateAll);
+
   const [rating, setRating] = useState<any>(candidate?.starVote)
   const [addAnotherSkill, setAddAnotherSkill] = useState<JSX.Element[]>([])
   const [skills, setSkills] = useState<{ skillName: string; skillVote: any }[]>(
@@ -331,7 +335,7 @@ export default function EditCandidateIntrview({
     (item: any) => item.value === candidate?.userRecommend
   )
 
-  console.log(candidate)
+  console.log(selectedUseHiring)
 
   return (
     <>
@@ -356,7 +360,7 @@ export default function EditCandidateIntrview({
                     <div className={`${styles.input_right}`}>
                       <input
                         type='text'
-                        defaultValue={candidate?.name}
+                        value={candidate?.name}
                         id='name'
                         placeholder='Nhập tên ứng viên'
                         className={`${styles.input_process}`}
@@ -378,7 +382,7 @@ export default function EditCandidateIntrview({
                     <div className={`${styles.input_right}`}>
                       <input
                         type='text'
-                        defaultValue={candidate?.email}
+                        value={candidate?.email}
                         id='email'
                         placeholder='Nhập Email ứng viên'
                         className={`${styles.input_process}`}
@@ -401,7 +405,7 @@ export default function EditCandidateIntrview({
                       <input
                         type='text'
                         id='phone'
-                        defaultValue={candidate?.phone}
+                        value={candidate?.phone}
                         placeholder='Nhập SĐt ứng viên'
                         className={`${styles.input_process}`}
                       />
@@ -451,7 +455,7 @@ export default function EditCandidateIntrview({
                       <input
                         type='date'
                         id='birthday'
-                        defaultValue={format(
+                        value={format(
                           parseISO(candidate?.birthday),
                           'yyyy-MM-dd'
                         )}
@@ -474,7 +478,7 @@ export default function EditCandidateIntrview({
                       <input
                         type='text'
                         id='hometown'
-                        defaultValue={candidate?.hometown}
+                        value={candidate?.hometown}
                         placeholder='Nhập quê quán'
                         className={`${styles.input_process}`}
                       />
@@ -514,7 +518,7 @@ export default function EditCandidateIntrview({
                       <input
                         type='text'
                         id='school'
-                        defaultValue={candidate?.school}
+                        value={candidate?.school}
                         placeholder='Nhập trường học'
                         className={`${styles.input_process}`}
                       />
@@ -586,7 +590,7 @@ export default function EditCandidateIntrview({
                       <input
                         type='text'
                         id='address'
-                        defaultValue={candidate?.address}
+                        value={candidate?.address}
                         placeholder='Nhập địa chỉ ứng viên'
                         className={`${styles.input_process}`}
                       />
@@ -608,7 +612,7 @@ export default function EditCandidateIntrview({
                       <input
                         type='text'
                         id='cvFrom'
-                        defaultValue={candidate?.cvFrom}
+                        value={candidate?.cvFrom}
                         placeholder='Nhập nguồn ứng viên'
                         className={`${styles.input_process}`}
                       />
@@ -629,16 +633,24 @@ export default function EditCandidateIntrview({
                     </label>
                     <div className={`${styles.input_right}`}>
                       <div className={`${styles.div_no_pad} `}>
-                        <Selects
-                          selectedOption={selectedUseHiring}
-                          onChange={handleSelectChange}
-                          padding={15}
-                          width_control={100}
-                          width_menu={97}
-                          height={33.6}
-                          setState={setUserHiring}
-                          option={options.tennhanvientuyendung}
-                          placeholder={'Chọn nhân viên'}
+                        <Select
+                          value={selectedUseHiring}
+                          placeholder="Nhân viên tuyển dụng"
+                          styles={{
+                            control: (baseStyles, state) => ({
+                              ...baseStyles,
+                              borderRadius: 4,
+                              fontSize: state.isFocused ? 14 : 14,
+                              minHeight: state.isFocused ? 20 : 20,
+                              width: '97%',
+                              color: state.isFocused ? '#444444' : '#444444',
+                              fontWeight: state.isFocused ? 600 : 600
+                            }),
+                            placeholder: (baseStyles) => ({
+                              ...baseStyles,
+                              color: "#444444",
+                            }),
+                          }}
                         />
                         <span>
                           {' '}
@@ -658,16 +670,24 @@ export default function EditCandidateIntrview({
                     </label>
                     <div className={`${styles.input_right}`}>
                       <div className={`${styles.div_no_pad} `}>
-                        <Selects
-                          selectedOption={selectedUseRecomment}
-                          onChange={handleSelectChange}
-                          padding={15}
-                          width_control={100}
-                          width_menu={97}
-                          height={33.6}
-                          setState={setUserRecommend}
-                          option={options.tennhanviengioithieu}
-                          placeholder={'Chọn nhân viên'}
+                        <Select
+                          value={selectedUseRecomment}
+                          placeholder="Nhân viên giới thiệu"
+                          styles={{
+                            control: (baseStyles, state) => ({
+                              ...baseStyles,
+                              borderRadius: 4,
+                              fontSize: state.isFocused ? 14 : 14,
+                              minHeight: state.isFocused ? 20 : 20,
+                              width: '97%',
+                              color: state.isFocused ? '#444444' : '#444444',
+                              fontWeight: state.isFocused ? 600 : 600
+                            }),
+                            placeholder: (baseStyles) => ({
+                              ...baseStyles,
+                              color: "#444444",
+                            }),
+                          }}
                         />
                       </div>
                     </div>
@@ -686,7 +706,7 @@ export default function EditCandidateIntrview({
                       <input
                         type='date'
                         id='timeSendCv'
-                        defaultValue={format(
+                        value={format(
                           parseISO(candidate?.timeSendCv),
                           'yyyy-MM-dd'
                         )}
@@ -704,7 +724,7 @@ export default function EditCandidateIntrview({
                       <input
                         type='date'
                         id='timeSendCv'
-                        defaultValue={format(
+                        value={format(
                           parseISO(candidate?.timeSendCv),
                           'yyyy-MM-dd'
                         )}
@@ -747,7 +767,7 @@ export default function EditCandidateIntrview({
                       <input
                         type='text'
                         id='resiredSalary'
-                        // defaultValue={}
+                        defaultValue={candidateAll?.data?.resiredSalary}
                         className={`${styles.input_process}`}
                       />
                       <span>
@@ -768,7 +788,7 @@ export default function EditCandidateIntrview({
                       <input
                         type='text'
                         id='salary'
-                        // defaultValue={}
+                        defaultValue={candidateAll?.data?.salary}
                         className={`${styles.input_process}`}
                       />
                     </div>

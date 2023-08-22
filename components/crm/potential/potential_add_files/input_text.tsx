@@ -6,7 +6,20 @@ export default function InputText({
   require = false,
   bonus = "",
   type = "text",
+  value = "",
+  setFormData,
+  keyValue = "",
 }: any) {
+  const handleChangeInput = (e: any) => {
+    if (keyValue !== "") {
+      setFormData((preData: any) => {
+        return {
+          ...preData,
+          [keyValue]: e.target.value,
+        };
+      });
+    }
+  };
   return (
     <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
       <label className={`${styles["form-label"]} ${require ? "required" : ""}`}>
@@ -23,6 +36,8 @@ export default function InputText({
         name="middle_name"
         id="middle_name"
         placeholder={placeholder}
+        value={value}
+        onChange={handleChangeInput}
       />
     </div>
   );

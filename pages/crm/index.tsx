@@ -1,9 +1,9 @@
-import HomePage from '@/components/crm/home/home_page'
+import HomePageLogin from "@/components/crm/login/login";
 
 export default function Home() {
   return (
     <>
-       <HomePage />
+      <HomePageLogin />
     </>
-  )
+  );
 }
