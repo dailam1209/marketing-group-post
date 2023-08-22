@@ -21,7 +21,10 @@ const Profile_infor: React.FC<Profile_inforProps> = ({ ...props }) => {
       <div className={`${styles.profile_infor}`}>
         <div className={`${styles.profile_div_img}`}>
           <a href="">
-            <img src={`${props.img}`} width={102} height={102} alt="Avatar" />
+            <img src={`${props.img}`} width={102} height={102} alt="Avatar" onError={(e:any) => {
+                  e.target.onerror = null
+                  e.target.src = '/avatar.jpg'
+                }} />
           </a>
         </div>
         <div className={`${styles.profile_infor_name}`}>

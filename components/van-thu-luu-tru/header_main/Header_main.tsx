@@ -18,7 +18,6 @@ interface ItemLink {
   href: string;
   title?: string;
 }
-
 const List_link: ItemLink[] = [
   {
     id: "1",
@@ -173,7 +172,15 @@ const General_header = () => {
           />
           <button className={`${styles.profile}`} onClick={handleOpenModal}>
             <a href="#" className={`${styles.a_profile}`}>
-              <img src={user && user?.avatarUser ? user?.avatarUser : "/avatar.jpg"} width={50} height={50} alt="Avatar" />
+              <img 
+                src={user && user?.avatarUser ? user?.avatarUser : "/avatar.jpg"} 
+                onError={(e:any) => {
+                  e.target.onerror = null
+                  e.target.src = '/avatar.jpg'
+                }}
+                width={50} 
+                height={50} 
+                alt="Avatar"  />
             </a>
             {/* {storedData === "user" ? ( */}
             <Profile_infor

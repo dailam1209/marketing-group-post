@@ -72,7 +72,10 @@ const Layout_admin = ({ children,info }: any) => {
       <div className={`${styles.side_bar} ${isOpen ? styles.visible : ""}`}>
         <div className={`${styles.general_management}`}>
           <div className={`${styles.profile}`}>
-            <img src={com && com?.avatarUser ? com?.avatarUser : "/avatar.jpg"} width={50} height={50} alt="Avatar" />
+            <img src={com && com?.avatarUser ? com?.avatarUser : "/avatar.jpg"} width={50} height={50} alt="Avatar" onError={(e:any) => {
+                  e.target.onerror = null
+                  e.target.src = '/avatar.jpg'
+                }} />
             <div className={`${styles.profile_content}`}>
               <p>{com?.userName}</p>
             </div>
