@@ -20,8 +20,9 @@ const AddFilesCustomerList: React.FC = () => {
     email: "",
     resoure: null,
     description: "",
-    parent_group: null,
+    parent_group:null,
     user_create_id: null,
+    // child_group:null
   });
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();

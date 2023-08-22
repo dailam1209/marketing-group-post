@@ -40,7 +40,6 @@ interface TableDataContracDrops {
   fetchData?: any;
   des?: any;
   setDes?: any;
-
 }
 
 const TableListCustomer: React.FC<TableDataContracDrops> = ({
@@ -51,7 +50,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   fetchData,
   des,
   setDes,
-  setTest:any,
+  setTest: any,
 }: any) => {
   const [openModalCall, setOpenModalCall] = useState(false);
   const router = useRouter();
@@ -59,10 +58,15 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   const [valueStatus, setValueStatus] = useState();
   const [cusId, setCusId] = useState<any>();
   const [pageSize, setpageSize] = useState<any>();
-
+  const [te,setTE]=useState<any>()
   const handleChangeStatus = (e: any, data: any) => {
     setValueStatus(e.target.value);
   };
+  const handleShowCall = (record: any) => {
+    setOpenModalCall(true)
+     setCusId(record.cus_id)
+  }
+
   const renderTitle = (record, text) => (
     <div className="tooltip-content">
       <button
@@ -81,22 +85,18 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   );
   const handleChangeSelect = async (e: any, record) => {
     //get type
-    const res = await fetch(
-     `${base_url}/api/crm/customerdetails/detail`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${Cookies.get("token_base365")}`,
-        },
-        body: JSON.stringify({ cus_id: record?.cus_id }),
-      }
-    );
+    const res = await fetch(`${base_url}/api/crm/customerdetails/detail`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${Cookies.get("token_base365")}`,
+      },
+      body: JSON.stringify({ cus_id: record?.cus_id }),
+    });
     const type = await res.json();
     // const
 
-    const url =
-    `${base_url}/api/crm/customerdetails/editCustomer`;
+    const url = `${base_url}/api/crm/customerdetails/editCustomer`;
 
     const formData = new FormData();
     formData.append("resoure", e.target.value);
@@ -154,11 +154,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       key: "1",
       width: 100,
       render: (data, record) => (
-        <button
-          onClick={() => (setOpenModalCall(true), setCusId(record.cus_id))}
-        >
-          {data}
-        </button>
+        <button onClick={() => handleShowCall(record)}>{data}</button>
       ),
     },
     {
@@ -176,7 +172,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
         <div
           style={{ padding: "5px", paddingLeft: "11px" }}
           className={stylesPotentialSelect.wrap_select}
-          onClick={() => setCusId(record.cus_id)}
+          onClick={() => (setCusId(record.cus_id))}
         >
           <CustomerGroupSelect
             data={dataGroup}
