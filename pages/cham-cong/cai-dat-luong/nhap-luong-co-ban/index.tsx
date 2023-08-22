@@ -11,7 +11,7 @@ import {
 import _ from 'lodash'
 import moment from 'moment'
 export default function CaiDatNhapLuongCoBan({ data, listPb, listIds, temp }) {
-  console.log(temp)
+  // console.log(temp)
 
   return (
     <div>
@@ -58,6 +58,7 @@ export const getServerSideProps = async (context) => {
       data: finalData,
       listPb: listPbRes?.items || [],
       temp: res,
+      // listIds: listIds || [],
     },
   }
 }
