@@ -28,7 +28,7 @@ export function DanhSachNhom({
   const [data, setData] = useState(listGroups?.data)
   const [company, setCompany]: any = useState(infoCom?.data)
   const [listDepLabel, setListDepLabel]: any = useState(
-    listDepartments?.map((dep) => ({
+    listDepartments?.items?.map((dep) => ({
       label: dep?.dep_name,
       value: dep?.dep_id,
     }))
