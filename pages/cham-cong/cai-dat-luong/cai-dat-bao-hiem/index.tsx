@@ -21,13 +21,13 @@ export default function CaiDatBaoHiem({
   const [modalAdd, setModalAdd] = useState(false);
   const [modalNext, setModalNext] = useState(false);
   const [listDepLabel, setListDepLabel]: any[] = useState(
-    listDepartments?.data?.map((dep) => ({
+    listDepartments?.items?.map((dep) => ({
       label: dep?.dep_name,
       value: dep?.dep_id,
     }))
   );
   const [listEmpLabel, setListEmpLabel]: any = useState(
-    listEmp?.data?.map((e) => ({ label: e?.userName, value: e?.idQLC }))
+    listEmp?.items?.map((e) => ({ label: e?.userName, value: e?.idQLC }))
   );
 
   const handleTabSelect = (key: string) => {

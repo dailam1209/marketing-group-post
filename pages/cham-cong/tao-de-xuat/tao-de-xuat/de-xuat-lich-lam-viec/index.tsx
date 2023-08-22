@@ -349,7 +349,7 @@ export default function Page({ listShift }) {
     GET('api/qlc/shift/list').then((res) => {
       if (res?.result === true) {
         setShiftLabel(
-          res?.list.map((item) => {
+          res?.items.map((item) => {
             return {
               value: `${item?.shift_id}`,
               label: item?.shift_name,
@@ -639,7 +639,7 @@ export const getServerSideProps = async (context) => {
   return {
     props: {
       // listShift
-      listShift: res?.list || [],
+      listShift: res?.items || [],
     },
   }
 }

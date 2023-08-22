@@ -29,12 +29,12 @@ export default function QuanLyCaLamViecPage() {
     GET('api/qlc/shift/list')
       .then((res) => {
         // console.log(res);
-        setListShifts(res.list);
+        setListShifts(res.items);
       })
       .catch((err) => console.error(err));
     POST('api/qlc/company/info', {}).then((res) => {
       if (res?.result === true) {
-        setCompany({ value: res?.data?.idQLC, label: res?.data?.userName });
+        setCompany({ value: res?.data?.com_id, label: res?.data?.com_name });
       }
     });
   }, []);

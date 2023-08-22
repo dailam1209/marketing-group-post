@@ -20,7 +20,7 @@ export default function HeaderBar({ dataHeader, isOpen }: any) {
       </div>
       <div className={`${style.header_info} ${!isOpen ? null : "none"}`}>
         <div className={style.name_staff}>
-          {dataHeader?.data?.userName || ""}
+          {dataHeader?.data?.com_name || ""}
         </div>
         {/* <p className={style.sub_text}>NHÂN VIÊN THỬ VIỆC</p> */}
       </div>

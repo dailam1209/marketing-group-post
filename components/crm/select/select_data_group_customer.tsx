@@ -13,11 +13,7 @@ export default function CustomerGroupSelect({
 }: any) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const [valueOption, setValueOption] = useState(
-    data?.filter((item: any) => item.gr_id === placeholder)[0]?.gr_name
-      ? data?.filter((item: any) => item.gr_id === placeholder)[0]?.gr_name
-      : "Chọn"
-  );
+  const [valueOption, setValueOption] = useState();
 
   const handleClickSelectoption = (e: any) => {
     if (e.target.getAttribute("class") !== styles.select2_search__field) {
@@ -36,10 +32,10 @@ export default function CustomerGroupSelect({
 
   useEffect(() => {
     document.addEventListener("click", handleClickOutside);
-    document.addEventListener("scroll", handleScrollkOutside);
+    // document.addEventListener("scroll", handleScrollkOutside);
 
     return () => {
-      document.removeEventListener("scroll", handleScrollkOutside);
+      // document.removeEventListener("scroll", handleScrollkOutside);
     };
   }, []);
 
@@ -83,7 +79,10 @@ export default function CustomerGroupSelect({
               id="select2-g0q1-container"
               // title="Chọn người dùng"
             >
-              {valueOption}
+              {valueOption ||
+                data?.filter((item: any) => item.gr_id === placeholder)[0]
+                  ?.gr_name ||
+                "Chọn"}
             </span>
             <span
               className={styles.select2_selection__arrow}

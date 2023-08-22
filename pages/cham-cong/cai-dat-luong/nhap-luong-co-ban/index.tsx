@@ -57,7 +57,7 @@ export const getServerSideProps = async (context) => {
   return {
     props: {
       data: finalData,
-      listPb: listPbRes?.data || [],
+      listPb: listPbRes?.items || [],
       listIds: listIds || [],
     },
   }

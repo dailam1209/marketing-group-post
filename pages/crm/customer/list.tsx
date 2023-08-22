@@ -245,6 +245,8 @@ export default function CustomerList() {
 
   
   return (
+    <>
+    {!checkAndRedirectToHomeIfNotLoggedIn() ? null : (
     <div ref={mainRef} className={styleHome.main}>
       <CustomerListInputGroup
         setName={setName}
@@ -277,5 +279,7 @@ export default function CustomerList() {
         setDes={setDes}
       />
     </div>
+      )}
+      </>
   );
 }

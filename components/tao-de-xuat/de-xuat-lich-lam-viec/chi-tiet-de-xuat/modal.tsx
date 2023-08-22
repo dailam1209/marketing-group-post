@@ -25,7 +25,7 @@ export const ModalDetailsLLV = ({ open, setOpen, data, shiftType }) => {
       const res = await GET('api/qlc/shift/list')
 
       if (res?.result) {
-        setListShifts(res?.list)
+        setListShifts(res?.items)
       }
     }
     getData()

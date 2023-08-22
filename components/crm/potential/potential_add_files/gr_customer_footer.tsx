@@ -4,6 +4,7 @@ import styles from "./add_file_potential.module.css";
 import ModalCompleteStep from "../potential_steps/complete_modal";
 import ModalCompleteStepGr from "../potential_steps/complete_mdal_gr";
 import CancelModalGroupCustomer from "../potential_steps/cancel_mdal_gr";
+import React from "react";
 
 export default function GrFooterAddFiles({
   link = "/potential/list",
