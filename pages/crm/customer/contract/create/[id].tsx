@@ -88,6 +88,7 @@ export default function ContractDetailsCreate() {
                   </div>
 
                   {valueContract !== "0" && <div>
+                    
                     <ContractBtsGroupFooter id={id?id:'default'} /></div>}
                 </div>
               </div>

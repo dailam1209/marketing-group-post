@@ -15,7 +15,6 @@ export const checkAndRedirectToHomeIfNotLoggedIn = () => {
 
   };
 
-
   
   export const checkHomeIfLoggedIn = () => {
     const acc_token = Cookies.get("token_base365");

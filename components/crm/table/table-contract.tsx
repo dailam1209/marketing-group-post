@@ -105,7 +105,7 @@ const columns: ColumnsType<DataType> = [
   },
 ];
 
-const datatable = data?.data?.listContract?.map((item: any, index: number) => {
+const datatable = data?.data?.data?.map((item: any, index: number) => {
   return {
     key: index + 1,
     _id: item._id,
