@@ -3,7 +3,7 @@ import { getCookie } from "cookies-next";
 import jwtDecode from "jwt-decode";
 
 const baseURL: any = process.env.NEXT_PUBLIC_BASE_URL;
-const base_QLC_URL: any = process.env.NEXT_PUBLIC_BASE_QLC;
+const base_QLC_URL: any = process.env.NEXT_PUBLIC_BASE_URL;
 const token = `${getCookie("token_first")}${getCookie("token_hafl")}`;
 export const fetch_supervisor_approver = async (token:any) => {
     try{
