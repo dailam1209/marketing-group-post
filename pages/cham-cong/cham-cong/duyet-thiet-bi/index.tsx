@@ -18,11 +18,11 @@ export default function DuyetThietBi({
   const router = useRouter();
   const [listAccept, setListAccept] = useState([]);
   const [comLabel, setComLabel]: any = useState({
-    label: infoCom?.data?.userName,
-    value: infoCom?.data?.idQLC,
+    label: infoCom?.data?.com_name,
+    value: infoCom?.data?.com_id,
   });
   const [listDepLabel, setListDepLabel]: any = useState(
-    listDepartments?.data?.map((dep) => ({
+    listDepartments?.items?.map((dep) => ({
       label: dep?.dep_name,
       value: dep?.dep_id,
     }))
@@ -35,7 +35,7 @@ export default function DuyetThietBi({
   );
   const [data, setData] = useState(
     listDevices?.data?.map((emp) => {
-      const empData = listEmps?.data?.map((e) => e?.idQLC === emp?.idQLC);
+      const empData = listEmps?.items?.map((e) => e?.idQLC === emp?.idQLC);
 
       return {
         key: emp?.ed_id,

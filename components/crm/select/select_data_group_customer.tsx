@@ -2,22 +2,20 @@ import { useEffect, useRef, useState } from "react";
 import styles from "../potential/potential.module.css";
 import CustomerGroupSelectDropdownData from "./dropdown_data_group_customer";
 import { useApi } from "../hooks/useApi";
-const Cookies =require("js-cookie");
+const Cookies = require("js-cookie");
 export default function CustomerGroupSelect({
   title = "",
   value = "Tất cả",
-  placeholder = "",
-  data = [],
+  placeholder,
+  data,
   setValueGroupCustomer,
-  cusId
+  cusId,
 }: any) {
+  console.log("first,", data);
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const [valueOption, setValueOption] = useState(
-    data?.filter((item: any) => item.gr_id === placeholder)[0]?.gr_name
-      ? data?.filter((item: any) => item.gr_id === placeholder)[0]?.gr_name
-      : "Chọn"
-  );
+  const [valueOption, setValueOption] = useState();
+
   const handleClickSelectoption = (e: any) => {
     if (e.target.getAttribute("class") !== styles.select2_search__field) {
       setIsOpen(!isOpen);
@@ -35,10 +33,10 @@ export default function CustomerGroupSelect({
 
   useEffect(() => {
     document.addEventListener("click", handleClickOutside);
-    document.addEventListener("scroll", handleScrollkOutside);
+    // document.addEventListener("scroll", handleScrollkOutside);
 
     return () => {
-      document.removeEventListener("scroll", handleScrollkOutside);
+      // document.removeEventListener("scroll", handleScrollkOutside);
     };
   }, []);
 
@@ -82,7 +80,10 @@ export default function CustomerGroupSelect({
               id="select2-g0q1-container"
               // title="Chọn người dùng"
             >
-              {valueOption} 
+              {valueOption ||
+                data?.filter((item: any) => item.gr_id === placeholder)[0]
+                  ?.gr_name ||
+                "Chọn"}
             </span>
             <span
               className={styles.select2_selection__arrow}
@@ -93,7 +94,13 @@ export default function CustomerGroupSelect({
           </span>
         </span>
         {isOpen && (
-          <CustomerGroupSelectDropdownData cus_id={cusId} data={data} value={value} setValueOption={setValueOption} setValueGroupCustomer={setValueGroupCustomer}/>
+          <CustomerGroupSelectDropdownData
+            cus_id={cusId}
+            data={data}
+            value={value}
+            setValueOption={setValueOption}
+            setValueGroupCustomer={setValueGroupCustomer}
+          />
         )}
       </span>
     </div>

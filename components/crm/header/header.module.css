@@ -68,7 +68,7 @@
 }
 
 .title_message_modal {
-  font-family: 'Roboto-Bold';
+  font-family: "Roboto-Bold";
   font-style: normal;
   font-weight: bold;
   font-size: 18px;
@@ -121,7 +121,7 @@
 }
 
 .title_content {
-  font-family: 'Roboto-Regular';
+  font-family: "Roboto-Regular";
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
@@ -163,7 +163,7 @@
 
 .sender {
   color: #474747;
-  font-family: 'Roboto-Medium';
+  font-family: "Roboto-Medium";
   font-style: normal;
   font-weight: 600;
   font-size: 16px;
@@ -172,7 +172,7 @@
 
 .content_messenges {
   color: #474747;
-  font-family: 'Roboto-Medium';
+  font-family: "Roboto-Medium";
   font-style: normal;
   font-weight: 600;
   font-size: 16px;
@@ -219,7 +219,7 @@
   padding-bottom: 3px;
   margin: 0 !important;
   color: #474747;
-  font-family: 'Roboto-Bold';
+  font-family: "Roboto-Bold";
   font-style: normal;
   font-weight: bold;
   font-size: 20px;
@@ -229,7 +229,7 @@
 .chuc_vu {
   margin: 0 !important;
   color: #4c5bd4;
-  font-family: 'Roboto-Medium';
+  font-family: "Roboto-Medium";
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
@@ -269,7 +269,7 @@
 .title_help {
   margin: 0 !important;
   padding: 25px 0 0 17px;
-  font-family: 'Roboto-Medium';
+  font-family: "Roboto-Medium";
   font-style: normal;
   font-weight: 500;
   font-size: 18px;
@@ -306,7 +306,7 @@
 }
 
 .item_help .text_help_special {
-  font-family: 'Roboto-Medium';
+  font-family: "Roboto-Medium";
   font-style: normal;
   font-weight: 600;
   font-size: 16px;
@@ -328,7 +328,7 @@
 }
 
 .accept_all .accept_button_all {
-  font-family: 'Roboto-Medium';
+  font-family: "Roboto-Medium";
   font-style: normal;
   font-weight: 600;
   font-size: 16px;
@@ -363,7 +363,7 @@
 .notice__item {
   list-style: none;
   position: relative;
-  font-family: 'Roboto-Regular';
+  font-family: "Roboto-Regular";
   font-style: normal;
   font-weight: 500;
   font-size: 16px;

@@ -6,10 +6,9 @@ import CancelModal from "../bill/bill_steps/cancel_modal";
 export default function LogoutCrm({ setShowLogout, showLogout }) {
   const modalRef = useRef(null);
 
-  
   const show = () => {
-    setShowLogout(true)
-  }
+    setShowLogout(true);
+  };
 
   const no = () => {
     setShowLogout(false);

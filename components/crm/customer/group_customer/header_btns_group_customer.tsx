@@ -8,6 +8,7 @@ export default function HeaderBtnsCustomerGroup({
   updateData,
   valFilter,
   setValFilter,
+  handleClickSearch,
 }: any) {
   const handleClickSelectoption = () => {};
   const handleChangeInput = useCallback((e: any) => {
@@ -18,7 +19,7 @@ export default function HeaderBtnsCustomerGroup({
     <div className={styles.main__control}>
       <div className={`${styles.main__control_btn} flex_between`}>
         <div className={styles.main__control_search}>
-          <form onSubmit={() => false}>
+          <div onSubmit={handleClickSearch}>
             <input
               type="text"
               className={styles.input__search}
@@ -28,14 +29,14 @@ export default function HeaderBtnsCustomerGroup({
               value={valFilter}
               onChange={handleChangeInput}
             />
-            <button className={styles.kinh_lup}>
+            <button onClick={handleClickSearch} className={styles.kinh_lup}>
               <img
                 className={styles.img__search}
                 src="https://crm.timviec365.vn/assets/icons/search.svg"
                 alt=""
               />
             </button>
-          </form>
+          </div>
         </div>
         <div className={`${styles.main__control_add} flex_end`}>
           <Link href="/crm/customer/group/add">

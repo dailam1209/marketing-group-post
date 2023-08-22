@@ -45,10 +45,10 @@
   /*top: 15.38%;*/
   /*bottom: 46.15%;*/
 
-  font-family: 'Roboto';
+  font-family: "Roboto";
   font-style: normal;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 20px;
   /* identical to box height, or 143% */
 
@@ -65,7 +65,7 @@
 
   /* text 12 */
 
-  font-family: 'Roboto';
+  font-family: "Roboto";
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
@@ -176,7 +176,7 @@
   left: 58px;
   width: 324px;
   height: 52px;
-  font-size: 16px;
+  font-size: 14px;
 }
 .instanceChild {
   position: absolute;

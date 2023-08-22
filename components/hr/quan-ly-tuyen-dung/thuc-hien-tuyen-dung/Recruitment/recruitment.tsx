@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react'
 import styles from './recruitment.module.css'
 import AddPerformRecruitment from '../AddPerformRecruitment/AddPerformRecruitment'
 import BodyFrameFooter from '../../../bodyFrame/bodyFrame_footer/bodyFrame_footer'
-import ListRecruitment from '@/pages/hr/quan-ly-tuyen-dung/thuc-hien-tuyen-dung/danh-sach-tuyen-dung/ListRecruitment'
+import ListRecruitment from '@/pages/phan-mem-nhan-su/quan-ly-tuyen-dung/thuc-hien-tuyen-dung/danh-sach-tuyen-dung/ListRecruitment'
 import { GetListNews } from '@/pages/api/api-hr/quan-ly-tuyen-dung/PerformRecruitment'
 import MyPagination from '../../../pagination/Pagination'
 import { getDataAuthentication } from '@/pages/api/api-hr/Home/HomeService'
 import Head from 'next/head'
 
-export interface Recruitment {}
+export interface Recruitment { }
 
 export default function Recruitment() {
   const [animateModal, setAnimateModal] = useState(false)
@@ -34,7 +34,7 @@ export default function Recruitment() {
           toDate
         )
         setDataListNews(response?.data)
-      } catch (err) {}
+      } catch (err) { }
     }
     GetDataListNews()
   }, [title, currentPage, onDelete, formDate, toDate, addData, editData])
@@ -46,7 +46,7 @@ export default function Recruitment() {
         setDisplayIcon(response?.data?.data?.infoRoleTD)
       }
       fetchData()
-    } catch (error) {}
+    } catch (error) { }
   }, [])
 
   const perIdArray = displayIcon?.map((item) => item.perId)

@@ -11,36 +11,36 @@ import { ModalWrapper } from '@/components/modal/ModalWrapper'
 import { getCookie } from 'cookies-next'
 import Cookies from 'js-cookie'
 
-// const ConfirmModal = ({
-//   open,
-//   setOpen,
-//   router,
-//   url,
-// }: {
-//   open: boolean
-//   setOpen: any
-//   router: any
-//   url: string
-// }) => {
-//   const children = (
-//     <p style={{ textAlign: 'center' }}>Bạn có muốn tiến hành cài đặt không?</p>
-//   )
+const ConfirmModal = ({
+  open,
+  setOpen,
+  router,
+  url,
+}: {
+  open: boolean
+  setOpen: any
+  router: any
+  url: string
+}) => {
+  const children = (
+    <p style={{ textAlign: 'center' }}>Bạn có muốn tiến hành cài đặt không?</p>
+  )
 
-//   const onConfirm = () => {
-//     router?.push(url)
-//   }
+  const onConfirm = () => {
+    router?.push(url)
+  }
 
-//   return ModalWrapper(
-//     open,
-//     setOpen,
-//     children,
-//     450,
-//     '',
-//     'Cài đặt',
-//     onConfirm,
-//     false
-//   )
-// }
+  return ModalWrapper(
+    open,
+    setOpen,
+    children,
+    450,
+    '',
+    'Cài đặt',
+    onConfirm,
+    false
+  )
+}
 export const COOKIE_KEY = 'token_base365'
 export default function HomeQLNS() {
   const router = useRouter()
@@ -233,7 +233,6 @@ export default function HomeQLNS() {
             index1 + 1,
             stepData.title,
             stepData?.required,
-
             `cham-cong/${stepData.url}`
           )
         )}
@@ -258,7 +257,6 @@ export default function HomeQLNS() {
         )}
       </div>
     )
-
     return type === '1' ? ADMIN : EMP
   }
 
@@ -282,12 +280,12 @@ export default function HomeQLNS() {
               {renderSelection(type)}
             </Col>
           </Row>
-          {/* <ConfirmModal
+          <ConfirmModal
             open={openConfirm}
             setOpen={setOpenConfirm}
             router={router}
             url={selectedUrl}
-          /> */}
+          />
         </div>
       )
   }

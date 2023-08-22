@@ -13,69 +13,6 @@ import { MyInput, MySelect } from '../../quan-ly-cong-ty-con/modal'
 import { POST, getCompIdCS } from '@/pages/api/BaseApi'
 import dayjs from 'dayjs'
 
-// const mockdata = [
-//   {
-//     id: "12345",
-//     name: "Uy Phùng Hiếu",
-//     time: "07-05-2023",
-//     reason: "Thấy công việc kia làm tốt hơn",
-//     oldApartment: "Kỹ thuật",
-//     newApartment: "Biên tập",
-//     oldComp: "Công ty cổ phần thanh toán Hưng Hà",
-//     newComp: "Công ty cổ phần thanh toán Hưng Hà",
-//     oldJob: "Nhân viên chính thức",
-//     newJob: "Nhân viên thử việc"
-//   },
-//   {
-//     id: "12345",
-//     name: "Uy Phùng Hiếu",
-//     time: "07-05-2023",
-//     reason: "Thấy công việc kia làm tốt hơn",
-//     oldApartment: "Kỹ thuật",
-//     newApartment: "Biên tập",
-//     oldComp: "Công ty cổ phần thanh toán Hưng Hà",
-//     newComp: "Công ty cổ phần thanh toán Hưng Hà",
-//     oldJob: "Nhân viên chính thức",
-//     newJob: "Nhân viên thử việc"
-//   },
-//   {
-//     id: "12345",
-//     name: "Uy Phùng Hiếu",
-//     time: "07-05-2023",
-//     reason: "Thấy công việc kia làm tốt hơn",
-//     oldApartment: "Kỹ thuật",
-//     newApartment: "Biên tập",
-//     oldComp: "Công ty cổ phần thanh toán Hưng Hà",
-//     newComp: "Công ty cổ phần thanh toán Hưng Hà",
-//     oldJob: "Nhân viên chính thức",
-//     newJob: "Nhân viên thử việc"
-//   },
-//   {
-//     id: "12345",
-//     name: "Uy Phùng Hiếu",
-//     time: "07-05-2023",
-//     reason: "Thấy công việc kia làm tốt hơn",
-//     oldApartment: "Kỹ thuật",
-//     newApartment: "Biên tập",
-//     oldComp: "Công ty cổ phần thanh toán Hưng Hà",
-//     newComp: "Công ty cổ phần thanh toán Hưng Hà",
-//     oldJob: "Nhân viên chính thức",
-//     newJob: "Nhân viên thử việc"
-//   },
-//   {
-//     id: "12345",
-//     name: "Uy Phùng Hiếu",
-//     time: "07-05-2023",
-//     reason: "Thấy công việc kia làm tốt hơn",
-//     oldApartment: "Kỹ thuật",
-//     newApartment: "Biên tập",
-//     oldComp: "Công ty cổ phần thanh toán Hưng Hà",
-//     newComp: "Công ty cổ phần thanh toán Hưng Hà",
-//     oldJob: "Nhân viên chính thức",
-//     newJob: "Nhân viên thử việc"
-//   }
-// ]
-
 export function LuanChuyen({
   listTranferJob,
   listDepartments,
@@ -89,7 +26,7 @@ export function LuanChuyen({
   const [openAddNew, setOpenAddNew] = useState(false)
   const [data, setData] = useState(listTranferJob?.data)
   const [listDepLabel, setListDepLabel]: any = useState(
-    listDepartments?.data?.map((dep) => ({
+    listDepartments?.items?.map((dep) => ({
       label: dep?.dep_name,
       value: dep?.dep_id,
     }))
@@ -116,7 +53,7 @@ export function LuanChuyen({
         com_id: com_id,
       }).then((res) => {
         if (res?.result === true) {
-          setListEmp(res?.data)
+          setListEmp(res?.items)
         }
       })
   }, [])

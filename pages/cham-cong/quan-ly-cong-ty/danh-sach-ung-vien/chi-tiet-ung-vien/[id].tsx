@@ -17,7 +17,7 @@ export default function ChiTietUngVien({ listEmp, data }) {
   });
   const [starVote, setStarVote]: any = useState(data?.data?.[0]?.starVote);
   const [listEmpLabel, setListEmpLabel]: any = useState(
-    listEmp?.data?.map((emp) => ({ label: emp?.userName, value: emp?.idQLC }))
+    listEmp?.items?.map((emp) => ({ label: emp?.userName, value: emp?.idQLC }))
   );
 
   const router = useRouter();

@@ -5,7 +5,7 @@
 }
 
 .l_chinhsua_item_input {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   color: #474747;
 }
@@ -64,7 +64,7 @@
   background: none;
   color: #4c5bd4;
   margin-right: 15px;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
 }
 
@@ -73,6 +73,6 @@
   border-radius: 8px;
   color: white;
   padding: 8px 15px;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
 }

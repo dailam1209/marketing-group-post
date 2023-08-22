@@ -11,6 +11,7 @@ import {
   EmployeeInfo,
   getDataCompany,
 } from "@/pages/api/api-hr/cai-dat/generalSettings";
+import { checkAndRedirectToHomeIfNotLoggedIn } from "@/components/crm/ultis/checkLogin";
 
 export default function SideBar({ isOpened }: any) {
   const { isOpen, setIsOpen } = useContext<any>(SidebarContext);
@@ -88,13 +89,19 @@ export default function SideBar({ isOpened }: any) {
   }, [tokenType]);
 
   return (
-    <div
-      ref={sidebarRef as any}
-      // style={{ width: isOpen ? "70px" : "302px" }}
-      className={`${style.sidebar} ${!isOpened ? `${style.mSideBar}` : null}`}
-    >
-      <HeaderBar dataHeader={dataHeader} isOpen={isOpen} />
-      <SiebarContent isOpen={isOpen} toggleModal={setIsOpen} />
-    </div>
+    <>
+      {!checkAndRedirectToHomeIfNotLoggedIn() ? null : (
+        <div
+          ref={sidebarRef as any}
+          // style={{ width: isOpen ? "70px" : "302px" }}
+          className={`${style.sidebar} ${
+            !isOpened ? `${style.mSideBar}` : null
+          }`}
+        >
+          <HeaderBar dataHeader={dataHeader} isOpen={isOpen} />
+          <SiebarContent isOpen={isOpen} toggleModal={setIsOpen} />
+        </div>
+      )}
+    </>
   );
 }

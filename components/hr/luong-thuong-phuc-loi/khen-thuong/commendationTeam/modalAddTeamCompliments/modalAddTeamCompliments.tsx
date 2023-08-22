@@ -47,7 +47,7 @@ function ModalAddTeamCompliments({ animation, onClose, updateData }: any) {
       }
     }
     getData()
-  }, [])
+  }, [tokenComId])
 
   const options = {
     tenphongban: dep,

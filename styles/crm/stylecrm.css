@@ -431,7 +431,7 @@ tr {
   top: -6px !important;
 }
 
-:where(.css-dev-only-do-not-override-1m62vyb).ant-steps .ant-steps-item-process .ant-steps-item-icon {
+.ant-steps .ant-steps-item-process .ant-steps-item-icon {
   background-color: #1677ff !important;
 }
 
@@ -474,7 +474,7 @@ tr {
   column-gap: 68px;
 }
 
-.mdal_cancel :where(.css-dev-only-do-not-override-1m62vyb).ant-btn-default {
+.mdal_cancel .ant-btn-default {
   background-color: #fff;
   color: #4c5bd4;
   border: 1px solid #4c5bd4;
@@ -486,7 +486,7 @@ tr {
   line-height: 23px;
 }
 
-.mdal_cancel :where(.css-dev-only-do-not-override-1m62vyb).ant-btn-primary {
+.mdal_cancel .ant-btn-primary {
   width: 140px;
   height: 36px;
   font-family: 'Roboto-Bold';
@@ -527,7 +527,7 @@ tr {
   justify-content: center !important;
 }
 
-.custom_mdal_sucess :where(.css-dev-only-do-not-override-1m62vyb).ant-btn-default {
+.custom_mdal_sucess .ant-btn-default {
   display: none !important;
 }
 
@@ -546,19 +546,19 @@ tr {
   justify-content: center;
 }
 
-:where(.css-dev-only-do-not-override-1m62vyb).ant-modal .ant-modal-close {
+.ant-modal .ant-modal-close {
   display: none !important;
 }
 
-.mdal_cancel:where(.css-dev-only-do-not-override-1m62vyb).ant-modal .ant-modal-close {
+.mdal_cancel .ant-modal .ant-modal-close {
   display: block !important;
 }
 
-.shared_factor :where(.css-dev-only-do-not-override-1m62vyb).ant-btn-primary {
+.shared_factor .ant-btn-primary {
   display: none;
 }
 
-.shared_factor :where(.css-dev-only-do-not-override-1m62vyb).ant-btn-default {
+.shared_factor .ant-btn-default {
   display: none;
 }
 
@@ -566,7 +566,7 @@ tr {
   width: auto !important;
 }
 
-.campign_mdal:where(.css-dev-only-do-not-override-1m62vyb).ant-modal .ant-modal-close {
+.campign_mdal .ant-modal .ant-modal-close {
   display: block !important;
 }
 
@@ -626,13 +626,13 @@ tr {
   background-color: white;
 }
 
-:where(.css-dev-only-do-not-override-1m62vyb).ant-table-wrapper .ant-table.ant-table-bordered>.ant-table-container>.ant-table-header>table>thead>tr>th,
-:where(.css-dev-only-do-not-override-1m62vyb).ant-table-wrapper .ant-table.ant-table-bordered>.ant-table-container>.ant-table-body>table>tbody>tr>td,
-:where(.css-dev-only-do-not-override-1m62vyb).ant-table-wrapper .ant-table.ant-table-bordered>.ant-table-container>.ant-table-body>table>tfoot>tr>td {
+.ant-table-wrapper .ant-table.ant-table-bordered>.ant-table-container>.ant-table-header>table>thead>tr>th,
+.ant-table-wrapper .ant-table.ant-table-bordered>.ant-table-container>.ant-table-body>table>tbody>tr>td,
+.ant-table-wrapper .ant-table.ant-table-bordered>.ant-table-container>.ant-table-body>table>tfoot>tr>td {
   border-inline-end: 1px solid #ccc !important;
 }
 
-.custom_review_mdal :where(.css-dev-only-do-not-override-1m62vyb).ant-btn-default {
+.custom_review_mdal .ant-btn-default {
   display: none;
 }
 
@@ -675,11 +675,11 @@ tr {
 
 /* Custom Drawer */
 
-:where(.css-dev-only-do-not-override-1m62vyb).ant-drawer .ant-drawer-header-title {
+.ant-drawer .ant-drawer-header-title {
   flex-direction: row-reverse;
 }
 
-:where(.css-dev-only-do-not-override-1m62vyb).ant-drawer .ant-drawer-title {
+.ant-drawer .ant-drawer-title {
   font-size: 16px !important;
   color: white;
 }
@@ -765,4 +765,48 @@ label {
   .ant-popover-content {
   right: 16px;
   top: 4px;
+}
+.ant-table-body::-webkit-scrollbar {
+  width: 2px;
+  height: 5px;
+}
+.ant-table-body::-webkit-scrollbar-thumb {
+  background-color: #1677ff;
+}
+.ant-table-body::-webkit-scrollbar-thumb:hover {
+  background: #a2b8d0;
+}
+
+.custom-cellCus {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.9);
+  pointer-events: painted;
+  overflow: hidden;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Hiển thị nội dung khi hover vào ô */
+.ant-table-cell:hover .custom-cellCus {
+  opacity: 1;
+  z-index: 999;
+  height: fit-content;
+  background-color: #f3e9e9;
+  pointer-events: painted;
+  padding: 18px;
+}
+.ant-table-cell .custom-cellCus {
+  padding: 10px;
+  text-align: start;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: start;
 }

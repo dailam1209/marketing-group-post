@@ -70,11 +70,10 @@ const SelectDataInputBox: React.FC<MyProps> = ({
           onChange={(e: any) => {
             handleChangeApi(e, data);
           }}
-          // defaultValue={dataStatus?.status}
-            value={dataStatus?.status}
+          defaultValue={dataStatus?.status}
+            // value={dataStatus?.status}
           style={{ border: 0 }}
         >
-          <option value={""}>Chưa cập nhật</option>
           {data?.map((item: any, index: number) => {
             return <option
               style={{ display: item.status !== 0 ? "block" : "none" }}

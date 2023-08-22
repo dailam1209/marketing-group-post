@@ -37,7 +37,7 @@
 .adds p {
   margin: 0;
   padding: 0;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
 }
 .tuyendung2 {
@@ -53,7 +53,7 @@
 }
 .tuyendung2_1 span {
   margin-right: 5px;
-  font-size: 16px;
+  font-size: 14px;
   color: #333333;
   font-weight: 700;
 }
@@ -67,28 +67,28 @@
   color: #ffffff;
 }
 
-.tuyendung2_1 input[type='date']::-webkit-datetime-edit-text,
-.tuyendung2_1 input[type='date']::-webkit-datetime-edit-year-field,
-.tuyendung2_1 input[type='date']::-webkit-datetime-edit-month-field,
-.tuyendung2_1 input[type='date']::-webkit-datetime-edit-day-field {
+.tuyendung2_1 input[type="date"]::-webkit-datetime-edit-text,
+.tuyendung2_1 input[type="date"]::-webkit-datetime-edit-year-field,
+.tuyendung2_1 input[type="date"]::-webkit-datetime-edit-month-field,
+.tuyendung2_1 input[type="date"]::-webkit-datetime-edit-day-field {
   /* Các thuộc tính CSS để tuỳ chỉnh kiểu hiển thị */
   text-align: center;
-  font-size: 16px;
+  font-size: 14px;
   color: #333333;
   padding: 2px;
   font-weight: 600;
 }
 
-.tuyendung2_1 input[type='date']::-webkit-datetime-edit-day-field:focus,
-.tuyendung2_1 input[type='date']::-webkit-datetime-edit-month-field:focus,
-.tuyendung2_1 input[type='date']::-webkit-datetime-edit-year-field:focus {
+.tuyendung2_1 input[type="date"]::-webkit-datetime-edit-day-field:focus,
+.tuyendung2_1 input[type="date"]::-webkit-datetime-edit-month-field:focus,
+.tuyendung2_1 input[type="date"]::-webkit-datetime-edit-year-field:focus {
   color: white;
 }
 .search_from_date {
   margin-right: 22px;
 }
 .search_from_date .search_to_date {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 700;
   color: #333333;
 }
@@ -125,29 +125,29 @@
   border: none;
   width: 345px;
   outline: none;
-  font-size: 16px;
+  font-size: 14px;
   line-height: inherit;
   margin: 0;
   background-color: transparent;
 }
 
-.t_div_search input[type='search']::-webkit-search-cancel-button,
-.t_div_search input[type='search']::-webkit-search-decoration,
-.t_div_search input[type='search']::-webkit-search-results-button,
-.t_div_search input[type='search']::-webkit-search-results-decoration {
+.t_div_search input[type="search"]::-webkit-search-cancel-button,
+.t_div_search input[type="search"]::-webkit-search-decoration,
+.t_div_search input[type="search"]::-webkit-search-results-button,
+.t_div_search input[type="search"]::-webkit-search-results-decoration {
   display: none;
 }
 
-.t_div_search input[type='search']::-moz-search-cancel-button {
+.t_div_search input[type="search"]::-moz-search-cancel-button {
   display: none;
 }
 
-.t_div_search input[type='search']::-ms-clear {
+.t_div_search input[type="search"]::-ms-clear {
   display: none;
 }
 
-.t_div_search input[type='search']::ms-reveal,
-.t_div_search input[type='search']::-ms-clear {
+.t_div_search input[type="search"]::ms-reveal,
+.t_div_search input[type="search"]::-ms-clear {
   display: none;
 }
 .button_search {

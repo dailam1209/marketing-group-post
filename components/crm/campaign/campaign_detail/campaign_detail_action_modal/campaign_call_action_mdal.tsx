@@ -3,6 +3,7 @@ import { Modal } from "antd";
 import styles from "@/components/crm/campaign/campaign.module.css";
 import CampaignSelectBoxStep from "@/components/crm/campaign/campaign_steps/select_box_step";
 import ModalCompleteStep from "@/components/crm/campaign/campaign_steps/complete_modal";
+import { useRouter } from "next/router";
 
 interface MyComponentProps {
   isModalCancel: boolean;
@@ -17,6 +18,7 @@ const CallModal: React.FC<MyComponentProps> = ({
 
   const handleOK = () => {
     setIsModalCancel(false);
+
     setIsOpenMdalSuccess(true);
     setTimeout(() => {
       setIsOpenMdalSuccess(false);

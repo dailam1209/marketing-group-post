@@ -20,13 +20,13 @@ export default function CaiDatThue({
   const [checkButton, setCheckButton] = useState("1");
   // const [comLabel, setComLabel]: any = useState({ label: infoCom?.data?.userName, value: infoCom?.data?.idQLC })
   const [listDepLabel, setListDepLabel]: any[] = useState(
-    listDepartments?.data?.map((dep) => ({
+    listDepartments?.items?.map((dep) => ({
       label: dep?.dep_name,
       value: dep?.dep_id,
     }))
   );
   const [listEmpLabel, setListEmpLabel]: any[] = useState(
-    listEmp?.data?.map((emp) => ({ label: emp?.userName, value: emp?.idQLC }))
+    listEmp?.items?.map((emp) => ({ label: emp?.userName, value: emp?.idQLC }))
   );
 
   const tabList = [

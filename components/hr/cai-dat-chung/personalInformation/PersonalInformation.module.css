@@ -63,7 +63,7 @@
   margin-top: 20px;
 }
 .l_custom_btn button {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
 }
 .l_btn_chinhsua1 {
@@ -76,12 +76,12 @@
   border: 1px solid #4c5bd4 !important;
   box-sizing: border-box;
   border-radius: 8px;
-  font-size: 16px;
+  font-size: 14px;
 }
 .l_setting_title {
   font-style: normal;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 16px;
   text-transform: uppercase;
   color: #474747;
@@ -110,7 +110,7 @@
   width: 70%;
   font-style: normal;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 19px;
   color: #474747;
 }
@@ -119,14 +119,14 @@
   width: 30%;
   font-style: normal;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 19px;
   color: #474747;
 }
 .l_info_item_left_text {
   font-style: normal;
   font-weight: normal;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 19px;
   color: #666666;
   font-weight: 600;
@@ -155,7 +155,7 @@
 }
 .l_edit_info_left input {
   height: auto !important;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
   opacity: 0.9;
   width: 90%;

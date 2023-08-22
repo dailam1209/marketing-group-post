@@ -1,10 +1,10 @@
-import { Modal, Input, Select, Button, Form, Checkbox } from 'antd'
-import styles from './modal-them-lich.module.css'
-import Image from 'next/image'
-import Link from 'next/link'
-import { useEffect, useState } from 'react'
-import { GET, POST } from '@/pages/api/BaseApi'
-import { ModalThemCa } from '../modal-them-ca/modal-them-ca'
+import { Modal, Input, Select, Button, Form, Checkbox } from 'antd';
+import styles from './modal-them-lich.module.css';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { GET, POST } from '@/pages/api/BaseApi';
+import { ModalThemCa } from '../modal-them-ca/modal-them-ca';
 
 export function ModalTiepTuc(
   open: boolean,
@@ -12,25 +12,11 @@ export function ModalTiepTuc(
   setBack: Function,
   setNext: Function,
   form: any,
+  listShift: any,
   listShiftSelected: any,
   setListShiftSelected: Function
 ) {
-  const [listShift, setListShift] = useState<any>()
-
-  useEffect(() => {
-    GET('api/qlc/shift/list').then((res) => {
-      if (res?.result === true) {
-        setListShift(
-          res?.list.map((item) => {
-            return {
-              key: `${item?.shift_id}`,
-              content: item?.shift_name,
-            }
-          })
-        )
-      }
-    })
-  }, [])
+  // console.log(listShift);
 
   return (
     <Modal
@@ -39,12 +25,13 @@ export function ModalTiepTuc(
       width={600}
       closable={false}
       cancelButtonProps={{ style: { display: 'none' } }}
-      okButtonProps={{ style: { display: 'none' } }}>
+      okButtonProps={{ style: { display: 'none' } }}
+    >
       <div className={styles.header}>
         <div></div>
         <div className={styles.textHead}>Thêm mới lịch làm việc</div>
         <Image
-          alt='/'
+          alt="/"
           src={'/cross.png'}
           width={14}
           height={14}
@@ -56,7 +43,10 @@ export function ModalTiepTuc(
           <div className={styles.bodyItem}>
             Chọn ca làm việc <br />
             Bạn cần thiết lập ca làm việc{' '}
-            <Link href={'/quan-ly-cong-ty/quan-ly-ca'} style={{ color: 'red' }}>
+            <Link
+              href={'/cham-cong/quan-ly-cong-ty/quan-ly-ca'}
+              style={{ color: 'red' }}
+            >
               tại đây{' '}
             </Link>
             trước
@@ -68,41 +58,43 @@ export function ModalTiepTuc(
                 ? setListShiftSelected(
                     listShiftSelected?.filter((d: any) => d !== key)
                   )
-                : setListShiftSelected([...listShiftSelected, key])
-            }
+                : setListShiftSelected([...listShiftSelected, key]);
+            };
             return (
               <li key={index}>
                 <Checkbox
-                  key={shift?.key}
-                  onChange={() => onChange(shift?.key)}
-                  checked={listShiftSelected?.includes(shift?.key)}></Checkbox>
-                {shift?.content}
+                  onChange={() => onChange(shift?.shift_id)}
+                  checked={listShiftSelected?.includes(shift?.shift_id)}
+                ></Checkbox>
+                <span className={styles.shiftNameTxt}>{shift?.shift_name}</span>
               </li>
-            )
+            );
           })
         )}
         <div className={`${styles.bodyItem} ${styles.bodyItemNext}`}>
           <Button
             className={styles.ButtonWhite}
             onClick={() => {
-              setOpen(false)
-              setBack(true)
-            }}>
-            <img src='/quay_lai.png' alt='/' />
+              setOpen(false);
+              setBack(true);
+            }}
+          >
+            <img src="/quay_lai.png" alt="/" />
             <p className={styles.text}>Quay lại</p>
           </Button>
           <Button
             className={styles.Button}
             onClick={() => {
-              setNext(true)
-              setOpen(false)
-            }}>
+              setNext(true);
+              setOpen(false);
+            }}
+          >
             <p className={styles.txt}>Tiếp tục</p>
           </Button>
         </div>
       </div>
     </Modal>
-  )
+  );
 }
 
 export function ModalThemLichLamViec(
@@ -112,48 +104,53 @@ export function ModalThemLichLamViec(
   data: any,
   setData: Function,
   setCySelected: Function,
-  formData: any
+  formData: any,
+  setDateApply: Function,
+  weekType: any,
+  setWeekType: Function
 ) {
-  const [form, setForm]: any = useState(formData)
+  // const [form, setForm]: any = useState(formData)
 
   const formatDate = (date = new Date()) => {
-    const year = date?.toLocaleString('default', { year: 'numeric' })
-    const month = date?.toLocaleString('default', { month: '2-digit' })
-    const day = date?.toLocaleString('default', { day: '2-digit' })
+    const year = date?.toLocaleString('default', { year: 'numeric' });
+    const month = date?.toLocaleString('default', { month: '2-digit' });
+    const day = date?.toLocaleString('default', { day: '2-digit' });
 
-    return [year, month, day].join('-')
-  }
+    return [year, month, day].join('-');
+  };
 
   const getDaysInMonth = (month, year) => {
-    var date: Date = new Date(year, month, 1)
-    var days = Array<any>()
+    var date: Date = new Date(year, month, 1);
+    var days = Array<any>();
     while (date.getMonth() === month) {
-      days.push({ date: formatDate(date), shift_id: '' })
-      date.setDate(date.getDate() + 1)
+      days.push({ date: formatDate(date), shift_id: '' });
+      date.setDate(date.getDate() + 1);
     }
-    return days
-  }
+    return days;
+  };
 
   const handleNext = () => {
-    form.validateFields().then((value) => {
-      setOpen(false)
-      setNext(true)
-    })
-  }
+    formData.validateFields().then((value) => {
+      setOpen(false);
+      setNext(true);
+    });
+  };
 
   return (
     <Modal
+      className="bannerQLC modalThemLLV"
       open={open}
       onCancel={() => setOpen(false)}
       width={600}
       closable={false}
       cancelButtonProps={{ style: { display: 'none' } }}
-      okButtonProps={{ style: { display: 'none' } }}>
+      okButtonProps={{ style: { display: 'none' } }}
+    >
       <div className={styles.header}>
         <div></div>
         <div className={styles.textHead}>Thêm mới lịch làm việc</div>
         <Image
-          alt='/'
+          alt="/"
           src={'/cross.png'}
           width={14}
           height={14}
@@ -161,38 +158,42 @@ export function ModalThemLichLamViec(
         />
       </div>
       <div className={styles.body}>
-        <Form form={form}>
+        <Form form={formData}>
           <Form.Item
             name={'cy_name'}
-            label='Tên lịch làm việc'
+            label="Tên lịch làm việc"
             labelCol={{ span: 24 }}
             rules={[
               {
                 required: true,
                 message: 'Trường này là bắt buộc',
               },
-            ]}>
+            ]}
+          >
             <Input
-              placeholder='Nhập tên'
+              placeholder="Nhập tên"
               className={styles.input}
               // onChange={(value)=>setData({...data,name:value.target.value})}
             ></Input>
           </Form.Item>
           <Form.Item
-            initialValue={'T2-T7'}
+            initialValue={weekType}
             name={'type_week'}
-            label='Chọn lịch làm việc'
+            label="Chọn lịch làm việc"
             labelCol={{ span: 24 }}
             rules={[
               {
                 required: true,
                 message: 'Trường này là bắt buộc',
               },
-            ]}>
+            ]}
+          >
             <Select
               className={styles.input}
               style={{ width: '100%' }}
-              suffixIcon={<img src='/down-icon.png'></img>}
+              suffixIcon={<img src="/down-icon.png"></img>}
+              value={weekType}
+              onChange={(e) => setWeekType(e)}
               options={[
                 {
                   label: 'Thứ 2 - Thứ 6',
@@ -206,42 +207,50 @@ export function ModalThemLichLamViec(
                   label: 'Thứ 2 - CN',
                   value: 3,
                 },
-              ]}></Select>
+              ]}
+            ></Select>
           </Form.Item>
           <Form.Item
             name={'month_add'}
-            label='Tháng áp dụng'
+            label="Tháng áp dụng"
             labelCol={{ span: 24 }}
             rules={[
               {
                 required: true,
                 message: 'Trường này là bắt buộc',
               },
-            ]}>
+            ]}
+          >
             <Input
-              placeholder='Chọn tháng'
-              type='month'
+              placeholder="Chọn tháng"
+              type="month"
               className={styles.input}
               // onChange={(value)=>setData({...data,month:value.target.value})}
             ></Input>
           </Form.Item>
           <Form.Item
             name={'apply_month'}
-            label='Ngày bắt đầu làm việc'
+            label="Ngày bắt đầu làm việc"
             labelCol={{ span: 24 }}
             rules={[
               {
                 required: true,
                 message: 'Trường này là bắt buộc',
               },
-            ]}>
+            ]}
+          >
             <Input
-              placeholder='dd/mm/yyyy'
-              type='date'
+              placeholder="yyyy/mm/dd"
+              type="date"
               className={styles.input}
-              onChange={(e) =>
-                form.setFieldValue('month_add', e.target.value.substring(0, 7))
-              }
+              onChange={(e) => {
+                formData.setFieldValue(
+                  'month_add',
+                  e.target.value.substring(0, 7)
+                );
+                setDateApply(e.target.value)
+                // console.log(e.target.value);
+              }}
               // onChange={(value)=>setData({...data,date:value.target.value})}
             ></Input>
           </Form.Item>
@@ -253,5 +262,5 @@ export function ModalThemLichLamViec(
         </Form>
       </div>
     </Modal>
-  )
+  );
 }

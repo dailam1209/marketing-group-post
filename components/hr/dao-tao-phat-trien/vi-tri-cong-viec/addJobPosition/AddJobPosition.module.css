@@ -109,7 +109,7 @@
 
 .headquytrinh h5 {
   color: white;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .modal_title {
@@ -149,7 +149,7 @@
 
 .form_groups label {
   color: #333333;
-  font-size: 16px;
+  font-size: 14px;
   font-style: normal;
   font-weight: 600;
   line-height: 23px;
@@ -160,7 +160,7 @@
 }
 
 .bodyquytrinh span {
-  font-size: 16px;
+  font-size: 14px;
   font-style: normal;
   font-weight: bold;
   line-height: 24px;
@@ -179,7 +179,7 @@
 .inputright input {
   outline: none;
   margin: 0;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   color: #333333;
 }
@@ -201,14 +201,14 @@
 .inputright input::placeholder {
   background-color: #ffffff;
   color: #333333;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   opacity: 0.7;
 }
 
 .form_groups textarea {
   outline: none;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   color: #333333;
 }
@@ -220,20 +220,20 @@
 .textarea textarea::placeholder {
   background-color: #ffffff;
   color: #333333;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   opacity: 0.7;
 }
 
-.file input[type='file'] {
+.file input[type="file"] {
   /* Thiết lập các thuộc tính giao diện tùy theo yêu cầu của bạn */
-  font-size: 16px;
+  font-size: 14px;
   padding: 2px;
   color: #333333;
 }
 
 /* Tùy chỉnh nút Browse */
-.file input[type='file']::-webkit-file-upload-button {
+.file input[type="file"]::-webkit-file-upload-button {
   font-weight: bold;
   padding: 8px 16px;
   border: none;
@@ -243,7 +243,7 @@
   cursor: pointer;
 }
 
-.file input[type='file']::placeholder {
+.file input[type="file"]::placeholder {
   color: #999999;
   opacity: 0.6;
 }
@@ -284,7 +284,7 @@
 }
 
 .modal_footer button {
-  font-size: 16px;
+  font-size: 14px;
   font-style: normal;
   font-weight: 600;
   line-height: 16px;

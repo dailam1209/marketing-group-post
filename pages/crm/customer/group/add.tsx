@@ -18,6 +18,7 @@ import { base_url } from "@/components/crm/service/function";
 import Cookies from "js-cookie";
 import GrFooterAddFiles from "@/components/crm/potential/potential_add_files/gr_customer_footer";
 import CustomerGroupSelectCpmponent from "@/components/crm/select/group_components_select";
+import { checkAndRedirectToHomeIfNotLoggedIn } from "@/components/crm/ultis/checkLogin";
 
 const GroupCustomerAdd: React.FC = () => {
   const [valAllDepartment, setValAllDepartment] = useState(false);
@@ -152,7 +153,7 @@ const GroupCustomerAdd: React.FC = () => {
     setEmployeeOptions(employeeOption);
   }, [selectedValueDepartments]);
 
-  const dataDepartments = dataDepartment?.data?.data;
+  const dataDepartments = dataDepartment?.data?.items;
   const options = dataDepartments?.map((item) => {
     return {
       label: item?.dep_name,
@@ -182,236 +183,246 @@ const GroupCustomerAdd: React.FC = () => {
   };
 
   return (
-    <div className={styleHome.main} ref={mainRef}>
-      {contextHolder}
-      <div className={styles.main_importfile}>
-        <div className={styles.formInfoStep}>
-          <div className={styles.info_step}>
-            <div className={styles.main__title}>Thêm mới nhóm khách hàng</div>
-            <div className={styles.form_add_potential}>
-              <div className={styles.main__body}>
-                <div className={styles["main__body_item"]}></div>
-
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "flex-start",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <InputText
-                    required
-                    value={valueGroupCustomer.groupName}
-                    setFormData={setValueGroupCustomer}
-                    label={"Tên nhóm khách hàng"}
-                    placeholder=" Nhập tên nhóm khách hàng"
-                    keyValue="groupName"
-                  />
-                  <div style={{ width: "50%" }}>
-                    <label>Nhóm khách hàng cha </label>
-                    <div ref={valueOptionRef}>
-                      <CustomerGroupSelectCpmponent
-                        value="Chọn nhóm khách hàng cha"
-                        placeholder=""
-                        data={dataSelectGroupParent}
-                        setValueGroupCustomer={setValueGroupCustomer}
-                      />
-                    </div>
-                  </div>
+    <>
+      {!checkAndRedirectToHomeIfNotLoggedIn() ? null : (
+        <div className={styleHome.main} ref={mainRef}>
+          {contextHolder}
+          <div className={styles.main_importfile}>
+            <div className={styles.formInfoStep}>
+              <div className={styles.info_step}>
+                <div className={styles.main__title}>
+                  Thêm mới nhóm khách hàng
                 </div>
+                <div className={styles.form_add_potential}>
+                  <div className={styles.main__body}>
+                    <div className={styles["main__body_item"]}></div>
 
-                {/* Text Editor */}
-                <div style={{ marginBottom: -20 }}>Mô tả</div>
-                <TextEditorGr
-                  editorContent={valueGroupCustomer.groupDescription}
-                  setEditorValue={(val: any) => {
-                    setValueGroupCustomer((pre: any) => {
-                      return {
-                        ...pre,
-                        groupDescription: val,
-                      };
-                    });
-                  }}
-                />
-                <div>Danh sách chia sẻ</div>
-                <div
-                  className="flex_between"
-                  style={{
-                    gap: "30px",
-                    flexWrap: "wrap",
-                    alignItems: "flex-end",
-                    justifyContent: "flex-start",
-                  }}
-                >
-                  <div style={{ width: "47%" }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "flex-start",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <InputText
+                        required
+                        value={valueGroupCustomer.groupName}
+                        setFormData={setValueGroupCustomer}
+                        label={"Tên nhóm khách hàng"}
+                        placeholder=" Nhập tên nhóm khách hàng"
+                        keyValue="groupName"
+                      />
+                      <div style={{ width: "50%" }}>
+                        <label>Nhóm khách hàng cha </label>
+                        <div ref={valueOptionRef}>
+                          <CustomerGroupSelectCpmponent
+                            value="Chọn nhóm khách hàng cha"
+                            placeholder=""
+                            data={dataSelectGroupParent}
+                            setValueGroupCustomer={setValueGroupCustomer}
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Text Editor */}
+                    <div style={{ marginBottom: -20 }}>Mô tả</div>
+                    <TextEditorGr
+                      editorContent={valueGroupCustomer.groupDescription}
+                      setEditorValue={(val: any) => {
+                        setValueGroupCustomer((pre: any) => {
+                          return {
+                            ...pre,
+                            groupDescription: val,
+                          };
+                        });
+                      }}
+                    />
+                    <div>Danh sách chia sẻ</div>
                     <div
                       className="flex_between"
-                      // style={{ marginBottom: "3.5px" }}
+                      style={{
+                        gap: "30px",
+                        flexWrap: "wrap",
+                        alignItems: "flex-end",
+                        justifyContent: "flex-start",
+                      }}
                     >
-                      <label>Phòng ban</label>
-                      <Checkbox
-                        checked={valAllDepartment}
-                        onChange={() => {
-                          setValAllDepartment(!valAllDepartment);
-                          setValueGroupCustomer((prev) => {
-                            return {
-                              ...prev,
-                              dep_id: null,
-                            };
-                          });
+                      <div style={{ width: "47%" }}>
+                        <div
+                          className="flex_between"
+                          // style={{ marginBottom: "3.5px" }}
+                        >
+                          <label>Phòng ban</label>
+                          <Checkbox
+                            checked={valAllDepartment}
+                            onChange={() => {
+                              setValAllDepartment(!valAllDepartment);
+                              setValueGroupCustomer((prev) => {
+                                return {
+                                  ...prev,
+                                  dep_id: null,
+                                };
+                              });
+                            }}
+                          >
+                            Tất cả
+                          </Checkbox>
+                        </div>
+                        {!valAllDepartment && (
+                          <Select
+                            mode="multiple"
+                            allowClear
+                            style={{
+                              width: "100%",
+                              height: "40px !important",
+                            }}
+                            placeholder="Chọn phòng ban"
+                            defaultValue={dataDepartments?.dep_id}
+                            value={selectedValueDepartments}
+                            onChange={handleChange}
+                            options={options}
+                          />
+                        )}
+                      </div>
+                      <div
+                        style={{
+                          width: "30%",
+                          overflowX: "hidden",
+                          overflowY: "visible",
                         }}
                       >
-                        Tất cả
-                      </Checkbox>
-                    </div>
-                    {!valAllDepartment && (
-                      <Select
-                        mode="multiple"
-                        allowClear
-                        style={{
-                          width: "100%",
-                          height: "40px !important",
-                        }}
-                        placeholder="Chọn phòng ban"
-                        defaultValue={dataDepartments?.dep_id}
-                        value={selectedValueDepartments}
-                        onChange={handleChange}
-                        options={options}
-                      />
-                    )}
-                  </div>
-                  <div
-                    style={{
-                      width: "30%",
-                      overflowX: "hidden",
-                      overflowY: "visible",
-                    }}
-                  >
-                    <div style={{ height: "27px" }} className="flex_between">
-                      <label>Nhân viên</label>
-                      <Checkbox onChange={() => {}}>Tất cả</Checkbox>
-                    </div>
-                    {!valAllDepartment && (
-                      <Select
-                        // mode="multiple"
-                        // allowClear
-                        style={{
-                          width: "100%",
-                          height: "40px !important",
-                        }}
-                        // disabled={selectedValueDepartments?.length === 0}
-                        placeholder="Chọn nhân viên"
-                        // defaultValue={dataDepartments?.dep_id}
-                        value={valEmp}
-                        onChange={handleChangeEmps}
-                        options={
-                          selectedValueDepartments?.length === 0
-                            ? []
-                            : employeeOptions
-                        }
-                      />
-                    )}
-                  </div>
+                        <div
+                          style={{ height: "27px" }}
+                          className="flex_between"
+                        >
+                          <label>Nhân viên</label>
+                          <Checkbox onChange={() => {}}>Tất cả</Checkbox>
+                        </div>
+                        {!valAllDepartment && (
+                          <Select
+                            // mode="multiple"
+                            // allowClear
+                            style={{
+                              width: "100%",
+                              height: "40px !important",
+                            }}
+                            // disabled={selectedValueDepartments?.length === 0}
+                            placeholder="Chọn nhân viên"
+                            // defaultValue={dataDepartments?.dep_id}
+                            value={valEmp}
+                            onChange={handleChangeEmps}
+                            options={
+                              selectedValueDepartments?.length === 0
+                                ? []
+                                : employeeOptions
+                            }
+                          />
+                        )}
+                      </div>
 
-                  {selectedRow >= 2 && (
-                    <div>
-                      <button
-                        style={{
-                          color: "#FF3333",
-                          display: "flex",
-                          alignItems: "center",
-                          margin: "auto",
-                          width: "138px",
-                          background: "#FFFF",
-                          boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
-                          borderRadius: "3px",
-                          height: "32px",
-                          justifyContent: "center",
-                          gap: "3px",
-                        }}
-                        onClick={() => {
-                          setIsOpenModalDel(true);
-                          // handleDelRow(item);
-                        }}
-                      >
-                        <Image
-                          alt="img"
-                          width={26}
-                          height={26}
-                          src={
-                            "https://crm.timviec365.vn/assets/img/customer/del_red.svg"
+                      {selectedRow >= 2 && (
+                        <div>
+                          <button
+                            style={{
+                              color: "#FF3333",
+                              display: "flex",
+                              alignItems: "center",
+                              margin: "auto",
+                              width: "138px",
+                              background: "#FFFF",
+                              boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
+                              borderRadius: "3px",
+                              height: "32px",
+                              justifyContent: "center",
+                              gap: "3px",
+                            }}
+                            onClick={() => {
+                              setIsOpenModalDel(true);
+                              // handleDelRow(item);
+                            }}
+                          >
+                            <Image
+                              alt="img"
+                              width={26}
+                              height={26}
+                              src={
+                                "https://crm.timviec365.vn/assets/img/customer/del_red.svg"
+                              }
+                            />
+                            Gỡ bỏ
+                          </button>
+                        </div>
+                      )}
+                    </div>
+
+                    {!valAllDepartment && !valAllEmp && (
+                      <TableStaffCustomerGroupAdd
+                        dataEmp={dataEmp?.data?.data}
+                        valueSelected={dataTableEmp}
+                        setData={setDataTableEmp}
+                        setSelectedRow={setSelectedRow}
+                        setDataRowSelect={setDataRowSelect}
+                      />
+                    )}
+                  </div>
+                  <GrFooterAddFiles
+                    link="/crm/customer/group/list"
+                    titleCancel="Xác nhận hủy thêm mới nhóm khách hàng "
+                    title="Thêm nhóm khách hàng thành công!"
+                    contentCancel={
+                      "Bạn có đồng ý hủy? \n Mọi dữ liệu bạn vừa nhập sẽ bị xóa?"
+                    }
+                    setModal1Open={setModal1Open}
+                    modal1Open={modal1Open}
+                    handleSave={async () => {
+                      if (valueGroupCustomer?.groupName !== "") {
+                        await updateDataAddGroup(
+                          urlCreate,
+                          `${Cookies.get("token_base365")}`,
+                          "POST",
+                          {
+                            groupName: valueGroupCustomer?.groupName,
+                            emp_id:
+                              dataTableEmp?.length > 0
+                                ? dataTableEmp?.join(",")
+                                : "all",
+                            dep_id:
+                              selectedValueDepartments?.length > 0
+                                ? selectedValueDepartments?.join(",")
+                                : "all",
+                            groupParents: valueGroupCustomer?.groupParents
+                              ? valueGroupCustomer?.groupParents
+                              : 0,
+                            groupDescription:
+                              valueGroupCustomer?.groupDescription,
                           }
-                        />
-                        Gỡ bỏ
-                      </button>
-                    </div>
-                  )}
-                </div>
+                        );
 
-                {!valAllDepartment && !valAllEmp && (
-                  <TableStaffCustomerGroupAdd
-                    dataEmp={dataEmp?.data?.data}
-                    valueSelected={dataTableEmp}
-                    setData={setDataTableEmp}
-                    setSelectedRow={setSelectedRow}
-                    setDataRowSelect={setDataRowSelect}
-                  />
-                )}
-              </div>
-              <GrFooterAddFiles
-                link="/crm/customer/group/list"
-                titleCancel="Xác nhận hủy thêm mới nhóm khách hàng "
-                title="Thêm nhóm khách hàng thành công!"
-                contentCancel={
-                  "Bạn có đồng ý hủy? \n Mọi dữ liệu bạn vừa nhập sẽ bị xóa?"
-                }
-                setModal1Open={setModal1Open}
-                modal1Open={modal1Open}
-                handleSave={async () => {
-                  if (valueGroupCustomer?.groupName !== "") {
-                    await updateDataAddGroup(
-                      urlCreate,
-                      `${Cookies.get("token_base365")}`,
-                      "POST",
-                      {
-                        groupName: valueGroupCustomer?.groupName,
-                        emp_id:
-                          dataTableEmp?.length > 0
-                            ? dataTableEmp?.join(",")
-                            : "all",
-                        dep_id:
-                          selectedValueDepartments?.length > 0
-                            ? selectedValueDepartments?.join(",")
-                            : "all",
-                        groupParents: valueGroupCustomer?.groupParents
-                          ? valueGroupCustomer?.groupParents
-                          : 0,
-                        groupDescription: valueGroupCustomer?.groupDescription,
+                        setModal1Open(true);
+                      } else {
+                        openNotificationWithIcon("error");
                       }
-                    );
-
-                    setModal1Open(true);
-                  } else {
-                    openNotificationWithIcon("error");
-                  }
-                }}
-              />
+                    }}
+                  />
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
 
-      <ModalDelEmpGroup
-        isModalCancel={isOpenModalDel}
-        setIsModalCancel={setIsOpenModalDel}
-        content={"Bạn có chắc chắn muốn gỡ bỏ chia sẻ này không?"}
-        title={"Xác nhận gỡ bỏ chia sẻ"}
-        link={"#"}
-        handleOk={() => {
-          handleDelMultiRow();
-        }}
-      />
-    </div>
+          <ModalDelEmpGroup
+            isModalCancel={isOpenModalDel}
+            setIsModalCancel={setIsOpenModalDel}
+            content={"Bạn có chắc chắn muốn gỡ bỏ chia sẻ này không?"}
+            title={"Xác nhận gỡ bỏ chia sẻ"}
+            link={"#"}
+            handleOk={() => {
+              handleDelMultiRow();
+            }}
+          />
+        </div>
+      )}
+    </>
   );
 };
 

@@ -64,7 +64,7 @@ export default function ItemCandidate1({ onCancel, data, setProcess_id, process_
   const handleClickDetail = (item: number) => {
     if (typeof item === "number" && !isNaN(item)) {
       router.push(
-        `/hr/quan-ly-tuyen-dung/danh-sach-ung-vien/chi-tiet-ung-vien/u${item}`
+        `/phan-mem-nhan-su/quan-ly-tuyen-dung/danh-sach-ung-vien/chi-tiet-ung-vien/u${item}`
       );
     }
   };

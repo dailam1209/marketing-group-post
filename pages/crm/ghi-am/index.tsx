@@ -3,6 +3,7 @@ import styleHome from "@/components/crm/home/home.module.css";
 import { SidebarContext } from "@/components/crm/context/resizeContext";
 import { useHeader } from "@/components/crm/hooks/useHeader";
 import GhiAmPage from "@/components/crm/cskh/tongdai/ghi-am";
+import { checkAndRedirectToHomeIfNotLoggedIn } from "@/components/crm/ultis/checkLogin";
 
 const GhiAm: React.FC = () => {
   const mainRef = useRef<HTMLDivElement>(null);
@@ -30,9 +31,13 @@ const GhiAm: React.FC = () => {
   }, [isOpen]);
 
   return (
-    <div className={styleHome.main} ref={mainRef}>
-      <GhiAmPage />
-    </div>
+    <>
+      {!checkAndRedirectToHomeIfNotLoggedIn() ? null : (
+        <div className={styleHome.main} ref={mainRef}>
+          <GhiAmPage />
+        </div>
+      )}
+    </>
   );
 };
 
