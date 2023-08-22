@@ -128,6 +128,7 @@ export function ModalThemLichLamViec(
 
   return (
     <Modal
+      className='bannerQLC modalThemLLV'
       open={open}
       onCancel={() => setOpen(false)}
       width={600}
