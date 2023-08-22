@@ -49,9 +49,11 @@ const CallModal: React.FC<MyComponentProps> = ({
         title={"Trợ lý kinh doanh"}
         open={isModalCancel}
         onOk={() => handleOK()}
-        onCancel={() => (
-          setIsModalCancel(false)
-        )}
+        onCancel={() => {
+          const pathname = router.pathname;
+          setIsModalCancel(false);
+          router.push(pathname);
+        }}
         className={"mdal_cancel email_add_mdal ctent_call_mdal"}
         okText="Đồng ý"
         cancelText="Huỷ"
