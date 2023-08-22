@@ -187,10 +187,10 @@ const DetailsPage = () => {
   });
   const handleDuyet = async () => {
     try{
-      const res = await post_duyetdx({_id: id,type: 1})
+      const res = await post_duyetdx({_id: id,type: 1});
       alert(res.message? res.message : res.data.message);
       const res_detail_propose = await fetch_detail_propose(id);
-      setDetail_propose(res_detail_propose?.data.detailDeXuat[0])
+      setDetail_propose(res_detail_propose?.data.detailDeXuat[0]);
     }
     catch(err){
       console.log(err);

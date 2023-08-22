@@ -60,12 +60,16 @@ const Input_select =
     );
   }
 export function Old_input_select({input_name, handleInputChange}:any){
+    const handleChange = (e:any) => {
+      console.log(e.target)
+    }
     return(
         <div className={styles.khoixetduyet}>
             <div className={styles.khoixetduyet_2}>
             <Required_label title="Xét duyệt văn bản"/>
-            <select name={input_name} onClick={handleInputChange} className={styles.xetduyet_select}>
-                <option className={styles.xetduyet_option}>Xét duyệt</option>
+            <select name={input_name} onChange={handleChange} className={styles.xetduyet_select}>
+                <option value='0' className={styles.xetduyet_option}>Ban hành</option>
+                <option value='1' className={styles.xetduyet_option}>Xét duyệt</option>
             </select>
             <Image src={"/icon/arr_down_select.png"} alt="arrow" width={13} height={15} className={styles.xetduyet_arrow_icon} />
             </div>

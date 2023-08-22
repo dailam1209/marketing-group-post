@@ -51,9 +51,6 @@ const Index = () => {
     ),
     nhom_van_ban: Yup.string().required("Vui lòng chọn nhóm văn bản"),
     type_vb: Yup.string().required("Vui lòng chọn loại văn bản"),
-    loai_xet_duyet: Yup.string().required("Vui lòng loại xét duyệt"),
-    thoi_gian_duyet: Yup.string().required("Vui lòng nhập thời gian xét duyệt"),
-    data_nguoi_duyet: Yup.mixed().required("Vui lòng chọn người duyệt"),
     nguoi_theo_doi: Yup.string().required("Vui lòng chọn người theo dõi"),
     ngki_form: Yup.string().required("Vui lòng chọn người ký"),
     ngki_form_array: Yup.string().required("Vui lòng chọn người ký"),
@@ -71,6 +68,11 @@ const Index = () => {
       "Vui lòng nhập trích yếu văn bản thay thế"
     ),
   });
+  const optionalSchema2 = Yup.object().shape({
+    loai_xet_duyet: Yup.string().required("Vui lòng loại xét duyệt"),
+    thoi_gian_duyet: Yup.string().required("Vui lòng nhập thời gian xét duyệt"),
+    data_nguoi_duyet: Yup.mixed().required("Vui lòng chọn người duyệt"),
+  })
   const [department, setDepartment] = useState<any>();
   const [employee, setEmployee] = useState<any>();
   const [position_nhan, setPosition_nhan] = useState<any>();
@@ -209,6 +211,9 @@ const Index = () => {
       await validationSchema.validate(formData, { abortEarly: false });
       if (formData.type_thay_the === "1") {
         await optionalSchema.validate(formData, { abortEarly: false });
+      }
+      if(duyet_type === "1") {
+        await optionalSchema2.validate(formData, { abortEarly: false });
       }
       var form_data = new FormData();
       for (var key in formData) {
@@ -647,6 +652,11 @@ const Index = () => {
       handleSwitchChange({ name: "type_thay_the", value: "" });
     }
   };
+  const [duyet_type,setDuyet_type] = useState('0')
+  const handleXetDuyetTypeChange = (e: any)=>{
+    const { name, value } = e.target;
+    setDuyet_type(value);
+  }
   return (
     <div>
       <Head>
@@ -907,11 +917,18 @@ const Index = () => {
                   />
                 }
               />
-              <Old_input_select
-                input_name="xet_duyet_van_ban"
-                handeInputChange={handeInputChange}
-              />
-              <div>
+              <div className={styles.khoixetduyet}>
+                <div className={styles.khoixetduyet_2}>
+                  <Required_label title="Xét duyệt văn bản"/>
+                  <select name='xet_duyet_van_ban' onChange={handleXetDuyetTypeChange} className={styles.xetduyet_select}>
+                      <option value='0' className={styles.xetduyet_option}>Ban hành</option>
+                      <option value='1' className={styles.xetduyet_option}>Xét duyệt</option>
+                  </select>
+                  <Image src={"/icon/arr_down_select.png"} alt="arrow" width={13} height={15} className={styles.xetduyet_arrow_icon} />
+                  </div>
+              </div>
+              {duyet_type === '1' && (
+                <div>
                 <div className={styles.confirm_area_top}>
                   <Section
                     style="medium_section"
@@ -952,28 +969,29 @@ const Index = () => {
                     }
                   />
                 </div>
-                <div className={styles.confirm_area_bot}>
-                  <Section
-                    style="section"
-                    label={<Required_label title="Người xét duyệt" />}
-                    input={
-                      <Input_select
-                        options={emp_duyet_options}
-                        placeholder=""
-                        onChange={handleSelectChange}
-                        isMulti
-                      />
-                    }
-                    validation={
-                      errors.data_nguoi_duyet && (
-                        <p style={{ color: "red", margin: "10px 10px 10px 0" }}>
-                          {errors.data_nguoi_duyet}
-                        </p>
-                      )
-                    }
-                  />
+                  <div className={styles.confirm_area_bot}>
+                    <Section
+                      style="section"
+                      label={<Required_label title="Người xét duyệt" />}
+                      input={
+                        <Input_select
+                          options={emp_duyet_options}
+                          placeholder=""
+                          onChange={handleSelectChange}
+                          isMulti
+                        />
+                      }
+                      validation={
+                        errors.data_nguoi_duyet && (
+                          <p style={{ color: "red", margin: "10px 10px 10px 0" }}>
+                            {errors.data_nguoi_duyet}
+                          </p>
+                        )
+                      }
+                    />
+                  </div>
                 </div>
-              </div>
+              )}
               <div className={styles.submit_section_1}>
                 <button
                   onClick={handleSubmit}
