@@ -10,7 +10,7 @@ export default function LogoutCrm({ setShowLogout, showLogout }) {
     setShowLogout(true);
   };
 
-  const no = () => {
+  const handleNo = () => {
     setShowLogout(false);
   };
   const yes = () => {
@@ -64,7 +64,7 @@ export default function LogoutCrm({ setShowLogout, showLogout }) {
                         <button
                           type="button"
                           className="share_fsize_three cr_weight share_cursor share_clr_four share_bgr_tow huy_button"
-                          onClick={no}
+                          onClick={handleNo}
                         >
                           Hủy
                         </button>

@@ -68,6 +68,7 @@ export default function SideBar({ isOpened }: any) {
           if (tokenType === 1 || tokenType === "1") {
             const response = await getDataCompany();
             setDataHeader(response?.data);
+            console.log(response?.data)
           } else {
             const response = await EmployeeInfo();
             setDataHeader(response?.data);
