@@ -737,7 +737,7 @@
 
 .f_search_customer .form_search {
   display: flex;
-  width: 550px;
+  width: 600px;
   flex-wrap: wrap;
   justify-content: space-between;
   background: #ffffff;
@@ -766,7 +766,7 @@
 }
 
 .main_control_new {
-  width: 50%;
+  width: 40%;
   display: flex;
   justify-content: flex-end;
 }

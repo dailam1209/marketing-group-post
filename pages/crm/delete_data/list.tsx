@@ -69,6 +69,9 @@ export default function CustomerList() {
     setCurrentPath('/crmdelete_data')
   }, [setHeaderTitle, setShowBackButton, setCurrentPath])
 
+  
+
+
   useEffect(() => {
     if (isOpen) {
       mainRef.current?.classList.add('content_resize')

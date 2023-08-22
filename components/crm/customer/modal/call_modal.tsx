@@ -17,7 +17,6 @@ const CallModal: React.FC<MyComponentProps> = ({
   setIsModalCancel,
   cusId,
 }) => {
-  console.log(cusId);
   const [content, setContent] = useState();
   const [datae, setDate] = useState<any>();
   const [isOpenMdalSuccess, setIsOpenMdalSuccess] = useState(false);
