@@ -11,10 +11,13 @@ import FilterTongdai from "./filterTongdai";
 import FilterTongDai from "./filterTongdai";
 import FilterThongKe from "./fillterThongKe";
 import { base_url } from "../../service/function";
+import { dataSaveTD } from "../../redux/user/userSlice";
+import { useDispatch } from "react-redux";
 const Cookies = require("js-cookie");
 type Props = {};
 
 const Recording = (props: Props) => {
+  const dispatch = useDispatch()
   const [isShowModal, setIsShowModal] = useState(false);
   const [isShowModalAdd, setIsShowModalAdd] = useState(false);
   const { isConnected } = useContext<any>(CallContext);
@@ -78,11 +81,13 @@ const Recording = (props: Props) => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${Cookies.get("token_base365")}`,
         },
-        body: JSON.stringify({ com_id: 1763 }),
+        body: JSON.stringify({ com_id: Cookies.get("com_id") }),
       }
     );
     const data = await res.json();
-    setListNV(data?.data?.data);
+    setListNV(data?.data?.items
+      
+      );
   };
   var outputArray = [];
 
@@ -116,7 +121,26 @@ const Recording = (props: Props) => {
     }
   });
   const [listLine, setlistLine] = useState([]);
+  const [listPB, setlistPB] = useState([]);
 
+
+  const handleGetPhongBan = async () => {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/department/list`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get("token_base365")}`,
+        },
+        body: JSON.stringify({ com_id: Cookies.get("com_id") }),
+      }
+    );
+    const data = await res.json();
+    setlistPB(data?.data?.items);
+  };
+  
+  // console.log('check',listPB)
 
   const handleGetLine = async () => {
     const res = await fetch(
@@ -164,6 +188,8 @@ const Recording = (props: Props) => {
       // status: item.status,
     };
   });
+  // datane.sort((a, b) => a.caller - b.caller);
+  console.log(listData)
   const handleGet = async () => {
     if(phongban){
      datane.filter((item) =>{return item.nameDeparment === phongban});
@@ -188,11 +214,33 @@ const Recording = (props: Props) => {
     setListData(data?.items);
   };
   useEffect(() => {
+    handleGetPhongBan()
     handleGetLine();
     handleGet();
     handleGetNhanVienPhuTrach();
   }, [query]);
+  useEffect(() => {
 
+    const handleget = async () => {
+      // if (oldData) {
+      const res =  await fetch(
+          "https://s02.oncall.vn:8900/api/account/credentials/verify",
+          {
+            method: "POST",
+            body: JSON.stringify({
+              name: "HNCX00693",
+              password: "v2ohO6B1Nf4F",
+              domain: "hncx00693.oncall",
+            }),
+          }
+        );
+        const data = await res.json()
+        dispatch(dataSaveTD(data.access_token));
+      // }
+    };
+    handleget();
+
+  }, []);
   const Colums = [
     {
       width: "10%",

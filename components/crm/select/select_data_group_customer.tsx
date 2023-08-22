@@ -11,7 +11,6 @@ export default function CustomerGroupSelect({
   setValueGroupCustomer,
   cusId,
 }: any) {
-  console.log("first,", data);
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [valueOption, setValueOption] = useState();

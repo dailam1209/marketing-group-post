@@ -60,8 +60,9 @@ const FilterThongKe: React.FC<MyComponentProps> = ({
       }
     );
     const data = await res.json();
-    setlistPB(data?.data?.data);
+    setlistPB(data?.data?.items);
   };
+  
   const handleSlectPB = (value:any) =>{
     setPhongban(value)
   }

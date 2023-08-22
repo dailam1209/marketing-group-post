@@ -32,7 +32,12 @@ export default function Header({ toggleModal }: any) {
   }: // setCurrentPath,
   any = useHeader();
 
+
+
   useEffect(() => {
+
+
+
     if (isOpen) {
       headerRef.current?.classList.add("content_resize");
     } else {
@@ -44,6 +49,10 @@ export default function Header({ toggleModal }: any) {
     <>
       {!checkAndRedirectToHomeIfNotLoggedIn() ? null : (
         <div ref={headerRef} className={style.header}>
+          
+        
+
+        
           <div className={style.main}>
             <div className="mMenu__header">
               <img

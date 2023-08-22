@@ -46,22 +46,45 @@ export default function CustomerList() {
 
   const [userNameCreate, setuserNameCreate] = useState();
   const [isLoading, setLoading] = useState(true);
+  const [data, setData] = useState<any>([]);
 
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
-  const { data, loading, fetchData, updateData, deleteData } = useApi(
-    `${base_url}/api/crm/customer/list`,
-    `${Cookies.get("token_base365")}`,
-    "POST",
-    {
-      perPage: 10000,
-      keyword: name === null ? null : name,
-      status: status,
-      resoure: resoure,
-      userName: nvPhuTrach,
-      userNameCreate: userNameCreate,
+    const fetchData = async () => {
+      const res = await fetch(`${base_url}/api/crm/customer/list`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get("token_base365")}`,
+        },
+        body: JSON.stringify(  {
+          perPage: 1000000000000,
+          keyword: name === null ? null : name,
+          status: status,
+          resoure: resoure,
+          userName: nvPhuTrach,
+          userNameCreate: userNameCreate,
+        }),
+      });
+      const data = await res.json();
+      console.log(data)
+      setData(data)
     }
-  );
+
+
+  // const { data, loading, fetchData, updateData, deleteData } = useApi(
+  //   `${base_url}/api/crm/customer/list`,
+  //   `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDaGFtY29uZzM2NS1UaW12aWVjMzY1IiwiaWF0IjoxNjkyNjcxNDU5LCJleHAiOjE2OTI3NTc4NTksImRhdGEiOnsiaWQiOiI1NjM1IiwibmFtZSI6Ik5ndXlcdTFlYzVuIFRoXHUxZWNiIFBoXHUwMWIwXHUwMWExbmcgVGhcdTFlYTNvICIsInR5cGUiOjEsImVtYWlsIjoiYmVleGw0MTVAZ21haWwuY29tIiwicGhvbmVfdGsiOm51bGwsInJvbGUiOiIzIiwib3MiOjIsImZyb20iOiJxbGMzNjUiLCJkZXZpY2VfaWQiOiIyNTAxMDA2NDY0NTM3MzYxMTYwMDA1MzczNjU4NjQxNTM2MjQiLCJjb21faWQiOiIzMzEyIiwiY29tX25hbWUiOiJDXHUwMGQ0TkcgVFkgQ1x1MWVkNCBQSFx1MWVhNk4gVEhBTkggVE9cdTAwYzFOIEhcdTAxYWZORyBIXHUwMGMwICJ9fQ.z_pMjl2X6gIvqhuqWtQ1mEV9qFZv-jjW0uQ3AoxaxXU`,
+  //   "POST",
+  //   {
+  //     perPage: 1000000000000,
+  //     keyword: name === null ? null : name,
+  //     status: status,
+  //     resoure: resoure,
+  //     userName: nvPhuTrach,
+  //     userNameCreate: userNameCreate,
+  //   }
+  // );
   const {
     data: dataStatus,
     loading: loadingStatus,
@@ -110,8 +133,9 @@ export default function CustomerList() {
     { name: "Chăm sóc khach hàng", id: 7 },
     { name: "Email", id: 8 },
   ];
+
   const datatable = data?.data?.showCty?.map(
-    (item: DataType, index: number) => {
+    (item, index: number) => {
       let nguonKH = "";
       let time;
       if (item.updated_at.length) {
@@ -215,6 +239,11 @@ export default function CustomerList() {
       mainRef.current?.classList.remove("content_resize");
     }
   }, [isOpen]);
+
+
+
+
+  
   return (
     <>
     {!checkAndRedirectToHomeIfNotLoggedIn() ? null : (
