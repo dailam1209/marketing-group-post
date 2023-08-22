@@ -87,9 +87,48 @@ export default function ContractDetailsCreate() {
                     </div>
                   </div>
 
-                  {valueContract !== "0" && <div>
-                    <ContractBtsGroupFooter id={id?id:'default'} /></div>}
+                  {valueContract !== "" && valueContract !== "0" && (
+                                        <div >
+                    <div className={styles["input-group"]}>
+                      <div className={styles["form-group"]}>
+                        <label className={styles.required}>
+                          tên<span className={styles.dot}>*</span>
+                        </label>
+                        <p className={styles.old_field}>
+                          (Thay thế cho từ: đạt)
+                        </p>
+                        <input
+                          type="text"
+                          defaultValue=""
+                          className={styles["form-control"]}
+                          data-old-field="đạt"
+                          data-index="1"
+                        />
+                      </div>
+                      <div className={styles["form-group"]}>
+                        <label className={styles.required}>
+                          tên<span className={styles.dot}>*</span>
+                        </label>
+                        <p className={styles.old_field}>
+                          (Thay thế cho từ: đạt)
+                        </p>
+                        <input
+                          type="text"
+                          defaultValue=""
+                          className={styles["form-control"]}
+                          data-old-field="đạt"
+                          data-index="1"
+                        />
+                      </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
+                {valueContract !== "" && valueContract !== "0" && (
+                <ContractBtsGroupFooter id={id ? id : "default"} />
+                )}
+
+
               </div>
             </div>
           </div>
