@@ -8,6 +8,7 @@ import ModalCompleteStep from "../../price_policy/price_policy_steps/complete_mo
 import axios from "axios";
 import { json } from "d3";
 import CreatFieldModal from "./creat_field_mdal";
+import CreatFieldDefaultModal from "./creat_field_default";
 
 interface MyComponentProps {
   isModalCancel: boolean;
@@ -151,7 +152,9 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
     };
   };
 
-  const [isHandOverOpen, setIsHandOverOpen] = useState(false);
+  const [isCreatField, setIsCreatField] = useState(false);
+
+  const [isCreatFieldDefault, setIsCreatFieldDefault] = useState(false);
 
   return (
     <>
@@ -479,7 +482,7 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
                   </button>
                   <button
                     type="button"
-                    onClick={() => setIsHandOverOpen(true)}
+                    onClick={() => setIsCreatField(true)}
                     data-toggle="modal"
                     data-target="#modalCreate"
                     className={styles.taotruong}
@@ -487,7 +490,9 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
                     <img src="/assets/img/taotruong.svg" alt="button" /> Tạo
                     trường
                   </button>
-                  <button type="button" className={styles.tieptuc}>
+                  <button type="button" 
+                   onClick={() => setIsCreatFieldDefault(true)}
+                   className={styles.tieptuc}>
                     Chỉnh sửa bằng trường mặc định
                   </button>
                   <button
@@ -505,8 +510,12 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
                     Tiếp tục <img src="/assets/img/tieptuc.svg" alt="button" />
                   </button>
                   <CreatFieldModal
-                    isModalCancel={isHandOverOpen}
-                    setIsModalCancel={setIsHandOverOpen}
+                    isModalCancel={isCreatField}
+                    setIsModalCancel={setIsCreatField}
+                  />
+                  <CreatFieldDefaultModal
+                    isModalCancel={isCreatFieldDefault}
+                    setIsModalCancel={setIsCreatFieldDefault}
                   />
                 </div>
                 </div>
