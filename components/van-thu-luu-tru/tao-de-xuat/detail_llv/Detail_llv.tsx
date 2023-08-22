@@ -27,7 +27,7 @@ export const ModalDetailsLLV = ({ open, setOpen, data, shiftType }:any) => {
     const fetchdata = async () => {
           const token = sessionStorage.getItem("token");
           const response = await fetch_shift(token)
-          setShift(response?.data.list)
+          setShift(response?.data.items)
     }
     fetchdata();
   },[])

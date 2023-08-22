@@ -211,7 +211,7 @@ const Index = () => {
       setDepartment(res_department?.data.items);
       setEmployee(res_employee?.data.items);
       setPosition(res_position);
-      setShift(res_shift?.data.list);
+      setShift(res_shift?.data.items);
       setSetting(res_setting?.data.settingDx);
     };
     fetchdata();

@@ -37,7 +37,7 @@ const Overtime_propose = ({ inuse }: { inuse?: boolean }) => {
             const response2 = await fetch_shift(token)
             setSuperVisor(response?.data.listUsersTheoDoi)
             setApprover(response?.data.listUsersDuyet)
-            setShiftData(response2?.data.list)
+            setShiftData(response2?.data.items)
         }
       }
       fetchdata();

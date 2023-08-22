@@ -122,7 +122,7 @@ const DetailsPage = () => {
         setDepartment(res_department?.data.items);
         setEmployee(res_employee?.data.items);
         setPosition(res_position);
-        setShift(res_shift?.data.list);
+        setShift(res_shift?.data.items);
       }
     }
   fetchdata();
