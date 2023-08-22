@@ -6,6 +6,7 @@ import Link from "next/link";
 import style from "./sidebar.module.css";
 import { useContext, useEffect, useRef, useState } from "react";
 import { AccessContext } from "../context/accessContext";
+import React from "react";
 
 export default function SiebarContent({ isOpen, toggleModal }: any) {
   const btnResize = useRef<HTMLDivElement>(null);

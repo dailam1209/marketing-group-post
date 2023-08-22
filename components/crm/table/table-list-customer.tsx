@@ -177,7 +177,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
           <CustomerGroupSelect
             data={dataGroup}
             value={data}
-            placeholder={data}
+            placeholder={record?.group_id}
             cusId={cusId}
           />
         </div>

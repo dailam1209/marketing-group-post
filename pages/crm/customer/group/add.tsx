@@ -153,7 +153,7 @@ const GroupCustomerAdd: React.FC = () => {
     setEmployeeOptions(employeeOption);
   }, [selectedValueDepartments]);
 
-  const dataDepartments = dataDepartment?.data?.data;
+  const dataDepartments = dataDepartment?.data?.items;
   const options = dataDepartments?.map((item) => {
     return {
       label: item?.dep_name,
