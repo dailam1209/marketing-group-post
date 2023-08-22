@@ -222,7 +222,7 @@ const Recording = (props: Props) => {
   useEffect(() => {
 
     const handleget = async () => {
-      // if (oldData) {
+      if (show) {
       const res =  await fetch(
           "https://s02.oncall.vn:8900/api/account/credentials/verify",
           {
@@ -236,7 +236,7 @@ const Recording = (props: Props) => {
         );
         const data = await res.json()
         dispatch(dataSaveTD(data.access_token));
-      // }
+      }
     };
     handleget();
 

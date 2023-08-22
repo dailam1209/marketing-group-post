@@ -58,7 +58,7 @@ export default function CustomerList() {
           Authorization: `Bearer ${Cookies.get("token_base365")}`,
         },
         body: JSON.stringify(  {
-          perPage: 1000000000000,
+          perPage: 100,
           keyword: name === null ? null : name,
           status: status,
           resoure: resoure,
@@ -94,7 +94,7 @@ export default function CustomerList() {
     `${base_url}/api/crm/customerStatus/list`,
     `${Cookies.get("token_base365")}`,
     "POST",
-    { pageSize: 1000000 }
+    { pageSize: 100 }
   );
   const {
     data: dataCustomerGroup,
@@ -105,7 +105,7 @@ export default function CustomerList() {
     `${base_url}/api/crm/group/list_group_khach_hang`,
     `${Cookies.get("token_base365")}`,
     "POST",
-    { pageSize: 1000000 }
+    { pageSize: 100 }
   );
 
   const onSelectChange = (

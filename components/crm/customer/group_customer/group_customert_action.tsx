@@ -27,7 +27,7 @@ export default function GroupCustomerAction({
     `${base_url}/api/crm/group/list_group_khach_hang`,
     `${Cookies.get("token_base365")}`,
     "POST",
-    { page: 1, perPage: 1000 }
+    { page: 1, perPage: 100 }
   );
 
   const handleClickAction = (e: any) => {
