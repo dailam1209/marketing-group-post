@@ -139,7 +139,7 @@ export default function QuanLyCaLamViecPage() {
           <p className={styles.headerText}>Quản lý ca làm việc</p>
           <Button
             className={styles.btn}
-            onClick={() => router.push('/cham-cong/cai-dat-lich-lam-viec')}
+            onClick={() => router.push('/cham-cong/cham-cong/cai-dat-lich-lam-viec')}
           >
             <p className={styles.btnText}>Lịch làm việc</p>
           </Button>
