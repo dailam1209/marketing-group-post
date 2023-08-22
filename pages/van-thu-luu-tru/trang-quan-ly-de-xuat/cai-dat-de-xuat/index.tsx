@@ -209,7 +209,7 @@ const Index = () => {
       const res_position = await fetch_position("chucvu_dx_bn");
       const res_setting = await fetch_setting();
       setDepartment(res_department?.data.items);
-      setEmployee(res_employee?.data.data);
+      setEmployee(res_employee?.data.items);
       setPosition(res_position);
       setShift(res_shift?.data.list);
       setSetting(res_setting?.data.settingDx);
@@ -236,13 +236,13 @@ const Index = () => {
   const employee_options = employee
     ?.filter((emp: any) =>
       filter_data.id_phong_ban
-        ? emp.dep_id[0] === filter_data.id_phong_ban
+        ? emp.dep_id === filter_data.id_phong_ban
         : emp
     )
     .map((opts: any) => {
       return {
-        value: opts.idQLC,
-        label: `(${opts.idQLC}) ${opts.userName}`,
+        value: opts.ep_id,
+        label: `(${opts.ep_id}) ${opts.ep_name}`,
         name: "id_user",
       };
     });

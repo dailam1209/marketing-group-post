@@ -38,7 +38,7 @@ const Join_project_propose = ({ inuse }: { inuse?: boolean }) => {
             setSuperVisor(response?.data.listUsersTheoDoi)
             setApprover(response?.data.listUsersDuyet)
             setDepartment(res_department?.data.items)
-            setEmpoyee_infor(res_employee?.data.data.filter((rec:any) => rec.idQLC.toString() === getCookie("userID")?.toString()))
+            setEmpoyee_infor(res_employee?.data.items.filter((rec:any) => rec.ep_id.toString() === getCookie("userID")?.toString()))
             setPosition(res_position)
         }
       }

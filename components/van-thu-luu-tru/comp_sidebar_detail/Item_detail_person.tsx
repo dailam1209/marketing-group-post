@@ -11,6 +11,10 @@ export const Item_details_person = ({ img, username, id }: any) => {
         width={300}
         height={300}
         alt="ảnh đại diện"
+        onError={(e:any) => {
+          e.target.onerror = null
+          e.target.src = '/icon/create_propose/ep_logo.png'
+        }}
       />
       <div className={styles.check_user_box}>
         <p

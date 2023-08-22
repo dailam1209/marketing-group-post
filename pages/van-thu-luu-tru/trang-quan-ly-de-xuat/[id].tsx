@@ -120,7 +120,7 @@ const DetailsPage = () => {
         const res_shift = await fetch_shift(token);
         const res_position = await fetch_position("chucvu_dx_bn");
         setDepartment(res_department?.data.items);
-        setEmployee(res_employee?.data.data);
+        setEmployee(res_employee?.data.items);
         setPosition(res_position);
         setShift(res_shift?.data.list);
       }
@@ -180,8 +180,8 @@ const DetailsPage = () => {
   const [userForward,setUserForward] = useState();
   const employee_options = employee?.map((opts: any) => {
     return {
-      value: opts.idQLC,
-      label: opts.userName,
+      value: opts.ep_id,
+      label: opts.ep_name,
       name: "id_uct",
     };
   });
@@ -467,7 +467,7 @@ const DetailsPage = () => {
                       {detail_propose?.nhom_de_xuat === 7 && <>
                         <p className={styles.offerlist_user}>
                           2. Thành viên được bổ nhiệm:{" "}
-                          <span>{employee?.find((em:any) => em.idQLC === assign?.thanhviendc_bn).userName}</span>
+                          <span>{employee?.find((em:any) => em.ep_id === assign?.thanhviendc_bn).userName}</span>
                         </p>
                         <p className={styles.offerlist_user}>
                           3. Tên phòng ban hiện tại:{" "}

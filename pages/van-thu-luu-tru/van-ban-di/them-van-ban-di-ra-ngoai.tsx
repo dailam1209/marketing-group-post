@@ -74,22 +74,22 @@ const Index = () => {
     const token = sessionStorage.getItem("token");
     const fetchdata = async () => {
       const res_employee = await fetch_employee(token);
-      setEmployee(res_employee?.data.data);
+      setEmployee(res_employee?.data.items);
     };
     fetchdata();
   }, []);
   const emp_duyet_options = employee?.map((opts: any) => {
     return {
-      value: opts.idQLC,
-      label: opts.userName,
+      value: opts.ep_id,
+      label: opts.ep_name,
       name: "data_nguoi_duyet",
       role: opts.position_id,
     };
   });
   const emp_theodoi_options = employee?.map((opts: any) => {
     return {
-      value: opts.idQLC,
-      label: opts.userName,
+      value: opts.ep_id,
+      label: opts.ep_name,
       name: "nguoi_theo_doi",
       role: opts.position_id,
     };

@@ -34,7 +34,7 @@ const Bonus_payoff_propose = ({ inuse }: { inuse?: boolean }) => {
             const res_employee = await fetch_employee(token)
             setSuperVisor(response?.data.listUsersTheoDoi)
             setApprover(response?.data.listUsersDuyet)
-            setEmployee(res_employee?.data.data)
+            setEmployee(res_employee?.data.items)
         }
     }
     fetchdata();
@@ -46,10 +46,10 @@ const Bonus_payoff_propose = ({ inuse }: { inuse?: boolean }) => {
     return { value:opts.idQLC, label:opts.userName,image:opts.avatarUser, name:'id_user_theo_doi'}
     })
     const employee_options = employee?.map((opts:any) => {
-        return { value:opts.idQLC, 
-                label:opts.userName,
-                image: opts.avatarUser, 
-                department:opts.nameDeparment, 
+        return { value:opts.ep_id, 
+                label:opts.ep_name,
+                image: opts.ep_image, 
+                department:opts.dep_name, 
                 department_id:opts.dep_id, 
                 name:'thanhviendc_bn',
                 role:opts.position_id}

@@ -45,7 +45,7 @@ const Assign_propose = ({ inuse }: { inuse?: boolean }) => {
         setSuperVisor(response?.data.listUsersTheoDoi);
         setApprover(response?.data.listUsersDuyet);
         setDepartment(res_department?.data.items);
-        setEmployee(res_employee?.data.data);
+        setEmployee(res_employee?.data.items);
         setPosition(res_position);
       }
     };
@@ -72,10 +72,10 @@ const Assign_propose = ({ inuse }: { inuse?: boolean }) => {
   });
   const employee_options = employee?.map((opts: any) => {
     return {
-      value: opts.idQLC,
-      label: opts.userName,
-      image: opts.avatarUser,
-      department: opts.nameDeparment,
+      value: opts.ep_id,
+      label: opts.ep_name,
+      image: opts.ep_image,
+      department: opts.dep_name,
       department_id: opts.dep_id,
       name: "thanhviendc_bn",
       role: opts.position_id,
@@ -166,7 +166,7 @@ const Assign_propose = ({ inuse }: { inuse?: boolean }) => {
       ...prev,
       thanhviendc_bn: value,
       department: department,
-      name_ph_bn: department_id[0],
+      name_ph_bn: department_id,
       role: cv[0].label,
       chucvu_hientai: role,
     }));

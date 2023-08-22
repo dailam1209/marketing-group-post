@@ -163,7 +163,7 @@ const Index = () => {
       const res_employee = await fetch_employee(token);
       const res_dxtype = await fetch_dxtype();
       setDepartment(res_department?.data.items);
-      setEmployee(res_employee?.data.data);
+      setEmployee(res_employee?.data.items);
       setTableRecords(res_propose_list?.data.data);
       setTotalpage(res_propose_list?.data.totalPages);
       setDxtype(res_dxtype?.data.showcatedx);
@@ -181,13 +181,13 @@ const Index = () => {
   const employee_options = employee
     ?.filter((emp) =>
       filter_data.id_phong_ban
-        ? emp.dep_id[0] === filter_data.id_phong_ban
+        ? emp.dep_id === filter_data.id_phong_ban
         : emp
     )
     .map((opts: any) => {
       return {
-        value: opts.idQLC,
-        label: `(${opts.idQLC}) ${opts.userName}`,
+        value: opts.ep_id,
+        label: `(${opts.ep_id}) ${opts.ep_name}`,
         name: "id_user",
       };
     });

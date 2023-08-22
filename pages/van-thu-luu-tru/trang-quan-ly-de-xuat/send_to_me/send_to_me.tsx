@@ -137,14 +137,14 @@ const My_send = () => {
       const res_employee = await fetch_employee(token)
       const res_dxtype = await fetch_dxtype()
       setTableRecords(res_propose_list?.data.data)
-      setEmployee(res_employee?.data.data)
+      setEmployee(res_employee?.data.items)
       setTotalpage(res_propose_list?.data.totalPages)
       setDxtype(res_dxtype?.data.showcatedx)
     }
   fetchdata();
 },[])
   const employee_options = employee?.map((opts:any) => {
-    return { value:opts.idQLC, label:`(${opts.idQLC}) ${opts.userName}`, name: 'id_user'}
+    return { value:opts.ep_id, label:`(${opts.ep_id}) ${opts.ep_name}`, name: 'id_user'}
   })
   employee_options?.unshift({value: '', label: 'Chọn người nhận đề xuất (Tất cả)', name:'id_user'})
   const propose_types_options = dxtype?.map((type:any)=>{

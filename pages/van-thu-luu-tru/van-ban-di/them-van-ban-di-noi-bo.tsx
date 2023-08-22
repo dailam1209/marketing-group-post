@@ -100,7 +100,7 @@ const Index = () => {
       const res_position_nhan = await fetch_position("cv_nguoinhan_vanban");
       const res_position_ky = await fetch_position("cv_nguoiky_vanban");
       setDepartment(res_department?.data.items);
-      setEmployee(res_employee?.data.data);
+      setEmployee(res_employee?.data.items);
       setPosition_nhan(res_position_nhan);
       setPosition_ky(res_position_ky);
     };
@@ -131,16 +131,16 @@ const Index = () => {
 
   const emp_duyet_options = employee?.map((opts: any) => {
     return {
-      value: opts.idQLC,
-      label: opts.userName,
+      value: opts.ep_id,
+      label: opts.ep_name,
       name: "data_nguoi_duyet",
       role: opts.position_id,
     };
   });
   const emp_theodoi_options = employee?.map((opts: any) => {
     return {
-      value: opts.idQLC,
-      label: opts.userName,
+      value: opts.ep_id,
+      label: opts.ep_name,
       name: "nguoi_theo_doi",
       role: opts.position_id,
     };
@@ -349,13 +349,13 @@ const Index = () => {
         employee
           ?.filter(
             (emp: any) =>
-              emp.dep_id[0] === e.value &&
+              emp.dep_id === e.value &&
               emp.position_id.toString() === cv_nhan
           )
           .map((opts: any) => {
             return {
-              value: opts.idQLC,
-              label: `(${opts.idQLC}) ${opts.userName}`,
+              value: opts.ep_id,
+              label: `(${opts.ep_id}) ${opts.ep_name}`,
             };
           })
       );
@@ -363,11 +363,11 @@ const Index = () => {
     } else if (e.value) {
       setENO(
         employee
-          ?.filter((emp: any) => emp.dep_id[0] === e.value)
+          ?.filter((emp: any) => emp.dep_id === e.value)
           .map((opts: any) => {
             return {
-              value: opts.idQLC,
-              label: `(${opts.idQLC}) ${opts.userName}`,
+              value: opts.ep_id,
+              label: `(${opts.ep_id}) ${opts.ep_name}`,
             };
           })
       );
@@ -378,8 +378,8 @@ const Index = () => {
           ?.filter((emp: any) => emp.position_id.toString() === cv_nhan)
           .map((opts: any) => {
             return {
-              value: opts.idQLC,
-              label: `(${opts.idQLC}) ${opts.userName}`,
+              value: opts.ep_id,
+              label: `(${opts.ep_id}) ${opts.ep_name}`,
             };
           })
       );
@@ -388,8 +388,8 @@ const Index = () => {
       setENO(
         employee?.map((opts: any) => {
           return {
-            value: opts.idQLC,
-            label: `(${opts.idQLC}) ${opts.userName}`,
+            value: opts.ep_id,
+            label: `(${opts.ep_id}) ${opts.ep_name}`,
           };
         })
       );
@@ -403,12 +403,12 @@ const Index = () => {
           ?.filter(
             (emp: any) =>
               emp.position_id.toString() === e.value &&
-              emp.dep_id[0] === pb_nhan
+              emp.dep_id === pb_nhan
           )
           .map((opts: any) => {
             return {
-              value: opts.idQLC,
-              label: `(${opts.idQLC}) ${opts.userName}`,
+              value: opts.ep_id,
+              label: `(${opts.ep_id}) ${opts.ep_name}`,
             };
           })
       );
@@ -419,8 +419,8 @@ const Index = () => {
           ?.filter((emp: any) => emp.position_id.toString() === e.value)
           .map((opts: any) => {
             return {
-              value: opts.idQLC,
-              label: `(${opts.idQLC}) ${opts.userName}`,
+              value: opts.ep_id,
+              label: `(${opts.ep_id}) ${opts.ep_name}`,
             };
           })
       );
@@ -428,11 +428,11 @@ const Index = () => {
     } else if (pb_nhan) {
       setENO(
         employee
-          ?.filter((emp: any) => emp.dep_id[0] === pb_nhan)
+          ?.filter((emp: any) => emp.dep_id === pb_nhan)
           .map((opts: any) => {
             return {
-              value: opts.idQLC,
-              label: `(${opts.idQLC}) ${opts.userName}`,
+              value: opts.ep_id,
+              label: `(${opts.ep_id}) ${opts.ep_name}`,
             };
           })
       );
@@ -441,8 +441,8 @@ const Index = () => {
       setENO(
         employee?.map((opts: any) => {
           return {
-            value: opts.idQLC,
-            label: `(${opts.idQLC}) ${opts.userName}`,
+            value: opts.ep_id,
+            label: `(${opts.ep_id}) ${opts.ep_name}`,
           };
         })
       );
@@ -462,12 +462,12 @@ const Index = () => {
         employee
           ?.filter(
             (emp: any) =>
-              emp.dep_id[0] === e.value && emp.position_id.toString() === cv_ky
+              emp.dep_id === e.value && emp.position_id.toString() === cv_ky
           )
           .map((opts: any) => {
             return {
-              value: opts.idQLC,
-              label: `(${opts.idQLC}) ${opts.userName}`,
+              value: opts.ep_id,
+              label: `(${opts.ep_id}) ${opts.ep_name}`,
               pos: opts.position_id,
             };
           })
@@ -479,8 +479,8 @@ const Index = () => {
           ?.filter((emp: any) => emp.dep_id[0] === e.value)
           .map((opts: any) => {
             return {
-              value: opts.idQLC,
-              label: `(${opts.idQLC}) ${opts.userName}`,
+              value: opts.ep_id,
+              label: `(${opts.ep_id}) ${opts.ep_name}`,
               pos: opts.position_id,
             };
           })
@@ -492,8 +492,8 @@ const Index = () => {
           ?.filter((emp: any) => emp.position_id.toString() === cv_ky)
           .map((opts: any) => {
             return {
-              value: opts.idQLC,
-              label: `(${opts.idQLC}) ${opts.userName}`,
+              value: opts.ep_id,
+              label: `(${opts.ep_id}) ${opts.ep_name}`,
               pos: opts.position_id,
             };
           })
@@ -503,8 +503,8 @@ const Index = () => {
       setEKO(
         employee?.map((opts: any) => {
           return {
-            value: opts.idQLC,
-            label: `(${opts.idQLC}) ${opts.userName}`,
+            value: opts.ep_id,
+            label: `(${opts.ep_id}) ${opts.ep_name}`,
             pos: opts.position_id,
           };
         })
@@ -522,8 +522,8 @@ const Index = () => {
           )
           .map((opts: any) => {
             return {
-              value: opts.idQLC,
-              label: `(${opts.idQLC}) ${opts.userName}`,
+              value: opts.ep_id,
+              label: `(${opts.ep_id}) ${opts.ep_name}`,
             };
           })
       );
@@ -534,8 +534,8 @@ const Index = () => {
           ?.filter((emp: any) => emp.position_id.toString() === e.value)
           .map((opts: any) => {
             return {
-              value: opts.idQLC,
-              label: `(${opts.idQLC}) ${opts.userName}`,
+              value: opts.ep_id,
+              label: `(${opts.ep_id}) ${opts.ep_name}`,
             };
           })
       );
@@ -543,11 +543,11 @@ const Index = () => {
     } else if (pb_ky) {
       setEKO(
         employee
-          ?.filter((emp: any) => emp.dep_id[0] === pb_ky)
+          ?.filter((emp: any) => emp.dep_id === pb_ky)
           .map((opts: any) => {
             return {
-              value: opts.idQLC,
-              label: `(${opts.idQLC}) ${opts.userName}`,
+              value: opts.ep_id,
+              label: `(${opts.ep_id}) ${opts.ep_name}`,
             };
           })
       );
@@ -556,8 +556,8 @@ const Index = () => {
       setEKO(
         employee?.map((opts: any) => {
           return {
-            value: opts.idQLC,
-            label: `(${opts.idQLC}) ${opts.userName}`,
+            value: opts.ep_id,
+            label: `(${opts.ep_id}) ${opts.ep_name}`,
           };
         })
       );
@@ -590,19 +590,19 @@ const Index = () => {
         return prev.filter((rec) => rec !== id);
       });
     };
-    const data = employee?.find((e: any) => e.idQLC === id);
+    const data = employee?.find((e: any) => e.ep_id === id);
     return (
       <div className={styles.main_box_user}>
         <p className={styles.box_p1}>{stt}</p>
         <p className={styles.box_p2}>{id}</p>
-        <p className={styles.box_p3}>{data?.userName}</p>
+        <p className={styles.box_p3}>{data?.ep_name}</p>
         <p className={styles.box_p4}>
           {data.position_id &&
             position_ky?.find(
               (pos: any) => pos.value === data.position_id.toString()
             ).label}
         </p>
-        <p className={styles.box_p5}>{data?.nameDeparment}</p>
+        <p className={styles.box_p5}>{data?.dep_name}</p>
         <div className={styles.box_p6}>
           <div onClick={() => handleDelete(id)} className={styles.func}>
             <Image alt="" src="/icon/icon_loai_bo.png" width={20} height={20} />
@@ -617,19 +617,19 @@ const Index = () => {
         return prev.filter((rec) => rec !== id);
       });
     };
-    const data = employee?.find((e: any) => e.idQLC === id);
+    const data = employee?.find((e: any) => e.ep_id === id);
     return (
       <div className={styles.main_box_user}>
         <p className={styles.box_p1}>{stt}</p>
         <p className={styles.box_p2}>{id}</p>
-        <p className={styles.box_p3}>{data.userName}</p>
+        <p className={styles.box_p3}>{data.ep_name}</p>
         <p className={styles.box_p4}>
           {data.position_id &&
             position_ky?.find(
               (pos: any) => pos.value === data.position_id.toString()
             ).label}
         </p>
-        <p className={styles.box_p5}>{data?.nameDeparment}</p>
+        <p className={styles.box_p5}>{data?.dep_name}</p>
         <div className={styles.box_p6}>
           <div onClick={() => handleDelete(id)} className={styles.func}>
             <Image alt="" src="/icon/icon_loai_bo.png" width={20} height={20} />

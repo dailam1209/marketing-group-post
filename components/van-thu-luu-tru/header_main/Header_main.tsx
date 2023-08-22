@@ -105,6 +105,7 @@ const General_header = () => {
   };
   const role = Cookies.get('role')
   const [user,setUser] = useState<any>()
+  const [com,setCom] = useState<any>()
   useEffect(()=>{
     console.log('navigate')
     const token = Cookies.get('token_base365')
@@ -118,7 +119,7 @@ const General_header = () => {
             }
             else{
               const res = await fetch_com_info(token)
-              setUser(res?.data.data)
+              setCom(res?.data.data)
             }
           }
         }
@@ -170,36 +171,50 @@ const General_header = () => {
             isActive={activeComponent === 3}
             onClick={handleComponentClick}
           />
-          <button className={`${styles.profile}`} onClick={handleOpenModal}>
-            <a href="#" className={`${styles.a_profile}`}>
-              <img 
-                src={user && user?.avatarUser ? user?.avatarUser : "/avatar.jpg"} 
-                onError={(e:any) => {
-                  e.target.onerror = null
-                  e.target.src = '/avatar.jpg'
-                }}
-                width={50} 
-                height={50} 
-                alt="Avatar"  />
-            </a>
-            {/* {storedData === "user" ? ( */}
-            <Profile_infor
-              isOpen={modalOpen}
-              fullname={user && user?.userName}
-              id_staff={user && user?.idQLC}
-              img={user && user?.avatarUser ? user?.avatarUser : "/avatar.jpg"}
-              job={role === '1' ? "Quản lý" : "Nhân viên"}
-            />
-            {/* ) : (
+          {user && (
+            <button className={`${styles.profile}`} onClick={handleOpenModal}>
+              <a href="#" className={`${styles.a_profile}`}>
+                <img 
+                  src={user && user?.avatarUser ? user?.avatarUser : "/avatar.jpg"} 
+                  onError={(e:any) => {
+                    e.target.onerror = null
+                    e.target.src = '/avatar.jpg'
+                  }}
+                  width={50} 
+                  height={50} 
+                  alt="Avatar"  />
+              </a>
               <Profile_infor
                 isOpen={modalOpen}
-                fullname="Công ty Cổ phần Thanh toán Hưng Hà 2"
-                id_staff="1213"
-                img="/avata_company.jpg"
-                job="Quản lý"
+                fullname={user && user?.userName}
+                id_staff={user && user?.idQLC}
+                img={user && user?.avatarUser ? user?.avatarUser : "/avatar.jpg"}
+                job={role === '1' ? "Quản lý" : "Nhân viên"}
               />
-            )} */}
-          </button>
+            </button>
+          )}
+          {com && (
+            <button className={`${styles.profile}`} onClick={handleOpenModal}>
+              <a href="#" className={`${styles.a_profile}`}>
+                <img 
+                  src={com && com?.com_logo ? com?.com_logo : "/avatar.jpg"} 
+                  onError={(e:any) => {
+                    e.target.onerror = null
+                    e.target.src = '/avatar.jpg'
+                  }}
+                  width={50} 
+                  height={50} 
+                  alt="Avatar"  />
+              </a>
+              <Profile_infor
+                isOpen={modalOpen}
+                fullname={com && com?.com_name}
+                id_staff={com && com?.com_id}
+                img={com && user?.com_logo ? user?.com_logo : "/avatar.jpg"}
+                job={role === '1' ? "Công ty" : "Nhân viên"}
+              />
+            </button>
+          )}
         </ul>
       </div>
       <div className={styles.sub_menu}>

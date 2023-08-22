@@ -101,7 +101,7 @@ const My_send = () => {
         const res_propose_list = await fetch_follow()
         const res_employee = await fetch_employee(token)
         setTableRecords(res_propose_list?.data.data)
-        setEmployee(res_employee?.data.data)
+        setEmployee(res_employee?.data.items)
         setTotalpage(res_propose_list?.data.totalPages)
       }
     fetchdata();

@@ -104,7 +104,7 @@ const My_send = () => {
   const [totalpage, setTotalpage] = useState();
   const [filter_data,setFilter_data] = useState<any>({});
   const employee_options = employee?.map((opts:any) => {
-    return { value:opts.idQLC, label:`(${opts.idQLC}) ${opts.userName}`, name: 'id_user_duyet'}
+    return { value:opts.ep_id, label:`(${opts.ep_id}) ${opts.ep_name}`, name: 'id_user_duyet'}
   })
   employee_options?.unshift({value: '', label: 'Chọn người nhận đề xuất (Tất cả)', name:'id_user'})
   useEffect(()=>{
@@ -113,7 +113,7 @@ const My_send = () => {
         const res_propose_list = await fetch_toiguidi()
         const res_employee = await fetch_employee(token)
         setTableRecords(res_propose_list?.data.data)
-        setEmployee(res_employee?.data.data)
+        setEmployee(res_employee?.data.items)
         setTotalpage(res_propose_list?.data.totalPages)
       }
     fetchdata();
