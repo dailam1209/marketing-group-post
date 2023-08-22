@@ -93,8 +93,8 @@ export default function UpdateFace({ infoCom, listDepartments }) {
   useEffect(() => {
     if (infoCom?.data && listDepartments?.items) {
       setComLabel({
-        label: infoCom?.data?.userName,
-        value: infoCom?.data?.idQLC,
+        label: infoCom?.data?.com_name,
+        value: infoCom?.data?.com_id,
       })
       setListDepLabel(
         listDepartments?.items?.map((dep) => ({

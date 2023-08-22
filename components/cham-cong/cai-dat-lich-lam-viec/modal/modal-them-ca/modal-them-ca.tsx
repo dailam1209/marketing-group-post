@@ -381,7 +381,7 @@ export function ModalChinhSua_Them({
     GET('api/qlc/shift/list').then((res) => {
       if (res?.result === true) {
         setListShift(
-          res?.list
+          res?.items
         );
       }
     });

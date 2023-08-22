@@ -143,7 +143,7 @@ export default function LichLamViec({ listCalendar }) {
   useEffect(() => {
     GET('api/qlc/shift/list').then((res) => {
       if (res?.result === true) {
-        setListShift(res?.list);
+        setListShift(res?.items);
       }
     });
   }, []);

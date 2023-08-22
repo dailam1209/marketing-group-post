@@ -33,8 +33,8 @@ export function GiamBienChe({ listQuitJob, listDepartments, infoCom }) {
     }))
   );
   const [companyLabel, setCompanyLabel]: any = useState({
-    label: infoCom?.data?.userName,
-    value: infoCom?.data?.idQLC,
+    label: infoCom?.data?.com_name,
+    value: infoCom?.data?.com_id,
   });
 
   useEffect(() => {
