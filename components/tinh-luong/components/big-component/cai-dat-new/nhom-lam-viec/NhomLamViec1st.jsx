@@ -18,6 +18,7 @@ import axios from "axios";
 import checkCookie from "../../../../function/checkCookie";
 import cookieCutter from "cookie-cutter";
 import { useRouter } from "next/router";
+import { domain } from "../../../api/BaseApi";
 
 //Todo: Chinh dau 3 cham thanh (handleDropDown), Nút thêm nhân viên cursor pointer => Done
 //todo: Tao chuc nang insert, chinh sua cua nhom lam viec => Done
@@ -27,7 +28,7 @@ import { useRouter } from "next/router";
 
 export default function NhomLamViec1st({ selected1, handleSelected }) {
   checkCookie();
-  const domain = process.env.NEXT_PUBLIC_BASE_URL_TL;
+
   const router = useRouter();
   const user_info = cookieCutter.get("userName");
   const token = cookieCutter.get("token_base365");
@@ -45,7 +46,7 @@ export default function NhomLamViec1st({ selected1, handleSelected }) {
           <div>
             <Image
               alt="/"
-              src={"/tien.png"}
+              src={"/tinhluong/tien.png"}
               width={50}
               height={50}
               style={{ borderRadius: "50%" }}
@@ -227,8 +228,7 @@ export default function NhomLamViec1st({ selected1, handleSelected }) {
     setIsModalAddOpen(false);
   };
 
-  const apiUrl =
-    "http://210.245.108.202:3009/api/tinhluong/congty/takedata_group_com";
+  const apiUrl = `${domain}/api/tinhluong/congty/takedata_group_com`;
   const postDataToGetCard = {
     lgr_id_com: cp,
     token: token,
@@ -253,8 +253,7 @@ export default function NhomLamViec1st({ selected1, handleSelected }) {
 
   // * Modal Tạo mới
   const [isInsert, setIsInsert] = useState(false);
-  const apiInsertGroupUrl =
-    "http://210.245.108.202:3009/api/tinhluong/congty/insert_group";
+  const apiInsertGroupUrl = `${domain}/api/tinhluong/congty/insert_group`;
 
   const showModal = () => {
     setIsInsert(true);
@@ -314,8 +313,7 @@ export default function NhomLamViec1st({ selected1, handleSelected }) {
   //* Thay bang goi API de xoa
 
   const [isDeleteDone, setIsDeleteDone] = useState(false);
-  const apiUrlDelete =
-    "http://210.245.108.202:3009/api/tinhluong/congty/delete_group_com";
+  const apiUrlDelete = `${domain}/api/tinhluong/congty/delete_group_com`;
 
   const handleConfirmDelete = async (id) => {
     await setIsModalDeleteOpen(false);
@@ -334,8 +332,7 @@ export default function NhomLamViec1st({ selected1, handleSelected }) {
     setIsDeleteDone(!isDeleteDone);
   };
   //* Chinh sua
-  const EditUrl =
-    "http://210.245.108.202:3009/api/tinhluong/congty/update_group_com";
+  const EditUrl = `${domain}/api/tinhluong/congty/update_group_com`;
 
   const [isEdit, setIsEdit] = useState(false);
   const [seletectedId, setSelectedID] = useState(0);
@@ -345,7 +342,7 @@ export default function NhomLamViec1st({ selected1, handleSelected }) {
         lgr_id: id,
         lgr_name: groupName,
         lgr_note: description,
-        token: standardToken,
+        token: token,
       })
       .then((response) => {
         console.log("EditedData: ", response);
@@ -443,7 +440,7 @@ export default function NhomLamViec1st({ selected1, handleSelected }) {
                       <Space>
                         <Image
                           alt="/"
-                          src={"/deta.png"}
+                          src={"/tinhluong/deta.png"}
                           width={15}
                           height={18}
                           className={styles.deta}
@@ -461,7 +458,7 @@ export default function NhomLamViec1st({ selected1, handleSelected }) {
                     className={styles.tax_ct_button}
                     onClick={showModalAddConfirm}
                   >
-                    <img src="/user-plus.png" alt="" />
+                    <img src="/tinhluong/user-plus.png" alt="" />
                     <p>Thêm nhân viên</p>
                   </div>
                 </div>

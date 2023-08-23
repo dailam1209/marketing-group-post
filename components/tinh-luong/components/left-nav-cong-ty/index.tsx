@@ -124,7 +124,11 @@ const items: MenuProps["items"] = [
     icon: <Dollar />,
     children: [
       {
-        label: <Link href="/tinh-luong/cong-ty/tinh-luong">Bảng lương</Link>,
+        label: (
+          <Link href="/tinh-luong/cong-ty/tinh-luong/bang-luong">
+            Bảng lương
+          </Link>
+        ),
         key: "4",
       },
       {

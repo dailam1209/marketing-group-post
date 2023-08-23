@@ -19,9 +19,12 @@ import styles from "./index.module.css";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import dayjs from "dayjs";
 import axios from "axios";
-import { TokenForTinhLuong } from "../../../../components/tinh-luong/components/api/BaseApi";
+
 import { error } from "next/dist/build/output/log";
 import { domain } from "../../../../components/tinh-luong/components/api/BaseApi";
+import checkCookie from "../../../../components/tinh-luong/function/checkCookie";
+import { useRouter } from "next/router";
+import cookieCutter from "cookie-cutter";
 
 dayjs.extend(customParseFormat);
 const { RangePicker } = DatePicker;
@@ -45,11 +48,19 @@ const AllowanceSkip = (id) => {
   const [tables, setTables] = useState([]);
   const [apiContract, setApiContract] = useState();
   const [reload, setReload] = useState(false);
+  checkCookie();
 
+  const router = useRouter();
+  const user_info = cookieCutter.get("userName");
+  const token = cookieCutter.get("token_base365");
+  const cp = cookieCutter.get("com_id");
+  const ep_id = cookieCutter.get("userID");
+  const role = cookieCutter.get("role");
+  console.log("ApiContract", apiContract);
   const fetchApiContact = () => {
     axios
       .post(`${domain}/api/tinhluong/congty/take_salary_em`, {
-        token: TokenForTinhLuong,
+        token: token,
         ep_id: +id.id,
       })
       .then((response) => {
@@ -68,7 +79,7 @@ const AllowanceSkip = (id) => {
       const response = await axios.post(
         `${domain}/api/tinhluong/congty/delete_contract`,
         {
-          token: TokenForTinhLuong,
+          token: token,
           con_id: con_id,
         }
       );
@@ -103,7 +114,7 @@ const AllowanceSkip = (id) => {
       con_file: "",
       con_time_up: policyTime?.format("YYYY-MM-DD HH:mm:ss"),
       con_time_end: policyTimeEnd?.format("YYYY-MM-DD HH:mm:ss"),
-      token: TokenForTinhLuong,
+      token: token,
     };
     try {
       const response = await axios.post(
@@ -144,7 +155,7 @@ const AllowanceSkip = (id) => {
       con_file: "",
       con_time_up: policyTime?.format("YYYY-MM-DD HH:mm:ss"),
       con_time_end: policyTimeEnd?.format("YYYY-MM-DD HH:mm:ss"),
-      token: TokenForTinhLuong,
+      token: token,
     };
     try {
       const response = await axios.post(

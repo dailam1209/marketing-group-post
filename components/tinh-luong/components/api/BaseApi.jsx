@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import cookieCutter from "cookie-cutter";
 // import { getCookie } from 'cookies-next'
 // import { COOKIE_KEY } from '..'
 
@@ -10,17 +10,25 @@ const curentUrlTL = process.env.NEXT_PUBLIC_BASE_URL_TL;
 
 //! Về sau mới sử dụng hàm này
 // export const getCurrentToken = () => {
-//   const currentAccessToken = getCookie(COOKIE_KEY)
+//   const currentAccessToken = getCookie(COOKIE_KEY);
 //   // console.log(currentAccessToken)
-//   const tokenJson = currentAccessToken && JSON.parse(`${currentAccessToken}`)
-//   return tokenJson && tokenJson['access_token']
-// }
+//   const tokenJson = currentAccessToken && JSON.parse(`${currentAccessToken}`);
+//   return tokenJson && tokenJson["access_token"];
+// };
+
+export const getCurrentTokenTien = () => {
+  const currentAccessToken = cookieCutter.get("token_base365");
+  console.log("token_base365 at BaseAPI", currentAccessToken);
+  return currentAccessToken;
+};
 export const TokenForTinhLuong =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6MTc0OTYsImlkVGltVmllYzM2NSI6MjQwMDgwLCJpZFFMQyI6MTI0ODMsImlkUmFvTmhhbmgzNjUiOjAsImVtYWlsIjoidHVhbmFuaGh1c3QwNUBnbWFpbC5jb20iLCJwaG9uZVRLIjoiIiwiY3JlYXRlZEF0IjoxNjgxNTMxNzA5LCJ0eXBlIjoyLCJjb21faWQiOjMzMTIsInVzZXJOYW1lIjoiTmd1eeG7hW4gVHXhuqVuIEFuaCJ9LCJpYXQiOjE2OTI2MDgyMzYsImV4cCI6MTY5MjY5NDYzNn0.MOUFu9DAowHWjZp3u8-puOcuWUM7LgKeu1_I-UgGcts";
 
 export const TokenForQuanLyChung =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6MTM3NzQ0OSwiaWRUaW1WaWVjMzY1IjoyMzI0MTYsImlkUUxDIjoxNjY0LCJpZFJhb05oYW5oMzY1IjowLCJlbWFpbCI6InRyYW5nY2h1b2k0QGdtYWlsLmNvbSIsInBob25lVEsiOiIiLCJjcmVhdGVkQXQiOjE2NjM4MzY0MDUsInR5cGUiOjEsImNvbV9pZCI6MTY2NCwidXNlck5hbWUiOiJNdG4gQ29tcGFueSJ9LCJpYXQiOjE2OTI1ODAxODEsImV4cCI6MTY5MjY2NjU4MX0.o9yt4no4wNVPmdvxS1NaB2UtlEdMpIXJzMt7Q5Dm15k";
 export const domain = process.env.NEXT_PUBLIC_BASE_URL_TL;
+export const domainQLC = process.env.NEXT_PUBLIC_BASE_URL_QLC;
+
 // const user_info = JSON.parse(localStorage.getItem("inforuser"));
 // const token = cookieCutter.get("token");
 // const cp = user_info.data.data.user_info.com_id;
@@ -34,8 +42,8 @@ export const cp = () => {
 };
 
 export const GET = async (url) => {
-  const currentToken = TokenForQuanLyChung;
-
+  const currentToken = cookieCutter.get("token_base365");
+  console.log("Đang vào hàm get ở baseAPI với token là:", currentToken);
   // console.log(currentToken)
   const config = {
     headers: { Authorization: `Bearer ${currentToken}` },
@@ -55,7 +63,8 @@ export const GET = async (url) => {
 };
 
 export const POST = async (url, body) => {
-  const currentToken = TokenForQuanLyChung;
+  const currentToken = cookieCutter.get("token_base365");
+  console.log("Đang vào hàm post ở baseAPI với token là: ", currentToken);
   const config = {
     headers: { Authorization: `Bearer ${currentToken}` },
   };
@@ -94,7 +103,7 @@ export async function DELETE(url, body) {
 }
 
 //! ve sau moi su dung ham nay
-// export const getCookieSS = (context: any) => {
+// export const getCookieSS = (context) => {
 //   const cookieData = context?.req?.cookies[COOKIE_KEY]
 //   const json = cookieData && JSON.parse(cookieData)
 //   return json?.['access_token']
@@ -141,7 +150,7 @@ export const POST_SS = async (url, body, context, type = "qlc") => {
   }
   const config = {
     headers: { Authorization: `Bearer ${currentToken}` },
-  }
+  };
 
   try {
     const res = await axios.post(`${domain}/${url}`, body, config);
