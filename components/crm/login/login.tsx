@@ -3,56 +3,94 @@ import styles from '../login/login.module.css'
 import Image from 'next/image'
 import Link from 'next/link'
 import FooterHomePage from '../../../components/footer/Footer'
-// import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet";
 import HeaderHomePage from './header'
 import { checkHomeIfLoggedIn } from '../ultis/checkLogin'
 const HomePageLogin: React.FC = () => {
   return (
     <>
-      {checkHomeIfLoggedIn() ? null : (
-        <div className={styles.main}>
-          <HeaderHomePage />
-          <div className={styles.banner}>
-            <div className={styles['banner-left']}>
-              <div className={styles['text-top']}>
-                <h1 className={styles['title_banner']}>Phần mềm CRM 365</h1>
-                <p className={styles['title_content_banner']}>
-                  Công ty gắn kết khách hàng với doanh nghiệp
-                </p>
-                <p className={styles['title_content_banner_02']}>
-                  Giải pháp giúp doanh nghiệp của bạn tối ưu toàn bộ chi phí,
-                  tăng trưởng doanh thu thần tốc, và tiết kiệm thời gian xử lý
-                  công việc.
-                </p>
-              </div>
-              <div className={styles.href}>
-                <Link href='#' rel='nofollow' className={styles.first}>
-                  Trải nghiệm miễn phí
-                </Link>
-                <Link
-                  rel='nofollow'
-                  href='/lua-chon-dang-ky.html'
-                  target='_blank'
-                  className={styles.sec}>
-                  Đăng ký ngay
-                </Link>
-              </div>
-              <div className={styles.download_app_pc}>
-                <p className={styles.download_app_tit}>
-                  Tải App CRM 365 dành cho PC
-                </p>
-                <div className={styles.download_app_Image}>
-                  <Link
-                    href='https://Linkpp.timviec365.vn/Download/CRM/setup.exe'
-                    rel='nofollow'
-                    download=''>
-                    <img src='/crm/dl_app_pc2.png' alt='App' />
-                  </Link>
-                </div>
-              </div>
-            </div>
-            <div className={styles['banner-right']}>
-              <img src='/crm/images-banners.png' alt='Phần mềm CRM miễn phí' />
+    {checkHomeIfLoggedIn() ? null : (
+    <div className={styles.main}>
+      <Helmet>
+        <meta name="viewport" content="width=device-width" initial-scale="1" />
+        <meta name="robots" content="noindex,nofollow" />
+        <title>CRM 365 - đáp án của bài toán tối ưu quy trình, gia tăng lợi nhuận</title>
+        <meta
+          name="description"
+          content="CRM 365 được đánh giá là công cụ tốt nhất hiện nay trong việc kết nối khách hàng và doanh nghiệp. Phần mềm chú trọng vào các nhiệm vụ hỗ trợ doanh nghiệp tăng tập khách hàng tiềm năng và thân thiết, tăng doanh thu và tối ưu chi phí. Đăng ký hôm nay, lợi ích đến ngay!"
+        />
+        <meta name="Keywords" content="Phần mềm CRM, phần mềm crm miễn phí" />
+        <meta property="og:locale" content="vi_VN" />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:title"
+          content="CRM 365 - đáp án của bài toán tối ưu quy trình, gia tăng lợi nhuận"
+        />
+        <meta
+          property="og:description"
+          content="CRM 365 được đánh giá là công cụ tốt nhất hiện nay trong việc kết nối khách hàng và doanh nghiệp. Phần mềm chú trọng vào các nhiệm vụ hỗ trợ doanh nghiệp tăng tập khách hàng tiềm năng và thân thiết, tăng doanh thu và tối ưu chi phí. Đăng ký hôm nay, lợi ích đến ngay!"
+        />
+        <meta
+          property="og:image"
+          content="https://crm.timviec365.vn/assets/img/images-banners.png"
+        />
+        <meta name="twitter:card" content="summary" />
+        <meta
+          name="twitter:description"
+          content="CRM 365 được đánh giá là công cụ tốt nhất hiện nay trong việc kết nối khách hàng và doanh nghiệp. Phần mềm chú trọng vào các nhiệm vụ hỗ trợ doanh nghiệp tăng tập khách hàng tiềm năng và thân thiết, tăng doanh thu và tối ưu chi phí. Đăng ký hôm nay, lợi ích đến ngay!"
+        />
+        <meta
+          name="twitter:title"
+          content="CRM 365 - đáp án của bài toán tối ưu quy trình, gia tăng lợi nhuận"
+        />
+        <link rel="canonical" href="https://hungha365.com/crm" />
+
+        {/* CSS */}
+        <script
+          async
+          src="https://www.googletagmanager.com/gtm.js?id=GTM-NXVQCHN"
+        ></script>
+        
+      </Helmet>
+    
+      <HeaderHomePage />
+      <div className={styles.banner}>
+        <div className={styles["banner-left"]}>
+          <div className={styles["text-top"]}>
+            <h1 className={styles["title_banner"]}>CRM – gắn kết doanh nghiệp – khách hàng bền vững</h1>
+            <p className={styles["title_content_banner"]}>
+              Công ty gắn kết khách hàng với doanh nghiệp
+            </p>
+            <p className={styles["title_content_banner_02"]}>
+              Giải pháp giúp doanh nghiệp của bạn tối ưu toàn bộ chi phí, tăng
+              trưởng doanh thu thần tốc, và tiết kiệm thời gian xử lý công việc.
+            </p>
+          </div>
+          <div className={styles.href}>
+            <Link href="#" rel="nofollow" className={styles.first}>
+              Trải nghiệm miễn phí
+            </Link>
+            <Link
+              rel="nofollow"
+              href="/lua-chon-dang-ky.html"
+              target="_blank"
+              className={styles.sec}
+            >
+              Đăng ký ngay
+            </Link>
+          </div>
+          <div className={styles.download_app_pc}>
+            <p className={styles.download_app_tit}>
+              Tải App CRM 365 dành cho PC
+            </p>
+            <div className={styles.download_app_Image}>
+              <Link
+                href="https://Linkpp.timviec365.vn/Download/CRM/setup.exe"
+                rel="nofollow"
+                download=""
+              >
+                <img src="/crm/dl_app_pc2.png" alt="App" />
+              </Link>
             </div>
           </div>
           <div className={styles['content-body']}>
@@ -232,4 +270,4 @@ const HomePageLogin: React.FC = () => {
     </>
   )
 }
-export default HomePageLogin
+export default HomePageLogin;

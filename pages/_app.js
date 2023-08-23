@@ -151,10 +151,10 @@ export default function App({ Component, pageProps }) {
               <Component {...pageProps} />
             </Bodyframe>
           ) : router.pathname?.includes("crm") ? (
-            <Provider store={store}>
-              <AccessContextComponent>
+            <Provider store={store} >
+              <AccessContextComponent >
                 <SidebarResize>
-                  <NavigateContextComponent>
+                  <NavigateContextComponent >
                     {shouldShowSidebarAndHeader &&(
                       <>
                         <Header toggleModal={toggleModal} />

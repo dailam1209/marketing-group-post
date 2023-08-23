@@ -1,11 +1,12 @@
-import { useEffect, useRef, useState } from "react";
-import styles from "../potential.module.css";
-import PotentialDropDownDataStep from "./select_box_dropdown_data";
-export default function PotentialSelectBoxStep({
+import React, { useEffect, useRef, useState } from "react";
+import styles from "../../potential/potential.module.css";
+import ContractDropDownDataStep from "./select_box_dropdown_send";
+export default function ContractSelectBoxStep({
   title = "",
-  value = "Tất cả",
-  placeholder = "",
-  data = [],
+  value,
+  placeholder,
+  data,
+  setSelectedDepartment,
 }: any) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -42,7 +43,7 @@ export default function PotentialSelectBoxStep({
       <label htmlFor="" className="">
         {title}
       </label>
-      <select
+      {/* <select
         className={`${styles.select2} ${styles.select2_hidden_accessible}`}
         data-select2-id={1}
         tabIndex={-1}
@@ -51,7 +52,8 @@ export default function PotentialSelectBoxStep({
         <option value="" data-select2-id={3}>
           {value}
         </option>
-      </select>
+      </select> */}
+
       <span
         className={`select2 ${styles.select2_container_step}`}
         dir="ltr"
@@ -73,9 +75,8 @@ export default function PotentialSelectBoxStep({
               id="select2-g0q1-container"
               role="textbox"
               aria-readonly="true"
-              // title="Chọn người dùng"
             >
-              {placeholder}
+              {value}
             </span>
             <span
               className={styles.select2_selection__arrow}
@@ -85,7 +86,13 @@ export default function PotentialSelectBoxStep({
             </span>
           </span>
         </span>
-        {isOpen && <PotentialDropDownDataStep data={data} value={value} />}
+        {isOpen && (
+          <ContractDropDownDataStep
+            setSelectedDepartment={setSelectedDepartment}
+            data={data}
+            value={value}
+          />
+        )}
       </span>
     </div>
   );

@@ -1,17 +1,15 @@
-import {
-  ReactElement,
-  JSXElementConstructor,
-  ReactNode,
-  ReactPortal,
-  PromiseLikeOfReactNode,
-  Key,
-} from "react";
-import styles from "../potential.module.css";
+import { Key, useState } from "react";
+import styles from "../../potential/potential.module.css";
 
-export default function PotentialDropDownDataStep({
-  data = [],
-  value = " Chọn người dùng",
+export default function ContractDropDownDataStep({
+  data,
+  value,
+  setSelectedDepartment,
 }: any) {
+  const [selectedValue, setSelectedValue] = useState(value);
+  const handleOptionSelect = (selectedItem: string) => {
+    setSelectedDepartment(selectedItem);
+  };
   return (
     <span
       className={`${styles.select2_container_open} ${styles.select2_container} ${styles.select2_container_default} `}
@@ -47,35 +45,22 @@ export default function PotentialDropDownDataStep({
             <li
               className={`${styles.select2_results__option} ${styles.select2_results__option_highlighted}`}
             >
-              {value}
+              {selectedValue}
             </li>
-            {data?.map(
-              (
-                item:
-                  | string
-                  | number
-                  | boolean
-                  | ReactElement<any, string | JSXElementConstructor<any>>
-                  | Iterable<ReactNode>
-                  | ReactPortal
-                  | PromiseLikeOfReactNode
-                  | null
-                  | undefined,
-                i: Key | null | undefined
-              ) => (
-                <li
-                  key={i}
-                  className={`${styles.select2_results__option}}`}
-                  style={{
-                    marginTop: "10px",
-                    padding: "5px 0",
-                    paddingLeft: "18px",
-                  }}
-                >
-                  {item}
-                </li>
-              )
-            )}
+            {data?.map((item: any, i: Key | null | undefined) => (
+              <li
+                key={i}
+                className={styles.select2_results__option}
+                style={{
+                  marginTop: "10px",
+                  padding: "5px 0",
+                  paddingLeft: "18px",
+                }}
+                onClick={() => handleOptionSelect(item.department)}
+              >
+                {item.department}
+              </li>
+            ))}
           </ul>
         </span>
       </span>
