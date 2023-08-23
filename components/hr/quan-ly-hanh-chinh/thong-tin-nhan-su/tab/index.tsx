@@ -146,20 +146,20 @@ export default function TabEmployeeManagement({ iconAdd, iconEdit }: any) {
 
   const chonphongbanOptions = useMemo(
     () =>
-      departmentList?.data?.map((department: any) => ({
+      departmentList?.items?.map((department: any) => ({
         value: department.dep_id,
         label: department.dep_name,
       })),
-    [departmentList?.data]
+    [departmentList?.items]
   );
 
   const chonnhanvienOptions = useMemo(
     () =>
-      EmpData?.data?.map((emp: any) => ({
-        value: emp.userName,
-        label: emp.userName,
+      EmpData?.items?.map((emp: any) => ({
+        value: emp.ep_id,
+        label: emp.ep_name,
       })),
-    [EmpData?.data]
+    [EmpData?.items]
   );
 
   const handleSearch = useCallback(() => {
@@ -196,7 +196,7 @@ export default function TabEmployeeManagement({ iconAdd, iconEdit }: any) {
         <div className={`${styles.tab_pane}`}>
           <div className={`${styles.body}`}>
             <div className={`${styles.recruitment}`}>
-              {iconAdd && <a target="blank" href="/quan-ly-nhan-luc/quan-ly-cong-ty/cai-dat-them-nhan-vien-moi" className={`${styles.add}`} >
+              {iconAdd && <a target="blank" href="/cham-cong/quan-ly-cong-ty/cai-dat-them-nhan-vien-moi" className={`${styles.add}`} >
                 <img src={`/add.png`} alt="" />Thêm mới nhân viên
               </a>}
             </div>
@@ -298,25 +298,25 @@ export default function TabEmployeeManagement({ iconAdd, iconEdit }: any) {
                     </tr>
                   </thead>
                   <tbody className={`${styles.filter_body}`}>
-                    {EmpData?.data?.map((item: any, index: any) => {
+                    {EmpData?.items?.map((item: any, index: any) => {
                       const positionData = PostionCharDatas?.data?.find(
                         (position: any) => position?.positionId === item?.position_id
                       );
                       const positionNameToShow = positionData ? positionData.positionName : item.vitri;
                       return (
                         <tr key={index}>
-                          <td>{item._id}</td>
-                          <td>   <a href="">{item.userName}</a></td>
-                          <td>{item.nameDeparment}</td>
-                          <td>{item.gender === 1 ? "Nam" : item.gender === 2 ? "Nữ" : "Khác"}</td>
-                          <td>{item.isMeried === 1 ? "Đã cưới" : item.isMeried === 2 ? "Độc thân" : "Khác"}</td>
+                          <td>{item.ep_id}</td>
+                          <td>   <a href="">{item.ep_name}</a></td>
+                          <td>{item.dep_name}</td>
+                          <td>{item.ep_gender === 1 ? "Nam" : item.ep_gender === 2 ? "Nữ" : "Khác"}</td>
+                          <td>{item.ep_married === 1 ? "Đã cưới" : item.ep_married === 2 ? "Độc thân" : "Khác"}</td>
                           <td>{positionNameToShow}</td>
-                          <td>{item.nameDeparment}</td>
+                          <td>{item.dep_name}</td>
                           <td>{getCompanyNameByChinhanh(item.com_id, OrganizationalDatas)}</td>
                           <td>
-                            <p>Địa chỉ liên hệ:{item.address}</p>
-                            <p>SDT: {item?.phoneTK}</p>
-                            <p>Email: {item.email}</p>
+                            <p>Địa chỉ liên hệ:{item.ep_address}</p>
+                            <p>SDT: {item?.ep_phone}</p>
+                            <p>Email: {item.ep_email}</p>
                           </td>
                           {item?.start_working_time &&
                             <td>{format(
@@ -330,7 +330,13 @@ export default function TabEmployeeManagement({ iconAdd, iconEdit }: any) {
                             <div
                               className={`${styles.settings}`} style={{ width: '100%' }}>
                               <li onClick={handleOpenDetailModal}>Chi tiết</li>
-                              {detailModal && <DetailCandidateList onCancel={handleCloseModal} infoList={{ infoList: item, position: positionNameToShow }} />}
+                              {detailModal && <DetailCandidateList onCancel={handleCloseModal}
+                                infoList={{
+                                  infoList: item,
+                                  position: positionNameToShow,
+                                  branch: getCompanyNameByChinhanh(item.com_id, OrganizationalDatas),
+
+                                }} />}
                               {iconEdit && <li onClick={() => setEditmodal(item?._id)}>Chỉnh sửa</li>}
                               {editModal === item?._id && <EditCandidateList onCancel={handleCloseModal} infoList={{ infoList: item, position: positionNameToShow }} />}
                             </div>
@@ -347,7 +353,7 @@ export default function TabEmployeeManagement({ iconAdd, iconEdit }: any) {
           <div className={`${styles.paginations}`} style={{ display: 'block' }}>
             <MyPagination
               current={currentPage}
-              total={EmpData?.count}
+              total={EmpData?.totalItems}
               pageSize={10}
               onChange={handleSignaturePageChange}
             />

@@ -4,7 +4,7 @@ import Select from 'react-select'
 import { getDataUser } from '@/pages/api/api-hr/quan-ly-tuyen-dung/PerformRecruitment'
 import { SettingPermission } from '@/pages/api/api-hr/cai-dat/generalSettings'
 
-export default function Decentralization({}) {
+export default function Decentralization({ }) {
   const [user, setUser] = useState<any>()
   const [userId, setUserId] = useState<any>()
   const [localListCheck, setLocalListCheck] = useState<any>([])
@@ -166,13 +166,13 @@ export default function Decentralization({}) {
       try {
         const response = await getDataUser()
         setUser(
-          response?.data.data.data.map((item) => ({
+          response?.data?.data?.items?.map((item) => ({
             name: 'userId',
-            value: item.idQLC,
-            label: `${item.userName} ${item.nameDeparment}`,
+            value: item.ep_id,
+            label: `${item.ep_name} ${item.dep_name}`,
           }))
         )
-      } catch (err) {}
+      } catch (err) { }
     }
     getData()
   }, [])
@@ -184,7 +184,7 @@ export default function Decentralization({}) {
       if (response?.status !== 200) {
         alert('Cấp quyền thất bại')
       }
-    } catch (error) {}
+    } catch (error) { }
   }
 
   const options = {

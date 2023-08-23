@@ -66,7 +66,7 @@ export default function UpdateRegulationsModal({ onCancel, idGroup }: UpdateRegu
     const fetchData = async () => {
       try {
         const response = await SpecifiedGroupList(10000, 1, keyWords)
-        setListRegulationsGroup(response?.data)
+        setListRegulationsGroup(response?.success)
       } catch (error) {
         throw error
       }
@@ -208,7 +208,7 @@ export default function UpdateRegulationsModal({ onCancel, idGroup }: UpdateRegu
                       <label htmlFor="">Chọn nhóm quy định <span style={{ color: 'red' }}> * </span></label>
                       <div className={`${styles.input_right}`}>
                         <select onChange={handleProvisionChange} name="" id="provision_id" className={`${styles.input_process}`}>
-                          {ListRegulationsGroup?.data?.map((item: any, index: any) => (
+                          {ListRegulationsGroup?.data?.data?.map((item: any, index: any) => (
                             <option selected={item.id === DetailData?.data[0]?.provisionId} value={item.id} key={index}>-- {item.name} --</option>
                           ))}
                         </select>

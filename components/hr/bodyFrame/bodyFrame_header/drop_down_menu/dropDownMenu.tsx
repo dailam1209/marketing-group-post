@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styles from './dropDownMenu.module.css'
 import Link from 'next/link'
 import LogoutHr from '@/components/hr/logout'
-export interface DropDownMenu {}
+export interface DropDownMenu { }
 
 export default function DropDownMenu({ dataHeader }: any) {
   const [logoutClicked, setLogoutClicked] = useState(false)
@@ -49,16 +49,18 @@ export default function DropDownMenu({ dataHeader }: any) {
           <img
             className={`${styles.img_avatar}`}
             src={
-              dataHeader?.data?.avatarUser
-                ? dataHeader?.data?.avatarUser
-                : '/logo_com (2).png'
+              dataHeader?.data?.com_logo
+                ? dataHeader?.data?.com_logo
+                : '/logo_com (2).png' || dataHeader?.data?.avatarUser
+                  ? dataHeader?.data?.avatarUser
+                  : '/logo_com (2).png'
             }
             alt=''
           />
         </div>
-        <div className={`${styles.menu_cpn}`}>{dataHeader?.data.userName}</div>
+        <div className={`${styles.menu_cpn}`}>{dataHeader?.data.com_name || dataHeader?.data.userName}</div>
         <div className={`${styles.menu_id}`}>
-          {dataHeader?.data.idQLC || ''}
+          {dataHeader?.data.com_id || dataHeader?.data.idQLC}
         </div>
         <div>
           <a

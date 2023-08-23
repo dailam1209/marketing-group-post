@@ -132,11 +132,11 @@ export default function CandidateListDetail({ iconAdd, iconEdit, iconDelete }: a
 
   const chonnhanvienOptions = useMemo(
     () =>
-      EmpData?.data?.map((emp: any) => ({
-        value: emp.idQLC,
-        label: emp.userName,
+      EmpData?.items?.map((emp: any) => ({
+        value: emp.ep_id,
+        label: emp.ep_name,
       })),
-    [EmpData?.data]
+    [EmpData?.items]
   );
 
   const chonvitrituyendungOptions = useMemo(
