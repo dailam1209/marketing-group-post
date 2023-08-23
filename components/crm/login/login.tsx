@@ -50,14 +50,9 @@ const HomePageLogin: React.FC = () => {
           async
           src="https://www.googletagmanager.com/gtm.js?id=GTM-NXVQCHN"
         ></script>
-
-        {/* Google Tag Manager */}
-        <script async>{/* Script content */}</script>
-        {/* End Google Tag Manager */}
-
-        {/* JSON-LD */}
-        <script type="application/ld+json">{/* JSON-LD content */}</script>
+        
       </Helmet>
+    
       <HeaderHomePage />
       <div className={styles.banner}>
         <div className={styles["banner-left"]}>
