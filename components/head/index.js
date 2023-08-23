@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 
 export default function Seo(props) {
   const router = useRouter();
+  console.log(props)
   return (
     <>
       <Head>
@@ -63,6 +64,36 @@ export default function Seo(props) {
           }
         />
         <link rel="stylesheet" type="text/css" href="/css/login_qr.css" />
+        {router.pathname?.includes('van-thu-luu-tru') && (
+          <>
+            <script type="application/ld+json">
+              {`
+                {
+                  "@context": "https://schema.org",
+                  "@type": "WebPage",
+                  "name": "Phần mềm văn thư lưu trữ 365",
+                  "description": "Văn thư lưu trữ 365 - Phần mềm văn thư lưu trữ miễn phí, tốt nhất hiện nay...",
+                  "url": "https://vanthu.timviec365.vn/",
+                  "additionalType": ["https://vi.wikipedia.org/wiki/Nh%C3%A2n_vi%C3%AAn_v%C4%83n_th%C6%B0"]
+                }
+              `}
+            </script>
+            <meta name="google-site-verification" content="tkR0DL2EWeg8OJfQypncyEWVoR3Mvl-Vbk4yl-8q1sQ" />
+            <script async>
+              {`
+                (function(w,d,s,l,i){
+                  w[l]=w[l]||[];
+                  w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});
+                  var f=d.getElementsByTagName(s)[0],
+                  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
+                  j.async=true;
+                  j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+                  f.parentNode.insertBefore(j,f);
+                })(window,document,'script','dataLayer','GTM-NXVQCHN');
+              `}
+            </script>
+          </>
+        )}
       </Head>
     </>
   );

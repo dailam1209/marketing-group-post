@@ -64,7 +64,7 @@ export const fetchListSoVB = async (id_book: any) => {
   try {
     const response = await fetchData(
       token,
-      `/api/vanthu/guiNhanCongVan/setting/getListSoVanBan`,
+      `api/vanthu/guiNhanCongVan/setting/getListSoVanBan`,
       { id_so_vb: id_book }
     );
     return response?.data?.so_vb?.name_book;

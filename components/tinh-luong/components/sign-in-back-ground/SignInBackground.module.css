@@ -1,0 +1,102 @@
+.main {
+  width: 100%;
+  background: #4148c0;
+  height: auto;
+
+  float: left;
+  font-size: 14px;
+  display: flex;
+}
+.shell {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  height: auto;
+  display: flex;
+}
+.content {
+  width: 50%;
+  padding-left: 97px;
+  padding-right: 97px;
+  padding-top: 60px;
+}
+.content .layout {
+  padding-top: 30px;
+  padding-bottom: 50px;
+  padding-left: 40px;
+  padding-right: 40px;
+  background-color: #fff;
+  justify-content: center;
+}
+.content .layout .box {
+  width: 100%;
+}
+.Signin_text {
+  color: #494949;
+  font-size: 30px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+.Signin_subtext {
+  margin-top: 5px;
+  color: #666;
+  font-size: 18px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 28px;
+}
+.choosing_role {
+  margin-top: 30px;
+}
+.choosing_role_box {
+  height: 108px;
+  border-radius: 6px;
+  border: 1px solid #4c5bd4;
+  background: #f3f5ff;
+  box-shadow: 0px 4px 14px 1px rgba(0, 0, 0, 0.04);
+  display: flex;
+  justify-item: center;
+  padding-top: 25px;
+  padding-bottom: 28px;
+  margin-top: 30px;
+}
+.choosing_role_box_1 {
+  display: flex;
+  justify-content: center;
+  width: 25%;
+}
+.choosing_role_box_2 {
+  width: 63%;
+}
+.choosing_role_box_2 .a {
+  color: #494949;
+  font-size: 16px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+.choosing_role_box_2 .b {
+  color: #666;
+  font-size: 14px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin-top: 5px;
+}
+.choosing_role_box_3 {
+  width: 12%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.choosing_role_nhan_vien :hover {
+  cursor: pointer;
+}
+.choosing_role_quan_ly :hover {
+  cursor: pointer;
+}
