@@ -76,7 +76,8 @@ export default function ChamCongCongTy() {
           },
           {
             headers: {
-              'Content-type': 'application/x-www-form-urlencoded',
+              // 'Content-type': 'application/x-www-form-urlencoded',
+              'Content-Type': 'application/json',
             },
           }
         )
@@ -343,6 +344,7 @@ export default function ChamCongCongTy() {
               userData?.shift?.map((item) => (
                 <div
                   className={styles.wrapper}
+<<<<<<< HEAD
                   onClick={() =>
                     setSelectedCa(!selectedCa ? item?.shift_id : '')
                   }>
@@ -362,6 +364,11 @@ export default function ChamCongCongTy() {
                       fontWeight:
                         selectedCa === item?.shift_id ? 'bold' : '500',
                     }}>
+=======
+                  onClick={() => setSelectedCa(item?.shift_id)}>
+                  <p className={styles.txt}>{item?.shift_name}</p>
+                  <p className={styles.txt}>
+>>>>>>> 4e8e783 (fix bugs)
                     {item?.start_time} đến {item?.end_time}
                   </p>
                 </div>
