@@ -71,7 +71,6 @@ const columns: ColumnsType<DataType> = [
     dataIndex: "operation",
     key: "4",
     width: 120,
-    // fixed:"right",
     render: () => (
       <>
         <button>
