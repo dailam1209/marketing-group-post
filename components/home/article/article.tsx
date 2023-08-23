@@ -5606,7 +5606,6 @@ export default function Article({
                   height={232}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/cau-truc-phong-ban(1).jpg'
-                  src='https://timviec365.vn/pictures/images_06_2023/cau-truc-phong-ban(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>Cấu trúc phòng ban</figcaption>{' '}
@@ -5731,7 +5730,6 @@ export default function Article({
                   height={126}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/them-moi-to(1).jpg'
-                  src='https://timviec365.vn/pictures/images_06_2023/them-moi-to(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>Thêm mới cho tổ</figcaption>{' '}
@@ -5797,7 +5795,6 @@ export default function Article({
                   alt='Thêm tổ vào các phòng ban'
                   height={433}
                   className=' lazyloaded'
-                  src='https://timviec365.vn/pictures/images_06_2023/Them-moi-to-2(1).jpg'
                   src='https://timviec365.vn/pictures/images_06_2023/Them-moi-to-2(1).jpg'
                   width={800}
                 />{' '}
@@ -5888,7 +5885,6 @@ export default function Article({
                   height={130}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/them-moi-nhom(1).jpg'
-                  src='https://timviec365.vn/pictures/images_06_2023/them-moi-nhom(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>Thêm mới nhóm</figcaption>{' '}
@@ -5955,7 +5951,6 @@ export default function Article({
                   alt='Thêm nhóm mới'
                   height={502}
                   className=' lazyloaded'
-                  src='https://timviec365.vn/pictures/images_06_2023/them-moi-nhom-2(1).jpg'
                   src='https://timviec365.vn/pictures/images_06_2023/them-moi-nhom-2(1).jpg'
                   width={800}
                 />{' '}
@@ -6084,7 +6079,6 @@ export default function Article({
                   alt='Cài nhân viên vào các phòng ban'
                   height={703}
                   className=' lazyloaded'
-                  src='https://timviec365.vn/pictures/images_06_2023/cai-dat-nhan-vien-vao-cac-phong-ban(1).jpg'
                   src='https://timviec365.vn/pictures/images_06_2023/cai-dat-nhan-vien-vao-cac-phong-ban(1).jpg'
                   width={800}
                 />{' '}
@@ -6223,7 +6217,6 @@ export default function Article({
                   height={630}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/chon-phong-ban(1).jpg'
-                  src='https://timviec365.vn/pictures/images_06_2023/chon-phong-ban(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>Chọn phòng ban</figcaption>{' '}
@@ -6267,7 +6260,6 @@ export default function Article({
                   alt='Cập nhật phòng ban cho nhân viên'
                   height={468}
                   className=' lazyloaded'
-                  src='https://timviec365.vn/pictures/images_06_2023/cap-nhat-phong-ban-cho-nhan-vien(1).jpg'
                   src='https://timviec365.vn/pictures/images_06_2023/cap-nhat-phong-ban-cho-nhan-vien(1).jpg'
                   width={800}
                 />{' '}
@@ -6451,7 +6443,6 @@ export default function Article({
                   height={420}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/them-nhan-vien-moi(1).jpg'
-                  src='https://timviec365.vn/pictures/images_06_2023/them-nhan-vien-moi(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>Thêm nhân viên mới</figcaption>{' '}
@@ -6494,7 +6485,6 @@ export default function Article({
                   alt='Hoàn tất tạo nhân viên mới'
                   height={616}
                   className=' lazyloaded'
-                  src='https://timviec365.vn/pictures/images_06_2023/hoan-tat-tao-tai-khoan-nhan-vien-moi(1).jpg'
                   src='https://timviec365.vn/pictures/images_06_2023/hoan-tat-tao-tai-khoan-nhan-vien-moi(1).jpg'
                   width={800}
                 />{' '}
@@ -6651,7 +6641,6 @@ export default function Article({
                   height={777}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/quan-ly-nhan-vien(1).jpg'
-                  src='https://timviec365.vn/pictures/images_06_2023/quan-ly-nhan-vien(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>Quản lý nhân viên</figcaption>{' '}
@@ -6717,7 +6706,6 @@ export default function Article({
                   alt='Thêm luân chuyển công tác'
                   height={784}
                   className=' lazyloaded'
-                  src='https://timviec365.vn/pictures/images_06_2023/them-luan-chuyen-cong-tac(1).jpg'
                   src='https://timviec365.vn/pictures/images_06_2023/them-luan-chuyen-cong-tac(1).jpg'
                   width={800}
                 />{' '}
