@@ -23,6 +23,9 @@ export default function ListRecruitment({
   const [visible, setVisible] = useState(false)
   const [animateModal, setAnimateModal] = useState(false)
 
+  console.log(data);
+
+
   const handleCloseModal = () => {
     setAnimateModal(false)
     setTimeout(() => {
@@ -140,11 +143,11 @@ export default function ListRecruitment({
             </div>
 
             <div>
-              <p className={`${styles.t_ita}`}>Tạo bởi: {data?.createdBy}</p>
+              <p className={`${styles.t_ita}`}>Tạo bởi: {data?.created_by}</p>
             </div>
 
             <div className={`${styles.t_new_type}`}>
-              {dateBelieveTime(data?.timeEnd)}
+              {dateBelieveTime(data?.recruitment_time_to)}
             </div>
 
             <div
@@ -216,7 +219,7 @@ export default function ListRecruitment({
             <ul className={`${styles.new_r_t_body_content}`}>
               <li>
                 <span className={`${styles.text}`}>
-                  {typeOfWork[data?.posApply]}. {salary[data?.salaryId]}
+                  {typeOfWork[data?.position_apply]}. {salary[data?.salary_id]}
                 </span>
               </li>
               <li>
@@ -224,15 +227,15 @@ export default function ListRecruitment({
                   <img src={`/calendar.png`} alt=''></img>
                 </picture>
                 <span className={`${styles.text}`}>
-                  {getFormattedDate(data?.timeStart)} -{' '}
-                  {getFormattedDate(data?.timeEnd)}
+                  {getFormattedDate(data?.recruitment_time)} -{' '}
+                  {getFormattedDate(data?.recruitment_time_to)}
                 </span>
               </li>
               <li>
                 <picture className={`${styles.icon}`}>
                   <img src={`/house.png`} alt=''></img>
                 </picture>
-                <span className={`${styles.text}`}>{data?.address} </span>
+                <span className={`${styles.text}`}>{data?.address}(địa chỉ tuyển dụng) </span>
               </li>
             </ul>
 
@@ -245,12 +248,12 @@ export default function ListRecruitment({
 
               <li>
                 <span className={`${styles.text}`}>
-                  Người phụ trách: {data?.nameHR[0]}
+                  Người phụ trách: {data?.hr_name}
                 </span>
               </li>
               <li>
                 <span className={`${styles.text}`}>
-                  Mã quy trình tuyển dụng áp dụng: QTTD{data?.recruitmentId}
+                  Mã quy trình tuyển dụng áp dụng: QTTD{data?.recruitmen_id}
                 </span>
               </li>
             </ul>

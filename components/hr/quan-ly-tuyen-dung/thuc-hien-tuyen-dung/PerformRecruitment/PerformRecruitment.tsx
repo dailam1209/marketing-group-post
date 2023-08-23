@@ -16,6 +16,9 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
   const [selectedButton, setSelectedButton] = useState('homnay')
   const [messIsOpen, setMessIsOpen] = useState<any>()
 
+  console.log(messIsOpen);
+
+
   const [listSchedule, setListSchedule] = useState<any>()
   const [currentPageListNewActive, setCurrentPageListNewActive] = useState(1)
   const [currentPageListSchedule, setCurrentPageLisSchedule] = useState(1)
@@ -27,7 +30,7 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
           currentPageListNewActive,
           3
         )
-        setMessIsOpen(responseListNewActive?.data.data)
+        setMessIsOpen(responseListNewActive?.data.success)
       } catch (err) { }
     }
     getDataRecruitmentOverview()
@@ -40,7 +43,7 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
           currentPageListSchedule,
           3
         )
-        setListSchedule(responseListSchedule?.data.data)
+        setListSchedule(responseListSchedule?.data.success)
       }
       GetDataListSchedule()
     } catch (err) { }
@@ -75,6 +78,9 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
     12: 'Trên 100 triệu',
   }
 
+  console.log(listSchedule);
+
+
   return (
     <>
       <div className={`${styles.tab_content}`}>
@@ -92,10 +98,10 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
               </div>
               <hr></hr>
               {/* body map ở đây */}
-              {messIsOpen?.recruitmentNew.length === 0 ? (
+              {messIsOpen?.data?.data.length === 0 ? (
                 <p className={`${styles.data_empty}`}>Không có dữ liệu</p>
               ) : (
-                messIsOpen?.recruitmentNew.map((item, index) => {
+                messIsOpen?.data?.data.map((item, index) => {
                   const timeEnd = new Date(item.timeEnd).getTime()
                   if (currentTime > timeEnd) {
                     return null
@@ -155,7 +161,7 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
                           </li>
                           <li>
                             <span className={`${styles.red} ${styles.text}`}>
-                              {item.truotphongvan}
+                              {item.huyphongvan}
                             </span>
                             <p>Bị loại</p>
                           </li>
@@ -173,7 +179,7 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
                 })
               )}
               {/* end ở đây */}
-              {messIsOpen?.recruitmentNew.length > 3 && (
+              {messIsOpen?.data?.data.length > 3 && (
                 <div className={`${styles.pagination}`}>
                   <MyPagination
                     current={currentPageListNewActive}
@@ -196,7 +202,7 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
                     }`}
                   onClick={() => handleClickColor('homnay')}>
                   <span className={`${styles.green} ${styles.candidate_today}`}>
-                    {totalCandi?.totalCandidateDay}
+                    {totalCandi?.data?.data?.candidateToday}
                   </span>
                   <p>Hôm nay</p>
                 </li>
@@ -205,7 +211,7 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
                     }`}
                   onClick={() => handleClickColor('tuannay')}>
                   <span className={`${styles.blue} ${styles.candidate_week}`}>
-                    {totalCandi?.totalCandidateMonth}
+                    {totalCandi?.data?.data?.candidateMonth}
                   </span>
                   <p>Tuần này</p>
                 </li>
@@ -215,7 +221,7 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
                   onClick={() => handleClickColor('thangnay')}>
                   <span
                     className={`${styles.yellow} ${styles.candidate_month}`}>
-                    {totalCandi?.totalCandidateWeek}
+                    {totalCandi?.data?.data?.candidateWeek}
                   </span>
                   <p>Tháng này</p>
                 </li>
@@ -227,11 +233,11 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
                 <h5>Đến phỏng vấn</h5>
               </div>
               <div className={`${styles.dom_schedule}`}>
-                {listSchedule?.listSchedule.length === 0 ? (
+                {listSchedule?.data?.data?.length === 0 ? (
                   <p className={`${styles.data_empty}`}>Không có dữ liệu</p>
                 ) : (
-                  listSchedule?.listSchedule.map((item, index) => {
-                    const processTimeSendCv = item.timeSendCv
+                  listSchedule?.data?.data?.map((item, index) => {
+                    const processTimeSendCv = item.thoigianphongvan
                     const dateObj = new Date(processTimeSendCv)
                     const hour = dateObj.getHours()
                     const day = dateObj.getDay() + 1
@@ -257,11 +263,10 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
                                 }}>
                                 <h4>{item.name}</h4>
                               </Link>
-
                               <p>
-                                {item.RecruitmentNews.title}
+                                {item.title}
                                 <span> . </span>
-                                {salary[item.RecruitmentNews.salaryId]}
+                                {/* {salary[item.RecruitmentNews.salaryId]} */}
                               </p>
                               <p className={`${styles.green}`}>
                                 01 người phỏng vấn

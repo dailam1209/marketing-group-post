@@ -21,6 +21,8 @@ export default function ListRecruitmentProcess({
   iconDelete,
   newRecruitmentProcess
 }: any) {
+  console.log(dataRecruitment);
+
   const router = useRouter();
   const [openModal, setOpenModal] = useState(0);
   const [animateModal, setAnimateModal] = useState(false);
@@ -54,8 +56,8 @@ export default function ListRecruitmentProcess({
         <title>Giai đoạn tuyển dụng - Quản lý nhân sự - Timviec365.vn</title>
       </Head>
       <div className={`${styles.all_quytrinh}`} style={{ marginTop: "20px" }}>
-        {dataRecruitment?.data?.map((item: any) => {
-          const formattedDate = format(new Date(item.createdAt), "dd/MM/yyyy");
+        {dataRecruitment?.data?.data?.map((item: any) => {
+          const formattedDate = format(new Date(item.created_at), "dd/MM/yyyy");
           return (
             <div key={item._id} style={{ width: "100%" }}>
               <div className={`${styles.quytrinh_item}`}>
@@ -74,8 +76,8 @@ export default function ListRecruitmentProcess({
                     <span className={`${styles.qtrspan1}`}>
                       <p style={{ background: "#F1F9FC" }}>{formattedDate}</p>
                     </span>
-                    <span>Tạo bởi công ty: {item.createdBy}.</span>
-                    <span>Đối tượng áp dụng: {item.applyFor}</span>
+                    <span>Tạo bởi công ty: {item.created_by}.</span>
+                    <span>Đối tượng áp dụng: {item.apply_for}</span>
                   </div>
                 </div>
                 {/* chi tiết */}

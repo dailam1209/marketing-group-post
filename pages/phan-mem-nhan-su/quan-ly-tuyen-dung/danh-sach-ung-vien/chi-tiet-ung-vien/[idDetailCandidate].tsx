@@ -41,7 +41,7 @@ export default function DetailCandidate({ onCancel }: any) {
   const [EmpData, setEmpData] = useState<any>(null)
   const [newData, setNewData] = useState<any>(false)
 
-  const EmpMatchProcess = EmpData?.data?.find((item: any) => item.idQLC ===
+  const EmpMatchProcess = EmpData?.items?.find((item: any) => item.ep_id ===
     isCandidateProcess?.detail_get_job?.empInterview
     || isCandidateProcess?.detail_fail_job?.empInterview
     || isCandidateProcess?.detail_cancel_job?.empInterview

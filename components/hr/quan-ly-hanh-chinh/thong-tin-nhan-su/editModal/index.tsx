@@ -9,16 +9,17 @@ type SelectOptionType = { label: string, value: any }
 
 export default function EditCandidateList({ onCancel, infoList, position }: any) {
 
-  console.log(infoList);
-
   const [selectedOption, setSelectedOption] = useState<SelectOptionType | null>(null);
-  const [isGender, setGender] = useState<any>(infoList?.infoList?.gender)
-  const [isMaritalStatus, setMaritalStatus] = useState<any>(infoList?.infoList?.married)
+  const [isGender, setGender] = useState<any>(infoList?.infoList?.ep_gender)
+  const [isMaritalStatus, setMaritalStatus] = useState<any>(infoList?.infoList?.ep_married)
   const [isPosition_id, setPosition_id] = useState<any>(infoList?.infoList?.position_id)
-  const [isExp, setExp] = useState<any>("")
-  const [isEducation, setEducation] = useState<any>("")
+  const [isExp, setExp] = useState<any>(infoList?.infoList?.ep_exp)
+  const [isEducation, setEducation] = useState<any>(infoList?.infoList?.ep_education)
   const [PostionCharDatas, setPosttionCharData] = useState<any>("")
   const [errors, setErrors] = useState<any>({});
+
+  console.log(infoList);
+
 
   // -- lấy dữ liệu chức vụ --
   useEffect(() => {
@@ -60,7 +61,7 @@ export default function EditCandidateList({ onCancel, infoList, position }: any)
 
       formData.append('com_id', infoList?.infoList?.com_id)
       formData.append('dep_id', infoList?.infoList?.dep_id)
-      formData.append('role', infoList?.infoList?.role)
+      formData.append('role', infoList?.infoList?.role_id)
       formData.append('userName', names)
       formData.append('_id', infoList?.infoList?._id)
       formData.append('birthday', birthday)
@@ -76,6 +77,7 @@ export default function EditCandidateList({ onCancel, infoList, position }: any)
 
       const response = await EmployeeUpdate(formData)
       if (response) {
+        alert("Cập nhật thành công")
         onCancel()
       }
     } catch (error) {
@@ -86,7 +88,7 @@ export default function EditCandidateList({ onCancel, infoList, position }: any)
         });
         setErrors(yupErrors);
       } else {
-        console.error("Lỗi validate form:", error);
+        alert("Cập nhật thất bại")
       }
     }
   }
@@ -113,11 +115,12 @@ export default function EditCandidateList({ onCancel, infoList, position }: any)
     tinhtranghonnhan: [
       { value: 1, label: 'Độc thân' },
       { value: 2, label: 'Đã kết hôn' },
-      { value: 3, label: 'Khác' },
+      { value: 0, label: 'Khác' },
     ],
     chongioitinh: [
-      { value: '1', label: 'Nam' },
-      { value: '2', label: 'Nữ' },
+      { value: 1, label: 'Nam' },
+      { value: 2, label: 'Nữ' },
+      { value: 0, label: 'khác' },
     ],
     trinhdohocvan: [
       { value: 7, label: 'Đại học trở lên' },
@@ -142,16 +145,21 @@ export default function EditCandidateList({ onCancel, infoList, position }: any)
 
     ],
     kinhnghiemlamviec: [
-      { value: "0", label: 'Chưa có kinh nghiệm' },
-      { value: "1", label: '0 - 1 năm kinh nghiệm' },
-      { value: "2", label: '1 - 2 năm kinh nghiệm' },
-      { value: "3", label: '2 - 5 năm kinh nghiệm' },
-      { value: "4", label: '5 - 10 năm kinh nghiệm' },
-      { value: "5", label: 'Hơn 10 năm kinh nghiệm' },
+      { value: 0, label: 'Chưa có kinh nghiệm' },
+      { value: 1, label: '0 - 1 năm kinh nghiệm' },
+      { value: 2, label: '1 - 2 năm kinh nghiệm' },
+      { value: 3, label: '2 - 5 năm kinh nghiệm' },
+      { value: 4, label: '5 - 10 năm kinh nghiệm' },
+      { value: 5, label: 'Hơn 10 năm kinh nghiệm' },
     ],
-    chucvuhientai: chonpchưvuOptions
-
+    chucvuhientai: chonpchưvuOptions,
+    chucvudaco: [{ value: infoList?.infoList?.position_id, label: infoList?.position }]
   };
+
+  const genderMatch = options.chongioitinh.find((item) => item.value === infoList?.infoList?.ep_gender)
+  const mariedMatch = options.tinhtranghonnhan.find((item) => item.value === infoList?.infoList?.ep_married)
+  const expMatch = options.kinhnghiemlamviec.find((item) => item.value === infoList?.infoList?.ep_exp)
+  const educationMatch = options.trinhdohocvan.find((item) => item.value === infoList?.infoList?.ep_education)
 
   return (
     <>
@@ -167,19 +175,19 @@ export default function EditCandidateList({ onCancel, infoList, position }: any)
                   <div className={`${styles.form_groups}`}>
                     <label htmlFor="">Tên nhân viên <span style={{ color: 'red' }}> * </span>
                       <span> {errors.name && <div className={`${styles.t_require} `}>{errors.name}</div>}</span></label>
-                    <input type="text" defaultValue={infoList?.infoList?.userName} id="names" placeholder="" className={`${styles.form_control}`} />
+                    <input type="text" defaultValue={infoList?.infoList?.ep_name} id="names" placeholder="" className={`${styles.form_control}`} />
                   </div>
                   <div className={`${styles.form_groups}`}>
                     <label htmlFor="">Mã ID nhân viên <span style={{ color: 'red' }}> * </span></label>
-                    <input type="text" value={infoList?.infoList?.idQLC} placeholder="" className={`${styles.form_control} ${styles.read_only}`} />
+                    <input type="text" value={infoList?.infoList?.ep_id} placeholder="" className={`${styles.form_control} ${styles.read_only}`} />
                   </div>
                   <div className={`${styles.form_groups} ${styles.form_groups2}`}>
                     <div className={`${styles.content_left}`}>
                       <div className={`${styles.form_groups} ${styles.form_groups3}`}>
                         <label htmlFor="">Ngày sinh </label>
-                        {infoList?.infoList?.birthday &&
+                        {infoList?.infoList?.ep_birth_day &&
                           <input style={{ height: 20 }} type="date" defaultValue={format(
-                            parseISO(new Date(infoList?.infoList?.birthday * 1000).toISOString()),
+                            parseISO(new Date(infoList?.infoList?.ep_birth_day * 1000).toISOString()),
                             "yyyy-MM-dd"
                           )} id="birthday" placeholder="" className={`${styles.form_control} `} />
                         }
@@ -192,20 +200,20 @@ export default function EditCandidateList({ onCancel, infoList, position }: any)
                           <span> {errors.phone && <div className={`${styles.t_require} `}>{errors.phone}</div>}</span>
                         </span>
                         </label>
-                        <input type="text" id="phone" defaultValue={infoList?.infoList?.phoneTK} placeholder="" className={`${styles.form_control} `} />
+                        <input type="text" id="phone" defaultValue={infoList?.infoList?.ep_phone} placeholder="" className={`${styles.form_control} `} />
                       </div>
                     </div>
                   </div>
                   <div className={`${styles.form_groups}`}>
                     <label htmlFor="">Địa chỉ</label>
-                    <input type="text" id="address" defaultValue={infoList?.infoList?.address} placeholder="" className={`${styles.form_control}`} />
+                    <input type="text" id="address" defaultValue={infoList?.infoList?.ep_address} placeholder="" className={`${styles.form_control}`} />
                   </div>
                   <div className={`${styles.form_groups} ${styles.form_groups2}`}>
                     <div className={`${styles.content_left}`}>
                       <div className={`${styles.form_groups} ${styles.form_groups3}`}>
                         <label htmlFor="">Giới tính </label>
                         <Select
-                          defaultValue={selectedOption}
+                          defaultValue={genderMatch}
                           onChange={(option) => handleSelectChange(option, setGender)}
                           options={options.chongioitinh}
                           placeholder="Chọn giới tính"
@@ -239,7 +247,7 @@ export default function EditCandidateList({ onCancel, infoList, position }: any)
                       <div className={`${styles.form_groups} ${styles.form_groups5}`}>
                         <label htmlFor="">Tình trạng hôn nhân </label>
                         <Select
-                          defaultValue={selectedOption}
+                          defaultValue={mariedMatch}
                           onChange={(option) => handleSelectChange(option, setMaritalStatus)}
                           options={options.tinhtranghonnhan}
                           placeholder="Chọn tình trạng"
@@ -272,12 +280,12 @@ export default function EditCandidateList({ onCancel, infoList, position }: any)
                   </div>
                   <div className={`${styles.form_groups}`}>
                     <label htmlFor="">Email <span style={{ color: 'red' }}> * </span></label>
-                    <input type="text" value={infoList?.infoList?.emailContact} id="email" placeholder="" className={`${styles.form_control} ${styles.read_only}`} />
+                    <input type="text" value={infoList?.infoList?.ep_email} id="email" placeholder="" className={`${styles.form_control} ${styles.read_only}`} />
                   </div>
                   <div className={`${styles.form_groups}`}>
                     <label htmlFor="">Chức vụ </label>
                     <Select
-                      defaultValue={selectedOption}
+                      defaultValue={options.chucvudaco[0]}
                       onChange={(option) => handleSelectChange(option, setPosition_id)}
                       options={options.chucvuhientai}
                       placeholder="Chọn chức vụ"
@@ -309,7 +317,7 @@ export default function EditCandidateList({ onCancel, infoList, position }: any)
                   <div className={`${styles.form_groups}`}>
                     <label htmlFor="">Kinh nghiệm làm việc </label>
                     <Select
-                      defaultValue={selectedOption}
+                      defaultValue={expMatch}
                       onChange={(option) => handleSelectChange(option, setExp)}
                       options={options.kinhnghiemlamviec}
                       placeholder=""
@@ -350,10 +358,10 @@ export default function EditCandidateList({ onCancel, infoList, position }: any)
                   <div className={`${styles.form_groups}`}>
                     <label htmlFor="">Trình độ học vấn </label>
                     <Select
-                      defaultValue={selectedOption}
+                      defaultValue={educationMatch}
                       onChange={(option) => handleSelectChange(option, setEducation)}
                       options={options.trinhdohocvan}
-                      placeholder=""
+                      placeholder="Chọn trình độ học vấn"
                       styles={{
                         control: (baseStyles, state) => ({
                           ...baseStyles,

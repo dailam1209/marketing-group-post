@@ -49,6 +49,7 @@ export default function App({ Component, pageProps }) {
   const [firstLoad, setFirstLoad] = useState(
     router?.pathname?.includes("/phan-mem-nhan-su/") ? false : true
   );
+  // const [firstLoad, setFirstLoad] = useState(false);
   useEffect(() => {
     const doLoading = () => {
       const start = () => {
@@ -57,6 +58,7 @@ export default function App({ Component, pageProps }) {
       const end = () => {
         setLoading(false);
       };
+      console.log(loading);
       setTimeout(() => {
         router.events.on("routeChangeStart", start);
       }, 200);

@@ -90,7 +90,7 @@ export const UpdateDataRecruitment = async (
   }
 };
 
-export const DataRecruitmentStage = async (recruitmentId: string) => {
+export const DataRecruitmentStage = async (recruitmentId: number) => {
   const url = process.env.NEXT_PUBLIC_BASE_URL;
   const isToken = getToken(COOKIE_KEY)
   try {

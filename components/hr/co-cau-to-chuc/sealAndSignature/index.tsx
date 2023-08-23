@@ -172,11 +172,11 @@ export default function SealAndSignature({ iconAdd, iconEdit, iconDelete }: any)
 
   const chonphongbanOptions = useMemo(
     () =>
-      departmentList?.data?.map((department: any) => ({
+      departmentList?.items?.map((department: any) => ({
         value: department.dep_id,
         label: department.dep_name,
       })),
-    [departmentList?.data]
+    [departmentList?.items]
   );
 
 

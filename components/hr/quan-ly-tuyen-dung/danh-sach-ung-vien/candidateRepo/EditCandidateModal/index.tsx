@@ -299,11 +299,11 @@ export default function EditCandidateModal({ onCancel, candidate }: any) {
   const chonnhanvienOptions = useMemo(
     () =>
       isEmpList &&
-      isEmpList?.data?.map((emp: any) => ({
-        value: emp.idQLC,
-        label: emp.userName,
+      isEmpList?.items?.map((emp: any) => ({
+        value: emp.ep_id,
+        label: emp.ep_name,
       })),
-    [isEmpList]
+    [isEmpList.items]
   )
 
   const chonvitrituyendungOptions = useMemo(

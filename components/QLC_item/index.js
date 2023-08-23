@@ -25,8 +25,12 @@ export default function QLC_item({
     if (hasCheckLogin && acc_token && rf_token && role) {
       router.push(url);
     }
-    if (url === "/phan-mem-nhan-su/quan-ly-chung" && hasCheckLogin) {
-      router.push("/phan-mem-nhan-su");
+    if (url === "/phan-mem-nhan-su/quan-ly-chung") {
+      if (hasCheckLogin) {
+        router.push("/phan-mem-nhan-su");
+      } else {
+        router.push("/phan-mem-nhan-su/quan-ly-chung");
+      }
     }
     if (url === "/crm" && hasCheckLogin) {
       router.push("/crm");
