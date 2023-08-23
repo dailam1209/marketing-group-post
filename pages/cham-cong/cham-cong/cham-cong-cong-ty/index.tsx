@@ -67,7 +67,7 @@ export default function ChamCongCongTy() {
     if (comId && imageSrc) {
       try {
         const res: any = await axios.post(
-          '/api/api_cc',
+          'http://43.239.223.154:8081/',
           {
             company_id: comId,
             image: imageSrc,
@@ -75,8 +75,7 @@ export default function ChamCongCongTy() {
           },
           {
             headers: {
-              // 'Content-type': 'application/x-www-form-urlencoded',
-              'Content-Type': 'application/json',
+              'Content-type': 'application/x-www-form-urlencoded',
             },
           }
         )
