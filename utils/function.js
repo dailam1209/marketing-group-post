@@ -16,7 +16,10 @@ export const getEducation = [
   { id: 8, value: 'Tiểu học' },
 ]
 
-export const eduLabel = getEducation.map(e => ({ label: e?.value, value: e?.id }))
+export const eduLabel = getEducation.map((e) => ({
+  label: e?.value,
+  value: e?.id,
+}))
 
 export async function getServerSideProps({ req, query }) {
   const clientIp = requestIp.getClientIp(req)
@@ -65,7 +68,7 @@ export async function getServerSideProps({ req, query }) {
   return {
     props: {
       clientIp,
-      query
+      query,
     },
   }
 }
@@ -82,7 +85,7 @@ export const getExperience = [
   { id: 8, value: 'Trên 5 năm' },
 ]
 
-export const expLabel = getExperience.map(e => ({
+export const expLabel = getExperience.map((e) => ({
   label: e?.value,
   value: e?.id,
 }))
@@ -112,7 +115,7 @@ export const getPosition = [
   { id: 17, value: 'THÀNH VIÊN HỘI ĐỒNG QUẢN TRỊ' },
 ]
 
-export const positionLabel = getPosition.map(p => ({
+export const positionLabel = getPosition.map((p) => ({
   label: p?.value,
   value: p?.id,
 }))
@@ -152,12 +155,17 @@ export function renderPosition(id) {
 
 export const getGender = ['Chưa cập nhật', 'Nam', 'Nữ', 'Khác']
 
-export const genderLabel = getGender.map((g, index) => ({ label: g, value: index }))
+export const genderLabel = getGender.map((g, index) => ({
+  label: g,
+  value: index,
+}))
 
 export const getMarried = ['Chưa cập nhật', 'Độc thân', 'Đã kết hôn']
 
-export const marriedLabel = getMarried.map((g, index) => ({ label: g, value: index }))
-
+export const marriedLabel = getMarried.map((g, index) => ({
+  label: g,
+  value: index,
+}))
 
 export const getSoftware = [
   { id: 'cc365', value: 'Chấm công 365' },
@@ -289,7 +297,7 @@ export function CheckLogin() {
     } else if (role === '2') {
       redirectUrl = '/'
     } else {
-      redirectUrl = '/quan-ly-ung-dung-ca-nhan.html'
+      redirectUrl = '/'
     }
     if (redirectUrl != window.location.pathname) {
       router.push(redirectUrl)

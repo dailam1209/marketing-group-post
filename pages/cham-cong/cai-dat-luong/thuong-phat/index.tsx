@@ -208,8 +208,8 @@ export default function ThuongPhat({ tpList, listPb }) {
 
 export const getServerSideProps = async (context) => {
   const tpList: any[] = []
-  let com_id = null;
-  com_id = getCompIdSS(context);
+  let com_id = null
+  com_id = getCompIdSS(context)
 
   const currentMonth = moment().month() + 1
   const currentYear = moment().year()

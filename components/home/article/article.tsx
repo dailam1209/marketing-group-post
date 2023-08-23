@@ -52,8 +52,8 @@ export default function Article({
                   Link truy cập:{' '}
                   <a
                     style={{ color: 'blue' }}
-                    href='https://chamcong.timviec365.vn/quan-ly-cong-ty.html'>
-                    https://chamcong.timviec365.vn/quan-ly-cong-ty.html
+                    href='https://hungha365.com/cham-cong'>
+                    https://hungha365.com/cham-cong
                   </a>
                   &nbsp;
                 </span>
@@ -99,12 +99,16 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Điền thông tin đăng ký tài khoản công ty'
                   height={729}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/dien-thong-tin(1).jpg'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/dien-thong-tin(1).jpg'
-                  style={{ marginLeft: '0px', marginTop: '10px' }}
                   width={800}
                 />{' '}
                 <figcaption>
@@ -490,12 +494,16 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Cài đặt thêm nhân vên đầu tiên'
                   height={740}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/them-nhan-vien-dau-tien(1).jpg'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/them-nhan-vien-dau-tien(1).jpg'
-                  style={{ marginLeft: '0px', marginTop: '10px' }}
                   width={800}
                 />{' '}
                 <figcaption>Cài đặt thêm nhân vên đầu tiên</figcaption>{' '}
@@ -531,12 +539,16 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Thông báo đăng ký tài khoản thành công'
                   height={486}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/thong-bao-dang-ky-thanh-cong(1).jpg'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/thong-bao-dang-ky-thanh-cong(1).jpg'
-                  style={{ marginLeft: '0px', marginTop: '10px' }}
                   width={800}
                 />{' '}
                 <figcaption>Thông báo đăng ký tài khoản thành công</figcaption>{' '}
@@ -571,12 +583,16 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Đăng nhập tài khoản công ty'
                   height={630}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/dang-nhap(1).jpg'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/dang-nhap(1).jpg'
-                  style={{ marginLeft: '0px', marginTop: '10px' }}
                   width={800}
                 />{' '}
                 <figcaption>Đăng nhập tài khoản công ty</figcaption>{' '}
@@ -867,12 +883,16 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Huong-dan-quet-qr-de-dang-nhap'
                   height={507}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/Huong-dan-quet-qr-de-dang-nhap.jpg'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/Huong-dan-quet-qr-de-dang-nhap.jpg'
-                  style={{ marginLeft: '0px', marginTop: '10px' }}
                   width={800}
                 />{' '}
                 <figcaption>Hướng dẫn quét QR để đăng nhập</figcaption>{' '}
@@ -908,12 +928,16 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Đăng nhập bằng tài khoản như thế nào'
                   height={628}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/dang-nhap-bang-tai-khoan.jpg'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/dang-nhap-bang-tai-khoan.jpg'
-                  style={{ marginLeft: '0px', marginTop: '10px' }}
                   width={800}
                 />{' '}
                 <figcaption>
@@ -999,12 +1023,16 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Chọn ứng dụng chấm công'
                   height={438}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/chon-ung-dung-cham-cong.jpg'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/chon-ung-dung-cham-cong.jpg'
-                  style={{ marginLeft: '0px', marginTop: '10px' }}
                   width={800}
                 />{' '}
                 <figcaption>Chọn ứng dụng chấm công</figcaption>{' '}
@@ -1483,12 +1511,16 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Cài đặt wifi'
                   height={417}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/cai-dat-wifi.jpg'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/cai-dat-wifi.jpg'
-                  style={{ marginLeft: '0px', marginTop: '10px' }}
                   width={800}
                 />{' '}
                 <figcaption>Cài đặt wifi</figcaption>{' '}
@@ -1525,12 +1557,16 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Cài wifi để chấm công'
                   height={403}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/cai-dat-wifi-cham-cong.jpg'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/cai-dat-wifi-cham-cong.jpg'
-                  style={{ marginLeft: '0px', marginTop: '10px' }}
                   width={800}
                 />{' '}
                 <figcaption>Cài wifi để chấm công</figcaption>{' '}
@@ -1568,12 +1604,16 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Cập nhật wifi mặc định để chấm công'
                   height={360}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/cap-nhat-wifi-mac-dinh.jpg'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/cap-nhat-wifi-mac-dinh.jpg'
-                  style={{ marginLeft: '0px', marginTop: '10px' }}
                   width={800}
                 />{' '}
                 <figcaption>Cập nhật wifi mặc định để chấm công</figcaption>{' '}
@@ -2123,12 +2163,16 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Thêm vị trí chấm công QR'
                   height={666}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/them-vi-tri-cham-cong-qr(1).jpg'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/them-vi-tri-cham-cong-qr(1).jpg'
-                  style={{ marginLeft: '0px', marginTop: '10px' }}
                   width={800}
                 />{' '}
                 <figcaption>Thêm vị trí chấm công QR</figcaption>{' '}
@@ -2310,12 +2354,16 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Cài đặt chấm công QR'
                   height={461}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/cai-dat-vi-tri-cham-cong-qr.jpg'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/cai-dat-vi-tri-cham-cong-qr.jpg'
-                  style={{ marginLeft: '0px', marginTop: '10px' }}
                   width={800}
                 />{' '}
                 <figcaption>Cài đặt chấm công QR</figcaption>{' '}
@@ -2424,11 +2472,16 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Cài ca làm việc'
                   height={738}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/cai-dat-ca-lam-viec.jpg'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/cai-dat-ca-lam-viec.jpg'
                   width={800}
                 />{' '}
                 <figcaption>Cài ca làm việc</figcaption>{' '}
@@ -2558,11 +2611,16 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Hoàn thành thiết lập ca làm việc'
                   height={349}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/hoan-thanh-thiet-lap-ca-lam-viec.jpg'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/hoan-thanh-thiet-lap-ca-lam-viec.jpg'
                   width={800}
                 />{' '}
                 <figcaption>Hoàn thành thiết lập ca làm việc</figcaption>{' '}
@@ -2669,12 +2727,16 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Cài đặt lịch làm việc'
                   height={745}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/Cai-lich-lam-viec.jpg'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/Cai-lich-lam-viec.jpg'
-                  style={{ marginLeft: '0px', marginTop: '10px' }}
                   width={800}
                 />{' '}
                 <figcaption>Cài đặt lịch làm việc</figcaption>{' '}
@@ -2862,12 +2924,16 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Thiếp lập chọn lịch làm việc'
                   height={219}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/Chon-lich.jpg'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/Chon-lich.jpg'
-                  style={{ marginLeft: '0px', marginTop: '10px' }}
                   width={800}
                 />{' '}
                 <figcaption>Thiếp lập chọn lịch làm việc</figcaption>{' '}
@@ -3012,12 +3078,16 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Tạo lịch làm việc'
                   height={554}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/Tao-lich-lam-viec.jpg'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/Tao-lich-lam-viec.jpg'
-                  style={{ marginLeft: '0px', marginTop: '10px' }}
                   width={800}
                 />{' '}
                 <figcaption>Tạo lịch làm việc</figcaption>{' '}
@@ -3073,12 +3143,16 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Tích vào ca làm việc mà bạn muốn áp dụng'
                   height={331}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/tich-chon-ca-ap-dung.jpg'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/tich-chon-ca-ap-dung.jpg'
-                  style={{ marginLeft: '0px', marginTop: '10px' }}
                   width={800}
                 />{' '}
                 <figcaption>
@@ -3247,12 +3321,16 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Cài chu ky cho lịch làm việc'
                   height={758}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/cai-chu-ky-cho-lich-lam-viec.jpg'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/cai-chu-ky-cho-lich-lam-viec.jpg'
-                  style={{ marginLeft: '0px', marginTop: '10px' }}
                   width={800}
                 />{' '}
                 <figcaption>Cài chu ky cho lịch làm việc</figcaption>{' '}
@@ -3424,12 +3502,16 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Thêm nhân viên vào lịch làm việc'
                   height={523}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/them-nhan-vien-vao-lich-lam-viec.jpg'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/them-nhan-vien-vao-lich-lam-viec.jpg'
-                  style={{ marginLeft: '0px', marginTop: '10px' }}
                   width={800}
                 />{' '}
                 <figcaption>Thêm nhân viên vào lịch làm việc</figcaption>{' '}
@@ -3463,12 +3545,16 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Add nhân viên mới vào lịch'
                   height={553}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/them-nhan-vien-moi-vao-lich.jpg'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/them-nhan-vien-moi-vao-lich.jpg'
-                  style={{ marginLeft: '0px', marginTop: '10px' }}
                   width={800}
                 />{' '}
                 <figcaption>Add nhân viên mới vào lịch</figcaption>{' '}
@@ -3650,12 +3736,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Danh sách nhân viên'
                   height={332}
                   className='lazyload'
-                  src='/images/load.gif'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/danh-sach-nhan-vien.jpg'
-                  style={{ marginLeft: '0px', marginTop: '10px' }}
+                  // src='/images/load.gif'
+                  src='https://timviec365.vn/pictures/images_06_2023/danh-sach-nhan-vien.jpg'
                   width={800}
                 />{' '}
                 <figcaption>Danh sách nhân viên trong lịch làm việc</figcaption>{' '}
@@ -4099,11 +4190,16 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Nhập vào công chuẩn'
                   height={468}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/nhap-cong-chuan.jpg'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/nhap-cong-chuan.jpg'
                   width={800}
                 />{' '}
                 <figcaption>Nhập vào công chuẩn</figcaption>{' '}
@@ -4275,11 +4371,16 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Duyệt cho phép cập nhật khuôn mặt'
                   height={403}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/cho-phep-cap-nhat-khuon-mat.jpg'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/cho-phep-cap-nhat-khuon-mat.jpg'
                   width={800}
                 />{' '}
                 <figcaption>Duyệt cho phép cập nhật khuôn mặt</figcaption>{' '}
@@ -4554,11 +4655,16 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Duyệt cho nhân viên có thể chấm được công'
                   height={404}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/Duyet-nhan-vien-cham-cong.jpg'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/Duyet-nhan-vien-cham-cong.jpg'
                   width={800}
                 />{' '}
                 <figcaption>
@@ -4836,11 +4942,16 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Tùy chọn cài đặt ca làm việc'
                   height={327}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/tuy-chon-cai-dat-ca-lam-viec(2).jpg'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/tuy-chon-cai-dat-ca-lam-viec(2).jpg'
                   width={800}
                 />{' '}
                 <figcaption>Tùy chọn cài đặt ca làm việc</figcaption>{' '}
@@ -4876,11 +4987,16 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Sửa ca làm việc '
                   height={636}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/sua-ca-lam-viec(1).jpg'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/sua-ca-lam-viec(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>Sửa ca làm việc</figcaption>{' '}
@@ -5000,11 +5116,16 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Thêm công ty con'
                   height={607}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/them-cong-ty-con(1).jpg'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/them-cong-ty-con(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>Thêm công ty con</figcaption>{' '}
@@ -5475,11 +5596,16 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Cấu trúc phòng ban'
                   height={232}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/cau-truc-phong-ban(1).jpg'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/cau-truc-phong-ban(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>Cấu trúc phòng ban</figcaption>{' '}
@@ -5594,11 +5720,16 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Thêm mới cho tổ'
                   height={126}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/them-moi-to(1).jpg'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/them-moi-to(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>Thêm mới cho tổ</figcaption>{' '}
@@ -5655,11 +5786,16 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Thêm tổ vào các phòng ban'
                   height={433}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/Them-moi-to-2(1).jpg'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/Them-moi-to-2(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>Thêm tổ vào các phòng ban</figcaption>{' '}
@@ -5739,11 +5875,16 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Thêm mới nhóm'
                   height={130}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/them-moi-nhom(1).jpg'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/them-moi-nhom(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>Thêm mới nhóm</figcaption>{' '}
@@ -5801,11 +5942,16 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Thêm nhóm mới'
                   height={502}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/them-moi-nhom-2(1).jpg'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/them-moi-nhom-2(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>Thêm nhóm mới</figcaption>{' '}
@@ -5924,11 +6070,16 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Cài nhân viên vào các phòng ban'
                   height={703}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/cai-dat-nhan-vien-vao-cac-phong-ban(1).jpg'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/cai-dat-nhan-vien-vao-cac-phong-ban(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>Cài nhân viên vào các phòng ban</figcaption>{' '}
@@ -5987,11 +6138,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Thêm nhân viên vào phòng ban'
                   height={305}
                   className='lazyload'
-                  src='/images/load.gif'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/them-nhan-vien-vao-phong-ban(1).jpg'
+                  // src='/images/load.gif'
+                  src='https://timviec365.vn/pictures/images_06_2023/them-nhan-vien-vao-phong-ban(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>Thêm nhân viên vào phòng ban</figcaption>{' '}
@@ -6050,11 +6207,16 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Chọn phòng ban'
                   height={630}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/chon-phong-ban(1).jpg'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/chon-phong-ban(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>Chọn phòng ban</figcaption>{' '}
@@ -6089,11 +6251,16 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Cập nhật phòng ban cho nhân viên'
                   height={468}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/cap-nhat-phong-ban-cho-nhan-vien(1).jpg'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/cap-nhat-phong-ban-cho-nhan-vien(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>Cập nhật phòng ban cho nhân viên</figcaption>{' '}
@@ -6266,11 +6433,16 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Thêm nhân viên mới'
                   height={420}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/them-nhan-vien-moi(1).jpg'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/them-nhan-vien-moi(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>Thêm nhân viên mới</figcaption>{' '}
@@ -6304,11 +6476,16 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Hoàn tất tạo nhân viên mới'
                   height={616}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/hoan-tat-tao-tai-khoan-nhan-vien-moi(1).jpg'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/hoan-tat-tao-tai-khoan-nhan-vien-moi(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>Hoàn tất tạo nhân viên mới</figcaption>{' '}
@@ -6454,11 +6631,16 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Quản lý nhân viên'
                   height={777}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/quan-ly-nhan-vien(1).jpg'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/quan-ly-nhan-vien(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>Quản lý nhân viên</figcaption>{' '}
@@ -6515,11 +6697,16 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Thêm luân chuyển công tác'
                   height={784}
                   className=' lazyloaded'
                   src='https://timviec365.vn/pictures/images_06_2023/them-luan-chuyen-cong-tac(1).jpg'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/them-luan-chuyen-cong-tac(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>Thêm luân chuyển công tác</figcaption>{' '}
@@ -6880,11 +7067,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Giảm biên chế'
                   height={335}
                   className='lazyload'
-                  src='/images/load.gif'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/giam-bien-che(1).jpg'
+                  // src='/images/load.gif'
+                  src='https://timviec365.vn/pictures/images_06_2023/giam-bien-che.jpg'
                   width={800}
                 />{' '}
                 <figcaption>Giảm biên chế</figcaption>{' '}
@@ -7721,11 +7914,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Cài đặt lương thưởng phúc lợi'
                   height={584}
                   className='lazyload'
-                  src='/images/load.gif'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/luong-thuong-phuc-loi(1).jpg'
+                  // src='/images/load.gif'
+                  src='https://timviec365.vn/pictures/images_06_2023/luong-thuong-phuc-loi(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>Cài đặt lương thưởng phúc lợi</figcaption>{' '}
@@ -7829,11 +8028,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Ứng dụng tính lương'
                   height={827}
                   className='lazyload'
-                  src='/images/load.gif'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/ung-dung-tinh-luong(1).jpg'
+                  // src='/images/load.gif'
+                  src='https://timviec365.vn/pictures/images_06_2023/ung-dung-tinh-luong(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>Ứng dụng tính lương</figcaption>{' '}
@@ -7985,11 +8190,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Nhập lương cơ bản'
                   height={191}
                   className='lazyload'
-                  src='/images/load.gif'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/nhap-luong-co-ban(1).jpg'
+                  // src='/images/load.gif'
+                  src='https://timviec365.vn/pictures/images_06_2023/nhap-luong-co-ban(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>Nhập lương cơ bản</figcaption>{' '}
@@ -8024,11 +8235,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Add file lương để cài đặt lương'
                   height={524}
                   className='lazyload'
-                  src='/images/load.gif'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/add-file-luong(1).jpg'
+                  // src='/images/load.gif'
+                  src='https://timviec365.vn/pictures/images_06_2023/add-file-luong(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>Add file lương để cài đặt lương</figcaption>{' '}
@@ -8062,11 +8279,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='File lương mẫu'
                   height={550}
                   className='lazyload'
-                  src='/images/load.gif'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/file-luong-mau(1).jpg'
+                  // src='/images/load.gif'
+                  src='https://timviec365.vn/pictures/images_06_2023/file-luong-mau(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>File lương mẫu</figcaption>{' '}
@@ -8203,11 +8426,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Thêm lương cơ bản'
                   height={113}
                   className='lazyload'
-                  src='/images/load.gif'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/them-luong-co-ban(1).jpg'
+                  // src='/images/load.gif'
+                  src='https://timviec365.vn/pictures/images_06_2023/them-luong-co-ban(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>Thêm lương cơ bản</figcaption>{' '}
@@ -8285,11 +8514,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Thêm mức lương cơ bản'
                   height={773}
                   className='lazyload'
-                  src='/images/load.gif'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/them-muc-luong-co-ban(1).jpg'
+                  // src='/images/load.gif'
+                  src='https://timviec365.vn/pictures/images_06_2023/them-muc-luong-co-ban(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>Thêm mức lương cơ bản</figcaption>{' '}
@@ -8372,11 +8607,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Cài đặt chế độ phạt đi muộn về sớm'
                   height={325}
                   className='lazyload'
-                  src='/images/load.gif'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/cai-dat-di-muon-ve-som(1).jpg'
+                  // src='/images/load.gif'
+                  src='https://timviec365.vn/pictures/images_06_2023/cai-dat-di-muon-ve-som(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>Cài đặt chế độ phạt đi muộn về sớm</figcaption>{' '}
@@ -8644,11 +8885,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Cài đặt các mức phạt cho đi muộn về sớm'
                   height={357}
                   className='lazyload'
-                  src='/images/load.gif'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/cai-dat-muc-phat-di-muon-ve-som(1).jpg'
+                  // src='/images/load.gif'
+                  src='https://timviec365.vn/pictures/images_06_2023/cai-dat-muc-phat-di-muon-ve-som(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>Cài đặt các mức phạt cho đi muộn về sớm</figcaption>{' '}
@@ -8833,11 +9080,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Bảo hiểm'
                   height={296}
                   className='lazyload'
-                  src='/images/load.gif'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/bao-hiem(1).jpg'
+                  // src='/images/load.gif'
+                  src='https://timviec365.vn/pictures/images_06_2023/bao-hiem(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>Bảo hiểm</figcaption>{' '}
@@ -8964,11 +9217,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Tạo chính sách bảo hiểm'
                   height={653}
                   className='lazyload'
-                  src='/images/load.gif'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/tao-chinh-sach-bao-hiem(1).jpg'
+                  // src='/images/load.gif'
+                  src='https://timviec365.vn/pictures/images_06_2023/tao-chinh-sach-bao-hiem(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>Tạo chính sách bảo hiểm</figcaption>{' '}
@@ -9287,11 +9546,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Thêm nhân viên vào phúc lợi'
                   height={290}
                   className='lazyload'
-                  src='/images/load.gif'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/them-nhan-vien-vao-phuc-loi(1).jpg'
+                  // src='/images/load.gif'
+                  src='https://timviec365.vn/pictures/images_06_2023/them-nhan-vien-vao-phuc-loi(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>Thêm nhân viên vào phúc lợi</figcaption>{' '}
@@ -9490,11 +9755,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Chỉnh sửa phúc lợi'
                   height={362}
                   className='lazyload'
-                  src='/images/load.gif'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/chinh-sua-phuc-loi(1).jpg'
+                  // src='/images/load.gif'
+                  src='https://timviec365.vn/pictures/images_06_2023/chinh-sua-phuc-loi(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>Chỉnh sửa phúc lợi</figcaption>{' '}
@@ -9527,11 +9798,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Xem danh sách nhân viên sẽ được hưởng phúc lợi'
                   height={323}
                   className='lazyload'
-                  src='/images/load.gif'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/xem-danh-sach-nhan-vien-huong-phuc-loi(1).jpg'
+                  // src='/images/load.gif'
+                  src='https://timviec365.vn/pictures/images_06_2023/xem-danh-sach-nhan-vien-huong-phuc-loi(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>
@@ -9568,11 +9845,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Chỉnh sửa danh sách nhân viên được hưởng phúc lợi'
                   height={374}
                   className='lazyload'
-                  src='/images/load.gif'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/chinh-sua-danh-sach-nhan-vien-huong-phuc-loi(1).jpg'
+                  // src='/images/load.gif'
+                  src='https://timviec365.vn/pictures/images_06_2023/chinh-sua-danh-sach-nhan-vien-huong-phuc-loi(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>
@@ -9702,11 +9985,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Cài đặt danh sách phụ cấp'
                   height={271}
                   className='lazyload'
-                  src='/images/load.gif'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/cai-dat-danh-sach-phu-cap(2).jpg'
+                  // src='/images/load.gif'
+                  src='https://timviec365.vn/pictures/images_06_2023/cai-dat-danh-sach-phu-cap(2).jpg'
                   width={800}
                 />{' '}
                 <figcaption>Cài đặt danh sách phụ cấp</figcaption>{' '}
@@ -9739,11 +10028,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Điền phụ cấp'
                   height={649}
                   className='lazyload'
-                  src='/images/load.gif'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/dien-phu-cap(1).jpg'
+                  // src='/images/load.gif'
+                  src='https://timviec365.vn/pictures/images_06_2023/dien-phu-cap(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>Điền phụ cấp</figcaption>{' '}
@@ -9919,11 +10214,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Chỉnh sửa phụ cấp'
                   height={289}
                   className='lazyload'
-                  src='/images/load.gif'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/them-sua-xoa-phu-cap(1).jpg'
+                  // src='/images/load.gif'
+                  src='https://timviec365.vn/pictures/images_06_2023/them-sua-xoa-phu-cap(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>Chỉnh sửa phụ cấp</figcaption>{' '}
@@ -10203,11 +10504,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Tạo các khoản tiền khác'
                   height={546}
                   className='lazyload'
-                  src='/images/load.gif'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/tao-cac-khoan-tien-khac(1).jpg'
+                  // src='/images/load.gif'
+                  src='https://timviec365.vn/pictures/images_06_2023/tao-cac-khoan-tien-khac(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>Tạo các khoản tiền khác</figcaption>{' '}
@@ -10240,11 +10547,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Chọn tạo khoản tiền mới'
                   height={141}
                   className='lazyload'
-                  src='/images/load.gif'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/chon-tao-khoan-tien-moi(1).jpg'
+                  // src='/images/load.gif'
+                  src='https://timviec365.vn/pictures/images_06_2023/chon-tao-khoan-tien-moi(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>Chọn tạo khoản tiền mới</figcaption>{' '}
@@ -10326,11 +10639,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Thêm nhân viên vào khoản tiền khác'
                   height={352}
                   className='lazyload'
-                  src='/images/load.gif'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/them-nhan-vien-vao-khoan-tien-khac(1).jpg'
+                  // src='/images/load.gif'
+                  src='https://timviec365.vn/pictures/images_06_2023/them-nhan-vien-vao-khoan-tien-khac(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>Thêm nhân viên vào khoản tiền khác</figcaption>{' '}
@@ -10388,11 +10707,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Danh sách nhân viên áp dụng khoản tiền đã tạo'
                   height={241}
                   className='lazyload'
-                  src='/images/load.gif'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/danh-sach-nhan-vien-ap-dung-khoan-tien.jpg'
+                  // src='/images/load.gif'
+                  src='https://timviec365.vn/pictures/images_06_2023/danh-sach-nhan-vien-ap-dung-khoan-tien.jpg'
                   width={800}
                 />{' '}
                 <figcaption>
@@ -10452,11 +10777,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Cài đặt thuế'
                   height={610}
                   className='lazyload'
-                  src='/images/load.gif'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/cai-dat-thue(1).jpg'
+                  // src='/images/load.gif'
+                  src='https://timviec365.vn/pictures/images_06_2023/cai-dat-thue(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>Cài đặt thuế</figcaption>{' '}
@@ -10640,11 +10971,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Duyệt cộng công'
                   height={291}
                   className='lazyload'
-                  src='/images/load.gif'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/Duyet-cong-cong(1).jpg'
+                  // src='/images/load.gif'
+                  src='https://timviec365.vn/pictures/images_06_2023/Duyet-cong-cong(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>Duyệt cộng công</figcaption>{' '}
@@ -10679,11 +11016,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Thông báo duyệt cộng công thành công'
                   height={394}
                   className='lazyload'
-                  src='/images/load.gif'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/duyet-cong-cong-thanh-cong(1).jpg'
+                  // src='/images/load.gif'
+                  src='https://timviec365.vn/pictures/images_06_2023/duyet-cong-cong-thanh-cong(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>Thông báo duyệt cộng công thành công</figcaption>{' '}
@@ -10901,11 +11244,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Lọc tìm kiếm nhân viên trong danh sách thưởng phạt'
                   height={259}
                   className='lazyload'
-                  src='/images/load.gif'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/loc-tim-nhan-vien-trong-danh-sach-thuong-phat(1).jpg'
+                  // src='/images/load.gif'
+                  src='https://timviec365.vn/pictures/images_06_2023/loc-tim-nhan-vien-trong-danh-sach-thuong-phat(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>
@@ -10964,11 +11313,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Chọn nhân viên cần cài đặt thưởng phạt'
                   height={384}
                   className='lazyload'
-                  src='/images/load.gif'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/chon-nhan-vien-can-cai-dat-thuong-phat(1).jpg'
+                  // src='/images/load.gif'
+                  src='https://timviec365.vn/pictures/images_06_2023/chon-nhan-vien-can-cai-dat-thuong-phat(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>Chọn nhân viên cần cài đặt thưởng phạt</figcaption>{' '}
@@ -11001,11 +11356,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Thưởng phạt'
                   height={416}
                   className='lazyload'
-                  src='/images/load.gif'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/thuong-phat(1).jpg'
+                  // src='/images/load.gif'
+                  src='https://timviec365.vn/pictures/images_06_2023/thuong-phat(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>Thưởng phạt</figcaption>{' '}
@@ -11156,11 +11517,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Danh sách thưởng phạt'
                   height={430}
                   className='lazyload'
-                  src='/images/load.gif'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/danh-sach-thuong-phat(1).jpg'
+                  // src='/images/load.gif'
+                  src='https://timviec365.vn/pictures/images_06_2023/danh-sach-thuong-phat(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>Danh sách thưởng phạt</figcaption>{' '}
@@ -11194,11 +11561,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Danh sách tổng thưởng phạt'
                   height={399}
                   className='lazyload'
-                  src='/images/load.gif'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/danh-sach-tong-thuong-phat(1).jpg'
+                  // src='/images/load.gif'
+                  src='https://timviec365.vn/pictures/images_06_2023/danh-sach-tong-thuong-phat(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>
@@ -11533,11 +11906,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Hoa hồng tiền'
                   height={426}
                   className='lazyload'
-                  src='/images/load.gif'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/hoa-hong-tien(1).jpg'
+                  // src='/images/load.gif'
+                  src='https://timviec365.vn/pictures/images_06_2023/hoa-hong-tien(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>Hoa hồng tiền</figcaption>{' '}
@@ -11576,11 +11955,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Tải file hoa hồng tiền'
                   height={476}
                   className='lazyload'
-                  src='/images/load.gif'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/Tai-file-hoa-hong-tien(1).jpg'
+                  // src='/images/load.gif'
+                  src='https://timviec365.vn/pictures/images_06_2023/Tai-file-hoa-hong-tien(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>Tải file hoa hồng tiền</figcaption>{' '}
@@ -11944,11 +12329,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Thêm hoa hồng doanh thu'
                   height={245}
                   className='lazyload'
-                  src='/images/load.gif'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/them-hoa-hong-doanh-thu(1).jpg'
+                  // src='/images/load.gif'
+                  src='https://timviec365.vn/pictures/images_06_2023/them-hoa-hong-doanh-thu(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>Thêm hoa hồng doanh thu</figcaption>{' '}
@@ -11982,11 +12373,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Cài hoa hồng doanh thu'
                   height={719}
                   className='lazyload'
-                  src='/images/load.gif'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/cai-hoa-hong-doanh-thu(1).jpg'
+                  // src='/images/load.gif'
+                  src='https://timviec365.vn/pictures/images_06_2023/cai-hoa-hong-doanh-thu(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>Cài hoa hồng doanh thu</figcaption>{' '}
@@ -12832,11 +13229,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Chọn đề xuất cần tạo'
                   height={221}
                   className='lazyload'
-                  src='/images/load.gif'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/chon-de-xuat(1).jpg'
+                  // src='/images/load.gif'
+                  src='https://timviec365.vn/pictures/images_06_2023/chon-de-xuat(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>Chọn đề xuất cần tạo</figcaption>{' '}
@@ -12869,11 +13272,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Các mẫu đề xuất'
                   height={439}
                   className='lazyload'
-                  src='/images/load.gif'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/cac-mau-de-xuat(1).jpg'
+                  // src='/images/load.gif'
+                  src='https://timviec365.vn/pictures/images_06_2023/cac-mau-de-xuat(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>Các mẫu đề xuất</figcaption>{' '}
@@ -13055,11 +13464,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Xem lịch sử chấm công theo ngày'
                   height={313}
                   className='lazyload'
-                  src='/images/load.gif'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/xem-lich-su-cham-cong-theo-ngay(1).jpg'
+                  // src='/images/load.gif'
+                  src='https://timviec365.vn/pictures/images_06_2023/xem-lich-su-cham-cong-theo-ngay(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>Xem lịch sử chấm công theo ngày</figcaption>{' '}
@@ -13139,11 +13554,17 @@ export default function Article({
               {' '}
               <figure style={{ display: 'inline-block' }}>
                 <img
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: '10px',
+                    width: '100%',
+                    height: 'auto',
+                  }}
                   alt='Xem lịch sử chấm công theo khoảng thời gian'
                   height={345}
                   className='lazyload'
-                  src='/images/load.gif'
-                  data-src='https://timviec365.vn/pictures/images_06_2023/xem-lich-su-cham-cong-theo-khoang-thoi-gian(1).jpg'
+                  // src='/images/load.gif'
+                  src='https://timviec365.vn/pictures/images_06_2023/xem-lich-su-cham-cong-theo-khoang-thoi-gian(1).jpg'
                   width={800}
                 />{' '}
                 <figcaption>
