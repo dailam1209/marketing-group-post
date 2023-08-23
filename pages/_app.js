@@ -15,8 +15,8 @@ import { NavigateContextComponent } from "@/components/crm/context/navigateConte
 import TitleHeaderMobile from "@/components/crm/header/title_header_mobile";
 import styles from "@/components/crm/sidebar/sidebar.module.css";
 // import "@/styles/crm/stylecrm.css";
-// import "@/styles/crm/styles.css"
-// import "@/styles/crm/hight_chart.css"
+// import "@/styles/crm/styles.css";
+// import "@/styles/crm/hight_chart.css";
 import Layout from "@/components/hr/Layout";
 import Head from "next/head";
 import Seo from "@/components/head";
@@ -28,6 +28,7 @@ import jwtDecode from "jwt-decode";
 import Layout_user from "@/components/VanThu/Layout_user";
 import { setCookie } from "cookies-next";
 import { store } from "@/components/crm/redux/store";
+import io from "socket.io-client";
 
 export const LoadingComp = () => {
   return (
@@ -78,6 +79,7 @@ export default function App({ Component, pageProps }) {
     }
   }, [router?.pathname]);
 
+
   useEffect(() => {
     if (!router.pathname.includes("/phan-mem-nhan-su/")) {
       const timeout = setTimeout(() => {
@@ -87,7 +89,7 @@ export default function App({ Component, pageProps }) {
     }
   }, [router?.pathname]);
 
-  // const shouldShowSidebarAndHeader = !router.pathname.includes('/crm')
+  const shouldShowSidebarAndHeader = router.pathname.includes("/crm/");
 
   const importGlobalStyles = () => {
     if (router.pathname?.includes("/phan-mem-nhan-su/")) {
@@ -98,7 +100,7 @@ export default function App({ Component, pageProps }) {
       import("../styles/crm/hight_chart.css");
     } else if (router.pathname?.includes("VanThu")) {
       import("../styles/globals_vanthu.css");
-    } else if (router.pathname.includes("/quan-ly-nhan-luc")) {
+    } else if (router.pathname?.includes("/cham-cong")) {
       import("@/styles/globals.css");
     } else {
     }
@@ -149,13 +151,13 @@ export default function App({ Component, pageProps }) {
               <AccessContextComponent>
                 <SidebarResize>
                   <NavigateContextComponent>
-                    {shouldShowSidebarAndHeader && (
+                    {
                       <>
                         <Header toggleModal={toggleModal} />
                         <Sidebar isOpened={isOpen} />
                         <ChatBusiness />
                       </>
-                    )}
+                    }
                     <TitleHeaderMobile />
                     <TongDaiContext>
                       <Component {...pageProps} />

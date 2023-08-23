@@ -89,7 +89,7 @@ export const sidebar_button_group = [
 export const sidebar_button_group_company = [
   {
     img_link: "https://crm.timviec365.vn/assets/icons/home.svg",
-    link: `/crm`,
+    link: `/crm/home`,
     children: [],
     content: "Trang chủ",
   },

@@ -5,8 +5,11 @@ import Link from "next/link";
 import FooterHomePage from "../../../components/footer/Footer";
 import { Helmet } from "react-helmet";
 import HeaderHomePage from "./header";
+import { checkHomeIfLoggedIn } from "../ultis/checkLogin";
 const HomePageLogin: React.FC = () => {
   return (
+    <>
+    {checkHomeIfLoggedIn() ? null : (
     <div className={styles.main}>
       <Helmet>
         <meta name="viewport" content="width=device-width" initial-scale="1" />
@@ -290,6 +293,8 @@ const HomePageLogin: React.FC = () => {
       ;
       <FooterHomePage />
     </div>
+      )}
+      </>
   );
 };
 export default HomePageLogin;

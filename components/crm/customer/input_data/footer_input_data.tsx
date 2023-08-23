@@ -20,22 +20,34 @@ export default function PotentialFooterAddFiles({
   const [modal1Open, setModal1Open] = useState(false);
   const router = useRouter();
   const handleAddInput = async () => {
-    if (dataAdd.name) {
-      setModal1Open(true),
-        await fetch(
-          `${base_url}/api/crm/customer/addCustomer`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${Cookies.get("token_base365")}`,
-            },
-            body: JSON.stringify(dataAdd),
-          }
-        );
-    } else {
-      notification.error({ message: "Tên khách hàng là bắt buộc" });
+    try {
+      if (dataAdd.name && dataAdd.phone_number) {
+        const res = await fetch(`${base_url}/api/crm/nhaplieu/NhapLieu`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${Cookies.get("token_base365")}`,
+          },
+          body: JSON.stringify(
+            dataAdd
+          ),
+        });
+        const data = await res.json();
+        if (data && data?.data?.result) {
+          setModal1Open(true);
+        }
+        if (data && data.error) {
+          notification.error({ message: data?.error?.message });
+        }
+      } else {
+        notification.error({
+          message: "Tên khách hàng, số điện thoại là bắt buộc",
+        });
+      }
+    } catch (error) {
+      console.log("error:",error)
     }
+ 
   };
   return (
     <div className={styles.main__footer}>

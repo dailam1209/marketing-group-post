@@ -39,8 +39,8 @@ export const getServerSideProps = async (context) => {
       listCC.push({ user: item, infoDx: infoDx ? infoDx : {} });
     });
   }
-  if (res?.[1]?.data) {
-    res?.[1]?.data.forEach((item) => {
+  if (res?.[1]?.items) {
+    res?.[1]?.items.forEach((item) => {
       listPb.push({ dep_id: item?.dep_id, dep_name: item?.dep_name });
     });
   }

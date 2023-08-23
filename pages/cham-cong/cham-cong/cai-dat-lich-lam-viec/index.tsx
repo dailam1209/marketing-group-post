@@ -98,6 +98,8 @@ export default function LichLamViec({ listCalendar }) {
   const router = useRouter();
   const [listShiftSelected, setListShiftSelected] = useState<any>([]);
   const [listShift, setListShift] = useState<any>([]);
+  const [dateApply, setDateApply] = useState<any>(dayjs().format('YYYY-MM-DD'))
+  const [weekType, setWeekType] = useState<any>(2)
 
   const [form] = Form.useForm();
 
@@ -141,7 +143,7 @@ export default function LichLamViec({ listCalendar }) {
   useEffect(() => {
     GET('api/qlc/shift/list').then((res) => {
       if (res?.result === true) {
-        setListShift(res?.list);
+        setListShift(res?.items);
       }
     });
   }, []);
@@ -234,7 +236,10 @@ export default function LichLamViec({ listCalendar }) {
             totalData,
             setTotalData,
             setCySelected,
-            form
+            form,
+            setDateApply,
+            weekType,
+            setWeekType
           )}
           {ModalTiepTuc(
             modalNext,
@@ -252,9 +257,10 @@ export default function LichLamViec({ listCalendar }) {
             setModalNext,
             form,
             handleSubmitAddCy,
-            'T2-T7',
+            weekType,
             listShift,
-            listShiftSelected
+            listShiftSelected,
+            dateApply
           )}
           {SaoChepLich(modelSaoChep, setModalSaoChep, data, dateFilter)}
         </Form>

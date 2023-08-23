@@ -1,6 +1,8 @@
 import style from "./sidebar.module.css";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { base_url } from "../service/function";
+import Cookies from "js-cookie";
 
 export default function HeaderBar({ dataHeader, isOpen }: any) {
   return (
@@ -18,7 +20,7 @@ export default function HeaderBar({ dataHeader, isOpen }: any) {
       </div>
       <div className={`${style.header_info} ${!isOpen ? null : "none"}`}>
         <div className={style.name_staff}>
-          {dataHeader?.data?.userName || ""}
+          {dataHeader?.data?.com_name || ""}
         </div>
         {/* <p className={style.sub_text}>NHÂN VIÊN THỬ VIỆC</p> */}
       </div>

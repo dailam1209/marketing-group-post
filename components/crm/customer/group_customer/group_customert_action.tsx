@@ -1,5 +1,4 @@
-import CancelModal from "@/components/crm/potential/potential_steps/cancel_modal";
-import styles from "../../potential/potential.module.css";
+import styles from "../../potential/potential.module.css"
 import type { MenuProps } from "antd";
 import { Button, Dropdown, Space } from "antd";
 import { useState } from "react";
@@ -7,7 +6,7 @@ import CancelModalDelGroup from "./delete_mdal_gr_cus";
 import { useApi } from "../../hooks/useApi";
 import { base_url } from "../../service/function";
 import Cookies from "js-cookie";
-
+import React from "react";
 export default function GroupCustomerAction({
   isSelectedRow,
   selectedRow,
@@ -28,7 +27,7 @@ export default function GroupCustomerAction({
     `${base_url}/api/crm/group/list_group_khach_hang`,
     `${Cookies.get("token_base365")}`,
     "POST",
-    { page: 1, perPage: 1000 }
+    { page: 1, perPage: 100 }
   );
 
   const handleClickAction = (e: any) => {

@@ -35,8 +35,8 @@ export function AllNhanVien({
   const [currentRow, setCurrentRow] = useState();
   const [data, setData] = useState(listStaffs);
   const [comLabel, setComLabel]: any = useState({
-    label: infoCom?.data?.userName,
-    value: infoCom?.data?.idQLC,
+    label: infoCom?.data?.com_name,
+    value: infoCom?.data?.com_id,
   });
   const [listEmpLabel, setListEmpLabel] = useState<any>(
     listStaffs?.map((e) => ({ label: e?.userName, value: e?.idQLC }))
@@ -281,7 +281,7 @@ export function AllNhanVien({
       {EditEmpModal(
         openEdit,
         setOpenEdit,
-        { label: infoCom?.data?.userName, value: infoCom?.data?.idQLC },
+        { label: infoCom?.data?.com_name, value: infoCom?.data?.com_id },
         listDepLabel,
         listTeamLabel,
         listGrLabel,

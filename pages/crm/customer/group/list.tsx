@@ -8,6 +8,7 @@ import HeaderBtnsCustomerGroup from "@/components/crm/customer/group_customer/he
 import { useApi } from "@/components/crm/hooks/useApi";
 import { base_url } from "@/components/crm/service/function";
 import Cookies from "js-cookie";
+import { checkAndRedirectToHomeIfNotLoggedIn } from "@/components/crm/ultis/checkLogin";
 
 export default function GroupCustomer() {
   const mainRef = useRef<HTMLDivElement>(null);
@@ -17,16 +18,17 @@ export default function GroupCustomer() {
   const [selectedRows, setSelectedRow] = useState<any>([]);
   const [change, setChange] = useState(0);
   const [valFilter, setValFilter] = useState("");
+  const [dataFilter, setDataFilter] = useState();
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
 
   const accessToken = Cookies.get("token_base365");
 
-  const { data, loading, error, fetchData, updateData, deleteData } = useApi(
+  const { data, fetchData, updateData } = useApi(
     `${base_url}/api/crm/group/list_group_khach_hang`,
     `${Cookies.get("token_base365")}`,
     "POST",
-    { page: 1, perPage: 10000000 }
+    { page: 1, perPage: 100 }
   );
 
   useEffect(() => {
@@ -38,6 +40,7 @@ export default function GroupCustomer() {
 
   useEffect(() => {
     fetchData();
+    setDataFilter(data?.data?.showGr);
   }, [change]);
 
   useEffect(() => {
@@ -48,33 +51,40 @@ export default function GroupCustomer() {
     }
   }, [isOpen]);
 
-  const dataFilter = data?.data?.showGr?.filter((item) => {
-    if (valFilter) {
-      const defaultVal = item?.gr_name?.toLowerCase();
-      return defaultVal?.includes(valFilter.toLowerCase());
-    }
-    return item;
-  });
-
+  const handleClickSearch = () => {
+    const newDataFilter = data?.data?.showGr?.filter((item) => {
+      if (valFilter) {
+        const defaultVal = item?.gr_name?.toLowerCase();
+        return defaultVal?.includes(valFilter.toLowerCase());
+      }
+      return item;
+    });
+    setDataFilter(newDataFilter);
+  };
 
   return (
-    <div ref={mainRef} className={styleHome.main}>
-      <HeaderBtnsCustomerGroup
-        isSelectedRow={isSelectedRow}
-        selectedRow={selectedRows}
-        updateData={setChange}
-        valFilter={valFilter}
-        setValFilter={setValFilter}
-      />
-      <TableDataGroupListCustomer
-        setSelected={setIsSelectedRow}
-        setNumberSelected={setNumberSelected}
-        setSelectedRow={setSelectedRow}
-        setChange={setChange}
-        change={change}
-        data={dataFilter}
-        updateData={updateData}
-      />
-    </div>
+    <>
+      {!checkAndRedirectToHomeIfNotLoggedIn() ? null : (
+        <div ref={mainRef} className={styleHome.main}>
+          <HeaderBtnsCustomerGroup
+            isSelectedRow={isSelectedRow}
+            selectedRow={selectedRows}
+            updateData={setChange}
+            valFilter={valFilter}
+            setValFilter={setValFilter}
+            handleClickSearch={handleClickSearch}
+          />
+          <TableDataGroupListCustomer
+            setSelected={setIsSelectedRow}
+            setNumberSelected={setNumberSelected}
+            setSelectedRow={setSelectedRow}
+            setChange={setChange}
+            change={change}
+            data={dataFilter || data?.data?.showGr}
+            updateData={updateData}
+          />
+        </div>
+      )}
+    </>
   );
 }

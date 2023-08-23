@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Table, Tooltip } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import stylePotential from "../potential/potential.module.css";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import PotentialSelectBox from "../potential/potential_selectt";

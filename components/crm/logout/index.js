@@ -6,12 +6,11 @@ import CancelModal from "../bill/bill_steps/cancel_modal";
 export default function LogoutCrm({ setShowLogout, showLogout }) {
   const modalRef = useRef(null);
 
-  
   const show = () => {
-    setShowLogout(true)
-  }
+    setShowLogout(true);
+  };
 
-  const no = () => {
+  const handleNo = () => {
     setShowLogout(false);
   };
   const yes = () => {
@@ -65,7 +64,7 @@ export default function LogoutCrm({ setShowLogout, showLogout }) {
                         <button
                           type="button"
                           className="share_fsize_three cr_weight share_cursor share_clr_four share_bgr_tow huy_button"
-                          onClick={no}
+                          onClick={handleNo}
                         >
                           Hủy
                         </button>

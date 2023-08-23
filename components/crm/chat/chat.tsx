@@ -2,10 +2,11 @@ import styles from "./chat.module.css";
 import useModal from "../hooks/useModal";
 import ChatBusinessBody from "./chat_body";
 import { useRef } from "react";
+import { checkAndRedirectToHomeIfNotLoggedIn } from "@/components/crm/ultis/checkLogin";
 
 export default function ChatBusiness() {
   const chatRef = useRef<HTMLDivElement>(null);
-  const { isOpen, toggleModal } = useModal(null,[null]);
+  const { isOpen, toggleModal } = useModal(null, [null]);
 
   const handleOpenChatBody = () => {
     toggleModal();
@@ -17,17 +18,21 @@ export default function ChatBusiness() {
   };
 
   return (
-    <div ref={chatRef} className={styles.business_assistant}>
-      <div
-        className={styles.business_assistant_header}
-        onClick={handleOpenChatBody}
-      >
-        <span style={{color: "white"}}>Trợ lý kinh doanh</span>
-        <div>
-          <button id={styles.business_assistant_close}></button>
+    <>
+      {!checkAndRedirectToHomeIfNotLoggedIn() ? null : (
+        <div ref={chatRef} className={styles.business_assistant}>
+          <div
+            className={styles.business_assistant_header}
+            onClick={handleOpenChatBody}
+          >
+            <span style={{ color: "white" }}>Trợ lý kinh doanh</span>
+            <div>
+              <button id={styles.business_assistant_close}></button>
+            </div>
+          </div>
+          {isOpen ? <ChatBusinessBody /> : null}
         </div>
-      </div>
-      {isOpen ? <ChatBusinessBody /> : null}
-    </div>
+      )}
+    </>
   );
 }

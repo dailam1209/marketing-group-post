@@ -40,7 +40,12 @@ interface TableDataContracDrops {
   fetchData?: any;
   des?: any;
   setDes?: any;
-
+  setPage?: any;
+  page?: any;
+  totalRecords?: any;
+  totalPages?: any;
+  pageSize?: any;
+  setPageSize?: any;
 }
 
 const TableListCustomer: React.FC<TableDataContracDrops> = ({
@@ -51,18 +56,28 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   fetchData,
   des,
   setDes,
-  setTest:any,
+  setTest,
+  page,
+  setPage,
+  totalRecords,
+  totalPages,
+  pageSize,
+  setPageSize,
 }: any) => {
   const [openModalCall, setOpenModalCall] = useState(false);
   const router = useRouter();
   const [openEditText, setOpenEditText] = useState(false);
   const [valueStatus, setValueStatus] = useState();
   const [cusId, setCusId] = useState<any>();
-  const [pageSize, setpageSize] = useState<any>();
-
+  const [te, setTE] = useState<any>();
   const handleChangeStatus = (e: any, data: any) => {
     setValueStatus(e.target.value);
   };
+  const handleShowCall = (record: any) => {
+    setOpenModalCall(true);
+    setCusId(record.cus_id);
+  };
+
   const renderTitle = (record, text) => (
     <div className="tooltip-content">
       <button
@@ -81,22 +96,18 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   );
   const handleChangeSelect = async (e: any, record) => {
     //get type
-    const res = await fetch(
-     `${base_url}/api/crm/customerdetails/detail`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${Cookies.get("token_base365")}`,
-        },
-        body: JSON.stringify({ cus_id: record?.cus_id }),
-      }
-    );
+    const res = await fetch(`${base_url}/api/crm/customerdetails/detail`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${Cookies.get("token_base365")}`,
+      },
+      body: JSON.stringify({ cus_id: record?.cus_id }),
+    });
     const type = await res.json();
     // const
 
-    const url =
-    `${base_url}/api/crm/customerdetails/editCustomer`;
+    const url = `${base_url}/api/crm/customerdetails/editCustomer`;
 
     const formData = new FormData();
     formData.append("resoure", e.target.value);
@@ -154,11 +165,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       key: "1",
       width: 100,
       render: (data, record) => (
-        <button
-          onClick={() => (setOpenModalCall(true), setCusId(record.cus_id))}
-        >
-          {data}
-        </button>
+        <button onClick={() => handleShowCall(record)}>{data}</button>
       ),
     },
     {
@@ -181,7 +188,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
           <CustomerGroupSelect
             data={dataGroup}
             value={data}
-            placeholder={data}
+            placeholder={record?.group_id}
             cusId={cusId}
           />
         </div>
@@ -300,11 +307,6 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
     },
   ];
   //nut select
-  const handleChangePageSize = (value: any) => {
-    setpageSize(value);
-  };
-  useEffect(() => {}, [des]);
-
   return (
     <>
       <div className="custom_table">
@@ -317,7 +319,14 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
           scroll={{ x: 1500, y: "auto" }}
           pagination={{
             style: { paddingBottom: 20 },
+            current: page,
             pageSize: pageSize,
+            total: totalRecords,
+            onChange: (current, pageSize) => {
+              if (current != page) {
+                setPage(current);
+              }
+            },
           }}
         />
         {datatable?.length && (
@@ -333,7 +342,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
                 placeholder={
                   <div style={{ color: "black" }}>10 bản ghi trên trang</div>
                 }
-                onChange={(value) => handleChangePageSize(value)}
+                onChange={(value) => setPageSize(value)}
               >
                 <option value={10}>10 bản ghi trên trang</option>
                 <option value={20}>20 bản ghi trên trang</option>
@@ -343,7 +352,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
               </Select>
             </div>
             <div className="total">
-              Tổng số: <b>{datatable?.length}</b> Khách hàng
+              Tổng số: <b>{totalRecords}</b> Khách hàng
             </div>
           </div>
         )}

@@ -86,7 +86,7 @@ export default function DeXuatNhapNgayNhanLuong() {
       }).then((res) => {
         if (res?.result === true) {
           setDepLabel(
-            res?.data?.map((dep) => ({
+            res?.items?.map((dep) => ({
               label: dep?.dep_name,
               value: dep?.dep_id,
             }))

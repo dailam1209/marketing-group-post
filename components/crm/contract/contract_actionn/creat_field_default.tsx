@@ -1,16 +1,16 @@
 import React, { useRef, useState } from "react";
 import { Modal } from "antd";
-import styles from "@/components/crm/campaign/campaign.module.css";
-import CampaignSelectBoxStep from "@/components/crm/campaign/campaign_steps/select_box_step";
-import ModalCompleteStep from "@/components/crm/campaign/campaign_steps/complete_modal";
-import { useRouter } from "next/router";
+import styles from "../../potential/potential.module.css";
+import FieldSelectBoxStep from "../../potential/potential_steps/select_box_step";
+// import PotentialSelectBoxStep from "../potential_steps/select_box_step";
+// import ModalCompleteStep from "../potential_steps/complete_modal";
 
 interface MyComponentProps {
   isModalCancel: boolean;
   setIsModalCancel: (value: boolean) => void;
 }
 
-const CallModal: React.FC<MyComponentProps> = ({
+const CreatFieldDefaultModal: React.FC<MyComponentProps> = ({
   isModalCancel,
   setIsModalCancel,
 }) => {
@@ -18,7 +18,6 @@ const CallModal: React.FC<MyComponentProps> = ({
 
   const handleOK = () => {
     setIsModalCancel(false);
-
     setIsOpenMdalSuccess(true);
     setTimeout(() => {
       setIsOpenMdalSuccess(false);
@@ -28,36 +27,32 @@ const CallModal: React.FC<MyComponentProps> = ({
   return (
     <>
       <Modal
-        title={"Trợ lý kinh doanh"}
+        title={"Trường hệ thống xây dựng mặc định"}
         centered
         open={isModalCancel}
         onOk={() => handleOK()}
         onCancel={() => setIsModalCancel(false)}
         className={"mdal_cancel email_add_mdal"}
-        okText="Đồng ý"
-        cancelText="Huỷ"
+        okText="Đóng lại"
+        cancelText="Lưu"
       >
-        <div className={styles.row_mdal}>
+        <div className={styles.row_mdal} style={{minHeight: "fit-content"}}>
           <div className={styles.choose_obj}>
-            <label className={`${styles.form_label} `}>
-              {"Nhân viên thực hiện"}
-            </label>
-            <CampaignSelectBoxStep
-              value="Chọn"
-              placeholder="Chọn"
+            <FieldSelectBoxStep
+              value="Chọn trường mặc định"
+              placeholder="Chọn trường mặc định"
             />
           </div>
-          
         </div>
       </Modal>
-      <ModalCompleteStep
+      {/* <ModalCompleteStep
         modal1Open={isOpenMdalSuccess}
         setModal1Open={setIsOpenMdalSuccess}
         title={"Bàn giao công việc cho Nguyễn Văn Nam thành công!"}
         link={"/potential/list"}
-      />
+      /> */}
     </>
   );
 };
 
-export default CallModal;
+export default CreatFieldDefaultModal;

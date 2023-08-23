@@ -150,7 +150,7 @@ export default function CaiDatLichLamViec(data: any, listCalendar: any) {
         com_id: com_id,
       }).then((res) => {
         if (res?.result === true) {
-          setListEmp(res?.data);
+          setListEmp(res?.items);
         }
       });
   }, []);

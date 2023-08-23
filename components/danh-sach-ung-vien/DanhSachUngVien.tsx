@@ -111,7 +111,7 @@ export const DanhSachUngVien = ({
   const [dropCol, setDropCol] = useState()
   const [canIdSelected, setCanIdSelected] = useState(-1)
   const [listEmpLabel, setListEmpLabel]: any = useState(
-    listEmp?.data?.map((emp) => ({ label: emp?.userName, value: emp?.idQLC }))
+    listEmp?.items?.map((emp) => ({ label: emp?.userName, value: emp?.idQLC }))
   )
 
   const router = useRouter()

@@ -26,7 +26,7 @@ export function LuanChuyen({
   const [openAddNew, setOpenAddNew] = useState(false)
   const [data, setData] = useState(listTranferJob?.data)
   const [listDepLabel, setListDepLabel]: any = useState(
-    listDepartments?.data?.map((dep) => ({
+    listDepartments?.items?.map((dep) => ({
       label: dep?.dep_name,
       value: dep?.dep_id,
     }))
@@ -53,7 +53,7 @@ export function LuanChuyen({
         com_id: com_id,
       }).then((res) => {
         if (res?.result === true) {
-          setListEmp(res?.data)
+          setListEmp(res?.items)
         }
       })
   }, [])

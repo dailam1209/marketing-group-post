@@ -3,6 +3,7 @@ import styleHome from "@/components/crm/home/home.module.css";
 import { SidebarContext } from "@/components/crm/context/resizeContext";
 import { useHeader } from "@/components/crm/hooks/useHeader";
 import QuanLyLinePage from "@/components/crm/cskh/tongdai/quan-ly-line";
+import { checkAndRedirectToHomeIfNotLoggedIn } from "@/components/crm/ultis/checkLogin";
 
 const QuanLyLine: React.FC = () => {
   const mainRef = useRef<HTMLDivElement>(null);
@@ -30,9 +31,13 @@ const QuanLyLine: React.FC = () => {
   }, [isOpen]);
 
   return (
-    <div className={styleHome.main} ref={mainRef}>
-      <QuanLyLinePage />
-    </div>
+    <>
+      {!checkAndRedirectToHomeIfNotLoggedIn() ? null : (
+        <div className={styleHome.main} ref={mainRef}>
+          <QuanLyLinePage />
+        </div>
+      )}
+    </>
   );
 };
 

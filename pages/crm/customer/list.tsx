@@ -10,6 +10,7 @@ const Cookies = require("js-cookie");
 import { format } from "date-fns";
 import { te } from "date-fns/locale";
 import { base_url } from "@/components/crm/service/function";
+import { checkAndRedirectToHomeIfNotLoggedIn } from "@/components/crm/ultis/checkLogin";
 export interface DataType {
   key: React.Key;
   cus_id: number;
@@ -40,22 +41,41 @@ export default function CustomerList() {
   const [status, setStatus] = useState();
   const [resoure, setResoure] = useState();
   const [nvPhuTrach, setnvPhuTrach] = useState();
+  const [nhomCha, setnhomCha] = useState();
+  const [nhomCon, setnhomCon] = useState();
+
   const [userNameCreate, setuserNameCreate] = useState();
+  const [isLoading, setLoading] = useState(true);
+  const [data, setData] = useState<any>([]);
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+  const [totalPages, setTotalPages] = useState();
+  const [totalRecords, setTotalRecords] = useState();
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
-  const { data, loading, fetchData, updateData, deleteData } = useApi(
-    `${base_url}/api/crm/customer/list`,
-    `${Cookies.get("token_base365")}`,
-    "POST",
-    {
-      perPage: 10000,
-      keyword: name === null ? null : name,
-      status: status,
-      resoure: resoure,
-      userName: nvPhuTrach,
-      userNameCreate: userNameCreate,
-    }
-  );
+  const fetchData = async () => {
+    const res = await fetch(`${base_url}/api/crm/customer/list`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${Cookies.get("token_base365")}`,
+      },
+      body: JSON.stringify({
+        perPage: pageSize,
+        page: page,
+        keyword: name === null ? null : name,
+        status: status,
+        resoure: resoure,
+        userName: nvPhuTrach,
+        userNameCreate: userNameCreate,
+      }),
+    });
+    const data = await res.json();
+    console.log(data);
+    setData(data);
+    setTotalPages(data?.data?.totalPages);
+    setTotalRecords(data?.data?.totalRecords);
+  };
   const {
     data: dataStatus,
     loading: loadingStatus,
@@ -65,7 +85,7 @@ export default function CustomerList() {
     `${base_url}/api/crm/customerStatus/list`,
     `${Cookies.get("token_base365")}`,
     "POST",
-   { pageSize:1000000}
+    { pageSize: 100 }
   );
   const {
     data: dataCustomerGroup,
@@ -76,7 +96,7 @@ export default function CustomerList() {
     `${base_url}/api/crm/group/list_group_khach_hang`,
     `${Cookies.get("token_base365")}`,
     "POST",
-    { pageSize:1000000}
+    { pageSize: 100 }
   );
 
   const onSelectChange = (
@@ -104,44 +124,65 @@ export default function CustomerList() {
     { name: "Chăm sóc khach hàng", id: 7 },
     { name: "Email", id: 8 },
   ];
-  const datatable = data?.data?.showCty?.map(
-    (item: DataType, index: number) => {
-      let nguonKH = "";
-      let time;
-      if (item.updated_at.length) {
-      }
-      if (+item?.updated_at >= 1000) {
-        const date = new Date(+item?.updated_at * 1000); // Chuyển số giây thành mili giây
 
-        const formattedDate = format(date, "dd-MM-yyyy HH:mm:ss");
-        time = formattedDate;
-      }
-
-      for (let key of ArrNguonKK) {
-        if (key.id == item.resoure) {
-          nguonKH = key.name;
-        }
-      }
-      return {
-        key: index + 1,
-        cus_id: item.cus_id,
-        email: item.email,
-        name: item.name,
-        phone_number: item.phone_number,
-        resoure: nguonKH,
-        description: item.description,
-        group_id: item.group_id,
-        status: item,
-        updated_at: time ? time : item.updated_at,
-        emp_name: item.emp_name,
-        userNameCreate: item.userNameCreate,
-        user_handing_over_work: item.user_handing_over_work,
-        NameHandingOverWork: item.NameHandingOverWork,
-        userName: item.userName,
-      };
+  const datatable = data?.data?.showCty?.map((item, index: number) => {
+    let nguonKH = "";
+    let time;
+    if (item.updated_at.length) {
     }
-  );
+    if (+item?.updated_at >= 1000) {
+      const date = new Date(+item?.updated_at * 1000); // Chuyển số giây thành mili giây
+
+      const formattedDate = format(date, "dd-MM-yyyy HH:mm:ss");
+      time = formattedDate;
+    }
+
+    for (let key of ArrNguonKK) {
+      if (key.id == item.resoure) {
+        nguonKH = key.name;
+      }
+    }
+    return {
+      key: index + 1,
+      cus_id: item.cus_id,
+      email: item.email,
+      name: item.name,
+      phone_number: item.phone_number,
+      resoure: nguonKH,
+      description: item.description,
+      group_id: item.group_id,
+      status: item,
+      updated_at: time ? time : item.updated_at,
+      emp_name: item.emp_name,
+      userNameCreate: item.userNameCreate,
+      user_handing_over_work: item.user_handing_over_work,
+      NameHandingOverWork: item.NameHandingOverWork,
+      userName: item.userName,
+    };
+  });
   const dataStatusCustomer = dataStatus?.data?.listStatus;
+  const [listGr, setListGr] = useState([]);
+  const [list_gr_child, setlistGr_Child] = useState([]);
+
+  const handleGetGr = async () => {
+    const res = await fetch(`${base_url}/api/crm/group/list_group_khach_hang`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${Cookies.get("token_base365")}`,
+      },
+      body: JSON.stringify({ com_id: Cookies.get("com_id") }),
+    });
+    const data = await res.json();
+    setListGr(data?.data?.showGr);
+    let arr = [];
+    data?.data?.showGr?.map((item) => {
+      item?.list_gr_child.map((item) => {
+        arr.push(item);
+      });
+      setlistGr_Child(arr);
+    });
+  };
 
   const dataGroup = dataCustomerGroup?.data?.showGr;
   const [idSelect, setIdSelect] = useState<any>();
@@ -166,12 +207,14 @@ export default function CustomerList() {
     onSelectAll: handleSelectAll,
   };
   useEffect(() => {
+    handleGetGr();
     fetchData();
     fetchDataStatus();
-  }, [name, selectedRowKeys, des, selectedCus]);
-  useEffect(()=>{
+  }, [name, selectedRowKeys, des, selectedCus, page, pageSize]);
+  useEffect(() => {
     fetchDataCustomerGroup();
-  },[data])
+  }, [data]);
+
   useEffect(() => {
     setHeaderTitle("Danh sách khách hàng");
     setShowBackButton(false);
@@ -184,34 +227,49 @@ export default function CustomerList() {
       mainRef.current?.classList.remove("content_resize");
     }
   }, [isOpen]);
+
   return (
-    <div ref={mainRef} className={styleHome.main}>
-      <CustomerListInputGroup
-        setName={setName}
-        fetchData={fetchData}
-        isSelectedRow={selected}
-        numberSelected={numberSelected}
-        clearOption={handleDeselectAll}
-        chooseAllOption={handleSelectAll}
-        selectedCus={selectedCus}
-        dataStatusCustomer={dataStatusCustomer}
-        setStatus={setStatus}
-        setResoure={setResoure}
-        datatable={datatable}
-        nvPhuTrach={nvPhuTrach}
-        setnvPhuTrach={setnvPhuTrach}
-        userNameCreate={userNameCreate}
-        setuserNameCreate={setuserNameCreate}
-      />
-      <TableListCustomer
-        fetchData={fetchData}
-        rowSelection={rowSelection}
-        datatable={datatable}
-        dataStatusCustomer={dataStatusCustomer}
-        dataGroup={dataGroup}
-        des={des}
-        setDes={setDes}
-      />
-    </div>
+    <>
+      {!checkAndRedirectToHomeIfNotLoggedIn() ? null : (
+        <div ref={mainRef} className={styleHome.main}>
+          <CustomerListInputGroup
+            setName={setName}
+            fetchData={fetchData}
+            isSelectedRow={selected}
+            numberSelected={numberSelected}
+            clearOption={handleDeselectAll}
+            chooseAllOption={handleSelectAll}
+            selectedCus={selectedCus}
+            dataStatusCustomer={dataStatusCustomer}
+            setStatus={setStatus}
+            setResoure={setResoure}
+            datatable={datatable}
+            nvPhuTrach={nvPhuTrach}
+            setnvPhuTrach={setnvPhuTrach}
+            userNameCreate={userNameCreate}
+            setuserNameCreate={setuserNameCreate}
+            nhomCha={nhomCha}
+            setnhomCha={setnhomCha}
+            nhomCon={nhomCon}
+            setnhomCon={setnhomCon}
+          />
+          <TableListCustomer
+            fetchData={fetchData}
+            rowSelection={rowSelection}
+            datatable={datatable}
+            dataStatusCustomer={dataStatusCustomer}
+            dataGroup={listGr}
+            des={des}
+            setDes={setDes}
+            setPage={setPage}
+            page={page}
+            pageSize={pageSize}
+            setPageSize={setPageSize}
+            totalRecords={totalRecords}
+            totalPages={totalPages}
+          />
+        </div>
+      )}
+    </>
   );
 }
