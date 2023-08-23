@@ -14,9 +14,7 @@ export default function PolicyDetailModal({
   idGroup,
 }: PolicyDetailModalProps) {
   const [DetailData, setDetailData] = useState<any | null>(null)
-  const [dataGroup, setDataGroup] = useState<any | null>(null)
   const [openUpdate, setOpenUpdate] = useState(0)
-  const [keyWords, setKeyWords] = useState('')
   const modalRef = useRef(null)
 
   useEffect(() => {
@@ -37,7 +35,7 @@ export default function PolicyDetailModal({
     const fetchData = async () => {
       try {
         const response = await PolicyDetails(idGroup)
-        setDetailData(response?.data)
+        setDetailData(response?.success)
       } catch (error) {
         throw error
       }
@@ -55,6 +53,9 @@ export default function PolicyDetailModal({
   const handleCloseModal = () => {
     setOpenUpdate(0)
   }
+
+  console.log(DetailData?.data?.data);
+
 
   return (
     <>
@@ -74,31 +75,31 @@ export default function PolicyDetailModal({
                   onCancel={handleCloseModal}
                 />
               )}
-              {DetailData?.data[0] && (
+              {DetailData?.data?.data && (
                 <div className={`${styles.modal_body} ${styles.body_process}`}>
                   <div className={`${styles.infors}`}>
                     <p
                       style={{ marginBottom: 24 }}
                       className={`${styles.qd_name}`}>
-                      {DetailData?.data[0]?.name}
+                      {DetailData?.data?.data?.name}
                     </p>
                     <div className={`${styles.info_left}`}>
                       <li>
-                        <label>Nhóm quy định:</label>
+                        <label>Nhóm chính sách:</label>
                         <span className={`${styles.nqd_nqd}`}>
-                          {DetailData?.data[0]?.EmployeePolicys[0]?.name}
+                          {DetailData?.data?.data.qd_name}
                         </span>
                       </li>
                       <li>
                         <label>Tạo bởi:</label>
                         <span className={`${styles.nqt_supervisor_name}`}>
-                          {DetailData?.data[0]?.createdBy}
+                          {DetailData?.data?.data?.created_by}
                         </span>
                       </li>
                       <li>
                         <label>Người giám sát:</label>
                         <span className={`${styles.nqt_supervisor_name}`}>
-                          {DetailData?.data[0]?.supervisorName}
+                          {DetailData?.data?.data?.supervisor_name}
                         </span>
                       </li>
                     </div>
@@ -111,7 +112,7 @@ export default function PolicyDetailModal({
                         <label>Có hiệu lực từ:</label>
                         <span className={`${styles.nqt_created_at}`}>
                           {format(
-                            new Date(DetailData?.data[0]?.timeStart),
+                            new Date(DetailData?.data?.data?.time_start),
                             'dd/MM/yyyy'
                           )}
                         </span>
@@ -119,7 +120,7 @@ export default function PolicyDetailModal({
                       <li>
                         <label>Đối tượng thi hành:</label>
                         <span className={`${styles.nqt_created_at}`}>
-                          {DetailData?.data[0]?.applyFor}
+                          {DetailData?.data?.data?.apply_for}
                         </span>
                       </li>
                     </div>
@@ -135,7 +136,7 @@ export default function PolicyDetailModal({
                         wordWrap: 'break-word',
                       }}>
                       <li className={`${styles.nqd_content}`}>
-                        <p>{DetailData?.data[0]?.content}</p>
+                        <p>{DetailData?.data?.data?.content}</p>
                       </li>
                     </div>
                   </div>
@@ -160,7 +161,7 @@ export default function PolicyDetailModal({
                   }}
                   className={`${styles.btn_cancel}`}
                   onClick={(event: any) =>
-                    handleOpenUpdate(DetailData?.data[0]?.id, event)
+                    handleOpenUpdate(DetailData?.data?.data?.id, event)
                   }>
                   Sửa
                 </button>

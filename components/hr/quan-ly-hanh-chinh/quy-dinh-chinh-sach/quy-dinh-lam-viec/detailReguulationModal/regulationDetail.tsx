@@ -40,7 +40,7 @@ export default function RegulationDetailModal({
     const fetchData = async () => {
       try {
         const response = await RegulationsDetails(idGroup)
-        setDetailData(response?.data)
+        setDetailData(response?.success)
       } catch (error) {
         throw error
       }
@@ -52,7 +52,7 @@ export default function RegulationDetailModal({
     const fetchData = async () => {
       try {
         const response = await SpecifiedGroupList(10000, 1, keyWords)
-        setDataGroup(response?.data)
+        setDataGroup(response?.success)
       } catch (error) {
         throw error
       }
@@ -71,6 +71,9 @@ export default function RegulationDetailModal({
     setOpenUpdate(0)
   }
 
+  console.log(DetailData?.data?.data);
+
+
   return (
     <>
       <div className={`${styles.modal_open}`}>
@@ -87,34 +90,34 @@ export default function RegulationDetailModal({
                   onCancel={handleCloseModal}
                 />
               )}
-              {DetailData?.data[0] && (
+              {DetailData?.data?.data && (
                 <div className={`${styles.modal_body} ${styles.body_process}`}>
                   <div className={`${styles.infors}`}>
                     <p
                       style={{ marginBottom: 24 }}
                       className={`${styles.qd_name}`}>
-                      {DetailData?.data[0]?.name}
+                      {DetailData?.data?.data?.name}
                     </p>
                     <div className={`${styles.info_left}`}>
                       <li>
                         <label>Nhóm quy định:</label>
                         <span className={`${styles.nqd_nqd}`}>
-                          {dataGroup?.data?.find(
+                          {dataGroup?.data?.data?.find(
                             (item: any) =>
-                              item.id === DetailData?.data[0]?.provisionId
+                              item.id === DetailData?.data?.data?.provision_id
                           )?.name || ''}
                         </span>
                       </li>
                       <li>
                         <label>Tạo bởi:</label>
                         <span className={`${styles.nqt_supervisor_name}`}>
-                          {DetailData?.data[0]?.createdBy}
+                          {DetailData?.data?.data?.created_by}
                         </span>
                       </li>
                       <li>
                         <label>Người giám sát:</label>
                         <span className={`${styles.nqt_supervisor_name}`}>
-                          {DetailData?.data[0]?.supervisorName}
+                          {DetailData?.data?.data?.supervisor_name}
                         </span>
                       </li>
                     </div>
@@ -127,7 +130,7 @@ export default function RegulationDetailModal({
                         <label>Có hiệu lực từ:</label>
                         <span className={`${styles.nqt_created_at}`}>
                           {format(
-                            new Date(DetailData?.data[0]?.timeStart),
+                            new Date(DetailData?.data?.data?.time_start),
                             'dd/MM/yyyy'
                           )}
                         </span>
@@ -135,7 +138,7 @@ export default function RegulationDetailModal({
                       <li>
                         <label>Đối tượng thi hành:</label>
                         <span className={`${styles.nqt_created_at}`}>
-                          {DetailData?.data[0]?.applyFor}
+                          {DetailData?.data?.data?.apply_for}
                         </span>
                       </li>
                     </div>
@@ -151,7 +154,7 @@ export default function RegulationDetailModal({
                         wordWrap: 'break-word',
                       }}>
                       <li className={`${styles.nqd_content}`}>
-                        <p>{DetailData?.data[0]?.content}</p>
+                        <p>{DetailData?.data?.data?.content}</p>
                       </li>
                     </div>
                   </div>
@@ -176,7 +179,7 @@ export default function RegulationDetailModal({
                   }}
                   className={`${styles.btn_cancel}`}
                   onClick={(event: any) =>
-                    handleOpenUpdate(DetailData?.data[0]?.id, event)
+                    handleOpenUpdate(DetailData?.data?.data?.id, event)
                   }>
                   Sửa
                 </button>

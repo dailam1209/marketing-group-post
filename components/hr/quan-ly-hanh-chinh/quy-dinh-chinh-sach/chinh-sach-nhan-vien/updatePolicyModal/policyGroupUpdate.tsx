@@ -64,7 +64,7 @@ export default function UpdatePolicyGroupsModal({ onCancel, idGroup }: UpdatePol
     const fetchData = async () => {
       try {
         const response = await PolicyGroupDetail(idGroup)
-        setDetailData(response?.data)
+        setDetailData(response?.success)
       } catch (error) {
         throw error
       }
@@ -73,7 +73,7 @@ export default function UpdatePolicyGroupsModal({ onCancel, idGroup }: UpdatePol
   }, [])
 
   useEffect(() => {
-    const timeStart = DetailData?.data[0]?.timeStart;
+    const timeStart = DetailData?.data?.data?.time_start;
     const inputElement = document.getElementById('time-start') as HTMLInputElement;
 
     if (timeStart && inputElement) {
@@ -102,7 +102,7 @@ export default function UpdatePolicyGroupsModal({ onCancel, idGroup }: UpdatePol
         name: name || "",
         time: time_start || "",
         supervisor: supervisor_name || "",
-        note: description || DetailData?.data[0]?.description || "",
+        note: description || DetailData?.data?.data?.description || "",
       };
 
       await validationSchema.validate(formDatas, {
@@ -118,7 +118,7 @@ export default function UpdatePolicyGroupsModal({ onCancel, idGroup }: UpdatePol
         formData.append("description", description);
       }
       else {
-        formData.append("description", DetailData?.data[0]?.description);
+        formData.append("description", DetailData?.data?.data?.description);
       }
       if (provisionFile) {
         formData.append("employeePolicy", provisionFile);
@@ -167,12 +167,12 @@ export default function UpdatePolicyGroupsModal({ onCancel, idGroup }: UpdatePol
                 <h5 className={`${styles.modal_tittle}`}>CHỈNH SỬA NHÓM CHÍNH SÁCH</h5>
               </div>
               <form action="">
-                {DetailData?.data[0] &&
+                {DetailData?.data?.data &&
                   <div className={`${styles.modal_body} ${styles.body_process}`}>
                     <div className={`${styles.form_groups}`}>
                       <label htmlFor="">Tên nhóm <span style={{ color: 'red' }}> * </span></label>
                       <div className={`${styles.input_right}`}>
-                        <input type="text" id="names" defaultValue={DetailData?.data[0]?.name} placeholder="Nhập tên nhóm" className={`${styles.input_process}`} />
+                        <input type="text" id="names" defaultValue={DetailData?.data?.data?.name} placeholder="Nhập tên nhóm" className={`${styles.input_process}`} />
                         <span> {errors.name && <div className={`${styles.t_require} `}>{errors.name}</div>}</span>
                       </div>
                     </div>
@@ -186,7 +186,7 @@ export default function UpdatePolicyGroupsModal({ onCancel, idGroup }: UpdatePol
                     <div className={`${styles.form_groups}`}>
                       <label htmlFor="">Người giám sát <span style={{ color: 'red' }}> * </span></label>
                       <div className={`${styles.input_right}`}>
-                        <input type="text" id="supervisor-name" placeholder="Người giám sát" defaultValue={DetailData?.data[0]?.supervisorName} className={`${styles.input_process}`} />
+                        <input type="text" id="supervisor-name" placeholder="Người giám sát" defaultValue={DetailData?.data?.data?.supervisor_name} className={`${styles.input_process}`} />
                         <span> {errors.supervisor && <div className={`${styles.t_require} `}>{errors.supervisor}</div>}</span>
                       </div>
                     </div>
@@ -195,7 +195,7 @@ export default function UpdatePolicyGroupsModal({ onCancel, idGroup }: UpdatePol
                         <span > {errors.note && <div className={`${styles.t_require} `}>{errors.note}</div>}</span>
                       </span></label>
                       <div className={`${styles.ckeditor}`}>
-                        <Input_textarea content={DetailData?.data[0]?.description} onDescriptionChange={handleDescriptionChange} />
+                        <Input_textarea content={DetailData?.data?.data?.description} onDescriptionChange={handleDescriptionChange} />
                       </div>
                     </div>
                     <div className={`${styles.form_groups}`}>

@@ -229,10 +229,13 @@ export default function CandidateAddModal({ onCancel, animation }: any) {
 
   console.log(isEmpList);
 
+  console.log(isNewList);
+
+
   const chonvitrituyendungOptions = useMemo(
     () =>
       isNewList &&
-      isNewList?.data?.data?.map((news: any) => ({
+      isNewList?.success?.data?.data?.map((news: any) => ({
         value: news.id,
         label: news.title,
       })),

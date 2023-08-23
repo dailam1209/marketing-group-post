@@ -45,7 +45,7 @@ export default function CandidateRepo({ children }: any) {
       }
     }
     fetchData()
-  }, [isSeach, currentPage, isGender, isRecruitmentNewsId])
+  }, [isSeach, currentPage])
 
   console.log(isCandidateList);
 
@@ -55,7 +55,7 @@ export default function CandidateRepo({ children }: any) {
       try {
         const response = await GetListNews(1, 2000, '', '', '')
         if (response) {
-          setNewsList(response?.data)
+          setNewsList(response?.data?.success)
         }
       } catch (error) {
         throw error
@@ -94,6 +94,9 @@ export default function CandidateRepo({ children }: any) {
   const handleSearch = useCallback(() => {
     setSearch({ isGender })
   }, [isGender])
+
+  console.log(isNewList);
+
 
   const chonvitrituyendungOptions = useMemo(
     () =>
