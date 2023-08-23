@@ -33,7 +33,7 @@ export default function EmployeePolicy({ iconAdd, iconEdit, iconDelete }) {
     const fetchData = async () => {
       try {
         const response = await PolicyList(currentPage, 5, isKey)
-        setData(response?.data)
+        setData(response?.success)
       } catch (error) {
       }
     }
@@ -48,7 +48,7 @@ export default function EmployeePolicy({ iconAdd, iconEdit, iconDelete }) {
     } else {
       try {
         const response = await PolicyByGroupList(itemId);
-        const dataResponse = response?.data?.data
+        const dataResponse = response?.success?.data?.data
         const updatedDataChildList = [...dataChildList, { id: itemId, data: dataResponse }];
         setDataChildList(updatedDataChildList);
         setDataChild(response?.data);
@@ -147,8 +147,8 @@ export default function EmployeePolicy({ iconAdd, iconEdit, iconDelete }) {
               </div>
             </div>
             <div className={`${styles.member_list} ${styles.regulation_item}`}>
-              {data?.tongSoBanGhi !== 0 ? (
-                data?.data?.map((item: any, index: any) => (
+              {data?.data?.total !== 0 ? (
+                data?.data?.data?.map((item: any, index: any) => (
                   <div className={`${styles.quydinh_item} `} key={index}>
                     <div className={`${styles.quydinh_item1}`}>
                       <div className={`${styles.quydinh_item2}`} onClick={() => handleSeemore(item?.id)}>

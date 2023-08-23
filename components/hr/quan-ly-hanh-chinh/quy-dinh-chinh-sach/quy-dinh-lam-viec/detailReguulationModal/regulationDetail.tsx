@@ -157,8 +157,8 @@ export default function RegulationDetailModal({
                   </div>
                   <div
                     className={`${styles.infors1} ${styles.preview_file_provision}`}>
-                    <a style={{ color: '#337ab7', fontWeight: 600 }} href=''>
-                      Xem chi tiết file đính kèm
+                    <a style={{ color: '#337ab7', fontWeight: 600, cursor: "pointer" }} >
+                      Xem chi tiết file đính kèm <span className={`${styles.green}`}>(Tải về)</span>
                     </a>
                   </div>
                 </div>
