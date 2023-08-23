@@ -67,7 +67,7 @@ export const BackButton = ({
   }
 
   return (
-    <div className={styles.backButton} onClick={onBackClick}>
+    <div className={styles.backButton}>
       <Image
         alt='/'
         src={isCC ? '/back-w.png' : '/back.png'}
@@ -75,6 +75,7 @@ export const BackButton = ({
         height={16}
       />
       <p
+        onClick={onBackClick}
         className={styles.backTxt}
         style={{ color: `${color}`, fontSize: '16px' }}>
         Quay lại

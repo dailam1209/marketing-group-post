@@ -9,7 +9,14 @@ export function xuatCong(data: DataType[]) {
       title: <p style={{ color: '#fff' }}>Ảnh</p>,
       dataIndex: 'url',
       align: 'center',
-      render: (record) => <Image src={record} alt='/' width={46} height={46} />,
+      render: (record) => (
+        <Image
+          src={record?.avatarUser || '/img/logo_com.png'}
+          alt='/'
+          width={46}
+          height={46}
+        />
+      ),
       width: 100,
     },
     {

@@ -32,7 +32,6 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [hasTokens, setHasTokens] = useState(false);
   const router = useRouter();
-
   useEffect(() => {
     const accToken = Cookies.get("token_base365");
     const rfToken = Cookies.get("rf_token");
@@ -285,7 +284,7 @@ export default function Home() {
                               md={12}
                               xl={8}
                               xs={24}
-                            // onClick={() => setOpenModalConfirm(true)}
+                              // onClick={() => setOpenModalConfirm(true)}
                             >
                               <QLC_item
                                 title="Chấm công"
@@ -318,6 +317,7 @@ export default function Home() {
                               <QLC_item
                                 title="Tính lương"
                                 img={"../img/qlc_tl.png"}
+                                url={userRole == 2 ? "tinh-luong/quan-ly/nhan-vien" : userRole == 1 ? "tinh-luong/cong-ty/trang-chu" : "dang-nhap-nhan-vien.html" }
                               />
                             </Col>
                             <Col
@@ -372,7 +372,7 @@ export default function Home() {
                                 title="Phần mềm CRM"
                                 img={"../img/qlc_crm.png"}
                                 url="/crm"
-                              // url="/crm/home"
+                                // url="/crm/home"
                               />
                             </Col>
                             <Col
@@ -648,7 +648,7 @@ export default function Home() {
                                 md={12}
                                 xl={8}
                                 xs={24}
-                              //   onClick={() => setOpenModalConfirm(true)}
+                                //   onClick={() => setOpenModalConfirm(true)}
                               >
                                 <QLC_item
                                   title="Chấm công"

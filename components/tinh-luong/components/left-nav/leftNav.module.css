@@ -1,0 +1,72 @@
+.main {
+   width: 270px;
+   float: left;
+   background: #ffffff;
+   box-shadow: 0px 0px 20px rgba(55, 63, 255, 0.1);
+   clip-path: inset(0px -20px 0px 0px);
+}
+.shell {
+   padding-bottom: 30px;
+}
+.hps_part_one {
+   width: 95%;
+   margin: auto;
+}
+.hps_part_one_avt {
+   width: 100%;
+   float: left;
+   padding-bottom: 14px;
+   border-bottom: 1px solid #d4e2f3;
+   text-align: center;
+}
+.hps_part_three {
+   margin-bottom: 20px;
+}
+.hps_nav {
+   width: 100%;
+   float: left;
+   padding-top: 10px;
+}
+.hps_icon {
+   width: 100%;
+   float: left;
+   position: relative;
+   display: flex;
+   padding-left: 20px;
+   gap: 10px;
+   padding-top: 10px;
+}
+.hps_li :hover {
+   color: #4c5bd4 !important;
+   background: rgba(76, 91, 212, 0.1);
+}
+.hps_nav > ul {
+   width: 100%;
+   float: left;
+   position: relative;
+}
+.hps_nav > ul > li {
+   width: 100%;
+   float: left;
+   list-style-type: none;
+   cursor: pointer;
+}
+.hps_icon > svg {
+   left: 15px;
+   top: 10px;
+   margin-right: 13px;
+   margin-bottom: 11px;
+}
+.hps_icon > a {
+   color: var(--text-miu-t, #68798b);
+   font-family: Roboto;
+   font-size: 15px;
+   font-style: normal;
+   font-weight: 400;
+   line-height: 20px;
+}
+@media (max-width: 1024px) {
+   .main {
+      display: none;
+   }
+}

@@ -15,8 +15,8 @@ import { NavigateContextComponent } from "@/components/crm/context/navigateConte
 import TitleHeaderMobile from "@/components/crm/header/title_header_mobile";
 import styles from "@/components/crm/sidebar/sidebar.module.css";
 // import "@/styles/crm/stylecrm.css";
-// import "@/styles/crm/styles.css";
-// import "@/styles/crm/hight_chart.css";
+// import "@/styles/crm/styles.css"
+// import "@/styles/crm/hight_chart.css"
 import Layout from "@/components/hr/Layout";
 import Head from "next/head";
 import Seo from "@/components/head";
@@ -29,6 +29,9 @@ import Layout_user from "@/components/VanThu/Layout_user";
 import { setCookie } from "cookies-next";
 import { store } from "@/components/crm/redux/store";
 import io from "socket.io-client";
+import Layout_Tinh_Luong from "../components/tinh-luong/components/Layout";
+import ComponentEmpty from "../components/tinh-luong/components/component_empty"
+import Dangnhap from "../pages/tinh-luong/dangnhap"
 
 export const LoadingComp = () => {
   return (
@@ -59,7 +62,6 @@ export default function App({ Component, pageProps }) {
       const end = () => {
         setLoading(false);
       };
-      console.log(loading);
       setTimeout(() => {
         router.events.on("routeChangeStart", start);
       }, 200);
@@ -78,7 +80,6 @@ export default function App({ Component, pageProps }) {
     } else {
     }
   }, [router?.pathname]);
-
 
   useEffect(() => {
     if (!router.pathname.includes("/phan-mem-nhan-su/")) {
@@ -102,7 +103,12 @@ export default function App({ Component, pageProps }) {
       import("../styles/globals_vanthu.css");
     } else if (router.pathname?.includes("/cham-cong")) {
       import("@/styles/globals.css");
-    } else {
+    }
+    else if (router.pathname.includes("tinh-luong")){
+      import("@/styles/tinh-luong/globals_tinh_luong.css")
+      import("@/styles/tinh-luong/Home_tinh_luong.module.css")
+    }
+    else {
     }
   };
 
@@ -197,7 +203,19 @@ export default function App({ Component, pageProps }) {
                 </>
               )}
             </Provider>
-          ) : (
+          ) :router.pathname?.includes('tinh-luong') ? (
+            <>
+              {router.pathname?.includes('tinh-luong/quan-ly') && role && role ==="2" ?(
+                <Layout_Tinh_Luong>
+                <Component {...pageProps} />
+              </Layout_Tinh_Luong>
+              ) : router.pathname?.includes('tinh-luong/cong-ty') && role && role ==="1" ? (
+                <Layout_Tinh_Luong>
+                <Component {...pageProps} />
+              </Layout_Tinh_Luong>
+              ) : <Dangnhap></Dangnhap>}
+            </>
+          ): (
             <Component {...pageProps} />
           )}
         </ConfigProvider>
@@ -205,5 +223,5 @@ export default function App({ Component, pageProps }) {
         <LoadingComp />
       )}
     </>
-  );
+  )
 }

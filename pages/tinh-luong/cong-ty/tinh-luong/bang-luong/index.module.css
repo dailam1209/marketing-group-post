@@ -1,0 +1,140 @@
+.table_container {
+   width: 97.5%;
+   float: left;
+   overflow-x: auto;
+   white-space: nowrap;
+   min-height: 240px;
+   margin-right: 10px;
+   margin-left: 10px;
+}
+.information {
+   width: 95%;
+   margin-left: 20px;
+}
+.excel {
+   width: 100%;
+}
+.content {
+   width: 95%;
+   float: left;
+   background: #ffffff;
+   box-shadow: 0px 0px 20px rgba(55, 63, 255, 0.1);
+   border-radius: 10px;
+   float: left;
+   margin-left: 2.5%;
+   margin-top: 60px;
+   margin-bottom: 15px;
+}
+.container {
+   width: 80%;
+}
+.h3 {
+   width: 100%;
+   float: left;
+   font-weight: bold;
+   font-size: 24px;
+   line-height: 28px;
+   color: #2e3467;
+   padding-bottom: 5px;
+   padding-top: 15px;
+}
+.bottom {
+   display: flex;
+   flex-direction: column;
+   width: 100%;
+}
+.select_time {
+   display: flex;
+   width: 97.5%;
+   gap: 20px;
+   justify-content: flex-end;
+   padding-bottom: 40px;
+}
+.select_p {
+   display: flex;
+   align-items: center;
+   gap: 10px;
+}
+.button {
+   padding: 7px 20px;
+   background: #4c5bd4;
+   color: #fff;
+   height: 33px;
+   cursor: pointer;
+   border: 1px solid #ebebeb;
+   border-radius: 7px;
+   margin-top: 7px;
+   margin-right: 10px;
+}
+.current {
+   background: #edeffb;
+   text-align: left;
+   padding: 15px 30px;
+   font-weight: 500;
+   width: 100%;
+}
+.export {
+   float: left;
+   font-weight: 500;
+   font-size: 15px;
+   line-height: 16px;
+   color: #ffffff;
+   padding: 10px 40px 10px 40px;
+   margin-bottom: 50px;
+   background: #4c5bd4;
+   border-radius: 5px;
+   border: none;
+   margin-left: 30px;
+   margin-top: 30px;
+   cursor: pointer;
+}
+
+.search-icon {
+   position: absolute;
+   width: 10px;
+   height: 10px;
+}
+
+.infor {
+   display: flex;
+   gap: 15px;
+}
+.id {
+   display: flex;
+   flex-direction: column;
+   justify-content: space-around;
+}
+.img {
+   width: 45px;
+   height: 45px;
+   border-radius: 50%;
+}
+.video {
+   padding-bottom: 70px;
+   text-align: center;
+}
+.table {
+}
+.p {
+   color: #68798b;
+   font-size: 14px;
+}
+.user {
+   display: flex;
+   flex-direction: column;
+   gap: 12px;
+   align-items: start;
+}
+.cate_ct_tow_cate_pay_tow {
+   clear: both;
+   margin-top: 30px;
+   text-align: left;
+   float: right;
+   display: flex;
+}
+.selection {
+   margin-right: 10px;
+}
+.formItem {
+   margin-right: 10px;
+}
