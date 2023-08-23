@@ -39,11 +39,19 @@ export default function UpdateFace() {
           fd.append('image', imgData)
           fd.append('isAndroid', 'false')
           const res = await axios.post(
-            'http://43.239.223.154:8081/updateFace',
-            fd,
+            // 'http://43.239.223.154:8081/updateFace',
+            '/api/api_updateFace',
+            {
+              company_id: comp_id,
+              user_id: user_id,
+              image: imgData,
+              isAndroid: 'false',
+            },
+            // fd,
             {
               headers: {
-                'Content-Type': 'multipart/form-data',
+                'Content-Type': 'application/json',
+                // 'Content-Type': 'multipart/form-data',
               },
             }
           )
@@ -120,14 +128,16 @@ const MyWebcam = ({ list, setList }: { list: any[]; setList: any }) => {
   return (
     <>
       <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          height: '100%',
-        }}>
+        style={
+          {
+            // display: 'flex',
+            // alignItems: 'center',
+            // justifyContent: 'center',
+            // height: '100%',
+          }
+        }>
         <Webcam
-          className={styles.webcamCapture}
+          // className={styles.webcamCapture}
           audio={false}
           // height={971}
           ref={webcamRef}

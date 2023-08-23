@@ -121,6 +121,7 @@ export const MyDatePicker = (
         size='large'
         picker={type}
         placeholder={placeholder}
+        format={'DD-MM-YYYY'}
         style={{
           border: '1px solid #9F9F9F',
           width: '100%',

@@ -7,15 +7,20 @@ import {
   List,
   Checkbox,
   DatePicker,
+  InputNumber,
 } from 'antd'
 import styles from './modal-them-moi-luong.module.css'
 import Image from 'next/image'
 import { values } from 'lodash'
 import React, { useState } from 'react'
-import { Logo, IconSelect } from '@/components/cai-dat-luong/cai-dat-thue/danh-sach-nhan-su-chua-thiet-lap/anh'
+import {
+  Logo,
+  IconSelect,
+} from '@/components/cai-dat-luong/cai-dat-thue/danh-sach-nhan-su-chua-thiet-lap/anh'
 import moment from 'moment'
 import { POST_TL } from '@/pages/api/BaseApi'
 import { useRouter } from 'next/router'
+import dayjs from 'dayjs'
 const { TextArea } = Input
 const loai = [
   {
@@ -44,14 +49,19 @@ export function ModalThemMoiLuong(
       // sb_lydo: val?.sb_lydo,
       // sb_quyetdinh: val?.sb_quyetdinh,
       ...val,
-      sb_time_up: moment(val?.sb_time_up)?.format('YYYY-MM-DD'),
+      sb_time_up: dayjs(val?.sb_time_up)?.format('YYYY-MM-DD'),
       sb_id_user: info?.info_dep_com?.user?.idQLC,
       sb_id_com: info?.info_dep_com?.user?.inForPerson?.employee?.com_id,
+      sb_lydo: val?.sb_lydo || '',
+      sb_quyetdinh: val?.sb_quyetdinh || '',
+      sb_salary_bh: val?.sb_salary_bh || 0,
+      sb_pc_bh: val?.sb_pc_bh || 0,
     }
-    // console.log(body)
+    console.log(body)
     const res = await POST_TL('api/tinhluong/congty/insert_basic_salary', body)
-    // console.log(res)
+    console.log(res)
 
+    // console.log(body)
     router.replace(router.asPath)
   }
 
@@ -87,10 +97,14 @@ export function ModalThemMoiLuong(
                   message: 'Trường này là bắt buộc',
                 },
               ]}>
-              <Input
+              <InputNumber
                 size='large'
                 placeholder='Nhập lương'
                 className={styles.inputname}
+                formatter={(value) =>
+                  `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                }
+                style={{ width: '100%' }}
                 suffix='VNĐ'
               />
             </Form.Item>
@@ -98,12 +112,13 @@ export function ModalThemMoiLuong(
               labelCol={{ span: 24 }}
               label='Lương đóng bảo hiểm'
               name={'pc'}
-              rules={[
-                {
-                  required: true,
-                  message: 'Trường này là bắt buộc',
-                },
-              ]}>
+              // rules={[
+              //   {
+              //     required: true,
+              //     message: 'Trường này là bắt buộc',
+              //   },
+              // ]}
+            >
               <Input
                 size='large'
                 placeholder='Nhập lương đóng bảo hiểm'
@@ -115,12 +130,13 @@ export function ModalThemMoiLuong(
               labelCol={{ span: 24 }}
               label='Phụ cấp đóng bảo hiểm'
               name={'luong'}
-              rules={[
-                {
-                  required: true,
-                  message: 'Trường này là bắt buộc',
-                },
-              ]}>
+              // rules={[
+              //   {
+              //     required: true,
+              //     message: 'Trường này là bắt buộc',
+              //   },
+              // ]}
+            >
               <Input
                 size='large'
                 placeholder='Nhập lương'
@@ -141,6 +157,7 @@ export function ModalThemMoiLuong(
               <DatePicker
                 size='large'
                 style={{ width: '100%' }}
+                format={'DD-MM-YYYY'}
                 placeholder='Chọn ngày'
                 className={styles.inputname}
               />
@@ -166,7 +183,7 @@ export function ModalThemMoiLuong(
                 placeholder='Căn cứ quyết định'
                 className={styles.inputname}
                 options={loai}
-                suffixIcon = {<IconSelect/>}
+                suffixIcon={<IconSelect />}
               />
             </Form.Item>
 

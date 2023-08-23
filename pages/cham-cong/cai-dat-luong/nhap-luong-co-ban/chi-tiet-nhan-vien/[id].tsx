@@ -36,7 +36,9 @@ export default function ChiTietNhanVien({ detailInfo }) {
   const [modalChinhSuaLuongCoBan, setModalChinhSuaLuongCoBan] = useState(false)
   const [modalThemHopDong, setModalThemHopDong] = useState(false)
   const [modalXoaCon, setModalXoaCon] = useState(false)
-  const [ND, setND] = useState(detailInfo?.info_dep_com?.user?.inForPerson?.employee?.ep_description)
+  const [ND, setND] = useState(
+    detailInfo?.info_dep_com?.user?.inForPerson?.employee?.ep_description
+  )
   const [selectedBasicSalRow, setSelectedBasicSalRow] = useState()
   const [selectedCon, setSelectedCon] = useState()
 
@@ -356,9 +358,9 @@ export default function ChiTietNhanVien({ detailInfo }) {
   const positionLabel = getPosition?.map((p) => ({
     label: p?.value,
     value: p?.id,
-  }));
+  }))
 
-  const  handleSaveDescriptionEmp = () => {
+  const handleSaveDescriptionEmp = () => {
     setModalGioiThieu(false)
     setModalText(true)
   }
@@ -400,8 +402,12 @@ export default function ChiTietNhanVien({ detailInfo }) {
                 </p>
                 <p className={styles.vitri}>
                   {
-                    positionLabel?.find( p => p?.value === detailInfo?.info_dep_com?.user?.inForPerson?.employee
-                      ?.position_id)?.label
+                    positionLabel?.find(
+                      (p) =>
+                        p?.value ===
+                        detailInfo?.info_dep_com?.user?.inForPerson?.employee
+                          ?.position_id
+                    )?.label
                   }
                 </p>
               </div>
@@ -415,8 +421,7 @@ export default function ChiTietNhanVien({ detailInfo }) {
               <button
                 style={{ border: 'none' }}
                 onClick={() => {
-                  setModalGioiThieu(true), 
-                  setModalText(false)
+                  setModalGioiThieu(true), setModalText(false)
                 }}>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
@@ -434,11 +439,7 @@ export default function ChiTietNhanVien({ detailInfo }) {
                 </svg>
               </button>
             </div>
-            {modalText ? (
-              <p className={styles.thanhtich}>{ND}</p>
-            ) : (
-              <></>
-            )}
+            {modalText ? <p className={styles.thanhtich}>{ND}</p> : <></>}
             {modalGioiThieu ? (
               <div className={styles.formgioithieu}>
                 <TextArea
@@ -456,7 +457,9 @@ export default function ChiTietNhanVien({ detailInfo }) {
                     }}>
                     <p className={styles.textb1}>Huỷ</p>
                   </button>
-                  <button className={styles.buttonb2} onClick={handleSaveDescriptionEmp}>
+                  <button
+                    className={styles.buttonb2}
+                    onClick={handleSaveDescriptionEmp}>
                     <p className={styles.textb2}>Lưu thông tin</p>
                   </button>
                 </div>
@@ -539,7 +542,12 @@ export default function ChiTietNhanVien({ detailInfo }) {
                   <p>
                     Giới tính:{' '}
                     {detailInfo?.info_dep_com?.user?.inForPerson?.account
-                      ?.gender || 'Chưa cập nhật'}
+                      ?.gender
+                      ? detailInfo?.info_dep_com?.user?.inForPerson?.account
+                          ?.gender === 1
+                        ? 'Nữ'
+                        : 'Nam'
+                      : 'Chưa cập nhật'}
                   </p>
                   <p>
                     Mã nhân viên:{' '}
@@ -547,8 +555,9 @@ export default function ChiTietNhanVien({ detailInfo }) {
                   </p>
                   <p>
                     Chức vụ:{' '}
-                    {detailInfo?.info_dep_com?.user?.inForPerson?.employee
-                      ?.position_id || 'Chưa cập nhật'}
+                    {positionLabel?.[
+                      `${detailInfo?.info_dep_com?.user?.inForPerson?.employee?.position_id}`
+                    ]?.label || 'Chưa cập nhật'}
                   </p>
                   <p>
                     Ngày bắt đầu làm:{' '}
