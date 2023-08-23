@@ -13,22 +13,22 @@ const HomePageLogin: React.FC = () => {
     <div className={styles.main}>
       <Helmet>
         <meta name="viewport" content="width=device-width" initial-scale="1" />
-        <meta name="robots" content="index,follow" />
-        <title>Phần mềm CRM 365 - Quản lý Quan hệ khách hàng miễn phí</title>
+        <meta name="robots" content="noindex,nofollow" />
+        <title>CRM 365 - đáp án của bài toán tối ưu quy trình, gia tăng lợi nhuận</title>
         <meta
           name="description"
-          content="Phần mềm CRM 365 giúp quản lý quan hệ khách hàng miễn phí. Tham khảo và download ngay phần mềm CRM miễn phí, tốt nhất hiện nay"
+          content="CRM 365 được đánh giá là công cụ tốt nhất hiện nay trong việc kết nối khách hàng và doanh nghiệp. Phần mềm chú trọng vào các nhiệm vụ hỗ trợ doanh nghiệp tăng tập khách hàng tiềm năng và thân thiết, tăng doanh thu và tối ưu chi phí. Đăng ký hôm nay, lợi ích đến ngay!"
         />
         <meta name="Keywords" content="Phần mềm CRM, phần mềm crm miễn phí" />
         <meta property="og:locale" content="vi_VN" />
         <meta property="og:type" content="website" />
         <meta
           property="og:title"
-          content="Phần mềm CRM 365 - Phần mềm Quản lý Quan hệ khách hàng miễn phí"
+          content="CRM 365 - đáp án của bài toán tối ưu quy trình, gia tăng lợi nhuận"
         />
         <meta
           property="og:description"
-          content="Phần mềm CRM 365 giúp quản lý quan hệ khách hàng miễn phí. Tham khảo và download ngay phần mềm CRM miễn phí, tốt nhất hiện nay"
+          content="CRM 365 được đánh giá là công cụ tốt nhất hiện nay trong việc kết nối khách hàng và doanh nghiệp. Phần mềm chú trọng vào các nhiệm vụ hỗ trợ doanh nghiệp tăng tập khách hàng tiềm năng và thân thiết, tăng doanh thu và tối ưu chi phí. Đăng ký hôm nay, lợi ích đến ngay!"
         />
         <meta
           property="og:image"
@@ -37,27 +37,19 @@ const HomePageLogin: React.FC = () => {
         <meta name="twitter:card" content="summary" />
         <meta
           name="twitter:description"
-          content="Phần mềm CRM 365 giúp quản lý quan hệ khách hàng miễn phí. Tham khảo và download ngay phần mềm CRM miễn phí, tốt nhất hiện nay"
+          content="CRM 365 được đánh giá là công cụ tốt nhất hiện nay trong việc kết nối khách hàng và doanh nghiệp. Phần mềm chú trọng vào các nhiệm vụ hỗ trợ doanh nghiệp tăng tập khách hàng tiềm năng và thân thiết, tăng doanh thu và tối ưu chi phí. Đăng ký hôm nay, lợi ích đến ngay!"
         />
         <meta
           name="twitter:title"
-          content="Phần mềm CRM 365 - Phần mềm Quản lý Quan hệ khách hàng miễn phí"
+          content="CRM 365 - đáp án của bài toán tối ưu quy trình, gia tăng lợi nhuận"
         />
-        <link rel="canonical" href="https://crm.timviec365.vn/" />
+        <link rel="canonical" href="https://hungha365.com/crm" />
 
         {/* CSS */}
         <script
           async
           src="https://www.googletagmanager.com/gtm.js?id=GTM-NXVQCHN"
         ></script>
-        <script src="https://code.jquery.com/jquery-latest.js"></script>
-        <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
-        />
-        <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="assets/css/home.css" />
-        <link rel="stylesheet" href="/assets/css/home_page.css?v=63" />
 
         {/* Google Tag Manager */}
         <script async>{/* Script content */}</script>
@@ -70,7 +62,7 @@ const HomePageLogin: React.FC = () => {
       <div className={styles.banner}>
         <div className={styles["banner-left"]}>
           <div className={styles["text-top"]}>
-            <h1 className={styles["title_banner"]}>Phần mềm CRM 365</h1>
+            <h1 className={styles["title_banner"]}>CRM – gắn kết doanh nghiệp – khách hàng bền vững</h1>
             <p className={styles["title_content_banner"]}>
               Công ty gắn kết khách hàng với doanh nghiệp
             </p>
