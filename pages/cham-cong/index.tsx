@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import styles from '../../styles/Home.module.css'
-import { Row, Col, Card, ConfigProvider } from 'antd'
+import { Row, Col, Card, ConfigProvider, Input } from 'antd'
 import Image from 'next/image'
 import { useContext, useState, useEffect, createContext } from 'react'
 import { THEME_COLOR } from '../../constants/style-constants'
@@ -47,6 +47,7 @@ export default function HomeQLNS() {
   const [selectedUrl, setSelectedUrl] = useState('')
   const [openConfirm, setOpenConfirm] = useState(false)
   const [selectedBtn, setSelectedBtn] = useState<any>()
+  const [showModal, setShowModal] = useState(false)
   // set to localStorage
   useEffect(() => {
     const value = localStorage.getItem('selectedBtnIndex') || '0'
@@ -305,6 +306,32 @@ export default function HomeQLNS() {
     return type === '1' ? ADMIN : EMP
   }
 
+  // modal đăng nhập
+  const modalSignIn = () => {
+    const children = () => (
+      <>
+        <p>Nếu bạn có tài khoản rồi thì đăng nhập tại đây</p>
+        <Input />
+        <Input />
+      </>
+    )
+
+    return ModalWrapper(
+      showModal,
+      setShowModal,
+      children,
+      600,
+      '',
+      '',
+      () => null,
+      false,
+      true,
+      false,
+      false,
+      false
+    )
+  }
+
   const RenderedBody = () => {
     const type = getCookie('role') || '1'
     if (type)
@@ -344,6 +371,7 @@ export default function HomeQLNS() {
       <main>
         <RenderedBody />
       </main>
+      {modalSignIn()}
     </>
   )
 }

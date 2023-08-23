@@ -261,6 +261,7 @@ export const NhapLuongCoBan = ({
                 'Tên',
                 'Lương cơ bản',
                 'Phần trăm hợp đồng',
+                'Lương thực nhận',
                 'Lương bảo hiểm',
                 'Phòng ban',
                 'Chức vụ',
@@ -274,6 +275,7 @@ export const NhapLuongCoBan = ({
                     item?.userName,
                     item?.luong_co_ban,
                     item?.phan_tram_hop_dong,
+                    item?.luong_thuc_nhan,
                     item?.luong_bao_hiem,
                     item?.department?.[0]?.dep_name || 'Chưa cập nhật',
                     positionLabel?.[item?.inForPerson?.employee?.position_id]
