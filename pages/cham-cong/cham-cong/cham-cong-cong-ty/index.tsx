@@ -76,8 +76,7 @@ export default function ChamCongCongTy() {
           },
           {
             headers: {
-              // 'Content-type': 'application/x-www-form-urlencoded',
-              'Content-Type': 'application/json',
+              'Content-type': 'application/x-www-form-urlencoded',
             },
           }
         )

@@ -12,6 +12,7 @@ export default async function handler(req, res) {
           image: body?.image,
         },
       ],
+
       {
         headers: {
           'Content-Type': 'application/json',
