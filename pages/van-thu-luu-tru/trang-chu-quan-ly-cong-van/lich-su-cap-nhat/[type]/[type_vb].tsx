@@ -134,7 +134,7 @@ const Index = (props: any) => {
         try {
           const response = await fetchData(
             token,
-            "/api/vanthu/history/getDetailHistoryUpdate",
+            "api/vanthu/history/getDetailHistoryUpdate",
             {
               type,
               type_vb: result_type_vb[0],
@@ -164,7 +164,7 @@ const Index = (props: any) => {
         try {
           const response = await fetchData(
             token,
-            "/api/vanthu/history/getDetailHistoryUpdate",
+            "api/vanthu/history/getDetailHistoryUpdate",
             {
               type,
               type_vb: result_type_vb[1],

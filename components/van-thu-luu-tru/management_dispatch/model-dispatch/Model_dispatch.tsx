@@ -138,7 +138,7 @@ const Modal: React.FC<ModalProps> = ({
             formdata.append("file", values.file);
           }
           try {
-            const apiURL = `${baseURL}/api/vanthu/listVanBan/createIncomingText`;
+            const apiURL = `${baseURL}api/vanthu/listVanBan/createIncomingText`;
             const response = await axios.post(apiURL, formdata, {
               headers: {
                 "Content-Type": "multipart/form-data",

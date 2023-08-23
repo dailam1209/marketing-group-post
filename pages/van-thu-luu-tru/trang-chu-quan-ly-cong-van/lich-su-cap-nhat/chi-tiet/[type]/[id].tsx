@@ -18,7 +18,7 @@ const Index = () => {
         try {
           const response = await fetchData(
             token,
-            "/api/vanthu/history/getDetailHistoryUpdate",
+            "api/vanthu/history/getDetailHistoryUpdate",
             { type: type }
           );
           const selectedItem = response?.data?.data.find(

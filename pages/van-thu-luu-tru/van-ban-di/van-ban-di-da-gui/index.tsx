@@ -30,7 +30,7 @@ const Index = ({ data }: any) => {
           from_to_date={false}
           dataArray={dataArray}
           url="van-ban-di-da-gui"
-          api="/api/vanthu/guiNhanCongVan/vanBanDi/getListVanBanDiDaGui"
+          api="api/vanthu/guiNhanCongVan/vanBanDi/getListVanBanDiDaGui"
           onDataArrayChange={handleDataArrayChange}
           onResetArray={resetArray}
         />
@@ -61,7 +61,7 @@ export async function getServerSideProps(context: {
     }
     const data = await fetchData(
       token,
-      "/api/vanthu/guiNhanCongVan/vanBanDi/getListVanBanDiDaGui"
+      "api/vanthu/guiNhanCongVan/vanBanDi/getListVanBanDiDaGui"
     );
     return {
       props: {

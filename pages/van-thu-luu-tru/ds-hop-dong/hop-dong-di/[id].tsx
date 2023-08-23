@@ -19,7 +19,7 @@ const Index = () => {
         try {
           const response = await fetchData(
             token,
-            "/api/vanthu/listVanBan/getDetail",
+            "api/vanthu/listVanBan/getDetail",
             { id: id }
           );
           if (response) {
@@ -106,7 +106,7 @@ const Index = () => {
                     height={18}
                     alt=""
                     onClick={() => {
-                      router.push("/ds-van-ban/vb-den");
+                      router.push("/van-thu-luu-tru/ds-van-ban/vb-den");
                     }}
                   />
                   <p className={styles.title_list}>

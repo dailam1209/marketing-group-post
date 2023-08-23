@@ -15,7 +15,7 @@ const Index = () => {
         try {
           const response = await fetchData(
             token,
-            "/api/vanthu/dataDelete/getDataDidDelete"
+            "api/vanthu/dataDelete/getDataDidDelete"
           );
           setData(response?.data);
           setdataDetail(response?.data?.data?.list);

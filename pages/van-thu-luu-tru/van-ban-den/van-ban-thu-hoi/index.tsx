@@ -28,7 +28,7 @@ const Revocation_doc = ({ data }: any) => {
         <Day_top
           from_to_date={true}
           url="van-ban-thu-hoi"
-          api="/api/vanthu/guiNhanCongVan/vanBanDen/getListVanBanThuHoi"
+          api="api/vanthu/guiNhanCongVan/vanBanDen/getListVanBanThuHoi"
           onDataArrayChange={handleDataArrayChange}
           onResetArray={resetArray}
         />
@@ -58,7 +58,7 @@ export async function getServerSideProps(context: {
     }
     const data = await fetchData(
       token,
-      "/api/vanthu/guiNhanCongVan/vanBanDen/getListVanBanThuHoi"
+      "api/vanthu/guiNhanCongVan/vanBanDen/getListVanBanThuHoi"
     );
     // console.log(data.data.message);
 

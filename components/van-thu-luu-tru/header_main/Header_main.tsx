@@ -53,7 +53,7 @@ const General_header = () => {
         try {
           const response = await fetchData(
             token,
-            "/api/vanthu/guiNhanCongVan/home/getTotalVanBan"
+            "api/vanthu/guiNhanCongVan/home/getTotalVanBan"
           );
           setDataHome(response?.data);
         } catch (error) {

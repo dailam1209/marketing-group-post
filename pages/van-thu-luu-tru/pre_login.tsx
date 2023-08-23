@@ -1,11 +1,19 @@
+import Seo from '@/components/head';
+import Head from 'next/head';
 import Image from 'next/image'
 import { useState } from 'react'
 import s from './pre_login.module.css'
-
+const Seo_vanthu = {
+    des: 'Văn thư lưu trữ của hungha365.com hiện đang là một công cụ đi đầu trong công tác lưu trữ các công văn, giấy tờ ở dạng online. Việc lưu trữ toàn bộ dữ liệu được đảm bảo an toàn trên nền tảng công nghệ bảo mật cao nhất.',
+    title: 'Lưu trữ văn thư đơn giản, nhanh chóng, dễ dàng tìm kiếm',
+    url: 'https://hungha365.com/van-thu-luu-tru'
+}
 const Pre_login = () => {
     const [page,setPage] = useState(0);
     return (
-        <body className={s.body}>
+        <>
+        <Seo des={Seo_vanthu.des} title={Seo_vanthu.title} url={Seo_vanthu.url} seo='true' />
+        <div className={s.body}>
             <header className={s.header_top_quanlycongvan_h_flex}>
                 <a href='https://timviec365.vn/' className={s.logo}>
                     <Image alt='logo' src='/logo.png' width={142} height={32}/>
@@ -59,7 +67,7 @@ const Pre_login = () => {
                 <div id='archival'>
                     <div className={s.v_banner}>
                         <div className={s.text_v_banner}>
-                            <h1>PHẦN MỀM VĂN THƯ LƯU TRỮ 365</h1>
+                            <h1>PHẦN MỀM LƯU TRỮ VĂN THƯ TOP 1 THỊ TRƯỜNG</h1>
                             <p>Giải pháp tối ưu cho doanh nghiệp</p>
                             <p>Bảo mật thông tin khách hàng.</p>
                             <p>Phương pháp lưu trữ dữ liệu dưới điện toán đám mây.</p>
@@ -1234,7 +1242,8 @@ const Pre_login = () => {
                     </div>
                 </div>
             </div>
-        </body>
+        </div>
+        </>
     )
 }
 export default Pre_login

@@ -31,7 +31,7 @@ const Index = ({ data }: any) => {
       try {
         const response = await fetchData(
           token,
-          "/api/vanthu/guiNhanCongVan/setting/getListSoVanBan",
+          "api/vanthu/guiNhanCongVan/setting/getListSoVanBan",
           { page: currentPage, pageSize: ItemsPerPage }
         );
         setDataUseE(response?.data?.message?.listSoVanBan || []);
@@ -70,7 +70,7 @@ const Index = ({ data }: any) => {
     } else {
       setShowModal(!showModal);
       try {
-        const api = "/api/vanthu/guiNhanCongVan/setting/createSoVanBan";
+        const api = "api/vanthu/guiNhanCongVan/setting/createSoVanBan";
         if (so_vb !== "") {
           await handleCreate(api, { name_book: so_vb });
           router.push("/van-thu-luu-tru/quanly-cong-van/tuy-chinh");
@@ -94,7 +94,7 @@ const Index = ({ data }: any) => {
     try {
       const response = await fetchData(
         token,
-        "/api/vanthu/guiNhanCongVan/setting/getListSoVanBan",
+        "api/vanthu/guiNhanCongVan/setting/getListSoVanBan",
         {
           id_so_vb: selectedItemId,
         }
@@ -113,7 +113,7 @@ const Index = ({ data }: any) => {
     } else {
       closeModalUpdate();
       try {
-        const api = "/api/vanthu/guiNhanCongVan/setting/updateSoVanBan";
+        const api = "api/vanthu/guiNhanCongVan/setting/updateSoVanBan";
         if (updateSo_vb !== "") {
           await handleCreate(api, { name_book: updateSo_vb, id_so_vb: id });
         }
@@ -129,7 +129,7 @@ const Index = ({ data }: any) => {
     try {
       const response = await fetchData(
         token,
-        "/api/vanthu/guiNhanCongVan/setting/getListSoVanBan"
+        "api/vanthu/guiNhanCongVan/setting/getListSoVanBan"
       );
       setUpdateso_vb(response?.data?.so_vb?.name_book);
     } catch (error) {
@@ -148,7 +148,7 @@ const Index = ({ data }: any) => {
   const handleDeleteItem = async (id: any) => {
     closeModalDelete();
     try {
-      await handleDelete("/api/vanthu/guiNhanCongVan/setting/deleteSoVanBan", {
+      await handleDelete("api/vanthu/guiNhanCongVan/setting/deleteSoVanBan", {
         id_so_vb: id,
       });
       alert(`Đã xóa thành công`);
@@ -527,7 +527,7 @@ export async function getServerSideProps(context: {
     }
     const data = await fetchData(
       token,
-      "/api/vanthu/guiNhanCongVan/setting/getListSoVanBan",
+      "api/vanthu/guiNhanCongVan/setting/getListSoVanBan",
       { page: currentPage, pageSize: ItemsPerPage }
     );
     return {

@@ -14,7 +14,7 @@ const Index = ({ data }: any) => {
     <Comp_detail
       Itemtext={Itemtext}
       href="/van-thu-luu-tru/van-ban-den/van-ban-can-duyet"
-      api="/api/vanthu/guiNhanCongVan/vanBanDi/deleteVanBan"
+      api="api/vanthu/guiNhanCongVan/vanBanDi/deleteVanBan"
     ></Comp_detail>
   );
 };
@@ -36,7 +36,7 @@ export async function getServerSideProps(context: {
     }
     const data = await fetchData(
       token,
-      "/api/vanthu/guiNhanCongVan/vanBanDen/getListVanBanCanDuyet"
+      "api/vanthu/guiNhanCongVan/vanBanDen/getListVanBanCanDuyet"
     );
     return {
       props: {

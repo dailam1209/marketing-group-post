@@ -21,7 +21,7 @@ const Index = () => {
       try {
         const response = await fetchData(
           token,
-          "/api/vanthu/dataDelete/getDetailDataDelete",
+          "api/vanthu/dataDelete/getDetailDataDelete",
           {
             type,
             cv_type_loai,
@@ -47,7 +47,7 @@ const Index = () => {
       try {
         const response = await fetchData(
           token,
-          "/api/vanthu/dataDelete/getDetailDataDelete",
+          "api/vanthu/dataDelete/getDetailDataDelete",
           {
             type,
             cv_type_loai,
@@ -137,7 +137,7 @@ const Index = () => {
     });
     formdata.append("action", "recovery");
     try {
-      const apiURL = `/api/vanthu/listVanBan/synthesisFunction`;
+      const apiURL = `api/vanthu/listVanBan/synthesisFunction`;
       const response = await handleCreate(apiURL, formdata);
       // if (response== 200) {
       //   alert("Dữ liệu đã được cập nhật thành công!");
@@ -151,7 +151,7 @@ const Index = () => {
     const stringRepresentation = listActive.join(", ");
 
     try {
-      const apiURL = `/api/vanthu/dataDelete/deleteVV`;
+      const apiURL = `api/vanthu/dataDelete/deleteVV`;
       const response = await handleCreate(apiURL, { id: stringRepresentation });
       // if (response== 200) {
       //   alert("Dữ liệu đã được cập nhật thành công!");

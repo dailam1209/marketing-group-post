@@ -27,7 +27,7 @@ const Update_doc = ({ data }: any) => {
         <Day_top
           from_to_date={true}
           url="van-ban-cap-nhat"
-          api="/api/vanthu/guiNhanCongVan/vanBanDen/getListVanBanCapNhat"
+          api="api/vanthu/guiNhanCongVan/vanBanDen/getListVanBanCapNhat"
           onDataArrayChange={handleDataArrayChange}
           onResetArray={resetArray}
         ></Day_top>
@@ -57,7 +57,7 @@ export async function getServerSideProps(context: {
     }
     const data = await fetchData(
       token,
-      "/api/vanthu/guiNhanCongVan/vanBanDen/getListVanBanCapNhat",
+      "api/vanthu/guiNhanCongVan/vanBanDen/getListVanBanCapNhat",
       {
         type_thu_hoi: 1,
       }

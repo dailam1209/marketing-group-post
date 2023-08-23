@@ -69,7 +69,7 @@ const Propose = () => {
         try {
           const response = await fetchData(
             token,
-            "/api/vanthu/catedx/showHome"
+            "api/vanthu/catedx/showHome"
           );
           setDataHome(response?.data);
         } catch (error) {

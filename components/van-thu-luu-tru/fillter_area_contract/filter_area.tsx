@@ -48,7 +48,7 @@ const Filter_area = (props: ListItems) => {
       try {
         const response = await fetchData(
           token,
-          "/api/vanthu/guiNhanCongVan/setting/getListSoVanBan"
+          "api/vanthu/guiNhanCongVan/setting/getListSoVanBan"
         );
         setlistSoVB(response?.data?.message?.listSoVanBan);
       } catch (error) {

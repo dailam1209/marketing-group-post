@@ -54,7 +54,7 @@ const Text_come: React.FC<ComponentProps> = ({ data, total_vb }) => {
           <div className={styles.control}>
             <Filter_area
               type={1}
-              api="/api/vanthu/listVanBan/getListVanBan"
+              api="api/vanthulistVanBan/getListVanBan"
               onDataArrayChange={handleDataArrayChange}
               onResetArray={resetArray}
             />

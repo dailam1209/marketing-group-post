@@ -59,7 +59,7 @@ const Contract_to: React.FC<ComponentProps> = ({ data, total_vb }) => {
           <div>
             <Filter_area
               type={1}
-              api="/api/vanthu/contract/getListContract"
+              api="api/vanthucontract/getListContract"
               onDataArrayChange={handleDataArrayChange}
               onResetArray={resetArray}
             />

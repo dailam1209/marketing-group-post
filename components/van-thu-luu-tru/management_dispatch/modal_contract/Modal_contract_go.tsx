@@ -176,7 +176,7 @@ const Modal_contract_go: React.FC<ModalProps> = ({
             formdata.append("file", values.file);
           }
           try {
-            const apiURL = `${baseURL}/api/vanthu/contract/createContract`;
+            const apiURL = `${baseURL}api/vanthu/contract/createContract`;
             const response = await axios.post(apiURL, formdata, {
               headers: {
                 "Content-Type": "multipart/form-data",

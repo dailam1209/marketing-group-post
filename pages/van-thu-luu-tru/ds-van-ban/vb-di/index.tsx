@@ -13,7 +13,7 @@ const Index = ({ data }: any) => {
           data?.data?.db_qr.map(async (user: any) => {
             const name_book = await fetchListSoVB(user?.cv_id_book);
             const location = await fetchNoiGui(user?.cv_phong_soan);
-            const name_user_save = list_emps.find(
+            const name_user_save = list_emps?.find(
               (item: any) => item._id === user?.cv_user_save
             )?.userName;
             return { ...user, name_book, location, name_user_save };
@@ -48,7 +48,7 @@ export async function getServerSideProps(context: {
     }
     const data = await fetchData(
       token,
-      "/api/vanthu/listVanBan/getListVanBan",
+      "api/vanthu/listVanBan/getListVanBan",
       { type: 2, page: currentPage, pageSize: ItemsPerPage }
     );
     return {

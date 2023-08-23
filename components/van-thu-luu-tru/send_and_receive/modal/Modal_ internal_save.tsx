@@ -51,7 +51,7 @@ const Modal_internal_save: React.FC<ModalProps> = ({
         try {
           const response = await fetchData(
             token,
-            "/api/vanthu/guiNhanCongVan/vanBanDi/getDetailVanBan",
+            "api/vanthu/guiNhanCongVan/vanBanDi/getDetailVanBan",
             { id_vb: id }
           );
           setItemDetail(response?.data);
@@ -79,7 +79,7 @@ const Modal_internal_save: React.FC<ModalProps> = ({
         if (ItemDetail?.vanBan?.check_qlcv) {
           alert("Văn bản đã được lưu trước đó");
         } else {
-          const api = "/api/vanthu/guiNhanCongVan/vanBanDi/luuVBCTY";
+          const api = "api/vanthu/guiNhanCongVan/vanBanDi/luuVBCTY";
           await handleCreate(api, {
             id_vb: id,
             book_vb: selectedOption?.value,

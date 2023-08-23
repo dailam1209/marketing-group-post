@@ -27,7 +27,7 @@ const Index = ({ data }: any) => {
       <div className={`${styles.body_general_management}`}>
         <Day_top
           from_to_date={true}
-          api="/api/vanthu/guiNhanCongVan/vanBanDi/getListVanBanDiDaGui"
+          api="api/vanthu/guiNhanCongVan/vanBanDi/getListVanBanDiDaGui"
           onDataArrayChange={handleDataArrayChange}
           onResetArray={resetArray}
           url="van-ban-di-cho-duyet"
@@ -59,7 +59,7 @@ export async function getServerSideProps(context: {
     }
     const data = await fetchData(
       token,
-      "/api/vanthu/guiNhanCongVan/vanBanDi/getListVanBanDiDaGui"
+      "api/vanthu/guiNhanCongVan/vanBanDi/getListVanBanDiDaGui"
     );
 
     return {

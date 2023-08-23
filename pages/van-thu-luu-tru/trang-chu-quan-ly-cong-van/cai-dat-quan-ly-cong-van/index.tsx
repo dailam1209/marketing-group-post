@@ -105,7 +105,7 @@ const Index = () => {
     } else {
       setErrors("");
       try {
-        const api = "/api/vanthu/setting/decentralization";
+        const api = "api/vanthu/setting/decentralization";
         await handleCreate(api, {
           emId: selectedOption?.value,
           quyen1: quyen1Values.join(","),

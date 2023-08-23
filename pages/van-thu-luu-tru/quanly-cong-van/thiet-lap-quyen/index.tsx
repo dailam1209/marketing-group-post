@@ -54,7 +54,7 @@ const Index = ({ data }: any) => {
     const selectedValues1 =
       selectedOption1?.map((option: any) => option.value) || [];
     try {
-      const api = "/api/vanthu/guiNhanCongVan/setting/thietLapQuyen";
+      const api = "api/vanthu/guiNhanCongVan/setting/thietLapQuyen";
       await handleCreate(api, {
         type_cong_ty: selectedValues,
         type_ngoai: selectedValues1,
@@ -121,7 +121,7 @@ export async function getServerSideProps(context: {
     }
     const data = await fetchData(
       token,
-      "/api/vanthu/guiNhanCongVan/setting/getListQuyen"
+      "api/vanthu/guiNhanCongVan/setting/getListQuyen"
     );
     return {
       props: {

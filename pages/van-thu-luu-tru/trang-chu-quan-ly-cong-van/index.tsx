@@ -20,7 +20,7 @@ const Index = () => {
         try {
           const response = await fetchDataHome(
             token,
-            "/api/vanthu/trangchu/index"
+            "api/vanthu/trangchu/index"
           );
           setData(response?.data);
         } catch (error) {
@@ -606,7 +606,7 @@ export default Index;
 //         },
 //       };
 //     }
-//     const data = await fetchDataHome(token, "/api/vanthu/trangchu/index");
+//     const data = await fetchDataHome(token, "api/vanthu/trangchu/index");
 //     return {
 //       props: {
 //         data: data?.data,

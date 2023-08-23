@@ -29,7 +29,7 @@ const Index = ({ data }: any) => {
           menuItems={listStatus}
           from_to_date={true}
           url="van-ban-moi"
-          api="/api/vanthu/guiNhanCongVan/vanBanDen/getListVanBanMoi"
+          api="api/vanthu/guiNhanCongVan/vanBanDen/getListVanBanMoi"
           onDataArrayChange={handleDataArrayChange}
           onResetArray={resetArray}
         />
@@ -60,7 +60,7 @@ export async function getServerSideProps(context: {
     }
     const data = await fetchData(
       token,
-      "/api/vanthu/guiNhanCongVan/vanBanDen/getListVanBanMoi"
+      "api/vanthu/guiNhanCongVan/vanBanDen/getListVanBanMoi"
     );
     // console.log(data.data.message);
 

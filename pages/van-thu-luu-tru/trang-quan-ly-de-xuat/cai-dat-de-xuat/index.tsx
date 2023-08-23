@@ -78,7 +78,7 @@ const Member_table_records = ({
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     handleCheck(e);
   };
-  const emp = employee?.find((emp: any) => emp.idQLC.toString() === id);
+  const emp = employee?.find((emp: any) => emp.ep_id.toString() === id);
   const posData = position?.find(
     (position: any) => position.value === emp?.position_id.toString()
   )?.label;
@@ -94,8 +94,8 @@ const Member_table_records = ({
       </td>
       <td className={styles.stt_nv}>{stt}</td>
       <td className={styles.id_user}>{id}</td>
-      <td className={styles.user_name}>{emp?.userName}</td>
-      <td className={styles.departure}>{emp?.nameDeparment}</td>
+      <td className={styles.user_name}>{emp?.ep_name}</td>
+      <td className={styles.departure}>{emp?.dep_name}</td>
       <td className={styles.pos}>{posData}</td>
       <td onClick={() => handleDelete(id)} className={styles.func}>
         <Image alt="" src="/icon/icon_loai_bo.png" width={20} height={20} />
@@ -116,7 +116,7 @@ const Popup_table = ({
     setSelectAll(isChecked);
     if (isChecked) {
       handleCheckAll(
-        popup_table_records?.map((rec: any) => rec.idQLC.toString())
+        popup_table_records?.map((rec: any) => rec.ep_id.toString())
       );
     } else {
       handleCheckAll([]);
@@ -147,17 +147,17 @@ const Popup_table = ({
               {popup_table_records?.map((rec: any, index: any) => {
                 const posData = positions?.find(
                   (position: any) =>
-                    position.value === rec.position_id.toString()
+                    position.value === rec?.position_id?.toString()
                 )?.label;
                 return (
                   <tr key={index} className={styles.popup_table_row}>
-                    <td className={styles.id_user}>{rec.idQLC}</td>
-                    <td className={styles.user_name}>{rec.userName}</td>
-                    <td className={styles.departure}>{rec.nameDeparment}</td>
+                    <td className={styles.id_user}>{rec.ep_id}</td>
+                    <td className={styles.user_name}>{rec.ep_name}</td>
+                    <td className={styles.departure}>{rec.dep_name}</td>
                     <td className={styles.pos}>{posData}</td>
                     <th>
                       <input
-                        value={rec.idQLC}
+                        value={rec.ep_id}
                         type="checkbox"
                         disabled={selectAll}
                         onChange={handleCheck}
@@ -178,9 +178,9 @@ const Index = () => {
   const [popup_table_records, setPopup_table_records] = useState<any>([]);
   const [idDuyet, setIdDuyet] = useState<any>();
   const add_memeber_to_popup_table = (e: any) => {
-    const member_to_add = employee?.find((emp: any) => emp.idQLC === e.value);
+    const member_to_add = employee?.find((emp: any) => emp.ep_id === e.value);
     const isMemberExist = popup_table_records?.some(
-      (record: any) => record.idQLC === e.value
+      (record: any) => record.ep_id === e.value
     );
     if (!isMemberExist) {
       setPopup_table_records((prev: any) => {

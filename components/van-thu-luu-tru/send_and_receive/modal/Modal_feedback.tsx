@@ -20,7 +20,7 @@ const Modal_feedback: React.FC<ModalProps> = ({ isOpen, onClose, _id }) => {
     } else {
       onClose();
       try {
-        const api = "/api/vanthu/guiNhanCongVan/vanBanDen/sendFeedback";
+        const api = "api/vanthu/guiNhanCongVan/vanBanDen/sendFeedback";
         if (feedback !== "") {
           await handleCreate(api, { id_vb: id, feedback: feedback });
         }

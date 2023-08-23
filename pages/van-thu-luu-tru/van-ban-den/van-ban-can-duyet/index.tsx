@@ -28,7 +28,7 @@ const Review_doc = ({ data }: any) => {
         <Day_top
           from_to_date={true}
           url="van-ban-can-duyet"
-          api="/api/vanthu/guiNhanCongVan/vanBanDen/getListVanBanCanDuyet"
+          api="api/vanthu/guiNhanCongVan/vanBanDen/getListVanBanCanDuyet"
           onDataArrayChange={handleDataArrayChange}
           onResetArray={resetArray}
         />
@@ -59,7 +59,7 @@ export async function getServerSideProps(context: {
     }
     const data = await fetchData(
       token,
-      "/api/vanthu/guiNhanCongVan/vanBanDen/getListVanBanCanDuyet"
+      "api/vanthu/guiNhanCongVan/vanBanDen/getListVanBanCanDuyet"
     );
     return {
       props: {

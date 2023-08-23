@@ -28,7 +28,7 @@ const Been_processed = ({ data }: any) => {
           menuItems={listStatus}
           from_to_date={true}
           url="van-ban-da-xu-ly"
-          api="/api/vanthu/guiNhanCongVan/vanBanDen/getListVanBanDaXuLy"
+          api="api/vanthu/guiNhanCongVan/vanBanDen/getListVanBanDaXuLy"
           onDataArrayChange={handleDataArrayChange}
           onResetArray={resetArray}
         />
@@ -59,7 +59,7 @@ export async function getServerSideProps(context: {
     }
     const data = await fetchData(
       token,
-      "/api/vanthu/guiNhanCongVan/vanBanDen/getListVanBanDaXuLy"
+      "api/vanthu/guiNhanCongVan/vanBanDen/getListVanBanDaXuLy"
     );
     return {
       props: {

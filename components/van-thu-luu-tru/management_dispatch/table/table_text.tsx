@@ -61,7 +61,7 @@ const Table_text: React.FC<ModalProps> = ({
     if (item?._id) {
       const response = await fetchData(
         token,
-        "/api/vanthu/listVanBan/getDetail",
+        "api/vanthu/listVanBan/getDetail",
         { id: item?._id }
       );
       setSelectedItem(response?.data?.data);

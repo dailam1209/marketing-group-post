@@ -25,7 +25,7 @@ const Modal_del_contract: React.FC<ModalProps> = ({
       formData.append("action", "delete");
       formData.append("id", id.toString());
       const response = await axios.post(
-        `${baseURL}/api/vanthu/listVanBan/synthesisFunction`,
+        `${baseURL}api/vanthulistVanBan/synthesisFunction`,
         formData,
         {
           headers: {

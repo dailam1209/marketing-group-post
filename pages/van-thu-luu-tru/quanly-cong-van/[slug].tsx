@@ -14,7 +14,7 @@ export default function Page({ data }: any) {
     <Comp_detail
       Itemtext={Itemtext}
       href="/van-thu-luu-tru/van-ban-den/van-ban-can-duyet"
-      api="/api/vanthu/guiNhanCongVan/vanBanDi/deleteVanBan"
+      api="api/vanthu/guiNhanCongVan/vanBanDi/deleteVanBan"
     ></Comp_detail>
   );
 }
@@ -35,7 +35,7 @@ export async function getServerSideProps(context: {
     }
     const data = await fetchData(
       token,
-      "/api/vanthu/guiNhanCongVan/home/getTotalVanBan"
+      "api/vanthu/guiNhanCongVan/home/getTotalVanBan"
     );
     return {
       props: {

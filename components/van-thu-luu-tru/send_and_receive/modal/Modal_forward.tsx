@@ -100,7 +100,7 @@ const Modal_forward: React.FC<ModalProps> = ({ isOpen, onClose, _id }) => {
       setErrorMessage("");
     }
     try {
-      const api = "/api/vanthu/guiNhanCongVan/vanBanDi/createChuyenTiep";
+      const api = "api/vanthu/guiNhanCongVan/vanBanDi/createChuyenTiep";
       await handleCreate(api, { id_vb: 3131, ten_nguoi_nhan: selectEmp.value });
     } catch (error) {
       console.error("Đã xảy ra lỗi khi gửi ý kiến:", error);

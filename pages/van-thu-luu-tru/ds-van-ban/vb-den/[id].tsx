@@ -21,7 +21,7 @@ const Index = () => {
         try {
           const response = await fetchData(
             token,
-            "/api/vanthu/listVanBan/getDetail",
+            "api/vanthu/listVanBan/getDetail",
             { id: id }
           );
           if (response) {

@@ -59,7 +59,7 @@ const Home = ({ data }: any) => {
         try {
           const response = await fetchData(
             token,
-            "/api/vanthu/guiNhanCongVan/home/getTotalVanBan"
+            "api/vanthu/guiNhanCongVan/home/getTotalVanBan"
           );
           response
             ? setdataHomeSend_receive(response?.data)
@@ -115,7 +115,7 @@ export async function getServerSideProps(context: {
     }
     const data = await fetchData(
       token,
-      "/api/vanthu/guiNhanCongVan/home/getTotalVanBan"
+      "api/vanthu/guiNhanCongVan/home/getTotalVanBan"
     );
     return {
       props: {

@@ -20,7 +20,7 @@ const Index = () => {
         try {
           const response = await fetchData(
             token,
-            "/api/vanthu/history/getDataHistory"
+            "api/vanthu/history/getDataHistory"
           );
           setData(response?.data?.data);
         } catch (error) {

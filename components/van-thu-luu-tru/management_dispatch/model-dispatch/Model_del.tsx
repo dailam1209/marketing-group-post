@@ -22,7 +22,7 @@ const Modal_del: React.FC<ModalProps> = ({ item, closeModal, href }) => {
       formData.append("action", "delete");
       formData.append("id", id.toString());
       const response = await axios.post(
-        `${baseURL}/api/vanthu/listVanBan/synthesisFunction`,
+        `${baseURL}api/vanthu/listVanBan/synthesisFunction`,
         formData,
         {
           headers: {
