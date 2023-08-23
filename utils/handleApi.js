@@ -259,7 +259,7 @@ export const listDepartments = async (data) => {
 
 export const listGroups = async (data) => {
   let result = await functionAPI(
-    process.env.NEXT_PUBLIC_API + '/api/qlc/team/search',
+    process.env.NEXT_PUBLIC_API + '/api/qlc/team/list',
     data
   )
   return result

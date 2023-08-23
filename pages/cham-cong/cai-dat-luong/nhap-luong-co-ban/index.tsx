@@ -10,8 +10,8 @@ import {
 } from '@/pages/api/BaseApi'
 import _ from 'lodash'
 import moment from 'moment'
-export default function CaiDatNhapLuongCoBan({ data, listPb, listIds }) {
-  console.log(data)
+export default function CaiDatNhapLuongCoBan({ data, listPb, listIds, temp }) {
+  console.log(temp)
 
   return (
     <div>
@@ -28,7 +28,7 @@ export const getServerSideProps = async (context) => {
   const finalData: any[] = []
 
   const res = await POST_SS_TL(
-    'api/tinhluong/congty/show_bangluong_coban',
+    'api/tinhluong/congty/show_bangluong_nv',
     {
       com_id: com_id,
       month: moment().month() + 1,
@@ -42,9 +42,11 @@ export const getServerSideProps = async (context) => {
   )
   if (res) {
     res?.listUser?.forEach((item, index) => {
+      const foundData = res?.listResult?.find((r) => r?.ep_id === item?.idQLC)
+
       finalData.push({
         ...item,
-        ...res?.listResult?.[index],
+        ...foundData,
       })
     })
   }
@@ -55,6 +57,7 @@ export const getServerSideProps = async (context) => {
     props: {
       data: finalData,
       listPb: listPbRes?.items || [],
+      temp: res,
     },
   }
 }

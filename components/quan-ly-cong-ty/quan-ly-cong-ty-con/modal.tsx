@@ -19,9 +19,13 @@ import styles from './modal.module.css'
 import Image from 'next/image'
 import { TYPE_ADD, TYPE_UPDATE } from '../quan-ly-ca/modal'
 import { NamePath } from 'antd/es/form/interface'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { POST } from '@/pages/api/BaseApi'
 import { SearchOutlined } from '@ant-design/icons'
+import { useRouter } from 'next/router'
+import Cookies from 'js-cookie'
+import { COOKIE_KEY } from '@/pages/cham-cong'
+import jwtDecode from 'jwt-decode'
 const { TextArea } = Input
 
 export const MyInput = (

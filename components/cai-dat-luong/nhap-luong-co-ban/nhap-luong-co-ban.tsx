@@ -22,7 +22,6 @@ import { ModalNhapLuongCoBan } from './modal/nhap-luong-co-ban'
 import { CSVDownload, CSVLink } from 'react-csv'
 import moment from 'moment'
 import { getPosition } from '@/utils/function'
-
 export const filterUnique = (input: any[], name: string) => {
   const uniqueIds: any[] = []
 
@@ -256,20 +255,35 @@ export const NhapLuongCoBan = ({
         <Col xl={5} sm={8} md={6} xs={13} className={styles.colbutton}>
           <CSVLink
             filename={`Xuất bảng lương ngày ${moment()?.format('DD-MM-YYYY')}`}
-            data={
-              data &&
-              data?.map((item) => [
-                item?.idQLC,
-                item?.userName,
-                item?.luong_co_ban,
-                item?.phan_tram_hop_dong,
-                item?.department?.[0]?.dep_name || 'Chưa cập nhật',
-                item?.inForPerson?.employee?.position_id,
-                item?.email,
-                item?.phoneTK,
-                item?.address,
-              ])
-            }>
+            data={[
+              [
+                'Id',
+                'Tên',
+                'Lương cơ bản',
+                'Phần trăm hợp đồng',
+                'Lương bảo hiểm',
+                'Phòng ban',
+                'Chức vụ',
+                'Email',
+                'Số điện thoại',
+                'Địa chỉ',
+              ],
+              ...(data
+                ? data?.map((item) => [
+                    item?.idQLC,
+                    item?.userName,
+                    item?.luong_co_ban,
+                    item?.phan_tram_hop_dong,
+                    item?.luong_bao_hiem,
+                    item?.department?.[0]?.dep_name || 'Chưa cập nhật',
+                    positionLabel?.[item?.inForPerson?.employee?.position_id]
+                      ?.label,
+                    item?.email,
+                    item?.phoneTK,
+                    item?.address,
+                  ])
+                : []),
+            ]}>
             <Button className={styles.button2} icon={<IconEX />}>
               <p className={styles.textB}>Xuất lương cơ bản</p>
             </Button>
