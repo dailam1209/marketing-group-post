@@ -31,13 +31,13 @@ const Index = () => {
             const list_emps = await fetch_list_employs();
             const name_user_soan = list_emps.find(
               (item: any) => item._id === selectedItem.cv_user_soan
-            )?.userName;
+            )?.ep_name;
             const name_user_save = list_emps.find(
               (item: any) => item._id === selectedItem.cv_user_save
-            )?.userName;
+            )?.ep_name;
             const name_user_ky = list_emps.find(
               (item: any) => item._id === selectedItem.cv_user_ky
-            )?.userName;
+            )?.ep_name;
             const newDataDetail = {
               ...selectedItem,
               name_book,

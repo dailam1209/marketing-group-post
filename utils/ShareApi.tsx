@@ -129,7 +129,7 @@ export const fetch_ds_position = async () => {
 export const fetch_emp_by_id = async (id_com: any, id_dep?: any) => {
   try {
     const response = await axios.post(
-      `${baseURLQLC}api/qlc/managerUser/list`,
+      `${baseURLQLC}api/qlc/managerUser/listAll`,
       {
         com_id: id_com,
         dep_id: id_dep,
@@ -159,7 +159,7 @@ export const fetchNoiGui = async (dep_id: any) => {
           },
         }
       );
-      return response?.data?.data?.data[0]?.dep_name;
+      return response?.data?.data?.items[0]?.dep_name;
     } catch (err) {
       console.error("Error fetching home data:", err);
     }
@@ -172,7 +172,7 @@ export const fetch_list_employs = async () => {
     try {
       const com_id = user_infor?.data?.idQLC;
       const list_emps = await fetch_emp_by_id(com_id);
-      return list_emps?.data?.data;
+      return list_emps?.data?.items;
     } catch (err) {
       console.error("Error fetching home data:", err);
     }

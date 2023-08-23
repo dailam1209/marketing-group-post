@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { fetchNoiGui, fetch_list_employs } from "@/utils/ShareApi";
 import { fetchData, fetchListSoVB } from "@/utils/BaseApi";
 import { parse } from "cookie";
-
 import Text_come from "@/components/van-thu-luu-tru/management_dispatch/text_come/Text_come";
 const Index = ({ data }: any) => {
   const [listItemsNew, setListItemNews] = useState<any>([]);
@@ -16,7 +15,7 @@ const Index = ({ data }: any) => {
             const location = await fetchNoiGui(user?.cv_phong_soan);
             const name_user_save = list_emps?.find(
               (item: any) => item._id === user?.cv_user_save
-            )?.userName;
+            )?.ep_name;
             return { ...user, name_book, location, name_user_save };
           })
         );

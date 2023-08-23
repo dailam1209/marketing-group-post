@@ -44,7 +44,7 @@ const Modal_forward: React.FC<ModalProps> = ({ isOpen, onClose, _id }) => {
   useEffect(() => {
     const fetchGetData = async () => {
       const response = await fetch_list_department();
-      setDepartment(response?.data?.data);
+      setDepartment(response?.data?.items);
     };
     fetchGetData();
   }, []);
@@ -77,14 +77,15 @@ const Modal_forward: React.FC<ModalProps> = ({ isOpen, onClose, _id }) => {
       const com_id = selectedOption.com_id;
       const fetchGetData = async () => {
         const response = await fetch_emp_by_id(com_id, dep_id);
-        setlistEmp(response?.data?.data);
+        setlistEmp(response?.data?.items);
+        console.log(response)
       };
       fetchGetData();
     }
   }, [selectedOption]);
 
   const ds_employs = listEmp?.map((opt: any) => {
-    return { value: opt?._id, label: opt?.userName, com_id: opt?.com_id };
+    return { value: opt?._id, label: opt?.ep_name, com_id: opt?.com_id };
   });
   const [selectEmp, setselectEmp] = useState<any>(null);
   const handleSelectEmp = (selectedOption: any) => {
