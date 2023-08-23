@@ -28,7 +28,7 @@ import {
 import { POST } from "../../../api/BaseApi";
 import checkCookie from "../../../../function/checkCookie";
 import cookieCutter from "cookie-cutter";
-import { domain } from "../../../api/BaseApi";
+import { domain, domainQLC } from "../../../api/BaseApi";
 
 export default function FirstPage({ handleSelected }) {
   checkCookie();
@@ -38,7 +38,7 @@ export default function FirstPage({ handleSelected }) {
   const cp = cookieCutter.get("com_id");
   const ep_id = cookieCutter.get("userID");
   const role = cookieCutter.get("role");
-
+  console.log("token_base365 at CaiCaVaLichLamViec", token);
   //* Function phụ
   function convertToVietnameseMonthFormat(utcDateString) {
     const months = [
@@ -227,7 +227,7 @@ export default function FirstPage({ handleSelected }) {
   //! form trong handleSubmit nay chi dung de validate
   const handleSubmitAddCy = () => {
     form.validateFields().then((value) => {
-      POST(`${domain}/api/qlc/cycle/create`, {
+      POST(`${domainQLC}/api/qlc/cycle/create`, {
         cy_name: form.getFieldValue("cy_name"),
         apply_month: form.getFieldValue("apply_month"),
         cy_detail: JSON.stringify(form.getFieldValue("cy_detail")),
@@ -252,7 +252,7 @@ export default function FirstPage({ handleSelected }) {
   }, [totalData]);
 
   //! Day la useEffect cua minh
-  const getListDataAPIUrl = `${domain}/api/qlc/cycle/list`;
+  const getListDataAPIUrl = `${domainQLC}/api/qlc/cycle/list`;
   useEffect(() => {
     const unfollow = () => {
       axios
@@ -261,8 +261,7 @@ export default function FirstPage({ handleSelected }) {
           {},
           {
             headers: {
-              Authorization:
-                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6MTM3NzQ0OSwiaWRUaW1WaWVjMzY1IjoyMzI0MTYsImlkUUxDIjoxNjY0LCJpZFJhb05oYW5oMzY1IjowLCJlbWFpbCI6InRyYW5nY2h1b2k0QGdtYWlsLmNvbSIsInBob25lVEsiOiIiLCJjcmVhdGVkQXQiOjE2NjM4MzY0MDUsInR5cGUiOjEsImNvbV9pZCI6MTY2NCwidXNlck5hbWUiOiJNdG4gQ29tcGFueSJ9LCJpYXQiOjE2OTE1NTYyMTksImV4cCI6MTY5MTY0MjYxOX0.7xkYXkR7SAfN3tLNXjtUUasXplW5Fbx8mCoZQ8YDjH0",
+              Authorization: `Bearer ${token}`,
             },
           }
         )
@@ -280,7 +279,7 @@ export default function FirstPage({ handleSelected }) {
   useEffect(() => {
     axios
       .post(
-        `${domain}/api/qlc/cycle/list`,
+        `${domainQLC}/api/qlc/cycle/list`,
         {},
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -429,7 +428,7 @@ export default function FirstPage({ handleSelected }) {
       key: 1,
       label: (
         <div className={styles.Dropdownlistitems}>
-          <img src="/add_member.png" alt="" />
+          <img src="/tinhluong/add_member.png" alt="" />
           <p>Thêm Nhân viên</p>
         </div>
       ),
@@ -438,7 +437,7 @@ export default function FirstPage({ handleSelected }) {
       key: 2,
       label: (
         <div className={styles.Dropdownlistitems}>
-          <img src="/list_cycle.png" alt="" />
+          <img src="/tinhluong/list_cycle.png" alt="" />
           <p>Danh sách nhân viên</p>
         </div>
       ),
@@ -447,7 +446,7 @@ export default function FirstPage({ handleSelected }) {
       key: 3,
       label: (
         <div className={styles.Dropdownlistitems}>
-          <img src="/edit_cycle.png" alt="" />
+          <img src="/tinhluong/edit_cycle.png" alt="" />
           <p>Chỉnh sửa</p>
         </div>
       ),
@@ -456,7 +455,7 @@ export default function FirstPage({ handleSelected }) {
       key: 4,
       label: (
         <div className={styles.Dropdownlistitems}>
-          <img src="/copy_cycle.png" alt="" />
+          <img src="/tinhluong/copy_cycle.png" alt="" />
           <p>Sao chép lịch làm việc</p>
         </div>
       ),
@@ -465,7 +464,7 @@ export default function FirstPage({ handleSelected }) {
       key: 5,
       label: (
         <div className={styles.Dropdownlistitems}>
-          <img src="/delete_cycle.png" alt="" />
+          <img src="/tinhluong/delete_cycle.png" alt="" />
           <p>Xóa lich làm việc</p>
         </div>
       ),
@@ -598,7 +597,7 @@ export default function FirstPage({ handleSelected }) {
                         <p>
                           <img
                             className={styles.imgthreedots}
-                            src="/Group 7508.png"
+                            src="/tinhluong/Group 7508.png"
                             alt=""
                           />
                         </p>
@@ -609,14 +608,14 @@ export default function FirstPage({ handleSelected }) {
                 </div>
                 <div className={styles.tax_bottom}>
                   <div className={styles.tax_bottom_1}>
-                    <img src="/clock.png" />
+                    <img src="/tinhluong/clock.png" />
                     <p>
                       Áp dụng:{" "}
                       {convertToVietnameseMonthFormat(item?.apply_month)}
                     </p>
                   </div>
                   <div className={styles.tax_bottom_2}>
-                    <img src="/user.png" alt="" />
+                    <img src="/tinhluong/user.png" alt="" />
                     <p>Nhân viên: {item?.is_personal}</p>
                   </div>
                 </div>

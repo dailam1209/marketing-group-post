@@ -830,7 +830,7 @@ const App = () => {
             </div> */}
         <div className={styles.table_container}>
           <Table
-            className={`customTable ${styles.table}`}
+            className={`customTable1 ${styles.table}`}
             components={{
               body: {
                 cell: EditableCell,
