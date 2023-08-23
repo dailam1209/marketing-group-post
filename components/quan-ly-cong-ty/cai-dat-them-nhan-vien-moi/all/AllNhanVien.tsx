@@ -38,7 +38,6 @@ export function AllNhanVien({
     label: infoCom?.data?.com_name,
     value: infoCom?.data?.com_id,
   })
-
   const [listEmpLabel, setListEmpLabel] = useState<any>(
     listStaffs?.map((e) => ({ label: e?.ep_name, value: e?.ep_id }))
   )
