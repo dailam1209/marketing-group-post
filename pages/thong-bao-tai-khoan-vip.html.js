@@ -79,7 +79,8 @@ export default function noticeVip() {
                                 alt='cảnh báo đăng ký'
                               />
                               <p className='wn_text_1'>
-                                Để đăng ký thêm tài khoản <br />
+                                Để đăng ký thêm người sử dụng lớn hơn 5 nhân
+                                viên <br />
                                 Vui lòng liên hệ với chúng tôi để được hỗ trợ
                                 tốt nhất.
                               </p>

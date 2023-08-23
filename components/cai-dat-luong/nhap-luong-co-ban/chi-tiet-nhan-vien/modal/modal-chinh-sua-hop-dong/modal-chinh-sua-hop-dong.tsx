@@ -25,7 +25,7 @@ export function ModalChinhSuaHopDong(
     form.setFieldsValue({
       ...data,
       con_time_up: dayjs(data?.con_time_up),
-      con_time_end: dayjs(data?.con_time_end),
+      con_time_end: '1970-01-01T00:00:00.000+00:00',
     })
   }, [data])
 
@@ -33,7 +33,7 @@ export function ModalChinhSuaHopDong(
     const res = await POST_TL('api/tinhluong/congty/edit_contract', {
       ...value,
       con_time_up: value?.con_time_up?.format('YYYY-MM-DD'),
-      con_time_end: value?.con_time_end?.format('YYYY-MM-DD'),
+      con_time_end: '1970-01-01T00:00:00.000+00:00',
       con_id: data?.con_id,
     })
 
@@ -85,14 +85,14 @@ export function ModalChinhSuaHopDong(
             true,
             'con_time_up'
           )}
-          {MyDatePicker(
+          {/* {MyDatePicker(
             'Ngày hết hạn',
             'Ngày hết hạn',
             true,
             true,
             'con_time_end'
-          )}
-          {MyInput('Tệp đính kèm', 'Tệp đính kèm', true, true, 'con_file')}
+          )} */}
+          {MyInput('Tệp đính kèm', 'Tệp đính kèm', false, true, 'con_file')}
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <button className={styles.huyb} onClick={() => setOpen(false)}>
               <p className={styles.texthuyb}>Huỷ bỏ</p>

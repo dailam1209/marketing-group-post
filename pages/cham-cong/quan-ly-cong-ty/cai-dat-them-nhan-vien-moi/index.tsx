@@ -21,11 +21,11 @@ export default function CaiDatThemNhanVienMoiPage({
   listDepartments,
   listGroups,
 }) {
+  console.log(listStaffs)
+
   const temp = getCurrentToken()
   const [openAddNew, setOpenAddNew] = useState(false)
-  const [data, setData] = useState(
-    listStaffs?.data?.filter((emp) => emp?.ep_status === 'Active')
-  )
+  const [data, setData] = useState(listStaffs?.items)
   const [activeKey, setActiveKey] = useState('1')
   const [listDepLabel, setListDepLabel]: any[] = useState(
     listDepartments?.items?.map((dep) => ({
@@ -47,7 +47,7 @@ export default function CaiDatThemNhanVienMoiPage({
     value: infoCom?.data?.com_id,
   })
   const [listPendingEmp, setListPendingEmp]: any[] = useState(
-    listStaffs?.data?.filter((emp) => emp?.ep_status === 'Pending')
+    listStaffs?.items?.filter((emp) => emp?.ep_status === 'Pending')
   )
 
   const router = useRouter()
@@ -106,7 +106,7 @@ export const getServerSideProps = async (context) => {
   com_id = getCompIdSS(context)
   // console.log(com_id)
   const listStaffs = await POST_SS(
-    'api/qlc/managerUser/listAllEmps',
+    'api/qlc/managerUser/listAll',
     {
       com_id: com_id,
     },
@@ -139,6 +139,7 @@ export const getServerSideProps = async (context) => {
     },
     context
   )
+  console.log(listStaffs)
 
   return {
     props: {
