@@ -28,6 +28,7 @@ import jwtDecode from "jwt-decode";
 import Layout_user from "@/components/VanThu/Layout_user";
 import { setCookie } from "cookies-next";
 import { store } from "@/components/crm/redux/store";
+import io from "socket.io-client";
 
 export const LoadingComp = () => {
   return (
@@ -75,6 +76,7 @@ export default function App({ Component, pageProps }) {
     } else {
     }
   }, [router?.pathname]);
+
 
   useEffect(() => {
     if (!router.pathname.includes("/phan-mem-nhan-su/")) {
@@ -147,13 +149,13 @@ export default function App({ Component, pageProps }) {
               <AccessContextComponent>
                 <SidebarResize>
                   <NavigateContextComponent>
-                    {shouldShowSidebarAndHeader && (
+                    {
                       <>
                         <Header toggleModal={toggleModal} />
                         <Sidebar isOpened={isOpen} />
                         <ChatBusiness />
                       </>
-                    )}
+                    }
                     <TitleHeaderMobile />
                     <TongDaiContext>
                       <Component {...pageProps} />

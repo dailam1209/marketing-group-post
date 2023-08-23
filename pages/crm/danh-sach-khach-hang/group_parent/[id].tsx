@@ -51,7 +51,7 @@ export default function CustomerList() {
     `${Cookies.get("token_base365")}`,
     "POST",
     {
-      perPage: 10000,
+      perPage: 100,
       keyword: name === null ? null : name,
       status: status,
       resoure: resoure,

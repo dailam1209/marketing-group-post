@@ -40,6 +40,12 @@ interface TableDataContracDrops {
   fetchData?: any;
   des?: any;
   setDes?: any;
+  setPage?: any;
+  page?: any;
+  totalRecords?: any;
+  totalPages?: any;
+  pageSize?: any;
+  setPageSize?: any;
 }
 
 const TableListCustomer: React.FC<TableDataContracDrops> = ({
@@ -50,22 +56,27 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   fetchData,
   des,
   setDes,
-  setTest: any,
+  setTest,
+  page,
+  setPage,
+  totalRecords,
+  totalPages,
+  pageSize,
+  setPageSize,
 }: any) => {
   const [openModalCall, setOpenModalCall] = useState(false);
   const router = useRouter();
   const [openEditText, setOpenEditText] = useState(false);
   const [valueStatus, setValueStatus] = useState();
   const [cusId, setCusId] = useState<any>();
-  const [pageSize, setpageSize] = useState<any>();
-  const [te,setTE]=useState<any>()
+  const [te, setTE] = useState<any>();
   const handleChangeStatus = (e: any, data: any) => {
     setValueStatus(e.target.value);
   };
   const handleShowCall = (record: any) => {
-    setOpenModalCall(true)
-     setCusId(record.cus_id)
-  }
+    setOpenModalCall(true);
+    setCusId(record.cus_id);
+  };
 
   const renderTitle = (record, text) => (
     <div className="tooltip-content">
@@ -172,7 +183,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
         <div
           style={{ padding: "5px", paddingLeft: "11px" }}
           className={stylesPotentialSelect.wrap_select}
-          onClick={() => (setCusId(record.cus_id))}
+          onClick={() => setCusId(record.cus_id)}
         >
           <CustomerGroupSelect
             data={dataGroup}
@@ -296,11 +307,6 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
     },
   ];
   //nut select
-  const handleChangePageSize = (value: any) => {
-    setpageSize(value);
-  };
-  useEffect(() => {}, [des]);
-
   return (
     <>
       <div className="custom_table">
@@ -313,7 +319,14 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
           scroll={{ x: 1500, y: "auto" }}
           pagination={{
             style: { paddingBottom: 20 },
+            current: page,
             pageSize: pageSize,
+            total: totalRecords,
+            onChange: (current, pageSize) => {
+              if (current != page) {
+                setPage(current);
+              }
+            },
           }}
         />
         {datatable?.length && (
@@ -329,7 +342,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
                 placeholder={
                   <div style={{ color: "black" }}>10 bản ghi trên trang</div>
                 }
-                onChange={(value) => handleChangePageSize(value)}
+                onChange={(value) => setPageSize(value)}
               >
                 <option value={10}>10 bản ghi trên trang</option>
                 <option value={20}>20 bản ghi trên trang</option>
@@ -339,7 +352,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
               </Select>
             </div>
             <div className="total">
-              Tổng số: <b>{datatable?.length}</b> Khách hàng
+              Tổng số: <b>{totalRecords}</b> Khách hàng
             </div>
           </div>
         )}

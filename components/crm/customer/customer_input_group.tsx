@@ -105,7 +105,7 @@ export default function CustomerListInputGroup({
             <form
               onSubmit={(e) =>  (e.preventDefault(),handleSearchKH())}
               className={styles.form_search}
-              style={{ width: "100%", padding: 1 }}
+              style={{ width: "100%", padding: 1}}
             >
               <div></div>
               <Input
@@ -115,9 +115,9 @@ export default function CustomerListInputGroup({
                 name="search"
                 defaultValue=""
                 placeholder="Tìm kiếm theo Id, tên khách hàng, điện thoại, email"
-                style={{ border: "none", width: "82%", fontSize: 15 }}
+                style={{ border: "none", width: "78%", fontSize: 15 }}
               />
-              <button type="button" style={{ width: "18%" }}>
+              <button type="button" style={{ width: "20%" }}>
                 Tìm kiếm
               </button>
             </form>
