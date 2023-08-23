@@ -23,7 +23,6 @@ export default function Recruitment() {
   const [editData, setEditData] = useState<any>()
   const [displayIcon, setDisplayIcon] = useState<any>()
 
-  console.log(dataListNews);
 
 
   useEffect(() => {
@@ -154,11 +153,11 @@ export default function Recruitment() {
                   spellCheck={false}
                   autoComplete='off'
                   onChange={(e) => setTitle(e.target.value)}></input>
-                <button className={`${styles.button_search}`}>
+                <div className={`${styles.button_search}`}>
                   <picture>
                     <img src={`/icon-search.png`} alt='search'></img>
                   </picture>
-                </button>
+                </div>
               </div>
             </form>
           </div>
@@ -181,7 +180,7 @@ export default function Recruitment() {
               </div>
             ))
           )}
-          {dataListNews?.data.total > 4 && (
+          {dataListNews?.data.total > 0 && (
             <div className={`${styles.pagination}`}>
               <MyPagination
                 current={currentPage}

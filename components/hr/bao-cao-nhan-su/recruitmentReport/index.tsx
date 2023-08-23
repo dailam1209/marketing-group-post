@@ -33,48 +33,19 @@ export default function RecruitmentReport() {
     setCurrentPageBox4(page)
   }
 
-  console.log(dataResponse);
 
 
   useEffect(() => {
     try {
       const GetDataRecruitment = async () => {
-        const response = await GetDataHrReport(currentPageBox2, 10)
-        setDataResponse(response?.data?.success)
+        const response = await GetDataHrReport()
+        console.log(response?.success)
+        setDataResponse(response?.success)
       }
       GetDataRecruitment()
     } catch (error) { }
   }, [currentPageBox2])
 
-  useEffect(() => {
-    try {
-      const GetDataRecruitment = async () => {
-        const response = await GetDataHrReport2(currentPageBox3, 10)
-        setDataResponse2(response?.data?.success)
-      }
-      GetDataRecruitment()
-    } catch (error) { }
-  }, [currentPageBox3])
-
-  useEffect(() => {
-    try {
-      const GetDataRecruitment = async () => {
-        const response = await GetDataHrReport3(currentPageBox4, 10)
-        setDataResponse3(response?.data?.success)
-      }
-      GetDataRecruitment()
-    } catch (error) { }
-  }, [currentPageBox4])
-
-  useEffect(() => {
-    try {
-      const GetDataRecruitment = async () => {
-        const response = await GetDataHrReport4(1, 10000000)
-        setDataResponse4(response?.data?.success)
-      }
-      GetDataRecruitment()
-    } catch (error) { }
-  }, [currentPageBox2])
   const data = [
     {
       id: 1,

@@ -10,8 +10,6 @@ export interface BodyFrameHeader { }
 
 export default function BodyFrameHeader({ dataHeader }: any) {
 
-    console.log(dataHeader);
-
     const [menuClick, setMenuClick] = useState(false)
     const [noti, setNoti] = useState(false)
     const [remind, setRemind] = useState(false)

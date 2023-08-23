@@ -15,10 +15,6 @@ export interface PerformRecruitment { }
 export default function PerformRecruitment({ children, totalCandi }: any) {
   const [selectedButton, setSelectedButton] = useState('homnay')
   const [messIsOpen, setMessIsOpen] = useState<any>()
-
-  console.log(messIsOpen);
-
-
   const [listSchedule, setListSchedule] = useState<any>()
   const [currentPageListNewActive, setCurrentPageListNewActive] = useState(1)
   const [currentPageListSchedule, setCurrentPageLisSchedule] = useState(1)
@@ -36,6 +32,7 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
     getDataRecruitmentOverview()
   }, [currentPageListNewActive])
 
+  console.log(listSchedule, "đây nè")
   useEffect(() => {
     try {
       const GetDataListSchedule = async () => {
@@ -78,9 +75,6 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
     12: 'Trên 100 triệu',
   }
 
-  console.log(listSchedule);
-
-
   return (
     <>
       <div className={`${styles.tab_content}`}>
@@ -98,11 +92,11 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
               </div>
               <hr></hr>
               {/* body map ở đây */}
-              {messIsOpen?.data?.data.length === 0 ? (
+              {messIsOpen?.data?.total === 0 ? (
                 <p className={`${styles.data_empty}`}>Không có dữ liệu</p>
               ) : (
                 messIsOpen?.data?.data.map((item, index) => {
-                  const timeEnd = new Date(item.timeEnd).getTime()
+                  const timeEnd = new Date(item.recruitment_time_to).getTime()
                   if (currentTime > timeEnd) {
                     return null
                   }
@@ -117,9 +111,9 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
                         </div>
 
                         <div className={`${styles.tin_item2}`}>
-                          <h4>
-                            <span>{item.title}</span>
-                          </h4>
+                          <h3>
+                            <span>{`(TD${item.id})`}{item.title}</span>
+                          </h3>
                           <div className={`${styles.tin_item3}`}>
                             <li>
                               <picture>
@@ -128,10 +122,10 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
                                   src={`/calendar.png`}></img>
                                 <span>
                                   {new Date(
-                                    item.timeStart
+                                    item.recruitment_time
                                   ).toLocaleDateString()}{' '}
                                   -{' '}
-                                  {new Date(item.timeEnd).toLocaleDateString()}
+                                  {new Date(item.recruitment_time_to).toLocaleDateString()}
                                 </span>
                               </picture>
                             </li>
@@ -139,7 +133,7 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
                             <li>
                               <span>{item.address}</span>
                               <span>.</span>
-                              <span>{salary[item.salaryId]}</span>
+                              <span>{salary[item.salary_id]}</span>
                             </li>
                           </div>
                           <hr></hr>
@@ -179,11 +173,11 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
                 })
               )}
               {/* end ở đây */}
-              {messIsOpen?.data?.data.length > 3 && (
+              {messIsOpen?.data?.data.length > 0 && (
                 <div className={`${styles.pagination}`}>
                   <MyPagination
                     current={currentPageListNewActive}
-                    total={messIsOpen?.countAllActiveNew}
+                    total={messIsOpen?.data?.total}
                     pageSize={3}
                     onChange={(page) => handlePageListNewActive(page)}
                   />
@@ -280,13 +274,13 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
                 )}
               </div>
             </div>
-            {listSchedule?.totalSchedule > 3 && (
+            {listSchedule?.data?.total > 0 && (
               <div
                 className={`${styles.pagination}`}
                 style={{ marginRight: '8%' }}>
                 <MyPagination
                   current={currentPageListSchedule}
-                  total={listSchedule?.totalSchedule}
+                  total={listSchedule?.data?.total}
                   pageSize={3}
                   onChange={(page) => handlePageLisSchedule(page)}
                 />

@@ -1,13 +1,13 @@
 import axios from 'axios'
 import { getToken } from '../token'
 const COOKIE_KEY = 'token_base365'
-export const GetDataHrReport = async (page, pageSize) => {
+export const GetDataHrReport = async () => {
   const url = process.env.NEXT_PUBLIC_BASE_URL
   const isToken = getToken(COOKIE_KEY)
   try {
     const response = await axios.post(
-      `${url}api/hr/report/reportRecruitment?page=${page}&pageSize=${pageSize}`,
-      { page, pageSize },
+      `${url}api/hr/report/reportRecruitment`,
+      { },
       {
         headers: {
           Authorization: `Bearer ${isToken}`,
