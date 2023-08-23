@@ -8,6 +8,7 @@ import {
   Checkbox,
   DatePicker,
   InputNumber,
+<<<<<<< HEAD
 } from 'antd';
 import styles from './modal-them-moi-luong.module.css';
 import Image from 'next/image';
@@ -22,6 +23,22 @@ import { POST_TL } from '@/pages/api/BaseApi';
 import { useRouter } from 'next/router';
 import dayjs from 'dayjs';
 const { TextArea } = Input;
+=======
+} from 'antd'
+import styles from './modal-them-moi-luong.module.css'
+import Image from 'next/image'
+import { values } from 'lodash'
+import React, { useState } from 'react'
+import {
+  Logo,
+  IconSelect,
+} from '@/components/cai-dat-luong/cai-dat-thue/danh-sach-nhan-su-chua-thiet-lap/anh'
+import moment from 'moment'
+import { POST_TL } from '@/pages/api/BaseApi'
+import { useRouter } from 'next/router'
+import dayjs from 'dayjs'
+const { TextArea } = Input
+>>>>>>> 4e8e783 (fix bugs)
 const loai = [
   {
     value: 0,
@@ -64,6 +81,7 @@ export function ModalThemMoiLuong(
       sb_quyetdinh: val?.sb_quyetdinh || '',
       sb_salary_bh: val?.sb_salary_bh || 0,
       sb_pc_bh: val?.sb_pc_bh || 0,
+<<<<<<< HEAD
     };
     console.log(body);
     const res = await POST_TL('api/tinhluong/congty/insert_basic_salary', body);
@@ -72,6 +90,16 @@ export function ModalThemMoiLuong(
     // console.log(body)
     router.replace(router.asPath);
   };
+=======
+    }
+    console.log(body)
+    const res = await POST_TL('api/tinhluong/congty/insert_basic_salary', body)
+    console.log(res)
+
+    // console.log(body)
+    router.replace(router.asPath)
+  }
+>>>>>>> 4e8e783 (fix bugs)
 
   return (
     <Modal
@@ -106,17 +134,28 @@ export function ModalThemMoiLuong(
                   required: true,
                   message: 'Trường này là bắt buộc',
                 },
+<<<<<<< HEAD
               ]}
             >
               <InputNumber
                 size="large"
                 placeholder="Nhập lương"
+=======
+              ]}>
+              <InputNumber
+                size='large'
+                placeholder='Nhập lương'
+>>>>>>> 4e8e783 (fix bugs)
                 className={styles.inputname}
                 formatter={(value) =>
                   `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
                 }
                 style={{ width: '100%' }}
+<<<<<<< HEAD
                 suffix="VNĐ"
+=======
+                suffix='VNĐ'
+>>>>>>> 4e8e783 (fix bugs)
               />
             </Form.Item>
 
@@ -193,7 +232,11 @@ export function ModalThemMoiLuong(
                 size="large"
                 style={{ width: '100%' }}
                 format={'DD-MM-YYYY'}
+<<<<<<< HEAD
                 placeholder="Chọn ngày"
+=======
+                placeholder='Chọn ngày'
+>>>>>>> 4e8e783 (fix bugs)
                 className={styles.inputname}
               />
             </Form.Item>
@@ -220,6 +263,7 @@ export function ModalThemMoiLuong(
                 className={styles.inputname}
                 options={loai}
                 suffixIcon={<IconSelect />}
+<<<<<<< HEAD
               />
             </Form.Item> */}
 
@@ -235,6 +279,8 @@ export function ModalThemMoiLuong(
                 className={styles.inputname}
                 // options={loai}
                 // suffixIcon={<IconSelect />}
+=======
+>>>>>>> 4e8e783 (fix bugs)
               />
             </Form.Item>
 

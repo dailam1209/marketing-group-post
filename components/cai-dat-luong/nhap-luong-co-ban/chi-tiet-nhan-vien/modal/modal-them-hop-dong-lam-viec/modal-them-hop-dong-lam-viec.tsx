@@ -34,7 +34,11 @@ export function ModalThemHopDong(open: boolean, setOpen: Function, data: any) {
       con_time_end: '1970-01-01T00:00:00.000+00:00',
       con_id_user: router.query.id,
       con_file: value?.con_file || '',
+<<<<<<< HEAD
     });
+=======
+    })
+>>>>>>> 4e8e783 (fix bugs)
     if (res?.message === 'success') {
       router.replace(router.asPath);
     }
