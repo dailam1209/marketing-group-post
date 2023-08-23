@@ -127,20 +127,20 @@ export default function TabWorkingRotation({ iconAdd, iconEdit, iconDelete }: an
 
   const chonphongbanOptions = useMemo(
     () =>
-      departmentList?.data?.map((department: any) => ({
+      departmentList?.items?.map((department: any) => ({
         value: department.dep_id,
         label: department.dep_name,
       })),
-    [departmentList?.data]
+    [departmentList?.items]
   );
 
   const chonnhanvienOptions = useMemo(
     () =>
-      EmpData?.data?.map((emp: any) => ({
-        value: emp.idQLC,
-        label: emp.userName,
+      EmpData?.items?.map((emp: any) => ({
+        value: emp.ep_id,
+        label: emp.ep_name,
       })),
-    [EmpData?.data]
+    [EmpData?.items]
   );
   const handleSelectChange = (selectedOption: SelectOptionType | null, setState: any) => {
     setSelectedOption(selectedOption);

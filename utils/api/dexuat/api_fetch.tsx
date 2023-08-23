@@ -3,11 +3,11 @@ import { getCookie } from "cookies-next";
 import jwtDecode from "jwt-decode";
 
 const baseURL: any = process.env.NEXT_PUBLIC_BASE_URL;
-const base_QLC_URL: any = process.env.NEXT_PUBLIC_BASE_QLC;
+const base_QLC_URL: any = process.env.NEXT_PUBLIC_BASE_URL;
 const token = `${getCookie("token_first")}${getCookie("token_hafl")}`;
 export const fetch_supervisor_approver = async (token:any) => {
     try{
-        const response = await axios.post(`${baseURL}/api/vanthu/dexuat/showadd`,
+        const response = await axios.post(`${baseURL}api/vanthu/dexuat/showadd`,
         {},
         {
             headers: {
@@ -23,7 +23,7 @@ export const fetch_supervisor_approver = async (token:any) => {
 }
 export const fetch_shift = async (token:any) => {
     try{
-        const response = await axios.get(`${base_QLC_URL}/api/qlc/shift/list`,{
+        const response = await axios.get(`${base_QLC_URL}api/qlc/shift/list`,{
             headers: {
                 Authorization: `Bearer ${token}`,
               },
@@ -38,7 +38,7 @@ export const fetch_shift = async (token:any) => {
 export const fetch_department = async (token:any) => {
     try{
         const user_infor = jwtDecode<any>(token)
-        const response = await axios.post(`${base_QLC_URL}/api/qlc/department/list`,
+        const response = await axios.post(`${base_QLC_URL}api/qlc/department/list`,
         {
             com_id: user_infor.data.com_id
         },
@@ -57,7 +57,7 @@ export const fetch_department = async (token:any) => {
 export const fetch_employee = async (token:any) => {
     try{
         
-        const response = await axios.post(`${base_QLC_URL}/api/qlc/managerUser/listAll`,
+        const response = await axios.post(`${base_QLC_URL}api/qlc/managerUser/listAll`,
         {},
         {
             headers: {
@@ -100,7 +100,7 @@ export const fetch_position = (name?:any)=>{
 export const fetch_toiguidi = async (data?:any)=>{
     try{
         
-        const response = await axios.post(`${baseURL}/api/vanthu/DeXuat/user_send_deXuat_All`,    
+        const response = await axios.post(`${baseURL}api/vanthu/DeXuat/user_send_deXuat_All`,    
         data,
         {
             headers: {
@@ -117,7 +117,7 @@ export const fetch_toiguidi = async (data?:any)=>{
 export const fetch_guidentoi = async (data?:any)=>{
     try{
         
-        const response = await axios.post(`${baseURL}/api/vanthu/DeXuat/deXuat_send_user`,    
+        const response = await axios.post(`${baseURL}api/vanthu/DeXuat/deXuat_send_user`,    
         data,
         {
             headers: {
@@ -134,7 +134,7 @@ export const fetch_guidentoi = async (data?:any)=>{
 export const fetch_follow = async (data?:any)=>{
     try{
         
-        const response = await axios.post(`${baseURL}/api/vanthu/DeXuat/deXuat_follow`,    
+        const response = await axios.post(`${baseURL}api/vanthu/DeXuat/deXuat_follow`,    
         data,
         {
             headers: {
@@ -151,7 +151,7 @@ export const fetch_follow = async (data?:any)=>{
 export const fetch_dxtype = async ()=>{
     try{
         
-        const response = await axios.post(`${baseURL}/api/vanthu/catedx/showlistcate`,    
+        const response = await axios.post(`${baseURL}api/vanthu/catedx/showlistcate`,    
         {},
         {
             headers: {
@@ -168,7 +168,7 @@ export const fetch_dxtype = async ()=>{
 export const fetch_deleted_propose = async (data?:any) => {
     try{
         
-        const response = await axios.post(`${baseURL}/api/vanthu/deletedx/ds_de_xuat_da_xoa`,    
+        const response = await axios.post(`${baseURL}api/vanthu/deletedx/ds_de_xuat_da_xoa`,    
         data,
         {
             headers: {

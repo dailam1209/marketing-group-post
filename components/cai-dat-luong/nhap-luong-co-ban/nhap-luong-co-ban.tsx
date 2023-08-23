@@ -22,7 +22,6 @@ import { ModalNhapLuongCoBan } from './modal/nhap-luong-co-ban'
 import { CSVDownload, CSVLink } from 'react-csv'
 import moment from 'moment'
 import { getPosition } from '@/utils/function'
-
 export const filterUnique = (input: any[], name: string) => {
   const uniqueIds: any[] = []
 
@@ -48,6 +47,8 @@ export const NhapLuongCoBan = ({
   listPb: any[]
   listIds: any[]
 }) => {
+  console.log(data)
+
   const [modalChinhSua, setModalChinhSua] = useState(false)
   const [modalKey, setModalKey] = useState('')
   const [date, setDate] = useState<String>()
@@ -59,38 +60,6 @@ export const NhapLuongCoBan = ({
     label: p?.value,
     value: p?.id,
   }))
-
-  useEffect(() => {
-    const getData = async () => {
-      const finalData: any[] = []
-
-      const listIds = data?.map((item) => {
-        return item?.idQLC
-      })
-
-      if (!_.isEmpty(listIds)) {
-        const resSal = await POST_TL(
-          'api/tinhluong/congty/take_salary_contract',
-          { time: date, array: `[${listIds?.toString()}]` }
-        )
-
-        if (resSal?.data) {
-          data?.forEach((user: any, index: number) => {
-            const salData = resSal?.data?.find(
-              (item) => item?.userId === user?.idQLC
-            )
-
-            finalData.push({ ...user, ...salData })
-          })
-          setListData(finalData)
-        }
-      }
-    }
-
-    if (date) {
-      getData()
-    }
-  }, [date])
 
   const chitiet = (id: String) => {
     router.push(`${router.pathname}/chi-tiet-nhan-vien/${id}`)
@@ -150,8 +119,8 @@ export const NhapLuongCoBan = ({
       key: 'luongCB',
       render: (record) => (
         <p style={{ color: '#FF5B4D' }} className={styles.text}>
-          {record?.sb_salary_basic
-            ? new Intl.NumberFormat('ja-JP').format(record?.sb_salary_basic)
+          {record?.luong_co_ban
+            ? new Intl.NumberFormat('ja-JP').format(record?.luong_co_ban)
             : 0}{' '}
           VND
         </p>
@@ -162,7 +131,7 @@ export const NhapLuongCoBan = ({
       key: 'HDApDung',
       render: (record) => (
         <p className={styles.text}>
-          {record?.con_salary_persent || 0} % Lương cơ bản{' '}
+          {record?.phan_tram_hop_dong || 0} % Lương cơ bản{' '}
         </p>
       ),
     },
@@ -255,7 +224,7 @@ export const NhapLuongCoBan = ({
                 if (value === 'all') {
                   setListData(data)
                 } else {
-                  setListData(listData?.filter((item) => item?.idQLC === value))
+                  setListData(data?.filter((item) => item?.idQLC === value))
                 }
               }}
               options={
@@ -286,20 +255,37 @@ export const NhapLuongCoBan = ({
         <Col xl={5} sm={8} md={6} xs={13} className={styles.colbutton}>
           <CSVLink
             filename={`Xuất bảng lương ngày ${moment()?.format('DD-MM-YYYY')}`}
-            data={
-              data &&
-              data?.map((item) => [
-                item?.idQLC,
-                item?.userName,
-                item?.sb_salary_basic,
-                item?.con_salary_persent,
-                item?.department?.[0]?.dep_name || 'Chưa cập nhật',
-                item?.inForPerson?.employee?.position_id,
-                item?.email,
-                item?.phoneTK,
-                item?.address,
-              ])
-            }>
+            data={[
+              [
+                'Id',
+                'Tên',
+                'Lương cơ bản',
+                'Phần trăm hợp đồng',
+                'Lương thực nhận',
+                'Lương bảo hiểm',
+                'Phòng ban',
+                'Chức vụ',
+                'Email',
+                'Số điện thoại',
+                'Địa chỉ',
+              ],
+              ...(data
+                ? data?.map((item) => [
+                    item?.idQLC,
+                    item?.userName,
+                    item?.luong_co_ban,
+                    item?.phan_tram_hop_dong,
+                    item?.luong_thuc_nhan,
+                    item?.luong_bao_hiem,
+                    item?.department?.[0]?.dep_name || 'Chưa cập nhật',
+                    positionLabel?.[item?.inForPerson?.employee?.position_id]
+                      ?.label,
+                    item?.email,
+                    item?.phoneTK,
+                    item?.address,
+                  ])
+                : []),
+            ]}>
             <Button className={styles.button2} icon={<IconEX />}>
               <p className={styles.textB}>Xuất lương cơ bản</p>
             </Button>

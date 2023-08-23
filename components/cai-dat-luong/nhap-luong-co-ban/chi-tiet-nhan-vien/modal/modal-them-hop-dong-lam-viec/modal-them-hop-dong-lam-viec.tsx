@@ -30,8 +30,9 @@ export function ModalThemHopDong(open: boolean, setOpen: Function, data: any) {
     const res = await POST_TL('api/tinhluong/congty/insert_contract', {
       ...value,
       con_time_up: value?.con_time_up?.format('YYYY-MM-DD'),
-      con_time_end: value?.con_time_end?.format('YYYY-MM-DD'),
-      con_id_user: data?.info_contract?.[0]?.con_id_user,
+      con_time_end: '1970-01-01T00:00:00.000+00:00',
+      con_id_user: router.query.id,
+      con_file: value?.con_file || '',
     })
     if (res?.message === 'success') {
       router.replace(router.asPath)
@@ -81,13 +82,13 @@ export function ModalThemHopDong(open: boolean, setOpen: Function, data: any) {
             true,
             'con_time_up'
           )}
-          {MyDatePicker(
+          {/* {MyDatePicker(
             'Ngày hết hạn',
             'Ngày hết hạn',
             true,
             true,
             'con_time_end'
-          )}
+          )} */}
           <input
             type='file'
             onChange={(e) => onFileChange(e)}
@@ -138,7 +139,7 @@ export function ModalThemHopDong(open: boolean, setOpen: Function, data: any) {
             </div>
           </div> */}
 
-          {MyInput('Tệp đính kèm', 'Tệp đính kèm', true, true, 'con_file')}
+          {MyInput('Tệp đính kèm', 'Tệp đính kèm', false, true, 'con_file')}
 
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <button className={styles.huyb} onClick={() => setOpen(false)}>

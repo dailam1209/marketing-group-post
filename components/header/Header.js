@@ -117,7 +117,7 @@ export default function Header() {
               </p>
             </div>
             <div className={styles.bg_ima}>
-              <a href='https://dev.timviec365.vn/'>
+              <a href='/'>
                 <img src='/img/logo_h.svg' alt='logo công ty' />
               </a>
             </div>

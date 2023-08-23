@@ -1,0 +1,132 @@
+/*import Image from "next/image"*/
+
+
+.blog_hot{
+    float: left;
+    width: 100%;
+    padding: 25px 9%;
+    margin-top: 50px;
+    font-family: Roboto-Regular, sans-serif;
+    font-size: 13px;
+    color: #4f4f4f;
+}
+.breadcrumb{
+    margin-bottom: 40px;
+}
+.first{
+    display: inline-block;
+    list-style: none;
+}
+.first::before{
+    content: "";
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    background: url(https://timviec365.vn/images/icons/new-icon/ic-home.png) bottom no-repeat;
+    background-size: 100% 100%;
+    margin-right: 5px;
+    color: #aaa;
+}
+.first > a {
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 18px;
+    color: #5e5e5e;
+}
+.ic_gach{
+    padding: 0 10px;
+    font-family: Roboto-Regular, sans-serif;
+    font-size: 13px;
+    color: #4f4f4f;
+}
+.itemListElement{
+    display: inline-block;
+    list-style: none;
+}
+.itemListElement > a {
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 18px;
+    color: #5e5e5e;
+}
+.blog_hot > h1{
+    padding-bottom: 15px;
+    font-size: 30px;
+    color: #4f4f4f;
+    line-height: 1.428571429;
+}
+.hot_new{
+    float: left;
+    width: 100%;
+    color: #222;
+    font-size: 16px;
+    font-family: Roboto-Medium;
+    letter-spacing: 2px;
+}
+.hot_new > span > h2{
+    background: #FFA800;
+    border-radius: 5px 5px 0 5px;
+    width: 83px;
+    height: 34px;
+    color: #fff;
+    line-height: 36px;
+    display: inline-block;
+    text-align: center;
+    margin-right: 20px;
+    letter-spacing: 1px;
+    font-size: 16px;
+}
+.hot_new > a {
+    color: #043379;
+    text-decoration: unset;
+}
+.box_hot_new{
+    float: left;
+    width: 100%;
+    margin: 20px 0;
+}
+.hot_new1{
+    float: left;
+    width: 80%;
+}
+.divBig{
+position: relative;
+}
+.divBig > img {
+    width: 100%;
+    height:100%
+}
+
+.img_banner{
+    position: absolute;
+    right: 0;
+    top: 13px;
+    width: 25%;
+    height: 446px;
+    padding: 20px;
+    background-image: url("../../../public/nd_tin.png");
+}
+.img_banner > h3 {
+    font-family: Roboto;
+    font-size: 22px;
+    font-weight: 650;
+    line-height: 31px;
+    letter-spacing: 0em;
+    text-align: justify;
+    color: #FFFFFF
+}
+.img_banner > p {
+    font-family: Roboto;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 23px;
+    letter-spacing: 0em;
+    text-align: justify;
+    color: #FFFFFF;
+
+}
+

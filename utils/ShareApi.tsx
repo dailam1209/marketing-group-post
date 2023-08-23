@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getCookie } from "cookies-next";
 import jwtDecode from "jwt-decode";
-const baseURLQLC: any = process.env.NEXT_PUBLIC_BASE_QLC;
+const baseURLQLC: any = process.env.NEXT_PUBLIC_BASE_URL;
 const baseURL: any = process.env.NEXT_PUBLIC_BASE_URL;
 const token = `${getCookie("token_first")}${getCookie("token_hafl")}`;
 // Lấy ra thông tin tài khoản
@@ -15,7 +15,7 @@ export const fetch_infor_account = () => {
 export const fetch_employee = async (token: any) => {
   try {
     const response = await axios.post(
-      `${baseURLQLC}/api/qlc/managerUser/listAll`,
+      `${baseURLQLC}api/qlc/managerUser/listAll`,
       {},
       {
         headers: {
@@ -33,7 +33,7 @@ export const fetch_employee = async (token: any) => {
 export const fetchDataSoVB = async () => {
   try {
     const response = await axios.post(
-      `${baseURL}/api/vanthu/guiNhanCongVan/setting/getListSoVanBan`,
+      `${baseURL}api/vanthu/guiNhanCongVan/setting/getListSoVanBan`,
       {},
       {
         headers: {
@@ -53,7 +53,7 @@ export const fetch_list_department = async () => {
   if (user_infor) {
     try {
       const response = await axios.post(
-        `${baseURLQLC}/api/qlc/department/list`,
+        `${baseURLQLC}api/qlc/department/list`,
         {
           com_id: user_infor?.data?.idQLC,
         },
@@ -76,7 +76,7 @@ export const fetch_list_employee = async () => {
   if (user_infor) {
     try {
       const response = await axios.post(
-        `${baseURLQLC}/api/qlc/managerUser/list`,
+        `${baseURLQLC}api/qlc/managerUser/list`,
         {
           com_id: user_infor?.data?.idQLC,
         },
@@ -111,7 +111,7 @@ export const fetchDataDetailDep = async (api: string, data?: any) => {
 export const fetch_ds_position = async () => {
   try {
     const response = await axios.post(
-      `http://210.245.108.202:3006/api/hr/organizationalStructure/listPosition`,
+      `http://210.245.108.202:3006api/hr/organizationalStructure/listPosition`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -129,7 +129,7 @@ export const fetch_ds_position = async () => {
 export const fetch_emp_by_id = async (id_com: any, id_dep?: any) => {
   try {
     const response = await axios.post(
-      `${baseURLQLC}/api/qlc/managerUser/list`,
+      `${baseURLQLC}api/qlc/managerUser/listAll`,
       {
         com_id: id_com,
         dep_id: id_dep,
@@ -151,7 +151,7 @@ export const fetchNoiGui = async (dep_id: any) => {
   if (user_infor) {
     try {
       const response = await axios.post(
-        `${baseURLQLC}/api/qlc/department/list`,
+        `${baseURLQLC}api/qlc/department/list`,
         { com_id: user_infor?.data?.idQLC, dep_id: dep_id },
         {
           headers: {
@@ -159,7 +159,7 @@ export const fetchNoiGui = async (dep_id: any) => {
           },
         }
       );
-      return response?.data?.data?.data[0]?.dep_name;
+      return response?.data?.data?.items[0]?.dep_name;
     } catch (err) {
       console.error("Error fetching home data:", err);
     }
@@ -172,13 +172,13 @@ export const fetch_list_employs = async () => {
     try {
       const com_id = user_infor?.data?.idQLC;
       const list_emps = await fetch_emp_by_id(com_id);
-      return list_emps?.data?.data;
+      return list_emps?.data?.items;
     } catch (err) {
       console.error("Error fetching home data:", err);
     }
   }
 };
-export const fetch_position = ({ name, value, label }: any) => {
+export const fetch_position = ({ name }: any) => {
   return [
     { name: name, value: "", label: "Tất cả" },
     { name: name, value: "1", label: "SINH VIÊN THỰC TẬP" },
@@ -204,3 +204,35 @@ export const fetch_position = ({ name, value, label }: any) => {
     { name: name, value: "17", label: "THÀNH VIÊN HỘI ĐỒNG QUẢN TRỊ" },
   ];
 };
+export const fetch_emp_info = async (token:any) => {
+  try {
+    const response = await axios.post(
+      `${baseURLQLC}api/qlc/employee/info`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response?.data;
+  } catch (err) {
+    console.error("Error fetching employee data:", err);
+  }
+}
+export const fetch_com_info = async (token:any) => {
+  try {
+    const response = await axios.post(
+      `${baseURLQLC}api/qlc/company/info`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response?.data;
+  } catch (err) {
+    console.error("Error fetching company data:", err);
+  }
+}

@@ -1,0 +1,132 @@
+.header {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    background-color: #4c5bd4 !important;
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    height: auto;
+}
+
+.count_base {
+    background-color: #F46A6A;
+    padding-left: 1px !important;
+    border-color: #fff;
+    position: absolute;
+    right: 25%;
+    padding: 0px;
+    width: 14px;
+    height: 14px;
+    line-height: 18px;
+    font-size: 9px;
+    border-radius: 7px;
+    top: 57%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}
+
+.count_none {
+    display: none;
+}
+
+.count_red {
+    background-color: #F46A6A;
+}
+
+.count_blue {
+    background-color: #4C5BD4;
+}
+
+.dayname {
+    text-align: center;
+    width: calc(100% / 7);
+    max-width: 14.2857%;
+}
+
+.day {
+    border: 1px solid #CFCFCF;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    margin-top: 20px;
+}
+
+.active {
+    border-radius: 40px;
+    border: 1px #4C5BD4 solid;
+    background-color: #4C5BD4;
+    color: white;
+}
+
+.choose {
+    border: 1px #CFCFCF solid;
+    border-radius: 40px;
+}
+
+.normal {
+    border: none;
+}
+
+.disable {
+    border: none;
+    pointer-events: none;
+    color: #C4C4C4;
+}
+
+.cover {
+    width: 30px;
+    height: 31px;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.listli>li {
+    margin-bottom: 5px;
+    list-style: none;
+}
+
+.checkbox {
+    margin-right: 10px;
+}
+
+.button {
+    margin-left: 50px;
+    padding: 5px 20px;
+    text-align: center;
+    height: auto;
+    background-color: #4C5BD4;
+    border-radius: 12px !important;
+
+}
+
+.button_white {
+    padding: 5px 20px;
+    text-align: center;
+    height: auto;
+    background-color: #fff;
+    border-radius: 12px !important;
+    display: flex;
+    align-items: center;
+    border: 1px solid #4C5BD4;
+}
+
+.buttonTxt {
+    color: #fff;
+    font-size: 18px;
+}
+
+@media screen and (max-width:414px) {
+    .dayname {
+        font-size: 16px;
+    }
+
+    .buttonTxt {
+        font-size: 16px;
+    }
+}

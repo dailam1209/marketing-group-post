@@ -5,10 +5,7 @@ import { useRouter } from "next/router";
 import AddRecruitmentStage from "@/components/hr/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/chi-tiet-quy-trinh/addRecruitmentStage/them-giai-doan";
 import ListRecruitmentStage from "@/components/hr/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/chi-tiet-quy-trinh/listRecruitmentStage/listRecruitmentStage";
 import { DataRecruitmentStage } from "@/pages/api/api-hr/quan-ly-tuyen-dung/RecruitmentManagerService";
-import { getToken } from "@/pages/api/api-hr/token";
 import { getDataAuthentication } from "@/pages/api/api-hr/Home/HomeService";
-import jwt_decode from "jwt-decode";
-import { getTokenFromCookie } from "@/pages/api/api-hr/token";
 import Head from "next/head";
 
 export async function getServerSideProps({ query }) {
@@ -21,13 +18,15 @@ export async function getServerSideProps({ query }) {
 
 export default function listRecruitmentProcess({ query }) {
   const router = useRouter();
-  const idRecruitmentStage = query.idRecruitmentStage;
+  const idRecruitmentStage: number = query.idRecruitmentStage;
   const [openModalAdd, setOpenModalAdd] = useState(false);
   const [animateModal, setAnimateModal] = useState(false);
   const [recruitmentStage, setRecruitmentStage] = useState<any>()
   const [newData, setNewData] = useState<any>(false);
   const recruitment = recruitmentStage?.data.recruitment
   const [displayIcon, setDisplayIcon] = useState<any>();
+
+  console.log(recruitmentStage);
 
   useEffect(() => {
     try {
@@ -48,8 +47,8 @@ export default function listRecruitmentProcess({ query }) {
   useEffect(() => {
     try {
       const fetchDataDetail = async () => {
-        const response = await DataRecruitmentStage(idRecruitmentStage)
-        setRecruitmentStage(response?.data?.data)
+        const response = await DataRecruitmentStage(Number(idRecruitmentStage))
+        setRecruitmentStage(response?.data?.success)
       }
       fetchDataDetail()
     } catch (error) {
@@ -109,14 +108,13 @@ export default function listRecruitmentProcess({ query }) {
             setData={setNewData}
           ></AddRecruitmentStage>
         )}
-
         <div className={`${styles.giaidoans}`}>
           <div className={`${styles.title_giaidoans}`}>
             <h4>
               ({`QTTD ${idRecruitmentStage}`}) {recruitment}
             </h4>
           </div>
-          {recruitmentStage?.data?.listStage?.map((item, index) => (
+          {recruitmentStage?.data?.data?.map((item, index) => (
             <div key={index}>
               <ListRecruitmentStage
                 item={item}
@@ -130,7 +128,6 @@ export default function listRecruitmentProcess({ query }) {
             </div>
           ))}
         </div>
-
       </div>
     </>
   );

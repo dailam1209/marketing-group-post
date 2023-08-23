@@ -7,7 +7,7 @@ import { cookies } from 'next/headers'
 const currentUrlQlc = process.env.NEXT_PUBLIC_API
 const currentUrlHR = process.env.NEXT_PUBLIC_BASE_URL_HR
 const currentUrlVT = process.env.NEXT_PUBLIC_BASE_URL_VT
-const curentUrlTL = process.env.NEXT_PUBLIC_BASE_URL_TL
+const curentUrlTL = process.env.NEXT_PUBLIC_API
 
 export const getCurrentToken = () => {
   let token = ''

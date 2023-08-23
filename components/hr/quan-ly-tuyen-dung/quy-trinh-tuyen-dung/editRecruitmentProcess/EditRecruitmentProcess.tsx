@@ -11,7 +11,7 @@ export default function EditRecruitmentProcess({
   setData,
 }: any) {
   const nameProcess = data.name;
-  const applyFor = data.applyFor;
+  const applyFor = data.apply_for;
   const recruitId = data.id;
   const [errors, setErrors] = useState<any>({});
   const [formData, setFormData] = useState({
@@ -121,7 +121,7 @@ export default function EditRecruitmentProcess({
                   <div className={`${styles.inputright}`}>
                     <input
                       name="applyFor"
-                      defaultValue={data.applyFor}
+                      defaultValue={data.apply_for}
                       type="text"
                       className={`${styles.inputquytrinh}`}
                       placeholder="Nhập tên giai đoạn"
