@@ -460,7 +460,7 @@ const App = () => {
         </div>
         <div className={styles.table}>
           <Table
-            className={styles.table}
+            className={`customTable1 ${styles.table}`}
             columns={columns}
             dataSource={dataTable}
             pagination={false}
