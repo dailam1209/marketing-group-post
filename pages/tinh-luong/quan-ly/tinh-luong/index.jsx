@@ -55,6 +55,13 @@ const EditableCell = ({
   );
 };
 const App = () => {
+  function roundToInteger(number) {
+    if (typeof number !== "number" || isNaN(number)) {
+      return "Chưa cập nhật";
+    }
+    let number1 = Math.round(number);
+    return number1.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
   //render user
   const [apiDataUser, setApiDataUser] = useState([]);
   useEffect(() => {
@@ -82,6 +89,7 @@ const App = () => {
   const [placement, SetPlacement] = useState("topLeft");
   const [selectedMonth, setSelectedMonth] = useState(dayjs().month() + 1);
   const [selectedYear, setSelectedYear] = useState(dayjs().year());
+  console.log("apiData?.data?.luong_thuc", apiData?.data?.luong_thuc);
   // const [selectedId,setSelectedID]=useState()
   checkCookie();
   const user_info = cookieCutter.get("userName");
@@ -116,9 +124,7 @@ const App = () => {
     {
       id: "1",
       name: "Lương cơ bản",
-      parameter: `${apiData?.data?.luong_co_ban
-        .toString()
-        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`,
+      parameter: `${roundToInteger(apiData?.data?.luong_co_ban)}`,
       unit: "VNĐ",
     },
     {
@@ -172,167 +178,133 @@ const App = () => {
     {
       id: "10",
       name: "Lương thực",
-      parameter: `${apiData?.data?.luong_thuc
-        .toString()
-        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`,
+      parameter: `${roundToInteger(apiData?.data?.luong_thuc)}`,
       unit: "VNĐ",
     },
     {
       id: "11",
       name: "Lương sau phạt",
-      parameter: `${apiData?.data?.luong_sau_phat
-        .toString()
-        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`,
+      // parameter: `${apiData?.data?.luong_sau_phat
+      //   .toString()
+      //   .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`,
+      parameter: roundToInteger(apiData?.data?.luong_sau_phat),
       unit: "VNĐ",
     },
     {
       id: "12",
       name: "Lương bảo hiểm",
-      parameter: `${apiData?.data?.luong_bao_hiem
-        .toString()
-        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`,
+      parameter: `${roundToInteger(apiData?.data?.luong_bao_hiem)}`,
       unit: "VNĐ",
     },
     {
       id: "13",
       name: "Đi muộn/ về sớm phạt tiền",
-      parameter: `${apiData?.data?.tien_phat_muon
-        .toString()
-        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`,
+      parameter: `${roundToInteger(apiData?.data?.tien_phat_muon)}`,
       unit: "VNĐ",
     },
     {
       id: "14",
       name: "Đi muộn/ về sớm phạt công",
-      parameter: `${apiData?.data?.cong_phat_di_muon_ve_som}`,
+      parameter: `${roundToInteger(apiData?.data?.cong_phat_di_muon_ve_som)}`,
       unit: "Công",
     },
     {
       id: "15",
       name: "Hoa hồng",
-      parameter: `${apiData?.data?.tong_hoa_hong
-        .toString()
-        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`,
+      parameter: `${roundToInteger(apiData?.data?.tong_hoa_hong)}`,
       unit: "VNĐ",
     },
     {
       id: "16",
       name: "Tiền đã tạm ứng",
-      parameter: `${apiData?.data?.tien_tam_ung
-        .toString()
-        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`,
+      parameter: `${roundToInteger(apiData?.data?.tien_tam_ung)}`,
       unit: "VNĐ",
     },
     {
       id: "17",
       name: "Thưởng",
-      parameter: `${apiData?.data?.thuong
-        .toString()
-        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`,
+      parameter: `${roundToInteger(apiData?.data?.thuong)}`,
       unit: "VNĐ",
     },
     {
       id: "18",
       name: "Thưởng nghỉ lễ",
-      parameter: `${apiData?.data?.luong_nghi_le
-        .toString()
-        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`,
+      parameter: `${roundToInteger(apiData?.data?.luong_nghi_le)}`,
       unit: "VNĐ",
     },
     {
       id: "19",
       name: "Phạt",
-      parameter: `${apiData?.data?.phat
-        .toString()
-        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`,
+      parameter: `${roundToInteger(apiData?.data?.phat)}`,
       unit: "VNĐ",
     },
     {
       id: "20",
       name: "Phạt nghỉ ngày không được phép nghỉ",
-      parameter: `${apiData?.data?.tien_phat_nghi_khong_phep
-        .toString()
-        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`,
+      parameter: `${roundToInteger(apiData?.data?.tien_phat_nghi_khong_phep)}`,
       unit: "VNĐ",
     },
     {
       id: "21",
       name: "Phạt nghỉ sai quy định",
-      parameter: `${apiData?.data?.phat_nghi_sai_quy_dinh
-        .toString()
-        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`,
+      parameter: `${roundToInteger(apiData?.data?.phat_nghi_sai_quy_dinh)}`,
       unit: "VNĐ",
     },
     {
       id: "22",
       name: "Phúc lợi",
-      parameter: `${apiData?.data?.luong_co_ban
-        .toString()
-        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`,
+      parameter: `${roundToInteger(apiData?.data?.luong_co_ban)}`,
       unit: "VNĐ",
     },
     {
       id: "23",
       name: "Phụ cấp",
-      parameter: `${apiData?.data?.tien_phu_cap
-        .toString()
-        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`,
+      parameter: `${roundToInteger(apiData?.data?.tien_phu_cap)}`,
       unit: "VNĐ",
     },
     {
       id: "24",
       name: "Phụ cấp theo ca",
-      parameter: `${apiData?.data?.phu_cap_theo_ca
-        .toString()
-        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`,
+      parameter: `${roundToInteger(apiData?.data?.phu_cap_theo_ca)}`,
       unit: "VNĐ",
     },
     {
       id: "25",
       name: "Bảo hiểm",
-      parameter: `${apiData?.data?.tong_bao_hiem
-        .toString()
-        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`,
+      parameter: `${roundToInteger(apiData?.data?.tong_bao_hiem)}`,
       unit: "VNĐ",
     },
     {
       id: "26",
       name: "Khoản tiền khác",
-      parameter: `${apiData?.data?.tien_khac
-        .toString()
-        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`,
+      parameter: `${roundToInteger(apiData?.data?.tien_khac)}`,
       unit: "VNĐ",
     },
     {
       id: "27",
       name: "Tổng lương",
-      parameter: `${apiData?.data?.tong_luong
-        .toString()
-        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`,
+      parameter: `${roundToInteger(apiData?.data?.tong_luong)}`,
       unit: "VNĐ",
     },
     {
       id: "28",
       name: "Thuế",
-      parameter: `${apiData?.data?.thue
-        .toString()
-        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`,
+      parameter: `${roundToInteger(apiData?.data?.thue)}`,
       unit: "VNĐ",
     },
     {
       id: "29",
       name: "Tổng lương thực nhận",
-      parameter: `${apiData?.data?.tien_thuc_nhan
-        .toString()
-        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`,
+      // parameter: `${apiData?.data?.tien_thuc_nhan
+      //   .toString()
+      //   .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`,
+      parameter: `${roundToInteger(apiData?.data?.tien_thuc_nhan)}`,
       unit: "VNĐ",
     },
     {
       id: "30",
       name: "Tổng lương đã trả",
-      parameter: `${apiData?.data?.luong_da_tra
-        .toString()
-        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`,
+      parameter: `${roundToInteger(apiData?.data?.luong_da_tra)}`,
       unit: "VNĐ",
     },
   ];
@@ -467,10 +439,7 @@ const App = () => {
           />
           <p className={styles.p_money}>
             Tổng lương thực nhận:{" "}
-            {apiData?.data?.tien_thuc_nhan
-              .toString()
-              .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
-            (VNĐ)
+            {roundToInteger(apiData?.data?.tien_thuc_nhan)} (VNĐ)
           </p>
         </div>
         <button className={styles.export} onClick={handleExportExcel}>
