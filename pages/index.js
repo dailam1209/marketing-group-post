@@ -360,6 +360,7 @@ export default function Home() {
                               <QLC_item
                                 title="Văn thư lưu trữ"
                                 img={"../img/qlc_vt.png"}
+                                url='/van-thu-luu-tru/quanly-cong-van'
                               />
                             </Col>
                             <Col
@@ -778,6 +779,7 @@ export default function Home() {
                                 <QLC_item
                                   title="Văn thư lưu trữ"
                                   img={"../img/qlc_vt.png"}
+                                  url='/van-thu-luu-tru/quanly-cong-van'
                                 />
                               </Col>
                               <Col
