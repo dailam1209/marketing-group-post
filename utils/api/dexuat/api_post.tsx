@@ -338,24 +338,19 @@ export const post_vanbandi_out = async (data:any) => {
         console.error("Error post to vanbandi ngoai cong ty:", err);
     }
 }
-export const POST_VT = async (url: string, body: any) => {
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'multipart/form-data',
-      },
+export const POST_VT = async (body: any) => {
+    try{
+        const response = await axios.post(`${baseURL}api/vanthu/dexuat/De_Xuat_Lich_Lam_Viec`,
+        body,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+              },
+        })
+        return response?.data?.data;
     }
-  
-    try {
-      const res = await axios.post(`${baseURL}/${url}`, body, config)
-      if (res?.status === 200) {
-        return res?.data?.data
-      } else {
-        return null
-      }
-    } catch (error) {
-      console.log(error)
-      return null
+    catch(err){
+        console.error("Error post to llv:", err);
     }
 }
 export const post_findUserByEmail = async (type:any,email:any) => {

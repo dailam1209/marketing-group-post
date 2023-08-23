@@ -1,0 +1,246 @@
+.header_hps {
+  width: 95%;
+  float: left;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+  background: #ffffff;
+  box-shadow: 0px 0px 20px rgba(55, 63, 255, 0.1);
+  border-radius: 10px;
+  margin-top: 20px;
+}
+.hps_hdl {
+  width: 30%;
+  float: left;
+  text-align: left;
+  padding: 18px 0 18px 20px;
+}
+.hps_hdl > p > a {
+  text-decoration: none;
+  color: #4c5bd4;
+}
+.hps_hdl > p {
+  width: 100%;
+  float: left;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 20px;
+  color: #666c7c;
+}
+.hps_hdr {
+  width: 70%;
+  float: left;
+  text-align: right;
+  padding-right: 20px;
+  height: 56px;
+}
+.hsp_hdr_nav {
+  float: right;
+  text-align: right;
+  position: relative;
+}
+.hsp_hdr_nav > ul {
+  float: left;
+  list-style-type: none;
+  text-align: right;
+}
+.hsp_hdr_nav > ul > li {
+  display: inline;
+  padding: 18px 10px;
+  line-height: 56px;
+}
+.hsp_hdr_nav > ul > li > a {
+  text-decoration: none;
+  font-size: 15px;
+  line-height: 20px;
+  color: #68798b;
+}
+
+.hdr_ifm_ntf {
+  float: left;
+  text-align: center;
+  padding: 18px 20px;
+  position: relative;
+  cursor: pointer;
+}
+.count_tb {
+  position: absolute;
+  float: left;
+  top: 10px;
+  background: #f46a6a;
+  border-radius: 50%;
+  width: 17px;
+  height: 17px;
+  color: #ffffff;
+  font-size: 10px;
+  line-height: 17px;
+  left: 27px;
+}
+.hdr_ifm_ntf > img {
+  width: 20px;
+  height: 20px;
+  line-height: 46px;
+  position: relative;
+}
+
+.ifr_nfct {
+  position: absolute;
+  background: #ffffff;
+  box-shadow: 0px 0px 20px rgba(55, 63, 255, 0.1);
+  border-radius: 10px;
+  float: left;
+  top: 42px;
+  left: -140px;
+  width: 448px;
+  z-index: 1;
+  display: none;
+}
+.frame_ifr_nfct {
+  float: left;
+  width: 100%;
+  overflow-y: auto;
+  max-height: 380px;
+  padding: 18px 10px 0px 10px;
+}
+.nfct_one {
+  width: 100%;
+  float: left;
+  border-bottom: 1px solid #e9ecef;
+  padding: 15px 0px;
+  margin-bottom: 15px;
+  position: relative;
+}
+.nfct_avt {
+  width: 17%;
+  float: left;
+  text-align: center;
+  margin-top: 10px;
+}
+.nfct_avt > img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+.nfct_dtct {
+  width: 75%;
+  float: left;
+  text-align: left;
+  padding-left: 10px;
+}
+.nfct_dtct > p {
+  margin-bottom: 5px;
+}
+.tb_gui {
+  width: 100%;
+  float: left;
+}
+.tb_gui > span {
+  text-transform: capitalize;
+  font-size: 15px;
+  color: #666c7c;
+}
+.tb_nd {
+  width: 100%;
+  float: left;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 14px;
+  color: #b2b0b0;
+}
+.tb_nd > span {
+  font-size: 14px;
+  line-height: 25px;
+  color: #666c7c;
+}
+.tb_time {
+  font-size: 12px;
+  line-height: 14px;
+  color: #b2b0b0;
+}
+.nfc_dele {
+  width: 8%;
+  float: right;
+  text-align: right;
+}
+.nfct_rea {
+  width: 100%;
+  float: left;
+  text-align: center;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  color: #5e5e5e;
+  padding: 10px;
+}
+.del_all_tb {
+  cursor: pointer;
+}
+.hdr_ifm_avt {
+  float: left;
+  text-align: right;
+  margin-top: 12px;
+}
+.hdr_ifm_avt > img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+.hdr_ifm_fm {
+  float: left;
+}
+
+.hdr_ifm_fm > p {
+  float: left;
+  text-align: left;
+  background: url(/Arrow_Down.png) no-repeat;
+  background-position: right;
+  line-height: 56px;
+  padding: 0 20px 0 10px;
+  font-weight: 500;
+  font-size: 15px;
+  color: #2e3467;
+  cursor: pointer;
+  max-width: 270px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.hdr_ifm_fm1 > img {
+}
+.more_uh {
+  position: absolute;
+  background: #fff;
+  box-shadow: 4px 1px 10px rgba(0, 0, 0, 0.4);
+  border-radius: 5px;
+  padding: 5px 15px;
+  text-align: left;
+  right: -20px;
+  top: 50px;
+  height: auto;
+  width: 200px;
+  z-index: 2;
+  display: none;
+}
+.more_uh_p {
+  display: flex;
+  cursor: pointer;
+}
+.more_uh > p > a {
+  font-family: Roboto;
+  font-weight: 500;
+  line-height: 45px;
+  color: #5e5e5e;
+  display: block;
+  font-size: 14px;
+  padding-left: 5px;
+  text-decoration: unset;
+}
+.more_uh > p > img {
+  object-fit: contain;
+  margin-right: 5px;
+}
+
+@media (max-width: 1024px) {
+  .header_hps {
+    display: none;
+  }
+}

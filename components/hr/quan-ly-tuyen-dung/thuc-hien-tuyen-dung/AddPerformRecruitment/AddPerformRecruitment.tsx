@@ -9,7 +9,7 @@ import {
   getDataUser,
 } from '@/pages/api/api-hr/quan-ly-tuyen-dung/PerformRecruitment'
 import { GetDataRecruitment } from '@/pages/api/api-hr/quan-ly-tuyen-dung/RecruitmentManagerService'
-export interface AddPerformRecruitment {}
+export interface AddPerformRecruitment { }
 
 export default function AddPerformRecruitment({
   animation,
@@ -76,9 +76,11 @@ export default function AddPerformRecruitment({
           responseCareer,
         ]).then(async (response) => {
           const dataAddress = await response[0]?.data.data
-          const dataRecruitmentId = await response[1]?.data.data
-          const dataUser = await response[2]?.data.data
+          const dataRecruitmentId = await response[1]?.data?.success
+          const dataUser = await response[2]?.data?.data
           const dataCategory = await response[3]?.data.data
+
+          console.log(dataRecruitmentId);
 
           setAddress(
             dataAddress?.data.map((item) => ({
@@ -88,24 +90,24 @@ export default function AddPerformRecruitment({
             }))
           )
           setRecruitmentId(
-            dataRecruitmentId?.data.map((item) => ({
+            dataRecruitmentId?.data?.data.map((item) => ({
               value: item.id,
               label: `QTTD${item.id} ${item.name}`,
               name: 'recruitmentId',
             }))
           )
           setUserMemberFollow(
-            dataUser?.data.map((item) => ({
+            dataUser?.items?.map((item) => ({
               name: 'memberFollow',
-              value: item.idQLC,
-              label: `${item.userName} ${item.nameDeparment}`,
+              value: item.ep_id,
+              label: `${item.ep_name} ${item.dep_name}`,
             }))
           )
           setHrName(
-            dataUser?.data.map((item) => ({
+            dataUser?.items?.map((item) => ({
               name: 'hrName',
-              value: item.idQLC,
-              label: `${item.userName} ${item.nameDeparment}`,
+              value: item.ep_id,
+              label: `${item.ep_name} ${item.dep_name}`,
             }))
           )
           setCateId(
@@ -116,7 +118,7 @@ export default function AddPerformRecruitment({
             }))
           )
         })
-      } catch (err) {}
+      } catch (err) { }
     }
     getData()
   }, [])
@@ -231,9 +233,8 @@ export default function AddPerformRecruitment({
     <>
       <div className={`${styles.overlay}`} onClick={handleCloseModalAdd}></div>
       <div
-        className={`${styles.modal} ${styles.modal_setting}  ${
-          animation ? styles.fade_in : styles.fade_out
-        }`}
+        className={`${styles.modal} ${styles.modal_setting}  ${animation ? styles.fade_in : styles.fade_out
+          }`}
         style={{ display: 'block' }}>
         <div className={` ${styles.modal_dialog} ${styles.contentquytrinh}`}>
           <div className={`${styles.modal_content} `}>

@@ -146,11 +146,11 @@ export default function AddSealModal({ onCancel }: any) {
 
   const chonphongbanOptions = useMemo(
     () =>
-      departmentList?.data?.map((department: any) => ({
+      departmentList?.items?.map((department: any) => ({
         value: department.dep_id,
         label: department.dep_name,
       })),
-    [departmentList?.data]
+    [departmentList?.items]
   );
 
   const chonchucvuOptions = useMemo(
@@ -171,17 +171,17 @@ export default function AddSealModal({ onCancel }: any) {
 
   const filteredEmployees = useMemo(
     () =>
-      EmployeeLists?.data?.filter(
-        (emp: any) => emp.dep_id[0] === isDep_id && emp.position_id === isPosition_id
+      EmployeeLists?.items?.filter(
+        (emp: any) => emp.dep_id === Number(isDep_id) && emp.position_id === Number(isPosition_id)
       ),
-    [EmployeeLists?.data, isDep_id, isPosition_id]
+    [EmployeeLists?.items, isDep_id, isPosition_id]
   );
 
   const chonnhanvienOptions = useMemo(
     () =>
       filteredEmployees?.map((emp: any) => ({
-        value: emp.idQLC,
-        label: emp.userName,
+        value: emp.ep_id,
+        label: emp.ep_name,
       })),
     [filteredEmployees]
   );

@@ -9,7 +9,6 @@ import LoadingSpinner from "@/components/hr/loading";
 import { getDataAuthentication } from "@/pages/api/api-hr/Home/HomeService";
 import Head from "next/head";
 
-
 export default function RecruitmentProcess() {
   const [openModalAdd, setOpenModalAdd] = useState(false);
   const [animateModal, setAnimateModal] = useState(false);
@@ -42,7 +41,9 @@ export default function RecruitmentProcess() {
       try {
         const response = await GetDataRecruitment(currentPage, 5, key);
         if (response?.status === 200) {
-          setDataRecruitment(response?.data.data);
+          setDataRecruitment(response?.data?.success);
+          console.log(response);
+
         }
       } catch (error) {
       } finally {
@@ -54,13 +55,15 @@ export default function RecruitmentProcess() {
     fetchData();
   }, [dataAdd, currentPage, key]);
 
+  console.log(dataRecruitment);
+
   const handleDelete = async () => {
     const itemsPerPage = dataRecruitment.length;
     const updatedPage =
       itemsPerPage > 1 ? currentPage : Math.max(currentPage - 1, 1);
     const newData = await GetDataRecruitment(updatedPage, 5, key);
     if (newData) {
-      setDataRecruitment(newData?.data.data);
+      setDataRecruitment(newData?.data.success);
     }
   };
 

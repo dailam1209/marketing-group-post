@@ -5,7 +5,7 @@ import DOMPurify from 'dompurify'
 import * as Yup from 'yup'
 import { EditDataRecruitmentStage } from '@/pages/api/api-hr/quan-ly-tuyen-dung/RecruitmentManagerService'
 
-export interface EditRecruitmentStage {}
+export interface EditRecruitmentStage { }
 
 export default function EditRecruitmentStage({
   data,
@@ -13,9 +13,11 @@ export default function EditRecruitmentStage({
   onCloseModal,
   newDataEdit,
 }: any) {
+  console.log(data);
+
   const stageRecruitmentId = data.id
   const nameStage = data.name
-  const posAssum = data.positionAssumed
+  const posAssum = data.position_assumed
   const target = data.target
 
   const [errors, setErrors] = useState<any>({})
@@ -82,9 +84,8 @@ export default function EditRecruitmentStage({
     <>
       <div className={`${styles.overlay}`} onClick={CloseModal}></div>
       <div
-        className={`${styles.modal} ${styles.modal_setting}  ${
-          animation ? styles.fade_in : styles.fade_out
-        }`}>
+        className={`${styles.modal} ${styles.modal_setting}  ${animation ? styles.fade_in : styles.fade_out
+          }`}>
         <div className={`${styles.modal_dialog} ${styles.contentquytrinh}`}>
           <div className={`${styles.modal_content}`}>
             {/* header */}
@@ -135,7 +136,7 @@ export default function EditRecruitmentStage({
                     <input
                       type='text'
                       name='posAssum'
-                      defaultValue={data.positionAssumed}
+                      defaultValue={data.position_assumed}
                       className={`${styles.inputquytrinh}`}
                       placeholder='Nhập tên bộ phận đảm nhiệm'
                       onChange={handleInputChange}></input>
@@ -193,7 +194,7 @@ export default function EditRecruitmentStage({
                     <input
                       type='text'
                       name='time'
-                      defaultValue={data.completeTime}
+                      defaultValue={data.complete_time}
                       className={`${styles.inputquytrinh}`}
                       placeholder='Nhập thời gian định lượng'
                       onChange={handleInputChange}></input>
@@ -206,7 +207,7 @@ export default function EditRecruitmentStage({
                     <span className={`${styles.red}`}></span>
                   </label>
                   <div className={`${styles.pull_right}`}>
-                    <Input_textarea name='des' handleChange={handleCKEChange} />
+                    <Input_textarea defaultValue={data?.description} name='des' handleChange={handleCKEChange} />
                   </div>
                 </div>
               </div>
@@ -230,9 +231,9 @@ export default function EditRecruitmentStage({
   )
 }
 
-function Input_textarea({ name, value, handleChange }: any) {
+function Input_textarea({ name, value, handleChange, defaultValue }: any) {
   const [editorLoaded, setEditorLoaded] = useState(false)
-  const [data, setData] = useState('')
+  const [data, setData] = useState(defaultValue)
 
   useEffect(() => {
     setEditorLoaded(true)

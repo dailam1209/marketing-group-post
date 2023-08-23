@@ -175,7 +175,7 @@ export default function ChamCongCongTy() {
       wifi_ip: ip,
       shift_id: userData?.shift_id,
       type: 2,
-      ep_id: userData?.ep_id,
+      idQLC: id,
     })
 
     if (res?.result) {

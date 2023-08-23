@@ -12,7 +12,7 @@ import { da } from "date-fns/locale";
 import { useApi } from "../../hooks/useApi";
 import { current } from "@reduxjs/toolkit";
 import FilterGhiAm from "./filterGhiAm";
-import { doDisConnect } from "../../redux/user/userSlice";
+import { dataSaveTD, doDisConnect } from "../../redux/user/userSlice";
 type Props = {};
 
 const GhiAmPage = (props: Props) => {
@@ -31,8 +31,8 @@ const GhiAmPage = (props: Props) => {
   const handleAddDB = () => {
     setIsShowModalAdd(false);
   };
-  const [soNghe,setSoNghe] = useState()
-  const [nv, setnv] = useState()
+  const [soNghe, setSoNghe] = useState();
+  const [nv, setnv] = useState();
   const totalSum = listData?.reduce(
     (acc, current) => acc + +current.ring_duration,
     0
@@ -52,11 +52,19 @@ const GhiAmPage = (props: Props) => {
     };
   });
 
-  function toggleAudio(audioId: string, playButtonId: string, pauseButtonId: string) {
+  function toggleAudio(
+    audioId: string,
+    playButtonId: string,
+    pauseButtonId: string
+  ) {
     const audioElement = document.getElementById(audioId) as HTMLAudioElement;
-    const playButton = document.getElementById(playButtonId) as HTMLButtonElement;
-    const pauseButton = document.getElementById(pauseButtonId) as HTMLButtonElement;
-  
+    const playButton = document.getElementById(
+      playButtonId
+    ) as HTMLButtonElement;
+    const pauseButton = document.getElementById(
+      pauseButtonId
+    ) as HTMLButtonElement;
+
     if (audioElement.paused) {
       audioElement.play();
       playButton.style.display = "none";
@@ -74,7 +82,6 @@ const GhiAmPage = (props: Props) => {
     filename: string;
     // Các trường dữ liệu khác của CallRecord
   }
-
 
   const count = listData?.reduce((acc, current) => {
     if (current.status === "ANSWERED") {
@@ -121,18 +128,18 @@ const GhiAmPage = (props: Props) => {
 
   const handleGet = async () => {
     // setListData([]);
-    if(soNghe){
-      let dataFill = listData.filter(item => item.callee ===soNghe)
-      setListData(dataFill)
+    if (soNghe) {
+      let dataFill = listData.filter((item) => item.callee === soNghe);
+      setListData(dataFill);
       setIsModalOpen(false);
       return;
-     }
-     if(nv){
-       let dataFill = listData.filter(item => +item.caller ===nv)
-       setListData(dataFill)
-       setIsModalOpen(false);
-       return;
-     }
+    }
+    if (nv) {
+      let dataFill = listData.filter((item) => +item.caller === nv);
+      setListData(dataFill);
+      setIsModalOpen(false);
+      return;
+    }
     setIsModalOpen(false);
     if (fillEnd && fillStart) {
       setQuery(
@@ -151,10 +158,31 @@ const GhiAmPage = (props: Props) => {
     if (data && data.items) {
       setListData(data?.items);
     } else {
-      dispatch(doDisConnect(''));
+      dispatch(doDisConnect(""));
     }
     return data;
   };
+  useEffect(() => {
+    const handleget = async () => {
+      if (show) {
+        const res = await fetch(
+          "https://s02.oncall.vn:8900/api/account/credentials/verify",
+          {
+            method: "POST",
+            body: JSON.stringify({
+              name: "HNCX00693",
+              password: "v2ohO6B1Nf4F",
+              domain: "hncx00693.oncall",
+            }),
+          }
+        );
+        const data = await res.json();
+        dispatch(dataSaveTD(data.access_token));
+      }
+    };
+    handleget();
+  }, []);
+
   useEffect(() => {
     if (show) {
       setShowKetNoi(true);
@@ -203,28 +231,42 @@ const GhiAmPage = (props: Props) => {
       render: (text: any, record: CallRecord) => (
         <div className={`${styles.audio_container}`}>
           <audio id={`audio-${record.id}`}>
-            <source src={`https://s02.oncall.vn:8883/filedown/${text}?filename=${record.filename}`} type="audio/ogg" />
-            
+            <source
+              src={`https://s02.oncall.vn:8883/filedown/${text}?filename=${record.filename}`}
+              type="audio/ogg"
+            />
           </audio>
           <div className={`${styles.audio_buttons_play}`}>
-            <button className={`${styles.tb_ga}`}
+            <button
+              className={`${styles.tb_ga}`}
               id={`play-${record.id}`}
-              onClick={() => toggleAudio(`audio-${record.id}`, `play-${record.id}`, `pause-${record.id}`)}
+              onClick={() =>
+                toggleAudio(
+                  `audio-${record.id}`,
+                  `play-${record.id}`,
+                  `pause-${record.id}`
+                )
+              }
             >
-              <img src="/crm/ghiam.svg" alt="" width={15} height={15}/>
+              <img src="/crm/ghiam.svg" alt="" width={15} height={15} />
             </button>
           </div>
           <div className={`${styles.audio_buttons_pause}`}>
-            <button className={`${styles.tb_ga}`}
+            <button
+              className={`${styles.tb_ga}`}
               id={`pause-${record.id}`}
-              onClick={() => toggleAudio(`audio-${record.id}`, `play-${record.id}`, `pause-${record.id}`)}
+              onClick={() =>
+                toggleAudio(
+                  `audio-${record.id}`,
+                  `play-${record.id}`,
+                  `pause-${record.id}`
+                )
+              }
               style={{ display: "none" }}
             >
-              <img src="/crm/pause.svg" alt="" width={15} height={15}/>
+              <img src="/crm/pause.svg" alt="" width={15} height={15} />
             </button>
           </div>
-          
-          
         </div>
       ),
     },
@@ -315,6 +357,7 @@ const GhiAmPage = (props: Props) => {
           bordered
           scroll={{ x: 1000 }}
           pagination={{
+            style: { paddingBottom: 30, float: "left" },
             current: current,
             pageSize: pageSize,
             onChange(page, pageSize) {

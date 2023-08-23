@@ -1,0 +1,224 @@
+.Div {
+    width: 100%;
+    float: left;
+    margin-top: 30px;
+}
+
+.search-icon {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+}
+
+.cate_ct_one {
+    float: left;
+    width: 40%;
+}
+
+.cate_ct_one > h3 {
+    width: 100%;
+    float: left;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 28px;
+    color: #2E3467;
+    margin-bottom: 3px;
+
+}
+
+.cate_ct_one > p {
+    width: 100%;
+    float: left;
+    font-size: 15px;
+    line-height: 18px;
+    color: #68798B;
+}
+
+.div_page {
+    box-shadow: 0px 0px 20px rgb(55 63 255 / 10%);
+    border-radius: 20px;
+    padding: 20px;
+    background: #fff;
+    overflow-x: auto;
+    width: 95%;
+    margin: auto;
+}
+
+.ds_pay_ct {
+    float: right;
+    margin-right: 1.5%;
+    margin-top: 10px;
+}
+
+.xuat_excel {
+    color: -webkit-link;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.ds_pay_ct > a > p {
+    float: left;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 18px;
+    color: #FFFFFF;
+    padding: 11px 21px;
+    background: #4C5BD4;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.file_ct_one {
+    display: flex;
+    width: 78%;
+    height: 50px;
+    gap: 10px;
+}
+.ds_pay_ct_div{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.tinh_luong{
+    border: 1px solid #EBEBEB;
+    border-radius: 10px;
+    margin-right: 9px;
+    font-size: 15px;
+    line-height: 16px;
+    float: right;
+    text-align: left;
+    padding: 10px 20px;
+    background: #4c5bd4;
+    color: #fff;
+    height: 38px;
+    cursor: pointer;
+    vertical-align: top;
+}
+.Upload{
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 21px;
+    color: #ffffff !important;
+    background-color: #4c5bd4;
+    border-radius: 10px;
+    cursor: pointer;
+    height: 40px;
+}
+.modal_p{
+    padding-bottom: 5px;
+    font-size: 15px;
+    line-height: 18px;
+    text-align: justify;
+    color: #666C7C;
+    font-family: system-ui;
+}
+.modal_pp{
+    width: 100%;
+    float: left;
+    padding-bottom: 10px;
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+.modal_pp >a{
+    float: left;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 18px;
+    color: #4C5BD4;
+    position: relative;
+}
+
+.modal_pp >span{
+    position: relative;
+}
+.modal_pp >span::before{
+    content: "";
+    position: absolute;
+    float: left;
+    background: url('https://tinhluong.timviec365.vn/img/stmt.png')no-repeat;
+    background-position: left;
+    width: 15px;
+    height: 13px;
+    top: 3px;
+    left: 6px;
+}
+
+.video {
+    padding-top: 100px;
+    padding-bottom: 70px;
+    margin: auto;
+}
+
+.render {
+    display: flex;
+    gap: 20px;
+}
+.modal{
+
+}
+.p_style {
+    font-size: 15px;
+    line-height: 18px;
+    color: #4c5bd4;
+}
+.text1 {
+    font-size: 15px;
+    line-height: 18px;
+    color: #68798B;
+}
+.formItem{
+    margin-right: 10px;
+}
+.select{
+    margin-right: 20px;
+}
+.button{
+    padding: 10px 20px;
+    background: #4c5bd4;
+    color: #fff;
+    height: 38px;
+    cursor: pointer;
+    vertical-align: top;
+    float: right;
+    text-align: left;
+    border: 1px solid #ebebeb;
+    border-radius: 10px;
+    margin-right: 9px;
+    font-size: 15px;
+    line-height: 16px;
+    margin-top: -5px;
+}
+.cate_ct_tow_cate_pay_tow{
+    clear: both;
+    margin-top: 30px;
+    text-align: left;
+    float: right;
+    display: flex;
+}
+.form{
+    display: flex;
+}
+
+.cate_ed_fn{
+    height: 20px;
+    padding-left: 10px;
+    position: relative;
+    cursor: pointer;
+    float: right;
+}
+.selection {
+    margin-right: 10px;
+}
+.a{
+  display: flex;
+    justify-content: center;
+}
+.selectOptionLabel {
+    max-width: 140px;
+    text-overflow: ellipsis;
+}

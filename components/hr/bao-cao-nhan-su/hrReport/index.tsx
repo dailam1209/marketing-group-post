@@ -191,11 +191,11 @@ export default function TabHRReport({ dateRangeDatas }: any) {
 
   const chonphongbanOptions = useMemo(
     () =>
-      departmentList?.data?.map((department: any) => ({
+      departmentList?.items?.map((department: any) => ({
         value: department.dep_id,
         label: department.dep_name,
       })),
-    [departmentList?.data]
+    [departmentList?.items]
   );
 
   const currentYear: number = new Date().getFullYear();

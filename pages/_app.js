@@ -17,7 +17,8 @@ import styles from '@/components/crm/sidebar/sidebar.module.css'
 // import "@/styles/crm/stylecrm.css";
 // import "@/styles/crm/styles.css"
 // import "@/styles/crm/hight_chart.css"
-import Layout from '@/components/hr/Layout'
+import Layout from "@/components/hr/Layout";
+import Head from "next/head";
 import { Provider } from "react-redux";
 import store_vanthu from "@/store";
 import Layout_admin from "@/components/van-thu-luu-tru/Layout_admin";
@@ -29,6 +30,10 @@ import Pre_login from './van-thu-luu-tru/pre_login'
 import Seo from "@/components/head";
 import { TongDaiContext } from "@/components/crm/context/tongdaiContext";
 import { store } from "@/components/crm/redux/store";
+import io from "socket.io-client";
+import Layout_Tinh_Luong from "../components/tinh-luong/components/Layout";
+import ComponentEmpty from "../components/tinh-luong/components/component_empty"
+import Dangnhap from "../pages/tinh-luong/dangnhap"
 
 
 export const LoadingComp = () => {
@@ -51,6 +56,7 @@ export default function App({ Component, pageProps }) {
   const [firstLoad, setFirstLoad] = useState(
     router?.pathname?.includes("/phan-mem-nhan-su/") ? false : true
   );
+  // const [firstLoad, setFirstLoad] = useState(false);
   useEffect(() => {
     const doLoading = () => {
       const start = () => {
@@ -88,13 +94,19 @@ export default function App({ Component, pageProps }) {
 
   const importGlobalStyles = () => {
     if (router.pathname?.includes("/phan-mem-nhan-su/")) {
-      import('../styles/globals_hr.css')
-    } else if (router.pathname?.includes('crm')) {
-      import('../styles/crm/stylecrm.css')
-      import('../styles/crm/styles.css')
-      import('../styles/crm/hight_chart.css')
-    } else if(router.pathname?.includes('van-thu-luu-tru')){
-      import('../styles/globals_vanthu.css')
+      import("../styles/globals_hr.css");
+    } else if (router.pathname?.includes("crm")) {
+      import("../styles/crm/stylecrm.css");
+      import("../styles/crm/styles.css");
+      import("../styles/crm/hight_chart.css");
+    } else if (router.pathname?.includes("van-thu-luu-tru")) {
+      import("../styles/globals_vanthu.css");
+    } else if (router.pathname?.includes("/cham-cong")) {
+      import("@/styles/globals.css");
+    }
+    else if (router.pathname.includes("tinh-luong")){
+      import("@/styles/tinh-luong/globals_tinh_luong.css")
+      import("@/styles/tinh-luong/Home_tinh_luong.module.css")
     }
      else {
       import('@/styles/globals.css')
@@ -143,13 +155,13 @@ export default function App({ Component, pageProps }) {
               <AccessContextComponent>
                 <SidebarResize>
                   <NavigateContextComponent>
-                    {shouldShowSidebarAndHeader && (
+                    {shouldShowSidebarAndHeader &&(
                       <>
                         <Header toggleModal={toggleModal} />
                         <Sidebar isOpened={isOpen} />
                         <ChatBusiness />
                       </>
-                    )}
+                   ) }
                     <TitleHeaderMobile />
                     <TongDaiContext>
                       <Component {...pageProps} />
@@ -187,10 +199,22 @@ export default function App({ Component, pageProps }) {
                 </>
               )}
             </Provider>
-          ) : (
-          <Component {...pageProps} />
-        )}
-      </ConfigProvider>
+          ) :router.pathname?.includes('tinh-luong') ? (
+            <>
+              {router.pathname?.includes('tinh-luong/quan-ly') && role && role ==="2" ?(
+                <Layout_Tinh_Luong>
+                <Component {...pageProps} />
+              </Layout_Tinh_Luong>
+              ) : router.pathname?.includes('tinh-luong/cong-ty') && role && role ==="1" ? (
+                <Layout_Tinh_Luong>
+                <Component {...pageProps} />
+              </Layout_Tinh_Luong>
+              ) : <Dangnhap></Dangnhap>}
+            </>
+          ): (
+            <Component {...pageProps} />
+          )}
+        </ConfigProvider>
       ) : (
       <LoadingComp />
       )}

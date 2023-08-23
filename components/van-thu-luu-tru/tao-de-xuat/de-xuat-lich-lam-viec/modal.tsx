@@ -480,10 +480,10 @@ import { POST_VT } from "@/utils/api/dexuat/api_post";
             };
           }
         });
-      form.validateFields().then((value:any) => {
+      form.validateFields().then(async (value:any) => {
         // Call api for create a new calendar for this employee
-        !isBlur &&
-          POST_VT("api/vanthu/dexuat/De_Xuat_Lich_Lam_Viec", {
+        if(!isBlur ){
+          const res = await POST_VT({
             name_dx: form?.getFieldValue("name_dx"),
             id_user_duyet: form?.getFieldValue("id_user_duyet")?.join(","),
             id_user_theo_doi: form?.getFieldValue("id_user_theo_doi")?.join(","),
@@ -493,11 +493,12 @@ import { POST_VT } from "@/utils/api/dexuat/api_post";
             ngay_lam_viec: JSON.stringify([{ type: shiftType, data: details }]),
             ca_lam_viec: listShiftSelected?.join(","),
             lich_lam_viec: value['lich_lam_viec']
-          }).then((res:any) => {
-            if (res?.result === true) {
-              setModalOkConfirm(true);
-            }
-          });
+          })
+          console.log(res);
+          if (res?.result === true) {
+            setModalOkConfirm(true);
+          }
+        }
       });
     };
   

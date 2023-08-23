@@ -1,17 +1,13 @@
-import { Col, Input, Row, Select, Table } from "antd";
-import styles from "./DanhSachNhom.module.css";
-import { AddButton, SearchButton } from "@/components/commons/Buttons";
-import Image from "next/image";
-import { AlignType } from "rc-table/lib/interface";
-import { useEffect, useState } from "react";
-import {
-  AddNewModal,
-  ConfirmDeleteModal,
-  UpdateNhomModal,
-} from "./modal/modal";
-import { MyTable } from "../table/Table";
-import { useRouter } from "next/router";
-import { MySelect } from "../../quan-ly-cong-ty-con/modal";
+import { Col, Input, Row, Select, Table } from 'antd'
+import styles from './DanhSachNhom.module.css'
+import { AddButton, SearchButton } from '@/components/commons/Buttons'
+import Image from 'next/image'
+import { AlignType } from 'rc-table/lib/interface'
+import { useEffect, useState } from 'react'
+import { AddNewModal, ConfirmDeleteModal, UpdateNhomModal } from './modal/modal'
+import { MyTable } from '../table/Table'
+import { useRouter } from 'next/router'
+import { MySelect } from '../../quan-ly-cong-ty-con/modal'
 
 export function DanhSachNhom({
   listGroups,
@@ -19,32 +15,39 @@ export function DanhSachNhom({
   listDepartments,
   listTeams,
 }: {
-  listGroups: any;
-  infoCom: any;
-  listDepartments: any;
-  listTeams: any;
+  listGroups: any
+  infoCom: any
+  listDepartments: any
+  listTeams: any
 }) {
-  const router = useRouter();
-  const [openEdit, setOpenEdit] = useState(false);
-  const [openConfirmDel, setOpenConfirmDel] = useState(false);
-  const [selectedRow, setSelectedRow] = useState();
-  const [openAddNew, setOpenAddNew] = useState(false);
-  const [data, setData] = useState(listGroups?.data);
-  const [company, setCompany]: any = useState(infoCom?.data);
+  const router = useRouter()
+  const [openEdit, setOpenEdit] = useState(false)
+  const [openConfirmDel, setOpenConfirmDel] = useState(false)
+  const [selectedRow, setSelectedRow] = useState()
+  const [openAddNew, setOpenAddNew] = useState(false)
+  const [data, setData] = useState(listGroups?.data)
+  const [company, setCompany]: any = useState(infoCom?.data)
   const [listDepLabel, setListDepLabel]: any = useState(
-    listDepartments?.items?.map((dep) => ({
+    listDepartments?.map((dep) => ({
       label: dep?.dep_name,
       value: dep?.dep_id,
     }))
-  );
+  )
+
+  console.log(listDepartments)
+
   const [listTeamLabel, setListTeamLabel]: any = useState(
     listTeams?.data?.map((team) => ({
       label: team?.team_name,
       value: team?.team_id,
-      dep_id: team?.dep_id
+      dep_id: team?.dep_id,
     }))
-  );
-  const [comLabel, setComlabel] = useState({ label: infoCom?.data?.com_name, value: infoCom?.data?.com_id })
+  )
+  const [comLabel, setComlabel] = useState({
+    label: infoCom?.data?.com_name,
+    value: infoCom?.data?.com_id,
+  })
+  console.log(infoCom)
 
   const columns = [
     {
@@ -54,31 +57,31 @@ export function DanhSachNhom({
     {
       title: <p className={styles.headerTxt}>Tên nhóm</p>,
       render: (record: any, index: any) => (
-        <p style={{ color: "#4c5bd4" }}>{record?.gr_name}</p>
+        <p style={{ color: '#4c5bd4' }}>{record?.gr_name}</p>
       ),
     },
     {
       title: <p className={styles.headerTxt}>Nhóm trưởng</p>,
       render: (record: any, index: any) => (
-        <p>{record?.leader || "Đang cập nhật"}</p>
+        <p>{record?.leader || 'Đang cập nhật'}</p>
       ),
     },
     {
       title: <p className={styles.headerTxt}>Nhóm phó</p>,
       render: (record: any, index: any) => (
-        <p>{record?.subLeader || "Đang cập nhật"}</p>
+        <p>{record?.subLeader || 'Đang cập nhật'}</p>
       ),
     },
     {
       title: <p className={styles.headerTxt}>Tổ</p>,
       render: (record: any, index: any) => (
-        <p>{record?.team_name || "Đang cập nhật"}</p>
+        <p>{record?.team_name || 'Đang cập nhật'}</p>
       ),
     },
     {
       title: <p className={styles.headerTxt}>Phòng ban</p>,
       render: (record: any, index: any) => (
-        <p>{record?.dep_name || "Đang cập nhật"}</p>
+        <p>{record?.dep_name || 'Đang cập nhật'}</p>
       ),
     },
 
@@ -91,32 +94,32 @@ export function DanhSachNhom({
       render: (record: any, index: any) => (
         <div className={styles.actionGroup}>
           <Image
-            alt="/"
-            src={"/edit.png"}
+            alt='/'
+            src={'/edit.png'}
             width={24}
             height={24}
             onClick={(e) => {
-              e.stopPropagation();
-              setSelectedRow(record);
-              setOpenEdit(true);
+              e.stopPropagation()
+              setSelectedRow(record)
+              setOpenEdit(true)
             }}
           />
           <div className={styles.divider}></div>
           <Image
-            alt="/"
-            src={"/delete-icon.png"}
+            alt='/'
+            src={'/delete-icon.png'}
             width={24}
             height={24}
             onClick={(e) => {
-              e.stopPropagation();
-              setSelectedRow(record);
-              setOpenConfirmDel(true);
+              e.stopPropagation()
+              setSelectedRow(record)
+              setOpenConfirmDel(true)
             }}
           />
         </div>
       ),
     },
-  ];
+  ]
 
   const onRowClicked = (id: string, name: string) => {
     router.push({
@@ -124,78 +127,98 @@ export function DanhSachNhom({
       query: {
         name: name,
       },
-    });
-  };
+    })
+  }
 
-  const [listDataFiltered, setListDataFiltered] = useState([]);
-  const [teamFilter, setTeamFilter]: any = useState<any>();
-  const [depFilter, setDepFilter]: any = useState<any>();
-  const [groupIdFilter, setGroupIdFilter]: any = useState<any>();
+  const [listDataFiltered, setListDataFiltered] = useState([])
+  const [teamFilter, setTeamFilter]: any = useState<any>()
+  const [depFilter, setDepFilter]: any = useState<any>()
+  const [groupIdFilter, setGroupIdFilter]: any = useState<any>()
   useEffect(() => {
-    setListDataFiltered(data);
-  }, [data]);
+    setListDataFiltered(data)
+  }, [data])
 
   useEffect(() => {
     if (!depFilter) {
-      setListDataFiltered(data);
+      setListDataFiltered(data)
     }
-  }, [depFilter]);
+  }, [depFilter])
 
   const handleFilter = () => {
     if (depFilter) {
       setListDataFiltered(
         data?.filter((data: any) => data?.dep_name === depFilter?.label)
-      );
+      )
     }
     if (teamFilter) {
       setListDataFiltered(
         data?.filter((data: any) => data?.team_name === teamFilter?.label)
-      );
+      )
     }
     if (groupIdFilter) {
       setListDataFiltered(
         data?.filter((data: any) => data?.gr_id === groupIdFilter)
-      );
+      )
     }
-  };
+  }
 
   const handleChangeTeam = (value: any, option: any) => {
-    setTeamFilter(option);
-  };
+    setTeamFilter(option)
+  }
 
   const handleChangeDep = (value: any, option: any) => {
-    setDepFilter(option);
-  };
+    setDepFilter(option)
+  }
 
   const handleChangeGr = (value: any, option: any) => {
-    setGroupIdFilter(value);
-  };
+    setGroupIdFilter(value)
+  }
 
   return (
     <div>
-      <Row gutter={[20, 10]} justify={"end"}>
+      <Row gutter={[20, 10]} justify={'end'}>
         <Col lg={10} md={10} sm={12} xs={24}>
-          {MySelect("", "Chọn công ty", false, false, "com_id", [
-            comLabel
-          ])}
-          {MySelect("", "Chọn tổ", false, false, "team_id", listTeamLabel, null, () => null, handleChangeTeam)}
+          {MySelect('', 'Chọn công ty', false, false, 'com_id', [comLabel])}
+          {MySelect(
+            '',
+            'Chọn tổ',
+            false,
+            false,
+            'team_id',
+            listTeamLabel,
+            null,
+            () => null,
+            handleChangeTeam
+          )}
         </Col>
         <Col lg={11} md={10} sm={12} xs={24}>
-          {MySelect("", "Chọn phòng ban", false, false, "dep_id", listDepLabel, null, () => null, handleChangeDep)}
           {MySelect(
-            "",
-            "Chọn nhóm",
+            '',
+            'Chọn phòng ban',
             false,
             false,
-            "group_id",
+            'dep_id',
+            listDepLabel,
+            null,
+            () => null,
+            handleChangeDep
+          )}
+          {MySelect(
+            '',
+            'Chọn nhóm',
+            false,
+            false,
+            'group_id',
             data?.map((gr) => ({ label: gr?.gr_name, value: gr?.gr_id })),
-           null, () => null, handleChangeGr
+            null,
+            () => null,
+            handleChangeGr
           )}
         </Col>
         <Col lg={3} md={4} sm={12} className={styles.groupButton}>
-          <div>{SearchButton("Tìm kiếm", handleFilter, false)}</div>
+          <div>{SearchButton('Tìm kiếm', handleFilter, false)}</div>
           <div className={styles.secondButton}>
-            {AddButton("Thêm mới", () => setOpenAddNew(true))}
+            {AddButton('Thêm mới', () => setOpenAddNew(true))}
           </div>
         </Col>
       </Row>
@@ -210,19 +233,27 @@ export function DanhSachNhom({
         hasRowSelect={false}
         onSelectChange={() => null}
         selectedRowKeys={[]}
-        rowKey="name"
+        rowKey='name'
         Footer={null}
       />
       {UpdateNhomModal(openEdit, setOpenEdit, data, setData, selectedRow)}
       {ConfirmDeleteModal(
         openConfirmDel,
         setOpenConfirmDel,
-        selectedRow ? selectedRow["name"] : "",
+        selectedRow ? selectedRow['name'] : '',
         data,
         setData,
         selectedRow
       )}
-      {AddNewModal(openAddNew, setOpenAddNew, data, setData, comLabel, listDepLabel, listTeamLabel)}
+      {AddNewModal(
+        openAddNew,
+        setOpenAddNew,
+        data,
+        setData,
+        comLabel,
+        listDepLabel,
+        listTeamLabel
+      )}
     </div>
-  );
+  )
 }
