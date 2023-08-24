@@ -30,17 +30,16 @@ export default function GroupCustomer() {
     "POST",
     { page: 1, perPage: 100 }
   );
-
   useEffect(() => {
     fetchData();
     setHeaderTitle("Danh sách nhóm khách hàng");
     setShowBackButton(false);
     // setCurrentPath("/crm/customer/roup/list");
   }, [setHeaderTitle, setShowBackButton, setCurrentPath]);
-
+  console.log(data)
   useEffect(() => {
     fetchData();
-    setDataFilter(data?.data?.showGr);
+    setDataFilter(data?.data);
   }, [change]);
 
   useEffect(() => {
@@ -80,7 +79,7 @@ export default function GroupCustomer() {
             setSelectedRow={setSelectedRow}
             setChange={setChange}
             change={change}
-            data={dataFilter || data?.data?.showGr}
+            data={dataFilter || data?.data}
             updateData={updateData}
           />
         </div>

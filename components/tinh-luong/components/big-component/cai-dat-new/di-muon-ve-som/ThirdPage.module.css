@@ -1,0 +1,51 @@
+.tax_one {
+  width: 100%;
+  float: right;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.tax_one > p {
+  float: right;
+  text-align: right;
+  padding: 9px 20px 8px 45px;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 21px;
+  color: #ffffff;
+  background-color: #4c5bd4;
+  border-radius: 10px;
+  position: relative;
+  cursor: pointer;
+  background-image: url(/tab_one.png);
+  background-repeat: no-repeat;
+  background-position: 15px 12px;
+}
+
+.tax_tow {
+  width: 100%;
+  float: left;
+  border-bottom: 1px solid #d4e2f3;
+  overflow-x: auto;
+}
+
+.groupw_tow {
+  width: 100%;
+  float: left;
+}
+
+.groupw_tow > p {
+  float: left;
+  margin-right: 35px;
+  font-size: 16px;
+  line-height: 19px;
+  color: #68798b;
+  cursor: pointer;
+}
+
+.active {
+  font-weight: 500;
+  color: #f46a6a !important;
+  border-bottom: 2px solid #f46a6a;
+  padding-bottom: 10px;
+}

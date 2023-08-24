@@ -46,9 +46,10 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
         body: JSON.stringify({ cus_id: `${router.query.id}` }),
       }
     );
-    const data = await res.json();
-    if ((data && data.data.data1) || (data && data.data.data2))
-      setListData(data.data.data1 || data.data.data2);
+    const data = await res.json();4
+    console.log("info",data)
+    if (data && data?.data)
+      setListData(data?.data);
   };
   const getNameDetail = async () => {
     const res = await fetch(
@@ -63,11 +64,11 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
       }
     );
     const data = await res.json();
-      setname(data?.data?.data1 || data?.data?.data2);
+      setname(data?.data || data?.data);
   };
   useEffect(() => {
     handleGetInfoCus();
-    getNameDetail
+    getNameDetail()
   }, []);
 
   return (
@@ -126,7 +127,7 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
                     >
                       Thông tin giao hàng
                     </p>
-                    <WriteBillRowInforText2 formData={listData} />
+                    {/* <WriteBillRowInforText2 formData={listData} /> */}
 
                     {/* Thong tin bo sung */}
                     <p
@@ -135,7 +136,7 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
                     >
                       Thông tin bổ sung
                     </p>
-                    <BonusInfoRow formData={listData} />
+                    {/* <BonusInfoRow formData={listData} /> */}
 
                     {/* Thong tin CCCD */}
                     {cccd && (
@@ -146,7 +147,7 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
                         >
                           Thông tin CMND/CCCD
                         </p>
-                        <CCCDInforRow formData={listData} />
+                        {/* <CCCDInforRow formData={listData} /> */}
                       </>
                     )}
 
@@ -173,9 +174,9 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
                             stylesCustomer.main__profile__body__item__value
                           }
                         >
-                          {listData[0]?.thong_tin_mo_ta
+                          {/* {listData[0]?.thong_tin_mo_ta
                             ? listData[0]?.thong_tin_mo_ta
-                            : "Chưa cập nhật"}
+                            : "Chưa cập nhật"} */}
                         </div>
                       </div>
                     </div>
@@ -189,7 +190,7 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
         </div>
       </div>
 
-      <SystemCustomerInfo formData={listData} />
+      {/* <SystemCustomerInfo formData={listData} /> */}
     </>
   );
 };

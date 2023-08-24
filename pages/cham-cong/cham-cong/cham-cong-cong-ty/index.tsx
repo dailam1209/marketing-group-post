@@ -10,8 +10,10 @@ import Head from 'next/head'
 import { POST, getCompIdCS } from '@/pages/api/BaseApi'
 import _ from 'lodash'
 import { COOKIE_KEY } from '../..'
+import { useRouter } from 'next/router'
 
 export default function ChamCongCongTy() {
+  const router = useRouter()
   const [openCam, setOpenCam] = useState(false)
   const [undetectedModal, setUndetectedModal] = useState(false)
   const [countdown, setCountdown] = useState(3)
@@ -24,6 +26,7 @@ export default function ChamCongCongTy() {
   const [lat, setLat] = useState<Number>()
   const [long, setLong] = useState<Number>()
   const [ip, setIp] = useState()
+  const [selectedCa, setSelectedCa] = useState()
   const videoConstraints = {
     width: 971,
     height: 971,
@@ -64,7 +67,7 @@ export default function ChamCongCongTy() {
     if (comId && imageSrc) {
       try {
         const res: any = await axios.post(
-          'http://43.239.223.154:8081/',
+          '/api/api_cc',
           {
             company_id: comId,
             image: imageSrc,
@@ -72,12 +75,13 @@ export default function ChamCongCongTy() {
           },
           {
             headers: {
-              'Content-type': 'application/x-www-form-urlencoded',
+              // 'Content-type': 'application/x-www-form-urlencoded',
+              'Content-Type': 'application/json',
             },
           }
         )
         const resp = res?.data?.data
-        console.log(resp)
+
         if (
           !resp?.user_id ||
           resp?.user_id === 'Unknown' ||
@@ -85,13 +89,6 @@ export default function ChamCongCongTy() {
         ) {
           setUndetectedModal(true)
         } else {
-          // const userInfo = await axios.get(
-
-          // )
-          // console.log(userInfo)
-          // if (userInfo) {
-          //   setUserData(userInfo)
-          // }
           setId(resp?.user_id)
           const token = getCookie(COOKIE_KEY)
           let compId: any = ''
@@ -100,25 +97,19 @@ export default function ChamCongCongTy() {
             compId = jwtDecode(token?.toString())?.['data']?.['com_id']
           }
 
-          const resdata = await axios.post(
-            `http://43.239.223.154:8081/detail`,
-            {
-              userId: resp?.user_id,
-              // compId: comId,
-              compId: comId,
-            },
-            {
-              headers: {
-                'Content-type': 'application/x-www-form-urlencoded',
-              },
-            }
-          )
+          const resdata = await POST('api/qlc/shift/list_shift_user', {
+            u_id: parseInt(resp?.user_id),
+            c_id: comId,
+          })
 
-          const respDetail = resdata?.data
-          console.log(respDetail?.data)
+          // const respDetail = resdata?.data
+          console.log(resdata)
 
-          if (respDetail?.data?.ep_name) {
-            setUserData(respDetail?.data)
+          if (resdata?.result) {
+            setUserData({
+              ep_name: resdata?.ep_name,
+              shift: resdata?.shift,
+            })
             setModalDetail(true)
           } else {
             setModalDetail(false)
@@ -132,26 +123,8 @@ export default function ChamCongCongTy() {
   }, [webcamRef])
   console.log(id)
 
-  // useEffect(() => {
-  //   const countDevices = async () => {
-  //     const res = await navigator.mediaDevices.enumerateDevices()
-
-  //     const devices = res?.filter((item) => item?.kind === 'videoinput')
-  //     setListDevices(devices)
-  //   }
-
-  //   countDevices()
-  // }, [])
-  // console.log(listDevices)
-
   useEffect(() => {
-    // if (_.isEmpty(listDevices) || !listDevices) {
-    //   alert('Không tìm thấy camera')
-    // } else {
     if (openCam) {
-      // if (countdown === 0) {
-      //   setCountdown(3)
-      // }
       const interval = setInterval(() => {
         if (countdown === 0) {
           try {
@@ -173,9 +146,9 @@ export default function ChamCongCongTy() {
   const diemdanh = async () => {
     const res = await POST('api/qlc/timekeeping/create/webComp', {
       wifi_ip: ip,
-      shift_id: userData?.shift_id,
+      shift_id: selectedCa,
       type: 2,
-      ep_id: userData?.ep_id,
+      idQLC: id,
     })
 
     if (res?.result) {
@@ -262,7 +235,10 @@ export default function ChamCongCongTy() {
             với kỹ thuật để biết thêm !
           </p>
           <div style={{ marginTop: '20px' }}>
-            <Button className={styles.btnOk} size='large'>
+            <Button
+              className={styles.btnOk}
+              size='large'
+              onClick={() => router.push('/')}>
               <p style={{ color: '#fff' }}>Trang chủ</p>
             </Button>
             <Button
@@ -362,10 +338,17 @@ export default function ChamCongCongTy() {
                 </div>
               </div>
             </div>
-            <div className={styles.wrapper}>
-              <p className={styles.txt}>{userData && userData?.shift_name}</p>
-              <p className={styles.txt}>{userData && userData?.time_sheet}</p>
-            </div>
+            {userData &&
+              userData?.shift?.map((item) => (
+                <div
+                  className={styles.wrapper}
+                  onClick={() => setSelectedCa(item?.shift_id)}>
+                  <p className={styles.txt}>{item?.shift_name}</p>
+                  <p className={styles.txt}>
+                    {item?.start_time} đến {item?.end_time}
+                  </p>
+                </div>
+              ))}
           </div>
           <div style={{ marginTop: '20px' }}>
             <Button className={styles.btnClear} size='large'>

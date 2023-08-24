@@ -15,13 +15,13 @@ function AddModalPersonalDiscipline({ animation, onClose, updateData }: any) {
       try {
         const response = await getDataUser()
         setUser(
-          response?.data.data.data.map((item) => ({
+          response?.data?.data?.items.map((item) => ({
             name: 'list_user',
-            value: item.idQLC,
-            label: `${item.userName} ${item.nameDeparment}`,
+            value: item.ep_id,
+            label: `${item.ep_name} ${item.dep_name}`,
           }))
         )
-      } catch (err) {}
+      } catch (err) { }
     }
     getData()
   }, [])
@@ -84,9 +84,8 @@ function AddModalPersonalDiscipline({ animation, onClose, updateData }: any) {
     <>
       <div className={`${styles.overlay}`} onClick={onClose}></div>
       <div
-        className={`${styles.modal} ${styles.modal_setting}  ${
-          animation ? styles.fade_in : styles.fade_out
-        }`}
+        className={`${styles.modal} ${styles.modal_setting}  ${animation ? styles.fade_in : styles.fade_out
+          }`}
         style={{ display: 'block' }}>
         <div className={`${styles.modal_dialog} ${styles.contentquytrinh}`}>
           <div className={`${styles.modal_content} `}>

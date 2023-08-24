@@ -4,7 +4,7 @@ export const LIST_ACTIONS = [
     title: 'Chấm công',
     steps: [
       {
-        title: 'Cài đặt bảo mật: Wifi, vị trí, giới hạn IP chấm công công ty',
+        title: 'Cài đặt bảo mật: Wifi, vị trí, giới hạn IP chấm công',
         url: 'cham-cong/cai-dat-bao-mat',
         required: true,
       },

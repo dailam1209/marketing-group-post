@@ -31,6 +31,7 @@ const CancelModal: React.FC<MyComponentProps> = ({
       "POST",
       { stt_id: id }
     );
+    router.push("/crm/tinh-trang-khach-hang")
   };
   return (
     <>

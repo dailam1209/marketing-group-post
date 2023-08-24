@@ -6,7 +6,7 @@ const baseURL: any = process.env.NEXT_PUBLIC_BASE_URL;
 const token = `${getCookie("token_first")}${getCookie("token_hafl")}`;
 export const show_hide_propose = async (token:any,value:any,id:any) => {
     try{
-        const response = await axios.post(`${baseURL}/api/vanthu/catedx/chageCate`,
+        const response = await axios.post(`${baseURL}api/vanthu/catedx/chageCate`,
         {
             value: value,
             id: id,
@@ -23,7 +23,7 @@ export const show_hide_propose = async (token:any,value:any,id:any) => {
 }
 export const edit_setting = async (data?:any,) => {
     try{
-        const response = await axios.post(`${baseURL}/api/vanthu/setting/editSetting`,
+        const response = await axios.post(`${baseURL}api/vanthu/setting/editSetting`,
         data,
         {
             headers: {

@@ -1,4 +1,4 @@
-import { Modal, Form, Select, Input, Button } from 'antd'
+import { Modal, Form, Select, Input, Button, InputNumber } from 'antd'
 import Image from 'next/image'
 import styles from './modal.module.css'
 import { POST_TL, getCompIdCS } from '@/pages/api/BaseApi'
@@ -223,6 +223,7 @@ export const ModalCaiDatDiMuonVeSom = (
       const res = await POST_TL('api/tinhluong/congty/insert_phat_muon', {
         ...value,
         pm_id_com: comp_id,
+        pm_time_end: '1970-01-01T00:00:00.000+00:00',
       })
 
       if (res?.data) {
@@ -319,10 +320,13 @@ export const ModalCaiDatDiMuonVeSom = (
             label='Số tiền hoặc công phạt'
             labelCol={{ span: 24 }}
             rules={[{ required: true, message: 'Trường này là bắt luộc' }]}>
-            <Input
+            <InputNumber
               placeholder='Nhập số phút'
-              type='number'
-              size='large'></Input>
+              style={{ width: '100%' }}
+              formatter={(value) =>
+                `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+              }
+              size='large'></InputNumber>
           </Form.Item>
           <Form.Item
             name='pm_time_begin'
@@ -331,12 +335,12 @@ export const ModalCaiDatDiMuonVeSom = (
             rules={[{ required: true, message: 'Trường này là bắt luộc' }]}>
             <Input type='month' size='large'></Input>
           </Form.Item>
-          <Form.Item
+          {/* <Form.Item
             name='pm_time_end'
             label='Thời gian kết thúc'
             labelCol={{ span: 24 }}>
             <Input type='month' size='large'></Input>
-          </Form.Item>
+          </Form.Item> */}
           <Form.Item className={styles.formButton}>
             <Button htmlType='submit' className={styles.button}>
               Lưu

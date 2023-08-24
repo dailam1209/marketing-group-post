@@ -175,7 +175,7 @@ export const getServerSideProps = async (context) => {
   return {
     props: {
       listTeams: listRes?.[0],
-      listDepartments: listRes?.[1],
+      listDepartments: listRes?.[1]?.items?.reverse(),
       listGroups: listRes?.[2],
       listTranferJob: listRes?.[3],
       listQuitJob: listRes?.[4],

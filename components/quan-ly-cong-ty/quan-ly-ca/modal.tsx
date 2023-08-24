@@ -244,8 +244,10 @@ export function AddCaModal(
                 true,
                 'num_to_calculate',
                 [
+                  { label: '0.25 công / 1 ca', value: 0.25 },
+                  { label: '0,5 công / 1 ca', value: 0.5 },
                   { label: '1 công / 1 ca', value: 1 },
-                  { label: '0,5 công / 1 ca', value: 2 },
+                  { label: '3 công / 1 ca', value: 3 },
                 ]
               )
             ) : selectedPayMethod === THEO_TIEN ? (

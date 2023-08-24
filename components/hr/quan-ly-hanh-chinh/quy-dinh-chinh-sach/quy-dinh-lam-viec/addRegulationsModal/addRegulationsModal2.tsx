@@ -60,7 +60,7 @@ export default function AddRegulationsModal2({ onCancel }: AddRegulationsModal2P
     const fetchData = async () => {
       try {
         const response = await SpecifiedGroupList(50, 1, keyWords)
-        setListRegulationsGroup(response?.data)
+        setListRegulationsGroup(response?.success)
       } catch (error) {
         throw error
       }
@@ -173,7 +173,7 @@ export default function AddRegulationsModal2({ onCancel }: AddRegulationsModal2P
                     <label htmlFor="">Chọn nhóm quy định <span style={{ color: 'red' }}> * </span></label>
                     <div className={`${styles.input_right}`}>
                       <select onChange={handleProvisionChange} name="" id="provision_id" className={`${styles.input_process}`}>
-                        {ListRegulationsGroup?.data?.map((item: any, index: any) => (
+                        {ListRegulationsGroup?.data?.data?.map((item: any, index: any) => (
                           <option value={item.id} key={index}>-- {item.name} --</option>
                         ))}
                       </select>

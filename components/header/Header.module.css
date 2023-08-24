@@ -6697,7 +6697,7 @@ label.tab_label.active::before {
 
   .list-li-tl .boder-img {
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     margin-bottom: 20px;
   }
 

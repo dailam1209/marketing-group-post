@@ -38,7 +38,7 @@ const TableStatusCustomer: React.FC<TableStatusCustomerProps> = ({}: any) => {
   useEffect(() => {
     fetchData();
   }, []);
-  const datatable = data?.data?.listStatus.map((item: any, index: number) => {
+  const datatable = data?.data.map((item: any, index: number) => {
     return {
       key: index + 1,
       name: item.stt_name,
@@ -147,7 +147,6 @@ const TableStatusCustomer: React.FC<TableStatusCustomerProps> = ({}: any) => {
     },
   ];
   const handleChangePage = (currents: number, pageSizes: number) => {
-    console.log(current);
     if (currents != current) {
       setcurrent(currents);
     }

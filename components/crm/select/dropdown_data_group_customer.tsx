@@ -28,7 +28,7 @@ export default function CustomerGroupSelectDropdownData({
 
     const formData = new FormData();
     formData.append("group_id", item.gr_id);
-    formData.append("type", type?.data?.data1?.loai_hinh_khach_hang||type?.data?.data2?.loai_hinh_khach_hang);
+    formData.append("type", type?.data.loai_hinh_khach_hang)
     formData.append("cus_id", cus_id);
 
     const headers = {
