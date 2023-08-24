@@ -56,6 +56,7 @@ export default function App({ Component, pageProps }) {
   const [firstLoad, setFirstLoad] = useState(
     router?.pathname?.includes("/phan-mem-nhan-su/") ? false : true
   );
+  const shouldShowSidebarAndHeader = router.pathname.includes("/crm/");
   // const [firstLoad, setFirstLoad] = useState(false);
   useEffect(() => {
     const doLoading = () => {
@@ -155,13 +156,13 @@ export default function App({ Component, pageProps }) {
               <AccessContextComponent >
                 <SidebarResize>
                   <NavigateContextComponent >
-                    {shouldShowSidebarAndHeader &&(
+                    {shouldShowSidebarAndHeader && (
                       <>
                         <Header toggleModal={toggleModal} />
                         <Sidebar isOpened={isOpen} />
                         <ChatBusiness />
                       </>
-                   ) }
+                   )}
                     <TitleHeaderMobile />
                     <TongDaiContext>
                       <Component {...pageProps} />
