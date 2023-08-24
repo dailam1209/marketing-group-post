@@ -612,7 +612,7 @@ tr {
 }
 
 img {
-  object-fit: unset ;
+  object-fit: unset;
 }
 
 .email_add_mdal .ant-modal-header {
@@ -781,16 +781,19 @@ label {
   color: #fff;
 }
 
-.ant-popover.header_custom-popover__dJECQ.css-dev-only-do-not-override-18w4yg9.css-dev-only-do-not-override-18w4yg9.ant-popover-placement-bottomLeft .ant-popover-arrow {
+.ant-popover.header_custom-popover__u1Hoy.css-dev-only-do-not-override-o95mle.css-dev-only-do-not-override-o95mle.ant-popover-placement-bottomLeft
+  .ant-popover-arrow {
   visibility: hidden;
 }
 
-.ant-popover.header_custom-popover__dJECQ.css-dev-only-do-not-override-18w4yg9.css-dev-only-do-not-override-18w4yg9.ant-popover-placement-bottomLeft .ant-popover-inner {
+.ant-popover.header_custom-popover__u1Hoy.css-dev-only-do-not-override-o95mle.css-dev-only-do-not-override-o95mle.ant-popover-placement-bottomLeft
+  .ant-popover-inner {
   background-color: #4c5bd4;
   color: #fff;
 }
 
-.ant-popover.header_custom-popover__dJECQ.css-dev-only-do-not-override-18w4yg9.css-dev-only-do-not-override-18w4yg9.ant-popover-placement-bottomLeft .ant-popover-content {
+.ant-popover.header_custom-popover__u1Hoy.css-dev-only-do-not-override-o95mle.css-dev-only-do-not-override-o95mle.ant-popover-placement-bottomLeft
+  .ant-popover-content {
   right: 16px;
   top: 4px;
 }
@@ -842,7 +845,6 @@ label {
   flex-direction: column;
   justify-content: start;
 }
-
 
 /* Socketio */
 #box_alert {
@@ -928,4 +930,13 @@ label {
 .potential_custom_multiple__3_XZy .ant-select-selector {
   height: 33px;
   border-radius: 0 !important;
+}
+
+@media (max-width: 768px) {
+  body {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+  }
 }
