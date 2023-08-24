@@ -8,36 +8,38 @@ interface MyProps {
   data: any;
   value: any;
   handleChange: any;
+  stt?: any;
   cusId: any;
+  type;
 }
 
 const SelectDataInputBox: React.FC<MyProps> = ({
   data,
   value,
   handleChange,
+  stt,
   cusId,
+  type,
 }) => {
-  const {
-    data: dataDetailCustomer,
-    loading,
-    fetchData: fetchDataDetail,
-    updateData: updateDataDetail,
-    // ... other properties returned by the useApi hook
-  } = useApi(
-    `${base_url}/api/crm/customerdetails/detail`,
-    `${Cookies.get("token_base365")}`,
-    "POST",
-    { cus_id: cusId }
-  );
-  const router = useRouter()
-  const dataStatus = dataDetailCustomer?.data
+  // const {
+  //   data: dataDetailCustomer,
+  //   loading,
+  //   fetchData: fetchDataDetail,
+  //   updateData: updateDataDetail,
+  //   // ... other properties returned by the useApi hook
+  // } = useApi(
+  //   `${base_url}/api/crm/customerdetails/detail`,
+  //   `${Cookies.get("token_base365")}`,
+  //   "POST",
+  //   { cus_id: cusId }
+  // );
+
   const handleChangeApi = async (e: any, data: any) => {
-    const url =
-    `${base_url}/api/crm/customerdetails/editCustomer`;
+    const url = `${base_url}/api/crm/customerdetails/editCustomer`;
 
     const formData = new FormData();
     formData.append("status", e.target.value);
-    formData.append("type", dataDetailCustomer?.data?.data1 ? "1" : "2");
+    formData.append("type", type);
     formData.append("cus_id", cusId);
 
     const headers = {
@@ -56,9 +58,10 @@ const SelectDataInputBox: React.FC<MyProps> = ({
       console.error(error);
     }
   };
+  const dataStatus = [];
   useEffect(() => {
-    fetchDataDetail();
-  }, [cusId]);
+    // fetchDataDetail();
+  }, [stt]);
   //dataStatus la thay doi duoc
   return (
     <>
@@ -67,18 +70,24 @@ const SelectDataInputBox: React.FC<MyProps> = ({
           onChange={(e: any) => {
             handleChangeApi(e, data);
           }}
-          defaultValue={dataStatus?.status?.info}
-            // value={dataStatus?.status?.info}
+          // defaultValue={dataStatus?.status?.info}
+          // value={dataStatus?.status?.info}
           style={{ border: 0 }}
         >
+          <option>
+            {data?.filter((e: any) => e?.stt_id === stt)[0]?.stt_name ||
+              "Chưa cập nhật"}
+          </option>
           {data?.map((item: any, index: number) => {
-            return <option
-              style={{ display: item.status !== 0 ? "block" : "none" }}
-              key={index}
-              value={item.stt_id}
-            >
-              {item.stt_name}
-            </option>
+            return (
+              <option
+                style={{ display: item.status !== 0 ? "block" : "none" }}
+                key={index}
+                value={item.stt_id}
+              >
+                {item.stt_name}
+              </option>
+            );
           })}
         </select>
       )}

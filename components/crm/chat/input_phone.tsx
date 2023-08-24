@@ -7,7 +7,7 @@ const Cookies = require("js-cookie");
 export default function InputPhone({ infoCus }: any) {
   const [numberValue, setNumberValue] = useState("");
   const [isCalling, setIsCalling] = useState(false);
-
+  // console.log("infoCus",infoCus)
   const handleCallBtn = async () => {
     if (numberValue) {
       setIsCalling(true);
