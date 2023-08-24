@@ -94,8 +94,9 @@ export default function SettingModal({ dataHeader }) {
           alt=""
         />
       </div>
-      {showLogout && (
-        <LogoutCRM showLogout={showLogout} setShowLogout={setShowLogout} />
+
+      {showLogout && (    
+          <LogoutCRM showLogout={showLogout} setShowLogout={setShowLogout} />
       )}
     </div>
   );

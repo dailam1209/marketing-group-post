@@ -146,7 +146,7 @@ const ApiSettingConnect: React.FC = () => {
                               height={16}
                               alt="?"
                               src={
-                                "https://crm.timviec365.vn/assets/icons/crm/customer/copy.svg"
+                                "/crm/copy.svg"
                               }
                             />
                             Sao chép
@@ -261,7 +261,7 @@ const ApiSettingConnect: React.FC = () => {
           handleCloseMdal={() => {
             setIsConnected(false);
           }}
-          link="/setting/api"
+          link="/crm/setting/api"
         />
       </div>
     </div>

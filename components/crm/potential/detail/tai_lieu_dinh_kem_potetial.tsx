@@ -46,7 +46,7 @@ const Tai_lieu_dinh_kem_potetial = (props: Props) => {
                 <button className={styles.kinh_lup}>
                   <img
                     className={styles.img__search}
-                    src="https://crm.timviec365.vn/assets/icons/search.svg"
+                    src="/crm/search.svg"
                     alt=""
                   />
                 </button>

@@ -27,7 +27,7 @@ export default function ItemPotential() {
             <button className={style.kinh_lup}>
               <img
                 className={style.img__search}
-                src="https://crm.timviec365.vn/assets/icons/search.svg"
+                src="/crm/search.svg"
                 alt=""
               />
             </button>
