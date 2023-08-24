@@ -30,7 +30,7 @@ export default function DetailCustomer() {
   useEffect(() => {
     getNameDetail();
     setShowBackButton(true);
-    setHeaderTitle(`${name?.ten_khach_hang} / Thông tin khách hàng`);
+    setHeaderTitle(`${id} / Thông tin khách hàng`);
 
     setCurrentPath("/crm/customer/list");
   }, [
