@@ -20,17 +20,17 @@ export default function EditPerformRecruitment({
 }: any) {
   const recruitmentNewsId = data.id
   const formattedTimeStart: string = format(
-    new Date(data.timeStart),
+    new Date(data?.recruitment_time),
     'yyyy-MM-dd'
   )
-  const formattedTimeEnd: string = format(new Date(data.timeEnd), 'yyyy-MM-dd')
-
+  const formattedTimeEnd: string = format(new Date(data?.recruitment_time_to), 'yyyy-MM-dd')
+console.log(data)
   const [content, setContent] = useState<any>({
     title: data.title,
     address: data.address,
     number: data.number,
-    timeStart: formattedTimeStart,
-    timeEnd: formattedTimeEnd,
+    recruitment_time: formattedTimeStart,
+    recruitment_time_to: formattedTimeEnd,
     jobDetail: data.jobDetail,
     probationaryTime: data.probationaryTime,
     moneyTip: data.moneyTip,
@@ -97,10 +97,10 @@ export default function EditPerformRecruitment({
           responseDataUser,
           responseCareer,
         ]).then(async (response) => {
-          const dataAddress = await response[0]?.data.data
-          const dataRecruitmentId = await response[1]?.data.success
-          const dataUser = await response[2]?.data.data
-          const dataCategory = await response[3]?.data.data
+          const dataAddress = await response[0]?.data?.data
+          const dataRecruitmentId = await response[1]?.data?.success
+          const dataUser = await response[2]?.data?.data
+          const dataCategory = await response[3]?.data?.data
 
           setAddress(
             dataAddress?.data.map((item) => ({
@@ -223,16 +223,16 @@ export default function EditPerformRecruitment({
   }
 
   const foundObject = options.vitrituyendung.find(
-    (item) => item.value === data.posApply.toString()
+    (item) => item.value === data.position_apply.toString()
   )
   const foundObject2 = options.hinhthuclamviec.find(
-    (item) => item.value === data.wokingForm.toString()
+    (item) => item.value === data.woking_form.toString()
   )
   const foundObject3 = options.mucluong.find(
-    (item) => item.value === data.salaryId.toString()
+    (item) => item.value === data.salary_id.toString()
   )
   const foundObject4 = options.kinhnghiem.find(
-    (item) => item.value === data.jobExp.toString()
+    (item) => item.value === data.job_exp.toString()
   )
   const foundObject5 = options.yeucaubangcap.find(
     (item) => item.value === data.degree.toString()
@@ -263,12 +263,7 @@ export default function EditPerformRecruitment({
         content,
         selectedOption
       )
-      console.log(response)
-      if (response?.status === 403) {
-        alert(
-          'Bạn chưa được phân quyền trên phần mềm quản trị nhân sự 365. Vui lòng liên hệ quản trị viên để biết thêm chi tiết!'
-        )
-      } else if (response?.status !== 200) {
+      if (response?.status !== 200) {
         alert('Sửa tin tuyển dụng không thành công')
       } else {
         handleCloseModal()
@@ -339,7 +334,7 @@ export default function EditPerformRecruitment({
                     <Select
                       className={`${styles.position_recruit}`}
                       defaultValue={options.vitrituyendung.find(
-                        (item) => item.value === data.posApply.toString()
+                        (item) => item.value === data.position_apply.toString()
                       )}
                       onChange={(option) =>
                         handleSelectionChange(option, options.vitrituyendung)
@@ -386,6 +381,9 @@ export default function EditPerformRecruitment({
                       onChange={(option) =>
                         handleSelectionChange(option, options.diaiemlamviec)
                       }
+                      defaultValue={options.diaiemlamviec?.find(
+                        (item) => item.value === data.cit_id.toString()
+                      )}
                       options={options.diaiemlamviec}
                       placeholder='-- Vui lòng chọn --'
                       styles={{
@@ -484,7 +482,7 @@ export default function EditPerformRecruitment({
                   <div className={`${styles.tuyendungtext}`}>
                     <Select
                       className={`${styles.position_recruit}`}
-                      defaultValue={options.mucluong[data.salaryId - 1]}
+                      defaultValue={options.mucluong[data.salary_id - 1]}
                       onChange={(option) =>
                         handleSelectionChange(option, options.mucluong)
                       }
@@ -552,14 +550,16 @@ export default function EditPerformRecruitment({
                       style={{ fontWeight: '600' }}
                       name='timeStart'
                       type='date'
-                      defaultValue={content.timeStart}
+                      defaultValue={content.recruitment_time}
                       className={`${styles.form_date}`}
                       onChange={handleContentChange}></input>
+
                     <span className={`${styles.formto}`}>đến</span>
+
                     <input
                       style={{ fontWeight: '600' }}
                       type='date'
-                      defaultValue={content.timeEnd}
+                      defaultValue={content.recruitment_time_to}
                       className={`${styles.to_date}`}
                       name='timeEnd'
                       onChange={handleContentChange}></input>
@@ -580,7 +580,7 @@ export default function EditPerformRecruitment({
                     <input
                       type='text'
                       name='jobDetail'
-                      defaultValue={data.jobDes}
+                      defaultValue={data.job_detail}
                       placeholder='Mô tả chi tiết công việc'
                       spellCheck='false'
                       onChange={handleContentChange}
@@ -602,7 +602,7 @@ export default function EditPerformRecruitment({
                     <Select
                       className={`${styles.position_recruit}`}
                       defaultValue={
-                        options.hinhthuclamviec[data.wokingForm - 1]
+                        options.hinhthuclamviec[data.woking_form - 1]
                       }
                       onChange={(option) =>
                         handleSelectionChange(option, options.hinhthuclamviec)
@@ -644,7 +644,7 @@ export default function EditPerformRecruitment({
                       style={{ width: '96%' }}
                       type='text'
                       name='probationaryTime'
-                      defaultValue={data.probationaryTime}
+                      defaultValue={data.probationary_time}
                       placeholder='Nhập thời gian thử việc'
                       spellCheck='false'
                       onChange={handleContentChange}
@@ -660,7 +660,7 @@ export default function EditPerformRecruitment({
                     <input
                       type='number'
                       name='moneyTip'
-                      defaultValue={data.moneyTip}
+                      defaultValue={data.money_tip}
                       placeholder='Nhập hoa hồng được nhận (nếu có)'
                       spellCheck='false'
                       style={{ width: '43%' }}
@@ -683,7 +683,7 @@ export default function EditPerformRecruitment({
                     <input
                       type='text'
                       name='jobDes'
-                      defaultValue={data.jobDes}
+                      defaultValue={data.job_description}
                       placeholder='Mô tả công việc'
                       spellCheck='false'
                       onChange={handleContentChange}
@@ -726,6 +726,7 @@ export default function EditPerformRecruitment({
                       onChange={(option) =>
                         handleSelectionChange(option, options.maquytrinhapdung)
                       }
+
                       options={options.maquytrinhapdung}
                       placeholder='-- Vui lòng chọn --'
                       styles={{
@@ -765,7 +766,7 @@ export default function EditPerformRecruitment({
                   <div className={`${styles.tuyendungtext}`}>
                     <Select
                       className={`${styles.position_recruit}`}
-                      defaultValue={options.kinhnghiem[data.jobExp - 1]}
+                      defaultValue={options.kinhnghiem[data.job_exp - 1]}
                       onChange={(option) =>
                         handleSelectionChange(option, options.kinhnghiem)
                       }
@@ -893,7 +894,7 @@ export default function EditPerformRecruitment({
                     <input
                       type='text'
                       name='jobRequire'
-                      defaultValue={data.jobRequire}
+                      defaultValue={data.job_require}
                       placeholder='Yêu cầu công việc'
                       spellCheck='false'
                       onChange={handleContentChange}

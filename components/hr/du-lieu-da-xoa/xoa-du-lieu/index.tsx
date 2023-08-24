@@ -8,6 +8,7 @@ export default function DeleteData({
   handleData,
 }: any) {
   const handleSubmit = (e) => {
+    e.preventDefault()
     try {
       const fetchData = async () => {
         const response = await forceDelete(handleData)

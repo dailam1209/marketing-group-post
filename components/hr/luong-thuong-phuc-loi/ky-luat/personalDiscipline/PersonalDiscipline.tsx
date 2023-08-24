@@ -10,8 +10,7 @@ export default function PersonalDiscipline({ iconAdd, iconEdit }: any) {
   const [currentPage, setCurrentPage] = useState<any>(1)
   const [keyWords, setKeyWords] = useState<any>('')
   const [updateData, setUpdateData] = useState<any>()
-  const newData = data?.data.slice(0, -1)
-  const myPagination = data?.data[data.data.length - 1]
+
 
   const handlePageChange = (page: any) => {
     setCurrentPage(page)
@@ -26,7 +25,7 @@ export default function PersonalDiscipline({ iconAdd, iconEdit }: any) {
   useEffect(() => {
     const GetDataInfringesReward = async () => {
       const response = await GetDataInfringes(currentPage, 10, 1, keyWords)
-      setData(response?.data.data)
+      setData(response?.success?.data)
     }
     GetDataInfringesReward()
   }, [currentPage, keyWords, updateData])
@@ -36,7 +35,7 @@ export default function PersonalDiscipline({ iconAdd, iconEdit }: any) {
       <PunishmentTable
         model='canhan'
         display='block'
-        data={newData}
+        data={data}
         violators='Cá nhân vi phạm'
         keyWords={handleSearch}
         updateData={handleUpDateData}
@@ -45,7 +44,7 @@ export default function PersonalDiscipline({ iconAdd, iconEdit }: any) {
       <div className={`${styles.pagination}`}>
         <MyPagination
           current={currentPage}
-          total={myPagination?.tongSoBanGhi}
+          total={data?.total}
           pageSize={10}
           onChange={handlePageChange}
         />

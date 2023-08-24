@@ -3,7 +3,11 @@
   background: #ffffff;
   padding-inline: 0 16px;
 }
-
+.overLay{
+  opacity: 0.9;
+  background-color: #474747;
+  
+}
 .l_chinhsua_item_input {
   font-size: 14px;
   font-weight: 600;

@@ -11,8 +11,7 @@ export default function AchievementList({ iconEdit }: any) {
   const [data, setData] = useState<any>()
   const [currentPage, setCurrentPage] = useState<any>(1)
   const [keyWords, setKeyWords] = useState<any>('')
-  const newData = data?.data.slice(0, -1)
-  const myPagination = data?.data[data.data.length - 1]
+
   useEffect(() => {
     SignIn()
   }, [])
@@ -27,7 +26,7 @@ export default function AchievementList({ iconEdit }: any) {
   useEffect(() => {
     const GetDataPersonalReward = async () => {
       const response = await GetDataAchievement(currentPage, 10, 3, keyWords)
-      setData(response?.data.data)
+      setData(response?.success?.data)
     }
     GetDataPersonalReward()
   }, [currentPage, keyWords])
@@ -37,14 +36,14 @@ export default function AchievementList({ iconEdit }: any) {
       <RewardTable
         model='list'
         display='none'
-        data={newData}
+        data={data}
         modal={<></>}
         keyWords={handleSearch}
         iconEdit={iconEdit}></RewardTable>
       <div className={`${styles.pagination}`}>
         <MyPagination
           current={currentPage}
-          total={myPagination?.tongSoBanGhi}
+          total={data?.total}
           pageSize={10}
           onChange={handlePageChange}
         />

@@ -7,10 +7,10 @@ const MyPagination = ({
   pageSize,
   total,
   onChange,
-
 }: any) => {
   return (
     <Pagination
+    showSizeChanger = {false}
       current={current}
       total={total}
       pageSize={pageSize}

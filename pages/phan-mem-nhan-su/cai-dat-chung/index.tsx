@@ -27,7 +27,6 @@ export default function Setting({ children }: any) {
 
   useEffect(() => {
     const currentCookie = getToken(COOKIE_KEY)
-    console.log(currentCookie)
     if (currentCookie) {
       const decodedToken: any = jwt_decode(currentCookie)
       console.log(decodedToken)

@@ -18,7 +18,7 @@ export const GetDataInfringes = async (
         },
       }
     );
-    return response;
+    return response.data;
   } catch (err) {}
 };
 

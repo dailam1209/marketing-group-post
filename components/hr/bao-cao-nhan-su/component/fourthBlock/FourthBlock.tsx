@@ -3,12 +3,12 @@
   import styles from "./FourthBlock.module.css";
   
   const FourthBlock: React.FC<any> = ({ listCardFourth }) => {
-    const ListData = listCardFourth?.map((item, index) => {
+    const ListData = listCardFourth?.data?.map((item, index) => {
       return (
-          <tr key={item._id} className={`${styles.tr}`}>
-            <td>NV{item._id}</td>
-            <td>{item.nameHr}</td>
-            <td>{item.total}</td>
+          <tr key={index} className={`${styles.tr}`}>
+            <td>NV{item.user_recommend}</td>
+            <td>{item.hr_name_full}</td>
+            <td>{item.soungvien}</td>
             
           </tr>
       );  
