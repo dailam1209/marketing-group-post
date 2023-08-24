@@ -861,3 +861,14 @@
     object-fit: fill;
   }
 }
+@media screen and (max-width: 400px) {
+  .t_qr_code {
+    display: block !important;
+  }
+  .t_body_top_6_left {
+    width: 100% !important;
+  }
+  .t_body_top_6_right {
+    width: 100% !important;
+  }
+}

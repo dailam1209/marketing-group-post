@@ -6,7 +6,6 @@ import Footer from "../components/footer/Footer"
 import DropDownHeaderHr from './HomeBefore/hr/dropdownHeader';
 import ModalLogin from '@/components/modal/ModalLogin';
 import ModalRegsiter from '@/components/modal/ModalRegsiter';
-import Script from 'next/script';
 
 export default function HomePageBeforLogin({ children }: any) {
     const [openMenu, setOpenMenu] = useState<any>(false)
@@ -405,6 +404,7 @@ export default function HomePageBeforLogin({ children }: any) {
                     rel='stylesheet'
                     href='https://timviec365.vn/css/footer_new.css?v=2'
                 />
+
                 <Footer></Footer>
             </div>
         </>

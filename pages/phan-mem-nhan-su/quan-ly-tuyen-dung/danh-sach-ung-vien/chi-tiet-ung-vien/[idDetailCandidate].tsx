@@ -40,15 +40,19 @@ export default function DetailCandidate({ onCancel }: any) {
   const [displayIcon, setDisplayIcon] = useState<any>();
   const [EmpData, setEmpData] = useState<any>(null)
   const [newData, setNewData] = useState<any>(false)
-
-  const EmpMatchProcess = EmpData?.items?.find((item: any) => item.ep_id ===
-    isCandidateProcess?.detail_get_job?.empInterview
-    || isCandidateProcess?.detail_fail_job?.empInterview
-    || isCandidateProcess?.detail_cancel_job?.empInterview
-    || isCandidateProcess?.detail_contact_job?.epOffer
-  )
+  const [isProcessBefore, setProcessBefore] = useState<any>(null);
 
   console.log(isCandidateAll);
+
+
+  const EmpMatchProcess = EmpData?.items?.find((item: any) => item.ep_id ===
+    isCandidateProcess?.detail_get_job?.ep_interview
+    || isCandidateProcess?.detail_fail_job?.ep_interview
+    || isCandidateProcess?.detail_cancel_job?.ep_interview
+    || isCandidateProcess?.detail_contact_job?.ep_offer
+  )
+
+  console.log(isCandidateProcess);
 
 
   useEffect(() => {
@@ -67,7 +71,7 @@ export default function DetailCandidate({ onCancel }: any) {
         formData.append('idgiaidoan', numberAfterP)
         const response = await AllDetails(formData);
         if (response) {
-          setCandidateAll(response.data);
+          setCandidateAll(response?.success?.data);
         }
       }
     }
@@ -106,7 +110,9 @@ export default function DetailCandidate({ onCancel }: any) {
         const formData = new FormData();
         const response = await CandidateList(formData)
         if (response) {
-          const data: any = response?.data
+          const data: any = response?.success
+          console.log(response.success);
+
           if (data) {
             if (id?.includes("p")) {
               const regex = /u(\d+)p/g
@@ -115,11 +121,11 @@ export default function DetailCandidate({ onCancel }: any) {
               while ((match = regex.exec(id)) !== null) {
                 matches.push(match[1]);
               }
-              const item = data?.data?.find((item: any) => item.id = Number(matches[0]))
+              const item = data?.data?.data?.find((item: any) => item.id = Number(matches[0]))
               setCandidate(item)
             }
             else {
-              const item = data?.data?.find((item: any) => item.id = Number(id?.slice(1, id?.length)))
+              const item = data?.data?.data?.find((item: any) => item.id = Number(id?.slice(1, id?.length)))
               setCandidate(item)
             }
           }
@@ -140,6 +146,7 @@ export default function DetailCandidate({ onCancel }: any) {
           const processData: any = response?.data
           const matches: any = id?.match(/p(\d+)/);
           const numberAfterP = matches[1];
+          setProcessBefore(Number(numberAfterP))
           const processFind = processData?.data?.find((item: any) => item?.id === Number(numberAfterP))
           if (processFind) {
             setProcessName(processFind?.name)
@@ -158,37 +165,38 @@ export default function DetailCandidate({ onCancel }: any) {
         if (id?.charAt(0) === 'g') {
           const formData = new FormData();
           const candidate_id: any = Number(id?.slice(1, id?.length))
-          formData.append('canId', candidate_id)
+          formData.append('id', candidate_id)
           const response = await GetJobDetails(formData);
           if (response) {
-            setCandidateProcess(response.data);
+            setCandidateProcess(response?.success?.data?.data);
+
           }
         }
         if (id?.charAt(0) === 'f') {
           const formData = new FormData();
           const candidate_id: any = Number(id?.slice(1, id?.length))
-          formData.append('canId', candidate_id)
+          formData.append('id', candidate_id)
           const response = await FailJobDetails(formData);
           if (response) {
-            setCandidateProcess(response.data);
+            setCandidateProcess(response?.success?.data?.data);
           }
         }
         if (id?.charAt(0) === 'c') {
           const formData = new FormData();
           const candidate_id: any = Number(id?.slice(1, id?.length))
-          formData.append('canId', candidate_id)
+          formData.append('id', candidate_id)
           const response = await CancelJobDetails(formData);
           if (response) {
-            setCandidateProcess(response.data);
+            setCandidateProcess(response?.success?.data?.data);
           }
         }
         if (id?.charAt(0) === 's') {
           const formData = new FormData();
           const candidate_id: any = Number(id?.slice(1, id?.length))
-          formData.append('canId', candidate_id)
+          formData.append('id', candidate_id)
           const response = await ContactJobDetails(formData);
           if (response) {
-            setCandidateProcess(response.data);
+            setCandidateProcess(response?.success?.data?.data);
           }
         }
 
@@ -258,10 +266,10 @@ export default function DetailCandidate({ onCancel }: any) {
     ],
   };
 
-  const selectedGender: any = options.chongioitinh.find((item) => item.value === isCandidate?.gender);
-  const selectedEducation: any = options.trinhdohocvan.find((item) => item.value === isCandidate?.education);
-  const selectedExp: any = options.kinhnghiemlamviec.find((item) => item.value === isCandidate?.exp.toString());
-  const selectedMarried: any = options.tinhtranghonnhan.find((item) => item.value === isCandidate?.isMarried);
+  const selectedGender: any = options.chongioitinh.find((item) => Number(item.value) === Number(isCandidate?.can_gender));
+  const selectedEducation: any = options.trinhdohocvan.find((item) => item.value === isCandidate?.can_education);
+  const selectedExp: any = options.kinhnghiemlamviec.find((item) => item.value === isCandidate?.can_exp.toString());
+  const selectedMarried: any = options.tinhtranghonnhan.find((item) => item.value === isCandidate?.can_is_married);
 
   return (
     <>
@@ -298,7 +306,7 @@ export default function DetailCandidate({ onCancel }: any) {
                 )}
               </div>
               {openModalDetail && id?.charAt(0) === 'u' && !id?.includes("p") ? <EditCandidateModal candidate={isCandidate} onCancel={handleCloseModal} /> : ''}
-              {openModalDetail && id?.includes("p") ? <EditCandidateIntrview candidateAll={isCandidateAll} candidate={isCandidate} onCancel={handleCloseModal} processName={isProcessName} /> : ''}
+              {openModalDetail && id?.includes("p") ? <EditCandidateIntrview processBefore={isProcessBefore} candidateAll={isCandidateAll} candidate={isCandidate} onCancel={handleCloseModal} processName={isProcessName} /> : ''}
               {openModalDetail && id?.charAt(0) === 'g' ? <EditCandidateGetJob candidate={isCandidate} onCancel={handleCloseModal} /> : ''}
               {openModalDetail && id?.charAt(0) === 'f' ? <EditCandidateFailJob candidate={isCandidate} onCancel={handleCloseModal} /> : ''}
               {openModalDetail && id?.charAt(0) === 'c' ? <EditCandidateCancelJob candidate={isCandidate} onCancel={handleCloseModal} /> : ''}
@@ -317,12 +325,12 @@ export default function DetailCandidate({ onCancel }: any) {
               <p>Trường học: <span className={`${styles.txt_op}`}>{isCandidate?.school}</span></p>
               <p>Kinh nghiệm làm việc: <span className={`${styles.txt_op}`}>{selectedExp?.label}</span></p>
               <p>Tình trạng hôn nhân: <span className={`${styles.txt_op}`}>{selectedMarried?.label}</span></p>
-              <p>Địa chỉ: <span className={`${styles.txt_op}`}>{isCandidate?.address}</span></p>
+              <p>Địa chỉ: <span className={`${styles.txt_op}`}>{isCandidate?.can_address}</span></p>
             </div>
             <div className={`${styles.l_body_2_left_body}`}>
               <p className={`${styles.l_body_2_left_body_title}`}>Thông tin tuyển dụng</p>
               <p>Nguồn ứng viên: <span className={`${styles.txt_op}`}>{isCandidate?.cvFrom}</span></p>
-              <p>Vị trí ứng tuyển: <span className={`${styles.txt_op}`}>{isCandidate?.Title}</span></p>
+              <p>Vị trí ứng tuyển: <span className={`${styles.txt_op}`}>{isCandidate?.title}</span></p>
               <p>Nhân viên tuyển dụng: <span className={`${styles.txt_op}`}>{isCandidate?.NvTuyenDung}</span></p>
             </div>
             <div className={`${styles.l_body_2_left_body}`}>
@@ -334,7 +342,7 @@ export default function DetailCandidate({ onCancel }: any) {
               <p>Giai đoạn chuyển: <span className={`${styles.txt_op}`}>Nhận hồ sơ</span></p>
               <div>
                 <p style={{ display: 'inline-block' }}>Đánh giá hồ sơ: </p>
-                <Rating size={27} disableFillHover initialValue={isCandidate?.starVote} className={`${styles.star_rating}`} />
+                <Rating size={27} disableFillHover initialValue={isCandidate?.star_vote} className={`${styles.star_rating}`} />
               </div>
               {isCandidate?.listSkill?.map((item: any, index: any) => {
                 return (
@@ -350,14 +358,14 @@ export default function DetailCandidate({ onCancel }: any) {
             {id?.includes("p") && (
               <div className={`${styles.l_body_2_left_body}`}>
                 {isProcessName && <p className={`${styles.l_body_2_left_body_title}`}>Giai đoạn chuyển: {isProcessName}</p>}
-                {isCandidateAll?.data?.createdAt &&
-                  <p>Thời gian chuyển giai đoạn: <span className={`${styles.txt_op}`}>{format(parseISO(isCandidateAll?.data?.createdAt), 'dd-MM-yyyy')}</span></p>
+                {isCandidateAll?.data?.created_at &&
+                  <p>Thời gian chuyển giai đoạn: <span className={`${styles.txt_op}`}>{format(parseISO(isCandidateAll?.data?.created_at), 'dd-MM-yyyy')}</span></p>
                 }
 
                 <p>Mức lương mong muốn: <span className={`${styles.txt_op}`}>{isCandidateAll?.data?.resiredSalary}</span></p>
-                <p>Mức lương thực: <span className={`${styles.txt_op}`}>{isCandidateAll?.data?.salary}</span></p>
-                {isCandidateAll?.data?.interviewTime &&
-                  <p>Thời gian hẹn: <span className={`${styles.txt_op}`}>{format(parseISO(isCandidateAll?.data?.interviewTime), 'dd-MM-yyyy')}</span></p>
+                <p>Mức lương thực: <span className={`${styles.txt_op}`}>{isCandidateAll?.data?.salaryyyy}</span></p>
+                {isCandidateAll?.data?.interview_time &&
+                  <p>Thời gian hẹn: <span className={`${styles.txt_op}`}>{format(parseISO(isCandidateAll?.data?.interview_time), 'dd-MM-yyyy')}</span></p>
                 }
 
                 <p>Nhân viên tham gia: <span className={`${styles.txt_op}`}>{isCandidateAll?.data?.nhanvien}</span></p>
@@ -367,20 +375,20 @@ export default function DetailCandidate({ onCancel }: any) {
             {id?.charAt(0) === 'g' && (
               <div className={`${styles.l_body_2_left_body}`}>
                 <p className={`${styles.l_body_2_left_body_title}`}>Giai đoạn chuyển: Nhận việc</p>
-                <p>Mức lương mong muốn: <span className={`${styles.txt_op}`}>{isCandidateProcess?.detail_get_job?.resiredSalary}</span></p>
+                <p>Mức lương mong muốn: <span className={`${styles.txt_op}`}>{isCandidateProcess?.detail_get_job?.resired_salary}</span></p>
                 <p>Mức lương thực: <span className={`${styles.txt_op}`}>{isCandidateProcess?.detail_get_job?.salary}</span></p>
-                {isCandidateProcess?.detail_get_job?.interviewTime &&
-                  <p>Thời gian hẹn: <span className={`${styles.txt_op}`}>{format(parseISO(isCandidateProcess?.detail_get_job?.interviewTime), 'dd-MM-yyyy')}</span></p>
+                {isCandidateProcess?.detail_get_job?.interview_time &&
+                  <p>Thời gian hẹn: <span className={`${styles.txt_op}`}>{format(parseISO(isCandidateProcess?.detail_get_job?.interview_time), 'dd-MM-yyyy')}</span></p>
                 }
-                <p>Nhân viên tham gia: <span className={`${styles.txt_op}`}>{EmpMatchProcess?.userName}</span></p>
+                <p>Nhân viên tham gia: <span className={`${styles.txt_op}`}>{EmpMatchProcess?.ep_name}</span></p>
                 <p>Ghi chú: <span className={`${styles.txt_op}`}>{isCandidateProcess?.detail_get_job?.note}</span></p>
               </div>
             )}
             {id?.charAt(0) === 'f' && (
               <div className={`${styles.l_body_2_left_body}`}>
                 <p className={`${styles.l_body_2_left_body_title}`}>Giai đoạn chuyển: Trượt vòng loại hồ sơ</p>
-                {isCandidateProcess?.detail_fail_job?.createdAt &&
-                  <p>Thời gian chuyển giai đoạn: <span className={`${styles.txt_op}`}>{format(parseISO(isCandidateProcess?.detail_fail_job?.createdAt), 'dd-MM-yyyy')}</span></p>
+                {isCandidateProcess?.detail_fail_job?.created_at &&
+                  <p>Thời gian chuyển giai đoạn: <span className={`${styles.txt_op}`}>{format(parseISO(isCandidateProcess?.detail_fail_job?.created_at), 'dd-MM-yyyy')}</span></p>
                 }
                 <p>Ghi chú: <span className={`${styles.txt_op}`}>{isCandidateProcess?.detail_fail_job?.note}</span></p>
               </div>
@@ -391,29 +399,21 @@ export default function DetailCandidate({ onCancel }: any) {
                 {isCandidateProcess?.detail_cancel_job?.createdAt &&
                   <p>Thời gian chuyển giai đoạn: <span className={`${styles.txt_op}`}>{format(parseISO(isCandidateProcess?.detail_cancel_job?.createdAt), 'dd-MM-yyyy')}</span></p>
                 }
-                <p>Mức lương mong muốn: <span className={`${styles.txt_op}`}>{isCandidateProcess?.detail_cancel_job?.resiredSalary}</span></p>
+                <p>Mức lương mong muốn: <span className={`${styles.txt_op}`}>{isCandidateProcess?.detail_cancel_job?.resired_salary}</span></p>
                 <p>Mức lương thực: <span className={`${styles.txt_op}`}>{isCandidateProcess?.detail_cancel_job?.salary}</span></p>
                 <p>Ghi chú: <span className={`${styles.txt_op}`}>{isCandidateProcess?.detail_cancel_job?.note}</span></p>
               </div>
             )}
             {id?.charAt(0) === 's' && (
               <>
-                <div className={`${styles.l_body_2_left_body}`}>
-                  {isProcessName && <p className={`${styles.l_body_2_left_body_title}`}>Giai đoạn chuyển: {isProcessName}</p>}
-                  <p>Thời gian chuyển giai đoạn: <span className={`${styles.txt_op}`}>{""}</span></p>
-                  <p>Mức lương mong muốn: <span className={`${styles.txt_op}`}>{""}</span></p>
-                  <p>Mức lương thực: <span className={`${styles.txt_op}`}>{""}</span></p>
-                  <p>Thời gian hẹn: <span className={`${styles.txt_op}`}>{""}</span></p>
-                  <p>Nhân viên tham gia: <span className={`${styles.txt_op}`}>{EmpMatchProcess?.userName}</span></p>
-                  <p>Ghi chú: <span className={`${styles.txt_op}`}>{""}</span></p>
-                </div>
+
                 <div className={`${styles.l_body_2_left_body}`}>
                   <p className={`${styles.l_body_2_left_body_title}`}>Giai đoạn chuyển: Ký hợp đồng</p>
                   {isCandidateProcess?.detail_contact_job?.offerTime &&
                     <p>Thời gian kí hợp đồng: <span className={`${styles.txt_op}`}>{format(parseISO(isCandidateProcess?.detail_contact_job?.offerTime), 'dd-MM-yyyy')}</span></p>
                   }
-                  <p>Nhân viên tham gia: <span className={`${styles.txt_op}`}>{EmpMatchProcess?.userName}</span></p>
-                  <p>Mức lương mong muốn: <span className={`${styles.txt_op}`}>{isCandidateProcess?.detail_contact_job?.resiredSalary}</span></p>
+                  <p>Nhân viên tham gia: <span className={`${styles.txt_op}`}>{EmpMatchProcess?.ep_name}</span></p>
+                  <p>Mức lương mong muốn: <span className={`${styles.txt_op}`}>{isCandidateProcess?.detail_contact_job?.resired_salary}</span></p>
                   <p>Mức lương thực: <span className={`${styles.txt_op}`}>{isCandidateProcess?.detail_contact_job?.salary}</span></p>
                   <p>Ghi chú: <span className={`${styles.txt_op}`}>{isCandidateProcess?.detail_contact_job?.note}</span></p>
                 </div>

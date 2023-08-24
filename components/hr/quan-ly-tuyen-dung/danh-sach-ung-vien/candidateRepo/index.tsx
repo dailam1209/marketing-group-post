@@ -7,6 +7,7 @@ import MyPagination from '@/components/hr/pagination/Pagination'
 import Head from 'next/head'
 import { CandidateList } from '@/pages/api/api-hr/quan-ly-tuyen-dung/candidateList'
 import { GetListNews } from '@/pages/api/api-hr/quan-ly-tuyen-dung/PerformRecruitment'
+import { FetchDataPosition } from '@/components/hr/util/listAll'
 
 type SelectOptionType = { label: string; value: any }
 
@@ -20,6 +21,11 @@ export default function CandidateRepo({ children }: any) {
   const [isRecruitmentNewsId, setRecruitmentNewsId] = useState<any>('')
   const [isNewList, setNewsList] = useState<any>(null)
   const [isSeach, setSearch] = useState<any>(null)
+  const [isPositionList, setPositionList] = useState<any>(null)
+  const [isPosition_name, setPosition_name] = useState<any>(null)
+
+  console.log(isPositionList);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,7 +45,7 @@ export default function CandidateRepo({ children }: any) {
         formData.append('recruitmentNewsId', isRecruitmentNewsId)
         formData.append('page', currentPage)
         const response = await CandidateList(formData)
-        setCandidateList(response?.data)
+        setCandidateList(response?.success)
       } catch (error) {
         throw error
       }
@@ -49,6 +55,29 @@ export default function CandidateRepo({ children }: any) {
 
   console.log(isCandidateList);
 
+  useEffect(() => {
+    const fetchDataCom = async () => {
+      const position = await FetchDataPosition()
+      setPositionList(position)
+    }
+    fetchDataCom()
+  }, []);
+
+
+  console.log(isPositionList)
+  const positionNameMatch = (position_id: any) => {
+    if (isPositionList) {
+      const PositionList = isPositionList?.data?.flat();
+      if (PositionList) {
+        const position = PositionList.find((pos: any) => pos?.positionId === position_id);
+        if (position) {
+          return position.positionName
+        } else {
+          return "Chưa cập nhật"
+        }
+      }
+    }
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -95,7 +124,7 @@ export default function CandidateRepo({ children }: any) {
     setSearch({ isGender })
   }, [isGender])
 
-  console.log(isNewList);
+  console.log(isCandidateList);
 
 
   const chonvitrituyendungOptions = useMemo(
@@ -241,7 +270,7 @@ export default function CandidateRepo({ children }: any) {
                   </tr>
                 </thead>
                 <tbody className={`${styles.filter_body}`}>
-                  {isCandidateList?.data?.map((item: any, index: any) => (
+                  {isCandidateList?.data?.data?.map((item: any, index: any) => (
                     <tr key={index}>
                       <td>{item.id}</td>
                       <td>
@@ -259,17 +288,16 @@ export default function CandidateRepo({ children }: any) {
                         <p>SDT: {item.phone}</p>
                       </td>
                       <td>{item.cvFrom}</td>
-                      <td>{item.Title}</td>
-                      <td>{`TD${item.recruitmentNewsId}(${item.Title})`}</td>
-                      <td>{`QTTD${item.RecruitmentId}`}</td>
-                      {item?.timeSendCv && (
+                      <td>{positionNameMatch(item.position_apply)}</td>
+                      <td>{`TD${item.recruitment_news_id}(${item.title})`}</td>
+                      <td>{`QTTD${item.recruitmen_id}`}</td>
+                      {item?.timeSendCv ? (
                         <td>
                           {format(parseISO(item?.timeSendCv), 'yyyy-MM-dd')}
                         </td>
-                      )}
-
+                      ) : "Chưa cập nhật"}
                       <td>
-                        <a href=''>{item.cv}</a>
+                        <a href=''>{item.cv ? item.cv : "Chưa tải lên CV"}</a>
                       </td>
                       <td
                         className={`${styles.r_t_top_right}`}
