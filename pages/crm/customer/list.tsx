@@ -184,7 +184,7 @@ export default function CustomerList() {
     setListGr(data?.data);
     let arr = [];
     data?.data?.map((item) => {
-      item?.list_gr_child.map((item) => {
+      item?.lists_child?.map((item) => {
         arr.push(item);
       });
       setlistGr_Child(arr);
