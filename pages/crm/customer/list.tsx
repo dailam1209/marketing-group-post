@@ -228,7 +228,6 @@ export default function CustomerList() {
       mainRef.current?.classList.remove("content_resize");
     }
   }, [isOpen]);
-
   return (
     <>
       {!checkAndRedirectToHomeIfNotLoggedIn() ? null : (
