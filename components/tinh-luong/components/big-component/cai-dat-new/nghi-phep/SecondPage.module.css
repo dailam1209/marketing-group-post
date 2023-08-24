@@ -1,0 +1,365 @@
+.tax_one {
+  width: 100%;
+  float: right;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.tax_one > p {
+  float: right;
+  text-align: right;
+  padding: 9px 20px 8px 45px;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 21px;
+  color: #ffffff;
+  background-color: #4c5bd4;
+  border-radius: 10px;
+  position: relative;
+  cursor: pointer;
+  background-image: url(/tab_one.png);
+  background-repeat: no-repeat;
+  background-position: 15px 12px;
+}
+
+.tax_tow {
+  width: 100%;
+  float: left;
+  border-bottom: 1px solid #d4e2f3;
+  overflow-x: auto;
+}
+
+.groupw_tow {
+  width: 100%;
+  float: left;
+}
+
+.groupw_tow > p {
+  float: left;
+  margin-right: 35px;
+  font-size: 16px;
+  line-height: 19px;
+  color: #68798b;
+  cursor: pointer;
+}
+
+.active {
+  font-weight: 500;
+  color: #f46a6a !important;
+  border-bottom: 2px solid #f46a6a;
+  padding-bottom: 10px;
+}
+.tax_three {
+  width: 100%;
+  float: left;
+  margin-top: 40px;
+}
+.tax_three_ct_one {
+  width: 100%;
+  float: left;
+}
+.late_or_soon {
+  background: #ffffff;
+  box-shadow: 0px 0px 20px rgb(55 63 255 / 10%);
+  border-radius: 7px;
+  width: 100%;
+  float: left;
+}
+.cate_staff_one {
+  width: 97%;
+  float: left;
+  margin-left: 1.5%;
+  margin-right: 1.5%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  overflow-x: unset;
+}
+.cate_ct_one {
+  float: left;
+  width: 65%;
+
+  box-sizing: border-box;
+}
+.cate_ct_one > h3 {
+  width: 100%;
+  float: left;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 28px;
+  color: #2e3467;
+  margin-bottom: 3px;
+}
+.cate_ct_one > i {
+  font-style: italic;
+}
+.cate_ct_tow {
+  float: right;
+  text-align: left;
+  display: flex;
+}
+.sl_date {
+  float: right;
+  text-align: left;
+  padding: 10px 15px 10px 20px;
+  background: #ffffff;
+  border: 1px solid #ebebeb;
+  border-radius: 10px;
+  margin-right: 9px;
+  font-size: 15px;
+  line-height: 16px;
+  color: #68798b;
+  height: 38px;
+}
+.open_nghi_phep {
+  padding: 8px 12px;
+  font-size: 16px;
+  color: #fff;
+  background: #4c5bd4;
+  float: right;
+  margin: 20px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.take_leave_tb {
+  padding: 0px 20px;
+}
+.takeleave_fn {
+  float: left;
+  padding-left: 10px;
+  width: 72%;
+  text-align: left;
+}
+.takeleave_fn > h4 {
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 20px;
+  color: #4c5bd4;
+  margin-bottom: 3px;
+  cursor: pointer;
+}
+.takeleave_fn > p {
+  font-size: 15px;
+  line-height: 16px;
+  color: #68798b;
+}
+
+.modal_hd_tax_xemmucphat {
+  width: 91%;
+  float: left;
+  margin-left: 4.5%;
+  margin-right: 4.5%;
+}
+.modal_body_xemmucphat {
+  width: 100%;
+  float: left;
+  padding-bottom: 30px;
+}
+.cr_popup_tax_xemmucphat {
+  margin-top: 30px;
+}
+
+.cr_popup_tax_xemmucphat > table {
+  width: 100%;
+  float: left;
+  border-collapse: collapse;
+  white-space: normal;
+}
+.describe_xemmucphat {
+  border-bottom: 1px dotted;
+  padding-bottom: 20px;
+}
+.describe_xemmucphat > p {
+  color: #4c5bd4;
+}
+.edit_mphat {
+  padding-top: 15px;
+  padding-bottom: 15px;
+
+  font-size: 15px;
+  line-height: 16px;
+  color: #68798b;
+
+  text-align: center;
+}
+
+.edit_mphat > img {
+  object-fit: cover;
+  margin-right: 10px;
+}
+.luu_y_modal_xemmucphat {
+  text-align: justify;
+  margin: 20px 0px;
+  font-style: italic;
+  font-size: 14px;
+  float: left;
+  width: 100%;
+  color: #ef5353;
+}
+.box_set_phat {
+  width: 96%;
+  padding: 20px;
+  border: solid 1px #e1e1e1;
+  box-sizing: border-box;
+  margin-bottom: 30px;
+  display: flex;
+}
+.box_pn {
+  width: 50%;
+  float: left;
+}
+.box_pn > form {
+  width: 100%;
+  border-radius: 5px;
+  max-height: 350px;
+  overflow-y: scroll;
+  border: solid 1px #e1e1e1;
+  padding: 20px 10px;
+}
+
+.d_flex {
+  display: flex;
+}
+.d_flex > label {
+  width: 100%;
+  float: left;
+  position: relative;
+  font-size: 16px;
+  line-height: 22px;
+  color: #666666;
+  cursor: pointer;
+
+  padding: 15px 0px 15px 0;
+}
+.d_flex > label > input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+  margin: 31px 19px;
+}
+.d_flex > label > span {
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  background-color: #ffffff;
+  top: 25px;
+  left: 15px;
+  border: 1px solid #2a6ebb;
+  border-radius: unset;
+}
+.d_flex > label > span ::before {
+  position: absolute;
+  content: "";
+  left: 3px;
+  top: 3px;
+  width: 10px;
+  height: 10px;
+  background: #e2e2e2;
+  border: 1px solid #e2e2e2;
+}
+.d_flex > label > span ::after {
+  content: "";
+  position: absolute;
+  left: 3px;
+  top: 3px;
+  width: 10px;
+  height: 10px;
+  background: #2a6ebb;
+  border: 1px solid #2a6ebb;
+}
+.item_user {
+  width: 100%;
+  float: left;
+}
+.takeleave_fn_1 {
+  float: left;
+  padding-left: 10px;
+  width: 72%;
+  text-align: left;
+}
+.takeleave_fn_1 > h4 {
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 20px;
+  color: #4c5bd4;
+  margin-bottom: 3px;
+  cursor: pointer;
+}
+.takeleave_fn_1 > p {
+  font-size: 16px;
+  line-height: 22px;
+  color: #666666;
+  cursor: pointer;
+}
+.checkboxCaidatNghiPhep_padding {
+  padding-left: 15px;
+  width: 100%;
+}
+.checkboxCaidatNghiPhep :hover {
+  background: #edeffb;
+  border-radius: 5px;
+  width: 100%;
+}
+.box_set_pn {
+  width: 45%;
+  float: right;
+  margin-left: 5%;
+}
+.form_group {
+  margin-bottom: 14px;
+}
+.form_group > label {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 19px;
+  color: #666666;
+  margin-bottom: 5px;
+  width: 100%;
+  float: left;
+}
+.form_group > input {
+  background: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  padding: 10px 15px;
+  font-size: 16px;
+  line-height: 19px;
+  color: #777777;
+  outline: 0;
+  width: 100%;
+}
+.box_set_pn > button {
+  width: 100%;
+  float: left;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 18px;
+  color: #ffffff;
+  background: #4c5bd4;
+  border-radius: 5px;
+  padding: 14px 20px 13px 20px;
+  border: 0;
+  cursor: pointer;
+  outline: 0;
+  margin-top: 5px;
+}
+.box_set_pn > p {
+  margin-top: 20px;
+  float: left;
+  text-align: justify;
+}
+.mucphatdangapdung {
+  padding-top: 15px;
+  padding-bottom: 15px;
+
+  font-size: 15px;
+  line-height: 16px;
+  color: #68798b;
+
+  min-width: 180px;
+}
+.ngaybatdauapdung {
+  color: #4c5bd4;
+  padding-bottom: 3px;
+}

@@ -1,0 +1,107 @@
+.part_hps{
+    width: 95%;
+    float: left;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+    margin-top: 60px;
+}
+.cate_staff_one{
+    width: 97%;
+    float: left;
+    margin-left: 1.5%;
+    margin-right: 1.5%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.prl_part_one_cate_part_payr{
+    float: left;
+}
+.prl_part_one_cate_part_payr > h3{
+    width: 100%;
+    float: left;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 28px;
+    color: #2E3467;
+    margin-bottom: 3px;
+    position: relative;
+}
+.cate_taff{
+    width: 100%;
+    float: left;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 20px rgba(55, 63, 255, 0.1);
+    border-radius: 10px;
+}
+.cate_ct_tow_cate_pay_tow{
+    clear: both;
+    margin-top: 30px;
+    text-align: left;
+    float: right;
+    display: flex;
+}
+
+.cate_ct_tow_cate_pay_tow >label{
+    line-height: 44px;
+    padding: 0px 10px;
+}
+.selection {
+    margin-right: 10px;
+}
+
+.select_p{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.button{
+    padding: 10px 20px;
+    background: #4c5bd4;
+    color: #fff;
+    height: 38px;
+    cursor: pointer;
+    vertical-align: top;
+    float: right;
+    text-align: left;
+    border: 1px solid #ebebeb;
+    border-radius: 10px;
+    margin-right: 9px;
+    font-size: 15px;
+    line-height: 16px;
+    margin-top: 3px;
+}
+.select{
+    margin-right: 20px;
+}
+.cate_pay_ct{
+    margin-top: 50px;
+}
+
+.xuat_excel >p{
+    margin-right: 10px;
+    float: left;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 16px;
+    color: #FFFFFF;
+    padding: 10px 32px 10px 60px;
+    background: #4C5BD4;
+    border-radius: 5px;
+    position: relative;
+    cursor: pointer;
+    margin-top: 30px;
+}
+
+.xuat_excel >p::after{
+    content: "";
+    float: left;
+    position: absolute;
+    left: 30px;
+    width: 20px;
+    height: 20px;
+    top: 7px;
+    background: url('https://tinhluong.timviec365.vn/img/excel2.png')no-repeat;
+}
+.formItem{
+    margin-right: 10px;
+}

@@ -26,7 +26,7 @@ export function LuanChuyen({
   const [openAddNew, setOpenAddNew] = useState(false)
   const [data, setData] = useState(listTranferJob?.data)
   const [listDepLabel, setListDepLabel]: any = useState(
-    listDepartments?.items?.map((dep) => ({
+    listDepartments?.map((dep) => ({
       label: dep?.dep_name,
       value: dep?.dep_id,
     }))

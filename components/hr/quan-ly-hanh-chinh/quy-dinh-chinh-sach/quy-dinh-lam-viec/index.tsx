@@ -34,10 +34,14 @@ export default function RegulationsWork({ iconAdd, iconEdit, iconDelete }) {
   const [keyWords, setKeyWords] = useState('')
   const [newData, setNewData] = useState(false)
 
+  console.log(data);
+  console.log(dataChildList);
+  console.log(dataChild);
+
   const fetchData = useCallback(async () => {
     try {
       const response = await SpecifiedGroupList(10, currentPage, keyWords);
-      setData(response?.data);
+      setData(response?.success);
     } catch (error) {
     }
   }, [currentPage, keyWords, newData]);
@@ -46,13 +50,17 @@ export default function RegulationsWork({ iconAdd, iconEdit, iconDelete }) {
     fetchData();
   }, [fetchData]);
   const setIdParent = async (itemId: number) => {
+    console.log(dataChildList)
+    console.log(itemId);
     const dataChildIndex = dataChildList.findIndex((item: any) => item.id === itemId);
+    console.log(dataChildIndex);
     if (dataChildIndex !== -1) {
       setDataChild(dataChildList[dataChildIndex].data);
     } else {
       try {
         const response = await RulesByGroupList(itemId);
-        const dataResponse = response?.data?.data
+        const dataResponse = response?.success?.data?.data
+        console.log(dataResponse);
         const updatedDataChildList = [...dataChildList, { id: itemId, data: dataResponse }];
         setDataChildList(updatedDataChildList);
         setDataChild(response?.data);
@@ -153,8 +161,8 @@ export default function RegulationsWork({ iconAdd, iconEdit, iconDelete }) {
             </div>
           </div>
           <div className={`${styles.member_list} ${styles.regulation_item}`}>
-            {data?.tongSoBanGhi != 0 ? (
-              data?.data?.map((item: any, index: any) => (
+            {data?.data?.total != 0 ? (
+              data?.data?.data?.map((item: any, index: any) => (
                 <div className={`${styles.quydinh_item} `} key={index}>
                   <div className={`${styles.quydinh_item1}`}>
                     <div className={`${styles.quydinh_item2}`} onClick={() => handleSeemore(item?.id)}>
@@ -188,9 +196,9 @@ export default function RegulationsWork({ iconAdd, iconEdit, iconDelete }) {
                                     {childItem.name} (Xem chi tiết)
                                   </a>
                                 </td>
-                                <td>{format(new Date(childItem.createdAt), 'dd/MM/yyyy')}</td>
-                                <td>{childItem.createdBy}</td>
-                                <td>{childItem.applyFor}</td>
+                                <td>{format(new Date(childItem.created_at), 'dd/MM/yyyy')}</td>
+                                <td>{childItem.created_by}</td>
+                                <td>{childItem.apply_for}</td>
                                 <td>
                                   <a style={{ cursor: 'pointer' }} onClick={(event: any) => handleOpenDeleteRegulations(childItem.id, event)}>
                                     <img src="/trash.png" />
@@ -212,10 +220,10 @@ export default function RegulationsWork({ iconAdd, iconEdit, iconDelete }) {
                 <p className={`${styles.text_content}`}>Dữ liệu trống</p>
               )}
           </div>
-          <div className={`${styles.pagination}`} style={{ display: data?.tongSoBanGhi != 0 ? 'block' : 'none' }}>
+          <div className={`${styles.pagination}`} style={{ display: data?.data?.total != 0 ? 'block' : 'none' }}>
             <MyPagination
               current={currentPage}
-              total={data && data?.tongSoBanGhi}
+              total={data && data?.data?.total}
               pageSize={10}
               onChange={handlePageChange}
             />

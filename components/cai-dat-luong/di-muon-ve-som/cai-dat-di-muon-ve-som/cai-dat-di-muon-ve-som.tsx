@@ -1,27 +1,27 @@
-import styles from './cai-dat-di-muon-ve-som.module.css';
-import { Row, Col, Select, Button, Table, Form } from 'antd';
-import Image from 'next/image';
-import type { ColumnsType } from 'antd/es/table';
+import styles from './cai-dat-di-muon-ve-som.module.css'
+import { Row, Col, Select, Button, Table, Form } from 'antd'
+import Image from 'next/image'
+import type { ColumnsType } from 'antd/es/table'
 import {
   ModalCaiDatDiMuonVeSom,
   ModalUpDateCaiDatDiMuonVeSom,
   ModalXoaCaiDaiDMVS,
-} from './modal/modal';
-import { useState, useEffect } from 'react';
-import moment from 'moment';
-import { GET, POST, POST_SS, POST_TL } from '@/pages/api/BaseApi';
+} from './modal/modal'
+import { useState, useEffect } from 'react'
+import moment from 'moment'
+import { GET, POST, POST_SS, POST_TL } from '@/pages/api/BaseApi'
 
 const TableCaiDatDiMuonVeSom = ({
   data,
   setModalChinhSua,
   setModalXoa,
   setSelectedRow,
-  listShift
+  listShift,
 }: {
-  data: any[];
-  setModalChinhSua: (a: boolean) => void;
-  setModalXoa: (a: boolean) => void;
-  setSelectedRow: (a: any) => void;
+  data: any[]
+  setModalChinhSua: (a: boolean) => void
+  setModalXoa: (a: boolean) => void
+  setSelectedRow: (a: any) => void
   listShift?: any
 }) => {
   const columns: any[] = [
@@ -34,7 +34,14 @@ const TableCaiDatDiMuonVeSom = ({
     {
       key: '2',
       title: 'Ca làm việc áp dụng',
-      render: (record) => <p>{listShift?.length > 0 ? listShift?.find(shift => shift?.shift_id === record?.pm_shift)?.shift_name : "Chưa cập nhật"}</p>,
+      render: (record) => (
+        <p>
+          {listShift?.length > 0
+            ? listShift?.find((shift) => shift?.shift_id === record?.pm_shift)
+                ?.shift_name
+            : 'Chưa cập nhật'}
+        </p>
+      ),
       align: 'center',
     },
     {
@@ -50,19 +57,19 @@ const TableCaiDatDiMuonVeSom = ({
       ),
       align: 'center',
     },
-    {
-      key: '4',
-      title: 'Đến tháng',
-      render: (record) => (
-        <p>
-          {record?.pm_time_end &&
-            `Tháng ${moment(record?.pm_time_end)?.month() + 1} /${moment(
-              record?.pm_time_end
-            )?.year()}`}
-        </p>
-      ),
-      align: 'center',
-    },
+    // {
+    //   key: '4',
+    //   title: 'Đến tháng',
+    //   render: (record) => (
+    //     <p>
+    //       {record?.pm_time_end &&
+    //         `Tháng ${moment(record?.pm_time_end)?.month() + 1} /${moment(
+    //           record?.pm_time_end
+    //         )?.year()}`}
+    //     </p>
+    //   ),
+    //   align: 'center',
+    // },
     {
       key: '5',
       title: 'Thời gian tính phạt',
@@ -84,31 +91,31 @@ const TableCaiDatDiMuonVeSom = ({
       render: (record: any) => (
         <div className={styles.actionGroup}>
           <Image
-            alt="/"
+            alt='/'
             src={'/edit.png'}
             width={24}
             height={24}
             onClick={() => {
               // console.log(record)
-              setSelectedRow(record);
-              setModalChinhSua(true);
+              setSelectedRow(record)
+              setModalChinhSua(true)
             }}
           />
           <div className={styles.divider}></div>
           <Image
-            alt="/"
+            alt='/'
             src={'/delete-icon.png'}
             width={24}
             height={24}
             onClick={() => {
-              setSelectedRow(record);
-              setModalXoa(true);
+              setSelectedRow(record)
+              setModalXoa(true)
             }}
           />
         </div>
       ),
     },
-  ];
+  ]
   return (
     <div>
       <Table
@@ -116,39 +123,38 @@ const TableCaiDatDiMuonVeSom = ({
         columns={columns}
         dataSource={data}
         scroll={{ x: 'max-content' }}
-        pagination={{ position: ['bottomCenter'] }}
-      ></Table>
+        pagination={{ position: ['bottomCenter'] }}></Table>
     </div>
-  );
-};
+  )
+}
 
 export function CpmCaiDatDiMuonVeSom({
   lateInfoList,
 }: {
-  lateInfoList: any[];
+  lateInfoList: any[]
 }) {
-  const [form] = Form.useForm();
-  const [modalCaiDatDMVS, setModalCaiDatDMVS] = useState(false);
-  const [listData, setListData] = useState(lateInfoList);
-  const [modalChinhSua, setModalChinhSua] = useState(false);
-  const [modalXoa, setModalXoa] = useState(false);
-  const [reload, setReload] = useState(false);
-  const [selectedRow, setSelectedRow] = useState();
-  const [listCa, setListCa] = useState([]);
+  const [form] = Form.useForm()
+  const [modalCaiDatDMVS, setModalCaiDatDMVS] = useState(false)
+  const [listData, setListData] = useState(lateInfoList)
+  const [modalChinhSua, setModalChinhSua] = useState(false)
+  const [modalXoa, setModalXoa] = useState(false)
+  const [reload, setReload] = useState(false)
+  const [selectedRow, setSelectedRow] = useState()
+  const [listCa, setListCa] = useState([])
   // console.log(listCa)
 
   useEffect(() => {
     const getListCa = async () => {
-      const res = await GET('api/qlc/shift/list');
+      const res = await GET('api/qlc/shift/list')
       // console.log(res)
 
       if (res?.result) {
-        setListCa(res?.items);
+        setListCa(res?.items)
       }
-    };
+    }
 
-    getListCa();
-  }, []);
+    getListCa()
+  }, [])
 
   return (
     <div>
@@ -162,35 +168,31 @@ export function CpmCaiDatDiMuonVeSom({
                 md={4}
                 sm={5}
                 xs={10}
-                className={`${styles.button} ${styles.button2}`}
-              >
-                <Button size="large" onClick={() => setModalCaiDatDMVS(true)}>
+                className={`${styles.button} ${styles.button2}`}>
+                <Button size='large' onClick={() => setModalCaiDatDMVS(true)}>
                   <Image
-                    src="/plus-w.png"
+                    src='/plus-w.png'
                     width={24}
                     height={24}
-                    alt=""
-                    style={{ marginRight: '10px' }}
-                  ></Image>
+                    alt=''
+                    style={{ marginRight: '10px' }}></Image>
                   Thêm mới
                 </Button>
               </Col>
               <Col lg={6} md={7} sm={8} xs={24} className={styles.selects}>
                 <Form.Item name={'year'}>
                   <Select
-                    size="large"
-                    placeholder="Chọn năm"
-                    suffixIcon={<img src="/search-black.png"></img>}
-                  ></Select>
+                    size='large'
+                    placeholder='Chọn năm'
+                    suffixIcon={<img src='/search-black.png'></img>}></Select>
                 </Form.Item>
               </Col>
               <Col lg={6} md={7} sm={8} xs={24} className={styles.selects}>
                 <Form.Item name={'month'}>
                   <Select
-                    size="large"
-                    placeholder="Chọn tháng"
-                    suffixIcon={<img src="/search-black.png"></img>}
-                  ></Select>
+                    size='large'
+                    placeholder='Chọn tháng'
+                    suffixIcon={<img src='/search-black.png'></img>}></Select>
                 </Form.Item>
               </Col>
               <Col
@@ -198,16 +200,14 @@ export function CpmCaiDatDiMuonVeSom({
                 md={5}
                 sm={6}
                 xs={9}
-                className={`${styles.button} ${styles.button1}`}
-              >
-                <Button size="large" onClick={() => setModalCaiDatDMVS(true)}>
+                className={`${styles.button} ${styles.button1}`}>
+                <Button size='large' onClick={() => setModalCaiDatDMVS(true)}>
                   <Image
-                    src="/plus-w.png"
+                    src='/plus-w.png'
                     width={24}
                     height={24}
-                    alt=""
-                    style={{ marginRight: '10px' }}
-                  ></Image>
+                    alt=''
+                    style={{ marginRight: '10px' }}></Image>
                   Thêm mới
                 </Button>
               </Col>
@@ -247,5 +247,5 @@ export function CpmCaiDatDiMuonVeSom({
         setReload
       )}
     </div>
-  );
+  )
 }

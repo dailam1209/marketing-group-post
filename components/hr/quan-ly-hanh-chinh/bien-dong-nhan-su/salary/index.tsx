@@ -8,7 +8,7 @@ import { DetailReport } from '@/pages/api/api-hr/bao-cao-nhan-su/HrReportService
 import { EmployeeList } from '@/pages/api/api-hr/listNhanVien'
 
 type SelectOptionType = { value: string; label: string }
-export interface TabSalary {}
+export interface TabSalary { }
 
 export default function TabSalary({ children }: any) {
   const [selectedOption, setSelectedOption] = useState<SelectOptionType | null>(
@@ -58,7 +58,7 @@ export default function TabSalary({ children }: any) {
         const formData = new FormData()
         const response = await EmployeeList(formData)
         setEmpData(response?.data)
-      } catch (error) {}
+      } catch (error) { }
     }
     fetchData()
   }, [])
@@ -85,11 +85,11 @@ export default function TabSalary({ children }: any) {
 
   const chonnhanvienOptions = useMemo(
     () =>
-      EmpData?.data?.map((emp: any) => ({
-        value: emp.idQLC,
-        label: emp.userName,
+      EmpData?.items?.map((emp: any) => ({
+        value: emp.ep_id,
+        label: emp.ep_name,
       })),
-    [EmpData?.data]
+    [EmpData?.items]
   )
   const options = {
     chonnhanvien: chonnhanvienOptions,
@@ -114,7 +114,7 @@ export default function TabSalary({ children }: any) {
       if (
         newPosition <=
         tableContentRef.current.scrollWidth -
-          tableContentRef.current.clientWidth
+        tableContentRef.current.clientWidth
       ) {
         tableContentRef.current.scrollLeft = newPosition
         currentPositionRef.current = newPosition

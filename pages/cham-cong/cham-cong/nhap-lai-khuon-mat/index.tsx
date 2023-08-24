@@ -19,6 +19,7 @@ import type { CheckboxChangeEvent } from 'antd/es/checkbox'
 import classNames from 'classnames'
 import { POST, POST_SS, getCompIdCS, getCompIdSS } from '@/pages/api/BaseApi'
 import Image from 'next/image'
+import { positionLabel } from '@/utils/function'
 interface DataType {
   key: React.Key
   url: React.ReactNode
@@ -36,7 +37,7 @@ const columns: ColumnsType<DataType> = [
     render: (record: any) => (
       <Avatar
         alt='/'
-        src={record?.avatarUser || '/avatar.png'}
+        src={record?.avatarUser || '/img/logo_com.png'}
         style={{ width: '46px', height: '46px' }}
       />
     ),
@@ -58,7 +59,9 @@ const columns: ColumnsType<DataType> = [
   {
     title: <p style={{ color: '#fff' }}>Chức vụ</p>,
     render: (record: any) => (
-      <p style={{ width: '200px' }}>{record?.position_id}</p>
+      <p style={{ width: '200px' }}>
+        {record?.position_id && positionLabel[record?.position_id]?.label}
+      </p>
     ),
     align: 'center',
   },
@@ -150,14 +153,16 @@ export default function UpdateFace({ infoCom, listDepartments }) {
   }
 
   const handleUpdatePermissionForAUser = (permit, id) => {
-    POST('api/qlc/face/add', {
-      putAllowFace: permit ? 1 : 0,
-      list_id: `${id}`,
-    }).then((res) => {
-      if (res?.result === true) {
-        setAlertModal(true)
-      }
-    })
+    if (window.confirm('Bạn có chắc chắn?')) {
+      POST('api/qlc/face/add', {
+        putAllowFace: permit ? 1 : 0,
+        list_id: `${id}`,
+      }).then((res) => {
+        if (res?.result === true) {
+          setAlertModal(true)
+        }
+      })
+    }
   }
 
   const rowSelection = {

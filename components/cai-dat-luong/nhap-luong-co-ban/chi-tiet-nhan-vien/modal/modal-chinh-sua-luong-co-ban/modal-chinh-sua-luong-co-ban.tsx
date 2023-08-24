@@ -22,6 +22,9 @@ export function ModalChinhSuaLuongCoBan(
   const router = useRouter()
   const onFinish = async (value) => {
     const body = {
+      ...value,
+      sb_salary_bh: value?.sb_salary_bh || 0,
+      sb_pc_bh: value?.sb_pc_bh || 0,
       sb_id: data?.sb_id,
       sb_salary_basic: value?.sb_salary_basic,
       sb_lydo: value?.sb_lydo,
@@ -69,7 +72,7 @@ export function ModalChinhSuaLuongCoBan(
           {MyInput(
             'Lương đóng bảo hiểm',
             'Lương đóng bảo hiểm',
-            true,
+            false,
             true,
             'sb_bh',
             'number'
@@ -77,7 +80,7 @@ export function ModalChinhSuaLuongCoBan(
           {MyInput(
             'Phụ cấp bảo hiểm',
             'Phụ cấp bảo hiểm',
-            true,
+            false,
             true,
             'sb_pc',
             'number'
@@ -90,11 +93,11 @@ export function ModalChinhSuaLuongCoBan(
             'sb_time_up',
             true
           )}
-          {MyInput('Lý do', 'Lý do', true, true, 'sb_lydo')}
+          {MyInput('Lý do', 'Lý do', false, true, 'sb_lydo')}
           {MyInput(
             'Căn cứ quyết định',
             'Căn cứ quyết định',
-            true,
+            false,
             true,
             'sb_quyetdinh'
           )}

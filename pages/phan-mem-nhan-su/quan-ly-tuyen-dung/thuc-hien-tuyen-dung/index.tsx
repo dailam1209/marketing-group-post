@@ -20,11 +20,11 @@ export default function HeaderForm({ children }: any) {
         const responseTotalCandi = await GetTotalCandi()
         if (responseTotalCandi?.status === 200) {
           setIsLoading(false)
-          setTotalCandi(responseTotalCandi?.data.data)
+          setTotalCandi(responseTotalCandi?.data.success)
         }
       }
       GetDataTotalCandi()
-    } catch (error: any) {}
+    } catch (error: any) { }
   }, [])
 
   const listTab = [
@@ -59,9 +59,8 @@ export default function HeaderForm({ children }: any) {
               <div key={item.key} className={`${styles.mr_5}`}>
                 <li className={`${styles.li_tabs}`}>
                   <span
-                    className={`${
-                      active === item?.key ? styles.active : styles.hover
-                    } `}
+                    className={`${active === item?.key ? styles.active : styles.hover
+                      } `}
                     onClick={() => setActive(item.key)}>
                     {item.header}
                   </span>
