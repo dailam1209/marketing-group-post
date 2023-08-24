@@ -18,8 +18,16 @@ export default function HeaderBtnsCustomerGroup({
   return (
     <div className={styles.main__control}>
       <div className={`${styles.main__control_btn} flex_between`}>
-        <div className={styles.main__control_search}>
-          <div onSubmit={handleClickSearch}>
+        <div className={styles.wrapInput}>
+          <div
+            style={{
+              position: "relative",
+              paddingTop: "10px",
+              paddingBottom: "10px",
+            }}
+            className={styles.main__control_search}
+            onSubmit={handleClickSearch}
+          >
             <input
               type="text"
               className={styles.input__search}
@@ -32,7 +40,7 @@ export default function HeaderBtnsCustomerGroup({
             <button onClick={handleClickSearch} className={styles.kinh_lup}>
               <img
                 className={styles.img__search}
-                src="https://crm.timviec365.vn/assets/icons/search.svg"
+                src="/crm/search.svg"
                 alt=""
               />
             </button>

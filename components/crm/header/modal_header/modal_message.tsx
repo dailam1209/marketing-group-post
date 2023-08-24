@@ -26,7 +26,7 @@ export default function MessageModal({ isOpen, closeModal }: any) {
         <input type="text" className={style.input_search} />
         <img
           className="img_search"
-          src="https://crm.timviec365.vn/assets/icons/search.svg"
+          src="/crm/search.svg"
           alt=""
         />
       </div>
