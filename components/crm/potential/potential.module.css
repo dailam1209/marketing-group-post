@@ -5,6 +5,10 @@
   flex-direction: column;
 }
 
+.wrapInput{
+  width: 40%;
+}
+
 .main__control_select {
   flex-wrap: wrap;
   width: 100%;
@@ -986,6 +990,10 @@ span.select2.potential_select2_container_step__HpQYa {
   .main__control {
     display: block;
   }
+
+  .wrapInput{
+    width: 100%;
+  }
   .select_item_box_step {
     min-width: 100%;
   }
@@ -1013,6 +1021,10 @@ span.select2.potential_select2_container_step__HpQYa {
 
   .select_item {
     width: 50%;
+  }
+
+  .wrapInput{
+    width: 70%;
   }
 
   .select2_dropdown {
