@@ -17,10 +17,10 @@ export default function SelectBoxInputNhomKhcon({ title = "", infoCus }: any) {
       body: JSON.stringify({ com_id: Cookies.get("com_id") }),
     });
     const data = await res.json();
-    setListGr(data?.data?.showGr);
+    setListGr(data?.data);
     let arr = [];
-    data?.data?.showGr?.map((item) => {
-      item?.list_gr_child.map((item) => {
+    data?.data?.map((item) => {
+      item?.list_gr_child?.map((item) => {
         arr.push(item);
       });
       setlistGr_Child(arr);

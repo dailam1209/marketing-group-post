@@ -21,7 +21,9 @@ var day = date2.getDate();
 var month = date2.getMonth() + 1;  // Lưu ý rằng tháng trong JavaScript bắt đầu từ 0
 var year = date2.getFullYear();
 var so_ngay_duoc_no = (day < 10 ? '0' : '') + day + '/' + (month < 10 ? '0' : '') + month + '/' + year;
-
+if(so_ngay_duoc_no==="01/01/1970"){
+  so_ngay_duoc_no=null
+}
 
 var seconds3 = formData?.birthday / 1000; 
 var date3= new Date(seconds3 * 1000);  // Nhân cho 1000 để chuyển từ seconds thành milliseconds
@@ -29,6 +31,9 @@ var day = date3.getDate();
 var month = date3.getMonth() + 1;  // Lưu ý rằng tháng trong JavaScript bắt đầu từ 0
 var year = date3.getFullYear();
 var ngay_sinh = (day < 10 ? '0' : '') + day + '/' + (month < 10 ? '0' : '') + month + '/' + year;
+if(ngay_sinh === "01/01/1970"){
+  ngay_sinh=null
+}
 
   return (
     <div className={styles.row_input_text}>
