@@ -611,6 +611,10 @@ tr {
   /* justify-content: space-between; */
 }
 
+img {
+  object-fit: unset ;
+}
+
 .email_add_mdal .ant-modal-header {
   padding: 14px;
   position: relative;
@@ -777,29 +781,29 @@ label {
   color: #fff;
 }
 
-.ant-popover.header_custom-popover__dJECQ.css-dev-only-do-not-override-18w4yg9.css-dev-only-do-not-override-18w4yg9.ant-popover-placement-bottomLeft
-  .ant-popover-arrow {
+.ant-popover.header_custom-popover__dJECQ.css-dev-only-do-not-override-18w4yg9.css-dev-only-do-not-override-18w4yg9.ant-popover-placement-bottomLeft .ant-popover-arrow {
   visibility: hidden;
 }
 
-.ant-popover.header_custom-popover__dJECQ.css-dev-only-do-not-override-18w4yg9.css-dev-only-do-not-override-18w4yg9.ant-popover-placement-bottomLeft
-  .ant-popover-inner {
+.ant-popover.header_custom-popover__dJECQ.css-dev-only-do-not-override-18w4yg9.css-dev-only-do-not-override-18w4yg9.ant-popover-placement-bottomLeft .ant-popover-inner {
   background-color: #4c5bd4;
   color: #fff;
 }
 
-.ant-popover.header_custom-popover__dJECQ.css-dev-only-do-not-override-18w4yg9.css-dev-only-do-not-override-18w4yg9.ant-popover-placement-bottomLeft
-  .ant-popover-content {
+.ant-popover.header_custom-popover__dJECQ.css-dev-only-do-not-override-18w4yg9.css-dev-only-do-not-override-18w4yg9.ant-popover-placement-bottomLeft .ant-popover-content {
   right: 16px;
   top: 4px;
 }
+
 .ant-table-body::-webkit-scrollbar {
   width: 2px;
   height: 5px;
 }
+
 .ant-table-body::-webkit-scrollbar-thumb {
   background-color: #1677ff;
 }
+
 .ant-table-body::-webkit-scrollbar-thumb:hover {
   background: #a2b8d0;
 }
@@ -829,6 +833,7 @@ label {
   pointer-events: painted;
   padding: 18px;
 }
+
 .ant-table-cell .custom-cellCus {
   padding: 10px;
   text-align: start;
