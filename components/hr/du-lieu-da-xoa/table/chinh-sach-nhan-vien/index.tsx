@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import styles from "../styles/styles.module.css";
 import { format, parseISO } from "date-fns";
 
-export default function DataCSNV({ list_employe_policy , dataCheckBox, localListCheck}) {
+export default function DataCSNV({ list_employe_policy , dataCheckBox, localListCheck, listItemCheck}) {
     const [listCheck, setListCheck] = useState<any>([]);
     const data = list_employe_policy?.data;
 
@@ -27,7 +27,7 @@ export default function DataCSNV({ list_employe_policy , dataCheckBox, localList
     <table className={` ${styles.l_tr_show}`}>
       <tbody style={{ width: "100%" }}>
         {data?.map((item) => {
-          const dateObj = parseISO(item.deletedAt);
+          const dateObj = parseISO(item.deleted_at);
           const formattedTime: string = format(dateObj, "HH:mm:ss dd/MM/yyyy");
           return (
             <div key={item.id} className={`${styles.show}`}>
@@ -38,7 +38,7 @@ export default function DataCSNV({ list_employe_policy , dataCheckBox, localList
                 </picture>
                 <p>{item.name}</p>
               </td>
-              <td className={`${styles.date}`}>{formattedTime}</td>
+              <td className={`${styles.date}`}>{item.time} {formattedTime}</td>
               <td className={`${styles.show_checkbox}`}>
                 <input
                   type="checkbox"

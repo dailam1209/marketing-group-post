@@ -8,7 +8,8 @@ import Sidebar from '../../sidebar/Sidebar';
 
 export interface BodyFrameHeader { }
 
-export default function BodyFrameHeader({ dataHeader }: any) {
+export default function BodyFrameHeader({ dataHeader, tokenType }: any) {
+    console.log(dataHeader)
 
     const [menuClick, setMenuClick] = useState(false)
     const [noti, setNoti] = useState(false)
@@ -86,7 +87,7 @@ export default function BodyFrameHeader({ dataHeader }: any) {
                                 </div>
                             </div>
                         </div>
-                        <div className={`${styles.header_left_item1}`}>ID-{dataHeader?.data?.com_id || dataHeader?.data?.idQLC}</div>
+                        <div className={`${styles.header_left_item1}`}>ID-{tokenType == 1 ? dataHeader?.data.com_id : dataHeader?.data.idQLC}</div>
                         <div className={`${styles.header_left_item2}`}>{dataHeader?.data?.com_name || dataHeader?.data?.userName}</div>
                     </div>
                     <div className={`${styles.header_right}`} >
@@ -115,7 +116,7 @@ export default function BodyFrameHeader({ dataHeader }: any) {
                     </div>
                 </div>
                 <div ref={dropDownMenuRef}>
-                    {menuClick && <DropDownMenu dataHeader={dataHeader}></DropDownMenu>}
+                    {menuClick && <DropDownMenu dataHeader={dataHeader} tokenType = {tokenType}></DropDownMenu>}
                     {openSidebar && <Sidebar></Sidebar>}
                     {noti && <Notify></Notify>}
                     {remind && <Remind></Remind>}

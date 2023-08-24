@@ -16,7 +16,7 @@ export const getDataListProcessTrain = async (page: any, pageSize: any,name: any
           }
         );
     
-        return response;
+        return response.data;
       } catch (err) {
 
       }

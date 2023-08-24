@@ -10,13 +10,14 @@ import DataQTLV from "./quy-dinh-lam-viec";
 import DataCSNV from "./chinh-sach-nhan-vien";
 
 export default function TableData({ data, dataCheck, listCheck }) {
-  const list_recuitment = data?.data.list_recuitment;
-  const list_recuitment_new = data?.data.list_recuitment_new;
-  const list_job_desc = data?.data.list_job_desc;
-  const list_training_process = data?.data.list_training_process;
-  const list_provision = data?.data.list_provision;
-  const list_employe_policy = data?.data.list_employe_policy;
+  const list_recuitment = data?.data?.list_delete_recuitment;
+  const list_recuitment_new = data?.data?.list_delete_recuitment_new;
+  const list_job_desc = data?.data?.list_delete_job_description;
+  const list_training_process = data?.data?.list_delete_training_process;
+  const list_provision = data?.data?.list_delete_provision;
+  const list_employe_policy = data?.data?.list_delete_employe_policy;
   const [localListCheck, setLocalListCheck] = useState<any>([]);
+  const [listItemCheck, setListItemCheck] = useState<any>([])
 
   const handleClickCheckBox = (event: any) => {
     event.stopPropagation();
@@ -27,7 +28,7 @@ export default function TableData({ data, dataCheck, listCheck }) {
       const dataObject = {
         [name]: idsAsString,
       };
-
+      setListItemCheck(allIds)
       setLocalListCheck((prev) => (
         { ...prev, ...dataObject }
       ));
@@ -38,7 +39,8 @@ export default function TableData({ data, dataCheck, listCheck }) {
       const dataObject = {
         [name]: idsAsString,
       };
-
+      
+      setListItemCheck(allIds)
       setLocalListCheck((prev) => (
         { ...prev, ...dataObject }
       ));
@@ -49,7 +51,7 @@ export default function TableData({ data, dataCheck, listCheck }) {
       const dataObject = {
         [name]: idsAsString,
       };
-
+      setListItemCheck(allIds)
       setLocalListCheck((prev) => (
         { ...prev, ...dataObject }
       ));
@@ -60,7 +62,7 @@ export default function TableData({ data, dataCheck, listCheck }) {
       const dataObject = {
         [name]: idsAsString,
       };
-
+      setListItemCheck(allIds)
       setLocalListCheck((prev) => (
         { ...prev, ...dataObject }
       ));
@@ -71,7 +73,7 @@ export default function TableData({ data, dataCheck, listCheck }) {
       const dataObject = {
         [name]: idsAsString,
       };
-
+      setListItemCheck(allIds)
       setLocalListCheck((prev) => (
         { ...prev, ...dataObject }
       ));
@@ -82,6 +84,7 @@ export default function TableData({ data, dataCheck, listCheck }) {
       const dataObject = {
         [name]: idsAsString,
       };
+      setListItemCheck(allIds)
       setLocalListCheck((prev) => (
         { ...prev, ...dataObject }
       ));
@@ -91,6 +94,7 @@ export default function TableData({ data, dataCheck, listCheck }) {
       const dataObject = {
         [name]: allIds,
       };
+      setListItemCheck(allIds)
       setLocalListCheck((prev) => (
         { ...prev, ...dataObject }
       ));
@@ -100,7 +104,7 @@ export default function TableData({ data, dataCheck, listCheck }) {
       const dataObject = {
         [name]: allIds,
       };
-
+      setListItemCheck(allIds)
       setLocalListCheck((prev) => (
         { ...prev, ...dataObject }
       ));
@@ -110,7 +114,7 @@ export default function TableData({ data, dataCheck, listCheck }) {
       const dataObject = {
         [name]: allIds,
       };
-
+      setListItemCheck(allIds)
       setLocalListCheck((prev) => (
         { ...prev, ...dataObject }
       ));
@@ -120,7 +124,7 @@ export default function TableData({ data, dataCheck, listCheck }) {
       const dataObject = {
         [name]: allIds,
       };
-
+      setListItemCheck(allIds)
       setLocalListCheck((prev) => (
         { ...prev, ...dataObject }
       ));
@@ -130,7 +134,7 @@ export default function TableData({ data, dataCheck, listCheck }) {
       const dataObject = {
         [name]: allIds,
       };
-
+      setListItemCheck(allIds)
       setLocalListCheck((prev) => (
         { ...prev, ...dataObject }
       ));
@@ -140,6 +144,7 @@ export default function TableData({ data, dataCheck, listCheck }) {
       const dataObject = {
         [name]: allIds,
       };
+      setListItemCheck(allIds)
       setLocalListCheck((prev) => (
         { ...prev, ...dataObject }
       ));
@@ -204,6 +209,8 @@ export default function TableData({ data, dataCheck, listCheck }) {
                 list_recuitment={list_recuitment}
                 dataCheckBox={handleListCheckChange}
                 localListCheck={localListCheck}
+                listItemCheck = {listItemCheck}
+
               ></DataQTTD>
             </CustomCollapse>
           </div>
@@ -245,6 +252,7 @@ export default function TableData({ data, dataCheck, listCheck }) {
                 list_recuitment_new={list_recuitment_new}
                 dataCheckBox={handleListCheckChange}
                 localListCheck={localListCheck}
+                listItemCheck = {listItemCheck} 
               ></DataTTD>
             </CustomCollapse>
           </div>
@@ -286,6 +294,8 @@ export default function TableData({ data, dataCheck, listCheck }) {
                 list_job_desc={list_job_desc}
                 dataCheckBox={handleListCheckChange}
                 localListCheck={localListCheck}
+                listItemCheck = {listItemCheck}
+
               ></DataVTCV>
             </CustomCollapse>
           </div>
@@ -327,6 +337,8 @@ export default function TableData({ data, dataCheck, listCheck }) {
                 list_training_process={list_training_process}
                 dataCheckBox={handleListCheckChange}
                 localListCheck={localListCheck}
+                listItemCheck = {listItemCheck}
+
               ></DataQTDT>
             </CustomCollapse>
           </div>
@@ -368,6 +380,8 @@ export default function TableData({ data, dataCheck, listCheck }) {
                 list_provision={list_provision}
                 dataCheckBox={handleListCheckChange}
                 localListCheck={localListCheck}
+                listItemCheck = {listItemCheck}
+
               ></DataQTLV>
             </CustomCollapse>
           </div>
@@ -409,6 +423,8 @@ export default function TableData({ data, dataCheck, listCheck }) {
                 list_employe_policy={list_employe_policy}
                 dataCheckBox={handleListCheckChange}
                 localListCheck={localListCheck}
+                listItemCheck = {listItemCheck}
+
               ></DataCSNV>
             </CustomCollapse>
           </div>

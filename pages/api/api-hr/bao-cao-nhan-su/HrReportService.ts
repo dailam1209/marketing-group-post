@@ -17,12 +17,12 @@ export const GetDataHrReport = async () => {
     return response.data
   } catch (err: any) {}
 }
-export const GetDataHrReport2 = async (page, pageSize) => {
+export const DetailHRAndAchievements = async (page, pageSize) => {
   const url = process.env.NEXT_PUBLIC_BASE_URL
   const isToken = getToken(COOKIE_KEY)
   try {
     const response = await axios.post(
-      `${url}api/hr/report/reportRecruitment?page=${page}&pageSize=${pageSize}`,
+      `${url}api/hr/report/reportDetailHRAndAchievements?page=${page}&pageSize=${pageSize}`,
       { page, pageSize },
       {
         headers: {
@@ -33,12 +33,12 @@ export const GetDataHrReport2 = async (page, pageSize) => {
     return response.data
   } catch (err: any) {}
 }
-export const GetDataHrReport3 = async (page, pageSize) => {
+export const DetailRecruitment = async (page, pageSize) => {
   const url = process.env.NEXT_PUBLIC_BASE_URL
   const isToken = getToken(COOKIE_KEY)
   try {
     const response = await axios.post(
-      `${url}api/hr/report/reportRecruitment?page=${page}&pageSize=${pageSize}`,
+      `${url}api/hr/report/reportDetailRecruitment?page=${page}&pageSize=${pageSize}`,
       { page, pageSize },
       {
         headers: {
@@ -49,12 +49,12 @@ export const GetDataHrReport3 = async (page, pageSize) => {
     return response.data
   } catch (err: any) {}
 }
-export const GetDataHrReport4 = async (page, pageSize) => {
+export const reportHr = async (page, pageSize) => {
   const url = process.env.NEXT_PUBLIC_BASE_URL
   const isToken = getToken(COOKIE_KEY)
   try {
     const response = await axios.post(
-      `${url}api/hr/report/reportRecruitment?page=${page}&pageSize=${pageSize}`,
+      `${url}api/hr/report/reportHr?page=${page}&pageSize=${pageSize}`,
       { page, pageSize },
       {
         headers: {

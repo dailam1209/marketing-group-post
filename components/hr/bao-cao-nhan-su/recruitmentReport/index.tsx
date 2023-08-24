@@ -8,10 +8,10 @@ import ThirdBlock from '../component/thirdBlock/ThirdBlock'
 import FourthBlock from '../component/fourthBlock/FourthBlock'
 import BodyFrameFooter from '@/components/hr/bodyFrame/bodyFrame_footer/bodyFrame_footer'
 import {
+  DetailHRAndAchievements,
+  DetailRecruitment,
   GetDataHrReport,
-  GetDataHrReport2,
-  GetDataHrReport3,
-  GetDataHrReport4,
+  reportHr,
 } from '@/pages/api/api-hr/bao-cao-nhan-su/HrReportService'
 
 export default function RecruitmentReport() {
@@ -19,9 +19,9 @@ export default function RecruitmentReport() {
   const [currentPageBox3, setCurrentPageBox3] = useState(1)
   const [currentPageBox4, setCurrentPageBox4] = useState(1)
   const [dataResponse, setDataResponse] = useState<any>()
-  const [dataResponse2, setDataResponse2] = useState<any>()
-  const [dataResponse3, setDataResponse3] = useState<any>()
-  const [dataResponse4, setDataResponse4] = useState<any>()
+  const [dataCardSecond, setDataCardSecond] = useState<any>()
+  const [dataThird, setDataThird] = useState<any>()
+  const [dataFourth, setDataFourth] = useState<any>()
 
   const handlePageChangeBox2 = (page: any) => {
     setCurrentPageBox2(page)
@@ -39,59 +39,84 @@ export default function RecruitmentReport() {
     try {
       const GetDataRecruitment = async () => {
         const response = await GetDataHrReport()
-        console.log(response?.success)
-        setDataResponse(response?.success)
+        setDataResponse(response?.success?.data)
       }
       GetDataRecruitment()
     } catch (error) { }
-  }, [currentPageBox2])
+  }, [])
 
   const data = [
     {
       id: 1,
       title: 'Tổng số tin tuyển dụng',
-      num: dataResponse?.tongSoTinTuyenDung,
+      num: dataResponse?.total_new,
       color: '#4C5BD4',
     },
     {
       id: 2,
       title: 'Tổng số hồ sơ nhận được',
-      num: dataResponse?.tongSoHoSo,
+      num: dataResponse?.total_candidate_number,
       color: '#4CD4B4',
     },
     {
       id: 3,
       title: 'Tổng số ứng viên cần tuyển',
-      num: dataResponse?.tongSoUngVienCanTuyen,
+      num: dataResponse?.total_candidate,
       color: '#D44C4C',
     },
     {
       id: 4,
       title: 'Số ứng viên đến phỏng vấn',
-      num: dataResponse?.tongSoUngVienDenPhongVan,
+      num: dataResponse?.total_interview,
       color: '#4C5BD4',
     },
     {
       id: 5,
       title: 'Số ứng viên qua phỏng vấn',
-      num: dataResponse?.tongSoUngVienQuaPhongVan,
+      num: dataResponse?.total_interview_pass,
       color: '#4CD4B4',
     },
     {
       id: 6,
       title: 'Số ứng viên hủy',
-      num: dataResponse?.tongSoUngVienHuyNhanViec,
+      num: dataResponse?.total_cancel,
       color: '#D44C4C',
     },
   ]
 
-  const dataCardSecond = dataResponse?.mangThongTin
-  const dataThird = dataResponse2?.thongKeNhanVienTuyenDung
-  const dataFourth = dataResponse3?.gioiThieuUngVien
-  const dataLengthBox2 = dataResponse4?.mangThongTin?.length
-  const dataLengthBox3 = dataResponse4?.thongKeNhanVienTuyenDung?.length
-  const dataLengthBox4 = dataResponse4?.gioiThieuUngVien?.length
+  useEffect(() => {
+    try {
+      const GetDataRecruitment = async () => {
+        const response = await DetailRecruitment(currentPageBox2, 10)
+        setDataCardSecond(response?.success?.data)
+      }
+      GetDataRecruitment()
+    } catch (error) { }
+  }, [currentPageBox2])
 
+  useEffect(() => {
+    try {
+      const GetDataRecruitment = async () => {
+        const response = await reportHr(currentPageBox2, 10)
+        setDataThird(response?.success?.data)
+      }
+      GetDataRecruitment()
+    } catch (error) { }
+  }, [currentPageBox3])
+
+  useEffect(() => {
+    try {
+      const GetDataRecruitment = async () => {
+        const response = await DetailHRAndAchievements(currentPageBox4, 10)
+        setDataFourth(response?.success?.data)
+      }
+      GetDataRecruitment()
+    } catch (error) { }
+  }, [currentPageBox4])
+
+
+
+  console.log(dataThird)
   return (
     <>
       <div className={`${styles.row}`} style={{ marginTop: '45px' }}>
@@ -121,7 +146,7 @@ export default function RecruitmentReport() {
           <div className={`${styles.pagination}`}>
             <MyPagination
               current={currentPageBox2}
-              total={dataLengthBox2}
+              total={dataCardSecond?.total}
               pageSize={10}
               onChange={handlePageChangeBox2}
             />
@@ -145,13 +170,13 @@ export default function RecruitmentReport() {
               </tr>
             </thead>
             <tbody className={`${styles.t_body_dom}`}>
-              <ThirdBlock listCardThird={dataThird}></ThirdBlock>
+              <ThirdBlock listCardThird={dataThird} total = {currentPageBox3}></ThirdBlock>
             </tbody>
           </table>
           <div className={`${styles.pagination}`}>
             <MyPagination
               current={currentPageBox3}
-              total={dataLengthBox3}
+              total={dataThird?.total}
               pageSize={10}
               onChange={handlePageChangeBox3}
             />
@@ -183,7 +208,7 @@ export default function RecruitmentReport() {
           <div className={`${styles.pagination}`}>
             <MyPagination
               current={currentPageBox4}
-              total={dataLengthBox4}
+              total={dataFourth?.total}
               pageSize={10}
               onChange={handlePageChangeBox4}
             />

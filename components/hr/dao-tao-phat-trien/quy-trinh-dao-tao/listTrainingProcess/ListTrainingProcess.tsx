@@ -53,7 +53,7 @@ export default function ListTrainingProcess({
   useEffect(() => {
     const getListProcessTrain = async () => {
       const response = await getDataListProcessTrain(currentPage, 5, name)
-      setData(response?.data.data)
+      setData(response?.success?.data)
     }
     getListProcessTrain()
   }, [newData, currentPage, name])
@@ -103,11 +103,11 @@ export default function ListTrainingProcess({
                       spellCheck={false}
                       name='search'
                       onChange={(e) => handleSearch(e.target.value)}></input>
-                    <button className={`${styles.button_search}`}>
+                    <div className={`${styles.button_search}`}>
                       <picture>
                         <img src={`/icon-search.png`} alt='search'></img>
                       </picture>
-                    </button>
+                    </div>
                   </div>
                 </form>
               </div>
