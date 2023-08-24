@@ -153,7 +153,7 @@ export default function DetailTrainingProcess({ query }: any) {
           <div className={`${styles.giaidoans}`}>
             <div className={`${styles.title_giaidoans}`}>
               <h4>
-                QTDT{`${idTrainingProcess}`} {trainingProcessName}
+                QTDT{`${idTrainingProcess}`} {" "} {trainingProcessName}
               </h4>
             </div>
 

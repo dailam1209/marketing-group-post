@@ -41,7 +41,8 @@ export default function ListJobPosition({ iconAdd, iconDelete }: any) {
   useEffect(() => {
     const GetJobPosition = async () => {
       const response = await getDataJobPosition(currentPage, 10)
-      setData(response?.data.data)
+      console.log(response)
+      setData(response?.success?.data)
     }
     GetJobPosition()
   }, [currentPage, newData])
@@ -114,19 +115,19 @@ export default function ListJobPosition({ iconAdd, iconDelete }: any) {
             </thead>
             <tbody className={`${styles.filter}`}>
               {data?.data.map((item: any) => {
-                if (item.isDelete !== 0) {
+                if (item.is_delete !== 0) {
                   return
                 } else {
                   return (
                     <tr key={item.id} style={{ height: '37px' }}>
                       <td>{item.id}</td>
                       <td>{item.name}</td>
-                      <td>{item.depName}</td>
-                      <td>{item.des}</td>
-                      <td>{item.jobRequire}</td>
+                      <td>{item.department_name}</td>
+                      <td>{item.description}</td>
+                      <td>{item.job_require}</td>
                       <td>
                         {item.roadMap ? (
-                          <a href={item.roadMap}>{item.roadMap}</a>
+                          <a href={item.road_map}>{item.road_map}</a>
                         ) : (
                           <p>Chưa cập nhật</p>
                         )}
@@ -156,11 +157,11 @@ export default function ListJobPosition({ iconAdd, iconDelete }: any) {
           </table>
         </div>
       </div>
-      {data?.totalCount > 10 && (
+      {data?.total > 0 && (
         <div className={`${styles.pagination}`}>
           <MyPagination
             current={currentPage}
-            total={data?.totalCount}
+            total={data?.total}
             pageSize={10}
             onChange={handlePageChange}
           />

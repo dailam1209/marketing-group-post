@@ -18,15 +18,13 @@ export async function getServerSideProps({ query }) {
 
 export default function listRecruitmentProcess({ query }) {
   const router = useRouter();
-  const idRecruitmentStage: number = query.idRecruitmentStage;
+  const idRecruitmentStage = query.idRecruitmentStage;
   const [openModalAdd, setOpenModalAdd] = useState(false);
   const [animateModal, setAnimateModal] = useState(false);
   const [recruitmentStage, setRecruitmentStage] = useState<any>()
   const [newData, setNewData] = useState<any>(false);
-  const recruitment = recruitmentStage?.data.recruitment
   const [displayIcon, setDisplayIcon] = useState<any>();
-
-  console.log(recruitmentStage);
+  const recruitment = recruitmentStage?.data?.data[0]?.name
 
   useEffect(() => {
     try {
@@ -47,7 +45,7 @@ export default function listRecruitmentProcess({ query }) {
   useEffect(() => {
     try {
       const fetchDataDetail = async () => {
-        const response = await DataRecruitmentStage(Number(idRecruitmentStage))
+        const response = await DataRecruitmentStage(idRecruitmentStage)
         setRecruitmentStage(response?.data?.success)
       }
       fetchDataDetail()
@@ -118,7 +116,7 @@ export default function listRecruitmentProcess({ query }) {
             <div key={index}>
               <ListRecruitmentStage
                 item={item}
-                recruitment={recruitmentStage?.data.recruitment}
+                recruitment={recruitment}
                 index={index}
                 onDelete={handleCloseModalAdd}
                 onEdit={handleCloseModalAdd}

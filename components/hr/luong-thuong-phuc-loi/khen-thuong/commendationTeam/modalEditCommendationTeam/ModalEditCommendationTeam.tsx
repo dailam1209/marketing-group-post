@@ -9,16 +9,16 @@ import jwt_decode from "jwt-decode";
 
 function ModalEditCommendationTeam({ animation, onClose, dataOld }: any) {
 
-  const typeEdit = dataOld.depId
+  const typeEdit = dataOld.dep_id
   const id = dataOld.id
-  const achievement_id = dataOld.achievementId;
+  const achievement_id = dataOld.achievement_id;
   const contentOld = dataOld.content;
-  const created_by = dataOld.createdBy;
-  const achievement_level = dataOld.achievementLevel;
+  const created_by = dataOld.created_by;
+  const achievement_level = dataOld.achievement_level;
   const appellationOld = dataOld.appellation;
-  const achievementTypeOld = dataOld.achievementType;
+  const achievementTypeOld = dataOld.achievement_type;
   const formattedDate: string = format(
-    new Date(dataOld.createdAt),
+    new Date(dataOld.created_at),
     "yyyy-MM-dd"
   );
 
@@ -32,6 +32,8 @@ function ModalEditCommendationTeam({ animation, onClose, dataOld }: any) {
     achievement_at: formattedDate,
     achievement_level: achievement_level,
     appellation: appellationOld,
+    achievement_type: achievementTypeOld
+
   });
   const [achievementType, setAchievementType] = useState<any>({
     achievementType: achievementTypeOld.toString(),
@@ -98,40 +100,43 @@ function ModalEditCommendationTeam({ animation, onClose, dataOld }: any) {
   const COOKIE_KEY = "token_base365";
 
   useEffect(() => {
-    const currentCookie = getToken(COOKIE_KEY);
-    if (currentCookie) {
-      const decodedToken: any = jwt_decode(currentCookie);
-      setComId(decodedToken?.data?.com_id);
+    if (typeEdit != 0) {
+      const currentCookie = getToken(COOKIE_KEY);
+      if (currentCookie) {
+        const decodedToken: any = jwt_decode(currentCookie);
+        const tokenComId = decodedToken?.data?.com_id;
+        const getData2 = async () => {
+          const response = await GetDepartmentList(tokenComId);
+          setDep(
+            response?.data?.data?.items?.map((item) => ({
+              name: "depId",
+              value: item.dep_id,
+              label: `${item.dep_name}`,
+            }))
+          );
+        };
+        getData2();
+      }
     }
   }, []);
+
   useEffect(() => {
     if (typeEdit === 0) {
       const getData1 = async () => {
         try {
-          const response = await getDataUser();
+          const response = await getDataUser()
           setUser(
             response?.data?.data?.items?.map((item) => ({
-              name: "list_user",
+              name: 'list_user',
               value: item.ep_id,
               label: `${item.ep_name} ${item.dep_name}`,
             }))
-          );
+          )
         } catch (err) { }
-      };
-      getData1();
-    }
-    else {
-      const getData2 = async () => {
-        try {
-          const response = await GetDepartmentList(tokenComId.toString())
-          setDep(response?.data?.data?.items?.map(item => ({ name: "depId", value: item.dep_id, label: `${item.dep_name}` })))
-        } catch (err) {
-
-        }
       }
-      getData2()
+      getData1()
     }
-  }, [tokenComId]);
+  }, [])
 
   const options = {
     tendoituong: user,
@@ -176,7 +181,7 @@ function ModalEditCommendationTeam({ animation, onClose, dataOld }: any) {
                     <input
                       type="text"
                       name="achievement_id"
-                      defaultValue={dataOld.achievementId}
+                      defaultValue={achievement_id}
                       className={`${styles.inputquytrinh}`}
                       onChange={handleContentChange}
                       placeholder="Nhập tên giai đoạn"
@@ -200,7 +205,7 @@ function ModalEditCommendationTeam({ animation, onClose, dataOld }: any) {
                     <input
                       type="text"
                       name="content"
-                      defaultValue={dataOld.content}
+                      defaultValue={contentOld}
                       className={`${styles.inputquytrinh}`}
                       placeholder="Nhập nội dung khen thưởng"
                       onChange={handleContentChange}
@@ -313,7 +318,7 @@ function ModalEditCommendationTeam({ animation, onClose, dataOld }: any) {
                     <input
                       type="text"
                       name="created_by"
-                      defaultValue={dataOld.createdBy}
+                      defaultValue={created_by}
                       className={`${styles.inputquytrinh}`}
                       placeholder="Người ký quyết định"
                       onChange={handleContentChange}
@@ -372,6 +377,7 @@ function ModalEditCommendationTeam({ animation, onClose, dataOld }: any) {
                           options.hinhthuckhenthuong
                         )
                       }
+                      defaultValue={options.hinhthuckhenthuong[achievementTypeOld -1]}
                       options={options.hinhthuckhenthuong}
                       placeholder="-- Vui lòng chọn -- "
                       styles={{
@@ -407,7 +413,7 @@ function ModalEditCommendationTeam({ animation, onClose, dataOld }: any) {
                     <input
                       type="text"
                       name="appellation"
-                      defaultValue={dataOld.appellation}
+                      defaultValue={appellationOld}
                       className={`${styles.inputquytrinh}`}
                       placeholder="Danh hiệu"
                       onChange={handleContentChange}
@@ -431,7 +437,7 @@ function ModalEditCommendationTeam({ animation, onClose, dataOld }: any) {
                     <input
                       type="text"
                       name="achievement_level"
-                      defaultValue={dataOld.achievementLevel}
+                      defaultValue={achievement_level}
                       className={`${styles.inputquytrinh}`}
                       placeholder="Cấp khen"
                       onChange={handleContentChange}

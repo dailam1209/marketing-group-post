@@ -6,7 +6,7 @@ import axios from "axios";
 import checkCookie from "../../../../function/checkCookie";
 import cookieCutter from "cookie-cutter";
 import { useRouter } from "next/router";
-import { domain } from "../../../api/BaseApi";
+import { domain, domainQLC } from "../../../api/BaseApi";
 
 //todo : lam xuat excel cua di muon ve som
 //todo: them modal insert di muon ve som ( giong  voi theo doi di muon ve som)
@@ -282,7 +282,7 @@ export default function SecondPage({ handleSelected }) {
       render: (record) => (
         <img
           onClick={() => showModalEdit(record.pm_id)}
-          src="/edit.png"
+          src="/tinhluong/edit.png"
           alt=""
         />
       ),
@@ -294,7 +294,7 @@ export default function SecondPage({ handleSelected }) {
       width: "3.4%",
       render: (record) => (
         <img
-          src="/remove.png"
+          src="/tinhluong/remove.png"
           alt=""
           onClick={() => handleDelete(record.pm_id)}
         />
@@ -464,14 +464,12 @@ export default function SecondPage({ handleSelected }) {
   //* Lấy Danh sách các ca qua showStaff Late, Lmao
   useEffect(() => {
     axios
-      .post(`${domain}/api/tinhluong/congty/show_staff_late`, {
-        start_date: "2023-08-01T00:00:00.000+00:00",
-        end_date: "2023-09-01T00:00:00.000+00:00",
+      .post(`${domain}/api/tinhluong/congty/list_shift`, {
         com_id: cp,
         token: token,
       })
       .then((res) => {
-        setAllShift(res.data.data.listShiftDetail);
+        setAllShift(res.data.data.listShift);
       })
       .catch((err) => {
         console.log("Lỗi ở Danh Sách Ca: ", err);

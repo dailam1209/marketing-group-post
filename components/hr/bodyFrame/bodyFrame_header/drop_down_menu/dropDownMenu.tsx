@@ -4,7 +4,7 @@ import Link from 'next/link'
 import LogoutHr from '@/components/hr/logout'
 export interface DropDownMenu { }
 
-export default function DropDownMenu({ dataHeader }: any) {
+export default function DropDownMenu({ dataHeader, tokenType }: any) {
   const [logoutClicked, setLogoutClicked] = useState(false)
   const [shouldOpenInNewTab, setShouldOpenInNewTab] = useState(true) // Thêm trạng thái
   const ListMenu = [
@@ -60,7 +60,7 @@ export default function DropDownMenu({ dataHeader }: any) {
         </div>
         <div className={`${styles.menu_cpn}`}>{dataHeader?.data.com_name || dataHeader?.data.userName}</div>
         <div className={`${styles.menu_id}`}>
-          {dataHeader?.data.com_id || dataHeader?.data.idQLC}
+        {tokenType == 1 ? dataHeader?.data.com_id : dataHeader?.data.idQLC}
         </div>
         <div>
           <a

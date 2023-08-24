@@ -154,6 +154,7 @@ li.active {
   width: 135px !important;
   float: right;
   margin-top: 20px;
+  margin-bottom: 20px;
 }
 .btn_employee {
   font-weight: 500;
