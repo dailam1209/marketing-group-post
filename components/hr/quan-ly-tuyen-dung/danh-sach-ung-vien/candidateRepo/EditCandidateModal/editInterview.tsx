@@ -23,6 +23,9 @@ export default function EditCandidateIntrview({
   processBefore
 }: any) {
 
+  console.log(candidateAll);
+
+
   const [rating, setRating] = useState<any>(candidate?.star_vote)
   const [addAnotherSkill, setAddAnotherSkill] = useState<JSX.Element[]>([])
   const [skills, setSkills] = useState<{ skillName: string; skillVote: any }[]>(
@@ -313,6 +316,8 @@ export default function EditCandidateIntrview({
       { value: candidate?.recruitment_news_id, label: candidate?.title },
     ],
     tennhanvienphongvan: chonnhanvienOptions,
+    tennhanvienphongvandefault: [
+      { value: candidateAll?.data?.idnhanvien, label: candidateAll?.data?.nhanvien }],
   }
 
   const selectedGender: any = options.chongioitinh?.find(
@@ -801,7 +806,7 @@ export default function EditCandidateIntrview({
                         type='date'
                         id='timeInterView'
                         defaultValue={format(
-                          parseISO(candidate?.timeSendCv),
+                          parseISO(candidateAll?.data?.interview_time),
                           'yyyy-MM-dd'
                         )}
                         placeholder='dd/mm/yyyy'
@@ -825,7 +830,7 @@ export default function EditCandidateIntrview({
                     <div className={`${styles.input_right}`}>
                       <div className={`${styles.div_no_pad} `}>
                         <Selects
-                          selectedOption={selectedUseHiring}
+                          selectedOption={options.tennhanvienphongvandefault}
                           onChange={handleSelectChange}
                           padding={15}
                           width_control={100}

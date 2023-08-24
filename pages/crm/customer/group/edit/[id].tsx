@@ -114,7 +114,7 @@ const GroupCustomerAdd: React.FC = () => {
     }
   );
 
-  const dataPassFromId = dataAll?.data?.showGr?.filter(
+  const dataPassFromId = dataAll?.data?.filter(
     (item: any) => item?.gr_id === Number(id)
   )?.[0];
 
@@ -125,7 +125,7 @@ const GroupCustomerAdd: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    setValueGroupCustomer(dataDetails?.data?.checkGroup);
+    setValueGroupCustomer(dataDetails?.data);
   }, []);
 
   useEffect(() => {
@@ -198,7 +198,8 @@ const GroupCustomerAdd: React.FC = () => {
     setEmployeeOptions(employeeOption);
   }, [selectedValueDepartments]);
 
-  const dataSelectGroupParent = dataAll?.data?.showGr;
+  const dataSelectGroupParent = dataAll?.data;
+  console.log(dataDetails?.data)
   const dataDepartments = dataDepartment?.data?.items;
   const options = dataDepartments?.map((item) => {
     return {
@@ -223,19 +224,19 @@ const GroupCustomerAdd: React.FC = () => {
 
   useEffect(() => {
     setSelectedValueDepartments(
-      dataDetails?.data?.checkGroup?.dep_id
+      dataDetails?.data?.dep_id
         ?.split(",")
         .map((item) => parseInt(item.trim(), 10))
     );
 
     setDataTableEmp(
-      dataDetails?.data?.checkGroup?.emp_id
+      dataDetails?.data?.emp_id
         ?.split(",")
         .map((item) => parseInt(item.trim(), 10))
     );
 
-    // setValAllDepartment(dataDetails?.data?.checkGroup?.dep_id ? false: true)
-    // setValAllEmp(dataDetails?.data?.checkGroup?.emp_id ? false :true)
+    // setValAllDepartment(dataDetails?.data?.dep_id ? false: true)
+    // setValAllEmp(dataDetails?.data?.emp_id ? false :true)
   }, []);
 
   useEffect(() => {
@@ -249,7 +250,7 @@ const GroupCustomerAdd: React.FC = () => {
     setTimeout(() => {
       const employeeOption = dataEmp?.data?.data
         ?.filter((emp) =>
-          dataDetails?.data?.checkGroup?.dep_id
+          dataDetails?.data?.dep_id
             ?.split(",")
             .map((item) => parseInt(item.trim(), 10))
             ?.includes(emp.dep_id)
@@ -293,7 +294,7 @@ const GroupCustomerAdd: React.FC = () => {
                     required
                     value={
                       valueGroupCustomer?.gr_name ||
-                      dataDetails?.data?.checkGroup?.gr_name
+                      dataDetails?.data?.gr_name
                     }
                     setFormData={setValueGroupCustomer}
                     label={"Tên nhóm khách hàng"}
@@ -306,7 +307,7 @@ const GroupCustomerAdd: React.FC = () => {
                       <CustomerGroupSelectCpmponent
                         value="Chọn nhóm khách hàng cha"
                         placeholder={
-                          dataDetails?.data?.checkGroup?.group_parent
+                          dataDetails?.data?.group_parent
                         }
                         data={dataSelectGroupParent}
                         setValueGroupCustomer={setValueGroupCustomer}
@@ -320,7 +321,7 @@ const GroupCustomerAdd: React.FC = () => {
                 <TextEditorGr
                   editorContent={
                     valueGroupCustomer?.gr_description ||
-                    dataDetails?.data?.checkGroup?.gr_description
+                    dataDetails?.data?.gr_description
                   }
                   setEditorValue={(val: any) => {
                     setValueGroupCustomer((pre: any) => {
@@ -369,8 +370,8 @@ const GroupCustomerAdd: React.FC = () => {
                       <label>Phòng ban</label>
                       <Checkbox
                         defaultChecked={
-                          dataDetails?.data?.checkGroup?.dep_id === null ||
-                          dataDetails?.data?.checkGroup?.dep_id === "all"
+                          dataDetails?.data?.dep_id === null ||
+                          dataDetails?.data?.dep_id === "all"
                         }
                         checked={valAllDepartment}
                         onChange={() => {
@@ -398,18 +399,18 @@ const GroupCustomerAdd: React.FC = () => {
                         }}
                         placeholder="Chọn phòng ban"
                         defaultValue={
-                          !dataDetails?.data?.checkGroup?.dep_id
+                          !dataDetails?.data?.dep_id
                             ?.split(",")
                             .map((item) => parseInt(item.trim(), 10))
                             .includes(NaN)
-                            ? dataDetails?.data?.checkGroup?.dep_id
+                            ? dataDetails?.data?.dep_id
                                 ?.split(",")
                                 .map((item) => parseInt(item.trim(), 10))
                             : null
                         }
                         value={
                           selectedValueDepartments ||
-                          dataDetails?.data?.checkGroup?.dep_id
+                          dataDetails?.data?.dep_id
                             ?.split(",")
                             .map((item) => parseInt(item.trim(), 10))
                         }
@@ -429,8 +430,8 @@ const GroupCustomerAdd: React.FC = () => {
                       <label>Nhân viên</label>
                       <Checkbox
                         defaultChecked={
-                          dataDetails?.data?.checkGroup?.emp_id === null ||
-                          dataDetails?.data?.checkGroup?.emp_id === "all"
+                          dataDetails?.data?.emp_id === null ||
+                          dataDetails?.data?.emp_id === "all"
                         }
                         onChange={() => {
                           setValAllEmp(!valAllEmp);
@@ -494,15 +495,15 @@ const GroupCustomerAdd: React.FC = () => {
 
                 {!valAllDepartment && !valAllEmp ? (
                   //  &&
-                  // dataDetails?.data?.checkGroup?.dep_id !== null &&
-                  // dataDetails?.data?.checkGroup?.emp_id !== null &&
-                  // dataDetails?.data?.checkGroup?.dep_id !== "all" &&
-                  // dataDetails?.data?.checkGroup?.emp_id !== "all"
+                  // dataDetails?.data?.dep_id !== null &&
+                  // dataDetails?.data?.emp_id !== null &&
+                  // dataDetails?.data?.dep_id !== "all" &&
+                  // dataDetails?.data?.emp_id !== "all"
                   <TableStaffCustomerGroupAdd
                     dataEmp={dataEmp?.data?.data}
                     valueSelected={
                       dataTableEmp ||
-                      dataDetails?.data?.checkGroup?.emp_id
+                      dataDetails?.data?.emp_id
                         ?.split(",")
                         .map((item) => parseInt(item.trim(), 10))
                     }
@@ -543,7 +544,7 @@ const GroupCustomerAdd: React.FC = () => {
                             ? valueGroupCustomer.group_cus_parent
                             : valueGroupCustomer.group_cus_parent === 0
                             ? 0
-                            : dataDetails?.data?.checkGroup?.group_parent,
+                            : dataDetails?.data?.group_parent,
                         gr_id: id,
                         emp_id: valAllEmp ? "all" : dataTableEmp?.join(","),
                         dep_id: valAllDepartment

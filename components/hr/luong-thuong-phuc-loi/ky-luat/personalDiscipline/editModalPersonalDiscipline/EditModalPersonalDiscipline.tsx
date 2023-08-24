@@ -6,14 +6,15 @@ import { getDataUser } from '@/pages/api/api-hr/quan-ly-tuyen-dung/PerformRecrui
 import { UpdateInfringes } from '@/pages/api/api-hr/luong-thuong-phuc-loi/discipline'
 
 function EditModalPersonalDiscipline({ animation, onClose, dataOld }: any) {
+  console.log(dataOld)
   const id = dataOld?.id
-  const infringeName = dataOld?.infringeName
-  const infringeType = dataOld?.infringeType
-  const numberViolation = dataOld?.numberViolation
-  const regulatoryBasis = dataOld?.regulatoryBasis
-  const createdBy = dataOld?.createdBy
+  const infringeName = dataOld?.infringe_name
+  const infringeType = dataOld?.infringe_type
+  const numberViolation = dataOld?.number_violation
+  const regulatoryBasis = dataOld?.regulatory_basis
+  const createdBy = dataOld?.created_by
   const formattedDate: string = format(
-    new Date(dataOld.infringeAt),
+    new Date(dataOld.created_at),
     'yyyy-MM-dd'
   )
 

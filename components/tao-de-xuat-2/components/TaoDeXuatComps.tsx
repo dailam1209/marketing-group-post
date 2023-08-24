@@ -330,7 +330,7 @@ export const DXFileInput = ({ setFileData, label = "Tài liệu đính kèm" }: 
         ref={inputFileRef}
       />
       <Form.Item
-        label={<p style={{ fontWeight: "600" }}>{label}</p>}
+        label={<p>{label}</p>}
         labelCol={{ span: 24 }}
       >
         <div
@@ -338,10 +338,11 @@ export const DXFileInput = ({ setFileData, label = "Tài liệu đính kèm" }: 
             width: "100%",
             border: "1px solid #d9d9d9",
             padding: "10px",
-            borderRadius: "10px",
+            borderRadius: "8px",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
+            height: "40px",
           }}
           placeholder="Thêm tài liệu đính kèm"
           onClick={() => inputFileRef.current.click()}

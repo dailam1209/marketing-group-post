@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import checkCookie from "../../../../function/checkCookie";
 import cookieCutter from "cookie-cutter";
 import { useRouter } from "next/router";
+import { domain, domainQLC } from "../../../api/BaseApi";
 
 export default function SecondPage({ handleSelected }) {
   const arrayTest = [
@@ -16,7 +17,7 @@ export default function SecondPage({ handleSelected }) {
     { key: "6", time: "2021-09-02T00:00:00.000Z" },
   ];
   checkCookie();
-  const domain = process.env.NEXT_PUBLIC_BASE_URL_TL;
+
   const router = useRouter();
   const user_info = cookieCutter.get("userName");
   const token = cookieCutter.get("token_base365");
@@ -351,18 +352,13 @@ export default function SecondPage({ handleSelected }) {
 
   useEffect(() => {
     axios
-      .post(
-        "http://210.245.108.202:3009/api/tinhluong/congty/show_staff_late",
-        {
-          start_date: "2023-08-01T00:00:00.000+00:00",
-          end_date: "2023-09-01T00:00:00.000+00:00",
-          com_id: cp,
-          token: token,
-        }
-      )
+      .post(`${domain}/api/tinhluong/congty/list_shift`, {
+        com_id: cp,
+        token: token,
+      })
       .then((res) => {
-        console.log("allShift: ", res.data.data.listShiftDetail);
-        setAllShift(res.data.data.listShiftDetail);
+        console.log("allShift: ", res.data.data.listShift);
+        setAllShift(res.data.data.listShift);
       })
       .catch((err) => {
         console.log(

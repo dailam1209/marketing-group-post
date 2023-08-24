@@ -10,6 +10,7 @@ export default function CustomerGroupSelect({
   data,
   setValueGroupCustomer,
   cusId,
+  type
 }: any) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -99,6 +100,7 @@ export default function CustomerGroupSelect({
             value={value}
             setValueOption={setValueOption}
             setValueGroupCustomer={setValueGroupCustomer}
+            type={type}
           />
         )}
       </span>

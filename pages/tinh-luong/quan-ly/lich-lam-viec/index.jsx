@@ -9,7 +9,7 @@ import HeadNav from "../../../../components/tinh-luong/components/big-component/
 import HeadNavRes from "../../../../components/tinh-luong/components/big-component/head-nav-res";
 import checkCookie from "../../../../components/tinh-luong/function/checkCookie";
 import cookieCutter from "cookie-cutter";
-import domain from "../../../../components/tinh-luong/components/api/BaseApi";
+import { domain } from "../../../../components/tinh-luong/components/api/BaseApi";
 
 dayjs.locale("vi");
 
@@ -18,7 +18,7 @@ const List = () => {
   const [selectedMonth, setSelectedMonth] = useState(dayjs().month() + 1);
   const [selectedYear, setSelectedYear] = useState(dayjs().year());
   const [user, setUser] = useState([]);
-
+  console.log(`api đang dùng là : ${domain}/api/tinhluong/nhanvien/qly_ttnv`);
   useEffect(() => {
     fetchApiData(selectedMonth, selectedYear);
   }, [selectedMonth, selectedYear]);
@@ -122,7 +122,12 @@ const List = () => {
           <div>
             <h3>
               Lịch làm việc tháng
-              <a className={styles.btn_cv}>Đề xuất lịch làm việc</a>
+              <a
+                className={styles.btn_cv}
+                href="/van-thu-luu-tru/trang-quan-ly-de-xuat/de-xuat-lich-lam-viec"
+              >
+                Đề xuất lịch làm việc
+              </a>
             </h3>
             <p className={styles.span_name}>Chi tiết lịch làm việc</p>
           </div>

@@ -31,7 +31,6 @@ export default function GroupCustomer() {
     { page: 1, perPage: 100 }
   );
   useEffect(() => {
-    fetchData();
     setHeaderTitle("Danh sách nhóm khách hàng");
     setShowBackButton(false);
     // setCurrentPath("/crm/customer/roup/list");
@@ -51,7 +50,7 @@ export default function GroupCustomer() {
   }, [isOpen]);
 
   const handleClickSearch = () => {
-    const newDataFilter = data?.data?.showGr?.filter((item) => {
+    const newDataFilter = data?.data?.filter((item) => {
       if (valFilter) {
         const defaultVal = item?.gr_name?.toLowerCase();
         return defaultVal?.includes(valFilter.toLowerCase());

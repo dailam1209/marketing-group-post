@@ -60,7 +60,7 @@ export default function Bodyframe({ children }: any) {
   return (
     <>
       <div className={`${styles.wrapper}`}>
-        <BodyFrameHeader dataHeader={dataHeader}></BodyFrameHeader>
+        <BodyFrameHeader dataHeader={dataHeader} tokenType = {tokenType}></BodyFrameHeader>
         {children}
       </div>
     </>

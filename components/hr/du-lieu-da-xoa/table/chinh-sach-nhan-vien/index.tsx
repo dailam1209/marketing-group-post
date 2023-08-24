@@ -4,10 +4,14 @@ import styles from "../styles/styles.module.css";
 import { format, parseISO } from "date-fns";
 
 export default function DataCSNV({ list_employe_policy , dataCheckBox, localListCheck}) {
-    const [listCheck, setListCheck] = useState<any>([]);
+  const [listCheck, setListCheck] = useState<Array<any>>([]);
     const data = list_employe_policy?.data;
 
     const handleAdd = (id) => {
+      if (!Array.isArray(listCheck)) {
+        setListCheck([]);
+        return;
+      }
         const newListCheck = listCheck.includes(id)
           ? listCheck.filter((item) => item !== id)
           : [...listCheck, id];
@@ -27,7 +31,7 @@ export default function DataCSNV({ list_employe_policy , dataCheckBox, localList
     <table className={` ${styles.l_tr_show}`}>
       <tbody style={{ width: "100%" }}>
         {data?.map((item) => {
-          const dateObj = parseISO(item.deletedAt);
+          const dateObj = parseISO(item.deleted_at);
           const formattedTime: string = format(dateObj, "HH:mm:ss dd/MM/yyyy");
           return (
             <div key={item.id} className={`${styles.show}`}>
@@ -38,7 +42,7 @@ export default function DataCSNV({ list_employe_policy , dataCheckBox, localList
                 </picture>
                 <p>{item.name}</p>
               </td>
-              <td className={`${styles.date}`}>{formattedTime}</td>
+              <td className={`${styles.date}`}>{item.time} {formattedTime}</td>
               <td className={`${styles.show_checkbox}`}>
                 <input
                   type="checkbox"

@@ -12,7 +12,7 @@ const checkCookie = ()=>{
     if(!checkPage){
 
         if(idQLC){
-            console.log("Đang ở trong đăng nhập")
+            
             if(exp < now){
                 if(data.data.type == 1){
                     router.push("/dang-nhap-cong-ty.html");

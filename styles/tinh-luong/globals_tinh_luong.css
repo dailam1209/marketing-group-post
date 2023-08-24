@@ -565,12 +565,7 @@ button.ant-btn.css-dev-only-do-not-override-1wazalj.ant-btn-primary.thue_btn_tim
   text-align: left;
   padding-left: 35px;
 }
-.DiMuonVeSomTable:where(.css-dev-only-do-not-override-1wazalj).ant-table-wrapper
-  .ant-table-thead
-  > tr
-  > th:not(:last-child):not(.ant-table-selection-column):not(
-    .ant-table-row-expand-icon-cell
-  ):not([colspan])::before {
+.DiMuonVeSomTable .ant-table-thead > tr ::before {
   display: none;
 }
 
@@ -622,12 +617,7 @@ button.ant-btn.css-dev-only-do-not-override-1wazalj.ant-btn-primary.thue_btn_tim
 .NghiPhep_2nd .ant-table-tbody > tr .ant-table-cell {
   text-align: center;
 }
-.NghiPhep_2nd:where(.css-dev-only-do-not-override-1wazalj).ant-table-wrapper
-  .ant-table-thead
-  > tr
-  > th:not(:last-child):not(.ant-table-selection-column):not(
-    .ant-table-row-expand-icon-cell
-  ):not([colspan])::before {
+.NghiPhep_2nd .ant-table-thead > tr ::before {
   display: none;
 }
 
@@ -1598,9 +1588,7 @@ span.ant-upload-wrapper.hoa-hong_dragger__x_FCR.css-dev-only-do-not-override-1wa
   width: 100%;
 }
 
-.nghi_phep_cai_dat_muc_phat
-  :where(.css-dev-only-do-not-override-1wazalj).ant-checkbox
-  + span {
+.nghi_phep_cai_dat_muc_phat .ant-checkbox + span {
   width: 100%;
 }
 :where(.css-dev-only-do-not-override-1wazalj).ant-dropdown
