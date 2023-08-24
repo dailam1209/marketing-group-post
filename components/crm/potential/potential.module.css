@@ -946,6 +946,38 @@ span.select2.potential_select2_container_step__HpQYa {
 .custom_multiple {
 }
 
+.back_button {
+  font-family: "Roboto-Bold";
+  font-weight: bold;
+  font-size: 16px;
+  border: 1px solid #4c5bd4;
+  width: 222px;
+  height: 40px;
+  background: #fff;
+  color: #4c5bd4;
+  margin-right: 66px;
+  border-radius: 5px;
+}
+
+.send_button {
+  font-family: "Roboto-Bold";
+  font-weight: bold;
+  font-size: 16px;
+  background: #4c5bd4;
+  color: #fff;
+  width: 222px;
+  height: 40px;
+  border-radius: 5px;
+  margin-right: 66px;
+}
+
+.button_group_send {
+  display: flex;
+  justify-content: center;
+  margin-right: 66px;
+  margin-top: 22px;
+}
+
 @media (max-width: 768px) {
   .select2_dropdown {
     /* left: -10%; */
