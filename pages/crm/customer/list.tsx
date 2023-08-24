@@ -68,7 +68,7 @@ export default function CustomerList() {
         keyword: name === null ? null : name,
         status: status,
         resoure: resoure,
-        userName: nvPhuTrach,
+        user_create_id: nvPhuTrach,
         userNameCreate: userNameCreate,
       }),
     });
@@ -228,7 +228,6 @@ export default function CustomerList() {
       mainRef.current?.classList.remove("content_resize");
     }
   }, [isOpen]);
-
   return (
     <>
       {!checkAndRedirectToHomeIfNotLoggedIn() ? null : (
