@@ -487,14 +487,14 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
                   </div>
                 </div>
                 <div className={styles.btn_form_contract}>
-                  <button type="button" className="xoatruong hidden">
+                  {/* <button type="button" className="xoatruong hidden">
                     <img src="/assets/img/xoatruong.svg" alt="button" /> Xóa
                     Trường
                   </button>
                   <button type="button" className="suatruong l-15 hidden">
                     <img src="/assets/img/suatruong.svg" alt="button" /> Sửa
                     trường
-                  </button>
+                  </button> */}
                   <button
                     type="button"
                     onClick={() => handleCreateFieldBtn()}
@@ -512,7 +512,7 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
                   >
                     Chỉnh sửa bằng trường mặc định
                   </button>
-                  <button
+                  {/* <button
                     type="button"
                     // onclick="prev()"
                     className="quaylai l-15 hidden"
@@ -525,7 +525,7 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
                     className="tieptuc l-15 hidden"
                   >
                     Tiếp tục <img src="/assets/img/tieptuc.svg" alt="button" />
-                  </button>
+                  </button> */}
                   <CreatFieldModal
                     isModalCancel={isCreatField}
                     setIsModalCancel={setIsCreatField}
