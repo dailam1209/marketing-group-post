@@ -10,12 +10,14 @@ interface MyComponentProps {
   isModalCancel: boolean;
   setIsModalCancel: (value: boolean) => void;
   cusId: any;
+  setCusId:any
 }
 
 const CallModal: React.FC<MyComponentProps> = ({
   isModalCancel,
   setIsModalCancel,
   cusId,
+  setCusId
 }) => {
   const [content, setContent] = useState();
   const [datae, setDate] = useState<any>();
@@ -51,7 +53,8 @@ const CallModal: React.FC<MyComponentProps> = ({
         onCancel={() => {
           const pathname = router.pathname;
           setIsModalCancel(false);
-          router.push(pathname);
+          setCusId(0)
+          // router.push(pathname);
         }}
         className={"mdal_cancel email_add_mdal ctent_call_mdal"}
         okText="Đồng ý"
@@ -120,6 +123,7 @@ const CallModal: React.FC<MyComponentProps> = ({
               cusId={cusId}
               setContent={setContent}
               setDate={setDate}
+              setCusId={setCusId}
             />
           </div>
         </div>
