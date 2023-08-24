@@ -59,7 +59,7 @@ const SystemCustomerInfo: React.FC<Props> = ({formData}:any) => {
                       <InforText field="Ngày tạo:"  value={ngay_tao?ngay_tao:"Chưa cập nhật"}/>
                       <TextAndIconInfo
                         field="Người sửa:"
-                        src={formData?.anh_dai_dien?formData?.anh_dai_dien:"https://crm.timviec365.vn/assets/img/user_kh.png"}
+                        src={formData?.logo?formData?.logo:"https://crm.timviec365.vn/assets/img/user_kh.png"}
                         value={formData?.nguoi_sua}
                      />
 

@@ -184,7 +184,7 @@ const TableStatusCustomer: React.FC<TableStatusCustomerProps> = ({}: any) => {
                 <img
                   style={{ marginBottom: 100 }}
                   className={styles.img__search}
-                  src="https://crm.timviec365.vn/assets/icons/search.svg"
+                  src="/crm/search.svg"
                   alt=""
                 />
               </button>

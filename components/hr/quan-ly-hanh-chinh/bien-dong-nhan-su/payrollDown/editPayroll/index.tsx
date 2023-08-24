@@ -47,6 +47,8 @@ function Input_textarea({ onDescriptionChange, reason }: InputTextareaProps) {
 }
 export default function EditPayroll({ onCancel, infoList }: any) {
 
+  console.log(infoList);
+
   const [selectedOption, setSelectedOption] = useState<SelectOptionType | null>(null);
   const [isDepList, setDepList] = useState<any>(null)
   const [isPositionList, setPositionList] = useState<any>(null)
@@ -95,7 +97,7 @@ export default function EditPayroll({ onCancel, infoList }: any) {
       setPositionList(position)
 
       const specifiedGroup = await FetchDataSpecifiedGroup()
-      setSpecifiedList(specifiedGroup)
+      setSpecifiedList(specifiedGroup?.data)
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -104,7 +106,7 @@ export default function EditPayroll({ onCancel, infoList }: any) {
   useEffect(() => {
     console.log(isDepList?.data);
     console.log(infoList?.dep_name);
-    const matchingDep = isDepList?.data?.find((item: any) => item?.dep_name === infoList?.dep_name);
+    const matchingDep = isDepList?.items?.find((item: any) => item?.dep_name === infoList?.dep_name);
     const matchingPos = isPositionList?.data?.flat()?.find((item: any) => item?.positionName === infoList.position_name)
     console.log(matchingDep, matchingPos);
 
@@ -193,6 +195,8 @@ export default function EditPayroll({ onCancel, infoList }: any) {
     setReason(data);
   };
 
+  const decision_idmatch = isSpecifiedList?.data?.find((item: any) => item.id === infoList?.decision_id)
+
   const companyNames: any = [];
   if (isCom_id && isOrganizationalStructureList?.infoCompany) {
     if (
@@ -220,9 +224,11 @@ export default function EditPayroll({ onCancel, infoList }: any) {
     [companyNames]
   );
 
+
+
   const choncanghiOptions = useMemo(
     () =>
-      isShiftList && isShiftList?.list?.map((shift: any) => ({
+      isShiftList && isShiftList?.items?.map((shift: any) => ({
         value: shift?.shift_id,
         label: shift?.shift_name,
       })),
@@ -255,6 +261,9 @@ export default function EditPayroll({ onCancel, infoList }: any) {
       { value: '1', label: 'Giảm biên chế' },
       { value: '2', label: 'Nghỉ việc' },
 
+    ],
+    chonquydinhdefault: [
+      { value: decision_idmatch?.id, label: decision_idmatch?.name ? decision_idmatch?.name : "Chọn quy định" },
     ],
     chonquydinh: chonquydinhOptions,
 
@@ -405,6 +414,10 @@ export default function EditPayroll({ onCancel, infoList }: any) {
                             ...baseStyles,
                             color: "#444444",
                           }),
+                          menu: (baseStyles) => ({
+                            ...baseStyles,
+                            zIndex: 1000
+                          }),
                         }}
                       />
                     </div>
@@ -432,6 +445,10 @@ export default function EditPayroll({ onCancel, infoList }: any) {
                             ...baseStyles,
                             color: "#444444",
                           }),
+                          menu: (baseStyles) => ({
+                            ...baseStyles,
+                            zIndex: 1000
+                          }),
                         }}
                       />
                     </div>
@@ -440,7 +457,7 @@ export default function EditPayroll({ onCancel, infoList }: any) {
                     <label htmlFor="">Chọn quy định </label>
                     <div className={`${styles.input_right}`}>
                       <Select
-                        defaultValue={selectedOption}
+                        defaultValue={options.chonquydinhdefault}
                         onChange={(option) => handleSelectChange(option, setSpecified_id)}
                         options={options.chonquydinh}
                         placeholder="Chọn quy định"
@@ -457,6 +474,10 @@ export default function EditPayroll({ onCancel, infoList }: any) {
                           placeholder: (baseStyles) => ({
                             ...baseStyles,
                             color: "#444444",
+                          }),
+                          menu: (baseStyles) => ({
+                            ...baseStyles,
+                            zIndex: 1000
                           }),
                         }}
                       />

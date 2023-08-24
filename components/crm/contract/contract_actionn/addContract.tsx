@@ -12,6 +12,7 @@ import CreatFieldDefaultModal from "./creat_field_default";
 import ContractValueInputSearch from "./contract_value_input_search";
 import { imageBase64 } from "./imgBase64";
 import { setTextRange } from "typescript";
+import { base_url } from "../../service/function";
 
 interface MyComponentProps {
   isModalCancel: boolean;
@@ -53,7 +54,7 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
 
   const Cookies = require("js-cookie");
 
-  const [valueContract, setValueContract] = useState({
+  const [formData, setFormData] = useState<any>({
     _id: "",
     name: "",
     pathFile: "",
@@ -90,6 +91,46 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
 
   const handleEditField = () => {
     scrollToTarget();
+  };
+
+  const handleSubmit = async () => {
+    try {
+      const response = await fetch(`${base_url}/api/crm/contractforcus/add`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get("token_base365")}`,
+        },
+        body: JSON.stringify({
+          _id: formData._id,
+          name: formData.name,
+          pathFile: formData.pathFile,
+          com_id: formData.com_id,
+          ep_id: formData.ep_id,
+          id_file: formData.id_file,
+          created_at: formData.created_at,
+          user_created: formData.user_created,
+          id_customer: formData.id_customer,
+          update_at: formData.update_at,
+          status: formData.status,
+          is_delete: formData.is_delete,
+          new_field: formData.new_field,
+          old_field: formData.old_field,
+          index_field: formData.index_field,
+          default_field: formData.default_field,
+          path_dowload: formData.path_download,
+          id_form_contract: formData.id_form_contract,
+        }),
+      });
+      const data = await response.json();
+      if (response.status === 200) {
+        console.log("Data successfully submitted!");
+      } else {
+        console.error("Error submitting data.");
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
   };
 
   const handleUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -413,7 +454,7 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
               <button
                 className={styles.save}
                 type="submit"
-                onClick={() => setIsmodal1Open(true)}
+                onClick={() => (handleSubmit(), setIsmodal1Open(true))}
               >
                 Lưu
               </button>
@@ -536,6 +577,7 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
                     ))}
                   </div>
                 </div>
+
                 <div className={styles.btn_form_contract}>
                   {/* <button type="button" className="xoatruong hidden">
                     <img src="/assets/img/xoatruong.svg" alt="button" /> Xóa
@@ -588,6 +630,7 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
               </div>
               {/* ///////////////////////////////////////////////////////////// */}
             </div>
+            
           </>
         )}
       </div>

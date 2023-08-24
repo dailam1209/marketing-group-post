@@ -49,6 +49,8 @@ function Input_textarea({ onDescriptionChange }: InputTextareaProps) {
 
 export default function EditWorkingModal({ onCancel, infoList }: any) {
 
+  console.log(infoList.item);
+
   const [selectedOption, setSelectedOption] = useState<SelectOptionType | null>(null);
   const [isMission, setMission] = useState("");
   const [isNote, setNote] = useState("");
@@ -58,13 +60,19 @@ export default function EditWorkingModal({ onCancel, infoList }: any) {
   const [isOrganizationalStructureList, setOrganizationalStructureList] = useState<any>(null)
   const [isCom_id, setCom_id] = useState<any>(null)
   const [isCom_idNew, setCom_idNew] = useState<any>(null)
+  // const [isCom_idNew, setCom_idNew] = useState<any>(null)
   const [isDep_id, setDep_id] = useState<any>(null)
+  const [isTeam_idNew, setTeam_idNew] = useState<any>(null)
+  const [isGroup_idNew, setGroup_idNew] = useState<any>(null)
   const [isDep_idNew, setDep_idNew] = useState<any>(null)
   const [isPosition_id, setPosition_id] = useState<any>(null)
   const [isPosition_idNew, setPosition_idNew] = useState<any>(null)
   const [isSpecified_id, setSpecified_id] = useState<any>(null)
   const [errors, setErrors] = useState<any>({});
   const modalRef = useRef(null);
+
+  console.log(isCom_id);
+
 
   useEffect(() => {
     const handleOutsideClick = (event: any) => {
@@ -97,14 +105,15 @@ export default function EditWorkingModal({ onCancel, infoList }: any) {
       setPositionList(position)
 
       const specifiedGroup = await FetchDataSpecifiedGroup()
-      setSpecifiedList(specifiedGroup)
+      setSpecifiedList(specifiedGroup?.data)
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   }
 
   useEffect(() => {
-    const matchingDep = isDepList?.data?.find((item: any) => item?.dep_id === infoList?.dep_id);
+    const matchingDep = isDepList?.items?.find((item: any) => item?.dep_id === infoList?.dep_id);
+    // const matchingDepNew = isDepList?.data?.find((item: any) => item?.dep_id === infoList?.dep_id);
     const matchingPos = isPositionList?.data?.flat()?.find((item: any) => item?.positionName === infoList.position_name)
     if (matchingDep) {
       setDep_id(matchingDep.dep_id);
@@ -225,6 +234,8 @@ export default function EditWorkingModal({ onCancel, infoList }: any) {
     [companyNames]
   );
 
+  const chonchinhandefaulthOptions = companyNames?.find((com: any) => com.key === infoList?.item?.new_com_name)
+
   const chonphongbanmoiOptions = useMemo(
     () =>
       depInfoArrayNew && depInfoArrayNew?.map((dep: any) => ({
@@ -256,19 +267,79 @@ export default function EditWorkingModal({ onCancel, infoList }: any) {
     [isSpecifiedList]
   );
 
+  function getTeamInfoByDepId(dep_id: any) {
+    const teamInfoArray: any = [];
+
+    if (isOrganizationalStructureList?.infoCompany) {
+      const selectedDep = isOrganizationalStructureList.infoCompany.infoDep.find((infoDep: any) => infoDep.dep_id === dep_id);
+
+      if (selectedDep) {
+        for (const infoTeam of selectedDep.infoTeam) {
+          teamInfoArray.push({
+            gr_id: infoTeam.gr_id,
+            gr_name: infoTeam.gr_name
+          });
+        }
+      }
+    }
+    return teamInfoArray;
+  }
+  const teamInfo = getTeamInfoByDepId(isDep_idNew);
+
+  function getGroupInfoByTeamId(team_id: any) {
+    const groupInfoArray: any = [];
+
+    if (isOrganizationalStructureList?.infoCompany) {
+      for (const infoDep of isOrganizationalStructureList?.infoCompany?.infoDep) {
+        for (const infoTeam of infoDep?.infoTeam) {
+          if (infoTeam.gr_id === team_id) {
+            for (const infoGroup of infoTeam.infoGroup) {
+              groupInfoArray.push({
+                gr_id: infoGroup.gr_id,
+                gr_name: infoGroup.gr_name
+              });
+            }
+          }
+        }
+      }
+    }
+
+    return groupInfoArray;
+  }
+
+  const groupInfo = getGroupInfoByTeamId(isTeam_idNew);
+
+  const chontotheophongbanOptions = useMemo(
+    () =>
+      teamInfo && teamInfo?.map((team: any) => ({
+        value: team.gr_id,
+        label: team.gr_name,
+      })),
+    [depInfoArrayNew]
+  );
+
+  const chonnhomtheotoOptions = useMemo(
+    () =>
+      groupInfo && groupInfo?.map((group: any) => ({
+        group: group.gr_id,
+        label: group.gr_name,
+      })),
+    [depInfoArrayNew]
+  );
+
   const options = {
     chonchinhanh: [{ value: isCom_id, label: infoList.com_name }],
     chonphongban: [{ value: infoList.dep_id, label: infoList.dep_name }],
     chonnhanvien: [{ value: infoList.ep_id, label: infoList.emp_name }],
     chucvuhientai: [{ value: isPosition_id, label: infoList.position_name }],
+    phongbanmoidefault: [{ value: infoList?.item?.new_dep_id, label: infoList?.item?.new_dep_name }],
     donvicongtacmoi: chonchinhanhOptions,
     phongbanmoi: chonphongbanmoiOptions,
-    to: [{ value: '  BAN GIÁM ĐỐC', label: 'BAN GIÁM ĐỐC' }],
-    nhom: [{ value: '  BAN GIÁM ĐỐC', label: 'BAN GIÁM ĐỐC' }],
+    to: chontotheophongbanOptions,
+    nhom: chonnhomtheotoOptions,
     chucvumoi: chonchucvuOptions,
     chonquydinh: chonquydinhOptions,
   };
-
 
   return (
     <>
@@ -388,7 +459,7 @@ export default function EditWorkingModal({ onCancel, infoList }: any) {
                       <span> {errors.donvicongtacmoi && <div className={`${styles.t_require} `}>{errors.donvicongtacmoi}</div>}</span> </span></label>
                     <div className={`${styles.input_right}`}>
                       <Select
-                        defaultValue={selectedOption}
+                        defaultValue={chonchinhandefaulthOptions}
                         onChange={(option) => handleSelectChange(option, setCom_idNew)}
                         options={options.donvicongtacmoi}
                         placeholder="Chọn chi nhánh"
@@ -414,7 +485,7 @@ export default function EditWorkingModal({ onCancel, infoList }: any) {
                       <span> {errors.phongbanmoi && <div className={`${styles.t_require} `}>{errors.phongbanmoi}</div>}</span> </span></label>
                     <div className={`${styles.input_right}`}>
                       <Select
-                        defaultValue={selectedOption}
+                        defaultValue={options?.phongbanmoidefault}
                         onChange={(option) => handleSelectChange(option, setDep_idNew)}
                         options={options.phongbanmoi}
                         placeholder="Chọn phòng ban"
@@ -440,7 +511,7 @@ export default function EditWorkingModal({ onCancel, infoList }: any) {
                     <div className={`${styles.input_right}`}>
                       <Select
                         defaultValue={selectedOption}
-                        onChange={(option) => handleSelectChange(option, options.to)}
+                        onChange={(option) => handleSelectChange(option, setTeam_idNew)}
                         options={options.to}
                         placeholder="Chọn tổ"
                         styles={{
@@ -465,7 +536,7 @@ export default function EditWorkingModal({ onCancel, infoList }: any) {
                     <div className={`${styles.input_right}`}>
                       <Select
                         defaultValue={selectedOption}
-                        onChange={(option) => handleSelectChange(option, options.nhom)}
+                        onChange={(option) => handleSelectChange(option, setGroup_idNew)}
                         options={options.nhom}
                         placeholder="Chọn nhóm"
                         styles={{

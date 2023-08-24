@@ -329,7 +329,7 @@ a.text_a {
     margin-top: 12px;
   }
   .tasbar .menu {
-    width: 50%;
+    width: auto;
     text-align: right;
     float: right;
     margin-top: 10px;

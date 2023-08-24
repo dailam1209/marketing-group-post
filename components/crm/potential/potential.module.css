@@ -265,6 +265,37 @@
   align-items: center;
 }
 
+
+
+.div__thaotac2 {
+  display: flex;
+  column-gap: 15px;
+  align-items: baseline;
+}
+
+.div__thaotac2 label {
+  font-size: 16px;
+}
+
+.div__thaotac2 b {
+  margin-bottom: 0;
+  font-size: 16px;
+  line-height: 16px;
+}
+
+.button_thaotac2 {
+  font-family: "Roboto-Medium";
+  background: #ffffff;
+  border-radius: 10px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  color: #4c5bd4;
+  padding: 9px 25px;
+  display: flex;
+  align-items: center;
+}
+
 .main_importfile {
   row-gap: 20px;
   width: 100%;
@@ -982,6 +1013,59 @@ span.select2.potential_select2_container_step__HpQYa {
   margin-top: 22px;
 }
 
+.send_button_detail {
+  font-family: Roboto-Medium;
+  font-weight: 500;
+  font-size: 16px;
+  width: 153px;
+  height: 40px;
+  background-color: #4c5bd4 !important;
+  color: #fff !important;
+  border-radius: 10px;
+  margin-right: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 0px 10px rgb(0 0 0 / 10%);
+}
+
+.delete_button {
+  font-family: Roboto-Medium;
+  font-weight: 500;
+  font-size: 16px;
+  width: 153px;
+  height: 40px;
+  background-color: #ff3333;
+  color: #fff;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 22px;
+  box-shadow: 0px 0px 10px rgb(0 0 0 / 10%);
+}
+.export_button {
+  font-family: Roboto-Medium;
+  font-weight: 500;
+  font-size: 16px;
+  width: 153px;
+  height: 40px;
+  background-color: #ffffff;
+  color: #666666;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 22px;
+  box-shadow: 0px 0px 10px rgb(0 0 0 / 10%);
+}
+
+.detail_button {
+  display: flex;
+  justify-content: flex-end;
+  padding-bottom: 22px;
+}
+
 @media (max-width: 768px) {
   .select2_dropdown {
     /* left: -10%; */
@@ -1012,13 +1096,12 @@ span.select2.potential_select2_container_step__HpQYa {
     width: 90%;
     padding-bottom: 10px;
   }
-  .form_search{
+  .form_search {
     width: 100%;
   }
 }
 
 @media (max-width: 1024px) {
-
   .select_item {
     width: 50%;
   }
@@ -1047,10 +1130,20 @@ span.select2.potential_select2_container_step__HpQYa {
     padding: 0;
   }
 }
+@media (max-width: 576px) {
+ .div__thaotac2{
+  display: block;
+  padding-bottom: 10px;
+  padding-top: 20px;
+ }
+ .button_thaotac2{
+  display: flex;
+ margin-left: -29px;
+ }
+}
 @media (max-width: 1188px) {
   .main_control_new {
     padding-top: 20px;
     margin-left: 200px;
   }
 }
-

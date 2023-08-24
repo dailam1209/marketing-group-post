@@ -126,11 +126,14 @@ export default function AddOutJobModal({ onCancel }: any) {
   }, [isPositionList, isPosition_id]);
 
   useEffect(() => {
-    const foundItem = isDepList?.data?.find((item: any) => item.dep_id === isDep_id);
+    const foundItem = isDepList?.items?.find((item: any) => item.dep_id === isDep_id);
     if (foundItem) {
       setCom_id(foundItem.com_id)
     }
   }, [isDep_id])
+
+  console.log(isCom_id);
+
 
   const validationSchema = Yup.object().shape({
     chonnhanvien: Yup.string().required("Vui lòng chọn nhân viên"),
@@ -217,13 +220,12 @@ export default function AddOutJobModal({ onCancel }: any) {
   const chonnhanvienOptions = useMemo(
     () =>
       isEmpList &&
-      isEmpList?.data?.map((emp: any) => ({
-        value: `${emp.idQLC} ${emp.dep_id[0]} ${emp.position_id} ${emp.nameDeparment}`,
-        label: emp.userName
+      isEmpList?.items?.map((emp: any) => ({
+        value: `${emp.ep_id} ${emp.dep_id} ${emp.position_id} ${emp.dep_name}`,
+        label: emp.ep_name
       })),
     [isEmpList]
   );
-
 
   const options = {
     chonchinhanh: chonchinhanhOptions,

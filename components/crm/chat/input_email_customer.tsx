@@ -6,7 +6,7 @@ export default function   InputEmailCustomer({infoCus}:any) {
       className={`${styles.business_assistant_item} ${styles.business_assistant_item_gray}`}
     >
       <label className={`${styles.lbl_title}`}>Email khách hàng</label>
-      <input value={infoCus?.email} name="" type=" text" placeholder="Nhập email khách hàng" />
+      <input value={infoCus?.email?.info} name="" type=" text" placeholder="Nhập email khách hàng" />
     </div>
   );
 }

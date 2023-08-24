@@ -92,7 +92,7 @@ export default function ItemCandidate2({ onCancel, data, process_id, setModalOpe
                 <div ref={modalRef} className={`${styles.choose_option} ${styles.choose_option1}`} style={{ display: isOpenOption ? 'block' : 'none' }}>
                   <ul style={{ marginBottom: 0, marginTop: 0 }}>
                     <li onClick={() => handleClickDetail(data?.canId)}>Xem chi tiết</li>
-                    {iconDelete && <li onClick={() => setDelete(data?.id)}>Xóa hồ sơ</li>}
+                    {iconDelete && <li onClick={() => setDelete(data?.canId)}>Xóa hồ sơ</li>}
                     {isDelete !== 0 && <DeleteCandidate animation={animateModal} onCancel={handleClosemodal} idCandidate={isDelete} />}
                   </ul>
                 </div>

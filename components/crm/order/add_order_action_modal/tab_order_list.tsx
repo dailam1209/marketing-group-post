@@ -32,7 +32,7 @@ const TabComponent = () => {
                 <button className={styles.kinh_lup}>
                   <img
                     className={styles.img__search}
-                    src="https://crm.timviec365.vn/assets/icons/search.svg"
+                    src="/crm/search.svg"
                     alt=""
                   />
                 </button>
@@ -77,7 +77,7 @@ const TabComponent = () => {
                 <button className={styles.kinh_lup}>
                   <img
                     className={styles.img__search}
-                    src="https://crm.timviec365.vn/assets/icons/search.svg"
+                    src="/crm/search.svg"
                     alt=""
                   />
                 </button>
