@@ -402,6 +402,7 @@
   .api_row {
     max-width: 100%;
   }
+
 }
 
 @media (min-width: 992px) {
@@ -426,7 +427,28 @@
     width: 50%;
   }
 }
+.content_history {
+  width: 50%;
+}
+@media (max-width: 1024px) {
+  .content_history {
+    width: 40%;
+  }
+  .title_box_content{
+    width: 100%;
+    display: flex;
+    float: right;
+  }
+.btn_call_phone{
+  width: 100px;
+}
+}
+@media (max-width: 668px) {
+  .content_history {
+    width: 100%;
+  }
 
+}
 @media (min-width: 992px) {
   .col-lg-6 {
     -webkit-box-flex: 0;
@@ -439,6 +461,7 @@
     padding-right: 15px;
     /* padding-left: 15px; */
   }
+
 }
 
 @media (max-width: 760px) {

@@ -34,8 +34,6 @@ import io from "socket.io-client";
 import Layout_Tinh_Luong from "../components/tinh-luong/components/Layout";
 import ComponentEmpty from "../components/tinh-luong/components/component_empty"
 import Dangnhap from "../pages/tinh-luong/dangnhap"
-
-
 export const LoadingComp = () => {
   return (
     <Spin

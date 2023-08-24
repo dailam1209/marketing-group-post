@@ -30,7 +30,7 @@ export default function CustomomerFooterAddFile({
             name: formData.name,
             email: formData.email,
             stand_name: formData.stand_name,
-            logo: formData.logo,
+            logo: formData.logo.name,
             phone_number:formData.phone_number,
             birthday:formData.birthday,
             tax_code: formData.tax_code,
@@ -88,6 +88,8 @@ export default function CustomomerFooterAddFile({
         }
       );
       const data = await response.json();
+      console.log("dataadd",data)
+      
       if (response.status === 200) {
         console.log("Data successfully submitted!");
       } else {

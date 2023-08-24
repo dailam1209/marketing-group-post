@@ -76,7 +76,7 @@ const CallModal: React.FC<MyComponentProps> = ({
                 }}
                 type="button"
                 id="callAppointmentZoom"
-                className=""
+                className={styleCustomer.btn_call_phone}
               >
                 <Image
                   width={16}
@@ -100,7 +100,7 @@ const CallModal: React.FC<MyComponentProps> = ({
               >
                 <div style={{ display: "block" }}>
                   <div style={{ float: "left" }}> {datae}</div> <br />
-                  <div style={{ float: "left" }}> {content}</div>
+                  <div style={{ float: "left",color:"#4c5bd4" }}> {content}</div>
                 </div>
               </fieldset>
             </div>
@@ -179,7 +179,7 @@ const CallModal: React.FC<MyComponentProps> = ({
               >
                 <div style={{ display: "block" }}>
                   <div style={{ float: "left" }}> {datae}</div> <br />
-                  <div style={{ float: "left" }}> {content}</div>
+                  <div style={{ float: "left",color:"#4c5bd4" }}> {content}</div>
                 </div>
               </fieldset>
             </div>

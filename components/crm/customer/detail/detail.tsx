@@ -22,7 +22,7 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
   const mainRef = useRef<HTMLDivElement>(null);
   const { isOpen } = useContext<any>(SidebarContext);
   const imgRef = useRef<HTMLInputElement>(null);
-  const [listData, setListData] = useState([]);
+  const [listData, setListData] = useState<any>([]);
   const [name, setname] = useState<any>()
   const router = useRouter();
   const {id} = router.query
@@ -127,7 +127,7 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
                     >
                       Thông tin giao hàng
                     </p>
-                    {/* <WriteBillRowInforText2 formData={listData} /> */}
+                    <WriteBillRowInforText2 formData={listData} />
 
                     {/* Thong tin bo sung */}
                     <p
@@ -136,7 +136,7 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
                     >
                       Thông tin bổ sung
                     </p>
-                    {/* <BonusInfoRow formData={listData} /> */}
+                    <BonusInfoRow formData={listData} />
 
                     {/* Thong tin CCCD */}
                     {cccd && (
@@ -147,7 +147,7 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
                         >
                           Thông tin CMND/CCCD
                         </p>
-                        {/* <CCCDInforRow formData={listData} /> */}
+                        <CCCDInforRow formData={listData} />
                       </>
                     )}
 
@@ -174,9 +174,8 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
                             stylesCustomer.main__profile__body__item__value
                           }
                         >
-                          {/* {listData[0]?.thong_tin_mo_ta
-                            ? listData[0]?.thong_tin_mo_ta
-                            : "Chưa cập nhật"} */}
+                          {listData?.description?.detail?listData?.description?.info as any
+                            : "Chưa cập nhật"}
                         </div>
                       </div>
                     </div>
@@ -190,7 +189,7 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
         </div>
       </div>
 
-      {/* <SystemCustomerInfo formData={listData} /> */}
+      <SystemCustomerInfo formData={listData} />
     </>
   );
 };

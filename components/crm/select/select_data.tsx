@@ -31,7 +31,6 @@ const SelectDataInputBox: React.FC<MyProps> = ({
   );
   const router = useRouter()
   const dataStatus = dataDetailCustomer?.data
-
   const handleChangeApi = async (e: any, data: any) => {
     const url =
     `${base_url}/api/crm/customerdetails/editCustomer`;
