@@ -18,28 +18,37 @@ export default function GroupCustomer() {
   const [selectedRows, setSelectedRow] = useState<any>([]);
   const [change, setChange] = useState(0);
   const [valFilter, setValFilter] = useState("");
-  const [dataFilter, setDataFilter] = useState();
+  const [dataFilter, setDataFilter] = useState<any>();
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
 
   const accessToken = Cookies.get("token_base365");
 
-  const { data, fetchData, updateData } = useApi(
-    `${base_url}/api/crm/group/list_group_khach_hang`,
-    `${Cookies.get("token_base365")}`,
-    "POST",
-    { page: 1, perPage: 100 }
-  );
+ 
   useEffect(() => {
     setHeaderTitle("Danh sách nhóm khách hàng");
     setShowBackButton(false);
     // setCurrentPath("/crm/customer/roup/list");
   }, [setHeaderTitle, setShowBackButton, setCurrentPath]);
-  console.log(data)
-  useEffect(() => {
-    fetchData();
+
+  const handleGetGr = async () => {
+    const res = await fetch(`${base_url}/api/crm/group/list_group_khach_hang`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${Cookies.get("token_base365")}`,
+      },
+      body: JSON.stringify({  page: 1, perPage: 100}),
+    });
+    const data = await res.json();
+    if (data && data?.data)
     setDataFilter(data?.data);
+  };
+  useEffect(() => {
+    handleGetGr();
   }, [change]);
+
+
 
   useEffect(() => {
     if (isOpen) {
@@ -50,10 +59,12 @@ export default function GroupCustomer() {
   }, [isOpen]);
 
   const handleClickSearch = () => {
-    const newDataFilter = data?.data?.filter((item) => {
+    const newDataFilter = dataFilter?.filter((item) => {
       if (valFilter) {
         const defaultVal = item?.gr_name?.toLowerCase();
         return defaultVal?.includes(valFilter.toLowerCase());
+      }else{
+        handleGetGr()
       }
       return item;
     });
@@ -78,8 +89,8 @@ export default function GroupCustomer() {
             setSelectedRow={setSelectedRow}
             setChange={setChange}
             change={change}
-            data={dataFilter || data?.data}
-            updateData={updateData}
+            data={dataFilter}
+            updateData={handleGetGr}
           />
         </div>
       )}
