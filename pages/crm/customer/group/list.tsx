@@ -50,7 +50,7 @@ export default function GroupCustomer() {
   }, [isOpen]);
 
   const handleClickSearch = () => {
-    const newDataFilter = data?.data?.showGr?.filter((item) => {
+    const newDataFilter = data?.data?.filter((item) => {
       if (valFilter) {
         const defaultVal = item?.gr_name?.toLowerCase();
         return defaultVal?.includes(valFilter.toLowerCase());

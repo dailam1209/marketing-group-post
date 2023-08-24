@@ -172,7 +172,7 @@ export default function CustomerList() {
     // console.log("dataGR", data);
     setListGr(data?.data);
     let arr = [];
-    data?.data?.showGr?.map((item) => {
+    data?.data?.map((item) => {
       item?.list_gr_child.map((item) => {
         arr.push(item);
       });
@@ -180,7 +180,7 @@ export default function CustomerList() {
     });
   };
 
-  const dataGroup = dataCustomerGroup?.data?.showGr;
+  const dataGroup = dataCustomerGroup?.data;
   const [idSelect, setIdSelect] = useState<any>();
   const handleSelectAll = () => {
     const allRowKeys = datatable.map((item: { key: any }) => item.key);
