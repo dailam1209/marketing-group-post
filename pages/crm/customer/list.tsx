@@ -44,6 +44,7 @@ export default function CustomerList() {
   const [nvPhuTrach, setnvPhuTrach] = useState();
   const [nhomCha, setnhomCha] = useState();
   const [nhomCon, setnhomCon] = useState();
+  const [loading, setloading] = useState(true)
 
   const [userNameCreate, setuserNameCreate] = useState();
   const [isLoading, setLoading] = useState(true);
@@ -52,7 +53,7 @@ export default function CustomerList() {
   const [pageSize, setPageSize] = useState(10);
   const [totalRecords, setTotalRecords] = useState();
   const [dataStatus, setdataStatus] = useState<any>();
-
+  const [group_id,setgroup_id] = useState()
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
   const fetchData = async () => {
@@ -70,10 +71,15 @@ export default function CustomerList() {
         resoure: resoure,
         user_create_id: nvPhuTrach,
         userNameCreate: userNameCreate,
+        group_id:nhomCha,
+        group_pins_id:nhomCon
       }),
     });
     const data = await res.json();
     setData(data);
+    if(data?.data?.length<=0){
+setloading(false)
+    }
     setTotalRecords(data?.total);
   };
 
@@ -118,7 +124,7 @@ export default function CustomerList() {
     { name: "Chăm sóc khach hàng", id: 7 },
     { name: "Email", id: 8 },
   ];
-
+ 
   const datatable = data?.data?.map((item, index: number) => {
     let nguonKH = "";
     let time;
@@ -148,7 +154,7 @@ export default function CustomerList() {
         nguonKH = key.name;
       }
     }
-
+    let des = item?.description?.replace(/<p>/g, '').replace(/<\/p>/g, '').replace('&nbsp;', '');
     return {
       key: index + 1,
       cus_id: item.cus_id,
@@ -156,7 +162,7 @@ export default function CustomerList() {
       name: item.name,
       phone_number: item.phone_number,
       resoure: nguonKH,
-      description: item.description,
+      description:des,
       group_id: item.group_id,
       status: item.status,
       updated_at: time,
@@ -170,7 +176,6 @@ export default function CustomerList() {
   });
   const dataStatusCustomer = dataStatus;
   const [listGr, setListGr] = useState([]);
-  const [list_gr_child, setlistGr_Child] = useState([]);
   const handleGetGr = async () => {
     const res = await fetch(`${base_url}/api/crm/group/list_group_khach_hang`, {
       method: "POST",
@@ -182,13 +187,7 @@ export default function CustomerList() {
     });
     const data = await res.json();
     setListGr(data?.data);
-    let arr = [];
-    data?.data?.map((item) => {
-      item?.list_gr_child.map((item) => {
-        arr.push(item);
-      });
-      setlistGr_Child(arr);
-    });
+
   };
   const [idSelect, setIdSelect] = useState<any>();
   const handleSelectAll = () => {
@@ -252,6 +251,9 @@ export default function CustomerList() {
             setnhomCha={setnhomCha}
             nhomCon={nhomCon}
             setnhomCon={setnhomCon}
+            setloading={setloading}
+            setDatatable = {setData}
+            setgroup_id={setgroup_id}
           />
           <TableListCustomer
             fetchData={fetchData}
@@ -266,6 +268,9 @@ export default function CustomerList() {
             pageSize={pageSize}
             setPageSize={setPageSize}
             totalRecords={totalRecords}
+            loading={loading}
+            setDatatable = {setData}
+
           />
         </div>
       )}

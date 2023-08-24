@@ -28,6 +28,9 @@ interface PropsComponent {
   setnhomCha: any;
   nhomCon: any;
   setnhomCon: any;
+  setDatatable:any;
+  setloading:any;
+  setgroup_id:any
 }
 
 const CustomerListFilterBox: React.FC<PropsComponent> = ({
@@ -45,6 +48,9 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
   setnhomCha,
   nhomCon,
   setnhomCon,
+  setDatatable,
+  setloading,
+  setgroup_id
 }) => {
   const [valueSelectStatus, setValueSelectStatus] = useState<any>();
   const [valueResoure, sevalueResoure] = useState<any>();
@@ -52,7 +58,12 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
   const uniqueUserNames = Array.from(
     new Set(datatable?.map((item) => item.userName))
   );
-
+    const handlefilter = async() =>{
+      setDatatable([])
+      setloading(true)
+      setOpen(false), 
+      await fetchData();
+    }
   const handleChangeStt = (value: any) => {
     setValueSelectStatus(value);
     setStatus(value);
@@ -89,7 +100,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
       const data = await res.json();
       setListGr(data?.data);
       data?.data?.map((item) => {
-        item?.list_gr_child.map((item) => {
+        item?.lists_child.map((item) => {
           arr.push(item);
         });
         setlistGr_Child(arr);
@@ -98,44 +109,46 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
       console.log("error:", error);
     }
   };
-  const [listNV,setLishNv] = useState<any>()
-  const [position_id,setPosition_id]= useState()
+  const [listNV, setLishNv] = useState<any>();
+  const [position_id, setPosition_id] = useState();
   useEffect(() => {
     handleGetGr();
   }, []);
   const handleGetInfoCus = async () => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/listAll`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${Cookies.get("token_base365")}`,
-      },
-      body: JSON.stringify({ com_id: Cookies.get("com_id")}),
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/listAll`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get("token_base365")}`,
+        },
+        body: JSON.stringify({ com_id: Cookies.get("com_id") }),
+      }
+    );
     const data = await res.json();
-    console.log("check nv",data)
-    if (data && data?.data)
-    setLishNv(data?.data?.items);
+    if (data && data?.data) setLishNv(data?.data?.items);
   };
   const handleGetInfoCusNV = async () => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/employee/info`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${Cookies.get("token_base365")}`,
-      },
-      body: JSON.stringify({ com_id: Cookies.get("com_id")}),
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/employee/info`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get("token_base365")}`,
+        },
+        body: JSON.stringify({ com_id: Cookies.get("com_id") }),
+      }
+    );
     const data = await res.json();
-    console.log("check nvne",data)
-    if (data && data?.data)
-    setPosition_id(data?.data?.data?.position_id);
+    if (data && data?.data) setPosition_id(data?.data?.data?.position_id);
   };
   useEffect(() => {
     handleGetInfoCus();
     handleGetInfoCusNV();
   }, []);
-  const nv = listNV?.filter(item=>item.position_id==position_id)
+  const nv = listNV?.filter((item) => item.position_id == position_id);
   return (
     <>
       <div
@@ -301,11 +314,13 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
               }}
             >
               {listGr_Child?.map((item: any, index) => {
-                return (
-                  <option key={index} value={item?.gr_id}>
-                    {item.gr_name}
-                  </option>
-                );
+                if (item.group_parent === nhomCha) {
+                  return (
+                    <option key={index} value={item?.gr_id}>
+                      {item.gr_name}
+                    </option>
+                  );
+                }
               })}
             </Select>
           </div>
@@ -381,7 +396,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
         </button>
         <button
           onClick={async () => {
-            setOpen(false), await fetchData();
+           handlefilter()
           }}
           type="submit"
           className={styles.btn_apply}

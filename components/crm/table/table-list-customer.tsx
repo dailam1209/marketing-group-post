@@ -46,6 +46,8 @@ interface TableDataContracDrops {
   totalRecords?: any;
   pageSize?: any;
   setPageSize?: any;
+  loading?:any,
+  setDatatable?:any
 }
 
 const TableListCustomer: React.FC<TableDataContracDrops> = ({
@@ -62,6 +64,8 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   totalRecords,
   pageSize,
   setPageSize,
+  loading,
+  setDatatable
 }: any) => {
   const [openModalCall, setOpenModalCall] = useState(false);
   const router = useRouter();
@@ -73,8 +77,9 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
     setValueStatus(e.target.value);
   };
   const handleShowCall = (record: any) => {
-    setOpenModalCall(true);
     setCusId(record.cus_id);
+    setOpenModalCall(true);
+
   };
 
   const renderTitle = (record, text) => (
@@ -177,7 +182,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       title: "Nhóm khách hàng",
       dataIndex: "group_id",
       key: "3",
-      width: 300,
+      width: 400,
       render: (data, record) => (
         <div
           style={{ padding: "5px", paddingLeft: "11px" }}
@@ -309,10 +314,22 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
     },
   ];
   //nut select
+  const customLocale = {
+    emptyText: (
+      <div
+        key={"empty"}
+        style={{ fontWeight: 400, color: "black", fontSize: 15 }}
+      >
+        {loading ? " Đang phân tích kết quả ..." : " Không có kết quả phù hợp"}
+      </div>
+    ), // Thay thế nội dung "No Data" bằng "Hello"
+  };
   return (
     <>
       <div className="custom_table">
         <Table
+                  locale={customLocale}
+
           columns={columns}
           dataSource={datatable}
           rowSelection={{ ...rowSelection }}
@@ -326,6 +343,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
             total: totalRecords,
             onChange: (current, pageSize) => {
               if (current != page) {
+                setDatatable([])
                 setPage(current);
               }
             },
@@ -372,6 +390,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
         isModalCancel={openModalCall}
         setIsModalCancel={setOpenModalCall}
         cusId={cusId}
+        setCusId={setCusId}
       />
     </>
   );
