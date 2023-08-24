@@ -74,7 +74,7 @@ export default function QuanLyNhanVien({ title }) {
         setUserInfo(response.data.data);
       })
       .catch((err) => {
-        console.error(
+        console.log(
           "Error ở API api/tinhluong/nhanvien/qly_ho_so_ca_nhan:",
           err
         );
