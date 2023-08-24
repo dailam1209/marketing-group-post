@@ -98,7 +98,8 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
       console.log("error:", error);
     }
   };
-  const [listNV,setLishNv] = useState()
+  const [listNV,setLishNv] = useState<any>()
+  const [position_id,setPosition_id]= useState()
   useEffect(() => {
     handleGetGr();
   }, []);
@@ -114,11 +115,27 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
     const data = await res.json();
     console.log("check nv",data)
     if (data && data?.data)
-    setLishNv(data?.data);
+    setLishNv(data?.data?.items);
+  };
+  const handleGetInfoCusNV = async () => {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/employee/info`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${Cookies.get("token_base365")}`,
+      },
+      body: JSON.stringify({ com_id: Cookies.get("com_id")}),
+    });
+    const data = await res.json();
+    console.log("check nvne",data)
+    if (data && data?.data)
+    setPosition_id(data?.data?.data?.position_id);
   };
   useEffect(() => {
     handleGetInfoCus();
+    handleGetInfoCusNV();
   }, []);
+  const nv = listNV?.filter(item=>item.position_id==position_id)
   return (
     <>
       <div
@@ -314,9 +331,9 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
               onChange={handleChangeNVPT}
             >
               {" "}
-              {uniqueUserNames.map((userName, index) => (
-                <option key={index} value={userName as any}>
-                  {`${userName}`}
+              {nv?.map((userName, index) => (
+                <option key={index} value={userName.ep_id as any}>
+                  {`${userName?.dep_name}`}
                 </option>
               ))}
             </Select>

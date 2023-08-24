@@ -68,7 +68,7 @@ export default function CustomerList() {
         keyword: name === null ? null : name,
         status: status,
         resoure: resoure,
-        userName: nvPhuTrach,
+        user_create_id: nvPhuTrach,
         userNameCreate: userNameCreate,
       }),
     });
