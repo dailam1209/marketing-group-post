@@ -42,12 +42,8 @@ export function DanhSachNhom({
       value: team?.team_id,
       dep_id: team?.dep_id,
     }))
-  )
-  const [comLabel, setComlabel] = useState({
-    label: infoCom?.data?.com_name,
-    value: infoCom?.data?.com_id,
-  })
-  console.log(infoCom)
+  );
+  const [comLabel, setComlabel] = useState({ label: infoCom?.data?.com_name, value: infoCom?.data?.com_id })
 
   const columns = [
     {
