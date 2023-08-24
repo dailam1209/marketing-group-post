@@ -46,10 +46,9 @@ function Input_textarea({ onDescriptionChange }: InputTextareaProps) {
   );
 }
 
-
 export default function EditWorkingModal({ onCancel, infoList }: any) {
 
-  console.log(infoList.item);
+  console.log(infoList);
 
   const [selectedOption, setSelectedOption] = useState<SelectOptionType | null>(null);
   const [isMission, setMission] = useState("");
@@ -70,9 +69,6 @@ export default function EditWorkingModal({ onCancel, infoList }: any) {
   const [isSpecified_id, setSpecified_id] = useState<any>(null)
   const [errors, setErrors] = useState<any>({});
   const modalRef = useRef(null);
-
-  console.log(isCom_id);
-
 
   useEffect(() => {
     const handleOutsideClick = (event: any) => {
@@ -337,7 +333,7 @@ export default function EditWorkingModal({ onCancel, infoList }: any) {
     phongbanmoi: chonphongbanmoiOptions,
     to: chontotheophongbanOptions,
     nhom: chonnhomtheotoOptions,
-    chucvumoi: chonchucvuOptions,
+    chucvumoi: [{ value: infoList?.item?.id_new_position, label: infoList?.item?.new_position }],
     chonquydinh: chonquydinhOptions,
   };
 
@@ -552,6 +548,10 @@ export default function EditWorkingModal({ onCancel, infoList }: any) {
                             ...baseStyles,
                             color: "#444444",
                           }),
+                          menu: (baseStyles) => ({
+                            ...baseStyles,
+                            zIndex: 1000
+                          }),
                         }}
                       />
                     </div>
@@ -578,6 +578,10 @@ export default function EditWorkingModal({ onCancel, infoList }: any) {
                           placeholder: (baseStyles) => ({
                             ...baseStyles,
                             color: "#444444",
+                          }),
+                          menu: (baseStyles) => ({
+                            ...baseStyles,
+                            zIndex: 1000
                           }),
                         }}
                       />
@@ -612,6 +616,10 @@ export default function EditWorkingModal({ onCancel, infoList }: any) {
                           placeholder: (baseStyles) => ({
                             ...baseStyles,
                             color: "#444444",
+                          }),
+                          menu: (baseStyles) => ({
+                            ...baseStyles,
+                            zIndex: 1000
                           }),
                         }}
                       />
