@@ -101,8 +101,7 @@ const CauHinhChamCong: React.FC = () => {
                             <p>
                                 Ca kinh doanh
                             </p>
-                        </div>
-                        <div className={styles.header_shift_bd}>
+
                             <p>
                                 Ca trưa
                             </p>
