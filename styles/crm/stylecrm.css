@@ -838,6 +838,8 @@ label {
   justify-content: start;
 }
 
+
+/* Socketio */
 #box_alert {
   position: fixed;
   right: 1%;

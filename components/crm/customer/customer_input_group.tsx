@@ -30,7 +30,7 @@ export default function CustomerListInputGroup({
   nhomCha,
   setnhomCha,
   nhomCon,
-  setnhomCon
+  setnhomCon,
 }: any) {
   const [open, setOpen] = useState(false);
   const inputFileRef = useRef<HTMLInputElement>(null);
@@ -41,7 +41,7 @@ export default function CustomerListInputGroup({
   const onClose = () => {
     setOpen(false);
   };
-  const datas:any = datatable?.map((item:DataType) => {
+  const datas: any = datatable?.map((item: DataType) => {
     return {
       "Mã tiềm năng": item?.cus_id,
       "Xưng hô": "",
@@ -60,7 +60,7 @@ export default function CustomerListInputGroup({
       "Lĩnh vực": "",
       "Mô tả": item?.description,
       "Mô tả loại hình": "",
-      "Người tạo":item?.userNameCreate,
+      "Người tạo": item?.userNameCreate,
     };
   });
   const handleExportToExcel = () => {
@@ -88,37 +88,37 @@ export default function CustomerListInputGroup({
     ];
     exportToExcel(datas, filename, sheetName, columnHeaders);
   };
-  const [nameFill,setNameFill] = useState<any>()
+  const [nameFill, setNameFill] = useState<any>();
   const handleClickFile = () => {
     inputFileRef.current?.click();
   };
   const handleSearchKH = async () => {
-    setName(nameFill)
+    setName(nameFill);
   };
   return (
     <>
       <div className={`${styles.main__control} ${styles.customer_custom}`}>
         <div className={`${styles.main__control_btn} flex_between`}>
           <div
-            className={`${styles.main__control_search} ${styles.f_search_customer}`}
+            className={`${styles.main__control_search} ${styles.f_search_customer}` }
+
           >
             <form
-              onSubmit={(e) =>  (e.preventDefault(),handleSearchKH())}
+              onSubmit={(e) => (e.preventDefault(), handleSearchKH())}
               className={styles.form_search}
-              style={{ width: "100%", padding: 1}}
             >
-              <div></div>
               <Input
                 type="text"
                 value={data}
-                onChange={(e) =>(setNameFill(e.target.value.trim()), setData(e.target.value))}
+                onChange={(e) => (
+                  setNameFill(e.target.value.trim()), setData(e.target.value)
+                )}
                 name="search"
                 defaultValue=""
                 placeholder="Tìm kiếm theo Id, tên khách hàng, điện thoại, email"
-                style={{ border: "none", width: "78%", fontSize: 15 }}
               />
-              <button type="button" style={{ width: "20%" }}>
-                Tìm kiếm
+              <button type="button" style={{ width: "100px" }}>
+                <div>Tìm kiếm </div>
               </button>
             </form>
           </div>
@@ -231,7 +231,7 @@ export default function CustomerListInputGroup({
         placement="right"
         onClose={onClose}
         open={open}
-        style={{ overflowY: "hidden"}}
+        style={{ overflowY: "hidden" }}
         className="custom_drawer"
         footer
         closable
