@@ -33,7 +33,7 @@ export default function XuatCong({
   const [comLabel, setComLabel] = useState({
     label: comData?.data?.com_name,
     value: comData?.data?.com_id,
-  })
+  });
   const [listDepLabel, setListDepLabel] = useState(
     listDepartments?.items?.map((dep) => ({
       label: dep?.dep_name,

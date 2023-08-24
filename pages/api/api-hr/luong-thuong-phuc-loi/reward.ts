@@ -14,7 +14,7 @@ export const GetDataAchievement = async (page: any, pageSize: any, type:any, key
           },
         }
       );
-      return response;
+      return response.data;
   } catch (err: any) {
    return err.response
   }
@@ -156,6 +156,7 @@ export const UpdateAchievement = async (id, mergedObject)  => {
     }
 }
 export const GetDepartmentList = async(com_id:any) => {
+  console.log(com_id)
   const url = process.env.NEXT_PUBLIC_BASE_URL2;
   const isToken = getToken(COOKIE_KEY)
   try {
@@ -170,7 +171,6 @@ export const GetDepartmentList = async(com_id:any) => {
     );
     return response;
   } catch (error) {
-    throw new Error("Failed to fetch data");
   }
 };
 

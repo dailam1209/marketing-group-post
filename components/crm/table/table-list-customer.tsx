@@ -29,6 +29,7 @@ interface DataType {
   user_handing_over_work: string;
   NameHandingOverWork: string;
   userNameCreate: string;
+  type:any
 }
 
 interface TableDataContracDrops {
@@ -188,6 +189,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
             value={data}
             placeholder={record?.group_id}
             cusId={cusId}
+            type={record.type}
           />
         </div>
       ),
@@ -196,16 +198,18 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       title: "Tình trạng khách hàng",
       dataIndex: "status",
       key: "3",
-      width: 200,
-      render: (data, record) => (
+      width: 300,
+      render: (text, record) => (
         <div style={{ padding: "5px" }}>
           <SelectDataInputBox
             data={dataStatusCustomer}
             value={record.status}
             handleChange={handleChangeStatus}
-            cusId={data.cus_id}
+            stt={record.status}
+            cusId={record.cus_id}
+            type={record.type}
+
           />
-          {/* {data} */}
         </div>
       ),
     },

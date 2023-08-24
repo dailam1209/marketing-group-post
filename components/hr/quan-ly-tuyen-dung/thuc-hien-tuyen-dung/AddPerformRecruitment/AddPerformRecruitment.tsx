@@ -80,7 +80,6 @@ export default function AddPerformRecruitment({
           const dataUser = await response[2]?.data?.data
           const dataCategory = await response[3]?.data.data
 
-          console.log(dataRecruitmentId);
 
           setAddress(
             dataAddress?.data.map((item) => ({
@@ -207,10 +206,8 @@ export default function AddPerformRecruitment({
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log(formData)
     try {
       await schema.validate(formData, { abortEarly: false })
-      console.log(1111)
       const response = await CreateNewsRecruitment(content, selectedOption)
 
       if (response?.status !== 200) {

@@ -5,9 +5,10 @@
 
   /* margin-top: 80px; */
 }
-.moreSection {
-  margin-top: 60px;
-  margin-bottom: 60px;
+.main > div.moreSection {
+  margin-left: -10px !important;
+  margin-right: -10px !important;
+  row-gap: 20px !important;
 }
 .breadcrumb {
   padding-left: 145px;

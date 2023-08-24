@@ -156,7 +156,8 @@
 }
 .tuyendung2_2 {
   float: right;
-  width: 40%;
+  width: 35%;
+  margin-right: 5%;
 }
 .data_empty {
   margin-top: 20px;

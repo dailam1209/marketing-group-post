@@ -9,14 +9,14 @@ import { getDataUser } from '@/pages/api/api-hr/quan-ly-tuyen-dung/PerformRecrui
 
 function EditModalListDiscipline({ animation, onClose, dataOld }: any) {
   const id = dataOld?.id
-  const comId = dataOld?.comId
-  const typeEdit = dataOld.listUser.length
-  const infringeName = dataOld?.infringeName
-  const regulatoryBasis = dataOld?.regulatoryBasis
-  const numberViolation = dataOld?.numberViolation
-  const infringeAt = format(new Date(dataOld.infringeAt), 'yyyy-MM-dd')
-  const infringeType = dataOld?.infringeType
-  const createdBy = dataOld?.createdBy
+  const comId = dataOld?.com_id
+  const typeEdit = dataOld.dep_id
+  const infringeName = dataOld?.infringe_name
+  const regulatoryBasis = dataOld?.regulatory_basis
+  const numberViolation = dataOld?.number_violation
+  const infringeAt = format(new Date(dataOld.infringe_at), 'yyyy-MM-dd')
+  const infringeType = dataOld?.infringe_type
+  const createdBy = dataOld?.created_by
 
   const [dep, setDep] = useState<any>()
   const [listUser, setListUser] = useState<any>()
@@ -243,7 +243,7 @@ function EditModalListDiscipline({ animation, onClose, dataOld }: any) {
                   </div>
                 </div>
 
-                {typeEdit === 0 && (
+                {typeEdit && (
                   <div className={`${styles.form_groups}`}>
                     <label>
                       Tập thể vi phạm
@@ -283,7 +283,7 @@ function EditModalListDiscipline({ animation, onClose, dataOld }: any) {
                   </div>
                 )}
 
-                {typeEdit !== 0 && (
+                {!typeEdit && (
                   <div className={`${styles.form_groups}`}>
                     <label>
                       Cá nhân vi phạm

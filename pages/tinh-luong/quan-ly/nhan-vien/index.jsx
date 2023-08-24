@@ -74,7 +74,7 @@ export default function QuanLyNhanVien({ title }) {
         setUserInfo(response.data.data);
       })
       .catch((err) => {
-        console.error(
+        console.log(
           "Error ở API api/tinhluong/nhanvien/qly_ho_so_ca_nhan:",
           err
         );
@@ -106,7 +106,7 @@ export default function QuanLyNhanVien({ title }) {
         setApiRealData(response.data.data.count_real_works);
       })
       .catch((error) => {
-        console.error("Error fetching data from API:", error);
+        console.log("Error fetching data from API:", error);
       });
   };
   const countTitleRealWork = apiData?.data?.count_real_works?.length || 0;

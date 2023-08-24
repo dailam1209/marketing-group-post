@@ -15,7 +15,7 @@ export const getDataJobPosition = async (page: number, pageSize: number) => {
       }
     );
 
-    return response;
+    return response?.data;
   } catch (err) {
    
   }

@@ -1,6 +1,6 @@
-import { Button, Col, Form, MenuProps, Row } from 'antd'
-import React, { useState, useEffect } from 'react'
-import styles from './index.module.css'
+import { Button, Col, Form, MenuProps, Row } from 'antd';
+import React, { useState, useEffect } from 'react';
+import styles from './index.module.css';
 import {
   MyDatePicker,
   MyInput,
@@ -8,14 +8,14 @@ import {
   MySelectMulti,
   MySelectTags,
   MyTextArea,
-} from '@/components/quan-ly-cong-ty/quan-ly-cong-ty-con/modal'
+} from '@/components/quan-ly-cong-ty/quan-ly-cong-ty-con/modal';
 import {
   MyDate,
   MyInputFile,
   MySelectAcp,
   MyTime,
-} from '@/components/tao-de-xuat/loai-de-xuat/tao-de-xuat/de-xuat-cong-cong/de-xuat-cong-cong'
-import Image from 'next/image'
+} from '@/components/tao-de-xuat/loai-de-xuat/tao-de-xuat/de-xuat-cong-cong/de-xuat-cong-cong';
+import Image from 'next/image';
 import {
   ModalAlertChooseShift,
   ModalAlertChooseTimeApply,
@@ -23,45 +23,47 @@ import {
   MyMenuThemeColorMultiCheckbox,
   MyTimePicker,
   TableLich,
-} from '@/components/tao-de-xuat/de-xuat-lich-lam-viec/modal/modal'
-import dayjs, { Dayjs } from 'dayjs'
-import { GET, GET_SS, POST_VT, getInfoUser } from '@/pages/api/BaseApi'
+} from '@/components/tao-de-xuat/de-xuat-lich-lam-viec/modal/modal';
+import dayjs, { Dayjs } from 'dayjs';
+import { GET, GET_SS, POST_VT, getInfoUser } from '@/pages/api/BaseApi';
 
 export default function Page({ listShift }) {
-  const [current, setCurrent]: any = useState(new Date())
-  const [listCheck, setListCheck]: any = useState([])
-  const [openCheck, setOpenCheck] = useState(false)
-  const [allCheck, setAllCheck]: any = useState({})
-  const [shiftLabel, setShiftLabel]: any = useState([])
-  const [data, setData]: any = useState({ apply_month: '2023-08-01' })
-  const [listShiftSelected, setListShiftSelected]: any[] = useState([])
-  const [isMenuSelectShiftOpen, setIsMenuSelectShiftOpen]: any = useState([])
-  const [modalAlertChooseShift, setModalAlertChooseShift]: any = useState(false)
+  const [current, setCurrent]: any = useState(new Date());
+  const [listCheck, setListCheck]: any = useState([]);
+  const [openCheck, setOpenCheck] = useState(false);
+  const [allCheck, setAllCheck]: any = useState({});
+  const [shiftLabel, setShiftLabel]: any = useState([]);
+  const [data, setData]: any = useState({ apply_month: '2023-08-01' });
+  const [listShiftSelected, setListShiftSelected]: any[] = useState([]);
+  const [isMenuSelectShiftOpen, setIsMenuSelectShiftOpen]: any = useState([]);
+  const [modalAlertChooseShift, setModalAlertChooseShift]: any =
+    useState(false);
   const [modalAlertChooseTimeApply, setModalAlertChooseTimeApply]: any =
-    useState(false)
-  const [modalOkConfirm, setModalOkConfirm]: any = useState(false)
-  const [isBlur, setIsBlur]: any = useState(true)
-  const [weekType, setWeekType]: any = useState(2)
-  const [shiftType, setShiftType]: any = useState(1)
-  const [listHours, setListHours]: any[] = useState([])
-  const [timeEndShift, setTimeEndShift] = useState<Dayjs | null>(null)
-  const [timeStartShift, setTimeStartShift] = useState<Dayjs | null>(null)
-  const [isAddHour, setIsAddHour] = useState<boolean>(false)
-  const [form] = Form.useForm()
+    useState(false);
+  const [modalOkConfirm, setModalOkConfirm]: any = useState(false);
+  const [isBlur, setIsBlur]: any = useState(true);
+  const [weekType, setWeekType]: any = useState(2);
+  const [shiftType, setShiftType]: any = useState(1);
+  const [listHours, setListHours]: any[] = useState([]);
+  const [timeEndShift, setTimeEndShift] = useState<Dayjs | null>(null);
+  const [timeStartShift, setTimeStartShift] = useState<Dayjs | null>(null);
+  const [isAddHour, setIsAddHour] = useState<boolean>(false);
+  const [isFirstTime, setIsFirstTime] = useState(true);
+  const [form] = Form.useForm();
 
   const values = Form.useWatch(
     ['thang_ap_dung', 'time-start-shift', 'time-end-shift'],
     form
-  )
+  );
 
   useEffect(() => {
-    const today = new Date()
-    const dd = String(current.getDate()).padStart(2, '0')
-    const mm = String(current.getMonth() + 1).padStart(2, '0')
-    const yyyy = current.getFullYear()
-    const timeFormat = yyyy + '-' + mm + '-' + dd
-    setData({ apply_month: timeFormat })
-  }, [])
+    const today = new Date();
+    const dd = String(current.getDate()).padStart(2, '0');
+    const mm = String(current.getMonth() + 1).padStart(2, '0');
+    const yyyy = current.getFullYear();
+    const timeFormat = yyyy + '-' + mm + '-' + dd;
+    setData({ apply_month: timeFormat });
+  }, []);
 
   useEffect(() => {
     if (data?.apply_month) {
@@ -73,17 +75,17 @@ export default function Page({ listShift }) {
             ),
             Number(data?.apply_month?.substring(8))
           )
-        : setCurrent(new Date('2000-01-01'))
+        : setCurrent(new Date('2000-01-01'));
     }
-  }, [data])
+  }, [data]);
 
   useEffect(() => {
-    setAllCheck({ ...allCheck, [formatDate(current)]: listCheck })
-  }, [listCheck])
+    setAllCheck({ ...allCheck, [formatDate(current)]: listCheck });
+  }, [listCheck]);
 
   useEffect(() => {
-    setAllCheck({ ...allCheck, [formatDate(current)]: listHours })
-  }, [listHours])
+    setAllCheck({ ...allCheck, [formatDate(current)]: listHours });
+  }, [listHours]);
 
   useEffect(() => {
     shiftType === 1
@@ -96,8 +98,8 @@ export default function Page({ listShift }) {
           !(formatDate(current) in allCheck)
             ? []
             : allCheck[formatDate(current)]
-        )
-  }, [current])
+        );
+  }, [current]);
 
   useEffect(() => {
     if (form.getFieldValue('thang_ap_dung') !== undefined) {
@@ -106,62 +108,70 @@ export default function Page({ listShift }) {
           ? (getDaysInMonth(data?.apply_month, listShiftSelected, weekType),
             setListCheck(listShiftSelected))
           : setAllCheck({})
-        : null
+        : null;
     } else {
     }
-  }, [listShiftSelected])
+  }, [listShiftSelected]);
 
   useEffect(() => {
     isBlur
       ? null
       : shiftType === 1
       ? getDaysInMonth(data?.apply_month, listShiftSelected, weekType)
-      : getDaysInMonth(data?.apply_month, listHours, weekType)
-  }, [weekType])
+      : getDaysInMonth(data?.apply_month, listHours, weekType);
+  }, [weekType]);
 
   useEffect(() => {
-    setAllCheck({})
-  }, [shiftType])
+    setAllCheck({});
+  }, [shiftType]);
 
   useEffect(() => {
-    shiftType === 1
-      ? form.validateFields(['thang_ap_dung', 'ca_lam_viec']).then(() => {
-          setOpenCheck(true)
-          handleRemoveBlur()
-          setData({
-            apply_month: dayjs(form.getFieldValue('ngay_bat_dau')).format(
-              'YYYY-MM-DD'
-            ),
-            cy_detail: getDaysInMonth(
-              dayjs(form.getFieldValue('ngay_bat_dau')).format('YYYY-MM-DD'),
-              listShiftSelected,
-              weekType
-            ),
-          })
-        })
-      : form
-          .validateFields([
-            'thang_ap_dung',
-            'time-start-shift',
-            'time-end-shift',
-          ])
-          .then(() => {
-            setOpenCheck(true)
-            handleRemoveBlur()
+    setIsFirstTime(false);
+  }, []);
+
+  useEffect(() => {
+    if (!isFirstTime) {
+      shiftType === 1
+        ? form.validateFields(['thang_ap_dung', 'ca_lam_viec']).then(() => {
+            setOpenCheck(true);
+            handleRemoveBlur();
             setData({
               apply_month: dayjs(form.getFieldValue('ngay_bat_dau')).format(
                 'YYYY-MM-DD'
               ),
               cy_detail: getDaysInMonth(
                 dayjs(form.getFieldValue('ngay_bat_dau')).format('YYYY-MM-DD'),
-                [{ time: `${timeStartShift} - ${timeEndShift}` }],
-                weekType,
-                'hour'
+                listShiftSelected,
+                weekType
               ),
-            })
-            setListHours([{ time: `${timeStartShift} - ${timeEndShift}` }])
+            });
           })
-  }, [timeEndShift, shiftType])
+        : form
+            .validateFields([
+              'thang_ap_dung',
+              'time-start-shift',
+              'time-end-shift',
+            ])
+            .then(() => {
+              setOpenCheck(true);
+              handleRemoveBlur();
+              setData({
+                apply_month: dayjs(form.getFieldValue('ngay_bat_dau')).format(
+                  'YYYY-MM-DD'
+                ),
+                cy_detail: getDaysInMonth(
+                  dayjs(form.getFieldValue('ngay_bat_dau')).format(
+                    'YYYY-MM-DD'
+                  ),
+                  [{ time: `${timeStartShift} - ${timeEndShift}` }],
+                  weekType,
+                  'hour'
+                ),
+              });
+              setListHours([{ time: `${timeStartShift} - ${timeEndShift}` }]);
+            });
+    }
+  }, [timeEndShift, shiftType]);
 
   const getDaysInMonth = (
     thang_ap_dung,
@@ -173,66 +183,68 @@ export default function Page({ listShift }) {
       Number(thang_ap_dung?.substring(0, 4)),
       Number(thang_ap_dung?.substring(5, 7)) - 1,
       1
-    )
-    var days = {}
-    var current: Date = new Date(new Date(thang_ap_dung).setHours(0))
+    );
+    var days = {};
+    var current: Date = new Date(new Date(thang_ap_dung).setHours(0));
     while (date.getMonth() === Number(thang_ap_dung?.substring(5, 7)) - 1) {
       if (date >= current) {
         switch (weekType) {
           case 2:
             if (date.getDay() !== 0) {
-              days = { ...days, [formatDate(date)]: listShiftSelected }
+              days = { ...days, [formatDate(date)]: listShiftSelected };
             }
-            break
+            break;
           case 1:
             if (date.getDay() === 0 || date.getDay() === 6) {
             } else {
-              days = { ...days, [formatDate(date)]: listShiftSelected }
+              days = { ...days, [formatDate(date)]: listShiftSelected };
             }
-            break
+            break;
           case 3:
-            days = { ...days, [formatDate(date)]: listShiftSelected }
-            break
+            days = { ...days, [formatDate(date)]: listShiftSelected };
+            break;
           default:
-            break
+            break;
         }
       }
-      date.setDate(date.getDate() + 1)
+      date.setDate(date.getDate() + 1);
     }
-    setAllCheck(days)
-    return days
-  }
+    setAllCheck(days);
+    return days;
+  };
 
   const formatDate = (date = new Date()) => {
-    const year = date?.toLocaleString('default', { year: 'numeric' })
-    const month = date?.toLocaleString('default', { month: '2-digit' })
-    const day = date?.toLocaleString('default', { day: '2-digit' })
+    const year = date?.toLocaleString('default', { year: 'numeric' });
+    const month = date?.toLocaleString('default', { month: '2-digit' });
+    const day = date?.toLocaleString('default', { day: '2-digit' });
 
-    return [year, month, day].join('-')
-  }
+    return [year, month, day].join('-');
+  };
 
   const onOpenChange: MenuProps['onOpenChange'] = (keys) => {
     const latestOpenKey = keys?.find(
       (key) => isMenuSelectShiftOpen?.indexOf(key) === -1
-    )
+    );
     if (['1'].indexOf(latestOpenKey!) === -1) {
-      setIsMenuSelectShiftOpen(keys)
+      setIsMenuSelectShiftOpen(keys);
     } else {
-      setIsMenuSelectShiftOpen(latestOpenKey ? [latestOpenKey] : [])
+      setIsMenuSelectShiftOpen(latestOpenKey ? [latestOpenKey] : []);
     }
-  }
+  };
 
   const handleRemoveBlur = () => {
-    const table = document.querySelector('.ant-col.blur')
-    table?.classList?.contains('blur') ? table?.classList?.remove('blur') : null
-    setIsBlur(false)
-    table?.scrollIntoView({ behavior: 'smooth' })
-  }
+    const table = document.querySelector('.ant-col.blur');
+    table?.classList?.contains('blur')
+      ? table?.classList?.remove('blur')
+      : null;
+    setIsBlur(false);
+    table?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   const handleChangeMonth = (value, timeStr) => {
     timeStr === ''
       ? form.setFieldValue('ngay_bat_dau', '')
-      : form.setFieldValue('ngay_bat_dau', dayjs(timeStr + '-01'))
+      : form.setFieldValue('ngay_bat_dau', dayjs(timeStr + '-01'));
 
     shiftType === 1 &&
       form
@@ -244,8 +256,8 @@ export default function Page({ listShift }) {
           'thang_ap_dung',
         ])
         .then(() => {
-          setOpenCheck(true)
-          handleRemoveBlur()
+          setOpenCheck(true);
+          handleRemoveBlur();
           setData({
             apply_month: dayjs(form.getFieldValue('ngay_bat_dau')).format(
               'YYYY-MM-DD'
@@ -255,9 +267,9 @@ export default function Page({ listShift }) {
               listShiftSelected,
               weekType
             ),
-          })
-        })
-  }
+          });
+        });
+  };
 
   const handleChangeDate = (value, timeStr) => {
     timeStr === ''
@@ -285,23 +297,23 @@ export default function Page({ listShift }) {
             weekType,
             'hour'
           ),
-        })
-  }
+        });
+  };
 
   const handleChangeTimeStart = (value, timeStr) => {
-    setTimeStartShift(timeStr)
-  }
+    setTimeStartShift(timeStr);
+  };
 
   const handleChangeTimeEnd = (value, timeStr) => {
-    setTimeEndShift(timeStr)
-  }
+    setTimeEndShift(timeStr);
+  };
 
   const handlePreviewCheck = () => {
     if (form?.getFieldValue('ngay_bat_dau') === undefined) {
-      setModalAlertChooseTimeApply(true)
+      setModalAlertChooseTimeApply(true);
     } else {
       if (listShiftSelected?.length > 0) {
-        setOpenCheck(true)
+        setOpenCheck(true);
         // console.log(dayjs(form.getFieldValue("ngay_bat_dau")).format("YYYY-MM-DD"))
         setData({
           apply_month: dayjs(form.getFieldValue('ngay_bat_dau')).format(
@@ -312,22 +324,22 @@ export default function Page({ listShift }) {
             listShiftSelected,
             weekType
           ),
-        })
-        handleRemoveBlur()
+        });
+        handleRemoveBlur();
       } else {
-        setModalAlertChooseShift(true)
+        setModalAlertChooseShift(true);
       }
     }
-  }
+  };
 
-  const [infoUser, setInfoUser] = useState<any>()
-  const [listDuyet, setListDuyet] = useState<any>({})
-  const [shifts, setShifts] = useState()
-  console.log(listDuyet)
+  const [infoUser, setInfoUser] = useState<any>();
+  const [listDuyet, setListDuyet] = useState<any>({});
+  const [shifts, setShifts] = useState();
+  console.log(listDuyet);
 
   useEffect(() => {
     const getListDuyet = async () => {
-      const res = await POST_VT('api/vanthu/dexuat/showadd', {})
+      const res = await POST_VT('api/vanthu/dexuat/showadd', {});
 
       if (res?.result) {
         setListDuyet({
@@ -341,11 +353,11 @@ export default function Page({ listShift }) {
             value: user?.idQLC,
             url: user?.avatarUser,
           })),
-        })
+        });
       }
-    }
+    };
 
-    getListDuyet()
+    getListDuyet();
     GET('api/qlc/shift/list').then((res) => {
       if (res?.result === true) {
         setShiftLabel(
@@ -353,20 +365,20 @@ export default function Page({ listShift }) {
             return {
               value: `${item?.shift_id}`,
               label: item?.shift_name,
-            }
+            };
           })
-        )
+        );
       }
-    })
+    });
 
-    setInfoUser(getInfoUser())
-  }, [])
+    setInfoUser(getInfoUser());
+  }, []);
 
   useEffect(() => {
     if (infoUser?.idQLC) {
-      form.setFieldValue('name', infoUser?.userName)
+      form.setFieldValue('name', infoUser?.userName);
     }
-  }, [infoUser])
+  }, [infoUser]);
 
   return (
     <div className={styles.main}>
@@ -379,15 +391,17 @@ export default function Page({ listShift }) {
           lich_lam_viec: 2,
           ca_lam_viec: ['Ca sáng Lương <= 5TR'],
         }}
-        className='taoDeXuatForm'>
-        <Row gutter={[20, 10]} style={{ rowGap: '20px' }}>
+        className="taoDeXuatForm"
+      >
+        <Row gutter={[20, 10]} style={{ rowGap: '20px' }} className="rowGap20">
           <Col xl={12} className={styles.column}>
             <div className={styles.header}>
               <p className={styles.headerText}>Đề xuất lịch làm việc</p>
             </div>
 
             <div
-              className={`${styles.colContent} contentFormItemLLV shadowForm`}>
+              className={`${styles.colContent} contentFormItemLLV shadowForm`}
+            >
               <Col xl={24} className={styles.colItem}>
                 {MyInput(
                   'Tên đề xuất',
@@ -463,11 +477,11 @@ export default function Page({ listShift }) {
 
               <Col xl={24} className={styles.colItem}>
                 <MyTextArea
-                  name='ly_do'
+                  name="ly_do"
                   required={true}
-                  title='Lý do'
+                  title="Lý do"
                   hasLabel={true}
-                  placeholder='Nhập lý do'
+                  placeholder="Nhập lý do"
                 />
               </Col>
               <Col xl={24} className={styles.colItem}>
@@ -534,22 +548,23 @@ export default function Page({ listShift }) {
                     <></>
                   ) : (
                     <Col xl={24} className={`${styles.colItem} themeColor`}>
-                      <Button type='primary' block onClick={handlePreviewCheck}>
+                      <Button type="primary" block onClick={handlePreviewCheck}>
                         <div className={styles.btnContent}>
                           <span>Xem lịch làm việc</span>
                           <i style={{ marginRight: '10px' }}>
                             <svg
-                              xmlns='http://www.w3.org/2000/svg'
-                              width='6'
-                              height='8'
-                              viewBox='0 0 6 8'
-                              fill='none'>
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="6"
+                              height="8"
+                              viewBox="0 0 6 8"
+                              fill="none"
+                            >
                               <path
-                                d='M1.5 7.125L4.5 4L1.5 0.875'
-                                stroke='#4C5BD4'
-                                strokeWidth='1.5'
-                                strokeLinecap='round'
-                                strokeLinejoin='round'
+                                d="M1.5 7.125L4.5 4L1.5 0.875"
+                                stroke="#4C5BD4"
+                                strokeWidth="1.5"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
                               />
                             </svg>
                           </i>
@@ -630,16 +645,16 @@ export default function Page({ listShift }) {
         setOpen: setModalOkConfirm,
       })}
     </div>
-  )
+  );
 }
 
 export const getServerSideProps = async (context) => {
-  const res = await GET_SS('api/qlc/shift/list', context)
+  const res = await GET_SS('api/qlc/shift/list', context);
 
   return {
     props: {
       // listShift
       listShift: res?.items || [],
     },
-  }
-}
+  };
+};

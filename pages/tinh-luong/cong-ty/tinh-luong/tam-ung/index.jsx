@@ -202,7 +202,7 @@ const App = () => {
           </div>
         </div>
         <div className={styles.table_container}>
-          <Table className={styles.table} columns={columns} />
+          <Table className={`customTable `} columns={columns} />
         </div>
       </div>
       <div className={styles.bottom}>

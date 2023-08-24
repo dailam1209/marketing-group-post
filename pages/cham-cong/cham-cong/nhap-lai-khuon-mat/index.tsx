@@ -239,10 +239,10 @@ export default function UpdateFace({ infoCom, listDepartments }) {
                   onClick={() =>
                     router.push(
                       {
-                        pathname: '/quan-ly-cong-ty/cai-dat-them-nhan-vien-moi',
+                        pathname: '/cham-cong/quan-ly-cong-ty/cai-dat-them-nhan-vien-moi',
                         query: { key: '1' },
                       },
-                      '/quan-ly-cong-ty/cai-dat-them-nhan-vien-moi'
+                      '/cham-cong/quan-ly-cong-ty/cai-dat-them-nhan-vien-moi'
                     )
                   }>
                   <p className={styles.txt}>Toàn Bộ Nhân Viên</p>
@@ -254,10 +254,10 @@ export default function UpdateFace({ infoCom, listDepartments }) {
                   onClick={() =>
                     router.push(
                       {
-                        pathname: '/quan-ly-cong-ty/cai-dat-them-nhan-vien-moi',
+                        pathname: '/cham-cong/quan-ly-cong-ty/cai-dat-them-nhan-vien-moi',
                         query: { key: '2' },
                       },
-                      '/quan-ly-cong-ty/cai-dat-them-nhan-vien-moi'
+                      '/cham-cong/quan-ly-cong-ty/cai-dat-them-nhan-vien-moi'
                     )
                   }>
                   <p className={styles.txt}>Nhân viên chờ duyệt</p>

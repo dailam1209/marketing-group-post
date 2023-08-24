@@ -4,15 +4,19 @@ import styles from "../styles/styles.module.css";
 import { format, parseISO } from "date-fns";
 
 export default function DataTTD({ list_recuitment_new, dataCheckBox,localListCheck }) {
-  const [listCheck, setListCheck] = useState<any>([]);
-  const data = list_recuitment_new?.data;
+  const [listCheck, setListCheck] = useState<Array<any>>([]);
+    const data = list_recuitment_new?.data;
 
   const handleAdd = (id) => {
-    const newListCheck = listCheck.includes(id)
+    if (!Array.isArray(listCheck)) {
+      setListCheck([]);
+      return;
+    }
+    const newListCheck = listCheck?.includes(id)
       ? listCheck.filter((item) => item !== id)
       : [...listCheck, id];
 
-    setListCheck(newListCheck);
+    setListCheck(newListCheck)
     const checkBox = newListCheck.join(', ');
 
     const dataObject = {
@@ -28,8 +32,8 @@ export default function DataTTD({ list_recuitment_new, dataCheckBox,localListChe
     <table className={` ${styles.l_tr_show}`}>
       <tbody style={{ width: "100%" }}>
         {data?.map((item) => {
-          const dateObj = parseISO(item.deletedAt);
-          const formattedTime: string = format(dateObj, "HH:mm:ss dd/MM/yyyy");
+          const dateObj = parseISO(item.deleted_at);
+          const formattedTime: string = format(dateObj, " dd/MM/yyyy");
           return (
             <div key={item.id} className={`${styles.show}`}>
               <th className={`${styles.show_id}`}>{`QTTD ${item.id}`}</th>
@@ -39,7 +43,7 @@ export default function DataTTD({ list_recuitment_new, dataCheckBox,localListChe
                 </picture>
                 <p>{item.title}</p>
               </td>
-              <td className={`${styles.date}`}>{formattedTime}</td>
+              <td className={`${styles.date}`}>{item.time} {formattedTime}</td>
               <td className={`${styles.show_checkbox}`}>
                 <input
                   type="checkbox"

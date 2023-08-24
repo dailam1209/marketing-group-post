@@ -27,6 +27,7 @@ export interface DataType {
   userName: string;
   userNameCreate: string;
   NameHandingOverWork: string;
+  type: any;
 }
 export default function CustomerList() {
   const mainRef = useRef<HTMLDivElement>(null);
@@ -50,6 +51,8 @@ export default function CustomerList() {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [totalRecords, setTotalRecords] = useState();
+  const [dataStatus, setdataStatus] = useState<any>();
+
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
   const fetchData = async () => {
@@ -73,28 +76,23 @@ export default function CustomerList() {
     setData(data);
     setTotalRecords(data?.total);
   };
-  const {
-    data: dataStatus,
-    loading: loadingStatus,
-    fetchData: fetchDataStatus,
-    // ... other properties returned by the useApi hook
-  } = useApi(
-    `${base_url}/api/crm/customerStatus/list`,
-    `${Cookies.get("token_base365")}`,
-    "POST",
-    { pageSize: 100 }
-  );
-  const {
-    data: dataCustomerGroup,
-    loading: loadingCustomerGroup,
-    fetchData: fetchDataCustomerGroup,
-    // ... other properties returned by the useApi hook
-  } = useApi(
-    `${base_url}/api/crm/group/list_group_khach_hang`,
-    `${Cookies.get("token_base365")}`,
-    "POST",
-    { pageSize: 100 }
-  );
+
+  const handleGetInfoSTT = async () => {
+    const res = await fetch(`${base_url}/api/crm/customerStatus/list`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${Cookies.get("token_base365")}`,
+      },
+      body: JSON.stringify({ pageSize: 100 }),
+    });
+    const data = await res.json();
+    if (data && data?.data) setdataStatus(data?.data);
+  };
+  useEffect(() => {
+    handleGetInfoSTT();
+  }, []);
+
   const onSelectChange = (
     selectedRowKeys: any,
     selectedRows: string | any[]
@@ -126,18 +124,31 @@ export default function CustomerList() {
     let time;
     if (item.updated_at.length) {
     }
-    if (+item?.updated_at >= 1000) {
-      const date = new Date(+item?.updated_at * 1000); // Chuyển số giây thành mili giây
 
-      const formattedDate = format(date, "dd-MM-yyyy HH:mm:ss");
-      time = formattedDate;
-    }
+    const inputTimeString = item?.updated_at;
+
+    // Chuyển đổi thành đối tượng thời gian
+    const inputTime = new Date(inputTimeString);
+    // Lấy thông tin ngày, tháng, năm, giờ, phút, giây
+    const day = inputTime.getUTCDate();
+    const month = inputTime.getUTCMonth() + 1;
+    const year = inputTime.getUTCFullYear();
+    const hours = inputTime.getUTCHours();
+    const minutes = inputTime.getUTCMinutes();
+    const seconds = inputTime.getUTCSeconds();
+    const outputTimeString = `${day < 10 ? "0" : ""}${day}-${
+      month < 10 ? "0" : ""
+    }${month}-${year} ${hours < 10 ? "0" : ""}${hours}:${
+      minutes < 10 ? "0" : ""
+    }${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+    time = outputTimeString;
 
     for (let key of ArrNguonKK) {
       if (key.id == item.resoure) {
         nguonKH = key.name;
       }
     }
+
     return {
       key: index + 1,
       cus_id: item.cus_id,
@@ -147,16 +158,17 @@ export default function CustomerList() {
       resoure: nguonKH,
       description: item.description,
       group_id: item.group_id,
-      status: item,
-      updated_at: time ? time : item.updated_at,
+      status: item.status,
+      updated_at: time,
       emp_name: item.emp_name,
       userNameCreate: item.userNameCreate,
       user_handing_over_work: item.user_handing_over_work,
       NameHandingOverWork: item.NameHandingOverWork,
       userName: item.userName,
+      type: item.type,
     };
   });
-  const dataStatusCustomer = dataStatus?.data;
+  const dataStatusCustomer = dataStatus;
   const [listGr, setListGr] = useState([]);
   const [list_gr_child, setlistGr_Child] = useState([]);
   const handleGetGr = async () => {
@@ -169,7 +181,6 @@ export default function CustomerList() {
       body: JSON.stringify({ com_id: Cookies.get("com_id") }),
     });
     const data = await res.json();
-    // console.log("dataGR", data);
     setListGr(data?.data);
     let arr = [];
     data?.data?.map((item) => {
@@ -179,8 +190,6 @@ export default function CustomerList() {
       setlistGr_Child(arr);
     });
   };
-
-  const dataGroup = dataCustomerGroup?.data;
   const [idSelect, setIdSelect] = useState<any>();
   const handleSelectAll = () => {
     const allRowKeys = datatable.map((item: { key: any }) => item.key);
@@ -205,11 +214,7 @@ export default function CustomerList() {
   useEffect(() => {
     handleGetGr();
     fetchData();
-    fetchDataStatus();
   }, [name, selectedRowKeys, des, selectedCus, page, pageSize]);
-  useEffect(() => {
-    fetchDataCustomerGroup();
-  }, [data]);
 
   useEffect(() => {
     setHeaderTitle("Danh sách khách hàng");
