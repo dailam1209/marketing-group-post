@@ -31,37 +31,35 @@ export default function DropableColumn({
     }),
   }))
 
+  console.log(isProcessList);
+
   return (
     <>
       <div className={`${styles.hs_t}`} ref={drop}>
         <div
           className={`${styles.hs_header} 
-                                            ${
-                                              item?.id === 1
-                                                ? styles.hs_status_job_1
-                                                : ''
-                                            } 
-                                            ${
-                                              item?.id === 2
-                                                ? styles.hs_status_job_2
-                                                : ''
-                                            } 
-                                            ${
-                                              item?.id === 3
-                                                ? styles.hs_status_job_3
-                                                : ''
-                                            } 
-                                            ${
-                                              item?.id === 4
-                                                ? styles.hs_status_job_4
-                                                : ''
-                                            } 
+                                            ${item?.id === 1
+              ? styles.hs_status_job_1
+              : ''
+            } 
+                                            ${item?.id === 2
+              ? styles.hs_status_job_2
+              : ''
+            } 
+                                            ${item?.id === 3
+              ? styles.hs_status_job_3
+              : ''
+            } 
+                                            ${item?.id === 4
+              ? styles.hs_status_job_4
+              : ''
+            } 
                                             `}>
           {item?.id !== 0 &&
-          item?.id !== 1 &&
-          item?.id !== 2 &&
-          item?.id !== 3 &&
-          item?.id !== 4 ? (
+            item?.id !== 1 &&
+            item?.id !== 2 &&
+            item?.id !== 3 &&
+            item?.id !== 4 ? (
             <p>
               {item?.name} (
               {iconEdit && (

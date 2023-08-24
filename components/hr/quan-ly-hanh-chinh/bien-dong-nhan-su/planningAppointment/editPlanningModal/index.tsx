@@ -85,7 +85,7 @@ export default function EditPlanningModal({ onCancel, infoList }: any) {
       setPositionList(position)
 
       const specifiedGroup = await FetchDataSpecifiedGroup()
-      setSpecifiedList(specifiedGroup)
+      setSpecifiedList(specifiedGroup?.data)
 
       const dep = await FetchDataDep()
       setDeptList(dep)
@@ -177,7 +177,7 @@ export default function EditPlanningModal({ onCancel, infoList }: any) {
   const chonphongbanOptions = useMemo(
     () =>
       isDepList &&
-      isDepList?.data?.map((dep: any) => ({
+      isDepList?.items?.map((dep: any) => ({
         value: dep.dep_id,
         label: dep.dep_name
       })),
@@ -343,6 +343,10 @@ export default function EditPlanningModal({ onCancel, infoList }: any) {
                             ...baseStyles,
                             color: "#444444",
                           }),
+                          menu: (baseStyles) => ({
+                            ...baseStyles,
+                            zIndex: 1000
+                          }),
                         }}
                       />
                     </div>
@@ -369,6 +373,10 @@ export default function EditPlanningModal({ onCancel, infoList }: any) {
                           placeholder: (baseStyles) => ({
                             ...baseStyles,
                             color: "#444444",
+                          }),
+                          menu: (baseStyles) => ({
+                            ...baseStyles,
+                            zIndex: 1000
                           }),
                         }}
                       />
@@ -405,6 +413,10 @@ export default function EditPlanningModal({ onCancel, infoList }: any) {
                             placeholder: (baseStyles) => ({
                               ...baseStyles,
                               color: "#444444",
+                            }),
+                            menu: (baseStyles) => ({
+                              ...baseStyles,
+                              zIndex: 1000
                             }),
                           }}
                         />

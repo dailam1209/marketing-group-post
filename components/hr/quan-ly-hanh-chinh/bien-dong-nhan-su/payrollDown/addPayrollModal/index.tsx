@@ -68,6 +68,9 @@ export default function AddPayrollModal({ onCancel }: any) {
   const comid: any = GetComId()
   const modalRef = useRef(null);
 
+  console.log(isCom_id);
+
+
   useEffect(() => {
     const handleOutsideClick = (event: any) => {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
@@ -100,7 +103,7 @@ export default function AddPayrollModal({ onCancel }: any) {
       setPositionList(position)
 
       const specifiedGroup = await FetchDataSpecifiedGroup()
-      setSpecifiedList(specifiedGroup)
+      setSpecifiedList(specifiedGroup.data)
 
       const dep = await FetchDataDep()
       setDeptList(dep)
@@ -150,7 +153,9 @@ export default function AddPayrollModal({ onCancel }: any) {
   }, [isPositionList, isPosition_id]);
 
   useEffect(() => {
-    const foundItem = isDepList?.data?.find((item: any) => item.dep_id === isDep_id);
+    console.log(isDep_id);
+
+    const foundItem = isDepList?.items?.find((item: any) => item.dep_id === isDep_id);
     if (foundItem) {
       setCom_id(foundItem.com_id)
     }
@@ -223,9 +228,9 @@ export default function AddPayrollModal({ onCancel }: any) {
   const chonnhanvienOptions = useMemo(
     () =>
       isEmpList &&
-      isEmpList?.data?.map((emp: any) => ({
-        value: `${emp.idQLC} ${emp.dep_id[0]} ${emp.position_id} ${emp.nameDeparment}`,
-        label: emp.userName
+      isEmpList?.items?.map((emp: any) => ({
+        value: `${emp.ep_id} ${emp.dep_id} ${emp.position_id} ${emp.dep_name}`,
+        label: emp.ep_name
       })),
     [isEmpList]
   );
@@ -248,6 +253,9 @@ export default function AddPayrollModal({ onCancel }: any) {
     }
   }
 
+  console.log(companyNames);
+
+
   const chonchinhanhOptions = useMemo(
     () =>
       companyNames && companyNames?.map((organizational: any) => ({
@@ -259,7 +267,7 @@ export default function AddPayrollModal({ onCancel }: any) {
 
   const choncanghiOptions = useMemo(
     () =>
-      isShiftList && isShiftList?.list?.map((shift: any) => ({
+      isShiftList && isShiftList?.items?.map((shift: any) => ({
         value: shift?.shift_id,
         label: shift?.shift_name,
       })),
@@ -391,7 +399,7 @@ export default function AddPayrollModal({ onCancel }: any) {
                     <label htmlFor="">Đơn vị công tác hiện tại</label>
                     <div className={`${styles.input_right}`}>
                       <Select
-                        defaultValue={options.chonchinhanh}
+                        defaultValue={companyNames}
                         onChange={(option) => handleSelectChange(option, setCom_id)}
                         options={options.chonchinhanh}
                         placeholder="Chọn chi nhánh"
@@ -443,6 +451,10 @@ export default function AddPayrollModal({ onCancel }: any) {
                             ...baseStyles,
                             color: "#444444",
                           }),
+                          menu: (baseStyles) => ({
+                            ...baseStyles,
+                            zIndex: 1000
+                          }),
                         }}
                       />
                     </div>
@@ -470,6 +482,10 @@ export default function AddPayrollModal({ onCancel }: any) {
                             ...baseStyles,
                             color: "#444444",
                           }),
+                          menu: (baseStyles) => ({
+                            ...baseStyles,
+                            zIndex: 1000
+                          }),
                         }}
                       />
                     </div>
@@ -494,6 +510,10 @@ export default function AddPayrollModal({ onCancel }: any) {
                           placeholder: (baseStyles) => ({
                             ...baseStyles,
                             color: "#444444",
+                          }),
+                          menu: (baseStyles) => ({
+                            ...baseStyles,
+                            zIndex: 1000
                           }),
                         }}
                       />

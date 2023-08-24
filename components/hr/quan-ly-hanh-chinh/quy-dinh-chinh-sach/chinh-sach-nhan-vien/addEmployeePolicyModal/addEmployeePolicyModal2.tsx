@@ -60,7 +60,7 @@ export default function AddEmployeePolicyModal2({ onCancel }: AddEmployeePolicyM
     const fetchData = async () => {
       try {
         const response = await PolicyList(1, 50, "")
-        setListPolicyGroup(response?.data)
+        setListPolicyGroup(response?.success)
       } catch (error) {
         throw error
       }
@@ -167,7 +167,7 @@ export default function AddEmployeePolicyModal2({ onCancel }: AddEmployeePolicyM
                     <label htmlFor="">Chọn nhóm chính sách <span style={{ color: 'red' }}> * </span></label>
                     <div className={`${styles.input_right}`}>
                       <select name="" id="employe_policy_id" className={`${styles.input_process}`}>
-                        {ListPolicyGroup?.data?.map((item: any, index: any) => (
+                        {ListPolicyGroup?.data?.data?.map((item: any, index: any) => (
                           <option value={item.id} key={index}>-- {item.name} --</option>
                         ))}
 

@@ -78,21 +78,28 @@ function Input_textarea({ onDescriptionChange, process_id }: InputTextareaProps)
 type SelectOptionType = { label: string, value: string }
 
 export default function StageGetJob({ onCancel, process_id, data, process_id_from }: any) {
+
+  console.log(data);
+
   const [selectedOption, setSelectedOption] = useState<SelectOptionType | null>(null);
   const [isCandidate, setCandidate] = useState<any>(null)
   const [isEmpList, setEmpList] = useState<any>(null);
   const [empInterview, setEmpInterview] = useState<any>(null);
   const [isNewList, setNewsList] = useState<any>(null);
-  const [isRecruitmentNewsId, setRecruitmentNewsId] = useState<any>(null);
+  const [isRecruitmentNewsId, setRecruitmentNewsId] = useState<any>(data?.recruitmentNewsId);
   const [addAnotherSkill, setAddAnotherSkill] = useState<JSX.Element[]>([]);
   const [skills, setSkills] = useState<{ skillName: string; skillVote: any }[]>([]);
   const [lastAddedIndex, setLastAddedIndex] = useState(-1);
-  const [rating, setRating] = useState<any>(0)
+  const [rating, setRating] = useState<any>(data?.starVote)
   const [descriptions, setDescription] = useState("");
-  const [isUserHiring, setUserHiring] = useState<any>("")
+  const [isUserHiring, setUserHiring] = useState<any>(data?.user_hiring || data?.userHiring)
   const [checked, setChecked] = useState<any>(0);
   const [errors, setErrors] = useState<any>({});
   const modalRef = useRef(null);
+
+  console.log(isCandidate);
+  console.log(data);
+
 
   useEffect(() => {
     const handleOutsideClick = (event: any) => {
@@ -113,9 +120,11 @@ export default function StageGetJob({ onCancel, process_id, data, process_id_fro
       try {
         const formData = new FormData();
         const response = await CandidateList(formData)
-        const responseData: any = response?.data
+        const responseData: any = response?.success
         if (responseData) {
-          const candidateFound = responseData?.data?.find((item: any) => item.id === Number(data?.id) || item.id === Number(data?.canId))
+          console.log(responseData?.data?.data);
+
+          const candidateFound = responseData?.data?.data?.find((item: any) => item.id === Number(data?.id) || item.id === Number(data?.canId))
           setCandidate(candidateFound)
         }
       } catch (error) {
@@ -147,7 +156,7 @@ export default function StageGetJob({ onCancel, process_id, data, process_id_fro
       try {
         const response = await GetListNews(1, 2000, "", "", "");
         if (response) {
-          setNewsList(response.data);
+          setNewsList(response.data.success);
         }
       } catch (error) {
         throw error;
@@ -323,8 +332,12 @@ export default function StageGetJob({ onCancel, process_id, data, process_id_fro
     ],
     tennhanvientuyendung: chonnhanvienOptions,
     vitrituyendung: chonvitrituyendungOptions,
-    tennhanvientuyendungdefault: [{ value: isCandidate?.userHiring, label: isCandidate?.NvTuyenDung },]
+    vitrituyendungdefault: [{ value: data?.recruitmentNewsId, label: data?.new_title || data?.title },],
+    tennhanvientuyendungdefault: [{ value: data?.user_hiring || data?.userHiring, label: data?.hrName || data?.nameHr },]
   };
+
+
+  console.log(options.tennhanvientuyendungdefault);
 
   return (
     <>
@@ -380,9 +393,9 @@ export default function StageGetJob({ onCancel, process_id, data, process_id_fro
                     </label>
                     <div className={`${styles.input_right}`}>
                       <div className={`${styles.div_no_pad} `}>
-                        {options?.tennhanvientuyendungdefault &&
+                        {options?.vitrituyendungdefault &&
                           <Selects
-                            selectedOption={options?.vitrituyendung}
+                            selectedOption={options?.vitrituyendungdefault}
                             onChange={handleSelectChange}
                             padding={15}
                             width_control={100}
@@ -421,7 +434,7 @@ export default function StageGetJob({ onCancel, process_id, data, process_id_fro
                   <div className={`${styles.form_groupss}`}>
                     <label htmlFor="">Đánh giá hồ sơ <span style={{ color: 'red' }}> * </span></label>
                     <div className={`${styles.input_right}`}>
-                      <Rating size={27} initialValue={isCandidate?.starVote} disableFillHover className={`${styles.star_rating}`} onClick={handleRating} />
+                      <Rating size={27} initialValue={isCandidate?.star_vote} disableFillHover className={`${styles.star_rating}`} onClick={handleRating} />
                       <div className={`${styles.skills_container}`}>
                         {addAnotherSkill}
                       </div>

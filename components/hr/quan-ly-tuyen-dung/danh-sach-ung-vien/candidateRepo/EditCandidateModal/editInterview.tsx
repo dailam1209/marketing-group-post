@@ -19,11 +19,11 @@ export default function EditCandidateIntrview({
   onCancel,
   candidate,
   processName,
-  candidateAll
+  candidateAll,
+  processBefore
 }: any) {
-  console.log(candidateAll);
 
-  const [rating, setRating] = useState<any>(candidate?.starVote)
+  const [rating, setRating] = useState<any>(candidate?.star_vote)
   const [addAnotherSkill, setAddAnotherSkill] = useState<JSX.Element[]>([])
   const [skills, setSkills] = useState<{ skillName: string; skillVote: any }[]>(
     []
@@ -31,17 +31,17 @@ export default function EditCandidateIntrview({
   const [selectedOption, setSelectedOption] = useState<SelectOptionType | null>(
     null
   )
-  const [isGender, setGender] = useState<any>(candidate?.gender)
-  const [isEducation, setEducation] = useState<any>(candidate?.education)
-  const [isUserHiring, setUserHiring] = useState<any>(candidate?.userHiring)
-  const [isEmpInterview, setEmpInterview] = useState<any>(candidate?.userHiring)
-  const [isExp, setExp] = useState<any>(candidate?.exp)
-  const [isMarried, setMarried] = useState<any>(candidate?.isMarried)
+  const [isGender, setGender] = useState<any>(candidate?.can_gender)
+  const [isEducation, setEducation] = useState<any>(candidate?.can_education)
+  const [isUserHiring, setUserHiring] = useState<any>(candidate?.user_hiring)
+  const [isEmpInterview, setEmpInterview] = useState<any>(candidate?.user_hiring)
+  const [isExp, setExp] = useState<any>(candidate?.can_exp)
+  const [isMarried, setMarried] = useState<any>(candidate?.can_is_married)
   const [isUserRecommend, setUserRecommend] = useState<any>(
-    candidate?.userRecommend
+    candidate?.user_recommend
   )
   const [isRecruitmentNewsId, setRecruitmentNewsId] = useState<any>(
-    candidate?.recruitmentNewsId
+    candidate?.recruitment_news_id
   )
   const [isEmpList, setEmpList] = useState<any>(null)
   const [isNewList, setNewsList] = useState<any>(null)
@@ -187,7 +187,6 @@ export default function EditCandidateIntrview({
       })
 
       const formData = new FormData()
-      const process_id: any = 348
       formData.append('name', name)
       formData.append('email', email)
       formData.append('phone', phone)
@@ -210,7 +209,7 @@ export default function EditCandidateIntrview({
       formData.append('resiredSalary', resiredSalary)
       formData.append('empInterview', isEmpInterview)
       formData.append('interviewTime', timeInterView)
-      formData.append('processInterviewId', process_id)
+      formData.append('processInterviewId', processBefore)
       formData.append('note', note)
       formData.append('contentsend', note)
 
@@ -254,7 +253,7 @@ export default function EditCandidateIntrview({
         value: emp.ep_id,
         label: emp.ep_name,
       })),
-    [isEmpList.items]
+    [isEmpList]
   )
 
   const chonvitrituyendungOptions = useMemo(
@@ -311,28 +310,28 @@ export default function EditCandidateIntrview({
     tennhanviengioithieu: chonnhanvienOptions,
     vitrituyendung: chonvitrituyendungOptions,
     vitrituyendungdefault: [
-      { value: candidate?.recruitmentNewsId, label: candidate?.Title },
+      { value: candidate?.recruitment_news_id, label: candidate?.title },
     ],
     tennhanvienphongvan: chonnhanvienOptions,
   }
 
   const selectedGender: any = options.chongioitinh?.find(
-    (item) => item.value === candidate?.gender
+    (item) => item.value === candidate?.can_gender
   )
   const selectedEducation: any = options.trinhdohocvan?.find(
-    (item) => item.value === candidate?.education
+    (item) => item.value === candidate?.can_education
   )
   const selectedExp: any = options.kinhnghiemlamviec?.find(
-    (item) => item.value === candidate?.exp.toString()
+    (item) => item.value === candidate?.can_exp.toString()
   )
   const selectedMarried: any = options.tinhtranghonnhan?.find(
-    (item) => item.value === candidate?.isMarried
+    (item) => item.value === candidate?.can_is_married
   )
   const selectedUseHiring: any = options.tennhanvientuyendung?.find(
-    (item: any) => item.value === candidate?.userHiring
+    (item: any) => item.value === candidate?.user_hiring
   )
   const selectedUseRecomment: any = options.tennhanviengioithieu?.find(
-    (item: any) => item.value === candidate?.userRecommend
+    (item: any) => item.value === candidate?.user_recommend
   )
 
   console.log(selectedUseHiring)
@@ -456,7 +455,7 @@ export default function EditCandidateIntrview({
                         type='date'
                         id='birthday'
                         value={format(
-                          parseISO(candidate?.birthday),
+                          parseISO(candidate?.can_birthday),
                           'yyyy-MM-dd'
                         )}
                         placeholder='dd/mm/yyyy'
@@ -590,7 +589,7 @@ export default function EditCandidateIntrview({
                       <input
                         type='text'
                         id='address'
-                        value={candidate?.address}
+                        value={candidate?.can_address}
                         placeholder='Nhập địa chỉ ứng viên'
                         className={`${styles.input_process}`}
                       />
@@ -740,7 +739,7 @@ export default function EditCandidateIntrview({
                     <div className={`${styles.input_right}`}>
                       <Rating
                         size={27}
-                        initialValue={candidate?.starVote}
+                        initialValue={candidate?.star_vote}
                         disableFillHover
                         className={`${styles.star_rating}`}
                         onClick={handleRating}
@@ -788,7 +787,7 @@ export default function EditCandidateIntrview({
                       <input
                         type='text'
                         id='salary'
-                        defaultValue={candidateAll?.data?.salary}
+                        defaultValue={candidateAll?.data?.salaryyyy}
                         className={`${styles.input_process}`}
                       />
                     </div>
@@ -855,7 +854,7 @@ export default function EditCandidateIntrview({
                       <textarea
                         style={{ height: 60 }}
                         id='note'
-                        defaultValue={candidate?.address}
+                        defaultValue={candidate?.can_address}
                         className={`${styles.input_process}`}
                       />
                     </div>
