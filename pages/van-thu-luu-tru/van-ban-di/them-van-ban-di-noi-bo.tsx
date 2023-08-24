@@ -154,7 +154,7 @@ const Index = () => {
       const numberDate = date.getTime();
       setFormData((prev: any) => ({
         ...prev,
-        [name]: numberDate,
+        [name]: numberDate/1000,
       }));
     } else {
       setFormData((prev: any) => ({

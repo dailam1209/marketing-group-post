@@ -11,6 +11,7 @@ import TextEditor from "@/components/crm/text-editor/text_editor";
 import GeneralCustomerInfor from "@/components/crm/customer/add_edit/general_customer_info";
 import CustomomerFooterAddFile from "@/components/crm/customer/add_edit/customer_footer_add_file";
 import { checkAndRedirectToHomeIfNotLoggedIn } from "@/components/crm/ultis/checkLogin";
+import { File } from "buffer";
 
 const AddFilesCustomerList: React.FC = () => {
   const mainRef = useRef<HTMLDivElement>(null);

@@ -21,7 +21,7 @@ export default function SelectBoxInputNguon({
     { name: "Email", id: 8 },
   ];
   
-  console.log(infoCus);
+  const name2 = ArrNguonKK.filter(item => item.id == infoCus?.resoure?.info)
   useEffect(() => {
   
   }, []);
@@ -35,9 +35,8 @@ export default function SelectBoxInputNguon({
         className={`${styles.select2} ${styles.business_assistant_item_select} ${styles.select2_hidden_accessible}`}
         tabIndex={-1}
         aria-hidden="true"
-        value={infoCus?.resoure}
       >
-        <option value="">{placeholder}</option>
+        <option value="">{name2[0]?.name?name2[0]?.name:"Chưa cập nhật"}</option>
         {ArrNguonKK?.map((item: any, index: any) => (
           <option value={item?.id} key={index}>
             {item?.name}

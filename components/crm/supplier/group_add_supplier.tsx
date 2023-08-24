@@ -24,7 +24,7 @@ export default function SupplierInputSipplierGroup({ isSelectedRow }: any) {
                 width={14}
                 height={14}
                 className={styles.img__search}
-                src="https://crm.timviec365.vn/assets/icons/search.svg"
+                src="/crm/search.svg"
                 alt=""
               />
             </button>

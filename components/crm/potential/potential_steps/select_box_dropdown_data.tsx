@@ -66,7 +66,11 @@ export default function PotentialDropDownDataStep({
                 <li
                   key={i}
                   className={`${styles.select2_results__option}}`}
-                  style={{marginTop:"10px", padding:"5px 0", paddingLeft:"18px"}}
+                  style={{
+                    marginTop: "10px",
+                    padding: "5px 0",
+                    paddingLeft: "18px",
+                  }}
                 >
                   {item}
                 </li>

@@ -38,14 +38,15 @@ export function AllNhanVien({
     label: infoCom?.data?.com_name,
     value: infoCom?.data?.com_id,
   })
+
   const [listEmpLabel, setListEmpLabel] = useState<any>(
-    listStaffs?.map((e) => ({ label: e?.userName, value: e?.idQLC }))
+    listStaffs?.map((e) => ({ label: e?.ep_name, value: e?.ep_id }))
   )
 
   useEffect(() => {
     setData(listStaffs)
     setListEmpLabel(
-      listStaffs?.map((e) => ({ label: e?.userName, value: e?.idQLC }))
+      listStaffs?.map((e) => ({ label: e?.ep_name, value: e?.ep_id }))
     )
   }, [listStaffs])
 
@@ -120,30 +121,28 @@ export function AllNhanVien({
   const columns = [
     {
       title: <p className='tableHeader'>ID</p>,
-      render: (record: any, index: number) => <p>{record?.idQLC}</p>,
+      render: (record: any, index: number) => <p>{record?.ep_id}</p>,
     },
     {
       title: <p className='tableHeader'>Họ và tên</p>,
       render: (record: any) => (
-        <p style={{ color: '#4C5BD4' }}>
-          {record?.userName || 'Chưa cập nhật'}
-        </p>
+        <p style={{ color: '#4C5BD4' }}>{record?.ep_name || 'Chưa cập nhật'}</p>
       ),
     },
     {
       title: <p className='tableHeader'>SĐT</p>,
       render: (record: any) => (
-        <p>{record?.phone || record?.phoneTK || 'Chưa cập nhật'}</p>
+        <p>{record?.phone || record?.ep_phone || 'Chưa cập nhật'}</p>
       ),
     },
     {
       title: <p className='tableHeader'>Tài khoản đăng nhập</p>,
-      render: (record: any) => <p>{record?.phoneTK || record?.email}</p>,
+      render: (record: any) => <p>{record?.ep_phone || record?.ep_phone}</p>,
     },
     {
       title: <p className='tableHeader'>Email</p>,
       render: (record: any) => (
-        <p>{record?.email || record?.emailContact || 'Chưa cập nhật'}</p>
+        <p>{record?.email || record?.ep_email || 'Chưa cập nhật'}</p>
       ),
     },
     {
@@ -173,6 +172,7 @@ export function AllNhanVien({
           }}>
           <Popover
             content={<CustomPopover />}
+            placement='bottomLeft'
             onOpenChange={(e) => {
               setCurrentRow(record)
             }}
@@ -266,7 +266,7 @@ export function AllNhanVien({
         <MyTable
           colunms={columns}
           data={listDataFiltered}
-          onRowClick={(record, index) => onRowClicked(record?.idQLC)}
+          onRowClick={(record, index) => onRowClicked(record?.ep_id)}
           hasRowSelect={false}
           onSelectChange={() => null}
           selectedRowKeys={[]}

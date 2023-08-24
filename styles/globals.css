@@ -1529,3 +1529,6 @@ label.ant-form-item-required {
 .taoDeXuatForm .ant-form-item {
   margin-bottom: 4px;
 }
+.css-cwhad8-MuiDateCalendar-root{
+  width: 90% !important;
+}

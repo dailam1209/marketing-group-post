@@ -399,6 +399,7 @@ export function EditEmpModal(
         .then((res) => {
           if (res?.result === true) {
             setOpen(false)
+            window.alert('Cập nhật thông tin thành công')
             router.replace(router.asPath)
           }
         })

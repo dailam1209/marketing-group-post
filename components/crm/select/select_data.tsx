@@ -30,10 +30,7 @@ const SelectDataInputBox: React.FC<MyProps> = ({
     { cus_id: cusId }
   );
   const router = useRouter()
-  const dataStatus = dataDetailCustomer?.data?.data1
-    ? dataDetailCustomer?.data?.data1
-    : dataDetailCustomer?.data?.data2;
-
+  const dataStatus = dataDetailCustomer?.data
   const handleChangeApi = async (e: any, data: any) => {
     const url =
     `${base_url}/api/crm/customerdetails/editCustomer`;
@@ -70,8 +67,8 @@ const SelectDataInputBox: React.FC<MyProps> = ({
           onChange={(e: any) => {
             handleChangeApi(e, data);
           }}
-          defaultValue={dataStatus?.status}
-            // value={dataStatus?.status}
+          defaultValue={dataStatus?.status?.info}
+            // value={dataStatus?.status?.info}
           style={{ border: 0 }}
         >
           {data?.map((item: any, index: number) => {

@@ -34,21 +34,21 @@ const EmailMarketingTable: React.FC = () => {
             <div className={style.setting_email_body__connect_item}>
               <img width="50.85"height="60"className={style.connect_img}src="https://crm.timviec365.vn/assets/icons/email/email_zetaMail.svg"/>
               <p className={style.connect_title}>ZetaMail</p>
-              <Link href="/setting/setup_email_marketing">
+              <Link href="/crm/setting/setup_email_marketing">
                 <button className={style.connect_button}>Kết nối</button>
               </Link>
             </div>
             <div className={style.setting_email_body__connect_item}>
               <img width="50.85"height="60"className={style.connect_img}src="https://crm.timviec365.vn/assets/icons/email/email_mailChimp.svg"/>
               <p className={style.connect_title}>MailChimp</p>
-              <Link href="/setting/setup_email_marketing">
+              <Link href="/crm/setting/setup_email_marketing">
                 <button className={style.connect_button}>Kết nối</button>
               </Link>
             </div>
             <div className={style.setting_email_body__connect_item}>
               <img width="50.85"height="60"className={style.connect_img}src="https://crm.timviec365.vn/assets/icons/email/email_getResponse.svg"/>
               <p className={style.connect_title}>GetResponse</p>
-              <Link href="/setting/setup_email_marketing">
+              <Link href="/crm/setting/setup_email_marketing">
                 <button className={style.connect_button}>Kết nối</button>
               </Link>
             </div>

@@ -1,37 +1,37 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap'); */
 
 @font-face {
-  src: url('/crm/fonts/Roboto-Regular.ttf');
+  src: url("/crm/fonts/Roboto-Regular.ttf");
   font-display: swap;
   font-family: Roboto-Regular;
 }
 
 @font-face {
-  src: url('/crm/fonts/Roboto-Italic.ttf');
+  src: url("/crm/fonts/Roboto-Italic.ttf");
   font-display: swap;
   font-family: Roboto-Italic;
 }
 
 @font-face {
-  src: url('/crm/fonts/Roboto-Bold.ttf');
+  src: url("/crm/fonts/Roboto-Bold.ttf");
   font-display: swap;
   font-family: Roboto-Bold;
 }
 
 @font-face {
-  src: url('/crm/fonts/Roboto-Medium.ttf');
+  src: url("/crm/fonts/Roboto-Medium.ttf");
   font-display: swap;
   font-family: Roboto-Medium;
 }
 
 @font-face {
-  src: url('/crm/fonts/Roboto-MediumItalic.ttf');
+  src: url("/crm/fonts/Roboto-MediumItalic.ttf");
   font-display: swap;
   font-family: Roboto-MediumItalic;
 }
 
 @font-face {
-  src: url('/crm/fonts/Roboto-Light.ttf');
+  src: url("/crm/fonts/Roboto-Light.ttf");
   font-display: swap;
   font-family: Roboto-Light;
 }
@@ -40,7 +40,7 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  font-family: 'Roboto-Regular';
+  font-family: "Roboto-Regular";
 }
 
 p {
@@ -53,7 +53,8 @@ p {
 }
 
 /*nhom khach hang  */
-.ant-table-wrapper.contract_custom_table_children_row__5etMc.css-dev-only-do-not-override-fpg3f5 td.ant-table-cell.ant-table-cell-with-append {
+.ant-table-wrapper.contract_custom_table_children_row__5etMc.css-dev-only-do-not-override-fpg3f5
+  td.ant-table-cell.ant-table-cell-with-append {
   display: flex !important;
   width: 100% !important;
   justify-content: space-between !important;
@@ -61,15 +62,19 @@ p {
   align-items: center !important;
 }
 
-.ant-table-wrapper.contract_custom_table_children_row__5etMc.css-dev-only-do-not-override-fpg3f5 span.ant-table-row-indent.indent-level-0 {
+.ant-table-wrapper.contract_custom_table_children_row__5etMc.css-dev-only-do-not-override-fpg3f5
+  span.ant-table-row-indent.indent-level-0 {
   display: none;
 }
 
-.ant-table-wrapper.contract_custom_table_children_row__5etMc.css-dev-only-do-not-override-fpg3f5 tr.ant-table-row.ant-table-row-level-1 a {
+.ant-table-wrapper.contract_custom_table_children_row__5etMc.css-dev-only-do-not-override-fpg3f5
+  tr.ant-table-row.ant-table-row-level-1
+  a {
   color: rgb(7, 7, 7);
 }
 
-.ant-table-wrapper.contract_custom_table_children_row__5etMc.css-dev-only-do-not-override-fpg3f5 span {
+.ant-table-wrapper.contract_custom_table_children_row__5etMc.css-dev-only-do-not-override-fpg3f5
+  span {
   /* display: none; */
   padding-left: 10px;
 }
@@ -157,7 +162,7 @@ a {
 }
 
 .required:after {
-  content: '*';
+  content: "*";
   margin-left: 3px;
   color: #ff3333;
   font-size: 15px;
@@ -308,7 +313,7 @@ svg {
   font-size: 16px;
   line-height: 16px;
   color: #474747 !important;
-  font-family: 'Roboto-Medium';
+  font-family: "Roboto-Medium";
   height: auto !important;
   cursor: pointer;
   background: transparent;
@@ -328,7 +333,7 @@ svg {
   margin-top: 20px;
 }
 
-tr>th {
+tr > th {
   background-color: #4c5bd4 !important;
   color: #fff !important;
   text-align: center !important;
@@ -340,7 +345,7 @@ tr {
 }
 
 .action_table {
-  font-family: 'Roboto-Medium';
+  font-family: "Roboto-Medium";
   font-size: 16px;
   color: #4c5bd4;
   height: 26px;
@@ -350,7 +355,7 @@ tr {
   margin: auto;
 }
 
-.ant-table-tbody>tr {
+.ant-table-tbody > tr {
   height: 58px;
 }
 
@@ -480,7 +485,7 @@ tr {
   border: 1px solid #4c5bd4;
   width: 140px;
   height: 36px;
-  font-family: 'Roboto-Bold';
+  font-family: "Roboto-Bold";
   font-size: 16px;
   font-weight: bold;
   line-height: 23px;
@@ -489,7 +494,7 @@ tr {
 .mdal_cancel .ant-btn-primary {
   width: 140px;
   height: 36px;
-  font-family: 'Roboto-Bold';
+  font-family: "Roboto-Bold";
   font-size: 16px;
   font-weight: bold;
   line-height: 23px;
@@ -606,6 +611,10 @@ tr {
   /* justify-content: space-between; */
 }
 
+img {
+  object-fit: unset ;
+}
+
 .email_add_mdal .ant-modal-header {
   padding: 14px;
   position: relative;
@@ -626,9 +635,30 @@ tr {
   background-color: white;
 }
 
-.ant-table-wrapper .ant-table.ant-table-bordered>.ant-table-container>.ant-table-header>table>thead>tr>th,
-.ant-table-wrapper .ant-table.ant-table-bordered>.ant-table-container>.ant-table-body>table>tbody>tr>td,
-.ant-table-wrapper .ant-table.ant-table-bordered>.ant-table-container>.ant-table-body>table>tfoot>tr>td {
+.ant-table-wrapper
+  .ant-table.ant-table-bordered
+  > .ant-table-container
+  > .ant-table-header
+  > table
+  > thead
+  > tr
+  > th,
+.ant-table-wrapper
+  .ant-table.ant-table-bordered
+  > .ant-table-container
+  > .ant-table-body
+  > table
+  > tbody
+  > tr
+  > td,
+.ant-table-wrapper
+  .ant-table.ant-table-bordered
+  > .ant-table-container
+  > .ant-table-body
+  > table
+  > tfoot
+  > tr
+  > td {
   border-inline-end: 1px solid #ccc !important;
 }
 
@@ -643,7 +673,8 @@ tr {
 /* .ant-table-row-level-0 .ant-table-row-expand-icon::after {
   content: '';
 } */
-:where(.css-dev-only-do-not-override-o95mle).ant-table-wrapper .ant-table-row-expand-icon {
+:where(.css-dev-only-do-not-override-o95mle).ant-table-wrapper
+  .ant-table-row-expand-icon {
   float: right;
 }
 
@@ -660,7 +691,7 @@ tr {
   font-size: 16px;
   line-height: 16px;
   color: #474747;
-  font-family: 'Roboto-Medium';
+  font-family: "Roboto-Medium";
   height: auto;
 }
 
@@ -750,29 +781,29 @@ label {
   color: #fff;
 }
 
-.ant-popover.header_custom-popover__dJECQ.css-dev-only-do-not-override-18w4yg9.css-dev-only-do-not-override-18w4yg9.ant-popover-placement-bottomLeft
-  .ant-popover-arrow {
+.ant-popover.header_custom-popover__dJECQ.css-dev-only-do-not-override-18w4yg9.css-dev-only-do-not-override-18w4yg9.ant-popover-placement-bottomLeft .ant-popover-arrow {
   visibility: hidden;
 }
 
-.ant-popover.header_custom-popover__dJECQ.css-dev-only-do-not-override-18w4yg9.css-dev-only-do-not-override-18w4yg9.ant-popover-placement-bottomLeft
-  .ant-popover-inner {
+.ant-popover.header_custom-popover__dJECQ.css-dev-only-do-not-override-18w4yg9.css-dev-only-do-not-override-18w4yg9.ant-popover-placement-bottomLeft .ant-popover-inner {
   background-color: #4c5bd4;
   color: #fff;
 }
 
-.ant-popover.header_custom-popover__dJECQ.css-dev-only-do-not-override-18w4yg9.css-dev-only-do-not-override-18w4yg9.ant-popover-placement-bottomLeft
-  .ant-popover-content {
+.ant-popover.header_custom-popover__dJECQ.css-dev-only-do-not-override-18w4yg9.css-dev-only-do-not-override-18w4yg9.ant-popover-placement-bottomLeft .ant-popover-content {
   right: 16px;
   top: 4px;
 }
+
 .ant-table-body::-webkit-scrollbar {
   width: 2px;
   height: 5px;
 }
+
 .ant-table-body::-webkit-scrollbar-thumb {
   background-color: #1677ff;
 }
+
 .ant-table-body::-webkit-scrollbar-thumb:hover {
   background: #a2b8d0;
 }
@@ -802,6 +833,7 @@ label {
   pointer-events: painted;
   padding: 18px;
 }
+
 .ant-table-cell .custom-cellCus {
   padding: 10px;
   text-align: start;
@@ -811,6 +843,8 @@ label {
   justify-content: start;
 }
 
+
+/* Socketio */
 #box_alert {
   position: fixed;
   right: 1%;
@@ -825,11 +859,11 @@ label {
   color: black;
 }
 
-.fix_close_btn{
+.fix_close_btn {
   width: 90%;
 }
 .alert__item {
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
   border-radius: 6px;
   width: 500px;
@@ -841,15 +875,12 @@ label {
   font-size: 15px;
   line-height: 24px;
   color: rgb(53, 53, 202);
-
-
 }
 .alert__item__customer__name {
   font-size: 15px;
   line-height: 24px;
-  color: #4C5BD4;
+  color: #4c5bd4;
   font-family: Roboto-Medium;
-
 }
 
 .alert__item__header {
@@ -858,13 +889,13 @@ label {
 }
 
 .alert__item__header button {
-  color: #FF3333;
+  color: #ff3333;
 }
 
 .alert__call__now {
-  background: #34B632;
+  background: #34b632;
   border-radius: 6px;
-  color: #FFFFFF;
+  color: #ffffff;
   font-size: 15px;
   line-height: 18px;
   font-family: Roboto-Medium;
@@ -881,15 +912,20 @@ label {
 }
 
 .btn-add {
-  background: #4C5BD4;
+  background: #4c5bd4;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   font-size: 16px;
   line-height: 19px;
-  color: #FFFFFF;
+  color: #ffffff;
   font-family: Roboto-Medium;
   width: 138px;
   height: 36px;
   display: flex;
   align-items: center;
+}
+
+.potential_custom_multiple__3_XZy .ant-select-selector {
+  height: 33px;
+  border-radius: 0 !important;
 }

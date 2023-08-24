@@ -49,7 +49,6 @@ export default function CustomerList() {
   const [data, setData] = useState<any>([]);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  const [totalPages, setTotalPages] = useState();
   const [totalRecords, setTotalRecords] = useState();
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
@@ -71,10 +70,8 @@ export default function CustomerList() {
       }),
     });
     const data = await res.json();
-    console.log(data);
     setData(data);
-    setTotalPages(data?.data?.totalPages);
-    setTotalRecords(data?.data?.totalRecords);
+    setTotalRecords(data?.total);
   };
   const {
     data: dataStatus,
@@ -98,7 +95,6 @@ export default function CustomerList() {
     "POST",
     { pageSize: 100 }
   );
-
   const onSelectChange = (
     selectedRowKeys: any,
     selectedRows: string | any[]
@@ -125,7 +121,7 @@ export default function CustomerList() {
     { name: "Email", id: 8 },
   ];
 
-  const datatable = data?.data?.showCty?.map((item, index: number) => {
+  const datatable = data?.data?.map((item, index: number) => {
     let nguonKH = "";
     let time;
     if (item.updated_at.length) {
@@ -160,10 +156,9 @@ export default function CustomerList() {
       userName: item.userName,
     };
   });
-  const dataStatusCustomer = dataStatus?.data?.listStatus;
+  const dataStatusCustomer = dataStatus?.data;
   const [listGr, setListGr] = useState([]);
   const [list_gr_child, setlistGr_Child] = useState([]);
-
   const handleGetGr = async () => {
     const res = await fetch(`${base_url}/api/crm/group/list_group_khach_hang`, {
       method: "POST",
@@ -174,7 +169,8 @@ export default function CustomerList() {
       body: JSON.stringify({ com_id: Cookies.get("com_id") }),
     });
     const data = await res.json();
-    setListGr(data?.data?.showGr);
+    // console.log("dataGR", data);
+    setListGr(data?.data);
     let arr = [];
     data?.data?.showGr?.map((item) => {
       item?.list_gr_child.map((item) => {
@@ -266,7 +262,6 @@ export default function CustomerList() {
             pageSize={pageSize}
             setPageSize={setPageSize}
             totalRecords={totalRecords}
-            totalPages={totalPages}
           />
         </div>
       )}

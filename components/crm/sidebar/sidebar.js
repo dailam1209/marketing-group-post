@@ -126,12 +126,34 @@ export default function SideBar({ isOpened }) {
       });
   });
   
+
+  function callAjax(url, data, method = 'post') {
+    var xhr = new XMLHttpRequest();
+    xhr.open(method, url, false);
+    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+    xhr.send(JSON.stringify(data));
+    
+    if (xhr.status === 200) {
+        return JSON.parse(xhr.responseText);
+    } else {
+        // Xử lý lỗi tại đây
+        console.error('Ajax request failed with status:', xhr.status);
+        return null;
+    }
+}
+
+
   const call__now = async(e)=> {
       var elm = e;
       var id = elm.getAttribute('data-id');
     // console.log('check id',id)
       if (id !== undefined) {
-        // console.log("chek id",id)
+        var url =`${base_url}/api/crm/cutomerCare/Call`;
+       var data = {
+          phone: id
+      };
+        // var responseObject = callAjax(url, data);
+
           var responseObject = await fetch(`${base_url}/api/crm/cutomerCare/Call`, {
             method: "POST",
             headers: {
@@ -141,10 +163,11 @@ export default function SideBar({ isOpened }) {
             body: JSON.stringify({ phone:parseInt(id)}),
           });
           const data = await responseObject.json()
-          // console.log(data)
+          console.log(data)
   
           // if (responseObject !== undefined) {
-          //     var item = responseObject.data.item;
+          //   console.log("check res",responseObject)
+          //     var item = responseObject?.data?.item;
           //     var content_call = '';
   
           //     document.querySelector('#box_add_appontment input[name="id"]').value = id;
