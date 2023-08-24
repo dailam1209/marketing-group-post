@@ -22,6 +22,8 @@ const data = [
   },
 ];
 
+console.log(123, data);
+
 export default function ContractDetailsSend() {
   const mainRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
@@ -30,7 +32,10 @@ export default function ContractDetailsSend() {
   const [checkbox1Checked, setCheckbox1Checked] = useState(true);
   const [checkbox2Checked, setCheckbox2Checked] = useState(false);
   const [checkbox3Checked, setCheckbox3Checked] = useState(false);
-  const [selectedDepartment, setSelectedDepartment] = useState<string | null>();
+  const [selectedDepartment, setSelectedDepartment] = useState<string | null>(null);
+  const [selectedPosition, setSelectedPosition] = useState<string>("Chọn chức vụ");
+  const [selectedEmployee, setSelectedEmployee] = useState<string>("Chọn nhân viên");
+
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
 
@@ -51,13 +56,17 @@ export default function ContractDetailsSend() {
   const selectedData = data.find(
     (item) => item.department === selectedDepartment
   );
+  console.log(selectedData);
 
   const handleChangeDepartment = (value: string) => {
     setSelectedDepartment(value);
+    setSelectedPosition("Chọn chức vụ");
+    setSelectedEmployee("Chọn nhân viên");
   };
 
   const onChangeCheckbox1 = (e: CheckboxChangeEvent) => {
     setCheckbox1Checked(e.target.checked);
+    setSelectedDepartment(null);
   };
 
   const onChangeCheckbox2 = (e: CheckboxChangeEvent) => {
@@ -67,6 +76,7 @@ export default function ContractDetailsSend() {
   const onChangeCheckbox3 = (e: CheckboxChangeEvent) => {
     setCheckbox3Checked(e.target.checked);
   };
+
 
   return (
     <>
@@ -93,7 +103,7 @@ export default function ContractDetailsSend() {
                       </Checkbox>
                     </div>
                     <div className={styles.description_send}>
-                      {checkbox1Checked && (
+                    {checkbox1Checked && (
                         <div className={styles.incompany}>
                           <p className={styles["main__body__send"]}>
                             Nội bộ công ty
@@ -134,12 +144,10 @@ export default function ContractDetailsSend() {
                                 Chức vụ <span className={styles.dot}>*</span>
                               </label>
                               <ContractSelectBoxStep
-                                value={
-                                  selectedData
-                                    ? selectedData.positions[0]
-                                    : "Chọn chức vụ"
-                                }
+                                value={selectedPosition}
                                 placeholder="Chọn chức vụ"
+                                data={selectedData?.positions}
+                                setSelectedDepartment={setSelectedPosition}
                               />
                             </div>
                             <div
@@ -149,12 +157,10 @@ export default function ContractDetailsSend() {
                                 Nhân viên <span className={styles.dot}>*</span>
                               </label>
                               <ContractSelectBoxStep
-                                value={
-                                  selectedData
-                                    ? selectedData.employees[0]
-                                    : "Chọn nhân viên"
-                                }
+                                value={selectedEmployee}
                                 placeholder="Chọn nhân viên"
+                                data={selectedData?.employees}
+                                setSelectedDepartment={setSelectedEmployee}
                               />
                             </div>
                           </div>
@@ -207,6 +213,11 @@ export default function ContractDetailsSend() {
                     </div>
                   </div>
                 </div>
+              </div>
+              <div className={styles.button_group_send}>
+                <button className={styles.back_button}>Quay lại</button>
+                <button className={styles.send_button}>Gửi hợp đồng</button>
+
               </div>
             </div>
           </div>

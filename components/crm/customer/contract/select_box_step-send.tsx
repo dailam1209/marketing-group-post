@@ -1,15 +1,22 @@
+// ContractSelectBoxStep.js
 import React, { useEffect, useRef, useState } from "react";
 import styles from "../../potential/potential.module.css";
 import ContractDropDownDataStep from "./select_box_dropdown_send";
+
 export default function ContractSelectBoxStep({
   title = "",
   value,
   placeholder,
   data,
   setSelectedDepartment,
+  setSelectedPosition,
+  setSelectedEmployee,
 }: any) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const [selectedData, setSelectedData] = useState<any>(null);
+  
+  
   const handleClickSelectoption = (e: any) => {
     if (e.target.getAttribute("class") !== styles.select2_search__field) {
       setIsOpen(!isOpen);
@@ -35,6 +42,15 @@ export default function ContractSelectBoxStep({
     };
   }, []);
 
+  const handleChangeDepartment = (selectedDepartment: string) => {
+    const newData = data.find((item: any) => item.department === selectedDepartment);
+    setSelectedData(newData);
+    setSelectedDepartment(selectedDepartment);}
+
+    const handleChangePosition = (selectedDepartment: string) => {
+      const newData = data.find((item: any) => item.department === selectedDepartment);
+      setSelectedData(newData);
+      setSelectedDepartment(selectedDepartment);}
   return (
     <div
       ref={dropdownRef}
@@ -43,16 +59,6 @@ export default function ContractSelectBoxStep({
       <label htmlFor="" className="">
         {title}
       </label>
-      {/* <select
-        className={`${styles.select2} ${styles.select2_hidden_accessible}`}
-        data-select2-id={1}
-        tabIndex={-1}
-        aria-hidden="true"
-      >
-        <option value="" data-select2-id={3}>
-          {value}
-        </option>
-      </select> */}
 
       <span
         className={`select2 ${styles.select2_container_step}`}
@@ -88,9 +94,11 @@ export default function ContractSelectBoxStep({
         </span>
         {isOpen && (
           <ContractDropDownDataStep
-            setSelectedDepartment={setSelectedDepartment}
+            setSelectedDepartment={handleChangeDepartment}
             data={data}
             value={value}
+            selectedData={selectedData}
+            
           />
         )}
       </span>

@@ -266,6 +266,8 @@ const HomePageLogin: React.FC = () => {
           ;
           <FooterHomePage />
         </div>
+        </div> 
+            </div>
       )}
     </>
   )
