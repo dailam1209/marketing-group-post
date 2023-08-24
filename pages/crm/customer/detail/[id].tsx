@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { base_url } from "@/components/crm/service/function";
 import { checkAndRedirectToHomeIfNotLoggedIn } from "@/components/crm/ultis/checkLogin";
+import { Checkbox } from "antd";
 const Cookies = require("js-cookie");
 export default function DetailCustomer() {
   const pathname = usePathname();
@@ -40,6 +41,8 @@ export default function DetailCustomer() {
     id,
     name
   ]);
+
+
   return (
     <>
       {!checkAndRedirectToHomeIfNotLoggedIn() ? null : (
