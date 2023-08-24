@@ -273,10 +273,11 @@ export default function Bodyframe({ children }: any) {
           {children}
         </div>
         <div className={styles.main}>{renderArticle()}</div>
-        {/* <link
+        {/* Vấn đề màn 414 width 50% tại đây!!!! --pvh */}
+        <link
           rel='stylesheet'
           href='https://timviec365.vn/css/footer_new.css?v=2'
-        /> */}
+        />
         {router.pathname === UPDATE_FACE_URL ||
         router.pathname === CC_TK_CTY_URL ||
         router.pathname === CTY_CCCTY ? null : (
