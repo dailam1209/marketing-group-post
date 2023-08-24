@@ -98,7 +98,7 @@ const TongDaiPage = (props: Props) => {
   );
 
   const handleGet = async () => {
-    // setListData([]);
+    setListData([]);
     if (soNghe) {
       let dataFill = listData.filter((item) => item.callee === soNghe);
       setListData(dataFill);
@@ -129,9 +129,7 @@ const TongDaiPage = (props: Props) => {
     const data = await response.json();
     if (data && data.items) {
       setListData(data?.items);
-    } else {
-      dispatch(doDisConnect(""));
-    }
+    } 
     return data;
   };
   const router = useRouter()

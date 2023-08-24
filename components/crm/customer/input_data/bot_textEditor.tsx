@@ -48,7 +48,6 @@ const Bot_textEditor = ({ dataAdd, setDataAdd }: any) => {
       console.log("error:", error);
     }
   };
-  console.log(dataAdd);
   const handleGetGr = async () => {
     try {
       const res = await fetch(

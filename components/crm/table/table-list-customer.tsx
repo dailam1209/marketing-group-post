@@ -43,7 +43,6 @@ interface TableDataContracDrops {
   setPage?: any;
   page?: any;
   totalRecords?: any;
-  totalPages?: any;
   pageSize?: any;
   setPageSize?: any;
 }
@@ -60,7 +59,6 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   page,
   setPage,
   totalRecords,
-  totalPages,
   pageSize,
   setPageSize,
 }: any) => {
@@ -105,6 +103,8 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       body: JSON.stringify({ cus_id: record?.cus_id }),
     });
     const type = await res.json();
+    console.log("check res",type)
+
     // const
 
     const url = `${base_url}/api/crm/customerdetails/editCustomer`;
@@ -113,8 +113,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
     formData.append("resoure", e.target.value);
     formData.append(
       "type",
-      type?.data?.data1?.loai_hinh_khach_hang ||
-        type?.data?.data2?.loai_hinh_khach_hang
+      type?.data?.loai_hinh_khach_hang
     );
     formData.append("cus_id", record.cus_id);
 
@@ -203,7 +202,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
         <div style={{ padding: "5px" }}>
           <SelectDataInputBox
             data={dataStatusCustomer}
-            value={undefined}
+            value={record.status}
             handleChange={handleChangeStatus}
             cusId={data.cus_id}
           />

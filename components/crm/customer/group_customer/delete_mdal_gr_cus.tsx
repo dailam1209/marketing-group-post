@@ -50,6 +50,7 @@ const CancelModalDelGroup: React.FC<MyComponentProps> = ({
       });
       await Promise.all(delArray);
     }
+    router.push("/crm/customer/group/list")
     setChange(Math.random());
   };
   return (

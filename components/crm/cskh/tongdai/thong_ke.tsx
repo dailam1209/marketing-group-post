@@ -188,8 +188,7 @@ const Recording = (props: Props) => {
       // status: item.status,
     };
   });
-  // datane.sort((a, b) => a.caller - b.caller);
-  console.log(listData)
+  datane.sort((a, b) => a.caller - b.caller);
   const handleGet = async () => {
     if(phongban){
      datane.filter((item) =>{return item.nameDeparment === phongban});
