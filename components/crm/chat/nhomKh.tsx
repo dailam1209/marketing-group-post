@@ -7,7 +7,6 @@ export default function SelectBoxInputNhomKh({
   title = "",
   infoCus
 }: any) {
-  console.log("checks",infoCus)
 
     const [value,setValue] = useState()
   const [listGr,setListGr] = useState([])
@@ -25,7 +24,7 @@ export default function SelectBoxInputNhomKh({
         }
       );
       const data = await res.json();
-      setListGr(data?.data?.showGr);
+      setListGr(data?.data);
     } catch (error) {
       console.log("error:", error);
     }
@@ -41,11 +40,11 @@ export default function SelectBoxInputNhomKh({
         className={`${styles.select2} ${styles.business_assistant_item_select} ${styles.select2_hidden_accessible}`}
         // tabIndex={-1}
         aria-hidden="true"
-        defaultValue={infoCus.group_id}
-        value={value}
+        defaultValue={infoCus.group_id?.detail?.gr_name}
         onChange={(value:any) => setValue(value)}
 
       >
+        <option value={infoCus.group_id?.info}> {infoCus.group_id?.detail?.gr_name}</option>
         {listGr?.map((item: any, index: any) => (
           <option value={item?.gr_id} key={index}>
             {item?.gr_name}

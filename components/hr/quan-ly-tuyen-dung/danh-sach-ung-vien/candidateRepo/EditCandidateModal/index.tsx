@@ -13,7 +13,9 @@ import { CandidateUpdate } from '@/pages/api/api-hr/quan-ly-tuyen-dung/candidate
 type SelectOptionType = { label: string; value: any }
 
 export default function EditCandidateModal({ onCancel, candidate }: any) {
-  const [rating, setRating] = useState<any>(candidate?.starVote)
+  console.log(candidate);
+
+  const [rating, setRating] = useState<any>(candidate?.star_vote)
   const [addAnotherSkill, setAddAnotherSkill] = useState<JSX.Element[]>([])
   const [skills, setSkills] = useState<{ skillName: string; skillVote: any }[]>(
     []
@@ -23,16 +25,16 @@ export default function EditCandidateModal({ onCancel, candidate }: any) {
   )
   const [lastAddedIndex, setLastAddedIndex] = useState(-1)
   const [provisionFile, setProvisionFile] = useState<File | null>(null)
-  const [isGender, setGender] = useState<any>(candidate?.gender)
-  const [isEducation, setEducation] = useState<any>(candidate?.education)
-  const [isUserHiring, setUserHiring] = useState<any>(candidate?.userHiring)
-  const [isExp, setExp] = useState<any>(candidate?.exp)
-  const [isMarried, setMarried] = useState<any>(candidate?.isMarried)
+  const [isGender, setGender] = useState<any>(candidate?.can_gender)
+  const [isEducation, setEducation] = useState<any>(candidate?.can_education)
+  const [isUserHiring, setUserHiring] = useState<any>(candidate?.user_hiring)
+  const [isExp, setExp] = useState<any>(candidate?.can_exp)
+  const [isMarried, setMarried] = useState<any>(candidate?.can_is_married)
   const [isUserRecommend, setUserRecommend] = useState<any>(
-    candidate?.userRecommend
+    candidate?.user_recommend
   )
   const [isRecruitmentNewsId, setRecruitmentNewsId] = useState<any>(
-    candidate?.recruitmentNewsId
+    candidate?.recruitment_news_id
   )
   const [isEmpList, setEmpList] = useState<any>(null)
   const [isNewList, setNewsList] = useState<any>(null)
@@ -303,7 +305,7 @@ export default function EditCandidateModal({ onCancel, candidate }: any) {
         value: emp.ep_id,
         label: emp.ep_name,
       })),
-    [isEmpList.items]
+    [isEmpList]
   )
 
   const chonvitrituyendungOptions = useMemo(
@@ -357,31 +359,32 @@ export default function EditCandidateModal({ onCancel, candidate }: any) {
       { value: 3, label: 'Khác' },
     ],
     tennhanvientuyendung: chonnhanvienOptions,
+    tennhanvientuyendungdefault: [
+      { value: candidate?.user_hiring, label: candidate?.NvTuyenDung },
+    ],
+    tennhanviengioithieudefault: [
+      { value: candidate?.user_recommend, label: candidate?.NguoiGioiThieu },
+    ],
     tennhanviengioithieu: chonnhanvienOptions,
     vitrituyendung: chonvitrituyendungOptions,
     vitrituyendungdefault: [
-      { value: candidate?.recruitmentNewsId, label: candidate?.Title },
+      { value: candidate?.recruitment_news_id, label: candidate?.title },
     ],
   }
 
   const selectedGender: any = options.chongioitinh?.find(
-    (item) => item.value === candidate?.gender
+    (item) => item.value === candidate?.can_gender
   )
   const selectedEducation: any = options.trinhdohocvan?.find(
-    (item) => item.value === candidate?.education
+    (item) => item.value === candidate?.can_education
   )
   const selectedExp: any = options.kinhnghiemlamviec?.find(
-    (item) => item.value === candidate?.exp.toString()
+    (item) => item.value === candidate?.can_exp.toString()
   )
   const selectedMarried: any = options.tinhtranghonnhan?.find(
-    (item) => item.value === candidate?.isMarried
+    (item) => item.value === candidate?.can_is_married
   )
-  const selectedUseHiring: any = chonnhanvienOptions?.find(
-    (item: any) => item.value === candidate?.userHiring
-  )
-  const selectedUseRecomment: any = chonnhanvienOptions?.find(
-    (item: any) => item.value === candidate?.userRecommend
-  )
+
 
   return (
     <>
@@ -500,7 +503,7 @@ export default function EditCandidateModal({ onCancel, candidate }: any) {
                         type='date'
                         id='birthday'
                         defaultValue={format(
-                          parseISO(candidate?.birthday),
+                          parseISO(candidate?.can_birthday),
                           'yyyy-MM-dd'
                         )}
                         placeholder='dd/mm/yyyy'
@@ -634,7 +637,7 @@ export default function EditCandidateModal({ onCancel, candidate }: any) {
                       <input
                         type='text'
                         id='address'
-                        defaultValue={candidate?.address}
+                        defaultValue={candidate?.can_address}
                         placeholder='Nhập địa chỉ ứng viên'
                         className={`${styles.input_process}`}
                       />
@@ -678,7 +681,7 @@ export default function EditCandidateModal({ onCancel, candidate }: any) {
                     <div className={`${styles.input_right}`}>
                       <div className={`${styles.div_no_pad} `}>
                         <Selects
-                          selectedOption={selectedUseHiring}
+                          selectedOption={options.tennhanvientuyendungdefault}
                           onChange={handleSelectChange}
                           padding={15}
                           width_control={100}
@@ -707,7 +710,7 @@ export default function EditCandidateModal({ onCancel, candidate }: any) {
                     <div className={`${styles.input_right}`}>
                       <div className={`${styles.div_no_pad} `}>
                         <Selects
-                          selectedOption={selectedUseRecomment}
+                          selectedOption={options.tennhanviengioithieudefault}
                           onChange={handleSelectChange}
                           padding={15}
                           width_control={100}
@@ -782,7 +785,7 @@ export default function EditCandidateModal({ onCancel, candidate }: any) {
                     <div className={`${styles.input_right}`}>
                       <Rating
                         size={27}
-                        initialValue={candidate?.starVote}
+                        initialValue={candidate?.star_vote}
                         disableFillHover
                         className={`${styles.star_rating}`}
                         onClick={handleRating}

@@ -159,7 +159,6 @@ export default function CustomerList() {
   const dataStatusCustomer = dataStatus?.data;
   const [listGr, setListGr] = useState([]);
   const [list_gr_child, setlistGr_Child] = useState([]);
-
   const handleGetGr = async () => {
     const res = await fetch(`${base_url}/api/crm/group/list_group_khach_hang`, {
       method: "POST",
@@ -170,7 +169,7 @@ export default function CustomerList() {
       body: JSON.stringify({ com_id: Cookies.get("com_id") }),
     });
     const data = await res.json();
-    console.log("dataGR", data);
+    // console.log("dataGR", data);
     setListGr(data?.data);
     let arr = [];
     data?.data?.showGr?.map((item) => {

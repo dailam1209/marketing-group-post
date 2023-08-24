@@ -103,7 +103,6 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       body: JSON.stringify({ cus_id: record?.cus_id }),
     });
     const type = await res.json();
-    console.log("check res",type)
 
     // const
 

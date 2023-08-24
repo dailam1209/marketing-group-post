@@ -216,7 +216,7 @@ export const GroupPolicyUpdate = async (fomrData: FormData) => {
 export const UpdatePolicy = async (fomrData: FormData) => {
     try {
         const isToken = getToken(COOKIE_KEY);
-        const response = await axios.post(`${url}api/hr/administration/updateEmployeePolicySpecific`,fomrData,{
+        const response = await axios.put(`${url}api/hr/administration/updateEmployeePolicySpecific`,fomrData,{
             headers:{
                 authorization: `Bearer ${isToken}`
             }

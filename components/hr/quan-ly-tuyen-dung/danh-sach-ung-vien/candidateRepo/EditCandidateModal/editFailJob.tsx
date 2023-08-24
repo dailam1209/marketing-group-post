@@ -16,24 +16,27 @@ import Select from 'react-select';
 type SelectOptionType = { label: string; value: any }
 
 export default function EditCandidateFailJob({ onCancel, candidate }: any) {
-  const [rating, setRating] = useState<any>(candidate?.starVote)
-
-  const [isGender, setGender] = useState<any>(candidate?.gender)
-  const [isEducation, setEducation] = useState<any>(candidate?.education)
-  const [isUserHiring, setUserHiring] = useState<any>(candidate?.userHiring)
-  const [isExp, setExp] = useState<any>(candidate?.exp)
-  const [isMarried, setMarried] = useState<any>(candidate?.isMarried)
+  const [rating, setRating] = useState<any>(candidate?.star_vote)
+  const [isGender, setGender] = useState<any>(candidate?.can_gender)
+  const [isEducation, setEducation] = useState<any>(candidate?.can_education)
+  const [isUserHiring, setUserHiring] = useState<any>(candidate?.user_hiring)
+  const [isExp, setExp] = useState<any>(candidate?.can_exp)
+  const [isMarried, setMarried] = useState<any>(candidate?.can_is_married)
   const [isUserRecommend, setUserRecommend] = useState<any>(
-    candidate?.userRecommend
+    candidate?.user_recommend
   )
   const [isRecruitmentNewsId, setRecruitmentNewsId] = useState<any>(
-    candidate?.recruitmentNewsId
+    candidate?.recruitment_news_id
   )
   const [isEmpList, setEmpList] = useState<any>(null)
   const [isNewList, setNewsList] = useState<any>(null)
   const [isCandidate, setCandidate] = useState<any>(null)
   const comid: any = GetComId()
   const modalRef = useRef(null)
+
+  console.log(candidate);
+  console.log(isCandidate);
+
 
   useEffect(() => {
     const handleOutsideClick = (event: any) => {
@@ -69,10 +72,11 @@ export default function EditCandidateFailJob({ onCancel, candidate }: any) {
     const fetchData = async () => {
       try {
         const formData = new FormData()
-        formData.append('canId', candidate?.id)
+        formData.append('id', candidate?.id)
         const response = await FailJobDetails(formData)
         if (response) {
-          setCandidate(response.data)
+
+          setCandidate(response?.success?.data?.data)
         }
       } catch (error) {
         throw error
@@ -232,22 +236,22 @@ export default function EditCandidateFailJob({ onCancel, candidate }: any) {
   }
 
   const selectedGender: any = options.chongioitinh?.find(
-    (item) => item.value === candidate?.gender
+    (item) => item.value === candidate?.can_gender
   )
   const selectedEducation: any = options.trinhdohocvan?.find(
-    (item) => item.value === candidate?.education
+    (item) => item.value === candidate?.can_education
   )
   const selectedExp: any = options.kinhnghiemlamviec?.find(
-    (item) => item.value === candidate?.exp.toString()
+    (item) => item.value === candidate?.can_exp.toString()
   )
   const selectedMarried: any = options.tinhtranghonnhan?.find(
-    (item) => item.value === candidate?.isMarried
+    (item) => item.value === candidate?.can_is_married
   )
   const selectedUseHiring: any = options.tennhanvientuyendung?.find(
-    (item: any) => item.value === candidate?.userHiring
+    (item: any) => item.value === candidate?.user_hiring
   )
   const selectedUseRecomment: any = options.tennhanviengioithieu?.find(
-    (item: any) => item.value === candidate?.userRecommend
+    (item: any) => item.value === candidate?.user_recommend
   )
 
   return (
@@ -335,7 +339,7 @@ export default function EditCandidateFailJob({ onCancel, candidate }: any) {
                         type='date'
                         id='birthday'
                         value={format(
-                          parseISO(candidate?.birthday),
+                          parseISO(candidate?.can_birthday),
                           'yyyy-MM-dd'
                         )}
                         placeholder='dd/mm/yyyy'
@@ -437,7 +441,7 @@ export default function EditCandidateFailJob({ onCancel, candidate }: any) {
                       <input
                         type='text'
                         id='address'
-                        value={candidate?.address}
+                        value={candidate?.can_address}
                         placeholder='Nhập địa chỉ ứng viên'
                         className={`${styles.input_process}`}
                       />
@@ -530,7 +534,7 @@ export default function EditCandidateFailJob({ onCancel, candidate }: any) {
                         type='date'
                         id='timeSendCv'
                         defaultValue={format(
-                          parseISO(candidate?.createdAt),
+                          parseISO(candidate?.created_at),
                           'yyyy-MM-dd'
                         )}
                         placeholder='dd/mm/yyyy --:--:--'
@@ -545,7 +549,7 @@ export default function EditCandidateFailJob({ onCancel, candidate }: any) {
                     <div className={`${styles.input_right}`}>
                       <Rating
                         size={27}
-                        initialValue={candidate?.starVote}
+                        initialValue={candidate?.star_vote}
                         disableFillHover
                         className={`${styles.star_rating}`}
                         onClick={handleRating}

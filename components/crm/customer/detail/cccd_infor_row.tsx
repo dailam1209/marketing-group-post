@@ -4,9 +4,9 @@ export default function CCCDInforRow({formData}:any) {
 
   return (
     <div className={styles.row_input_text}>
-      <InforText field="Số CMND/CCCD::" value={formData?.so_cmtnd_cccd?formData?.so_cmtnd_cccd:"Chưa cập nhật"}/>
-      <InforText field="Nơi cấp:" value={formData?.noi_cap_cmnd_cccd?formData?.noi_cap_cmnd_cccd:"Chưa cập nhật"}/>
-      <InforText field="Ngày cấp:" value={formData?.ngay_cap_cmnd_cccd?formData?.ngay_cap_cmnd_cccd:"Chưa cập nhật"}/>
+      <InforText field="Số CMND/CCCD::" value={formData?.cmnd_ccnd_number?formData?.cmnd_ccnd_number:"Chưa cập nhật"}/>
+      <InforText field="Nơi cấp:" value={formData?.cmnd_ccnd_address?formData?.cmnd_ccnd_address:"Chưa cập nhật"}/>
+      <InforText field="Ngày cấp:" value={formData?.cmnd_ccnd_time?formData?.cmnd_ccnd_time:"Chưa cập nhật"}/>
     </div>
   );
 }

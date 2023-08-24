@@ -472,7 +472,7 @@
   .banner .banner-right {
     margin-top: 72px;
     margin-bottom: 123px;
-    width: 50%;
+    width: 60%;
     float: right;
     text-align: right;
   }
@@ -515,7 +515,7 @@
   }
   .box-01 .left-01 {
     padding: 40px 0 0 137px;
-    width: 50%;
+    width: 65%;
   }
   .left-01 img {
     width: 506px;
@@ -578,16 +578,16 @@
     top: 35%;
   }
   .box-02 .item .title_item_01 {
-    padding: 0 60px;
+    padding: 0 25px;
   }
   .box-02 .item .title_item_02 {
-    padding: 0 65px;
+    padding: 0 25px;
   }
   .box-02 .item .title_item_03 {
-    padding: 0 59px;
+    padding: 0 25px;
   }
   .box-02 .item .title_item_04 {
-    padding: 0 50px;
+    padding: 0 25px;
   }
   .box-02 .item .text_box {
     color: #474747;
@@ -838,6 +838,8 @@
   .left-01 img {
     width: 506px;
     height: 503px;
+    width: 100%;
+    margin: auto;
   }
   .box-02 {
     background-color: #ffffff;
@@ -1401,6 +1403,9 @@
   .banner-left .href {
     margin: 0 !important;
     padding: 0 81px 35px 81px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   .content-body .title_box {
     margin: 0 !important;
@@ -1469,8 +1474,9 @@
   }
   .box-02 .item {
     display: flex;
-    padding: 10px 0 25px 0;
+    padding: 10px 0px 25px 0;
     flex-wrap: wrap;
+    gap: 25px;
     justify-content: center;
   }
   .box-02 .item h4 {
@@ -1502,10 +1508,9 @@
   }
   .box-02 .item .item-child {
     margin: 0 !important;
-    width: calc(100% - 83px);
-    min-height: 313px;
+    width: calc(61% - 87px);
+    min-height: 342px;
     position: relative;
-    margin-bottom: 40px;
   }
   .box-02 .item .item-02 {
     background: url(/crm/bg-item-02.png) no-repeat;
@@ -1639,5 +1644,10 @@
     font-weight: bold;
     font-size: 18px;
     line-height: 21px;
+  }
+  .href {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
   }
 }
