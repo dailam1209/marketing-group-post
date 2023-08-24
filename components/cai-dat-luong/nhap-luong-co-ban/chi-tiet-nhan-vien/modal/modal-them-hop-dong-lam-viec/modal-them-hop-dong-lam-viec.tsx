@@ -1,30 +1,31 @@
-import { Modal, Input, Select, Button, Form, List, Checkbox } from 'antd'
-import styles from './modal-them-hop-dong-lam-viec.module.css'
-import Image from 'next/image'
-import React, { useEffect, useRef, useState } from 'react'
-import { Tep } from '@/components/cai-dat-luong/cai-dat-thue/danh-sach-nhan-su-chua-thiet-lap/anh'
+import { Modal, Input, Select, Button, Form, List, Checkbox } from 'antd';
+import styles from './modal-them-hop-dong-lam-viec.module.css';
+import Image from 'next/image';
+import React, { useEffect, useRef, useState } from 'react';
+import { Tep } from '@/components/cai-dat-luong/cai-dat-thue/danh-sach-nhan-su-chua-thiet-lap/anh';
 import {
   MyDatePicker,
   MyInput,
-} from '@/components/quan-ly-cong-ty/quan-ly-cong-ty-con/modal'
-import { POST_TL } from '@/pages/api/BaseApi'
-import moment from 'moment'
-import { useRouter } from 'next/router'
-const { TextArea } = Input
+} from '@/components/quan-ly-cong-ty/quan-ly-cong-ty-con/modal';
+import { POST_TL } from '@/pages/api/BaseApi';
+import moment from 'moment';
+import { useRouter } from 'next/router';
+import { MyInputFile } from '@/components/tao-de-xuat/loai-de-xuat/tao-de-xuat/component/ChiTiet';
+const { TextArea } = Input;
 export function ModalThemHopDong(open: boolean, setOpen: Function, data: any) {
-  const [ND, setND] = useState('')
-  const [form] = Form.useForm()
-  const inputFileRef = useRef<any>(null)
-  const [listFileNames, setListFileNames] = useState<any[]>([])
-  const router = useRouter()
+  const [ND, setND] = useState('');
+  const [form] = Form.useForm();
+  const inputFileRef = useRef<any>(null);
+  const [listFileNames, setListFileNames] = useState<any[]>([]);
+  const router = useRouter();
 
   const onFileChange = (value) => {
-    const formData = new FormData()
-    const data = value.target.files[0]
+    const formData = new FormData();
+    const data = value.target.files[0];
 
-    setListFileNames([...listFileNames, data?.name])
-    formData.append('inputname', data)
-  }
+    setListFileNames([...listFileNames, data?.name]);
+    formData.append('inputname', data);
+  };
 
   const onFinish = async (value) => {
     const res = await POST_TL('api/tinhluong/congty/insert_contract', {
@@ -33,25 +34,27 @@ export function ModalThemHopDong(open: boolean, setOpen: Function, data: any) {
       con_time_end: '1970-01-01T00:00:00.000+00:00',
       con_id_user: router.query.id,
       con_file: value?.con_file || '',
-    })
+    });
     if (res?.message === 'success') {
-      router.replace(router.asPath)
+      router.replace(router.asPath);
     }
-  }
+  };
 
   return (
     <Modal
+      className="bannerQLC"
       open={open}
       onCancel={() => setOpen(false)}
       width={600}
       closable={false}
       cancelButtonProps={{ style: { display: 'none' } }}
-      okButtonProps={{ style: { display: 'none' } }}>
+      okButtonProps={{ style: { display: 'none' } }}
+    >
       <div className={styles.header}>
         <div></div>
         <div className={styles.textHead}>Thêm hợp đồng nhân viên</div>
         <Image
-          alt='/'
+          alt="/"
           src={'/cross.png'}
           width={14}
           height={14}
@@ -90,7 +93,7 @@ export function ModalThemHopDong(open: boolean, setOpen: Function, data: any) {
             'con_time_end'
           )} */}
           <input
-            type='file'
+            type="file"
             onChange={(e) => onFileChange(e)}
             ref={inputFileRef}
             style={{ display: 'none' }}
@@ -139,9 +142,10 @@ export function ModalThemHopDong(open: boolean, setOpen: Function, data: any) {
             </div>
           </div> */}
 
-          {MyInput('Tệp đính kèm', 'Tệp đính kèm', false, true, 'con_file')}
+          {/* {MyInput('Tệp đính kèm', 'Chọn tệp đính kèm (Tối đa 10MB)', false, true, 'con_file', "", false, "#fff", "file")} */}
+          {MyInputFile('Tệp đính kèm', 'Chọn tệp đính kèm (Tối đa 10MB)', false, true, 'con_file')}
 
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
             <button className={styles.huyb} onClick={() => setOpen(false)}>
               <p className={styles.texthuyb}>Huỷ bỏ</p>
             </button>
@@ -152,5 +156,5 @@ export function ModalThemHopDong(open: boolean, setOpen: Function, data: any) {
         </Form>
       </div>
     </Modal>
-  )
+  );
 }
