@@ -19,14 +19,14 @@ export default function HeaderBtnsCustomerGroup({
     <div className={styles.main__control}>
       <div className={`${styles.main__control_btn} flex_between`}>
         <div className={styles.wrapInput}>
-          <div
+          <form
             style={{
               position: "relative",
               paddingTop: "10px",
               paddingBottom: "10px",
             }}
             className={styles.main__control_search}
-            onSubmit={handleClickSearch}
+            onSubmit={(e)=>{e.preventDefault(),handleClickSearch()}}
           >
             <input
               type="text"
@@ -36,6 +36,7 @@ export default function HeaderBtnsCustomerGroup({
               placeholder="Tìm kiếm theo tên nhóm khách hàng"
               value={valFilter}
               onChange={handleChangeInput}
+              
             />
             <button onClick={handleClickSearch} className={styles.kinh_lup}>
               <img
@@ -44,7 +45,7 @@ export default function HeaderBtnsCustomerGroup({
                 alt=""
               />
             </button>
-          </div>
+          </form>
         </div>
         <div className={`${styles.main__control_add} flex_end`}>
           <Link href="/crm/customer/group/add">

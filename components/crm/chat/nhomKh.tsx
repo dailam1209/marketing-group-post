@@ -5,31 +5,12 @@ import { useEffect, useState } from "react";
 
 export default function SelectBoxInputNhomKh({
   title = "",
-  infoCus
+  infoCus,
+  listGr
 }: any) {
 
     const [value,setValue] = useState()
-  const [listGr,setListGr] = useState([])
-  const handleGetGr = async () => {
-    try {
-      const res = await fetch(
-        `${base_url}/api/crm/group/list_group_khach_hang`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${Cookies.get("token_base365")}`,
-          },
-          body: JSON.stringify({ com_id: Cookies.get("com_id") }),
-        }
-      );
-      const data = await res.json();
-      setListGr(data?.data);
-    } catch (error) {
-      console.log("error:", error);
-    }
-  };
-  useEffect(()=>{handleGetGr()},[])
+
   return (
     <div
       className={`${styles.business_assistant_item} ${styles.business_assistant_item_gray}`}
