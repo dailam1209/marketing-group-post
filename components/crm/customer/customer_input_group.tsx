@@ -32,6 +32,9 @@ export default function CustomerListInputGroup({
   setnhomCha,
   nhomCon,
   setnhomCon,
+  setloading,
+  setDatatable,
+  setgroup_id
 }: any) {
   const [open, setOpen] = useState(false);
   const inputFileRef = useRef<HTMLInputElement>(null);
@@ -95,12 +98,9 @@ export default function CustomerListInputGroup({
     inputFileRef.current?.click();
   };
   const handleSearchKH = async () => {
-    setIsProcessing(false);
     setName(nameFill);
-   
-    setTimeout(() => {
-      setIsProcessing(true);
-    }, 2000);
+    setloading(true)
+    setDatatable([])
   };
   return (
     <>
@@ -128,13 +128,7 @@ export default function CustomerListInputGroup({
                 type="button"
                 style={{ width: "100px" }}
               >
-                {isProcessing ? (
-                  <div>Tìm kiếm </div>
-                ) : (
-                  <div>
-                    <LoadingOutlined />{" "}
-                  </div>
-                )}
+                <div>Tìm kiếm </div>
               </button>
             </form>
           </div>
@@ -269,6 +263,9 @@ export default function CustomerListInputGroup({
             setnhomCha={setnhomCha}
             nhomCon={nhomCon}
             setnhomCon={setnhomCon}
+            setDatatable={setDatatable}
+            setloading={setloading}
+            setgroup_id={setgroup_id}
           />
         </div>
       </Drawer>

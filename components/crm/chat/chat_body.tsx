@@ -14,7 +14,7 @@ import SelectBoxInputNguon from "./nguonKH";
 import SelectBoxInputNhomKh from "./nhomKh";
 import SelectBoxInputNhomKhcon from "./khcon";
 const Cookies = require("js-cookie"); 
-export default function ChatBusinessBody({ cusId,setContent,setDate }: any) {
+export default function ChatBusinessBody({ cusId,setContent,setDate,setCusId }: any) {
   const [infoCus, setInfoCus] = useState({});
   const handleGetInfoCus = async () => {
     const res = await fetch(`${base_url}/api/crm/customerdetails/detail`, {
@@ -31,7 +31,7 @@ export default function ChatBusinessBody({ cusId,setContent,setDate }: any) {
   };
   useEffect(() => {
     handleGetInfoCus();
-  }, []);
+  }, [cusId]);
   return (
     <div className={styles.business_assistant_body}>
       <div className={styles.form_business_assistant}>
