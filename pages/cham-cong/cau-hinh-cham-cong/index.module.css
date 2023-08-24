@@ -33,7 +33,7 @@
 .body {
     margin-top: 10px;
     display: flex;
-    height: 665px;
+    height: auto;
 }
 
 .body1 {
@@ -60,6 +60,7 @@
 .header_shift_st {
     display: flex;
     justify-content: space-between;
+
 }
 
 .header_shift_st > h4 {
@@ -72,7 +73,9 @@
 .header_shift_bd {
     display: flex;
     gap: 10px;
-    margin-top: 20px
+    margin-top: 20px;
+    flex-wrap: wrap;
+    width: 100%;
 }
 .header_shift_bd > p {
     border: 1px solid #CCCCCC ;
@@ -98,3 +101,21 @@ margin-top: 20px;
     display: flex;
     flex-direction: column;
 }
+@media (max-width: 1200px){
+    .body1{
+        width: 100%;
+    }
+    .body2{
+        width: 100%;
+        padding-top: 20px;
+    }
+    .body{
+        flex-direction: column;
+    }
+    .form_search_item{
+        justify-content: flex-end;
+        gap: 5px;
+        flex-wrap: wrap;
+    }
+}
+
