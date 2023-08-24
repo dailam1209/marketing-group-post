@@ -71,7 +71,7 @@ const UpdateEmailFormList: React.FC = () => {
 
       </div>
       <FooterAddEmailForm
-        link="/marketing/email"
+        link="/crm/marketing/email"
         titleCancel="Hủy cập nhật mẫu email"
         title="Cập nhật mẫu email thành công!"
         contentCancel="Bạn có chắc chắn muốn hủy cập nhật mẫu email này không, mọi thông tin bạn thay đổi sẽ không được lưu lại?"

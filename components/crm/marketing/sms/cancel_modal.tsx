@@ -17,7 +17,7 @@ const CancelModal: React.FC<MyComponentProps> = ({
   const router = useRouter();
   const handleOK = () => {
     setIsModalCancel(false);
-    router.push("/marketing/sms");
+    router.push("/crm/marketing/sms");
   };
 
   return (

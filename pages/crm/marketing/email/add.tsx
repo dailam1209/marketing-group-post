@@ -58,7 +58,7 @@ const AddFilesCustomerList: React.FC = () => {
             </div>
           </div>
           <FooterAddEmail
-            link="/marketing/email"
+            link="/crm/marketing/email"
             titleCancel="Xác nhận hủy thêm mới email"
             title="Gửi email thành công!"
             contentCancel="Bạn có chắc chắn muốn hủy thêm mới email mọi thông tin bạn nhập sẽ không được lưu lại?"
