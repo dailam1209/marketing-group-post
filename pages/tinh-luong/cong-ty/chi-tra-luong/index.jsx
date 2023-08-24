@@ -1,5 +1,5 @@
 import styles from "./index.module.css";
-import HeadNav from "../../../../components/tinh-luong/components/big-component/head-nav-res";
+import HeadNav from "../../../../components/tinh-luong/components/big-component/header-nav";
 import { useRouter } from "next/router";
 import HeadNavResCongTy from "../../../../components/tinh-luong/components/big-component/head-nav-res-cong-ty";
 import { Select, Space, Modal, Table } from "antd";
@@ -390,7 +390,7 @@ export default function ChiTraLuong() {
       render: (record) => (
         <div className={styles.c_point}>
           <img
-            src="/edit.png"
+            src="/tinhluong/edit.png"
             alt=""
             style={{ objectFit: "cover" }}
             onClick={() => handleEdit(record?.pay_id)}
@@ -406,7 +406,7 @@ export default function ChiTraLuong() {
       render: (record) => (
         <div className={styles.c_point}>
           <img
-            src="/remove.png"
+            src="/tinhluong/remove.png"
             alt=""
             style={{ objectFit: "cover" }}
             onClick={() => handleDelete(record.pay_id)}
@@ -465,14 +465,12 @@ export default function ChiTraLuong() {
 
   useEffect(() => {
     axios
-      .post(`${domain}/api/tinhluong/congty/show_staff_late`, {
-        start_date: "2023-08-01T00:00:00.000+00:00",
-        end_date: "2023-09-01T00:00:00.000+00:00",
-        com_id: cp,
+      .post(`${domain}/api/tinhluong/congty/list_shift`, {
+        com_id: 3312,
         token: token,
       })
       .then((res) => {
-        setAllShift(res.data.data.listShiftDetail);
+        setAllShift(res.data.data.listShift);
       })
       .catch((err) => {
         console.log(
@@ -511,7 +509,7 @@ export default function ChiTraLuong() {
       <div className={styles.idx_ttnv}>
         {/* <HeadNavRes></HeadNavRes> */}
         <HeadNavResCongTy></HeadNavResCongTy>
-        <HeadNav title="Quản lý tài khoản"></HeadNav>
+        <HeadNav title="Chi trả lương"></HeadNav>
         <div className={styles.part_tax}>
           <div className={styles.tax_three}>
             <div className={styles.tax_three_ct_one}>
