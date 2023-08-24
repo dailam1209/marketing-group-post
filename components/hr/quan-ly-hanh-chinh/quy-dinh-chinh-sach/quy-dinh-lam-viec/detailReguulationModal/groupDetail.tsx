@@ -22,7 +22,6 @@ export default function GroupDetailModal({
         onCancel()
       }
     }
-
     document.addEventListener('mousedown', handleOutsideClick)
 
     return () => {
@@ -34,7 +33,7 @@ export default function GroupDetailModal({
     const fetchData = async () => {
       try {
         const response = await GroupDetails(idGroup)
-        setDetailData(response?.data)
+        setDetailData(response?.success)
       } catch (error) {
         throw error
       }
@@ -46,6 +45,9 @@ export default function GroupDetailModal({
   const handlecloseModal = () => {
     setOpenDetailFile(false)
   }
+
+  console.log(DetailData);
+
 
   return (
     <>
@@ -59,20 +61,20 @@ export default function GroupDetailModal({
                   CHI TIẾT NHÓM QUY ĐỊNH
                 </h5>
               </div>
-              {DetailData?.data[0] && (
+              {DetailData?.data?.data && (
                 <div className={`${styles.modal_body} ${styles.body_process}`}>
                   <div className={`${styles.infors}`}>
                     <div className={`${styles.info_left}`}>
                       <li>
                         <label>Nhóm quy định:</label>
                         <span className={`${styles.nqd_nqd}`}>
-                          {DetailData?.data[0]?.name}
+                          {DetailData?.data?.data?.name}
                         </span>
                       </li>
                       <li>
                         <label>Người giám sát:</label>
                         <span className={`${styles.nqt_supervisor_name}`}>
-                          {DetailData?.data[0]?.supervisorName}
+                          {DetailData?.data?.data?.supervisor_name}
                         </span>
                       </li>
                     </div>
@@ -85,7 +87,7 @@ export default function GroupDetailModal({
                         <label>Có hiệu lực từ:</label>
                         <span className={`${styles.nqt_created_at}`}>
                           {format(
-                            new Date(DetailData?.data[0]?.timeStart),
+                            new Date(DetailData?.data?.data?.time_start),
                             'dd/MM/yyyy'
                           )}
                         </span>
@@ -103,17 +105,17 @@ export default function GroupDetailModal({
                         wordWrap: 'break-word',
                       }}>
                       <li className={`${styles.nqd_content}`}>
-                        <p>{DetailData?.data[0]?.supervisorName}</p>
+                        <p>{DetailData?.data?.data?.description}</p>
                       </li>
                     </div>
                   </div>
                   <div
                     className={`${styles.infors1} ${styles.preview_file_provision}`} onClick={() => setOpenDetailFile(!isopenDetailFile)}>
-                    <a style={{ color: '#337ab7', fontWeight: 600 }} >
+                    <a style={{ color: '#337ab7', fontWeight: 600, cursor: 'pointer' }} >
                       Xem chi tiết file đính kèm
                     </a>
                   </div>
-                  {isopenDetailFile && <FilePolicyGroupDetail file={DetailData?.data[0]?.file} onCancel={handlecloseModal} />}
+                  {isopenDetailFile && <FilePolicyGroupDetail file={DetailData?.data?.data.file} onCancel={handlecloseModal} />}
                 </div>
               )}
               <div

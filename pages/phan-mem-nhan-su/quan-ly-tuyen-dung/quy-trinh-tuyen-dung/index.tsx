@@ -42,7 +42,6 @@ export default function RecruitmentProcess() {
         const response = await GetDataRecruitment(currentPage, 5, key);
         if (response?.status === 200) {
           setDataRecruitment(response?.data?.success);
-          console.log(response);
 
         }
       } catch (error) {
@@ -55,7 +54,6 @@ export default function RecruitmentProcess() {
     fetchData();
   }, [dataAdd, currentPage, key]);
 
-  console.log(dataRecruitment);
 
   const handleDelete = async () => {
     const itemsPerPage = dataRecruitment.length;
@@ -109,7 +107,7 @@ export default function RecruitmentProcess() {
                   <button className={`${styles.adds}`} onClick={handleOpenModalAdd}>
                     <picture style={{ paddingLeft: "12px" }} className={`${styles.display}`}>
                       <img src={`/add.png`} alt=""></img>
-                      <p>Thêm tin tuyển dụng</p>
+                      <p>Thêm quy trình tuyển dụng</p>
                     </picture>
                   </button>
                 )}
@@ -133,13 +131,13 @@ export default function RecruitmentProcess() {
                       autoComplete="off"
                       onChange={(e) => handleSearch(e.target.value)}
                     ></input>
-                    <button className={styles.button_search}>
+                    <div className={styles.button_search}>
                       <div style={{ paddingLeft: "12px" }}>
                         <picture>
                           <img src={"/icon-search.png"} alt="search"></img>
                         </picture>
                       </div>
-                    </button>
+                    </div>
                   </div>
                 </form>
               </div>

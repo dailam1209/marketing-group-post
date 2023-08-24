@@ -72,7 +72,7 @@ export default function CustomerListAction({
   }
   return (
     <>
-      <div className={styles.div__thaotac}>
+      <div className={styles.div__thaotac2}>
         <div>
           <label>Đã chọn: &nbsp;</label>
           <b className={styles.checked_count}>{numberSelected}</b>
@@ -105,7 +105,7 @@ export default function CustomerListAction({
           className={numberSelected < 1 ? "opacity" : ""}
           trigger={[numberSelected >= 1 ? "hover" : "contextMenu"]}
         >
-          <button className={styles.button_thaotac}>
+          <button className={styles.button_thaotac2}>
             <img src="/crm/3_cham.png" />
             Thao tác
           </button>

@@ -64,6 +64,10 @@ export default function AddPlanningModal({ onCancel }: any) {
   const [errors, setErrors] = useState<any>({});
   const modalRef = useRef(null);
 
+  console.log(isEmpList);
+  console.log(isDepList);
+
+
   useEffect(() => {
     const fetchDataCom = async () => {
       const position = await FetchDataPosition()
@@ -99,8 +103,7 @@ export default function AddPlanningModal({ onCancel }: any) {
     try {
 
       const specifiedGroup = await FetchDataSpecifiedGroup()
-      setSpecifiedList(specifiedGroup)
-
+      setSpecifiedList(specifiedGroup?.data)
       const dep = await FetchDataDep()
       setDeptList(dep)
 
@@ -204,9 +207,9 @@ export default function AddPlanningModal({ onCancel }: any) {
   const chonnhanvienOptions = useMemo(
     () =>
       isEmpList &&
-      isEmpList?.data?.map((emp: any) => ({
-        value: `${emp.idQLC} ${emp.dep_id[0]} ${emp.position_id} ${emp.nameDeparment}`,
-        label: emp.userName
+      isEmpList?.items?.map((emp: any) => ({
+        value: `${emp.ep_id} ${emp.dep_id} ${emp.position_id} ${emp.dep_name}`,
+        label: emp.ep_name
       })),
     [isEmpList]
   );
@@ -214,7 +217,7 @@ export default function AddPlanningModal({ onCancel }: any) {
   const chonphongbanOptions = useMemo(
     () =>
       isDepList &&
-      isDepList?.data?.map((dep: any) => ({
+      isDepList?.items?.map((dep: any) => ({
         value: dep.dep_id,
         label: dep.dep_name
       })),
@@ -369,6 +372,10 @@ export default function AddPlanningModal({ onCancel }: any) {
                             ...baseStyles,
                             color: "#444444",
                           }),
+                          menu: (baseStyles) => ({
+                            ...baseStyles,
+                            zIndex: 1000
+                          }),
                         }}
                       />
                     </div>
@@ -395,6 +402,10 @@ export default function AddPlanningModal({ onCancel }: any) {
                           placeholder: (baseStyles) => ({
                             ...baseStyles,
                             color: "#444444",
+                          }),
+                          menu: (baseStyles) => ({
+                            ...baseStyles,
+                            zIndex: 1000
                           }),
                         }}
                       />
@@ -425,11 +436,15 @@ export default function AddPlanningModal({ onCancel }: any) {
                             fontSize: state.isFocused ? 14 : 14,
                             minHeight: state.isFocused ? 20 : 20,
                             width: '100%',
-                            fontWeight: state.isFocused ? 600 : 600
+                            fontWeight: state.isFocused ? 600 : 600,
                           }),
                           placeholder: (baseStyles) => ({
                             ...baseStyles,
                             color: "#444444",
+                          }),
+                          menu: (baseStyles) => ({
+                            ...baseStyles,
+                            zIndex: 1000
                           }),
                         }}
                       />

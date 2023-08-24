@@ -37,7 +37,7 @@ export default function PolicyGroupDetailModal({
     const fetchData = async () => {
       try {
         const response = await PolicyGroupDetail(idGroup)
-        setDetailData(response?.data)
+        setDetailData(response?.success)
       } catch (error) {
         throw error
       }
@@ -61,20 +61,20 @@ export default function PolicyGroupDetailModal({
                   CHI TIẾT NHÓM CHÍNH SÁCH
                 </h5>
               </div>
-              {DetailData?.data[0] && (
+              {DetailData?.data?.data && (
                 <div className={`${styles.modal_body} ${styles.body_process}`}>
                   <div className={`${styles.infors}`}>
                     <div className={`${styles.info_left}`}>
                       <li>
                         <label>Nhóm chính sách:</label>
                         <span className={`${styles.nqd_nqd}`}>
-                          {DetailData?.data[0]?.name}
+                          {DetailData?.data?.data?.name}
                         </span>
                       </li>
                       <li>
                         <label>Người giám sát:</label>
                         <span className={`${styles.nqt_supervisor_name}`}>
-                          {DetailData?.data[0]?.supervisorName}
+                          {DetailData?.data?.data?.supervisor_name}
                         </span>
                       </li>
                     </div>
@@ -87,7 +87,7 @@ export default function PolicyGroupDetailModal({
                         <label>Có hiệu lực từ:</label>
                         <span className={`${styles.nqt_created_at}`}>
                           {format(
-                            new Date(DetailData?.data[0]?.timeStart),
+                            new Date(DetailData?.data?.data?.time_start),
                             'dd/MM/yyyy'
                           )}
                         </span>
@@ -105,7 +105,7 @@ export default function PolicyGroupDetailModal({
                         wordWrap: 'break-word',
                       }}>
                       <li className={`${styles.nqd_content}`}>
-                        <p>{DetailData?.data[0]?.supervisorName}</p>
+                        <p>{DetailData?.data?.data?.description}</p>
                       </li>
                     </div>
                   </div>
@@ -115,7 +115,7 @@ export default function PolicyGroupDetailModal({
                       Xem chi tiết file đính kèm
                     </a>
                   </div>
-                  {isopenDetailFile && <FilePolicyGroupDetail file={DetailData?.data[0]?.file} onCancel={handlecloseModal} />}
+                  {isopenDetailFile && <FilePolicyGroupDetail file={DetailData?.data?.data?.file} onCancel={handlecloseModal} />}
                 </div>
               )}
               <div

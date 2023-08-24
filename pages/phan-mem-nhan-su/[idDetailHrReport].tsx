@@ -346,6 +346,8 @@ export default function DetailHrReport({ children }: any) {
           const response = await EmpStatusDetail(formData)
           if (response) {
             setOrganisationalList(response?.data)
+            console.log(response);
+
           }
         }
         if (

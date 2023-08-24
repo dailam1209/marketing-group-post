@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { base_url } from "@/components/crm/service/function";
 import { checkAndRedirectToHomeIfNotLoggedIn } from "@/components/crm/ultis/checkLogin";
+import { Checkbox } from "antd";
 const Cookies = require("js-cookie");
 export default function DetailCustomer() {
   const pathname = usePathname();
@@ -25,12 +26,12 @@ export default function DetailCustomer() {
       body: JSON.stringify({ cus_id: id }),
     });
     const data = await res.json();
-    setname(data?.data?.data1 || data?.data?.data2);
+    setname(data?.data?.name);
   };
   useEffect(() => {
     getNameDetail();
     setShowBackButton(true);
-    setHeaderTitle(`${name?.ten_khach_hang} / Thông tin khách hàng`);
+    setHeaderTitle(`${name} / Thông tin khách hàng`);
 
     setCurrentPath("/crm/customer/list");
   }, [
@@ -38,8 +39,10 @@ export default function DetailCustomer() {
     setShowBackButton,
     setCurrentPath,
     id,
-    name?.ten_khach_hang,
+    name
   ]);
+
+
   return (
     <>
       {!checkAndRedirectToHomeIfNotLoggedIn() ? null : (

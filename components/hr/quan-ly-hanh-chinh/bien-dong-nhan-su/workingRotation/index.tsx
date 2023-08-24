@@ -107,9 +107,9 @@ export default function TabWorkingRotation({ iconAdd, iconEdit, iconDelete }: an
     setOpenDeleteModal(0)
   }
 
-  const handleOpenEdit = ({ com_name, dep_name, emp_name, position_name, ep_id, dep_id, note, mission }: any) => {
+  const handleOpenEdit = ({ com_name, dep_name, emp_name, position_name, ep_id, dep_id, note, mission, item }: any) => {
     setOpenEditModal(true);
-    setInfoList({ com_name, dep_name, emp_name, position_name, ep_id, dep_id, note, mission })
+    setInfoList({ com_name, dep_name, emp_name, position_name, ep_id, dep_id, note, mission, item })
 
   }
 
@@ -287,7 +287,7 @@ export default function TabWorkingRotation({ iconAdd, iconEdit, iconDelete }: an
                         <td>{item.new_position}</td>
                         {iconDelete || iconEdit ? (
                           <td>
-                            {iconEdit && <a style={{ cursor: 'pointer' }} onClick={() => handleOpenEdit({ com_name: item.new_com_name, dep_name: item.new_dep_name, emp_name: item.userName, position_name: item.new_position, ep_id: item.ep_id, note: item.note, mission: item.mission, dep_id: item.new_dep_id })} className={`${styles.btn_edit}`}><img src={`/icon_edit.svg`} alt="" /></a>}
+                            {iconEdit && <a style={{ cursor: 'pointer' }} onClick={() => handleOpenEdit({ com_name: item.new_com_name, dep_name: item.new_dep_name, emp_name: item.userName, position_name: item.new_position, ep_id: item.ep_id, note: item.note, mission: item.mission, dep_id: item.new_dep_id, item: item })} className={`${styles.btn_edit}`}><img src={`/icon_edit.svg`} alt="" /></a>}
                             {iconDelete && <a className={`${styles.btn_delete}`}><img src={`/icon_delete.svg`} alt="" onClick={() => setOpenDeleteModal(item.ep_id)} /></a>}
                           </td>
                         ) : null}

@@ -12,7 +12,6 @@ export default function TextEditor({ title = null, className,  infoCus }: any) {
     };
     setEditorLoaded(true);  
   }, []);
-  console.log(infoCus)
   return (
     <div
       className={`text_editor_${className}`}
@@ -20,7 +19,7 @@ export default function TextEditor({ title = null, className,  infoCus }: any) {
     >
       <label className="title_label">{title}</label>
       {editorLoaded ? (
-        <CKEditor data={infoCus?.thong_tin_mo_ta} editor={ClassicEditor} />
+        <CKEditor data={infoCus?.description?.detail?infoCus?.description?.detail:"Chưa cập nhật"} editor={ClassicEditor} />
       ) : (
         "loading..."
       )}

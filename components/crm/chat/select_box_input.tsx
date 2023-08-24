@@ -22,7 +22,7 @@ export default function SelectBoxInput({
       body: JSON.stringify({ phone: `${+infoCus?.dien_thoai}` }),
     });
     const data = await res.json();
-    setLisStatus(data?.data?.listStatus);
+    setLisStatus(data?.data);
   };
   useEffect(() => {
     getStatus();
@@ -37,9 +37,8 @@ export default function SelectBoxInput({
         className={`${styles.select2} ${styles.business_assistant_item_select} ${styles.select2_hidden_accessible}`}
         tabIndex={-1}
         aria-hidden="true"
-        value={infoCus?.status}
       >
-        <option value="">{placeholder}</option>
+        <option value="">{infoCus?.status?.detail?.stt_name}</option>
         {listStatus?.map((item: any, index: any) => (
           <option value={item?.stt_id} key={index}>
             {item?.stt_name}

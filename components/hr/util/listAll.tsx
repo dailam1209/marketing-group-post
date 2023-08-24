@@ -57,7 +57,7 @@ export async function FetchDataPosition() {
 export async function FetchDataSpecifiedGroup() {
   try {
     const response = await SpecifiedGroupList(100, 1, '')
-    return response?.data
+    return response?.success
   } catch (error) {
     console.error('Error fetching data Employee:', error)
     return null

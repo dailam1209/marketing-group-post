@@ -22,7 +22,7 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
   const mainRef = useRef<HTMLDivElement>(null);
   const { isOpen } = useContext<any>(SidebarContext);
   const imgRef = useRef<HTMLInputElement>(null);
-  const [listData, setListData] = useState([]);
+  const [listData, setListData] = useState<any>([]);
   const [name, setname] = useState<any>()
   const router = useRouter();
   const {id} = router.query
@@ -46,9 +46,10 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
         body: JSON.stringify({ cus_id: `${router.query.id}` }),
       }
     );
-    const data = await res.json();
-    if ((data && data.data.data1) || (data && data.data.data2))
-      setListData(data.data.data1 || data.data.data2);
+    const data = await res.json();4
+    console.log("info",data)
+    if (data && data?.data)
+      setListData(data?.data);
   };
   const getNameDetail = async () => {
     const res = await fetch(
@@ -63,11 +64,11 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
       }
     );
     const data = await res.json();
-      setname(data?.data?.data1 || data?.data?.data2);
+      setname(data?.data || data?.data);
   };
   useEffect(() => {
     handleGetInfoCus();
-    getNameDetail
+    getNameDetail()
   }, []);
 
   return (
@@ -173,8 +174,7 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
                             stylesCustomer.main__profile__body__item__value
                           }
                         >
-                          {listData[0]?.thong_tin_mo_ta
-                            ? listData[0]?.thong_tin_mo_ta
+                          {listData?.description?.detail?listData?.description?.info as any
                             : "Chưa cập nhật"}
                         </div>
                       </div>

@@ -16,7 +16,7 @@ export const getDataDeleteComponent = async(keyword) => {
           }
         );
 
-        return response;
+        return response?.data;
       } catch (err: any) {
         return err.response
       }

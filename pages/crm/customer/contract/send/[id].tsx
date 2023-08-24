@@ -8,6 +8,8 @@ import { useRouter } from "next/router";
 import { useHeader } from "@/components/crm/hooks/useHeader";
 import { SidebarContext } from "@/components/crm/context/resizeContext";
 import ContractSelectBoxStep from "@/components/crm/customer/contract/select_box_step-send";
+import Link from "next/link";
+import ModalCompleteContractStepADD from "@/components/crm/customer/contract/complete_contract_add";
 
 const data = [
   {
@@ -22,7 +24,11 @@ const data = [
   },
 ];
 
+console.log(123, data);
+
 export default function ContractDetailsSend() {
+  const [isModalCancel, setIsModalCancel] = useState(false);
+  const [modal1Open, setModal1Open] = useState(false);
   const mainRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const { isOpen } = useContext<any>(SidebarContext);
@@ -30,14 +36,21 @@ export default function ContractDetailsSend() {
   const [checkbox1Checked, setCheckbox1Checked] = useState(true);
   const [checkbox2Checked, setCheckbox2Checked] = useState(false);
   const [checkbox3Checked, setCheckbox3Checked] = useState(false);
-  const [selectedDepartment, setSelectedDepartment] = useState<string | null>();
+  const [selectedDepartment, setSelectedDepartment] = useState<string | null>(
+    null
+  );
+  const [selectedPosition, setSelectedPosition] =
+    useState<string>("Chọn chức vụ");
+  const [selectedEmployee, setSelectedEmployee] =
+    useState<string>("Chọn nhân viên");
+
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
 
   useEffect(() => {
     setHeaderTitle(`${id} / Hợp đồng bán / Gửi hợp đồng`);
     setShowBackButton(true);
-    setCurrentPath(`/crm/customer/detail/${id}`);
+    setCurrentPath(`/crm/customer/contract/list/${id}`);
   }, [setHeaderTitle, setShowBackButton, setCurrentPath, id]);
 
   useEffect(() => {
@@ -51,13 +64,17 @@ export default function ContractDetailsSend() {
   const selectedData = data.find(
     (item) => item.department === selectedDepartment
   );
+  console.log(selectedData);
 
   const handleChangeDepartment = (value: string) => {
     setSelectedDepartment(value);
+    setSelectedPosition("Chọn chức vụ");
+    setSelectedEmployee("Chọn nhân viên");
   };
 
   const onChangeCheckbox1 = (e: CheckboxChangeEvent) => {
     setCheckbox1Checked(e.target.checked);
+    setSelectedDepartment(null);
   };
 
   const onChangeCheckbox2 = (e: CheckboxChangeEvent) => {
@@ -107,11 +124,7 @@ export default function ContractDetailsSend() {
                               </label>
                               <ContractSelectBoxStep
                                 setSelectedDepartment={setSelectedDepartment}
-                                value={
-                                  selectedDepartment
-                                    ? selectedDepartment
-                                    : "Chọn phòng ban"
-                                }
+                                value={selectedDepartment || "Chọn phòng ban"}
                                 placeholder="Chọn phòng ban"
                                 onChange={handleChangeDepartment}
                                 data={data}
@@ -134,12 +147,10 @@ export default function ContractDetailsSend() {
                                 Chức vụ <span className={styles.dot}>*</span>
                               </label>
                               <ContractSelectBoxStep
-                                value={
-                                  selectedData
-                                    ? selectedData.positions[0]
-                                    : "Chọn chức vụ"
-                                }
+                                value={selectedPosition || "Chọn chức vụ"}
                                 placeholder="Chọn chức vụ"
+                                data={selectedData?.positions}
+                                setSelectedDepartment={setSelectedPosition}
                               />
                             </div>
                             <div
@@ -149,12 +160,10 @@ export default function ContractDetailsSend() {
                                 Nhân viên <span className={styles.dot}>*</span>
                               </label>
                               <ContractSelectBoxStep
-                                value={
-                                  selectedData
-                                    ? selectedData.employees[0]
-                                    : "Chọn nhân viên"
-                                }
+                                value={selectedEmployee || "Chọn nhân viên"}
                                 placeholder="Chọn nhân viên"
+                                data={selectedData?.employees}
+                                setSelectedDepartment={setSelectedEmployee}
                               />
                             </div>
                           </div>
@@ -207,6 +216,23 @@ export default function ContractDetailsSend() {
                     </div>
                   </div>
                 </div>
+              </div>
+              <div className={styles.button_group_send}>
+                <Link href={`/crm/customer/contract/detail/${id}`}>
+                  <button className={styles.back_button}>Quay lại</button>
+                </Link>
+                <button
+                  className={styles.send_button}
+                  onClick={() => setModal1Open(true)}
+                >
+                  Gửi hợp đồng
+                </button>
+                <ModalCompleteContractStepADD
+                  modal1Open={modal1Open}
+                  setModal1Open={setModal1Open}
+                  title={""}
+                  id={id}
+                />
               </div>
             </div>
           </div>

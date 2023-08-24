@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from '../../quy-dinh-lam-viec/addRegulationsModal/addRegulationsModal.module.css'
 import MyEditorNew from "@/components/hr/myEditor";
-import { SpecifiedGroupList } from "@/pages/api/api-hr/quy_dinh_chinh_sach";
+import { PolicyList } from '@/pages/api/api-hr/quy_dinh_chinh_sach';
 import { UpdatePolicy } from "@/pages/api/api-hr/quy_dinh_chinh_sach";
 import { PolicyDetails } from "@/pages/api/api-hr/quy_dinh_chinh_sach";
 import { format } from 'date-fns'
@@ -65,8 +65,10 @@ export default function UpdatePolicyModal({ onCancel, idGroup }: UpdatePolicyMod
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await SpecifiedGroupList(10000, 1, keyWords)
-        setListRegulationsGroup(response?.data)
+        const response = await PolicyList(1, 100000, keyWords)
+        setListRegulationsGroup(response?.success)
+        console.log(response);
+
       } catch (error) {
         throw error
       }
@@ -78,7 +80,7 @@ export default function UpdatePolicyModal({ onCancel, idGroup }: UpdatePolicyMod
     const fetchData = async () => {
       try {
         const response = await PolicyDetails(idGroup)
-        setDetailData(response?.data)
+        setDetailData(response?.success)
       } catch (error) {
         throw error
       }
@@ -87,7 +89,7 @@ export default function UpdatePolicyModal({ onCancel, idGroup }: UpdatePolicyMod
   }, [])
 
   useEffect(() => {
-    const timeStart = DetailData?.data[0]?.timeStart;
+    const timeStart = DetailData?.data?.data?.time_start;
     const inputElement = document.getElementById('time_start') as HTMLInputElement;
 
     if (timeStart && inputElement) {
@@ -95,6 +97,8 @@ export default function UpdatePolicyModal({ onCancel, idGroup }: UpdatePolicyMod
       inputElement.defaultValue = formattedDate;
     }
   }, [DetailData]);
+
+  console.log(DetailData);
 
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("Tên quy định không được để trống"),
@@ -109,7 +113,7 @@ export default function UpdatePolicyModal({ onCancel, idGroup }: UpdatePolicyMod
     event.preventDefault();
     try {
       const name = (document.getElementById('names') as HTMLInputElement)?.value
-      const provision_id = (document.getElementById('provision_id') as HTMLInputElement)?.value
+      const employe_policy_id = (document.getElementById('employe_policy_id') as HTMLInputElement)?.value
       const time_start = (document.getElementById('time_start') as HTMLInputElement)?.value
       const supervisor_name = (document.getElementById('supervisor_name') as HTMLInputElement)?.value
       const apply_for = (document.getElementById('apply_for') as HTMLInputElement)?.value
@@ -118,10 +122,10 @@ export default function UpdatePolicyModal({ onCancel, idGroup }: UpdatePolicyMod
       const formDatas = {
         name: name || "",
         time: time_start || "",
-        provision_id: provision_id || "",
+        provision_id: employe_policy_id || "",
         apply_for: apply_for || "",
         supervisor: supervisor_name || "",
-        note: content || DetailData?.data[0]?.content || "",
+        note: content || DetailData?.data?.data?.content || "",
       };
 
       await validationSchema.validate(formDatas, {
@@ -129,18 +133,17 @@ export default function UpdatePolicyModal({ onCancel, idGroup }: UpdatePolicyMod
       });
 
       const formData = new FormData()
-      formData.append('provision_id', DetailData?.data[0]?.provisionId)
+      formData.append('employe_policy_id', employe_policy_id)
       formData.append('name', name)
-      formData.append('id', DetailData?.data[0]?.id)
+      formData.append('id', DetailData?.data?.data?.id)
       formData.append('time_start', time_start)
       formData.append('supervisor_name', supervisor_name)
       formData.append('apply_for', apply_for)
-      formData.append('content', content)
       if (content) {
         formData.append("content", content);
       }
       else {
-        formData.append("content", DetailData?.data[0]?.content);
+        formData.append("content", DetailData?.data?.data?.content);
       }
       if (provisionFile) {
         formData.append("policy", provisionFile);
@@ -185,6 +188,8 @@ export default function UpdatePolicyModal({ onCancel, idGroup }: UpdatePolicyMod
     setProvisionId(selectedProvisionId);
   };
 
+  console.log(ListRegulationsGroup?.data?.data);
+
   return (
     <>
       <div className={`${styles.modal_open}`}>
@@ -195,21 +200,21 @@ export default function UpdatePolicyModal({ onCancel, idGroup }: UpdatePolicyMod
                 <h5 className={`${styles.modal_tittle}`}>CHỈNH SỬA CHÍNH SÁCH</h5>
               </div>
               <form action="">
-                {DetailData?.data[0] &&
+                {DetailData?.data?.data &&
                   <div className={`${styles.modal_body} ${styles.body_process}`}>
                     <div className={`${styles.form_groups}`}>
                       <label htmlFor="">Tên chính sách <span style={{ color: 'red' }}> * </span></label>
                       <div className={`${styles.input_right}`}>
-                        <input type="text" defaultValue={DetailData?.data[0]?.name} id="names" placeholder="Nhập tên chính sách" className={`${styles.input_process}`} />
+                        <input type="text" defaultValue={DetailData?.data?.data?.name} id="names" placeholder="Nhập tên chính sách" className={`${styles.input_process}`} />
                         <span> {errors.name && <div className={`${styles.t_require} `}>{errors.name}</div>}</span>
                       </div>
                     </div>
                     <div className={`${styles.form_groups}`}>
                       <label htmlFor="">Chọn nhóm chính sách <span style={{ color: 'red' }}> * </span></label>
                       <div className={`${styles.input_right}`}>
-                        <select onChange={handleProvisionChange} name="" id="provision_id" className={`${styles.input_process}`}>
-                          {ListRegulationsGroup?.data?.map((item: any, index: any) => (
-                            <option selected={item.id === DetailData?.data[0]?.provisionId} value={item.id} key={index}>-- {item.name} --</option>
+                        <select onChange={handleProvisionChange} name="" id="employe_policy_id" className={`${styles.input_process}`}>
+                          {ListRegulationsGroup?.data?.data?.map((item: any, index: any) => (
+                            <option selected={item.id === DetailData?.data?.data?.employe_policy_id} value={item.id} key={index}>-- {item.name} --</option>
                           ))}
                         </select>
                         <span> {errors.provision_id && <div className={`${styles.provision_id} `}>{errors.provision_id}</div>}</span>
@@ -224,14 +229,14 @@ export default function UpdatePolicyModal({ onCancel, idGroup }: UpdatePolicyMod
                     <div className={`${styles.form_groups}`}>
                       <label htmlFor="">Người giám sát <span style={{ color: 'red' }}> * </span></label>
                       <div className={`${styles.input_right}`}>
-                        <input type="text" value={DetailData?.data[0]?.supervisorName} id="supervisor_name" placeholder="Người giám sát" className={`${styles.input_process}`} />
+                        <input type="text" value={DetailData?.data?.data?.supervisor_name} id="supervisor_name" placeholder="Người giám sát" className={`${styles.input_process}`} />
                         <span> {errors.time && <div className={`${styles.t_require} `}>{errors.time}</div>}</span>
                       </div>
                     </div>
                     <div className={`${styles.form_groups}`}>
                       <label htmlFor="">Đối tượng thi hành <span style={{ color: 'red' }}> * </span></label>
                       <div className={`${styles.input_right}`}>
-                        <input type="text" value={DetailData?.data[0]?.applyFor} id="apply_for" placeholder="Đối tượng thi hành" className={`${styles.input_process}`} />
+                        <input type="text" value={DetailData?.data?.data?.apply_for} id="apply_for" placeholder="Đối tượng thi hành" className={`${styles.input_process}`} />
                         <span> {errors.apply_for && <div className={`${styles.t_require} `}>{errors.apply_for}</div>}</span>
                       </div>
                     </div>
@@ -240,7 +245,7 @@ export default function UpdatePolicyModal({ onCancel, idGroup }: UpdatePolicyMod
                         <span > {errors.note && <div className={`${styles.t_require} `}>{errors.note}</div>}</span>
                       </span></label>
                       <div className={`${styles.ckeditor}`}>
-                        <Input_textarea onDescriptionChange={handleDescriptionChange} content={DetailData?.data[0]?.content} />
+                        <Input_textarea onDescriptionChange={handleDescriptionChange} content={DetailData?.data?.data?.content} />
                       </div>
                     </div>
                     <div className={`${styles.form_groups}`}>

@@ -7,7 +7,7 @@ const Cookies = require("js-cookie");
 export default function InputPhone({ infoCus }: any) {
   const [numberValue, setNumberValue] = useState("");
   const [isCalling, setIsCalling] = useState(false);
-
+  // console.log("infoCus",infoCus)
   const handleCallBtn = async () => {
     if (numberValue) {
       setIsCalling(true);
@@ -28,7 +28,6 @@ export default function InputPhone({ infoCus }: any) {
       notification.error({message:data.error.message})
     }
   };
-
   const handleDisConnectCalling = () => {
     setIsCalling(false);
   };
@@ -43,7 +42,7 @@ export default function InputPhone({ infoCus }: any) {
         <form action="" onSubmit={() => false} style={{ width: "100%" }}>
           <input
             type="text"
-            value={infoCus?.dien_thoai}
+            value={infoCus?.phone_number?.info}
             className={styles.input_phone}
           />
         </form>

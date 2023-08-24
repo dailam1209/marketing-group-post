@@ -105,17 +105,11 @@ export default function AddWorkingModal({ onCancel }: any) {
       setPositionList(position)
 
       const specifiedGroup = await FetchDataSpecifiedGroup()
-      setSpecifiedList(specifiedGroup)
+      setSpecifiedList(specifiedGroup?.data)
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   }
-
-  const handleSelectionChange = (option: SelectOptionType | null, optionsArray: SelectOptionType[]) => {
-    if (option) {
-      setSelectedOption(option)
-    }
-  };
 
   useEffect(() => {
     if (infoList) {
@@ -130,7 +124,7 @@ export default function AddWorkingModal({ onCancel }: any) {
   }, [infoList]);
 
   useEffect(() => {
-    const foundItem = isDepList?.data?.find((item: any) => item.dep_id === isDep_id);
+    const foundItem = isDepList?.items?.find((item: any) => item.dep_id === isDep_id);
     if (foundItem) {
       setCom_id(foundItem.com_id)
     }
@@ -206,6 +200,9 @@ export default function AddWorkingModal({ onCancel }: any) {
   const handleInputAreaChange = (data: string, setState: any) => {
     setState(data);
   };
+
+  console.log(isOrganizationalStructureList);
+
 
   const companyNames: any = [];
   const companyNamesNew: any = [];
@@ -337,11 +334,11 @@ export default function AddWorkingModal({ onCancel }: any) {
   const chonnhanvientheophongOptions = useMemo(
     () =>
       isEmpList &&
-      isEmpList?.data
-        .filter((emp: any) => emp?.dep_id[0] === isDep_id)
+      isEmpList?.items
+        .filter((emp: any) => emp?.dep_id === isDep_id)
         .map((emp: any) => ({
-          value: `${emp.idQLC} ${emp.dep_id[0]} ${emp.position_id} ${emp.nameDeparment}`,
-          label: emp.userName
+          value: `${emp.ep_id} ${emp.dep_id} ${emp.position_id} ${emp.dep_name}`,
+          label: emp.ep_name
         })),
     [isEmpList, isDep_id]
   );
@@ -353,9 +350,9 @@ export default function AddWorkingModal({ onCancel }: any) {
   const chonnhanvienOptions = useMemo(
     () =>
       isEmpList &&
-      isEmpList?.data.map((emp: any) => ({
-        value: `${emp.idQLC} ${emp.dep_id[0]} ${emp.position_id} ${emp.nameDeparment}`,
-        label: emp.userName
+      isEmpList?.items.map((emp: any) => ({
+        value: `${emp.ep_id} ${emp.dep_id} ${emp.position_id} ${emp.dep_name}`,
+        label: emp.ep_name
       })),
     [isEmpList, isDep_id]
   );
@@ -364,7 +361,7 @@ export default function AddWorkingModal({ onCancel }: any) {
   const PositionInfoArray: any = [];
 
   if (PositionList) {
-    const employee = isEmpList?.data?.find((emp: any) => emp.idQLC === isEmp_id);
+    const employee = isEmpList?.items?.find((emp: any) => emp.ep_id === isEmp_id);
     if (employee && Array.isArray(PositionList)) {
       const position_id = employee.position_id;
       const position = PositionList.find((pos: any) => pos.positionId === position_id);
@@ -637,6 +634,10 @@ export default function AddWorkingModal({ onCancel }: any) {
                             ...baseStyles,
                             color: "#444444",
                           }),
+                          menu: (baseStyles) => ({
+                            ...baseStyles,
+                            zIndex: 1000
+                          }),
                         }}
                       />
                     </div>
@@ -663,6 +664,10 @@ export default function AddWorkingModal({ onCancel }: any) {
                           placeholder: (baseStyles) => ({
                             ...baseStyles,
                             color: "#444444",
+                          }),
+                          menu: (baseStyles) => ({
+                            ...baseStyles,
+                            zIndex: 1000
                           }),
                         }}
                       />
@@ -697,6 +702,10 @@ export default function AddWorkingModal({ onCancel }: any) {
                           placeholder: (baseStyles) => ({
                             ...baseStyles,
                             color: "#444444",
+                          }),
+                          menu: (baseStyles) => ({
+                            ...baseStyles,
+                            zIndex: 1000
                           }),
                         }}
                       />

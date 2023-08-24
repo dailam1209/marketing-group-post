@@ -21,8 +21,7 @@ export default function ListRecruitmentStage({
   const [hidden, setHidden] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
 
-  console.log(item);
-  console.log(recruitment);
+  console.log(item,'recruitment')
 
   const toggleExpansion = () => {
     setIsExpanded(!isExpanded);
@@ -71,7 +70,7 @@ export default function ListRecruitmentStage({
             <div className={`${styles.giaidoans_item_2}`}>
               <div className={`${styles.row} ${styles.r_t_top}`}>
                 <div className={`${styles.row_top_right}`}>
-                  <p>{item?.data?.data.name}</p>
+                  <p>{item.name}</p>
                 </div>
 
                 <div

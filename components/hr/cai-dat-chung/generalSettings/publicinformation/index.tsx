@@ -9,11 +9,11 @@ export default function PublicInformation({dataDisplay}) {
       <div className={`${styles.l_thongtincongty}`}>
         <div className={`${styles.l_thongtincongty_item}`}>
           <div className={`${styles.l_thongtincongty_text}`}>
-            <p>{ dataDisplay?.userName}</p>
+            <p>{ dataDisplay?.com_name}</p>
           </div>
 
           <div className={`${styles.l_thongtincongty_text}`}>
-            <p>Điện thoại: {dataDisplay?.phone}</p>
+            <p>Điện thoại: {dataDisplay?.com_phone}</p>
           </div>
         </div>
       </div>
@@ -21,7 +21,7 @@ export default function PublicInformation({dataDisplay}) {
       <div className={`${styles.l_thongtincongty}`}>
         <div className={`${styles.l_thongtincongty_item}`}>
           <div className={`${styles.l_thongtincongty_text}`}>
-            <p>Lĩnh vực hoạt động: {dataDisplay?.description} </p>
+            <p>Lĩnh vực hoạt động: {dataDisplay?.com_description} </p>
           </div>
 
           <div className={`${styles.l_thongtincongty_text}`}>
@@ -33,11 +33,11 @@ export default function PublicInformation({dataDisplay}) {
       <div className={`${styles.l_thongtincongty}`}>
         <div className={`${styles.l_thongtincongty_item}`}>
           <div className={`${styles.l_thongtincongty_text}`}>
-            <p>Địa chỉ liên lạc:{dataDisplay?.address} </p>
+            <p>Địa chỉ liên lạc: {dataDisplay?.com_address} </p>
           </div>
 
           <div className={`${styles.l_thongtincongty_text}`}>
-            <p>Email:{dataDisplay?.emailContact} </p>
+            <p>Email: {dataDisplay?.com_email} </p>
           </div>
         </div>
       </div>

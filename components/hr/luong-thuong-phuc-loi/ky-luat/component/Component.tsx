@@ -18,6 +18,8 @@ function PunishmentTable({ display, data, violators, model, keyWords, updateData
   const [animateModal, setAnimateModal] = useState(false);
   const [dataEdit, setDataEdit] = useState<any>();
 
+
+  console.log(data)
   const handleCloseModal = () => {
     setAnimateModal(false);
     setTimeout(() => {
@@ -145,33 +147,30 @@ function PunishmentTable({ display, data, violators, model, keyWords, updateData
               </tr>
             </thead>
             <tbody className={`${styles.filter}`}>
-              {data?.length === 0 ? (
+              {data?.data?.length === 0 ? (
                 <p>Không có dư liệu</p>
               ) : (
-                data?.map((item: any) => {
-                  const formattedDate: string = format(
-                    new Date(item.infringeAt),
+                data?.data?.map((item: any) => {
+                  let formattedDate: any = null
+                  {item.created_at ? formattedDate = format(
+                    new Date(item?.infringe_at || ''),
                     "dd-MM-yyyy"
-                  );
+                  ) : 'null'}
                   return (
                     <tr key={item.id} style={{ height: "37px" }}>
                       <td>{item.id}</td>
-                      <td>{item.infringeName}</td>
-                      <td>{item.regulatoryBasis}</td>
-                      <td>{item.numberViolation}</td>
+                      <td>{item.infringe_name}</td>
+                      <td>{item.regulatory_basis}</td>
+                      <td>{item.number_violation}</td>
                       <td>{formattedDate}</td>
-                      <td>{item.createdBy}</td>
-                      <td>{item.infringeType}</td>
+                      <td>{item.created_by}</td>
+                      <td>{item.infringe_type}</td>
                       <td style={{ padding: " 0 20px", maxWidth: "2500px" }}>
-                        {item?.depName ? (
-                          <span>{item.depName}</span>
+                        {!item?.dep_id ? (
+                          <span>{item.list_user_name}</span>
                         ) : (
-                          item?.listUser.map((user, index) => (
-                            <span key={index} style={{ textAlign: "center" }}>
-                              {" "}
-                              {user.name}{" "}
-                            </span>
-                          ))
+                          <span>{item.dep_name}</span>
+                          
                         )}
                       </td>
                       {iconEdit && <td

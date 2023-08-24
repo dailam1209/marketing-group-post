@@ -9,18 +9,10 @@ export default function CustomerGroupSelectDropdownData({
   setValueOption,
   setValueGroupCustomer,
   cus_id,
+  type
 }: any) {
   
   const handleClcikOptions = async (item: any) => {
-    const res = await fetch(`${base_url}/api/crm/customerdetails/detail`,{
-      method:"POST",
-      headers:{
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${Cookies.get("token_base365")}`,
-      },
-      body:JSON.stringify({cus_id:cus_id})
-    })
-    const type = await res.json()
     // const
     setValueOption(item.gr_name)
     const url =
@@ -28,7 +20,7 @@ export default function CustomerGroupSelectDropdownData({
 
     const formData = new FormData();
     formData.append("group_id", item.gr_id);
-    formData.append("type", type?.data?.data1?.loai_hinh_khach_hang||type?.data?.data2?.loai_hinh_khach_hang);
+    formData.append("type", type)
     formData.append("cus_id", cus_id);
 
     const headers = {
@@ -43,7 +35,6 @@ export default function CustomerGroupSelectDropdownData({
     try {
       const response = await fetch(url, config);
       const data = await response.json();
-      console.log("check res", data);
       if(data?.error){
         notification.error({message:data.error.message})
       }

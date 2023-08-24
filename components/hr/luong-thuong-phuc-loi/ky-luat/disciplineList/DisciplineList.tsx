@@ -10,8 +10,7 @@ export default function DisciplineList({ iconEdit }: any) {
   const [data, setData] = useState<any>()
   const [currentPage, setCurrentPage] = useState<any>(1)
   const [keyWords, setKeyWords] = useState<any>('')
-  const newData = data?.data.slice(0, -1)
-  const myPagination = data?.data[data.data.length - 1]
+
 
   const handlePageChange = (page: any) => {
     setCurrentPage(page)
@@ -23,7 +22,8 @@ export default function DisciplineList({ iconEdit }: any) {
   useEffect(() => {
     const GetDataInfringesReward = async () => {
       const response = await GetDataInfringes(currentPage, 10, 3, keyWords)
-      setData(response?.data.data)
+      setData(response?.success?.data)
+
     }
     GetDataInfringesReward()
   }, [currentPage, keyWords])
@@ -33,14 +33,14 @@ export default function DisciplineList({ iconEdit }: any) {
       <PunishmentTable
         model='list'
         display='none'
-        data={newData}
+        data={data}
         violators='Cá nhân / phòng ban vi phạm'
         keyWords={handleSearch}
         iconEdit={iconEdit}></PunishmentTable>
       <div className={`${styles.pagination}`}>
         <MyPagination
           current={currentPage}
-          total={myPagination?.tongSoBanGhi}
+          total={data?.total}
           pageSize={10}
           onChange={handlePageChange}
         />

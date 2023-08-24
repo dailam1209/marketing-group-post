@@ -26,8 +26,8 @@ export default function ChatBusinessBody({ cusId,setContent,setDate }: any) {
       body: JSON.stringify({ cus_id: cusId}),
     });
     const data = await res.json();
-    if ((data && data?.data?.data1) || (data && data?.data?.data2))
-      setInfoCus(data?.data?.data1 || data?.data?.data2);
+    if (data && data?.data)
+      setInfoCus(data?.data);
   };
   useEffect(() => {
     handleGetInfoCus();

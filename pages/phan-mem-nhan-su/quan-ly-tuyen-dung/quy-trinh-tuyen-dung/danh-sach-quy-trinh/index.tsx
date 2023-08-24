@@ -21,7 +21,6 @@ export default function ListRecruitmentProcess({
   iconDelete,
   newRecruitmentProcess
 }: any) {
-  console.log(dataRecruitment);
 
   const router = useRouter();
   const [openModal, setOpenModal] = useState(0);
@@ -59,7 +58,7 @@ export default function ListRecruitmentProcess({
         {dataRecruitment?.data?.data?.map((item: any) => {
           const formattedDate = format(new Date(item.created_at), "dd/MM/yyyy");
           return (
-            <div key={item._id} style={{ width: "100%" }}>
+            <div key={item.id} style={{ width: "100%" }}>
               <div className={`${styles.quytrinh_item}`}>
                 <div className={`${styles.quytrinh_item1}`}>
                   <div className={`${styles.quytrinh_item11}`}>
@@ -148,11 +147,11 @@ export default function ListRecruitmentProcess({
           />
         )}
       </div>
-      {dataRecruitment?.totalCount > 5 && (
+      {dataRecruitment?.data?.total > 0 && (
         <div className={`${styles.pagination}`}>
           <MyPagination
             current={currentPage}
-            total={dataRecruitment?.totalCount}
+            total={dataRecruitment?.data?.total}
             pageSize={5}
             onChange={(page) => handlePageChange(page)}
           />
