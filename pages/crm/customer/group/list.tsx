@@ -31,7 +31,6 @@ export default function GroupCustomer() {
     { page: 1, perPage: 100 }
   );
   useEffect(() => {
-    fetchData();
     setHeaderTitle("Danh sách nhóm khách hàng");
     setShowBackButton(false);
     // setCurrentPath("/crm/customer/roup/list");
