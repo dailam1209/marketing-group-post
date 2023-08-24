@@ -28,7 +28,6 @@ export default function TableData({ data, dataCheck, listCheck }) {
       const dataObject = {
         [name]: idsAsString,
       };
-      setListItemCheck(allIds)
       setLocalListCheck((prev) => (
         { ...prev, ...dataObject }
       ));
@@ -40,7 +39,6 @@ export default function TableData({ data, dataCheck, listCheck }) {
         [name]: idsAsString,
       };
       
-      setListItemCheck(allIds)
       setLocalListCheck((prev) => (
         { ...prev, ...dataObject }
       ));
@@ -51,7 +49,6 @@ export default function TableData({ data, dataCheck, listCheck }) {
       const dataObject = {
         [name]: idsAsString,
       };
-      setListItemCheck(allIds)
       setLocalListCheck((prev) => (
         { ...prev, ...dataObject }
       ));
@@ -62,7 +59,6 @@ export default function TableData({ data, dataCheck, listCheck }) {
       const dataObject = {
         [name]: idsAsString,
       };
-      setListItemCheck(allIds)
       setLocalListCheck((prev) => (
         { ...prev, ...dataObject }
       ));
@@ -73,7 +69,6 @@ export default function TableData({ data, dataCheck, listCheck }) {
       const dataObject = {
         [name]: idsAsString,
       };
-      setListItemCheck(allIds)
       setLocalListCheck((prev) => (
         { ...prev, ...dataObject }
       ));
@@ -84,7 +79,6 @@ export default function TableData({ data, dataCheck, listCheck }) {
       const dataObject = {
         [name]: idsAsString,
       };
-      setListItemCheck(allIds)
       setLocalListCheck((prev) => (
         { ...prev, ...dataObject }
       ));
@@ -94,7 +88,6 @@ export default function TableData({ data, dataCheck, listCheck }) {
       const dataObject = {
         [name]: allIds,
       };
-      setListItemCheck(allIds)
       setLocalListCheck((prev) => (
         { ...prev, ...dataObject }
       ));
@@ -104,7 +97,6 @@ export default function TableData({ data, dataCheck, listCheck }) {
       const dataObject = {
         [name]: allIds,
       };
-      setListItemCheck(allIds)
       setLocalListCheck((prev) => (
         { ...prev, ...dataObject }
       ));
@@ -114,7 +106,6 @@ export default function TableData({ data, dataCheck, listCheck }) {
       const dataObject = {
         [name]: allIds,
       };
-      setListItemCheck(allIds)
       setLocalListCheck((prev) => (
         { ...prev, ...dataObject }
       ));
@@ -124,7 +115,6 @@ export default function TableData({ data, dataCheck, listCheck }) {
       const dataObject = {
         [name]: allIds,
       };
-      setListItemCheck(allIds)
       setLocalListCheck((prev) => (
         { ...prev, ...dataObject }
       ));
@@ -134,7 +124,6 @@ export default function TableData({ data, dataCheck, listCheck }) {
       const dataObject = {
         [name]: allIds,
       };
-      setListItemCheck(allIds)
       setLocalListCheck((prev) => (
         { ...prev, ...dataObject }
       ));
@@ -144,7 +133,6 @@ export default function TableData({ data, dataCheck, listCheck }) {
       const dataObject = {
         [name]: allIds,
       };
-      setListItemCheck(allIds)
       setLocalListCheck((prev) => (
         { ...prev, ...dataObject }
       ));
@@ -209,7 +197,6 @@ export default function TableData({ data, dataCheck, listCheck }) {
                 list_recuitment={list_recuitment}
                 dataCheckBox={handleListCheckChange}
                 localListCheck={localListCheck}
-                listItemCheck = {listItemCheck}
 
               ></DataQTTD>
             </CustomCollapse>
@@ -252,7 +239,6 @@ export default function TableData({ data, dataCheck, listCheck }) {
                 list_recuitment_new={list_recuitment_new}
                 dataCheckBox={handleListCheckChange}
                 localListCheck={localListCheck}
-                listItemCheck = {listItemCheck} 
               ></DataTTD>
             </CustomCollapse>
           </div>
@@ -294,7 +280,6 @@ export default function TableData({ data, dataCheck, listCheck }) {
                 list_job_desc={list_job_desc}
                 dataCheckBox={handleListCheckChange}
                 localListCheck={localListCheck}
-                listItemCheck = {listItemCheck}
 
               ></DataVTCV>
             </CustomCollapse>
@@ -337,7 +322,6 @@ export default function TableData({ data, dataCheck, listCheck }) {
                 list_training_process={list_training_process}
                 dataCheckBox={handleListCheckChange}
                 localListCheck={localListCheck}
-                listItemCheck = {listItemCheck}
 
               ></DataQTDT>
             </CustomCollapse>
@@ -380,7 +364,6 @@ export default function TableData({ data, dataCheck, listCheck }) {
                 list_provision={list_provision}
                 dataCheckBox={handleListCheckChange}
                 localListCheck={localListCheck}
-                listItemCheck = {listItemCheck}
 
               ></DataQTLV>
             </CustomCollapse>
@@ -423,7 +406,6 @@ export default function TableData({ data, dataCheck, listCheck }) {
                 list_employe_policy={list_employe_policy}
                 dataCheckBox={handleListCheckChange}
                 localListCheck={localListCheck}
-                listItemCheck = {listItemCheck}
 
               ></DataCSNV>
             </CustomCollapse>

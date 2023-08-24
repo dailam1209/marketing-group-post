@@ -3,11 +3,16 @@ import React, { useEffect, useState } from "react";
 import styles from "../styles/styles.module.css";
 import { format, parseISO } from "date-fns";
 
-export default function DataQTLV({ list_provision, dataCheckBox ,localListCheck, listItemCheck}) {
-  const [listCheck, setListCheck] = useState<any>([]);
+export default function DataQTLV({ list_provision, dataCheckBox ,localListCheck}) {
+  const [listCheck, setListCheck] = useState<Array<any>>([]);
   const data = list_provision?.data;
 
   const handleAdd = (id) => {
+    if (!Array.isArray(listCheck)) {
+      // Nếu listCheck không phải là mảng, bạn có thể thiết lập nó thành mảng rỗng.
+      setListCheck([]);
+      return;
+    }
     const newListCheck = listCheck.includes(id)
       ? listCheck.filter((item) => item !== id)
       : [...listCheck, id];

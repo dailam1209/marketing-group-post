@@ -3,11 +3,15 @@ import React, { useEffect, useState } from "react";
 import styles from "../styles/styles.module.css";
 import { format, parseISO } from "date-fns";
 
-export default function DataCSNV({ list_employe_policy , dataCheckBox, localListCheck, listItemCheck}) {
-    const [listCheck, setListCheck] = useState<any>([]);
+export default function DataCSNV({ list_employe_policy , dataCheckBox, localListCheck}) {
+  const [listCheck, setListCheck] = useState<Array<any>>([]);
     const data = list_employe_policy?.data;
 
     const handleAdd = (id) => {
+      if (!Array.isArray(listCheck)) {
+        setListCheck([]);
+        return;
+      }
         const newListCheck = listCheck.includes(id)
           ? listCheck.filter((item) => item !== id)
           : [...listCheck, id];

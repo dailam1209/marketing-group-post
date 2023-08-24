@@ -3,11 +3,15 @@ import React, { useEffect, useState } from "react";
 import styles from "../styles/styles.module.css";
 import { format, parseISO } from "date-fns";
 
-export default function DataTTD({ list_recuitment_new, dataCheckBox,localListCheck, listItemCheck }) {
-  const [listCheck, setListCheck] = useState<any>(listItemCheck);
-  const data = list_recuitment_new?.data;
+export default function DataTTD({ list_recuitment_new, dataCheckBox,localListCheck }) {
+  const [listCheck, setListCheck] = useState<Array<any>>([]);
+    const data = list_recuitment_new?.data;
 
   const handleAdd = (id) => {
+    if (!Array.isArray(listCheck)) {
+      setListCheck([]);
+      return;
+    }
     const newListCheck = listCheck?.includes(id)
       ? listCheck.filter((item) => item !== id)
       : [...listCheck, id];

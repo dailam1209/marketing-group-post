@@ -3,13 +3,17 @@ import React, { useEffect, useState } from "react";
 import styles from "../styles/styles.module.css";
 import { format, parseISO } from "date-fns";
 
-export default function DataQTTD({ list_recuitment, dataCheckBox, localListCheck, listItemCheck }) {  
-  
-  const [listCheck, setListCheck] = useState([]);
-  const handleAdd = (id: any) => {
-    const newListCheck = listItemCheck?.includes(id)
-      ? listItemCheck.filter((item) => item !== id)
-      : [...listItemCheck, id];
+export default function DataQTTD({ list_recuitment, dataCheckBox, localListCheck }) {
+
+  const [listCheck, setListCheck] = useState<Array<any>>([]);
+    const handleAdd = (id) => {
+      if (!Array.isArray(listCheck)) {
+        setListCheck([]);
+        return;
+      }
+    const newListCheck = listCheck.includes(id)
+      ? listCheck.filter((item) => item !== id)
+      : [...listCheck, id];
   
     setListCheck(newListCheck);
     const checkBox = newListCheck.join(', ');
@@ -22,13 +26,15 @@ export default function DataQTTD({ list_recuitment, dataCheckBox, localListCheck
 
   const data = list_recuitment?.data;
    
+  useEffect(() => {
+    setListCheck(localListCheck.list_recuitment || []);
+  }, [localListCheck]);
   return (
     <div className={` ${styles.l_tr_show}`}>
       <tbody style={{ width: "100%" }}>
         {data?.map((item) => {
           const dateObj = parseISO(item.deleted_at);
-
-          const formattedDate: string = format(dateObj, "dd/MM/yyyy");
+          const formattedTime: string = format(dateObj, " dd/MM/yyyy");
           return (
             <div key={item.id} className={`${styles.show}`}>
               <th className={`${styles.show_id}`}>{`QTTD ${item.id}`}</th>
@@ -38,14 +44,14 @@ export default function DataQTTD({ list_recuitment, dataCheckBox, localListCheck
                 </picture>
                 <p>{item.name}</p>
               </td>
-              <td className={`${styles.date}`}>{item.time} {formattedDate}</td>
+              <td className={`${styles.date}`}>{item.time} {formattedTime}</td>
               <td className={`${styles.show_checkbox}`}>
                 <input
                   type="checkbox"
                   id={item.id}
                   className={`${styles.checkbox}`}
-                  defaultValue={listCheck?.includes(item.id) || localListCheck?.list_recuitment}
-                  checked={listCheck?.includes(item.id) || localListCheck?.list_recuitment}
+                  defaultValue={listCheck.includes(item.id) || localListCheck?.list_recuitment}
+                  checked={listCheck.includes(item.id) || localListCheck?.list_recuitment}
                   onChange={() => handleAdd(item.id)}
                 ></input>
               </td>
