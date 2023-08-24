@@ -183,7 +183,7 @@ export default function CustomerList() {
     const data = await res.json();
     setListGr(data?.data);
     let arr = [];
-    data?.data?.showGr?.map((item) => {
+    data?.data?.map((item) => {
       item?.list_gr_child.map((item) => {
         arr.push(item);
       });

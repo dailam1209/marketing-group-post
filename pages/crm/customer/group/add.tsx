@@ -122,7 +122,7 @@ const GroupCustomerAdd: React.FC = () => {
     setValEmp(val);
   }
 
-  const dataSelectGroupParent = data?.data?.showGr;
+  const dataSelectGroupParent = data?.data;
 
   useEffect(() => {
     if (selectedValueDepartments?.length > 0) {

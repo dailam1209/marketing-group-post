@@ -83,8 +83,8 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
       );
       let arr=[]
       const data = await res.json();
-      setListGr(data?.data?.showGr);
-      data?.data?.showGr?.map((item) => {
+      setListGr(data?.data);
+      data?.data?.map((item) => {
         item?.list_gr_child.map((item) => {
           arr.push(item);
         });
