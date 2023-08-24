@@ -183,11 +183,26 @@ const rowSelection = {
 };
 
 const Chinhsachthue = () => {
+  //* function phụ
+  function findIndexByProperties(array, searchClId, searchType) {
+    const index = array.findIndex(
+      (item) => item?.cl_id === searchClId && item?.cl_type === searchType
+    );
+    return index;
+  }
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [policyName, setPolicyName] = useState("");
   const [policyDescription, setPolicyDescription] = useState("");
   const [cards, setCards] = useState([]);
   const [apiData, setApiData] = useState([]);
+  const [taxList, setTaxList] = useState([]);
+  const [fsRepica, setFsRepica] = useState("");
+  const [fsNote, setFsNote] = useState("");
+  console.log(
+    "🚀 ~ file: Chinhsachthue.jsx:201 ~ Chinhsachthue ~ fsRepica:",
+    fsRepica
+  );
 
   checkCookie();
 
@@ -206,6 +221,11 @@ const Chinhsachthue = () => {
       })
       .then((response) => {
         setApiData(response.data);
+
+        console.log(
+          "🚀 ~ file: Chinhsachthue.jsx:209 ~ .then ~ response.data:",
+          response.data
+        );
       })
       .catch((error) => {
         console.error("Error fetching data from API:", error);
@@ -215,6 +235,16 @@ const Chinhsachthue = () => {
     fetchApiData();
   }, []);
 
+  useEffect(() => {
+    axios
+      .post(`${domain}/api/tinhluong/congty/showvariable`, {
+        token: token,
+      })
+      .then((res) => {
+        setTaxList(res.data.data);
+      });
+  }, []);
+
   console.log(apiData?.tax_list_detail);
 
   const showModal = () => {
@@ -222,29 +252,29 @@ const Chinhsachthue = () => {
   };
 
   const handleOk = () => {
-    const newCard = {
-      policyName: policyName,
-      policyDescription: policyDescription,
-      policyRecipeName: policyRecipeName,
-      policyRecipeDescription: policyRecipeDescription,
-    };
-
-    if (editingIndex !== null) {
-      setCards((prevCards) => {
-        const updatedCards = [...prevCards];
-        updatedCards[editingIndex] = newCard;
-        return updatedCards;
+    axios
+      .post(`${domain}/api/tinhluong/congty/insert_category_tax`, {
+        com_id: cp,
+        fs_name: formData?.f_ct,
+        fs_data: value,
+        fs_repica: fsRepica,
+        fs_note: fsNote,
+        cl_name: formData?.policy_tax,
+        cl_note: formData?.mt_policy,
+        token: token,
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(
+          "Error ở API : api/tinhluong/congty/insert_category_tax",
+          err
+        );
       });
-    } else {
-      setCards((prevCards) => [...prevCards, newCard]);
-    }
 
-    setIsModalOpen(false);
-    setEditingIndex(null);
-    setPolicyName("");
-    setPolicyDescription("");
-    setPolicyRecipeName("");
-    setPolicyRecipeDescription("");
+    setFsRepica("");
+    setFsNote("");
   };
   const handleCancel = () => {
     setIsModalOpen(false);
@@ -257,10 +287,10 @@ const Chinhsachthue = () => {
   const showModalEditConfirm = (key) => {
     console.log(key);
     setIsModalOpen(true);
-    setPolicyName(cards[key].policyName);
-    setPolicyDescription(cards[key].policyDescription);
-    setPolicyRecipeName(cards[key].policyRecipeName);
-    setPolicyRecipeDescription(cards[key].policyRecipeDescription);
+    setPolicyName(cards[key]?.policyName);
+    setPolicyDescription(cards[key]?.policyDescription);
+    setPolicyRecipeName(cards[key]?.policyRecipeName);
+    setPolicyRecipeDescription(cards[key]?.policyRecipeDescription);
   };
   // usestate xóa
   const [isModalDeteleOpen, setIsModalDeleteOpen] = useState(false);
@@ -305,6 +335,19 @@ const Chinhsachthue = () => {
   const [isModalRecipeOpen, setIsModalRecipeOpen] = useState(false);
   const [policyRecipeName, setPolicyRecipeName] = useState("");
   const [policyRecipeDescription, setPolicyRecipeDescription] = useState("");
+  const [formData, setFormData] = useState({});
+  console.log(
+    "🚀 ~ file: Chinhsachthue.jsx:338 ~ Chinhsachthue ~ formData:",
+    formData
+  );
+  const handleChange = (event) => {
+    const { name, value } = event.target; // Destructuring target properties
+
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
 
   const handleModalRecipe = () => {
     setIsModalRecipeOpen(true);
@@ -341,7 +384,6 @@ const Chinhsachthue = () => {
   //radio
   const [value, setValue] = useState();
   const onChange = (e) => {
-    console.log("radio checked", e.target.value);
     setValue(e.target.value);
   };
   //danh sách nhân viên
@@ -384,13 +426,14 @@ const Chinhsachthue = () => {
     <>
       <div className={styles.container}>
         <div className={styles.content}>
-          <Button type="primary" onClick={showModal} className={styles.btn}>
+          <button type="primary" onClick={showModal} className={styles.btn}>
             Thêm mới
-          </Button>
+          </button>
 
           <div className={`${styles.all_modal} modal_one`}>
             {apiData?.tax_list_detail?.map((card, index) => (
               <Card
+                className="card_distance"
                 key={index}
                 title={card.cl_name}
                 extra={
@@ -585,7 +628,7 @@ const Chinhsachthue = () => {
 
         <div className="modalRecipe">
           <Modal
-            className={styles.modal_recipe}
+            className={`modal_add_tien ${styles.modal_recipe}`}
             style={{ display: "flex", flexDirection: "column" }}
             title="      "
             open={isModalRecipeOpen}
@@ -601,11 +644,11 @@ const Chinhsachthue = () => {
                   <div className={styles.input_after}>
                     <input
                       type="text"
-                      id="policyRecipe-name"
+                      name="f_ct"
                       className={styles.input}
                       placeholder="Thêm tên chính sách thuế"
-                      value={policyRecipeName}
-                      onChange={(e) => setPolicyRecipeName(e.target.value)}
+                      value={formData?.f_ct}
+                      onChange={(e) => handleChange(e)}
                       prefix={<MenuOutlined />}
                     />
                   </div>
@@ -620,47 +663,38 @@ const Chinhsachthue = () => {
                       id="policyRecipe-description"
                       rows="8"
                       className={styles.input}
-                      value={policyRecipeDescription}
-                      onChange={(e) =>
-                        setPolicyRecipeDescription(e.target.value)
-                      }
+                      value={fsNote}
+                      onChange={(e) => setFsNote(e.target.value)}
                     />
                   </div>
                 </div>
                 <div className={styles.modalRecipe_right}>
                   <div className={styles.modalRecipe_right_content}>
-                    <div className={styles.payroll}>
-                      <h3 className={styles.payroll_h3}>luong_co_ban</h3>
-                      <p className={styles.payroll_p}>Mức lương cơ bản</p>
-                    </div>
-                    <div className={styles.payroll}>
-                      <h3 className={styles.payroll_h3}>cong_chuan</h3>
-                      <p className={styles.payroll_p}>Số công chuẩn</p>
-                    </div>
-                    <div className={styles.payroll}>
-                      <h3 className={styles.payroll_h3}>phu_thuoc</h3>
-                      <p className={styles.payroll_p}>số người phụ thuộc</p>
-                    </div>
-                    <div className={styles.payroll}>
-                      <h3 className={styles.payroll_h3}>dong_gop</h3>
-                      <p className={styles.payroll_p}>Các khoản đóng góp</p>
-                    </div>
-                    <div className={styles.payroll}>
-                      <h3 className={styles.payroll_h3}>cong_thuc</h3>
-                      <p className={styles.payroll_p}>Số công thực tế</p>
-                    </div>
-                    <div className={styles.payroll}>
-                      <h3 className={styles.payroll_h3}>cong_sau_phat</h3>
-                      <p className={styles.payroll_p}>
-                        Số công thực tế còn lại sau phạt
-                      </p>
-                    </div>
-                    <div className={styles.payroll}>
-                      <h3 className={styles.payroll_h3}>luong_bao_hiem</h3>
-                      <p className={styles.payroll_p}>
-                        Mức lương đóng bảo hiểm thực tế
-                      </p>
-                    </div>
+                    {taxList.map((item, index) => (
+                      <div className={styles.payroll}>
+                        <h3
+                          className={styles.payroll_h3}
+                          onClick={() => {
+                            setFsNote(
+                              (prevFsNote) => prevFsNote + " " + item?.name
+                            );
+                            if (fsRepica.length == 0) {
+                              setFsRepica(
+                                (prevFsRepica) => prevFsRepica + item?.name
+                              );
+                            } else {
+                              setFsRepica(
+                                (prevFsRepica) =>
+                                  prevFsRepica + "+ " + item?.name
+                              );
+                            }
+                          }}
+                        >
+                          {item?.name}
+                        </h3>
+                        <p className={styles.payroll_p}>{item?.note}</p>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -711,7 +745,7 @@ const Chinhsachthue = () => {
 
         <div className="myModal">
           <Modal
-            className={styles.my_modal}
+            className={`modal_add_tien ${styles.my_modal}`}
             style={{ display: "flex", flexDirection: "column" }}
             title="Thêm mới chính sách thuế"
             open={isModalOpen}
@@ -722,21 +756,21 @@ const Chinhsachthue = () => {
               <label className={styles.p}>Tên chính sách thuế:</label>
               <input
                 type="text"
-                id="policy-name"
+                name="policy_tax"
                 placeholder="Nhập tên chính sách thuế"
                 className={styles.input}
-                value={policyName}
-                onChange={(e) => setPolicyName(e.target.value)}
+                value={formData?.policy_tax}
+                onChange={(e) => handleChange(e)}
               />
 
               <label className={styles.p}>Miêu tả chính sách:</label>
               <textarea
-                id="policy-description"
+                name="mt_policy"
                 rows="5"
                 placeholder="Nhập miêu tả"
                 className={styles.input}
-                value={policyDescription}
-                onChange={(e) => setPolicyDescription(e.target.value)}
+                value={formData?.mt_policy}
+                onChange={(e) => handleChange(e)}
               />
               <p className={styles.recipe} onClick={handleModalRecipe}>
                 Thiết lập công thức{" "}
