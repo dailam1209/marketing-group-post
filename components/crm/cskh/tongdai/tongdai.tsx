@@ -13,7 +13,7 @@ import { da } from "date-fns/locale";
 import { useApi } from "../../hooks/useApi";
 import { current } from "@reduxjs/toolkit";
 import FilterTongDai from "./filterTongdai";
-import { doDisConnect } from "../../redux/user/userSlice";
+import { dataSaveTD, doDisConnect } from "../../redux/user/userSlice";
 import { useRouter } from "next/router";
 type Props = {};
 
@@ -98,7 +98,7 @@ const TongDaiPage = (props: Props) => {
   );
 
   const handleGet = async () => {
-    // setListData([]);
+    setListData([]);
     if (soNghe) {
       let dataFill = listData.filter((item) => item.callee === soNghe);
       setListData(dataFill);
@@ -129,9 +129,7 @@ const TongDaiPage = (props: Props) => {
     const data = await response.json();
     if (data && data.items) {
       setListData(data?.items);
-    } else {
-      dispatch(doDisConnect(""));
-    }
+    } 
     return data;
   };
   const router = useRouter()
@@ -142,6 +140,29 @@ const TongDaiPage = (props: Props) => {
     }
     handleGet();
   }, [query, show]);
+  useEffect(() => {
+
+    const handleget = async () => {
+      if (show) {
+      const res =  await fetch(
+          "https://s02.oncall.vn:8900/api/account/credentials/verify",
+          {
+            method: "POST",
+            body: JSON.stringify({
+              name: "HNCX00693",
+              password: "v2ohO6B1Nf4F",
+              domain: "hncx00693.oncall",
+            }),
+          }
+        );
+        const data = await res.json()
+        dispatch(dataSaveTD(data.access_token));
+      }
+    };
+    handleget();
+
+  }, []);
+
 
   const Colums = [
     {

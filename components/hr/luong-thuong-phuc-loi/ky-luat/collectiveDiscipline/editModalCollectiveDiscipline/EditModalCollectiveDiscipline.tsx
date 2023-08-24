@@ -35,10 +35,10 @@ function EditModalCollectiveDiscipline({ animation, onClose, dataOld }: any) {
         try {
           const response = await getDataUser()
           setUser(
-            response?.data.data.data.map((item) => ({
+            response?.data?.data?.items.map((item) => ({
               name: 'list_user',
-              value: item.idQLC,
-              label: `${item.userName} ${item.nameDeparment}`,
+              value: item.ep_id,
+              label: `${item.ep_name} ${item.dep_name}`,
             }))
           )
         } catch (err) { }
@@ -49,7 +49,7 @@ function EditModalCollectiveDiscipline({ animation, onClose, dataOld }: any) {
         try {
           const response = await GetDepartmentList(comId.toString())
           setDep(
-            response?.data?.data?.data?.map((item) => ({
+            response?.data?.data?.items?.map((item) => ({
               name: 'depId',
               value: item.dep_id,
               label: `${item.dep_name}`,

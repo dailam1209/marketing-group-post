@@ -21,6 +21,9 @@ export default function ListRecruitmentStage({
   const [hidden, setHidden] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
 
+  console.log(item);
+  console.log(recruitment);
+
   const toggleExpansion = () => {
     setIsExpanded(!isExpanded);
   };
@@ -60,7 +63,7 @@ export default function ListRecruitmentStage({
   };
 
   return (
-    <div key={item?.id}>
+    <div key={item?.data?.data?.id}>
       <div className={`${styles.all_giaidoans}`}>
         <div className={`${styles.giaidoans_item}`}>
           <div className={`${styles.giaidoans_item_1}`}>
@@ -68,7 +71,7 @@ export default function ListRecruitmentStage({
             <div className={`${styles.giaidoans_item_2}`}>
               <div className={`${styles.row} ${styles.r_t_top}`}>
                 <div className={`${styles.row_top_right}`}>
-                  <p>{item.name}</p>
+                  <p>{item?.data?.data.name}</p>
                 </div>
 
                 <div
@@ -129,7 +132,7 @@ export default function ListRecruitmentStage({
                     <img src={`${"/right_blue.png"}`} alt=""></img>
                   </picture>
                   Thành viên thực hiện:
-                  <span> {item.positionAssumed} </span>
+                  <span> {item.position_assumed} </span>
                 </li>
 
                 <li>
@@ -145,7 +148,7 @@ export default function ListRecruitmentStage({
                     <img src={`${"/right_blue.png"}`} alt=""></img>
                   </picture>
                   Thời gian định lượng:
-                  <span> {item?.completeTime} </span>
+                  <span> {item?.complete_time} </span>
                 </li>
 
                 <li>

@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import styles from '../../styles/Home.module.css'
-import { Row, Col, Card, ConfigProvider } from 'antd'
+import { Row, Col, Card, ConfigProvider, Input } from 'antd'
 import Image from 'next/image'
 import { useContext, useState, useEffect, createContext } from 'react'
 import { THEME_COLOR } from '../../constants/style-constants'
@@ -47,6 +47,7 @@ export default function HomeQLNS() {
   const [selectedUrl, setSelectedUrl] = useState('')
   const [openConfirm, setOpenConfirm] = useState(false)
   const [selectedBtn, setSelectedBtn] = useState<any>()
+  const [showModal, setShowModal] = useState(false)
   // set to localStorage
   useEffect(() => {
     const value = localStorage.getItem('selectedBtnIndex') || '0'
@@ -118,11 +119,22 @@ export default function HomeQLNS() {
       onClick={() => {
         localStorage.setItem('selectedBtnIndex', `${index - 1}`)
         setSelectedBtn(`${index - 1}`)
+        window.scrollTo({
+          top: 500,
+        })
       }}>
       <Col sm={5} xs={6}>
         <div
           className={styles.indexWithBorder}
-          style={{ border: `5px solid ${color}` }}>
+          style={{
+            border: `5px solid ${color}`,
+            borderRadius: '50%',
+            width: '71px',
+            height: '71px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
           <span className={styles.index}>{index}</span>
         </div>
       </Col>
@@ -145,7 +157,17 @@ export default function HomeQLNS() {
       </Col>
       <Col sm={4} xs={6} className={styles.rightDiv}>
         {/* <div className={styles.verticalDivider}></div> */}
-        <Image alt='' src={icon} width={30} height={30} />
+        <Image
+          alt=''
+          src={icon}
+          width={30}
+          height={30}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        />
       </Col>
     </Row>
   )
@@ -170,9 +192,33 @@ export default function HomeQLNS() {
     }
 
     return !isButton ? (
-      <div className={styles.singleStep} key={index}>
-        <div className={styles.roundIndex}>
-          <span className={styles.index}>{index}</span>
+      <div
+        className={styles.singleStep}
+        key={index}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+        }}>
+        <div
+          className={styles.roundIndex}
+          style={{
+            minWidth: '44px',
+            height: '44px',
+            borderRadius: '50%',
+            backgroundColor: '#4c5bd4',
+          }}>
+          <span
+            className={styles.index}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: '#fff',
+              fontFamily: 'Salsa, cursive !important',
+              fontSize: '24px',
+            }}>
+            {index}
+          </span>
         </div>
         <span
           className={styles.title}
@@ -185,7 +231,7 @@ export default function HomeQLNS() {
                 router.push(url)
               }
             } else {
-              alert('Bạn chưa đăng nhập')
+              router.push('/dang-nhap-cong-ty.html')
             }
           }}>
           {title}
@@ -260,6 +306,32 @@ export default function HomeQLNS() {
     return type === '1' ? ADMIN : EMP
   }
 
+  // modal đăng nhập
+  const modalSignIn = () => {
+    const children = () => (
+      <>
+        <p>Nếu bạn có tài khoản rồi thì đăng nhập tại đây</p>
+        <Input />
+        <Input />
+      </>
+    )
+
+    return ModalWrapper(
+      showModal,
+      setShowModal,
+      children,
+      600,
+      '',
+      '',
+      () => null,
+      false,
+      true,
+      false,
+      false,
+      false
+    )
+  }
+
   const RenderedBody = () => {
     const type = getCookie('role') || '1'
     if (type)
@@ -299,6 +371,7 @@ export default function HomeQLNS() {
       <main>
         <RenderedBody />
       </main>
+      {modalSignIn()}
     </>
   )
 }

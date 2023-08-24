@@ -338,8 +338,11 @@ export default function DetailHrReport({ children }: any) {
           formData.append('position_id', isPosition_id)
           formData.append('gender', isGender)
           formData.append('married', isMaried)
-          formData.append('birthday', isMaried)
-          formData.append('team', isMaried)
+          formData.append('birthday', isBirthday)
+          formData.append('team_id', isTeam_id)
+          formData.append('group_id', isGroup_id)
+          formData.append('dep_id', isDep_id)
+          formData.append('page', currentPage)
           const response = await EmpStatusDetail(formData)
           if (response) {
             setOrganisationalList(response?.data)
@@ -364,12 +367,14 @@ export default function DetailHrReport({ children }: any) {
           const lastCharacter = link.slice(-1)
           formData.append('type_timekeep', match[2])
           formData.append('dep_id', match[3])
+          formData.append('team_id', isTeam_id)
+          formData.append('group_id', isGroup_id)
           formData.append('comId', match[1])
           formData.append('position_id', isPosition_id)
           formData.append('gender', isGender)
           formData.append('married', isMaried)
-          formData.append('birthday', isMaried)
-          formData.append('team', isMaried)
+          formData.append('birthday', isBirthday)
+          formData.append('page', currentPage)
           const response = await EmpStatusDetail(formData)
           if (response) {
             setOrganisationalList(response?.data)
@@ -398,8 +403,9 @@ export default function DetailHrReport({ children }: any) {
           formData.append('position_id', isPosition_id)
           formData.append('gender', isGender)
           formData.append('married', isMaried)
-          formData.append('birthday', isMaried)
-          formData.append('team', isMaried)
+          formData.append('birthday', isBirthday)
+          formData.append('team', isTeam_id)
+          formData.append('page', currentPage)
           const response = await EmpStatusDetail(formData)
           if (response) {
             setOrganisationalList(response?.data)
@@ -429,8 +435,8 @@ export default function DetailHrReport({ children }: any) {
           formData.append('position_id', isPosition_id)
           formData.append('gender', isGender)
           formData.append('married', isMaried)
-          formData.append('birthday', isMaried)
-          formData.append('team', isMaried)
+          formData.append('birthday', isBirthday)
+          formData.append('page', currentPage)
           const response = await EmpStatusDetail(formData)
           if (response) {
             setOrganisationalList(response?.data)
@@ -441,7 +447,7 @@ export default function DetailHrReport({ children }: any) {
       }
     }
     fetchData()
-  }, [])
+  }, [currentPage, isPosition_id, isGender, isMaried, isDep_id, isTeam_id, isGroup_id])
 
   useEffect(() => {
     const fetchData = async () => {
@@ -533,11 +539,11 @@ export default function DetailHrReport({ children }: any) {
 
   const chonphongbanOptions = useMemo(
     () =>
-      departmentList?.data?.map((department: any) => ({
+      departmentList?.items?.map((department: any) => ({
         value: department.dep_id,
         label: department.dep_name,
       })),
-    [departmentList?.data]
+    [departmentList?.items]
   )
   const chonchucvuOptions = useMemo(
     () =>
@@ -558,6 +564,7 @@ export default function DetailHrReport({ children }: any) {
 
   const options = {
     chonphongban: chonphongbanOptions,
+    chonphongbandefault: [{ value: "", label: "" }],
     chonchucvu: chonchucvuOptions,
     chonnhom: [{ value: 1, label: 'Nhóm 1' }],
     chonto: [{ value: 1, label: 'Tổ 1' }],
@@ -571,17 +578,7 @@ export default function DetailHrReport({ children }: any) {
       { value: 1, label: 'Đã có gia đình' },
       { value: 2, label: 'Độc thân' },
     ],
-    kinhnghiemlamviec: [
-      { value: '0', label: 'Chưa có kinh nghiệm' },
-      { value: '1', label: '0 - 1 năm kinh nghiệm' },
-      { value: '2', label: '1 - 2 năm kinh nghiệm' },
-      { value: '3', label: '2 - 5 năm kinh nghiệm' },
-      { value: '4', label: '5 - 10 năm kinh nghiệm' },
-      { value: '5', label: 'Hơn 10 năm kinh nghiệm' },
-    ],
   }
-
-  console.log(isOrganisationalList)
 
   return (
     <>
@@ -692,8 +689,8 @@ export default function DetailHrReport({ children }: any) {
                         <td>{item?.userName}</td>
                         <td>{item?.dep}</td>
                         <td>{item?.chucvu}</td>
-                        <td>Chưa cập nhật</td>
-                        <td>Chưa cập nhật</td>
+                        <td>{item?.group ? item.group : "Chưa cập nhật"}</td>
+                        <td>{item?.team ? item.team : "Chưa cập nhật"}</td>
                         <td>{item?.gender === 1 ? 'Nam' : 'Nữ'}</td>
                         {item?.birthday ? (
                           <td>
@@ -734,7 +731,17 @@ export default function DetailHrReport({ children }: any) {
                         ) : (
                           <td>Chưa cập nhật</td>
                         )}
-                        <td>{item?.chucvu}</td>
+                        <td>{item?.experience === 0
+                          ? 'Chưa có kinhh nghiệm'
+                          : item?.experience === 1
+                            ? '0 - 1 năm kinh nghiệm'
+                            : item?.experience === 2
+                              ? '1 - 2 năm kinh nghiệm'
+                              : item?.experience === 3
+                                ? '2 - 5 năm kinh nghiệm'
+                                : item?.experience === 4
+                                  ? '5 - 10 năm kinh nghiệm'
+                                  : 'trên 10 năm kinh nghiệm'}</td>
                       </tr>
                     ))}
                   {isOrganisationalList?.listEmployee &&
@@ -823,7 +830,7 @@ export default function DetailHrReport({ children }: any) {
         <div className={`${styles.pagination}`}>
           <MyPagination
             current={currentPage}
-            total={isReportList?.totalCount}
+            total={isReportList?.total || isOrganisationalList?.totalCount}
             pageSize={10}
             onChange={handlePageChange}
           />

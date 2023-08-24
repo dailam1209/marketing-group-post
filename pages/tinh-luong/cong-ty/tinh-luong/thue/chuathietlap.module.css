@@ -1,0 +1,150 @@
+.name {
+   color: #4c5bd4;
+}
+.information {
+   width: 95%;
+   margin-left: 20px;
+}
+.content {
+   width: 100%;
+   float: left;
+   background: #ffffff;
+   box-shadow: 0px 0px 20px rgba(55, 63, 255, 0.1);
+   border-radius: 10px;
+   float: left;
+   margin-top: 30px;
+   margin-bottom: 15px;
+}
+.container {
+   width: 100%;
+}
+.h3 {
+   width: 100%;
+   float: left;
+   font-weight: bold;
+   font-size: 24px;
+   line-height: 28px;
+   color: #2e3467;
+   padding-bottom: 5px;
+   padding-top: 15px;
+}
+
+.select_time {
+   display: flex;
+   width: 97.5%;
+   gap: 20px;
+   justify-content: flex-end;
+   padding-bottom: 40px;
+}
+
+.button {
+   padding: 7px 20px;
+   background: #4c5bd4;
+   color: #fff;
+   height: 32px;
+   cursor: pointer;
+   border: 1px solid #ebebeb;
+   border-radius: 10px;
+}
+.current {
+   background: #edeffb;
+   text-align: left;
+   padding: 15px 30px;
+   font-weight: 500;
+   width: 100%;
+}
+
+.search-icon {
+   position: absolute;
+   width: 10px;
+   height: 10px;
+}
+.tr_style:hover {
+   background: #edeffb;
+}
+
+.video {
+   padding-top: 100px;
+   padding-bottom: 70px;
+   text-align: center;
+}
+.render {
+   display: flex;
+   gap: 20px;
+}
+.table {
+}
+.table_style {
+   width: 100%;
+   padding-left: 20px;
+   padding-right: 25px;
+}
+.setting {
+   line-height: 21px;
+   color: #666666;
+   padding: 5px 14px 5px 14px;
+   background: #edeffb;
+   border: 1px solid #ebebeb;
+   border-radius: 20px;
+   cursor: pointer;
+   display: flex;
+   gap: 10px;
+   align-items: center;
+}
+.p_style {
+   font-size: 15px;
+   line-height: 18px;
+   color: #4c5bd4;
+}
+.text {
+   font-size: 15px;
+   line-height: 18px;
+}
+
+.btn_saves {
+   font-weight: 500;
+   font-size: 15px;
+   line-height: 21px;
+   color: #ffffff !important;
+   background-color: #4c5bd4;
+   border-radius: 10px;
+   cursor: pointer;
+   height: 40px;
+   margin-top: 20px;
+   margin-bottom: 10px;
+   margin-left: 4.5% !important;
+   margin-right: 4.5%;
+}
+.modal_times_body {
+   display: flex;
+   justify-content: center;
+   gap: 20px;
+}
+.times_body {
+   margin-left: 4.5%;
+   margin-right: 4.5%;
+   width: 100%;
+}
+.times_month {
+   width: 91%;
+   margin-top: 10px;
+   margin-bottom: 10px;
+}
+.modal_times {
+}
+.seclected {
+   margin-top: 10px;
+   margin-bottom: 10px;
+}
+.form{
+   display: flex;
+}
+.formItem{
+   margin-right: 10px;
+}
+.selection {
+   margin-right: 10px;
+}
+.select{
+   margin-right: 20px;
+}

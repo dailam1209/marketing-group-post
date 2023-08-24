@@ -28,7 +28,7 @@ function AddModalCollectiveDiscipline({ animation, onClose, updateData }: any) {
       try {
         const response = await GetDepartmentList(tokenComId.toString())
         setListDep(
-          response?.data.data.data.map((item) => ({
+          response?.data?.data?.items.map((item) => ({
             name: 'depId',
             value: item.dep_id,
             label: `${item.dep_name}`,

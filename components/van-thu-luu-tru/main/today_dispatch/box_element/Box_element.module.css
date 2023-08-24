@@ -1,0 +1,104 @@
+.body_row_box_element {
+    position: relative;
+    width: calc(100% / 4 - 16px);
+    height: 205px;
+    margin-right: 32px;
+    padding: 15px;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
+    background-color: #fff;
+}
+
+.body_row_box_element .element_title {
+    font-size: 18px;
+    font-weight: 400;
+    color: #474747;
+}
+
+.body_row_box_element .element_number {
+    font-size: 36px;
+    font-weight: 500;
+    margin-bottom: 15px;
+    /* font-family: Roboto-Medium, sans-serif; */
+}
+
+.body_row_box_element .element_success {
+    position: absolute;
+    width: 84%;
+    bottom: 30px;
+}
+
+.body_row_box_element:first-child {
+    background-color: #738cf1;
+}
+
+.body_row_box_element:first-child .element_number,
+.body_row_box_element:first-child .element_title,
+.body_row_box_element:first-child .element_temp {
+    color: #fff;
+    text-decoration: none;
+}
+
+.element_success .element_temp {
+    text-align: center;
+    font-size: 14px;
+}
+
+.element_success .progress {
+    margin-top: 5px;
+    position: absolute;
+    width: 100%;
+    height: 7px;
+    border-radius: 20px;
+    background-color: #ddfcf7;
+    animation: glowing1 1500ms infinite;
+}
+
+.element_success .progress_bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    border-radius: 20px;
+    background-color: #58ecd9;
+    -webkit-transition: width 2s;
+    transition: width 2s;
+}
+
+@keyframes glowing1 {
+    0% {
+        background-color: #58ecd9;
+        box-shadow: 0 0 3px #58ecd9;
+    }
+
+    50% {
+        background-color: #ddfcf7;
+        box-shadow: 0 0 6px #ddfcf7;
+    }
+
+    100% {
+        background-color: #58ecd9;
+        box-shadow: 0 0 3px #58ecd9;
+    }
+}
+
+@media (max-width: 1024px) and (min-width: 769px) {
+    .body_row_box_element {
+        width: 204px;
+        height: 236px;
+        margin-right: 25px;
+        padding: 26px 20px;
+        margin-bottom: 10px;
+    }
+
+    .element_success .element_temp {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 768px) {
+    .body_row_box_element {
+        width: 204px;
+        margin-right: 10px;
+    }
+}

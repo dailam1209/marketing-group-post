@@ -6,7 +6,15 @@ import {
   MySelect,
 } from '@/components/quan-ly-cong-ty/quan-ly-cong-ty-con/modal'
 import { POST, getCompIdCS } from '@/pages/api/BaseApi'
-import { eduLabel, expLabel, genderLabel, getExperience, getPosition, marriedLabel, positionLabel } from '@/utils/function'
+import {
+  eduLabel,
+  expLabel,
+  genderLabel,
+  getExperience,
+  getPosition,
+  marriedLabel,
+  positionLabel,
+} from '@/utils/function'
 import { Col, Form, Input, Row, Select } from 'antd'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
@@ -27,18 +35,16 @@ export function AddNewEmpModal(
   const [depFiler, setDepFilter] = useState<any>()
   const [teamFiler, setTeamFilter] = useState<any>()
 
-
   useEffect(() => {
     if (depFiler) {
-      setTeamLabel(listTeamLabel?.filter(t => t?.dep_id === depFiler))
+      setTeamLabel(listTeamLabel?.filter((t) => t?.dep_id === depFiler))
       form.setFieldValue('team_id', null)
     }
     if (teamFiler) {
-      setGrLabel(listGrLabel?.filter(g => g?.team_id === teamFiler))
+      setGrLabel(listGrLabel?.filter((g) => g?.team_id === teamFiler))
       form.setFieldValue('gr_id', null)
-
     }
-  },[depFiler, teamFiler])
+  }, [depFiler, teamFiler])
 
   const [form] = Form.useForm()
   const router = useRouter()
@@ -52,7 +58,7 @@ export function AddNewEmpModal(
       //   alert("Vui lòng nhập lại mật khẩu chính xác!");
       // }
       // console.log(value)
-      POST('api/qlc/managerUser/create', {...value, role: '0'})
+      POST('api/qlc/managerUser/create', { ...value, role: '0' })
         .then((res) => {
           if (res?.result === true) {
             form.resetFields()
@@ -76,7 +82,7 @@ export function AddNewEmpModal(
             res?.data?.map((team) => ({
               label: team?.team_name,
               value: team?.team_id,
-              dep_id: team?.dep_id
+              dep_id: team?.dep_id,
             }))
           )
         }
@@ -117,9 +123,9 @@ export function AddNewEmpModal(
   const positionLabel = getPosition?.map((p) => ({
     label: p?.value,
     value: p?.id,
-  }));
+  }))
 
-  const expLabel = getExperience?.map(e => ({
+  const expLabel = getExperience?.map((e) => ({
     label: e?.value,
     value: e?.id,
   }))
@@ -185,7 +191,14 @@ export function AddNewEmpModal(
           )}
         </Col> */}
         <Col md={12} sm={24} xs={24}>
-          {MySelect('Giới tính', 'Chọn giới tính', true, true, 'gender', genderLabel)}
+          {MySelect(
+            'Giới tính',
+            'Chọn giới tính',
+            true,
+            true,
+            'gender',
+            genderLabel
+          )}
         </Col>
         <Col md={12} sm={24} xs={24}>
           {/* {MyInput("Ngày sinh", "dd/MM/YYYY", false, true, "birthday")} */}
@@ -268,10 +281,26 @@ export function AddNewEmpModal(
           )}
         </Col>
         <Col md={12} sm={24} xs={24}>
-          {MySelect('Chức vụ', 'Chọn chức vụ', true, true, 'position_id', positionLabel)}
+          {MySelect(
+            'Chức vụ',
+            'Chọn chức vụ',
+            true,
+            true,
+            'position_id',
+            positionLabel
+          )}
         </Col>
         <Col md={12} sm={24} xs={24}>
-          {MySelect('Tổ', 'Chọn tổ', false, true, 'team_id', teamLabel, null, setTeamFilter)}
+          {MySelect(
+            'Tổ',
+            'Chọn tổ',
+            false,
+            true,
+            'team_id',
+            teamLabel,
+            null,
+            setTeamFilter
+          )}
         </Col>
         <Col md={12} sm={24} xs={24}>
           {MySelect('Nhóm', 'Chọn nhóm', false, true, 'group_id', grLabel)}
@@ -370,6 +399,7 @@ export function EditEmpModal(
         .then((res) => {
           if (res?.result === true) {
             setOpen(false)
+            window.alert('Cập nhật thông tin thành công')
             router.replace(router.asPath)
           }
         })
@@ -442,7 +472,14 @@ export function EditEmpModal(
         </Col>
 
         <Col md={12} sm={24} xs={24}>
-          {MySelect('Giới tính', 'Chọn giới tính', true, true, 'gender', genderLabel)}
+          {MySelect(
+            'Giới tính',
+            'Chọn giới tính',
+            true,
+            true,
+            'gender',
+            genderLabel
+          )}
         </Col>
 
         <Col md={12} sm={24} xs={24}>
@@ -456,7 +493,14 @@ export function EditEmpModal(
           )}
         </Col>
         <Col md={12} sm={24} xs={24}>
-          {MySelect('Tình trạng hôn nhân', 'Độc thân', false, true, 'married', marriedLabel)}
+          {MySelect(
+            'Tình trạng hôn nhân',
+            'Độc thân',
+            false,
+            true,
+            'married',
+            marriedLabel
+          )}
         </Col>
         <Col md={12} sm={24} xs={24}>
           {MySelect(
@@ -498,7 +542,14 @@ export function EditEmpModal(
           )}
         </Col>
         <Col md={12} sm={24} xs={24}>
-          {MySelect('Chức vụ', 'Chọn chức vụ', true, true, 'position_id', positionLabel)}
+          {MySelect(
+            'Chức vụ',
+            'Chọn chức vụ',
+            true,
+            true,
+            'position_id',
+            positionLabel
+          )}
         </Col>
         <Col md={12} sm={24} xs={24}>
           {MySelect('Tổ', 'Chọn tổ', false, true, 'team_id', listTeamLabel)}

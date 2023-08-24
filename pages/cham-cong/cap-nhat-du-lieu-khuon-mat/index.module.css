@@ -1,8 +1,11 @@
 .main {
   background-color: #4c5bd4;
   width: 100vw;
-  min-height: calc(100vh - 40px);
-  height: auto;
+  height: calc(100vh - 40px);
+  padding: 30px;
+  /* display: flex;
+  flex-direction: column;
+  align-items: center; */
 
   .divWrapper {
     display: flex;
@@ -22,8 +25,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    top: 0;
+    top: 1;
     bottom: 0;
+    margin-bottom: 100px;
     left: 0;
     right: 0;
     .txt {
@@ -35,57 +39,74 @@
   }
 }
 
-.webcamCapture {
+/* .webcamCapture {
   position: relative;
   width: 50%;
-}
-
-@media only screen and (max-width: 1920px) {
-  
-  .main {
-    padding: 0 100px;
-    padding-bottom: 24px;
-  }
-}
-
-
-@media only screen and (max-width: 1366px) {
-  
-  .main {
-    padding: 0 83px;
-    padding-bottom: 24px;
-  }
-}
-
-@media only screen and (max-width: 1024px) {
-  
-  .main {
-    padding: 0 30px;
-    padding-bottom: 24px;
-  }
-}
-
-@media only screen and (max-width: 768px) {
+} */
+@media only screen and (max-device-width: 640px) {
   .webcamCapture {
     position: fixed;
     height: 100%;
     width: 100%;
   }
-  .main {
-    padding: 0 24px;
-    padding-bottom: 24px;
-  }
 }
-
-
-@media only screen and (max-width: 414px) {
+@media only screen and (max-device-width: 768px) {
   .webcamCapture {
     position: fixed;
     height: 100%;
     width: 100%;
   }
-  .main {
-    padding: 0 16px;
-    padding-bottom: 24px;
+}
+
+.btnOk {
+  width: 250px;
+  padding: 10px 30px;
+  border-radius: 20px;
+  background: linear-gradient(180deg, #4c5bd4 0%, #5667f2 100%);
+}
+
+.btnCancel {
+  width: 250px;
+  margin-left: 30px;
+  padding: 10px 30px;
+  border-radius: 20px;
+  background: linear-gradient(180deg, #ffd059 0%, #ffbd00 100%);
+}
+
+.wrapper {
+  border: 1px solid #4c5bd4;
+  border-radius: 15px;
+  padding: 10px 30px;
+
+  display: flex;
+
+  .txt {
+    font-size: 18px;
   }
+}
+.wrapper2 {
+  border: 1px solid #4c5bd4;
+  border-radius: 15px;
+  padding: 10px 30px;
+
+  margin-bottom: 20px;
+
+  .txt {
+    font-size: 18px;
+  }
+}
+
+.btnClear {
+  width: 180px;
+  padding: 10px 30px;
+  border-radius: 20px;
+  border: 1px solid #4c5bd4;
+  margin-right: 10px;
+}
+
+.btnOk1 {
+  width: 180px;
+  padding: 10px 30px;
+  border-radius: 20px;
+  background: linear-gradient(180deg, #4c5bd4 0%, #5667f2 100%);
 }

@@ -31,6 +31,7 @@ export default function Home() {
   const [openSB, setOpenSB] = useState(false);
   const [loading, setLoading] = useState(true);
   const [hasTokens, setHasTokens] = useState(false);
+  const [userRole1,setUserRole1]=useState(0)
   const router = useRouter();
   useEffect(() => {
     const accToken = Cookies.get("token_base365");
@@ -39,6 +40,7 @@ export default function Home() {
 
     if (accToken && rfToken && userRole) {
       setHasTokens(true);
+      setUserRole1(userRole)
     }
   }, []);
   const handleClickCheckVip = () => {
@@ -317,6 +319,7 @@ export default function Home() {
                               <QLC_item
                                 title="Tính lương"
                                 img={"../img/qlc_tl.png"}
+                                url={userRole1 == 2 ? "tinh-luong/quan-ly/nhan-vien" : userRole1 == 1 ? "tinh-luong/cong-ty/trang-chu" : "dang-nhap-nhan-vien.html" }
                               />
                             </Col>
                             <Col
@@ -357,6 +360,7 @@ export default function Home() {
                               <QLC_item
                                 title="Văn thư lưu trữ"
                                 img={"../img/qlc_vt.png"}
+                                url='/van-thu-luu-tru/quanly-cong-van'
                               />
                             </Col>
                             <Col
@@ -775,6 +779,7 @@ export default function Home() {
                                 <QLC_item
                                   title="Văn thư lưu trữ"
                                   img={"../img/qlc_vt.png"}
+                                  url='/van-thu-luu-tru/quanly-cong-van'
                                 />
                               </Col>
                               <Col

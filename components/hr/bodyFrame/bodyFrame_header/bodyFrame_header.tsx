@@ -9,6 +9,9 @@ import Sidebar from '../../sidebar/Sidebar';
 export interface BodyFrameHeader { }
 
 export default function BodyFrameHeader({ dataHeader }: any) {
+
+    console.log(dataHeader);
+
     const [menuClick, setMenuClick] = useState(false)
     const [noti, setNoti] = useState(false)
     const [remind, setRemind] = useState(false)
@@ -85,8 +88,8 @@ export default function BodyFrameHeader({ dataHeader }: any) {
                                 </div>
                             </div>
                         </div>
-                        <div className={`${styles.header_left_item1}`}>ID-{dataHeader?.data?.idQLC || ''}</div>
-                        <div className={`${styles.header_left_item2}`}>{dataHeader?.data?.userName || ''}</div>
+                        <div className={`${styles.header_left_item1}`}>ID-{dataHeader?.data?.com_id || dataHeader?.data?.idQLC}</div>
+                        <div className={`${styles.header_left_item2}`}>{dataHeader?.data?.com_name || dataHeader?.data?.userName}</div>
                     </div>
                     <div className={`${styles.header_right}`} >
                         <div className={`${styles.header_right_item1}`} >
@@ -102,9 +105,11 @@ export default function BodyFrameHeader({ dataHeader }: any) {
                         </div>
                         <div className={`${styles.header_right_item2}`} onClick={toggleMenu}>
                             <div className={`${styles.header_avatar}`}>
-                                <img className={`${styles.image_avatar}`} src={dataHeader?.data?.avatarUser ? dataHeader?.data?.avatarUser : "/logo_com (2).png"} alt="" />
+                                <img className={`${styles.image_avatar}`} src={dataHeader?.data?.com_logo ? dataHeader?.data?.com_logo : "/logo_com (2).png"
+                                    || dataHeader?.data?.avatarUser ? dataHeader?.data?.avatarUser : "/logo_com (2).png"
+                                } alt="" />
                             </div>
-                            <div className={`${styles.name}`}>{dataHeader?.data?.userName || ''}</div>
+                            <div className={`${styles.name}`}>{dataHeader?.data?.com_name || dataHeader?.data?.userName}</div>
                             <div className={`${styles.drop_down}`}>
                                 <img src={`/menu.svg`} alt="icon" />
                             </div>

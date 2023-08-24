@@ -1,0 +1,157 @@
+.div_page {
+    box-shadow: 0px 0px 20px rgb(55 63 255 / 10%);
+    border-radius: 20px;
+    padding: 20px;
+    background: #fff;
+    overflow-x: auto;
+    width: 95%;
+    margin: auto;
+}
+.ds_pay_ct_div{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.cate_ct_one{
+    float: left;
+    width: 80%;
+}
+
+.cate_ct_one > h3 {
+    width: 100%;
+    float: left;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 28px;
+    color: #2E3467;
+    margin-bottom: 3px;
+}
+.cate_ct_one > p {
+    width: 100%;
+    float: left;
+    font-size: 15px;
+    line-height: 18px;
+    color: #68798B;
+}
+.form{
+    margin-top: 30px;
+}
+.modal_hd_tax{
+    width: 91%;
+    float: left;
+    margin-left: 4.5%;
+    margin-right: 4.5%;
+}
+
+.modal_body{
+    width: 100%;
+    float: left;
+}
+.cr_popup_tax{
+    width: 100%;
+    float: left;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.cr_popup_tax_avt{
+    margin-bottom: 15px;
+}
+.cr_avt_one{
+    width: 85%;
+    float: left;
+    display: flex;
+}
+.cr_avt_one >img{
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.cr_avt_one >span{
+    padding-left: 10px;
+}
+
+.cr_avt_one > span >h4{
+    width: 100%;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    color: #4C5BD4;
+    margin-bottom: 5px;
+}
+.cr_avt_one >span >p{
+    width: 100%;
+    font-size: 14px;
+    line-height: 16px;
+    color: #777777;
+}
+.modal_header{
+    background: #4C5BD4;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.04);
+    border-radius: 8px 8px 0px 0px;
+    height: 47px;
+    position: relative;
+}
+.form_group{
+    width: 100%;
+    float: left;
+    margin-bottom: 14px;
+    margin-top: 20px;
+}
+.label{
+    margin-bottom: 5px;
+    width: 100%;
+    float: left;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19px;
+    color: #666666;
+}
+.ro_id{
+    background: #FFFFFF;
+    border: 1px solid #DDDDDD;
+    border-radius: 3px;
+    padding: 10px 15px;
+    font-size: 16px;
+    line-height: 19px;
+    color: #777777;
+    outline: 0;
+    margin-bottom: 5px;
+    width: 100%;
+    float: left;
+}
+.ep_id{
+    background: #FFFFFF;
+    border: 1px solid #DDDDDD;
+    border-radius: 3px;
+    padding: 10px 15px;
+    font-size: 16px;
+    line-height: 19px;
+    color: #777777;
+    outline: 0;
+}
+.btn_sv{
+    margin-top: 24px;
+    width: 100%;
+    float: left;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 18px;
+    color: #FFFFFF;
+    background: #4C5BD4;
+    border-radius: 5px;
+    padding: 14px 20px 13px 20px;
+    border: 0;
+    cursor: pointer;
+    outline: 0;
+}
+.video {
+    padding-top: 100px;
+    padding-bottom: 70px;
+    margin: auto;
+}
+.taModal {
+    height: 305px;
+}

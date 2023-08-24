@@ -8,6 +8,8 @@ import { CallContext } from "@/components/crm/context/tongdaiContext";
 import Filter from "./filter";
 import { useSelector } from "react-redux";
 import { base_url } from "../../service/function";
+import { dataSaveTD } from "../../redux/user/userSlice";
+import { useDispatch } from "react-redux";
 const Cookies = require("js-cookie");
 type Props = {};
 
@@ -22,6 +24,7 @@ const Recording = (props: Props) => {
   const [name, setname] = useState();
   const [option, setOption] = useState();
   const [showKetNoi, setShowKetNoi] = useState(false);
+  const dispatch = useDispatch()
 
   let arr = [];
   for (var key of Object.keys(listLine)) {
@@ -118,8 +121,11 @@ const Recording = (props: Props) => {
       }
     );
     const data = await res.json();
-    setListNV(data?.data?.data);
+    console.log("nv",data)
+    setListNV(data?.data?.items);
   };
+
+  
   useEffect(() => {
     if (show) {
       setShowKetNoi(true);
@@ -145,7 +151,28 @@ const Recording = (props: Props) => {
       notification.error({message:data?.error?.message})
     }
   };
+  useEffect(() => {
 
+    const handleget = async () => {
+      if (show) {
+      const res =  await fetch(
+          "https://s02.oncall.vn:8900/api/account/credentials/verify",
+          {
+            method: "POST",
+            body: JSON.stringify({
+              name: "HNCX00693",
+              password: "v2ohO6B1Nf4F",
+              domain: "hncx00693.oncall",
+            }),
+          }
+        );
+        const data = await res.json()
+        dispatch(dataSaveTD(data.access_token));
+      }
+    };
+    handleget();
+
+  }, []);
   return (
     <div>
       {showKetNoi && (
@@ -211,8 +238,8 @@ const Recording = (props: Props) => {
                       return (
                         <option
                           key={index}
-                          value={item.idQLC}
-                        >{`(${item.idQLC}) ${item.userName}`}</option>
+                          value={item.ep_id}
+                        >{`(${item.ep_id}) ${item.ep_name}`}</option>
                       );
                     })}
                 </Select>

@@ -1,73 +1,67 @@
-import { Card, Table } from "antd"
-import styles from "./index.module.css"
-import { AddButton } from "@/components/commons/Buttons"
-import Image from "next/image"
-import { ModalQuanLyCongTyCon } from "@/components/quan-ly-cong-ty/quan-ly-cong-ty-con/modal"
-import { useState } from "react"
+import { Card, Table } from 'antd'
+import styles from './index.module.css'
+import { AddButton } from '@/components/commons/Buttons'
+import Image from 'next/image'
+import { ModalQuanLyCongTyCon } from '@/components/quan-ly-cong-ty/quan-ly-cong-ty-con/modal'
+import { useState } from 'react'
 import {
   TYPE_ADD,
-  TYPE_UPDATE
-} from "@/components/quan-ly-cong-ty/quan-ly-ca/modal"
-import { POST, POST_SS } from "@/pages/api/BaseApi"
+  TYPE_UPDATE,
+} from '@/components/quan-ly-cong-ty/quan-ly-ca/modal'
+import { POST, POST_SS } from '@/pages/api/BaseApi'
 
 export default function QuanLyCongTyConPage({
-  listChildCompanies
+  listChildCompanies,
 }: {
   listChildCompanies?: any
 }) {
   const [isOpenAdd, setIsOpenAdd] = useState(false)
   const [isOpenUpdate, setIsOpenUpdate] = useState(false)
   const [companySelected, setCompanySelected] = useState({})
-  const [data, setData] = useState(listChildCompanies?.data)
+  const [data, setData] = useState(listChildCompanies?.items)
 
-  console.log(listChildCompanies?.data)
+  // console.log(listChildCompanies?.data)
 
   const columns = [
     {
       title: <p className={styles.title}>ID</p>,
-      render: (record: any) => <p>{record?._id}</p>
+      render: (record: any) => <p>{record?._id}</p>,
     },
     {
       title: <p className={styles.title}>Logo Công ty</p>,
       render: (record: any) => (
         <div>
-          <Image
-            alt="/"
-            src={"/logo_demo.png"}
-            width={147}
-            height={80}
-          />
+          <Image alt='/' src={'/logo_demo.png'} width={147} height={80} />
         </div>
-      )
+      ),
     },
     {
       title: <p className={styles.title}>Tên Công ty</p>,
-      render: (record: any) => <p>{record?.userName}</p>
+      render: (record: any) => <p>{record?.com_name}</p>,
     },
     {
       title: <p className={styles.title}>Công ty</p>,
-      render: (record: any) => <p>{"Công ty con"}</p>
+      render: (record: any) => <p>{'Công ty con'}</p>,
     },
     {
       title: <p className={styles.title}>Số điện thoại</p>,
-      render: (record: any) => <p>{record?.phone}</p>
+      render: (record: any) => <p>{record?.com_phone}</p>,
     },
     {
       title: <p className={styles.title}>Địa chỉ</p>,
-      render: (record: any) => <p>{record?.address}</p>
+      render: (record: any) => <p>{record?.com_address}</p>,
     },
     {
       title: <p className={styles.title}>Chỉnh sửa</p>,
       render: (record: any) => (
         <div
           style={{
-            display: "flex",
-            justifyContent: "center"
-          }}
-        >
+            display: 'flex',
+            justifyContent: 'center',
+          }}>
           <Image
-            alt="/"
-            src={"/edit.png"}
+            alt='/'
+            src={'/edit.png'}
             width={24}
             height={24}
             onClick={() => {
@@ -76,8 +70,8 @@ export default function QuanLyCongTyConPage({
             }}
           />
         </div>
-      )
-    }
+      ),
+    },
   ]
 
   return (
@@ -85,22 +79,22 @@ export default function QuanLyCongTyConPage({
       <Card>
         <div className={styles.header}>
           <p className={styles.headerTxt}>Quản lý công ty con</p>
-          {AddButton("Thêm công ty", () => setIsOpenAdd(true))}
+          {AddButton('Thêm công ty', () => setIsOpenAdd(true))}
         </div>
         <Table
           className={`table_cong_ty_con`}
           style={{
-            border: "1px solid lightgrey",
-            borderRadius: "8px",
-            marginTop: "20px"
+            border: '1px solid lightgrey',
+            borderRadius: '8px',
+            marginTop: '20px',
           }}
           columns={columns}
           dataSource={data}
           pagination={{
-            position: ["bottomCenter"],
-            showPrevNextJumpers: false
+            position: ['bottomCenter'],
+            showPrevNextJumpers: false,
           }}
-          scroll={{ x: "max-content" }}
+          scroll={{ x: 'max-content' }}
         />
       </Card>
       {ModalQuanLyCongTyCon(
@@ -127,14 +121,14 @@ export default function QuanLyCongTyConPage({
 
 export const getServerSideProps = async (context) => {
   const listChildCompanies = await POST_SS(
-    "api/qlc/company/child/list",
+    'api/qlc/company/child/list',
     {},
     context
   )
 
   return {
     props: {
-      listChildCompanies
-    }
+      listChildCompanies,
+    },
   }
 }

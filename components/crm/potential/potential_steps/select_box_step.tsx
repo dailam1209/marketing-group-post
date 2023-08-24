@@ -85,7 +85,7 @@ export default function PotentialSelectBoxStep({
             </span>
           </span>
         </span>
-        {isOpen && <PotentialDropDownDataStep data={data} value={value}/>}
+        {isOpen && <PotentialDropDownDataStep data={data} value={value} />}
       </span>
     </div>
   );

@@ -1,8 +1,9 @@
 .header {
   position: relative;
   float: right;
-  width: calc(100% - 312px);
+  width: calc(100% - 302px);
   padding: 22px 22px 0px 22px;
+  background-color: #f7f8fc;
 }
 
 .main {

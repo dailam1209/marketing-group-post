@@ -23,6 +23,9 @@ export default function Recruitment() {
   const [editData, setEditData] = useState<any>()
   const [displayIcon, setDisplayIcon] = useState<any>()
 
+  console.log(dataListNews);
+
+
   useEffect(() => {
     const GetDataListNews = async () => {
       try {
@@ -33,7 +36,7 @@ export default function Recruitment() {
           formDate,
           toDate
         )
-        setDataListNews(response?.data)
+        setDataListNews(response?.data?.success)
       } catch (err) { }
     }
     GetDataListNews()
@@ -60,7 +63,7 @@ export default function Recruitment() {
       itemsPerPage > 1 ? currentPage : Math.max(currentPage - 1, 1)
     const newData = await GetListNews(updatedPage, 5, '', '', '')
     if (newData) {
-      setDataListNews(newData?.data)
+      setDataListNews(newData?.data?.success)
     }
   }
   const dataMapping = dataListNews?.data
@@ -178,11 +181,11 @@ export default function Recruitment() {
               </div>
             ))
           )}
-          {dataListNews?.data.totalCount > 4 && (
+          {dataListNews?.data.total > 4 && (
             <div className={`${styles.pagination}`}>
               <MyPagination
                 current={currentPage}
-                total={dataListNews?.data.totalCount}
+                total={dataListNews?.data.total}
                 pageSize={4}
                 onChange={(page) => handlePageChange(page)}
               />

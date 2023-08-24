@@ -30,7 +30,7 @@ const TableDataGroupListCustomer: React.FC<TableDataGroupListCustomerProps> = ({
   setSelectedRow,
   setChange,
   change,
-  data = [],
+  data,
   updateData,
 }: any) => {
   const [openSharedModal, setOpenSharedModal] = useState(false);
@@ -285,7 +285,7 @@ const TableDataGroupListCustomer: React.FC<TableDataGroupListCustomerProps> = ({
           </div>
         </div>
       )}
-
+    
       <CancelModalDelGroup
         isModalCancel={isOpenCancel}
         setIsModalCancel={setIsOpenCancel}
