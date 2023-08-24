@@ -18,8 +18,16 @@ export default function HeaderBtnsCustomerGroup({
   return (
     <div className={styles.main__control}>
       <div className={`${styles.main__control_btn} flex_between`}>
-        <div className={styles.main__control_search}>
-          <div onSubmit={handleClickSearch}>
+        <div className={styles.wrapInput}>
+          <div
+            style={{
+              position: "relative",
+              paddingTop: "10px",
+              paddingBottom: "10px",
+            }}
+            className={styles.main__control_search}
+            onSubmit={handleClickSearch}
+          >
             <input
               type="text"
               className={styles.input__search}
