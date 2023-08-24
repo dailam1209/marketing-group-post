@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { GET } from "@/components/tinh-luong/components/api/BaseApi";
 import { ModalThemCa } from "../modal/modal-them-ca";
+import { domain, domainQLC } from "../../../../api/BaseApi";
 
 export function ModalTiepTuc(
   open: boolean,
@@ -128,10 +129,11 @@ export function ModalTiepTuc(
   }, [allCheck]);
 
   useEffect(() => {
-    GET("http://210.245.108.202:3000/api/qlc/shift/list").then((res) => {
+    GET(`${domainQLC}/api/qlc/shift/list`).then((res) => {
       if (res?.result === true) {
+        console.log("listShiftTest:", res?.items);
         setListShift(
-          res?.list.map((item) => {
+          res?.items.map((item) => {
             return {
               key: `${item?.shift_id}`,
               content: item?.shift_name,

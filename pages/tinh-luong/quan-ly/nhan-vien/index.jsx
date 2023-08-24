@@ -32,9 +32,11 @@ function SummaryIntel({ index, intel, color1 }) {
 function calculateSumOfKeys(array) {
   let sum = 0;
 
-  array.map((item) => {
-    sum += item?.num_to_calculate;
-  });
+  if (array.length >= 0) {
+    array.map((item) => {
+      sum += item?.num_to_calculate;
+    });
+  }
 
   return sum;
 }
@@ -54,7 +56,7 @@ export default function QuanLyNhanVien({ title }) {
   const [selectedMonth, setSelectedMonth] = useState(dayjs().month() + 1);
   const [selectedYear, setSelectedYear] = useState(dayjs().year());
   const [userInfo, setUserInfo] = useState({});
-
+  console.log("Api RealData: ", apiRealData);
   useEffect(() => {
     fetchApiData(selectedMonth, selectedYear);
   }, [selectedMonth, selectedYear]);
@@ -74,7 +76,7 @@ export default function QuanLyNhanVien({ title }) {
       .catch((err) => {
         console.error(
           "Error ở API api/tinhluong/nhanvien/qly_ho_so_ca_nhan:",
-          error
+          err
         );
       });
   }, []);

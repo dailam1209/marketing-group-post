@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import _, { divide } from "lodash";
 import { GET, POST } from "@/components/tinh-luong/components/api/BaseApi";
 import { useRouter } from "next/router";
-
+import { domain, domainQLC } from "../../../../api/BaseApi";
 const TYPE_NOTFULL = "T2T6";
 const TYPE_MALFULL = "T2T7";
 const TYPE_FULL = "T2CN";
@@ -50,6 +50,7 @@ export function ModalThemCa(
   //!Current ??
 
   console.log("Initial All Check at Modal Them Ca", initialAllCheck);
+
   const [listShift, setListShift] = useState([]);
   const [applyMonth, setApplyMonth] = useState(
     form?.getFieldValue("apply_month")
@@ -64,6 +65,8 @@ export function ModalThemCa(
   // });
   const [month, setMonth] = useState(dates(new Date()));
   console.log("month: ", month);
+  // console.log("listShift at Modal Them Ca", listShift);
+  // console.log("listCheck at Modal Them Ca", listCheck);
 
   useEffect(() => {
     setAllCheck(initialAllCheck);
@@ -115,10 +118,10 @@ export function ModalThemCa(
   }, [form.getFieldValue("apply_month")]);
 
   useEffect(() => {
-    GET("http://210.245.108.202:3000/api/qlc/shift/list").then((res) => {
+    GET(`${domainQLC}/api/qlc/shift/list`).then((res) => {
       if (res?.result === true) {
         setListShift(
-          res?.list.map((item) => {
+          res?.items.map((item) => {
             return {
               key: `${item?.shift_id}`,
               content: item?.shift_name,
@@ -266,17 +269,22 @@ export function ModalThemCa(
         : setListCheck([...listCheck, key]);
     };
     const checked = (key) => listCheck.includes(key);
-    const checkComponent = (key, content) => (
-      <li>
-        <Checkbox
-          key={key}
-          className={styles.checkbox}
-          onChange={() => onChange(key)}
-          checked={checked(key)}
-        ></Checkbox>
-        {content}
-      </li>
-    );
+    const checkComponent = (key, content) => {
+      console.log(
+        `key và content ở checkComponent lần lượt là ${key} và ${content}`
+      );
+      return (
+        <li>
+          <Checkbox
+            key={key}
+            className={styles.checkbox}
+            onChange={() => onChange(key)}
+            checked={checked(key)}
+          ></Checkbox>
+          {content}
+        </li>
+      );
+    };
     return (
       <div style={{ marginTop: "20px" }}>
         <div style={{ marginBottom: "5px", color: "red" }}>
@@ -359,10 +367,10 @@ export function ModalChinhSua_Them({ data, form, setOpen }) {
   const router = useRouter();
 
   useEffect(() => {
-    GET("http://210.245.108.202:3000/api/qlc/shift/list").then((res) => {
+    GET(`${domainQLC}/api/qlc/shift/list`).then((res) => {
       if (res?.result === true) {
         setListShift(
-          res?.list.map((item) => {
+          res?.items.map((item) => {
             return {
               key: `${item?.shift_id}`,
               content: item?.shift_name,
@@ -554,7 +562,7 @@ export function ModalChinhSua_Them({ data, form, setOpen }) {
       });
 
     form.validateFields().then((value) => {
-      POST("http://210.245.108.202:3000/api/qlc/cycle/editapi/qlc/cycle/edit", {
+      POST(`${domainQLC}/api/qlc/cycle/editapi/qlc/cycle/edit`, {
         cy_id: data?.cy_id,
         cy_name: form.getFieldValue("cy_name"),
         apply_month: data?.apply_month,

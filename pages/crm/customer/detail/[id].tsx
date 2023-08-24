@@ -11,8 +11,8 @@ const Cookies = require("js-cookie");
 export default function DetailCustomer() {
   const pathname = usePathname();
   const router = useRouter();
-  const [name, setname] = useState<any>();
   const { id } = router.query;
+  const [name, setname] = useState<any>();
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
   const getNameDetail = async () => {

@@ -10,8 +10,10 @@ import jwtDecode from 'jwt-decode'
 import Head from 'next/head'
 import { getCompIdCS } from '@/pages/api/BaseApi'
 import _ from 'lodash'
+import { useRouter } from 'next/router'
 
 export default function ChamCongCongTy() {
+  const router = useRouter()
   const [openCam, setOpenCam] = useState(false)
   const [undetectedModal, setUndetectedModal] = useState(false)
   const [countdown, setCountdown] = useState(3)
@@ -208,7 +210,10 @@ export default function ChamCongCongTy() {
             với kỹ thuật để biết thêm !
           </p>
           <div style={{ marginTop: '20px' }}>
-            <Button className={styles.btnOk} size='large'>
+            <Button
+              className={styles.btnOk}
+              size='large'
+              onClick={() => router.push('/')}>
               <p style={{ color: '#fff' }}>Trang chủ</p>
             </Button>
             <Button

@@ -6,6 +6,7 @@ import axios from "axios";
 import checkCookie from "../../../../function/checkCookie";
 import cookieCutter from "cookie-cutter";
 import { useRouter } from "next/router";
+import { domain } from "../../../api/BaseApi";
 
 //! Chú ý : ID:{record?.idTimViec365} Cái này là điền ID Quản lý chung hay ID 365 ?
 export default function NhomLamViec2nd({
@@ -43,7 +44,7 @@ export default function NhomLamViec2nd({
   const [groupThietLapSelected, setGroupThietLapSelected] = useState();
   const [isInsert, setIsInsert] = useState(false);
   checkCookie();
-  const domain = process.env.NEXT_PUBLIC_BASE_URL_TL;
+
   const router = useRouter();
   const user_info = cookieCutter.get("userName");
   const token = cookieCutter.get("token_base365");

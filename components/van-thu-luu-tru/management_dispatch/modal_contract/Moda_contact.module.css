@@ -1,0 +1,235 @@
+.modal_popup {
+    position: fixed;
+    z-index: 999;
+    padding-top: 130px;
+    padding-bottom: 80px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(4px);
+}
+
+.container_modal {
+    width: 560px;
+    position: relative;
+    margin: auto;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    animation-duration: 1s;
+    animation-duration: 1s;
+    background: #ffffff
+}
+
+.modal_header {
+    padding: 11px 20px;
+    background: #4C5BD4;
+    border-radius: 10px 10px 0px 0px;
+    position: relative;
+}
+
+.title_modal {
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 28px;
+    color: #FFFFFF;
+}
+
+.close_detl {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    cursor: pointer;
+}
+
+/* // form */
+.form_body {
+    padding: 0px 20px 25px 20px;
+}
+
+.form_group .label_name {
+    font-size: 16px;
+    line-height: 19px;
+    color: #474747;
+    margin-top: 12px;
+    margin-bottom: 5px;
+    width: 100%;
+    float: left;
+}
+
+.form_group input {
+    width: 100%;
+    color: #666666;
+    font-size: 14px;
+    line-height: 16px;
+    padding: 11px 12px;
+    border: 1px solid rgba(71, 71, 71, 0.5);
+    border-radius: 5px;
+    outline: 0px;
+    background: #ffffff;
+}
+
+.checkbox_type {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.checkbox_type .label_type {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    line-height: 19px;
+    color: #474747;
+    width: 50%;
+}
+
+.checkout_input {
+    color: #666666;
+    font-size: 14px;
+    line-height: 16px;
+    padding: 11px 12px;
+    border: 1px solid rgba(71, 71, 71, 0.5);
+    border-radius: 5px;
+    outline: 0px;
+    background: #ffffff;
+    transform: scale(1.5);
+    margin-right: 10px;
+    width: auto;
+}
+
+.checkbox_type .title_input {
+    font-size: 16px;
+    line-height: 19px;
+    color: #474747;
+}
+
+.where_send {
+    width: 20%;
+}
+
+.div_input_radio {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    font-size: 16px;
+    line-height: 19px;
+    color: #474747;
+    margin-top: 12px;
+    margin-bottom: 5px;
+    width: 100%;
+}
+
+.box_radio {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.box_radio>label.radio {
+    width: 50%;
+}
+
+.box_radio .radio {
+    font-size: 16px;
+    line-height: 19px;
+    color: #474747;
+}
+
+.label_p {
+    margin-bottom: 15px;
+}
+
+.span_img {
+    color: #4c5bd4;
+    line-height: 37px;
+    border: 1px solid #4c5bd4;
+    padding: 8px 16px;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Group from */
+
+.input_form::placeholder {
+    font-size: 16px;
+}
+
+.form_buttom {
+    justify-content: space-between;
+    margin-top: 26px;
+    display: flex;
+}
+
+.btn_cancel {
+    color: #4C5BD4;
+    background: #ffffff;
+    border: 1px solid #4C5BD4;
+    border-radius: 6px;
+    padding: 9px 0px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 19px;
+    cursor: pointer;
+    width: calc(100%/2 - 10px);
+}
+
+.btn_save {
+    width: calc(100%/2 - 10px);
+    border-radius: 6px;
+    padding: 9px 0px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 19px;
+    cursor: pointer;
+    background: #4C5BD4;
+    color: #ffffff;
+    border: 1px solid #4C5BD4;
+}
+
+@media (max-width: 768px) {
+    .container_modal {
+        max-width: 420px;
+    }
+}
+
+@media (max-width: 481px) {
+    .container_modal {
+        max-width: 340px;
+    }
+}
+
+/* /// */
+.info_user {
+    display: flex;
+}
+
+.content h3 {
+    font-size: 18px;
+    font-family: "Roboto-Bold", sans-serif;
+
+}
+
+.content span {
+    font-size: 16px;
+    line-height: 19px;
+    color: #474747;
+}
+
+.content {
+    padding: 10px 0 16px 0px;
+    border-bottom: 1px dashed #999999;
+}
+
+/*  */
+.noinhan {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+}
