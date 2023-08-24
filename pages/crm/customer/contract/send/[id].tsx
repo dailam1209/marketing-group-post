@@ -24,6 +24,8 @@ const data = [
   },
 ];
 
+const dataDepartment = data?.map((item) => item.department);
+
 console.log(123, data);
 
 export default function ContractDetailsSend() {
@@ -64,12 +66,9 @@ export default function ContractDetailsSend() {
   const selectedData = data.find(
     (item) => item.department === selectedDepartment
   );
-  console.log(selectedData);
 
   const handleChangeDepartment = (value: string) => {
     setSelectedDepartment(value);
-    setSelectedPosition("Chọn chức vụ");
-    setSelectedEmployee("Chọn nhân viên");
   };
 
   const onChangeCheckbox1 = (e: CheckboxChangeEvent) => {
@@ -84,6 +83,11 @@ export default function ContractDetailsSend() {
   const onChangeCheckbox3 = (e: CheckboxChangeEvent) => {
     setCheckbox3Checked(e.target.checked);
   };
+
+  useEffect(() => {
+    setSelectedPosition("");
+    setSelectedEmployee("");
+  }, [selectedDepartment]);
 
   return (
     <>
@@ -127,17 +131,17 @@ export default function ContractDetailsSend() {
                                 value={selectedDepartment || "Chọn phòng ban"}
                                 placeholder="Chọn phòng ban"
                                 onChange={handleChangeDepartment}
-                                data={data}
+                                data={dataDepartment}
                               >
-                                <option value="">Chọn phòng ban</option>
-                                {data.map((item) => (
+                                {/* <option value="">Chọn phòng ban</option> */}
+                                {/* {data.map((item) => (
                                   <option
                                     key={item.department}
                                     value={item.department}
                                   >
                                     {item.department}
                                   </option>
-                                ))}
+                                ))} */}
                               </ContractSelectBoxStep>
                             </div>
                             <div

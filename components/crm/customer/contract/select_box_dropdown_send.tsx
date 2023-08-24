@@ -5,6 +5,7 @@ export default function ContractDropDownDataStep({
   data,
   value,
   setSelectedDepartment,
+  placeholder,
 }: any) {
   const [selectedValue, setSelectedValue] = useState(value);
   const handleOptionSelect = (selectedItem: string) => {
@@ -44,8 +45,9 @@ export default function ContractDropDownDataStep({
           >
             <li
               className={`${styles.select2_results__option} ${styles.select2_results__option_highlighted}`}
+              onClick={() => setSelectedDepartment(placeholder)}
             >
-              {selectedValue}
+              {placeholder}
             </li>
             {data?.map((item: any, i: Key | null | undefined) => (
               <li
@@ -56,9 +58,9 @@ export default function ContractDropDownDataStep({
                   padding: "5px 0",
                   paddingLeft: "18px",
                 }}
-                onClick={() => handleOptionSelect(item.department)}
+                onClick={() => handleOptionSelect(item)}
               >
-                {item.department}
+                {item}
               </li>
             ))}
           </ul>

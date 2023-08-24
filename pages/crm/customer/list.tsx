@@ -187,7 +187,6 @@ setloading(false)
     });
     const data = await res.json();
     setListGr(data?.data);
-
   };
   const [idSelect, setIdSelect] = useState<any>();
   const handleSelectAll = () => {
