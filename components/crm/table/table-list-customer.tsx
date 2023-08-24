@@ -152,7 +152,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       render: (data, record) => (
         <Link
           style={{ cursor: "pointer" }}
-          href={`/crm/customer/detail/${record.cus_id}`}
+          href= {{ pathname: `/crm/customer/detail/${record.cus_id}`, query: { name: record.name } }}
         >
           {data}
         </Link>

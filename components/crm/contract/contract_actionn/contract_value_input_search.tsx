@@ -14,7 +14,7 @@ export default function ContractValueInputSearch({
         id="check_box1"
         value={index}
         checked={checked[value] || false}
-        onChange={handleChecked}
+        onChange={() => handleChecked(value)}
       />
       <label htmlFor="check_box1" className="text_change" data-index="1">
         {value} ({index})
