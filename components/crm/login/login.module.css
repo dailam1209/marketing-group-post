@@ -838,6 +838,8 @@
   .left-01 img {
     width: 506px;
     height: 503px;
+    width: 100%;
+    margin: auto;
   }
   .box-02 {
     background-color: #ffffff;
