@@ -15,7 +15,7 @@ export default function ContractSelectBoxStep({
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [selectedData, setSelectedData] = useState<any>(null);
-  
+
   
   const handleClickSelectoption = (e: any) => {
     if (e.target.getAttribute("class") !== styles.select2_search__field) {
@@ -70,11 +70,6 @@ export default function ContractSelectBoxStep({
         <span className={`${styles.selection}`}>
           <span
             className={`${styles.select2_selection} select2_selection_single`}
-            role="combobox"
-            aria-haspopup="true"
-            aria-expanded="false"
-            tabIndex={0}
-            aria-labelledby="select2-g0q1-container"
           >
             <span
               className={styles.select2_selection__rendered}
@@ -98,7 +93,7 @@ export default function ContractSelectBoxStep({
             data={data}
             value={value}
             selectedData={selectedData}
-            
+            placeholder={placeholder}
           />
         )}
       </span>

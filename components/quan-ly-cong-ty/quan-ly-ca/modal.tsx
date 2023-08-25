@@ -92,6 +92,7 @@ export function AddCaModal(
   return (
     <div>
       <Modal
+        className='bannerQLC modalThemLLV'
         open={open}
         onCancel={() => setOpen(false)}
         width={600}
@@ -131,7 +132,7 @@ export function AddCaModal(
               true,
               'shift_name'
             )}
-            <Row gutter={30}>
+            <Row gutter={30} className={styles.negativeMargin15}>
               <Col sm={12} xs={24}>
                 <Form.Item
                   name='start_time'
@@ -217,7 +218,7 @@ export function AddCaModal(
             <p style={{ marginBottom: '10px' }}>
               Chọn ca thuộc loại hình nào để tính công cuối tháng
             </p>
-            <Row gutter={30}>
+            <Row gutter={30} className={styles.negativeMargin15}>
               <Col sm={12} xs={24}>
                 <SelectPaymentMethodBtn
                   type={THEO_SO_CA}

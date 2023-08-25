@@ -12,8 +12,7 @@ export default function PersonalReward({ iconAdd, iconEdit }: any) {
   const [currentPage, setCurrentPage] = useState<any>(1)
   const [keyWords, setKeyWords] = useState<any>('')
   const [updateData, setUpdateData] = useState<any>()
-  const newData = data?.data.slice(0, -1)
-  const myPagination = data?.data[data.data.length - 1]
+
 
   const handlePageChange = (page: any) => {
     setCurrentPage(page)
@@ -27,7 +26,7 @@ export default function PersonalReward({ iconAdd, iconEdit }: any) {
   useEffect(() => {
     const GetDataPersonalReward = async () => {
       const response = await GetDataAchievement(currentPage, 10, 1, keyWords)
-      setData(response?.data.data)
+      setData(response?.success?.data)
     }
     GetDataPersonalReward()
   }, [currentPage, keyWords, updateData])
@@ -37,7 +36,7 @@ export default function PersonalReward({ iconAdd, iconEdit }: any) {
       <RewardTable
         model='canhan'
         display='block'
-        data={newData}
+        data={data}
         modal={<ModalReward></ModalReward>}
         keyWords={handleSearch}
         updateData={handleUpDateData}
@@ -47,7 +46,7 @@ export default function PersonalReward({ iconAdd, iconEdit }: any) {
       <div className={`${styles.pagination}`}>
         <MyPagination
           current={currentPage}
-          total={myPagination?.tongSoBanGhi}
+          total={data?.total}
           pageSize={10}
           onChange={handlePageChange}
         />

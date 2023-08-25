@@ -35,19 +35,15 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
   const [isModalCancel, setIsModalCancel] = useState(false);
   const [imageData, setImageData] = useState<any>();
   const [inputSearch, setInputSearch] = useState("");
-  const [checkedWords, setCheckedWords] = useState<{ [key: string]: boolean }>(
-    {}
-  );
-
-  console.log(imageBase64[0]);
-  const mockValueSearchArr = [
-    "cham cong",
-    "cham cong",
-    "cham cong",
-    "cham cong",
-    "cham cong",
-  ];
-  const input_file = "static/uploads/1664_774985/Ban_cam_oan/Ban_cam_oan.docx";
+  const [scrolling, setScrolling] = useState(false);
+  const initialCheckStates = Array(5).fill(false); // Thay số 5 bằng số lượng checkbox tùy theo tình huống
+  const [checkedStates, setCheckedStates] =
+    useState<boolean[]>(initialCheckStates);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [newValues, setNewValues] = useState<
+    { index: number; originalValue: string; newValue: string }[]
+  >([]);  // Set value moi, value cu va index
+  const targetScrollRef = useRef<HTMLDivElement>(null);
 
   const axios = require("axios");
   // const fs = require("fs");
@@ -78,6 +74,24 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
     path_dowload: "",
     id_form_contract: "",
   });
+
+  const scrollToTarget = () => {
+    const targetElement = document.getElementById("setting");
+
+    console.log(targetElement);
+    if (targetElement) {
+      const targetPosition =
+        targetElement.getBoundingClientRect().top + window.pageYOffset;
+      window.scrollTo({
+        top: targetPosition,
+        behavior: "smooth",
+      });
+    }
+  };
+
+  const handleEditField = () => {
+    scrollToTarget();
+  };
 
   const handleSubmit = async () => {
     try {
@@ -213,15 +227,41 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
     }
   };
 
-  const handleCreateFieldBtn = () => {
-    setIsCreatField(true);
+  const handleShowModal = () => {
+    const selectedIndices = checkedStates.reduce(
+      (indices, isChecked, index) =>
+        isChecked ? [...indices, index] : indices,
+      []
+    );
+
+    if (selectedIndices.length === 0) {
+      alert("Vui lòng chọn ít nhất một checkbox.");
+    } else {
+      // Mở modal hiển thị vị trí các checkbox được chọn
+      setModalVisible(true);
+      setIsCreatField(true);
+    }
   };
 
-  const handleCheckboxChange = (word: string) => {
-    setCheckedWords((prevCheckedWords) => ({
-      ...prevCheckedWords,
-      [word]: !prevCheckedWords[word],
-    }));
+  const handleCreateFieldBtn = () => {
+    handleShowModal();
+  };
+
+  const handleCheckboxChange = (index: number) => {
+    const newCheckedStates = [...checkedStates];
+    newCheckedStates[index] = !newCheckedStates[index];
+    setCheckedStates(newCheckedStates);
+  };
+
+  const handleReplaceValues = (newValue: string) => {
+    const updatedValues = newValues.map(item => {
+      if (checkedStates[item.index]) {
+        return { ...item, newValue };
+      }
+      return item;
+    });
+    setNewValues(updatedValues);
+    console.log(newValues)
   };
 
   const handleDelEditField = () => {
@@ -335,8 +375,8 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
                 </div>
               </div>
             </div>
-            <div>
-              <label className={styles.label_thietlap}>
+            <div ref={targetScrollRef}>
+              <label className={styles.label_thietlap} id="setting">
                 Thiết lập thông tin cần thay đổi trong hợp đồng
               </label>
 
@@ -510,20 +550,30 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
 
               {/* /////////////////////////////////////////////////////////////// */}
 
-              <div className={styles.col_md_6} style={{ width: "100%" }}>
+              <div
+                ref={targetScrollRef}
+                id="setting"
+                className={styles.col_md_6}
+                style={{ width: "100%" }}
+              >
                 <div className={styles.fm_fd}>
                   <label className={styles.label_thietlap}>
                     Thiết lập thông tin cần thay đổi trong hợp đồng
                   </label>
 
                   <div className={styles.param}>
-                    {mockValueSearchArr?.map((item: any, index: number) => (
-                      <ContractValueInputSearch
-                        value={item}
-                        index={index}
-                        checked={checkedWords}
-                        handleChecked={handleCheckboxChange}
-                      />
+                    {checkedStates.map((isChecked, index) => (
+                      <div key={index} style={{ marginRight: "5px" }}>
+                        <label>
+                          <input
+                            style={{ marginLeft: "3px" }}
+                            type="checkbox"
+                            checked={isChecked}
+                            onChange={() => handleCheckboxChange(index)}
+                          />
+                          Chấm công {index + 1}
+                        </label>
+                      </div>
                     ))}
                   </div>
                 </div>
@@ -613,7 +663,11 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
           <div className={styles["error-name"]}>
             <label className={styles.field_new}>quyt</label>
             <div className={styles.function}>
-              <button className={styles.h_edit_cus}>
+              <button
+                className={styles.h_edit_cus}
+                onClick={handleEditField}
+                disabled={scrolling}
+              >
                 <img src="/crm/blue_edit_cus.svg" alt="sửa" /> Sửa |
               </button>
               <button

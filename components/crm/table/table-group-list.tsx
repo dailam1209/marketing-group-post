@@ -20,8 +20,8 @@ interface TableDataGroupListCustomerProps {
   setSelectedRow: any;
   setChange: any;
   change: any;
-  data: any;
-  updateData: any;
+  data?: any;
+  updateData?: any;
 }
 
 const TableDataGroupListCustomer: React.FC<TableDataGroupListCustomerProps> = ({
@@ -61,7 +61,7 @@ const TableDataGroupListCustomer: React.FC<TableDataGroupListCustomerProps> = ({
     is_delete: number;
     created_at: number;
     updated_at: number;
-    list_gr_child: [];
+    lists_child: [];
   }
 
   // useEffect(() => {
@@ -91,7 +91,7 @@ const TableDataGroupListCustomer: React.FC<TableDataGroupListCustomerProps> = ({
     },
     {
       title: "Đối tượng được chia sẻ",
-      width: 120,
+      width: 150,
       dataIndex: "group_parent",
       key: "group_parent",
       render: (data, record) => (
@@ -216,8 +216,8 @@ const TableDataGroupListCustomer: React.FC<TableDataGroupListCustomerProps> = ({
       dep_id: item?.dep_id,
       emp_id: item?.emp_id,
       children:
-        item.list_gr_child?.length > 0
-          ? item?.list_gr_child.map((items: DataType) => {
+        item.lists_child?.length > 0
+          ? item?.lists_child.map((items: DataType) => {
               return {
                 key: items.gr_id,
                 gr_name: items.gr_name,
@@ -243,7 +243,6 @@ const TableDataGroupListCustomer: React.FC<TableDataGroupListCustomerProps> = ({
       }
     },
     onSelect: (record, selected, selectedRows) => {
-
       setNumberSelected(selectedRows?.length);
     },
     onSelectAll: (selected, selectedRows, changeRows) => {},
@@ -285,7 +284,7 @@ const TableDataGroupListCustomer: React.FC<TableDataGroupListCustomerProps> = ({
           </div>
         </div>
       )}
-    
+
       <CancelModalDelGroup
         isModalCancel={isOpenCancel}
         setIsModalCancel={setIsOpenCancel}

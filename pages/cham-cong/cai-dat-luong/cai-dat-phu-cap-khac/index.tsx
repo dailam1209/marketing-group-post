@@ -50,30 +50,28 @@ export const getServerSideProps = async (context) => {
     GET_SS('api/qlc/shift/list', context),
   ])
 
-  const listPhucLoi = await POST_SS_TL(
-    'api/tinhluong/congty/take_phuc_loi',
-    { companyId: com_id },
-    context
-  )
-  const listPhongBan = await POST_SS(
-    'api/qlc/department/list',
-    { com_id: com_id },
-    context
-  )
-  const listNhanVien = await POST_SS_TL(
-    'api/tinhluong/congty/list_em',
-    { id_com: com_id },
-    context
-  )
-  const listEmpX = await POST_SS(
-    'api/qlc/managerUser/list',
-    {
-      com_id: com_id,
-    },
-    context
-  )
-
-  const listShift = await GET_SS('api/qlc/shift/list', context)
+  // const listPhucLoi = await POST_SS_TL(
+  //   'api/tinhluong/congty/take_phuc_loi',
+  //   { companyId: com_id },
+  //   context
+  // )
+  // const listPhongBan = await POST_SS(
+  //   'api/qlc/department/list',
+  //   { com_id: com_id },
+  //   context
+  // )
+  // const listNhanVien = await POST_SS_TL(
+  //   'api/tinhluong/congty/list_em',
+  //   { id_com: com_id },
+  //   context
+  // )
+  // const listEmpX = await POST_SS(
+  //   'api/qlc/managerUser/list',
+  //   {
+  //     com_id: com_id,
+  //   },
+  //   context
+  // )
   return {
     props: {
       listEmpX: listRes?.[4],

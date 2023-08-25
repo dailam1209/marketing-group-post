@@ -11,8 +11,7 @@ export default function CommendationTeam({ iconAdd, iconEdit }: any) {
   const [data, setData] = useState<any>()
   const [currentPage, setCurrentPage] = useState<any>(1)
   const [keyWords, setKeyWords] = useState<any>('')
-  const newData = data?.data.slice(0, -1)
-  const myPagination = data?.data[data.data.length - 1]
+  
 
   const handlePageChange = (page: any) => {
     setCurrentPage(page)
@@ -24,7 +23,8 @@ export default function CommendationTeam({ iconAdd, iconEdit }: any) {
   useEffect(() => {
     const GetDataPersonalReward = async () => {
       const response = await GetDataAchievement(currentPage, 10, 2, keyWords)
-      setData(response?.data.data)
+      setData(response?.success?.data)
+
     }
     GetDataPersonalReward()
   }, [currentPage, keyWords])
@@ -34,15 +34,16 @@ export default function CommendationTeam({ iconAdd, iconEdit }: any) {
       <RewardTable
         model='tapthe'
         display='block'
-        data={newData}
+        data={data}
         modal={<ModalAddTeamCompliments></ModalAddTeamCompliments>}
         keyWords={handleSearch}
         iconAdd={iconAdd}
         iconEdit={iconEdit}></RewardTable>
+
       <div className={`${styles.pagination}`}>
         <MyPagination
           current={currentPage}
-          total={myPagination?.tongSoBanGhi}
+          total={data?.total}
           pageSize={10}
           onChange={handlePageChange}
         />

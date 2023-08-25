@@ -31,19 +31,18 @@ export default function IdRecruitment({ query }) {
     try {
       const fetchDataDetail = async () => {
         const response = await DetailNews(idRecruitment)
-        console.log(response?.data)
-        setDataDetail(response?.data)
+        setDataDetail(response?.success?.data)
       }
       fetchDataDetail()
     } catch (error) {}
   }, [idRecruitment])
 
-  const dataRecruitment = dataDetail?.data?.recruitmentNews
-  const listCandidate = dataDetail?.data?.listCandidate
-  const listInterview = dataDetail?.data?.listInterview
-  const listInterviewFail = dataDetail?.data?.listInterviewFail
-  const listInterviewPass = dataDetail?.data?.listInterviewPass
-  const listOfferJob = dataDetail?.data?.listOfferJob
+  const dataRecruitment = dataDetail?.data[0]
+  const listCandidate = dataDetail?.listCandidate
+  const listInterview = dataDetail?.listInterview
+  const listInterviewFail = dataDetail?.listInterviewFail
+  const listInterviewPass = dataDetail?.listInterviewPass
+  const listOfferJob = dataDetail?.listOfferJob
 
   const [active, setActive] = useState(2)
   const handleClick = (item: any) => {
@@ -116,15 +115,15 @@ export default function IdRecruitment({ query }) {
                 <h4 className={`${styles.tuyendung1_title}`}>
                   Tiêu đề tuyển dụng
                 </h4>
-                <p>Nhân viên phụ trách tuyển dụng: {dataRecruitment?.hrName}</p>
+                <p>Nhân viên phụ trách tuyển dụng: {dataRecruitment?.hr_name}</p>
                 <p>Số lượng tuyển: {dataRecruitment?.number} </p>
-                <p>Mức lương: {salary[dataRecruitment?.salaryId]}</p>
+                <p>Mức lương: {salary[dataRecruitment?.salary_id]}</p>
                 <p>
                   Thời gian tuyển: từ{' '}
-                  {getFormattedDate(dataRecruitment?.timeStart)} đến:{' '}
-                  {getFormattedDate(dataRecruitment?.timeEnd)}
+                  {getFormattedDate(dataRecruitment?.recruitment_time)} đến:{' '}
+                  {getFormattedDate(dataRecruitment?.recruitment_time_to)}
                 </p>
-                <p>Người tạo tin: {dataRecruitment?.createdBy}</p>
+                <p>Người tạo tin: {dataRecruitment?.created_by}</p>
               </div>
             </div>
           </div>

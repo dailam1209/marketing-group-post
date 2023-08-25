@@ -23,9 +23,6 @@ export default function ListRecruitment({
   const [visible, setVisible] = useState(false)
   const [animateModal, setAnimateModal] = useState(false)
 
-  console.log(data);
-
-
   const handleCloseModal = () => {
     setAnimateModal(false)
     setTimeout(() => {

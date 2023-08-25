@@ -26,8 +26,8 @@ export const TokenForTinhLuong =
 
 export const TokenForQuanLyChung =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6MTM3NzQ0OSwiaWRUaW1WaWVjMzY1IjoyMzI0MTYsImlkUUxDIjoxNjY0LCJpZFJhb05oYW5oMzY1IjowLCJlbWFpbCI6InRyYW5nY2h1b2k0QGdtYWlsLmNvbSIsInBob25lVEsiOiIiLCJjcmVhdGVkQXQiOjE2NjM4MzY0MDUsInR5cGUiOjEsImNvbV9pZCI6MTY2NCwidXNlck5hbWUiOiJNdG4gQ29tcGFueSJ9LCJpYXQiOjE2OTI1ODAxODEsImV4cCI6MTY5MjY2NjU4MX0.o9yt4no4wNVPmdvxS1NaB2UtlEdMpIXJzMt7Q5Dm15k";
-export const domain = process.env.NEXT_PUBLIC_BASE_URL_TL;
-export const domainQLC = process.env.NEXT_PUBLIC_BASE_URL_QLC;
+export const domain = process.env.NEXT_PUBLIC_API;
+export const domainQLC = process.env.NEXT_PUBLIC_API;
 
 // const user_info = JSON.parse(localStorage.getItem("inforuser"));
 // const token = cookieCutter.get("token");

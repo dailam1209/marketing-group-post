@@ -24,6 +24,7 @@ function RewardTable({
   const [animateModal, setAnimateModal] = useState(false);
   const [dataEdit, setDataEdit] = useState<any>();
 
+  console.log(data)
   const handleCloseModal = () => {
     setAnimateModal(false);
     setTimeout(() => {
@@ -158,37 +159,34 @@ function RewardTable({
               </tr>
             </thead>
             <tbody className={`${styles.filter}`}>
-              {data?.length === 0 ? (
+              {data?.data.length === 0 ? (
                 <p>Không có dư liệu</p>
               ) : (
-                data?.map((item: any) => {
-                  const formattedDate: string = format(
-                    new Date(item.createdAt),
+                data?.data?.map((item: any) => {
+                  let formattedDate: any = null
+                  {item.created_at ? formattedDate = format(
+                    new Date(item?.created_at || ''),
                     "dd-MM-yyyy"
-                  );
+                  ) : 'null'}
                   const achievementType =
-                    hinhthuckhenthuong[Number(item?.achievementType)];
+                    hinhthuckhenthuong[Number(item?.achievement_type)];
                   return (
                     <tr key={item.id} style={{ height: "37px" }}>
                       <td>{item.id}</td>
-                      <td>{item.achievementId}</td>
+                      <td>{item.achievement_id}</td>
                       <td>{item.content}</td>
                       <td style={{ padding: " 0 20px", maxWidth: "2500px" }}>
-                        {item?.depName ? (
-                          <span>{item.depName}</span>
+                        {item?.dep_id == 0 ? (
+                          <span>{item.list_user_name}</span>
                         ) : (
-                          item?.listUser.map((user, index) => (
-                            <span key={index} style={{ textAlign: "center" }}>
-                              {" "}
-                              {user.name}{" "}
-                            </span>
-                          ))
+                          <span>{item.dep_name}</span>
+                          
                         )}
                       </td>
                       <td>{formattedDate}</td>
                       <td>{achievementType}</td>
                       <td>{item.appellation}</td>
-                      <td>{item.achievementLevel}</td>
+                      <td>{item.achievement_level}</td>
                       {iconEdit && <td
                         className={`${styles.r_t_top_right}`}
                         style={{

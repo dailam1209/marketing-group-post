@@ -8,7 +8,9 @@ export default function HeaderBar({ dataHeader, isOpen }: any) {
   return (
     <div className={style.header_bar}>
       <div className={`${style.header_icon} ${!isOpen ? null : "none"}`}>
-        <img
+        <Image
+          width={300}
+          height={200}
           className={style.img_icon}
           src={
             dataHeader?.data?.avatarUser
@@ -20,7 +22,7 @@ export default function HeaderBar({ dataHeader, isOpen }: any) {
       </div>
       <div className={`${style.header_info} ${!isOpen ? null : "none"}`}>
         <div className={style.name_staff}>
-          {dataHeader?.data?.com_name || ""}
+          {dataHeader?.data?.userName || ""}
         </div>
         {/* <p className={style.sub_text}>NHÂN VIÊN THỬ VIỆC</p> */}
       </div>

@@ -9,6 +9,7 @@ import { CaretDownOutlined, DownCircleTwoTone } from "@ant-design/icons";
 import { Router, useRouter } from "next/router";
 import { base_url } from "../service/function";
 import Cookies from "js-cookie";
+import { cookies } from "next/headers";
 
 const format = "HH:mm";
 
@@ -23,10 +24,13 @@ interface PropsComponent {
   setnvPhuTrach: any;
   userNameCreate: any;
   setuserNameCreate: any;
-  nhomCha:any,
-  setnhomCha:any,
-  nhomCon:any,
-  setnhomCon:any,
+  nhomCha: any;
+  setnhomCha: any;
+  nhomCon: any;
+  setnhomCon: any;
+  setDatatable:any;
+  setloading:any;
+  setgroup_id:any
 }
 
 const CustomerListFilterBox: React.FC<PropsComponent> = ({
@@ -43,12 +47,23 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
   nhomCha,
   setnhomCha,
   nhomCon,
-  setnhomCon
+  setnhomCon,
+  setDatatable,
+  setloading,
+  setgroup_id
 }) => {
   const [valueSelectStatus, setValueSelectStatus] = useState<any>();
   const [valueResoure, sevalueResoure] = useState<any>();
   const [listGr_Child, setlistGr_Child] = useState([]);
-
+  const uniqueUserNames = Array.from(
+    new Set(datatable?.map((item) => item.userName))
+  );
+    const handlefilter = async() =>{
+      setDatatable([])
+      setloading(true)
+      setOpen(false), 
+      await fetchData();
+    }
   const handleChangeStt = (value: any) => {
     setValueSelectStatus(value);
     setStatus(value);
@@ -63,11 +78,11 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
   const handleChangeNameCreate = (value: any) => {
     setuserNameCreate(value);
   };
-  const router = useRouter()
+  const router = useRouter();
   const currentTime = moment(); // Thời điểm hiện tại
   const pastTime = currentTime.subtract(2, "days");
 
-  const [listGr,setListGr] = useState([])
+  const [listGr, setListGr] = useState([]);
   const handleGetGr = async () => {
     try {
       const res = await fetch(
@@ -81,11 +96,11 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
           body: JSON.stringify({ com_id: Cookies.get("com_id") }),
         }
       );
-      let arr=[]
+      let arr = [];
       const data = await res.json();
-      setListGr(data?.data?.showGr);
-      data?.data?.showGr?.map((item) => {
-        item?.list_gr_child.map((item) => {
+      setListGr(data?.data);
+      data?.data?.map((item) => {
+        item?.lists_child.map((item) => {
           arr.push(item);
         });
         setlistGr_Child(arr);
@@ -94,14 +109,52 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
       console.log("error:", error);
     }
   };
-  
-useEffect(()=>{
-  handleGetGr()
-},[])
-
+  const [listNV, setLishNv] = useState<any>();
+  const [position_id, setPosition_id] = useState();
+  useEffect(() => {
+    handleGetGr();
+  }, []);
+  const handleGetInfoCus = async () => {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/listAll`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get("token_base365")}`,
+        },
+        body: JSON.stringify({ com_id: Cookies.get("com_id") }),
+      }
+    );
+    const data = await res.json();
+    if (data && data?.data) setLishNv(data?.data?.items);
+  };
+  const handleGetInfoCusNV = async () => {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/employee/info`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get("token_base365")}`,
+        },
+        body: JSON.stringify({ com_id: Cookies.get("com_id") }),
+      }
+    );
+    const data = await res.json();
+    if (data && data?.data) setPosition_id(data?.data?.data?.position_id);
+  };
+  useEffect(() => {
+    handleGetInfoCus();
+    handleGetInfoCusNV();
+  }, []);
+  const nv = listNV?.filter((item) => item.position_id == position_id);
   return (
     <>
-      <div className={styles.mdal_body} style={{padding:0,maxHeight:"100%"}}>
+      <div
+        className={styles.mdal_body}
+        style={{ padding: 0, maxHeight: "100%" }}
+      >
         <div className={styles.form_group}>
           <div className={styles.label}>Thời gian tạo khách hàng</div>
           <div className={styles.row}>
@@ -173,7 +226,7 @@ useEffect(()=>{
         <div className={styles.form_group}>
           <div className={styles.label}>Nguồn khách hàng</div>
           <Select
-               defaultValue={"Tất cả"}
+            defaultValue={"Tất cả"}
             suffixIcon={
               <i
                 style={{ color: "black" }}
@@ -217,9 +270,9 @@ useEffect(()=>{
             </div>
           </div>
           <Select
-          value={nhomCha}
-          onChange={(value)=>setnhomCha(value)}
-               defaultValue={"Tất cả"}
+            value={nhomCha}
+            onChange={(value) => setnhomCha(value)}
+            defaultValue={"Tất cả"}
             suffixIcon={
               <i
                 style={{ color: "black" }}
@@ -231,10 +284,14 @@ useEffect(()=>{
               border: "1px solid black",
               borderRadius: 7,
             }}
-          >{listGr?.map((item:any,index)=>{
-            return  <option key={index} value={item?.gr_id}>{item.gr_name}</option>
-          })}
-            
+          >
+            {listGr?.map((item: any, index) => {
+              return (
+                <option key={index} value={item?.gr_id}>
+                  {item.gr_name}
+                </option>
+              );
+            })}
           </Select>
         </div>
 
@@ -242,8 +299,8 @@ useEffect(()=>{
           <div className={styles.label}>Nhóm khách hàng con</div>
           <div className={stylePotentialSlect.customer_list}>
             <Select
-             value={nhomCon}
-             onChange={(value)=>setnhomCon(value)}
+              value={nhomCon}
+              onChange={(value) => setnhomCon(value)}
               suffixIcon={
                 <i
                   style={{ color: "black" }}
@@ -256,9 +313,15 @@ useEffect(()=>{
                 borderRadius: 7,
               }}
             >
-           {listGr_Child?.map((item:any,index)=>{
-            return  <option key={index} value={item?.gr_id}>{item.gr_name}</option>
-          })}
+              {listGr_Child?.map((item: any, index) => {
+                if (item.group_parent === nhomCha) {
+                  return (
+                    <option key={index} value={item?.gr_id}>
+                      {item.gr_name}
+                    </option>
+                  );
+                }
+              })}
             </Select>
           </div>
         </div>
@@ -267,7 +330,7 @@ useEffect(()=>{
           <div className={styles.label}>Nhân viên phụ trách</div>
           <div className={stylePotentialSlect.customer_list}>
             <Select
-            defaultValue={"Tất cả"}
+              defaultValue={"Tất cả"}
               suffixIcon={
                 <i
                   style={{ color: "black" }}
@@ -283,15 +346,11 @@ useEffect(()=>{
               onChange={handleChangeNVPT}
             >
               {" "}
-              {datatable?.map((item, index) => {
-                if (item?.userName) {
-                  return (
-                    <option key={index} value={item?.userName}>
-                      {item?.userName}
-                    </option>
-                  );
-                }
-              })}
+              {nv?.map((userName, index) => (
+                <option key={index} value={userName.ep_id as any}>
+                  {`${userName?.dep_name}`}
+                </option>
+              ))}
             </Select>
           </div>
         </div>
@@ -300,7 +359,7 @@ useEffect(()=>{
           <div className={styles.label}>Nhân viên tạo khách hàng</div>
           <div className={stylePotentialSlect.customer_list}>
             <Select
-                 defaultValue={"Tất cả"}
+              defaultValue={"Tất cả"}
               suffixIcon={
                 <i
                   style={{ color: "black" }}
@@ -329,13 +388,15 @@ useEffect(()=>{
           type="button"
           className={styles.btn_cancel}
           data-dismiss="modal"
-          onClick={() => {setOpen(false),router.push("/crm/customer/list")}}
+          onClick={() => {
+            setOpen(false), router.push("/crm/customer/list");
+          }}
         >
           Hủy lọc
         </button>
         <button
           onClick={async () => {
-            setOpen(false), await fetchData()
+           handlefilter()
           }}
           type="submit"
           className={styles.btn_apply}

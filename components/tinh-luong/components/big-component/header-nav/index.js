@@ -6,6 +6,7 @@ import styles from './index.module.css'
 import cookieCutter from "cookie-cutter";
 import Cookies from "js-cookie";
 import axios from "axios"
+import {domain} from "../../../components/api/BaseApi"
 export function Thongbao(props){
     function handleLogout() {
         // Clear all cookies by iterating through them
@@ -60,12 +61,12 @@ export default function HeadNav({title,idQLC=null}){
     const [isPopup,setIsPopup]=useState(false)
     const [userInfo, setUserInfo] = useState({});
   useEffect(()=>{
-    axios.post("http://210.245.108.202:3009/api/tinhluong/nhanvien/qly_ho_so_ca_nhan",{
+    axios.post(`${domain}/api/tinhluong/nhanvien/qly_ho_so_ca_nhan`,{
       ep_id: ep_id,
       cp: cp,
       token: token
   }).then((response)=>{
-    console.log("UserInfo ở header",response.data.data)
+    console.log("UserInfo ở header",response.data.data?.info_dep_com?.user)
     setUserInfo(response.data.data);
   }).catch((err)=>{console.log("error ở header",err)})
   },[])
@@ -116,7 +117,7 @@ export default function HeadNav({title,idQLC=null}){
                     </div>
                     
                     <div className={styles.hdr_ifm_avt}>
-                        <img src="/tinhluong/tien.png"/>
+                        <img src={userInfo?.info_dep_com?.user && userInfo?.info_dep_com?.user?.avatarUser ? userInfo?.info_dep_com?.user?.avatarUser : "/avatar.jpg"}/>
                     </div>
                     <div className={styles.hdr_ifm_fm} onClick={()=>setIsPopup(!isPopup)}>
                         <p>{role==1 ? userInfo.info_dep_com?.company.userName : userInfo.info_dep_com?.user.userName}</p>

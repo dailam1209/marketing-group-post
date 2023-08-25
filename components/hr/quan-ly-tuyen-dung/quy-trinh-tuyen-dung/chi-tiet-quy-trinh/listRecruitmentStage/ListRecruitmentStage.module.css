@@ -172,17 +172,7 @@
   cursor: pointer;
   color: #4c5bd4 !important;
 }
-.motacv {
-  overflow: hidden;
-  display: -webkit-box;
-  line-height: 7px;
-  margin-top: 5px;
-  width: 80%;
-  text-align: left;
-  margin-left: 14px;
-  font-style: normal;
-  font-weight: 500;
-}
+
 .motacv p {
   line-height: 1.4;
 }
@@ -197,6 +187,7 @@
   margin-left: 14px;
   font-style: normal;
   font-weight: 500;
+  word-wrap: break-word;
 }
 
 .giaidoans_item_2 .view_detail_desc {

@@ -113,7 +113,7 @@ export const DetailNews = async (recruitmentNewsId: any) => {
   const url = process.env.NEXT_PUBLIC_BASE_URL;
     const isToken = getToken(COOKIE_KEY)
   try {
-    const response = await axios.post(
+    const response: any = await axios.post(
       `${url}api/hr/recruitment/detailNews`,
       { recruitmentNewsId },
       {
@@ -122,7 +122,7 @@ export const DetailNews = async (recruitmentNewsId: any) => {
         },
       }
     );
-    return response;
+    return response.data;
   } catch (err: any) {
     return err.response
   }

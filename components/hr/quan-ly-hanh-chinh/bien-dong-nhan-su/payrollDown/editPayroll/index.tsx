@@ -67,6 +67,9 @@ export default function EditPayroll({ onCancel, infoList }: any) {
   const comid: any = GetComId()
   const modalRef = useRef(null);
 
+  console.log(isCom_id);
+
+
   useEffect(() => {
     const handleOutsideClick = (event: any) => {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
@@ -260,7 +263,6 @@ export default function EditPayroll({ onCancel, infoList }: any) {
     hinhthuc: [
       { value: '1', label: 'Giảm biên chế' },
       { value: '2', label: 'Nghỉ việc' },
-
     ],
     chonquydinhdefault: [
       { value: decision_idmatch?.id, label: decision_idmatch?.name ? decision_idmatch?.name : "Chọn quy định" },

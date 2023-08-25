@@ -8,14 +8,14 @@ import { UpdateAchievement } from '@/pages/api/api-hr/luong-thuong-phuc-loi/rewa
 
 function ModalEditPersonalCompliments({ animation, onClose, dataOld }: any) {
   const id = dataOld.id
-  const achievement_id = dataOld.achievementId
+  const achievement_id = dataOld.achievement_id
   const contentOld = dataOld.content
-  const created_by = dataOld.createdBy
-  const achievement_level = dataOld.achievementLevel
+  const created_by = dataOld.created_by
+  const achievement_level = dataOld.achievement_level
   const appellationOld = dataOld.appellation
-  const achievementTypeOld = dataOld.achievementType
+  const achievementTypeOld = dataOld.achievement_type
   const formattedDate: string = format(
-    new Date(dataOld.createdAt),
+    new Date(dataOld.created_at),
     'yyyy-MM-dd'
   )
   const [errors, setErrors] = useState<any>({})
@@ -28,6 +28,7 @@ function ModalEditPersonalCompliments({ animation, onClose, dataOld }: any) {
     achievement_at: formattedDate,
     achievement_level: achievement_level,
     appellation: appellationOld,
+    achievement_type: achievementTypeOld
   })
   const [achievementType, setAchievementType] = useState<any>({
     achievementType: achievementTypeOld.toString(),
@@ -152,7 +153,7 @@ function ModalEditPersonalCompliments({ animation, onClose, dataOld }: any) {
                     <input
                       type='text'
                       name='achievement_id'
-                      defaultValue={dataOld.achievementId}
+                      defaultValue={achievement_id}
                       className={`${styles.inputquytrinh}`}
                       placeholder='Nhập số quyết định'
                       onChange={handleContentChange}></input>
@@ -261,7 +262,7 @@ function ModalEditPersonalCompliments({ animation, onClose, dataOld }: any) {
                     <input
                       type='text'
                       name='created_by'
-                      defaultValue={dataOld.createdBy}
+                      defaultValue={created_by}
                       className={`${styles.inputquytrinh}`}
                       placeholder='Người ký quyết định'
                       onChange={handleContentChange}></input>
@@ -336,6 +337,7 @@ function ModalEditPersonalCompliments({ animation, onClose, dataOld }: any) {
                           options.hinhthuckhenthuong
                         )
                       }
+                      defaultValue={options.hinhthuckhenthuong[achievementTypeOld -1]}
                       options={options.hinhthuckhenthuong}
                       placeholder='-- Vui lòng chọn -- '
                       styles={{
@@ -371,7 +373,7 @@ function ModalEditPersonalCompliments({ animation, onClose, dataOld }: any) {
                     <input
                       type='text'
                       name='appellation'
-                      defaultValue={dataOld.appellation}
+                      defaultValue={appellationOld}
                       className={`${styles.inputquytrinh}`}
                       placeholder='Danh hiệu'
                       onChange={handleContentChange}></input>
@@ -400,7 +402,7 @@ function ModalEditPersonalCompliments({ animation, onClose, dataOld }: any) {
                     <input
                       type='text'
                       name='achievement_level'
-                      defaultValue={dataOld.achievementLevel}
+                      defaultValue={achievement_level}
                       className={`${styles.inputquytrinh}`}
                       placeholder='Cấp khen'
                       onChange={handleContentChange}></input>

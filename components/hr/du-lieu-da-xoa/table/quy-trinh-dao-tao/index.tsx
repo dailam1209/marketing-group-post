@@ -4,10 +4,15 @@ import styles from "../styles/styles.module.css";
 import { format, parseISO } from "date-fns";
 
 export default function DataQTDT({ list_training_process , dataCheckBox, localListCheck}) {
-  const [listCheck, setListCheck] = useState<any>([]);
-  const data = list_training_process?.data;
+  const [listCheck, setListCheck] = useState<Array<any>>([]);
+    const data = list_training_process?.data;
 
   const handleAdd = (id) => {
+    if (!Array.isArray(listCheck)) {
+      // Nếu listCheck không phải là mảng, bạn có thể thiết lập nó thành mảng rỗng.
+      setListCheck([]);
+      return;
+    }
     const newListCheck = listCheck.includes(id)
       ? listCheck.filter((item) => item !== id)
       : [...listCheck, id];
@@ -27,7 +32,7 @@ export default function DataQTDT({ list_training_process , dataCheckBox, localLi
     <thead className={` ${styles.l_tr_show}`}>
       <tbody style={{ width: "100%" }}>
         {data?.map((item) => {
-          const dateObj = parseISO(item.deletedAt);
+          const dateObj = parseISO(item.deleted_at);
           const formattedTime: string = format(dateObj, "HH:mm:ss dd/MM/yyyy");
           return (
             <tr key={item.id} className={styles.show}>
@@ -38,7 +43,7 @@ export default function DataQTDT({ list_training_process , dataCheckBox, localLi
                 </picture>
                 <p>{item.name}</p>
               </td>
-              <td className={styles.date}>{formattedTime}</td>
+              <td className={styles.date}>{item.time} {formattedTime}</td>
               <td className={styles.show_checkbox}>
                 <input
                   type="checkbox"
