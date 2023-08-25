@@ -18,7 +18,6 @@ const List = () => {
   const [selectedMonth, setSelectedMonth] = useState(dayjs().month() + 1)
   const [selectedYear, setSelectedYear] = useState(dayjs().year())
   const [user, setUser] = useState([])
-  console.log(`api đang dùng là : ${domain}/api/tinhluong/nhanvien/qly_ttnv`)
   useEffect(() => {
     fetchApiData(selectedMonth, selectedYear)
   }, [selectedMonth, selectedYear])
