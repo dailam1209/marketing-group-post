@@ -5,7 +5,7 @@ import moment from 'moment'
 import { filterUnique } from '../nhap-luong-co-ban/nhap-luong-co-ban'
 import _, { filter } from 'lodash'
 import { useState, useEffect, useRef } from 'react'
-import { POST_TL, getCompIdCS } from '@/pages/api/BaseApi'
+import { GET, POST, POST_TL, getCompIdCS } from '@/pages/api/BaseApi'
 import { CSVLink } from 'react-csv'
 
 function secondsToMinutes(time) {
@@ -15,8 +15,22 @@ function secondsToMinutes(time) {
 export function CpmDiMuonVeSom({ listEmpLateEarly, listPb }) {
   const [data, setData] = useState(listEmpLateEarly)
   const [filterParam, setFilterParam] = useState<any>()
+  const [listCa, setListCa] = useState([])
   const [form] = Form.useForm()
   form.setFieldsValue(filterParam)
+
+  useEffect(() => {
+    const getCa = async () => {
+      const res = await GET('api/qlc/shift/list')
+
+      if (res?.result) {
+        setListCa(res?.items)
+      }
+    }
+
+    getCa()
+  }, [])
+  console.log(listCa)
 
   const TableDiMuonVeSom = ({ data }: { data: any }) => {
     return (
@@ -35,7 +49,8 @@ export function CpmDiMuonVeSom({ listEmpLateEarly, listPb }) {
       align: 'center',
       render: (record: any) => (
         <Image
-          src={`/${record?.info?.avatarUser}`}
+          // src={`/${record?.info?.avatarUser}`}
+          src={'/'}
           width={46}
           height={46}
           alt=''></Image>
@@ -78,7 +93,14 @@ export function CpmDiMuonVeSom({ listEmpLateEarly, listPb }) {
     {
       title: 'Ca',
       align: 'center',
-      render: (record: any) => <div>{record?.lateData?.shift_id}</div>,
+      render: (record: any) => (
+        <div>
+          {listCa &&
+            listCa?.filter(
+              (item) => item?.shift_id === record?.lateData?.shift_id
+            )?.[0]?.shift_name}
+        </div>
+      ),
     },
     {
       title: 'Muộn/sớm',
@@ -119,9 +141,9 @@ export function CpmDiMuonVeSom({ listEmpLateEarly, listPb }) {
         `${filterParam?.year}-${filterParam?.month}`,
         'YYYY-MM'
       )?.daysInMonth()
-      let com_id = null;
-      com_id = getCompIdCS();
-      
+      let com_id = null
+      com_id = getCompIdCS()
+
       const res = await POST_TL('api/tinhluong/congty/show_staff_late', {
         start_date: `${filterParam?.year}-${
           filterParam?.month >= 10
