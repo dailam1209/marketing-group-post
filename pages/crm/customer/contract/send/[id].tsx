@@ -28,7 +28,6 @@ const data = [
 const dataDepartment = data?.map((item) => item.department);
 
 export default function ContractDetailsSend() {
-  const [isModalCancel, setIsModalCancel] = useState(false);
   const [modal1Open, setModal1Open] = useState(false);
   const mainRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
@@ -40,10 +39,12 @@ export default function ContractDetailsSend() {
   const [selectedDepartment, setSelectedDepartment] = useState<string | null>(
     null
   );
+  const [dataFromSelectDataBox, setDataFromSelectDataBox] = useState([]);
   const [selectedPosition, setSelectedPosition] =
     useState<string>("Chọn chức vụ");
   const [selectedEmployee, setSelectedEmployee] =
     useState<string>("Chọn nhân viên");
+  const [selectedValue, setSelectedValue] = useState([]);
 
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
@@ -157,6 +158,10 @@ export default function ContractDetailsSend() {
                                 placeholder="Chọn nhân viên"
                                 data={selectedData?.employees}
                                 setSelectedDepartment={setSelectedEmployee}
+                                setSelectedValue={setSelectedValue}
+                                setDataFromSelectDataBox={
+                                  setDataFromSelectDataBox
+                                }
                               />
                             </div>
                           </div>
@@ -165,6 +170,8 @@ export default function ContractDetailsSend() {
                             selectedEmployee={selectedEmployee}
                             selectedPosition={selectedPosition}
                             data={data}
+                            dataFromSelectDataBox={dataFromSelectDataBox}
+                            selectedValue={selectedValue}
                           />
                         </div>
                       )}

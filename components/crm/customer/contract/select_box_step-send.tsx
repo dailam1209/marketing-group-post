@@ -9,14 +9,13 @@ export default function ContractSelectBoxStep({
   placeholder,
   data,
   setSelectedDepartment,
-  setSelectedPosition,
-  setSelectedEmployee,
+  setSelectedValue,
+  setDataFromSelectDataBox,
 }: any) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [selectedData, setSelectedData] = useState<any>(null);
 
-  
   const handleClickSelectoption = (e: any) => {
     if (e.target.getAttribute("class") !== styles.select2_search__field) {
       setIsOpen(!isOpen);
@@ -43,14 +42,13 @@ export default function ContractSelectBoxStep({
   }, []);
 
   const handleChangeDepartment = (selectedDepartment: string) => {
-    const newData = data.find((item: any) => item.department === selectedDepartment);
+    const newData = data.find(
+      (item: any) => item.department === selectedDepartment
+    );
     setSelectedData(newData);
-    setSelectedDepartment(selectedDepartment);}
+    setSelectedDepartment(selectedDepartment);
+  };
 
-    const handleChangePosition = (selectedDepartment: string) => {
-      const newData = data.find((item: any) => item.department === selectedDepartment);
-      setSelectedData(newData);
-      setSelectedDepartment(selectedDepartment);}
   return (
     <div
       ref={dropdownRef}
@@ -94,6 +92,8 @@ export default function ContractSelectBoxStep({
             value={value}
             selectedData={selectedData}
             placeholder={placeholder}
+            setSelectedValue={setSelectedValue}
+            setDataFromSelectDataBox={setDataFromSelectDataBox}
           />
         )}
       </span>
