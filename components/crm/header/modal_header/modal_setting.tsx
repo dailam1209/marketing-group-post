@@ -2,6 +2,7 @@ import style from "../header.module.css";
 import LogoutCRM from "../../logout/index";
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function SettingModal({ dataHeader }) {
   const [showLogout, setShowLogout] = useState(false);
@@ -26,7 +27,10 @@ export default function SettingModal({ dataHeader }) {
   return (
     <div className={style.setting_open}>
       <div className={style.avatar_staff}>
-        <img
+      <Image
+          width={300}
+          height={200}
+          className={style.img_icon}
           src={
             dataHeader?.data?.avatarUser
               ? dataHeader?.data?.avatarUser
@@ -35,11 +39,19 @@ export default function SettingModal({ dataHeader }) {
           alt=""
         />
         {/* <img
+          src={
+            dataHeader?.data?.avatarUser
+              ? dataHeader?.data?.avatarUser
+              : "/logo_com (2).png"
+          }
+          alt=""
+        /> */}
+        {/* <img
           src="https://chamcong.24hpay.vn/upload/employee/ep931547/app_1688728219772.jpg"
           alt=""
         /> */}
         <div className={style.name_staff}>
-          {dataHeader?.data?.com_name || ""}
+          {dataHeader?.data?.userName || ""}
         </div>
         {/* <p className={style.name_staff}>Tran Quang Duc Dung</p> */}
         {/* <p className={style.chuc_vu}>NHÂN VIÊN THỬ VIỆC </p> */}

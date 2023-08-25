@@ -52,7 +52,7 @@ const SMS_potential = (props: Props) => {
                 </form>
               </div>
               <div className={`${styles.main__control_add} flex_end`}>
-                <Link href={"/marketing/sms/add"}
+                <Link href={"/crm/marketing/sms/add"}
                   type="button"
                   className={`${styles.dropbtn_add} flex_align_center`}
                 >

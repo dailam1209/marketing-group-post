@@ -69,7 +69,7 @@ export default function CustomerListInputGroup({
             modal1Open={isOpenMdalSuccess}
             setModal1Open={setIsOpenMdalSuccess}
             title={"Lưu bản nháp thành công"}
-            link={"/marketing/sms"}
+            link={"/crm/marketing/sms"}
           />
         </div>
       </div>

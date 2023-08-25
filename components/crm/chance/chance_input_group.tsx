@@ -46,7 +46,7 @@ export default function PotentialInputGroups({ isSelectedRow }: any) {
           </form>
         </div>
         <div className={`${styles.main__control_add} flex_end`}>
-          <Link href="/chance/add">
+          <Link href="/crm/chance/add">
             <button
               type="button"
               className={`${styles.dropbtn_add} flex_align_center`}

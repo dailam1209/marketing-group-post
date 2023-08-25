@@ -74,7 +74,7 @@ const AddFilesCustomerList: React.FC = () => {
             </div>
           </div>
           <FooterAddSMS
-            link="/marketing/sms"
+            link="/crm/marketing/sms"
             titleCancel="Xác nhận hủy thêm mới sms"
             title="Gửi sms thành công!"
             contentCancel="Bạn có chắc chắn muốn hủy thêm mới sms thông tin bạn nhập sẽ không được lưu lại?"

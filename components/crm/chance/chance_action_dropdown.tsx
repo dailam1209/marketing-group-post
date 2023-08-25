@@ -109,7 +109,7 @@ const ChanceActionDropDown: React.FC = ({ idRow = "row" }: any) => {
             className="custom_dropdown_product "
           >
             <button className="action_table">
-              <img src="https://crm.timviec365.vn/assets/img/crm/customer/3_cham.png" />
+              <img src="/crm/3_cham.png" />
               Thao tác
             </button>
           </Dropdown>
@@ -141,7 +141,7 @@ const ChanceActionDropDown: React.FC = ({ idRow = "row" }: any) => {
         setIsModalCancel={setIsOpenModalDel}
         content={"Bạn có chắc chắn muốn xoá cơ hội này không?"}
         title={"Xác nhận xoá cơ hội"}
-        link={"/chance/list"}
+        link={"/crm/chance/list"}
       />
     </>
   );

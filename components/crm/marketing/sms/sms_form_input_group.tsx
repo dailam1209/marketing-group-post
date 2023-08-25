@@ -29,7 +29,7 @@ export default function EmailFormInputGroup({ isSelectedRow }: any) {
           </form>
         </div>
         <div className={`${styles.main__control_add} flex_end`}>
-          <Link href="/marketing/sms/add_sms_form">
+          <Link href="/crm/marketing/sms/add_sms_form">
             <button
               type="button"
               className={`${styles.dropbtn_add} flex_align_center`}
