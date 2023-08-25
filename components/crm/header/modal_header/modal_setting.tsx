@@ -32,7 +32,7 @@ export default function SettingModal({ dataHeader }) {
           height={200}
           className={style.img_icon}
           src={
-            dataHeader?.data?.avatarUser
+            dataHeader?.data?.avatarUser===null
               ? dataHeader?.data?.avatarUser
               : "/logo_com (2).png"
           }
