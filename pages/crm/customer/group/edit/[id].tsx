@@ -87,7 +87,7 @@ const GroupCustomerAdd: React.FC = () => {
     fetchData: fetchDataDetails,
     updateData: updateDataDetails,
   } = useApi(
-    "http://210.245.108.202:3007/api/crm/group/details",
+    `${base_url}/api/crm/group/details`,
     accessToken,
     "POST",
     { gr_id: Number(id) }
