@@ -124,10 +124,10 @@ export default function TabOutJob({ iconAdd, iconEdit, iconDelete }: any) {
     setOpenDeleteModal(0)
   }
 
-  const handleOpenEdit: MouseEventHandler<HTMLAnchorElement> = (event) => {
-    event.preventDefault();
-    setOpenEditModal(true);
-  }
+  // const handleOpenEdit: MouseEventHandler<HTMLAnchorElement> = (event) => {
+  //   event.preventDefault();
+  //   setOpenEditModal(true);
+  // }
 
   const chonphongbanOptions = useMemo(
     () =>
@@ -163,7 +163,7 @@ export default function TabOutJob({ iconAdd, iconEdit, iconDelete }: any) {
               </button>}
             </div>
             {openModal === 1 && <AddOutJobModal onCancel={handleCloseModal}></AddOutJobModal>}
-            {openEditModal && <EditOutJobModal onCancel={handleCloseModal} />}
+            {/* {openEditModal && <EditOutJobModal onCancel={handleCloseModal} />} */}
             {openDeleteModal !== 0 && <DeleteOutJobs onCancel={handleCloseModal} ep_id={openDeleteModal} />}
             <div className={`${styles.bg_search}`}>
               <div className={`${styles.search_new_t}`}>
@@ -275,7 +275,7 @@ export default function TabOutJob({ iconAdd, iconEdit, iconDelete }: any) {
                         <td>{format(parseISO(item?.time), 'dd/MM/yyyy')}</td>
                         {iconDelete || iconEdit ? (
                           <td>
-                            {iconEdit && <a onClick={() => handleOpenEdit(item)} className={`${styles.btn_edit}`} style={{ cursor: "pointer" }}><img src={`/icon_edit.svg`} alt="" /></a>}
+                            {iconEdit && <a className={`${styles.btn_edit}`} style={{ cursor: "pointer" }}><img src={`/icon_edit.svg`} alt="" /></a>}
                             {iconDelete && <a onClick={() => setOpenDeleteModal(item.ep_id)} className={`${styles.btn_delete}`} style={{ cursor: 'pointer' }}><img src={`/icon_delete.svg`} alt="" /></a>}
                           </td>
                         ) : null}

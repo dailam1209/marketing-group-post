@@ -681,17 +681,19 @@ export default function EditCandidateGetJob({ onCancel, candidate }: any) {
                     </label>
                     <div className={`${styles.input_right}`}>
                       <div className={`${styles.div_no_pad} `}>
-                        <Selects
-                          selectedOption={selectedEmpInterview}
-                          onChange={handleSelectChange}
-                          padding={15}
-                          width_control={100}
-                          width_menu={97}
-                          height={33.6}
-                          setState={setEmpInterview}
-                          option={options.tennhanvientuyendung}
-                          placeholder={'Chọn nhân viên'}
-                        />
+                        {selectedEmpInterview &&
+                          <Selects
+                            selectedOption={selectedEmpInterview}
+                            onChange={handleSelectChange}
+                            padding={15}
+                            width_control={100}
+                            width_menu={97}
+                            height={33.6}
+                            setState={setEmpInterview}
+                            option={options.tennhanvientuyendung}
+                            placeholder={'Chọn nhân viên'}
+                          />
+                        }
                         <span>
                           {' '}
                           {errors.empInterview && (

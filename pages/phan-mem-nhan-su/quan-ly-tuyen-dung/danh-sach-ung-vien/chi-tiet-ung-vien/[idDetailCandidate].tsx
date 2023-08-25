@@ -42,7 +42,7 @@ export default function DetailCandidate({ onCancel }: any) {
   const [newData, setNewData] = useState<any>(false)
   const [isProcessBefore, setProcessBefore] = useState<any>(null);
 
-  console.log(isCandidateAll);
+  console.log(isCandidate);
 
 
   const EmpMatchProcess = EmpData?.items?.find((item: any) => item.ep_id ===
@@ -76,7 +76,7 @@ export default function DetailCandidate({ onCancel }: any) {
       }
     }
     fetchData()
-  }, [])
+  }, [newData])
 
   useEffect(() => {
     try {
@@ -112,7 +112,6 @@ export default function DetailCandidate({ onCancel }: any) {
         if (response) {
           const data: any = response?.success
           console.log(response.success);
-
           if (data) {
             if (id?.includes("p")) {
               const regex = /u(\d+)p/g
@@ -127,6 +126,7 @@ export default function DetailCandidate({ onCancel }: any) {
             else {
               const item = data?.data?.data?.find((item: any) => item.id = Number(id?.slice(1, id?.length)))
               setCandidate(item)
+              console.log(data?.data?.data);
             }
           }
         }
