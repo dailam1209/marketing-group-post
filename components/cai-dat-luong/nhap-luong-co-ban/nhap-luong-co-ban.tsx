@@ -47,7 +47,7 @@ export const NhapLuongCoBan = ({
   listPb: any[]
   listIds: any[]
 }) => {
-  console.log(data)
+  // console.log(data)
 
   const [modalChinhSua, setModalChinhSua] = useState(false)
   const [modalKey, setModalKey] = useState('')
@@ -218,7 +218,7 @@ export const NhapLuongCoBan = ({
               showSearch
               optionFilterProp='label'
               onChange={(value) => {
-                console.log(value)
+                // console.log(value)
 
                 // setListData(data)
                 if (value === 'all') {

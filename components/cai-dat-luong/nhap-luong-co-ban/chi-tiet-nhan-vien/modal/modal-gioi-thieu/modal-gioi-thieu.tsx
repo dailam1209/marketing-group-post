@@ -1,20 +1,21 @@
-import { Modal, Input, Select, Button, Form } from "antd"
-import styles from "./modal-gioi-thieu.module.css"
-import { useState } from "react"
-const { TextArea } = Input
+import { Modal, Input, Select, Button, Form } from 'antd';
+import styles from './modal-gioi-thieu.module.css';
+import { useState } from 'react';
+const { TextArea } = Input;
 export function ModalGioiThieu(open: boolean, setOpen: Function, nhanxet: any) {
-  const [ND, setND] = useState(nhanxet)
+  const [ND, setND] = useState(nhanxet);
   const handleInputChange = (event: any) => {
-    setND(event.target.value)
-  }
+    setND(event.target.value);
+  };
   return (
     <Modal
+      className="bannerQLC"
       open={open}
       onCancel={() => setOpen(false)}
       width={1140}
       closable={false}
-      cancelButtonProps={{ style: { display: "none" } }}
-      okButtonProps={{ style: { display: "none" } }}
+      cancelButtonProps={{ style: { display: 'none' } }}
+      okButtonProps={{ style: { display: 'none' } }}
     >
       <div className={styles.body}>
         <div className={styles.khungtitle}>
@@ -38,13 +39,13 @@ export function ModalGioiThieu(open: boolean, setOpen: Function, nhanxet: any) {
           </div>
         </div>
         <TextArea
-          style={{ resize: "none" }}
+          style={{ resize: 'none' }}
           className={styles.input}
           rows={5}
           onChange={handleInputChange}
           value={ND}
         />
-        <div style={{ display: "flex", gap: "10px" }}>
+        <div style={{ display: 'flex', gap: '10px' }}>
           <button className={styles.button1} onClick={() => setOpen(false)}>
             <p className={styles.text1}>Huỷ</p>
           </button>
@@ -54,5 +55,5 @@ export function ModalGioiThieu(open: boolean, setOpen: Function, nhanxet: any) {
         </div>
       </div>
     </Modal>
-  )
+  );
 }

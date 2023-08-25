@@ -16,6 +16,9 @@
     align-items: center;
     justify-content: center;
 }
+.iconheader {
+    cursor: pointer;
+}
 .textheader{
     color: #FFF;
     font-family: Roboto;
@@ -79,16 +82,16 @@
     justify-content: center;
     gap: 50px;
 }
-.huy{
+.footer .huy{
     display: flex;
-    width: 170px;
+    /* width: 170px; */
     padding: 18px 20px !important;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 10px;
     border-radius: 12px !important;
-    border: 1px solid #4C5BD4;
+    border: 1px solid #4C5BD4 !important;
     background: #FFF;
 }
 .texthuy{
@@ -96,27 +99,27 @@
     font-family: Roboto;
     font-size: 20px;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 400;
     line-height: normal;
 }
-.tao{
+.footer .tao{
     display: flex;
-    width: 170px;
-    padding: 18px 30px !important;
+    /* width: 170px; */
+    padding: 18px 20px !important;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 10px;
     border-radius: 12px !important;
-    background: #4C5BD4;
-    border: none;
+    background: #4C5BD4 !important;
+    border: 1px solid #4C5BD4 !important;
 }
 .texttao{
     color: #FFF;
     font-family: Roboto;
     font-size: 20px;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 300;
     line-height: normal;
 }
 .dabackup{
@@ -142,6 +145,12 @@
     }
 }
 @media screen and (max-width: 800px) {
+    .textheader {
+        font-size: 18px;
+    }
+    .iconheader svg {
+        height: 18px;
+    }
     .texthuy{
         font-size: 16px;
     }
@@ -153,13 +162,6 @@
     }
 }
 @media screen and (max-width: 500px) {
-    .textheader{
-        font-size: 18px;
-    }
-    .iconheader{
-        width: 24px;
-        height: 24px;
-    }
     .header{
         border-radius: 0px;
         padding: 16px;

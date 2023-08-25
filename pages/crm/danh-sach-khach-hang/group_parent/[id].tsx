@@ -147,7 +147,7 @@ export default function CustomerList() {
   );
   const dataStatusCustomer = dataStatus?.data?.listStatus;
 
-  const dataGroup = dataCustomerGroup?.data?.showGr;
+  const dataGroup = dataCustomerGroup?.data;
   const [idSelect, setIdSelect] = useState<any>();
   const handleSelectAll = () => {
     const allRowKeys = datatable.map((item: { key: any }) => item.key);

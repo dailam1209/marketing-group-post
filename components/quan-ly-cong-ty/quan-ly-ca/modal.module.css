@@ -38,6 +38,11 @@
   }
 }
 
+.body .negativeMargin15 {
+  margin-left: -15px !important;
+  margin-right: -15px !important;
+}
+
 .confirmBody {
   padding: 20px 10px;
   display: flex;
@@ -97,9 +102,7 @@
   .headerText {
     font-size: 18px !important;
   }
-  .body
-  .addNewBtn
-  .btnText{
+  .body .addNewBtn .btnText {
     font-size: 16px !important;
   }
 }

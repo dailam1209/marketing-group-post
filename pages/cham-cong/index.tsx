@@ -56,22 +56,26 @@ export default function HomeQLNS() {
 
   const LIST_BUTTONS_COMP = [
     {
-      color: '#97C25F',
+      color1: '#97C25F',
+      color2: '#7DA047',
       title: 'Chấm Công',
       icon: '/timer.png',
     },
     {
-      color: '#FFA13B',
+      color1: '#FFA13B',
+      color2: '#E8811A',
       title: 'Quản lý công ty',
       icon: '/globe.png',
     },
     {
-      color: '#FF5B4D',
+      color1: '#FF5B4D',
+      color2: '#C1403A',
       title: 'Đề xuất',
       icon: '/checklist.png',
     },
     {
-      color: '#8069FF',
+      color1: '#8069FF',
+      color2: '#5E53C9',
       title: 'Cài đặt lương',
       icon: '/database.png',
     },
@@ -79,27 +83,38 @@ export default function HomeQLNS() {
 
   const LIST_BUTTONS_EMP = [
     {
-      color: '#97C25F',
+      color1: '#97C25F',
+      color2: '#7DA047',
       title: 'Chấm công bằng QR',
       icon: '/qr-icon.png',
     },
     {
-      color: '#FFA13B',
+      color1: '#FFA13B',
+      color2: '#E8811A',
       title: 'Chấm công bằng nhận diện khuôn mặt',
       icon: '/face-icon.png',
     },
     {
-      color: '#FF5B4D',
+      color1: '#FF5B4D',
+      color2: '#C1403A',
       title: 'Chấm công bằng tài khoản công ty',
       icon: '/desktop-icon.png',
     },
     {
-      color: '#8069FF',
+      color1: '#8069FF',
+      color2: '#5E53C9',
       title: 'Tạo đề xuất',
       icon: '/penpaer-icon.png',
     },
     {
-      color: '#40B9CC',
+      color1: '#6575FE',
+      color2: '#4C5BD4',
+      title: 'Cập nhật dữ liệu khuôn mặt (chấm công)',
+      icon: '/face-icon.png',
+    },
+    {
+      color1: '#40B9CC',
+      color2: '#318BA3',
       title: 'Lịch sử',
       icon: '/history-icon.png',
     },
@@ -109,13 +124,14 @@ export default function HomeQLNS() {
     icon: string,
     index: number,
     title: string,
-    color: string
+    color1: string,
+    color2: string
   ) => (
     <Row
       // gutter={[{ xs: 30, sm: 20 }, { xs: 15 }]}
       key={index}
       className={styles.singleBtn}
-      style={{ borderRight: `8px solid ${color}` }}
+      style={{ borderRight: `8px solid ${color1}` }}
       onClick={() => {
         localStorage.setItem('selectedBtnIndex', `${index - 1}`)
         setSelectedBtn(`${index - 1}`)
@@ -127,7 +143,10 @@ export default function HomeQLNS() {
         <div
           className={styles.indexWithBorder}
           style={{
-            border: `5px solid ${color}`,
+            borderTop: `7px solid ${color1}`,
+            borderRight: `7px solid ${color1}`,
+            borderBottom: `7px solid ${color2}`,
+            borderLeft: `7px solid ${color2}`,
             borderRadius: '50%',
             width: '71px',
             height: '71px',
@@ -345,7 +364,7 @@ export default function HomeQLNS() {
             <Col lg={type === '1' ? 10 : 11} md={11} sm={12} xs={24}>
               {(type === '1' ? LIST_BUTTONS_COMP : LIST_BUTTONS_EMP)?.map(
                 (item, index) =>
-                  utilButton(item.icon, index + 1, item.title, item.color)
+                  utilButton(item.icon, index + 1, item.title, item.color1, item.color2)
               )}
             </Col>
             <Col lg={type === '1' ? 14 : 13} md={13} sm={12} xs={24}>

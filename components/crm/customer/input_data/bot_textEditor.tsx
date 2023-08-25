@@ -43,7 +43,7 @@ const Bot_textEditor = ({ dataAdd, setDataAdd }: any) => {
         }
       );
       const data = await res.json();
-      setlistNV(data?.data?.data);
+      setlistNV(data?.data);
     } catch (error) {
       console.log("error:", error);
     }
@@ -62,9 +62,9 @@ const Bot_textEditor = ({ dataAdd, setDataAdd }: any) => {
         }
       );
       const data = await res.json();
-      setListGr(data?.data?.showGr);
+      setListGr(data?.data);
       let arr = [];
-      data?.data?.showGr?.map((item) => {
+      data?.data?.map((item) => {
         item?.list_gr_child.map((item) => {
           arr.push(item);
         });

@@ -8,6 +8,7 @@ import CustomerListAction from "./customer_action";
 import { Drawer, Input } from "antd";
 import CustomerListFilterBox from "./customer_filter_box";
 import { DataType } from "@/pages/crm/customer/list";
+import { LoadingOutlined } from "@ant-design/icons";
 export default function CustomerListInputGroup({
   isSelectedRow,
   numberSelected,
@@ -31,6 +32,9 @@ export default function CustomerListInputGroup({
   setnhomCha,
   nhomCon,
   setnhomCon,
+  setloading,
+  setDatatable,
+  setgroup_id
 }: any) {
   const [open, setOpen] = useState(false);
   const inputFileRef = useRef<HTMLInputElement>(null);
@@ -88,20 +92,22 @@ export default function CustomerListInputGroup({
     ];
     exportToExcel(datas, filename, sheetName, columnHeaders);
   };
+  const [isProcessing, setIsProcessing] = useState(true);
   const [nameFill, setNameFill] = useState<any>();
   const handleClickFile = () => {
     inputFileRef.current?.click();
   };
   const handleSearchKH = async () => {
     setName(nameFill);
+    setloading(true)
+    setDatatable([])
   };
   return (
     <>
       <div className={`${styles.main__control} ${styles.customer_custom}`}>
         <div className={`${styles.main__control_btn} flex_between`}>
           <div
-            className={`${styles.main__control_search} ${styles.f_search_customer}` }
-
+            className={`${styles.main__control_search} ${styles.f_search_customer}`}
           >
             <form
               onSubmit={(e) => (e.preventDefault(), handleSearchKH())}
@@ -117,7 +123,11 @@ export default function CustomerListInputGroup({
                 defaultValue=""
                 placeholder="Tìm kiếm theo Id, tên khách hàng, điện thoại, email"
               />
-              <button type="button" style={{ width: "100px" }}>
+              <button
+                onClick={() => handleSearchKH()}
+                type="button"
+                style={{ width: "100px" }}
+              >
                 <div>Tìm kiếm </div>
               </button>
             </form>
@@ -253,6 +263,9 @@ export default function CustomerListInputGroup({
             setnhomCha={setnhomCha}
             nhomCon={nhomCon}
             setnhomCon={setnhomCon}
+            setDatatable={setDatatable}
+            setloading={setloading}
+            setgroup_id={setgroup_id}
           />
         </div>
       </Drawer>

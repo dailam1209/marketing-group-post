@@ -18,6 +18,8 @@ export default function CustomerGroupSelectDropdownDataComponent({
     });
   };
 
+  console.log(data)
+
   useEffect(() => {
     setValueOption(placeholder?.gr_name);
     setValueGroupCustomer((pre: any) => {
