@@ -124,7 +124,6 @@ export default function CustomerList() {
     { name: "Chăm sóc khach hàng", id: 7 },
     { name: "Email", id: 8 },
   ];
-  console.log(data);
   const datatable = data?.data?.map((item, index: number) => {
     let nguonKH = "";
     let time;
