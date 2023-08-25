@@ -65,7 +65,7 @@ export default function AddWorkingModal({ onCancel }: any) {
   const [isEmp_id, setEmp_id] = useState<any>(null)
   const [isPosition_id, setPosition_id] = useState<any>(null)
   const [isPosition_idNew, setPosition_idNew] = useState<any>(null)
-  const [isSpecified_id, setSpecified_id] = useState<any>(null)
+  const [isSpecified_id, setSpecified_id] = useState<any>("")
   const [errors, setErrors] = useState<any>({});
   const modalRef = useRef(null);
 

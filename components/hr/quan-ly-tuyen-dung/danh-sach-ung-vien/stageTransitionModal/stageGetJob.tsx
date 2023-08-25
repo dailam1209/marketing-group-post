@@ -79,7 +79,7 @@ type SelectOptionType = { label: string, value: string }
 
 export default function StageGetJob({ onCancel, process_id, data, process_id_from }: any) {
 
-  console.log(data);
+  console.log(process_id);
 
   const [selectedOption, setSelectedOption] = useState<SelectOptionType | null>(null);
   const [isCandidate, setCandidate] = useState<any>(null)
