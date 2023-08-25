@@ -10,23 +10,22 @@ import { SidebarContext } from "@/components/crm/context/resizeContext";
 import ContractSelectBoxStep from "@/components/crm/customer/contract/select_box_step-send";
 import Link from "next/link";
 import ModalCompleteContractStepADD from "@/components/crm/customer/contract/complete_contract_add";
+import TableDataContractSend from "@/components/crm/table/table-contract-send";
 
 const data = [
   {
     department: "Phòng A",
-    positions: ["Chức vụ 1", "Chức vụ 2"],
+    positions: ["Chức vụ 1"],
     employees: ["Nhân viên 1", "Nhân viên 2"],
   },
   {
     department: "Phòng B",
-    positions: ["Chức vụ 3", "Chức vụ 4"],
+    positions: ["Chức vụ 2"],
     employees: ["Nhân viên 3", "Nhân viên 4"],
   },
 ];
 
 const dataDepartment = data?.map((item) => item.department);
-
-console.log(123, data);
 
 export default function ContractDetailsSend() {
   const [isModalCancel, setIsModalCancel] = useState(false);
@@ -132,17 +131,7 @@ export default function ContractDetailsSend() {
                                 placeholder="Chọn phòng ban"
                                 onChange={handleChangeDepartment}
                                 data={dataDepartment}
-                              >
-                                {/* <option value="">Chọn phòng ban</option> */}
-                                {/* {data.map((item) => (
-                                  <option
-                                    key={item.department}
-                                    value={item.department}
-                                  >
-                                    {item.department}
-                                  </option>
-                                ))} */}
-                              </ContractSelectBoxStep>
+                              ></ContractSelectBoxStep>
                             </div>
                             <div
                               className={`${styles.mb_3} ${styles["col-lg-6"]} ${styles["custom_select_send"]}`}
@@ -171,6 +160,12 @@ export default function ContractDetailsSend() {
                               />
                             </div>
                           </div>
+                          <TableDataContractSend
+                            selectedDepartment={selectedDepartment}
+                            selectedEmployee={selectedEmployee}
+                            selectedPosition={selectedPosition}
+                            data={data}
+                          />
                         </div>
                       )}
                       {checkbox2Checked && (

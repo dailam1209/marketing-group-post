@@ -51,7 +51,7 @@ const Email_potential = (props: Props) => {
                 </form>
               </div>
               <div className={`${styles.main__control_add} flex_end`}>
-                <Link href={"/marketing/email/add"}
+                <Link href={"/crm/marketing/email/add"}
                   type="button"
                   className={`${styles.dropbtn_add} flex_align_center`}
                 >

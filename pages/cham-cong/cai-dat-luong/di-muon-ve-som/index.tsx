@@ -171,9 +171,10 @@ export const getServerSideProps = async (context) => {
       listPb.push({
         dep_id: item?.dep_id,
         dep_name: item?.dep_name,
-      });
-    });
+      })
+    })
   // console.log(listApiRes?.[0]?.['phat_muon_info']);
+  console.log(listApiRes?.[0])
 
   return {
     props: {

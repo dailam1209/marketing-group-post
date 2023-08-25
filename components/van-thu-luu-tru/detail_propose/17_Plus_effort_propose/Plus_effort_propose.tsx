@@ -51,7 +51,7 @@ const Plus_effort_propose = ({ inuse }: { inuse?: boolean }) => {
         return { value:opts.idQLC, label:opts.userName,image:opts.avatarUser, name:'id_user_theo_doi'}
     })
     const ca_options = shiftData?.map((opts:any) => {
-        return { value:opts.shift_id, label:opts.shift_name, name:'ca_xnc'}
+        return { value:opts.shift_id, label:opts.shift_name, name:'id_ca_xnc'}
     })
     const [formData, setFormData] = useState<any>({
         name_user: getCookie("userName")?.toString(),
@@ -87,12 +87,20 @@ const Plus_effort_propose = ({ inuse }: { inuse?: boolean }) => {
         }
     }
     const handleSelectChange = (e:any)=>{
-        const {name,value} = e;
+        const {name,value,label} = e;
         if(name){
-            setFormData((prev:any) => ({
-            ...prev,
-            [name]: value
-            }))
+            if(name === 'id_ca_xnc'){
+                setFormData((prev:any) => ({
+                    ...prev,
+                    id_ca_xnc: value,
+                    ca_xnc: label
+                }))
+            }else{
+                setFormData((prev:any) => ({
+                    ...prev,
+                    [name]: value
+                }))
+            }
         }else{
             setFormData((prev:any) => ({
             ...prev,
