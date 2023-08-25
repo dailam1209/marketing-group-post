@@ -129,7 +129,7 @@ export default function HomePageBeforLogin({ children }: any) {
                         </div>
                         <div className={`${styles.t_header_mb_right}`}>
                             <a href="/">
-                                <Image className={`${styles.t_header_mb_right_img}`} src="/Logo.svg" width={168} height={48} alt='icon'></Image>
+                                <Image className={`${styles.t_header_mb_right_img}`} src="/logo.svg" width={168} height={48} alt='icon'></Image>
                             </a>
                         </div>
                     </div>
