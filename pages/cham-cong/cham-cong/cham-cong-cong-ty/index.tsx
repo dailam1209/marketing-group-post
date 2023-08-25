@@ -67,7 +67,8 @@ export default function ChamCongCongTy() {
     if (comId && imageSrc) {
       try {
         const res: any = await axios.post(
-          'http://43.239.223.154:8081/',
+          // 'http://43.239.223.154:8081/',
+          `${process.env.NEXT_PUBLIC_API}/api/qlc/ai/detectFace`,
           {
             company_id: comId,
             image: imageSrc,
@@ -152,6 +153,7 @@ export default function ChamCongCongTy() {
 
     if (res?.result) {
       alert('Điểm danh thành công')
+      setSelectedCa('')
       setReload(!reload)
       setModalDetailCC(false)
     }
@@ -341,9 +343,25 @@ export default function ChamCongCongTy() {
               userData?.shift?.map((item) => (
                 <div
                   className={styles.wrapper}
-                  onClick={() => setSelectedCa(item?.shift_id)}>
-                  <p className={styles.txt}>{item?.shift_name}</p>
-                  <p className={styles.txt}>
+                  onClick={() =>
+                    setSelectedCa(!selectedCa ? item?.shift_id : '')
+                  }>
+                  <p
+                    className={styles.txt}
+                    style={{
+                      color: selectedCa === item?.shift_id ? 'blue' : '#000',
+                      fontWeight:
+                        selectedCa === item?.shift_id ? 'bold' : '500',
+                    }}>
+                    {item?.shift_name}
+                  </p>
+                  <p
+                    className={styles.txt}
+                    style={{
+                      color: selectedCa === item?.shift_id ? 'blue' : '#000',
+                      fontWeight:
+                        selectedCa === item?.shift_id ? 'bold' : '500',
+                    }}>
                     {item?.start_time} đến {item?.end_time}
                   </p>
                 </div>
