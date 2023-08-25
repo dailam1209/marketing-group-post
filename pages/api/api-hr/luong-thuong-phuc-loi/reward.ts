@@ -1,22 +1,26 @@
 import axios from "axios";
 import { getToken } from "../token";
 const COOKIE_KEY = "token_base365";
-export const GetDataAchievement = async (page: any, pageSize: any, type:any, keyWords: any) => {
-  
+export const GetDataAchievement = async (
+  page: any,
+  pageSize: any,
+  type: any,
+  keyWords: any
+) => {
   const url = process.env.NEXT_PUBLIC_BASE_URL;
-  const isToken = getToken(COOKIE_KEY)
+  const isToken = getToken(COOKIE_KEY);
   try {
     const response = await axios.get(
-        `${url}api/hr/welfare/listAchievement?page=${page}&pageSize=${pageSize}&type=${type}&keyWords=${keyWords}`,
-        {
-          headers: {
-            Authorization: `Bearer ${isToken}`,
-          },
-        }
-      );
-      return response.data;
+      `${url}api/hr/welfare/listAchievement?page=${page}&pageSize=${pageSize}&type=${type}&keyWords=${keyWords}`,
+      {
+        headers: {
+          Authorization: `Bearer ${isToken}`,
+        },
+      }
+    );
+    return response.data;
   } catch (err: any) {
-   return err.response
+    return err.response;
   }
 };
 
@@ -36,7 +40,7 @@ export const AddAchievement = async (mergedObject) => {
   } = mergedObject;
 
   const url = process.env.NEXT_PUBLIC_BASE_URL;
-  const isToken = getToken(COOKIE_KEY)
+  const isToken = getToken(COOKIE_KEY);
   try {
     const response = await axios.post(
       `${url}api/hr/welfare/addAchievement`,
@@ -66,51 +70,51 @@ export const AddAchievement = async (mergedObject) => {
 };
 
 export const AddAchievementGroup = async (mergedObject) => {
-    const {
-      achievement_id,
-      content,
-      dep_id,
-      dep_name,
-      created_by,
-      achievement_at,
-      achievement_type,
-      appellation,
-      achievement_level,
-      resion,
-      price,
-    } = mergedObject;
+  const {
+    achievement_id,
+    content,
+    depId,
+    depName,
+    created_by,
+    achievement_at,
+    achievement_type,
+    appellation,
+    achievement_level,
+    resion,
+    price,
+  } = mergedObject;
 
-    const url = process.env.NEXT_PUBLIC_BASE_URL;
-    const isToken = getToken(COOKIE_KEY)
-    try {
-      const response = await axios.post(
-        `${url}api/hr/welfare/addAchievementGroup`,
-        {
-          achievement_id,
-          content,
-          dep_id,
-          dep_name,
-          created_by,
-          achievement_at,
-          achievement_type,
-          appellation,
-          achievement_level,
-          resion,
-          price,
+  const url = process.env.NEXT_PUBLIC_BASE_URL;
+  const isToken = getToken(COOKIE_KEY);
+  try {
+    const response = await axios.post(
+      `${url}api/hr/welfare/addAchievementGroup`,
+      {
+        achievement_id,
+        content,
+        depId,
+        depName,
+        created_by,
+        achievement_at,
+        achievement_type,
+        appellation,
+        achievement_level,
+        resion,
+        price,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${isToken}`,
         },
-        {
-          headers: {
-            Authorization: `Bearer ${isToken}`,
-          },
-        }
-      );
-      return response;
-    } catch (err) {
-      console.log("Error: ", err);
-    }
-  };
+      }
+    );
+    return response;
+  } catch (err) {
+    console.log("Error: ", err);
+  }
+};
 
-export const UpdateAchievement = async (id, mergedObject)  => {
+export const UpdateAchievement = async (id, mergedObject) => {
   const {
     achievement_id,
     content,
@@ -123,55 +127,51 @@ export const UpdateAchievement = async (id, mergedObject)  => {
     depName,
     appellation,
     achievement_level,
-    
   } = mergedObject;
   const url = process.env.NEXT_PUBLIC_BASE_URL;
-    const isToken = getToken(COOKIE_KEY)
-    try {
-      const response = await axios.put(
-        `${url}api/hr/welfare/updateAchievement`,
-        {
-          achievement_id,
-          content,
-          list_user,
-          list_user_name,
-          created_by,
-          achievement_at,
-          achievement_type,
-          depId,
-          depName,
-          appellation,
-          achievement_level,
-          id,
+  const isToken = getToken(COOKIE_KEY);
+  try {
+    const response = await axios.put(
+      `${url}api/hr/welfare/updateAchievement`,
+      {
+        achievement_id,
+        content,
+        list_user,
+        list_user_name,
+        created_by,
+        achievement_at,
+        achievement_type,
+        depId,
+        depName,
+        appellation,
+        achievement_level,
+        id,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${isToken}`,
         },
-        {
-          headers: {
-            Authorization: `Bearer ${isToken}`,
-          },
-        }
-      );
-      return response;
-    } catch (err) {
-      console.log("Error: ", err);
-    }
-}
-export const GetDepartmentList = async(com_id:any) => {
-  console.log(com_id)
+      }
+    );
+    return response;
+  } catch (err) {
+    console.log("Error: ", err);
+  }
+};
+export const GetDepartmentList = async (com_id: any) => {
+  console.log(com_id);
   const url = process.env.NEXT_PUBLIC_BASE_URL2;
-  const isToken = getToken(COOKIE_KEY)
+  const isToken = getToken(COOKIE_KEY);
   try {
     const response = await axios.post(
       `${url}api/qlc/department/list`,
       { com_id },
       {
         headers: {
-            Authorization: `Bearer ${isToken}`,
+          Authorization: `Bearer ${isToken}`,
         },
       }
     );
     return response;
-  } catch (error) {
-  }
+  } catch (error) {}
 };
-
-
