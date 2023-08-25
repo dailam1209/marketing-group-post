@@ -6,6 +6,7 @@ import styles from './index.module.css'
 import cookieCutter from "cookie-cutter";
 import Cookies from "js-cookie";
 import axios from "axios"
+import {domain} from "../../../components/api/BaseApi"
 export function Thongbao(props){
     function handleLogout() {
         // Clear all cookies by iterating through them
@@ -60,7 +61,7 @@ export default function HeadNav({title,idQLC=null}){
     const [isPopup,setIsPopup]=useState(false)
     const [userInfo, setUserInfo] = useState({});
   useEffect(()=>{
-    axios.post("http://210.245.108.202:3009/api/tinhluong/nhanvien/qly_ho_so_ca_nhan",{
+    axios.post(`${domain}/api/tinhluong/nhanvien/qly_ho_so_ca_nhan`,{
       ep_id: ep_id,
       cp: cp,
       token: token

@@ -118,6 +118,11 @@ export default function HomeQLNS() {
       title: 'Lịch sử',
       icon: '/history-icon.png',
     },
+    {
+      color: '#ACACAC',
+      title: 'Cập nhật khuôn mặt',
+      icon: '/face-icon.png',
+    },
   ]
 
   const utilButton = (

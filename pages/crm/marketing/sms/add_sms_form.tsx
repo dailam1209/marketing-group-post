@@ -59,7 +59,7 @@ const UpdateEmailFormList: React.FC = () => {
         </div>
       </div>
       <FooterAddSMSForm
-        link="/marketing/sms"
+        link="/crm/marketing/sms"
         titleCancel="Hủy thêm mới mẫu sms"
         title="Thêm mới mẫu sms thành công!"
         contentCancel="Bạn có chắc chắn muốn hủy thêm mới mẫu sms thông tin bạn nhập sẽ không được lưu lại?"

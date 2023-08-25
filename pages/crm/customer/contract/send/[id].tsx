@@ -10,21 +10,22 @@ import { SidebarContext } from "@/components/crm/context/resizeContext";
 import ContractSelectBoxStep from "@/components/crm/customer/contract/select_box_step-send";
 import Link from "next/link";
 import ModalCompleteContractStepADD from "@/components/crm/customer/contract/complete_contract_add";
+import TableDataContractSend from "@/components/crm/table/table-contract-send";
 
 const data = [
   {
     department: "Phòng A",
-    positions: ["Chức vụ 1", "Chức vụ 2"],
+    positions: ["Chức vụ 1"],
     employees: ["Nhân viên 1", "Nhân viên 2"],
   },
   {
     department: "Phòng B",
-    positions: ["Chức vụ 3", "Chức vụ 4"],
+    positions: ["Chức vụ 2"],
     employees: ["Nhân viên 3", "Nhân viên 4"],
   },
 ];
 
-console.log(123, data);
+const dataDepartment = data?.map((item) => item.department);
 
 export default function ContractDetailsSend() {
   const [isModalCancel, setIsModalCancel] = useState(false);
@@ -64,12 +65,9 @@ export default function ContractDetailsSend() {
   const selectedData = data.find(
     (item) => item.department === selectedDepartment
   );
-  console.log(selectedData);
 
   const handleChangeDepartment = (value: string) => {
     setSelectedDepartment(value);
-    setSelectedPosition("Chọn chức vụ");
-    setSelectedEmployee("Chọn nhân viên");
   };
 
   const onChangeCheckbox1 = (e: CheckboxChangeEvent) => {
@@ -84,6 +82,11 @@ export default function ContractDetailsSend() {
   const onChangeCheckbox3 = (e: CheckboxChangeEvent) => {
     setCheckbox3Checked(e.target.checked);
   };
+
+  useEffect(() => {
+    setSelectedPosition("");
+    setSelectedEmployee("");
+  }, [selectedDepartment]);
 
   return (
     <>
@@ -127,18 +130,8 @@ export default function ContractDetailsSend() {
                                 value={selectedDepartment || "Chọn phòng ban"}
                                 placeholder="Chọn phòng ban"
                                 onChange={handleChangeDepartment}
-                                data={data}
-                              >
-                                <option value="">Chọn phòng ban</option>
-                                {data.map((item) => (
-                                  <option
-                                    key={item.department}
-                                    value={item.department}
-                                  >
-                                    {item.department}
-                                  </option>
-                                ))}
-                              </ContractSelectBoxStep>
+                                data={dataDepartment}
+                              ></ContractSelectBoxStep>
                             </div>
                             <div
                               className={`${styles.mb_3} ${styles["col-lg-6"]} ${styles["custom_select_send"]}`}
@@ -167,6 +160,12 @@ export default function ContractDetailsSend() {
                               />
                             </div>
                           </div>
+                          <TableDataContractSend
+                            selectedDepartment={selectedDepartment}
+                            selectedEmployee={selectedEmployee}
+                            selectedPosition={selectedPosition}
+                            data={data}
+                          />
                         </div>
                       )}
                       {checkbox2Checked && (

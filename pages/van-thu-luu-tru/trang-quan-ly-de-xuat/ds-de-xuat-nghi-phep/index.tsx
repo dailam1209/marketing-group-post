@@ -262,7 +262,7 @@ const Index = () => {
                     width={17}
                     height={17}
                   />
-                  <span>Tìm kiếm</span>
+                  <span style={{color: '#fff'}}>Tìm kiếm</span>
                 </button>
               </div>
             </div>

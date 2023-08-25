@@ -18,6 +18,9 @@ export default function StageContactJob({
   data,
   process_id_from,
 }: any) {
+
+  console.log(data);
+
   const [selectedOption, setSelectedOption] = useState<SelectOptionType | null>(
     null
   )
@@ -25,14 +28,14 @@ export default function StageContactJob({
   const [isEmpList, setEmpList] = useState<any>(null)
   const [empInterview, setEmpInterview] = useState<any>(null)
   const [isNewList, setNewsList] = useState<any>(null)
-  const [isRecruitmentNewsId, setRecruitmentNewsId] = useState<any>(null)
+  const [isRecruitmentNewsId, setRecruitmentNewsId] = useState<any>(data?.recruitmentNewsId)
   const [addAnotherSkill, setAddAnotherSkill] = useState<JSX.Element[]>([])
   const [skills, setSkills] = useState<{ skillName: string; skillVote: any }[]>(
     []
   )
   const [lastAddedIndex, setLastAddedIndex] = useState(-1)
-  const [rating, setRating] = useState<any>(0)
-  const [isUserHiring, setUserHiring] = useState<any>('')
+  const [rating, setRating] = useState<any>(data?.star_vote)
+  const [isUserHiring, setUserHiring] = useState<any>(data?.user_hiring)
   const [errors, setErrors] = useState<any>({})
   const modalRef = useRef(null)
 
@@ -55,9 +58,10 @@ export default function StageContactJob({
       try {
         const formData = new FormData()
         const response = await CandidateList(formData)
-        const responseData: any = response?.data
+        const responseData: any = response?.success
+        console.log(responseData);
         if (responseData) {
-          const candidateFound = responseData?.data?.find(
+          const candidateFound = responseData?.data?.data?.find(
             (item: any) =>
               item.id === Number(data?.id) || item.id === Number(data?.canId)
           )
@@ -233,10 +237,14 @@ export default function StageContactJob({
       { value: 3, label: 'Trượt vòng loại hồ sơ' },
     ],
     tennhanvientuyendung: chonnhanvienOptions,
-    vitrituyendung: chonvitrituyendungOptions,
-    tennhanvientuyendungdefault: [
-      { value: isCandidate?.userHiring, label: isCandidate?.NvTuyenDung },
+    vitrituyendung: [
+      { value: data?.recruitmentNewsId, label: data?.new_title },
     ],
+
+    tennhanvientuyendungdefault: [
+      { value: data?.user_hiring, label: data?.hrName },
+    ],
+
   }
 
   return (
@@ -259,7 +267,7 @@ export default function StageContactJob({
                       <input
                         type='text'
                         id='name'
-                        defaultValue={isCandidate?.name}
+                        defaultValue={data?.name}
                         className={`${styles.input_process}`}
                       />
                       <span>
@@ -280,7 +288,7 @@ export default function StageContactJob({
                       <input
                         type='text'
                         id='cvFrom'
-                        defaultValue={isCandidate?.cvFrom}
+                        defaultValue={data?.cvFrom}
                         className={`${styles.input_process}`}
                       />
                       <span>
@@ -392,7 +400,7 @@ export default function StageContactJob({
                     <div className={`${styles.input_right}`}>
                       <Rating
                         size={27}
-                        initialValue={isCandidate?.starVote}
+                        initialValue={data?.star_vote}
                         disableFillHover
                         className={`${styles.star_rating}`}
                         onClick={handleRating}

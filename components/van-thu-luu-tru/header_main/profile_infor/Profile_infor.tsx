@@ -137,7 +137,6 @@ const Profile_infor: React.FC<Profile_inforProps> = ({ ...props }) => {
             <div
               className={`${styles.item_left}`}
               onClick={() => {
-                router.push("/");
                 sessionStorage.setItem("layout", "");
                 sessionStorage.setItem("link", "");
                 document.cookie =
@@ -148,7 +147,7 @@ const Profile_infor: React.FC<Profile_inforProps> = ({ ...props }) => {
                 Cookies.remove('role');
               }}
             >
-              <Link rel="nofollow" href="">
+              <Link rel="nofollow" href="/">
                 <Image
                   src={"/icon/icon_logout.png"}
                   width={25}

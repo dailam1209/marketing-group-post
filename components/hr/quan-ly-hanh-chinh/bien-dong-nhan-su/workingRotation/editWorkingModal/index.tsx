@@ -59,13 +59,12 @@ export default function EditWorkingModal({ onCancel, infoList }: any) {
   const [isOrganizationalStructureList, setOrganizationalStructureList] = useState<any>(null)
   const [isCom_id, setCom_id] = useState<any>(null)
   const [isCom_idNew, setCom_idNew] = useState<any>(null)
-  // const [isCom_idNew, setCom_idNew] = useState<any>(null)
   const [isDep_id, setDep_id] = useState<any>(null)
   const [isTeam_idNew, setTeam_idNew] = useState<any>(null)
   const [isGroup_idNew, setGroup_idNew] = useState<any>(null)
-  const [isDep_idNew, setDep_idNew] = useState<any>(null)
-  const [isPosition_id, setPosition_id] = useState<any>(null)
-  const [isPosition_idNew, setPosition_idNew] = useState<any>(null)
+  const [isDep_idNew, setDep_idNew] = useState<any>(infoList?.item?.new_dep_id)
+  const [isPosition_id, setPosition_id] = useState<any>(infoList?.item?.id_new_position)
+  const [isPosition_idNew, setPosition_idNew] = useState<any>(infoList?.item?.id_new_position)
   const [isSpecified_id, setSpecified_id] = useState<any>(null)
   const [errors, setErrors] = useState<any>({});
   const modalRef = useRef(null);
@@ -138,7 +137,7 @@ export default function EditWorkingModal({ onCancel, infoList }: any) {
 
       const formDatas = {
         chonnhanvien: infoList.ep_id || "",
-        donvicongtacmoi: isCom_idNew || "",
+        donvicongtacmoi: isCom_idNew ? isCom_idNew : chonchinhandefaulthOptions.value || "",
         phongbanmoi: isDep_idNew || "",
         chucvuhientai: isPosition_id || "",
         chucvumoi: isPosition_idNew || "",
@@ -231,6 +230,7 @@ export default function EditWorkingModal({ onCancel, infoList }: any) {
   );
 
   const chonchinhandefaulthOptions = companyNames?.find((com: any) => com.key === infoList?.item?.new_com_name)
+
 
   const chonphongbanmoiOptions = useMemo(
     () =>
@@ -330,11 +330,13 @@ export default function EditWorkingModal({ onCancel, infoList }: any) {
     chucvuhientai: [{ value: isPosition_id, label: infoList.position_name }],
     phongbanmoidefault: [{ value: infoList?.item?.new_dep_id, label: infoList?.item?.new_dep_name }],
     donvicongtacmoi: chonchinhanhOptions,
+    donvicongtacmoidefault: [{ value: infoList?.item?.new_dep_id, label: infoList?.item?.new_com_name }],
     phongbanmoi: chonphongbanmoiOptions,
     to: chontotheophongbanOptions,
     nhom: chonnhomtheotoOptions,
     chucvumoi: [{ value: infoList?.item?.id_new_position, label: infoList?.item?.new_position }],
     chonquydinh: chonquydinhOptions,
+
   };
 
   return (
@@ -348,56 +350,6 @@ export default function EditWorkingModal({ onCancel, infoList }: any) {
               </div>
               <div className={`${styles.modal_body}`}>
                 <form action="">
-                  <div className={`${styles.form_groups}`}>
-                    <label htmlFor="">Đơn vị công tác hiện tại</label>
-                    <div className={`${styles.input_right}`}>
-                      <Select
-                        value={options.chonchinhanh}
-
-                        options={options.chonchinhanh}
-                        placeholder="Chọn chi nhánh"
-                        styles={{
-                          control: (baseStyles, state) => ({
-                            ...baseStyles,
-                            borderRadius: 8,
-                            fontSize: state.isFocused ? 14 : 14,
-                            minHeight: state.isFocused ? 20 : 20,
-                            width: '100%',
-                            color: state.isFocused ? '#444444' : '#444444',
-                            fontWeight: state.isFocused ? 600 : 600
-                          }),
-                          placeholder: (baseStyles) => ({
-                            ...baseStyles,
-                            color: "#444444",
-                          }),
-                        }}
-                      />
-                    </div>
-                  </div>
-                  <div className={`${styles.form_groups}`}>
-                    <label htmlFor="">Phòng ban hiện tại </label>
-                    <div className={`${styles.input_right}`}>
-                      <Select
-                        options={options.chonphongban}
-                        placeholder="Chọn phòng ban"
-                        value={options.chonphongban}
-                        styles={{
-                          control: (baseStyles, state) => ({
-                            ...baseStyles,
-                            borderRadius: 8,
-                            fontSize: state.isFocused ? 14 : 14,
-                            minHeight: state.isFocused ? 20 : 20,
-                            width: '100%',
-                            fontWeight: state.isFocused ? 600 : 600
-                          }),
-                          placeholder: (baseStyles) => ({
-                            ...baseStyles,
-                            color: "#444444",
-                          }),
-                        }}
-                      />
-                    </div>
-                  </div>
                   <div className={`${styles.form_groups}`}>
                     <label htmlFor="">Tên nhân viên <span style={{ color: 'red' }}> *
                       <span> {errors.chonnhanvien && <div className={`${styles.t_require} `}>{errors.chonnhanvien}</div>}</span>
@@ -451,11 +403,61 @@ export default function EditWorkingModal({ onCancel, infoList }: any) {
                     </div>
                   </div>
                   <div className={`${styles.form_groups}`}>
+                    <label htmlFor="">Phòng ban hiện tại </label>
+                    <div className={`${styles.input_right}`}>
+                      <Select
+                        options={options.chonphongban}
+                        placeholder="Chọn phòng ban"
+                        value={options.chonphongban}
+                        styles={{
+                          control: (baseStyles, state) => ({
+                            ...baseStyles,
+                            borderRadius: 8,
+                            fontSize: state.isFocused ? 14 : 14,
+                            minHeight: state.isFocused ? 20 : 20,
+                            width: '100%',
+                            fontWeight: state.isFocused ? 600 : 600
+                          }),
+                          placeholder: (baseStyles) => ({
+                            ...baseStyles,
+                            color: "#444444",
+                          }),
+                        }}
+                      />
+                    </div>
+                  </div>
+                  <div className={`${styles.form_groups}`}>
+                    <label htmlFor="">Đơn vị công tác hiện tại</label>
+                    <div className={`${styles.input_right}`}>
+                      <Select
+                        value={options.chonchinhanh}
+
+                        options={options.chonchinhanh}
+                        placeholder="Chọn chi nhánh"
+                        styles={{
+                          control: (baseStyles, state) => ({
+                            ...baseStyles,
+                            borderRadius: 8,
+                            fontSize: state.isFocused ? 14 : 14,
+                            minHeight: state.isFocused ? 20 : 20,
+                            width: '100%',
+                            color: state.isFocused ? '#444444' : '#444444',
+                            fontWeight: state.isFocused ? 600 : 600
+                          }),
+                          placeholder: (baseStyles) => ({
+                            ...baseStyles,
+                            color: "#444444",
+                          }),
+                        }}
+                      />
+                    </div>
+                  </div>
+                  <div className={`${styles.form_groups}`}>
                     <label htmlFor="">Đơn vị công tác mới <span style={{ color: 'red' }}> *
                       <span> {errors.donvicongtacmoi && <div className={`${styles.t_require} `}>{errors.donvicongtacmoi}</div>}</span> </span></label>
                     <div className={`${styles.input_right}`}>
                       <Select
-                        defaultValue={chonchinhandefaulthOptions}
+                        defaultValue={options.donvicongtacmoidefault}
                         onChange={(option) => handleSelectChange(option, setCom_idNew)}
                         options={options.donvicongtacmoi}
                         placeholder="Chọn chi nhánh"

@@ -130,7 +130,7 @@ const columns: ColumnsType<DataType> = [
     // fixed:"right",
     // render: () => (
     //   <button className="action_table">
-    //     <img src="https://crm.timviec365.vn/assets/img/crm/customer/3_cham.png" />
+    //     <img src="/crm/3_cham.png" />
     //     Thao tác
     //   </button>
     // ),

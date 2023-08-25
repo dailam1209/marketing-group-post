@@ -63,7 +63,7 @@ export default function PotentialActionSMSTable(props: any) {
       setIsOpenShare(true);
     }
     if (type === "edit") {
-      router.push("/marketing/sms/update");
+      router.push("/crm/marketing/sms/update");
     }
     if (type === "complete") {
       setIsOpenUpdate(true);
