@@ -41,12 +41,6 @@ const TableDataGroupListCustomer: React.FC<TableDataGroupListCustomerProps> = ({
   const accessToken = Cookies.get("token_base365");
   const [depId, setDepId] = useState(null);
   const [empId, setEmpId] = useState(null);
-  // const { data, loading, error, fetchData, updateData, deleteData } = useApi(
-  //   "http://210.245.108.202:3007/api/crm/group/list_group_khach_hang",
-  //   process.env.ACCESS_TOKEN || accessToken,
-  //   "POST",
-  //   { page: 1, perPage: 1000 }
-  // );
 
   interface DataType {
     key: React.Key;
@@ -63,16 +57,6 @@ const TableDataGroupListCustomer: React.FC<TableDataGroupListCustomerProps> = ({
     updated_at: number;
     lists_child: [];
   }
-
-  // useEffect(() => {
-  //   // fetchData(
-  //   //   "http://210.245.108.202:3007/api/crm/group/list_group_khach_hang",
-  //   //   process.env.ACCESS_TOKEN ||
-  //   //     accessToken,
-  //   //   "POST"
-  //   // );
-  //   fetchData();
-  // }, [change]);
 
   const columns: ColumnsType<DataType> = [
     {

@@ -83,7 +83,7 @@ export default function CustomerGroupSelect({
               {valueOption ||
                 data?.filter((item: any) => item.gr_id === placeholder)[0]
                   ?.gr_name ||
-                "Chọn"}
+                "Chưa cập nhật"}
             </span>
             <span
               className={styles.select2_selection__arrow}
