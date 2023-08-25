@@ -292,7 +292,7 @@ const Index = () => {
                 <div className={styles.filter_area_24}>
                     <button onClick={handleSubmitFilter} className={styles.top_btn}>
                         <Image className={styles.search_icon} alt='' src='/icon/icon_search_white.png' width={17} height={17} />
-                        <span>
+                        <span style={{color: '#fff'}}>
                             Tìm kiếm
                         </span>
                     </button>

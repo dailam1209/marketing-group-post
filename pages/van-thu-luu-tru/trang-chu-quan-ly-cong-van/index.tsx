@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styles from "./management_dispatch.module.css";
 import { Box_bot } from "@/components/van-thu-luu-tru/form_header/data_delete/box_bot/Box_bot";
 import { fetchDataHome } from "@/utils/BaseApi";
+import { useRouter } from "next/router";
 
 interface ItemBox {
   id: number;
@@ -13,6 +14,7 @@ interface ItemBox {
 
 const Index = () => {
   const [data, setData] = useState<any>([]);
+  const router = useRouter();
   useEffect(() => {
     const fetchGetData = async () => {
       const token = sessionStorage.getItem("token");
@@ -29,7 +31,7 @@ const Index = () => {
       }
     };
     fetchGetData();
-  }, []);
+  }, [router.pathname]);
   const List_boxs_top: ItemBox[] = [
     {
       id: 1,
