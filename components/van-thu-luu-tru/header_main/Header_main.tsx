@@ -107,7 +107,6 @@ const General_header = () => {
   const [user,setUser] = useState<any>()
   const [com,setCom] = useState<any>()
   useEffect(()=>{
-    console.log('navigate')
     const token = Cookies.get('token_base365')
     const fetch = async ()=>{
       if (token){
@@ -173,7 +172,7 @@ const General_header = () => {
           />
           {user && (
             <button className={`${styles.profile}`} onClick={handleOpenModal}>
-              <a href="#" className={`${styles.a_profile}`}>
+              <div className={`${styles.a_profile}`}>
                 <img 
                   src={user && user?.avatarUser ? user?.avatarUser : "/avatar.jpg"} 
                   onError={(e:any) => {
@@ -183,7 +182,7 @@ const General_header = () => {
                   width={50} 
                   height={50} 
                   alt="Avatar"  />
-              </a>
+              </div>
               <Profile_infor
                 isOpen={modalOpen}
                 fullname={user && user?.userName}

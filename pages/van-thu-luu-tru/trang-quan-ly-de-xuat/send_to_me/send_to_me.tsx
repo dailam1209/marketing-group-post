@@ -249,7 +249,7 @@ const My_send = () => {
               src={"/icon/i_search.png"}
               alt=""
             />
-            <span>Tìm kiếm</span>
+            <span style={{color: '#fff'}}>Tìm kiếm</span>
           </button>
         </div>
       </div>
