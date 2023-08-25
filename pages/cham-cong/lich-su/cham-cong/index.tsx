@@ -1,5 +1,6 @@
 import { ChamCong } from '@/components/lich-su/cham-cong/cham-cong'
 import { POST, POST_SS } from '@/pages/api/BaseApi'
+import dayjs from 'dayjs'
 import moment from 'moment'
 
 export default function HistoryPage({ ccData }) {
@@ -7,21 +8,28 @@ export default function HistoryPage({ ccData }) {
 }
 
 export const getServerSideProps = async (context) => {
-  const startTime = moment()
-  const oneMonthAgo = startTime?.subtract(1, 'M')?.format('YYYY-MM-DD')
+  // const startTime = moment()
+  const oneMonthAgo = moment()?.subtract(1, 'M')?.format('YYYY-MM-DD')
+  console.log(oneMonthAgo)
 
-  const thisWeekMonday = moment('2023-07-28').day(1).format('YYYY-MM-DD')
+  const thisWeekMonday = moment().day(1).format('YYYY-MM-DD')
 
   const res = await POST_SS(
     'api/qlc/timekeeping/employee/home',
     {
       begin_time: oneMonthAgo,
-      end_search_time: startTime?.format('YYYY-MM-DD'),
+      end_search_time: moment()?.format('YYYY-MM-DD'),
       time_chart_begin: thisWeekMonday,
-      time_chart_end: startTime?.format('YYYY-MM-DD'),
+      time_chart_end: moment()?.format('YYYY-MM-DD'),
     },
     context
   )
+  console.log({
+    begin_time: oneMonthAgo,
+    end_search_time: moment()?.format('YYYY-MM-DD'),
+    time_chart_begin: thisWeekMonday,
+    time_chart_end: moment()?.format('YYYY-MM-DD'),
+  })
 
   return {
     props: {
