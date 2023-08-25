@@ -13,6 +13,7 @@ import ContractValueInputSearch from "./contract_value_input_search";
 import { imageBase64 } from "./imgBase64";
 import { setTextRange } from "typescript";
 import { base_url } from "../../service/function";
+import { el } from "date-fns/locale";
 
 interface MyComponentProps {
   isModalCancel: boolean;
@@ -41,8 +42,8 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
     useState<boolean[]>(initialCheckStates);
   const [modalVisible, setModalVisible] = useState(false);
   const [newValues, setNewValues] = useState<
-    { index: number; originalValue: string; newValue: string }[]
-  >([]);  // Set value moi, value cu va index
+    { index: number[]; originalValue: string; newValue: string }[]
+  >([]); // Set value moi, value cu va index
   const targetScrollRef = useRef<HTMLDivElement>(null);
 
   const axios = require("axios");
@@ -186,8 +187,7 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
 
   const handleFind = async (event: React.ChangeEvent<HTMLInputElement>) => {
     // const text_change = event.target.value;
-    settext_change(event.target.value);
-    // console.log(text_change);
+    settext_change(inputSearch);
     event.preventDefault();
 
     if (inputSearch) {
@@ -235,7 +235,7 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
     );
 
     if (selectedIndices.length === 0) {
-      alert("Vui lòng chọn ít nhất một checkbox.");
+      alert("Hãy chọn ít nhất 1 trường thông tin để thiết lập");
     } else {
       // Mở modal hiển thị vị trí các checkbox được chọn
       setModalVisible(true);
@@ -253,15 +253,46 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
     setCheckedStates(newCheckedStates);
   };
 
-  const handleReplaceValues = (newValue: string) => {
-    const updatedValues = newValues.map(item => {
-      if (checkedStates[item.index]) {
-        return { ...item, newValue };
+  function checkValuesExist(arrA, arrB) {
+    for (const valueA of arrA) {
+      for (const itemB of arrB) {
+        if (itemB.index.includes(valueA)) {
+          return true;
+        }
       }
-      return item;
-    });
-    setNewValues(updatedValues);
-    console.log(newValues)
+    }
+    return false;
+  }
+
+  const checkWords = (arr, text) => {
+    for (const valueA of arr) {
+      if (valueA.originalValue === text) {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  const handleReplaceValues = (newValue: string, pos: number) => {
+    const indexSelect = checkedStates
+      .map((value, index) => (value ? index : null))
+      .filter((index) => index !== null);
+    console.log(indexSelect, newValues);
+    const editedItem = checkValuesExist(indexSelect, newValues);
+    const checkWord = checkWords(newValues, text_change);
+    console.log(checkWord, text_change);
+    if (!editedItem || !checkWord) {
+      const updatedValues = [
+        ...newValues,
+        { index: indexSelect, originalValue: text_change, newValue },
+      ];
+      setNewValues(updatedValues);
+      console.log(newValues);
+    } else {
+      alert(`Từ khóa đã được thiết lập, vui lòng kiểm tra lại`);
+    }
+
+    setCheckedStates(Array(initialCheckStates.length).fill(false));
   };
 
   const handleDelEditField = () => {
@@ -285,6 +316,12 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
         })
         .catch((error) => console.log(error));
     };
+  };
+
+  const displayIndex = (item: any) => {
+    return `Từ tìm kiếm: ${
+      item?.originalValue
+    }, tại các vị trí: ${item.index?.join(", ")}`;
   };
 
   const [isCreatField, setIsCreatField] = useState(false);
@@ -562,19 +599,20 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
                   </label>
 
                   <div className={styles.param}>
-                    {checkedStates.map((isChecked, index) => (
-                      <div key={index} style={{ marginRight: "5px" }}>
-                        <label>
-                          <input
-                            style={{ marginLeft: "3px" }}
-                            type="checkbox"
-                            checked={isChecked}
-                            onChange={() => handleCheckboxChange(index)}
-                          />
-                          Chấm công {index + 1}
-                        </label>
-                      </div>
-                    ))}
+                    {text_change !== "" &&
+                      checkedStates.map((isChecked, index) => (
+                        <div key={index} style={{ marginRight: "5px" }}>
+                          <label>
+                            <input
+                              style={{ marginLeft: "3px" }}
+                              type="checkbox"
+                              checked={isChecked}
+                              onChange={() => handleCheckboxChange(index)}
+                            />
+                            {text_change} {index + 1}
+                          </label>
+                        </div>
+                      ))}
                   </div>
                 </div>
 
@@ -621,6 +659,8 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
                   <CreatFieldModal
                     isModalCancel={isCreatField}
                     setIsModalCancel={setIsCreatField}
+                    handleReplaceValues={handleReplaceValues}
+                    // index={checkedStates.findIndex((isChecked) => isChecked)}
                   />
                   <CreatFieldDefaultModal
                     isModalCancel={isCreatFieldDefault}
@@ -630,62 +670,95 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
               </div>
               {/* ///////////////////////////////////////////////////////////// */}
             </div>
-            
+
+            {/* Thong tin hop dong */}
+            {imgUrls && imgUrls?.length > 0 && (
+              <div>
+                <div>
+                  <div className={styles.head_contract}>
+                    <h4>Thông tin hợp đồng</h4>
+                  </div>
+                </div>
+                <div className={styles["frm-2"]}>
+                  {imgUrls?.map((url, index: number) => (
+                    <img alt="hd" src={`${url}`} key={index} />
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Edit field contract */}
+            {newValues && (
+              <div className={styles.field_config}>
+                <div className={styles.footer_contract}>
+                  <h4>Các trường đã thiết lập</h4>
+                </div>
+                {newValues?.map((item: any, index: number) => (
+                  <div
+                    key={index}
+                    className={`${styles["frm-3"]} ${styles["fm-bd"]} ${styles["fm_bt"]} ${styles["fm-fd"]} ${styles.opacity}`}
+                    id="field_config_1"
+                  >
+                    <div className={styles["error-name"]}>
+                      <label className={styles.field_new}>
+                        {item?.newValue}
+                      </label>
+                      <div className={styles.function}>
+                        <button
+                          className={styles.h_edit_cus}
+                          onClick={handleEditField}
+                          disabled={scrolling}
+                        >
+                          <img src="/crm/blue_edit_cus.svg" alt="sửa" /> Sửa |
+                        </button>
+                        <button
+                          onClick={handleDelEditField}
+                          className={styles.h_delete_cus}
+                        >
+                          <img src="/crm/red_delete_cus.svg" alt="Xóa" /> Xóa
+                        </button>
+                      </div>
+                    </div>
+                    <input
+                      type="text"
+                      className={`${styles["form-control"]} ${styles.text}`}
+                      value={displayIndex(item)}
+                      readOnly
+                      placeholder="Nhập nội dung"
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Footer Buttons */}
+            <div className={styles.btn_submit}>
+              <button type="button" onClick={() => setIsModalCancel(true)}>
+                Hủy
+              </button>
+              <button
+                className={styles.save}
+                type="submit"
+                onClick={() => (handleSubmit(), setIsmodal1Open(true))}
+              >
+                Lưu
+              </button>
+              <ModalCompleteStep
+                modal1Open={ismodal1Open}
+                setModal1Open={setIsmodal1Open}
+                title="Thêm mới Hợp đồng thành công!"
+              />
+              <CancelModal
+                isModalCancel={isModalCancel}
+                setIsModalCancel={setIsModalCancel}
+                content={
+                  "Bạn có chắc chắn muốn hủy thêm mới hợp đồng, mọi thông tin bạn nhập sẽ không được lưu lại?"
+                }
+                title={"Xác nhận hủy thêm mới hợp đồng"}
+              />
+            </div>
           </>
         )}
-      </div>
-
-      {/* Thong tin hop dong */}
-      {imgUrls && imgUrls?.length > 0 && (
-        <div>
-          <div>
-            <div className={styles.head_contract}>
-              <h4>Thông tin hợp đồng</h4>
-            </div>
-          </div>
-          <div className={styles["frm-2"]}>
-            {imgUrls?.map((url, index: number) => (
-              <img alt="hd" src={`${url}`} key={index} />
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Edit field contract */}
-      <div className={styles.field_config}>
-        <div className={styles.footer_contract}>
-          <h4>Các trường đã thiết lập</h4>
-        </div>
-        <div
-          className={`${styles["frm-3"]} ${styles["fm-bd"]} ${styles["fm_bt"]} ${styles["fm-fd"]} ${styles.opacity}`}
-          id="field_config_1"
-        >
-          <div className={styles["error-name"]}>
-            <label className={styles.field_new}>quyt</label>
-            <div className={styles.function}>
-              <button
-                className={styles.h_edit_cus}
-                onClick={handleEditField}
-                disabled={scrolling}
-              >
-                <img src="/crm/blue_edit_cus.svg" alt="sửa" /> Sửa |
-              </button>
-              <button
-                onClick={handleDelEditField}
-                className={styles.h_delete_cus}
-              >
-                <img src="/crm/red_delete_cus.svg" alt="Xóa" /> Xóa
-              </button>
-            </div>
-          </div>
-          <input
-            type="text"
-            className={`${styles["form-control"]} ${styles.text}`}
-            value="Từ tìm kiếm: cam, tại các vị trí: 1,6"
-            readOnly
-            placeholder="Nhập nội dung"
-          />
-        </div>
       </div>
     </>
   );
