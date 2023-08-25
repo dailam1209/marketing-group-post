@@ -20,8 +20,8 @@ interface TableDataGroupListCustomerProps {
   setSelectedRow: any;
   setChange: any;
   change: any;
-  data: any;
-  updateData: any;
+  data?: any;
+  updateData?: any;
 }
 
 const TableDataGroupListCustomer: React.FC<TableDataGroupListCustomerProps> = ({

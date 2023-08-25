@@ -29,16 +29,32 @@ const TableStatusCustomer: React.FC<TableStatusCustomerProps> = ({}: any) => {
   const [stt, setStt] = useState<any>("");
   const [id, setId] = useState();
   const [name, setName] = useState();
-  const { data, loading, error, fetchData, updateData, deleteData } = useApi(
-    `${base_url}/api/crm/customerStatus/list`,
-    `${Cookies.get("token_base365")}`,
-    "POST",
-    { stt_name: `${stt}`, pageSize: 10000 }
-  );
+  // const { data, loading, error, fetchData, updateData, deleteData } = useApi(
+  //   `${base_url}/api/crm/customerStatus/list`,
+  //   `${Cookies.get("token_base365")}`,
+  //   "POST",
+  //   { stt_name: `${stt}`, pageSize: 10000 }
+  // );
+
+  const [listStt, setListStt] = useState([]);
+  const fetchData = async () => {
+    const res = await fetch(  `${base_url}/api/crm/customerStatus/list`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${Cookies.get("token_base365")}`,
+      },
+      body: JSON.stringify({ stt_name: `${stt}`, pageSize: 1000}),
+    });
+    const data = await res.json();
+    if (data && data?.data)
+    setListStt(data?.data);
+  };
   useEffect(() => {
     fetchData();
   }, []);
-  const datatable = data?.data.map((item: any, index: number) => {
+
+  const datatable = listStt?.map((item: any, index: number) => {
     return {
       key: index + 1,
       name: item.stt_name,
@@ -48,21 +64,26 @@ const TableStatusCustomer: React.FC<TableStatusCustomerProps> = ({}: any) => {
       stt_id: item.stt_id,
     };
   });
-  const handelChangeSwicth = (e: any, id: any) => {
+
+  const handelChangeSwicth = async(e: any, id: any) => {
     if (!e && id) {
-      updateData(
-        `${base_url}/api/crm/customerStatus/update`,
-        `${Cookies.get("token_base365")}`,
-        "POST",
-        { stt_id: id, status: 0 }
-      );
+    await fetch(  `${base_url}/api/crm/customerStatus/update`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get("token_base365")}`,
+        },
+        body: JSON.stringify( { stt_id: id, status: 0 }),
+      });
     } else {
-      updateData(
-        `${base_url}/api/crm/customerStatus/update`,
-        `${Cookies.get("token_base365")}`,
-        "POST",
-        { stt_id: id, status: 1 }
-      );
+      await fetch(  `${base_url}/api/crm/customerStatus/update`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get("token_base365")}`,
+        },
+        body: JSON.stringify( { stt_id: id, status: 1 }),
+      });
     }
   };
   const [current, setcurrent] = useState(1);
@@ -206,7 +227,7 @@ const TableStatusCustomer: React.FC<TableStatusCustomerProps> = ({}: any) => {
         <AddStatusCustomerModal
           isModalCancel={isOpen}
           setIsModalCancel={setIsOpen}
-          updateData={updateData}
+          updateData={fetchData}
         />
       </div>
       <Table
@@ -230,13 +251,13 @@ const TableStatusCustomer: React.FC<TableStatusCustomerProps> = ({}: any) => {
         title={"Xác nhận xóa tình trạng khách hàng"}
         link={"#"}
         id={id}
-        updateData={updateData}
+        updateData={fetchData}
       />
 
       <EditStatusCustomerModal
         isModalCancel={openSharedModal}
         setIsModalCancel={setOpenSharedModal}
-        updateData={updateData}
+        updateData={fetchData}
         name={name}
         id={id}
       />

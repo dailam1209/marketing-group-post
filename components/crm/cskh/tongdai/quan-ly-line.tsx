@@ -25,6 +25,7 @@ const Recording = (props: Props) => {
   const [option, setOption] = useState();
   const [showKetNoi, setShowKetNoi] = useState(false);
   const dispatch = useDispatch()
+  const [position_id, setPosition_id] = useState();
 
   let arr = [];
   for (var key of Object.keys(listLine)) {
@@ -110,7 +111,7 @@ const Recording = (props: Props) => {
   
   const handleGetNhanVienPhuTrach = async () => {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/list`,
+      `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/listAll`,
       {
         method: "POST",
         headers: {
@@ -121,17 +122,32 @@ const Recording = (props: Props) => {
       }
     );
     const data = await res.json();
-    console.log("nv",data)
     setListNV(data?.data?.items);
   };
+const nv = listNV?.filter((item) => item.position_id == position_id);
 
-  
+  const handleGetInfoCusNV = async () => {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/employee/info`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get("token_base365")}`,
+        },
+        body: JSON.stringify({ com_id: Cookies.get("com_id") }),
+      }
+    );
+    const data = await res.json();
+    if (data && data?.data) setPosition_id(data?.data?.data?.position_id);
+  };
   useEffect(() => {
     if (show) {
       setShowKetNoi(true);
     }
     handleGetLine();
     handleGetNhanVienPhuTrach();
+    handleGetInfoCusNV()
   }, [isShowModalEdit]);
   const handleChangeOption = (value: any) => {
     setOption(value);
@@ -233,8 +249,8 @@ const Recording = (props: Props) => {
                   defaultValue={` ${name}`}
                   onChange={handleChangeOption}
                 >
-                  {listNV &&
-                    listNV?.map((item: any, index) => {
+                  {nv &&
+                    nv?.map((item: any, index) => {
                       return (
                         <option
                           key={index}
