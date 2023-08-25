@@ -87,7 +87,7 @@ const GroupCustomerAdd: React.FC = () => {
     fetchData: fetchDataDetails,
     updateData: updateDataDetails,
   } = useApi(
-    "http://210.245.108.202:3007/api/crm/group/details",
+    `${base_url}/api/crm/group/details`,
     accessToken,
     "POST",
     { gr_id: Number(id) }
@@ -187,12 +187,12 @@ const GroupCustomerAdd: React.FC = () => {
       // });
     }
     // ?.filter((emp) => selectedValueDepartments?.includes(emp.dep_id))
-    const employeeOption = dataEmp?.data?.data
+    const employeeOption = dataEmp?.data?.items
       ?.filter((emp) => selectedValueDepartments?.includes(emp.dep_id))
       ?.map((employee) => {
         return {
-          label: employee.userName,
-          value: employee._id,
+          label: employee.ep_name,
+          value: employee.ep_id,
         };
       });
     setEmployeeOptions(employeeOption);
@@ -248,7 +248,7 @@ const GroupCustomerAdd: React.FC = () => {
     );
 
     setTimeout(() => {
-      const employeeOption = dataEmp?.data?.data
+      const employeeOption = dataEmp?.data?.items
         ?.filter((emp) =>
           dataDetails?.data?.dep_id
             ?.split(",")
@@ -257,8 +257,8 @@ const GroupCustomerAdd: React.FC = () => {
         )
         ?.map((employee) => {
           return {
-            label: employee.userName,
-            value: employee._id,
+            label: employee.ep_id,
+            value: employee.ep_id,
           };
         });
       setEmployeeOptions(employeeOption);
@@ -500,7 +500,7 @@ const GroupCustomerAdd: React.FC = () => {
                   // dataDetails?.data?.dep_id !== "all" &&
                   // dataDetails?.data?.emp_id !== "all"
                   <TableStaffCustomerGroupAdd
-                    dataEmp={dataEmp?.data?.data}
+                    dataEmp={dataEmp?.data?.items}
                     valueSelected={
                       dataTableEmp ||
                       dataDetails?.data?.emp_id

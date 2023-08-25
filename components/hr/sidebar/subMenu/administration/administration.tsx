@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styles from '../../sidebar.module.css'
 import Link from "next/link";
+import Cookies from "js-cookie";
 
 export interface Administration {
 
@@ -12,6 +13,7 @@ export default function Administration({ children }: any) {
         // @ts-ignore
         setActiveButton(buttonIndex);
     };
+    const role = Cookies.get("role");
 
     const link = "phan-mem-nhan-su"
 
@@ -31,7 +33,7 @@ export default function Administration({ children }: any) {
         {
             img: "/vn_hopdong.svg",
             title: 'Hợp đồng và hồ sơ nhân viên',
-            href: 'https://chamcong.timviec365.vn/quan-ly-cong-ty',
+            href: '#',
             target: 'blank',
 
         },
@@ -44,19 +46,19 @@ export default function Administration({ children }: any) {
         {
             img: "/vn_vanthuluutru.svg",
             title: 'Văn thư lưu trữ',
-            href: '/VanThu',
+            href: '/van-thu-luu-tru/quanly-cong-van',
             target: 'blank',
         },
         {
             img: "/vn_dexuat.svg",
             title: 'Đề xuất',
-            href: '/VanThu/trang-quan-ly-de-xuat',
+            href: '/van-thu-luu-tru/trang-quan-ly-de-xuat/de-xuat',
             target: 'blank',
         },
         {
             img: "	/vn_dexuat.svg",
             title: 'Đề xuất cộng đồng',
-            href: '/VanThu/trang-quan-ly-de-xuat',
+            href: '/van-thu-luu-tru/trang-quan-ly-de-xuat/de-xuat',
             target: 'blank',
         },
         {

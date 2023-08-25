@@ -111,7 +111,7 @@ export default function Sidebar(props: SideBarProp) {
     },
     {
       label: "Chuyển đổi số",
-      icon: "		/vn_chuyendoiso.svg",
+      icon: "/vn_chuyendoiso.svg",
       href: 'https://hungha365.com/',
       submenu: '',
       imgWithd: 20,

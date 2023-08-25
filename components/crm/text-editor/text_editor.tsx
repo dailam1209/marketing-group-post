@@ -19,7 +19,7 @@ export default function TextEditor({
   };
 
   const sanitizeContent = (content) => {
-    const cleanContent = content.replace("&nbsp;"," "); // Loại bỏ các thẻ <p> trống và &nbsp;
+    const cleanContent = content.replace("&nbsp;", " "); // Loại bỏ các thẻ <p> trống và &nbsp;
     const sanitizedContent = DOMPurify.sanitize(cleanContent, {
       ALLOWED_TAGS: [], // Để loại bỏ tất cả các thẻ
       ALLOWED_ATTR: [], // Để loại bỏ tất cả các thuộc tính
