@@ -153,7 +153,7 @@ export default function ChamCongCongTy() {
 
     if (res?.result) {
       alert('Điểm danh thành công')
-      setSelectedCa('')
+      setSelectedCa(undefined)
       setReload(!reload)
       setModalDetailCC(false)
     }
