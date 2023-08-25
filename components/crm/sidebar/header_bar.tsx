@@ -9,11 +9,11 @@ export default function HeaderBar({ dataHeader, isOpen }: any) {
     <div className={style.header_bar}>
       <div className={`${style.header_icon} ${!isOpen ? null : "none"}`}>
         <Image
-          width={300}
-          height={200}
+          width={150}
+          height={50}
           className={style.img_icon}
           src={
-            dataHeader?.data?.avatarUser
+            dataHeader?.data?.avatarUser===null
               ? dataHeader?.data?.avatarUser
               : "/logo_com (2).png"
           }
