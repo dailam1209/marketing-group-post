@@ -286,11 +286,14 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
             }}
           >
             {listGr?.map((item: any, index) => {
-              return (
-                <option key={index} value={item?.gr_id}>
-                  {item.gr_name}
-                </option>
-              );
+              if(item?.group_parent == 0){
+                return (
+                  <option key={index} value={item?.gr_id}>
+                    {item.gr_name}
+                  </option>
+                );
+              }
+           
             })}
           </Select>
         </div>
