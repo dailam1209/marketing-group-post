@@ -56,14 +56,11 @@ const List = () => {
 
   const fetchApiUser = () => {
     axios
-      .post(
-        "http://210.245.108.202:3009/api/tinhluong/nhanvien/qly_ho_so_ca_nhan",
-        {
-          token: token,
-          ep_id: ep_id,
-          cp: cp,
-        }
-      )
+      .post(`${domain}/api/tinhluong/nhanvien/qly_ho_so_ca_nhan`, {
+        token: token,
+        ep_id: ep_id,
+        cp: cp,
+      })
       .then((response) => {
         setUser(response.data?.data?.info_dep_com?.user);
       })
