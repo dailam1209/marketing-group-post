@@ -258,4 +258,15 @@ export const LIST_ACTIONS_EMP = [
       },
     ],
   },
+  {
+    key: '5',
+    title: 'Cập nhật khuôn mặt',
+    steps: [
+      {
+        title: 'Cập nhật dữ liệu khuôn mặt',
+        icon: '',
+        url: 'cap-nhat-du-lieu-khuon-mat',
+      },
+    ],
+  },
 ]
