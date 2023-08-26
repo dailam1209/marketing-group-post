@@ -59,7 +59,7 @@ const Table_So_Quy = (props: any) => {
           }}
         >
           <img
-            src="https://crm.timviec365.vn/assets/icons/icon-edit-black.svg"
+            src="/crm/icon-edit-black.svg"
             alt=""
           />
           &nbsp; &nbsp; <p>Chỉnh sửa</p>

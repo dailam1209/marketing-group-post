@@ -12,7 +12,7 @@ export const ColumGCustomer = [{
     width: 200,
     title: 'Đối tượng được chia sẻ	',
     dataIndex: 'name',
-    render: (text: any) => <div style={{ display: "flex", justifyContent: 'center' }}> <div><img src="https://crm.timviec365.vn/assets/img/user_kh.png" alt="" /></div>&nbsp;{text}</div>
+    render: (text: any) => <div style={{ display: "flex", justifyContent: 'center' }}> <div><img src="/crm/user_kh.png" alt="" /></div>&nbsp;{text}</div>
 
 },
 {
@@ -31,7 +31,7 @@ export const ColumGCustomer = [{
     title: 'Người tạo',
     dataIndex: 'companyPhone',
     render: (text: any) => <div style={{ display: "flex", justifyContent: 'center' }}>
-        <div><img src="https://crm.timviec365.vn/assets/img/user_kh.png" alt="" /></div>&nbsp;{text}</div>
+        <div><img src="/crm/user_kh.png" alt="" /></div>&nbsp;{text}</div>
 
 },
 {
@@ -43,7 +43,7 @@ export const ColumGCustomer = [{
     width: 200,
     title: 'Người xoá',
     dataIndex: 'timeDelete',
-    render: (text: any) => <div style={{ display: "flex", justifyContent: 'center' }}> <div><img src="https://crm.timviec365.vn/assets/img/user_kh.png" alt="" /></div>&nbsp;{text}</div>
+    render: (text: any) => <div style={{ display: "flex", justifyContent: 'center' }}> <div><img src="/crm/user_kh.png" alt="" /></div>&nbsp;{text}</div>
 },
 {
     width: 130,

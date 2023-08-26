@@ -16,13 +16,13 @@ export const ColumContract = [{
     width: 265,
     title: 'Người tạo',
     dataIndex: 'name',
-    render: (text: any) => <div style={{ display: "flex", justifyContent: 'center' }}> <div><img src="https://crm.timviec365.vn/assets/img/user_kh.png" alt="" /></div>&nbsp;{text}</div>
+    render: (text: any) => <div style={{ display: "flex", justifyContent: 'center' }}> <div><img src="/crm/user_kh.png" alt="" /></div>&nbsp;{text}</div>
 },
 {
     width: 265,
     title: 'Người xóa',
     dataIndex: 'name',
-    render: (text: any) => <div style={{ display: "flex", justifyContent: 'center' }}> <div><img src="https://crm.timviec365.vn/assets/img/user_kh.png" alt="" /></div>&nbsp;{text}</div>
+    render: (text: any) => <div style={{ display: "flex", justifyContent: 'center' }}> <div><img src="/crm/user_kh.png" alt="" /></div>&nbsp;{text}</div>
 },
 {
     width: 225,

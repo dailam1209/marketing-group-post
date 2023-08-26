@@ -87,7 +87,7 @@ const TableContract: React.FC<TableContractProps> = ({}: any) => {
             <button>
               <img
                 className={styles.icon_edit}
-                src="https://crm.timviec365.vn/assets/img/h_edit_cus.svg"
+                src="/crm/h_edit_cus.svg"
               />
               Sửa
             </button>

@@ -164,7 +164,7 @@ const AddFilesCustomerList: React.FC = () => {
                       width="26"
                       height="26"
                       style={{ margin: "-8px 8px" }}
-                      src="https://crm.timviec365.vn/assets/img/user_kh.png"
+                      src="/crm/user_kh.png"
                     />
                     Nguyễn Văn Nam
                   </div>
@@ -186,7 +186,7 @@ const AddFilesCustomerList: React.FC = () => {
                     Người sửa:
                   </div>
                   <div className={styles.main__body__item__value}>
-                    <img className="img_person"width="26"height="26"style={{ margin: "-8px 8px" }}src="https://crm.timviec365.vn/assets/img/user_kh.png"/>
+                    <img className="img_person"width="26"height="26"style={{ margin: "-8px 8px" }}src="/crm/user_kh.png"/>
                     Nguyễn Văn Nam
                   </div>
                 </div>

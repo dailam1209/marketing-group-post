@@ -53,7 +53,7 @@ const DetailInformationChance: React.FC<PropsDetail> = () => {
               alt="image"
               width={16}
               height={16}
-              src="https://crm.timviec365.vn/assets/icons/edit_kh.svg"
+              src="/crm/edit_kh.svg"
             />
             Chỉnh sửa
           </Link>
@@ -65,7 +65,7 @@ const DetailInformationChance: React.FC<PropsDetail> = () => {
               alt="image"
               width={16}
               height={16}
-              src="https://crm.timviec365.vn/assets/icons/delete_kh.svg"
+              src="/crm/delete_kh.svg"
             />
             Xóa
           </button>

@@ -192,7 +192,7 @@ export default function CustomerListInputGroup({
           <Link href="update">
             <button type="button" className={styles.btn_edit}>
               <img
-                src="https://crm.timviec365.vn/assets/icons/edit_kh.svg"
+                src="/crm/edit_kh.svg"
                 style={{ margin: "-3px 5px" }}
               />
               Chỉnh sửa
@@ -205,7 +205,7 @@ export default function CustomerListInputGroup({
             onClick={() => setIsDelOpen(true)}
           >
             <img
-              src="https://crm.timviec365.vn/assets/icons/delete_kh.svg"
+              src="/crm/delete_kh.svg"
               alt=""
               style={{ margin: "-3px 5px" }}
             />

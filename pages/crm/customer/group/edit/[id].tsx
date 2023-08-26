@@ -130,8 +130,8 @@ const GroupCustomerAdd: React.FC = () => {
 
   useEffect(() => {
     setHeaderTitle("Nhóm khách hàng / Chỉnh sửa");
-    setShowBackButton(false);
-    setCurrentPath("/crm/customer/list");
+    setShowBackButton(true);
+    setCurrentPath("/crm/customer/group/list");
   }, [setHeaderTitle, setShowBackButton, setCurrentPath]);
 
   useEffect(() => {
@@ -317,7 +317,7 @@ const GroupCustomerAdd: React.FC = () => {
                 </div>
 
                 {/* Text Editor */}
-                <div style={{ marginBottom: -20 }}>Mô tả</div>
+                <div className={styles.form_label} >Mô tả</div>
                 <TextEditorGr
                   editorContent={
                     valueGroupCustomer?.gr_description ||
@@ -332,7 +332,7 @@ const GroupCustomerAdd: React.FC = () => {
                     });
                   }}
                 />
-                <div>Danh sách chia sẻ</div>
+                <div className={styles.form_label} >Danh sách chia sẻ</div>
                 {valueGroupCustomer?.group_cus_parent == null &&
                   valueOptionRef?.current?.querySelector(".value_options")
                     .innerHTML === "Chọn" && (

@@ -45,7 +45,7 @@ export default function ChiTietKhaoSat() {
           type="button"
           className={`${styless.dropbtn_add} flex_align_center ${styless.btn_excel}`}
         >
-          <img src="	https://crm.timviec365.vn/assets/icons/edit.svg" alt="" />
+          <img src="	/crm/edit.svg" alt="" />
           <p style={{ color: "#ffffff" }}>Chỉnh sửa</p>
         </button>
         <button
