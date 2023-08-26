@@ -3,6 +3,8 @@ import { Modal } from "antd";
 import styles from "./setting.module.css";
 import { useRouter } from "next/router";
 import ModalCompleteStep from "./complete_modal";
+import Cookies from "js-cookie";
+import { base_url } from "../service/function";
 
 interface MyComponentProps {
   isModalCancel: boolean;
@@ -33,6 +35,20 @@ const ShareActionModal: React.FC<MyComponentProps> = ({
     } else {
       setElements([newElement]);
     }
+  };
+
+  const [listNv, setListNv] = useState([]);
+  const handleGetNv = async () => {
+    const res = await fetch(`${base_url}/api/qlc/managerUser/list`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${Cookies.get("token_base365")}`,
+      },
+      body: JSON.stringify({ com_id: Cookies.get("com_id") }),
+    });
+    const data = await res.json();
+    setListNv(data?.data?.items);
   };
 
   return (
