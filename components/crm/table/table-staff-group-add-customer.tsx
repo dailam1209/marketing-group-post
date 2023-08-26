@@ -11,7 +11,7 @@ import { number } from "yup";
 
 interface DataType {
   key: React.Key;
-  userName: string;
+  ep_name: string;
   nameDeparment: string;
 }
 
@@ -37,17 +37,17 @@ const TableStaffCustomerGroupAdd: React.FC<TableStaffCustomerGroupAddProps> = ({
 
   const newArray = dataEmp?.filter((item) => {
     if (typeof valueSelected === "object") {
-      return valueSelected?.includes(item._id);
+      return valueSelected?.includes(item.ep_id);
     } else {
-      return [valueSelected]?.includes(item._id);
+      return [valueSelected]?.includes(item.ep_id);
     }
   });
 
   const data: DataType[] = newArray?.map((item) => {
     return {
-      key: item._id,
-      nameDeparment: item?.nameDeparment,
-      userName: item?.userName,
+      key: item.ep_id,
+      nameDeparment: item?.dep_name,
+      ep_name: item?.ep_name,
       item: item,
     };
   });
@@ -79,7 +79,7 @@ const TableStaffCustomerGroupAdd: React.FC<TableStaffCustomerGroupAddProps> = ({
   const columns: ColumnsType<DataType> = [
     {
       title: "Tên nhân viên",
-      dataIndex: "userName",
+      dataIndex: "ep_name",
       key: "1",
       width: 200,
     },
@@ -118,6 +118,8 @@ const TableStaffCustomerGroupAdd: React.FC<TableStaffCustomerGroupAddProps> = ({
       ),
     },
   ];
+
+  console.log(newArray)
   return (
     <>
       <div className="custom_table product_return">

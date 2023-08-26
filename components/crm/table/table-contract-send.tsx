@@ -1,37 +1,39 @@
 import React, { useState, useEffect } from "react";
 import styles from "../contract/contract.module.css";
-import { Table, Tooltip } from "antd";
+import { Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import Link from "next/link";
-import { useApi } from "../hooks/useApi";
-import { useRouter } from "next/router";
+import { el } from "date-fns/locale";
 
 interface DataType {
-  key: React.Key;
+  key: any;
   name: string;
-  ep_id: string;
-  position: string;
+  ep_id: any;
+  positions: string;
   department: string;
+  employees: any;
 }
 
 interface TableDataContracDrops {
-  selectedDepartment;
-  selectedEmployee;
-  selectedPosition;
-  data;
+  selectedDepartment: string;
+  selectedEmployee: string;
+  selectedPosition: string;
+  data: any[];
+  dataFromSelectDataBox: any;
+  selectedValue: any;
 }
 
 const TableDataContractSend: React.FC<TableDataContracDrops> = ({
   selectedDepartment,
   selectedEmployee,
+  selectedValue,
   selectedPosition,
   data,
+  dataFromSelectDataBox,
 }: any) => {
-  const router = useRouter();
-  const { id } = router.query;
-
   const [isSelectionReady, setIsSelectionReady] = useState(false);
-  const [tableData, setTableData] = useState<DataType[]>([]);
+  const [sendData, setSendData] = useState<any[]>([]);
+  const [dataTable, setDataTable] = useState([]);
+  console.log(sendData);
 
   useEffect(() => {
     if (selectedDepartment && selectedEmployee) {
@@ -42,33 +44,30 @@ const TableDataContractSend: React.FC<TableDataContracDrops> = ({
   }, [selectedDepartment, selectedEmployee]);
 
   useEffect(() => {
-    if (data && isSelectionReady) {
-      const filteredData = data.filter((item: any) => {
-        return (
-          item.department === selectedDepartment &&
-          item.employees.includes(selectedEmployee)
-        );
-      });
+    const newData = data.filter((item) =>
+      item?.employees?.includes(selectedEmployee)
+    );
+    const newData2 = newData.map((el, index) => {
+      return {
+        department: el?.department,
+        employees: selectedEmployee,
+        positions: el.positions?.[0],
+      };
+    });
 
-      const newTableData = filteredData.map((item: any, index: number) => {
-        return {
-          key: index + 1,
-          ep_id: 123456,
-          position: item.positions,
-        };
+    if (newData2 && newData2[0]) {
+      setSendData((prev) => {
+        if (prev) {
+          return [...prev, newData2[0]];
+        }
       });
-
-      setTableData((prevTableData) => [
-        ...prevTableData,
-        {
-          key: prevTableData.length + 1,
-          department: selectedDepartment,
-          employee: selectedEmployee,
-          ...newTableData[0],
-        },
-      ]);
     }
-  }, [data, selectedDepartment, selectedEmployee, isSelectionReady]);
+  }, [selectedValue]);
+
+  const handleDelete = (record: DataType) => {
+    const updatedData = dataTble.filter((item) => item.key !== record.key);
+    setSendData(updatedData);
+  };
 
   const columns: ColumnsType<DataType> = [
     {
@@ -81,18 +80,18 @@ const TableDataContractSend: React.FC<TableDataContracDrops> = ({
       title: "ID nhân viên",
       width: 200,
       dataIndex: "ep_id",
-      key: "0",
+      key: "ep_id",
     },
     {
       title: "Họ và tên",
-      dataIndex: "employee",
-      key: "1",
+      dataIndex: "employees",
+      key: "employees",
       width: 150,
     },
     {
       title: "Chức vụ",
-      dataIndex: "position",
-      key: "2",
+      dataIndex: "positions",
+      key: "positions",
       width: 130,
     },
     {
@@ -104,25 +103,33 @@ const TableDataContractSend: React.FC<TableDataContracDrops> = ({
     {
       title: "Thao tác",
       dataIndex: "action",
-      key: "4",
+      key: "action",
       width: 120,
-      render: () => (
-        <>
-          <button>
-            <img className={styles.icon_delete} src="/crm/h_delete_cus.svg" />
-            Xóa
-          </button>
-        </>
+      render: (_, record) => (
+        <button onClick={() => handleDelete(record)}>
+          <img className={styles.icon_delete} src="/crm/h_delete_cus.svg" />
+          Xóa
+        </button>
       ),
     },
   ];
 
+  const dataTble = sendData.map((el, index) => {
+    return {
+      department: el?.department,
+      employees: el?.employees,
+      positions: el?.positions,
+      key: index + 1,
+      ep_id: 123456,
+    };
+  });
+
   return (
     <div className="custom_table">
-      {isSelectionReady && (
+      {sendData && sendData?.length > 0 && (
         <Table
           columns={columns}
-          dataSource={tableData}
+          dataSource={dataTble ? dataTble : null}
           bordered
           scroll={{ x: 1000, y: 1100 }}
         />

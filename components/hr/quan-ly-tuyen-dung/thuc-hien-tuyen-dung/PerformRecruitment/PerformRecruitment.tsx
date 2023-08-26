@@ -18,7 +18,7 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
   const [listSchedule, setListSchedule] = useState<any>()
   const [currentPageListNewActive, setCurrentPageListNewActive] = useState(1)
   const [currentPageListSchedule, setCurrentPageLisSchedule] = useState(1)
-
+  const currentTime = Date.now()
   useEffect(() => {
     const getDataRecruitmentOverview = async () => {
       try {
@@ -31,8 +31,9 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
     }
     getDataRecruitmentOverview()
   }, [currentPageListNewActive])
+  const filteredData = messIsOpen?.data?.data.filter(item => new Date(item.recruitment_time_to).getTime() > currentTime);
+  console.log(filteredData)
 
-  console.log(listSchedule, "đây nè")
   useEffect(() => {
     try {
       const GetDataListSchedule = async () => {
@@ -46,7 +47,7 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
     } catch (err) { }
   }, [currentPageListSchedule])
 
-  const currentTime = Date.now()
+ console.log(messIsOpen)
 
   const handleClickColor = (buttonId: any) => {
     setSelectedButton(buttonId)
@@ -92,14 +93,11 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
               </div>
               <hr></hr>
               {/* body map ở đây */}
-              {messIsOpen?.data?.total === 0 ? (
+              {filteredData?.length === 0 ? (
                 <p className={`${styles.data_empty}`}>Không có dữ liệu</p>
               ) : (
-                messIsOpen?.data?.data.map((item, index) => {
-                  const timeEnd = new Date(item.recruitment_time_to).getTime()
-                  if (currentTime > timeEnd) {
-                    return null
-                  }
+                filteredData?.map((item, index) => {
+                 
                   return (
                     <div
                       key={item.id}
@@ -173,11 +171,11 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
                 })
               )}
               {/* end ở đây */}
-              {messIsOpen?.data?.data.length > 0 && (
+              {filteredData?.length > 0 && (
                 <div className={`${styles.pagination}`}>
                   <MyPagination
                     current={currentPageListNewActive}
-                    total={messIsOpen?.data?.total}
+                    total={filteredData?.length}
                     pageSize={3}
                     onChange={(page) => handlePageListNewActive(page)}
                   />
