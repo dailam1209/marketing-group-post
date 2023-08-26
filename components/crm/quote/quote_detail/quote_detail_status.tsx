@@ -33,7 +33,7 @@ export default function AddQuoteDetailStatus() {
           <div className={styles.row1quote_right} style={{ display: "flex",gap:5}}>
             <div>
               <img
-                src="https://crm.timviec365.vn/assets/img/user_kh.png"
+                src="/crm/user_kh.png"
                 alt=""
               />{" "}
             </div>
@@ -64,7 +64,7 @@ export default function AddQuoteDetailStatus() {
           <div className={styles.row1quote_right} style={{ display: "flex",gap:5 }}>
             <div>
               <img
-                src="https://crm.timviec365.vn/assets/img/user_kh.png"
+                src="/crm/user_kh.png"
                 alt=""
               />{" "}
             </div>
@@ -96,7 +96,7 @@ export default function AddQuoteDetailStatus() {
           </div>
           <div>
             <img
-              src="	https://crm.timviec365.vn/assets/icons/dungchung_kh.svg"
+              src="	/crm/dungchung_kh.svg"
               alt=""
             />
           </div>

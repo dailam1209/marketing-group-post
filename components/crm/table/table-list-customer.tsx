@@ -343,7 +343,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
             <button className={styles.icon_edit}>
               <img
                 style={{ marginRight: "8px" }}
-                src="https://crm.timviec365.vn/assets/img/h_edit_cus.svg"
+                src="/crm/h_edit_cus.svg"
               />
               Chỉnh sửa
             </button>

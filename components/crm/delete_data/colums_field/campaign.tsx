@@ -46,13 +46,13 @@ export const ColumCampaign = [{
     width: 167,
     title: 'Người phụ trách',
     dataIndex: 'name',
-    render: (text: any) => <div style={{ display: "flex", justifyContent: 'center' }}> <div><img src="https://crm.timviec365.vn/assets/img/user_kh.png" alt="" /></div>&nbsp;{text}</div>
+    render: (text: any) => <div style={{ display: "flex", justifyContent: 'center' }}> <div><img src="/crm/user_kh.png" alt="" /></div>&nbsp;{text}</div>
 },
 {
     width: 167,
     title: 'Người xóa',
     dataIndex: 'name',
-    render: (text: any) => <div style={{ display: "flex", justifyContent: 'center' }}> <div><img src="https://crm.timviec365.vn/assets/img/user_kh.png" alt="" /></div>&nbsp;{text}</div>
+    render: (text: any) => <div style={{ display: "flex", justifyContent: 'center' }}> <div><img src="/crm/user_kh.png" alt="" /></div>&nbsp;{text}</div>
 },
 {
     width: 144,

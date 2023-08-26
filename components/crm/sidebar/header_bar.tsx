@@ -9,8 +9,8 @@ export default function HeaderBar({ dataHeader, isOpen }: any) {
     <div className={style.header_bar}>
       <div className={`${style.header_icon} ${!isOpen ? null : "none"}`}>
         <Image
-          width={150}
-          height={50}
+          width={120}
+          height={60}
           className={style.img_icon}
           src={
             dataHeader?.data?.avatarUser===null

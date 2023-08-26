@@ -34,7 +34,7 @@ export const ColumOrder = [{
     width: 168,
     title: 'Người thực hiện',
     dataIndex: 'name',
-    render: (text: any) => <div style={{ display: "flex", justifyContent: 'center' }}> <div><img src="https://crm.timviec365.vn/assets/img/user_kh.png" alt="" /></div>&nbsp;{text}</div>
+    render: (text: any) => <div style={{ display: "flex", justifyContent: 'center' }}> <div><img src="/crm/user_kh.png" alt="" /></div>&nbsp;{text}</div>
 
 },
 {
@@ -59,7 +59,7 @@ export const ColumOrder = [{
     width: 167,
     title: 'Người xóa',
     dataIndex: 'name',
-    render: (text: any) => <div style={{ display: "flex", justifyContent: 'center' }}> <div><img src="https://crm.timviec365.vn/assets/img/user_kh.png" alt="" /></div>&nbsp;{text}</div>
+    render: (text: any) => <div style={{ display: "flex", justifyContent: 'center' }}> <div><img src="/crm/user_kh.png" alt="" /></div>&nbsp;{text}</div>
 },
 {
     width: 144,
