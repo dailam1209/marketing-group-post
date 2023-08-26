@@ -87,10 +87,6 @@ export default function DetailHrReport({ children }: any) {
   const [OrganisationalDatas, setOrganisationalData] = useState<any>()
   const [isTypeResonse, setTypeResonse] = useState<any>(null)
 
-  console.log(isOrganisationalList);
-  console.log(PostionCharDatas);
-  console.log(isTypeResonse);
-
   const router = useRouter()
   const link: any = router.asPath.split('/').pop()
   const index: number = link.indexOf('?')
@@ -281,7 +277,12 @@ export default function DetailHrReport({ children }: any) {
             }
           }
         } else {
-          if (link_cut !== '[idDetailHrReport].html') {
+          if (link_cut !== '[idDetailHrReport].html'
+            && (!link_cut.includes("-t0-")
+              && !link_cut.includes("-t1-")
+              && !link_cut.includes("-t2-")
+            )
+          ) {
             formData.append('link', link_cut)
             const response = await DetailReport(formData)
             setReportList(response?.data)
@@ -461,7 +462,7 @@ export default function DetailHrReport({ children }: any) {
       }
     }
     fetchData()
-  }, [currentPage, isPosition_id, isGender, isMaried, isDep_id, isTeam_id, isGroup_id, isTypeResonse])
+  }, [link, currentPage, isPosition_id, isGender, isMaried, isDep_id, isTeam_id, isGroup_id, isTypeResonse])
 
   console.log(isTypeResonse);
 
@@ -726,7 +727,7 @@ export default function DetailHrReport({ children }: any) {
                               parseISO(
                                 new Date(item?.birthday * 1000).toISOString()
                               ),
-                              'yyyy-MM-dd'
+                              'dd-MM-yyyy'
                             )}
                           </td>
                         ) : (
@@ -734,15 +735,15 @@ export default function DetailHrReport({ children }: any) {
                         )}
                         <td>
                           {item?.married === 1
-                            ? 'Đã có gia đình'
+                            ? 'Độc thân'
                             : item?.married === 2
-                              ? 'Độc thân'
+                              ? 'Đã có gia đình'
                               : 'Chưa cập nhật'}
                         </td>
                         <td>
-                          <p>Email:{item?.emailContact}</p>
-                          <p>SDT: {item?.phone}</p>
-                          <p>Địa chỉ: {item.phone}</p>
+                          <p>Email:{item?.emailContact || item?.email}</p>
+                          <p>SDT: {item?.phone || item?.phoneTK}</p>
+                          <p>Địa chỉ: {item.address}</p>
                         </td>
                         {item?.start_working_time ? (
                           <td>
@@ -752,7 +753,7 @@ export default function DetailHrReport({ children }: any) {
                                   item?.start_working_time * 1000
                                 ).toISOString()
                               ),
-                              'yyyy-MM-dd'
+                              'dd-MM-yyyy'
                             )}
                           </td>
                         ) : (
@@ -801,7 +802,7 @@ export default function DetailHrReport({ children }: any) {
                                       item?.birthday * 1000
                                     ).toISOString()
                                   ),
-                                  'yyyy-MM-dd'
+                                  'dd-MM-yyyy'
                                 )}
                               </td>
                             ) : (
@@ -809,14 +810,14 @@ export default function DetailHrReport({ children }: any) {
                             )}
                             <td>
                               {item?.married === 1
-                                ? 'Đã có gia đình'
+                                ? 'Độc thân'
                                 : item?.married === 2
-                                  ? 'Độc thân'
+                                  ? 'Đã có gia đình'
                                   : 'Chưa cập nhật'}
                             </td>
                             <td>
-                              <p>Email:{item?.email}</p>
-                              <p>SDT: {item?.phoneTK}</p>
+                              <p>Email:{item?.email || item?.emailContact}</p>
+                              <p>SDT: {item?.phone || item?.phoneTK}</p>
                               <p>Địa chỉ: {item.address}</p>
                             </td>
                             {item?.start_working_time ? (
@@ -827,7 +828,7 @@ export default function DetailHrReport({ children }: any) {
                                       item?.start_working_time * 1000
                                     ).toISOString()
                                   ),
-                                  'yyyy-MM-dd'
+                                  'dd-MM-yyyy'
                                 )}
                               </td>
                             ) : (
