@@ -9,8 +9,16 @@ import EditModalCollectiveDiscipline from "../collectiveDiscipline/editModalColl
 import EditModalListDiscipline from "../disciplineList/editModalListDiscipline/EditModalListDiscipline";
 import { format } from "date-fns";
 
-function PunishmentTable({ display, data, violators, model, keyWords, updateData, iconAdd, iconEdit }: any) {
-
+function PunishmentTable({
+  display,
+  data,
+  violators,
+  model,
+  keyWords,
+  updateData,
+  iconAdd,
+  iconEdit,
+}: any) {
   const [visible, setVisible] = useState(true);
   const [typeModal, setTypeModal] = useState(model);
   const [open, setOpen] = useState(false);
@@ -18,8 +26,6 @@ function PunishmentTable({ display, data, violators, model, keyWords, updateData
   const [animateModal, setAnimateModal] = useState(false);
   const [dataEdit, setDataEdit] = useState<any>();
 
-
-  console.log(data)
   const handleCloseModal = () => {
     setAnimateModal(false);
     setTimeout(() => {
@@ -151,11 +157,15 @@ function PunishmentTable({ display, data, violators, model, keyWords, updateData
                 <p>Không có dư liệu</p>
               ) : (
                 data?.data?.map((item: any) => {
-                  let formattedDate: any = null
-                  {item.created_at ? formattedDate = format(
-                    new Date(item?.infringe_at || ''),
-                    "dd-MM-yyyy"
-                  ) : 'null'}
+                  let formattedDate: any = null;
+                  {
+                    item.created_at
+                      ? (formattedDate = format(
+                          new Date(item?.infringe_at || ""),
+                          "dd-MM-yyyy"
+                        ))
+                      : "null";
+                  }
                   return (
                     <tr key={item.id} style={{ height: "37px" }}>
                       <td>{item.id}</td>
@@ -170,35 +180,35 @@ function PunishmentTable({ display, data, violators, model, keyWords, updateData
                           <span>{item.list_user_name}</span>
                         ) : (
                           <span>{item.dep_name}</span>
-                          
                         )}
                       </td>
-                      {iconEdit && <td
-                        className={`${styles.r_t_top_right}`}
-                        style={{
-                          position: "relative",
-                          width: "110px",
-                          opacity: "1",
-                        }}
-                        onMouseEnter={() => setVisible(true)}
-                        onMouseLeave={() => setVisible(false)}
-                      >
-                        <img
-                          src={`/3cham.png`}
-                          alt="Tùy chỉnh"
-                          style={{ paddingTop: "6px" }}
-                        />
+                      {iconEdit && (
+                        <td
+                          className={`${styles.r_t_top_right}`}
+                          style={{
+                            position: "relative",
+                            width: "110px",
+                            opacity: "1",
+                          }}
+                          onMouseEnter={() => setVisible(true)}
+                          onMouseLeave={() => setVisible(false)}
+                        >
+                          <img
+                            src={`/3cham.png`}
+                            alt="Tùy chỉnh"
+                            style={{ paddingTop: "6px" }}
+                          />
 
-                        {visible && (
-                          <div
-                            className={styles.settings}
-                            onClick={() => handleEdit(item)}
-                          >
-                            <li>Chỉnh sửa</li>
-                          </div>
-                        )}
-                      </td>}
-
+                          {visible && (
+                            <div
+                              className={styles.settings}
+                              onClick={() => handleEdit(item)}
+                            >
+                              <li>Chỉnh sửa</li>
+                            </div>
+                          )}
+                        </td>
+                      )}
                     </tr>
                   );
                 })

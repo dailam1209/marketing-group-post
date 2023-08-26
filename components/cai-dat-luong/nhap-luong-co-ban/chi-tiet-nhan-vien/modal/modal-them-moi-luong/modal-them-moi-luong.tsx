@@ -8,20 +8,20 @@ import {
   Checkbox,
   DatePicker,
   InputNumber,
-} from 'antd';
-import styles from './modal-them-moi-luong.module.css';
-import Image from 'next/image';
-import { values } from 'lodash';
-import React, { useState } from 'react';
+} from 'antd'
+import styles from './modal-them-moi-luong.module.css'
+import Image from 'next/image'
+import { values } from 'lodash'
+import React, { useState } from 'react'
 import {
   Logo,
   IconSelect,
-} from '@/components/cai-dat-luong/cai-dat-thue/danh-sach-nhan-su-chua-thiet-lap/anh';
-import moment from 'moment';
-import { POST_TL } from '@/pages/api/BaseApi';
-import { useRouter } from 'next/router';
-import dayjs from 'dayjs';
-const { TextArea } = Input;
+} from '@/components/cai-dat-luong/cai-dat-thue/danh-sach-nhan-su-chua-thiet-lap/anh'
+import moment from 'moment'
+import { POST_TL } from '@/pages/api/BaseApi'
+import { useRouter } from 'next/router'
+import dayjs from 'dayjs'
+const { TextArea } = Input
 const loai = [
   {
     value: 0,
@@ -39,18 +39,18 @@ const loai = [
     value: 3,
     label: 'Theo ngày công',
   },
-];
+]
 export function ModalThemMoiLuong(
   open: boolean,
   setOpen: Function,
   key: any,
   info: any
 ) {
-  const [form] = Form.useForm();
-  const router = useRouter();
+  const [form] = Form.useForm()
+  const router = useRouter()
   const handelSubmit = (event: any) => {
-    event.preventDefaut();
-  };
+    event.preventDefaut()
+  }
   const onFinish = async (val) => {
     const body = {
       // sb_salary_basic: val?.sb_salary_basic,
@@ -64,30 +64,29 @@ export function ModalThemMoiLuong(
       sb_quyetdinh: val?.sb_quyetdinh || '',
       sb_salary_bh: val?.sb_salary_bh || 0,
       sb_pc_bh: val?.sb_pc_bh || 0,
-    };
-    console.log(body);
-    const res = await POST_TL('api/tinhluong/congty/insert_basic_salary', body);
-    console.log(res);
+    }
+    console.log(body)
+    const res = await POST_TL('api/tinhluong/congty/insert_basic_salary', body)
+    console.log(res)
 
     // console.log(body)
-    router.replace(router.asPath);
-  };
+    router.replace(router.asPath)
+  }
 
   return (
     <Modal
-      className="bannerQLC"
+      className='bannerQLC'
       open={open}
       onCancel={() => setOpen(false)}
       width={600}
       closable={false}
       cancelButtonProps={{ style: { display: 'none' } }}
-      okButtonProps={{ style: { display: 'none' } }}
-    >
+      okButtonProps={{ style: { display: 'none' } }}>
       <div className={styles.header}>
         <div></div>
         <div className={styles.textHead}>Thêm lương cơ bản</div>
         <Image
-          alt="/"
+          alt='/'
           src={'/cross.png'}
           width={14}
           height={14}
@@ -99,29 +98,28 @@ export function ModalThemMoiLuong(
           <Form form={form} onFinish={onFinish}>
             <Form.Item
               labelCol={{ span: 24 }}
-              label="Lương cơ bản"
+              label='Lương cơ bản'
               name={'sb_salary_basic'}
               rules={[
                 {
                   required: true,
                   message: 'Trường này là bắt buộc',
                 },
-              ]}
-            >
+              ]}>
               <InputNumber
-                size="large"
-                placeholder="Nhập lương"
+                size='large'
+                placeholder='Nhập lương'
                 className={styles.inputname}
                 formatter={(value) =>
                   `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
                 }
                 style={{ width: '100%' }}
-                suffix="VNĐ"
+                suffix='VNĐ'
               />
             </Form.Item>
 
             <Form.Item
-              label="Loại hình tính lương"
+              label='Loại hình tính lương'
               name={'sb_type'}
               rules={[
                 {
@@ -129,11 +127,10 @@ export function ModalThemMoiLuong(
                   message: 'Trường này là bắt buộc',
                 },
               ]}
-              labelCol={{ span: 24 }}
-            >
+              labelCol={{ span: 24 }}>
               <Select
-                size="large"
-                placeholder="Chọn"
+                size='large'
+                placeholder='Chọn'
                 className={styles.inputname}
                 options={loai}
                 defaultValue={1}
@@ -143,7 +140,7 @@ export function ModalThemMoiLuong(
 
             <Form.Item
               labelCol={{ span: 24 }}
-              label="Lương đóng bảo hiểm"
+              label='Lương đóng bảo hiểm'
               name={'pc'}
               // rules={[
               //   {
@@ -153,16 +150,16 @@ export function ModalThemMoiLuong(
               // ]}
             >
               <Input
-                size="large"
-                placeholder="Nhập lương đóng bảo hiểm"
+                size='large'
+                placeholder='Nhập lương đóng bảo hiểm'
                 className={styles.inputname}
-                suffix="VNĐ"
+                suffix='VNĐ'
               />
             </Form.Item>
 
             <Form.Item
               labelCol={{ span: 24 }}
-              label="Phụ cấp đóng bảo hiểm"
+              label='Phụ cấp đóng bảo hiểm'
               name={'luong'}
               // rules={[
               //   {
@@ -172,32 +169,31 @@ export function ModalThemMoiLuong(
               // ]}
             >
               <Input
-                size="large"
-                placeholder="Nhập lương"
+                size='large'
+                placeholder='Nhập lương'
                 className={styles.inputname}
-                suffix="VNĐ"
+                suffix='VNĐ'
               />
             </Form.Item>
             <Form.Item
               labelCol={{ span: 24 }}
-              label="Thời gian áp dụng"
+              label='Thời gian áp dụng'
               name={'sb_time_up'}
               rules={[
                 {
                   required: true,
                   message: 'Trường này là bắt buộc',
                 },
-              ]}
-            >
+              ]}>
               <DatePicker
-                size="large"
+                size='large'
                 style={{ width: '100%' }}
                 format={'DD-MM-YYYY'}
-                placeholder="Chọn ngày"
+                placeholder='Chọn ngày'
                 className={styles.inputname}
               />
             </Form.Item>
-            <Form.Item label="Lý do" name={'sb_lydo'} labelCol={{ span: 24 }}>
+            <Form.Item label='Lý do' name={'sb_lydo'} labelCol={{ span: 24 }}>
               <TextArea
                 style={{
                   resize: 'none',
@@ -205,7 +201,7 @@ export function ModalThemMoiLuong(
                   border: '1px solid #9f9f9f',
                 }}
                 rows={5}
-                placeholder="Nhập ghi chú (nếu có)"
+                placeholder='Nhập ghi chú (nếu có)'
               />
             </Form.Item>
 
@@ -223,32 +219,16 @@ export function ModalThemMoiLuong(
               />
             </Form.Item> */}
 
-            <Form.Item
-              label="Căn cứ quyết định"
-              name={'sb_quyetdinh'}
-              labelCol={{ span: 24 }}
-            >
-              <Input
-                // size="large"
-                type="text"
-                placeholder="Căn cứ quyết định (nếu có)"
-                className={styles.inputname}
-                // options={loai}
-                // suffixIcon={<IconSelect />}
-              />
-            </Form.Item>
-
             <div
               style={{
                 display: 'flex',
                 justifyContent: 'center',
                 marginTop: '20px',
-              }}
-            >
+              }}>
               <button className={styles.huyb} onClick={() => setOpen(false)}>
                 <p className={styles.texthuyb}>Huỷ bỏ</p>
               </button>
-              <button className={styles.luu} type="submit">
+              <button className={styles.luu} type='submit'>
                 <p className={styles.textluu}>Thêm mới</p>
               </button>
             </div>
@@ -256,5 +236,5 @@ export function ModalThemMoiLuong(
         </div>
       </div>
     </Modal>
-  );
+  )
 }

@@ -28,9 +28,9 @@ interface PropsComponent {
   setnhomCha: any;
   nhomCon: any;
   setnhomCon: any;
-  setDatatable:any;
-  setloading:any;
-  setgroup_id:any
+  setDatatable: any;
+  setloading: any;
+  setgroup_id: any;
 }
 
 const CustomerListFilterBox: React.FC<PropsComponent> = ({
@@ -50,20 +50,20 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
   setnhomCon,
   setDatatable,
   setloading,
-  setgroup_id
+  setgroup_id,
 }) => {
   const [valueSelectStatus, setValueSelectStatus] = useState<any>();
   const [valueResoure, sevalueResoure] = useState<any>();
   const [listGr_Child, setlistGr_Child] = useState([]);
+  const [check, setCheck] = useState(false);
   const uniqueUserNames = Array.from(
     new Set(datatable?.map((item) => item.userName))
   );
-    const handlefilter = async() =>{
-      setDatatable([])
-      setloading(true)
-      setOpen(false), 
-      await fetchData();
-    }
+  const handlefilter = async () => {
+    setDatatable([]);
+    setloading(true);
+    setOpen(false), await fetchData();
+  };
   const handleChangeStt = (value: any) => {
     setValueSelectStatus(value);
     setStatus(value);
@@ -148,6 +148,14 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
     handleGetInfoCus();
     handleGetInfoCusNV();
   }, []);
+  const handleSelectNhomCha = (value) => {
+    setnhomCha(value);
+    if (value > 0) {
+      setCheck(true);
+    } else {
+      setCheck(false);
+    }
+  };
   const nv = listNV?.filter((item) => item.position_id == position_id);
   return (
     <>
@@ -211,8 +219,10 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
               borderRadius: 7,
             }}
             onChange={handleChangeStt}
+            defaultValue={""}
             value={valueSelectStatus}
           >
+            <option value={""}>Tất cả</option>
             {dataStatusCustomer &&
               dataStatusCustomer.map((item, index) => {
                 return (
@@ -226,7 +236,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
         <div className={styles.form_group}>
           <div className={styles.label}>Nguồn khách hàng</div>
           <Select
-            defaultValue={"Tất cả"}
+            defaultValue={""}
             suffixIcon={
               <i
                 style={{ color: "black" }}
@@ -241,9 +251,10 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
             value={valueResoure}
             onChange={handleChangeResource}
           >
+            <option value={""}>Tất cả</option>
             <option value={1}>{" Facebook"}</option>
-            <option value={3}>{" Zalo"}</option>
-            <option value={2}>{" Website"}</option>
+            <option value={2}>{" Zalo"}</option>
+            <option value={3}>{" Website"}</option>
             <option value={4}>{" Dữ liệu bên thứ 3"}</option>
             <option value={5}>{" Khách hàng giới thiệu"}</option>
             <option value={6}>{" Giới thiệu"}</option>
@@ -261,6 +272,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
             >
               <input
                 type="checkbox"
+                checked={check}
                 id="group_pins"
                 data-status={0}
                 style={{ marginRight: 5 }}
@@ -271,8 +283,8 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
           </div>
           <Select
             value={nhomCha}
-            onChange={(value) => setnhomCha(value)}
-            defaultValue={"Tất cả"}
+            onChange={(value) => handleSelectNhomCha(value)}
+            defaultValue={""}
             suffixIcon={
               <i
                 style={{ color: "black" }}
@@ -285,12 +297,17 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
               borderRadius: 7,
             }}
           >
+            {" "}
+            <option value={""}>Tất cả</option>
+            <option value={0}>Chưa cập nhật</option>
             {listGr?.map((item: any, index) => {
-              return (
-                <option key={index} value={item?.gr_id}>
-                  {item.gr_name}
-                </option>
-              );
+              if (item?.group_parent == 0) {
+                return (
+                  <option key={index} value={item?.gr_id}>
+                    {item.gr_name}
+                  </option>
+                );
+              }
             })}
           </Select>
         </div>
@@ -301,6 +318,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
             <Select
               value={nhomCon}
               onChange={(value) => setnhomCon(value)}
+              defaultValue={""}
               suffixIcon={
                 <i
                   style={{ color: "black" }}
@@ -313,15 +331,26 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
                 borderRadius: 7,
               }}
             >
-              {listGr_Child?.map((item: any, index) => {
-                if (item.group_parent === nhomCha) {
-                  return (
-                    <option key={index} value={item?.gr_id}>
-                      {item.gr_name}
-                    </option>
-                  );
-                }
-              })}
+              <option value={""}>Tất cả</option>
+              {check
+                ? listGr_Child?.map((item: any, index) => {
+                    if (item.group_parent === nhomCha) {
+                      return (
+                        <option key={index} value={item?.gr_id}>
+                          {item.gr_name}
+                        </option>
+                      );
+                    }
+                  })
+                : listGr?.map((item: any, index) => {
+                    if (item?.group_parent == 0) {
+                      return (
+                        <option key={index} value={item?.gr_id}>
+                          {item.gr_name}
+                        </option>
+                      );
+                    }
+                  })}
             </Select>
           </div>
         </div>
@@ -366,7 +395,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
                   className="bi bi-caret-down-fill"
                 ></i>
               }
-              style={{ width: "100%", border: "1px solid black" }}
+              style={{ width: "100%", border: "1px solid black",borderRadius:7 }}
               value={userNameCreate}
               onChange={handleChangeNameCreate}
             >
@@ -396,7 +425,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
         </button>
         <button
           onClick={async () => {
-           handlefilter()
+            handlefilter();
           }}
           type="submit"
           className={styles.btn_apply}

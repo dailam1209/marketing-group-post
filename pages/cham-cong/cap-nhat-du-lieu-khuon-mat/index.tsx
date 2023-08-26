@@ -40,18 +40,19 @@ export default function UpdateFace() {
           fd.append('isAndroid', 'false')
           const res = await axios.post(
             // 'http://43.239.223.154:8081/updateFace',
-            '/api/api_updateFace',
-            {
-              company_id: comp_id,
-              user_id: user_id,
-              image: imgData,
-              isAndroid: 'false',
-            },
-            // fd,
+            `${process.env.NEXT_PUBLIC_API}/api/qlc/ai/updateFace`,
+            // '/api/api_updateFace',
+            // {
+            //   company_id: comp_id,
+            //   user_id: user_id,
+            //   image: imgData,
+            //   isAndroid: 'false',
+            // },
+            fd,
             {
               headers: {
-                'Content-Type': 'application/json',
-                // 'Content-Type': 'multipart/form-data',
+                // 'Content-Type': 'application/json',
+                'Content-Type': 'multipart/form-data',
               },
             }
           )

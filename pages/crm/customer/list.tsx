@@ -44,7 +44,7 @@ export default function CustomerList() {
   const [nvPhuTrach, setnvPhuTrach] = useState();
   const [nhomCha, setnhomCha] = useState();
   const [nhomCon, setnhomCon] = useState();
-  const [loading, setloading] = useState(true)
+  const [loading, setloading] = useState(true);
 
   const [userNameCreate, setuserNameCreate] = useState();
   const [isLoading, setLoading] = useState(true);
@@ -53,7 +53,7 @@ export default function CustomerList() {
   const [pageSize, setPageSize] = useState(10);
   const [totalRecords, setTotalRecords] = useState();
   const [dataStatus, setdataStatus] = useState<any>();
-  const [group_id,setgroup_id] = useState()
+  const [group_id, setgroup_id] = useState();
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
   const fetchData = async () => {
@@ -71,14 +71,14 @@ export default function CustomerList() {
         resoure: resoure,
         user_create_id: nvPhuTrach,
         userNameCreate: userNameCreate,
-        group_id:nhomCha,
-        group_pins_id:nhomCon
+        group_id: nhomCha,
+        group_pins_id: nhomCon,
       }),
     });
     const data = await res.json();
     setData(data);
-    if(data?.data?.length<=0){
-setloading(false)
+    if (data?.data?.length <= 0) {
+      setloading(false);
     }
     setTotalRecords(data?.total);
   };
@@ -116,45 +116,67 @@ setloading(false)
   const ArrNguonKK: any = [
     { name: "Chưa cập nhật", id: 0 },
     { name: "Facebook", id: 1 },
-    { name: "Website", id: 2 },
-    { name: "Zalo", id: 3 },
+    { name: "Website", id: 3 },
+    { name: "Zalo", id: 2 },
     { name: "Dữ liệu bên thứ 3", id: 4 },
     { name: "Khách hàng giới thiệu", id: 5 },
     { name: "Giới thiệu", id: 6 },
     { name: "Chăm sóc khach hàng", id: 7 },
     { name: "Email", id: 8 },
   ];
- 
   const datatable = data?.data?.map((item, index: number) => {
     let nguonKH = "";
     let time;
     if (item.updated_at.length) {
+      const inputTimeString = item?.updated_at;
+
+      // Chuyển đổi thành đối tượng thời gian
+      const inputTime = new Date(inputTimeString);
+      // Lấy thông tin ngày, tháng, năm, giờ, phút, giây
+      const day = inputTime.getUTCDate();
+      const month = inputTime.getUTCMonth() + 1;
+      const year = inputTime.getUTCFullYear();
+      const hours = inputTime.getUTCHours();
+      const minutes = inputTime.getUTCMinutes();
+      const seconds = inputTime.getUTCSeconds();
+      const outputTimeString = `${day < 10 ? "0" : ""}${day}-${
+        month < 10 ? "0" : ""
+      }${month}-${year} ${hours < 10 ? "0" : ""}${hours}:${
+        minutes < 10 ? "0" : ""
+      }${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+      time = outputTimeString;
     }
+    if (item.updated_at > 0) {
+      const timestamp = item?.updated_at; // Thay thế bằng giá trị của bạn
+      const dateObj = new Date(timestamp * 1000);
 
-    const inputTimeString = item?.updated_at;
+      const formattedDate = `${
+        dateObj.getUTCDate() < 10 ? "0" : ""
+      }${dateObj.getUTCDate()}-${dateObj.getUTCMonth() + 1 < 10 ? "0" : ""}${
+        dateObj.getUTCMonth() + 1
+      }-${dateObj.getUTCFullYear()}`;
 
-    // Chuyển đổi thành đối tượng thời gian
-    const inputTime = new Date(inputTimeString);
-    // Lấy thông tin ngày, tháng, năm, giờ, phút, giây
-    const day = inputTime.getUTCDate();
-    const month = inputTime.getUTCMonth() + 1;
-    const year = inputTime.getUTCFullYear();
-    const hours = inputTime.getUTCHours();
-    const minutes = inputTime.getUTCMinutes();
-    const seconds = inputTime.getUTCSeconds();
-    const outputTimeString = `${day < 10 ? "0" : ""}${day}-${
-      month < 10 ? "0" : ""
-    }${month}-${year} ${hours < 10 ? "0" : ""}${hours}:${
-      minutes < 10 ? "0" : ""
-    }${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
-    time = outputTimeString;
+      const formattedTime = `${
+        dateObj.getUTCHours() < 10 ? "0" : ""
+      }${dateObj.getUTCHours()}:${
+        dateObj.getUTCMinutes() < 10 ? "0" : ""
+      }${dateObj.getUTCMinutes()}:${
+        dateObj.getUTCSeconds() < 10 ? "0" : ""
+      }${dateObj.getUTCSeconds()}`;
+
+      const outputTimeString = `${formattedDate}\n${formattedTime}`;
+      time = outputTimeString;
+    }
 
     for (let key of ArrNguonKK) {
       if (key.id == item.resoure) {
         nguonKH = key.name;
       }
     }
-    let des = item?.description?.replace(/<p>/g, '').replace(/<\/p>/g, '').replace('&nbsp;', '');
+    let des = item?.description
+      ?.replace(/<p>/g, "")
+      .replace(/<\/p>/g, "")
+      .replace("&nbsp;", "");
     return {
       key: index + 1,
       cus_id: item.cus_id,
@@ -162,7 +184,7 @@ setloading(false)
       name: item.name,
       phone_number: item.phone_number,
       resoure: nguonKH,
-      description:des,
+      description: des,
       group_id: item.group_id,
       status: item.status,
       updated_at: time,
@@ -172,6 +194,9 @@ setloading(false)
       NameHandingOverWork: item.NameHandingOverWork,
       userName: item.userName,
       type: item.type,
+      cus_from: item?.cus_from,
+      link: item?.link,
+      value: item?.resoure,
     };
   });
   const dataStatusCustomer = dataStatus;
@@ -251,7 +276,7 @@ setloading(false)
             nhomCon={nhomCon}
             setnhomCon={setnhomCon}
             setloading={setloading}
-            setDatatable = {setData}
+            setDatatable={setData}
             setgroup_id={setgroup_id}
           />
           <TableListCustomer
@@ -268,8 +293,8 @@ setloading(false)
             setPageSize={setPageSize}
             totalRecords={totalRecords}
             loading={loading}
-            setDatatable = {setData}
-
+            setDatatable={setData}
+            ArrNguonKK={ArrNguonKK}
           />
         </div>
       )}

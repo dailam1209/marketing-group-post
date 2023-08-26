@@ -1,127 +1,130 @@
-import React, { useEffect, useState } from 'react'
-import styles from './ModalAddReward.module.css'
-import Select from 'react-select'
-import * as Yup from 'yup'
-import { getDataUser } from '@/pages/api/api-hr/quan-ly-tuyen-dung/PerformRecruitment'
-import { AddAchievement } from '@/pages/api/api-hr/luong-thuong-phuc-loi/reward'
+import React, { useEffect, useState } from "react";
+import styles from "./ModalAddReward.module.css";
+import Select from "react-select";
+import * as Yup from "yup";
+import { getDataUser } from "@/pages/api/api-hr/quan-ly-tuyen-dung/PerformRecruitment";
+import { AddAchievement } from "@/pages/api/api-hr/luong-thuong-phuc-loi/reward";
 
 function ModalAddReward({ animation, onClose, updateData }: any) {
-  const [user, setUser] = useState<any>()
-  const [content, setContent] = useState<any>()
-  const [listUser, setListUser] = useState<any>()
-  const [appellation, setAppellation] = useState<any>({})
-  const [hidden, setHidden] = useState(false)
-  const [errors, setErrors] = useState<any>({})
+  const [user, setUser] = useState<any>();
+  const [content, setContent] = useState<any>();
+  const [listUser, setListUser] = useState<any>();
+  const [appellation, setAppellation] = useState<any>({});
+  const [hidden, setHidden] = useState(false);
+  const [errors, setErrors] = useState<any>({});
 
-  const mergedObject = { ...content, ...listUser, ...appellation }
+  const mergedObject = { ...content, ...listUser, ...appellation };
 
   const schema = Yup.object().shape({
-    achievement_id: Yup.string().required('Số quyết định không được để trống'),
-    content: Yup.string().required('Nội dung khen không được để trống'),
-    list_user: Yup.array().required('Chọn tên đối tượng'),
-    created_by: Yup.string().required('Người ký không được để trống'),
-    achievement_at: Yup.string().required('Thời điểm không được để trống'),
-    achievement_type: Yup.string().required('Chọn hình thức'),
-    appellation: Yup.string().required('Danh hiệu không được để trống'),
-    achievement_level: Yup.string().required('Cấp khen không được để trống'),
-  })
+    achievement_id: Yup.string().required("Số quyết định không được để trống"),
+    content: Yup.string().required("Nội dung khen không được để trống"),
+    list_user: Yup.array().required("Chọn tên đối tượng"),
+    created_by: Yup.string().required("Người ký không được để trống"),
+    achievement_at: Yup.string().required("Thời điểm không được để trống"),
+    achievement_type: Yup.string().required("Chọn hình thức"),
+    appellation: Yup.string().required("Danh hiệu không được để trống"),
+    achievement_level: Yup.string().required("Cấp khen không được để trống"),
+  });
 
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await getDataUser()
+        const response = await getDataUser();
         setUser(
           response?.data?.data?.items?.map((item) => ({
-            name: 'list_user',
+            name: "list_user",
             value: item.ep_id,
             label: `${item.ep_name} ${item.dep_name}`,
           }))
-        )
-      } catch (err) { }
-    }
-    getData()
-  }, [])
+        );
+      } catch (err) {}
+    };
+    getData();
+  }, []);
 
+  console.log(user, "ok");
   const options = {
     tendoituong: user,
 
     hinhthuckhenthuong: [
-      { name: 'achievement_type', value: '1', label: 'Huân Chương' },
-      { name: 'achievement_type', value: '2', label: 'Huy Chương' },
-      { name: 'achievement_type', value: '3', label: 'Giấy khen' },
-      { name: 'achievement_type', value: '4', label: 'Thăng chức' },
-      { name: 'achievement_type', value: '5', label: 'Kỉ niệm chương' },
-      { name: 'achievement_type', value: '6', label: 'Tiền mặt' },
+      { name: "achievement_type", value: "1", label: "Huân Chương" },
+      { name: "achievement_type", value: "2", label: "Huy Chương" },
+      { name: "achievement_type", value: "3", label: "Giấy khen" },
+      { name: "achievement_type", value: "4", label: "Thăng chức" },
+      { name: "achievement_type", value: "5", label: "Kỉ niệm chương" },
+      { name: "achievement_type", value: "6", label: "Tiền mặt" },
     ],
-  }
+  };
 
   const handleContentChange = (event) => {
-    const { name, value } = event.target
+    const { name, value } = event.target;
     setContent((prevState) => ({
       ...prevState,
       [name]: value,
-    }))
-  }
+    }));
+  };
 
   const handleSelectionChange = (selectedOptions, actionMeta) => {
-    const selectedValues = selectedOptions.map((option) => option.value)
-    const selectedLabels = selectedOptions.map((option) => option.label)
+    const selectedValues = selectedOptions.map((option) => option.value);
+    const selectedLabels = selectedOptions.map((option) => option.label);
 
     setListUser((prevSelectedOption) => ({
       ...prevSelectedOption,
       list_user: selectedValues,
       list_user_name: selectedLabels,
-    }))
-  }
+    }));
+  };
 
   const handleSelectionAchievementType = (
     option: any | null,
     optionsArray: any[]
   ) => {
     if (option) {
-      const { name, value } = option
+      const { name, value } = option;
       setAppellation((prevSelectedOption) => ({
         ...prevSelectedOption,
         [name]: value,
-      }))
+      }));
     }
-  }
+  };
 
   useEffect(() => {
-    if (appellation.achievement_type === '6') {
-      setHidden(true)
+    if (appellation.achievement_type === "6") {
+      setHidden(true);
     } else {
-      setHidden(false)
+      setHidden(false);
     }
-  }, [appellation.achievement_type])
+  }, [appellation.achievement_type]);
 
   const handleSubmit = async (e: any) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
-      await schema.validate(mergedObject, { abortEarly: false })
-      const response = await AddAchievement(mergedObject)
+      await schema.validate(mergedObject, { abortEarly: false });
+      const response = await AddAchievement(mergedObject);
       if (response?.status === 200) {
-        onClose()
-        updateData(response?.data)
+        onClose();
+        updateData(response?.data);
       }
     } catch (error: any) {
-      const validationErrors = {}
+      const validationErrors = {};
       if (error?.inner) {
         error.inner.forEach((err) => {
-          validationErrors[err.path] = err.message
-        })
+          validationErrors[err.path] = err.message;
+        });
       }
-      setErrors(validationErrors)
+      setErrors(validationErrors);
     }
-  }
+  };
 
   return (
     <>
       <div className={`${styles.overlay}`} onClick={onClose}></div>
       <div
-        className={`${styles.modal} ${styles.modal_setting}  ${animation ? styles.fade_in : styles.fade_out
-          }`}
-        style={{ display: 'block' }}>
+        className={`${styles.modal} ${styles.modal_setting}  ${
+          animation ? styles.fade_in : styles.fade_out
+        }`}
+        style={{ display: "block" }}
+      >
         <div className={`${styles.modal_dialog} ${styles.contentquytrinh}`}>
           <div className={`${styles.modal_content} `}>
             {/* header */}
@@ -131,7 +134,8 @@ function ModalAddReward({ animation, onClose, updateData }: any) {
             {/* body */}
             <form
               onSubmit={(e) => handleSubmit(e)}
-              className={`${styles.modal_form}`}>
+              className={`${styles.modal_form}`}
+            >
               <div className={`${styles.modal_body} ${styles.bodyquytrinh}`}>
                 <div className={`${styles.form_groups}`}>
                   <label>
@@ -140,18 +144,20 @@ function ModalAddReward({ animation, onClose, updateData }: any) {
                   </label>
                   <div className={`${styles.inputright}`}>
                     <input
-                      type='text'
-                      name='achievement_id'
+                      type="text"
+                      name="achievement_id"
                       className={`${styles.inputquytrinh}`}
-                      placeholder='Nhập số quyết định'
-                      onChange={handleContentChange}></input>
+                      placeholder="Nhập số quyết định"
+                      onChange={handleContentChange}
+                    ></input>
                     {errors.achievement_id && (
                       <>
                         <picture>
                           <img
                             className={`${styles.icon_err}`}
-                            src={`${'/danger.png'}`}
-                            alt='Lỗi'></img>
+                            src={`${"/danger.png"}`}
+                            alt="Lỗi"
+                          ></img>
                         </picture>
                         <div className={`${styles.errors}`}>
                           {errors.achievement_id}
@@ -168,18 +174,20 @@ function ModalAddReward({ animation, onClose, updateData }: any) {
                   </label>
                   <div className={`${styles.inputright}`}>
                     <input
-                      type='text'
-                      name='content'
+                      type="text"
+                      name="content"
                       className={`${styles.inputquytrinh}`}
-                      placeholder='Nhập nội dung khen thưởng'
-                      onChange={handleContentChange}></input>
+                      placeholder="Nhập nội dung khen thưởng"
+                      onChange={handleContentChange}
+                    ></input>
                     {errors.content && (
                       <>
                         <picture>
                           <img
                             className={`${styles.icon_err}`}
-                            src={`${'/danger.png'}`}
-                            alt='Lỗi'></img>
+                            src={`${"/danger.png"}`}
+                            alt="Lỗi"
+                          ></img>
                         </picture>
                         <div className={`${styles.errors}`}>
                           {errors.content}
@@ -197,21 +205,24 @@ function ModalAddReward({ animation, onClose, updateData }: any) {
                       <>
                         <div
                           className={`${styles.errors}`}
-                          style={{ marginTop: '6px' }}>
+                          style={{ marginTop: "6px" }}
+                        >
                           {errors.list_user}
                         </div>
                       </>
                     )}
                     <div
-                      className={`${styles.red} ${styles.float_right}`}></div>
+                      className={`${styles.red} ${styles.float_right}`}
+                    ></div>
                   </label>
                   <div
-                    style={{ marginRight: '2%' }}
-                    className={`${styles.select}`}>
+                    style={{ marginRight: "2%" }}
+                    className={`${styles.select}`}
+                  >
                     <Select
                       isMulti
                       options={options.tendoituong}
-                      placeholder='Chọn đối tượng'
+                      placeholder="Chọn đối tượng"
                       onChange={(option) =>
                         handleSelectionChange(option, options.tendoituong)
                       }
@@ -219,16 +230,16 @@ function ModalAddReward({ animation, onClose, updateData }: any) {
                         control: (baseStyles, state) => ({
                           ...baseStyles,
                           borderRadius: 8,
-                          borderColor: '#4747477a',
-                          height: 'auto',
+                          borderColor: "#4747477a",
+                          height: "auto",
                           fontSize: state.isFocused ? 14 : 14,
                           minHeight: state.isFocused ? 15 : 15,
-                          width: state.isFocused ? '100%' : baseStyles.width,
+                          width: state.isFocused ? "100%" : baseStyles.width,
                           fontWeight: state.isFocused ? 600 : 600,
                         }),
                         valueContainer: (baseStyles) => ({
                           ...baseStyles,
-                          padding: '0',
+                          padding: "0",
                         }),
                         indicatorsContainer: (baseStyles) => ({
                           ...baseStyles,
@@ -246,18 +257,20 @@ function ModalAddReward({ animation, onClose, updateData }: any) {
                   </label>
                   <div className={`${styles.inputright}`}>
                     <input
-                      type='text'
-                      name='created_by'
+                      type="text"
+                      name="created_by"
                       className={`${styles.inputquytrinh}`}
-                      placeholder='Người ký quyết định'
-                      onChange={handleContentChange}></input>
+                      placeholder="Người ký quyết định"
+                      onChange={handleContentChange}
+                    ></input>
                     {errors.created_by && (
                       <>
                         <picture>
                           <img
                             className={`${styles.icon_err}`}
-                            src={`${'/danger.png'}`}
-                            alt='Lỗi'></img>
+                            src={`${"/danger.png"}`}
+                            alt="Lỗi"
+                          ></img>
                         </picture>
                         <div className={`${styles.errors}`}>
                           {errors.created_by}
@@ -274,12 +287,13 @@ function ModalAddReward({ animation, onClose, updateData }: any) {
                   </label>
                   <div className={`${styles.inputright}`}>
                     <input
-                      type='date'
-                      name='achievement_at'
+                      type="date"
+                      name="achievement_at"
                       className={`${styles.inputquytrinh}`}
-                      style={{ height: '30.6px' }}
-                      placeholder='Chọn thời điểm'
-                      onChange={handleContentChange}></input>
+                      style={{ height: "30.6px" }}
+                      placeholder="Chọn thời điểm"
+                      onChange={handleContentChange}
+                    ></input>
                     {errors.achievement_at && (
                       <>
                         <div className={`${styles.errors}`}>
@@ -298,19 +312,22 @@ function ModalAddReward({ animation, onClose, updateData }: any) {
                       <>
                         <div
                           className={`${styles.errors}`}
-                          style={{ marginTop: '6px' }}>
+                          style={{ marginTop: "6px" }}
+                        >
                           {errors.achievement_type}
                         </div>
                       </>
                     )}
                     <div
-                      className={`${styles.red} ${styles.float_right}`}></div>
+                      className={`${styles.red} ${styles.float_right}`}
+                    ></div>
                   </label>
                   <div
-                    style={{ marginRight: '2%' }}
-                    className={`${styles.select}`}>
+                    style={{ marginRight: "2%" }}
+                    className={`${styles.select}`}
+                  >
                     <Select
-                      placeholder='-- Vui lòng chọn -- '
+                      placeholder="-- Vui lòng chọn -- "
                       onChange={(option) =>
                         handleSelectionAchievementType(
                           option,
@@ -322,16 +339,16 @@ function ModalAddReward({ animation, onClose, updateData }: any) {
                         control: (baseStyles, state) => ({
                           ...baseStyles,
                           borderRadius: 8,
-                          borderColor: '#4747477a',
-                          height: 'auto',
+                          borderColor: "#4747477a",
+                          height: "auto",
                           fontSize: state.isFocused ? 14 : 14,
                           minHeight: state.isFocused ? 20 : 20,
-                          width: state.isFocused ? '100%' : baseStyles.width,
+                          width: state.isFocused ? "100%" : baseStyles.width,
                           fontWeight: state.isFocused ? 600 : 600,
                         }),
                         valueContainer: (baseStyles) => ({
                           ...baseStyles,
-                          padding: '0',
+                          padding: "0",
                         }),
                         indicatorsContainer: (baseStyles) => ({
                           ...baseStyles,
@@ -351,19 +368,21 @@ function ModalAddReward({ animation, onClose, updateData }: any) {
                       </label>
                       <div className={`${styles.inputright}`}>
                         <input
-                          style={{ height: '28px' }}
-                          type='text'
-                          name='price'
+                          style={{ height: "28px" }}
+                          type="text"
+                          name="price"
                           className={`${styles.inputquytrinh}`}
-                          placeholder='Số tiền'
-                          onChange={handleContentChange}></input>
+                          placeholder="Số tiền"
+                          onChange={handleContentChange}
+                        ></input>
                         {errors.price && (
                           <>
                             <picture>
                               <img
                                 className={`${styles.icon_err}`}
-                                src={`${'/danger.png'}`}
-                                alt='Lỗi'></img>
+                                src={`${"/danger.png"}`}
+                                alt="Lỗi"
+                              ></img>
                             </picture>
                             <div className={`${styles.errors}`}>
                               {errors.price}
@@ -380,16 +399,18 @@ function ModalAddReward({ animation, onClose, updateData }: any) {
                       </label>
                       <div className={`${styles.inputright}`}>
                         <textarea
-                          name='resion'
+                          name="resion"
                           className={`${styles.inputquytrinh}`}
-                          onChange={handleContentChange}></textarea>
+                          onChange={handleContentChange}
+                        ></textarea>
                         {errors.resion && (
                           <>
                             <picture>
                               <img
                                 className={`${styles.icon_err}`}
-                                src={`${'/danger.png'}`}
-                                alt='Lỗi'></img>
+                                src={`${"/danger.png"}`}
+                                alt="Lỗi"
+                              ></img>
                             </picture>
                             <div className={`${styles.errors}`}>
                               {errors.resion}
@@ -408,18 +429,20 @@ function ModalAddReward({ animation, onClose, updateData }: any) {
                   </label>
                   <div className={`${styles.inputright}`}>
                     <input
-                      type='text'
-                      name='appellation'
+                      type="text"
+                      name="appellation"
                       className={`${styles.inputquytrinh}`}
-                      placeholder='Danh hiệu'
-                      onChange={handleContentChange}></input>
+                      placeholder="Danh hiệu"
+                      onChange={handleContentChange}
+                    ></input>
                     {errors.appellation && (
                       <>
                         <picture>
                           <img
                             className={`${styles.icon_err}`}
-                            src={`${'/danger.png'}`}
-                            alt='Lỗi'></img>
+                            src={`${"/danger.png"}`}
+                            alt="Lỗi"
+                          ></img>
                         </picture>
                         <div className={`${styles.errors}`}>
                           {errors.appellation}
@@ -436,18 +459,20 @@ function ModalAddReward({ animation, onClose, updateData }: any) {
                   </label>
                   <div className={`${styles.inputright}`}>
                     <input
-                      type='text'
-                      name='achievement_level'
+                      type="text"
+                      name="achievement_level"
                       className={`${styles.inputquytrinh}`}
-                      placeholder='Cấp khen'
-                      onChange={handleContentChange}></input>
+                      placeholder="Cấp khen"
+                      onChange={handleContentChange}
+                    ></input>
                     {errors.achievement_level && (
                       <>
                         <picture>
                           <img
                             className={`${styles.icon_err}`}
-                            src={`${'/danger.png'}`}
-                            alt='Lỗi'></img>
+                            src={`${"/danger.png"}`}
+                            alt="Lỗi"
+                          ></img>
                         </picture>
                         <div className={`${styles.errors}`}>
                           {errors.achievement_level}
@@ -459,14 +484,16 @@ function ModalAddReward({ animation, onClose, updateData }: any) {
               </div>
 
               <div
-                className={`${styles.modal_footer} ${styles.footerquytrinh}`}>
+                className={`${styles.modal_footer} ${styles.footerquytrinh}`}
+              >
                 <button
-                  type='button'
+                  type="button"
                   className={`${styles.btn_huy}`}
-                  onClick={onClose}>
+                  onClick={onClose}
+                >
                   Hủy
                 </button>
-                <button type='submit' className={`${styles.success}`}>
+                <button type="submit" className={`${styles.success}`}>
                   Thêm
                 </button>
               </div>
@@ -475,7 +502,7 @@ function ModalAddReward({ animation, onClose, updateData }: any) {
         </div>
       </div>
     </>
-  )
+  );
 }
 
-export default ModalAddReward
+export default ModalAddReward;

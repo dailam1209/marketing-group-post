@@ -128,16 +128,16 @@ export const ChamCong = ({ ccData }: { ccData: any }) => {
     })
 
   const yAxisTicks = [0, 1, 2, 3, 4, 5]
-  const check = (name: String, x: String) => {
-    if (x === 'diem danh thanh cong')
+  const check = (name: String, x: any) => {
+    if (x === 1)
       return (
         <p style={{ color: '#4C5BD4' }}>
-          {name} {x}
+          {name} {'chấm công thành công'}
         </p>
       )
     return (
       <p style={{ color: '#FF5B4D' }}>
-        {name} {x}
+        {name} {'chấm công thất bại'}
       </p>
     )
   }
@@ -484,20 +484,23 @@ export const ChamCong = ({ ccData }: { ccData: any }) => {
             <List
               className={`list_nhanvien ${styles.khunglist}`}
               pagination={false}
-              dataSource={dataNV}
-              rowKey={(item) => item?.key}
+              dataSource={ccData?.history ? ccData?.history?.reverse() : []}
+              rowKey={(item) => item?.['_id']}
               renderItem={(item, index) => (
                 <List.Item className={styles.lists}>
                   <div>
                     <div className={styles.textname}>
-                      {check(item.name, item.trangthai)}
+                      {check('Bạn', item?.['is_success'])}
                     </div>
                     <div>
-                      <p className={styles.ca}>
-                        {item.ca} {item.mucluong}
-                      </p>
+                      <p className={styles.ca}>{item?.['shift_name']}</p>
                     </div>
-                    <div style={{ display: 'flex', gap: '10px' }}>
+                    <div
+                      style={{
+                        display: 'flex',
+                        gap: '10px',
+                        alignItems: 'center',
+                      }}>
                       <div style={{ marginTop: '3px' }}>
                         <svg
                           xmlns='http://www.w3.org/2000/svg'
@@ -515,7 +518,8 @@ export const ChamCong = ({ ccData }: { ccData: any }) => {
                         </svg>
                       </div>
                       <p className={styles.time}>
-                        {item.date}, {item.time}
+                        {item?.['at_time'] &&
+                          moment(item?.['at_time'])?.format('HH:ss DD-MM-YYYY')}
                       </p>
                     </div>
                   </div>

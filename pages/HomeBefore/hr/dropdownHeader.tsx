@@ -39,7 +39,7 @@ export default function DropDownHeaderHr({ onCancel }: any) {
                                     <a href="https://timviec365.vn/blog/c153/quan-tri-nhan-luc">Tin tức</a>
                                 </li>
                                 <li>
-                                    <a target="_blank" href="https://quanlychung.timviec365.vn/">Chuyển đổi số</a>
+                                    <a target="_blank" href="/">Chuyển đổi số</a>
                                 </li>
                             </ul>
                             <a style={{ cursor: "pointer" }} onClick={() => setOpenModalLogin(true)} className={`${styles.btn_mb_login}`}>Đăng nhập</a>
