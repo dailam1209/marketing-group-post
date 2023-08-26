@@ -23,14 +23,16 @@ const CancelModal: React.FC<MyComponentProps> = ({
   updateData,
 }) => {
   const router = useRouter();
-  const handleOK = () => {
+  const handleOK = async() => {
     setIsModalCancel(false);
-    updateData(
-      `${base_url}/api/crm/customerStatus/delete`,
-      `${Cookies.get("token_base365")}`,
-      "POST",
-      { stt_id: id }
-    );
+    await fetch( `${base_url}/api/crm/customerStatus/delete`,{
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${Cookies.get("token_base365")}`,
+      },
+      body: JSON.stringify(  { stt_id: id }),
+    });
     router.push("/crm/tinh-trang-khach-hang")
   };
   return (

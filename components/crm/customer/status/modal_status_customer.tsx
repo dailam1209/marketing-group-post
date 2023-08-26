@@ -22,16 +22,18 @@ const EditStatusCustomerModal: React.FC<MyComponentProps> = ({
 }) => {
   const [isOpenMdalSuccess, setIsOpenMdalSuccess] = useState(false);
   const [dataUpdate, setdataUpdate] = useState("");
-  const handleOK = () => {
+  const handleOK = async() => {
     setIsModalCancel(false);
     setIsOpenMdalSuccess(true);
     if (dataUpdate != "") {
-      updateData(
-        `${base_url}/api/crm/customerStatus/update`,
-        `${Cookies.get("token_base365")}`,
-        "POST",
-        { stt_name: `${dataUpdate}`, stt_id: id }
-      );
+      await fetch( `${base_url}/api/crm/customerStatus/update`,{
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get("token_base365")}`,
+        },
+        body: JSON.stringify(  {stt_name: `${dataUpdate}`, stt_id: id}),
+      });
     }
     setdataUpdate("");
   };
