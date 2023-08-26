@@ -138,7 +138,7 @@ export default function AddBillDeliverylInfo() {
                     <Image
                       width={26}
                       height={26}
-                      src="https://crm.timviec365.vn/assets/img/user_kh.png"
+                      src="/crm/user_kh.png"
                       alt=""
                     />
                   </div>
@@ -175,7 +175,7 @@ export default function AddBillDeliverylInfo() {
                     <Image
                       width={26}
                       height={26}
-                      src="https://crm.timviec365.vn/assets/img/user_kh.png"
+                      src="/crm/user_kh.png"
                       alt=""
                     />
                   </div>

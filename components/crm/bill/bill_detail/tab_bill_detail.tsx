@@ -261,7 +261,7 @@ const TabComponent = () => {
                           <Image
                             width={16}
                             height={14}
-                            src="https://crm.timviec365.vn/assets/img/crm/customer/share_white.svg"
+                            src="/crm/share_white.svg"
                             alt="share"
                           />
                           Chia sẻ

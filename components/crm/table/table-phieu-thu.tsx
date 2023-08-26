@@ -62,7 +62,7 @@ const Table_Phieu_Thu_Chi = (props: any) => {
           {" "}
           <div>
             <img
-              src="https://crm.timviec365.vn/assets/img/user_kh.png"
+              src="/crm/user_kh.png"
               alt=""
             />
           </div>

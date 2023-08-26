@@ -25,7 +25,7 @@ export const ColumFunds = [{
     width: 227,
     title: 'Người quản lý',
     dataIndex: 'name',
-    render: (text: any) => <div style={{ display: "flex", justifyContent: 'center' }}> <div><img src="https://crm.timviec365.vn/assets/img/user_kh.png" alt="" /></div>&nbsp;{text}</div>
+    render: (text: any) => <div style={{ display: "flex", justifyContent: 'center' }}> <div><img src="/crm/user_kh.png" alt="" /></div>&nbsp;{text}</div>
 },
 {
     width: 116,
@@ -38,7 +38,7 @@ export const ColumFunds = [{
     width: 216,
     title: 'Người xóa',
     dataIndex: 'name',
-    render: (text: any) => <div style={{ display: "flex", justifyContent: 'center' }}> <div><img src="https://crm.timviec365.vn/assets/img/user_kh.png" alt="" /></div>&nbsp;{text}</div>
+    render: (text: any) => <div style={{ display: "flex", justifyContent: 'center' }}> <div><img src="/crm/user_kh.png" alt="" /></div>&nbsp;{text}</div>
 },
 {
     width: 186,

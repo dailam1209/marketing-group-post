@@ -16,8 +16,12 @@ export default function AddContract({ setCheckFile }: any) {
   const [isShowModal, setIsShowModal] = useState(false);
   const [openSuccess, setOpenSuccess] = useState(false);
   const [scrolling, setScrolling] = useState(false);
+  const [text_change, settext_change] = useState<any>("");
   const [imgUrls, setImgaUrls] = useState([]);
   const initialCheckStates = Array(5).fill(false);
+  const [newValues, setNewValues] = useState<
+    { index: number[]; originalValue: string; newValue: string }[]
+  >([]);
   const [checkedStates, setCheckedStates] =
     useState<boolean[]>(initialCheckStates);
   const handleCheckboxChange = (index: number) => {
@@ -133,6 +137,48 @@ export default function AddContract({ setCheckFile }: any) {
     }
   };
 
+  function checkValuesExist(arrA, arrB) {
+    for (const valueA of arrA) {
+      for (const itemB of arrB) {
+        if (itemB.index.includes(valueA)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  const checkWords = (arr, text) => {
+    for (const valueA of arr) {
+      if (valueA.originalValue === text) {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  const handleReplaceValues = (newValue: string, pos: number) => {
+    const indexSelect = checkedStates
+      .map((value, index) => (value ? index : null))
+      .filter((index) => index !== null);
+    console.log(indexSelect, newValues);
+    const editedItem = checkValuesExist(indexSelect, newValues);
+    const checkWord = checkWords(newValues, text_change);
+    console.log(checkWord, text_change);
+    if (!editedItem || !checkWord) {
+      const updatedValues = [
+        ...newValues,
+        { index: indexSelect, originalValue: text_change, newValue },
+      ];
+      setNewValues(updatedValues);
+      console.log(newValues);
+    } else {
+      alert(`Từ khóa đã được thiết lập, vui lòng kiểm tra lại`);
+    }
+
+    setCheckedStates(Array(initialCheckStates.length).fill(false));
+  };
+
   return (
     <>
       <div className={styles.main__body}>
@@ -173,37 +219,37 @@ export default function AddContract({ setCheckFile }: any) {
             </div>
           </div>
         </div>
-       
+
         <div
-                ref={targetScrollRef}
-                id="setting"
-                className={styles.col_md_6}
-                style={{ width: "100%" }}
-              >
-                <div className={styles.fm_fd}>
-                  <label className={styles.label_thietlap}>
-                    Thiết lập thông tin cần thay đổi trong hợp đồng
+          ref={targetScrollRef}
+          id="setting"
+          className={styles.col_md_6}
+          style={{ width: "100%" }}
+        >
+          <div className={styles.fm_fd}>
+            <label className={styles.label_thietlap}>
+              Thiết lập thông tin cần thay đổi trong hợp đồng
+            </label>
+
+            <div className={styles.param}>
+              {checkedStates.map((isChecked, index) => (
+                <div key={index} style={{ marginRight: "5px" }}>
+                  <label>
+                    <input
+                      style={{ marginLeft: "3px" }}
+                      type="checkbox"
+                      checked={isChecked}
+                      onChange={() => handleCheckboxChange(index)}
+                    />
+                    Chấm công {index + 1}
                   </label>
-
-                  <div className={styles.param}>
-                    {checkedStates.map((isChecked, index) => (
-                      <div key={index} style={{ marginRight: "5px" }}>
-                        <label>
-                          <input
-                            style={{ marginLeft: "3px" }}
-                            type="checkbox"
-                            checked={isChecked}
-                            onChange={() => handleCheckboxChange(index)}
-                          />
-                          Chấm công {index + 1}
-                        </label>
-                      </div>
-                    ))}
-                  </div>
                 </div>
+              ))}
+            </div>
+          </div>
 
-                <div className={styles.btn_form_contract}>
-                  {/* <button type="button" className="xoatruong hidden">
+          <div className={styles.btn_form_contract}>
+            {/* <button type="button" className="xoatruong hidden">
                     <img src="/assets/img/xoatruong.svg" alt="button" /> Xóa
                     Trường
                   </button>
@@ -211,24 +257,23 @@ export default function AddContract({ setCheckFile }: any) {
                     <img src="/assets/img/suatruong.svg" alt="button" /> Sửa
                     trường
                   </button> */}
-                  <button
-                    type="button"
-                    onClick={() => handleCreateFieldBtn()}
-                    data-toggle="modal"
-                    data-target="#modalCreate"
-                    className={styles.taotruong}
-                  >
-                    <img src="/crm/plus_icon_field.svg" alt="button" /> Tạo
-                    trường
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setIsCreatFieldDefault(true)}
-                    className={styles.tieptuc}
-                  >
-                    Chỉnh sửa bằng trường mặc định
-                  </button>
-                  {/* <button
+            <button
+              type="button"
+              onClick={() => handleCreateFieldBtn()}
+              data-toggle="modal"
+              data-target="#modalCreate"
+              className={styles.taotruong}
+            >
+              <img src="/crm/plus_icon_field.svg" alt="button" /> Tạo trường
+            </button>
+            <button
+              type="button"
+              onClick={() => setIsCreatFieldDefault(true)}
+              className={styles.tieptuc}
+            >
+              Chỉnh sửa bằng trường mặc định
+            </button>
+            {/* <button
                     type="button"
                     // onclick="prev()"
                     className="quaylai l-15 hidden"
@@ -242,16 +287,17 @@ export default function AddContract({ setCheckFile }: any) {
                   >
                     Tiếp tục <img src="/assets/img/tieptuc.svg" alt="button" />
                   </button> */}
-                  <CreatFieldModal
-                    isModalCancel={isCreatField}
-                    setIsModalCancel={setIsCreatField}
-                  />
-                  <CreatFieldDefaultModal
-                    isModalCancel={isCreatFieldDefault}
-                    setIsModalCancel={setIsCreatFieldDefault}
-                  />
-                </div>
-              </div>
+            <CreatFieldModal
+              isModalCancel={isCreatField}
+              setIsModalCancel={setIsCreatField}
+              handleReplaceValues={handleReplaceValues}
+            />
+            <CreatFieldDefaultModal
+              isModalCancel={isCreatFieldDefault}
+              setIsModalCancel={setIsCreatFieldDefault}
+            />
+          </div>
+        </div>
       </div>
       {imgUrls && imgUrls?.length > 0 && (
         <div>
