@@ -37,6 +37,7 @@ const TableStatusCustomer: React.FC<TableStatusCustomerProps> = ({}: any) => {
   // );
 
   const [listStt, setListStt] = useState([]);
+
   const fetchData = async () => {
     const res = await fetch(  `${base_url}/api/crm/customerStatus/list`, {
       method: "POST",
@@ -118,7 +119,7 @@ const TableStatusCustomer: React.FC<TableStatusCustomerProps> = ({}: any) => {
       title: "Trạng thái",
       dataIndex: "status",
       key: "8",
-      width: 180,
+      width: 120,
       render: (data, record) => (
         <Switch
           className="status_cus"
