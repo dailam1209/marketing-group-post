@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from "@/styles/HomeBeforeLogin.module.css"
 import Image from 'next/image';
 import Head from 'next/head';
@@ -6,6 +6,8 @@ import Footer from "../components/footer/Footer"
 import DropDownHeaderHr from './HomeBefore/hr/dropdownHeader';
 import ModalLogin from '@/components/modal/ModalLogin';
 import ModalRegsiter from '@/components/modal/ModalRegsiter';
+import Cookies from 'js-cookie'
+import { useRouter } from 'next/router';
 
 export default function HomePageBeforLogin({ children }: any) {
     const [openMenu, setOpenMenu] = useState<any>(false)
@@ -17,10 +19,36 @@ export default function HomePageBeforLogin({ children }: any) {
     const handleCloseMenu = () => {
         setOpenMenu(false)
     }
+
+    useEffect(() => {
+        const acc_token = Cookies.get('token_base365')
+        const rf_token = Cookies.get('rf_token')
+        const role = Cookies.get('role')
+        if (acc_token && rf_token && role) {
+            window.location.href = "/phan-mem-nhan-su/quan-ly-chung"
+        }
+    }, [])
+
+    const [isClassName, setClassName] = useState<any>(false)
+
+    function updateClassName() {
+        if (window.innerWidth <= 479 && window.scrollY > 0) {
+            setClassName(true)
+        } else {
+            setClassName(false)
+        }
+    }
+    // Gọi hàm khi trang web tải lên và khi người dùng cuộn chuột
+    window.addEventListener('load', updateClassName);
+    window.addEventListener('scroll', updateClassName);
+    window.addEventListener('resize', updateClassName);
+
+    console.log(isClassName);
+
     return (
         <>
             <Head>
-                <title>Quản trị doanh hiệu quả với công cụ hỗ trợ tốt nhất thị trường</title>
+                <title>Quản trị doanh nghiệp hiệu quả với công cụ hỗ trợ tốt nhất thị trường</title>
                 <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
                 <link rel="canonical" href="https://phanmemnhansu.timviec365.vn/"></link>
@@ -101,7 +129,7 @@ export default function HomePageBeforLogin({ children }: any) {
                     <div className={`${styles.t_header_home}`}>
                         <div className={`${styles.t_header_home_left}`}>
                             <a href="/">
-                                <Image src="/Logo.svg" width={128} height={28} alt='/'></Image>
+                                <Image src="/logo.svg" width={128} height={28} alt='/'></Image>
                             </a>
                         </div>
                         <div className={`${styles.t_header_home_right}`}>
@@ -129,7 +157,7 @@ export default function HomePageBeforLogin({ children }: any) {
                         </div>
                         <div className={`${styles.t_header_mb_right}`}>
                             <a href="/">
-                                <Image className={`${styles.t_header_mb_right_img}`} src="/Logo.svg" width={168} height={48} alt='icon'></Image>
+                                <Image className={`${styles.t_header_mb_right_img}`} src="/logo.svg" width={168} height={48} alt='icon'></Image>
                             </a>
                         </div>
                     </div>
@@ -371,7 +399,7 @@ export default function HomePageBeforLogin({ children }: any) {
                             </p>
                             <div className={`${styles.t_dv_button}`}>
                                 <a href="/lua-chon-dang-ky" rel="nofollow" className={`${styles.t_register_now}`}>Đăng ký ngay</a>
-                                <a href="" rel="nofollow" className={`${styles.t_contact}`}>Liên hệ hỗ trợ</a>
+                                <a href="tel:0982079209" rel="nofollow" className={`${styles.t_contact}`}>Liên hệ hỗ trợ</a>
                             </div>
                         </div>
 

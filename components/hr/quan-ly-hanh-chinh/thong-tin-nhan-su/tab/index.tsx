@@ -299,7 +299,7 @@ export default function TabEmployeeManagement({ iconAdd, iconEdit }: any) {
                   </thead>
                   <tbody className={`${styles.filter_body}`}>
                     {EmpData?.items?.map((item: any, index: any) => {
-                      const positionData = PostionCharDatas?.data?.find(
+                      const positionData = PostionCharDatas?.data?.flat()?.find(
                         (position: any) => position?.positionId === item?.position_id
                       );
                       const positionNameToShow = positionData ? positionData.positionName : item.vitri;
@@ -309,7 +309,7 @@ export default function TabEmployeeManagement({ iconAdd, iconEdit }: any) {
                           <td>   <a href="">{item.ep_name}</a></td>
                           <td>{item.dep_name}</td>
                           <td>{item.ep_gender === 1 ? "Nam" : item.ep_gender === 2 ? "Nữ" : "Khác"}</td>
-                          <td>{item.ep_married === 1 ? "Đã cưới" : item.ep_married === 2 ? "Độc thân" : "Khác"}</td>
+                          <td>{item.ep_married === 1 ? "Đã có gia đình" : item.ep_married === 2 ? "Độc thân" : "Khác"}</td>
                           <td>{positionNameToShow}</td>
                           <td>{item.dep_name}</td>
                           <td>{getCompanyNameByChinhanh(item.com_id, OrganizationalDatas)}</td>

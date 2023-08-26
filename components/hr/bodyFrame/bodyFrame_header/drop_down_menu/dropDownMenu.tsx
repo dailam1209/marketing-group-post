@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import styles from './dropDownMenu.module.css'
 import Link from 'next/link'
 import LogoutHr from '@/components/hr/logout'
+import ImageWithFallback from './imgFallBack'
+
 export interface DropDownMenu { }
 
 export default function DropDownMenu({ dataHeader, tokenType }: any) {
@@ -17,19 +19,19 @@ export default function DropDownMenu({ dataHeader, tokenType }: any) {
     {
       img: '	/vn_icon_tttk.svg',
       text: 'Thông tin tài khoản',
-      href: 'https://quanlychung.timviec365.vn/quan-ly-thong-tin-tai-khoan-cong-ty.html',
+      href: '/quan-ly-thong-tin-tai-khoan-nhan-vien.html',
       icon: '	/iconmenu.svg',
     },
     {
       img: '	/vn_icon_baoloi.svg',
       text: 'Báo lỗi',
-      href: 'https://chamcong.timviec365.vn/quan-ly-cong-ty/gui-loi.html',
+      href: '/bao-loi.html',
       icon: '	/iconmenu.svg',
     },
     {
       img: '	/vn_icon_danhgia.svg',
       text: 'Đánh giá',
-      href: 'https://chamcong.timviec365.vn/quan-ly-cong-ty/danh-gia.html',
+      href: '/danh-gia.html',
       icon: '	/iconmenu.svg',
     },
     {
@@ -46,21 +48,14 @@ export default function DropDownMenu({ dataHeader, tokenType }: any) {
     <>
       <div className={`${styles.wrapper}`}>
         <div className={`${styles.avatar}`}>
-          <img
-            className={`${styles.img_avatar}`}
-            src={
-              dataHeader?.data?.com_logo
-                ? dataHeader?.data?.com_logo
-                : '/logo_com (2).png' || dataHeader?.data?.avatarUser
-                  ? dataHeader?.data?.avatarUser
-                  : '/logo_com (2).png'
-            }
-            alt=''
+          <ImageWithFallback
+            src={dataHeader?.data?.com_logo || dataHeader?.data?.avatarUser}
+            fallbackSrc="/logo_com.png"
           />
         </div>
         <div className={`${styles.menu_cpn}`}>{dataHeader?.data.com_name || dataHeader?.data.userName}</div>
         <div className={`${styles.menu_id}`}>
-        {tokenType == 1 ? dataHeader?.data.com_id : dataHeader?.data.idQLC}
+          {tokenType == 1 ? dataHeader?.data.com_id : dataHeader?.data.idQLC}
         </div>
         <div>
           <a

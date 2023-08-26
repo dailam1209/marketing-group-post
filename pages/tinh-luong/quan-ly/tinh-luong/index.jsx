@@ -62,6 +62,32 @@ const App = () => {
     let number1 = Math.round(number);
     return number1.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
+
+  function convertDateFormatforStartDate(inputDate) {
+    const dateParts = inputDate.split("-").map(Number);
+    let year = dateParts[0];
+    let month = dateParts[1];
+
+    const formattedMonth = month < 10 ? `0${month}` : month;
+    return `${year}-${formattedMonth}`;
+  }
+
+  function convertDateFormatforEndDate(inputDate) {
+    const dateParts = inputDate.split("-").map(Number);
+    let year = dateParts[0];
+    let month = dateParts[1];
+
+    if (month === 12) {
+      month = 1;
+      year++;
+    } else {
+      month++;
+    }
+
+    const formattedMonth = month < 10 ? `0${month}` : month;
+    return `${year}-${formattedMonth}`;
+  }
+
   //render user
   const [apiDataUser, setApiDataUser] = useState([]);
   useEffect(() => {
@@ -80,7 +106,7 @@ const App = () => {
         console.log(response.data.data);
       })
       .catch((error) => {
-        console.error("Error fetching data from API:", error);
+        console.log("Error fetching data from API:", error);
       });
   };
   //render data
@@ -89,7 +115,7 @@ const App = () => {
   const [placement, SetPlacement] = useState("topLeft");
   const [selectedMonth, setSelectedMonth] = useState(dayjs().month() + 1);
   const [selectedYear, setSelectedYear] = useState(dayjs().year());
-  console.log("apiData?.data?.luong_thuc", apiData?.data?.luong_thuc);
+
   // const [selectedId,setSelectedID]=useState()
   checkCookie();
   const user_info = cookieCutter.get("userName");
@@ -107,10 +133,12 @@ const App = () => {
         ep_id: ep_id,
         month: month,
         year: year,
-        start_date: `${year}/${month}/01`,
-        end_date: `${month === 12 ? year + 1 : year}/${
-          month === 12 ? 1 : month + 1
-        }/01`,
+        start_date: `${convertDateFormatforStartDate(
+          `${year}-${month}`
+        )}-01T00:00:00.000+00:00`,
+        end_date: `${convertDateFormatforEndDate(
+          `${year}-${month}`
+        )}-01T00:00:00.000+00:00`,
       })
       .then((response) => {
         setApiData(response.data);
