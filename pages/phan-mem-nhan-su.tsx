@@ -129,7 +129,7 @@ export default function HomePageBeforLogin({ children }: any) {
                     <div className={`${styles.t_header_home}`}>
                         <div className={`${styles.t_header_home_left}`}>
                             <a href="/">
-                                <Image src="/Logo.svg" width={128} height={28} alt='/'></Image>
+                                <Image src="/logo.svg" width={128} height={28} alt='/'></Image>
                             </a>
                         </div>
                         <div className={`${styles.t_header_home_right}`}>
@@ -399,7 +399,7 @@ export default function HomePageBeforLogin({ children }: any) {
                             </p>
                             <div className={`${styles.t_dv_button}`}>
                                 <a href="/lua-chon-dang-ky" rel="nofollow" className={`${styles.t_register_now}`}>Đăng ký ngay</a>
-                                <a href="" rel="nofollow" className={`${styles.t_contact}`}>Liên hệ hỗ trợ</a>
+                                <a href="tel:0982079209" rel="nofollow" className={`${styles.t_contact}`}>Liên hệ hỗ trợ</a>
                             </div>
                         </div>
 
