@@ -43,7 +43,10 @@ export default function HomePageBeforLogin({ children }: any) {
     window.addEventListener('scroll', updateClassName);
     window.addEventListener('resize', updateClassName);
 
-    console.log(isClassName);
+    const router = useRouter()
+    const handleNavigation = () => {
+        router.push("/huong-dan")
+    }
 
     return (
         <>
@@ -135,7 +138,7 @@ export default function HomePageBeforLogin({ children }: any) {
                         <div className={`${styles.t_header_home_right}`}>
                             <ul className={`${styles.t_ul_1} ${styles.t_ul_1_n}   `}>
                                 <li><a href="/">Trang chủ</a></li>
-                                <li><a target="_blank" href="">Hướng dẫn</a></li>
+                                <li><a style={{ cursor: "pointer" }} onClick={handleNavigation}>Hướng dẫn</a></li>
                                 <li><a target="_blank" href="">Tin tức</a></li>
                                 <li><a target="_blank" href="/">Chuyển đổi số</a></li>
                             </ul>

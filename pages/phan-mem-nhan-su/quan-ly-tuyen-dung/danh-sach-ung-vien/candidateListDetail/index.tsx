@@ -38,9 +38,6 @@ export default function CandidateListDetail({ iconAdd, iconEdit, iconDelete }: a
   const [isProcessBeforeName, setProcessBeforeName] = useState<any>("")
   const comid: any = GetComId()
 
-  console.log(isProcessList);
-
-
   useEffect(() => {
     const fetchData = async () => {
       try {

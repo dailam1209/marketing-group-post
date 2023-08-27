@@ -93,7 +93,10 @@ export default function App({ Component, pageProps }) {
   }, [router?.pathname]);
 
   const importGlobalStyles = () => {
-    if (router.pathname?.includes("/phan-mem-nhan-su/")) {
+    if (
+      router.pathname?.includes("/phan-mem-nhan-su/") &&
+      !router.pathname?.includes("/phan-mem-nhan-su/huong-dan")
+    ) {
       import("../styles/globals_hr.css");
     } else if (router.pathname?.includes("crm")) {
       import("../styles/crm/stylecrm.css");

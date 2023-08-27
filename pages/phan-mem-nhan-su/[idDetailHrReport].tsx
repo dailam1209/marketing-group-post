@@ -13,6 +13,7 @@ import {
   OrganizationalStructureData,
 } from '@/pages/api/api-hr/co_cau_to_chuc'
 import GetComId from '@/components/hr/getComID'
+import Head from 'next/head'
 
 type SelectOptionType = { label: string; value: any }
 
@@ -356,8 +357,6 @@ export default function DetailHrReport({ children }: any) {
           const response = await EmpStatusDetail(formData)
           if (response) {
             setOrganisationalList(response?.data)
-            console.log(response);
-
           }
         }
         if (
@@ -463,9 +462,6 @@ export default function DetailHrReport({ children }: any) {
     }
     fetchData()
   }, [link, currentPage, isPosition_id, isGender, isMaried, isDep_id, isTeam_id, isGroup_id, isTypeResonse])
-
-  console.log(isTypeResonse);
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -598,11 +594,12 @@ export default function DetailHrReport({ children }: any) {
     ],
   }
 
-  console.log(isReportList?.data);
-
-
   return (
     <>
+
+      <Head>
+        <title>{isTitle}</title>
+      </Head>
       <div className={`${styles.wrapper}`}>
         <div className={`${styles.body}`}>
           <div className={`${styles.d_back}`}>

@@ -10,7 +10,6 @@ import ImageWithFallback from './drop_down_menu/imgFallBack';
 export interface BodyFrameHeader { }
 
 export default function BodyFrameHeader({ dataHeader, tokenType }: any) {
-    console.log(dataHeader)
 
     const [menuClick, setMenuClick] = useState(false)
     const [noti, setNoti] = useState(false)

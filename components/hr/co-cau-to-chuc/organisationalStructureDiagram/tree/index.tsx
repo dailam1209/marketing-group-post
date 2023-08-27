@@ -416,9 +416,6 @@ const StyledTreeExample = ({ iconEdit }) => {
 
   const [data, setData] = useState<any>(null)
 
-  console.log(data);
-
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -428,9 +425,6 @@ const StyledTreeExample = ({ iconEdit }) => {
     }
     fetchData()
   }, [newData])
-
-  console.log(data)
-  console.log(data?.infoCompany?.infoDep)
 
   return (
     <>
