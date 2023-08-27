@@ -9,7 +9,7 @@ import { useApi } from "@/components/crm/hooks/useApi";
 const Cookies = require("js-cookie");
 import { format } from "date-fns";
 import { te } from "date-fns/locale";
-import { base_url, convert_time } from "@/components/crm/service/function";
+import { base_url } from "@/components/crm/service/function";
 import { checkAndRedirectToHomeIfNotLoggedIn } from "@/components/crm/ultis/checkLogin";
 export interface DataType {
   key: React.Key;
@@ -127,7 +127,46 @@ export default function CustomerList() {
   const datatable = data?.data?.map((item, index: number) => {
     let nguonKH = "";
     let time;
-    time = convert_time(item?.updated_at);
+    if (item.updated_at.length) {
+      const inputTimeString = item?.updated_at;
+
+      // Chuyển đổi thành đối tượng thời gian
+      const inputTime = new Date(inputTimeString);
+      // Lấy thông tin ngày, tháng, năm, giờ, phút, giây
+      const day = inputTime.getUTCDate();
+      const month = inputTime.getUTCMonth() + 1;
+      const year = inputTime.getUTCFullYear();
+      const hours = inputTime.getUTCHours();
+      const minutes = inputTime.getUTCMinutes();
+      const seconds = inputTime.getUTCSeconds();
+      const outputTimeString = `${day < 10 ? "0" : ""}${day}-${
+        month < 10 ? "0" : ""
+      }${month}-${year} ${hours < 10 ? "0" : ""}${hours}:${
+        minutes < 10 ? "0" : ""
+      }${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+      time = outputTimeString;
+    }
+    if (item.updated_at > 0) {
+      const timestamp = item?.updated_at; // Thay thế bằng giá trị của bạn
+      const dateObj = new Date(timestamp * 1000);
+
+      const formattedDate = `${
+        dateObj.getUTCDate() < 10 ? "0" : ""
+      }${dateObj.getUTCDate()}-${dateObj.getUTCMonth() + 1 < 10 ? "0" : ""}${
+        dateObj.getUTCMonth() + 1
+      }-${dateObj.getUTCFullYear()}`;
+
+      const formattedTime = `${
+        dateObj.getUTCHours() < 10 ? "0" : ""
+      }${dateObj.getUTCHours()}:${
+        dateObj.getUTCMinutes() < 10 ? "0" : ""
+      }${dateObj.getUTCMinutes()}:${
+        dateObj.getUTCSeconds() < 10 ? "0" : ""
+      }${dateObj.getUTCSeconds()}`;
+
+      const outputTimeString = `${formattedDate}\n${formattedTime}`;
+      time = outputTimeString;
+    }
 
     for (let key of ArrNguonKK) {
       if (key.id == item.resoure) {

@@ -28,20 +28,14 @@ export default function DetailCustomer() {
     const data = await res.json();
     setname(data?.data?.name);
   };
+
   useEffect(() => {
     getNameDetail();
     setShowBackButton(true);
     setHeaderTitle(`${name} / Thông tin khách hàng`);
 
     setCurrentPath("/crm/customer/list");
-  }, [
-    setHeaderTitle,
-    setShowBackButton,
-    setCurrentPath,
-    id,
-    name
-  ]);
-
+  }, [setHeaderTitle, setShowBackButton, setCurrentPath, id, name]);
 
   return (
     <>

@@ -5,6 +5,8 @@ import styles from "@/components/crm/potential/potential.module.css";
 import { useHeader } from "@/components/crm/hooks/useHeader";
 import { useRouter } from "next/router";
 import Link from "next/link";
+const Cookies = require("js-cookie");
+import { base_url } from "@/components/crm/service/function";
 
 export default function ContractDetailsList() {
   const mainRef = useRef<HTMLDivElement>(null);
@@ -13,15 +15,27 @@ export default function ContractDetailsList() {
   const { id } = router.query;
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
-  const [liveiew, setLiveiew] = useState(false);
+  const [name, setname] = useState<any>();
 
-
+  const getNameDetail = async () => {
+    const res = await fetch(`${base_url}/api/crm/customerdetails/detail`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${Cookies.get("token_base365")}`,
+      },
+      body: JSON.stringify({ cus_id: id }),
+    });
+    const data = await res.json();
+    setname(data?.data?.name);
+  };
 
   useEffect(() => {
-    setHeaderTitle(`${id} / Hợp đồng bán / Chi tiết hợp đồng bán`);
+    getNameDetail();
+    setHeaderTitle(`${name} / Hợp đồng bán / Chi tiết hợp đồng bán`);
     setShowBackButton(true);
     setCurrentPath(`/crm/customer/detail/${id}`);
-  }, [setHeaderTitle, setShowBackButton, setCurrentPath, id]);
+  }, [setHeaderTitle, setShowBackButton, setCurrentPath, id, name]);
 
   useEffect(() => {
     if (isOpen) {
@@ -35,7 +49,8 @@ export default function ContractDetailsList() {
       <div ref={mainRef} className={styleHome.main}>
         <div className={styles.detail_button}>
           <Link href={`/crm/customer/contract/send/${id}`} target="blank">
-          <button className={styles.send_button_detail}>Gửi hợp đồng</button></Link>
+            <button className={styles.send_button_detail}>Gửi hợp đồng</button>
+          </Link>
           <button className={styles.delete_button}>Xoá hợp đồng</button>
           <button className={styles.export_button}>Xuất file</button>
         </div>
