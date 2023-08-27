@@ -114,9 +114,6 @@ export default function RecruitmentReport() {
     } catch (error) { }
   }, [currentPageBox4])
 
-
-
-  console.log(dataThird)
   return (
     <>
       <div className={`${styles.row}`} style={{ marginTop: '45px' }}>
@@ -170,7 +167,7 @@ export default function RecruitmentReport() {
               </tr>
             </thead>
             <tbody className={`${styles.t_body_dom}`}>
-              <ThirdBlock listCardThird={dataThird} total = {currentPageBox3}></ThirdBlock>
+              <ThirdBlock listCardThird={dataThird} total={currentPageBox3}></ThirdBlock>
             </tbody>
           </table>
           <div className={`${styles.pagination}`}>

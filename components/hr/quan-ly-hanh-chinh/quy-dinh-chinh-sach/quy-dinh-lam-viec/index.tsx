@@ -34,10 +34,6 @@ export default function RegulationsWork({ iconAdd, iconEdit, iconDelete }) {
   const [keyWords, setKeyWords] = useState('')
   const [newData, setNewData] = useState(false)
 
-  console.log(data);
-  console.log(dataChildList);
-  console.log(dataChild);
-
   const fetchData = useCallback(async () => {
     try {
       const response = await SpecifiedGroupList(10, currentPage, keyWords);
@@ -50,17 +46,13 @@ export default function RegulationsWork({ iconAdd, iconEdit, iconDelete }) {
     fetchData();
   }, [fetchData]);
   const setIdParent = async (itemId: number) => {
-    console.log(dataChildList)
-    console.log(itemId);
     const dataChildIndex = dataChildList.findIndex((item: any) => item.id === itemId);
-    console.log(dataChildIndex);
     if (dataChildIndex !== -1) {
       setDataChild(dataChildList[dataChildIndex].data);
     } else {
       try {
         const response = await RulesByGroupList(itemId);
         const dataResponse = response?.success?.data?.data
-        console.log(dataResponse);
         const updatedDataChildList = [...dataChildList, { id: itemId, data: dataResponse }];
         setDataChildList(updatedDataChildList);
         setDataChild(response?.data);

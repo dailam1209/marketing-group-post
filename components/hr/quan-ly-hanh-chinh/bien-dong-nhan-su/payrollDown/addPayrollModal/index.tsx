@@ -68,9 +68,6 @@ export default function AddPayrollModal({ onCancel }: any) {
   const comid: any = GetComId()
   const modalRef = useRef(null);
 
-  console.log(isCom_id);
-
-
   useEffect(() => {
     const handleOutsideClick = (event: any) => {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
@@ -153,7 +150,6 @@ export default function AddPayrollModal({ onCancel }: any) {
   }, [isPositionList, isPosition_id]);
 
   useEffect(() => {
-    console.log(isDep_id);
 
     const foundItem = isDepList?.items?.find((item: any) => item.dep_id === isDep_id);
     if (foundItem) {
@@ -252,9 +248,6 @@ export default function AddPayrollModal({ onCancel }: any) {
       }
     }
   }
-
-  console.log(companyNames);
-
 
   const chonchinhanhOptions = useMemo(
     () =>

@@ -7,7 +7,7 @@ import {
   UpdateInfoEmployee,
 } from "@/pages/api/api-hr/cai-dat/generalSettings";
 
-export default function PersonalInformation({}) {
+export default function PersonalInformation({ }) {
   const [active, setActive] = useState<any>(true);
   const [dataUser, setDataUser] = useState<any>();
   const [content, setContent] = useState<any>();
@@ -19,11 +19,10 @@ export default function PersonalInformation({}) {
       try {
         const response = await EmployeeInfo();
         setDataUser(response?.data?.data);
-      } catch (error) {}
+      } catch (error) { }
     };
     fetchDataUser();
   }, []);
-  console.log(dataUser, "ok");
 
   useEffect(() => {
     if (dataUser?.birthday) {
@@ -64,7 +63,7 @@ export default function PersonalInformation({}) {
       if (response?.status === 200) {
         setActive(true);
       }
-    } catch (error) {}
+    } catch (error) { }
   };
   const option = [
     { label: "Mới tốt nghiệp" },
@@ -94,8 +93,8 @@ export default function PersonalInformation({}) {
                   src={dataUser?.avatarUser}
                   alt="User Avatar"
                   onError={(e: any) => {
-                    e.target.onerror = null; 
-                    e.currentTarget.src = `${'/logo_demo.png'}` 
+                    e.target.onerror = null;
+                    e.currentTarget.src = `${'/logo_demo.png'}`
                   }}
                 />
               </picture>
@@ -147,8 +146,8 @@ export default function PersonalInformation({}) {
                     {dataUser?.gender === 1
                       ? "Nam"
                       : dataUser?.gender === 2
-                      ? "Nữ"
-                      : "Khác"}
+                        ? "Nữ"
+                        : "Khác"}
                   </span>
                 </div>
               </div>
@@ -220,8 +219,8 @@ export default function PersonalInformation({}) {
                             dataUser?.gender === 1
                               ? "Nam"
                               : dataUser?.gender === 2
-                              ? "Nữ"
-                              : "Khác"
+                                ? "Nữ"
+                                : "Khác"
                           }
                           className={`${styles.l_input_edit}`}
                           style={{ width: "100%" }}

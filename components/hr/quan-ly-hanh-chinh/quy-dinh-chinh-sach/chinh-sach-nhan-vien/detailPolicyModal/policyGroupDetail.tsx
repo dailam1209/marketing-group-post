@@ -16,9 +16,6 @@ export default function PolicyGroupDetailModal({
   const [isopenDetailFile, setOpenDetailFile] = useState<any | null>(false)
   const modalRef = useRef(null)
 
-  console.log(DetailData);
-
-
   useEffect(() => {
     const handleOutsideClick = (event: any) => {
       if (modalRef.current && !modalRef.current.contains(event.target)) {

@@ -69,9 +69,6 @@ export default function AddWorkingModal({ onCancel }: any) {
   const [errors, setErrors] = useState<any>({});
   const modalRef = useRef(null);
 
-  console.log(isOrganizationalStructureList);
-
-
   useEffect(() => {
     const handleOutsideClick = (event: any) => {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
@@ -200,9 +197,6 @@ export default function AddWorkingModal({ onCancel }: any) {
   const handleInputAreaChange = (data: string, setState: any) => {
     setState(data);
   };
-
-  console.log(isOrganizationalStructureList);
-
 
   const companyNames: any = [];
   const companyNamesNew: any = [];
@@ -342,10 +336,6 @@ export default function AddWorkingModal({ onCancel }: any) {
         })),
     [isEmpList, isDep_id]
   );
-
-  console.log(isDep_id);
-  console.log(chonnhanvientheophongOptions);
-
 
   const chonnhanvienOptions = useMemo(
     () =>
