@@ -13,6 +13,7 @@ import {
   OrganizationalStructureData,
 } from '@/pages/api/api-hr/co_cau_to_chuc'
 import GetComId from '@/components/hr/getComID'
+import Head from 'next/head'
 
 type SelectOptionType = { label: string; value: any }
 
@@ -603,6 +604,10 @@ export default function DetailHrReport({ children }: any) {
 
   return (
     <>
+
+      <Head>
+        <title>{isTitle}</title>
+      </Head>
       <div className={`${styles.wrapper}`}>
         <div className={`${styles.body}`}>
           <div className={`${styles.d_back}`}>

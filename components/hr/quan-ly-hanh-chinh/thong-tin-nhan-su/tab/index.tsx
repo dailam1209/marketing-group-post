@@ -83,7 +83,7 @@ export default function TabEmployeeManagement({ iconAdd, iconEdit }: any) {
     fetchData()
   }, [])
 
-  console.log(OrganizationalDatas);
+
 
 
   function getCompanyNameByChinhanh(com_id: any, apiData: any) {
@@ -189,7 +189,7 @@ export default function TabEmployeeManagement({ iconAdd, iconEdit }: any) {
   const handleSignaturePageChange = (page: number) => {
     setCurrentPage(page);
   };
-  console.log(iconAdd)
+
   return (
     <>
       <div className={`${styles.tab_content} `} >
