@@ -357,8 +357,6 @@ export default function DetailHrReport({ children }: any) {
           const response = await EmpStatusDetail(formData)
           if (response) {
             setOrganisationalList(response?.data)
-            console.log(response);
-
           }
         }
         if (
@@ -464,9 +462,6 @@ export default function DetailHrReport({ children }: any) {
     }
     fetchData()
   }, [link, currentPage, isPosition_id, isGender, isMaried, isDep_id, isTeam_id, isGroup_id, isTypeResonse])
-
-  console.log(isTypeResonse);
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -598,9 +593,6 @@ export default function DetailHrReport({ children }: any) {
       { value: 2, label: 'Độc thân' },
     ],
   }
-
-  console.log(isReportList?.data);
-
 
   return (
     <>

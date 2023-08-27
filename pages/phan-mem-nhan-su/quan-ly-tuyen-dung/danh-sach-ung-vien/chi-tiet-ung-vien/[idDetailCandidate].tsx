@@ -43,18 +43,12 @@ export default function DetailCandidate({ onCancel }: any) {
   const [newData, setNewData] = useState<any>(false)
   const [isProcessBefore, setProcessBefore] = useState<any>(null);
 
-  console.log(isCandidate);
-
-
   const EmpMatchProcess = EmpData?.items?.find((item: any) => item.ep_id ===
     isCandidateProcess?.detail_get_job?.ep_interview
     || isCandidateProcess?.detail_fail_job?.ep_interview
     || isCandidateProcess?.detail_cancel_job?.ep_interview
     || isCandidateProcess?.detail_contact_job?.ep_offer
   )
-
-  console.log(isCandidateProcess);
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -125,11 +119,8 @@ export default function DetailCandidate({ onCancel }: any) {
     fetchData()
   }, [newData])
 
-  console.log(isCandidateFirst)
-
   useEffect(() => {
     if (isCandidateFirst && id) {
-      console.log(isCandidateFirst);
       if (id?.includes("p")) {
         const regex = /u(\d+)p/g
         const matches: any = [];
@@ -145,7 +136,6 @@ export default function DetailCandidate({ onCancel }: any) {
       else {
         const item = isCandidateFirst?.find((item: any) => item.id === Number(id?.slice(1, id?.length)))
         setCandidate(item)
-        console.log(Number(id?.slice(1, id?.length)));
       }
     }
   }, [isCandidateFirst])
@@ -284,8 +274,6 @@ export default function DetailCandidate({ onCancel }: any) {
   const selectedEducation: any = options.trinhdohocvan.find((item) => item.value === isCandidate?.can_education);
   // const selectedExp: any = options.kinhnghiemlamviec.find((item) => item.value === isCandidate?.can_exp.toString());
   const selectedMarried: any = options.tinhtranghonnhan.find((item) => item.value === isCandidate?.can_is_married);
-
-  console.log(isCandidate);
 
   return (
     <>

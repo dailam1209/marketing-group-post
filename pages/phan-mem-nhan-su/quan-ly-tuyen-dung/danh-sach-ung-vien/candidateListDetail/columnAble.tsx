@@ -31,8 +31,6 @@ export default function DropableColumn({
     }),
   }))
 
-  console.log(isProcessList);
-
   return (
     <>
       <div className={`${styles.hs_t}`} ref={drop}>

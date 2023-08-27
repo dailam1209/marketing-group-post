@@ -47,11 +47,10 @@ export default function DeletedDataComPonent({ iconEdit, iconDelete }) {
     try {
       const fetchData = async () => {
         const response = await getDataDeleteComponent(search)
-        console.log(response)
         setData(response?.success)
       }
       fetchData()
-    } catch (error: any) {}
+    } catch (error: any) { }
   }, [newData, search])
 
   return (
