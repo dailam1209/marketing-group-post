@@ -83,7 +83,7 @@ export default function ScheduleBtnsDetails({ id }: any) {
                 alt="+"
                 width={16}
                 height={16}
-                src="	https://crm.timviec365.vn/assets/icons/edit_kh.svg"
+                src="	/crm/edit_kh.svg"
               />
               Chỉnh sửa
             </button>

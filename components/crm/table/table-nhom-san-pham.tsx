@@ -31,7 +31,7 @@ const Table_Nhom_San_Pham = (props: any) => {
                     onClick={() => { setIsShowModal(true) }}
                 >
 
-                    <img src="https://crm.timviec365.vn/assets/icons/icon-edit-black.svg" alt="" />
+                    <img src="/crm/icon-edit-black.svg" alt="" />
                     &nbsp;  &nbsp; <p >Chỉnh sửa</p>
                 </div>
             ),

@@ -49,7 +49,7 @@ const DetailInformationContact: React.FC<PropsDetail> = ({ id1, id2 }) => {
               alt="image"
               width={16}
               height={16}
-              src="https://crm.timviec365.vn/assets/icons/edit_kh.svg"
+              src="/crm/edit_kh.svg"
             />
             Chỉnh sửa
           </Link>
@@ -61,7 +61,7 @@ const DetailInformationContact: React.FC<PropsDetail> = ({ id1, id2 }) => {
               alt="image"
               width={16}
               height={16}
-              src="https://crm.timviec365.vn/assets/icons/delete_kh.svg"
+              src="/crm/delete_kh.svg"
             />
             Xóa
           </button>
@@ -125,7 +125,7 @@ const DetailInformationContact: React.FC<PropsDetail> = ({ id1, id2 }) => {
                               height={16}
                               alt="check"
                               src={
-                                "https://crm.timviec365.vn/assets/icons/dungchung_kh.svg"
+                                "/crm/dungchung_kh.svg"
                               }
                             />
                             Liên hệ đại diện
@@ -142,7 +142,7 @@ const DetailInformationContact: React.FC<PropsDetail> = ({ id1, id2 }) => {
                               height={16}
                               alt="check"
                               src={
-                                "https://crm.timviec365.vn/assets/icons/dungchung_kh.svg"
+                                "/crm/dungchung_kh.svg"
                               }
                             />
                             Liên hệ nhận hóa đơn
@@ -159,7 +159,7 @@ const DetailInformationContact: React.FC<PropsDetail> = ({ id1, id2 }) => {
                               height={16}
                               alt="check"
                               src={
-                                "https://crm.timviec365.vn/assets/icons/dungchung_kh.svg"
+                                "/crm/dungchung_kh.svg"
                               }
                             />
                             Liên hệ giao hàng
@@ -176,7 +176,7 @@ const DetailInformationContact: React.FC<PropsDetail> = ({ id1, id2 }) => {
                               height={16}
                               alt="check"
                               src={
-                                "https://crm.timviec365.vn/assets/icons/dungchung_kh.svg"
+                                "/crm/dungchung_kh.svg"
                               }
                             />
                             Liên hệ thủ trưởng đơn vị

@@ -294,7 +294,7 @@ const TabComponent = () => {
                         type="button"
                         className={`${styles.dropbtn_add} flex_align_center`}
                       >
-                        <img src="https://crm.timviec365.vn/assets/img/crm/customer/share_white.svg" />
+                        <img src="/crm/share_white.svg" />
                        Chia sẻ
                       </button>
                     </div>

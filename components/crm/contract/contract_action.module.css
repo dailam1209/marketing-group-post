@@ -171,9 +171,7 @@
     width: 100%;
     float: right;
     display: flex;
-    justify-content: flex-end;
-    padding-right: 88px;
-    margin-top: 22px;
+    justify-content: center;
     margin-bottom: 50px;
 }
 

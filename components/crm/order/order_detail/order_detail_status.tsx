@@ -23,7 +23,7 @@ export default function AddOrderDetailStatus() {
 
                             <div className={`${styles.main__body__item__title}`}><b>Người duyệt:</b></div>
                             <div className={`${styles.main__body__item__value}`}>
-                                <div style={{ display: "flex", justifyContent: 'center' }}> <div><img src="https://crm.timviec365.vn/assets/img/user_kh.png" alt="" /></div>&nbsp;Nguyễn Văn Nam</div>
+                                <div style={{ display: "flex", justifyContent: 'center' }}> <div><img src="/crm/user_kh.png" alt="" /></div>&nbsp;Nguyễn Văn Nam</div>
                             </div>
                         </div>
                     </div>
@@ -103,7 +103,7 @@ export default function AddOrderDetailStatus() {
 
                             <div className={`${styles.main__body__item__title}`}><b>Người cập nhật:</b></div>
                             <div className={`${styles.main__body__item__value}`}>
-                                <div style={{ display: "flex", justifyContent: 'center' }}> <div><img src="https://crm.timviec365.vn/assets/img/user_kh.png" alt="" /></div>&nbsp;Nguyễn Văn Nam</div>
+                                <div style={{ display: "flex", justifyContent: 'center' }}> <div><img src="/crm/user_kh.png" alt="" /></div>&nbsp;Nguyễn Văn Nam</div>
                             </div>
                         </div>
                     </div>
@@ -155,7 +155,7 @@ export default function AddOrderDetailStatus() {
 
                             <div className={`${styles.main__body__item__title}`}><b>Người cập nhật:</b></div>
                             <div className={`${styles.main__body__item__value}`}>
-                                <div style={{ display: "flex", justifyContent: 'center' }}> <div><img src="https://crm.timviec365.vn/assets/img/user_kh.png" alt="" /></div>&nbsp;Nguyễn Văn Nam</div>
+                                <div style={{ display: "flex", justifyContent: 'center' }}> <div><img src="/crm/user_kh.png" alt="" /></div>&nbsp;Nguyễn Văn Nam</div>
                             </div>
                         </div>
                     </div>
@@ -368,7 +368,7 @@ export default function AddOrderDetailStatus() {
 
                             <div className={`${styles.main__body__item__title}`}><b>Người tạo:</b></div>
                             <div className={`${styles.main__body__item__value}`}>
-                                <div style={{ display: "flex", justifyContent: 'center' }}> <div><img src="https://crm.timviec365.vn/assets/img/user_kh.png" alt="" /></div>&nbsp;Nguyễn Văn Nam</div>
+                                <div style={{ display: "flex", justifyContent: 'center' }}> <div><img src="/crm/user_kh.png" alt="" /></div>&nbsp;Nguyễn Văn Nam</div>
                             </div>
                         </div>
                     </div>
@@ -387,7 +387,7 @@ export default function AddOrderDetailStatus() {
 
                             <div className={`${styles.main__body__item__title}`}><b>Người sửa:</b></div>
                             <div className={`${styles.main__body__item__value}`}>
-                                <div style={{ display: "flex", justifyContent: 'center' }}> <div><img src="https://crm.timviec365.vn/assets/img/user_kh.png" alt="" /></div>&nbsp;Nguyễn Văn Nam</div>
+                                <div style={{ display: "flex", justifyContent: 'center' }}> <div><img src="/crm/user_kh.png" alt="" /></div>&nbsp;Nguyễn Văn Nam</div>
                             </div>
                         </div>
                     </div>

@@ -54,7 +54,7 @@ const TableTLChiaSe: React.FC<TableDataTLCS> = (props: any) => {
       key: "name",
       render: (text: any) => (
         <div style={{ display: "flex", justifyContent: "center" }}>
-          <img src="https://crm.timviec365.vn/assets/img/user_kh.png"></img>
+          <img src="/crm/user_kh.png"></img>
           <div>{text}</div>
         </div>
       ),

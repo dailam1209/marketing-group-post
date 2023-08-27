@@ -38,7 +38,7 @@ const columns: ColumnsType<DataType> = [
     width: 60,
     dataIndex: "name",
     key: "name",
-    render: (text: any) => <div style={{ display: "flex", justifyContent: 'center' }}> <div><img src="https://crm.timviec365.vn/assets/img/user_kh.png" alt="" /></div>&nbsp;{text}</div>
+    render: (text: any) => <div style={{ display: "flex", justifyContent: 'center' }}> <div><img src="/crm/user_kh.png" alt="" /></div>&nbsp;{text}</div>
   },
   {
     title: "Phòng ban",

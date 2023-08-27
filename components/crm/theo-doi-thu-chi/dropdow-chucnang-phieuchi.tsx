@@ -12,7 +12,7 @@ const DropdownChucNangphieuchi = (props: any) => {
             label: (
                 <Link style={{ display: "flex", fontSize: 20 }} rel="noopener noreferrer"
                     href={`/chinh-sua-phieu-chi/${record.myPhone}`}>
-                    <img src="https://crm.timviec365.vn/assets/icons/icon-edit-black.svg" alt="" />
+                    <img src="/crm/icon-edit-black.svg" alt="" />
                     &nbsp;  &nbsp; <p >Chỉnh sửa</p>
                 </Link>
             ),
