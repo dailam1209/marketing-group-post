@@ -12,6 +12,9 @@ import Link from "next/link";
 import ModalCompleteContractStepADD from "@/components/crm/customer/contract/complete_contract_add";
 import TableDataContractSend from "@/components/crm/table/table-contract-send";
 
+const Cookies = require("js-cookie");
+import { base_url } from "@/components/crm/service/function";
+
 const data = [
   {
     department: "Phòng A",
@@ -49,11 +52,27 @@ export default function ContractDetailsSend() {
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
 
+  const [name, setname] = useState<any>();
+
+  const getNameDetail = async () => {
+    const res = await fetch(`${base_url}/api/crm/customerdetails/detail`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${Cookies.get("token_base365")}`,
+      },
+      body: JSON.stringify({ cus_id: id }),
+    });
+    const data = await res.json();
+    setname(data?.data?.name);
+  };
+
   useEffect(() => {
-    setHeaderTitle(`${id} / Hợp đồng bán / Gửi hợp đồng`);
+    getNameDetail();
+    setHeaderTitle(`${name} / Hợp đồng bán / Gửi hợp đồng`);
     setShowBackButton(true);
     setCurrentPath(`/crm/customer/contract/list/${id}`);
-  }, [setHeaderTitle, setShowBackButton, setCurrentPath, id]);
+  }, [setHeaderTitle, setShowBackButton, setCurrentPath, id, name]);
 
   useEffect(() => {
     if (isOpen) {
