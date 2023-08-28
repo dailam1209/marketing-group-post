@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "../contract_action.module.css";
 import Image from "next/image";
-import { useApi } from "@/components/crm/hooks/useApi";
 import AddContractrModal from "../modal_add_contract";
 import CancelModal from "../../price_policy/price_policy_steps/cancel_modal";
 import ModalCompleteStep from "../../price_policy/price_policy_steps/complete_modal";
@@ -14,6 +13,7 @@ import { imageBase64 } from "./imgBase64";
 import { setTextRange } from "typescript";
 import { base_url } from "../../service/function";
 import { el } from "date-fns/locale";
+import EditFieldModal from "./editField_mdal";
 
 interface MyComponentProps {
   isModalCancel: boolean;
@@ -37,14 +37,17 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
   const [imageData, setImageData] = useState<any>();
   const [inputSearch, setInputSearch] = useState("");
   const [scrolling, setScrolling] = useState(false);
+  const [posEdit, setPosEdit] = useState<any>([]);
   const initialCheckStates = Array(5).fill(false); // Thay số 5 bằng số lượng checkbox tùy theo tình huống
   const [checkedStates, setCheckedStates] =
     useState<boolean[]>(initialCheckStates);
+  const [isEdit, setIsEdit] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [newValues, setNewValues] = useState<
     { index: number[]; originalValue: string; newValue: string }[]
   >([]); // Set value moi, value cu va index
   const targetScrollRef = useRef<HTMLDivElement>(null);
+  const [isOpenEditField, setIsOpenEditField] = useState(false);
 
   const axios = require("axios");
   // const fs = require("fs");
@@ -79,7 +82,6 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
   const scrollToTarget = () => {
     const targetElement = document.getElementById("setting");
 
-    console.log(targetElement);
     if (targetElement) {
       const targetPosition =
         targetElement.getBoundingClientRect().top + window.pageYOffset;
@@ -90,8 +92,22 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
     }
   };
 
-  const handleEditField = () => {
+  const handleEditField = (item, index) => {
+    setIsEdit(true);
+    settext_change(item?.originalValue);
+    setInputSearch(item?.originalValue);
     scrollToTarget();
+    const newStates = [...checkedStates];
+    for (const val in checkedStates) {
+      newStates[val] = false;
+    }
+    for (const pos of item?.index) {
+      if (pos >= 0 && pos < checkedStates.length) {
+        newStates[pos] = true;
+      }
+    }
+    setPosEdit(index);
+    setCheckedStates(newStates);
   };
 
   const handleSubmit = async () => {
@@ -191,6 +207,7 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
     event.preventDefault();
 
     if (inputSearch) {
+      setIsEdit(false);
       const formData = new FormData();
       formData.append("text_change", inputSearch);
 
@@ -238,13 +255,50 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
       alert("Hãy chọn ít nhất 1 trường thông tin để thiết lập");
     } else {
       // Mở modal hiển thị vị trí các checkbox được chọn
-      setModalVisible(true);
       setIsCreatField(true);
     }
   };
 
+  const handleShowModalDefaultField = () => {
+    const selectedIndices = checkedStates.reduce(
+      (indices, isChecked, index) =>
+        isChecked ? [...indices, index] : indices,
+      []
+    );
+
+    if (selectedIndices.length === 0) {
+      alert("Hãy chọn ít nhất 1 trường thông tin để thiết lập");
+    } else {
+      // Mở modal hiển thị vị trí các checkbox được chọn
+      setIsCreatFieldDefault(true);
+    }
+  };
+
+  const dispatchShowModalEditField = () => {
+    const selectedIndices = checkedStates.reduce(
+      (indices, isChecked, index) =>
+        isChecked ? [...indices, index] : indices,
+      []
+    );
+
+    if (selectedIndices.length === 0) {
+      alert("Hãy chọn ít nhất 1 trường thông tin để thiết lập");
+    } else {
+      // Mở modal hiển thị vị trí các checkbox được chọn
+      setIsOpenEditField(true);
+    }
+  };
+
+  const handleShowEditFieldModal = () => {
+    dispatchShowModalEditField();
+  };
+
   const handleCreateFieldBtn = () => {
     handleShowModal();
+  };
+
+  const handleSetDefaultField = () => {
+    handleShowModalDefaultField();
   };
 
   const handleCheckboxChange = (index: number) => {
@@ -265,29 +319,33 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
   }
 
   const checkWords = (arr, text) => {
-    for (const valueA of arr) {
-      if (valueA.originalValue === text) {
-        return true;
-      }
-    }
-    return false;
+    const index = arr.findIndex((item) => item.originalValue === text);
+    return index;
   };
 
   const handleReplaceValues = (newValue: string, pos: number) => {
     const indexSelect = checkedStates
       .map((value, index) => (value ? index : null))
       .filter((index) => index !== null);
-    console.log(indexSelect, newValues);
     const editedItem = checkValuesExist(indexSelect, newValues);
     const checkWord = checkWords(newValues, text_change);
-    console.log(checkWord, text_change);
-    if (!editedItem || !checkWord) {
+
+    const mergedIndexes = [];
+
+    for (let i = 0; i < newValues.length; i++) {
+      if (newValues[i].originalValue === text_change) {
+        mergedIndexes.push(...newValues[i].index);
+      }
+    }
+
+    const arrCheck = indexSelect.filter((item) => mergedIndexes.includes(item));
+
+    if (!editedItem || checkWord === -1 || arrCheck.length < 1) {
       const updatedValues = [
         ...newValues,
         { index: indexSelect, originalValue: text_change, newValue },
       ];
       setNewValues(updatedValues);
-      console.log(newValues);
     } else {
       alert(`Từ khóa đã được thiết lập, vui lòng kiểm tra lại`);
     }
@@ -295,8 +353,54 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
     setCheckedStates(Array(initialCheckStates.length).fill(false));
   };
 
-  const handleDelEditField = () => {
-    confirm("Bạn có chắc chắn muốn xóa trường này ???");
+  const handleEditValue = (newValue: string, pos: any) => {
+    const indexSelect = checkedStates
+      .map((value, index) => (value ? index : null))
+      .filter((index) => index !== null);
+    let updatedValues = newValues[pos];
+    // console.log(indexSelect?.length === updatedValues?.index?.length);
+    const result: number[] = indexSelect.filter(
+      (item) => !updatedValues?.index?.includes(item)
+    );
+    const editedItem = checkValuesExist(result, newValues);
+
+    const mergedIndexes = [];
+
+    for (let i = 0; i < newValues.length; i++) {
+      if (newValues[i].originalValue === text_change) {
+        mergedIndexes.push(...newValues[i].index);
+      }
+    }
+
+    const arrCheck = result.filter((item) => mergedIndexes.includes(item));
+
+    if (!editedItem || arrCheck?.length < 1) {
+      const newResultEdit = {
+        index: indexSelect,
+        originalValue: text_change,
+        newValue,
+      };
+      const newData = [...newValues];
+      newData?.splice(pos, 1, newResultEdit);
+      setNewValues(newData);
+      setIsEdit(false);
+    } else {
+      alert(`Từ khóa đã được thiết lập, vui lòng kiểm tra lại`);
+    }
+
+    setCheckedStates(Array(initialCheckStates.length).fill(false));
+  };
+
+  const handleDelEditField = (item) => {
+    const result = confirm("Bạn có chắc chắn muốn xóa trường này ???");
+    const index = newValues.findIndex((el) => el === item);
+    const newArr = [...newValues];
+    if (result) {
+      newArr.splice(index, 1);
+      setNewValues(newArr);
+    } else {
+      // alert("Ko");
+    }
   };
 
   const ImageComponent = () => {
@@ -565,6 +669,7 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
                   className={styles.divSearch}
                 >
                   <input
+                    value={inputSearch}
                     className={`${styles.form_control} ${styles.upload_contract} ${styles.upload_text}`}
                     onChange={(event) => setInputSearch(event.target.value)}
                     placeholder="Nhập nội dung cần thay đổi"
@@ -617,31 +722,49 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
                 </div>
 
                 <div className={styles.btn_form_contract}>
-                  {/* <button type="button" className="xoatruong hidden">
-                    <img src="/assets/img/xoatruong.svg" alt="button" /> Xóa
-                    Trường
-                  </button>
-                  <button type="button" className="suatruong l-15 hidden">
-                    <img src="/assets/img/suatruong.svg" alt="button" /> Sửa
-                    trường
-                  </button> */}
+                  {isEdit ? (
+                    <>
+                      <button
+                        onClick={() => setIsEdit(false)}
+                        type="button"
+                        className={styles.xoatruong}
+                      >
+                        Hủy
+                      </button>
+                      <button
+                        onClick={handleShowEditFieldModal}
+                        type="button"
+                        className={styles.taotruong}
+                      >
+                        <img
+                          src="https://crm.timviec365.vn/assets/img/suatruong.svg"
+                          alt="button"
+                        />{" "}
+                        Sửa trường
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <button
+                        type="button"
+                        onClick={() => handleCreateFieldBtn()}
+                        data-toggle="modal"
+                        data-target="#modalCreate"
+                        className={styles.taotruong}
+                      >
+                        <img src="/crm/plus_icon_field.svg" alt="button" /> Tạo
+                        trường
+                      </button>
+                    </>
+                  )}
                   <button
                     type="button"
-                    onClick={() => handleCreateFieldBtn()}
-                    data-toggle="modal"
-                    data-target="#modalCreate"
-                    className={styles.taotruong}
-                  >
-                    <img src="/crm/plus_icon_field.svg" alt="button" /> Tạo
-                    trường
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setIsCreatFieldDefault(true)}
+                    onClick={handleSetDefaultField}
                     className={styles.tieptuc}
                   >
                     Chỉnh sửa bằng trường mặc định
                   </button>
+
                   {/* <button
                     type="button"
                     // onclick="prev()"
@@ -662,9 +785,17 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
                     handleReplaceValues={handleReplaceValues}
                     // index={checkedStates.findIndex((isChecked) => isChecked)}
                   />
+                  <EditFieldModal
+                    isModalCancel={isOpenEditField}
+                    setIsModalCancel={setIsOpenEditField}
+                    handleReplaceValues={handleEditValue}
+                    value={newValues[posEdit]?.newValue}
+                    index={posEdit}
+                  />
                   <CreatFieldDefaultModal
                     isModalCancel={isCreatFieldDefault}
                     setIsModalCancel={setIsCreatFieldDefault}
+                    handleReplaceValues = {handleReplaceValues}
                   />
                 </div>
               </div>
@@ -688,77 +819,80 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
             )}
 
             {/* Edit field contract */}
-            {newValues && (
+            {newValues && newValues?.length > 0 && (
               <div className={styles.field_config}>
                 <div className={styles.footer_contract}>
                   <h4>Các trường đã thiết lập</h4>
                 </div>
-                {newValues?.map((item: any, index: number) => (
-                  <div
-                    key={index}
-                    className={`${styles["frm-3"]} ${styles["fm-bd"]} ${styles["fm_bt"]} ${styles["fm-fd"]} ${styles.opacity}`}
-                    id="field_config_1"
-                  >
-                    <div className={styles["error-name"]}>
-                      <label className={styles.field_new}>
-                        {item?.newValue}
-                      </label>
-                      <div className={styles.function}>
-                        <button
-                          className={styles.h_edit_cus}
-                          onClick={handleEditField}
-                          disabled={scrolling}
-                        >
-                          <img src="/crm/blue_edit_cus.svg" alt="sửa" /> Sửa |
-                        </button>
-                        <button
-                          onClick={handleDelEditField}
-                          className={styles.h_delete_cus}
-                        >
-                          <img src="/crm/red_delete_cus.svg" alt="Xóa" /> Xóa
-                        </button>
+                <div className={`${styles["frm-3"]}`}>
+                  {newValues?.map((item: any, index: number) => (
+                    <div
+                      key={index}
+                      className={`${styles["fm-bd"]} ${styles["fm_bt"]} ${styles["fm-fd"]} ${styles.opacity}`}
+                      id="field_config_1"
+                    >
+                      <div className={styles["error-name"]}>
+                        <label className={styles.field_new}>
+                          {item?.newValue}
+                        </label>
+                        <div className={styles.function}>
+                          <button
+                            className={styles.h_edit_cus}
+                            onClick={() => {
+                              handleEditField(item, index);
+                            }}
+                            disabled={scrolling}
+                          >
+                            <img src="/crm/blue_edit_cus.svg" alt="sửa" /> Sửa |
+                          </button>
+                          <button
+                            onClick={() => handleDelEditField(item)}
+                            className={styles.h_delete_cus}
+                          >
+                            <img src="/crm/red_delete_cus.svg" alt="Xóa" /> Xóa
+                          </button>
+                        </div>
                       </div>
+                      <input
+                        type="text"
+                        className={`${styles["form-control"]} ${styles.text}`}
+                        value={displayIndex(item)}
+                        readOnly
+                        placeholder="Nhập nội dung"
+                      />
                     </div>
-                    <input
-                      type="text"
-                      className={`${styles["form-control"]} ${styles.text}`}
-                      value={displayIndex(item)}
-                      readOnly
-                      placeholder="Nhập nội dung"
-                    />
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             )}
-
-            {/* Footer Buttons */}
-            <div className={styles.btn_submit}>
-              <button type="button" onClick={() => setIsModalCancel(true)}>
-                Hủy
-              </button>
-              <button
-                className={styles.save}
-                type="submit"
-                onClick={() => (handleSubmit(), setIsmodal1Open(true))}
-              >
-                Lưu
-              </button>
-              <ModalCompleteStep
-                modal1Open={ismodal1Open}
-                setModal1Open={setIsmodal1Open}
-                title="Thêm mới Hợp đồng thành công!"
-              />
-              <CancelModal
-                isModalCancel={isModalCancel}
-                setIsModalCancel={setIsModalCancel}
-                content={
-                  "Bạn có chắc chắn muốn hủy thêm mới hợp đồng, mọi thông tin bạn nhập sẽ không được lưu lại?"
-                }
-                title={"Xác nhận hủy thêm mới hợp đồng"}
-              />
-            </div>
           </>
         )}
+        {/* Footer Buttons */}
+        <div className={styles.btn_submit}>
+          <button className={styles.sub1} type="button" onClick={() => setIsModalCancel(true)}>
+            Hủy
+          </button>
+          <button
+             className={styles.sub2}
+            type="submit"
+            onClick={() => (handleSubmit(), setIsmodal1Open(true))}
+          >
+            Lưu
+          </button>
+          <ModalCompleteStep
+            modal1Open={ismodal1Open}
+            setModal1Open={setIsmodal1Open}
+            title="Thêm mới Hợp đồng thành công!"
+          />
+          <CancelModal
+            isModalCancel={isModalCancel}
+            setIsModalCancel={setIsModalCancel}
+            content={
+              "Bạn có chắc chắn muốn hủy thêm mới hợp đồng, mọi thông tin bạn nhập sẽ không được lưu lại?"
+            }
+            title={"Xác nhận hủy thêm mới hợp đồng"}
+          />
+        </div>
       </div>
     </>
   );
