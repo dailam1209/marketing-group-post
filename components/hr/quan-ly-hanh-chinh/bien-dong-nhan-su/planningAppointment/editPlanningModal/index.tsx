@@ -46,8 +46,6 @@ function Input_textarea({ onDescriptionChange, reason }: InputTextareaProps) {
 }
 export default function EditPlanningModal({ onCancel, infoList }: any) {
 
-  console.log(infoList);
-
   const [selectedOption, setSelectedOption] = useState<SelectOptionType | null>(null);
   const [isReason, setReason] = useState<any>(infoList?.note)
   const [isPositionList, setPositionList] = useState<any>(null)

@@ -7,7 +7,8 @@ import styles from "@/components/crm/potential/potential.module.css";
 import { Select } from "antd";
 import InputText from "@/components/crm/potential/potential_add_files/input_text";
 import ContractBtsGroupFooter from "@/components/crm/customer/contract/contract_footer_btns_group";
-
+const Cookies = require("js-cookie");
+import { base_url } from "@/components/crm/service/function";
 export default function ContractDetailsCreate() {
   const mainRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
@@ -16,16 +17,31 @@ export default function ContractDetailsCreate() {
   const [valueContract, setValueContract] = useState("");
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
+  const [name, setname] = useState<any>();
 
   const onChangeSelect = (value: string) => {
     setValueContract(value);
   };
 
+  const getNameDetail = async () => {
+    const res = await fetch(`${base_url}/api/crm/customerdetails/detail`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${Cookies.get("token_base365")}`,
+      },
+      body: JSON.stringify({ cus_id: id }),
+    });
+    const data = await res.json();
+    setname(data?.data?.name);
+  };
+
   useEffect(() => {
-    setHeaderTitle(`${id} / Hợp đồng bán / Thêm hợp đồng bán`);
+    getNameDetail();
+    setHeaderTitle(`${name} / Hợp đồng bán / Thêm hợp đồng bán`);
     setShowBackButton(true);
     setCurrentPath(`/crm/customer/contract/list/${id}`);
-  }, [setHeaderTitle, setShowBackButton, setCurrentPath, id]);
+  }, [setHeaderTitle, setShowBackButton, setCurrentPath, id, name]);
 
   useEffect(() => {
     if (isOpen) {
@@ -88,47 +104,45 @@ export default function ContractDetailsCreate() {
                   </div>
 
                   {valueContract !== "" && valueContract !== "0" && (
-                                        <div >
-                    <div className={styles["input-group"]}>
-                      <div className={styles["form-group"]}>
-                        <label className={styles.required}>
-                          tên<span className={styles.dot}>*</span>
-                        </label>
-                        <p className={styles.old_field}>
-                          (Thay thế cho từ: đạt)
-                        </p>
-                        <input
-                          type="text"
-                          defaultValue=""
-                          className={styles["form-control"]}
-                          data-old-field="đạt"
-                          data-index="1"
-                        />
-                      </div>
-                      <div className={styles["form-group"]}>
-                        <label className={styles.required}>
-                          tên<span className={styles.dot}>*</span>
-                        </label>
-                        <p className={styles.old_field}>
-                          (Thay thế cho từ: đạt)
-                        </p>
-                        <input
-                          type="text"
-                          defaultValue=""
-                          className={styles["form-control"]}
-                          data-old-field="đạt"
-                          data-index="1"
-                        />
-                      </div>
+                    <div>
+                      <div className={styles["input-group"]}>
+                        <div className={styles["form-group"]}>
+                          <label className={styles.required}>
+                            tên<span className={styles.dot}>*</span>
+                          </label>
+                          <p className={styles.old_field}>
+                            (Thay thế cho từ: đạt)
+                          </p>
+                          <input
+                            type="text"
+                            defaultValue=""
+                            className={styles["form-control"]}
+                            data-old-field="đạt"
+                            data-index="1"
+                          />
+                        </div>
+                        <div className={styles["form-group"]}>
+                          <label className={styles.required}>
+                            tên<span className={styles.dot}>*</span>
+                          </label>
+                          <p className={styles.old_field}>
+                            (Thay thế cho từ: đạt)
+                          </p>
+                          <input
+                            type="text"
+                            defaultValue=""
+                            className={styles["form-control"]}
+                            data-old-field="đạt"
+                            data-index="1"
+                          />
+                        </div>
                       </div>
                     </div>
                   )}
                 </div>
                 {valueContract !== "" && valueContract !== "0" && (
-                <ContractBtsGroupFooter id={id ? id : "default"} />
+                  <ContractBtsGroupFooter id={id ? id : "default"} />
                 )}
-
-
               </div>
             </div>
           </div>

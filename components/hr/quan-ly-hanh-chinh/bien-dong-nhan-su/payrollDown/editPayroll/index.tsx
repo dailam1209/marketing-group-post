@@ -47,8 +47,6 @@ function Input_textarea({ onDescriptionChange, reason }: InputTextareaProps) {
 }
 export default function EditPayroll({ onCancel, infoList }: any) {
 
-  console.log(infoList);
-
   const [selectedOption, setSelectedOption] = useState<SelectOptionType | null>(null);
   const [isDepList, setDepList] = useState<any>(null)
   const [isPositionList, setPositionList] = useState<any>(null)
@@ -66,9 +64,6 @@ export default function EditPayroll({ onCancel, infoList }: any) {
   const [errors, setErrors] = useState<any>({});
   const comid: any = GetComId()
   const modalRef = useRef(null);
-
-  console.log(isCom_id);
-
 
   useEffect(() => {
     const handleOutsideClick = (event: any) => {
@@ -107,11 +102,8 @@ export default function EditPayroll({ onCancel, infoList }: any) {
   }
 
   useEffect(() => {
-    console.log(isDepList?.data);
-    console.log(infoList?.dep_name);
     const matchingDep = isDepList?.items?.find((item: any) => item?.dep_name === infoList?.dep_name);
     const matchingPos = isPositionList?.data?.flat()?.find((item: any) => item?.positionName === infoList.position_name)
-    console.log(matchingDep, matchingPos);
 
     if (matchingDep) {
       setDep_id(matchingDep.dep_id);

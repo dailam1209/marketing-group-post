@@ -18,9 +18,6 @@ export default function EditCandidateList({ onCancel, infoList, position }: any)
   const [PostionCharDatas, setPosttionCharData] = useState<any>("")
   const [errors, setErrors] = useState<any>({});
 
-  console.log(infoList);
-
-
   // -- lấy dữ liệu chức vụ --
   useEffect(() => {
     const fetchData = async () => {

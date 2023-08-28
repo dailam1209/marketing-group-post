@@ -132,8 +132,6 @@ export default function AddOutJobModal({ onCancel }: any) {
     }
   }, [isDep_id])
 
-  console.log(isCom_id);
-
 
   const validationSchema = Yup.object().shape({
     chonnhanvien: Yup.string().required("Vui lòng chọn nhân viên"),

@@ -33,7 +33,7 @@ export default function DropDownHeaderHr({ onCancel }: any) {
                                     <a href="/">Trang chủ</a>
                                 </li>
                                 <li>
-                                    <a href="https://phanmemnhansu.timviec365.vn/huong-dan.html">Hướng dẫn</a>
+                                    <a href="/phan-mem-nhan-su/huong-dan">Hướng dẫn</a>
                                 </li>
                                 <li>
                                     <a href="https://timviec365.vn/blog/c153/quan-tri-nhan-luc">Tin tức</a>

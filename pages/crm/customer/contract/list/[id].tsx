@@ -6,20 +6,38 @@ import { useRouter } from "next/router";
 import CustomerHeaderTab from "@/components/crm/customer/header_customer_info_btn";
 import TableDataContractDetailList from "@/components/crm/table/table-contract-details";
 import AddContractBtnDetails from "@/components/crm/customer/contract/add_contract";
+const Cookies = require("js-cookie");
+import { base_url } from "@/components/crm/service/function";
 
 export default function ContractDetailsList() {
   const mainRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const { isOpen } = useContext<any>(SidebarContext);
   const { id } = router.query;
+  const [name, setname] = useState<any>();
+
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
 
+  const getNameDetail = async () => {
+    const res = await fetch(`${base_url}/api/crm/customerdetails/detail`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${Cookies.get("token_base365")}`,
+      },
+      body: JSON.stringify({ cus_id: id }),
+    });
+    const data = await res.json();
+    setname(data?.data?.name);
+  };
+
   useEffect(() => {
-    setHeaderTitle(`${id} / Hợp đồng bán`);
+    getNameDetail();
+    setHeaderTitle(`${name} / Hợp đồng bán`);
     setShowBackButton(true);
     setCurrentPath(`/crm/customer/detail/${id}`);
-  }, [setHeaderTitle, setShowBackButton, setCurrentPath, id]);
+  }, [name, setHeaderTitle, setShowBackButton, setCurrentPath, id]);
 
   useEffect(() => {
     if (isOpen) {
