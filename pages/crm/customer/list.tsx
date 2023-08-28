@@ -62,6 +62,7 @@ export default function CustomerList() {
   const [dateE, setdateE] = useState(null);
   const [time_s, setTime_s] = useState<any>(null);
   const [time_e, setTime_e] = useState<any>(null);
+  const [emp_id, setemp_id] = useState<any>()
   console.log("s", time_s);
   console.log("e", time_e);
   useEffect(() => {
@@ -92,6 +93,7 @@ export default function CustomerList() {
           group_pins_id: nhomCon,
           time_s: time_s,
           time_e: time_e,
+          emp_id:emp_id
         }),
       });
       const data = await res.json();
@@ -271,6 +273,7 @@ export default function CustomerList() {
             setgroup_id={setgroup_id}
             setTime_s={setTime_s}
             setTime_e={setTime_e}
+            setemp_id={setemp_id}
           />
           <TableListCustomer
             fetchData={fetchData}

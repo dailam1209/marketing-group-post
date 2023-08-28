@@ -36,7 +36,8 @@ interface PropsComponent {
   setdateS: any;
   setdateE: any;
   setTime_s:any;
-  setTime_e:any
+  setTime_e:any;
+  setemp_id:any
 }
 
 const CustomerListFilterBox: React.FC<PropsComponent> = ({
@@ -62,7 +63,8 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
   setdateS,
   setdateE,
   setTime_s,
-  setTime_e
+  setTime_e,
+  setemp_id
 }) => {
   const [valueSelectStatus, setValueSelectStatus] = useState<any>();
   const [valueResoure, sevalueResoure] = useState<any>();
@@ -85,7 +87,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
     setResoure(value);
   };
   const handleChangeNVPT = (value: any) => {
-    setnvPhuTrach(value);
+    setemp_id(value);
   };
   const handleChangeNameCreate = (value: any) => {
     setuserNameCreate(value);

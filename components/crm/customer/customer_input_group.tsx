@@ -42,6 +42,7 @@ export default function CustomerListInputGroup({
   setdateS,
   setTime_s,
   setTime_e,
+  setemp_id
 }: any) {
   const [open, setOpen] = useState(false);
   const inputFileRef = useRef<HTMLInputElement>(null);
@@ -284,6 +285,7 @@ export default function CustomerListInputGroup({
             setTimeEnd={setTimeEnd}
             setdateE={setdateE}
             setdateS={setdateS}
+            setemp_id={setemp_id}
           />
         </div>
       </Drawer>
