@@ -351,7 +351,7 @@ const GhiAmPage = (props: Props) => {
 
       <div style={{ paddingTop: 20 }}>
         <Table
-          locale={customLocale}
+          loading={datatable?.length > 0 ? false : true}
           columns={Colums as any}
           dataSource={datatable}
           bordered
