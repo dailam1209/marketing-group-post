@@ -331,7 +331,7 @@ const GhiAmPage = (props: Props) => {
       )}
       {!showKetNoi && (
         <div className={cskh.connect_tongdai} style={{ paddingBottom: 20 }}>
-          <Link href={"/crm/switch_board"}>
+          <Link href={"/crm/setting/switch_board"}>
             <Button
               style={{ height: 40, width: 200 }}
               className={`${cskh.dropbtn_add} `}
