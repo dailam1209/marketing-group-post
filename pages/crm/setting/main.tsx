@@ -1,4 +1,4 @@
-import Setting from "@/components/crm/setting";
+import Setting from "@/components/crm/setting/setting";
 import { checkAndRedirectToHomeIfNotLoggedIn } from "@/components/crm/ultis/checkLogin";
 import Head from "next/head";
 

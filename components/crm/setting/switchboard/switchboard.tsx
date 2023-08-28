@@ -22,7 +22,7 @@ const SwitchBoardTable: React.FC = () => {
   useEffect(() => {
     setHeaderTitle("Cài đặt/ Tổng đài");
     setShowBackButton(true);
-    setCurrentPath("/crm/main");
+    setCurrentPath("/crm/setting/main");
   }, [setHeaderTitle, setShowBackButton, setCurrentPath]);
 
   return (

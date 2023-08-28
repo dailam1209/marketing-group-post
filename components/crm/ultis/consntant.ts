@@ -309,7 +309,7 @@ export const sidebar_button_group_company = [
   },
   {
     img_link: '/crm/nav_setting.svg',
-    link: '/crm/main',
+    link: '/crm/setting/main',
     children: [],
     content: 'Cài đặt',
   },
