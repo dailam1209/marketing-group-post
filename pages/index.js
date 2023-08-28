@@ -32,6 +32,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [hasTokens, setHasTokens] = useState(false);
   const [userRole1,setUserRole1]=useState(0)
+  console.log("userRole1: ",userRole1)
   const router = useRouter();
   useEffect(() => {
     const accToken = Cookies.get("token_base365");
