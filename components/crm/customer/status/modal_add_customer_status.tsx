@@ -57,7 +57,7 @@ const AddStatusCustomerModal: React.FC<MyComponentProps> = ({
         modal1Open={isOpenMdalSuccess}
         setModal1Open={setIsOpenMdalSuccess}
         title={"Bạn đã thêm trạng thái khách hàng thành công!"}
-        link={"#"}
+        link={""}
       />
     </>
   );

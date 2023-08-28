@@ -64,7 +64,7 @@ const EditStatusCustomerModal: React.FC<MyComponentProps> = ({
         modal1Open={isOpenMdalSuccess}
         setModal1Open={setIsOpenMdalSuccess}
         title={"Cập nhật thành công!"}
-        link={"#"}
+        link={""}
       />
     </>
   );
