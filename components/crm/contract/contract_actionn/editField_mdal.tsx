@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Modal } from "antd";
 import styles from "../../potential/potential.module.css";
 import ModalCompleteStep from "../../potential/potential_steps/complete_modal";
@@ -9,39 +9,46 @@ interface MyComponentProps {
   isModalCancel: boolean;
   setIsModalCancel: (value: boolean) => void;
   handleReplaceValues: any;
-  // index: number;
+  value: string;
+  index: any;
 }
 
-const HandeOverModal: React.FC<MyComponentProps> = ({
+const EditFieldModal: React.FC<MyComponentProps> = ({
   isModalCancel,
   setIsModalCancel,
   handleReplaceValues,
-  // index,
+  value,
+  index,
 }) => {
   const [isOpenMdalSuccess, setIsOpenMdalSuccess] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
-  const [valueInput, setValueInput] = useState("");
+  const [valueInput, setValueInput] = useState(value);
 
   const handleOK = () => {
     if (valueInput) {
       setIsModalCancel(false);
-      handleReplaceValues(valueInput);
+      handleReplaceValues(valueInput, index);
       setValueInput("");
     } else {
       alert("Bạn chưa nhập tên trường");
     }
   };
 
+  useEffect(() => {
+    setValueInput(value);
+    inputRef?.current?.focus();
+  }, [value]);
+
   return (
     <>
       <Modal
-        title={"Tạo trường thay đổi thông tin"}
+        title={"Chỉnh sửa trường thay đổi thông tin"}
         centered
         open={isModalCancel}
         onOk={() => handleOK()}
         onCancel={() => setIsModalCancel(false)}
         className={"mdal_cancel email_add_mdal"}
-        okText="Tạo"
+        okText="Sửa"
         cancelText="Huỷ"
       >
         <div className={styles.row_mdal} style={{ minHeight: "fit-content" }}>
@@ -52,6 +59,7 @@ const HandeOverModal: React.FC<MyComponentProps> = ({
             <input
               onChange={(e) => setValueInput(e.target.value)}
               type="text"
+              ref={inputRef}
               value={valueInput}
               className={styles.form_control}
               id="field_name"
@@ -67,4 +75,4 @@ const HandeOverModal: React.FC<MyComponentProps> = ({
   );
 };
 
-export default HandeOverModal;
+export default EditFieldModal;
