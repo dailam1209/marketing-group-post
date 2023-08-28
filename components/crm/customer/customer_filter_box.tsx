@@ -34,9 +34,9 @@ interface PropsComponent {
   setTimeStart: any;
   setdateS: any;
   setdateE: any;
-  setTime_s:any;
-  setTime_e:any;
-  setemp_id:any
+  setTime_s: any;
+  setTime_e: any;
+  setemp_id: any;
 }
 
 const CustomerListFilterBox: React.FC<PropsComponent> = ({
@@ -61,17 +61,13 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
   setTimeStart,
   setdateS,
   setdateE,
-  setTime_s,
-  setTime_e,
-  setemp_id
+  setemp_id,
 }) => {
   const [valueSelectStatus, setValueSelectStatus] = useState<any>();
   const [valueResoure, sevalueResoure] = useState<any>();
   const [listGr_Child, setlistGr_Child] = useState([]);
   const [check, setCheck] = useState(false);
-  const uniqueUserNames = Array.from(
-    new Set(datatable?.map((item) => item.userName))
-  );
+
   const handlefilter = async () => {
     setDatatable([]);
     setloading(true);
@@ -137,7 +133,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
             "Content-Type": "application/json",
             Authorization: `Bearer ${Cookies.get("token_base365")}`,
           },
-          body: JSON.stringify({ com_id: Cookies.get("com_id") }),
+          body: JSON.stringify({ com_id: `${Cookies.get("com_id")}` }),
         }
       );
       const data = await res.json();
@@ -145,26 +141,22 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
     } catch (error) {}
   };
   const handleGetInfoCus = async () => {
-    if(dep_id){
-      try {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/list`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDaGFtY29uZzM2NS1UaW12aWVjMzY1IiwiaWF0IjoxNjkzMjAwODYwLCJleHAiOjE2OTMyODcyNjAsImRhdGEiOnsiaWQiOiI1NjM1IiwibmFtZSI6Ik5ndXlcdTFlYzVuIFRoXHUxZWNiIFBoXHUwMWIwXHUwMWExbmcgVGhcdTFlYTNvICIsInR5cGUiOjEsImVtYWlsIjoiYmVleGw0MTVAZ21haWwuY29tIiwicGhvbmVfdGsiOm51bGwsInJvbGUiOiIzIiwib3MiOjIsImZyb20iOiJxbGMzNjUiLCJkZXZpY2VfaWQiOiIyNTAxMDA2NDY0NTM3MzYxMTYwMDA1MzczNjU4NjQxNTM2MjQiLCJjb21faWQiOiIzMzEyIiwiY29tX25hbWUiOiJDXHUwMGQ0TkcgVFkgQ1x1MWVkNCBQSFx1MWVhNk4gVEhBTkggVE9cdTAwYzFOIEhcdTAxYWZORyBIXHUwMGMwICJ9fQ.f6tvLnNB0cj9zQt_SMlOoFzYSyXFCf4fnJEO7ZPKlW0`,
-            },
-            body: JSON.stringify({ dep_id: dep_id }),
-          }
-        );
-        const data = await res.json();
-        if (data && data?.data) setLishNv(data?.data?.items);
-      } catch (error) {}
-    }
-
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/list`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer .eyJpc3MiOiJDaGFtY29uZzM2NS1UaW12aWVjMzY1IiwiaWF0IjoxNjkzMjAwODYwLCJleHAiOjE2OTMyODcyNjAsImRhdGEiOnsiaWQiOiI1NjM1IiwibmFtZSI6Ik5ndXlcdTFlYzVuIFRoXHUxZWNiIFBoXHUwMWIwXHUwMWExbmcgVGhcdTFlYTNvICIsInR5cGUiOjEsImVtYWlsIjoiYmVleGw0MTVAZ21haWwuY29tIiwicGhvbmVfdGsiOm51bGwsInJvbGUiOiIzIiwib3MiOjIsImZyb20iOiJxbGMzNjUiLCJkZXZpY2VfaWQiOiIyNTAxMDA2NDY0NTM3MzYxMTYwMDA1MzczNjU4NjQxNTM2MjQiLCJjb21faWQiOiIzMzEyIiwiY29tX25hbWUiOiJDXHUwMGQ0TkcgVFkgQ1x1MWVkNCBQSFx1MWVhNk4gVEhBTkggVE9cdTAwYzFOIEhcdTAxYWZORyBIXHUwMGMwICJ9fQ.f6tvLnNB0cj9zQt_SMlOoFzYSyXFCf4fnJEO7ZPKlW0`,
+          },
+          body: JSON.stringify({ dep_id: dep_id }),
+        }
+      );
+      const data = await res.json();
+      if (data && data?.data) setLishNv(data?.data?.items);
+    } catch (error) {}
   };
-
 
   useEffect(() => {
     handleGetInfoCus();
@@ -179,25 +171,20 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
     }
   };
   const handleTimeEndChange = (time, timeString) => {
-    if(timeString){
+    if (timeString) {
       setTimeEnd(timeString + ":00");
-
     }
   };
   const handleTimeStartChange = (time, timeString) => {
-    if(timeString ){
-    setTimeStart(timeString + ":00")}
+    if (timeString) {
+      setTimeStart(timeString + ":00");
+    }
   };
   const handleDateChangeStart = (e) => {
- 
-      setdateS(e.target.value);
- 
+    setdateS(e.target.value);
   };
   const handleDateChangeEnd = (e) => {
- 
-      setdateE(e.target.value);
-
-   
+    setdateE(e.target.value);
   };
 
   return (
@@ -220,7 +207,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
             <div className={`${styles["col-lg-6"]}`}>
               <div
                 className={styles.box_input}
-                style={{ width: "100%", marginBottom: "5px",paddingLeft:10 }}
+                style={{ width: "100%", marginBottom: "5px", paddingLeft: 10 }}
               >
                 <Input
                   onChange={handleDateChangeStart}
@@ -242,14 +229,12 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
             <div className={`${styles["col-lg-6"]}`}>
               <div
                 className={styles.box_input}
-                style={{ width: "100%", marginBottom: "5px",paddingLeft:10 }}
+                style={{ width: "100%", marginBottom: "5px", paddingLeft: 10 }}
               >
                 <Input onChange={handleDateChangeEnd} type="date" />
               </div>
             </div>
-            
           </div>
-          
         </div>
 
         <div className={styles.form_group}>
@@ -422,14 +407,13 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
               value={nvPhuTrach}
               onChange={handleChangeNVPT}
             >
-               <option value={null}>Tất cả</option>
+              <option value={null}>Tất cả</option>
               {listNV?.map((userName, index) => (
                 <option
                   style={{ width: "100%" }}
                   key={index}
                   value={userName.ep_id as any}
                 >
-                 
                   <div style={{ display: "block" }}>
                     ( {`${userName.ep_id}`}) {`${userName?.ep_name}`} <br /> -
                     {`${userName.nameDeparment}`}
