@@ -12,10 +12,7 @@ export default function AddTable() {
       <div className={styles.infotop}>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <div>
-            <img
-              src="https://crm.timviec365.vn/assets/icons/logo_timviec365.svg"
-              alt=""
-            />
+            <img src="/crm/logo_timviec365.svg" alt="" />
           </div>
           <div>
             <div className={styles.monneytop}>
@@ -84,12 +81,14 @@ export default function AddTable() {
           </div>
         </div>
 
-        <div style={{fontSize:15}}> <b>Lời giới thiệu </b></div>
+        <div style={{ fontSize: 15 }}>
+          {" "}
+          <b>Lời giới thiệu </b>
+        </div>
       </div>
-      <div style={{fontSize:15}}>
-      Công ty Cổ phần Thanh toán Hưng Hà xin trân trọng gửi tới quý khách hàng bảng báo giá chi tiết về sản phầm hàng hoá trong quý 3 năm 2022 như sau:
-
-
+      <div style={{ fontSize: 15 }}>
+        Công ty Cổ phần Thanh toán Hưng Hà xin trân trọng gửi tới quý khách hàng
+        bảng báo giá chi tiết về sản phầm hàng hoá trong quý 3 năm 2022 như sau:
       </div>
 
       <TableDataQuoteDetail

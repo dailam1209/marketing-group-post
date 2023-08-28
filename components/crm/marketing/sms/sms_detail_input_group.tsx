@@ -152,12 +152,7 @@ export default function CustomerListInputGroup({
             className={`${styles.dropbtn_add} flex_align_center ${styles.btn_file}`}
             onClick={() => setIsModalCancel(true)}
           >
-            <img
-              width="14"
-              height="10"
-              src="https://crm.timviec365.vn/assets/icons/email/eye2.svg"
-              alt=""
-            />
+            <img width="14" height="10" src="/crm/email/eye2.svg" alt="" />
             Xem trước
           </button>
           {
@@ -175,7 +170,7 @@ export default function CustomerListInputGroup({
             <img
               width="14"
               height="14"
-              src="https://crm.timviec365.vn/assets/icons/email/icon_send.svg"
+              src="/crm/email/icon_send.svg"
               alt=""
               style={{ marginRight: "8px", verticalAlign: "middle" }}
             />
@@ -191,10 +186,7 @@ export default function CustomerListInputGroup({
           }
           <Link href="update">
             <button type="button" className={styles.btn_edit}>
-              <img
-                src="/crm/edit_kh.svg"
-                style={{ margin: "-3px 5px" }}
-              />
+              <img src="/crm/edit_kh.svg" style={{ margin: "-3px 5px" }} />
               Chỉnh sửa
             </button>
           </Link>
@@ -223,10 +215,7 @@ export default function CustomerListInputGroup({
                 style={{ justifyContent: "center", color: "#4C5BD4" }}
                 className={styles.btn_delete}
               >
-                <img
-                  src="/crm/3_cham.png"
-                  style={{ margin: "-4px 0px" }}
-                />
+                <img src="/crm/3_cham.png" style={{ margin: "-4px 0px" }} />
                 Thao tác
               </button>
             </Dropdown>

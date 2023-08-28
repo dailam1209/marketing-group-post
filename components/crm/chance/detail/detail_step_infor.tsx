@@ -10,13 +10,15 @@ import TextInfoChance from "./text_info_chance";
 import StepSelection from "./step_select";
 import { Switch } from "antd";
 import CancelModal from "@/components/crm/potential/potential_steps/cancel_modal";
+import { useRouter } from "next/router";
 
-interface PropsDetail {
-}
+interface PropsDetail {}
 
 const DetailInformationChance: React.FC<PropsDetail> = () => {
   const { isOpen } = useContext<any>(SidebarContext);
   const imgRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
+  const id = router.query;
   const [valueProcess, setValueProccess] = useState("");
   const [percentSuccess, setPerCentSuccess] = useState(0);
   const [isOpenModalCancel, setIsOpenModalCancel] = useState(false);
@@ -30,31 +32,27 @@ const DetailInformationChance: React.FC<PropsDetail> = () => {
         setIsModalCancel={setIsOpenModalCancel}
         content={"Bạn có chắc chắn muốn xoá cơ hội này không?"}
         title={"Xác nhận xoá cơ hội"}
-        link={`/chance/list`}
+        link={`/crm/chance/list`}
       />
 
       <div
         style={{
           display: "flex",
           justifyContent: "space-between",
-          alignItems: "center",
+          alignItems: "flex-end",
+          padding: "0 0 20px 0",
         }}
       >
         <div>
           <Switch onChange={switchHandle} />
-          <span style={{marginLeft:'10px'}}>Ẩn dữ liệu trống</span>
+          <span style={{ marginLeft: "10px" }}>Ẩn dữ liệu trống</span>
         </div>
         <div className={stylesDetail["main__control-btn"]}>
           <Link
-            href={`/chance/update`}
+            href={`/crm/chance/edit/${id}`}
             className={stylesDetail["btn_edit"]}
           >
-            <Image
-              alt="image"
-              width={16}
-              height={16}
-              src="/crm/edit_kh.svg"
-            />
+            <Image alt="image" width={16} height={16} src="/crm/edit_kh.svg" />
             Chỉnh sửa
           </Link>
           <button
@@ -84,7 +82,10 @@ const DetailInformationChance: React.FC<PropsDetail> = () => {
                     <TextInfoChance label="Giai đoạn" value="Mở đầu" />
                     <TextInfoChance label="Tỷ lệ thành công" value="30%" />
                     <TextInfoChance label="Doanh số kỳ vọng" value="100" />
-                    <TextInfoChance label="Ngày kỳ vọng/kết thúc"value="10/02/2024"/>
+                    <TextInfoChance
+                      label="Ngày kỳ vọng/kết thúc"
+                      value="10/02/2024"
+                    />
                   </div>
                   <div className={styleChance.step_select}>
                     <StepSelection setValueProccess={setValueProccess} />

@@ -5,7 +5,7 @@ import { UploadOutlined } from "@ant-design/icons";
 type Props = {};
 
 const AddVideo = (props: any) => {
-    const {handleDletevideo} =props
+  const { handleDletevideo } = props;
   const [fileList, setFileList] = useState<any>([]);
   const [videoSrc, setVideoSrc] = useState<any>(null);
 
@@ -27,20 +27,20 @@ const AddVideo = (props: any) => {
     }
   };
   return (
-    <fieldset className={styles.left_option_themkhaosat_video}>  
-     <div style={{ display: "flex",paddingBottom:20 }}>
-    <Input
-      type="text"
-      placeholder={"Nhập tiêu đề video"}
-      className={styles.inputtitle2_option}
-    />
-    <img
-      onClick={handleDletevideo}
-      style={{ paddingLeft: 20 }}
-      src="https://crm.timviec365.vn/assets/icons/delete.svg"
-      alt=""
-    />
-  </div>
+    <fieldset className={styles.left_option_themkhaosat_video}>
+      <div style={{ display: "flex", paddingBottom: 20 }}>
+        <Input
+          type="text"
+          placeholder={"Nhập tiêu đề video"}
+          className={styles.inputtitle2_option}
+        />
+        <img
+          onClick={handleDletevideo}
+          style={{ paddingLeft: 20 }}
+          src="/crm/delete.svg"
+          alt=""
+        />
+      </div>
       <Upload
         customRequest={handleUpload}
         fileList={fileList}
@@ -49,7 +49,7 @@ const AddVideo = (props: any) => {
         <Button icon={<UploadOutlined />}>Tải lên video</Button>
       </Upload>
       {videoSrc && (
-        <div style={{maxHeight:"100%"}}>
+        <div style={{ maxHeight: "100%" }}>
           <video controls width="100%">
             <source src={videoSrc} type="video/mp4" />
             Your browser does not support the video tag.

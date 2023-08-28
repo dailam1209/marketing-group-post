@@ -5,9 +5,8 @@ import { SidebarContext } from "@/components/crm/context/resizeContext";
 import QuoteFooterAddFiles from "@/components/crm/quote/quote_add_files/quote_footer_add_files";
 import AddDetailInfo from "@/components/crm/quote/quote_add_files/detail_info";
 import AddTable from "@/components/crm/quote/quote_add_files/table";
-import AddStatusOrderInfo from "@/components/crm/quote/quote_add_files/quote_status";
-import AddInvoiceInfo from "@/components/crm/order/order_add_files/invoice_info";
-import AddDeliveryInfo from "@/components/crm/order/order_add_files/delivery_info";
+import Head from "next/head";
+
 import AddDescriptionInfo from "@/components/crm/order/order_add_files/description_info";
 import { useHeader } from "@/components/crm/hooks/useHeader";
 
@@ -42,28 +41,68 @@ const AddFilesPotential: React.FC = () => {
   }, [isOpen]);
 
   return (
-    <div className={styleHome.main} ref={mainRef}>
-      <div className={styles.main_importfile}>
-        <div className={styles.formInfoStep}>
-          <div className={styles.info_step}>
-            <div className={styles.main__title}>Thêm mới báo giá</div>
-            <div className={styles.form_add_potential}>
-              <div className={styles.main__body}>
+    <>
+      <Head>
+        <meta name="viewport" content="width=device-width" initial-scale="1" />
+        <meta name="robots" content="noindex,nofollow" />
+        <title>Thêm mới báo giá</title>
+        <meta
+          name="description"
+          content="CRM 365 được đánh giá là công cụ tốt nhất hiện nay trong việc kết nối khách hàng và doanh nghiệp. Phần mềm chú trọng vào các nhiệm vụ hỗ trợ doanh nghiệp tăng tập khách hàng tiềm năng và thân thiết, tăng doanh thu và tối ưu chi phí. Đăng ký hôm nay, lợi ích đến ngay!"
+        />
+        <meta name="Keywords" content="Phần mềm CRM, phần mềm crm miễn phí" />
+        <meta property="og:locale" content="vi_VN" />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:title"
+          content="CRM 365 - đáp án của bài toán tối ưu quy trình, gia tăng lợi nhuận"
+        />
+        <meta
+          property="og:description"
+          content="CRM 365 được đánh giá là công cụ tốt nhất hiện nay trong việc kết nối khách hàng và doanh nghiệp. Phần mềm chú trọng vào các nhiệm vụ hỗ trợ doanh nghiệp tăng tập khách hàng tiềm năng và thân thiết, tăng doanh thu và tối ưu chi phí. Đăng ký hôm nay, lợi ích đến ngay!"
+        />
+        <meta
+          property="og:image"
+          content="https://crm.timviec365.vn/assets/img/images-banners.png"
+        />
+        <meta name="twitter:card" content="summary" />
+        <meta
+          name="twitter:description"
+          content="CRM 365 được đánh giá là công cụ tốt nhất hiện nay trong việc kết nối khách hàng và doanh nghiệp. Phần mềm chú trọng vào các nhiệm vụ hỗ trợ doanh nghiệp tăng tập khách hàng tiềm năng và thân thiết, tăng doanh thu và tối ưu chi phí. Đăng ký hôm nay, lợi ích đến ngay!"
+        />
+        <meta
+          name="twitter:title"
+          content="CRM 365 - đáp án của bài toán tối ưu quy trình, gia tăng lợi nhuận"
+        />
+        <link rel="canonical" href="https://hungha365.com/crm" />
 
-              <AddDetailInfo />
-              <AddTable />
-              {/* <AddStatusOrderInfo/> */}
-              {/* <AddInvoiceInfo /> */}
-              {/* <AddDeliveryInfo /> */}
-              <AddDescriptionInfo />
-           
+        {/* CSS */}
+        <script
+          async
+          src="https://www.googletagmanager.com/gtm.js?id=GTM-NXVQCHN"
+        ></script>
+      </Head>
+      <div className={styleHome.main} ref={mainRef}>
+        <div className={styles.main_importfile}>
+          <div className={styles.formInfoStep}>
+            <div className={styles.info_step}>
+              <div className={styles.main__title}>Thêm mới báo giá</div>
+              <div className={styles.form_add_potential}>
+                <div className={styles.main__body}>
+                  <AddDetailInfo />
+                  <AddTable />
+                  {/* <AddStatusOrderInfo/> */}
+                  {/* <AddInvoiceInfo /> */}
+                  {/* <AddDeliveryInfo /> */}
+                  <AddDescriptionInfo />
+                </div>
+                <QuoteFooterAddFiles title="Thêm mới báo giá thành công" />
               </div>
-              <QuoteFooterAddFiles title="Thêm mới báo giá thành công" />
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

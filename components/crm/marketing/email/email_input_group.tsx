@@ -45,12 +45,7 @@ export default function CustomerListInputGroup({
             className={`${styles.dropbtn_add} flex_align_center ${styles.btn_file}`}
             onClick={() => setIsModalCancel(true)}
           >
-            <img
-              width="14"
-              height="10"
-              src="https://crm.timviec365.vn/assets/icons/email/eye2.svg"
-              alt=""
-            />
+            <img width="14" height="10" src="/crm/email/eye2.svg" alt="" />
             Xem trước
           </button>
           {
@@ -65,7 +60,7 @@ export default function CustomerListInputGroup({
             className={`${styles.dropbtn_add} flex_align_center ${styles.btn_file}`}
             style={{ marginLeft: "auto" }}
           >
-            <img src="https://crm.timviec365.vn/assets/icons/email/nhap.svg" />
+            <img src="/crm/email/nhap.svg" />
             Lưu nháp
             <input type="file" hidden ref={inputFileRef} />
           </button>
@@ -79,11 +74,17 @@ export default function CustomerListInputGroup({
           <button
             type="button"
             className={`${styles.dropbtn_add} flex_align_center ${styles.btn_excel}`}
-            style={{background: "#FFA800"}}
+            style={{ background: "#FFA800" }}
             onClick={() => setIsModalSend(true)}
           >
-            <img width="14" height="11" src="https://crm.timviec365.vn/assets/icons/email/mail2.svg" alt="" className="icon_action"/>
-           Gửi thử
+            <img
+              width="14"
+              height="11"
+              src="/crm/email/mail2.svg"
+              alt=""
+              className="icon_action"
+            />
+            Gửi thử
           </button>
           {
             <SendEmail
@@ -93,7 +94,6 @@ export default function CustomerListInputGroup({
           }
         </div>
       </div>
-
     </>
   );
 }

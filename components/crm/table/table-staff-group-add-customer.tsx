@@ -64,7 +64,6 @@ const TableStaffCustomerGroupAdd: React.FC<TableStaffCustomerGroupAddProps> = ({
     setData(arrVal);
   };
 
-
   const rowSelection: TableRowSelection<DataType> = {
     onChange: (selectedRowKeys: any, selectedRows: string | any[]) => {
       setSelectedRow(selectedRows?.length);
@@ -111,7 +110,7 @@ const TableStaffCustomerGroupAdd: React.FC<TableStaffCustomerGroupAddProps> = ({
             alt="img"
             width={26}
             height={26}
-            src={"https://crm.timviec365.vn/assets/img/customer/del_red.svg"}
+            src={"/crm/customer/del_red.svg"}
           />
           Gỡ bỏ
         </button>
@@ -119,7 +118,7 @@ const TableStaffCustomerGroupAdd: React.FC<TableStaffCustomerGroupAddProps> = ({
     },
   ];
 
-  console.log(newArray)
+  console.log(newArray);
   return (
     <>
       <div className="custom_table product_return">

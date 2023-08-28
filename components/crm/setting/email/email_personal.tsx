@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import styleHome from "../../home/home.module.css";
 import styles from "../../setting/setting.module.css";
-import style from "../email/email.module.css";
+import style from "..//crm/email.module.css";
 import { SidebarContext } from "@/components/crm/context/resizeContext";
 import { useHeader } from "@/components/crm/hooks/useHeader";
 import { Tabs } from "antd";
@@ -22,7 +22,7 @@ const EmailPersonalTable: React.FC = () => {
   useEffect(() => {
     setHeaderTitle("Cài đặt/ Email");
     setShowBackButton(true);
-    setCurrentPath("/crm/setting/main");
+    setCurrentPath("/crm/main");
   }, [setHeaderTitle, setShowBackButton, setCurrentPath]);
 
   return (
@@ -44,10 +44,10 @@ const EmailPersonalTable: React.FC = () => {
               width="50.85"
               height="60"
               className={style.connect_img}
-              src="https://crm.timviec365.vn/assets/icons/email/icon_email_per.svg"
+              src="/crm/icon_email_per.svg"
             />
             <p className={style.connect_title}>POP3/IMAP</p>
-            <Link href="/crm/setting/setup_email_personal">
+            <Link href="/crm/setup_email_personal">
               <button className={style.connect_button}>Kết nối</button>
             </Link>
           </div>

@@ -22,7 +22,7 @@ const SMSCaNhanTable: React.FC = () => {
   useEffect(() => {
     setHeaderTitle("Cài đặt/ SMS Brandname");
     setShowBackButton(true);
-    setCurrentPath("/crm/setting/main");
+    setCurrentPath("/crm/main");
   }, [setHeaderTitle, setShowBackButton, setCurrentPath]);
 
   return (
@@ -34,30 +34,21 @@ const SMSCaNhanTable: React.FC = () => {
         <p>Kết nối Email để thực hiện các chiến dịch Email Marketting </p>
         <div className={style.setting_email_body__connect}>
           <div className={style.setting_email_body__connect_item}>
-            <img
-              className={style.connect_img}
-              src="https://crm.timviec365.vn/assets/icons/setting/vht.svg"
-            />
+            <img className={style.connect_img} src="/crm/vht.svg" />
             <p className={style.connect_title}>VHT</p>
             <Link href="sms/add_vht">
               <button className={style.connect_button}>Kết nối</button>
             </Link>
           </div>
           <div className={style.setting_email_body__connect_item}>
-            <img
-              className={style.connect_img}
-              src="https://crm.timviec365.vn/assets/icons/setting/telecom.svg"
-            />
+            <img className={style.connect_img} src="/crm/telecom.svg" />
             <p className={style.connect_title}>SouthTelecom</p>
             <Link href="sms/add_tele">
               <button className={style.connect_button}>Kết nối</button>
             </Link>
           </div>
           <div className={style.setting_email_body__connect_item}>
-            <img
-              className={style.connect_img}
-              src="https://crm.timviec365.vn/assets/icons/setting/cmc.svg"
-            />
+            <img className={style.connect_img} src="/crm/cmc.svg" />
             <p className={style.connect_title}>CMC</p>
             <Link href="sms/add_cmc">
               <button className={style.connect_button}>Kết nối</button>
@@ -67,7 +58,7 @@ const SMSCaNhanTable: React.FC = () => {
             <img
               style={{ height: "60px", width: "70%" }}
               className={style.connect_img}
-              src="https://crm.timviec365.vn/assets/icons/setting/viettel.svg"
+              src="/crm/viettel.svg"
             />
             <p className={style.connect_title}>Viettel</p>
             <Link href="sms/add_viettel">
@@ -76,9 +67,9 @@ const SMSCaNhanTable: React.FC = () => {
           </div>
           <div className={style.setting_email_body__connect_item}>
             <img
-             style={{ height: "60px", width: "70%" }}
+              style={{ height: "60px", width: "70%" }}
               className={style.connect_img}
-              src="https://crm.timviec365.vn/assets/icons/setting/fpt.svg"
+              src="/crm/fpt.svg"
             />
             <p className={style.connect_title}>FPT</p>
             <Link href="sms/add_fpt">

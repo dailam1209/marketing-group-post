@@ -129,15 +129,12 @@ const columns: ColumnsType<DataType> = [
     dataIndex: "operation",
     key: "11",
     width: 70,
-    fixed:"right",
+    fixed: "right",
     render: () => (
       <>
         <Link href={"#"}>
           <button>
-            <img
-              className={styles.icon_delete}
-              src="https://crm.timviec365.vn/assets/img/h_delete_cus.svg"
-            />{" "}
+            <img className={styles.icon_delete} src="/crm/h_delete_cus.svg" />{" "}
             Xóa
           </button>
         </Link>
@@ -168,7 +165,9 @@ interface TableDataOrderEditFilesDrops {
   setSelected: (value: boolean) => void;
 }
 
-const TableDataOrderEditFiles: React.FC< TableDataOrderEditFilesDrops> = ({}: any) => {
+const TableDataOrderEditFiles: React.FC<
+  TableDataOrderEditFilesDrops
+> = ({}: any) => {
   return (
     <div className="custom_table">
       <Table
@@ -198,22 +197,28 @@ const TableDataOrderEditFiles: React.FC< TableDataOrderEditFilesDrops> = ({}: an
                     <div style={{ background: "white" }}></div>
                   </Table.Summary.Cell>
                   <Table.Summary.Cell index={1} colSpan={3}>
-                  <div style={{ background: "#EEEEEE" ,
-                    textAlign: "left",}}>&nbsp;
-                        <b>Tổng cộng:</b>
+                    <div style={{ background: "#EEEEEE", textAlign: "left" }}>
+                      &nbsp;
+                      <b>Tổng cộng:</b>
                     </div>
-                    
                   </Table.Summary.Cell>
                   <Table.Summary.Cell index={4}>1</Table.Summary.Cell>
-                  <Table.Summary.Cell index={7} colSpan={3}>100.000.000</Table.Summary.Cell>
+                  <Table.Summary.Cell index={7} colSpan={3}>
+                    100.000.000
+                  </Table.Summary.Cell>
                   <Table.Summary.Cell index={8} colSpan={1}>
                     100.000.000
                   </Table.Summary.Cell>
                   <Table.Summary.Cell index={9} colSpan={2}>
-                  100.000.000
+                    100.000.000
                   </Table.Summary.Cell>
-                  <Table.Summary.Cell index={11} colSpan={1}>100.000.000</Table.Summary.Cell>
-                  <Table.Summary.Cell index={12} colSpan={1}></Table.Summary.Cell>
+                  <Table.Summary.Cell index={11} colSpan={1}>
+                    100.000.000
+                  </Table.Summary.Cell>
+                  <Table.Summary.Cell
+                    index={12}
+                    colSpan={1}
+                  ></Table.Summary.Cell>
                 </Table.Summary.Row>
               </Table.Summary>
 
@@ -225,43 +230,44 @@ const TableDataOrderEditFiles: React.FC< TableDataOrderEditFilesDrops> = ({}: an
                   }}
                 >
                   <Table.Summary.Cell index={0}>
-                    <div style={{ background: "white" ,
-                    borderInlineEnd: "1px solid #ccc",}}>
-
-                    </div>
+                    <div
+                      style={{
+                        background: "white",
+                        borderInlineEnd: "1px solid #ccc",
+                      }}
+                    ></div>
                   </Table.Summary.Cell>
                   <Table.Summary.Cell index={1} colSpan={1}>
-                  <div style={{textAlign: "left"}}>
+                    <div style={{ textAlign: "left" }}>
                       <button type="button">
-                        <div style={{ background: "white", color: "#4C5BD4"}}>&nbsp;
+                        <div style={{ background: "white", color: "#4C5BD4" }}>
+                          &nbsp;
                           <i className="bi bi-plus-circle-fill"></i>
                           &nbsp;<b>Thêm dòng</b>
-                          </div>
+                        </div>
                       </button>
-                  </div>
-                    
-                    
+                    </div>
                   </Table.Summary.Cell>
                   <Table.Summary.Cell index={1} colSpan={10}>
-                  <div style={{textAlign: "left"}}>
+                    <div style={{ textAlign: "left" }}>
                       <button type="button">
-                        <div style={{ background: "white", color: "#4C5BD4"}}>&nbsp;
+                        <div style={{ background: "white", color: "#4C5BD4" }}>
+                          &nbsp;
                           <i className="bi bi-plus-circle-fill"></i>
                           &nbsp;<b>Thêm chương trình khuyến mại</b>
-                          </div>
+                        </div>
                       </button>
-                  </div>
-                    
-                  
+                    </div>
                   </Table.Summary.Cell>
-                  <Table.Summary.Cell index={12} colSpan={1}></Table.Summary.Cell>
-                  
+                  <Table.Summary.Cell
+                    index={12}
+                    colSpan={1}
+                  ></Table.Summary.Cell>
                 </Table.Summary.Row>
               </Table.Summary>
             </>
           );
         }}
-        
       />
       <div className="main__footer flex_between" id="">
         <div className="total">
@@ -269,7 +275,6 @@ const TableDataOrderEditFiles: React.FC< TableDataOrderEditFilesDrops> = ({}: an
         </div>
       </div>
     </div>
-    
   );
 };
 

@@ -87,12 +87,7 @@ const TableDataGroupListCustomer: React.FC<TableDataGroupListCustomerProps> = ({
             setOpenSharedModal(true);
           }}
         >
-          <img
-            alt="logo"
-            width={26}
-            height={26}
-            src={"/crm/user_kh.png"}
-          />
+          <img alt="logo" width={26} height={26} src={"/crm/user_kh.png"} />
         </button>
         // </Tooltip>
       ),
@@ -150,7 +145,7 @@ const TableDataGroupListCustomer: React.FC<TableDataGroupListCustomerProps> = ({
           >
             <img
               className={styles.icon_delete}
-              src={"https://crm.timviec365.vn/assets/img/customer/del_red.svg"}
+              src={"/crm/del_red.svg"}
               alt="xoa"
             />
             Xóa

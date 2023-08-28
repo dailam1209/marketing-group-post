@@ -161,17 +161,14 @@ const TableDataOrderAddFiles: React.FC<
       fixed: "right",
       render: () => (
         <>
-            <button
-              onClick={() => {
-                setPageSize(pageSize - 1);
-              }}
-            >
-              <img
-                className={styles.icon_delete}
-                src="https://crm.timviec365.vn/assets/img/h_delete_cus.svg"
-              />{" "}
-              Xóa
-            </button>
+          <button
+            onClick={() => {
+              setPageSize(pageSize - 1);
+            }}
+          >
+            <img className={styles.icon_delete} src="/crm/h_delete_cus.svg" />{" "}
+            Xóa
+          </button>
         </>
       ),
     },
