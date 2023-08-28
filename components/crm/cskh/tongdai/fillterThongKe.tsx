@@ -13,7 +13,7 @@ interface MyComponentProps {
   fillEnd: any;
   setFillEnd: any;
   handleGet: any;
-  setPhongban:any
+  setPhongban: any;
 }
 const FilterThongKe: React.FC<MyComponentProps> = ({
   datatable,
@@ -24,8 +24,7 @@ const FilterThongKe: React.FC<MyComponentProps> = ({
   fillEnd,
   setFillEnd,
   handleGet,
-  setPhongban
-  
+  setPhongban,
 }) => {
   const [listPB, setlistPB] = useState([]);
 
@@ -48,24 +47,26 @@ const FilterThongKe: React.FC<MyComponentProps> = ({
     setFillEnd(`${e.target.value} 23:59:59`);
   };
   const handleGetPhongBan = async () => {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/department/list`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${Cookies.get("token_base365")}`,
-        },
-        body: JSON.stringify({ com_id: Cookies.get("com_id") }),
-      }
-    );
-    const data = await res.json();
-    setlistPB(data?.data?.items);
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/department/list`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${Cookies.get("token_base365")}`,
+          },
+          body: JSON.stringify({ com_id: Cookies.get("com_id") }),
+        }
+      );
+      const data = await res.json();
+      setlistPB(data?.data?.items);
+    } catch (error) {}
   };
-  
-  const handleSlectPB = (value:any) =>{
-    setPhongban(value)
-  }
+
+  const handleSlectPB = (value: any) => {
+    setPhongban(value);
+  };
   useEffect(() => {
     handleGetPhongBan();
   }, []);
@@ -130,7 +131,11 @@ const FilterThongKe: React.FC<MyComponentProps> = ({
             <div style={{ width: 100 }}>Phòng ban</div>
             <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
               <div style={{ width: "100%" }}>
-                <Select onChange={handleSlectPB} style={{ width: 145 }} placeholder="Chọn phòng ban">
+                <Select
+                  onChange={handleSlectPB}
+                  style={{ width: 145 }}
+                  placeholder="Chọn phòng ban"
+                >
                   {listPB &&
                     listPB.length > 0 &&
                     listPB?.map((item: any, index: number) => {

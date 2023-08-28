@@ -31,6 +31,13 @@ interface PropsComponent {
   setDatatable: any;
   setloading: any;
   setgroup_id: any;
+  setTimeEnd: any;
+  setTimeStart: any;
+  setdateS: any;
+  setdateE: any;
+  setTime_s:any;
+  setTime_e:any;
+  setemp_id:any
 }
 
 const CustomerListFilterBox: React.FC<PropsComponent> = ({
@@ -51,6 +58,13 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
   setDatatable,
   setloading,
   setgroup_id,
+  setTimeEnd,
+  setTimeStart,
+  setdateS,
+  setdateE,
+  setTime_s,
+  setTime_e,
+  setemp_id
 }) => {
   const [valueSelectStatus, setValueSelectStatus] = useState<any>();
   const [valueResoure, sevalueResoure] = useState<any>();
@@ -73,7 +87,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
     setResoure(value);
   };
   const handleChangeNVPT = (value: any) => {
-    setnvPhuTrach(value);
+    setemp_id(value);
   };
   const handleChangeNameCreate = (value: any) => {
     setuserNameCreate(value);
@@ -110,40 +124,45 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
     }
   };
   const [listNV, setLishNv] = useState<any>();
-  const [position_id, setPosition_id] = useState();
+  const [dep_id, setDep_id] = useState();
   useEffect(() => {
     handleGetGr();
   }, []);
   const handleGetInfoCus = async () => {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/listAll`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${Cookies.get("token_base365")}`,
-        },
-        body: JSON.stringify({ com_id: Cookies.get("com_id") }),
-      }
-    );
-    const data = await res.json();
-    if (data && data?.data) setLishNv(data?.data?.items);
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/list`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDaGFtY29uZzM2NS1UaW12aWVjMzY1IiwiaWF0IjoxNjkzMjAwODYwLCJleHAiOjE2OTMyODcyNjAsImRhdGEiOnsiaWQiOiI1NjM1IiwibmFtZSI6Ik5ndXlcdTFlYzVuIFRoXHUxZWNiIFBoXHUwMWIwXHUwMWExbmcgVGhcdTFlYTNvICIsInR5cGUiOjEsImVtYWlsIjoiYmVleGw0MTVAZ21haWwuY29tIiwicGhvbmVfdGsiOm51bGwsInJvbGUiOiIzIiwib3MiOjIsImZyb20iOiJxbGMzNjUiLCJkZXZpY2VfaWQiOiIyNTAxMDA2NDY0NTM3MzYxMTYwMDA1MzczNjU4NjQxNTM2MjQiLCJjb21faWQiOiIzMzEyIiwiY29tX25hbWUiOiJDXHUwMGQ0TkcgVFkgQ1x1MWVkNCBQSFx1MWVhNk4gVEhBTkggVE9cdTAwYzFOIEhcdTAxYWZORyBIXHUwMGMwICJ9fQ.f6tvLnNB0cj9zQt_SMlOoFzYSyXFCf4fnJEO7ZPKlW0`,
+          },
+          body: JSON.stringify({ dep_id: dep_id }),
+        }
+      );
+      const data = await res.json();
+      if (data && data?.data) setLishNv(data?.data?.items);
+    } catch (error) {}
   };
   const handleGetInfoCusNV = async () => {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/employee/info`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${Cookies.get("token_base365")}`,
-        },
-        body: JSON.stringify({ com_id: Cookies.get("com_id") }),
-      }
-    );
-    const data = await res.json();
-    if (data && data?.data) setPosition_id(data?.data?.data?.position_id);
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/employee/info`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${Cookies.get("token_base365")}`,
+          },
+          body: JSON.stringify({ com_id: Cookies.get("com_id") }),
+        }
+      );
+      const data = await res.json();
+      if (data && data?.data) setDep_id(data?.data?.data?.dep_id);
+    } catch (error) {}
   };
+
   useEffect(() => {
     handleGetInfoCus();
     handleGetInfoCusNV();
@@ -156,7 +175,28 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
       setCheck(false);
     }
   };
-  const nv = listNV?.filter((item) => item.position_id == position_id);
+  const handleTimeEndChange = (time, timeString) => {
+    if(timeString){
+      setTimeEnd(timeString + ":00");
+
+    }
+  };
+  const handleTimeStartChange = (time, timeString) => {
+    if(timeString ){
+    setTimeStart(timeString + ":00")}
+  };
+  const handleDateChangeStart = (e) => {
+ 
+      setdateS(e.target.value);
+ 
+  };
+  const handleDateChangeEnd = (e) => {
+ 
+      setdateE(e.target.value);
+
+   
+  };
+
   return (
     <>
       <div
@@ -168,6 +208,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
           <div className={styles.row}>
             <div className={`${styles["col-lg-6"]}`}>
               <TimePicker
+                onChange={handleTimeStartChange}
                 style={{ width: "100%", height: "37px" }}
                 defaultValue={dayjs("12:00", format)}
                 format={format}
@@ -176,9 +217,10 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
             <div className={`${styles["col-lg-6"]}`}>
               <div
                 className={styles.box_input}
-                style={{ width: "100%", marginBottom: "5px" }}
+                style={{ width: "100%", marginBottom: "5px",paddingLeft:10 }}
               >
                 <Input
+                  onChange={handleDateChangeStart}
                   type="date"
                   defaultValue={pastTime.format("YYYY-MM-DD")}
                 />
@@ -188,6 +230,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
           <div className={styles.row}>
             <div className={`${styles["col-lg-6"]}`}>
               <TimePicker
+                onChange={handleTimeEndChange}
                 style={{ width: "100%", height: "37px" }}
                 defaultValue={dayjs("00:00", format)}
                 format={format}
@@ -196,12 +239,14 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
             <div className={`${styles["col-lg-6"]}`}>
               <div
                 className={styles.box_input}
-                style={{ width: "100%", marginBottom: "5px" }}
+                style={{ width: "100%", marginBottom: "5px",paddingLeft:10 }}
               >
-                <input type="date" />
+                <Input onChange={handleDateChangeEnd} type="date" />
               </div>
             </div>
+            
           </div>
+          
         </div>
 
         <div className={styles.form_group}>
@@ -374,10 +419,16 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
               value={nvPhuTrach}
               onChange={handleChangeNVPT}
             >
-              {" "}
-              {nv?.map((userName, index) => (
-                <option key={index} value={userName.ep_id as any}>
-                  {`${userName?.dep_name}`}
+              {listNV?.map((userName, index) => (
+                <option
+                  style={{ width: "100%" }}
+                  key={index}
+                  value={userName.ep_id as any}
+                >
+                  <div style={{ display: "block" }}>
+                    ( {`${userName.ep_id}`}) {`${userName?.ep_name}`} <br /> -
+                    {`${userName.nameDeparment}`}
+                  </div>
                 </option>
               ))}
             </Select>
@@ -395,7 +446,11 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
                   className="bi bi-caret-down-fill"
                 ></i>
               }
-              style={{ width: "100%", border: "1px solid black",borderRadius:7 }}
+              style={{
+                width: "100%",
+                border: "1px solid black",
+                borderRadius: 7,
+              }}
               value={userNameCreate}
               onChange={handleChangeNameCreate}
             >

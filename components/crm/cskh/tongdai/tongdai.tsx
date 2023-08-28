@@ -118,19 +118,23 @@ const TongDaiPage = (props: Props) => {
         `http://s02.oncall.vn:8899/api/call_logs/list?pagesize=100000000&start_time=${fillStart} &end_time=${fillEnd}`
       );
     }
-
-    const response = await fetch(`${query}`, {
-      method: "GET",
-      headers: {
-        access_token: show,
-        // "Content-Type":"S"
-      },
-    });
-    const data = await response.json();
-    if (data && data.items) {
-      setListData(data?.items);
+    try {
+      const response = await fetch(`${query}`, {
+        method: "GET",
+        headers: {
+          access_token: show,
+          // "Content-Type":"S"
+        },
+      });
+      const data = await response.json();
+      if (data && data.items) {
+        setListData(data?.items);
+      } 
+      return data;
+    } catch (error) {
+      
     }
-    return data;
+ 
   };
   const router = useRouter();
 

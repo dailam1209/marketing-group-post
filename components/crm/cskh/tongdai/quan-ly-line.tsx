@@ -24,7 +24,7 @@ const Recording = (props: Props) => {
   const [name, setname] = useState();
   const [option, setOption] = useState();
   const [showKetNoi, setShowKetNoi] = useState(false);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [position_id, setPosition_id] = useState();
 
   let arr = [];
@@ -94,52 +94,35 @@ const Recording = (props: Props) => {
     },
   ];
   const handleGetLine = async () => {
-    const res = await fetch(
-      `${base_url}/api/crm/cutomerCare/listLine`,
-      {
+    try {
+      const res = await fetch(`${base_url}/api/crm/cutomerCare/listLine`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${Cookies.get("token_base365")}`,
         },
-      }
-    );
-    const data = await res.json();
-    setlistLine(data?.data);
+      });
+      const data = await res.json();
+      setlistLine(data?.data);
+    } catch (error) {}
   };
 
-  
   const handleGetNhanVienPhuTrach = async () => {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/listAll`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${Cookies.get("token_base365")}`,
-        },
-        body: JSON.stringify({ com_id: `${Cookies.get("com_id")}`  }),
-      }
-    );
-    const data = await res.json();
-    setListNV(data?.data?.items);
-  };
-const nv = listNV?.filter((item) => item.position_id == position_id);
-
-  const handleGetInfoCusNV = async () => {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/employee/info`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${Cookies.get("token_base365")}`,
-        },
-        body: JSON.stringify({ com_id: Cookies.get("com_id") }),
-      }
-    );
-    const data = await res.json();
-    if (data && data?.data) setPosition_id(data?.data?.data?.position_id);
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/listAll`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${Cookies.get("token_base365")}`,
+          },
+          body: JSON.stringify({ com_id: `${Cookies.get("com_id")}` }),
+        }
+      );
+      const data = await res.json();
+      setListNV(data?.data?.items);
+    } catch (error) {}
   };
   useEffect(() => {
     if (show) {
@@ -147,31 +130,31 @@ const nv = listNV?.filter((item) => item.position_id == position_id);
     }
     handleGetLine();
     handleGetNhanVienPhuTrach();
-    handleGetInfoCusNV()
   }, [isShowModalEdit]);
   const handleChangeOption = (value: any) => {
     setOption(value);
   };
   const handleOK = async () => {
     setIsShowModalEdit(false);
-   const res = await fetch(`${base_url}/api/crm/cutomerCare/update`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${Cookies.get("token_base365")}`,
-      },
-      body: JSON.stringify({ ext_number: id, emp_id: option }),
-    });
-    const data = await res.json()
-    if(data && data.error){
-      notification.error({message:data?.error?.message})
-    }
+    try {
+      const res = await fetch(`${base_url}/api/crm/cutomerCare/update`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get("token_base365")}`,
+        },
+        body: JSON.stringify({ ext_number: id, emp_id: option }),
+      });
+      const data = await res.json();
+      if (data && data.error) {
+        notification.error({ message: data?.error?.message });
+      }
+    } catch (error) {}
   };
   useEffect(() => {
-
     const handleget = async () => {
       if (show) {
-      const res =  await fetch(
+        const res = await fetch(
           "https://s02.oncall.vn:8900/api/account/credentials/verify",
           {
             method: "POST",
@@ -182,12 +165,11 @@ const nv = listNV?.filter((item) => item.position_id == position_id);
             }),
           }
         );
-        const data = await res.json()
+        const data = await res.json();
         dispatch(dataSaveTD(data.access_token));
       }
     };
     handleget();
-
   }, []);
   return (
     <div>
@@ -198,7 +180,8 @@ const nv = listNV?.filter((item) => item.position_id == position_id);
             dataSource={data}
             bordered
             scroll={{ x: 1000 }}
-            pagination={{style:{display:"flex",float:"left"},
+            pagination={{
+              style: { display: "flex", float: "left" },
               pageSize: 8,
             }}
           />
@@ -249,13 +232,13 @@ const nv = listNV?.filter((item) => item.position_id == position_id);
                   defaultValue={` ${name}`}
                   onChange={handleChangeOption}
                 >
-                  {nv &&
-                    nv?.map((item: any, index) => {
+                  {listNV &&
+                    listNV?.map((item: any, index) => {
                       return (
-                        <option
-                          key={index}
-                          value={item.ep_id}
-                        >{`(${item.ep_id}) ${item.ep_name}`}</option>
+                        <option key={index} value={item.ep_id}>
+                          {`(${item.ep_id}) ${item.ep_name}`} -{" "}
+                          {`${item.dep_name}`}
+                        </option>
                       );
                     })}
                 </Select>
