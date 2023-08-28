@@ -6,7 +6,7 @@ import { SidebarContext } from "@/components/crm/context/resizeContext";
 import { useHeader } from "@/components/crm/hooks/useHeader";
 import Link from "next/link";
 import Image from "next/image";
-import ApiSetting from "@/components/crm/api";
+import ApiSetting from "@/components/crm/setting/api";
 import ModalCompleteCustomerList from "@/components/crm/customer/customer_modal/customer_mdal_success";
 import CancelModalCustomApi from "@/components/crm/customer/customer_modal/customer_mdal_cancel";
 import Head from "next/head";

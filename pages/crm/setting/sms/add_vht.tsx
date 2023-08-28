@@ -1,4 +1,4 @@
-import ADD from "@/components/crm/sms_branchname/sms_add_vht";
+import ADD from "@/components/crm/setting/sms_branchname/sms_add_vht";
 import Head from "next/head";
 
 export default function Home() {

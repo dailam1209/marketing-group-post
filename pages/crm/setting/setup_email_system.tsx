@@ -1,4 +1,4 @@
-import SetupEmailSystem from "@/components/crm/email/setup_email_system";
+import SetupEmailSystem from "@/components/crm/setting/email/setup_email_system";
 import Head from "next/head";
 
 export default function Home() {

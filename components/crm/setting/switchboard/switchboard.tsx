@@ -41,7 +41,7 @@ const SwitchBoardTable: React.FC = () => {
                 src="/crm/fpt.svg"
               />
               <p className={style.connect_title}>FPT</p>
-              <Link href="/crm/switch_fpt">
+              <Link href="/crm/setting/switch_fpt">
                 <button className={style.connect_button}>Kết nối</button>
               </Link>
             </div>
