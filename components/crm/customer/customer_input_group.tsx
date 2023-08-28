@@ -15,6 +15,7 @@ export default function CustomerListInputGroup({
   clearOption,
   chooseAllOption,
   setName,
+  name,
   setPhone,
   fetchData,
   selectedCus,
@@ -35,6 +36,13 @@ export default function CustomerListInputGroup({
   setloading,
   setDatatable,
   setgroup_id,
+  setTimeStart,
+  setTimeEnd,
+  setdateE,
+  setdateS,
+  setTime_s,
+  setTime_e,
+  setemp_id
 }: any) {
   const [open, setOpen] = useState(false);
   const inputFileRef = useRef<HTMLInputElement>(null);
@@ -98,9 +106,14 @@ export default function CustomerListInputGroup({
     inputFileRef.current?.click();
   };
   const handleSearchKH = async () => {
-    setName(nameFill);
-    setloading(true);
-    setDatatable([]);
+    if (nameFill === name) {
+      setName(nameFill);
+      setloading(true);
+    } else {
+      setDatatable([]);
+      setName(nameFill);
+      setloading(true);
+    }
   };
   return (
     <>
@@ -246,6 +259,8 @@ export default function CustomerListInputGroup({
       >
         <div>
           <CustomerListFilterBox
+          setTime_s={setTime_s}
+          setTime_e={setTime_e}
             dataStatusCustomer={dataStatusCustomer}
             setOpen={setOpen}
             setStatus={setStatus}
@@ -263,6 +278,11 @@ export default function CustomerListInputGroup({
             setDatatable={setDatatable}
             setloading={setloading}
             setgroup_id={setgroup_id}
+            setTimeStart={setTimeStart}
+            setTimeEnd={setTimeEnd}
+            setdateE={setdateE}
+            setdateS={setdateS}
+            setemp_id={setemp_id}
           />
         </div>
       </Drawer>

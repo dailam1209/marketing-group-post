@@ -9,6 +9,7 @@ const Cookies = require("js-cookie");
 import Head from "next/head";
 import { base_url } from "@/components/crm/service/function";
 import { checkAndRedirectToHomeIfNotLoggedIn } from "@/components/crm/ultis/checkLogin";
+import moment from "moment";
 export interface DataType {
   key: React.Key;
   cus_id: number;
@@ -43,6 +44,8 @@ export default function CustomerList() {
   const [nhomCha, setnhomCha] = useState();
   const [nhomCon, setnhomCon] = useState();
   const [loading, setloading] = useState(true);
+  const currentTime = moment();
+  const pastTime = currentTime.subtract(2, "days");
   const [userNameCreate, setuserNameCreate] = useState();
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState<any>([]);
@@ -51,46 +54,68 @@ export default function CustomerList() {
   const [totalRecords, setTotalRecords] = useState();
   const [dataStatus, setdataStatus] = useState<any>();
   const [group_id, setgroup_id] = useState();
+  const [timeStart, setTimeStart] = useState('12:00:00');
+  const [timeEnd, setTimeEnd] = useState('00:00:00');
+  const [dateS, setdateS] = useState(pastTime.format("YYYY-MM-DD"));
+  const [dateE, setdateE] = useState(null);
+  const [time_s, setTime_s] = useState<any>(null);
+  const [time_e, setTime_e] = useState<any>(null);
+  const [emp_id, setemp_id] = useState<any>()
+  console.log("s", time_s);
+  console.log("e", time_e);
+  useEffect(() => {
+    if(dateS != undefined && timeStart!= undefined &&dateE != undefined && timeEnd!= undefined ){
+      setTime_s(dateS + " " + timeStart);
+      setTime_e(dateE + " " + timeEnd);
+    }
+  }, [dateS, dateE, timeStart, timeEnd]);
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
   const fetchData = async () => {
-    const res = await fetch(`${base_url}/api/crm/customer/list`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${Cookies.get("token_base365")}`,
-      },
-      body: JSON.stringify({
-        perPage: pageSize,
-        page: page,
-        keyword: name === null ? null : name,
-        status: status,
-        resoure: resoure,
-        user_create_id: nvPhuTrach,
-        userNameCreate: userNameCreate,
-        group_id: nhomCha,
-        group_pins_id: nhomCon,
-      }),
-    });
-    const data = await res.json();
-    setData(data);
-    if (data?.data?.length <= 0) {
-      setloading(false);
-    }
-    setTotalRecords(data?.total);
+    try {
+      const res = await fetch(`${base_url}/api/crm/customer/list`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get("token_base365")}`,
+        },
+        body: JSON.stringify({
+          perPage: pageSize,
+          page: page,
+          keyword: name === null ? null : name,
+          status: status,
+          resoure: resoure,
+          user_create_id: nvPhuTrach,
+          userNameCreate: userNameCreate,
+          group_id: nhomCha,
+          group_pins_id: nhomCon,
+          time_s: time_s,
+          time_e: time_e,
+          emp_id:emp_id
+        }),
+      });
+      const data = await res.json();
+      setData(data);
+      if (data?.data?.length <= 0) {
+        setloading(false);
+      }
+      setTotalRecords(data?.total);
+    } catch (error) {}
   };
 
   const handleGetInfoSTT = async () => {
-    const res = await fetch(`${base_url}/api/crm/customerStatus/list`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${Cookies.get("token_base365")}`,
-      },
-      body: JSON.stringify({ pageSize: 100 }),
-    });
-    const data = await res.json();
-    if (data && data?.data) setdataStatus(data?.data);
+    try {
+      const res = await fetch(`${base_url}/api/crm/customerStatus/list`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get("token_base365")}`,
+        },
+        body: JSON.stringify({ pageSize: 100 }),
+      });
+      const data = await res.json();
+      if (data && data?.data) setdataStatus(data?.data);
+    } catch (error) {}
   };
   useEffect(() => {
     handleGetInfoSTT();
@@ -123,47 +148,6 @@ export default function CustomerList() {
   ];
   const datatable = data?.data?.map((item, index: number) => {
     let nguonKH = "";
-    let time;
-    if (item.updated_at.length) {
-      const inputTimeString = item?.updated_at;
-
-      // Chuyển đổi thành đối tượng thời gian
-      const inputTime = new Date(inputTimeString);
-      // Lấy thông tin ngày, tháng, năm, giờ, phút, giây
-      const day = inputTime.getUTCDate();
-      const month = inputTime.getUTCMonth() + 1;
-      const year = inputTime.getUTCFullYear();
-      const hours = inputTime.getUTCHours();
-      const minutes = inputTime.getUTCMinutes();
-      const seconds = inputTime.getUTCSeconds();
-      const outputTimeString = `${day < 10 ? "0" : ""}${day}-${
-        month < 10 ? "0" : ""
-      }${month}-${year} ${hours < 10 ? "0" : ""}${hours}:${
-        minutes < 10 ? "0" : ""
-      }${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
-      time = outputTimeString;
-    }
-    if (item.updated_at > 0) {
-      const timestamp = item?.updated_at; // Thay thế bằng giá trị của bạn
-      const dateObj = new Date(timestamp * 1000);
-
-      const formattedDate = `${
-        dateObj.getUTCDate() < 10 ? "0" : ""
-      }${dateObj.getUTCDate()}-${dateObj.getUTCMonth() + 1 < 10 ? "0" : ""}${
-        dateObj.getUTCMonth() + 1
-      }-${dateObj.getUTCFullYear()}`;
-
-      const formattedTime = `${
-        dateObj.getUTCHours() < 10 ? "0" : ""
-      }${dateObj.getUTCHours()}:${
-        dateObj.getUTCMinutes() < 10 ? "0" : ""
-      }${dateObj.getUTCMinutes()}:${
-        dateObj.getUTCSeconds() < 10 ? "0" : ""
-      }${dateObj.getUTCSeconds()}`;
-
-      const outputTimeString = `${formattedDate}\n${formattedTime}`;
-      time = outputTimeString;
-    }
 
     for (let key of ArrNguonKK) {
       if (key.id == item.resoure) {
@@ -184,7 +168,7 @@ export default function CustomerList() {
       description: des,
       group_id: item.group_id,
       status: item.status,
-      updated_at: time,
+      updated_at: item?.updated_at,
       emp_name: item.emp_name,
       userNameCreate: item.userNameCreate,
       user_handing_over_work: item.user_handing_over_work,
@@ -199,16 +183,21 @@ export default function CustomerList() {
   const dataStatusCustomer = dataStatus;
   const [listGr, setListGr] = useState([]);
   const handleGetGr = async () => {
-    const res = await fetch(`${base_url}/api/crm/group/list_group_khach_hang`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${Cookies.get("token_base365")}`,
-      },
-      body: JSON.stringify({ com_id: Cookies.get("com_id") }),
-    });
-    const data = await res.json();
-    setListGr(data?.data);
+    try {
+      const res = await fetch(
+        `${base_url}/api/crm/group/list_group_khach_hang`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${Cookies.get("token_base365")}`,
+          },
+          body: JSON.stringify({ com_id: Cookies.get("com_id") }),
+        }
+      );
+      const data = await res.json();
+      setListGr(data?.data);
+    } catch (error) {}
   };
   const [idSelect, setIdSelect] = useState<any>();
   const handleSelectAll = () => {
@@ -293,6 +282,11 @@ export default function CustomerList() {
       {!checkAndRedirectToHomeIfNotLoggedIn() ? null : (
         <div ref={mainRef} className={styleHome.main}>
           <CustomerListInputGroup
+            setTimeStart={setTimeStart}
+            setTimeEnd={setTimeEnd}
+            setdateS={setdateS}
+            setdateE={setdateE}
+            name={name}
             setName={setName}
             fetchData={fetchData}
             isSelectedRow={selected}
@@ -315,6 +309,9 @@ export default function CustomerList() {
             setloading={setloading}
             setDatatable={setData}
             setgroup_id={setgroup_id}
+            setTime_s={setTime_s}
+            setTime_e={setTime_e}
+            setemp_id={setemp_id}
           />
           <TableListCustomer
             fetchData={fetchData}
