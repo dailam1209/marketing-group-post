@@ -217,7 +217,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
             <div className={`${styles["col-lg-6"]}`}>
               <div
                 className={styles.box_input}
-                style={{ width: "100%", marginBottom: "5px" }}
+                style={{ width: "100%", marginBottom: "5px",paddingLeft:10 }}
               >
                 <Input
                   onChange={handleDateChangeStart}
@@ -239,7 +239,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
             <div className={`${styles["col-lg-6"]}`}>
               <div
                 className={styles.box_input}
-                style={{ width: "100%", marginBottom: "5px" }}
+                style={{ width: "100%", marginBottom: "5px",paddingLeft:10 }}
               >
                 <Input onChange={handleDateChangeEnd} type="date" />
               </div>
