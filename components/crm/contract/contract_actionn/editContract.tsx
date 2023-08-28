@@ -302,6 +302,7 @@ export default function AddContract({ setCheckFile }: any) {
             <CreatFieldDefaultModal
               isModalCancel={isCreatFieldDefault}
               setIsModalCancel={setIsCreatFieldDefault}
+              handleReplaceValues={handleReplaceValues}
             />
           </div>
         </div>
