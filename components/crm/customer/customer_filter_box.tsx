@@ -9,7 +9,6 @@ import { CaretDownOutlined, DownCircleTwoTone } from "@ant-design/icons";
 import { Router, useRouter } from "next/router";
 import { base_url } from "../service/function";
 import Cookies from "js-cookie";
-import { cookies } from "next/headers";
 
 const format = "HH:mm";
 
@@ -128,23 +127,6 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
   useEffect(() => {
     handleGetGr();
   }, []);
-  const handleGetInfoCus = async () => {
-    try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/list`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDaGFtY29uZzM2NS1UaW12aWVjMzY1IiwiaWF0IjoxNjkzMjAwODYwLCJleHAiOjE2OTMyODcyNjAsImRhdGEiOnsiaWQiOiI1NjM1IiwibmFtZSI6Ik5ndXlcdTFlYzVuIFRoXHUxZWNiIFBoXHUwMWIwXHUwMWExbmcgVGhcdTFlYTNvICIsInR5cGUiOjEsImVtYWlsIjoiYmVleGw0MTVAZ21haWwuY29tIiwicGhvbmVfdGsiOm51bGwsInJvbGUiOiIzIiwib3MiOjIsImZyb20iOiJxbGMzNjUiLCJkZXZpY2VfaWQiOiIyNTAxMDA2NDY0NTM3MzYxMTYwMDA1MzczNjU4NjQxNTM2MjQiLCJjb21faWQiOiIzMzEyIiwiY29tX25hbWUiOiJDXHUwMGQ0TkcgVFkgQ1x1MWVkNCBQSFx1MWVhNk4gVEhBTkggVE9cdTAwYzFOIEhcdTAxYWZORyBIXHUwMGMwICJ9fQ.f6tvLnNB0cj9zQt_SMlOoFzYSyXFCf4fnJEO7ZPKlW0`,
-          },
-          body: JSON.stringify({ dep_id: dep_id }),
-        }
-      );
-      const data = await res.json();
-      if (data && data?.data) setLishNv(data?.data?.items);
-    } catch (error) {}
-  };
   const handleGetInfoCusNV = async () => {
     try {
       const res = await fetch(
@@ -162,11 +144,32 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
       if (data && data?.data) setDep_id(data?.data?.data?.dep_id);
     } catch (error) {}
   };
+  const handleGetInfoCus = async () => {
+    if(dep_id){
+      try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/list`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDaGFtY29uZzM2NS1UaW12aWVjMzY1IiwiaWF0IjoxNjkzMjAwODYwLCJleHAiOjE2OTMyODcyNjAsImRhdGEiOnsiaWQiOiI1NjM1IiwibmFtZSI6Ik5ndXlcdTFlYzVuIFRoXHUxZWNiIFBoXHUwMWIwXHUwMWExbmcgVGhcdTFlYTNvICIsInR5cGUiOjEsImVtYWlsIjoiYmVleGw0MTVAZ21haWwuY29tIiwicGhvbmVfdGsiOm51bGwsInJvbGUiOiIzIiwib3MiOjIsImZyb20iOiJxbGMzNjUiLCJkZXZpY2VfaWQiOiIyNTAxMDA2NDY0NTM3MzYxMTYwMDA1MzczNjU4NjQxNTM2MjQiLCJjb21faWQiOiIzMzEyIiwiY29tX25hbWUiOiJDXHUwMGQ0TkcgVFkgQ1x1MWVkNCBQSFx1MWVhNk4gVEhBTkggVE9cdTAwYzFOIEhcdTAxYWZORyBIXHUwMGMwICJ9fQ.f6tvLnNB0cj9zQt_SMlOoFzYSyXFCf4fnJEO7ZPKlW0`,
+            },
+            body: JSON.stringify({ dep_id: dep_id }),
+          }
+        );
+        const data = await res.json();
+        if (data && data?.data) setLishNv(data?.data?.items);
+      } catch (error) {}
+    }
+
+  };
+
 
   useEffect(() => {
     handleGetInfoCus();
     handleGetInfoCusNV();
-  }, []);
+  }, [dep_id]);
   const handleSelectNhomCha = (value) => {
     setnhomCha(value);
     if (value > 0) {
@@ -419,12 +422,14 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
               value={nvPhuTrach}
               onChange={handleChangeNVPT}
             >
+               <option value={null}>Tất cả</option>
               {listNV?.map((userName, index) => (
                 <option
                   style={{ width: "100%" }}
                   key={index}
                   value={userName.ep_id as any}
                 >
+                 
                   <div style={{ display: "block" }}>
                     ( {`${userName.ep_id}`}) {`${userName?.ep_name}`} <br /> -
                     {`${userName.nameDeparment}`}
