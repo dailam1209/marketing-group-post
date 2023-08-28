@@ -76,7 +76,7 @@ const ScheduleActionDropDown: React.FC = ({ idRow = "row" }: any) => {
           className="btn-huy flex-start"
           onClick={() => setIsOpenModalDel(true)}
         >
-          <Image width={16} height={16} src="/del.svg" alt="check" />
+          <Image width={16} height={16} src="/crm/del.svg" alt="check" />
           Xoá
         </button>
       ),
@@ -120,9 +120,7 @@ const ScheduleActionDropDown: React.FC = ({ idRow = "row" }: any) => {
       <CancelModal
         isModalCancel={isOpenModalDel}
         setIsModalCancel={setIsOpenModalDel}
-        content={
-          "Bạn có chắc chắn muốn xóa lịch hẹn này không ?"
-        }
+        content={"Bạn có chắc chắn muốn xóa lịch hẹn này không ?"}
         title={"Xác nhận xóa lịch hẹn"}
         link={``}
       />

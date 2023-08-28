@@ -31,7 +31,7 @@ export default function CustomerInforEngineInput({ id, isLink = false }: any) {
         <div className={`${styles.main__control_add} flex_end`}>
           <div>
             {isLink ? (
-              <Link href={`customer/contact/add/${id}`}>
+              <Link href={`/crm/customer/contact/add/${id}`}>
                 <button
                   type="button"
                   // onClick={() => {
