@@ -2,26 +2,46 @@ import React, { useRef, useState } from "react";
 import { Modal } from "antd";
 import styles from "../../potential/potential.module.css";
 import FieldSelectBoxStep from "../../potential/potential_steps/select_box_step";
+import FieldDefaultEditCOntract from "../../potential/potential_steps/field_default_edit_contract";
 // import PotentialSelectBoxStep from "../potential_steps/select_box_step";
 // import ModalCompleteStep from "../potential_steps/complete_modal";
 
 interface MyComponentProps {
   isModalCancel: boolean;
   setIsModalCancel: (value: boolean) => void;
+  handleReplaceValues: any;
 }
 
 const CreatFieldDefaultModal: React.FC<MyComponentProps> = ({
   isModalCancel,
   setIsModalCancel,
+  handleReplaceValues,
 }) => {
   const [isOpenMdalSuccess, setIsOpenMdalSuccess] = useState(false);
+  const [value, setValue] = useState("");
+  const data = [
+    "@Tên công ty",
+    "@Địa chỉ",
+    "@Số điện thoại",
+    "@ngày",
+    "@tháng",
+    "@năm",
+    "@mã số thuế",
+    "@Tên chuyên viên",
+    "@Số điện thoại chuyên viên",
+    "@Email chuyên viên",
+    "@Ngân hàng nhận tiền",
+    "@Số tài khoản ngân hàng",
+    "@Chủ tài khoản",
+  ];
 
   const handleOK = () => {
-    setIsModalCancel(false);
-    setIsOpenMdalSuccess(true);
-    setTimeout(() => {
-      setIsOpenMdalSuccess(false);
-    }, 2000);
+    if (value) {
+      setIsModalCancel(false);
+      handleReplaceValues(value);
+    } else {
+      alert("Bạn chưa chọn trường");
+    }
   };
 
   return (
@@ -33,14 +53,17 @@ const CreatFieldDefaultModal: React.FC<MyComponentProps> = ({
         onOk={() => handleOK()}
         onCancel={() => setIsModalCancel(false)}
         className={"mdal_cancel email_add_mdal"}
-        okText="Đóng lại"
-        cancelText="Lưu"
+        okText="Lưu"
+        cancelText="Đóng lại"
       >
-        <div className={styles.row_mdal} style={{minHeight: "fit-content"}}>
+        <div className={styles.row_mdal} style={{ minHeight: "fit-content" }}>
           <div className={styles.choose_obj}>
-            <FieldSelectBoxStep
-              value="Chọn trường mặc định"
+            <FieldDefaultEditCOntract
+              value={value || "Chọn trường mặc định"}
               placeholder="Chọn trường mặc định"
+              data={data}
+              setValue={setValue}
+              handleReplaceValues={handleReplaceValues}
             />
           </div>
         </div>
