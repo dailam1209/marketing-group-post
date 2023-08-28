@@ -1,4 +1,4 @@
-import SwitchFPT from "@/components/crm/switchboard/switch_board_fpt";
+import SwitchFPT from "@/components/crm/setting/switchboard/switch_board_fpt";
 import Head from "next/head";
 
 export default function Home() {

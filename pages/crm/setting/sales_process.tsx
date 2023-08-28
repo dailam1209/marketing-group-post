@@ -22,7 +22,7 @@ const SalesProcessTable: React.FC = () => {
   useEffect(() => {
     setHeaderTitle("Cài đặt/ Quy trình bán hàng");
     setShowBackButton(true);
-    setCurrentPath("/crm/main");
+    setCurrentPath("/crm/setting/main");
   }, [setHeaderTitle, setShowBackButton, setCurrentPath]);
 
   return (

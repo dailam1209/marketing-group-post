@@ -188,7 +188,7 @@ export default function AddContract({ setCheckFile }: any) {
 
   return (
     <>
-      <div className={styles.main__body} style={{paddingTop: "0px"}}>
+      <div className={styles.main__body} style={{ paddingTop: "0px" }}>
         <div id="drop-zone" className={`${styles["drop-zone"]} ${styles.row}`}>
           <div className={styles.col_md_6}>
             <div className={styles.title}>
@@ -302,6 +302,7 @@ export default function AddContract({ setCheckFile }: any) {
             <CreatFieldDefaultModal
               isModalCancel={isCreatFieldDefault}
               setIsModalCancel={setIsCreatFieldDefault}
+              handleReplaceValues={handleReplaceValues}
             />
           </div>
         </div>

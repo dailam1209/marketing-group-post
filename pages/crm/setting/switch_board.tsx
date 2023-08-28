@@ -1,4 +1,4 @@
-import SwitchBoard from "@/components/crm/switchboard/switchboard";
+import SwitchBoard from "@/components/crm/setting/switchboard/switchboard";
 import Head from "next/head";
 
 export default function Home() {

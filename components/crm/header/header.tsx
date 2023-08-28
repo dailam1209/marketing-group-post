@@ -49,7 +49,7 @@ export default function Header({ toggleModal }: any) {
               <img
                 onClick={toggleModal}
                 className="icon_menu_nav"
-                src="/crmsel.png"
+                src="/crm/angle_left.svg"
                 alt="icon-menu-nav"
               />
             </div>
@@ -62,7 +62,7 @@ export default function Header({ toggleModal }: any) {
                 >
                   <img
                     className={style.dekstop_view_img}
-                    src="/crmangle_left.svg"
+                    src="/crm/angle_left.svg"
                     alt="back"
                   />
                 </Link>

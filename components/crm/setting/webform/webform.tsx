@@ -15,7 +15,7 @@ export default function Contract() {
   useEffect(() => {
     setHeaderTitle("Cài đặt/ Webform");
     setShowBackButton(true);
-    setCurrentPath("/crm/main");
+    setCurrentPath("/crm/setting/main");
   }, [setHeaderTitle, setShowBackButton, setCurrentPath]);
 
   useEffect(() => {
