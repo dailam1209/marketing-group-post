@@ -10,6 +10,7 @@ import AddInvoiceInfo from "@/components/crm/order/order_add_files/invoice_info"
 import AddDeliveryInfo from "@/components/crm/order/order_add_files/delivery_info";
 import AddDescriptionInfo from "@/components/crm/order/order_add_files/description_info";
 import { useHeader } from "@/components/crm/hooks/useHeader";
+import Head from "next/head";
 
 const AddFilesPotential: React.FC = () => {
   const mainRef = useRef<HTMLDivElement>(null);

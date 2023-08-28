@@ -1,4 +1,4 @@
-import Email from "@/components/crm/email/email";
+import Email from "@/components/crm/setting/email/email";
 import Head from "next/head";
 
 export default function Home() {
