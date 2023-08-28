@@ -1,5 +1,5 @@
 import HeadNav from "../../../../components/tinh-luong/components/big-component/header-nav";
-import HeadNavRes from "../../../../components/tinh-luong/components/big-component/head-nav-res";
+import HeadNavResCongty from "../../../../components/tinh-luong/components/big-component/head-nav-res-cong-ty";
 import styles from "./index.module.css";
 import React, { useEffect, useState } from "react";
 import {
@@ -184,6 +184,7 @@ const BaoCaoCongLuong = () => {
       }}
     >
       <HeadNav />
+      <HeadNavResCongty></HeadNavResCongty>
       <div className={styles.part_hps}>
         <div className={styles.cate_staff}>
           <div className={styles.cate_staff_one}>

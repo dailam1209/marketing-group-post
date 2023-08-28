@@ -1,6 +1,7 @@
 import React from "react";
 import { Tabs } from "antd";
 import HeadNav from "../../../../../components/tinh-luong/components/big-component/header-nav";
+import HeadNavResCongTy from "../../../../../components/tinh-luong/components/big-component/head-nav-res-cong-ty";
 import styles from "./index.module.css";
 import Chinhsachbaohiem from "./Chinhsachbaohiem";
 import Nhansuchuathietlap from "./Nhansuchuathietlap";
@@ -37,6 +38,7 @@ const App = () => {
       <div className={styles.container_index}>
         <div>
           <HeadNav title="Bảo hiểm" />
+          <HeadNavResCongTy></HeadNavResCongTy>
         </div>
         <div className={styles.content}>
           <Tabs defaultActiveKey="1" items={itemTabs} onChange={onChange} />
