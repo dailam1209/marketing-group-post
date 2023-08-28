@@ -7,7 +7,6 @@ import HomeList from "@/components/crm/delete_data/delete_data.list";
 import HomeFollow from "@/components/crm/theo-doi-thu-chi/theo-doi-thu-chi";
 import HomePhieuThu from "@/components/crm/theo-doi-thu-chi/phieu-thu";
 import Head from "next/head";
-import Head from "next/head";
 
 export default function TheoDoiThuChi() {
   const mainRef = useRef<HTMLDivElement>(null);

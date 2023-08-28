@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import styleHome from "@/components/crm/home/home.module.css";
-import styles from "@/components/crm/setting.module.css";
+import styles from "@/components/crm/setting/setting.module.css";
 import { SidebarContext } from "@/components/crm/context/resizeContext";
-import AddTable from "@/components/crm/sales_process/sales_process_table";
+import AddTable from "@/components/crm/setting/sales_process/sales_process_table";
 import Head from "next/head";
 import { useHeader } from "@/components/crm/hooks/useHeader";
-import SalesProcessFooter from "@/components/crm/sales_process/sales_process_footer";
+import SalesProcessFooter from "@/components/crm/setting/sales_process/sales_process_footer";
 
 const SalesProcessTable: React.FC = () => {
   const mainRef = useRef<HTMLDivElement>(null);

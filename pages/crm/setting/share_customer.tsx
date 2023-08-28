@@ -1,4 +1,4 @@
-import Share_Customer from "@/components/crm/share_customer/share_customer";
+import Share_Customer from "@/components/crm/setting/share_customer/share_customer";
 import Head from "next/head";
 
 export default function Home() {

@@ -1,4 +1,4 @@
-import SMS from "@/components/crm/sms_branchname/sms";
+import SMS from "@/components/crm/setting/sms_branchname/sms";
 import Head from "next/head";
 
 export default function Home() {

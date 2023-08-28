@@ -1,5 +1,5 @@
-import SEO from "@/components/crm/SEO";
 import Status3 from "@/components/crm/promotion/promotion_body/status3";
+import Head from "next/head";
 
 export default function Home() {
   return (

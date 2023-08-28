@@ -1,10 +1,8 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import styleHome from "../../home/home.module.css";
-import styles from "../../setting/setting.module.css";
-import style from "..//crm/email.module.css";
+
+import style from "./email.module.css";
 import { SidebarContext } from "@/components/crm/context/resizeContext";
 import { useHeader } from "@/components/crm/hooks/useHeader";
-import { Tabs } from "antd";
 import Link from "next/link";
 
 const EmailPersonalTable: React.FC = () => {

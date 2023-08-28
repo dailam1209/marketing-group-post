@@ -32,7 +32,7 @@ export default function Setting() {
       <div className={styles.col}>
         <div className={styles.main_setting_tittle}>Cơ hội</div>
         <div className={styles.main_setting_body}>
-          <Link className={styles.main_setting_item} href="/crm/sales_process">
+          <Link className={styles.main_setting_item} href="/crm/setting/sales_process">
             Quy trình bán hàng
           </Link>
         </div>
@@ -41,15 +41,15 @@ export default function Setting() {
       <div className={styles.col}>
         <div className={styles.main_setting_tittle}>Marketing</div>
         <div className={styles.main_setting_body}>
-          <Link className={styles.main_setting_item} href="/crm/email">
+          <Link className={styles.main_setting_item} href="/crm/setting/email">
             Email
           </Link>
 
-          <Link className={styles.main_setting_item} href="/crm/sms">
+          <Link className={styles.main_setting_item} href="/crm/setting/sms">
             Sms Brandname
           </Link>
 
-          <Link className={styles.main_setting_item} href="/crm/switch_board">
+          <Link className={styles.main_setting_item} href="/crm/setting/switch_board">
             Tổng đài điện thoại
           </Link>
         </div>
@@ -58,7 +58,7 @@ export default function Setting() {
       <div className={styles.col}>
         <div className={styles.main_setting_tittle}>Tiềm năng</div>
         <div className={styles.main_setting_body}>
-          <Link className={styles.main_setting_item} href="/crm/webform/list">
+          <Link className={styles.main_setting_item} href="/crm/setting/webform/list">
             Webform
           </Link>
         </div>
@@ -67,7 +67,7 @@ export default function Setting() {
       <div className={styles.col}>
         <div className={styles.main_setting_tittle}>Khách hàng</div>
         <div className={styles.main_setting_body}>
-          <Link className={styles.main_setting_item} href="/crm/share_customer">
+          <Link className={styles.main_setting_item} href="/crm/setting/share_customer">
             Chia sẻ khách hàng
           </Link>
         </div>
