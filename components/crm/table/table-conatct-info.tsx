@@ -51,10 +51,10 @@ const TableContactDetailCustomer: React.FC<
       render: () => (
         <>
           <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-            <img src="/crm/customer/loai_lh_1.png" />
-            <img src="/crm/customer/loai_lh_2.png" />
-            <img src="/crm/customer/loai_lh_3.png" />
-            <img src="/crm/customer/loai_lh_4.png" />
+            <img src="/crm/loai_lh_1.png" />
+            <img src="/crm/loai_lh_2.png" />
+            <img src="/crm/loai_lh_3.png" />
+            <img src="/crm/loai_lh_4.png" />
           </div>
         </>
       ),
