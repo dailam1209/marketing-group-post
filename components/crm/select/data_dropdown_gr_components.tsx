@@ -14,6 +14,7 @@ export default function CustomerGroupSelectDropdownDataComponent({
       return {
         ...pre,
         group_cus_parent: item?.gr_id,
+        groupParents: item?.gr_id
       };
     });
   };
@@ -26,6 +27,7 @@ export default function CustomerGroupSelectDropdownDataComponent({
       return {
         ...pre,
         group_cus_parent: placeholder?.gr_id,
+        groupParents: placeholder?.gr_id
       };
     });
   }, []);
