@@ -1097,7 +1097,10 @@ span.select2.potential_select2_container_step__HpQYa {
     padding-bottom: 10px;
   }
   .form_search {
-    width: 100%;
+   width: 450px;
+  }
+  .main_control_new{
+    width: 200px;
   }
 }
 
