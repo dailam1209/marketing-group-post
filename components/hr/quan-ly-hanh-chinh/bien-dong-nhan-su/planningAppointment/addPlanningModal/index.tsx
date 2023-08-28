@@ -64,10 +64,6 @@ export default function AddPlanningModal({ onCancel }: any) {
   const [errors, setErrors] = useState<any>({});
   const modalRef = useRef(null);
 
-  console.log(isEmpList);
-  console.log(isDepList);
-
-
   useEffect(() => {
     const fetchDataCom = async () => {
       const position = await FetchDataPosition()

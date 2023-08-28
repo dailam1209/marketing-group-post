@@ -28,18 +28,17 @@ export default function Edit({ dataDisplay, onClickButton }) {
     e.preventDefault()
     try {
       const response = await updateInfoCompany(inputValue);
-      console.log(response);
       if (response?.data?.result == true) {
         setPopup(true)
       }
-    } catch (error) {}
+    } catch (error) { }
   };
   const onClosePopup = () => {
     setPopup(false)
   }
   return (
     <>
-      {popup && <Popup onClosePopup = {onClosePopup}></Popup>}
+      {popup && <Popup onClosePopup={onClosePopup}></Popup>}
       <div className={`${styles.l_drop_chinhsua}`}>
         <form onSubmit={(e) => handleClickEdit(e)}>
           <div className={`${styles.l_chinhsua_item}`}>

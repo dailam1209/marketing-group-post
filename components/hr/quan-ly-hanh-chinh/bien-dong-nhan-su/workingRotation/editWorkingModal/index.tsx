@@ -48,8 +48,6 @@ function Input_textarea({ onDescriptionChange }: InputTextareaProps) {
 
 export default function EditWorkingModal({ onCancel, infoList }: any) {
 
-  console.log(infoList);
-
   const [selectedOption, setSelectedOption] = useState<SelectOptionType | null>(null);
   const [isMission, setMission] = useState("");
   const [isNote, setNote] = useState("");

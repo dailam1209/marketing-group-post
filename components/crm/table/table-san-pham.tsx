@@ -38,10 +38,7 @@ const Table_San_Pham = (props: any) => {
           rel="noopener noreferrer"
           // onClick={() => { setIsShowModalChange(true), }}
         >
-          <img
-            src="https://crm.timviec365.vn/assets/icons/icon-edit-black.svg"
-            alt=""
-          />
+          <img src="/crm/icon-edit-black.svg" alt="" />
           &nbsp; &nbsp; <p>Chỉnh sửa</p>
         </Link>
       ),
@@ -54,10 +51,7 @@ const Table_San_Pham = (props: any) => {
           rel="noopener noreferrer"
           // onClick={() => { setIsShowModal(true) }}
         >
-          <img
-            src="https://crm.timviec365.vn/assets/icons/icon-delete-black.svg"
-            alt=""
-          />
+          <img src="/crm/icon-delete-black.svg" alt="" />
           &nbsp; &nbsp; <p>Xóa</p>
         </div>
       ),
@@ -137,7 +131,7 @@ const Table_San_Pham = (props: any) => {
                 handleSelect(record.id);
               }}
               style={{ cursor: "pointer" }}
-              src="https://crm.timviec365.vn/assets/icons/icon_1.svg"
+              src="/crm/icon_1.svg"
             />
           </Dropdown>
         </div>
@@ -157,7 +151,7 @@ const Table_San_Pham = (props: any) => {
   return (
     <div className={`${styles.main__content} ${styles.flex_column}`}>
       <div className={styles.inputSP2}>
-        <div className={styles.ip1} >
+        <div className={styles.ip1}>
           <Button
             style={{
               height: 40,
@@ -173,7 +167,7 @@ const Table_San_Pham = (props: any) => {
             <Link href="/san-pham"> Danh sách sản phẩm</Link>
           </Button>
         </div>
-        <div className={styles.ip1} >
+        <div className={styles.ip1}>
           <Button
             style={{
               height: 40,
@@ -188,7 +182,6 @@ const Table_San_Pham = (props: any) => {
             <Link href="/nhom-san-pham">Danh sách nhóm sản phẩm</Link>
           </Button>
         </div>
-
       </div>
       <Link href={"/them-moi-san-pham"} style={{ width: "10%" }}>
         <Button
@@ -205,14 +198,14 @@ const Table_San_Pham = (props: any) => {
           mới
         </Button>
       </Link>
-      <div className={styles.ipSearch} >
-          <Input
-            placeholder={`Tìm kiếm`}
-            className={styles.main__control_search}
-            suffix={suffix}
-            bordered={false}
-          />
-        </div>
+      <div className={styles.ipSearch}>
+        <Input
+          placeholder={`Tìm kiếm`}
+          className={styles.main__control_search}
+          suffix={suffix}
+          bordered={false}
+        />
+      </div>
       <div className={styles.table}>
         <div className={styles.scrollTable}>
           <Table

@@ -105,7 +105,7 @@ const DocxToImage = () => {
             <div style={{ display: "flex", justifyContent: "center", gap: 10 }}>
               <div>
                 <img
-                  src="https://crm.timviec365.vn/assets/img/icon-pen.svg"
+                  src="/crm/icon-pen.svg"
                   alt=""
                 />
               </div>

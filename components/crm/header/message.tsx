@@ -16,7 +16,7 @@ export default function MessageButtonHeader() {
         width={28}
         height={28}
         alt=".."
-        src="https://crm.timviec365.vn/assets/icons/messenger.svg"
+        src="/crm/messenger.svg"
         onClick={toggleModal}
       />
       <Image
@@ -24,7 +24,7 @@ export default function MessageButtonHeader() {
         width={28}
         height={28}
         alt=".."
-        src="https://crm.timviec365.vn/assets/icons/icon-mess-1024.svg"
+        src="/crm/icon-mess-1024.svg"
         onClick={toggleModal}
       />
 

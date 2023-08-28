@@ -18,18 +18,17 @@ const AddStatusCustomerModal: React.FC<MyComponentProps> = ({
 }) => {
   const [isOpenMdalSuccess, setIsOpenMdalSuccess] = useState(false);
   const [sttName, setsttName] = useState("");
-  const handleOK = async() => {
+  const handleOK = async () => {
     setIsModalCancel(false);
     setIsOpenMdalSuccess(true);
-  await fetch(  `${base_url}/api/crm/customerStatus/create`,{
+    await fetch(`${base_url}/api/crm/customerStatus/create`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${Cookies.get("token_base365")}`,
       },
-      body: JSON.stringify( { stt_name: sttName }),
+      body: JSON.stringify({ stt_name: sttName }),
     });
-
   };
   return (
     <>
@@ -57,7 +56,7 @@ const AddStatusCustomerModal: React.FC<MyComponentProps> = ({
         modal1Open={isOpenMdalSuccess}
         setModal1Open={setIsOpenMdalSuccess}
         title={"Bạn đã thêm trạng thái khách hàng thành công!"}
-        link={"#"}
+        link={""}
       />
     </>
   );

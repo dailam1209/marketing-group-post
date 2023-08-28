@@ -28,7 +28,7 @@ export default function PotentialStep1({ setCheckFile }: any) {
           {fileUpload && fileUpload?.length > 0 ? (
             <div className={styles.content_step1_success}>
               <div className={`${styles["drop-zone"]} ${styles.flex_column}`}>
-                <img src="https://crm.timviec365.vn/assets/icons/potential/crm/success.svg" />
+                <img src="/crm/potential/crm/success.svg" />
                 <div
                   className={`${styles.step1_success} ${styles.flex_column}`}
                 >
@@ -86,7 +86,7 @@ export default function PotentialStep1({ setCheckFile }: any) {
                   >
                     <img
                       className={styles.img_link}
-                      src="	https://crm.timviec365.vn/assets/icons/potential/download_file.svg"
+                      src="	/crm/download_file.svg"
                     />
                     Tải tệp mẫu
                   </p>

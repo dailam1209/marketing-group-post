@@ -40,7 +40,7 @@ const SwitchFPTTable: React.FC = () => {
   useEffect(() => {
     setHeaderTitle("Cài đặt/ Tổng đài/ FPT");
     setShowBackButton(true);
-    setCurrentPath("/crm/setting/switch_board");
+    setCurrentPath("/crm/switch_board");
   }, [setHeaderTitle, setShowBackButton, setCurrentPath]);
   const { isConnected, setIsConnected } = useContext<any>(CallContext);
   const [isVerify, setisVerify] = useState(false);
@@ -100,7 +100,30 @@ const SwitchFPTTable: React.FC = () => {
         password: "v2ohO6B1Nf4F",
         domain: "hncx00693.oncall",
       });
-      await fetch(
+      await fetch("https://s02.oncall.vn:8900/api/account/credentials/verify", {
+        method: "POST",
+        body: JSON.stringify({
+          name: "HNCX00693",
+          password: "v2ohO6B1Nf4F",
+          domain: "hncx00693.oncall",
+        }),
+      });
+    }, 590000);
+  }
+  useEffect(() => {
+    if (show) {
+      setisVerify(true);
+    }
+    const handleget = async () => {
+      // if (oldData) {
+      setIsConnected(true);
+      setisVerify(true);
+      setInputData({
+        name: "HNCX00693",
+        password: "v2ohO6B1Nf4F",
+        domain: "hncx00693.oncall",
+      });
+      const res = await fetch(
         "https://s02.oncall.vn:8900/api/account/credentials/verify",
         {
           method: "POST",
@@ -111,38 +134,11 @@ const SwitchFPTTable: React.FC = () => {
           }),
         }
       );
-    }, 590000);
-  }
-  useEffect(() => {
-    if (show) {
-      setisVerify(true);
-    }
-    const handleget = async () => {
-      // if (oldData) {
-        setIsConnected(true);
-        setisVerify(true)
-        setInputData({
-          name: "HNCX00693",
-          password: "v2ohO6B1Nf4F",
-          domain: "hncx00693.oncall",
-        });
-      const res =  await fetch(
-          "https://s02.oncall.vn:8900/api/account/credentials/verify",
-          {
-            method: "POST",
-            body: JSON.stringify({
-              name: "HNCX00693",
-              password: "v2ohO6B1Nf4F",
-              domain: "hncx00693.oncall",
-            }),
-          }
-        );
-        const data = await res.json()
-        dispatch(dataSaveTD(data.access_token));
+      const data = await res.json();
+      dispatch(dataSaveTD(data.access_token));
       // }
     };
     handleget();
-
   }, []);
   return (
     <>

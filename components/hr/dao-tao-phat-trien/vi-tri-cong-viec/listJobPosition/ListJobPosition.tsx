@@ -41,7 +41,6 @@ export default function ListJobPosition({ iconAdd, iconDelete }: any) {
   useEffect(() => {
     const GetJobPosition = async () => {
       const response = await getDataJobPosition(currentPage, 10)
-      console.log(response)
       setData(response?.success?.data)
     }
     GetJobPosition()

@@ -7,8 +7,6 @@ type SelectOptionType = { label: string, value: any }
 
 export default function DetailCandidateList({ onCancel, infoList }: any) {
 
-  console.log(infoList);
-
   const [selectedOption, setSelectedOption] = useState<SelectOptionType | null>(null);
 
   const handleSelectionChange = (option: SelectOptionType | null, optionsArray: SelectOptionType[]) => {

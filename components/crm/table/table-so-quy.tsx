@@ -58,10 +58,7 @@ const Table_So_Quy = (props: any) => {
             setIsShowModalChange(true), console.log("first");
           }}
         >
-          <img
-            src="https://crm.timviec365.vn/assets/icons/icon-edit-black.svg"
-            alt=""
-          />
+          <img src="/crm/icon-edit-black.svg" alt="" />
           &nbsp; &nbsp; <p>Chỉnh sửa</p>
         </div>
       ),
@@ -76,10 +73,7 @@ const Table_So_Quy = (props: any) => {
             setIsShowModal(true);
           }}
         >
-          <img
-            src="https://crm.timviec365.vn/assets/icons/icon-delete-black.svg"
-            alt=""
-          />
+          <img src="/crm/icon-delete-black.svg" alt="" />
           &nbsp; &nbsp; <p>Xóa</p>
         </div>
       ),
@@ -134,7 +128,7 @@ const Table_So_Quy = (props: any) => {
                 handleSelect(record.myPhone);
               }}
               style={{ cursor: "pointer" }}
-              src="https://crm.timviec365.vn/assets/icons/icon_1.svg"
+              src="/crm/icon_1.svg"
             />
           </Dropdown>
         </div>

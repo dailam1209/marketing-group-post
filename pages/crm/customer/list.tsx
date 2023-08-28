@@ -5,11 +5,9 @@ import { useHeader } from "@/components/crm/hooks/useHeader";
 import TableListCustomer from "@/components/crm/table/table-list-customer";
 import CustomerListInputGroup from "@/components/crm/customer/customer_input_group";
 import { TableRowSelection } from "antd/es/table/interface";
-import { useApi } from "@/components/crm/hooks/useApi";
 const Cookies = require("js-cookie");
-import { format } from "date-fns";
-import { te } from "date-fns/locale";
-import { base_url, convert_time } from "@/components/crm/service/function";
+import Head from "next/head";
+import { base_url } from "@/components/crm/service/function";
 import { checkAndRedirectToHomeIfNotLoggedIn } from "@/components/crm/ultis/checkLogin";
 import moment from "moment";
 export interface DataType {
@@ -241,6 +239,46 @@ export default function CustomerList() {
   }, [isOpen]);
   return (
     <>
+      <Head>
+        <meta name="viewport" content="width=device-width" initial-scale="1" />
+        <meta name="robots" content="noindex,nofollow" />
+        <title>Danh sách khách hàng</title>
+        <meta
+          name="description"
+          content="CRM 365 được đánh giá là công cụ tốt nhất hiện nay trong việc kết nối khách hàng và doanh nghiệp. Phần mềm chú trọng vào các nhiệm vụ hỗ trợ doanh nghiệp tăng tập khách hàng tiềm năng và thân thiết, tăng doanh thu và tối ưu chi phí. Đăng ký hôm nay, lợi ích đến ngay!"
+        />
+        <meta name="Keywords" content="Phần mềm CRM, phần mềm crm miễn phí" />
+        <meta property="og:locale" content="vi_VN" />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:title"
+          content="CRM 365 - đáp án của bài toán tối ưu quy trình, gia tăng lợi nhuận"
+        />
+        <meta
+          property="og:description"
+          content="CRM 365 được đánh giá là công cụ tốt nhất hiện nay trong việc kết nối khách hàng và doanh nghiệp. Phần mềm chú trọng vào các nhiệm vụ hỗ trợ doanh nghiệp tăng tập khách hàng tiềm năng và thân thiết, tăng doanh thu và tối ưu chi phí. Đăng ký hôm nay, lợi ích đến ngay!"
+        />
+        <meta
+          property="og:image"
+          content="https://crm.timviec365.vn/assets/img/images-banners.png"
+        />
+        <meta name="twitter:card" content="summary" />
+        <meta
+          name="twitter:description"
+          content="CRM 365 được đánh giá là công cụ tốt nhất hiện nay trong việc kết nối khách hàng và doanh nghiệp. Phần mềm chú trọng vào các nhiệm vụ hỗ trợ doanh nghiệp tăng tập khách hàng tiềm năng và thân thiết, tăng doanh thu và tối ưu chi phí. Đăng ký hôm nay, lợi ích đến ngay!"
+        />
+        <meta
+          name="twitter:title"
+          content="CRM 365 - đáp án của bài toán tối ưu quy trình, gia tăng lợi nhuận"
+        />
+        <link rel="canonical" href="https://hungha365.com/crm" />
+
+        {/* CSS */}
+        <script
+          async
+          src="https://www.googletagmanager.com/gtm.js?id=GTM-NXVQCHN"
+        ></script>
+      </Head>
       {!checkAndRedirectToHomeIfNotLoggedIn() ? null : (
         <div ref={mainRef} className={styleHome.main}>
           <CustomerListInputGroup

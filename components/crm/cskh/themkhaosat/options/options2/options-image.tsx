@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import styles from "../../../csks.module.css";
-import{ RcFile, UploadProps, } from "antd/es/upload";
+import { RcFile, UploadProps } from "antd/es/upload";
 import { PlusOutlined } from "@ant-design/icons";
 import { Input, message, Modal, Upload, UploadFile } from "antd";
 
 type Props = {};
 
 const Themmoi_Image = (props: any) => {
-  const {handleDleteImage} = props
+  const { handleDleteImage } = props;
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
   const [previewTitle, setPreviewTitle] = useState("");
@@ -54,27 +54,27 @@ const Themmoi_Image = (props: any) => {
           <img
             onClick={handleDleteImage}
             style={{ paddingLeft: 20 }}
-            src="https://crm.timviec365.vn/assets/icons/delete.svg"
+            src="/crm/delete.svg"
             alt=""
           />
         </div>
       </div>
       <Upload
-          listType="picture-circle"
-          fileList={fileList}
-          onPreview={handlePreview}
-          onChange={handleChange}
-        >
-          {fileList.length >= 8 ? null : uploadButton}
-        </Upload>
-        <Modal
-          open={previewOpen}
-          title={previewTitle}
-          footer={null}
-          onCancel={handleCancel}
-        >
-          <img alt="example" style={{ width: "100%" }} src={previewImage} />
-        </Modal>
+        listType="picture-circle"
+        fileList={fileList}
+        onPreview={handlePreview}
+        onChange={handleChange}
+      >
+        {fileList.length >= 8 ? null : uploadButton}
+      </Upload>
+      <Modal
+        open={previewOpen}
+        title={previewTitle}
+        footer={null}
+        onCancel={handleCancel}
+      >
+        <img alt="example" style={{ width: "100%" }} src={previewImage} />
+      </Modal>
     </fieldset>
   );
 };

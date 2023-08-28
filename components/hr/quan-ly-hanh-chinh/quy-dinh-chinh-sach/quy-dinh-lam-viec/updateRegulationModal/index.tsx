@@ -97,8 +97,6 @@ export default function UpdateRegulationsGroupsModal({ onCancel, idGroup }: Upda
       const supervisor_name = (document.getElementById('supervisor-name') as HTMLInputElement)?.value;
       const description = descriptions;
 
-      console.log(description);
-
       const formDatas = {
         name: name || "",
         time: time_start || "",

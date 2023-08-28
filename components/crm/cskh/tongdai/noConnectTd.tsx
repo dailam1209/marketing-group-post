@@ -4,21 +4,20 @@ import Link from "next/link";
 import cskh from "../csks.module.css";
 import Image from "next/image";
 
-
-type Props = {}
+type Props = {};
 
 function NoConnectTd({}: Props) {
   return (
     <div>
-        <div className={cskh.connect_tongdai} style={{ paddingBottom: 20 }}>
-        <Link href={"/crm/setting/switch_board"}>
+      <div className={cskh.connect_tongdai} style={{ paddingBottom: 20 }}>
+        <Link href={"/crm/switch_board"}>
           <Button
             style={{ height: 40, width: 200 }}
             className={`${cskh.dropbtn_add} `}
           >
             <Image
               style={{ paddingRight: 5 }}
-              src="https://crm.timviec365.vn/assets/icons/kn.svg"
+              src="/crm/kn.svg"
               alt="Connect Icon"
               width={30}
               height={15}
@@ -28,7 +27,7 @@ function NoConnectTd({}: Props) {
         </Link>
       </div>
     </div>
-  )
+  );
 }
 
-export default NoConnectTd
+export default NoConnectTd;

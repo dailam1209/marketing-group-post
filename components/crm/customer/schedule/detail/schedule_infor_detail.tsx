@@ -38,7 +38,7 @@ const DetailInformationSchedule: React.FC<ComponentProps> = () => {
                       <TextAndIconInfo
                         field='Nhân viên thực hiện:'
                         value='Lê Thị Thu'
-                        src='https://crm.timviec365.vn/assets/img/user_kh.png'
+                        src='/crm/user_kh.png'
                       />
                       <InforText field='Địa điểm:' value='937843' />
                       <InforText

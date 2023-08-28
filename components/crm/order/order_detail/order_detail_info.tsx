@@ -122,7 +122,7 @@ export default function AddOrderDetailInfo() {
 
                             <div className={`${styles.main__body__item__title}`}><b>Nhân viên phụ trách:</b></div>
                             <div className={`${styles.main__body__item__value}`}>
-                                <div style={{ display: "flex", justifyContent: 'center' }}> <div><img src="https://crm.timviec365.vn/assets/img/user_kh.png" alt="" /></div>&nbsp;Nguyễn Văn Nam</div>
+                                <div style={{ display: "flex", justifyContent: 'center' }}> <div><img src="/crm/user_kh.png" alt="" /></div>&nbsp;Nguyễn Văn Nam</div>
                             </div>
                         </div>
                     </div>

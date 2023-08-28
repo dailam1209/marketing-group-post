@@ -172,10 +172,7 @@ export default function CustomerListInputGroup({
               </button>
             </div>
             <div className={styles.dropdown_action_btn}>
-              <Link
-                className={styles.api_connect_btn}
-                href={"/crm/setting/api"}
-              >
+              <Link className={styles.api_connect_btn} href={"/crm/api"}>
                 <button
                   className={styles.btn_light_api}
                   style={{

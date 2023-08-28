@@ -3,6 +3,7 @@ import { Input, Modal } from "antd";
 import styles from "../../potential/potential.module.css";
 import InputText from "@/components/crm/potential/potential_add_files/input_text";
 import ModalCompleteStep from "@/components/crm/setting/complete_modal";
+
 import { base_url } from "../../service/function";
 const Cookies = require("js-cookie");
 interface MyComponentProps {
@@ -22,17 +23,17 @@ const EditStatusCustomerModal: React.FC<MyComponentProps> = ({
 }) => {
   const [isOpenMdalSuccess, setIsOpenMdalSuccess] = useState(false);
   const [dataUpdate, setdataUpdate] = useState("");
-  const handleOK = async() => {
+  const handleOK = async () => {
     setIsModalCancel(false);
     setIsOpenMdalSuccess(true);
     if (dataUpdate != "") {
-      await fetch( `${base_url}/api/crm/customerStatus/update`,{
+      await fetch(`${base_url}/api/crm/customerStatus/update`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${Cookies.get("token_base365")}`,
         },
-        body: JSON.stringify(  {stt_name: `${dataUpdate}`, stt_id: id}),
+        body: JSON.stringify({ stt_name: `${dataUpdate}`, stt_id: id }),
       });
     }
     setdataUpdate("");
@@ -64,7 +65,7 @@ const EditStatusCustomerModal: React.FC<MyComponentProps> = ({
         modal1Open={isOpenMdalSuccess}
         setModal1Open={setIsOpenMdalSuccess}
         title={"Cập nhật thành công!"}
-        link={"#"}
+        link={""}
       />
     </>
   );

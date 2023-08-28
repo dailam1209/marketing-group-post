@@ -85,19 +85,13 @@ const TableContract: React.FC<TableContractProps> = ({}: any) => {
         <>
           <Link href={"/contract/edit_contract"}>
             <button>
-              <img
-                className={styles.icon_edit}
-                src="https://crm.timviec365.vn/assets/img/h_edit_cus.svg"
-              />
+              <img className={styles.icon_edit} src="/crm/h_edit_cus.svg" />
               Sửa
             </button>
           </Link>
           <Link href={"#"}>
             <button>
-              <img
-                className={styles.icon_delete}
-                src="https://crm.timviec365.vn/assets/img/h_delete_cus.svg"
-              />
+              <img className={styles.icon_delete} src="/crm/h_delete_cus.svg" />
               Xóa
             </button>
           </Link>
@@ -106,31 +100,29 @@ const TableContract: React.FC<TableContractProps> = ({}: any) => {
     },
   ];
 
-  const datatable = data?.data?.data?.map(
-    (item: any, index: number) => {
-      return {
-        key: index + 1,
-        _id: item._id,
-        name: item.name,
-        pathFile: item.pathFile,
-        com_id: item.com_id,
-        ep_id: item.ep_id,
-        id_file: item.id_file,
-        created_at: item.created_at,
-        user_created: item.user_created,
-        id_customer: item.id_customer,
-        update_at: item.update_at || "Chua cap nhat",
-        status: item.status,
-        is_delete: item.is_delete,
-        new_field: item.new_field,
-        old_field: item.old_field,
-        index_field: item.index_field,
-        default_field: item.default_field,
-        path_dowload: item.path_dowload,
-        id_form_contract: item.id_form_contract,
-      };
-    }
-  );
+  const datatable = data?.data?.data?.map((item: any, index: number) => {
+    return {
+      key: index + 1,
+      _id: item._id,
+      name: item.name,
+      pathFile: item.pathFile,
+      com_id: item.com_id,
+      ep_id: item.ep_id,
+      id_file: item.id_file,
+      created_at: item.created_at,
+      user_created: item.user_created,
+      id_customer: item.id_customer,
+      update_at: item.update_at || "Chua cap nhat",
+      status: item.status,
+      is_delete: item.is_delete,
+      new_field: item.new_field,
+      old_field: item.old_field,
+      index_field: item.index_field,
+      default_field: item.default_field,
+      path_dowload: item.path_dowload,
+      id_form_contract: item.id_form_contract,
+    };
+  });
   console.log(data);
 
   const [current, setcurrent] = useState(1);

@@ -23,13 +23,13 @@ const HandeOverModal: React.FC<MyComponentProps> = ({
   const [valueInput, setValueInput] = useState("");
 
   const handleOK = () => {
-    setIsModalCancel(false);
-    handleReplaceValues(valueInput);
-    setValueInput("");
-    // setIsOpenMdalSuccess(true);
-    // setTimeout(() => {
-    //   setIsOpenMdalSuccess(false);
-    // }, 2000);
+    if (valueInput) {
+      setIsModalCancel(false);
+      handleReplaceValues(valueInput);
+      setValueInput("");
+    } else {
+      alert("Bạn chưa nhập tên trường");
+    }
   };
 
   return (

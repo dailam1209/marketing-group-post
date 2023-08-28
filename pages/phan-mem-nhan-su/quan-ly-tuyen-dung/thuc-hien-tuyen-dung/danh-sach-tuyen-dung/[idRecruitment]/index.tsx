@@ -34,10 +34,10 @@ export default function IdRecruitment({ query }) {
         setDataDetail(response?.success?.data)
       }
       fetchDataDetail()
-    } catch (error) {}
+    } catch (error) { }
   }, [idRecruitment])
 
-  const dataRecruitment = dataDetail?.data[0]
+  const dataRecruitment = dataDetail?.data
   const listCandidate = dataDetail?.listCandidate
   const listInterview = dataDetail?.listInterview
   const listInterviewFail = dataDetail?.listInterviewFail
@@ -86,9 +86,8 @@ export default function IdRecruitment({ query }) {
             <div key={item.key}>
               <li className={`${styles.li_tabs}`}>
                 <span
-                  className={`${
-                    active === item?.key ? styles.active : styles.hover
-                  } `}
+                  className={`${active === item?.key ? styles.active : styles.hover
+                    } `}
                   onClick={() => handleClick(item)}>
                   {item.header}
                 </span>

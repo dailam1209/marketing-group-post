@@ -29,8 +29,8 @@ const TabComponent = () => {
   const onClose = () => {
     setIsShowModalAdd(false);
     setIsShowModal(false);
-    setIsShowModalAddTL(false)
-    setIsShowModalShareCS(false)
+    setIsShowModalAddTL(false);
+    setIsShowModalShareCS(false);
   };
   const handleAddDB = () => {
     setIsShowModalAdd(false);
@@ -43,26 +43,28 @@ const TabComponent = () => {
             <div className={styles.formInfoStep}>
               <div className={styles.info_step}>
                 <div className={styles.form_add_potential}>
-                <div style={{ display: "flex", justifyContent: "end",paddingBottom:20}}>
-                      <Button>
-                      <Link href={"/quote/form_quote/list_form_quote"} style={{ display: "flex" }} >
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "end",
+                      paddingBottom: 20,
+                    }}
+                  >
+                    <Button>
+                      <Link
+                        href={"/quote/form_quote/list_form_quote"}
+                        style={{ display: "flex" }}
+                      >
                         <div>
-                          <img
-                            src="https://crm.timviec365.vn/assets/icons/change_quote.svg"
-                            alt=""
-                          />
+                          <img src="/crm/change_quote.svg" alt="" />
                         </div>
                         <div>Đổi mẫu</div>
                       </Link>
-                      </Button>
-                     
-                    </div>
+                    </Button>
+                  </div>
                   <div className={styles.main__body}>
                     {/* <AddQuoteDetailTable /> */}
-                    <Form_quote_detail
-                   
-                    />
-                 
+                    <Form_quote_detail />
                   </div>
                   <div className={styles.main__body}>
                     <AddQuoteDetailStatus />
@@ -264,7 +266,7 @@ const TabComponent = () => {
           </div>
         </TabPane>
         <TabPane tab="Danh sách chia sẻ" key="tab7">
-        <div className={styles.main_importfile}>
+          <div className={styles.main_importfile}>
             <div className={styles.formInfoStep}>
               <div className={styles.info_step}>
                 <div className={styles.form_add_potential}>
@@ -294,16 +296,16 @@ const TabComponent = () => {
                         type="button"
                         className={`${styles.dropbtn_add} flex_align_center`}
                       >
-                        <img src="https://crm.timviec365.vn/assets/img/crm/customer/share_white.svg" />
-                       Chia sẻ
+                        <img src="/crm/share_white.svg" />
+                        Chia sẻ
                       </button>
                     </div>
                   </div>
                   <TableTLChiaSe />
-                <ShareDSCSActionModal
-                isShowModalShareCS={isShowModalShareCS}
-                onClose={onClose}
-                />
+                  <ShareDSCSActionModal
+                    isShowModalShareCS={isShowModalShareCS}
+                    onClose={onClose}
+                  />
                 </div>
               </div>
             </div>

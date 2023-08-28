@@ -22,37 +22,54 @@ const EmailMarketingTable: React.FC = () => {
   useEffect(() => {
     setHeaderTitle("Cài đặt/ Email");
     setShowBackButton(true);
-    setCurrentPath("/crm/setting/main");
+    setCurrentPath("/crm/main");
   }, [setHeaderTitle, setShowBackButton, setCurrentPath]);
 
   return (
     <div className={style.main__setting_email}>
       <div className={style.setting_email_body}>
-        <p className={style.setting_email_body__title}>Thiết lập Email Marketing</p>
+        <p className={style.setting_email_body__title}>
+          Thiết lập Email Marketing
+        </p>
         <p>Kết nối Email để thực hiện các chiến dịch Email Marketting </p>
         <div className={style.setting_email_body__connect}>
-            <div className={style.setting_email_body__connect_item}>
-              <img width="50.85"height="60"className={style.connect_img}src="https://crm.timviec365.vn/assets/icons/email/email_zetaMail.svg"/>
-              <p className={style.connect_title}>ZetaMail</p>
-              <Link href="/crm/setting/setup_email_marketing">
-                <button className={style.connect_button}>Kết nối</button>
-              </Link>
-            </div>
-            <div className={style.setting_email_body__connect_item}>
-              <img width="50.85"height="60"className={style.connect_img}src="https://crm.timviec365.vn/assets/icons/email/email_mailChimp.svg"/>
-              <p className={style.connect_title}>MailChimp</p>
-              <Link href="/crm/setting/setup_email_marketing">
-                <button className={style.connect_button}>Kết nối</button>
-              </Link>
-            </div>
-            <div className={style.setting_email_body__connect_item}>
-              <img width="50.85"height="60"className={style.connect_img}src="https://crm.timviec365.vn/assets/icons/email/email_getResponse.svg"/>
-              <p className={style.connect_title}>GetResponse</p>
-              <Link href="/crm/setting/setup_email_marketing">
-                <button className={style.connect_button}>Kết nối</button>
-              </Link>
-            </div>
+          <div className={style.setting_email_body__connect_item}>
+            <img
+              width="50.85"
+              height="60"
+              className={style.connect_img}
+              src="/crm/email_zetaMail.svg"
+            />
+            <p className={style.connect_title}>ZetaMail</p>
+            <Link href="/crm/setup_email_marketing">
+              <button className={style.connect_button}>Kết nối</button>
+            </Link>
           </div>
+          <div className={style.setting_email_body__connect_item}>
+            <img
+              width="50.85"
+              height="60"
+              className={style.connect_img}
+              src="/crm/email_mailChimp.svg"
+            />
+            <p className={style.connect_title}>MailChimp</p>
+            <Link href="/crm/setup_email_marketing">
+              <button className={style.connect_button}>Kết nối</button>
+            </Link>
+          </div>
+          <div className={style.setting_email_body__connect_item}>
+            <img
+              width="50.85"
+              height="60"
+              className={style.connect_img}
+              src="/crm/email_getResponse.svg"
+            />
+            <p className={style.connect_title}>GetResponse</p>
+            <Link href="/crm/setup_email_marketing">
+              <button className={style.connect_button}>Kết nối</button>
+            </Link>
+          </div>
+        </div>
       </div>
     </div>
   );

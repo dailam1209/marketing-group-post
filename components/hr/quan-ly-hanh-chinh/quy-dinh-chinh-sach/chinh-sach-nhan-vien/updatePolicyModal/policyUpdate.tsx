@@ -67,7 +67,6 @@ export default function UpdatePolicyModal({ onCancel, idGroup }: UpdatePolicyMod
       try {
         const response = await PolicyList(1, 100000, keyWords)
         setListRegulationsGroup(response?.success)
-        console.log(response);
 
       } catch (error) {
         throw error
@@ -97,8 +96,6 @@ export default function UpdatePolicyModal({ onCancel, idGroup }: UpdatePolicyMod
       inputElement.defaultValue = formattedDate;
     }
   }, [DetailData]);
-
-  console.log(DetailData);
 
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("Tên quy định không được để trống"),
@@ -187,8 +184,6 @@ export default function UpdatePolicyModal({ onCancel, idGroup }: UpdatePolicyMod
     const selectedProvisionId = parseInt(event.target.value, 10);
     setProvisionId(selectedProvisionId);
   };
-
-  console.log(ListRegulationsGroup?.data?.data);
 
   return (
     <>

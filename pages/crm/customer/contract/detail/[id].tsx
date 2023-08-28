@@ -5,6 +5,9 @@ import styles from "@/components/crm/potential/potential.module.css";
 import { useHeader } from "@/components/crm/hooks/useHeader";
 import { useRouter } from "next/router";
 import Link from "next/link";
+const Cookies = require("js-cookie");
+import { base_url } from "@/components/crm/service/function";
+import Head from "next/head";
 
 export default function ContractDetailsList() {
   const mainRef = useRef<HTMLDivElement>(null);
@@ -13,15 +16,27 @@ export default function ContractDetailsList() {
   const { id } = router.query;
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
-  const [liveiew, setLiveiew] = useState(false);
+  const [name, setname] = useState<any>();
 
-
+  const getNameDetail = async () => {
+    const res = await fetch(`${base_url}/api/crm/customerdetails/detail`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${Cookies.get("token_base365")}`,
+      },
+      body: JSON.stringify({ cus_id: id }),
+    });
+    const data = await res.json();
+    setname(data?.data?.name);
+  };
 
   useEffect(() => {
-    setHeaderTitle(`${id} / Hợp đồng bán / Chi tiết hợp đồng bán`);
+    getNameDetail();
+    setHeaderTitle(`${name} / Hợp đồng bán / Chi tiết hợp đồng bán`);
     setShowBackButton(true);
     setCurrentPath(`/crm/customer/detail/${id}`);
-  }, [setHeaderTitle, setShowBackButton, setCurrentPath, id]);
+  }, [setHeaderTitle, setShowBackButton, setCurrentPath, id, name]);
 
   useEffect(() => {
     if (isOpen) {
@@ -32,10 +47,51 @@ export default function ContractDetailsList() {
   }, [isOpen]);
   return (
     <>
+      <Head>
+        <meta name="viewport" content="width=device-width" initial-scale="1" />
+        <meta name="robots" content="noindex,nofollow" />
+        <title>Chi tiết hợp đồng bán</title>
+        <meta
+          name="description"
+          content="CRM 365 được đánh giá là công cụ tốt nhất hiện nay trong việc kết nối khách hàng và doanh nghiệp. Phần mềm chú trọng vào các nhiệm vụ hỗ trợ doanh nghiệp tăng tập khách hàng tiềm năng và thân thiết, tăng doanh thu và tối ưu chi phí. Đăng ký hôm nay, lợi ích đến ngay!"
+        />
+        <meta name="Keywords" content="Phần mềm CRM, phần mềm crm miễn phí" />
+        <meta property="og:locale" content="vi_VN" />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:title"
+          content="CRM 365 - đáp án của bài toán tối ưu quy trình, gia tăng lợi nhuận"
+        />
+        <meta
+          property="og:description"
+          content="CRM 365 được đánh giá là công cụ tốt nhất hiện nay trong việc kết nối khách hàng và doanh nghiệp. Phần mềm chú trọng vào các nhiệm vụ hỗ trợ doanh nghiệp tăng tập khách hàng tiềm năng và thân thiết, tăng doanh thu và tối ưu chi phí. Đăng ký hôm nay, lợi ích đến ngay!"
+        />
+        <meta
+          property="og:image"
+          content="https://crm.timviec365.vn/assets/img/images-banners.png"
+        />
+        <meta name="twitter:card" content="summary" />
+        <meta
+          name="twitter:description"
+          content="CRM 365 được đánh giá là công cụ tốt nhất hiện nay trong việc kết nối khách hàng và doanh nghiệp. Phần mềm chú trọng vào các nhiệm vụ hỗ trợ doanh nghiệp tăng tập khách hàng tiềm năng và thân thiết, tăng doanh thu và tối ưu chi phí. Đăng ký hôm nay, lợi ích đến ngay!"
+        />
+        <meta
+          name="twitter:title"
+          content="CRM 365 - đáp án của bài toán tối ưu quy trình, gia tăng lợi nhuận"
+        />
+        <link rel="canonical" href="https://hungha365.com/crm" />
+
+        {/* CSS */}
+        <script
+          async
+          src="https://www.googletagmanager.com/gtm.js?id=GTM-NXVQCHN"
+        ></script>
+      </Head>
       <div ref={mainRef} className={styleHome.main}>
         <div className={styles.detail_button}>
           <Link href={`/crm/customer/contract/send/${id}`} target="blank">
-          <button className={styles.send_button_detail}>Gửi hợp đồng</button></Link>
+            <button className={styles.send_button_detail}>Gửi hợp đồng</button>
+          </Link>
           <button className={styles.delete_button}>Xoá hợp đồng</button>
           <button className={styles.export_button}>Xuất file</button>
         </div>

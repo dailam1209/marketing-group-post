@@ -113,7 +113,7 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
           : sidebar_button_group
         )?.map((items, i) => (
           <li className={style.item_parent} key={i}>
-            {items&&items.children&&(items.children.length > 0) ? (
+            {items && items.children && items.children.length > 0 ? (
               <>
                 {" "}
                 <div
@@ -164,10 +164,7 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
         className={style.btn_zoom}
         onClick={handleResizeSIdeBar}
       >
-        <img
-          src="https://crm.timviec365.vn/assets/icons/navBarZoom.svg"
-          alt="btn"
-        />
+        <img src="/crm/navBarZoom.svg" alt="btn" />
       </button>
     </>
   );

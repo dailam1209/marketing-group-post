@@ -6,7 +6,6 @@ import styles from "./setting.module.css";
 import Link from "next/link";
 import HandOver from "./hand_over";
 
-
 export default function Setting() {
   const mainRef = useRef<HTMLDivElement>(null);
   const { isOpen } = useContext<any>(SidebarContext);
@@ -33,7 +32,7 @@ export default function Setting() {
       <div className={styles.col}>
         <div className={styles.main_setting_tittle}>Cơ hội</div>
         <div className={styles.main_setting_body}>
-          <Link className={styles.main_setting_item} href="/crm/setting/sales_process">
+          <Link className={styles.main_setting_item} href="/crm/sales_process">
             Quy trình bán hàng
           </Link>
         </div>
@@ -42,15 +41,15 @@ export default function Setting() {
       <div className={styles.col}>
         <div className={styles.main_setting_tittle}>Marketing</div>
         <div className={styles.main_setting_body}>
-          <Link className={styles.main_setting_item} href="/crm/setting/email">
+          <Link className={styles.main_setting_item} href="/crm/email">
             Email
           </Link>
 
-          <Link className={styles.main_setting_item} href="/crm/setting/sms">
+          <Link className={styles.main_setting_item} href="/crm/sms">
             Sms Brandname
           </Link>
 
-          <Link className={styles.main_setting_item} href="/crm/setting/switch_board">
+          <Link className={styles.main_setting_item} href="/crm/switch_board">
             Tổng đài điện thoại
           </Link>
         </div>
@@ -59,7 +58,7 @@ export default function Setting() {
       <div className={styles.col}>
         <div className={styles.main_setting_tittle}>Tiềm năng</div>
         <div className={styles.main_setting_body}>
-          <Link className={styles.main_setting_item} href="/crm/setting/webform/list">
+          <Link className={styles.main_setting_item} href="/crm/webform/list">
             Webform
           </Link>
         </div>
@@ -68,7 +67,7 @@ export default function Setting() {
       <div className={styles.col}>
         <div className={styles.main_setting_tittle}>Khách hàng</div>
         <div className={styles.main_setting_body}>
-          <Link className={styles.main_setting_item} href="/crm/setting/share_customer">
+          <Link className={styles.main_setting_item} href="/crm/share_customer">
             Chia sẻ khách hàng
           </Link>
         </div>
@@ -77,20 +76,21 @@ export default function Setting() {
       <div className={styles.col}>
         <div className={styles.main_setting_tittle}>Quản trị dữ liệu</div>
         <div className={styles.main_setting_body}>
-          <button type="button" onClick={() => setIsModalCancel(true)} className={styles.main_setting_item}  >
+          <button
+            type="button"
+            onClick={() => setIsModalCancel(true)}
+            className={styles.main_setting_item}
+          >
             Bàn giao công việc
           </button>
           {
-        <HandOver
-          isModalCancel={isModalCancel}
-          setIsModalCancel={setIsModalCancel}
-        />
-      }
+            <HandOver
+              isModalCancel={isModalCancel}
+              setIsModalCancel={setIsModalCancel}
+            />
+          }
         </div>
       </div>
     </div>
   );
 }
-
-
-

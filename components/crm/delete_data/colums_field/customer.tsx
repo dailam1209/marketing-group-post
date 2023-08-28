@@ -137,7 +137,7 @@ export const ColumCustomer = [{
     width: 180,
     title: 'NNhân viên phụ trách',
     dataIndex: 'companyEmail',
-    render: (text: any) => <div style={{ display: "flex", justifyContent: 'center' }}> <div><img src="https://crm.timviec365.vn/assets/img/user_kh.png" alt="" /></div>&nbsp;{text}</div>
+    render: (text: any) => <div style={{ display: "flex", justifyContent: 'center' }}> <div><img src="/crm/user_kh.png" alt="" /></div>&nbsp;{text}</div>
 
 },
 {
@@ -149,7 +149,7 @@ export const ColumCustomer = [{
     width: 178,
     title: 'Người Xóa',
     dataIndex: 'nameDelete',
-    render: (text: any) => <div style={{ display: "flex", justifyContent: 'center' }}> <div><img src="https://crm.timviec365.vn/assets/img/user_kh.png" alt="" /></div>{text}</div>
+    render: (text: any) => <div style={{ display: "flex", justifyContent: 'center' }}> <div><img src="/crm/user_kh.png" alt="" /></div>{text}</div>
 
 },
 {

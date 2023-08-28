@@ -94,7 +94,7 @@ export default function InputPhone({ infoCus }: any) {
           <Image
             width={36}
             height={36}
-            src="https://crm.timviec365.vn/assets/img/business_assistant/phone.svg"
+            src="/crm/phone.svg"
             alt=""
           />
         </button>

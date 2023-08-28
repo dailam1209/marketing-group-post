@@ -15,16 +15,17 @@ export default function PotentialInputGroups({ isSelectedRow }: any) {
           className={`${styles.select_item} flex_align_center_item ${styles.select_item_time}`}
         >
           <label htmlFor="" className="">
-            Thời gian thực hiện:{" "}
+            Thời gian thực hiện:
           </label>
           <div className={`${styles.input_item_time} flex_between`}>
             <input type="date" name="" id="start_time" /> -
             <input type="date" name="" id="end_time" />
           </div>
         </div>
-        <PotentialSelectBox title="Giai đoạn:" value="Tất cả" /><br/>
+        <PotentialSelectBox title="Giai đoạn:" value="Tất cả" />
+        <br />
         <PotentialSelectBox title="Người thực hiện" value="Tất cả" />
-       </div>
+      </div>
 
       <div className={`${styles.main__control_btn} flex_between`}>
         <div className={styles.main__control_search}>

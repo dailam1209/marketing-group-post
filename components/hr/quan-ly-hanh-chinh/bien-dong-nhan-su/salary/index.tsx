@@ -21,8 +21,6 @@ export default function TabSalary({ children }: any) {
   const [isPageSize, setPageSize] = useState<any>(10)
   const comid: any = GetComId()
 
-  console.log(isSalaryList)
-
   useEffect(() => {
     const fetchData = async () => {
       try {
