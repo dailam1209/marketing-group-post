@@ -30,8 +30,8 @@ const columns: ColumnsType<DataType> = [
     width: 180,
     dataIndex: "name",
     key: "name",
-    render: (text: any,record:any) => (
-      <Link href={`/campaign/detail/${record.key}`}>
+    render: (text: any, record: any) => (
+      <Link href={`/crm/campaign/detail/${record.key}`}>
         <b>{text}</b>
       </Link>
     ),
@@ -89,10 +89,9 @@ const columns: ColumnsType<DataType> = [
     key: "11",
     width: 150,
     fixed: "right",
-    render: (text: any, record: any) =>
-      <CampaignActionTable
-        record={record.key}
-      />
+    render: (text: any, record: any) => (
+      <CampaignActionTable record={record.key} />
+    ),
   },
 ];
 
@@ -101,9 +100,9 @@ for (let i = 0; i < 100; i++) {
   data.push({
     key: i,
     name: `Campaign ${i}`,
-    status: 'Đang diễn ra',
-    type: 'abc',
-    date_start: '29/07/2023',
+    status: "Đang diễn ra",
+    type: "abc",
+    date_start: "29/07/2023",
     date_end: `30/07/2023`,
     sale: 10000000,
     budget: 10000000,
@@ -111,7 +110,7 @@ for (let i = 0; i < 100; i++) {
   });
 }
 
-interface TableDataCampaignProps { }
+interface TableDataCampaignProps {}
 
 const TableDataCampaign: React.FC<TableDataCampaignProps> = () => {
   return (

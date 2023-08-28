@@ -22,7 +22,7 @@ const AddSMSTable: React.FC = () => {
   useEffect(() => {
     setHeaderTitle("Cài đặt/ SMS Brandname/ SMS cá nhân");
     setShowBackButton(true);
-    setCurrentPath("/crm/setting/sms");
+    setCurrentPath("/crm/sms");
   }, [setHeaderTitle, setShowBackButton, setCurrentPath]);
 
   return (
@@ -59,7 +59,10 @@ const AddSMSTable: React.FC = () => {
                     />
                   </div>
                   <div className="col-lg-6">
-                    <button type="button" className={style.check_setting_system}>
+                    <button
+                      type="button"
+                      className={style.check_setting_system}
+                    >
                       Kiểm tra thiết lập
                     </button>
                   </div>
@@ -80,7 +83,7 @@ const AddSMSTable: React.FC = () => {
                       placeholder="Nhập thương hiệu (Brandname)"
                     />
                   </div>
-                  <div style={{ marginBottom: "1rem"}} >
+                  <div style={{ marginBottom: "1rem" }}>
                     <label className={style.form_label}>Số dư</label>
                     <input
                       type="text"

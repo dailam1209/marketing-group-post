@@ -25,20 +25,16 @@ export default function ChanceActionDropDown({ isSelectedRow }: any) {
     {
       key: "1",
       label: (
-        <Link href="/order/add"
-          className="btn-huy flex-start"
-        >
+        <Link href="/crm/order/add" className="btn-huy flex-start">
           <i className="bi bi-cart"></i>
           Thêm đơn hàng
-          </Link>
+        </Link>
       ),
     },
     {
       key: "2",
       label: (
-        <Link href="/quote/add"
-          className="btn-huy flex-start"
-        >
+        <Link href="/crm/quote/add" className="btn-huy flex-start">
           <i
             className="bi bi-currency-dollar"
             style={{
@@ -48,7 +44,7 @@ export default function ChanceActionDropDown({ isSelectedRow }: any) {
             }}
           ></i>
           Thêm báo giá
-          </Link>
+        </Link>
       ),
     },
     {
@@ -70,7 +66,12 @@ export default function ChanceActionDropDown({ isSelectedRow }: any) {
           className="btn-huy flex-start"
           onClick={() => setIsOpenModalUpdateStatus(true)}
         >
-          <Image width={16} height={16} src="/update_status.svg" alt="check" />
+          <Image
+            width={16}
+            height={16}
+            src="/crm/update_status.svg"
+            alt="check"
+          />
           Bàn giao công việc
         </button>
       ),
@@ -80,7 +81,7 @@ export default function ChanceActionDropDown({ isSelectedRow }: any) {
       label: (
         <Link href={`update`}>
           <button className="btn-huy flex-start">
-            <Image width={16} height={16} src="/edit.svg" alt="check" />
+            <Image width={16} height={16} src="/crm/edit.svg" alt="check" />
             Chỉnh sửa
           </button>
         </Link>
@@ -93,7 +94,7 @@ export default function ChanceActionDropDown({ isSelectedRow }: any) {
           className="btn-huy flex-start"
           onClick={() => setIsOpenModalDel(true)}
         >
-          <Image width={16} height={16} src="/del.svg" alt="check" />
+          <Image width={16} height={16} src="/crm/del.svg" alt="check" />
           Xoá
         </button>
       ),

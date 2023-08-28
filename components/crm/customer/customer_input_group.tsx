@@ -34,7 +34,7 @@ export default function CustomerListInputGroup({
   setnhomCon,
   setloading,
   setDatatable,
-  setgroup_id
+  setgroup_id,
 }: any) {
   const [open, setOpen] = useState(false);
   const inputFileRef = useRef<HTMLInputElement>(null);
@@ -99,8 +99,8 @@ export default function CustomerListInputGroup({
   };
   const handleSearchKH = async () => {
     setName(nameFill);
-    setloading(true)
-    setDatatable([])
+    setloading(true);
+    setDatatable([]);
   };
   return (
     <>
@@ -159,10 +159,7 @@ export default function CustomerListInputGroup({
               </button>
             </div>
             <div className={styles.dropdown_action_btn}>
-              <Link
-                className={styles.api_connect_btn}
-                href={"/crm/setting/api"}
-              >
+              <Link className={styles.api_connect_btn} href={"/crm/api"}>
                 <button
                   className={styles.btn_light_api}
                   style={{

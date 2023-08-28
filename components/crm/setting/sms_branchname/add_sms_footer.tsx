@@ -8,12 +8,16 @@ export default function SetupEmailSystemFooter() {
   const [modal1Open, setModal1Open] = useState(false);
   return (
     <div className={styles.main__footer}>
-    <button type="button" onClick={() => setIsModalCancel(true)}>
-      Hủy
-    </button>
-    <button className={styles.save} type="submit" onClick={()=>setModal1Open(true)}>
-      Lưu
-    </button>
+      <button type="button" onClick={() => setIsModalCancel(true)}>
+        Hủy
+      </button>
+      <button
+        className={styles.save}
+        type="submit"
+        onClick={() => setModal1Open(true)}
+      >
+        Lưu
+      </button>
 
       {
         <CancelModal
@@ -23,7 +27,7 @@ export default function SetupEmailSystemFooter() {
             "Bạn có chắc chắn muốn hủy lưu kết nối SMS? Các thao tác bạn vừa nhập sẽ không được lưu lại."
           }
           title={"Xác nhận hủy lưu kết nối sms"}
-          routerback={"/crm/setting/sms"}
+          routerback={"/crm/sms"}
         />
       }
 
@@ -31,7 +35,7 @@ export default function SetupEmailSystemFooter() {
         modal1Open={modal1Open}
         setModal1Open={setModal1Open}
         title="Kết nối SMS thành công!"
-        routerback={"/crm/setting/sms"}
+        routerback={"/crm/sms"}
       />
     </div>
   );

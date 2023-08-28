@@ -28,12 +28,7 @@ export default function ScheduleBtnsDetails({ id }: any) {
               style={{ background: "#34B632" }}
               className={`${styles.dropbtn_add} flex_align_center`}
             >
-              <Image
-                alt="+"
-                width={16}
-                height={16}
-                src="https://crm.timviec365.vn/assets/icons/call_white.svg"
-              />
+              <Image alt="+" width={16} height={16} src="/crm/call_white.svg" />
               Gọi ngay
             </button>
           </div>
@@ -49,7 +44,7 @@ export default function ScheduleBtnsDetails({ id }: any) {
                 alt="+"
                 width={16}
                 height={16}
-                src="https://crm.timviec365.vn/assets/icons/complete_white.svg"
+                src="/crm/complete_white.svg"
               />
               Hoàn thành
             </button>
@@ -66,7 +61,7 @@ export default function ScheduleBtnsDetails({ id }: any) {
                 alt="+"
                 width={16}
                 height={16}
-                src="https://crm.timviec365.vn/assets/icons/pause_white.svg"
+                src="/crm/pause_white.svg"
               />
               Hủy lịch hẹn
             </button>
@@ -79,12 +74,7 @@ export default function ScheduleBtnsDetails({ id }: any) {
               onClick={() => setIsOpenModalUpdateStatus(true)}
               className={`${styles.dropbtn_add} flex_align_center`}
             >
-              <Image
-                alt="+"
-                width={16}
-                height={16}
-                src="	/crm/edit_kh.svg"
-              />
+              <Image alt="+" width={16} height={16} src="	/crm/edit_kh.svg" />
               Chỉnh sửa
             </button>
           </div>
@@ -100,7 +90,7 @@ export default function ScheduleBtnsDetails({ id }: any) {
                 alt="+"
                 width={16}
                 height={16}
-                src="https://crm.timviec365.vn/assets/icons/delete_white.svg"
+                src="/crm/delete_white.svg"
               />
               Xóa
             </button>
@@ -121,9 +111,9 @@ export default function ScheduleBtnsDetails({ id }: any) {
       <ScheduleModalAddOrEdit
         isModalCancel={isOpenModalUpdateStatus}
         setIsModalCancel={setIsOpenModalUpdateStatus}
-        title={"Chỉnh sửa lịch hẹn"} 
-        content={"Cập nhật lịch hẹn thành công"}      
-        />
+        title={"Chỉnh sửa lịch hẹn"}
+        content={"Cập nhật lịch hẹn thành công"}
+      />
 
       <CancelModal
         isModalCancel={isOpenModalDel}

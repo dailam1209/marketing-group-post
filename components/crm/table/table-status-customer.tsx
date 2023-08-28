@@ -39,17 +39,18 @@ const TableStatusCustomer: React.FC<TableStatusCustomerProps> = ({}: any) => {
   const [listStt, setListStt] = useState([]);
 
   const fetchData = async () => {
-    const res = await fetch(  `${base_url}/api/crm/customerStatus/list`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${Cookies.get("token_base365")}`,
-      },
-      body: JSON.stringify({ stt_name: `${stt}`, pageSize: 1000}),
-    });
-    const data = await res.json();
-    if (data && data?.data)
-    setListStt(data?.data);
+    try {
+      const res = await fetch(`${base_url}/api/crm/customerStatus/list`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get("token_base365")}`,
+        },
+        body: JSON.stringify({ stt_name: `${stt}`, pageSize: 1000 }),
+      });
+      const data = await res.json();
+      if (data && data?.data) setListStt(data?.data);
+    } catch (error) {}
   };
   useEffect(() => {
     fetchData();
@@ -66,24 +67,24 @@ const TableStatusCustomer: React.FC<TableStatusCustomerProps> = ({}: any) => {
     };
   });
 
-  const handelChangeSwicth = async(e: any, id: any) => {
+  const handelChangeSwicth = async (e: any, id: any) => {
     if (!e && id) {
-    await fetch(  `${base_url}/api/crm/customerStatus/update`, {
+      await fetch(`${base_url}/api/crm/customerStatus/update`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${Cookies.get("token_base365")}`,
         },
-        body: JSON.stringify( { stt_id: id, status: 0 }),
+        body: JSON.stringify({ stt_id: id, status: 0 }),
       });
     } else {
-      await fetch(  `${base_url}/api/crm/customerStatus/update`, {
+      await fetch(`${base_url}/api/crm/customerStatus/update`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${Cookies.get("token_base365")}`,
         },
-        body: JSON.stringify( { stt_id: id, status: 1 }),
+        body: JSON.stringify({ stt_id: id, status: 1 }),
       });
     }
   };

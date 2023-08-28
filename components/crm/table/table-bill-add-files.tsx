@@ -45,9 +45,11 @@ interface TableDataBillAddFilesDrops {
   setSelected: (value: boolean) => void;
 }
 
-const TableDataBillAddFiles: React.FC< TableDataBillAddFilesDrops> = ({}: any) => {
+const TableDataBillAddFiles: React.FC<
+  TableDataBillAddFilesDrops
+> = ({}: any) => {
   const [isModalCancel, setIsModalCancel] = useState(false);
-  const [sizePage,setSizePage] = useState(5)
+  const [sizePage, setSizePage] = useState(5);
   const columns: ColumnsType<DataType> = [
     {
       title: "STT",
@@ -155,16 +157,13 @@ const TableDataBillAddFiles: React.FC< TableDataBillAddFilesDrops> = ({}: any) =
       dataIndex: "operation",
       key: "11",
       width: 70,
-      fixed:"right",
+      fixed: "right",
       render: () => (
         <>
-            <button onClick={()=>setSizePage(sizePage-1)}>
-              <img
-                className={styles.icon_delete}
-                src="https://crm.timviec365.vn/assets/img/h_delete_cus.svg"
-              />{" "}
-              Xóa
-            </button>
+          <button onClick={() => setSizePage(sizePage - 1)}>
+            <img className={styles.icon_delete} src="/crm/h_delete_cus.svg" />
+            Xóa
+          </button>
         </>
       ),
     },
@@ -177,7 +176,7 @@ const TableDataBillAddFiles: React.FC< TableDataBillAddFilesDrops> = ({}: any) =
         bordered
         scroll={{ x: 1500, y: 1100 }}
         pagination={{
-          pageSize:sizePage
+          pageSize: sizePage,
         }}
         summary={() => {
           // let totalBorrow = 0;
@@ -201,22 +200,28 @@ const TableDataBillAddFiles: React.FC< TableDataBillAddFilesDrops> = ({}: any) =
                     <div style={{ background: "white" }}></div>
                   </Table.Summary.Cell>
                   <Table.Summary.Cell index={1} colSpan={3}>
-                  <div style={{ background: "#EEEEEE" ,
-                    textAlign: "left",}}>&nbsp;
-                        <b>Tổng cộng:</b>
+                    <div style={{ background: "#EEEEEE", textAlign: "left" }}>
+                      &nbsp;
+                      <b>Tổng cộng:</b>
                     </div>
-                    
                   </Table.Summary.Cell>
                   <Table.Summary.Cell index={4}>1</Table.Summary.Cell>
-                  <Table.Summary.Cell index={7} colSpan={3}>100.000.000</Table.Summary.Cell>
+                  <Table.Summary.Cell index={7} colSpan={3}>
+                    100.000.000
+                  </Table.Summary.Cell>
                   <Table.Summary.Cell index={8} colSpan={1}>
                     100.000.000
                   </Table.Summary.Cell>
                   <Table.Summary.Cell index={9} colSpan={2}>
-                  100.000.000
+                    100.000.000
                   </Table.Summary.Cell>
-                  <Table.Summary.Cell index={11} colSpan={1}>100.000.000</Table.Summary.Cell>
-                  <Table.Summary.Cell index={12} colSpan={1}></Table.Summary.Cell>
+                  <Table.Summary.Cell index={11} colSpan={1}>
+                    100.000.000
+                  </Table.Summary.Cell>
+                  <Table.Summary.Cell
+                    index={12}
+                    colSpan={1}
+                  ></Table.Summary.Cell>
                 </Table.Summary.Row>
               </Table.Summary>
 
@@ -228,45 +233,52 @@ const TableDataBillAddFiles: React.FC< TableDataBillAddFilesDrops> = ({}: any) =
                   }}
                 >
                   <Table.Summary.Cell index={0}>
-                    <div style={{ background: "white" ,
-                    borderInlineEnd: "1px solid #ccc",}}>
-
-                    </div>
+                    <div
+                      style={{
+                        background: "white",
+                        borderInlineEnd: "1px solid #ccc",
+                      }}
+                    ></div>
                   </Table.Summary.Cell>
                   <Table.Summary.Cell index={1} colSpan={1}>
-                  <div style={{textAlign: "left"}} onClick={()=>setSizePage(sizePage+1)}>
-                      <button type="button" >
-                        <div style={{ background: "white", color: "#4C5BD4"}}>&nbsp;
+                    <div
+                      style={{ textAlign: "left" }}
+                      onClick={() => setSizePage(sizePage + 1)}
+                    >
+                      <button type="button">
+                        <div style={{ background: "white", color: "#4C5BD4" }}>
+                          &nbsp;
                           <i className="bi bi-plus-circle-fill"></i>
                           &nbsp;<b>Thêm dòng</b>
-                          </div>
+                        </div>
                       </button>
-                  </div>
-                    
-                    
+                    </div>
                   </Table.Summary.Cell>
                   <Table.Summary.Cell index={1} colSpan={10}>
-                  <div style={{textAlign: "left"}}>
-                      <button type="button" onClick={() => {
-                    setIsModalCancel(true);
-                    }}>
-                        <div style={{ background: "white", color: "#4C5BD4"}}>&nbsp;
+                    <div style={{ textAlign: "left" }}>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setIsModalCancel(true);
+                        }}
+                      >
+                        <div style={{ background: "white", color: "#4C5BD4" }}>
+                          &nbsp;
                           <i className="bi bi-plus-circle-fill"></i>
                           &nbsp;<b>Thêm chương trình khuyến mại</b>
-                          </div>
+                        </div>
                       </button>
-                  </div>
-                    
-                  
+                    </div>
                   </Table.Summary.Cell>
-                  <Table.Summary.Cell index={12} colSpan={1}></Table.Summary.Cell>
-                  
+                  <Table.Summary.Cell
+                    index={12}
+                    colSpan={1}
+                  ></Table.Summary.Cell>
                 </Table.Summary.Row>
               </Table.Summary>
             </>
           );
         }}
-        
       />
       {
         <OrderApplyModal
@@ -274,7 +286,6 @@ const TableDataBillAddFiles: React.FC< TableDataBillAddFilesDrops> = ({}: any) =
           setIsModalCancel={setIsModalCancel}
           title="Áp dụng cho hàng hóa"
           // content="Hello"
-          
         />
       }
       <div className="main__footer flex_between" id="">
@@ -283,10 +294,6 @@ const TableDataBillAddFiles: React.FC< TableDataBillAddFilesDrops> = ({}: any) =
         </div>
       </div>
     </div>
-
-
-
-    
   );
 };
 

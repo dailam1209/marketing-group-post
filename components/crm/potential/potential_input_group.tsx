@@ -15,9 +15,9 @@ export default function PotentialInputGroups({ isSelectedRow }: any) {
       "Họ tên": "John Doe",
       "Chức danh": "Manager",
       "Điện thoại cá nhân": "123-456-7890",
-      "Email cá nhân": "john.doe@example.com",
+      "/crm/ cá nhân": "john.doe@example.com",
       "Điện thoại cơ quan": "098-765-4321",
-      "Email cơ quan": "john.doe@company.com",
+      "/crm/ cơ quan": "john.doe@company.com",
       "Địa chỉ": "123 Main St",
       "Tỉnh/Thành phố": "New York",
       "Quận/Huyện": "Manhattan",
@@ -40,9 +40,9 @@ export default function PotentialInputGroups({ isSelectedRow }: any) {
       "Họ tên",
       "Chức danh",
       "Điện thoại cá nhân",
-      "Email cá nhân",
+      "/crm/ cá nhân",
       "Điện thoại cơ quan",
-      "Email cơ quan",
+      "/crm/ cơ quan",
       "Địa chỉ",
       "Tỉnh/Thành phố",
       "Quận/Huyện",
@@ -64,7 +64,7 @@ export default function PotentialInputGroups({ isSelectedRow }: any) {
           className={`${styles.select_item} flex_align_center_item ${styles.select_item_time}`}
         >
           <label htmlFor="" className="">
-            Thời gian tạo:{" "}
+            Thời gian tạo:
           </label>
           <div className={`${styles.input_item_time} flex_between`}>
             <input type="date" name="" id="start_time" /> -
@@ -97,7 +97,7 @@ export default function PotentialInputGroups({ isSelectedRow }: any) {
           </form>
         </div>
         <div className={`${styles.main__control_add} flex_end`}>
-          <Link href="/potential/add_file">
+          <Link href="/crm/potential/add_file">
             <button
               type="button"
               className={`${styles.dropbtn_add} flex_align_center`}
@@ -106,12 +106,12 @@ export default function PotentialInputGroups({ isSelectedRow }: any) {
               Thêm mới
             </button>
           </Link>
-          <Link href="/potential/import_file">
+          <Link href="/crm/potential/import_file">
             <button
               type="button"
               className={`${styles.dropbtn_add} flex_align_center ${styles.btn_file}`}
             >
-              <img src="https://crm.timviec365.vn/assets/img/h_import_cus.svg" />
+              <img src="/crm/h_import_cus.svg" />
               Nhập từ file
             </button>
           </Link>
@@ -120,7 +120,7 @@ export default function PotentialInputGroups({ isSelectedRow }: any) {
             onClick={handleExportToExcel}
             className={`${styles.dropbtn_add} flex_align_center ${styles.btn_excel}`}
           >
-            <img src="https://crm.timviec365.vn/assets/icons/price_policy/icon_excel.svg" />
+            <img src="/crm/icon_excel.svg" />
             Xuất excel
           </button>
         </div>

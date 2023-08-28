@@ -4,9 +4,9 @@ import styles from "../../setting/setting.module.css";
 import { SidebarContext } from "@/components/crm/context/resizeContext";
 import { useHeader } from "@/components/crm/hooks/useHeader";
 import { Tabs } from "antd";
-import EmailCaNhan from "./email_personal"
-import EmailMarketing from "./email_marketing"
-import EmailHeThong from "./email_system"
+import EmailCaNhan from "./email_personal";
+import EmailMarketing from "./email_marketing";
+import EmailHeThong from "./email_system";
 
 const EmailTable: React.FC = () => {
   const mainRef = useRef<HTMLDivElement>(null);
@@ -23,14 +23,14 @@ const EmailTable: React.FC = () => {
   useEffect(() => {
     setHeaderTitle("Cài đặt/ Email");
     setShowBackButton(true);
-    setCurrentPath("/crm/setting/main");
+    setCurrentPath("/crm/main");
   }, [setHeaderTitle, setShowBackButton, setCurrentPath]);
 
   const tabsItems = [
     {
       label: `Email cá nhân`,
       key: "1",
-      children: <EmailCaNhan key={1}/>,
+      children: <EmailCaNhan key={1} />,
     },
     {
       label: `Email Marketing`,
@@ -46,7 +46,7 @@ const EmailTable: React.FC = () => {
 
   return (
     <div className={styleHome.main} ref={mainRef}>
-          <Tabs items={tabsItems} />
+      <Tabs items={tabsItems} />
     </div>
   );
 };

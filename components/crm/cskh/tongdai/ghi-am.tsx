@@ -331,14 +331,14 @@ const GhiAmPage = (props: Props) => {
       )}
       {!showKetNoi && (
         <div className={cskh.connect_tongdai} style={{ paddingBottom: 20 }}>
-          <Link href={"/crm/setting/switch_board"}>
+          <Link href={"/crm/switch_board"}>
             <Button
               style={{ height: 40, width: 200 }}
               className={`${cskh.dropbtn_add} `}
             >
               <Image
                 style={{ paddingRight: 5 }}
-                src="https://crm.timviec365.vn/assets/icons/kn.svg"
+                src="/crm/kn.svg"
                 alt="Connect Icon"
                 width={30}
                 height={15}

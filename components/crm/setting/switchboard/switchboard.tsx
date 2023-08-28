@@ -22,34 +22,32 @@ const SwitchBoardTable: React.FC = () => {
   useEffect(() => {
     setHeaderTitle("Cài đặt/ Tổng đài");
     setShowBackButton(true);
-    setCurrentPath("/crm/setting/main");
+    setCurrentPath("/crm/main");
   }, [setHeaderTitle, setShowBackButton, setCurrentPath]);
 
   return (
     <div className={styleHome.main} ref={mainRef}>
-              <div className={style.main__setting_email}>
-      <div className={style.setting_email_body}>
-        <p className={style.setting_email_body__title}>Thiết lập tổng đài</p>
+      <div className={style.main__setting_email}>
+        <div className={style.setting_email_body}>
+          <p className={style.setting_email_body__title}>Thiết lập tổng đài</p>
 
-        <p>
-        Kết nối tổng đài điện thoại để bán hàng tốt hơn.
-        </p>
-        <div className={style.setting_email_body__connect}>
-          <div className={style.setting_email_body__connect_item}>
-            <img
-              width="140"
-              height="46"
-              className={style.connect_img}
-              src="https://crm.timviec365.vn/assets/icons/setting/fpt.svg"
-            />
-            <p className={style.connect_title}>FPT</p>
-            <Link href="/crm/setting/switch_fpt">
-              <button className={style.connect_button}>Kết nối</button>
-            </Link>
+          <p>Kết nối tổng đài điện thoại để bán hàng tốt hơn.</p>
+          <div className={style.setting_email_body__connect}>
+            <div className={style.setting_email_body__connect_item}>
+              <img
+                width="140"
+                height="46"
+                className={style.connect_img}
+                src="/crm/fpt.svg"
+              />
+              <p className={style.connect_title}>FPT</p>
+              <Link href="/crm/switch_fpt">
+                <button className={style.connect_button}>Kết nối</button>
+              </Link>
+            </div>
           </div>
         </div>
       </div>
-    </div>
     </div>
   );
 };

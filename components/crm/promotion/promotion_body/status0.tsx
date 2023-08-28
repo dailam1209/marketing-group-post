@@ -13,19 +13,14 @@ const Status0 = () => {
             Thiết lập các chương trình khuyến mại để thu hút khách hàng của bạn
             ngay nhé!{" "}
           </p>
-          <img src="https://crm.timviec365.vn/assets/img/rafiki.png" alt="" />
+          <img src="/crm/rafiki.png" alt="" />
 
           <Link href="add">
             <button
               type="button"
               className={`${styles.dropbtn_add} flex_align_center`}
             >
-              <Image
-                height={14}
-                width={14}
-                alt="..."
-                src="/crm/add.svg"
-              />
+              <Image height={14} width={14} alt="..." src="/crm/add.svg" />
               Thêm mới
             </button>
           </Link>

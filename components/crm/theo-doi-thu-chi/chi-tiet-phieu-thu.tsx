@@ -78,10 +78,7 @@ export default function ChiTietPhieu() {
           onClick={handleExportToExcel}
           className={`${styless.dropbtn_add} flex_align_center ${styless.btn_excel}`}
         >
-          <img
-            style={{ color: "black" }}
-            src="https://crm.timviec365.vn/assets/icons/excel.svg"
-          />
+          <img style={{ color: "black" }} src="/crm/excel.svg" />
           <p style={{ color: "black" }}>Xuất excel</p>
         </button>
       </div>

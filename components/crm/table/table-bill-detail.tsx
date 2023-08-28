@@ -43,7 +43,6 @@ const columns: ColumnsType<DataType> = [
     dataIndex: "nameproduct",
     key: "1",
     width: 70,
-    
   },
   {
     title: "Đơn vị tính",
@@ -56,7 +55,6 @@ const columns: ColumnsType<DataType> = [
     dataIndex: "soluong",
     key: "3",
     width: 70,
-   
   },
   {
     title: "Đơn giá (VNĐ)",
@@ -127,7 +125,7 @@ const columns: ColumnsType<DataType> = [
   //         <button>
   //           <img
   //             className={styles.icon_delete}
-  //             src="https://crm.timviec365.vn/assets/img/h_delete_cus.svg"
+  //             src="/crm/h_delete_cus.svg"
   //           />{" "}
   //           Xóa
   //         </button>
@@ -159,7 +157,7 @@ interface TableDataOrderDetailDrops {
   setSelected: (value: boolean) => void;
 }
 
-const TableDataOrderDetail: React.FC< TableDataOrderDetailDrops> = ({}: any) => {
+const TableDataOrderDetail: React.FC<TableDataOrderDetailDrops> = ({}: any) => {
   const [isModalCancel, setIsModalCancel] = useState(false);
   return (
     <div className="custom_table">
@@ -190,30 +188,29 @@ const TableDataOrderDetail: React.FC< TableDataOrderDetailDrops> = ({}: any) => 
                     <div style={{ background: "white" }}></div>
                   </Table.Summary.Cell>
                   <Table.Summary.Cell index={1} colSpan={3}>
-                  <div style={{ background: "#EEEEEE" ,
-                    textAlign: "left",}}>&nbsp;
-                        <b>Tổng cộng:</b>
+                    <div style={{ background: "#EEEEEE", textAlign: "left" }}>
+                      &nbsp;
+                      <b>Tổng cộng:</b>
                     </div>
-                    
                   </Table.Summary.Cell>
                   <Table.Summary.Cell index={4}>1</Table.Summary.Cell>
-                  <Table.Summary.Cell index={7} colSpan={3}>100.000.000</Table.Summary.Cell>
+                  <Table.Summary.Cell index={7} colSpan={3}>
+                    100.000.000
+                  </Table.Summary.Cell>
                   <Table.Summary.Cell index={8} colSpan={1}>
                     100.000.000
                   </Table.Summary.Cell>
                   <Table.Summary.Cell index={9} colSpan={2}>
-                  100.000.000
+                    100.000.000
                   </Table.Summary.Cell>
-                  <Table.Summary.Cell index={11} colSpan={1}>100.000.000</Table.Summary.Cell>
-                  
+                  <Table.Summary.Cell index={11} colSpan={1}>
+                    100.000.000
+                  </Table.Summary.Cell>
                 </Table.Summary.Row>
               </Table.Summary>
-
-              
             </>
           );
         }}
-        
       />
       {/* {
         <OrderApplyModal
@@ -230,10 +227,6 @@ const TableDataOrderDetail: React.FC< TableDataOrderDetailDrops> = ({}: any) => 
         </div>
       </div>
     </div>
-
-
-
-    
   );
 };
 

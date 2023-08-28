@@ -32,12 +32,7 @@ export default function Header({ toggleModal }: any) {
   }: // setCurrentPath,
   any = useHeader();
 
-
-
   useEffect(() => {
-
-
-
     if (isOpen) {
       headerRef.current?.classList.add("content_resize");
     } else {
@@ -49,16 +44,12 @@ export default function Header({ toggleModal }: any) {
     <>
       {!checkAndRedirectToHomeIfNotLoggedIn() ? null : (
         <div ref={headerRef} className={style.header}>
-          
-        
-
-        
           <div className={style.main}>
             <div className="mMenu__header">
               <img
                 onClick={toggleModal}
                 className="icon_menu_nav"
-                src="https://crm.timviec365.vn/assets/img/sel.png"
+                src="/crmsel.png"
                 alt="icon-menu-nav"
               />
             </div>
@@ -71,7 +62,7 @@ export default function Header({ toggleModal }: any) {
                 >
                   <img
                     className={style.dekstop_view_img}
-                    src="https://crm.timviec365.vn/assets/icons/angle_left.svg"
+                    src="/crmangle_left.svg"
                     alt="back"
                   />
                 </Link>

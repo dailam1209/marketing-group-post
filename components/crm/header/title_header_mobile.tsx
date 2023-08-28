@@ -20,7 +20,7 @@ export default function TitleHeaderMobile() {
           >
             <img
               className={style.mobile_view_img}
-              src="https://crm.timviec365.vn/assets/icons/angle_left.svg"
+              src="/crm/angle_left.svg"
               alt="back"
             />
           </Link>

@@ -83,7 +83,7 @@ export default function QuoteActionTable(props: any) {
       <div>
         <Dropdown menu={{ items }} trigger={["click"]}>
           <button style={{ justifyContent: "center" }}>
-            <Image src="/3_cham.png" width={15} height={15} />
+            <Image src="/crm/3_cham.png" width={15} height={15} />
             Thao tác
           </button>
         </Dropdown>
@@ -122,10 +122,10 @@ export default function QuoteActionTable(props: any) {
         setIsModalCancel={setIsOpenUpdate}
       />
       <SendMailModal
-       record={record}
-       allkey={allkey}
-       isModalCancel={isOpenSend}
-       setIsModalCancel={setIsOpenSend}
+        record={record}
+        allkey={allkey}
+        isModalCancel={isOpenSend}
+        setIsModalCancel={setIsOpenSend}
       />
     </>
   );

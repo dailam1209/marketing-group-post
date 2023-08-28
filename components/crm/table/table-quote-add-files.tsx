@@ -157,27 +157,18 @@ const TableDataQuoteAddFiles: React.FC<
       title: "Chức năng",
       dataIndex: "operation",
       key: "11",
-      width: 120  ,
+      width: 120,
       fixed: "right",
       render: () => (
         <div style={{ display: "flex", gap: 10, justifyContent: "center" }}>
           <div style={{ width: 15 }} onClick={() => setPageSize(pageSize + 1)}>
-            <img
-              style={{ cursor: "pointer" }}
-              src="https://crm.timviec365.vn/assets/icons/quote/add_row.svg"
-            ></img>{" "}
+            <img style={{ cursor: "pointer" }} src="/crm/add_row.svg"></img>{" "}
           </div>
           <div style={{ width: 15 }} onClick={() => setPageSize(pageSize - 1)}>
-            <img
-              style={{ cursor: "pointer" }}
-              src="	https://crm.timviec365.vn/assets/icons/quote/remove_row.svg"
-            ></img>{" "}
+            <img style={{ cursor: "pointer" }} src="	/crm/remove_row.svg"></img>{" "}
           </div>
           <div style={{ width: 15 }}>
-            <img
-              style={{ cursor: "pointer" }}
-              src="	https://crm.timviec365.vn/assets/icons/quote/menu_row.svg"
-            ></img>{" "}
+            <img style={{ cursor: "pointer" }} src="	/crm/menu_row.svg"></img>{" "}
           </div>
         </div>
       ),
@@ -189,7 +180,7 @@ const TableDataQuoteAddFiles: React.FC<
         columns={columns}
         dataSource={data}
         bordered
-        scroll={{x:1100,y:800}}
+        scroll={{ x: 1100, y: 800 }}
         pagination={{
           pageSize: pageSize,
           style: { display: "none" },
