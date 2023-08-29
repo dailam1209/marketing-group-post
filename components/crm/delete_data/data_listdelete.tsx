@@ -15,7 +15,7 @@ const listDataDelete = [
     name: "Khách hàng",
     image: "/crm/delete_data/icon_kh.svg",
     quantity: "70",
-    link: "detail/crm/customer",
+    link: "detail/customer",
   },
   {
     name: "Nhóm khách hàng",
