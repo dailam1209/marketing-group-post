@@ -118,8 +118,8 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
   const handleUpload = async (event) => {
     const file = event.target.files[0];
     setFileUpload(file?.name);
-    setCheckedStates(Array(0).fill(false))
-    setNewValues([])
+    setCheckedStates(Array(0).fill(false));
+    setNewValues([]);
     if (file) {
       const formData = new FormData();
       formData.append("file", file);
@@ -154,28 +154,6 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
     }
   };
 
-  //   var formdata = new FormData();
-  //   var fileInput = document.getElementById("fileInput") as HTMLInputElement;
-
-  //   if (fileInput.files && fileInput.files.length > 0) {
-  //     formdata.append("file", fileInput.files[0], "[PROXY]");
-
-  //     var requestOptions: RequestInit  = {
-  //       method: "POST",
-  //       body: formdata,
-  //       mode: "no-cors",
-  //       redirect: "follow", // Đảm bảo giá trị 'redirect' ở đây là 'follow' hoặc 'manual'
-  //     };
-
-  //     fetch("https://work247.vn/api_crm/read_file.php", requestOptions)
-  //       .then((response) => response.text())
-  //       .then((result) => console.log(result))
-  //       .catch((error) => console.log("error", error));
-  //   } else {
-  //     console.log("No file selected.");
-  //   }
-  // };
-
   //  TÌM KIẾM
 
   const handleFind = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -209,7 +187,9 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
         // setImgaUrls(dat?.data?.result?.input_file)
         const countWord = dat?.data?.result?.number_text;
         setCheckedStates(Array(countWord).fill(false));
-        setImgaUrls(dat?.data?.result?.image);
+        if (countWord > 0) {
+          setImgaUrls(dat?.data?.result?.image);
+        }
       } catch (error) {
         console.error("Error------:", error.message);
       }
@@ -406,21 +386,6 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
       console.error("Error:", error.message);
     }
   };
-
-  const fetchData = () => {
-    fetch("https://work247.vn/api_crm/read_file.php")
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.lists_image && Array.isArray(data.lists_image)) {
-          setImageData(data.lists_image);
-        }
-      })
-      .catch((error) => console.log(error));
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
 
   const displayIndex = (item: any) => {
     const newIndex = item.index.map((id) => id + 1);
