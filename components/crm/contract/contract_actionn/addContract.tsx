@@ -14,7 +14,6 @@ import { setTextRange } from "typescript";
 import { base_url } from "../../service/function";
 import { el } from "date-fns/locale";
 import EditFieldModal from "./editField_mdal";
-import ModalSaveContractAdd from "../../price_policy/price_policy_steps/save_contract_mdal";
 
 interface MyComponentProps {
   isModalCancel: boolean;
@@ -29,8 +28,7 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
   const inputFileRef = useRef<HTMLInputElement>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [fileUpload, setFileUpload] = useState<any[]>([]);
-  const [idFile, setIdFile] = useState<any>("");
-  const [loading, setLoading] = useState(false);
+  const [file, setfile] = useState<any>("");
   const [path_dowload, setpath_dowload] = useState<any>("");
   const [text_change, settext_change] = useState<any>("");
   const [imgUrls, setImgaUrls] = useState([]);
@@ -40,7 +38,7 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
   const [inputSearch, setInputSearch] = useState("");
   const [scrolling, setScrolling] = useState(false);
   const [posEdit, setPosEdit] = useState<any>([]);
-  const initialCheckStates = Array(0).fill(false); // Thay số 0 bằng số lượng checkbox tùy theo gtri tìm kiếm
+  const initialCheckStates = Array(5).fill(false); // Thay số 5 bằng số lượng checkbox tùy theo tình huống
   const [checkedStates, setCheckedStates] =
     useState<boolean[]>(initialCheckStates);
   const [isEdit, setIsEdit] = useState(false);
@@ -112,44 +110,71 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
     setCheckedStates(newStates);
   };
 
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6MzgwOTg5LCJpZFRpbVZpZWMzNjUiOjIwMjU4NSwiaWRRTEMiOjE3NjMsImlkUmFvTmhhbmgzNjUiOjAsImVtYWlsIjoiZHVvbmdoaWVwaXQxQGdtYWlsLmNvbSIsInBob25lVEsiOiIiLCJjcmVhdGVkQXQiOjE2MDA2NTg0NzgsInR5cGUiOjEsImNvbV9pZCI6MTc2MywidXNlck5hbWUiOiJDw7RuZyBUeSBUTkhIIEggTSBMIFBwbyJ9LCJpYXQiOjE2OTMyODAxODgsImV4cCI6MTY5MzM2NjU4OH0.pUXd_5_OgujQiEWZIfOuH9kTDlneEyBLXy38j_DnG1E";
-
-  const handleUpload = async (event) => {
-    const file = event.target.files[0];
-    setFileUpload(file?.name);
-    if (file) {
-      const formData = new FormData();
-      formData.append("file", file);
-
-      try {
-        setLoading(true);
-        const token =
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6MzgwOTg5LCJpZFRpbVZpZWMzNjUiOjIwMjU4NSwiaWRRTEMiOjE3NjMsImlkUmFvTmhhbmgzNjUiOjAsImVtYWlsIjoiZHVvbmdoaWVwaXQxQGdtYWlsLmNvbSIsInBob25lVEsiOiIiLCJjcmVhdGVkQXQiOjE2MDA2NTg0NzgsInR5cGUiOjEsImNvbV9pZCI6MTc2MywidXNlck5hbWUiOiJDw7RuZyBUeSBUTkhIIEggTSBMIFBwbyJ9LCJpYXQiOjE2OTMyODAxODgsImV4cCI6MTY5MzM2NjU4OH0.pUXd_5_OgujQiEWZIfOuH9kTDlneEyBLXy38j_DnG1E";
-        const res = await fetch(
-          "https://api.timviec365.vn/api/crm/contractAI/read_file",
-          {
-            method: "POST",
-            body: formData,
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-        if (res.ok) {
-          const data = await res.json();
-          setLoading(false);
-          setImgaUrls(data?.data?.result?.image);
-          setpath_dowload(data?.data?.result?.path);
-          setIdFile(data?.data?.result?.sess_id);
-        } else {
-          throw new Error("Request failed with status: " + res.status);
-        }
-      } catch (error) {
-        console.error("Error:", error.message);
+  const handleSubmit = async () => {
+    try {
+      const response = await fetch(`${base_url}/api/crm/contractforcus/add`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get("token_base365")}`,
+        },
+        body: JSON.stringify({
+          _id: formData._id,
+          name: formData.name,
+          pathFile: formData.pathFile,
+          com_id: formData.com_id,
+          ep_id: formData.ep_id,
+          id_file: formData.id_file,
+          created_at: formData.created_at,
+          user_created: formData.user_created,
+          id_customer: formData.id_customer,
+          update_at: formData.update_at,
+          status: formData.status,
+          is_delete: formData.is_delete,
+          new_field: formData.new_field,
+          old_field: formData.old_field,
+          index_field: formData.index_field,
+          default_field: formData.default_field,
+          path_dowload: formData.path_download,
+          id_form_contract: formData.id_form_contract,
+        }),
+      });
+      const data = await response.json();
+      if (response.status === 200) {
+        console.log("Data successfully submitted!");
+      } else {
+        console.error("Error submitting data.");
       }
+    } catch (error) {
+      console.error("An error occurred:", error);
     }
+  };
+
+  const handleUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const response = await axios.get(
+      "https://work247.vn/api_crm/read_file.php"
+    );
+    let data = new FormData();
+    data.append("file", file);
+
+    let config = {
+      method: "post",
+      maxBodyLength: Infinity,
+      url: "https://work247.vn/api_crm/read_file.php",
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+      },
+      data: data,
+    };
+
+    axios
+      .request(config)
+      .then((response: { data: any }) => {
+        console.log(JSON.stringify(response.data));
+      })
+      .catch((error: any) => {
+        console.log(error);
+      });
   };
 
   //   var formdata = new FormData();
@@ -185,32 +210,37 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
       setIsEdit(false);
       const formData = new FormData();
       formData.append("text_change", inputSearch);
-      formData.append("input_file", path_dowload);
 
-      setCheckedStates(Array(0).fill(false));
-      const token =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6MzgwOTg5LCJpZFRpbVZpZWMzNjUiOjIwMjU4NSwiaWRRTEMiOjE3NjMsImlkUmFvTmhhbmgzNjUiOjAsImVtYWlsIjoiZHVvbmdoaWVwaXQxQGdtYWlsLmNvbSIsInBob25lVEsiOiIiLCJjcmVhdGVkQXQiOjE2MDA2NTg0NzgsInR5cGUiOjEsImNvbV9pZCI6MTc2MywidXNlck5hbWUiOiJDw7RuZyBUeSBUTkhIIEggTSBMIFBwbyJ9LCJpYXQiOjE2OTMyODAxODgsImV4cCI6MTY5MzM2NjU4OH0.pUXd_5_OgujQiEWZIfOuH9kTDlneEyBLXy38j_DnG1E";
-      try {
-        setLoading(true);
-        const response = await axios.post(
-          "https://api.timviec365.vn/api/crm/contractAI/search",
-          formData,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+      // try {
+      //   const res = await fetch(
+      //     `http://43.239.223.117:4000/search?sess_id=3312&input_file=${input_file}`,
+      //     {
+      //       method: "POST",
+      //       body: formData,
+      //       mode: "no-cors",
+      //     }
+      //   );
 
-        const dat = await response.data;
-        setLoading(false);
-        // setImgaUrls(dat?.data?.result?.input_file)
-        const countWord = dat?.data?.result?.number_text;
-        setCheckedStates(Array(countWord).fill(false));
-        setImgaUrls(dat?.data?.result?.image);
-      } catch (error) {
-        console.error("Error------:", error.message);
-      }
+      //   const data = await res.json();
+      //   console.log("checkresfile", data);
+      // } catch (error) {
+      //   console.error("Error:", error.message);
+      // }
+
+      // Mock Data:::
+      const data = {
+        data: {
+          result: true,
+          message: " \u1ea2nh tr\u1ea3 v\u1ec1 ",
+          item: {
+            sess_id: "1664_774985",
+            number_text: 4,
+            image: imageBase64,
+          },
+        },
+        error: null,
+      };
+      setImgaUrls(data?.data?.item?.image);
     }
   };
 
@@ -320,7 +350,7 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
       alert(`Từ khóa đã được thiết lập, vui lòng kiểm tra lại`);
     }
 
-    setCheckedStates(Array(checkedStates.length).fill(false));
+    setCheckedStates(Array(initialCheckStates.length).fill(false));
   };
 
   const handleEditValue = (newValue: string, pos: any) => {
@@ -358,7 +388,7 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
       alert(`Từ khóa đã được thiết lập, vui lòng kiểm tra lại`);
     }
 
-    setCheckedStates(Array(checkedStates.length).fill(false));
+    setCheckedStates(Array(initialCheckStates.length).fill(false));
   };
 
   const handleDelEditField = (item) => {
@@ -372,60 +402,30 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
       // alert("Ko");
     }
   };
-  const handleSave = async () => {
-    const list_details = newValues.map((item) => ({
-      new_field: item?.newValue || "",
-      old_field: item?.originalValue || "",
-      index_field: item?.index?.join(",") || "",
-    }));
 
-    const bodyData = {
-      filename: fileUpload,
-      path_file: path_dowload,
-      id_file: idFile,
-      list_details,
+  const ImageComponent = () => {
+    const [imageData, setImageData] = useState([]);
+
+    useEffect(() => {
+      fetchData();
+    }, []);
+
+    const fetchData = () => {
+      fetch("https://work247.vn/api_crm/read_file.php")
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.lists_image && Array.isArray(data.lists_image)) {
+            setImageData(data.lists_image);
+          }
+        })
+        .catch((error) => console.log(error));
     };
-
-    try {
-      const response = await fetch(
-        "https://api.timviec365.vn/api/crm/contract/add",
-        {
-          method: "POST",
-          body: JSON.stringify(bodyData),
-          headers: {
-            "Content-Type": "application/json", // Set appropriate content type
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      const data = await response.json();
-    } catch (error) {
-      console.error("Error:", error.message);
-    }
   };
-
-  const fetchData = () => {
-    fetch("https://work247.vn/api_crm/read_file.php")
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.lists_image && Array.isArray(data.lists_image)) {
-          setImageData(data.lists_image);
-        }
-      })
-      .catch((error) => console.log(error));
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
 
   const displayIndex = (item: any) => {
-    const newIndex = item.index.map((id) => id + 1);
-
     return `Từ tìm kiếm: ${
       item?.originalValue
-    }, tại các vị trí: ${newIndex.join(", ")}`;
+    }, tại các vị trí: ${item.index?.join(", ")}`;
   };
 
   const [isCreatField, setIsCreatField] = useState(false);
@@ -435,54 +435,246 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
   return (
     <>
       <div className={styles.main__body}>
-        <>
-          <div
-            id="drop-zone"
-            className={`${styles["drop-zone"]} ${styles.row}`}
-          >
-            <div className={styles.col_md_6}>
-              <div className={styles.title}>
-                Tải lên hợp đồng <span className={styles.color_sup}>*</span>
+        {fileUpload && fileUpload?.length > 0 ? (
+          <>
+            <div
+              id="drop-zone"
+              className={`${styles["drop-zone"]} ${styles.row}`}
+            >
+              <div className={styles.col_md_6}>
+                <div className={styles.title}>
+                  Tải lên hợp đồng <span className={styles.color_sup}>*</span>
+                </div>
+                <div>
+                  <label
+                    className={`${styles.form_control} ${styles.upload_contract} ${styles.upload_text}`}
+                    onClick={handleClickSelectFileUpdload}
+                  >
+                    Chọn hợp đồng từ máy tính của bạn
+                    <img
+                      src="/crm/taihopdong.svg"
+                      alt="upload"
+                      // onChange = {(event)=> handleUpload(event)}
+                      // onChange={() =>
+                      //   fetchData(
+                      //     "http://43.239.223.117:4000/upload_file",
+                      // acessToken
+                      //     "POST",
+                      //     { file: `${file}` }
+                      //   )
+                      // }
+                    />
+                    <input
+                      type="file"
+                      className={styles.upload}
+                      name="file"
+                      multiple
+                      // ref={inputFileRef}
+                      onChange={(event) => handleUpload(event)}
+                      // value={path_dowload}
+                      // onChange={(e: {
+                      //   target: { value: React.SetStateAction<string> };
+                      // }) => setpath_dowload(e.target.value)}
+                    />
+                  </label>
+                </div>
+                <div className={styles.loading}>
+                  {imageData.map((image: string, index: React.Key) => (
+                    <img
+                      key={index}
+                      src={image} // Assume each item in imageData is a URL to an image
+                      alt={`Image ${index}`}
+                      style={{ width: "200px", height: "auto", margin: "10px" }}
+                    />
+                  ))}
+                </div>
               </div>
-              <div>
-                <label
-                  className={`${styles.form_control} ${styles.upload_contract} ${styles.upload_text}`}
-                  onClick={handleClickSelectFileUpdload}
-                >
-                  Chọn hợp đồng từ máy tính của bạn
-                  <img src="/crm/taihopdong.svg" alt="upload" />
+              <div className={styles.col_md_6}>
+                <div className={styles.title}>
+                  Tìm kiếm thông tin cần thay đổi trong hợp đồng
+                </div>
+                <div className={styles.divSearch}>
                   <input
-                    type="file"
-                    id="fileInput"
-                    className={styles.upload}
-                    name="file"
-                    multiple
-                    // ref={inputFileRef}
-                    onChange={(event) => handleUpload(event)}
-                    // value={path_dowload}
+                    className={`${styles.form_control} ${styles.upload_contract} ${styles.upload_text}`}
+                    // onChange={()=>{console.log("...")}}
+                    // onSubmit={(e:any) => handleFind(e)}
+                    placeholder="Nhập nội dung cần thay đổi"
                   />
-                </label>
+                  {/* <button
+                    className={styles.search}
+                    onChange={() =>
+                      fetchData(
+                        "http://43.239.223.117:4000/search",
+                        accessToken,
+                        "POST",
+                        { text_change: `${text_change}` }
+                      )
+                    }
+                  >
+                    Tìm kiếm
+                  </button> */}
+                </div>
               </div>
             </div>
+            <div ref={targetScrollRef}>
+              <label className={styles.label_thietlap} id="setting">
+                Thiết lập thông tin cần thay đổi trong hợp đồng
+              </label>
 
-            <>
-              {imgUrls && imgUrls?.length > 0 && (
-                <>
-                  <div className={styles.col_md_6}>
-                    <div className={styles.title}>
-                      Tìm kiếm thông tin cần thay đổi trong hợp đồng
-                    </div>
-                    <form
-                      onSubmit={(e: any) => handleFind(e)}
-                      className={styles.divSearch}
-                    >
-                      <input
-                        value={inputSearch}
-                        className={`${styles.form_control} ${styles.upload_contract} ${styles.upload_text}`}
-                        onChange={(event) => setInputSearch(event.target.value)}
-                        placeholder="Nhập nội dung cần thay đổi"
-                      />
-                      {/* <button
+              <div className={styles.param}>
+                <div className="height:fit-content">
+                  <input
+                    type="checkbox"
+                    className="check_box"
+                    id="check_box1"
+                    value="1"
+                  />
+                  <label
+                    htmlFor="check_box1"
+                    className="text_change"
+                    data-index="1"
+                  >
+                    chấm công (1)
+                  </label>
+                </div>
+                <div className="height:fit-content">
+                  <input
+                    type="checkbox"
+                    className="check_box"
+                    id="check_box2"
+                    value="2"
+                  />
+                  <label
+                    htmlFor="check_box2"
+                    className="text_change"
+                    data-index="2"
+                  >
+                    chấm công (2)
+                  </label>
+                </div>
+                <div className="height:fit-content">
+                  <input
+                    type="checkbox"
+                    className="check_box"
+                    id="check_box3"
+                    value="3"
+                  />
+                  <label
+                    htmlFor="check_box3"
+                    className="text_change"
+                    data-index="3"
+                  >
+                    chấm công (3)
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div className={styles.info_contract}>
+              <div className={styles.title_contract}>
+                <label className={styles.label_contract}>
+                  Thông tin hợp đồng
+                </label>
+              </div>
+              <div className={styles.content_contract}>
+                <div className={styles.loading}>
+                  {imageData.map((imageSrc, index) => (
+                    <img
+                      key={index}
+                      src={imageSrc}
+                      alt={`Image ${index}`}
+                      className="img_contract"
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+            <div className={styles.btn_submit}>
+              <button type="button" onClick={() => setIsModalCancel(true)}>
+                Hủy
+              </button>
+              <button
+                className={styles.save}
+                type="submit"
+                onClick={() => (handleSubmit(), setIsmodal1Open(true))}
+              >
+                Lưu
+              </button>
+              <ModalCompleteStep
+                modal1Open={ismodal1Open}
+                setModal1Open={setIsmodal1Open}
+                title="Thêm mới Hợp đồng thành công!"
+              />
+              <CancelModal
+                isModalCancel={isModalCancel}
+                setIsModalCancel={setIsModalCancel}
+                content={
+                  "Bạn có chắc chắn muốn hủy thêm mới hợp đồng, mọi thông tin bạn nhập sẽ không được lưu lại?"
+                }
+                title={"Xác nhận hủy thêm mới hợp đồng"}
+              />
+            </div>
+          </>
+        ) : (
+          <>
+            <div
+              id="drop-zone"
+              className={`${styles["drop-zone"]} ${styles.row}`}
+            >
+              <div className={styles.col_md_6}>
+                <div className={styles.title}>
+                  Tải lên hợp đồng <span className={styles.color_sup}>*</span>
+                </div>
+                <div>
+                  <label
+                    className={`${styles.form_control} ${styles.upload_contract} ${styles.upload_text}`}
+                    onClick={handleClickSelectFileUpdload}
+                  >
+                    Chọn hợp đồng từ máy tính của bạn
+                    <img
+                      src="/crm/taihopdong.svg"
+                      alt="upload"
+
+                      // onChange={() =>
+                      //   fetchData(
+                      //     "http://43.239.223.117:4000/upload_file",
+                      //,
+                      //     "POST",
+                      //     { file: `${file}` }
+                      //   )
+                      // }
+                    />
+                    <input
+                      type="file"
+                      id="fileInput"
+                      className={styles.upload}
+                      name="file"
+                      multiple
+                      // ref={inputFileRef}
+                      onChange={(event) => handleUpload(event)}
+                      // value={path_dowload}
+                      // onChange={(e: {
+                      //   target: { value: React.SetStateAction<string> };
+                      // }) => setpath_dowload(e.target.value)}
+                    />
+                  </label>
+                </div>
+              </div>
+
+              <div className={styles.col_md_6}>
+                <div className={styles.title}>
+                  Tìm kiếm thông tin cần thay đổi trong hợp đồng
+                </div>
+                <form
+                  onSubmit={(e: any) => handleFind(e)}
+                  className={styles.divSearch}
+                >
+                  <input
+                    value={inputSearch}
+                    className={`${styles.form_control} ${styles.upload_contract} ${styles.upload_text}`}
+                    onChange={(event) => setInputSearch(event.target.value)}
+                    placeholder="Nhập nội dung cần thay đổi"
+                  />
+                  {/* <button
                     className={styles.search}
                     onChange={() =>
                       fetchData(
@@ -495,242 +687,212 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
                   >
                     Tìm kiếm
                   </button> */}
-                    </form>
+                </form>
+              </div>
+
+              {/* /////////////////////////////////////////////////////////////// */}
+
+              <div
+                ref={targetScrollRef}
+                id="setting"
+                className={styles.col_md_6}
+                style={{ width: "100%" }}
+              >
+                <div className={styles.fm_fd}>
+                  <label className={styles.label_thietlap}>
+                    Thiết lập thông tin cần thay đổi trong hợp đồng
+                  </label>
+
+                  <div className={styles.param}>
+                    {text_change !== "" &&
+                      checkedStates.map((isChecked, index) => (
+                        <div key={index} style={{ marginRight: "5px" }}>
+                          <label>
+                            <input
+                              style={{ marginLeft: "3px" }}
+                              type="checkbox"
+                              checked={isChecked}
+                              onChange={() => handleCheckboxChange(index)}
+                            />
+                            {text_change} {index + 1}
+                          </label>
+                        </div>
+                      ))}
                   </div>
-                  <div
-                    ref={targetScrollRef}
-                    id="setting"
-                    className={styles.col_md_6}
-                    style={{ width: "100%" }}
-                  >
-                    <div className={styles.fm_fd}>
-                      <label className={styles.label_thietlap}>
-                        Thiết lập thông tin cần thay đổi trong hợp đồng
-                      </label>
+                </div>
 
-                      <div className={styles.param}>
-                        {text_change !== "" &&
-                          checkedStates.map((isChecked, index) => (
-                            <div key={index} style={{ marginRight: "5px" }}>
-                              <label>
-                                <input
-                                  style={{ marginLeft: "3px" }}
-                                  type="checkbox"
-                                  checked={isChecked}
-                                  onChange={() => handleCheckboxChange(index)}
-                                />
-                                {text_change} <span>(</span>
-                                {index + 1}
-                                <span>)</span>
-                              </label>
-                            </div>
-                          ))}
-                      </div>
-                    </div>
-
-                    <div className={styles.btn_form_contract}>
-                      {isEdit ? (
-                        <>
-                          <button
-                            onClick={() => setIsEdit(false)}
-                            type="button"
-                            className={styles.xoatruong}
-                          >
-                            Hủy
-                          </button>
-                          <button
-                            onClick={handleShowEditFieldModal}
-                            type="button"
-                            className={styles.taotruong}
-                          >
-                            <img
-                              src="/crm/suatruong.svg"
-                              alt="button"
-                            />{" "}
-                            Sửa trường
-                          </button>
-                        </>
-                      ) : (
-                        <>
-                          <button
-                            type="button"
-                            onClick={() => handleCreateFieldBtn()}
-                            data-toggle="modal"
-                            data-target="#modalCreate"
-                            className={styles.taotruong}
-                          >
-                            <img src="/crm/plus_icon_field.svg" alt="button" />{" "}
-                            Tạo trường
-                          </button>
-                        </>
-                      )}
+                <div className={styles.btn_form_contract}>
+                  {isEdit ? (
+                    <>
+                      <button
+                        onClick={() => setIsEdit(false)}
+                        type="button"
+                        className={styles.xoatruong}
+                      >
+                        Hủy
+                      </button>
+                      <button
+                        onClick={handleShowEditFieldModal}
+                        type="button"
+                        className={styles.taotruong}
+                      >
+                        <img
+                          src="https://crm.timviec365.vn/assets/img/suatruong.svg"
+                          alt="button"
+                        />{" "}
+                        Sửa trường
+                      </button>
+                    </>
+                  ) : (
+                    <>
                       <button
                         type="button"
-                        onClick={handleSetDefaultField}
-                        className={styles.tieptuc}
+                        onClick={() => handleCreateFieldBtn()}
+                        data-toggle="modal"
+                        data-target="#modalCreate"
+                        className={styles.taotruong}
                       >
-                        Chỉnh sửa bằng trường mặc định
+                        <img src="/crm/plus_icon_field.svg" alt="button" /> Tạo
+                        trường
                       </button>
-
-                      {/* <button
-                   type="button"
-                   // onclick="prev()"
-                   className="quaylai l-15 hidden"
-                 >
-                   <img src="/assets/img/quaylai.svg" alt="button" /> Quay lại
-                 </button>
-                 <button
-                   type="button"
-                   // onclick="next()"
-                   className="tieptuc l-15 hidden"
-                 >
-                   Tiếp tục <img src="/assets/img/tieptuc.svg" alt="button" />
-                 </button> */}
-                      <CreatFieldModal
-                        isModalCancel={isCreatField}
-                        setIsModalCancel={setIsCreatField}
-                        handleReplaceValues={handleReplaceValues}
-                        // index={checkedStates.findIndex((isChecked) => isChecked)}
-                      />
-                      <EditFieldModal
-                        isModalCancel={isOpenEditField}
-                        setIsModalCancel={setIsOpenEditField}
-                        handleReplaceValues={handleEditValue}
-                        value={newValues[posEdit]?.newValue}
-                        index={posEdit}
-                      />
-                      <CreatFieldDefaultModal
-                        isModalCancel={isCreatFieldDefault}
-                        setIsModalCancel={setIsCreatFieldDefault}
-                        handleReplaceValues={handleReplaceValues}
-                      />
-                    </div>
-                  </div>
-                </>
-              )}
-            </>
-
-            {/* /////////////////////////////////////////////////////////////// */}
-
-            {/* ///////////////////////////////////////////////////////////// */}
-          </div>
-
-          {/* Thong tin hop dong */}
-          {imgUrls && imgUrls?.length > 0 && !loading && (
-            <div>
-              <div>
-                <div className={styles.head_contract}>
-                  <h4>Thông tin hợp đồng</h4>
-                </div>
-              </div>
-              <div className={styles["frm-2"]}>
-                {imgUrls?.map((url, index: number) => (
-                  <img alt="hd" src={`${url}`} key={index} />
-                ))}
-              </div>
-            </div>
-          )}
-
-          {loading && (
-            <div>
-              <div>
-                <div className={styles.head_contract}>
-                  <h4>Thông tin hợp đồng</h4>
-                </div>
-              </div>
-              <div className={styles["frm-2"]}>
-                {/* {imgUrls?.map((url, index: number) => ( */}
-                <img
-                  style={{ objectFit: "contain" }}
-                  alt="hd"
-                  src="/crm/loading_file.gif"
-                />
-                {/* ))} */}
-              </div>
-            </div>
-          )}
-
-          {/* Edit field contract */}
-          {newValues && newValues?.length > 0 && (
-            <div className={styles.field_config}>
-              <div className={styles.footer_contract}>
-                <h4>Các trường đã thiết lập</h4>
-              </div>
-              <div className={`${styles["frm-3"]}`}>
-                {newValues?.map((item: any, index: number) => (
-                  <div
-                    key={index}
-                    className={`${styles["fm-bd"]} ${styles["fm_bt"]} ${styles["fm-fd"]} ${styles.opacity}`}
-                    id="field_config_1"
+                    </>
+                  )}
+                  <button
+                    type="button"
+                    onClick={handleSetDefaultField}
+                    className={styles.tieptuc}
                   >
-                    <div className={styles["error-name"]}>
-                      <label className={styles.field_new}>
-                        {item?.newValue}
-                      </label>
-                      <div className={styles.function}>
-                        <button
-                          className={styles.h_edit_cus}
-                          onClick={() => {
-                            handleEditField(item, index);
-                          }}
-                          disabled={scrolling}
-                        >
-                          <img src="/crm/blue_edit_cus.svg" alt="sửa" /> Sửa |
-                        </button>
-                        <button
-                          onClick={() => handleDelEditField(item)}
-                          className={styles.h_delete_cus}
-                        >
-                          <img src="/crm/red_delete_cus.svg" alt="Xóa" /> Xóa
-                        </button>
-                      </div>
-                    </div>
-                    <input
-                      type="text"
-                      className={`${styles["form-control"]} ${styles.text}`}
-                      value={displayIndex(item)}
-                      readOnly
-                      placeholder="Nhập nội dung"
-                    />
-                  </div>
-                ))}
+                    Chỉnh sửa bằng trường mặc định
+                  </button>
+
+                  {/* <button
+                    type="button"
+                    // onclick="prev()"
+                    className="quaylai l-15 hidden"
+                  >
+                    <img src="/assets/img/quaylai.svg" alt="button" /> Quay lại
+                  </button>
+                  <button
+                    type="button"
+                    // onclick="next()"
+                    className="tieptuc l-15 hidden"
+                  >
+                    Tiếp tục <img src="/assets/img/tieptuc.svg" alt="button" />
+                  </button> */}
+                  <CreatFieldModal
+                    isModalCancel={isCreatField}
+                    setIsModalCancel={setIsCreatField}
+                    handleReplaceValues={handleReplaceValues}
+                    // index={checkedStates.findIndex((isChecked) => isChecked)}
+                  />
+                  <EditFieldModal
+                    isModalCancel={isOpenEditField}
+                    setIsModalCancel={setIsOpenEditField}
+                    handleReplaceValues={handleEditValue}
+                    value={newValues[posEdit]?.newValue}
+                    index={posEdit}
+                  />
+                  <CreatFieldDefaultModal
+                    isModalCancel={isCreatFieldDefault}
+                    setIsModalCancel={setIsCreatFieldDefault}
+                    handleReplaceValues = {handleReplaceValues}
+                  />
+                </div>
               </div>
+              {/* ///////////////////////////////////////////////////////////// */}
             </div>
-          )}
-        </>
-        {/* Footer Buttons */}
-        {imgUrls && imgUrls?.length > 0 && (
-          <div className={styles.btn_submit}>
-            <button
-              className={styles.sub1}
-              type="button"
-              onClick={() => setIsModalCancel(true)}
-            >
-              Hủy
-            </button>
-            <button
-              className={styles.sub2}
-              type="submit"
-              onClick={async () => (await handleSave(), setIsmodal1Open(true))}
-            >
-              Lưu
-            </button>
-            <ModalSaveContractAdd
-              modal1Open={ismodal1Open}
-              setModal1Open={setIsmodal1Open}
-              title="Thêm mới Hợp đồng thành công!"
-              handleSave={handleSave}
-            />
-            <CancelModal
-              isModalCancel={isModalCancel}
-              setIsModalCancel={setIsModalCancel}
-              content={
-                "Bạn có chắc chắn muốn hủy thêm mới hợp đồng, mọi thông tin bạn nhập sẽ không được lưu lại?"
-              }
-              title={"Xác nhận hủy thêm mới hợp đồng"}
-            />
-          </div>
+
+            {/* Thong tin hop dong */}
+            {imgUrls && imgUrls?.length > 0 && (
+              <div>
+                <div>
+                  <div className={styles.head_contract}>
+                    <h4>Thông tin hợp đồng</h4>
+                  </div>
+                </div>
+                <div className={styles["frm-2"]}>
+                  {imgUrls?.map((url, index: number) => (
+                    <img alt="hd" src={`${url}`} key={index} />
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Edit field contract */}
+            {newValues && newValues?.length > 0 && (
+              <div className={styles.field_config}>
+                <div className={styles.footer_contract}>
+                  <h4>Các trường đã thiết lập</h4>
+                </div>
+                <div className={`${styles["frm-3"]}`}>
+                  {newValues?.map((item: any, index: number) => (
+                    <div
+                      key={index}
+                      className={`${styles["fm-bd"]} ${styles["fm_bt"]} ${styles["fm-fd"]} ${styles.opacity}`}
+                      id="field_config_1"
+                    >
+                      <div className={styles["error-name"]}>
+                        <label className={styles.field_new}>
+                          {item?.newValue}
+                        </label>
+                        <div className={styles.function}>
+                          <button
+                            className={styles.h_edit_cus}
+                            onClick={() => {
+                              handleEditField(item, index);
+                            }}
+                            disabled={scrolling}
+                          >
+                            <img src="/crm/blue_edit_cus.svg" alt="sửa" /> Sửa |
+                          </button>
+                          <button
+                            onClick={() => handleDelEditField(item)}
+                            className={styles.h_delete_cus}
+                          >
+                            <img src="/crm/red_delete_cus.svg" alt="Xóa" /> Xóa
+                          </button>
+                        </div>
+                      </div>
+                      <input
+                        type="text"
+                        className={`${styles["form-control"]} ${styles.text}`}
+                        value={displayIndex(item)}
+                        readOnly
+                        placeholder="Nhập nội dung"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </>
         )}
+        {/* Footer Buttons */}
+        <div className={styles.btn_submit}>
+          <button className={styles.sub1} type="button" onClick={() => setIsModalCancel(true)}>
+            Hủy
+          </button>
+          <button
+             className={styles.sub2}
+            type="submit"
+            onClick={() => (handleSubmit(), setIsmodal1Open(true))}
+          >
+            Lưu
+          </button>
+          <ModalCompleteStep
+            modal1Open={ismodal1Open}
+            setModal1Open={setIsmodal1Open}
+            title="Thêm mới Hợp đồng thành công!"
+          />
+          <CancelModal
+            isModalCancel={isModalCancel}
+            setIsModalCancel={setIsModalCancel}
+            content={
+              "Bạn có chắc chắn muốn hủy thêm mới hợp đồng, mọi thông tin bạn nhập sẽ không được lưu lại?"
+            }
+            title={"Xác nhận hủy thêm mới hợp đồng"}
+          />
+        </div>
       </div>
     </>
   );
