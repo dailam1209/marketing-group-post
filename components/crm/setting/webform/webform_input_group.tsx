@@ -34,18 +34,13 @@ export default function WebformInputGroup() {
               type="button"
               className={`${styles.dropbtn_add} flex_align_center`}
             >
-              <Image
-                height={14}
-                width={14}
-                alt="..."
-                src="/crm/add.svg"
-              />
+              <Image height={14} width={14} alt="..." src="/crm/add.svg" />
               Thêm mới
             </button>
           </Link>
           <div className={styles.huongdan}>
-            <Link href="#" style={{  display: "contents"}}>
-              <img src="https://crm.timviec365.vn/assets/icons/setting/huongdan.svg" />
+            <Link href="#" style={{ display: "contents" }}>
+              <img src="/crm/huongdan.svg" />
               Hướng dẫn
             </Link>
           </div>

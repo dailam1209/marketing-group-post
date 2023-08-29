@@ -11,6 +11,7 @@ import {
 } from "@ant-design/icons";
 import axios from "axios";
 import HeadNav from "../../../../components/tinh-luong/components/big-component/header-nav";
+import HeadNavRes from "../../../../components/tinh-luong/components/big-component/head-nav-res";
 import checkCookie from "../../../../components/tinh-luong/function/checkCookie";
 import { useRouter } from "next/router";
 import cookieCutter from "cookie-cutter";
@@ -126,6 +127,7 @@ const App = () => {
   return (
     <div style={{ flex: 1 }}>
       <HeadNav />
+      <HeadNavRes></HeadNavRes>
       <table className={styles.table}>
         <h2>Bảng Chu Kì Công </h2>
         <>

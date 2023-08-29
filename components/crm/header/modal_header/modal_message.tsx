@@ -8,27 +8,17 @@ export default function MessageModal({ isOpen, closeModal }: any) {
         <div className={style.title_message_modal}>Tin nhắn</div>
         <div className={style.top_right}>
           <button className={style.btn_tab}>
-            <img
-              src="https://crm.timviec365.vn/assets/icons/icon-zoom.svg"
-              alt="..."
-            />
+            <img src="/crm/icon-zoom.svg" alt="..." />
           </button>
           <div className={style.closeBtn} onClick={closeModal}>
-            <img
-              src="https://crm.timviec365.vn/assets/icons/icon-close-black.svg"
-              alt="..."
-            />
+            <img src="/crm/icon-close-black.svg" alt="..." />
           </div>
         </div>
       </div>
 
       <div className={style.search_on_chat}>
         <input type="text" className={style.input_search} />
-        <img
-          className="img_search"
-          src="/crm/search.svg"
-          alt=""
-        />
+        <img className="img_search" src="/crm/search.svg" alt="" />
       </div>
 
       <div className={style.title_content}>Trò chuyện gần đây</div>

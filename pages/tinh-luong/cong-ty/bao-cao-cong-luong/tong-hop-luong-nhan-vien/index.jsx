@@ -1,4 +1,5 @@
 import HeadNav from "../../../../../components/tinh-luong/components/big-component/header-nav";
+import HeadNavResCongTy from "../../../../../components/tinh-luong/components/big-component/head-nav-res-cong-ty";
 import React, { useEffect, useState } from "react";
 import styles from "../component.index.module.css";
 import {
@@ -266,6 +267,7 @@ const TongHopLuongNhanVien = () => {
       }}
     >
       <HeadNav />
+      <HeadNavResCongTy />
       <div className={styles.part_hps}>
         <div className={styles.cate_taff}>
           <div className={styles.cate_staff_one}>

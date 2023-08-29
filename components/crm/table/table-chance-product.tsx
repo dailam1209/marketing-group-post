@@ -211,7 +211,7 @@ const TableChanceProduct: React.FC = () => {
             width={16}
             height={16}
             alt="del"
-            src="https://crm.timviec365.vn/assets/img/customer/del_red.svg"
+            src="/crm/customer/del_red.svg"
           />
           Xóa
         </div>
@@ -330,9 +330,7 @@ const TableChanceProduct: React.FC = () => {
                     >
                       <Image
                         alt="img"
-                        src={
-                          "	https://crm.timviec365.vn/assets/img/crm/customer/add_column.svg"
-                        }
+                        src={"	/crm/crm/customer/add_column.svg"}
                         width={25}
                         height={25}
                       />

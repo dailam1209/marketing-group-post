@@ -1,18 +1,24 @@
 import styles from "./index.module.css";
-import React, { useState, FC } from "react";
+import React, { useState, FC, useEffect } from "react";
 import { Button, Modal } from "antd";
 import { Thongbao } from "../header-nav";
 import { Notification } from "../../Data/Notification";
+import axios from "axios";
+import cookieCutter from "cookie-cutter";
+import { domain } from "../../api/BaseApi";
+import Cookies from "js-cookie";
+import { useRouter } from "next/router";
 interface LeftNavIconProps {
   title: string;
   children: any;
+  href?: string;
 }
-const LeftNavIcon: FC<LeftNavIconProps> = ({ title, children }) => {
+const LeftNavIcon: FC<LeftNavIconProps> = ({ title, children, href }) => {
   return (
     <li>
       <div className={styles.hps_icon}>
         {children}
-        <a>{title}</a>
+        <a href={href}>{title}</a>
       </div>
     </li>
   );
@@ -34,22 +40,34 @@ const LeftNavIconDuLieuTinhLuong: FC<LeftNavIconProps> = ({
           style={{ display: isOpen ? "block" : "none" }}
         >
           <li>
-            <a href="">Chấm công</a>
+            <a href="/tinh-luong/cong-ty/du-lieu-tinh-luong/chamm-cong">
+              Chấm công
+            </a>
           </li>
           <li>
-            <a href="">Thưởng Phạt</a>
+            <a href="/tinh-luong/cong-ty/du-lieu-tinh-luong/thuong-phat">
+              Thưởng Phạt
+            </a>
           </li>
           <li>
-            <a href="">Phúc Lợi</a>
+            <a href="/tinh-luong/cong-ty/du-lieu-tinh-luong/phuc-loi">
+              Phúc Lợi
+            </a>
           </li>
           <li>
-            <a href="">Hoa Hồng</a>
+            <a href="/tinh-luong/cong-ty/du-lieu-tinh-luong/hoa-hong">
+              Hoa Hồng
+            </a>
           </li>
           <li>
-            <a href="">Các khoản tiền khác</a>
+            <a href="/tinh-luong/cong-ty/du-lieu-tinh-luong/cac-khoan-tien-khac">
+              Các khoản tiền khác
+            </a>
           </li>
           <li>
-            <a href="">Bảo hiểm</a>
+            <a href="/tinh-luong/cong-ty/du-lieu-tinh-luong/bao-hiem">
+              Bảo hiểm
+            </a>
           </li>
         </ul>
       </div>
@@ -70,14 +88,14 @@ const LeftNavIconTinhLuong: FC<LeftNavIconProps> = ({ title, children }) => {
           style={{ display: isOpen ? "block" : "none" }}
         >
           <li>
-            <a>Bảng lương</a>
+            <a href="/tinh-luong/cong-ty/tinh-luong/bang-luong">Bảng lương</a>
           </li>
           <li>
-            <a>Tạm ứng</a>
+            <a href="/tinh-luong/cong-ty/tinh-luong/tam-ung">Tạm ứng</a>
           </li>
 
           <li>
-            <a>Thuế</a>
+            <a href="/tinh-luong/cong-ty/tinh-luong/thue">Thuế</a>
           </li>
         </ul>
       </div>
@@ -98,23 +116,31 @@ const LeftNavIconCaiDat: FC<LeftNavIconProps> = ({ title, children }) => {
           style={{ display: isOpen ? "block" : "none" }}
         >
           <li>
-            <a>Nhóm làm việc</a>
+            <a href="/tinh-luong/cong-ty/cai-dat/nhom-lam-viec">
+              Nhóm làm việc
+            </a>
           </li>
           <li>
-            <a>Cài ca và lịch làm việc</a>
+            <a href="/tinh-luong/cong-ty/cai-dat/cai-ca-va-lich-lam-viec-1">
+              Cài ca và lịch làm việc
+            </a>
           </li>
 
           <li>
-            <a>Đi muộn về sớm</a>
+            <a href="/tinh-luong/cong-ty/cai-dat/di-muon-ve-som">
+              Đi muộn về sớm
+            </a>
           </li>
           <li>
-            <a>Nghỉ phép</a>
+            <a href="/tinh-luong/cong-ty/cai-dat/nghi-phep">Nghỉ phép</a>
           </li>
           <li>
-            <a>Ngày nghỉ lễ</a>
+            <a href="/tinh-luong/cong-ty/cai-dat/ngay-nghi-le">Ngày nghỉ lễ</a>
           </li>
           <li>
-            <a>Biểu mẫu đề xuất</a>
+            <a href="/van-thu-luu-tru/trang-quan-ly-de-xuat/ql-mau-de-xuat">
+              Biểu mẫu đề xuất
+            </a>
           </li>
         </ul>
       </div>
@@ -122,11 +148,28 @@ const LeftNavIconCaiDat: FC<LeftNavIconProps> = ({ title, children }) => {
   );
 };
 export default function HeadNavResCongTy() {
+  const token = cookieCutter.get("token_base365");
+  const cp = cookieCutter.get("com_id");
+  const ep_id = cookieCutter.get("userID");
+  const role = cookieCutter.get("role");
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const [userInfo, setUserInfo] = useState<any>({});
+  const [companyInfo, setCompanyInfo] = useState<any>({});
   const showModal = () => {
     setIsModalOpen(true);
   };
+  const router = useRouter();
+  function handleLogout() {
+    // Clear all cookies by iterating through them
+    const cookies = Object.keys(Cookies.get());
+
+    cookies.forEach((cookieName) => {
+      Cookies.remove(cookieName);
+    });
+    console.log("Đã chạy vào hàm handleLogout");
+    router.push("/dang-nhap-nhan-vien.html");
+    // You might also want to perform any other logout-related actions here
+  }
 
   const handleOk = () => {
     setIsModalOpen(false);
@@ -136,20 +179,42 @@ export default function HeadNavResCongTy() {
     setIsModalOpen(false);
   };
   const [IsEdit, setIsEdit] = useState(false);
+  useEffect(() => {
+    axios
+      .post(
+        `${domain}/api/qlc/company/info`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Example header with token
+          },
+        }
+      )
+      .then((res) => {
+        setCompanyInfo(res.data.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   return (
     <div>
       <div className={styles.header_hps_res}>
         <div className={styles.hps_res_menu}>
-          <img src="/menu.png" className={styles.img1} onClick={showModal} />
+          <img
+            src="/tinhluong/menu.png"
+            className={styles.img1}
+            onClick={showModal}
+          />
         </div>
         <div className={styles.hps_res_lg}>
           <a>
-            <img src="/logo1.png" className={styles.img1} />
+            <img src="/tinhluong/logo1.png" className={styles.img1} />
           </a>
         </div>
         <div className={styles.hps_res_nfct}>
           <img
-            src="/bell1.png"
+            src="/tinhluong/bell1.png"
             className={styles.img1}
             onClick={() => setIsEdit(!IsEdit)}
           />
@@ -188,8 +253,18 @@ export default function HeadNavResCongTy() {
           <div className={styles.modal_hd_pus}>
             <div className={styles.hps_part_one}>
               <div className={styles.menu_avt}>
-                <img src="/tien1.png" />
-                <h4>Công ty Cổ Phần Thanh Toán Hưng Hà</h4>
+                <img
+                  src={
+                    companyInfo && companyInfo?.com_logo
+                      ? companyInfo?.com_logo
+                      : "/avatar.jpg"
+                  }
+                />
+                <h4>
+                  {role == 1
+                    ? companyInfo?.com_name
+                    : userInfo?.info_dep_com?.user.userName}
+                </h4>
               </div>
             </div>
             <div className={styles.hps_part_three}>
@@ -210,10 +285,13 @@ export default function HeadNavResCongTy() {
                           fill="#68798B"
                         ></path>
                       </svg>
-                      <a>Trang chủ </a>
+                      <a href="/tinh-luong/dangnhap/tongquan">Trang chủ </a>
                     </div>
                   </li>
-                  <LeftNavIcon title="Nhập lương cơ bản và chế độ">
+                  <LeftNavIcon
+                    href="/tinh-luong/cong-ty/nhap-luong-co-ban-va-che-do"
+                    title="Nhập lương cơ bản và chế độ"
+                  >
                     <svg
                       width="18"
                       height="17"
@@ -287,7 +365,10 @@ export default function HeadNavResCongTy() {
                       ></path>
                     </svg>
                   </LeftNavIconTinhLuong>
-                  <LeftNavIcon title="Chi trả lương">
+                  <LeftNavIcon
+                    href="/tinh-luong/cong-ty/chi-tra-luong"
+                    title="Chi trả lương"
+                  >
                     <svg
                       width="18"
                       height="18"
@@ -346,7 +427,10 @@ export default function HeadNavResCongTy() {
                       ></path>
                     </svg>
                   </LeftNavIconCaiDat>
-                  <LeftNavIcon title="Phân Quyền">
+                  <LeftNavIcon
+                    href="/tinh-luong/cong-ty/phan-quyen"
+                    title="Phân Quyền"
+                  >
                     <svg
                       width="18"
                       height="18"
@@ -394,70 +478,73 @@ export default function HeadNavResCongTy() {
                       ></path>
                     </svg>
                   </LeftNavIcon>
-                  <LeftNavIcon title="Đăng xuất">
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
-                        d="M7.48925 15.5H3.82475C1.99175 15.5 0.5 14.0082 0.5 12.1737V3.827C0.5 1.9925 1.99175 0.5 3.82475 0.5H7.481C9.3155 0.5 10.808 1.9925 10.808 3.827V4.526C10.808 4.8365 10.556 5.0885 10.2455 5.0885C9.935 5.0885 9.683 4.8365 9.683 4.526V3.827C9.683 2.612 8.69525 1.625 7.481 1.625H3.82475C2.612 1.625 1.625 2.612 1.625 3.827V12.1737C1.625 13.388 2.612 14.375 3.82475 14.375H7.48925C8.69825 14.375 9.683 13.391 9.683 12.182V11.4748C9.683 11.1643 9.935 10.9123 10.2455 10.9123C10.556 10.9123 10.808 11.1643 10.808 11.4748V12.182C10.808 14.012 9.3185 15.5 7.48925 15.5Z"
-                        fill="#68798B"
-                      ></path>
-                      <mask
-                        id="mask0"
-                        mask-type="alpha"
-                        maskUnits="userSpaceOnUse"
-                        x="5"
-                        y="7"
-                        width="11"
-                        height="2"
+                  <li>
+                    <div className={styles.hps_icon} onClick={handleLogout}>
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           fill-rule="evenodd"
                           clip-rule="evenodd"
-                          d="M5.74609 7.4375H15.9018V8.5625H5.74609V7.4375Z"
-                          fill="white"
-                        ></path>
-                      </mask>
-                      <g mask="url(#mask0)">
-                        <path
-                          fill-rule="evenodd"
-                          clip-rule="evenodd"
-                          d="M15.3393 8.5625H6.30859C5.99809 8.5625 5.74609 8.3105 5.74609 8C5.74609 7.6895 5.99809 7.4375 6.30859 7.4375H15.3393C15.6498 7.4375 15.9018 7.6895 15.9018 8C15.9018 8.3105 15.6498 8.5625 15.3393 8.5625Z"
+                          d="M7.48925 15.5H3.82475C1.99175 15.5 0.5 14.0082 0.5 12.1737V3.827C0.5 1.9925 1.99175 0.5 3.82475 0.5H7.481C9.3155 0.5 10.808 1.9925 10.808 3.827V4.526C10.808 4.8365 10.556 5.0885 10.2455 5.0885C9.935 5.0885 9.683 4.8365 9.683 4.526V3.827C9.683 2.612 8.69525 1.625 7.481 1.625H3.82475C2.612 1.625 1.625 2.612 1.625 3.827V12.1737C1.625 13.388 2.612 14.375 3.82475 14.375H7.48925C8.69825 14.375 9.683 13.391 9.683 12.182V11.4748C9.683 11.1643 9.935 10.9123 10.2455 10.9123C10.556 10.9123 10.808 11.1643 10.808 11.4748V12.182C10.808 14.012 9.3185 15.5 7.48925 15.5Z"
                           fill="#68798B"
                         ></path>
-                      </g>
-                      <mask
-                        id="mask1"
-                        mask-type="alpha"
-                        maskUnits="userSpaceOnUse"
-                        x="12"
-                        y="5"
-                        width="4"
-                        height="6"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          clip-rule="evenodd"
-                          d="M12.582 5.25146H15.9025V10.7495H12.582V5.25146Z"
-                          fill="white"
-                        ></path>
-                      </mask>
-                      <g mask="url(#mask1)">
-                        <path
-                          fill-rule="evenodd"
-                          clip-rule="evenodd"
-                          d="M13.1443 10.7495C13.0003 10.7495 12.8556 10.6948 12.7461 10.5838C12.5271 10.3633 12.5278 10.0078 12.7476 9.78878L14.5431 8.00003L12.7476 6.21203C12.5278 5.99303 12.5263 5.63753 12.7461 5.41703C12.9651 5.19653 13.3206 5.19653 13.5411 5.41553L15.7371 7.60178C15.8436 7.70678 15.9028 7.85078 15.9028 8.00003C15.9028 8.14928 15.8436 8.29328 15.7371 8.39828L13.5411 10.5853C13.4316 10.6948 13.2876 10.7495 13.1443 10.7495Z"
-                          fill="#68798B"
-                        ></path>
-                      </g>
-                    </svg>
-                  </LeftNavIcon>
+                        <mask
+                          id="mask0"
+                          mask-type="alpha"
+                          maskUnits="userSpaceOnUse"
+                          x="5"
+                          y="7"
+                          width="11"
+                          height="2"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M5.74609 7.4375H15.9018V8.5625H5.74609V7.4375Z"
+                            fill="white"
+                          ></path>
+                        </mask>
+                        <g mask="url(#mask0)">
+                          <path
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M15.3393 8.5625H6.30859C5.99809 8.5625 5.74609 8.3105 5.74609 8C5.74609 7.6895 5.99809 7.4375 6.30859 7.4375H15.3393C15.6498 7.4375 15.9018 7.6895 15.9018 8C15.9018 8.3105 15.6498 8.5625 15.3393 8.5625Z"
+                            fill="#68798B"
+                          ></path>
+                        </g>
+                        <mask
+                          id="mask1"
+                          mask-type="alpha"
+                          maskUnits="userSpaceOnUse"
+                          x="12"
+                          y="5"
+                          width="4"
+                          height="6"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M12.582 5.25146H15.9025V10.7495H12.582V5.25146Z"
+                            fill="white"
+                          ></path>
+                        </mask>
+                        <g mask="url(#mask1)">
+                          <path
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M13.1443 10.7495C13.0003 10.7495 12.8556 10.6948 12.7461 10.5838C12.5271 10.3633 12.5278 10.0078 12.7476 9.78878L14.5431 8.00003L12.7476 6.21203C12.5278 5.99303 12.5263 5.63753 12.7461 5.41703C12.9651 5.19653 13.3206 5.19653 13.5411 5.41553L15.7371 7.60178C15.8436 7.70678 15.9028 7.85078 15.9028 8.00003C15.9028 8.14928 15.8436 8.29328 15.7371 8.39828L13.5411 10.5853C13.4316 10.6948 13.2876 10.7495 13.1443 10.7495Z"
+                            fill="#68798B"
+                          ></path>
+                        </g>
+                      </svg>
+                      <a>Đăng xuất</a>
+                    </div>
+                  </li>
                 </ul>
               </div>
             </div>

@@ -18,7 +18,10 @@ const NoteActionDropDown: React.FC<any> = () => {
     {
       key: "4",
       label: (
-        <button className="btn-huy flex-start" onClick={()=>setIsOpenModalUpdateStatus(true)}>
+        <button
+          className="btn-huy flex-start"
+          onClick={() => setIsOpenModalUpdateStatus(true)}
+        >
           <Image width={16} height={16} src="/edit.svg" alt="check" />
           Chỉnh sửa
         </button>
@@ -31,7 +34,7 @@ const NoteActionDropDown: React.FC<any> = () => {
           className="btn-huy flex-start"
           onClick={() => setIsOpenModalDel(true)}
         >
-          <Image width={16} height={16} src="/del.svg" alt="check" />
+          <Image width={16} height={16} src="/crm/del.svg" alt="check" />
           Xoá
         </button>
       ),

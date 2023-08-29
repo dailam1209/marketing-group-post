@@ -110,15 +110,12 @@ const columns: ColumnsType<DataType> = [
     dataIndex: "operation",
     key: "11",
     width: 50,
-    fixed:"right",
+    fixed: "right",
     render: () => (
       <>
         <Link href={"#"}>
           <button>
-            <img
-              className={styles.icon_delete}
-              src="https://crm.timviec365.vn/assets/img/h_delete_cus.svg"
-            />{" "}
+            <img className={styles.icon_delete} src="/crm/h_delete_cus.svg" />{" "}
             Xóa
           </button>
         </Link>
@@ -146,7 +143,9 @@ interface TableDataPricePolicyUpdateFilesDrops {
   setSelected: (value: boolean) => void;
 }
 
-const TableDataPricePolicyUpdateFiles: React.FC< TableDataPricePolicyUpdateFilesDrops> = ({}: any) => {
+const TableDataPricePolicyUpdateFiles: React.FC<
+  TableDataPricePolicyUpdateFilesDrops
+> = ({}: any) => {
   return (
     <div className="custom_table">
       <Table
@@ -161,7 +160,6 @@ const TableDataPricePolicyUpdateFiles: React.FC< TableDataPricePolicyUpdateFiles
         </div>
       </div>
     </div>
-    
   );
 };
 

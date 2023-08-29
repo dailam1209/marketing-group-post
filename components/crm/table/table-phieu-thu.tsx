@@ -61,10 +61,7 @@ const Table_Phieu_Thu_Chi = (props: any) => {
         <div style={{ display: "flex", justifyContent: "center" }}>
           {" "}
           <div>
-            <img
-              src="/crm/user_kh.png"
-              alt=""
-            />
+            <img src="/crm/user_kh.png" alt="" />
           </div>
           &nbsp;{text}
         </div>
@@ -229,22 +226,19 @@ const Table_Phieu_Thu_Chi = (props: any) => {
   return (
     <div className={`${styles.main__content} ${styles.flex_column}`}>
       <div>
-      <button
+        <button
           style={{ background: "#fff" }}
           type="button"
           onClick={handleExportToExcel}
           className={`${styless.dropbtn_add} flex_align_center ${styless.btn_excel}`}
         >
-          <img
-            style={{ color: "black" }}
-            src="https://crm.timviec365.vn/assets/icons/excel.svg"
-          />
+          <img style={{ color: "black" }} src="/crm/excel.svg" />
           <p style={{ color: "black" }}>Xuất excel</p>
         </button>
       </div>
       <div className={styles.g_input}>
         <div className={styles.main__control_search}>
-          <div className={styles.inputne} style={{ fontSize: 0}}>
+          <div className={styles.inputne} style={{ fontSize: 0 }}>
             <Input
               placeholder={`Tìm kiếm`}
               bordered={false}
@@ -252,8 +246,7 @@ const Table_Phieu_Thu_Chi = (props: any) => {
                 width: "100%",
                 fontWeight: 500,
                 fontFamily: "inherit",
-                paddingTop:8
-
+                paddingTop: 8,
               }}
             />
           </div>

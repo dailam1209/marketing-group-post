@@ -31,7 +31,7 @@ const ContactActionDropDown: React.FC<any> = () => {
           className="btn-huy flex-start"
           onClick={() => setIsOpenModalDel(true)}
         >
-          <Image width={16} height={16} src="/del.svg" alt="check" />
+          <Image width={16} height={16} src="/crm/del.svg" alt="check" />
           Xoá
         </button>
       ),

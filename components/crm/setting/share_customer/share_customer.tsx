@@ -34,9 +34,11 @@ const ShareCustomerTable: React.FC = () => {
             <div className={styles.form_add_potential}>
               <div className={styles.main__body}>
                 <SalesProcessSelectBoxStep />
-                <TableDataShareCustomer setSelected={function (value: boolean): void {
-                  throw new Error("Function not implemented.");
-                } }/>
+                <TableDataShareCustomer
+                  setSelected={function (value: boolean): void {
+                    throw new Error("Function not implemented.");
+                  }}
+                />
               </div>
             </div>
           </div>

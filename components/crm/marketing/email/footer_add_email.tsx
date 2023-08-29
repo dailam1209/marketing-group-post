@@ -22,7 +22,13 @@ export default function FooterAddEmail({
         type="submit"
         onClick={() => setModal1Open(true)}
       >
-        <img width="14"height="14"src="https://crm.timviec365.vn/assets/icons/email/icon_send.svg" alt="" style={{marginRight: "8px", verticalAlign: "middle"}}/>
+        <img
+          width="14"
+          height="14"
+          src="/crm/icon_send.svg"
+          alt=""
+          style={{ marginRight: "8px", verticalAlign: "middle" }}
+        />
         Gửi
       </button>
 

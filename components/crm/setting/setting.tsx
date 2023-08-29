@@ -6,7 +6,6 @@ import styles from "./setting.module.css";
 import Link from "next/link";
 import HandOver from "./hand_over";
 
-
 export default function Setting() {
   const mainRef = useRef<HTMLDivElement>(null);
   const { isOpen } = useContext<any>(SidebarContext);
@@ -77,20 +76,21 @@ export default function Setting() {
       <div className={styles.col}>
         <div className={styles.main_setting_tittle}>Quản trị dữ liệu</div>
         <div className={styles.main_setting_body}>
-          <button type="button" onClick={() => setIsModalCancel(true)} className={styles.main_setting_item}  >
+          <button
+            type="button"
+            onClick={() => setIsModalCancel(true)}
+            className={styles.main_setting_item}
+          >
             Bàn giao công việc
           </button>
           {
-        <HandOver
-          isModalCancel={isModalCancel}
-          setIsModalCancel={setIsModalCancel}
-        />
-      }
+            <HandOver
+              isModalCancel={isModalCancel}
+              setIsModalCancel={setIsModalCancel}
+            />
+          }
         </div>
       </div>
     </div>
   );
 }
-
-
-

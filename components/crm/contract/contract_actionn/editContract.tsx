@@ -16,6 +16,7 @@ export default function AddContract({ setCheckFile }: any) {
   const [isShowModal, setIsShowModal] = useState(false);
   const [openSuccess, setOpenSuccess] = useState(false);
   const [scrolling, setScrolling] = useState(false);
+  const [imageData, setImageData] = useState<any>();
   const [text_change, settext_change] = useState<any>("");
   const [imgUrls, setImgaUrls] = useState([]);
   const initialCheckStates = Array(5).fill(false);
@@ -91,18 +92,24 @@ export default function AddContract({ setCheckFile }: any) {
       formData.append("file", file);
 
       try {
+        const token =
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6MzgwOTg5LCJpZFRpbVZpZWMzNjUiOjIwMjU4NSwiaWRRTEMiOjE3NjMsImlkUmFvTmhhbmgzNjUiOjAsImVtYWlsIjoiZHVvbmdoaWVwaXQxQGdtYWlsLmNvbSIsInBob25lVEsiOiIiLCJjcmVhdGVkQXQiOjE2MDA2NTg0NzgsInR5cGUiOjEsImNvbV9pZCI6MTc2MywidXNlck5hbWUiOiJDw7RuZyBUeSBUTkhIIEggTSBMIFBwbyJ9LCJpYXQiOjE2OTMxMTY5MzQsImV4cCI6MTY5MzIwMzMzNH0.LmAeTrqDTjHLaVZ2ihlq76U8fg6OWHRfVCrHIfHFOgc"; // Thay thế bằng mã thông báo thực tế
+
         const res = await fetch(
-          "http://43.239.223.117:4000/upload_file?sess_id=3312",
+          "https://api.timviec365.vn/api/crm/contractAI/read_file",
           {
             method: "POST",
             body: formData,
-            mode: "no-cors",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           }
         );
 
         if (res.ok) {
           const data = await res.json();
           console.log("checkresfile", data);
+          setImageData(data?.data?.result?.image);
         } else {
           throw new Error("Request failed with status: " + res.status);
         }
@@ -181,7 +188,7 @@ export default function AddContract({ setCheckFile }: any) {
 
   return (
     <>
-      <div className={styles.main__body}>
+      <div className={styles.main__body} style={{ paddingTop: "0px" }}>
         <div id="drop-zone" className={`${styles["drop-zone"]} ${styles.row}`}>
           <div className={styles.col_md_6}>
             <div className={styles.title}>
@@ -295,11 +302,13 @@ export default function AddContract({ setCheckFile }: any) {
             <CreatFieldDefaultModal
               isModalCancel={isCreatFieldDefault}
               setIsModalCancel={setIsCreatFieldDefault}
+              handleReplaceValues={handleReplaceValues}
             />
           </div>
         </div>
       </div>
-      {imgUrls && imgUrls?.length > 0 && (
+
+      {imageData && imageData?.length > 0 && (
         <div>
           <div>
             <div className={styles.head_contract}>
@@ -307,7 +316,7 @@ export default function AddContract({ setCheckFile }: any) {
             </div>
           </div>
           <div className={styles["frm-2"]}>
-            {imgUrls?.map((url, index: number) => (
+            {imageData?.map((url, index: number) => (
               <img alt="hd" src={`${url}`} key={index} />
             ))}
           </div>

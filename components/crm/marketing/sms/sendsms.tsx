@@ -52,7 +52,12 @@ const ShareActionModal: React.FC<MyComponentProps> = ({
               <label className={styles.form_label} aria-required="true">
                 Gửi đến
               </label>
-              <input type="text" className={styles.form_control} name="" placeholder="Nhập sms"></input>
+              <input
+                type="text"
+                className={styles.form_control}
+                name=""
+                placeholder="Nhập sms"
+              ></input>
             </div>
           </div>
         </div>

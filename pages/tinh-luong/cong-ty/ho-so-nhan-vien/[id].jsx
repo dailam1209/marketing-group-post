@@ -18,6 +18,7 @@ import {
 import { MenuOutlined, AudioOutlined } from "@ant-design/icons";
 import Image from "next/image";
 import HeadNav from "../../../../components/tinh-luong/components/big-component/header-nav";
+import HeadNavResCongTy from "../../../../components/tinh-luong/components/big-component/head-nav-res-cong-ty";
 import styles from "./index.module.css";
 import Allowance from "./allowance";
 import AllowanceSkip from "./allowanceSkip";
@@ -401,6 +402,7 @@ const App = () => {
       <div className={styles.container_index}>
         <div>
           <HeadNav title="Hồ sơ nhân viên" />
+          <HeadNavResCongTy></HeadNavResCongTy>
         </div>
         <div className={styles.content_top}>
           <div className={styles.content}>

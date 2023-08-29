@@ -117,7 +117,7 @@ export default function AddButtonControl({ isSelectedRow }: any) {
                 Duyệt
               </button>
             </div>
-            <Link href="/bill/edit">
+            <Link href="crm/bill/edit">
               <button
                 type="button"
                 className={`${styles.btn_edit} flex_align_center`}

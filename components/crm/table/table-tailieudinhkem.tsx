@@ -44,10 +44,7 @@ const TableAddTLDK: React.FC<TableDataCampaignProps> = (props: any) => {
           style={{ display: "flex", fontSize: 15 }}
           onClick={() => setIsCancelOpen(true)}
         >
-          <img
-            src="https://crm.timviec365.vn/assets/icons/icon-delete-black.svg"
-            alt=""
-          />
+          <img src="/crm/icon-delete-black.svg" alt="" />
           &nbsp; &nbsp; <p>Xóa</p>
         </div>
       ),
@@ -114,20 +111,20 @@ const TableAddTLDK: React.FC<TableDataCampaignProps> = (props: any) => {
               menu={{ items }}
               placement="bottomLeft"
             >
-              <div    onClick={() => {
+              <div
+                onClick={() => {
                   handleSelect(record.key);
                 }}
-               style={{display:"flex",width:"100%",cursor:"pointer",gap:5}}>
-            
-             
-                <img
-                  style={{ cursor: "pointer" }}
-                  src="https://crm.timviec365.vn/assets/icons/icon_1.svg"
-                />
+                style={{
+                  display: "flex",
+                  width: "100%",
+                  cursor: "pointer",
+                  gap: 5,
+                }}
+              >
+                <img style={{ cursor: "pointer" }} src="/crm/icon_1.svg" />
                 <div>Chức năng</div>
-          
               </div>
-              
             </Dropdown>
           </div>
         </div>

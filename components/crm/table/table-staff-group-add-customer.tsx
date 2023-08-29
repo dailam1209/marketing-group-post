@@ -46,7 +46,7 @@ const TableStaffCustomerGroupAdd: React.FC<TableStaffCustomerGroupAddProps> = ({
   const data: DataType[] = newArray?.map((item) => {
     return {
       key: item.ep_id,
-      nameDeparment: item?.dep_name,
+      nameDeparment: item?.nameDeparment,
       ep_name: item?.ep_name,
       item: item,
     };
@@ -63,7 +63,6 @@ const TableStaffCustomerGroupAdd: React.FC<TableStaffCustomerGroupAddProps> = ({
     const newData = arrVal.splice(index, 1);
     setData(arrVal);
   };
-
 
   const rowSelection: TableRowSelection<DataType> = {
     onChange: (selectedRowKeys: any, selectedRows: string | any[]) => {
@@ -111,7 +110,7 @@ const TableStaffCustomerGroupAdd: React.FC<TableStaffCustomerGroupAddProps> = ({
             alt="img"
             width={26}
             height={26}
-            src={"https://crm.timviec365.vn/assets/img/customer/del_red.svg"}
+            src={"/crm/del_red.svg"}
           />
           Gỡ bỏ
         </button>
@@ -119,7 +118,6 @@ const TableStaffCustomerGroupAdd: React.FC<TableStaffCustomerGroupAddProps> = ({
     },
   ];
 
-  console.log(newArray)
   return (
     <>
       <div className="custom_table product_return">

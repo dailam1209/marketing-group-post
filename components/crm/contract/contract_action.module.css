@@ -392,3 +392,11 @@
     border: 1px solid #ccc;
     margin-bottom: 15px;
 }
+
+.xoatruong {
+    padding: 5px 9px;
+    background: #FF3333;
+    border-radius: 5px;
+    color: #FFFFFF;
+    font-size: 14px;
+}

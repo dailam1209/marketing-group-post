@@ -16,16 +16,15 @@ import { base_url } from "../../service/function";
 const Cookies = require("js-cookie");
 interface ComponentProps {
   cccd: boolean;
+  listData:any
 }
 
-const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
+const DetailInformation: React.FC<ComponentProps> = ({ cccd = true ,listData}:any) => {
   const mainRef = useRef<HTMLDivElement>(null);
   const { isOpen } = useContext<any>(SidebarContext);
   const imgRef = useRef<HTMLInputElement>(null);
-  const [listData, setListData] = useState<any>([]);
-  const [name, setname] = useState<any>()
   const router = useRouter();
-  const {id} = router.query
+  const { id } = router.query;
   useEffect(() => {
     if (isOpen) {
       mainRef.current?.classList.add("content_resize");
@@ -33,44 +32,7 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
       mainRef.current?.classList.remove("content_resize");
     }
   }, [isOpen]);
-
-  const handleGetInfoCus = async () => {
-    const res = await fetch(
-      `${base_url}/api/crm/customerdetails/detail`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${Cookies.get("token_base365")}`,
-        },
-        body: JSON.stringify({ cus_id: `${router.query.id}` }),
-      }
-    );
-    const data = await res.json();4
-    console.log("info",data)
-    if (data && data?.data)
-      setListData(data?.data);
-  };
-  const getNameDetail = async () => {
-    const res = await fetch(
-      `${base_url}/api/crm/customerdetails/detail`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${Cookies.get("token_base365")}`,
-        },
-        body: JSON.stringify({ cus_id: id }),
-      }
-    );
-    const data = await res.json();
-      setname(data?.data || data?.data);
-  };
-  useEffect(() => {
-    handleGetInfoCus();
-    getNameDetail()
-  }, []);
-
+console.log(listData)
   return (
     <>
       <div style={{ paddingTop: 0 }} className={styleHome.main} ref={mainRef}>
@@ -85,7 +47,7 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
                     <p className={styles["main__body__type"]}>Ảnh</p>
                     <div id="upload">
                       <img
-                        src={`${name?.anh_dai_dien}`}
+                        src={``}
                         alt=""
                         width={15}
                         height={15}
@@ -174,7 +136,8 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
                             stylesCustomer.main__profile__body__item__value
                           }
                         >
-                          {listData?.description?.detail?listData?.description?.info as any
+                          {listData?.description?.detail
+                            ? (listData?.description?.info as any)
                             : "Chưa cập nhật"}
                         </div>
                       </div>
