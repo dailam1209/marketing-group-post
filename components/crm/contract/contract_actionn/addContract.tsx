@@ -551,7 +551,7 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
                             className={styles.taotruong}
                           >
                             <img
-                              src="https://crm.timviec365.vn/assets/img/suatruong.svg"
+                              src="/crm/suatruong.svg"
                               alt="button"
                             />{" "}
                             Sửa trường

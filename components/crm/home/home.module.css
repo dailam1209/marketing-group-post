@@ -135,7 +135,7 @@
 .overview__select {
   appearance: none;
   background: transparent
-    url(https://crm.timviec365.vn/assets/img/icon-arrow-down.png) no-repeat
+    url(/crm/icon-arrow-down.png) no-repeat
     110px center;
   width: 153px;
   height: 36px;
