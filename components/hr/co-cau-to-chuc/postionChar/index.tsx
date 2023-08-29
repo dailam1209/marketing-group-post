@@ -86,8 +86,6 @@ const PostionCharTree = ({ iconEdit }) => {
 
   const [PostionCharDatas, setPosttionCharData] = useState<any>([])
   const [PostionCharDatasSlice, setPosttionCharDataSlice] = useState<any>([])
-  console.log(PostionCharDatasSlice)
-  console.log(PostionCharDatas);
   useEffect(() => {
     const fetchData = async () => {
       try {

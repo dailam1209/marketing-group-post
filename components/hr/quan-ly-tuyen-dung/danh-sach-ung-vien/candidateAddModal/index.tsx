@@ -227,11 +227,6 @@ export default function CandidateAddModal({ onCancel, animation }: any) {
     [isEmpList?.items]
   )
 
-  console.log(isEmpList);
-
-  console.log(isNewList);
-
-
   const chonvitrituyendungOptions = useMemo(
     () =>
       isNewList &&

@@ -8,9 +8,6 @@ import DeleteCandidate from "../candidateDeleteModal";
 
 export default function ItemCandidate3({ onCancel, process_id, setProcess_id, type, data, currentCol, setDragItem, setDropCol, setModalOpen, iconDelete }: any) {
 
-  console.log(data);
-
-
   const [isOpenOption, setOpenOption] = useState(0)
   const [isDelete, setDelete] = useState(0)
   const [animateModal, setAnimateModal] = useState(true);

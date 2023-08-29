@@ -50,7 +50,7 @@ function ModalAddTeamCompliments({ animation, onClose, updateData }: any) {
             label: `${item.dep_name}`,
           }))
         );
-      } catch (err) {}
+      } catch (err) { }
     };
     getData();
   }, [tokenComId]);
@@ -108,7 +108,6 @@ function ModalAddTeamCompliments({ animation, onClose, updateData }: any) {
   const mergedObject = { ...content, ...listUser, ...appellation };
 
   const handleSubmit = async (e: any) => {
-    console.log(mergedObject, "ok");
     e.preventDefault();
     try {
       await schema.validate(mergedObject, { abortEarly: false });
@@ -134,15 +133,12 @@ function ModalAddTeamCompliments({ animation, onClose, updateData }: any) {
       setErrors(validationErrors);
     }
   };
-
-  console.log(errors);
   return (
     <>
       <div className={`${styles.overlay}`} onClick={onClose}></div>
       <div
-        className={`${styles.modal} ${styles.modal_setting}  ${
-          animation ? styles.fade_in : styles.fade_out
-        }`}
+        className={`${styles.modal} ${styles.modal_setting}  ${animation ? styles.fade_in : styles.fade_out
+          }`}
         style={{ display: "block" }}
       >
         <div className={`${styles.modal_dialog} ${styles.contentquytrinh}`}>

@@ -17,8 +17,6 @@ type SelectOptionType = { label: string; value: any }
 
 export default function EditCandidateGetJob({ onCancel, candidate }: any) {
 
-  console.log(candidate);
-
   const [rating, setRating] = useState<any>(candidate?.star_vote)
   const [addAnotherSkill, setAddAnotherSkill] = useState<JSX.Element[]>([])
   const [skills, setSkills] = useState<{ skillName: string; skillVote: any }[]>(
@@ -38,8 +36,6 @@ export default function EditCandidateGetJob({ onCancel, candidate }: any) {
   const [errors, setErrors] = useState<any>({})
   const comid: any = GetComId()
   const modalRef = useRef(null)
-
-  console.log(isCandidate);
 
   useEffect(() => {
     const handleOutsideClick = (event: any) => {

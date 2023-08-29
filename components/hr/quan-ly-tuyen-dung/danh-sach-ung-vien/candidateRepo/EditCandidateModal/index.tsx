@@ -13,7 +13,6 @@ import { CandidateUpdate } from '@/pages/api/api-hr/quan-ly-tuyen-dung/candidate
 type SelectOptionType = { label: string; value: any }
 
 export default function EditCandidateModal({ onCancel, candidate }: any) {
-  console.log(candidate);
 
   const [rating, setRating] = useState<any>(candidate?.star_vote)
   const [addAnotherSkill, setAddAnotherSkill] = useState<JSX.Element[]>([])

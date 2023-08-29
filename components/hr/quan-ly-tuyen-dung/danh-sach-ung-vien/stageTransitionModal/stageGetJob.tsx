@@ -95,8 +95,6 @@ export default function StageGetJob({ onCancel, process_id, data, process_id_fro
   const [errors, setErrors] = useState<any>({});
   const modalRef = useRef(null);
 
-  console.log(isCandidate);
-
   useEffect(() => {
     const handleOutsideClick = (event: any) => {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
@@ -118,8 +116,6 @@ export default function StageGetJob({ onCancel, process_id, data, process_id_fro
         const response = await CandidateList(formData)
         const responseData: any = response?.success
         if (responseData) {
-          console.log(responseData?.data?.data);
-
           const candidateFound = responseData?.data?.data?.find((item: any) => item.id === Number(data?.id) || item.id === Number(data?.canId))
           setCandidate(candidateFound)
         }
@@ -331,9 +327,6 @@ export default function StageGetJob({ onCancel, process_id, data, process_id_fro
     vitrituyendungdefault: [{ value: data?.recruitmentNewsId, label: data?.new_title || data?.title },],
     tennhanvientuyendungdefault: [{ value: data?.user_hiring || data?.userHiring, label: data?.hrName || data?.nameHr },]
   };
-
-
-  console.log(options.tennhanvientuyendungdefault);
 
   return (
     <>
