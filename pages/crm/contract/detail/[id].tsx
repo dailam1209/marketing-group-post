@@ -5,14 +5,19 @@ import { SidebarContext } from "@/components/crm/context/resizeContext";
 import { useHeader } from "@/components/crm/hooks/useHeader";
 import DetailContract from "@/components/crm/contract/contract_actionn/detailContract";
 import Head from "next/head";
+import { useApi } from "@/components/crm/hooks/useApi";
+import { base_url } from "@/components/crm/service/function";
+import { id } from "date-fns/locale";
+import Cookies from "js-cookie";
 
 const EditContractCoponent: React.FC = () => {
   const mainRef = useRef<HTMLDivElement>(null);
   const [checkFile, setCheckFile] = useState(false);
   const { isOpen } = useContext<any>(SidebarContext);
+  const [FormData,setFormData] = useState<any>()
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
-
+  const accessToken = Cookies.get("token_base365");
   useEffect(() => {
     setHeaderTitle("Danh sách hợp đồng / Chi tiết hợp đồng");
     setShowBackButton(true);
@@ -26,6 +31,19 @@ const EditContractCoponent: React.FC = () => {
       mainRef.current?.classList.remove("content_resize");
     }
   }, [isOpen]);
+
+  const getImageBase64 = async () => {
+    const res = await fetch(`${base_url}/api/crm/contractAI/view`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${Cookies.get("token_base365")}`,
+      },
+      body: JSON.stringify({ contract_id: id }),
+    });
+    const data = await res.json();
+    setFormData(data?.data)
+  };
 
   return (
     <>
@@ -72,7 +90,7 @@ const EditContractCoponent: React.FC = () => {
       <div ref={mainRef} className={styleHome.main}>
         <div className={styles.main_addContract}>
           <div className={styles.formAddContract}>
-            <DetailContract setCheckFile={setCheckFile} />
+            <DetailContract setCheckFile={setCheckFile} FormData={FormData}  />
           </div>
         </div>
       </div>
