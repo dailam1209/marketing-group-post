@@ -55,8 +55,6 @@ export default function TabWorkingRotation({ iconAdd, iconEdit, iconDelete }: an
     fetchData()
   }, [isSeach, isPageSize, newData])
 
-  console.log(workingRotationList);
-
   // -- lấy dữ liệu phòng ban --
   useEffect(() => {
     const fetchData = async () => {
