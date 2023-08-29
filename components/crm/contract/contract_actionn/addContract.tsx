@@ -385,7 +385,7 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
       id_file: idFile,
       list_detail: list_details,
     };
-    console.log(bodyData)
+
 
     try {
       const response = await fetch(
