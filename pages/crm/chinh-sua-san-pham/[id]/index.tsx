@@ -31,7 +31,7 @@ const ChinhSuaSP: React.FC = () => {
         <meta name="viewport" content="width=device-width" initial-scale="1" />
         <meta name="robots" content="noindex,nofollow" />
         <title>
-          CRM 365 - đáp án của bài toán tối ưu quy trình, gia tăng lợi nhuận
+        Chỉnh sửa sản phẩm
         </title>
         <meta
           name="description"

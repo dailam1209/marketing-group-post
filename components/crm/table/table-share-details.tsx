@@ -100,7 +100,7 @@ const TableChanceDetailShare: React.FC<TableChanceDetailShareProps> = () => {
             alt="img"
             width={26}
             height={26}
-            src={"/crm/customer/del_red.svg"}
+            src={"/crm/del_red.svg"}
           />
           Gỡ bỏ
         </button>

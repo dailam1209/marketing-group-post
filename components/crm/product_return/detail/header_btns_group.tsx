@@ -113,7 +113,7 @@ export default function ProductReturnDetailBtns({ id }: any) {
           <div className={`${styles.main__control_add} flex_end`}>
             <button
               type="button"
-              style={{ background: "#FF3333" }}
+              style={{ background: "#FFF" ,color:"red"}}
               onClick={() => setIsOpenModalDel(true)}
               className={`${styles.dropbtn_add} flex_align_center`}
             >
@@ -121,7 +121,7 @@ export default function ProductReturnDetailBtns({ id }: any) {
                 alt="+"
                 width={16}
                 height={16}
-                src="/crm/delete_white.svg"
+                src="/crm/delete_kh.svg"
               />
               Xóa
             </button>

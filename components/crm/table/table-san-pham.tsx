@@ -33,7 +33,7 @@ const Table_San_Pham = (props: any) => {
       key: "3",
       label: (
         <Link
-          href={`/chinh-sua-san-pham/${idSanPham}`}
+          href={`/crm/chinh-sua-san-pham/${idSanPham}`}
           style={{ display: "flex", fontSize: 15 }}
           rel="noopener noreferrer"
           // onClick={() => { setIsShowModalChange(true), }}
@@ -66,10 +66,10 @@ const Table_San_Pham = (props: any) => {
     },
     {
       width: 211,
-      title: "Tên sản phẩm		",
+      title: "Tên sản phẩm",
       dataIndex: "name",
       render: (text: any, record: any) => (
-        <Link href={`/chi-tiet-san-pham/${record.id}`}>{text}</Link>
+        <Link href={`/crm/chi-tiet-san-pham/${record.id}`}>{text}</Link>
       ),
     },
     {
@@ -164,7 +164,7 @@ const Table_San_Pham = (props: any) => {
               justifyContent: "center",
             }}
           >
-            <Link href="/san-pham"> Danh sách sản phẩm</Link>
+            <Link href="/crm/san-pham"> Danh sách sản phẩm</Link>
           </Button>
         </div>
         <div className={styles.ip1}>
@@ -179,11 +179,11 @@ const Table_San_Pham = (props: any) => {
               justifyContent: "center",
             }}
           >
-            <Link href="/nhom-san-pham">Danh sách nhóm sản phẩm</Link>
+            <Link href="/crm/nhom-san-pham">Danh sách nhóm sản phẩm</Link>
           </Button>
         </div>
       </div>
-      <Link href={"/them-moi-san-pham"} style={{ width: "10%" }}>
+      <Link href={"/crm/them-moi-san-pham"} style={{ width: "10%" }}>
         <Button
           style={{
             color: "#fff",

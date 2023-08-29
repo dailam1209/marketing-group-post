@@ -97,7 +97,7 @@ const Table_Cong_Nokh = (props: any) => {
         >
           <Link
             style={{ height: "100%", width: "100%", paddingTop: 10 }}
-            href="/cong-no-nha-cung-cap"
+            href="/crm/cong-no-nha-cung-cap"
           >
             {" "}
             Nhà cung cấp
@@ -118,7 +118,7 @@ const Table_Cong_Nokh = (props: any) => {
         >
           <Link
             style={{ height: "100%", width: "100%", paddingTop: 10 }}
-            href="/cong-no-khach-hang"
+            href="/crm/cong-no-khach-hang"
           >
             Khách hàng
           </Link>
