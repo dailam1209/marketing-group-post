@@ -1,6 +1,6 @@
 import PotentialSelectBoxStep from "@/components/crm/potential/potential_steps/select_box_step";
 import styles from "../potential/potential_add_files/add_file_potential.module.css";
-import styless from "../potential/potential.module.css";
+import styless from "../potential/potential2.module.css";
 import exportToExcel from "../ultis/export_xlxs";
 import styleindex from "./index.module.css";
 import { useState } from "react";

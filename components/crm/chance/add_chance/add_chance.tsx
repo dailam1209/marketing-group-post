@@ -1,5 +1,5 @@
 import AddGeneralInfoChance from "./general_info_chance";
-import styles from "../../potential/potential.module.css";
+import styles from "../../potential/potential2.module.css";
 import TableChanceProduct from "@/components/crm/table/table-chance-product";
 import AddAddressInfo from "@/components/crm/potential/potential_add_files/address_info";
 import TextEditor from "@/components/crm/text-editor/text_editor";

@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { Modal, Select, SelectProps } from "antd";
-import styles from "@/components/crm/potential/potential.module.css";
+import styles from "@/components/crm/potential/potential2.module.css";
 import ModalCompleteStep from "@/components/crm/potential/potential_steps/complete_modal";
 import InputText from "@/components/crm/potential/potential_add_files/input_text";
 
