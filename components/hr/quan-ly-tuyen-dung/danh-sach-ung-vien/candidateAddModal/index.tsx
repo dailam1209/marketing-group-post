@@ -170,7 +170,6 @@ export default function CandidateAddModal({ onCancel, animation }: any) {
       }
       if (provisionFile) {
         formData.append('cv', provisionFile)
-        console.log(provisionFile);
       }
       const response = await CandidateAdd(formData)
       setTimeout(() => {
@@ -227,11 +226,6 @@ export default function CandidateAddModal({ onCancel, animation }: any) {
       })),
     [isEmpList?.items]
   )
-
-  console.log(isEmpList);
-
-  console.log(isNewList);
-
 
   const chonvitrituyendungOptions = useMemo(
     () =>

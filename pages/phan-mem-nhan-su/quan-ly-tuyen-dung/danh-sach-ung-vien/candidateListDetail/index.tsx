@@ -38,8 +38,6 @@ export default function CandidateListDetail({ iconAdd, iconEdit, iconDelete }: a
   const [isProcessBeforeName, setProcessBeforeName] = useState<any>("")
   const comid: any = GetComId()
 
-  console.log(isSearch);
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -168,8 +166,6 @@ export default function CandidateListDetail({ iconAdd, iconEdit, iconDelete }: a
       setState(selectedOption.value);
     }
   };
-
-  console.log(isDragItem);
 
   return (
     <>

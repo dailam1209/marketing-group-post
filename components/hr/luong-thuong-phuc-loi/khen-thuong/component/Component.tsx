@@ -24,7 +24,6 @@ function RewardTable({
   const [animateModal, setAnimateModal] = useState(false);
   const [dataEdit, setDataEdit] = useState<any>();
 
-  console.log(data)
   const handleCloseModal = () => {
     setAnimateModal(false);
     setTimeout(() => {
@@ -164,10 +163,12 @@ function RewardTable({
               ) : (
                 data?.data?.map((item: any) => {
                   let formattedDate: any = null
-                  {item.created_at ? formattedDate = format(
-                    new Date(item?.created_at || ''),
-                    "dd-MM-yyyy"
-                  ) : 'null'}
+                  {
+                    item.created_at ? formattedDate = format(
+                      new Date(item?.created_at || ''),
+                      "dd-MM-yyyy"
+                    ) : 'null'
+                  }
                   const achievementType =
                     hinhthuckhenthuong[Number(item?.achievement_type)];
                   return (
@@ -180,7 +181,7 @@ function RewardTable({
                           <span>{item.list_user_name}</span>
                         ) : (
                           <span>{item.dep_name}</span>
-                          
+
                         )}
                       </td>
                       <td>{formattedDate}</td>

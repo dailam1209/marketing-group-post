@@ -19,8 +19,6 @@ export default function StageContactJob({
   process_id_from,
 }: any) {
 
-  console.log(data);
-
   const [selectedOption, setSelectedOption] = useState<SelectOptionType | null>(
     null
   )
@@ -59,7 +57,6 @@ export default function StageContactJob({
         const formData = new FormData()
         const response = await CandidateList(formData)
         const responseData: any = response?.success
-        console.log(responseData);
         if (responseData) {
           const candidateFound = responseData?.data?.data?.find(
             (item: any) =>

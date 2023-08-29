@@ -23,9 +23,6 @@ export default function EditCandidateIntrview({
   processBefore
 }: any) {
 
-  console.log(candidate);
-
-
   const [rating, setRating] = useState<any>(candidate?.star_vote)
   const [addAnotherSkill, setAddAnotherSkill] = useState<JSX.Element[]>([])
   const [skills, setSkills] = useState<{ skillName: string; skillVote: any }[]>(
@@ -338,8 +335,6 @@ export default function EditCandidateIntrview({
   const selectedUseRecomment: any = options.tennhanviengioithieu?.find(
     (item: any) => item.value === candidate?.user_recommend
   )
-
-  console.log(selectedUseHiring)
 
   return (
     <>

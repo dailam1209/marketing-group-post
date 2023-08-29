@@ -47,8 +47,6 @@ function Input_textarea({ onDescriptionChange, reason }: InputTextareaProps) {
 }
 export default function EditPayroll({ onCancel, infoList }: any) {
 
-  console.log(infoList);
-
   const [selectedOption, setSelectedOption] = useState<SelectOptionType | null>(null);
   const [isDepList, setDepList] = useState<any>(null)
   const [isPositionList, setPositionList] = useState<any>(null)
@@ -66,8 +64,6 @@ export default function EditPayroll({ onCancel, infoList }: any) {
   const [errors, setErrors] = useState<any>({});
   const comid: any = GetComId()
   const modalRef = useRef(null);
-
-  console.log(isType_id);
 
   useEffect(() => {
     const handleOutsideClick = (event: any) => {

@@ -7,7 +7,7 @@ import { GetDepartmentList } from '@/pages/api/api-hr/luong-thuong-phuc-loi/rewa
 import { UpdateInfringes } from '@/pages/api/api-hr/luong-thuong-phuc-loi/discipline'
 
 function EditModalCollectiveDiscipline({ animation, onClose, dataOld }: any) {
-  
+
   const id = dataOld?.id
   const comId = dataOld?.com_id
   const typeEdit = dataOld.dep_id
@@ -96,14 +96,12 @@ function EditModalCollectiveDiscipline({ animation, onClose, dataOld }: any) {
   }
 
   const mergedObject = { ...content, ...listUser }
-  console.log(mergedObject)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
       // await schema.validate(mergedObject, { abortEarly: false });
       const response = await UpdateInfringes(id, mergedObject)
-      console.log(response)
       if (response?.status !== 200) {
         alert('Sửa khen thưởng không thành công')
       } else {

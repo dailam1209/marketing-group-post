@@ -12,8 +12,6 @@ import Cookies from 'js-cookie'
 export default function Home() {
   const [dataHome, setDataHome] = useState<any>(null)
 
-  console.log(dataHome)
-
   useEffect(() => {
     const fetchHomeData = async () => {
       try {
