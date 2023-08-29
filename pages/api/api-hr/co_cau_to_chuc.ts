@@ -252,6 +252,24 @@ export const DeleteSignature = async (formData: FormData) => {
     return response.data;
   } catch (error) {}
 };
+
+
+export const HidePosition = async (formData: FormData) => {
+  try {
+    const isToken = getToken(COOKIE_KEY);
+    const response = await axios.post(
+      `${url}api/hr/organizationalStructure/updatePosition`,
+      formData,
+      {
+        headers: {
+          authorization: `Bearer ${isToken}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {}
+};
+
 /* -------------------------------------- UPLOAD ----------------------------------------------*/
 
 export const UploadSignature = async (formData: FormData) => {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import styles from './editModal.module.css'
 import Select from 'react-select';
 import { EmployeeUpdate } from "@/pages/api/api-hr/quan_ly_nhan_vien";
@@ -17,6 +17,21 @@ export default function EditCandidateList({ onCancel, infoList, position }: any)
   const [isEducation, setEducation] = useState<any>(infoList?.infoList?.ep_education)
   const [PostionCharDatas, setPosttionCharData] = useState<any>("")
   const [errors, setErrors] = useState<any>({});
+
+  const modalRef = useRef(null);
+  useEffect(() => {
+    const handleOutsideClick = (event: any) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        onCancel()
+      }
+    };
+
+    document.addEventListener('mousedown', handleOutsideClick);
+
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, [onCancel]);
 
   // -- lấy dữ liệu chức vụ --
   useEffect(() => {
@@ -163,7 +178,7 @@ export default function EditCandidateList({ onCancel, infoList, position }: any)
       <div className={`${styles.modal_open}`}>
         <div className={`${styles.modal} ${styles.fade} ${styles.in}`}>
           <div className={` ${styles.modal_dialog} ${styles.content_process}`}>
-            <div className={`${styles.modal_content}`}>
+            <div className={`${styles.modal_content}`} ref={modalRef}>
               <div className={`${styles.modal_header} ${styles.header_process}`}>
                 <p>CẬP NHẬT THÔNG TIN NHÂN VIÊN</p>
               </div>

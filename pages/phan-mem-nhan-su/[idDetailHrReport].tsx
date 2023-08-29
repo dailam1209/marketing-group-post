@@ -269,7 +269,7 @@ export default function DetailHrReport({ children }: any) {
               setReportList(response?.data)
             }
             if (link.includes('type=') && link_cut && isType !== '') {
-              if (link_cut === "bieu-do-danh-sach-nhan-vien-theo-tham-nien-cong-tac.html") { formData.append('old', isType) }
+              if (link_cut === "bieu-do-danh-sach-nhan-vien-theo-do-tuoi.html") { formData.append('old', isType) }
               else {
                 formData.append('type', isType)
               }
