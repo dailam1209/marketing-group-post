@@ -22,7 +22,7 @@ const EmailMarketingTable: React.FC = () => {
   useEffect(() => {
     setHeaderTitle("Cài đặt/ Email/ Email Marketing");
     setShowBackButton(true);
-    setCurrentPath("/crm/email");
+    setCurrentPath("/crm/setting/email");
   }, [setHeaderTitle, setShowBackButton, setCurrentPath]);
 
   return (

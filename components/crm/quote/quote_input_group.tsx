@@ -1,7 +1,6 @@
 import React from "react";
 import styles from "@/components/crm/quote/quote.module.css";
 import Link from "next/link";
-import { data } from "../table/table-campaign";
 import QuoteSelectBox from "./quote_selectt";
 import QuoteAction from "./quote_action";
 export default function QuoteInputGroups({ isSelectedRow }: any) {
@@ -29,7 +28,7 @@ export default function QuoteInputGroups({ isSelectedRow }: any) {
           style={{ height: 35 }}
         >
           <label htmlFor="" className="">
-            Ngày báo giá:{" "}
+            Ngày báo giá:
           </label>
           <div className={`${styles.input_item_time} flex_between`}>
             <input type="date" name="" id="start_time" />
@@ -40,7 +39,7 @@ export default function QuoteInputGroups({ isSelectedRow }: any) {
           style={{ height: 35 }}
         >
           <label htmlFor="" className="">
-            Hiệu lực đến ngày:{" "}
+            Hiệu lực đến ngày:
           </label>
           <div className={`${styles.input_item_time} flex_between`}>
             <input type="date" name="" id="start_time" />
@@ -70,7 +69,7 @@ export default function QuoteInputGroups({ isSelectedRow }: any) {
           </form>
         </div>
         <div className={`${styles.main__control_add} flex_end`}>
-          <Link href="/quote/add">
+          <Link href="/crm/quote/add">
             <button
               type="button"
               className={`${styles.dropbtn_add} flex_align_center`}
