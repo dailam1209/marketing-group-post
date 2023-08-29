@@ -93,7 +93,7 @@ const TableTLChiaSe: React.FC<TableDataTLCS> = (props: any) => {
             style={{ display: "flex", gap: 3, color: "red", border: "none " }}
           >
             <div>
-              <img src="/crm/customer/del_red.svg" alt="" />
+              <img src="/crm/del_red.svg" alt="" />
             </div>
             <div>Gỡ bỏ</div>
           </Button>

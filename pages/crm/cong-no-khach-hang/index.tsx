@@ -21,7 +21,7 @@ export default function CongNo() {
   useEffect(() => {
     setHeaderTitle("Danh sách công nợ khách hàng");
     setShowBackButton(false);
-    setCurrentPath("/crmphieu-chi");
+    setCurrentPath("/crm/phieu-chi");
   }, [setHeaderTitle, setShowBackButton, setCurrentPath]);
 
   useEffect(() => {
@@ -38,7 +38,7 @@ export default function CongNo() {
         <meta name="viewport" content="width=device-width" initial-scale="1" />
         <meta name="robots" content="noindex,nofollow" />
         <title>
-          CRM 365 - đáp án của bài toán tối ưu quy trình, gia tăng lợi nhuận
+        Danh sách công nợ khách hàng
         </title>
         <meta
           name="description"

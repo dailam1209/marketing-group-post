@@ -84,7 +84,7 @@ export default function ChiTietPhieu() {
       </div>
       <div style={{ display: "flex", gap: 30, paddingBottom: 30 }}>
         <button
-          onClick={() => router.push(`/chinh-sua-phieu-thu/${path.id}`)}
+          onClick={() => router.push(`/crm/chinh-sua-phieu-thu/${path.id}`)}
           style={{ background: "#4C5BD4  " }}
           type="button"
           className={`${styless.dropbtn_add} flex_align_center ${styless.btn_excel}`}

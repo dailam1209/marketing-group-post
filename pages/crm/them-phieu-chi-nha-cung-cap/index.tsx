@@ -35,7 +35,7 @@ const ThemPhieuChiCC: React.FC = () => {
         <meta name="viewport" content="width=device-width" initial-scale="1" />
         <meta name="robots" content="noindex,nofollow" />
         <title>
-          CRM 365 - đáp án của bài toán tối ưu quy trình, gia tăng lợi nhuận
+        Thêm phiếu chi nhà cung cấp
         </title>
         <meta
           name="description"
