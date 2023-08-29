@@ -119,6 +119,9 @@ export const countWorkingSeniorityStatus = (employees: any[]): { less3m: number;
 
 const calculateWorkDuration = (employees: any[], referenceTime: number): number => {
     const currentTime = Math.floor(Date.now() / 1000);
+    console.log(employees);
+    console.log(referenceTime);
+
     let count = 0;
     employees?.forEach((employee) => {
         if (employee.start_working_time !== null && employee.start_working_time <= referenceTime) {
@@ -159,6 +162,8 @@ const calculateWorkDurationByIntervals = (employees: any[]): number[] => {
         currentTime - 5 * 365 * 24 * 60 * 60,  // Từ 3 năm đến 5 năm
         currentTime - 5 * 365 * 24 * 60 * 60 - 1 // Trên 5 năm
     ];
+    console.log(intervals[4]);
+
     const counts = intervals?.map(interval => calculateWorkDuration(employees, interval));
     return counts;
 };
@@ -190,6 +195,8 @@ function countEmployeesByChucVu(countEmployee: any, chucvu: any) {
 export default function InformationSection2({ hrReportList }: any) {
 
     const employees = hrReportList?.data || [];
+    console.log(hrReportList?.data.countEmployee);
+
     const workDurationCounts = calculateWorkDurationByIntervals(employees?.countEmployee);
     const YearOlwCounts = calculateYearOldByIntervals(employees?.countEmployee);
 
@@ -201,6 +208,8 @@ export default function InformationSection2({ hrReportList }: any) {
     for (let i = 0; i < YearOlwCounts.length; i++) {
         sum1 += YearOlwCounts[i];
     }
+
+    console.log(workDurationCounts);
 
     const thuctap = countEmployeesByChucVu(employees?.countEmployee, 1);
     const thuviec = countEmployeesByChucVu(employees?.countEmployee, 2);

@@ -791,6 +791,16 @@ export default function EditCandidateModal({ onCancel, candidate }: any) {
                         onClick={handleRating}
                       />
                       <div className={`${styles.skills_container}`}>
+                        {candidate?.listSkill?.map((item: any, index: any) => {
+                          return (
+                            <div key={index} className={`${styles.another_add_uv_1}`} style={{ marginLeft: 95, marginBottom: 15 }}>
+                              <div className={`${styles.another_skill}`} style={{ marginTop: 10 }}>
+                                <p style={{ color: "black", display: 'inline-block', paddingRight: 20 }}>{item?.skillName}: </p>
+                                <Rating size={27} disableFillHover initialValue={item?.skillVote} className={`${styles.star_rating}`} />
+                              </div>
+                            </div>
+                          )
+                        })}
                         {addAnotherSkill}
                       </div>
                       <a

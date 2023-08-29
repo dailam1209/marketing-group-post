@@ -23,7 +23,7 @@ export default function EditCandidateIntrview({
   processBefore
 }: any) {
 
-  console.log(candidateAll);
+  console.log(candidate);
 
 
   const [rating, setRating] = useState<any>(candidate?.star_vote)
@@ -737,7 +737,7 @@ export default function EditCandidateIntrview({
                       />
                     </div>
                   </div>
-                  <div className={`${styles.form_groups}`}>
+                  <div className={`${styles.form_groupss}`}>
                     <label htmlFor=''>
                       Đánh giá hồ sơ <span style={{ color: 'red' }}> * </span>
                     </label>
@@ -749,6 +749,16 @@ export default function EditCandidateIntrview({
                         className={`${styles.star_rating}`}
                         onClick={handleRating}
                       />
+                      {candidate?.listSkill?.map((item: any, index: any) => {
+                        return (
+                          <div key={index} className={`${styles.another_add_uv_1}`} style={{ marginLeft: 95, marginBottom: 15 }}>
+                            <div className={`${styles.another_skill}`} style={{ marginTop: 10 }}>
+                              <p style={{ color: "black", display: 'inline-block', paddingRight: 20 }}>{item?.skillName}: </p>
+                              <Rating size={27} disableFillHover initialValue={item?.skillVote} className={`${styles.star_rating}`} />
+                            </div>
+                          </div>
+                        )
+                      })}
                       <span>
                         {' '}
                         {errors.starVote && (
