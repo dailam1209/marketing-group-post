@@ -12,8 +12,8 @@ export default function SelectBoxInputNguon({
   const ArrNguonKK: any = [
     { name: "Chưa cập nhật", id: 0 },
     { name: "Facebook", id: 1 },
-    { name: "Website", id: 2 },
-    { name: "Zalo", id: 3 },
+    { name: "Website", id: 3 },
+    { name: "Zalo", id: 2},
     { name: "Dữ liệu bên thứ 3", id: 4 },
     { name: "Khách hàng giới thiệu", id: 5 },
     { name: "Giới thiệu", id: 6 },

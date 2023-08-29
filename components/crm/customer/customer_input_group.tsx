@@ -42,7 +42,8 @@ export default function CustomerListInputGroup({
   setdateS,
   setTime_s,
   setTime_e,
-  setemp_id
+  setemp_id,
+  setIdNhom
 }: any) {
   const [open, setOpen] = useState(false);
   const inputFileRef = useRef<HTMLInputElement>(null);
@@ -259,6 +260,7 @@ export default function CustomerListInputGroup({
       >
         <div>
           <CustomerListFilterBox
+          setIdNhom={setIdNhom}
           setTime_s={setTime_s}
           setTime_e={setTime_e}
             dataStatusCustomer={dataStatusCustomer}

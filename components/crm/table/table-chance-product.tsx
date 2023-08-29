@@ -211,7 +211,7 @@ const TableChanceProduct: React.FC = () => {
             width={16}
             height={16}
             alt="del"
-            src="/crm/customer/del_red.svg"
+            src="/crm/del_red.svg"
           />
           Xóa
         </div>

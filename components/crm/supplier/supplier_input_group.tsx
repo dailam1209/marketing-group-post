@@ -29,7 +29,7 @@ export default function SupplierInputGroup({ isSelectedRow }: any) {
           </form>
         </div>
         <div className={`${styles.main__control_add} flex_end`}>
-          <Link href="/supplier/add_supplier">
+          <Link href="/crm/supplier/add_supplier">
             <button
               type="button"
               className={`${styles.dropbtn_add} flex_align_center`}

@@ -70,25 +70,26 @@ const Recording = (props: Props) => {
   const [listNV, setListNV] = useState([]);
 
   const [query, setQuery] = useState(
-    `http://s02.oncall.vn:8899/api/call_logs/list?pagesize=100000000&start_time=${start_T} &end_time=${end_T}&`
+    `http://s02.oncall.vn:8899/api/call_logs/list?pagesize=10000&start_time=${start_T} &end_time=${end_T}&`
   );
   const handleGetNhanVienPhuTrach = async () => {
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/list`,
+        `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/listAll`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${Cookies.get("token_base365")}`,
           },
-          body: JSON.stringify({ com_id: Cookies.get("com_id") }),
         }
       );
       const data = await res.json();
+      console.log(data);
       setListNV(data?.data?.items);
     } catch (error) {}
   };
+  console.log(listNV);
   var outputArray = [];
 
   listData?.forEach(function (call) {
@@ -122,6 +123,7 @@ const Recording = (props: Props) => {
   });
   const [listLine, setlistLine] = useState([]);
   const [listPB, setlistPB] = useState([]);
+  const [isLoading,setisLoading] = useState(false)
 
   const handleGetPhongBan = async () => {
     try {
@@ -170,8 +172,8 @@ const Recording = (props: Props) => {
     }
     if (listNV) {
       for (let key of listNV) {
-        if (key.userName === name2) {
-          phong = key.nameDeparment;
+        if (key.ep_name === name2) {
+          phong = key.dep_name;
         }
       }
     }
@@ -214,10 +216,7 @@ const Recording = (props: Props) => {
       });
       const data = await response.json();
       setListData(data?.items);
-    } catch (error) {
-      
-    }
-
+    } catch (error) {}
   };
   useEffect(() => {
     handleGetPhongBan();
@@ -259,23 +258,23 @@ const Recording = (props: Props) => {
       render: (text: any, record: any) => <div>{text}</div>,
     },
     {
-      width: "10%",
+      width: "15%",
       title: "Phòng ban",
       dataIndex: "nameDeparment",
       render: (text: any) => <div>{text}</div>,
     },
     {
-      width: "10%",
+      width: "8%",
       title: "Tổng số cuộc gọi",
       dataIndex: "countSDT",
     },
     {
-      width: "10%",
+      width: "8%",
       title: "Tổng số đã trả lời",
       dataIndex: "countStatus",
     },
     {
-      width: "12%",
+      width: "8%",
       title: "Tổng số không trả lời",
       dataIndex: "nocountStatus",
     },
@@ -316,6 +315,7 @@ const Recording = (props: Props) => {
 
       <div style={{ paddingTop: 20 }}>
         <Table
+          loading={outputArray?.length>0?false:true}
           dataSource={datane}
           columns={Colums}
           bordered

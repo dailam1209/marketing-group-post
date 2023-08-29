@@ -176,6 +176,7 @@ const Recording = (props: Props) => {
       {showKetNoi && (
         <div style={{ paddingTop: 20 }}>
           <Table
+           loading={data?.length>0?false:true}
             columns={Colums as any}
             dataSource={data}
             bordered

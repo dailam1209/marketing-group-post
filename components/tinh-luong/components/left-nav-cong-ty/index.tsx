@@ -70,7 +70,7 @@ const items: MenuProps["items"] = [
     children: [
       {
         label: (
-          <Link href="/tinh-luong/cong-ty/du-lieu-tinh-luong/cham-cong">
+          <Link href="/tinh-luong/cong-ty/du-lieu-tinh-luong/chamm-cong">
             Chấm công
           </Link>
         ),
@@ -202,7 +202,7 @@ const items: MenuProps["items"] = [
       },
       {
         label: (
-          <Link href="/tinh-luong/cong-ty/cai-dat/bieu-mau-de-xuat">
+          <Link href="/van-thu-luu-tru/trang-quan-ly-de-xuat/ql-mau-de-xuat">
             Biểu mẫu đề xuất
           </Link>
         ),

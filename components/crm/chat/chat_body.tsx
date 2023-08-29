@@ -39,7 +39,7 @@ export default function ChatBusinessBody({ cusId,setContent,setDate,setCusId }: 
   }, [cusId]);
   const [listGr,setListGr] = useState([])
   const [list_gr_child, setlistGr_Child] = useState([]);
-
+ 
   const handleGetGr = async () => {
     try {
       const res = await fetch(

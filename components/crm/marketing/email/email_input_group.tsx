@@ -45,7 +45,7 @@ export default function CustomerListInputGroup({
             className={`${styles.dropbtn_add} flex_align_center ${styles.btn_file}`}
             onClick={() => setIsModalCancel(true)}
           >
-            <img width="14" height="10" src="/crm/email/eye2.svg" alt="" />
+            <img width="14" height="10" src="/crm/eye2.svg" alt="" />
             Xem trước
           </button>
           {
@@ -60,7 +60,7 @@ export default function CustomerListInputGroup({
             className={`${styles.dropbtn_add} flex_align_center ${styles.btn_file}`}
             style={{ marginLeft: "auto" }}
           >
-            <img src="/crm/email/nhap.svg" />
+            <img src="/crm/nhap.svg" />
             Lưu nháp
             <input type="file" hidden ref={inputFileRef} />
           </button>
@@ -80,7 +80,7 @@ export default function CustomerListInputGroup({
             <img
               width="14"
               height="11"
-              src="/crm/email/mail2.svg"
+              src="/crm/mail2.svg"
               alt=""
               className="icon_action"
             />

@@ -15,6 +15,7 @@ export default function DetailCustomer() {
   const router = useRouter();
   const { id } = router.query;
   const [name, setname] = useState<any>();
+  const [listData,setListData] = useState<any>()
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
   const getNameDetail = async () => {
@@ -27,16 +28,16 @@ export default function DetailCustomer() {
       body: JSON.stringify({ cus_id: id }),
     });
     const data = await res.json();
-    setname(data?.data?.name);
+    setListData(data?.data)
   };
-
+console.log(listData)
   useEffect(() => {
     getNameDetail();
     setShowBackButton(true);
-    setHeaderTitle(`${name} / Thông tin khách hàng`);
+    setHeaderTitle(`${listData?.name} / Thông tin khách hàng`);
 
     setCurrentPath("/crm/customer/list");
-  }, [setHeaderTitle, setShowBackButton, setCurrentPath, id, name]);
+  }, [setHeaderTitle, setShowBackButton, setCurrentPath, id, listData?.name]);
 
   return (
     <>
@@ -83,7 +84,7 @@ export default function DetailCustomer() {
       {!checkAndRedirectToHomeIfNotLoggedIn() ? null : (
         <div>
           <CustomerHeaderTab activeName={"Thông tin khách hàng"} />
-          <DetailInformation cccd={true} />
+          <DetailInformation cccd={true}  listData={listData}/>
         </div>
       )}
     </>

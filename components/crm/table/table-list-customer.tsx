@@ -341,10 +341,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
         <>
           <Link href={`/crm/customer/edit/${record.cus_id}`}>
             <button className={styles.icon_edit}>
-              <img
-                style={{ marginRight: "8px" }}
-                src="/crm/h_edit_cus.svg"
-              />
+              <img style={{ marginRight: "8px" }} src="/crm/h_edit_cus.svg" />
               Chỉnh sửa
             </button>
           </Link>

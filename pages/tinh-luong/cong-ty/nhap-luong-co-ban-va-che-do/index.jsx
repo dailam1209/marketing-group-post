@@ -12,7 +12,7 @@ import styles from "./index.module.css";
 import dayjs from "dayjs";
 import "dayjs/locale/vi";
 import HeadNav from "../../../../components/tinh-luong/components/big-component/header-nav";
-import HeadNavRes from "../../../../components/tinh-luong/components/big-component/head-nav-res";
+import HeadNavResCongTy from "../../../../components/tinh-luong/components/big-component/head-nav-res-cong-ty";
 
 dayjs.locale("vi");
 import * as XLSX from "xlsx";
@@ -369,6 +369,7 @@ const Nhapluongcoban = () => {
       }}
     >
       <HeadNav title="Danh sách nhân viên" />
+      <HeadNavResCongTy></HeadNavResCongTy>
       <div className={styles.div_page}>
         <div className={styles.ds_pay_ct_div}>
           <div className={styles.cate_ct_one}>

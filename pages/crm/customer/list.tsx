@@ -61,8 +61,9 @@ export default function CustomerList() {
   const [time_s, setTime_s] = useState<any>(null);
   const [time_e, setTime_e] = useState<any>(null);
   const [emp_id, setemp_id] = useState<any>()
-  console.log("s", time_s);
-  console.log("e", time_e);
+  const [idNhom,setIdNhom] = useState<any>()
+
+console.log(idNhom)
   useEffect(() => {
     if(dateS != undefined && timeStart!= undefined &&dateE != undefined && timeEnd!= undefined ){
       setTime_s(dateS + " " + timeStart);
@@ -87,8 +88,8 @@ export default function CustomerList() {
           resoure: resoure,
           user_create_id: nvPhuTrach,
           userNameCreate: userNameCreate,
-          group_id: nhomCha,
-          group_pins_id: nhomCon,
+          group_id: idNhom,
+          // group_pins_id: nhomCon,
           time_s: time_s,
           time_e: time_e,
           emp_id:emp_id
@@ -282,6 +283,7 @@ export default function CustomerList() {
       {!checkAndRedirectToHomeIfNotLoggedIn() ? null : (
         <div ref={mainRef} className={styleHome.main}>
           <CustomerListInputGroup
+          setIdNhom={setIdNhom}
             setTimeStart={setTimeStart}
             setTimeEnd={setTimeEnd}
             setdateS={setdateS}

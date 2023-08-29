@@ -11,7 +11,7 @@ import {
   Typography,
 } from "antd";
 import HeadNav from "../../../../components/tinh-luong/components/big-component/header-nav";
-import HeadNavRes from "../../../../components/tinh-luong/components/big-component/head-nav-res";
+import HeadNavResCongty from "../../../../components/tinh-luong/components/big-component/head-nav-res-cong-ty";
 import styles from "./Homepage.module.css";
 import axios from "axios";
 import dayjs from "dayjs";
@@ -204,6 +204,7 @@ const App = () => {
       }}
     >
       <HeadNav title="Trang chủ" />
+      <HeadNavResCongty></HeadNavResCongty>
       <div className={styles.customPagebig}>
         {/*p1*/}
         <div className={styles.Divbig}>

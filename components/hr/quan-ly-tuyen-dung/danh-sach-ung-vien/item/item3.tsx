@@ -90,9 +90,9 @@ export default function ItemCandidate3({ onCancel, process_id, setProcess_id, ty
               <img className={`${styles.hs_avt}`} src="https://phanmemnhansu.timviec365.vn/assets/images/t_images/logo_com.png" alt="" />
             </div>
             <div className={`${styles.hs_body_card_no2}`}>
-              <p className={`${styles.word_wrap}`}>{data?.name}</p>
+              <p className={`${styles.word_wrap}`} title={data?.name}>{data?.name}</p>
               <p className={`${styles.word_wrap}`}>SĐT: <span>{data?.phone}</span></p>
-              <p className={`${styles.word_wrap}`}>{data?.new_title}</p>
+              <p className={`${styles.word_wrap}`} title={data?.title}>{data?.new_title}</p>
               <Rating size={27} initialValue={data?.star_vote} disableFillHover className={`${styles.star_rating}`} />
             </div>
             <div className={`${styles.hs_body_card_no3}`}>

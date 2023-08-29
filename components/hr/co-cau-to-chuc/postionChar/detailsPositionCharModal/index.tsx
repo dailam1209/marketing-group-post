@@ -51,7 +51,6 @@ export default function DetailsPositionCharModal({ mission, onCancel }: any) {
                       onClick={onCancel}>
                       Hủy
                     </button>
-                    <button className={`${styles.btn_add}`}>Cập nhật</button>
                   </div>
                 </form>
               </div>

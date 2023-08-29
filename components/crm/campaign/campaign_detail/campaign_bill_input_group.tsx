@@ -59,7 +59,7 @@ export default function CampaignBillInputGroups() {
           </form>
         </div> 
          <div className={`${styles.main__control_add} flex_end`}>
-          <Link href="/bill/add">
+          <Link href="/crm/bill/add">
             <button
               type="button"
               className={`${styles.dropbtn_add} flex_align_center`}
