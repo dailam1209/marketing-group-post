@@ -31,9 +31,7 @@ export default function Form_Email_List_Delete() {
       <Head>
         <meta name="viewport" content="width=device-width" initial-scale="1" />
         <meta name="robots" content="noindex,nofollow" />
-        <title>
-          CRM 365 - đáp án của bài toán tối ưu quy trình, gia tăng lợi nhuận
-        </title>
+        <title>Dữ liệu đã xoá của Mẫu email</title>
         <meta
           name="description"
           content="CRM 365 được đánh giá là công cụ tốt nhất hiện nay trong việc kết nối khách hàng và doanh nghiệp. Phần mềm chú trọng vào các nhiệm vụ hỗ trợ doanh nghiệp tăng tập khách hàng tiềm năng và thân thiết, tăng doanh thu và tối ưu chi phí. Đăng ký hôm nay, lợi ích đến ngay!"
