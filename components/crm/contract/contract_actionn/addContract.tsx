@@ -383,8 +383,9 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
       filename: fileUpload,
       path_file: path_dowload,
       id_file: idFile,
-      list_details,
+      list_detail: list_details,
     };
+    console.log(bodyData)
 
     try {
       const response = await fetch(

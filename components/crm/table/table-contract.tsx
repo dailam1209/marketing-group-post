@@ -99,7 +99,7 @@ const TableContract: React.FC<TableContractProps> = ({}: any) => {
       // fixed:"right",
       render: () => (
         <>
-          <Link href={"/contract/edit_contract"}>
+          <Link href={"/crm/contract/edit_contract"}>
             <button>
               <img className={styles.icon_edit} src="/crm/h_edit_cus.svg" />
               Sửa
@@ -139,7 +139,6 @@ const TableContract: React.FC<TableContractProps> = ({}: any) => {
       id_form_contract: item?.id,
     };
   });
-  console.log(data);
 
   const [current, setcurrent] = useState(1);
   const [pageSize, setpageSize] = useState(10);
