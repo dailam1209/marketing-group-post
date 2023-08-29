@@ -156,7 +156,11 @@ const GroupCustomerAdd: React.FC = () => {
         if (prevData) {
           return [...prevData, val];
         } else {
-          return [val];
+          const newArr = dataDetails?.data?.emp_id
+            ?.split(",")
+            .map((item) => parseInt(item.trim(), 10));
+          newArr?.push(val);
+          return newArr;
         }
       });
     } else {
@@ -196,7 +200,6 @@ const GroupCustomerAdd: React.FC = () => {
   }, [selectedValueDepartments]);
 
   const dataSelectGroupParent = dataAll?.data;
-  console.log(dataDetails?.data);
   const dataDepartments = dataDepartment?.data?.items;
   const options = dataDepartments?.map((item) => {
     return {
@@ -254,7 +257,7 @@ const GroupCustomerAdd: React.FC = () => {
         )
         ?.map((employee) => {
           return {
-            label: employee.ep_id,
+            label: employee.ep_name,
             value: employee.ep_id,
           };
         });
@@ -370,11 +373,22 @@ const GroupCustomerAdd: React.FC = () => {
                       });
                     }}
                   />
-                  <div className={styles.form_label}>Danh sách chia sẻ</div>
+                  <div
+                    style={{ marginBottom: "1rem", marginTop: "1rem" }}
+                    className={styles.form_label}
+                  >
+                    Danh sách chia sẻ
+                  </div>
                   {valueGroupCustomer?.group_cus_parent == null &&
                     valueOptionRef?.current?.querySelector(".value_options")
                       .innerHTML === "Chọn" && (
-                      <div style={{ display: "flex", gap: "5px" }}>
+                      <div
+                        style={{
+                          display: "flex",
+                          gap: "5px",
+                          marginBottom: "1rem",
+                        }}
+                      >
                         <p
                           className="d-flex info_system"
                           style={{ fontSize: "14px" }}
@@ -521,9 +535,7 @@ const GroupCustomerAdd: React.FC = () => {
                             alt="img"
                             width={26}
                             height={26}
-                            src={
-                              "https://crm.timviec365.vn/assets/img/customer/del_red.svg"
-                            }
+                            src={"/crm/del_red.svg"}
                           />
                           Gỡ bỏ
                         </button>

@@ -28,10 +28,11 @@ const GroupSharedAFactorModal: React.FC<MyComponentProps> = ({
     `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/list`,
     accessToken,
     "POST",
-    { dep_id: depId, com_id: Number(com_id) }
+    { com_id: Number(com_id) }
   );
 
   const empIdArr = empId?.split(",").map((item) => parseInt(item.trim(), 10));
+
 
 
   return (
