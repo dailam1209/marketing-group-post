@@ -1,11 +1,8 @@
 import React from "react";
 import styles from "@/components/crm/quote/quote.module.css";
 import Link from "next/link";
-import { data } from "../table/table-campaign";
 import QuoteSelectBox from "./quote_selectt";
-import QuoteAction from "./quote_action";
 export default function QuoteBtnsDetailCustomerChance() {
-
   return (
     <div className={styles.main__control}>
       <div className={`${styles.main__control_select} flex_align_center`}>
@@ -13,13 +10,13 @@ export default function QuoteBtnsDetailCustomerChance() {
           className={`${styles.select_item} flex_align_center_item ${styles.select_item_time}`}
         >
           <label htmlFor="" className="">
-            Ngày đặt hàng:{" "}
+            Ngày đặt hàng:
           </label>
           <div className={`${styles.input_item_time} flex_between`}>
             <input type="date" name="" id="start_time" />
           </div>
           <label htmlFor="" className="">
-            Hiệu lực đến ngày:{" "}
+            Hiệu lực đến ngày:
           </label>
           <div className={`${styles.input_item_time} flex_between`}>
             <input type="date" name="" id="start_time" />
@@ -49,7 +46,7 @@ export default function QuoteBtnsDetailCustomerChance() {
           </form>
         </div>
         <div className={`${styles.main__control_add} flex_end`}>
-          <Link href="/quote/add">
+          <Link href="/crm/quote/add">
             <button
               type="button"
               className={`${styles.dropbtn_add} flex_align_center`}
@@ -60,7 +57,6 @@ export default function QuoteBtnsDetailCustomerChance() {
           </Link>
         </div>
       </div>
-
     </div>
   );
 }

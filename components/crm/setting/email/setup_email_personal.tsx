@@ -22,7 +22,7 @@ const EmailPersonalTable: React.FC = () => {
   useEffect(() => {
     setHeaderTitle("Cài đặt/ Email/ Email cá nhân");
     setShowBackButton(true);
-    setCurrentPath("/crm/email");
+    setCurrentPath("/crm/setting/email");
   }, [setHeaderTitle, setShowBackButton, setCurrentPath]);
 
   return (
@@ -34,7 +34,7 @@ const EmailPersonalTable: React.FC = () => {
             <div className="main__body_item">
               <p className="main__body__p">
                 Kết nối email của bạn với CRM.TIMVIEC365.VN để thay đổi cách bán
-                hàng{" "}
+                hàng
               </p>
             </div>
             <div className="main__body_item">

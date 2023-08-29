@@ -45,7 +45,7 @@ const EmailPersonalTable: React.FC = () => {
               src="/crm/icon_email_per.svg"
             />
             <p className={style.connect_title}>POP3/IMAP</p>
-            <Link href="/crm/setup_email_personal">
+            <Link href="/crm/setting/setup_email_personal">
               <button className={style.connect_button}>Kết nối</button>
             </Link>
           </div>
