@@ -13,7 +13,6 @@ export default function EditRecruitmentStage({
   onCloseModal,
   newDataEdit,
 }: any) {
-  console.log(data);
 
   const stageRecruitmentId = data.id
   const nameStage = data.name

@@ -42,6 +42,7 @@ const TableDataGroupListCustomer: React.FC<TableDataGroupListCustomerProps> = ({
   const [depId, setDepId] = useState(null);
   const [empId, setEmpId] = useState(null);
 
+
   interface DataType {
     key: React.Key;
     gr_id: number;
@@ -211,7 +212,7 @@ const TableDataGroupListCustomer: React.FC<TableDataGroupListCustomerProps> = ({
           : null,
     };
   });
-  console.log("cehck",datatable)
+  
   const rowSelection: TableRowSelection<DataType> = {
     onChange: (selectedRowKeys, selectedRows) => {
       if (selectedRows?.length > 0) {

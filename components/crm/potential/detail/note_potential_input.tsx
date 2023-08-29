@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "../../potential/potential.module.css";
+import styles from "../../potential/potential2.module.css";
 import Link from "next/link";
 import PotentialSelectBox from "@/components/crm/potential/potential_selectt";
 import HandeOverModal from "@/components/crm/potential/potential_action_modal/hand_over_mdal";

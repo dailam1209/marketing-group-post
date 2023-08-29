@@ -106,7 +106,7 @@ const columns: ColumnsType<DataType> = [
     key: "facebook",
     width: 150,
     render: (text: any) => (
-      <Link href={"/order/detail/contact"}>
+      <Link href={"/crm/order/detail/contact"}>
         <b>{text}</b>
       </Link>
     ),

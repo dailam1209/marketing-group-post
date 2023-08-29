@@ -81,9 +81,9 @@ export default function ItemCandidate2({ onCancel, data, process_id, setModalOpe
               <img className={`${styles.hs_avt}`} src="https://phanmemnhansu.timviec365.vn/assets/images/t_images/logo_com.png" alt="" />
             </div>
             <div className={`${styles.hs_body_card_no2}`}>
-              <p className={`${styles.word_wrap}`}>{data?.canName}</p>
+              <p className={`${styles.word_wrap}`} title={data?.canName}>{data?.canName}</p>
               <p className={`${styles.word_wrap}`}>SĐT: <span>{data?.phone}</span></p>
-              <p className={`${styles.word_wrap}`}>{data?.title}</p>
+              <p className={`${styles.word_wrap}`} title={data?.title}>{data?.title}</p>
               <Rating size={27} initialValue={data?.starVote} disableFillHover className={`${styles.star_rating}`} />
             </div>
             <div className={`${styles.hs_body_card_no3}`}>

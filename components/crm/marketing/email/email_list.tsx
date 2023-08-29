@@ -34,7 +34,7 @@ const EmailPersonalTable: React.FC = () => {
       </p>
       <div className="dropdown">
         <div className={`${styles.main__control_add}`}>
-          <Link href="/crm/email/add">
+          <Link href="/crm/marketing/email/add">
             <button
               type="button"
               className={`${styles.dropbtn_add} flex_align_center`}

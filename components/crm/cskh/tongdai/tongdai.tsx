@@ -94,7 +94,7 @@ const TongDaiPage = (props: Props) => {
   const [fillStart, setFillStart] = useState<any>();
   const [fillEnd, setFillEnd] = useState<any>();
   const [query, setQuery] = useState(
-    `http://s02.oncall.vn:8899/api/call_logs/list?pagesize=100000000&start_time=${start_T} &end_time=${end_T}`
+    `http://s02.oncall.vn:8899/api/call_logs/list?pagesize=10000&start_time=${start_T} &end_time=${end_T}`
   );
 
   const handleGet = async () => {
@@ -115,7 +115,7 @@ const TongDaiPage = (props: Props) => {
     setIsModalOpen(false);
     if (fillEnd && fillStart) {
       setQuery(
-        `http://s02.oncall.vn:8899/api/call_logs/list?pagesize=100000000&start_time=${fillStart} &end_time=${fillEnd}`
+        `http://s02.oncall.vn:8899/api/call_logs/list?pagesize=10000&start_time=${fillStart} &end_time=${fillEnd}`
       );
     }
     try {
@@ -127,6 +127,7 @@ const TongDaiPage = (props: Props) => {
         },
       });
       const data = await response.json();
+
       if (data && data.items) {
         setListData(data?.items);
       } 
@@ -137,7 +138,6 @@ const TongDaiPage = (props: Props) => {
  
   };
   const router = useRouter();
-
   useEffect(() => {
     if (show.length) {
       setShowKetNoi(true);
@@ -288,7 +288,7 @@ const TongDaiPage = (props: Props) => {
 
       <div style={{ paddingTop: 20 }}>
         <Table
-          locale={customLocale}
+         loading={datatable?.length>0?false:true}
           columns={Colums as any}
           dataSource={datatable}
           bordered

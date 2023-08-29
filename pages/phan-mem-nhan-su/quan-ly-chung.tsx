@@ -7,24 +7,20 @@ import { useEffect, useState } from 'react'
 import { getCookie } from 'cookies-next'
 import Head from 'next/head'
 import { getHomeData } from '../api/api-hr/Home/HomeService'
+import Cookies from 'js-cookie'
 
 export default function Home() {
   const [dataHome, setDataHome] = useState<any>(null)
-
-  console.log(dataHome)
 
   useEffect(() => {
     const fetchHomeData = async () => {
       try {
         const token = getCookie('token_base365')
         if (token) {
-          console.log(1);
           const response = await getHomeData()
-          console.log(response);
-
           setDataHome(response?.data.data)
         } else {
-          console.log(2);
+          window.location.href = "/phan-mem-nhan-su"
           const interval = setInterval(() => {
             const updatedToken = getCookie('token_base365')
             if (updatedToken) {

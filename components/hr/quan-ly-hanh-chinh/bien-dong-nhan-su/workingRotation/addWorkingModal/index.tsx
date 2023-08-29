@@ -157,8 +157,8 @@ export default function AddWorkingModal({ onCancel }: any) {
       const created_at = (document.getElementById('created_at') as HTMLInputElement)?.value
       const formData = new FormData();
       formData.append('ep_id', isEmp_id)
-      formData.append('current_position', isPosition_id)
-      formData.append('current_dep_id', isDep_id)
+      formData.append('position_id', isPosition_id)
+      formData.append('dep_id', isDep_id)
       formData.append('created_at', created_at)
       formData.append('com_id', isCom_id)
       formData.append('new_com_id', isCom_idNew)

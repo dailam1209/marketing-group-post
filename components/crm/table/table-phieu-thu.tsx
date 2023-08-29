@@ -47,7 +47,7 @@ const Table_Phieu_Thu_Chi = (props: any) => {
       dataIndex: "name",
       render: (text: any, record: any) => (
         <div style={{ overflow: "hidden" }}>
-          <Link href={`/chi-tiet-phieu-thu/${record.myPhone}`}>
+          <Link href={`/crm/chi-tiet-phieu-thu/${record.myPhone}`}>
             <div>{text}</div>
           </Link>
         </div>
@@ -204,7 +204,7 @@ const Table_Phieu_Thu_Chi = (props: any) => {
         <Link
           className={`${styless.dropbtn_add} flex_align_center`}
           rel="noopener noreferrer"
-          href="/them-phieu-thu-nha-cung-cap"
+          href="/crm/them-phieu-thu-nha-cung-cap"
         >
           <p style={{ color: "#f7e9c1" }}>Nhà cung cấp</p>
         </Link>
@@ -216,7 +216,7 @@ const Table_Phieu_Thu_Chi = (props: any) => {
         <Link
           className={`${styless.dropbtn_add} flex_align_center`}
           rel="noopener noreferrer"
-          href="/them-phieu-thu-khach-hang"
+          href="/crm//them-phieu-thu-khach-hang"
         >
           <p style={{ color: "#f7e9c1" }}>Khách hàng</p>
         </Link>

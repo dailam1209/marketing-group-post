@@ -190,96 +190,99 @@ export default function DetailLeaderBiography({ onCancel }: any) {
       <Head>
         <title>Tiểu sử lãnh đạo - Quản lý nhân sự - Timviec365.vn</title>
       </Head>
-      <div className={`${styles.l_body}`}>
-        <div className={`${styles.add_quytrinh}`}>
-          <div className={`${styles.back_quytrinh}`}>
-            <span onClick={handleBack}>
-              <picture>
-                <img
-                  src={`${'/left_arrow.png'}`}
-                  alt="Back"
-                ></img>
-              </picture>
-              Tiểu sử lãnh đạo / {isLeaderDetail?.result?.ep_name}
-            </span>
-            {iconAdd && (
-              <button className={`${styles.btn_add1}`} onClick={() => setAddField(true)} >
-                <img src="/add.png" alt="" />
-                Thêm trường
-              </button>
-            )}
+      {isLeaderDetail && (
+        <div className={`${styles.l_body}`}>
+          <div className={`${styles.add_quytrinh}`}>
+            <div className={`${styles.back_quytrinh}`}>
+              <span onClick={handleBack}>
+                <picture>
+                  <img
+                    src={`${'/left_arrow.png'}`}
+                    alt="Back"
+                  ></img>
+                </picture>
+                Tiểu sử lãnh đạo / {isLeaderDetail?.result?.ep_name}
+              </span>
+              {iconAdd && (
+                <button className={`${styles.btn_add1}`} onClick={() => setAddField(true)} >
+                  <img src="/add.png" alt="" />
+                  Thêm trường
+                </button>
+              )}
+            </div>
           </div>
-        </div>
-        <div className={`${styles.l_body_2}`}>
-          <div className={`${styles.l_body_2_content} ${styles.l_body_2_left}`} style={{ width: addField ? '41.677%' : '100%' }}>
-            <div className={`${styles.l_body_2_left_header}`}>
-              <div className={`${styles.pull_left}`}>
-                <p>THÔNG TIN</p>
+          <div className={`${styles.l_body_2}`}>
+            <div className={`${styles.l_body_2_content} ${styles.l_body_2_left}`} style={{ width: addField ? '41.677%' : '100%' }}>
+              <div className={`${styles.l_body_2_left_header}`}>
+                <div className={`${styles.pull_left}`}>
+                  <p>THÔNG TIN</p>
+                </div>
+                <div className={`${styles.text_right}`}>
+                  {iconEdit && (
+                    <a onClick={() => setOpenUpdate(true)} style={{ cursor: 'pointer' }} className={`${styles.edit_hs_uv}`}>
+                      <img src="/icon-edit-white.svg" />
+                    </a>
+                  )}
+                </div>
               </div>
-              <div className={`${styles.text_right}`}>
-                {iconEdit && (
-                  <a onClick={() => setOpenUpdate(true)} style={{ cursor: 'pointer' }} className={`${styles.edit_hs_uv}`}>
-                    <img src="/icon-edit-white.svg" />
-                  </a>
-                )}
+              <div className={`${styles.l_body_2_left_body}`}>
+                <div className={`${styles.d_info_detail}`} style={{ padding: 20 }}>
+                  <p className={`${styles.d_info_name}`}>
+                    <span style={{ textTransform: 'uppercase', fontWeight: 600 }}>{isLeaderDetail?.result?.namePosition}</span>
+                  </p>
+                  <div className={`${styles.d_images_info}`} onClick={handleUploadClick}>
+                    <img src="/logo_com.png" alt="" className={`${styles.d_img_info}`} id="preview_image" />
+                    <img src="/camera.svg" alt="" className={`${styles.d_img_info1}`} />
+                    <input type="file" id="upload_img" style={{ display: 'none' }} onChange={handleProvisionFileChange} />
+                  </div>
+                </div>
+                <div className={`${styles.click_update}`} style={{ padding: 20 }}>
+                  <div className={`${styles.d_info_detail2}`} style={{ display: isOpenUpdate ? 'none' : 'block' }}>
+                    {initialValue.map((item, index) => (
+                      <p key={index} className={`${item?.key === "Thông tin cá nhân" || item?.key === "Trình độ đào tạo"
+                        ? styles.d_info_detail_text
+                        : styles.d_info_detail_text1}`}>
+                        {item?.key}
+                        <span> {item?.value}</span>
+                      </p>
+                    ))}
+                  </div>
+                  <div className={`${styles.d_info_textarea1}`} style={{ display: isOpenUpdate ? 'block' : 'none' }}>
+                    <div className={`${styles.d_info_detail3}`} style={{ marginTop: 22 }}>
+                      {isOpenUpdate && <Input_textarea onDescriptionChange={handleDescriptionChange} initialValue={initialValue} />}
+                    </div>
+                    <div className={`${styles.d_info_detail4}`}>
+                      <div className={`${styles.modal_footer} ${styles.footer_process}`}>
+                        <button className={`${styles.btn_cancel}`} onClick={() => setOpenUpdate(false)} >Hủy</button>
+                        <button className={`${styles.btn_add}`} onClick={handleSubmit} >Lưu</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-            <div className={`${styles.l_body_2_left_body}`}>
-              <div className={`${styles.d_info_detail}`} style={{ padding: 20 }}>
-                <p className={`${styles.d_info_name}`}>
-                  <span style={{ textTransform: 'uppercase', fontWeight: 600 }}>{isLeaderDetail?.result?.namePosition}</span>
-                </p>
-                <div className={`${styles.d_images_info}`} onClick={handleUploadClick}>
-                  <img src="/logo_com.png" alt="" className={`${styles.d_img_info}`} id="preview_image" />
-                  <img src="/camera.svg" alt="" className={`${styles.d_img_info1}`} />
-                  <input type="file" id="upload_img" style={{ display: 'none' }} onChange={handleProvisionFileChange} />
-                </div>
+            <div className={`${styles.l_body_2_content} ${styles.l_body_2_right}`} style={{ paddingTop: 0, paddingLeft: 15, display: addField ? 'inline' : 'none', width: addField ? '53%' : '0' }}>
+              <div className={`${styles.d_info_header}`} >
+                <input type="text" className={`${styles.d_input_info}`} id="d_input_name" placeholder="NHẬP TÊN TRƯỜNG" />
               </div>
-              <div className={`${styles.click_update}`} style={{ padding: 20 }}>
-                <div className={`${styles.d_info_detail2}`} style={{ display: isOpenUpdate ? 'none' : 'block' }}>
-                  {initialValue.map((item, index) => (
-                    <p key={index} className={`${item?.key === "Thông tin cá nhân" || item?.key === "Trình độ đào tạo"
-                      ? styles.d_info_detail_text
-                      : styles.d_info_detail_text1}`}>
-                      {item?.key}
-                      <span> {item?.value}</span>
-                    </p>
-                  ))}
-                </div>
-                <div className={`${styles.d_info_textarea1}`} style={{ display: isOpenUpdate ? 'block' : 'none' }}>
+              <div className={`${styles.d_info_body}`}>
+                <div className={`${styles.d_info_textarea1}`}>
                   <div className={`${styles.d_info_detail3}`} style={{ marginTop: 22 }}>
-                    {isOpenUpdate && <Input_textarea onDescriptionChange={handleDescriptionChange} initialValue={initialValue} />}
+                    <Input_textarea onDescriptionChange={handleDescriptionChange} initialValue={initialValue} />
                   </div>
                   <div className={`${styles.d_info_detail4}`}>
                     <div className={`${styles.modal_footer} ${styles.footer_process}`}>
-                      <button className={`${styles.btn_cancel}`} onClick={() => setOpenUpdate(false)} >Hủy</button>
-                      <button className={`${styles.btn_add}`} onClick={handleSubmit} >Lưu</button>
+                      <button className={`${styles.btn_cancel}`} onClick={() => setAddField(false)} >Hủy</button>
+                      <button className={`${styles.btn_add}`} >Thêm</button>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div className={`${styles.l_body_2_content} ${styles.l_body_2_right}`} style={{ paddingTop: 0, paddingLeft: 15, display: addField ? 'inline' : 'none', width: addField ? '53%' : '0' }}>
-            <div className={`${styles.d_info_header}`} >
-              <input type="text" className={`${styles.d_input_info}`} id="d_input_name" placeholder="NHẬP TÊN TRƯỜNG" />
-            </div>
-            <div className={`${styles.d_info_body}`}>
-              <div className={`${styles.d_info_textarea1}`}>
-                <div className={`${styles.d_info_detail3}`} style={{ marginTop: 22 }}>
-                  <Input_textarea onDescriptionChange={handleDescriptionChange} initialValue={initialValue} />
-                </div>
-                <div className={`${styles.d_info_detail4}`}>
-                  <div className={`${styles.modal_footer} ${styles.footer_process}`}>
-                    <button className={`${styles.btn_cancel}`} onClick={() => setAddField(false)} >Hủy</button>
-                    <button className={`${styles.btn_add}`} >Thêm</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
+      )}
+
     </>
   );
 }

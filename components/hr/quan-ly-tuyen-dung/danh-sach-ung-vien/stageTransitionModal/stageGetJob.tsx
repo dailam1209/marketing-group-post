@@ -79,8 +79,6 @@ type SelectOptionType = { label: string, value: string }
 
 export default function StageGetJob({ onCancel, process_id, data, process_id_from }: any) {
 
-  console.log(process_id);
-
   const [selectedOption, setSelectedOption] = useState<SelectOptionType | null>(null);
   const [isCandidate, setCandidate] = useState<any>(null)
   const [isEmpList, setEmpList] = useState<any>(null);
@@ -96,10 +94,6 @@ export default function StageGetJob({ onCancel, process_id, data, process_id_fro
   const [checked, setChecked] = useState<any>(0);
   const [errors, setErrors] = useState<any>({});
   const modalRef = useRef(null);
-
-  console.log(isCandidate);
-  console.log(data);
-
 
   useEffect(() => {
     const handleOutsideClick = (event: any) => {
@@ -122,8 +116,6 @@ export default function StageGetJob({ onCancel, process_id, data, process_id_fro
         const response = await CandidateList(formData)
         const responseData: any = response?.success
         if (responseData) {
-          console.log(responseData?.data?.data);
-
           const candidateFound = responseData?.data?.data?.find((item: any) => item.id === Number(data?.id) || item.id === Number(data?.canId))
           setCandidate(candidateFound)
         }
@@ -336,9 +328,6 @@ export default function StageGetJob({ onCancel, process_id, data, process_id_fro
     tennhanvientuyendungdefault: [{ value: data?.user_hiring || data?.userHiring, label: data?.hrName || data?.nameHr },]
   };
 
-
-  console.log(options.tennhanvientuyendungdefault);
-
   return (
     <>
       <div className={`${styles.modal_open}`}>
@@ -436,6 +425,16 @@ export default function StageGetJob({ onCancel, process_id, data, process_id_fro
                     <div className={`${styles.input_right}`}>
                       <Rating size={27} initialValue={isCandidate?.star_vote} disableFillHover className={`${styles.star_rating}`} onClick={handleRating} />
                       <div className={`${styles.skills_container}`}>
+                        {isCandidate?.listSkill?.map((item: any, index: any) => {
+                          return (
+                            <div key={index} className={`${styles.another_add_uv_1}`} style={{ marginLeft: 95, marginBottom: 15 }}>
+                              <div className={`${styles.another_skill}`} style={{ marginTop: 10 }}>
+                                <p style={{ display: 'inline-block', paddingRight: 20 }}>{item?.skillName}: </p>
+                                <Rating size={27} disableFillHover initialValue={item?.skillVote} className={`${styles.star_rating}`} />
+                              </div>
+                            </div>
+                          )
+                        })}
                         {addAnotherSkill}
                       </div>
                       <a className={`${styles.add_another_skill}`} style={{ cursor: 'pointer' }} onClick={() => HandleAddAnotherSkill({ lastAddedIndex, setSkills, setAddAnotherSkill, setLastAddedIndex })}>Thêm Kỹ năng</a>

@@ -99,83 +99,74 @@ const BodySection2 = ({ title, img1, img2, img3, img4, img5, img6, details_title
     </div>
 )
 
-export const countWorkingSeniorityStatus = (employees: any[]): { less3m: number; to3m_1y: number, to1y_3y: number; to3y_5y: number; to5y: number } => {
-    let less3m = 0;
-    let to3m_1y = 0;
-    let to1y_3y = 0;
-    let to3y_5y = 0;
-    let to5y = 0;
 
-    employees.forEach((employee) => {
-        if (employee.start_working_time === 1) {
-            less3m++;
-        } else if (employee.married === 2) {
-            to3m_1y++;
-        }
-    });
-
-    return { less3m, to3m_1y, to1y_3y, to3y_5y, to5y };
-};
-
-const calculateWorkDuration = (employees: any[], referenceTime: number): number => {
+const calculateWorkDurationGroup = (employees) => {
     const currentTime = Math.floor(Date.now() / 1000);
-    let count = 0;
-    employees?.forEach((employee) => {
-        if (employee.start_working_time !== null && employee.start_working_time <= referenceTime) {
-            count++;
-        }
-    });
-    return count;
-};
 
-const calculateYearOld = (employees: any[], referenceTime: number): number => {
-    const currentTime = Math.floor(Date.now() / 1000);
-    let count = 0;
-    employees?.forEach((employee) => {
-        if (employee.birthday !== null && employee.birthday <= referenceTime) {
-            count++;
-        }
-    });
-    return count;
-};
-
-const calculatePosition = (employees: any[], position_id: number): number => {
-    let count = 0;
-    employees?.forEach((employee) => {
-        if (employee.chucvu !== null && employee.chucvu === position_id) {
-            count++;
-        }
-    });
-    return count;
-
-};
-
-const calculateWorkDurationByIntervals = (employees: any[]): number[] => {
-    const currentTime = Math.floor(Date.now() / 1000);
-    const intervals = [
-        currentTime - 90 * 24 * 60 * 60,  // Bé hơn 3 tháng
-        currentTime - 365 * 24 * 60 * 60, // Từ 3 tháng đến 1 năm
-        currentTime - 3 * 365 * 24 * 60 * 60,  // Từ 1 năm đến 3 năm
-        currentTime - 5 * 365 * 24 * 60 * 60,  // Từ 3 năm đến 5 năm
-        currentTime - 5 * 365 * 24 * 60 * 60 - 1 // Trên 5 năm
-    ];
-    const counts = intervals?.map(interval => calculateWorkDuration(employees, interval));
-    return counts;
-};
-
-const calculateYearOldByIntervals = (employees: any[]): number[] => {
-    const currentTime = Math.floor(Date.now() / 1000);
-    const intervals = [
-        currentTime - 30 * 365 * 24 * 60 * 60,  // Dưới 30 tuổi
-        currentTime - 44 * 365 * 24 * 60 * 60, // 30-44 tuổi
-        currentTime - 59 * 365 * 24 * 60 * 60,  // 45-59 tuổi
-        currentTime - 60 * 365 * 24 * 60 * 60 - 1,  // trên 60 tuổi
-
+    // Định nghĩa các khoảng thời gian làm việc
+    const workDurationIntervals = [
+        { label: 'Dưới 3 tháng', minDuration: 0, maxDuration: 90 * 24 * 60 * 60 },
+        { label: '3 tháng - 1 năm', minDuration: 90 * 24 * 60 * 60, maxDuration: 365 * 24 * 60 * 60 },
+        { label: '1 năm - 3 năm', minDuration: 365 * 24 * 60 * 60, maxDuration: 3 * 365 * 24 * 60 * 60 },
+        { label: 'Từ 3 năm - 5 năm', minDuration: 3 * 365 * 24 * 60 * 60, maxDuration: 5 * 365 * 24 * 60 * 60 },
+        { label: 'Trên 5 năm', minDuration: 5 * 365 * 24 * 60 * 60, maxDuration: Infinity },
     ];
 
-    const counts = intervals?.map(interval => calculateYearOld(employees, interval));
-    return counts;
+    // Tạo một mảng để lưu trữ số lượng nhân viên trong từng khoảng thời gian làm việc
+    const workDurationCounts = Array(workDurationIntervals.length).fill(0);
+
+    // Tính số lượng nhân viên trong từng khoảng thời gian làm việc
+    employees?.forEach((employee: any) => {
+        if (employee.start_working_time !== null) {
+            const startWorkingTime = employee.start_working_time;
+            const durationInSeconds = currentTime - startWorkingTime;
+
+            // Xác định khoảng thời gian làm việc của nhân viên và tăng đếm
+            workDurationIntervals.forEach((interval, index) => {
+                if (durationInSeconds >= interval.minDuration && durationInSeconds <= interval.maxDuration) {
+                    workDurationCounts[index]++;
+                }
+            });
+        }
+    });
+
+    return workDurationCounts;
 };
+
+
+const calculateAgeGroup = (employees) => {
+    const currentTime = Math.floor(Date.now() / 1000);
+
+    // Định nghĩa các khoảng tuổi
+    const ageIntervals = [
+        { label: 'Dưới 30 tuổi', minAge: 0, maxAge: 29 },
+        { label: '30 tuổi - 44 tuổi', minAge: 30, maxAge: 44 },
+        { label: '45 tuổi - 59 tuổi', minAge: 45, maxAge: 59 },
+        { label: 'Trên 60 tuổi', minAge: 60, maxAge: Infinity },
+    ];
+
+    // Tạo một mảng để lưu trữ số lượng nhân viên trong từng khoảng tuổi
+    const ageCounts = Array(ageIntervals.length).fill(0);
+
+    // Tính số lượng nhân viên trong từng khoảng tuổi
+    employees?.forEach((employee: any) => {
+        if (employee.birthday !== null) {
+            const birthTime = employee.birthday;
+            const ageInSeconds = currentTime - birthTime;
+            const ageInYears = ageInSeconds / (365 * 24 * 60 * 60);
+
+            // Xác định khoảng tuổi của nhân viên và tăng đếm
+            ageIntervals.forEach((interval, index) => {
+                if (ageInYears >= interval.minAge && ageInYears <= interval.maxAge) {
+                    ageCounts[index]++;
+                }
+            });
+        }
+    });
+
+    return ageCounts;
+};
+
 
 function countEmployeesByChucVu(countEmployee: any, chucvu: any) {
     let count = 0;
@@ -190,17 +181,19 @@ function countEmployeesByChucVu(countEmployee: any, chucvu: any) {
 export default function InformationSection2({ hrReportList }: any) {
 
     const employees = hrReportList?.data || [];
-    const workDurationCounts = calculateWorkDurationByIntervals(employees?.countEmployee);
-    const YearOlwCounts = calculateYearOldByIntervals(employees?.countEmployee);
+
+    const workDurationCounts = calculateWorkDurationGroup(employees?.countEmployee);
+    const YearOlwCounts = calculateAgeGroup(employees?.countEmployee);
 
     let sum: number = 0;
     let sum1: number = 0;
     for (let i = 0; i < workDurationCounts.length; i++) {
         sum += workDurationCounts[i];
     }
-    for (let i = 0; i < YearOlwCounts.length; i++) {
-        sum1 += YearOlwCounts[i];
-    }
+    // for (let i = 0; i < YearOlwCounts.length; i++) {
+    //     sum1 += YearOlwCounts[i];
+    // }
+
 
     const thuctap = countEmployeesByChucVu(employees?.countEmployee, 1);
     const thuviec = countEmployeesByChucVu(employees?.countEmployee, 2);

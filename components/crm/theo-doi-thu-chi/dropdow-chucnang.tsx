@@ -13,7 +13,7 @@ const DropdownChucNang = (props: any) => {
         <Link
           style={{ display: "flex", fontSize: 20 }}
           rel="noopener noreferrer"
-          href={`/chinh-sua-phieu-thu/${record.myPhone}`}
+          href={`/crm/chinh-sua-phieu-thu/${record.myPhone}`}
         >
           <img src="/crm/icon-edit-black.svg" alt="" />
           &nbsp; &nbsp; <p>Chỉnh sửa</p>

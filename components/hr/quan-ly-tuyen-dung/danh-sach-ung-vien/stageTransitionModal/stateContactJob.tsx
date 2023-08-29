@@ -19,8 +19,6 @@ export default function StageContactJob({
   process_id_from,
 }: any) {
 
-  console.log(data);
-
   const [selectedOption, setSelectedOption] = useState<SelectOptionType | null>(
     null
   )
@@ -59,7 +57,6 @@ export default function StageContactJob({
         const formData = new FormData()
         const response = await CandidateList(formData)
         const responseData: any = response?.success
-        console.log(responseData);
         if (responseData) {
           const candidateFound = responseData?.data?.data?.find(
             (item: any) =>
@@ -393,7 +390,7 @@ export default function StageContactJob({
                       </span>
                     </div>
                   </div>
-                  <div className={`${styles.form_groups}`}>
+                  <div className={`${styles.form_groupss}`}>
                     <label htmlFor=''>
                       Đánh giá hồ sơ <span style={{ color: 'red' }}> * </span>
                     </label>
@@ -406,6 +403,16 @@ export default function StageContactJob({
                         onClick={handleRating}
                       />
                       <div className={`${styles.skills_container}`}>
+                        {isCandidate?.listSkill?.map((item: any, index: any) => {
+                          return (
+                            <div key={index} className={`${styles.another_add_uv_1}`} style={{ marginLeft: 95, marginBottom: 15 }}>
+                              <div className={`${styles.another_skill}`} style={{ marginTop: 10 }}>
+                                <p style={{ display: 'inline-block', paddingRight: 20 }}>{item?.skillName}: </p>
+                                <Rating size={27} disableFillHover initialValue={item?.skillVote} className={`${styles.star_rating}`} />
+                              </div>
+                            </div>
+                          )
+                        })}
                         {addAnotherSkill}
                       </div>
                       <a

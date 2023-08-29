@@ -124,7 +124,7 @@ export default function Sidebar(props: SideBarProp) {
     <>
       <div className={`${styles.sidebar_wrapper}`}>
         <div className={`${styles.logo}`}>
-          <a href="https://https://timviec365.vn/">
+          <a target="_blank" href="https://timviec365.vn/">
             <img
               src={`/logo.svg`}
               alt="icon"

@@ -1,6 +1,6 @@
 import PotentialSelectBoxStep from "../potential_steps/select_box_step";
 import styles from "./check_merge.module.css";
-import styleParent from "../potential.module.css";
+import styleParent from "../potential2.module.css";
 
 export default function CheckMergeInputGroup({
   type = "",

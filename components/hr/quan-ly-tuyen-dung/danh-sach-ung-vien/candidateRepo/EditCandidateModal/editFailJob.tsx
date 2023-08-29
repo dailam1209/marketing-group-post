@@ -34,10 +34,6 @@ export default function EditCandidateFailJob({ onCancel, candidate }: any) {
   const comid: any = GetComId()
   const modalRef = useRef(null)
 
-  console.log(candidate);
-  console.log(isCandidate);
-
-
   useEffect(() => {
     const handleOutsideClick = (event: any) => {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
@@ -542,7 +538,7 @@ export default function EditCandidateFailJob({ onCancel, candidate }: any) {
                       />
                     </div>
                   </div>
-                  <div className={`${styles.form_groups}`}>
+                  <div className={`${styles.form_groupss}`}>
                     <label htmlFor=''>
                       Đánh giá hồ sơ <span style={{ color: 'red' }}> * </span>
                     </label>
@@ -554,6 +550,16 @@ export default function EditCandidateFailJob({ onCancel, candidate }: any) {
                         className={`${styles.star_rating}`}
                         onClick={handleRating}
                       />
+                      {candidate?.listSkill?.map((item: any, index: any) => {
+                        return (
+                          <div key={index} className={`${styles.another_add_uv_1}`} style={{ marginLeft: 95, marginBottom: 15 }}>
+                            <div className={`${styles.another_skill}`} style={{ marginTop: 10 }}>
+                              <p style={{ color: "black", display: 'inline-block', paddingRight: 20 }}>{item?.skillName}: </p>
+                              <Rating size={27} disableFillHover initialValue={item?.skillVote} className={`${styles.star_rating}`} />
+                            </div>
+                          </div>
+                        )
+                      })}
                       <div className={`${styles.skills_container}`}></div>
                     </div>
                   </div>

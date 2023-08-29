@@ -21,8 +21,6 @@ export default function ListRecruitmentStage({
   const [hidden, setHidden] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
 
-  console.log(item,'recruitment')
-
   const toggleExpansion = () => {
     setIsExpanded(!isExpanded);
   };

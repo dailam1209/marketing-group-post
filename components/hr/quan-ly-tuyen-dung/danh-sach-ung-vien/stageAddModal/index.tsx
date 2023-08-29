@@ -18,8 +18,6 @@ export default function StageAddModal({ onCancel, animation }: any) {
   const [errors, setErrors] = useState<any>({})
   const modalRef = useRef(null)
 
-  console.log(isProcess_id)
-
   useEffect(() => {
     const handleOutsideClick = (event: any) => {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
@@ -65,7 +63,6 @@ export default function StageAddModal({ onCancel, animation }: any) {
       const formData = new FormData()
       const processName = (document.getElementById('names') as HTMLInputElement)
         ?.value
-      console.log('isProcess_id:', isProcess_id)
       const formDatas = {
         name: processName || '',
         process_befor: isProcess_id.toString() || '',
@@ -123,9 +120,8 @@ export default function StageAddModal({ onCancel, animation }: any) {
     <>
       <div className={`${styles.modal_open}`}>
         <div
-          className={`${styles.modal} ${styles.modal_setting} ${
-            animation ? styles.fade_in : styles.fade_out
-          }`}>
+          className={`${styles.modal} ${styles.modal_setting} ${animation ? styles.fade_in : styles.fade_out
+            }`}>
           <div className={` ${styles.modal_dialog} ${styles.content_process}`}>
             <div className={`${styles.modal_content}`} ref={modalRef}>
               <div

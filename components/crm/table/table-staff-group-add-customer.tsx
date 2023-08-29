@@ -46,7 +46,7 @@ const TableStaffCustomerGroupAdd: React.FC<TableStaffCustomerGroupAddProps> = ({
   const data: DataType[] = newArray?.map((item) => {
     return {
       key: item.ep_id,
-      nameDeparment: item?.dep_name,
+      nameDeparment: item?.nameDeparment,
       ep_name: item?.ep_name,
       item: item,
     };
@@ -110,7 +110,7 @@ const TableStaffCustomerGroupAdd: React.FC<TableStaffCustomerGroupAddProps> = ({
             alt="img"
             width={26}
             height={26}
-            src={"/crm/customer/del_red.svg"}
+            src={"/crm/del_red.svg"}
           />
           Gỡ bỏ
         </button>
@@ -118,7 +118,6 @@ const TableStaffCustomerGroupAdd: React.FC<TableStaffCustomerGroupAddProps> = ({
     },
   ];
 
-  console.log(newArray);
   return (
     <>
       <div className="custom_table product_return">
