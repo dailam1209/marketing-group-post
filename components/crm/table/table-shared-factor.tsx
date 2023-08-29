@@ -28,15 +28,15 @@ const TableSharedFactor: React.FC<TableSharedFactorProps> = ({
   const { id } = router.query;
   const [isOpenModalDel, setIsOpenModalDel] = useState(false);
 
-  const dataFilter = data?.data?.data?.filter((item) =>
-    empIdArr.includes(item?._id)
+  const dataFilter = data?.data?.items?.filter((item) =>
+    empIdArr.includes(item?.ep_id)
   );
 
   const dataTble: DataType[] = dataFilter?.map((item) => {
     return {
       key: item.id,
       nameDeparment: item?.nameDeparment,
-      userName: item?.userName,
+      userName: item?.ep_name,
       item: item,
     };
   });

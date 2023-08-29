@@ -277,7 +277,12 @@ const GroupCustomerAdd: React.FC = () => {
                         });
                       }}
                     />
-                    <div className={styles.form_label}>Danh sách chia sẻ</div>
+                    <div
+                      style={{ marginBottom: "1rem", marginTop: "1rem" }}
+                      className={styles.form_label}
+                    >
+                      Danh sách chia sẻ
+                    </div>
                     <div
                       className="flex_between"
                       style={{
@@ -385,9 +390,7 @@ const GroupCustomerAdd: React.FC = () => {
                               alt="img"
                               width={26}
                               height={26}
-                              src={
-                                "https://crm.timviec365.vn/assets/img/customer/del_red.svg"
-                              }
+                              src={"/crm/del_red.svg"}
                             />
                             Gỡ bỏ
                           </button>
