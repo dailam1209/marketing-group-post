@@ -50,7 +50,7 @@ export default function InStruct({ children }: any) {
                 <meta property="og:type" content="website" />
                 <meta property="og:title" content="Hướng dẫn sử dụng Phần mềm Quản Trị Nhân Sự 365" />
                 <meta property="og:description" content="Hướng dẫn sử dụng phần mềm quản trị nhân sự 365 chuẩn, chi tiết nhất. Giúp bạn dễ dàng quản lý thông tin ứng viên tốt nhất. Tham khảo hướng dẫn ngay hôm nay" />
-                <meta property="og:image" content="https://phanmemnhansu.timviec365.vn/assets/images/t_images/bg-header-home-mb.png" />
+                <meta property="og:image" content="/bg-header-home-mb.png" />
 
                 <meta name="twitter:card" content="summary" />
                 <meta name="twitter:description" content="Hướng dẫn sử dụng phần mềm quản trị nhân sự 365 chuẩn, chi tiết nhất. Giúp bạn dễ dàng quản lý thông tin ứng viên tốt nhất. Tham khảo hướng dẫn ngay hôm nay" />
