@@ -5,11 +5,15 @@ import EditContract from "@/components/crm/contract/contract_actionn/editContrac
 import { SidebarContext } from "@/components/crm/context/resizeContext";
 import { useHeader } from "@/components/crm/hooks/useHeader";
 import Head from "next/head";
+import { base_url } from "@/components/crm/service/function";
+import Cookies from "js-cookie";
+import { id } from "date-fns/locale";
 
 const AddContractCoponent: React.FC = () => {
   const mainRef = useRef<HTMLDivElement>(null);
   const [checkFile, setCheckFile] = useState(false);
   const { isOpen } = useContext<any>(SidebarContext);
+  const [ContractData,setContractData] = useState<any>()
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
 
@@ -26,6 +30,19 @@ const AddContractCoponent: React.FC = () => {
       mainRef.current?.classList.remove("content_resize");
     }
   }, [isOpen]);
+
+  const getImageBase64 = async () => {
+    const res = await fetch(`${base_url}/api/crm/contractAI/view`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${Cookies.get("token_base365")}`,
+      },
+      body: JSON.stringify({ contract_id: id }),
+    });
+    const data = await res.json();
+    setContractData(data?.data)
+  };
 
   return (
     <>
@@ -72,7 +89,7 @@ const AddContractCoponent: React.FC = () => {
       <div ref={mainRef} className={styleHome.main}>
         <div className={styles.main_addContract}>
           <div className={styles.formAddContract}>
-            <EditContract setCheckFile={setCheckFile} />
+            <EditContract setCheckFile={setCheckFile} ContractData={ContractData}  />
           </div>
         </div>
       </div>

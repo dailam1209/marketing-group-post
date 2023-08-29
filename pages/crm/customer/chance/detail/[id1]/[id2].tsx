@@ -93,7 +93,7 @@ export default function ContactDetailCustomer() {
         <DetailInformationChance id1={id1} id2={id2} />
         <HeaderBarChanceDetails keyTab={"1"} id1={id1} id2={id2} />
       </div>
-      <DetailInformation cccd={cccd} />
+      <DetailInformation cccd={cccd}  listData={[]}/>
     </>
   );
 }
