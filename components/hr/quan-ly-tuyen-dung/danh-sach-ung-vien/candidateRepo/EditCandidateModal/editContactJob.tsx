@@ -37,8 +37,6 @@ export default function EditCandidateContactJob({ onCancel, candidate }: any) {
   const comid: any = GetComId()
   const modalRef = useRef(null)
 
-  console.log(isCandidate);
-
 
   useEffect(() => {
     const handleOutsideClick = (event: any) => {

@@ -24,7 +24,6 @@ export default function EditPerformRecruitment({
     'yyyy-MM-dd'
   )
   const formattedTimeEnd: string = format(new Date(data?.recruitment_time_to), 'yyyy-MM-dd')
-console.log(data)
   const [content, setContent] = useState<any>({
     title: data.title,
     address: data.address,

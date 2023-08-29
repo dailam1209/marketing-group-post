@@ -96,14 +96,12 @@ function EditModalListDiscipline({ animation, onClose, dataOld }: any) {
   }
 
   const mergedObject = { ...content, ...listUser }
-  console.log(mergedObject)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
       // await schema.validate(mergedObject, { abortEarly: false });
       const response = await UpdateInfringes(id, mergedObject)
-      console.log(response)
       if (response?.status !== 200) {
         alert('Sửa khen thưởng không thành công')
       } else {

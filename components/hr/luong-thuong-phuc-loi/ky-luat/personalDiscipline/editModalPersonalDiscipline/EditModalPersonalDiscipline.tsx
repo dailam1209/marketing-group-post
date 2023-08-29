@@ -6,7 +6,6 @@ import { getDataUser } from '@/pages/api/api-hr/quan-ly-tuyen-dung/PerformRecrui
 import { UpdateInfringes } from '@/pages/api/api-hr/luong-thuong-phuc-loi/discipline'
 
 function EditModalPersonalDiscipline({ animation, onClose, dataOld }: any) {
-  console.log(dataOld)
   const id = dataOld?.id
   const infringeName = dataOld?.infringe_name
   const infringeType = dataOld?.infringe_type

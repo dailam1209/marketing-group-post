@@ -106,10 +106,6 @@ export default function EditWorkingModal({ onCancel, infoList }: any) {
     }
   }
 
-  console.log(infoList);
-  console.log(infoList?.item);
-  console.log(isDepList?.items);
-
 
   useEffect(() => {
     const matchingDep = isDepList?.items?.find((item: any) => item?.dep_name === infoList?.item?.old_dep_name);
@@ -123,7 +119,6 @@ export default function EditWorkingModal({ onCancel, infoList }: any) {
     }
   }, [infoList.dep_id, isDepList, isPositionList, infoList.position_name]);
 
-  console.log(isDep_id);
 
   const validationSchema = Yup.object().shape({
     chonnhanvien: Yup.string().required("Vui lòng chọn nhân viên"),

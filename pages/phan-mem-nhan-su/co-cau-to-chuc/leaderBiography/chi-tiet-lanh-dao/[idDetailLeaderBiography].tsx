@@ -73,8 +73,6 @@ export default function DetailLeaderBiography({ onCancel }: any) {
   const [displayIcon, setDisplayIcon] = useState<any>();
   const [newData, setNewData] = useState(false);
 
-  console.log(isLeaderDetail);
-
   useEffect(() => {
     try {
       const fetchData = async () => {
