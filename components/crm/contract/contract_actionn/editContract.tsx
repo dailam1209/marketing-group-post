@@ -23,10 +23,12 @@ interface MyComponentProps {
 }
 interface TableEditContractProps {
   setCheckFile;
-  ContractData
+  ContractData;
 }
 
-const TableEditContract: React.FC<TableEditContractProps> = ({ContractData}: any) => {
+const TableEditContract: React.FC<TableEditContractProps> = ({
+  ContractData,
+}: any) => {
   const inputFileRef = useRef<HTMLInputElement>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [fileUpload, setFileUpload] = useState<any[]>([]);
@@ -35,7 +37,7 @@ const TableEditContract: React.FC<TableEditContractProps> = ({ContractData}: any
   const [path_dowload, setpath_dowload] = useState<any>("");
   const [text_change, settext_change] = useState<any>("");
   const [imgUrls, setImgaUrls] = useState<any>("");
- 
+
   const [ismodal1Open, setIsmodal1Open] = useState(false);
   const [isModalCancel, setIsModalCancel] = useState(false);
   const [imageData, setImageData] = useState<any>();
@@ -59,11 +61,18 @@ const TableEditContract: React.FC<TableEditContractProps> = ({ContractData}: any
     inputFileRef.current?.click();
   };
 
-  useEffect(()=>{
-   const urls =  ContractData?.result?.img_org_base64;
-   console.log(urls);
-   setImgaUrls(urls)
-  },[])
+  useEffect(() => {
+    const urls = ContractData?.result?.img_org_base64;
+    console.log(urls);
+    setImgaUrls(urls);
+  }, []);
+
+  useEffect(() => {
+    const field = ContractData?.result?.get_detail_form_contract;
+    console.log(field);
+    setNewValues(field);
+  }, []);
+
   const Cookies = require("js-cookie");
 
   const [formData, setFormData] = useState<any>({
@@ -124,8 +133,8 @@ const TableEditContract: React.FC<TableEditContractProps> = ({ContractData}: any
   const handleUpload = async (event) => {
     const file = event.target.files[0];
     setFileUpload(file?.name);
-    setCheckedStates(Array(0).fill(false))
-    setNewValues([])
+    setCheckedStates(Array(0).fill(false));
+    setNewValues([]);
     if (file) {
       const formData = new FormData();
       formData.append("file", file);
@@ -193,7 +202,9 @@ const TableEditContract: React.FC<TableEditContractProps> = ({ContractData}: any
         // setImgaUrls(dat?.data?.result?.input_file)
         const countWord = dat?.data?.result?.number_text;
         setCheckedStates(Array(countWord).fill(false));
-        setImgaUrls(dat?.data?.result?.image);
+        if (countWord > 0) {
+          setImgaUrls(dat?.data?.result?.image);
+        }
       } catch (error) {
         console.error("Error------:", error.message);
       }
