@@ -2096,4 +2096,48 @@ button.ant-btn.css-dev-only-do-not-override-1wazalj.ant-btn-primary.ho-so-nhan-v
   display: none;
 }
 .customButton {
+  display: flex;
+  justify-content: right;
+}
+.customButton > span {
+  color: #4c5bd4;
+}
+.customButton:hover {
+  background-color: white !important;
+}
+.customModal_HoSoNhanVien {
+}
+.customButton_HandleOk > span {
+  color: white;
+}
+
+.ant-popover-content
+  .ant-popover-inner
+  .ant-popover-inner-content
+  .ant-popconfirm-inner-content
+  .ant-popconfirm-buttons
+  > button {
+  width: 50% !important;
+}
+.ant-popover-content
+  .ant-popover-inner
+  .ant-popover-inner-content
+  .ant-popconfirm-inner-content
+  .ant-popconfirm-buttons
+  .ant-btn-primary {
+  background-color: white;
+  border-color: #d9d9d9;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.02);
+  margin-left: 3px;
+}
+.ant-popover-content
+  .ant-popover-inner
+  .ant-popover-inner-content
+  .ant-popconfirm-inner-content
+  .ant-popconfirm-buttons
+  .ant-btn-primary:hover {
+  color: #4096ff;
+  border-color: red;
+}
+.ToolTipCustom {
 }
