@@ -154,6 +154,19 @@ export default function TabWorkingRotation({ iconAdd, iconEdit, iconDelete }: an
     chonphongban: chonphongbanOptions
   };
 
+  function removePTags(htmlString: string): string {
+    const div = document.createElement('div');
+    div.innerHTML = htmlString;
+    const pTags = div.querySelectorAll('p');
+
+    pTags.forEach((pTag) => {
+      const text = pTag.textContent || '';
+      pTag.replaceWith(document.createTextNode(text));
+    });
+
+    return div.innerHTML;
+  }
+
   return (
     <>
       <div className={`${styles.tab_content}`}>
@@ -279,7 +292,8 @@ export default function TabWorkingRotation({ iconAdd, iconEdit, iconDelete }: an
                         <td>{item.ep_id}</td>
                         <td>{item.userName}</td>
                         <td>{format(parseISO(item.created_at), 'dd-MM-yyyy')}</td>
-                        <td>{item.note}</td>
+                        {/* <td>{item.note}</td> */}
+                        <td>{removePTags(item.note)}</td>
                         <td>{item.old_dep_name}</td>
                         <td>{item.new_dep_name}</td>
                         <td>{item.new_com_name}</td>
