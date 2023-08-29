@@ -138,7 +138,7 @@ const ApiSettingConnect: React.FC = () => {
                           height={16}
                           alt="?"
                           src={
-                            "https://crm.timviec365.vn/assets/icons/setting/question_mini.svg"
+                            "/crm/question_mini.svg"
                           }
                         />
                         Tài liệu hướng dẫn

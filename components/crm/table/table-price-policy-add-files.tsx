@@ -117,7 +117,7 @@ const columns: ColumnsType<DataType> = [
           <button>
             <img
               className={styles.icon_delete}
-              src="https://crm.timviec365.vn/assets/img/h_delete_cus.svg"
+              src="/crm/h_delete_cus.svg"
             />{" "}
             Xóa
           </button>

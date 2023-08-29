@@ -181,7 +181,7 @@ export default function CustomerListInputGroup({
               <ModalCompleteStep
                 modal1Open={modal1Open}
                 setModal1Open={setModal1Open}
-                link="/crm/sms"
+                link="/crm/setting/sms"
                 title="Gửi sms thành công!"
               />
             }

@@ -14,6 +14,7 @@ import { setTextRange } from "typescript";
 import { base_url } from "../../service/function";
 import { el } from "date-fns/locale";
 import EditFieldModal from "./editField_mdal";
+import ModalSaveContractAdd from "../../price_policy/price_policy_steps/save_contract_mdal";
 
 interface MyComponentProps {
   isModalCancel: boolean;
@@ -28,7 +29,7 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
   const inputFileRef = useRef<HTMLInputElement>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [fileUpload, setFileUpload] = useState<any[]>([]);
-  const [file, setfile] = useState<any>("");
+  const [idFile, setIdFile] = useState<any>("");
   const [loading, setLoading] = useState(false);
   const [path_dowload, setpath_dowload] = useState<any>("");
   const [text_change, settext_change] = useState<any>("");
@@ -39,7 +40,7 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
   const [inputSearch, setInputSearch] = useState("");
   const [scrolling, setScrolling] = useState(false);
   const [posEdit, setPosEdit] = useState<any>([]);
-  const initialCheckStates = Array(0).fill(false); // Thay số 5 bằng số lượng checkbox tùy theo tình huống
+  const initialCheckStates = Array(0).fill(false); // Thay số 0 bằng số lượng checkbox tùy theo gtri tìm kiếm
   const [checkedStates, setCheckedStates] =
     useState<boolean[]>(initialCheckStates);
   const [isEdit, setIsEdit] = useState(false);
@@ -111,49 +112,14 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
     setCheckedStates(newStates);
   };
 
-  const handleSubmit = async () => {
-    try {
-      const response = await fetch(`${base_url}/api/crm/contractforcus/add`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${Cookies.get("token_base365")}`,
-        },
-        body: JSON.stringify({
-          _id: formData._id,
-          name: formData.name,
-          pathFile: formData.pathFile,
-          com_id: formData.com_id,
-          ep_id: formData.ep_id,
-          id_file: formData.id_file,
-          created_at: formData.created_at,
-          user_created: formData.user_created,
-          id_customer: formData.id_customer,
-          update_at: formData.update_at,
-          status: formData.status,
-          is_delete: formData.is_delete,
-          new_field: formData.new_field,
-          old_field: formData.old_field,
-          index_field: formData.index_field,
-          default_field: formData.default_field,
-          path_dowload: formData.path_download,
-          id_form_contract: formData.id_form_contract,
-        }),
-      });
-      const data = await response.json();
-      if (response.status === 200) {
-        console.log("Data successfully submitted!");
-      } else {
-        console.error("Error submitting data.");
-      }
-    } catch (error) {
-      console.error("An error occurred:", error);
-    }
-  };
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6MzgwOTg5LCJpZFRpbVZpZWMzNjUiOjIwMjU4NSwiaWRRTEMiOjE3NjMsImlkUmFvTmhhbmgzNjUiOjAsImVtYWlsIjoiZHVvbmdoaWVwaXQxQGdtYWlsLmNvbSIsInBob25lVEsiOiIiLCJjcmVhdGVkQXQiOjE2MDA2NTg0NzgsInR5cGUiOjEsImNvbV9pZCI6MTc2MywidXNlck5hbWUiOiJDw7RuZyBUeSBUTkhIIEggTSBMIFBwbyJ9LCJpYXQiOjE2OTMyODAxODgsImV4cCI6MTY5MzM2NjU4OH0.pUXd_5_OgujQiEWZIfOuH9kTDlneEyBLXy38j_DnG1E";
 
   const handleUpload = async (event) => {
     const file = event.target.files[0];
-
+    setFileUpload(file?.name);
+    setCheckedStates(Array(0).fill(false));
+    setNewValues([]);
     if (file) {
       const formData = new FormData();
       formData.append("file", file);
@@ -161,7 +127,7 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
       try {
         setLoading(true);
         const token =
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6MTM3NzQ0OSwiZW1haWwiOiJ0cmFuZ2NodW9pNEBnbWFpbC5jb20iLCJwaG9uZVRLIjoiIiwidXNlck5hbWUiOiJNdG4gQ29tcGFueSIsImFsaWFzIjoibXRuLWNvbXBhbnkiLCJwaG9uZSI6IjAzMjk4ODY0NTA5IiwiZW1haWxDb250YWN0IjoidHJhbmdjaHVvaTRAZ21haWwuY29tIiwiYXZhdGFyVXNlciI6bnVsbCwidHlwZSI6MSwicGFzc3dvcmQiOiJiYzBhOTA5MDM1NTc4OGRjYmUyNmI4NzBkY2RhMjNlZCIsImNpdHkiOjEsImRpc3RyaWN0Ijo3MywiYWRkcmVzcyI6ImhvYW5nIG1haSBIYSBOb2kgNSIsIm90cCI6IjU3MDgyMCIsImF1dGhlbnRpYyI6MSwiaXNPbmxpbmUiOjAsImZyb21XZWIiOiJ0aW12aWVjMzY1IiwiZnJvbURldmljZSI6NCwiY3JlYXRlZEF0IjoxNjYzODM2NDA1LCJ1cGRhdGVkQXQiOjE2OTI4Njc2NDcsImxhc3RBY3RpdmVkQXQiOiIyMDIzLTA4LTE4VDAyOjA0OjU4LjA4NVoiLCJ0aW1lX2xvZ2luIjoxNjczMDgwNTk5LCJyb2xlIjowLCJsYXRpdHVkZSI6IjIwLjk4NjgyODciLCJsb25ndGl0dWRlIjoiMTA1LjgzMTIzMTQiLCJpZFFMQyI6MTY2NCwiaWRUaW1WaWVjMzY1IjoyMzI0MTYsImlkUmFvTmhhbmgzNjUiOjAsImNoYXQzNjVfc2VjcmV0IjoiWDhscWxhc2ZvayIsImNoYXQzNjVfaWQiOjAsInNjYW5fYmFzZTM2NSI6MCwiY2hlY2tfY2hhdCI6MCwic2hhcmVQZXJtaXNzaW9uSWQiOltdLCJpbkZvclBlcnNvbiI6bnVsbCwiaW5Gb3JDb21wYW55Ijp7InNjYW4iOjAsInVzY19rZCI6MTAsInVzY19rZF9maXJzdCI6MCwiZGVzY3JpcHRpb24iOiIiLCJjb21fc2l6ZSI6MjE0LCJ0aW12aWVjMzY1Ijp7InVzY19uYW1lIjoiTXRuIENvbXBhbnkiLCJ1c2NfbmFtZV9hZGQiOiJOxqEgNTAgTMO0IDYgS8SQVCDEkOG7i25oIEPDtG5nIiwidXNjX25hbWVfcGhvbmUiOiIwMzU2MDIxNjA2IiwidXNjX25hbWVfZW1haWwiOiJ0cmFuZ2NodW9pNEBnbWFpbC5jb20iLCJ1c2NfdXBkYXRlX25ldyI6MTY5MTU3NTEwNSwidXNjX2Nhbm9uaWNhbCI6IiIsInVzY19tZDUiOiIiLCJ1c2NfcmVkaXJlY3QiOiIiLCJ1c2NfdHlwZSI6MSwidXNjX3NpemUiOjAsInVzY193ZWJzaXRlIjoiIiwidXNjX3ZpZXdfY291bnQiOjAsInVzY19hY3RpdmUiOjAsInVzY19zaG93IjoxLCJ1c2NfbWFpbCI6MCwidXNjX3N0b3BfbWFpbCI6MCwidXNjX3V0bCI6MCwidXNjX3NzbCI6MCwidXNjX21zdCI6IjAiLCJ1c2Nfc2VjdXJpdHkiOiIiLCJ1c2NfaXAiOiIxMTguNzAuMTI2LjEzOCIsInVzY19sb2MiOjAsInVzY19tYWlsX2FwcCI6MCwidXNjX3ZpZGVvIjoiIiwidXNjX3ZpZGVvX3R5cGUiOjEsInVzY192aWRlb19hY3RpdmUiOjAsInVzY19ibG9ja19hY2NvdW50IjowLCJ1c2Nfc3RvcF9ub3RpIjowLCJvdHBfdGltZV9leGlzdCI6MCwidXNlX3Rlc3QiOjAsInVzY19iYWRnZSI6MCwidXNjX3N0YXIiOjAsInVzY192aXAiOjAsInVzY19tYW5hZ2VyIjoiIiwidXNjX2xpY2Vuc2UiOiIiLCJ1c2NfYWN0aXZlX2xpY2Vuc2UiOjAsInVzY19tYXAiOiIiLCJ1c2NfZGdjIjoiIiwidXNjX2RndHYiOiIiLCJ1c2NfZGdfdGltZSI6MCwidXNjX3NreXBlIjoiIiwidXNjX3ZpZGVvX2NvbSI6IiIsInVzY19sdiI6Iml0IHBo4bqnbiBj4bupbmciLCJ1c2NfemFsbyI6bnVsbCwidXNjX2NjMzY1IjowLCJ1c2NfY3JtIjowLCJ1c2NfaW1hZ2VzIjpudWxsLCJ1c2NfYWN0aXZlX2ltZyI6MCwidXNjX2ZvdW5kZWRfdGltZSI6MCwidXNjX2JyYW5jaGVzIjpbXX0sImNkcyI6eyJjb21fcm9sZV9pZCI6MSwiY29tX3BhcmVudF9pZCI6bnVsbCwidHlwZV90aW1la2VlcGluZyI6IjEsMiwzLDQsNSw2IiwiaWRfd2F5X3RpbWVrZWVwaW5nIjoiMSwyLDMsNCIsImNvbV9xcl9sb2dvIjoiY29tXzE2NjQvTUdkR1MyUkhkMk4yY3pFM2JpdEVVMVJTVDIwelFUMDkucG5nIiwiZW5hYmxlX3NjYW5fcXIiOjEsImNvbV92aXAiOjEsImNvbV9lcF92aXAiOjEwMDAwLCJjb21fdmlwX3RpbWUiOjAsImVwX2NybSI6NTc0NCwiZXBfc3R0IjoxfSwiX2lkIjoiNjRkMWE4NmZhMzU4YWQ5MGY5MWI4YjM4In0sImluZm9yUk4zNjUiOm51bGwsImNvbmZpZ0NoYXQiOnsibm90aWZpY2F0aW9uQWNjZXB0T2ZmZXIiOjEsIm5vdGlmaWNhdGlvbkFsbG9jYXRpb25SZWNhbGwiOjEsIm5vdGlmaWNhdGlvbkNoYW5nZVNhbGFyeSI6MSwibm90aWZpY2F0aW9uQ29tbWVudEZyb21SYW9OaGFuaCI6MSwibm90aWZpY2F0aW9uQ29tbWVudEZyb21UaW1WaWVjIjoxLCJub3RpZmljYXRpb25EZWNpbGluZU9mZmVyIjoxLCJub3RpZmljYXRpb25NaXNzTWVzc2FnZSI6MSwibm90aWZpY2F0aW9uTlRERXhwaXJlZFBpbiI6MSwibm90aWZpY2F0aW9uTlRERXhwaXJlZFJlY3J1aXQiOjEsIm5vdGlmaWNhdGlvbk5URFBvaW50IjoxLCJub3RpZmljYXRpb25TZW5kQ2FuZGlkYXRlIjoxLCJub3RpZmljYXRpb25UYWciOjEsInJlbW92ZVN1Z2dlcyI6W10sInVzZXJOYW1lTm9WbiI6IiIsImRvdWJsZVZlcmlmeSI6MCwiYWN0aXZlIjoxLCJzdGF0dXMiOiIiLCJhY2NlcHRNZXNzU3RyYW5nZXIiOjEsIkhpc3RvcnlBY2Nlc3MiOltdfSwic2NhbiI6MH0sImlhdCI6MTY5MzIwNTY1MywiZXhwIjoxNjkzMjkyMDUzfQ.6QUnsHEfM5IpyWLphXB8Ot7GUPTUdKAOoRNAKpWmrZU";
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6MzgwOTg5LCJpZFRpbVZpZWMzNjUiOjIwMjU4NSwiaWRRTEMiOjE3NjMsImlkUmFvTmhhbmgzNjUiOjAsImVtYWlsIjoiZHVvbmdoaWVwaXQxQGdtYWlsLmNvbSIsInBob25lVEsiOiIiLCJjcmVhdGVkQXQiOjE2MDA2NTg0NzgsInR5cGUiOjEsImNvbV9pZCI6MTc2MywidXNlck5hbWUiOiJDw7RuZyBUeSBUTkhIIEggTSBMIFBwbyJ9LCJpYXQiOjE2OTMyODAxODgsImV4cCI6MTY5MzM2NjU4OH0.pUXd_5_OgujQiEWZIfOuH9kTDlneEyBLXy38j_DnG1E";
         const res = await fetch(
           "https://api.timviec365.vn/api/crm/contractAI/read_file",
           {
@@ -175,11 +141,10 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
 
         if (res.ok) {
           const data = await res.json();
-          console.log("checkresfile", data);
           setLoading(false);
           setImgaUrls(data?.data?.result?.image);
           setpath_dowload(data?.data?.result?.path);
-          console.log(data?.data?.result?.path);
+          setIdFile(data?.data?.result?.sess_id);
         } else {
           throw new Error("Request failed with status: " + res.status);
         }
@@ -188,28 +153,6 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
       }
     }
   };
-
-  //   var formdata = new FormData();
-  //   var fileInput = document.getElementById("fileInput") as HTMLInputElement;
-
-  //   if (fileInput.files && fileInput.files.length > 0) {
-  //     formdata.append("file", fileInput.files[0], "[PROXY]");
-
-  //     var requestOptions: RequestInit  = {
-  //       method: "POST",
-  //       body: formdata,
-  //       mode: "no-cors",
-  //       redirect: "follow", // Đảm bảo giá trị 'redirect' ở đây là 'follow' hoặc 'manual'
-  //     };
-
-  //     fetch("https://work247.vn/api_crm/read_file.php", requestOptions)
-  //       .then((response) => response.text())
-  //       .then((result) => console.log(result))
-  //       .catch((error) => console.log("error", error));
-  //   } else {
-  //     console.log("No file selected.");
-  //   }
-  // };
 
   //  TÌM KIẾM
 
@@ -224,10 +167,9 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
       formData.append("text_change", inputSearch);
       formData.append("input_file", path_dowload);
 
-      console.log("formData: ", formData);
       setCheckedStates(Array(0).fill(false));
       const token =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6MTM3NzQ0OSwiZW1haWwiOiJ0cmFuZ2NodW9pNEBnbWFpbC5jb20iLCJwaG9uZVRLIjoiIiwidXNlck5hbWUiOiJNdG4gQ29tcGFueSIsImFsaWFzIjoibXRuLWNvbXBhbnkiLCJwaG9uZSI6IjAzMjk4ODY0NTA5IiwiZW1haWxDb250YWN0IjoidHJhbmdjaHVvaTRAZ21haWwuY29tIiwiYXZhdGFyVXNlciI6bnVsbCwidHlwZSI6MSwicGFzc3dvcmQiOiJiYzBhOTA5MDM1NTc4OGRjYmUyNmI4NzBkY2RhMjNlZCIsImNpdHkiOjEsImRpc3RyaWN0Ijo3MywiYWRkcmVzcyI6ImhvYW5nIG1haSBIYSBOb2kgNSIsIm90cCI6IjU3MDgyMCIsImF1dGhlbnRpYyI6MSwiaXNPbmxpbmUiOjAsImZyb21XZWIiOiJ0aW12aWVjMzY1IiwiZnJvbURldmljZSI6NCwiY3JlYXRlZEF0IjoxNjYzODM2NDA1LCJ1cGRhdGVkQXQiOjE2OTI4Njc2NDcsImxhc3RBY3RpdmVkQXQiOiIyMDIzLTA4LTE4VDAyOjA0OjU4LjA4NVoiLCJ0aW1lX2xvZ2luIjoxNjczMDgwNTk5LCJyb2xlIjowLCJsYXRpdHVkZSI6IjIwLjk4NjgyODciLCJsb25ndGl0dWRlIjoiMTA1LjgzMTIzMTQiLCJpZFFMQyI6MTY2NCwiaWRUaW1WaWVjMzY1IjoyMzI0MTYsImlkUmFvTmhhbmgzNjUiOjAsImNoYXQzNjVfc2VjcmV0IjoiWDhscWxhc2ZvayIsImNoYXQzNjVfaWQiOjAsInNjYW5fYmFzZTM2NSI6MCwiY2hlY2tfY2hhdCI6MCwic2hhcmVQZXJtaXNzaW9uSWQiOltdLCJpbkZvclBlcnNvbiI6bnVsbCwiaW5Gb3JDb21wYW55Ijp7InNjYW4iOjAsInVzY19rZCI6MTAsInVzY19rZF9maXJzdCI6MCwiZGVzY3JpcHRpb24iOiIiLCJjb21fc2l6ZSI6MjE0LCJ0aW12aWVjMzY1Ijp7InVzY19uYW1lIjoiTXRuIENvbXBhbnkiLCJ1c2NfbmFtZV9hZGQiOiJOxqEgNTAgTMO0IDYgS8SQVCDEkOG7i25oIEPDtG5nIiwidXNjX25hbWVfcGhvbmUiOiIwMzU2MDIxNjA2IiwidXNjX25hbWVfZW1haWwiOiJ0cmFuZ2NodW9pNEBnbWFpbC5jb20iLCJ1c2NfdXBkYXRlX25ldyI6MTY5MTU3NTEwNSwidXNjX2Nhbm9uaWNhbCI6IiIsInVzY19tZDUiOiIiLCJ1c2NfcmVkaXJlY3QiOiIiLCJ1c2NfdHlwZSI6MSwidXNjX3NpemUiOjAsInVzY193ZWJzaXRlIjoiIiwidXNjX3ZpZXdfY291bnQiOjAsInVzY19hY3RpdmUiOjAsInVzY19zaG93IjoxLCJ1c2NfbWFpbCI6MCwidXNjX3N0b3BfbWFpbCI6MCwidXNjX3V0bCI6MCwidXNjX3NzbCI6MCwidXNjX21zdCI6IjAiLCJ1c2Nfc2VjdXJpdHkiOiIiLCJ1c2NfaXAiOiIxMTguNzAuMTI2LjEzOCIsInVzY19sb2MiOjAsInVzY19tYWlsX2FwcCI6MCwidXNjX3ZpZGVvIjoiIiwidXNjX3ZpZGVvX3R5cGUiOjEsInVzY192aWRlb19hY3RpdmUiOjAsInVzY19ibG9ja19hY2NvdW50IjowLCJ1c2Nfc3RvcF9ub3RpIjowLCJvdHBfdGltZV9leGlzdCI6MCwidXNlX3Rlc3QiOjAsInVzY19iYWRnZSI6MCwidXNjX3N0YXIiOjAsInVzY192aXAiOjAsInVzY19tYW5hZ2VyIjoiIiwidXNjX2xpY2Vuc2UiOiIiLCJ1c2NfYWN0aXZlX2xpY2Vuc2UiOjAsInVzY19tYXAiOiIiLCJ1c2NfZGdjIjoiIiwidXNjX2RndHYiOiIiLCJ1c2NfZGdfdGltZSI6MCwidXNjX3NreXBlIjoiIiwidXNjX3ZpZGVvX2NvbSI6IiIsInVzY19sdiI6Iml0IHBo4bqnbiBj4bupbmciLCJ1c2NfemFsbyI6bnVsbCwidXNjX2NjMzY1IjowLCJ1c2NfY3JtIjowLCJ1c2NfaW1hZ2VzIjpudWxsLCJ1c2NfYWN0aXZlX2ltZyI6MCwidXNjX2ZvdW5kZWRfdGltZSI6MCwidXNjX2JyYW5jaGVzIjpbXX0sImNkcyI6eyJjb21fcm9sZV9pZCI6MSwiY29tX3BhcmVudF9pZCI6bnVsbCwidHlwZV90aW1la2VlcGluZyI6IjEsMiwzLDQsNSw2IiwiaWRfd2F5X3RpbWVrZWVwaW5nIjoiMSwyLDMsNCIsImNvbV9xcl9sb2dvIjoiY29tXzE2NjQvTUdkR1MyUkhkMk4yY3pFM2JpdEVVMVJTVDIwelFUMDkucG5nIiwiZW5hYmxlX3NjYW5fcXIiOjEsImNvbV92aXAiOjEsImNvbV9lcF92aXAiOjEwMDAwLCJjb21fdmlwX3RpbWUiOjAsImVwX2NybSI6NTc0NCwiZXBfc3R0IjoxfSwiX2lkIjoiNjRkMWE4NmZhMzU4YWQ5MGY5MWI4YjM4In0sImluZm9yUk4zNjUiOm51bGwsImNvbmZpZ0NoYXQiOnsibm90aWZpY2F0aW9uQWNjZXB0T2ZmZXIiOjEsIm5vdGlmaWNhdGlvbkFsbG9jYXRpb25SZWNhbGwiOjEsIm5vdGlmaWNhdGlvbkNoYW5nZVNhbGFyeSI6MSwibm90aWZpY2F0aW9uQ29tbWVudEZyb21SYW9OaGFuaCI6MSwibm90aWZpY2F0aW9uQ29tbWVudEZyb21UaW1WaWVjIjoxLCJub3RpZmljYXRpb25EZWNpbGluZU9mZmVyIjoxLCJub3RpZmljYXRpb25NaXNzTWVzc2FnZSI6MSwibm90aWZpY2F0aW9uTlRERXhwaXJlZFBpbiI6MSwibm90aWZpY2F0aW9uTlRERXhwaXJlZFJlY3J1aXQiOjEsIm5vdGlmaWNhdGlvbk5URFBvaW50IjoxLCJub3RpZmljYXRpb25TZW5kQ2FuZGlkYXRlIjoxLCJub3RpZmljYXRpb25UYWciOjEsInJlbW92ZVN1Z2dlcyI6W10sInVzZXJOYW1lTm9WbiI6IiIsImRvdWJsZVZlcmlmeSI6MCwiYWN0aXZlIjoxLCJzdGF0dXMiOiIiLCJhY2NlcHRNZXNzU3RyYW5nZXIiOjEsIkhpc3RvcnlBY2Nlc3MiOltdfSwic2NhbiI6MH0sImlhdCI6MTY5MzIwNTY1MywiZXhwIjoxNjkzMjkyMDUzfQ.6QUnsHEfM5IpyWLphXB8Ot7GUPTUdKAOoRNAKpWmrZU";
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6MzgwOTg5LCJpZFRpbVZpZWMzNjUiOjIwMjU4NSwiaWRRTEMiOjE3NjMsImlkUmFvTmhhbmgzNjUiOjAsImVtYWlsIjoiZHVvbmdoaWVwaXQxQGdtYWlsLmNvbSIsInBob25lVEsiOiIiLCJjcmVhdGVkQXQiOjE2MDA2NTg0NzgsInR5cGUiOjEsImNvbV9pZCI6MTc2MywidXNlck5hbWUiOiJDw7RuZyBUeSBUTkhIIEggTSBMIFBwbyJ9LCJpYXQiOjE2OTMyODAxODgsImV4cCI6MTY5MzM2NjU4OH0.pUXd_5_OgujQiEWZIfOuH9kTDlneEyBLXy38j_DnG1E";
       try {
         setLoading(true);
         const response = await axios.post(
@@ -243,10 +185,11 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
         const dat = await response.data;
         setLoading(false);
         // setImgaUrls(dat?.data?.result?.input_file)
-        console.log("wordddd", dat);
         const countWord = dat?.data?.result?.number_text;
         setCheckedStates(Array(countWord).fill(false));
-        setImgaUrls(dat?.data?.result?.image);
+        if (countWord > 0) {
+          setImgaUrls(dat?.data?.result?.image);
+        }
       } catch (error) {
         console.error("Error------:", error.message);
       }
@@ -411,21 +354,38 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
       // alert("Ko");
     }
   };
+  const handleSave = async () => {
+    const list_details = newValues.map((item) => ({
+      new_field: item?.newValue || "",
+      old_field: item?.originalValue || "",
+      index_field: item?.index?.join(",") || "",
+    }));
 
-  const fetchData = () => {
-    fetch("https://work247.vn/api_crm/read_file.php")
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.lists_image && Array.isArray(data.lists_image)) {
-          setImageData(data.lists_image);
+    const bodyData = {
+      filename: fileUpload,
+      path_file: path_dowload,
+      id_file: idFile,
+      list_detail: list_details,
+    };
+
+    try {
+      const response = await fetch(
+        "https://api.timviec365.vn/api/crm/contract/add",
+        {
+          method: "POST",
+          body: JSON.stringify(bodyData),
+          headers: {
+            "Content-Type": "application/json", // Set appropriate content type
+            Authorization: `Bearer ${token}`,
+          },
         }
-      })
-      .catch((error) => console.log(error));
-  };
+      );
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+      const data = await response.json();
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
+  };
 
   const displayIndex = (item: any) => {
     const newIndex = item.index.map((id) => id + 1);
@@ -621,123 +581,122 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
 
             {/* ///////////////////////////////////////////////////////////// */}
           </div>
-
-          {/* Thong tin hop dong */}
-          {imgUrls && imgUrls?.length > 0 && !loading && (
-            <div>
-              <div>
-                <div className={styles.head_contract}>
-                  <h4>Thông tin hợp đồng</h4>
-                </div>
-              </div>
-              <div className={styles["frm-2"]}>
-                {imgUrls?.map((url, index: number) => (
-                  <img alt="hd" src={`${url}`} key={index} />
-                ))}
-              </div>
-            </div>
-          )}
-
-          {loading && (
-            <div>
-              <div>
-                <div className={styles.head_contract}>
-                  <h4>Thông tin hợp đồng</h4>
-                </div>
-              </div>
-              <div className={styles["frm-2"]}>
-                {/* {imgUrls?.map((url, index: number) => ( */}
-                <img
-                  style={{ objectFit: "contain" }}
-                  alt="hd"
-                  src="/crm/loading_file.gif"
-                />
-                {/* ))} */}
-              </div>
-            </div>
-          )}
-
-          {/* Edit field contract */}
-          {newValues && newValues?.length > 0 && (
-            <div className={styles.field_config}>
-              <div className={styles.footer_contract}>
-                <h4>Các trường đã thiết lập</h4>
-              </div>
-              <div className={`${styles["frm-3"]}`}>
-                {newValues?.map((item: any, index: number) => (
-                  <div
-                    key={index}
-                    className={`${styles["fm-bd"]} ${styles["fm_bt"]} ${styles["fm-fd"]} ${styles.opacity}`}
-                    id="field_config_1"
-                  >
-                    <div className={styles["error-name"]}>
-                      <label className={styles.field_new}>
-                        {item?.newValue}
-                      </label>
-                      <div className={styles.function}>
-                        <button
-                          className={styles.h_edit_cus}
-                          onClick={() => {
-                            handleEditField(item, index);
-                          }}
-                          disabled={scrolling}
-                        >
-                          <img src="/crm/blue_edit_cus.svg" alt="sửa" /> Sửa |
-                        </button>
-                        <button
-                          onClick={() => handleDelEditField(item)}
-                          className={styles.h_delete_cus}
-                        >
-                          <img src="/crm/red_delete_cus.svg" alt="Xóa" /> Xóa
-                        </button>
-                      </div>
-                    </div>
-                    <input
-                      type="text"
-                      className={`${styles["form-control"]} ${styles.text}`}
-                      value={displayIndex(item)}
-                      readOnly
-                      placeholder="Nhập nội dung"
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
         </>
-        {/* Footer Buttons */}
-        {imgUrls && imgUrls?.length > 0 && (
-          <div className={styles.btn_submit}>
-            <button
-              className={styles.sub1}
-              type="button"
-              onClick={() => setIsModalCancel(true)}
-            >
-              Hủy
-            </button>
-            <button
-              className={styles.sub2}
-              type="submit"
-              onClick={() => (handleSubmit(), setIsmodal1Open(true))}
-            >
-              Lưu
-            </button>
-            <ModalCompleteStep
-              modal1Open={ismodal1Open}
-              setModal1Open={setIsmodal1Open}
-              title="Thêm mới Hợp đồng thành công!"
-            />
-            <CancelModal
-              isModalCancel={isModalCancel}
-              setIsModalCancel={setIsModalCancel}
-              content={
-                "Bạn có chắc chắn muốn hủy thêm mới hợp đồng, mọi thông tin bạn nhập sẽ không được lưu lại?"
-              }
-              title={"Xác nhận hủy thêm mới hợp đồng"}
-            />
-          </div>
-        )}
       </div>
+
+      {loading && (
+        <div>
+          <div>
+            <div className={styles.head_contract}>
+              <h4>Thông tin hợp đồng</h4>
+            </div>
+          </div>
+          <div className={styles["frm-2"]}>
+            {/* {imgUrls?.map((url, index: number) => ( */}
+            <img
+              style={{ objectFit: "contain" }}
+              alt="hd"
+              src="/crm/loading_file.gif"
+            />
+            {/* ))} */}
+          </div>
+        </div>
+      )}
+
+      {/* Thong tin hop dong */}
+      {imgUrls && imgUrls?.length > 0 && !loading && (
+        <div>
+          <div>
+            <div className={styles.head_contract}>
+              <h4>Thông tin hợp đồng</h4>
+            </div>
+          </div>
+          <div className={styles["frm-2"]}>
+            {imgUrls?.map((url, index: number) => (
+              <img alt="hd" src={`${url}`} key={index} />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Edit field contract */}
+      {newValues && newValues?.length > 0 && (
+        <div className={styles.field_config}>
+          <div className={styles.footer_contract}>
+            <h4>Các trường đã thiết lập</h4>
+          </div>
+          <div className={`${styles["frm-3"]}`}>
+            {newValues?.map((item: any, index: number) => (
+              <div
+                key={index}
+                className={`${styles["fm-bd"]} ${styles["fm_bt"]} ${styles["fm-fd"]} ${styles.opacity}`}
+                id="field_config_1"
+              >
+                <div className={styles["error-name"]}>
+                  <label className={styles.field_new}>{item?.newValue}</label>
+                  <div className={styles.function}>
+                    <button
+                      className={styles.h_edit_cus}
+                      onClick={() => {
+                        handleEditField(item, index);
+                      }}
+                      disabled={scrolling}
+                    >
+                      <img src="/crm/blue_edit_cus.svg" alt="sửa" /> Sửa |
+                    </button>
+                    <button
+                      onClick={() => handleDelEditField(item)}
+                      className={styles.h_delete_cus}
+                    >
+                      <img src="/crm/red_delete_cus.svg" alt="Xóa" /> Xóa
+                    </button>
+                  </div>
+                </div>
+                <input
+                  type="text"
+                  className={`${styles["form-control"]} ${styles.text}`}
+                  value={displayIndex(item)}
+                  readOnly
+                  placeholder="Nhập nội dung"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+      {/* Footer Buttons */}
+      {imgUrls && imgUrls?.length > 0 && (
+        <div className={styles.btn_submit}>
+          <button
+            className={styles.sub1}
+            type="button"
+            onClick={() => setIsModalCancel(true)}
+          >
+            Hủy
+          </button>
+          <button
+            className={styles.sub2}
+            type="submit"
+            onClick={async () => (await handleSave(), setIsmodal1Open(true))}
+          >
+            Lưu
+          </button>
+          <ModalSaveContractAdd
+            modal1Open={ismodal1Open}
+            setModal1Open={setIsmodal1Open}
+            title="Thêm mới Hợp đồng thành công!"
+            handleSave={handleSave}
+          />
+          <CancelModal
+            isModalCancel={isModalCancel}
+            setIsModalCancel={setIsModalCancel}
+            content={
+              "Bạn có chắc chắn muốn hủy thêm mới hợp đồng, mọi thông tin bạn nhập sẽ không được lưu lại?"
+            }
+            title={"Xác nhận hủy thêm mới hợp đồng"}
+          />
+        </div>
+      )}
     </>
   );
 };

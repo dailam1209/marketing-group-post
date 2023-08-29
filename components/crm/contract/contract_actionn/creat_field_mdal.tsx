@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { Modal } from "antd";
 import styles from "../../potential/potential.module.css";
 import ModalCompleteStep from "../../potential/potential_steps/complete_modal";
+
 // import PotentialSelectBoxStep from "../potential_steps/select_box_step";
 // import ModalCompleteStep from "../potential_steps/complete_modal";
 

@@ -90,7 +90,7 @@ export default function ChiTietLichCSKH() {
         },
       ],
     },
-    
+
     {
       title: "Tuần",
       children: [
@@ -121,25 +121,23 @@ export default function ChiTietLichCSKH() {
       ],
     },
     {
-        title: "Diễn ra tháng",
-        dataIndex: "name",
-        key: "name",
-        width: 100,
-
-      },
-      {
-        title: "Tổng chăm sóc",
-        dataIndex: "name",
-        key: "name",
-        width: 100,
-
-      },
-      {
-        title: "Bắt đầu",
-        dataIndex: "name",
-        key: "name",
-        width: 100,
-      },
+      title: "Diễn ra tháng",
+      dataIndex: "name",
+      key: "name",
+      width: 100,
+    },
+    {
+      title: "Tổng chăm sóc",
+      dataIndex: "name",
+      key: "name",
+      width: 100,
+    },
+    {
+      title: "Bắt đầu",
+      dataIndex: "name",
+      key: "name",
+      width: 100,
+    },
   ];
 
   const data: DataType[] = [];
@@ -162,7 +160,7 @@ export default function ChiTietLichCSKH() {
       <div style={{ display: "flex", gap: 30, paddingBottom: 30 }}>
         <button
           onClick={() =>
-            router.push(`/sua-lich-cham-soc-khach-hang/${path.id}`)
+            router.push(`/crm/sua-lich-cham-soc-khach-hang/${path.id}`)
           }
           style={{ background: "#4C5BD4" }}
           type="button"
@@ -172,7 +170,12 @@ export default function ChiTietLichCSKH() {
           <p style={{ color: "#ffffff" }}>Chỉnh sửa</p>
         </button>
         <button
-          style={{ background: "#FF3333",width:100,display:"flex",justifyContent:"center" }}
+          style={{
+            background: "#FF3333",
+            width: 100,
+            display: "flex",
+            justifyContent: "center",
+          }}
           type="button"
           //   onClick={(e) => {
           //     handleDelete(e);
