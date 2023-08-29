@@ -15,7 +15,7 @@ export default function AddContract({ setCheckFile }: any, { FormData }: any) {
   const [fileUpload, setFileUpload] = useState<any[]>([]);
   const [show, setShow] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
-  var imageData = FormData?.result?.input_file;
+  var imageData = FormData?.result?.img_org_base64;
   const handleClickSelectFileUpdload = () => {
     inputFileRef.current?.click();
   };
