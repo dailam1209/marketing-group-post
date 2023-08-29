@@ -287,6 +287,7 @@ export default function EditPayroll({ onCancel, infoList }: any) {
                     <div className={`${styles.input_right}`}>
                       <Select
                         value={options.chonnhanvien}
+                        isDisabled={true}
                         onChange={(option) => handleSelectChange(option, options.chonnhanvien)}
                         options={options.chonnhanvien}
                         placeholder="Chọn nhân viên"
@@ -298,6 +299,10 @@ export default function EditPayroll({ onCancel, infoList }: any) {
                             minHeight: state.isFocused ? 20 : 20,
                             width: '100%',
                             fontWeight: state.isFocused ? 600 : 600
+                          }),
+                          singleValue: (baseStyles) => ({
+                            ...baseStyles,
+                            color: "#444444", // Màu cho đoạn văn bản đã chọn
                           }),
                           placeholder: (baseStyles) => ({
                             ...baseStyles,
@@ -314,6 +319,7 @@ export default function EditPayroll({ onCancel, infoList }: any) {
                     <div className={`${styles.input_right}`}>
                       <Select
                         value={options.chucvuhientai}
+                        isDisabled={true}
                         onChange={(option) => handleSelectChange(option, options.chucvuhientai)}
                         options={options.chucvuhientai}
                         placeholder="Chọn chức vụ"
@@ -325,6 +331,10 @@ export default function EditPayroll({ onCancel, infoList }: any) {
                             minHeight: state.isFocused ? 20 : 20,
                             width: '100%',
                             fontWeight: state.isFocused ? 600 : 600
+                          }),
+                          singleValue: (baseStyles) => ({
+                            ...baseStyles,
+                            color: "#444444", // Màu cho đoạn văn bản đã chọn
                           }),
                           placeholder: (baseStyles) => ({
                             ...baseStyles,
@@ -339,6 +349,7 @@ export default function EditPayroll({ onCancel, infoList }: any) {
                     <div className={`${styles.input_right}`}>
                       <Select
                         value={options.chonphongban}
+                        isDisabled={true}
                         onChange={(option) => handleSelectChange(option, options.chonphongban)}
                         options={options.chonphongban}
                         placeholder="Chọn phòng ban"
@@ -350,6 +361,10 @@ export default function EditPayroll({ onCancel, infoList }: any) {
                             minHeight: state.isFocused ? 20 : 20,
                             width: '100%',
                             fontWeight: state.isFocused ? 600 : 600
+                          }),
+                          singleValue: (baseStyles) => ({
+                            ...baseStyles,
+                            color: "#444444", // Màu cho đoạn văn bản đã chọn
                           }),
                           placeholder: (baseStyles) => ({
                             ...baseStyles,
@@ -364,6 +379,7 @@ export default function EditPayroll({ onCancel, infoList }: any) {
                     <div className={`${styles.input_right}`}>
                       <Select
                         value={options.chonchinhanh}
+                        isDisabled={true}
                         onChange={(option) => handleSelectChange(option, options.chonchinhanh)}
                         options={options.chonchinhanh}
                         placeholder="Chọn chi nhánh"
@@ -376,6 +392,10 @@ export default function EditPayroll({ onCancel, infoList }: any) {
                             width: '100%',
                             color: state.isFocused ? '#444444' : '#444444',
                             fontWeight: state.isFocused ? 600 : 600
+                          }),
+                          singleValue: (baseStyles) => ({
+                            ...baseStyles,
+                            color: "#444444", // Màu cho đoạn văn bản đã chọn
                           }),
                           placeholder: (baseStyles) => ({
                             ...baseStyles,
@@ -410,6 +430,7 @@ export default function EditPayroll({ onCancel, infoList }: any) {
                             width: '100%',
                             fontWeight: state.isFocused ? 600 : 600
                           }),
+
                           placeholder: (baseStyles) => ({
                             ...baseStyles,
                             color: "#444444",

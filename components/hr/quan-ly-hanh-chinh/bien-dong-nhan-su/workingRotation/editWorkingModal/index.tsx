@@ -356,6 +356,7 @@ export default function EditWorkingModal({ onCancel, infoList }: any) {
                     <div className={`${styles.input_right}`}>
                       <Select
                         options={options.chonnhanvien}
+                        isDisabled={true}
                         placeholder="Chọn nhân viên"
                         value={options.chonnhanvien}
                         styles={{
@@ -366,6 +367,10 @@ export default function EditWorkingModal({ onCancel, infoList }: any) {
                             minHeight: state.isFocused ? 20 : 20,
                             width: '100%',
                             fontWeight: state.isFocused ? 600 : 600
+                          }),
+                          singleValue: (baseStyles) => ({
+                            ...baseStyles,
+                            color: "#444444", // Màu cho đoạn văn bản đã chọn
                           }),
                           placeholder: (baseStyles) => ({
                             ...baseStyles,
@@ -382,6 +387,7 @@ export default function EditWorkingModal({ onCancel, infoList }: any) {
                     <div className={`${styles.input_right}`}>
                       <Select
                         value={options.chucvuhientai}
+                        isDisabled={true}
                         options={options.chucvuhientai}
                         placeholder="Chọn chức vụ"
                         styles={{
@@ -392,6 +398,10 @@ export default function EditWorkingModal({ onCancel, infoList }: any) {
                             minHeight: state.isFocused ? 20 : 20,
                             width: '100%',
                             fontWeight: state.isFocused ? 600 : 600
+                          }),
+                          singleValue: (baseStyles) => ({
+                            ...baseStyles,
+                            color: "#444444", // Màu cho đoạn văn bản đã chọn
                           }),
                           placeholder: (baseStyles) => ({
                             ...baseStyles,
@@ -406,6 +416,7 @@ export default function EditWorkingModal({ onCancel, infoList }: any) {
                     <div className={`${styles.input_right}`}>
                       <Select
                         options={options.chonphongban}
+                        isDisabled={true}
                         placeholder="Chọn phòng ban"
                         value={options.chonphongban}
                         styles={{
@@ -416,6 +427,10 @@ export default function EditWorkingModal({ onCancel, infoList }: any) {
                             minHeight: state.isFocused ? 20 : 20,
                             width: '100%',
                             fontWeight: state.isFocused ? 600 : 600
+                          }),
+                          singleValue: (baseStyles) => ({
+                            ...baseStyles,
+                            color: "#444444", // Màu cho đoạn văn bản đã chọn
                           }),
                           placeholder: (baseStyles) => ({
                             ...baseStyles,
@@ -430,6 +445,7 @@ export default function EditWorkingModal({ onCancel, infoList }: any) {
                     <div className={`${styles.input_right}`}>
                       <Select
                         value={options.chonchinhanh}
+                        isDisabled={true}
                         options={options.chonchinhanh}
                         placeholder="Chọn chi nhánh"
                         styles={{
@@ -441,6 +457,10 @@ export default function EditWorkingModal({ onCancel, infoList }: any) {
                             width: '100%',
                             color: state.isFocused ? '#444444' : '#444444',
                             fontWeight: state.isFocused ? 600 : 600
+                          }),
+                          singleValue: (baseStyles) => ({
+                            ...baseStyles,
+                            color: "#444444", // Màu cho đoạn văn bản đã chọn
                           }),
                           placeholder: (baseStyles) => ({
                             ...baseStyles,
