@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from './detailModal.module.css'
 import Select from 'react-select';
 import { format, parseISO } from "date-fns";
@@ -6,6 +6,21 @@ import { format, parseISO } from "date-fns";
 type SelectOptionType = { label: string, value: any }
 
 export default function DetailCandidateList({ onCancel, infoList }: any) {
+
+  const modalRef = useRef(null);
+  useEffect(() => {
+    const handleOutsideClick = (event: any) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        onCancel()
+      }
+    };
+
+    document.addEventListener('mousedown', handleOutsideClick);
+
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, [onCancel]);
 
   const [selectedOption, setSelectedOption] = useState<SelectOptionType | null>(null);
 
@@ -37,7 +52,7 @@ export default function DetailCandidateList({ onCancel, infoList }: any) {
       { value: infoList?.infoList?.position_id, label: infoList?.position },
     ],
     bophan: [
-      { value: infoList?.infoList?.dep_id, label: infoList?.infoList?.dep_name },
+      { value: infoList?.infoList?.dep_id, label: infoList?.infoList?.nameDeparment },
     ],
     trinhdohocvan: [
       { value: 7, label: 'Đại học trở lên' },
@@ -81,7 +96,7 @@ export default function DetailCandidateList({ onCancel, infoList }: any) {
       <div className={`${styles.modal_open}`}>
         <div className={`${styles.modal} ${styles.fade} ${styles.in}`}>
           <div className={` ${styles.modal_dialog} ${styles.content_process}`}>
-            <div className={`${styles.modal_content}`}>
+            <div className={`${styles.modal_content}`} ref={modalRef}>
               <div className={`${styles.modal_header} ${styles.header_process}`}>
                 <p>CHI TIẾT</p>
               </div>
@@ -190,7 +205,7 @@ export default function DetailCandidateList({ onCancel, infoList }: any) {
                   </div>
                   <div className={`${styles.form_groups}`}>
                     <label htmlFor="">Email <span style={{ color: 'red' }}> * </span></label>
-                    <input type="text" value={infoList?.infoList?.emailContact} id="names" placeholder="" className={`${styles.form_control} ${styles.read_only}`} />
+                    <input type="text" value={infoList?.infoList?.ep_email} id="names" placeholder="" className={`${styles.form_control} ${styles.read_only}`} />
                   </div>
                   <div className={`${styles.form_groups} ${styles.form_groups2}`}>
                     <div className={`${styles.content_item}`}>

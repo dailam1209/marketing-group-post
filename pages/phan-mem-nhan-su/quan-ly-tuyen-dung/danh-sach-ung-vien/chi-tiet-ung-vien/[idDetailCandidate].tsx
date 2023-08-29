@@ -71,7 +71,7 @@ export default function DetailCandidate({ onCancel }: any) {
       }
     }
     fetchData()
-  }, [newData])
+  }, [newData, id])
 
   useEffect(() => {
     try {
@@ -94,7 +94,7 @@ export default function DetailCandidate({ onCancel }: any) {
       }
     }
     fetchData()
-  }, [newData])
+  }, [newData, id])
 
   const perIdArray = displayIcon?.map((item) => item.perId);
   const iconEdit = perIdArray?.includes(3);
@@ -117,7 +117,7 @@ export default function DetailCandidate({ onCancel }: any) {
       }
     }
     fetchData()
-  }, [newData])
+  }, [newData, id])
 
   useEffect(() => {
     if (isCandidateFirst && id) {
@@ -138,7 +138,7 @@ export default function DetailCandidate({ onCancel }: any) {
         setCandidate(item)
       }
     }
-  }, [isCandidateFirst])
+  }, [isCandidateFirst, id])
 
 
   useEffect(() => {

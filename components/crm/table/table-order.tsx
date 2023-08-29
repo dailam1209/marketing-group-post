@@ -25,7 +25,7 @@ const columns: ColumnsType<DataType> = [
     width: 120,
     dataIndex: "order_number",
     key: "order_number",
-    render:(text:any,record:any)=><Link href={`/order/detail/${record.key}`} ><b>{text}</b></Link>
+    render:(text:any,record:any)=><Link href={`/crm/order/detail/${record.key}`} ><b>{text}</b></Link>
   },
   {
     title: "Trạng thái",

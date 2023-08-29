@@ -31,7 +31,7 @@ export default function ProductReturnList() {
         <meta name="viewport" content="width=device-width" initial-scale="1" />
         <meta name="robots" content="noindex,nofollow" />
         <title>
-          CRM 365 - đáp án của bài toán tối ưu quy trình, gia tăng lợi nhuận
+          Trả lại hàng bán
         </title>
         <meta
           name="description"

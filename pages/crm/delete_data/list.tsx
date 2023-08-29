@@ -66,7 +66,7 @@ export default function CustomerList() {
   useEffect(() => {
     setHeaderTitle("Dữ liệu đã xoá");
     setShowBackButton(false);
-    setCurrentPath("/crmdelete_data");
+    setCurrentPath("/crm/delete_data");
   }, [setHeaderTitle, setShowBackButton, setCurrentPath]);
 
   useEffect(() => {
@@ -82,7 +82,7 @@ export default function CustomerList() {
         <meta name="viewport" content="width=device-width" initial-scale="1" />
         <meta name="robots" content="noindex,nofollow" />
         <title>
-          CRM 365 - đáp án của bài toán tối ưu quy trình, gia tăng lợi nhuận
+        Dữ liệu đã xoá
         </title>
         <meta
           name="description"

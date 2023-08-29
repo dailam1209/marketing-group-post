@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import styleHome from "@/components/crm/home/home.module.css";
-import styles from "@/components/crm/potential/potential.module.css";
+import styles from "@/components/crm/potential/potential2.module.css";
 import { SidebarContext } from "@/components/crm/context/resizeContext";
 import Image from "next/image";
 import stylesDetail from "@/components/crm/customer/contact/detail_information/styles_diary.module.css";

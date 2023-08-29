@@ -44,18 +44,18 @@ export default function TabHRReport({ dateRangeDatas }: any) {
         formData.append('depId', isDep_id)
         if (isSelect === "date") {
           formData.append('type', type_date)
-          formData.append('from_date', startDate)
-          formData.append('to_date', endDate)
+          // formData.append('from_date', startDate)
+          // formData.append('to_date', endDate)
         }
         if (isSelect === "month") {
           formData.append('type', type_month)
-          formData.append('from_date', start_month)
-          formData.append('to_date', end_month)
+          // formData.append('from_date', start_month)
+          // formData.append('to_date', end_month)
         }
         if (isSelect === "year") {
           formData.append('type', type_year)
-          formData.append('from_date', isStartYear)
-          formData.append('to_date', isEndYear)
+          // formData.append('from_date', isStartYear)
+          // formData.append('to_date', isEndYear)
         }
         const response = await GetDataHrReports(formData)
         if (response) {

@@ -22,22 +22,22 @@ const ModalReturn = (props: any) => {
     };
 
     const handleBack = () => {
-        if(router.pathname=="/them-phieu-thu-khach-hang" 
-        ||router.pathname=="/them-phieu-thu-nha-cung-cap"
-        ||router.pathname=="/them-phieu-chi-nha-cung-cap"
-        ||router.pathname=="/them-phieu-chi-khach-hang"
-        ||router.pathname=="/them-moi-san-pham"
-        ||router.pathname.startsWith("/chinh-sua-san-pham")
+        if(router.pathname=="/crm/them-phieu-thu-khach-hang" 
+        ||router.pathname=="/crm/them-phieu-thu-nha-cung-cap"
+        ||router.pathname=="/crm/them-phieu-chi-nha-cung-cap"
+        ||router.pathname=="/crm/them-phieu-chi-khach-hang"
+        ||router.pathname=="/crm/them-moi-san-pham"
+        ||router.pathname.startsWith("/crm/chinh-sua-san-pham")
         ){
             router.back()
         }
       
         onClose()
         if (path) {
-            if (router.pathname.startsWith("/chinh-sua-phieu-chi"))
-                router.push(`/chi-tiet-phieu-chi/${path.id}`)
+            if (router.pathname.startsWith("/crm/chinh-sua-phieu-chi"))
+                router.push(`/crm/chi-tiet-phieu-chi/${path.id}`)
             else {
-                router.push(`/chi-tiet-phieu-thu/${path.id}`)
+                router.push(`/crm/chi-tiet-phieu-thu/${path.id}`)
             }
         }
     }

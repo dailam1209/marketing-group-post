@@ -1,5 +1,5 @@
 import styles from "../chitietkhaosat/index.module.css";
-import styless from "../../potential/potential.module.css";
+import styless from "../../potential/potential2.module.css";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { Table } from "antd";

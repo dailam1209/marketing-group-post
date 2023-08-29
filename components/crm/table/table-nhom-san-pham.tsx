@@ -71,7 +71,7 @@ const Table_Nhom_San_Pham = (props: any) => {
     },
     {
       width: 212,
-      title: "Số lượng			",
+      title: "Số lượng",
       dataIndex: "name",
       render: (text: any, record: any) => <div>{text}</div>,
     },
@@ -131,7 +131,7 @@ const Table_Nhom_San_Pham = (props: any) => {
               justifyContent: "center",
             }}
           >
-            <Link href="/san-pham"> Danh sách sản phẩm</Link>
+            <Link href="/crm/san-pham"> Danh sách sản phẩm</Link>
           </Button>
         </div>
         <div>
@@ -146,7 +146,7 @@ const Table_Nhom_San_Pham = (props: any) => {
               justifyContent: "center",
             }}
           >
-            <Link href="/nhom-san-pham">Danh sách nhóm sản phẩm</Link>
+            <Link href="/crm/nhom-san-pham">Danh sách nhóm sản phẩm</Link>
           </Button>
         </div>
       </div>

@@ -47,6 +47,8 @@ function Input_textarea({ onDescriptionChange, reason }: InputTextareaProps) {
 }
 export default function EditPayroll({ onCancel, infoList }: any) {
 
+  console.log(infoList);
+
   const [selectedOption, setSelectedOption] = useState<SelectOptionType | null>(null);
   const [isDepList, setDepList] = useState<any>(null)
   const [isPositionList, setPositionList] = useState<any>(null)
@@ -57,13 +59,15 @@ export default function EditPayroll({ onCancel, infoList }: any) {
   const [isReason, setReason] = useState<any>(infoList?.note)
   const [isCom_id, setCom_id] = useState<any>("")
   const [isDep_id, setDep_id] = useState<any>("")
-  const [isType_id, setType_id] = useState<any>("")
+  const [isType_id, setType_id] = useState<any>(infoList?.type)
   const [isShift_id, setShift_id] = useState<any>(infoList?.shift_id)
   const [isSpecified_id, setSpecified_id] = useState<any>(infoList?.decision_id)
   const [isPosition_id, setPosition_id] = useState<any>("")
   const [errors, setErrors] = useState<any>({});
   const comid: any = GetComId()
   const modalRef = useRef(null);
+
+  console.log(isType_id);
 
   useEffect(() => {
     const handleOutsideClick = (event: any) => {
@@ -256,6 +260,12 @@ export default function EditPayroll({ onCancel, infoList }: any) {
       { value: '1', label: 'Giảm biên chế' },
       { value: '2', label: 'Nghỉ việc' },
     ],
+    hinhthuc1: [
+      { value: '1', label: 'Giảm biên chế' },
+    ],
+    hinhthuc2: [
+      { value: '2', label: 'Nghỉ việc' },
+    ],
     chonquydinhdefault: [
       { value: decision_idmatch?.id, label: decision_idmatch?.name ? decision_idmatch?.name : "Chọn quy định" },
     ],
@@ -422,7 +432,7 @@ export default function EditPayroll({ onCancel, infoList }: any) {
                     </label>
                     <div className={`${styles.input_right}`}>
                       <Select
-                        defaultValue={selectedOption}
+                        defaultValue={infoList.type === 1 ? options.hinhthuc1 : options.hinhthuc2}
                         onChange={(option) => handleSelectChange(option, setType_id)}
                         options={options.hinhthuc}
                         placeholder="Chọn hình thức"
