@@ -37,6 +37,7 @@ interface PropsComponent {
   setTime_s: any;
   setTime_e: any;
   setemp_id: any;
+  setIdNhom:any
 }
 
 const CustomerListFilterBox: React.FC<PropsComponent> = ({
@@ -62,6 +63,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
   setdateS,
   setdateE,
   setemp_id,
+  setIdNhom
 }) => {
   const [valueSelectStatus, setValueSelectStatus] = useState<any>();
   const [valueResoure, sevalueResoure] = useState<any>();
@@ -119,7 +121,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
     }
   };
   const [listNV, setLishNv] = useState<any>();
-  const [dep_id, setDep_id] = useState();
+  const [dep_id, setDep_id] = useState<any>();
   useEffect(() => {
     handleGetGr();
   }, []);
@@ -140,30 +142,34 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
       if (data && data?.data) setDep_id(data?.data?.data?.dep_id);
     } catch (error) {}
   };
+
   const handleGetInfoCus = async () => {
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/list`,
+        `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/listAll`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer .eyJpc3MiOiJDaGFtY29uZzM2NS1UaW12aWVjMzY1IiwiaWF0IjoxNjkzMjAwODYwLCJleHAiOjE2OTMyODcyNjAsImRhdGEiOnsiaWQiOiI1NjM1IiwibmFtZSI6Ik5ndXlcdTFlYzVuIFRoXHUxZWNiIFBoXHUwMWIwXHUwMWExbmcgVGhcdTFlYTNvICIsInR5cGUiOjEsImVtYWlsIjoiYmVleGw0MTVAZ21haWwuY29tIiwicGhvbmVfdGsiOm51bGwsInJvbGUiOiIzIiwib3MiOjIsImZyb20iOiJxbGMzNjUiLCJkZXZpY2VfaWQiOiIyNTAxMDA2NDY0NTM3MzYxMTYwMDA1MzczNjU4NjQxNTM2MjQiLCJjb21faWQiOiIzMzEyIiwiY29tX25hbWUiOiJDXHUwMGQ0TkcgVFkgQ1x1MWVkNCBQSFx1MWVhNk4gVEhBTkggVE9cdTAwYzFOIEhcdTAxYWZORyBIXHUwMGMwICJ9fQ.f6tvLnNB0cj9zQt_SMlOoFzYSyXFCf4fnJEO7ZPKlW0`,
+            Authorization: `Bearer ${Cookies.get("token_base365")}`,
           },
-          body: JSON.stringify({ dep_id: dep_id }),
         }
       );
       const data = await res.json();
       if (data && data?.data) setLishNv(data?.data?.items);
     } catch (error) {}
   };
-
+  console.log(listNV);
+  let nv = listNV?.filter((item) => item.dep_id === dep_id);
+  console.log(nv);
   useEffect(() => {
-    handleGetInfoCus();
     handleGetInfoCusNV();
+    handleGetInfoCus();
   }, [dep_id]);
   const handleSelectNhomCha = (value) => {
     setnhomCha(value);
+    setIdNhom(value)
+    setnhomCon("Tất cả")
     if (value > 0) {
       setCheck(true);
     } else {
@@ -350,7 +356,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
           <div className={stylePotentialSlect.customer_list}>
             <Select
               value={nhomCon}
-              onChange={(value) => setnhomCon(value)}
+              onChange={(value) => {setnhomCon(value),setIdNhom(value)}}
               defaultValue={""}
               suffixIcon={
                 <i
@@ -364,7 +370,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
                 borderRadius: 7,
               }}
             >
-              <option value={""}>Tất cả</option>
+              <option value={''}>Tất cả</option>
               {check
                 ? listGr_Child?.map((item: any, index) => {
                     if (item.group_parent === nhomCha) {
@@ -408,15 +414,15 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
               onChange={handleChangeNVPT}
             >
               <option value={null}>Tất cả</option>
-              {listNV?.map((userName, index) => (
+              {nv?.map((userName, index) => (
                 <option
                   style={{ width: "100%" }}
                   key={index}
-                  value={userName.ep_id as any}
+                  value={userName?.ep_id as any}
                 >
                   <div style={{ display: "block" }}>
                     ( {`${userName.ep_id}`}) {`${userName?.ep_name}`} <br /> -
-                    {`${userName.nameDeparment}`}
+                    {`${userName.dep_name}`}
                   </div>
                 </option>
               ))}

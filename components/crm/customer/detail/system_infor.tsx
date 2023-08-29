@@ -19,7 +19,7 @@ const SystemCustomerInfo: React.FC<Props> = ({ formData }: any) => {
       mainRef.current?.classList.remove("content_resize");
     }
   }, [isOpen]);
-  var seconds = formData?.ngay_tao / 1000; // Chia cho 1000 để chuyển từ milliseconds thành seconds
+  var seconds = formData?.ngay_tao ; // Chia cho 1000 để chuyển từ milliseconds thành seconds
 
   // Tạo đối tượng Date từ số giây
   var date = new Date(seconds * 1000); // Nhân cho 1000 để chuyển từ seconds thành milliseconds
@@ -39,7 +39,7 @@ const SystemCustomerInfo: React.FC<Props> = ({ formData }: any) => {
     "/" +
     year;
 
-  var seconds2 = formData?.ngay_sua / 1000;
+  var seconds2 = formData?.ngay_sua ;
   var date2 = new Date(seconds2 * 1000); // Nhân cho 1000 để chuyển từ seconds thành milliseconds
   var day = date2.getDate();
   var month = date2.getMonth() + 1; // Lưu ý rằng tháng trong JavaScript bắt đầu từ 0
