@@ -35,10 +35,7 @@ const EmailPersonalTable: React.FC = () => {
         nhé!
       </p>
       <p className={style.img_default}>
-        <img
-          className="img_none"
-          src="https://crm.timviec365.vn/assets/icons/email/form_email_null.svg"
-        />
+        <img className="img_none" src="/crm/form_email_null.svg" />
       </p>
       <div className="dropdown">
         <div className={`${styles.main__control_add}`}>
@@ -47,8 +44,7 @@ const EmailPersonalTable: React.FC = () => {
             className={`${styles.dropbtn_add} flex_align_center`}
             onClick={() => setIsModalAdd(true)}
           >
-            <img src="/crm/add.svg" /> Thêm
-            mới
+            <img src="/crm/add.svg" /> Thêm mới
           </button>
           {
             <AddReceiver

@@ -29,61 +29,79 @@ const TableStatusCustomer: React.FC<TableStatusCustomerProps> = ({}: any) => {
   const [stt, setStt] = useState<any>("");
   const [id, setId] = useState();
   const [name, setName] = useState();
-  // const { data, loading, error, fetchData, updateData, deleteData } = useApi(
-  //   `${base_url}/api/crm/customerStatus/list`,
-  //   `${Cookies.get("token_base365")}`,
-  //   "POST",
-  //   { stt_name: `${stt}`, pageSize: 10000 }
-  // );
-
+  const [listNv, setListNV] = useState<any>([]);
   const [listStt, setListStt] = useState([]);
 
   const fetchData = async () => {
-    const res = await fetch(  `${base_url}/api/crm/customerStatus/list`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${Cookies.get("token_base365")}`,
-      },
-      body: JSON.stringify({ stt_name: `${stt}`, pageSize: 1000}),
-    });
-    const data = await res.json();
-    if (data && data?.data)
-    setListStt(data?.data);
+    try {
+      const res = await fetch(`${base_url}/api/crm/customerStatus/list`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get("token_base365")}`,
+        },
+        body: JSON.stringify({ stt_name: `${stt}`, pageSize: 1000 }),
+      });
+      const data = await res.json();
+      if (data && data?.data) setListStt(data?.data);
+    } catch (error) {}
+  };
+  const handleGetNhanVienPhuTrach = async () => {
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/listAll`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${Cookies.get("token_base365")}`,
+          },
+        }
+      );
+      const data = await res.json();
+      setListNV(data?.data?.items);
+    } catch (error) {}
   };
   useEffect(() => {
+    handleGetNhanVienPhuTrach();
     fetchData();
   }, []);
 
   const datatable = listStt?.map((item: any, index: number) => {
+    let name;
+    for (let key of listNv) {
+      if (key.ep_id === item.created_user) {
+        name = key.ep_name;
+      }
+    }
     return {
       key: index + 1,
       name: item.stt_name,
-      created_user: item.created_user,
+      created_user: name,
       created_at: item.created_at,
       status: item.status,
       stt_id: item.stt_id,
     };
   });
 
-  const handelChangeSwicth = async(e: any, id: any) => {
+  const handelChangeSwicth = async (e: any, id: any) => {
     if (!e && id) {
-    await fetch(  `${base_url}/api/crm/customerStatus/update`, {
+      await fetch(`${base_url}/api/crm/customerStatus/update`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${Cookies.get("token_base365")}`,
         },
-        body: JSON.stringify( { stt_id: id, status: 0 }),
+        body: JSON.stringify({ stt_id: id, status: 0 }),
       });
     } else {
-      await fetch(  `${base_url}/api/crm/customerStatus/update`, {
+      await fetch(`${base_url}/api/crm/customerStatus/update`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${Cookies.get("token_base365")}`,
         },
-        body: JSON.stringify( { stt_id: id, status: 1 }),
+        body: JSON.stringify({ stt_id: id, status: 1 }),
       });
     }
   };

@@ -23,7 +23,7 @@ const EmailSystemTable: React.FC = () => {
   useEffect(() => {
     setHeaderTitle("Cài đặt/ Email/ Email hệ thống");
     setShowBackButton(true);
-    setCurrentPath("/crm/setting/email");
+    setCurrentPath("/crm/email");
   }, [setHeaderTitle, setShowBackButton, setCurrentPath]);
 
   return (

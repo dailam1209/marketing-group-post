@@ -16,7 +16,8 @@ import { DownOutlined, MenuOutlined, AudioOutlined } from "@ant-design/icons";
 import Image from "next/image";
 import axios from "axios";
 import { domain } from "../../../../../components/tinh-luong/components/api/BaseApi";
-
+import HeadNav from "../../../../../components/tinh-luong/components/big-component/header-nav";
+import HeadNavResCongTy from "../../../../../components/tinh-luong/components/big-component/head-nav-res-cong-ty";
 //search
 const { Search } = Input;
 const suffix = (

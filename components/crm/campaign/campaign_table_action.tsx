@@ -2,7 +2,7 @@ import type { MenuProps } from "antd";
 import { Dropdown } from "antd";
 import Link from "next/link";
 import { useState } from "react";
-import Image from 'next/image';
+import Image from "next/image";
 import DelActionModal from "@/components/crm/campaign/campaign_delete_action_mdal";
 
 export default function CampaignActionTable(props: any) {
@@ -18,22 +18,30 @@ export default function CampaignActionTable(props: any) {
   const items: MenuProps["items"] = [
     {
       key: "1",
-      label: (<><Link href={`/campaign/edit/${record}`}><i className="bi bi-pencil-square"></i> Chỉnh sửa</Link></>),
+      label: (
+        <>
+          <Link href={`/crm/campaign/edit/${record}`}>
+            <i className="bi bi-pencil-square"></i> Chỉnh sửa
+          </Link>
+        </>
+      ),
     },
     {
       key: "2",
       label: (
-        <div onClick={() => setIsDelOpen(true)}><i className="bi bi-trash3"></i> Xóa</div>
+        <div onClick={() => setIsDelOpen(true)}>
+          <i className="bi bi-trash3"></i> Xóa
+        </div>
       ),
     },
   ];
 
   return (
     <>
-      <div> 
+      <div>
         <Dropdown menu={{ items }}>
           <button style={{ justifyContent: "center" }}>
-            <Image src="/crm/3_cham.png" alt="" width={15} height={15}/>
+            <Image src="/crm/3_cham.png" alt="" width={15} height={15} />
             Thao tác
           </button>
         </Dropdown>

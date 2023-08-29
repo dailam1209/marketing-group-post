@@ -4,7 +4,7 @@ import { Input } from "antd";
 type Props = {};
 
 const Themmoi_Options = (props: any) => {
-  const {handleThemmoi,handleDleteThemmoi} = props
+  const { handleThemmoi, handleDleteThemmoi } = props;
   return (
     <fieldset className={styles.left_option_themkhaosat}>
       <div>
@@ -15,9 +15,9 @@ const Themmoi_Options = (props: any) => {
             className={styles.inputtitle2_option}
           />
           <img
-          onClick={handleDleteThemmoi}
+            onClick={handleDleteThemmoi}
             style={{ paddingLeft: 20 }}
-            src="https://crm.timviec365.vn/assets/icons/delete.svg"
+            src="/crm/delete.svg"
             alt=""
           />
         </div>

@@ -4,8 +4,8 @@ import styles from "../../setting/setting.module.css";
 import { SidebarContext } from "@/components/crm/context/resizeContext";
 import { useHeader } from "@/components/crm/hooks/useHeader";
 import { Tabs } from "antd";
-import SMSCaNhan from "./sms_canhan"
-import SMSHeThong from "./sms_hethong"
+import SMSCaNhan from "./sms_canhan";
+import SMSHeThong from "./sms_hethong";
 
 const SMSTable: React.FC = () => {
   const mainRef = useRef<HTMLDivElement>(null);
@@ -29,7 +29,7 @@ const SMSTable: React.FC = () => {
     {
       label: `Sms cá nhân`,
       key: "1",
-      children: <SMSCaNhan key={1}/>,
+      children: <SMSCaNhan key={1} />,
     },
     {
       label: `Sms hệ thống`,
@@ -40,7 +40,7 @@ const SMSTable: React.FC = () => {
 
   return (
     <div className={styleHome.main} ref={mainRef}>
-          <Tabs items={tabsItems} />
+      <Tabs items={tabsItems} />
     </div>
   );
 };

@@ -7,8 +7,8 @@ import { useRouter } from "next/router";
 interface ModalCompleteStepProps {
   modal1Open: boolean;
   setModal1Open: any;
-  title: string
-  routerback: string
+  title: string;
+  routerback: string;
 }
 
 const ModalCompleteStep: React.FC<ModalCompleteStepProps> = ({
@@ -17,14 +17,14 @@ const ModalCompleteStep: React.FC<ModalCompleteStepProps> = ({
   title,
   routerback,
 }: any) => {
-    const router = useRouter()
-    const handleClick = () => {
-        setModal1Open(false)
-        router.push("/crm/setting/switch_fpt")
-    };
+  const router = useRouter();
+  const handleClick = () => {
+    setModal1Open(false);
+    router.push("/crm/setting/switch_fpt");
+  };
   return (
     <div>
-      <div >
+      <div>
         <Modal
           title={
             <Image width={112} height={112} alt="logo" src="/crm/success.svg" />
@@ -33,12 +33,9 @@ const ModalCompleteStep: React.FC<ModalCompleteStepProps> = ({
           open={modal1Open}
           onOk={handleClick}
           className="custom_mdal_sucess"
-          onCancel={()=>setModal1Open(false)}
-          
+          onCancel={() => setModal1Open(false)}
         >
-          <div style={{ textAlign: "center" }}>
-            {title}
-          </div>
+          <div style={{ textAlign: "center" }}>{title}</div>
         </Modal>
       </div>
     </div>

@@ -11,7 +11,7 @@ export default function CustomerGroupSelectDropdownData({
   cus_id,
   type,
 }: any) {
-  console.log("first,data", value);
+  const [focus,setFocus] = useState(false)
   const handleClcikOptions = async (item: any) => {
     // const
     setValueOption(item.gr_name);
@@ -85,63 +85,116 @@ export default function CustomerGroupSelectDropdownData({
             style={{ textAlign: "left", overflow: "scroll" }}
           >
             <li
-              style={{fontSize:15,paddingLeft:18,fontWeight:500}}
-              onClick={() => handleClcikOptions({gr_name:"Chưa cập nhật",gr_id:0})}
+              style={{ fontSize: 15, paddingLeft: 18, fontWeight: 500 }}
+              onClick={() =>
+                handleClcikOptions({ gr_name: "Chưa cập nhật", gr_id: 0 })
+              }
             >
               {"Chưa cập nhật"}
             </li>
 
             {data?.map((item: any, i: Key | null | undefined) => {
-              if (item?.group_parent == 0) {
-                return (
-                  <button
-                    key={i}
-                    className={`${styles.select2_results__option}}`}
-                    disabled
-                    style={{
-                      fontWeight: 1000,
-                      marginTop: "10px",
-                      padding: "5px 0",
-                      paddingLeft: "18px",
-                      color: "black",
-                      fontSize: "15px",
-                    }}
-                  >
-                    {item?.gr_name}
-                  </button>
-                );
-              }
-              if (item?.group_parent > 0) {
-                return (
-                  <li
-                    key={i}
-                    className={`${styles.select2_results__option}}`}
-                    style={{
-                      marginTop: "10px",
-                      padding: "5px 0",
-                      paddingLeft: "18px",
-                      fontSize: "15px",
-                    }}
-                    onClick={() => handleClcikOptions(item)}
-                  >
+              return (
+                <button
+                  key={i}
+                  className={`${styles.select2_results__option}}`}
+                  style={{
+                    marginTop: "10px",
+                    padding: "5px 0",
+                    paddingLeft: "18px",
+                    color: "black",
+                    fontSize: "15px",
+                  }}
+                >
+                  <div style={{ display: "block" }}>
+                    <div
+                      style={{
+                        width: "100%",
+                        fontSize: 15,
+                        paddingLeft: 18,
+                        fontWeight: 800,
+                        display: "flex",
+                        float: "left",
+                        paddingBottom: 20,
+                        marginLeft: -20,
+                      }}
+                    >
+                      {item?.gr_name}
+                    </div>
+
                     {item?.gr_id == value ? (
                       <div
+                        onClick={() => handleClcikOptions(item)}
                         style={{
                           backgroundColor: "#e0dcdc",
-                          height: 50,
                           display: "flex",
-                          justifyContent: "center",
-                          flexDirection: "column",
+                          float: "left",
                         }}
                       >
                         {item?.gr_name}
                       </div>
                     ) : (
-                      <div>{item?.gr_name}</div>
+                      <div
+                        onClick={() => handleClcikOptions(item)}
+                        style={{
+                          display: "flex",
+                          float: "left",
+                          fontSize: "15px",
+                        }}
+                      >
+                        {item?.gr_name}
+                      </div>
                     )}
-                  </li>
-                );
-              }
+                  </div>
+
+                  {item?.lists_child &&
+                    item?.lists_child.map((itemc: any, index: number) => {
+                      return (
+                        <li
+
+                          key={index}
+                          onClick={() => handleClcikOptions(itemc)}
+                          className={`${styles.select2_results__option} `}
+                          style={{
+                            display: "flex",
+                            float: "left",
+                            marginTop: "18px",
+                            padding: "5px 0",
+                            fontSize: "15px",
+                          }}
+                        >
+                          {itemc?.gr_id == value ? (
+                            <div
+                              onClick={() => handleClcikOptions(itemc)}
+                              style={{
+                                backgroundColor: "#e0dcdc",
+                                height: 40,
+                                display: "flex",
+                                float: "left",
+                                justifyContent: "center",
+                                flexDirection: "column",
+                              }}
+                            >
+                              {itemc?.gr_name}
+                            </div>
+                          ) : (
+                            <div
+                              onClick={() => handleClcikOptions(itemc)}
+                              style={{
+                                display: "flex",
+                                float: "left",
+                                justifyContent: "center",
+                                flexDirection: "column",
+                              }}
+                            >
+                              {itemc?.gr_name}
+                            </div>
+                          )}
+                        </li>
+                      );
+                    })}
+                </button>
+              );
             })}
           </ul>
         </span>

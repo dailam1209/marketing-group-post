@@ -5,7 +5,16 @@ import {
   MonthData,
   YearData,
 } from "../../../../components/tinh-luong/components/Data/SelectionData";
-import { DatePicker, Table, Form, Input, InputNumber, Select } from "antd";
+import {
+  DatePicker,
+  Table,
+  Form,
+  Input,
+  InputNumber,
+  Select,
+  Row,
+  Col,
+} from "antd";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import "dayjs/locale/vi";
@@ -414,48 +423,61 @@ const App = () => {
             className={styles.formContainer}
             initialValues={{ year: selectedYear, month: selectedMonth }}
           >
-            <Form.Item className={styles.formItem} name={"fromTo"}>
-              <RangePicker
-                placement={placement}
-                format={dateFormat}
-                locale={{
-                  lang: {
-                    locale: "vi",
-                    rangePlaceholder: ["Từ ngày", "Đến ngày"],
-                  },
-                }}
-              />
-            </Form.Item>
-            <Form.Item name={"month"} className={styles.formItem}>
-              <Select
-                className={styles.selection}
-                showSearch
-                defaultValue={{
-                  label: `Tháng ${selectedMonth}`,
-                  value: selectedMonth,
-                }}
-                optionFilterProp="children"
-                options={MonthData}
-                filterOption={(input, option) =>
-                  (option?.label ?? "").includes(input)
-                }
-              />
-            </Form.Item>
-            <Form.Item name={"year"} className={styles.formItem}>
-              <Select
-                className={styles.selection}
-                showSearch
-                defaultValue={{ label: `${selectedYear}`, value: selectedYear }}
-                optionFilterProp="children"
-                filterOption={(input, option) =>
-                  (option?.label ?? "").includes(input)
-                }
-                options={YearData}
-              />
-            </Form.Item>
-            <button type="submit" className={styles.button}>
-              Thống kê
-            </button>
+            <Row>
+              <Col xs={24} sm={12} md={8} lg={6}>
+                <Form.Item className={styles.formItem} name={"fromTo"}>
+                  <RangePicker
+                    placement={placement}
+                    format={dateFormat}
+                    locale={{
+                      lang: {
+                        locale: "vi",
+                        rangePlaceholder: ["Từ ngày", "Đến ngày"],
+                      },
+                    }}
+                  />
+                </Form.Item>
+              </Col>
+              <Col xs={24} sm={12} md={8} lg={6}>
+                <Form.Item name={"month"} className={styles.formItem}>
+                  <Select
+                    className={styles.selection}
+                    showSearch
+                    defaultValue={{
+                      label: `Tháng ${selectedMonth}`,
+                      value: selectedMonth,
+                    }}
+                    optionFilterProp="children"
+                    options={MonthData}
+                    filterOption={(input, option) =>
+                      (option?.label ?? "").includes(input)
+                    }
+                  />
+                </Form.Item>
+              </Col>
+              <Col xs={24} sm={12} md={8} lg={6}>
+                <Form.Item name={"year"} className={styles.formItem}>
+                  <Select
+                    className={styles.selection}
+                    showSearch
+                    defaultValue={{
+                      label: `${selectedYear}`,
+                      value: selectedYear,
+                    }}
+                    optionFilterProp="children"
+                    filterOption={(input, option) =>
+                      (option?.label ?? "").includes(input)
+                    }
+                    options={YearData}
+                  />
+                </Form.Item>
+              </Col>
+              <Col xs={24} sm={12} md={8} lg={6}>
+                <button type="submit" className={styles.button}>
+                  Thống kê
+                </button>
+              </Col>
+            </Row>
           </Form>
         </div>
         <div className={styles.table}>

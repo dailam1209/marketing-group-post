@@ -50,11 +50,11 @@ const TableContactDetailCustomer: React.FC<
       width: 150,
       render: () => (
         <>
-          <div style={{display: "flex", justifyContent:"space-evenly"}}>
-            <img src="https://crm.timviec365.vn/assets/img/crm/customer/loai_lh_1.png" />
-            <img src="https://crm.timviec365.vn/assets/img/crm/customer/loai_lh_2.png" />
-            <img src="https://crm.timviec365.vn/assets/img/crm/customer/loai_lh_3.png" />
-            <img src="https://crm.timviec365.vn/assets/img/crm/customer/loai_lh_4.png" />
+          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+            <img src="/crm/loai_lh_1.png" />
+            <img src="/crm/loai_lh_2.png" />
+            <img src="/crm/loai_lh_3.png" />
+            <img src="/crm/loai_lh_4.png" />
           </div>
         </>
       ),
@@ -65,7 +65,10 @@ const TableContactDetailCustomer: React.FC<
       dataIndex: "filename",
       key: "0",
       render: (data) => (
-        <Link target="_blank" href={`/crm/customer/contact/detail/${id}/${data}`}>
+        <Link
+          target="_blank"
+          href={`/crm/customer/contact/detail/${id}/${data}`}
+        >
           {data}
         </Link>
       ),

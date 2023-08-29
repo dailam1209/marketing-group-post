@@ -29,6 +29,7 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
   const [isOpen, setIsOpen] = useState(false);
   const [fileUpload, setFileUpload] = useState<any[]>([]);
   const [file, setfile] = useState<any>("");
+  const [loading, setLoading] = useState(false);
   const [path_dowload, setpath_dowload] = useState<any>("");
   const [text_change, settext_change] = useState<any>("");
   const [imgUrls, setImgaUrls] = useState([]);
@@ -38,7 +39,7 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
   const [inputSearch, setInputSearch] = useState("");
   const [scrolling, setScrolling] = useState(false);
   const [posEdit, setPosEdit] = useState<any>([]);
-  const initialCheckStates = Array(5).fill(false); // Thay số 5 bằng số lượng checkbox tùy theo tình huống
+  const initialCheckStates = Array(0).fill(false); // Thay số 5 bằng số lượng checkbox tùy theo tình huống
   const [checkedStates, setCheckedStates] =
     useState<boolean[]>(initialCheckStates);
   const [isEdit, setIsEdit] = useState(false);
@@ -150,31 +151,42 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
     }
   };
 
-  const handleUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const response = await axios.get(
-      "https://work247.vn/api_crm/read_file.php"
-    );
-    let data = new FormData();
-    data.append("file", file);
+  const handleUpload = async (event) => {
+    const file = event.target.files[0];
 
-    let config = {
-      method: "post",
-      maxBodyLength: Infinity,
-      url: "https://work247.vn/api_crm/read_file.php",
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-      },
-      data: data,
-    };
+    if (file) {
+      const formData = new FormData();
+      formData.append("file", file);
 
-    axios
-      .request(config)
-      .then((response: { data: any }) => {
-        console.log(JSON.stringify(response.data));
-      })
-      .catch((error: any) => {
-        console.log(error);
-      });
+      try {
+        setLoading(true);
+        const token =
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6MTM3NzQ0OSwiZW1haWwiOiJ0cmFuZ2NodW9pNEBnbWFpbC5jb20iLCJwaG9uZVRLIjoiIiwidXNlck5hbWUiOiJNdG4gQ29tcGFueSIsImFsaWFzIjoibXRuLWNvbXBhbnkiLCJwaG9uZSI6IjAzMjk4ODY0NTA5IiwiZW1haWxDb250YWN0IjoidHJhbmdjaHVvaTRAZ21haWwuY29tIiwiYXZhdGFyVXNlciI6bnVsbCwidHlwZSI6MSwicGFzc3dvcmQiOiJiYzBhOTA5MDM1NTc4OGRjYmUyNmI4NzBkY2RhMjNlZCIsImNpdHkiOjEsImRpc3RyaWN0Ijo3MywiYWRkcmVzcyI6ImhvYW5nIG1haSBIYSBOb2kgNSIsIm90cCI6IjU3MDgyMCIsImF1dGhlbnRpYyI6MSwiaXNPbmxpbmUiOjAsImZyb21XZWIiOiJ0aW12aWVjMzY1IiwiZnJvbURldmljZSI6NCwiY3JlYXRlZEF0IjoxNjYzODM2NDA1LCJ1cGRhdGVkQXQiOjE2OTI4Njc2NDcsImxhc3RBY3RpdmVkQXQiOiIyMDIzLTA4LTE4VDAyOjA0OjU4LjA4NVoiLCJ0aW1lX2xvZ2luIjoxNjczMDgwNTk5LCJyb2xlIjowLCJsYXRpdHVkZSI6IjIwLjk4NjgyODciLCJsb25ndGl0dWRlIjoiMTA1LjgzMTIzMTQiLCJpZFFMQyI6MTY2NCwiaWRUaW1WaWVjMzY1IjoyMzI0MTYsImlkUmFvTmhhbmgzNjUiOjAsImNoYXQzNjVfc2VjcmV0IjoiWDhscWxhc2ZvayIsImNoYXQzNjVfaWQiOjAsInNjYW5fYmFzZTM2NSI6MCwiY2hlY2tfY2hhdCI6MCwic2hhcmVQZXJtaXNzaW9uSWQiOltdLCJpbkZvclBlcnNvbiI6bnVsbCwiaW5Gb3JDb21wYW55Ijp7InNjYW4iOjAsInVzY19rZCI6MTAsInVzY19rZF9maXJzdCI6MCwiZGVzY3JpcHRpb24iOiIiLCJjb21fc2l6ZSI6MjE0LCJ0aW12aWVjMzY1Ijp7InVzY19uYW1lIjoiTXRuIENvbXBhbnkiLCJ1c2NfbmFtZV9hZGQiOiJOxqEgNTAgTMO0IDYgS8SQVCDEkOG7i25oIEPDtG5nIiwidXNjX25hbWVfcGhvbmUiOiIwMzU2MDIxNjA2IiwidXNjX25hbWVfZW1haWwiOiJ0cmFuZ2NodW9pNEBnbWFpbC5jb20iLCJ1c2NfdXBkYXRlX25ldyI6MTY5MTU3NTEwNSwidXNjX2Nhbm9uaWNhbCI6IiIsInVzY19tZDUiOiIiLCJ1c2NfcmVkaXJlY3QiOiIiLCJ1c2NfdHlwZSI6MSwidXNjX3NpemUiOjAsInVzY193ZWJzaXRlIjoiIiwidXNjX3ZpZXdfY291bnQiOjAsInVzY19hY3RpdmUiOjAsInVzY19zaG93IjoxLCJ1c2NfbWFpbCI6MCwidXNjX3N0b3BfbWFpbCI6MCwidXNjX3V0bCI6MCwidXNjX3NzbCI6MCwidXNjX21zdCI6IjAiLCJ1c2Nfc2VjdXJpdHkiOiIiLCJ1c2NfaXAiOiIxMTguNzAuMTI2LjEzOCIsInVzY19sb2MiOjAsInVzY19tYWlsX2FwcCI6MCwidXNjX3ZpZGVvIjoiIiwidXNjX3ZpZGVvX3R5cGUiOjEsInVzY192aWRlb19hY3RpdmUiOjAsInVzY19ibG9ja19hY2NvdW50IjowLCJ1c2Nfc3RvcF9ub3RpIjowLCJvdHBfdGltZV9leGlzdCI6MCwidXNlX3Rlc3QiOjAsInVzY19iYWRnZSI6MCwidXNjX3N0YXIiOjAsInVzY192aXAiOjAsInVzY19tYW5hZ2VyIjoiIiwidXNjX2xpY2Vuc2UiOiIiLCJ1c2NfYWN0aXZlX2xpY2Vuc2UiOjAsInVzY19tYXAiOiIiLCJ1c2NfZGdjIjoiIiwidXNjX2RndHYiOiIiLCJ1c2NfZGdfdGltZSI6MCwidXNjX3NreXBlIjoiIiwidXNjX3ZpZGVvX2NvbSI6IiIsInVzY19sdiI6Iml0IHBo4bqnbiBj4bupbmciLCJ1c2NfemFsbyI6bnVsbCwidXNjX2NjMzY1IjowLCJ1c2NfY3JtIjowLCJ1c2NfaW1hZ2VzIjpudWxsLCJ1c2NfYWN0aXZlX2ltZyI6MCwidXNjX2ZvdW5kZWRfdGltZSI6MCwidXNjX2JyYW5jaGVzIjpbXX0sImNkcyI6eyJjb21fcm9sZV9pZCI6MSwiY29tX3BhcmVudF9pZCI6bnVsbCwidHlwZV90aW1la2VlcGluZyI6IjEsMiwzLDQsNSw2IiwiaWRfd2F5X3RpbWVrZWVwaW5nIjoiMSwyLDMsNCIsImNvbV9xcl9sb2dvIjoiY29tXzE2NjQvTUdkR1MyUkhkMk4yY3pFM2JpdEVVMVJTVDIwelFUMDkucG5nIiwiZW5hYmxlX3NjYW5fcXIiOjEsImNvbV92aXAiOjEsImNvbV9lcF92aXAiOjEwMDAwLCJjb21fdmlwX3RpbWUiOjAsImVwX2NybSI6NTc0NCwiZXBfc3R0IjoxfSwiX2lkIjoiNjRkMWE4NmZhMzU4YWQ5MGY5MWI4YjM4In0sImluZm9yUk4zNjUiOm51bGwsImNvbmZpZ0NoYXQiOnsibm90aWZpY2F0aW9uQWNjZXB0T2ZmZXIiOjEsIm5vdGlmaWNhdGlvbkFsbG9jYXRpb25SZWNhbGwiOjEsIm5vdGlmaWNhdGlvbkNoYW5nZVNhbGFyeSI6MSwibm90aWZpY2F0aW9uQ29tbWVudEZyb21SYW9OaGFuaCI6MSwibm90aWZpY2F0aW9uQ29tbWVudEZyb21UaW1WaWVjIjoxLCJub3RpZmljYXRpb25EZWNpbGluZU9mZmVyIjoxLCJub3RpZmljYXRpb25NaXNzTWVzc2FnZSI6MSwibm90aWZpY2F0aW9uTlRERXhwaXJlZFBpbiI6MSwibm90aWZpY2F0aW9uTlRERXhwaXJlZFJlY3J1aXQiOjEsIm5vdGlmaWNhdGlvbk5URFBvaW50IjoxLCJub3RpZmljYXRpb25TZW5kQ2FuZGlkYXRlIjoxLCJub3RpZmljYXRpb25UYWciOjEsInJlbW92ZVN1Z2dlcyI6W10sInVzZXJOYW1lTm9WbiI6IiIsImRvdWJsZVZlcmlmeSI6MCwiYWN0aXZlIjoxLCJzdGF0dXMiOiIiLCJhY2NlcHRNZXNzU3RyYW5nZXIiOjEsIkhpc3RvcnlBY2Nlc3MiOltdfSwic2NhbiI6MH0sImlhdCI6MTY5MzIwNTY1MywiZXhwIjoxNjkzMjkyMDUzfQ.6QUnsHEfM5IpyWLphXB8Ot7GUPTUdKAOoRNAKpWmrZU";
+        const res = await fetch(
+          "https://api.timviec365.vn/api/crm/contractAI/read_file",
+          {
+            method: "POST",
+            body: formData,
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (res.ok) {
+          const data = await res.json();
+          console.log("checkresfile", data);
+          setLoading(false);
+          setImgaUrls(data?.data?.result?.image);
+          setpath_dowload(data?.data?.result?.path);
+          console.log(data?.data?.result?.path);
+        } else {
+          throw new Error("Request failed with status: " + res.status);
+        }
+      } catch (error) {
+        console.error("Error:", error.message);
+      }
+    }
   };
 
   //   var formdata = new FormData();
@@ -210,37 +222,34 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
       setIsEdit(false);
       const formData = new FormData();
       formData.append("text_change", inputSearch);
+      formData.append("input_file", path_dowload);
 
-      // try {
-      //   const res = await fetch(
-      //     `http://43.239.223.117:4000/search?sess_id=3312&input_file=${input_file}`,
-      //     {
-      //       method: "POST",
-      //       body: formData,
-      //       mode: "no-cors",
-      //     }
-      //   );
+      console.log("formData: ", formData);
+      setCheckedStates(Array(0).fill(false));
+      const token =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6MTM3NzQ0OSwiZW1haWwiOiJ0cmFuZ2NodW9pNEBnbWFpbC5jb20iLCJwaG9uZVRLIjoiIiwidXNlck5hbWUiOiJNdG4gQ29tcGFueSIsImFsaWFzIjoibXRuLWNvbXBhbnkiLCJwaG9uZSI6IjAzMjk4ODY0NTA5IiwiZW1haWxDb250YWN0IjoidHJhbmdjaHVvaTRAZ21haWwuY29tIiwiYXZhdGFyVXNlciI6bnVsbCwidHlwZSI6MSwicGFzc3dvcmQiOiJiYzBhOTA5MDM1NTc4OGRjYmUyNmI4NzBkY2RhMjNlZCIsImNpdHkiOjEsImRpc3RyaWN0Ijo3MywiYWRkcmVzcyI6ImhvYW5nIG1haSBIYSBOb2kgNSIsIm90cCI6IjU3MDgyMCIsImF1dGhlbnRpYyI6MSwiaXNPbmxpbmUiOjAsImZyb21XZWIiOiJ0aW12aWVjMzY1IiwiZnJvbURldmljZSI6NCwiY3JlYXRlZEF0IjoxNjYzODM2NDA1LCJ1cGRhdGVkQXQiOjE2OTI4Njc2NDcsImxhc3RBY3RpdmVkQXQiOiIyMDIzLTA4LTE4VDAyOjA0OjU4LjA4NVoiLCJ0aW1lX2xvZ2luIjoxNjczMDgwNTk5LCJyb2xlIjowLCJsYXRpdHVkZSI6IjIwLjk4NjgyODciLCJsb25ndGl0dWRlIjoiMTA1LjgzMTIzMTQiLCJpZFFMQyI6MTY2NCwiaWRUaW1WaWVjMzY1IjoyMzI0MTYsImlkUmFvTmhhbmgzNjUiOjAsImNoYXQzNjVfc2VjcmV0IjoiWDhscWxhc2ZvayIsImNoYXQzNjVfaWQiOjAsInNjYW5fYmFzZTM2NSI6MCwiY2hlY2tfY2hhdCI6MCwic2hhcmVQZXJtaXNzaW9uSWQiOltdLCJpbkZvclBlcnNvbiI6bnVsbCwiaW5Gb3JDb21wYW55Ijp7InNjYW4iOjAsInVzY19rZCI6MTAsInVzY19rZF9maXJzdCI6MCwiZGVzY3JpcHRpb24iOiIiLCJjb21fc2l6ZSI6MjE0LCJ0aW12aWVjMzY1Ijp7InVzY19uYW1lIjoiTXRuIENvbXBhbnkiLCJ1c2NfbmFtZV9hZGQiOiJOxqEgNTAgTMO0IDYgS8SQVCDEkOG7i25oIEPDtG5nIiwidXNjX25hbWVfcGhvbmUiOiIwMzU2MDIxNjA2IiwidXNjX25hbWVfZW1haWwiOiJ0cmFuZ2NodW9pNEBnbWFpbC5jb20iLCJ1c2NfdXBkYXRlX25ldyI6MTY5MTU3NTEwNSwidXNjX2Nhbm9uaWNhbCI6IiIsInVzY19tZDUiOiIiLCJ1c2NfcmVkaXJlY3QiOiIiLCJ1c2NfdHlwZSI6MSwidXNjX3NpemUiOjAsInVzY193ZWJzaXRlIjoiIiwidXNjX3ZpZXdfY291bnQiOjAsInVzY19hY3RpdmUiOjAsInVzY19zaG93IjoxLCJ1c2NfbWFpbCI6MCwidXNjX3N0b3BfbWFpbCI6MCwidXNjX3V0bCI6MCwidXNjX3NzbCI6MCwidXNjX21zdCI6IjAiLCJ1c2Nfc2VjdXJpdHkiOiIiLCJ1c2NfaXAiOiIxMTguNzAuMTI2LjEzOCIsInVzY19sb2MiOjAsInVzY19tYWlsX2FwcCI6MCwidXNjX3ZpZGVvIjoiIiwidXNjX3ZpZGVvX3R5cGUiOjEsInVzY192aWRlb19hY3RpdmUiOjAsInVzY19ibG9ja19hY2NvdW50IjowLCJ1c2Nfc3RvcF9ub3RpIjowLCJvdHBfdGltZV9leGlzdCI6MCwidXNlX3Rlc3QiOjAsInVzY19iYWRnZSI6MCwidXNjX3N0YXIiOjAsInVzY192aXAiOjAsInVzY19tYW5hZ2VyIjoiIiwidXNjX2xpY2Vuc2UiOiIiLCJ1c2NfYWN0aXZlX2xpY2Vuc2UiOjAsInVzY19tYXAiOiIiLCJ1c2NfZGdjIjoiIiwidXNjX2RndHYiOiIiLCJ1c2NfZGdfdGltZSI6MCwidXNjX3NreXBlIjoiIiwidXNjX3ZpZGVvX2NvbSI6IiIsInVzY19sdiI6Iml0IHBo4bqnbiBj4bupbmciLCJ1c2NfemFsbyI6bnVsbCwidXNjX2NjMzY1IjowLCJ1c2NfY3JtIjowLCJ1c2NfaW1hZ2VzIjpudWxsLCJ1c2NfYWN0aXZlX2ltZyI6MCwidXNjX2ZvdW5kZWRfdGltZSI6MCwidXNjX2JyYW5jaGVzIjpbXX0sImNkcyI6eyJjb21fcm9sZV9pZCI6MSwiY29tX3BhcmVudF9pZCI6bnVsbCwidHlwZV90aW1la2VlcGluZyI6IjEsMiwzLDQsNSw2IiwiaWRfd2F5X3RpbWVrZWVwaW5nIjoiMSwyLDMsNCIsImNvbV9xcl9sb2dvIjoiY29tXzE2NjQvTUdkR1MyUkhkMk4yY3pFM2JpdEVVMVJTVDIwelFUMDkucG5nIiwiZW5hYmxlX3NjYW5fcXIiOjEsImNvbV92aXAiOjEsImNvbV9lcF92aXAiOjEwMDAwLCJjb21fdmlwX3RpbWUiOjAsImVwX2NybSI6NTc0NCwiZXBfc3R0IjoxfSwiX2lkIjoiNjRkMWE4NmZhMzU4YWQ5MGY5MWI4YjM4In0sImluZm9yUk4zNjUiOm51bGwsImNvbmZpZ0NoYXQiOnsibm90aWZpY2F0aW9uQWNjZXB0T2ZmZXIiOjEsIm5vdGlmaWNhdGlvbkFsbG9jYXRpb25SZWNhbGwiOjEsIm5vdGlmaWNhdGlvbkNoYW5nZVNhbGFyeSI6MSwibm90aWZpY2F0aW9uQ29tbWVudEZyb21SYW9OaGFuaCI6MSwibm90aWZpY2F0aW9uQ29tbWVudEZyb21UaW1WaWVjIjoxLCJub3RpZmljYXRpb25EZWNpbGluZU9mZmVyIjoxLCJub3RpZmljYXRpb25NaXNzTWVzc2FnZSI6MSwibm90aWZpY2F0aW9uTlRERXhwaXJlZFBpbiI6MSwibm90aWZpY2F0aW9uTlRERXhwaXJlZFJlY3J1aXQiOjEsIm5vdGlmaWNhdGlvbk5URFBvaW50IjoxLCJub3RpZmljYXRpb25TZW5kQ2FuZGlkYXRlIjoxLCJub3RpZmljYXRpb25UYWciOjEsInJlbW92ZVN1Z2dlcyI6W10sInVzZXJOYW1lTm9WbiI6IiIsImRvdWJsZVZlcmlmeSI6MCwiYWN0aXZlIjoxLCJzdGF0dXMiOiIiLCJhY2NlcHRNZXNzU3RyYW5nZXIiOjEsIkhpc3RvcnlBY2Nlc3MiOltdfSwic2NhbiI6MH0sImlhdCI6MTY5MzIwNTY1MywiZXhwIjoxNjkzMjkyMDUzfQ.6QUnsHEfM5IpyWLphXB8Ot7GUPTUdKAOoRNAKpWmrZU";
+      try {
+        setLoading(true);
+        const response = await axios.post(
+          "https://api.timviec365.vn/api/crm/contractAI/search",
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
-      //   const data = await res.json();
-      //   console.log("checkresfile", data);
-      // } catch (error) {
-      //   console.error("Error:", error.message);
-      // }
-
-      // Mock Data:::
-      const data = {
-        data: {
-          result: true,
-          message: " \u1ea2nh tr\u1ea3 v\u1ec1 ",
-          item: {
-            sess_id: "1664_774985",
-            number_text: 4,
-            image: imageBase64,
-          },
-        },
-        error: null,
-      };
-      setImgaUrls(data?.data?.item?.image);
+        const dat = await response.data;
+        setLoading(false);
+        // setImgaUrls(dat?.data?.result?.input_file)
+        console.log("wordddd", dat);
+        const countWord = dat?.data?.result?.number_text;
+        setCheckedStates(Array(countWord).fill(false));
+        setImgaUrls(dat?.data?.result?.image);
+      } catch (error) {
+        console.error("Error------:", error.message);
+      }
     }
   };
 
@@ -350,7 +359,7 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
       alert(`Từ khóa đã được thiết lập, vui lòng kiểm tra lại`);
     }
 
-    setCheckedStates(Array(initialCheckStates.length).fill(false));
+    setCheckedStates(Array(checkedStates.length).fill(false));
   };
 
   const handleEditValue = (newValue: string, pos: any) => {
@@ -388,7 +397,7 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
       alert(`Từ khóa đã được thiết lập, vui lòng kiểm tra lại`);
     }
 
-    setCheckedStates(Array(initialCheckStates.length).fill(false));
+    setCheckedStates(Array(checkedStates.length).fill(false));
   };
 
   const handleDelEditField = (item) => {
@@ -403,29 +412,27 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
     }
   };
 
-  const ImageComponent = () => {
-    const [imageData, setImageData] = useState([]);
-
-    useEffect(() => {
-      fetchData();
-    }, []);
-
-    const fetchData = () => {
-      fetch("https://work247.vn/api_crm/read_file.php")
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.lists_image && Array.isArray(data.lists_image)) {
-            setImageData(data.lists_image);
-          }
-        })
-        .catch((error) => console.log(error));
-    };
+  const fetchData = () => {
+    fetch("https://work247.vn/api_crm/read_file.php")
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.lists_image && Array.isArray(data.lists_image)) {
+          setImageData(data.lists_image);
+        }
+      })
+      .catch((error) => console.log(error));
   };
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   const displayIndex = (item: any) => {
+    const newIndex = item.index.map((id) => id + 1);
+
     return `Từ tìm kiếm: ${
       item?.originalValue
-    }, tại các vị trí: ${item.index?.join(", ")}`;
+    }, tại các vị trí: ${newIndex.join(", ")}`;
   };
 
   const [isCreatField, setIsCreatField] = useState(false);
@@ -435,246 +442,54 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
   return (
     <>
       <div className={styles.main__body}>
-        {fileUpload && fileUpload?.length > 0 ? (
-          <>
-            <div
-              id="drop-zone"
-              className={`${styles["drop-zone"]} ${styles.row}`}
-            >
-              <div className={styles.col_md_6}>
-                <div className={styles.title}>
-                  Tải lên hợp đồng <span className={styles.color_sup}>*</span>
-                </div>
-                <div>
-                  <label
-                    className={`${styles.form_control} ${styles.upload_contract} ${styles.upload_text}`}
-                    onClick={handleClickSelectFileUpdload}
-                  >
-                    Chọn hợp đồng từ máy tính của bạn
-                    <img
-                      src="/crm/taihopdong.svg"
-                      alt="upload"
-                      // onChange = {(event)=> handleUpload(event)}
-                      // onChange={() =>
-                      //   fetchData(
-                      //     "http://43.239.223.117:4000/upload_file",
-                      // acessToken
-                      //     "POST",
-                      //     { file: `${file}` }
-                      //   )
-                      // }
-                    />
-                    <input
-                      type="file"
-                      className={styles.upload}
-                      name="file"
-                      multiple
-                      // ref={inputFileRef}
-                      onChange={(event) => handleUpload(event)}
-                      // value={path_dowload}
-                      // onChange={(e: {
-                      //   target: { value: React.SetStateAction<string> };
-                      // }) => setpath_dowload(e.target.value)}
-                    />
-                  </label>
-                </div>
-                <div className={styles.loading}>
-                  {imageData.map((image: string, index: React.Key) => (
-                    <img
-                      key={index}
-                      src={image} // Assume each item in imageData is a URL to an image
-                      alt={`Image ${index}`}
-                      style={{ width: "200px", height: "auto", margin: "10px" }}
-                    />
-                  ))}
-                </div>
+        <>
+          <div
+            id="drop-zone"
+            className={`${styles["drop-zone"]} ${styles.row}`}
+          >
+            <div className={styles.col_md_6}>
+              <div className={styles.title}>
+                Tải lên hợp đồng <span className={styles.color_sup}>*</span>
               </div>
-              <div className={styles.col_md_6}>
-                <div className={styles.title}>
-                  Tìm kiếm thông tin cần thay đổi trong hợp đồng
-                </div>
-                <div className={styles.divSearch}>
+              <div>
+                <label
+                  className={`${styles.form_control} ${styles.upload_contract} ${styles.upload_text}`}
+                  onClick={handleClickSelectFileUpdload}
+                >
+                  Chọn hợp đồng từ máy tính của bạn
+                  <img src="/crm/taihopdong.svg" alt="upload" />
                   <input
-                    className={`${styles.form_control} ${styles.upload_contract} ${styles.upload_text}`}
-                    // onChange={()=>{console.log("...")}}
-                    // onSubmit={(e:any) => handleFind(e)}
-                    placeholder="Nhập nội dung cần thay đổi"
+                    type="file"
+                    id="fileInput"
+                    className={styles.upload}
+                    name="file"
+                    multiple
+                    // ref={inputFileRef}
+                    onChange={(event) => handleUpload(event)}
+                    // value={path_dowload}
                   />
-                  {/* <button
-                    className={styles.search}
-                    onChange={() =>
-                      fetchData(
-                        "http://43.239.223.117:4000/search",
-                        accessToken,
-                        "POST",
-                        { text_change: `${text_change}` }
-                      )
-                    }
-                  >
-                    Tìm kiếm
-                  </button> */}
-                </div>
-              </div>
-            </div>
-            <div ref={targetScrollRef}>
-              <label className={styles.label_thietlap} id="setting">
-                Thiết lập thông tin cần thay đổi trong hợp đồng
-              </label>
-
-              <div className={styles.param}>
-                <div className="height:fit-content">
-                  <input
-                    type="checkbox"
-                    className="check_box"
-                    id="check_box1"
-                    value="1"
-                  />
-                  <label
-                    htmlFor="check_box1"
-                    className="text_change"
-                    data-index="1"
-                  >
-                    chấm công (1)
-                  </label>
-                </div>
-                <div className="height:fit-content">
-                  <input
-                    type="checkbox"
-                    className="check_box"
-                    id="check_box2"
-                    value="2"
-                  />
-                  <label
-                    htmlFor="check_box2"
-                    className="text_change"
-                    data-index="2"
-                  >
-                    chấm công (2)
-                  </label>
-                </div>
-                <div className="height:fit-content">
-                  <input
-                    type="checkbox"
-                    className="check_box"
-                    id="check_box3"
-                    value="3"
-                  />
-                  <label
-                    htmlFor="check_box3"
-                    className="text_change"
-                    data-index="3"
-                  >
-                    chấm công (3)
-                  </label>
-                </div>
-              </div>
-            </div>
-            <div className={styles.info_contract}>
-              <div className={styles.title_contract}>
-                <label className={styles.label_contract}>
-                  Thông tin hợp đồng
                 </label>
               </div>
-              <div className={styles.content_contract}>
-                <div className={styles.loading}>
-                  {imageData.map((imageSrc, index) => (
-                    <img
-                      key={index}
-                      src={imageSrc}
-                      alt={`Image ${index}`}
-                      className="img_contract"
-                    />
-                  ))}
-                </div>
-              </div>
             </div>
-            <div className={styles.btn_submit}>
-              <button type="button" onClick={() => setIsModalCancel(true)}>
-                Hủy
-              </button>
-              <button
-                className={styles.save}
-                type="submit"
-                onClick={() => (handleSubmit(), setIsmodal1Open(true))}
-              >
-                Lưu
-              </button>
-              <ModalCompleteStep
-                modal1Open={ismodal1Open}
-                setModal1Open={setIsmodal1Open}
-                title="Thêm mới Hợp đồng thành công!"
-              />
-              <CancelModal
-                isModalCancel={isModalCancel}
-                setIsModalCancel={setIsModalCancel}
-                content={
-                  "Bạn có chắc chắn muốn hủy thêm mới hợp đồng, mọi thông tin bạn nhập sẽ không được lưu lại?"
-                }
-                title={"Xác nhận hủy thêm mới hợp đồng"}
-              />
-            </div>
-          </>
-        ) : (
-          <>
-            <div
-              id="drop-zone"
-              className={`${styles["drop-zone"]} ${styles.row}`}
-            >
-              <div className={styles.col_md_6}>
-                <div className={styles.title}>
-                  Tải lên hợp đồng <span className={styles.color_sup}>*</span>
-                </div>
-                <div>
-                  <label
-                    className={`${styles.form_control} ${styles.upload_contract} ${styles.upload_text}`}
-                    onClick={handleClickSelectFileUpdload}
-                  >
-                    Chọn hợp đồng từ máy tính của bạn
-                    <img
-                      src="/crm/taihopdong.svg"
-                      alt="upload"
 
-                      // onChange={() =>
-                      //   fetchData(
-                      //     "http://43.239.223.117:4000/upload_file",
-                      //,
-                      //     "POST",
-                      //     { file: `${file}` }
-                      //   )
-                      // }
-                    />
-                    <input
-                      type="file"
-                      id="fileInput"
-                      className={styles.upload}
-                      name="file"
-                      multiple
-                      // ref={inputFileRef}
-                      onChange={(event) => handleUpload(event)}
-                      // value={path_dowload}
-                      // onChange={(e: {
-                      //   target: { value: React.SetStateAction<string> };
-                      // }) => setpath_dowload(e.target.value)}
-                    />
-                  </label>
-                </div>
-              </div>
-
-              <div className={styles.col_md_6}>
-                <div className={styles.title}>
-                  Tìm kiếm thông tin cần thay đổi trong hợp đồng
-                </div>
-                <form
-                  onSubmit={(e: any) => handleFind(e)}
-                  className={styles.divSearch}
-                >
-                  <input
-                    value={inputSearch}
-                    className={`${styles.form_control} ${styles.upload_contract} ${styles.upload_text}`}
-                    onChange={(event) => setInputSearch(event.target.value)}
-                    placeholder="Nhập nội dung cần thay đổi"
-                  />
-                  {/* <button
+            <>
+              {imgUrls && imgUrls?.length > 0 && (
+                <>
+                  <div className={styles.col_md_6}>
+                    <div className={styles.title}>
+                      Tìm kiếm thông tin cần thay đổi trong hợp đồng
+                    </div>
+                    <form
+                      onSubmit={(e: any) => handleFind(e)}
+                      className={styles.divSearch}
+                    >
+                      <input
+                        value={inputSearch}
+                        className={`${styles.form_control} ${styles.upload_contract} ${styles.upload_text}`}
+                        onChange={(event) => setInputSearch(event.target.value)}
+                        placeholder="Nhập nội dung cần thay đổi"
+                      />
+                      {/* <button
                     className={styles.search}
                     onChange={() =>
                       fetchData(
@@ -687,212 +502,241 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
                   >
                     Tìm kiếm
                   </button> */}
-                </form>
-              </div>
-
-              {/* /////////////////////////////////////////////////////////////// */}
-
-              <div
-                ref={targetScrollRef}
-                id="setting"
-                className={styles.col_md_6}
-                style={{ width: "100%" }}
-              >
-                <div className={styles.fm_fd}>
-                  <label className={styles.label_thietlap}>
-                    Thiết lập thông tin cần thay đổi trong hợp đồng
-                  </label>
-
-                  <div className={styles.param}>
-                    {text_change !== "" &&
-                      checkedStates.map((isChecked, index) => (
-                        <div key={index} style={{ marginRight: "5px" }}>
-                          <label>
-                            <input
-                              style={{ marginLeft: "3px" }}
-                              type="checkbox"
-                              checked={isChecked}
-                              onChange={() => handleCheckboxChange(index)}
-                            />
-                            {text_change} {index + 1}
-                          </label>
-                        </div>
-                      ))}
+                    </form>
                   </div>
-                </div>
-
-                <div className={styles.btn_form_contract}>
-                  {isEdit ? (
-                    <>
-                      <button
-                        onClick={() => setIsEdit(false)}
-                        type="button"
-                        className={styles.xoatruong}
-                      >
-                        Hủy
-                      </button>
-                      <button
-                        onClick={handleShowEditFieldModal}
-                        type="button"
-                        className={styles.taotruong}
-                      >
-                        <img
-                          src="https://crm.timviec365.vn/assets/img/suatruong.svg"
-                          alt="button"
-                        />{" "}
-                        Sửa trường
-                      </button>
-                    </>
-                  ) : (
-                    <>
-                      <button
-                        type="button"
-                        onClick={() => handleCreateFieldBtn()}
-                        data-toggle="modal"
-                        data-target="#modalCreate"
-                        className={styles.taotruong}
-                      >
-                        <img src="/crm/plus_icon_field.svg" alt="button" /> Tạo
-                        trường
-                      </button>
-                    </>
-                  )}
-                  <button
-                    type="button"
-                    onClick={handleSetDefaultField}
-                    className={styles.tieptuc}
+                  <div
+                    ref={targetScrollRef}
+                    id="setting"
+                    className={styles.col_md_6}
+                    style={{ width: "100%" }}
                   >
-                    Chỉnh sửa bằng trường mặc định
-                  </button>
+                    <div className={styles.fm_fd}>
+                      <label className={styles.label_thietlap}>
+                        Thiết lập thông tin cần thay đổi trong hợp đồng
+                      </label>
 
-                  {/* <button
-                    type="button"
-                    // onclick="prev()"
-                    className="quaylai l-15 hidden"
-                  >
-                    <img src="/assets/img/quaylai.svg" alt="button" /> Quay lại
-                  </button>
-                  <button
-                    type="button"
-                    // onclick="next()"
-                    className="tieptuc l-15 hidden"
-                  >
-                    Tiếp tục <img src="/assets/img/tieptuc.svg" alt="button" />
-                  </button> */}
-                  <CreatFieldModal
-                    isModalCancel={isCreatField}
-                    setIsModalCancel={setIsCreatField}
-                    handleReplaceValues={handleReplaceValues}
-                    // index={checkedStates.findIndex((isChecked) => isChecked)}
-                  />
-                  <EditFieldModal
-                    isModalCancel={isOpenEditField}
-                    setIsModalCancel={setIsOpenEditField}
-                    handleReplaceValues={handleEditValue}
-                    value={newValues[posEdit]?.newValue}
-                    index={posEdit}
-                  />
-                  <CreatFieldDefaultModal
-                    isModalCancel={isCreatFieldDefault}
-                    setIsModalCancel={setIsCreatFieldDefault}
-                    handleReplaceValues = {handleReplaceValues}
-                  />
-                </div>
-              </div>
-              {/* ///////////////////////////////////////////////////////////// */}
-            </div>
-
-            {/* Thong tin hop dong */}
-            {imgUrls && imgUrls?.length > 0 && (
-              <div>
-                <div>
-                  <div className={styles.head_contract}>
-                    <h4>Thông tin hợp đồng</h4>
-                  </div>
-                </div>
-                <div className={styles["frm-2"]}>
-                  {imgUrls?.map((url, index: number) => (
-                    <img alt="hd" src={`${url}`} key={index} />
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Edit field contract */}
-            {newValues && newValues?.length > 0 && (
-              <div className={styles.field_config}>
-                <div className={styles.footer_contract}>
-                  <h4>Các trường đã thiết lập</h4>
-                </div>
-                <div className={`${styles["frm-3"]}`}>
-                  {newValues?.map((item: any, index: number) => (
-                    <div
-                      key={index}
-                      className={`${styles["fm-bd"]} ${styles["fm_bt"]} ${styles["fm-fd"]} ${styles.opacity}`}
-                      id="field_config_1"
-                    >
-                      <div className={styles["error-name"]}>
-                        <label className={styles.field_new}>
-                          {item?.newValue}
-                        </label>
-                        <div className={styles.function}>
-                          <button
-                            className={styles.h_edit_cus}
-                            onClick={() => {
-                              handleEditField(item, index);
-                            }}
-                            disabled={scrolling}
-                          >
-                            <img src="/crm/blue_edit_cus.svg" alt="sửa" /> Sửa |
-                          </button>
-                          <button
-                            onClick={() => handleDelEditField(item)}
-                            className={styles.h_delete_cus}
-                          >
-                            <img src="/crm/red_delete_cus.svg" alt="Xóa" /> Xóa
-                          </button>
-                        </div>
+                      <div className={styles.param}>
+                        {text_change !== "" &&
+                          checkedStates.map((isChecked, index) => (
+                            <div key={index} style={{ marginRight: "5px" }}>
+                              <label>
+                                <input
+                                  style={{ marginLeft: "3px" }}
+                                  type="checkbox"
+                                  checked={isChecked}
+                                  onChange={() => handleCheckboxChange(index)}
+                                />
+                                {text_change} <span>(</span>
+                                {index + 1}
+                                <span>)</span>
+                              </label>
+                            </div>
+                          ))}
                       </div>
-                      <input
-                        type="text"
-                        className={`${styles["form-control"]} ${styles.text}`}
-                        value={displayIndex(item)}
-                        readOnly
-                        placeholder="Nhập nội dung"
+                    </div>
+
+                    <div className={styles.btn_form_contract}>
+                      {isEdit ? (
+                        <>
+                          <button
+                            onClick={() => setIsEdit(false)}
+                            type="button"
+                            className={styles.xoatruong}
+                          >
+                            Hủy
+                          </button>
+                          <button
+                            onClick={handleShowEditFieldModal}
+                            type="button"
+                            className={styles.taotruong}
+                          >
+                            <img
+                              src="https://crm.timviec365.vn/assets/img/suatruong.svg"
+                              alt="button"
+                            />{" "}
+                            Sửa trường
+                          </button>
+                        </>
+                      ) : (
+                        <>
+                          <button
+                            type="button"
+                            onClick={() => handleCreateFieldBtn()}
+                            data-toggle="modal"
+                            data-target="#modalCreate"
+                            className={styles.taotruong}
+                          >
+                            <img src="/crm/plus_icon_field.svg" alt="button" />{" "}
+                            Tạo trường
+                          </button>
+                        </>
+                      )}
+                      <button
+                        type="button"
+                        onClick={handleSetDefaultField}
+                        className={styles.tieptuc}
+                      >
+                        Chỉnh sửa bằng trường mặc định
+                      </button>
+
+                      {/* <button
+                   type="button"
+                   // onclick="prev()"
+                   className="quaylai l-15 hidden"
+                 >
+                   <img src="/assets/img/quaylai.svg" alt="button" /> Quay lại
+                 </button>
+                 <button
+                   type="button"
+                   // onclick="next()"
+                   className="tieptuc l-15 hidden"
+                 >
+                   Tiếp tục <img src="/assets/img/tieptuc.svg" alt="button" />
+                 </button> */}
+                      <CreatFieldModal
+                        isModalCancel={isCreatField}
+                        setIsModalCancel={setIsCreatField}
+                        handleReplaceValues={handleReplaceValues}
+                        // index={checkedStates.findIndex((isChecked) => isChecked)}
+                      />
+                      <EditFieldModal
+                        isModalCancel={isOpenEditField}
+                        setIsModalCancel={setIsOpenEditField}
+                        handleReplaceValues={handleEditValue}
+                        value={newValues[posEdit]?.newValue}
+                        index={posEdit}
+                      />
+                      <CreatFieldDefaultModal
+                        isModalCancel={isCreatFieldDefault}
+                        setIsModalCancel={setIsCreatFieldDefault}
+                        handleReplaceValues={handleReplaceValues}
                       />
                     </div>
-                  ))}
+                  </div>
+                </>
+              )}
+            </>
+
+            {/* /////////////////////////////////////////////////////////////// */}
+
+            {/* ///////////////////////////////////////////////////////////// */}
+          </div>
+
+          {/* Thong tin hop dong */}
+          {imgUrls && imgUrls?.length > 0 && !loading && (
+            <div>
+              <div>
+                <div className={styles.head_contract}>
+                  <h4>Thông tin hợp đồng</h4>
                 </div>
               </div>
-            )}
-          </>
-        )}
+              <div className={styles["frm-2"]}>
+                {imgUrls?.map((url, index: number) => (
+                  <img alt="hd" src={`${url}`} key={index} />
+                ))}
+              </div>
+            </div>
+          )}
+
+          {loading && (
+            <div>
+              <div>
+                <div className={styles.head_contract}>
+                  <h4>Thông tin hợp đồng</h4>
+                </div>
+              </div>
+              <div className={styles["frm-2"]}>
+                {/* {imgUrls?.map((url, index: number) => ( */}
+                <img
+                  style={{ objectFit: "contain" }}
+                  alt="hd"
+                  src="/crm/loading_file.gif"
+                />
+                {/* ))} */}
+              </div>
+            </div>
+          )}
+
+          {/* Edit field contract */}
+          {newValues && newValues?.length > 0 && (
+            <div className={styles.field_config}>
+              <div className={styles.footer_contract}>
+                <h4>Các trường đã thiết lập</h4>
+              </div>
+              <div className={`${styles["frm-3"]}`}>
+                {newValues?.map((item: any, index: number) => (
+                  <div
+                    key={index}
+                    className={`${styles["fm-bd"]} ${styles["fm_bt"]} ${styles["fm-fd"]} ${styles.opacity}`}
+                    id="field_config_1"
+                  >
+                    <div className={styles["error-name"]}>
+                      <label className={styles.field_new}>
+                        {item?.newValue}
+                      </label>
+                      <div className={styles.function}>
+                        <button
+                          className={styles.h_edit_cus}
+                          onClick={() => {
+                            handleEditField(item, index);
+                          }}
+                          disabled={scrolling}
+                        >
+                          <img src="/crm/blue_edit_cus.svg" alt="sửa" /> Sửa |
+                        </button>
+                        <button
+                          onClick={() => handleDelEditField(item)}
+                          className={styles.h_delete_cus}
+                        >
+                          <img src="/crm/red_delete_cus.svg" alt="Xóa" /> Xóa
+                        </button>
+                      </div>
+                    </div>
+                    <input
+                      type="text"
+                      className={`${styles["form-control"]} ${styles.text}`}
+                      value={displayIndex(item)}
+                      readOnly
+                      placeholder="Nhập nội dung"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </>
         {/* Footer Buttons */}
-        <div className={styles.btn_submit}>
-          <button className={styles.sub1} type="button" onClick={() => setIsModalCancel(true)}>
-            Hủy
-          </button>
-          <button
-             className={styles.sub2}
-            type="submit"
-            onClick={() => (handleSubmit(), setIsmodal1Open(true))}
-          >
-            Lưu
-          </button>
-          <ModalCompleteStep
-            modal1Open={ismodal1Open}
-            setModal1Open={setIsmodal1Open}
-            title="Thêm mới Hợp đồng thành công!"
-          />
-          <CancelModal
-            isModalCancel={isModalCancel}
-            setIsModalCancel={setIsModalCancel}
-            content={
-              "Bạn có chắc chắn muốn hủy thêm mới hợp đồng, mọi thông tin bạn nhập sẽ không được lưu lại?"
-            }
-            title={"Xác nhận hủy thêm mới hợp đồng"}
-          />
-        </div>
+        {imgUrls && imgUrls?.length > 0 && (
+          <div className={styles.btn_submit}>
+            <button
+              className={styles.sub1}
+              type="button"
+              onClick={() => setIsModalCancel(true)}
+            >
+              Hủy
+            </button>
+            <button
+              className={styles.sub2}
+              type="submit"
+              onClick={() => (handleSubmit(), setIsmodal1Open(true))}
+            >
+              Lưu
+            </button>
+            <ModalCompleteStep
+              modal1Open={ismodal1Open}
+              setModal1Open={setIsmodal1Open}
+              title="Thêm mới Hợp đồng thành công!"
+            />
+            <CancelModal
+              isModalCancel={isModalCancel}
+              setIsModalCancel={setIsModalCancel}
+              content={
+                "Bạn có chắc chắn muốn hủy thêm mới hợp đồng, mọi thông tin bạn nhập sẽ không được lưu lại?"
+              }
+              title={"Xác nhận hủy thêm mới hợp đồng"}
+            />
+          </div>
+        )}
       </div>
     </>
   );

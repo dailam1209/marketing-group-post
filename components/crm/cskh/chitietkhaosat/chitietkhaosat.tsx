@@ -21,16 +21,16 @@ export default function ChiTietKhaoSat() {
     var result = window.confirm("Bạn có chắc muốn xóa không?");
     if (result) {
       console.log(result);
-      router.push("/phieu-thu");
+      router.push("/crm/phieu-thu");
     } else {
       console.log("first");
     }
   };
   return (
     <div>
-      <div style={{ paddingBottom: 17 }}>
+      <div style={{ paddingBottom: 20, paddingTop: 20 }}>
         <button
-          onClick={() => router.push(`/du-lieu-khao-sat/${path.id}`)}
+          onClick={() => router.push(`/crm/du-lieu-khao-sat/${path.id}`)}
           style={{ background: "#4C5BD4" }}
           type="button"
           className={`${styless.dropbtn_add} flex_align_center ${styless.btn_excel}`}
@@ -40,16 +40,22 @@ export default function ChiTietKhaoSat() {
       </div>
       <div style={{ display: "flex", gap: 30, paddingBottom: 30 }}>
         <button
-          onClick={() => router.push(`/chinh-sua-khao-sat/${path.id}`)}
-          style={{ background: "#4C5BD4  " }}
+          onClick={() => router.push(`/crm/chinh-sua-khao-sat/${path.id}`)}
+          style={{ background: "#4C5BD4" }}
           type="button"
           className={`${styless.dropbtn_add} flex_align_center ${styless.btn_excel}`}
         >
-          <img src="	/crm/edit.svg" alt="" />
+          <img src="/crm/edit.svg" alt="" />
           <p style={{ color: "#ffffff" }}>Chỉnh sửa</p>
         </button>
         <button
-          style={{ background: "#FF3333",width:100,textAlign:"center",justifyContent:"center",display:"flex" }}
+          style={{
+            background: "#FF3333",
+            width: 100,
+            textAlign: "center",
+            justifyContent: "center",
+            display: "flex",
+          }}
           type="button"
           onClick={(e) => {
             handleDelete(e);

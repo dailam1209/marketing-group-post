@@ -36,8 +36,8 @@ const TableDataQuote: React.FC<TableDataOrderProps> = ({
       width: 120,
       dataIndex: "order_number",
       key: "order_number",
-      render: (text: any,record:any) => (
-        <Link href={`/quote/detail/${record.order_number}`}>
+      render: (text: any, record: any) => (
+        <Link href={`/crm/quote/detail/${record.order_number}`}>
           <b>{text}</b>
         </Link>
       ),
@@ -86,10 +86,8 @@ const TableDataQuote: React.FC<TableDataOrderProps> = ({
       width: 150,
       fixed: "right",
       render: (text: any, record: any) => (
-        <div onClick={()=>setKey(record.order_number)}>
-          <QuoteActionTable record={key}
-          allKey={allKey}
-          />
+        <div onClick={() => setKey(record.order_number)}>
+          <QuoteActionTable record={key} allKey={allKey} />
         </div>
       ),
     },
@@ -112,8 +110,8 @@ const TableDataQuote: React.FC<TableDataOrderProps> = ({
   }
   const rowSelection: TableRowSelection<DataType> = {
     onChange: (selectedRowKeys, selectedRows) => {
-      setAllKey(selectedRows)
-      console.log('check all ket',allKey)
+      setAllKey(selectedRows);
+      console.log("check all ket", allKey);
       if (selectedRows?.length > 0) {
         setSelected(true);
       } else {

@@ -3,15 +3,13 @@ import styles from "../setting/webform/webform.module.css";
 import { Table, Tooltip } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import Link from "next/link";
-import { Switch } from 'antd';
+import { Switch } from "antd";
 
 const onChange = (checked: boolean) => {
   console.log(`switch to ${checked}`);
 };
 
 const App: React.FC = () => <Switch defaultChecked onChange={onChange} />;
-
-
 
 interface DataType {
   key: React.Key;
@@ -73,10 +71,7 @@ const columns: ColumnsType<DataType> = [
       <>
         <Link href={"#"}>
           <button>
-            <img
-              className={styles.icon_delete}
-              src="https://crm.timviec365.vn/assets/img/h_delete_cus.svg"
-            />
+            <img className={styles.icon_delete} src="/crm/h_delete_cus.svg" />
             Xóa
           </button>
         </Link>

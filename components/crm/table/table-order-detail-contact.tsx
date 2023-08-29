@@ -32,19 +32,31 @@ const columns: ColumnsType<DataType> = [
     width: 180,
     dataIndex: "contact",
     key: "contact",
-    render: (text: any) => <div style={{ display: "flex", justifyContent: 'center' }}> <div>
-      <img src="https://crm.timviec365.vn/assets/img/crm/customer/loai_lh_1.png" alt="" />&nbsp;
-      <img src="https://crm.timviec365.vn/assets/img/crm/customer/loai_lh_2.png" alt="" />&nbsp;
-      <img src="https://crm.timviec365.vn/assets/img/crm/customer/loai_lh_3.png" alt="" />&nbsp;
-      <img src="https://crm.timviec365.vn/assets/img/crm/customer/loai_lh_4.png" alt="" />
-      </div></div>
+    render: (text: any) => (
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        {" "}
+        <div>
+          <img src="crm/customer/loai_lh_1.png" alt="" />
+          &nbsp;
+          <img src="crm/customer/loai_lh_2.png" alt="" />
+          &nbsp;
+          <img src="crm/customer/loai_lh_3.png" alt="" />
+          &nbsp;
+          <img src="crm/customer/loai_lh_4.png" alt="" />
+        </div>
+      </div>
+    ),
   },
   {
     title: "Họ và tên",
     width: 200,
     dataIndex: "name",
     key: "name",
-    render:(text:any)=><Link href={"/crm/customer/contact/detail"} ><b>{text}</b></Link>
+    render: (text: any) => (
+      <Link href={"/crm/customer/contact/detail"}>
+        <b>{text}</b>
+      </Link>
+    ),
   },
   {
     title: "Xưng hô",
@@ -93,17 +105,19 @@ const columns: ColumnsType<DataType> = [
     dataIndex: "facebook",
     key: "facebook",
     width: 150,
-    render:(text:any)=><Link href={"/order/detail/contact"} ><b>{text}</b></Link>
+    render: (text: any) => (
+      <Link href={"/order/detail/contact"}>
+        <b>{text}</b>
+      </Link>
+    ),
   },
   {
     title: "Chức năng",
     dataIndex: "operation",
     key: "11",
     width: 100,
-    fixed:"right",
-    render: () => 
-      <OrderActionTable/>
- 
+    fixed: "right",
+    render: () => <OrderActionTable />,
   },
 ];
 
@@ -112,9 +126,9 @@ for (let i = 0; i < 100; i++) {
   data.push({
     key: i,
     contact: ``,
-    name: 'Nguyễn Trần Kim Phượng',
-    xungho: 'Anh',
-    title: 'Phó tổng giám đốc',
+    name: "Nguyễn Trần Kim Phượng",
+    xungho: "Anh",
+    title: "Phó tổng giám đốc",
     phone: `0123 456 789`,
     email: `nguyenvannam@gmail.com`,
     phone_private: `0123 456 789`,

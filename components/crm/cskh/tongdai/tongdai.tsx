@@ -28,7 +28,7 @@ const TongDaiPage = (props: Props) => {
   const [showKetNoi, setShowKetNoi] = useState(false);
   const [soNghe, setSoNghe] = useState();
   const [nv, setnv] = useState();
-  const [token,setToken] = useState()
+  const [token, setToken] = useState();
   const onClose = () => {
     setIsShowModalAdd(false);
     setIsShowModal(false);
@@ -94,7 +94,7 @@ const TongDaiPage = (props: Props) => {
   const [fillStart, setFillStart] = useState<any>();
   const [fillEnd, setFillEnd] = useState<any>();
   const [query, setQuery] = useState(
-    `http://s02.oncall.vn:8899/api/call_logs/list?pagesize=100000000&start_time=${start_T} &end_time=${end_T}`
+    `http://s02.oncall.vn:8899/api/call_logs/list?pagesize=10000&start_time=${start_T} &end_time=${end_T}`
   );
 
   const handleGet = async () => {
@@ -111,29 +111,33 @@ const TongDaiPage = (props: Props) => {
       setIsModalOpen(false);
       return;
     }
-    
+
     setIsModalOpen(false);
     if (fillEnd && fillStart) {
       setQuery(
-        `http://s02.oncall.vn:8899/api/call_logs/list?pagesize=100000000&start_time=${fillStart} &end_time=${fillEnd}`
+        `http://s02.oncall.vn:8899/api/call_logs/list?pagesize=10000&start_time=${fillStart} &end_time=${fillEnd}`
       );
     }
+    try {
+      const response = await fetch(`${query}`, {
+        method: "GET",
+        headers: {
+          access_token: show,
+          // "Content-Type":"S"
+        },
+      });
+      const data = await response.json();
 
-    const response = await fetch(`${query}`, {
-      method: "GET",
-      headers: {
-        access_token: show,
-        // "Content-Type":"S"
-      },
-    });
-    const data = await response.json();
-    if (data && data.items) {
-      setListData(data?.items);
-    } 
-    return data;
+      if (data && data.items) {
+        setListData(data?.items);
+      } 
+      return data;
+    } catch (error) {
+      
+    }
+ 
   };
-  const router = useRouter()
-
+  const router = useRouter();
   useEffect(() => {
     if (show.length) {
       setShowKetNoi(true);
@@ -141,10 +145,9 @@ const TongDaiPage = (props: Props) => {
     handleGet();
   }, [query, show]);
   useEffect(() => {
-
     const handleget = async () => {
       if (show) {
-      const res =  await fetch(
+        const res = await fetch(
           "https://s02.oncall.vn:8900/api/account/credentials/verify",
           {
             method: "POST",
@@ -155,14 +158,12 @@ const TongDaiPage = (props: Props) => {
             }),
           }
         );
-        const data = await res.json()
+        const data = await res.json();
         dispatch(dataSaveTD(data.access_token));
       }
     };
     handleget();
-
   }, []);
-
 
   const Colums = [
     {
@@ -274,7 +275,7 @@ const TongDaiPage = (props: Props) => {
             >
               <Image
                 style={{ paddingRight: 5 }}
-                src="https://crm.timviec365.vn/assets/icons/kn.svg"
+                src="/crm/kn.svg"
                 alt="Connect Icon"
                 width={30}
                 height={15}
@@ -287,7 +288,7 @@ const TongDaiPage = (props: Props) => {
 
       <div style={{ paddingTop: 20 }}>
         <Table
-          locale={customLocale}
+         loading={datatable?.length>0?false:true}
           columns={Colums as any}
           dataSource={datatable}
           bordered

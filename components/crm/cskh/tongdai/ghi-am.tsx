@@ -338,7 +338,7 @@ const GhiAmPage = (props: Props) => {
             >
               <Image
                 style={{ paddingRight: 5 }}
-                src="https://crm.timviec365.vn/assets/icons/kn.svg"
+                src="/crm/kn.svg"
                 alt="Connect Icon"
                 width={30}
                 height={15}
@@ -351,7 +351,7 @@ const GhiAmPage = (props: Props) => {
 
       <div style={{ paddingTop: 20 }}>
         <Table
-          locale={customLocale}
+          loading={datatable?.length > 0 ? false : true}
           columns={Colums as any}
           dataSource={datatable}
           bordered

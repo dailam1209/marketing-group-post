@@ -17,24 +17,29 @@ const Cookies = require("js-cookie");
 export default function ChatBusinessBody({ cusId,setContent,setDate,setCusId }: any) {
   const [infoCus, setInfoCus] = useState({});
   const handleGetInfoCus = async () => {
-    const res = await fetch(`${base_url}/api/crm/customerdetails/detail`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${Cookies.get("token_base365")}`,
-      },
-      body: JSON.stringify({ cus_id: cusId}),
-    });
-    const data = await res.json();
-    if (data && data?.data)
-      setInfoCus(data?.data);
+    try {
+      const res = await fetch(`${base_url}/api/crm/customerdetails/detail`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get("token_base365")}`,
+        },
+        body: JSON.stringify({ cus_id: cusId}),
+      });
+      const data = await res.json();
+      if (data && data?.data)
+        setInfoCus(data?.data);
+    } catch (error) {
+      
+    }
+ 
   };
   useEffect(() => {
     handleGetInfoCus();
   }, [cusId]);
   const [listGr,setListGr] = useState([])
   const [list_gr_child, setlistGr_Child] = useState([]);
-
+ 
   const handleGetGr = async () => {
     try {
       const res = await fetch(

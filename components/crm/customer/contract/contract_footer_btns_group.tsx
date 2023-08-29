@@ -55,10 +55,7 @@ export default function ContractBtsGroupFooter({ id }: any) {
       {liveiew && (
         <div style={{ marginTop: "30px", border: "1px solid #fff" }}>
           <div style={{ textAlign: "center" }}>
-            <img
-              alt="loading"
-              src="	https://crm.timviec365.vn/assets/img/load_data.gif"
-            />
+            <img alt="loading" src="	/crm/load_data.gif" />
           </div>
         </div>
       )}

@@ -27,7 +27,7 @@ const AddContractModal: React.FC<MyComponentProps> = ({
       "POST",
       { pathFile: `${pathFile}` }
     );
-    setpathFile("")
+    setpathFile("");
   };
   return (
     <>
@@ -44,16 +44,18 @@ const AddContractModal: React.FC<MyComponentProps> = ({
           <Input
             placeholder="Tên tình trạng"
             value={pathFile}
-            onChange={(e: { target: { value: React.SetStateAction<string>; }; }) => setpathFile(e.target.value)}
+            onChange={(e: {
+              target: { value: React.SetStateAction<string> };
+            }) => setpathFile(e.target.value)}
           />
         </div>
       </Modal>
       <ModalCompleteStep
-  modal1Open={isOpenMdalSuccess}
-  setModal1Open={setIsOpenMdalSuccess}
-  title={"Bạn đã thêm mới hợp đồng thành công!"}
-  link={"/crm/contract/list"}
-/>
+        modal1Open={isOpenMdalSuccess}
+        setModal1Open={setIsOpenMdalSuccess}
+        title={"Bạn đã thêm mới hợp đồng thành công!"}
+        link={"/crm/contract/list"}
+      />
     </>
   );
 };

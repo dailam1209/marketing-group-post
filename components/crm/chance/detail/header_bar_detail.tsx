@@ -7,9 +7,7 @@ interface HeaderProps {
   keyTab: string;
 }
 
-const HeaderBarChanceDetails: React.FC<HeaderProps> = ({
-  keyTab,
-}: any) => {
+const HeaderBarChanceDetails: React.FC<HeaderProps> = ({ keyTab }: any) => {
   const router = useRouter();
   const [activeKey, setActiveKey] = useState(keyTab);
   const items: TabsProps["items"] = [
@@ -59,28 +57,28 @@ const HeaderBarChanceDetails: React.FC<HeaderProps> = ({
     if (key) {
       switch (key) {
         case "1":
-          router.push(`/chance/detail/main`);
+          router.push(`/crm/chance/detail/main`);
           return;
         case "2":
-          router.push(`/chance/detail/contact`);
+          router.push(`/crm/chance/detail/contact`);
           return;
         case "3":
-          router.push(`/chance/detail/schedule`);
+          router.push(`/crm/chance/detail/schedule`);
           return;
         case "4":
-          router.push(`/chance/detail/quote`);
+          router.push(`/crm/chance/detail/quote`);
           return;
         case "5":
-          router.push(`/chance/detail/order`);
+          router.push(`/crm/chance/detail/order`);
           return;
         case "6":
-          router.push(`/chance/detail/attachment`);
+          router.push(`/crm/chance/detail/attachment`);
           return;
         case "7":
-          router.push(`/chance/detail/history`);
+          router.push(`/crm/chance/detail/history`);
           return;
         case "8":
-          router.push(`/chance/detail/share`);
+          router.push(`/crm/chance/detail/share`);
           return;
         default:
           return;
@@ -89,7 +87,9 @@ const HeaderBarChanceDetails: React.FC<HeaderProps> = ({
   };
 
   return (
-    <div style={{ marginLeft: "15px", marginTop: "20px" }}>
+    <div
+      style={{ marginLeft: "15px", marginTop: "20px", marginBottom: "10px" }}
+    >
       <Tabs
         style={{ fontSize: "16px" }}
         activeKey={activeKey}

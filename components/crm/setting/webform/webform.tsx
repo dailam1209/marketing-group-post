@@ -9,11 +9,8 @@ export default function Contract() {
   const mainRef = useRef<HTMLDivElement>(null);
   const { isOpen } = useContext<any>(SidebarContext);
   const [isSelectedRow, setIsSelectedRow] = useState(false);
-  const {
-    setHeaderTitle,
-    setShowBackButton,
-    setCurrentPath,
-  }: any = useHeader();
+  const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
+    useHeader();
 
   useEffect(() => {
     setHeaderTitle("Cài đặt/ Webform");
@@ -30,10 +27,12 @@ export default function Contract() {
   }, [isOpen]);
   return (
     <div ref={mainRef} className={styleHome.main}>
-      <WebformInputGroup/>
-      <TableDataWebform setSelected={function (value: boolean): void {
-              throw new Error("Function not implemented.");
-          } } />
+      <WebformInputGroup />
+      <TableDataWebform
+        setSelected={function (value: boolean): void {
+          throw new Error("Function not implemented.");
+        }}
+      />
     </div>
   );
 }
