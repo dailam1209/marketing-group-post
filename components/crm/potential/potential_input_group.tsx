@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./potential.module.css";
+import styles from "./potential2.module.css";
 import PotentialAction from "./potential_action";
 import PotentialSelectBox from "./potential_selectt";
 import Link from "next/link";
@@ -61,14 +61,26 @@ export default function PotentialInputGroups({ isSelectedRow }: any) {
     <div className={styles.main__control}>
       <div className={`${styles.main__control_select} flex_align_center`}>
         <div
+          style={{ fontSize: "14px", height: "40px" }}
           className={`${styles.select_item} flex_align_center_item ${styles.select_item_time}`}
         >
           <label htmlFor="" className="">
             Thời gian tạo:
           </label>
           <div className={`${styles.input_item_time} flex_between`}>
-            <input type="date" name="" id="start_time" /> -
-            <input type="date" name="" id="end_time" />
+            <input
+              style={{ fontSize: "14px" }}
+              type="date"
+              name=""
+              id="start_time"
+            />{" "}
+            -
+            <input
+              style={{ fontSize: "14px" }}
+              type="date"
+              name=""
+              id="end_time"
+            />
           </div>
         </div>
         <PotentialSelectBox title="Loại hình:" value="Tất cả" />

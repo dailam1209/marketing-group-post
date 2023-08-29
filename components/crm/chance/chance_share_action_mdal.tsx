@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { Modal } from "antd";
-import styles from "../potential/potential.module.css";
+import styles from "../potential/potential2.module.css";
 import { useRouter } from "next/router";
 import PotentialSelectBoxStep from "../potential/potential_steps/select_box_step";
 import ModalCompleteStep from "../potential/potential_steps/complete_modal";

@@ -2,7 +2,7 @@ import { SearchOutlined } from "@ant-design/icons";
 import { Button, Dropdown, Input, MenuProps, Table } from "antd";
 import React, { useState } from "react";
 import styles from "../../delete_data/table.module.css";
-import styless from "../../potential/potential.module.css";
+import styless from "../../potential/potential2.module.css";
 import cskh from "../csks.module.css";
 import Link from "next/link";
 import { useRouter } from "next/router";
