@@ -8,6 +8,7 @@ import ModalCancel from "./mdal_cancel";
 import { Button, Modal, Result } from "antd";
 import CreatFieldModal from "./creat_field_mdal";
 import CreatFieldDefaultModal from "./creat_field_default";
+import Cookies from "js-cookie";
 
 export default function AddContract({ setCheckFile }: any) {
   const inputFileRef = useRef<HTMLInputElement>(null);
@@ -92,8 +93,8 @@ export default function AddContract({ setCheckFile }: any) {
       formData.append("file", file);
 
       try {
-        const token =
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6MzgwOTg5LCJpZFRpbVZpZWMzNjUiOjIwMjU4NSwiaWRRTEMiOjE3NjMsImlkUmFvTmhhbmgzNjUiOjAsImVtYWlsIjoiZHVvbmdoaWVwaXQxQGdtYWlsLmNvbSIsInBob25lVEsiOiIiLCJjcmVhdGVkQXQiOjE2MDA2NTg0NzgsInR5cGUiOjEsImNvbV9pZCI6MTc2MywidXNlck5hbWUiOiJDw7RuZyBUeSBUTkhIIEggTSBMIFBwbyJ9LCJpYXQiOjE2OTMxMTY5MzQsImV4cCI6MTY5MzIwMzMzNH0.LmAeTrqDTjHLaVZ2ihlq76U8fg6OWHRfVCrHIfHFOgc"; // Thay thế bằng mã thông báo thực tế
+        // const token =
+        //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6MzgwOTg5LCJpZFRpbVZpZWMzNjUiOjIwMjU4NSwiaWRRTEMiOjE3NjMsImlkUmFvTmhhbmgzNjUiOjAsImVtYWlsIjoiZHVvbmdoaWVwaXQxQGdtYWlsLmNvbSIsInBob25lVEsiOiIiLCJjcmVhdGVkQXQiOjE2MDA2NTg0NzgsInR5cGUiOjEsImNvbV9pZCI6MTc2MywidXNlck5hbWUiOiJDw7RuZyBUeSBUTkhIIEggTSBMIFBwbyJ9LCJpYXQiOjE2OTMyMDU5OTAsImV4cCI6MTY5MzI5MjM5MH0.l6s16l52GHaar18sLqQqLEh3_AMvst7NCWshUxJO0kQ"; 
 
         const res = await fetch(
           "https://api.timviec365.vn/api/crm/contractAI/read_file",
@@ -101,7 +102,7 @@ export default function AddContract({ setCheckFile }: any) {
             method: "POST",
             body: formData,
             headers: {
-              Authorization: `Bearer ${token}`,
+              Authorization: `Bearer ${Cookies.get("token_base365")}`,
             },
           }
         );
@@ -163,6 +164,7 @@ export default function AddContract({ setCheckFile }: any) {
     }
     return false;
   };
+  
 
   const handleReplaceValues = (newValue: string, pos: number) => {
     const indexSelect = checkedStates
@@ -186,9 +188,16 @@ export default function AddContract({ setCheckFile }: any) {
     setCheckedStates(Array(initialCheckStates.length).fill(false));
   };
 
+  const displayIndex = (item: any) => {
+    return `Từ tìm kiếm: ${
+      item?.originalValue
+    }, tại các vị trí: ${item.index?.join(", ")}`;
+  };
+
+
   return (
     <>
-      <div className={styles.main__body} style={{paddingTop: "0px"}}>
+      <div className={styles.main__body}>
         <div id="drop-zone" className={`${styles["drop-zone"]} ${styles.row}`}>
           <div className={styles.col_md_6}>
             <div className={styles.title}>
@@ -302,7 +311,9 @@ export default function AddContract({ setCheckFile }: any) {
             <CreatFieldDefaultModal
               isModalCancel={isCreatFieldDefault}
               setIsModalCancel={setIsCreatFieldDefault}
+              handleReplaceValues={handleReplaceValues}
             />
+            <ModalCancel isShowModal={isShowModal} onClose={onClose} />
           </div>
         </div>
       </div>
@@ -322,7 +333,6 @@ export default function AddContract({ setCheckFile }: any) {
         </div>
       )}
 
-      <ModalCancel isShowModal={isShowModal} onClose={onClose} />
       <Modal
         width={500}
         open={openSuccess}
@@ -354,8 +364,6 @@ export default function AddContract({ setCheckFile }: any) {
           </div>,
         ]}
       >
-        {" "}
-        <div></div>
         <Result status="success" title={<div>Chỉnh sửa thành công</div>} />
       </Modal>
       <div className={styles.field_config}>

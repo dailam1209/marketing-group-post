@@ -6,6 +6,8 @@ import { Alert, Button } from "antd";
 import { useRouter } from "next/router";
 import { saveAs } from 'file-saver';
 import htmlToImage from 'html-to-image';
+import { useApi } from "@/components/crm/hooks/useApi";
+import { base_url } from "../../service/function";
 
 export default function AddContract({ setCheckFile }: any) {
   const inputFileRef = useRef<HTMLInputElement>(null);
@@ -87,6 +89,18 @@ const DocxToImage = () => {
     handleClose();
   }, []);
   const router = useRouter();
+
+  // const {
+  //   data: dataDetails,
+  //   fetchData: fetchDataDetails,
+  //   updateData: updateDataDetails,
+  // } = useApi(
+  //   `${base_url}/api/crm/group/details`,
+  //   accessToken,
+  //   "POST",
+  //   { _id: Number(id) }
+  // );
+
   return (
     <>
       <div style={{ display: "flex", justifyContent: "end", gap: 30 }}>
