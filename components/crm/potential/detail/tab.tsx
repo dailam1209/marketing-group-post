@@ -17,13 +17,15 @@ const Tab: React.FC = ({ key }: any) => {
   const router = useRouter();
   const { id } = router.query;
   const onChange = (key: string) => {
-    switch (key) {
-      case "1":
-        router.push(`/potential/detail/${id}`);
-        return;
-      case "2":
-        router.push(`/potential/detail/${id}`);
-        return;
+    switch (
+      key
+      // case "1":
+      //   router.push(`/crm/potential/detail/${id}`);
+      //   return;
+      // case "2":
+      //   router.push(`/crm/potential/detail/${id}`);
+      //   return;
+    ) {
     }
   };
 
@@ -41,7 +43,7 @@ const Tab: React.FC = ({ key }: any) => {
     {
       key: "3",
       label: `Chiến dịch`,
-      children: <Campaign_potetial/>,
+      children: <Campaign_potetial />,
     },
     {
       key: "4",
@@ -66,12 +68,12 @@ const Tab: React.FC = ({ key }: any) => {
     {
       key: "8",
       label: `Ghi chú`,
-      children: <Note_potential/>,
+      children: <Note_potential />,
     },
     {
       key: "9",
       label: `Danh sách chia sẻ`,
-      children: <Danh_sach_chia_se_Po/>,
+      children: <Danh_sach_chia_se_Po />,
     },
   ];
   return <Tabs activeKey={key} items={items} onChange={onChange} />;

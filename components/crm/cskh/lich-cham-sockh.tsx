@@ -49,7 +49,7 @@ const LichChamSocKH = (props: Props) => {
           style={{ display: "flex", fontSize: 15 }}
           rel="noopener noreferrer"
           onClick={() => {
-            // router.push(`/sua-lich-cham-soc-khach-hang/${id}`);
+            // router.push(`/crm/sua-lich-cham-soc-khach-hang/${id}`);
           }}
         >
           <img src="/crm/icon-edit-black.svg" alt="" />
