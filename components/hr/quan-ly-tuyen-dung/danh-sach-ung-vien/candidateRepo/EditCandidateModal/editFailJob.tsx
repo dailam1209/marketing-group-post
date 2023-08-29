@@ -34,10 +34,6 @@ export default function EditCandidateFailJob({ onCancel, candidate }: any) {
   const comid: any = GetComId()
   const modalRef = useRef(null)
 
-  console.log(candidate);
-  console.log(isCandidate);
-
-
   useEffect(() => {
     const handleOutsideClick = (event: any) => {
       if (modalRef.current && !modalRef.current.contains(event.target)) {

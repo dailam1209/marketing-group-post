@@ -27,10 +27,6 @@ export default function StageCancelJob({ onCancel, process_id, data, process_id_
   const [errors, setErrors] = useState<any>({});
   const modalRef = useRef(null);
 
-  console.log(isCandidate);
-  console.log(data);
-
-
   useEffect(() => {
     const handleOutsideClick = (event: any) => {
       if (modalRef.current && !modalRef.current.contains(event.target)) {

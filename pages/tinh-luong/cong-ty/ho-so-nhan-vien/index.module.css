@@ -90,7 +90,7 @@
 .header_h3 {
   width: 60%;
   float: left;
-  padding-bottom: 15px;
+
   font-weight: 500;
   font-size: 20px;
   line-height: 24px;
@@ -459,4 +459,14 @@
   display: flex;
   justify-content: flex-end;
   width: 100%;
+}
+.h3_container {
+  width: 60%;
+  float: left;
+
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  color: #2e3467;
+  border: none;
 }

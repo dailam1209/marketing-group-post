@@ -32,8 +32,6 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
     getDataRecruitmentOverview()
   }, [currentPageListNewActive])
   const filteredData = messIsOpen?.data?.data.filter(item => new Date(item.recruitment_time_to).getTime() > currentTime);
-  console.log(filteredData)
-
   useEffect(() => {
     try {
       const GetDataListSchedule = async () => {
@@ -46,8 +44,6 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
       GetDataListSchedule()
     } catch (err) { }
   }, [currentPageListSchedule])
-
- console.log(messIsOpen)
 
   const handleClickColor = (buttonId: any) => {
     setSelectedButton(buttonId)
@@ -97,7 +93,7 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
                 <p className={`${styles.data_empty}`}>Không có dữ liệu</p>
               ) : (
                 filteredData?.map((item, index) => {
-                 
+
                   return (
                     <div
                       key={item.id}
