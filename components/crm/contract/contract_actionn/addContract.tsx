@@ -118,6 +118,8 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
   const handleUpload = async (event) => {
     const file = event.target.files[0];
     setFileUpload(file?.name);
+    setCheckedStates(Array(0).fill(false))
+    setNewValues([])
     if (file) {
       const formData = new FormData();
       formData.append("file", file);
@@ -386,7 +388,6 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
       list_detail: list_details,
     };
 
-
     try {
       const response = await fetch(
         "https://api.timviec365.vn/api/crm/contract/add",
@@ -615,124 +616,122 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
 
             {/* ///////////////////////////////////////////////////////////// */}
           </div>
-
-          {/* Thong tin hop dong */}
-          {imgUrls && imgUrls?.length > 0 && !loading && (
-            <div>
-              <div>
-                <div className={styles.head_contract}>
-                  <h4>Thông tin hợp đồng</h4>
-                </div>
-              </div>
-              <div className={styles["frm-2"]}>
-                {imgUrls?.map((url, index: number) => (
-                  <img alt="hd" src={`${url}`} key={index} />
-                ))}
-              </div>
-            </div>
-          )}
-
-          {loading && (
-            <div>
-              <div>
-                <div className={styles.head_contract}>
-                  <h4>Thông tin hợp đồng</h4>
-                </div>
-              </div>
-              <div className={styles["frm-2"]}>
-                {/* {imgUrls?.map((url, index: number) => ( */}
-                <img
-                  style={{ objectFit: "contain" }}
-                  alt="hd"
-                  src="/crm/loading_file.gif"
-                />
-                {/* ))} */}
-              </div>
-            </div>
-          )}
-
-          {/* Edit field contract */}
-          {newValues && newValues?.length > 0 && (
-            <div className={styles.field_config}>
-              <div className={styles.footer_contract}>
-                <h4>Các trường đã thiết lập</h4>
-              </div>
-              <div className={`${styles["frm-3"]}`}>
-                {newValues?.map((item: any, index: number) => (
-                  <div
-                    key={index}
-                    className={`${styles["fm-bd"]} ${styles["fm_bt"]} ${styles["fm-fd"]} ${styles.opacity}`}
-                    id="field_config_1"
-                  >
-                    <div className={styles["error-name"]}>
-                      <label className={styles.field_new}>
-                        {item?.newValue}
-                      </label>
-                      <div className={styles.function}>
-                        <button
-                          className={styles.h_edit_cus}
-                          onClick={() => {
-                            handleEditField(item, index);
-                          }}
-                          disabled={scrolling}
-                        >
-                          <img src="/crm/blue_edit_cus.svg" alt="sửa" /> Sửa |
-                        </button>
-                        <button
-                          onClick={() => handleDelEditField(item)}
-                          className={styles.h_delete_cus}
-                        >
-                          <img src="/crm/red_delete_cus.svg" alt="Xóa" /> Xóa
-                        </button>
-                      </div>
-                    </div>
-                    <input
-                      type="text"
-                      className={`${styles["form-control"]} ${styles.text}`}
-                      value={displayIndex(item)}
-                      readOnly
-                      placeholder="Nhập nội dung"
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
         </>
-        {/* Footer Buttons */}
-        {imgUrls && imgUrls?.length > 0 && (
-          <div className={styles.btn_submit}>
-            <button
-              className={styles.sub1}
-              type="button"
-              onClick={() => setIsModalCancel(true)}
-            >
-              Hủy
-            </button>
-            <button
-              className={styles.sub2}
-              type="submit"
-              onClick={async () => (await handleSave(), setIsmodal1Open(true))}
-            >
-              Lưu
-            </button>
-            <ModalSaveContractAdd
-              modal1Open={ismodal1Open}
-              setModal1Open={setIsmodal1Open}
-              title="Thêm mới Hợp đồng thành công!"
-              handleSave={handleSave}
-            />
-            <CancelModal
-              isModalCancel={isModalCancel}
-              setIsModalCancel={setIsModalCancel}
-              content={
-                "Bạn có chắc chắn muốn hủy thêm mới hợp đồng, mọi thông tin bạn nhập sẽ không được lưu lại?"
-              }
-              title={"Xác nhận hủy thêm mới hợp đồng"}
-            />
-          </div>
-        )}
       </div>
+
+      {loading && (
+        <div>
+          <div>
+            <div className={styles.head_contract}>
+              <h4>Thông tin hợp đồng</h4>
+            </div>
+          </div>
+          <div className={styles["frm-2"]}>
+            {/* {imgUrls?.map((url, index: number) => ( */}
+            <img
+              style={{ objectFit: "contain" }}
+              alt="hd"
+              src="/crm/loading_file.gif"
+            />
+            {/* ))} */}
+          </div>
+        </div>
+      )}
+
+      {/* Thong tin hop dong */}
+      {imgUrls && imgUrls?.length > 0 && !loading && (
+        <div>
+          <div>
+            <div className={styles.head_contract}>
+              <h4>Thông tin hợp đồng</h4>
+            </div>
+          </div>
+          <div className={styles["frm-2"]}>
+            {imgUrls?.map((url, index: number) => (
+              <img alt="hd" src={`${url}`} key={index} />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Edit field contract */}
+      {newValues && newValues?.length > 0 && (
+        <div className={styles.field_config}>
+          <div className={styles.footer_contract}>
+            <h4>Các trường đã thiết lập</h4>
+          </div>
+          <div className={`${styles["frm-3"]}`}>
+            {newValues?.map((item: any, index: number) => (
+              <div
+                key={index}
+                className={`${styles["fm-bd"]} ${styles["fm_bt"]} ${styles["fm-fd"]} ${styles.opacity}`}
+                id="field_config_1"
+              >
+                <div className={styles["error-name"]}>
+                  <label className={styles.field_new}>{item?.newValue}</label>
+                  <div className={styles.function}>
+                    <button
+                      className={styles.h_edit_cus}
+                      onClick={() => {
+                        handleEditField(item, index);
+                      }}
+                      disabled={scrolling}
+                    >
+                      <img src="/crm/blue_edit_cus.svg" alt="sửa" /> Sửa |
+                    </button>
+                    <button
+                      onClick={() => handleDelEditField(item)}
+                      className={styles.h_delete_cus}
+                    >
+                      <img src="/crm/red_delete_cus.svg" alt="Xóa" /> Xóa
+                    </button>
+                  </div>
+                </div>
+                <input
+                  type="text"
+                  className={`${styles["form-control"]} ${styles.text}`}
+                  value={displayIndex(item)}
+                  readOnly
+                  placeholder="Nhập nội dung"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+      {/* Footer Buttons */}
+      {imgUrls && imgUrls?.length > 0 && (
+        <div className={styles.btn_submit}>
+          <button
+            className={styles.sub1}
+            type="button"
+            onClick={() => setIsModalCancel(true)}
+          >
+            Hủy
+          </button>
+          <button
+            className={styles.sub2}
+            type="submit"
+            onClick={async () => (await handleSave(), setIsmodal1Open(true))}
+          >
+            Lưu
+          </button>
+          <ModalSaveContractAdd
+            modal1Open={ismodal1Open}
+            setModal1Open={setIsmodal1Open}
+            title="Thêm mới Hợp đồng thành công!"
+            handleSave={handleSave}
+          />
+          <CancelModal
+            isModalCancel={isModalCancel}
+            setIsModalCancel={setIsModalCancel}
+            content={
+              "Bạn có chắc chắn muốn hủy thêm mới hợp đồng, mọi thông tin bạn nhập sẽ không được lưu lại?"
+            }
+            title={"Xác nhận hủy thêm mới hợp đồng"}
+          />
+        </div>
+      )}
     </>
   );
 };
