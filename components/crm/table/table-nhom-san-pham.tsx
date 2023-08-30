@@ -8,16 +8,12 @@ import {
   Select,
   Table,
 } from "antd";
-import styles from "../delete_data/table.module.css";
+import styles from "../delete_data/table_deleted.module.css";
 import { PlusCircleFilled, SearchOutlined } from "@ant-design/icons";
 import Link from "next/link";
-import ModalAddNhomSP from "./modal/ModalAddNhomSanPham";
 import { useState } from "react";
-const Table_Nhom_San_Pham = (props: any) => {
-  const [isShowModal, setIsShowModal] = useState(false);
-  const onClose = () => {
-    setIsShowModal(false);
-  };
+const Table_San_Pham = (props: any) => {
+  const [idSanPham, setIdSanPham] = useState();
   const data = [];
   for (let i = 1; i < 5; i++) {
     data.push({
@@ -30,29 +26,28 @@ const Table_Nhom_San_Pham = (props: any) => {
     });
   }
   const handleSelect = (id: any) => {
-    console.log(id);
+    setIdSanPham(id);
   };
   const items: MenuProps["items"] = [
     {
       key: "3",
       label: (
-        <div
-          style={{ display: "flex", fontSize: 20 }}
+        <Link
+          href={`/crm/chinh-sua-san-pham/${idSanPham}`}
+          style={{ display: "flex", fontSize: 15 }}
           rel="noopener noreferrer"
-          onClick={() => {
-            setIsShowModal(true);
-          }}
+          // onClick={() => { setIsShowModalChange(true), }}
         >
           <img src="/crm/icon-edit-black.svg" alt="" />
           &nbsp; &nbsp; <p>Chỉnh sửa</p>
-        </div>
+        </Link>
       ),
     },
     {
       key: "4",
       label: (
         <div
-          style={{ display: "flex", fontSize: 20 }}
+          style={{ display: "flex", fontSize: 15 }}
           rel="noopener noreferrer"
           // onClick={() => { setIsShowModal(true) }}
         >
@@ -64,27 +59,63 @@ const Table_Nhom_San_Pham = (props: any) => {
   ];
   const Colums = [
     {
-      width: 316,
-      title: "Tên nhóm sản phẩm	",
+      width: 148,
+      title: "Mã sản phẩm",
       dataIndex: "id",
       render: (text: any) => <div>{text}</div>,
     },
     {
-      width: 212,
-      title: "Số lượng",
+      width: 211,
+      title: "Tên sản phẩm",
       dataIndex: "name",
-      render: (text: any, record: any) => <div>{text}</div>,
+      render: (text: any, record: any) => (
+        <Link href={`/crm/chi-tiet-san-pham/${record.id}`}>{text}</Link>
+      ),
     },
     {
-      width: 661,
-      title: "Mô tả nhóm	",
+      width: 170,
+      title: "Nhóm sản phẩm",
       dataIndex: "name",
       render: (text: any, record: any) => (
         <div>{text.toLocaleString("vi") + " VNĐ"}</div>
       ),
     },
     {
-      width: 293,
+      width: 157,
+      title: "Tồn kho",
+      dataIndex: "name",
+      render: (text: any, record: any) => <div>{text}</div>,
+    },
+    {
+      width: 158,
+      title: "Giá nhập	",
+      dataIndex: "borrow",
+      render: (text: any, record: any) => (
+        <div>{text.toLocaleString("vi") + " VNĐ"}</div>
+      ),
+    },
+    {
+      width: 158,
+      title: "Giá bán lẻ	",
+      dataIndex: "borrow",
+      render: (text: any, record: any) => (
+        <div>{text.toLocaleString("vi") + " VNĐ"}</div>
+      ),
+    },
+    {
+      width: 158,
+      title: "Trạng thái buôn	",
+      dataIndex: "name",
+      render: (text: any, record: any) => <div>{text}</div>,
+    },
+    {
+      width: 158,
+      title: "Trạng thái	",
+      dataIndex: "borrow",
+      render: (text: any, record: any) => <div>{text}</div>,
+    },
+    {
+      width: 196,
       title: "Chức năng",
       dataIndex: "func",
       render: (text: any, record: any) => (
@@ -96,7 +127,9 @@ const Table_Nhom_San_Pham = (props: any) => {
             placement="bottomLeft"
           >
             <img
-              // onClick={() => { handleSelect(record.myPhone) }}
+              onClick={() => {
+                handleSelect(record.id);
+              }}
               style={{ cursor: "pointer" }}
               src="/crm/icon_1.svg"
             />
@@ -118,41 +151,36 @@ const Table_Nhom_San_Pham = (props: any) => {
   return (
     <div className={`${styles.main__content} ${styles.flex_column}`}>
       <div className={styles.inputSP2}>
-        <div>
-          <Button
-            style={{
-              height: 40,
-              width: "100%",
-              color: "black",
-              background: "#ffffff",
-              display: "flex",
-              fontSize: 20,
-              textAlign: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Link href="/crm/san-pham"> Danh sách sản phẩm</Link>
-          </Button>
+        <div className={styles.ipSearch}>
+          <Input
+            placeholder={`Tìm kiếm`}
+            className={styles.main__control_search}
+            suffix={suffix}
+            bordered={false}
+          />
         </div>
-        <div>
-          <Button
-            style={{
-              height: 40,
-              width: "100%",
-              color: "#fff",
-              background: "#4C5BD4",
-              display: "flex",
-              fontSize: 20,
-              justifyContent: "center",
-            }}
-          >
-            <Link href="/crm/nhom-san-pham">Danh sách nhóm sản phẩm</Link>
-          </Button>
+        <div className={styles.group_button_sp}>
+          <div className={styles.ip1}>
+            <button className={styles.list_sp}>
+              <Link href="/crm/san-pham" style={{ color: "#a3a3a3" }}>
+                Danh sách sản phẩm
+              </Link>
+            </button>
+          </div>
+          <div className={styles.ip1}>
+            <button className={styles.list_gr_sp}>
+              <Link
+                href="/crm/nhom-san-pham"
+                style={{ color: "#666666", background: "#fff" }}
+              >
+                Danh sách nhóm sản phẩm
+              </Link>
+            </button>
+          </div>
         </div>
       </div>
-      <div>
+      <Link href={"/crm/them-moi-san-pham"} style={{ width: "10%" }}>
         <Button
-          onClick={() => setIsShowModal(true)}
           style={{
             color: "#fff",
             background: "#4C5BD4",
@@ -165,15 +193,8 @@ const Table_Nhom_San_Pham = (props: any) => {
           <PlusCircleFilled style={{ color: "#fff" }}></PlusCircleFilled>Thêm
           mới
         </Button>
-      </div>
-      <div className={styles.ipSearch}>
-        <Input
-          placeholder={`Tìm kiếm`}
-          className={styles.main__control_search}
-          suffix={suffix}
-          bordered={false}
-        />
-      </div>
+      </Link>
+
       <div className={styles.table}>
         <div className={styles.scrollTable}>
           <Table
@@ -188,8 +209,7 @@ const Table_Nhom_San_Pham = (props: any) => {
         </div>
         <br />
       </div>
-      <ModalAddNhomSP isShowModal={isShowModal} onClose={onClose} />
     </div>
   );
 };
-export default Table_Nhom_San_Pham;
+export default Table_San_Pham;

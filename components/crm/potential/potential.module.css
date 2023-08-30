@@ -217,6 +217,7 @@
   font-family: "Roboto-Medium";
   font-size: 16px;
   line-height: 19px;
+  border: 1px solid #4c5bd4;
   column-gap: 5px;
 }
 
@@ -1095,9 +1096,9 @@ span.select2.potential_select2_container_step__HpQYa {
     padding-bottom: 10px;
   }
   .form_search {
-   width: 450px;
+    width: 450px;
   }
-  .main_control_new{
+  .main_control_new {
     width: 200px;
   }
 }

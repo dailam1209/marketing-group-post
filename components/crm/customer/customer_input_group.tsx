@@ -43,7 +43,7 @@ export default function CustomerListInputGroup({
   setTime_s,
   setTime_e,
   setemp_id,
-  setIdNhom
+  setIdNhom,
 }: any) {
   const [open, setOpen] = useState(false);
   const inputFileRef = useRef<HTMLInputElement>(null);
@@ -173,7 +173,10 @@ export default function CustomerListInputGroup({
               </button>
             </div>
             <div className={styles.dropdown_action_btn}>
-              <Link className={styles.api_connect_btn} href={"/crm/api"}>
+              <Link
+                className={styles.api_connect_btn}
+                href={"/crm/setting/api"}
+              >
                 <button
                   className={styles.btn_light_api}
                   style={{
@@ -260,9 +263,9 @@ export default function CustomerListInputGroup({
       >
         <div>
           <CustomerListFilterBox
-          setIdNhom={setIdNhom}
-          setTime_s={setTime_s}
-          setTime_e={setTime_e}
+            setIdNhom={setIdNhom}
+            setTime_s={setTime_s}
+            setTime_e={setTime_e}
             dataStatusCustomer={dataStatusCustomer}
             setOpen={setOpen}
             setStatus={setStatus}
