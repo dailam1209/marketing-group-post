@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styles from "../../potential/potential.module.css";
+import styles from "../../customer/detail/customer_detail.module.css";
 import Link from "next/link";
 import ShareActionModal from "@/components/crm/potential/potential_action_modal/potential_share_action_mdal";
 export default function ShareBtnGroupDetails({ id }: any) {
@@ -34,7 +34,7 @@ export default function ShareBtnGroupDetails({ id }: any) {
               onClick={() => setIsOpenMdal(true)}
               className={`${styles.dropbtn_add} flex_align_center`}
             >
-              <img src="/crm/share_white.svg" />
+              <img src="/crm/add.svg" />
               Chia sẻ
             </button>
           </div>

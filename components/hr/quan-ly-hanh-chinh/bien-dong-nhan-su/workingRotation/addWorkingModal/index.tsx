@@ -461,6 +461,7 @@ export default function AddWorkingModal({ onCancel }: any) {
                             width: '100%',
                             fontWeight: state.isFocused ? 600 : 600
                           }),
+
                           placeholder: (baseStyles) => ({
                             ...baseStyles,
                             color: "#444444",
@@ -502,9 +503,9 @@ export default function AddWorkingModal({ onCancel }: any) {
                     </span></label>
                     <div className={`${styles.input_right}`}>
                       <Select
-                        defaultValue={selectedOption}
+                        isDisabled={isEmp_id ? true : false}
                         onChange={(option) => handleSelectChange(option, setPosition_id)}
-                        options={options.chucvuhientai}
+                        options={options.chucvumoi}
                         placeholder="Chọn chức vụ"
                         value={options.chucvuhientai}
                         styles={{
@@ -515,6 +516,10 @@ export default function AddWorkingModal({ onCancel }: any) {
                             minHeight: state.isFocused ? 20 : 20,
                             width: '100%',
                             fontWeight: state.isFocused ? 600 : 600
+                          }),
+                          singleValue: (baseStyles) => ({
+                            ...baseStyles,
+                            color: "#444444", // Màu cho đoạn văn bản đã chọn
                           }),
                           placeholder: (baseStyles) => ({
                             ...baseStyles,

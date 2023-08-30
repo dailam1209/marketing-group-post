@@ -138,7 +138,7 @@ export default function TabWorkingRotation({ iconAdd, iconEdit, iconDelete }: an
     () =>
       EmpData?.items?.map((emp: any) => ({
         value: emp.ep_id,
-        label: emp.ep_name,
+        label: `${emp.ep_name} (${emp.dep_name ? emp.dep_name : "Chưa cập nhật"} - ID:${emp.ep_id})`
       })),
     [EmpData?.items]
   );
@@ -153,6 +153,19 @@ export default function TabWorkingRotation({ iconAdd, iconEdit, iconDelete }: an
     chonnhanvien: chonnhanvienOptions,
     chonphongban: chonphongbanOptions
   };
+
+  function removePTags(htmlString: string): string {
+    const div = document.createElement('div');
+    div.innerHTML = htmlString;
+    const pTags = div.querySelectorAll('p');
+
+    pTags.forEach((pTag) => {
+      const text = pTag.textContent || '';
+      pTag.replaceWith(document.createTextNode(text));
+    });
+
+    return div.innerHTML;
+  }
 
   return (
     <>
@@ -242,7 +255,7 @@ export default function TabWorkingRotation({ iconAdd, iconEdit, iconDelete }: an
                   <input type="date" id="to_date" className={`${styles.search_date} ${styles.form_control}`} placeholder='Từ dd/mm/yyyy' />
                 </div>
                 <div className={`${styles.div_no_pad_search}   `}>
-                  <a className={`${styles.icon_search_top} ${styles.div_search_salary} `} onClick={handleSearch}>
+                  <a style={{ cursor: "pointer" }} className={`${styles.icon_search_top} ${styles.div_search_salary} `} onClick={handleSearch}>
                     <img style={{ verticalAlign: '-webkit-baseline-middle' }} src={`/t-icon-search-n.svg`} alt="" />
                   </a>
                 </div>
@@ -279,7 +292,8 @@ export default function TabWorkingRotation({ iconAdd, iconEdit, iconDelete }: an
                         <td>{item.ep_id}</td>
                         <td>{item.userName}</td>
                         <td>{format(parseISO(item.created_at), 'dd-MM-yyyy')}</td>
-                        <td>{item.note}</td>
+                        {/* <td>{item.note}</td> */}
+                        <td>{removePTags(item.note)}</td>
                         <td>{item.old_dep_name}</td>
                         <td>{item.new_dep_name}</td>
                         <td>{item.new_com_name}</td>

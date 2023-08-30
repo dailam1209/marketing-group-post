@@ -190,10 +190,9 @@ export default function InformationSection2({ hrReportList }: any) {
     for (let i = 0; i < workDurationCounts.length; i++) {
         sum += workDurationCounts[i];
     }
-    // for (let i = 0; i < YearOlwCounts.length; i++) {
-    //     sum1 += YearOlwCounts[i];
-    // }
-
+    for (let i = 0; i < YearOlwCounts.length; i++) {
+        sum1 += YearOlwCounts[i];
+    }
 
     const thuctap = countEmployeesByChucVu(employees?.countEmployee, 1);
     const thuviec = countEmployeesByChucVu(employees?.countEmployee, 2);

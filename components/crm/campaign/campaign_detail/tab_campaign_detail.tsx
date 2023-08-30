@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Tabs } from 'antd';
+import React, { useState } from "react";
+import { Tabs } from "antd";
 import Link from "next/link";
 import styles from "../campaign.module.css";
 import AddCampaignGeneralDetailInfo from "@/components/crm/campaign/campaign_detail/campaign_general_detail_info";
@@ -7,7 +7,7 @@ import AddOrderDetailStatus from "@/components/crm/order/order_detail/order_deta
 import AddOrderDetailDiary from "@/components/crm/order/order_detail/order_detail_diary";
 import AddOrderDetailTable from "@/components/crm/order/order_detail/order_detail_table";
 const { TabPane } = Tabs;
-import Image from 'next/image';
+import Image from "next/image";
 import TableDataCampaignCustomer from "@/components/crm/table/table-campaign-customer";
 import TableDataCampaginChance from "@/components/crm/table/table-campaign-chance";
 import TableDataCampaignOrder from "@/components/crm/table/table-campaign-order";
@@ -27,7 +27,7 @@ import ShareActionModal from "@/components/crm/campaign/campaign_detail/campaign
 import InsertFileActionModal from "@/components/crm/order/order_detail/order_detail_action_modal/insert_file_order_detail_attach_mdal";
 
 const TabComponent = () => {
-  const [activeTab, setActiveTab] = useState('tab1');
+  const [activeTab, setActiveTab] = useState("tab1");
   const [isModalCancel, setIsModalCancel] = useState(false);
   const [isOpenShare, setIsOpenShare] = useState(false);
   const [isInsertFileOpen, setIsInsertFileOpen] = useState(false);
@@ -48,44 +48,43 @@ const TabComponent = () => {
                 <div className={styles.main__title}>Thông tin đơn hàng</div>
                 <div className={styles.form_add_potential}>
                   <div className={styles.main__body}>
-
                     <AddCampaignGeneralDetailInfo />
                     {/* <AddOrderDetailTable /> */}
                     {/* <AddOrderDetailStatus /> */}
-
                   </div>
                 </div>
                 <div>&nbsp;</div>
-                
               </div>
             </div>
           </div>
-
         </TabPane>
-        <TabPane tab="Khách hàng" key="tab2" >
+        <TabPane tab="Khách hàng" key="tab2">
           <div className={styles.main_importfile}>
             <div className={styles.formInfoStep}>
               <div className={styles.info_step}>
                 <div className={styles.form_add_potential}>
-                <div className={`${styles.main__control_btn} `}>
-                    <CampaignCustomerInputGroup isSelectedRow={isSelectedRow}/>
-                </div>
-                  
-                  <TableDataCampaignCustomer setSelected={setIsSelectedRow} setNumberSelected={setNumberSelected}/>
+                  <div className={`${styles.main__control_btn} `}>
+                    <CampaignCustomerInputGroup isSelectedRow={isSelectedRow} />
+                  </div>
+
+                  <TableDataCampaignCustomer
+                    setSelected={setIsSelectedRow}
+                    setNumberSelected={setNumberSelected}
+                  />
                 </div>
               </div>
             </div>
           </div>
         </TabPane>
-        <TabPane tab="Cơ hội" key="tab3" >
-        <div className={styles.main_importfile}>
+        <TabPane tab="Cơ hội" key="tab3">
+          <div className={styles.main_importfile}>
             <div className={styles.formInfoStep}>
               <div className={styles.info_step}>
                 <div className={styles.form_add_potential}>
-                <div className={`${styles.main__control_btn}`}>
+                  <div className={`${styles.main__control_btn}`}>
                     <CampaignChanceInputGroup />
-                </div>
-                  
+                  </div>
+
                   <TableDataCampaginChance />
                 </div>
               </div>
@@ -93,44 +92,50 @@ const TabComponent = () => {
           </div>
         </TabPane>
         <TabPane tab="Đơn hàng" key="tab4">
-        <div className={styles.main_importfile}>
+          <div className={styles.main_importfile}>
             <div className={styles.formInfoStep}>
               <div className={styles.info_step}>
                 <div className={styles.form_add_potential}>
-                <div className={`${styles.main__control_btn} `}>
+                  <div className={`${styles.main__control_btn} `}>
                     <CampaignOrderInputGroup />
-                </div>
-                  
-                  <TableDataCampaignOrder setSelected={setIsSelectedRow} setNumberSelected={setNumberSelected} />
+                  </div>
+
+                  <TableDataCampaignOrder
+                    setSelected={setIsSelectedRow}
+                    setNumberSelected={setNumberSelected}
+                  />
                 </div>
               </div>
             </div>
           </div>
         </TabPane>
         <TabPane tab="Hóa đơn" key="tab5">
-        <div className={styles.main_importfile}>
+          <div className={styles.main_importfile}>
             <div className={styles.formInfoStep}>
               <div className={styles.info_step}>
                 <div className={styles.form_add_potential}>
-                <div className={`${styles.main__control_btn} `}>
+                  <div className={`${styles.main__control_btn} `}>
                     <CampaignBillInputGroup />
-                </div>
-                  
-                  <TableDataCampaignBill setSelected={setIsSelectedRow} setNumberSelected={setNumberSelected}/>
+                  </div>
+
+                  <TableDataCampaignBill
+                    setSelected={setIsSelectedRow}
+                    setNumberSelected={setNumberSelected}
+                  />
                 </div>
               </div>
             </div>
           </div>
         </TabPane>
         <TabPane tab="Lịch hẹn" key="tab6">
-        <div className={styles.main_importfile}>
+          <div className={styles.main_importfile}>
             <div className={styles.formInfoStep}>
               <div className={styles.info_step}>
                 <div className={styles.form_add_potential}>
-                <div className={`${styles.main__control_btn} `}>
+                  <div className={`${styles.main__control_btn} `}>
                     <CampaignAppointmentInputGroup />
-                </div>
-                  
+                  </div>
+
                   <TableDataCampaignAppointment />
                 </div>
               </div>
@@ -138,14 +143,14 @@ const TabComponent = () => {
           </div>
         </TabPane>
         <TabPane tab="Email" key="tab7">
-        <div className={styles.main_importfile}>
+          <div className={styles.main_importfile}>
             <div className={styles.formInfoStep}>
               <div className={styles.info_step}>
                 <div className={styles.form_add_potential}>
-                <div className={`${styles.main__control_btn} `}>
+                  <div className={`${styles.main__control_btn} `}>
                     <CampaignEmailInputGroup />
-                </div>
-                  
+                  </div>
+
                   <TableDataCampaignEmail />
                 </div>
               </div>
@@ -153,13 +158,13 @@ const TabComponent = () => {
           </div>
         </TabPane>
         <TabPane tab="Danh sách chia sẻ" key="tab8">
-        <div className={styles.main_importfile}>
+          <div className={styles.main_importfile}>
             <div className={styles.formInfoStep}>
               <div className={styles.info_step}>
                 <div className={styles.form_add_potential}>
-                <div className={`${styles.main__control_btn} flex_between`}>
+                  <div className={`${styles.main__control_btn} flex_between`}>
                     {/* <OrderDetailAppointmentInputGroup /> */}
-                </div>
+                  </div>
                   <div className={`${styles.main__control_btn} flex_between`}>
                     <div className={styles.main__control_search}>
                       <form onSubmit={() => false}>
@@ -174,24 +179,31 @@ const TabComponent = () => {
                           <Image
                             className={styles.img__search}
                             src="/crm/search.svg"
-                            alt="" width={15} height={15}
+                            alt=""
+                            width={15}
+                            height={15}
                           />
                         </button>
                       </form>
                     </div>
                     <div className={`${styles.main__control_add} flex_end`}>
-                        <div>
-                          <button 
-                            type="button" onClick={() => {
-                              setIsOpenShare(true);
-                              }}
-                            className={`${styles.dropbtn_add} flex_align_center`}
-                          >
-                            <Image src="/share_white.svg" alt="" width={15} height={15}/>
-                            Chia sẻ
-                          </button>
-                        </div>
-
+                      <div>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setIsOpenShare(true);
+                          }}
+                          className={`${styles.dropbtn_add} flex_align_center`}
+                        >
+                          <Image
+                            src="/crm/share_white.svg"
+                            alt=""
+                            width={15}
+                            height={15}
+                          />
+                          Chia sẻ
+                        </button>
+                      </div>
                     </div>
                   </div>
                   <TableDataCampaignShareList />
@@ -200,22 +212,19 @@ const TabComponent = () => {
             </div>
           </div>
         </TabPane>
-
       </Tabs>
-      
-        <CustomerSelectModal
-          isModalCancel={isModalCancel}
-          setIsModalCancel={setIsModalCancel}
-          title="Chọn khách hàng"
-          // content="Hello"
-        />
 
-        <ShareActionModal
+      <CustomerSelectModal
+        isModalCancel={isModalCancel}
+        setIsModalCancel={setIsModalCancel}
+        title="Chọn khách hàng"
+        // content="Hello"
+      />
+
+      <ShareActionModal
         isModalCancel={isOpenShare}
         setIsModalCancel={setIsOpenShare}
-        />
-        
-      
+      />
     </div>
   );
 };

@@ -205,7 +205,7 @@ export default function AddPlanningModal({ onCancel }: any) {
       isEmpList &&
       isEmpList?.items?.map((emp: any) => ({
         value: `${emp.ep_id} ${emp.dep_id} ${emp.position_id} ${emp.dep_name}`,
-        label: emp.ep_name
+        label: `${emp.ep_name} (${emp.dep_name ? emp.dep_name : "Chưa cập nhật"} - ID:${emp.ep_id})`
       })),
     [isEmpList]
   );
@@ -299,7 +299,8 @@ export default function AddPlanningModal({ onCancel }: any) {
                       <Select
                         value={options.chucvuhientai}
                         onChange={(option) => handleSelectChange(option, setPosition_id)}
-                        options={options.chucvuhientai}
+                        isDisabled={isEmp_id ? true : false}
+                        options={options.quyhoachbonhiem}
                         placeholder="Chọn chức vụ"
                         styles={{
                           control: (baseStyles, state) => ({
@@ -308,11 +309,16 @@ export default function AddPlanningModal({ onCancel }: any) {
                             fontSize: state.isFocused ? 14 : 14,
                             minHeight: state.isFocused ? 20 : 20,
                             width: '100%',
-                            fontWeight: state.isFocused ? 600 : 600
+                            fontWeight: state.isFocused ? 600 : 600,
+                            color: "black"
+                          }),
+                          singleValue: (baseStyles) => ({
+                            ...baseStyles,
+                            color: "#444444", // Màu cho đoạn văn bản đã chọn
                           }),
                           placeholder: (baseStyles) => ({
                             ...baseStyles,
-                            color: "#444444",
+                            color: "black",
                           }),
                         }}
                       />
@@ -326,7 +332,8 @@ export default function AddPlanningModal({ onCancel }: any) {
                       <Select
                         value={options.chonphongban}
                         onChange={(option) => handleSelectChange(option, setDep_id)}
-                        options={options.chonphongban}
+                        isDisabled={isEmp_id ? true : false}
+                        options={options.phongbanmoi}
                         placeholder="Chọn phòng ban"
                         styles={{
                           control: (baseStyles, state) => ({
@@ -336,6 +343,10 @@ export default function AddPlanningModal({ onCancel }: any) {
                             minHeight: state.isFocused ? 20 : 20,
                             width: '100%',
                             fontWeight: state.isFocused ? 600 : 600
+                          }),
+                          singleValue: (baseStyles) => ({
+                            ...baseStyles,
+                            color: "#444444", // Màu cho đoạn văn bản đã chọn
                           }),
                           placeholder: (baseStyles) => ({
                             ...baseStyles,

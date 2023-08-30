@@ -226,7 +226,7 @@ export default function AddPayrollModal({ onCancel }: any) {
       isEmpList &&
       isEmpList?.items?.map((emp: any) => ({
         value: `${emp.ep_id} ${emp.dep_id} ${emp.position_id} ${emp.dep_name}`,
-        label: emp.ep_name
+        label: `${emp.ep_name} (${emp.dep_name ? emp.dep_name : "Chưa cập nhật"} - ID:${emp.ep_id})`
       })),
     [isEmpList]
   );
@@ -286,13 +286,11 @@ export default function AddPayrollModal({ onCancel }: any) {
     chonnhanvien: chonnhanvienOptions && chonnhanvienOptions,
     chucvuhientai: [
       { value: isPosition_id && isPosition_id, label: isPosition_name ? isPosition_name : 'Chọn chức vụ ' },
-
     ],
     choncanghi: choncanghiOptions,
     hinhthuc: [
       { value: '1', label: 'Giảm biên chế' },
       { value: '2', label: 'Nghỉ việc' },
-
     ],
     chonquydinh: chonquydinhOptions,
 
@@ -343,6 +341,7 @@ export default function AddPayrollModal({ onCancel }: any) {
                     <div className={`${styles.input_right}`}>
                       <Select
                         value={options.chucvuhientai}
+                        isDisabled={isEmp_id ? true : false}
                         onChange={(option) => handleSelectChange(option, options.chucvuhientai)}
                         options={options.chucvuhientai}
                         placeholder="Chọn chức vụ"
@@ -354,6 +353,10 @@ export default function AddPayrollModal({ onCancel }: any) {
                             minHeight: state.isFocused ? 20 : 20,
                             width: '100%',
                             fontWeight: state.isFocused ? 600 : 600
+                          }),
+                          singleValue: (baseStyles) => ({
+                            ...baseStyles,
+                            color: "#444444", // Màu cho đoạn văn bản đã chọn
                           }),
                           placeholder: (baseStyles) => ({
                             ...baseStyles,
@@ -368,6 +371,7 @@ export default function AddPayrollModal({ onCancel }: any) {
                     <div className={`${styles.input_right}`}>
                       <Select
                         value={options.chonphongban}
+                        isDisabled={isEmp_id ? true : false}
                         onChange={(option) => handleSelectChange(option, options.chonphongban)}
                         options={options.chonphongban}
                         placeholder="Chọn phòng ban"
@@ -379,6 +383,10 @@ export default function AddPayrollModal({ onCancel }: any) {
                             minHeight: state.isFocused ? 20 : 20,
                             width: '100%',
                             fontWeight: state.isFocused ? 600 : 600
+                          }),
+                          singleValue: (baseStyles) => ({
+                            ...baseStyles,
+                            color: "#444444", // Màu cho đoạn văn bản đã chọn
                           }),
                           placeholder: (baseStyles) => ({
                             ...baseStyles,
@@ -392,7 +400,8 @@ export default function AddPayrollModal({ onCancel }: any) {
                     <label htmlFor="">Đơn vị công tác hiện tại</label>
                     <div className={`${styles.input_right}`}>
                       <Select
-                        defaultValue={companyNames}
+                        value={options.chonchinhanh}
+                        isDisabled={isEmp_id ? true : false}
                         onChange={(option) => handleSelectChange(option, setCom_id)}
                         options={options.chonchinhanh}
                         placeholder="Chọn chi nhánh"
@@ -405,6 +414,10 @@ export default function AddPayrollModal({ onCancel }: any) {
                             width: '100%',
                             color: state.isFocused ? '#444444' : '#444444',
                             fontWeight: state.isFocused ? 600 : 600
+                          }),
+                          singleValue: (baseStyles) => ({
+                            ...baseStyles,
+                            color: "#444444", // Màu cho đoạn văn bản đã chọn
                           }),
                           placeholder: (baseStyles) => ({
                             ...baseStyles,

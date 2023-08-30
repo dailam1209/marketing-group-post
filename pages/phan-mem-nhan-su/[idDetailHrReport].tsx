@@ -14,6 +14,7 @@ import {
 } from '@/pages/api/api-hr/co_cau_to_chuc'
 import GetComId from '@/components/hr/getComID'
 import Head from 'next/head'
+import position from '@/components/hr/util/listPosition'
 
 type SelectOptionType = { label: string; value: any }
 
@@ -77,7 +78,6 @@ export default function DetailHrReport({ children }: any) {
   const [isGender, setGender] = useState<any>('')
   const [isType, setType] = useState<any>('')
   const [departmentList, setDepartmentList] = useState<any>(null)
-  const [PostionCharDatas, setPosttionCharData] = useState<any>(null)
   const [isDep_id, setDep_id] = useState<any>('')
   const [isPosition_id, setPosition_id] = useState<any>('')
   const [isGroup_id, setGroup_id] = useState<any>('')
@@ -461,17 +461,7 @@ export default function DetailHrReport({ children }: any) {
       }
     }
     fetchData()
-  }, [link, currentPage, isPosition_id, isGender, isMaried, isDep_id, isTeam_id, isGroup_id, isTypeResonse])
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await PostionCharData()
-        setPosttionCharData(response?.data)
-      } catch (error) { }
-    }
-    fetchData()
-  }, [])
+  }, [link, currentPage, isPosition_id, isGender, isMaried, isDep_id, isTeam_id, isGroup_id])
 
   const handleSelectChange = (
     selectedOption: SelectOptionType | null,
@@ -561,12 +551,12 @@ export default function DetailHrReport({ children }: any) {
   )
   const chonchucvuOptions = useMemo(
     () =>
-      PostionCharDatas &&
-      PostionCharDatas?.data?.flat()?.map((pos: any) => ({
+      position &&
+      position?.map((pos: any) => ({
         value: pos.positionId,
         label: pos.positionName,
       })),
-    [PostionCharDatas]
+    [position]
   )
   const currentYear: number = new Date().getFullYear()
   const startYear: number = 1970
@@ -772,7 +762,7 @@ export default function DetailHrReport({ children }: any) {
                   {isOrganisationalList?.listEmployee &&
                     isOrganisationalList?.listEmployee?.map(
                       (item: any, index: any) => {
-                        const positionData = PostionCharDatas?.data?.flat().find(
+                        const positionData = position?.find(
                           (position: any) =>
                             position?.positionId === item?.position_id
                         )

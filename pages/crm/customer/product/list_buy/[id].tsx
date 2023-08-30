@@ -4,7 +4,7 @@ import { useHeader } from "@/components/crm/hooks/useHeader";
 import { useRouter } from "next/router";
 import styleHome from "@/components/crm/home/home.module.css";
 import { useContext, useEffect, useRef } from "react";
-import styles from "@/components/crm/potential/potential.module.css";
+import styles from "@/components/crm/customer/detail/customer_detail.module.css";
 import CustomerHeaderTab from "@/components/crm/customer/header_customer_info_btn";
 import TableProductListBuy from "@/components/crm/table/table-product-list_buy";
 import Head from "next/head";
@@ -83,24 +83,35 @@ export default function SheduleDetailCustomerList() {
       </Head>
       <CustomerHeaderTab activeName={"Hàng hóa đã mua"} />
       <div ref={mainRef} className={styleHome.main}>
-        <div className={styles.main__control_search}>
-          <form onSubmit={() => false}>
-            <input
-              style={{ height: "46px" }}
-              type="text"
-              className={styles.input__search}
-              name="search"
-              defaultValue=""
-              placeholder="Tìm kiếm theo tên sản phẩm"
-            />
-            <button className={styles.kinh_lup}>
-              <img
-                className={styles.img__search}
-                src="/crm/search.svg"
-                alt=""
+        <div className={`${styles.main__control_btn} flex_between`}>
+          <div className={styles.main__control_search}>
+            <form onSubmit={() => false}>
+              <input
+                style={{ height: "46px" }}
+                type="text"
+                className={styles.input__search}
+                name="search"
+                defaultValue=""
+                placeholder="Tìm kiếm theo tên sản phẩm"
               />
+              <button className={styles.kinh_lup}>
+                <img
+                  className={styles.img__search}
+                  src="/crm/search.svg"
+                  alt=""
+                />
+              </button>
+            </form>
+          </div>
+          <div className={`${styles.main__control_add} flex_end`}>
+            <button
+              type="button"
+              className={`${styles.dropbtn_add} flex_align_center`}
+            >
+              <img src="/crm/add.svg" />
+              Thêm mới
             </button>
-          </form>
+          </div>
         </div>
         <TableProductListBuy />
       </div>
