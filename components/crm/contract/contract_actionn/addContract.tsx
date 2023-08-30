@@ -361,7 +361,7 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
       index_field: item?.index?.join(",") || "",
     }));
 
-    const bodyData = {
+    const bodyData = {/crm/danh-sach-khach-hang/group_parent/392
       filename: fileUpload,
       path_file: path_dowload,
       id_file: idFile,

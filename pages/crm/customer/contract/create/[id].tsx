@@ -20,6 +20,7 @@ export default function ContractDetailsCreate() {
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
   const [name, setname] = useState<any>();
+  const [nameContract, setnameContract] = useState<any>();
 
   const onChangeSelect = (value: string) => {
     setValueContract(value);
@@ -38,12 +39,27 @@ export default function ContractDetailsCreate() {
     setname(data?.data?.name);
   };
 
+  const getContract = async () => {
+    const res = await fetch(`${base_url}/api/crm/contract/list`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${Cookies.get("token_base365")}`,
+      },
+    });
+    const data = await res.json();
+    const nameContract = data?.data?.list?.name;
+    console.log(data);
+    setnameContract(nameContract);
+  };
+
   useEffect(() => {
+    getContract();
     getNameDetail();
     setHeaderTitle(`${name} / Hợp đồng bán / Thêm hợp đồng bán`);
     setShowBackButton(true);
     setCurrentPath(`/crm/customer/contract/list/${id}`);
-  }, [setHeaderTitle, setShowBackButton, setCurrentPath, id, name]);
+  }, [setHeaderTitle, setShowBackButton, setCurrentPath, id, name, nameContract]);
 
   useEffect(() => {
     if (isOpen) {
@@ -120,23 +136,30 @@ export default function ContractDetailsCreate() {
                             maxWidth: "519px",
                             width: "100%",
                           }}
+                        
+                            mode="multiple"
+                            defaultValue="Chọn loại hợp đồng"
+                            value={nameContract}
+
+                            // options={options}
+                       
                           placeholder="Chọn loại hợp đồng"
-                          optionFilterProp="children"
+                          // optionFilterProp="children"
                           onChange={onChangeSelect}
-                          options={[
-                            {
-                              value: "0",
-                              label: "Chọn loại hợp đồng",
-                            },
-                            {
-                              value: "lucy",
-                              label: "Cáchtạođềxuấtxinnghỉ.docx",
-                            },
-                            {
-                              value: "tom",
-                              label: "Cáchtạođềxuấtxinnghỉ22.docx",
-                            },
-                          ]}
+                          // options={[
+                          //   {
+                          //     value: "0",
+                          //     label: "Chọn loại hợp đồng",
+                          //   },
+                          //   {
+                          //     value: "lucy",
+                          //     label: "Cáchtạođềxuấtxinnghỉ.docx",
+                          //   },
+                          //   {
+                          //     value: "tom",
+                          //     label: "Cáchtạođềxuấtxinnghỉ22.docx",
+                          //   },
+                          // ]}
                         />
                       </div>
                     </div>
