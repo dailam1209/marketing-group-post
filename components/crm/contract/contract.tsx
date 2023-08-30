@@ -7,8 +7,8 @@ import { useHeader } from "../hooks/useHeader";
 
 export default function Contract() {
   const mainRef = useRef<HTMLDivElement>(null);
+  const [valSearch, setValSearch] = useState("");
   const { isOpen } = useContext<any>(SidebarContext);
-  const [isSelectedRow, setIsSelectedRow] = useState(false);
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
 
@@ -27,8 +27,8 @@ export default function Contract() {
   }, [isOpen]);
   return (
     <div ref={mainRef} className={styleHome.main}>
-      <ContractInputGroup isSelectedRow={isSelectedRow} />
-      <TableDataContract />
+      <ContractInputGroup setValSearch={setValSearch} />
+      <TableDataContract valSearch={valSearch} />
     </div>
   );
 }
