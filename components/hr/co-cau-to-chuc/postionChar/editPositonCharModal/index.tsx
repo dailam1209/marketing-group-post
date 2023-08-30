@@ -75,7 +75,7 @@ export default function EditPositionCharModal({ idPosition, mission, onCancel }:
                       <span> {errors.description && <div className={`${styles.t_require} `}>{errors.description}</div>}</span>
                     </span></label>
                     <div className={`${styles.input_right}`}>
-                      <textarea defaultValue={mission} className={`${styles.inputquytrinh} ${styles.textareapolicy}`} id="mota_nhiemvu"></textarea>
+                      <textarea style={{ fontSize: 14, color: "#000000" }} defaultValue={mission} className={`${styles.inputquytrinh} ${styles.textareapolicy}`} id="mota_nhiemvu"></textarea>
                     </div>
                   </div>
                   <div className={`${styles.modal_footer} ${styles.footer_process}`}>
