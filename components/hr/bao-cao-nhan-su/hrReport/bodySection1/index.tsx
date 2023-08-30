@@ -170,8 +170,8 @@ export default function EmployeeInformation({ hrReportList }: any) {
                             background_color='#f1f9fc'
                             handleClickDetail={handleClickDetail}
                             link_title1="/bieu-do-danh-sach-nhan-vien-tang-giam-luong.html"
-                            link_title2="/bieu-do-danh-sach-nhan-vien-tang-giam-luong?type=1.html"
-                            link_title3="/bieu-do-danh-sach-nhan-vien-tang-giam-luong?type=2.html"
+                            link_title2="/bieu-do-danh-sach-nhan-vien-tang-giam-luong?type=2.html"
+                            link_title3="/bieu-do-danh-sach-nhan-vien-tang-giam-luong?type=1.html"
                         />
                     </div>
                     <div className={`${styles.row_top_item}`}>

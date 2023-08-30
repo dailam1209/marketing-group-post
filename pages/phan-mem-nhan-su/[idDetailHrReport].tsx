@@ -253,6 +253,7 @@ export default function DetailHrReport({ children }: any) {
     const fetchData = async () => {
       try {
         const formData = new FormData()
+        const pageSize: any = 1000
         formData.append('depId', isDep_id)
         formData.append('positionId', isPosition_id)
         formData.append('groupId', isGroup_id)
