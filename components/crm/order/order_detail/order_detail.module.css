@@ -29,7 +29,7 @@
   margin-bottom: 15px;
   text-decoration-line: underline;
   color: #474747;
-  font-family: 'Roboto-Medium';
+  font-family: "Roboto-Medium";
 }
 
 .main__body__item {
@@ -126,68 +126,68 @@
 
 .btn_edit {
   background: #4c5bd4;
-  width: 130px;
+  width: 145px;
   box-shadow: 0px 0px 10px rgb(0 0 0 / 10%);
   border-radius: 10px;
   padding: 9px 21px;
   color: #ffffff;
-  font-family: 'Roboto-Medium';
+  font-family: "Roboto-Medium";
   font-size: 16px;
   line-height: 19px;
-  column-gap: 5px;
+  column-gap: 10px;
 }
 
 .btn_browse {
   background: #2a38a2;
-  width: 130px;
+  width: 145px;
   box-shadow: 0px 0px 10px rgb(0 0 0 / 10%);
   border-radius: 10px;
   padding: 9px 21px;
   color: #ffffff;
-  font-family: 'Roboto-Medium';
+  font-family: "Roboto-Medium";
   font-size: 16px;
   line-height: 19px;
-  column-gap: 5px;
+  column-gap: 8px;
 }
 
 .btn_delete {
   background: #ffffff;
-  width: 130px;
+  width: 145px;
   box-shadow: 0px 0px 10px rgb(0 0 0 / 10%);
   border-radius: 10px;
   padding: 9px 21px;
   color: #ff3333;
-  font-family: 'Roboto-Medium';
+  font-family: "Roboto-Medium";
   font-size: 16px;
   line-height: 19px;
-  column-gap: 5px;
+  column-gap: 10px;
 }
 
 .btn_execute {
   background: #ffffff;
-  width: 130px;
+  width: 145px;
   border: 1px solid #4c5bd4;
   box-shadow: 0px 0px 10px rgb(0 0 0 / 10%);
   border-radius: 10px;
   padding: 9px 21px;
   color: #4c5bd4;
-  font-family: 'Roboto-Medium';
+  font-family: "Roboto-Medium";
   font-size: 16px;
   line-height: 19px;
-  column-gap: 5px;
+  column-gap: 11px;
 }
 
 .btn_deny {
   background: #ffa800;
-  width: 130px;
+  width: 145px;
   box-shadow: 0px 0px 10px rgb(0 0 0 / 10%);
   border-radius: 10px;
   padding: 9px 21px;
   color: #ffffff;
-  font-family: 'Roboto-Medium';
+  font-family: "Roboto-Medium";
   font-size: 16px;
   line-height: 19px;
-  column-gap: 5px;
+  column-gap: 8px;
 }
 
 .not_update {
@@ -208,10 +208,10 @@
   border-radius: 10px;
   padding: 9px 21px;
   color: #ffffff;
-  font-family: 'Roboto-Medium';
+  font-family: "Roboto-Medium";
   font-size: 16px;
   line-height: 19px;
-  column-gap: 5px;
+  column-gap: 9px;
 }
 
 .body__ls {
@@ -319,7 +319,7 @@
 
 .pick_product {
   float: right;
-  font-family: 'Roboto-medium';
+  font-family: "Roboto-medium";
   font-weight: 500;
   font-size: 16px;
   line-height: 19px;
@@ -400,7 +400,7 @@
 .n_btn_upload {
   background: #2a38a2;
   border-radius: 10px;
-  font-family: 'Roboto-medium';
+  font-family: "Roboto-medium";
   font-weight: 500;
   font-size: 16px;
   line-height: 19px;
@@ -427,7 +427,7 @@
   color: #474747;
   font-size: 16px;
   line-height: 19px;
-  font-family: 'Roboto-Medium';
+  font-family: "Roboto-Medium";
 }
 
 .form-control {

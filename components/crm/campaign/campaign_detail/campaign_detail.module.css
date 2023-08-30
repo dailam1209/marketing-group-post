@@ -29,7 +29,7 @@
   margin-bottom: 15px;
   text-decoration-line: underline;
   color: #474747;
-  font-family: 'Roboto-Medium';
+  font-family: "Roboto-Medium";
 }
 
 .main__body__item {
@@ -73,17 +73,13 @@
   row-gap: 20px;
   background: #ffffff;
   border-radius: 0 0 10px 10px;
-  /* margin-bottom: 25px; */
-}
-
-.main__control_btn {
-  column-gap: 15px;
-  align-items: center;
 }
 
 .flex_end {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
 .main {
@@ -95,15 +91,15 @@
 
 .btn_edit {
   background: #4c5bd4;
-  width: 130px;
+  width: 145px;
   box-shadow: 0px 0px 10px rgb(0 0 0 / 10%);
   border-radius: 10px;
   padding: 9px 21px;
   color: #ffffff;
-  font-family: 'Roboto-Medium';
+  font-family: "Roboto-Medium";
   font-size: 16px;
   line-height: 19px;
-  column-gap: 5px;
+  gap: 8px;
 }
 
 .btn_browse {
@@ -113,7 +109,7 @@
   border-radius: 10px;
   padding: 9px 21px;
   color: #ffffff;
-  font-family: 'Roboto-Medium';
+  font-family: "Roboto-Medium";
   font-size: 16px;
   line-height: 19px;
   column-gap: 5px;
@@ -121,15 +117,16 @@
 
 .btn_delete {
   background: #ffffff;
-  width: 130px;
+  width: 145px;
   box-shadow: 0px 0px 10px rgb(0 0 0 / 10%);
   border-radius: 10px;
   padding: 9px 21px;
   color: #ff3333;
-  font-family: 'Roboto-Medium';
+  font-family: "Roboto-Medium";
   font-size: 16px;
   line-height: 19px;
-  column-gap: 5px;
+  gap: 9px;
+  text-align: center;
 }
 
 .btn_execute {
@@ -140,7 +137,7 @@
   border-radius: 10px;
   padding: 9px 21px;
   color: #4c5bd4;
-  font-family: 'Roboto-Medium';
+  font-family: "Roboto-Medium";
   font-size: 16px;
   line-height: 19px;
   column-gap: 5px;
@@ -153,7 +150,7 @@
   border-radius: 10px;
   padding: 9px 21px;
   color: #ffffff;
-  font-family: 'Roboto-Medium';
+  font-family: "Roboto-Medium";
   font-size: 16px;
   line-height: 19px;
   column-gap: 5px;
@@ -177,7 +174,7 @@
   border-radius: 10px;
   padding: 9px 21px;
   color: #ffffff;
-  font-family: 'Roboto-Medium';
+  font-family: "Roboto-Medium";
   font-size: 16px;
   line-height: 19px;
   column-gap: 5px;
@@ -190,7 +187,10 @@
 }
 
 .flex_1 {
-  flex: 1;
+  flex: 1 1;
+  display: flex;
+  gap: 5px;
+  align-items: center;
 }
 
 .main_content_nhatky {
@@ -212,7 +212,6 @@
   flex-direction: column;
   row-gap: 20px;
   background: #ffffff;
-  /* padding: 20px; */
   border-radius: 0 0 10px 10px;
 }
 .main__body__item__title_nhatky {
@@ -232,14 +231,10 @@
 }
 
 .row {
-  /* display: -webkit-box; */
-  /* display: -ms-flexbox; */
   display: flex;
-  /* -ms-flex-wrap: wrap; */
   flex-wrap: wrap;
   margin-right: -15px;
   margin-left: -15px;
-  /* padding: 15px; */
 }
 
 .show_avatar {
@@ -254,8 +249,6 @@
   display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  /* margin-right: -15px; */
-  /* margin-left: -15px; */
   justify-content: space-between;
   margin-bottom: 1rem;
 }
@@ -271,7 +264,7 @@
 
 .pick_product {
   float: right;
-  font-family: 'Roboto-medium';
+  font-family: "Roboto-medium";
   font-weight: 500;
   font-size: 16px;
   line-height: 19px;
@@ -323,7 +316,7 @@
   font-size: 16px;
   line-height: 19px;
   color: #474747;
-  font-family: 'Roboto-Medium';
+  font-family: "Roboto-Medium";
 }
 
 .table_stt_value {
@@ -400,7 +393,7 @@
 .n_btn_upload {
   background: #2a38a2;
   border-radius: 10px;
-  font-family: 'Roboto-medium';
+  font-family: "Roboto-medium";
   font-weight: 500;
   font-size: 16px;
   line-height: 19px;
@@ -427,7 +420,7 @@
   color: #474747;
   font-size: 16px;
   line-height: 19px;
-  font-family: 'Roboto-Medium';
+  font-family: "Roboto-Medium";
 }
 
 .form-control {
@@ -450,10 +443,13 @@
   display: flex;
 }
 
+.group_button {
+  display: flex;
+  gap: 15px;
+}
 @media (min-width: 992px) {
   .col-lg-6 {
     -webkit-box-flex: 0;
-    /* -ms-flex: 0 0 50%; */
     flex: 0 0 50%;
     max-width: 50%;
     position: relative;
@@ -487,7 +483,6 @@
     -webkit-box-flex: 0;
     -ms-flex: 0 0 50%;
     flex: 0 0 50%;
-    /* max-width: 509px; */
   }
 
   .col-lg-3 {

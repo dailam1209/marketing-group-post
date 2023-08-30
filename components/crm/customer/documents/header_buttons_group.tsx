@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styles from "../../potential/potential.module.css";
-import Link from "next/link";
+import styles from "../detail/customer_detail.module.css";
 import UploadDocumentModal from "./document_upload_modal";
 export default function HeaderBtnsDocumentEngine({ id }: any) {
   const [isOpenMdal, setIsOpenMdal] = useState(false);
@@ -12,7 +11,6 @@ export default function HeaderBtnsDocumentEngine({ id }: any) {
           <div className={styles.main__control_search}>
             <form onSubmit={() => false}>
               <input
-                style={{ height: "46px" }}
                 type="text"
                 className={styles.input__search}
                 name="search"

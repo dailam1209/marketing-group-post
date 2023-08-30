@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../../potential/potential.module.css";
+import styles from "../detail/customer_detail.module.css";
 import Link from "next/link";
 import PotentialSelectBox from "@/components/crm/potential/potential_selectt";
 import { useRouter } from "next/router";
@@ -18,7 +18,6 @@ export default function ChaneInputGroup() {
         <div className={styles.main__control_search}>
           <form onSubmit={() => false}>
             <input
-              style={{ height: "46px" }}
               type="text"
               className={styles.input__search}
               name="search"

@@ -24,7 +24,7 @@ export default function AddButtonControl() {
           <div className={`${styles.main__control_btn} ${styles.flex_end} `}>
             <div className={`${styles.flex_1}`}>
               <Switch defaultChecked onChange={onChange} />
-              &nbsp;Ẩn dữ liệu trống
+              Ẩn dữ liệu trống
             </div>
             <div className={styles.group_button}>
               <Link href={`/crm/campaign/edit/${id}`}>
