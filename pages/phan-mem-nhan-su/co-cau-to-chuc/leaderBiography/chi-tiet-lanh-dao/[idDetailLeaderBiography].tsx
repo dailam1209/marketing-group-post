@@ -194,9 +194,10 @@ export default function DetailLeaderBiography({ onCancel }: any) {
         <div className={`${styles.l_body}`}>
           <div className={`${styles.add_quytrinh}`}>
             <div className={`${styles.back_quytrinh}`}>
-              <span onClick={handleBack}>
+              <span style={{ cursor: "pointer" }} onClick={handleBack}>
                 <picture>
                   <img
+
                     src={`${'/left_arrow.png'}`}
                     alt="Back"
                   ></img>
