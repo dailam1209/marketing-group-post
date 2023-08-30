@@ -98,7 +98,7 @@ const AddFilesCustomerList: React.FC = () => {
 
                     {/* Text Editor */}
                     <div
-                      style={{ marginBottom: -10 }}
+                      style={{ marginBottom: 0 }}
                       className={styles["main__body__type"]}
                     >
                       Mô tả khách hàng

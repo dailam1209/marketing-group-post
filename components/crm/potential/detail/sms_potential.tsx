@@ -1,8 +1,6 @@
 import React from "react";
-import styles from "@/components/crm/quote/quote.module.css";
-import OrderDetailSelectBox from "@/components/crm/campaign/campaign_detail/campaign_detail_action_modal/campaign_detail_select";
+import styles from "@/components/crm/customer/detail/customer_detail.module.css";
 import Link from "next/link";
-import TableDataEmailPo from "@/components/crm/table/table-pontential-Email";
 import TableDataSMSPo from "@/components/crm/table/table-pontential-Sms";
 
 type Props = {};
@@ -23,7 +21,7 @@ const SMS_potential = (props: Props) => {
                   className={`${styles.select_item} flex_align_center_item ${styles.select_item_time}`}
                 >
                   <label htmlFor="" className="">
-                  Ngày gửi:{" "}
+                    Ngày gửi:
                   </label>
                   <div className={`${styles.input_item_time} flex_between`}>
                     <input type="date" name="" id="start_time" />-
@@ -52,7 +50,8 @@ const SMS_potential = (props: Props) => {
                 </form>
               </div>
               <div className={`${styles.main__control_add} flex_end`}>
-                <Link href={"/crm/marketing/sms/add"}
+                <Link
+                  href={"/crm/marketing/sms/add"}
                   type="button"
                   className={`${styles.dropbtn_add} flex_align_center`}
                 >

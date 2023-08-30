@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import styles from "../../potential/potential.module.css";
+import styles from "../../customer/detail/customer_detail.module.css";
 import Link from "next/link";
 import PotentialSelectBox from "@/components/crm/potential/potential_selectt";
 import ScheduleModalAddOrEdit from "./schedule_add_or_edit";
 export default function ScheduleDetailInputGroup() {
   const handleClickSelectoption = () => {};
-const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <div className={styles.main__control}>
       <div className={`${styles.main__control_select} flex_align_center`}>
@@ -23,7 +23,6 @@ const [isOpen, setIsOpen] = useState(false)
         <PotentialSelectBox title="Nhân viên thực hiện:" value="Tất cả" />
         <PotentialSelectBox title="Trạng thái:" value="Tất cả" />
       </div>
-      
 
       <div className={`${styles.main__control_btn} flex_between`}>
         <div className={styles.main__control_search}>
@@ -48,7 +47,7 @@ const [isOpen, setIsOpen] = useState(false)
         <div className={`${styles.main__control_add} flex_end`}>
           <button
             type="button"
-            onClick={()=>setIsOpen(true)}
+            onClick={() => setIsOpen(true)}
             className={`${styles.dropbtn_add} flex_align_center`}
           >
             <img src="/crm/add.svg" />
