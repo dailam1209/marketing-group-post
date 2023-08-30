@@ -8,12 +8,15 @@ import Head from "next/head";
 import { base_url } from "@/components/crm/service/function";
 import Cookies from "js-cookie";
 import { id } from "date-fns/locale";
+import { useRouter } from "next/router";
 
-const AddContractCoponent: React.FC = () => {
+const EditContractPage: React.FC = () => {
   const mainRef = useRef<HTMLDivElement>(null);
   const [checkFile, setCheckFile] = useState(false);
+  const router = useRouter();
+  const { id } = router.query;
   const { isOpen } = useContext<any>(SidebarContext);
-  const [ContractData,setContractData] = useState<any>()
+  const [ContractData, setContractData] = useState<any>();
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
 
@@ -31,18 +34,32 @@ const AddContractCoponent: React.FC = () => {
     }
   }, [isOpen]);
 
-  const getImageBase64 = async () => {
-    const res = await fetch(`${base_url}/api/crm/contractAI/view`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${Cookies.get("token_base365")}`,
-      },
-      body: JSON.stringify({ contract_id: id }),
-    });
-    const data = await res.json();
-    setContractData(data?.data)
-  };
+//   const getImageBase64 = async () => {
+//     try {
+//       const res = await fetch(`${base_url}/api/crm/contractAI/view`, {
+//         method: "POST",
+//         headers: {
+//           "Content-Type": "application/json",
+//           Authorization: `Bearer ${Cookies.get("token_base365")}`,
+//         },
+//         body: JSON.stringify({ contract_id: id }),
+//       });
+
+//       if (res.ok) {
+//         const data = await res.json();
+
+//         setContractData(data?.data);
+//       } else {
+//         console.error("Error fetching data:", res.status);
+//       }
+//     } catch (error) {
+//       console.error("Error:", error.message);
+//     }
+//   };
+
+//   useEffect(() => {
+//     getImageBase64();
+//   }, []);
 
   return (
     <>
@@ -89,7 +106,10 @@ const AddContractCoponent: React.FC = () => {
       <div ref={mainRef} className={styleHome.main}>
         <div className={styles.main_addContract}>
           <div className={styles.formAddContract}>
-            <EditContract setCheckFile={setCheckFile} ContractData={ContractData}  />
+            <EditContract
+              setCheckFile={setCheckFile}
+              contractData={ContractData}
+            />
           </div>
         </div>
       </div>
@@ -97,4 +117,4 @@ const AddContractCoponent: React.FC = () => {
   );
 };
 
-export default AddContractCoponent;
+export default EditContractPage;

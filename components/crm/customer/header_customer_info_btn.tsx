@@ -92,7 +92,7 @@ const CustomerHeaderTab: React.FC<MyProps> = ({ activeName }) => {
 
   return (
     <div
-      style={{ paddingBottom: "20px" }}
+      style={{ paddingBottom: "0px" }}
       className={styleHome.main}
       ref={mainRef}
     >

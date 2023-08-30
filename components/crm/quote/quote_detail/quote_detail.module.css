@@ -89,31 +89,28 @@
   justify-content: center;
   padding: 10px 0;
 }
-.infobot_title{
+.infobot_title {
   display: flex;
   justify-content: space-between;
 }
-.infobot_title_left{
-
+.infobot_title_left {
 }
-.infobot_title_right{
+.infobot_title_right {
   display: flex;
-  width:35%;
-  
+  width: 35%;
 }
-.infobot_title_right span{
-  
-  width:35%;
+.infobot_title_right span {
+  width: 35%;
   font-size: 15px;
   padding: 5px 0;
   font-weight: 800;
 }
-.infobot_title_right div{
-  width:88%;
+.infobot_title_right div {
+  width: 88%;
   font-size: 15px;
   padding: 5px 0;
 }
-.container_bot_title{
+.container_bot_title {
   display: block;
 }
 .full_width_div span {
@@ -155,7 +152,7 @@
 
 .btn_edit {
   background: #4c5bd4;
-  width: 130px;
+  width: 145px;
   box-shadow: 0px 0px 10px rgb(0 0 0 / 10%);
   border-radius: 10px;
   padding: 9px 21px;
@@ -168,7 +165,7 @@
 
 .btn_browse {
   background: #2a38a2;
-  width: 130px;
+  width: 145px;
   box-shadow: 0px 0px 10px rgb(0 0 0 / 10%);
   border-radius: 10px;
   padding: 9px 21px;
@@ -181,7 +178,7 @@
 
 .btn_delete {
   background: #ffffff;
-  width: 130px;
+  width: 145px;
   box-shadow: 0px 0px 10px rgb(0 0 0 / 10%);
   border-radius: 10px;
   padding: 9px 21px;
@@ -189,7 +186,7 @@
   font-family: "Roboto-Medium";
   font-size: 16px;
   line-height: 19px;
-  column-gap: 5px;
+  column-gap: 9px;
 }
 .infoTotalMonney {
   padding-top: 20px;
@@ -210,8 +207,7 @@
   display: flex;
   justify-content: center;
 }
-.infotop{
-
+.infotop {
 }
 .monney {
   width: 300px;
@@ -221,7 +217,7 @@
 .monneytop {
   width: 200px;
   display: flex;
-  justify-content:space-between;
+  justify-content: space-between;
 }
 .monney2 {
   width: 100%;
@@ -233,7 +229,7 @@
 }
 .btn_execute {
   background: #ffffff;
-  width: 130px;
+  width: 145px;
   border: 1px solid #4c5bd4;
   box-shadow: 0px 0px 10px rgb(0 0 0 / 10%);
   border-radius: 10px;
@@ -242,12 +238,12 @@
   font-family: "Roboto-Medium";
   font-size: 16px;
   line-height: 19px;
-  column-gap: 5px;
+  column-gap: 9px;
 }
 
 .btn_deny {
   background: #ffa800;
-  width: 130px;
+  width: 145px;
   box-shadow: 0px 0px 10px rgb(0 0 0 / 10%);
   border-radius: 10px;
   padding: 9px 21px;

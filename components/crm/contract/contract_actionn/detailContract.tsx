@@ -10,13 +10,15 @@ import { useApi } from "@/components/crm/hooks/useApi";
 import { base_url } from "../../service/function";
 import Cookies from "js-cookie";
 
-export default function AddContract({ setCheckFile,FormData }: any) {
+export default function DetailContract({ setCheckFile, FormData }: any) {
   const inputFileRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
+  const { id } = router.query;
   const [fileUpload, setFileUpload] = useState<any[]>([]);
   const [show, setShow] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
-  const [imageData, setImgaUrls] = useState<any>("");
-  
+  // const [imageData, setImgaUrls] = useState<any>("");
+  const imageData = FormData?.result?.img_org_base64;
   const handleClickSelectFileUpdload = () => {
     inputFileRef.current?.click();
   };
@@ -36,9 +38,9 @@ export default function AddContract({ setCheckFile,FormData }: any) {
   };
 
   useEffect(() => {
-    const imageData = FormData?.result?.img_org_base64 ;
-    console.log(imageData);
-    setImgaUrls(imageData);
+    // const imageData = FormData?.result?.img_org_base64 ;
+    // console.log(imageData);
+    // setImgaUrls(imageData);
   }, []);
 
   const handleClose = () => {
@@ -48,8 +50,15 @@ export default function AddContract({ setCheckFile,FormData }: any) {
     }, 1500);
   };
 
-  console.log(FormData);
-  
+  function incrementNumbers(inputString) {
+    const numbers = inputString.split(",");
+    const incrementedNumbers = numbers.map((num) =>
+      (parseInt(num) + 1).toString()
+    );
+    const resultString = incrementedNumbers.join(",");
+    return resultString;
+  }
+
 
   // const DocxToImage = () => {
   //   const containerRef = useRef(null);
@@ -98,14 +107,13 @@ export default function AddContract({ setCheckFile,FormData }: any) {
     handleshow();
     handleClose();
   }, []);
-  const router = useRouter();
 
   return (
     <>
       <div style={{ display: "flex", justifyContent: "end", gap: 30 }}>
         <div>
           <Button
-            onClick={() => router.push("/crm/contract/edit_contract")}
+            onClick={() => router.push(`/crm/contract/edit/${id}`)}
             style={{
               width: 150,
               borderRadius: 10,
@@ -140,7 +148,7 @@ export default function AddContract({ setCheckFile,FormData }: any) {
       </div>
       <div className={styles.main__body}>
         <>
-          {imageData && imageData?.length > 0 && (
+          {imageData && imageData?.length > 0 ? (
             <div>
               <div>
                 <div className={styles.head_contract}>
@@ -153,21 +161,58 @@ export default function AddContract({ setCheckFile,FormData }: any) {
                 ))}
               </div>
             </div>
-          )}
-          <div className={styles.main__body}>
-            <>
-              <div className={styles.info_contract}>
-                <div className={styles.title_contract}>
-                  <label className={styles.label_contract}>
-                    Các trường đã thiết lập
-                  </label>
-                </div>
-                <div className={styles.content_contract}>
-                  {FormData?.get_detail_form_contract}
+          ) : (
+            <div>
+              <div>
+                <div className={styles.head_contract}>
+                  <h4>Thông tin hợp đồng</h4>
                 </div>
               </div>
-            </>
-          </div>
+              <div className={styles["frm-2"]}>
+                <img
+                  style={{ objectFit: "contain" }}
+                  alt="hd"
+                  src="/crm/loading_file.gif"
+                />
+              </div>
+            </div>
+          )}
+          {FormData?.get_detail_form_contract && (
+            <div className={styles.field_config}>
+              <div className={styles.footer_contract}>
+                <h4>Các trường đã thiết lập</h4>
+              </div>
+              <div className={`${styles["frm-3"]}`}>
+                {FormData?.get_detail_form_contract &&
+                  FormData?.get_detail_form_contract?.map(
+                    (item: any, index: number) => (
+                      <div
+                        key={index}
+                        className={`${styles["fm-bd"]} ${styles["fm_bt"]} ${styles["fm-fd"]} ${styles.opacity}`}
+                        id="field_config_1"
+                      >
+                        <div className={styles["error-name"]}>
+                          <label className={styles.field_new}>
+                            {item?.new_field}
+                          </label>
+                        </div>
+                        <input
+                          type="text"
+                          className={`${styles["form-control"]} ${styles.text}`}
+                          value={`Từ tìm kiếm: ${
+                            item?.old_field
+                          }, tại các vị trí: ${incrementNumbers(
+                            item?.index_field
+                          )}`}
+                          readOnly
+                          placeholder="Nhập nội dung"
+                        />
+                      </div>
+                    )
+                  )}
+              </div>
+            </div>
+          )}
         </>
       </div>
     </>

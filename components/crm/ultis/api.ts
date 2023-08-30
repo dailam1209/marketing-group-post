@@ -12,6 +12,7 @@ export const fetchApi = async (
             headers: {
                 Authorization: `Bearer ${accessToken}`, // Sử dụng Bearer token
                 "Content-Type": "application/json", // Thêm header Content-Type
+                mode: 'no-cors'
             },
             body: method === "GET" ? null : JSON.stringify(body), // Chỉ truyền body nếu là phương thức POST
         });
