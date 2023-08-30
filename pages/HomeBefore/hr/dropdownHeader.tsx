@@ -4,10 +4,13 @@ import ModalRegsiter from "@/components/modal/ModalRegsiter";
 import ModalLogin from "@/components/modal/ModalLogin";
 
 export default function DropDownHeaderHr({ onCancel }: any) {
+
+    const [openModalLogin, setOpenModalLogin] = useState(false)
+    const [openModalRegister, setOpenModalRegister] = useState(false)
     const modalRef = useRef(null);
     useEffect(() => {
         const handleOutsideClick = (event: any) => {
-            if (modalRef.current && !modalRef.current.contains(event.target)) {
+            if (!openModalLogin && !openModalRegister && modalRef.current && !modalRef.current.contains(event.target)) {
                 onCancel()
             }
         };
@@ -17,15 +20,12 @@ export default function DropDownHeaderHr({ onCancel }: any) {
         return () => {
             document.removeEventListener('mousedown', handleOutsideClick);
         };
-    }, [onCancel]);
-
-    const [openModalLogin, setOpenModalLogin] = useState(false)
-    const [openModalRegister, setOpenModalRegister] = useState(false)
+    }, [onCancel, openModalLogin, openModalRegister]);
 
     return (
         <>
             <div className={`${styles.modal} ${styles.fade}`}>
-                <div className={`${styles.modal_dialong}`}>
+                <div className={`${styles.modal_dialong}`} >
                     <div className={`${styles.modal_content}`} ref={modalRef}>
                         <div className={`${styles.modal_body}`}>
                             <ul>
