@@ -8,6 +8,7 @@ import { useApi } from "@/components/crm/hooks/useApi";
 import { base_url } from "../service/function";
 
 interface DataType {
+  id_form_contract: any;
   key: React.Key;
   user_created: string;
   created_at: string;
@@ -64,7 +65,7 @@ const TableContract: React.FC<TableContractProps> = ({}: any) => {
       dataIndex: "name",
       key: "0",
       render: (data, record) => (
-        <Link href={`detail/${record}`}>
+        <Link href={`detail/${record?.id_form_contract}`}>
           <Tooltip title={data}>
             <span>{data}</span>
           </Tooltip>

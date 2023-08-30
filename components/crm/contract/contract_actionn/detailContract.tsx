@@ -10,12 +10,13 @@ import { useApi } from "@/components/crm/hooks/useApi";
 import { base_url } from "../../service/function";
 import Cookies from "js-cookie";
 
-export default function AddContract({ setCheckFile }: any, { FormData }: any) {
+export default function AddContract({ setCheckFile,FormData }: any) {
   const inputFileRef = useRef<HTMLInputElement>(null);
   const [fileUpload, setFileUpload] = useState<any[]>([]);
   const [show, setShow] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
-  var imageData = FormData?.result?.img_org_base64;
+  const [imageData, setImgaUrls] = useState<any>("");
+  
   const handleClickSelectFileUpdload = () => {
     inputFileRef.current?.click();
   };
@@ -33,12 +34,22 @@ export default function AddContract({ setCheckFile }: any, { FormData }: any) {
   const handleshow = () => {
     setShow(true);
   };
+
+  useEffect(() => {
+    const imageData = FormData?.result?.img_org_base64 ;
+    console.log(imageData);
+    setImgaUrls(imageData);
+  }, []);
+
   const handleClose = () => {
     setTimeout(() => {
       // console.log("first")
       setShow(false);
     }, 1500);
   };
+
+  console.log(FormData);
+  
 
   // const DocxToImage = () => {
   //   const containerRef = useRef(null);

@@ -7,13 +7,15 @@ import DetailContract from "@/components/crm/contract/contract_actionn/detailCon
 import Head from "next/head";
 import { useApi } from "@/components/crm/hooks/useApi";
 import { base_url } from "@/components/crm/service/function";
-import { id } from "date-fns/locale";
 import Cookies from "js-cookie";
+import { useRouter } from "next/router";
 
 const EditContractCoponent: React.FC = () => {
   const mainRef = useRef<HTMLDivElement>(null);
   const [checkFile, setCheckFile] = useState(false);
   const { isOpen } = useContext<any>(SidebarContext);
+  const router = useRouter()
+  const {id} = router.query
   const [FormData,setFormData] = useState<any>()
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
@@ -42,8 +44,17 @@ const EditContractCoponent: React.FC = () => {
       body: JSON.stringify({ contract_id: id }),
     });
     const data = await res.json();
+    console.log(data);
+    
     setFormData(data?.data)
   };
+
+  useEffect(()=>{
+    getImageBase64()
+  }, [])
+
+  console.log("-----",FormData);
+  
 
   return (
     <>
