@@ -293,7 +293,7 @@ export default function TabOutJob({ iconAdd, iconEdit, iconDelete }: any) {
               </select>
             </div>
           </div>
-          <BodyFrameFooter src="https://www.youtube.com/embed/e29o-TSnbeE"></BodyFrameFooter>
+          <BodyFrameFooter src="https://www.youtube.com/embed/2uVrd-EFEXs"></BodyFrameFooter>
         </div>
       </div>
     </>
