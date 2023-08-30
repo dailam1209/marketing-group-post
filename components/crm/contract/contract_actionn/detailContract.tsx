@@ -10,13 +10,13 @@ import { useApi } from "@/components/crm/hooks/useApi";
 import { base_url } from "../../service/function";
 import Cookies from "js-cookie";
 
-export default function AddContract({ setCheckFile,FormData }: any) {
+export default function AddContract({ setCheckFile, FormData }: any) {
   const inputFileRef = useRef<HTMLInputElement>(null);
   const [fileUpload, setFileUpload] = useState<any[]>([]);
   const [show, setShow] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [imageData, setImgaUrls] = useState<any>("");
-  
+
   const handleClickSelectFileUpdload = () => {
     inputFileRef.current?.click();
   };
@@ -36,7 +36,7 @@ export default function AddContract({ setCheckFile,FormData }: any) {
   };
 
   useEffect(() => {
-    const imageData = FormData?.result?.img_org_base64 ;
+    const imageData = FormData?.result?.img_org_base64;
     console.log(imageData);
     setImgaUrls(imageData);
   }, []);
@@ -49,7 +49,6 @@ export default function AddContract({ setCheckFile,FormData }: any) {
   };
 
   console.log(FormData);
-  
 
   // const DocxToImage = () => {
   //   const containerRef = useRef(null);
@@ -138,37 +137,31 @@ export default function AddContract({ setCheckFile,FormData }: any) {
           </Button>
         </div>
       </div>
-      <div className={styles.main__body}>
-        <>
-          {imageData && imageData?.length > 0 && (
-            <div>
-              <div>
-                <div className={styles.head_contract}>
-                  <h4>Thông tin hợp đồng</h4>
-                </div>
-              </div>
-              <div className={styles["frm-2"]}>
-                {imageData?.map((url, index: number) => (
-                  <img alt="hd" src={`${url}`} key={index} />
-                ))}
-              </div>
+
+      {imageData && imageData?.length > 0 && (
+        <div>
+          <div>
+            <div className={styles.head_contract}>
+              <h4>Thông tin hợp đồng</h4>
             </div>
-          )}
-          <div className={styles.main__body}>
-            <>
-              <div className={styles.info_contract}>
-                <div className={styles.title_contract}>
-                  <label className={styles.label_contract}>
-                    Các trường đã thiết lập
-                  </label>
-                </div>
-                <div className={styles.content_contract}>
-                  {FormData?.get_detail_form_contract}
-                </div>
-              </div>
-            </>
           </div>
-        </>
+          <div className={styles["frm-2"]}>
+            {imageData?.map((url, index: number) => (
+              <img alt="hd" src={`${url}`} key={index} />
+            ))}
+          </div>
+        </div>
+      )}
+
+      <div className={styles.info_contract}>
+        <div className={styles.title_contract}>
+          <label className={styles.label_contract}>
+            Các trường đã thiết lập
+          </label>
+        </div>
+        <div className={styles.content_contract}>
+          {/* {FormData?.get_detail_form_contract} */}
+        </div>
       </div>
     </>
   );
