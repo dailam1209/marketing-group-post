@@ -2,9 +2,6 @@ import { SidebarContext } from "@/components/crm/context/resizeContext";
 import styleHome from "@/components/crm/home/home.module.css";
 import { SetStateAction, useContext, useEffect, useRef, useState } from "react";
 import { useHeader } from "@/components/crm/hooks/useHeader";
-import { TableRowSelection } from "antd/es/table/interface";
-import HomeList from "@/components/crm/delete_data/delete_data.list";
-import HomeFollow from "@/components/crm/theo-doi-thu-chi/theo-doi-thu-chi";
 import HomePhieuThu from "@/components/crm/theo-doi-thu-chi/phieu-thu";
 import Head from "next/head";
 
@@ -43,9 +40,7 @@ export default function TheoDoiThuChi() {
       <Head>
         <meta name="viewport" content="width=device-width" initial-scale="1" />
         <meta name="robots" content="noindex,nofollow" />
-        <title>
-          Phiếu thu
-        </title>
+        <title>Phiếu thu</title>
         <meta
           name="description"
           content="CRM 365 được đánh giá là công cụ tốt nhất hiện nay trong việc kết nối khách hàng và doanh nghiệp. Phần mềm chú trọng vào các nhiệm vụ hỗ trợ doanh nghiệp tăng tập khách hàng tiềm năng và thân thiết, tăng doanh thu và tối ưu chi phí. Đăng ký hôm nay, lợi ích đến ngay!"
