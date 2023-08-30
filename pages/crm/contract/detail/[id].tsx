@@ -14,9 +14,9 @@ const EditContractCoponent: React.FC = () => {
   const mainRef = useRef<HTMLDivElement>(null);
   const [checkFile, setCheckFile] = useState(false);
   const { isOpen } = useContext<any>(SidebarContext);
-  const router = useRouter()
-  const {id} = router.query
-  const [FormData,setFormData] = useState<any>()
+  const router = useRouter();
+  const { id } = router.query;
+  const [FormData, setFormData] = useState<any>();
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
   const accessToken = Cookies.get("token_base365");
@@ -35,26 +35,33 @@ const EditContractCoponent: React.FC = () => {
   }, [isOpen]);
 
   const getImageBase64 = async () => {
-    const res = await fetch(`${base_url}/api/crm/contractAI/view`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${Cookies.get("token_base365")}`,
-      },
-      body: JSON.stringify({ contract_id: id }),
-    });
-    const data = await res.json();
-    console.log(data);
-    
-    setFormData(data?.data)
+    try {
+      const res = await fetch(`${base_url}/api/crm/contractAI/view`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get("token_base365")}`,
+        },
+        body: JSON.stringify({ contract_id: id }),
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+
+        setFormData(data?.data);
+      } else {
+        console.error("Error fetching data:", res.status);
+      }
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
   };
 
-  useEffect(()=>{
-    getImageBase64()
-  }, [])
+  useEffect(() => {
+    getImageBase64();
+  }, []);
 
-  console.log("-----",FormData);
-  
+  console.log("-----", FormData);
 
   return (
     <>
@@ -101,7 +108,7 @@ const EditContractCoponent: React.FC = () => {
       <div ref={mainRef} className={styleHome.main}>
         <div className={styles.main_addContract}>
           <div className={styles.formAddContract}>
-            <DetailContract setCheckFile={setCheckFile} FormData={FormData}  />
+            <DetailContract setCheckFile={setCheckFile} FormData={FormData} />
           </div>
         </div>
       </div>
