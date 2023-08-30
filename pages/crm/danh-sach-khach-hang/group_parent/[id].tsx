@@ -45,6 +45,10 @@ export default function CustomerList() {
   const [resoure, setResoure] = useState();
   const [nvPhuTrach, setnvPhuTrach] = useState();
   const [userNameCreate, setuserNameCreate] = useState();
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+  const [totalRecords, setTotalRecords] = useState();
+
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
   const { data, loading, fetchData, updateData, deleteData } = useApi(
@@ -52,7 +56,8 @@ export default function CustomerList() {
     `${Cookies.get("token_base365")}`,
     "POST",
     {
-      perPage: 100,
+      perPage: pageSize,
+      page: page,
       keyword: name === null ? null : name,
       status: status,
       resoure: resoure,
@@ -81,7 +86,7 @@ export default function CustomerList() {
     `${base_url}/api/crm/group/list_group_khach_hang`,
     `${Cookies.get("token_base365")}`,
     "POST",
-    { pageSize: 1000000 }
+    { pageSize: 10000 }
   );
 
   const onSelectChange = (
@@ -109,49 +114,49 @@ export default function CustomerList() {
     { name: "Chăm sóc khach hàng", id: 7 },
     { name: "Email", id: 8 },
   ];
-  const datatable = data?.data?.showCty?.map(
-    (item: DataType, index: number) => {
-      let nguonKH = "";
-      let time;
-      if (item.updated_at.length) {
-      }
-      if (+item?.updated_at >= 1000) {
-        const date = new Date(+item?.updated_at * 1000); // Chuyển số giây thành mili giây
-
-        const formattedDate = format(date, "dd-MM-yyyy HH:mm:ss");
-        time = formattedDate;
-      }
-
-      for (let key of ArrNguonKK) {
-        if (key.id == item.resoure) {
-          nguonKH = key.name;
-        }
-      }
-      return {
-        key: index + 1,
-        cus_id: item.cus_id,
-        email: item.email,
-        name: item.name,
-        phone_number: item.phone_number,
-        resoure: nguonKH,
-        description: item.description,
-        group_id: item.group_id,
-        status: item,
-        updated_at: time ? time : item.updated_at,
-        emp_name: item.emp_name,
-        userNameCreate: item.userNameCreate,
-        user_handing_over_work: item.user_handing_over_work,
-        NameHandingOverWork: item.NameHandingOverWork,
-        userName: item.userName,
-      };
+  const datatable = data?.data?.map((item: DataType, index: number) => {
+    let nguonKH = "";
+    let time;
+    if (item.updated_at.length) {
     }
-  );
+    if (+item?.updated_at >= 1000) {
+      const date = new Date(+item?.updated_at * 1000); // Chuyển số giây thành mili giây
+
+      const formattedDate = format(date, "dd-MM-yyyy HH:mm:ss");
+      time = formattedDate;
+    }
+
+    for (let key of ArrNguonKK) {
+      if (key.id == item.resoure) {
+        nguonKH = key.name;
+      }
+    }
+    return {
+      key: index + 1,
+      cus_id: item.cus_id,
+      email: item.email,
+      name: item.name,
+      phone_number: item.phone_number,
+      resoure: nguonKH,
+      description: item.description,
+      group_id: item.group_id,
+      status: item,
+      updated_at: time ? time : item.updated_at,
+      emp_name: item.emp_name,
+      userNameCreate: item.userNameCreate,
+      user_handing_over_work: item.user_handing_over_work,
+      NameHandingOverWork: item.NameHandingOverWork,
+      userName: item.userName,
+    };
+  });
+
   const dataStatusCustomer = dataStatus?.data?.listStatus;
 
   const dataGroup = dataCustomerGroup?.data;
   const [idSelect, setIdSelect] = useState<any>();
   const handleSelectAll = () => {
     const allRowKeys = datatable.map((item: { key: any }) => item.key);
+
     setSelectedRowKeys(allRowKeys);
 
     setNumberSelected(datatable.length);
@@ -189,14 +194,19 @@ export default function CustomerList() {
       mainRef.current?.classList.remove("content_resize");
     }
   }, [isOpen]);
+
+  useEffect(() => {
+    if (data) {
+      setTotalRecords(data.total);
+    }
+  }, [data]);
+
   return (
     <>
       <Head>
         <meta name="viewport" content="width=device-width" initial-scale="1" />
         <meta name="robots" content="noindex,nofollow" />
-        <title>
-          CRM 365 - đáp án của bài toán tối ưu quy trình, gia tăng lợi nhuận
-        </title>
+        <title>Danh sách khách hàng</title>
         <meta
           name="description"
           content="CRM 365 được đánh giá là công cụ tốt nhất hiện nay trong việc kết nối khách hàng và doanh nghiệp. Phần mềm chú trọng vào các nhiệm vụ hỗ trợ doanh nghiệp tăng tập khách hàng tiềm năng và thân thiết, tăng doanh thu và tối ưu chi phí. Đăng ký hôm nay, lợi ích đến ngay!"
@@ -259,6 +269,11 @@ export default function CustomerList() {
           dataGroup={dataGroup}
           des={des}
           setDes={setDes}
+          setPage={setPage}
+          pageSize={pageSize}
+          setPageSize={setPageSize}
+          page={page}
+          totalRecords={totalRecords}
         />
       </div>
     </>

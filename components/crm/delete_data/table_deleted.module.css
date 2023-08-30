@@ -1,11 +1,7 @@
 .main__content {
   row-gap: 20px;
 }
-.custom_total {
-  display: flex;
-  gap: 50px;
-  margin: 25px;
-}
+
 .inputSP {
   width: 100%;
   display: flex;
@@ -14,13 +10,30 @@
   gap: 40px;
 }
 
+.loc2 {
+  padding: 5px;
+  background-color: blue !important;
+  color: white;
+  border-radius: 10px;
+}
+
+.input_loc {
+  display: flex;
+  gap: 15px;
+}
+
+.day {
+  font-size: 16px;
+  padding-right: 10px;
+}
+
 .inputSP2 {
-  width: 97%;
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-end;
+  gap: 20px;
 }
-.list_sp {
+.list_gr_sp {
   text-decoration: none;
   text-align: center;
   width: 220px;
@@ -34,7 +47,7 @@
   margin-right: 19.26px;
   box-shadow: 0px 0px 10px rgb(0 0 0 / 10%);
 }
-.list_gr_sp {
+.list_sp {
   text-decoration: none;
   text-align: center;
   width: 220px;
@@ -48,10 +61,16 @@
   margin-right: 19.26px;
   box-shadow: 0px 0px 10px rgb(0 0 0 / 10%);
 }
-.list_gr_sp:hover {
+
+.list_sp:hover {
   background: #fff;
   color: #666666 !important;
 }
+
+.group_button_sp {
+  display: flex;
+}
+
 .flex_column {
   display: flex;
   flex-direction: column;
@@ -72,22 +91,6 @@
 }
 .ipSearch {
   width: 40%;
-}
-.day {
-  font-size: 16px;
-  padding-right: 10px;
-}
-
-.loc2 {
-  padding: 5px;
-  background-color: blue !important;
-  color: white;
-  border-radius: 10px;
-}
-
-.input_loc {
-  display: flex;
-  gap: 15px;
 }
 @media screen and (max-width: 480px) {
   .g_input {
@@ -218,14 +221,8 @@
 }
 
 .table {
-  border: 0px solid #cccccc;
-  border-radius: 10px;
-  box-shadow: 0 0 0 1px #ccc;
 }
-.total {
-  font-weight: 400;
-  font-family: "Roboto-Medium";
-}
+
 .selected {
   /* display: flex   ; */
 }

@@ -13,11 +13,6 @@ const ModalAddSoQuy = (props: any) => {
   };
 
   const handleOk = () => {
-    // setLoading(true);
-    // setTimeout(() => {
-    //     setLoading(false);
-    //     setOpen(false);
-    // }, 3000);
     console.log("first");
   };
 
@@ -28,7 +23,11 @@ const ModalAddSoQuy = (props: any) => {
         open={isShowModalAdd}
         title={
           <div
-            style={{ background: "#4C5BD4", width: "111%", margin: "-20px -24px" }}
+            style={{
+              background: "#4C5BD4",
+              width: "111%",
+              margin: "-20px -24px",
+            }}
           >
             <div
               style={{
@@ -102,7 +101,6 @@ const ModalAddSoQuy = (props: any) => {
 
           <div>
             <div style={{ fontSize: 19, fontWeight: 500 }}>
-              {" "}
               Chọn người quản lý
             </div>
             <div style={{ height: 40 }}>
