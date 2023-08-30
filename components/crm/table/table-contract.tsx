@@ -16,9 +16,11 @@ interface DataType {
   path_dowload: string;
 }
 
-interface TableContractProps {}
+interface TableContractProps {
+  valSearch: string
+}
 
-const TableContract: React.FC<TableContractProps> = ({}: any) => {
+const TableContract: React.FC<TableContractProps> = ({valSearch}) => {
   const [openSharedModal, setOpenSharedModal] = useState(false);
   const [isOpenCancel, setIsOpenCancel] = useState(false);
   const handleClickSelectoption = () => {};
@@ -50,7 +52,7 @@ const TableContract: React.FC<TableContractProps> = ({}: any) => {
   );
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [valSearch]);
 
   const columns: ColumnsType<DataType> = [
     {
@@ -116,8 +118,8 @@ const TableContract: React.FC<TableContractProps> = ({}: any) => {
       ),
     },
   ];
-
-  const datatable = data?.data?.list?.map((item: any, index: number) => {
+  const newData = data?.data?.list?.filter((item)=>item?.name.toLowerCase().includes(valSearch.toLowerCase()))
+  const datatable = newData?.map((item: any, index: number) => {
     return {
       key: index + 1,
       _id: item?._id,
@@ -140,6 +142,8 @@ const TableContract: React.FC<TableContractProps> = ({}: any) => {
       id_form_contract: item?.id,
     };
   });
+  console.log(datatable)
+
 
   const [current, setcurrent] = useState(1);
   const [pageSize, setpageSize] = useState(10);
