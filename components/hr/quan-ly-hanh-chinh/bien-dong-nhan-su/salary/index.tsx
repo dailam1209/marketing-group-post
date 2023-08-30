@@ -34,7 +34,7 @@ export default function TabSalary({ children }: any) {
           'link',
           'bieu-do-danh-sach-nhan-vien-tang-giam-luong.html'
         )
-        formData.append('ep_id', isEmp_id)
+        formData.append('idnv', isEmp_id)
         formData.append('from_date', fromDate)
         formData.append('to_date', toDate)
         formData.append('pageSize', isPageSize)
@@ -85,7 +85,7 @@ export default function TabSalary({ children }: any) {
     () =>
       EmpData?.items?.map((emp: any) => ({
         value: emp.ep_id,
-        label: emp.ep_name,
+        label: `${emp.ep_name} (${emp.dep_name ? emp.dep_name : "Chưa cập nhật"} - ID:${emp.ep_id})`
       })),
     [EmpData?.items]
   )
@@ -180,6 +180,7 @@ export default function TabSalary({ children }: any) {
                 </div>
                 <div className={`${styles.div_no_pad_search}  `}>
                   <a
+                    style={{ cursor: "pointer" }}
                     onClick={handleSearch}
                     className={`${styles.icon_search_top} ${styles.div_search_salary}`}>
                     <img
@@ -229,11 +230,7 @@ export default function TabSalary({ children }: any) {
                         <td>{item.chucvu}</td>
                         <td>{item.dep}</td>
                         <td>{item.luonghientai}</td>
-                        {item.luonghientai > item.luongmoi ? (
-                          <td>0</td>
-                        ) : (
-                          <td>{item.luongmoi - item.luonghientai}</td>
-                        )}
+                        <td>{item.tangLuong}</td>
                         <td>{item.giamLuong}</td>
                         {item?.sb_time_up && (
                           <td>

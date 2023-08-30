@@ -131,7 +131,7 @@ export default function HomePageBeforLogin({ children }: any) {
                 <div className={`${styles.header} ${styles.container_fluid}`}>
                     <div className={`${styles.t_header_home}`}>
                         <div className={`${styles.t_header_home_left}`}>
-                            <a href="/">
+                            <a target='blank' href="https://timviec365.vn/">
                                 <Image src="/logo.svg" width={128} height={28} alt='/'></Image>
                             </a>
                         </div>
