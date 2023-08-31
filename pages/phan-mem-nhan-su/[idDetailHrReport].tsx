@@ -93,6 +93,8 @@ export default function DetailHrReport({ children }: any) {
   const [isTitle, setTitle] = useState<any>('')
   const [OrganisationalDatas, setOrganisationalData] = useState<any>()
   const [isTypeResonse, setTypeResonse] = useState<any>(null)
+  const [isTeaminfo, setTeaminfo] = useState<any>(null)
+  const [isGroupinfo, setGroupinfo] = useState<any>(null)
 
   const router = useRouter()
   const link: any = router.asPath.split('/').pop()
@@ -485,7 +487,10 @@ export default function DetailHrReport({ children }: any) {
     return teamInfoArray
   }
 
-  const allTeamInfo = getAllTeamInfo()
+  useEffect(() => {
+    const allTeamInfo = getAllTeamInfo()
+    setTeaminfo(allTeamInfo)
+  }, [OrganisationalDatas])
 
   function getAllGroupInfo() {
     const groupInfoArray: any = []
@@ -506,26 +511,50 @@ export default function DetailHrReport({ children }: any) {
     return groupInfoArray
   }
 
-  const allGroupInfo = getAllGroupInfo()
+  useEffect(() => {
+    const allGroupInfo = getAllGroupInfo()
+    setGroupinfo(allGroupInfo)
+  }, [OrganisationalDatas])
 
+  // const allGroupInfo = getAllGroupInfo()
+
+  // const chontoOptions = useMemo(
+  //   () =>
+  //     allTeamInfo &&
+  //     allTeamInfo?.map((team: any) => ({
+  //       value: team.gr_id,
+  //       label: team.gr_name,
+  //     })),
+  //   [allTeamInfo]
+  // )
   const chontoOptions = useMemo(
     () =>
-      allTeamInfo &&
-      allTeamInfo?.map((team: any) => ({
+      isTeaminfo &&
+      isTeaminfo?.map((team: any) => ({
         value: team.gr_id,
         label: team.gr_name,
       })),
-    [allTeamInfo]
+    [isTeaminfo]
   )
+
+  // const chonnhomOptions = useMemo(
+  //   () =>
+  //     allGroupInfo &&
+  //     allGroupInfo?.map((group: any) => ({
+  //       value: group.gr_id,
+  //       label: group.gr_name,
+  //     })),
+  //   [allGroupInfo]
+  // )
 
   const chonnhomOptions = useMemo(
     () =>
-      allGroupInfo &&
-      allGroupInfo?.map((group: any) => ({
+      isGroupinfo &&
+      isGroupinfo?.map((group: any) => ({
         value: group.gr_id,
         label: group.gr_name,
       })),
-    [allGroupInfo]
+    [isGroupinfo]
   )
 
   const chonphongbanOptions = useMemo(
