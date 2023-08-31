@@ -33,7 +33,7 @@ export default function PageAuthenticator() {
             setLatitude(position.coords.latitude);
             setLongitude(position.coords.longitude);
           },
-          (error) => {}
+          (error) => { }
         );
       } else {
       }
@@ -61,7 +61,6 @@ export default function PageAuthenticator() {
           });
         }
       } catch (error) {
-        console.log(error);
       }
     };
     getWeatherData();
@@ -138,39 +137,39 @@ export default function PageAuthenticator() {
         )}
       </div>
 
-    <div className={`${styles.body} `}>
-    <div className={`${styles.l_body_content} ${styles.t_role}`} style={{width: '69%', margin: '22px 0 0 10px', paddingLeft: 18}}>
-        <picture>
-          <img src={`${"/role_warning.svg"}`} alt="Quyền truy cập" />
-        </picture>
-        <span>
-          Bạn chưa được phân quyền trên phần mềm quản trị nhân sự 365. Vui lòng
-          liên hệ quản trị viên để biết thêm chi tiết!
-        </span>
-      </div>
-
-      <div className={`${styles.item_right}`} style={{width:"19%", marginRight:8, height: 'auto'}}>
-        <div className={`${styles.month}`}>{currentMonth}</div>
-        <div className={`${styles.time_image}`}>
+      <div className={`${styles.body} `}>
+        <div className={`${styles.l_body_content} ${styles.t_role}`} style={{ width: '69%', margin: '22px 0 0 10px', paddingLeft: 18 }}>
           <picture>
-            <img
-              className={`${styles.image}`}
-              src={`/img_time.svg`}
-              alt="thoitiet"
-            />
+            <img src={`${"/role_warning.svg"}`} alt="Quyền truy cập" />
           </picture>
+          <span>
+            Bạn chưa được phân quyền trên phần mềm quản trị nhân sự 365. Vui lòng
+            liên hệ quản trị viên để biết thêm chi tiết!
+          </span>
         </div>
-        <div className={`${styles.flex}`}>
-          <div className={`${styles.time}`} suppressHydrationWarning>
-            {formattedTime}
+
+        <div className={`${styles.item_right}`} style={{ width: "19%", marginRight: 8, height: 'auto' }}>
+          <div className={`${styles.month}`}>{currentMonth}</div>
+          <div className={`${styles.time_image}`}>
+            <picture>
+              <img
+                className={`${styles.image}`}
+                src={`/img_time.svg`}
+                alt="thoitiet"
+              />
+            </picture>
+          </div>
+          <div className={`${styles.flex}`}>
+            <div className={`${styles.time}`} suppressHydrationWarning>
+              {formattedTime}
+            </div>
+          </div>
+          <div className={`${styles.days}`}>
+            {currentDay} {formattedDate}
           </div>
         </div>
-        <div className={`${styles.days}`}>
-          {currentDay} {formattedDate}
-        </div>
+
       </div>
-      
-    </div>
     </>
   );
 }

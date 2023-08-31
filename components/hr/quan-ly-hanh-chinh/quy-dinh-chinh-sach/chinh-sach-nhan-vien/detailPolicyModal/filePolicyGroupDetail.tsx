@@ -13,9 +13,6 @@ export default function FilePolicyGroupDetail({
     const [DetailData, setDetailData] = useState<any | null>(null)
     const modalRef = useRef(null)
 
-    console.log(file);
-
-
     useEffect(() => {
         const handleOutsideClick = (event: any) => {
             if (modalRef.current && !modalRef.current.contains(event.target)) {

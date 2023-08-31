@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Switch } from "antd";
 import Link from "next/link";
 import type { MenuProps } from "antd";
-import { Button, Dropdown, Space } from "antd";
+import { Dropdown } from "antd";
 import BillBrowsingModal from "@/components/crm/bill/bill_action_modal/bill_browsing_action_mdal";
 import DenyActionModal from "@/components/crm/bill/bill_action_modal/deny_action_mdal";
 import DelActionModal from "@/components/crm/bill/bill_action_modal/delete_action_mdal";
@@ -12,8 +12,6 @@ import CancelActionModal from "@/components/crm/bill/bill_action_modal/cancel_ac
 import ShareActionModal from "@/components/crm/bill/bill_action_modal/share_action_mdal";
 import HandOverActionModal from "@/components/crm/bill/bill_action_modal/handover_action_mdal";
 import { dataActionBill } from "@/components/crm/ultis/consntant";
-// import InputText from "./input_text";
-import { Input, Tooltip } from "antd";
 import Image from "next/image";
 
 export default function AddButtonControl({ isSelectedRow }: any) {
@@ -82,74 +80,67 @@ export default function AddButtonControl({ isSelectedRow }: any) {
               <Switch defaultChecked onChange={onChange} />
               &nbsp;Ẩn dữ liệu trống
             </div>
-            <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-            <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-            <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-            <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-            <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-
-            {/* <div className={styles.main__control_add}>
-                            
-                        </div> */}
-            <div>
-              <button
-                type="button"
-                onClick={() => {
-                  setIsOpenDeny(true);
-                }}
-                className={`${styles.btn_deny} flex_align_center`}
-              >
-                &nbsp;
-                <i className="bi bi-x-circle"></i>
-                Từ chối
-              </button>
+            <div className={styles.group_button}>
+              <div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsOpenDeny(true);
+                  }}
+                  className={`${styles.btn_deny} flex_align_center`}
+                >
+                  &nbsp;
+                  <i className="bi bi-x-circle"></i>
+                  Từ chối
+                </button>
+              </div>
+              <div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsOpenBillBrowsing(true);
+                  }}
+                  className={`${styles.btn_browse} flex_align_center`}
+                >
+                  &nbsp;&nbsp;
+                  <i className="bi bi-check2-circle"></i>
+                  Duyệt
+                </button>
+              </div>
+              <Link href="crm/bill/edit">
+                <button
+                  type="button"
+                  className={`${styles.btn_edit} flex_align_center`}
+                >
+                  <i className="bi bi-pencil-square"></i>
+                  Chỉnh sửa
+                </button>
+              </Link>
+              <div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsDelOpen(true);
+                  }}
+                  className={`${styles.btn_delete} flex_align_center`}
+                >
+                  &nbsp;&nbsp;&nbsp;
+                  <i className="bi bi-trash3"></i>
+                  Xóa
+                </button>
+              </div>
+              <Dropdown menu={{ items }} placement="bottomLeft">
+                <button className={`${styles.btn_execute} flex_align_center`}>
+                  <Image
+                    width={16}
+                    height={16}
+                    alt="thao_tac"
+                    src="/crm/3_cham.png"
+                  />
+                  Thao tác
+                </button>
+              </Dropdown>
             </div>
-            <div>
-              <button
-                type="button"
-                onClick={() => {
-                  setIsOpenBillBrowsing(true);
-                }}
-                className={`${styles.btn_browse} flex_align_center`}
-              >
-                &nbsp;&nbsp;
-                <i className="bi bi-check2-circle"></i>
-                Duyệt
-              </button>
-            </div>
-            <Link href="/bill/edit">
-              <button
-                type="button"
-                className={`${styles.btn_edit} flex_align_center`}
-              >
-                <i className="bi bi-pencil-square"></i>
-                Chỉnh sửa
-              </button>
-            </Link>
-            <div>
-              <button
-                type="button"
-                onClick={() => {
-                  setIsDelOpen(true);
-                }}
-                className={`${styles.btn_delete} flex_align_center`}
-              >
-                &nbsp;&nbsp;&nbsp;
-                <i className="bi bi-trash3"></i>
-                Xóa
-              </button>
-            </div>
-            <Dropdown menu={{ items }} placement="bottomLeft">
-              <button className={`${styles.btn_execute} flex_align_center`}>
-                <Image
-                  width={16}
-                  height={16}
-                  alt="thao_tac"
-                  src="/crm/3_cham.png"
-                />
-                Thao tác
-              </button>
-            </Dropdown>
           </div>
         </div>
       </div>

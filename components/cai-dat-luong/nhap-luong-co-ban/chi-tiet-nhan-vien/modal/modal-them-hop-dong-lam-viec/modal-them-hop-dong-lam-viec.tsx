@@ -10,6 +10,7 @@ import {
 import { POST_TL } from '@/pages/api/BaseApi'
 import moment from 'moment'
 import { useRouter } from 'next/router'
+import { MyInputFile } from '@/components/tao-de-xuat/loai-de-xuat/tao-de-xuat/component/ChiTiet'
 const { TextArea } = Input
 export function ModalThemHopDong(open: boolean, setOpen: Function, data: any) {
   const [ND, setND] = useState('')
@@ -41,6 +42,7 @@ export function ModalThemHopDong(open: boolean, setOpen: Function, data: any) {
 
   return (
     <Modal
+      className='bannerQLC'
       open={open}
       onCancel={() => setOpen(false)}
       width={600}
@@ -139,9 +141,21 @@ export function ModalThemHopDong(open: boolean, setOpen: Function, data: any) {
             </div>
           </div> */}
 
-          {MyInput('Tệp đính kèm', 'Tệp đính kèm', false, true, 'con_file')}
+          {/* {MyInput('Tệp đính kèm', 'Chọn tệp đính kèm (Tối đa 10MB)', false, true, 'con_file', "", false, "#fff", "file")} */}
+          {MyInputFile(
+            'Tệp đính kèm',
+            'Chọn tệp đính kèm (Tối đa 10MB)',
+            false,
+            true,
+            'con_file'
+          )}
 
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              marginTop: '20px',
+            }}>
             <button className={styles.huyb} onClick={() => setOpen(false)}>
               <p className={styles.texthuyb}>Huỷ bỏ</p>
             </button>

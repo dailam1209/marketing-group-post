@@ -5,11 +5,11 @@ import DropDownMenu from './drop_down_menu/dropDownMenu';
 import Notify from './notify/notify';
 import Remind from './remind';
 import Sidebar from '../../sidebar/Sidebar';
+import ImageWithFallback from './drop_down_menu/imgFallBack';
 
 export interface BodyFrameHeader { }
 
 export default function BodyFrameHeader({ dataHeader, tokenType }: any) {
-    console.log(dataHeader)
 
     const [menuClick, setMenuClick] = useState(false)
     const [noti, setNoti] = useState(false)
@@ -23,11 +23,12 @@ export default function BodyFrameHeader({ dataHeader, tokenType }: any) {
             setMenuClick(false);
             setNoti(false);
             setRemind(false);
+            setOpenSidebar(false)
         }
     };
 
     useEffect(() => {
-        if (menuClick || noti || remind) {
+        if (menuClick || noti || remind || openSidebar) {
             document.addEventListener('mousedown', handleOutsideClick);
         } else {
             document.removeEventListener('mousedown', handleOutsideClick);
@@ -36,7 +37,7 @@ export default function BodyFrameHeader({ dataHeader, tokenType }: any) {
         return () => {
             document.removeEventListener('mousedown', handleOutsideClick);
         };
-    }, [menuClick, noti, remind]);
+    }, [menuClick, noti, remind, openSidebar]);
 
     useEffect(() => {
         const handleResize = () => {
@@ -104,9 +105,10 @@ export default function BodyFrameHeader({ dataHeader, tokenType }: any) {
                         </div>
                         <div className={`${styles.header_right_item2}`} onClick={toggleMenu}>
                             <div className={`${styles.header_avatar}`}>
-                                <img className={`${styles.image_avatar}`} src={dataHeader?.data?.com_logo ? dataHeader?.data?.com_logo : "/logo_com (2).png"
-                                    || dataHeader?.data?.avatarUser ? dataHeader?.data?.avatarUser : "/logo_com (2).png"
-                                } alt="" />
+                                <ImageWithFallback
+                                    src={dataHeader?.data?.com_logo || dataHeader?.data?.avatarUser}
+                                    fallbackSrc="/logo_com (2).png"
+                                />
                             </div>
                             <div className={`${styles.name}`}>{dataHeader?.data?.com_name || dataHeader?.data?.userName}</div>
                             <div className={`${styles.drop_down}`}>
@@ -116,7 +118,7 @@ export default function BodyFrameHeader({ dataHeader, tokenType }: any) {
                     </div>
                 </div>
                 <div ref={dropDownMenuRef}>
-                    {menuClick && <DropDownMenu dataHeader={dataHeader} tokenType = {tokenType}></DropDownMenu>}
+                    {menuClick && <DropDownMenu dataHeader={dataHeader} tokenType={tokenType}></DropDownMenu>}
                     {openSidebar && <Sidebar></Sidebar>}
                     {noti && <Notify></Notify>}
                     {remind && <Remind></Remind>}

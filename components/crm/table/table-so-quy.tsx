@@ -58,10 +58,7 @@ const Table_So_Quy = (props: any) => {
             setIsShowModalChange(true), console.log("first");
           }}
         >
-          <img
-            src="https://crm.timviec365.vn/assets/icons/icon-edit-black.svg"
-            alt=""
-          />
+          <img src="/crm/icon-edit-black.svg" alt="" />
           &nbsp; &nbsp; <p>Chỉnh sửa</p>
         </div>
       ),
@@ -76,10 +73,7 @@ const Table_So_Quy = (props: any) => {
             setIsShowModal(true);
           }}
         >
-          <img
-            src="https://crm.timviec365.vn/assets/icons/icon-delete-black.svg"
-            alt=""
-          />
+          <img src="/crm/icon-delete-black.svg" alt="" />
           &nbsp; &nbsp; <p>Xóa</p>
         </div>
       ),
@@ -134,7 +128,7 @@ const Table_So_Quy = (props: any) => {
                 handleSelect(record.myPhone);
               }}
               style={{ cursor: "pointer" }}
-              src="https://crm.timviec365.vn/assets/icons/icon_1.svg"
+              src="/crm/icon_1.svg"
             />
           </Dropdown>
         </div>
@@ -188,7 +182,6 @@ const Table_So_Quy = (props: any) => {
       <div className={styles.table}>
         <div className={styles.scrollTable}>
           <Table
-            // className={styles.table_antd}
             columns={Colums as any}
             dataSource={data}
             bordered
@@ -196,25 +189,12 @@ const Table_So_Quy = (props: any) => {
             pagination={false}
           />
         </div>
-        <br />
-      </div>
-      <div
-        style={{
-          display: "flex",
-          borderLeft: "1px solid #d0d4db",
-          height: 50,
-          alignItems: "center",
-          paddingLeft: 2,
-        }}
-      >
-        <div style={{ paddingLeft: 10, fontWeight: 600, fontSize: 20 }}>
-          {" "}
-          Tổng tiền:
+        <div className={styles.custom_total}>
+          <span className={styles.total}>Tổng tiền:</span>
+          <p>0 VND</p>
         </div>
-        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-        &nbsp; &nbsp; &nbsp;
-        <div>0 VND</div>
       </div>
+
       <ModalAddSoQuy isShowModalAdd={isShowModalAdd} onClose={onClose} />
       <ModalChangeSoQuy
         isShowModalChange={isShowModalChange}

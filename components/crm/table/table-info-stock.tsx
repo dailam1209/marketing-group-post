@@ -128,7 +128,7 @@ const columns: ColumnsType<DataType> = [
           width={16}
           height={16}
           alt="del"
-          src="https://crm.timviec365.vn/assets/img/crm/customer/del_red.svg"
+          src="crm/customer/del_red.svg"
         />
         Xóa
       </div>

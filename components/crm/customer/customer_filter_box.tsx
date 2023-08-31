@@ -23,10 +23,21 @@ interface PropsComponent {
   setnvPhuTrach: any;
   userNameCreate: any;
   setuserNameCreate: any;
-  nhomCha:any,
-  setnhomCha:any,
-  nhomCon:any,
-  setnhomCon:any,
+  nhomCha: any;
+  setnhomCha: any;
+  nhomCon: any;
+  setnhomCon: any;
+  setDatatable: any;
+  setloading: any;
+  setgroup_id: any;
+  setTimeEnd: any;
+  setTimeStart: any;
+  setdateS: any;
+  setdateE: any;
+  setTime_s: any;
+  setTime_e: any;
+  setemp_id: any;
+  setIdNhom:any
 }
 
 const CustomerListFilterBox: React.FC<PropsComponent> = ({
@@ -43,12 +54,27 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
   nhomCha,
   setnhomCha,
   nhomCon,
-  setnhomCon
+  setnhomCon,
+  setDatatable,
+  setloading,
+  setgroup_id,
+  setTimeEnd,
+  setTimeStart,
+  setdateS,
+  setdateE,
+  setemp_id,
+  setIdNhom
 }) => {
   const [valueSelectStatus, setValueSelectStatus] = useState<any>();
   const [valueResoure, sevalueResoure] = useState<any>();
   const [listGr_Child, setlistGr_Child] = useState([]);
+  const [check, setCheck] = useState(false);
 
+  const handlefilter = async () => {
+    setDatatable([]);
+    setloading(true);
+    setOpen(false), await fetchData();
+  };
   const handleChangeStt = (value: any) => {
     setValueSelectStatus(value);
     setStatus(value);
@@ -58,16 +84,16 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
     setResoure(value);
   };
   const handleChangeNVPT = (value: any) => {
-    setnvPhuTrach(value);
+    setemp_id(value);
   };
   const handleChangeNameCreate = (value: any) => {
     setuserNameCreate(value);
   };
-  const router = useRouter()
+  const router = useRouter();
   const currentTime = moment(); // Thời điểm hiện tại
   const pastTime = currentTime.subtract(2, "days");
 
-  const [listGr,setListGr] = useState([])
+  const [listGr, setListGr] = useState([]);
   const handleGetGr = async () => {
     try {
       const res = await fetch(
@@ -81,11 +107,11 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
           body: JSON.stringify({ com_id: Cookies.get("com_id") }),
         }
       );
-      let arr=[]
+      let arr = [];
       const data = await res.json();
-      setListGr(data?.data?.showGr);
-      data?.data?.showGr?.map((item) => {
-        item?.list_gr_child.map((item) => {
+      setListGr(data?.data);
+      data?.data?.map((item) => {
+        item?.lists_child.map((item) => {
           arr.push(item);
         });
         setlistGr_Child(arr);
@@ -94,19 +120,91 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
       console.log("error:", error);
     }
   };
-  
-useEffect(()=>{
-  handleGetGr()
-},[])
+  const [listNV, setLishNv] = useState<any>();
+  const [dep_id, setDep_id] = useState<any>();
+  useEffect(() => {
+    handleGetGr();
+  }, []);
+  const handleGetInfoCusNV = async () => {
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/employee/info`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${Cookies.get("token_base365")}`,
+          },
+          body: JSON.stringify({ com_id: `${Cookies.get("com_id")}` }),
+        }
+      );
+      const data = await res.json();
+      if (data && data?.data) setDep_id(data?.data?.data?.dep_id);
+    } catch (error) {}
+  };
+
+  const handleGetInfoCus = async () => {
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/listAll`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${Cookies.get("token_base365")}`,
+          },
+        }
+      );
+      const data = await res.json();
+      if (data && data?.data) setLishNv(data?.data?.items);
+    } catch (error) {}
+  };
+  console.log(listNV);
+  let nv = listNV?.filter((item) => item.dep_id === dep_id);
+  console.log(nv);
+  useEffect(() => {
+    handleGetInfoCusNV();
+    handleGetInfoCus();
+  }, [dep_id]);
+  const handleSelectNhomCha = (value) => {
+    setnhomCha(value);
+    setIdNhom(value)
+    setnhomCon("Tất cả")
+    if (value > 0) {
+      setCheck(true);
+    } else {
+      setCheck(false);
+    }
+  };
+  const handleTimeEndChange = (time, timeString) => {
+    if (timeString) {
+      setTimeEnd(timeString + ":00");
+    }
+  };
+  const handleTimeStartChange = (time, timeString) => {
+    if (timeString) {
+      setTimeStart(timeString + ":00");
+    }
+  };
+  const handleDateChangeStart = (e) => {
+    setdateS(e.target.value);
+  };
+  const handleDateChangeEnd = (e) => {
+    setdateE(e.target.value);
+  };
 
   return (
     <>
-      <div className={styles.mdal_body} style={{padding:0,maxHeight:"100%"}}>
+      <div
+        className={styles.mdal_body}
+        style={{ padding: 0, maxHeight: "100%" }}
+      >
         <div className={styles.form_group}>
           <div className={styles.label}>Thời gian tạo khách hàng</div>
           <div className={styles.row}>
             <div className={`${styles["col-lg-6"]}`}>
               <TimePicker
+                onChange={handleTimeStartChange}
                 style={{ width: "100%", height: "37px" }}
                 defaultValue={dayjs("12:00", format)}
                 format={format}
@@ -115,9 +213,10 @@ useEffect(()=>{
             <div className={`${styles["col-lg-6"]}`}>
               <div
                 className={styles.box_input}
-                style={{ width: "100%", marginBottom: "5px" }}
+                style={{ width: "100%", marginBottom: "5px", paddingLeft: 10 }}
               >
                 <Input
+                  onChange={handleDateChangeStart}
                   type="date"
                   defaultValue={pastTime.format("YYYY-MM-DD")}
                 />
@@ -127,6 +226,7 @@ useEffect(()=>{
           <div className={styles.row}>
             <div className={`${styles["col-lg-6"]}`}>
               <TimePicker
+                onChange={handleTimeEndChange}
                 style={{ width: "100%", height: "37px" }}
                 defaultValue={dayjs("00:00", format)}
                 format={format}
@@ -135,9 +235,9 @@ useEffect(()=>{
             <div className={`${styles["col-lg-6"]}`}>
               <div
                 className={styles.box_input}
-                style={{ width: "100%", marginBottom: "5px" }}
+                style={{ width: "100%", marginBottom: "5px", paddingLeft: 10 }}
               >
-                <input type="date" />
+                <Input onChange={handleDateChangeEnd} type="date" />
               </div>
             </div>
           </div>
@@ -158,8 +258,10 @@ useEffect(()=>{
               borderRadius: 7,
             }}
             onChange={handleChangeStt}
+            defaultValue={""}
             value={valueSelectStatus}
           >
+            <option value={""}>Tất cả</option>
             {dataStatusCustomer &&
               dataStatusCustomer.map((item, index) => {
                 return (
@@ -173,7 +275,7 @@ useEffect(()=>{
         <div className={styles.form_group}>
           <div className={styles.label}>Nguồn khách hàng</div>
           <Select
-               defaultValue={"Tất cả"}
+            defaultValue={""}
             suffixIcon={
               <i
                 style={{ color: "black" }}
@@ -188,9 +290,10 @@ useEffect(()=>{
             value={valueResoure}
             onChange={handleChangeResource}
           >
+            <option value={""}>Tất cả</option>
             <option value={1}>{" Facebook"}</option>
-            <option value={3}>{" Zalo"}</option>
-            <option value={2}>{" Website"}</option>
+            <option value={2}>{" Zalo"}</option>
+            <option value={3}>{" Website"}</option>
             <option value={4}>{" Dữ liệu bên thứ 3"}</option>
             <option value={5}>{" Khách hàng giới thiệu"}</option>
             <option value={6}>{" Giới thiệu"}</option>
@@ -208,6 +311,7 @@ useEffect(()=>{
             >
               <input
                 type="checkbox"
+                checked={check}
                 id="group_pins"
                 data-status={0}
                 style={{ marginRight: 5 }}
@@ -217,9 +321,9 @@ useEffect(()=>{
             </div>
           </div>
           <Select
-          value={nhomCha}
-          onChange={(value)=>setnhomCha(value)}
-               defaultValue={"Tất cả"}
+            value={nhomCha}
+            onChange={(value) => handleSelectNhomCha(value)}
+            defaultValue={""}
             suffixIcon={
               <i
                 style={{ color: "black" }}
@@ -231,10 +335,19 @@ useEffect(()=>{
               border: "1px solid black",
               borderRadius: 7,
             }}
-          >{listGr?.map((item:any,index)=>{
-            return  <option key={index} value={item?.gr_id}>{item.gr_name}</option>
-          })}
-            
+          >
+            {" "}
+            <option value={""}>Tất cả</option>
+            <option value={0}>Chưa cập nhật</option>
+            {listGr?.map((item: any, index) => {
+              if (item?.group_parent == 0) {
+                return (
+                  <option key={index} value={item?.gr_id}>
+                    {item.gr_name}
+                  </option>
+                );
+              }
+            })}
           </Select>
         </div>
 
@@ -242,8 +355,9 @@ useEffect(()=>{
           <div className={styles.label}>Nhóm khách hàng con</div>
           <div className={stylePotentialSlect.customer_list}>
             <Select
-             value={nhomCon}
-             onChange={(value)=>setnhomCon(value)}
+              value={nhomCon}
+              onChange={(value) => {setnhomCon(value),setIdNhom(value)}}
+              defaultValue={""}
               suffixIcon={
                 <i
                   style={{ color: "black" }}
@@ -256,9 +370,26 @@ useEffect(()=>{
                 borderRadius: 7,
               }}
             >
-           {listGr_Child?.map((item:any,index)=>{
-            return  <option key={index} value={item?.gr_id}>{item.gr_name}</option>
-          })}
+              <option value={''}>Tất cả</option>
+              {check
+                ? listGr_Child?.map((item: any, index) => {
+                    if (item.group_parent === nhomCha) {
+                      return (
+                        <option key={index} value={item?.gr_id}>
+                          {item.gr_name}
+                        </option>
+                      );
+                    }
+                  })
+                : listGr?.map((item: any, index) => {
+                    if (item?.group_parent == 0) {
+                      return (
+                        <option key={index} value={item?.gr_id}>
+                          {item.gr_name}
+                        </option>
+                      );
+                    }
+                  })}
             </Select>
           </div>
         </div>
@@ -267,7 +398,7 @@ useEffect(()=>{
           <div className={styles.label}>Nhân viên phụ trách</div>
           <div className={stylePotentialSlect.customer_list}>
             <Select
-            defaultValue={"Tất cả"}
+              defaultValue={"Tất cả"}
               suffixIcon={
                 <i
                   style={{ color: "black" }}
@@ -282,16 +413,19 @@ useEffect(()=>{
               value={nvPhuTrach}
               onChange={handleChangeNVPT}
             >
-              {" "}
-              {datatable?.map((item, index) => {
-                if (item?.userName) {
-                  return (
-                    <option key={index} value={item?.userName}>
-                      {item?.userName}
-                    </option>
-                  );
-                }
-              })}
+              <option value={null}>Tất cả</option>
+              {nv?.map((userName, index) => (
+                <option
+                  style={{ width: "100%" }}
+                  key={index}
+                  value={userName?.ep_id as any}
+                >
+                  <div style={{ display: "block" }}>
+                    ( {`${userName.ep_id}`}) {`${userName?.ep_name}`} <br /> -
+                    {`${userName.dep_name}`}
+                  </div>
+                </option>
+              ))}
             </Select>
           </div>
         </div>
@@ -300,14 +434,18 @@ useEffect(()=>{
           <div className={styles.label}>Nhân viên tạo khách hàng</div>
           <div className={stylePotentialSlect.customer_list}>
             <Select
-                 defaultValue={"Tất cả"}
+              defaultValue={"Tất cả"}
               suffixIcon={
                 <i
                   style={{ color: "black" }}
                   className="bi bi-caret-down-fill"
                 ></i>
               }
-              style={{ width: "100%", border: "1px solid black" }}
+              style={{
+                width: "100%",
+                border: "1px solid black",
+                borderRadius: 7,
+              }}
               value={userNameCreate}
               onChange={handleChangeNameCreate}
             >
@@ -329,13 +467,15 @@ useEffect(()=>{
           type="button"
           className={styles.btn_cancel}
           data-dismiss="modal"
-          onClick={() => {setOpen(false),router.push("/crm/customer/list")}}
+          onClick={() => {
+            setOpen(false), router.push("/crm/customer/list");
+          }}
         >
           Hủy lọc
         </button>
         <button
           onClick={async () => {
-            setOpen(false), await fetchData()
+            handlefilter();
           }}
           type="submit"
           className={styles.btn_apply}

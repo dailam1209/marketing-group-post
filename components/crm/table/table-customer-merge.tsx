@@ -10,7 +10,7 @@ const TableDataCustomerMerge: React.FC = () => {
   const [isSelectAll2, setIsSelectAll2] = useState(false);
   const [defaultCheckBox, setDefaultCheckBox] = useState(false);
   const [selectedImage, setSelectedImage] = useState(
-    "https://crm.timviec365.vn/assets/img/user_kh.png"
+    "/crm/user_kh.png"
   );
   const [isOpenCancelModal, setIsOpenCancelModal] = useState(false);
   const [isOpenSuccessMdal, setISOpenSuccessMdal] = useState(false);
@@ -27,7 +27,7 @@ const TableDataCustomerMerge: React.FC = () => {
 
   useEffect(() => {
     if (isSelectAll) {
-      setSelectedImage("https://crm.timviec365.vn/assets/img/user_kh.png");
+      setSelectedImage("/crm/user_kh.png");
     } else {
       setSelectedImage("http://crm.timviec365.vn/assets/img/user_kh.png");
     }
@@ -90,7 +90,7 @@ const TableDataCustomerMerge: React.FC = () => {
                     <td>
                       <img
                         style={{ transform: "translate(15%, 15%)" }}
-                        src="https://crm.timviec365.vn/assets/img/user_kh.png"
+                        src="/crm/user_kh.png"
                         className={styles.img_person}
                       />
                     </td>
@@ -98,23 +98,23 @@ const TableDataCustomerMerge: React.FC = () => {
                       <input
                         onChange={() =>
                           handleImageChange(
-                            "https://crm.timviec365.vn/assets/img/user_kh.png"
+                            "/crm/user_kh.png"
                           )
                         }
                         checked={
                           selectedImage ===
-                          "https://crm.timviec365.vn/assets/img/user_kh.png"
+                          "/crm/user_kh.png"
                         }
                         name="rdo_logo_image"
                         type="radio"
                         className={styles.radio}
                         value={
-                          "https://crm.timviec365.vn/assets/img/user_kh.png"
+                          "/crm/user_kh.png"
                         }
                       />{" "}
                       <img
                         style={{ transform: "translate(15%, 15%)" }}
-                        src="https://crm.timviec365.vn/assets/img/user_kh.png"
+                        src="/crm/user_kh.png"
                         className={styles.img_person}
                       />
                     </td>

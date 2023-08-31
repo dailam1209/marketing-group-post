@@ -132,8 +132,6 @@ export default function AddOutJobModal({ onCancel }: any) {
     }
   }, [isDep_id])
 
-  console.log(isCom_id);
-
 
   const validationSchema = Yup.object().shape({
     chonnhanvien: Yup.string().required("Vui lòng chọn nhân viên"),
@@ -222,7 +220,7 @@ export default function AddOutJobModal({ onCancel }: any) {
       isEmpList &&
       isEmpList?.items?.map((emp: any) => ({
         value: `${emp.ep_id} ${emp.dep_id} ${emp.position_id} ${emp.dep_name}`,
-        label: emp.ep_name
+        label: `${emp.ep_name} (${emp.dep_name ? emp.dep_name : "Chưa cập nhật"} - ID:${emp.ep_id})`
       })),
     [isEmpList]
   );
@@ -281,6 +279,7 @@ export default function AddOutJobModal({ onCancel }: any) {
                     <div className={`${styles.input_right}`}>
                       <Select
                         value={options.chucvuhientai}
+                        isDisabled={isEmp_id ? true : false}
                         onChange={(option) => handleSelectChange(option, options.chucvuhientai)}
                         options={options.chucvuhientai}
                         placeholder="Chọn chức vụ"
@@ -292,6 +291,10 @@ export default function AddOutJobModal({ onCancel }: any) {
                             minHeight: state.isFocused ? 20 : 20,
                             width: '100%',
                             fontWeight: state.isFocused ? 600 : 600
+                          }),
+                          singleValue: (baseStyles) => ({
+                            ...baseStyles,
+                            color: "#444444", // Màu cho đoạn văn bản đã chọn
                           }),
                           placeholder: (baseStyles) => ({
                             ...baseStyles,
@@ -306,6 +309,7 @@ export default function AddOutJobModal({ onCancel }: any) {
                     <div className={`${styles.input_right}`}>
                       <Select
                         value={options.chonphongban}
+                        isDisabled={isEmp_id ? true : false}
                         onChange={(option) => handleSelectChange(option, options.chonphongban)}
                         options={options.chonphongban}
                         placeholder="Chọn phòng ban"
@@ -317,6 +321,10 @@ export default function AddOutJobModal({ onCancel }: any) {
                             minHeight: state.isFocused ? 20 : 20,
                             width: '100%',
                             fontWeight: state.isFocused ? 600 : 600
+                          }),
+                          singleValue: (baseStyles) => ({
+                            ...baseStyles,
+                            color: "#444444", // Màu cho đoạn văn bản đã chọn
                           }),
                           placeholder: (baseStyles) => ({
                             ...baseStyles,
@@ -331,6 +339,7 @@ export default function AddOutJobModal({ onCancel }: any) {
                     <div className={`${styles.input_right}`}>
                       <Select
                         value={options.chonchinhanh}
+                        isDisabled={isEmp_id ? true : false}
                         onChange={(option) => handleSelectChange(option, options.chonchinhanh)}
                         options={options.chonchinhanh}
                         placeholder="Chọn chi nhánh"
@@ -343,6 +352,10 @@ export default function AddOutJobModal({ onCancel }: any) {
                             width: '100%',
                             color: state.isFocused ? '#444444' : '#444444',
                             fontWeight: state.isFocused ? 600 : 600
+                          }),
+                          singleValue: (baseStyles) => ({
+                            ...baseStyles,
+                            color: "#444444", // Màu cho đoạn văn bản đã chọn
                           }),
                           placeholder: (baseStyles) => ({
                             ...baseStyles,

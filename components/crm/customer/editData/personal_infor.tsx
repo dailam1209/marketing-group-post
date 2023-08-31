@@ -8,7 +8,6 @@ export default function EditPersonalCustomerInfor({
   formData,
   setFormData,
 }: any) {
-
   return (
     <div>
       <p className={styles.main__body__type}>Thông tin chung</p>
@@ -62,7 +61,7 @@ export default function EditPersonalCustomerInfor({
           />
         </div>
       </div>
-    
+
       <div className={styles.row_input}>
         <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
           <label className={`${styles["form-label"]}`}>
@@ -97,7 +96,7 @@ export default function EditPersonalCustomerInfor({
         <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
           <div className={styles.wrap_label}>
             <label className={`${styles["form-label"]}`}>Nhóm khách hàng</label>
-            <Link color="#4C5BD4" href="/customer/group/list">
+            <Link color="#4C5BD4" href="/crm/customer/group/list">
               + Thêm nhóm
             </Link>
           </div>
@@ -111,7 +110,7 @@ export default function EditPersonalCustomerInfor({
             <label className={`${styles["form-label"]}`}>
               Tình trạng khách hàng
             </label>
-            <Link color="#4C5BD4" href="/tinh-trang-khach-hang">
+            <Link color="#4C5BD4" href="/crm/tinh-trang-khach-hang">
               + Thêm tình trạng
             </Link>
           </div>

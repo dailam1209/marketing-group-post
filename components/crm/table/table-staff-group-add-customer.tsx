@@ -11,7 +11,7 @@ import { number } from "yup";
 
 interface DataType {
   key: React.Key;
-  userName: string;
+  ep_name: string;
   nameDeparment: string;
 }
 
@@ -37,17 +37,17 @@ const TableStaffCustomerGroupAdd: React.FC<TableStaffCustomerGroupAddProps> = ({
 
   const newArray = dataEmp?.filter((item) => {
     if (typeof valueSelected === "object") {
-      return valueSelected?.includes(item._id);
+      return valueSelected?.includes(item.ep_id);
     } else {
-      return [valueSelected]?.includes(item._id);
+      return [valueSelected]?.includes(item.ep_id);
     }
   });
 
   const data: DataType[] = newArray?.map((item) => {
     return {
-      key: item._id,
+      key: item.ep_id,
       nameDeparment: item?.nameDeparment,
-      userName: item?.userName,
+      ep_name: item?.ep_name,
       item: item,
     };
   });
@@ -64,7 +64,6 @@ const TableStaffCustomerGroupAdd: React.FC<TableStaffCustomerGroupAddProps> = ({
     setData(arrVal);
   };
 
-
   const rowSelection: TableRowSelection<DataType> = {
     onChange: (selectedRowKeys: any, selectedRows: string | any[]) => {
       setSelectedRow(selectedRows?.length);
@@ -79,7 +78,7 @@ const TableStaffCustomerGroupAdd: React.FC<TableStaffCustomerGroupAddProps> = ({
   const columns: ColumnsType<DataType> = [
     {
       title: "Tên nhân viên",
-      dataIndex: "userName",
+      dataIndex: "ep_name",
       key: "1",
       width: 200,
     },
@@ -111,13 +110,14 @@ const TableStaffCustomerGroupAdd: React.FC<TableStaffCustomerGroupAddProps> = ({
             alt="img"
             width={26}
             height={26}
-            src={"https://crm.timviec365.vn/assets/img/customer/del_red.svg"}
+            src={"/crm/del_red.svg"}
           />
           Gỡ bỏ
         </button>
       ),
     },
   ];
+
   return (
     <>
       <div className="custom_table product_return">

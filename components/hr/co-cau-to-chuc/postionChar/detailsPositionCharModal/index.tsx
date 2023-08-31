@@ -39,6 +39,7 @@ export default function DetailsPositionCharModal({ mission, onCancel }: any) {
                     </label>
                     <div className={`${styles.input_right}`}>
                       <textarea
+                        style={{ fontSize: 14, color: "#000000" }}
                         defaultValue={mission}
                         className={`${styles.inputquytrinh} ${styles.textareapolicy}`}
                         id='mota_nhiemvu'></textarea>
@@ -51,7 +52,6 @@ export default function DetailsPositionCharModal({ mission, onCancel }: any) {
                       onClick={onCancel}>
                       Hủy
                     </button>
-                    <button className={`${styles.btn_add}`}>Cập nhật</button>
                   </div>
                 </form>
               </div>

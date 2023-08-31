@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from './detailModal.module.css'
 import Select from 'react-select';
 import { format, parseISO } from "date-fns";
@@ -7,7 +7,20 @@ type SelectOptionType = { label: string, value: any }
 
 export default function DetailCandidateList({ onCancel, infoList }: any) {
 
-  console.log(infoList);
+  const modalRef = useRef(null);
+  useEffect(() => {
+    const handleOutsideClick = (event: any) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        onCancel()
+      }
+    };
+
+    document.addEventListener('mousedown', handleOutsideClick);
+
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, [onCancel]);
 
   const [selectedOption, setSelectedOption] = useState<SelectOptionType | null>(null);
 
@@ -39,7 +52,7 @@ export default function DetailCandidateList({ onCancel, infoList }: any) {
       { value: infoList?.infoList?.position_id, label: infoList?.position },
     ],
     bophan: [
-      { value: infoList?.infoList?.dep_id, label: infoList?.infoList?.dep_name },
+      { value: infoList?.infoList?.dep_id, label: infoList?.infoList?.nameDeparment },
     ],
     trinhdohocvan: [
       { value: 7, label: 'Đại học trở lên' },
@@ -91,7 +104,7 @@ export default function DetailCandidateList({ onCancel, infoList }: any) {
                 <div className={`${styles.modal_body} ${styles.body_process}`}>
                   <div className={`${styles.form_groups}`}>
                     <label htmlFor="">Tên nhân viên <span style={{ color: 'red' }}> * </span></label>
-                    <input type="text" defaultValue={infoList?.infoList?.ep_name} id="names" placeholder="" className={`${styles.form_control}`} />
+                    <input type="text" value={infoList?.infoList?.ep_name} id="names" placeholder="" className={`${styles.form_control}`} />
                   </div>
                   <div className={`${styles.form_groups}`}>
                     <label htmlFor="">Mã ID nhân viên <span style={{ color: 'red' }}> * </span></label>
@@ -102,7 +115,7 @@ export default function DetailCandidateList({ onCancel, infoList }: any) {
                       <div className={`${styles.form_groups} ${styles.form_groups3} `}>
                         <label htmlFor="">Ngày sinh </label>
                         {infoList?.infoList?.ep_birth_day &&
-                          <input style={{ height: 20 }} type="date" defaultValue={format(
+                          <input style={{ height: 20 }} type="date" value={format(
                             parseISO(new Date(infoList?.infoList?.ep_birth_day * 1000).toISOString()),
                             "yyyy-MM-dd"
                           )} id="names" placeholder="" className={`${styles.form_control} `} />
@@ -112,20 +125,20 @@ export default function DetailCandidateList({ onCancel, infoList }: any) {
                     <div className={`${styles.content_right}`}>
                       <div className={`${styles.form_groups}  ${styles.form_groups5} `}>
                         <label htmlFor="">Điện thoại <span style={{ color: 'red' }}> * </span></label>
-                        <input type="text" id="names" defaultValue={infoList?.infoList?.ep_phone} placeholder="" className={`${styles.form_control} `} />
+                        <input type="text" id="names" value={infoList?.infoList?.ep_phone} placeholder="" className={`${styles.form_control} `} />
                       </div>
                     </div>
                   </div>
                   <div className={`${styles.form_groups}`}>
                     <label htmlFor="">Địa chỉ</label>
-                    <input type="text" id="names" defaultValue={infoList?.infoList?.ep_address} placeholder="" className={`${styles.form_control}`} />
+                    <input type="text" id="names" value={infoList?.infoList?.ep_address} placeholder="" className={`${styles.form_control}`} />
                   </div>
                   <div className={`${styles.form_groups} ${styles.form_groups2}`}>
                     <div className={`${styles.content_left}`}>
                       <div className={`${styles.form_groups} ${styles.form_groups3} ${styles.form_groups5} `}>
                         <label htmlFor="">Giới tính </label>
                         <Select
-                          defaultValue={genderMatch}
+                          value={genderMatch}
                           onChange={(option) => handleSelectionChange(option, options.chongioitinh)}
                           options={options.chongioitinh}
                           placeholder="Chọn giới tính"
@@ -159,7 +172,7 @@ export default function DetailCandidateList({ onCancel, infoList }: any) {
                       <div className={`${styles.form_groups} ${styles.form_groups5} `}>
                         <label htmlFor="">Tình trạng hôn nhân </label>
                         <Select
-                          defaultValue={mariedMatch}
+                          value={mariedMatch}
                           onChange={(option) => handleSelectionChange(option, options.tinhtranghonnhan)}
                           options={options.tinhtranghonnhan}
                           placeholder="Chọn tình trạng"
@@ -192,7 +205,7 @@ export default function DetailCandidateList({ onCancel, infoList }: any) {
                   </div>
                   <div className={`${styles.form_groups}`}>
                     <label htmlFor="">Email <span style={{ color: 'red' }}> * </span></label>
-                    <input type="text" value={infoList?.infoList?.emailContact} id="names" placeholder="" className={`${styles.form_control} ${styles.read_only}`} />
+                    <input type="text" value={infoList?.infoList?.ep_email} id="names" placeholder="" className={`${styles.form_control} ${styles.read_only}`} />
                   </div>
                   <div className={`${styles.form_groups} ${styles.form_groups2}`}>
                     <div className={`${styles.content_item}`}>
@@ -301,7 +314,7 @@ export default function DetailCandidateList({ onCancel, infoList }: any) {
                   <div className={`${styles.form_groups}`}>
                     <label htmlFor="">Ngày vào công ty </label>
                     {infoList?.infoList?.start_working_time &&
-                      <input type="date" id="names" defaultValue={format(
+                      <input type="date" id="names" value={format(
                         parseISO(new Date(infoList?.infoList?.start_working_time * 1000).toISOString()),
                         "yyyy-MM-dd"
                       )} placeholder="" className={`${styles.form_control}`} />

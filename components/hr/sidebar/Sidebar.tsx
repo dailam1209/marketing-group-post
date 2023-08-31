@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "./sidebar.module.css";
 import { number } from "prop-types";
 import Link from "next/link";
@@ -6,7 +6,6 @@ import RecruitmentManager from "./subMenu/recruitmentManager/recruitmentManager"
 import SalaryAndBenefits from "./subMenu/salaryAndBenefits/salaryAndBenefits";
 import Administration from "./subMenu/administration/administration";
 import DevelopmentTraining from "./subMenu/developmentTraining/developmenttraining";
-
 
 export interface SideBarProp { }
 
@@ -26,6 +25,9 @@ export default function Sidebar(props: SideBarProp) {
     // @ts-ignore
     setSubMenuShown(buttonIndex);
   };
+
+
+
   const sidebarItems = [
     {
       label: "Trang chủ",
@@ -111,7 +113,7 @@ export default function Sidebar(props: SideBarProp) {
     },
     {
       label: "Chuyển đổi số",
-      icon: "		/vn_chuyendoiso.svg",
+      icon: "/vn_chuyendoiso.svg",
       href: 'https://hungha365.com/',
       submenu: '',
       imgWithd: 20,
@@ -124,7 +126,7 @@ export default function Sidebar(props: SideBarProp) {
     <>
       <div className={`${styles.sidebar_wrapper}`}>
         <div className={`${styles.logo}`}>
-          <a href="https://https://timviec365.vn/">
+          <a target="_blank" href="https://timviec365.vn/">
             <img
               src={`/logo.svg`}
               alt="icon"

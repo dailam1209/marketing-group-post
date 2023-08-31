@@ -227,7 +227,7 @@ export default function SuaSanPham() {
                 <img width={"100%"} src={previewImage} alt="" id="img2" />
               ) : (
                 <div style={{ display: "flex", justifyContent: "center" }}>
-                  <img src="https://crm.timviec365.vn/assets/icons/img_file.svg" />
+                  <img src="/crm/img_file.svg" />
                 </div>
               )}
             </fieldset>

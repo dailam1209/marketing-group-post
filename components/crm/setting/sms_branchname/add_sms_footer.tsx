@@ -8,12 +8,16 @@ export default function SetupEmailSystemFooter() {
   const [modal1Open, setModal1Open] = useState(false);
   return (
     <div className={styles.main__footer}>
-    <button type="button" onClick={() => setIsModalCancel(true)}>
-      Hủy
-    </button>
-    <button className={styles.save} type="submit" onClick={()=>setModal1Open(true)}>
-      Lưu
-    </button>
+      <button type="button" onClick={() => setIsModalCancel(true)}>
+        Hủy
+      </button>
+      <button
+        className={styles.save}
+        type="submit"
+        onClick={() => setModal1Open(true)}
+      >
+        Lưu
+      </button>
 
       {
         <CancelModal

@@ -4,7 +4,7 @@ import styles from "../../potential/potential.module.css";
 import InputText from "@/components/crm/potential/potential_add_files/input_text";
 import ModalCompleteStep from "@/components/crm/setting/complete_modal";
 import { base_url } from "../../service/function";
-const Cookies = require('js-cookie')
+const Cookies = require("js-cookie");
 interface MyComponentProps {
   isModalCancel: boolean;
   setIsModalCancel: (value: boolean) => void;
@@ -18,15 +18,17 @@ const AddStatusCustomerModal: React.FC<MyComponentProps> = ({
 }) => {
   const [isOpenMdalSuccess, setIsOpenMdalSuccess] = useState(false);
   const [sttName, setsttName] = useState("");
-  const handleOK = () => {
+  const handleOK = async () => {
     setIsModalCancel(false);
     setIsOpenMdalSuccess(true);
-    updateData(
-      `${base_url}/api/crm/customerStatus/create`,
-`${Cookies.get("token_base365")}`,      "POST",
-      { stt_name: `${sttName}` }
-    );
-    setsttName("")
+    await fetch(`${base_url}/api/crm/customerStatus/create`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${Cookies.get("token_base365")}`,
+      },
+      body: JSON.stringify({ stt_name: sttName }),
+    });
   };
   return (
     <>
@@ -44,7 +46,9 @@ const AddStatusCustomerModal: React.FC<MyComponentProps> = ({
           <Input
             placeholder="Tên tình trạng"
             value={sttName}
-            onChange={(e: { target: { value: React.SetStateAction<string>; }; }) => setsttName(e.target.value)}
+            onChange={(e: {
+              target: { value: React.SetStateAction<string> };
+            }) => setsttName(e.target.value)}
           />
         </div>
       </Modal>
@@ -52,7 +56,7 @@ const AddStatusCustomerModal: React.FC<MyComponentProps> = ({
         modal1Open={isOpenMdalSuccess}
         setModal1Open={setIsOpenMdalSuccess}
         title={"Bạn đã thêm trạng thái khách hàng thành công!"}
-        link={"#"}
+        link={""}
       />
     </>
   );

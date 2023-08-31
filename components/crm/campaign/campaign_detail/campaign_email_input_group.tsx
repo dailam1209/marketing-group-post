@@ -29,7 +29,7 @@ export default function CampaignAppointmentInputGroups({ isSelectedRow }: any) {
       <div className={`${styles.main__control_select} flex_align_center`}>
         <div className={`${styles.select_item} flex_align_center_item ${styles.select_item_time}`}>
           <label htmlFor="" className="">
-            Ngày gửi:{" "}
+            Ngày gửi:
           </label>
           <div className={`${styles.input_item_time} flex_between`}>
             <input type="date" name="" id="start_time" /> -
@@ -66,7 +66,7 @@ export default function CampaignAppointmentInputGroups({ isSelectedRow }: any) {
           </form>
         </div> 
          <div className={`${styles.main__control_add} flex_end`}>
-          <Link href="/marketing/email/add">
+          <Link href="/crm/marketing/email/add">
             <button
               type="button"
               className={`${styles.dropbtn_add} flex_align_center`}

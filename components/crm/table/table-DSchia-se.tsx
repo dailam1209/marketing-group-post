@@ -54,7 +54,7 @@ const TableTLChiaSe: React.FC<TableDataTLCS> = (props: any) => {
       key: "name",
       render: (text: any) => (
         <div style={{ display: "flex", justifyContent: "center" }}>
-          <img src="https://crm.timviec365.vn/assets/img/user_kh.png"></img>
+          <img src="/crm/user_kh.png"></img>
           <div>{text}</div>
         </div>
       ),
@@ -93,10 +93,7 @@ const TableTLChiaSe: React.FC<TableDataTLCS> = (props: any) => {
             style={{ display: "flex", gap: 3, color: "red", border: "none " }}
           >
             <div>
-              <img
-                src="https://crm.timviec365.vn/assets/img/crm/customer/del_red.svg"
-                alt=""
-              />
+              <img src="/crm/del_red.svg" alt="" />
             </div>
             <div>Gỡ bỏ</div>
           </Button>

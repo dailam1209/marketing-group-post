@@ -24,9 +24,6 @@ export default function CandidateRepo({ children }: any) {
   const [isPositionList, setPositionList] = useState<any>(null)
   const [isPosition_name, setPosition_name] = useState<any>(null)
 
-  console.log(isPositionList);
-
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -53,8 +50,6 @@ export default function CandidateRepo({ children }: any) {
     fetchData()
   }, [isSeach, currentPage])
 
-  console.log(isCandidateList);
-
   useEffect(() => {
     const fetchDataCom = async () => {
       const position = await FetchDataPosition()
@@ -63,8 +58,6 @@ export default function CandidateRepo({ children }: any) {
     fetchDataCom()
   }, []);
 
-
-  console.log(isPositionList)
   const positionNameMatch = (position_id: any) => {
     if (isPositionList) {
       const PositionList = isPositionList?.data?.flat();
@@ -123,9 +116,6 @@ export default function CandidateRepo({ children }: any) {
   const handleSearch = useCallback(() => {
     setSearch({ isGender })
   }, [isGender])
-
-  console.log(isCandidateList);
-
 
   const chonvitrituyendungOptions = useMemo(
     () =>

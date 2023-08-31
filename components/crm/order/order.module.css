@@ -39,7 +39,7 @@
   white-space: nowrap;
 }
 
-.select_item input[type='date'] {
+.select_item input[type="date"] {
   font-size: 16px;
   line-height: 16px;
 }
@@ -208,7 +208,7 @@
   border-radius: 10px;
   padding: 9px 21px;
   color: #ffffff;
-  font-family: 'Roboto-Medium';
+  font-family: "Roboto-Medium";
   font-size: 16px;
   line-height: 19px;
   column-gap: 5px;
@@ -220,7 +220,7 @@
   border-radius: 10px;
   padding: 9px 21px;
   color: #ffffff;
-  font-family: 'Roboto-Medium';
+  font-family: "Roboto-Medium";
   font-size: 16px;
   line-height: 19px;
   column-gap: 5px;
@@ -232,7 +232,7 @@
   border-radius: 10px;
   padding: 9px 21px;
   color: #ffffff;
-  font-family: 'Roboto-Medium';
+  font-family: "Roboto-Medium";
   font-size: 16px;
   line-height: 19px;
   column-gap: 5px;
@@ -259,7 +259,7 @@
 }
 
 .button_thaotac {
-  font-family: 'Roboto-Medium';
+  font-family: "Roboto-Medium";
   background: #ffffff;
   border-radius: 10px;
   font-weight: 500;
@@ -310,7 +310,6 @@
   background: #ffffff;
   padding: 20px;
   border-radius: 0 0 10px 10px;
-  margin-bottom: 25px;
 }
 
 .main__body1 {
@@ -330,6 +329,7 @@
   row-gap: 20px;
   padding: 20px;
   border-radius: 0 0 10px 10px;
+  margin-bottom: 10px;
 }
 
 .main__body_item {
@@ -356,7 +356,7 @@
 }
 
 .drop-zone .text {
-  font-family: ' Roboto-Medium';
+  font-family: " Roboto-Medium";
 }
 
 .text_or {
@@ -378,7 +378,7 @@
   line-height: 19px;
   color: #ffffff;
   padding: 9px 40px;
-  font-family: 'Roboto-Medium';
+  font-family: "Roboto-Medium";
   width: fit-content;
 }
 
@@ -410,7 +410,7 @@
   color: #4c5bd4;
   font-size: 16px;
   line-height: 19px;
-  font-family: 'Roboto-Bold';
+  font-family: "Roboto-Bold";
   width: 168px;
   height: 36px;
 }
@@ -423,7 +423,7 @@
   color: #4c5bd4;
   font-size: 16px;
   line-height: 19px;
-  font-family: 'Roboto-Bold';
+  font-family: "Roboto-Bold";
   width: 168px;
   height: 36px;
 }
@@ -449,7 +449,7 @@
   margin-bottom: 0;
   text-decoration-line: underline;
   color: #474747;
-  font-family: 'Roboto-Medium';
+  font-family: "Roboto-Medium";
   font-size: 20px;
   line-height: 23px;
 }
@@ -486,7 +486,7 @@
   color: #474747;
   font-size: 16px;
   line-height: 19px;
-  font-family: 'Roboto-Medium';
+  font-family: "Roboto-Medium";
   margin-bottom: 0.5rem;
 }
 
@@ -543,7 +543,7 @@
   margin-bottom: 15px;
   text-decoration-line: underline;
   color: #474747;
-  font-family: 'Roboto-Medium';
+  font-family: "Roboto-Medium";
 }
 
 .show_avatar {
@@ -694,7 +694,7 @@
 
 .pick_product {
   float: right;
-  font-family: 'Roboto-medium';
+  font-family: "Roboto-medium";
   font-weight: 500;
   font-size: 16px;
   line-height: 19px;
@@ -743,7 +743,7 @@ td .content_over {
   color: #ffffff;
   font-size: 16px;
   line-height: 19px;
-  font-family: 'Roboto-Bold';
+  font-family: "Roboto-Bold";
   margin-top: 20px;
 }
 
@@ -804,7 +804,7 @@ td .content_over {
 }
 
 .btn_share .btn_obj:before {
-  content: '+';
+  content: "+";
   margin-right: 10px;
 }
 
@@ -906,7 +906,7 @@ td .content_over {
   color: #4c5bd4;
   font-size: 15px;
   line-height: 18px;
-  font-family: ' Roboto-Medium';
+  font-family: " Roboto-Medium";
   width: 138px;
   height: 36px;
   cursor: pointer;

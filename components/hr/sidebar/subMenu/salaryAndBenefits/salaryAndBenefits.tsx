@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import styles from '../../sidebar.module.css'
 import Link from 'next/link'
+import Cookies from "js-cookie";
 
 export interface SalaryAndBenefits { }
 
@@ -10,6 +11,7 @@ export default function SalaryAndBenefits({ children }: any) {
     // @ts-ignore
     setActiveButton(buttonIndex);
   };
+  const role = Cookies.get("role");
   const link = "phan-mem-nhan-su"
   const submenu = [
     {
@@ -21,7 +23,7 @@ export default function SalaryAndBenefits({ children }: any) {
     {
       img: '	/vn_tinhluong.svg',
       title: 'Tính lương',
-      href: 'https://hungha365.com/cham-cong/cai-dat-luong/nhap-luong-co-ban',
+      href: role === "1" ? "/tinh-luong/cong-ty/trang-chu" : "/tinh-luong/quan-ly/nhan-vien",
       target: 'blank',
     },
     {
@@ -43,7 +45,7 @@ export default function SalaryAndBenefits({ children }: any) {
     {
       img: '	/vn_phucloi.svg',
       title: 'Phúc lợi',
-      href: 'https://hungha365.com/cham-cong/cai-dat-luong/cai-dat-phuc-loi',
+      href: '#',
       target: 'blank',
     },
   ]

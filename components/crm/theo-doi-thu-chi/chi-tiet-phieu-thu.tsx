@@ -1,6 +1,6 @@
 import PotentialSelectBoxStep from "@/components/crm/potential/potential_steps/select_box_step";
 import styles from "../potential/potential_add_files/add_file_potential.module.css";
-import styless from "../potential/potential.module.css";
+import styless from "../potential/potential2.module.css";
 import exportToExcel from "../ultis/export_xlxs";
 import styleindex from "./index.module.css";
 import { useState } from "react";
@@ -78,16 +78,13 @@ export default function ChiTietPhieu() {
           onClick={handleExportToExcel}
           className={`${styless.dropbtn_add} flex_align_center ${styless.btn_excel}`}
         >
-          <img
-            style={{ color: "black" }}
-            src="https://crm.timviec365.vn/assets/icons/excel.svg"
-          />
+          <img style={{ color: "black" }} src="/crm/excel.svg" />
           <p style={{ color: "black" }}>Xuất excel</p>
         </button>
       </div>
       <div style={{ display: "flex", gap: 30, paddingBottom: 30 }}>
         <button
-          onClick={() => router.push(`/chinh-sua-phieu-thu/${path.id}`)}
+          onClick={() => router.push(`/crm/chinh-sua-phieu-thu/${path.id}`)}
           style={{ background: "#4C5BD4  " }}
           type="button"
           className={`${styless.dropbtn_add} flex_align_center ${styless.btn_excel}`}

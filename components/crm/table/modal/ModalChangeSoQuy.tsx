@@ -15,11 +15,6 @@ const ModalChangeSoQuy = (props: any) => {
   };
 
   const handleOk = () => {
-    // setLoading(true);
-    // setTimeout(() => {
-    //     setLoading(false);
-    //     setOpen(false);
-    // }, 3000);
     console.log("first");
   };
   const handleChange = () => {
@@ -33,7 +28,11 @@ const ModalChangeSoQuy = (props: any) => {
         open={isShowModalChange}
         title={
           <div
-            style={{ background: "#4C5BD4", width: "111%", margin: "-20px -24px" }}
+            style={{
+              background: "#4C5BD4",
+              width: "111%",
+              margin: "-20px -24px",
+            }}
           >
             <div
               style={{
@@ -98,15 +97,11 @@ const ModalChangeSoQuy = (props: any) => {
 
           <div>
             <div style={{ fontSize: 19, fontWeight: 500 }}> Mô tả</div>
-            <textarea style={{ width: "100%", height: 100 }}>
-              {/* <option value="" style={{fontSize:12}}>Tiền mặt</option>
-                        <option value="">Chuyển khoản</option> */}
-            </textarea>
+            <textarea style={{ width: "100%", height: 100 }}></textarea>
           </div>
 
           <div>
             <div style={{ fontSize: 19, fontWeight: 500 }}>
-              {" "}
               Chọn người quản lý
             </div>
             <div style={{ height: 40 }}>

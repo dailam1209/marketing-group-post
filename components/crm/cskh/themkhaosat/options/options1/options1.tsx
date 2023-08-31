@@ -13,13 +13,13 @@ const Options1 = (props: any) => {
     const newCheckboxes = [...checkboxes, checkboxes.length];
     setCheckboxes(newCheckboxes);
   };
-//   const handleRemove = (checkboxIndex: any) => {
-//     console.log(checkboxIndex);
-//     const updatedCheckboxes = checkboxes.filter(
-//       (checkbox) => checkbox !== checkboxIndex
-//     );
-//     setCheckboxes(updatedCheckboxes);
-//   };
+  //   const handleRemove = (checkboxIndex: any) => {
+  //     console.log(checkboxIndex);
+  //     const updatedCheckboxes = checkboxes.filter(
+  //       (checkbox) => checkbox !== checkboxIndex
+  //     );
+  //     setCheckboxes(updatedCheckboxes);
+  //   };
   return (
     <fieldset className={styles.left_option1}>
       <div>
@@ -52,7 +52,6 @@ const Options1 = (props: any) => {
                   Chọn đáp án {checkboxIndex + 1}
                 </Checkbox>
               </div>
-        
             </div>
           ))}
           <div style={{ paddingTop: 20 }}>
@@ -61,18 +60,18 @@ const Options1 = (props: any) => {
             </Link>
           </div>
           <div className={styles.footer_op1}>
-                <div>
-                  <img
-                    onClick={() => handleDleteOP1()}
-                    style={{ paddingLeft: 20 }}
-                    src="https://crm.timviec365.vn/assets/icons/delete.svg"
-                    alt=""
-                  />
-                </div>
-                <div>
-                  <Checkbox>Bắt buộc</Checkbox>
-                </div>
-              </div>
+            <div>
+              <img
+                onClick={() => handleDleteOP1()}
+                style={{ paddingLeft: 20 }}
+                src="/crm/delete.svg"
+                alt=""
+              />
+            </div>
+            <div>
+              <Checkbox>Bắt buộc</Checkbox>
+            </div>
+          </div>
         </div>
       </div>
     </fieldset>

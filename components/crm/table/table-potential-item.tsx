@@ -34,7 +34,7 @@ const columns: ColumnsType<DataType> = [
     key: "TenHangHoa",
     render: (data) => (
       // <Tooltip title={data}>
-      <Link href={`/potential/detail/${data}`}>
+      <Link href={`/crm/potential/detail/${data}`}>
         <span>{data}</span>
       </Link>
       // </Tooltip>
@@ -70,7 +70,7 @@ const columns: ColumnsType<DataType> = [
           <button className={style.action_delete}>
             <img
               className={styles.icon_delete}
-              src="https://crm.timviec365.vn/assets/img/h_delete_cus.svg"
+              src="/crm/h_delete_cus.svg"
               alt="Delete Icon"
             />
             Gỡ bỏ

@@ -195,19 +195,18 @@ export default function ThemSanPham() {
               Hình ảnh sản phẩm *
             </p>
             <fieldset className={styles.imgview}>
-                <Upload
-                  id="img1"
-                  listType="picture-circle"
-                  fileList={fileList}
-                  onChange={onChange}
-                  onPreview={handlePreview}
-                  openFileDialogOnClick
-                  // className="custom-upload" // Thêm lớp CSS tùy chỉnh
-                >
-                  {fileList.length < 5 && "+ Upload"}
-                </Upload>
+              <Upload
+                id="img1"
+                listType="picture-circle"
+                fileList={fileList}
+                onChange={onChange}
+                onPreview={handlePreview}
+                openFileDialogOnClick
+                // className="custom-upload" // Thêm lớp CSS tùy chỉnh
+              >
+                {fileList.length < 5 && "+ Upload"}
+              </Upload>
               <Modal
-
                 open={previewOpen}
                 title={previewTitle}
                 // footer={null}
@@ -220,7 +219,7 @@ export default function ThemSanPham() {
                 <img width={"100%"} src={previewImage} alt="" id="img2" />
               ) : (
                 <div style={{ display: "flex", justifyContent: "center" }}>
-                  <img src="https://crm.timviec365.vn/assets/icons/img_file.svg" />
+                  <img src="/crm/img_file.svg" />
                 </div>
               )}
             </fieldset>

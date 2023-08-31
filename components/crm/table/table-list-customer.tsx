@@ -12,6 +12,7 @@ import { useApi } from "@/components/crm/hooks/useApi";
 import SelectDataInputBox from "../select/select_data";
 import CustomerGroupSelect from "../select/select_data_group_customer";
 import { base_url } from "../service/function";
+import { text } from "stream/consumers";
 const Cookies = require("js-cookie");
 interface DataType {
   key: React.Key;
@@ -29,7 +30,10 @@ interface DataType {
   user_handing_over_work: string;
   NameHandingOverWork: string;
   userNameCreate: string;
-  type:any
+  type: any;
+  cus_from: any;
+  link: any;
+  value: any;
 }
 
 interface TableDataContracDrops {
@@ -46,6 +50,9 @@ interface TableDataContracDrops {
   totalRecords?: any;
   pageSize?: any;
   setPageSize?: any;
+  loading?: any;
+  setDatatable?: any;
+  ArrNguonKK?: any;
 }
 
 const TableListCustomer: React.FC<TableDataContracDrops> = ({
@@ -62,6 +69,9 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   totalRecords,
   pageSize,
   setPageSize,
+  loading,
+  setDatatable,
+  ArrNguonKK,
 }: any) => {
   const [openModalCall, setOpenModalCall] = useState(false);
   const router = useRouter();
@@ -69,12 +79,13 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   const [valueStatus, setValueStatus] = useState();
   const [cusId, setCusId] = useState<any>();
   const [te, setTE] = useState<any>();
+  const [nameNguon, setNameNguon] = useState();
   const handleChangeStatus = (e: any, data: any) => {
     setValueStatus(e.target.value);
   };
   const handleShowCall = (record: any) => {
-    setOpenModalCall(true);
     setCusId(record.cus_id);
+    setOpenModalCall(true);
   };
 
   const renderTitle = (record, text) => (
@@ -111,10 +122,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
 
     const formData = new FormData();
     formData.append("resoure", e.target.value);
-    formData.append(
-      "type",
-      type?.data?.loai_hinh_khach_hang
-    );
+    formData.append("type", type?.data?.loai_hinh_khach_hang);
     formData.append("cus_id", record.cus_id);
 
     const headers = {
@@ -136,26 +144,45 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       console.error(error);
     }
   };
-
   const columns: ColumnsType<DataType> = [
     {
       title: "Mã KH",
       width: 100,
       dataIndex: "cus_id",
-      key: "cus_id",
+      key: "cus_from",
     },
     {
       title: "Tên khách hàng",
-      width: 200,
+      width: 250,
       dataIndex: "name",
       key: "0",
       render: (data, record) => (
-        <Link
-          style={{ cursor: "pointer" }}
-          href= {{ pathname: `/crm/customer/detail/${record.cus_id}`, query: { name: record.name } }}
-        >
-          {data}
-        </Link>
+        <div>
+          <Link
+            style={{ cursor: "pointer" }}
+            href={{
+              pathname: `/crm/customer/detail/${record.cus_id}`,
+              query: { name: record.name },
+            }}
+          >
+            {data}
+          </Link>
+          <br />
+          {record?.link && record?.cus_from ? (
+            <Link
+              href={`${record?.link}`}
+              style={{ color: "#ffa800", fontWeight: 600 }}
+            >
+              ({record?.cus_from ? record?.cus_from : ""})
+            </Link>
+          ) : (
+            <div style={{ color: "#ffa800", fontWeight: 600 }}>
+              {record?.cus_from && (
+                <div> ({record?.cus_from ? record?.cus_from : ""})</div>
+              )}
+            </div>
+          )}
+        </div>
       ),
     },
     {
@@ -171,16 +198,22 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       title: "Email",
       dataIndex: "email",
       key: "2",
-      width: 200,
+      width: 240,
+      render: (text, record) => <div> {text ? text : "Chưa cập nhật"}</div>,
     },
     {
       title: "Nhóm khách hàng",
       dataIndex: "group_id",
       key: "3",
-      width: 300,
+      width: 400,
       render: (data, record) => (
         <div
-          style={{ padding: "5px", paddingLeft: "11px" }}
+          style={{
+            padding: "5px",
+            paddingLeft: "11px",
+            width: "100%",
+            textAlign: "left",
+          }}
           className={stylesPotentialSelect.wrap_select}
           onClick={() => setCusId(record.cus_id)}
         >
@@ -208,7 +241,6 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
             stt={record.status}
             cusId={record.cus_id}
             type={record.type}
-
           />
         </div>
       ),
@@ -230,32 +262,42 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       key: "3",
       width: 180,
       render: (text, record) => (
-        <div>
-          <select
-            style={{ border: 0, width: "100%" }}
-            onChange={(e) => handleChangeSelect(e, record)}
-          >
-            <option value={0}>{text ? text : " Chưa cập nhật"}</option>
-            <option value={1}>{" Facebook"}</option>Zalo
-            <option value={2}>{" Website"}</option>
-            <option value={3}>{" Zalo"}</option>
-            <option value={4}>{" Dữ liệu bên thứ 3"}</option>
-            <option value={5}>{" Khách hàng giới thiệu"}</option>
-            <option value={6}>{" Giới thiệu"}</option>
-            <option value={7}>{" Chăm sóc khách hàng"}</option>
-            <option value={8}>{" Email"}</option>
-          </select>
-        </div>
+        <select
+          style={{ border: 0, width: "100%" }}
+          onChange={(e) => handleChangeSelect(e, record)}
+          defaultValue={record?.value ? record.value : ""}
+        >
+          {ArrNguonKK?.map((item, index) => {
+            if (item?.name == record?.resoure) {
+              return (
+                <option
+                  key={index}
+                  value={item?.id}
+                  style={{ background: "rgb(76, 91, 212)", color: "#fff" }}
+                >
+                  {item?.name}
+                </option>
+              );
+            } else {
+              return (
+                <option key={index} value={item?.id}>
+                  {item?.name}
+                </option>
+              );
+            }
+          })}
+        </select>
       ),
     },
     {
       title: "Nhân viên tạo khách hàng",
       dataIndex: "userNameCreate",
       key: "3",
-      width: 200,
+      width: 220,
       render: (text) => (
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <Image width={25} height={25} alt="" src={"/crm/user.svg"} /> {text}{" "}
+          <Image width={25} height={25} alt="" src={"/crm/user.svg"} />{" "}
+          {text ? text : "Chưa cập nhật"}{" "}
         </div>
       ),
     },
@@ -263,10 +305,11 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       title: "Nhân viên phụ trách",
       dataIndex: "userName",
       key: "3",
-      width: 200,
+      width: 220,
       render: (text) => (
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <Image width={25} height={25} alt="" src={"/crm/user.svg"} /> {text}{" "}
+          <Image width={25} height={25} alt="" src={"/crm/user.svg"} />{" "}
+          {text ? text : "Chưa cập nhật"}{" "}
         </div>
       ),
     },
@@ -274,10 +317,11 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       title: "Nhân viên bàn giao",
       dataIndex: "NameHandingOverWork",
       key: "3",
-      width: 200,
+      width: 220,
       render: (text) => (
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <Image width={25} height={25} alt="" src={"/crm/user.svg"} /> {text}{" "}
+          <Image width={25} height={25} alt="" src={"/crm/user.svg"} />{" "}
+          {text ? text : "Chưa cập nhật"}{" "}
         </div>
       ),
     },
@@ -285,7 +329,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       title: "Ngày cập nhật",
       dataIndex: "updated_at",
       key: "3",
-      width: 150,
+      width: 120,
     },
     {
       title: "Chức năng",
@@ -297,10 +341,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
         <>
           <Link href={`/crm/customer/edit/${record.cus_id}`}>
             <button className={styles.icon_edit}>
-              <img
-                style={{ marginRight: "8px" }}
-                src="https://crm.timviec365.vn/assets/img/h_edit_cus.svg"
-              />
+              <img style={{ marginRight: "8px" }} src="/crm/h_edit_cus.svg" />
               Chỉnh sửa
             </button>
           </Link>
@@ -309,10 +350,21 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
     },
   ];
   //nut select
+  const customLocale = {
+    emptyText: (
+      <div
+        key={"empty"}
+        style={{ fontWeight: 400, color: "black", fontSize: 15 }}
+      >
+        {loading ? " Đang phân tích kết quả ..." : " Không có kết quả phù hợp"}
+      </div>
+    ), // Thay thế nội dung "No Data" bằng "Hello"
+  };
   return (
     <>
       <div className="custom_table">
         <Table
+          locale={customLocale}
           columns={columns}
           dataSource={datatable}
           rowSelection={{ ...rowSelection }}
@@ -326,6 +378,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
             total: totalRecords,
             onChange: (current, pageSize) => {
               if (current != page) {
+                setDatatable([]);
                 setPage(current);
               }
             },
@@ -372,6 +425,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
         isModalCancel={openModalCall}
         setIsModalCancel={setOpenModalCall}
         cusId={cusId}
+        setCusId={setCusId}
       />
     </>
   );

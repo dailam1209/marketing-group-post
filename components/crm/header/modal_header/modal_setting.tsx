@@ -2,6 +2,7 @@ import style from "../header.module.css";
 import LogoutCRM from "../../logout/index";
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function SettingModal({ dataHeader }) {
   const [showLogout, setShowLogout] = useState(false);
@@ -26,20 +27,31 @@ export default function SettingModal({ dataHeader }) {
   return (
     <div className={style.setting_open}>
       <div className={style.avatar_staff}>
-        <img
+        <Image
+          width={300}
+          height={200}
+          className={style.img_icon}
           src={
-            dataHeader?.data?.avatarUser
+            dataHeader?.data?.avatarUser === null
               ? dataHeader?.data?.avatarUser
               : "/logo_com (2).png"
           }
           alt=""
         />
         {/* <img
+          src={
+            dataHeader?.data?.avatarUser
+              ? dataHeader?.data?.avatarUser
+              : "/logo_com (2).png"
+          }
+          alt=""
+        /> */}
+        {/* <img
           src="https://chamcong.24hpay.vn/upload/employee/ep931547/app_1688728219772.jpg"
           alt=""
         /> */}
         <div className={style.name_staff}>
-          {dataHeader?.data?.com_name || ""}
+          {dataHeader?.data?.userName || ""}
         </div>
         {/* <p className={style.name_staff}>Tran Quang Duc Dung</p> */}
         {/* <p className={style.chuc_vu}>NHÂN VIÊN THỬ VIỆC </p> */}
@@ -47,16 +59,10 @@ export default function SettingModal({ dataHeader }) {
 
       <a className={style.selecter}>
         <div className={style.selecter_left}>
-          <img
-            src="https://crm.timviec365.vn/assets/icons/icon-help.svg"
-            alt=""
-          />
+          <img src="/crm/icon-help.svg" alt="" />
           <p className={style.text_selecter}>Hướng dẫn sử dụng</p>
         </div>
-        <img
-          src="https://crm.timviec365.vn/assets/icons/icon-arrow-right.svg"
-          alt=""
-        />
+        <img src="/crm/icon-arrow-right.svg" alt="" />
       </a>
 
       <Link
@@ -64,16 +70,10 @@ export default function SettingModal({ dataHeader }) {
         href="/quan-ly-thong-tin-tai-khoan-cong-ty.html"
       >
         <div className={style.selecter_left}>
-          <img
-            src="https://crm.timviec365.vn/assets/icons/icon-infor.svg"
-            alt=""
-          />
+          <img src="/crm/icon-infor.svg" alt="" />
           <p className={style.text_selecter}>Thông tin cá nhân</p>
         </div>
-        <img
-          src="https://crm.timviec365.vn/assets/icons/icon-arrow-right.svg"
-          alt=""
-        />
+        <img src="/crm/icon-arrow-right.svg" alt="" />
       </Link>
 
       <div className={style.selecter} onClick={show} style={{ width: "100%" }}>
@@ -81,22 +81,16 @@ export default function SettingModal({ dataHeader }) {
           style={{ justifyContent: "space-between" }}
           className={style.selecter_left}
         >
-          <img
-            src="https://crm.timviec365.vn/assets/icons/icon-logout.svg"
-            alt=""
-          />
+          <img src="/crm/icon-logout.svg" alt="" />
           <div id={style.logout_acc} className={style.text_selecter}>
             Đăng xuất
           </div>
         </div>
-        <img
-          src="https://crm.timviec365.vn/assets/icons/icon-arrow-right.svg"
-          alt=""
-        />
+        <img src="/crm/icon-arrow-right.svg" alt="" />
       </div>
 
-      {showLogout && (    
-          <LogoutCRM showLogout={showLogout} setShowLogout={setShowLogout} />
+      {showLogout && (
+        <LogoutCRM showLogout={showLogout} setShowLogout={setShowLogout} />
       )}
     </div>
   );

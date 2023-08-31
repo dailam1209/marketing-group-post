@@ -56,6 +56,11 @@ export default function QuanLyNhanVien({ title }) {
   const [selectedMonth, setSelectedMonth] = useState(dayjs().month() + 1);
   const [selectedYear, setSelectedYear] = useState(dayjs().year());
   const [userInfo, setUserInfo] = useState({});
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const handleScroll = (event) => {
+    const scrollValue = event.target.scrollLeft;
+    setScrollPosition(scrollValue);
+  };
   console.log("Api RealData: ", apiRealData);
   useEffect(() => {
     fetchApiData(selectedMonth, selectedYear);
@@ -74,7 +79,7 @@ export default function QuanLyNhanVien({ title }) {
         setUserInfo(response.data.data);
       })
       .catch((err) => {
-        console.error(
+        console.log(
           "Error ở API api/tinhluong/nhanvien/qly_ho_so_ca_nhan:",
           err
         );
@@ -106,7 +111,7 @@ export default function QuanLyNhanVien({ title }) {
         setApiRealData(response.data.data.count_real_works);
       })
       .catch((error) => {
-        console.error("Error fetching data from API:", error);
+        console.log("Error fetching data from API:", error);
       });
   };
   const countTitleRealWork = apiData?.data?.count_real_works?.length || 0;
@@ -243,26 +248,29 @@ export default function QuanLyNhanVien({ title }) {
               </h3>
             </div>
           </div>
-          <div className={styles.prl_tow}>
-            {/* <table className={styles.calendar}>
+          <div className={styles.custom_calendar_container}>
+            <div className={styles.prl_tow}>
+              {/* <table className={styles.calendar}>
                             
                             <Table></Table>
                             
                         </table>
                          */}
-            {/* <Calendar1></Calendar1> */}
-            {/* noi chung ta dien lich vao  */}
-            <Calendar
-              headerRender={headerRender}
-              cellRender={cellRender}
-              onPanelChange={onPanelChange}
-              locale={{
-                lang: {
-                  locale: "vi",
-                },
-              }}
-              className={`${styles.centeredCalendar} centered-calendar`}
-            />
+              {/* <Calendar1></Calendar1> */}
+              {/* noi chung ta dien lich vao  */}
+              <Calendar
+                headerRender={headerRender}
+                cellRender={cellRender}
+                onPanelChange={onPanelChange}
+                locale={{
+                  lang: {
+                    locale: "vi",
+                  },
+                }}
+                fullscreen={false}
+                className={`${styles.centeredCalendar} centered-calendar`}
+              />
+            </div>
           </div>
           <div className={styles.thong_ke}>
             <div className={styles.tk_tong}>

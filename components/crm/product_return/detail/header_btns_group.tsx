@@ -57,7 +57,7 @@ export default function ProductReturnDetailBtns({ id }: any) {
                 alt="+"
                 width={16}
                 height={16}
-                src="https://crm.timviec365.vn/assets/icons/product_return/icon_cancel.svg"
+                src="/crm/icon_cancel.svg"
               />
               Hủy bỏ
             </button>
@@ -74,7 +74,7 @@ export default function ProductReturnDetailBtns({ id }: any) {
                 alt="+"
                 width={16}
                 height={16}
-                src="https://crm.timviec365.vn/assets/icons/pause_white.svg"
+                src="/crm/pause_white.svg"
               />
               Từ chối
             </button>
@@ -91,25 +91,20 @@ export default function ProductReturnDetailBtns({ id }: any) {
                 alt="+"
                 width={16}
                 height={16}
-                src="https://crm.timviec365.vn/assets/icons/duyet_white.svg"
+                src="/crm/duyet_white.svg"
               />
               Duyệt
             </button>
           </div>
 
           <div className={`${styles.main__control_add} flex_end`}>
-            <Link href={"/product_return/update"}>
+            <Link href={"/crm/product_return/update"}>
               <button
                 type="button"
                 style={{ background: "#4C5BD4" }}
                 className={`${styles.dropbtn_add} flex_align_center`}
               >
-                <Image
-                  alt="+"
-                  width={16}
-                  height={16}
-                  src="	https://crm.timviec365.vn/assets/icons/edit_kh.svg"
-                />
+                <Image alt="+" width={16} height={16} src="	/crm/edit_kh.svg" />
                 Chỉnh sửa
               </button>
             </Link>
@@ -118,7 +113,7 @@ export default function ProductReturnDetailBtns({ id }: any) {
           <div className={`${styles.main__control_add} flex_end`}>
             <button
               type="button"
-              style={{ background: "#FF3333" }}
+              style={{ background: "#FFF" ,color:"red"}}
               onClick={() => setIsOpenModalDel(true)}
               className={`${styles.dropbtn_add} flex_align_center`}
             >
@@ -126,7 +121,7 @@ export default function ProductReturnDetailBtns({ id }: any) {
                 alt="+"
                 width={16}
                 height={16}
-                src="https://crm.timviec365.vn/assets/icons/delete_white.svg"
+                src="/crm/delete_kh.svg"
               />
               Xóa
             </button>
@@ -153,7 +148,7 @@ export default function ProductReturnDetailBtns({ id }: any) {
         setIsModalCancel={setIsOpenModalDel}
         content={"Bạn có chắc chắn muốn xóa đề nghị trả hàng Số đề nghị?"}
         title={"Xóa đề nghị trả hàng"}
-        link={`/product_return/list`}
+        link={`/crm/product_return/list`}
       />
     </>
   );

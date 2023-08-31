@@ -303,6 +303,7 @@
   line-height: 19px;
   text-align: justify;
   padding-top: 10px;
+  padding-bottom: 30px;
 }
 
 .box-03 .right-03 {
@@ -514,8 +515,8 @@
     flex-direction: row-reverse;
   }
   .box-01 .left-01 {
-    padding: 40px 0 0 137px;
-    width: 65%;
+    padding: 40px 0 0 110px;
+    width: 70%;
   }
   .left-01 img {
     width: 506px;
@@ -527,7 +528,7 @@
   }
   .box-01 .title_content_box1 {
     color: #474747;
-    width: 75%;
+    width: 85%;
     padding-bottom: 40px;
     margin: 0 !important;
   }
@@ -625,10 +626,11 @@
   .box-03 {
     background-color: #eeeeee;
     display: flex;
+    gap: 20px;
   }
   .box-03 .video {
     width: 100%;
-    padding: 40px 0 40px 151px;
+    padding: 40px 0 40px 90px;
   }
   .box-03 iframe {
     min-width: 466px;
@@ -646,7 +648,7 @@
   }
   .box-03 .right-03 {
     width: 100%;
-    padding: 40px 150px 100px 0;
+    padding: 40px 100px 100px 0;
   }
   .box-04 {
     background-color: #fff;
@@ -1475,9 +1477,10 @@
   .box-02 .item {
     display: flex;
     padding: 10px 0px 25px 0;
-    flex-wrap: wrap;
     gap: 25px;
     justify-content: center;
+    flex-direction: column;
+    align-items: center;
   }
   .box-02 .item h4 {
     font-style: normal;
@@ -1508,7 +1511,7 @@
   }
   .box-02 .item .item-child {
     margin: 0 !important;
-    width: calc(61% - 87px);
+    width: calc(100% - 120px);
     min-height: 342px;
     position: relative;
   }

@@ -5,7 +5,7 @@ const url = process.env.NEXT_PUBLIC_BASE_URL2
 
 /* -------------------------------------- LIST ----------------------------------------------*/
 
-export const EmployeeList = async (formData: FormData) => {
+export const EmployeeList_pagination = async (formData: FormData) => {
     try {
         const isToken = getToken(COOKIE_KEY);
 

@@ -32,7 +32,7 @@ const columns: ColumnsType<DataType> = [
     dataIndex: "number",
     key: "number",
     render: (text: any, record: any) => (
-      <Link href={`/marketing/sms/detail`}>
+      <Link href={`/crm/marketing/sms/detail`}>
         <b>{text}</b>
       </Link>
     ),
@@ -58,7 +58,7 @@ const columns: ColumnsType<DataType> = [
     key: "name",
     render: (text: any) => (
       <div style={{ display: "flex", justifyContent: "center" }}>
-        <img src="https://crm.timviec365.vn/assets/img/user_kh.png"></img>
+        <img src="/crm/user_kh.png"></img>
         <div>{text}</div>
       </div>
     ),

@@ -9,14 +9,13 @@ export default function ContractSelectBoxStep({
   placeholder,
   data,
   setSelectedDepartment,
-  setSelectedPosition,
-  setSelectedEmployee,
+  setSelectedValue,
+  setDataFromSelectDataBox,
 }: any) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [selectedData, setSelectedData] = useState<any>(null);
-  
-  
+
   const handleClickSelectoption = (e: any) => {
     if (e.target.getAttribute("class") !== styles.select2_search__field) {
       setIsOpen(!isOpen);
@@ -43,14 +42,13 @@ export default function ContractSelectBoxStep({
   }, []);
 
   const handleChangeDepartment = (selectedDepartment: string) => {
-    const newData = data.find((item: any) => item.department === selectedDepartment);
+    const newData = data.find(
+      (item: any) => item.department === selectedDepartment
+    );
     setSelectedData(newData);
-    setSelectedDepartment(selectedDepartment);}
+    setSelectedDepartment(selectedDepartment);
+  };
 
-    const handleChangePosition = (selectedDepartment: string) => {
-      const newData = data.find((item: any) => item.department === selectedDepartment);
-      setSelectedData(newData);
-      setSelectedDepartment(selectedDepartment);}
   return (
     <div
       ref={dropdownRef}
@@ -70,11 +68,6 @@ export default function ContractSelectBoxStep({
         <span className={`${styles.selection}`}>
           <span
             className={`${styles.select2_selection} select2_selection_single`}
-            role="combobox"
-            aria-haspopup="true"
-            aria-expanded="false"
-            tabIndex={0}
-            aria-labelledby="select2-g0q1-container"
           >
             <span
               className={styles.select2_selection__rendered}
@@ -98,7 +91,9 @@ export default function ContractSelectBoxStep({
             data={data}
             value={value}
             selectedData={selectedData}
-            
+            placeholder={placeholder}
+            setSelectedValue={setSelectedValue}
+            setDataFromSelectDataBox={setDataFromSelectDataBox}
           />
         )}
       </span>

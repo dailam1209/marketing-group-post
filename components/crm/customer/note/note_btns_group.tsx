@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import styles from "../../potential/potential.module.css";
-import Link from "next/link";
+import styles from "./customer_note.module.css";
 import PotentialSelectBox from "@/components/crm/potential/potential_selectt";
-import HandeOverModal from "@/components/crm/potential/potential_action_modal/hand_over_mdal";
 import NoteModalAddOrEdit from "./note_mdal_add";
 export default function NoteDetailBtnsGroup() {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,25 +27,6 @@ export default function NoteDetailBtnsGroup() {
       </div>
 
       <div className={`${styles.main__control_btn} flex_between`}>
-        <div className={styles.main__control_search}>
-          <form onSubmit={() => false}>
-            <input
-              style={{ height: "46px" }}
-              type="text"
-              className={styles.input__search}
-              name="search"
-              defaultValue=""
-              placeholder="Tìm kiếm theo tên tiềm năng"
-            />
-            <button className={styles.kinh_lup}>
-              <img
-                className={styles.img__search}
-                src="/crm/search.svg"
-                alt=""
-              />
-            </button>
-          </form>
-        </div>
         <div className={`${styles.main__control_add} flex_end`}>
           <button
             type="button"

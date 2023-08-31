@@ -148,88 +148,79 @@ export default function CustomerListInputGroup({
             Ẩn dữ liệu trống
           </div>
 
-          <button
-            className={`${styles.dropbtn_add} flex_align_center ${styles.btn_file}`}
-            onClick={() => setIsModalCancel(true)}
-          >
-            <img
-              width="14"
-              height="10"
-              src="https://crm.timviec365.vn/assets/icons/email/eye2.svg"
-              alt=""
-            />
-            Xem trước
-          </button>
-          {
-            <Review
-              isModalCancel={isModalCancel}
-              setIsModalCancel={setIsModalCancel}
-            />
-          }
-          <button
-            className={styles.btn_edit}
-            style={{ background: "#34B632", border: "1px solid #34B632" }}
-            type="submit"
-            onClick={() => setModal1Open(true)}
-          >
-            <img
-              width="14"
-              height="14"
-              src="https://crm.timviec365.vn/assets/icons/email/icon_send.svg"
-              alt=""
-              style={{ marginRight: "8px", verticalAlign: "middle" }}
-            />
-            Gửi
-          </button>
-          {
-            <ModalCompleteStep
-              modal1Open={modal1Open}
-              setModal1Open={setModal1Open}
-              link="/marketing/sms"
-              title="Gửi sms thành công!"
-            />
-          }
-          <Link href="update">
-            <button type="button" className={styles.btn_edit}>
+          <div className={styles.group_button_SMS}>
+            <button
+              className={`${styles.dropbtn_add} flex_align_center ${styles.btn_file}`}
+              onClick={() => setIsModalCancel(true)}
+            >
+              <img width="14" height="10" src="/crm/eye2.svg" alt="" />
+              Xem trước
+            </button>
+            {
+              <Review
+                isModalCancel={isModalCancel}
+                setIsModalCancel={setIsModalCancel}
+              />
+            }
+            <button
+              className={styles.btn_edit}
+              style={{ background: "#34B632", border: "1px solid #34B632" }}
+              type="submit"
+              onClick={() => setModal1Open(true)}
+            >
               <img
-                src="https://crm.timviec365.vn/assets/icons/edit_kh.svg"
+                width="14"
+                height="14"
+                src="/crm/icon_send.svg"
+                alt=""
+                style={{ marginRight: "8px", verticalAlign: "middle" }}
+              />
+              Gửi
+            </button>
+            {
+              <ModalCompleteStep
+                modal1Open={modal1Open}
+                setModal1Open={setModal1Open}
+                link="/crm/setting/sms"
+                title="Gửi sms thành công!"
+              />
+            }
+            <Link href="update">
+              <button type="button" className={styles.btn_edit}>
+                <img src="/crm/edit_kh.svg" style={{ margin: "-3px 5px" }} />
+                Chỉnh sửa
+              </button>
+            </Link>
+
+            <button
+              type="button"
+              className={styles.btn_delete}
+              onClick={() => setIsDelOpen(true)}
+            >
+              <img
+                src="/crm/delete_kh.svg"
+                alt=""
                 style={{ margin: "-3px 5px" }}
               />
-              Chỉnh sửa
+              Xoá
             </button>
-          </Link>
-
-          <button
-            type="button"
-            className={styles.btn_delete}
-            onClick={() => setIsDelOpen(true)}
-          >
-            <img
-              src="https://crm.timviec365.vn/assets/icons/delete_kh.svg"
-              alt=""
-              style={{ margin: "-3px 5px" }}
-            />
-            Xoá
-          </button>
-          {
-            <DelActionModal
-              isModalCancel={isDelOpen}
-              setIsModalCancel={setIsDelOpen}
-            />
-          }
-          <div>
-            <Dropdown menu={{ items }}>
-              <button
-                style={{ justifyContent: "center", color: "#4C5BD4" }}
-                className={styles.btn_delete}
-              >
-                <img
-                  src="/crm/3_cham.png"
-                  style={{ margin: "-4px 0px" }}
-                />
-                Thao tác
-              </button>
-            </Dropdown>
+            {
+              <DelActionModal
+                isModalCancel={isDelOpen}
+                setIsModalCancel={setIsDelOpen}
+              />
+            }
+            <div>
+              <Dropdown menu={{ items }}>
+                <button
+                  style={{ justifyContent: "center", color: "#4C5BD4" }}
+                  className={styles.btn_delete}
+                >
+                  <img src="/crm/3_cham.png" style={{ margin: "-4px 0px" }} />
+                  Thao tác
+                </button>
+              </Dropdown>
+            </div>
           </div>
         </div>
       </div>

@@ -19,6 +19,7 @@ export default function AddGeneralInfo() {
           label="Tên chương trình khuyến mại"
           placeholder="Nhập tên chương trình khuyến mại"
         />
+
         <InputText label="Mã khuyến mại" placeholder="Nhập khuyến mại" />
       </div>
 
@@ -40,17 +41,31 @@ export default function AddGeneralInfo() {
       </div>
 
       <div className={styles.row_input}>
-      <div className={`${styles.mb_3} ${styles["col-lg-6"]}`} style={{display: "inline-flex"}}>
-        <InputText label="Thời gian bắt đầu" type="date"/>
-        <Space wrap>
-          <TimePicker use12Hours format="h:mm a" className={styles.time_picker} />
-        </Space>
+        <div
+          className={`${styles.mb_3} ${styles["col-lg-6"]}`}
+          style={{ display: "inline-flex" }}
+        >
+          <InputText label="Thời gian bắt đầu" type="date" />
+          <Space wrap>
+            <TimePicker
+              use12Hours
+              format="h:mm a"
+              className={styles.time_picker}
+            />
+          </Space>
         </div>
-        <div className={`${styles.mb_3} ${styles["col-lg-6"]}`} style={{display: "inline-flex"}}>
-        <InputText label="Thời gian kết thúc" type="date"/>
-        <Space wrap>
-          <TimePicker use12Hours format="h:mm a" className={styles.time_picker} />
-        </Space>
+        <div
+          className={`${styles.mb_3} ${styles["col-lg-6"]}`}
+          style={{ display: "inline-flex" }}
+        >
+          <InputText label="Thời gian kết thúc" type="date" />
+          <Space wrap>
+            <TimePicker
+              use12Hours
+              format="h:mm a"
+              className={styles.time_picker}
+            />
+          </Space>
         </div>
       </div>
 
@@ -86,7 +101,7 @@ export default function AddGeneralInfo() {
 
       <div className="mb-3 col-lg-12">
         <div className="row">
-        <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
+          <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
             <label className={styles.form_label}>Áp dụng vào khung giờ</label>
             <div className="main_add_time"></div>
           </div>
@@ -101,13 +116,14 @@ export default function AddGeneralInfo() {
       </div>
 
       <div className="mb-3 col-lg-12">
-        <p>
-          <input type="checkbox" className="active_promotion" style={{marginBottom: "1rem!important"}} />
-          Kích hoạt chương trình khuyến mại{" "}
+        <p className={styles.checkbox_quote}>
+          <input type="checkbox" className="active_promotion" />
+          Kích hoạt chương trình khuyến mại
         </p>
-        <p>
-          <input type="checkbox" className="apply_with_other_program" style={{marginBottom: "1rem!important"}} />
-          Áp dụng cùng các chương trình khuyến mại khác{" "}
+
+        <p className={styles.checkbox_quote}>
+          <input type="checkbox" className="apply_with_other_program" />
+          Áp dụng cùng các chương trình khuyến mại khác
         </p>
       </div>
 
@@ -119,11 +135,8 @@ export default function AddGeneralInfo() {
             <tbody id="sortable" className="ui-sortable"></tbody>
           </table>
         </div>
-        <button type="button" className="d_flex_center add_product">
-          <img
-            src="https://crm.timviec365.vn/assets/icons/add_blue.svg"
-            alt=""
-          />{" "}
+        <button type="button" className={styles.add_product}>
+          <img src="/crm/add_blue.svg" alt="" />
           Thêm hàng hoá
         </button>
       </div>

@@ -47,8 +47,6 @@ function Input_textarea({ onDescriptionChange, reason }: InputTextareaProps) {
 }
 export default function EditPayroll({ onCancel, infoList }: any) {
 
-  console.log(infoList);
-
   const [selectedOption, setSelectedOption] = useState<SelectOptionType | null>(null);
   const [isDepList, setDepList] = useState<any>(null)
   const [isPositionList, setPositionList] = useState<any>(null)
@@ -59,7 +57,7 @@ export default function EditPayroll({ onCancel, infoList }: any) {
   const [isReason, setReason] = useState<any>(infoList?.note)
   const [isCom_id, setCom_id] = useState<any>("")
   const [isDep_id, setDep_id] = useState<any>("")
-  const [isType_id, setType_id] = useState<any>("")
+  const [isType_id, setType_id] = useState<any>(infoList?.type)
   const [isShift_id, setShift_id] = useState<any>(infoList?.shift_id)
   const [isSpecified_id, setSpecified_id] = useState<any>(infoList?.decision_id)
   const [isPosition_id, setPosition_id] = useState<any>("")
@@ -104,11 +102,8 @@ export default function EditPayroll({ onCancel, infoList }: any) {
   }
 
   useEffect(() => {
-    console.log(isDepList?.data);
-    console.log(infoList?.dep_name);
     const matchingDep = isDepList?.items?.find((item: any) => item?.dep_name === infoList?.dep_name);
     const matchingPos = isPositionList?.data?.flat()?.find((item: any) => item?.positionName === infoList.position_name)
-    console.log(matchingDep, matchingPos);
 
     if (matchingDep) {
       setDep_id(matchingDep.dep_id);
@@ -260,7 +255,12 @@ export default function EditPayroll({ onCancel, infoList }: any) {
     hinhthuc: [
       { value: '1', label: 'Giảm biên chế' },
       { value: '2', label: 'Nghỉ việc' },
-
+    ],
+    hinhthuc1: [
+      { value: '1', label: 'Giảm biên chế' },
+    ],
+    hinhthuc2: [
+      { value: '2', label: 'Nghỉ việc' },
     ],
     chonquydinhdefault: [
       { value: decision_idmatch?.id, label: decision_idmatch?.name ? decision_idmatch?.name : "Chọn quy định" },
@@ -287,6 +287,7 @@ export default function EditPayroll({ onCancel, infoList }: any) {
                     <div className={`${styles.input_right}`}>
                       <Select
                         value={options.chonnhanvien}
+                        isDisabled={true}
                         onChange={(option) => handleSelectChange(option, options.chonnhanvien)}
                         options={options.chonnhanvien}
                         placeholder="Chọn nhân viên"
@@ -298,6 +299,10 @@ export default function EditPayroll({ onCancel, infoList }: any) {
                             minHeight: state.isFocused ? 20 : 20,
                             width: '100%',
                             fontWeight: state.isFocused ? 600 : 600
+                          }),
+                          singleValue: (baseStyles) => ({
+                            ...baseStyles,
+                            color: "#444444", // Màu cho đoạn văn bản đã chọn
                           }),
                           placeholder: (baseStyles) => ({
                             ...baseStyles,
@@ -314,6 +319,7 @@ export default function EditPayroll({ onCancel, infoList }: any) {
                     <div className={`${styles.input_right}`}>
                       <Select
                         value={options.chucvuhientai}
+                        isDisabled={true}
                         onChange={(option) => handleSelectChange(option, options.chucvuhientai)}
                         options={options.chucvuhientai}
                         placeholder="Chọn chức vụ"
@@ -325,6 +331,10 @@ export default function EditPayroll({ onCancel, infoList }: any) {
                             minHeight: state.isFocused ? 20 : 20,
                             width: '100%',
                             fontWeight: state.isFocused ? 600 : 600
+                          }),
+                          singleValue: (baseStyles) => ({
+                            ...baseStyles,
+                            color: "#444444", // Màu cho đoạn văn bản đã chọn
                           }),
                           placeholder: (baseStyles) => ({
                             ...baseStyles,
@@ -339,6 +349,7 @@ export default function EditPayroll({ onCancel, infoList }: any) {
                     <div className={`${styles.input_right}`}>
                       <Select
                         value={options.chonphongban}
+                        isDisabled={true}
                         onChange={(option) => handleSelectChange(option, options.chonphongban)}
                         options={options.chonphongban}
                         placeholder="Chọn phòng ban"
@@ -350,6 +361,10 @@ export default function EditPayroll({ onCancel, infoList }: any) {
                             minHeight: state.isFocused ? 20 : 20,
                             width: '100%',
                             fontWeight: state.isFocused ? 600 : 600
+                          }),
+                          singleValue: (baseStyles) => ({
+                            ...baseStyles,
+                            color: "#444444", // Màu cho đoạn văn bản đã chọn
                           }),
                           placeholder: (baseStyles) => ({
                             ...baseStyles,
@@ -364,6 +379,7 @@ export default function EditPayroll({ onCancel, infoList }: any) {
                     <div className={`${styles.input_right}`}>
                       <Select
                         value={options.chonchinhanh}
+                        isDisabled={true}
                         onChange={(option) => handleSelectChange(option, options.chonchinhanh)}
                         options={options.chonchinhanh}
                         placeholder="Chọn chi nhánh"
@@ -376,6 +392,10 @@ export default function EditPayroll({ onCancel, infoList }: any) {
                             width: '100%',
                             color: state.isFocused ? '#444444' : '#444444',
                             fontWeight: state.isFocused ? 600 : 600
+                          }),
+                          singleValue: (baseStyles) => ({
+                            ...baseStyles,
+                            color: "#444444", // Màu cho đoạn văn bản đã chọn
                           }),
                           placeholder: (baseStyles) => ({
                             ...baseStyles,
@@ -410,6 +430,7 @@ export default function EditPayroll({ onCancel, infoList }: any) {
                             width: '100%',
                             fontWeight: state.isFocused ? 600 : 600
                           }),
+
                           placeholder: (baseStyles) => ({
                             ...baseStyles,
                             color: "#444444",
@@ -428,7 +449,7 @@ export default function EditPayroll({ onCancel, infoList }: any) {
                     </label>
                     <div className={`${styles.input_right}`}>
                       <Select
-                        defaultValue={selectedOption}
+                        defaultValue={infoList.type === 1 ? options.hinhthuc1 : options.hinhthuc2}
                         onChange={(option) => handleSelectChange(option, setType_id)}
                         options={options.hinhthuc}
                         placeholder="Chọn hình thức"

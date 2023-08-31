@@ -33,15 +33,12 @@ const Table_San_Pham = (props: any) => {
       key: "3",
       label: (
         <Link
-          href={`/chinh-sua-san-pham/${idSanPham}`}
+          href={`/crm/chinh-sua-san-pham/${idSanPham}`}
           style={{ display: "flex", fontSize: 15 }}
           rel="noopener noreferrer"
           // onClick={() => { setIsShowModalChange(true), }}
         >
-          <img
-            src="https://crm.timviec365.vn/assets/icons/icon-edit-black.svg"
-            alt=""
-          />
+          <img src="/crm/icon-edit-black.svg" alt="" />
           &nbsp; &nbsp; <p>Chỉnh sửa</p>
         </Link>
       ),
@@ -54,10 +51,7 @@ const Table_San_Pham = (props: any) => {
           rel="noopener noreferrer"
           // onClick={() => { setIsShowModal(true) }}
         >
-          <img
-            src="https://crm.timviec365.vn/assets/icons/icon-delete-black.svg"
-            alt=""
-          />
+          <img src="/crm/icon-delete-black.svg" alt="" />
           &nbsp; &nbsp; <p>Xóa</p>
         </div>
       ),
@@ -72,10 +66,10 @@ const Table_San_Pham = (props: any) => {
     },
     {
       width: 211,
-      title: "Tên sản phẩm		",
+      title: "Tên sản phẩm",
       dataIndex: "name",
       render: (text: any, record: any) => (
-        <Link href={`/chi-tiet-san-pham/${record.id}`}>{text}</Link>
+        <Link href={`/crm/chi-tiet-san-pham/${record.id}`}>{text}</Link>
       ),
     },
     {
@@ -137,7 +131,7 @@ const Table_San_Pham = (props: any) => {
                 handleSelect(record.id);
               }}
               style={{ cursor: "pointer" }}
-              src="https://crm.timviec365.vn/assets/icons/icon_1.svg"
+              src="/crm/icon_1.svg"
             />
           </Dropdown>
         </div>
@@ -157,40 +151,33 @@ const Table_San_Pham = (props: any) => {
   return (
     <div className={`${styles.main__content} ${styles.flex_column}`}>
       <div className={styles.inputSP2}>
-        <div className={styles.ip1} >
-          <Button
-            style={{
-              height: 40,
-              width: "100%",
-              color: "#fff",
-              background: "#4C5BD4",
-              display: "flex",
-              fontSize: 20,
-              textAlign: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Link href="/san-pham"> Danh sách sản phẩm</Link>
-          </Button>
+        <div className={styles.ip1}>
+          <button className={styles.list_sp}>
+            <Link
+              href="/crm/san-pham"
+              style={{ color: "#666666", background: "#fff" }}
+            >
+              Danh sách sản phẩm
+            </Link>
+          </button>
         </div>
-        <div className={styles.ip1} >
-          <Button
-            style={{
-              height: 40,
-              width: "100%",
-              color: "black",
-              background: "#ffffff",
-              display: "flex",
-              fontSize: 20,
-              justifyContent: "center",
-            }}
-          >
-            <Link href="/nhom-san-pham">Danh sách nhóm sản phẩm</Link>
-          </Button>
+        <div className={styles.ip1}>
+          <button className={styles.list_gr_sp}>
+            <Link href="/crm/nhom-san-pham" style={{ color: "#a3a3a3" }}>
+              Danh sách nhóm sản phẩm
+            </Link>
+          </button>
         </div>
-
+        <div className={styles.ipSearch}>
+          <Input
+            placeholder={`Tìm kiếm`}
+            className={styles.main__control_search}
+            suffix={suffix}
+            bordered={false}
+          />
+        </div>
       </div>
-      <Link href={"/them-moi-san-pham"} style={{ width: "10%" }}>
+      <Link href={"/crm/them-moi-san-pham"} style={{ width: "10%" }}>
         <Button
           style={{
             color: "#fff",
@@ -205,14 +192,7 @@ const Table_San_Pham = (props: any) => {
           mới
         </Button>
       </Link>
-      <div className={styles.ipSearch} >
-          <Input
-            placeholder={`Tìm kiếm`}
-            className={styles.main__control_search}
-            suffix={suffix}
-            bordered={false}
-          />
-        </div>
+
       <div className={styles.table}>
         <div className={styles.scrollTable}>
           <Table

@@ -3,13 +3,19 @@ import styles from "../../potential/potential.module.css";
 
 export default function ContractDropDownDataStep({
   data,
-  value,
   setSelectedDepartment,
+  placeholder,
+  setSelectedValue,
+  setDataFromSelectDataBox,
 }: any) {
-  const [selectedValue, setSelectedValue] = useState(value);
-  const handleOptionSelect = (selectedItem: string) => {
+  const handleOptionSelect = (selectedItem: string, dataTable: any) => {
     setSelectedDepartment(selectedItem);
+    if (placeholder === "Chọn nhân viên") {
+      setSelectedValue(selectedItem);
+      console.log("nnnn");
+    }
   };
+
   return (
     <span
       className={`${styles.select2_container_open} ${styles.select2_container} ${styles.select2_container_default} `}
@@ -44,8 +50,9 @@ export default function ContractDropDownDataStep({
           >
             <li
               className={`${styles.select2_results__option} ${styles.select2_results__option_highlighted}`}
+              onClick={() => setSelectedDepartment(placeholder)}
             >
-              {selectedValue}
+              {placeholder}
             </li>
             {data?.map((item: any, i: Key | null | undefined) => (
               <li
@@ -56,9 +63,9 @@ export default function ContractDropDownDataStep({
                   padding: "5px 0",
                   paddingLeft: "18px",
                 }}
-                onClick={() => handleOptionSelect(item.department)}
+                onClick={() => handleOptionSelect(item, data)}
               >
-                {item.department}
+                {item}
               </li>
             ))}
           </ul>

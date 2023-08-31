@@ -49,13 +49,10 @@ const LichChamSocKH = (props: Props) => {
           style={{ display: "flex", fontSize: 15 }}
           rel="noopener noreferrer"
           onClick={() => {
-            // router.push(`/sua-lich-cham-soc-khach-hang/${id}`);
+            // router.push(`/crm/sua-lich-cham-soc-khach-hang/${id}`);
           }}
         >
-          <img
-            src="https://crm.timviec365.vn/assets/icons/icon-edit-black.svg"
-            alt=""
-          />
+          <img src="/crm/icon-edit-black.svg" alt="" />
           &nbsp; &nbsp; <p>Chỉnh sửa</p>
         </div>
       ),
@@ -67,7 +64,9 @@ const LichChamSocKH = (props: Props) => {
       title: "Tên lịch",
       dataIndex: "name",
       render: (text: any, record: any) => (
-        <Link href={`/chi-tiet-lich-cham-soc-khach-hang/${record.name}`}>{text}</Link>
+        <Link href={`/crm/chi-tiet-lich-cham-soc-khach-hang/${record.name}`}>
+          {text}
+        </Link>
       ),
     },
     {
@@ -105,7 +104,7 @@ const LichChamSocKH = (props: Props) => {
                 handleSelect(record.name);
               }}
               style={{ cursor: "pointer" }}
-              src="https://crm.timviec365.vn/assets/icons/icon_1.svg"
+              src="/crm/icon_1.svg"
             />
           </Dropdown>
         </div>
@@ -140,7 +139,7 @@ const LichChamSocKH = (props: Props) => {
         </div>
         <div className={cskh.themmoiks} style={{ paddingRight: 20 }}>
           <Link
-            href={"/them-lich-cham-soc-khach-hang"}
+            href={"/crm/them-lich-cham-soc-khach-hang"}
             style={{ height: 40, width: 140 }}
             className={`${styless.dropbtn_add} flex_align_center`}
           >

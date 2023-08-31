@@ -17,7 +17,7 @@ const Cookies = require("js-cookie");
 type Props = {};
 
 const Recording = (props: Props) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [isShowModal, setIsShowModal] = useState(false);
   const [isShowModalAdd, setIsShowModalAdd] = useState(false);
   const { isConnected } = useContext<any>(CallContext);
@@ -27,7 +27,7 @@ const Recording = (props: Props) => {
   const [current, setcurrent] = useState(1);
   const [pageSize, setpageSize] = useState(10);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [phongban,setPhongban] = useState() 
+  const [phongban, setPhongban] = useState();
 
   const onClose = () => {
     setIsShowModalAdd(false);
@@ -70,25 +70,26 @@ const Recording = (props: Props) => {
   const [listNV, setListNV] = useState([]);
 
   const [query, setQuery] = useState(
-    `http://s02.oncall.vn:8899/api/call_logs/list?pagesize=100000000&start_time=${start_T} &end_time=${end_T}&`
+    `http://s02.oncall.vn:8899/api/call_logs/list?pagesize=10000&start_time=${start_T} &end_time=${end_T}&`
   );
   const handleGetNhanVienPhuTrach = async () => {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/list`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${Cookies.get("token_base365")}`,
-        },
-        body: JSON.stringify({ com_id: Cookies.get("com_id") }),
-      }
-    );
-    const data = await res.json();
-    setListNV(data?.data?.items
-      
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/listAll`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${Cookies.get("token_base365")}`,
+          },
+        }
       );
+      const data = await res.json();
+      console.log(data);
+      setListNV(data?.data?.items);
+    } catch (error) {}
   };
+  console.log(listNV);
   var outputArray = [];
 
   listData?.forEach(function (call) {
@@ -122,39 +123,40 @@ const Recording = (props: Props) => {
   });
   const [listLine, setlistLine] = useState([]);
   const [listPB, setlistPB] = useState([]);
-
+  const [isLoading,setisLoading] = useState(false)
 
   const handleGetPhongBan = async () => {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/department/list`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${Cookies.get("token_base365")}`,
-        },
-        body: JSON.stringify({ com_id: Cookies.get("com_id") }),
-      }
-    );
-    const data = await res.json();
-    setlistPB(data?.data?.items);
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/department/list`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${Cookies.get("token_base365")}`,
+          },
+          body: JSON.stringify({ com_id: Cookies.get("com_id") }),
+        }
+      );
+      const data = await res.json();
+      setlistPB(data?.data?.items);
+    } catch (error) {}
   };
-  
+
   // console.log('check',listPB)
 
   const handleGetLine = async () => {
-    const res = await fetch(
-      `${base_url}/api/crm/cutomerCare/listLine`,
-      {
+    try {
+      const res = await fetch(`${base_url}/api/crm/cutomerCare/listLine`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${Cookies.get("token_base365")}`,
         },
-      }
-    );
-    const data = await res.json();
-    setlistLine(data?.data);
+      });
+      const data = await res.json();
+      setlistLine(data?.data);
+    } catch (error) {}
   };
   const output2 = outputArray.filter((item) => {
     return item.caller.length < 4;
@@ -168,14 +170,14 @@ const Recording = (props: Props) => {
         name2 = value?.userName;
       }
     }
-    if(listNV){
+    if (listNV) {
       for (let key of listNV) {
-        if (key.userName === name2) {
-          phong = key.nameDeparment;
+        if (key.ep_name === name2) {
+          phong = key.dep_name;
         }
       }
     }
-   
+
     return {
       caller: item.caller,
       ring_duration: item.ring_duration,
@@ -190,8 +192,10 @@ const Recording = (props: Props) => {
   });
   datane.sort((a, b) => a.caller - b.caller);
   const handleGet = async () => {
-    if(phongban){
-     datane.filter((item) =>{return item.nameDeparment === phongban});
+    if (phongban) {
+      datane.filter((item) => {
+        return item.nameDeparment === phongban;
+      });
       setIsModalOpen(false);
     }
     setListData([]);
@@ -202,27 +206,28 @@ const Recording = (props: Props) => {
       );
     }
     //lay datatable
-    const response = await fetch(`${query}`, {
-      method: "GET",
-      headers: {
-        access_token: show,
-        // "Content-Type":"S"
-      },
-    });
-    const data = await response.json();
-    setListData(data?.items);
+    try {
+      const response = await fetch(`${query}`, {
+        method: "GET",
+        headers: {
+          access_token: show,
+          // "Content-Type":"S"
+        },
+      });
+      const data = await response.json();
+      setListData(data?.items);
+    } catch (error) {}
   };
   useEffect(() => {
-    handleGetPhongBan()
+    handleGetPhongBan();
     handleGetLine();
     handleGet();
     handleGetNhanVienPhuTrach();
   }, [query]);
   useEffect(() => {
-
     const handleget = async () => {
       if (show) {
-      const res =  await fetch(
+        const res = await fetch(
           "https://s02.oncall.vn:8900/api/account/credentials/verify",
           {
             method: "POST",
@@ -233,12 +238,11 @@ const Recording = (props: Props) => {
             }),
           }
         );
-        const data = await res.json()
+        const data = await res.json();
         dispatch(dataSaveTD(data.access_token));
       }
     };
     handleget();
-
   }, []);
   const Colums = [
     {
@@ -254,23 +258,23 @@ const Recording = (props: Props) => {
       render: (text: any, record: any) => <div>{text}</div>,
     },
     {
-      width: "10%",
+      width: "15%",
       title: "Phòng ban",
       dataIndex: "nameDeparment",
       render: (text: any) => <div>{text}</div>,
     },
     {
-      width: "10%",
+      width: "8%",
       title: "Tổng số cuộc gọi",
       dataIndex: "countSDT",
     },
     {
-      width: "10%",
+      width: "8%",
       title: "Tổng số đã trả lời",
       dataIndex: "countStatus",
     },
     {
-      width: "12%",
+      width: "8%",
       title: "Tổng số không trả lời",
       dataIndex: "nocountStatus",
     },
@@ -299,8 +303,7 @@ const Recording = (props: Props) => {
           fillEnd={fillEnd}
           setFillEnd={setFillEnd}
           handleGet={handleGet}
-        setPhongban={setPhongban}
-
+          setPhongban={setPhongban}
         />
 
         <div className={styles.group_button_right}>
@@ -312,6 +315,7 @@ const Recording = (props: Props) => {
 
       <div style={{ paddingTop: 20 }}>
         <Table
+          loading={outputArray?.length>0?false:true}
           dataSource={datane}
           columns={Colums}
           bordered

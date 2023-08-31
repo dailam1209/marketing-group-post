@@ -313,6 +313,8 @@ export default function EditCandidateIntrview({
       { value: candidate?.recruitment_news_id, label: candidate?.title },
     ],
     tennhanvienphongvan: chonnhanvienOptions,
+    tennhanvienphongvandefault: [
+      { value: candidateAll?.data?.idnhanvien, label: candidateAll?.data?.nhanvien }],
   }
 
   const selectedGender: any = options.chongioitinh?.find(
@@ -333,8 +335,6 @@ export default function EditCandidateIntrview({
   const selectedUseRecomment: any = options.tennhanviengioithieu?.find(
     (item: any) => item.value === candidate?.user_recommend
   )
-
-  console.log(selectedUseHiring)
 
   return (
     <>
@@ -732,7 +732,7 @@ export default function EditCandidateIntrview({
                       />
                     </div>
                   </div>
-                  <div className={`${styles.form_groups}`}>
+                  <div className={`${styles.form_groupss}`}>
                     <label htmlFor=''>
                       Đánh giá hồ sơ <span style={{ color: 'red' }}> * </span>
                     </label>
@@ -744,6 +744,16 @@ export default function EditCandidateIntrview({
                         className={`${styles.star_rating}`}
                         onClick={handleRating}
                       />
+                      {candidate?.listSkill?.map((item: any, index: any) => {
+                        return (
+                          <div key={index} className={`${styles.another_add_uv_1}`} style={{ marginLeft: 95, marginBottom: 15 }}>
+                            <div className={`${styles.another_skill}`} style={{ marginTop: 10 }}>
+                              <p style={{ color: "black", display: 'inline-block', paddingRight: 20 }}>{item?.skillName}: </p>
+                              <Rating size={27} disableFillHover initialValue={item?.skillVote} className={`${styles.star_rating}`} />
+                            </div>
+                          </div>
+                        )
+                      })}
                       <span>
                         {' '}
                         {errors.starVote && (
@@ -801,7 +811,7 @@ export default function EditCandidateIntrview({
                         type='date'
                         id='timeInterView'
                         defaultValue={format(
-                          parseISO(candidate?.timeSendCv),
+                          parseISO(candidateAll?.data?.interview_time),
                           'yyyy-MM-dd'
                         )}
                         placeholder='dd/mm/yyyy'
@@ -825,7 +835,7 @@ export default function EditCandidateIntrview({
                     <div className={`${styles.input_right}`}>
                       <div className={`${styles.div_no_pad} `}>
                         <Selects
-                          selectedOption={selectedUseHiring}
+                          selectedOption={options.tennhanvienphongvandefault}
                           onChange={handleSelectChange}
                           padding={15}
                           width_control={100}

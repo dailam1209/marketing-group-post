@@ -124,10 +124,10 @@ export default function TabOutJob({ iconAdd, iconEdit, iconDelete }: any) {
     setOpenDeleteModal(0)
   }
 
-  const handleOpenEdit: MouseEventHandler<HTMLAnchorElement> = (event) => {
-    event.preventDefault();
-    setOpenEditModal(true);
-  }
+  // const handleOpenEdit: MouseEventHandler<HTMLAnchorElement> = (event) => {
+  //   event.preventDefault();
+  //   setOpenEditModal(true);
+  // }
 
   const chonphongbanOptions = useMemo(
     () =>
@@ -142,7 +142,7 @@ export default function TabOutJob({ iconAdd, iconEdit, iconDelete }: any) {
     () =>
       EmpData?.items?.map((emp: any) => ({
         value: emp.ep_id,
-        label: emp.ep_name,
+        label: `${emp.ep_name} (${emp.dep_name ? emp.dep_name : "Chưa cập nhật"} - ID:${emp.ep_id})`
       })),
     [EmpData?.items]
   );
@@ -163,7 +163,7 @@ export default function TabOutJob({ iconAdd, iconEdit, iconDelete }: any) {
               </button>}
             </div>
             {openModal === 1 && <AddOutJobModal onCancel={handleCloseModal}></AddOutJobModal>}
-            {openEditModal && <EditOutJobModal onCancel={handleCloseModal} />}
+            {/* {openEditModal && <EditOutJobModal onCancel={handleCloseModal} />} */}
             {openDeleteModal !== 0 && <DeleteOutJobs onCancel={handleCloseModal} ep_id={openDeleteModal} />}
             <div className={`${styles.bg_search}`}>
               <div className={`${styles.search_new_t}`}>
@@ -238,7 +238,7 @@ export default function TabOutJob({ iconAdd, iconEdit, iconDelete }: any) {
                   <input type="date" id="to_date" className={`${styles.search_date} ${styles.form_control}`} placeholder='Từ dd/mm/yyyy' />
                 </div>
                 <div className={`${styles.div_no_pad_search}   `}>
-                  <a className={`${styles.icon_search_top} ${styles.div_search_salary} `} onClick={handleSearch}>
+                  <a style={{ cursor: "pointer" }} className={`${styles.icon_search_top} ${styles.div_search_salary} `} onClick={handleSearch}>
                     <img style={{ verticalAlign: '-webkit-baseline-middle' }} src={`/t-icon-search-n.svg`} alt="" />
                   </a>
                 </div>
@@ -275,7 +275,7 @@ export default function TabOutJob({ iconAdd, iconEdit, iconDelete }: any) {
                         <td>{format(parseISO(item?.time), 'dd/MM/yyyy')}</td>
                         {iconDelete || iconEdit ? (
                           <td>
-                            {iconEdit && <a onClick={() => handleOpenEdit(item)} className={`${styles.btn_edit}`} style={{ cursor: "pointer" }}><img src={`/icon_edit.svg`} alt="" /></a>}
+                            {iconEdit && <a className={`${styles.btn_edit}`} style={{ cursor: "pointer" }}><img src={`/icon_edit.svg`} alt="" /></a>}
                             {iconDelete && <a onClick={() => setOpenDeleteModal(item.ep_id)} className={`${styles.btn_delete}`} style={{ cursor: 'pointer' }}><img src={`/icon_delete.svg`} alt="" /></a>}
                           </td>
                         ) : null}
@@ -293,7 +293,7 @@ export default function TabOutJob({ iconAdd, iconEdit, iconDelete }: any) {
               </select>
             </div>
           </div>
-          <BodyFrameFooter src="https://www.youtube.com/embed/e29o-TSnbeE"></BodyFrameFooter>
+          <BodyFrameFooter src="https://www.youtube.com/embed/2uVrd-EFEXs"></BodyFrameFooter>
         </div>
       </div>
     </>

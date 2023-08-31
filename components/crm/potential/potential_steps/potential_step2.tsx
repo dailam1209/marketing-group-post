@@ -53,7 +53,7 @@ const PotentialStep2 = ({ checkValueCheckBox, setCheckValueCheckBox }: any) => {
                 Không cập nhật dữ liệu trống vào các trường thông tin đang có
                 giá trị.
               </p>
-              <img src="https://crm.timviec365.vn/assets/icons/potential/icon_warn.svg" />
+              <img src="/crm/icon_warn.svg" />
             </div>
           ) : null}
         </div>

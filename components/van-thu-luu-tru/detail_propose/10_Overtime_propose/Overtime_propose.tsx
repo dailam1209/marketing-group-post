@@ -54,6 +54,7 @@ const Overtime_propose = ({ inuse }: { inuse?: boolean }) => {
     const [formData, setFormData] = useState<any>({
       name_user: getCookie("userName")?.toString(),
     });
+    console.log("formData from Overtime_Propose",formData)
     const handleInputChange = (e:any)=>{
         const {name, type, value} = e.target;
         if(type === 'checkbox'){

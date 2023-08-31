@@ -288,8 +288,8 @@ const MemberViewBoxCompany = ({
     <div className={`${styles.member_detail}`} style={{ width: '100%' }}>
       <p>{text_part}</p>
       <span className={`${styles.text_ita}`}>({describe})</span>
-      <p>Giám đốc: {CEO}</p>
-      <p>Phó giám đốc: {deputy_CEO}</p>
+      <p>Giám đốc: {CEO ? CEO : "Chưa cập nhật"}</p>
+      <p>Phó giám đốc: {deputy_CEO ? deputy_CEO : "Chưa cập nhật"}</p>
       <a
         href=''
         onClick={(event) => handleClickDetail(employeeLink, event)}
@@ -426,9 +426,6 @@ const StyledTreeExample = ({ iconEdit }) => {
     fetchData()
   }, [newData])
 
-  console.log(data)
-  console.log(data?.infoCompany?.infoDep)
-
   return (
     <>
       {typeof window !== 'undefined' && (
@@ -445,16 +442,16 @@ const StyledTreeExample = ({ iconEdit }) => {
                     <p className={`${styles.text_center}`}>
                       {data?.infoCompany?.companyName}
                     </p>
-                    {data?.infoCompany?.parent_manager?.map(
+                    {data?.infoCompany?.parent_manager ? data?.infoCompany?.parent_manager?.map(
                       (item: any, index: any) => {
-                        return <p>Giám đốc: {item?.userName}</p>
+                        return <p>Giám đốc: {item?.userName ? item?.userName : "Chưa cập nhật"}</p>
                       }
-                    )}
-                    {data?.infoCompany?.parent_deputy?.map(
+                    ) : (<p>Giám đốc: "Chưa cập nhật"</p>)}
+                    {data?.infoCompany?.parent_deputy ? data?.infoCompany?.parent_deputy?.map(
                       (item: any, index: any) => {
-                        return <p>Phó giám đốc: {item?.userName}</p>
+                        return <p>Phó giám đốc: {item?.userName ? item.userName : "Chưa cập nhật"}</p>
                       }
-                    )}
+                    ) : (<p>Phó giám đốc: "Chưa cập nhật"</p>)}
 
                     <a
                       href=''

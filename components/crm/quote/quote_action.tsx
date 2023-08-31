@@ -14,7 +14,7 @@ import StatusModal from "./quote_action_modal/status-mdal";
 import { useRouter } from "next/router";
 
 export default function QuoteAction({ isSelectedRow, record, allkey }: any) {
-  console.log('check',record)
+  console.log("check", record);
   const [isOpenOrderBrowsing, setIsOpenOrderBrowsing] = useState(false);
   const [isOpenDeny, setIsOpenDeny] = useState(false);
   const [isDelOpen, setIsDelOpen] = useState(false);
@@ -56,7 +56,10 @@ export default function QuoteAction({ isSelectedRow, record, allkey }: any) {
       label: (
         <>
           {dataActionQuote[i].link !== "#" ? (
-            <Link href={`${dataActionQuote[i].link}/${record}` } className="flex-start-btn">
+            <Link
+              href={`${dataActionQuote[i].link}/${record}`}
+              className="flex-start-btn"
+            >
               <i className={dataActionQuote[i].img}></i>
               {dataActionQuote[i].name}
             </Link>
@@ -74,12 +77,12 @@ export default function QuoteAction({ isSelectedRow, record, allkey }: any) {
     });
   }
   return (
-    <div className={styles.div__thaotac} style={{marginBottom:-20}}>
+    <div className={styles.div__thaotac}>
       <div>
         <label>Đã chọn:</label>
         <b className={styles.checked_count}>0</b>
       </div>
-      
+
       <Dropdown
         trigger={"click" as any}
         menu={{ items }}

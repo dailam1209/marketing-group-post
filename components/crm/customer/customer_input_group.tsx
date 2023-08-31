@@ -8,12 +8,14 @@ import CustomerListAction from "./customer_action";
 import { Drawer, Input } from "antd";
 import CustomerListFilterBox from "./customer_filter_box";
 import { DataType } from "@/pages/crm/customer/list";
+import { LoadingOutlined } from "@ant-design/icons";
 export default function CustomerListInputGroup({
   isSelectedRow,
   numberSelected,
   clearOption,
   chooseAllOption,
   setName,
+  name,
   setPhone,
   fetchData,
   selectedCus,
@@ -31,6 +33,17 @@ export default function CustomerListInputGroup({
   setnhomCha,
   nhomCon,
   setnhomCon,
+  setloading,
+  setDatatable,
+  setgroup_id,
+  setTimeStart,
+  setTimeEnd,
+  setdateE,
+  setdateS,
+  setTime_s,
+  setTime_e,
+  setemp_id,
+  setIdNhom,
 }: any) {
   const [open, setOpen] = useState(false);
   const inputFileRef = useRef<HTMLInputElement>(null);
@@ -88,20 +101,27 @@ export default function CustomerListInputGroup({
     ];
     exportToExcel(datas, filename, sheetName, columnHeaders);
   };
+  const [isProcessing, setIsProcessing] = useState(true);
   const [nameFill, setNameFill] = useState<any>();
   const handleClickFile = () => {
     inputFileRef.current?.click();
   };
   const handleSearchKH = async () => {
-    setName(nameFill);
+    if (nameFill === name) {
+      setName(nameFill);
+      setloading(true);
+    } else {
+      setDatatable([]);
+      setName(nameFill);
+      setloading(true);
+    }
   };
   return (
     <>
       <div className={`${styles.main__control} ${styles.customer_custom}`}>
         <div className={`${styles.main__control_btn} flex_between`}>
           <div
-            className={`${styles.main__control_search} ${styles.f_search_customer}` }
-
+            className={`${styles.main__control_search} ${styles.f_search_customer}`}
           >
             <form
               onSubmit={(e) => (e.preventDefault(), handleSearchKH())}
@@ -117,7 +137,11 @@ export default function CustomerListInputGroup({
                 defaultValue=""
                 placeholder="Tìm kiếm theo Id, tên khách hàng, điện thoại, email"
               />
-              <button type="button" style={{ width: "100px" }}>
+              <button
+                onClick={() => handleSearchKH()}
+                type="button"
+                style={{ width: "100px" }}
+              >
                 <div>Tìm kiếm </div>
               </button>
             </form>
@@ -239,6 +263,9 @@ export default function CustomerListInputGroup({
       >
         <div>
           <CustomerListFilterBox
+            setIdNhom={setIdNhom}
+            setTime_s={setTime_s}
+            setTime_e={setTime_e}
             dataStatusCustomer={dataStatusCustomer}
             setOpen={setOpen}
             setStatus={setStatus}
@@ -253,6 +280,14 @@ export default function CustomerListInputGroup({
             setnhomCha={setnhomCha}
             nhomCon={nhomCon}
             setnhomCon={setnhomCon}
+            setDatatable={setDatatable}
+            setloading={setloading}
+            setgroup_id={setgroup_id}
+            setTimeStart={setTimeStart}
+            setTimeEnd={setTimeEnd}
+            setdateE={setdateE}
+            setdateS={setdateS}
+            setemp_id={setemp_id}
           />
         </div>
       </Drawer>

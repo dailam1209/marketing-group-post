@@ -110,7 +110,7 @@ export default function AddPersonalCustomerInfor({
             <label className={`${styles["form-label"]}`}>
               Tình trạng khách hàng
             </label>
-            <Link color="#4C5BD4" href="/tinh-trang-khach-hang">
+            <Link color="#4C5BD4" href="/crm/tinh-trang-khach-hang">
               + Thêm tình trạng
             </Link>
           </div>

@@ -14,7 +14,7 @@ import ConvertModal from "../potential_action_modal/convert_modal";
 import { useState } from "react";
 import DelActionModal from "../potential_action_modal/deltete_action_mdal";
 
-export default function InformationTextPotentialDetails({key}:any) {
+export default function InformationTextPotentialDetails({ key }: any) {
   const onChange = (checked: boolean) => {
     console.log(`switch to ${checked}`);
   };
@@ -22,7 +22,8 @@ export default function InformationTextPotentialDetails({key}:any) {
   const [isOpenCovert, setIsOpenConvert] = useState(false);
   const [isDelOpen, setIsDelOpen] = useState(false);
 
-const router = useRouter()
+  const router = useRouter();
+  const { id } = router.query;
   return (
     <div className={style.main}>
       <div className={style.main_button}>
@@ -30,13 +31,19 @@ const router = useRouter()
           <Switch onChange={onChange} /> <p>Ẩn dữ liệu trống</p>
         </div>
         <div className={style.group_button}>
-          <button className={style.change} onClick={()=>setIsOpenConvert(true)}>
+          <button
+            className={style.change}
+            onClick={() => setIsOpenConvert(true)}
+          >
             <RetweetOutlined /> Chuyển đổi
           </button>
-          <button className={style.fix} onClick={()=>router.push("/potential/edit_file")}>
+          <button
+            className={style.fix}
+            onClick={() => router.push(`/crm/potential/update/${id}`)}
+          >
             <FormOutlined /> Chỉnh sửa
           </button>
-          <button className={style.delete} onClick={()=>setIsDelOpen(true)}>
+          <button className={style.delete} onClick={() => setIsDelOpen(true)}>
             <DeleteOutlined /> Xoá
           </button>
           <Dropdown menu={{ items }} placement="bottomLeft">
@@ -64,7 +71,7 @@ const router = useRouter()
         isModalCancel={isOpenCovert}
         setIsModalCancel={setIsOpenConvert}
       />
-        <DelActionModal
+      <DelActionModal
         isModalCancel={isDelOpen}
         setIsModalCancel={setIsDelOpen}
       />

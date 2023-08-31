@@ -65,12 +65,9 @@ export default function AddWorkingModal({ onCancel }: any) {
   const [isEmp_id, setEmp_id] = useState<any>(null)
   const [isPosition_id, setPosition_id] = useState<any>(null)
   const [isPosition_idNew, setPosition_idNew] = useState<any>(null)
-  const [isSpecified_id, setSpecified_id] = useState<any>(null)
+  const [isSpecified_id, setSpecified_id] = useState<any>("")
   const [errors, setErrors] = useState<any>({});
   const modalRef = useRef(null);
-
-  console.log(isOrganizationalStructureList);
-
 
   useEffect(() => {
     const handleOutsideClick = (event: any) => {
@@ -160,8 +157,8 @@ export default function AddWorkingModal({ onCancel }: any) {
       const created_at = (document.getElementById('created_at') as HTMLInputElement)?.value
       const formData = new FormData();
       formData.append('ep_id', isEmp_id)
-      formData.append('current_position', isPosition_id)
-      formData.append('current_dep_id', isDep_id)
+      formData.append('position_id', isPosition_id)
+      formData.append('dep_id', isDep_id)
       formData.append('created_at', created_at)
       formData.append('com_id', isCom_id)
       formData.append('new_com_id', isCom_idNew)
@@ -200,9 +197,6 @@ export default function AddWorkingModal({ onCancel }: any) {
   const handleInputAreaChange = (data: string, setState: any) => {
     setState(data);
   };
-
-  console.log(isOrganizationalStructureList);
-
 
   const companyNames: any = [];
   const companyNamesNew: any = [];
@@ -343,10 +337,6 @@ export default function AddWorkingModal({ onCancel }: any) {
     [isEmpList, isDep_id]
   );
 
-  console.log(isDep_id);
-  console.log(chonnhanvientheophongOptions);
-
-
   const chonnhanvienOptions = useMemo(
     () =>
       isEmpList &&
@@ -471,6 +461,7 @@ export default function AddWorkingModal({ onCancel }: any) {
                             width: '100%',
                             fontWeight: state.isFocused ? 600 : 600
                           }),
+
                           placeholder: (baseStyles) => ({
                             ...baseStyles,
                             color: "#444444",
@@ -512,9 +503,9 @@ export default function AddWorkingModal({ onCancel }: any) {
                     </span></label>
                     <div className={`${styles.input_right}`}>
                       <Select
-                        defaultValue={selectedOption}
+                        isDisabled={isEmp_id ? true : false}
                         onChange={(option) => handleSelectChange(option, setPosition_id)}
-                        options={options.chucvuhientai}
+                        options={options.chucvumoi}
                         placeholder="Chọn chức vụ"
                         value={options.chucvuhientai}
                         styles={{
@@ -525,6 +516,10 @@ export default function AddWorkingModal({ onCancel }: any) {
                             minHeight: state.isFocused ? 20 : 20,
                             width: '100%',
                             fontWeight: state.isFocused ? 600 : 600
+                          }),
+                          singleValue: (baseStyles) => ({
+                            ...baseStyles,
+                            color: "#444444", // Màu cho đoạn văn bản đã chọn
                           }),
                           placeholder: (baseStyles) => ({
                             ...baseStyles,

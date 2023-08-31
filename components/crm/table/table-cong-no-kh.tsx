@@ -8,8 +8,8 @@ import {
   Select,
   Table,
 } from "antd";
+import style from "../delete_data/table_deleted.module.css";
 import styles from "../delete_data/table.module.css";
-import styless from "../potential/potential.module.css";
 import { SearchOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import Link from "next/link";
@@ -84,50 +84,24 @@ const Table_Cong_Nokh = (props: any) => {
   return (
     <div className={`${styles.main__content} ${styles.flex_column}`}>
       <div style={{ display: "flex", gap: 20 }}>
-        <Button
-          style={{
-            height: 40,
-            width: 150,
-            color: "black",
-            background: "#ffffff",
-            fontSize: 20,
-            padding: "0 0",
-          }}
-          className={`${styless.dropbtn_add} flex_align_center`}
-        >
-          <Link
-            style={{ height: "100%", width: "100%", paddingTop: 10 }}
-            href="/cong-no-nha-cung-cap"
-          >
-            {" "}
+        <button className={style.list_sp}>
+          <Link style={{ color: "#a3a3a3" }} href="/crm/cong-no-nha-cung-cap">
             Nhà cung cấp
           </Link>
-        </Button>{" "}
-        <Button
-          style={{
-            height: 40,
-            width: 150,
-            color: "#fff",
-            background: "#4C5BD4",
-            alignContent: "center",
-            display: "flex",
-            fontSize: 20,
-            padding: "0 0",
-          }}
-          className={`${styless.dropbtn_add} flex_align_center`}
-        >
+        </button>
+        <button className={style.list_gr_sp}>
           <Link
-            style={{ height: "100%", width: "100%", paddingTop: 10 }}
-            href="/cong-no-khach-hang"
+            style={{ color: "#666666", background: "#fff" }}
+            href="/crm/cong-no-khach-hang"
           >
             Khách hàng
           </Link>
-        </Button>
+        </button>
       </div>
       <div style={{ display: "block" }}>
         <div className={styles.main__control_search_delete}>
           <Input
-            placeholder={`Tìm kiếm theo tên nhà cung cấp`}
+            placeholder={`Tìm kiếm theo tên khách hàng`}
             suffix={suffix}
             bordered={false}
             style={{
@@ -158,18 +132,16 @@ const Table_Cong_Nokh = (props: any) => {
             fontSize: 20,
           }}
         >
-          <label  className={styles.day}>
-            Ngày tạo: &nbsp;{" "}
-          </label>
+          <label className={styles.day}>Ngày tạo: </label>
         </div>
 
-        <div style={{ height: 34, width: 600 }}>
+        <div style={{ height: 34, width: 600 }} className={style.input_loc}>
           <input
             style={{
               border: "1px solid #a2a4a8",
               height: "100%",
               borderRadius: 10,
-              width: 120,
+              width: 150,
               fontSize: 18,
               textAlign: "center",
             }}
@@ -177,13 +149,12 @@ const Table_Cong_Nokh = (props: any) => {
             name=""
             id="start_time"
           />
-          &nbsp;&nbsp;&nbsp;
           <input
             style={{
               border: "1px solid #a2a4a8",
               height: "100%",
               borderRadius: 10,
-              width: 120,
+              width: 150,
               fontSize: 18,
               textAlign: "center",
             }}
@@ -191,27 +162,15 @@ const Table_Cong_Nokh = (props: any) => {
             name=""
             id="end_time"
           />
-          &nbsp;&nbsp;&nbsp;
-          <Button
-            style={{
-              color: "#ffffff",
-              background: "#4C5BD4",
-              borderRadius: 10,
-              fontSize: 15,
-            }}
-          >
-            Lọc
-          </Button>
+          <button className={style.loc2}>Lọc</button>
         </div>
       </div>
       <div className={styles.table}>
         <div className={styles.scrollTable}>
           <Table
-            // className={styles.table_antd}
             columns={Colums as any}
             dataSource={data}
             bordered
-            //     scroll={{ x: 1500, y: 300 }}
             scroll={{ x: 1300 }}
             pagination={{
               current: current,

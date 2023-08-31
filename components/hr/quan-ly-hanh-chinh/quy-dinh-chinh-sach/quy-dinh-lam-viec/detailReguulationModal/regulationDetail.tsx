@@ -71,9 +71,6 @@ export default function RegulationDetailModal({
     setOpenUpdate(0)
   }
 
-  console.log(DetailData?.data?.data);
-
-
   return (
     <>
       <div className={`${styles.modal_open}`}>

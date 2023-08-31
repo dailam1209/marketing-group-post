@@ -24,7 +24,7 @@ const ProductActionDropDown: React.FC = () => {
           className="btn-huy flex-start"
           onClick={() => setIsOpenModalCheck(true)}
         >
-          <Image width={16} height={16} src="/check.svg" alt="check" />
+          <Image width={16} height={16} src="/crm/check.svg" alt="check" />
           Duyệt
         </button>
       ),
@@ -36,7 +36,7 @@ const ProductActionDropDown: React.FC = () => {
           className="btn-huy flex-start"
           onClick={() => setIsOpenModalDecline(true)}
         >
-          <Image width={16} height={16} src="/decline.svg" alt="check" />
+          <Image width={16} height={16} src="/crm/decline.svg" alt="check" />
           Từ chối
         </button>
       ),
@@ -48,7 +48,7 @@ const ProductActionDropDown: React.FC = () => {
           className="btn-huy flex-start"
           onClick={() => setIsOpenModalCancel(true)}
         >
-          <Image width={16} height={16} src="/cancel.svg" alt="check" />
+          <Image width={16} height={16} src="/crm/cancel.svg" alt="check" />
           Huỷ
         </button>
       ),
@@ -60,7 +60,12 @@ const ProductActionDropDown: React.FC = () => {
           className="btn-huy flex-start"
           onClick={() => setIsOpenModalUpdateStatus(true)}
         >
-          <Image width={16} height={16} src="/update_status.svg" alt="check" />
+          <Image
+            width={16}
+            height={16}
+            src="/crm/update_status.svg"
+            alt="check"
+          />
           Cập nhật tình trạng thực hiện
         </button>
       ),
@@ -70,7 +75,7 @@ const ProductActionDropDown: React.FC = () => {
       label: (
         <Link href="/product_return/update">
           <button className="btn-huy flex-start">
-            <Image width={16} height={16} src="/edit.svg" alt="check" />
+            <Image width={16} height={16} src="/crm/edit.svg" alt="check" />
             Chỉnh sửa
           </button>
         </Link>
@@ -83,7 +88,7 @@ const ProductActionDropDown: React.FC = () => {
           className="btn-huy flex-start"
           onClick={() => setIsOpenModalDel(true)}
         >
-          <Image width={16} height={16} src="/del.svg" alt="check" />
+          <Image width={16} height={16} src="/crm/del.svg" alt="check" />
           Xoá
         </button>
       ),
@@ -100,7 +105,7 @@ const ProductActionDropDown: React.FC = () => {
             className="custom_dropdown_product "
           >
             <button className="action_table">
-              <img src="https://crm.timviec365.vn/assets/img/crm/customer/3_cham.png" />
+              <img src="/crm/3_cham.png" />
               Thao tác
             </button>
           </Dropdown>

@@ -1,7 +1,11 @@
 .main__content {
   row-gap: 20px;
 }
-
+.custom_total {
+  display: flex;
+  gap: 50px;
+  margin: 25px;
+}
 .inputSP {
   width: 100%;
   display: flex;
@@ -11,13 +15,43 @@
 }
 
 .inputSP2 {
-  width: 100%;
+  width: 97%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 40px;
+  justify-content: flex-end;
 }
-
+.list_sp {
+  text-decoration: none;
+  text-align: center;
+  width: 220px;
+  height: 41px;
+  line-height: 41px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: normal;
+  background: #fff;
+  color: #a3a3a3;
+  margin-right: 19.26px;
+  box-shadow: 0px 0px 10px rgb(0 0 0 / 10%);
+}
+.list_gr_sp {
+  text-decoration: none;
+  text-align: center;
+  width: 220px;
+  height: 41px;
+  line-height: 41px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: normal;
+  background: #f7f8fc;
+  color: #a3a3a3;
+  margin-right: 19.26px;
+  box-shadow: 0px 0px 10px rgb(0 0 0 / 10%);
+}
+.list_gr_sp:hover {
+  background: #fff;
+  color: #666666 !important;
+}
 .flex_column {
   display: flex;
   flex-direction: column;
@@ -38,6 +72,22 @@
 }
 .ipSearch {
   width: 40%;
+}
+.day {
+  font-size: 16px;
+  padding-right: 10px;
+}
+
+.loc2 {
+  padding: 5px;
+  background-color: blue !important;
+  color: white;
+  border-radius: 10px;
+}
+
+.input_loc {
+  display: flex;
+  gap: 15px;
 }
 @media screen and (max-width: 480px) {
   .g_input {
@@ -101,7 +151,7 @@
 }
 .main__control_search {
   /* width: 100%; */
-  height: 36px;
+  height: 40px;
   display: flex;
   border: 1px solid #666;
   border-radius: 10px;
@@ -111,7 +161,7 @@
 }
 
 .inputne {
-  height: 36px;
+  height: 40px;
   color: #666;
   font-weight: normal;
   font-size: 29px;
@@ -124,7 +174,7 @@
 }
 
 .search {
-  height: 35px;
+  height: 39px;
   width: 45px;
   display: flex;
   flex-direction: column;
@@ -138,7 +188,7 @@
 }
 
 .select {
-  height: 35px;
+  height: 39px;
   font-size: 16px;
   border: 0px;
   border-radius: 0px;
@@ -168,8 +218,14 @@
 }
 
 .table {
+  border: 0px solid #cccccc;
+  border-radius: 10px;
+  box-shadow: 0 0 0 1px #ccc;
 }
-
+.total {
+  font-weight: 400;
+  font-family: "Roboto-Medium";
+}
 .selected {
   /* display: flex   ; */
 }

@@ -25,13 +25,14 @@ const GroupSharedAFactorModal: React.FC<MyComponentProps> = ({
   const com_id = Cookies.get("com_id");
 
   const { data, loading, error, fetchData, updateData, deleteData } = useApi(
-    "http://210.245.108.202:3000/api/qlc/managerUser/list",
+    `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/list`,
     accessToken,
     "POST",
-    { dep_id: depId, com_id: Number(com_id) }
+    { com_id: Number(com_id) }
   );
 
   const empIdArr = empId?.split(",").map((item) => parseInt(item.trim(), 10));
+
 
 
   return (

@@ -9,6 +9,7 @@ import Image from "next/image";
 import ApiSetting from "@/components/crm/setting/api";
 import ModalCompleteCustomerList from "@/components/crm/customer/customer_modal/customer_mdal_success";
 import CancelModalCustomApi from "@/components/crm/customer/customer_modal/customer_mdal_cancel";
+import Head from "next/head";
 
 const ApiSettingConnect: React.FC = () => {
   const mainRef = useRef<HTMLDivElement>(null);
@@ -72,98 +73,90 @@ const ApiSettingConnect: React.FC = () => {
   }, [isOpen]);
 
   return (
-    <div className={styleHome.main} ref={mainRef}>
-      <div className={styles.main_importfile}>
-        <div className={styles.formInfoStep}>
-          <div className={styles.info_step}>
-            <div className={styles.main__title}>Kết nối API</div>
-            <div className={styles.form_add_potential}>
-              <div className={styles.main__body}>
-                <div className={stylesCustomerList.api_row}>
-                  <h1>API</h1>
-                  <h2>
-                    Cổng kết nối API - CRM 365 để tích hợp các hệ thống website
-                    khác
-                  </h2>
-                  <div className={stylesCustomerList.document_api}>
-                    <span>Thiết lập kết nối API</span>
-                    <Link
-                      target="_blank"
-                      href={"https://crm.timviec365.vn/documentation/#/"}
-                    >
-                      <Image
-                        width={16}
-                        height={16}
-                        alt="?"
-                        src={
-                          "https://crm.timviec365.vn/assets/icons/setting/question_mini.svg"
-                        }
-                      />
-                      Tài liệu hướng dẫn
-                    </Link>
-                  </div>
+    <>
+      <Head>
+        <meta name="viewport" content="width=device-width" initial-scale="1" />
+        <meta name="robots" content="noindex,nofollow" />
+        <title>Thiết lập kết nối API</title>
+        <meta
+          name="description"
+          content="CRM 365 được đánh giá là công cụ tốt nhất hiện nay trong việc kết nối khách hàng và doanh nghiệp. Phần mềm chú trọng vào các nhiệm vụ hỗ trợ doanh nghiệp tăng tập khách hàng tiềm năng và thân thiết, tăng doanh thu và tối ưu chi phí. Đăng ký hôm nay, lợi ích đến ngay!"
+        />
+        <meta name="Keywords" content="Phần mềm CRM, phần mềm crm miễn phí" />
+        <meta property="og:locale" content="vi_VN" />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:title"
+          content="CRM 365 - đáp án của bài toán tối ưu quy trình, gia tăng lợi nhuận"
+        />
+        <meta
+          property="og:description"
+          content="CRM 365 được đánh giá là công cụ tốt nhất hiện nay trong việc kết nối khách hàng và doanh nghiệp. Phần mềm chú trọng vào các nhiệm vụ hỗ trợ doanh nghiệp tăng tập khách hàng tiềm năng và thân thiết, tăng doanh thu và tối ưu chi phí. Đăng ký hôm nay, lợi ích đến ngay!"
+        />
+        <meta
+          property="og:image"
+          content="https://crm.timviec365.vn/assets/img/images-banners.png"
+        />
+        <meta name="twitter:card" content="summary" />
+        <meta
+          name="twitter:description"
+          content="CRM 365 được đánh giá là công cụ tốt nhất hiện nay trong việc kết nối khách hàng và doanh nghiệp. Phần mềm chú trọng vào các nhiệm vụ hỗ trợ doanh nghiệp tăng tập khách hàng tiềm năng và thân thiết, tăng doanh thu và tối ưu chi phí. Đăng ký hôm nay, lợi ích đến ngay!"
+        />
+        <meta
+          name="twitter:title"
+          content="CRM 365 - đáp án của bài toán tối ưu quy trình, gia tăng lợi nhuận"
+        />
+        <link rel="canonical" href="https://hungha365.com/crm" />
 
-                  <div>
-                    <ApiSetting
-                      disabled={isEdit}
-                      label="AppID"
-                      value={valueAppId}
-                      setValue={setValueAppId}
-                    />
-                    <ApiSetting
-                      disabled={isEdit}
-                      label="Địa chỉ Webhook"
-                      value={valueAddressWebHooh}
-                      setValue={setValueAddressWebHook}
-                    />
-
-                    <div
-                      className={`${stylesCustomerList.form_group} ${stylesCustomerList.infor_security}`}
-                    >
-                      <div
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          marginBottom: ".5rem",
-                          justifyContent: "space-between",
-                        }}
+        {/* CSS */}
+        <script
+          async
+          src="https://www.googletagmanager.com/gtm.js?id=GTM-NXVQCHN"
+        ></script>
+      </Head>
+      <div className={styleHome.main} ref={mainRef}>
+        <div className={styles.main_importfile}>
+          <div className={styles.formInfoStep}>
+            <div className={styles.info_step}>
+              <div className={styles.main__title}>Kết nối API</div>
+              <div className={styles.form_add_potential}>
+                <div className={styles.main__body}>
+                  <div className={stylesCustomerList.api_row}>
+                    <h1>API</h1>
+                    <h2>
+                      Cổng kết nối API - CRM 365 để tích hợp các hệ thống
+                      website khác
+                    </h2>
+                    <div className={stylesCustomerList.document_api}>
+                      <span>Thiết lập kết nối API</span>
+                      <Link
+                        target="_blank"
+                        href={"https://crm.timviec365.vn/documentation/#/"}
                       >
-                        <div>
-                          <label>Mã bảo mật</label>
-                          <button
-                            className={stylesCustomerList.create_new_code}
-                          >
-                            Tạo mã mới
-                          </button>
-                        </div>
-                        <div>
-                          <button
-                            onClick={handleCoppyClipBoard}
-                            className={stylesCustomerList.coppy_el}
-                          >
-                            <Image
-                              width={16}
-                              height={16}
-                              alt="?"
-                              src={
-                                "/crm/copy.svg"
-                              }
-                            />
-                            Sao chép
-                          </button>
-                        </div>
-                      </div>
-
-                      <input
-                        ref={textRef}
-                        disabled
-                        style={{ border: 0, width: "100%" }}
-                        value={security_code}
-                        className={stylesCustomerList.coppy_el}
-                      />
+                        <Image
+                          width={16}
+                          height={16}
+                          alt="?"
+                          src={"/crm/question_mini.svg"}
+                        />
+                        Tài liệu hướng dẫn
+                      </Link>
                     </div>
 
-                    {!isEdit && (
+                    <div>
+                      <ApiSetting
+                        disabled={isEdit}
+                        label="AppID"
+                        value={valueAppId}
+                        setValue={setValueAppId}
+                      />
+                      <ApiSetting
+                        disabled={isEdit}
+                        label="Địa chỉ Webhook"
+                        value={valueAddressWebHooh}
+                        setValue={setValueAddressWebHook}
+                      />
+
                       <div
                         className={`${stylesCustomerList.form_group} ${stylesCustomerList.infor_security}`}
                       >
@@ -175,96 +168,146 @@ const ApiSettingConnect: React.FC = () => {
                             justifyContent: "space-between",
                           }}
                         >
-                          <label>Người sửa cuối</label>
+                          <div>
+                            <label>Mã bảo mật</label>
+                            <button
+                              className={stylesCustomerList.create_new_code}
+                            >
+                              Tạo mã mới
+                            </button>
+                          </div>
+                          <div>
+                            <button
+                              onClick={handleCoppyClipBoard}
+                              className={stylesCustomerList.coppy_el}
+                            >
+                              <Image
+                                width={16}
+                                height={16}
+                                alt="?"
+                                src={"/crm/copy.svg"}
+                              />
+                              Sao chép
+                            </button>
+                          </div>
                         </div>
 
-                        <p
-                          style={{ textAlign: "right" }}
+                        <input
+                          ref={textRef}
+                          disabled
+                          style={{ border: 0, width: "100%" }}
+                          value={security_code}
                           className={stylesCustomerList.coppy_el}
+                        />
+                      </div>
+
+                      {!isEdit && (
+                        <div
+                          className={`${stylesCustomerList.form_group} ${stylesCustomerList.infor_security}`}
                         >
-                          08:00:55 - 28/07/2023
-                        </p>
-                      </div>
-                    )}
+                          <div
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              marginBottom: ".5rem",
+                              justifyContent: "space-between",
+                            }}
+                          >
+                            <label>Người sửa cuối</label>
+                          </div>
 
-                    {!isConnected ? (
-                      <button
-                        type="button"
-                        onClick={handleClickConnect}
-                        className={stylesCustomerList.btn_primary_connect}
-                      >
-                        Kết nối
-                      </button>
-                    ) : (
-                      <div>
-                        {!isEdit ? (
-                          <>
-                            <button
-                              type="button"
-                              onClick={handleClickEdit}
-                              className={stylesCustomerList.btn_primary_connect}
-                            >
-                              Cập nhật thông tin
-                            </button>
+                          <p
+                            style={{ textAlign: "right" }}
+                            className={stylesCustomerList.coppy_el}
+                          >
+                            08:00:55 - 28/07/2023
+                          </p>
+                        </div>
+                      )}
 
-                            <button
-                              type="button"
-                              onClick={handleDisconnect}
-                              className={`${stylesCustomerList.btn_primary_connect} ${stylesCustomerList.stop}`}
-                            >
-                              Ngừng kết nối
-                            </button>
-                          </>
-                        ) : (
-                          <>
-                            <button
-                              type="button"
-                              onClick={handleCLickSave}
-                              className={stylesCustomerList.btn_primary_connect}
-                            >
-                              Lưu
-                            </button>
+                      {!isConnected ? (
+                        <button
+                          type="button"
+                          onClick={handleClickConnect}
+                          className={stylesCustomerList.btn_primary_connect}
+                        >
+                          Kết nối
+                        </button>
+                      ) : (
+                        <div>
+                          {!isEdit ? (
+                            <>
+                              <button
+                                type="button"
+                                onClick={handleClickEdit}
+                                className={
+                                  stylesCustomerList.btn_primary_connect
+                                }
+                              >
+                                Cập nhật thông tin
+                              </button>
 
-                            <button
-                              type="button"
-                              onClick={handleClickCancel}
-                              className={`${stylesCustomerList.btn_primary_connect} ${stylesCustomerList.stop} ${stylesCustomerList.cancel_btn}`}
-                            >
-                              Hủy
-                            </button>
-                          </>
-                        )}
-                      </div>
-                    )}
+                              <button
+                                type="button"
+                                onClick={handleDisconnect}
+                                className={`${stylesCustomerList.btn_primary_connect} ${stylesCustomerList.stop}`}
+                              >
+                                Ngừng kết nối
+                              </button>
+                            </>
+                          ) : (
+                            <>
+                              <button
+                                type="button"
+                                onClick={handleCLickSave}
+                                className={
+                                  stylesCustomerList.btn_primary_connect
+                                }
+                              >
+                                Lưu
+                              </button>
+
+                              <button
+                                type="button"
+                                onClick={handleClickCancel}
+                                className={`${stylesCustomerList.btn_primary_connect} ${stylesCustomerList.stop} ${stylesCustomerList.cancel_btn}`}
+                              >
+                                Hủy
+                              </button>
+                            </>
+                          )}
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+
+          <ModalCompleteCustomerList
+            modal1Open={openModalSuccess}
+            setModal1Open={setOpenModalSuccess}
+            title={"Cập nhật API thành công"}
+            link={"/crm/setting/api"}
+            handleClose={() => {
+              setIsEdit(false);
+            }}
+          />
+
+          <CancelModalCustomApi
+            isModalCancel={isOpenMdalInform}
+            setIsModalCancel={setIsOpenMdalInform}
+            content={"Bạn có chắc chắn muốn ngừng kết nối API với CRM 365?"}
+            title={"Ngừng kết nối API"}
+            handleCloseMdal={() => {
+              setIsConnected(false);
+            }}
+            link="/crm/setting/api"
+          />
         </div>
-
-        <ModalCompleteCustomerList
-          modal1Open={openModalSuccess}
-          setModal1Open={setOpenModalSuccess}
-          title={"Cập nhật API thành công"}
-          link={"/crm/setting/api"}
-          handleClose={() => {
-            setIsEdit(false);
-          }}
-        />
-
-        <CancelModalCustomApi
-          isModalCancel={isOpenMdalInform}
-          setIsModalCancel={setIsOpenMdalInform}
-          content={"Bạn có chắc chắn muốn ngừng kết nối API với CRM 365?"}
-          title={"Ngừng kết nối API"}
-          handleCloseMdal={() => {
-            setIsConnected(false);
-          }}
-          link="/crm/setting/api"
-        />
       </div>
-    </div>
+    </>
   );
 };
 

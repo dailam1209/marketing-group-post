@@ -203,7 +203,7 @@ export default function AddOrderDetailInfo() {
                   {" "}
                   <div>
                     <img
-                      src="https://crm.timviec365.vn/assets/img/user_kh.png"
+                      src="/crm/user_kh.png"
                       alt=""
                     />
                   </div>

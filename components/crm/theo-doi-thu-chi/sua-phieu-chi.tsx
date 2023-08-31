@@ -112,7 +112,7 @@ export default function SuaPhieuChi() {
 
                 </div>
                 <div className={styless.btn}>
-                    <Button onClick={() => router.push(`/chi-tiet-phieu-chi/${path.id}`)}
+                    <Button onClick={() => router.push(`/crm/chi-tiet-phieu-chi/${path.id}`)}
                         style={{ width: 200 }} type="primary" className="btn btn-warning">Lưu</Button>
 
                 </div>

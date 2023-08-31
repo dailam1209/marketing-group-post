@@ -7,6 +7,7 @@ import { Logo } from '@/components/cai-dat-luong/cai-dat-thue/danh-sach-nhan-su-
 import {
   MyDatePicker,
   MyInput,
+  MySelect,
 } from '@/components/quan-ly-cong-ty/quan-ly-cong-ty-con/modal'
 import moment from 'moment'
 import { POST_TL } from '@/pages/api/BaseApi'
@@ -41,6 +42,7 @@ export function ModalChinhSuaLuongCoBan(
 
   return (
     <Modal
+      className='bannerQLC'
       open={open}
       onCancel={() => setOpen(false)}
       destroyOnClose={true}
@@ -69,6 +71,12 @@ export function ModalChinhSuaLuongCoBan(
             'sb_salary_basic',
             'number'
           )}
+          {MySelect('Loại hình tính lương', 'Chọn', true, true, 'sb_type', [
+            { label: 'Chọn', value: 0 },
+            { label: 'Tất cả', value: 1 },
+            { label: 'Theo giờ', value: 2 },
+            { label: 'Theo ngày công', value: 3 },
+          ])}
           {MyInput(
             'Lương đóng bảo hiểm',
             'Lương đóng bảo hiểm',
@@ -96,12 +104,17 @@ export function ModalChinhSuaLuongCoBan(
           {MyInput('Lý do', 'Lý do', false, true, 'sb_lydo')}
           {MyInput(
             'Căn cứ quyết định',
-            'Căn cứ quyết định',
+            'Căn cứ quyết định (nếu có)',
             false,
             true,
             'sb_quyetdinh'
           )}
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              marginTop: '20px',
+            }}>
             <button className={styles.huyb} onClick={() => setOpen(false)}>
               <p className={styles.texthuyb}>Huỷ bỏ</p>
             </button>

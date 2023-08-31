@@ -13,6 +13,8 @@ import {
   OrganizationalStructureData,
 } from '@/pages/api/api-hr/co_cau_to_chuc'
 import GetComId from '@/components/hr/getComID'
+import Head from 'next/head'
+import position from '@/components/hr/util/listPosition'
 
 type SelectOptionType = { label: string; value: any }
 
@@ -61,6 +63,7 @@ const Selects = ({
         ...baseStyles,
         color: 'black',
         zIndex: 10000,
+        position: 'absolute',
       }),
     }}
   />
@@ -76,7 +79,6 @@ export default function DetailHrReport({ children }: any) {
   const [isGender, setGender] = useState<any>('')
   const [isType, setType] = useState<any>('')
   const [departmentList, setDepartmentList] = useState<any>(null)
-  const [PostionCharDatas, setPosttionCharData] = useState<any>(null)
   const [isDep_id, setDep_id] = useState<any>('')
   const [isPosition_id, setPosition_id] = useState<any>('')
   const [isGroup_id, setGroup_id] = useState<any>('')
@@ -85,6 +87,7 @@ export default function DetailHrReport({ children }: any) {
   const [isBirthday, setBirthday] = useState<any>('')
   const [isTitle, setTitle] = useState<any>('')
   const [OrganisationalDatas, setOrganisationalData] = useState<any>()
+  const [isTypeResonse, setTypeResonse] = useState<any>(null)
 
   const router = useRouter()
   const link: any = router.asPath.split('/').pop()
@@ -251,6 +254,7 @@ export default function DetailHrReport({ children }: any) {
     const fetchData = async () => {
       try {
         const formData = new FormData()
+        const pageSize: any = 1000
         formData.append('depId', isDep_id)
         formData.append('positionId', isPosition_id)
         formData.append('groupId', isGroup_id)
@@ -267,13 +271,21 @@ export default function DetailHrReport({ children }: any) {
               setReportList(response?.data)
             }
             if (link.includes('type=') && link_cut && isType !== '') {
-              formData.append('type', isType)
+              if (link_cut === "bieu-do-danh-sach-nhan-vien-theo-do-tuoi.html") { formData.append('old', isType) }
+              else {
+                formData.append('type', isType)
+              }
               const response = await DetailReport(formData)
               setReportList(response?.data)
             }
           }
         } else {
-          if (link_cut !== '[idDetailHrReport].html') {
+          if (link_cut !== '[idDetailHrReport].html'
+            && (!link_cut.includes("-t0-")
+              && !link_cut.includes("-t1-")
+              && !link_cut.includes("-t2-")
+            )
+          ) {
             formData.append('link', link_cut)
             const response = await DetailReport(formData)
             setReportList(response?.data)
@@ -333,6 +345,7 @@ export default function DetailHrReport({ children }: any) {
           }
           const regex = /c(\d+)-t(\d+)/
           const match = link.match(regex)
+          setTypeResonse(match[2])
           formData.append('type_timekeep', match[2])
           formData.append('comId', match[1])
           formData.append('position_id', isPosition_id)
@@ -346,8 +359,6 @@ export default function DetailHrReport({ children }: any) {
           const response = await EmpStatusDetail(formData)
           if (response) {
             setOrganisationalList(response?.data)
-            console.log(response);
-
           }
         }
         if (
@@ -367,6 +378,7 @@ export default function DetailHrReport({ children }: any) {
           const regex = /c(\d+)-t(\d+)-d(\d+)/
           const match = link.match(regex)
           const lastCharacter = link.slice(-1)
+          setTypeResonse(match[2])
           formData.append('type_timekeep', match[2])
           formData.append('dep_id', match[3])
           formData.append('team_id', isTeam_id)
@@ -398,6 +410,7 @@ export default function DetailHrReport({ children }: any) {
           }
           const regex = /c(\d+)-t(\d+)-d(\d+)-n(\d+)/
           const match = link.match(regex)
+          setTypeResonse(match[2])
           formData.append('type_timekeep', match[2])
           formData.append('dep_id', match[3])
           formData.append('comId', match[1])
@@ -429,6 +442,7 @@ export default function DetailHrReport({ children }: any) {
           }
           const regex = /c(\d+)-t(\d+)-d(\d+)-n(\d+)-g(\d+)/
           const matches = link.match(regex)
+          setTypeResonse(matches[2])
           formData.append('type_timekeep', matches[2])
           formData.append('dep_id', matches[3])
           formData.append('comId', matches[1])
@@ -449,17 +463,7 @@ export default function DetailHrReport({ children }: any) {
       }
     }
     fetchData()
-  }, [currentPage, isPosition_id, isGender, isMaried, isDep_id, isTeam_id, isGroup_id])
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await PostionCharData()
-        setPosttionCharData(response?.data)
-      } catch (error) { }
-    }
-    fetchData()
-  }, [])
+  }, [link, currentPage, isPosition_id, isGender, isMaried, isDep_id, isTeam_id, isGroup_id])
 
   const handleSelectChange = (
     selectedOption: SelectOptionType | null,
@@ -549,12 +553,12 @@ export default function DetailHrReport({ children }: any) {
   )
   const chonchucvuOptions = useMemo(
     () =>
-      PostionCharDatas &&
-      PostionCharDatas?.data?.flat()?.map((pos: any) => ({
+      position &&
+      position?.map((pos: any) => ({
         value: pos.positionId,
         label: pos.positionName,
       })),
-    [PostionCharDatas]
+    [position]
   )
   const currentYear: number = new Date().getFullYear()
   const startYear: number = 1970
@@ -584,6 +588,10 @@ export default function DetailHrReport({ children }: any) {
 
   return (
     <>
+
+      <Head>
+        <title>{isTitle}</title>
+      </Head>
       <div className={`${styles.wrapper}`}>
         <div className={`${styles.body}`}>
           <div className={`${styles.d_back}`}>
@@ -622,6 +630,7 @@ export default function DetailHrReport({ children }: any) {
                     <th>STT</th>
                     <th>Id</th>
                     <th>Họ và tên</th>
+                    {link.includes("-t2-") && <th>Lý do nghỉ</th>}
                     <th>
                       <Selects
                         selectedOption={selectedOption}
@@ -658,6 +667,9 @@ export default function DetailHrReport({ children }: any) {
                         placeholder='Tổ'
                       />
                     </th>
+                    {(link.includes("bieu-do-danh-sach-nhan-vien-tang-giam-luong")) && <th>Mức lương ban đầu</th>}
+                    {(link.includes("bieu-do-danh-sach-nhan-vien-tang-giam-luong")) && <th>Mức lương tăng</th>}
+                    {(link.includes("bieu-do-danh-sach-nhan-vien-tang-giam-luong")) && <th>Mức lương giảm</th>}
                     <th>Giới tính</th>
                     <th>
                       <Selects
@@ -686,13 +698,16 @@ export default function DetailHrReport({ children }: any) {
                   {isReportList?.data &&
                     isReportList?.data?.map((item: any, index: any) => (
                       <tr key={index}>
-                        <td>{index + 1}</td>
+                        <td>{currentPage === 1 ? (index + 1) : (currentPage * 10 - 9) + index}</td>
                         <td>{item?.idQLC} </td>
                         <td>{item?.userName}</td>
                         <td>{item?.dep}</td>
                         <td>{item?.chucvu}</td>
                         <td>{item?.group ? item.group : "Chưa cập nhật"}</td>
                         <td>{item?.team ? item.team : "Chưa cập nhật"}</td>
+                        {(link.includes("bieu-do-danh-sach-nhan-vien-tang-giam-luong")) && <td>{item?.luonghientai}</td>}
+                        {(link.includes("bieu-do-danh-sach-nhan-vien-tang-giam-luong")) && <td>{item?.tangLuong}</td>}
+                        {(link.includes("bieu-do-danh-sach-nhan-vien-tang-giam-luong")) && <td>{item?.giamLuong}</td>}
                         <td>{item?.gender === 1 ? 'Nam' : 'Nữ'}</td>
                         {item?.birthday ? (
                           <td>
@@ -701,7 +716,7 @@ export default function DetailHrReport({ children }: any) {
                               parseISO(
                                 new Date(item?.birthday * 1000).toISOString()
                               ),
-                              'yyyy-MM-dd'
+                              'dd-MM-yyyy'
                             )}
                           </td>
                         ) : (
@@ -709,15 +724,15 @@ export default function DetailHrReport({ children }: any) {
                         )}
                         <td>
                           {item?.married === 1
-                            ? 'Đã có gia đình'
+                            ? 'Độc thân'
                             : item?.married === 2
-                              ? 'Độc thân'
+                              ? 'Đã có gia đình'
                               : 'Chưa cập nhật'}
                         </td>
                         <td>
-                          <p>Email:{item?.emailContact}</p>
-                          <p>SDT: {item?.phone}</p>
-                          <p>Địa chỉ: {item.phone}</p>
+                          <p>Email:{item?.emailContact || item?.email}</p>
+                          <p>SDT: {item?.phone || item?.phoneTK}</p>
+                          <p>Địa chỉ: {item.address}</p>
                         </td>
                         {item?.start_working_time ? (
                           <td>
@@ -727,7 +742,7 @@ export default function DetailHrReport({ children }: any) {
                                   item?.start_working_time * 1000
                                 ).toISOString()
                               ),
-                              'yyyy-MM-dd'
+                              'dd-MM-yyyy'
                             )}
                           </td>
                         ) : (
@@ -749,7 +764,7 @@ export default function DetailHrReport({ children }: any) {
                   {isOrganisationalList?.listEmployee &&
                     isOrganisationalList?.listEmployee?.map(
                       (item: any, index: any) => {
-                        const positionData = PostionCharDatas?.data?.find(
+                        const positionData = position?.find(
                           (position: any) =>
                             position?.positionId === item?.position_id
                         )
@@ -758,9 +773,13 @@ export default function DetailHrReport({ children }: any) {
                           : item.vitri
                         return (
                           <tr key={index}>
-                            <td>{index + 1}</td>
+                            <td>{currentPage === 1 ? (index + 1) : (currentPage * 10 - 9) + index}</td>
                             <td>{item?.idQLC} </td>
                             <td>{item?.userName}</td>
+                            {link.includes("-t2-") &&
+                              <td className={`${styles.lydonghi}`}>{item?.ly_do_nghi}
+                                {item?.link && <a style={{ cursor: "pointer" }} target='blank' href={item?.link}>(Xem chi tiết)</a>}
+                              </td>}
                             <td>{item?.Department}</td>
                             <td>{positionNameToShow}</td>
                             <td>Chưa cập nhật</td>
@@ -775,7 +794,7 @@ export default function DetailHrReport({ children }: any) {
                                       item?.birthday * 1000
                                     ).toISOString()
                                   ),
-                                  'yyyy-MM-dd'
+                                  'dd-MM-yyyy'
                                 )}
                               </td>
                             ) : (
@@ -783,14 +802,14 @@ export default function DetailHrReport({ children }: any) {
                             )}
                             <td>
                               {item?.married === 1
-                                ? 'Đã có gia đình'
+                                ? 'Độc thân'
                                 : item?.married === 2
-                                  ? 'Độc thân'
+                                  ? 'Đã có gia đình'
                                   : 'Chưa cập nhật'}
                             </td>
                             <td>
-                              <p>Email:{item?.email}</p>
-                              <p>SDT: {item?.phoneTK}</p>
+                              <p>Email:{item?.email || item?.emailContact}</p>
+                              <p>SDT: {item?.phone || item?.phoneTK}</p>
                               <p>Địa chỉ: {item.address}</p>
                             </td>
                             {item?.start_working_time ? (
@@ -801,7 +820,7 @@ export default function DetailHrReport({ children }: any) {
                                       item?.start_working_time * 1000
                                     ).toISOString()
                                   ),
-                                  'yyyy-MM-dd'
+                                  'dd-MM-yyyy'
                                 )}
                               </td>
                             ) : (

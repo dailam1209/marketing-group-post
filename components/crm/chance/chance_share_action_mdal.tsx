@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { Modal } from "antd";
-import styles from "../potential/potential.module.css";
+import styles from "../potential/potential2.module.css";
 import { useRouter } from "next/router";
 import PotentialSelectBoxStep from "../potential/potential_steps/select_box_step";
 import ModalCompleteStep from "../potential/potential_steps/complete_modal";
@@ -100,7 +100,7 @@ const ShareActionModal: React.FC<MyComponentProps> = ({
         modal1Open={isOpenMdalSuccess}
         setModal1Open={setIsOpenMdalSuccess}
         title={"Chia sẻ cơ hội thành công!"}
-        link={"/chance/list"}
+        link={"/crm/chance/list"}
       />
     </>
   );

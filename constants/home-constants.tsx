@@ -233,6 +233,17 @@ export const LIST_ACTIONS_EMP = [
   },
   {
     key: '4',
+    title: 'Cập nhật dữ liệu khuôn mặt (chấm công)',
+    steps: [
+      {
+        title: 'Cập nhật dữ liệu khuôn mặt',
+        icon: '',
+        url: 'cap-nhat-du-lieu-khuon-mat',
+      },
+    ],
+  },
+  {
+    key: '5',
     title: 'Lịch sử',
     steps: [
       {
@@ -244,6 +255,17 @@ export const LIST_ACTIONS_EMP = [
         title: 'Lương hiện tại',
         icon: '',
         url: 'lich-su/luong-hien-tai',
+      },
+    ],
+  },
+  {
+    key: '5',
+    title: 'Cập nhật khuôn mặt',
+    steps: [
+      {
+        title: 'Cập nhật dữ liệu khuôn mặt',
+        icon: '',
+        url: 'cap-nhat-du-lieu-khuon-mat',
       },
     ],
   },

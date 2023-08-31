@@ -30,7 +30,7 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
     };
     getDataRecruitmentOverview();
   }, [currentPageListNewActive]);
-
+  
   useEffect(() => {
     try {
       const GetDataListSchedule = async () => {
@@ -45,7 +45,7 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
   }, [currentPageListSchedule]);
 
   const dataDisplay = messIsOpen?.data?.data;
-
+  
   const handleClickColor = (buttonId: any) => {
     setSelectedButton(buttonId);
   };

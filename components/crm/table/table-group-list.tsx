@@ -20,8 +20,8 @@ interface TableDataGroupListCustomerProps {
   setSelectedRow: any;
   setChange: any;
   change: any;
-  data: any;
-  updateData: any;
+  data?: any;
+  updateData?: any;
 }
 
 const TableDataGroupListCustomer: React.FC<TableDataGroupListCustomerProps> = ({
@@ -41,12 +41,7 @@ const TableDataGroupListCustomer: React.FC<TableDataGroupListCustomerProps> = ({
   const accessToken = Cookies.get("token_base365");
   const [depId, setDepId] = useState(null);
   const [empId, setEmpId] = useState(null);
-  // const { data, loading, error, fetchData, updateData, deleteData } = useApi(
-  //   "http://210.245.108.202:3007/api/crm/group/list_group_khach_hang",
-  //   process.env.ACCESS_TOKEN || accessToken,
-  //   "POST",
-  //   { page: 1, perPage: 1000 }
-  // );
+
 
   interface DataType {
     key: React.Key;
@@ -63,16 +58,6 @@ const TableDataGroupListCustomer: React.FC<TableDataGroupListCustomerProps> = ({
     updated_at: number;
     lists_child: [];
   }
-
-  // useEffect(() => {
-  //   // fetchData(
-  //   //   "http://210.245.108.202:3007/api/crm/group/list_group_khach_hang",
-  //   //   process.env.ACCESS_TOKEN ||
-  //   //     accessToken,
-  //   //   "POST"
-  //   // );
-  //   fetchData();
-  // }, [change]);
 
   const columns: ColumnsType<DataType> = [
     {
@@ -103,12 +88,7 @@ const TableDataGroupListCustomer: React.FC<TableDataGroupListCustomerProps> = ({
             setOpenSharedModal(true);
           }}
         >
-          <img
-            alt="logo"
-            width={26}
-            height={26}
-            src={"https://crm.timviec365.vn/assets/img/user_kh.png"}
-          />
+          <img alt="logo" width={26} height={26} src={"/crm/user_kh.png"} />
         </button>
         // </Tooltip>
       ),
@@ -155,7 +135,7 @@ const TableDataGroupListCustomer: React.FC<TableDataGroupListCustomerProps> = ({
             <button>
               <img
                 className={styles.icon_edit}
-                src={"https://crm.timviec365.vn/assets/img/h_edit_cus.svg"}
+                src={"/crm/h_edit_cus.svg"}
                 alt="sua"
               />
               Sửa
@@ -166,7 +146,7 @@ const TableDataGroupListCustomer: React.FC<TableDataGroupListCustomerProps> = ({
           >
             <img
               className={styles.icon_delete}
-              src={"https://crm.timviec365.vn/assets/img/customer/del_red.svg"}
+              src={"/crm/del_red.svg"}
               alt="xoa"
             />
             Xóa
@@ -232,7 +212,7 @@ const TableDataGroupListCustomer: React.FC<TableDataGroupListCustomerProps> = ({
           : null,
     };
   });
-
+  
   const rowSelection: TableRowSelection<DataType> = {
     onChange: (selectedRowKeys, selectedRows) => {
       if (selectedRows?.length > 0) {

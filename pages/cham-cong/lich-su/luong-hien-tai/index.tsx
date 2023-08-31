@@ -6,6 +6,7 @@ import { factory } from 'typescript'
 import { POST_SS_TL, getCookieSS } from '@/pages/api/BaseApi'
 import jwtDecode from 'jwt-decode'
 import moment from 'moment'
+import { positionLabel } from '@/utils/function'
 
 export default function LuongHienTai({ salData }) {
   const columnLuong = [
@@ -13,7 +14,9 @@ export default function LuongHienTai({ salData }) {
       title: <p style={{ color: '#fff' }}>Lương cơ bản</p>,
       align: 'center',
       render: (record: any) => (
-        <p style={{ color: '#FF5B4D' }}>{record?.sb_salary_basic || 0} VNĐ</p>
+        <p style={{ color: '#FF5B4D' }}>
+          {new Intl.NumberFormat().format(record?.sb_salary_basic) || 0} VNĐ
+        </p>
       ),
     },
     {
@@ -31,8 +34,9 @@ export default function LuongHienTai({ salData }) {
       align: 'center',
       render: (record: any) => (
         <p>
-          {salData?.info_dep_com?.user?.inForPerson?.employee?.position_id ||
-            'Chưa cập nhật'}
+          {positionLabel[
+            salData?.info_dep_com?.user?.inForPerson?.employee?.position_id
+          ]?.label || 'Chưa cập nhật'}
         </p>
       ),
     },
@@ -43,7 +47,10 @@ export default function LuongHienTai({ salData }) {
       align: 'center',
       render: (record: any) => (
         <p style={{ color: '#FF5B4D' }}>
-          {record?.sb_salary_basic - record?.sb_salary_bh} VNĐ
+          {new Intl.NumberFormat().format(
+            record?.sb_salary_basic - record?.sb_salary_bh
+          ) || 'Chưa cập nhật'}{' '}
+          VNĐ
         </p>
       ),
     },
@@ -62,8 +69,9 @@ export default function LuongHienTai({ salData }) {
       align: 'center',
       render: (record: any) => (
         <p>
-          {salData?.info_dep_com?.user?.inForPerson?.employee?.position_id ||
-            'Chưa cập nhật'}
+          {positionLabel[
+            salData?.info_dep_com?.user?.inForPerson?.employee?.position_id
+          ]?.label || 'Chưa cập nhật'}
         </p>
       ),
     },
@@ -73,7 +81,9 @@ export default function LuongHienTai({ salData }) {
       title: <p style={{ color: '#fff' }}>Lương điều chỉnh</p>,
       align: 'center',
       render: (record: any) => (
-        <p style={{ color: '#FF5B4D' }}>{record?.sb_salary_basic || 0} VNĐ</p>
+        <p style={{ color: '#FF5B4D' }}>
+          {new Intl.NumberFormat().format(record?.sb_salary_basic) || 0} VNĐ
+        </p>
       ),
     },
     {
@@ -91,8 +101,9 @@ export default function LuongHienTai({ salData }) {
       align: 'center',
       render: (record: any) => (
         <p>
-          {salData?.info_dep_com?.user?.inForPerson?.employee?.position_id ||
-            'Chưa cập nhật'}
+          {positionLabel[
+            salData?.info_dep_com?.user?.inForPerson?.employee?.position_id
+          ]?.label || 'Chưa cập nhật'}
         </p>
       ),
     },

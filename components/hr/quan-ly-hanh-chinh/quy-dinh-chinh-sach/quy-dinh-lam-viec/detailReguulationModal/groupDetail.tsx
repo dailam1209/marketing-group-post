@@ -46,8 +46,6 @@ export default function GroupDetailModal({
     setOpenDetailFile(false)
   }
 
-  console.log(DetailData);
-
 
   return (
     <>

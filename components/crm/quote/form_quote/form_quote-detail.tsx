@@ -20,9 +20,7 @@ const Form_quote_detail = (props: Props) => {
           justifyContent: "center",
           textAlign: "center",
         }}
-        src={`https://crm.timviec365.vn/assets/icons/quote/mau_bg${
-          path=="ĐH-0000" ? 1 : path
-        }.svg`}
+        src={`/crm/mau_bg${path == "ĐH-0000" ? 1 : path}.svg`}
         alt=""
       />
     </div>

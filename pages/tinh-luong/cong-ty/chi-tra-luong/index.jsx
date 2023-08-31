@@ -1,5 +1,5 @@
 import styles from "./index.module.css";
-import HeadNav from "../../../../components/tinh-luong/components/big-component/head-nav-res";
+import HeadNav from "../../../../components/tinh-luong/components/big-component/header-nav";
 import { useRouter } from "next/router";
 import HeadNavResCongTy from "../../../../components/tinh-luong/components/big-component/head-nav-res-cong-ty";
 import { Select, Space, Modal, Table } from "antd";
@@ -77,7 +77,16 @@ export default function ChiTraLuong() {
     return `Tháng ${month}/${year}`;
   }
 
-  function convertDateFormat(inputDate) {
+  function convertDateFormatforStartDate(inputDate) {
+    const dateParts = inputDate.split("-").map(Number);
+    let year = dateParts[0];
+    let month = dateParts[1];
+
+    const formattedMonth = month < 10 ? `0${month}` : month;
+    return `${year}-${formattedMonth}`;
+  }
+
+  function convertDateFormatforEndDate(inputDate) {
     const dateParts = inputDate.split("-").map(Number);
     let year = dateParts[0];
     let month = dateParts[1];
@@ -202,8 +211,8 @@ export default function ChiTraLuong() {
   const handleCancelThemMoi = () => {
     setFormData({
       TenBangChiTra: "",
-      DonViApDung: "1.23",
-      HinhThucThanhToan: "1",
+      DonViApDung: 0,
+      HinhThucThanhToan: 1,
       KyChiTraDen: "",
       KyChiTraTu: "",
       ThangApDung: "",
@@ -230,17 +239,19 @@ export default function ChiTraLuong() {
       })
       .then((res) => {
         console.log("Response sau khi thêm mới Chi trả lương: ", res);
+        alert("Thêm mới thành công");
       })
       .catch((err) => {
         console.log(
           "error ở API http://210.245.108.202:3009/api/tinhluong/congty/insert_info_payment là: ",
           err
         );
+        alert("Thêm mới thất bại");
       });
     setFormData({
       TenBangChiTra: "",
-      DonViApDung: "1.23",
-      HinhThucThanhToan: "1",
+      DonViApDung: 0,
+      HinhThucThanhToan: 1,
       KyChiTraDen: "",
       KyChiTraTu: "",
       ThangApDung: "",
@@ -273,8 +284,8 @@ export default function ChiTraLuong() {
     setIsEdit(!isedit);
     setFormData({
       TenBangChiTra: "",
-      DonViApDung: "1.23",
-      HinhThucThanhToan: "1",
+      DonViApDung: 0,
+      HinhThucThanhToan: 1,
       KyChiTraDen: "",
       KyChiTraTu: "",
       ThangApDung: "",
@@ -328,7 +339,7 @@ export default function ChiTraLuong() {
       render: (record) => (
         <p className={styles.BangChiTraLuong} style={{ color: "#68798B" }}>
           {(() => {
-            if (record?.pay_for?.$numberDecimal == 1.23) {
+            if (record?.pay_for?.$numberDecimal == 0) {
               return "Áp dụng cho toàn bộ nhân viên";
             } else {
               return allShift[
@@ -390,7 +401,7 @@ export default function ChiTraLuong() {
       render: (record) => (
         <div className={styles.c_point}>
           <img
-            src="/edit.png"
+            src="/tinhluong/edit.png"
             alt=""
             style={{ objectFit: "cover" }}
             onClick={() => handleEdit(record?.pay_id)}
@@ -406,7 +417,7 @@ export default function ChiTraLuong() {
       render: (record) => (
         <div className={styles.c_point}>
           <img
-            src="/remove.png"
+            src="/tinhluong/remove.png"
             alt=""
             style={{ objectFit: "cover" }}
             onClick={() => handleDelete(record.pay_id)}
@@ -418,22 +429,15 @@ export default function ChiTraLuong() {
 
   //* Data để render ra bảng
   useEffect(() => {
-    console.log(
-      "start_date:",
-      `${selectedYear}-0${selectedMonth}-01T00:00:00.000+00:00`
-    );
-    console.log(
-      "end_date: ",
-      convertDateFormat(`${selectedYear}-${selectedMonth}`) +
-        `-01T00:00:00.000+00:00`
-    );
     axios
       .post(`${domain}/api/tinhluong/congty/takeinfo_payment`, {
         com_id: cp,
-        start_date: `${selectedYear}-0${selectedMonth}-01T00:00:00.000+00:00`,
-        end_date:
-          convertDateFormat(`${selectedYear}-${selectedMonth}`) +
-          `-01T00:00:00.000+00:00`,
+        start_date: `${convertDateFormatforStartDate(
+          `${selectedYear}-${selectedMonth}`
+        )}-01T00:00:00.000+00:00`,
+        end_date: `${convertDateFormatforEndDate(
+          `${selectedYear}-${selectedMonth}`
+        )}-01T00:00:00.000+00:00`,
         token: token,
       })
       .then((response) => {
@@ -465,14 +469,12 @@ export default function ChiTraLuong() {
 
   useEffect(() => {
     axios
-      .post(`${domain}/api/tinhluong/congty/show_staff_late`, {
-        start_date: "2023-08-01T00:00:00.000+00:00",
-        end_date: "2023-09-01T00:00:00.000+00:00",
-        com_id: cp,
+      .post(`${domain}/api/tinhluong/congty/list_shift`, {
+        com_id: 3312,
         token: token,
       })
       .then((res) => {
-        setAllShift(res.data.data.listShiftDetail);
+        setAllShift(res.data.data.listShift);
       })
       .catch((err) => {
         console.log(
@@ -511,7 +513,7 @@ export default function ChiTraLuong() {
       <div className={styles.idx_ttnv}>
         {/* <HeadNavRes></HeadNavRes> */}
         <HeadNavResCongTy></HeadNavResCongTy>
-        <HeadNav title="Quản lý tài khoản"></HeadNav>
+        <HeadNav title="Chi trả lương"></HeadNav>
         <div className={styles.part_tax}>
           <div className={styles.tax_three}>
             <div className={styles.tax_three_ct_one}>
@@ -671,7 +673,7 @@ export default function ChiTraLuong() {
                       value={formData?.DonViApDung}
                       onChange={(e) => handleChange(e)}
                     >
-                      <option value="1.23">Toàn bộ nhân viên</option>
+                      <option value={0}>Toàn bộ nhân viên</option>
                       {allShift.map((item, index) => (
                         <option value={item?.shift_id}>
                           {item?.shift_name}
@@ -784,7 +786,7 @@ export default function ChiTraLuong() {
                       value={formData?.DonViApDung}
                       onChange={(e) => handleChange(e)}
                     >
-                      <option value="1.23">Toàn bộ nhân viên</option>
+                      <option value={0}>Toàn bộ nhân viên</option>
                       {allShift.map((item, index) => (
                         <option value={item?.shift_id}>
                           {item?.shift_name}

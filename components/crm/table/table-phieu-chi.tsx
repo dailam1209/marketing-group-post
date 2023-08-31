@@ -48,7 +48,7 @@ const Table_Phieu_Chi = (props: any) => {
       dataIndex: "name",
       render: (text: any, record: any) => (
         <div style={{ overflow: "hidden" }}>
-          <Link href={`/chi-tiet-phieu-chi/${record.myPhone}`}>
+          <Link href={`/crm/chi-tiet-phieu-chi/${record.myPhone}`}>
             <div>{text}</div>
           </Link>
         </div>
@@ -62,10 +62,7 @@ const Table_Phieu_Chi = (props: any) => {
         <div style={{ display: "flex", justifyContent: "center" }}>
           {" "}
           <div>
-            <img
-              src="https://crm.timviec365.vn/assets/img/user_kh.png"
-              alt=""
-            />
+            <img src="/crm/user_kh.png" alt="" />
           </div>
           &nbsp;{text}
         </div>
@@ -185,7 +182,7 @@ const Table_Phieu_Chi = (props: any) => {
         <Link
           className={`${styless.dropbtn_add} flex_align_center`}
           rel="noopener noreferrer"
-          href="/them-phieu-chi-nha-cung-cap"
+          href="/crm/them-phieu-chi-nha-cung-cap"
         >
           <p style={{ color: "#f7e9c1" }}>Nhà cung cấp</p>
         </Link>
@@ -197,7 +194,7 @@ const Table_Phieu_Chi = (props: any) => {
         <Link
           className={`${styless.dropbtn_add} flex_align_center`}
           rel="noopener noreferrer"
-          href="/them-phieu-chi-khach-hang"
+          href="/crm/them-phieu-chi-khach-hang"
         >
           <p style={{ color: "#f7e9c1" }}>Khách hàng</p>
         </Link>
@@ -213,10 +210,7 @@ const Table_Phieu_Chi = (props: any) => {
           onClick={handleExportToExcel}
           className={`${styless.dropbtn_add} flex_align_center ${styless.btn_excel}`}
         >
-          <img
-            style={{ color: "black" }}
-            src="https://crm.timviec365.vn/assets/icons/excel.svg"
-          />
+          <img style={{ color: "black" }} src="/crm/excel.svg" />
           <p style={{ color: "black" }}>Xuất excel</p>
         </button>
       </div>

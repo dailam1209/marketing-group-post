@@ -27,12 +27,7 @@ const ModalError: React.FC<ModalErrorProps> = ({
       <div className="sucess-mdal">
         <Modal
           title={
-            <Image
-              width={112}
-              height={112}
-              alt="logo"
-              src={"https://crm.timviec365.vn/assets/icons/setting/error.svg"}
-            />
+            <Image width={112} height={112} alt="logo" src={"/crm/error.svg"} />
           }
           style={{ top: 20 }}
           open={modal1Open}

@@ -114,11 +114,17 @@
   margin-bottom: 3px;
   position: relative;
 }
+.custom_calendar_container {
+  width: 100%;
+  overflow-x: auto;
+}
+
 .prl_tow {
   width: 96%;
   float: left;
   margin-left: 2%;
   margin-right: 2%;
+  /* width: 1680px; */
 }
 .calendar {
   width: 100%;
@@ -230,4 +236,18 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
+}
+@media (max-width: 650px) {
+  .custom_calendar_container {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .prl_tow {
+    /* width: 96%; */
+    float: left;
+    margin-left: 2%;
+    margin-right: 2%;
+    width: 950px;
+  }
 }

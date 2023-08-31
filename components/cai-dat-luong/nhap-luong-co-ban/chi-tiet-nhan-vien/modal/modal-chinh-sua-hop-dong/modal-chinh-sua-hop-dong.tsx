@@ -12,6 +12,7 @@ import moment from 'moment'
 import { POST_TL } from '@/pages/api/BaseApi'
 import { useRouter } from 'next/router'
 import dayjs from 'dayjs'
+import { MyInputFile } from '@/components/tao-de-xuat/loai-de-xuat/tao-de-xuat/component/ChiTiet'
 const { TextArea } = Input
 export function ModalChinhSuaHopDong(
   open: boolean,
@@ -44,6 +45,7 @@ export function ModalChinhSuaHopDong(
 
   return (
     <Modal
+      className='bannerQLC'
       open={open}
       onCancel={() => setOpen(false)}
       width={600}
@@ -92,8 +94,19 @@ export function ModalChinhSuaHopDong(
             true,
             'con_time_end'
           )} */}
-          {MyInput('Tệp đính kèm', 'Tệp đính kèm', false, true, 'con_file')}
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
+          {MyInputFile(
+            'Tệp đính kèm',
+            'Chọn tệp đính kèm (Tối đa 10MB)',
+            false,
+            true,
+            'con_file'
+          )}
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              marginTop: '20px',
+            }}>
             <button className={styles.huyb} onClick={() => setOpen(false)}>
               <p className={styles.texthuyb}>Huỷ bỏ</p>
             </button>

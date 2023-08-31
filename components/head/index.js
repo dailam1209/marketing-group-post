@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 
 export default function Seo(props) {
   const router = useRouter();
-  console.log(props)
   return (
     <>
       <Head>

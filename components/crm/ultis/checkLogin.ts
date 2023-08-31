@@ -22,7 +22,7 @@ export const checkAndRedirectToHomeIfNotLoggedIn = () => {
     const role = Cookies.get("role");
   
     if (acc_token || rf_token || role) {
-      router.push("/");
+      router.push("/crm/home");
       return true; 
     }
     

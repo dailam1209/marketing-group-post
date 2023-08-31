@@ -25,7 +25,7 @@ const columns: ColumnsType<DataType> = [
     width: 120,
     dataIndex: "order_number",
     key: "order_number",
-    render:(text:any,record:any)=><Link href={`/order/detail/${record.key}`} ><b>{text}</b></Link>
+    render:(text:any,record:any)=><Link href={`/crm/order/detail/${record.key}`} ><b>{text}</b></Link>
   },
   {
     title: "Trạng thái",
@@ -58,7 +58,7 @@ const columns: ColumnsType<DataType> = [
     dataIndex: "name",
     key: "name",
     width: 180,
-    render: (text: any) => <div style={{ display: "flex", justifyContent: 'center' }}> <div><img src="https://crm.timviec365.vn/assets/img/user_kh.png" alt="" /></div>&nbsp;{text}</div>
+    render: (text: any) => <div style={{ display: "flex", justifyContent: 'center' }}> <div><img src="/crm/user_kh.png" alt="" /></div>&nbsp;{text}</div>
   },
   {
     title: "Ngày đặt hàng",

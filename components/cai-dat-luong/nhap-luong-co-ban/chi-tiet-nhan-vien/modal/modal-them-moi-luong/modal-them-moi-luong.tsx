@@ -24,12 +24,20 @@ import dayjs from 'dayjs'
 const { TextArea } = Input
 const loai = [
   {
-    value: 'Thu nhập chịu thuế',
-    label: 'Thu nhập chịu thuế',
+    value: 0,
+    label: 'Chọn',
   },
   {
-    value: 'Thu nhập chịu thuế ok',
-    label: 'Thu nhập chịu thuế ok',
+    value: 1,
+    label: 'Tất cả',
+  },
+  {
+    value: 2,
+    label: 'Theo giờ',
+  },
+  {
+    value: 3,
+    label: 'Theo ngày công',
   },
 ]
 export function ModalThemMoiLuong(
@@ -67,6 +75,7 @@ export function ModalThemMoiLuong(
 
   return (
     <Modal
+      className='bannerQLC'
       open={open}
       onCancel={() => setOpen(false)}
       width={600}
@@ -85,7 +94,7 @@ export function ModalThemMoiLuong(
         />
       </div>
       <div className={styles.body}>
-        <div style={{ marginBottom: '20px' }}>
+        <div>
           <Form form={form} onFinish={onFinish}>
             <Form.Item
               labelCol={{ span: 24 }}
@@ -108,6 +117,27 @@ export function ModalThemMoiLuong(
                 suffix='VNĐ'
               />
             </Form.Item>
+
+            <Form.Item
+              label='Loại hình tính lương'
+              name={'sb_type'}
+              rules={[
+                {
+                  required: true,
+                  message: 'Trường này là bắt buộc',
+                },
+              ]}
+              labelCol={{ span: 24 }}>
+              <Select
+                size='large'
+                placeholder='Chọn'
+                className={styles.inputname}
+                options={loai}
+                defaultValue={1}
+                suffixIcon={<IconSelect />}
+              />
+            </Form.Item>
+
             <Form.Item
               labelCol={{ span: 24 }}
               label='Lương đóng bảo hiểm'
@@ -126,6 +156,7 @@ export function ModalThemMoiLuong(
                 suffix='VNĐ'
               />
             </Form.Item>
+
             <Form.Item
               labelCol={{ span: 24 }}
               label='Phụ cấp đóng bảo hiểm'
@@ -174,18 +205,19 @@ export function ModalThemMoiLuong(
               />
             </Form.Item>
 
-            <Form.Item
-              label='Căn cứ quyết định'
+            {/* <Form.Item
+              label="Căn cứ quyết định"
               name={'sb_quyetdinh'}
-              labelCol={{ span: 24 }}>
+              labelCol={{ span: 24 }}
+            >
               <Select
-                size='large'
-                placeholder='Căn cứ quyết định'
+                size="large"
+                placeholder="Căn cứ quyết định"
                 className={styles.inputname}
                 options={loai}
                 suffixIcon={<IconSelect />}
               />
-            </Form.Item>
+            </Form.Item> */}
 
             <div
               style={{

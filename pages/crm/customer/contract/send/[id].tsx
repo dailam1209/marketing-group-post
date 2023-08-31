@@ -10,24 +10,28 @@ import { SidebarContext } from "@/components/crm/context/resizeContext";
 import ContractSelectBoxStep from "@/components/crm/customer/contract/select_box_step-send";
 import Link from "next/link";
 import ModalCompleteContractStepADD from "@/components/crm/customer/contract/complete_contract_add";
+import TableDataContractSend from "@/components/crm/table/table-contract-send";
+import Head from "next/head";
+
+const Cookies = require("js-cookie");
+import { base_url } from "@/components/crm/service/function";
 
 const data = [
   {
     department: "Phòng A",
-    positions: ["Chức vụ 1", "Chức vụ 2"],
+    positions: ["Chức vụ 1"],
     employees: ["Nhân viên 1", "Nhân viên 2"],
   },
   {
     department: "Phòng B",
-    positions: ["Chức vụ 3", "Chức vụ 4"],
+    positions: ["Chức vụ 2"],
     employees: ["Nhân viên 3", "Nhân viên 4"],
   },
 ];
 
-console.log(123, data);
+const dataDepartment = data?.map((item) => item.department);
 
 export default function ContractDetailsSend() {
-  const [isModalCancel, setIsModalCancel] = useState(false);
   const [modal1Open, setModal1Open] = useState(false);
   const mainRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
@@ -39,19 +43,37 @@ export default function ContractDetailsSend() {
   const [selectedDepartment, setSelectedDepartment] = useState<string | null>(
     null
   );
+  const [dataFromSelectDataBox, setDataFromSelectDataBox] = useState([]);
   const [selectedPosition, setSelectedPosition] =
     useState<string>("Chọn chức vụ");
   const [selectedEmployee, setSelectedEmployee] =
     useState<string>("Chọn nhân viên");
+  const [selectedValue, setSelectedValue] = useState([]);
 
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
 
+  const [name, setname] = useState<any>();
+
+  const getNameDetail = async () => {
+    const res = await fetch(`${base_url}/api/crm/customerdetails/detail`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${Cookies.get("token_base365")}`,
+      },
+      body: JSON.stringify({ cus_id: id }),
+    });
+    const data = await res.json();
+    setname(data?.data?.name);
+  };
+
   useEffect(() => {
-    setHeaderTitle(`${id} / Hợp đồng bán / Gửi hợp đồng`);
+    getNameDetail();
+    setHeaderTitle(`${name} / Hợp đồng bán / Gửi hợp đồng`);
     setShowBackButton(true);
     setCurrentPath(`/crm/customer/contract/list/${id}`);
-  }, [setHeaderTitle, setShowBackButton, setCurrentPath, id]);
+  }, [setHeaderTitle, setShowBackButton, setCurrentPath, id, name]);
 
   useEffect(() => {
     if (isOpen) {
@@ -64,12 +86,9 @@ export default function ContractDetailsSend() {
   const selectedData = data.find(
     (item) => item.department === selectedDepartment
   );
-  console.log(selectedData);
 
   const handleChangeDepartment = (value: string) => {
     setSelectedDepartment(value);
-    setSelectedPosition("Chọn chức vụ");
-    setSelectedEmployee("Chọn nhân viên");
   };
 
   const onChangeCheckbox1 = (e: CheckboxChangeEvent) => {
@@ -85,8 +104,53 @@ export default function ContractDetailsSend() {
     setCheckbox3Checked(e.target.checked);
   };
 
+  useEffect(() => {
+    setSelectedPosition("");
+    setSelectedEmployee("");
+  }, [selectedDepartment]);
+
   return (
     <>
+      <Head>
+        <meta name="viewport" content="width=device-width" initial-scale="1" />
+        <meta name="robots" content="noindex,nofollow" />
+        <title>Gửi hợp đồng</title>
+        <meta
+          name="description"
+          content="CRM 365 được đánh giá là công cụ tốt nhất hiện nay trong việc kết nối khách hàng và doanh nghiệp. Phần mềm chú trọng vào các nhiệm vụ hỗ trợ doanh nghiệp tăng tập khách hàng tiềm năng và thân thiết, tăng doanh thu và tối ưu chi phí. Đăng ký hôm nay, lợi ích đến ngay!"
+        />
+        <meta name="Keywords" content="Phần mềm CRM, phần mềm crm miễn phí" />
+        <meta property="og:locale" content="vi_VN" />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:title"
+          content="CRM 365 - đáp án của bài toán tối ưu quy trình, gia tăng lợi nhuận"
+        />
+        <meta
+          property="og:description"
+          content="CRM 365 được đánh giá là công cụ tốt nhất hiện nay trong việc kết nối khách hàng và doanh nghiệp. Phần mềm chú trọng vào các nhiệm vụ hỗ trợ doanh nghiệp tăng tập khách hàng tiềm năng và thân thiết, tăng doanh thu và tối ưu chi phí. Đăng ký hôm nay, lợi ích đến ngay!"
+        />
+        <meta
+          property="og:image"
+          content="https://crm.timviec365.vn/assets/img/images-banners.png"
+        />
+        <meta name="twitter:card" content="summary" />
+        <meta
+          name="twitter:description"
+          content="CRM 365 được đánh giá là công cụ tốt nhất hiện nay trong việc kết nối khách hàng và doanh nghiệp. Phần mềm chú trọng vào các nhiệm vụ hỗ trợ doanh nghiệp tăng tập khách hàng tiềm năng và thân thiết, tăng doanh thu và tối ưu chi phí. Đăng ký hôm nay, lợi ích đến ngay!"
+        />
+        <meta
+          name="twitter:title"
+          content="CRM 365 - đáp án của bài toán tối ưu quy trình, gia tăng lợi nhuận"
+        />
+        <link rel="canonical" href="https://hungha365.com/crm" />
+
+        {/* CSS */}
+        <script
+          async
+          src="https://www.googletagmanager.com/gtm.js?id=GTM-NXVQCHN"
+        ></script>
+      </Head>
       <div className={styleHome.main}>
         <div className={styles.main_importfile}>
           <div className={styles.formInfoStep}>
@@ -127,18 +191,8 @@ export default function ContractDetailsSend() {
                                 value={selectedDepartment || "Chọn phòng ban"}
                                 placeholder="Chọn phòng ban"
                                 onChange={handleChangeDepartment}
-                                data={data}
-                              >
-                                <option value="">Chọn phòng ban</option>
-                                {data.map((item) => (
-                                  <option
-                                    key={item.department}
-                                    value={item.department}
-                                  >
-                                    {item.department}
-                                  </option>
-                                ))}
-                              </ContractSelectBoxStep>
+                                data={dataDepartment}
+                              ></ContractSelectBoxStep>
                             </div>
                             <div
                               className={`${styles.mb_3} ${styles["col-lg-6"]} ${styles["custom_select_send"]}`}
@@ -164,9 +218,21 @@ export default function ContractDetailsSend() {
                                 placeholder="Chọn nhân viên"
                                 data={selectedData?.employees}
                                 setSelectedDepartment={setSelectedEmployee}
+                                setSelectedValue={setSelectedValue}
+                                setDataFromSelectDataBox={
+                                  setDataFromSelectDataBox
+                                }
                               />
                             </div>
                           </div>
+                          <TableDataContractSend
+                            selectedDepartment={selectedDepartment}
+                            selectedEmployee={selectedEmployee}
+                            selectedPosition={selectedPosition}
+                            data={data}
+                            dataFromSelectDataBox={dataFromSelectDataBox}
+                            selectedValue={selectedValue}
+                          />
                         </div>
                       )}
                       {checkbox2Checked && (

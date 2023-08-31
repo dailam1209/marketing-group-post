@@ -49,11 +49,17 @@ const ShareActionModal: React.FC<MyComponentProps> = ({
       >
         <div className={styles.row_mdal}>
           <div className={styles.btn_share}>
-            <div style={{marginBottom: "1rem"}}>
+            <div style={{ marginBottom: "1rem" }}>
               <label className={styles.form_label} aria-required="true">
                 Tên danh sách
               </label>
-              <input type="text" className={styles.form_control} name="name_group" id="name_group" placeholder=" Nhập tên danh sách"></input>
+              <input
+                type="text"
+                className={styles.form_control}
+                name="name_group"
+                id="name_group"
+                placeholder=" Nhập tên danh sách"
+              ></input>
             </div>
           </div>
 
@@ -63,15 +69,9 @@ const ShareActionModal: React.FC<MyComponentProps> = ({
                 Nhà cung cấp
               </label>
               <select className={styles.setting_select}>
-                <option>
-                  Chọn nhà cung cấp
-                </option>
-                <option>
-                  Email cá nhân
-                </option>
-                <option>
-                  Email hệ thống
-                </option>
+                <option>Chọn nhà cung cấp</option>
+                <option>Email cá nhân</option>
+                <option>Email hệ thống</option>
               </select>
             </div>
           </div>
@@ -81,7 +81,7 @@ const ShareActionModal: React.FC<MyComponentProps> = ({
         modal1Open={isOpenMdalSuccess}
         setModal1Open={setIsOpenMdalSuccess}
         title={"Thêm người nhận thành công!"}
-        link={"/marketing/email"}
+        link={"/crm/marketing/email"}
       />
     </>
   );

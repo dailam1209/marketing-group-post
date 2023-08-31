@@ -18,6 +18,7 @@ import {
 import { MenuOutlined, AudioOutlined } from "@ant-design/icons";
 import Image from "next/image";
 import HeadNav from "../../../../components/tinh-luong/components/big-component/header-nav";
+import HeadNavResCongTy from "../../../../components/tinh-luong/components/big-component/head-nav-res-cong-ty";
 import styles from "./index.module.css";
 import Allowance from "./allowance";
 import AllowanceSkip from "./allowanceSkip";
@@ -92,14 +93,11 @@ const App = () => {
   console.log("DataSalary", dataSalary);
   const fetchApiData = () => {
     axios
-      .post(
-        "http://210.245.108.202:3009/api/tinhluong/nhanvien/qly_ho_so_ca_nhan",
-        {
-          token: token,
-          ep_id: id,
-          cp: cp,
-        }
-      )
+      .post(`${domain}/api/tinhluong/nhanvien/qly_ho_so_ca_nhan`, {
+        token: token,
+        ep_id: id,
+        cp: cp,
+      })
       .then((response) => {
         setDataUser(response.data.data);
       })
@@ -114,7 +112,7 @@ const App = () => {
 
   const apiSalary = () => {
     axios
-      .post("http://210.245.108.202:3009/api/tinhluong/congty/take_salary_em", {
+      .post(`${domain}/api/tinhluong/congty/take_salary_em`, {
         token: token,
         ep_id: id,
       })
@@ -132,7 +130,7 @@ const App = () => {
   const handleDelete = async (sb_id) => {
     try {
       const response = await axios.post(
-        "http://210.245.108.202:3009/api/tinhluong/congty/delete_basic_salary",
+        `${domain}/api/tinhluong/congty/delete_basic_salary`,
         {
           token: token,
           sb_id: sb_id,
@@ -173,7 +171,7 @@ const App = () => {
     };
     try {
       const response = await axios.post(
-        "http://210.245.108.202:3009/api/tinhluong/congty/insert_basic_salary",
+        `${domain}/api/tinhluong/congty/insert_basic_salary`,
         newTable
       );
       console.log("Thêm mới thành công:", response);
@@ -201,7 +199,7 @@ const App = () => {
     };
     try {
       const response = await axios.post(
-        "http://210.245.108.202:3009/api/tinhluong/congty/update_basic_salary",
+        `${domain}/api/tinhluong/congty/update_basic_salary`,
         newTable
       );
       console.log("Sửa thành công:", response);
@@ -337,7 +335,7 @@ const App = () => {
     };
     try {
       const response = await axios.post(
-        "http://210.245.108.202:3009/api/tinhluong/congty/edit_detail_inforuser",
+        `${domain}/api/tinhluong/congty/edit_detail_inforuser`,
         tableUser
       );
       console.log("Sửa thành công:", response);
@@ -401,6 +399,7 @@ const App = () => {
       <div className={styles.container_index}>
         <div>
           <HeadNav title="Hồ sơ nhân viên" />
+          <HeadNavResCongTy></HeadNavResCongTy>
         </div>
         <div className={styles.content_top}>
           <div className={styles.content}>
@@ -720,10 +719,14 @@ const App = () => {
               )}
             </div>
             <div className={styles.header}>
-              <div>
+              <div className={styles.h3_container}>
                 <h3 className={styles.header_h3}>Lương cơ bản</h3>
               </div>
-              <Button type="primary" onClick={showModal} className={styles.btn}>
+              <Button
+                type="primary"
+                onClick={showModal}
+                className={`${styles.btn} customButton`}
+              >
                 Thêm lương
               </Button>
             </div>
@@ -755,7 +758,7 @@ const App = () => {
         {/*thêm*/}
         <div className="modal_times">
           <Modal
-            className={styles.modal_times}
+            className={`${styles.modal_times} modal_add_tien`}
             title="Thêm lương mức cơ bản"
             visible={isModalOpen}
             onCancel={handleCancel}
@@ -813,7 +816,7 @@ const App = () => {
               />
               <Button
                 type="primary"
-                className={styles.btn_saves}
+                className={`${styles.btn_saves} customButton_HandleOk`}
                 onClick={handleOk}
               >
                 Lưu

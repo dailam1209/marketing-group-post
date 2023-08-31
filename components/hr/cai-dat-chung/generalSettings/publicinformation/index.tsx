@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
 import styles from "./PublicInformation.module.css";
 
-export default function PublicInformation({dataDisplay}) {
-  console.log(dataDisplay)
+export default function PublicInformation({ dataDisplay }) {
 
   return (
     <>
       <div className={`${styles.l_thongtincongty}`}>
         <div className={`${styles.l_thongtincongty_item}`}>
           <div className={`${styles.l_thongtincongty_text}`}>
-            <p>{ dataDisplay?.com_name}</p>
+            <p>{dataDisplay?.com_name}</p>
           </div>
 
           <div className={`${styles.l_thongtincongty_text}`}>

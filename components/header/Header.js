@@ -113,7 +113,7 @@ export default function Header() {
           <div className={styles.bg_wra}>
             <div className={styles.bg_ima_menu} onClick={handleSideBar}>
               <p className={`${styles.menu_popup} ${styles.btx_modal_ind}`}>
-                <img src='../img/menu.png' alt='menu' />
+                <img src='/img/menu.png' alt='menu' />
               </p>
             </div>
             <div className={styles.bg_ima}>

@@ -22,14 +22,13 @@ export default function Setting({ children }: any) {
         setDataCompany(response)
       }
       fetchData()
-    } catch (error) {}
+    } catch (error) { }
   }, [])
 
   useEffect(() => {
     const currentCookie = getToken(COOKIE_KEY)
     if (currentCookie) {
       const decodedToken: any = jwt_decode(currentCookie)
-      console.log(decodedToken)
       setTokenType(decodedToken?.data?.type)
     }
   }, [])

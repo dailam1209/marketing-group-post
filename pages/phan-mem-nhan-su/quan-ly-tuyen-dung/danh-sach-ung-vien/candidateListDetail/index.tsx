@@ -30,16 +30,13 @@ export default function CandidateListDetail({ iconAdd, iconEdit, iconDelete }: a
   const [isGender, setGender] = useState<any>("");
   const [isStatus, setStatus] = useState<any>("");
   const [isRecruitmentNewsId, setRecruitmentNewsId] = useState<any>("");
-  const [isSeach, setSearch] = useState<any>(null);
+  const [isSearch, setSearch] = useState<any>(null);
   const [isDragItem, setDragItem] = useState<any>(null);
   const [isDropCol, setDropCol] = useState<any>(null);
   const [isProcess_id, setProcess_id] = useState<any>(null);
   const [animateModal, setAnimateModal] = useState(true);
   const [isProcessBeforeName, setProcessBeforeName] = useState<any>("")
   const comid: any = GetComId()
-
-  console.log(isProcessList);
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -67,12 +64,7 @@ export default function CandidateListDetail({ iconAdd, iconEdit, iconDelete }: a
       }
     };
     fetchData();
-  }, [isSeach]);
-
-  const handleAddCandidate = () => {
-    // Gọi khi thêm ứng viên thành công từ component con
-    setSearch(prevValue => !prevValue);
-  };
+  }, [isSearch]);
 
   // -- lấy dữ liệu nhân viên --
   useEffect(() => {
@@ -134,7 +126,7 @@ export default function CandidateListDetail({ iconAdd, iconEdit, iconDelete }: a
     () =>
       EmpData?.items?.map((emp: any) => ({
         value: emp.ep_id,
-        label: emp.ep_name,
+        label: `${emp.ep_name} (${emp.dep_name ? emp.dep_name : "Chưa cập nhật"})`
       })),
     [EmpData?.items]
   );

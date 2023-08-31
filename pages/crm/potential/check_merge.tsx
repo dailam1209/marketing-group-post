@@ -8,6 +8,7 @@ import TableDataPotential from "@/components/crm/table/table-potential";
 import CheckMergeBody from "@/components/crm/potential/check_merge/check_merge_body";
 import CheckMergeInputGroup from "@/components/crm/potential/check_merge/check_merge_input_group";
 import CheckMergeContent from "@/components/crm/potential/check_merge/check_merge_content";
+import Head from "next/head";
 
 const CheckMergePotential: React.FC = () => {
   const mainRef = useRef<HTMLDivElement>(null);
@@ -16,12 +17,8 @@ const CheckMergePotential: React.FC = () => {
   const [numberSelected, setNumberSelected] = useState(0);
   const [type, setType] = useState("hoặc");
   const imgRef = useRef<HTMLInputElement>(null);
-  const {
-    headerTitle,
-    setHeaderTitle,
-    setShowBackButton,
-    setCurrentPath,
-  }: any = useHeader();
+  const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
+    useHeader();
 
   useEffect(() => {
     setHeaderTitle("Tiềm Năng/ Kiểm tra trùng");
@@ -42,37 +39,87 @@ const CheckMergePotential: React.FC = () => {
   }, [isOpen]);
 
   return (
-    <div className={styleHome.main} ref={mainRef}>
-      <div className={styles.main_importfile}>
-        <div className={styles.formInfoStep}>
-          <div className={styles.info_step}>
-            <div className={styles.main__title}>Thiết lập điều kiện</div>
-            <div className={styles.form_add_potential}>
-              <div className={styles.main_body_merge}>
-                <CheckMergeBody type={type} setType={setType} />
-                <CheckMergeInputGroup
-                  label="Họ và tên"
-                  defaultValue="Nguyễn Trần Kim Phượng"
-                />
-                <CheckMergeInputGroup type={type} label="Điện thoại cá nhân" />
-                <CheckMergeInputGroup type={type} label="Điện thoại cơ quan" />
-                <CheckMergeInputGroup type={type} label="Email cá nhân" />
-                <CheckMergeInputGroup type={type} label="Email cơ quan" />
-                <div>
-                  <button className={styles.btn_serach}>Tìm kiếm</button>
+    <>
+      <Head>
+        <meta name="viewport" content="width=device-width" initial-scale="1" />
+        <meta name="robots" content="noindex,nofollow" />
+        <title>
+          CRM 365 - đáp án của bài toán tối ưu quy trình, gia tăng lợi nhuận
+        </title>
+        <meta
+          name="description"
+          content="CRM 365 được đánh giá là công cụ tốt nhất hiện nay trong việc kết nối khách hàng và doanh nghiệp. Phần mềm chú trọng vào các nhiệm vụ hỗ trợ doanh nghiệp tăng tập khách hàng tiềm năng và thân thiết, tăng doanh thu và tối ưu chi phí. Đăng ký hôm nay, lợi ích đến ngay!"
+        />
+        <meta name="Keywords" content="Phần mềm CRM, phần mềm crm miễn phí" />
+        <meta property="og:locale" content="vi_VN" />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:title"
+          content="CRM 365 - đáp án của bài toán tối ưu quy trình, gia tăng lợi nhuận"
+        />
+        <meta
+          property="og:description"
+          content="CRM 365 được đánh giá là công cụ tốt nhất hiện nay trong việc kết nối khách hàng và doanh nghiệp. Phần mềm chú trọng vào các nhiệm vụ hỗ trợ doanh nghiệp tăng tập khách hàng tiềm năng và thân thiết, tăng doanh thu và tối ưu chi phí. Đăng ký hôm nay, lợi ích đến ngay!"
+        />
+        <meta
+          property="og:image"
+          content="https://crm.timviec365.vn/assets/img/images-banners.png"
+        />
+        <meta name="twitter:card" content="summary" />
+        <meta
+          name="twitter:description"
+          content="CRM 365 được đánh giá là công cụ tốt nhất hiện nay trong việc kết nối khách hàng và doanh nghiệp. Phần mềm chú trọng vào các nhiệm vụ hỗ trợ doanh nghiệp tăng tập khách hàng tiềm năng và thân thiết, tăng doanh thu và tối ưu chi phí. Đăng ký hôm nay, lợi ích đến ngay!"
+        />
+        <meta
+          name="twitter:title"
+          content="CRM 365 - đáp án của bài toán tối ưu quy trình, gia tăng lợi nhuận"
+        />
+        <link rel="canonical" href="https://hungha365.com/crm" />
+
+        {/* CSS */}
+        <script
+          async
+          src="https://www.googletagmanager.com/gtm.js?id=GTM-NXVQCHN"
+        ></script>
+      </Head>
+      <div className={styleHome.main} ref={mainRef}>
+        <div className={styles.main_importfile}>
+          <div className={styles.formInfoStep}>
+            <div className={styles.info_step}>
+              <div className={styles.main__title}>Thiết lập điều kiện</div>
+              <div className={styles.form_add_potential}>
+                <div className={styles.main_body_merge}>
+                  <CheckMergeBody type={type} setType={setType} />
+                  <CheckMergeInputGroup
+                    label="Họ và tên"
+                    defaultValue="Nguyễn Trần Kim Phượng"
+                  />
+                  <CheckMergeInputGroup
+                    type={type}
+                    label="Điện thoại cá nhân"
+                  />
+                  <CheckMergeInputGroup
+                    type={type}
+                    label="Điện thoại cơ quan"
+                  />
+                  <CheckMergeInputGroup type={type} label="Email cá nhân" />
+                  <CheckMergeInputGroup type={type} label="Email cơ quan" />
+                  <div>
+                    <button className={styles.btn_serach}>Tìm kiếm</button>
+                  </div>
                 </div>
               </div>
+              <CheckMergeContent numberSelected={numberSelected} />
+              <TableDataPotential
+                setSelected={setCheckDocument}
+                setNumberSelected={setNumberSelected}
+              />
+              <PotentialFooterCheckMerge />
             </div>
-            <CheckMergeContent numberSelected={numberSelected}/>
-            <TableDataPotential
-              setSelected={setCheckDocument}
-              setNumberSelected={setNumberSelected}
-            />
-            <PotentialFooterCheckMerge />
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

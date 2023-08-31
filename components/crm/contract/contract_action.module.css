@@ -34,7 +34,7 @@
     display: flex;
     row-gap: 20px;
     flex-direction: column;
-    margin-top: 20px;
+    /* margin-top: 20px; */
 }
 
 .main__body {
@@ -171,9 +171,7 @@
     width: 100%;
     float: right;
     display: flex;
-    justify-content: flex-end;
-    padding-right: 88px;
-    margin-top: 22px;
+    justify-content: center;
     margin-bottom: 50px;
 }
 
@@ -268,7 +266,8 @@
 
 .fm_fd {
     margin-bottom: 16px;
-    width: 100%;
+    margin-right: -15px;
+    margin-left: -15px;
 }
 
 .btn_form_contract {
@@ -393,4 +392,12 @@
     height: 29.7cm;
     border: 1px solid #ccc;
     margin-bottom: 15px;
+}
+
+.xoatruong {
+    padding: 5px 9px;
+    background: #FF3333;
+    border-radius: 5px;
+    color: #FFFFFF;
+    font-size: 14px;
 }

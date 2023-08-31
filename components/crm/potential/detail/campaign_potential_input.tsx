@@ -23,7 +23,7 @@ export default function CampaignInputGroupsPO({ isSelectedRow }: any) {
   ];
   const onClose = () => {
     setIsModalCancelPO(false);
-    console.log("first")
+    console.log("first");
   };
   return (
     <div className={styles.main__control}>
@@ -39,7 +39,7 @@ export default function CampaignInputGroupsPO({ isSelectedRow }: any) {
             <input type="date" name="" id="start_time" /> -
             <input type="date" name="" id="end_time" />
           </div>
-        </div >
+        </div>
         <CampaignSelectBox title="Người phụ trách:" value="Tất cả" />
       </div>
 
@@ -63,18 +63,18 @@ export default function CampaignInputGroupsPO({ isSelectedRow }: any) {
           </form>
         </div>
         <div className={`${styles.main__control_add} flex_end`}>
-            <button
+          <button
             onClick={() => setIsModalCancelPO(true)}
-              type="button"
-              className={`${styles.dropbtn_add} flex_align_center`}
-            >
-              <img src="https://crm.timviec365.vn/assets/icons/choose_white.svg" />
-           Chọn vào
-            </button>
-            <ShowCampaignPOMD
-              isModalCancelPO={isModalCancelPO}
-              onClose={onClose}
-            />
+            type="button"
+            className={`${styles.dropbtn_add} flex_align_center`}
+          >
+            <img src="/crm/choose_white.svg" />
+            Chọn vào
+          </button>
+          <ShowCampaignPOMD
+            isModalCancelPO={isModalCancelPO}
+            onClose={onClose}
+          />
         </div>
       </div>
 

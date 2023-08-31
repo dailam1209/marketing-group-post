@@ -4,12 +4,13 @@ import styles from "../../potential/potential.module.css";
 import { useState } from "react";
 import CancelModalContract from "./cancel_modal_contract";
 
-export default function ContractBtsGroupFooter({ id }: any) {
+export default function ContractBtsGroupFooter({ id, FormData }: any) {
   const router = useRouter();
   const [liveiew, setLiveiew] = useState(false);
   const [isModalCancel, setIsModalCancel] = useState(false);
   const [isModalSuccess, setIsModalSuccess] = useState(false);
 
+  const imageData = FormData?.result?.img_org_base64;
   const handleClickComplete = () => {
     setIsModalSuccess(true);
     setTimeout(() => {
@@ -52,15 +53,29 @@ export default function ContractBtsGroupFooter({ id }: any) {
           />
         ) : null}
       </div>
-      {liveiew && (
-        <div style={{ marginTop: "30px", border: "1px solid #fff" }}>
-          <div style={{ textAlign: "center" }}>
-            <img
-              alt="loading"
-              src="	https://crm.timviec365.vn/assets/img/load_data.gif"
-            />
+      {liveiew && imageData && imageData?.length > 0 && (
+        <div>
+          <div className={styles.frm_2}>
+            {imageData?.map((url, index: number) => (
+              <img alt="hd" src={`${url}`} key={index} />
+            ))}
           </div>
         </div>
+      // ) : (
+      //   <div>
+      //     <div>
+      //       <div className={styles.head_contract}>
+      //         <h4>Thông tin hợp đồng</h4>
+      //       </div>
+      //     </div>
+      //     <div className={styles["frm_2"]}>
+      //       <img
+      //         style={{ objectFit: "contain" }}
+      //         alt="hd"
+      //         src="/crm/loading_file.gif"
+      //       />
+      //     </div>
+      //   </div>
       )}
     </>
   );

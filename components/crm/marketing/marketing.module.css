@@ -67,7 +67,7 @@
   white-space: nowrap;
 }
 
-.select_item input[type='date'] {
+.select_item input[type="date"] {
   font-size: 16px;
   line-height: 16px;
 }
@@ -206,9 +206,6 @@
 
 .img__search {
   width: 20px;
-  /* position: absolute;
-    right: 9px;
-    margin-top: 12px; */
   cursor: pointer;
 }
 
@@ -216,7 +213,7 @@
   gap: 15px;
   flex-wrap: wrap;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
 }
 
 .btn_add_new {
@@ -225,7 +222,7 @@
   border-radius: 10px;
   padding: 9px 21px;
   color: #ffffff;
-  font-family: 'Roboto-Medium';
+  font-family: "Roboto-Medium";
   font-size: 16px;
   line-height: 19px;
   column-gap: 5px;
@@ -237,7 +234,7 @@
   border-radius: 10px;
   padding: 9px 21px;
   color: #ffffff;
-  font-family: 'Roboto-Medium';
+  font-family: "Roboto-Medium";
   font-size: 16px;
   line-height: 19px;
   column-gap: 5px;
@@ -249,7 +246,7 @@
   border-radius: 10px;
   padding: 9px 21px;
   color: #ffffff;
-  font-family: 'Roboto-Medium';
+  font-family: "Roboto-Medium";
   font-size: 16px;
   line-height: 19px;
   column-gap: 5px;
@@ -276,7 +273,7 @@
 }
 
 .button_thaotac {
-  font-family: 'Roboto-Medium';
+  font-family: "Roboto-Medium";
   background: #ffffff;
   border-radius: 10px;
   font-weight: 500;
@@ -344,7 +341,7 @@
 }
 
 .drop-zone .text {
-  font-family: ' Roboto-Medium';
+  font-family: " Roboto-Medium";
 }
 
 .text_or {
@@ -366,7 +363,7 @@
   line-height: 19px;
   color: #ffffff;
   padding: 9px 40px;
-  font-family: 'Roboto-Medium';
+  font-family: "Roboto-Medium";
   width: fit-content;
 }
 
@@ -398,7 +395,7 @@
   color: #4c5bd4;
   font-size: 16px;
   line-height: 19px;
-  font-family: 'Roboto-Bold';
+  font-family: "Roboto-Bold";
   width: 168px;
   height: 36px;
 }
@@ -411,7 +408,7 @@
   color: #4c5bd4;
   font-size: 16px;
   line-height: 19px;
-  font-family: 'Roboto-Bold';
+  font-family: "Roboto-Bold";
   width: 168px;
   height: 36px;
 }
@@ -437,7 +434,7 @@
   margin-bottom: 0;
   text-decoration-line: underline;
   color: #474747;
-  font-family: 'Roboto-Medium';
+  font-family: "Roboto-Medium";
   font-size: 20px;
   line-height: 23px;
 }
@@ -474,7 +471,7 @@
   color: #474747;
   font-size: 16px;
   line-height: 19px;
-  font-family: 'Roboto-Medium';
+  font-family: "Roboto-Medium";
   margin-bottom: 0.5rem;
 }
 
@@ -512,7 +509,7 @@
   margin-bottom: 15px;
   text-decoration-line: underline;
   color: #474747;
-  font-family: 'Roboto-Medium';
+  font-family: "Roboto-Medium";
 }
 
 .show_avatar {
@@ -559,13 +556,15 @@
 
 .mb_3 {
   margin-bottom: 1rem;
-  flex: 0 0 100%;
   max-width: 100%;
   position: relative;
   width: 100%;
   min-height: 1px;
   padding-right: 15px;
   padding-left: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .form_control {
@@ -617,7 +616,7 @@
   color: #ffffff;
   font-size: 16px;
   line-height: 19px;
-  font-family: 'Roboto-Bold';
+  font-family: "Roboto-Bold";
   margin-top: 10px;
 }
 
@@ -680,6 +679,11 @@
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   margin-right: -15px;
+}
+
+.group_button_SMS {
+  display: flex;
+  gap: 10px;
 }
 
 @media (max-width: 768px) {

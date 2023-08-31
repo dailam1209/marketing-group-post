@@ -49,7 +49,7 @@ export default function DeXuatTangLuong() {
         com_id: com_id,
       }).then((res) => {
         if (res?.result === true) {
-          setListEmp(res?.items)
+          setListEmp(res?.items);
         }
       })
     com_id !== null &&

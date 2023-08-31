@@ -10,7 +10,7 @@ export default function CustomerGroupSelect({
   data,
   setValueGroupCustomer,
   cusId,
-  type
+  type,
 }: any) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -39,7 +39,14 @@ export default function CustomerGroupSelect({
       // document.removeEventListener("scroll", handleScrollkOutside);
     };
   }, []);
-
+  let lists_child = [];
+  data.map((item) => {
+    if (item?.lists_child) {
+      item?.lists_child?.map((item) => {
+        lists_child?.push(item);
+      });
+    }
+  });
   return (
     <div
       ref={dropdownRef}
@@ -83,7 +90,10 @@ export default function CustomerGroupSelect({
               {valueOption ||
                 data?.filter((item: any) => item.gr_id === placeholder)[0]
                   ?.gr_name ||
-                "Chọn"}
+                lists_child?.filter(
+                  (item: any) => item.gr_id === placeholder
+                )[0]?.gr_name ||
+                "Chưa cập nhật"}
             </span>
             <span
               className={styles.select2_selection__arrow}

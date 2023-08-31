@@ -1,8 +1,9 @@
 import { SearchOutlined } from "@ant-design/icons";
 import { Button, Dropdown, Input, MenuProps, Table } from "antd";
 import React, { useState } from "react";
+import style from "./khao-sat.module.css";
 import styles from "../delete_data/table.module.css";
-import styless from "../potential/potential.module.css";
+import styless from "../potential/potential2.module.css";
 import cskh from "./csks.module.css";
 import ModalDeleteKhaoSat from "./modal/modaldelkhaosat";
 import Link from "next/link";
@@ -47,16 +48,16 @@ const KhaoSat = (props: Props) => {
       key: "4",
       label: (
         <div
-          style={{ display: "flex",}}
+          style={{ display: "flex" }}
           rel="noopener noreferrer"
           onClick={() => {
             setIsShowModal(true);
           }}
         >
           <Image
-        width={18}
-        height={18}
-            src="/icon-delete-black.svg"
+            width={18}
+            height={18}
+            src="/crm/icon-delete-black.svg"
             alt=""
           />
           &nbsp; &nbsp; <p>Xóa</p>
@@ -67,18 +68,13 @@ const KhaoSat = (props: Props) => {
       key: "3",
       label: (
         <div
-          style={{ display: "flex", }}
+          style={{ display: "flex" }}
           rel="noopener noreferrer"
           onClick={() => {
-            router.push(`/chinh-sua-khao-sat/${id}`);
+            router.push(`/crm/chinh-sua-khao-sat/${id}`);
           }}
         >
-          <Image
-            src="/icon-edit-black.svg"
-            alt=""
-            width={18}
-            height={18}
-          />
+          <Image src="/crm/icon-edit-black.svg" alt="" width={18} height={18} />
           &nbsp; &nbsp; <p>Chỉnh sửa</p>
         </div>
       ),
@@ -90,7 +86,7 @@ const KhaoSat = (props: Props) => {
       title: "Tên khảo sát",
       dataIndex: "name",
       render: (text: any, record: any) => (
-        <Link href={`/chi-tiet-khao-sat/${record.name}`}>{text}</Link>
+        <Link href={`/crm/chi-tiet-khao-sat/${record.name}`}>{text}</Link>
       ),
     },
     {
@@ -98,7 +94,7 @@ const KhaoSat = (props: Props) => {
       title: "Url",
       dataIndex: "des",
       render: (text: any, record: any) => (
-        <Link href={`/khao-sat/${record.name}-ks`}>{text}</Link>
+        <Link href={`/crm/khao-sat/${record.name}-ks`}>{text}</Link>
       ),
     },
     {
@@ -138,7 +134,7 @@ const KhaoSat = (props: Props) => {
               width={15}
               height={15}
               alt="logo"
-              src="icon_1.svg"
+              src="/crm/icon_1.svg"
             />
           </Dropdown>
         </div>
@@ -151,20 +147,29 @@ const KhaoSat = (props: Props) => {
       style={{
         fontSize: 18,
         color: "black",
-        paddingBottom:7
+        paddingBottom: 7,
       }}
     />
   );
   return (
     <div>
-      <div className={cskh.formdate}>
-        <div style={{ fontSize: 18 }}>Ngày tạo:</div>
-        <input className={cskh.date} type="date" name="" id="" />-
-        <input className={cskh.date} type="date" name="" id="" />
+      <div
+        className={`${style.select_item} flex_align_center_item ${style.select_item_time}`}
+      >
+        <label htmlFor="" className="">
+          Thời gian tạo:
+        </label>
+        <div className={`${style.input_item_time} flex_between`}>
+          <input type="date" name="" id="start_time" /> -
+          <input type="date" name="" id="end_time" />
+        </div>
       </div>
 
       <div className={cskh.input}>
-        <div className={styles.main__control_search_delete} style={{width:440}}>
+        <div
+          className={styles.main__control_search_delete}
+          style={{ width: 440 }}
+        >
           <Input
             placeholder={`Tìm kiếm`}
             suffix={suffix}
@@ -175,21 +180,19 @@ const KhaoSat = (props: Props) => {
               fontWeight: 1000,
               textAlign: "center",
               height: "100%",
-             paddingLeft:20,
-             paddingTop:10
+              paddingLeft: 20,
+              paddingTop: 10,
             }}
           />
         </div>
         <div className={cskh.themmoiks}>
           <Link
-            href={"/them-khao-sat"}
+            href={"/crm/them-khao-sat"}
             style={{ height: 40, width: 150 }}
             className={`${styless.dropbtn_add} flex_align_center`}
           >
             <Image width={15} height={15} alt="logo" src={"/crm/add.svg"} />
-          <div style={{fontSize:18}}>
-          Thêm mới
-          </div>
+            <div style={{ fontSize: 18 }}>Thêm mới</div>
           </Link>
         </div>
       </div>

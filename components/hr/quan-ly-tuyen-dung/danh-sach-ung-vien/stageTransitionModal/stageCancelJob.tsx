@@ -27,10 +27,6 @@ export default function StageCancelJob({ onCancel, process_id, data, process_id_
   const [errors, setErrors] = useState<any>({});
   const modalRef = useRef(null);
 
-  console.log(isCandidate);
-  console.log(data);
-
-
   useEffect(() => {
     const handleOutsideClick = (event: any) => {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
@@ -321,6 +317,16 @@ export default function StageCancelJob({ onCancel, process_id, data, process_id_
                     <div className={`${styles.input_right}`}>
                       <Rating size={27} initialValue={isCandidate?.star_vote} disableFillHover className={`${styles.star_rating}`} onClick={handleRating} />
                       <div className={`${styles.skills_container}`}>
+                        {isCandidate?.listSkill?.map((item: any, index: any) => {
+                          return (
+                            <div key={index} className={`${styles.another_add_uv_1}`} style={{ marginLeft: 95, marginBottom: 15 }}>
+                              <div className={`${styles.another_skill}`} style={{ marginTop: 10 }}>
+                                <p style={{ display: 'inline-block', paddingRight: 20 }}>{item?.skillName}: </p>
+                                <Rating size={27} disableFillHover initialValue={item?.skillVote} className={`${styles.star_rating}`} />
+                              </div>
+                            </div>
+                          )
+                        })}
                         {addAnotherSkill}
                       </div>
                       <a className={`${styles.add_another_skill}`} style={{ cursor: 'pointer' }} onClick={() => HandleAddAnotherSkill({ lastAddedIndex, setSkills, setAddAnotherSkill, setLastAddedIndex })}>Thêm Kỹ năng</a>

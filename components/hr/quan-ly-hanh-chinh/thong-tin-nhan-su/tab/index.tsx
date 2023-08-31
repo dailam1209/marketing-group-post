@@ -4,7 +4,8 @@ import styles from './employeeManagement.module.css'
 import BodyFrameFooter from "@/components/hr/bodyFrame/bodyFrame_footer/bodyFrame_footer";
 import DetailCandidateList from "../detailModal";
 import EditCandidateList from "../editModal";
-import { EmployeeList } from "@/pages/api/api-hr/quan_ly_nhan_vien";
+import { EmployeeList_pagination } from "@/pages/api/api-hr/quan_ly_nhan_vien";
+import { EmployeeList } from "@/pages/api/api-hr/listNhanVien";
 import { DepartmentList } from "@/pages/api/api-hr/listPhongBan";
 import MyPagination from "@/components/hr/pagination/Pagination";
 import { PostionCharData, OrganizationalStructureData } from '@/pages/api/api-hr/co_cau_to_chuc';
@@ -21,6 +22,7 @@ export default function TabEmployeeManagement({ iconAdd, iconEdit }: any) {
   const [detailModal, setDetailModal] = useState(false)
   const [editModal, setEditmodal] = useState<any>(null)
   const [EmpData, setEmpData] = useState<any>(null)
+  const [EmpData_search, setEmpData_search] = useState<any>(null)
   const [departmentList, setDepartmentList] = useState<any>(null)
   const [selectedOption, setSelectedOption] = useState<SelectOptionType | null>(null);
   const [isDep_id, setIsDep_id] = useState<any>("")
@@ -83,9 +85,6 @@ export default function TabEmployeeManagement({ iconAdd, iconEdit }: any) {
     fetchData()
   }, [])
 
-  console.log(OrganizationalDatas);
-
-
   function getCompanyNameByChinhanh(com_id: any, apiData: any) {
     if (com_id === apiData?.infoCompany?.parent_com_id) {
       return apiData?.infoCompany?.companyName;
@@ -100,23 +99,36 @@ export default function TabEmployeeManagement({ iconAdd, iconEdit }: any) {
     }
   }
 
-
   // -- lấy dữ liệu và phân trang --
   useEffect(() => {
     const fetchData = async () => {
       try {
         const formData = new FormData();
         formData.append('dep_id', isDep_id)
-        formData.append('userName', isUserName)
+        formData.append('findbyNameUser', isUserName)
         formData.append('com_id', comid)
         formData.append('pageNumber', currentPage)
-        const response = await EmployeeList(formData)
+        const response = await EmployeeList_pagination(formData)
         setEmpData(response?.data)
       } catch (error) {
       }
     }
     fetchData()
   }, [currentPage, isSeach, newData])
+
+  // -- lấ dữ liệu nhân viên cho tìm kiếm-- 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const formData = new FormData();
+        const response = await EmployeeList(formData);
+        setEmpData_search(response?.data);
+      } catch (error) {
+
+      }
+    };
+    fetchData();
+  }, []);
 
   // -- di chuyển trái phải của bảng --
   const tableContentRef = useRef<HTMLDivElement>(null);
@@ -155,11 +167,11 @@ export default function TabEmployeeManagement({ iconAdd, iconEdit }: any) {
 
   const chonnhanvienOptions = useMemo(
     () =>
-      EmpData?.items?.map((emp: any) => ({
+      EmpData_search?.items?.map((emp: any) => ({
         value: emp.ep_id,
-        label: emp.ep_name,
+        label: `${emp.ep_name} (${emp.dep_name ? emp.dep_name : "Chưa cập nhật"})`
       })),
-    [EmpData?.items]
+    [EmpData_search?.items]
   );
 
   const handleSearch = useCallback(() => {
@@ -177,7 +189,7 @@ export default function TabEmployeeManagement({ iconAdd, iconEdit }: any) {
   const handleSelectChangeEmp = (selectedOption: SelectOptionType | null) => {
     setSelectedOption(selectedOption); // Lưu giá trị đã chọn vào state selectedOption
     if (selectedOption) {
-      setIsUserName(selectedOption.value); // Set giá trị đã chọn vào state setIsDep_id
+      setIsUserName(selectedOption.label);
     }
   };
 
@@ -189,7 +201,7 @@ export default function TabEmployeeManagement({ iconAdd, iconEdit }: any) {
   const handleSignaturePageChange = (page: number) => {
     setCurrentPage(page);
   };
-  console.log(iconAdd)
+
   return (
     <>
       <div className={`${styles.tab_content} `} >
@@ -299,7 +311,7 @@ export default function TabEmployeeManagement({ iconAdd, iconEdit }: any) {
                   </thead>
                   <tbody className={`${styles.filter_body}`}>
                     {EmpData?.items?.map((item: any, index: any) => {
-                      const positionData = PostionCharDatas?.data?.find(
+                      const positionData = PostionCharDatas?.data?.flat()?.find(
                         (position: any) => position?.positionId === item?.position_id
                       );
                       const positionNameToShow = positionData ? positionData.positionName : item.vitri;
@@ -307,22 +319,22 @@ export default function TabEmployeeManagement({ iconAdd, iconEdit }: any) {
                         <tr key={index}>
                           <td>{item.ep_id}</td>
                           <td>   <a href="">{item.ep_name}</a></td>
-                          <td>{item.dep_name}</td>
+                          <td>{item.nameDeparment}</td>
                           <td>{item.ep_gender === 1 ? "Nam" : item.ep_gender === 2 ? "Nữ" : "Khác"}</td>
-                          <td>{item.ep_married === 1 ? "Đã cưới" : item.ep_married === 2 ? "Độc thân" : "Khác"}</td>
+                          <td>{item.ep_married === 2 ? "Đã có gia đình" : item.ep_married === 1 ? "Độc thân" : "Khác"}</td>
                           <td>{positionNameToShow}</td>
-                          <td>{item.dep_name}</td>
+                          <td>{item.nameDeparment}</td>
                           <td>{getCompanyNameByChinhanh(item.com_id, OrganizationalDatas)}</td>
                           <td>
                             <p>Địa chỉ liên hệ:{item.ep_address}</p>
                             <p>SDT: {item?.ep_phone}</p>
                             <p>Email: {item.ep_email}</p>
                           </td>
-                          {item?.start_working_time &&
-                            <td>{format(
-                              parseISO(new Date(item?.start_working_time * 1000).toISOString()),
-                              "yyyy-MM-dd"
-                            )}</td>
+                          {item?.start_working_time !== 0 ? (<td>{format(
+                            parseISO(new Date(item?.start_working_time * 1000).toISOString()),
+                            "dd-MM-yyyy"
+                          )}</td>) : (<td>Chưa cập nhật</td>)
+
                           }
                           <td
                             className={`${styles.r_t_top_right}`} style={{ position: 'relative' }}>

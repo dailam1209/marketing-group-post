@@ -12,21 +12,20 @@ export default function InputPhone({ infoCus }: any) {
     if (numberValue) {
       setIsCalling(true);
     }
-    const res = await fetch(
-      `${base_url}/api/crm/cutomerCare/Call`,
-      {
+    try {
+      const res = await fetch(`${base_url}/api/crm/cutomerCare/Call`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${Cookies.get("token_base365")}`,
         },
         body: JSON.stringify({ phone: `${+infoCus?.dien_thoai}` }),
+      });
+      const data = await res.json();
+      if (data && data.error) {
+        notification.error({ message: data.error.message });
       }
-    );
-    const data = await res.json();
-    if(data && data.error){
-      notification.error({message:data.error.message})
-    }
+    } catch (error) {}
   };
   const handleDisConnectCalling = () => {
     setIsCalling(false);
@@ -95,7 +94,7 @@ export default function InputPhone({ infoCus }: any) {
           <Image
             width={36}
             height={36}
-            src="https://crm.timviec365.vn/assets/img/business_assistant/phone.svg"
+            src="/crm/phone.svg"
             alt=""
           />
         </button>

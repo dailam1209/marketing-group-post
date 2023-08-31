@@ -9,7 +9,7 @@ export default function Potential() {
   const mainRef = useRef<HTMLDivElement>(null);
   const { isOpen } = useContext<any>(SidebarContext);
   const [isSelectedRow, setIsSelectedRow] = useState(false);
-  const [isNumberSelected, setNumberSelected] = useState(0)
+  const [isNumberSelected, setNumberSelected] = useState(0);
   const {
     headerTitle,
     setHeaderTitle,
@@ -18,7 +18,7 @@ export default function Potential() {
   }: any = useHeader();
 
   useEffect(() => {
-    setHeaderTitle("Tiềm Năng");
+    setHeaderTitle("Tiềm năng");
     setShowBackButton(false);
     setCurrentPath("/crm/potential");
   }, [setHeaderTitle, setShowBackButton, setCurrentPath]);
@@ -33,7 +33,10 @@ export default function Potential() {
   return (
     <div ref={mainRef} className={styleHome.main}>
       <PotentialInputGroups isSelectedRow={isSelectedRow} />
-      <TableDataPotential setSelected={setIsSelectedRow} setNumberSelected={setNumberSelected}/>
+      <TableDataPotential
+        setSelected={setIsSelectedRow}
+        setNumberSelected={setNumberSelected}
+      />
     </div>
   );
 }

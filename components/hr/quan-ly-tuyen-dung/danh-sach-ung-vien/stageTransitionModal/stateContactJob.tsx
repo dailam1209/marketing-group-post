@@ -18,6 +18,7 @@ export default function StageContactJob({
   data,
   process_id_from,
 }: any) {
+
   const [selectedOption, setSelectedOption] = useState<SelectOptionType | null>(
     null
   )
@@ -25,14 +26,14 @@ export default function StageContactJob({
   const [isEmpList, setEmpList] = useState<any>(null)
   const [empInterview, setEmpInterview] = useState<any>(null)
   const [isNewList, setNewsList] = useState<any>(null)
-  const [isRecruitmentNewsId, setRecruitmentNewsId] = useState<any>(null)
+  const [isRecruitmentNewsId, setRecruitmentNewsId] = useState<any>(data?.recruitmentNewsId)
   const [addAnotherSkill, setAddAnotherSkill] = useState<JSX.Element[]>([])
   const [skills, setSkills] = useState<{ skillName: string; skillVote: any }[]>(
     []
   )
   const [lastAddedIndex, setLastAddedIndex] = useState(-1)
-  const [rating, setRating] = useState<any>(0)
-  const [isUserHiring, setUserHiring] = useState<any>('')
+  const [rating, setRating] = useState<any>(data?.star_vote)
+  const [isUserHiring, setUserHiring] = useState<any>(data?.user_hiring)
   const [errors, setErrors] = useState<any>({})
   const modalRef = useRef(null)
 
@@ -55,9 +56,9 @@ export default function StageContactJob({
       try {
         const formData = new FormData()
         const response = await CandidateList(formData)
-        const responseData: any = response?.data
+        const responseData: any = response?.success
         if (responseData) {
-          const candidateFound = responseData?.data?.find(
+          const candidateFound = responseData?.data?.data?.find(
             (item: any) =>
               item.id === Number(data?.id) || item.id === Number(data?.canId)
           )
@@ -233,10 +234,14 @@ export default function StageContactJob({
       { value: 3, label: 'Trượt vòng loại hồ sơ' },
     ],
     tennhanvientuyendung: chonnhanvienOptions,
-    vitrituyendung: chonvitrituyendungOptions,
-    tennhanvientuyendungdefault: [
-      { value: isCandidate?.userHiring, label: isCandidate?.NvTuyenDung },
+    vitrituyendung: [
+      { value: data?.recruitmentNewsId, label: data?.new_title },
     ],
+
+    tennhanvientuyendungdefault: [
+      { value: data?.user_hiring, label: data?.hrName },
+    ],
+
   }
 
   return (
@@ -259,7 +264,7 @@ export default function StageContactJob({
                       <input
                         type='text'
                         id='name'
-                        defaultValue={isCandidate?.name}
+                        defaultValue={data?.name}
                         className={`${styles.input_process}`}
                       />
                       <span>
@@ -280,7 +285,7 @@ export default function StageContactJob({
                       <input
                         type='text'
                         id='cvFrom'
-                        defaultValue={isCandidate?.cvFrom}
+                        defaultValue={data?.cvFrom}
                         className={`${styles.input_process}`}
                       />
                       <span>
@@ -385,19 +390,29 @@ export default function StageContactJob({
                       </span>
                     </div>
                   </div>
-                  <div className={`${styles.form_groups}`}>
+                  <div className={`${styles.form_groupss}`}>
                     <label htmlFor=''>
                       Đánh giá hồ sơ <span style={{ color: 'red' }}> * </span>
                     </label>
                     <div className={`${styles.input_right}`}>
                       <Rating
                         size={27}
-                        initialValue={isCandidate?.starVote}
+                        initialValue={data?.star_vote}
                         disableFillHover
                         className={`${styles.star_rating}`}
                         onClick={handleRating}
                       />
                       <div className={`${styles.skills_container}`}>
+                        {isCandidate?.listSkill?.map((item: any, index: any) => {
+                          return (
+                            <div key={index} className={`${styles.another_add_uv_1}`} style={{ marginLeft: 95, marginBottom: 15 }}>
+                              <div className={`${styles.another_skill}`} style={{ marginTop: 10 }}>
+                                <p style={{ display: 'inline-block', paddingRight: 20 }}>{item?.skillName}: </p>
+                                <Rating size={27} disableFillHover initialValue={item?.skillVote} className={`${styles.star_rating}`} />
+                              </div>
+                            </div>
+                          )
+                        })}
                         {addAnotherSkill}
                       </div>
                       <a

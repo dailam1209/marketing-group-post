@@ -18,7 +18,10 @@ const NoteActionDropDown: React.FC<any> = () => {
     {
       key: "4",
       label: (
-        <button className="btn-huy flex-start" onClick={()=>setIsOpenModalUpdateStatus(true)}>
+        <button
+          className="btn-huy flex-start"
+          onClick={() => setIsOpenModalUpdateStatus(true)}
+        >
           <Image width={16} height={16} src="/edit.svg" alt="check" />
           Chỉnh sửa
         </button>
@@ -31,7 +34,7 @@ const NoteActionDropDown: React.FC<any> = () => {
           className="btn-huy flex-start"
           onClick={() => setIsOpenModalDel(true)}
         >
-          <Image width={16} height={16} src="/del.svg" alt="check" />
+          <Image width={16} height={16} src="/crm/del.svg" alt="check" />
           Xoá
         </button>
       ),
@@ -48,7 +51,7 @@ const NoteActionDropDown: React.FC<any> = () => {
             className="custom_dropdown_product "
           >
             <button className="action_table">
-              <img src="https://crm.timviec365.vn/assets/img/crm/customer/3_cham.png" />
+              <img src="/crm/3_cham.png" />
               Thao tác
             </button>
           </Dropdown>

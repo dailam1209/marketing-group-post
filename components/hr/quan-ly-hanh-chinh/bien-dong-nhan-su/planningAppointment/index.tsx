@@ -143,7 +143,7 @@ export default function TabPlaningAppointment({ iconAdd, iconEdit, iconDelete }:
     () =>
       EmpData?.items?.map((emp: any) => ({
         value: emp.ep_id,
-        label: emp.ep_name,
+        label: `${emp.ep_name} (${emp.dep_name ? emp.dep_name : "Chưa cập nhật"} - ID:${emp.ep_id})`
       })),
     [EmpData?.items]
   );
@@ -240,7 +240,7 @@ export default function TabPlaningAppointment({ iconAdd, iconEdit, iconDelete }:
                   <input type="date" id="to_date" className={`${styles.search_date} ${styles.form_control}`} placeholder='Từ dd/mm/yyyy' />
                 </div>
                 <div className={`${styles.div_no_pad_search}   `}>
-                  <a onClick={handleSearch} className={`${styles.icon_search_top} ${styles.div_search_salary} `}>
+                  <a style={{ cursor: "pointer" }} onClick={handleSearch} className={`${styles.icon_search_top} ${styles.div_search_salary} `}>
                     <img style={{ verticalAlign: '-webkit-baseline-middle' }} src={`/t-icon-search-n.svg`} alt="" />
                   </a>
                 </div>

@@ -24,29 +24,25 @@ const ChanceActionDropDown: React.FC = ({ idRow = "row" }: any) => {
     {
       key: "1",
       label: (
-        <Link href="/order/add"
-        className="btn-huy flex-start"
-      >
-        <i className="bi bi-cart"></i>
-        Thêm đơn hàng
+        <Link href="/crm/order/add" className="btn-huy flex-start">
+          <i className="bi bi-cart"></i>
+          Thêm đơn hàng
         </Link>
       ),
     },
     {
       key: "2",
       label: (
-        <Link href="/quote/add"
-        className="btn-huy flex-start"
-      >
-        <i
-          className="bi bi-currency-dollar"
-          style={{
-            display: "block",
-            marginRight: "3px",
-            border: "solid 1px black",
-          }}
-        ></i>
-        Thêm báo giá
+        <Link href="/crm/quote/add" className="btn-huy flex-start">
+          <i
+            className="bi bi-currency-dollar"
+            style={{
+              display: "block",
+              marginRight: "3px",
+              border: "solid 1px black",
+            }}
+          ></i>
+          Thêm báo giá
         </Link>
       ),
     },
@@ -54,12 +50,12 @@ const ChanceActionDropDown: React.FC = ({ idRow = "row" }: any) => {
       key: "3",
       label: (
         <button
-        className="btn-huy flex-start"
-        onClick={() => setIsOpenModalCancel(true)}
-      >
-        <i className="bi bi-reply"></i>
-        Chia sẻ
-      </button>
+          className="btn-huy flex-start"
+          onClick={() => setIsOpenModalCancel(true)}
+        >
+          <i className="bi bi-reply"></i>
+          Chia sẻ
+        </button>
       ),
     },
     {
@@ -69,7 +65,12 @@ const ChanceActionDropDown: React.FC = ({ idRow = "row" }: any) => {
           className="btn-huy flex-start"
           onClick={() => setIsOpenModalUpdateStatus(true)}
         >
-          <Image width={16} height={16} src="/update_status.svg" alt="check" />
+          <Image
+            width={16}
+            height={16}
+            src="/crm/update_status.svg"
+            alt="check"
+          />
           Bàn giao công việc
         </button>
       ),
@@ -79,7 +80,7 @@ const ChanceActionDropDown: React.FC = ({ idRow = "row" }: any) => {
       label: (
         <Link href={`update`}>
           <button className="btn-huy flex-start">
-            <Image width={16} height={16} src="/edit.svg" alt="check" />
+            <Image width={16} height={16} src="/crm/edit.svg" alt="check" />
             Chỉnh sửa
           </button>
         </Link>
@@ -92,7 +93,7 @@ const ChanceActionDropDown: React.FC = ({ idRow = "row" }: any) => {
           className="btn-huy flex-start"
           onClick={() => setIsOpenModalDel(true)}
         >
-          <Image width={16} height={16} src="/del.svg" alt="check" />
+          <Image width={16} height={16} src="/crm/del.svg" alt="check" />
           Xoá
         </button>
       ),
@@ -109,7 +110,7 @@ const ChanceActionDropDown: React.FC = ({ idRow = "row" }: any) => {
             className="custom_dropdown_product "
           >
             <button className="action_table">
-              <img src="https://crm.timviec365.vn/assets/img/crm/customer/3_cham.png" />
+              <img src="/crm/3_cham.png" />
               Thao tác
             </button>
           </Dropdown>

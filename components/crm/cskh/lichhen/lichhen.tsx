@@ -2,7 +2,7 @@ import { SearchOutlined } from "@ant-design/icons";
 import { Button, Dropdown, Input, MenuProps, Table } from "antd";
 import React, { useState } from "react";
 import styles from "../../delete_data/table.module.css";
-import styless from "../../potential/potential.module.css";
+import styless from "../../potential/potential2.module.css";
 import cskh from "../csks.module.css";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -26,9 +26,9 @@ const LichHen = (props: Props) => {
     console.log("delete");
     setIsShowModal(false);
   };
-  const handleAddDB = () =>{
+  const handleAddDB = () => {
     setIsShowModalAdd(false);
-  }
+  };
   const data = [];
   for (let i = 1; i < 6; i++) {
     data.push({
@@ -49,14 +49,11 @@ const LichHen = (props: Props) => {
         <div
           style={{ display: "flex", fontSize: 15 }}
           rel="noopener noreferrer"
-        //   onClick={() => {
-        //     router.push(`/chinh-sua-khao-sat/${id}`);
-        //   }}
+          //   onClick={() => {
+          //     router.push(`/chinh-sua-khao-sat/${id}`);
+          //   }}
         >
-          <img
-            src="https://crm.timviec365.vn/assets/icons/icon-edit-black.svg"
-            alt=""
-          />
+          <img src="/crm/icon-edit-black.svg" alt="" />
           &nbsp; &nbsp; <p>Chỉnh sửa</p>
         </div>
       ),
@@ -71,10 +68,7 @@ const LichHen = (props: Props) => {
             setIsShowModal(true);
           }}
         >
-          <img
-            src="https://crm.timviec365.vn/assets/icons/icon-delete-black.svg"
-            alt=""
-          />
+          <img src="/crm/icon-delete-black.svg" alt="" />
           &nbsp; &nbsp; <p>Xóa</p>
         </div>
       ),
@@ -85,17 +79,13 @@ const LichHen = (props: Props) => {
       width: 60,
       title: "STT",
       dataIndex: "name",
-      render: (text: any, record: any) => (
-        <Link href={``}>{text}</Link>
-      ),
+      render: (text: any, record: any) => <Link href={``}>{text}</Link>,
     },
     {
       width: 310,
       title: "Tên lịch hẹn",
       dataIndex: "des",
-      render: (text: any, record: any) => (
-        <Link href={``}>{text}</Link>
-      ),
+      render: (text: any, record: any) => <Link href={``}>{text}</Link>,
     },
     {
       width: 310,
@@ -109,10 +99,10 @@ const LichHen = (props: Props) => {
       dataIndex: "date",
     },
     {
-        width: 213,
-        title: "Nhân viên thực hiện",
-        dataIndex: "name",
-      },
+      width: 213,
+      title: "Nhân viên thực hiện",
+      dataIndex: "name",
+    },
     {
       width: 250,
       title: "Thời gian thực hiện",
@@ -136,7 +126,7 @@ const LichHen = (props: Props) => {
                 handleSelect(record.name);
               }}
               style={{ cursor: "pointer" }}
-              src="https://crm.timviec365.vn/assets/icons/icon_1.svg"
+              src="/crm/icon_1.svg"
             />
           </Dropdown>
         </div>
@@ -171,7 +161,7 @@ const LichHen = (props: Props) => {
         </div>
         <div className={cskh.themmoiks}>
           <Button
-            onClick={()=>setIsShowModalAdd(true)}
+            onClick={() => setIsShowModalAdd(true)}
             style={{ height: 40, width: 150 }}
             className={`${styless.dropbtn_add} flex_align_center`}
           >
@@ -195,9 +185,9 @@ const LichHen = (props: Props) => {
           handleDeleteDB={handleDeleteDB}
         />
         <ModalThemMoiLichhen
-        isShowModalAdd={isShowModalAdd}
-        onClose={onClose}
-        handleAddDB={handleAddDB}
+          isShowModalAdd={isShowModalAdd}
+          onClose={onClose}
+          handleAddDB={handleAddDB}
         />
       </div>
     </div>
