@@ -15,15 +15,12 @@ export default function ContractSelectBoxStep({
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [selectedData, setSelectedData] = useState<any>(null);
+  const [valOption, setValOption] = useState<any>();
 
   const handleClickSelectoption = (e: any) => {
     if (e.target.getAttribute("class") !== styles.select2_search__field) {
       setIsOpen(!isOpen);
     }
-  };
-
-  const handleScrollkOutside = (e: any) => {
-    setIsOpen(false);
   };
 
   const handleClickOutside = (event: any) => {
@@ -34,12 +31,27 @@ export default function ContractSelectBoxStep({
 
   useEffect(() => {
     document.addEventListener("click", handleClickOutside);
-    document.addEventListener("scroll", handleScrollkOutside);
+    // document.addEventListener("scroll", handleScrollkOutside);
 
     return () => {
-      document.removeEventListener("scroll", handleScrollkOutside);
+      // document.removeEventListener("scroll", handleScrollkOutside);
     };
   }, []);
+
+  useEffect(() => {
+    const newData = data?.filter((item) => {
+      if (placeholder === "Chọn nhân viên") {
+        return value === item?.ep_id;
+      }
+      if (placeholder === "Chọn phòng ban") {
+        return value === item?.dep_id;
+      }
+      if (placeholder === "Chọn chức vụ") {
+        return value === item?._id;
+      }
+    });
+    setValOption(newData[0]);
+  }, [value]);
 
   const handleChangeDepartment = (selectedDepartment: string) => {
     const newData = data.find(
@@ -75,7 +87,19 @@ export default function ContractSelectBoxStep({
               role="textbox"
               aria-readonly="true"
             >
-              {value}
+              {valOption ? (
+                <>
+                  {placeholder === "Chọn chức vụ"
+                    ? valOption?.name
+                    : placeholder === "Chọn nhân viên"
+                    ? valOption?.ep_name
+                    : placeholder === "Chọn phòng ban"
+                    ? valOption?.dep_name
+                    : null}
+                </>
+              ) : (
+                placeholder
+              )}
             </span>
             <span
               className={styles.select2_selection__arrow}
@@ -87,10 +111,10 @@ export default function ContractSelectBoxStep({
         </span>
         {isOpen && (
           <ContractDropDownDataStep
-            setSelectedDepartment={handleChangeDepartment}
+            setSelectedDepartment={setSelectedDepartment}
             data={data}
             value={value}
-            selectedData={selectedData}
+            // selectedData={selectedData}
             placeholder={placeholder}
             setSelectedValue={setSelectedValue}
             setDataFromSelectDataBox={setDataFromSelectDataBox}

@@ -29,8 +29,6 @@ const data = [
   },
 ];
 
-const dataDepartment = data?.map((item) => item.department);
-
 export default function ContractDetailsSend() {
   const [modal1Open, setModal1Open] = useState(false);
   const mainRef = useRef<HTMLDivElement>(null);
@@ -49,6 +47,9 @@ export default function ContractDetailsSend() {
   const [selectedEmployee, setSelectedEmployee] =
     useState<string>("Chọn nhân viên");
   const [selectedValue, setSelectedValue] = useState([]);
+  const [dataDeps, setDataDeps] = useState([]);
+  const [dataEmps, setDataEmps] = useState([]);
+  const [dataTable, setDataTable] = useState([]);
 
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
@@ -68,6 +69,97 @@ export default function ContractDetailsSend() {
     setname(data?.data?.name);
   };
 
+  const getDepartments = async () => {
+    try {
+      const response = await fetch(
+        `http://210.245.108.202:3000/api/qlc/department/list`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${Cookies.get("token_base365")}`,
+          },
+          body: JSON.stringify({ com_id: Cookies.get("com_id") }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const data = await response.json();
+      setDataDeps(data?.data?.items);
+    } catch (error) {
+      console.error("Error fetching departments:", error);
+    }
+  };
+
+  const getDataEmps = async () => {
+    try {
+      const res = await fetch(
+        `http://210.245.108.202:3000/api/qlc/managerUser/list`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${Cookies.get("token_base365")}`,
+          },
+          body: JSON.stringify({ com_id: Cookies.get("com_id") }),
+        }
+      );
+      const data = await res.json();
+      const dataFilter =
+        selectedDepartment &&
+        selectedDepartment !== "" &&
+        selectedDepartment !== "Chọn phòng ban"
+          ? data?.data?.items?.filter(
+              (item) => item?.dep_id === selectedDepartment
+            )
+          : [];
+
+      const dataFilterAccordingPos =
+        selectedPosition &&
+        selectedPosition !== "" &&
+        selectedPosition !== "Chọn chức vụ"
+          ? dataFilter?.filter((item) => item.role_id === selectedPosition)
+          : dataFilter;
+      setDataTable(data?.data?.items);
+      setDataEmps(dataFilterAccordingPos);
+    } catch (err) {}
+  };
+
+  const dataPosition = [
+    { _id: 19, name: "Chủ tịch hội đồng quản trị" },
+    { _id: 18, name: "Phó chủ tịch hội đồng quản trị" },
+    { _id: 17, name: "Thành viên hội đồng quản trị" },
+    { _id: 21, name: "Tổng giám đốc tập đoàn" },
+    { _id: 22, name: "Phó tổng giám đốc tập đoàn" },
+    { _id: 16, name: "Tổng giám đốc" },
+    { _id: 14, name: "Phó tổng giám đốc" },
+    { _id: 8, name: "Giám đốc" },
+    { _id: 7, name: "Phó giám đốc" },
+    { _id: 6, name: "Trưởng phòng" },
+    { _id: 5, name: "Phó trưởng phòng" },
+    { _id: 13, name: "Tổ trưởng" },
+    { _id: 12, name: "Phó tổ trưởng" },
+    { _id: 4, name: "Trưởng nhóm" },
+    { _id: 20, name: "Nhóm Phó" },
+    { _id: 11, name: "Trưởng ban dự án" },
+    { _id: 10, name: "Phó ban dự án" },
+    { _id: 3, name: "Nhân viên chính thức" },
+    { _id: 2, name: "Nhân viên thử việc" },
+    { _id: 9, name: "Nhân viên Part time" },
+    { _id: 1, name: "Sinh viên thực tập" },
+  ];
+
+  useEffect(() => {
+    getDepartments();
+  }, []);
+
+  useEffect(() => {
+    getDataEmps();
+  }, [selectedDepartment, selectedPosition]);
+
   useEffect(() => {
     getNameDetail();
     setHeaderTitle(`${name} / Hợp đồng bán / Gửi hợp đồng`);
@@ -83,9 +175,9 @@ export default function ContractDetailsSend() {
     }
   }, [isOpen]);
 
-  const selectedData = data.find(
-    (item) => item.department === selectedDepartment
-  );
+  // const selectedData = data.find(
+  //   (item) => item.department === selectedDepartment
+  // );
 
   const handleChangeDepartment = (value: string) => {
     setSelectedDepartment(value);
@@ -108,6 +200,7 @@ export default function ContractDetailsSend() {
     setSelectedPosition("");
     setSelectedEmployee("");
   }, [selectedDepartment]);
+
 
   return (
     <>
@@ -190,8 +283,8 @@ export default function ContractDetailsSend() {
                                 setSelectedDepartment={setSelectedDepartment}
                                 value={selectedDepartment || "Chọn phòng ban"}
                                 placeholder="Chọn phòng ban"
-                                onChange={handleChangeDepartment}
-                                data={dataDepartment}
+                                // onChange={handleChangeDepartment}
+                                data={dataDeps}
                               ></ContractSelectBoxStep>
                             </div>
                             <div
@@ -203,7 +296,13 @@ export default function ContractDetailsSend() {
                               <ContractSelectBoxStep
                                 value={selectedPosition || "Chọn chức vụ"}
                                 placeholder="Chọn chức vụ"
-                                data={selectedData?.positions}
+                                data={
+                                  selectedDepartment &&
+                                  selectedDepartment !== "" &&
+                                  selectedDepartment !== "Chọn chức vụ"
+                                    ? dataPosition
+                                    : []
+                                }
                                 setSelectedDepartment={setSelectedPosition}
                               />
                             </div>
@@ -216,7 +315,13 @@ export default function ContractDetailsSend() {
                               <ContractSelectBoxStep
                                 value={selectedEmployee || "Chọn nhân viên"}
                                 placeholder="Chọn nhân viên"
-                                data={selectedData?.employees}
+                                data={
+                                  selectedDepartment &&
+                                  selectedDepartment !== "" &&
+                                  selectedDepartment !== "Chọn chức vụ"
+                                    ? dataEmps
+                                    : []
+                                }
                                 setSelectedDepartment={setSelectedEmployee}
                                 setSelectedValue={setSelectedValue}
                                 setDataFromSelectDataBox={
@@ -228,10 +333,11 @@ export default function ContractDetailsSend() {
                           <TableDataContractSend
                             selectedDepartment={selectedDepartment}
                             selectedEmployee={selectedEmployee}
-                            selectedPosition={selectedPosition}
-                            data={data}
+                            data={dataTable}
+                            setSelectValue = {setSelectedValue}
                             dataFromSelectDataBox={dataFromSelectDataBox}
                             selectedValue={selectedValue}
+                            dataPosition={dataPosition}
                           />
                         </div>
                       )}
