@@ -49,7 +49,7 @@ export default function Header({ toggleModal }: any) {
               <img
                 onClick={toggleModal}
                 className="icon_menu_nav"
-                src="/crm/angle_left.svg"
+                src="/crm/sel.png"
                 alt="icon-menu-nav"
               />
             </div>

@@ -116,7 +116,7 @@ display: none;} */
 
 .show_number_item {
   display: flex;
-  /* width: 50%; */
+  align-items: center;
 }
 
 .show_number_item b {

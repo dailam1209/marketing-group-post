@@ -106,7 +106,7 @@
     width: 50%;
   }
   .main__control_search_delete {
-    width: 55%;
+    width: 25%;
     height: 36px;
     display: flex;
     border: 1px solid #666;
@@ -217,11 +217,6 @@
   overflow-x: scroll;
 }
 
-.table {
-  border: 0px solid #cccccc;
-  border-radius: 10px;
-  box-shadow: 0 0 0 1px #ccc;
-}
 .total {
   font-weight: 400;
   font-family: "Roboto-Medium";
