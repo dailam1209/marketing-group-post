@@ -17,10 +17,10 @@ interface DataType {
 }
 
 interface TableContractProps {
-  valSearch: string
+  valSearch: string;
 }
 
-const TableContract: React.FC<TableContractProps> = ({valSearch}) => {
+const TableContract: React.FC<TableContractProps> = ({ valSearch }) => {
   const [openSharedModal, setOpenSharedModal] = useState(false);
   const [isOpenCancel, setIsOpenCancel] = useState(false);
   const handleClickSelectoption = () => {};
@@ -102,7 +102,7 @@ const TableContract: React.FC<TableContractProps> = ({valSearch}) => {
       // fixed:"right",
       render: () => (
         <>
-          <Link href={"/crm/contract/edit_contract"}>
+          <Link href={`/crm/contract/edit/${id}`}>
             <button>
               <img className={styles.icon_edit} src="/crm/h_edit_cus.svg" />
               Sửa
@@ -118,7 +118,9 @@ const TableContract: React.FC<TableContractProps> = ({valSearch}) => {
       ),
     },
   ];
-  const newData = data?.data?.list?.filter((item)=>item?.name.toLowerCase().includes(valSearch.toLowerCase()))
+  const newData = data?.data?.list?.filter((item) =>
+    item?.name.toLowerCase().includes(valSearch.toLowerCase())
+  );
   const datatable = newData?.map((item: any, index: number) => {
     return {
       key: index + 1,
@@ -142,8 +144,7 @@ const TableContract: React.FC<TableContractProps> = ({valSearch}) => {
       id_form_contract: item?.id,
     };
   });
-  console.log(datatable)
-
+  console.log(datatable);
 
   const [current, setcurrent] = useState(1);
   const [pageSize, setpageSize] = useState(10);

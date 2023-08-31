@@ -2,14 +2,14 @@ import styles from "./potential.module.css";
 import type { MenuProps } from "antd";
 import { Button, Dropdown, Space } from "antd";
 import Link from "next/link";
-import { dataActionPotential } from "../ultis/consntant";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CanmpaignModal from "./potential_action_modal/potential_mdal_campain";
 import EmailModal from "./potential_action_modal/potential_mdal_email";
 import DelActionModal from "./potential_action_modal/deltete_action_mdal";
 import ConvertModal from "./potential_action_modal/convert_modal";
 import ShareActionModal from "./potential_action_modal/potential_share_action_mdal";
 import HandeOverModal from "./potential_action_modal/hand_over_mdal";
+import { useRouter } from "next/router";
 
 export default function PotentialAction({ isSelectedRow }: any) {
   const [isOpenCampaign, setIsOpenCampaign] = useState(false);
@@ -18,6 +18,86 @@ export default function PotentialAction({ isSelectedRow }: any) {
   const [isOpenCovert, setIsOpenConvert] = useState(false);
   const [isOpenShare, setIsOpenShare] = useState(false);
   const [isHandOverOpen, setIsHandOverOpen] = useState(false);
+  const router = useRouter();
+  const id = router.query;
+  const [dataActionPotential, setDataActionPotential] = useState([
+    {
+      link: "",
+      name: "Gọi điện",
+      img: "bi bi-telephone",
+      type: "call",
+    },
+    {
+      link: "#",
+      name: "Chọn vào chiến dịch",
+      img: "bi bi-check-square",
+      type: "campaign",
+    },
+    {
+      link: "#",
+      name: "Email marketing",
+      img: `bi bi-envelope`,
+      type: "email",
+    },
+    {
+      link: "/crm/marketing/sms/add",
+      name: "Gửi sms",
+      img: `bi bi-chat-left-dots`,
+      type: "sms",
+    },
+    {
+      link: "#",
+      name: "Chia sẻ",
+      img: `bi bi-reply-fill`,
+      type: "share",
+    },
+    {
+      link: "#",
+      name: "Bàn giao công việc",
+      img: `bi bi-bag`,
+      type: "hand_over",
+    },
+    {
+      link: "/crm/potential/add_file",
+      name: "Nhân bản",
+      img: `bi bi-back`,
+      type: "blank",
+    },
+    {
+      link: "/crm/potential/check_merge",
+      name: "Kiểm tra trùng",
+      img: `bi bi-search`,
+      type: "",
+    },
+    {
+      link: "/crm/potential/merge",
+      name: "Gộp trùng",
+      img: `bi bi-share`,
+      type: "",
+    },
+    {
+      link: "#",
+      name: "Chuyển đổi",
+      img: "bi bi-check-square",
+      type: "convert",
+    },
+    {
+      link: `/crm/potential/update/${id}`,
+      name: "Chỉnh sửa",
+      img: "bi bi-pencil-square",
+      type: "edit",
+    },
+    {
+      link: "#",
+      name: "Xoá",
+      img: "bi bi-trash3",
+      type: "delete",
+    },
+  ]);
+
+  useEffect(() => {
+    setDataActionPotential(dataActionPotential);
+  });
 
   const handleClickAction = (e: any, type: string | undefined) => {
     if (type === "campaign") {
@@ -81,7 +161,7 @@ export default function PotentialAction({ isSelectedRow }: any) {
           Thao tác
         </button>
       </Dropdown>
-    
+
       <CanmpaignModal
         isModalCancel={isOpenCampaign}
         setIsModalCancel={setIsOpenCampaign}

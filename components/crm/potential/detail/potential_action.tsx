@@ -4,7 +4,6 @@ import { Dropdown } from "antd";
 import Link from "next/link";
 import { dataActionPotential } from "../../ultis/consntant";
 import { useState } from "react";
-import CanmpaignModal from "../potential_action_modal/potential_mdal_campain";
 import EmailModal from "../potential_action_modal/potential_mdal_email";
 import DelActionModal from "../potential_action_modal/deltete_action_mdal";
 import ConvertModal from "../potential_action_modal/convert_modal";
@@ -42,7 +41,7 @@ export default function PotentialActionDetail({ isSelectedRow }: any) {
     }
   };
   const items: MenuProps["items"] = [];
-  for (let i = 0; i < dataActionPotential.length; i++) {
+  for (let i = 0; i < dataActionPotential?.length; i++) {
     items.push({
       key: i,
       label: (
