@@ -17,14 +17,11 @@ export default function ContractDetailsCreate() {
   const { isOpen } = useContext<any>(SidebarContext);
   const { id } = router.query;
   const [valueContract, setValueContract] = useState("");
+  const [FormData, setFormData] = useState<any>();
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
   const [name, setname] = useState<any>();
   const [nameContract, setnameContract] = useState<any>();
-
-  const onChangeSelect = (value: string) => {
-    setValueContract(value);
-  };
 
   const getNameDetail = async () => {
     const res = await fetch(`${base_url}/api/crm/customerdetails/detail`, {
@@ -48,8 +45,8 @@ export default function ContractDetailsCreate() {
       },
     });
     const data = await res.json();
-    const nameContract = data?.data?.list?.name;
-    console.log(data);
+    const nameContract = data?.data?.list;
+    console.log(nameContract);
     setnameContract(nameContract);
   };
 
@@ -59,7 +56,14 @@ export default function ContractDetailsCreate() {
     setHeaderTitle(`${name} / Hợp đồng bán / Thêm hợp đồng bán`);
     setShowBackButton(true);
     setCurrentPath(`/crm/customer/contract/list/${id}`);
-  }, [setHeaderTitle, setShowBackButton, setCurrentPath, id, name, nameContract]);
+  }, [setHeaderTitle, setShowBackButton, setCurrentPath, id, name]);
+
+  const options = nameContract?.map((item) => {
+    return {
+      label: item?.name,
+      value: item?.id,
+    };
+  });
 
   useEffect(() => {
     if (isOpen) {
@@ -68,6 +72,33 @@ export default function ContractDetailsCreate() {
       mainRef.current?.classList.remove("content_resize");
     }
   }, [isOpen]);
+
+  const onChangeSelect = async (value: string) => {
+    setValueContract(value);
+    console.log(value);
+    
+    try {
+      const res = await fetch(`${base_url}/api/crm/contractAI/view`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get("token_base365")}`,
+        },
+        body: JSON.stringify({ contract_id: value }),
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        console.log(data);
+        setFormData(data?.data);
+      } else {
+        console.error("Error fetching data:", res.status);
+      }
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
+  };
+
   return (
     <>
       <Head>
@@ -136,30 +167,10 @@ export default function ContractDetailsCreate() {
                             maxWidth: "519px",
                             width: "100%",
                           }}
-                        
-                            mode="multiple"
-                            defaultValue="Chọn loại hợp đồng"
-                            value={nameContract}
-
-                            // options={options}
-                       
+                          defaultValue="Chọn loại hợp đồng"
+                          options={options}
                           placeholder="Chọn loại hợp đồng"
-                          // optionFilterProp="children"
                           onChange={onChangeSelect}
-                          // options={[
-                          //   {
-                          //     value: "0",
-                          //     label: "Chọn loại hợp đồng",
-                          //   },
-                          //   {
-                          //     value: "lucy",
-                          //     label: "Cáchtạođềxuấtxinnghỉ.docx",
-                          //   },
-                          //   {
-                          //     value: "tom",
-                          //     label: "Cáchtạođềxuấtxinnghỉ22.docx",
-                          //   },
-                          // ]}
                         />
                       </div>
                     </div>
@@ -168,45 +179,41 @@ export default function ContractDetailsCreate() {
                     </div>
                   </div>
 
-                  {valueContract !== "" && valueContract !== "0" && (
-                    <div>
-                      <div className={styles["input-group"]}>
-                        <div className={styles["form-group"]}>
-                          <label className={styles.required}>
-                            tên<span className={styles.dot}>*</span>
-                          </label>
-                          <p className={styles.old_field}>
-                            (Thay thế cho từ: đạt)
-                          </p>
-                          <input
-                            type="text"
-                            defaultValue=""
-                            className={styles["form-control"]}
-                            data-old-field="đạt"
-                            data-index="1"
-                          />
-                        </div>
-                        <div className={styles["form-group"]}>
-                          <label className={styles.required}>
-                            tên<span className={styles.dot}>*</span>
-                          </label>
-                          <p className={styles.old_field}>
-                            (Thay thế cho từ: đạt)
-                          </p>
-                          <input
-                            type="text"
-                            defaultValue=""
-                            className={styles["form-control"]}
-                            data-old-field="đạt"
-                            data-index="1"
-                          />
+                  {valueContract !== "" &&
+                    valueContract !== "0" &&
+                    FormData?.get_detail_form_contract && (
+                      <div>
+                        <div className={styles["input-group"]}>
+                          {FormData?.get_detail_form_contract &&
+                            FormData?.get_detail_form_contract?.map(
+                              (item: any, index: number) => (
+                                <div className={styles["form-group"]}>
+                                  <label className={styles.required}>
+                                    @{item?.new_field}
+                                    <span className={styles.dot}>*</span>
+                                  </label>
+                                  <p className={styles.old_field}>
+                                    (Thay thế cho từ: {item?.old_field})
+                                  </p>
+                                  <input
+                                    type="text"
+                                    defaultValue=""
+                                    className={styles["form-control"]}
+                                    data-old-field={item?.old_field}
+                                    data-index={index}
+                                  />
+                                </div>
+                              )
+                            )}
                         </div>
                       </div>
-                    </div>
-                  )}
+                    )}
                 </div>
                 {valueContract !== "" && valueContract !== "0" && (
-                  <ContractBtsGroupFooter id={id ? id : "default"} />
+                  <ContractBtsGroupFooter
+                    id={valueContract ? valueContract : "default"}
+                    FormData={FormData}
+                  />
                 )}
               </div>
             </div>

@@ -94,26 +94,56 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
     }
   };
 
-  const handleEditField = (item, index) => {
+  const handleEditField = async (event, item, index) => {
     setIsEdit(true);
-    settext_change(item?.originalValue);
     setInputSearch(item?.originalValue);
+    settext_change(item?.originalValue);
     scrollToTarget();
-    const newStates = [...checkedStates];
-    for (const val in checkedStates) {
-      newStates[val] = false;
-    }
-    for (const pos of item?.index) {
-      if (pos >= 0 && pos < checkedStates.length) {
-        newStates[pos] = true;
-      }
-    }
     setPosEdit(index);
-    setCheckedStates(newStates);
+
+    // Search Again
+    const formData = new FormData();
+    formData.append("text_change", item?.originalValue);
+    formData.append("input_file", path_dowload);
+
+    setCheckedStates(Array(0).fill(false));
+    const token = Cookies.get("token_base365");
+    try {
+      setLoading(true);
+      const response = await axios.post(
+        "https://api.timviec365.vn/api/crm/contractAI/search",
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const dat = await response.data;
+      setLoading(false);
+      // setImgaUrls(dat?.data?.result?.input_file)
+      const countWord = dat?.data?.result?.number_text;
+      const newStates = Array(countWord).fill(false);
+      for (const pos of item?.index) {
+        if (pos >= 0 && pos < checkedStates.length) {
+          newStates[pos] = true;
+        }
+      }
+      setCheckedStates(newStates);
+
+      if (countWord > 0) {
+        setImgaUrls(dat?.data?.result?.image);
+      }
+    } catch (error) {
+      console.error("Error------:", error.message);
+    }
+    // ------
+
+    // setCheckedStates(newStates);
   };
 
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6MzgwOTg5LCJpZFRpbVZpZWMzNjUiOjIwMjU4NSwiaWRRTEMiOjE3NjMsImlkUmFvTmhhbmgzNjUiOjAsImVtYWlsIjoiZHVvbmdoaWVwaXQxQGdtYWlsLmNvbSIsInBob25lVEsiOiIiLCJjcmVhdGVkQXQiOjE2MDA2NTg0NzgsInR5cGUiOjEsImNvbV9pZCI6MTc2MywidXNlck5hbWUiOiJDw7RuZyBUeSBUTkhIIEggTSBMIFBwbyJ9LCJpYXQiOjE2OTMyODAxODgsImV4cCI6MTY5MzM2NjU4OH0.pUXd_5_OgujQiEWZIfOuH9kTDlneEyBLXy38j_DnG1E";
+  const token = Cookies.get("token_base365");
 
   const handleUpload = async (event) => {
     const file = event.target.files[0];
@@ -126,8 +156,7 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
 
       try {
         setLoading(true);
-        const token =
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6MzgwOTg5LCJpZFRpbVZpZWMzNjUiOjIwMjU4NSwiaWRRTEMiOjE3NjMsImlkUmFvTmhhbmgzNjUiOjAsImVtYWlsIjoiZHVvbmdoaWVwaXQxQGdtYWlsLmNvbSIsInBob25lVEsiOiIiLCJjcmVhdGVkQXQiOjE2MDA2NTg0NzgsInR5cGUiOjEsImNvbV9pZCI6MTc2MywidXNlck5hbWUiOiJDw7RuZyBUeSBUTkhIIEggTSBMIFBwbyJ9LCJpYXQiOjE2OTMyODAxODgsImV4cCI6MTY5MzM2NjU4OH0.pUXd_5_OgujQiEWZIfOuH9kTDlneEyBLXy38j_DnG1E";
+        const token = Cookies.get("token_base365");
         const res = await fetch(
           "https://api.timviec365.vn/api/crm/contractAI/read_file",
           {
@@ -168,8 +197,7 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
       formData.append("input_file", path_dowload);
 
       setCheckedStates(Array(0).fill(false));
-      const token =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6MzgwOTg5LCJpZFRpbVZpZWMzNjUiOjIwMjU4NSwiaWRRTEMiOjE3NjMsImlkUmFvTmhhbmgzNjUiOjAsImVtYWlsIjoiZHVvbmdoaWVwaXQxQGdtYWlsLmNvbSIsInBob25lVEsiOiIiLCJjcmVhdGVkQXQiOjE2MDA2NTg0NzgsInR5cGUiOjEsImNvbV9pZCI6MTc2MywidXNlck5hbWUiOiJDw7RuZyBUeSBUTkhIIEggTSBMIFBwbyJ9LCJpYXQiOjE2OTMyODAxODgsImV4cCI6MTY5MzM2NjU4OH0.pUXd_5_OgujQiEWZIfOuH9kTDlneEyBLXy38j_DnG1E";
+      const token = Cookies.get("token_base365");
       try {
         setLoading(true);
         const response = await axios.post(
@@ -361,7 +389,7 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
       index_field: item?.index?.join(",") || "",
     }));
 
-    const bodyData = {/crm/danh-sach-khach-hang/group_parent/392
+    const bodyData = {
       filename: fileUpload,
       path_file: path_dowload,
       id_file: idFile,
@@ -637,8 +665,8 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
                   <div className={styles.function}>
                     <button
                       className={styles.h_edit_cus}
-                      onClick={() => {
-                        handleEditField(item, index);
+                      onClick={(e) => {
+                        handleEditField(e, item, index);
                       }}
                       disabled={scrolling}
                     >

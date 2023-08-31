@@ -1064,6 +1064,10 @@ span.select2.potential_select2_container_step__HpQYa {
   padding-bottom: 22px;
 }
 
+.frm_2{
+  text-align: -webkit-center;
+}
+
 @media (max-width: 768px) {
   .select2_dropdown {
     /* left: -10%; */

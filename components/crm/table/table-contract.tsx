@@ -43,7 +43,7 @@ const TableContract: React.FC<TableContractProps> = ({}: any) => {
 
   const { data, loading, error, fetchData, updateData, deleteData } = useApi(
     `https://api.timviec365.vn/api/crm/contract/list`,
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6MzgwOTg5LCJpZFRpbVZpZWMzNjUiOjIwMjU4NSwiaWRRTEMiOjE3NjMsImlkUmFvTmhhbmgzNjUiOjAsImVtYWlsIjoiZHVvbmdoaWVwaXQxQGdtYWlsLmNvbSIsInBob25lVEsiOiIiLCJjcmVhdGVkQXQiOjE2MDA2NTg0NzgsInR5cGUiOjEsImNvbV9pZCI6MTc2MywidXNlck5hbWUiOiJDw7RuZyBUeSBUTkhIIEggTSBMIFBwbyJ9LCJpYXQiOjE2OTMyODAxODgsImV4cCI6MTY5MzM2NjU4OH0.pUXd_5_OgujQiEWZIfOuH9kTDlneEyBLXy38j_DnG1E",
+    Cookies.get("token_base365"),
     "POST",
     // { id_customer: `${id_customer}`, pageSize: 10000 }
     {}

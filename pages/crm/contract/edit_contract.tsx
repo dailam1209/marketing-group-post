@@ -89,7 +89,7 @@ const AddContractCoponent: React.FC = () => {
       <div ref={mainRef} className={styleHome.main}>
         <div className={styles.main_addContract}>
           <div className={styles.formAddContract}>
-            <EditContract setCheckFile={setCheckFile} ContractData={ContractData}  />
+            <EditContract setCheckFile={setCheckFile} contractData={ContractData}  />
           </div>
         </div>
       </div>
