@@ -43,7 +43,7 @@ const Bot_textEditor = ({ dataAdd, setDataAdd }: any) => {
         }
       );
       const data = await res.json();
-      setlistNV(data?.data);
+      setlistNV(data?.data?.items);
     } catch (error) {
       console.log("error:", error);
     }
@@ -174,7 +174,7 @@ const Bot_textEditor = ({ dataAdd, setDataAdd }: any) => {
               setDataAdd({ ...dataAdd, user_create_id: value })
             }
           >
-            {listNV?.map((item, index) => {
+            {listNV && listNV?.map((item, index) => {
               return (
                 <option key={index} value={item?.idQLC}>
                   ({item?.idQLC}) {item?.userName}
