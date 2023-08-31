@@ -6,6 +6,7 @@ export default function PotentialSelectBoxStep({
   value = "Tất cả",
   placeholder = "",
   data = [],
+  selectData,
 }: any) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -75,7 +76,7 @@ export default function PotentialSelectBoxStep({
               aria-readonly="true"
               // title="Chọn người dùng"
             >
-              {placeholder}
+              {value || placeholder}
             </span>
             <span
               className={styles.select2_selection__arrow}
@@ -85,7 +86,7 @@ export default function PotentialSelectBoxStep({
             </span>
           </span>
         </span>
-        {isOpen && <PotentialDropDownDataStep data={data} value={value} />}
+        {isOpen && <PotentialDropDownDataStep data={data} value={value}  selectData={selectData} placeholder={placeholder}/>}
       </span>
     </div>
   );

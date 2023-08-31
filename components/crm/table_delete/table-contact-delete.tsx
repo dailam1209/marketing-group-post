@@ -137,12 +137,9 @@ const Table_Contact = (props: any) => {
           current={current}
           total={total}
           pageSize={pageSize}
-          // showTotal={(total, range) => {
-          //     return <div style={{ display: 'flex', justifyContent: "center", width: "100%" }}>Tổng số {total} {`${name}`}</div>
-          // }}
         />
 
-        <div style={{ paddingTop: 40, display: "flex", width: "100%" }}>
+        <div style={{ display: "flex", width: "70%" }}>
           <div className="show_number_item">
             <div>
               <b> Hiển thị:</b>
@@ -158,7 +155,12 @@ const Table_Contact = (props: any) => {
             </div>
           </div>
           <div
-            style={{ display: "flex", width: "60%", justifyContent: "center " }}
+            style={{
+              display: "flex",
+              width: "100%",
+              justifyContent: "center ",
+              alignItems: "center",
+            }}
           >
             <div>Tổng số:</div>
             <div>
