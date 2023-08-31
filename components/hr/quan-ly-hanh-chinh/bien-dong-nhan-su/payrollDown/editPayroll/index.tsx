@@ -410,7 +410,7 @@ export default function EditPayroll({ onCancel, infoList }: any) {
                       <span> {errors.created_at && <div className={`${styles.t_require}`}>{errors.created_at}</div>}</span>
                     </span></label>
                     <div className={`${styles.input_right}`}>
-                      <input type="date" id="created_at" defaultValue={format(parseISO(infoList?.time), 'yyyy-MM-dd')} className={`${styles.input_process}`} />
+                      <input type="date" id="created_at" defaultValue={infoList?.time} className={`${styles.input_process}`} />
                     </div>
                   </div>
                   <div className={`${styles.form_groups}`}>
