@@ -330,11 +330,11 @@ export default function TabEmployeeManagement({ iconAdd, iconEdit }: any) {
                             <p>SDT: {item?.ep_phone}</p>
                             <p>Email: {item.ep_email}</p>
                           </td>
-                          {item?.start_working_time &&
-                            <td>{format(
-                              parseISO(new Date(item?.start_working_time * 1000).toISOString()),
-                              "dd-MM-yyyy"
-                            )}</td>
+                          {item?.start_working_time !== 0 ? (<td>{format(
+                            parseISO(new Date(item?.start_working_time * 1000).toISOString()),
+                            "dd-MM-yyyy"
+                          )}</td>) : (<td>Chưa cập nhật</td>)
+
                           }
                           <td
                             className={`${styles.r_t_top_right}`} style={{ position: 'relative' }}>
