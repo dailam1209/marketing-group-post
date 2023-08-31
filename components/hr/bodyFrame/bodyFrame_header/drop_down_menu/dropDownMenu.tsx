@@ -13,7 +13,7 @@ export default function DropDownMenu({ dataHeader, tokenType }: any) {
     {
       img: '/huongdan.svg',
       text: 'Hướng dẫn',
-      href: 'https://phanmemnhansu.timviec365.vn/huong-dan.html',
+      href: '/huong-dan',
       icon: '	/iconmenu.svg',
     },
     {
