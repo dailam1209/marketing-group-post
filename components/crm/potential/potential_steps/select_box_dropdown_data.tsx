@@ -11,6 +11,8 @@ import styles from "../potential.module.css";
 export default function PotentialDropDownDataStep({
   data = [],
   value = " Chọn người dùng",
+  selectData,
+  placeholder
 }: any) {
   return (
     <span
@@ -45,9 +47,10 @@ export default function PotentialDropDownDataStep({
             aria-hidden="false"
           >
             <li
+            onClick = {()=>selectData(placeholder)}
               className={`${styles.select2_results__option} ${styles.select2_results__option_highlighted}`}
             >
-              {value}
+              {placeholder}
             </li>
             {data?.map(
               (
@@ -71,6 +74,7 @@ export default function PotentialDropDownDataStep({
                     padding: "5px 0",
                     paddingLeft: "18px",
                   }}
+                  onClick={()=>selectData(item)}
                 >
                   {item}
                 </li>
