@@ -81,7 +81,7 @@ const MemberViewBoxRoom = ({
         <p>Trưởng phòng: {manager}</p>
         <p>Phó phòng: {deputy}</p>
         <a
-          href=''
+          href={employeeLink}
           onClick={(event) => handleClickDetail(employeeLink, event)}
           target='_blank'
           rel='noreferrer'
@@ -89,7 +89,7 @@ const MemberViewBoxRoom = ({
           Số nhân viên: {employeeNumber}
         </a>
         <a
-          href=''
+          href={checkInLink}
           onClick={(event) => handleClickDetail(checkInLink, event)}
           target='_blank'
           rel='noreferrer'
@@ -97,7 +97,7 @@ const MemberViewBoxRoom = ({
           Số nhân viên đã điểm danh: {registered}
         </a>
         <a
-          href=''
+          href={absenceLink}
           onClick={(event) => handleClickDetail(absenceLink, event)}
           target='_blank'
           rel='noreferrer'

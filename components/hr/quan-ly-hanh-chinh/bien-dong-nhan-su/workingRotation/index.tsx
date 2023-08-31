@@ -293,7 +293,7 @@ export default function TabWorkingRotation({ iconAdd, iconEdit, iconDelete }: an
                         <td>{item.userName}</td>
                         <td>{format(parseISO(item.created_at), 'dd-MM-yyyy')}</td>
                         {/* <td>{item.note}</td> */}
-                        <td>{removePTags(item.note)}</td>
+                        <td>{removePTags(item.mission)}</td>
                         <td>{item.old_dep_name}</td>
                         <td>{item.new_dep_name}</td>
                         <td>{item.new_com_name}</td>
