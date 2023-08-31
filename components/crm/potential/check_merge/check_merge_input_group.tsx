@@ -1,6 +1,6 @@
-import PotentialSelectBoxStep from "../potential_steps/select_box_step";
+import PotentialSelectBoxStep1 from "../potential_steps/select_box_step_1";
 import styles from "./check_merge.module.css";
-import styleParent from "../potential2.module.css";
+import styleParent from "../potential_steps/potential_main.module.css";
 
 export default function CheckMergeInputGroup({
   type = "",
@@ -20,8 +20,7 @@ export default function CheckMergeInputGroup({
         </div>
         <div className={styles.row_item_center}>
           <div className={styleParent.wrap_select}>
-            {" "}
-            <PotentialSelectBoxStep
+            <PotentialSelectBoxStep1
               value="Chọn điều kiện"
               placeholder="Chọn điều kiện"
               data={dataSelect}

@@ -531,6 +531,24 @@ export const dataActionPotential = [
     img: `bi bi-share`,
     type: '',
   },
+  {
+    link: '/crm/potential/update/',
+    name: 'Chuyển đổi',
+    img: 'bi bi-check-square',
+    type: 'campaign',
+  },
+  {
+    link: '/crm/potential/edit',
+    name: 'Chỉnh sửa',
+    img: 'bi bi-pencil-square',
+    type: 'edit',
+  },
+  {
+    link: '#',
+    name: 'Xoá',
+    img: 'bi bi-trash3',
+    type: 'delete',
+  },
 ]
 export const dataActionQuote = [
   {
