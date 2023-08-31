@@ -16,24 +16,24 @@ interface DataType {
 interface TableDataContracDrops {
   selectedDepartment: string;
   selectedEmployee: string;
-  selectedPosition: string;
   data: any[];
   dataFromSelectDataBox: any;
   selectedValue: any;
+  dataPosition: any[];
+  setSelectValue: any;
 }
 
 const TableDataContractSend: React.FC<TableDataContracDrops> = ({
   selectedDepartment,
   selectedEmployee,
   selectedValue,
-  selectedPosition,
   data,
-  dataFromSelectDataBox,
+  dataPosition,
+  setSelectValue,
 }: any) => {
   const [isSelectionReady, setIsSelectionReady] = useState(false);
   const [sendData, setSendData] = useState<any[]>([]);
   const [dataTable, setDataTable] = useState([]);
-  console.log(sendData);
 
   useEffect(() => {
     if (selectedDepartment && selectedEmployee) {
@@ -65,8 +65,8 @@ const TableDataContractSend: React.FC<TableDataContracDrops> = ({
   }, [selectedValue]);
 
   const handleDelete = (record: DataType) => {
-    const updatedData = dataTble.filter((item) => item.key !== record.key);
-    setSendData(updatedData);
+    const updatedData = selectedValue?.filter((item) => item !== record.ep_id);
+    setSelectValue(updatedData);
   };
 
   const columns: ColumnsType<DataType> = [
@@ -114,19 +114,25 @@ const TableDataContractSend: React.FC<TableDataContracDrops> = ({
     },
   ];
 
-  const dataTble = sendData.map((el, index) => {
+  // const newDataTble = data?.filter
+  const result = data.filter((item) => selectedValue?.includes(item.ep_id));
+
+  const dataTble = result.map((el, index) => {
     return {
-      department: el?.department,
-      employees: el?.employees,
-      positions: el?.positions,
+      department: el?.nameDeparment,
+      employees: el?.ep_name,
+      positions:
+        dataPosition?.filter((item) => item?._id === el?.role_id)[0]?.name ||
+        "Chưa cập nhật",
       key: index + 1,
-      ep_id: 123456,
+      ep_id: el?.ep_id,
     };
   });
 
+
   return (
     <div className="custom_table">
-      {sendData && sendData?.length > 0 && (
+      {result && result?.length > 0 && (
         <Table
           columns={columns}
           dataSource={dataTble ? dataTble : null}
