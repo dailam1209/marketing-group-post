@@ -176,6 +176,10 @@
   border: #333333;
   margin-right: 40px;
 }
+.lydonghi {
+  max-width: 250px;
+  word-wrap: break-word;
+}
 
 /* scrollbar-color: red blue; */
 @media screen and (max-width: 1200px) {
