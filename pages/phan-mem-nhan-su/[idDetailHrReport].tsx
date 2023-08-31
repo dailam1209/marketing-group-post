@@ -630,7 +630,7 @@ export default function DetailHrReport({ children }: any) {
                     <th>STT</th>
                     <th>Id</th>
                     <th>Họ và tên</th>
-                    {(link.includes("-t2-") || link.includes("-t1-")) && <th>Lý do nghỉ</th>}
+                    {link.includes("-t2-") && <th>Lý do nghỉ</th>}
                     <th>
                       <Selects
                         selectedOption={selectedOption}
