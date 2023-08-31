@@ -178,9 +178,14 @@
 }
 .lydonghi {
   max-width: 250px;
-  word-wrap: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 5; /* number of lines to show */
+  -webkit-box-orient: vertical;
 }
-
+.lydonghi a {
+  display: block;
+}
 /* scrollbar-color: red blue; */
 @media screen and (max-width: 1200px) {
   .row_search_new_t {

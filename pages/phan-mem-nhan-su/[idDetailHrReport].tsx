@@ -63,6 +63,7 @@ const Selects = ({
         ...baseStyles,
         color: 'black',
         zIndex: 10000,
+        position: 'absolute',
       }),
     }}
   />
@@ -697,7 +698,7 @@ export default function DetailHrReport({ children }: any) {
                   {isReportList?.data &&
                     isReportList?.data?.map((item: any, index: any) => (
                       <tr key={index}>
-                        <td>{index + 1}</td>
+                        <td>{currentPage === 1 ? (index + 1) : (currentPage * 10 - 9) + index}</td>
                         <td>{item?.idQLC} </td>
                         <td>{item?.userName}</td>
                         <td>{item?.dep}</td>
@@ -772,12 +773,12 @@ export default function DetailHrReport({ children }: any) {
                           : item.vitri
                         return (
                           <tr key={index}>
-                            <td>{index + 1}</td>
+                            <td>{currentPage === 1 ? (index + 1) : (currentPage * 10 - 9) + index}</td>
                             <td>{item?.idQLC} </td>
                             <td>{item?.userName}</td>
-                            {(link.includes("-t2-") || link.includes("-t1-")) &&
+                            {link.includes("-t2-") &&
                               <td className={`${styles.lydonghi}`}>{item?.ly_do_nghi}
-                                {item?.link && <a target='blank' href={item?.link}>(Xem chi tiết)</a>}
+                                {item?.link && <a style={{ cursor: "pointer" }} target='blank' href={item?.link}>(Xem chi tiết)</a>}
                               </td>}
                             <td>{item?.Department}</td>
                             <td>{positionNameToShow}</td>
