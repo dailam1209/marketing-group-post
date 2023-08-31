@@ -8,13 +8,24 @@ export default function ContractDropDownDataStep({
   setSelectedValue,
   setDataFromSelectDataBox,
 }: any) {
-  const handleOptionSelect = (selectedItem: string, dataTable: any) => {
-    setSelectedDepartment(selectedItem);
+  const handleOptionSelect = (selectedItem: any, dataTable: any) => {
     if (placeholder === "Chọn nhân viên") {
-      setSelectedValue(selectedItem);
-      console.log("nnnn");
+      setSelectedValue((prev)=>{
+        if(prev){
+          return [...prev, selectedItem?.ep_id]
+        }
+        return [selectedItem?.ep_id]
+      });
+      setSelectedDepartment(selectedItem?.ep_id);
+    }
+    if (placeholder === "Chọn phòng ban") {
+      setSelectedDepartment(selectedItem?.dep_id);
+    }
+    if (placeholder === "Chọn chức vụ") {
+      setSelectedDepartment(selectedItem?._id);
     }
   };
+
 
   return (
     <span
@@ -43,6 +54,7 @@ export default function ContractDropDownDataStep({
         </span>
         <span className={styles.select2_results}>
           <ul
+            style={{ height: data?.length>0 ? "100px" : "auto", overflow: "scroll" }}
             className={styles.select2_results__options}
             role="tree"
             aria-expanded="true"
@@ -65,7 +77,13 @@ export default function ContractDropDownDataStep({
                 }}
                 onClick={() => handleOptionSelect(item, data)}
               >
-                {item}
+                {placeholder === "Chọn chức vụ"
+                  ? item?.name
+                  : placeholder === "Chọn nhân viên"
+                  ? item?.ep_name
+                  : placeholder === "Chọn phòng ban"
+                  ? item?.dep_name
+                  : null}
               </li>
             ))}
           </ul>

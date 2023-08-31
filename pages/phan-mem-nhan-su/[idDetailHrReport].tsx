@@ -41,6 +41,7 @@ const Selects = ({
         width: '100%',
         fontWeight: state.isFocused ? 600 : 600,
         minHeight: 20,
+
       }),
       valueContainer: (baseStyles) => ({
         ...baseStyles,
@@ -50,6 +51,7 @@ const Selects = ({
         ...baseStyles,
         height: 33.6,
         color: 'white',
+
       }),
       placeholder: (baseStyles) => ({
         ...baseStyles,
@@ -63,6 +65,7 @@ const Selects = ({
         ...baseStyles,
         color: 'black',
         zIndex: 10000,
+        position: 'absolute',
       }),
     }}
   />
@@ -79,6 +82,9 @@ export default function DetailHrReport({ children }: any) {
   const [isType, setType] = useState<any>('')
   const [departmentList, setDepartmentList] = useState<any>(null)
   const [isDep_id, setDep_id] = useState<any>('')
+  const [isDep_name, setDep_name] = useState<any>('')
+  const [isTeam_name, setTeam_name] = useState<any>('')
+  const [isGroup_name, setGroup_name] = useState<any>('')
   const [isPosition_id, setPosition_id] = useState<any>('')
   const [isGroup_id, setGroup_id] = useState<any>('')
   const [isTeam_id, setTeam_id] = useState<any>('')
@@ -87,6 +93,8 @@ export default function DetailHrReport({ children }: any) {
   const [isTitle, setTitle] = useState<any>('')
   const [OrganisationalDatas, setOrganisationalData] = useState<any>()
   const [isTypeResonse, setTypeResonse] = useState<any>(null)
+  const [isTeaminfo, setTeaminfo] = useState<any>(null)
+  const [isGroupinfo, setGroupinfo] = useState<any>(null)
 
   const router = useRouter()
   const link: any = router.asPath.split('/').pop()
@@ -316,12 +324,16 @@ export default function DetailHrReport({ children }: any) {
         formData.append('com_id', comid)
         const response = await DepartmentList(formData)
         setDepartmentList(response?.data)
+        if (response) {
+          response?.data
+        }
       } catch (error) {
         throw error
       }
     }
     fetchData()
   }, [])
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -365,19 +377,11 @@ export default function DetailHrReport({ children }: any) {
           link?.includes('danh-sach-nhan-vien-cham-cong-phong-ban') ||
           link?.includes('danh-sach-nhan-vien-chua-cham-cong-phong-ban')
         ) {
-          if (link?.includes('danh-sach-nhan-vien-theo-phong-ban')) {
-            setTitle('Danh sách nhân viên theo phòng ban')
-          }
-          if (link?.includes('danh-sach-nhan-vien-cham-cong-phong-ban')) {
-            setTitle('Danh sách nhân viên chấm công theo phòng ban')
-          }
-          if (link?.includes('danh-sach-nhan-vien-chua-cham-cong-phong-ban')) {
-            setTitle('Danh sách nhân viên chưa chấm công theo phòng ban')
-          }
           const regex = /c(\d+)-t(\d+)-d(\d+)/
           const match = link.match(regex)
           const lastCharacter = link.slice(-1)
           setTypeResonse(match[2])
+          setDep_id(match[3])
           formData.append('type_timekeep', match[2])
           formData.append('dep_id', match[3])
           formData.append('team_id', isTeam_id)
@@ -398,18 +402,10 @@ export default function DetailHrReport({ children }: any) {
           link?.includes('danh-sach-nhan-vien-cham-cong-theo-to') ||
           link?.includes('danh-sach-nhan-vien-chua-cham-cong-theo-to')
         ) {
-          if (link?.includes('danh-sach-nhan-vien-theo-to')) {
-            setTitle('Danh sách nhân viên theo tổ')
-          }
-          if (link?.includes('danh-sach-nhan-vien-cham-cong-theo-to')) {
-            setTitle('Danh sách nhân viên chấm công theo tổ')
-          }
-          if (link?.includes('danh-sach-nhan-vien-chua-cham-cong-theo-to')) {
-            setTitle('Danh sách nhân viên chưa chấm công theo tổ')
-          }
           const regex = /c(\d+)-t(\d+)-d(\d+)-n(\d+)/
           const match = link.match(regex)
           setTypeResonse(match[2])
+          setTeam_id(match[4])
           formData.append('type_timekeep', match[2])
           formData.append('dep_id', match[3])
           formData.append('comId', match[1])
@@ -430,18 +426,10 @@ export default function DetailHrReport({ children }: any) {
           link?.includes('danh-sach-nhan-vien-cham-cong-theo-nhom') ||
           link?.includes('danh-sach-nhan-vien-chua-cham-cong-theo-nhom')
         ) {
-          if (link?.includes('danh-sach-nhan-vien-theo-nhom')) {
-            setTitle('Danh sách nhân viên theo nhóm')
-          }
-          if (link?.includes('danh-sach-nhan-vien-cham-cong-theo-nhom')) {
-            setTitle('Danh sách nhân viên chấm công theo nhóm')
-          }
-          if (link?.includes('danh-sach-nhan-vien-chua-cham-cong-theo-nhom')) {
-            setTitle('Danh sách nhân viên chưa chấm công theo nhóm')
-          }
           const regex = /c(\d+)-t(\d+)-d(\d+)-n(\d+)-g(\d+)/
           const matches = link.match(regex)
           setTypeResonse(matches[2])
+          setGroup_id(matches[5])
           formData.append('type_timekeep', matches[2])
           formData.append('dep_id', matches[3])
           formData.append('comId', matches[1])
@@ -499,7 +487,10 @@ export default function DetailHrReport({ children }: any) {
     return teamInfoArray
   }
 
-  const allTeamInfo = getAllTeamInfo()
+  useEffect(() => {
+    const allTeamInfo = getAllTeamInfo()
+    setTeaminfo(allTeamInfo)
+  }, [OrganisationalDatas])
 
   function getAllGroupInfo() {
     const groupInfoArray: any = []
@@ -520,26 +511,50 @@ export default function DetailHrReport({ children }: any) {
     return groupInfoArray
   }
 
-  const allGroupInfo = getAllGroupInfo()
+  useEffect(() => {
+    const allGroupInfo = getAllGroupInfo()
+    setGroupinfo(allGroupInfo)
+  }, [OrganisationalDatas])
 
+  // const allGroupInfo = getAllGroupInfo()
+
+  // const chontoOptions = useMemo(
+  //   () =>
+  //     allTeamInfo &&
+  //     allTeamInfo?.map((team: any) => ({
+  //       value: team.gr_id,
+  //       label: team.gr_name,
+  //     })),
+  //   [allTeamInfo]
+  // )
   const chontoOptions = useMemo(
     () =>
-      allTeamInfo &&
-      allTeamInfo?.map((team: any) => ({
+      isTeaminfo &&
+      isTeaminfo?.map((team: any) => ({
         value: team.gr_id,
         label: team.gr_name,
       })),
-    [allTeamInfo]
+    [isTeaminfo]
   )
+
+  // const chonnhomOptions = useMemo(
+  //   () =>
+  //     allGroupInfo &&
+  //     allGroupInfo?.map((group: any) => ({
+  //       value: group.gr_id,
+  //       label: group.gr_name,
+  //     })),
+  //   [allGroupInfo]
+  // )
 
   const chonnhomOptions = useMemo(
     () =>
-      allGroupInfo &&
-      allGroupInfo?.map((group: any) => ({
+      isGroupinfo &&
+      isGroupinfo?.map((group: any) => ({
         value: group.gr_id,
         label: group.gr_name,
       })),
-    [allGroupInfo]
+    [isGroupinfo]
   )
 
   const chonphongbanOptions = useMemo(
@@ -571,8 +586,8 @@ export default function DetailHrReport({ children }: any) {
     chonphongban: chonphongbanOptions,
     chonphongbandefault: [{ value: "", label: "" }],
     chonchucvu: chonchucvuOptions,
-    chonnhom: [{ value: 1, label: 'Nhóm 1' }],
-    chonto: [{ value: 1, label: 'Tổ 1' }],
+    chonnhom: chonnhomOptions,
+    chonto: chontoOptions,
     chongioitinh: [
       { value: 1, label: 'Nam' },
       { value: 2, label: 'Nữ' },
@@ -584,6 +599,82 @@ export default function DetailHrReport({ children }: any) {
       { value: 2, label: 'Độc thân' },
     ],
   }
+
+  console.log(chonnhomOptions)
+  console.log(chonphongbanOptions)
+  console.log(chontoOptions)
+  console.log(isDep_name);
+
+
+  useEffect(() => {
+    if (chonphongbanOptions && isDep_id) {
+      const dep_match = chonphongbanOptions.find((item: any) => item.value === Number(isDep_id))
+      console.log(dep_match);
+      setDep_name(dep_match.label)
+    }
+  }, [isDep_id, chonphongbanOptions])
+
+  useEffect(() => {
+    if (chontoOptions && isTeam_id) {
+      const team_match = chontoOptions.find((item: any) => item.value === Number(isTeam_id))
+      setTeam_name(team_match)
+    }
+  }, [isTeam_id, chontoOptions])
+
+  useEffect(() => {
+    if (chonnhomOptions && isGroup_id) {
+      const group_match = chonnhomOptions.find((item: any) => item.value === Number(isGroup_id))
+      setGroup_name(group_match)
+    }
+  }, [isGroup_id, chonnhomOptions])
+
+  useEffect(() => {
+    if ((
+      link?.includes('danh-sach-nhan-vien-theo-phong-ban') ||
+      link?.includes('danh-sach-nhan-vien-cham-cong-phong-ban') ||
+      link?.includes('danh-sach-nhan-vien-chua-cham-cong-phong-ban'))
+    ) {
+      if (link?.includes('danh-sach-nhan-vien-theo-phong-ban')) {
+        setTitle(`Danh sách nhân viên ${isDep_name}`)
+      }
+      if (link?.includes('danh-sach-nhan-vien-cham-cong-phong-ban')) {
+        setTitle(`Danh sách nhân viên chấm công phòng ban ${isDep_name}`)
+      }
+      if (link?.includes('danh-sach-nhan-vien-chua-cham-cong-phong-ban')) {
+        setTitle(`Danh sách nhân viên chưa chấm công ${isDep_name}`)
+      }
+    }
+    if ((
+      link?.includes('danh-sach-nhan-vien-theo-to') ||
+      link?.includes('danh-sach-nhan-vien-cham-cong-theo-to') ||
+      link?.includes('danh-sach-nhan-vien-chua-cham-cong-theo-to'))
+    ) {
+      if (link?.includes('danh-sach-nhan-vien-theo-to') && isTeam_name) {
+        setTitle(`Danh sách nhân viên ${isTeam_name.label}`)
+      }
+      if (link?.includes('danh-sach-nhan-vien-cham-cong-theo-to') && isTeam_name) {
+        setTitle(`Danh sách nhân viên chấm công ${isTeam_name.label}`)
+      }
+      if (link?.includes('danh-sach-nhan-vien-chua-cham-cong-theo-to') && isTeam_name) {
+        setTitle(`Danh sách nhân viên chưa chấm công ${isTeam_name.label}`)
+      }
+    }
+    if ((
+      link?.includes('danh-sach-nhan-vien-theo-nhom') ||
+      link?.includes('danh-sach-nhan-vien-cham-cong-theo-nhom') ||
+      link?.includes('danh-sach-nhan-vien-chua-cham-cong-theo-nhom'))
+    ) {
+      if (link?.includes(`danh-sach-nhan-vien-theo-nhom`) && isGroup_name) {
+        setTitle(`Danh sách nhân viên ${isGroup_name.label}`)
+      }
+      if (link?.includes(`danh-sach-nhan-vien-cham-cong-theo-nhom`) && isGroup_name) {
+        setTitle(`Danh sách nhân viên chấm công  ${isGroup_name.label}`)
+      }
+      if (link?.includes(`danh-sach-nhan-vien-chua-cham-cong-theo-nhom`) && isGroup_name) {
+        setTitle(`Danh sách nhân viên chưa chấm công  ${isGroup_name.label}`)
+      }
+    }
+  }, [isDep_name, isTeam_name, isGroup_name])
 
   return (
     <>
@@ -623,13 +714,13 @@ export default function DetailHrReport({ children }: any) {
           </div>
           <div className={`${styles.member_list}`}>
             <div className={`${styles.table_content}`}>
-              <table className={`${styles.table} ${styles.table_list}`}>
+              <table className={`${styles.table} ${styles.table_list}`} style={{ position: "relative", overflow: "visible" }}>
                 <thead>
                   <tr style={{ height: 70 }}>
                     <th>STT</th>
                     <th>Id</th>
                     <th>Họ và tên</th>
-                    {(link.includes("-t2-") || link.includes("-t1-")) && <th>Lý do nghỉ</th>}
+                    {link.includes("-t2-") && <th>Lý do nghỉ</th>}
                     <th>
                       <Selects
                         selectedOption={selectedOption}
@@ -697,7 +788,7 @@ export default function DetailHrReport({ children }: any) {
                   {isReportList?.data &&
                     isReportList?.data?.map((item: any, index: any) => (
                       <tr key={index}>
-                        <td>{index + 1}</td>
+                        <td>{currentPage === 1 ? (index + 1) : (currentPage * 10 - 9) + index}</td>
                         <td>{item?.idQLC} </td>
                         <td>{item?.userName}</td>
                         <td>{item?.dep}</td>
@@ -772,17 +863,17 @@ export default function DetailHrReport({ children }: any) {
                           : item.vitri
                         return (
                           <tr key={index}>
-                            <td>{index + 1}</td>
+                            <td>{currentPage === 1 ? (index + 1) : (currentPage * 10 - 9) + index}</td>
                             <td>{item?.idQLC} </td>
                             <td>{item?.userName}</td>
-                            {(link.includes("-t2-") || link.includes("-t1-")) &&
+                            {link.includes("-t2-") &&
                               <td className={`${styles.lydonghi}`}>{item?.ly_do_nghi}
-                                {item?.link && <a target='blank' href={item?.link}>(Xem chi tiết)</a>}
+                                {item?.link && <a style={{ cursor: "pointer" }} target='blank' href={item?.link}>(Xem chi tiết)</a>}
                               </td>}
                             <td>{item?.Department}</td>
                             <td>{positionNameToShow}</td>
-                            <td>Chưa cập nhật</td>
-                            <td>Chưa cập nhật</td>
+                            <td>{item?.group ? item?.group : "Chưa cập nhật"}</td>
+                            <td>{item?.Team ? item?.Team : "Chưa cập nhật"}</td>
                             <td>{item?.gender === 1 ? 'Nam' : 'Nữ'}</td>
                             {item?.birthday ? (
                               <td>
