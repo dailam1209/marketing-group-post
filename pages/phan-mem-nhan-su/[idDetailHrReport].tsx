@@ -590,7 +590,7 @@ export default function DetailHrReport({ children }: any) {
       const team_match = chontoOptions.find((item: any) => item.value === Number(isTeam_id))
       setTeam_name(team_match)
     }
-  }, [isTeam_id])
+  }, [isTeam_id, chontoOptions])
 
   useEffect(() => {
     if (chonnhomOptions && isGroup_id) {
