@@ -189,7 +189,7 @@ const QlNhanluc2 = ({ checkCookie }) => {
           <div className="titl_qlyud">
             <a
               className="avt_qlyc"
-              href="https://phanmemnhansu.timviec365.vn/"
+              href="/phan-mem-nhan-su/quan-ly-chung"
               target="_blank"
             >
               <img src="../img/qly-nhansu.png" alt="Quản trị nhân sự" />

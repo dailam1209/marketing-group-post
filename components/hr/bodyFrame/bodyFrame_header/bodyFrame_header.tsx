@@ -23,11 +23,12 @@ export default function BodyFrameHeader({ dataHeader, tokenType }: any) {
             setMenuClick(false);
             setNoti(false);
             setRemind(false);
+            setOpenSidebar(false)
         }
     };
 
     useEffect(() => {
-        if (menuClick || noti || remind) {
+        if (menuClick || noti || remind || openSidebar) {
             document.addEventListener('mousedown', handleOutsideClick);
         } else {
             document.removeEventListener('mousedown', handleOutsideClick);
@@ -36,7 +37,7 @@ export default function BodyFrameHeader({ dataHeader, tokenType }: any) {
         return () => {
             document.removeEventListener('mousedown', handleOutsideClick);
         };
-    }, [menuClick, noti, remind]);
+    }, [menuClick, noti, remind, openSidebar]);
 
     useEffect(() => {
         const handleResize = () => {

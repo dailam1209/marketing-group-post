@@ -152,35 +152,29 @@ const Table_San_Pham = (props: any) => {
     <div className={`${styles.main__content} ${styles.flex_column}`}>
       <div className={styles.inputSP2}>
         <div className={styles.ip1}>
-          <Button
-            style={{
-              height: 40,
-              width: "100%",
-              color: "#fff",
-              background: "#4C5BD4",
-              display: "flex",
-              fontSize: 20,
-              textAlign: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Link href="/crm/san-pham"> Danh sách sản phẩm</Link>
-          </Button>
+          <button className={styles.list_sp}>
+            <Link
+              href="/crm/san-pham"
+              style={{ color: "#666666", background: "#fff" }}
+            >
+              Danh sách sản phẩm
+            </Link>
+          </button>
         </div>
         <div className={styles.ip1}>
-          <Button
-            style={{
-              height: 40,
-              width: "100%",
-              color: "black",
-              background: "#ffffff",
-              display: "flex",
-              fontSize: 20,
-              justifyContent: "center",
-            }}
-          >
-            <Link href="/crm/nhom-san-pham">Danh sách nhóm sản phẩm</Link>
-          </Button>
+          <button className={styles.list_gr_sp}>
+            <Link href="/crm/nhom-san-pham" style={{ color: "#a3a3a3" }}>
+              Danh sách nhóm sản phẩm
+            </Link>
+          </button>
+        </div>
+        <div className={styles.ipSearch}>
+          <Input
+            placeholder={`Tìm kiếm`}
+            className={styles.main__control_search}
+            suffix={suffix}
+            bordered={false}
+          />
         </div>
       </div>
       <Link href={"/crm/them-moi-san-pham"} style={{ width: "10%" }}>
@@ -198,14 +192,7 @@ const Table_San_Pham = (props: any) => {
           mới
         </Button>
       </Link>
-      <div className={styles.ipSearch}>
-        <Input
-          placeholder={`Tìm kiếm`}
-          className={styles.main__control_search}
-          suffix={suffix}
-          bordered={false}
-        />
-      </div>
+
       <div className={styles.table}>
         <div className={styles.scrollTable}>
           <Table

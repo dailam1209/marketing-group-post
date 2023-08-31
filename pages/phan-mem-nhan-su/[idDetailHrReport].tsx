@@ -253,6 +253,7 @@ export default function DetailHrReport({ children }: any) {
     const fetchData = async () => {
       try {
         const formData = new FormData()
+        const pageSize: any = 1000
         formData.append('depId', isDep_id)
         formData.append('positionId', isPosition_id)
         formData.append('groupId', isGroup_id)
@@ -774,7 +775,10 @@ export default function DetailHrReport({ children }: any) {
                             <td>{index + 1}</td>
                             <td>{item?.idQLC} </td>
                             <td>{item?.userName}</td>
-                            {(link.includes("-t2-") || link.includes("-t1-")) && <td>{item?.ly_do_nghi}</td>}
+                            {(link.includes("-t2-") || link.includes("-t1-")) &&
+                              <td className={`${styles.lydonghi}`}>{item?.ly_do_nghi}
+                                {item?.link && <a target='blank' href={item?.link}>(Xem chi tiết)</a>}
+                              </td>}
                             <td>{item?.Department}</td>
                             <td>{positionNameToShow}</td>
                             <td>Chưa cập nhật</td>

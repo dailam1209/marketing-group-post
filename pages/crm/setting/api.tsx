@@ -137,9 +137,7 @@ const ApiSettingConnect: React.FC = () => {
                           width={16}
                           height={16}
                           alt="?"
-                          src={
-                            "/crm/question_mini.svg"
-                          }
+                          src={"/crm/question_mini.svg"}
                         />
                         Tài liệu hướng dẫn
                       </Link>
@@ -291,7 +289,7 @@ const ApiSettingConnect: React.FC = () => {
             modal1Open={openModalSuccess}
             setModal1Open={setOpenModalSuccess}
             title={"Cập nhật API thành công"}
-            link={"/crm/api"}
+            link={"/crm/setting/api"}
             handleClose={() => {
               setIsEdit(false);
             }}
@@ -305,7 +303,7 @@ const ApiSettingConnect: React.FC = () => {
             handleCloseMdal={() => {
               setIsConnected(false);
             }}
-            link="/crm/api"
+            link="/crm/setting/api"
           />
         </div>
       </div>
