@@ -272,7 +272,7 @@ export default function TabOutJob({ iconAdd, iconEdit, iconDelete }: any) {
                         <td>{item.ep_name}</td>
                         <td>{item.dep_name}</td>
                         <td>{item.position_name}</td>
-                        <td>{format(parseISO(item?.time), 'dd/MM/yyyy')}</td>
+                        <td>{item?.time ? item?.time : "Chưa cập nhật"}</td>
                         {iconDelete || iconEdit ? (
                           <td>
                             {iconEdit && <a className={`${styles.btn_edit}`} style={{ cursor: "pointer" }}><img src={`/icon_edit.svg`} alt="" /></a>}

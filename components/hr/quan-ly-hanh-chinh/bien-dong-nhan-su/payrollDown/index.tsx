@@ -281,7 +281,7 @@ export default function TabPayrollDown({ iconAdd, iconEdit, iconDelete }: any) {
                         <td>{item.dep_name}</td>
                         <td>{item.position_name}</td>
                         <td>{item.type === 2 ? 'Nghỉ việc' : 'Giảm biên chế'}</td>
-                        <td>{format(parseISO(item.time), 'dd-MM-yyyy')}</td>
+                        <td>{item?.tiem ? item?.time : "Chưa cập nhật"}</td>
                         {iconDelete || iconEdit ? (
                           <td>
                             {iconEdit && <a onClick={() => handleOpenEdit(item)} className={`${styles.btn_edit}`} style={{ cursor: "pointer" }}><img src={`/icon_edit.svg`} alt="" /></a>}
