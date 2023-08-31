@@ -207,10 +207,10 @@ export default function CustomerList() {
   };
   const [idSelect, setIdSelect] = useState<any>();
   const handleSelectAll = () => {
-    const allRowKeys = datatable.map((item: { key: any }) => item.key);
+    const allRowKeys = datatable?.map((item: { key: any }) => item.key);
     setSelectedRowKeys(allRowKeys);
 
-    setNumberSelected(datatable.length);
+    setNumberSelected(datatable?.length);
   };
   const handleDeselectAll = () => {
     setSelectedRowKeys([]);
