@@ -132,39 +132,6 @@ const GroupCustomerAdd: React.FC = () => {
   };
 
   const urlCreate = `${base_url}/api/crm/group/create_GroupKH`;
-  // const {
-  //   data: dataAddGroup,
-  //   fetchData: fetchDataAddGroup,
-  //   updateData: updateDataAddGroup,
-  // } = useApi(urlCreate, `${Cookies.get("token_base365")}`, "POST");
-
-  // const {
-  //   data: dataDepartment,
-  //   fetchData: fetchDataDepartment,
-  //   updateData: updateDataDepartment,
-  // } = useApi(
-  //   `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/department/list`,
-  //   `${Cookies.get("token_base365")}`,
-  //   "POST",
-  //   { com_id: com_id }
-  // );
-
-  // const { data, loading, error, fetchData, updateData, deleteData } = useApi(
-  //   `${base_url}/api/crm/group/list_group_khach_hang`,
-  //   `${Cookies.get("token_base365")}`,
-  //   "POST"
-  // );
-
-  // const {
-  //   data: dataEmp,
-  //   fetchData: fetchDataEmp,
-  //   updateData: updateDataEmp,
-  // } = useApi(
-  //   `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/list`,
-  //   `${Cookies.get("token_base365")}`,
-  //   "POST",
-  //   { dep_id: selectedValueDepartments?.join(",") || "", com_id: com_id }
-  // );
 
   useEffect(() => {
     fetchData(`${base_url}/api/crm/group/list_group_khach_hang`, {});

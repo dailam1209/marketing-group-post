@@ -192,33 +192,6 @@ const GroupCustomerAdd: React.FC = () => {
     }
   };
 
-  // const {
-  //   data: dataDetails,
-  // } = useApi(`${base_url}/api/crm/group/details`, accessToken, "POST", {
-  //   gr_id: Number(id),
-  // });
-
-  // const { updateData: `${base_url}/api/crm/group/update_GroupKH` } = useApi(
-  //   `${base_url}/api/crm/group/update_GroupKH`,
-  //   `${Cookies.get("token_base365")}`,
-  //   "POST",
-  //   valueGroupCustomer
-  // );
-
-  // const {
-  //   data: dataEmp,
-  //   fetchData: fetchDataEmp,
-  //   updateData: updateDataEmp,
-  // } = useApi(
-  //   `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/list`,
-  //   `${Cookies.get("token_base365")}`,
-  //   "POST",
-  //   {
-  //     dep_id: selectedValueDepartments?.join(",") || "",
-  //     com_id: Number(com_id),
-  //   }
-  // );
-
   const dataPassFromId = dataSelectGroupParent?.data?.filter(
     (item: any) => item?.gr_id === Number(id)
   )?.[0];
@@ -342,18 +315,9 @@ const GroupCustomerAdd: React.FC = () => {
         .map((item) => parseInt(item.trim(), 10))
     );
 
-    // setValAllDepartment(dataDetails?.data?.dep_id ? false: true)
-    // setValAllEmp(dataDetails?.data?.emp_id ? false :true)
   }, []);
 
   useEffect(() => {
-    // fetchDataEmp(
-    //   `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/list`,
-    //   `${Cookies.get("token_base365")}`,
-    //   "POST",
-    //   { com_id: `${Cookies.get("com_id")}` }
-    // );
-
     setTimeout(() => {
       const employeeOption = dataEmp?.data?.items
         ?.filter((emp) =>
