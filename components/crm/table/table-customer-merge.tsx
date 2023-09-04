@@ -9,15 +9,14 @@ const TableDataCustomerMerge: React.FC = () => {
   const [isSelectAll, setIsSelectAll] = useState(false);
   const [isSelectAll2, setIsSelectAll2] = useState(false);
   const [defaultCheckBox, setDefaultCheckBox] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(
-    "/crm/user_kh.png"
-  );
+  const [selectedImage, setSelectedImage] = useState("/crm/user_kh.png");
   const [isOpenCancelModal, setIsOpenCancelModal] = useState(false);
   const [isOpenSuccessMdal, setISOpenSuccessMdal] = useState(false);
   const [isOpenModalError, setIsOpenModalError] = useState(false);
+  const [selectedId, setSelectedId] = useState<string>("");
 
   const handleImageChange = (selectedValue: string) => {
-    setSelectedImage(selectedValue);
+    setSelectedId(selectedValue);
   };
 
   const handleClickOpenModal = () => {
@@ -27,9 +26,11 @@ const TableDataCustomerMerge: React.FC = () => {
 
   useEffect(() => {
     if (isSelectAll) {
-      setSelectedImage("/crm/user_kh.png");
+      setSelectedId("1");
+    } else if (isSelectAll2) {
+      setSelectedId("2");
     } else {
-      setSelectedImage("http://crm.timviec365.vn/assets/img/user_kh.png");
+      setSelectedId("0");
     }
   }, [isSelectAll, isSelectAll2]);
 
@@ -45,7 +46,7 @@ const TableDataCustomerMerge: React.FC = () => {
                   <tr>
                     <th colSpan={2}>Bản ghi chính</th>
                     <th>
-                      Bản ghi 1{" "}
+                      Bản ghi 1
                       <button
                         onClick={() => {
                           setIsSelectAll(true);
@@ -57,7 +58,7 @@ const TableDataCustomerMerge: React.FC = () => {
                       </button>
                     </th>
                     <th>
-                      Bản ghi 2{" "}
+                      Bản ghi 2
                       <button
                         onClick={() => {
                           setIsSelectAll(false);
@@ -96,22 +97,13 @@ const TableDataCustomerMerge: React.FC = () => {
                     </td>
                     <td>
                       <input
-                        onChange={() =>
-                          handleImageChange(
-                            "/crm/user_kh.png"
-                          )
-                        }
-                        checked={
-                          selectedImage ===
-                          "/crm/user_kh.png"
-                        }
+                        onChange={() => handleImageChange("1")}
+                        checked={selectedId === "1"}
                         name="rdo_logo_image"
                         type="radio"
                         className={styles.radio}
-                        value={
-                          "/crm/user_kh.png"
-                        }
-                      />{" "}
+                        value={"/crm/user_kh.png"}
+                      />
                       <img
                         style={{ transform: "translate(15%, 15%)" }}
                         src="/crm/user_kh.png"
@@ -120,25 +112,16 @@ const TableDataCustomerMerge: React.FC = () => {
                     </td>
                     <td>
                       <input
-                        onChange={() =>
-                          handleImageChange(
-                            "http://crm.timviec365.vn/assets/img/user_kh.png "
-                          )
-                        }
-                        checked={
-                          selectedImage ===
-                          "http://crm.timviec365.vn/assets/img/user_kh.png"
-                        }
+                        onChange={() => handleImageChange("2")}
+                        checked={selectedId === "2"}
                         name="rdo_logo_image"
                         type="radio"
-                        value={
-                          "http://crm.timviec365.vn/assets/img/user_kh.png "
-                        }
+                        value={"/crm/user_kh.png "}
                         className={styles.radio}
-                      />{" "}
+                      />
                       <img
                         style={{ transform: "translate(15%, 15%)" }}
-                        src="http://crm.timviec365.vn/assets/img/user_kh.png"
+                        src="/crm/user_kh.png"
                         className={styles.img_person}
                       />
                     </td>

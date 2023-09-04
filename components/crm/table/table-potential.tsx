@@ -7,7 +7,7 @@ import Link from "next/link";
 interface DataType {
   key: React.Key;
   name: string;
-  age: number;
+  salutation: string;
   address: string;
   operation: string;
 }
@@ -22,8 +22,8 @@ const columns: ColumnsType<DataType> = [
   {
     title: "Xưng hô",
     width: 150,
-    dataIndex: "age",
-    key: "age",
+    dataIndex: "salutation",
+    key: "salutation",
   },
   {
     title: "Họ và tên",
@@ -142,7 +142,7 @@ for (let i = 0; i < 100; i++) {
   data.push({
     key: i,
     name: `Edward ${i}`,
-    age: 32,
+    salutation: `Anh`,
     address: `London Park no. ${i}`,
     operation: `Nguyen Van Hung`,
   });
@@ -151,11 +151,13 @@ for (let i = 0; i < 100; i++) {
 interface TableDataPotentialProps {
   setSelected: (value: boolean) => void;
   setNumberSelected: any;
+  setRowDataSelected: any;
 }
 
 const TableDataPotential: React.FC<TableDataPotentialProps> = ({
   setSelected,
   setNumberSelected,
+  setRowDataSelected,
 }: any) => {
   const rowSelection: TableRowSelection<DataType> = {
     onChange: (selectedRowKeys, selectedRows) => {
@@ -167,8 +169,9 @@ const TableDataPotential: React.FC<TableDataPotentialProps> = ({
       }
     },
     onSelect: (record, selected, selectedRows) => {
-      console.log(selectedRows);
+      console.log(123, selectedRows);
       setNumberSelected(selectedRows?.length);
+      setRowDataSelected(selectedRows);
     },
     onSelectAll: (selected, selectedRows, changeRows) => {},
   };

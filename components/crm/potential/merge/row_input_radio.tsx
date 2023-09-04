@@ -13,18 +13,11 @@ export default function RowRadioInput({
   const [valueRadioBox, setValueRadioBox] = useState(value[0]);
   const [isChecked, setIsChecked] = useState(true);
   const [defaultChecked, setDefaultChecked] = useState(false);
-
-  useEffect(() => {
-    if (isSelectAll) {
-      setValueRadioBox(value[0]);
-    } else {
-      setValueRadioBox(value[1]);
-    }
-  }, [isSelectAll, isSelectAll2]);
+  console.log("ceck", value);
 
   const handleChange = (selectedValue: string) => {
     setValueRadioBox(selectedValue);
-    setDefaultChecked(true)
+    setDefaultChecked(true);
     // Uncheck the opposite table
     if (isSelectAll) {
       setDefaultCheckBox(true);
@@ -38,36 +31,26 @@ export default function RowRadioInput({
         <p className={styles.column_title}>{title}</p>
       </td>
       <td>{valueRadioBox}</td>
-      <td>
-        <div className={styles.td_ct}>
-          <input
-            onChange={() => handleChange(value[0])}
-            checked={
-              (defaultCheckBox || defaultChecked) && valueRadioBox === value[0]
-            }
-            name={name}
-            type="radio"
-            value={value[0]}
-            className={styles.radio}
-          />
-          <p>{value[0]}</p>
-        </div>
-      </td>
-      <td>
-        <div className={styles.td_ct}>
-          <input
-            onChange={() => handleChange(value[1])}
-            checked={
-              (defaultCheckBox || defaultChecked) && valueRadioBox === value[1]
-            }
-            name={name}
-            type="radio"
-            value={value[1]}
-            className={styles.radio}
-          />
-          <p>{value[1]}</p>
-        </div>
-      </td>
+      {value?.map((item, index) => {
+        return (
+          <td>
+            <div className={styles.td_ct}>
+              <input
+                onChange={() => handleChange(value[index])}
+                checked={
+                  (defaultCheckBox || defaultChecked) &&
+                  valueRadioBox === value[index]
+                }
+                name={name}
+                type="radio"
+                value={value[index]}
+                className={styles.radio}
+              />
+              <p>{value[index]}</p>
+            </div>
+          </td>
+        );
+      })}
     </tr>
   );
 }
