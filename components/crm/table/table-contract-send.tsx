@@ -115,7 +115,9 @@ const TableDataContractSend: React.FC<TableDataContracDrops> = ({
   ];
 
   // const newDataTble = data?.filter
-  const result = data.filter((item) => selectedValue?.includes(item.ep_id));
+  const result = data
+    ? data?.filter((item) => selectedValue?.includes(item.ep_id))
+    : [];
 
   const dataTble = result.map((el, index) => {
     return {
@@ -129,7 +131,6 @@ const TableDataContractSend: React.FC<TableDataContracDrops> = ({
     };
   });
 
-
   return (
     <div className="custom_table">
       {result && result?.length > 0 && (
@@ -137,7 +138,7 @@ const TableDataContractSend: React.FC<TableDataContracDrops> = ({
           columns={columns}
           dataSource={dataTble ? dataTble : null}
           bordered
-          scroll={{ x: 1000, y: 1100 }}
+          scroll={{ x: 900, y: 1100 }}
         />
       )}
     </div>
