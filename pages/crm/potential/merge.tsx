@@ -1,7 +1,19 @@
 import Merge from "@/components/crm/potential/merge/merge";
 import Head from "next/head";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const storedData = sessionStorage.getItem("myData");
+    if (storedData) {
+      const parsedData = JSON.parse(storedData);
+      setData(parsedData.data);
+    } else {
+      console.log("Không có dữ liệu trong session storage");
+    }
+  }, []);
   return (
     <>
       <Head>
@@ -44,7 +56,7 @@ export default function Home() {
           src="https://www.googletagmanager.com/gtm.js?id=GTM-NXVQCHN"
         ></script>
       </Head>
-      <Merge />
+      <Merge data={data} length={length} />
     </>
   );
 }

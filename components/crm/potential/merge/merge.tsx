@@ -4,14 +4,11 @@ import { SidebarContext } from "@/components/crm/context/resizeContext";
 import { useContext, useEffect, useRef, useState } from "react";
 import { useHeader } from "@/components/crm/hooks/useHeader";
 
-export default function Merge() {
+export default function Merge(data, length) {
   const mainRef = useRef<HTMLDivElement>(null);
   const { isOpen } = useContext<any>(SidebarContext);
-  const {
-    setHeaderTitle,
-    setShowBackButton,
-    setCurrentPath,
-  }: any = useHeader();
+  const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
+    useHeader();
   useEffect(() => {
     setHeaderTitle("Tiềm năng / Gộp trùng");
     setShowBackButton(true);
@@ -28,7 +25,7 @@ export default function Merge() {
   return (
     <div ref={mainRef} className={styleHome.main}>
       {/* <PotentialMergeInputGroup isSelectedRow={isSelectedRow} /> */}
-      <TableDataPotentialMerge />
+      <TableDataPotentialMerge data={data} length={length} />
     </div>
   );
 }

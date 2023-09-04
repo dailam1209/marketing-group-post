@@ -5,7 +5,11 @@ import PotentialSelectBox from "./potential_selectt";
 import Link from "next/link";
 import exportToExcel from "../ultis/export_xlxs";
 import { data } from "../table/table-potential";
-export default function PotentialInputGroups({ isSelectedRow }: any) {
+export default function PotentialInputGroups({
+  isSelectedRow,
+  isRowDataSelected,
+  isNumberSelected,
+}: any) {
   const handleClickSelectoption = () => {};
 
   const datas = [
@@ -138,7 +142,11 @@ export default function PotentialInputGroups({ isSelectedRow }: any) {
         </div>
       </div>
 
-      <PotentialAction isSelectedRow={isSelectedRow} />
+      <PotentialAction
+        isSelectedRow={isSelectedRow}
+        isNumberSelected={isNumberSelected}
+        isRowDataSelected={isRowDataSelected}
+      />
     </div>
   );
 }

@@ -11,7 +11,11 @@ import ShareActionModal from "./potential_action_modal/potential_share_action_md
 import HandeOverModal from "./potential_action_modal/hand_over_mdal";
 import { useRouter } from "next/router";
 
-export default function PotentialAction({ isSelectedRow }: any) {
+export default function PotentialAction({
+  isSelectedRow,
+  isRowDataSelected,
+  isNumberSelected,
+}: any) {
   const [isOpenCampaign, setIsOpenCampaign] = useState(false);
   const [isOpenEmail, setIsOpenIsEmail] = useState(false);
   const [isDelOpen, setIsDelOpen] = useState(false);
@@ -19,7 +23,9 @@ export default function PotentialAction({ isSelectedRow }: any) {
   const [isOpenShare, setIsOpenShare] = useState(false);
   const [isHandOverOpen, setIsHandOverOpen] = useState(false);
   const router = useRouter();
+
   const id = router.query;
+
   const [dataActionPotential, setDataActionPotential] = useState([
     {
       link: "",
@@ -119,13 +125,37 @@ export default function PotentialAction({ isSelectedRow }: any) {
       setIsHandOverOpen(true);
     }
   };
+
+  const dataToSend = {
+    data: isRowDataSelected,
+    length: isNumberSelected,
+  };
+
+  sessionStorage.setItem("myData", JSON.stringify(dataToSend));
+
   const items: MenuProps["items"] = [];
   for (let i = 0; i < dataActionPotential.length; i++) {
     items.push({
       key: i,
       label: (
         <>
-          {dataActionPotential[i].link !== "#" ? (
+          {dataActionPotential[i].link === "/crm/potential/merge" ? (
+            <div
+              className="flex-start-btn"
+              onClick={() =>
+                router.push({
+                  pathname: dataActionPotential[i].link,
+                  query: {
+                    data: JSON.stringify(isRowDataSelected),
+                    length: isNumberSelected,
+                  },
+                })
+              }
+            >
+              <i className={dataActionPotential[i].img}></i>
+              {dataActionPotential[i].name}
+            </div>
+          ) : dataActionPotential[i].link !== "#" ? (
             <Link href={dataActionPotential[i].link} className="flex-start-btn">
               <i className={dataActionPotential[i].img}></i>
               {dataActionPotential[i].name}
@@ -143,6 +173,7 @@ export default function PotentialAction({ isSelectedRow }: any) {
       ),
     });
   }
+
   return (
     <div className={styles.div__thaotac}>
       <div>

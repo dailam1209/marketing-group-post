@@ -2,29 +2,41 @@ import React, { useEffect, useState } from "react";
 import styles from "../potential/merge/merge.module.css";
 import RowRadioInput from "../potential/merge/row_input_radio";
 
-const TableDataPotential: React.FC = () => {
+interface PotentialProps {
+  data: any;
+  length: number;
+}
+
+const TableDataPotential: React.FC<PotentialProps> = ({ data, length }) => {
   const [isSelectAll, setIsSelectAll] = useState(false);
   const [isSelectAll2, setIsSelectAll2] = useState(false);
   const [defaultCheckBox, setDefaultCheckBox] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(
-    "/crm/user_kh.png"
-  );
-  // const [selectedLogo, setSelectedLogo] = useState(
-  //   "/crm/user_kh.png "
-  // );
+  const [isOpenCancelModal, setIsOpenCancelModal] = useState(false);
+  const [isOpenSuccessMdal, setISOpenSuccessMdal] = useState(false);
+  const [isOpenModalError, setIsOpenModalError] = useState(false);
+  const [selectedId, setSelectedId] = useState<string>("");
+
+  const newData = data.data;
 
   const handleImageChange = (selectedValue: string) => {
-    setSelectedImage(selectedValue);
+    setSelectedId(selectedValue);
+  };
+
+  const handleClickOpenModal = () => {
+    setISOpenSuccessMdal(true);
+    // setIsOpenModalError(true);
   };
 
   useEffect(() => {
     if (isSelectAll) {
-      setSelectedImage("/crm/user_kh.png");
+      setSelectedId("1");
+    } else if (isSelectAll2) {
+      setSelectedId("2");
     } else {
-      setSelectedImage("http://crm.timviec365.vn/assets/img/user_kh.png");
+      setSelectedId("0");
     }
   }, [isSelectAll, isSelectAll2]);
-
+  //
   return (
     <div className={styles.main_potential}>
       <div className={styles.content_table}>
@@ -36,29 +48,13 @@ const TableDataPotential: React.FC = () => {
                 <tr>
                   <th colSpan={2}>Bản ghi chính</th>
                   <th>
-                    Bản ghi 1{" "}
+                    Bản ghi 1
                     <button
                       onClick={() => {
                         setIsSelectAll(true);
                         setIsSelectAll2(false);
                         setDefaultCheckBox(true);
                       }}
-                      // className="btn_rdo_one checked_tbl checked_rdo"
-                      // onClick={handleSelectAll}
-                    >
-                      Chọn tất cả
-                    </button>
-                  </th>
-                  <th>
-                    Bản ghi 2{" "}
-                    <button
-                      onClick={() => {
-                        setIsSelectAll(false);
-                        setDefaultCheckBox(true);
-                        setIsSelectAll2(true);
-                      }}
-                      // className="btn_rdo_two checked_tbl checked_rdo"
-                      // onClick={handleSelectAll}
                     >
                       Chọn tất cả
                     </button>
@@ -79,20 +75,13 @@ const TableDataPotential: React.FC = () => {
                   </td>
                   <td>
                     <input
-                      onChange={() =>
-                        handleImageChange(
-                          "/crm/user_kh.png"
-                        )
-                      }
-                      checked={
-                        selectedImage ===
-                        "/crm/user_kh.png"
-                      }
+                      onChange={() => handleImageChange("1")}
+                      checked={selectedId === "1"}
                       name="rdo_logo_image"
                       type="radio"
                       className={styles.radio}
                       value={"/crm/user_kh.png"}
-                    />{" "}
+                    />
                     <img
                       style={{ transform: "translate(15%, 15%)" }}
                       src="/crm/user_kh.png"
@@ -101,23 +90,16 @@ const TableDataPotential: React.FC = () => {
                   </td>
                   <td>
                     <input
-                      onChange={() =>
-                        handleImageChange(
-                          "http://crm.timviec365.vn/assets/img/user_kh.png "
-                        )
-                      }
-                      checked={
-                        selectedImage ===
-                        "http://crm.timviec365.vn/assets/img/user_kh.png"
-                      }
+                      onChange={() => handleImageChange("2")}
+                      checked={selectedId === "2"}
                       name="rdo_logo_image"
                       type="radio"
-                      value={"http://crm.timviec365.vn/assets/img/user_kh.png "}
                       className={styles.radio}
-                    />{" "}
+                      value={"/crm/user_kh.png"}
+                    />
                     <img
                       style={{ transform: "translate(15%, 15%)" }}
-                      src="http://crm.timviec365.vn/assets/img/user_kh.png"
+                      src="/crm/user_kh.png"
                       className={styles.img_person}
                     />
                   </td>
@@ -137,7 +119,7 @@ const TableDataPotential: React.FC = () => {
                   isSelectAll={isSelectAll}
                   isSelectAll2={isSelectAll2}
                   title="Xưng hô:"
-                  value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                  value={newData?.map((item) => item?.salutation)}
                 />
 
                 <RowRadioInput
@@ -147,7 +129,7 @@ const TableDataPotential: React.FC = () => {
                   isSelectAll={isSelectAll}
                   isSelectAll2={isSelectAll2}
                   title="Họ và đệm:"
-                  value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                  value={newData?.map((item) => item?.operation)}
                 />
 
                 <RowRadioInput
@@ -157,7 +139,7 @@ const TableDataPotential: React.FC = () => {
                   isSelectAll={isSelectAll}
                   isSelectAll2={isSelectAll2}
                   title="Tên:"
-                  value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                  value={newData?.map((item) => item?.name)}
                 />
 
                 <RowRadioInput
@@ -167,7 +149,7 @@ const TableDataPotential: React.FC = () => {
                   isSelectAll={isSelectAll}
                   isSelectAll2={isSelectAll2}
                   title="Họ và tên:"
-                  value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                  value={newData?.map((item) => item?.operation)}
                 />
 
                 <RowRadioInput
@@ -177,7 +159,7 @@ const TableDataPotential: React.FC = () => {
                   isSelectAll={isSelectAll}
                   isSelectAll2={isSelectAll2}
                   title="Chức danh:"
-                  value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                  value={newData?.map((item) => item?.name)}
                 />
 
                 <RowRadioInput
@@ -187,7 +169,7 @@ const TableDataPotential: React.FC = () => {
                   isSelectAll={isSelectAll}
                   isSelectAll2={isSelectAll2}
                   title="Phòng ban:"
-                  value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                  value={newData?.map((item) => item?.name)}
                 />
 
                 <RowRadioInput
@@ -197,7 +179,7 @@ const TableDataPotential: React.FC = () => {
                   isSelectAll={isSelectAll}
                   isSelectAll2={isSelectAll2}
                   title="Điện thoại cơ quan:"
-                  value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                  value={newData?.map((item) => item?.name)}
                 />
 
                 <RowRadioInput
@@ -207,7 +189,7 @@ const TableDataPotential: React.FC = () => {
                   isSelectAll={isSelectAll}
                   isSelectAll2={isSelectAll2}
                   title="Điện thoại cá nhân:"
-                  value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                  value={newData?.map((item) => item?.name)}
                 />
 
                 <RowRadioInput
@@ -217,10 +199,7 @@ const TableDataPotential: React.FC = () => {
                   isSelectAll={isSelectAll}
                   isSelectAll2={isSelectAll2}
                   title="Email cơ quan:"
-                  value={[
-                    "Nguyenvannam@gmailvannam@gmailvannam@gmail.com ",
-                    "Nguyenvannam@gmailvannam@gmailvannam@gmail.com",
-                  ]}
+                  value={newData?.map((item) => item?.name)}
                 />
 
                 <RowRadioInput
@@ -230,7 +209,7 @@ const TableDataPotential: React.FC = () => {
                   isSelectAll={isSelectAll}
                   isSelectAll2={isSelectAll2}
                   title="Email cá nhân:"
-                  value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                  value={newData?.map((item) => item?.name)}
                 />
 
                 <RowRadioInput
@@ -240,7 +219,7 @@ const TableDataPotential: React.FC = () => {
                   isSelectAll={isSelectAll}
                   isSelectAll2={isSelectAll2}
                   title="Nguồn gốc:"
-                  value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                  value={newData?.map((item) => item?.name)}
                 />
 
                 <RowRadioInput
@@ -250,7 +229,7 @@ const TableDataPotential: React.FC = () => {
                   isSelectAll={isSelectAll}
                   isSelectAll2={isSelectAll2}
                   title="Mã số thuế:"
-                  value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                  value={newData?.map((item) => item?.name)}
                 />
 
                 <RowRadioInput
@@ -260,7 +239,7 @@ const TableDataPotential: React.FC = () => {
                   isSelectAll={isSelectAll}
                   isSelectAll2={isSelectAll2}
                   title="Loại tiềm năng:"
-                  value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                  value={newData?.map((item) => item?.name)}
                 />
 
                 <RowRadioInput
@@ -270,7 +249,7 @@ const TableDataPotential: React.FC = () => {
                   isSelectAll={isSelectAll}
                   isSelectAll2={isSelectAll2}
                   title="Mạng xã hội:"
-                  value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                  value={newData?.map((item) => item?.name)}
                 />
 
                 <RowRadioInput
@@ -280,7 +259,7 @@ const TableDataPotential: React.FC = () => {
                   isSelectAll={isSelectAll}
                   isSelectAll2={isSelectAll2}
                   title="Nhân viên phụ trách:"
-                  value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                  value={newData?.map((item) => item?.name)}
                 />
 
                 <tr>
