@@ -16,6 +16,8 @@ import Cookies from "js-cookie";
 import GrFooterAddFiles from "@/components/crm/potential/potential_add_files/gr_customer_footer";
 import CustomerGroupSelectCpmponent from "@/components/crm/select/group_components_select";
 import { checkAndRedirectToHomeIfNotLoggedIn } from "@/components/crm/ultis/checkLogin";
+import { POST } from "@/pages/api/BaseApi";
+import axios from "axios";
 
 const GroupCustomerAdd: React.FC = () => {
   const [valAllDepartment, setValAllDepartment] = useState(false);
@@ -29,6 +31,9 @@ const GroupCustomerAdd: React.FC = () => {
   const [selectedValueDepartments, setSelectedValueDepartments] = useState<any>(
     []
   );
+  const [dataSelectGroupParent, setData] = useState<any>([]);
+  const [dataEmp, setDataEmp] = useState<any>([]);
+  const [dataDepartment, setDataDepartment] = useState<any>([]);
   const [dataRowSelect, setDataRowSelect] = useState<any>([]);
   const [selectedRow, setSelectedRow] = useState(0);
   const [valEmp, setValEmp] = useState<any>([]);
@@ -49,44 +54,124 @@ const GroupCustomerAdd: React.FC = () => {
   const accessToken = Cookies.get("token_base365");
   const com_id = Cookies.get("com_id");
 
+  const fetchData = async (url: string, body) => {
+    try {
+      const res = await fetch(url, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${accessToken}`, // Sử dụng Bearer token
+          mode: "no-cors",
+        },
+        body: body, // Chỉ truyền body nếu là phương thức POST
+      });
+
+      const data = await res.json();
+      setData(data?.data);
+
+      return data;
+    } catch (err) {
+      // console.error(err);
+      throw err;
+    }
+  };
+
+  const updateDataAddGroup = async (url, body) => {
+    try {
+      const response = await axios.post(url, body, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      const data = response.data;
+
+      return data;
+    } catch (err) {
+      // console.error(err);
+      throw err;
+    }
+  };
+
+  const fetchDataDepartment = async (url: string, body) => {
+    try {
+      const res = await fetch(url, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${accessToken}`, // Sử dụng Bearer token
+          mode: "no-cors",
+        },
+        body: body, // Chỉ truyền body nếu là phương thức POST
+      });
+
+      const data = await res.json();
+      setDataDepartment(data);
+    } catch (err) {
+      // console.error(err);
+      throw err;
+    }
+  };
+
+  const fetchDataEmp = async (url, body) => {
+    try {
+      const response = await axios.post(url, body, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`, // Sử dụng Bearer token
+        },
+      });
+
+      const data = response.data;
+      setDataEmp(data);
+
+      if (response.status !== 200) {
+        throw new Error(data.message || "Có lỗi xảy ra khi gọi API");
+      }
+    } catch (err) {
+      // console.error(err);
+      throw err;
+    }
+  };
+
   const urlCreate = `${base_url}/api/crm/group/create_GroupKH`;
-  const {
-    data: dataAddGroup,
-    fetchData: fetchDataAddGroup,
-    updateData: updateDataAddGroup,
-  } = useApi(urlCreate, `${Cookies.get("token_base365")}`, "POST");
+  // const {
+  //   data: dataAddGroup,
+  //   fetchData: fetchDataAddGroup,
+  //   updateData: updateDataAddGroup,
+  // } = useApi(urlCreate, `${Cookies.get("token_base365")}`, "POST");
 
-  const {
-    data: dataDepartment,
-    fetchData: fetchDataDepartment,
-    updateData: updateDataDepartment,
-  } = useApi(
-    `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/department/list`,
-    `${Cookies.get("token_base365")}`,
-    "POST",
-    { com_id: com_id }
-  );
+  // const {
+  //   data: dataDepartment,
+  //   fetchData: fetchDataDepartment,
+  //   updateData: updateDataDepartment,
+  // } = useApi(
+  //   `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/department/list`,
+  //   `${Cookies.get("token_base365")}`,
+  //   "POST",
+  //   { com_id: com_id }
+  // );
 
-  const { data, loading, error, fetchData, updateData, deleteData } = useApi(
-    `${base_url}/api/crm/group/list_group_khach_hang`,
-    `${Cookies.get("token_base365")}`,
-    "POST"
-  );
+  // const { data, loading, error, fetchData, updateData, deleteData } = useApi(
+  //   `${base_url}/api/crm/group/list_group_khach_hang`,
+  //   `${Cookies.get("token_base365")}`,
+  //   "POST"
+  // );
 
-  const {
-    data: dataEmp,
-    fetchData: fetchDataEmp,
-    updateData: updateDataEmp,
-  } = useApi(
-    `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/list`,
-    `${Cookies.get("token_base365")}`,
-    "POST",
-    { dep_id: selectedValueDepartments?.join(",") || "", com_id: com_id }
-  );
+  // const {
+  //   data: dataEmp,
+  //   fetchData: fetchDataEmp,
+  //   updateData: updateDataEmp,
+  // } = useApi(
+  //   `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/list`,
+  //   `${Cookies.get("token_base365")}`,
+  //   "POST",
+  //   { dep_id: selectedValueDepartments?.join(",") || "", com_id: com_id }
+  // );
 
   useEffect(() => {
-    fetchData();
-    fetchDataDepartment();
+    fetchData(`${base_url}/api/crm/group/list_group_khach_hang`, {});
+    fetchDataDepartment(`${base_url}/api/qlc/department/list`, {
+      com_id: com_id,
+    });
+    fetchDataEmp(`${base_url}/api/qlc/managerUser/list`, { com_id: com_id });
   }, []);
 
   useEffect(() => {
@@ -111,7 +196,12 @@ const GroupCustomerAdd: React.FC = () => {
     const valueExists = dataTableEmp?.some((item) => item === val);
 
     if (!valueExists) {
-      setDataTableEmp((prevData) => [...prevData, val]);
+      setDataTableEmp((prevData) => {
+        if(prevData){
+          return [...prevData, val]
+        }
+        return [val]
+      });
     } else {
       setErrModal(true);
     }
@@ -119,17 +209,9 @@ const GroupCustomerAdd: React.FC = () => {
     setValEmp(val);
   }
 
-  const dataSelectGroupParent = data?.data;
-
+  // const dataSelectGroupParent = data?.data;
   useEffect(() => {
     if (selectedValueDepartments?.length > 0) {
-      // selectedValueDepartments?.forEach((depId: any) => {
-      fetchDataEmp(
-        `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/list`,
-        `${Cookies.get("token_base365")}`,
-        "POST",
-        { com_id: com_id }
-      );
       setValueGroupCustomer((prev) => {
         return {
           ...prev,
@@ -139,12 +221,12 @@ const GroupCustomerAdd: React.FC = () => {
       // });
     }
     // ?.filter((emp) => selectedValueDepartments?.includes(emp.dep_id))
-    const employeeOption = dataEmp?.data?.data
+    const employeeOption = dataEmp?.data?.items
       ?.filter((emp) => selectedValueDepartments?.includes(emp.dep_id))
       ?.map((employee) => {
         return {
-          label: employee.userName,
-          value: employee._id,
+          label: employee.ep_name,
+          value: employee.ep_id,
         };
       });
     setEmployeeOptions(employeeOption);
@@ -341,7 +423,13 @@ const GroupCustomerAdd: React.FC = () => {
                           className="flex_between"
                         >
                           <label>Nhân viên</label>
-                          <Checkbox onChange={() => {}}>Tất cả</Checkbox>
+                          <Checkbox
+                            onChange={() => {
+                              setValAllEmp(!valAllEmp);
+                            }}
+                          >
+                            Tất cả
+                          </Checkbox>
                         </div>
                         {!valAllDepartment && (
                           <Select
@@ -351,7 +439,7 @@ const GroupCustomerAdd: React.FC = () => {
                               width: "100%",
                               height: "40px !important",
                             }}
-                            // disabled={selectedValueDepartments?.length === 0}
+                            disabled={valAllEmp}
                             placeholder="Chọn nhân viên"
                             // defaultValue={dataDepartments?.dep_id}
                             value={valEmp}
@@ -398,15 +486,15 @@ const GroupCustomerAdd: React.FC = () => {
                       )}
                     </div>
 
-                    {!valAllDepartment && !valAllEmp && (
+                    {!valAllDepartment && !valAllEmp ? (
                       <TableStaffCustomerGroupAdd
-                        dataEmp={dataEmp?.data?.data}
+                        dataEmp={dataEmp?.data?.items}
                         valueSelected={dataTableEmp}
                         setData={setDataTableEmp}
                         setSelectedRow={setSelectedRow}
                         setDataRowSelect={setDataRowSelect}
                       />
-                    )}
+                    ) : null}
                   </div>
                   <GrFooterAddFiles
                     link="/crm/customer/group/list"
@@ -419,27 +507,22 @@ const GroupCustomerAdd: React.FC = () => {
                     modal1Open={modal1Open}
                     handleSave={async () => {
                       if (valueGroupCustomer?.groupName !== "") {
-                        await updateDataAddGroup(
-                          urlCreate,
-                          `${Cookies.get("token_base365")}`,
-                          "POST",
-                          {
-                            groupName: valueGroupCustomer?.groupName,
-                            emp_id:
-                              dataTableEmp?.length > 0
-                                ? dataTableEmp?.join(",")
-                                : "all",
-                            dep_id:
-                              selectedValueDepartments?.length > 0
-                                ? selectedValueDepartments?.join(",")
-                                : "all",
-                            groupParents: valueGroupCustomer?.groupParents
-                              ? valueGroupCustomer?.groupParents
-                              : 0,
-                            groupDescription:
-                              valueGroupCustomer?.groupDescription,
-                          }
-                        );
+                        await updateDataAddGroup(urlCreate, {
+                          groupName: valueGroupCustomer?.groupName,
+                          emp_id:
+                            dataTableEmp?.length > 0
+                              ? dataTableEmp?.join(",")
+                              : "all",
+                          dep_id:
+                            selectedValueDepartments?.length > 0
+                              ? selectedValueDepartments?.join(",")
+                              : "all",
+                          groupParents: valueGroupCustomer?.groupParents
+                            ? valueGroupCustomer?.groupParents
+                            : 0,
+                          groupDescription:
+                            valueGroupCustomer?.groupDescription,
+                        });
 
                         setModal1Open(true);
                       } else {
