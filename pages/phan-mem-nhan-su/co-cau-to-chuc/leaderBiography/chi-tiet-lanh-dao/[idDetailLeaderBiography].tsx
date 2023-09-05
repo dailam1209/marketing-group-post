@@ -171,18 +171,20 @@ export default function DetailLeaderBiography({ onCancel }: any) {
     valuesArray.push(match[1]);
   }
 
+  console.log(valuesArray);
+
   const initialValue = [
     { key: 'Thông tin cá nhân', value: '' },
     { key: 'Họ và tên:', value: isLeaderDetail?.result?.ep_name },
     { key: 'Tên thường gọi:', value: isLeaderDetail?.result?.ep_name },
-    { key: 'Ngày sinh:', value: valuesArray[0] ? valuesArray[0] : '' },
-    { key: 'Quê quán:', value: valuesArray[1] ? valuesArray[1] : '' },
-    { key: 'Dân tộc:', value: valuesArray[2] ? valuesArray[2] : '' },
-    { key: 'Ngày vào đảng:', value: valuesArray[3] ? valuesArray[3] : '' },
+    { key: 'Ngày sinh:', value: valuesArray[0] === "&nbsp;" || "" ? '' : valuesArray[0] },
+    { key: 'Quê quán:', value: valuesArray[1] === "&nbsp;" || "" ? '' : valuesArray[1] },
+    { key: 'Dân tộc:', value: valuesArray[2] === "&nbsp;" || "" ? '' : valuesArray[2] },
+    { key: 'Ngày vào đảng:', value: valuesArray[3] === "&nbsp;" || "" ? '' : valuesArray[3] },
     { key: 'Trình độ đào tạo', value: "" },
-    { key: 'Giáo dục phổ thông:', value: valuesArray[4] ? valuesArray[4] : '' },
-    { key: 'Chuyên môn nghiệp vụ:', value: valuesArray[5] ? valuesArray[5] : '' },
-    { key: 'Ngoại ngữ:', value: valuesArray[6] ? valuesArray[6] : '' },
+    { key: 'Giáo dục phổ thông:', value: valuesArray[4] === "&nbsp;" || "" ? '' : valuesArray[4] },
+    { key: 'Chuyên môn nghiệp vụ:', value: valuesArray[5] === "&nbsp;" || "" ? '' : valuesArray[5] },
+    { key: 'Ngoại ngữ:', value: valuesArray[6] === "&nbsp;" || "" ? '' : valuesArray[6] },
   ]
 
   return (

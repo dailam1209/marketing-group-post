@@ -426,6 +426,9 @@ const StyledTreeExample = ({ iconEdit }) => {
     fetchData()
   }, [newData])
 
+  console.log(data?.infoCompany);
+
+
   return (
     <>
       {typeof window !== 'undefined' && (
@@ -442,16 +445,17 @@ const StyledTreeExample = ({ iconEdit }) => {
                     <p className={`${styles.text_center}`}>
                       {data?.infoCompany?.companyName}
                     </p>
-                    {data?.infoCompany?.parent_manager ? data?.infoCompany?.parent_manager?.map(
+                    {data?.infoCompany?.parent_manager.length !== 0 ? data?.infoCompany?.parent_manager?.map(
                       (item: any, index: any) => {
-                        return <p>Giám đốc: {item?.userName ? item?.userName : "Chưa cập nhật"}</p>
+                        return <p key={index}>Giám đốc: {item?.userName ? item?.userName : "Chưa cập nhật"}</p>
                       }
-                    ) : (<p>Giám đốc: "Chưa cập nhật"</p>)}
-                    {data?.infoCompany?.parent_deputy ? data?.infoCompany?.parent_deputy?.map(
+                    ) : (<p>Giám đốc: Chưa cập nhật</p>)}
+
+                    {data?.infoCompany?.parent_deputy.length !== 0 ? data?.infoCompany?.parent_deputy?.map(
                       (item: any, index: any) => {
-                        return <p>Phó giám đốc: {item?.userName ? item.userName : "Chưa cập nhật"}</p>
+                        return <p key={index}>Phó giám đốc: {item?.userName ? item.userName : "Chưa cập nhật"}</p>
                       }
-                    ) : (<p>Phó giám đốc: "Chưa cập nhật"</p>)}
+                    ) : (<p>Phó giám đốc: Chưa cập nhật</p>)}
 
                     <a
                       href=''

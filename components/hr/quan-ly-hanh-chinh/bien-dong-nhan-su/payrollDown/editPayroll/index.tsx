@@ -58,8 +58,8 @@ export default function EditPayroll({ onCancel, infoList }: any) {
   const [isCom_id, setCom_id] = useState<any>("")
   const [isDep_id, setDep_id] = useState<any>("")
   const [isType_id, setType_id] = useState<any>(infoList?.type)
-  const [isShift_id, setShift_id] = useState<any>(infoList?.shift_id)
-  const [isSpecified_id, setSpecified_id] = useState<any>(infoList?.decision_id)
+  const [isShift_id, setShift_id] = useState<any>(infoList?.shift_id || "")
+  const [isSpecified_id, setSpecified_id] = useState<any>(infoList?.decision_id || "")
   const [isPosition_id, setPosition_id] = useState<any>("")
   const [errors, setErrors] = useState<any>({});
   const comid: any = GetComId()
