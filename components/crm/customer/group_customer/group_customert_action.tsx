@@ -16,20 +16,6 @@ export default function GroupCustomerAction({
 
   const accessToken = Cookies.get("token_base365");
 
-  const {
-    data,
-    loading,
-    error,
-    fetchData,
-    updateData: updateDataDel,
-    deleteData,
-  } = useApi(
-    `${base_url}/api/crm/group/list_group_khach_hang`,
-    `${Cookies.get("token_base365")}`,
-    "POST",
-    { page: 1, perPage: 100 }
-  );
-
   const handleClickAction = (e: any) => {
     setIsDelOpen(true);
   };
@@ -111,7 +97,7 @@ export default function GroupCustomerAction({
         title={"Xác nhận xóa nhóm khách hàng"}
         link={"#"}
         keyDeleted={selectedRow}
-        updateData={updateDataDel}
+        updateData={updateData}
         setChange={updateData}
       />
     </div>

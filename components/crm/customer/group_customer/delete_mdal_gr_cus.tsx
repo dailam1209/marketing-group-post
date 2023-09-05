@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { base_url } from "../../service/function";
 import Cookies from "js-cookie";
 import { random } from "lodash";
+import axios from "axios";
 
 interface MyComponentProps {
   isModalCancel: boolean;
@@ -33,20 +34,36 @@ const CancelModalDelGroup: React.FC<MyComponentProps> = ({
   const handleOK = async () => {
     setIsModalCancel(false);
     if (typeof keyDeleted === "number") {
-      updateData(
-        `${base_url}/api/crm/group/delete_khach_hang`,
-        `${Cookies.get("token_base365")}`,
-        "POST",
-        { listDeleteId: [keyDeleted] }
-      );
-    } else {
-      const delArray = keyDeleted?.map((keyDel) => {
-        updateData(
+      try {
+        const response = await axios.post(
           `${base_url}/api/crm/group/delete_khach_hang`,
-          `${Cookies.get("token_base365")}`,
-          "POST",
-          { listDeleteId: [keyDel] }
+          { listDeleteId: [keyDeleted] },
+          {
+            headers: {
+              Authorization: `Bearer ${Cookies.get("token_base365")}`,
+            },
+          }
         );
+      
+      } catch (error) {
+        console.error('Error:', error.message);
+      }
+    } else {
+      const delArray = keyDeleted?.map( async(keyDel) => {
+        try {
+          const response = await axios.post(
+            `${base_url}/api/crm/group/delete_khach_hang`,
+            { listDeleteId: [keyDel] },
+            {
+              headers: {
+                Authorization: `Bearer ${Cookies.get("token_base365")}`,
+              },
+            }
+          );
+        
+        } catch (error) {
+          console.error('Error:', error.message);
+        }
       });
       await Promise.all(delArray);
     }
