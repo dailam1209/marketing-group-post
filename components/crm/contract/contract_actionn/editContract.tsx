@@ -68,20 +68,31 @@ const EditContractComponent: React.FC<EditContractComponentProps> = ({
   const getImageBase64 = async () => {
     try {
       setLoading(true);
-      const res = await fetch(`${base_url}/api/crm/contractAI/view`, {
+      const url = `${base_url}/api/crm/contractAI/view`;
+      const urlTest = "http://localhost:3007/api/crm/contractAI/view"
+      const formData = new FormData();
+      formData.append("contract_id", Number(id));
+
+      const res = await fetch(urlTest, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
           Authorization: `Bearer ${Cookies.get("token_base365")}`,
         },
-        body: JSON.stringify({ contract_id: id }),
+        body: formData,
       });
 
       if (res.ok) {
         const data = await res.json();
-        setLoading(false);
+        setLoading(
+          data?.data?.result?.img_org_base64
+            ? data?.data?.result?.img_org_base64?.length > 0
+              ? false
+              : true
+            : true
+        );
         setImgaUrls(data?.data?.result?.img_org_base64);
         setpath_dowload(data?.data?.result?.url);
+        setFileUpload(data?.data?.filename);
         setIdFile(data?.data?.result?.sess_id);
         const newFormContract = data?.data?.get_detail_form_contract?.map(
           (item) => {
@@ -425,11 +436,11 @@ const EditContractComponent: React.FC<EditContractComponentProps> = ({
       list_detail: list_details,
     };
 
-    console.log(bodyData)
-
+    const url = "https://api.timviec365.vn/api/crm/contract/edit"
+    const urlTest = 'http://localhost:3007/api/crm/contract/edit'
     try {
       const response = await fetch(
-        "https://api.timviec365.vn/api/crm/contract/edit",
+        urlTest,
         {
           method: "POST",
           body: JSON.stringify(bodyData),
