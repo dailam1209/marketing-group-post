@@ -10,6 +10,8 @@ export default function Potential() {
   const { isOpen } = useContext<any>(SidebarContext);
   const [isSelectedRow, setIsSelectedRow] = useState(false);
   const [isNumberSelected, setNumberSelected] = useState(0);
+  const [isRowDataSelected, setRowDataSelected] = useState("");
+
   const {
     headerTitle,
     setHeaderTitle,
@@ -32,9 +34,14 @@ export default function Potential() {
   }, [isOpen]);
   return (
     <div ref={mainRef} className={styleHome.main}>
-      <PotentialInputGroups isSelectedRow={isSelectedRow} />
+      <PotentialInputGroups
+        isSelectedRow={isSelectedRow}
+        isNumberSelected={isNumberSelected}
+        isRowDataSelected={isRowDataSelected}
+      />
       <TableDataPotential
         setSelected={setIsSelectedRow}
+        setRowDataSelected={setRowDataSelected}
         setNumberSelected={setNumberSelected}
       />
     </div>

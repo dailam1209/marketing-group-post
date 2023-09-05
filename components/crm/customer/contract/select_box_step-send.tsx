@@ -50,7 +50,7 @@ export default function ContractSelectBoxStep({
         return value === item?._id;
       }
     });
-    setValOption(newData[0]);
+    setValOption(newData?.[0]);
   }, [value]);
 
   const handleChangeDepartment = (selectedDepartment: string) => {
