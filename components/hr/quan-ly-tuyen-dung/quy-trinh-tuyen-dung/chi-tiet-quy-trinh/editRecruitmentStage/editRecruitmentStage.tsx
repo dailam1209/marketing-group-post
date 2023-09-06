@@ -206,7 +206,7 @@ export default function EditRecruitmentStage({
                     <span className={`${styles.red}`}></span>
                   </label>
                   <div className={`${styles.pull_right}`}>
-                    <Input_textarea defaultValue={data?.description} name='des' handleChange={handleCKEChange} />
+                    <Input_textarea value={data?.description} name='des' handleChange={handleCKEChange} />
                   </div>
                 </div>
               </div>
@@ -230,9 +230,9 @@ export default function EditRecruitmentStage({
   )
 }
 
-function Input_textarea({ name, value, handleChange, defaultValue }: any) {
+function Input_textarea({ name, value, handleChange }: any) {
   const [editorLoaded, setEditorLoaded] = useState(false)
-  const [data, setData] = useState(defaultValue)
+  const [data, setData] = useState(value)
 
   useEffect(() => {
     setEditorLoaded(true)

@@ -89,3 +89,18 @@ export const UpdateInfoEmployee = async(content, birthday) => {
     
   }
 }
+
+export const GetListPermision = async(formData:FormData) => {
+  const url = process.env.NEXT_PUBLIC_BASE_URL2;
+  const isToken = getToken(COOKIE_KEY)
+  try {
+    const response = await axios.post(
+      `${url}api/hr/setting/listPermision`,
+      formData,
+      {headers:{Authorization:`Bearer ${isToken}`}}
+    )
+    return response?.data
+  } catch (error) {
+    
+  }
+}

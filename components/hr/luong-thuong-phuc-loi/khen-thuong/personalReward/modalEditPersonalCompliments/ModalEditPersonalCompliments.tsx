@@ -20,7 +20,10 @@ function ModalEditPersonalCompliments({ animation, onClose, dataOld }: any) {
   )
   const [errors, setErrors] = useState<any>({})
   const [user, setUser] = useState<any>()
-  const [listUser, setListUser] = useState<any>()
+  const [listUser, setListUser] = useState<any>({
+    list_user: dataOld?.list_user.split(',') || "",
+    list_user_name: dataOld?.list_user_name.split(',') || "",
+  })
   const [content, setContent] = useState<any>({
     achievement_id: achievement_id,
     content: contentOld,
@@ -62,6 +65,15 @@ function ModalEditPersonalCompliments({ animation, onClose, dataOld }: any) {
     }
     getData()
   }, [])
+
+  // Tách chuỗi thành mảng
+  const userIds = dataOld?.list_user.split(',');
+  const userNames = dataOld?.list_user_name.split(',');
+
+  const tendoituongdefault = userIds.map((userId, index) => ({
+    value: userId,
+    label: userNames[index]
+  }));
 
   const options = {
     tendoituong: user,
@@ -224,6 +236,7 @@ function ModalEditPersonalCompliments({ animation, onClose, dataOld }: any) {
                     className={`${styles.select}`}>
                     <Select
                       isMulti
+                      defaultValue={tendoituongdefault}
                       onChange={(option) =>
                         handleSelectionChange(option, options.tendoituong)
                       }
@@ -337,7 +350,7 @@ function ModalEditPersonalCompliments({ animation, onClose, dataOld }: any) {
                           options.hinhthuckhenthuong
                         )
                       }
-                      defaultValue={options.hinhthuckhenthuong[achievementTypeOld -1]}
+                      defaultValue={options.hinhthuckhenthuong[achievementTypeOld - 1]}
                       options={options.hinhthuckhenthuong}
                       placeholder='-- Vui lòng chọn -- '
                       styles={{

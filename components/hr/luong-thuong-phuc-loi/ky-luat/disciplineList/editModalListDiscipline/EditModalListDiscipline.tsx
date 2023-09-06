@@ -19,7 +19,12 @@ function EditModalListDiscipline({ animation, onClose, dataOld }: any) {
   const createdBy = dataOld?.created_by
 
   const [dep, setDep] = useState<any>()
-  const [listUser, setListUser] = useState<any>()
+  const [listUser, setListUser] = useState<any>({
+    depId: dataOld?.dep_id || '', // Sử dụng giá trị ban đầu từ dataOld hoặc để một giá trị mặc định (trong trường hợp dataOld không tồn tại)
+    depName: dataOld?.dep_name || '', // Sử dụng giá trị ban đầu từ dataOld hoặc để một giá trị mặc định (trong trường hợp dataOld không tồn tại)
+    list_user: dataOld?.list_user.split(',') || "",
+    list_user_name: dataOld?.list_user_name.split(',') || "",
+  });
   const [user, setUser] = useState<any>()
   const [content, setContent] = useState<any>({
     infringe_name: infringeName,
@@ -62,10 +67,21 @@ function EditModalListDiscipline({ animation, onClose, dataOld }: any) {
     }
   }, [comId])
 
+  // Tách chuỗi thành mảng
+  const userIds = dataOld?.list_user.split(',');
+  const userNames = dataOld?.list_user_name.split(',');
+
+  const tendoituongdefault = userIds.map((userId, index) => ({
+    value: userId,
+    label: userNames[index]
+  }));
+
   const options = {
     tendoituong: user,
 
     tenphongban: dep,
+
+    chonphongbandefault: [{ value: dataOld?.dep_id, label: dataOld?.dep_name },]
   }
 
   const handleContentChange = (event) => {
@@ -253,6 +269,7 @@ function EditModalListDiscipline({ animation, onClose, dataOld }: any) {
                       style={{ marginRight: '2%' }}
                       className={`${styles.select}`}>
                       <Select
+                        defaultValue={options.chonphongbandefault}
                         options={options.tenphongban}
                         onChange={handleSelectionChange}
                         placeholder={'--Vui lòng chọn--'}
@@ -293,6 +310,7 @@ function EditModalListDiscipline({ animation, onClose, dataOld }: any) {
                       style={{ marginRight: '2%' }}
                       className={`${styles.select}`}>
                       <Select
+                        defaultValue={tendoituongdefault}
                         isMulti={true}
                         options={options.tendoituong}
                         onChange={handleSelectionChange}

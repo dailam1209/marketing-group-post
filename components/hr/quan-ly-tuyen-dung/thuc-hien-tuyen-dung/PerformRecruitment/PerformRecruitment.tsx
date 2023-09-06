@@ -10,7 +10,7 @@ import {
   GetListSchedule,
 } from "@/pages/api/api-hr/quan-ly-tuyen-dung/PerformRecruitment";
 
-export interface PerformRecruitment {}
+export interface PerformRecruitment { }
 
 export default function PerformRecruitment({ children, totalCandi }: any) {
   const [selectedButton, setSelectedButton] = useState("homnay");
@@ -26,11 +26,11 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
           3
         );
         setMessIsOpen(responseListNewActive?.data.success);
-      } catch (err) {}
+      } catch (err) { }
     };
     getDataRecruitmentOverview();
   }, [currentPageListNewActive]);
-  
+
   useEffect(() => {
     try {
       const GetDataListSchedule = async () => {
@@ -41,11 +41,13 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
         setListSchedule(responseListSchedule?.data.success);
       };
       GetDataListSchedule();
-    } catch (err) {}
+    } catch (err) { }
   }, [currentPageListSchedule]);
 
   const dataDisplay = messIsOpen?.data?.data;
-  
+  console.log(dataDisplay);
+
+
   const handleClickColor = (buttonId: any) => {
     setSelectedButton(buttonId);
   };
@@ -103,7 +105,7 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
                     >
                       <div className={`${styles.tin_item}`}>
                         <div className={`${styles.tin_item1}`}>
-                          <span>{item.number}</span>
+                          <span>{item.sohoso}</span>
                           <p>ứng viên</p>
                         </div>
 
@@ -195,9 +197,8 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
               <hr></hr>
               <div className={`${styles.h_today}`}>
                 <li
-                  className={`${
-                    selectedButton === "homnay" ? styles.active_homnay : ""
-                  }`}
+                  className={`${selectedButton === "homnay" ? styles.active_homnay : ""
+                    }`}
                   onClick={() => handleClickColor("homnay")}
                 >
                   <span className={`${styles.green} ${styles.candidate_today}`}>
@@ -206,9 +207,8 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
                   <p>Hôm nay</p>
                 </li>
                 <li
-                  className={`${
-                    selectedButton === "tuannay" ? styles.active_tuannay : ""
-                  }`}
+                  className={`${selectedButton === "tuannay" ? styles.active_tuannay : ""
+                    }`}
                   onClick={() => handleClickColor("tuannay")}
                 >
                   <span className={`${styles.blue} ${styles.candidate_week}`}>
@@ -217,9 +217,8 @@ export default function PerformRecruitment({ children, totalCandi }: any) {
                   <p>Tuần này</p>
                 </li>
                 <li
-                  className={`${
-                    selectedButton === "thangnay" ? styles.active_thangnay : ""
-                  }`}
+                  className={`${selectedButton === "thangnay" ? styles.active_thangnay : ""
+                    }`}
                   onClick={() => handleClickColor("thangnay")}
                 >
                   <span
