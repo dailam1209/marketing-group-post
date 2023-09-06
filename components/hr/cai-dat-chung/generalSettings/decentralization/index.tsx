@@ -9,7 +9,42 @@ export default function Decentralization({ }) {
   const [user, setUser] = useState<any>()
   const [userId, setUserId] = useState<any>()
   const [localListCheck, setLocalListCheck] = useState<any>([])
-  const [listPermision, setListPermision] = useState<any>()
+  const [listPermision, setListPermision] = useState<any>("")
+  const [infoRoleTD1, setInfoRoleTD1] = useState<any>(false)
+  const [infoRoleTD2, setInfoRoleTD2] = useState<any>(false)
+  const [infoRoleTD3, setInfoRoleTD3] = useState<any>(false)
+  const [infoRoleTD4, setInfoRoleTD4] = useState<any>(false)
+
+  const [infoRoleTTNS1, setinfoRoleTTNS1] = useState<any>(false)
+  const [infoRoleTTNS2, setinfoRoleTTNS2] = useState<any>(false)
+  const [infoRoleTTNS3, setinfoRoleTTNS3] = useState<any>(false)
+  const [infoRoleTTNS4, setinfoRoleTTNS4] = useState<any>(false)
+
+  const [infoRoleTTVP1, setinfoRoleTTVP1] = useState<any>(false)
+  const [infoRoleTTVP2, setinfoRoleTTVP2] = useState<any>(false)
+  const [infoRoleTTVP3, setinfoRoleTTVP3] = useState<any>(false)
+  const [infoRoleTTVP4, setinfoRoleTTVP4] = useState<any>(false)
+
+  const [infoRoleHNNV1, setinfoRoleHNNV1] = useState<any>(false)
+  const [infoRoleHNNV2, setinfoRoleHNNV2] = useState<any>(false)
+  const [infoRoleHNNV3, setinfoRoleHNNV3] = useState<any>(false)
+  const [infoRoleHNNV4, setinfoRoleHNNV4] = useState<any>(false)
+
+  const [infoRoleBCNS1, setinfoRoleBCNS1] = useState<any>(false)
+  const [infoRoleBCNS2, setinfoRoleBCNS2] = useState<any>(false)
+  const [infoRoleBCNS3, setinfoRoleBCNS3] = useState<any>(false)
+  const [infoRoleBCNS4, setinfoRoleBCNS4] = useState<any>(false)
+
+  const [infoRoleDXGD1, setinfoRoleDXGD1] = useState<any>(false)
+  const [infoRoleDXGD2, setinfoRoleDXGD2] = useState<any>(false)
+  const [infoRoleDXGD3, setinfoRoleDXGD3] = useState<any>(false)
+  const [infoRoleDXGD4, setinfoRoleDXGD4] = useState<any>(false)
+
+
+  const [infoRoleTGL1, setinfoRoleTGL1] = useState<any>(false)
+  const [infoRoleTGL2, setinfoRoleTGL2] = useState<any>(false)
+  const [infoRoleTGL3, setinfoRoleTGL3] = useState<any>(false)
+  const [infoRoleTGL4, setinfoRoleTGL4] = useState<any>(false)
 
   const handleSelectionChange = (selectedOptions, actionMeta) => {
     const selectedValues = selectedOptions.map((option) => option.value)
@@ -20,31 +55,62 @@ export default function Decentralization({ }) {
     }))
   }
 
-  console.log(userId);
-  console.log(listPermision)
+  const fetchData = async () => {
+    try {
+      if (userId.userId) {
+        const formData = new FormData();
+        formData.append("userId", userId.userId);
+        const response = await GetListPermision(formData);
+        if (response) {
+          setListPermision(response?.data);
+          setInfoRoleTD1(response?.data?.infoRoleTD?.find((item: any) => item?.perId === 1) ? true : false)
+          setInfoRoleTD2(response?.data?.infoRoleTD?.find((item: any) => item?.perId === 2) ? true : false)
+          setInfoRoleTD3(response?.data?.infoRoleTD?.find((item: any) => item?.perId === 3) ? true : false)
+          setInfoRoleTD4(response?.data?.infoRoleTD?.find((item: any) => item?.perId === 4) ? true : false)
+
+          setinfoRoleTTNS1(response?.data?.infoRoleTTNS?.find((item: any) => item?.perId === 1) ? true : false)
+          setinfoRoleTTNS2(response?.data?.infoRoleTTNS?.find((item: any) => item?.perId === 2) ? true : false)
+          setinfoRoleTTNS3(response?.data?.infoRoleTTNS?.find((item: any) => item?.perId === 3) ? true : false)
+          setinfoRoleTTNS4(response?.data?.infoRoleTTNS?.find((item: any) => item?.perId === 4) ? true : false)
+
+          setinfoRoleTTVP1(response?.data?.infoRoleTTVP?.find((item: any) => item?.perId === 1) ? true : false)
+          setinfoRoleTTVP2(response?.data?.infoRoleTTVP?.find((item: any) => item?.perId === 2) ? true : false)
+          setinfoRoleTTVP3(response?.data?.infoRoleTTVP?.find((item: any) => item?.perId === 3) ? true : false)
+          setinfoRoleTTVP4(response?.data?.infoRoleTTVP?.find((item: any) => item?.perId === 4) ? true : false)
+
+          setinfoRoleHNNV1(response?.data?.infoRoleHNNV?.find((item: any) => item?.perId === 1) ? true : false)
+          setinfoRoleHNNV2(response?.data?.infoRoleHNNV?.find((item: any) => item?.perId === 2) ? true : false)
+          setinfoRoleHNNV3(response?.data?.infoRoleHNNV?.find((item: any) => item?.perId === 3) ? true : false)
+          setinfoRoleHNNV4(response?.data?.infoRoleHNNV?.find((item: any) => item?.perId === 4) ? true : false)
+
+          setinfoRoleBCNS1(response?.data?.infoRoleBCNS?.find((item: any) => item?.perId === 1) ? true : false)
+          setinfoRoleBCNS2(response?.data?.infoRoleBCNS?.find((item: any) => item?.perId === 2) ? true : false)
+          setinfoRoleBCNS3(response?.data?.infoRoleBCNS?.find((item: any) => item?.perId === 3) ? true : false)
+          setinfoRoleBCNS4(response?.data?.infoRoleBCNS?.find((item: any) => item?.perId === 4) ? true : false)
+
+          setinfoRoleDXGD1(response?.data?.infoRoleDXGD?.find((item: any) => item?.perId === 1) ? true : false)
+          setinfoRoleDXGD2(response?.data?.infoRoleDXGD?.find((item: any) => item?.perId === 2) ? true : false)
+          setinfoRoleDXGD3(response?.data?.infoRoleDXGD?.find((item: any) => item?.perId === 3) ? true : false)
+          setinfoRoleDXGD4(response?.data?.infoRoleDXGD?.find((item: any) => item?.perId === 4) ? true : false)
+
+          setinfoRoleTGL1(response?.data?.infoRoleTGL?.find((item: any) => item?.perId === 1) ? true : false)
+          setinfoRoleTGL2(response?.data?.infoRoleTGL?.find((item: any) => item?.perId === 2) ? true : false)
+          setinfoRoleTGL3(response?.data?.infoRoleTGL?.find((item: any) => item?.perId === 3) ? true : false)
+          setinfoRoleTGL4(response?.data?.infoRoleTGL?.find((item: any) => item?.perId === 4) ? true : false)
+        }
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        if (userId.userId) {
-          const formData = new FormData()
-          formData.append("userId", userId.userId)
-          const response = await GetListPermision(formData)
-          if (response) {
-            setListPermision(response?.data)
-          }
-        }
-      } catch (error) {
-      }
-    }
-    fetchData()
-  }, [userId])
+    fetchData();
+  }, [userId]);
 
 
   const handleClickCheckBox = (event: any) => {
     const { name, checked, value } = event.target
-    console.log(name, checked, value);
-
     if (name === 'role_td') {
       setLocalListCheck((prev) => {
         const prevValueArray = prev[name] ? prev[name].split(',') : []
@@ -195,7 +261,7 @@ export default function Decentralization({ }) {
           response?.data?.data?.items?.map((item) => ({
             name: 'userId',
             value: item.ep_id,
-            label: `${item.ep_name} ${item.dep_name}`,
+            label: `${item.ep_name} ( ${item.dep_name ? item.dep_name : "Chưa cập nhật"} )`,
           }))
         )
       } catch (err) { }
@@ -217,7 +283,8 @@ export default function Decentralization({ }) {
     tennhanvien: user,
   }
 
-  console.log(listPermision?.infoRoleTTNS?.find((item: any) => item?.perId === 3) ? true : false);
+  const handleChange = (e, setState) => setState(e.target.checked);
+
 
   return (
     <>
@@ -300,9 +367,10 @@ export default function Decentralization({ }) {
                       className={`${styles.l_tbl_checkbox}`}
                       name='role_td'
                       type='checkbox'
-                      defaultChecked={listPermision?.infoRoleTD?.find((item: any) => item?.perId === 1) ? true : false}
+                      checked={infoRoleTD1}
                       value='1'
                       onClick={(e) => handleClickCheckBox(e)}
+                      onChange={(e) => handleChange(e, setInfoRoleTD1)}
                     >
                     </input>
                   </div>
@@ -313,8 +381,11 @@ export default function Decentralization({ }) {
                       name='role_td'
                       type='checkbox'
                       value='2'
-                      defaultChecked={(listPermision?.infoRoleTD?.find((item: any) => item?.perId === 2)) ? true : false}
-                      onClick={(e) => handleClickCheckBox(e)}></input>
+                      checked={infoRoleTD2}
+                      onClick={(e) => handleClickCheckBox(e)}
+                      onChange={(e) => handleChange(e, setInfoRoleTD2)}
+                    ></input>
+
                   </div>
                   <div
                     className={`${styles.l_tbl_cell} ${styles.l_tbl_center} ${styles.l_tbl_border}`}>
@@ -323,8 +394,10 @@ export default function Decentralization({ }) {
                       name='role_td'
                       type='checkbox'
                       value='3'
-                      defaultChecked={(listPermision?.infoRoleTD?.find((item: any) => item?.perId === 3)) ? true : false}
-                      onClick={(e) => handleClickCheckBox(e)}></input>
+                      checked={infoRoleTD3}
+                      onClick={(e) => handleClickCheckBox(e)}
+                      onChange={(e) => handleChange(e, setInfoRoleTD3)}
+                    ></input>
                   </div>
                   <div
                     className={`${styles.l_tbl_cell} ${styles.l_tbl_center} ${styles.l_tbl_border}`}>
@@ -333,8 +406,10 @@ export default function Decentralization({ }) {
                       name='role_td'
                       type='checkbox'
                       value='4'
-                      defaultChecked={(listPermision?.infoRoleTD?.find((item: any) => item?.perId === 4)) ? true : false}
-                      onClick={(e) => handleClickCheckBox(e)}></input>
+                      checked={infoRoleTD4}
+                      onClick={(e) => handleClickCheckBox(e)}
+                      onChange={(e) => handleChange(e, setInfoRoleTD4)}
+                    ></input>
                   </div>
                 </div>
 
@@ -350,8 +425,10 @@ export default function Decentralization({ }) {
                       name='role_ttns'
                       type='checkbox'
                       value='1'
-                      defaultChecked={(listPermision?.infoRoleTTNS?.find((item: any) => item?.perId === 1)) ? true : false}
-                      onClick={(e) => handleClickCheckBox(e)}></input>
+                      checked={infoRoleTTNS1}
+                      onClick={(e) => handleClickCheckBox(e)}
+                      onChange={(e) => handleChange(e, setinfoRoleTTNS1)}
+                    ></input>
                   </div>
 
                   <div
@@ -361,8 +438,9 @@ export default function Decentralization({ }) {
                       name='role_ttns'
                       type='checkbox'
                       value='2'
-                      defaultChecked={(listPermision?.infoRoleTTNS?.find((item: any) => item?.perId === 2)) ? true : false}
-                      onClick={(e) => handleClickCheckBox(e)}></input>
+                      checked={infoRoleTTNS2}
+                      onClick={(e) => handleClickCheckBox(e)}
+                      onChange={(e) => handleChange(e, setinfoRoleTTNS2)}></input>
                   </div>
 
                   <div
@@ -372,8 +450,9 @@ export default function Decentralization({ }) {
                       name='role_ttns'
                       type='checkbox'
                       value='3'
-                      defaultChecked={(listPermision?.infoRoleTTNS?.find((item: any) => item?.perId === 3)) ? true : false}
-                      onClick={(e) => handleClickCheckBox(e)}></input>
+                      checked={infoRoleTTNS3}
+                      onClick={(e) => handleClickCheckBox(e)}
+                      onChange={(e) => handleChange(e, setinfoRoleTTNS3)}></input>
                   </div>
 
                   <div
@@ -383,8 +462,9 @@ export default function Decentralization({ }) {
                       name='role_ttns'
                       type='checkbox'
                       value='4'
-                      defaultChecked={(listPermision?.infoRoleTTNS?.find((item: any) => item?.perId === 4)) ? true : false}
-                      onClick={(e) => handleClickCheckBox(e)}></input>
+                      checked={infoRoleTTNS4}
+                      onClick={(e) => handleClickCheckBox(e)}
+                      onChange={(e) => handleChange(e, setinfoRoleTTNS4)}></input>
                   </div>
                 </div>
 
@@ -400,8 +480,9 @@ export default function Decentralization({ }) {
                       name='role_ttvp'
                       type='checkbox'
                       value='1'
-                      defaultChecked={(listPermision?.infoRoleTTVP?.find((item: any) => item?.perId === 1)) ? true : false}
-                      onClick={(e) => handleClickCheckBox(e)}></input>
+                      checked={infoRoleTTVP1}
+                      onClick={(e) => handleClickCheckBox(e)}
+                      onChange={(e) => handleChange(e, setinfoRoleTTVP1)}></input>
                   </div>
 
                   <div
@@ -411,8 +492,9 @@ export default function Decentralization({ }) {
                       name='role_ttvp'
                       type='checkbox'
                       value='2'
-                      defaultChecked={(listPermision?.infoRoleTTVP?.find((item: any) => item?.perId === 2)) ? true : false}
-                      onClick={(e) => handleClickCheckBox(e)}></input>
+                      checked={infoRoleTTVP2}
+                      onClick={(e) => handleClickCheckBox(e)}
+                      onChange={(e) => handleChange(e, setinfoRoleTTVP2)}></input>
                   </div>
 
                   <div
@@ -422,8 +504,9 @@ export default function Decentralization({ }) {
                       name='role_ttvp'
                       type='checkbox'
                       value='3'
-                      defaultChecked={(listPermision?.infoRoleTTVP?.find((item: any) => item?.perId === 3)) ? true : false}
-                      onClick={(e) => handleClickCheckBox(e)}></input>
+                      checked={infoRoleTTVP3}
+                      onClick={(e) => handleClickCheckBox(e)}
+                      onChange={(e) => handleChange(e, setinfoRoleTTVP3)}></input>
                   </div>
 
                   <div
@@ -433,8 +516,9 @@ export default function Decentralization({ }) {
                       name='role_ttvp'
                       type='checkbox'
                       value='4'
-                      defaultChecked={(listPermision?.infoRoleTTVP?.find((item: any) => item?.perId === 4)) ? true : false}
-                      onClick={(e) => handleClickCheckBox(e)}></input>
+                      checked={infoRoleTTVP4}
+                      onClick={(e) => handleClickCheckBox(e)}
+                      onChange={(e) => handleChange(e, setinfoRoleTTVP4)}></input>
                   </div>
                 </div>
 
@@ -450,8 +534,9 @@ export default function Decentralization({ }) {
                       name='role_hnnv'
                       type='checkbox'
                       value='1'
-                      defaultChecked={(listPermision?.infoRoleHNNV?.find((item: any) => item?.perId === 1)) ? true : false}
-                      onClick={(e) => handleClickCheckBox(e)}></input>
+                      checked={infoRoleHNNV1}
+                      onClick={(e) => handleClickCheckBox(e)}
+                      onChange={(e) => handleChange(e, setinfoRoleHNNV1)}></input>
                   </div>
 
                   <div
@@ -461,8 +546,9 @@ export default function Decentralization({ }) {
                       name='role_hnnv'
                       type='checkbox'
                       value='2'
-                      defaultChecked={(listPermision?.infoRoleHNNV?.find((item: any) => item?.perId === 2)) ? true : false}
-                      onClick={(e) => handleClickCheckBox(e)}></input>
+                      checked={infoRoleHNNV2}
+                      onClick={(e) => handleClickCheckBox(e)}
+                      onChange={(e) => handleChange(e, setinfoRoleHNNV2)}></input>
                   </div>
 
                   <div
@@ -472,8 +558,9 @@ export default function Decentralization({ }) {
                       name='role_hnnv'
                       type='checkbox'
                       value='3'
-                      defaultChecked={(listPermision?.infoRoleHNNV?.find((item: any) => item?.perId === 3)) ? true : false}
-                      onClick={(e) => handleClickCheckBox(e)}></input>
+                      checked={infoRoleHNNV3}
+                      onClick={(e) => handleClickCheckBox(e)}
+                      onChange={(e) => handleChange(e, setinfoRoleHNNV3)}></input>
                   </div>
 
                   <div
@@ -483,8 +570,9 @@ export default function Decentralization({ }) {
                       name='role_hnnv'
                       type='checkbox'
                       value='4'
-                      defaultChecked={(listPermision?.infoRoleHNNV?.find((item: any) => item?.perId === 4)) ? true : false}
-                      onClick={(e) => handleClickCheckBox(e)}></input>
+                      checked={infoRoleHNNV4}
+                      onClick={(e) => handleClickCheckBox(e)}
+                      onChange={(e) => handleChange(e, setinfoRoleHNNV4)}></input>
                   </div>
                 </div>
 
@@ -500,8 +588,9 @@ export default function Decentralization({ }) {
                       name='role_bcns'
                       type='checkbox'
                       value='1'
-                      defaultChecked={(listPermision?.infoRoleBCNS?.find((item: any) => item?.perId === 1)) ? true : false}
-                      onClick={(e) => handleClickCheckBox(e)}></input>
+                      checked={infoRoleBCNS1}
+                      onClick={(e) => handleClickCheckBox(e)}
+                      onChange={(e) => handleChange(e, setinfoRoleBCNS1)}></input>
                   </div>
 
                   <div
@@ -511,8 +600,9 @@ export default function Decentralization({ }) {
                       name='role_bcns'
                       type='checkbox'
                       value='2'
-                      defaultChecked={(listPermision?.infoRoleBCNS?.find((item: any) => item?.perId === 2)) ? true : false}
-                      onClick={(e) => handleClickCheckBox(e)}></input>
+                      checked={infoRoleBCNS2}
+                      onClick={(e) => handleClickCheckBox(e)}
+                      onChange={(e) => handleChange(e, setinfoRoleBCNS2)}></input>
                   </div>
 
                   <div
@@ -522,8 +612,9 @@ export default function Decentralization({ }) {
                       name='role_bcns'
                       type='checkbox'
                       value='3'
-                      defaultChecked={(listPermision?.infoRoleBCNS?.find((item: any) => item?.perId === 3)) ? true : false}
-                      onClick={(e) => handleClickCheckBox(e)}></input>
+                      checked={infoRoleBCNS3}
+                      onClick={(e) => handleClickCheckBox(e)}
+                      onChange={(e) => handleChange(e, setinfoRoleBCNS3)}></input>
                   </div>
 
                   <div
@@ -533,8 +624,9 @@ export default function Decentralization({ }) {
                       name='role_bcns'
                       type='checkbox'
                       value='4'
-                      defaultChecked={(listPermision?.infoRoleBCNS?.find((item: any) => item?.perId === 4)) ? true : false}
-                      onClick={(e) => handleClickCheckBox(e)}></input>
+                      checked={infoRoleBCNS4}
+                      onClick={(e) => handleClickCheckBox(e)}
+                      onChange={(e) => handleChange(e, setinfoRoleBCNS4)}></input>
                   </div>
                 </div>
 
@@ -550,8 +642,9 @@ export default function Decentralization({ }) {
                       name='role_dldx'
                       type='checkbox'
                       value='1'
-                      defaultChecked={(listPermision?.infoRoleDXGD?.find((item: any) => item?.perId === 1)) ? true : false}
-                      onClick={(e) => handleClickCheckBox(e)}></input>
+                      checked={infoRoleDXGD1}
+                      onClick={(e) => handleClickCheckBox(e)}
+                      onChange={(e) => handleChange(e, setinfoRoleDXGD1)}></input>
                   </div>
 
                   <div
@@ -561,8 +654,9 @@ export default function Decentralization({ }) {
                       name='role_dldx'
                       type='checkbox'
                       value='2'
-                      defaultChecked={(listPermision?.infoRoleDXGD?.find((item: any) => item?.perId === 2)) ? true : false}
-                      onClick={(e) => handleClickCheckBox(e)}></input>
+                      checked={infoRoleDXGD2}
+                      onClick={(e) => handleClickCheckBox(e)}
+                      onChange={(e) => handleChange(e, setinfoRoleDXGD2)}></input>
                   </div>
 
                   <div
@@ -572,8 +666,9 @@ export default function Decentralization({ }) {
                       name='role_dldx'
                       type='checkbox'
                       value='3'
-                      defaultChecked={(listPermision?.infoRoleDXGD?.find((item: any) => item?.perId === 3)) ? true : false}
-                      onClick={(e) => handleClickCheckBox(e)}></input>
+                      checked={infoRoleDXGD3}
+                      onClick={(e) => handleClickCheckBox(e)}
+                      onChange={(e) => handleChange(e, setinfoRoleDXGD3)}></input>
                   </div>
 
                   <div
@@ -583,8 +678,9 @@ export default function Decentralization({ }) {
                       name='role_dldx'
                       type='checkbox'
                       value='4'
-                      defaultChecked={(listPermision?.infoRoleDXGD?.find((item: any) => item?.perId === 4)) ? true : false}
-                      onClick={(e) => handleClickCheckBox(e)}></input>
+                      checked={infoRoleDXGD4}
+                      onClick={(e) => handleClickCheckBox(e)}
+                      onChange={(e) => handleChange(e, setinfoRoleDXGD4)}></input>
                   </div>
                 </div>
 
@@ -600,8 +696,9 @@ export default function Decentralization({ }) {
                       name='role_tgl'
                       type='checkbox'
                       value='1'
-                      defaultChecked={(listPermision?.infoRoleTGL?.find((item: any) => item?.perId === 1)) ? true : false}
-                      onClick={(e) => handleClickCheckBox(e)}></input>
+                      checked={infoRoleTGL1}
+                      onClick={(e) => handleClickCheckBox(e)}
+                      onChange={(e) => handleChange(e, setinfoRoleTGL1)}></input>
                   </div>
 
                   <div
@@ -611,8 +708,9 @@ export default function Decentralization({ }) {
                       name='role_tgl'
                       type='checkbox'
                       value='2'
-                      defaultChecked={(listPermision?.infoRoleTGL?.find((item: any) => item?.perId === 2)) ? true : false}
-                      onClick={(e) => handleClickCheckBox(e)}></input>
+                      checked={infoRoleTGL2}
+                      onClick={(e) => handleClickCheckBox(e)}
+                      onChange={(e) => handleChange(e, setinfoRoleTGL2)}></input>
                   </div>
 
                   <div
@@ -622,8 +720,9 @@ export default function Decentralization({ }) {
                       name='role_tgl'
                       type='checkbox'
                       value='3'
-                      defaultChecked={(listPermision?.infoRoleTGL?.find((item: any) => item?.perId === 3)) ? true : false}
-                      onClick={(e) => handleClickCheckBox(e)}></input>
+                      checked={infoRoleTGL3}
+                      onClick={(e) => handleClickCheckBox(e)}
+                      onChange={(e) => handleChange(e, setinfoRoleTGL3)}></input>
                   </div>
 
                   <div
@@ -633,8 +732,9 @@ export default function Decentralization({ }) {
                       name='role_tgl'
                       type='checkbox'
                       value='4'
-                      defaultChecked={(listPermision?.infoRoleTGL?.find((item: any) => item?.perId === 4)) ? true : false}
-                      onClick={(e) => handleClickCheckBox(e)}></input>
+                      checked={infoRoleTGL4}
+                      onClick={(e) => handleClickCheckBox(e)}
+                      onChange={(e) => handleChange(e, setinfoRoleTGL4)}></input>
                   </div>
                 </div>
               </div>

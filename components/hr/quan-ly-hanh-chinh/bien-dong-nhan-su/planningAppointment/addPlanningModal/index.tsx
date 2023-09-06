@@ -175,6 +175,8 @@ export default function AddPlanningModal({ onCancel }: any) {
       const response = await AddPlanningAppointment(formData)
       if (response) {
         onCancel()
+      } else {
+        alert("Thêm mới bổ nhiểm, quy hoạch không thành công")
       }
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
