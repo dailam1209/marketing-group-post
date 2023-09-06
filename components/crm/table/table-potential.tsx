@@ -161,19 +161,21 @@ const TableDataPotential: React.FC<TableDataPotentialProps> = ({
 }: any) => {
   const rowSelection: TableRowSelection<DataType> = {
     onChange: (selectedRowKeys, selectedRows) => {
-      console.log(`selectedRowKeys: ${selectedRowKeys}`, "selectedRows: ");
-      if (selectedRows?.length > 0) {
+      console.log(selectedRows);
+      if (selectedRows?.length >= 1) {
         setSelected(true);
       } else {
         setSelected(false);
       }
     },
     onSelect: (record, selected, selectedRows) => {
-      console.log(123, selectedRows);
       setNumberSelected(selectedRows?.length);
       setRowDataSelected(selectedRows);
     },
-    onSelectAll: (selected, selectedRows, changeRows) => {},
+    onSelectAll: (selected, selectedRows, changeRows) => {
+      setNumberSelected(selectedRows?.length);
+      setRowDataSelected(selectedRows);
+    },
   };
   return (
     <div className="custom_table">

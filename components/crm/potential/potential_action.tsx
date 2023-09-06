@@ -64,7 +64,7 @@ export default function PotentialAction({
       type: "hand_over",
     },
     {
-      link: "/crm/potential/add_file",
+      link: `/crm/potential/duplicate/${id}`,
       name: "Nhân bản",
       img: `bi bi-back`,
       type: "blank",
@@ -145,10 +145,6 @@ export default function PotentialAction({
               onClick={() =>
                 router.push({
                   pathname: dataActionPotential[i].link,
-                  query: {
-                    data: JSON.stringify(isRowDataSelected),
-                    length: isNumberSelected,
-                  },
                 })
               }
             >
@@ -178,7 +174,7 @@ export default function PotentialAction({
     <div className={styles.div__thaotac}>
       <div>
         <label>Đã chọn:</label>
-        <b className={styles.checked_count}>0</b>
+        <b className={styles.checked_count}>{dataToSend.length}</b>
       </div>
       <Dropdown
         menu={{ items }}
