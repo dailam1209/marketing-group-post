@@ -12,6 +12,9 @@ import {
 import { getDataUser } from '@/pages/api/api-hr/quan-ly-tuyen-dung/PerformRecruitment'
 
 function ModalEditAchievementList({ animation, onClose, dataOld }: any) {
+
+  console.log(dataOld);
+
   const typeEdit = dataOld.dep_id
   const id = dataOld.id
   const achievement_id = dataOld.achievement_id
@@ -40,7 +43,12 @@ function ModalEditAchievementList({ animation, onClose, dataOld }: any) {
   const [achievementType, setAchievementType] = useState<any>({
     achievementType: achievementTypeOld.toString(),
   })
-  const [listUser, setListUser] = useState<any>()
+  const [listUser, setListUser] = useState<any>({
+    depId: dataOld?.dep_id || '', // Sử dụng giá trị ban đầu từ dataOld hoặc để một giá trị mặc định (trong trường hợp dataOld không tồn tại)
+    depName: dataOld?.dep_name || '', // Sử dụng giá trị ban đầu từ dataOld hoặc để một giá trị mặc định (trong trường hợp dataOld không tồn tại)
+    list_user: dataOld?.list_user.split(',') || "",
+    list_user_name: dataOld?.list_user_name.split(',') || "",
+  });
   const [errors, setErrors] = useState<any>({})
   const mergedObject = { ...content, ...achievementType, ...listUser }
 
@@ -147,7 +155,7 @@ function ModalEditAchievementList({ animation, onClose, dataOld }: any) {
             response?.data?.data?.items?.map((item) => ({
               name: 'list_user',
               value: item.ep_id,
-              label: `${item.ep_name} ${item.dep_name}`,
+              label: `${item.ep_name} (${item.dep_name ? item.dep_name : "Chưa cập nhật"})`,
             }))
           )
         } catch (err) { }
@@ -156,9 +164,19 @@ function ModalEditAchievementList({ animation, onClose, dataOld }: any) {
     }
   }, [])
 
+  // Tách chuỗi thành mảng
+  const userIds = dataOld?.list_user.split(',');
+  const userNames = dataOld?.list_user_name.split(',');
+
+  const tendoituongdefault = userIds.map((userId, index) => ({
+    value: userId,
+    label: userNames[index]
+  }));
 
   const options = {
     tenphongban: dep,
+
+    chonphongbandefault: [{ value: dataOld?.dep_id, label: dataOld?.dep_name },],
 
     tendoituong: user,
 
@@ -247,6 +265,7 @@ function ModalEditAchievementList({ animation, onClose, dataOld }: any) {
                         style={{ marginRight: '2%' }}
                         className={`${styles.select}`}>
                         <Select
+                          defaultValue={tendoituongdefault}
                           isMulti
                           options={options.tendoituong}
                           placeholder='Chọn đối tượng'
@@ -292,6 +311,7 @@ function ModalEditAchievementList({ animation, onClose, dataOld }: any) {
                         style={{ marginRight: '2%' }}
                         className={`${styles.select}`}>
                         <Select
+                          defaultValue={options.chonphongbandefault}
                           options={options?.tenphongban}
                           placeholder='Chọn phòng ban'
                           onChange={handleSelectionChange}
@@ -385,7 +405,7 @@ function ModalEditAchievementList({ animation, onClose, dataOld }: any) {
                           options.hinhthuckhenthuong
                         )
                       }
-                      defaultValue={options.hinhthuckhenthuong[achievementTypeOld -1]}
+                      defaultValue={options.hinhthuckhenthuong[achievementTypeOld - 1]}
                       options={options.hinhthuckhenthuong}
                       placeholder='-- Vui lòng chọn -- '
                       styles={{
