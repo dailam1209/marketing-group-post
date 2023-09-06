@@ -44,15 +44,22 @@ const TableContract: React.FC<TableContractProps> = ({ valSearch }) => {
   }
 
   const { data, loading, error, fetchData, updateData, deleteData } = useApi(
-    `https://api.timviec365.vn/api/crm/contract/list`,
+    // `https://api.timviec365.vn/api/crm/contract/list`,
+    "http://localhost:3007/api/crm/contract/list", // Đợi API được đẩy lên Server
     Cookies.get("token_base365"),
     "POST",
     // { id_customer: `${id_customer}`, pageSize: 10000 }
     {}
   );
+
+  const [hasFetchedData, setHasFetchedData] = useState(false);
+
   useEffect(() => {
+    if (valSearch && !hasFetchedData) {
     fetchData();
-  }, [valSearch]);
+    setHasFetchedData(true); // Đã gọi fetchData, đánh dấu là đã fetch data
+  }
+  }, [valSearch, hasFetchedData]);
 
   const columns: ColumnsType<DataType> = [
     {
@@ -79,6 +86,9 @@ const TableContract: React.FC<TableContractProps> = ({ valSearch }) => {
       dataIndex: "user_created",
       key: "1",
       width: 200,
+      render: (name)=>(
+        <span>{name || "Chưa cập nhật"}</span>
+      )
     },
     {
       title: "Ngày tạo",
@@ -96,13 +106,13 @@ const TableContract: React.FC<TableContractProps> = ({ valSearch }) => {
     },
     {
       title: "Chức năng",
-      dataIndex: "",
+      dataIndex: "id_form_contract",
       key: "4",
       width: 200,
       // fixed:"right",
-      render: () => (
+      render: (data) => (
         <>
-          <Link href={`/crm/contract/edit/${id}`}>
+          <Link href={`/crm/contract/edit/${data}`}>
             <button>
               <img className={styles.icon_edit} src="/crm/h_edit_cus.svg" />
               Sửa
