@@ -50,11 +50,6 @@ export default function ListRecruitmentProcess({
     router.push(`/phan-mem-nhan-su/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/danh-sach-quy-trinh/${id}`);
   };
 
-  console.log(dataRecruitment?.data?.data[0]?.created_at);
-  // format(new Date(dataRecruitment?.data?.data[0]?.created_at), "dd/MM/yyyy")
-  const parsedDate = parseISO(dataRecruitment?.data?.data[0]?.created_at);
-  console.log(format(new Date(parsedDate), "dd/MM/yyyy"));
-
   return (
     <>
       <Head>
@@ -62,7 +57,6 @@ export default function ListRecruitmentProcess({
       </Head>
       <div className={`${styles.all_quytrinh}`} style={{ marginTop: "20px" }}>
         {dataRecruitment?.data?.data?.map((item: any) => {
-          // const formattedDate = format(new Date(parseISO(item?.created_at)), "dd/MM/yyyy");
           return (
             <div key={item.id} style={{ width: "100%" }}>
               <div className={`${styles.quytrinh_item}`}>

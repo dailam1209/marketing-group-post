@@ -169,7 +169,6 @@ export default function AddWorkingModal({ onCancel }: any) {
       formData.append('new_group_id', isGroup_idNew)
       formData.append('mission', isMission)
       formData.append('note', isNote)
-
       const response = await AddWorkingRotation(formData)
       if (response) {
         onCancel()
