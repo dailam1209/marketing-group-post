@@ -8,6 +8,7 @@ import { base_url } from "@/components/crm/service/function";
 import Cookies from "js-cookie";
 import { checkAndRedirectToHomeIfNotLoggedIn } from "@/components/crm/ultis/checkLogin";
 import Head from "next/head";
+import { useApi } from "@/components/crm/hooks/useApi";
 
 export default function GroupCustomer() {
   const mainRef = useRef<HTMLDivElement>(null);
@@ -113,7 +114,7 @@ export default function GroupCustomer() {
           <HeaderBtnsCustomerGroup
             isSelectedRow={isSelectedRow}
             selectedRow={selectedRows}
-            updateData={setChange}
+            updateData={handleGetGr}
             valFilter={valFilter}
             setValFilter={setValFilter}
             handleClickSearch={handleClickSearch}

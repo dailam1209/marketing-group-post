@@ -67,6 +67,8 @@ export default function EditWorkingModal({ onCancel, infoList }: any) {
   const [isPosition_idNew, setPosition_idNew] = useState<any>(infoList?.item?.id_new_position)
   const [isSpecified_id, setSpecified_id] = useState<any>("")
   const [errors, setErrors] = useState<any>({});
+  const [companyNames, setCompanyNames] = useState<any[]>([]);
+  const [companyNamesNew, setCompanyNamesNew] = useState<any[]>([]);
   const modalRef = useRef(null);
 
   useEffect(() => {
@@ -130,6 +132,9 @@ export default function EditWorkingModal({ onCancel, infoList }: any) {
     mission: Yup.string().required("Vui lòng nhập nhiệm vụ"),
   });
 
+  console.log(isCom_new);
+
+
   const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     try {
@@ -154,7 +159,7 @@ export default function EditWorkingModal({ onCancel, infoList }: any) {
       formData.append('dep_id', isDep_id)
       formData.append('created_at', created_at)
       formData.append('com_id', isCom_id)
-      formData.append('new_com_id', isCom_idNew)
+      formData.append('new_com_id', isCom_idNew ? isCom_idNew : isCom_new.value)
       formData.append('decision_id', isSpecified_id)
       formData.append('update_position', isPosition_idNew)
       formData.append('update_dep_id', isDep_idNew)
@@ -190,15 +195,26 @@ export default function EditWorkingModal({ onCancel, infoList }: any) {
   };
 
   // push danh sách công ty
-  const companyNames: any = [];
-  const companyNamesNew: any = [];
-  if (isOrganizationalStructureList?.infoCompany) {
-    companyNames.push({ key: isOrganizationalStructureList?.infoCompany?.companyName, value: isOrganizationalStructureList?.infoCompany?.parent_com_id });
-    for (const company of isOrganizationalStructureList?.infoCompany?.infoChildCompany) {
-      companyNames.push({ key: company.com_name, value: company.com_id });
-      companyNamesNew.push({ key: company.com_name, value: company.com_id });
+  // const companyNames: any = [];
+  // const companyNamesNew: any = [];
+  // if (isOrganizationalStructureList?.infoCompany) {
+  //   companyNames.push({ key: isOrganizationalStructureList?.infoCompany?.companyName, value: isOrganizationalStructureList?.infoCompany?.parent_com_id });
+  //   for (const company of isOrganizationalStructureList?.infoCompany?.infoChildCompany) {
+  //     companyNames.push({ key: company.com_name, value: company.com_id });
+  //     companyNamesNew.push({ key: company.com_name, value: company.com_id });
+  //   }
+  // }
+
+  useEffect(() => {
+    if (isOrganizationalStructureList?.infoCompany) {
+      const newCompanyNames = [
+        { key: isOrganizationalStructureList.infoCompany.companyName, value: isOrganizationalStructureList.infoCompany.parent_com_id },
+        ...isOrganizationalStructureList.infoCompany.infoChildCompany.map((company: any) => ({ key: company.com_name, value: company.com_id }))
+      ];
+      setCompanyNames(newCompanyNames);
+      setCompanyNamesNew(newCompanyNames); // Đồng thời cập nhật companyNamesNew
     }
-  }
+  }, [isOrganizationalStructureList]);
 
   // push danh sách phòng ban theo công ty
   const depInfoArrayNew: any = [];
@@ -230,7 +246,7 @@ export default function EditWorkingModal({ onCancel, infoList }: any) {
   useEffect(() => {
     const chonchinhandefaulthOptions = companyNames?.find((com: any) => com.key === infoList?.item?.new_com_name)
     setCom_new(chonchinhandefaulthOptions)
-  }, [infoList])
+  }, [infoList, companyNames])
 
   const chonphongbanmoiOptions = useMemo(
     () =>

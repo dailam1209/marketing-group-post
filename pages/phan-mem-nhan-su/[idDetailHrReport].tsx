@@ -46,20 +46,24 @@ const Selects = ({
       valueContainer: (baseStyles) => ({
         ...baseStyles,
         height: 33.6,
+
       }),
       indicatorsContainer: (baseStyles) => ({
         ...baseStyles,
         height: 33.6,
         color: 'white',
 
+
       }),
       placeholder: (baseStyles) => ({
         ...baseStyles,
         color: 'while',
+
       }),
       indicatorSeparator: (baseStyles) => ({
         ...baseStyles,
         backgroundColor: '#4c5bd4',
+
       }),
       menu: (baseStyles) => ({
         ...baseStyles,
@@ -450,7 +454,7 @@ export default function DetailHrReport({ children }: any) {
       }
     }
     fetchData()
-  }, [link, currentPage, isPosition_id, isGender, isMaried, isDep_id, isTeam_id, isGroup_id])
+  }, [link, currentPage, isPosition_id, isGender, isMaried])
 
   const handleSelectChange = (
     selectedOption: SelectOptionType | null,
@@ -516,17 +520,6 @@ export default function DetailHrReport({ children }: any) {
     setGroupinfo(allGroupInfo)
   }, [OrganisationalDatas])
 
-  // const allGroupInfo = getAllGroupInfo()
-
-  // const chontoOptions = useMemo(
-  //   () =>
-  //     allTeamInfo &&
-  //     allTeamInfo?.map((team: any) => ({
-  //       value: team.gr_id,
-  //       label: team.gr_name,
-  //     })),
-  //   [allTeamInfo]
-  // )
   const chontoOptions = useMemo(
     () =>
       isTeaminfo &&
@@ -536,16 +529,6 @@ export default function DetailHrReport({ children }: any) {
       })),
     [isTeaminfo]
   )
-
-  // const chonnhomOptions = useMemo(
-  //   () =>
-  //     allGroupInfo &&
-  //     allGroupInfo?.map((group: any) => ({
-  //       value: group.gr_id,
-  //       label: group.gr_name,
-  //     })),
-  //   [allGroupInfo]
-  // )
 
   const chonnhomOptions = useMemo(
     () =>
@@ -600,16 +583,9 @@ export default function DetailHrReport({ children }: any) {
     ],
   }
 
-  console.log(chonnhomOptions)
-  console.log(chonphongbanOptions)
-  console.log(chontoOptions)
-  console.log(isDep_name);
-
-
   useEffect(() => {
     if (chonphongbanOptions && isDep_id) {
       const dep_match = chonphongbanOptions.find((item: any) => item.value === Number(isDep_id))
-      console.log(dep_match);
       setDep_name(dep_match.label)
     }
   }, [isDep_id, chonphongbanOptions])
@@ -728,6 +704,8 @@ export default function DetailHrReport({ children }: any) {
                         setState={setDep_id}
                         option={options.chonphongban}
                         placeholder='Chọn phòng ban'
+                        // menuShouldBlockScroll={true}
+                        menuPortalTarget={document.body}
                       />
                     </th>
                     <th>
