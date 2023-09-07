@@ -58,12 +58,21 @@ export default function AddPersonalCustomerInfor({
           <PotentialSelectBoxStep
             placeholder="Chọn nguồn khách hàng"
             value={formData?.cus_from}
-            selectData = {(value)=>{
-              setFormData((prev)=>{
-                return { ...prev, cus_from: value }
-              })
+            selectData={(value) => {
+              setFormData((prev) => {
+                return { ...prev, cus_from: value };
+              });
             }}
-            data={['Facebook','Zalo','Website','Dữ liệu bên thứ 3','Khách hàng giới thiệu','Giới thiệu','Chăm sóc khách hàng','Email']}
+            data={[
+              "Facebook",
+              "Zalo",
+              "Website",
+              "Dữ liệu bên thứ 3",
+              "Khách hàng giới thiệu",
+              "Giới thiệu",
+              "Chăm sóc khách hàng",
+              "Email",
+            ]}
           />
         </div>
       </div>
@@ -73,13 +82,15 @@ export default function AddPersonalCustomerInfor({
           <label className={`${styles["form-label"]}`}>
             Phân loại khách hàng
           </label>
-          <PotentialSelectBoxStep value={formData?.business_type} placeholder="Chọn" 
-           selectData = {(value)=>{
-            setFormData((prev)=>{
-              return { ...prev, business_type: value }
-            })
-          }}
-          data={['Khách hàng dự án','Khách hàng bán lẻ']}
+          <PotentialSelectBoxStep
+            value={formData?.business_type}
+            placeholder="Chọn"
+            selectData={(value) => {
+              setFormData((prev) => {
+                return { ...prev, business_type: value };
+              });
+            }}
+            data={["Khách hàng dự án", "Khách hàng bán lẻ"]}
           />
         </div>
         <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
@@ -87,12 +98,18 @@ export default function AddPersonalCustomerInfor({
           <PotentialSelectBoxStep
             value={formData?.business_areas}
             placeholder="Chọn lĩnh vực"
-            selectData = {(value)=>{
-              setFormData((prev)=>{
-                return { ...prev, business_areas: value }
-              })
+            selectData={(value) => {
+              setFormData((prev) => {
+                return { ...prev, business_areas: value };
+              });
             }}
-            data={['Thương mại','Dịch vụ','Sản xuất','Xây lắp','Công nghiệp nhẹ']}
+            data={[
+              "Thương mại",
+              "Dịch vụ",
+              "Sản xuất",
+              "Xây lắp",
+              "Công nghiệp nhẹ",
+            ]}
           />
         </div>
       </div>
@@ -100,12 +117,16 @@ export default function AddPersonalCustomerInfor({
       <div className={styles.row_input}>
         <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
           <label className={`${styles["form-label"]}`}>Loại hình</label>
-          <PotentialSelectBoxStep   value={formData?.classify} placeholder="Chọn"  selectData = {(value)=>{
-              setFormData((prev)=>{
-                return { ...prev, classify: value }
-              })
+          <PotentialSelectBoxStep
+            value={formData?.classify}
+            placeholder="Chọn"
+            selectData={(value) => {
+              setFormData((prev) => {
+                return { ...prev, classify: value };
+              });
             }}
-            data={['Doanh nghiệp','Hộ cá thể','Hành chính sự nghiệp','Khác']}/>
+            data={["Doanh nghiệp", "Hộ cá thể", "Hành chính sự nghiệp", "Khác"]}
+          />
         </div>
         <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
           <label className={`${styles["form-label"]}`}>Ngành nghề</label>

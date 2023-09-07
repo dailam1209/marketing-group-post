@@ -1,6 +1,6 @@
 import styles from "./potential.module.css";
 import type { MenuProps } from "antd";
-import { Button, Dropdown, Space } from "antd";
+import { Dropdown } from "antd";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import CanmpaignModal from "./potential_action_modal/potential_mdal_campain";
@@ -15,6 +15,8 @@ export default function PotentialAction({
   isSelectedRow,
   isRowDataSelected,
   isNumberSelected,
+  setSelected,
+  setNumberSelected,
 }: any) {
   const [isOpenCampaign, setIsOpenCampaign] = useState(false);
   const [isOpenEmail, setIsOpenIsEmail] = useState(false);
@@ -64,7 +66,7 @@ export default function PotentialAction({
       type: "hand_over",
     },
     {
-      link: "/crm/potential/add_file",
+      link: `/crm/potential/duplicate/${id}`,
       name: "Nhân bản",
       img: `bi bi-back`,
       type: "blank",
@@ -145,10 +147,6 @@ export default function PotentialAction({
               onClick={() =>
                 router.push({
                   pathname: dataActionPotential[i].link,
-                  query: {
-                    data: JSON.stringify(isRowDataSelected),
-                    length: isNumberSelected,
-                  },
                 })
               }
             >
@@ -178,7 +176,7 @@ export default function PotentialAction({
     <div className={styles.div__thaotac}>
       <div>
         <label>Đã chọn:</label>
-        <b className={styles.checked_count}>0</b>
+        <b className={styles.checked_count}>{dataToSend.length}</b>
       </div>
       <Dropdown
         menu={{ items }}
@@ -196,6 +194,8 @@ export default function PotentialAction({
       <CanmpaignModal
         isModalCancel={isOpenCampaign}
         setIsModalCancel={setIsOpenCampaign}
+        setSelected={setSelected}
+        setNumberSelected={setNumberSelected}
       />
       <EmailModal
         isModalCancel={isOpenEmail}

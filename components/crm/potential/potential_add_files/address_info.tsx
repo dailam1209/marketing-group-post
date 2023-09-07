@@ -1,7 +1,11 @@
 import PotentialSelectBoxStep from "../potential_steps/select_box_step";
 import styles from "./add_file_potential.module.css";
 import InputText from "./input_text";
-export default function AddAddressInfo({ title = "Thông tin địa chỉ" }: any) {
+export default function AddAddressInfo({
+  title = "Thông tin địa chỉ",
+  formData,
+  setFormData,
+}: any) {
   return (
     <div>
       <p className={styles.main__body__type}>{title}</p>
@@ -48,7 +52,12 @@ export default function AddAddressInfo({ title = "Thông tin địa chỉ" }: an
             placeholder="Chọn Số nhà, đường phố"
           />
         </div>
-        <InputText label="Mã vùng" placeholder="Nhập mã vùng" />
+        <InputText
+          label="Mã vùng"
+          placeholder="Nhập mã vùng"
+          value={formData?.mavung}
+          setFormData={setFormData}
+        />
       </div>
 
       <div className={styles.row_input}>

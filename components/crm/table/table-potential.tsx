@@ -1,5 +1,5 @@
-import React from "react";
-import { Table, Tooltip } from "antd";
+import React, { useState } from "react";
+import { Table, Pagination } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { TableRowSelection } from "antd/es/table/interface";
 import Link from "next/link";
@@ -159,21 +159,25 @@ const TableDataPotential: React.FC<TableDataPotentialProps> = ({
   setNumberSelected,
   setRowDataSelected,
 }: any) => {
+  const [currentPage, setCurrentPage] = useState(1); // Trang hiện tại
+  const [pageSize, setPageSize] = useState(10); // Số mục trên mỗi trang
   const rowSelection: TableRowSelection<DataType> = {
     onChange: (selectedRowKeys, selectedRows) => {
-      console.log(`selectedRowKeys: ${selectedRowKeys}`, "selectedRows: ");
-      if (selectedRows?.length > 0) {
+      console.log(selectedRows);
+      if (selectedRows?.length >= 1) {
         setSelected(true);
       } else {
         setSelected(false);
       }
     },
     onSelect: (record, selected, selectedRows) => {
-      console.log(123, selectedRows);
       setNumberSelected(selectedRows?.length);
       setRowDataSelected(selectedRows);
     },
-    onSelectAll: (selected, selectedRows, changeRows) => {},
+    onSelectAll: (selected, selectedRows, changeRows) => {
+      setNumberSelected(selectedRows?.length);
+      setRowDataSelected(selectedRows);
+    },
   };
   return (
     <div className="custom_table">
@@ -183,11 +187,28 @@ const TableDataPotential: React.FC<TableDataPotentialProps> = ({
         rowSelection={{ ...rowSelection }}
         bordered
         scroll={{ x: 1500, y: 300 }}
+        pagination={{
+          current: currentPage,
+          pageSize: pageSize,
+          total: data.length,
+          showSizeChanger: true,
+          showTotal: (total) => `Tổng ${total} Tiềm năng`,
+          onChange: (page, pageSize) => {
+            setCurrentPage(page);
+          },
+        }}
       />
       <div className="main__footer flex_between" id="">
         <div className="show_number_item">
           <b>Hiển thị:</b>
-          <select className="show_item">
+          <select
+            className="show_item"
+            value={pageSize}
+            onChange={(e) => {
+              setPageSize(Number(e.target.value));
+              setCurrentPage(1);
+            }}
+          >
             <option value={10}>10 bản ghi trên trang</option>
             <option value={20}>20 bản ghi trên trang</option>
             <option value={30}>30 bản ghi trên trang</option>

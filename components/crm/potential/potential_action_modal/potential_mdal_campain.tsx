@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { Button, Modal } from "antd";
+import { Modal } from "antd";
 import styles from "../potential.module.css";
-import { useRouter } from "next/router";
-import TableDataCampaign from "@/components/crm/table/table-campaign";
+import TableDataCampaignPopup from "@/components/crm/table/table-campaign-popup";
 import Link from "next/link";
 import ModalCompleteStep from "../potential_steps/complete_modal";
 import { showModalWithTimeout } from "@/components/crm/ultis/helper";
@@ -10,10 +9,14 @@ import { showModalWithTimeout } from "@/components/crm/ultis/helper";
 interface MyComponentProps {
   isModalCancel: boolean;
   setIsModalCancel: (value: boolean) => void;
+  setSelected: any;
+  setNumberSelected: any;
 }
 const CanmpaignModal: React.FC<MyComponentProps> = ({
   isModalCancel,
   setIsModalCancel,
+  setSelected,
+  setNumberSelected,
 }) => {
   const [isModalSuccess, setIsMdalSuccess] = useState(false);
 
@@ -58,7 +61,7 @@ const CanmpaignModal: React.FC<MyComponentProps> = ({
               </form>
             </div>
             <div className={`${styles.main__control_add} flex_end`}>
-              <Link href="/potential/add_file">
+              <Link href="/crm/campaign/add">
                 <button
                   type="button"
                   className={`${styles.dropbtn_add} flex_align_center`}
@@ -69,7 +72,10 @@ const CanmpaignModal: React.FC<MyComponentProps> = ({
               </Link>
             </div>
           </div>
-          <TableDataCampaign />
+          <TableDataCampaignPopup
+            setSelected={setSelected}
+            setNumberSelected={setNumberSelected}
+          />
         </div>
       </Modal>
 

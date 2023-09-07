@@ -21,6 +21,7 @@ const ShareActionModal: React.FC<MyComponentProps> = ({
 
   const handleOK = () => {
     setIsModalCancel(false);
+    clearLabel();
     setIsOpenMdalSuccess(true);
     setTimeout(() => {
       setIsOpenMdalSuccess(false);
@@ -29,7 +30,7 @@ const ShareActionModal: React.FC<MyComponentProps> = ({
 
   const handleAddElement = (condition: string) => {
     const newElement = (
-      <div className={styles.content_obj} key={label}>
+      <div className={styles.content_obj} key={Date.now().toString()}>
         <div className={styles.choose_obj}>
           <label className={`${styles.form_label} required`}>{condition}</label>
           <PotentialSelectBoxStep
@@ -45,11 +46,17 @@ const ShareActionModal: React.FC<MyComponentProps> = ({
         </div>
       </div>
     );
-    if (label === condition) {
-      setElements((prevElements) => [...prevElements, newElement]);
-    } else {
+
+    if (label !== condition) {
+      setLabel(condition);
       setElements([newElement]);
+    } else {
+      setElements((prevElements) => [...prevElements, newElement]);
     }
+  };
+
+  const clearLabel = () => {
+    setElements([]);
   };
 
   return (
@@ -59,7 +66,10 @@ const ShareActionModal: React.FC<MyComponentProps> = ({
         centered
         open={isModalCancel}
         onOk={() => handleOK()}
-        onCancel={() => setIsModalCancel(false)}
+        onCancel={() => {
+          setIsModalCancel(false);
+          clearLabel();
+        }}
         className={"mdal_cancel email_add_mdal"}
         okText="Đồng ý"
         cancelText="Huỷ"
@@ -70,7 +80,6 @@ const ShareActionModal: React.FC<MyComponentProps> = ({
               onClick={() => {
                 setIsOpenSelect(true);
                 handleAddElement("Phòng ban được chia sẻ");
-                setLabel("Phòng ban được chia sẻ");
               }}
               className={`${styles.department} ${styles.btn_obj}`}
             >
@@ -80,7 +89,6 @@ const ShareActionModal: React.FC<MyComponentProps> = ({
               onClick={() => {
                 setIsOpenSelect(true);
                 handleAddElement("Nhân viên được chia sẻ");
-                setLabel("Nhân viên được chia sẻ");
               }}
               className={`${styles.employ} ${styles.btn_obj}`}
             >
