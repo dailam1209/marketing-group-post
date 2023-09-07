@@ -2,17 +2,22 @@ import React, { useEffect, useState } from "react";
 import styles from "../../personalReward/modalAddPersonalCompliments/ModalAddReward.module.css";
 import Select from "react-select";
 import { format } from "date-fns";
-import { GetDepartmentList, UpdateAchievement } from "@/pages/api/api-hr/luong-thuong-phuc-loi/reward";
+import {
+  GetDepartmentList,
+  UpdateAchievement,
+} from "@/pages/api/api-hr/luong-thuong-phuc-loi/reward";
 import { getDataUser } from "@/pages/api/api-hr/quan-ly-tuyen-dung/PerformRecruitment";
 import { getToken } from "@/pages/api/api-hr/token";
 import jwt_decode from "jwt-decode";
-
-function ModalEditCommendationTeam({ animation, onClose, dataOld }: any) {
-
-  console.log(dataOld);
-
-  const typeEdit = dataOld.dep_id
-  const id = dataOld.id
+import * as Yup from "yup";
+function ModalEditCommendationTeam({
+  animation,
+  onClose,
+  dataOld,
+  updateData,
+}: any) {
+  const typeEdit: any = dataOld.dep_id;
+  const id = dataOld.id;
   const achievement_id = dataOld.achievement_id;
   const contentOld = dataOld.content;
   const created_by = dataOld.created_by;
@@ -26,12 +31,18 @@ function ModalEditCommendationTeam({ animation, onClose, dataOld }: any) {
 
   const [dep, setDep] = useState<any>();
   const [listUser, setListUser] = useState<any>({
-    depId: dataOld?.dep_id || '', // Sử dụng giá trị ban đầu từ dataOld hoặc để một giá trị mặc định (trong trường hợp dataOld không tồn tại)
-    depName: dataOld?.dep_name || '', // Sử dụng giá trị ban đầu từ dataOld hoặc để một giá trị mặc định (trong trường hợp dataOld không tồn tại)
-    list_user: dataOld?.list_user.split(',') || "",
-    list_user_name: dataOld?.list_user_name.split(',') || "",
+    depId: dataOld?.dep_id || "", // Sử dụng giá trị ban đầu từ dataOld hoặc để một giá trị mặc định (trong trường hợp dataOld không tồn tại)
+    depName: dataOld?.dep_name || "", // Sử dụng giá trị ban đầu từ dataOld hoặc để một giá trị mặc định (trong trường hợp dataOld không tồn tại)
+    list_user: dataOld?.list_user.split(",") || "",
+    list_user_name: dataOld?.list_user_name.split(",") || "",
   });
-  const [user, setUser] = useState<any>()
+  const [listOld, setOld] = useState<any>();
+  useEffect(() => {
+    setOld({
+      list_user: dataOld?.list_user.split(",") || "",
+    });
+  }, []);
+  const [user, setUser] = useState<any>();
   const [content, setContent] = useState<any>({
     achievement_id: achievement_id,
     content: contentOld,
@@ -39,8 +50,7 @@ function ModalEditCommendationTeam({ animation, onClose, dataOld }: any) {
     achievement_at: formattedDate,
     achievement_level: achievement_level,
     appellation: appellationOld,
-    achievement_type: achievementTypeOld
-
+    achievement_type: achievementTypeOld,
   });
   const [achievementType, setAchievementType] = useState<any>({
     achievementType: achievementTypeOld.toString(),
@@ -53,7 +63,7 @@ function ModalEditCommendationTeam({ animation, onClose, dataOld }: any) {
       [name]: value,
     }));
   };
-
+  const [errors, setErrors] = useState<any>({});
   const handleSelectionChange = (selectedOptions, actionMeta) => {
     if (Array.isArray(selectedOptions)) {
       const selectedValues = selectedOptions.map((option) => option.value);
@@ -63,13 +73,12 @@ function ModalEditCommendationTeam({ animation, onClose, dataOld }: any) {
         list_user: selectedValues,
         list_user_name: selectedLabels,
       }));
-    }
-    else {
+    } else {
       const { value, label } = selectedOptions;
       setListUser((prevState) => ({
         ...prevState,
         depId: value,
-        depName: label
+        depName: label,
       }));
     }
   };
@@ -79,27 +88,54 @@ function ModalEditCommendationTeam({ animation, onClose, dataOld }: any) {
     optionsArray: any[]
   ) => {
     if (option) {
-
       const { name, value } = option;
       setAchievementType(() => ({
         [name]: String(value),
       }));
     }
   };
-  const mergedObject = { ...content, ...achievementType, ...listUser }
+
+  let schema = Yup.object().shape({
+    achievement_id: Yup.string().required("Nhập số quyết định "),
+    content: Yup.string().required("Nhập nội dung khen thưởng "),
+    created_by: Yup.string().required("Nhập người ký quyết định "),
+    achievement_at: Yup.date().required("Nhập thời điểm "),
+    appellation: Yup.string().required("Nhập danh hiệu "),
+    achievement_level: Yup.string().required("Nhập cấp khen "),
+    achievement_type: Yup.string().required("Nhập hình thức "),
+  });
+  const mergedObject = { ...content, ...achievementType, ...listUser };
+  const [errListUser, setErrListUser] = useState<any>();
+  const [errDep, setErrDep] = useState<any>();
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await UpdateAchievement(id, mergedObject);
-      if (response?.status !== 200) {
-        alert('Sửa khen thưởng không thành công')
+      await schema.validate(mergedObject, { abortEarly: false });
+      if (mergedObject.depId === "" && mergedObject.depName === "") {
+        setErrDep("Nhập phòng ban");
       }
-      else {
-        onClose()
+      if (listOld.list_user.length > 1 && mergedObject.list_user.length <= 1) {
+        setErrListUser("Chọn ít nhất 2 nhân viên");
+      } else if (mergedObject.list_user.length == 0) {
+        setErrListUser("Chọn nhân viên");
+      } else {
+        const response = await UpdateAchievement(id, mergedObject);
+        if (response?.status !== 200) {
+          alert("Sửa khen thưởng không thành công");
+        } else {
+          onClose();
+          updateData(response);
+        }
       }
-
     } catch (error: any) {
+      const validationErrors = {};
+      if (error?.inner) {
+        error.inner.forEach((err) => {
+          validationErrors[err.path] = err.message;
+        });
+      }
+      setErrors(validationErrors);
     }
   };
 
@@ -131,30 +167,30 @@ function ModalEditCommendationTeam({ animation, onClose, dataOld }: any) {
     if (typeEdit === 0) {
       const getData1 = async () => {
         try {
-          const response = await getDataUser()
+          const response = await getDataUser();
           setUser(
             response?.data?.data?.items?.map((item) => ({
-              name: 'list_user',
+              name: "list_user",
               value: item.ep_id,
-              label: `${item.ep_name} (${item.dep_name ? item.dep_name : "Chưa cập nhật"})`,
+              label: `${item.ep_name} (${
+                item.dep_name ? item.dep_name : "Chưa cập nhật"
+              })`,
             }))
-          )
-        } catch (err) { }
-      }
-      getData1()
+          );
+        } catch (err) {}
+      };
+      getData1();
     }
-  }, [])
+  }, []);
 
   // Tách chuỗi thành mảng
-  const userIds = dataOld?.list_user.split(',');
-  const userNames = dataOld?.list_user_name.split(',');
+  const userIds = dataOld?.list_user.split(",");
+  const userNames = dataOld?.list_user_name.split(",");
 
   const tendoituongdefault = userIds.map((userId, index) => ({
     value: userId,
-    label: userNames[index]
+    label: userNames[index],
   }));
-
-  console.log(tendoituongdefault);
 
   const options = {
     tendoituong: user,
@@ -169,17 +205,16 @@ function ModalEditCommendationTeam({ animation, onClose, dataOld }: any) {
       { name: "achievement_type", value: "5", label: "Kỉ niệm chương" },
       { name: "achievement_type", value: "6", label: "Tiền mặt" },
     ],
-    chonphongbandefault: [{ value: dataOld?.dep_id, label: dataOld?.dep_name },]
+    chonphongbandefault: [{ value: dataOld?.dep_id, label: dataOld?.dep_name }],
   };
-
-
 
   return (
     <>
       <div className={`${styles.overlay}`} onClick={onClose}></div>
       <div
-        className={`${styles.modal} ${styles.modal_setting}  ${animation ? styles.fade_in : styles.fade_out
-          }`}
+        className={`${styles.modal} ${styles.modal_setting}  ${
+          animation ? styles.fade_in : styles.fade_out
+        }`}
         style={{ display: "block" }}
       >
         <div className={`${styles.modal_dialog} ${styles.contentquytrinh}`}>
@@ -189,7 +224,10 @@ function ModalEditCommendationTeam({ animation, onClose, dataOld }: any) {
               <h5 className={`${styles.modal_title}`}>CẬP NHẬT THÀNH TÍCH</h5>
             </div>
             {/* body */}
-            <form onSubmit={(e) => handleSubmit(e)} className={`${styles.modal_form}`}>
+            <form
+              onSubmit={(e) => handleSubmit(e)}
+              className={`${styles.modal_form}`}
+            >
               <div className={`${styles.modal_body} ${styles.bodyquytrinh}`}>
                 <div className={`${styles.form_groups}`}>
                   <label>
@@ -205,13 +243,20 @@ function ModalEditCommendationTeam({ animation, onClose, dataOld }: any) {
                       onChange={handleContentChange}
                       placeholder="Nhập tên giai đoạn"
                     ></input>
-                    <picture style={{ display: "none" }}>
-                      <img src={`${"/danger.png"}`} alt="Lỗi"></img>
-                    </picture>
-                    <div
-                      className={`${styles.errors}`}
-                      style={{ display: "none" }}
-                    ></div>
+                    {errors.achievement_id && (
+                      <>
+                        <picture>
+                          <img
+                            className={`${styles.icon_err}`}
+                            src={`${"/danger.png"}`}
+                            alt="Lỗi"
+                          ></img>
+                        </picture>
+                        <div className={`${styles.errors}`}>
+                          {errors.achievement_id}
+                        </div>
+                      </>
+                    )}
                   </div>
                 </div>
 
@@ -229,13 +274,20 @@ function ModalEditCommendationTeam({ animation, onClose, dataOld }: any) {
                       placeholder="Nhập nội dung khen thưởng"
                       onChange={handleContentChange}
                     ></input>
-                    <picture style={{ display: "none" }}>
-                      <img src={`${"/danger.png"}`} alt="Lỗi"></img>
-                    </picture>
-                    <div
-                      className={`${styles.errors}`}
-                      style={{ display: "none" }}
-                    ></div>
+                    {errors.content && (
+                      <>
+                        <picture>
+                          <img
+                            className={`${styles.icon_err}`}
+                            src={`${"/danger.png"}`}
+                            alt="Lỗi"
+                          ></img>
+                        </picture>
+                        <div className={`${styles.errors}`}>
+                          {errors.content}
+                        </div>
+                      </>
+                    )}
                   </div>
                 </div>
 
@@ -249,11 +301,13 @@ function ModalEditCommendationTeam({ animation, onClose, dataOld }: any) {
                           className={`${styles.red} ${styles.float_right}`}
                         ></div>
                       </label>
+
                       <div
                         style={{ marginRight: "2%" }}
                         className={`${styles.select}`}
                       >
                         <Select
+                          name="tendoituong"
                           isMulti
                           options={options.tendoituong}
                           placeholder="Chọn đối tượng"
@@ -267,7 +321,9 @@ function ModalEditCommendationTeam({ animation, onClose, dataOld }: any) {
                               height: "auto",
                               fontSize: state.isFocused ? 14 : 14,
                               minHeight: state.isFocused ? 20 : 20,
-                              width: state.isFocused ? "100%" : baseStyles.width,
+                              width: state.isFocused
+                                ? "100%"
+                                : baseStyles.width,
                               fontWeight: state.isFocused ? 600 : 600,
                             }),
                             valueContainer: (baseStyles) => ({
@@ -282,6 +338,9 @@ function ModalEditCommendationTeam({ animation, onClose, dataOld }: any) {
                         />
                       </div>
                     </div>
+                    {errListUser && typeEdit == 0 && (
+                      <div className={`${styles.errors}`}>{errListUser}</div>
+                    )}
                   </>
                 )}
 
@@ -300,6 +359,7 @@ function ModalEditCommendationTeam({ animation, onClose, dataOld }: any) {
                         className={`${styles.select}`}
                       >
                         <Select
+                          name="tenphongban"
                           options={options.tenphongban}
                           placeholder="Chọn phòng ban"
                           defaultValue={options.chonphongbandefault}
@@ -312,7 +372,9 @@ function ModalEditCommendationTeam({ animation, onClose, dataOld }: any) {
                               height: "auto",
                               fontSize: state.isFocused ? 14 : 14,
                               minHeight: state.isFocused ? 20 : 20,
-                              width: state.isFocused ? "100%" : baseStyles.width,
+                              width: state.isFocused
+                                ? "100%"
+                                : baseStyles.width,
                               fontWeight: state.isFocused ? 600 : 600,
                             }),
                             valueContainer: (baseStyles) => ({
@@ -327,6 +389,9 @@ function ModalEditCommendationTeam({ animation, onClose, dataOld }: any) {
                         />
                       </div>
                     </div>
+                    {errDep && typeEdit != 0 && (
+                      <div className={`${styles.errors}`}>{errDep}</div>
+                    )}
                   </>
                 )}
 
@@ -344,13 +409,20 @@ function ModalEditCommendationTeam({ animation, onClose, dataOld }: any) {
                       placeholder="Người ký quyết định"
                       onChange={handleContentChange}
                     ></input>
-                    <picture style={{ display: "none" }}>
-                      <img src={`${"/danger.png"}`} alt="Lỗi"></img>
-                    </picture>
-                    <div
-                      className={`${styles.errors}`}
-                      style={{ display: "none" }}
-                    ></div>
+                    {errors.created_by && (
+                      <>
+                        <picture>
+                          <img
+                            className={`${styles.icon_err}`}
+                            src={`${"/danger.png"}`}
+                            alt="Lỗi"
+                          ></img>
+                        </picture>
+                        <div className={`${styles.errors}`}>
+                          {errors.created_by}
+                        </div>
+                      </>
+                    )}
                   </div>
                 </div>
 
@@ -369,13 +441,13 @@ function ModalEditCommendationTeam({ animation, onClose, dataOld }: any) {
                       style={{ height: "30.6px" }}
                       onChange={handleContentChange}
                     ></input>
-                    <picture style={{ display: "none" }}>
-                      <img src={`${"/danger.png"}`} alt="Lỗi"></img>
-                    </picture>
-                    <div
-                      className={`${styles.errors}`}
-                      style={{ display: "none" }}
-                    ></div>
+                    {errors.achievement_at && (
+                      <>
+                        <div className={`${styles.errors}`}>
+                          {errors.achievement_at}
+                        </div>
+                      </>
+                    )}
                   </div>
                 </div>
 
@@ -398,8 +470,11 @@ function ModalEditCommendationTeam({ animation, onClose, dataOld }: any) {
                           options.hinhthuckhenthuong
                         )
                       }
-                      defaultValue={options.hinhthuckhenthuong[achievementTypeOld - 1]}
+                      defaultValue={
+                        options.hinhthuckhenthuong[achievementTypeOld - 1]
+                      }
                       options={options.hinhthuckhenthuong}
+                      name="achievement_type"
                       placeholder="-- Vui lòng chọn -- "
                       styles={{
                         control: (baseStyles, state) => ({
@@ -439,13 +514,20 @@ function ModalEditCommendationTeam({ animation, onClose, dataOld }: any) {
                       placeholder="Danh hiệu"
                       onChange={handleContentChange}
                     ></input>
-                    <picture style={{ display: "none" }}>
-                      <img src={`${"/danger.png"}`} alt="Lỗi"></img>
-                    </picture>
-                    <div
-                      className={`${styles.errors}`}
-                      style={{ display: "none" }}
-                    ></div>
+                    {errors.appellation && (
+                      <>
+                        <picture>
+                          <img
+                            className={`${styles.icon_err}`}
+                            src={`${"/danger.png"}`}
+                            alt="Lỗi"
+                          ></img>
+                        </picture>
+                        <div className={`${styles.errors}`}>
+                          {errors.appellation}
+                        </div>
+                      </>
+                    )}
                   </div>
                 </div>
 
@@ -463,13 +545,20 @@ function ModalEditCommendationTeam({ animation, onClose, dataOld }: any) {
                       placeholder="Cấp khen"
                       onChange={handleContentChange}
                     ></input>
-                    <picture style={{ display: "none" }}>
-                      <img src={`${"/danger.png"}`} alt="Lỗi"></img>
-                    </picture>
-                    <div
-                      className={`${styles.errors}`}
-                      style={{ display: "none" }}
-                    ></div>
+                    {errors.achievement_level && (
+                      <>
+                        <picture>
+                          <img
+                            className={`${styles.icon_err}`}
+                            src={`${"/danger.png"}`}
+                            alt="Lỗi"
+                          ></img>
+                        </picture>
+                        <div className={`${styles.errors}`}>
+                          {errors.achievement_level}
+                        </div>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>

@@ -138,7 +138,7 @@ const GroupCustomerAdd: React.FC = () => {
     fetchDataDepartment(`${base_url}/api/qlc/department/list`, {
       com_id: com_id,
     });
-    fetchDataEmp(`${base_url}/api/qlc/managerUser/list`, { com_id: com_id });
+    fetchDataEmp(`${base_url}/api/qlc/managerUser/listAll`,{});
   }, []);
 
   useEffect(() => {
@@ -198,7 +198,6 @@ const GroupCustomerAdd: React.FC = () => {
       });
     setEmployeeOptions(employeeOption);
   }, [selectedValueDepartments]);
-
   const dataDepartments = dataDepartment?.data?.items;
   const options = dataDepartments?.map((item) => {
     return {

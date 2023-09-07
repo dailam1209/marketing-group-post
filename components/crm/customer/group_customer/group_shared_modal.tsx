@@ -33,15 +33,27 @@ const GroupSharedAFactorModal: React.FC<MyComponentProps> = ({
 
   const empIdArr = empId?.split(",").map((item) => parseInt(item.trim(), 10));
 
-
-
   return (
     <>
       {/* <Button type="primary" onClick={() => setModal2Open(true)}>
         Vertically centered modal dialog
       </Button> */}
       <Modal
-        title={"Đối tượng được chia sẻ"}
+        title={
+          <div
+            style={{
+              display: "flex",
+              width: "100%",
+              justifyContent: "center",
+            }}
+          >
+            <div></div>
+            <div>Đối tượng được chia sẻ</div>{" "}
+            <div onClick={()=>setIsModalCancel(false)} style={{ cursor: "pointer",position:"absolute",right:15 }}>
+              X
+            </div>
+          </div>
+        }
         centered
         open={isModalCancel}
         onOk={() => handleOK()}

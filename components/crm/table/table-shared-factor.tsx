@@ -60,6 +60,7 @@ const TableSharedFactor: React.FC<TableSharedFactorProps> = ({
     <>
       <div className="custom_table product_return">
         <Table
+  
           columns={columns}
           dataSource={dataTble}
           bordered
