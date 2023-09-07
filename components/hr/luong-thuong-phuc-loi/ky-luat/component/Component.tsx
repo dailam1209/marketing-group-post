@@ -95,6 +95,7 @@ function PunishmentTable({
             animation={animateModal}
             onClose={handleCloseModal}
             dataOld={dataEdit}
+            updateData={updateData}
           ></EditModalPersonalDiscipline>
         )}
 
@@ -103,6 +104,7 @@ function PunishmentTable({
             animation={animateModal}
             onClose={handleCloseModal}
             dataOld={dataEdit}
+            updateData={updateData}
           ></EditModalCollectiveDiscipline>
         )}
 
@@ -111,6 +113,7 @@ function PunishmentTable({
             animation={animateModal}
             onClose={handleCloseModal}
             dataOld={dataEdit}
+            updateData={updateData}
           ></EditModalListDiscipline>
         )}
         <div className={`${styles.tuyendung2_2}`}>

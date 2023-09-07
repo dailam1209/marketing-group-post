@@ -1,28 +1,34 @@
-import React, { useEffect, useState } from 'react'
-import styles from './EditModalPersonalDiscipline.module.css'
-import Select from 'react-select'
-import { format } from 'date-fns'
-import { getDataUser } from '@/pages/api/api-hr/quan-ly-tuyen-dung/PerformRecruitment'
-import { UpdateInfringes } from '@/pages/api/api-hr/luong-thuong-phuc-loi/discipline'
+import React, { useEffect, useState } from "react";
+import styles from "./EditModalPersonalDiscipline.module.css";
+import Select from "react-select";
+import { format } from "date-fns";
+import { getDataUser } from "@/pages/api/api-hr/quan-ly-tuyen-dung/PerformRecruitment";
+import { UpdateInfringes } from "@/pages/api/api-hr/luong-thuong-phuc-loi/discipline";
+import * as Yup from "yup";
 
-function EditModalPersonalDiscipline({ animation, onClose, dataOld }: any) {
-  const id = dataOld?.id
-  const infringeName = dataOld?.infringe_name
-  const infringeType = dataOld?.infringe_type
-  const numberViolation = dataOld?.number_violation
-  const regulatoryBasis = dataOld?.regulatory_basis
-  const createdBy = dataOld?.created_by
+function EditModalPersonalDiscipline({
+  animation,
+  onClose,
+  dataOld,
+  updateData,
+}: any) {
+  const id = dataOld?.id;
+  const infringeName = dataOld?.infringe_name;
+  const infringeType = dataOld?.infringe_type;
+  const numberViolation = dataOld?.number_violation;
+  const regulatoryBasis = dataOld?.regulatory_basis;
+  const createdBy = dataOld?.created_by;
   const formattedDate: string = format(
     new Date(dataOld.created_at),
-    'yyyy-MM-dd'
-  )
+    "yyyy-MM-dd"
+  );
 
-  const [user, setUser] = useState<any>()
-  const [errors, setErrors] = useState<any>({})
+  const [user, setUser] = useState<any>();
+  const [errors, setErrors] = useState<any>({});
   const [listUser, setListUser] = useState<any>({
-    list_user: dataOld?.list_user.split(',') || "",
-    list_user_name: dataOld?.list_user_name.split(',') || "",
-  })
+    list_user: dataOld?.list_user.split(",") || "",
+    list_user_name: dataOld?.list_user_name.split(",") || "",
+  });
   const [content, setContent] = useState<any>({
     infringe_name: infringeName,
     regulatory_basis: regulatoryBasis,
@@ -30,85 +36,106 @@ function EditModalPersonalDiscipline({ animation, onClose, dataOld }: any) {
     infringe_at: formattedDate,
     infringe_type: infringeType,
     created_by: createdBy,
-  })
+  });
 
-  const userIds = dataOld?.list_user.split(',');
-  const userNames = dataOld?.list_user_name.split(',');
+  const userIds = dataOld?.list_user.split(",");
+  const userNames = dataOld?.list_user_name.split(",");
 
   const tendoituongdefault = userIds.map((userId, index) => ({
     value: userId,
-    label: userNames[index]
+    label: userNames[index],
   }));
 
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await getDataUser()
+        const response = await getDataUser();
         setUser(
           response?.data?.data?.items?.map((item) => ({
-            name: 'list_user',
+            name: "list_user",
             value: item.ep_id,
             label: `${item.ep_name} ${item.dep_name}`,
           }))
-        )
-      } catch (err) { }
-    }
-    getData()
-  }, [])
+        );
+      } catch (err) {}
+    };
+    getData();
+  }, []);
 
   const options = {
     tendoituong: user,
-  }
+  };
 
   const handleContentChange = (event) => {
-    const { name, value } = event.target
+    const { name, value } = event.target;
     setContent((prevState) => ({
       ...prevState,
       [name]: value,
-    }))
-  }
+    }));
+  };
 
   const handleSelectionChange = (selectedOptions, actionMeta) => {
-    const selectedValues = selectedOptions.map((option) => option.value)
-    const selectedLabels = selectedOptions.map((option) => option.label)
+    const selectedValues = selectedOptions.map((option) => option.value);
+    const selectedLabels = selectedOptions.map((option) => option.label);
     setListUser((prevSelectedOption) => ({
       ...prevSelectedOption,
       list_user: selectedValues,
       list_user_name: selectedLabels,
-    }))
-  }
+    }));
+  };
 
-  const mergedObject = { ...content, ...listUser }
+  const mergedObject = { ...content, ...listUser };
 
+  const schema = Yup.object().shape({
+    infringe_name: Yup.string().required("Tên lỗi không được để trống"),
+    regulatory_basis: Yup.string().required("Căn cứ không được để trống"),
+    number_violation: Yup.string().required("Số quy định không được để trống"),
+    list_user: Yup.array().required("Chọn cá nhân vi phạm"),
+    created_by: Yup.string().required("Người ký không được để trống"),
+    infringe_at: Yup.string().required("Thời gian không được để trống"),
+    infringe_type: Yup.string().required("Hình thức không được để trống"),
+  });
+
+  const [errListUser, setErrListUser] = useState<any>();
   const handleSubmit = async (e: any) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
-      // await schema.validate(mergedObject, { abortEarly: false });
-      const response = await UpdateInfringes(id, mergedObject)
+      await schema.validate(mergedObject, { abortEarly: false });
 
-      if (response?.status !== 200) {
-        alert('Sửa khen thưởng không thành công')
+      if (
+        mergedObject.list_user.length == 0 &&
+        mergedObject.list_user_name.length == 0
+      ) {
+        setErrListUser("Nhập tên đối tượng");
       } else {
-        onClose()
+        const response = await UpdateInfringes(id, mergedObject);
+        if (response?.status !== 200) {
+          alert("Sửa vi phạm không thành công");
+        } else {
+          onClose();
+          updateData(response);
+        }
       }
     } catch (error: any) {
-      const validationErrors = {}
+      const validationErrors = {};
       if (error?.inner) {
         error.inner.forEach((err) => {
-          validationErrors[err.path] = err.message
-        })
+          validationErrors[err.path] = err.message;
+        });
       }
-      setErrors(validationErrors)
+      setErrors(validationErrors);
     }
-  }
+  };
 
   return (
     <>
       <div className={`${styles.overlay}`} onClick={onClose}></div>
       <div
-        className={`${styles.modal} ${styles.modal_setting}  ${animation ? styles.fade_in : styles.fade_out
-          }`}
-        style={{ display: 'block' }}>
+        className={`${styles.modal} ${styles.modal_setting}  ${
+          animation ? styles.fade_in : styles.fade_out
+        }`}
+        style={{ display: "block" }}
+      >
         <div className={`${styles.modal_dialog} ${styles.contentquytrinh}`}>
           <div className={`${styles.modal_content} `}>
             {/* header */}
@@ -118,7 +145,8 @@ function EditModalPersonalDiscipline({ animation, onClose, dataOld }: any) {
             {/* body */}
             <form
               onSubmit={(e) => handleSubmit(e)}
-              className={`${styles.modal_form}`}>
+              className={`${styles.modal_form}`}
+            >
               <div className={`${styles.modal_body} ${styles.bodyquytrinh}`}>
                 <div className={`${styles.form_groups}`}>
                   <label>
@@ -127,17 +155,26 @@ function EditModalPersonalDiscipline({ animation, onClose, dataOld }: any) {
                   </label>
                   <div className={`${styles.inputright}`}>
                     <input
-                      type='text'
+                      type="text"
                       defaultValue={infringeName}
                       className={`${styles.inputquytrinh}`}
-                      name='infringe_name'
-                      onChange={handleContentChange}></input>
-                    <picture style={{ display: 'none' }}>
-                      <img src={`${'/danger.png'}`} alt='Lỗi'></img>
-                    </picture>
-                    <div
-                      className={`${styles.errors}`}
-                      style={{ display: 'none' }}></div>
+                      name="infringe_name"
+                      onChange={handleContentChange}
+                    ></input>
+                    {errors.infringe_name && (
+                      <>
+                        <picture>
+                          <img
+                            className={`${styles.icon_err}`}
+                            src={`${"/danger.png"}`}
+                            alt="Lỗi"
+                          ></img>
+                        </picture>
+                        <div className={`${styles.errors}`}>
+                          {errors.infringe_name}
+                        </div>
+                      </>
+                    )}
                   </div>
                 </div>
 
@@ -148,17 +185,26 @@ function EditModalPersonalDiscipline({ animation, onClose, dataOld }: any) {
                   </label>
                   <div className={`${styles.inputright}`}>
                     <input
-                      type='text'
+                      type="text"
                       defaultValue={regulatoryBasis}
-                      name='regulatory_basis'
+                      name="regulatory_basis"
                       className={`${styles.inputquytrinh}`}
-                      onChange={handleContentChange}></input>
-                    <picture style={{ display: 'none' }}>
-                      <img src={`${'/danger.png'}`} alt='Lỗi'></img>
-                    </picture>
-                    <div
-                      className={`${styles.errors}`}
-                      style={{ display: 'none' }}></div>
+                      onChange={handleContentChange}
+                    ></input>
+                    {errors.regulatory_basis && (
+                      <>
+                        <picture>
+                          <img
+                            className={`${styles.icon_err}`}
+                            src={`${"/danger.png"}`}
+                            alt="Lỗi"
+                          ></img>
+                        </picture>
+                        <div className={`${styles.errors}`}>
+                          {errors.regulatory_basis}
+                        </div>
+                      </>
+                    )}
                   </div>
                 </div>
 
@@ -169,17 +215,27 @@ function EditModalPersonalDiscipline({ animation, onClose, dataOld }: any) {
                   </label>
                   <div className={`${styles.inputright}`}>
                     <input
-                      type='text'
+                      type="text"
                       defaultValue={infringeType}
-                      name='number_violation'
+                      name="number_violation"
                       className={`${styles.inputquytrinh}`}
-                      onChange={handleContentChange}></input>
-                    <picture style={{ display: 'none' }}>
-                      <img src={`${'/danger.png'}`} alt='Lỗi'></img>
-                    </picture>
-                    <div
-                      className={`${styles.errors}`}
-                      style={{ display: 'none' }}></div>
+                      placeholder="Số quyết định"
+                      onChange={handleContentChange}
+                    ></input>
+                    {errors.number_violation && (
+                      <>
+                        <picture>
+                          <img
+                            className={`${styles.icon_err}`}
+                            src={`${"/danger.png"}`}
+                            alt="Lỗi"
+                          ></img>
+                        </picture>
+                        <div className={`${styles.errors}`}>
+                          {errors.number_violation}
+                        </div>
+                      </>
+                    )}
                   </div>
                 </div>
 
@@ -190,18 +246,20 @@ function EditModalPersonalDiscipline({ animation, onClose, dataOld }: any) {
                   </label>
                   <div className={`${styles.inputright}`}>
                     <input
-                      type='date'
+                      type="date"
                       defaultValue={formattedDate}
-                      name='infringe_at'
+                      name="infringe_at"
                       className={`${styles.inputquytrinh}`}
-                      style={{ height: '30.6px' }}
-                      onChange={handleContentChange}></input>
-                    <picture style={{ display: 'none' }}>
-                      <img src={`${'/danger.png'}`} alt='Lỗi'></img>
-                    </picture>
-                    <div
-                      className={`${styles.errors}`}
-                      style={{ display: 'none' }}></div>
+                      style={{ height: "30.6px" }}
+                      onChange={handleContentChange}
+                    ></input>
+                    {errors.infringe_at && (
+                      <>
+                        <div className={`${styles.errors}`}>
+                          {errors.infringe_at}
+                        </div>
+                      </>
+                    )}
                   </div>
                 </div>
 
@@ -212,17 +270,26 @@ function EditModalPersonalDiscipline({ animation, onClose, dataOld }: any) {
                   </label>
                   <div className={`${styles.inputright}`}>
                     <input
-                      type='text'
+                      type="text"
                       className={`${styles.inputquytrinh}`}
                       defaultValue={numberViolation}
-                      name='infringe_type'
-                      onChange={handleContentChange}></input>
-                    <picture style={{ display: 'none' }}>
-                      <img src={`${'/danger.png'}`} alt='Lỗi'></img>
-                    </picture>
-                    <div
-                      className={`${styles.errors}`}
-                      style={{ display: 'none' }}></div>
+                      name="infringe_type"
+                      onChange={handleContentChange}
+                    ></input>
+                    {errors.infringe_type && (
+                      <>
+                        <picture>
+                          <img
+                            className={`${styles.icon_err}`}
+                            src={`${"/danger.png"}`}
+                            alt="Lỗi"
+                          ></img>
+                        </picture>
+                        <div className={`${styles.errors}`}>
+                          {errors.infringe_type}
+                        </div>
+                      </>
+                    )}
                   </div>
                 </div>
 
@@ -231,16 +298,18 @@ function EditModalPersonalDiscipline({ animation, onClose, dataOld }: any) {
                     Cá nhân vi phạm
                     <span className={`${styles.red}`}> *</span>
                     <div
-                      className={`${styles.red} ${styles.float_right}`}></div>
+                      className={`${styles.red} ${styles.float_right}`}
+                    ></div>
                   </label>
                   <div
-                    style={{ marginRight: '2%' }}
-                    className={`${styles.select}`}>
+                    style={{ marginRight: "2%" }}
+                    className={`${styles.select}`}
+                  >
                     <Select
                       isMulti={true}
                       defaultValue={tendoituongdefault}
                       options={options.tendoituong}
-                      placeholder={'--Vui lòng chọn--'}
+                      placeholder={"--Vui lòng chọn--"}
                       onChange={(option) =>
                         handleSelectionChange(option, options.tendoituong)
                       }
@@ -248,16 +317,16 @@ function EditModalPersonalDiscipline({ animation, onClose, dataOld }: any) {
                         control: (baseStyles, state) => ({
                           ...baseStyles,
                           borderRadius: 8,
-                          borderColor: '#4747477a',
-                          height: 'auto',
+                          borderColor: "#4747477a",
+                          height: "auto",
                           fontSize: state.isFocused ? 14 : 14,
                           minHeight: state.isFocused ? 20 : 20,
-                          width: state.isFocused ? '100%' : baseStyles.width,
+                          width: state.isFocused ? "100%" : baseStyles.width,
                           fontWeight: state.isFocused ? 600 : 600,
                         }),
                         valueContainer: (baseStyles) => ({
                           ...baseStyles,
-                          padding: '0',
+                          padding: "0",
                         }),
                         indicatorsContainer: (baseStyles) => ({
                           ...baseStyles,
@@ -267,6 +336,9 @@ function EditModalPersonalDiscipline({ animation, onClose, dataOld }: any) {
                     />
                   </div>
                 </div>
+                {errListUser && (
+                  <div className={`${styles.errors}`}>{errListUser}</div>
+                )}
 
                 <div className={`${styles.form_groups}`}>
                   <label>
@@ -275,30 +347,41 @@ function EditModalPersonalDiscipline({ animation, onClose, dataOld }: any) {
                   </label>
                   <div className={`${styles.inputright}`}>
                     <input
-                      type='text'
+                      type="text"
                       className={`${styles.inputquytrinh}`}
                       defaultValue={createdBy}
-                      name='created_by'
-                      onChange={handleContentChange}></input>
-                    <picture style={{ display: 'none' }}>
-                      <img src={`${'/danger.png'}`} alt='Lỗi'></img>
-                    </picture>
-                    <div
-                      className={`${styles.errors}`}
-                      style={{ display: 'none' }}></div>
+                      name="created_by"
+                      onChange={handleContentChange}
+                    ></input>
+                    {errors.created_by && (
+                      <>
+                        <picture>
+                          <img
+                            className={`${styles.icon_err}`}
+                            src={`${"/danger.png"}`}
+                            alt="Lỗi"
+                          ></img>
+                        </picture>
+                        <div className={`${styles.errors}`}>
+                          {errors.created_by}
+                        </div>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>
 
               <div
-                className={`${styles.modal_footer} ${styles.footerquytrinh}`}>
+                className={`${styles.modal_footer} ${styles.footerquytrinh}`}
+              >
                 <button
-                  type='button'
+                  type="button"
                   className={`${styles.btn_huy}`}
-                  onClick={onClose}>
+                  onClick={onClose}
+                >
                   Hủy
                 </button>
-                <button type='submit' className={`${styles.success}`}>
+                <button type="submit" className={`${styles.success}`}>
                   Cập nhật
                 </button>
               </div>
@@ -307,7 +390,7 @@ function EditModalPersonalDiscipline({ animation, onClose, dataOld }: any) {
         </div>
       </div>
     </>
-  )
+  );
 }
 
-export default EditModalPersonalDiscipline
+export default EditModalPersonalDiscipline;

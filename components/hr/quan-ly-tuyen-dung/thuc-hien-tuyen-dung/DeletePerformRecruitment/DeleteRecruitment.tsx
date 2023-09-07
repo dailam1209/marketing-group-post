@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
-import styles from './DeleteRecruitment.module.css'
-import { SoftDeleteNews } from '@/pages/api/api-hr/quan-ly-tuyen-dung/PerformRecruitment'
+import React, { useState } from "react";
+import styles from "./DeleteRecruitment.module.css";
+import { SoftDeleteNews } from "@/pages/api/api-hr/quan-ly-tuyen-dung/PerformRecruitment";
 export interface DeleteRecruitment {}
 export default function DeleteRecruitment({
   animation,
@@ -8,22 +8,18 @@ export default function DeleteRecruitment({
   newsId,
   onDelete,
 }: any) {
-  const [deleteStatus, setDeleteStatus] = useState(false)
+  const [deleteStatus, setDeleteStatus] = useState(false);
 
   const handleDelete = async (newsId) => {
-    const deleteRecruitment = await SoftDeleteNews(newsId)
-    if (deleteRecruitment?.status === 403) {
-      alert(
-        'Bạn chưa được phân quyền trên phần mềm quản trị nhân sự 365. Vui lòng liên hệ quản trị viên để biết thêm chi tiết!'
-      )
-    } else if (deleteRecruitment?.status !== 200) {
-      alert(' Gỡ tin tuyển dụng thất bại')
+    const deleteRecruitment = await SoftDeleteNews(newsId);
+    if (deleteRecruitment?.status !== 200) {
+      alert(" Gỡ tin tuyển dụng thất bại");
     } else {
-      setDeleteStatus(true)
-      handleCloseModal()
-      onDelete(deleteRecruitment?.data)
+      setDeleteStatus(true);
+      handleCloseModal();
+      onDelete(deleteRecruitment?.data);
     }
-  }
+  };
 
   return (
     <>
@@ -32,7 +28,8 @@ export default function DeleteRecruitment({
         className={`${styles.modal} ${styles.modal_setting}  ${
           animation ? styles.fade_in : styles.fade_out
         }`}
-        style={{ display: 'block' }}>
+        style={{ display: "block" }}
+      >
         <div className={` ${styles.modal_dialog} ${styles.contentquytrinh}`}>
           <div className={`${styles.modal_content} `}>
             {/* header */}
@@ -56,15 +53,17 @@ export default function DeleteRecruitment({
 
             <div className={`${styles.modal_footer} ${styles.footerquytrinh}`}>
               <button
-                type='button'
+                type="button"
                 className={`${styles.btn_huy}`}
-                onClick={handleCloseModal}>
+                onClick={handleCloseModal}
+              >
                 <span>Hủy</span>
               </button>
               <button
-                type='button'
+                type="button"
                 className={`${styles.delete}`}
-                onClick={() => handleDelete(newsId)}>
+                onClick={() => handleDelete(newsId)}
+              >
                 Xóa
               </button>
             </div>
@@ -72,5 +71,5 @@ export default function DeleteRecruitment({
         </div>
       </div>
     </>
-  )
+  );
 }
