@@ -58,7 +58,40 @@ export default function Decentralization({ }) {
 
   const fetchData = async () => {
     try {
-      if (userId.userId) {
+      const userIdArray = userId?.userId?.split(',')?.map(id => id?.trim());
+      if (userIdArray?.length > 1) {
+        console.log("1");
+        setInfoRoleTD1(false);
+        setInfoRoleTD2(false);
+        setInfoRoleTD3(false);
+        setInfoRoleTD4(false);
+        setinfoRoleTTNS1(false);
+        setinfoRoleTTNS2(false);
+        setinfoRoleTTNS3(false);
+        setinfoRoleTTNS4(false);
+        setinfoRoleTTVP1(false);
+        setinfoRoleTTVP2(false);
+        setinfoRoleTTVP3(false);
+        setinfoRoleTTVP4(false);
+        setinfoRoleHNNV1(false);
+        setinfoRoleHNNV2(false);
+        setinfoRoleHNNV3(false);
+        setinfoRoleHNNV4(false);
+        setinfoRoleBCNS1(false);
+        setinfoRoleBCNS2(false);
+        setinfoRoleBCNS3(false);
+        setinfoRoleBCNS4(false);
+        setinfoRoleDXGD1(false);
+        setinfoRoleDXGD2(false);
+        setinfoRoleDXGD3(false);
+        setinfoRoleDXGD4(false);
+        setinfoRoleTGL1(false);
+        setinfoRoleTGL2(false);
+        setinfoRoleTGL3(false);
+        setinfoRoleTGL4(false);
+        setLoadData(pre => !pre)
+      }
+      else {
         const formData = new FormData();
         formData.append("userId", userId.userId);
         const response = await GetListPermision(formData);
