@@ -19,7 +19,10 @@ function EditModalPersonalDiscipline({ animation, onClose, dataOld }: any) {
 
   const [user, setUser] = useState<any>()
   const [errors, setErrors] = useState<any>({})
-  const [listUser, setListUser] = useState<any>()
+  const [listUser, setListUser] = useState<any>({
+    list_user: dataOld?.list_user.split(',') || "",
+    list_user_name: dataOld?.list_user_name.split(',') || "",
+  })
   const [content, setContent] = useState<any>({
     infringe_name: infringeName,
     regulatory_basis: regulatoryBasis,
@@ -28,6 +31,14 @@ function EditModalPersonalDiscipline({ animation, onClose, dataOld }: any) {
     infringe_type: infringeType,
     created_by: createdBy,
   })
+
+  const userIds = dataOld?.list_user.split(',');
+  const userNames = dataOld?.list_user_name.split(',');
+
+  const tendoituongdefault = userIds.map((userId, index) => ({
+    value: userId,
+    label: userNames[index]
+  }));
 
   useEffect(() => {
     const getData = async () => {
@@ -227,6 +238,7 @@ function EditModalPersonalDiscipline({ animation, onClose, dataOld }: any) {
                     className={`${styles.select}`}>
                     <Select
                       isMulti={true}
+                      defaultValue={tendoituongdefault}
                       options={options.tendoituong}
                       placeholder={'--Vui lòng chọn--'}
                       onChange={(option) =>

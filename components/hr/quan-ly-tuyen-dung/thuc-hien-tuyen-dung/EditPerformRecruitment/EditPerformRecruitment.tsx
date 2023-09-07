@@ -10,6 +10,10 @@ import {
   getDataUser,
 } from '@/pages/api/api-hr/quan-ly-tuyen-dung/PerformRecruitment'
 import { GetDataRecruitment } from '@/pages/api/api-hr/quan-ly-tuyen-dung/RecruitmentManagerService'
+import nganh_nghe from '@/components/hr/util/listNganhNghe'
+import tinh_thanh from '@/components/hr/util/listTinhThanh'
+
+
 export interface EditPerformRecruitment { }
 
 export default function EditPerformRecruitment({
@@ -24,19 +28,27 @@ export default function EditPerformRecruitment({
     'yyyy-MM-dd'
   )
   const formattedTimeEnd: string = format(new Date(data?.recruitment_time_to), 'yyyy-MM-dd')
+
+  console.log(formattedTimeStart.toString(), formattedTimeEnd);
+
   const [content, setContent] = useState<any>({
+    cityId: data?.cit_id,
+    cateId: data?.cate_id,
     title: data.title,
     address: data.address,
     number: data.number,
     recruitment_time: formattedTimeStart,
     recruitment_time_to: formattedTimeEnd,
-    jobDetail: data.jobDetail,
-    probationaryTime: data.probationaryTime,
-    moneyTip: data.moneyTip,
-    jobDes: data.jobDes,
+    jobDetail: data.job_detail,
+    probationaryTime: data.probationary_time,
+    moneyTip: data.money_tip,
+    jobDes: data.job_description,
     interest: data.interest,
-    jobRequire: data.jobRequire,
+    jobRequire: data.job_require,
   })
+
+  console.log(data);
+
 
   const [address, setAddress] = useState<any>()
   const [recruitmentId, setRecruitmentId] = useState<any>()
@@ -52,8 +64,8 @@ export default function EditPerformRecruitment({
     cateId: Yup.string().required('Hãy chọn ngành nghề'),
     salaryId: Yup.string().required('Hãy chọn mức lương'),
     number: Yup.string().required('Hãy nhập số ứng viên'),
-    timeStart: Yup.string().required('Hãy nhập thời gian ứng tuyển'),
-    timeEnd: Yup.string().required('Hãy nhập thời gian ứng tuyển'),
+    recruitment_time: Yup.string().required('Hãy nhập thời gian ứng tuyển'),
+    recruitment_time_to: Yup.string().required('Hãy nhập thời gian ứng tuyển'),
     jobDetail: Yup.string().required('Hãy nhập chi tiết công việc'),
     wokingForm: Yup.string().required('Hãy chọn hình thức'),
     jobDes: Yup.string().required('Hãy nhập mô tả công việc'),
@@ -101,13 +113,6 @@ export default function EditPerformRecruitment({
           const dataUser = await response[2]?.data?.data
           const dataCategory = await response[3]?.data?.data
 
-          setAddress(
-            dataAddress?.data.map((item) => ({
-              value: item.cit_id,
-              label: item.cit_name,
-              name: 'cityId',
-            }))
-          )
           setRecruitmentId(
             dataRecruitmentId?.data?.data.map((item) => ({
               value: item.id,
@@ -129,18 +134,33 @@ export default function EditPerformRecruitment({
               label: `${item.ep_name} ${item.dep_name}`,
             }))
           )
-          setCateId(
-            dataCategory?.data.map((item) => ({
-              value: item.cat_id,
-              label: item.cat_name,
-              name: 'cateId',
-            }))
-          )
+
         })
       } catch (err) { }
     }
     getData()
   }, [])
+
+  useEffect(() => {
+    if (tinh_thanh) {
+      setAddress(
+        tinh_thanh?.map((item) => ({
+          value: item.cit_id,
+          label: item.cit_name,
+          name: 'cityId',
+        }))
+      )
+    }
+    if (nganh_nghe) {
+      setCateId(
+        nganh_nghe?.map((item) => ({
+          value: item.cat_id,
+          label: item.cat_name,
+          name: 'cateId',
+        }))
+      )
+    }
+  }, [tinh_thanh, nganh_nghe])
 
   const options = {
     diaiemlamviec: address,
@@ -239,6 +259,15 @@ export default function EditPerformRecruitment({
   const foundObject6 = options.gioitinh.find(
     (item) => item.value === data.gender.toString()
   )
+  const foundHr = options?.nhanvienphutrach?.find(
+    (item) => item.value === data?.hr_name
+  )
+  const foundFollow = options?.nhanvientheodoi?.find(
+    (item) => item.value === data?.member_follow
+  )
+  const foundObject7 = options?.maquytrinhapdung?.find(
+    (item) => item.value === data?.recruitmen_id
+  )
 
   const dataSelect = {
     posApply: Number(foundObject?.value),
@@ -278,6 +307,14 @@ export default function EditPerformRecruitment({
       setErrors(validationErrors)
     }
   }
+
+  const diadiemlamviecdeffault = options.diaiemlamviec?.find(
+    (item: any) => item.value === data?.cit_id
+  )
+
+  const nganhnghedeffault = options.nganhnghe?.find(
+    (item: any) => item.value === data?.cate_id
+  )
 
   return (
     <>
@@ -373,38 +410,38 @@ export default function EditPerformRecruitment({
                       </div>
                     )}
                   </label>
-
                   <div className={`${styles.tuyendungtext}`}>
-                    <Select
-                      className={`${styles.position_recruit}`}
-                      onChange={(option) =>
-                        handleSelectionChange(option, options.diaiemlamviec)
-                      }
-                      defaultValue={options.diaiemlamviec?.find(
-                        (item) => item.value === data.cit_id.toString()
-                      )}
-                      options={options.diaiemlamviec}
-                      placeholder='-- Vui lòng chọn --'
-                      styles={{
-                        control: (baseStyles, state) => ({
-                          ...baseStyles,
-                          borderRadius: 8,
-                          height: 32,
-                          fontSize: state.isFocused ? 14 : 14,
-                          minHeight: state.isFocused ? 20 : 20,
-                          width: state.isFocused ? '100%' : baseStyles.width,
-                          fontWeight: state.isFocused ? 600 : 600,
-                        }),
-                        valueContainer: (baseStyles) => ({
-                          ...baseStyles,
-                          padding: '0',
-                        }),
-                        indicatorsContainer: (baseStyles) => ({
-                          ...baseStyles,
-                          height: 30,
-                        }),
-                      }}
-                    />
+                    {diadiemlamviecdeffault &&
+                      <Select
+                        className={`${styles.position_recruit}`}
+                        onChange={(option) =>
+                          handleSelectionChange(option, options.diaiemlamviec)
+                        }
+                        defaultValue={diadiemlamviecdeffault}
+                        options={options.diaiemlamviec}
+                        placeholder='-- Vui lòng chọn --'
+                        styles={{
+                          control: (baseStyles, state) => ({
+                            ...baseStyles,
+                            borderRadius: 8,
+                            height: 32,
+                            fontSize: state.isFocused ? 14 : 14,
+                            minHeight: state.isFocused ? 20 : 20,
+                            width: state.isFocused ? '100%' : baseStyles.width,
+                            fontWeight: state.isFocused ? 600 : 600,
+                          }),
+                          valueContainer: (baseStyles) => ({
+                            ...baseStyles,
+                            padding: '0',
+                          }),
+                          indicatorsContainer: (baseStyles) => ({
+                            ...baseStyles,
+                            height: 30,
+                          }),
+                        }}
+                      />
+                    }
+
                   </div>
                 </div>
 
@@ -438,7 +475,8 @@ export default function EditPerformRecruitment({
                     )}
                   </label>
                   <div className={`${styles.tuyendungtext}`}>
-                    <Select
+                    {nganhnghedeffault && <Select
+                      defaultValue={nganhnghedeffault}
                       className={`${styles.position_recruit}`}
                       onChange={(option) =>
                         handleSelectionChange(option, options.nganhnghe)
@@ -464,7 +502,8 @@ export default function EditPerformRecruitment({
                           height: 30,
                         }),
                       }}
-                    />
+                    />}
+
                   </div>
                 </div>
 
@@ -720,34 +759,37 @@ export default function EditPerformRecruitment({
                       className={`${styles.red} ${styles.float_right}`}></div>
                   </label>
                   <div className={`${styles.tuyendungtext}`}>
-                    <Select
-                      className={`${styles.position_recruit}`}
-                      onChange={(option) =>
-                        handleSelectionChange(option, options.maquytrinhapdung)
-                      }
+                    {foundObject7 &&
+                      <Select
+                        className={`${styles.position_recruit}`}
+                        onChange={(option) =>
+                          handleSelectionChange(option, options.maquytrinhapdung)
+                        }
+                        defaultValue={foundObject7}
+                        options={options.maquytrinhapdung}
+                        placeholder='-- Vui lòng chọn --'
+                        styles={{
+                          control: (baseStyles, state) => ({
+                            ...baseStyles,
+                            borderRadius: 8,
+                            height: 32,
+                            fontSize: state.isFocused ? 14 : 14,
+                            minHeight: state.isFocused ? 20 : 20,
+                            width: state.isFocused ? '100%' : baseStyles.width,
+                            fontWeight: state.isFocused ? 600 : 600,
+                          }),
+                          valueContainer: (baseStyles) => ({
+                            ...baseStyles,
+                            padding: '0',
+                          }),
+                          indicatorsContainer: (baseStyles) => ({
+                            ...baseStyles,
+                            height: 30,
+                          }),
+                        }}
+                      />
+                    }
 
-                      options={options.maquytrinhapdung}
-                      placeholder='-- Vui lòng chọn --'
-                      styles={{
-                        control: (baseStyles, state) => ({
-                          ...baseStyles,
-                          borderRadius: 8,
-                          height: 32,
-                          fontSize: state.isFocused ? 14 : 14,
-                          minHeight: state.isFocused ? 20 : 20,
-                          width: state.isFocused ? '100%' : baseStyles.width,
-                          fontWeight: state.isFocused ? 600 : 600,
-                        }),
-                        valueContainer: (baseStyles) => ({
-                          ...baseStyles,
-                          padding: '0',
-                        }),
-                        indicatorsContainer: (baseStyles) => ({
-                          ...baseStyles,
-                          height: 30,
-                        }),
-                      }}
-                    />
                   </div>
                 </div>
 
@@ -807,7 +849,7 @@ export default function EditPerformRecruitment({
                   <div className={`${styles.tuyendungtext}`}>
                     <Select
                       className={`${styles.position_recruit}`}
-                      defaultValue={options.gioitinh[data.gender - 1]}
+                      defaultValue={foundObject6}
                       onChange={(option) =>
                         handleSelectionChange(option, options.gioitinh)
                       }
@@ -910,33 +952,37 @@ export default function EditPerformRecruitment({
                   </label>
 
                   <div className={`${styles.tuyendungtext}`}>
-                    <Select
-                      className={`${styles.position_recruit}`}
-                      onChange={(option) =>
-                        handleSelectionChange(option, options.nhanvientheodoi)
-                      }
-                      options={options.nhanvientheodoi}
-                      placeholder='Chọn nhân viên'
-                      styles={{
-                        control: (baseStyles, state) => ({
-                          ...baseStyles,
-                          borderRadius: 8,
-                          height: 32,
-                          fontSize: state.isFocused ? 14 : 14,
-                          minHeight: state.isFocused ? 20 : 20,
-                          width: state.isFocused ? '100%' : baseStyles.width,
-                          fontWeight: state.isFocused ? 600 : 600,
-                        }),
-                        valueContainer: (baseStyles) => ({
-                          ...baseStyles,
-                          padding: '0',
-                        }),
-                        indicatorsContainer: (baseStyles) => ({
-                          ...baseStyles,
-                          height: 30,
-                        }),
-                      }}
-                    />
+                    {foundFollow &&
+                      <Select
+                        className={`${styles.position_recruit}`}
+                        onChange={(option) =>
+                          handleSelectionChange(option, options.nhanvientheodoi)
+                        }
+                        defaultValue={foundFollow}
+                        options={options.nhanvientheodoi}
+                        placeholder='Chọn nhân viên'
+                        styles={{
+                          control: (baseStyles, state) => ({
+                            ...baseStyles,
+                            borderRadius: 8,
+                            height: 32,
+                            fontSize: state.isFocused ? 14 : 14,
+                            minHeight: state.isFocused ? 20 : 20,
+                            width: state.isFocused ? '100%' : baseStyles.width,
+                            fontWeight: state.isFocused ? 600 : 600,
+                          }),
+                          valueContainer: (baseStyles) => ({
+                            ...baseStyles,
+                            padding: '0',
+                          }),
+                          indicatorsContainer: (baseStyles) => ({
+                            ...baseStyles,
+                            height: 30,
+                          }),
+                        }}
+                      />
+                    }
+
                   </div>
                 </div>
 
@@ -949,33 +995,37 @@ export default function EditPerformRecruitment({
                   </label>
 
                   <div className={`${styles.tuyendungtext}`}>
-                    <Select
-                      className={`${styles.position_recruit}`}
-                      onChange={(option) =>
-                        handleSelectionChange(option, options.nhanvienphutrach)
-                      }
-                      options={options.nhanvienphutrach}
-                      placeholder='Chọn nhân viên'
-                      styles={{
-                        control: (baseStyles, state) => ({
-                          ...baseStyles,
-                          borderRadius: 8,
-                          height: 32,
-                          fontSize: state.isFocused ? 14 : 14,
-                          minHeight: state.isFocused ? 20 : 20,
-                          width: state.isFocused ? '100%' : baseStyles.width,
-                          fontWeight: state.isFocused ? 600 : 600,
-                        }),
-                        valueContainer: (baseStyles) => ({
-                          ...baseStyles,
-                          padding: '0',
-                        }),
-                        indicatorsContainer: (baseStyles) => ({
-                          ...baseStyles,
-                          height: 30,
-                        }),
-                      }}
-                    />
+                    {foundHr &&
+                      <Select
+                        defaultValue={foundHr}
+                        className={`${styles.position_recruit}`}
+                        onChange={(option) =>
+                          handleSelectionChange(option, options.nhanvienphutrach)
+                        }
+                        options={options.nhanvienphutrach}
+                        placeholder='Chọn nhân viên'
+                        styles={{
+                          control: (baseStyles, state) => ({
+                            ...baseStyles,
+                            borderRadius: 8,
+                            height: 32,
+                            fontSize: state.isFocused ? 14 : 14,
+                            minHeight: state.isFocused ? 20 : 20,
+                            width: state.isFocused ? '100%' : baseStyles.width,
+                            fontWeight: state.isFocused ? 600 : 600,
+                          }),
+                          valueContainer: (baseStyles) => ({
+                            ...baseStyles,
+                            padding: '0',
+                          }),
+                          indicatorsContainer: (baseStyles) => ({
+                            ...baseStyles,
+                            height: 30,
+                          }),
+                        }}
+                      />
+                    }
+
                   </div>
                 </div>
               </div>

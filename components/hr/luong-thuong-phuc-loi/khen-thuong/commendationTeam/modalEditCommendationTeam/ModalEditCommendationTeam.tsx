@@ -9,6 +9,8 @@ import jwt_decode from "jwt-decode";
 
 function ModalEditCommendationTeam({ animation, onClose, dataOld }: any) {
 
+  console.log(dataOld);
+
   const typeEdit = dataOld.dep_id
   const id = dataOld.id
   const achievement_id = dataOld.achievement_id;
@@ -23,7 +25,12 @@ function ModalEditCommendationTeam({ animation, onClose, dataOld }: any) {
   );
 
   const [dep, setDep] = useState<any>();
-  const [listUser, setListUser] = useState<any>();
+  const [listUser, setListUser] = useState<any>({
+    depId: dataOld?.dep_id || '', // Sử dụng giá trị ban đầu từ dataOld hoặc để một giá trị mặc định (trong trường hợp dataOld không tồn tại)
+    depName: dataOld?.dep_name || '', // Sử dụng giá trị ban đầu từ dataOld hoặc để một giá trị mặc định (trong trường hợp dataOld không tồn tại)
+    list_user: dataOld?.list_user.split(',') || "",
+    list_user_name: dataOld?.list_user_name.split(',') || "",
+  });
   const [user, setUser] = useState<any>()
   const [content, setContent] = useState<any>({
     achievement_id: achievement_id,
@@ -129,7 +136,7 @@ function ModalEditCommendationTeam({ animation, onClose, dataOld }: any) {
             response?.data?.data?.items?.map((item) => ({
               name: 'list_user',
               value: item.ep_id,
-              label: `${item.ep_name} ${item.dep_name}`,
+              label: `${item.ep_name} (${item.dep_name ? item.dep_name : "Chưa cập nhật"})`,
             }))
           )
         } catch (err) { }
@@ -137,6 +144,17 @@ function ModalEditCommendationTeam({ animation, onClose, dataOld }: any) {
       getData1()
     }
   }, [])
+
+  // Tách chuỗi thành mảng
+  const userIds = dataOld?.list_user.split(',');
+  const userNames = dataOld?.list_user_name.split(',');
+
+  const tendoituongdefault = userIds.map((userId, index) => ({
+    value: userId,
+    label: userNames[index]
+  }));
+
+  console.log(tendoituongdefault);
 
   const options = {
     tendoituong: user,
@@ -151,6 +169,7 @@ function ModalEditCommendationTeam({ animation, onClose, dataOld }: any) {
       { name: "achievement_type", value: "5", label: "Kỉ niệm chương" },
       { name: "achievement_type", value: "6", label: "Tiền mặt" },
     ],
+    chonphongbandefault: [{ value: dataOld?.dep_id, label: dataOld?.dep_name },]
   };
 
 
@@ -239,6 +258,7 @@ function ModalEditCommendationTeam({ animation, onClose, dataOld }: any) {
                           options={options.tendoituong}
                           placeholder="Chọn đối tượng"
                           onChange={handleSelectionChange}
+                          defaultValue={tendoituongdefault}
                           styles={{
                             control: (baseStyles, state) => ({
                               ...baseStyles,
@@ -282,6 +302,7 @@ function ModalEditCommendationTeam({ animation, onClose, dataOld }: any) {
                         <Select
                           options={options.tenphongban}
                           placeholder="Chọn phòng ban"
+                          defaultValue={options.chonphongbandefault}
                           onChange={handleSelectionChange}
                           styles={{
                             control: (baseStyles, state) => ({
@@ -377,7 +398,7 @@ function ModalEditCommendationTeam({ animation, onClose, dataOld }: any) {
                           options.hinhthuckhenthuong
                         )
                       }
-                      defaultValue={options.hinhthuckhenthuong[achievementTypeOld -1]}
+                      defaultValue={options.hinhthuckhenthuong[achievementTypeOld - 1]}
                       options={options.hinhthuckhenthuong}
                       placeholder="-- Vui lòng chọn -- "
                       styles={{

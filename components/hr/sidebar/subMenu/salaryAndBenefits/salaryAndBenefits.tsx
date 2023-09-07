@@ -45,7 +45,7 @@ export default function SalaryAndBenefits({ children }: any) {
     {
       img: '	/vn_phucloi.svg',
       title: 'Phúc lợi',
-      href: '#',
+      href: role === "1" ? "/tinh-luong/cong-ty/trang-chu" : "/tinh-luong/quan-ly/nhan-vien",
       target: 'blank',
     },
   ]

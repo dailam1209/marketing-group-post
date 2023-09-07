@@ -34,7 +34,7 @@ function ModalAddReward({ animation, onClose, updateData }: any) {
           response?.data?.data?.items?.map((item) => ({
             name: "list_user",
             value: item.ep_id,
-            label: `${item.ep_name} ${item.dep_name}`,
+            label: `${item.ep_name} (${item.dep_name ? item.dep_name : "Chưa cập nhật"})`,
           }))
         );
       } catch (err) { }

@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState } from "react";
-import { format } from "date-fns";
+import { format, parseISO } from "date-fns";
 import styles from "./listRecruitmentProcess.module.css";
 import EditRecruitmentProcess from "@/components/hr/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/editRecruitmentProcess/EditRecruitmentProcess";
 import DeleteRecruitmentProcess from "@/components/hr/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/deleteRecruitmentProcess/DeleteRecruitmentProcess";
@@ -49,6 +49,7 @@ export default function ListRecruitmentProcess({
     e.preventDefault()
     router.push(`/phan-mem-nhan-su/quan-ly-tuyen-dung/quy-trinh-tuyen-dung/danh-sach-quy-trinh/${id}`);
   };
+
   return (
     <>
       <Head>
@@ -56,7 +57,6 @@ export default function ListRecruitmentProcess({
       </Head>
       <div className={`${styles.all_quytrinh}`} style={{ marginTop: "20px" }}>
         {dataRecruitment?.data?.data?.map((item: any) => {
-          const formattedDate = format(new Date(item.created_at), "dd/MM/yyyy");
           return (
             <div key={item.id} style={{ width: "100%" }}>
               <div className={`${styles.quytrinh_item}`}>
@@ -73,7 +73,7 @@ export default function ListRecruitmentProcess({
                   </div>
                   <div className={`${styles.quytrinh_item12}`}>
                     <span className={`${styles.qtrspan1}`}>
-                      <p style={{ background: "#F1F9FC" }}>{formattedDate}</p>
+                      <p style={{ background: "#F1F9FC" }}>{item?.created_at}</p>
                     </span>
                     <span>Tạo bởi công ty: {item.created_by}.</span>
                     <span>Đối tượng áp dụng: {item.apply_for}</span>
