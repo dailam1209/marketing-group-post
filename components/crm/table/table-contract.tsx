@@ -45,7 +45,7 @@ const TableContract: React.FC<TableContractProps> = ({ valSearch }) => {
 
   const { data, loading, error, fetchData, updateData, deleteData } = useApi(
     // `https://api.timviec365.vn/api/crm/contract/list`,
-    "http://localhost:3007/api/crm/contract/list", // Đợi API được đẩy lên Server
+    "https://api.timviec365.vn/api/crm/contract/list", // Đợi API được đẩy lên Server
     Cookies.get("token_base365"),
     "POST",
     // { id_customer: `${id_customer}`, pageSize: 10000 }

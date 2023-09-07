@@ -277,6 +277,7 @@ const GroupCustomerAdd: React.FC = () => {
         };
       });
     setEmployeeOptions(employeeOption);
+    console.log("employeeOption data after choose department",employeeOption)
   }, [selectedValueDepartments]);
 
   // const dataSelectGroupParent = dataAll?.data;
@@ -333,6 +334,7 @@ const GroupCustomerAdd: React.FC = () => {
           };
         });
       setEmployeeOptions(employeeOption);
+      console.log("employeeOption---: ",employeeOption)
     }, 0);
   }, [clickOptionEmp]);
 

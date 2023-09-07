@@ -69,11 +69,11 @@ const EditContractComponent: React.FC<EditContractComponentProps> = ({
     try {
       setLoading(true);
       const url = `${base_url}/api/crm/contractAI/view`;
-      const urlTest = "http://localhost:3007/api/crm/contractAI/view"
+      // const urlTest = "http://localhost:3007/api/crm/contractAI/view"
       const formData = new FormData();
       formData.append("contract_id", Number(id));
 
-      const res = await fetch(urlTest, {
+      const res = await fetch(url, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${Cookies.get("token_base365")}`,
@@ -437,10 +437,10 @@ const EditContractComponent: React.FC<EditContractComponentProps> = ({
     };
 
     const url = "https://api.timviec365.vn/api/crm/contract/edit"
-    const urlTest = 'http://localhost:3007/api/crm/contract/edit'
+    // const urlTest = 'http://localhost:3007/api/crm/contract/edit'
     try {
       const response = await fetch(
-        urlTest,
+        url,
         {
           method: "POST",
           body: JSON.stringify(bodyData),
