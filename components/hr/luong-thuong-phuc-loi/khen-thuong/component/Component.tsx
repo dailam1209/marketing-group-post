@@ -101,6 +101,7 @@ function RewardTable({
             animation={animateModal}
             onClose={handleCloseModal}
             dataOld={dataEdit}
+            updateData={updateData}
           ></ModalEditPersonalCompliments>
         )}
         {typeModal === "chitiet" && modalEditType === "tapthe" && (
@@ -108,6 +109,7 @@ function RewardTable({
             animation={animateModal}
             onClose={handleCloseModal}
             dataOld={dataEdit}
+            updateData={updateData}
           ></ModalEditCommendationTeam>
         )}
         {typeModal === "chitiet" && modalEditType === "list" && (
@@ -115,6 +117,7 @@ function RewardTable({
             animation={animateModal}
             onClose={handleCloseModal}
             dataOld={dataEdit}
+            updateData={updateData}
           ></ModalEditAchievementList>
         )}
 
@@ -162,12 +165,14 @@ function RewardTable({
                 <p>Không có dư liệu</p>
               ) : (
                 data?.data?.map((item: any) => {
-                  let formattedDate: any = null
+                  let formattedDate: any = null;
                   {
-                    item.created_at ? formattedDate = format(
-                      new Date(item?.created_at || ''),
-                      "dd-MM-yyyy"
-                    ) : 'null'
+                    item.created_at
+                      ? (formattedDate = format(
+                          new Date(item?.created_at || ""),
+                          "dd-MM-yyyy"
+                        ))
+                      : "null";
                   }
                   const achievementType =
                     hinhthuckhenthuong[Number(item?.achievement_type)];
@@ -181,38 +186,39 @@ function RewardTable({
                           <span>{item.list_user_name}</span>
                         ) : (
                           <span>{item.dep_name}</span>
-
                         )}
                       </td>
                       <td>{formattedDate}</td>
                       <td>{achievementType}</td>
                       <td>{item.appellation}</td>
                       <td>{item.achievement_level}</td>
-                      {iconEdit && <td
-                        className={`${styles.r_t_top_right}`}
-                        style={{
-                          position: "relative",
-                          width: "110px",
-                          opacity: "1",
-                        }}
-                        onMouseEnter={() => setVisible(true)}
-                        onMouseLeave={() => setVisible(false)}
-                      >
-                        <img
-                          src={`/3cham.png`}
-                          alt="Tùy chỉnh"
-                          style={{ paddingTop: "6px" }}
-                        />
+                      {iconEdit && (
+                        <td
+                          className={`${styles.r_t_top_right}`}
+                          style={{
+                            position: "relative",
+                            width: "110px",
+                            opacity: "1",
+                          }}
+                          onMouseEnter={() => setVisible(true)}
+                          onMouseLeave={() => setVisible(false)}
+                        >
+                          <img
+                            src={`/3cham.png`}
+                            alt="Tùy chỉnh"
+                            style={{ paddingTop: "6px" }}
+                          />
 
-                        {visible && (
-                          <div
-                            className={styles.settings}
-                            onClick={() => handleEdit(item)}
-                          >
-                            <li>Chỉnh sửa</li>
-                          </div>
-                        )}
-                      </td>}
+                          {visible && (
+                            <div
+                              className={styles.settings}
+                              onClick={() => handleEdit(item)}
+                            >
+                              <li>Chỉnh sửa</li>
+                            </div>
+                          )}
+                        </td>
+                      )}
                     </tr>
                   );
                 })
