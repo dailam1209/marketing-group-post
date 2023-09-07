@@ -159,9 +159,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
       if (data && data?.data) setLishNv(data?.data?.items);
     } catch (error) {}
   };
-  console.log(listNV);
   let nv = listNV?.filter((item) => item.dep_id === dep_id);
-  console.log(nv);
   useEffect(() => {
     handleGetInfoCusNV();
     handleGetInfoCus();
