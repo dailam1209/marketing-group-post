@@ -107,6 +107,9 @@ export default function DetailHrReport({ children }: any) {
     index !== -1 ? link.slice(0, index) + '.html' : link + '.html'
   const comid: any = GetComId()
 
+  console.log(link);
+
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -131,7 +134,7 @@ export default function DetailHrReport({ children }: any) {
       setTitle('Danh sách nhân viên nghỉ việc / giảm biên chế')
     }
     if (link.includes('bieu-do-danh-sach-nhan-vien-tang-giam-luong')) {
-      setTitle('Danh sách nhân viên nghỉ việc / giảm biên chế')
+      setTitle('Danh sách nhân viên tăng / giảm lương')
     }
     if (link.includes('bieu-do-danh-sach-nhan-vien-theo-do-tuoi')) {
       setTitle('Danh sách nhân viên theo thâm niên công tác')
@@ -171,10 +174,10 @@ export default function DetailHrReport({ children }: any) {
       const isTypes = link.split('=').pop()
       setType(isTypes)
       if (link.includes('bieu-do-danh-sach-nhan-vien-nghi-viec?type=1')) {
-        setTitle('Danh sách nhân viên nghỉ việc')
+        setTitle('Danh sách nhân viên giảm biên chế')
       }
       if (link.includes('bieu-do-danh-sach-nhan-vien-nghi-viec?type=2')) {
-        setTitle('Danh sách nhân viên giảm biên chế')
+        setTitle('Danh sách nhân viên nghỉ việc')
       }
       if (
         link.includes('bieu-do-danh-sach-nhan-vien-tang-giam-luong?type=1') ||
@@ -183,12 +186,12 @@ export default function DetailHrReport({ children }: any) {
         setTitle('Danh sách nhân viên tăng / giảm lương')
       }
       if (
-        link.includes('bieu-do-danh-sach-nhan-vien-theo-trang-hon-nhan?type=1')
+        link.includes('bieu-do-danh-sach-nhan-vien?type=2')
       ) {
         setTitle('Danh sách nhân viên đã lập gia đình')
       }
       if (
-        link.includes('bieu-do-danh-sach-nhan-vien-theo-trang-hon-nhan?type=2')
+        link.includes('bieu-do-danh-sach-nhan-vien?type=1')
       ) {
         setTitle('Danh sách nhân viên độc thân')
       }
@@ -283,6 +286,9 @@ export default function DetailHrReport({ children }: any) {
             }
             if (link.includes('type=') && link_cut && isType !== '') {
               if (link_cut === "bieu-do-danh-sach-nhan-vien-theo-do-tuoi.html") { formData.append('old', isType) }
+              else if (link === "bieu-do-danh-sach-nhan-vien?type=1" || link === "bieu-do-danh-sach-nhan-vien?type=2") {
+                formData.append('married', isType)
+              }
               else {
                 formData.append('type', isType)
               }
@@ -704,8 +710,6 @@ export default function DetailHrReport({ children }: any) {
                         setState={setDep_id}
                         option={options.chonphongban}
                         placeholder='Chọn phòng ban'
-                        // menuShouldBlockScroll={true}
-                        menuPortalTarget={document.body}
                       />
                     </th>
                     <th>

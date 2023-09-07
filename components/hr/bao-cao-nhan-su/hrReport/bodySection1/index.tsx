@@ -127,8 +127,8 @@ export default function EmployeeInformation({ hrReportList }: any) {
                             background_color='#f1f9fc'
                             handleClickDetail={handleClickDetail}
                             link_title1="/bieu-do-danh-sach-nhan-vien-nghi-viec.html"
-                            link_title2="/bieu-do-danh-sach-nhan-vien-nghi-viec?type=2.html"
-                            link_title3="/bieu-do-danh-sach-nhan-vien-nghi-viec?type=1.html"
+                            link_title2="/bieu-do-danh-sach-nhan-vien-nghi-viec?type=1.html"
+                            link_title3="/bieu-do-danh-sach-nhan-vien-nghi-viec?type=2.html"
                         />
                     </div>
                     <div className={`${styles.row_top_item}`}>
@@ -201,14 +201,13 @@ export default function EmployeeInformation({ hrReportList }: any) {
                             img3='/icon-alone.svg	'
                             title_details1='Đã lập gia đình'
                             title_details3='Độc thân'
-                            number1={married1}
-                            number3={married2}
+                            number1={married2}
+                            number3={married1}
                             color_boder='7px solid #D44C4C'
                             background_color='#FFF4F4'
                             handleClickDetail={handleClickDetail}
-                            link_title1="/bieu-do-danh-sach-nhan-vien-theo-trang-hon-nhan?type=1.html"
-                            // link_title2="/bieu-do-danh-sach-nhan-vien-theo-trang-hon-nhan?type=1.html"
-                            link_title3="/bieu-do-danh-sach-nhan-vien-theo-trang-hon-nhan?type=2.html"
+                            link_title1="/bieu-do-danh-sach-nhan-vien?type=2.html"
+                            link_title3="/bieu-do-danh-sach-nhan-vien?type=1.html"
                         />
                     </div>
                 </div>
