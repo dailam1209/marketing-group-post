@@ -161,7 +161,6 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
   };
   console.log(listNV);
   let nv = listNV?.filter((item) => item.dep_id === dep_id);
-  console.log(nv);
   useEffect(() => {
     handleGetInfoCusNV();
     handleGetInfoCus();
