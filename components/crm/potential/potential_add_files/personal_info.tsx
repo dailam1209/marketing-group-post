@@ -1,7 +1,7 @@
 import PotentialSelectBoxStep from "../potential_steps/select_box_step";
 import styles from "./add_file_potential.module.css";
 import InputText from "./input_text";
-export default function AddPersonalInfo() {
+export default function AddPersonalInfo({ formData, setFormData }: any) {
   return (
     <div>
       <p className={styles.main__body__type}>Thông tin cá nhân</p>
@@ -9,12 +9,13 @@ export default function AddPersonalInfo() {
       <div className={styles.row_input}>
         <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
           <label className={`${styles["form-label"]}`}>Giới tính</label>
-          <PotentialSelectBoxStep value="Chọn giới tính" placeholder="Chọn giới tính" />
+          <PotentialSelectBoxStep
+            value="Chọn giới tính"
+            placeholder="Chọn giới tính"
+          />
         </div>
         <InputText label="Ngày sinh" placeholder="Nhập ho và tên" type="date" />
       </div>
-
-     
     </div>
   );
 }

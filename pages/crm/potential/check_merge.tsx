@@ -15,6 +15,7 @@ const CheckMergePotential: React.FC = () => {
   const [checkDocument, setCheckDocument] = useState(false);
   const { isOpen } = useContext<any>(SidebarContext);
   const [numberSelected, setNumberSelected] = useState(0);
+  const [isRowDataSelected, setRowDataSelected] = useState("");
   const [type, setType] = useState("hoặc");
   const imgRef = useRef<HTMLInputElement>(null);
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
@@ -111,6 +112,7 @@ const CheckMergePotential: React.FC = () => {
               <TableDataPotential
                 setSelected={setCheckDocument}
                 setNumberSelected={setNumberSelected}
+                setRowDataSelected={setRowDataSelected}
               />
               <PotentialFooterCheckMerge />
             </div>

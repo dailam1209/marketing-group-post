@@ -940,3 +940,8 @@ label {
     width: 100%;
   }
 }
+
+.campaign-checkbox-column .ant-checkbox-wrapper {
+  width: 16px;
+  height: 16px;
+}

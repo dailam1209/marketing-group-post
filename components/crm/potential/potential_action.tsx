@@ -1,6 +1,6 @@
 import styles from "./potential.module.css";
 import type { MenuProps } from "antd";
-import { Button, Dropdown, Space } from "antd";
+import { Dropdown } from "antd";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import CanmpaignModal from "./potential_action_modal/potential_mdal_campain";
@@ -15,6 +15,8 @@ export default function PotentialAction({
   isSelectedRow,
   isRowDataSelected,
   isNumberSelected,
+  setSelected,
+  setNumberSelected,
 }: any) {
   const [isOpenCampaign, setIsOpenCampaign] = useState(false);
   const [isOpenEmail, setIsOpenIsEmail] = useState(false);
@@ -192,6 +194,8 @@ export default function PotentialAction({
       <CanmpaignModal
         isModalCancel={isOpenCampaign}
         setIsModalCancel={setIsOpenCampaign}
+        setSelected={setSelected}
+        setNumberSelected={setNumberSelected}
       />
       <EmailModal
         isModalCancel={isOpenEmail}

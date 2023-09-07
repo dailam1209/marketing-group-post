@@ -8,29 +8,38 @@ export default function RowRadioInput({
   title,
   value = [],
 }: any) {
-  const [valueRadioBox, setValueRadioBox] = useState();
+  const [valueRadioBox, setValueRadioBox] = useState("");
   const [selectedCheckboxes, setSelectedCheckboxes] = useState({});
 
   const handleChange = (item: any, index: number) => {
-    setValueRadioBox(
-      selectedData?.[name]?.filter((item) => item?.status)[0]?.val
-    );
-
-    console.log(selectedData?.[name]?.filter((item) => item?.status)[0]?.val);
-
     let newValues = selectedData?.[name];
-    const newData = newValues?.map((item) => {});
-    newValues?.splice(index, 1, {
-      status: true,
-      val: item.name,
+    let newData: any = newValues?.map((item) => {
+      return {
+        ...item,
+        status: false,
+      };
     });
+
+    newData.splice(index, 1, {
+      status: true,
+      val: newData[index]?.val,
+    });
+
+    // console.log("----", newData);
+
+    const test = { ...selectedData, [name]: newData };
+    console.log("test", test?.[name]?.filter((item) => item?.status)[0]);
+    setValueRadioBox(test?.[name]?.filter((item) => item?.status)[0]?.val);
 
     setSelectedData((prev) => {
       return {
         ...prev,
-        [name]: newValues,
+        [name]: newData,
       };
     });
+    setSelectedData(test);
+
+    // console.log(selectedData);
   };
   return (
     <tr>

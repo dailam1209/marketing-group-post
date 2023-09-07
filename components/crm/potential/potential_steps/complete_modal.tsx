@@ -4,7 +4,7 @@ import { Modal } from "antd";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { base_url } from "../../service/function";
-const Cookies = require('js-cookie')
+const Cookies = require("js-cookie");
 interface ModalCompleteStepProps {
   modal1Open: boolean;
   setModal1Open: any;
@@ -22,35 +22,34 @@ const ModalCompleteStep: React.FC<ModalCompleteStepProps> = ({
   cusId,
 }: any) => {
   const router = useRouter();
-  
-  const handleClick = async() => {
+
+  const handleClick = async () => {
     setModal1Open(false);
     // router.push(link);
-    const url =
-    `${base_url}/api/crm/customerdetails/editCustomer`;
+    const url = `${base_url}/api/crm/customerdetails/editCustomer`;
 
-  const formData = new FormData();
-  formData.append("description", editorContent);
-  formData.append("type", "2");
-  formData.append("cus_id", cusId);
+    const formData = new FormData();
+    formData.append("description", editorContent);
+    formData.append("type", "2");
+    formData.append("cus_id", cusId);
 
-  const headers = {
-    Authorization: `Bearer ${Cookies.get("token_base365")}`,
-  };
+    const headers = {
+      Authorization: `Bearer ${Cookies.get("token_base365")}`,
+    };
 
-  const config = {
-    method: "POST",
-    headers: headers,
-    body: formData,
-  };
-  try {
-    const response = await fetch(url, config);
-    const data = await response.json();
-    console.log("check res", data);
-  } catch (error) {
-    console.error(error);
-  }
- router.push('#')
+    const config = {
+      method: "POST",
+      headers: headers,
+      body: formData,
+    };
+    try {
+      const response = await fetch(url, config);
+      const data = await response.json();
+      console.log("check res", data);
+    } catch (error) {
+      console.error(error);
+    }
+    router.push("#");
   };
   return (
     <div>

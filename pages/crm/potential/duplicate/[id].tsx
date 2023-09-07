@@ -18,6 +18,44 @@ const AddFilesPotential: React.FC = () => {
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
 
+  const [formData, setFormData] = useState<any>({
+    xungho: "",
+    tendem: "",
+    ten: "",
+    hovaten: "",
+    chucdanh: "",
+    phongban: "",
+    dienthoaicoquan: "",
+    dienthoaicanhan: "",
+    emailcoquan: "",
+    emailcanhan: "",
+    nguongoc: "",
+    masothue: "",
+    loaitiemnang: "",
+    mangxahoi: "",
+    nhanvien: "",
+    gioitinh: "",
+    ngaysinh: "",
+    tochuc: "",
+    taikhoannh: "",
+    motainh: "",
+    ngaytl: "",
+    loaihinh: "",
+    linhvuc: "",
+    nganhnghe: "",
+    doanhthu: "",
+    quocgia: "",
+    city: "",
+    district: "",
+    ward: "",
+    street: "",
+    mavung: "",
+    diachi: "",
+    mota: "",
+    dungchung: "",
+    image: "",
+  });
+
   useEffect(() => {
     setHeaderTitle("Tiềm Năng/ Nhân bản");
     setShowBackButton(true);
@@ -106,15 +144,30 @@ const AddFilesPotential: React.FC = () => {
                     </div>
                   </div>
 
-                  <AddGeneralInfo />
-                  <AddPersonalInfo />
-                  <AddOrganizeInfo />
-                  <AddAddressInfo />
-                  <AddDesriptionAndSystemInfo />
+                  <AddGeneralInfo
+                    formData={formData}
+                    setFormData={setFormData}
+                  />
+                  <AddPersonalInfo
+                    formData={formData}
+                    setFormData={setFormData}
+                  />
+                  <AddOrganizeInfo
+                    formData={formData}
+                    setFormData={setFormData}
+                  />
+                  <AddAddressInfo
+                    formData={formData}
+                    setFormData={setFormData}
+                  />
+                  <AddDesriptionAndSystemInfo
+                    formData={formData}
+                    setFormData={setFormData}
+                  />
                 </div>
                 <PotentialFooterAddFiles
                   title="Nhân bản tiềm năng Tên tiềm năng thành công!
-"
+    "
                 />
               </div>
             </div>
