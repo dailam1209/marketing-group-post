@@ -7,6 +7,7 @@ import {
   GetDataCategory,
   getDataAddress,
   getDataUser,
+  GetListNews
 } from '@/pages/api/api-hr/quan-ly-tuyen-dung/PerformRecruitment'
 import { GetDataRecruitment } from '@/pages/api/api-hr/quan-ly-tuyen-dung/RecruitmentManagerService'
 import nganh_nghe from '@/components/hr/util/listNganhNghe'
@@ -18,14 +19,25 @@ export default function AddPerformRecruitment({
   handleCloseModalAdd,
   addData,
 }: any) {
+  const [dataListNews, setDataListNews] = useState<any>()
   const [content, setContent] = useState<any>()
+
   const [address, setAddress] = useState<any>()
   const [recruitmentId, setRecruitmentId] = useState<any>()
   const [userMemberFollow, setUserMemberFollow] = useState<any>()
   const [hrName, setHrName] = useState<any>()
   const [cateId, setCateId] = useState<any>()
   const [errors, setErrors] = useState<any>({})
-  const [selectedOption, setSelectedOption] = useState<any | null>()
+  const [selectedOption, setSelectedOption] = useState<any | null>(
+  )
+
+  const [title, setTitle] = useState<any>('')
+  const [formDate, setFormDate] = useState<any>()
+  const [toDate, setToDate] = useState<any>()
+  const [onDelete, setOnDelete] = useState<any>()
+  const [currentPage, setCurrenPage] = useState<any>(1)
+  const [isFoundSalary, setFoundSalary] = useState<any>()
+  const [isFoundPosition, setFoundPosition] = useState<any>()
 
   const schema = Yup.object().shape({
     title: Yup.string().required('Hãy nhập tiêu đề'),
@@ -53,15 +65,60 @@ export default function AddPerformRecruitment({
     }))
   }
 
+  useEffect(() => {
+    if (dataListNews?.job_description) {
+      setContent({
+        ...content,
+        jobDes: dataListNews.job_description,
+      });
+    }
+  }, [dataListNews]);
+
+
+  useEffect(() => {
+    if (dataListNews?.salary_id && dataListNews?.position_apply) {
+      setSelectedOption({
+        ...selectedOption,
+        posApply: dataListNews?.position_apply,
+        salaryId: dataListNews?.salary_id
+      });
+    }
+  }, [dataListNews]);
+
   const handleSelectionChange = (option: any | null, optionsArray: any[]) => {
     if (option) {
-      const { name, value } = option
+      const { name, value, label } = option
       setSelectedOption((prevSelectedOption) => ({
         ...prevSelectedOption,
         [name]: Number(value),
       }))
+      if (name === "salaryId") {
+        setFoundSalary([{ value: value, label: label }])
+      }
+      if (name === "posApply") {
+        setFoundPosition([{ value: value, label: label }])
+      }
     }
   }
+
+  useEffect(() => {
+    const GetDataListNews = async () => {
+      try {
+        const response = await GetListNews(
+          currentPage,
+          10000,
+          title,
+          formDate,
+          toDate
+        )
+        if (response) {
+          const findIsSample = response?.data?.success?.data?.data?.find((item: any) => item?.is_sample === 1)
+          setDataListNews(findIsSample)
+        }
+      } catch (err) { }
+    }
+    GetDataListNews()
+  }, [title, currentPage, onDelete, formDate, toDate])
 
   useEffect(() => {
     const getData = async () => {
@@ -188,6 +245,19 @@ export default function AddPerformRecruitment({
     nhanvienphutrach: hrName,
   }
 
+
+  useEffect(() => {
+
+    const foundSalary = options?.mucluong?.find((item) => item?.value === dataListNews?.salary_id?.toString())
+    if (foundSalary) {
+      setFoundSalary(foundSalary)
+    }
+    const foundPositionsApply = options?.vitrituyendung?.find((item) => item?.value === dataListNews?.position_apply?.toString())
+    if (foundPositionsApply) {
+      setFoundPosition(foundPositionsApply)
+    }
+  }, [dataListNews])
+
   const formData = Object.assign({}, content, selectedOption)
 
   const handleSubmit = async (e) => {
@@ -285,7 +355,7 @@ export default function AddPerformRecruitment({
                   <div className={`${styles.tuyendungtext}`}>
                     <Select
                       className={`${styles.position_recruit}`}
-                      defaultValue={selectedOption}
+                      value={isFoundPosition}
                       onChange={(option) =>
                         handleSelectionChange(option, options.vitrituyendung)
                       }
@@ -427,7 +497,7 @@ export default function AddPerformRecruitment({
                   <div className={`${styles.tuyendungtext}`}>
                     <Select
                       className={`${styles.position_recruit}`}
-                      defaultValue={selectedOption}
+                      value={isFoundSalary}
                       onChange={(option) =>
                         handleSelectionChange(option, options.mucluong)
                       }
@@ -455,7 +525,6 @@ export default function AddPerformRecruitment({
                     />
                   </div>
                 </div>
-
                 <div
                   className={`${styles.form_groups} ${styles.small_left}  ${styles.full_width}`}>
                   <label>
@@ -477,7 +546,6 @@ export default function AddPerformRecruitment({
                     />
                   </div>
                 </div>
-
                 <div className={`${styles.form_groups} ${styles.big_right}`}>
                   <label>
                     Thời hạn tuyển
@@ -618,6 +686,7 @@ export default function AddPerformRecruitment({
                     <input
                       type='text'
                       name='jobDes'
+                      defaultValue={dataListNews?.job_description}
                       placeholder='Mô tả công việc'
                       spellCheck='false'
                       onChange={handleContentChange}
@@ -731,6 +800,7 @@ export default function AddPerformRecruitment({
                 <div className={`${styles.form_groups} ${styles.group_left}`}>
                   <label>
                     Yêu cầu giới tính
+                    <span className={`${styles.red}`}> *</span>
                     <span className={`${styles.red}`}></span>
                     {errors.gender && (
                       <div className={`${styles.red} ${styles.float_right}`}>
