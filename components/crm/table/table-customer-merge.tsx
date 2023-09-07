@@ -4,8 +4,11 @@ import RowRadioInput from "../potential/merge/row_input_radio";
 import RowRadioInputRow from "../customer/merege/radio_btn_input_row";
 import CancelModalCustomApi from "../customer/customer_modal/customer_mdal_cancel";
 import ModalError from "../customer/customer_modal/error_mdal";
+interface CustomerProps {
+  data: any;
+}
 
-const TableDataCustomerMerge: React.FC = () => {
+const TableDataCustomerMerge: React.FC<CustomerProps> = ({ data }) => {
   const [isSelectAll, setIsSelectAll] = useState(false);
   const [isSelectAll2, setIsSelectAll2] = useState(false);
   const [defaultCheckBox, setDefaultCheckBox] = useState(false);
@@ -14,6 +17,9 @@ const TableDataCustomerMerge: React.FC = () => {
   const [isOpenSuccessMdal, setISOpenSuccessMdal] = useState(false);
   const [isOpenModalError, setIsOpenModalError] = useState(false);
   const [selectedId, setSelectedId] = useState<string>("");
+  const newData = data?.data;
+  const [selectedData, setSelectedData] = useState<any>({});
+  const [defaultState, setDefaultState] = useState({});
 
   const handleImageChange = (selectedValue: string) => {
     setSelectedId(selectedValue);
@@ -24,16 +30,81 @@ const TableDataCustomerMerge: React.FC = () => {
     // setIsOpenModalError(true);
   };
 
-  useEffect(() => {
-    if (isSelectAll) {
-      setSelectedId("1");
-    } else if (isSelectAll2) {
-      setSelectedId("2");
-    } else {
-      setSelectedId("0");
-    }
-  }, [isSelectAll, isSelectAll2]);
+  const handleSelectAll = (index: number) => {
+    setSelectedData(defaultState);
+    setSelectedData((prevSelectedData) => {
+      const updatedSelectedData = { ...prevSelectedData };
+      for (const key in updatedSelectedData) {
+        if (Array.isArray(updatedSelectedData[key])) {
+          updatedSelectedData[key] = updatedSelectedData[key].map((item, i) =>
+            i === index
+              ? {
+                  ...item,
+                  status: true,
+                }
+              : {
+                  ...item,
+                  status: false,
+                }
+          );
+        }
+      }
+      return updatedSelectedData;
+    });
+  };
 
+  const setDefaultArr = (param: any, data) => {
+    return data?.map((el) => {
+      return {
+        status: false,
+        val: el?.[param],
+      };
+    });
+  };
+
+  useEffect(() => {
+    if (newData) {
+      const data = {
+        xungho: setDefaultArr("salutation", newData),
+        tendem: setDefaultArr("operation", newData),
+        ten: setDefaultArr("name", newData),
+        hovaten: setDefaultArr("operation", newData),
+        chucdanh: setDefaultArr("name", newData),
+        phongban: setDefaultArr("name", newData),
+        dienthoaicoquan: setDefaultArr("name", newData),
+        dienthoaicanhan: setDefaultArr("name", newData),
+        emailcoquan: setDefaultArr("name", newData),
+        emailcanhan: setDefaultArr("name", newData),
+        nguongoc: setDefaultArr("name", newData),
+        masothue: setDefaultArr("name", newData),
+        loaitiemnang: setDefaultArr("name", newData),
+        mangxahoi: setDefaultArr("name", newData),
+        nhanvien: setDefaultArr("name", newData),
+        gioitinh: setDefaultArr("name", newData),
+        ngaysinh: setDefaultArr("name", newData),
+        tochuc: setDefaultArr("name", newData),
+        taikhoannh: setDefaultArr("name", newData),
+        motainh: setDefaultArr("name", newData),
+        ngaytl: setDefaultArr("name", newData),
+        loaihinh: setDefaultArr("name", newData),
+        linhvuc: setDefaultArr("name", newData),
+        nganhnghe: setDefaultArr("name", newData),
+        doanhthu: setDefaultArr("name", newData),
+        quocgia: setDefaultArr("name", newData),
+        city: setDefaultArr("name", newData),
+        district: setDefaultArr("name", newData),
+        ward: setDefaultArr("name", newData),
+        street: setDefaultArr("name", newData),
+        mavung: setDefaultArr("name", newData),
+        diachi: setDefaultArr("name", newData),
+        mota: setDefaultArr("name", newData),
+        dungchung: setDefaultArr("name", newData),
+        image: setDefaultArr("name", newData),
+      };
+      setSelectedData(data);
+      setDefaultState(data);
+    }
+  }, [newData]);
   return (
     <>
       <div className={styles.main_potential}>
@@ -45,30 +116,19 @@ const TableDataCustomerMerge: React.FC = () => {
                 <thead>
                   <tr>
                     <th colSpan={2}>Bản ghi chính</th>
-                    <th>
-                      Bản ghi 1
-                      <button
-                        onClick={() => {
-                          setIsSelectAll(true);
-                          setIsSelectAll2(false);
-                          setDefaultCheckBox(true);
-                        }}
-                      >
-                        Chọn tất cả
-                      </button>
-                    </th>
-                    <th>
-                      Bản ghi 2
-                      <button
-                        onClick={() => {
-                          setIsSelectAll(false);
-                          setDefaultCheckBox(true);
-                          setIsSelectAll2(true);
-                        }}
-                      >
-                        Chọn tất cả
-                      </button>
-                    </th>
+                    {newData?.map((record, index) => (
+                      <th key={index}>
+                        Bản ghi {index + 1}
+                        <button
+                          onClick={() => {
+                            handleSelectAll(index);
+                          }}
+                        >
+                          {/* {selectAllData ? "Bỏ chọn" : "Chọn tất cả"} */}
+                          Chọn tất cả
+                        </button>
+                      </th>
+                    ))}
                   </tr>
                 </thead>
                 <tbody>
@@ -76,9 +136,9 @@ const TableDataCustomerMerge: React.FC = () => {
                   <RowRadioInputRow
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
+                    selectedData={selectedData}
+                    setSelectedData={setSelectedData}
                     name="type_customer"
-                    isSelectAll={isSelectAll}
-                    isSelectAll2={isSelectAll2}
                     title="Loại hình:"
                     value={["Khách hàng cá nhân ", "Khách hàng cá nhân"]}
                   />
@@ -95,36 +155,23 @@ const TableDataCustomerMerge: React.FC = () => {
                         className={styles.img_person}
                       />
                     </td>
-                    <td>
-                      <input
-                        onChange={() => handleImageChange("1")}
-                        checked={selectedId === "1"}
-                        name="rdo_logo_image"
-                        type="radio"
-                        className={styles.radio}
-                        value={"/crm/user_kh.png"}
-                      />
-                      <img
-                        style={{ transform: "translate(15%, 15%)" }}
-                        src="/crm/user_kh.png"
-                        className={styles.img_person}
-                      />
-                    </td>
-                    <td>
-                      <input
-                        onChange={() => handleImageChange("2")}
-                        checked={selectedId === "2"}
-                        name="rdo_logo_image"
-                        type="radio"
-                        value={"/crm/user_kh.png "}
-                        className={styles.radio}
-                      />
-                      <img
-                        style={{ transform: "translate(15%, 15%)" }}
-                        src="/crm/user_kh.png"
-                        className={styles.img_person}
-                      />
-                    </td>
+                    {newData?.map((record, index) => (
+                      <td key={index}>
+                        <input
+                          onChange={() => handleImageChange(index)}
+                          checked={selectedData?.image?.[index]?.status}
+                          name="image"
+                          type="radio"
+                          className={styles.radio}
+                          value={"/crm/user_kh.png"}
+                        />
+                        <img
+                          style={{ transform: "translate(15%, 15%)" }}
+                          src="/crm/user_kh.png"
+                          className={styles.img_person}
+                        />
+                      </td>
+                    ))}
                   </tr>
 
                   {/* General Info */}
@@ -141,9 +188,9 @@ const TableDataCustomerMerge: React.FC = () => {
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
+                    selectedData={selectedData}
+                    setSelectedData={setSelectedData}
                     name="rdo_vocative"
-                    isSelectAll={isSelectAll}
-                    isSelectAll2={isSelectAll2}
                     title="Tên khách hàng"
                     value={["Chưa cập nhật ", "Chưa cập nhật"]}
                   />
@@ -151,9 +198,9 @@ const TableDataCustomerMerge: React.FC = () => {
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
+                    selectedData={selectedData}
+                    setSelectedData={setSelectedData}
                     name="rdo_middle_name"
-                    isSelectAll={isSelectAll}
-                    isSelectAll2={isSelectAll2}
                     title="Tên viết tắt"
                     value={["Chưa cập nhật ", "Chưa cập nhật"]}
                   />
@@ -161,9 +208,9 @@ const TableDataCustomerMerge: React.FC = () => {
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
+                    selectedData={selectedData}
+                    setSelectedData={setSelectedData}
                     name="rdo_name"
-                    isSelectAll={isSelectAll}
-                    isSelectAll2={isSelectAll2}
                     title="Mã số thuế"
                     value={["Chưa cập nhật ", "Chưa cập nhật"]}
                   />
@@ -171,9 +218,9 @@ const TableDataCustomerMerge: React.FC = () => {
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
+                    selectedData={selectedData}
+                    setSelectedData={setSelectedData}
                     name="rdo_fullname"
-                    isSelectAll={isSelectAll}
-                    isSelectAll2={isSelectAll2}
                     title="Điện thoại:"
                     value={["Chưa cập nhật ", "Chưa cập nhật"]}
                   />
@@ -181,9 +228,9 @@ const TableDataCustomerMerge: React.FC = () => {
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
+                    selectedData={selectedData}
+                    setSelectedData={setSelectedData}
                     name="rdo_titles"
-                    isSelectAll={isSelectAll}
-                    isSelectAll2={isSelectAll2}
                     title="Email"
                     value={["Chưa cập nhật ", "Chưa cập nhật"]}
                   />
@@ -191,9 +238,9 @@ const TableDataCustomerMerge: React.FC = () => {
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
+                    selectedData={selectedData}
+                    setSelectedData={setSelectedData}
                     name="rdo_department"
-                    isSelectAll={isSelectAll}
-                    isSelectAll2={isSelectAll2}
                     title="Nguồn khách hàng"
                     value={["Chưa cập nhật ", "Chưa cập nhật"]}
                   />
@@ -201,9 +248,9 @@ const TableDataCustomerMerge: React.FC = () => {
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
+                    selectedData={selectedData}
+                    setSelectedData={setSelectedData}
                     name="rdo_office_phone"
-                    isSelectAll={isSelectAll}
-                    isSelectAll2={isSelectAll2}
                     title="Phân loại khách hàng"
                     value={["Khách hàng bán lẻ ", "Khách hàng bán lẻ"]}
                   />
@@ -211,9 +258,9 @@ const TableDataCustomerMerge: React.FC = () => {
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
+                    selectedData={selectedData}
+                    setSelectedData={setSelectedData}
                     name="rdo_personal_phone"
-                    isSelectAll={isSelectAll}
-                    isSelectAll2={isSelectAll2}
                     title="Lĩnh vực"
                     value={["Chưa cập nhật ", "Chưa cập nhật"]}
                   />
@@ -221,9 +268,9 @@ const TableDataCustomerMerge: React.FC = () => {
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
+                    selectedData={selectedData}
+                    setSelectedData={setSelectedData}
                     name="rdo_office_email"
-                    isSelectAll={isSelectAll}
-                    isSelectAll2={isSelectAll2}
                     title="Loại hình"
                     value={["Chưa cập nhật ", "Chưa cập nhật"]}
                   />
@@ -231,9 +278,9 @@ const TableDataCustomerMerge: React.FC = () => {
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
+                    selectedData={selectedData}
+                    setSelectedData={setSelectedData}
                     name="rdo_personal_email"
-                    isSelectAll={isSelectAll}
-                    isSelectAll2={isSelectAll2}
                     title="Ngành nghề"
                     value={["Chưa cập nhật ", "Chưa cập nhật"]}
                   />
@@ -241,9 +288,9 @@ const TableDataCustomerMerge: React.FC = () => {
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
+                    selectedData={selectedData}
+                    setSelectedData={setSelectedData}
                     name="rdo_source"
-                    isSelectAll={isSelectAll}
-                    isSelectAll2={isSelectAll2}
                     title="Nhóm khách hàng"
                     value={["Chưa cập nhật ", "Chưa cập nhật"]}
                   />
@@ -251,9 +298,9 @@ const TableDataCustomerMerge: React.FC = () => {
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
+                    selectedData={selectedData}
+                    setSelectedData={setSelectedData}
                     name="rdo_tax_code"
-                    isSelectAll={isSelectAll}
-                    isSelectAll2={isSelectAll2}
                     title="Tình trạng khách hàng"
                     value={["Chưa cập nhật ", "Chưa cập nhật"]}
                   />
@@ -261,9 +308,9 @@ const TableDataCustomerMerge: React.FC = () => {
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
+                    selectedData={selectedData}
+                    setSelectedData={setSelectedData}
                     name="rdo_type"
-                    isSelectAll={isSelectAll}
-                    isSelectAll2={isSelectAll2}
                     title="Nhân viên phụ trách"
                     value={["Chưa cập nhật ", "Chưa cập nhật"]}
                   />
@@ -282,9 +329,9 @@ const TableDataCustomerMerge: React.FC = () => {
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
+                    selectedData={selectedData}
+                    setSelectedData={setSelectedData}
                     name="rdo_gender"
-                    isSelectAll={isSelectAll}
-                    isSelectAll2={isSelectAll2}
                     title="Giới tính:"
                     value={["Chưa cập nhật ", "Chưa cập nhật"]}
                   />
@@ -292,9 +339,9 @@ const TableDataCustomerMerge: React.FC = () => {
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
+                    selectedData={selectedData}
+                    setSelectedData={setSelectedData}
                     name="rdo_birth"
-                    isSelectAll={isSelectAll}
-                    isSelectAll2={isSelectAll2}
                     title="Ngày sinh:"
                     value={["Chưa cập nhật ", "Chưa cập nhật"]}
                   />
@@ -312,9 +359,9 @@ const TableDataCustomerMerge: React.FC = () => {
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
+                    selectedData={selectedData}
+                    setSelectedData={setSelectedData}
                     name="rdo_tochuc"
-                    isSelectAll={isSelectAll}
-                    isSelectAll2={isSelectAll2}
                     title="Quốc gia"
                     value={["Việt Nam ", "Việt Nam"]}
                   />
@@ -322,9 +369,9 @@ const TableDataCustomerMerge: React.FC = () => {
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
+                    selectedData={selectedData}
+                    setSelectedData={setSelectedData}
                     name="rdo_bank_num"
-                    isSelectAll={isSelectAll}
-                    isSelectAll2={isSelectAll2}
                     title="Tỉnh/Thành phố"
                     value={["Chưa cập nhật ", "Chưa cập nhật"]}
                   />
@@ -332,9 +379,9 @@ const TableDataCustomerMerge: React.FC = () => {
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
+                    selectedData={selectedData}
+                    setSelectedData={setSelectedData}
                     name="rdo_bank_account"
-                    isSelectAll={isSelectAll}
-                    isSelectAll2={isSelectAll2}
                     title="Quận/Huyện"
                     value={["Chưa cập nhật ", "Chưa cập nhật"]}
                   />
@@ -342,9 +389,9 @@ const TableDataCustomerMerge: React.FC = () => {
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
+                    selectedData={selectedData}
+                    setSelectedData={setSelectedData}
                     name="rdo_tl"
-                    isSelectAll={isSelectAll}
-                    isSelectAll2={isSelectAll2}
                     title="Phường/Xã"
                     value={["Chưa cập nhật ", "Chưa cập nhật"]}
                   />
@@ -352,9 +399,9 @@ const TableDataCustomerMerge: React.FC = () => {
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
+                    selectedData={selectedData}
+                    setSelectedData={setSelectedData}
                     name="rdo_business_type"
-                    isSelectAll={isSelectAll}
-                    isSelectAll2={isSelectAll2}
                     title="Số nhà "
                     value={["Chưa cập nhật. ", "Chưa cập nhật"]}
                   />
@@ -362,27 +409,27 @@ const TableDataCustomerMerge: React.FC = () => {
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
+                    selectedData={selectedData}
+                    setSelectedData={setSelectedData}
                     name="rdo_business_areas"
-                    isSelectAll={isSelectAll}
-                    isSelectAll2={isSelectAll2}
                     title="Mã vùng"
                     value={["Chưa cập nhật. ", "Chưa cập nhật"]}
                   />
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
+                    selectedData={selectedData}
+                    setSelectedData={setSelectedData}
                     name="rdo_cate"
-                    isSelectAll={isSelectAll}
-                    isSelectAll2={isSelectAll2}
                     title="Địa chỉ hóa đơn"
                     value={["Chưa cập nhật. ", "Chưa cập nhật"]}
                   />
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
+                    selectedData={selectedData}
+                    setSelectedData={setSelectedData}
                     name="rdo_revenue"
-                    isSelectAll={isSelectAll}
-                    isSelectAll2={isSelectAll2}
                     title="Địa chỉ email nhận hóa đơn (email)"
                     value={["Chưa cập nhật ", "Chưa cập nhật"]}
                   />
@@ -401,9 +448,9 @@ const TableDataCustomerMerge: React.FC = () => {
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
+                    selectedData={selectedData}
+                    setSelectedData={setSelectedData}
                     name="rdo_tochuc1"
-                    isSelectAll={isSelectAll}
-                    isSelectAll2={isSelectAll2}
                     title="Quốc gia"
                     value={["Việt Nam ", "Việt Nam"]}
                   />
@@ -411,9 +458,9 @@ const TableDataCustomerMerge: React.FC = () => {
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
+                    selectedData={selectedData}
+                    setSelectedData={setSelectedData}
                     name="rdo_bank_num1"
-                    isSelectAll={isSelectAll}
-                    isSelectAll2={isSelectAll2}
                     title="Tỉnh/Thành phố"
                     value={["Chưa cập nhật ", "Chưa cập nhật"]}
                   />
@@ -421,9 +468,9 @@ const TableDataCustomerMerge: React.FC = () => {
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
+                    selectedData={selectedData}
+                    setSelectedData={setSelectedData}
                     name="rdo_bank_account1"
-                    isSelectAll={isSelectAll}
-                    isSelectAll2={isSelectAll2}
                     title="Quận/Huyện"
                     value={["Chưa cập nhật ", "Chưa cập nhật"]}
                   />
@@ -431,9 +478,9 @@ const TableDataCustomerMerge: React.FC = () => {
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
+                    selectedData={selectedData}
+                    setSelectedData={setSelectedData}
                     name="rdo_tl1"
-                    isSelectAll={isSelectAll}
-                    isSelectAll2={isSelectAll2}
                     title="Phường/Xã"
                     value={["Chưa cập nhật ", "Chưa cập nhật"]}
                   />
@@ -441,9 +488,9 @@ const TableDataCustomerMerge: React.FC = () => {
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
+                    selectedData={selectedData}
+                    setSelectedData={setSelectedData}
                     name="rdo_business_type1"
-                    isSelectAll={isSelectAll}
-                    isSelectAll2={isSelectAll2}
                     title="Số nhà "
                     value={["Chưa cập nhật. ", "Chưa cập nhật"]}
                   />
@@ -451,18 +498,18 @@ const TableDataCustomerMerge: React.FC = () => {
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
+                    selectedData={selectedData}
+                    setSelectedData={setSelectedData}
                     name="rdo_business_areas1"
-                    isSelectAll={isSelectAll}
-                    isSelectAll2={isSelectAll2}
                     title="Mã vùng"
                     value={["Chưa cập nhật. ", "Chưa cập nhật"]}
                   />
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
+                    selectedData={selectedData}
+                    setSelectedData={setSelectedData}
                     name="rdo_cate1"
-                    isSelectAll={isSelectAll}
-                    isSelectAll2={isSelectAll2}
                     title="Địa chỉ hóa đơn"
                     value={["Chưa cập nhật. ", "Chưa cập nhật"]}
                   />
@@ -481,99 +528,99 @@ const TableDataCustomerMerge: React.FC = () => {
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
+                    selectedData={selectedData}
+                    setSelectedData={setSelectedData}
                     name="rdo_qg"
-                    isSelectAll={isSelectAll}
-                    isSelectAll2={isSelectAll2}
                     title="Tài khoản ngân hàng"
                     value={["Chưa cập nhật.", "Chưa cập nhật"]}
                   />
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
+                    selectedData={selectedData}
+                    setSelectedData={setSelectedData}
                     name="rdo_tt"
-                    isSelectAll={isSelectAll}
-                    isSelectAll2={isSelectAll2}
                     title="Mở tại ngân hàng"
                     value={["Chưa cập nhật ", "Chưa cập nhật"]}
                   />
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
+                    selectedData={selectedData}
+                    setSelectedData={setSelectedData}
                     name="rdo_qh"
-                    isSelectAll={isSelectAll}
-                    isSelectAll2={isSelectAll2}
                     title="Ngày thành lập/Ngày sinh"
                     value={["Chưa cập nhật ", "Chưa cập nhật"]}
                   />
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
+                    selectedData={selectedData}
+                    setSelectedData={setSelectedData}
                     name="rdo_px"
-                    isSelectAll={isSelectAll}
-                    isSelectAll2={isSelectAll2}
                     title="Là khách hàng từ"
                     value={["Chưa cập nhật ", "Chưa cập nhật"]}
                   />
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
+                    selectedData={selectedData}
+                    setSelectedData={setSelectedData}
                     name="rdo_street"
-                    isSelectAll={isSelectAll}
-                    isSelectAll2={isSelectAll2}
                     title="Doanh thu"
                     value={["Chưa cập nhật.", "Chưa cập nhật"]}
                   />
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
+                    selectedData={selectedData}
+                    setSelectedData={setSelectedData}
                     name="rdo_area_code"
-                    isSelectAll={isSelectAll}
-                    isSelectAll2={isSelectAll2}
                     title="Quy mô nhân sự"
                     value={["Chưa cập nhật ", "Chưa cập nhật"]}
                   />
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
+                    selectedData={selectedData}
+                    setSelectedData={setSelectedData}
                     name="rdo_address"
-                    isSelectAll={isSelectAll}
-                    isSelectAll2={isSelectAll2}
                     title="Website"
                     value={["Chưa cập nhật ", "Chưa cập nhật"]}
                   />
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
+                    selectedData={selectedData}
+                    setSelectedData={setSelectedData}
                     name="rdo_des"
-                    isSelectAll={isSelectAll}
-                    isSelectAll2={isSelectAll2}
                     title="Xếp hạng khách hàng"
                     value={["Chưa cập nhật ", "Chưa cập nhật"]}
                   />
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
+                    selectedData={selectedData}
+                    setSelectedData={setSelectedData}
                     name="rdo_des1"
-                    isSelectAll={isSelectAll}
-                    isSelectAll2={isSelectAll2}
                     title="Hạn mức nợ"
                     value={["Chưa cập nhật ", "Chưa cập nhật"]}
                   />
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
+                    selectedData={selectedData}
+                    setSelectedData={setSelectedData}
                     name="rdo_des2"
-                    isSelectAll={isSelectAll}
-                    isSelectAll2={isSelectAll2}
                     title="Số ngày được nợ"
                     value={["Chưa cập nhật ", "Chưa cập nhật"]}
                   />
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
+                    selectedData={selectedData}
+                    setSelectedData={setSelectedData}
                     name="rdo_des2"
-                    isSelectAll={isSelectAll}
-                    isSelectAll2={isSelectAll2}
                     title="Giới tính"
                     value={["Chưa cập nhật ", "Chưa cập nhật"]}
                   />
@@ -592,27 +639,27 @@ const TableDataCustomerMerge: React.FC = () => {
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
+                    selectedData={selectedData}
+                    setSelectedData={setSelectedData}
                     name="rdo_cccd"
-                    isSelectAll={isSelectAll}
-                    isSelectAll2={isSelectAll2}
                     title="Số CMND/CCCD"
                     value={["Chưa cập nhật.", "Chưa cập nhật"]}
                   />
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
+                    selectedData={selectedData}
+                    setSelectedData={setSelectedData}
                     name="rdo_rdo_area"
-                    isSelectAll={isSelectAll}
-                    isSelectAll2={isSelectAll2}
                     title="Nơi cấp"
                     value={["Chưa cập nhật ", "Chưa cập nhật"]}
                   />
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
+                    selectedData={selectedData}
+                    setSelectedData={setSelectedData}
                     name="rdo_date_provide"
-                    isSelectAll={isSelectAll}
-                    isSelectAll2={isSelectAll2}
                     title="Ngày cấp"
                     value={["Chưa cập nhật ", "Chưa cập nhật"]}
                   />
@@ -621,9 +668,9 @@ const TableDataCustomerMerge: React.FC = () => {
                   <RowRadioInputRow
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
+                    selectedData={selectedData}
+                    setSelectedData={setSelectedData}
                     name="rdo_description"
-                    isSelectAll={isSelectAll}
-                    isSelectAll2={isSelectAll2}
                     title="Thông tin mô tả"
                     value={["Không chọn", "Chọn"]}
                   />
@@ -642,9 +689,9 @@ const TableDataCustomerMerge: React.FC = () => {
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
+                    selectedData={selectedData}
+                    setSelectedData={setSelectedData}
                     name="rdo_system"
-                    isSelectAll={isSelectAll}
-                    isSelectAll2={isSelectAll2}
                     title="Dùng chung:"
                     value={["Không chọn", "Chọn"]}
                   />

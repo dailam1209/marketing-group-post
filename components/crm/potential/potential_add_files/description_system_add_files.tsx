@@ -1,5 +1,8 @@
 import styles from "./add_file_potential.module.css";
-export default function AddDesriptionAndSystemInfo() {
+export default function AddDesriptionAndSystemInfo({
+  formData,
+  setFormData,
+}: any) {
   return (
     <>
       <div>

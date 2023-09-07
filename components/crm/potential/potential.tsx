@@ -8,7 +8,7 @@ import PotentialInputGroups from "./potential_input_group";
 export default function Potential() {
   const mainRef = useRef<HTMLDivElement>(null);
   const { isOpen } = useContext<any>(SidebarContext);
-  const [isSelectedRow, setIsSelectedRow] = useState(false);
+  const [isSelectedRow, setSelectedRow] = useState(false);
   const [isNumberSelected, setNumberSelected] = useState(0);
   const [isRowDataSelected, setRowDataSelected] = useState("");
 
@@ -38,9 +38,11 @@ export default function Potential() {
         isSelectedRow={isSelectedRow}
         isNumberSelected={isNumberSelected}
         isRowDataSelected={isRowDataSelected}
+        setSelected={setSelectedRow}
+        setNumberSelected={setNumberSelected}
       />
       <TableDataPotential
-        setSelected={setIsSelectedRow}
+        setSelected={setSelectedRow}
         setRowDataSelected={setRowDataSelected}
         setNumberSelected={setNumberSelected}
       />

@@ -934,9 +934,13 @@ label {
 
 @media (max-width: 768px) {
   body {
-    display: flex;
     margin: 0;
     padding: 0;
     width: 100%;
   }
+}
+
+.campaign-checkbox-column .ant-checkbox-wrapper {
+  width: 16px;
+  height: 16px;
 }

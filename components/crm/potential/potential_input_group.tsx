@@ -9,6 +9,8 @@ export default function PotentialInputGroups({
   isSelectedRow,
   isRowDataSelected,
   isNumberSelected,
+  setSelected,
+  setNumberSelected,
 }: any) {
   const handleClickSelectoption = () => {};
 
@@ -146,6 +148,8 @@ export default function PotentialInputGroups({
         isSelectedRow={isSelectedRow}
         isNumberSelected={isNumberSelected}
         isRowDataSelected={isRowDataSelected}
+        setSelected={setSelected}
+        setNumberSelected={setNumberSelected}
       />
     </div>
   );

@@ -7,16 +7,15 @@ interface PotentialProps {
   length: number;
 }
 
-const TableDataPotential: React.FC<PotentialProps> = ({ data, length }) => {
-  const [isSelectAll, setIsSelectAll] = useState(false);
-  const [isSelectAll2, setIsSelectAll2] = useState(false);
+const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
   const [defaultCheckBox, setDefaultCheckBox] = useState(false);
   const [isOpenCancelModal, setIsOpenCancelModal] = useState(false);
   const [isOpenSuccessMdal, setISOpenSuccessMdal] = useState(false);
   const [isOpenModalError, setIsOpenModalError] = useState(false);
   const [selectedId, setSelectedId] = useState<string>("");
-
-  const newData = data.data;
+  const [defaultState, setDefaultState] = useState({});
+  const newData = data?.data;
+  const [selectedData, setSelectedData] = useState<any>({});
 
   const handleImageChange = (selectedValue: string) => {
     setSelectedId(selectedValue);
@@ -27,18 +26,83 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data, length }) => {
     // setIsOpenModalError(true);
   };
 
+  const handleSelectAll = (index: number) => {
+    setSelectedData(defaultState);
+    setSelectedData((prevSelectedData) => {
+      const updatedSelectedData = { ...prevSelectedData };
+      for (const key in updatedSelectedData) {
+        if (Array.isArray(updatedSelectedData[key])) {
+          updatedSelectedData[key] = updatedSelectedData[key].map((item, i) =>
+            i === index
+              ? {
+                  ...item,
+                  status: true,
+                }
+              : {
+                  ...item,
+                  status: false,
+                }
+          );
+        }
+      }
+      return updatedSelectedData;
+    });
+  };
+
+  const setDefaultArr = (param: any, data) => {
+    return data?.map((el) => {
+      return {
+        status: false,
+        val: el?.[param],
+      };
+    });
+  };
+
   useEffect(() => {
-    if (isSelectAll) {
-      setSelectedId("1");
-    } else if (isSelectAll2) {
-      setSelectedId("2");
-    } else {
-      setSelectedId("0");
+    if (newData) {
+      const data = {
+        xungho: setDefaultArr("salutation", newData),
+        tendem: setDefaultArr("operation", newData),
+        ten: setDefaultArr("name", newData),
+        hovaten: setDefaultArr("operation", newData),
+        chucdanh: setDefaultArr("name", newData),
+        phongban: setDefaultArr("name", newData),
+        dienthoaicoquan: setDefaultArr("name", newData),
+        dienthoaicanhan: setDefaultArr("name", newData),
+        emailcoquan: setDefaultArr("name", newData),
+        emailcanhan: setDefaultArr("name", newData),
+        nguongoc: setDefaultArr("name", newData),
+        masothue: setDefaultArr("name", newData),
+        loaitiemnang: setDefaultArr("name", newData),
+        mangxahoi: setDefaultArr("name", newData),
+        nhanvien: setDefaultArr("name", newData),
+        gioitinh: setDefaultArr("name", newData),
+        ngaysinh: setDefaultArr("name", newData),
+        tochuc: setDefaultArr("name", newData),
+        taikhoannh: setDefaultArr("name", newData),
+        motainh: setDefaultArr("name", newData),
+        ngaytl: setDefaultArr("name", newData),
+        loaihinh: setDefaultArr("name", newData),
+        linhvuc: setDefaultArr("name", newData),
+        nganhnghe: setDefaultArr("name", newData),
+        doanhthu: setDefaultArr("name", newData),
+        quocgia: setDefaultArr("name", newData),
+        city: setDefaultArr("name", newData),
+        district: setDefaultArr("name", newData),
+        ward: setDefaultArr("name", newData),
+        street: setDefaultArr("name", newData),
+        mavung: setDefaultArr("name", newData),
+        diachi: setDefaultArr("name", newData),
+        mota: setDefaultArr("name", newData),
+        dungchung: setDefaultArr("name", newData),
+        image: setDefaultArr("name", newData),
+      };
+      setSelectedData(data);
+      setDefaultState(data);
     }
-  }, [isSelectAll, isSelectAll2]);
-  //
+  }, [newData]);
   return (
-    <div className={styles.main_potential}>
+    <div className={`${styles.main_potential} ${styles["scroll-container"]}`}>
       <div className={styles.content_table}>
         <div className={styles.main_title}>Gộp trùng tiềm năng</div>
         <div className={styles.main_table}>
@@ -47,18 +111,19 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data, length }) => {
               <thead>
                 <tr>
                   <th colSpan={2}>Bản ghi chính</th>
-                  <th>
-                    Bản ghi 1
-                    <button
-                      onClick={() => {
-                        setIsSelectAll(true);
-                        setIsSelectAll2(false);
-                        setDefaultCheckBox(true);
-                      }}
-                    >
-                      Chọn tất cả
-                    </button>
-                  </th>
+                  {newData?.map((record, index) => (
+                    <th key={index}>
+                      Bản ghi {index + 1}
+                      <button
+                        onClick={() => {
+                          handleSelectAll(index);
+                        }}
+                      >
+                        {/* {selectAllData ? "Bỏ chọn" : "Chọn tất cả"} */}
+                        Chọn tất cả
+                      </button>
+                    </th>
+                  ))}
                 </tr>
               </thead>
               <tbody>
@@ -73,36 +138,23 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data, length }) => {
                       className={styles.img_person}
                     />
                   </td>
-                  <td>
-                    <input
-                      onChange={() => handleImageChange("1")}
-                      checked={selectedId === "1"}
-                      name="rdo_logo_image"
-                      type="radio"
-                      className={styles.radio}
-                      value={"/crm/user_kh.png"}
-                    />
-                    <img
-                      style={{ transform: "translate(15%, 15%)" }}
-                      src="/crm/user_kh.png"
-                      className={styles.img_person}
-                    />
-                  </td>
-                  <td>
-                    <input
-                      onChange={() => handleImageChange("2")}
-                      checked={selectedId === "2"}
-                      name="rdo_logo_image"
-                      type="radio"
-                      className={styles.radio}
-                      value={"/crm/user_kh.png"}
-                    />
-                    <img
-                      style={{ transform: "translate(15%, 15%)" }}
-                      src="/crm/user_kh.png"
-                      className={styles.img_person}
-                    />
-                  </td>
+                  {newData?.map((record, index) => (
+                    <td key={index}>
+                      <input
+                        onChange={() => handleImageChange(index)}
+                        checked={selectedData?.image?.[index]?.status}
+                        name="image"
+                        type="radio"
+                        className={styles.radio}
+                        value={"/crm/user_kh.png"}
+                      />
+                      <img
+                        style={{ transform: "translate(15%, 15%)" }}
+                        src="/crm/user_kh.png"
+                        className={styles.img_person}
+                      />
+                    </td>
+                  ))}
                 </tr>
                 <tr>
                   <td>
@@ -115,9 +167,9 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data, length }) => {
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
-                  name="rdo_vocative"
-                  isSelectAll={isSelectAll}
-                  isSelectAll2={isSelectAll2}
+                  selectedData={selectedData}
+                  setSelectedData={setSelectedData}
+                  name="xungho"
                   title="Xưng hô:"
                   value={newData?.map((item) => item?.salutation)}
                 />
@@ -125,9 +177,9 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data, length }) => {
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
-                  name="rdo_middle_name"
-                  isSelectAll={isSelectAll}
-                  isSelectAll2={isSelectAll2}
+                  selectedData={selectedData}
+                  setSelectedData={setSelectedData}
+                  name="tendem"
                   title="Họ và đệm:"
                   value={newData?.map((item) => item?.operation)}
                 />
@@ -135,9 +187,9 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data, length }) => {
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
-                  name="rdo_name"
-                  isSelectAll={isSelectAll}
-                  isSelectAll2={isSelectAll2}
+                  selectedData={selectedData}
+                  setSelectedData={setSelectedData}
+                  name="ten"
                   title="Tên:"
                   value={newData?.map((item) => item?.name)}
                 />
@@ -145,9 +197,9 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data, length }) => {
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
-                  name="rdo_fullname"
-                  isSelectAll={isSelectAll}
-                  isSelectAll2={isSelectAll2}
+                  selectedData={selectedData}
+                  setSelectedData={setSelectedData}
+                  name="hovaten"
                   title="Họ và tên:"
                   value={newData?.map((item) => item?.operation)}
                 />
@@ -155,9 +207,9 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data, length }) => {
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
-                  name="rdo_titles"
-                  isSelectAll={isSelectAll}
-                  isSelectAll2={isSelectAll2}
+                  selectedData={selectedData}
+                  setSelectedData={setSelectedData}
+                  name="chucdanh"
                   title="Chức danh:"
                   value={newData?.map((item) => item?.name)}
                 />
@@ -165,9 +217,9 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data, length }) => {
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
-                  name="rdo_department"
-                  isSelectAll={isSelectAll}
-                  isSelectAll2={isSelectAll2}
+                  selectedData={selectedData}
+                  setSelectedData={setSelectedData}
+                  name="phongban"
                   title="Phòng ban:"
                   value={newData?.map((item) => item?.name)}
                 />
@@ -175,9 +227,9 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data, length }) => {
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
-                  name="rdo_office_phone"
-                  isSelectAll={isSelectAll}
-                  isSelectAll2={isSelectAll2}
+                  selectedData={selectedData}
+                  setSelectedData={setSelectedData}
+                  name="dienthoaicoquan"
                   title="Điện thoại cơ quan:"
                   value={newData?.map((item) => item?.name)}
                 />
@@ -185,9 +237,9 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data, length }) => {
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
-                  name="rdo_personal_phone"
-                  isSelectAll={isSelectAll}
-                  isSelectAll2={isSelectAll2}
+                  selectedData={selectedData}
+                  setSelectedData={setSelectedData}
+                  name="dienthoaicanhan"
                   title="Điện thoại cá nhân:"
                   value={newData?.map((item) => item?.name)}
                 />
@@ -195,9 +247,9 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data, length }) => {
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
-                  name="rdo_office_email"
-                  isSelectAll={isSelectAll}
-                  isSelectAll2={isSelectAll2}
+                  selectedData={selectedData}
+                  setSelectedData={setSelectedData}
+                  name="emailcoquan"
                   title="Email cơ quan:"
                   value={newData?.map((item) => item?.name)}
                 />
@@ -205,9 +257,9 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data, length }) => {
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
-                  name="rdo_personal_email"
-                  isSelectAll={isSelectAll}
-                  isSelectAll2={isSelectAll2}
+                  selectedData={selectedData}
+                  setSelectedData={setSelectedData}
+                  name="emailcanhan"
                   title="Email cá nhân:"
                   value={newData?.map((item) => item?.name)}
                 />
@@ -215,9 +267,9 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data, length }) => {
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
-                  name="rdo_source"
-                  isSelectAll={isSelectAll}
-                  isSelectAll2={isSelectAll2}
+                  selectedData={selectedData}
+                  setSelectedData={setSelectedData}
+                  name="nguongoc"
                   title="Nguồn gốc:"
                   value={newData?.map((item) => item?.name)}
                 />
@@ -225,9 +277,9 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data, length }) => {
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
-                  name="rdo_tax_code"
-                  isSelectAll={isSelectAll}
-                  isSelectAll2={isSelectAll2}
+                  selectedData={selectedData}
+                  setSelectedData={setSelectedData}
+                  name="masothue"
                   title="Mã số thuế:"
                   value={newData?.map((item) => item?.name)}
                 />
@@ -235,9 +287,9 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data, length }) => {
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
-                  name="rdo_type"
-                  isSelectAll={isSelectAll}
-                  isSelectAll2={isSelectAll2}
+                  selectedData={selectedData}
+                  setSelectedData={setSelectedData}
+                  name="loaitiemnang"
                   title="Loại tiềm năng:"
                   value={newData?.map((item) => item?.name)}
                 />
@@ -245,9 +297,9 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data, length }) => {
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
-                  name="rdo_social"
-                  isSelectAll={isSelectAll}
-                  isSelectAll2={isSelectAll2}
+                  selectedData={selectedData}
+                  setSelectedData={setSelectedData}
+                  name="mangxahoi"
                   title="Mạng xã hội:"
                   value={newData?.map((item) => item?.name)}
                 />
@@ -255,9 +307,9 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data, length }) => {
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
-                  name="rdo_emp"
-                  isSelectAll={isSelectAll}
-                  isSelectAll2={isSelectAll2}
+                  selectedData={selectedData}
+                  setSelectedData={setSelectedData}
+                  name="nhanvien"
                   title="Nhân viên phụ trách:"
                   value={newData?.map((item) => item?.name)}
                 />
@@ -273,21 +325,21 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data, length }) => {
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
-                  name="rdo_gender"
-                  isSelectAll={isSelectAll}
-                  isSelectAll2={isSelectAll2}
+                  selectedData={selectedData}
+                  setSelectedData={setSelectedData}
+                  name="gioitinh"
                   title="Giới tính:"
-                  value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                  value={newData?.map((item) => item?.name)}
                 />
 
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
-                  name="rdo_birth"
-                  isSelectAll={isSelectAll}
-                  isSelectAll2={isSelectAll2}
+                  selectedData={selectedData}
+                  setSelectedData={setSelectedData}
+                  name="ngaysinh"
                   title="Ngày sinh:"
-                  value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                  value={newData?.map((item) => item?.name)}
                 />
 
                 <tr>
@@ -301,79 +353,79 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data, length }) => {
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
-                  name="rdo_tochuc"
-                  isSelectAll={isSelectAll}
-                  isSelectAll2={isSelectAll2}
+                  selectedData={selectedData}
+                  setSelectedData={setSelectedData}
+                  name="tochuc"
                   title="Tổ chức:"
-                  value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                  value={newData?.map((item) => item?.name)}
                 />
 
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
-                  name="rdo_bank_num"
-                  isSelectAll={isSelectAll}
-                  isSelectAll2={isSelectAll2}
+                  selectedData={selectedData}
+                  setSelectedData={setSelectedData}
+                  name="taikhoannh"
                   title="Tài khoản ngân hàng:"
-                  value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                  value={newData?.map((item) => item?.name)}
                 />
 
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
-                  name="rdo_bank_account"
-                  isSelectAll={isSelectAll}
-                  isSelectAll2={isSelectAll2}
+                  selectedData={selectedData}
+                  setSelectedData={setSelectedData}
+                  name="motainh"
                   title="Mở tại ngân hàng:"
-                  value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                  value={newData?.map((item) => item?.name)}
                 />
 
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
-                  name="rdo_tl"
-                  isSelectAll={isSelectAll}
-                  isSelectAll2={isSelectAll2}
+                  selectedData={selectedData}
+                  setSelectedData={setSelectedData}
+                  name="ngaytl"
                   title="Ngày thành lập:"
-                  value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                  value={newData?.map((item) => item?.name)}
                 />
 
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
-                  name="rdo_business_type"
-                  isSelectAll={isSelectAll}
-                  isSelectAll2={isSelectAll2}
+                  selectedData={selectedData}
+                  setSelectedData={setSelectedData}
+                  name="loaihinh"
                   title="Loại hình: "
-                  value={["Chưa cập nhật. ", "Chưa cập nhật"]}
+                  value={newData?.map((item) => item?.name)}
                 />
 
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
-                  name="rdo_business_areas"
-                  isSelectAll={isSelectAll}
-                  isSelectAll2={isSelectAll2}
+                  selectedData={selectedData}
+                  setSelectedData={setSelectedData}
+                  name="linhvuc"
                   title="Lĩnh vực:"
-                  value={["Chưa cập nhật. ", "Chưa cập nhật"]}
+                  value={newData?.map((item) => item?.name)}
                 />
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
-                  name="rdo_cate"
-                  isSelectAll={isSelectAll}
-                  isSelectAll2={isSelectAll2}
+                  selectedData={selectedData}
+                  setSelectedData={setSelectedData}
+                  name="nganhnghe"
                   title="Ngành nghề:"
-                  value={["Chưa cập nhật. ", "Chưa cập nhật"]}
+                  value={newData?.map((item) => item?.name)}
                 />
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
-                  name="rdo_revenue"
-                  isSelectAll={isSelectAll}
-                  isSelectAll2={isSelectAll2}
+                  selectedData={selectedData}
+                  setSelectedData={setSelectedData}
+                  name="doanhthu"
                   title="Doanh thu:"
-                  value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                  value={newData?.map((item) => item?.name)}
                 />
                 <tr>
                   <td>
@@ -386,77 +438,74 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data, length }) => {
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
-                  name="rdo_qg"
-                  isSelectAll={isSelectAll}
-                  isSelectAll2={isSelectAll2}
+                  selectedData={selectedData}
+                  setSelectedData={setSelectedData}
+                  name="quocgia"
                   title="Quốc gia:"
-                  value={["Chưa cập nhật.", "Chưa cập nhật"]}
+                  value={newData?.map((item) => item?.name)}
                 />
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
-                  name="rdo_tt"
-                  isSelectAll={isSelectAll}
-                  isSelectAll2={isSelectAll2}
+                  selectedData={selectedData}
+                  setSelectedData={setSelectedData}
+                  name="city"
                   title="Tỉnh/thành phố:"
-                  value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                  value={newData?.map((item) => item?.name)}
                 />
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
-                  name="rdo_qh"
-                  isSelectAll={isSelectAll}
-                  isSelectAll2={isSelectAll2}
+                  selectedData={selectedData}
+                  setSelectedData={setSelectedData}
+                  name="district"
                   title="Quận/huyện:"
-                  value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                  value={newData?.map((item) => item?.name)}
                 />
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
-                  name="rdo_px"
-                  isSelectAll={isSelectAll}
-                  isSelectAll2={isSelectAll2}
+                  selectedData={selectedData}
+                  setSelectedData={setSelectedData}
+                  name="ward"
                   title="Phường/xã:"
-                  value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                  value={newData?.map((item) => item?.name)}
                 />
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
-                  name="rdo_street"
-                  isSelectAll={isSelectAll}
-                  isSelectAll2={isSelectAll2}
+                  selectedData={selectedData}
+                  setSelectedData={setSelectedData}
+                  name="street"
                   title="Số nhà, đường phố:"
-                  value={["Chưa cập nhật.", "Chưa cập nhật"]}
+                  value={newData?.map((item) => item?.name)}
                 />
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
-                  name="rdo_area_code"
-                  isSelectAll={isSelectAll}
-                  isSelectAll2={isSelectAll2}
+                  selectedData={selectedData}
+                  setSelectedData={setSelectedData}
+                  name="mavung"
                   title="Mã vùng:"
-                  value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                  value={newData?.map((item) => item?.name)}
                 />
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
-                  name="rdo_address"
-                  isSelectAll={isSelectAll}
-                  isSelectAll2={isSelectAll2}
+                  selectedData={selectedData}
+                  setSelectedData={setSelectedData}
+                  name="diachi"
                   title="Địa chỉ:"
-                  value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                  value={newData?.map((item) => item?.name)}
                 />
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
-                  name="rdo_des"
-                  isSelectAll={isSelectAll}
-                  isSelectAll2={isSelectAll2}
+                  selectedData={selectedData}
+                  setSelectedData={setSelectedData}
+                  name="mota"
                   title="Thông tin mô tả"
-                  value={[
-                    "Chưa cập nhật ",
-                    "Khách hàng khá khó tính không ...",
-                  ]}
+                  value={newData?.map((item) => item?.name)}
                 />
                 <tr>
                   <td>
@@ -469,11 +518,11 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data, length }) => {
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
-                  name="rdo_system"
-                  isSelectAll={isSelectAll}
-                  isSelectAll2={isSelectAll2}
+                  selectedData={selectedData}
+                  setSelectedData={setSelectedData}
+                  name="dungchung"
                   title="Dùng chung:"
-                  value={["Không chọn", "Chọn"]}
+                  value={newData?.map((item) => item?.name)}
                 />
               </tbody>
             </table>
