@@ -4,12 +4,11 @@ import Select from 'react-select'
 import { getDataUser } from '@/pages/api/api-hr/quan-ly-tuyen-dung/PerformRecruitment'
 import { SettingPermission, GetListPermision } from '@/pages/api/api-hr/cai-dat/generalSettings'
 
-
 export default function Decentralization({ }) {
   const [user, setUser] = useState<any>()
   const [userId, setUserId] = useState<any>()
+  const [loadData, setLoadData] = useState<any>(false)
   const [localListCheck, setLocalListCheck] = useState<any>([])
-  const [listPermision, setListPermision] = useState<any>("")
   const [infoRoleTD1, setInfoRoleTD1] = useState<any>(false)
   const [infoRoleTD2, setInfoRoleTD2] = useState<any>(false)
   const [infoRoleTD3, setInfoRoleTD3] = useState<any>(false)
@@ -55,6 +54,8 @@ export default function Decentralization({ }) {
     }))
   }
 
+  console.log(localListCheck)
+
   const fetchData = async () => {
     try {
       if (userId.userId) {
@@ -62,7 +63,6 @@ export default function Decentralization({ }) {
         formData.append("userId", userId.userId);
         const response = await GetListPermision(formData);
         if (response) {
-          setListPermision(response?.data);
           setInfoRoleTD1(response?.data?.infoRoleTD?.find((item: any) => item?.perId === 1) ? true : false)
           setInfoRoleTD2(response?.data?.infoRoleTD?.find((item: any) => item?.perId === 2) ? true : false)
           setInfoRoleTD3(response?.data?.infoRoleTD?.find((item: any) => item?.perId === 3) ? true : false)
@@ -98,6 +98,7 @@ export default function Decentralization({ }) {
           setinfoRoleTGL3(response?.data?.infoRoleTGL?.find((item: any) => item?.perId === 3) ? true : false)
           setinfoRoleTGL4(response?.data?.infoRoleTGL?.find((item: any) => item?.perId === 4) ? true : false)
         }
+        setLoadData(pre => !pre)
       }
     } catch (error) {
       console.error(error);
@@ -108,150 +109,71 @@ export default function Decentralization({ }) {
     fetchData();
   }, [userId]);
 
+  useEffect(() => {
+    const elementIds = [
+      "role_td1", "role_td2", "role_td3", "role_td4",
+      "role_ttns1", "role_ttns2", "role_ttns3", "role_ttns4",
+      "role_ttvp1", "role_ttvp2", "role_ttvp3", "role_ttvp4",
+      "role_hnnv1", "role_hnnv2", "role_hnnv3", "role_hnnv4",
+      "role_bcns1", "role_bcns2", "role_bcns3", "role_bcns4",
+      "role_dldx1", "role_dldx2", "role_dldx3", "role_dldx4",
+      "role_tgl1", "role_tgl2", "role_tgl3", "role_tgl4"
+    ];
 
-  const handleClickCheckBox = (event: any) => {
-    const { name, checked, value } = event.target
-    if (name === 'role_td') {
-      setLocalListCheck((prev) => {
-        const prevValueArray = prev[name] ? prev[name].split(',') : []
+    const handleInputChange = (event) => {
+      const { name, checked, value } = event.target;
 
-        if (checked) {
-          if (!prevValueArray.includes(value)) {
-            prevValueArray.push(value)
-          }
-        } else {
-          const index = prevValueArray.indexOf(value)
-          if (index !== -1) {
-            prevValueArray.splice(index, 1)
-          }
-        }
-        return {
-          ...prev,
-          [name]: prevValueArray.join(','),
-        }
-      })
-    }
-    if (name === 'role_ttns') {
-      setLocalListCheck((prev) => {
-        const prevValueArray = prev[name] ? prev[name].split(',') : []
+      if (name.startsWith("role_")) {
+        setLocalListCheck((prev) => {
+          const prevValueArray = prev[name] ? prev[name].split(',') : [];
 
-        if (checked) {
-          if (!prevValueArray.includes(value)) {
-            prevValueArray.push(value)
+          if (checked) {
+            if (!prevValueArray.includes(value)) {
+              prevValueArray.push(value);
+            }
+          } else {
+            const index = prevValueArray.indexOf(value);
+            if (index !== -1) {
+              prevValueArray.splice(index, 1);
+            }
           }
-        } else {
-          const index = prevValueArray.indexOf(value)
-          if (index !== -1) {
-            prevValueArray.splice(index, 1)
-          }
-        }
-        return {
-          ...prev,
-          [name]: prevValueArray.join(','),
-        }
-      })
-    }
-    if (name === 'role_ttvp') {
-      setLocalListCheck((prev) => {
-        const prevValueArray = prev[name] ? prev[name].split(',') : []
+          return {
+            ...prev,
+            [name]: prevValueArray.join(','),
+          };
+        });
+      }
+    };
 
-        if (checked) {
-          if (!prevValueArray.includes(value)) {
-            prevValueArray.push(value)
-          }
-        } else {
-          const index = prevValueArray.indexOf(value)
-          if (index !== -1) {
-            prevValueArray.splice(index, 1)
-          }
+    const processInitialValues = () => {
+      elementIds.forEach((id) => {
+        const element = document.getElementById(id) as HTMLInputElement;
+        if (element) {
+          const { name, checked, value } = element;
+          console.log(name, checked, value);
+          handleInputChange({ target: element });
         }
-        return {
-          ...prev,
-          [name]: prevValueArray.join(','),
-        }
-      })
-    }
-    if (name === 'role_dldx') {
-      setLocalListCheck((prev) => {
-        const prevValueArray = prev[name] ? prev[name].split(',') : []
+      });
+    };
+    processInitialValues()
 
-        if (checked) {
-          if (!prevValueArray.includes(value)) {
-            prevValueArray.push(value)
-          }
-        } else {
-          const index = prevValueArray.indexOf(value)
-          if (index !== -1) {
-            prevValueArray.splice(index, 1)
-          }
-        }
-        return {
-          ...prev,
-          [name]: prevValueArray.join(','),
-        }
-      })
-    }
-    if (name === 'role_hnnv') {
-      setLocalListCheck((prev) => {
-        const prevValueArray = prev[name] ? prev[name].split(',') : []
+    elementIds.forEach((id) => {
+      const element = document.getElementById(id) as HTMLInputElement;
+      if (element) {
+        element.addEventListener("change", handleInputChange);
+      }
+    });
 
-        if (checked) {
-          if (!prevValueArray.includes(value)) {
-            prevValueArray.push(value)
-          }
-        } else {
-          const index = prevValueArray.indexOf(value)
-          if (index !== -1) {
-            prevValueArray.splice(index, 1)
-          }
+    return () => {
+      // Cleanup: Remove event listeners when the component unmounts.
+      elementIds.forEach((id) => {
+        const element = document.getElementById(id) as HTMLInputElement;
+        if (element) {
+          element.removeEventListener("change", handleInputChange);
         }
-        return {
-          ...prev,
-          [name]: prevValueArray.join(','),
-        }
-      })
-    }
-    if (name === 'role_bcns') {
-      setLocalListCheck((prev) => {
-        const prevValueArray = prev[name] ? prev[name].split(',') : []
-
-        if (checked) {
-          if (!prevValueArray.includes(value)) {
-            prevValueArray.push(value)
-          }
-        } else {
-          const index = prevValueArray.indexOf(value)
-          if (index !== -1) {
-            prevValueArray.splice(index, 1)
-          }
-        }
-        return {
-          ...prev,
-          [name]: prevValueArray.join(','),
-        }
-      })
-    }
-    if (name === 'role_tgl') {
-      setLocalListCheck((prev) => {
-        const prevValueArray = prev[name] ? prev[name].split(',') : []
-
-        if (checked) {
-          if (!prevValueArray.includes(value)) {
-            prevValueArray.push(value)
-          }
-        } else {
-          const index = prevValueArray.indexOf(value)
-          if (index !== -1) {
-            prevValueArray.splice(index, 1)
-          }
-        }
-        return {
-          ...prev,
-          [name]: prevValueArray.join(','),
-        }
-      })
-    }
-  }
+      });
+    };
+  }, [userId, loadData]);
 
   useEffect(() => {
     const getData = async () => {
@@ -283,8 +205,7 @@ export default function Decentralization({ }) {
     tennhanvien: user,
   }
 
-  const handleChange = (e, setState) => setState(e.target.checked);
-
+  const handleChange = (e, setState) => setState(e?.target?.checked);
 
   return (
     <>
@@ -366,10 +287,11 @@ export default function Decentralization({ }) {
                     <input
                       className={`${styles.l_tbl_checkbox}`}
                       name='role_td'
+                      id='role_td1'
                       type='checkbox'
                       checked={infoRoleTD1}
                       value='1'
-                      onClick={(e) => handleClickCheckBox(e)}
+
                       onChange={(e) => handleChange(e, setInfoRoleTD1)}
                     >
                     </input>
@@ -379,10 +301,11 @@ export default function Decentralization({ }) {
                     <input
                       className={`${styles.l_tbl_checkbox}`}
                       name='role_td'
+                      id='role_td2'
                       type='checkbox'
                       value='2'
                       checked={infoRoleTD2}
-                      onClick={(e) => handleClickCheckBox(e)}
+
                       onChange={(e) => handleChange(e, setInfoRoleTD2)}
                     ></input>
 
@@ -392,10 +315,11 @@ export default function Decentralization({ }) {
                     <input
                       className={`${styles.l_tbl_checkbox}`}
                       name='role_td'
+                      id='role_td3'
                       type='checkbox'
                       value='3'
                       checked={infoRoleTD3}
-                      onClick={(e) => handleClickCheckBox(e)}
+
                       onChange={(e) => handleChange(e, setInfoRoleTD3)}
                     ></input>
                   </div>
@@ -404,10 +328,11 @@ export default function Decentralization({ }) {
                     <input
                       className={`${styles.l_tbl_checkbox}`}
                       name='role_td'
+                      id='role_td4'
                       type='checkbox'
                       value='4'
                       checked={infoRoleTD4}
-                      onClick={(e) => handleClickCheckBox(e)}
+
                       onChange={(e) => handleChange(e, setInfoRoleTD4)}
                     ></input>
                   </div>
@@ -423,10 +348,11 @@ export default function Decentralization({ }) {
                     <input
                       className={`${styles.l_tbl_checkbox}`}
                       name='role_ttns'
+                      id='role_ttns1'
                       type='checkbox'
                       value='1'
                       checked={infoRoleTTNS1}
-                      onClick={(e) => handleClickCheckBox(e)}
+
                       onChange={(e) => handleChange(e, setinfoRoleTTNS1)}
                     ></input>
                   </div>
@@ -436,10 +362,11 @@ export default function Decentralization({ }) {
                     <input
                       className={`${styles.l_tbl_checkbox}`}
                       name='role_ttns'
+                      id='role_ttns2'
                       type='checkbox'
                       value='2'
                       checked={infoRoleTTNS2}
-                      onClick={(e) => handleClickCheckBox(e)}
+
                       onChange={(e) => handleChange(e, setinfoRoleTTNS2)}></input>
                   </div>
 
@@ -448,10 +375,11 @@ export default function Decentralization({ }) {
                     <input
                       className={`${styles.l_tbl_checkbox}`}
                       name='role_ttns'
+                      id='role_ttns3'
                       type='checkbox'
                       value='3'
                       checked={infoRoleTTNS3}
-                      onClick={(e) => handleClickCheckBox(e)}
+
                       onChange={(e) => handleChange(e, setinfoRoleTTNS3)}></input>
                   </div>
 
@@ -460,10 +388,11 @@ export default function Decentralization({ }) {
                     <input
                       className={`${styles.l_tbl_checkbox}`}
                       name='role_ttns'
+                      id='role_ttns4'
                       type='checkbox'
                       value='4'
                       checked={infoRoleTTNS4}
-                      onClick={(e) => handleClickCheckBox(e)}
+
                       onChange={(e) => handleChange(e, setinfoRoleTTNS4)}></input>
                   </div>
                 </div>
@@ -478,10 +407,11 @@ export default function Decentralization({ }) {
                     <input
                       className={`${styles.l_tbl_checkbox}`}
                       name='role_ttvp'
+                      id='role_ttvp1'
                       type='checkbox'
                       value='1'
                       checked={infoRoleTTVP1}
-                      onClick={(e) => handleClickCheckBox(e)}
+
                       onChange={(e) => handleChange(e, setinfoRoleTTVP1)}></input>
                   </div>
 
@@ -490,10 +420,11 @@ export default function Decentralization({ }) {
                     <input
                       className={`${styles.l_tbl_checkbox}`}
                       name='role_ttvp'
+                      id='role_ttvp2'
                       type='checkbox'
                       value='2'
                       checked={infoRoleTTVP2}
-                      onClick={(e) => handleClickCheckBox(e)}
+
                       onChange={(e) => handleChange(e, setinfoRoleTTVP2)}></input>
                   </div>
 
@@ -502,10 +433,11 @@ export default function Decentralization({ }) {
                     <input
                       className={`${styles.l_tbl_checkbox}`}
                       name='role_ttvp'
+                      id='role_ttvp3'
                       type='checkbox'
                       value='3'
                       checked={infoRoleTTVP3}
-                      onClick={(e) => handleClickCheckBox(e)}
+
                       onChange={(e) => handleChange(e, setinfoRoleTTVP3)}></input>
                   </div>
 
@@ -514,10 +446,11 @@ export default function Decentralization({ }) {
                     <input
                       className={`${styles.l_tbl_checkbox}`}
                       name='role_ttvp'
+                      id='role_ttvp4'
                       type='checkbox'
                       value='4'
                       checked={infoRoleTTVP4}
-                      onClick={(e) => handleClickCheckBox(e)}
+
                       onChange={(e) => handleChange(e, setinfoRoleTTVP4)}></input>
                   </div>
                 </div>
@@ -532,10 +465,11 @@ export default function Decentralization({ }) {
                     <input
                       className={`${styles.l_tbl_checkbox}`}
                       name='role_hnnv'
+                      id='role_hnnv1'
                       type='checkbox'
                       value='1'
                       checked={infoRoleHNNV1}
-                      onClick={(e) => handleClickCheckBox(e)}
+
                       onChange={(e) => handleChange(e, setinfoRoleHNNV1)}></input>
                   </div>
 
@@ -544,10 +478,11 @@ export default function Decentralization({ }) {
                     <input
                       className={`${styles.l_tbl_checkbox}`}
                       name='role_hnnv'
+                      id='role_hnnv2'
                       type='checkbox'
                       value='2'
                       checked={infoRoleHNNV2}
-                      onClick={(e) => handleClickCheckBox(e)}
+
                       onChange={(e) => handleChange(e, setinfoRoleHNNV2)}></input>
                   </div>
 
@@ -556,10 +491,11 @@ export default function Decentralization({ }) {
                     <input
                       className={`${styles.l_tbl_checkbox}`}
                       name='role_hnnv'
+                      id='role_hnnv3'
                       type='checkbox'
                       value='3'
                       checked={infoRoleHNNV3}
-                      onClick={(e) => handleClickCheckBox(e)}
+
                       onChange={(e) => handleChange(e, setinfoRoleHNNV3)}></input>
                   </div>
 
@@ -568,10 +504,11 @@ export default function Decentralization({ }) {
                     <input
                       className={`${styles.l_tbl_checkbox}`}
                       name='role_hnnv'
+                      id='role_hnnv4'
                       type='checkbox'
                       value='4'
                       checked={infoRoleHNNV4}
-                      onClick={(e) => handleClickCheckBox(e)}
+
                       onChange={(e) => handleChange(e, setinfoRoleHNNV4)}></input>
                   </div>
                 </div>
@@ -586,10 +523,11 @@ export default function Decentralization({ }) {
                     <input
                       className={`${styles.l_tbl_checkbox}`}
                       name='role_bcns'
+                      id='role_bcns1'
                       type='checkbox'
                       value='1'
                       checked={infoRoleBCNS1}
-                      onClick={(e) => handleClickCheckBox(e)}
+
                       onChange={(e) => handleChange(e, setinfoRoleBCNS1)}></input>
                   </div>
 
@@ -598,10 +536,11 @@ export default function Decentralization({ }) {
                     <input
                       className={`${styles.l_tbl_checkbox}`}
                       name='role_bcns'
+                      id='role_bcns2'
                       type='checkbox'
                       value='2'
                       checked={infoRoleBCNS2}
-                      onClick={(e) => handleClickCheckBox(e)}
+
                       onChange={(e) => handleChange(e, setinfoRoleBCNS2)}></input>
                   </div>
 
@@ -610,10 +549,11 @@ export default function Decentralization({ }) {
                     <input
                       className={`${styles.l_tbl_checkbox}`}
                       name='role_bcns'
+                      id='role_bcns3'
                       type='checkbox'
                       value='3'
                       checked={infoRoleBCNS3}
-                      onClick={(e) => handleClickCheckBox(e)}
+
                       onChange={(e) => handleChange(e, setinfoRoleBCNS3)}></input>
                   </div>
 
@@ -622,10 +562,11 @@ export default function Decentralization({ }) {
                     <input
                       className={`${styles.l_tbl_checkbox}`}
                       name='role_bcns'
+                      id='role_bcns4'
                       type='checkbox'
                       value='4'
                       checked={infoRoleBCNS4}
-                      onClick={(e) => handleClickCheckBox(e)}
+
                       onChange={(e) => handleChange(e, setinfoRoleBCNS4)}></input>
                   </div>
                 </div>
@@ -640,10 +581,11 @@ export default function Decentralization({ }) {
                     <input
                       className={`${styles.l_tbl_checkbox}`}
                       name='role_dldx'
+                      id='role_dldx1'
                       type='checkbox'
                       value='1'
                       checked={infoRoleDXGD1}
-                      onClick={(e) => handleClickCheckBox(e)}
+
                       onChange={(e) => handleChange(e, setinfoRoleDXGD1)}></input>
                   </div>
 
@@ -652,10 +594,11 @@ export default function Decentralization({ }) {
                     <input
                       className={`${styles.l_tbl_checkbox}`}
                       name='role_dldx'
+                      id='role_dldx2'
                       type='checkbox'
                       value='2'
                       checked={infoRoleDXGD2}
-                      onClick={(e) => handleClickCheckBox(e)}
+
                       onChange={(e) => handleChange(e, setinfoRoleDXGD2)}></input>
                   </div>
 
@@ -664,10 +607,11 @@ export default function Decentralization({ }) {
                     <input
                       className={`${styles.l_tbl_checkbox}`}
                       name='role_dldx'
+                      id='role_dldx3'
                       type='checkbox'
                       value='3'
                       checked={infoRoleDXGD3}
-                      onClick={(e) => handleClickCheckBox(e)}
+
                       onChange={(e) => handleChange(e, setinfoRoleDXGD3)}></input>
                   </div>
 
@@ -676,10 +620,11 @@ export default function Decentralization({ }) {
                     <input
                       className={`${styles.l_tbl_checkbox}`}
                       name='role_dldx'
+                      id='role_dldx4'
                       type='checkbox'
                       value='4'
                       checked={infoRoleDXGD4}
-                      onClick={(e) => handleClickCheckBox(e)}
+
                       onChange={(e) => handleChange(e, setinfoRoleDXGD4)}></input>
                   </div>
                 </div>
@@ -694,10 +639,11 @@ export default function Decentralization({ }) {
                     <input
                       className={`${styles.l_tbl_checkbox}`}
                       name='role_tgl'
+                      id='role_tgl1'
                       type='checkbox'
                       value='1'
                       checked={infoRoleTGL1}
-                      onClick={(e) => handleClickCheckBox(e)}
+
                       onChange={(e) => handleChange(e, setinfoRoleTGL1)}></input>
                   </div>
 
@@ -706,10 +652,11 @@ export default function Decentralization({ }) {
                     <input
                       className={`${styles.l_tbl_checkbox}`}
                       name='role_tgl'
+                      id='role_tgl2'
                       type='checkbox'
                       value='2'
                       checked={infoRoleTGL2}
-                      onClick={(e) => handleClickCheckBox(e)}
+
                       onChange={(e) => handleChange(e, setinfoRoleTGL2)}></input>
                   </div>
 
@@ -718,10 +665,11 @@ export default function Decentralization({ }) {
                     <input
                       className={`${styles.l_tbl_checkbox}`}
                       name='role_tgl'
+                      id='role_tgl3'
                       type='checkbox'
                       value='3'
                       checked={infoRoleTGL3}
-                      onClick={(e) => handleClickCheckBox(e)}
+
                       onChange={(e) => handleChange(e, setinfoRoleTGL3)}></input>
                   </div>
 
@@ -730,10 +678,11 @@ export default function Decentralization({ }) {
                     <input
                       className={`${styles.l_tbl_checkbox}`}
                       name='role_tgl'
+                      id='role_tgl4'
                       type='checkbox'
                       value='4'
                       checked={infoRoleTGL4}
-                      onClick={(e) => handleClickCheckBox(e)}
+
                       onChange={(e) => handleChange(e, setinfoRoleTGL4)}></input>
                   </div>
                 </div>
