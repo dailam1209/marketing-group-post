@@ -205,7 +205,6 @@ const GroupCustomerAdd: React.FC = () => {
       value: item?.dep_id,
     };
   });
-  console.log("check",dataEmp)
 
   useEffect(() => {
     setValueGroupCustomer((prev) => {

@@ -204,7 +204,7 @@ const GroupCustomerAdd: React.FC = () => {
     fetchDataDepartment(`${base_url}/api/qlc/department/list`, {
       com_id: com_id,
     });
-    fetchDataEmp(`${base_url}/api/qlc/managerUser/list`, { com_id: com_id });
+    fetchDataEmp(`${base_url}/api/qlc/managerUser/listAll`, {});
   }, []);
 
   useEffect(() => {
