@@ -16,11 +16,7 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
   const [defaultState, setDefaultState] = useState({});
   const newData = data?.data;
   const [selectedData, setSelectedData] = useState<any>({});
-  const [selectAllData, setSelectAllData] = useState(false);
 
-  const handleSelectAllData = () => {
-    setSelectAllData(!selectAllData);
-  };
   const handleImageChange = (selectedValue: string) => {
     setSelectedId(selectedValue);
   };
@@ -106,7 +102,7 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
     }
   }, [newData]);
   return (
-    <div className={styles.main_potential}>
+    <div className={`${styles.main_potential} ${styles["scroll-container"]}`}>
       <div className={styles.content_table}>
         <div className={styles.main_title}>Gộp trùng tiềm năng</div>
         <div className={styles.main_table}>
@@ -142,7 +138,7 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                       className={styles.img_person}
                     />
                   </td>
-                  {newData.map((record, index) => (
+                  {newData?.map((record, index) => (
                     <td key={index}>
                       <input
                         onChange={() => handleImageChange(index)}
@@ -169,8 +165,6 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                   <td></td>
                 </tr>
                 <RowRadioInput
-                  selectAllData={selectAllData}
-                  setSelectAllData={setSelectAllData}
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
                   selectedData={selectedData}
@@ -181,8 +175,6 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                 />
 
                 <RowRadioInput
-                  selectAllData={selectAllData}
-                  setSelectAllData={setSelectAllData}
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
                   selectedData={selectedData}
@@ -193,8 +185,6 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                 />
 
                 <RowRadioInput
-                  selectAllData={selectAllData}
-                  setSelectAllData={setSelectAllData}
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
                   selectedData={selectedData}
@@ -205,8 +195,6 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                 />
 
                 <RowRadioInput
-                  selectAllData={selectAllData}
-                  setSelectAllData={setSelectAllData}
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
                   selectedData={selectedData}
@@ -217,8 +205,6 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                 />
 
                 <RowRadioInput
-                  selectAllData={selectAllData}
-                  setSelectAllData={setSelectAllData}
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
                   selectedData={selectedData}
@@ -229,8 +215,6 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                 />
 
                 <RowRadioInput
-                  selectAllData={selectAllData}
-                  setSelectAllData={setSelectAllData}
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
                   selectedData={selectedData}
@@ -241,8 +225,6 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                 />
 
                 <RowRadioInput
-                  selectAllData={selectAllData}
-                  setSelectAllData={setSelectAllData}
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
                   selectedData={selectedData}
@@ -253,8 +235,6 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                 />
 
                 <RowRadioInput
-                  selectAllData={selectAllData}
-                  setSelectAllData={setSelectAllData}
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
                   selectedData={selectedData}
@@ -265,8 +245,6 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                 />
 
                 <RowRadioInput
-                  selectAllData={selectAllData}
-                  setSelectAllData={setSelectAllData}
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
                   selectedData={selectedData}
@@ -277,8 +255,6 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                 />
 
                 <RowRadioInput
-                  selectAllData={selectAllData}
-                  setSelectAllData={setSelectAllData}
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
                   selectedData={selectedData}
@@ -289,8 +265,6 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                 />
 
                 <RowRadioInput
-                  selectAllData={selectAllData}
-                  setSelectAllData={setSelectAllData}
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
                   selectedData={selectedData}
@@ -301,8 +275,6 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                 />
 
                 <RowRadioInput
-                  selectAllData={selectAllData}
-                  setSelectAllData={setSelectAllData}
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
                   selectedData={selectedData}
@@ -313,8 +285,6 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                 />
 
                 <RowRadioInput
-                  selectAllData={selectAllData}
-                  setSelectAllData={setSelectAllData}
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
                   selectedData={selectedData}
@@ -325,8 +295,6 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                 />
 
                 <RowRadioInput
-                  selectAllData={selectAllData}
-                  setSelectAllData={setSelectAllData}
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
                   selectedData={selectedData}
@@ -337,8 +305,6 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                 />
 
                 <RowRadioInput
-                  selectAllData={selectAllData}
-                  setSelectAllData={setSelectAllData}
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
                   selectedData={selectedData}
@@ -357,8 +323,6 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                   <td></td>
                 </tr>
                 <RowRadioInput
-                  selectAllData={selectAllData}
-                  setSelectAllData={setSelectAllData}
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
                   selectedData={selectedData}
@@ -369,8 +333,6 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                 />
 
                 <RowRadioInput
-                  selectAllData={selectAllData}
-                  setSelectAllData={setSelectAllData}
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
                   selectedData={selectedData}
@@ -389,8 +351,6 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                   <td></td>
                 </tr>
                 <RowRadioInput
-                  selectAllData={selectAllData}
-                  setSelectAllData={setSelectAllData}
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
                   selectedData={selectedData}
@@ -401,8 +361,6 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                 />
 
                 <RowRadioInput
-                  selectAllData={selectAllData}
-                  setSelectAllData={setSelectAllData}
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
                   selectedData={selectedData}
@@ -413,8 +371,6 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                 />
 
                 <RowRadioInput
-                  selectAllData={selectAllData}
-                  setSelectAllData={setSelectAllData}
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
                   selectedData={selectedData}
@@ -425,8 +381,6 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                 />
 
                 <RowRadioInput
-                  selectAllData={selectAllData}
-                  setSelectAllData={setSelectAllData}
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
                   selectedData={selectedData}
@@ -437,8 +391,6 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                 />
 
                 <RowRadioInput
-                  selectAllData={selectAllData}
-                  setSelectAllData={setSelectAllData}
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
                   selectedData={selectedData}
@@ -449,8 +401,6 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                 />
 
                 <RowRadioInput
-                  selectAllData={selectAllData}
-                  setSelectAllData={setSelectAllData}
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
                   selectedData={selectedData}
@@ -460,8 +410,6 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                   value={newData?.map((item) => item?.name)}
                 />
                 <RowRadioInput
-                  selectAllData={selectAllData}
-                  setSelectAllData={setSelectAllData}
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
                   selectedData={selectedData}
@@ -471,8 +419,6 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                   value={newData?.map((item) => item?.name)}
                 />
                 <RowRadioInput
-                  selectAllData={selectAllData}
-                  setSelectAllData={setSelectAllData}
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
                   selectedData={selectedData}
@@ -490,8 +436,6 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                   <td></td>
                 </tr>
                 <RowRadioInput
-                  selectAllData={selectAllData}
-                  setSelectAllData={setSelectAllData}
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
                   selectedData={selectedData}
@@ -501,8 +445,6 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                   value={newData?.map((item) => item?.name)}
                 />
                 <RowRadioInput
-                  selectAllData={selectAllData}
-                  setSelectAllData={setSelectAllData}
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
                   selectedData={selectedData}
@@ -512,8 +454,6 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                   value={newData?.map((item) => item?.name)}
                 />
                 <RowRadioInput
-                  selectAllData={selectAllData}
-                  setSelectAllData={setSelectAllData}
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
                   selectedData={selectedData}
@@ -523,8 +463,6 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                   value={newData?.map((item) => item?.name)}
                 />
                 <RowRadioInput
-                  selectAllData={selectAllData}
-                  setSelectAllData={setSelectAllData}
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
                   selectedData={selectedData}
@@ -534,8 +472,6 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                   value={newData?.map((item) => item?.name)}
                 />
                 <RowRadioInput
-                  selectAllData={selectAllData}
-                  setSelectAllData={setSelectAllData}
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
                   selectedData={selectedData}
@@ -545,8 +481,6 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                   value={newData?.map((item) => item?.name)}
                 />
                 <RowRadioInput
-                  selectAllData={selectAllData}
-                  setSelectAllData={setSelectAllData}
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
                   selectedData={selectedData}
@@ -556,8 +490,6 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                   value={newData?.map((item) => item?.name)}
                 />
                 <RowRadioInput
-                  selectAllData={selectAllData}
-                  setSelectAllData={setSelectAllData}
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
                   selectedData={selectedData}
@@ -567,8 +499,6 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                   value={newData?.map((item) => item?.name)}
                 />
                 <RowRadioInput
-                  selectAllData={selectAllData}
-                  setSelectAllData={setSelectAllData}
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
                   selectedData={selectedData}
@@ -586,8 +516,6 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                   <td></td>
                 </tr>
                 <RowRadioInput
-                  selectAllData={selectAllData}
-                  setSelectAllData={setSelectAllData}
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
                   selectedData={selectedData}

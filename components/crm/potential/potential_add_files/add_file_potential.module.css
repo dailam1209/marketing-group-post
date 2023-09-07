@@ -127,6 +127,13 @@
   font-size: 16px;
   top: 0;
 }
+
+.red_dot {
+  color: red;
+  position: absolute;
+  left: 30px;
+  top: 0;
+}
 @media (min-width: 1420px) {
   .col-lg-6 {
     -webkit-box-flex: 0;

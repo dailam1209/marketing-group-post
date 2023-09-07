@@ -63,7 +63,7 @@ export default function CustomerList() {
   const [emp_id, setemp_id] = useState<any>();
   const [idNhom, setIdNhom] = useState<any>();
 
-  console.log(idNhom);
+  console.log(selectedCus);
   useEffect(() => {
     if (
       dateS != undefined &&
@@ -134,6 +134,7 @@ export default function CustomerList() {
     setSelectedCus(selectedRows);
     setSelectedRowKeys(selectedRowKeys);
     setNumberSelected(selectedRows?.length);
+
     if (selectedRows?.length > 0) {
       setSelected(true);
     } else {

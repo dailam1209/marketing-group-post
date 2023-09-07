@@ -16,7 +16,10 @@
   display: flex;
   flex-direction: column;
 }
-
+.scroll-container {
+  overflow-x: auto;
+  white-space: nowrap;
+}
 .content_table {
   margin: 0;
   padding: 0;
@@ -61,6 +64,7 @@
 
 .main_table th button {
   color: #4c5bd4;
+  margin-left: 5px;
 }
 
 .main_table td {

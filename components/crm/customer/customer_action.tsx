@@ -2,10 +2,10 @@ import styles from "../potential/potential.module.css";
 import type { MenuProps } from "antd";
 import { Dropdown } from "antd";
 import Link from "next/link";
-import { dataCustomerListAction } from "../ultis/consntant";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import HandeOverModalCustomer from "./customer_modal/customer_handover_mdal";
 import DelCustomerModal from "./modal/delete_list_Cus";
+import SharingCustomerModal from "./modal/sharing_modal";
 
 export default function CustomerListAction({
   isSelectedRow,
@@ -13,6 +13,7 @@ export default function CustomerListAction({
   chooseAllOption,
   numberSelected,
   selectedCus,
+  id,
 }: any) {
   const [isOpenCampaign, setIsOpenCampaign] = useState(false);
   const [isOpenEmail, setIsOpenIsEmail] = useState(false);
@@ -21,13 +22,56 @@ export default function CustomerListAction({
   const [isOpenShare, setIsOpenShare] = useState(false);
   const [isHandOverOpen, setIsHandOverOpen] = useState(false);
 
+  const [dataCustomerListAction, setDataCustomerListAction] = useState([
+    {
+      link: "",
+      name: "Gọi điện",
+      img: "bi bi-telephone",
+      type: "call",
+    },
+    {
+      link: "#",
+      name: "Chia sẻ",
+      img: `bi bi-reply-fill`,
+      type: "share",
+    },
+    {
+      link: "#",
+      name: "Bàn giao công việc",
+      img: `bi bi-bag`,
+      type: "hand_over",
+    },
+    {
+      link: "/crm/customer/check_merge",
+      name: "Kiểm tra trùng",
+      img: `bi bi-search`,
+      type: "",
+    },
+    {
+      link: "/crm/customer/same_filter",
+      name: "Gộp trùng",
+      img: `bi bi-share`,
+      type: "",
+    },
+    {
+      link: `/crm/customer/edit/${id}`,
+      name: "Chỉnh sửa",
+      img: "bi bi-pencil-square",
+      type: "edit",
+    },
+    {
+      link: "#",
+      name: "Xoá",
+      img: "bi bi-trash3",
+      type: "delete",
+    },
+  ]);
+
+  useEffect(() => {
+    setDataCustomerListAction(dataCustomerListAction);
+  });
+
   const handleClickAction = (e: any, type: string | undefined) => {
-    if (type === "campaign") {
-      setIsOpenCampaign(true);
-    }
-    if (type === "email") {
-      setIsOpenIsEmail(true);
-    }
     if (type === "delete") {
       setIsDelOpen(true);
     }
@@ -41,6 +85,13 @@ export default function CustomerListAction({
       setIsHandOverOpen(true);
     }
   };
+
+  const dataToSend = {
+    data: selectedCus,
+  };
+
+  sessionStorage.setItem("myData", JSON.stringify(dataToSend));
+
   const items: MenuProps["items"] = [];
   for (let i = 0; i < dataCustomerListAction.length; i++) {
     items.push({
@@ -97,7 +148,7 @@ export default function CustomerListAction({
             Chọn tất cả trên danh sách
           </button>
         </div>
-        
+
         <Dropdown
           menu={{ items }}
           placement="bottomLeft"
@@ -110,18 +161,20 @@ export default function CustomerListAction({
             Thao tác
           </button>
         </Dropdown>
+        <SharingCustomerModal
+          isModalCancel={isOpenShare}
+          setIsModalCancel={setIsOpenShare}
+        />
         <HandeOverModalCustomer
-        isModalCancel={isHandOverOpen}
-        setIsModalCancel={setIsHandOverOpen}
-      />
-      <DelCustomerModal
-      isModalCancel={isDelOpen}
-      setIsModalCancel={setIsDelOpen}
-      selectedCus={selectedCus}
-      />
+          isModalCancel={isHandOverOpen}
+          setIsModalCancel={setIsHandOverOpen}
+        />
+        <DelCustomerModal
+          isModalCancel={isDelOpen}
+          setIsModalCancel={setIsDelOpen}
+          selectedCus={selectedCus}
+        />
       </div>
-
-      
     </>
   );
 }

@@ -2,13 +2,11 @@ import React, { useState, useRef } from "react";
 import styles from "../potential/potential.module.css";
 import Link from "next/link";
 import exportToExcel from "../ultis/export_xlxs";
-import { data } from "../table/table-potential";
 import Image from "next/image";
 import CustomerListAction from "./customer_action";
 import { Drawer, Input } from "antd";
 import CustomerListFilterBox from "./customer_filter_box";
 import { DataType } from "@/pages/crm/customer/list";
-import { LoadingOutlined } from "@ant-design/icons";
 export default function CustomerListInputGroup({
   isSelectedRow,
   numberSelected,
@@ -217,6 +215,7 @@ export default function CustomerListInputGroup({
           isSelectedRow={isSelectedRow}
           numberSelected={numberSelected}
           selectedCus={selectedCus}
+          id={"123"}
         />
 
         <div className={`${styles.main__control_add}`}>

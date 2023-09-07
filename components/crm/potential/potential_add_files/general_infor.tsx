@@ -7,7 +7,7 @@ export default function AddGeneralInfo({ formData, setFormData }: any) {
   const [fullname, setFullname] = useState("");
 
   useEffect(() => {
-    setFullname(`${formData.tendem} ${formData.ten}`);
+    setFullname(`${formData?.tendem} ${formData?.ten}`);
   }, [formData]);
 
   return (
@@ -29,13 +29,16 @@ export default function AddGeneralInfo({ formData, setFormData }: any) {
       </div>
 
       <div className={styles.row_input}>
-        <InputText
-          value={formData?.ten}
-          setFormData={setFormData}
-          keyValue="ten"
-          label="Tên"
-          placeholder="Nhập tên khách hàng"
-        />
+        <div style={{ width: "40%", position: "relative" }}>
+          <InputText
+            value={formData?.ten}
+            setFormData={setFormData}
+            keyValue="ten"
+            label="Tên"
+            placeholder="Nhập tên khách hàng"
+          />
+          <span className={styles.red_dot}>*</span>
+        </div>
         <InputText
           value={fullname === " " ? "Họ và tên" : fullname}
           setFormData={setFormData}

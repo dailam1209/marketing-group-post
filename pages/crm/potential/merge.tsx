@@ -4,9 +4,11 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
   const [data, setData] = useState([]);
+  console.log(data);
 
   useEffect(() => {
     const storedData = sessionStorage.getItem("myData");
+
     if (storedData) {
       const parsedData = JSON.parse(storedData);
       setData(parsedData.data);
