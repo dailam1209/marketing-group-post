@@ -13,10 +13,12 @@ export default function ContractDetailsList() {
   const mainRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const { isOpen } = useContext<any>(SidebarContext);
-  const { id } = router.query;
+  const { id, id1 } = router.query;
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
   const [name, setname] = useState<any>();
+  const [detailContract, setDetailContract] = useState<any>({});
+  const [loading, setLoading] = useState(true);
 
   const getNameDetail = async () => {
     const res = await fetch(`${base_url}/api/crm/customerdetails/detail`, {
@@ -25,10 +27,32 @@ export default function ContractDetailsList() {
         "Content-Type": "application/json",
         Authorization: `Bearer ${Cookies.get("token_base365")}`,
       },
-      body: JSON.stringify({ cus_id: id }),
+      body: JSON.stringify({ cus_id: id1 }),
     });
     const data = await res.json();
     setname(data?.data?.name);
+  };
+
+  const getDetailContract = async () => {
+    const formData = new FormData();
+    formData.append("contract_id", id.toString());
+    formData.append("id_customer", id1.toString());
+    setLoading(true);
+    const res = await fetch(
+      "http://210.245.108.202:3007/api/crm/contractforcus/detail",
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${Cookies.get("token_base365")}`,
+        },
+        body: formData,
+      }
+    );
+    const data = await res.json();
+    setDetailContract(data?.data);
+    if (data?.data?.result?.img_org_base64 && data?.data?.result?.img_org_base64?.length > 0) {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -36,7 +60,11 @@ export default function ContractDetailsList() {
     setHeaderTitle(`${name} / Hợp đồng bán / Chi tiết hợp đồng bán`);
     setShowBackButton(true);
     setCurrentPath(`/crm/customer/detail/${id}`);
-  }, [setHeaderTitle, setShowBackButton, setCurrentPath, id, name]);
+  }, [setHeaderTitle, setShowBackButton, setCurrentPath, id, name, id1]);
+
+  useEffect(() => {
+    getDetailContract();
+  }, []);
 
   useEffect(() => {
     if (isOpen) {
@@ -89,7 +117,7 @@ export default function ContractDetailsList() {
       </Head>
       <div ref={mainRef} className={styleHome.main}>
         <div className={styles.detail_button}>
-          <Link href={`/crm/customer/contract/send/${id}`} target="blank">
+          <Link href={`/crm/customer/contract/send/${id1}/${id}`}>
             <button className={styles.send_button_detail}>Gửi hợp đồng</button>
           </Link>
           <button className={styles.delete_button}>Xoá hợp đồng</button>
@@ -104,10 +132,20 @@ export default function ContractDetailsList() {
                 <div className={styles.main__body}>
                   <div style={{ marginTop: "30px", border: "1px solid #fff" }}>
                     <div style={{ textAlign: "center" }}>
-                      <img
-                        alt="loading"
-                        src="	https://crm.timviec365.vn/assets/img/load_data.gif"
-                      />
+                      {loading && (
+                        <img alt="loading" src="/crm/loading_file.gif" />
+                      )}
+                      {!loading &&
+                        detailContract?.result?.img_org_base64 &&
+                        detailContract?.result?.img_org_base64?.length > 0 && (
+                          <div>
+                            {detailContract?.result?.img_org_base64?.map(
+                              (url, index) => (
+                                <img key={index} alt="loading" src={url} />
+                              )
+                            )}
+                          </div>
+                        )}
                     </div>
                   </div>
                 </div>

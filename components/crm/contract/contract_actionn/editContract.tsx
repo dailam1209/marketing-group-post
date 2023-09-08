@@ -53,7 +53,12 @@ const EditContractComponent: React.FC<EditContractComponentProps> = ({
   const [isEdit, setIsEdit] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [newValues, setNewValues] = useState<
-    { index: number[]; originalValue: string; newValue: string }[]
+    {
+      default_field: any;
+      index: number[];
+      originalValue: string;
+      newValue: string;
+    }[]
   >([]); // Set value moi, value cu va index
   const targetScrollRef = useRef<HTMLDivElement>(null);
   const [isOpenEditField, setIsOpenEditField] = useState(false);
@@ -69,11 +74,11 @@ const EditContractComponent: React.FC<EditContractComponentProps> = ({
     try {
       setLoading(true);
       const url = `${base_url}/api/crm/contractAI/view`;
-      const urlTest = "http://localhost:3007/api/crm/contractAI/view"
+      // const urlTest = "http://localhost:3007/api/crm/contractAI/view"
       const formData = new FormData();
       formData.append("contract_id", Number(id));
 
-      const res = await fetch(urlTest, {
+      const res = await fetch(url, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${Cookies.get("token_base365")}`,
@@ -102,6 +107,7 @@ const EditContractComponent: React.FC<EditContractComponentProps> = ({
                 ?.map((numStr) => parseInt(numStr)),
               originalValue: item?.old_field,
               newValue: item?.new_field,
+              default_field: item?.default_field,
             };
           }
         );
@@ -341,7 +347,7 @@ const EditContractComponent: React.FC<EditContractComponentProps> = ({
     return index;
   };
 
-  const handleReplaceValues = (newValue: string, pos: number) => {
+  const handleReplaceValues = (newValue: string, defaultValue = "") => {
     const indexSelect = checkedStates
       .map((value, index) => (value ? index : null))
       .filter((index) => index !== null);
@@ -361,7 +367,12 @@ const EditContractComponent: React.FC<EditContractComponentProps> = ({
     if (!editedItem || checkWord === -1 || arrCheck.length < 1) {
       const updatedValues = [
         ...newValues,
-        { index: indexSelect, originalValue: text_change, newValue },
+        {
+          index: indexSelect,
+          originalValue: text_change,
+          newValue,
+          default_field: defaultValue,
+        },
       ];
       setNewValues(updatedValues);
     } else {
@@ -371,7 +382,7 @@ const EditContractComponent: React.FC<EditContractComponentProps> = ({
     setCheckedStates(Array(checkedStates.length).fill(false));
   };
 
-  const handleEditValue = (newValue: string, pos: any) => {
+  const handleEditValue = (newValue: string, pos: any, defaultValue = null) => {
     const indexSelect = checkedStates
       .map((value, index) => (value ? index : null))
       .filter((index) => index !== null);
@@ -396,6 +407,7 @@ const EditContractComponent: React.FC<EditContractComponentProps> = ({
       const newResultEdit = {
         index: indexSelect,
         originalValue: text_change,
+        default_field: defaultValue,
         newValue,
       };
       const newData = [...newValues];
@@ -425,7 +437,7 @@ const EditContractComponent: React.FC<EditContractComponentProps> = ({
       new_field: item?.newValue || "",
       old_field: item?.originalValue || "",
       index_field: item?.index?.join(",") || "",
-      default_field: "",
+      default_field: item?.default_field,
     }));
 
     const bodyData = {
@@ -436,20 +448,17 @@ const EditContractComponent: React.FC<EditContractComponentProps> = ({
       list_detail: list_details,
     };
 
-    const url = "https://api.timviec365.vn/api/crm/contract/edit"
-    const urlTest = 'http://localhost:3007/api/crm/contract/edit'
+    const url = "https://api.timviec365.vn/api/crm/contract/edit";
+    // const urlTest = 'http://localhost:3007/api/crm/contract/edit'
     try {
-      const response = await fetch(
-        urlTest,
-        {
-          method: "POST",
-          body: JSON.stringify(bodyData),
-          headers: {
-            "Content-Type": "application/json", // Set appropriate content type
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await fetch(url, {
+        method: "POST",
+        body: JSON.stringify(bodyData),
+        headers: {
+          "Content-Type": "application/json", // Set appropriate content type
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       const data = await response.json();
     } catch (error) {
@@ -575,17 +584,21 @@ const EditContractComponent: React.FC<EditContractComponentProps> = ({
                           >
                             Hủy
                           </button>
-                          <button
-                            onClick={handleShowEditFieldModal}
-                            type="button"
-                            className={styles.taotruong}
-                          >
-                            <img
-                              src="https://crm.timviec365.vn/assets/img/suatruong.svg"
-                              alt="button"
-                            />{" "}
-                            Sửa trường
-                          </button>
+                          {!newValues?.[posEdit]?.default_field?.includes(
+                            "@"
+                          ) && (
+                            <button
+                              onClick={handleShowEditFieldModal}
+                              type="button"
+                              className={styles.taotruong}
+                            >
+                              <img
+                                src="https://crm.timviec365.vn/assets/img/suatruong.svg"
+                                alt="button"
+                              />{" "}
+                              Sửa trường
+                            </button>
+                          )}
                         </>
                       ) : (
                         <>
@@ -601,28 +614,17 @@ const EditContractComponent: React.FC<EditContractComponentProps> = ({
                           </button>
                         </>
                       )}
-                      <button
-                        type="button"
-                        onClick={handleSetDefaultField}
-                        className={styles.tieptuc}
-                      >
-                        Chỉnh sửa bằng trường mặc định
-                      </button>
+                      {!isEdit ||
+                      newValues[posEdit]?.default_field ? (
+                        <button
+                          type="button"
+                          onClick={handleSetDefaultField}
+                          className={styles.tieptuc}
+                        >
+                          Chỉnh sửa bằng trường mặc định
+                        </button>
+                      ) : null}
 
-                      {/* <button
-                   type="button"
-                   // onclick="prev()"
-                   className="quaylai l-15 hidden"
-                 >
-                   <img src="/assets/img/quaylai.svg" alt="button" /> Quay lại
-                 </button>
-                 <button
-                   type="button"
-                   // onclick="next()"
-                   className="tieptuc l-15 hidden"
-                 >
-                   Tiếp tục <img src="/assets/img/tieptuc.svg" alt="button" />
-                 </button> */}
                       <CreatFieldModal
                         isModalCancel={isCreatField}
                         setIsModalCancel={setIsCreatField}
@@ -631,6 +633,7 @@ const EditContractComponent: React.FC<EditContractComponentProps> = ({
                       />
                       <EditFieldModal
                         isModalCancel={isOpenEditField}
+                        checkDefaultVal={newValues[posEdit]?.default_field}
                         setIsModalCancel={setIsOpenEditField}
                         handleReplaceValues={handleEditValue}
                         value={newValues[posEdit]?.newValue}
@@ -640,6 +643,9 @@ const EditContractComponent: React.FC<EditContractComponentProps> = ({
                         isModalCancel={isCreatFieldDefault}
                         setIsModalCancel={setIsCreatFieldDefault}
                         handleReplaceValues={handleReplaceValues}
+                        type= {isEdit}
+                        index={posEdit}
+                        handleEdit = {handleEditValue}
                       />
                     </div>
                   </div>
@@ -754,16 +760,16 @@ const EditContractComponent: React.FC<EditContractComponentProps> = ({
           <ModalSaveContractAdd
             modal1Open={ismodal1Open}
             setModal1Open={setIsmodal1Open}
-            title="Thêm mới Hợp đồng thành công!"
+            title="Chỉnh sửa Hợp đồng thành công!"
             handleSave={handleSave}
           />
           <CancelModal
             isModalCancel={isModalCancel}
             setIsModalCancel={setIsModalCancel}
             content={
-              "Bạn có chắc chắn muốn hủy thêm mới hợp đồng, mọi thông tin bạn nhập sẽ không được lưu lại?"
+              "Bạn có chắc chắn muốn hủy chỉnh sửa hợp đồng, mọi thông tin bạn nhập sẽ không được lưu lại?"
             }
-            title={"Xác nhận hủy thêm mới hợp đồng"}
+            title={"Xác nhận hủy chỉnh sửa hợp đồng"}
           />
         </div>
       )}
