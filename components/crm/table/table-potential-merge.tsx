@@ -138,7 +138,7 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                       className={styles.img_person}
                     />
                   </td>
-                  {newData?.map((record, index) => (
+                  {newData.map((record, index) => (
                     <td key={index}>
                       <input
                         onChange={() => handleImageChange(index)}

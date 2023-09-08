@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import styles from "../login/header.module.css";
 import MenuBar from "./menu-bar";
 import Link from "next/link";
+import Image from "next/image";
+
 import ModalRegsiter from "@/components/modal/ModalRegsiter";
 import ModalLogin from "@/components/modal/ModalLogin";
 import Cookies from "js-cookie";
@@ -34,34 +36,56 @@ const HeaderHomePage: React.FC = () => {
   return (
     <>
       <div className={`${styles["tasbar"]}`}>
-        <div className={`${styles["menu-nav"]}`}>
-          <MenuBar />
+        <div className={styles.display_icon}>
+          <div className={`${styles["menu-nav"]}`}>
+            <MenuBar />
+          </div>
+
+          <div className={styles.logo}>
+            <Image
+              width={0}
+              height={0}
+              sizes="100vw"
+              className={styles.img_icon}
+              src={"/crm/hunghalogo.png"}
+              alt=""
+            />
+          </div>
         </div>
-        <Link href="https://timviec365.vn/" target="_blank">
-          <img src="/crm/logo.png" alt="timviec365.vn" />
-        </Link>
-        <div className={`${styles["menu"]}`}>
-          <Link href="/crm">Trang Chủ</Link>
-          <Link href="#">Hướng Dẫn</Link>
-          <Link href="https://timviec365.vn/blog/c242/quan-ly-quan-he-khach-hang">
-            Tin Tức
-          </Link>
-          <Link href="/">Chuyển đổi số</Link>
-          <div className={`${styles["login_create"]}`}>
-            <button
-              className={`${styles["dk"]} ${styles.button_login}`}
-              onClick={handleOpenRegisterModal}
+        <div className={styles.display_custom}>
+          <div className={styles.div_custom_font}>
+            <Link
+              href="https://timviec365.vn/"
+              target="_blank"
+              className={styles.custom_font}
             >
-              Đăng ký
-            </button>
-            <span className={`${styles["center"]}`}>/</span>
-            <button
-              className={`${styles["dn"]} ${styles.button_login}`}
-              id="login"
-              onClick={handleOpenLoginModal}
-            >
-              Đăng Nhập
-            </button>
+              Trang chủ
+            </Link>
+          </div>
+          <div className={`${styles["menu"]}`}>
+            <div className={styles.menu_item}>
+              <Link href="/crm">Trang Chủ</Link>
+              <Link href="#">Hướng Dẫn</Link>
+              <Link href="https://timviec365.vn/blog/c242/quan-ly-quan-he-khach-hang">
+                Tin Tức
+              </Link>
+              <Link href="/">Chuyển đổi số</Link>
+            </div>
+
+            <div className={`${styles["login_create"]}`}>
+              <button
+                className={`${styles["dn"]} ${styles.button_login}`}
+                onClick={handleOpenLoginModal}
+              >
+                Đăng Nhập
+              </button>
+              <button
+                className={`${styles["dk"]} ${styles.button_register}`}
+                onClick={handleOpenRegisterModal}
+              >
+                Đăng ký
+              </button>
+            </div>
           </div>
         </div>
       </div>

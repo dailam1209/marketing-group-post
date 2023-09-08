@@ -47,7 +47,7 @@ const App: React.FC = () => (
       trigger="click"
       overlayClassName={styles["custom-popover"]}
     >
-      <button className={`${styles["dropbtn"]}`}>
+      <button className={styles["dropbtn"]}>
         <img src="/crm/sel.png" alt="icon-menu-nav" />
       </button>
     </Popover>
