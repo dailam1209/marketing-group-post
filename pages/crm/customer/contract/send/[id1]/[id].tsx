@@ -34,7 +34,7 @@ export default function ContractDetailsSend() {
   const mainRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const { isOpen } = useContext<any>(SidebarContext);
-  const { id } = router.query;
+  const { id1, id } = router.query;
   const [checkbox1Checked, setCheckbox1Checked] = useState(true);
   const [checkbox2Checked, setCheckbox2Checked] = useState(false);
   const [checkbox3Checked, setCheckbox3Checked] = useState(false);
@@ -63,7 +63,7 @@ export default function ContractDetailsSend() {
         "Content-Type": "application/json",
         Authorization: `Bearer ${Cookies.get("token_base365")}`,
       },
-      body: JSON.stringify({ cus_id: id }),
+      body: JSON.stringify({ cus_id: id1 }),
     });
     const data = await res.json();
     setname(data?.data?.name);
@@ -97,14 +97,14 @@ export default function ContractDetailsSend() {
   const getDataEmps = async () => {
     try {
       const res = await fetch(
-        `http://210.245.108.202:3000/api/qlc/managerUser/list`,
+        `http://210.245.108.202:3000/api/qlc/managerUser/listAll`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${Cookies.get("token_base365")}`,
           },
-          body: JSON.stringify({ com_id: Cookies.get("com_id") }),
+          // body: JSON.stringify({ com_id: Cookies.get("com_id") }),
         }
       );
       const data = await res.json();
@@ -200,7 +200,6 @@ export default function ContractDetailsSend() {
     setSelectedPosition("");
     setSelectedEmployee("");
   }, [selectedDepartment]);
-
 
   return (
     <>
@@ -334,7 +333,7 @@ export default function ContractDetailsSend() {
                             selectedDepartment={selectedDepartment}
                             selectedEmployee={selectedEmployee}
                             data={dataTable}
-                            setSelectValue = {setSelectedValue}
+                            setSelectValue={setSelectedValue}
                             dataFromSelectDataBox={dataFromSelectDataBox}
                             selectedValue={selectedValue}
                             dataPosition={dataPosition}
@@ -402,7 +401,7 @@ export default function ContractDetailsSend() {
                 <ModalCompleteContractStepADD
                   modal1Open={modal1Open}
                   setModal1Open={setModal1Open}
-                  title={""}
+                  title={"Đã gửi hợp đồng thành công"}
                   id={id}
                 />
               </div>

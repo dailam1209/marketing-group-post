@@ -272,9 +272,9 @@ const EditFilesCustomerList: React.FC = () => {
                   <CustomerFooterEditFiles
                     formData={formData}
                     link="/crm/customer/list"
-                    titleCancel="Xác nhận hủy thêm mới khách hàng"
-                    title="Thêm mới khách hàng thành công!"
-                    contentCancel="Bạn có chắc chắn muốn hủy thêm mới ?"
+                    titleCancel="Xác nhận hủy sửa khách hàng"
+                    title="Cập nhật khách hàng thành công!"
+                    contentCancel="Bạn có chắc chắn muốn hủy sửa ?"
                   />
                 </div>
               </div>

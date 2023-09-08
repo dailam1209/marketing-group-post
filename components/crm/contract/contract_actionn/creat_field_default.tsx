@@ -10,18 +10,25 @@ interface MyComponentProps {
   isModalCancel: boolean;
   setIsModalCancel: (value: boolean) => void;
   handleReplaceValues: any;
+  type: Boolean;
+  handleEdit: any;
+  index: any;
 }
 
 const CreatFieldDefaultModal: React.FC<MyComponentProps> = ({
   isModalCancel,
   setIsModalCancel,
   handleReplaceValues,
+  type,
+  handleEdit,
+  index,
 }) => {
   const [isOpenMdalSuccess, setIsOpenMdalSuccess] = useState(false);
   const [value, setValue] = useState("");
   const data = [
     "@Tên công ty",
     "@Địa chỉ",
+    "Gmail",
     "@Số điện thoại",
     "@ngày",
     "@tháng",
@@ -38,7 +45,12 @@ const CreatFieldDefaultModal: React.FC<MyComponentProps> = ({
   const handleOK = () => {
     if (value) {
       setIsModalCancel(false);
-      handleReplaceValues(value);
+      const index = data?.findIndex(item=>item===value)
+      if (type) {
+        handleEdit(value, index, index +1);
+      } else {
+        handleReplaceValues(value, index + 1);
+      }
     } else {
       alert("Bạn chưa chọn trường");
     }
@@ -48,7 +60,6 @@ const CreatFieldDefaultModal: React.FC<MyComponentProps> = ({
     <>
       <Modal
         title={"Trường hệ thống xây dựng mặc định"}
-        centered
         open={isModalCancel}
         onOk={() => handleOK()}
         onCancel={() => setIsModalCancel(false)}

@@ -46,7 +46,12 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
   const [isEdit, setIsEdit] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [newValues, setNewValues] = useState<
-    { index: number[]; originalValue: string; newValue: string }[]
+    {
+      default_field: any;
+      index: number[];
+      originalValue: string;
+      newValue: string;
+    }[]
   >([]); // Set value moi, value cu va index
   const targetScrollRef = useRef<HTMLDivElement>(null);
   const [isOpenEditField, setIsOpenEditField] = useState(false);
@@ -303,7 +308,7 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
     return index;
   };
 
-  const handleReplaceValues = (newValue: string, pos: number) => {
+  const handleReplaceValues = (newValue: string, defaultValue = "") => {
     const indexSelect = checkedStates
       .map((value, index) => (value ? index : null))
       .filter((index) => index !== null);
@@ -323,7 +328,12 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
     if (!editedItem || checkWord === -1 || arrCheck.length < 1) {
       const updatedValues = [
         ...newValues,
-        { index: indexSelect, originalValue: text_change, newValue },
+        {
+          index: indexSelect,
+          originalValue: text_change,
+          newValue,
+          default_field: defaultValue,
+        },
       ];
       setNewValues(updatedValues);
     } else {
@@ -333,7 +343,7 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
     setCheckedStates(Array(checkedStates.length).fill(false));
   };
 
-  const handleEditValue = (newValue: string, pos: any) => {
+  const handleEditValue = (newValue: string, pos: any, defaultValue = null) => {
     const indexSelect = checkedStates
       .map((value, index) => (value ? index : null))
       .filter((index) => index !== null);
@@ -358,6 +368,7 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
       const newResultEdit = {
         index: indexSelect,
         originalValue: text_change,
+        default_field: defaultValue,
         newValue,
       };
       const newData = [...newValues];
@@ -387,6 +398,7 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
       new_field: item?.newValue || "",
       old_field: item?.originalValue || "",
       index_field: item?.index?.join(",") || "",
+      default_field: item?.default_field,
     }));
 
     const bodyData = {
@@ -593,11 +605,15 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
                         handleReplaceValues={handleEditValue}
                         value={newValues[posEdit]?.newValue}
                         index={posEdit}
+                        checkDefaultVal={newValues[posEdit]?.default_field}
                       />
                       <CreatFieldDefaultModal
                         isModalCancel={isCreatFieldDefault}
                         setIsModalCancel={setIsCreatFieldDefault}
                         handleReplaceValues={handleReplaceValues}
+                        type={isEdit}
+                        index={posEdit}
+                        handleEdit = {handleEditValue}
                       />
                     </div>
                   </div>
