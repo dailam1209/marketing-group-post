@@ -29,22 +29,12 @@
 }
 
 .header_bar {
-  padding-top: 20px;
   display: flex;
   border-bottom: 2px solid white;
-  padding-left: 15px;
-  padding-right: 15px;
   width: 90%;
   justify-content: center;
   margin: auto;
-}
-
-.header_icon {
-  height: 69px;
-}
-
-.img_icon {
-  max-width: 100%;
+  padding: 15px;
 }
 
 .header_info {
