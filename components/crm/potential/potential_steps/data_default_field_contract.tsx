@@ -44,7 +44,7 @@ export default function DataDefaultFieldContract({
             role="tree"
             aria-expanded="true"
             aria-hidden="false"
-            style={{ overflowY: "scroll", height: "100px" }}
+            style={{ overflowY: "scroll", height: "250px" }}
           >
             <li
               onClick={() => setValue("")}

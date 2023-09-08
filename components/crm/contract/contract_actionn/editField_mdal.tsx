@@ -11,6 +11,7 @@ interface MyComponentProps {
   handleReplaceValues: any;
   value: string;
   index: any;
+  checkDefaultVal: any;
 }
 
 const EditFieldModal: React.FC<MyComponentProps> = ({
@@ -19,6 +20,7 @@ const EditFieldModal: React.FC<MyComponentProps> = ({
   handleReplaceValues,
   value,
   index,
+  checkDefaultVal,
 }) => {
   const [isOpenMdalSuccess, setIsOpenMdalSuccess] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -27,7 +29,11 @@ const EditFieldModal: React.FC<MyComponentProps> = ({
   const handleOK = () => {
     if (valueInput) {
       setIsModalCancel(false);
-      handleReplaceValues(valueInput, index);
+      if (checkDefaultVal && checkDefaultVal > 0) {
+        handleReplaceValues(valueInput, index, checkDefaultVal);
+      } else {
+        handleReplaceValues(valueInput, index);
+      }
       setValueInput("");
     } else {
       alert("Bạn chưa nhập tên trường");

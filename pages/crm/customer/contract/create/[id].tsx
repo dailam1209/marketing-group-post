@@ -12,16 +12,25 @@ import { base_url } from "@/components/crm/service/function";
 import Head from "next/head";
 
 export default function ContractDetailsCreate() {
+  const { dataHederSideBar } = useContext<any>(SidebarContext);
   const mainRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const { isOpen } = useContext<any>(SidebarContext);
   const { id } = router.query;
   const [valueContract, setValueContract] = useState("");
   const [FormData, setFormData] = useState<any>();
+  const [dataCustomer, setDataCustomer] = useState<any>([]);
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
   const [name, setname] = useState<any>();
   const [nameContract, setnameContract] = useState<any>();
+  const [valueInput, setValueInput] = useState(
+    Array(0).fill({ val: "", name: "", status: "false", index: "" , old: ""})
+  );
+  const [dataContract, setDataContract] = useState<any>();
+  const [dataInfo, setDataInfo] = useState(null);
+
+  const today = new Date();
 
   const getNameDetail = async () => {
     const res = await fetch(`${base_url}/api/crm/customerdetails/detail`, {
@@ -34,6 +43,7 @@ export default function ContractDetailsCreate() {
     });
     const data = await res.json();
     setname(data?.data?.name);
+    setDataCustomer(data?.data);
   };
 
   const getContract = async () => {
@@ -46,17 +56,25 @@ export default function ContractDetailsCreate() {
     });
     const data = await res.json();
     const nameContract = data?.data?.list;
-    console.log(nameContract);
+    setDataContract(data?.data?.list);
     setnameContract(nameContract);
   };
 
+  const validateInput = (val) => {
+    if (val) return true;
+    return false;
+  };
+
   useEffect(() => {
-    getContract();
     getNameDetail();
-    setHeaderTitle(`${name} / Hợp đồng bán / Thêm hợp đồng bán`);
+    setHeaderTitle(`${dataCustomer?.name} / Hợp đồng bán / Thêm hợp đồng bán`);
     setShowBackButton(true);
     setCurrentPath(`/crm/customer/contract/list/${id}`);
   }, [setHeaderTitle, setShowBackButton, setCurrentPath, id, name]);
+
+  useEffect(() => {
+    getContract();
+  }, []);
 
   const options = nameContract?.map((item) => {
     return {
@@ -64,6 +82,52 @@ export default function ContractDetailsCreate() {
       value: item?.id,
     };
   });
+
+  const handleChangeInput = (eve, index: number) => {
+    const value = eve.target.value;
+    const newArr = [...valueInput]; // Tạo một bản sao của mảng
+    newArr[index] = {
+      ...newArr[index],
+      val: value,
+      status: !validateInput(value),
+    };
+    setValueInput(newArr);
+  };
+
+  const convertDefaultValueToString = (val) => {
+    switch (val) {
+      case 1:
+        return name;
+      case 2:
+        return dataCustomer?.address?.info;
+      case 3:
+        return dataCustomer?.contact_email || dataCustomer?.email?.info;
+      case 4:
+        return dataCustomer?.phone_number?.info;
+      case 5:
+        return today.getDate();
+      case 6:
+        return today.getMonth() + 1;
+      case 7:
+        return today.getFullYear();
+      case 8:
+        return ""; // Ma so Thue
+      case 9:
+        return dataHederSideBar?.data?.userName || dataHederSideBar?.data?.com_name || "000";
+      case 10:
+        return dataHederSideBar?.data?.phone || "0000z";
+      case 11:
+        return dataHederSideBar?.data?.emailContact;
+      case 12:
+        return dataCustomer?.bank_account?.info;
+      case 13:
+        return dataCustomer?.bank_account?.info;
+      case 14:
+        return ""; //owner tk
+      default:
+        break;
+    }
+  };
 
   useEffect(() => {
     if (isOpen) {
@@ -75,8 +139,7 @@ export default function ContractDetailsCreate() {
 
   const onChangeSelect = async (value: string) => {
     setValueContract(value);
-    console.log(value);
-    
+    setFormData({});
     try {
       const res = await fetch(`${base_url}/api/crm/contractAI/view`, {
         method: "POST",
@@ -89,8 +152,42 @@ export default function ContractDetailsCreate() {
 
       if (res.ok) {
         const data = await res.json();
-        console.log(data);
         setFormData(data?.data);
+
+        const defaultFieldIndexes = data?.data?.get_detail_form_contract
+          .map((item, index) =>
+            item.default_field !== null && item.default_field > 0 ? index : -1
+          )
+          .filter((index) => index !== -1);
+
+        const modifiedValueInput = data?.data?.get_detail_form_contract.map(
+          (item, index) => ({
+            val: defaultFieldIndexes.includes(index)
+              ? convertDefaultValueToString(
+                  item?.default_field
+                )
+              : "",
+            name: item?.new_field,
+            status: false,
+            index:item?.index_field,
+            old: item?.old_field,
+          })
+        );
+        setValueInput(modifiedValueInput);
+        
+        //   console.log("indexxxx: ", defaultFieldIndices)
+        // setValueInput(
+        //   Array(
+        //     data?.data?.get_detail_form_contract
+        //       ? data?.data?.get_detail_form_contract
+        //       : 0
+        //   ).fill({
+        //     val: defaultFieldIndex !== -1 ? defaultFieldIndex : "",
+        //     name: "",
+        //     status: false,
+        //   })
+        // );
+        console.log(modifiedValueInput);
       } else {
         console.error("Error fetching data:", res.status);
       }
@@ -157,7 +254,7 @@ export default function ContractDetailsCreate() {
                     }}
                     className={styles["main__body_item"]}
                   >
-                    <div style={{ flex: "1" }}>
+                    <div style={{ flex: "1", width: "48%" }}>
                       <label className={`${styles["form-label"]} required`}>
                         Loại hợp đồng
                       </label>
@@ -174,7 +271,7 @@ export default function ContractDetailsCreate() {
                         />
                       </div>
                     </div>
-                    <div style={{ flex: "1" }}>
+                    <div style={{ flex: "1", width: "48%" }}>
                       <InputText bonus="disabled" label="Người tạo" require />
                     </div>
                   </div>
@@ -183,21 +280,41 @@ export default function ContractDetailsCreate() {
                     valueContract !== "0" &&
                     FormData?.get_detail_form_contract && (
                       <div>
-                        <div className={styles["input-group"]}>
+                        <div
+                          className={styles["input-group"]}
+                          style={{ flexWrap: "wrap" }}
+                        >
                           {FormData?.get_detail_form_contract &&
                             FormData?.get_detail_form_contract?.map(
                               (item: any, index: number) => (
-                                <div className={styles["form-group"]}>
+                                <div key={index} style={{ width: "48%" }}>
                                   <label className={styles.required}>
-                                    @{item?.new_field}
+                                    {item?.new_field}
                                     <span className={styles.dot}>*</span>
                                   </label>
                                   <p className={styles.old_field}>
                                     (Thay thế cho từ: {item?.old_field})
                                   </p>
+                                  {validateInput(valueInput[index]?.status) && (
+                                    <p
+                                      style={{
+                                        color: "red",
+                                        fontSize: "15px",
+                                        fontStyle: "initial",
+                                        textAlign: "right",
+                                        paddingBottom: "3px",
+                                      }}
+                                    >
+                                      Vui lòng nhập từ thay thế
+                                    </p>
+                                  )}
                                   <input
+                                    onChange={(e) =>
+                                      handleChangeInput(e, index)
+                                    }
                                     type="text"
-                                    defaultValue=""
+                                    required
+                                    value={valueInput[index]?.val}
                                     className={styles["form-control"]}
                                     data-old-field={item?.old_field}
                                     data-index={index}
@@ -212,7 +329,9 @@ export default function ContractDetailsCreate() {
                 {valueContract !== "" && valueContract !== "0" && (
                   <ContractBtsGroupFooter
                     id={valueContract ? valueContract : "default"}
-                    FormData={FormData}
+                    formData={FormData}
+                    setValueInput={setValueInput}
+                    valueInput={valueInput}
                   />
                 )}
               </div>

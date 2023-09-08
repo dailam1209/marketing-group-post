@@ -14,7 +14,7 @@ interface ModalCompleteStepProps {
 const ModalCompleteContractStepADD: React.FC<ModalCompleteStepProps> = ({
   modal1Open = true,
   setModal1Open,
-  title,
+  title = "Đã gửi hợp đồng thành công",
   id,
 }: any) => {
   const router = useRouter();
@@ -40,7 +40,7 @@ const ModalCompleteContractStepADD: React.FC<ModalCompleteStepProps> = ({
           className="custom_mdal_sucess"
           onCancel={() => setModal1Open(false)}
         >
-          <div style={{ textAlign: "center" }}>Đã gửi hợp đồng thành công</div>
+          <div style={{ textAlign: "center" }}>{title}</div>
         </Modal>
       </div>
     </div>

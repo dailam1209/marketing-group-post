@@ -9,6 +9,7 @@ export const SidebarResize: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [dataHederSideBar, setDataHeaderSidebar] = useState<any>(null)
   const token_connect = useSelector((state: any) => state?.auth?.account);
   const dispatch = useDispatch();
 
@@ -19,7 +20,7 @@ export const SidebarResize: React.FC<{ children: React.ReactNode }> = ({
     handlegetTokenConnect();
   }, []);
   return (
-    <SidebarContext.Provider value={{ isOpen, setIsOpen } as any}>
+    <SidebarContext.Provider value={{ isOpen, setIsOpen, setDataHeaderSidebar, dataHederSideBar} as any}>
       {children}
     </SidebarContext.Provider>
   );

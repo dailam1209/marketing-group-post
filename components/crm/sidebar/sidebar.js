@@ -24,7 +24,7 @@ import Cookies from "js-cookie";
 import { base_url } from "../service/function";
 
 export default function SideBar({ isOpened }) {
-  const { isOpen, setIsOpen } = useContext(SidebarContext);
+  const { isOpen, setIsOpen, setDataHeaderSidebar } = useContext(SidebarContext);
   const sidebarRef = useRef(null);
   const [dataHeader, setDataHeader] = useState();
   const COOKIE_KEY = "token_base365";
@@ -74,13 +74,17 @@ export default function SideBar({ isOpened }) {
   useEffect(() => {
     const fetchInfo = async () => {
       try {
+        let dataToStore;
         if (tokenType) {
           if (tokenType === 1 || tokenType === "1") {
             const response = await getDataCompany();
+            dataToStore = response?.data;
             setDataHeader(response?.data);
           } else {
             const response = await EmployeeInfo();
+            dataToStore = response?.data;
             setDataHeader(response?.data);
+            setDataHeaderSidebar(response?.data)
           }
         } else {
           const interval = setInterval(async () => {
@@ -91,6 +95,7 @@ export default function SideBar({ isOpened }) {
             }
           }, 1000);
         }
+        sessionStorage.setItem("dataHeader", JSON.stringify(dataToStore));
       } catch (error) {
         // Xử lý lỗi ở đây
       }
@@ -163,7 +168,6 @@ export default function SideBar({ isOpened }) {
             body: JSON.stringify({ phone:parseInt(id)}),
           });
           const data = await responseObject.json()
-          console.log(data)
   
           // if (responseObject !== undefined) {
           //   console.log("check res",responseObject)
