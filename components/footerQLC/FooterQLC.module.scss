@@ -520,6 +520,9 @@
    }
    
    @media screen and (max-width: 480px) {
+      .icon_app{
+         display: block !important;
+      }
    .content_show a {
    font-style: italic;
    }
