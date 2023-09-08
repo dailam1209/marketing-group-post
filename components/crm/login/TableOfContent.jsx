@@ -2,6 +2,7 @@
 
 import React, {useState} from 'react';
 import styles from './TableOfContent.module.scss';
+
 export default function TableOfContents() {
    const [openDropDown, setOpenDropDown] = useState(false);
    const [extend, setExtend] = useState(false);

@@ -1,11 +1,10 @@
 import React from "react";
-
 import styles from "../login/login.module.css";
 import HeaderHomePage from "./header";
 import { checkHomeIfLoggedIn } from "../ultis/checkLogin";
 import Sidebar from "./sidebar";
 import FooterQLC from "@/components/footerQLC/FooterQLC.jsx";
-import TableOfContents from "@/components/table-of-content/TableOfContent.jsx";
+import TableOfContents from "./TableOfContent";
 const HomePageLogin: React.FC = () => {
   return (
     <>
