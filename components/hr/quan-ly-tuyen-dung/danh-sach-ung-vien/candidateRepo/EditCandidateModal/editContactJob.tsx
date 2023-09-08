@@ -204,7 +204,7 @@ export default function EditCandidateContactJob({ onCancel, candidate }: any) {
       isEmpList &&
       isEmpList?.items?.map((emp: any) => ({
         value: emp.ep_id,
-        label: emp.ep_name,
+        label: `(${emp.ep_id}) ${emp.ep_name} - ${emp.dep_name ? emp.dep_name : "Chưa cập nhật"}`,
       })),
     [isEmpList]
   )

@@ -45,7 +45,7 @@ export default function DetailsGroupModal({ groupId, onCancel }: any) {
               <div
                 className={`${styles.modal_header} ${styles.header_process}`}>
                 <h5 className={`${styles.modal_tittle}`}>
-                  CHỈNH SỬA CHI TIẾT PHÒNG BAN
+                  CHI TIẾT MÔ TẢ NHÓM
                 </h5>
               </div>
               <div className={`${styles.modal_body}`}>
@@ -55,14 +55,14 @@ export default function DetailsGroupModal({ groupId, onCancel }: any) {
                       {isTitle?.info?.description}
                     </p>
                   </div>
-                  <div
+                  {/* <div
                     className={`${styles.modal_footer} ${styles.footer_process}`}>
                     <button
                       className={`${styles.btn_cancel}`}
                       onClick={onCancel}>
                       Hủy
                     </button>
-                  </div>
+                  </div> */}
                 </form>
               </div>
             </div>

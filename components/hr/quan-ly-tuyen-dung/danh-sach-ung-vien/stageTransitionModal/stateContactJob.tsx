@@ -176,9 +176,13 @@ export default function StageContactJob({
 
       const response = await AddContactJob(formData)
       if (response) {
-        setTimeout(() => {
-          onCancel()
-        }, 1500)
+        if (response.error === null) {
+          setTimeout(() => {
+            onCancel();
+          }, 1500);
+        } else {
+          alert("Bạn chưa được phân quyền cho chức năng này")
+        }
       }
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
@@ -212,7 +216,7 @@ export default function StageContactJob({
       isEmpList &&
       isEmpList?.items?.map((emp: any) => ({
         value: emp.ep_id,
-        label: emp.ep_name,
+        label: `(${emp.ep_id}) ${emp.ep_name} - ${emp.dep_name ? emp.dep_name : "Chưa cập nhật"}`,
       })),
     [isEmpList?.items]
   )

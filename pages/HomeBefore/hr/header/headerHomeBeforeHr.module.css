@@ -1,0 +1,25 @@
+.wrapper {
+  width: 100%;
+}
+.content {
+  display: flex;
+  padding: 10px 24px 10px 24px;
+}
+.content_left {
+  width: 71.5%;
+}
+
+.content_right {
+  width: 38.5%;
+  display: flex;
+}
+.content_right ul {
+  display: flex;
+  /* justify-content: ; */
+}
+.content_right ul li {
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 20px;
+  text-align: center;
+}

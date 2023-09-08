@@ -341,7 +341,7 @@ export default function AddWorkingModal({ onCancel }: any) {
       isEmpList &&
       isEmpList?.items.map((emp: any) => ({
         value: `${emp.ep_id} ${emp.dep_id} ${emp.position_id} ${emp.dep_name}`,
-        label: emp.ep_name
+        label: `(${emp.ep_id}) ${emp.ep_name} - ${emp.dep_name ? emp.dep_name : "Chưa cập nhật"}`,
       })),
     [isEmpList, isDep_id]
   );

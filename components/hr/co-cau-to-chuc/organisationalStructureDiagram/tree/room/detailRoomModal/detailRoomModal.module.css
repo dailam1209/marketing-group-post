@@ -60,9 +60,9 @@
 .modal_body {
   text-align: left;
   padding-bottom: 0;
-  padding-top: 3%;
+  /* padding-top: 3%;
   padding-left: 7%;
-  padding-right: 7%;
+  padding-right: 7%; */
 }
 .form_groups {
   margin-bottom: 15px;

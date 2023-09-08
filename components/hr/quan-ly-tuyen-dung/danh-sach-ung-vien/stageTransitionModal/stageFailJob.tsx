@@ -53,7 +53,8 @@ export default function StageFailJob({ onCancel, process_id, data, process_id_fr
   const [skills, setSkills] = useState<{ skillName: string; skillVote: any }[]>([]);
   const [lastAddedIndex, setLastAddedIndex] = useState(-1);
   const [rating, setRating] = useState<any>(data?.starVote)
-  const [descriptions, setDescription] = useState("");
+  const [descriptions, setDescription] = useState(`Thân gửi ..........Tên ứng viên........!
+  Cảm ơn bạn,`);
   const [isUserHiring, setUserHiring] = useState<any>(data?.user_hiring || data?.userHiring)
   const [type, setType] = useState<any>(1);
   const [errors, setErrors] = useState<any>({});
@@ -130,7 +131,6 @@ export default function StageFailJob({ onCancel, process_id, data, process_id_fr
     timeSendCv: Yup.string().required("Thời gian gửi không được để trống"),
     email: Yup.string().required("email không được để trống"),
     type: Yup.string().required("Chọn giai đoạn chuyển"),
-    contentsend: Yup.string().required("Ghi chú không được để trống"),
   });
 
 
@@ -158,7 +158,6 @@ export default function StageFailJob({ onCancel, process_id, data, process_id_fr
         recruitment: isRecruitmentNewsId || "",
         timeSendCv: timeSendCv || "",
         type: type || "",
-        contentsend: descriptions || ""
       };
       await validationSchema.validate(formDatas, {
         abortEarly: false,
@@ -178,7 +177,6 @@ export default function StageFailJob({ onCancel, process_id, data, process_id_fr
       formData.append("note", note);
       formData.append("contentsend", descriptions);
       formData.append("type", type);
-      formData.append('firstStarVote', rating)
       {
         skills?.map((item, index) => {
           const skillData = {
@@ -191,9 +189,13 @@ export default function StageFailJob({ onCancel, process_id, data, process_id_fr
 
       const response = await AddFailJob(formData);
       if (response) {
-        setTimeout(() => {
-          onCancel();
-        }, 1500);
+        if (response.error === null) {
+          setTimeout(() => {
+            onCancel();
+          }, 1500);
+        } else {
+          alert("Bạn chưa được phân quyền cho chức năng này")
+        }
       }
 
     } catch (error) {
@@ -232,7 +234,7 @@ export default function StageFailJob({ onCancel, process_id, data, process_id_fr
       isEmpList &&
       isEmpList?.items?.map((emp: any) => ({
         value: emp.ep_id,
-        label: emp.ep_name,
+        label: `(${emp.ep_id}) ${emp.ep_name} - ${emp.dep_name ? emp.dep_name : "Chưa cập nhật"}`,
       })),
     [isEmpList?.items]
   );
