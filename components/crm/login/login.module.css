@@ -380,7 +380,13 @@
   font-size: 18px;
   line-height: 21px;
 }
-
+.main {
+  display: flex;
+  justify-content: space-between;
+}
+.content {
+  width: calc(100% - 320px);
+}
 /* -----------------------------------------------------------responsive 1366----------------------------------------------------------- */
 
 @media (max-width: 1367px) {

@@ -919,3 +919,245 @@ export const dataActionPricePolicy = [
     type: 'delete',
   },
 ]
+
+export const sidebar_button_group_login = [
+  {
+    img_link: '/crm/home.svg',
+    link: `/crm/home`,
+    children: [],
+    content: 'Trang chủ',
+  },
+  {
+    img_link: '/crm/role.svg',
+    link: `/crm`,
+    content: 'Phân quyền',
+    children: [
+      {
+        blank: '',
+        label: 'Thiết lập quyền',
+        link: '/crm/thiet-lap-quyen',
+      },
+      {
+        blank: '_blank',
+        label: 'Bổ nhiệm, quy hoạch',
+        link: 'https://phanmemnhansu.timviec365.vn/bien-dong-nhan-su.html?tab=1',
+      },
+    ],
+  },
+  {
+    img_link: '/crm/nav_potential.svg',
+    link: `/crm/potential/list`,
+    children: [],
+    content: 'Tiềm năng',
+  },
+  {
+    img_link: '/crm/customer.svg',
+    link: '/crm',
+    children: [
+      {
+        blank: '',
+        label: 'Danh sách khách hàng',
+        link: '/crm/customer/list',
+      },
+      {
+        blank: '',
+        label: 'Nhóm khách hàng',
+        link: '/crm/customer/group/list',
+      },
+      {
+        blank: '',
+        label: 'Tình trạng khách hàng',
+        link: '/crm/tinh-trang-khach-hang',
+      },
+      {
+        blank: '',
+        label: 'Nhập liệu',
+        link: '/crm/customer/input/add',
+      },
+    ],
+    content: 'Khách hàng',
+  },
+  {
+    img_link: '/crm/chance.svg',
+    link: '/crm/chance/list',
+    children: [],
+    content: 'Cơ hội',
+  },
+  {
+    img_link: '/crm/hotline.svg',
+    link: '/crm',
+    children: [
+      {
+        blank: '',
+        label: 'Khảo sát',
+        link: '/crm/khao-sat',
+      },
+      {
+        blank: '',
+        label: 'Lịch chăm sóc khách hàng',
+        link: '/crm/lich-cham-soc-khach-hang',
+      },
+      {
+        blank: '',
+        label: 'Lịch hẹn',
+        link: '/crm/lich-hen',
+      },
+      {
+        blank: '',
+        label: 'Tổng đài',
+        link: '/crm/tong-dai',
+      },
+    ],
+    content: 'Chăm sóc khách hàng',
+  },
+  {
+    img_link: '/crm/contract.svg',
+    link: '/crm/contract/list',
+    children: [],
+    content: 'Hợp đồng',
+  },
+  {
+    img_link: '/crm/form.svg',
+    link: '/crm',
+    children: [],
+    content: 'Báo cáo',
+  },
+  {
+    img_link: '/crm/chiendich.svg',
+    link: '/crm/campaign/list',
+    children: [],
+    content: 'Chiến dịch',
+  },
+  {
+    img_link: '/crm/baogia.svg',
+    link: '/crm/quote/list',
+    children: [],
+    content: 'Báo giá',
+  },
+  {
+    img_link: '/crm/nav-price-promotion.svg',
+    link: '/crm/promotion/list',
+    children: [],
+    content: 'Quản lý khuyến mãi',
+  },
+  {
+    img_link: '/crm/marketing.svg',
+    link: '/crm',
+    children: [
+      {
+        blank: '',
+        label: 'Email',
+        link: '/crm/marketing/email',
+      },
+      {
+        blank: '',
+        label: 'SMS',
+        link: '/crm/marketing/sms',
+      },
+    ],
+    content: 'Marketing',
+  },
+  {
+    img_link: '/crm/cart.svg',
+    link: '/crm/order/list',
+    children: [],
+    content: 'Quản lý đơn hàng',
+  },
+  {
+    img_link: '	/crm/bill.svg',
+    link: '/crm/bill/list',
+    children: [],
+    content: 'Quản lý hoá đơn',
+  },
+  {
+    img_link: '	/crm/bill.svg',
+    link: '/crm/bill/list',
+    children: [],
+    content: 'Quản lý fanpages facebook',
+  },
+  {
+    img_link: '/crm/supplier.svg',
+    link: '/crm/price_policy/list',
+    children: [
+      {
+        blank: '',
+        label: 'Danh sách nhà cung cấp',
+        link: '/crm/supplier/list',
+      },
+      {
+        blank: '',
+        label: 'Nhóm nhà cung cấp',
+        link: '/crm/supplier/group',
+      },
+    ],
+    content: 'Nhà cung cấp',
+  },
+  {
+    img_link: '/crm/nav_price_policy.svg',
+    link: '/crm/price_policy/list',
+    children: [],
+    content: 'Chính sách giá',
+  },
+  {
+    img_link: '/crm/nav_product_return.svg',
+    link: '/crm/product_return/list',
+    children: [],
+    content: 'Trả lại hàng bán',
+  },
+  {
+    img_link: '	/crm/re-expen.svg',
+    link: '/crm',
+    children: [
+      {
+        blank: '',
+        label: 'Theo dõi thu chi',
+        link: '/crm/theo-doi-thu-chi',
+      },
+      {
+        blank: '',
+        label: 'Phiếu thu',
+        link: '/crm/phieu-thu',
+      },
+      {
+        blank: '',
+        label: 'Phiếu chi',
+        link: '/crm/phieu-chi',
+      },
+      {
+        blank: '',
+        label: 'Sổ quỹ',
+        link: '/crm/so-quy',
+      },
+      {
+        blank: '',
+        label: 'Công nợ',
+        link: '/crm/cong-no-nha-cung-cap',
+      },
+      {
+        blank: '',
+        label: 'Sản phẩm',
+        link: '/crm/san-pham',
+      },
+    ],
+    content: 'Quản lý thu chi',
+  },
+  {
+    img_link: '/crm/nav_bin.svg',
+    link: '/crm/delete_data/list',
+    children: [],
+    content: 'Dữ liệu đã xoá',
+  },
+  {
+    img_link: '/crm/nav_setting.svg',
+    link: '/crm/setting/main',
+    children: [],
+    content: 'Cài đặt',
+  },
+  {
+    img_link: '/crm/i_cds365.svg',
+    link: 'https://quanlychung.timviec365.vn/quan-ly-ung-dung-cong-ty.html',
+    children: [],
+    content: 'Chuyển đổi số',
+  },
+ 
+]
