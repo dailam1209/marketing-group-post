@@ -101,12 +101,15 @@ export default function DetailHrReport({ children }: any) {
     index !== -1 ? link.slice(0, index) + ".html" : link + ".html";
   const comid: any = GetComId();
 
+  console.log(link);
+
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await OrganizationalStructureData();
         setOrganisationalData(response?.data);
-      } catch (error) {}
+      } catch (error) { }
     };
     fetchData();
   }, []);
@@ -124,8 +127,8 @@ export default function DetailHrReport({ children }: any) {
     if (link.includes("bieu-do-danh-sach-nhan-vien-nghi-viec")) {
       setTitle("Danh sách nhân viên nghỉ việc / giảm biên chế");
     }
-    if (link.includes("bieu-do-danh-sach-nhan-vien-tang-giam-luong")) {
-      setTitle("Danh sách nhân viên nghỉ việc / giảm biên chế");
+    if (link.includes('bieu-do-danh-sach-nhan-vien-tang-giam-luong')) {
+      setTitle('Danh sách nhân viên tăng / giảm lương')
     }
     if (link.includes("bieu-do-danh-sach-nhan-vien-theo-do-tuoi")) {
       setTitle("Danh sách nhân viên theo thâm niên công tác");
@@ -161,14 +164,14 @@ export default function DetailHrReport({ children }: any) {
       ) {
         setTitle("Danh sách nhân viên nữ chuyển công tác");
       }
-    } else if (link.includes("type")) {
-      const isTypes = link.split("=").pop();
-      setType(isTypes);
-      if (link.includes("bieu-do-danh-sach-nhan-vien-nghi-viec?type=1")) {
-        setTitle("Danh sách nhân viên nghỉ việc");
+    } else if (link.includes('type')) {
+      const isTypes = link.split('=').pop()
+      setType(isTypes)
+      if (link.includes('bieu-do-danh-sach-nhan-vien-nghi-viec?type=1')) {
+        setTitle('Danh sách nhân viên giảm biên chế')
       }
-      if (link.includes("bieu-do-danh-sach-nhan-vien-nghi-viec?type=2")) {
-        setTitle("Danh sách nhân viên giảm biên chế");
+      if (link.includes('bieu-do-danh-sach-nhan-vien-nghi-viec?type=2')) {
+        setTitle('Danh sách nhân viên nghỉ việc')
       }
       if (
         link.includes("bieu-do-danh-sach-nhan-vien-tang-giam-luong?type=1") ||
@@ -177,12 +180,12 @@ export default function DetailHrReport({ children }: any) {
         setTitle("Danh sách nhân viên tăng / giảm lương");
       }
       if (
-        link.includes("bieu-do-danh-sach-nhan-vien-theo-trang-hon-nhan?type=1")
+        link.includes('bieu-do-danh-sach-nhan-vien?type=2')
       ) {
         setTitle("Danh sách nhân viên đã lập gia đình");
       }
       if (
-        link.includes("bieu-do-danh-sach-nhan-vien-theo-trang-hon-nhan?type=2")
+        link.includes('bieu-do-danh-sach-nhan-vien?type=1')
       ) {
         setTitle("Danh sách nhân viên độc thân");
       }
@@ -275,13 +278,13 @@ export default function DetailHrReport({ children }: any) {
               const response = await DetailReport(formData);
               setReportList(response?.data);
             }
-            if (link.includes("type=") && link_cut && isType !== "") {
-              if (
-                link_cut === "bieu-do-danh-sach-nhan-vien-theo-do-tuoi.html"
-              ) {
-                formData.append("old", isType);
-              } else {
-                formData.append("type", isType);
+            if (link.includes('type=') && link_cut && isType !== '') {
+              if (link_cut === "bieu-do-danh-sach-nhan-vien-theo-do-tuoi.html") { formData.append('old', isType) }
+              else if (link === "bieu-do-danh-sach-nhan-vien?type=1" || link === "bieu-do-danh-sach-nhan-vien?type=2") {
+                formData.append('married', isType)
+              }
+              else {
+                formData.append('type', isType)
               }
               const response = await DetailReport(formData);
               setReportList(response?.data);
@@ -722,7 +725,7 @@ export default function DetailHrReport({ children }: any) {
                         onChange={handleSelectChange}
                         setState={setDep_id}
                         option={options.chonphongban}
-                        placeholder="Chọn phòng ban"
+                        placeholder='Chọn phòng ban'
                       />
                     </th>
                     <th>
@@ -827,8 +830,8 @@ export default function DetailHrReport({ children }: any) {
                           {item?.married === 1
                             ? "Độc thân"
                             : item?.married === 2
-                            ? "Đã có gia đình"
-                            : "Chưa cập nhật"}
+                              ? "Đã có gia đình"
+                              : "Chưa cập nhật"}
                         </td>
                         <td>
                           <p>Email:{item?.emailContact || item?.email}</p>
@@ -853,14 +856,14 @@ export default function DetailHrReport({ children }: any) {
                           {item?.experience === 0
                             ? "Chưa có kinhh nghiệm"
                             : item?.experience === 1
-                            ? "0 - 1 năm kinh nghiệm"
-                            : item?.experience === 2
-                            ? "1 - 2 năm kinh nghiệm"
-                            : item?.experience === 3
-                            ? "2 - 5 năm kinh nghiệm"
-                            : item?.experience === 4
-                            ? "5 - 10 năm kinh nghiệm"
-                            : "trên 10 năm kinh nghiệm"}
+                              ? "0 - 1 năm kinh nghiệm"
+                              : item?.experience === 2
+                                ? "1 - 2 năm kinh nghiệm"
+                                : item?.experience === 3
+                                  ? "2 - 5 năm kinh nghiệm"
+                                  : item?.experience === 4
+                                    ? "5 - 10 năm kinh nghiệm"
+                                    : "trên 10 năm kinh nghiệm"}
                         </td>
                       </tr>
                     ))}
@@ -923,8 +926,8 @@ export default function DetailHrReport({ children }: any) {
                               {item?.married === 1
                                 ? "Độc thân"
                                 : item?.married === 2
-                                ? "Đã có gia đình"
-                                : "Chưa cập nhật"}
+                                  ? "Đã có gia đình"
+                                  : "Chưa cập nhật"}
                             </td>
                             <td>
                               <p>Email:{item?.email || item?.emailContact}</p>
@@ -949,14 +952,14 @@ export default function DetailHrReport({ children }: any) {
                               {item?.experience === 0
                                 ? "Chưa có kinhh nghiệm"
                                 : item?.experience === 1
-                                ? "0 - 1 năm kinh nghiệm"
-                                : item?.experience === 2
-                                ? "1 - 2 năm kinh nghiệm"
-                                : item?.experience === 3
-                                ? "2 - 5 năm kinh nghiệm"
-                                : item?.experience === 4
-                                ? "5 - 10 năm kinh nghiệm"
-                                : "trên 10 năm kinh nghiệm"}
+                                  ? "0 - 1 năm kinh nghiệm"
+                                  : item?.experience === 2
+                                    ? "1 - 2 năm kinh nghiệm"
+                                    : item?.experience === 3
+                                      ? "2 - 5 năm kinh nghiệm"
+                                      : item?.experience === 4
+                                        ? "5 - 10 năm kinh nghiệm"
+                                        : "trên 10 năm kinh nghiệm"}
                             </td>
                           </tr>
                         );
