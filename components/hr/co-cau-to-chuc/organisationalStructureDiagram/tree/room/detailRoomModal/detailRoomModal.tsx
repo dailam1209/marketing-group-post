@@ -55,14 +55,14 @@ export default function DetailsRoomModal({ depId, onCancel }: any) {
                       {isTitle?.info?.description}
                     </p>
                   </div>
-                  <div
+                  {/* <div
                     className={`${styles.modal_footer} ${styles.footer_process}`}>
                     <button
                       className={`${styles.btn_cancel}`}
                       onClick={onCancel}>
                       Hủy
                     </button>
-                  </div>
+                  </div> */}
                 </form>
               </div>
             </div>

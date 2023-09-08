@@ -22,7 +22,7 @@ function Input_textarea({ onDescriptionChange, process_id }: InputTextareaProps)
     "..............................." 
     chi tiết như sau:
 
-    1. Vị trí: ...............nodejs.................
+    1. Vị trí: ................................
     
     2. Thời gian: .........Giờ............Ngày.............
     
@@ -89,7 +89,45 @@ export default function StageGetJob({ onCancel, process_id, data, process_id_fro
   const [skills, setSkills] = useState<{ skillName: string; skillVote: any }[]>([]);
   const [lastAddedIndex, setLastAddedIndex] = useState(-1);
   const [rating, setRating] = useState<any>(data?.starVote)
-  const [descriptions, setDescription] = useState("");
+  const [descriptions, setDescription] = useState(process_id !== 1 ? `Kính gửi bạn  Tên ứng viên........!                                
+  Trước hết, chúng tôi trân trọng cảm ơn bạn đã quan tâm tới cơ hội việc làm tại Công ty ............. . 
+  Phòng Nhân sự Công ty ............... xin thông báo và gửi tới bạn thư mời phỏng vấn vị trí 
+  "..............................." 
+  chi tiết như sau:
+
+  1. Vị trí: ................................
+  
+  2. Thời gian: .........Giờ............Ngày.............
+  
+  3. Địa điểm: ...........................................
+  
+  4. Người liên hệ: Phòng Nhân sự : ......................... Bạn vui lòng mang ................... 
+  và gửi mail xác nhận về việc tham dự buổi phỏng vấn để chúng tôi có kế hoạch đón tiếp. 
+  Nếu cần hỗ trợ thêm thông tin xin vui lòng liên hệ với chúng tôi qua số điện thoại: ........................... 
+  Để tìm hiểu thêm về công ty, bạn vui lòng truy cập link sau để biết thêm thông tin: ..........................
+  
+  Trân trọng,`
+    :
+    `Thân gửi bạn: Tên ứng viên 
+  Trước hết, chúng tôi xin cảm ơn bạn đã đến tham dự buổi phỏng vấn của công ty, căn cứ vào kết 
+  quả buổi phỏng vấn của bạn, công ty..... xin chúc mừng bạn đã vượt qua vòng phỏng vấn của 
+  chúng tôi. 
+  
+  Vị trí:  Công ty.....Chi nhánh......... 
+  Mức lương:......... Hình thức làm việc: Toàn thời gian
+  Thời gian nhận việc:....................................... 
+  Địa điểm làm việc: 
+  SĐT người liên hệ: 
+  Khi đi làm, bạn vui lòng chuẩn bị:........................ 
+  Nếu cần có thêm thông tin gia nhập liên quan, bạn có thể liên hệ trực tiếp, email hoặc qua số điện 
+  thoại: ............................................... để được trợ giúp. 
+  Chào mừng bạn gia nhập .......................và chúc bạn hội nhập nhanh chóng, làm việc hiệu quả, 
+  thăng tiến cùng công ty. 
+  
+  Bạn vui lòng phản hồi lại mail khi nhận được. 
+  Trân Trọng,
+  HOTLINE: ..................... 
+  EMAIL:...........................................`);
   const [isUserHiring, setUserHiring] = useState<any>(data?.user_hiring || data?.userHiring)
   const [checked, setChecked] = useState<any>(0);
   const [errors, setErrors] = useState<any>({});
@@ -166,7 +204,6 @@ export default function StageGetJob({ onCancel, process_id, data, process_id_fro
     email: Yup.string().required("email không được để trống"),
     empInterview: Yup.string().required("Chọn nhân viên tham gia"),
     timeInterView: Yup.string().required("Thời gian hẹn không được để trống"),
-    contentsend: Yup.string().required("Ghi chú không được để trống"),
   });
 
   const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -204,8 +241,6 @@ export default function StageGetJob({ onCancel, process_id, data, process_id_fro
         timeSendCv: timeSendCv || "",
         empInterview: empInterview || "",
         timeInterView: interviewTime || "",
-        contentsend: descriptions || ""
-
       };
       await validationSchema.validate(formDatas, {
         abortEarly: false,
@@ -298,7 +333,7 @@ export default function StageGetJob({ onCancel, process_id, data, process_id_fro
       isEmpList &&
       isEmpList?.items?.map((emp: any) => ({
         value: emp.ep_id,
-        label: emp.ep_name,
+        label: `(${emp.ep_id}) ${emp.ep_name} - ${emp.dep_name ? emp.dep_name : "Chưa cập nhật"}`,
       })),
     [isEmpList?.items]
   );

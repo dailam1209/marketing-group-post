@@ -116,6 +116,7 @@ export default function EditGroupModal({ gr_id, defaultValue, options, mota, onC
                     <label htmlFor="">Tên phòng  <span style={{ color: 'red' }}> * </span></label>
                     <div className={`${styles.input_right}  ${styles.edit_right}`}>
                       <Select
+                        isDisabled={true}
                         value={selectedOptions.chonphongban ? selectedOptions.chonphongban : selectedOption}
                         onChange={(option) => handleSelectionChange(option, 'chonphongban')}
                         options={options?.chonphongban}
@@ -129,6 +130,10 @@ export default function EditGroupModal({ gr_id, defaultValue, options, mota, onC
                             width: '100%',
                             fontWeight: state.isFocused ? 600 : 600
                           }),
+                          singleValue: (baseStyles) => ({
+                            ...baseStyles,
+                            color: "#444444", // Màu cho đoạn văn bản đã chọn
+                          }),
                         }}
                       />
                     </div>
@@ -137,6 +142,7 @@ export default function EditGroupModal({ gr_id, defaultValue, options, mota, onC
                     <label htmlFor="">Tên tổ <span style={{ color: 'red' }}> * </span></label>
                     <div className={`${styles.input_right}  ${styles.edit_right}`}>
                       <Select
+                        isDisabled={true}
                         defaultValue={selectedOptions.tento ? selectedOptions.tento : selectedOption}
                         onChange={(option) => handleSelectionChange(option, 'tento')}
                         options={options?.tento}
@@ -150,6 +156,10 @@ export default function EditGroupModal({ gr_id, defaultValue, options, mota, onC
                             width: '100%',
                             fontWeight: state.isFocused ? 600 : 600
                           }),
+                          singleValue: (baseStyles) => ({
+                            ...baseStyles,
+                            color: "#444444", // Màu cho đoạn văn bản đã chọn
+                          }),
                         }}
                       />
                     </div>
@@ -158,6 +168,7 @@ export default function EditGroupModal({ gr_id, defaultValue, options, mota, onC
                     <label htmlFor="">Tên nhóm <span style={{ color: 'red' }}> * </span></label>
                     <div className={`${styles.input_right}  ${styles.edit_right}`}>
                       <Select
+                        isDisabled={true}
                         defaultValue={selectedOptions.tennhom ? selectedOptions.tennhom : selectedOption}
                         onChange={(option) => handleSelectionChange(option, 'tennhom')}
                         options={options?.tennhom}
@@ -170,6 +181,10 @@ export default function EditGroupModal({ gr_id, defaultValue, options, mota, onC
                             minHeight: state.isFocused ? 20 : 20,
                             width: '100%',
                             fontWeight: state.isFocused ? 600 : 600
+                          }),
+                          singleValue: (baseStyles) => ({
+                            ...baseStyles,
+                            color: "#444444", // Màu cho đoạn văn bản đã chọn
                           }),
                         }}
                       />

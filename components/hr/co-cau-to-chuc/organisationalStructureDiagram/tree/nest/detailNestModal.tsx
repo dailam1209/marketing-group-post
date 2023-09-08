@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
 import styles from '../room/detailRoomModal/detailRoomModal.module.css'
-import Select from 'react-select'
 import { OrganizationalStructureDetail } from '@/pages/api/api-hr/co_cau_to_chuc'
 
 export default function DetailsNestModal({ teamId, onCancel }: any) {
@@ -45,7 +44,7 @@ export default function DetailsNestModal({ teamId, onCancel }: any) {
               <div
                 className={`${styles.modal_header} ${styles.header_process}`}>
                 <h5 className={`${styles.modal_tittle}`}>
-                  CHỈNH SỬA CHI TIẾT PHÒNG BAN
+                  CHI TIẾT MÔ TẢ TỔ
                 </h5>
               </div>
               <div className={`${styles.modal_body}`}>
@@ -55,14 +54,14 @@ export default function DetailsNestModal({ teamId, onCancel }: any) {
                       {isTitle?.info?.description}
                     </p>
                   </div>
-                  <div
+                  {/* <div
                     className={`${styles.modal_footer} ${styles.footer_process}`}>
                     <button
                       className={`${styles.btn_cancel}`}
                       onClick={onCancel}>
                       Hủy
                     </button>
-                  </div>
+                  </div> */}
                 </form>
               </div>
             </div>
