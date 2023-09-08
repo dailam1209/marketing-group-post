@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from '@/styles/HomeBeforeLoginHr.module.css'
 import HeaderHomeBeforeHr from './HomeBefore/hr/header';
 import SidebarHomeBefore from './HomeBefore/hr/sidebar';
+import FooterQLC from "@/components/footerQLC/FooterQLC.jsx";
 
 export default function HomeBeforeLoginHr() {
 
@@ -79,7 +80,9 @@ export default function HomeBeforeLoginHr() {
                             <div className={`${styles.content_body_right}`}></div>
                         </div>
                     </div>
+
                 </div>
+                <FooterQLC />
             </div >
         </>
     )
