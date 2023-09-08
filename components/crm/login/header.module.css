@@ -59,6 +59,7 @@
   align-items: center;
   justify-content: space-between;
   flex-direction: row;
+  margin-bottom: 18px;
 }
 .tasbar img {
   width: 143px;
