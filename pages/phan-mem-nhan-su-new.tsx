@@ -3,6 +3,7 @@ import styles from '@/styles/HomeBeforeLoginHr.module.css'
 import HeaderHomeBeforeHr from './HomeBefore/hr/header';
 import SidebarHomeBefore from './HomeBefore/hr/sidebar';
 import FooterQLC from "@/components/footerQLC/FooterQLC.jsx";
+import Cookies from 'js-cookie'
 
 export default function HomeBeforeLoginHr() {
 
@@ -10,6 +11,16 @@ export default function HomeBeforeLoginHr() {
     const [windowWidth, setWindowWidth] = useState<number>(typeof window !== 'undefined' ? window.innerWidth : 0);
     const [table_of_content2, setTable_of_content2] = useState(false)
     const [table_of_content3, setTable_of_content3] = useState(false)
+
+    useEffect(() => {
+        const acc_token = Cookies.get('token_base365')
+        const rf_token = Cookies.get('rf_token')
+        const role = Cookies.get('role')
+        if (acc_token && rf_token && role) {
+            window.location.href = "/phan-mem-nhan-su/quan-ly-chung"
+        }
+    }, [])
+
     const handleOpentableOfContent2 = () => {
         setTable_of_content2(pre => !pre)
     }
@@ -46,7 +57,8 @@ export default function HomeBeforeLoginHr() {
                         <div className={`${styles.content_body}`}>
                             <div className={`${styles.content_body_left}`}>
                                 <div className={`${styles.table_of_content}`}>
-                                    <img src="/Frame 1321315775.png" alt="" />
+                                    <img className={`${styles.table_of_content_img1}`} src="/Frame 1321315775.png" alt="" />
+                                    <img className={`${styles.table_of_content_img2}`} src="/Frame 1321315775 (1).png" alt="" />
                                 </div>
                                 <div className={`${styles.numerical}`}>
                                     <ul>
@@ -77,7 +89,9 @@ export default function HomeBeforeLoginHr() {
                                     </ul>
                                 </div>
                             </div>
-                            <div className={`${styles.content_body_right}`}></div>
+                            <div className={`${styles.content_body_right}`}>
+
+                            </div>
                         </div>
                     </div>
 

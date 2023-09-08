@@ -77,9 +77,12 @@ export default function App({ Component, pageProps }) {
         router.events.off("routeChangeError", end);
       };
     };
-    if (!router?.pathname?.includes("/phan-mem-nhan-su/")) {
-      doLoading();
+    if (
+      router?.pathname?.includes("/phan-mem-nhan-su/") ||
+      router?.pathname?.includes("/phan-mem-nhan-su-new")
+    ) {
     } else {
+      doLoading();
     }
   }, []);
 

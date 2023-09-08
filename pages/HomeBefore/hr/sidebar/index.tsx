@@ -32,7 +32,7 @@ export default function SidebarHomeBefore(props: SidebarHomeBefore) {
         {
             label: "Trang chủ",
             icon: "/home.svg",
-            href: '/phan-mem-nhan-su/quan-ly-chung',
+            href: '#',
             submenu: null,
             imgWithd: 20,
             imgheight: 17,
@@ -42,7 +42,7 @@ export default function SidebarHomeBefore(props: SidebarHomeBefore) {
         {
             label: "Quản lý tuyển dụng",
             icon: "/tuyendung.svg",
-            href: '',
+            href: '#',
             submenu: <RecruitmentManager />,
             imgWithd: 20,
             imgheight: 18,
@@ -51,7 +51,7 @@ export default function SidebarHomeBefore(props: SidebarHomeBefore) {
         {
             label: "Lương thưởng và phúc lợi",
             icon: "/thanhtich_vipham.svg",
-            href: '',
+            href: '#',
             submenu: <SalaryAndBenefits />,
             imgWithd: 20,
             imgheight: 20,
@@ -60,7 +60,7 @@ export default function SidebarHomeBefore(props: SidebarHomeBefore) {
         {
             label: "Quản lý hành chính",
             icon: "	/vn-hanhchinh.svg",
-            href: '',
+            href: '#',
             submenu: <Administration />,
             imgWithd: 20,
             imgheight: 18,
@@ -69,7 +69,7 @@ export default function SidebarHomeBefore(props: SidebarHomeBefore) {
         {
             label: "Đào tạo phát triển",
             icon: "	/vn_daotao.svg",
-            href: '',
+            href: '#',
             submenu: < DevelopmentTraining />,
             imgWithd: 21,
             imgheight: 21,
@@ -78,7 +78,7 @@ export default function SidebarHomeBefore(props: SidebarHomeBefore) {
         {
             label: "Sơ đồ tổ chức",
             icon: "/vn_sodotochuc.svg",
-            href: '/phan-mem-nhan-su/co-cau-to-chuc',
+            href: '#',
             submenu: '',
             imgWithd: 20,
             imgheight: 20,
@@ -87,7 +87,7 @@ export default function SidebarHomeBefore(props: SidebarHomeBefore) {
         {
             label: "Báo cáo nhân sự",
             icon: "		/baocao_ns.svg",
-            href: '/phan-mem-nhan-su/bao-cao-nhan-su',
+            href: '#',
             submenu: '',
             imgWithd: 18,
             imgheight: 18,
@@ -96,7 +96,7 @@ export default function SidebarHomeBefore(props: SidebarHomeBefore) {
         {
             label: "Cài đặt",
             icon: "		/vn_icon_setting.svg",
-            href: '/phan-mem-nhan-su/cai-dat-chung',
+            href: '#',
             submenu: '',
             imgWithd: 20,
             imgheight: 20,
@@ -105,7 +105,7 @@ export default function SidebarHomeBefore(props: SidebarHomeBefore) {
         {
             label: "Dữ liệu gần đây đã xóa",
             icon: "		/daxoa.svg",
-            href: '/phan-mem-nhan-su/du-lieu-da-xoa',
+            href: '#',
             submenu: '',
             imgWithd: 14,
             imgheight: 18,
@@ -156,7 +156,6 @@ export default function SidebarHomeBefore(props: SidebarHomeBefore) {
                 </div>
                 <div className={`${styles.footer_sidebar} ${styles.sidebar_item}`}>
                     <div className={`${styles.sidebar_home_img}`}>
-
                     </div>
                 </div>
             </div>

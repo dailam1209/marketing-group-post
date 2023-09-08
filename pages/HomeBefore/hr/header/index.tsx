@@ -1,12 +1,16 @@
 import React, { useEffect, useState, useRef } from 'react';
 import styles from './headerHomeBeforeHr.module.css'
 import SidebarHomeBefore from '../sidebar';
+import ModalLogin from '@/components/modal/ModalLogin';
+import ModalRegsiter from '@/components/modal/ModalRegsiter';
 
 export default function HeaderHomeBeforeHr() {
 
     const [openSidebar, setOpenSidebar] = useState(false)
     const [windowWidth, setWindowWidth] = useState<number>(typeof window !== 'undefined' ? window.innerWidth : 0);
     const dropDownMenuRef = useRef(null);
+    const [openModalLogin, setOpenModalLogin] = useState(false)
+    const [openModalRegister, setOpenModalRegister] = useState(false)
 
     const handleOutsideClick = (event: any) => {
         if (dropDownMenuRef.current && !dropDownMenuRef.current.contains(event.target)) {
@@ -57,19 +61,23 @@ export default function HeaderHomeBeforeHr() {
                     <div className={`${styles.content_right}`}>
                         <img src="/Frame 635630.png" alt="" />
                         <ul>
-                            <li>Trang chủ</li>
-                            <li>Hướng dẫn</li>
-                            <li>Tin tức</li>
-                            <li>Chuyển đổi số</li>
+                            <li><a href="/">Trang chủ</a></li>
+                            <li><a href='#'>Hướng dẫn</a></li>
+                            <li><a target="_blank" href="">Tin tức</a></li>
+                            <li><a target="_blank" href="/">Chuyển đổi số</a></li>
                         </ul>
                         <ul className={`${styles.li_form}`}>
-                            <li className={`${styles.li_form_1}`}>
-                                <a href="">Đăng nhập</a>
+                            <li className={`${styles.li_form_1}`} onClick={() => setOpenModalLogin(true)}>
+                                <a >Đăng nhập</a>
                             </li>
-                            <li className={`${styles.li_form_2}`}>
-                                <a href="">Đăng kí</a>
+                            <li className={`${styles.li_form_2}`} onClick={() => setOpenModalRegister(true)}>
+                                <a >Đăng kí</a>
                             </li>
                         </ul>
+                        {openModalRegister && (
+                            <ModalRegsiter setOpenModalRegister={setOpenModalRegister} />
+                        )}
+                        {openModalLogin && <ModalLogin setOpenModalLogin={setOpenModalLogin} />}
                     </div>
                     <div ref={dropDownMenuRef}>
                         {openSidebar && <SidebarHomeBefore />}
