@@ -98,6 +98,7 @@ export default function EditRoomModal({ idRoom, defaultValue, options, soluongnh
                     <label htmlFor="">Tên phòng ban <span style={{ color: 'red' }}> * </span></label>
                     <div className={`${styles.input_right}  ${styles.edit_right}`}>
                       <Select
+                        isDisabled={true}
                         defaultValue={selectedOptions.chonphongban ? selectedOptions.chonphongban : selectedOption}
                         onChange={(option) => handleSelectionChange(option, 'chonphongban')}
                         options={options?.chonphongban}
@@ -111,6 +112,10 @@ export default function EditRoomModal({ idRoom, defaultValue, options, soluongnh
                             width: '100%',
                             fontWeight: state.isFocused ? 600 : 600
                           }),
+                          singleValue: (baseStyles) => ({
+                            ...baseStyles,
+                            color: "#444444", // Màu cho đoạn văn bản đã chọn
+                          }),
                         }}
                       />
                     </div>
@@ -119,6 +124,7 @@ export default function EditRoomModal({ idRoom, defaultValue, options, soluongnh
                     <label htmlFor="">Trưởng phòng <span style={{ color: 'red' }}> * </span></label>
                     <div className={`${styles.input_right}  ${styles.edit_right}`}>
                       <Select
+                        isDisabled={true}
                         defaultValue={selectedOptions.truongphong ? selectedOptions.truongphong : selectedOption}
                         onChange={(option) => handleSelectionChange(option, 'truongphong')}
                         options={options?.truongphong}
@@ -132,6 +138,10 @@ export default function EditRoomModal({ idRoom, defaultValue, options, soluongnh
                             width: '100%',
                             fontWeight: state.isFocused ? 600 : 600
                           }),
+                          singleValue: (baseStyles) => ({
+                            ...baseStyles,
+                            color: "#444444", // Màu cho đoạn văn bản đã chọn
+                          }),
                         }}
                       />
                     </div>
@@ -140,6 +150,7 @@ export default function EditRoomModal({ idRoom, defaultValue, options, soluongnh
                     <label htmlFor="">Phó trưởng phòng <span style={{ color: 'red' }}> * </span> </label>
                     <div className={`${styles.input_right} ${styles.edit_right}`}>
                       <Select
+                        isDisabled={true}
                         defaultValue={selectedOptions.photruongphong ? selectedOptions.photruongphong : selectedOption}
                         onChange={(option) => handleSelectionChange(option, 'photruongphong')}
                         options={options?.photruongphong}
@@ -152,6 +163,10 @@ export default function EditRoomModal({ idRoom, defaultValue, options, soluongnh
                             minHeight: state.isFocused ? 20 : 20,
                             width: '100%',
                             fontWeight: state.isFocused ? 600 : 600
+                          }),
+                          singleValue: (baseStyles) => ({
+                            ...baseStyles,
+                            color: "#444444", // Màu cho đoạn văn bản đã chọn
                           }),
                         }}
                       />

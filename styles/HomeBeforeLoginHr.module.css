@@ -1,0 +1,15 @@
+.wrapper {
+  width: 100%;
+}
+.container {
+  display: flex;
+}
+.sidebar {
+  width: 17.71%;
+  padding-right: 20px;
+}
+.content {
+  width: 83.29%;
+  padding-left: 20px;
+  padding-right: 40px;
+}

@@ -1,0 +1,18 @@
+.wrapper {
+  width: 100%;
+}
+.content {
+  display: flex;
+  padding: 10px 24px 10px 24px;
+}
+.content_left {
+  width: 73%;
+}
+
+.content_right {
+  width: 37%;
+  display: flex;
+}
+.content_right ul {
+  display: flex;
+}
