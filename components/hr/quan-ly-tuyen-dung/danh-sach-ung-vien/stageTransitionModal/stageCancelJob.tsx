@@ -156,9 +156,13 @@ export default function StageCancelJob({ onCancel, process_id, data, process_id_
 
       const response = await AddCancelJob(formData);
       if (response) {
-        setTimeout(() => {
-          onCancel();
-        }, 1500);
+        if (response.error === null) {
+          setTimeout(() => {
+            onCancel();
+          }, 1500);
+        } else {
+          alert("Bạn chưa được phân quyền cho chức năng này")
+        }
       }
 
     } catch (error) {

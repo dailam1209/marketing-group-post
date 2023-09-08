@@ -176,9 +176,13 @@ export default function StageContactJob({
 
       const response = await AddContactJob(formData)
       if (response) {
-        setTimeout(() => {
-          onCancel()
-        }, 1500)
+        if (response.error === null) {
+          setTimeout(() => {
+            onCancel();
+          }, 1500);
+        } else {
+          alert("Bạn chưa được phân quyền cho chức năng này")
+        }
       }
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
