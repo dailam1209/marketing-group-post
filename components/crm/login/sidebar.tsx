@@ -1,11 +1,12 @@
 "use client";
 
 import React, { useContext, useEffect, useRef, useState } from "react";
-import HeaderBar from "../sidebar/header_bar";
-import SiebarContent from "../sidebar/sidebar_content";
+
 import style from "./sidebar.module.css";
 import { checkHomeIfLoggedIn } from "../ultis/checkLogin";
 import { SidebarContext } from "../context/resizeContext";
+import HeaderBar from "./header_bar";
+import SiebarContent from "./sidebar_content";
 
 export default function SideBar({ isOpened }: any) {
   const { isOpen, setIsOpen } = useContext<any>(SidebarContext);
