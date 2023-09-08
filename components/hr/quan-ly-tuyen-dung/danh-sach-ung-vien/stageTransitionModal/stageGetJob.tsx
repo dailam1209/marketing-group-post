@@ -279,20 +279,26 @@ export default function StageGetJob({ onCancel, process_id, data, process_id_fro
       if (process_id === 1) {
         const response = await AddGetJob(formData);
         if (response) {
-          setTimeout(() => {
-            onCancel();
-          }, 1500);
+          if (response.error === null) {
+            setTimeout(() => {
+              onCancel();
+            }, 1500);
+          } else {
+            alert("Bạn chưa được phân quyền cho chức năng này")
+          }
         }
       } else {
         const response = await AddInterview(formData);
         if (response) {
-          setTimeout(() => {
-            onCancel();
-          }, 1500);
+          if (response.error === null) {
+            setTimeout(() => {
+              onCancel();
+            }, 1500);
+          } else {
+            alert("Bạn chưa được phân quyền cho chức năng này")
+          }
         }
       }
-
-
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
         const yupErrors = {};
@@ -516,7 +522,7 @@ export default function StageGetJob({ onCancel, process_id, data, process_id_fro
                             placeholder={"Chọn Nhân viên"}
                           />
                         }
-                        <span> {errors.empInterView && <div className={`${styles.t_require} `}>{errors.empInterView}</div>}</span>
+                        <span> {errors.empInterview && <div className={`${styles.t_require} `}>{errors.empInterview}</div>}</span>
                       </div>
                     </div>
                   </div>
