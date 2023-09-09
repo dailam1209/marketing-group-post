@@ -132,7 +132,7 @@ export default function SidebarHomeBefore(props: SidebarHomeBefore) {
         <>
             <div className={`${styles.sidebar_wrapper}`}>
                 <div className={`${styles.logo}`}>
-                    <a target="_blank" href="https://timviec365.vn/">
+                    <a target="_blank" href="https://www.hungha365.com/">
                         <img
                             src="/Group 632585.png"
                             alt="icon"
