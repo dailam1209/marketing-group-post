@@ -6,6 +6,7 @@ import RecruitmentManager from "./subMenu/recruitmentManager/recruitmentManager"
 import SalaryAndBenefits from "./subMenu/salaryAndBenefits/salaryAndBenefits";
 import Administration from "./subMenu/administration/administration";
 import DevelopmentTraining from "./subMenu/developmentTraining/developmenttraining";
+import ModalLogin from '@/components/modal/ModalLogin';
 
 export interface SidebarHomeBefore { }
 
@@ -13,18 +14,23 @@ export default function SidebarHomeBefore(props: SidebarHomeBefore) {
     const [activeButton, setActiveButton] = useState(0);
     const [showSubMenu, setShowSubMenu] = useState(false);
     const [subMenuShown, setSubMenuShown] = useState(null);
+    const [openModalLogin, setOpenModalLogin] = useState(false)
 
     const handleClick = (buttonIndex: number) => {
         if (subMenuShown === buttonIndex) {
             setShowSubMenu(!showSubMenu);
         } else {
-            setShowSubMenu(true);
+            setShowSubMenu(true)
+        }
+        if (buttonIndex === 0 || buttonIndex === 5 || buttonIndex === 6 || buttonIndex === 7 || buttonIndex === 8) {
+            setOpenModalLogin(true)
         }
         // @ts-ignore
         setActiveButton(buttonIndex);
         // @ts-ignore
         setSubMenuShown(buttonIndex);
     };
+
 
 
 
@@ -158,6 +164,7 @@ export default function SidebarHomeBefore(props: SidebarHomeBefore) {
                     <div className={`${styles.sidebar_home_img}`}>
                     </div>
                 </div>
+                {openModalLogin && <ModalLogin setOpenModalLogin={setOpenModalLogin} />}
             </div>
         </>
     );
