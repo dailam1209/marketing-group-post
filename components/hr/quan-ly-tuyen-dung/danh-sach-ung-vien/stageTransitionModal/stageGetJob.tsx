@@ -88,7 +88,7 @@ export default function StageGetJob({ onCancel, process_id, data, process_id_fro
   const [addAnotherSkill, setAddAnotherSkill] = useState<JSX.Element[]>([]);
   const [skills, setSkills] = useState<{ skillName: string; skillVote: any }[]>([]);
   const [lastAddedIndex, setLastAddedIndex] = useState(-1);
-  const [rating, setRating] = useState<any>(data?.starVote)
+  const [rating, setRating] = useState<any>(data?.starVote || data?.star_vote)
   const [descriptions, setDescription] = useState(process_id !== 1 ? `Kính gửi bạn  Tên ứng viên........!                                
   Trước hết, chúng tôi trân trọng cảm ơn bạn đã quan tâm tới cơ hội việc làm tại Công ty ............. . 
   Phòng Nhân sự Công ty ............... xin thông báo và gửi tới bạn thư mời phỏng vấn vị trí 
@@ -447,11 +447,11 @@ export default function StageGetJob({ onCancel, process_id, data, process_id_fro
                     <div className={`${styles.input_right}`}>
                       {isCandidate?.timeSendCv &&
                         <input
-                          type="date"
+                          type="datetime-local"
                           id="timeSendCv"
                           defaultValue={format(
                             parseISO(isCandidate?.timeSendCv),
-                            "yyyy-MM-dd"
+                            'yyyy-MM-dd HH:mm:ss'
                           )}
                           placeholder="dd/mm/yyyy"
                           className={`${styles.input_process}`}
@@ -498,7 +498,7 @@ export default function StageGetJob({ onCancel, process_id, data, process_id_fro
                       Thời gian hẹn <span style={{ color: "red" }}> * </span>
                     </label>
                     <div className={`${styles.input_right}`}>
-                      <input type="date" id="interviewTime" placeholder="dd/mm/yyyy" className={`${styles.input_process}`}
+                      <input type="datetime-local" id="interviewTime" placeholder="dd/mm/yyyy" className={`${styles.input_process}`}
                       />
                       <span> {errors.timeInterView && <div className={`${styles.t_require} `}>{errors.timeInterView}</div>}</span>
                     </div>

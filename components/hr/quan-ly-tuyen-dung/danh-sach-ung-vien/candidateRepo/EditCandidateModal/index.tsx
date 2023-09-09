@@ -14,6 +14,9 @@ type SelectOptionType = { label: string; value: any }
 
 export default function EditCandidateModal({ onCancel, candidate }: any) {
 
+  console.log(candidate);
+
+
   const [rating, setRating] = useState<any>(candidate?.star_vote)
   const [addAnotherSkill, setAddAnotherSkill] = useState<JSX.Element[]>([])
   const [skills, setSkills] = useState<{ skillName: string; skillVote: any }[]>(
@@ -758,11 +761,11 @@ export default function EditCandidateModal({ onCancel, candidate }: any) {
                     </label>
                     <div className={`${styles.input_right}`}>
                       <input
-                        type='date'
+                        type="datetime-local"
                         id='timeSendCv'
                         defaultValue={format(
                           parseISO(candidate?.timeSendCv),
-                          'yyyy-MM-dd'
+                          'yyyy-MM-dd HH:mm:ss'
                         )}
                         placeholder='dd/mm/yyyy --:--:--'
                         className={`${styles.input_process}`}

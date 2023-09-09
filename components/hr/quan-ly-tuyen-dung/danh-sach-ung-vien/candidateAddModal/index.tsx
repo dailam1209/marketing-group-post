@@ -641,7 +641,7 @@ export default function CandidateAddModal({ onCancel, animation }: any) {
                     </label>
                     <div className={`${styles.input_right}`}>
                       <input
-                        type='date'
+                        type="datetime-local"
                         id='timeSendCv'
                         placeholder='dd/mm/yyyy --:--:--'
                         className={`${styles.input_process}`}
