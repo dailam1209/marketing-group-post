@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styles from '../../sidebarHomeBefore.module.css'
 import Link from "next/link";
 import Cookies from "js-cookie";
+import ModalLogin from '@/components/modal/ModalLogin';
 
 export interface Administration {
 
@@ -9,9 +10,11 @@ export interface Administration {
 
 export default function Administration({ children }: any) {
     const [activeButton, setActiveButton] = useState(null);
+    const [openModalLogin, setOpenModalLogin] = useState(false)
     const handleClick = (buttonIndex: number) => {
         // @ts-ignore
         setActiveButton(buttonIndex);
+        setOpenModalLogin(true)
     };
     const role = Cookies.get("role");
 
@@ -21,75 +24,75 @@ export default function Administration({ children }: any) {
         {
             img: "		/vn_quanlynhanvien.svg",
             title: 'Quản lý nhân viên',
-            href: `/${link}/quan-ly-hanh-chinh/thong-tin-nhan-su`,
+            href: `#`,
             target: '',
         },
         {
             img: "/vn_quydinhchinhsach.svg",
             title: 'Quy định - chính sách',
-            href: `/${link}/quan-ly-hanh-chinh/quy-dinh-chinh-sach`,
+            href: `#`,
             target: '',
         },
         {
             img: "/vn_hopdong.svg",
             title: 'Hợp đồng và hồ sơ nhân viên',
             href: '#',
-            target: 'blank',
+            target: '',
 
         },
         {
             img: "/vn_biendongnhansu.svg	",
             title: 'Biến động nhân sự',
-            href: `/${link}/quan-ly-hanh-chinh/bien-dong-nhan-su`,
+            href: `#`,
             target: '',
         },
         {
             img: "/vn_vanthuluutru.svg",
             title: 'Văn thư lưu trữ',
-            href: '/van-thu-luu-tru/quanly-cong-van',
-            target: 'blank',
+            href: `#`,
+            target: '',
         },
         {
             img: "/vn_dexuat.svg",
             title: 'Đề xuất',
-            href: '/van-thu-luu-tru/trang-quan-ly-de-xuat/de-xuat',
-            target: 'blank',
+            href: `#`,
+            target: '',
         },
         {
             img: "	/vn_dexuat.svg",
             title: 'Đề xuất cộng đồng',
-            href: '/van-thu-luu-tru/trang-quan-ly-de-xuat/de-xuat',
-            target: 'blank',
+            href: `#`,
+            target: '',
         },
         {
             img: "	/vn_truyenthongvanhoa.svg",
             title: 'Đề xuất nội bộ',
             href: '#',
-            target: 'blank',
+            target: '',
         },
         {
             img: "/vn_quanlytaisan.svg",
             title: 'Quản lý tài sản',
             href: '#',
-            target: 'blank',
+            target: '',
         },
         {
             img: "/vn_quanlykho.svg",
             title: 'Quản lý kho',
             href: '#',
-            target: 'blank',
+            target: '',
         },
         {
             img: "	/vn_quanlytaichinh.svg",
             title: 'Quản lý tài chính',
             href: '#',
-            target: 'blank',
+            target: '',
         },
         {
             img: "	/vn_phiendich.svg",
             title: 'Phiên dịch',
             href: '#',
-            target: 'blank',
+            target: '',
         },
     ]
 
@@ -120,6 +123,7 @@ export default function Administration({ children }: any) {
                     </div>
                 </div>
             ))}
+            {openModalLogin && <ModalLogin setOpenModalLogin={setOpenModalLogin} />}
         </>
     )
 }
