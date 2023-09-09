@@ -9,6 +9,10 @@ import { CaretDownOutlined, DownCircleTwoTone } from "@ant-design/icons";
 import { Router, useRouter } from "next/router";
 import { base_url } from "../service/function";
 import Cookies from "js-cookie";
+import { tr } from "date-fns/locale";
+import { useSelector } from "react-redux";
+import { doGhimCha, doSaveCha } from "../redux/user/userSlice";
+import { useDispatch } from "react-redux";
 
 const format = "HH:mm";
 
@@ -37,7 +41,7 @@ interface PropsComponent {
   setTime_s: any;
   setTime_e: any;
   setemp_id: any;
-  setIdNhom:any
+  setIdNhom: any;
 }
 
 const CustomerListFilterBox: React.FC<PropsComponent> = ({
@@ -63,7 +67,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
   setdateS,
   setdateE,
   setemp_id,
-  setIdNhom
+  setIdNhom,
 }) => {
   const [valueSelectStatus, setValueSelectStatus] = useState<any>();
   const [valueResoure, sevalueResoure] = useState<any>();
@@ -122,24 +126,34 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
   };
   const [listNV, setLishNv] = useState<any>();
   const [dep_id, setDep_id] = useState<any>();
+  const [posId, setposId] = useState<any>();
+
   useEffect(() => {
     handleGetGr();
   }, []);
+  const role = Cookies.get("role");
+  const [nameNvNomor, setnameNvNomor] = useState<any>();
   const handleGetInfoCusNV = async () => {
     try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/employee/info`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${Cookies.get("token_base365")}`,
-          },
-          body: JSON.stringify({ com_id: `${Cookies.get("com_id")}` }),
+      if (role == "2") {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/employee/info`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${Cookies.get("token_base365")}`,
+            },
+            // body: JSON.stringify({ com_id: `${Cookies.get("com_id")}` }),
+          }
+        );
+        const data = await res.json();
+        if (data && data?.data) {
+          setDep_id(data?.data?.data?.dep_id);
+          setposId(data?.data?.data?.position_id);
+          setnameNvNomor(data?.data?.data);
         }
-      );
-      const data = await res.json();
-      if (data && data?.data) setDep_id(data?.data?.data?.dep_id);
+      }
     } catch (error) {}
   };
 
@@ -164,10 +178,27 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
     handleGetInfoCusNV();
     handleGetInfoCus();
   }, [dep_id]);
+  const [idChaSaved, setidChaSaved] = useState<any>(-1);
+  const [saveCha, setsaveCha] = useState<any>();
+  const [checked, setchecked] = useState<any>(false);
+
+  const checkCha = useSelector((state: any) => state?.auth?.ghimCha);
+  const valueChaOld = useSelector((state: any) => state?.auth?.valueCha);
+
+  const dispatch = useDispatch();
+  const handleGhimNhom = (e) => {
+    dispatch(doGhimCha(e.target.checked));
+  };
+  useEffect(() => {
+    if (checkCha) {
+    }
+  }, [idChaSaved]);
+
   const handleSelectNhomCha = (value) => {
     setnhomCha(value);
-    setIdNhom(value)
-    setnhomCon("Tất cả")
+    dispatch(doSaveCha({ id: value }));
+    setIdNhom(value);
+    setnhomCon("Tất cả");
     if (value > 0) {
       setCheck(true);
     } else {
@@ -187,10 +218,8 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
   const handleDateChangeStart = (e) => {
     setdateS(e.target.value);
   };
-  const handleDateChangeEnd = (e) => {
-    setdateE(e.target.value);
-  };
-
+  console.log(nv);
+  const handleDateChangeEnd = (e) => {};
   return (
     <>
       <div
@@ -309,19 +338,19 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
             >
               <input
                 type="checkbox"
-                checked={check}
                 id="group_pins"
-                data-status={0}
                 style={{ marginRight: 5 }}
-                defaultValue={420}
+                // defaultValue={420}
+                checked={checkCha}
+                onChange={(e: any) => handleGhimNhom(e)}
               />{" "}
               Ghim nhóm
             </div>
           </div>
           <Select
-            value={nhomCha}
+            value={checkCha ? +valueChaOld : nhomCha}
             onChange={(value) => handleSelectNhomCha(value)}
-            defaultValue={""}
+            defaultValue={-1}
             suffixIcon={
               <i
                 style={{ color: "black" }}
@@ -335,8 +364,8 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
             }}
           >
             {" "}
-            <option value={""}>Tất cả</option>
-            <option value={0}>Chưa cập nhật</option>
+            <option value={-1}>Tất cả</option>
+            <option value={-2}>Chưa cập nhật</option>
             {listGr?.map((item: any, index) => {
               if (item?.group_parent == 0) {
                 return (
@@ -354,7 +383,9 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
           <div className={stylePotentialSlect.customer_list}>
             <Select
               value={nhomCon}
-              onChange={(value) => {setnhomCon(value),setIdNhom(value)}}
+              onChange={(value) => {
+                setnhomCon(value), setIdNhom(value);
+              }}
               defaultValue={""}
               suffixIcon={
                 <i
@@ -368,26 +399,16 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
                 borderRadius: 7,
               }}
             >
-              <option value={''}>Tất cả</option>
-              {check
-                ? listGr_Child?.map((item: any, index) => {
-                    if (item.group_parent === nhomCha) {
-                      return (
-                        <option key={index} value={item?.gr_id}>
-                          {item.gr_name}
-                        </option>
-                      );
-                    }
-                  })
-                : listGr?.map((item: any, index) => {
-                    if (item?.group_parent == 0) {
-                      return (
-                        <option key={index} value={item?.gr_id}>
-                          {item.gr_name}
-                        </option>
-                      );
-                    }
-                  })}
+              <option value={""}>Tất cả</option>
+              {listGr_Child?.map((item: any, index) => {
+                if (item.group_parent === (checkCha ? valueChaOld : nhomCha)) {
+                  return (
+                    <option key={index} value={item?.gr_id}>
+                      {item.gr_name}
+                    </option>
+                  );
+                }
+              })}
             </Select>
           </div>
         </div>
@@ -412,18 +433,47 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
               onChange={handleChangeNVPT}
             >
               <option value={null}>Tất cả</option>
-              {nv?.map((userName, index) => (
-                <option
-                  style={{ width: "100%" }}
-                  key={index}
-                  value={userName?.ep_id as any}
-                >
-                  <div style={{ display: "block" }}>
-                    ( {`${userName.ep_id}`}) {`${userName?.ep_name}`} <br /> -
-                    {`${userName.dep_name}`}
-                  </div>
-                </option>
-              ))}
+              {role == "1" &&
+                listNV?.map((userName, index) => (
+                  <option
+                    style={{ width: "100%" }}
+                    key={index}
+                    value={userName?.ep_id as any}
+                  >
+                    <div style={{ display: "block" }}>
+                      ( {`${userName.ep_id}`}) {`${userName?.ep_name}`} <br /> -
+                      {`${userName.dep_name}`}
+                    </div>
+                  </option>
+                ))}
+              {role == "2" &&
+                posId == 4 &&
+                nv?.map((userName, index) => (
+                  <option
+                    style={{ width: "100%" }}
+                    key={index}
+                    value={userName?.ep_id as any}
+                  >
+                    <div style={{ display: "block" }}>
+                      ( {`${userName.ep_id}`}) {`${userName?.ep_name}`} <br /> -
+                      {`${userName.dep_name}`}
+                    </div>
+                  </option>
+                ))}
+              {role == "2" &&
+                posId == 2 &&
+                [nameNvNomor]?.map((userName, index) => (
+                  <option
+                    style={{ width: "100%" }}
+                    key={index}
+                    value={userName?._id as any}
+                  >
+                    <div style={{ display: "block" }}>
+                      ( {`${userName._id}`}) {`${userName?.userName}`} <br /> -
+                      {`${userName.nameDeparment}`}
+                    </div>
+                  </option>
+                ))}
             </Select>
           </div>
         </div>

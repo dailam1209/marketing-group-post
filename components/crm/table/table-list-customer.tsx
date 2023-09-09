@@ -159,6 +159,8 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       render: (data, record) => (
         <div>
           <Link
+            target="_blank"
+            rel="nofollow noopener noreferrer"
             style={{ cursor: "pointer" }}
             href={{
               pathname: `/crm/customer/detail/${record.cus_id}`,
@@ -170,6 +172,8 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
           <br />
           {record?.link && record?.cus_from ? (
             <Link
+              target="_blank"
+              rel="nofollow noopener noreferrer"
               href={`${record?.link}`}
               style={{ color: "#ffa800", fontWeight: 600 }}
             >
