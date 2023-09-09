@@ -365,13 +365,11 @@ export default function DetailCandidate({ onCancel }: any) {
                 {isCandidateAll?.data?.created_at &&
                   <p>Thời gian chuyển giai đoạn: <span className={`${styles.txt_op}`}>{format(parseISO(isCandidateAll?.data?.created_at), 'dd-MM-yyyy')}</span></p>
                 }
-
                 <p>Mức lương mong muốn: <span className={`${styles.txt_op}`}>{isCandidateAll?.data?.resiredSalary}</span></p>
                 <p>Mức lương thực: <span className={`${styles.txt_op}`}>{isCandidateAll?.data?.salaryyyy}</span></p>
-                {isCandidateAll?.data?.interview_time &&
-                  <p>Thời gian hẹn: <span className={`${styles.txt_op}`}>{format(parseISO(isCandidateAll?.data?.interview_time), 'dd-MM-yyyy')}</span></p>
+                {isCandidateAll?.data?.detail_interview?.interview_time &&
+                  <p>Thời gian hẹn: <span className={`${styles.txt_op}`}>{format(parseISO(isCandidateAll?.data?.detail_interview?.interview_time), 'HH:mm:ss dd-MM-yyyy')}</span></p>
                 }
-
                 <p>Nhân viên tham gia: <span className={`${styles.txt_op}`}>{isCandidateAll?.data?.nhanvien}</span></p>
                 <p>Ghi chú: <span className={`${styles.txt_op}`}>{isCandidateAll?.data?.note}</span></p>
               </div>
@@ -382,7 +380,7 @@ export default function DetailCandidate({ onCancel }: any) {
                 <p>Mức lương mong muốn: <span className={`${styles.txt_op}`}>{isCandidateProcess?.detail_get_job?.resired_salary}</span></p>
                 <p>Mức lương thực: <span className={`${styles.txt_op}`}>{isCandidateProcess?.detail_get_job?.salary}</span></p>
                 {isCandidateProcess?.detail_get_job?.interview_time &&
-                  <p>Thời gian hẹn: <span className={`${styles.txt_op}`}>{format(parseISO(isCandidateProcess?.detail_get_job?.interview_time), 'dd-MM-yyyy')}</span></p>
+                  <p>Thời gian hẹn: <span className={`${styles.txt_op}`}>{format(parseISO(isCandidateProcess?.detail_get_job?.interview_time), 'HH:mm:ss dd-MM-yyyy')}</span></p>
                 }
                 <p>Nhân viên tham gia: <span className={`${styles.txt_op}`}>{EmpMatchProcess?.ep_name}</span></p>
                 <p>Ghi chú: <span className={`${styles.txt_op}`}>{isCandidateProcess?.detail_get_job?.note}</span></p>

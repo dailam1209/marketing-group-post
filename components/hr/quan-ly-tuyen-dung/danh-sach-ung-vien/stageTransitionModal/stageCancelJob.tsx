@@ -303,11 +303,11 @@ export default function StageCancelJob({ onCancel, process_id, data, process_id_
                     <div className={`${styles.input_right}`}>
                       {isCandidate?.timeSendCv &&
                         <input
-                          type="date"
+                          type="datetime-local"
                           id="timeSendCv"
                           defaultValue={format(
                             parseISO(isCandidate?.timeSendCv),
-                            "yyyy-MM-dd"
+                            'yyyy-MM-dd HH:mm:ss'
                           )}
                           placeholder="dd/mm/yyyy"
                           className={`${styles.input_process}`}

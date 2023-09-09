@@ -37,6 +37,9 @@ export default function EditCandidateGetJob({ onCancel, candidate }: any) {
   const comid: any = GetComId()
   const modalRef = useRef(null)
 
+  console.log(isCandidate?.detail_get_job);
+
+
   useEffect(() => {
     const handleOutsideClick = (event: any) => {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
@@ -564,11 +567,11 @@ export default function EditCandidateGetJob({ onCancel, candidate }: any) {
                     <div className={`${styles.input_right}`}>
                       {isCandidate?.detail_get_job?.created_at && (
                         <input
-                          type='date'
+                          type="datetime-local"
                           id='timeSendCv'
                           value={format(
                             parseISO(isCandidate?.detail_get_job?.created_at),
-                            'yyyy-MM-dd'
+                            'yyyy-MM-dd HH:mm:ss'
                           )}
                           placeholder='dd/mm/yyyy --:--:--'
                           className={`${styles.input_process}`}
@@ -658,13 +661,13 @@ export default function EditCandidateGetJob({ onCancel, candidate }: any) {
                     <div className={`${styles.input_right}`}>
                       {isCandidate?.detail_get_job?.interview_time && (
                         <input
-                          type='date'
+                          type="datetime-local"
                           id='timeInterView'
                           defaultValue={format(
                             parseISO(
                               isCandidate?.detail_get_job?.interview_time
                             ),
-                            'yyyy-MM-dd'
+                            'yyyy-MM-dd HH:mm:ss'
                           )}
                           placeholder='dd/mm/yyyy'
                           className={`${styles.input_process}`}

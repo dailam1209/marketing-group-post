@@ -23,6 +23,8 @@ export default function EditCandidateIntrview({
   processBefore
 }: any) {
 
+  console.log(candidateAll?.data?.detail_interview?.interview_time);
+
   const [rating, setRating] = useState<any>(candidate?.star_vote)
   const [addAnotherSkill, setAddAnotherSkill] = useState<JSX.Element[]>([])
   const [skills, setSkills] = useState<{ skillName: string; skillVote: any }[]>(
@@ -703,11 +705,11 @@ export default function EditCandidateIntrview({
                     </label>
                     <div className={`${styles.input_right}`}>
                       <input
-                        type='date'
+                        type="datetime-local"
                         id='timeSendCv'
                         value={format(
                           parseISO(candidate?.timeSendCv),
-                          'yyyy-MM-dd'
+                          'yyyy-MM-dd HH:mm:ss'
                         )}
                         placeholder='dd/mm/yyyy --:--:--'
                         className={`${styles.input_process}`}
@@ -808,11 +810,11 @@ export default function EditCandidateIntrview({
                     </label>
                     <div className={`${styles.input_right}`}>
                       <input
-                        type='date'
+                        type="datetime-local"
                         id='timeInterView'
                         defaultValue={format(
-                          parseISO(candidateAll?.data?.interview_time),
-                          'yyyy-MM-dd'
+                          parseISO(candidateAll?.data?.detail_interview?.interview_time),
+                          'yyyy-MM-dd HH:mm:ss'
                         )}
                         placeholder='dd/mm/yyyy'
                         className={`${styles.input_process}`}
