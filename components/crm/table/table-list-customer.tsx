@@ -159,6 +159,8 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       render: (data, record) => (
         <div>
           <Link
+            target="_blank"
+            rel="nofollow noopener noreferrer"
             style={{ cursor: "pointer" }}
             href={{
               pathname: `/crm/customer/detail/${record.cus_id}`,
@@ -170,6 +172,8 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
           <br />
           {record?.link && record?.cus_from ? (
             <Link
+              target="_blank"
+              rel="nofollow noopener noreferrer"
               href={`${record?.link}`}
               style={{ color: "#ffa800", fontWeight: 600 }}
             >
@@ -362,7 +366,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   };
   return (
     <>
-      <div className="custom_table">
+      <div className="custom-table">
         <Table
           locale={customLocale}
           columns={columns}
@@ -370,7 +374,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
           rowSelection={{ ...rowSelection }}
           bordered
           // pagination={true}
-          scroll={{ x: 1500, y: "auto" }}
+          scroll={{ x: 2000, y: "auto" }}
           pagination={{
             style: { paddingBottom: 20 },
             current: page,

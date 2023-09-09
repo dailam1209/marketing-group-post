@@ -288,6 +288,7 @@ export default function CustomerList() {
       </Head>
       {!checkAndRedirectToHomeIfNotLoggedIn() ? null : (
         <div ref={mainRef} className={styleHome.main}>
+
           <CustomerListInputGroup
             setIdNhom={setIdNhom}
             setTimeStart={setTimeStart}
