@@ -477,12 +477,12 @@ export default function StageContactJob({
                   </div>
                   <div className={`${styles.form_groups}`}>
                     <label htmlFor=''>
-                      Thời gian gửi hồ sơ{' '}
+                      Ngày kí hợp đồng{' '}
                       <span style={{ color: 'red' }}> * </span>
                     </label>
                     <div className={`${styles.input_right}`}>
                       <input
-                        type='date'
+                        type="datetime-local"
                         id='offerTime'
                         placeholder='dd/mm/yyyy'
                         className={`${styles.input_process}`}
