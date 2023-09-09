@@ -79,7 +79,7 @@ export default function App({ Component, pageProps }) {
     };
     if (
       router?.pathname?.includes("/phan-mem-nhan-su/") ||
-      router?.pathname?.includes("/phan-mem-nhan-su-new")
+      router?.pathname?.includes("/phan-mem-nhan-su")
     ) {
     } else {
       doLoading();
