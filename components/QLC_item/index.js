@@ -20,13 +20,21 @@ export default function QLC_item({
     const role = Cookies.get("role");
 
     if (!hasCheckLogin) {
-      router.push(url);
+      if (url === "/phan-mem-nhan-su") {
+        window.location.href = "/phan-mem-nhan-su";
+      } else {
+        router.push(url);
+      }
     }
     if (hasCheckLogin && acc_token && rf_token && role) {
-      router.push(url);
+      if (url === "/phan-mem-nhan-su") {
+        window.location.href = "/phan-mem-nhan-su";
+      } else {
+        router.push(url);
+      }
     }
     if (url === "/phan-mem-nhan-su" && hasCheckLogin) {
-      router.push("/phan-mem-nhan-su");
+      window.location.href = "/phan-mem-nhan-su";
     }
     if (url === "/crm" && hasCheckLogin) {
       router.push("/crm");
