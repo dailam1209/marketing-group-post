@@ -366,7 +366,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   };
   return (
     <>
-      <div className="custom_table">
+      <div className="custom-table">
         <Table
           locale={customLocale}
           columns={columns}
@@ -374,7 +374,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
           rowSelection={{ ...rowSelection }}
           bordered
           // pagination={true}
-          scroll={{ x: 1500, y: "auto" }}
+          scroll={{ x: 2000, y: "auto" }}
           pagination={{
             style: { paddingBottom: 20 },
             current: page,

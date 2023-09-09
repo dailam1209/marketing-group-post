@@ -218,7 +218,6 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
   const handleDateChangeStart = (e) => {
     setdateS(e.target.value);
   };
-  console.log(nv);
   const handleDateChangeEnd = (e) => {};
   return (
     <>

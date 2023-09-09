@@ -944,3 +944,28 @@ label {
   width: 16px;
   height: 16px;
 }
+.custom-table {
+  width: 190vw; /* 100% chiều rộng của cửa sổ trình duyệt */
+  overflow-x: auto; /* Cho phép thanh trượt ngang */
+  white-space: nowrap; /* Ngăn nội dung trong thanh trượt xuống dòng */
+  padding-top: 20px;
+}
+
+.ant-table-wrapper .ant-table-body {
+  overflow-y: hidden;
+  z-index: 9999;
+}
+::-webkit-scrollbar-thumb {
+  background: #4c5bd4;
+  border-radius: 0px;
+  height: 20px;
+  height: 12px !important;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #9698a1;
+}
+::-webkit-scrollbar {
+  width: 4px;
+  background-color: transparent;
+  height: 12px !important;
+}
