@@ -1,13 +1,36 @@
 /** @format */
-
 import React, { useState } from "react";
 import styles from "./TableOfContent.module.scss";
+import HeaderBar from "./header_bar";
+import SiebarContent from "./sidebar_content";
+import style from "./sidebar.module.css";
 
 export default function TableOfContents() {
   const [openDropDown, setOpenDropDown] = useState(false);
   const [extend, setExtend] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
+  const handleSidebarOpen = () => {
+    setIsOpen(!isOpen);
+  };
   return (
     <div className={styles.tableofcontents}>
+      <div className={style["menu-nav"]}>
+        <img
+          onClick={handleSidebarOpen}
+          className={style.icon_menu_nav}
+          src="/crm/sel.png"
+          alt="icon-menu-nav"
+        />
+      </div>
+      {isOpen ? (
+        <div className={style.sidebar_m}>
+          <HeaderBar />
+          <SiebarContent />
+        </div>
+      ) : (
+        ""
+      )}
+
       <div className={styles.left}>
         <img
           src="../img/table_of_contents.png"

@@ -8,6 +8,9 @@ import style from "./sidebar.module.css";
 import { useContext, useEffect, useRef, useState } from "react";
 import { AccessContext } from "../context/accessContext";
 import React from "react";
+import ModalLogin from "@/components/modal/ModalLogin";
+import Cookies from "js-cookie";
+import router from "next/router";
 
 export default function SiebarContent({ isOpen, toggleModal }: any) {
   const btnResize = useRef<HTMLDivElement>(null);
@@ -17,6 +20,8 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
   const [isMKTOpen, setIsMKTOpen] = useState(false);
   const [isManageCostOpen, setIsManageCostOpen] = useState(false);
   const [providerOpen, setProviderOpen] = useState(false);
+  const [openModalLogin, setOpenModalLogin] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const { accessAcountRole, setAccessAcountRole }: any =
     useContext(AccessContext);
@@ -106,8 +111,28 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
     };
   }, []);
 
+  const handleOpenLoginModal = () => {
+    if (!isLoggedIn) {
+      setOpenModalLogin(true);
+    }
+  };
+
+  const handleCheckLogin = (link, content) => {
+    const acc_token = Cookies.get("token_base365");
+    const rf_token = Cookies.get("rf_token");
+    const role = Cookies.get("role");
+    if (content === "Chuyển đổi số") {
+      router.push(link);
+    } else if (!acc_token || !rf_token || !role) {
+      setOpenModalLogin(true);
+    } else {
+      router.push(link);
+    }
+  };
   return (
     <>
+      {openModalLogin && <ModalLogin setOpenModalLogin={setOpenModalLogin} />}
+
       <div className={style.sidebar_content}>
         {(accessAcountRole.role === "company"
           ? sidebar_button_group_login
@@ -116,7 +141,6 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
           <li className={style.item_parent} key={i}>
             {items && items.children && items.children.length > 0 ? (
               <>
-                {" "}
                 <div
                   onClick={() => handleOpenChild(items.content)}
                   className={style.item_link}
@@ -132,29 +156,31 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
                     {items.children.length > 0 &&
                       items?.children.map((child, index) => (
                         <li key={index}>
-                          <Link
-                            target={child.blank}
-                            href={child.link}
-                            className={style.navbar__item_link}
+                          <div
+                            className={style.item_link}
+                            onClick={() =>
+                              handleCheckLogin(items.link, items.content)
+                            }
+                            style={{ cursor: "pointer" }}
                           >
                             {child.label}
-                          </Link>
+                          </div>
                         </li>
                       ))}
                   </ul>
                 )}
               </>
             ) : (
-              <Link
-                href={items.link}
+              <div
                 className={style.item_link}
+                onClick={() => handleCheckLogin(items.link, items.content)}
                 style={{ cursor: "pointer" }}
               >
                 <img src={items.img_link} className={style.img_link} />
                 <div className={`${style.title} ${!isOpen ? null : "none"}`}>
                   {items.content}
                 </div>
-              </Link>
+              </div>
             )}
           </li>
         ))}

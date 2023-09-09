@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styles from "../login/header.module.css";
-import MenuBar from "./menu-bar";
 import Link from "next/link";
 import Image from "next/image";
-
 import ModalRegsiter from "@/components/modal/ModalRegsiter";
 import ModalLogin from "@/components/modal/ModalLogin";
 import Cookies from "js-cookie";
 import { getServerSideProps } from "@/utils/function";
+
 export { getServerSideProps };
 
 const HeaderHomePage: React.FC = () => {
@@ -33,14 +32,11 @@ const HeaderHomePage: React.FC = () => {
   const handleOpenLoginModal = () => {
     setOpenModalLogin(true);
   };
+
   return (
     <>
       <div className={`${styles["tasbar"]}`}>
         <div className={styles.display_icon}>
-          <div className={`${styles["menu-nav"]}`}>
-            <MenuBar />
-          </div>
-
           <div className={styles.logo}>
             <Image
               width={0}
