@@ -31,16 +31,21 @@ export default function GroupCustomer() {
   }, [setHeaderTitle, setShowBackButton, setCurrentPath]);
 
   const handleGetGr = async () => {
-    const res = await fetch(`${base_url}/api/crm/group/list_group_khach_hang`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${Cookies.get("token_base365")}`,
-      },
-      body: JSON.stringify({ page: 1, perPage: 100 }),
-    });
-    const data = await res.json();
-    if (data && data?.data) setDataFilter(data?.data);
+    try {
+      const res = await fetch(`${base_url}/api/crm/group/list_group_khach_hang`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get("token_base365")}`,
+        },
+        body: JSON.stringify({ page: 1, perPage: 100 }),
+      });
+      const data = await res.json();
+      if (data && data?.data) setDataFilter(data?.data);
+    } catch (error) {
+      
+    }
+ 
   };
   useEffect(() => {
     handleGetGr();

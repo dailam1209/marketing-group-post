@@ -14,7 +14,6 @@ export default function CustomerGroupSelectDropdownData({
   const [focus, setFocus] = useState(false);
   const handleClcikOptions = async (item: any) => {
     // const
-    console.log("firstvalue", value);
     setValueOption(item.gr_name);
     const url = `${base_url}/api/crm/customerdetails/editCustomer`;
 
@@ -41,15 +40,7 @@ export default function CustomerGroupSelectDropdownData({
     } catch (error) {
       console.error(error);
     }
-    // setidGr("item.gr_id");
-    // console.log("check2", idGr);
-    // setValueOption(item?.gr_name);
-    // setValueGroupCustomer((pre: any) => {
-    //   return {
-    //     ...pre,
-    //     groupParents: item?.gr_id,
-    //   };
-    // });
+
   };
 
   return (

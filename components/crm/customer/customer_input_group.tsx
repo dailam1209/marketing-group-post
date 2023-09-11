@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styles from "../potential/potential.module.css";
 import Link from "next/link";
 import exportToExcel from "../ultis/export_xlxs";
@@ -7,6 +7,8 @@ import CustomerListAction from "./customer_action";
 import { Drawer, Input } from "antd";
 import CustomerListFilterBox from "./customer_filter_box";
 import { DataType } from "@/pages/crm/customer/list";
+import Cookies from "js-cookie";
+import { base_url } from "../service/function";
 export default function CustomerListInputGroup({
   isSelectedRow,
   numberSelected,
@@ -42,10 +44,88 @@ export default function CustomerListInputGroup({
   setTime_e,
   setemp_id,
   setIdNhom,
+  listGr,
+  listGr_Child,
+  nameNvNomor,
+  nv,
+  role,
+  posId,
+  listNV,
 }: any) {
   const [open, setOpen] = useState(false);
   const inputFileRef = useRef<HTMLInputElement>(null);
   const [data, setData] = useState<any>();
+
+  // const [listNV, setLishNv] = useState<any>();
+  // const [dep_id, setDep_id] = useState<any>();
+  // const [posId, setposId] = useState<any>();
+
+  // const role = Cookies.get("role");
+  // const [nameNvNomor, setnameNvNomor] = useState<any>();
+  // const handleGetInfoCusNV = async () => {
+  //   try {
+  //     if (role == "2") {
+  //       const res = await fetch(
+  //         `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/employee/info`,
+  //         {
+  //           method: "POST",
+  //           headers: {
+  //             "Content-Type": "application/json",
+  //             Authorization: `Bearer ${Cookies.get("token_base365")}`,
+  //           },
+  //           // body: JSON.stringify({ com_id: `${Cookies.get("com_id")}` }),
+  //         }
+  //       );
+  //       const data = await res.json();
+  //       if (data && data?.data) {
+  //         setDep_id(data?.data?.data?.dep_id);
+  //         setposId(data?.data?.data?.position_id);
+  //         setnameNvNomor(data?.data?.data);
+  //       }
+  //     }
+  //   } catch (error) {}
+  // };
+  // const handleGetInfoCus = async () => {
+  //   try {
+  //     const res = await fetch(
+  //       `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/listAll`,
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: `Bearer ${Cookies.get("token_base365")}`,
+  //         },
+  //       }
+  //     );
+  //     const data = await res.json();
+  //     if (data && data?.data) setLishNv(data?.data?.items);
+  //   } catch (error) {}
+  // };
+  // let nv = listNV?.filter((item) => item.dep_id === dep_id);
+  // const [listNVPT, setlistNVPT] = useState<any>();
+  // const handleGetNvPt = async () => {
+  //   try {
+  //     const res = await fetch(
+  //       `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/list`,
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: `Bearer ${Cookies.get("token_base365")}`,
+  //         },
+  //         body: JSON.stringify({ dep_id: dep_id }),
+  //       }
+  //     );
+  //     const data = await res.json();
+  //     if (data && data?.data) setlistNVPT(data?.data?.items);
+  //   } catch (error) {}
+  // };
+  // useEffect(() => {
+  //   handleGetInfoCusNV();
+  //   handleGetInfoCus();
+  //   handleGetNvPt();
+  // }, [dep_id]);
+
   const showDrawer = () => {
     setOpen(true);
   };
@@ -287,6 +367,13 @@ export default function CustomerListInputGroup({
             setdateE={setdateE}
             setdateS={setdateS}
             setemp_id={setemp_id}
+            nv={nv}
+            role={role}
+            posId={posId}
+            listNV={listNV}
+            nameNvNomor={nameNvNomor}
+            listGr={listGr}
+            listGr_Child={listGr_Child}
           />
         </div>
       </Drawer>

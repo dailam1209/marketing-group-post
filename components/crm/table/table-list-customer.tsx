@@ -104,6 +104,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       </button>
     </div>
   );
+  
   const handleChangeSelect = async (e: any, record) => {
     //get type
     const res = await fetch(`${base_url}/api/crm/customerdetails/detail`, {

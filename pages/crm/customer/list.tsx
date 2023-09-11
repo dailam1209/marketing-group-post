@@ -189,7 +189,10 @@ export default function CustomerList() {
   });
   const dataStatusCustomer = dataStatus;
   const [listGr, setListGr] = useState([]);
+  const [listGr_Child, setlistGr_Child] = useState([]);
+
   const handleGetGr = async () => {
+    
     try {
       const res = await fetch(
         `${base_url}/api/crm/group/list_group_khach_hang`,
@@ -202,10 +205,95 @@ export default function CustomerList() {
           body: JSON.stringify({ com_id: Cookies.get("com_id") }),
         }
       );
+      let arr = [];
       const data = await res.json();
       setListGr(data?.data);
+      data?.data?.map((item) => {
+        item?.lists_child.map((item) => {
+          arr.push(item);
+        });
+        setlistGr_Child(arr);
+      });
     } catch (error) {}
   };
+
+
+
+
+  const role = Cookies.get("role");
+
+  const [open, setOpen] = useState(false);
+  const inputFileRef = useRef<HTMLInputElement>(null);
+
+  const [listNV, setLishNv] = useState<any>();
+  const [dep_id, setDep_id] = useState<any>();
+  const [posId, setposId] = useState<any>();
+  const [nameNvNomor, setnameNvNomor] = useState<any>();
+  const handleGetInfoCusNV = async () => {
+    try {
+      if (role == "2") {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/employee/info`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${Cookies.get("token_base365")}`,
+            },
+            // body: JSON.stringify({ com_id: `${Cookies.get("com_id")}` }),
+          }
+        );
+        const data = await res.json();
+        if (data && data?.data) {
+          setDep_id(data?.data?.data?.dep_id);
+          setposId(data?.data?.data?.position_id);
+          setnameNvNomor(data?.data?.data);
+        }
+      }
+    } catch (error) {}
+  };
+  const handleGetInfoCus = async () => {
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/listAll`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${Cookies.get("token_base365")}`,
+          },
+        }
+      );
+      const data = await res.json();
+      if (data && data?.data) setLishNv(data?.data?.items);
+    } catch (error) {}
+  };
+  let nv = listNV?.filter((item) => item.dep_id === dep_id);
+  const [listNVPT, setlistNVPT] = useState<any>();
+  const handleGetNvPt = async () => {
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/list`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${Cookies.get("token_base365")}`,
+          },
+          body: JSON.stringify({ dep_id: dep_id }),
+        }
+      );
+      const data = await res.json();
+      if (data && data?.data) setlistNVPT(data?.data?.items);
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    handleGetInfoCusNV();
+    handleGetInfoCus();
+    handleGetNvPt();
+  }, [dep_id]);
+
   const [idSelect, setIdSelect] = useState<any>();
   const handleSelectAll = () => {
     const allRowKeys = datatable?.map((item: { key: any }) => item.key);
@@ -321,6 +409,13 @@ export default function CustomerList() {
             setTime_s={setTime_s}
             setTime_e={setTime_e}
             setemp_id={setemp_id}
+            listGr={listGr}
+            listGr_Child={listGr_Child}
+            nameNvNomor={nameNvNomor}
+            nv={nv}
+            role={role}
+            posId={posId}
+            listNV={listNV}
           />
           <TableListCustomer
             fetchData={fetchData}

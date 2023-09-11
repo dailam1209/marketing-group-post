@@ -1006,3 +1006,8 @@ label {
 .select2-results__option[aria-selected] {
   cursor: pointer
 }
+/* Ẩn calendar picker icon cho input có lớp custom-date-input */
+/* .custom-date-input::-webkit-calendar-picker-indicator {
+  display: none;
+  -webkit-appearance: none;
+} */
