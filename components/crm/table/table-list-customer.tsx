@@ -195,7 +195,13 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       key: "1",
       width: 100,
       render: (data, record) => (
-        <button onClick={() => handleShowCall(record)}>{data}</button>
+        <div
+          onClick={() => handleShowCall(record)}
+          style={{ cursor: "pointer" }}
+          className={data.length > 20 ? "truncate-text" : ""}
+        >
+          {data}
+        </div>
       ),
     },
     {
@@ -376,7 +382,13 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
           // pagination={true}
           scroll={{ x: 2000, y: "auto" }}
           pagination={{
-            style: { paddingBottom: 20 },
+            style: {
+              paddingBottom: 20,
+              display: "flex",
+              float: "left",
+              marginLeft: 900,
+              position: "absolute",
+            },
             current: page,
             pageSize: pageSize,
             total: totalRecords,
@@ -390,7 +402,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
         />
         {datatable?.length && (
           <div
-            className="main__footer flex_between"
+            className="main__footer_fix flex_between"
             id=""
             style={{ marginBottom: 25 }}
           >
@@ -410,7 +422,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
                 <option value={50}>50 bản ghi trên trang</option>
               </Select>
             </div>
-            <div className="total">
+            <div className="total" style={{ paddingTop: 5 }}>
               Tổng số: <b>{totalRecords}</b> Khách hàng
             </div>
           </div>

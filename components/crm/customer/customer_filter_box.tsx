@@ -174,14 +174,30 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
     } catch (error) {}
   };
   let nv = listNV?.filter((item) => item.dep_id === dep_id);
+  const [listNVPT, setlistNVPT] = useState<any>();
+  const handleGetNvPt = async () => {
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/list`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${Cookies.get("token_base365")}`,
+          },
+          body: JSON.stringify({ dep_id: dep_id }),
+        }
+      );
+      const data = await res.json();
+      if (data && data?.data) setlistNVPT(data?.data?.items);
+    } catch (error) {}
+  };
   useEffect(() => {
     handleGetInfoCusNV();
     handleGetInfoCus();
+    handleGetNvPt();
   }, [dep_id]);
   const [idChaSaved, setidChaSaved] = useState<any>(-1);
-  const [saveCha, setsaveCha] = useState<any>();
-  const [checked, setchecked] = useState<any>(false);
-
   const checkCha = useSelector((state: any) => state?.auth?.ghimCha);
   const valueChaOld = useSelector((state: any) => state?.auth?.valueCha);
 
@@ -446,7 +462,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
                   </option>
                 ))}
               {role == "2" &&
-                posId == 4 &&
+                posId !== 2 &&
                 nv?.map((userName, index) => (
                   <option
                     style={{ width: "100%" }}

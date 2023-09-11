@@ -413,7 +413,16 @@ tr {
   bottom: 0;
   width: 50%;
 }
-
+.main__footer_fix {
+  bottom: 0;
+  width: 20%;
+  padding-top: 20px;
+}
+.truncate-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .customStep {
   width: 55%;
   margin: auto;
