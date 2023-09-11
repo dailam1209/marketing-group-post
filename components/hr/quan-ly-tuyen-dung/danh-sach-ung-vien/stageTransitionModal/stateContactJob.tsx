@@ -374,11 +374,11 @@ export default function StageContactJob({
                     <div className={`${styles.input_right}`}>
                       {isCandidate?.timeSendCv && (
                         <input
-                          type='date'
+                          type="datetime-local"
                           id='timeSendCv'
                           defaultValue={format(
                             parseISO(isCandidate?.timeSendCv),
-                            'yyyy-MM-dd'
+                            'yyyy-MM-dd HH:mm:ss'
                           )}
                           placeholder='dd/mm/yyyy'
                           className={`${styles.input_process}`}
@@ -477,12 +477,12 @@ export default function StageContactJob({
                   </div>
                   <div className={`${styles.form_groups}`}>
                     <label htmlFor=''>
-                      Thời gian gửi hồ sơ{' '}
+                      Ngày kí hợp đồng{' '}
                       <span style={{ color: 'red' }}> * </span>
                     </label>
                     <div className={`${styles.input_right}`}>
                       <input
-                        type='date'
+                        type="datetime-local"
                         id='offerTime'
                         placeholder='dd/mm/yyyy'
                         className={`${styles.input_process}`}

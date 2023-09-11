@@ -536,11 +536,11 @@ export default function EditCandidateCancelJob({ onCancel, candidate }: any) {
                     </label>
                     <div className={`${styles.input_right}`}>
                       <input
-                        type='date'
+                        type="datetime-local"
                         id='timeSendCv'
                         defaultValue={format(
                           parseISO(candidate?.created_at),
-                          'yyyy-MM-dd'
+                          'yyyy-MM-dd HH:mm:ss'
                         )}
                         placeholder='dd/mm/yyyy --:--:--'
                         className={`${styles.input_process}`}

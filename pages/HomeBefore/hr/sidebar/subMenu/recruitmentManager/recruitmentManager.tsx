@@ -2,31 +2,37 @@
 import React, { useState } from "react";
 import styles from '../../sidebarHomeBefore.module.css'
 import Link from "next/link";
+import ModalLogin from '@/components/modal/ModalLogin';
 
 export interface RecruitmentManager { }
 
 export default function RecruitmentManager({ children }: any) {
     const [activeButton, setActiveButton] = useState(null);
+    const [openModalLogin, setOpenModalLogin] = useState(false)
     const handleClick = (buttonIndex: number) => {
         // @ts-ignore
         setActiveButton(buttonIndex);
+        setOpenModalLogin(true)
     };
     const link = "phan-mem-nhan-su"
     const submenu = [
         {
             img: "/quytrinh_td.svg",
             title: 'Quy trình tuyển dụng',
-            href: `/${link}/quan-ly-tuyen-dung/quy-trinh-tuyen-dung`,
+            href: '#',
+            target: '',
         },
         {
             img: "/thuchien_td.svg",
             title: 'Thực hiện tuyển dụng',
-            href: `/${link}/quan-ly-tuyen-dung/thuc-hien-tuyen-dung`
+            href: '#',
+            target: '',
         },
         {
             img: "/ds_ungvien.svg",
             title: 'Danh sách ứng viên',
-            href: `/${link}/quan-ly-tuyen-dung/danh-sach-ung-vien`
+            href: '#',
+            target: '',
         },
     ]
 
@@ -56,8 +62,7 @@ export default function RecruitmentManager({ children }: any) {
                     </div>
                 </div>
             ))}
+            {openModalLogin && <ModalLogin setOpenModalLogin={setOpenModalLogin} />}
         </>
-
-
     )
 }

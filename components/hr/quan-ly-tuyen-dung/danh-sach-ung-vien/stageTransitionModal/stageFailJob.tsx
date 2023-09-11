@@ -44,6 +44,9 @@ type SelectOptionType = { label: string, value: string }
 
 export default function StageFailJob({ onCancel, process_id, data, process_id_from }: any) {
 
+  console.log(data);
+
+
   const [selectedOption, setSelectedOption] = useState<SelectOptionType | null>(null);
   const [isCandidate, setCandidate] = useState<any>(null)
   const [isEmpList, setEmpList] = useState<any>(null);
@@ -52,7 +55,7 @@ export default function StageFailJob({ onCancel, process_id, data, process_id_fr
   const [addAnotherSkill, setAddAnotherSkill] = useState<JSX.Element[]>([]);
   const [skills, setSkills] = useState<{ skillName: string; skillVote: any }[]>([]);
   const [lastAddedIndex, setLastAddedIndex] = useState(-1);
-  const [rating, setRating] = useState<any>(data?.starVote)
+  const [rating, setRating] = useState<any>(data?.starVote || data?.star_vote)
   const [descriptions, setDescription] = useState(`Thân gửi ..........Tên ứng viên........!
   Cảm ơn bạn,`);
   const [isUserHiring, setUserHiring] = useState<any>(data?.user_hiring || data?.userHiring)
@@ -340,11 +343,11 @@ export default function StageFailJob({ onCancel, process_id, data, process_id_fr
                     <div className={`${styles.input_right}`}>
                       {isCandidate?.timeSendCv &&
                         <input
-                          type="date"
+                          type="datetime-local"
                           id="timeSendCv"
                           defaultValue={format(
                             parseISO(isCandidate?.timeSendCv),
-                            "yyyy-MM-dd"
+                            'yyyy-MM-dd HH:mm:ss'
                           )}
                           placeholder="dd/mm/yyyy"
                           className={`${styles.input_process}`}

@@ -74,16 +74,16 @@ export default function HeaderHomeBeforeHr() {
                                 <a >Đăng kí</a>
                             </li>
                         </ul>
-                        {openModalRegister && (
-                            <ModalRegsiter setOpenModalRegister={setOpenModalRegister} />
-                        )}
-                        {openModalLogin && <ModalLogin setOpenModalLogin={setOpenModalLogin} />}
                     </div>
                     <div ref={dropDownMenuRef}>
                         {openSidebar && <SidebarHomeBefore />}
                     </div>
                 </div>
             </div>
+            {openModalRegister && (
+                <ModalRegsiter setOpenModalRegister={setOpenModalRegister} />
+            )}
+            {openModalLogin && <ModalLogin setOpenModalLogin={setOpenModalLogin} />}
         </>
     )
 }

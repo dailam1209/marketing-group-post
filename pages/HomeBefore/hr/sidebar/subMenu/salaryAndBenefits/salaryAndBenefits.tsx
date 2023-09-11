@@ -2,14 +2,16 @@ import React, { useState } from 'react'
 import styles from '../../sidebarHomeBefore.module.css'
 import Link from 'next/link'
 import Cookies from "js-cookie";
-
+import ModalLogin from '@/components/modal/ModalLogin';
 export interface SalaryAndBenefits { }
 
 export default function SalaryAndBenefits({ children }: any) {
   const [activeButton, setActiveButton] = useState(null)
+  const [openModalLogin, setOpenModalLogin] = useState(false)
   const handleClick = (buttonIndex: number) => {
     // @ts-ignore
     setActiveButton(buttonIndex);
+    setOpenModalLogin(true)
   };
   const role = Cookies.get("role");
   const link = "phan-mem-nhan-su"
@@ -17,36 +19,38 @@ export default function SalaryAndBenefits({ children }: any) {
     {
       img: '	/vn_chamcong.svg',
       title: 'Chấm công',
-      href: 'https://hungha365.com/cham-cong',
-      target: 'blank',
+      href: '#',
+      target: '',
     },
     {
       img: '	/vn_tinhluong.svg',
       title: 'Tính lương',
-      href: role === "1" ? "/tinh-luong/cong-ty/trang-chu" : "/tinh-luong/quan-ly/nhan-vien",
-      target: 'blank',
+      href: '#',
+      target: '',
     },
     {
       img: '	/vn_kpi.svg',
       title: 'KPI',
       href: '#',
-      target: 'blank'
+      target: '',
     },
     {
       img: '	/thanhtich.svg',
       title: 'Khen thưởng',
-      href: `/${link}/luong-thuong-phuc-loi/khen-thuong`,
+      href: '#',
+      target: '',
     },
     {
       img: '	/vipham.svg',
       title: 'Kỷ luật( Vi phạm )',
-      href: `/${link}/luong-thuong-phuc-loi/ky-luat`,
+      href: '#',
+      target: '',
     },
     {
       img: '	/vn_phucloi.svg',
       title: 'Phúc lợi',
-      href: role === "1" ? "/tinh-luong/cong-ty/trang-chu" : "/tinh-luong/quan-ly/nhan-vien",
-      target: 'blank',
+      href: '#',
+      target: '',
     },
   ]
 
@@ -78,6 +82,7 @@ export default function SalaryAndBenefits({ children }: any) {
           </div>
         </div>
       ))}
+      {openModalLogin && <ModalLogin setOpenModalLogin={setOpenModalLogin} />}
     </>
   )
 }

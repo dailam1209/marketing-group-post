@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import styles from '../../sidebarHomeBefore.module.css'
 import Link from "next/link";
+import ModalLogin from '@/components/modal/ModalLogin';
 
 export interface DevelopmentTraining {
 
@@ -9,9 +10,11 @@ export interface DevelopmentTraining {
 
 export default function DevelopmentTraining({ children }: any) {
     const [activeButton, setActiveButton] = useState(null);
+    const [openModalLogin, setOpenModalLogin] = useState(false)
     const handleClick = (buttonIndex: number) => {
         // @ts-ignore
         setActiveButton(buttonIndex);
+        setOpenModalLogin(true)
     };
     const link = "phan-mem-nhan-su"
 
@@ -19,20 +22,20 @@ export default function DevelopmentTraining({ children }: any) {
         {
             img: "/vn_vitricongviec.svg",
             title: 'Vị trí công việc',
-            href: `/${link}/dao-tao-phat-trien/vi-tri-cong-viec`,
-            target: ''
+            href: '#',
+            target: '',
         },
         {
             img: "/vn_quytrinhdaotao.svg",
             title: 'Quy trình đào tạo',
-            href: `/${link}/dao-tao-phat-trien/quy-trinh-dao-tao`,
-            target: ''
+            href: '#',
+            target: '',
         },
         {
             img: "/vn_danhgianangluc.svg",
             title: 'Đánh giá năng lực nhân viên',
             href: '#',
-            target: 'blank'
+            target: '',
         },
     ]
 
@@ -63,6 +66,7 @@ export default function DevelopmentTraining({ children }: any) {
                     </div>
                 </div>
             ))}
+            {openModalLogin && <ModalLogin setOpenModalLogin={setOpenModalLogin} />}
         </>
 
 
