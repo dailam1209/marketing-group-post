@@ -49,6 +49,8 @@ function Input_textarea({ onDescriptionChange, mission }: InputTextareaProps) {
 
 export default function EditWorkingModal({ onCancel, infoList }: any) {
 
+  console.log(infoList);
+
   const [selectedOption, setSelectedOption] = useState<SelectOptionType | null>(null);
   const [isMission, setMission] = useState(infoList?.item?.mission);
   const [isNote, setNote] = useState("");

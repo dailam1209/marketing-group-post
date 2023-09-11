@@ -43,6 +43,8 @@ export default function DetailCandidate({ onCancel }: any) {
   const [newData, setNewData] = useState<any>(false)
   const [isProcessBefore, setProcessBefore] = useState<any>(null);
 
+  console.log(isCandidateAll);
+
   const EmpMatchProcess = EmpData?.items?.find((item: any) => item.ep_id ===
     isCandidateProcess?.detail_get_job?.ep_interview
     || isCandidateProcess?.detail_fail_job?.ep_interview
@@ -374,7 +376,7 @@ export default function DetailCandidate({ onCancel }: any) {
                   <p>Thời gian hẹn: <span className={`${styles.txt_op}`}>{format(parseISO(isCandidateAll?.data?.detail_interview?.interview_time), 'HH:mm:ss dd-MM-yyyy')}</span></p>
                 }
                 <p>Nhân viên tham gia: <span className={`${styles.txt_op}`}>{isCandidateAll?.data?.nhanvien}</span></p>
-                <p>Ghi chú: <span className={`${styles.txt_op}`}>{isCandidateAll?.data?.note}</span></p>
+                <p>Ghi chú: <span className={`${styles.txt_op}`}>{isCandidateAll?.data?.detail_interview?.note}</span></p>
               </div>
             )}
             {id?.charAt(0) === 'g' && (

@@ -23,7 +23,7 @@ export default function EditCandidateIntrview({
   processBefore
 }: any) {
 
-  console.log(candidateAll?.data?.detail_interview?.interview_time);
+  console.log(candidateAll?.data?.detail_interview?.note);
 
   const [rating, setRating] = useState<any>(candidate?.star_vote)
   const [addAnotherSkill, setAddAnotherSkill] = useState<JSX.Element[]>([])
@@ -866,7 +866,7 @@ export default function EditCandidateIntrview({
                       <textarea
                         style={{ height: 60 }}
                         id='note'
-                        defaultValue={candidate?.can_address}
+                        defaultValue={candidateAll?.data?.detail_interview?.note}
                         className={`${styles.input_process}`}
                       />
                     </div>
