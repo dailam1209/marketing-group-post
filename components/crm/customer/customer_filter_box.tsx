@@ -96,7 +96,6 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
   const router = useRouter();
   const currentTime = moment(); // Thời điểm hiện tại
   const pastTime = currentTime.subtract(2, "days");
-
   const [listGr, setListGr] = useState([]);
   const handleGetGr = async () => {
     try {
@@ -221,6 +220,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
       setCheck(false);
     }
   };
+
   const handleTimeEndChange = (time, timeString) => {
     if (timeString) {
       setTimeEnd(timeString + ":00");

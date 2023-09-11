@@ -31,7 +31,6 @@ const GroupCustomerAdd: React.FC = () => {
   const [selectedValueDepartments, setSelectedValueDepartments] = useState<any>(
     []
   );
-  console.log("check pv",selectedValueDepartments)
   const [dataSelectGroupParent, setData] = useState<any>([]);
   const [dataEmp, setDataEmp] = useState<any>([]);
   const [dataDepartment, setDataDepartment] = useState<any>([]);
