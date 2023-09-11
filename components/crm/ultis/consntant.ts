@@ -1155,7 +1155,7 @@ export const sidebar_button_group_login = [
   },
   {
     img_link: '/crm/i_cds365.svg',
-    link: 'https://quanlychung.timviec365.vn/quan-ly-ung-dung-cong-ty.html',
+    link: '/',
     children: [],
     content: 'Chuyển đổi số',
   },
