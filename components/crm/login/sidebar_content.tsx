@@ -1,9 +1,7 @@
 import {
   sidebar_button_group,
-  sidebar_button_group_company,
   sidebar_button_group_login,
 } from "../ultis/consntant";
-import Link from "next/link";
 import style from "./sidebar.module.css";
 import { useContext, useEffect, useRef, useState } from "react";
 import { AccessContext } from "../context/accessContext";
@@ -39,7 +37,7 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
   };
 
   const handleResizeSIdeBar = () => {
-    toggleModal(!isOpen);
+    toggleModal(isOpen);
     setAccessRoleOpen(false);
     setIsCustomCareOpen(false);
     setIsCustomOpen(false);
