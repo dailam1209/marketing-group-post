@@ -16,10 +16,9 @@ export default function SideBar() {
     <>
       {checkHomeIfLoggedIn() ? null : (
         <div className={`${style.sidebar} ${style.mSideBar}`}>
-          <div id="box_alert">
-            <HeaderBar dataHeader={dataHeader} isOpen={isOpen} />
-            <SiebarContent isOpen={isOpen} toggleModal={setIsOpen} />
-          </div>
+          <div id="box_alert"></div>
+          <HeaderBar dataHeader={dataHeader} isOpen={isOpen} />
+          <SiebarContent isOpen={isOpen} toggleModal={setIsOpen} />
         </div>
       )}
     </>

@@ -75,14 +75,12 @@
   list-style: none;
 }
 
+.navbar_treeview li:hover {
+  background-color: #2a38a2;
+}
 .item_link:hover {
   background-color: #2a38a2;
 }
-
-.navbar_treeview:hover {
-  background-color: #2a38a2;
-}
-
 .item_link {
   width: 100%;
   font-family: "Roboto-Bold";
