@@ -413,7 +413,16 @@ tr {
   bottom: 0;
   width: 50%;
 }
-
+.main__footer_fix {
+  bottom: 0;
+  width: 20%;
+  padding-top: 20px;
+}
+.truncate-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .customStep {
   width: 55%;
   margin: auto;
@@ -968,4 +977,32 @@ label {
   width: 4px;
   background-color: transparent;
   height: 12px !important;
+}
+
+.select2-results__option,
+.select2-selection__rendered {
+    font-size: 14px;
+}
+
+.select2-results {
+  display: block;
+}
+
+.select2-results__options {
+  list-style: none;
+  margin: 0;
+  padding: 0
+}
+
+.select2-results__option {
+  padding: 6px;
+  user-select: none;
+  -webkit-user-select: none
+}
+.select2-results__options:hover{
+  /* background-color: red; */
+}
+
+.select2-results__option[aria-selected] {
+  cursor: pointer
 }
