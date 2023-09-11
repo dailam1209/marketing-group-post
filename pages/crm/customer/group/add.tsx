@@ -67,8 +67,6 @@ const GroupCustomerAdd: React.FC = () => {
 
       const data = await res.json();
       setData(data?.data);
-
-      return data;
     } catch (err) {
       // console.error(err);
       throw err;
