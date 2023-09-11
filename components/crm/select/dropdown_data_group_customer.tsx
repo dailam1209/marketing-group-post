@@ -5,15 +5,16 @@ import { base_url } from "../service/function";
 const Cookies = require("js-cookie");
 export default function CustomerGroupSelectDropdownData({
   data,
-  value = " Chọn người dùng",
+  value,
   setValueOption,
   setValueGroupCustomer,
   cus_id,
   type,
 }: any) {
-  const [focus,setFocus] = useState(false)
+  const [focus, setFocus] = useState(false);
   const handleClcikOptions = async (item: any) => {
     // const
+    console.log("firstvalue", value);
     setValueOption(item.gr_name);
     const url = `${base_url}/api/crm/customerdetails/editCustomer`;
 
@@ -76,7 +77,10 @@ export default function CustomerGroupSelectDropdownData({
             style={{ height: "34px" }}
           />
         </span>
-        <span className={styles.select2_results}>
+        <span
+          style={{ overflow: "scroll", height: 200 }}
+          className={styles.select2_results}
+        >
           <ul
             className={styles.select2_results__options}
             role="tree"
@@ -85,117 +89,178 @@ export default function CustomerGroupSelectDropdownData({
             style={{ textAlign: "left", overflow: "scroll" }}
           >
             <li
-              style={{ fontSize: 15, paddingLeft: 18, fontWeight: 500 }}
+              className="select2-results__option"
               onClick={() =>
                 handleClcikOptions({ gr_name: "Chưa cập nhật", gr_id: 0 })
               }
+              onMouseOver={(e) => {
+                e.currentTarget.style.background = "#4c5bd4";
+                e.currentTarget.style.color = "#fff";
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.background = "none";
+                e.currentTarget.style.color = "black";
+              }}
             >
               {"Chưa cập nhật"}
             </li>
 
             {data?.map((item: any, i: Key | null | undefined) => {
               return (
-                <button
-                  key={i}
-                  className={`${styles.select2_results__option}}`}
-                  style={{
-                    marginTop: "10px",
-                    padding: "5px 0",
-                    paddingLeft: "18px",
-                    color: "black",
-                    fontSize: "15px",
-                  }}
-                >
-                  <div style={{ display: "block" }}>
-                    <div
-                      style={{
-                        width: "100%",
-                        fontSize: 15,
-                        paddingLeft: 18,
-                        fontWeight: 800,
-                        display: "flex",
-                        float: "left",
-                        paddingBottom: 20,
-                        marginLeft: -20,
-                      }}
-                    >
-                      {item?.gr_name}
-                    </div>
+                <span className="select2-results">
+                  <ul className="select2-results__options">
+                    <li className="select2-results__option" role="group">
+                      <strong className="select2-results__group">
+                        <li>{item?.gr_name}</li>
+                      </strong>
+                      <ul className="select2-results__options select2-results__options--nested">
+                        {item?.gr_id == value ? (
+                          <li
+                            // onMouseOver={(e) => {
+                            //   e.currentTarget.style.background = "#4c5bd4";
+                            //   e.currentTarget.style.color = "#fff";
+                            // }}
+                            // onMouseOut={(e) => {
+                            //   e.currentTarget.style.background = "none";
+                            //   e.currentTarget.style.color = "black";
+                            // }}
+                            style={{ marginBottom: -5, background: "#ddd" }}
+                            className="select2-results__option"
+                            onClick={() => handleClcikOptions(item)}
+                          >
+                            {item?.gr_name}
+                          </li>
+                        ) : (
+                          <li
+                            onMouseOver={(e) => {
+                              e.currentTarget.style.background = "#4c5bd4";
+                              e.currentTarget.style.color = "#fff";
+                            }}
+                            onMouseOut={(e) => {
+                              e.currentTarget.style.background = "none";
+                              e.currentTarget.style.color = "black";
+                            }}
+                            style={{ marginBottom: -5 }}
+                            className="select2-results__option"
+                            onClick={() => handleClcikOptions(item)}
+                          >
+                            {item?.gr_name}
+                          </li>
+                        )}
 
-                    {item?.gr_id == value ? (
-                      <div
-                        onClick={() => handleClcikOptions(item)}
-                        style={{
-                          backgroundColor: "#e0dcdc",
-                          display: "flex",
-                          float: "left",
-                        }}
-                      >
-                        {item?.gr_name}
-                      </div>
-                    ) : (
-                      <div
-                        onClick={() => handleClcikOptions(item)}
-                        style={{
-                          display: "flex",
-                          float: "left",
-                          fontSize: "15px",
-                        }}
-                      >
-                        {item?.gr_name}
-                      </div>
-                    )}
-                  </div>
-
-                  {item?.lists_child &&
-                    item?.lists_child.map((itemc: any, index: number) => {
-                      return (
-                        <li
-
-                          key={index}
-                          onClick={() => handleClcikOptions(itemc)}
-                          className={`${styles.select2_results__option} `}
-                          style={{
-                            display: "flex",
-                            float: "left",
-                            marginTop: "18px",
-                            padding: "5px 0",
-                            fontSize: "15px",
-                          }}
-                        >
-                          {itemc?.gr_id == value ? (
-                            <div
-                              onClick={() => handleClcikOptions(itemc)}
-                              style={{
-                                backgroundColor: "#e0dcdc",
-                                height: 40,
-                                display: "flex",
-                                float: "left",
-                                justifyContent: "center",
-                                flexDirection: "column",
-                              }}
-                            >
-                              {itemc?.gr_name}
-                            </div>
-                          ) : (
-                            <div
-                              onClick={() => handleClcikOptions(itemc)}
-                              style={{
-                                display: "flex",
-                                float: "left",
-                                justifyContent: "center",
-                                flexDirection: "column",
-                              }}
-                            >
-                              {itemc?.gr_name}
-                            </div>
-                          )}
+                        <li className="select2-results__option">
+                          {item?.lists_child &&
+                            item?.lists_child.map(
+                              (itemc: any, index: number) => {
+                                return (
+                                  <li
+                                   
+                                    style={{ paddingTop: 5 }}
+                                    key={index}
+                                    onClick={() => handleClcikOptions(itemc)}
+                                    className={`${styles.select2_results__option} `}
+                                  >
+                                    {itemc?.gr_id == value ? (
+                                      <li
+                                        onClick={() =>
+                                          handleClcikOptions(itemc)
+                                        }
+                                        style={{ background: "#ddd",height:'auto' }}
+                                      >
+                                        {itemc?.gr_name}
+                                      </li>
+                                    ) : (
+                                      <li
+                                      onMouseOver={(e) => {
+                                        e.currentTarget.style.background =
+                                          "#4c5bd4";
+                                        e.currentTarget.style.color = "#fff";
+                                      }}
+                                      onMouseOut={(e) => {
+                                        e.currentTarget.style.background = "none";
+                                        e.currentTarget.style.color = "black";
+                                      }}
+                                        onClick={() =>
+                                          handleClcikOptions(itemc)
+                                        }
+                                      >
+                                        {itemc?.gr_name}
+                                      </li>
+                                    )}
+                                  </li>
+                                );
+                              }
+                            )}
                         </li>
-                      );
-                    })}
-                </button>
+                      </ul>
+                    </li>
+                  </ul>
+                </span>
               );
             })}
+
+            {/* <span className="select2-results">
+                  <ul
+                    className="select2-results__options"
+                  >
+                    <li
+                      className="select2-results__option"
+                      role="group"
+                      aria-label="Nhập liệu"
+                    >
+                      <strong className="select2-results__group">
+                        Nhập liệu
+                      </strong>
+                      <ul className="select2-results__options select2-results__options--nested">
+                        <li
+                          className="select2-results__option"
+                          id="select2-dso4-result-z0kc-190"
+                          role="treeitem"
+                          aria-selected="false"
+                          data-select2-id="select2-dso4-result-z0kc-190"
+                        >
+                          Nhập liệu
+                        </li>
+                        <li
+                          className="select2-results__option"
+                          id="select2-dso4-result-cds9-200"
+                          role="treeitem"
+                          aria-selected="false"
+                          data-select2-id="select2-dso4-result-cds9-200"
+                        >
+                          1. Ứng viên chưa sàng lọc cần gọi trong ngày
+                        </li>
+                        <li
+                          className="select2-results__option select2-results__option--highlighted"
+                          id="select2-dso4-result-nz0y-201"
+                          role="treeitem"
+                          aria-selected="true"
+                          data-select2-id="select2-dso4-result-nz0y-201"
+                        >
+                          2. Ứng viên sẽ gọi lại
+                        </li>
+                        <li
+                          className="select2-results__option"
+                          id="select2-dso4-result-s5cq-202"
+                          role="treeitem"
+                          aria-selected="false"
+                          data-select2-id="select2-dso4-result-s5cq-202"
+                        >
+                          4. Ứng viên không có nhu cầu tìm việc nữa
+                        </li>
+                        <li
+                          className="select2-results__option"
+                          id="select2-dso4-result-oyxu-203"
+                          role="treeitem"
+                          aria-selected="false"
+                          data-select2-id="select2-dso4-result-oyxu-203"
+                        >
+                          3. Ứng viên đã hỗ trợ xong và được nhập vào admin
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </span> */}
           </ul>
         </span>
       </span>
