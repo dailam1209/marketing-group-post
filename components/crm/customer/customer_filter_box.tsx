@@ -347,31 +347,24 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
     ];
   }
   const getOptionC = () => {
-    let defaultArr = [{ value: " ", label: "Tất cả" }];
-    const newArr = listGr_Child?.filter((item: any, index) => {
-     return item.group_parent === (checkCha ? valueChaOld : nhomCha)
-        
-    })?.map(item=>{
-      return {
-      value: item?.gr_id,
-      label: item?.gr_name,
-    };
-    });
+    let defaultArr = [{ value: "", label: "Tất cả" }];
+    const newArr = listGr_Child
+      ?.filter((item: any, index) => {
+        return item.group_parent === (checkCha ? valueChaOld : nhomCha);
+      })
+      ?.map((item) => {
+        return {
+          value: item?.gr_id,
+          label: item?.gr_name,
+        };
+      });
 
-    
-    console.log(newArr)
     if (newArr !== undefined && newArr && newArr?.length > 0) {
       return [...defaultArr, ...newArr];
     }
     return defaultArr;
   };
-  console.log(optionCon2);
-  const optionCon = [optionCon2[0]];
 
-  const optionCon3 = optionCon2[1];
-  for (let i = 1; i < optionCon3?.length; i++) {
-    optionCon.push(optionCon3[i]);
-  }
   return (
     <>
       <div
@@ -559,7 +552,6 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
               }
               value={nhomCon}
               onChange={(value) => {
-                console.log(value)
                 setnhomCon(value), setIdNhom(value);
               }}
               defaultValue={""}
