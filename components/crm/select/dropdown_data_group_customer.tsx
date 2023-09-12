@@ -1,4 +1,4 @@
-import { Key, useState } from "react";
+import { Key, useEffect, useState } from "react";
 import styles from "../potential/potential.module.css";
 import { notification } from "antd";
 import { base_url } from "../service/function";
@@ -10,8 +10,16 @@ export default function CustomerGroupSelectDropdownData({
   setValueGroupCustomer,
   cus_id,
   type,
+  setValueFilter,
+  valueFilter,
 }: any) {
   const [focus, setFocus] = useState(false);
+  const [filterData, setFilterData] = useState(data);
+
+  const handleChange = (e) => {
+    setValueFilter(e.target.value);
+  };
+
   const handleClcikOptions = async (item: any) => {
     // const
     setValueOption(item.gr_name);
@@ -40,8 +48,20 @@ export default function CustomerGroupSelectDropdownData({
     } catch (error) {
       console.error(error);
     }
-
   };
+
+  useEffect(() => {
+    const newData = data?.filter((item) => {
+      return (
+        item.gr_name?.toLowerCase().includes(valueFilter?.toLowerCase()) ||
+        item?.lists_child?.some((el) =>
+          el?.gr_name?.toLowerCase()?.includes(valueFilter?.toLowerCase())
+        )
+      );
+    });
+    console.log(newData);
+    setFilterData(newData);
+  }, [valueFilter]);
 
   return (
     <span
@@ -59,6 +79,8 @@ export default function CustomerGroupSelectDropdownData({
           <input
             className={styles.select2_search__field}
             type="search"
+            value={valueFilter}
+            onChange={handleChange}
             tabIndex={0}
             autoComplete="off"
             autoCorrect="off"
@@ -96,99 +118,207 @@ export default function CustomerGroupSelectDropdownData({
               {"Chưa cập nhật"}
             </li>
 
-            {data?.map((item: any, i: Key | null | undefined) => {
-              return (
-                <span className="select2-results">
-                  <ul className="select2-results__options">
-                    <li className="select2-results__option" role="group">
-                      <strong className="select2-results__group">
-                        <li>{item?.gr_name}</li>
-                      </strong>
-                      <ul className="select2-results__options select2-results__options--nested">
-                        {item?.gr_id == value ? (
-                          <li
-                            // onMouseOver={(e) => {
-                            //   e.currentTarget.style.background = "#4c5bd4";
-                            //   e.currentTarget.style.color = "#fff";
-                            // }}
-                            // onMouseOut={(e) => {
-                            //   e.currentTarget.style.background = "none";
-                            //   e.currentTarget.style.color = "black";
-                            // }}
-                            style={{ marginBottom: -5, background: "#ddd" }}
-                            className="select2-results__option"
-                            onClick={() => handleClcikOptions(item)}
-                          >
-                            {item?.gr_name}
-                          </li>
-                        ) : (
-                          <li
-                            onMouseOver={(e) => {
-                              e.currentTarget.style.background = "#4c5bd4";
-                              e.currentTarget.style.color = "#fff";
-                            }}
-                            onMouseOut={(e) => {
-                              e.currentTarget.style.background = "none";
-                              e.currentTarget.style.color = "black";
-                            }}
-                            style={{ marginBottom: -5 }}
-                            className="select2-results__option"
-                            onClick={() => handleClcikOptions(item)}
-                          >
-                            {item?.gr_name}
-                          </li>
-                        )}
-
-                        <li className="select2-results__option">
-                          {item?.lists_child &&
-                            item?.lists_child.map(
-                              (itemc: any, index: number) => {
-                                return (
-                                  <li
-                                   
-                                    style={{ paddingTop: 5 }}
-                                    key={index}
-                                    onClick={() => handleClcikOptions(itemc)}
-                                    className={`${styles.select2_results__option} `}
-                                  >
-                                    {itemc?.gr_id == value ? (
-                                      <li
-                                        onClick={() =>
-                                          handleClcikOptions(itemc)
-                                        }
-                                        style={{ background: "#ddd",height:'auto' }}
-                                      >
-                                        {itemc?.gr_name}
-                                      </li>
-                                    ) : (
-                                      <li
-                                      onMouseOver={(e) => {
-                                        e.currentTarget.style.background =
-                                          "#4c5bd4";
-                                        e.currentTarget.style.color = "#fff";
-                                      }}
-                                      onMouseOut={(e) => {
-                                        e.currentTarget.style.background = "none";
-                                        e.currentTarget.style.color = "black";
-                                      }}
-                                        onClick={() =>
-                                          handleClcikOptions(itemc)
-                                        }
-                                      >
-                                        {itemc?.gr_name}
-                                      </li>
-                                    )}
-                                  </li>
-                                );
-                              }
+            {valueFilter === ""
+              ? data?.map((item: any, i: Key | null | undefined) => {
+                  return (
+                    <span className="select2-results">
+                      <ul className="select2-results__options">
+                        <li className="select2-results__option" role="group">
+                          <strong className="select2-results__group">
+                            <li>{item?.gr_name}</li>
+                          </strong>
+                          <ul className="select2-results__options select2-results__options--nested">
+                            {item?.gr_id == value ? (
+                              <li
+                                // onMouseOver={(e) => {
+                                //   e.currentTarget.style.background = "#4c5bd4";
+                                //   e.currentTarget.style.color = "#fff";
+                                // }}
+                                // onMouseOut={(e) => {
+                                //   e.currentTarget.style.background = "none";
+                                //   e.currentTarget.style.color = "black";
+                                // }}
+                                style={{ marginBottom: -5, background: "#ddd" }}
+                                className="select2-results__option"
+                                onClick={() => handleClcikOptions(item)}
+                              >
+                                {item?.gr_name}
+                              </li>
+                            ) : (
+                              <li
+                                onMouseOver={(e) => {
+                                  e.currentTarget.style.background = "#4c5bd4";
+                                  e.currentTarget.style.color = "#fff";
+                                }}
+                                onMouseOut={(e) => {
+                                  e.currentTarget.style.background = "none";
+                                  e.currentTarget.style.color = "black";
+                                }}
+                                style={{ marginBottom: -5 }}
+                                className="select2-results__option"
+                                onClick={() => handleClcikOptions(item)}
+                              >
+                                {item?.gr_name}
+                              </li>
                             )}
+
+                            <li className="select2-results__option">
+                              {item?.lists_child &&
+                                item?.lists_child.map(
+                                  (itemc: any, index: number) => {
+                                    return (
+                                      <li
+                                        style={{ paddingTop: 5 }}
+                                        key={index}
+                                        onClick={() =>
+                                          handleClcikOptions(itemc)
+                                        }
+                                        className={`${styles.select2_results__option} `}
+                                      >
+                                        {itemc?.gr_id == value ? (
+                                          <li
+                                            onClick={() =>
+                                              handleClcikOptions(itemc)
+                                            }
+                                            style={{
+                                              background: "#ddd",
+                                              height: "auto",
+                                            }}
+                                          >
+                                            {itemc?.gr_name}
+                                          </li>
+                                        ) : (
+                                          <li
+                                            onMouseOver={(e) => {
+                                              e.currentTarget.style.background =
+                                                "#4c5bd4";
+                                              e.currentTarget.style.color =
+                                                "#fff";
+                                            }}
+                                            onMouseOut={(e) => {
+                                              e.currentTarget.style.background =
+                                                "none";
+                                              e.currentTarget.style.color =
+                                                "black";
+                                            }}
+                                            onClick={() =>
+                                              handleClcikOptions(itemc)
+                                            }
+                                          >
+                                            {itemc?.gr_name}
+                                          </li>
+                                        )}
+                                      </li>
+                                    );
+                                  }
+                                )}
+                            </li>
+                          </ul>
                         </li>
                       </ul>
-                    </li>
-                  </ul>
-                </span>
-              );
-            })}
+                    </span>
+                  );
+                })
+              : filterData?.map((item: any, i: Key | null | undefined) => {
+                  return (
+                    <span className="select2-results">
+                      <ul className="select2-results__options">
+                        <li className="select2-results__option" role="group">
+                          <strong className="select2-results__group">
+                            <li>{item?.gr_name}</li>
+                          </strong>
+                          <ul className="select2-results__options select2-results__options--nested">
+                            {item?.gr_id == value ? (
+                              <li
+                                // onMouseOver={(e) => {
+                                //   e.currentTarget.style.background = "#4c5bd4";
+                                //   e.currentTarget.style.color = "#fff";
+                                // }}
+                                // onMouseOut={(e) => {
+                                //   e.currentTarget.style.background = "none";
+                                //   e.currentTarget.style.color = "black";
+                                // }}
+                                style={{ marginBottom: -5, background: "#ddd" }}
+                                className="select2-results__option"
+                                onClick={() => handleClcikOptions(item)}
+                              >
+                                {item?.gr_name}
+                              </li>
+                            ) : (
+                              <li
+                                onMouseOver={(e) => {
+                                  e.currentTarget.style.background = "#4c5bd4";
+                                  e.currentTarget.style.color = "#fff";
+                                }}
+                                onMouseOut={(e) => {
+                                  e.currentTarget.style.background = "none";
+                                  e.currentTarget.style.color = "black";
+                                }}
+                                style={{ marginBottom: -5 }}
+                                className="select2-results__option"
+                                onClick={() => handleClcikOptions(item)}
+                              >
+                                {item?.gr_name}
+                              </li>
+                            )}
+
+                            <li className="select2-results__option">
+                              {item?.lists_child &&
+                                item?.lists_child.map(
+                                  (itemc: any, index: number) => {
+                                    return (
+                                      <li
+                                        style={{ paddingTop: 5 }}
+                                        key={index}
+                                        onClick={() =>
+                                          handleClcikOptions(itemc)
+                                        }
+                                        className={`${styles.select2_results__option} `}
+                                      >
+                                        {itemc?.gr_id == value ? (
+                                          <li
+                                            onClick={() =>
+                                              handleClcikOptions(itemc)
+                                            }
+                                            style={{
+                                              background: "#ddd",
+                                              height: "auto",
+                                            }}
+                                          >
+                                            {itemc?.gr_name}
+                                          </li>
+                                        ) : (
+                                          <li
+                                            onMouseOver={(e) => {
+                                              e.currentTarget.style.background =
+                                                "#4c5bd4";
+                                              e.currentTarget.style.color =
+                                                "#fff";
+                                            }}
+                                            onMouseOut={(e) => {
+                                              e.currentTarget.style.background =
+                                                "none";
+                                              e.currentTarget.style.color =
+                                                "black";
+                                            }}
+                                            onClick={() =>
+                                              handleClcikOptions(itemc)
+                                            }
+                                          >
+                                            {itemc?.gr_name}
+                                          </li>
+                                        )}
+                                      </li>
+                                    );
+                                  }
+                                )}
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </span>
+                  );
+                })}
 
             {/* <span className="select2-results">
                   <ul
