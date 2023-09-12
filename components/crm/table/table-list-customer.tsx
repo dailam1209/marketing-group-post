@@ -104,7 +104,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       </button>
     </div>
   );
-  
+
   const handleChangeSelect = async (e: any, record) => {
     //get type
     const res = await fetch(`${base_url}/api/crm/customerdetails/detail`, {
@@ -401,7 +401,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
             },
           }}
         />
-        {datatable?.length && (
+        {datatable?.length && datatable?.length > 0 && (
           <div
             className="main__footer_fix flex_between"
             id=""
@@ -423,9 +423,9 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
                 <option value={50}>50 bản ghi trên trang</option>
               </Select>
             </div>
-            <div className="total" style={{ paddingTop: 5 }}>
+            {/* <div className="total" style={{ paddingTop: 5 }}>
               Tổng số: <b>{totalRecords}</b> Khách hàng
-            </div>
+            </div> */}
           </div>
         )}
       </div>

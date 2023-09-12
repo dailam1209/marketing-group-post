@@ -65,7 +65,7 @@ const HeaderHomePage: React.FC = () => {
               <Link href="https://timviec365.vn/blog/c242/quan-ly-quan-he-khach-hang">
                 Tin Tức
               </Link>
-              <Link href="/">Chuyển đổi số</Link>
+              <Link href="https://hungha365.com/">Chuyển đổi số</Link>
             </div>
 
             <div className={`${styles["login_create"]}`}>

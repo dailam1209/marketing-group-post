@@ -584,9 +584,7 @@ const EditContractComponent: React.FC<EditContractComponentProps> = ({
                           >
                             Hủy
                           </button>
-                          {!newValues?.[posEdit]?.default_field?.includes(
-                            "@"
-                          ) && (
+                          {!newValues?.[posEdit]?.default_field && (
                             <button
                               onClick={handleShowEditFieldModal}
                               type="button"
@@ -614,8 +612,7 @@ const EditContractComponent: React.FC<EditContractComponentProps> = ({
                           </button>
                         </>
                       )}
-                      {!isEdit ||
-                      newValues[posEdit]?.default_field ? (
+                      {!isEdit || newValues[posEdit]?.default_field ? (
                         <button
                           type="button"
                           onClick={handleSetDefaultField}
@@ -643,9 +640,9 @@ const EditContractComponent: React.FC<EditContractComponentProps> = ({
                         isModalCancel={isCreatFieldDefault}
                         setIsModalCancel={setIsCreatFieldDefault}
                         handleReplaceValues={handleReplaceValues}
-                        type= {isEdit}
+                        type={isEdit}
                         index={posEdit}
-                        handleEdit = {handleEditValue}
+                        handleEdit={handleEditValue}
                       />
                     </div>
                   </div>

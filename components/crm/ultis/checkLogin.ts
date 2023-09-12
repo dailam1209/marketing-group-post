@@ -7,7 +7,14 @@ export const checkAndRedirectToHomeIfNotLoggedIn = () => {
     const role = Cookies.get("role");
   
     if (!acc_token || !rf_token || !role) {
+     if(router.pathname !== "/" && !router.pathname.includes("dang-nhap-cong-ty")&&
+     !router.pathname.includes("dang-nhap-ca-nhan")&&
+     !router.pathname.includes("dang-nhap-nhan-vien")&&
+     !router.pathname.includes("dang-ky-cong-ty")&&
+     !router.pathname.includes("dang-ky-ca-nhan")&&
+     !router.pathname.includes("dang-ky-nhan-vien")){
       router.push("/");
+     }
       return false; 
     }
     

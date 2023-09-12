@@ -40,7 +40,7 @@ export default function CustomerGroupSelect({
     };
   }, []);
   let lists_child = [];
-  data.map((item) => {
+  data?.map((item) => {
     if (item?.lists_child) {
       item?.lists_child?.map((item) => {
         lists_child?.push(item);

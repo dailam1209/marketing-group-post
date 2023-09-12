@@ -5,35 +5,20 @@ import { SidebarResize } from "@/components/crm/context/resizeContext";
 import Header from "@/components/crm/header/header";
 import useModal from "@/components/crm/hooks/useModal";
 import Sidebar from "@/components/crm/sidebar/sidebar";
-import { useDrop, DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
 import { ConfigProvider, Spin } from "antd";
-import Bodyframe from "@/components/bodyFrameNs/bodyFrame.tsx";
 import { useRouter } from "next/router.js";
 import ChatBusiness from "@/components/crm/chat/chat";
 import { NavigateContextComponent } from "@/components/crm/context/navigateContext";
 import TitleHeaderMobile from "@/components/crm/header/title_header_mobile";
 import styles from "@/components/crm/sidebar/sidebar.module.css";
-// import "@/styles/crm/stylecrm.css";
-// import "@/styles/crm/styles.css"
-// import "@/styles/crm/hight_chart.css"
-import Layout from "@/components/hr/Layout";
-import Head from "next/head";
 import { Provider } from "react-redux";
-import store_vanthu from "@/store";
-import Layout_admin from "@/components/van-thu-luu-tru/Layout_admin";
 import Cookies from "js-cookie";
 import jwtDecode from "jwt-decode";
-import Layout_user from "@/components/van-thu-luu-tru/Layout_user";
 import { setCookie } from "cookies-next";
-import Pre_login from "./van-thu-luu-tru/pre_login";
 import Seo from "@/components/head";
 import { TongDaiContext } from "@/components/crm/context/tongdaiContext";
 import { store } from "@/components/crm/redux/store";
-import io from "socket.io-client";
-import Layout_Tinh_Luong from "../components/tinh-luong/components/Layout";
-import ComponentEmpty from "../components/tinh-luong/components/component_empty";
-import Dangnhap from "../pages/tinh-luong/dangnhap";
+
 export const LoadingComp = () => {
   return (
     <Spin
@@ -54,7 +39,6 @@ export default function App({ Component, pageProps }) {
   const [firstLoad, setFirstLoad] = useState(
     router?.pathname?.includes("/phan-mem-nhan-su/") ? false : true
   );
-  const shouldShowSidebarAndHeader = router.pathname.includes("/crm/");
   // const [firstLoad, setFirstLoad] = useState(false);
   useEffect(() => {
     const doLoading = () => {
@@ -96,23 +80,10 @@ export default function App({ Component, pageProps }) {
   }, [router?.pathname]);
 
   const importGlobalStyles = () => {
-    if (
-      router.pathname?.includes("/phan-mem-nhan-su/") &&
-      !router.pathname?.includes("/phan-mem-nhan-su/huong-dan")
-    ) {
-      import("../styles/globals_hr.css");
-    } else if (router.pathname?.includes("crm")) {
+    if (router.pathname?.includes("/")) {
       import("../styles/crm/stylecrm.css");
       import("../styles/crm/styles.css");
       import("../styles/crm/hight_chart.css");
-    } else if (router.pathname?.includes("van-thu-luu-tru")) {
-      import("../styles/globals_vanthu.css");
-    } else if (router.pathname?.includes("/cham-cong")) {
-      import("@/styles/globals.css");
-    } else if (router.pathname.includes("tinh-luong")) {
-      import("@/styles/tinh-luong/globals_tinh_luong.css");
-      import("@/styles/tinh-luong/Home_tinh_luong.module.css");
-    } else {
     }
   };
 
@@ -151,22 +122,16 @@ export default function App({ Component, pageProps }) {
             },
           }}
         >
-          {router.pathname?.includes("cham-cong") ? (
-            <Bodyframe>
-              <Component {...pageProps} />
-            </Bodyframe>
-          ) : router.pathname?.includes("crm") ? (
+          {/* { router.pathname?.includes("") ? ( */}
             <Provider store={store}>
               <AccessContextComponent>
                 <SidebarResize>
                   <NavigateContextComponent>
-                    {shouldShowSidebarAndHeader && (
                       <>
                         <Header toggleModal={toggleModal} />
                         <Sidebar isOpened={isOpen} />
                         <ChatBusiness />
                       </>
-                    )}
                     <TitleHeaderMobile />
                     <TongDaiContext>
                       <Component {...pageProps} />
@@ -175,56 +140,10 @@ export default function App({ Component, pageProps }) {
                 </SidebarResize>
               </AccessContextComponent>
             </Provider>
-          ) : router.pathname?.includes("/phan-mem-nhan-su/") ? (
-            <Layout>
-              <DndProvider backend={HTML5Backend}>
-                <Component {...pageProps} />
-              </DndProvider>
-            </Layout>
-          ) : router.pathname?.includes("van-thu-luu-tru") ? (
-            <Provider store={store_vanthu}>
-              {/* 
-              -  Khi đăng nhập sẽ lưu session giá trị để duy trì các phiên trong site
-              -  Giá trị này có thể thay đổi tùy theo tài khoản của công ty hoặc nhân viên
-              */}
-              {!VanThu_token ? (
-                <Pre_login />
-              ) : (
-                <>
-                  {role && role === "2" && (
-                    <Layout_user>
-                      <Component {...pageProps} />
-                    </Layout_user>
-                  )}
-                  {role && role === "1" && (
-                    <Layout_admin>
-                      <Component {...pageProps} />
-                    </Layout_admin>
-                  )}
-                </>
-              )}
-            </Provider>
-          ) : router.pathname?.includes("tinh-luong") ? (
-            <>
-              {router.pathname?.includes("tinh-luong/quan-ly") &&
-              role &&
-              role === "2" ? (
-                <Layout_Tinh_Luong>
-                  <Component {...pageProps} />
-                </Layout_Tinh_Luong>
-              ) : router.pathname?.includes("tinh-luong/cong-ty") &&
-                role &&
-                role === "1" ? (
-                <Layout_Tinh_Luong>
-                  <Component {...pageProps} />
-                </Layout_Tinh_Luong>
-              ) : (
-                <Dangnhap></Dangnhap>
-              )}
-            </>
-          ) : (
+          {/* )  */}
+          {/* :  (
             <Component {...pageProps} />
-          )}
+          )} */}
         </ConfigProvider>
       ) : (
         <LoadingComp />
