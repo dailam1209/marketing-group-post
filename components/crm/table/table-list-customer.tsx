@@ -423,9 +423,9 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
                 <option value={50}>50 bản ghi trên trang</option>
               </Select>
             </div>
-            {/* <div className="total" style={{ paddingTop: 5 }}>
+            <div className="total" style={{ paddingTop: 5 }}>
               Tổng số: <b>{totalRecords}</b> Khách hàng
-            </div> */}
+            </div>
           </div>
         )}
       </div>
