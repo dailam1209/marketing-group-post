@@ -12,7 +12,7 @@ interface MyComponentProps {
   handleReplaceValues: any;
   type: Boolean;
   handleEdit: any;
-  index: any;
+  pos: any;
 }
 
 const CreatFieldDefaultModal: React.FC<MyComponentProps> = ({
@@ -21,7 +21,7 @@ const CreatFieldDefaultModal: React.FC<MyComponentProps> = ({
   handleReplaceValues,
   type,
   handleEdit,
-  index,
+  pos,
 }) => {
   const [isOpenMdalSuccess, setIsOpenMdalSuccess] = useState(false);
   const [value, setValue] = useState("");
@@ -45,9 +45,9 @@ const CreatFieldDefaultModal: React.FC<MyComponentProps> = ({
   const handleOK = () => {
     if (value) {
       setIsModalCancel(false);
-      const index = data?.findIndex(item=>item===value)
+      const index = data?.findIndex((item) => item === value);
       if (type) {
-        handleEdit(value, index, index +1);
+        handleEdit(value, pos, index + 1);
       } else {
         handleReplaceValues(value, index + 1);
       }

@@ -612,8 +612,8 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
                         setIsModalCancel={setIsCreatFieldDefault}
                         handleReplaceValues={handleReplaceValues}
                         type={isEdit}
-                        index={posEdit}
-                        handleEdit = {handleEditValue}
+                        pos={posEdit}
+                        handleEdit={handleEditValue}
                       />
                     </div>
                   </div>
