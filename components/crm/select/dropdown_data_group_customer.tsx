@@ -85,11 +85,11 @@ export default function CustomerGroupSelectDropdownData({
         removeVietnameseDiacritics(valueFilter)
       );
     });
-    // console.log(newData);
-    if (newData[0]?.length > 1) {
+    console.log(newData,newData2);
+    if (newData[0]?.lists_child) {
       setFilterData(newData);
     } else {
-      setFilterData(newData2);
+      setFilterData(newData2);  
     }
   }, [valueFilter]);
   console.log("first,", filterData);
@@ -270,14 +270,14 @@ export default function CustomerGroupSelectDropdownData({
                               >
                              <strong> {data?.filter(itemcha=>itemcha.gr_id===item?.group_parent)[0]?.gr_name} </strong> 
                                 <li
-                                  // onMouseOver={(e) => {
-                                  //   e.currentTarget.style.background = "#4c5bd4";
-                                  //   e.currentTarget.style.color = "#fff";
-                                  // }}
-                                  // onMouseOut={(e) => {
-                                  //   e.currentTarget.style.background = "none";
-                                  //   e.currentTarget.style.color = "black";
-                                  // }}
+                                  onMouseOver={(e) => {
+                                    e.currentTarget.style.background = "#4c5bd4";
+                                    e.currentTarget.style.color = "#fff";
+                                  }}
+                                  onMouseOut={(e) => {
+                                    e.currentTarget.style.background = "none";
+                                    e.currentTarget.style.color = "black";
+                                  }}
                                   style={{ marginBottom: -5 }}
                                   className="select2-results__option"
                                   onClick={() => handleClcikOptions(item)}
