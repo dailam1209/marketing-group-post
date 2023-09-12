@@ -32,14 +32,6 @@ export default function TableOfContents() {
     };
   }, []);
 
-  useEffect(() => {
-    if (isOpen) {
-      sidebarRef.current?.classList.add("active_resize");
-    } else {
-      sidebarRef.current?.classList?.remove("active_resize");
-    }
-  }, [isOpen]);
-
   return (
     <div className={styles.tableofcontents}>
       <div className={style["menu-nav"]}>
