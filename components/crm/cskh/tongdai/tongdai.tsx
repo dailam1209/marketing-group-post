@@ -288,7 +288,7 @@ const TongDaiPage = (props: Props) => {
 
       <div style={{ paddingTop: 20 }}>
         <Table
-         loading={datatable?.length>0?false:true}
+        //  loading={datatable?.length>0?false:true}
           columns={Colums as any}
           dataSource={datatable}
           bordered
