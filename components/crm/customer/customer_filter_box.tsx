@@ -48,7 +48,7 @@ interface PropsComponent {
   listNV: any;
   nameNvNomor: any;
   listGr: any;
-  listGr_Child: any;
+  listGr_Child?: any;
 }
 
 const CustomerListFilterBox: React.FC<PropsComponent> = ({
@@ -247,6 +247,131 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
     setdateS(e.target.value);
   };
   const handleDateChangeEnd = (e) => {};
+
+  // role == "1" &&
+  // // <option value={null}>Tất cả</option>
+  //   listNV?.map((userName, index) => (
+  //     <option
+  //       style={{ width: "100%" }}
+  //       key={index}
+  //       value={userName?.ep_id as any}
+  //     >
+  //       <div style={{ display: "block" }}>
+  //         ( {`${userName.ep_id}`}) {`${userName?.ep_name}`} <br /> -
+  //         {`${userName.dep_name}`}
+  //       </div>
+  //     </option>
+  //   ));
+  const optionTest =
+    role == "2" && posId !== 2
+      ? [
+          { value: null, label: "Tất cả" },
+          ...nv?.map((userName, index) => {
+            return {
+              value: userName?.ep_id,
+              label:
+                `(${userName.ep_id})` +
+                " " +
+                userName?.ep_name +
+                " " +
+                userName.dep_name,
+            };
+          }),
+        ]
+      : role == "1"
+      ? [
+          { value: null, label: "Tất cả" },
+          ...listNV?.map((userName, index) => {
+            return {
+              value: userName?.ep_id,
+              label:
+                `(${userName.ep_id})` +
+                " " +
+                userName?.ep_name +
+                " " +
+                userName.dep_name,
+            };
+          }),
+        ]
+      : [
+          [nameNvNomor]?.map((userName, index) => {
+            return {
+              value: userName?.ep_id,
+              label:
+                `(${userName._id})` +
+                " " +
+                userName?.userName +
+                " " +
+                userName.nameDeparment,
+            };
+          }),
+        ];
+  // <option
+  //   style={{ width: "100%" }}
+  //   key={index}
+  //   value={userName?.ep_id as any}
+  // >
+  //   <div style={{ display: "block" }}>
+  //     ( {`${userName.ep_id}`}) {`${userName?.ep_name}`} <br /> -
+  //     {`${userName.dep_name}`}
+  //   </div>
+  // </option>
+  {
+    role == "2" &&
+      posId == 2 &&
+      [nameNvNomor]?.map((userName, index) => (
+        <option
+          style={{ width: "100%" }}
+          key={index}
+          value={userName?._id as any}
+        >
+          <div style={{ display: "block" }}>
+            ( {`${userName._id}`}) {`${userName?.userName}`} <br /> -
+            {`${userName.nameDeparment}`}
+          </div>
+        </option>
+      ));
+  }
+  let optionCon2;
+  if (valueChaOld) {
+    optionCon2 = [
+      { value: " ", label: "Tất cả" },
+      listGr_Child?.map((item: any, index) => {
+        if (item.group_parent === (checkCha ? valueChaOld : nhomCha)) {
+          return {
+            value: item?.gr_id,
+            label: item?.gr_name,
+          };
+        }
+      }),
+    ];
+  }
+  const getOptionC = () => {
+    let defaultArr = [{ value: " ", label: "Tất cả" }];
+    const newArr = listGr_Child?.filter((item: any, index) => {
+     return item.group_parent === (checkCha ? valueChaOld : nhomCha)
+        
+    })?.map(item=>{
+      return {
+      value: item?.gr_id,
+      label: item?.gr_name,
+    };
+    });
+
+    
+    console.log(newArr)
+    if (newArr !== undefined && newArr && newArr?.length > 0) {
+      return [...defaultArr, ...newArr];
+    }
+    return defaultArr;
+  };
+  console.log(optionCon2);
+  const optionCon = [optionCon2[0]];
+
+  const optionCon3 = optionCon2[1];
+  for (let i = 1; i < optionCon3?.length; i++) {
+    optionCon.push(optionCon3[i]);
+  }
   return (
     <>
       <div
@@ -389,8 +514,27 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
               border: "1px solid black",
               borderRadius: 7,
             }}
+            showSearch
+            filterOption={(input, option: any) =>
+              option?.label.toLowerCase().includes(input.toLocaleLowerCase())
+            }
+            options={[
+              { value: -1, label: "Tất cả" },
+              { value: -2, label: "Chưa cập nhật" },
+              ...listGr?.map((item: any, index) => {
+                if (item?.group_parent == 0) {
+                  return {
+                    // <option key={index} value={item?.gr_id}>
+                    //   {item.gr_name}
+                    // </option>
+                    value: item?.gr_id,
+                    label: item?.gr_name,
+                  };
+                }
+              }),
+            ]}
           >
-            {" "}
+            {/* {" "}
             <option value={-1}>Tất cả</option>
             <option value={-2}>Chưa cập nhật</option>
             {listGr?.map((item: any, index) => {
@@ -401,7 +545,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
                   </option>
                 );
               }
-            })}
+            })} */}
           </Select>
         </div>
 
@@ -409,8 +553,13 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
           <div className={styles.label}>Nhóm khách hàng con</div>
           <div className={stylePotentialSlect.customer_list}>
             <Select
+              showSearch
+              filterOption={(input, option: any) =>
+                option?.label.toLowerCase().includes(input.toLocaleLowerCase())
+              }
               value={nhomCon}
               onChange={(value) => {
+                console.log(value)
                 setnhomCon(value), setIdNhom(value);
               }}
               defaultValue={""}
@@ -425,8 +574,9 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
                 border: "1px solid black",
                 borderRadius: 7,
               }}
+              options={getOptionC()}
             >
-              <option value={""}>Tất cả</option>
+              {/* <option value={""}>Tất cả</option>
               {listGr_Child?.map((item: any, index) => {
                 if (item.group_parent === (checkCha ? valueChaOld : nhomCha)) {
                   return (
@@ -435,7 +585,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
                     </option>
                   );
                 }
-              })}
+              })} */}
             </Select>
           </div>
         </div>
@@ -444,6 +594,11 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
           <div className={styles.label}>Nhân viên phụ trách</div>
           <div className={stylePotentialSlect.customer_list}>
             <Select
+              showSearch
+              options={optionTest}
+              filterOption={(input, option: any) =>
+                option?.label.toLowerCase().includes(input.toLocaleLowerCase())
+              }
               defaultValue={"Tất cả"}
               suffixIcon={
                 <i
@@ -458,50 +613,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
               }}
               value={nvPhuTrach}
               onChange={handleChangeNVPT}
-            >
-              <option value={null}>Tất cả</option>
-              {role == "1" &&
-                listNV?.map((userName, index) => (
-                  <option
-                    style={{ width: "100%" }}
-                    key={index}
-                    value={userName?.ep_id as any}
-                  >
-                    <div style={{ display: "block" }}>
-                      ( {`${userName.ep_id}`}) {`${userName?.ep_name}`} <br /> -
-                      {`${userName.dep_name}`}
-                    </div>
-                  </option>
-                ))}
-              {role == "2" &&
-                posId !== 2 &&
-                nv?.map((userName, index) => (
-                  <option
-                    style={{ width: "100%" }}
-                    key={index}
-                    value={userName?.ep_id as any}
-                  >
-                    <div style={{ display: "block" }}>
-                      ( {`${userName.ep_id}`}) {`${userName?.ep_name}`} <br /> -
-                      {`${userName.dep_name}`}
-                    </div>
-                  </option>
-                ))}
-              {role == "2" &&
-                posId == 2 &&
-                [nameNvNomor]?.map((userName, index) => (
-                  <option
-                    style={{ width: "100%" }}
-                    key={index}
-                    value={userName?._id as any}
-                  >
-                    <div style={{ display: "block" }}>
-                      ( {`${userName._id}`}) {`${userName?.userName}`} <br /> -
-                      {`${userName.nameDeparment}`}
-                    </div>
-                  </option>
-                ))}
-            </Select>
+            ></Select>
           </div>
         </div>
 

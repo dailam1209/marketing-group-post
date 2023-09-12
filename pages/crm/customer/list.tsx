@@ -63,7 +63,6 @@ export default function CustomerList() {
   const [emp_id, setemp_id] = useState<any>();
   const [idNhom, setIdNhom] = useState<any>();
 
-  console.log(selectedCus);
   useEffect(() => {
     if (
       dateS != undefined &&
