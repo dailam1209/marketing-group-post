@@ -49,20 +49,50 @@ export default function CustomerGroupSelectDropdownData({
       console.error(error);
     }
   };
-
+  let arr = [];
+  const listC = data?.map((item) => {
+    if (item?.lists_child) {
+      item?.lists_child.map((itemc) => {
+        arr.push(itemc);
+      });
+    }
+  });
+  function removeVietnameseDiacritics(str) {
+    str = str.toLowerCase();
+    // Dùng bảng mã Unicode để thay thế các ký tự có dấu
+    str = str.replace(/á|à|ả|ã|ạ|ă|ắ|ằ|ẳ|ẵ|ặ|â|ấ|ầ|ẩ|ẫ|ậ/g, "a");
+    str = str.replace(/é|è|ẻ|ẽ|ẹ|ê|ế|ề|ể|ễ|ệ/g, "e");
+    str = str.replace(/í|ì|ỉ|ĩ|ị/g, "i");
+    str = str.replace(/ó|ò|ỏ|õ|ọ|ô|ố|ồ|ổ|ỗ|ộ|ơ|ớ|ờ|ở|ỡ|ợ/g, "o");
+    str = str.replace(/ú|ù|ủ|ũ|ụ|ư|ứ|ừ|ử|ữ|ự/g, "u");
+    str = str.replace(/ý|ỳ|ỷ|ỹ|ỵ/g, "y");
+    str = str.replace(/đ/g, "d");
+    // Loại bỏ các ký tự khác
+    str = str.replace(/[^a-z0-9\s]/g, "");
+    // Loại bỏ dấu cách thừa
+    str = str.replace(/\s+/g, " ").trim();
+    return str;
+  }
+  console.log("arr", arr);
   useEffect(() => {
     const newData = data?.filter((item) => {
-      return (
-        item.gr_name?.toLowerCase().includes(valueFilter?.toLowerCase()) ||
-        item?.lists_child?.some((el) =>
-          el?.gr_name?.toLowerCase()?.includes(valueFilter?.toLowerCase())
-        )
+      return removeVietnameseDiacritics(item.gr_name)?.includes(
+        removeVietnameseDiacritics(valueFilter)
       );
     });
-    console.log(newData);
-    setFilterData(newData);
+    const newData2 = arr?.filter((item) => {
+      return removeVietnameseDiacritics(item.gr_name)?.includes(
+        removeVietnameseDiacritics(valueFilter)
+      );
+    });
+    // console.log(newData);
+    if (newData[0]?.length > 1) {
+      setFilterData(newData);
+    } else {
+      setFilterData(newData2);
+    }
   }, [valueFilter]);
-
+  console.log("first,", filterData);
   return (
     <span
       className={`${styles.select2_container_open} ${styles.select2_container} ${styles.select2_container_default} `}
@@ -130,15 +160,14 @@ export default function CustomerGroupSelectDropdownData({
                           <ul className="select2-results__options select2-results__options--nested">
                             {item?.gr_id == value ? (
                               <li
-                                // onMouseOver={(e) => {
-                                //   e.currentTarget.style.background = "#4c5bd4";
-                                //   e.currentTarget.style.color = "#fff";
-                                // }}
-                                // onMouseOut={(e) => {
-                                //   e.currentTarget.style.background = "none";
-                                //   e.currentTarget.style.color = "black";
-                                // }}
-                                style={{ marginBottom: -5, background: "#ddd" }}
+                                onMouseOver={(e) => {
+                                  e.currentTarget.style.background = "#4c5bd4";
+                                  e.currentTarget.style.color = "#fff";
+                                }}
+                                onMouseOut={(e) => {
+                                  e.currentTarget.style.background = "none";
+                                  e.currentTarget.style.color = "black";
+                                }}
                                 className="select2-results__option"
                                 onClick={() => handleClcikOptions(item)}
                               >
@@ -224,11 +253,8 @@ export default function CustomerGroupSelectDropdownData({
                     <span className="select2-results">
                       <ul className="select2-results__options">
                         <li className="select2-results__option" role="group">
-                          <strong className="select2-results__group">
-                            <li>{item?.gr_name}</li>
-                          </strong>
                           <ul className="select2-results__options select2-results__options--nested">
-                            {item?.gr_id == value ? (
+                            {
                               <li
                                 // onMouseOver={(e) => {
                                 //   e.currentTarget.style.background = "#4c5bd4";
@@ -238,81 +264,28 @@ export default function CustomerGroupSelectDropdownData({
                                 //   e.currentTarget.style.background = "none";
                                 //   e.currentTarget.style.color = "black";
                                 // }}
-                                style={{ marginBottom: -5, background: "#ddd" }}
-                                className="select2-results__option"
-                                onClick={() => handleClcikOptions(item)}
-                              >
-                                {item?.gr_name}
-                              </li>
-                            ) : (
-                              <li
-                                onMouseOver={(e) => {
-                                  e.currentTarget.style.background = "#4c5bd4";
-                                  e.currentTarget.style.color = "#fff";
-                                }}
-                                onMouseOut={(e) => {
-                                  e.currentTarget.style.background = "none";
-                                  e.currentTarget.style.color = "black";
-                                }}
                                 style={{ marginBottom: -5 }}
                                 className="select2-results__option"
                                 onClick={() => handleClcikOptions(item)}
                               >
-                                {item?.gr_name}
+                             <strong> {data?.filter(itemcha=>itemcha.gr_id===item?.group_parent)[0]?.gr_name} </strong> 
+                                <li
+                                  // onMouseOver={(e) => {
+                                  //   e.currentTarget.style.background = "#4c5bd4";
+                                  //   e.currentTarget.style.color = "#fff";
+                                  // }}
+                                  // onMouseOut={(e) => {
+                                  //   e.currentTarget.style.background = "none";
+                                  //   e.currentTarget.style.color = "black";
+                                  // }}
+                                  style={{ marginBottom: -5 }}
+                                  className="select2-results__option"
+                                  onClick={() => handleClcikOptions(item)}
+                                >
+                                  {item?.gr_name}
+                                </li>
                               </li>
-                            )}
-
-                            <li className="select2-results__option">
-                              {item?.lists_child &&
-                                item?.lists_child.map(
-                                  (itemc: any, index: number) => {
-                                    return (
-                                      <li
-                                        style={{ paddingTop: 5 }}
-                                        key={index}
-                                        onClick={() =>
-                                          handleClcikOptions(itemc)
-                                        }
-                                        className={`${styles.select2_results__option} `}
-                                      >
-                                        {itemc?.gr_id == value ? (
-                                          <li
-                                            onClick={() =>
-                                              handleClcikOptions(itemc)
-                                            }
-                                            style={{
-                                              background: "#ddd",
-                                              height: "auto",
-                                            }}
-                                          >
-                                            {itemc?.gr_name}
-                                          </li>
-                                        ) : (
-                                          <li
-                                            onMouseOver={(e) => {
-                                              e.currentTarget.style.background =
-                                                "#4c5bd4";
-                                              e.currentTarget.style.color =
-                                                "#fff";
-                                            }}
-                                            onMouseOut={(e) => {
-                                              e.currentTarget.style.background =
-                                                "none";
-                                              e.currentTarget.style.color =
-                                                "black";
-                                            }}
-                                            onClick={() =>
-                                              handleClcikOptions(itemc)
-                                            }
-                                          >
-                                            {itemc?.gr_name}
-                                          </li>
-                                        )}
-                                      </li>
-                                    );
-                                  }
-                                )}
-                            </li>
+                            }
                           </ul>
                         </li>
                       </ul>
