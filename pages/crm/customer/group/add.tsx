@@ -7,7 +7,6 @@ import InputText from "@/components/crm/potential/potential_add_files/input_text
 import { Checkbox, Select, notification } from "antd";
 import TableStaffCustomerGroupAdd from "@/components/crm/table/table-staff-group-add-customer";
 import Head from "next/head";
-import { useApi } from "@/components/crm/hooks/useApi";
 import ModalDelEmpGroup from "@/components/crm/modals/modal_del_group";
 import Image from "next/image";
 import TextEditorGr from "@/components/crm/text-editor/text_editor_gr";
@@ -16,7 +15,6 @@ import Cookies from "js-cookie";
 import GrFooterAddFiles from "@/components/crm/potential/potential_add_files/gr_customer_footer";
 import CustomerGroupSelectCpmponent from "@/components/crm/select/group_components_select";
 import { checkAndRedirectToHomeIfNotLoggedIn } from "@/components/crm/ultis/checkLogin";
-import { POST } from "@/pages/api/BaseApi";
 import axios from "axios";
 
 const GroupCustomerAdd: React.FC = () => {
@@ -136,7 +134,7 @@ const GroupCustomerAdd: React.FC = () => {
     fetchDataDepartment(`${base_url}/api/qlc/department/list`, {
       com_id: com_id,
     });
-    fetchDataEmp(`${base_url}/api/qlc/managerUser/listAll`,{});
+    fetchDataEmp(`${base_url}/api/qlc/managerUser/listAll`, {});
   }, []);
 
   useEffect(() => {
@@ -162,10 +160,10 @@ const GroupCustomerAdd: React.FC = () => {
 
     if (!valueExists) {
       setDataTableEmp((prevData) => {
-        if(prevData){
-          return [...prevData, val]
+        if (prevData) {
+          return [...prevData, val];
         }
-        return [val]
+        return [val];
       });
     } else {
       setErrModal(true);
