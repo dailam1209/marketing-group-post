@@ -15,6 +15,7 @@ export default function CustomerGroupSelect({
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [valueOption, setValueOption] = useState();
+  const [valueFilter, setValueFilter] = useState("");
 
   const handleClickSelectoption = (e: any) => {
     if (e.target.getAttribute("class") !== styles.select2_search__field) {
@@ -111,6 +112,8 @@ export default function CustomerGroupSelect({
             setValueOption={setValueOption}
             setValueGroupCustomer={setValueGroupCustomer}
             type={type}
+            setValueFilter={setValueFilter}
+            valueFilter={valueFilter}
           />
         )}
       </span>
