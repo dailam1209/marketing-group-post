@@ -96,6 +96,16 @@ const CallModal: React.FC<MyComponentProps> = ({
   const [isOpenMdalSuccess, setIsOpenMdalSuccess] = useState(false);
   const [isOpenMdalZoom, setIsOpenModalZoom] = useState(false);
   const currentTime = new Date();
+  const convertDate = (date) => {
+    const dateTime = new Date(date);
+    const year = dateTime.getUTCFullYear();
+    const month = String(dateTime.getUTCMonth() + 1).padStart(2, "0");
+    const day = String(dateTime.getUTCDate()).padStart(2, "0");
+    const hour = String(dateTime.getUTCHours() + 7).padStart(2, "0");
+    const minute = String(dateTime.getUTCMinutes()).padStart(2, "0");
+    // const second = String(dateTime.getUTCSeconds()).padStart(2, "0");
+    return `${year}-${month}-${day} ${hours}:${minutes}`;
+  };
 
   // Định dạng thời gian theo chuỗi "YYYY-MM-DD HH:mm:ss"
   const year = currentTime.getFullYear();
@@ -107,7 +117,7 @@ const CallModal: React.FC<MyComponentProps> = ({
   const formattedTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   const [action, setAction] = useState<any>(false);
 
-  const handleOK = () => {
+  const handleOK =async () => {
     setAction(!action);
 
     setDate(formattedTime);
@@ -117,8 +127,9 @@ const CallModal: React.FC<MyComponentProps> = ({
     setTimeout(() => {
       setIsOpenMdalSuccess(false);
       setshow(false);
-    }, 2000);
+    }, 1200);
     // setshow(false);
+    await fetchData()
   };
 
   const router = useRouter();
@@ -201,17 +212,19 @@ const CallModal: React.FC<MyComponentProps> = ({
               >
                 {hisContent?.map((item: any, index: number) => {
                   return (
-                    <div key={index} style={{display:"block"}}>
-                        <div  style={{ display: "block" }}>
-                      <div style={{ float: "left" }}> {item?.created_at}</div>
-                      <br />
-                      <div style={{ float: "left", color: "#4c5bd4" }}>
-                        {item?.content_call}
+                    <div key={index} style={{ display: "block" }}>
+                      <div style={{ display: "block" }}>
+                        <div style={{ float: "left" }}>
+                          {" "}
+                          {convertDate(item?.created_at)}
+                        </div>
+                        <br />
+                        <div style={{ float: "left", color: "#4c5bd4" }}>
+                          {item?.content_call}
+                        </div>
+                        <br />
                       </div>
-                      <br/>
                     </div>
-                    </div>
-                  
                   );
                 })}
               </fieldset>
@@ -323,15 +336,18 @@ const CallModal: React.FC<MyComponentProps> = ({
               >
                 {hisContent?.map((item: any, index: number) => {
                   return (
-                    <div  key={index}  style={{display:"block"}}>
-                        <div  style={{ display: "block" }}>
-                      <div style={{ float: "left" }}> {item?.created_at}</div>
-                      <br />
-                      <div style={{ float: "left", color: "#4c5bd4" }}>
-                        {item?.content_call}
+                    <div key={index} style={{ display: "block" }}>
+                      <div style={{ display: "block" }}>
+                        <div style={{ float: "left" }}>
+                          {" "}
+                          {convertDate(item?.created_at)}
+                        </div>
+                        <br />
+                        <div style={{ float: "left", color: "#4c5bd4" }}>
+                          {item?.content_call}
+                        </div>
+                        <br />
                       </div>
-                      <br/>
-                    </div>
                     </div>
                   );
                 })}
