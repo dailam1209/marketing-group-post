@@ -73,7 +73,6 @@ export default function CustomerGroupSelectDropdownData({
     str = str.replace(/\s+/g, " ").trim();
     return str;
   }
-  console.log("arr", arr);
   useEffect(() => {
     const newData = data?.filter((item) => {
       return removeVietnameseDiacritics(item.gr_name)?.includes(
@@ -85,7 +84,6 @@ export default function CustomerGroupSelectDropdownData({
         removeVietnameseDiacritics(valueFilter)
       );
     });
-    console.log(newData,newData2);
     if (newData[0]?.lists_child) {
       setFilterData(newData);
     } else {
