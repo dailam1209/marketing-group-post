@@ -134,6 +134,7 @@
   margin: 0;
   padding: 3px 0;
   background-color: white;
+  height: 250px;
 }
 
 .select2_results__option {
@@ -1067,7 +1068,7 @@ span.select2.potential_select2_container_step__HpQYa {
   padding-bottom: 22px;
 }
 
-.frm_2{
+.frm_2 {
   text-align: -webkit-center;
 }
 

@@ -981,7 +981,7 @@ label {
 
 .select2-results__option,
 .select2-selection__rendered {
-    font-size: 14px;
+  font-size: 14px;
 }
 
 .select2-results {
@@ -991,20 +991,20 @@ label {
 .select2-results__options {
   list-style: none;
   margin: 0;
-  padding: 0
+  padding: 0;
 }
 
 .select2-results__option {
   padding: 6px;
   user-select: none;
-  -webkit-user-select: none
+  -webkit-user-select: none;
 }
-.select2-results__options:hover{
+.select2-results__options:hover {
   /* background-color: red; */
 }
 
 .select2-results__option[aria-selected] {
-  cursor: pointer
+  cursor: pointer;
 }
 /* Ẩn calendar picker icon cho input có lớp custom-date-input */
 /* .custom-date-input::-webkit-calendar-picker-indicator {
@@ -1025,4 +1025,13 @@ label {
 /* Ghi đè lên kiểu mặc định cho Option */
 .ant-select-item-option-active {
   background-color: transparent; /* Tắt nền màu xanh khi lựa chọn */
+}
+
+.bangiao .ant-modal-content {
+  width: 470px !important;
+  min-width: 470px !important;
+}
+
+.bangiao .ant-modal-body {
+  text-align: left !important;
 }

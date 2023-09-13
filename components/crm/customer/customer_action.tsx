@@ -14,6 +14,9 @@ export default function CustomerListAction({
   numberSelected,
   selectedCus,
   id,
+  listNV,
+  handover,
+  fetchData,
 }: any) {
   const [isOpenCampaign, setIsOpenCampaign] = useState(false);
   const [isOpenEmail, setIsOpenIsEmail] = useState(false);
@@ -168,6 +171,9 @@ export default function CustomerListAction({
         <HandeOverModalCustomer
           isModalCancel={isHandOverOpen}
           setIsModalCancel={setIsHandOverOpen}
+          listNV={listNV}
+          handover={handover}
+          fetchData={fetchData}
         />
         <DelCustomerModal
           isModalCancel={isDelOpen}

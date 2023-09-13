@@ -12,8 +12,10 @@ export default function PotentialDropDownDataStep({
   data = [],
   value = " Chọn người dùng",
   selectData,
-  placeholder
+  placeholder,
 }: any) {
+  console.log(selectData(data), 111);
+
   return (
     <span
       className={`${styles.select2_container_open} ${styles.select2_container} ${styles.select2_container_default} `}
@@ -47,7 +49,7 @@ export default function PotentialDropDownDataStep({
             aria-hidden="false"
           >
             <li
-            onClick = {()=>selectData(placeholder)}
+              onClick={() => selectData(placeholder)}
               className={`${styles.select2_results__option} ${styles.select2_results__option_highlighted}`}
             >
               {placeholder}
@@ -74,7 +76,7 @@ export default function PotentialDropDownDataStep({
                     padding: "5px 0",
                     paddingLeft: "18px",
                   }}
-                  onClick={()=>selectData(item)}
+                  onClick={() => selectData(item)}
                 >
                   {item}
                 </li>
