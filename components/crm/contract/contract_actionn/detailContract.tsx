@@ -59,7 +59,6 @@ export default function DetailContract({ setCheckFile, FormData }: any) {
     return resultString;
   }
 
-
   // const DocxToImage = () => {
   //   const containerRef = useRef(null);
 

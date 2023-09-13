@@ -1,31 +1,99 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Modal } from "antd";
 import styles from "./setting.module.css";
-import { useRouter } from "next/router";
 import ModalCompleteStep from "./complete_modal";
 import Cookies from "js-cookie";
 import { base_url } from "../service/function";
+import { Select } from "antd";
 
 interface MyComponentProps {
   isModalCancel: boolean;
   setIsModalCancel: (value: boolean) => void;
+  fetchData: any;
 }
 
 const ShareActionModal: React.FC<MyComponentProps> = ({
   isModalCancel,
   setIsModalCancel,
+  fetchData,
 }) => {
   const [isOpenSelect, setIsOpenSelect] = useState(false);
   const [label, setLabel] = useState("");
   const [elements, setElements] = useState<JSX.Element[]>([]);
   const [isOpenMdalSuccess, setIsOpenMdalSuccess] = useState(false);
+  const [dep_id, setDep_id] = useState<any>();
+  const [selectedItems1, setselectedItems1] = useState<string | undefined>(
+    undefined
+  );
+  const [selectedItems2, setselectedItems2] = useState<string | undefined>(
+    undefined
+  );
 
-  const handleOK = () => {
+  console.log(selectedItems1, selectedItems2);
+
+  const [options, setOptions] = useState<{ value: string; label: string }[]>(
+    []
+  );
+  const [optionSend, setOptionSend] = useState<
+    { value: string; label: string }[]
+  >([]);
+  const [listNV, setListNV] = useState<any>();
+
+  const sendAPIRequest = (dataToSend) => {
+    const apiUrl = `${base_url}/api/crm/customerdetails/bangiao`;
+
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${Cookies.get("token_base365")}`,
+      },
+      body: JSON.stringify(dataToSend),
+    };
+
+    return fetch(apiUrl, requestOptions)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        return data;
+      });
+  };
+
+  const handleOK = async () => {
+    if (selectedItems1 === selectedItems2) {
+      alert("Nhân viên bàn giao không có khách hàng nào.");
+      return;
+    }
+
+    const dataToSend = {
+      emp_id: selectedItems1,
+      user_handing_over_work: selectedItems2,
+    };
+    console.log(dataToSend);
+
+    try {
+      const apiResponse = await sendAPIRequest(dataToSend);
+      console.log("API response:", apiResponse);
+      setIsModalCancel(false);
+      setIsOpenMdalSuccess(true);
+
+      setTimeout(() => {
+        setIsOpenMdalSuccess(false);
+      }, 2000);
+      fetchData();
+    } catch (error) {
+      console.error("API error:", error);
+    }
+  };
+
+  const handleCancel = () => {
+    setselectedItems1("");
+    setselectedItems2("");
     setIsModalCancel(false);
-    setIsOpenMdalSuccess(true);
-    setTimeout(() => {
-      setIsOpenMdalSuccess(false);
-    }, 2000);
   };
 
   const handleAddElement = (condition: string) => {
@@ -37,19 +105,59 @@ const ShareActionModal: React.FC<MyComponentProps> = ({
     }
   };
 
-  const [listNv, setListNv] = useState([]);
-  const handleGetNv = async () => {
-    const res = await fetch(`${base_url}/api/qlc/managerUser/list`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${Cookies.get("token_base365")}`,
-      },
-      body: JSON.stringify({ com_id: Cookies.get("com_id") }),
-    });
-    const data = await res.json();
-    setListNv(data?.data?.items);
+  const handleGetInfoCus = async () => {
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/listAll`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${Cookies.get("token_base365")}`,
+          },
+        }
+      );
+      const data = await res.json();
+      if (data && data?.data) setListNV(data?.data?.items);
+    } catch (error) {}
   };
+
+  useEffect(() => {
+    handleGetInfoCus();
+  }, [dep_id]);
+  console.log(listNV, 123123);
+
+  useEffect(() => {
+    if (Array.isArray(listNV)) {
+      const updatedOptions = [
+        { value: "", label: "Chọn người bàn giao" },
+        ...listNV.map((item) => {
+          const name = item?.ep_name || "";
+          const id = item?.ep_id?.toString() || "";
+
+          return { value: id, label: `(${id}) ${name}` };
+        }),
+      ];
+
+      setOptions(updatedOptions);
+    }
+  }, [listNV]);
+
+  useEffect(() => {
+    if (Array.isArray(listNV)) {
+      const updatedOptions = [
+        { value: "", label: "Chọn người nhận công việc" },
+        ...listNV.map((item) => {
+          const name = item?.ep_name || "";
+          const id = item?.ep_id?.toString() || "";
+
+          return { value: id, label: `(${id}) ${name}` };
+        }),
+      ];
+
+      setOptionSend(updatedOptions);
+    }
+  }, [listNV]);
 
   return (
     <>
@@ -58,57 +166,54 @@ const ShareActionModal: React.FC<MyComponentProps> = ({
         centered
         open={isModalCancel}
         onOk={() => handleOK()}
-        onCancel={() => setIsModalCancel(false)}
-        className={"mdal_cancel email_add_mdal"}
+        onCancel={() => handleCancel()}
+        className={"mdal_cancel email_add_mdal bangiao"}
         okText="Đồng ý"
         cancelText="Huỷ"
       >
         <div className={styles.row_mdal}>
-          <div className={styles.btn_share}>
-            <div className="mb-3 col-lg-12">
-              <label className={styles.form_label} aria-required="true">
-                Người bàn giao
-              </label>
-              <select className={styles.setting_select}>
-                <option value="" data-select2-id="10">
-                  Chọn người bàn giao
-                </option>
-                <option value="147976" data-name="Hà Quang Tuấn">
-                  (147976) Hà Quang Tuấn -{" "}
-                </option>
-                <option value="146616" data-name="Triệu Thảo">
-                  (146616) Triệu Thảo -{" "}
-                </option>
-                <option value="146512" data-name="Phạm Nhật Huy">
-                  (146512) Phạm Nhật Huy - KỸ THUẬT
-                </option>
-              </select>
-            </div>
-          </div>
+          <div className={styles.choose_obj}>
+            <label className={`${styles.form_label} required`}>
+              {"Chọn người bàn giao"}
+            </label>
 
-          <div className={styles.btn_share}>
-            <div className="mb-3 col-lg-12">
-              <label className={styles.form_label} aria-required="true">
-                Người nhận công việc
-              </label>
-              <select className={styles.setting_select}>
-                <option value="" data-select2-id="10">
-                  Chọn người nhận công việc
-                </option>
-                <option value="147976" data-name="Hà Quang Tuấn">
-                  (147976) Hà Quang Tuấn -{" "}
-                </option>
-                <option value="146616" data-name="Triệu Thảo">
-                  (146616) Triệu Thảo -{" "}
-                </option>
-                <option value="146512" data-name="Phạm Nhật Huy">
-                  (146512) Phạm Nhật Huy - KỸ THUẬT
-                </option>
-              </select>
-            </div>
+            <Select
+              showSearch
+              placeholder="Chọn người bàn giao"
+              value={selectedItems1}
+              onChange={(value) => setselectedItems1(value)}
+              style={{ width: "100%" }}
+              options={options}
+              filterOption={(input, option) =>
+                option?.label.toLowerCase().indexOf(input.toLowerCase()) >= 0
+              }
+            />
+            <span className={styles.error}>Bạn chưa chọn người bàn giao</span>
           </div>
+          <div className={styles.choose_obj}>
+            <label className={`${styles.form_label} required`}>
+              {"Chọn người nhận công việc"}
+            </label>
 
-          <div className={`${styles.mb_3} ${styles["col-lg-12"]}`}>
+            <Select
+              showSearch
+              placeholder="Chọn người nhận công việc"
+              value={selectedItems2}
+              onChange={(value) => setselectedItems2(value)}
+              style={{ width: "100%" }}
+              options={optionSend}
+              filterOption={(input, option) =>
+                option?.label.toLowerCase().indexOf(input.toLowerCase()) >= 0
+              }
+            />
+            <span className={`${styles.error}`}>
+              Bạn chưa chọn người nhận công việc
+            </span>
+          </div>
+          <div
+            style={{ marginTop: "10px" }}
+            className={`${styles.mb_3} ${styles["col-lg-12"]}`}
+          >
             <div>
               Chức năng này sẽ chuyển toàn bộ đối tượng (Tiềm năng, Khách hàng,
               Liên hệ) và toàn bộ công việc dở dang (Cơ hội, Báo giá, Đơn hàng,

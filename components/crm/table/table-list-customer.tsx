@@ -80,6 +80,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   const [cusId, setCusId] = useState<any>();
   const [te, setTE] = useState<any>();
   const [nameNguon, setNameNguon] = useState();
+
   const handleChangeStatus = (e: any, data: any) => {
     setValueStatus(e.target.value);
   };
