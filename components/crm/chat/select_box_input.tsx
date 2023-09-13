@@ -3,6 +3,7 @@ import { base_url } from "../service/function";
 import styles from "./chat.module.css";
 import { useEffect, useState } from "react";
 import { GetStaticPaths } from "next"; 
+import { Select } from "antd";
 export async function getStaticPaths() {
   // ... your code here ...
 }
@@ -10,8 +11,10 @@ export default function SelectBoxInput({
   title = "",
   placeholder = "",
   infoCus,
+  settinhtrang
 }: any) {
   const [listStatus, setLisStatus] = useState([]);
+  const [valueStt, setvalueStt] = useState<any>(0)
   const getStatus = async () => {
     const res = await fetch(`${base_url}/api/crm/customerStatus/list`, {
       method: "POST",
@@ -31,20 +34,36 @@ export default function SelectBoxInput({
     <div
       className={`${styles.business_assistant_item} ${styles.business_assistant_item_gray}`}
     >
-      <label className={styles.lbl_title}>{title}</label>
-      <select
+      <label >{title}</label>
+      <Select
         id="form_business_assistant_group_parent"
-        className={`${styles.select2} ${styles.business_assistant_item_select} ${styles.select2_hidden_accessible}`}
+        suffixIcon={
+          <i
+            style={{ color: "black" }}
+            className="bi bi-caret-down-fill"
+          ></i>
+        }
+        style={{
+          width: "100%",
+          border: "1px solid black",
+          height: 38.5,
+          color:"red"
+          // borderRadius: 7,
+        }}
+        // className={`${styles.select2} ${styles.business_assistant_item_select} ${styles.select2_hidden_accessible}`}
         tabIndex={-1}
         aria-hidden="true"
+        value={valueStt?valueStt:infoCus?.status?.info}
+        onChange={(value)=>settinhtrang(value)}
+        // defaultValue={infoCus?.status?.info}
       >
-        <option value="">{infoCus?.status?.detail?.stt_name}</option>
+        {/* <option value="">{infoCus?.status?.detail?.stt_name}</option> */}
         {listStatus?.map((item: any, index: any) => (
           <option value={item?.stt_id} key={index}>
             {item?.stt_name}
           </option>
         ))}
-      </select>
+      </Select>
     </div>
   );
 }

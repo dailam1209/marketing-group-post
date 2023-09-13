@@ -53,6 +53,43 @@ interface TableDataContracDrops {
   loading?: any;
   setDatatable?: any;
   ArrNguonKK?: any;
+  isSelectedRow?: any;
+  numberSelected?: any;
+  clearOption?: any;
+  chooseAllOption?: any;
+  setName?: any;
+  name?: any;
+  setPhone?: any;
+  selectedCus?: any;
+  setStatus?: any;
+  setResoure?: any;
+  nvPhuTrach?: any;
+  setnvPhuTrach?: any;
+  userNameCreate?: any;
+  setuserNameCreate?: any;
+  setNameHandingOverWork?: any;
+  NameHandingOverWork?: any;
+  nhomCha?: any;
+  setnhomCha?: any;
+  nhomCon?: any;
+  setnhomCon?: any;
+  setloading?: any;
+  setgroup_id?: any;
+  setTimeStart?: any;
+  setTimeEnd?: any;
+  setdateE?: any;
+  setdateS?: any;
+  setTime_s?: any;
+  setTime_e?: any;
+  setemp_id?: any;
+  setIdNhom?: any;
+  listGr?: any;
+  listGr_Child?: any;
+  nameNvNomor?: any;
+  nv?: any;
+  role?: any;
+  posId?: any;
+  listNV?: any;
 }
 
 const TableListCustomer: React.FC<TableDataContracDrops> = ({
@@ -72,6 +109,43 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   loading,
   setDatatable,
   ArrNguonKK,
+  isSelectedRow,
+  numberSelected,
+  clearOption,
+  chooseAllOption,
+  setName,
+  name,
+  setPhone,
+  selectedCus,
+  setStatus,
+  setResoure,
+  nvPhuTrach,
+  setnvPhuTrach,
+  userNameCreate,
+  setuserNameCreate,
+  setNameHandingOverWork,
+  NameHandingOverWork,
+  nhomCha,
+  setnhomCha,
+  nhomCon,
+  setnhomCon,
+  setloading,
+  setgroup_id,
+  setTimeStart,
+  setTimeEnd,
+  setdateE,
+  setdateS,
+  setTime_s,
+  setTime_e,
+  setemp_id,
+  setIdNhom,
+  listGr,
+  listGr_Child,
+  nameNvNomor,
+  nv,
+  role,
+  posId,
+  listNV,
 }: any) => {
   const [openModalCall, setOpenModalCall] = useState(false);
   const router = useRouter();
@@ -81,12 +155,16 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   const [te, setTE] = useState<any>();
   const [nameNguon, setNameNguon] = useState();
 
+  const [show, setshow] = useState<boolean>(false)
+    const [group_idFix, setgroup_idFix] = useState<any>()
   const handleChangeStatus = (e: any, data: any) => {
+  
     setValueStatus(e.target.value);
   };
   const handleShowCall = (record: any) => {
+    setgroup_idFix(record.group_id)
     setCusId(record.cus_id);
-    setOpenModalCall(true);
+    setshow(true);
   };
 
   const renderTitle = (record, text) => (
@@ -444,6 +522,40 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
         setIsModalCancel={setOpenModalCall}
         cusId={cusId}
         setCusId={setCusId}
+        setIdNhom={setIdNhom}
+        setTime_s={setTime_s}
+        setTime_e={setTime_e}
+        dataStatusCustomer={dataStatusCustomer}
+        setStatus={setStatus}
+        fetchData={fetchData}
+        setResoure={setResoure}
+        datatable={datatable}
+        nvPhuTrach={nvPhuTrach}
+        setnvPhuTrach={setnvPhuTrach}
+        userNameCreate={userNameCreate}
+        setuserNameCreate={setuserNameCreate}
+        nhomCha={nhomCha}
+        setnhomCha={setnhomCha}
+        nhomCon={nhomCon}
+        setnhomCon={setnhomCon}
+        setDatatable={setDatatable}
+        setloading={setloading}
+        setgroup_id={setgroup_id}
+        setTimeStart={setTimeStart}
+        setTimeEnd={setTimeEnd}
+        setdateE={setdateE}
+        setdateS={setdateS}
+        setemp_id={setemp_id}
+        nv={nv}
+        role={role}
+        posId={posId}
+        listNV={listNV}
+        nameNvNomor={nameNvNomor}
+        listGr={listGr}
+        listGr_Child={listGr_Child}
+        group_idFix={group_idFix}
+        show={show}
+        setshow={setshow}
       />
     </>
   );

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 
-export default function TextEditor({ title = null, className,  infoCus }: any) {
+export default function TextEditor({ title = null, className,  infoCus ,refDes,setrefDes}: any) {
 
   const editorRef = useRef<any>();
   const [editorLoaded, setEditorLoaded] = useState(false);
@@ -12,6 +12,11 @@ export default function TextEditor({ title = null, className,  infoCus }: any) {
     };
     setEditorLoaded(true);  
   }, []);
+  const handleEditorChange = (event, editor) => {
+    const data = editor.getData();
+    // data chứa nội dung thay đổi của trình soạn thảo
+    setrefDes(data)
+  };
   return (
     <div
       className={`text_editor_${className}`}
@@ -19,7 +24,8 @@ export default function TextEditor({ title = null, className,  infoCus }: any) {
     >
       <label className="title_label">{title}</label>
       {editorLoaded ? (
-        <CKEditor data={infoCus?.description?.detail?infoCus?.description?.detail:"Chưa cập nhật"} editor={ClassicEditor} />
+        <CKEditor    onChange={handleEditorChange}
+        data={infoCus?.description?.detail?infoCus?.description?.detail:"Chưa cập nhật"} editor={ClassicEditor} />
       ) : (
         "loading..."
       )}

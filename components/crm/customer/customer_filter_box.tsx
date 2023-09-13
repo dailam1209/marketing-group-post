@@ -86,7 +86,6 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
   const [valueSelectStatus, setValueSelectStatus] = useState<any>();
   const [valueResoure, sevalueResoure] = useState<any>();
   const [check, setCheck] = useState(false);
-
   const handlefilter = async () => {
     setDatatable([]);
     setloading(true);

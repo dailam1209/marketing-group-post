@@ -6,7 +6,8 @@ export default function TextEditorND({
   className,
   infoCus,
   setContent,
-  setDate
+  setDate,
+  setrefCall
 }: any) {
   const editorRef = useRef<any>();
   const [editorLoaded, setEditorLoaded] = useState(false);
@@ -15,7 +16,8 @@ export default function TextEditorND({
   const handleEditorChange = (event, editor) => {
     const data = editor.getData();
     const sanitizedData = sanitizeContent(data);
-    setContent(sanitizedData);
+    setrefCall(sanitizedData);
+    
   };
   const sanitizeContent = (content) => {
     const cleanContent = content.replace("&nbsp;", " "); // Loại bỏ các thẻ <p> trống và &nbsp;

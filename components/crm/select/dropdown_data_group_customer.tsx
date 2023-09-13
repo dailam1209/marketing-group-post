@@ -43,7 +43,6 @@ export default function CustomerGroupSelectDropdownData({
       const response = await fetch(url, config);
       const data = await response.json();
       if (data?.error) {
-        notification.error({ message: data.error.message });
       }
     } catch (error) {
       console.error(error);

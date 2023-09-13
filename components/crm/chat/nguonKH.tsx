@@ -2,13 +2,16 @@ import Cookies from "js-cookie";
 import { base_url } from "../service/function";
 import styles from "./chat.module.css";
 import { useEffect, useState } from "react";
+import { Select } from "antd";
 
 export default function SelectBoxInputNguon({
   dataOption = {},
   title = "",
   placeholder = "",
   infoCus,
+  setnguon
 }: any) {
+  const [valueNguonKK, setvalueNguonKK] = useState<any>(0)
   const ArrNguonKK: any = [
     { name: "Chưa cập nhật", id: 0 },
     { name: "Facebook", id: 1 },
@@ -20,7 +23,6 @@ export default function SelectBoxInputNguon({
     { name: "Chăm sóc khach hàng", id: 7 },
     { name: "Email", id: 8 },
   ];
-  
   const name2 = ArrNguonKK.filter(item => item.id == infoCus?.resoure?.info)
   useEffect(() => {
   
@@ -29,20 +31,32 @@ export default function SelectBoxInputNguon({
     <div
       className={`${styles.business_assistant_item} ${styles.business_assistant_item_gray}`}
     >
-      <label className={styles.lbl_title}>{title}</label>
-      <select
+      <label >{title}</label>
+      <Select
+          suffixIcon={
+            <i
+              style={{ color: "black" }}
+              className="bi bi-caret-down-fill"
+            ></i>
+          }
+          style={{
+            width: "100%",
+            border: "1px solid black",
+            height: 39,
+            // borderRadius: 7,
+          }}
         id="form_business_assistant_group_parent"
-        className={`${styles.select2} ${styles.business_assistant_item_select} ${styles.select2_hidden_accessible}`}
         tabIndex={-1}
         aria-hidden="true"
+        value={valueNguonKK?valueNguonKK:infoCus?.resoure?.info}
+          onChange={(value)=>setnguon(value)}
       >
-        <option value="">{name2[0]?.name?name2[0]?.name:"Chưa cập nhật"}</option>
         {ArrNguonKK?.map((item: any, index: any) => (
           <option value={item?.id} key={index}>
             {item?.name}
           </option>
         ))}
-      </select>
+      </Select>
     </div>
   );
 }
