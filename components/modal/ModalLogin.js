@@ -36,7 +36,7 @@ export default function ModalLogin({ setOpenModalLogin }) {
                 <span>Công ty</span>
               </div>
             </Link>
-            <Link href={`https://hungha365.com/dang-nhap-nhan-vien.html}`}>
+            <Link href={`https://hungha365.com/dang-nhap-nhan-vien.html`}>
               <div className={styles.khoi_item}>
                 <img src="./User_alt_fill.png" alt="" />
                 <span>Nhân viên</span>

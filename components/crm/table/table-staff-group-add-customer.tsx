@@ -43,7 +43,7 @@ const TableStaffCustomerGroupAdd: React.FC<TableStaffCustomerGroupAddProps> = ({
     }
   });
 
-  const data: DataType[] = newArray?.map((item) => {
+  const data: any = newArray?.map((item) => {
     return {
       key: item.ep_id,
       nameDeparment: item?.nameDeparment,
@@ -51,7 +51,11 @@ const TableStaffCustomerGroupAdd: React.FC<TableStaffCustomerGroupAddProps> = ({
       item: item,
     };
   });
-
+  let data2 = [];
+  data?.map((item) => {
+    data2.push(item.item);
+  });
+  console.log(data2);
   function handleDelRow(item: any): void {
     setIsOpenModalDel(true);
     setIdDel(item?._id);
@@ -84,7 +88,7 @@ const TableStaffCustomerGroupAdd: React.FC<TableStaffCustomerGroupAddProps> = ({
     },
     {
       title: "Phòng ban",
-      dataIndex: "nameDeparment",
+      dataIndex: "dep_name",
       key: "2",
       width: 150,
     },
@@ -106,24 +110,18 @@ const TableStaffCustomerGroupAdd: React.FC<TableStaffCustomerGroupAddProps> = ({
             handleDelRow(item);
           }}
         >
-          <Image
-            alt="img"
-            width={26}
-            height={26}
-            src={"/crm/del_red.svg"}
-          />
+          <Image alt="img" width={26} height={26} src={"/crm/del_red.svg"} />
           Gỡ bỏ
         </button>
       ),
     },
   ];
-
   return (
     <>
       <div className="custom_table product_return">
         <Table
           columns={columns}
-          dataSource={data}
+          dataSource={data2}
           rowSelection={{ ...rowSelection }}
           bordered
           pagination={false}

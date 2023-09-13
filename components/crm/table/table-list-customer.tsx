@@ -340,7 +340,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       title: "Ngày cập nhật",
       dataIndex: "updated_at",
       key: "3",
-      width: 120,
+      width: 150,
     },
     {
       title: "Chức năng",
