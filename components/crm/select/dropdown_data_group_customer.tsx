@@ -92,7 +92,6 @@ export default function CustomerGroupSelectDropdownData({
       setFilterData(newData2);  
     }
   }, [valueFilter]);
-  console.log("first,", filterData);
   return (
     <span
       className={`${styles.select2_container_open} ${styles.select2_container} ${styles.select2_container_default} `}

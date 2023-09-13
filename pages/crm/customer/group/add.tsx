@@ -488,7 +488,8 @@ const GroupCustomerAdd: React.FC = () => {
 
                         setModal1Open(true);
                       } else {
-                        openNotificationWithIcon("error");
+                        alert("Bạn chưa nhập tên nhóm khách hàng")
+                        // openNotificationWithIcon("error");
                       }
                     }}
                   />

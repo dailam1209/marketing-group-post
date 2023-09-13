@@ -35,9 +35,7 @@ const GroupSharedAFactorModal: React.FC<MyComponentProps> = ({
 
   return (
     <>
-      {/* <Button type="primary" onClick={() => setModal2Open(true)}>
-        Vertically centered modal dialog
-      </Button> */}
+
       <Modal
         title={
           <div
@@ -47,7 +45,7 @@ const GroupSharedAFactorModal: React.FC<MyComponentProps> = ({
               justifyContent: "center",
             }}
           >
-            <div></div>
+            
             <div>Đối tượng được chia sẻ</div>{" "}
             <div onClick={()=>setIsModalCancel(false)} style={{ cursor: "pointer",position:"absolute",right:15 }}>
               X
@@ -63,7 +61,7 @@ const GroupSharedAFactorModal: React.FC<MyComponentProps> = ({
         cancelText="Huỷ"
       >
         {depId && depId !== "all" && empId && empId !== "all" ? (
-          <div style={{ marginTop: "-96px" }}>
+          <div  style={{ marginTop: "-96px" }}>
             <TableSharedFactor data={data} empIdArr={empIdArr} />
           </div>
         ) : (

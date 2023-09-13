@@ -36,6 +36,7 @@ const GroupCustomerAdd: React.FC = () => {
   const [selectedValueDepartments, setSelectedValueDepartments] = useState<any>(
     []
   );
+  const [share_group_child, setshare_group_child] = useState<any>(0);
   const [dataDetails, setDataDetails] = useState<any>([]);
   const [dataSelectGroupParent, setData] = useState<any>([]);
   const [dataEmp, setDataEmp] = useState<any>([]);
@@ -50,15 +51,6 @@ const GroupCustomerAdd: React.FC = () => {
   const [api, contextHolder] = notification.useNotification();
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
-  const [valueGroupCustomer, setValueGroupCustomer] = useState({
-    gr_id: id,
-    gr_name: "999",
-    gr_description: "777",
-    group_parent: "",
-    dep_id: null,
-    emp_id: null,
-    group_cus_parent: null,
-  });
 
   const accessToken = Cookies.get("token_base365");
   const com_id = Cookies.get("com_id");
@@ -88,7 +80,8 @@ const GroupCustomerAdd: React.FC = () => {
     try {
       const response = await axios.post(url, body, {
         headers: {
-          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get("token_base365")}`,
         },
       });
 
@@ -195,7 +188,15 @@ const GroupCustomerAdd: React.FC = () => {
   const dataPassFromId = dataSelectGroupParent?.data?.filter(
     (item: any) => item?.gr_id === Number(id)
   )?.[0];
-
+  const [valueGroupCustomer, setValueGroupCustomer] = useState({
+    gr_id: id,
+    gr_name: "999",
+    gr_description: "777",
+    group_parent: "",
+    dep_id: null,
+    emp_id: null,
+    group_cus_parent: null,
+  });
   useEffect(() => {
     fetchDataDetails(`${base_url}/api/crm/group/details`, {
       gr_id: Number(id),
@@ -206,10 +207,16 @@ const GroupCustomerAdd: React.FC = () => {
     });
     fetchDataEmp(`${base_url}/api/qlc/managerUser/listAll`, {});
   }, []);
-
+  const [valueDefault, setvalueDefault] = useState<any>();
+  const [change, setchange] = useState(false);
   useEffect(() => {
+    delete dataDetails?.data?.company_id;
     setValueGroupCustomer(dataDetails?.data);
-  }, []);
+    setvalueDefault(dataDetails?.data);
+    setTimeout(() => {
+      setchange(true);
+    }, 500);
+  }, [valueDefault, change]);
 
   useEffect(() => {
     setHeaderTitle("Nhóm khách hàng / Chỉnh sửa");
@@ -277,7 +284,6 @@ const GroupCustomerAdd: React.FC = () => {
         };
       });
     setEmployeeOptions(employeeOption);
-    console.log("employeeOption data after choose department",employeeOption)
   }, [selectedValueDepartments]);
 
   // const dataSelectGroupParent = dataAll?.data;
@@ -315,9 +321,8 @@ const GroupCustomerAdd: React.FC = () => {
         ?.split(",")
         .map((item) => parseInt(item.trim(), 10))
     );
-
   }, []);
-
+  const com_ids = Cookies.get("com_id");
   useEffect(() => {
     setTimeout(() => {
       const employeeOption = dataEmp?.data?.items
@@ -334,7 +339,6 @@ const GroupCustomerAdd: React.FC = () => {
           };
         });
       setEmployeeOptions(employeeOption);
-      console.log("employeeOption---: ",employeeOption)
     }, 0);
   }, [clickOptionEmp]);
 
@@ -344,7 +348,6 @@ const GroupCustomerAdd: React.FC = () => {
       description: "Trường tên nhóm khách hàng đã tồn tại hoặc không được nhập",
     });
   };
-
   return (
     <>
       <Head>
@@ -467,6 +470,7 @@ const GroupCustomerAdd: React.FC = () => {
                           style={{ fontSize: "14px" }}
                         >
                           <input
+                            onChange={() => setshare_group_child(1)}
                             type="checkbox"
                             value="1"
                             name="share_group_child"
@@ -652,29 +656,61 @@ const GroupCustomerAdd: React.FC = () => {
                         dataDetails?.data?.data?.gr_name ||
                       valueGroupCustomer.gr_name === ""
                     ) {
-                      openNotificationWithIcon();
+                      try {
+                        // alert("me")
+                        await updateDataEdit(
+                          `${base_url}/api/crm/group/update_GroupKH`,
+                          {
+                            ...valueDefault,
+                            name: valueDefault.gr_name,
+                            description: valueDefault?.gr_description,
+                            group_cus_parent:
+                              valueDefault.group_cus_parent !== undefined &&
+                              valueDefault.group_cus_parent !== null
+                                ? valueDefault.group_cus_parent
+                                : valueDefault.group_cus_parent === 0
+                                ? 0
+                                : dataDetails?.data?.group_parent,
+                            gr_id: id,
+                            emp_id: valAllEmp ? "all" : dataTableEmp?.join(","),
+                            dep_id: valAllDepartment
+                              ? "all"
+                              : selectedValueDepartments?.join(","),
+                            share_group_child: share_group_child,
+                          }
+                        );
+                        // setModal1Open(true);
+                      } catch (error) {
+                        // setModal1Open(true);
+                      }
                     } else {
-                      await updateDataEdit(
-                        `${base_url}/api/crm/group/update_GroupKH`,
-                        {
-                          ...valueGroupCustomer,
-                          name: valueGroupCustomer.gr_name,
-                          description: valueGroupCustomer?.gr_description,
-                          group_cus_parent:
-                            valueGroupCustomer.group_cus_parent !== undefined &&
-                            valueGroupCustomer.group_cus_parent !== null
-                              ? valueGroupCustomer.group_cus_parent
-                              : valueGroupCustomer.group_cus_parent === 0
-                              ? 0
-                              : dataDetails?.data?.group_parent,
-                          gr_id: id,
-                          emp_id: valAllEmp ? "all" : dataTableEmp?.join(","),
-                          dep_id: valAllDepartment
-                            ? "all"
-                            : selectedValueDepartments?.join(","),
-                        }
-                      );
-                      setModal1Open(true);
+                      try {
+                        await updateDataEdit(
+                          `${base_url}/api/crm/group/update_GroupKH`,
+                          {
+                            ...valueGroupCustomer,
+                            name: valueGroupCustomer.gr_name,
+                            description: valueGroupCustomer?.gr_description,
+                            group_cus_parent:
+                              valueGroupCustomer.group_cus_parent !==
+                                undefined &&
+                              valueGroupCustomer.group_cus_parent !== null
+                                ? valueGroupCustomer.group_cus_parent
+                                : valueGroupCustomer.group_cus_parent === 0
+                                ? 0
+                                : dataDetails?.data?.group_parent,
+                            gr_id: id,
+                            emp_id: valAllEmp ? "all" : dataTableEmp?.join(","),
+                            dep_id: valAllDepartment
+                              ? "all"
+                              : selectedValueDepartments?.join(","),
+                            share_group_child: share_group_child,
+                          }
+                        );
+                        setModal1Open(true);
+                      } catch (error) {
+                        setModal1Open(true);
+                      }
                     }
                   }}
                 />

@@ -32,7 +32,6 @@ export default function HeaderBtnsCustomerGroup({
               type="text"
               className={styles.input__search}
               name="search"
-              defaultValue=""
               placeholder="Tìm kiếm theo tên nhóm khách hàng"
               value={valFilter}
               onChange={handleChangeInput}

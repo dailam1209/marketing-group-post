@@ -32,9 +32,9 @@ const TableSharedFactor: React.FC<TableSharedFactorProps> = ({
     empIdArr.includes(item?.ep_id)
   );
 
-  const dataTble: DataType[] = dataFilter?.map((item) => {
+  const dataTble: DataType[] = dataFilter?.map((item,index) => {
     return {
-      key: item.id,
+      key: index,
       nameDeparment: item?.nameDeparment,
       userName: item?.ep_name,
       item: item,
@@ -58,9 +58,8 @@ const TableSharedFactor: React.FC<TableSharedFactorProps> = ({
 
   return (
     <>
-      <div className="custom_table product_return">
+      <div key={"5"} className="custom_table product_return">
         <Table
-  
           columns={columns}
           dataSource={dataTble}
           bordered
