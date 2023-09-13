@@ -189,6 +189,7 @@ export default function CustomerList() {
       cus_from: item?.cus_from,
       link: item?.link,
       value: item?.resoure,
+      count_content_call: item?.count_content_call,
     };
   });
 
@@ -314,7 +315,6 @@ export default function CustomerList() {
     selectedRowKeys,
     onChange: onSelectChange,
     onSelect: (record, selected, selectedRows) => {
-      console.log(selectedRows);
       setNumberSelected(selectedRows?.length);
     },
     onSelectAll: handleSelectAll,

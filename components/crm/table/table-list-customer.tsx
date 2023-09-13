@@ -15,6 +15,7 @@ import { base_url } from "../service/function";
 import { text } from "stream/consumers";
 const Cookies = require("js-cookie");
 interface DataType {
+  count_content_call: number;
   key: React.Key;
   cus_id: number;
   email: string;
@@ -277,7 +278,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       render: (data, record) => (
         <div
           onClick={() => handleShowCall(record)}
-          style={{ cursor: "pointer" }}
+          style={{ cursor: "pointer", color: record?.count_content_call !==0  && record?.count_content_call ? "#ffa800" : "#474747"}}
           className={data.length > 20 ? "truncate-text" : ""}
         >
           {data}
@@ -450,6 +451,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       </div>
     ), // Thay thế nội dung "No Data" bằng "Hello"
   };
+
   return (
     <>
       <div className="custom-table">
