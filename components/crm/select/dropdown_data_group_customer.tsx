@@ -154,19 +154,12 @@ export default function CustomerGroupSelectDropdownData({
                       <ul className="select2-results__options">
                         <li className="select2-results__option" role="group">
                           <strong className="select2-results__group">
-                            <li>{item?.gr_name}</li>
+                            <li >{item?.gr_name}</li>
                           </strong>
                           <ul className="select2-results__options select2-results__options--nested">
                             {item?.gr_id == value ? (
                               <li
-                                onMouseOver={(e) => {
-                                  e.currentTarget.style.background = "#4c5bd4";
-                                  e.currentTarget.style.color = "#fff";
-                                }}
-                                onMouseOut={(e) => {
-                                  e.currentTarget.style.background = "none";
-                                  e.currentTarget.style.color = "black";
-                                }}
+                              style={{ background: "#ddd",}}
                                 className="select2-results__option"
                                 onClick={() => handleClcikOptions(item)}
                               >
