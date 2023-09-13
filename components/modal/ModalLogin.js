@@ -30,19 +30,19 @@ export default function ModalLogin({ setOpenModalLogin }) {
             className={styles.text}
           >{`Để tiếp tục đăng nhập bạn vui lòng chọn loại tài khoản.`}</div>
           <div className={styles.khoi}>
-            <Link href={`dang-nhap-cong-ty.html${getUrl}`}>
+            <Link href={`https://hungha365.com/dang-nhap-cong-ty.html`}>
               <div className={styles.khoi_item}>
                 <img src="./Home_fill.png" alt="" />
                 <span>Công ty</span>
               </div>
             </Link>
-            <Link href={`dang-nhap-nhan-vien.html${getUrl}`}>
+            <Link href={`https://hungha365.com/dang-nhap-nhan-vien.html}`}>
               <div className={styles.khoi_item}>
                 <img src="./User_alt_fill.png" alt="" />
                 <span>Nhân viên</span>
               </div>{" "}
             </Link>
-            <Link href={`dang-nhap-ca-nhan.html${getUrl}`}>
+            <Link href={`https://hungha365.com/dang-nhap-ca-nhan.html`}>
               <div className={styles.khoi_item}>
                 <img src="./User_circle.png" alt="" />
                 <span>Cá nhân</span>
