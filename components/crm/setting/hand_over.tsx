@@ -7,9 +7,9 @@ import { base_url } from "../service/function";
 import { Select } from "antd";
 
 interface MyComponentProps {
-  isModalCancel: boolean;
-  setIsModalCancel: (value: boolean) => void;
-  fetchData: any;
+  isModalCancel?: boolean;
+  setIsModalCancel?: (value: boolean) => void;
+  fetchData?: any;
 }
 
 const ShareActionModal: React.FC<MyComponentProps> = ({
