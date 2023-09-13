@@ -51,6 +51,7 @@ export default function CustomerListInputGroup({
   role,
   posId,
   listNV,
+  handover,
 }: any) {
   const [open, setOpen] = useState(false);
   const inputFileRef = useRef<HTMLInputElement>(null);
@@ -296,6 +297,9 @@ export default function CustomerListInputGroup({
           numberSelected={numberSelected}
           selectedCus={selectedCus}
           id={"123"}
+          listNV={listNV}
+          handover={handover}
+          fetchData={fetchData}
         />
 
         <div className={`${styles.main__control_add}`}>

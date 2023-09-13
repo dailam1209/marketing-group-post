@@ -5,14 +5,15 @@ import { useHeader } from "@/components/crm/hooks/useHeader";
 import TableListCustomer from "@/components/crm/table/table-list-customer";
 import CustomerListInputGroup from "@/components/crm/customer/customer_input_group";
 import { TableRowSelection } from "antd/es/table/interface";
-const Cookies = require("js-cookie");
 import Head from "next/head";
 import { base_url } from "@/components/crm/service/function";
 import { checkAndRedirectToHomeIfNotLoggedIn } from "@/components/crm/ultis/checkLogin";
 import moment from "moment";
+const Cookies = require("js-cookie");
 export interface DataType {
   key: React.Key;
   cus_id: number;
+  emp_id: number;
   email: string;
   name: string;
   phone_number: number;
@@ -62,8 +63,10 @@ export default function CustomerList() {
   const [time_e, setTime_e] = useState<any>(null);
   const [emp_id, setemp_id] = useState<any>();
   const [idNhom, setIdNhom] = useState<any>();
+  const [selectedCusIds, setSelectedCusIds] = useState<
+    { cus_id: number; emp_id: number }[]
+  >([]);
 
-  console.log(selectedCus);
   useEffect(() => {
     if (
       dateS != undefined &&
@@ -97,7 +100,6 @@ export default function CustomerList() {
           // group_pins_id: nhomCon,
           time_s: time_s,
           time_e: time_e,
-          emp_id: emp_id,
         }),
       });
       const data = await res.json();
@@ -127,13 +129,15 @@ export default function CustomerList() {
     handleGetInfoSTT();
   }, []);
 
-  const onSelectChange = (
-    selectedRowKeys: any,
-    selectedRows: string | any[]
-  ) => {
-    setSelectedCus(selectedRows);
+  const onSelectChange = (selectedRowKeys: any, selectedRows: DataType[]) => {
     setSelectedRowKeys(selectedRowKeys);
     setNumberSelected(selectedRows?.length);
+
+    const selectedIds = selectedRows.map((row) => ({
+      cus_id: row.cus_id,
+      emp_id: row.emp_id || 0,
+    }));
+    setSelectedCusIds(selectedIds);
 
     if (selectedRows?.length > 0) {
       setSelected(true);
@@ -187,12 +191,12 @@ export default function CustomerList() {
       value: item?.resoure,
     };
   });
+
   const dataStatusCustomer = dataStatus;
   const [listGr, setListGr] = useState([]);
   const [listGr_Child, setlistGr_Child] = useState([]);
 
   const handleGetGr = async () => {
-    
     try {
       const res = await fetch(
         `${base_url}/api/crm/group/list_group_khach_hang`,
@@ -217,15 +221,13 @@ export default function CustomerList() {
     } catch (error) {}
   };
 
-
-
-
   const role = Cookies.get("role");
 
   const [open, setOpen] = useState(false);
   const inputFileRef = useRef<HTMLInputElement>(null);
 
-  const [listNV, setLishNv] = useState<any>();
+  const [listNV, setListNv] = useState<any>();
+
   const [dep_id, setDep_id] = useState<any>();
   const [posId, setposId] = useState<any>();
   const [nameNvNomor, setnameNvNomor] = useState<any>();
@@ -243,6 +245,7 @@ export default function CustomerList() {
             // body: JSON.stringify({ com_id: `${Cookies.get("com_id")}` }),
           }
         );
+
         const data = await res.json();
         if (data && data?.data) {
           setDep_id(data?.data?.data?.dep_id);
@@ -265,11 +268,12 @@ export default function CustomerList() {
         }
       );
       const data = await res.json();
-      if (data && data?.data) setLishNv(data?.data?.items);
+      if (data && data?.data) setListNv(data?.data?.items);
     } catch (error) {}
   };
   let nv = listNV?.filter((item) => item.dep_id === dep_id);
   const [listNVPT, setlistNVPT] = useState<any>();
+
   const handleGetNvPt = async () => {
     try {
       const res = await fetch(
@@ -309,10 +313,10 @@ export default function CustomerList() {
   const rowSelection: TableRowSelection<DataType> = {
     selectedRowKeys,
     onChange: onSelectChange,
-    // onSelect: (record, selected, selectedRows) => {
-    //   console.log(selectedRows);
-    //   setNumberSelected(selectedRows?.length);
-    // },
+    onSelect: (record, selected, selectedRows) => {
+      console.log(selectedRows);
+      setNumberSelected(selectedRows?.length);
+    },
     onSelectAll: handleSelectAll,
   };
   useEffect(() => {
@@ -376,7 +380,6 @@ export default function CustomerList() {
       </Head>
       {!checkAndRedirectToHomeIfNotLoggedIn() ? null : (
         <div ref={mainRef} className={styleHome.main}>
-
           <CustomerListInputGroup
             setIdNhom={setIdNhom}
             setTimeStart={setTimeStart}
@@ -416,6 +419,7 @@ export default function CustomerList() {
             role={role}
             posId={posId}
             listNV={listNV}
+            handover={selectedCusIds}
           />
           <TableListCustomer
             fetchData={fetchData}
