@@ -346,6 +346,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
       }),
     ];
   }
+  let optionCon:any = []
   const getOptionC = () => {
     let defaultArr = [{ value: "", label: "Tất cả" }];
     const newArr = listGr_Child
@@ -362,9 +363,8 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
     if (newArr !== undefined && newArr && newArr?.length > 0) {
       return [...defaultArr, ...newArr];
     }
-    return defaultArr;
+    optionCon = defaultArr;
   };
-
   return (
     <>
       <div
