@@ -1,23 +1,95 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Modal } from "antd";
 import styles from "../../potential/potential.module.css";
 import ChatBusinessBody from "@/components/crm/chat/chat_body";
 import styleCustomer from "../customer.module.css";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { base_url } from "../../service/function";
+import Cookies from "js-cookie";
 
 interface MyComponentProps {
   isModalCancel: boolean;
   setIsModalCancel: (value: boolean) => void;
   cusId: any;
-  setCusId:any
+  setCusId: any;
+  setContent?: any;
+  setDate?: any;
+  setOpen?: any;
+  dataStatusCustomer?: any;
+  setStatus?: any;
+  fetchData?: any;
+  setResoure?: any;
+  datatable?: any;
+  nvPhuTrach?: any;
+  setnvPhuTrach?: any;
+  userNameCreate?: any;
+  setuserNameCreate?: any;
+  nhomCha?: any;
+  setnhomCha?: any;
+  nhomCon?: any;
+  setnhomCon?: any;
+  setDatatable?: any;
+  setloading?: any;
+  setgroup_id?: any;
+  setTimeEnd?: any;
+  setTimeStart?: any;
+  setdateS?: any;
+  setdateE?: any;
+  setTime_s?: any;
+  setTime_e?: any;
+  setemp_id?: any;
+  setIdNhom?: any;
+  nv?: any;
+  role?: any;
+  posId?: any;
+  listNV?: any;
+  nameNvNomor?: any;
+  listGr?: any;
+  listGr_Child?: any;
+  group_idFix: any;
+  show: any;
+  setshow: any;
 }
 
 const CallModal: React.FC<MyComponentProps> = ({
   isModalCancel,
   setIsModalCancel,
   cusId,
-  setCusId
+  setCusId,
+  datatable,
+  dataStatusCustomer,
+  fetchData,
+  setStatus,
+  setResoure,
+  nvPhuTrach,
+  setnvPhuTrach,
+  userNameCreate,
+  setuserNameCreate,
+  nhomCha,
+  setnhomCha,
+  nhomCon,
+  setnhomCon,
+  setloading,
+  setgroup_id,
+  setTimeStart,
+  setTimeEnd,
+  setdateE,
+  setdateS,
+  setTime_s,
+  setTime_e,
+  setemp_id,
+  setIdNhom,
+  listGr,
+  listGr_Child,
+  nameNvNomor,
+  nv,
+  role,
+  posId,
+  listNV,
+  group_idFix,
+  show,
+  setshow,
 }) => {
   const [content, setContent] = useState();
   const [datae, setDate] = useState<any>();
@@ -33,27 +105,54 @@ const CallModal: React.FC<MyComponentProps> = ({
   const minutes = String(currentTime.getMinutes()).padStart(2, "0");
   const seconds = String(currentTime.getSeconds()).padStart(2, "0");
   const formattedTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  const [action, setAction] = useState<any>(false);
 
   const handleOK = () => {
+    setAction(!action);
+
     setDate(formattedTime);
     setIsModalCancel(false);
     setIsOpenMdalSuccess(true);
     setIsOpenModalZoom(false);
     setTimeout(() => {
       setIsOpenMdalSuccess(false);
+      setshow(false);
     }, 2000);
+    // setshow(false);
   };
+
   const router = useRouter();
+  const [hisContent, sethisContent] = useState<any>();
+  const getHisCus = async () => {
+    try {
+      const res = await fetch(
+        `${base_url}/api/crm/customerdetails/showHisCus`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${Cookies.get("token_base365")}`,
+          },
+          body: JSON.stringify({ cus_id: cusId }),
+        }
+      );
+      const data = await res.json();
+      sethisContent(data?.data?.checkHis);
+    } catch (error) {}
+  };
+  useEffect(() => {
+    getHisCus();
+  }, [show]);
   return (
     <>
       <Modal
         title={"Trợ lý kinh doanh"}
-        open={isModalCancel}
+        open={show}
         onOk={() => handleOK()}
         onCancel={() => {
-          const pathname = router.pathname;
+          setshow(false);
           setIsModalCancel(false);
-          setCusId(0)
+          setCusId(0);
           // router.push(pathname);
         }}
         className={"mdal_cancel email_add_mdal ctent_call_mdal"}
@@ -97,14 +196,24 @@ const CallModal: React.FC<MyComponentProps> = ({
                   border: "1px solid #d6cece",
                   padding: 10,
                   borderRadius: 10,
-                  height: 100,
                   borderBottom: "90%",
                 }}
               >
-                <div style={{ display: "block" }}>
-                  <div style={{ float: "left" }}> {datae}</div> <br />
-                  <div style={{ float: "left",color:"#4c5bd4" }}> {content}</div>
-                </div>
+                {hisContent?.map((item: any, index: number) => {
+                  return (
+                    <div key={index} style={{display:"block"}}>
+                        <div  style={{ display: "block" }}>
+                      <div style={{ float: "left" }}> {item?.created_at}</div>
+                      <br />
+                      <div style={{ float: "left", color: "#4c5bd4" }}>
+                        {item?.content_call}
+                      </div>
+                      <br/>
+                    </div>
+                    </div>
+                  
+                  );
+                })}
               </fieldset>
             </div>
           </div>
@@ -124,6 +233,38 @@ const CallModal: React.FC<MyComponentProps> = ({
               setContent={setContent}
               setDate={setDate}
               setCusId={setCusId}
+              setIdNhom={setIdNhom}
+              setTime_s={setTime_s}
+              setTime_e={setTime_e}
+              dataStatusCustomer={dataStatusCustomer}
+              setStatus={setStatus}
+              fetchData={fetchData}
+              setResoure={setResoure}
+              datatable={datatable}
+              nvPhuTrach={nvPhuTrach}
+              setnvPhuTrach={setnvPhuTrach}
+              userNameCreate={userNameCreate}
+              setuserNameCreate={setuserNameCreate}
+              nhomCha={nhomCha}
+              setnhomCha={setnhomCha}
+              nhomCon={nhomCon}
+              setnhomCon={setnhomCon}
+              setloading={setloading}
+              setgroup_id={setgroup_id}
+              setTimeStart={setTimeStart}
+              setTimeEnd={setTimeEnd}
+              setdateE={setdateE}
+              setdateS={setdateS}
+              setemp_id={setemp_id}
+              nv={nv}
+              role={role}
+              posId={posId}
+              listNV={listNV}
+              nameNvNomor={nameNvNomor}
+              listGr={listGr}
+              listGr_Child={listGr_Child}
+              group_idFix={group_idFix}
+              action={action}
             />
           </div>
         </div>
@@ -176,15 +317,24 @@ const CallModal: React.FC<MyComponentProps> = ({
                   border: "1px solid #d6cece",
                   padding: 10,
                   borderRadius: 10,
-                  height: 100,
                   borderBottom: "90%",
                   width: "90%",
                 }}
               >
-                <div style={{ display: "block" }}>
-                  <div style={{ float: "left" }}> {datae}</div> <br />
-                  <div style={{ float: "left",color:"#4c5bd4" }}> {content}</div>
-                </div>
+                {hisContent?.map((item: any, index: number) => {
+                  return (
+                    <div  key={index}  style={{display:"block"}}>
+                        <div  style={{ display: "block" }}>
+                      <div style={{ float: "left" }}> {item?.created_at}</div>
+                      <br />
+                      <div style={{ float: "left", color: "#4c5bd4" }}>
+                        {item?.content_call}
+                      </div>
+                      <br/>
+                    </div>
+                    </div>
+                  );
+                })}
               </fieldset>
             </div>
           </div>

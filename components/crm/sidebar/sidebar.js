@@ -115,7 +115,7 @@ export default function SideBar({ isOpened }) {
     });
     // Đoạn mã xử lý sự kiện và giao tiếp với máy chủ Socket.IO
     socket.on("connect", () => {
-      // console.log("Connected to Socket.IO");
+      console.log("Connected to Socket.IO");
       // Thêm xử lý sự kiện hoặc truyền tải dữ liệu ở đây
     });
     const role2 = Cookies.get("role");

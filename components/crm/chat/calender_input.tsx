@@ -3,13 +3,15 @@ import styles from "./chat.module.css";
 export default function CalenderInput() {
   return (
     <div
-      className={`${styles.business_assistant_item} ${styles.business_assistant_item_gray} ${styles.business_assistant_calendar_care}`}
+    style={{display:"block"}}
+       className={`${styles.business_assistant_item} ${styles.business_assistant_item_gray} ${styles.business_assistant_calendar_care}`}
     >
       <div
         className={`${styles.business_assistant_item} ${styles.business_assistant_item_gray}`}
       >
-        <label className={styles.lbl_title}>Lịch hẹn từ ngày</label>
+        <label>Lịch hẹn từ ngày</label>
         <input
+       style={{width:"110%",border:"1px solid black",}}
           type="datetime-local"
           className={styles.business_assistant_start_date}
         />
@@ -17,8 +19,9 @@ export default function CalenderInput() {
       <div
         className={`${styles.business_assistant_item} ${styles.business_assistant_item_gray}`}
       >
-        <label className={styles.lbl_title}>Đến ngày</label>
+        <label >Đến ngày</label>
         <input
+         style={{width:"110%",border:"1px solid black",}}
           type="datetime-local"
           className={styles.business_assistant_start_date}
         />

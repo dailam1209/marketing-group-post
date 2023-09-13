@@ -4,7 +4,7 @@ import Image from "next/image";
 import { notification } from "antd";
 import { base_url } from "../service/function";
 const Cookies = require("js-cookie");
-export default function InputPhone({ infoCus }: any) {
+export default function InputPhone({ infoCus,refPhone }: any) {
   const [numberValue, setNumberValue] = useState("");
   const [isCalling, setIsCalling] = useState(false);
   // console.log("infoCus",infoCus)
@@ -41,8 +41,11 @@ export default function InputPhone({ infoCus }: any) {
         <form action="" onSubmit={() => false} style={{ width: "100%" }}>
           <input
             type="text"
-            value={infoCus?.phone_number?.info}
+            ref={refPhone}
+            // value={infoCus?.phone_number?.info}
+            defaultValue={infoCus?.phone_number?.info}
             className={styles.input_phone}
+            // onChange={(e)=>console.log(e.target.name)}
           />
         </form>
       </div>

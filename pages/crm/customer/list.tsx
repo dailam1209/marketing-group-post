@@ -432,6 +432,39 @@ export default function CustomerList() {
             loading={loading}
             setDatatable={setData}
             ArrNguonKK={ArrNguonKK}
+            setStatus={setStatus}
+            setResoure={setResoure}
+            nvPhuTrach={nvPhuTrach}
+            setnvPhuTrach={setnvPhuTrach}
+            userNameCreate={userNameCreate}
+            setuserNameCreate={setuserNameCreate}
+            nhomCha={nhomCha}
+            setnhomCha={setnhomCha}
+            nhomCon={nhomCon}
+            setnhomCon={setnhomCon}
+            setloading={setloading}
+            setgroup_id={setgroup_id}
+            setTime_s={setTime_s}
+            setTime_e={setTime_e}
+            setemp_id={setemp_id}
+            listGr={listGr}
+            listGr_Child={listGr_Child}
+            nameNvNomor={nameNvNomor}
+            nv={nv}
+            role={role}
+            posId={posId}
+            listNV={listNV}
+            setIdNhom={setIdNhom}
+            setTimeStart={setTimeStart}
+            setTimeEnd={setTimeEnd}
+            setdateS={setdateS}
+            setdateE={setdateE}
+            name={name}
+            setName={setName}
+            isSelectedRow={selected}
+            numberSelected={numberSelected}
+            chooseAllOption={handleSelectAll}
+            selectedCus={selectedCus}
           />
         </div>
       )}

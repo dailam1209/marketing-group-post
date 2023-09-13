@@ -33,10 +33,10 @@ const SelectDataInputBox: React.FC<MyProps> = ({
   //   "POST",
   //   { cus_id: cusId }
   // );
-  const [name,setName]=useState(value)
+  const [name, setName] = useState(value);
   const handleChangeApi = async (e: any, data: any) => {
     const url = `${base_url}/api/crm/customerdetails/editCustomer`;
-    setName(e.target.value)
+    setName(e.target.value);
     const formData = new FormData();
     formData.append("status", e.target.value);
     formData.append("type", type);
@@ -70,7 +70,7 @@ const SelectDataInputBox: React.FC<MyProps> = ({
           onChange={(e: any) => {
             handleChangeApi(e, data);
           }}
-          value={name}
+          value={name || ""}
           // defaultValue={dataStatus?.status?.info}
           // value={dataStatus?.status?.info}
           style={{ border: 0 }}
@@ -82,17 +82,21 @@ const SelectDataInputBox: React.FC<MyProps> = ({
           <option value={0}> Chưa cập nhật</option>
 
           {data?.map((item: any, index: number) => {
-            if(item?.stt_id == value){
+            if (item?.stt_id == value) {
               return (
                 <option
-                  style={{ display: item.status !== 0 ? "block" : "none",background: "rgb(76, 91, 212)", color: "#fff" }}
+                  style={{
+                    display: item.status !== 0 ? "block" : "none",
+                    background: "rgb(76, 91, 212)",
+                    color: "#fff",
+                  }}
                   key={index}
                   value={item.stt_id}
                 >
                   {item.stt_name}
                 </option>
               );
-            }else{
+            } else {
               return (
                 <option
                   style={{ display: item.status !== 0 ? "block" : "none" }}
@@ -103,7 +107,6 @@ const SelectDataInputBox: React.FC<MyProps> = ({
                 </option>
               );
             }
-         
           })}
         </select>
       )}
