@@ -53,7 +53,7 @@ const Table_So_Quy = (props: any) => {
           style={{ display: "flex", fontSize: 15 }}
           rel="noopener noreferrer"
           onClick={() => {
-            setIsShowModalChange(true),
+            setIsShowModalChange(true)
           }}
         >
           <img src="/crm/icon-edit-black.svg" alt="" />
