@@ -32,7 +32,6 @@ export default function PotentialInputGroup({ isSelectedRow }: any) {
       "Người tạo",
       "Ngày tạo",
     ];
-    console.log(data);
     exportToExcel(datas, filename, sheetName, columnHeaders);
   };
   return (

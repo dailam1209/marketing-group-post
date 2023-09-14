@@ -2,7 +2,6 @@ import axios from 'axios'
 
 export default async function handler(req, res) {
   const body = req.body
-  console.log(body.image)
   try {
     const resp = await axios.post(
       'http://43.239.223.147:5001/verify_web_company',
@@ -18,7 +17,6 @@ export default async function handler(req, res) {
         },
       }
     )
-    console.log(resp)
     res.status(200).send({
       data: resp?.data,
     })

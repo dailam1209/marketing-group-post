@@ -63,10 +63,8 @@ export default function ChiTietPhieuChi() {
   const handleDelete = (e: any) => {
     var result = window.confirm("Bạn có chắc muốn xóa không?");
     if (result) {
-      console.log(result);
       router.push("/phieu-thu");
     } else {
-      console.log("first");
     }
   };
   return (

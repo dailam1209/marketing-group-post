@@ -24,10 +24,9 @@ export default function CampaignInputGroupsModal({ isSelectedRow }: any) {
   ];
   const onClose = () => {
     setIsModalCancelPO(false);
-    console.log("first");
   };
   const router = useRouter();
-  console.log(router.pathname);
+  
   return (
     <div className={styles.main__control}>
       <div className={`${styles.main__control_btn} flex_between`}>

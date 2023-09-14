@@ -45,7 +45,6 @@ export default function PotentialFooterAddFiles({
         });
       }
     } catch (error) {
-      console.log("error:",error)
     }
  
   };

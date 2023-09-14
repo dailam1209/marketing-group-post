@@ -19,7 +19,6 @@ import DelLichHenModal from "./quote_action_modal/delete_lich_hen-mdal";
 
 export default function QuoteActionLichHenTable(props: any) {
   const { record, allkey } = props;
-  console.log(record);
   const [isDelOpen, setIsDelOpen] = useState(false);
   const [isOrderBrowsingOpen, setIsOrderBrowsingOpen] = useState(false);
   const [isDenyOpen, setIsDenyOpen] = useState(false);

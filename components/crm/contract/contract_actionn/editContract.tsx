@@ -386,7 +386,6 @@ const EditContractComponent: React.FC<EditContractComponentProps> = ({
       .map((value, index) => (value ? index : null))
       .filter((index) => index !== null);
     let updatedValues = newValues[pos];
-    // console.log(indexSelect?.length === updatedValues?.index?.length);
     const result: number[] = indexSelect.filter(
       (item) => !updatedValues?.index?.includes(item)
     );

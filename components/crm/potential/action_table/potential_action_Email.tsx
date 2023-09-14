@@ -21,7 +21,6 @@ import ResendActionModalEmil from "../mdal_action/resend_action_email";
 
 export default function PotentialActionEmailTable(props: any) {
   const { record, allkey } = props;
-  console.log(record);
   const [isModalCancel, setIsModalCancel] = useState(false);
   const [isDelOpen, setIsDelOpen] = useState(false);
   const [isOrderBrowsingOpen, setIsOrderBrowsingOpen] = useState(false);

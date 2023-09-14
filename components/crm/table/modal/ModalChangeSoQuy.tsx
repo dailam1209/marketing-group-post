@@ -15,7 +15,7 @@ const ModalChangeSoQuy = (props: any) => {
   };
 
   const handleOk = () => {
-    console.log("first");
+   
   };
   const handleChange = () => {
     alert("Cập nhật thành công");

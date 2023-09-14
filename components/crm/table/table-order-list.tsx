@@ -77,7 +77,7 @@ interface TableDataOrderListProps {}
 const TableDataOrderList: React.FC<TableDataOrderListProps> = () => {
   const rowSelection: TableRowSelection<DataType> = {
     onChange: (selectedRowKeys, selectedRows) => {
-      console.log(`selectedRowKeys: ${selectedRowKeys}`, "selectedRows: ");
+     
       if (selectedRows?.length > 0) {
       } else {
       }

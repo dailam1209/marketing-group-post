@@ -13,13 +13,7 @@ const Options1 = (props: any) => {
     const newCheckboxes = [...checkboxes, checkboxes.length];
     setCheckboxes(newCheckboxes);
   };
-  //   const handleRemove = (checkboxIndex: any) => {
-  //     console.log(checkboxIndex);
-  //     const updatedCheckboxes = checkboxes.filter(
-  //       (checkbox) => checkbox !== checkboxIndex
-  //     );
-  //     setCheckboxes(updatedCheckboxes);
-  //   };
+  
   return (
     <fieldset className={styles.left_option1}>
       <div>

@@ -78,7 +78,6 @@ const TableDataCampaignCustomer: React.FC<TableDataCampaignCustomerProps> = ({
 }: any) => {
   const rowSelection: TableRowSelection<DataType> = {
     onChange: (selectedRowKeys, selectedRows) => {
-      console.log(`selectedRowKeys: ${selectedRowKeys}`, "selectedRows: ");
       if (selectedRows?.length > 0) {
         setSelected(true);
       } else {
@@ -86,7 +85,6 @@ const TableDataCampaignCustomer: React.FC<TableDataCampaignCustomerProps> = ({
       }
     },
     onSelect: (record, selected, selectedRows) => {
-      console.log(selectedRows);
       setNumberSelected(selectedRows?.length);
     },
     onSelectAll: (selected, selectedRows, changeRows) => {},

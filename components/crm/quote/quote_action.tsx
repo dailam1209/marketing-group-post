@@ -14,7 +14,6 @@ import StatusModal from "./quote_action_modal/status-mdal";
 import { useRouter } from "next/router";
 
 export default function QuoteAction({ isSelectedRow, record, allkey }: any) {
-  console.log("check", record);
   const [isOpenOrderBrowsing, setIsOpenOrderBrowsing] = useState(false);
   const [isOpenDeny, setIsOpenDeny] = useState(false);
   const [isDelOpen, setIsDelOpen] = useState(false);

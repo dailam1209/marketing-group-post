@@ -55,7 +55,6 @@ const HeaderBarChanceDetails: React.FC<HeaderProps> = ({
 
   useEffect(() => {
     setActiveKey(keyTab);
-    console.log(keyTab);
   }, [keyTab]);
 
   const onChangeKey = (key: string) => {

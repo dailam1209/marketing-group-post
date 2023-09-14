@@ -29,7 +29,6 @@ const ShareActionModal: React.FC<MyComponentProps> = ({
     undefined
   );
 
-  console.log(selectedItems1, selectedItems2);
 
   const [options, setOptions] = useState<{ value: string; label: string }[]>(
     []
@@ -73,11 +72,9 @@ const ShareActionModal: React.FC<MyComponentProps> = ({
       emp_id: selectedItems1,
       user_handing_over_work: selectedItems2,
     };
-    console.log(dataToSend);
 
     try {
       const apiResponse = await sendAPIRequest(dataToSend);
-      console.log("API response:", apiResponse);
       setIsModalCancel(false);
       setIsOpenMdalSuccess(true);
 
@@ -125,7 +122,6 @@ const ShareActionModal: React.FC<MyComponentProps> = ({
   useEffect(() => {
     handleGetInfoCus();
   }, [dep_id]);
-  console.log(listNV, 123123);
 
   useEffect(() => {
     if (Array.isArray(listNV)) {

@@ -10,7 +10,7 @@ import Link from 'next/link';
 const { Option } = Select;
 
 const handleChange = (value: string[]) => {
-  console.log(`selected ${value}`);
+ 
 };
 export default function AddPersonalInfo() {
   return (

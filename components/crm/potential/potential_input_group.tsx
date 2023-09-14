@@ -60,7 +60,6 @@ export default function PotentialInputGroups({
       "Mô tả loại hình",
       "Người tạo",
     ];
-    console.log(data);
     exportToExcel(datas, filename, sheetName, columnHeaders);
   };
   return (

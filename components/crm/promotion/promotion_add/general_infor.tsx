@@ -7,7 +7,6 @@ import InputText from "./input_text";
 
 export default function AddGeneralInfo() {
   const onChange = (time: Dayjs, timeString: string) => {
-    console.log(time, timeString);
   };
 
   return (

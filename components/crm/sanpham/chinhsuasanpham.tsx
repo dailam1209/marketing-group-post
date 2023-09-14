@@ -34,7 +34,6 @@ export default function SuaSanPham() {
         setType2(false);
       }
     } catch (error) {
-      console.log(error);
     }
   }
 
@@ -60,7 +59,6 @@ export default function SuaSanPham() {
         file.name || file.url!.substring(file.url!.lastIndexOf("/") + 1)
       );
     } catch (error) {
-      console.log(error);
     }
   };
   const router = useRouter();

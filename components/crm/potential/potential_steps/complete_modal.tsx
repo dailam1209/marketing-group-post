@@ -45,7 +45,6 @@ const ModalCompleteStep: React.FC<ModalCompleteStepProps> = ({
     try {
       const response = await fetch(url, config);
       const data = await response.json();
-      console.log("check res", data);
     } catch (error) {
       console.error(error);
     }

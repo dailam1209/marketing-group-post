@@ -68,16 +68,12 @@ export default function CustomerList() {
   >([]);
 
   useEffect(() => {
-    if (
-      dateS != undefined &&
-      timeStart != undefined &&
-      dateE != undefined &&
-      timeEnd != undefined
-    ) {
+   
       setTime_s(dateS + " " + timeStart);
       setTime_e(dateE + " " + timeEnd);
-    }
+    
   }, [dateS, dateE, timeStart, timeEnd]);
+
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
   const fetchData = async () => {

@@ -111,7 +111,6 @@ const TableDataQuote: React.FC<TableDataOrderProps> = ({
   const rowSelection: TableRowSelection<DataType> = {
     onChange: (selectedRowKeys, selectedRows) => {
       setAllKey(selectedRows);
-      console.log("check all ket", allKey);
       if (selectedRows?.length > 0) {
         setSelected(true);
       } else {
@@ -119,7 +118,6 @@ const TableDataQuote: React.FC<TableDataOrderProps> = ({
       }
     },
     onSelect: (record, selected, selectedRows) => {
-      console.log(selectedRows);
       setNumberSelected(selectedRows?.length);
     },
     onSelectAll: (selected, selectedRows, changeRows) => {},
