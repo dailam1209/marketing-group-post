@@ -1,8 +1,6 @@
 .sidebar {
-  z-index: 5;
   background: #4c5bd4;
   width: 320px;
-  /* height: 100%; */
   color: white;
   overflow-y: auto;
   padding-bottom: 20px;

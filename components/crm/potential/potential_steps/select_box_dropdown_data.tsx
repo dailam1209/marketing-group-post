@@ -14,7 +14,6 @@ export default function PotentialDropDownDataStep({
   selectData,
   placeholder,
 }: any) {
-
   return (
     <span
       className={`${styles.select2_container_open} ${styles.select2_container} ${styles.select2_container_default} `}

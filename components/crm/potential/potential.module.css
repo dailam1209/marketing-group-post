@@ -5,6 +5,12 @@
   flex-direction: column;
 }
 
+.span_success_custom {
+  font-weight: 900 !important;
+  font-family: "Roboto-Bold" !important;
+  font-size: 18px !important;
+}
+
 .wrapInput {
   width: 40%;
 }
@@ -761,10 +767,7 @@
 }
 
 /* Custom customer input group */
-/* .customer_custom .main__control_add {
-    justify-content: center;
-    width: 58%;
-} */
+
 .f_search_customer {
   width: 500px;
 }

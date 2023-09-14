@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Modal } from "antd";
 import styles from "../../potential/potential.module.css";
-import ModalCompleteStep from "@/components/crm/potential/potential_steps/complete_modal";
+import ModalCompleteStep from "@/components/crm/potential/potential_steps/complete_modal_bangiao";
 import { Select } from "antd";
 import { base_url } from "@/components/crm/service/function";
 const Cookies = require("js-cookie");
@@ -52,8 +52,15 @@ const HandeOverModalCustomer: React.FC<MyComponentProps> = ({
       return;
     }
 
-    const cus_id = handover?.map((item) => item.cus_id);
-    const emp_id = handover?.map((item) => item.emp_id);
+    const cus_id = handover?.map((item) => item.cus_id) || [];
+    cus_id.forEach((id) => {
+      console.log(id);
+    });
+
+    const emp_id = handover?.map((item) => item.emp_id) || [];
+    emp_id.forEach((id) => {
+      console.log(id);
+    });
     const dataToSend = {
       user_handing_over_work: selectedItems,
       cus_id: cus_id,
@@ -65,26 +72,28 @@ const HandeOverModalCustomer: React.FC<MyComponentProps> = ({
       setIsModalCancel(false);
       setIsOpenMdalSuccess(true);
 
-      setTimeout(() => {
-        setIsOpenMdalSuccess(false);
-      }, 2000);
+      // setTimeout(() => {
+      //   setIsOpenMdalSuccess(false);
+      // }, 2000);
       fetchData();
     } catch (error) {
       console.error("API error:", error);
     }
   };
   const handleCancel = () => {
-    setSelectedItems("");
+    setSelectedItems(undefined);
     setIsModalCancel(false);
   };
 
-  const [selectedItems, setSelectedItems] = useState<string | undefined>(
-    undefined
-  );
+  const [selectedItems, setSelectedItems] = useState<
+    { ep_id: string; ep_name: string } | undefined
+  >(undefined);
+
   const [options, setOptions] = useState<{ value: string; label: string }[]>(
     []
   );
 
+  const name = selectedItems?.ep_name;
   useEffect(() => {
     if (Array.isArray(listNV)) {
       const updatedOptions = [
@@ -109,7 +118,7 @@ const HandeOverModalCustomer: React.FC<MyComponentProps> = ({
         open={isModalCancel}
         onOk={() => handleOK()}
         onCancel={() => handleCancel()}
-        className={"mdal_cancel email_add_mdal"}
+        className={"mdal_cancel email_add_mdal "}
         okText="Đồng ý"
         cancelText="Huỷ"
       >
@@ -121,9 +130,21 @@ const HandeOverModalCustomer: React.FC<MyComponentProps> = ({
 
             <Select
               showSearch
-              placeholder="Người nhận công việc"
-              value={selectedItems}
-              onChange={(value) => setSelectedItems(value)}
+              placeholder="Chọn người nhận công việc"
+              value={selectedItems?.ep_id}
+              onChange={(value) => {
+                const selectedOption = options.find(
+                  (option) => option.value === value
+                );
+                if (selectedOption) {
+                  setSelectedItems({
+                    ep_id: selectedOption.value,
+                    ep_name: selectedOption.label,
+                  });
+                } else {
+                  setSelectedItems(undefined);
+                }
+              }}
               style={{ width: "100%" }}
               options={options}
               filterOption={(input, option) =>
@@ -147,7 +168,7 @@ const HandeOverModalCustomer: React.FC<MyComponentProps> = ({
       <ModalCompleteStep
         modal1Open={isOpenMdalSuccess}
         setModal1Open={setIsOpenMdalSuccess}
-        title={`"Bàn giao công việc cho ${name} thành công!"`}
+        title={name}
         link={"customer/list"}
       />
     </>
