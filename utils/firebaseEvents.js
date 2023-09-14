@@ -27,7 +27,6 @@ const handleVerifyOtp = async (
       const data = await response
       if (data && data.data && data.data.data && data.data.data.firebase) {
         const firebaseConfig = data.data.data.firebase
-        console.log(firebaseConfig)
         // khởi tạo cấu hình firebase
 
         const app = !getApps().length ? initializeApp(firebaseConfig) : getApp()

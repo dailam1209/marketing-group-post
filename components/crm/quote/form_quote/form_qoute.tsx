@@ -22,7 +22,6 @@ const Form_qoute = (props: Props) => {
     }
   };
 const handleUse = (index:any)=>{
-  console.log(index)
 
   router.push(`/quote/detail/${index+1}`)
 }

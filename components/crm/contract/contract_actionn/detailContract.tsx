@@ -38,14 +38,11 @@ export default function DetailContract({ setCheckFile, FormData }: any) {
   };
 
   useEffect(() => {
-    // const imageData = FormData?.result?.img_org_base64 ;
-    // console.log(imageData);
-    // setImgaUrls(imageData);
+  
   }, []);
 
   const handleClose = () => {
     setTimeout(() => {
-      // console.log("first")
       setShow(false);
     }, 1500);
   };

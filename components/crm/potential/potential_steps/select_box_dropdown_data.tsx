@@ -14,7 +14,6 @@ export default function PotentialDropDownDataStep({
   selectData,
   placeholder,
 }: any) {
-  console.log(selectData(data), 111);
 
   return (
     <span

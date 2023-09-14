@@ -16,7 +16,6 @@ const TableTLChiaSe: React.FC<TableDataTLCS> = (props: any) => {
     setIsCancelOpen(false);
   };
   const handleAddDB = () => {
-    console.log("remove");
   };
   interface DataType {
     key: React.Key;

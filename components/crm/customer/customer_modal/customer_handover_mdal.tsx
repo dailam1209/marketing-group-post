@@ -62,7 +62,6 @@ const HandeOverModalCustomer: React.FC<MyComponentProps> = ({
 
     try {
       const apiResponse = await sendAPIRequest(dataToSend);
-      console.log("API response:", apiResponse);
       setIsModalCancel(false);
       setIsOpenMdalSuccess(true);
 

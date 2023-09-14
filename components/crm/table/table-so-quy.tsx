@@ -23,10 +23,8 @@ const Table_So_Quy = (props: any) => {
   const [isShowModalChange, setIsShowModalChange] = useState(false);
 
   const handleSelect = (id: any) => {
-    console.log(id);
   };
   const handleDeleteDB = () => {
-    console.log("delete");
     setIsShowModal(false);
   };
   const data = [
@@ -55,7 +53,7 @@ const Table_So_Quy = (props: any) => {
           style={{ display: "flex", fontSize: 15 }}
           rel="noopener noreferrer"
           onClick={() => {
-            setIsShowModalChange(true), console.log("first");
+            setIsShowModalChange(true),
           }}
         >
           <img src="/crm/icon-edit-black.svg" alt="" />

@@ -13,7 +13,6 @@ export default function GeneralRowInforText({formData}: any) {
     { name: "Email", id: 8 },
   ];
   let nameNguon = ArrNguonKK?.filter(item => item.id ===formData?.resoure?.info )
-  console.log(formData)
   return (
     <div className={styles.row_input_text}>
       <InforText field="Mã khách hàng:" value={formData?.cus_id} />

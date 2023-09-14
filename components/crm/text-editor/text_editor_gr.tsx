@@ -34,7 +34,6 @@ export default function TextEditorGr({
           data={editorContent}
           onChange={(event: any, editor: any) => {
             const content = editor.getData();
-            // console.log(content)
             if (typeof setEditorValue !== undefined) {
               setEditorValue(content);
             }

@@ -9,7 +9,6 @@ export default function SideBar() {
   const { isOpen, setIsOpen } = useContext<any>(SidebarContext);
   const [dataHeader, setDataHeader] = useState();
   const sidebarRef = useRef(null);
-  console.log(isOpen);
 
   const handleResize = () => {
     if (window.innerWidth <= 1024) {

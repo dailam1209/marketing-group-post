@@ -16,7 +16,6 @@ import DelActionModal from "../potential_action_modal/deltete_action_mdal";
 
 export default function InformationTextPotentialDetails({ key }: any) {
   const onChange = (checked: boolean) => {
-    console.log(`switch to ${checked}`);
   };
   const items: MenuProps["items"] = [];
   const [isOpenCovert, setIsOpenConvert] = useState(false);

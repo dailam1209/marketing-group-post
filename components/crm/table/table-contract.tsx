@@ -154,7 +154,6 @@ const TableContract: React.FC<TableContractProps> = ({ valSearch }) => {
       id_form_contract: item?.id,
     };
   });
-  console.log(datatable);
 
   const [current, setcurrent] = useState(1);
   const [pageSize, setpageSize] = useState(10);

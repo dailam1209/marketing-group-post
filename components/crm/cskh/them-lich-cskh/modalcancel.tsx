@@ -14,12 +14,7 @@ const ModalCancel = (props: any) => {
     };
 
     const handleOk = () => {
-        // setLoading(true);
-        // setTimeout(() => {
-        //     setLoading(false);
-        //     setOpen(false);
-        // }, 3000);
-        console.log("first")
+    
     };
 
 const handleClose = () =>{

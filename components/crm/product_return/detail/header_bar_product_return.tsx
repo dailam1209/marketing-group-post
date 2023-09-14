@@ -32,7 +32,7 @@ const HeaderBarProductReturn: React.FC<HeaderProps> = ({ keyTab, id }: any) => {
 
   useEffect(() => {
     setActiveKey(keyTab);
-    console.log(keyTab);
+    (keyTab);
   }, [keyTab]);
 
   const onChangeKey = (key: string) => {

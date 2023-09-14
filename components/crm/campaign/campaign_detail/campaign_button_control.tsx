@@ -15,7 +15,6 @@ export default function AddButtonControl() {
   const router = useRouter();
   const { id } = router.query;
   const onChange = (checked: boolean) => {
-    console.log(`switch to ${checked}`);
   };
   return (
     <div>

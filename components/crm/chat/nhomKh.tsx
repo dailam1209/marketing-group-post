@@ -11,7 +11,6 @@ export default function SelectBoxInputNhomKh({
 }: any) {
 
     const [value,setValue] = useState()
-console.log("first,",value)
   return (
     <div
       className={`${styles.business_assistant_item} ${styles.business_assistant_item_gray}`}

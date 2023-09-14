@@ -103,7 +103,6 @@ const TableDataChance: React.FC<TableDataChanceProps> = ({
 }: any) => {
   const rowSelection: TableRowSelection<DataType> = {
     onChange: (selectedRowKeys, selectedRows) => {
-      console.log(`selectedRowKeys: ${selectedRowKeys}`, "selectedRows: ");
       if (selectedRows?.length > 0) {
         setSelected(true);
       } else {
@@ -111,7 +110,6 @@ const TableDataChance: React.FC<TableDataChanceProps> = ({
       }
     },
     onSelect: (record, selected, selectedRows) => {
-      console.log(selectedRows);
       setNumberSelected(selectedRows?.length);
     },
     onSelectAll: (selected, selectedRows, changeRows) => {},

@@ -17,7 +17,6 @@ export default function KhaoSatPage() {
   }: any = useHeader();
   const router = useRouter();
   const path = router.query.id;
-  console.log(path);
   useEffect(() => {
     setHeaderTitle("Danh sách bảng thông tin / Bảng thông tin");
     setShowBackButton(true);

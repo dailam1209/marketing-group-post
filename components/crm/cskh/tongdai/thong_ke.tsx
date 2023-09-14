@@ -85,11 +85,10 @@ const Recording = (props: Props) => {
         }
       );
       const data = await res.json();
-      console.log(data);
+    
       setListNV(data?.data?.items);
     } catch (error) {}
   };
-  console.log(listNV);
   var outputArray = [];
 
   listData?.forEach(function (call) {
@@ -143,7 +142,6 @@ const Recording = (props: Props) => {
     } catch (error) {}
   };
 
-  // console.log('check',listPB)
 
   const handleGetLine = async () => {
     try {

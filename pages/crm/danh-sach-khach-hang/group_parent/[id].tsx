@@ -169,10 +169,7 @@ export default function CustomerList() {
   const rowSelection: TableRowSelection<DataType> = {
     selectedRowKeys,
     onChange: onSelectChange,
-    // onSelect: (record, selected, selectedRows) => {
-    //   console.log(selectedRows);
-    //   setNumberSelected(selectedRows?.length);
-    // },
+   
     onSelectAll: handleSelectAll,
   };
   useEffect(() => {

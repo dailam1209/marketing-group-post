@@ -32,7 +32,6 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true ,listData}:an
       mainRef.current?.classList.remove("content_resize");
     }
   }, [isOpen]);
-console.log(listData)
   return (
     <>
       <div style={{ paddingTop: 0 }} className={styleHome.main} ref={mainRef}>

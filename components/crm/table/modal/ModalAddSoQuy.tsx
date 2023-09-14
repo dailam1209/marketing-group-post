@@ -13,7 +13,6 @@ const ModalAddSoQuy = (props: any) => {
   };
 
   const handleOk = () => {
-    console.log("first");
   };
 
   return (

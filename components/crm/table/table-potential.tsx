@@ -163,7 +163,6 @@ const TableDataPotential: React.FC<TableDataPotentialProps> = ({
   const [pageSize, setPageSize] = useState(10); // Số mục trên mỗi trang
   const rowSelection: TableRowSelection<DataType> = {
     onChange: (selectedRowKeys, selectedRows) => {
-      console.log(selectedRows);
       if (selectedRows?.length >= 1) {
         setSelected(true);
       } else {

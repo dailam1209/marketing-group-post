@@ -72,7 +72,6 @@ export default function ThemLichCSKH() {
     }
   };
   const handleChange2 = (value: string) => {
-    console.log(`selected ${value}`);
   };
   const handleChange3 = (value: string) => {
     switch (value[0]) {
@@ -369,10 +368,8 @@ export default function ThemLichCSKH() {
   const handleDelete = (e: any) => {
     var result = window.confirm("Bạn có chắc muốn xóa không?");
     if (result) {
-      console.log(result);
       router.push("/phieu-thu");
     } else {
-      console.log("first");
     }
   };
   const columns: any = [

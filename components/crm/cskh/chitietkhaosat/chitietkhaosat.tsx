@@ -19,15 +19,12 @@ export default function ChiTietKhaoSat() {
   const handleDelete = (e: any) => {
     var result = window.confirm("Bạn có chắc muốn xóa không?");
     if (result) {
-      console.log(result);
       router.push("/crm/phieu-thu");
     } else {
-      console.log("first");
     }
   };
 
   const onChange = (e: CheckboxChangeEvent) => {
-    console.log(`checked = ${e.target.checked}`);
   };
   return (
     <div>
