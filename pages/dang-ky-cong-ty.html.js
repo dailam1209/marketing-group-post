@@ -18,7 +18,6 @@ export default function info_register_emp({ query }) {
     const { register, handleSubmit, watch, formState: { errors }, getValues } = useForm();
     const [getUrl, setUrl] = useState('');
     const onSubmit = async (data) => {
-        console.log('query:', query)
         let text = '';
         if (query && query.urlRedeict) {
             text = '?url=' + query.url + '&urlRedeict' + query.urlRedeict

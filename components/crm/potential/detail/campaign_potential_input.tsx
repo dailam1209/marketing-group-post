@@ -23,7 +23,6 @@ export default function CampaignInputGroupsPO({ isSelectedRow }: any) {
   ];
   const onClose = () => {
     setIsModalCancelPO(false);
-    console.log("first");
   };
   return (
     <div className={styles.main__control}>

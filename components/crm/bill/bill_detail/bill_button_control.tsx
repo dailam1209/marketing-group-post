@@ -69,7 +69,6 @@ export default function AddButtonControl({ isSelectedRow }: any) {
   }
 
   const onChange = (checked: boolean) => {
-    console.log(`switch to ${checked}`);
   };
   return (
     <div>

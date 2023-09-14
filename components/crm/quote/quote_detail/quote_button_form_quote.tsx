@@ -57,7 +57,6 @@ export default function ButtonControlForm({ isSelectedRow }: any) {
   };
   const router = useRouter();
   const path = router.query;
-  console.log(path);
   const items: MenuProps["items"] = [];
   for (let i = 0; i < dataActionForm.length; i++) {
     items.push({
@@ -84,7 +83,6 @@ export default function ButtonControlForm({ isSelectedRow }: any) {
   }
 
   const onChange = (checked: boolean) => {
-    console.log(`switch to ${checked}`);
   };
   return (
     <div>

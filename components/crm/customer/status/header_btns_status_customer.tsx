@@ -17,7 +17,6 @@ export default function HeaderBtnsCustomerStatus() {
     {stt_name:"Đang xem xét mua	"}
     
   );
-  console.log("check", data?.data?.listStatus);
   useEffect(() => {
     fetchData();
   }, []);

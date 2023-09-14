@@ -120,7 +120,6 @@ export default function CustomerListInputGroup({
   ];
 
   const onChange = (checked: boolean) => {
-    console.log(`switch to ${checked}`);
   };
 
   return (

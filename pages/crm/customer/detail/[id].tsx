@@ -30,7 +30,6 @@ export default function DetailCustomer() {
     const data = await res.json();
     setListData(data?.data)
   };
-console.log(listData)
   useEffect(() => {
     getNameDetail();
     setShowBackButton(true);

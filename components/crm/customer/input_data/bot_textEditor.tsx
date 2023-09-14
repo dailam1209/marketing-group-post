@@ -45,7 +45,6 @@ const Bot_textEditor = ({ dataAdd, setDataAdd }: any) => {
       const data = await res.json();
       setlistNV(data?.data?.items);
     } catch (error) {
-      console.log("error:", error);
     }
   };
   const handleGetGr = async () => {
@@ -72,7 +71,6 @@ const Bot_textEditor = ({ dataAdd, setDataAdd }: any) => {
         setlistSave(arr);
       });
     } catch (error) {
-      console.log("error:", error);
     }
   };
 
@@ -91,11 +89,9 @@ const Bot_textEditor = ({ dataAdd, setDataAdd }: any) => {
   };
 
   const handleGhimNhom = (e) => {
-    console.log(e.target.checked);
     dispatch(doGhimCha(e.target.checked));
   };
   const handleGhimNhomCon = (e) => {
-    console.log(e.target.checked);
     dispatch(doGhimCon(e.target.checked));
   };
 

@@ -24,13 +24,13 @@ import Cookies from "js-cookie";
 import { base_url } from "../service/function";
 
 export default function SideBar({ isOpened }) {
-  const { isOpen, setIsOpen, setDataHeaderSidebar } = useContext(SidebarContext);
+  const { isOpen, setIsOpen, setDataHeaderSidebar } =
+    useContext(SidebarContext);
   const sidebarRef = useRef(null);
   const [dataHeader, setDataHeader] = useState();
   const COOKIE_KEY = "token_base365";
   const [tokenType, setTokenType] = useState(null);
-  const { accessAcountRole, setAccessAcountRole } =
-    useContext(AccessContext);
+  const { accessAcountRole, setAccessAcountRole } = useContext(AccessContext);
 
   const handleResize = () => {
     if (typeof window !== "undefined") {
@@ -84,7 +84,7 @@ export default function SideBar({ isOpened }) {
             const response = await EmployeeInfo();
             dataToStore = response?.data;
             setDataHeader(response?.data);
-            setDataHeaderSidebar(response?.data)
+            setDataHeaderSidebar(response?.data);
           }
         } else {
           const interval = setInterval(async () => {
@@ -103,8 +103,6 @@ export default function SideBar({ isOpened }) {
     fetchInfo();
   }, [tokenType]);
 
-
-
   //socket
   useEffect(() => {
     // Tạo kết nối đến máy chủ Socket.IO
@@ -115,139 +113,107 @@ export default function SideBar({ isOpened }) {
     });
     // Đoạn mã xử lý sự kiện và giao tiếp với máy chủ Socket.IO
     socket.on("connect", () => {
-      console.log("Connected to Socket.IO");
       // Thêm xử lý sự kiện hoặc truyền tải dữ liệu ở đây
     });
     const role2 = Cookies.get("role");
     const userId = Cookies.get("userID");
-  
-    document.addEventListener('click', function () {
-      var alertElements = document.querySelectorAll('.alert__call__now');
-      
+
+    document.addEventListener("click", function () {
+      var alertElements = document.querySelectorAll(".alert__call__now");
+
       alertElements.forEach(function (element) {
-          element.addEventListener('click', function () {
-              call__now(this);
-          });
+        element.addEventListener("click", function () {
+          call__now(this);
+        });
       });
-  });
-  
+    });
 
-  function callAjax(url, data, method = 'post') {
-    var xhr = new XMLHttpRequest();
-    xhr.open(method, url, false);
-    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-    xhr.send(JSON.stringify(data));
-    
-    if (xhr.status === 200) {
+    function callAjax(url, data, method = "post") {
+      var xhr = new XMLHttpRequest();
+      xhr.open(method, url, false);
+      xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+      xhr.send(JSON.stringify(data));
+
+      if (xhr.status === 200) {
         return JSON.parse(xhr.responseText);
-    } else {
+      } else {
         // Xử lý lỗi tại đây
-        console.error('Ajax request failed with status:', xhr.status);
+        console.error("Ajax request failed with status:", xhr.status);
         return null;
+      }
     }
-}
 
-
-  const call__now = async(e)=> {
+    const call__now = async (e) => {
       var elm = e;
-      var id = elm.getAttribute('data-id');
-    // console.log('check id',id)
+      var id = elm.getAttribute("data-id");
       if (id !== undefined) {
-        var url =`${base_url}/api/crm/cutomerCare/Call`;
-       var data = {
-          phone: id
-      };
+        var url = `${base_url}/api/crm/cutomerCare/Call`;
+        var data = {
+          phone: id,
+        };
         // var responseObject = callAjax(url, data);
 
-          var responseObject = await fetch(`${base_url}/api/crm/cutomerCare/Call`, {
+        var responseObject = await fetch(
+          `${base_url}/api/crm/cutomerCare/Call`,
+          {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
               Authorization: `Bearer ${Cookies.get("token_base365")}`,
             },
-            body: JSON.stringify({ phone:parseInt(id)}),
-          });
-          const data = await responseObject.json()
-  
-          // if (responseObject !== undefined) {
-          //   console.log("check res",responseObject)
-          //     var item = responseObject?.data?.item;
-          //     var content_call = '';
-  
-          //     document.querySelector('#box_add_appontment input[name="id"]').value = id;
-          //     document.querySelector('#box_add_appontment input[name="cus_id"]').value = item.cus_id;
-          //     document.querySelector('#box_add_appontment input[name="business_assistant_cus_phone"]').value = item.phone_number;
-          //     document.querySelector('#box_add_appontment input[name="business_assistant_cus_name"]').value = item.name;
-          //     document.querySelector('#box_add_appontment input[name="business_assistant_cus_email"]').value = item.email;
-          //     document.querySelector('#box_add_appontment textarea[name="business_assistant_desc"]').value = item.description;
-  
-          //     var status = item.status !== 0 ? item.status : '';
-          //     var statusSelect = document.querySelector('#box_add_appontment select[name="business_assistant_cus_status"]');
-          //     statusSelect.value = status;
-          //     statusSelect.dispatchEvent(new Event('change'));
-  
-          //     var group_id = item.group_id !== 0 ? item.group_id : '';
-          //     var groupSelect = document.querySelector('#box_add_appontment select[name="business_assistant_cus_group"]');
-          //     groupSelect.value = group_id;
-          //     groupSelect.dispatchEvent(new Event('change'));
-  
-          //     var resoure = item.resoure !== 0 ? item.resoure : '';
-          //     var resoureSelect = document.querySelector('#box_add_appontment select[name="business_assistant_cus_resoure"]');
-          //     resoureSelect.value = resoure;
-          //     resoureSelect.dispatchEvent(new Event('change'));
-  
-          //     if (responseObject.data.appointment_content_call.length > 0) {
-          //         responseObject.data.appointment_content_call.forEach(function (item) {
-          //             content_call += `<div class="item">
-          //                                 <p class="times">${item.created_at}</p>
-          //                                 <div>${item.content_call}</div>
-          //                                 <div class="box_button"><button type="button">Xem thêm ></button></div>
-          //                             </div>`;
-          //         });
-          //     }
-  
-          //     document.querySelector('#box_content').innerHTML = content_call;
-          //     document.querySelector('#contentAppontment').dispatchEvent(new Event('show'));
-          // }
+            body: JSON.stringify({ phone: parseInt(id) }),
+          }
+        );
+        const data = await responseObject.json();
       }
-  }
-  
-
-
-//   function delete_alert(e) {
-//     $(e).parents('.alert__item').remove();
-// }
+    };
 
     if (role2 == 2) {
       document.addEventListener("click", (event) => {
         const clickedElement = event.target;
         if (clickedElement.closest(".alert__item__header")) {
-            const alertItem = clickedElement.closest(".alert__item");
-            if (alertItem) {
-                alertItem.remove();
-            }
+          const alertItem = clickedElement.closest(".alert__item");
+          if (alertItem) {
+            alertItem.remove();
+          }
         }
-    });
-      socket.emit('CRMJoin', userId);
-      socket.on('CRMNotification', (content, customerName, customerId, groupName, link, type, phone) => {
-          var alert = '';
+      });
+      socket.emit("CRMJoin", userId);
+      socket.on(
+        "CRMNotification",
+        (content, customerName, customerId, groupName, link, type, phone) => {
+          var alert = "";
           if (type == 1) {
-              var contentAlert = 'Bạn có khách hàng <span class="alert__item__customer__name">' + customerName + '</span> vừa được thêm';
-              if (groupName != 'crm365NULL') {
-                  contentAlert += ' vào nhóm khách hàng <i class="alert__item__group__name">' + groupName + '</i>';
-              }
+            var contentAlert =
+              'Bạn có khách hàng <span class="alert__item__customer__name">' +
+              customerName +
+              "</span> vừa được thêm";
+            if (groupName != "crm365NULL") {
+              contentAlert +=
+                ' vào nhóm khách hàng <i class="alert__item__group__name">' +
+                groupName +
+                "</i>";
+            }
           }
           if (type == 2) {
-              var contentAlert = 'Khách hàng <span class="alert__item__customer__name">' + customerName + '</span> vừa cập nhật thông tin';
+            var contentAlert =
+              'Khách hàng <span class="alert__item__customer__name">' +
+              customerName +
+              "</span> vừa cập nhật thông tin";
           }
           if (contentAlert != undefined) {
-              alert = `<div class="alert__item">
+            alert =
+              `<div class="alert__item">
               <div class="alert__item__header"><div class="fix_close_btn"></div> <button type="button">X</button></div>     
                        <div class="alert__item__content">
-                ` + contentAlert + `
+                ` +
+              contentAlert +
+              `
               </div>
               <div class="alert__item__footer">
-              <button type="button" class="alert__call__now" data-id="` + customerId + `">
+              <button type="button" class="alert__call__now" data-id="` +
+              customerId +
+              `">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M9.65504 3.67583C10.3084 3.80331 10.9089 4.12286 11.3797 4.59359C11.8504 5.06432 12.1699 5.66481 12.2974 6.3182M9.65504 1C11.0125 1.15081 12.2784 1.75871 13.2448 2.72391C14.2112 3.6891 14.8207 4.95421 14.9732 6.31151M14.3043 11.6498V13.6567C14.305 13.843 14.2669 14.0274 14.1922 14.1981C14.1176 14.3688 14.0081 14.522 13.8709 14.648C13.7336 14.7739 13.5715 14.8698 13.395 14.9295C13.2185 14.9892 13.0315 15.0113 12.846 14.9946C10.7875 14.7709 8.81014 14.0675 7.07286 12.9409C5.45655 11.9138 4.0862 10.5434 3.05913 8.92713C1.92858 7.18196 1.22501 5.19502 1.00543 3.12728C0.988713 2.94229 1.0107 2.75585 1.06998 2.57982C1.12927 2.4038 1.22456 2.24204 1.34979 2.10486C1.47501 1.96768 1.62743 1.85808 1.79733 1.78303C1.96724 1.70798 2.15091 1.66913 2.33665 1.66896H4.34352C4.66817 1.66576 4.98291 1.78072 5.22906 1.99242C5.47522 2.20411 5.636 2.49809 5.68144 2.81956C5.76614 3.4618 5.92323 4.0924 6.14971 4.69933C6.23971 4.93876 6.25919 5.19898 6.20583 5.44915C6.15248 5.69932 6.02853 5.92895 5.84867 6.11083L4.9991 6.9604C5.9514 8.63517 7.33808 10.0218 9.01284 10.9741L9.86241 10.1246C10.0443 9.94471 10.2739 9.82076 10.5241 9.76741C10.7743 9.71405 11.0345 9.73353 11.2739 9.82354C11.8808 10.05 12.5114 10.2071 13.1537 10.2918C13.4786 10.3376 13.7754 10.5013 13.9876 10.7517C14.1997 11.0021 14.3124 11.3217 14.3043 11.6498Z" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
                   </svg>
@@ -258,11 +224,12 @@ export default function SideBar({ isOpened }) {
             const boxAlertElement = document.getElementById("box_alert");
             if (boxAlertElement) {
               boxAlertElement.insertAdjacentHTML("afterbegin", alert);
+            }
           }
-          }
-      });
-  }
-  
+        }
+      );
+    }
+
     // Thoát khỏi kết nối khi component unmount
     return () => {
       socket.disconnect();
@@ -279,9 +246,7 @@ export default function SideBar({ isOpened }) {
             !isOpened ? `${style.mSideBar}` : null
           }`}
         >
-
-               <div id="box_alert"></div>
-
+          <div id="box_alert"></div>
 
           <HeaderBar dataHeader={dataHeader} isOpen={isOpen} />
           <SiebarContent isOpen={isOpen} toggleModal={setIsOpen} />

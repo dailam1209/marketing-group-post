@@ -76,7 +76,6 @@ interface TableDataOrderQuoteProps { }
 const TableDataQuoteQuote: React.FC<TableDataOrderQuoteProps> = () => {
     const rowSelection: TableRowSelection<DataType> = {
         onChange: (selectedRowKeys, selectedRows) => {
-            console.log(`selectedRowKeys: ${selectedRowKeys}`, "selectedRows: ");
             if (selectedRows?.length > 0) {
             } else {
             }

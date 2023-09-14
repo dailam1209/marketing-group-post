@@ -87,14 +87,8 @@ export default function CustomomerFooterAddFile({
           }),
         }
       );
-      const data = await response.json();
-      console.log("dataadd",data)
       
-      if (response.status === 200) {
-        console.log("Data successfully submitted!");
-      } else {
-        console.error("Error submitting data.");
-      }
+     
     } catch (error) {
       console.error("An error occurred:", error);
     }

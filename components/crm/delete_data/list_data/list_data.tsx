@@ -4,9 +4,7 @@ import { useEffect } from "react";
 import Icontiemnang from "../../../public/icon_tiemnang.svg"
 const SelectDataDelete = (props: any) => {
     const { listDataDelete } = props
-    // useEffect(()=>{
-    //     console.log(data)
-    // })
+ 
     return (
         <>
             {listDataDelete && listDataDelete.map((item: any, index: any) => {

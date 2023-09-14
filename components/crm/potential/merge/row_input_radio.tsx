@@ -25,10 +25,9 @@ export default function RowRadioInput({
       val: newData[index]?.val,
     });
 
-    // console.log("----", newData);
+    
 
     const test = { ...selectedData, [name]: newData };
-    console.log("test", test?.[name]?.filter((item) => item?.status)[0]);
     setValueRadioBox(test?.[name]?.filter((item) => item?.status)[0]?.val);
 
     setSelectedData((prev) => {
@@ -39,7 +38,7 @@ export default function RowRadioInput({
     });
     setSelectedData(test);
 
-    // console.log(selectedData);
+  
   };
   return (
     <tr>

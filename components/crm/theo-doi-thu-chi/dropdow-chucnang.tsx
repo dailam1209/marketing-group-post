@@ -4,7 +4,6 @@ import Link from "next/link";
 const DropdownChucNang = (props: any) => {
   const { record } = props;
   const handleSelect = (id: any) => {
-    console.log(id);
   };
   const items: MenuProps["items"] = [
     {

@@ -32,7 +32,7 @@ const Table_Phieu_Chi = (props: any) => {
     setSelectedRowKeys([]);
   };
   const handleSelect = (id: any) => {
-    console.log(id);
+   
   };
 
   const ColumPhieuThu = [
@@ -131,15 +131,12 @@ const Table_Phieu_Chi = (props: any) => {
     setIsShowModalReturn(false);
   };
   const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
-    console.log("selectedRowKeys changed: ", newSelectedRowKeys);
     setSelectedRowKeys(newSelectedRowKeys);
   };
   const handleDeleteDB = () => {
-    console.log("delete DB");
     onClose();
   };
   const handleReturnDB = () => {
-    console.log("return DB");
     onClose();
   };
   const datas = [
@@ -172,7 +169,6 @@ const Table_Phieu_Chi = (props: any) => {
       "Trạng thái gửi	",
       "Trạng thái",
     ];
-    console.log(data);
     exportToExcel(datas, filename, sheetName, columnHeaders);
   };
   const items: MenuProps["items"] = [

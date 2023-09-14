@@ -6,7 +6,6 @@ import Link from "next/link";
 import { Switch } from "antd";
 
 const onChange = (checked: boolean) => {
-  console.log(`switch to ${checked}`);
 };
 
 const App: React.FC = () => <Switch defaultChecked onChange={onChange} />;

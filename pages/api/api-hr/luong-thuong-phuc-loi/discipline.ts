@@ -23,7 +23,6 @@ export const GetDataInfringes = async (
 };
 
 export const AddInfringes = async (mergedObject) => {
-  console.log(mergedObject, 1);
   const {
     created_by,
     infringe_at,

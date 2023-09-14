@@ -18,7 +18,6 @@ const ModalCancel = (props: any) => {
     //     setLoading(false);
     //     setOpen(false);
     // }, 3000);
-    console.log("first");
   };
   const router = useRouter();
   const handleClose = () => {

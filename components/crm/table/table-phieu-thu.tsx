@@ -30,9 +30,7 @@ const Table_Phieu_Thu_Chi = (props: any) => {
   const start = () => {
     setSelectedRowKeys([]);
   };
-  const handleSelect = (id: any) => {
-    console.log(id);
-  };
+  const handleSelect = (id: any) => {};
 
   const ColumPhieuThu = [
     {
@@ -133,7 +131,6 @@ const Table_Phieu_Thu_Chi = (props: any) => {
     setSelectedRowKeys(dataPotential.map((item: any) => item.key));
   };
   const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
-    console.log("selectedRowKeys changed: ", newSelectedRowKeys);
     setSelectedRowKeys(newSelectedRowKeys);
   };
   const rowSelection = {
@@ -157,11 +154,9 @@ const Table_Phieu_Thu_Chi = (props: any) => {
     setPageSize(selectedOptionValue);
   };
   const handleDeleteDB = () => {
-    console.log("delete DB");
     onClose();
   };
   const handleReturnDB = () => {
-    console.log("return DB");
     onClose();
   };
   const datas = [
@@ -194,7 +189,6 @@ const Table_Phieu_Thu_Chi = (props: any) => {
       "Trạng thái gửi	",
       "Trạng thái",
     ];
-    console.log(data);
     exportToExcel(datas, filename, sheetName, columnHeaders);
   };
   const items: MenuProps["items"] = [

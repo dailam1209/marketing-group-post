@@ -175,19 +175,7 @@ export default function ContractDetailsCreate() {
         );
         setValueInput(modifiedValueInput);
         
-        //   console.log("indexxxx: ", defaultFieldIndices)
-        // setValueInput(
-        //   Array(
-        //     data?.data?.get_detail_form_contract
-        //       ? data?.data?.get_detail_form_contract
-        //       : 0
-        //   ).fill({
-        //     val: defaultFieldIndex !== -1 ? defaultFieldIndex : "",
-        //     name: "",
-        //     status: false,
-        //   })
-        // );
-        console.log(modifiedValueInput);
+      
       } else {
         console.error("Error fetching data:", res.status);
       }

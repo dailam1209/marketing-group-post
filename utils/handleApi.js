@@ -10,7 +10,6 @@ export const checkVip = async (idcom) => {
     process.env.NEXT_PUBLIC_API + '/api/qlc/checkVip/beforeLogin',
     data
   )
-  console.log(checkVip)
   if (!checkVip.is_add) {
     window.location.href = '/thong-bao-tai-khoan-vip.html'
   } else {

@@ -18,7 +18,6 @@ export default function MergeCustomer() {
       const parsedData = JSON.parse(storedData);
       setData(parsedData.data);
     } else {
-      console.log("Không có dữ liệu trong session storage");
     }
   }, []);
   useEffect(() => {

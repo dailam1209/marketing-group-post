@@ -159,7 +159,6 @@ export const UpdateAchievement = async (id, mergedObject) => {
   }
 };
 export const GetDepartmentList = async (com_id: any) => {
-  console.log(com_id);
   const url = process.env.NEXT_PUBLIC_BASE_URL2;
   const isToken = getToken(COOKIE_KEY);
   try {

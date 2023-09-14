@@ -12,7 +12,6 @@ const props: UploadProps = {
   onChange(info) {
     const { status } = info.file;
     if (status !== "uploading") {
-      console.log(info.file, info.fileList);
     }
     if (status === "done") {
       message.success(`${info.file.name} file uploaded successfully.`);
@@ -21,7 +20,6 @@ const props: UploadProps = {
     }
   },
   onDrop(e) {
-    console.log("Dropped files", e.dataTransfer.files);
   },
 };
 const ModalAddTL = (props: any) => {
@@ -35,12 +33,7 @@ const ModalAddTL = (props: any) => {
   };
 
   const handleOk = () => {
-    // setLoading(true);
-    // setTimeout(() => {
-    //     setLoading(false);
-    //     setOpen(false);
-    // }, 3000);
-    console.log("first");
+  
   };
 
   const handleClose = () => {
