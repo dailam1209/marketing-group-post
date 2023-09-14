@@ -151,20 +151,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
     setdateE(e.target.value);
   };
 
-  // role == "1" &&
-  // // <option value={null}>Tất cả</option>
-  //   listNV?.map((userName, index) => (
-  //     <option
-  //       style={{ width: "100%" }}
-  //       key={index}
-  //       value={userName?.ep_id as any}
-  //     >
-  //       <div style={{ display: "block" }}>
-  //         ( {`${userName.ep_id}`}) {`${userName?.ep_name}`} <br /> -
-  //         {`${userName.dep_name}`}
-  //       </div>
-  //     </option>
-  //   ));
+ 
   const optionTest =
     role == "2" && posId !== 2
       ? [
@@ -209,16 +196,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
             };
           }),
         ];
-  // <option
-  //   style={{ width: "100%" }}
-  //   key={index}
-  //   value={userName?.ep_id as any}
-  // >
-  //   <div style={{ display: "block" }}>
-  //     ( {`${userName.ep_id}`}) {`${userName?.ep_name}`} <br /> -
-  //     {`${userName.dep_name}`}
-  //   </div>
-  // </option>
+  
   {
     role == "2" &&
       posId == 2 &&
@@ -430,18 +408,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
               }),
             ]}
           >
-            {/* {" "}
-            <option value={-1}>Tất cả</option>
-            <option value={-2}>Chưa cập nhật</option>
-            {listGr?.map((item: any, index) => {
-              if (item?.group_parent == 0) {
-                return (
-                  <option key={index} value={item?.gr_id}>
-                    {item.gr_name}
-                  </option>
-                );
-              }
-            })} */}
+          
           </Select>
         </div>
 
