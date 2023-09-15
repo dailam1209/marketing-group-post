@@ -4,6 +4,7 @@ import styles from "./chat.module.css";
 import { useEffect, useState } from "react";
 import { GetStaticPaths } from "next"; 
 import { Select } from "antd";
+import { values } from "lodash";
 export async function getStaticPaths() {
   // ... your code here ...
 }
@@ -54,7 +55,7 @@ export default function SelectBoxInput({
         tabIndex={-1}
         aria-hidden="true"
         value={valueStt?valueStt:infoCus?.status?.info}
-        onChange={(value)=>settinhtrang(value)}
+        onChange={(value)=>(settinhtrang(value),setvalueStt(value))}
         // defaultValue={infoCus?.status?.info}
       >
         {/* <option value="">{infoCus?.status?.detail?.stt_name}</option> */}
