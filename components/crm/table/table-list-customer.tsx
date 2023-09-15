@@ -284,7 +284,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
                 ? "#ffa800"
                 : "#474747",
           }}
-          className={data.length > 20 ? "truncate-text" : ""}
+          className={data?.length > 20 ? "truncate-text" : ""}
         >
           {data}
         </div>

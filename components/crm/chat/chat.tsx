@@ -1,12 +1,13 @@
 import styles from "./chat.module.css";
 import useModal from "../hooks/useModal";
-import ChatBusinessBody from "./chat_body";
-import { useRef } from "react";
+import { useContext, useRef } from "react";
+import { checkAndRedirectToHomeIfNotLoggedIn } from "@/components/crm/ultis/checkLogin";
+import NewChatBusinessBody from "./chat_body_tlkd";
+import { UpdateTLKD } from "../context/updateTlkd";
 
 export default function ChatBusiness() {
   const chatRef = useRef<HTMLDivElement>(null);
   const { isOpen, toggleModal } = useModal(null, [null]);
-
   const handleOpenChatBody = () => {
     toggleModal();
     if (isOpen) {
@@ -27,8 +28,10 @@ export default function ChatBusiness() {
           <div>
             <button id={styles.business_assistant_close}></button>
           </div>
+          {isOpen ? (
+            <NewChatBusinessBody handleOpenChatBody={handleOpenChatBody} />
+          ) : null}
         </div>
-        {isOpen ? <ChatBusinessBody /> : null}
       </div>
     </>
   );

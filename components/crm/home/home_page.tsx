@@ -67,7 +67,7 @@ export default function HomePage() {
 
         <HomeOverView />
       </div>
-      <ChatBusiness />
+      {/* <ChatBusiness /> */}
     </div>
   );
 }

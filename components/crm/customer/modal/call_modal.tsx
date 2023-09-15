@@ -128,8 +128,7 @@ const CallModal: React.FC<MyComponentProps> = ({
       setIsOpenMdalSuccess(false);
       setshow(false);
     }, 1200);
-    // setshow(false);
-    await fetchData();
+    router.push(router.asPath);
   };
 
   const router = useRouter();
