@@ -93,7 +93,7 @@ const TableDataContractDetailList: React.FC<
       dataIndex: "file",
       key: "file",
       render: (data, record) => (
-        <Link href={`/crm/customer/contract/detail/${id}/${record?._id}`}>
+        <Link href={`/customer/contract/detail/${id}/${record?._id}`}>
           <Tooltip title={data}>
             <span className={styles.font_file}>{data}</span>
           </Tooltip>
@@ -147,7 +147,7 @@ const TableDataContractDetailList: React.FC<
       width: 80,
       render: (data, record) => (
         <>
-          <Link href={`/crm/customer/contract/send/${id}/${record?._id}`}>
+          <Link href={`/customer/contract/send/${id}/${record?._id}`}>
             <button>Gửi</button>
           </Link>
         </>

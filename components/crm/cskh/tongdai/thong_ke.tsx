@@ -85,7 +85,7 @@ const Recording = (props: Props) => {
         }
       );
       const data = await res.json();
-    
+
       setListNV(data?.data?.items);
     } catch (error) {}
   };
@@ -122,7 +122,7 @@ const Recording = (props: Props) => {
   });
   const [listLine, setlistLine] = useState([]);
   const [listPB, setlistPB] = useState([]);
-  const [isLoading,setisLoading] = useState(false)
+  const [isLoading, setisLoading] = useState(false);
 
   const handleGetPhongBan = async () => {
     try {
@@ -141,7 +141,6 @@ const Recording = (props: Props) => {
       setlistPB(data?.data?.items);
     } catch (error) {}
   };
-
 
   const handleGetLine = async () => {
     try {
@@ -305,7 +304,7 @@ const Recording = (props: Props) => {
         />
 
         <div className={styles.group_button_right}>
-          <Link href={"/crm/tong-dai"}>
+          <Link href={"/tong-dai"}>
             <button>Chi tiết</button>
           </Link>
         </div>
@@ -313,7 +312,7 @@ const Recording = (props: Props) => {
 
       <div style={{ paddingTop: 20 }}>
         <Table
-          loading={outputArray?.length>0?false:true}
+          loading={outputArray?.length > 0 ? false : true}
           dataSource={datane}
           columns={Colums}
           bordered

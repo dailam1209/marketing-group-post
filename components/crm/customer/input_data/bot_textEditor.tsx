@@ -44,8 +44,7 @@ const Bot_textEditor = ({ dataAdd, setDataAdd }: any) => {
       );
       const data = await res.json();
       setlistNV(data?.data?.items);
-    } catch (error) {
-    }
+    } catch (error) {}
   };
   const handleGetGr = async () => {
     try {
@@ -70,8 +69,7 @@ const Bot_textEditor = ({ dataAdd, setDataAdd }: any) => {
         setlistGr_Child(arr);
         setlistSave(arr);
       });
-    } catch (error) {
-    }
+    } catch (error) {}
   };
 
   const handleselect = (value) => {
@@ -170,13 +168,14 @@ const Bot_textEditor = ({ dataAdd, setDataAdd }: any) => {
               setDataAdd({ ...dataAdd, user_create_id: value })
             }
           >
-            {listNV && listNV?.map((item, index) => {
-              return (
-                <option key={index} value={item?.idQLC}>
-                  ({item?.idQLC}) {item?.userName}
-                </option>
-              );
-            })}
+            {listNV &&
+              listNV?.map((item, index) => {
+                return (
+                  <option key={index} value={item?.idQLC}>
+                    ({item?.idQLC}) {item?.userName}
+                  </option>
+                );
+              })}
           </Select>
         </div>
       </div>

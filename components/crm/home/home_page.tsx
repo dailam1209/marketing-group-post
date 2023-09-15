@@ -31,7 +31,7 @@ export default function HomePage() {
   useEffect(() => {
     setHeaderTitle("Trang chủ");
     setShowBackButton(false);
-    setCurrentPath("/crm/");
+    setCurrentPath("/");
   }, [setHeaderTitle, setShowBackButton, setCurrentPath]);
 
   useEffect(() => {

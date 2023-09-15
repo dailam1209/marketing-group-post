@@ -18,7 +18,7 @@ const ModalCompleteStepADDInput: React.FC<ModalCompleteStepProps> = ({
   const router = useRouter();
   const handleClick = () => {
     setModal1Open(false);
-    router.push("/crm/customer/list");
+    router.push("/customer/list");
   };
   return (
     <div>
@@ -39,7 +39,7 @@ const ModalCompleteStepADDInput: React.FC<ModalCompleteStepProps> = ({
           onCancel={() => setModal1Open(false)}
         >
           <div style={{ textAlign: "center" }}>
-            {router.pathname.startsWith("/crm/customer/edit")
+            {router.pathname.startsWith("/customer/edit")
               ? "Sửa khách hàng thành công"
               : "Thêm mới khách hàng thành công"}
           </div>

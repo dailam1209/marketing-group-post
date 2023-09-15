@@ -55,12 +55,7 @@ const Apply2: React.FC<MyComponentProps> = ({
             >
               <form onSubmit={() => false}>
                 <Input
-                  suffix={
-                    <img
-                      src="/crm/search.svg"
-                      alt=""
-                    />
-                  }
+                  suffix={<img src="/crm/search.svg" alt="" />}
                   style={{ width: 400 }}
                   type="text"
                   className={styles.input__search}
@@ -93,15 +88,15 @@ const Apply2: React.FC<MyComponentProps> = ({
             <Button onClick={() => setApply2(false)}>Hủy</Button>
             <Button
               style={{ background: "#4C5BD4", color: "#fff" }}
-              onClick={() => (setIsModalCancel(true))}
+              onClick={() => setIsModalCancel(true)}
             >
               Áp dụng
             </Button>
           </div>
           <FailModal
-          isModalCancel={isModalCancel}
-          setIsModalCancel={setIsModalCancel}
-          title={title}
+            isModalCancel={isModalCancel}
+            setIsModalCancel={setIsModalCancel}
+            title={title}
           />
         </div>
       </Modal>

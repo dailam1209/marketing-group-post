@@ -35,7 +35,6 @@ const GroupSharedAFactorModal: React.FC<MyComponentProps> = ({
 
   return (
     <>
-
       <Modal
         title={
           <div
@@ -45,9 +44,11 @@ const GroupSharedAFactorModal: React.FC<MyComponentProps> = ({
               justifyContent: "center",
             }}
           >
-            
             <div>Đối tượng được chia sẻ</div>{" "}
-            <div onClick={()=>setIsModalCancel(false)} style={{ cursor: "pointer",position:"absolute",right:15 }}>
+            <div
+              onClick={() => setIsModalCancel(false)}
+              style={{ cursor: "pointer", position: "absolute", right: 15 }}
+            >
               X
             </div>
           </div>
@@ -61,7 +62,7 @@ const GroupSharedAFactorModal: React.FC<MyComponentProps> = ({
         cancelText="Huỷ"
       >
         {depId && depId !== "all" && empId && empId !== "all" ? (
-          <div  style={{ marginTop: "-96px" }}>
+          <div style={{ marginTop: "-96px" }}>
             <TableSharedFactor data={data} empIdArr={empIdArr} />
           </div>
         ) : (

@@ -23,7 +23,7 @@ const ShareCustomerTable: React.FC = () => {
   useEffect(() => {
     setHeaderTitle("Cài đặt/ Danh sách nhân viên");
     setShowBackButton(true);
-    setCurrentPath("/crm/setting/main");
+    setCurrentPath("/setting/main");
   }, [setHeaderTitle, setShowBackButton, setCurrentPath]);
 
   return (

@@ -23,17 +23,17 @@ const CancelModal: React.FC<MyComponentProps> = ({
   updateData,
 }) => {
   const router = useRouter();
-  const handleOK = async() => {
+  const handleOK = async () => {
     setIsModalCancel(false);
-    await fetch( `${base_url}/api/crm/customerStatus/delete`,{
+    await fetch(`${base_url}/api/crm/customerStatus/delete`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${Cookies.get("token_base365")}`,
       },
-      body: JSON.stringify(  { stt_id: id }),
+      body: JSON.stringify({ stt_id: id }),
     });
-    router.push("/crm/tinh-trang-khach-hang")
+    router.push("/tinh-trang-khach-hang");
   };
   return (
     <>

@@ -84,7 +84,7 @@ export default function ContractBtsGroupFooter({
     await postNewContract(body);
     setIsModalSuccess(true);
     // setTimeout(() => {
-    //   router.push(`/crm/customer/contract/list/${id}`);
+    //   router.push(`/customer/contract/list/${id}`);
     // }, 2000);
   };
 
@@ -155,7 +155,7 @@ export default function ContractBtsGroupFooter({
               "Bạn có đồng ý hủy? \n  Mọi dữ liệu bạn vừa nhập sẽ bị xóa?"
             }
             title={"Xác nhận hủy thêm hợp đồng"}
-            link={`/crm/customer/contract/list/${id}`}
+            link={`/customer/contract/list/${id}`}
           />
         ) : null}
       </div>

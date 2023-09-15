@@ -9,7 +9,7 @@ export default function PricePolicy() {
   const mainRef = useRef<HTMLDivElement>(null);
   const { isOpen } = useContext<any>(SidebarContext);
   const [isSelectedRow, setIsSelectedRow] = useState(false);
-  const [isNumberSelected, setNumberSelected] = useState(0)
+  const [isNumberSelected, setNumberSelected] = useState(0);
   const {
     headerTitle,
     setHeaderTitle,
@@ -20,7 +20,7 @@ export default function PricePolicy() {
   useEffect(() => {
     setHeaderTitle("Chính sách giá");
     setShowBackButton(false);
-    setCurrentPath("/crm/price_policy");
+    setCurrentPath("/price_policy");
   }, [setHeaderTitle, setShowBackButton, setCurrentPath]);
 
   useEffect(() => {
@@ -33,7 +33,10 @@ export default function PricePolicy() {
   return (
     <div ref={mainRef} className={styleHome.main}>
       <PricePolicyInputGroup isSelectedRow={isSelectedRow} />
-      <TableDataPricePolicy setSelected={setIsSelectedRow} setNumberSelected={setNumberSelected}/>
+      <TableDataPricePolicy
+        setSelected={setIsSelectedRow}
+        setNumberSelected={setNumberSelected}
+      />
     </div>
   );
 }

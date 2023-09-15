@@ -30,7 +30,7 @@ export default function CustomerInforEngineInput({ id, isLink = false }: any) {
         <div className={`${styles.main__control_add} flex_end`}>
           <div>
             {isLink ? (
-              <Link href={`/crm/customer/contact/add/${id}`}>
+              <Link href={`/customer/contact/add/${id}`}>
                 <button
                   type="button"
                   className={`${styles.dropbtn_add} flex_align_center`}

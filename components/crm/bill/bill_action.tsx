@@ -72,12 +72,7 @@ export default function OrderAction({ isSelectedRow }: any) {
       </div>
       <Dropdown menu={{ items }} placement="bottomLeft">
         <button className={styles.button_thaotac}>
-          <Image
-            width={16}
-            height={16}
-            src="/crm/3_cham.png"
-            alt="thao_tac"
-          />
+          <Image width={16} height={16} src="/crm/3_cham.png" alt="thao_tac" />
           Thao tác
         </button>
       </Dropdown>

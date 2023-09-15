@@ -28,7 +28,11 @@ const columns: ColumnsType<DataType> = [
     width: 180,
     dataIndex: "number",
     key: "number",
-    render:(text:any)=><Link href={"/order/detail"} ><b>{text}</b></Link>
+    render: (text: any) => (
+      <Link href={"/order/detail"}>
+        <b>{text}</b>
+      </Link>
+    ),
   },
 
   {
@@ -36,7 +40,11 @@ const columns: ColumnsType<DataType> = [
     width: 200,
     dataIndex: "name",
     key: "name",
-    render:(text:any)=><Link href={"/crm/customer/contact/detail"} ><b>{text}</b></Link>
+    render: (text: any) => (
+      <Link href={"/customer/contact/detail"}>
+        <b>{text}</b>
+      </Link>
+    ),
   },
   {
     title: "Tình trạng",
@@ -64,16 +72,14 @@ const columns: ColumnsType<DataType> = [
     width: 150,
     render: (text) => <div style={{ color: "#FFA800" }}>{text}</div>,
   },
- 
+
   {
     title: "Chức năng",
     dataIndex: "operation",
     key: "11",
     width: 80,
-    fixed:"right",
-    render: () => 
-      <OrderActionTable/>
- 
+    fixed: "right",
+    render: () => <OrderActionTable />,
   },
 ];
 
@@ -82,9 +88,9 @@ for (let i = 0; i < 100; i++) {
   data.push({
     key: i,
     number: `ĐN-000${i}`,
-    name: 'Nguyễn Trần Kim Phượng',
-    status: 'Đã xuất',
-    total: '10.000.000.000',
+    name: "Nguyễn Trần Kim Phượng",
+    status: "Đã xuất",
+    total: "10.000.000.000",
     address: `Số 1 Trần Nguyên Đán, Định Công, Hoàng Mai, Hà Nội`,
     order_status: `Chưa gửi`,
   });
@@ -92,7 +98,9 @@ for (let i = 0; i < 100; i++) {
 
 interface TableDataOrderDetailBillProps {}
 
-const TableDataOrderDetailBill: React.FC<TableDataOrderDetailBillProps> = () => {
+const TableDataOrderDetailBill: React.FC<
+  TableDataOrderDetailBillProps
+> = () => {
   return (
     <div className="custom_table campaign_tble">
       <Table

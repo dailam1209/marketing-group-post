@@ -17,39 +17,39 @@ const CustomerHeaderTab: React.FC<MyProps> = ({ activeName }) => {
   const listTab = [
     {
       name: "Thông tin khách hàng",
-      link: `/crm/customer/detail/${router.query.id}`,
+      link: `/customer/detail/${router.query.id}`,
     },
-    { name: "Liên hệ", link: `/crm/customer/contact/list/${router.query.id}` },
+    { name: "Liên hệ", link: `/customer/contact/list/${router.query.id}` },
     {
-      link: `/crm/customer/chance/list/${router.query.id}`,
+      link: `/customer/chance/list/${router.query.id}`,
       name: "Cơ hội",
     },
     {
-      link: `/crm/customer/campaign/list/${router.query.id}`,
+      link: `/customer/campaign/list/${router.query.id}`,
       name: "Chiến dịch",
     },
     {
-      link: `/crm/customer/quote/list/${router.query.id} `,
+      link: `/customer/quote/list/${router.query.id} `,
       name: "Báo giá",
     },
     {
-      link: `/crm/customer/order/list/${router.query.id} `,
+      link: `/customer/order/list/${router.query.id} `,
       name: "Lịch sử đơn hàng",
     },
     {
-      link: `/crm/customer/contract/list/${router.query.id} `,
+      link: `/customer/contract/list/${router.query.id} `,
       name: "Hợp đồng bán",
     },
     {
-      link: `/crm/customer/product/list_buy/${router.query.id} `,
+      link: `/customer/product/list_buy/${router.query.id} `,
       name: "Hàng hóa đã mua",
     },
     {
-      link: `/crm/customer/bill/list/${router.query.id} `,
+      link: `/customer/bill/list/${router.query.id} `,
       name: "Hóa đơn",
     },
     {
-      link: `/crm/customer/schedule/list/${router.query.id} `,
+      link: `/customer/schedule/list/${router.query.id} `,
       name: "Lịch hẹn",
     },
     {
@@ -61,23 +61,23 @@ const CustomerHeaderTab: React.FC<MyProps> = ({ activeName }) => {
       name: "Lịch sử chăm sóc",
     },
     {
-      link: `/crm/customer/email/list/${router.query.id} `,
+      link: `/customer/email/list/${router.query.id} `,
       name: "Email",
     },
     {
-      link: `/crm/customer/sms/list/${router.query.id} `,
+      link: `/customer/sms/list/${router.query.id} `,
       name: "SMS",
     },
     {
-      link: `/crm/customer/file/list/${router.query.id} `,
+      link: `/customer/file/list/${router.query.id} `,
       name: "Tài liệu đính kèm",
     },
     {
-      link: `/crm/customer/note/list/${router.query.id} `,
+      link: `/customer/note/list/${router.query.id} `,
       name: "Ghi chú",
     },
     {
-      link: `/crm/customer/share/list/${router.query.id} `,
+      link: `/customer/share/list/${router.query.id} `,
       name: "Danh sách chia sẻ",
     },
   ];

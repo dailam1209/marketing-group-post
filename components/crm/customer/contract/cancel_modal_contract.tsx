@@ -16,17 +16,17 @@ interface MyComponentProps {
 const CancelModalContract: React.FC<MyComponentProps> = ({
   isModalCancel,
   setIsModalCancel,
-  content="" ,
-  title ,
+  content = "",
+  title,
   link,
   id,
   // updateData,
 }) => {
   const router = useRouter();
-    const handleOK = () => {
-      router.push(`/crm/customer/contract/list/${id}`);
-    };
-     
+  const handleOK = () => {
+    router.push(`/customer/contract/list/${id}`);
+  };
+
   return (
     <>
       {/* <Button type="primary" onClick={() => setModal2Open(true)}>

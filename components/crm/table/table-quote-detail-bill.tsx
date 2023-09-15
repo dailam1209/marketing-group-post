@@ -60,7 +60,7 @@ const columns: ColumnsType<DataType> = [
     dataIndex: "name",
     key: "name",
     render: (text: any) => (
-      <Link href={"/crm/customer/contact/detail"}>
+      <Link href={"/customer/contact/detail"}>
         <b>{text}</b>
       </Link>
     ),

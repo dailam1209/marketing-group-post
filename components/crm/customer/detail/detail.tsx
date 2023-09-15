@@ -16,10 +16,13 @@ import { base_url } from "../../service/function";
 const Cookies = require("js-cookie");
 interface ComponentProps {
   cccd: boolean;
-  listData:any
+  listData: any;
 }
 
-const DetailInformation: React.FC<ComponentProps> = ({ cccd = true ,listData}:any) => {
+const DetailInformation: React.FC<ComponentProps> = ({
+  cccd = true,
+  listData,
+}: any) => {
   const mainRef = useRef<HTMLDivElement>(null);
   const { isOpen } = useContext<any>(SidebarContext);
   const imgRef = useRef<HTMLInputElement>(null);

@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "../components/crm/login/login.module.css";
-import { checkHomeIfLoggedIn } from "../components/crm/ultis/checkLogin";
+import { checkAndRedirectToHomeIfNotLoggedIn } from "../components/crm/ultis/checkLogin";
 import SideBar from "@/components/crm/login/sidebar";
 import HeaderHomePage from "@/components/crm/login/header";
 import TableOfContents from "@/components/crm/login/TableOfContent";
@@ -55,7 +55,7 @@ const HomePageLogin: React.FC = () => {
         ></script>
       </Head>
 
-      {checkHomeIfLoggedIn() ? null : (
+      {checkAndRedirectToHomeIfNotLoggedIn() ? null : (
         <>
           <div className={styles.main}>
             <SideBar />

@@ -33,8 +33,7 @@ export default function SuaSanPham() {
       } else {
         setType2(false);
       }
-    } catch (error) {
-    }
+    } catch (error) {}
   }
 
   useEffect(() => {
@@ -58,8 +57,7 @@ export default function SuaSanPham() {
       setPreviewTitle(
         file.name || file.url!.substring(file.url!.lastIndexOf("/") + 1)
       );
-    } catch (error) {
-    }
+    } catch (error) {}
   };
   const router = useRouter();
   const handleSave = () => {

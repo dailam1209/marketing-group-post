@@ -43,7 +43,7 @@ export default function ContractInputGroup({ setValSearch }: any) {
           </form>
         </div>
         <div className={`${styles.main__control_add} flex_end`}>
-          <Link href="/crm/contract/add_contract">
+          <Link href="/contract/add_contract">
             <button
               type="button"
               className={`${styles.dropbtn_add} flex_align_center`}

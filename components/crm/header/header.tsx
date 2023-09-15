@@ -15,8 +15,6 @@ import { SidebarContext } from "../context/resizeContext";
 import { useHeader } from "../hooks/useHeader";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { LeftOutlined } from "@ant-design/icons";
-import { checkAndRedirectToHomeIfNotLoggedIn } from "@/components/crm/ultis/checkLogin";
 
 export default function Header({ toggleModal }: any) {
   const { isOpen } = useContext<any>(SidebarContext);
@@ -42,58 +40,56 @@ export default function Header({ toggleModal }: any) {
 
   return (
     <>
-      {!checkAndRedirectToHomeIfNotLoggedIn() ? null : (
-        <div ref={headerRef} className={style.header}>
-          <div className={style.main}>
-            <div className="mMenu__header">
-              <img
-                onClick={toggleModal}
-                className="icon_menu_nav"
-                src="/crm/sel.png"
-                alt="icon-menu-nav"
-              />
+      <div ref={headerRef} className={style.header}>
+        <div className={style.main}>
+          <div className="mMenu__header">
+            <img
+              onClick={toggleModal}
+              className="icon_menu_nav"
+              src="/crm/sel.png"
+              alt="icon-menu-nav"
+            />
+          </div>
+          {/* Desktop */}
+          <div style={{ display: "flex", alignItems: "center" }}>
+            {showBackButton && (
+              <Link
+                href={currentPath}
+                style={{ marginRight: "11px", height: "17px", width: "10px" }}
+              >
+                <img
+                  className={style.dekstop_view_img}
+                  src="/crm/angle_left.svg"
+                  alt="back"
+                />
+              </Link>
+            )}
+            <h3 style={{ color: "#474747" }}>{headerTitle}</h3>
+          </div>
+          <div className={style.header_btn}>
+            <div
+              className={`${style.header_btn_items} ${style.message_btn} btn`}
+            >
+              <MessageButtonHeader />
             </div>
-            {/* Desktop */}
-            <div style={{ display: "flex", alignItems: "center" }}>
-              {showBackButton && (
-                <Link
-                  href={currentPath}
-                  style={{ marginRight: "11px", height: "17px", width: "10px" }}
-                >
-                  <img
-                    className={style.dekstop_view_img}
-                    src="/crm/angle_left.svg"
-                    alt="back"
-                  />
-                </Link>
-              )}
-              <h3 style={{ color: "#474747" }}>{headerTitle}</h3>
+            <div
+              className={`${style.header_btn_items} ${style.message_btn} btn`}
+            >
+              <WarningBtnHeader />
             </div>
-            <div className={style.header_btn}>
-              <div
-                className={`${style.header_btn_items} ${style.message_btn} btn`}
-              >
-                <MessageButtonHeader />
-              </div>
-              <div
-                className={`${style.header_btn_items} ${style.message_btn} btn`}
-              >
-                <WarningBtnHeader />
-              </div>
-              <div
-                className={`${style.header_btn_items} ${style.message_btn} btn`}
-              >
-                <NotifyButtonHeader />
-              </div>
-              <div
-                className={`${style.header_btn_items} ${style.message_btn} btn`}
-              >
-                <SettingButtonHeader />
-              </div>
+            <div
+              className={`${style.header_btn_items} ${style.message_btn} btn`}
+            >
+              <NotifyButtonHeader />
+            </div>
+            <div
+              className={`${style.header_btn_items} ${style.message_btn} btn`}
+            >
+              <SettingButtonHeader />
             </div>
           </div>
         </div>
-      )}
+      </div>
     </>
   );
 }

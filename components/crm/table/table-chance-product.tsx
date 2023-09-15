@@ -68,8 +68,7 @@ const EditableCell: React.FC<EditableCellProps> = ({
 
       toggleEdit();
       handleSave({ ...record, ...values });
-    } catch (errInfo) {
-    }
+    } catch (errInfo) {}
   };
 
   let childNode = children;
@@ -206,12 +205,7 @@ const TableChanceProduct: React.FC = () => {
       fixed: "right",
       render: () => (
         <div style={{ color: "#FF3333", fontSize: "15px" }}>
-          <Image
-            width={16}
-            height={16}
-            alt="del"
-            src="/crm/del_red.svg"
-          />
+          <Image width={16} height={16} alt="del" src="/crm/del_red.svg" />
           Xóa
         </div>
       ),
@@ -329,7 +323,7 @@ const TableChanceProduct: React.FC = () => {
                     >
                       <Image
                         alt="img"
-                        src={"	/crm/crm/customer/add_column.svg"}
+                        src={"	/crm/customer/add_column.svg"}
                         width={25}
                         height={25}
                       />

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Tabs } from 'antd';
+import React, { useState } from "react";
+import { Tabs } from "antd";
 import Link from "next/link";
 import styles from "../order.module.css";
 import AddOrderDetailInfo from "@/components/crm/order/order_detail/order_detail_info";
@@ -22,7 +22,7 @@ import ShareActionModal from "@/components/crm/order/order_detail/order_detail_a
 import InsertFileActionModal from "@/components/crm/order/order_detail/order_detail_action_modal/insert_file_order_detail_attach_mdal";
 
 const TabComponent = () => {
-  const [activeTab, setActiveTab] = useState('tab1');
+  const [activeTab, setActiveTab] = useState("tab1");
   const [isModalCancel, setIsModalCancel] = useState(false);
   const [isOpenShare, setIsOpenShare] = useState(false);
   const [isInsertFileOpen, setIsInsertFileOpen] = useState(false);
@@ -41,28 +41,23 @@ const TabComponent = () => {
                 <div className={styles.main__title}>Thông tin đơn hàng</div>
                 <div className={styles.form_add_potential}>
                   <div className={styles.main__body}>
-
                     <AddOrderDetailInfo />
                     <AddOrderDetailTable />
                     <AddOrderDetailStatus />
-
                   </div>
                 </div>
                 <div>&nbsp;</div>
                 <div className={styles.main__title}>Nhật ký</div>
                 <div className={styles.form_add_potential}>
                   <div className={styles.main__body}>
-
                     <AddOrderDetailDiary />
-
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
         </TabPane>
-        <TabPane tab="Liên hệ" key="tab2" >
+        <TabPane tab="Liên hệ" key="tab2">
           <div className={styles.main_importfile}>
             <div className={styles.formInfoStep}>
               <div className={styles.info_step}>
@@ -89,16 +84,16 @@ const TabComponent = () => {
                     <div className={`${styles.main__control_add} flex_end`}>
                       <div>
                         <button
-                          type="button" onClick={() => {
+                          type="button"
+                          onClick={() => {
                             setIsModalCancel(true);
-                            }}
+                          }}
                           className={`${styles.dropbtn_add} flex_align_center`}
                         >
                           <i className="bi bi-check2-square"></i>
                           Chọn vào
                         </button>
                       </div>
-
                     </div>
                   </div>
                   <TableDataOrderDetailContact />
@@ -107,14 +102,14 @@ const TabComponent = () => {
             </div>
           </div>
         </TabPane>
-        <TabPane tab="Hóa đơn" key="tab3" >
-        <div className={styles.main_importfile}>
+        <TabPane tab="Hóa đơn" key="tab3">
+          <div className={styles.main_importfile}>
             <div className={styles.formInfoStep}>
               <div className={styles.info_step}>
                 <div className={styles.form_add_potential}>
-                <div className={`${styles.main__control_btn} `}>
+                  <div className={`${styles.main__control_btn} `}>
                     <OrderDetailBillInputGroup />
-                </div>
+                  </div>
                   <div className={`${styles.main__control_btn} flex_between`}>
                     <div className={styles.main__control_search}>
                       <form onSubmit={() => false}>
@@ -135,16 +130,15 @@ const TabComponent = () => {
                       </form>
                     </div>
                     <div className={`${styles.main__control_add} flex_end`}>
-                        <Link href="#">
-                          <button 
-                            type="button"
-                            className={`${styles.dropbtn_add} flex_align_center`}
-                          >
-                            <img src="/crm/add.svg" />
-                            Thêm mới
-                          </button>
-                        </Link>
-
+                      <Link href="#">
+                        <button
+                          type="button"
+                          className={`${styles.dropbtn_add} flex_align_center`}
+                        >
+                          <img src="/crm/add.svg" />
+                          Thêm mới
+                        </button>
+                      </Link>
                     </div>
                   </div>
                   <TableDataOrderDetailBill />
@@ -154,13 +148,13 @@ const TabComponent = () => {
           </div>
         </TabPane>
         <TabPane tab="Lịch hẹn" key="tab4">
-        <div className={styles.main_importfile}>
+          <div className={styles.main_importfile}>
             <div className={styles.formInfoStep}>
               <div className={styles.info_step}>
                 <div className={styles.form_add_potential}>
-                <div className={`${styles.main__control_btn} `}>
+                  <div className={`${styles.main__control_btn} `}>
                     <OrderDetailAppointmentInputGroup />
-                </div>
+                  </div>
                   <div className={`${styles.main__control_btn} flex_between`}>
                     <div className={styles.main__control_search}>
                       <form onSubmit={() => false}>
@@ -181,16 +175,15 @@ const TabComponent = () => {
                       </form>
                     </div>
                     <div className={`${styles.main__control_add} flex_end`}>
-                        <Link href="#">
-                          <button 
-                            type="button"
-                            className={`${styles.dropbtn_add} flex_align_center`}
-                          >
-                            <img src="/crm/add.svg" />
-                            Thêm mới
-                          </button>
-                        </Link>
-
+                      <Link href="#">
+                        <button
+                          type="button"
+                          className={`${styles.dropbtn_add} flex_align_center`}
+                        >
+                          <img src="/crm/add.svg" />
+                          Thêm mới
+                        </button>
+                      </Link>
                     </div>
                   </div>
                   <TableDataOrderDetailAppointment />
@@ -200,13 +193,13 @@ const TabComponent = () => {
           </div>
         </TabPane>
         <TabPane tab="Trả lại hàng bán" key="tab5">
-        <div className={styles.main_importfile}>
+          <div className={styles.main_importfile}>
             <div className={styles.formInfoStep}>
               <div className={styles.info_step}>
                 <div className={styles.form_add_potential}>
-                <div className={`${styles.main__control_btn} `}>
+                  <div className={`${styles.main__control_btn} `}>
                     <OrderDetailGivebackInputGroup />
-                </div>
+                  </div>
                   <div className={`${styles.main__control_btn} flex_between`}>
                     <div className={styles.main__control_search}>
                       <form onSubmit={() => false}>
@@ -227,16 +220,15 @@ const TabComponent = () => {
                       </form>
                     </div>
                     <div className={`${styles.main__control_add} flex_end`}>
-                        <Link href="#">
-                          <button 
-                            type="button"
-                            className={`${styles.dropbtn_add} flex_align_center`}
-                          >
-                            <img src="/crm/add.svg" />
-                            Thêm mới
-                          </button>
-                        </Link>
-
+                      <Link href="#">
+                        <button
+                          type="button"
+                          className={`${styles.dropbtn_add} flex_align_center`}
+                        >
+                          <img src="/crm/add.svg" />
+                          Thêm mới
+                        </button>
+                      </Link>
                     </div>
                   </div>
                   <TableDataOrderDetailGiveback />
@@ -246,13 +238,13 @@ const TabComponent = () => {
           </div>
         </TabPane>
         <TabPane tab="Tài liệu đính kèm" key="tab6">
-        <div className={styles.main_importfile}>
+          <div className={styles.main_importfile}>
             <div className={styles.formInfoStep}>
               <div className={styles.info_step}>
                 <div className={styles.form_add_potential}>
-                <div className={`${styles.main__control_btn} flex_between`}>
+                  <div className={`${styles.main__control_btn} flex_between`}>
                     {/* <OrderDetailAppointmentInputGroup /> */}
-                </div>
+                  </div>
                   <div className={`${styles.main__control_btn} flex_between`}>
                     <div className={styles.main__control_search}>
                       <form onSubmit={() => false}>
@@ -273,22 +265,22 @@ const TabComponent = () => {
                       </form>
                     </div>
                     <div className={`${styles.main__control_add} flex_end`}>
-                        <div>
-                          <button 
-                            type="button" onClick={() => {
-                              setIsInsertFileOpen(true);
-                              }}
-                            className={`${styles.dropbtn_add} flex_align_center`}
-                          >
-                            <img src="/crm/add.svg" />
-                            Thêm mới
-                          </button>
-                        </div>
-                        <InsertFileActionModal
-                          isModalCancel={isInsertFileOpen}
-                          setIsModalCancel={setIsInsertFileOpen}
-                        />
-
+                      <div>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setIsInsertFileOpen(true);
+                          }}
+                          className={`${styles.dropbtn_add} flex_align_center`}
+                        >
+                          <img src="/crm/add.svg" />
+                          Thêm mới
+                        </button>
+                      </div>
+                      <InsertFileActionModal
+                        isModalCancel={isInsertFileOpen}
+                        setIsModalCancel={setIsInsertFileOpen}
+                      />
                     </div>
                   </div>
                   <TableDataOrderDetailAttach />
@@ -298,13 +290,13 @@ const TabComponent = () => {
           </div>
         </TabPane>
         <TabPane tab="Danh sách chia sẻ" key="tab7">
-        <div className={styles.main_importfile}>
+          <div className={styles.main_importfile}>
             <div className={styles.formInfoStep}>
               <div className={styles.info_step}>
                 <div className={styles.form_add_potential}>
-                <div className={`${styles.main__control_btn} flex_between`}>
+                  <div className={`${styles.main__control_btn} flex_between`}>
                     {/* <OrderDetailAppointmentInputGroup /> */}
-                </div>
+                  </div>
                   <div className={`${styles.main__control_btn} flex_between`}>
                     <div className={styles.main__control_search}>
                       <form onSubmit={() => false}>
@@ -325,18 +317,18 @@ const TabComponent = () => {
                       </form>
                     </div>
                     <div className={`${styles.main__control_add} flex_end`}>
-                        <div>
-                          <button 
-                            type="button" onClick={() => {
-                              setIsOpenShare(true);
-                              }}
-                            className={`${styles.dropbtn_add} flex_align_center`}
-                          >
-                            <img src="/crm/share_white.svg" />
-                            Chia sẻ
-                          </button>
-                        </div>
-
+                      <div>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setIsOpenShare(true);
+                          }}
+                          className={`${styles.dropbtn_add} flex_align_center`}
+                        >
+                          <img src="/crm/share_white.svg" />
+                          Chia sẻ
+                        </button>
+                      </div>
                     </div>
                   </div>
                   <TableDataOrderDetailShareList />
@@ -345,22 +337,19 @@ const TabComponent = () => {
             </div>
           </div>
         </TabPane>
-
       </Tabs>
-      
-        <OrderApplyModal
-          isModalCancel={isModalCancel}
-          setIsModalCancel={setIsModalCancel}
-          title="Áp dụng cho hàng hóa"
-          // content="Hello"
-        />
 
-        <ShareActionModal
+      <OrderApplyModal
+        isModalCancel={isModalCancel}
+        setIsModalCancel={setIsModalCancel}
+        title="Áp dụng cho hàng hóa"
+        // content="Hello"
+      />
+
+      <ShareActionModal
         isModalCancel={isOpenShare}
         setIsModalCancel={setIsOpenShare}
-        />
-        
-      
+      />
     </div>
   );
 };

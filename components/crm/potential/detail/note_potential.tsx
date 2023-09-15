@@ -17,10 +17,10 @@ import ShareDSCSActionModal from "@/components/crm/quote/quote_action_modal/shar
 import TableDataNoteDetailList from "@/components/crm/table/table-note-customer";
 import NoteDetailBtnsGroup from "@/components/crm/potential/detail/note_potential_input";
 
-type Props = {}
+type Props = {};
 
 const Note_potential = (props: Props) => {
-    const [isShowModal, setIsShowModal] = useState(false);
+  const [isShowModal, setIsShowModal] = useState(false);
   const [isShowModalAdd, setIsShowModalAdd] = useState(false);
   const [activeTab, setActiveTab] = useState("tab1");
   const [isShowModalAddTL, setIsShowModalAddTL] = useState(false);
@@ -32,20 +32,21 @@ const Note_potential = (props: Props) => {
   const onClose = () => {
     setIsShowModalAdd(false);
     setIsShowModal(false);
-    setIsShowModalAddTL(false)
-    setIsShowModalShareCS(false)
+    setIsShowModalAddTL(false);
+    setIsShowModalShareCS(false);
   };
   const handleAddDB = () => {
     setIsShowModalAdd(false);
   };
   return (
-<div className={styles.form_add_potential}>
-  <NoteDetailBtnsGroup/>                  
-                  <TableDataNoteDetailList />
-                <ShareDSCSActionModal
-                isShowModalShareCS={isShowModalShareCS}
-                onClose={onClose}
-                />
-                </div>  )
-}
+    <div className={styles.form_add_potential}>
+      <NoteDetailBtnsGroup />
+      <TableDataNoteDetailList />
+      <ShareDSCSActionModal
+        isShowModalShareCS={isShowModalShareCS}
+        onClose={onClose}
+      />
+    </div>
+  );
+};
 export default Note_potential;

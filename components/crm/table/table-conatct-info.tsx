@@ -65,10 +65,7 @@ const TableContactDetailCustomer: React.FC<
       dataIndex: "filename",
       key: "0",
       render: (data) => (
-        <Link
-          target="_blank"
-          href={`/crm/customer/contact/detail/${id}/${data}`}
-        >
+        <Link target="_blank" href={`/customer/contact/detail/${id}/${data}`}>
           {data}
         </Link>
       ),

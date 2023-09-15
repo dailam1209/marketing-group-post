@@ -60,7 +60,10 @@ const ScheduleModalComplete: React.FC<MyComponentProps> = ({
             onChange={handleChange}
             options={options}
           />
-          <label style={{ marginBottom: 0, marginTop: "15px" }} className={`${styles.label} `}>
+          <label
+            style={{ marginBottom: 0, marginTop: "15px" }}
+            className={`${styles.label} `}
+          >
             Nội dung cuộc gọi
           </label>
           <textarea

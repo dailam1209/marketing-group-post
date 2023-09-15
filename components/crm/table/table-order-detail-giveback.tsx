@@ -30,7 +30,11 @@ const columns: ColumnsType<DataType> = [
     width: 50,
     dataIndex: "number",
     key: "number",
-    render:(text:any)=><Link href={"/order/detail"} ><b>{text}</b></Link>
+    render: (text: any) => (
+      <Link href={"/order/detail"}>
+        <b>{text}</b>
+      </Link>
+    ),
   },
 
   {
@@ -45,14 +49,12 @@ const columns: ColumnsType<DataType> = [
     dataIndex: "status_execute",
     key: "status_execute",
     width: 80,
-    
   },
   {
     title: "Diễn giải",
     dataIndex: "explain",
     key: "explain",
     width: 160,
-    
   },
   {
     title: "Ngày đề nghị",
@@ -65,7 +67,11 @@ const columns: ColumnsType<DataType> = [
     dataIndex: "order_number",
     key: "order_number",
     width: 60,
-    render:(text:any)=><Link href={"/order/detail"} ><b>{text}</b></Link>
+    render: (text: any) => (
+      <Link href={"/order/detail"}>
+        <b>{text}</b>
+      </Link>
+    ),
   },
   {
     title: "Tổng tiền (VNĐ)",
@@ -85,9 +91,7 @@ const columns: ColumnsType<DataType> = [
     key: "11",
     width: 50,
     fixed: "right",
-    render: () => 
-      <OrderDetailGivebackActionTable/>
- 
+    render: () => <OrderDetailGivebackActionTable />,
   },
 ];
 
@@ -96,19 +100,21 @@ for (let i = 0; i < 100; i++) {
   data.push({
     key: i,
     number: `ĐN-0000`,
-    status: 'Đã thực hiện',
-    status_execute: 'Đã hủy bỏ',
-    explain: 'Đề nghị trả hàng Nguyễn Trần Kim Phượng',
-    date: '09/03/2022',
-    order_number: 'ĐH-0000',
-    total: '10.000.000.0000',
-    address: 'Số 1 Trần Nguyên Đán, Định Công, Hoàng Mai, Hà Nôi.',
+    status: "Đã thực hiện",
+    status_execute: "Đã hủy bỏ",
+    explain: "Đề nghị trả hàng Nguyễn Trần Kim Phượng",
+    date: "09/03/2022",
+    order_number: "ĐH-0000",
+    total: "10.000.000.0000",
+    address: "Số 1 Trần Nguyên Đán, Định Công, Hoàng Mai, Hà Nôi.",
   });
 }
 
 interface TableDataOrderDetailBillProps {}
 
-const TableDataOrderDetailBill: React.FC<TableDataOrderDetailBillProps> = () => {
+const TableDataOrderDetailBill: React.FC<
+  TableDataOrderDetailBillProps
+> = () => {
   return (
     <div className="custom_table campaign_tble">
       <Table
@@ -130,7 +136,7 @@ const TableDataOrderDetailBill: React.FC<TableDataOrderDetailBillProps> = () => 
           </select>
         </div>
         <div className="total">
-          Tổng số: <b>{data.length}</b> Đề nghị 
+          Tổng số: <b>{data.length}</b> Đề nghị
         </div>
       </div>
     </div>

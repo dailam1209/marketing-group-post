@@ -17,7 +17,7 @@ const CancelModal: React.FC<MyComponentProps> = ({
   const router = useRouter();
   const handleOK = () => {
     setIsModalCancel(false);
-    router.push("/crm/marketing/email");
+    router.push("/marketing/email");
   };
 
   return (
@@ -35,9 +35,7 @@ const CancelModal: React.FC<MyComponentProps> = ({
         okText="Đồng ý"
         cancelText="Huỷ"
       >
-        <div>
-         {content}
-        </div>
+        <div>{content}</div>
       </Modal>
     </>
   );

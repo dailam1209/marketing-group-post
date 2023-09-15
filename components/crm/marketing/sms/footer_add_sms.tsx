@@ -4,7 +4,7 @@ import styles from "../../potential/potential_add_files/add_file_potential.modul
 import ModalCompleteStep from "../../potential/potential_steps/complete_modal";
 
 export default function FooterAddEmail({
-  link = "/crm/marketing/sms",
+  link = "/marketing/sms",
   title,
   contentCancel,
   titleCancel,

@@ -89,20 +89,18 @@ const columns: ColumnsType<DataType> = [
     key: "11",
     width: 150,
     fixed: "right",
-    render: (text: any) =>
-      <CampaignActionTable/>
+    render: (text: any) => <CampaignActionTable />,
   },
 ];
-
 
 export const data: DataType[] = [];
 for (let i = 0; i < 100; i++) {
   data.push({
     key: i,
     name: `Campaign ${i}`,
-    customer: 'Đang diễn ra',
-    money: 'abc',
-    stage: '29/07/2023',
+    customer: "Đang diễn ra",
+    money: "abc",
+    stage: "29/07/2023",
     rate: `30/07/2023`,
     sale: 10000000,
     date: 10000000,
@@ -110,7 +108,7 @@ for (let i = 0; i < 100; i++) {
   });
 }
 
-interface TableDataCampaignChanceProps { }
+interface TableDataCampaignChanceProps {}
 
 const TableDataCampaignChance: React.FC<TableDataCampaignChanceProps> = () => {
   return (

@@ -148,7 +148,6 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   posId,
   listNV,
 }: any) => {
-
   const [openModalCall, setOpenModalCall] = useState(false);
   const router = useRouter();
   const [openEditText, setOpenEditText] = useState(false);
@@ -157,14 +156,13 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   const [te, setTE] = useState<any>();
   const [nameNguon, setNameNguon] = useState();
 
-  const [show, setshow] = useState<boolean>(false)
-    const [group_idFix, setgroup_idFix] = useState<any>()
+  const [show, setshow] = useState<boolean>(false);
+  const [group_idFix, setgroup_idFix] = useState<any>();
   const handleChangeStatus = (e: any, data: any) => {
-  
     setValueStatus(e.target.value);
   };
   const handleShowCall = (record: any) => {
-    setgroup_idFix(record.group_id)
+    setgroup_idFix(record.group_id);
     setCusId(record.cus_id);
     setshow(true);
   };
@@ -245,7 +243,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
             rel="nofollow noopener noreferrer"
             style={{ cursor: "pointer" }}
             href={{
-              pathname: `/crm/customer/detail/${record.cus_id}`,
+              pathname: `/customer/detail/${record.cus_id}`,
               query: { name: record.name },
             }}
           >
@@ -279,7 +277,13 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       render: (data, record) => (
         <div
           onClick={() => handleShowCall(record)}
-          style={{ cursor: "pointer", color: record?.count_content_call !==0  && record?.count_content_call ? "#ffa800" : "#474747"}}
+          style={{
+            cursor: "pointer",
+            color:
+              record?.count_content_call !== 0 && record?.count_content_call
+                ? "#ffa800"
+                : "#474747",
+          }}
           className={data.length > 20 ? "truncate-text" : ""}
         >
           {data}
@@ -431,7 +435,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       // fixed:"right",
       render: (data, record: any) => (
         <>
-          <Link href={`/crm/customer/edit/${record.cus_id}`}>
+          <Link href={`/customer/edit/${record.cus_id}`}>
             <button className={styles.icon_edit}>
               <img style={{ marginRight: "8px" }} src="/crm/h_edit_cus.svg" />
               Chỉnh sửa

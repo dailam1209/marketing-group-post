@@ -86,13 +86,13 @@ const Table_Cong_Nokh = (props: any) => {
         <button className={styles.list_sp}>
           <Link
             style={{ color: "#666666", background: "#fff" }}
-            href="/crm/cong-no-nha-cung-cap"
+            href="/cong-no-nha-cung-cap"
           >
             Nhà cung cấp
           </Link>
         </button>
         <button className={styles.list_gr_sp}>
-          <Link style={{ color: "#a3a3a3" }} href="/crm/cong-no-khach-hang">
+          <Link style={{ color: "#a3a3a3" }} href="/cong-no-khach-hang">
             Khách hàng
           </Link>
         </button>

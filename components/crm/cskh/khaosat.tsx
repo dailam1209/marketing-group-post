@@ -69,7 +69,7 @@ const KhaoSat = (props: Props) => {
           style={{ display: "flex" }}
           rel="noopener noreferrer"
           onClick={() => {
-            router.push(`/crm/chinh-sua-khao-sat/${id}`);
+            router.push(`/chinh-sua-khao-sat/${id}`);
           }}
         >
           <Image src="/crm/icon-edit-black.svg" alt="" width={18} height={18} />
@@ -84,7 +84,7 @@ const KhaoSat = (props: Props) => {
       title: "Tên khảo sát",
       dataIndex: "name",
       render: (text: any, record: any) => (
-        <Link href={`/crm/chi-tiet-khao-sat/${record.name}`}>{text}</Link>
+        <Link href={`/chi-tiet-khao-sat/${record.name}`}>{text}</Link>
       ),
     },
     {
@@ -92,7 +92,7 @@ const KhaoSat = (props: Props) => {
       title: "Url",
       dataIndex: "des",
       render: (text: any, record: any) => (
-        <Link href={`/crm/khao-sat/${record.name}-ks`}>{text}</Link>
+        <Link href={`/khao-sat/${record.name}-ks`}>{text}</Link>
       ),
     },
     {
@@ -185,7 +185,7 @@ const KhaoSat = (props: Props) => {
         </div>
         <div className={cskh.themmoiks}>
           <Link
-            href={"/crm/them-khao-sat"}
+            href={"/them-khao-sat"}
             style={{ height: 40, width: 150 }}
             className={`${styless.dropbtn_add} flex_align_center`}
           >

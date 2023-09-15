@@ -1,10 +1,7 @@
 import { useState } from "react";
 import styles from "@/components/crm/quote/quote.module.css";
 
-export default function OrderDropDown({
-  valueSelect,
-  setValueSelect,
-}: any) {
+export default function OrderDropDown({ valueSelect, setValueSelect }: any) {
   const data: any[] = ["Hello", "Test", "Hi"];
 
   // const [valueSelect, setValueSelect] = useState("")

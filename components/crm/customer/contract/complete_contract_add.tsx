@@ -20,7 +20,7 @@ const ModalCompleteContractStepADD: React.FC<ModalCompleteStepProps> = ({
   const router = useRouter();
   const handleClick = () => {
     setModal1Open(false);
-    router.push(`/crm/customer/contract/list/${id}`);
+    router.push(`/customer/contract/list/${id}`);
   };
   return (
     <div>

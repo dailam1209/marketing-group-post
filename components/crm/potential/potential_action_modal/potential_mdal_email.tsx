@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { Button, Modal } from "antd";
+import { Modal } from "antd";
 import styles from "../potential.module.css";
-import { useRouter } from "next/router";
 import PotentialSelectBox from "../potential_selectt";
 import AddNewActionModal from "./add_new_potential_mdal";
 import TableDataEmailMarketing from "@/components/crm/table/table-email-marketing";

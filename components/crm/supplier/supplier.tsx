@@ -9,16 +9,13 @@ export default function Supplier() {
   const mainRef = useRef<HTMLDivElement>(null);
   const { isOpen } = useContext<any>(SidebarContext);
   const [isSelectedRow, setIsSelectedRow] = useState(false);
-  const {
-    setHeaderTitle,
-    setShowBackButton,
-    setCurrentPath,
-  }: any = useHeader();
+  const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
+    useHeader();
 
   useEffect(() => {
     setHeaderTitle("Danh sách nhà cung cấp");
     setShowBackButton(false);
-    setCurrentPath("/crm/supplier/list");
+    setCurrentPath("/supplier/list");
   }, [setHeaderTitle, setShowBackButton, setCurrentPath]);
 
   useEffect(() => {

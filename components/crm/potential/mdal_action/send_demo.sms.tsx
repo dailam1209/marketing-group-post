@@ -8,7 +8,6 @@ interface MyComponentProps {
   isModalCancel: boolean;
   setIsModalCancel: (value: boolean) => void;
   record: any;
-
 }
 
 const SendSMSDemoModal: React.FC<MyComponentProps> = ({

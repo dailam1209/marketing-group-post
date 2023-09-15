@@ -23,7 +23,7 @@ export default function MergeCustomer() {
   useEffect(() => {
     setHeaderTitle("Danh sách khách hàng / Gộp trùng khách hàng");
     setShowBackButton(true);
-    setCurrentPath("/crm/customer/list");
+    setCurrentPath("/customer/list");
   }, [setHeaderTitle, setShowBackButton, setCurrentPath]);
 
   useEffect(() => {

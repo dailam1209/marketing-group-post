@@ -98,7 +98,7 @@ export default function ProductReturnDetailBtns({ id }: any) {
           </div>
 
           <div className={`${styles.main__control_add} flex_end`}>
-            <Link href={"/crm/product_return/update"}>
+            <Link href={"/product_return/update"}>
               <button
                 type="button"
                 style={{ background: "#4C5BD4" }}
@@ -113,16 +113,11 @@ export default function ProductReturnDetailBtns({ id }: any) {
           <div className={`${styles.main__control_add} flex_end`}>
             <button
               type="button"
-              style={{ background: "#FFF" ,color:"red"}}
+              style={{ background: "#FFF", color: "red" }}
               onClick={() => setIsOpenModalDel(true)}
               className={`${styles.dropbtn_add} flex_align_center`}
             >
-              <Image
-                alt="+"
-                width={16}
-                height={16}
-                src="/crm/delete_kh.svg"
-              />
+              <Image alt="+" width={16} height={16} src="/crm/delete_kh.svg" />
               Xóa
             </button>
           </div>
@@ -148,7 +143,7 @@ export default function ProductReturnDetailBtns({ id }: any) {
         setIsModalCancel={setIsOpenModalDel}
         content={"Bạn có chắc chắn muốn xóa đề nghị trả hàng Số đề nghị?"}
         title={"Xóa đề nghị trả hàng"}
-        link={`/crm/product_return/list`}
+        link={`/product_return/list`}
       />
     </>
   );

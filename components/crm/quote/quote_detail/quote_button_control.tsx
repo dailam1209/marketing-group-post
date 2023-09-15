@@ -81,8 +81,7 @@ export default function AddButtonControl({ isSelectedRow }: any) {
     });
   }
 
-  const onChange = (checked: boolean) => {
-  };
+  const onChange = (checked: boolean) => {};
   return (
     <div>
       <div className={`${styles.main}`}>

@@ -50,7 +50,10 @@ const CallModal: React.FC<MyComponentProps> = ({
             <label className={`${styles.form_label} required`}>
               {"Nội dung cuộc gọi"}
             </label>
-            <textarea style={{width:"100%",padding:10}} placeholder="Nhập nội dung cuộc gọi"></textarea>
+            <textarea
+              style={{ width: "100%", padding: 10 }}
+              placeholder="Nhập nội dung cuộc gọi"
+            ></textarea>
           </div>
         </div>
       </Modal>

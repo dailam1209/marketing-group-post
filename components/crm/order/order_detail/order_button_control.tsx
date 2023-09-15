@@ -67,8 +67,7 @@ export default function AddButtonControl({ isSelectedRow }: any) {
     });
   }
 
-  const onChange = (checked: boolean) => {
-  };
+  const onChange = (checked: boolean) => {};
   return (
     <div>
       <div className={`${styles.main}`}>
@@ -106,7 +105,7 @@ export default function AddButtonControl({ isSelectedRow }: any) {
                   Duyệt
                 </button>
               </div>
-              <Link href="/crm/order/edit">
+              <Link href="/order/edit">
                 <button
                   type="button"
                   className={`${styles.btn_edit} flex_align_center`}

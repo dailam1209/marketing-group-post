@@ -12,9 +12,7 @@ const ModalAddNhomSP = (props: any) => {
     setOpen(true);
   };
 
-  const handleOk = () => {
-   
-  };
+  const handleOk = () => {};
 
   return (
     <div>
@@ -23,7 +21,11 @@ const ModalAddNhomSP = (props: any) => {
         open={isShowModal}
         title={
           <div
-            style={{ background: "#4C5BD4", width: "111%", margin: "-20px -24px" }}
+            style={{
+              background: "#4C5BD4",
+              width: "111%",
+              margin: "-20px -24px",
+            }}
           >
             <div
               style={{

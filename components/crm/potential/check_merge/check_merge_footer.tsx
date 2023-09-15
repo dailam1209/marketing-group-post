@@ -11,7 +11,7 @@ export default function PotentialFooterCheckMerge() {
       <button type="button" onClick={() => setIsModalCancel(true)}>
         Hủy
       </button>
-      <Link href={"/crm/potential/merge"}>
+      <Link href={"/potential/merge"}>
         <button className={styles.save} type="submit">
           Tiếp theo
         </button>

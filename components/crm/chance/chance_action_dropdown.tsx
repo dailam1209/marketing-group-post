@@ -28,7 +28,7 @@ const ChanceActionDropDown: React.FC<Myprops> = ({ data }: any) => {
     {
       key: "1",
       label: (
-        <Link href="/crm/order/add" className="btn-huy flex-start">
+        <Link href="/order/add" className="btn-huy flex-start">
           <i className="bi bi-cart"></i>
           Thêm đơn hàng
         </Link>
@@ -37,7 +37,7 @@ const ChanceActionDropDown: React.FC<Myprops> = ({ data }: any) => {
     {
       key: "2",
       label: (
-        <Link href="/crm/quote/add" className="btn-huy flex-start">
+        <Link href="/quote/add" className="btn-huy flex-start">
           <i
             className="bi bi-currency-dollar"
             style={{
@@ -82,7 +82,7 @@ const ChanceActionDropDown: React.FC<Myprops> = ({ data }: any) => {
     {
       key: "5",
       label: (
-        <Link href={`/crm/chance/edit/${data.person}`}>
+        <Link href={`/chance/edit/${data.person}`}>
           <button className="btn-huy flex-start">
             <Image width={16} height={16} src="/crm/edit.svg" alt="check" />
             Chỉnh sửa
@@ -146,7 +146,7 @@ const ChanceActionDropDown: React.FC<Myprops> = ({ data }: any) => {
         setIsModalCancel={setIsOpenModalDel}
         content={"Bạn có chắc chắn muốn xoá cơ hội này không?"}
         title={"Xác nhận xoá cơ hội"}
-        link={"/crm/chance/list"}
+        link={"/chance/list"}
       />
     </>
   );

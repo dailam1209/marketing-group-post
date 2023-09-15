@@ -40,12 +40,8 @@ const AssignmentModal: React.FC<MyComponentProps> = ({
             <label className={`${styles.form_label} `}>
               {"Nhân viên thực hiện"}
             </label>
-            <CampaignSelectBoxStep
-              value="Chọn"
-              placeholder="Chọn"
-            />
+            <CampaignSelectBoxStep value="Chọn" placeholder="Chọn" />
           </div>
-          
         </div>
       </Modal>
       <ModalCompleteStep

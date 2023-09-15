@@ -108,7 +108,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
   const router = useRouter();
   const currentTime = moment(); // Thời điểm hiện tại
   const pastTime = currentTime.subtract(2, "days");
-  
+
   const [idChaSaved, setidChaSaved] = useState<any>(-1);
   const checkCha = useSelector((state: any) => state?.auth?.ghimCha);
   const valueChaOld = useSelector((state: any) => state?.auth?.valueCha);
@@ -151,7 +151,6 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
     setdateE(e.target.value);
   };
 
- 
   const optionTest =
     role == "2" && posId !== 2
       ? [
@@ -196,7 +195,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
             };
           }),
         ];
-  
+
   {
     role == "2" &&
       posId == 2 &&
@@ -227,7 +226,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
       }),
     ];
   }
-  let optionCon:any = []
+  let optionCon: any = [];
   const getOptionC = () => {
     let defaultArr = [{ value: "", label: "Tất cả" }];
     const newArr = listGr_Child
@@ -407,9 +406,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
                 }
               }),
             ]}
-          >
-          
-          </Select>
+          ></Select>
         </div>
 
         <div className={styles.form_group}>
@@ -517,7 +514,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
           className={styles.btn_cancel}
           data-dismiss="modal"
           onClick={() => {
-            setOpen(false), router.push("/crm/customer/list");
+            setOpen(false), router.push("/customer/list");
           }}
         >
           Hủy lọc

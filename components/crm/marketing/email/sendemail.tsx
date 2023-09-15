@@ -66,7 +66,7 @@ const ShareActionModal: React.FC<MyComponentProps> = ({
         modal1Open={isOpenMdalSuccess}
         setModal1Open={setIsOpenMdalSuccess}
         title={"Gửi email thành công!"}
-        link={"/crm/marketing/email"}
+        link={"/marketing/email"}
       />
     </>
   );

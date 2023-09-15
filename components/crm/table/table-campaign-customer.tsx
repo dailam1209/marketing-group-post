@@ -21,14 +21,17 @@ const columns: ColumnsType<DataType> = [
     width: 80,
     dataIndex: "number",
     key: "number",
-    
   },
   {
     title: "Tên khách hàng",
     width: 120,
     dataIndex: "name",
     key: "name",
-    render:(text:any,record:any)=><Link href={`/crm/customer/detail/${record.key}`} ><b>{text}</b></Link>
+    render: (text: any, record: any) => (
+      <Link href={`/customer/detail/${record.key}`}>
+        <b>{text}</b>
+      </Link>
+    ),
   },
   {
     title: "Tình trạng",
@@ -49,10 +52,7 @@ const columns: ColumnsType<DataType> = [
     key: "staff",
     width: 120,
   },
-  
 ];
-
-
 
 export const data: DataType[] = [];
 for (let i = 0; i < 100; i++) {
@@ -63,7 +63,6 @@ for (let i = 0; i < 100; i++) {
     status: `Chờ duyệt`,
     note: `Đơn hàng Nguyễn Trần Kim Phượng Đơn hàng Nguyễn Trần Kim Phượng  `,
     staff: `10000000`,
-   
   });
 }
 

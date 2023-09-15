@@ -3,7 +3,6 @@ import styles from "../potential/potential.module.css";
 import Link from "next/link";
 import PotentialSelectBox from "../potential/potential_selectt";
 export default function ProductReturnInputGroup() {
-
   return (
     <div className={styles.main__control}>
       <div className={`${styles.main__control_select} flex_align_center`}>
@@ -14,7 +13,7 @@ export default function ProductReturnInputGroup() {
             Ngày đề nghị
           </label>
           <div className={`${styles.input_item_time} flex_between`}>
-            <input type="date" name="" id="start_time" /> 
+            <input type="date" name="" id="start_time" />
           </div>
         </div>
         <PotentialSelectBox title="Tình trạng đề nghị:" value="Tất cả" />
@@ -42,7 +41,7 @@ export default function ProductReturnInputGroup() {
           </form>
         </div>
         <div className={`${styles.main__control_add} flex_end`}>
-          <Link href="/crm/product_return/add">
+          <Link href="/product_return/add">
             <button
               type="button"
               className={`${styles.dropbtn_add} flex_align_center`}

@@ -28,9 +28,7 @@ export default function PotentialFooterAddFiles({
             "Content-Type": "application/json",
             Authorization: `Bearer ${Cookies.get("token_base365")}`,
           },
-          body: JSON.stringify(
-            dataAdd
-          ),
+          body: JSON.stringify(dataAdd),
         });
         const data = await res.json();
         if (data && data?.data?.result) {
@@ -44,9 +42,7 @@ export default function PotentialFooterAddFiles({
           message: "Tên khách hàng, số điện thoại là bắt buộc",
         });
       }
-    } catch (error) {
-    }
- 
+    } catch (error) {}
   };
   return (
     <div className={styles.main__footer}>
@@ -55,7 +51,7 @@ export default function PotentialFooterAddFiles({
         onClick={() => (
           setDataAdd(""),
           notification.success({ message: "Làm mới thành công" }),
-          router.push("/crm/customer/input/add")
+          router.push("/customer/input/add")
         )}
       >
         Làm mới

@@ -19,11 +19,10 @@ const NoteActionDropDown: React.FC<any> = () => {
       key: "4",
       label: (
         <button
-          className="btn-huy flex-start"
+          style={{ display: "flex", gap: 5, fontSize: 15, fontWeight: 900 }}
           onClick={() => setIsOpenModalUpdateStatus(true)}
         >
-          <Image width={16} height={16} src="/edit.svg" alt="check" />
-          Chỉnh sửa
+          <i className="bi bi-pencil-square"></i> <p>Chỉnh sửa</p>
         </button>
       ),
     },

@@ -22,11 +22,5 @@ export default function HomePhieuThu() {
       mainRef.current?.classList.remove("content_resize");
     }
   }, [isOpen]);
-  return (
-  
-    <Table_Phieu_Thu_Chi
-        dataPotential={dataPotential}
-        name="Phiếu thu"
-      /> 
-  );
+  return <Table_Phieu_Thu_Chi dataPotential={dataPotential} name="Phiếu thu" />;
 }

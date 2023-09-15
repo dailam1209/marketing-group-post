@@ -45,19 +45,19 @@ export default function CustomerListAction({
       type: "hand_over",
     },
     {
-      link: "/crm/customer/check_merge",
+      link: "/customer/check_merge",
       name: "Kiểm tra trùng",
       img: `bi bi-search`,
       type: "",
     },
     {
-      link: "/crm/customer/same_filter",
+      link: "/customer/same_filter",
       name: "Gộp trùng",
       img: `bi bi-share`,
       type: "",
     },
     {
-      link: `/crm/customer/edit/${id}`,
+      link: `/customer/edit/${id}`,
       name: "Chỉnh sửa",
       img: "bi bi-pencil-square",
       type: "edit",

@@ -201,24 +201,7 @@ export default function Header() {
                   </>
                 ) : (
                   <>
-                    {/* <div className={styles.hd_log}>
-                      <div className={styles.bg_log}>
-                        <p style={{ color: '#fff' }}>
-                          <Link
-                            href={'lua-chon-dang-ky.html/'}
-                            className='cr_weight_bold share_fsize_tow share_clr_tow'>
-                            Đăng ký{' '}
-                          </Link>
-                          /
-                          <Link
-                            href={'/lua-chon-dang-nhap.html'}
-                            className='cr_weight_bold share_fsize_tow share_clr_tow'>
-                            {' '}
-                            Đăng nhập
-                          </Link>
-                        </p>
-                      </div>
-                    </div> */}
+                    
                     <div className={styles.hd_log}>
                       <Button
                         className={'btnU'}

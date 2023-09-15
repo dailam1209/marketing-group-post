@@ -20,7 +20,7 @@ export default function CampaignActionTable(props: any) {
       key: "1",
       label: (
         <>
-          <Link href={`/crm/campaign/edit/${record}`}>
+          <Link href={`/campaign/edit/${record}`}>
             <i className="bi bi-pencil-square"></i> Chỉnh sửa
           </Link>
         </>

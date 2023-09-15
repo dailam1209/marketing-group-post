@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import style from "./sidebar.module.css";
-import { checkHomeIfLoggedIn } from "../ultis/checkLogin";
 import { SidebarContext } from "../context/resizeContext";
 import HeaderBar from "./header_bar";
 import SiebarContent from "./sidebar_content";
@@ -33,16 +32,14 @@ export default function SideBar() {
 
   return (
     <>
-      {checkHomeIfLoggedIn() ? null : (
-        <div
-          ref={sidebarRef}
-          className={`${style.sidebar} ${!isOpen ? style.mSideBar : ""}`}
-        >
-          <div id="box_alert"></div>
-          <HeaderBar dataHeader={dataHeader} isOpen={isOpen} />
-          <SiebarContent isOpen={isOpen} setIsOpen={setIsOpen} />
-        </div>
-      )}
+      <div
+        ref={sidebarRef}
+        className={`${style.sidebar} ${!isOpen ? style.mSideBar : ""}`}
+      >
+        <div id="box_alert"></div>
+        <HeaderBar dataHeader={dataHeader} isOpen={isOpen} />
+        <SiebarContent isOpen={isOpen} setIsOpen={setIsOpen} />
+      </div>
     </>
   );
 }
