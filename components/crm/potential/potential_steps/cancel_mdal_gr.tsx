@@ -22,7 +22,7 @@ const CancelModalGroupCustomer: React.FC<MyComponentProps> = ({
   const router = useRouter();
   const handleOK = () => {
     setIsModalCancel(false);
-    router.push("/crm/customer/group/list")
+    router.push("/customer/group/list");
   };
   return (
     <>

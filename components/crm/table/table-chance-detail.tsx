@@ -49,7 +49,7 @@ const TableChanceDetailCustomer: React.FC<
       dataIndex: "filename",
       key: "0",
       render: (data) => (
-        <Link href={`/crm/customer/chance/detail/${id}/${data}`}>
+        <Link href={`/customer/chance/detail/${id}/${data}`}>
           <span>{data}</span>
         </Link>
       ),

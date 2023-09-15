@@ -6,13 +6,13 @@ import OrderSelectBoxStep from "../quote_steps/select_box_step";
 import ModalCompleteStep from "../quote_steps/complete_modal";
 
 interface MyComponentProps {
-    isShowModalShareCS: boolean;
-    onClose:any
+  isShowModalShareCS: boolean;
+  onClose: any;
 }
 
 const ShareDSCSActionModal: React.FC<MyComponentProps> = ({
-    isShowModalShareCS,
-    onClose
+  isShowModalShareCS,
+  onClose,
 }) => {
   const [isOpenSelect, setIsOpenSelect] = useState(false);
   const [label, setLabel] = useState("");
@@ -57,7 +57,7 @@ const ShareDSCSActionModal: React.FC<MyComponentProps> = ({
         title={"Chia sẻ cơ hội"}
         centered
         open={isShowModalShareCS}
-        onOk={() => (handleOK(),onClose())}
+        onOk={() => (handleOK(), onClose())}
         onCancel={() => onClose()}
         className={"mdal_cancel email_add_mdal"}
         okText="Đồng ý"

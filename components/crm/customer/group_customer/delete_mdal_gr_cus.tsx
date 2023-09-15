@@ -44,12 +44,11 @@ const CancelModalDelGroup: React.FC<MyComponentProps> = ({
             },
           }
         );
-      
       } catch (error) {
-        console.error('Error:', error.message);
+        console.error("Error:", error.message);
       }
     } else {
-      const delArray = keyDeleted?.map( async(keyDel) => {
+      const delArray = keyDeleted?.map(async (keyDel) => {
         try {
           const response = await axios.post(
             `${base_url}/api/crm/group/delete_khach_hang`,
@@ -60,14 +59,13 @@ const CancelModalDelGroup: React.FC<MyComponentProps> = ({
               },
             }
           );
-        
         } catch (error) {
-          console.error('Error:', error.message);
+          console.error("Error:", error.message);
         }
       });
       await Promise.all(delArray);
     }
-    router.push("/crm/customer/group/list")
+    router.push("/customer/group/list");
     setChange(Math.random());
   };
   return (

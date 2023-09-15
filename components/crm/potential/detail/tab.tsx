@@ -17,15 +17,7 @@ const Tab: React.FC = ({ key }: any) => {
   const router = useRouter();
   const { id } = router.query;
   const onChange = (key: string) => {
-    switch (
-      key
-      // case "1":
-      //   router.push(`/crm/potential/detail/${id}`);
-      //   return;
-      // case "2":
-      //   router.push(`/crm/potential/detail/${id}`);
-      //   return;
-    ) {
+    switch (key) {
     }
   };
 

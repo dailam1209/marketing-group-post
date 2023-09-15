@@ -25,7 +25,6 @@ const EditTextCustomerList: React.FC<MyComponentProps> = ({
   const handleOK = () => {
     setIsModalCancel(false);
     setIsOpenMdalSuccess(true);
-
   };
   return (
     <>
@@ -64,7 +63,7 @@ const EditTextCustomerList: React.FC<MyComponentProps> = ({
         modal1Open={isOpenMdalSuccess}
         setModal1Open={setIsOpenMdalSuccess}
         title={"Cập nhật thành công"}
-        link={"/crm/customer/list"}
+        link={"/customer/list"}
       />
     </>
   );

@@ -14,9 +14,7 @@ const ModalChangeSoQuy = (props: any) => {
     setOpen(true);
   };
 
-  const handleOk = () => {
-   
-  };
+  const handleOk = () => {};
   const handleChange = () => {
     alert("Cập nhật thành công");
     router.reload();

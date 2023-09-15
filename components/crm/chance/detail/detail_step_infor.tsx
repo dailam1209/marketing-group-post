@@ -32,7 +32,7 @@ const DetailInformationChance: React.FC<PropsDetail> = () => {
         setIsModalCancel={setIsOpenModalCancel}
         content={"Bạn có chắc chắn muốn xoá cơ hội này không?"}
         title={"Xác nhận xoá cơ hội"}
-        link={`/crm/chance/list`}
+        link={`/chance/list`}
       />
 
       <div
@@ -49,7 +49,7 @@ const DetailInformationChance: React.FC<PropsDetail> = () => {
         </div>
         <div className={stylesDetail["main__control-btn"]}>
           <Link
-            href={`/crm/chance/edit/${id}`}
+            href={`/chance/edit/${id}`}
             className={stylesDetail["btn_edit"]}
           >
             <Image alt="image" width={16} height={16} src="/crm/edit_kh.svg" />

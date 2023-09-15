@@ -22,7 +22,7 @@ const EmailPersonalTable: React.FC = () => {
   useEffect(() => {
     setHeaderTitle("Marketing/ Email");
     setShowBackButton(true);
-    setCurrentPath("/crm/marketing/email");
+    setCurrentPath("/marketing/email");
   }, [setHeaderTitle, setShowBackButton, setCurrentPath]);
 
   return (
@@ -30,9 +30,12 @@ const EmailPersonalTable: React.FC = () => {
       <div className={style.main__setting_email}>
         <div className={style.main_setting_body}>
           <InputGroup />
-          <EmailFormTable setSelected={function (value: boolean): void {
-            throw new Error("Function not implemented.");
-          } } setNumberSelected={undefined} />
+          <EmailFormTable
+            setSelected={function (value: boolean): void {
+              throw new Error("Function not implemented.");
+            }}
+            setNumberSelected={undefined}
+          />
         </div>
       </div>
     </>

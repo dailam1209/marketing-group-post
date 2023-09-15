@@ -16,7 +16,7 @@ const ModalCompleteStepDEl: React.FC<ModalCompleteStepProps> = ({
   const router = useRouter();
   const handleClick = () => {
     setModal1Open(false);
-    router.push("/crm/customer/list");
+    router.push("/customer/list");
   };
   return (
     <div>
@@ -36,11 +36,7 @@ const ModalCompleteStepDEl: React.FC<ModalCompleteStepProps> = ({
           className="custom_mdal_sucess"
           onCancel={() => setModal1Open(false)}
         >
-          <div style={{ textAlign: "center" }}>
-       
-              Xóa khách hàng thành công
-            
-          </div>
+          <div style={{ textAlign: "center" }}>Xóa khách hàng thành công</div>
         </Modal>
       </div>
     </div>

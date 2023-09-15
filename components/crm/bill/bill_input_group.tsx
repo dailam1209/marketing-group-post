@@ -77,17 +77,12 @@ export default function BillInputGroups({ isSelectedRow }: any) {
           </form>
         </div>
         <div className={`${styles.main__control_add} flex_end`}>
-          <Link href="/crm/bill/add">
+          <Link href="/bill/add">
             <button
               type="button"
               className={`${styles.dropbtn_add} flex_align_center`}
             >
-              <Image
-                alt="themoi"
-                width={13}
-                height={13}
-                src="/crm/add.svg"
-              />
+              <Image alt="themoi" width={13} height={13} src="/crm/add.svg" />
               Thêm mới
             </button>
           </Link>

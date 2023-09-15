@@ -117,7 +117,7 @@ const CallModal: React.FC<MyComponentProps> = ({
   const formattedTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   const [action, setAction] = useState<any>(false);
 
-  const handleOK =async () => {
+  const handleOK = async () => {
     setAction(!action);
 
     setDate(formattedTime);
@@ -128,7 +128,7 @@ const CallModal: React.FC<MyComponentProps> = ({
       setIsOpenMdalSuccess(false);
       setshow(false);
     }, 1200);
-    router.push(router.asPath)
+    router.push(router.asPath);
   };
 
   const router = useRouter();

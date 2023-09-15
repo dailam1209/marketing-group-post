@@ -8,7 +8,7 @@ import TableDataCampaignModal from "@/components/crm/table/table_data_campain_mo
 const ShowCampaignPOMD = (props: any) => {
   const { isModalCancelPO, onClose } = props;
   const [showMdalAdd, setIsShowMdalADd] = useState(false);
-  const router = useRouter()
+  const router = useRouter();
   return (
     <>
       {/* <Button type="primary" onClick={() => setModal2Open(true)}>
@@ -42,9 +42,7 @@ const ShowCampaignPOMD = (props: any) => {
             </div>
             <div
               style={{ width: "100px" }}
-              onClick={() => (
-               ( setIsShowMdalADd(true),router.reload())
-              )}
+              onClick={() => (setIsShowMdalADd(true), router.reload())}
             >
               <Button
                 style={{ width: 150, color: "#fff", background: "#4C5BD4" }}

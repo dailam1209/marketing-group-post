@@ -7,13 +7,13 @@ import ModalCompleteStep from "@/components/crm/potential/potential_steps/comple
 interface MyComponentProps {
   isModalCancel: boolean;
   setIsModalCancel: (value: boolean) => void;
-  id: any
+  id: any;
 }
 
 const DelActionModalContactCustomer: React.FC<MyComponentProps> = ({
   isModalCancel,
   setIsModalCancel,
-  id
+  id,
 }) => {
   const [isModalSuccess, setIsMdalSuccess] = useState(false);
 

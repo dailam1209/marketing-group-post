@@ -22,7 +22,7 @@ const SwitchBoardTable: React.FC = () => {
   useEffect(() => {
     setHeaderTitle("Cài đặt/ Tổng đài");
     setShowBackButton(true);
-    setCurrentPath("/crm/setting/main");
+    setCurrentPath("/setting/main");
   }, [setHeaderTitle, setShowBackButton, setCurrentPath]);
 
   return (
@@ -41,7 +41,7 @@ const SwitchBoardTable: React.FC = () => {
                 src="/crm/fpt.svg"
               />
               <p className={style.connect_title}>FPT</p>
-              <Link href="/crm/setting/switch_fpt">
+              <Link href="/setting/switch_fpt">
                 <button className={style.connect_button}>Kết nối</button>
               </Link>
             </div>

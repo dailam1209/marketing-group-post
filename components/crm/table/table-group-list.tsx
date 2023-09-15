@@ -42,7 +42,6 @@ const TableDataGroupListCustomer: React.FC<TableDataGroupListCustomerProps> = ({
   const [depId, setDepId] = useState(null);
   const [empId, setEmpId] = useState(null);
 
-
   interface DataType {
     key: React.Key;
     gr_id: number;
@@ -68,7 +67,7 @@ const TableDataGroupListCustomer: React.FC<TableDataGroupListCustomerProps> = ({
       render: (data, record) => (
         <Link
           target="_blannk"
-          href={`/crm/danh-sach-khach-hang/group_parent/${record?.gr_id}`}
+          href={`/danh-sach-khach-hang/group_parent/${record?.gr_id}`}
         >
           <span>{data}</span>
         </Link>
@@ -131,7 +130,7 @@ const TableDataGroupListCustomer: React.FC<TableDataGroupListCustomerProps> = ({
       // fixed:"right",
       render: (data, record: any) => (
         <>
-          <Link href={`/crm/customer/group/edit/${record.key}`}>
+          <Link href={`/customer/group/edit/${record.key}`}>
             <button>
               <img
                 className={styles.icon_edit}
@@ -212,7 +211,7 @@ const TableDataGroupListCustomer: React.FC<TableDataGroupListCustomerProps> = ({
           : null,
     };
   });
-  
+
   const rowSelection: TableRowSelection<DataType> = {
     onChange: (selectedRowKeys, selectedRows) => {
       if (selectedRows?.length > 0) {

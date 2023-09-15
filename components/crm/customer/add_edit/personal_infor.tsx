@@ -141,7 +141,7 @@ export default function AddPersonalCustomerInfor({
         <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
           <div className={styles.wrap_label}>
             <label className={`${styles["form-label"]}`}>Nhóm khách hàng</label>
-            <Link color="#4C5BD4" href="/crm/customer/group/list">
+            <Link color="#4C5BD4" href="/customer/group/list">
               + Thêm nhóm
             </Link>
           </div>
@@ -155,7 +155,7 @@ export default function AddPersonalCustomerInfor({
             <label className={`${styles["form-label"]}`}>
               Tình trạng khách hàng
             </label>
-            <Link color="#4C5BD4" href="/crm/tinh-trang-khach-hang">
+            <Link color="#4C5BD4" href="/tinh-trang-khach-hang">
               + Thêm tình trạng
             </Link>
           </div>

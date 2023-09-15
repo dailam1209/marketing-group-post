@@ -15,7 +15,7 @@ const DelActionModal: React.FC<MyComponentProps> = ({
   const router = useRouter();
   const handleOK = () => {
     setIsModalCancel(false);
-    router.push("/crm/marketing/email");
+    router.push("/marketing/email");
   };
 
   return (

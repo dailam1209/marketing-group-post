@@ -45,12 +45,7 @@ const DetailInformationContact: React.FC<PropsDetail> = ({ id1, id2 }) => {
       <div style={{ paddingTop: 0 }} className={styleHome.main} ref={mainRef}>
         <div className={stylesDetail["main__control-btn"]}>
           <Link href="#" className={stylesDetail["btn_edit"]}>
-            <Image
-              alt="image"
-              width={16}
-              height={16}
-              src="/crm/edit_kh.svg"
-            />
+            <Image alt="image" width={16} height={16} src="/crm/edit_kh.svg" />
             Chỉnh sửa
           </Link>
           <button
@@ -124,9 +119,7 @@ const DetailInformationContact: React.FC<PropsDetail> = ({ id1, id2 }) => {
                               width={16}
                               height={16}
                               alt="check"
-                              src={
-                                "/crm/dungchung_kh.svg"
-                              }
+                              src={"/crm/dungchung_kh.svg"}
                             />
                             Liên hệ đại diện
                           </p>
@@ -141,9 +134,7 @@ const DetailInformationContact: React.FC<PropsDetail> = ({ id1, id2 }) => {
                               width={16}
                               height={16}
                               alt="check"
-                              src={
-                                "/crm/dungchung_kh.svg"
-                              }
+                              src={"/crm/dungchung_kh.svg"}
                             />
                             Liên hệ nhận hóa đơn
                           </p>
@@ -158,9 +149,7 @@ const DetailInformationContact: React.FC<PropsDetail> = ({ id1, id2 }) => {
                               width={16}
                               height={16}
                               alt="check"
-                              src={
-                                "/crm/dungchung_kh.svg"
-                              }
+                              src={"/crm/dungchung_kh.svg"}
                             />
                             Liên hệ giao hàng
                           </p>
@@ -175,9 +164,7 @@ const DetailInformationContact: React.FC<PropsDetail> = ({ id1, id2 }) => {
                               width={16}
                               height={16}
                               alt="check"
-                              src={
-                                "/crm/dungchung_kh.svg"
-                              }
+                              src={"/crm/dungchung_kh.svg"}
                             />
                             Liên hệ thủ trưởng đơn vị
                           </p>

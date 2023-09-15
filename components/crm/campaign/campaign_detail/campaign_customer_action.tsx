@@ -23,7 +23,6 @@ export default function OrderAction({ isSelectedRow }: any) {
   const [isOpenStatus, setIsOpenStatus] = useState(false);
   const [isOpenCall, setIsOpenCall] = useState(false);
 
-
   const handleClickAction = (e: any, type: string | undefined) => {
     if (type === "add_calendar") {
       setIsOpenOrderBrowsing(true);
@@ -41,10 +40,8 @@ export default function OrderAction({ isSelectedRow }: any) {
       setIsOpenHandOver(true);
     }
     if (type === "status") {
-        setIsOpenStatus(true);
+      setIsOpenStatus(true);
     }
-    
-
   };
   const items: MenuProps["items"] = [];
   for (let i = 0; i < dataCampaginCustomerAction.length; i++) {
@@ -53,14 +50,19 @@ export default function OrderAction({ isSelectedRow }: any) {
       label: (
         <>
           {dataCampaginCustomerAction[i].link !== "#" ? (
-            <Link href={dataCampaginCustomerAction[i].link} className="flex-start-btn">
+            <Link
+              href={dataCampaginCustomerAction[i].link}
+              className="flex-start-btn"
+            >
               <i className={dataCampaginCustomerAction[i].img}></i>
               {dataCampaginCustomerAction[i].name}
             </Link>
           ) : (
             <button
               className="flex-start-btn"
-              onClick={(e) => handleClickAction(e, dataCampaginCustomerAction[i].type)}
+              onClick={(e) =>
+                handleClickAction(e, dataCampaginCustomerAction[i].type)
+              }
             >
               <i className={dataCampaginCustomerAction[i].img}></i>
               {dataCampaginCustomerAction[i].name}

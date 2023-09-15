@@ -71,8 +71,7 @@ export default function ThemLichCSKH() {
         break;
     }
   };
-  const handleChange2 = (value: string) => {
-  };
+  const handleChange2 = (value: string) => {};
   const handleChange3 = (value: string) => {
     switch (value[0]) {
       case "Nhóm":
@@ -613,7 +612,7 @@ export default function ThemLichCSKH() {
       >
         <div>
           <Button
-          onClick={()=>setIsShowModal(true)}
+            onClick={() => setIsShowModal(true)}
             style={{
               width: 200,
               color: "#4c5bd4",
@@ -625,7 +624,9 @@ export default function ThemLichCSKH() {
         </div>
         <div>
           <Button
-          onClick={()=>{router.push("/lich-cham-soc-khach-hang")}}
+            onClick={() => {
+              router.push("/lich-cham-soc-khach-hang");
+            }}
             style={{
               width: 200,
               color: "#fff",
@@ -635,10 +636,7 @@ export default function ThemLichCSKH() {
           >
             Lưu
           </Button>
-          <ModalCancel 
-          isShowModal={isShowModal}
-          onClose={onClose}
-          />
+          <ModalCancel isShowModal={isShowModal} onClose={onClose} />
         </div>
       </div>
     </div>

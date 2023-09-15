@@ -7,20 +7,15 @@ export default function AddContractBtnDetails({ id }: any) {
     <div className={styles.main__control}>
       <div
         className={`${styles.main__control_btn}`}
-        style={{ justifyContent: "flex-end", marginRight:'5px' }}
+        style={{ justifyContent: "flex-end", marginRight: "5px" }}
       >
         <div className={`${styles.main__control_add} flex_end`}>
-          <Link href={`/crm/customer/contract/create/${id}`}>
+          <Link href={`/customer/contract/create/${id}`}>
             <button
               type="button"
               className={`${styles.dropbtn_add} flex_align_center`}
             >
-              <Image
-                alt="+"
-                width={13}
-                height={13}
-                src="/crm/add.svg"
-              />
+              <Image alt="+" width={13} height={13} src="/crm/add.svg" />
               Tạo hợp đồng
             </button>
           </Link>

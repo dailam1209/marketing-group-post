@@ -22,7 +22,7 @@ const AddSMSTable: React.FC = () => {
   useEffect(() => {
     setHeaderTitle("Cài đặt/ SMS Brandname/ SMS cá nhân");
     setShowBackButton(true);
-    setCurrentPath("/crm/setting/sms");
+    setCurrentPath("/setting/sms");
   }, [setHeaderTitle, setShowBackButton, setCurrentPath]);
 
   return (

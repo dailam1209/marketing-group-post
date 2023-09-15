@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import styles from "../supplier/suplier.module.css";
 import { Table, Tooltip } from "antd";
 import type { ColumnsType } from "antd/es/table";
@@ -41,9 +41,7 @@ const columns: ColumnsType<DataType> = [
     dataIndex: "function",
     key: "4",
     width: 2,
-    render: () => (
-      <SupplierActionTable/>
-    ),
+    render: () => <SupplierActionTable />,
   },
 ];
 
@@ -65,7 +63,6 @@ const TableDataContract: React.FC<TableDataContracDrops> = ({}: any) => {
   const [isModalCancel, setIsModalCancel] = useState(false);
   const [modal1Open, setModal1Open] = useState(false);
   return (
-
     <div className="custom_table">
       <Table
         columns={columns}
@@ -74,7 +71,6 @@ const TableDataContract: React.FC<TableDataContracDrops> = ({}: any) => {
         scroll={{ x: 1000, y: 1100 }}
       />
     </div>
-
   );
 };
 

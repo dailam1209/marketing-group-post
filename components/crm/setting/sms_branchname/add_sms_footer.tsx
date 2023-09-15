@@ -27,7 +27,7 @@ export default function SetupEmailSystemFooter() {
             "Bạn có chắc chắn muốn hủy lưu kết nối SMS? Các thao tác bạn vừa nhập sẽ không được lưu lại."
           }
           title={"Xác nhận hủy lưu kết nối sms"}
-          routerback={"/crm/setting/sms"}
+          routerback={"/setting/sms"}
         />
       }
 
@@ -35,7 +35,7 @@ export default function SetupEmailSystemFooter() {
         modal1Open={modal1Open}
         setModal1Open={setModal1Open}
         title="Kết nối SMS thành công!"
-        routerback={"/crm/setting/sms"}
+        routerback={"/setting/sms"}
       />
     </div>
   );

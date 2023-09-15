@@ -9,12 +9,12 @@ import ModalCompleteStep from "../quote_steps/complete_modal";
 interface MyComponentProps {
   isModalCancel: boolean;
   setIsModalCancel: (value: boolean) => void;
-  record:any
+  record: any;
 }
 const CanCel_LichHen_Mdal: React.FC<MyComponentProps> = ({
   isModalCancel,
   setIsModalCancel,
-  record
+  record,
 }) => {
   const [isModalSuccess, setIsMdalSuccess] = useState(false);
 

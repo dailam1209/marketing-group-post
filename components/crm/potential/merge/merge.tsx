@@ -12,7 +12,7 @@ export default function Merge(data) {
   useEffect(() => {
     setHeaderTitle("Tiềm năng / Gộp trùng");
     setShowBackButton(true);
-    setCurrentPath("/crm/potential/list");
+    setCurrentPath("/potential/list");
   }, [setHeaderTitle, setShowBackButton, setCurrentPath]);
 
   useEffect(() => {

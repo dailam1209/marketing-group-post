@@ -19,18 +19,17 @@ export default function ChiTietKhaoSat() {
   const handleDelete = (e: any) => {
     var result = window.confirm("Bạn có chắc muốn xóa không?");
     if (result) {
-      router.push("/crm/phieu-thu");
+      router.push("/phieu-thu");
     } else {
     }
   };
 
-  const onChange = (e: CheckboxChangeEvent) => {
-  };
+  const onChange = (e: CheckboxChangeEvent) => {};
   return (
     <div>
       <div>
         <button
-          onClick={() => router.push(`/crm/du-lieu-khao-sat/${path.id}`)}
+          onClick={() => router.push(`/du-lieu-khao-sat/${path.id}`)}
           type="button"
           className={`${styles.dropbtn_add}`}
         >
@@ -39,7 +38,7 @@ export default function ChiTietKhaoSat() {
       </div>
       <div className={styles.group_button}>
         <button
-          onClick={() => router.push(`/crm/chinh-sua-khao-sat/${path.id}`)}
+          onClick={() => router.push(`/chinh-sua-khao-sat/${path.id}`)}
           type="button"
           className={`${styles.dropbtn_edit} `}
         >

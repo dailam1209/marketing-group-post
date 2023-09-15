@@ -39,7 +39,7 @@ const CancelModal: React.FC<MyComponentProps> = ({
         title={title}
         centered
         open={isModalCancel}
-        onOk={() => (setApply2(true),setIsModalCancel(false))}
+        onOk={() => (setApply2(true), setIsModalCancel(false))}
         onCancel={() => setIsModalCancel(false)}
         className={"mdal_cancel campign_mdal"}
         okText={"Tiếp theo"}
@@ -59,12 +59,7 @@ const CancelModal: React.FC<MyComponentProps> = ({
             >
               <form onSubmit={() => false}>
                 <Input
-                  suffix={
-                    <img
-                      src="/crm/search.svg"
-                      alt=""
-                    />
-                  }
+                  suffix={<img src="/crm/search.svg" alt="" />}
                   style={{ width: 400 }}
                   type="text"
                   className={styles.input__search}

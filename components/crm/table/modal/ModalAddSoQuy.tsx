@@ -12,8 +12,7 @@ const ModalAddSoQuy = (props: any) => {
     setOpen(true);
   };
 
-  const handleOk = () => {
-  };
+  const handleOk = () => {};
 
   return (
     <div>

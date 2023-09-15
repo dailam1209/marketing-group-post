@@ -53,24 +53,24 @@ export default function TableOfContents() {
 
       <div className={styles.left}>
         <img
-          src="../img/table_of_contents.png"
+          src="/crm/table_of_contents.png"
           alt=""
           className={styles.img_than_1024}
         />
         <img
-          src="../img/table_of_contents_1024.png"
+          src="/crm/table_of_contents_1024.png"
           alt=""
           style={{ display: "none" }}
           className={styles.img_1024}
         />
         <img
-          src="../img/table_of_contents_768.png"
+          src="/crm/table_of_contents_768.png"
           alt=""
           style={{ display: "none" }}
           className={styles.img_768}
         />
         <img
-          src="../img/table_of_contents_414.png"
+          src="/crm/table_of_contents_414.png"
           alt=""
           style={{ display: "none" }}
           className={styles.img_414}
@@ -78,7 +78,7 @@ export default function TableOfContents() {
         <div className={styles.item}>
           <div className={styles.item_img}>
             <img
-              src="../img/arrow-square-down.png"
+              src="/crm/arrow-square-down.png"
               alt=""
               style={{ width: 20, paddingTop: 5 }}
             />
@@ -100,13 +100,13 @@ export default function TableOfContents() {
           >
             {openDropDown ? (
               <img
-                src="../img/arrow-square-down_2.png"
+                src="/crm/arrow-square-down_2.png"
                 alt=""
                 style={{ width: 20, paddingTop: 5 }}
               />
             ) : (
               <img
-                src="../img/arrow-square-down_3.png"
+                src="/crm/arrow-square-down_3.png"
                 alt=""
                 style={{ width: 20, paddingTop: 5 }}
               />
@@ -124,7 +124,7 @@ export default function TableOfContents() {
             <div className={styles.item}>
               <div className={styles.item_img}>
                 <img
-                  src="../img/arrow-square-down.png"
+                  src="/crm/arrow-square-down.png"
                   alt=""
                   style={{ width: 20, paddingTop: 5 }}
                 />
@@ -142,7 +142,7 @@ export default function TableOfContents() {
             <div className={styles.item}>
               <div className={styles.item_img}>
                 <img
-                  src="../img/arrow-square-down.png"
+                  src="/crm/arrow-square-down.png"
                   alt=""
                   style={{ width: 20, paddingTop: 5 }}
                 />
@@ -160,7 +160,7 @@ export default function TableOfContents() {
             <div className={styles.item}>
               <div className={styles.item_img}>
                 <img
-                  src="../img/arrow-square-down.png"
+                  src="/crm/arrow-square-down.png"
                   alt=""
                   style={{ width: 20, paddingTop: 5 }}
                 />
@@ -178,7 +178,7 @@ export default function TableOfContents() {
             <div className={styles.item}>
               <div className={styles.item_img}>
                 <img
-                  src="../img/arrow-square-down.png"
+                  src="/crm/arrow-square-down.png"
                   alt=""
                   style={{ width: 20, paddingTop: 5 }}
                 />
@@ -202,13 +202,13 @@ export default function TableOfContents() {
           >
             {openDropDown3 ? (
               <img
-                src="../img/arrow-square-down_2.png"
+                src="/crm/arrow-square-down_2.png"
                 alt=""
                 style={{ width: 20, paddingTop: 5 }}
               />
             ) : (
               <img
-                src="../img/arrow-square-down_3.png"
+                src="/crm/arrow-square-down_3.png"
                 alt=""
                 style={{ width: 20, paddingTop: 5 }}
               />

@@ -1,10 +1,6 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-// import "@/styles/globals.css";
-// import "@/styles/crm/stylecrm.css";
-// import "@/styles/crm/styles.css"
-// import "@/styles/crm/hight_chart.css"
 import io from "socket.io-client";
 
 import HeaderBar from "./header_bar";
@@ -19,7 +15,6 @@ import {
   EmployeeInfo,
   getDataCompany,
 } from "@/pages/api/api-hr/cai-dat/generalSettings";
-import { checkAndRedirectToHomeIfNotLoggedIn } from "@/components/crm/ultis/checkLogin";
 import Cookies from "js-cookie";
 import { base_url } from "../service/function";
 
@@ -238,7 +233,6 @@ export default function SideBar({ isOpened }) {
 
   return (
     <>
-      {!checkAndRedirectToHomeIfNotLoggedIn() ? null : (
         <div
           ref={sidebarRef}
           // style={{ width: isOpen ? "70px" : "302px" }}
@@ -251,7 +245,6 @@ export default function SideBar({ isOpened }) {
           <HeaderBar dataHeader={dataHeader} isOpen={isOpen} />
           <SiebarContent isOpen={isOpen} toggleModal={setIsOpen} />
         </div>
-      )}
     </>
   );
 }

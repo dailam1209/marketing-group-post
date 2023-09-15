@@ -86,12 +86,7 @@ export default function ScheduleBtnsDetails({ id }: any) {
               onClick={() => setIsOpenModalDel(true)}
               className={`${styles.dropbtn_add} flex_align_center`}
             >
-              <Image
-                alt="+"
-                width={16}
-                height={16}
-                src="/crm/delete_kh.svg"
-              />
+              <Image alt="+" width={16} height={16} src="/crm/delete_kh.svg" />
               Xóa
             </button>
           </div>

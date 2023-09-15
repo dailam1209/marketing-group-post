@@ -51,7 +51,7 @@ export default function QuoteActionLichHenTable(props: any) {
       setIsOpenShare(true);
     }
     if (type === "edit") {
-        setIsShowModalAdd(true);
+      setIsShowModalAdd(true);
     }
     if (type === "complete") {
       setIsOpenUpdate(true);
@@ -95,7 +95,12 @@ export default function QuoteActionLichHenTable(props: any) {
       <div>
         <Dropdown menu={{ items }} trigger={["click"]}>
           <button style={{ justifyContent: "center" }}>
-            <Image alt="thao_tac" width={16} height={16} src="/crm/3_cham.png" />
+            <Image
+              alt="thao_tac"
+              width={16}
+              height={16}
+              src="/crm/3_cham.png"
+            />
             Thao tác
           </button>
         </Dropdown>

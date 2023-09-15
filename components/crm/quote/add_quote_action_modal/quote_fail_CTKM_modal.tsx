@@ -37,7 +37,7 @@ const FailModal: React.FC<MyComponentProps> = ({
         width={300}
         title={title}
         centered
-        onCancel={()=>setIsModalCancel(false)}
+        onCancel={() => setIsModalCancel(false)}
         open={isModalCancel}
         className={"mdal_cancel campign_mdal"}
         footer={false}
@@ -60,15 +60,13 @@ const FailModal: React.FC<MyComponentProps> = ({
             alignItems: "end",
           }}
         >
-          <Button onClick={() =>setIsModalCancel(false)}>
-            Quay lại
-          </Button>
+          <Button onClick={() => setIsModalCancel(false)}>Quay lại</Button>
           <Button onClick={() => setIsModalCancel(false)}>Hủy</Button>
           <Button
             style={{ background: "#4C5BD4", color: "#fff" }}
             onClick={() => setIsModalCancel(false)}
           >
-          Tiếp theo
+            Tiếp theo
           </Button>
         </div>
       </Modal>

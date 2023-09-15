@@ -9,10 +9,10 @@ export default function OrderDetailBillInputGroups({ isSelectedRow }: any) {
 
   const datas = [
     {
-      "STT": "TN001",
+      STT: "TN001",
       "Tên chiến dịch": "abc",
       "Tình trạng": "John Doe",
-      "Loại": "Manager",
+      Loại: "Manager",
       "Ngày bắt đầu": "123-456-7890",
       "Ngày kết thúc": "john.doe@example.com",
       "Doanh sô kỳ vọng (VNĐ)": "098-765-4321",
@@ -21,11 +21,13 @@ export default function OrderDetailBillInputGroups({ isSelectedRow }: any) {
     },
     // Add more sample data objects here if needed
   ];
-  
+
   return (
     <div className={styles.main__control}>
       <div className={`${styles.main__control_select} flex_align_center`}>
-        <div className={`${styles.select_item} flex_align_center_item ${styles.select_item_time}`}>
+        <div
+          className={`${styles.select_item} flex_align_center_item ${styles.select_item_time}`}
+        >
           <label htmlFor="" className="">
             Ngày đề nghị:{" "}
           </label>
@@ -34,7 +36,9 @@ export default function OrderDetailBillInputGroups({ isSelectedRow }: any) {
             <input type="date" name="" id="end_time" />
           </div>
         </div>
-        <div className={`${styles.select_item} flex_align_center_item ${styles.select_item_time}`}>
+        <div
+          className={`${styles.select_item} flex_align_center_item ${styles.select_item_time}`}
+        >
           <label htmlFor="" className="">
             Ngày hóa đơn:{" "}
           </label>
@@ -43,12 +47,10 @@ export default function OrderDetailBillInputGroups({ isSelectedRow }: any) {
             <input type="date" name="" id="end_time" />
           </div>
         </div>
-       
-
       </div>
       <div className={`${styles.main__control_select} flex_align_center`}>
-          <OrderDetailSelectBox title="Tình trạng:" value="Tất cả" />
-          <OrderDetailSelectBox title="Tình trạng gửi hóa đơn:" value="Tất cả" />
+        <OrderDetailSelectBox title="Tình trạng:" value="Tất cả" />
+        <OrderDetailSelectBox title="Tình trạng gửi hóa đơn:" value="Tất cả" />
       </div>
 
       <div className={`${styles.main__control_btn} flex_between`}>
@@ -83,8 +85,6 @@ export default function OrderDetailBillInputGroups({ isSelectedRow }: any) {
           
         </div> */}
       </div>
-
-    
     </div>
   );
 }

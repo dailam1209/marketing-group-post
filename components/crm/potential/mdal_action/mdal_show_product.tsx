@@ -9,7 +9,7 @@ import TablePotentialshowItem from "@/components/crm/table/table-potential-show-
 const ShowProductPO = (props: any) => {
   const { isModalCancelPO, onClose } = props;
   const [showMdalAdd, setIsShowMdalADd] = useState(false);
-  const router = useRouter()
+  const router = useRouter();
   return (
     <>
       {/* <Button type="primary" onClick={() => setModal2Open(true)}>
@@ -26,7 +26,8 @@ const ShowProductPO = (props: any) => {
             }}
           >
             <div style={{ color: "white", fontSize: 20, textAlign: "center" }}>
-            Danh sách hàng hóa            </div>
+              Danh sách hàng hóa{" "}
+            </div>
           </div>
         }
         centered
@@ -42,9 +43,7 @@ const ShowProductPO = (props: any) => {
             </div>
             <div
               style={{ width: "100px" }}
-              onClick={() => (
-               ( setIsShowMdalADd(true),router.reload())
-              )}
+              onClick={() => (setIsShowMdalADd(true), router.reload())}
             >
               <Button
                 style={{ width: 150, color: "#fff", background: "#4C5BD4" }}

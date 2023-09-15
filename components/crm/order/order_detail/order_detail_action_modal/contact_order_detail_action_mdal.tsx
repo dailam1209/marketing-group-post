@@ -13,7 +13,6 @@ interface MyComponentProps {
   title: string;
 }
 
-
 const CancelModal: React.FC<MyComponentProps> = ({
   isModalCancel,
   setIsModalCancel,
@@ -22,7 +21,7 @@ const CancelModal: React.FC<MyComponentProps> = ({
 }) => {
   const router = useRouter();
   const [isSelectedRow, setIsSelectedRow] = useState(false);
-  const [isNumberSelected, setNumberSelected] = useState(0)
+  const [isNumberSelected, setNumberSelected] = useState(0);
   const handleOK = () => {
     setIsModalCancel(false);
     // router.push("/order/list");
@@ -44,45 +43,47 @@ const CancelModal: React.FC<MyComponentProps> = ({
         cancelText="Huỷ"
       >
         {/* <TabOrderList /> */}
-        <div style={{ marginTop: "5px" }} className={`${styles.main__control_btn} flex_between`}>
-            
-            <div className={styles.main__control_search_campaign}>
-              <form onSubmit={() => false}>
-                <input
-                  type="text"
-                  className={styles.input__search}
-                  name="search"
-                  defaultValue=""
-                  placeholder="Tìm kiếm theo tên khách hàng"
+        <div
+          style={{ marginTop: "5px" }}
+          className={`${styles.main__control_btn} flex_between`}
+        >
+          <div className={styles.main__control_search_campaign}>
+            <form onSubmit={() => false}>
+              <input
+                type="text"
+                className={styles.input__search}
+                name="search"
+                defaultValue=""
+                placeholder="Tìm kiếm theo tên khách hàng"
+              />
+              <button className={styles.kinh_lup}>
+                <img
+                  className={styles.img__search}
+                  src="/crm/search.svg"
+                  alt=""
                 />
-                <button className={styles.kinh_lup}>
-                  <img
-                    className={styles.img__search}
-                    src="/crm/search.svg"
-                    alt=""
-                  />
-                </button>
-              </form>
-            </div>
-            <div className={`${styles.main__control_add} flex_end`}>
-              {/* <Link href="/potential/add_file"> */}
-              <button
-                type="button"
-                // onClick={() => setIsOpenAddNewOpen(true)}
-                className={`${styles.dropbtn_add} flex_align_center`}
-              >
-                <img src="/crm/add.svg" />
-                Thêm mới
               </button>
-              {/* </Link> */}
-            </div>
+            </form>
           </div>
-          {
-            <TableDataOrderDetailContactSelect setSelected={setIsSelectedRow} setNumberSelected={setNumberSelected}/>
-          }
-      
-        
-        
+          <div className={`${styles.main__control_add} flex_end`}>
+            {/* <Link href="/potential/add_file"> */}
+            <button
+              type="button"
+              // onClick={() => setIsOpenAddNewOpen(true)}
+              className={`${styles.dropbtn_add} flex_align_center`}
+            >
+              <img src="/crm/add.svg" />
+              Thêm mới
+            </button>
+            {/* </Link> */}
+          </div>
+        </div>
+        {
+          <TableDataOrderDetailContactSelect
+            setSelected={setIsSelectedRow}
+            setNumberSelected={setNumberSelected}
+          />
+        }
       </Modal>
     </>
   );

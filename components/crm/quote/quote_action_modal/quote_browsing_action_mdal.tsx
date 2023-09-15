@@ -37,7 +37,9 @@ const DelActionModal: React.FC<MyComponentProps> = ({
         cancelText="Huỷ"
       >
         <div>Bạn có chắc chắn muốn duyệt đơn hàng</div>
-        <div><b>ĐH-0000?</b></div>
+        <div>
+          <b>ĐH-0000?</b>
+        </div>
       </Modal>
 
       <ModalCompleteStep

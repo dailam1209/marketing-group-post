@@ -12,9 +12,7 @@ const ModalSuaLichhen = (props: any) => {
     setOpen(true);
   };
 
-  const handleOk = () => {
- 
-  };
+  const handleOk = () => {};
 
   const handleClose = () => {
     onClose();
@@ -26,10 +24,14 @@ const ModalSuaLichhen = (props: any) => {
         open={isShowModalAdd}
         title={
           <div
-            style={{ background: "#4c5bd4", width: "109%", margin: "-20px -30px" }}
+            style={{
+              background: "#4c5bd4",
+              width: "109%",
+              margin: "-20px -30px",
+            }}
           >
             <div style={{ color: "white", fontSize: 20, textAlign: "center" }}>
-            Sửa lịch hẹn
+              Sửa lịch hẹn
             </div>
           </div>
         }

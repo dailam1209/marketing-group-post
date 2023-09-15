@@ -48,7 +48,7 @@ export default function PotentialAction({
       type: "email",
     },
     {
-      link: "/crm/marketing/sms/add",
+      link: "/marketing/sms/add",
       name: "Gửi sms",
       img: `bi bi-chat-left-dots`,
       type: "sms",
@@ -66,19 +66,19 @@ export default function PotentialAction({
       type: "hand_over",
     },
     {
-      link: `/crm/potential/duplicate/${id}`,
+      link: `/potential/duplicate/${id}`,
       name: "Nhân bản",
       img: `bi bi-back`,
       type: "blank",
     },
     {
-      link: "/crm/potential/check_merge",
+      link: "/potential/check_merge",
       name: "Kiểm tra trùng",
       img: `bi bi-search`,
       type: "",
     },
     {
-      link: "/crm/potential/merge",
+      link: "/potential/merge",
       name: "Gộp trùng",
       img: `bi bi-share`,
       type: "",
@@ -90,7 +90,7 @@ export default function PotentialAction({
       type: "convert",
     },
     {
-      link: `/crm/potential/update/${id}`,
+      link: `/potential/update/${id}`,
       name: "Chỉnh sửa",
       img: "bi bi-pencil-square",
       type: "edit",
@@ -141,7 +141,7 @@ export default function PotentialAction({
       key: i,
       label: (
         <>
-          {dataActionPotential[i].link === "/crm/potential/merge" ? (
+          {dataActionPotential[i].link === "/potential/merge" ? (
             <div
               className="flex-start-btn"
               onClick={() =>

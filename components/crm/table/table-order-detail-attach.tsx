@@ -26,7 +26,11 @@ const columns: ColumnsType<DataType> = [
     width: 80,
     dataIndex: "name",
     key: "name",
-    render:(text:any)=><Link href={"/order/detail"} ><b>{text}</b></Link>
+    render: (text: any) => (
+      <Link href={"/order/detail"}>
+        <b>{text}</b>
+      </Link>
+    ),
   },
 
   {
@@ -34,30 +38,34 @@ const columns: ColumnsType<DataType> = [
     width: 60,
     dataIndex: "person",
     key: "person",
-    render: (text: any) => <div style={{ display: "flex", justifyContent: 'center' }}> <div><img src="/crm/user_kh.png" alt="" /></div>&nbsp;{text}</div>
+    render: (text: any) => (
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        {" "}
+        <div>
+          <img src="/crm/user_kh.png" alt="" />
+        </div>
+        &nbsp;{text}
+      </div>
+    ),
   },
   {
     title: "Ngày đính kèm",
     dataIndex: "date",
     key: "date",
     width: 60,
-    
   },
   {
     title: "Dung lượng",
     dataIndex: "capacity",
     key: "capacity",
     width: 100,
-    
   },
   {
     title: "Chức năng",
     dataIndex: "operation",
     key: "11",
     width: 30,
-    render: () => 
-      <OrderActionTable/>
- 
+    render: () => <OrderActionTable />,
   },
 ];
 
@@ -66,15 +74,17 @@ for (let i = 0; i < 100; i++) {
   data.push({
     key: i,
     name: `Baogiadichvu.docx`,
-    person: 'Nguyễn Văn Nam',
-    date: '10:10 - 22/03/2022',
-    capacity: '10.0 MB',
+    person: "Nguyễn Văn Nam",
+    date: "10:10 - 22/03/2022",
+    capacity: "10.0 MB",
   });
 }
 
 interface TableDataOrderDetailAttachProps {}
 
-const TableDataOrderDetailAttach: React.FC<TableDataOrderDetailAttachProps> = () => {
+const TableDataOrderDetailAttach: React.FC<
+  TableDataOrderDetailAttachProps
+> = () => {
   return (
     <div className="custom_table campaign_tble">
       <Table

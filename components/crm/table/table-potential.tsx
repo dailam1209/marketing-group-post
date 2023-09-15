@@ -32,7 +32,7 @@ const columns: ColumnsType<DataType> = [
     width: 300,
     render: (data) => (
       // <Tooltip title={data}>
-      <Link href={`/crm/potential/detail/${data}`}>
+      <Link href={`/potential/detail/${data}`}>
         <span>{data}</span>
       </Link>
       // </Tooltip>

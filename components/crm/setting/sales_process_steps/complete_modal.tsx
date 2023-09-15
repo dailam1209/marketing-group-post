@@ -18,7 +18,7 @@ const ModalCompleteStep: React.FC<ModalCompleteStepProps> = ({
   const router = useRouter();
   const handleClick = () => {
     setModal1Open(false);
-    router.push("/crm/sales_process");
+    router.push("/sales_process");
   };
   return (
     <div>

@@ -7,7 +7,7 @@ export default function ModalConfirm({setOpenModalConfirm, setOpenModalRegister,
       <div>
          <div className={styles.modalconfirm}>
             <div className={styles.close} onClick={() => setOpenModalConfirm(false)}>
-               <img src='./qlc_close.png' alt='' />
+               <img src='/crm/qlc_close.png' alt='' />
             </div>
             <div className={styles.content}>
                <div className={styles.content_1}>Bạn cần đăng nhập để tiếp tục sử dụng các tiện ích</div>

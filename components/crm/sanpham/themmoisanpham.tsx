@@ -29,8 +29,7 @@ export default function ThemSanPham() {
       } else {
         setType2(false);
       }
-    } catch (error) {
-    }
+    } catch (error) {}
   }
 
   useEffect(() => {
@@ -54,8 +53,7 @@ export default function ThemSanPham() {
       setPreviewTitle(
         file.name || file.url!.substring(file.url!.lastIndexOf("/") + 1)
       );
-    } catch (error) {
-    }
+    } catch (error) {}
   };
   const router = useRouter();
   const handleSave = () => {

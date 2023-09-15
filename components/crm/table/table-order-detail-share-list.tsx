@@ -30,7 +30,6 @@ const columns: ColumnsType<DataType> = [
     width: 80,
     dataIndex: "type",
     key: "type",
-    
   },
 
   {
@@ -38,14 +37,21 @@ const columns: ColumnsType<DataType> = [
     width: 60,
     dataIndex: "name",
     key: "name",
-    render: (text: any) => <div style={{ display: "flex", justifyContent: 'center' }}> <div><img src="/crm/user_kh.png" alt="" /></div>&nbsp;{text}</div>
+    render: (text: any) => (
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        {" "}
+        <div>
+          <img src="/crm/user_kh.png" alt="" />
+        </div>
+        &nbsp;{text}
+      </div>
+    ),
   },
   {
     title: "Phòng ban",
     dataIndex: "room",
     key: "room",
     width: 60,
-    
   },
   {
     title: "Quyền",
@@ -66,9 +72,7 @@ const columns: ColumnsType<DataType> = [
     dataIndex: "operation",
     key: "11",
     width: 30,
-    render: () => 
-      <OrderActionTable/>
- 
+    render: () => <OrderActionTable />,
   },
 ];
 
@@ -77,16 +81,17 @@ for (let i = 0; i < 100; i++) {
   data.push({
     key: i,
     type: `Nhân viên`,
-    name: 'Nguyễn Văn Nam',
-    room: '	Phòng kỹ thuật',
-    right: 'Toàn quyền',
+    name: "Nguyễn Văn Nam",
+    room: "	Phòng kỹ thuật",
+    right: "Toàn quyền",
   });
 }
 
-
 interface TableDataOrderDetailShareListProps {}
 
-const TableDataOrderDetailShareList: React.FC<TableDataOrderDetailShareListProps> = () => {
+const TableDataOrderDetailShareList: React.FC<
+  TableDataOrderDetailShareListProps
+> = () => {
   const [isModalCancel, setIsModalCancel] = useState(false);
   return (
     <div className="custom_table campaign_tble">
@@ -103,7 +108,6 @@ const TableDataOrderDetailShareList: React.FC<TableDataOrderDetailShareListProps
           setIsModalCancel={setIsModalCancel}
           title="Áp dụng cho hàng hóa"
           // content="Hello"
-          
         />
       }
       <div className="main__footer flex_between" id="">

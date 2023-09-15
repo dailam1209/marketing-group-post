@@ -9,7 +9,7 @@ export default function Campaign() {
   const mainRef = useRef<HTMLDivElement>(null);
   const { isOpen } = useContext<any>(SidebarContext);
   const [isSelectedRow, setIsSelectedRow] = useState(false);
-  const [isNumberSelected, setNumberSelected] = useState(0)
+  const [isNumberSelected, setNumberSelected] = useState(0);
   const {
     headerTitle,
     setHeaderTitle,
@@ -20,7 +20,7 @@ export default function Campaign() {
   useEffect(() => {
     setHeaderTitle("Chiến dịch");
     setShowBackButton(false);
-    setCurrentPath("/crm/campaign/list");
+    setCurrentPath("/campaign/list");
   }, [setHeaderTitle, setShowBackButton, setCurrentPath]);
 
   useEffect(() => {
@@ -33,7 +33,7 @@ export default function Campaign() {
   return (
     <div ref={mainRef} className={styleHome.main}>
       <CampaignInputGroups isSelectedRow={isSelectedRow} />
-      <TableDataCampaign/>
+      <TableDataCampaign />
     </div>
   );
 }

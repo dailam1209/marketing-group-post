@@ -21,7 +21,7 @@ export default function ChiTietSanPham() {
     <div>
       <div style={{ display: "flex", gap: 30, paddingBottom: 30 }}>
         <button
-          onClick={() => router.push(`/crm/chinh-sua-san-pham/${path.id}`)}
+          onClick={() => router.push(`/chinh-sua-san-pham/${path.id}`)}
           style={{ background: "blue  " }}
           type="button"
           className={`${styless.dropbtn_add} flex_align_center ${styless.btn_excel}`}

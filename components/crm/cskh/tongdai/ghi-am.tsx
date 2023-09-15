@@ -301,37 +301,11 @@ const GhiAmPage = (props: Props) => {
               setnv={setnv}
             />
           </div>
-
-          {/* <div
-            className={styles.group_button_right}
-            style={{ float: "right", marginTop: -40 }}
-          >
-            <Link href={"/crm/ghi-am"}>
-              <button>Ghi âm</button>
-            </Link>
-
-            <Link href={"/crm/thong-ke-tong-dai"}>
-              <button>Thống kê</button>
-            </Link>
-            <Link href={"/crm/switchboard/manager/line"}>
-              <button>Quản lý line</button>
-            </Link>
-          </div> */}
-
-          {/* <ul className={styles.cskh_info_call} style={{ fontSize: 16 }}>
-            <li>Số cuộc gọi: {listData?.length}</li>
-            <li>Tổng số nghe máy: {count || ""}</li>
-            <li>Tổng số không trả lời: {listData?.length - count}</li>
-            <li>Tổng thời gian gọi: {totalSum || ""}(s)</li>
-            <li>
-              Trung bình: {(totalSum / listData?.length).toFixed(2)}s/ cuộc gọi
-            </li>
-          </ul> */}
         </div>
       )}
       {!showKetNoi && (
         <div className={cskh.connect_tongdai} style={{ paddingBottom: 20 }}>
-          <Link href={"/crm/setting/switch_board"}>
+          <Link href={"/setting/switch_board"}>
             <Button
               style={{ height: 40, width: 200 }}
               className={`${cskh.dropbtn_add} `}

@@ -11,7 +11,6 @@ import CancelActionModal from "@/components/crm/order/order_action_modal/cancel_
 import ShareActionModal from "@/components/crm/order/order_action_modal/share_action_mdal";
 import HandOverActionModal from "@/components/crm/order/order_action_modal/handover_action_mdal";
 
-
 export default function OrderActionTable() {
   const [isDelOpen, setIsDelOpen] = useState(false);
   const [isOrderBrowsingOpen, setIsOrderBrowsingOpen] = useState(false);
@@ -47,14 +46,19 @@ export default function OrderActionTable() {
       label: (
         <>
           {dataActionOrderDetailGiveback[i].link !== "#" ? (
-            <Link href={dataActionOrderDetailGiveback[i].link} className="flex-start-btn">
+            <Link
+              href={dataActionOrderDetailGiveback[i].link}
+              className="flex-start-btn"
+            >
               <i className={dataActionOrderDetailGiveback[i].img}></i>
               {dataActionOrderDetailGiveback[i].name}
             </Link>
           ) : (
             <button
               className="flex-start-btn"
-              onClick={(e) => handleClickAction(e, dataActionOrderDetailGiveback[i].type)}
+              onClick={(e) =>
+                handleClickAction(e, dataActionOrderDetailGiveback[i].type)
+              }
             >
               <i className={dataActionOrderDetailGiveback[i].img}></i>
               {dataActionOrderDetailGiveback[i].name}

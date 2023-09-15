@@ -31,9 +31,7 @@ const Table_Phieu_Chi = (props: any) => {
   const start = () => {
     setSelectedRowKeys([]);
   };
-  const handleSelect = (id: any) => {
-   
-  };
+  const handleSelect = (id: any) => {};
 
   const ColumPhieuThu = [
     {
@@ -48,7 +46,7 @@ const Table_Phieu_Chi = (props: any) => {
       dataIndex: "name",
       render: (text: any, record: any) => (
         <div style={{ overflow: "hidden" }}>
-          <Link href={`/crm/chi-tiet-phieu-chi/${record.myPhone}`}>
+          <Link href={`/chi-tiet-phieu-chi/${record.myPhone}`}>
             <div>{text}</div>
           </Link>
         </div>
@@ -178,7 +176,7 @@ const Table_Phieu_Chi = (props: any) => {
         <Link
           className={`${styless.dropbtn_add} flex_align_center`}
           rel="noopener noreferrer"
-          href="/crm/them-phieu-chi-nha-cung-cap"
+          href="/them-phieu-chi-nha-cung-cap"
         >
           <p style={{ color: "#f7e9c1" }}>Nhà cung cấp</p>
         </Link>
@@ -190,7 +188,7 @@ const Table_Phieu_Chi = (props: any) => {
         <Link
           className={`${styless.dropbtn_add} flex_align_center`}
           rel="noopener noreferrer"
-          href="/crm/them-phieu-chi-khach-hang"
+          href="/them-phieu-chi-khach-hang"
         >
           <p style={{ color: "#f7e9c1" }}>Khách hàng</p>
         </Link>

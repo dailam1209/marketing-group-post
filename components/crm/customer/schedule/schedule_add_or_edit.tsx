@@ -13,7 +13,7 @@ interface MyComponentProps {
   isModalCancel: boolean;
   setIsModalCancel: (value: boolean) => void;
   title: string;
-  content:string
+  content: string;
 }
 const ScheduleModalAddOrEdit: React.FC<MyComponentProps> = ({
   isModalCancel,

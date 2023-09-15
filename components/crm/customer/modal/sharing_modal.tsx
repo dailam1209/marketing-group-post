@@ -128,7 +128,7 @@ const SharingCustomerModal: React.FC<MyComponentProps> = ({
         modal1Open={isOpenMdalSuccess}
         setModal1Open={setIsOpenMdalSuccess}
         title={"Bàn giao công việc cho Nguyễn Văn Nam thành công!"}
-        link={"/crm/customer/list"}
+        link={"/customer/list"}
       />
     </>
   );

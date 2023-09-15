@@ -15,8 +15,7 @@ import { useState } from "react";
 import DelActionModal from "../potential_action_modal/deltete_action_mdal";
 
 export default function InformationTextPotentialDetails({ key }: any) {
-  const onChange = (checked: boolean) => {
-  };
+  const onChange = (checked: boolean) => {};
   const items: MenuProps["items"] = [];
   const [isOpenCovert, setIsOpenConvert] = useState(false);
   const [isDelOpen, setIsDelOpen] = useState(false);
@@ -38,7 +37,7 @@ export default function InformationTextPotentialDetails({ key }: any) {
           </button>
           <button
             className={style.fix}
-            onClick={() => router.push(`/crm/potential/update/${id}`)}
+            onClick={() => router.push(`/potential/update/${id}`)}
           >
             <FormOutlined /> Chỉnh sửa
           </button>

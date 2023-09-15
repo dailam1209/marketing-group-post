@@ -31,7 +31,7 @@ const columns: ColumnsType<DataType> = [
     dataIndex: "name",
     key: "name",
     render: (text: any, record: any) => (
-      <Link href={`/crm/campaign/detail/${record.key}`}>
+      <Link href={`/campaign/detail/${record.key}`}>
         <b>{text}</b>
       </Link>
     ),

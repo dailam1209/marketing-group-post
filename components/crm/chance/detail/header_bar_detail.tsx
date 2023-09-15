@@ -56,28 +56,28 @@ const HeaderBarChanceDetails: React.FC<HeaderProps> = ({ keyTab }: any) => {
     if (key) {
       switch (key) {
         case "1":
-          router.push(`/crm/chance/detail/main`);
+          router.push(`/chance/detail/main`);
           return;
         case "2":
-          router.push(`/crm/chance/detail/contact`);
+          router.push(`/chance/detail/contact`);
           return;
         case "3":
-          router.push(`/crm/chance/detail/schedule`);
+          router.push(`/chance/detail/schedule`);
           return;
         case "4":
-          router.push(`/crm/chance/detail/quote`);
+          router.push(`/chance/detail/quote`);
           return;
         case "5":
-          router.push(`/crm/chance/detail/order`);
+          router.push(`/chance/detail/order`);
           return;
         case "6":
-          router.push(`/crm/chance/detail/attachment`);
+          router.push(`/chance/detail/attachment`);
           return;
         case "7":
-          router.push(`/crm/chance/detail/history`);
+          router.push(`/chance/detail/history`);
           return;
         case "8":
-          router.push(`/crm/chance/detail/share`);
+          router.push(`/chance/detail/share`);
           return;
         default:
           return;
