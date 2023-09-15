@@ -40,7 +40,6 @@ export default function CustomerList() {
   const [name, setName] = useState();
   const [selectedCus, setSelectedCus] = useState<any>();
   const [des, setDes] = useState();
-  const [lisCus, setListCus] = useState([]);
   const [status, setStatus] = useState();
   const [resoure, setResoure] = useState();
   const [nvPhuTrach, setnvPhuTrach] = useState();
@@ -50,7 +49,6 @@ export default function CustomerList() {
   const currentTime = moment();
   const pastTime = currentTime.subtract(2, "days");
   const [userNameCreate, setuserNameCreate] = useState();
-  const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState<any>([]);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
@@ -65,9 +63,7 @@ export default function CustomerList() {
   const [time_e, setTime_e] = useState<any>(null);
   const [emp_id, setemp_id] = useState<any>();
   const [idNhom, setIdNhom] = useState<any>();
-  const [selectedCusIds, setSelectedCusIds] = useState<
-    { cus_id: number; emp_id: number }[]
-  >([]);
+  const [selectedCusIds, setSelectedCusIds] = useState<string>("");
 
   useEffect(() => {
     setTime_s(dateS + " " + timeStart);
@@ -97,7 +93,7 @@ export default function CustomerList() {
           emp_id: emp_id,
           group_id: idNhom,
           // group_pins_id: nhomCon,
-          time_s: time_s,
+          // time_s: time_s,
           time_e: time_e,
         }),
       });
@@ -109,6 +105,8 @@ export default function CustomerList() {
       setTotalRecords(data?.total);
     } catch (error) {}
   };
+
+  // resoure && foemData.append("resorce", resoure)
 
   const handleGetInfoSTT = async () => {
     try {
@@ -132,11 +130,9 @@ export default function CustomerList() {
     setSelectedRowKeys(selectedRowKeys);
     setNumberSelected(selectedRows?.length);
 
-    const selectedIds = selectedRows.map((row) => ({
-      cus_id: row.cus_id,
-      emp_id: row.emp_id || 0,
-    }));
-    setSelectedCusIds(selectedIds);
+    const selectedIds = selectedRows.map((row) => row.cus_id);
+    setSelectedCusIds(selectedIds.join(","));
+    setSelected(selectedIds.length > 0);
 
     if (selectedRows?.length > 0) {
       setSelected(true);
@@ -223,9 +219,6 @@ export default function CustomerList() {
 
   const role = Cookies.get("role");
 
-  const [open, setOpen] = useState(false);
-  const inputFileRef = useRef<HTMLInputElement>(null);
-
   const [listNV, setListNv] = useState<any>();
 
   const [dep_id, setDep_id] = useState<any>();
@@ -298,13 +291,29 @@ export default function CustomerList() {
     handleGetNvPt();
   }, [dep_id]);
 
-  const [idSelect, setIdSelect] = useState<any>();
+  function sendingData() {
+    const requestData = {
+      keyword: name === null ? null : name,
+      status: status,
+      resoure: resoure,
+      user_create_id: nvPhuTrach,
+      ep_id: emp_id,
+      group_id: idNhom,
+      time_s: time_s,
+      time_e: time_e,
+    };
+    return requestData;
+  }
+
   const handleSelectAll = () => {
     const allRowKeys = datatable?.map((item: { key: any }) => item.key);
     setSelectedRowKeys(allRowKeys);
-
     setNumberSelected(datatable?.length);
+    if (selectedRowKeys.length > 0) {
+      sendingData();
+    }
   };
+
   const handleDeselectAll = () => {
     setSelectedRowKeys([]);
     setNumberSelected(0);
@@ -419,6 +428,8 @@ export default function CustomerList() {
             posId={posId}
             listNV={listNV}
             handover={selectedCusIds}
+            sendingData={sendingData()}
+            dataLength={data?.data?.length}
           />
           <TableListCustomer
             fetchData={fetchData}

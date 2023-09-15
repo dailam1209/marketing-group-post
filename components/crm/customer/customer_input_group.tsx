@@ -51,6 +51,8 @@ export default function CustomerListInputGroup({
   posId,
   listNV,
   handover,
+  sendingData,
+  dataLength,
 }: any) {
   const [open, setOpen] = useState(false);
   const inputFileRef = useRef<HTMLInputElement>(null);
@@ -226,6 +228,8 @@ export default function CustomerListInputGroup({
           listNV={listNV}
           handover={handover}
           fetchData={fetchData}
+          sendingData={sendingData}
+          dataLength={dataLength}
         />
 
         <div className={`${styles.main__control_add}`}>

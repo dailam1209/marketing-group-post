@@ -4,6 +4,7 @@ import styles from "../../potential/potential.module.css";
 import ModalCompleteStep from "@/components/crm/potential/potential_steps/complete_modal_bangiao";
 import { Select } from "antd";
 import { base_url } from "@/components/crm/service/function";
+import Title from "antd/es/skeleton/Title";
 const Cookies = require("js-cookie");
 
 interface MyComponentProps {
@@ -12,6 +13,9 @@ interface MyComponentProps {
   listNV: any;
   handover: any;
   fetchData: any;
+  sendingData: string;
+  dataLength: any;
+  numberSelected: any;
 }
 
 const HandeOverModalCustomer: React.FC<MyComponentProps> = ({
@@ -20,6 +24,9 @@ const HandeOverModalCustomer: React.FC<MyComponentProps> = ({
   listNV,
   handover,
   fetchData,
+  sendingData,
+  dataLength,
+  numberSelected,
 }) => {
   const [isOpenMdalSuccess, setIsOpenMdalSuccess] = useState(false);
 
@@ -52,23 +59,18 @@ const HandeOverModalCustomer: React.FC<MyComponentProps> = ({
       return;
     }
 
-    const cus_id = handover?.map((item) => item.cus_id) || [];
-    cus_id.forEach((id) => {
-      console.log(id);
-    });
-
-    const emp_id = handover?.map((item) => item.emp_id) || [];
-    emp_id.forEach((id) => {
-      console.log(id);
-    });
     const dataToSend = {
-      user_handing_over_work: selectedItems,
-      cus_id: cus_id,
-      emp_id: emp_id,
+      cus_id: handover,
+      emp_id: selectedItems,
     };
+    console.log(dataLength, numberSelected);
+
+    console.log(dataLength !== numberSelected ? dataToSend : sendingData);
 
     try {
-      const apiResponse = await sendAPIRequest(dataToSend);
+      const apiResponse = await sendAPIRequest(
+        dataLength !== numberSelected ? dataToSend : sendingData
+      );
       setIsModalCancel(false);
       setIsOpenMdalSuccess(true);
 
@@ -85,15 +87,13 @@ const HandeOverModalCustomer: React.FC<MyComponentProps> = ({
     setIsModalCancel(false);
   };
 
-  const [selectedItems, setSelectedItems] = useState<
-    { ep_id: string; ep_name: string } | undefined
-  >(undefined);
+  const [selectedItems, setSelectedItems] = useState<any>(undefined);
 
   const [options, setOptions] = useState<{ value: string; label: string }[]>(
     []
   );
 
-  const name = selectedItems?.ep_name;
+  // const name = selectedItems?.ep_name;
   useEffect(() => {
     if (Array.isArray(listNV)) {
       const updatedOptions = [
@@ -133,14 +133,8 @@ const HandeOverModalCustomer: React.FC<MyComponentProps> = ({
               placeholder="Chọn người nhận công việc"
               value={selectedItems?.ep_id}
               onChange={(value) => {
-                const selectedOption = options.find(
-                  (option) => option.value === value
-                );
-                if (selectedOption) {
-                  setSelectedItems({
-                    ep_id: selectedOption.value,
-                    ep_name: selectedOption.label,
-                  });
+                if (value) {
+                  setSelectedItems(value);
                 } else {
                   setSelectedItems(undefined);
                 }
@@ -168,7 +162,7 @@ const HandeOverModalCustomer: React.FC<MyComponentProps> = ({
       <ModalCompleteStep
         modal1Open={isOpenMdalSuccess}
         setModal1Open={setIsOpenMdalSuccess}
-        title={name}
+        // title={Title}
         link={"customer/list"}
       />
     </>
