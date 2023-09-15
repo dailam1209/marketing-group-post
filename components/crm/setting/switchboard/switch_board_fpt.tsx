@@ -40,7 +40,8 @@ const SwitchFPTTable: React.FC = () => {
   useEffect(() => {
     setHeaderTitle("Cài đặt/ Tổng đài/ FPT");
     setShowBackButton(true);
-    setCurrentPath("/crm/setting/switch_board");
+
+    setCurrentPath("/setting/switch_board");
   }, [setHeaderTitle, setShowBackButton, setCurrentPath]);
   const { isConnected, setIsConnected } = useContext<any>(CallContext);
   const [isVerify, setisVerify] = useState(false);

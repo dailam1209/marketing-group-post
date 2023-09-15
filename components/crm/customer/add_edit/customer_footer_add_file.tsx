@@ -31,13 +31,13 @@ export default function CustomomerFooterAddFile({
             email: formData.email,
             stand_name: formData.stand_name,
             logo: formData.logo.name,
-            phone_number:formData.phone_number,
-            birthday:formData.birthday,
+            phone_number: formData.phone_number,
+            birthday: formData.birthday,
             tax_code: formData.tax_code,
             cit_id: formData.cit_id,
             district_id: formData.district_id,
-            ward:formData.ward,
-            address:formData.address,
+            ward: formData.ward,
+            address: formData.address,
             ship_invoice_address: formData.ship_invoice_address,
             gender: formData.gender,
             cmnd_ccnd_number: formData.cmnd_ccnd_number,
@@ -48,16 +48,16 @@ export default function CustomomerFooterAddFile({
             contact_name: formData.contact_name,
             contact_email: formData.contact_email,
             contact_phone: formData.contact_phone,
-            contact_gender:formData.contact_gender,
+            contact_gender: formData.contact_gender,
             company_id: formData.company_id,
-            emp_id:formData.emp_id,
+            emp_id: formData.emp_id,
             user_create_id: formData.user_create_id,
             user_create_type: formData.user_create_type,
             user_edit_id: formData.user_edit_id,
             user_edit_type: formData.user_edit_type,
-            group_id:formData.group_id,
+            group_id: formData.group_id,
             status: formData.status,
-            business_areas:formData.business_areas,
+            business_areas: formData.business_areas,
             category: formData.category,
             business_type: formData.business_type,
             classify: formData.classify,
@@ -66,11 +66,11 @@ export default function CustomomerFooterAddFile({
             bill_ward: formData.bill_ward,
             bill_address: formData.bill_address,
             bill_area_code: formData.bill_area_code,
-            bill_invoice_address:formData.bill_invoice_address,
+            bill_invoice_address: formData.bill_invoice_address,
             bill_invoice_address_email: formData.bill_invoice_address_email,
             ship_city: formData.ship_city,
             ship_area: formData.ship_area,
-            bank_id:formData.bank_id,
+            bank_id: formData.bank_id,
             bank_account: formData.bank_account,
             revenue: formData.revenue,
             size: formData.size,
@@ -87,8 +87,6 @@ export default function CustomomerFooterAddFile({
           }),
         }
       );
-      
-     
     } catch (error) {
       console.error("An error occurred:", error);
     }
@@ -102,7 +100,7 @@ export default function CustomomerFooterAddFile({
       <button
         className={styles.save}
         type="submit"
-        onClick={() => (handleSubmit(),setModal1Open(true))}
+        onClick={() => (handleSubmit(), setModal1Open(true))}
       >
         Lưu
       </button>

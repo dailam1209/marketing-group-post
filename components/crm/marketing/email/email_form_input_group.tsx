@@ -29,17 +29,12 @@ export default function EmailFormInputGroup({ isSelectedRow }: any) {
           </form>
         </div>
         <div className={`${styles.main__control_add} flex_end`}>
-          <Link href="/crm/marketing/email/add_email_form">
+          <Link href="/marketing/email/add_email_form">
             <button
               type="button"
               className={`${styles.dropbtn_add} flex_align_center`}
             >
-              <Image
-                height={14}
-                width={14}
-                alt="..."
-                src="/crm/add.svg"
-              />
+              <Image height={14} width={14} alt="..." src="/crm/add.svg" />
               Thêm mới
             </button>
           </Link>

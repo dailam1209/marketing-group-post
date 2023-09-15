@@ -3,8 +3,7 @@ import Link from "next/link";
 
 const DropdownChucNangphieuchi = (props: any) => {
   const { record } = props;
-  const handleSelect = (id: any) => {
-  };
+  const handleSelect = (id: any) => {};
   const items: MenuProps["items"] = [
     {
       key: "1",
@@ -12,7 +11,7 @@ const DropdownChucNangphieuchi = (props: any) => {
         <Link
           style={{ display: "flex", fontSize: 20 }}
           rel="noopener noreferrer"
-        href={`/crm/chinh-sua-phieu-chi/${record.myPhone}`}
+          href={`/chinh-sua-phieu-chi/${record.myPhone}`}
         >
           <img src="/crm/icon-edit-black.svg" alt="" />
           &nbsp; &nbsp; <p>Chỉnh sửa</p>

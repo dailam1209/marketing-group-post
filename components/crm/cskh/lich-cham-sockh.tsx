@@ -47,7 +47,7 @@ const LichChamSocKH = (props: Props) => {
           style={{ display: "flex", fontSize: 15 }}
           rel="noopener noreferrer"
           onClick={() => {
-            // router.push(`/crm/sua-lich-cham-soc-khach-hang/${id}`);
+            // router.push(`/sua-lich-cham-soc-khach-hang/${id}`);
           }}
         >
           <img src="/crm/icon-edit-black.svg" alt="" />
@@ -62,7 +62,7 @@ const LichChamSocKH = (props: Props) => {
       title: "Tên lịch",
       dataIndex: "name",
       render: (text: any, record: any) => (
-        <Link href={`/crm/chi-tiet-lich-cham-soc-khach-hang/${record.name}`}>
+        <Link href={`/chi-tiet-lich-cham-soc-khach-hang/${record.name}`}>
           {text}
         </Link>
       ),
@@ -137,7 +137,7 @@ const LichChamSocKH = (props: Props) => {
         </div>
         <div className={cskh.themmoiks} style={{ paddingRight: 20 }}>
           <Link
-            href={"/crm/them-lich-cham-soc-khach-hang"}
+            href={"/them-lich-cham-soc-khach-hang"}
             style={{ height: 40, width: 140 }}
             className={`${styless.dropbtn_add} flex_align_center`}
           >

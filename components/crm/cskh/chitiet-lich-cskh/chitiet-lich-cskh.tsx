@@ -158,7 +158,7 @@ export default function ChiTietLichCSKH() {
       <div style={{ display: "flex", gap: 30, paddingBottom: 30 }}>
         <button
           onClick={() =>
-            router.push(`/crm/sua-lich-cham-soc-khach-hang/${path.id}`)
+            router.push(`/sua-lich-cham-soc-khach-hang/${path.id}`)
           }
           style={{ background: "#4C5BD4" }}
           type="button"

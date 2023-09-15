@@ -22,7 +22,7 @@ const EmailPersonalTable: React.FC = () => {
   useEffect(() => {
     setHeaderTitle("Marketing/ Email");
     setShowBackButton(true);
-    setCurrentPath("/crm/marketing/email");
+    setCurrentPath("/marketing/email");
   }, [setHeaderTitle, setShowBackButton, setCurrentPath]);
 
   return (
@@ -34,7 +34,7 @@ const EmailPersonalTable: React.FC = () => {
       </p>
       <div className="dropdown">
         <div className={`${styles.main__control_add}`}>
-          <Link href="/crm/marketing/email/add">
+          <Link href="/marketing/email/add">
             <button
               type="button"
               className={`${styles.dropbtn_add} flex_align_center`}

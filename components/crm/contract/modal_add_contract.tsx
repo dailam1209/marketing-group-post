@@ -54,7 +54,7 @@ const AddContractModal: React.FC<MyComponentProps> = ({
         modal1Open={isOpenMdalSuccess}
         setModal1Open={setIsOpenMdalSuccess}
         title={"Bạn đã thêm mới hợp đồng thành công!"}
-        link={"/crm/contract/list"}
+        link={"/contract/list"}
       />
     </>
   );

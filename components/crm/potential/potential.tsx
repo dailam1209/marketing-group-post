@@ -22,7 +22,7 @@ export default function Potential() {
   useEffect(() => {
     setHeaderTitle("Tiềm năng");
     setShowBackButton(false);
-    setCurrentPath("/crm/potential");
+    setCurrentPath("/potential");
   }, [setHeaderTitle, setShowBackButton, setCurrentPath]);
 
   useEffect(() => {

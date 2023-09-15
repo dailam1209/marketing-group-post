@@ -29,17 +29,12 @@ export default function SupplierInputGroup({ isSelectedRow }: any) {
           </form>
         </div>
         <div className={`${styles.main__control_add} flex_end`}>
-          <Link href="/crm/supplier/add_supplier">
+          <Link href="/supplier/add_supplier">
             <button
               type="button"
               className={`${styles.dropbtn_add} flex_align_center`}
             >
-              <Image
-                height={14}
-                width={14}
-                alt="..."
-                src="/crm/add.svg"
-              />
+              <Image height={14} width={14} alt="..." src="/crm/add.svg" />
               Thêm mới
             </button>
           </Link>

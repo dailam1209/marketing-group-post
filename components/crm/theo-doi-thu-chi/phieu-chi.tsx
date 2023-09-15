@@ -1,7 +1,7 @@
 import { SidebarContext } from "@/components/crm/context/resizeContext";
 import { SetStateAction, useContext, useEffect, useRef, useState } from "react";
 import { useHeader } from "@/components/crm/hooks/useHeader";
-// import { ColumPhieuChi } from "./datachi"; 
+// import { ColumPhieuChi } from "./datachi";
 import { dataPotential } from "../delete_data/colums_field/data";
 import Table_Phieu_Chi from "../table/table-phieu-chi";
 
@@ -24,11 +24,10 @@ export default function HomePhieuChi() {
     }
   }, [isOpen]);
   return (
-  
     <Table_Phieu_Chi
-    // ColumPhieuThu={ColumPhieuChi}
-        dataPotential={dataPotential}
-        name="Phiếu Chi "
-      /> 
+      // ColumPhieuThu={ColumPhieuChi}
+      dataPotential={dataPotential}
+      name="Phiếu Chi "
+    />
   );
 }

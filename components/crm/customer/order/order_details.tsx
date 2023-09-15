@@ -21,7 +21,7 @@ export default function OrderDetails() {
   useEffect(() => {
     setHeaderTitle("Quản lý đơn hàng");
     setShowBackButton(false);
-    setCurrentPath("/crm/order/list");
+    setCurrentPath("/order/list");
   }, [setHeaderTitle, setShowBackButton, setCurrentPath]);
 
   useEffect(() => {

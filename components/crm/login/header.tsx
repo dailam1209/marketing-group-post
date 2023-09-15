@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import ModalRegsiter from "@/components/modal/ModalRegsiter";
 import ModalLogin from "@/components/modal/ModalLogin";
+
 import Cookies from "js-cookie";
 import { getServerSideProps } from "@/utils/function";
 
@@ -60,7 +61,7 @@ const HeaderHomePage: React.FC = () => {
           </div>
           <div className={`${styles["menu"]}`}>
             <div className={styles.menu_item}>
-              <Link href="/crm">Trang Chủ</Link>
+              <Link href="/">Trang Chủ</Link>
               <Link href="#">Hướng Dẫn</Link>
               <Link href="https://timviec365.vn/blog/c242/quan-ly-quan-he-khach-hang">
                 Tin Tức

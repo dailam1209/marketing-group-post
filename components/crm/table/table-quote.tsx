@@ -37,7 +37,7 @@ const TableDataQuote: React.FC<TableDataOrderProps> = ({
       dataIndex: "order_number",
       key: "order_number",
       render: (text: any, record: any) => (
-        <Link href={`/crm/quote/detail/${record.order_number}`}>
+        <Link href={`/quote/detail/${record.order_number}`}>
           <b>{text}</b>
         </Link>
       ),

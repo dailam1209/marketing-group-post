@@ -14,8 +14,19 @@ export default function EmailFormInputGroup({ isSelectedRow }: any) {
           Ngày gửi:{" "}
         </label>
         <div className={`${styles.input_item_time} flex_between`}>
-          <input type="date" name="" id="start_time" style={{margin: "0px 10px"}} /> -
-          <input type="date" name="" id="end_time" style={{margin: "0px 10px"}}  />
+          <input
+            type="date"
+            name=""
+            id="start_time"
+            style={{ margin: "0px 10px" }}
+          />{" "}
+          -
+          <input
+            type="date"
+            name=""
+            id="end_time"
+            style={{ margin: "0px 10px" }}
+          />
         </div>
       </div>
       <div className={`${styles.main__control_btn} flex_between`}>
@@ -40,17 +51,12 @@ export default function EmailFormInputGroup({ isSelectedRow }: any) {
           </form>
         </div>
         <div className={`${styles.main__control_add} flex_end`}>
-          <Link href="/crm/marketing/sms/add">
+          <Link href="/marketing/sms/add">
             <button
               type="button"
               className={`${styles.dropbtn_add} flex_align_center`}
             >
-              <Image
-                height={14}
-                width={14}
-                alt="..."
-                src="/crm/add.svg"
-              />
+              <Image height={14} width={14} alt="..." src="/crm/add.svg" />
               Thêm mới
             </button>
           </Link>

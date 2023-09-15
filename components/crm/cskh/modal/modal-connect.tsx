@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { Button, DatePicker, Input, Modal, Result } from "antd";
+import { Button, Input, Modal, Result } from "antd";
 import styles from "./index.module.css";
-import PotentialSelectBoxStep from "@/components/crm/potential/potential_steps/select_box_step";
 const ModalConnect = (props: any) => {
   const { isShowModalAdd, onClose, handleAddDB, name } = props;
   const [loading, setLoading] = useState(false);
@@ -12,9 +11,7 @@ const ModalConnect = (props: any) => {
     setOpen(true);
   };
 
-  const handleOk = () => {
- 
-  };
+  const handleOk = () => {};
 
   const handleClose = () => {
     onClose();
@@ -26,10 +23,14 @@ const ModalConnect = (props: any) => {
         open={isShowModalAdd}
         title={
           <div
-            style={{ background: "#4C5BD4", width: "111%", margin: "-20px -30px" }}
+            style={{
+              background: "#4C5BD4",
+              width: "111%",
+              margin: "-20px -30px",
+            }}
           >
             <div style={{ color: "white", fontSize: 20, textAlign: "center" }}>
-             Vui lòng đăng nhập để kết nối
+              Vui lòng đăng nhập để kết nối
             </div>
           </div>
         }
@@ -67,7 +68,7 @@ const ModalConnect = (props: any) => {
               }}
               type="primary"
               loading={loading}
-              onClick={()=>alert("Tài khoản kết nối không tồn tại")}
+              onClick={() => alert("Tài khoản kết nối không tồn tại")}
               // onClick={() => {
               //   handleAddDB(), setOpenSuccess(true);
               // }}
@@ -83,13 +84,21 @@ const ModalConnect = (props: any) => {
             Tài khoản <b>*</b>
           </div>
           <div>
-            <Input required={true} width={"100%"} placeholder={"Nhập tên tài khoản"}></Input>
+            <Input
+              required={true}
+              width={"100%"}
+              placeholder={"Nhập tên tài khoản"}
+            ></Input>
           </div>
           <div className={styles.title}>
             Mật khẩu <b>*</b>
           </div>
           <div>
-            <Input required={true} width={"100%"} placeholder={"Nhập mật khẩu"}></Input>
+            <Input
+              required={true}
+              width={"100%"}
+              placeholder={"Nhập mật khẩu"}
+            ></Input>
           </div>
         </div>
       </Modal>

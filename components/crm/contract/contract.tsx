@@ -15,7 +15,7 @@ export default function Contract() {
   useEffect(() => {
     setHeaderTitle("Danh sách hợp đồng");
     setShowBackButton(false);
-    setCurrentPath("/crm/contract/list");
+    setCurrentPath("/contract/list");
   }, [setHeaderTitle, setShowBackButton, setCurrentPath]);
 
   useEffect(() => {

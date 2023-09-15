@@ -28,7 +28,7 @@ const columns: ColumnsType<DataType> = [
     width: 180,
     dataIndex: "mail",
     key: "mail",
-    render: (text: any,record:any) => (
+    render: (text: any, record: any) => (
       <Link href={`/campaign/detail/${record.key}`}>
         <b>{text}</b>
       </Link>
@@ -69,17 +69,16 @@ const columns: ColumnsType<DataType> = [
     key: "address_receive",
     width: 250,
   },
-  
+
   {
     title: "Chức năng",
     dataIndex: "operation",
     key: "11",
     width: 150,
     fixed: "right",
-    render: (text: any, record: any) =>
-      <CampaignActionTable
-        record={record.key}
-      />
+    render: (text: any, record: any) => (
+      <CampaignActionTable record={record.key} />
+    ),
   },
 ];
 
@@ -88,16 +87,15 @@ for (let i = 0; i < 100; i++) {
   data.push({
     key: i,
     mail: `Campaign ${i}`,
-    status: 'Đang diễn ra',
-    person: 'abc',
-    address_send: '29/07/2023',
+    status: "Đang diễn ra",
+    person: "abc",
+    address_send: "29/07/2023",
     date: `30/07/2023`,
     address_receive: `10000000`,
-    
   });
 }
 
-interface TableDataCampaignEmailProps { }
+interface TableDataCampaignEmailProps {}
 
 const TableDataCampaignEmail: React.FC<TableDataCampaignEmailProps> = () => {
   return (

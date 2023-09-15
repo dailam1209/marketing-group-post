@@ -726,14 +726,14 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({ data }) => {
         }
         title={"Xác nhận hủy lưu gộp khách hàng"}
         handleCloseMdal={() => setIsOpenCancelModal(false)}
-        link={"/crm/customer/list"}
+        link={"/customer/list"}
       />
 
       <CancelModalCustomApi
         isModalCancel={isOpenSuccessMdal}
         setIsModalCancel={setISOpenSuccessMdal}
         title={"Xác nhận gộp trùng khách hàng"}
-        link={"/crm/customer/list"}
+        link={"/customer/list"}
         content={
           "Tất cả trường thông tin đã chọn sẽ được gộp vào bản ghi chính. Các thông tin liên quan (Tệp đính kèm, Ghi chú, Hoạt động và Hàng hóa) sẽ được gắn với bản ghi chính. Bạn có muốn tiếp tục gộp trùng?"
         }
@@ -744,7 +744,7 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({ data }) => {
         modal1Open={isOpenModalError}
         setModal1Open={setIsOpenModalError}
         title={"Cần chọn đầy đủ các thuộc tính khách hàng"}
-        link={"/crm/customer/same_filter"}
+        link={"/customer/same_filter"}
       />
     </>
   );

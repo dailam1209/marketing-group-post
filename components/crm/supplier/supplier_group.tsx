@@ -10,16 +10,13 @@ export default function Supplier() {
   const mainRef = useRef<HTMLDivElement>(null);
   const { isOpen } = useContext<any>(SidebarContext);
   const [isSelectedRow, setIsSelectedRow] = useState(false);
-  const {
-    setHeaderTitle,
-    setShowBackButton,
-    setCurrentPath,
-  }: any = useHeader();
+  const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
+    useHeader();
 
   useEffect(() => {
     setHeaderTitle("Danh sách nhóm nhà cung cấp");
     setShowBackButton(false);
-    setCurrentPath("/crm/supplier/group");
+    setCurrentPath("/supplier/group");
   }, [setHeaderTitle, setShowBackButton, setCurrentPath]);
 
   useEffect(() => {
@@ -31,7 +28,7 @@ export default function Supplier() {
   }, [isOpen]);
   return (
     <div ref={mainRef} className={styleHome.main}>
-     <SuppliInputSipplierGroup />
+      <SuppliInputSipplierGroup />
       <TableDataSupplier setSelected={setIsSelectedRow} />
     </div>
   );

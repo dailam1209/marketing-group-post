@@ -37,24 +37,18 @@ const HandeOverModal: React.FC<MyComponentProps> = ({
       >
         <div className={styles.row_mdal}>
           <div className={styles.choose_obj}>
-            <label className={`${styles.form_label} `}>
-              {"Tình trạng"}
-            </label>
-            <CampaignSelectBoxStep
-              value="Chọn"
-              placeholder="Chọn"
-            />
+            <label className={`${styles.form_label} `}>{"Tình trạng"}</label>
+            <CampaignSelectBoxStep value="Chọn" placeholder="Chọn" />
           </div>
-          
         </div>
         <div className={styles.row_mdal}>
           <div className={styles.choose_obj}>
-            <label className={`${styles.form_label} `}>
-              {"Ghi chú"}
-            </label>
-            <textarea name="note" className={`${styles.note_campaign_cus} ${styles.textarea}`}></textarea>
+            <label className={`${styles.form_label} `}>{"Ghi chú"}</label>
+            <textarea
+              name="note"
+              className={`${styles.note_campaign_cus} ${styles.textarea}`}
+            ></textarea>
           </div>
-          
         </div>
       </Modal>
       <ModalCompleteStep

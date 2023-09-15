@@ -14,8 +14,7 @@ export default function AddButtonControl() {
   const [isDelOpen, setIsDelOpen] = useState(false);
   const router = useRouter();
   const { id } = router.query;
-  const onChange = (checked: boolean) => {
-  };
+  const onChange = (checked: boolean) => {};
   return (
     <div>
       <div className={`${styles.main}`}>
@@ -26,7 +25,7 @@ export default function AddButtonControl() {
               Ẩn dữ liệu trống
             </div>
             <div className={styles.group_button}>
-              <Link href={`/crm/campaign/edit/${id}`}>
+              <Link href={`/campaign/edit/${id}`}>
                 <button
                   type="button"
                   className={`${styles.btn_edit} flex_align_center`}

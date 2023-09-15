@@ -8,13 +8,13 @@ import ModalCompleteStep from "../quote_steps/complete_modal";
 interface MyComponentProps {
   isModalCancel: boolean;
   setIsModalCancel: (value: boolean) => void;
-  record:any
+  record: any;
 }
 
 const ShareActionModal: React.FC<MyComponentProps> = ({
   isModalCancel,
   setIsModalCancel,
-  record
+  record,
 }) => {
   const [isOpenSelect, setIsOpenSelect] = useState(false);
   const [label, setLabel] = useState("");

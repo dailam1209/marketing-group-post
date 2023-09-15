@@ -20,34 +20,38 @@ export default function SupplierActionTable() {
 
   return (
     <>
-    <button onClick={() => setIsOpenModal(true)} 
-     style={{
-            padding: '7px 12px',
-            fontSize: '14px',
-            borderRadius: '30px 0 0 30px',
-            color: '#4C5BD4;',
-            border: '1px solid #4C5BD4;',
-          }}>
-            Sửa
-          </button>
-          <button onClick={() => setIsDelOpen(true)}
-          style={{
-            padding: '7px 12px',
-            fontSize: '14px',
-            borderRadius: '0 30px 30px 0',
-            color: '#FF3333;',
-            border: '1px solid #FF3333;',
-          }}>
-            Xóa
-          </button>
+      <button
+        onClick={() => setIsOpenModal(true)}
+        style={{
+          padding: "7px 12px",
+          fontSize: "14px",
+          borderRadius: "30px 0 0 30px",
+          color: "#4C5BD4;",
+          border: "1px solid #4C5BD4;",
+        }}
+      >
+        Sửa
+      </button>
+      <button
+        onClick={() => setIsDelOpen(true)}
+        style={{
+          padding: "7px 12px",
+          fontSize: "14px",
+          borderRadius: "0 30px 30px 0",
+          color: "#FF3333;",
+          border: "1px solid #FF3333;",
+        }}
+      >
+        Xóa
+      </button>
 
-    {
-      <DelActionModal
-      isModalCancel={isDelOpen}
-      setIsModalCancel={setIsDelOpen}
-    />
-    }
-    <ModalSupplierGroup
+      {
+        <DelActionModal
+          isModalCancel={isDelOpen}
+          setIsModalCancel={setIsDelOpen}
+        />
+      }
+      <ModalSupplierGroup
         isShowModalAdd={isOpenModal}
         setClose={setIsOpenModal}
       />

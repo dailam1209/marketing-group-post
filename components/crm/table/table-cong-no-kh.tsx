@@ -85,14 +85,14 @@ const Table_Cong_Nokh = (props: any) => {
     <div className={`${styles.main__content} ${styles.flex_column}`}>
       <div style={{ display: "flex", gap: 20 }}>
         <button className={style.list_sp}>
-          <Link style={{ color: "#a3a3a3" }} href="/crm/cong-no-nha-cung-cap">
+          <Link style={{ color: "#a3a3a3" }} href="/cong-no-nha-cung-cap">
             Nhà cung cấp
           </Link>
         </button>
         <button className={style.list_gr_sp}>
           <Link
             style={{ color: "#666666", background: "#fff" }}
-            href="/crm/cong-no-khach-hang"
+            href="/cong-no-khach-hang"
           >
             Khách hàng
           </Link>

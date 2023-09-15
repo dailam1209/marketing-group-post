@@ -8,7 +8,7 @@ import AddressRowInforText from "./address_info";
 import SystemInfoRow from "./system_infor";
 import CCCDInforRow from "./cccd_infor_row";
 import SystemCustomerInfo from "./diary";
-import AddOrderDetailTable from "../../order/order_detail/order_detail_table"
+import AddOrderDetailTable from "../../order/order_detail/order_detail_table";
 interface ComponentProps {
   cccd: boolean;
 }
@@ -43,7 +43,8 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
                     >
                       Thông tin chung
                     </p>
-                    <GeneralRowInforText /><br/>
+                    <GeneralRowInforText />
+                    <br />
                     <AddOrderDetailTable />
                     <p
                       style={{ marginTop: "20px" }}

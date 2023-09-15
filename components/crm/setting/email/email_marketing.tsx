@@ -22,7 +22,7 @@ const EmailMarketingTable: React.FC = () => {
   useEffect(() => {
     setHeaderTitle("Cài đặt/ Email");
     setShowBackButton(true);
-    setCurrentPath("/crm/setting/main");
+    setCurrentPath("/setting/main");
   }, [setHeaderTitle, setShowBackButton, setCurrentPath]);
 
   return (
@@ -41,7 +41,7 @@ const EmailMarketingTable: React.FC = () => {
               src="/crm/email_zetaMail.svg"
             />
             <p className={style.connect_title}>ZetaMail</p>
-            <Link href="/crm/setting/setup_email_marketing">
+            <Link href="/setting/setup_email_marketing">
               <button className={style.connect_button}>Kết nối</button>
             </Link>
           </div>
@@ -53,7 +53,7 @@ const EmailMarketingTable: React.FC = () => {
               src="/crm/email_mailChimp.svg"
             />
             <p className={style.connect_title}>MailChimp</p>
-            <Link href="/crm/setting/setup_email_marketing">
+            <Link href="/setting/setup_email_marketing">
               <button className={style.connect_button}>Kết nối</button>
             </Link>
           </div>
@@ -65,7 +65,7 @@ const EmailMarketingTable: React.FC = () => {
               src="/crm/email_getResponse.svg"
             />
             <p className={style.connect_title}>GetResponse</p>
-            <Link href="/crm/setting/setup_email_marketing">
+            <Link href="/setting/setup_email_marketing">
               <button className={style.connect_button}>Kết nối</button>
             </Link>
           </div>

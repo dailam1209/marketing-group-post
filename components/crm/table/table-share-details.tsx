@@ -49,7 +49,7 @@ const TableChanceDetailShare: React.FC<TableChanceDetailShareProps> = () => {
       dataIndex: "filename",
       key: "0",
       render: (data) => (
-        // <Link href={`/crm/customer/chance/detail/${id}/${data}`}>
+        // <Link href={`/customer/chance/detail/${id}/${data}`}>
         <span>{data}</span>
         // </Link>
       ),
@@ -96,12 +96,7 @@ const TableChanceDetailShare: React.FC<TableChanceDetailShareProps> = () => {
           }}
           onClick={() => setIsOpenModalDel(true)}
         >
-          <Image
-            alt="img"
-            width={26}
-            height={26}
-            src={"/crm/del_red.svg"}
-          />
+          <Image alt="img" width={26} height={26} src={"/crm/del_red.svg"} />
           Gỡ bỏ
         </button>
       ),

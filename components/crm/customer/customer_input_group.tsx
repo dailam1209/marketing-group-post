@@ -6,9 +6,8 @@ import Image from "next/image";
 import CustomerListAction from "./customer_action";
 import { Drawer, Input } from "antd";
 import CustomerListFilterBox from "./customer_filter_box";
-import { DataType } from "@/pages/crm/customer/list";
-import Cookies from "js-cookie";
-import { base_url } from "../service/function";
+import { DataType } from "@/pages/customer/list";
+
 export default function CustomerListInputGroup({
   isSelectedRow,
   numberSelected,
@@ -59,76 +58,6 @@ export default function CustomerListInputGroup({
   const [open, setOpen] = useState(false);
   const inputFileRef = useRef<HTMLInputElement>(null);
   const [data, setData] = useState<any>();
-
-  // const [listNV, setLishNv] = useState<any>();
-  // const [dep_id, setDep_id] = useState<any>();
-  // const [posId, setposId] = useState<any>();
-
-  // const role = Cookies.get("role");
-  // const [nameNvNomor, setnameNvNomor] = useState<any>();
-  // const handleGetInfoCusNV = async () => {
-  //   try {
-  //     if (role == "2") {
-  //       const res = await fetch(
-  //         `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/employee/info`,
-  //         {
-  //           method: "POST",
-  //           headers: {
-  //             "Content-Type": "application/json",
-  //             Authorization: `Bearer ${Cookies.get("token_base365")}`,
-  //           },
-  //           // body: JSON.stringify({ com_id: `${Cookies.get("com_id")}` }),
-  //         }
-  //       );
-  //       const data = await res.json();
-  //       if (data && data?.data) {
-  //         setDep_id(data?.data?.data?.dep_id);
-  //         setposId(data?.data?.data?.position_id);
-  //         setnameNvNomor(data?.data?.data);
-  //       }
-  //     }
-  //   } catch (error) {}
-  // };
-  // const handleGetInfoCus = async () => {
-  //   try {
-  //     const res = await fetch(
-  //       `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/listAll`,
-  //       {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: `Bearer ${Cookies.get("token_base365")}`,
-  //         },
-  //       }
-  //     );
-  //     const data = await res.json();
-  //     if (data && data?.data) setLishNv(data?.data?.items);
-  //   } catch (error) {}
-  // };
-  // let nv = listNV?.filter((item) => item.dep_id === dep_id);
-  // const [listNVPT, setlistNVPT] = useState<any>();
-  // const handleGetNvPt = async () => {
-  //   try {
-  //     const res = await fetch(
-  //       `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/list`,
-  //       {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: `Bearer ${Cookies.get("token_base365")}`,
-  //         },
-  //         body: JSON.stringify({ dep_id: dep_id }),
-  //       }
-  //     );
-  //     const data = await res.json();
-  //     if (data && data?.data) setlistNVPT(data?.data?.items);
-  //   } catch (error) {}
-  // };
-  // useEffect(() => {
-  //   handleGetInfoCusNV();
-  //   handleGetInfoCus();
-  //   handleGetNvPt();
-  // }, [dep_id]);
 
   const showDrawer = () => {
     setOpen(true);
@@ -257,10 +186,7 @@ export default function CustomerListInputGroup({
               </button>
             </div>
             <div className={styles.dropdown_action_btn}>
-              <Link
-                className={styles.api_connect_btn}
-                href={"/crm/setting/api"}
-              >
+              <Link className={styles.api_connect_btn} href={"/setting/api"}>
                 <button
                   className={styles.btn_light_api}
                   style={{
@@ -308,7 +234,7 @@ export default function CustomerListInputGroup({
         />
 
         <div className={`${styles.main__control_add}`}>
-          <Link href="/crm/customer/add">
+          <Link href="/customer/add">
             <button
               type="button"
               className={`${styles.dropbtn_add} flex_align_center`}

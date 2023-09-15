@@ -7,13 +7,13 @@ import ModalCompleteStep from "../quote_steps/complete_modal";
 interface MyComponentProps {
   isModalCancel: boolean;
   setIsModalCancel: (value: boolean) => void;
-   record:any
+  record: any;
 }
 
 const HandeOverModal: React.FC<MyComponentProps> = ({
   isModalCancel,
   setIsModalCancel,
-  record
+  record,
 }) => {
   const [isOpenMdalSuccess, setIsOpenMdalSuccess] = useState(false);
 

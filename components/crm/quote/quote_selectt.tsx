@@ -4,7 +4,7 @@ import OrderDropDown from "./quote_dropdown";
 export default function QuoteSelectBox({ title = "", value = "Tất cả" }) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const [valueSelect, setValueSelect] = useState(value)
+  const [valueSelect, setValueSelect] = useState(value);
   const handleClickSelectoption = (e: any) => {
     if (e.target.getAttribute("class") !== styles.select2_search__field) {
       setIsOpen(!isOpen);
@@ -22,7 +22,7 @@ export default function QuoteSelectBox({ title = "", value = "Tất cả" }) {
   };
 
   useEffect(() => {
-    document.addEventListener("click", handleClickOutside)
+    document.addEventListener("click", handleClickOutside);
     document.addEventListener("scroll", handleScrollkOutside);
 
     return () => {
@@ -81,7 +81,12 @@ export default function QuoteSelectBox({ title = "", value = "Tất cả" }) {
             </span>
           </span>
         </span>
-        {isOpen && <OrderDropDown valueSelect={valueSelect} setValueSelect={setValueSelect} />}
+        {isOpen && (
+          <OrderDropDown
+            valueSelect={valueSelect}
+            setValueSelect={setValueSelect}
+          />
+        )}
       </span>
     </div>
   );

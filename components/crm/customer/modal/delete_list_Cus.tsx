@@ -38,9 +38,7 @@ const DelCustomerModal: React.FC<MyComponentProps> = ({
         },
         body: JSON.stringify({ cus_id: cus_id }),
       });
-    } catch (error) {
-    }
-
+    } catch (error) {}
   };
 
   return (

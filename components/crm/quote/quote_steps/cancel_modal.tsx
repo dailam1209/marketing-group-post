@@ -36,9 +36,7 @@ const CancelModal: React.FC<MyComponentProps> = ({
         okText="Đồng ý"
         cancelText="Huỷ"
       >
-        <div>
-         {content}
-        </div>
+        <div>{content}</div>
       </Modal>
     </>
   );

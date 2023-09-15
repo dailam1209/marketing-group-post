@@ -24,28 +24,28 @@ export default function ModalRegsiter({ setOpenModalRegister }) {
             setOpenModalRegister(false);
           }}
         >
-          <img src="./qlc_close.png" alt="" />
+          <img src="/crm/qlc_close.png" alt="" />
         </div>
         <div className={styles.content}>
           <div
             className={styles.text}
           >{`Để tiếp tục đăng ký bạn vui lòng chọn loại tài khoản.`}</div>
           <div className={styles.khoi}>
-            <Link href={`dang-ky-cong-ty.html${getUrl}`}>
+            <Link href={`https://hungha365.com/dang-ky-cong-ty.html`}>
               <div className={styles.khoi_item}>
-                <img src="./Home_fill.png" alt="" />
+                <img src="/crm/Home_fill.png" alt="" />
                 <span>Công ty</span>
               </div>
             </Link>
-            <Link href={`dang-ky-nhan-vien.html${getUrl}`}>
+            <Link href={`https://hungha365.com/dang-ky-nhan-vien.html`}>
               <div className={styles.khoi_item}>
-                <img src="./User_alt_fill.png" alt="" />
+                <img src="/crm/User_alt_fill.png" alt="" />
                 <span>Nhân viên</span>
-              </div>{" "}
+              </div>
             </Link>
-            <Link href={`dang-ky-ca-nhan.html${getUrl}`}>
+            <Link href={`https://hungha365.com/dang-ky-ca-nhan.html`}>
               <div className={styles.khoi_item}>
-                <img src="./User_circle.png" alt="" />
+                <img src="/crm/User_circle.png" alt="" />
                 <span>Cá nhân</span>
               </div>
             </Link>

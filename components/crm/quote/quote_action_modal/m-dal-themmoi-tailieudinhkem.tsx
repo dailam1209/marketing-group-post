@@ -19,8 +19,7 @@ const props: UploadProps = {
       message.error(`${info.file.name} file upload failed.`);
     }
   },
-  onDrop(e) {
-  },
+  onDrop(e) {},
 };
 const ModalAddTL = (props: any) => {
   const { isShowModalAddTL, onClose, handleAddDB, name } = props;
@@ -32,9 +31,7 @@ const ModalAddTL = (props: any) => {
     setOpen(true);
   };
 
-  const handleOk = () => {
-  
-  };
+  const handleOk = () => {};
 
   const handleClose = () => {
     onClose();
@@ -141,7 +138,7 @@ const ModalAddTL = (props: any) => {
               }}
               type="primary"
               loading={loading}
-              onClick={() => (setOpenSuccess(false),onClose())}
+              onClick={() => (setOpenSuccess(false), onClose())}
             >
               Đóng
             </Button>

@@ -53,7 +53,7 @@ const columns: ColumnsType<DataType> = [
     dataIndex: "name",
     key: "name",
     render: (text: any) => (
-      <Link href={"/crm/customer/contact/detail"}>
+      <Link href={"/customer/contact/detail"}>
         <b>{text}</b>
       </Link>
     ),
@@ -106,7 +106,7 @@ const columns: ColumnsType<DataType> = [
     key: "facebook",
     width: 150,
     render: (text: any) => (
-      <Link href={"/crm/order/detail/contact"}>
+      <Link href={"/order/detail/contact"}>
         <b>{text}</b>
       </Link>
     ),

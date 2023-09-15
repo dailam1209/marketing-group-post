@@ -8,7 +8,7 @@ export default function OrderDetailsInputGroups({ isSelectedRow }: any) {
   const handleClickSelectoption = () => {};
 
   return (
-    <div style={{marginTop:'-22px'}} className={styles.main__control}>
+    <div style={{ marginTop: "-22px" }} className={styles.main__control}>
       <div
         className={`${stylesPotential.main__control_select} flex_align_center`}
       >

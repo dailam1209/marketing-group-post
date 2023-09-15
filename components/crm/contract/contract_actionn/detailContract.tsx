@@ -37,9 +37,7 @@ export default function DetailContract({ setCheckFile, FormData }: any) {
     setShow(true);
   };
 
-  useEffect(() => {
-  
-  }, []);
+  useEffect(() => {}, []);
 
   const handleClose = () => {
     setTimeout(() => {
@@ -109,7 +107,7 @@ export default function DetailContract({ setCheckFile, FormData }: any) {
       <div style={{ display: "flex", justifyContent: "end", gap: 30 }}>
         <div>
           <Button
-            onClick={() => router.push(`/crm/contract/edit/${id}`)}
+            onClick={() => router.push(`/contract/edit/${id}`)}
             style={{
               width: 150,
               borderRadius: 10,

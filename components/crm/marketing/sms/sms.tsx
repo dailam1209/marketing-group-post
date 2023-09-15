@@ -4,12 +4,12 @@ import styles from "../../marketing/marketing.module.css";
 import { SidebarContext } from "@/components/crm/context/resizeContext";
 import { useHeader } from "@/components/crm/hooks/useHeader";
 import { Tabs } from "antd";
-import SMSHistory from "./sms_history"
-import SMSForm from "./sms_form"
+import SMSHistory from "./sms_history";
+import SMSForm from "./sms_form";
 import { SizeType } from "antd/es/config-provider/SizeContext";
 
 const EmailTable: React.FC = () => {
-  const [size] = useState<SizeType>('small');
+  const [size] = useState<SizeType>("small");
   const mainRef = useRef<HTMLDivElement>(null);
   const [checkFile, setCheckFile] = useState(false);
   const { isOpen } = useContext<any>(SidebarContext);
@@ -24,14 +24,14 @@ const EmailTable: React.FC = () => {
   useEffect(() => {
     setHeaderTitle("Marketing / SMS");
     setShowBackButton(true);
-    setCurrentPath("/crm/marketing/sms");
+    setCurrentPath("/marketing/sms");
   }, [setHeaderTitle, setShowBackButton, setCurrentPath]);
 
   const tabsItems = [
     {
       label: `Lịch sử sms`,
       key: "1",
-      children: <SMSHistory key={1}/>,
+      children: <SMSHistory key={1} />,
     },
     {
       label: `Mẫu sms`,
@@ -42,7 +42,7 @@ const EmailTable: React.FC = () => {
 
   return (
     <div className={styleHome.main} ref={mainRef}>
-          <Tabs type="card"size={size} items={tabsItems} />
+      <Tabs type="card" size={size} items={tabsItems} />
     </div>
   );
 };

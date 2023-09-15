@@ -24,7 +24,7 @@ import SendSMSDemoModal from "../mdal_action/send_demo.sms";
 
 export default function PotentialActionSMSTable(props: any) {
   const { record, allkey } = props;
-  
+
   const [isModalCancel, setIsModalCancel] = useState(false);
   const [isDelOpen, setIsDelOpen] = useState(false);
   const [isOrderBrowsingOpen, setIsOrderBrowsingOpen] = useState(false);
@@ -63,7 +63,7 @@ export default function PotentialActionSMSTable(props: any) {
       setIsOpenShare(true);
     }
     if (type === "edit") {
-      router.push("/crm/marketing/sms/update");
+      router.push("/marketing/sms/update");
     }
     if (type === "complete") {
       setIsOpenUpdate(true);

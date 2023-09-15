@@ -32,7 +32,7 @@ const HeaderBarProductReturn: React.FC<HeaderProps> = ({ keyTab, id }: any) => {
 
   useEffect(() => {
     setActiveKey(keyTab);
-    (keyTab);
+    keyTab;
   }, [keyTab]);
 
   const onChangeKey = (key: string) => {
@@ -40,16 +40,16 @@ const HeaderBarProductReturn: React.FC<HeaderProps> = ({ keyTab, id }: any) => {
     if (key) {
       switch (key) {
         case "1":
-          router.push(`/crm/product_return/detail/${id}`);
+          router.push(`/product_return/detail/${id}`);
           return;
         case "2":
-          router.push(`/crm/product_return/detail/schedule/${id}}`);
+          router.push(`/product_return/detail/schedule/${id}}`);
           return;
         case "3":
-          router.push(`/crm/product_return/detail/note/${id}}`);
+          router.push(`/product_return/detail/note/${id}}`);
           return;
         case "4":
-          router.push(`/crm/product_return/detail/share/${id}}`);
+          router.push(`/product_return/detail/share/${id}}`);
           return;
         default:
           return;

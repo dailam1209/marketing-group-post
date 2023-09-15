@@ -4,15 +4,17 @@ import styles from "@/components/crm/order/order_detail/order_detail_action_moda
 import OrderDetailSelectBox from "@/components/crm/order/order_detail/order_detail_action_modal/order_detail_select";
 import Link from "next/link";
 
-export default function OrderDetailAppointmentInputGroups({ isSelectedRow }: any) {
+export default function OrderDetailAppointmentInputGroups({
+  isSelectedRow,
+}: any) {
   const handleClickSelectoption = () => {};
 
   const datas = [
     {
-      "STT": "TN001",
+      STT: "TN001",
       "Tên chiến dịch": "abc",
       "Tình trạng": "John Doe",
-      "Loại": "Manager",
+      Loại: "Manager",
       "Ngày bắt đầu": "123-456-7890",
       "Ngày kết thúc": "john.doe@example.com",
       "Doanh sô kỳ vọng (VNĐ)": "098-765-4321",
@@ -21,11 +23,13 @@ export default function OrderDetailAppointmentInputGroups({ isSelectedRow }: any
     },
     // Add more sample data objects here if needed
   ];
-  
+
   return (
     <div className={styles.main__control}>
       <div className={`${styles.main__control_select} flex_align_center`}>
-        <div className={`${styles.select_item} flex_align_center_item ${styles.select_item_time}`}>
+        <div
+          className={`${styles.select_item} flex_align_center_item ${styles.select_item_time}`}
+        >
           <label htmlFor="" className="">
             Ngày đề nghị:{" "}
           </label>
@@ -34,13 +38,13 @@ export default function OrderDetailAppointmentInputGroups({ isSelectedRow }: any
             <input type="date" name="" id="end_time" />
           </div>
         </div>
-        
-        <OrderDetailSelectBox title="Tình trạng đề nghị:" value="Tất cả nhân viên" />
-        <OrderDetailSelectBox title="Tình trạng thực hiện:" value="Tất cả" />
-        
 
+        <OrderDetailSelectBox
+          title="Tình trạng đề nghị:"
+          value="Tất cả nhân viên"
+        />
+        <OrderDetailSelectBox title="Tình trạng thực hiện:" value="Tất cả" />
       </div>
-      
 
       <div className={`${styles.main__control_btn} flex_between`}>
         {/* <div className={styles.main__control_search}>
@@ -74,8 +78,6 @@ export default function OrderDetailAppointmentInputGroups({ isSelectedRow }: any
           
         </div> */}
       </div>
-
-    
     </div>
   );
 }

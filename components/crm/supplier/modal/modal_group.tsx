@@ -12,9 +12,7 @@ const ModalSupplierGroup = (props: any) => {
     setOpen(true);
   };
 
-  const handleOk = () => {
-   
-  };
+  const handleOk = () => {};
 
   const handleClose = () => {
     setClose(false);
@@ -26,22 +24,26 @@ const ModalSupplierGroup = (props: any) => {
         open={isShowModalAdd}
         title={
           <div
-            style={{ background: "#4c5bd4", width: "109%", margin: "-20px -30px" }}
+            style={{
+              background: "#4c5bd4",
+              width: "109%",
+              margin: "-20px -30px",
+            }}
           >
-            <div 
-            style={{ 
-              color: "white", 
-              fontSize: 18, 
-              textAlign: "center",
-              margin: '14px 0 10px 0'
-             }}
+            <div
+              style={{
+                color: "white",
+                fontSize: 18,
+                textAlign: "center",
+                margin: "14px 0 10px 0",
+              }}
             >
-            Thêm nhóm nhà cung cấp
+              Thêm nhóm nhà cung cấp
             </div>
           </div>
         }
         onOk={handleOk}
-        onCancel={()=>setClose(false)}
+        onCancel={() => setClose(false)}
         centered
         closable={true}
         footer={[
@@ -85,7 +87,7 @@ const ModalSupplierGroup = (props: any) => {
         ]}
       >
         <div className={styles.container}>
-          <div style={{fontWeight:'bold'}} className={styles.title}>
+          <div style={{ fontWeight: "bold" }} className={styles.title}>
             Tên nhóm <b>*</b>
           </div>
           <div>
@@ -95,7 +97,7 @@ const ModalSupplierGroup = (props: any) => {
               placeholder={"Nhập tên nhóm"}
             ></Input>
           </div>
-          <div style={{fontWeight:'bold'}} className={styles.title}>
+          <div style={{ fontWeight: "bold" }} className={styles.title}>
             Mô tả nhóm nhà cung cấp
           </div>
           <div>

@@ -16,27 +16,35 @@ export default function OrderDetailAttachActionTable() {
   const items: MenuProps["items"] = [
     {
       key: "1",
-      label :  ( <><Link href="/crm/customer/contact/edit/"><i className="bi bi-download"></i> Tải xuống</Link></> ),
+      label: (
+        <>
+          <Link href="/customer/contact/edit/">
+            <i className="bi bi-download"></i> Tải xuống
+          </Link>
+        </>
+      ),
     },
     {
       key: "2",
       label: (
-        <div onClick={()=>setIsDelOpen(true)}><i className="bi bi-trash3"></i> Xóa</div>
+        <div onClick={() => setIsDelOpen(true)}>
+          <i className="bi bi-trash3"></i> Xóa
+        </div>
       ),
     },
   ];
 
   return (
     <>
-    <div>
-      <Dropdown menu={{ items }}>
-        <button style={{ justifyContent: "center" }}>
-          <img src="/crm/3_cham.png" />
-          Thao tác
-        </button>
-      </Dropdown>
-    </div>
-    <DelActionModal
+      <div>
+        <Dropdown menu={{ items }}>
+          <button style={{ justifyContent: "center" }}>
+            <img src="/crm/3_cham.png" />
+            Thao tác
+          </button>
+        </Dropdown>
+      </div>
+      <DelActionModal
         isModalCancel={isDelOpen}
         setIsModalCancel={setIsDelOpen}
       />

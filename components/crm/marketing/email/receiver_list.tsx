@@ -24,7 +24,7 @@ const EmailPersonalTable: React.FC = () => {
   useEffect(() => {
     setHeaderTitle("Marketing/ Email");
     setShowBackButton(true);
-    setCurrentPath("/crm/marketing/email");
+    setCurrentPath("/marketing/email");
   }, [setHeaderTitle, setShowBackButton, setCurrentPath]);
 
   return (

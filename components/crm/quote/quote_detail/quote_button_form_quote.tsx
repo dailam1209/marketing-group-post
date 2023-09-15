@@ -82,8 +82,7 @@ export default function ButtonControlForm({ isSelectedRow }: any) {
     });
   }
 
-  const onChange = (checked: boolean) => {
-  };
+  const onChange = (checked: boolean) => {};
   return (
     <div>
       <div className={`${styles.main}`}>
@@ -141,10 +140,10 @@ export default function ButtonControlForm({ isSelectedRow }: any) {
         setIsModalCancel={setIsOpenUpdate}
       />
       <SendMailModal
-      record={path.id}
-      allkey={allkey}
-      isModalCancel={isOpenSend}
-      setIsModalCancel={setIsOpenSend}
+        record={path.id}
+        allkey={allkey}
+        isModalCancel={isOpenSend}
+        setIsModalCancel={setIsOpenSend}
       />
       <HandOverActionModal
         record={record}

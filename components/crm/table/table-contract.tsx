@@ -56,9 +56,9 @@ const TableContract: React.FC<TableContractProps> = ({ valSearch }) => {
 
   useEffect(() => {
     if (valSearch && !hasFetchedData) {
-    fetchData();
-    setHasFetchedData(true); // Đã gọi fetchData, đánh dấu là đã fetch data
-  }
+      fetchData();
+      setHasFetchedData(true); // Đã gọi fetchData, đánh dấu là đã fetch data
+    }
   }, [valSearch, hasFetchedData]);
 
   const columns: ColumnsType<DataType> = [
@@ -86,9 +86,7 @@ const TableContract: React.FC<TableContractProps> = ({ valSearch }) => {
       dataIndex: "user_created",
       key: "1",
       width: 200,
-      render: (name)=>(
-        <span>{name || "Chưa cập nhật"}</span>
-      )
+      render: (name) => <span>{name || "Chưa cập nhật"}</span>,
     },
     {
       title: "Ngày tạo",
@@ -112,7 +110,7 @@ const TableContract: React.FC<TableContractProps> = ({ valSearch }) => {
       // fixed:"right",
       render: (data) => (
         <>
-          <Link href={`/crm/contract/edit/${data}`}>
+          <Link href={`/contract/edit/${data}`}>
             <button>
               <img className={styles.icon_edit} src="/crm/h_edit_cus.svg" />
               Sửa

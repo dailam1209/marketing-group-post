@@ -4,10 +4,10 @@ import styles from "../../setting/setting.module.css";
 import { SidebarContext } from "@/components/crm/context/resizeContext";
 import { useHeader } from "@/components/crm/hooks/useHeader";
 import { Tabs } from "antd";
-import Status0 from "../promotion/promotion_body/status0"
-import Status1 from "../promotion/promotion_body/status1"
-import Status2 from "../promotion/promotion_body/status2"
-import Status3 from "../promotion/promotion_body/status3"
+import Status0 from "../promotion/promotion_body/status0";
+import Status1 from "../promotion/promotion_body/status1";
+import Status2 from "../promotion/promotion_body/status2";
+import Status3 from "../promotion/promotion_body/status3";
 
 const PromotionTable: React.FC = () => {
   const mainRef = useRef<HTMLDivElement>(null);
@@ -24,19 +24,19 @@ const PromotionTable: React.FC = () => {
   useEffect(() => {
     setHeaderTitle("Quản lý khuyến mại");
     setShowBackButton(true);
-    setCurrentPath("/crm/promotion");
+    setCurrentPath("/promotion");
   }, [setHeaderTitle, setShowBackButton, setCurrentPath]);
 
   const tabsItems = [
     {
       label: `Đang chạy (0)`,
       key: "0",
-      children: <Status0 key={0}/>,
+      children: <Status0 key={0} />,
     },
     {
       label: `Sắp tới (0)`,
       key: "1",
-      children: <Status1 key={1}/>,
+      children: <Status1 key={1} />,
     },
     {
       label: `Chưa chạy (0)`,
@@ -52,7 +52,7 @@ const PromotionTable: React.FC = () => {
 
   return (
     <div className={styleHome.main} ref={mainRef}>
-          <Tabs items={tabsItems} />
+      <Tabs items={tabsItems} />
     </div>
   );
 };

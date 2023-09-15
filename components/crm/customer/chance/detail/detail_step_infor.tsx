@@ -44,19 +44,14 @@ const DetailInformationChance: React.FC<PropsDetail> = ({ id1, id2 }) => {
       >
         <div>
           <Switch onChange={switchHandle} />
-          <span style={{marginLeft:'10px'}}>Ẩn dữ liệu trống</span>
+          <span style={{ marginLeft: "10px" }}>Ẩn dữ liệu trống</span>
         </div>
         <div className={stylesDetail["main__control-btn"]}>
           <Link
             href={`customer/chance/edit/${id1}/${id2}`}
             className={stylesDetail["btn_edit"]}
           >
-            <Image
-              alt="image"
-              width={16}
-              height={16}
-              src="/crm/edit_kh.svg"
-            />
+            <Image alt="image" width={16} height={16} src="/crm/edit_kh.svg" />
             Chỉnh sửa
           </Link>
           <button

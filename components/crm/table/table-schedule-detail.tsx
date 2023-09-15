@@ -47,7 +47,7 @@ const TableScheduleDetailCustomer: React.FC<
       dataIndex: "filename",
       key: "0",
       render: (data) => (
-        <Link href={`/crm/customer/schedule/detail/${id}/${data}`}>
+        <Link href={`/customer/schedule/detail/${id}/${data}`}>
           <span>{data}</span>
         </Link>
       ),

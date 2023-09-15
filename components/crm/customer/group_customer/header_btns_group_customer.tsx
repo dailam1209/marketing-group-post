@@ -26,7 +26,9 @@ export default function HeaderBtnsCustomerGroup({
               paddingBottom: "10px",
             }}
             className={styles.main__control_search}
-            onSubmit={(e)=>{e.preventDefault(),handleClickSearch()}}
+            onSubmit={(e) => {
+              e.preventDefault(), handleClickSearch();
+            }}
           >
             <input
               type="text"
@@ -35,7 +37,6 @@ export default function HeaderBtnsCustomerGroup({
               placeholder="Tìm kiếm theo tên nhóm khách hàng"
               value={valFilter}
               onChange={handleChangeInput}
-              
             />
             <button onClick={handleClickSearch} className={styles.kinh_lup}>
               <img
@@ -47,7 +48,7 @@ export default function HeaderBtnsCustomerGroup({
           </form>
         </div>
         <div className={`${styles.main__control_add} flex_end`}>
-          <Link href="/crm/customer/group/add">
+          <Link href="/customer/group/add">
             <button
               type="button"
               className={`${styles.dropbtn_add} flex_align_center`}

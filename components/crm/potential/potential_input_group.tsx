@@ -21,9 +21,9 @@ export default function PotentialInputGroups({
       "Họ tên": "John Doe",
       "Chức danh": "Manager",
       "Điện thoại cá nhân": "123-456-7890",
-      "/crm/ cá nhân": "john.doe@example.com",
+      " cá nhân": "john.doe@example.com",
       "Điện thoại cơ quan": "098-765-4321",
-      "/crm/ cơ quan": "john.doe@company.com",
+      " cơ quan": "john.doe@company.com",
       "Địa chỉ": "123 Main St",
       "Tỉnh/Thành phố": "New York",
       "Quận/Huyện": "Manhattan",
@@ -46,9 +46,9 @@ export default function PotentialInputGroups({
       "Họ tên",
       "Chức danh",
       "Điện thoại cá nhân",
-      "/crm/ cá nhân",
+      " cá nhân",
       "Điện thoại cơ quan",
-      "/crm/ cơ quan",
+      " cơ quan",
       "Địa chỉ",
       "Tỉnh/Thành phố",
       "Quận/Huyện",
@@ -114,7 +114,7 @@ export default function PotentialInputGroups({
           </form>
         </div>
         <div className={`${styles.main__control_add} flex_end`}>
-          <Link href="/crm/potential/add_file">
+          <Link href="/potential/add_file">
             <button
               type="button"
               className={`${styles.dropbtn_add} flex_align_center`}
@@ -123,7 +123,7 @@ export default function PotentialInputGroups({
               Thêm mới
             </button>
           </Link>
-          <Link href="/crm/potential/import_file">
+          <Link href="/potential/import_file">
             <button
               type="button"
               className={`${styles.dropbtn_add} flex_align_center ${styles.btn_file}`}

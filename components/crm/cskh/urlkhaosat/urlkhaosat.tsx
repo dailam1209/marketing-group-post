@@ -75,9 +75,18 @@ export default function URLKhaoSat() {
         </div>
       </div>
       <div>&nbsp;</div>
-      <div style={{float:"right"}}>
-        <Button onClick={()=>{alert("Gửi câu trả lời thành công, cảm ơn bạn đã đánh giá"),router.push("/khao-sat")}} style={{width:200,color:"#4C5BD4",border:"1px solid blue"}}> Gửi</Button>
+      <div style={{ float: "right" }}>
+        <Button
+          onClick={() => {
+            alert("Gửi câu trả lời thành công, cảm ơn bạn đã đánh giá"),
+              router.push("/khao-sat");
+          }}
+          style={{ width: 200, color: "#4C5BD4", border: "1px solid blue" }}
+        >
+          {" "}
+          Gửi
+        </Button>
       </div>
-   </div>
+    </div>
   );
 }

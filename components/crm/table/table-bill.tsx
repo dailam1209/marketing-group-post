@@ -26,14 +26,22 @@ const columns: ColumnsType<DataType> = [
     width: 180,
     dataIndex: "number",
     key: "number",
-    render:(text:any,record:any)=><Link href={`/crm/bill/detail/${record.key}`} ><b>{text}</b></Link>
+    render: (text: any, record: any) => (
+      <Link href={`/bill/detail/${record.key}`}>
+        <b>{text}</b>
+      </Link>
+    ),
   },
   {
     title: "Khách hàng",
     width: 180,
     dataIndex: "name",
     key: "name",
-    render:(text:any,record:any)=><Link href={`/crm/customer/detail/${record.key}`} ><b>{text}</b></Link>
+    render: (text: any, record: any) => (
+      <Link href={`/customer/detail/${record.key}`}>
+        <b>{text}</b>
+      </Link>
+    ),
   },
   {
     title: "Tình trạng",
@@ -86,14 +94,9 @@ const columns: ColumnsType<DataType> = [
     key: "11",
     width: 150,
     fixed: "right",
-    render: (text: any, record: any) =>
-      <BillActionTable
-        record={record.key}
-      />
+    render: (text: any, record: any) => <BillActionTable record={record.key} />,
   },
-  
 ];
-
 
 export const data: DataType[] = [];
 for (let i = 0; i < 100; i++) {
@@ -108,7 +111,6 @@ for (let i = 0; i < 100; i++) {
     total: `10.000.000.000`,
     address: `Số 1 Trần Nguyên Đán, Định Công, Hoàng Mai, Hà Nội`,
     status_bill: `Chưa gửi`,
-   
   });
 }
 

@@ -52,7 +52,7 @@ export default function AddPersonalCustomerInfor() {
       <p className={styles.main__body__type}>Nội dung email</p>
 
       <div className={styles.row_input}>
-        <div className={styles.mb_3} >
+        <div className={styles.mb_3}>
           <label className={`${styles["form-label"]}`}>Tiêu đề email</label>
           <textarea
             name="email_title"

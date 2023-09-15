@@ -42,7 +42,7 @@ const columns: ColumnsType<DataType> = [
     dataIndex: "filename",
     key: "0",
     render: (data) => (
-      <Link href={`/crm/chance/detail/main`}>
+      <Link href={`/chance/detail/main`}>
         <span>{data}</span>
       </Link>
     ),

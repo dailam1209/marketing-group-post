@@ -85,7 +85,7 @@ export default function OrderSelectBoxStep({
             </span>
           </span>
         </span>
-        {isOpen && <OrderDropDownDataStep data={data} value={value}/>}
+        {isOpen && <OrderDropDownDataStep data={data} value={value} />}
       </span>
     </div>
   );

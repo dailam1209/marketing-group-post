@@ -119,8 +119,7 @@ export default function CustomerListInputGroup({
     },
   ];
 
-  const onChange = (checked: boolean) => {
-  };
+  const onChange = (checked: boolean) => {};
 
   return (
     <>
@@ -180,7 +179,7 @@ export default function CustomerListInputGroup({
               <ModalCompleteStep
                 modal1Open={modal1Open}
                 setModal1Open={setModal1Open}
-                link="/crm/setting/sms"
+                link="/setting/sms"
                 title="Gửi sms thành công!"
               />
             }

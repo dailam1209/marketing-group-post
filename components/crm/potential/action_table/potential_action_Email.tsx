@@ -59,7 +59,7 @@ export default function PotentialActionEmailTable(props: any) {
       setIsOpenShare(true);
     }
     if (type === "edit") {
-      router.push("/crm/marketing/email/update");
+      router.push("/marketing/email/update");
     }
     if (type === "complete") {
       setIsOpenUpdate(true);

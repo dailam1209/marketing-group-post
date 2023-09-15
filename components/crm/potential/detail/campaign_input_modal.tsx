@@ -26,7 +26,7 @@ export default function CampaignInputGroupsModal({ isSelectedRow }: any) {
     setIsModalCancelPO(false);
   };
   const router = useRouter();
-  
+
   return (
     <div className={styles.main__control}>
       <div className={`${styles.main__control_btn} flex_between`}>
@@ -51,7 +51,7 @@ export default function CampaignInputGroupsModal({ isSelectedRow }: any) {
         <div className={`${styles.main__control_add} flex_end`}>
           <Link
             href={
-              router.pathname === "/crm/potential/detail/[id]"
+              router.pathname === "/potential/detail/[id]"
                 ? "#"
                 : "/crm/campaign/add"
             }

@@ -1,8 +1,5 @@
 import React, { useState } from "react";
-import { Button, Modal } from "antd";
-import Image from "next/image";
-import styles from "../potential.module.css";
-import { useRouter } from "next/router";
+import { Modal } from "antd";
 import { showModalWithTimeout } from "@/components/crm/ultis/helper";
 import ModalCompleteStep from "../potential_steps/complete_modal";
 

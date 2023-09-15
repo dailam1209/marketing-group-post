@@ -130,12 +130,9 @@ const TongDaiPage = (props: Props) => {
 
       if (data && data.items) {
         setListData(data?.items);
-      } 
+      }
       return data;
-    } catch (error) {
-      
-    }
- 
+    } catch (error) {}
   };
   const router = useRouter();
   useEffect(() => {
@@ -243,14 +240,14 @@ const TongDaiPage = (props: Props) => {
             className={styles.group_button_right}
             style={{ float: "right", marginTop: -40 }}
           >
-            <Link href={"/crm/ghi-am"}>
+            <Link href={"/ghi-am"}>
               <button>Ghi âm</button>
             </Link>
 
-            <Link href={"/crm/thong-ke-tong-dai"}>
+            <Link href={"/thong-ke-tong-dai"}>
               <button>Thống kê</button>
             </Link>
-            <Link href={"/crm/switchboard/manager/line"}>
+            <Link href={"/switchboard/manager/line"}>
               <button>Quản lý line</button>
             </Link>
           </div>
@@ -268,7 +265,7 @@ const TongDaiPage = (props: Props) => {
       )}
       {!showKetNoi && (
         <div className={cskh.connect_tongdai} style={{ paddingBottom: 20 }}>
-          <Link href={"/crm/setting/switch_board"}>
+          <Link href={"/setting/switch_board"}>
             <Button
               style={{ height: 40, width: 200 }}
               className={`${cskh.dropbtn_add} `}
@@ -288,7 +285,7 @@ const TongDaiPage = (props: Props) => {
 
       <div style={{ paddingTop: 20 }}>
         <Table
-        //  loading={datatable?.length>0?false:true}
+          //  loading={datatable?.length>0?false:true}
           columns={Colums as any}
           dataSource={datatable}
           bordered

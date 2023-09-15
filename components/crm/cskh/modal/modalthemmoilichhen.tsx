@@ -12,9 +12,7 @@ const AddTaiLieuDinhKem = (props: any) => {
     setOpen(true);
   };
 
-  const handleOk = () => {
-
-  };
+  const handleOk = () => {};
 
   const handleClose = () => {
     onClose();
@@ -26,7 +24,11 @@ const AddTaiLieuDinhKem = (props: any) => {
         open={isShowModalAdd}
         title={
           <div
-            style={{ background: "#4c5bd4", width: "110%", margin: "-20px -30px" }}
+            style={{
+              background: "#4c5bd4",
+              width: "110%",
+              margin: "-20px -30px",
+            }}
           >
             <div style={{ color: "white", fontSize: 20, textAlign: "center" }}>
               Thêm lịch hẹn
@@ -82,7 +84,11 @@ const AddTaiLieuDinhKem = (props: any) => {
             Tên lịch hẹn <b>*</b>
           </div>
           <div>
-            <Input required={true} width={"100%"} placeholder={"Nhập tên lịch hẹn"}></Input>
+            <Input
+              required={true}
+              width={"100%"}
+              placeholder={"Nhập tên lịch hẹn"}
+            ></Input>
           </div>
           <div className={styles.title}>
             Khách hàng <b>*</b>
@@ -111,7 +117,7 @@ const AddTaiLieuDinhKem = (props: any) => {
           <div className={styles.title}>
             Nhân viên thực hiện <b>*</b>
           </div>
-          <div style={{maxWidth:500}}>
+          <div style={{ maxWidth: 500 }}>
             <PotentialSelectBoxStep
               value="Chọn nhân viên thực hiện"
               placeholder="Chọn nhân viên thực hiện"

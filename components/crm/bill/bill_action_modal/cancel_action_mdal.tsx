@@ -39,7 +39,8 @@ const DelActionModal: React.FC<MyComponentProps> = ({
         cancelText="Huỷ"
       >
         <div className={styles.row_mdal}>
-          <div className={`${styles.md_txtarea}`}>Lý do*
+          <div className={`${styles.md_txtarea}`}>
+            Lý do*
             <textarea
               name="address_contact"
               id="address_contact"
@@ -50,8 +51,6 @@ const DelActionModal: React.FC<MyComponentProps> = ({
             />
           </div>
         </div>
-
-
       </Modal>
 
       <ModalCompleteStep

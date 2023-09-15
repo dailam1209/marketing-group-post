@@ -3,7 +3,7 @@ import { Modal } from "antd";
 import styles from "@/components/crm/campaign/campaign.module.css";
 import CampaignSelectBoxStep from "@/components/crm/campaign/campaign_steps/select_box_step";
 import ModalCompleteStep from "@/components/crm/campaign/campaign_steps/complete_modal";
-import { Input } from 'antd';
+import { Input } from "antd";
 
 interface MyComponentProps {
   isModalCancel: boolean;
@@ -46,31 +46,40 @@ const HandeOverModal: React.FC<MyComponentProps> = ({
               placeholder="Chọn nhân viên thực hiện"
             />
           </div>
-          
         </div>
 
         <div className={styles.row_mdal}>
           <div className={styles.choose_obj}>
-            <label className={`${styles.form_label} `}>
-              {"Ngày bắt đầu"}
-            </label>
-            <Input placeholder="Nhập địa điểm" type="date" className={`${styles.input_width}`}/>
-            <Input placeholder="" type="time" className={`${styles.input_width}`}/>
+            <label className={`${styles.form_label} `}>{"Ngày bắt đầu"}</label>
+            <Input
+              placeholder="Nhập địa điểm"
+              type="date"
+              className={`${styles.input_width}`}
+            />
+            <Input
+              placeholder=""
+              type="time"
+              className={`${styles.input_width}`}
+            />
           </div>
-          
         </div>
 
         <div className={styles.row_mdal}>
           <div className={styles.choose_obj}>
-            <label className={`${styles.form_label} `}>
-              {"Ngày kết thúc"}
-            </label>
-            <Input placeholder="Nhập địa điểm" type="date" className={`${styles.input_width}`}/>
-            <Input placeholder="" type="time" className={`${styles.input_width}`}/>
+            <label className={`${styles.form_label} `}>{"Ngày kết thúc"}</label>
+            <Input
+              placeholder="Nhập địa điểm"
+              type="date"
+              className={`${styles.input_width}`}
+            />
+            <Input
+              placeholder=""
+              type="time"
+              className={`${styles.input_width}`}
+            />
           </div>
-          
         </div>
-        
+
         <div className={styles.row_mdal}>
           <div className={styles.choose_obj}>
             <label className={`${styles.form_label} required`}>
@@ -81,26 +90,23 @@ const HandeOverModal: React.FC<MyComponentProps> = ({
               placeholder="Chọn nhân viên thực hiện"
             />
           </div>
-          
         </div>
         <div className={styles.row_mdal}>
           <div className={styles.choose_obj}>
-            <label className={`${styles.form_label} `}>
-              {"Tên lịch hẹn"}
-            </label>
+            <label className={`${styles.form_label} `}>{"Tên lịch hẹn"}</label>
             <Input placeholder="Nhập địa điểm" />
           </div>
-          
         </div>
         <div>&nbsp;</div>
         <div className={styles.row_mdal}>
           <div className={styles.choose_obj}>
-            <label className={`${styles.form_label} `}>
-              {"Mô tả"}
-            </label>
-            <textarea name="note" placeholder="Nhập nội dung mô tả" className={`${styles.note_campaign_cus} ${styles.textarea}`}></textarea>
+            <label className={`${styles.form_label} `}>{"Mô tả"}</label>
+            <textarea
+              name="note"
+              placeholder="Nhập nội dung mô tả"
+              className={`${styles.note_campaign_cus} ${styles.textarea}`}
+            ></textarea>
           </div>
-          
         </div>
       </Modal>
       <ModalCompleteStep

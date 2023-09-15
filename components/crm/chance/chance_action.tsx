@@ -25,7 +25,7 @@ export default function ChanceActionDropDown({ isSelectedRow }: any) {
     {
       key: "1",
       label: (
-        <Link href="/crm/order/add" className="btn-huy flex-start">
+        <Link href="/order/add" className="btn-huy flex-start">
           <i className="bi bi-cart"></i>
           Thêm đơn hàng
         </Link>
@@ -34,7 +34,7 @@ export default function ChanceActionDropDown({ isSelectedRow }: any) {
     {
       key: "2",
       label: (
-        <Link href="/crm/quote/add" className="btn-huy flex-start">
+        <Link href="/quote/add" className="btn-huy flex-start">
           <i
             className="bi bi-currency-dollar"
             style={{

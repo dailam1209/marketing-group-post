@@ -29,7 +29,7 @@ const DelTLDK: React.FC<MyComponentProps> = ({
         open={isModalCancel}
         onCancel={() => onClose()}
         className={"mdal_cancel"}
-        onOk={()=>(setIsMdalSuccess(true),onClose())}
+        onOk={() => (setIsMdalSuccess(true), onClose())}
         okText="Đồng ý"
         cancelText="Huỷ"
       >

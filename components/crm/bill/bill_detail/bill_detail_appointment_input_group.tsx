@@ -4,11 +4,12 @@ import styles from "@/components/crm/bill/bill_detail/bill_detail_action_modal/b
 import BillDetailSelectBox from "@/components/crm/bill/bill_detail/bill_detail_action_modal/bill_detail_select";
 
 export default function BillDetailAppointmentInputGroups() {
-  
   return (
     <div className={styles.main__control}>
       <div className={`${styles.main__control_select} flex_align_center`}>
-        <div className={`${styles.select_item} flex_align_center_item ${styles.select_item_time}`}>
+        <div
+          className={`${styles.select_item} flex_align_center_item ${styles.select_item_time}`}
+        >
           <label htmlFor="" className="">
             Thời gian thực hiện:{" "}
           </label>
@@ -17,12 +18,10 @@ export default function BillDetailAppointmentInputGroups() {
             <input type="date" name="" id="end_time" />
           </div>
         </div>
-        
+
         <BillDetailSelectBox title="Nhân viên:" value="Tất cả nhân viên" />
         <BillDetailSelectBox title="Trạng thái:" value="Tất cả" />
-
       </div>
-      
 
       <div className={`${styles.main__control_btn} flex_between`}>
         {/* <div className={styles.main__control_search}>
@@ -56,8 +55,6 @@ export default function BillDetailAppointmentInputGroups() {
           
         </div> */}
       </div>
-
-    
     </div>
   );
 }

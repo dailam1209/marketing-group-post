@@ -35,7 +35,11 @@ const columns: ColumnsType<DataType> = [
     width: 200,
     dataIndex: "name",
     key: "name",
-    render:(text:any,record:any)=><Link href={`/crm/customer/detail/${record.key}`} ><b>{text}</b></Link>
+    render: (text: any, record: any) => (
+      <Link href={`/customer/detail/${record.key}`}>
+        <b>{text}</b>
+      </Link>
+    ),
   },
   {
     title: "Điện thoại",
@@ -102,9 +106,7 @@ const columns: ColumnsType<DataType> = [
     key: "date",
     width: 120,
   },
-  
 ];
-
 
 export const data: DataType[] = [];
 for (let i = 0; i < 100; i++) {
@@ -120,7 +122,6 @@ for (let i = 0; i < 100; i++) {
     group: `Nhóm khách hàng không quan tâm`,
     staff: `Nguyễn Văn Nam`,
     date: `10/10/2021`,
-   
   });
 }
 
@@ -155,7 +156,7 @@ const TableDataOrder: React.FC<TableDataOrderProps> = ({
         bordered
         scroll={{ x: 1000, y: 300 }}
       />
-      <div className={`${styles.main__footer} ${styles.flex_between}`} >
+      <div className={`${styles.main__footer} ${styles.flex_between}`}>
         <div className="total">
           Tổng số: <b>{data.length}</b> Chiến dịch
         </div>
@@ -169,7 +170,6 @@ const TableDataOrder: React.FC<TableDataOrderProps> = ({
             <option value={50}>50 bản ghi trên trang</option>
           </select>
         </div>
-        
       </div>
     </div>
   );
