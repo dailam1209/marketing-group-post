@@ -279,7 +279,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
         <div
           onClick={() => handleShowCall(record)}
           style={{ cursor: "pointer", color: record?.count_content_call !==0  && record?.count_content_call ? "#ffa800" : "#474747"}}
-          className={data.length > 20 ? "truncate-text" : ""}
+          className={data?.length > 20 ? "truncate-text" : ""}
         >
           {data}
         </div>

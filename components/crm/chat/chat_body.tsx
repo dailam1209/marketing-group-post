@@ -70,8 +70,8 @@ export default function ChatBusinessBody({
 }: any) {
   const [infoCus, setInfoCus] = useState<any>();
 
-  let test1 = listGr.filter((item) => item.gr_id === group_idFix);
-  let tes2 = listGr_Child.filter((item) => item.gr_id === group_idFix);
+  let test1 = listGr?.filter((item) => item.gr_id === group_idFix);
+  let tes2 = listGr_Child?.filter((item) => item.gr_id === group_idFix);
   useEffect(() => {
     if (test1 && test1[0]?.lists_child) {
       setnhomCha(group_idFix);
