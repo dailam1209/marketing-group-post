@@ -148,6 +148,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   posId,
   listNV,
 }: any) => {
+
   const [openModalCall, setOpenModalCall] = useState(false);
   const router = useRouter();
   const [openEditText, setOpenEditText] = useState(false);

@@ -55,7 +55,6 @@ const TableStaffCustomerGroupAdd: React.FC<TableStaffCustomerGroupAddProps> = ({
   data?.map((item) => {
     data2.push(item.item);
   });
-  console.log(data2);
   function handleDelRow(item: any): void {
     setIsOpenModalDel(true);
     setIdDel(item?._id);

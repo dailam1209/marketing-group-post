@@ -108,105 +108,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
   const router = useRouter();
   const currentTime = moment(); // Thời điểm hiện tại
   const pastTime = currentTime.subtract(2, "days");
-  // const handleGetGr = async () => {
-  //   try {
-  //     const res = await fetch(
-  //       `${base_url}/api/crm/group/list_group_khach_hang`,
-  //       {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: `Bearer ${Cookies.get("token_base365")}`,
-  //         },
-  //         body: JSON.stringify({ com_id: Cookies.get("com_id") }),
-  //       }
-  //     );
-  //     let arr = [];
-  //     const data = await res.json();
-  //     setListGr(data?.data);
-  //     data?.data?.map((item) => {
-  //       item?.lists_child.map((item) => {
-  //         arr.push(item);
-  //       });
-  //       setlistGr_Child(arr);
-  //     });
-  //   } catch (error) {
-  //     console.log("error:", error);
-  //   }
-  // };
-  // const [listNV, setLishNv] = useState<any>();
-  // const [dep_id, setDep_id] = useState<any>();
-  // const [posId, setposId] = useState<any>();
-
-  // useEffect(() => {
-  //   handleGetGr();
-  // }, []);
-  // const role = Cookies.get("role");
-  // const [nameNvNomor, setnameNvNomor] = useState<any>();
-  // const handleGetInfoCusNV = async () => {
-  //   try {
-  //     if (role == "2") {
-  //       const res = await fetch(
-  //         `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/employee/info`,
-  //         {
-  //           method: "POST",
-  //           headers: {
-  //             "Content-Type": "application/json",
-  //             Authorization: `Bearer ${Cookies.get("token_base365")}`,
-  //           },
-  //           // body: JSON.stringify({ com_id: `${Cookies.get("com_id")}` }),
-  //         }
-  //       );
-  //       const data = await res.json();
-  //       if (data && data?.data) {
-  //         setDep_id(data?.data?.data?.dep_id);
-  //         setposId(data?.data?.data?.position_id);
-  //         setnameNvNomor(data?.data?.data);
-  //       }
-  //     }
-  //   } catch (error) {}
-  // };
-
-  // const handleGetInfoCus = async () => {
-  //   try {
-  //     const res = await fetch(
-  //       `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/listAll`,
-  //       {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: `Bearer ${Cookies.get("token_base365")}`,
-  //         },
-  //       }
-  //     );
-  //     const data = await res.json();
-  //     if (data && data?.data) setLishNv(data?.data?.items);
-  //   } catch (error) {}
-  // };
-  // let nv = listNV?.filter((item) => item.dep_id === dep_id);
-  // const [listNVPT, setlistNVPT] = useState<any>();
-  // const handleGetNvPt = async () => {
-  //   try {
-  //     const res = await fetch(
-  //       `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/list`,
-  //       {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: `Bearer ${Cookies.get("token_base365")}`,
-  //         },
-  //         body: JSON.stringify({ dep_id: dep_id }),
-  //       }
-  //     );
-  //     const data = await res.json();
-  //     if (data && data?.data) setlistNVPT(data?.data?.items);
-  //   } catch (error) {}
-  // };
-  // useEffect(() => {
-  //   handleGetInfoCusNV();
-  //   handleGetInfoCus();
-  //   handleGetNvPt();
-  // }, [dep_id]);
+  
   const [idChaSaved, setidChaSaved] = useState<any>(-1);
   const checkCha = useSelector((state: any) => state?.auth?.ghimCha);
   const valueChaOld = useSelector((state: any) => state?.auth?.valueCha);
@@ -245,22 +147,11 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
   const handleDateChangeStart = (e) => {
     setdateS(e.target.value);
   };
-  const handleDateChangeEnd = (e) => {};
+  const handleDateChangeEnd = (e) => {
+    setdateE(e.target.value);
+  };
 
-  // role == "1" &&
-  // // <option value={null}>Tất cả</option>
-  //   listNV?.map((userName, index) => (
-  //     <option
-  //       style={{ width: "100%" }}
-  //       key={index}
-  //       value={userName?.ep_id as any}
-  //     >
-  //       <div style={{ display: "block" }}>
-  //         ( {`${userName.ep_id}`}) {`${userName?.ep_name}`} <br /> -
-  //         {`${userName.dep_name}`}
-  //       </div>
-  //     </option>
-  //   ));
+ 
   const optionTest =
     role == "2" && posId !== 2
       ? [
@@ -305,16 +196,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
             };
           }),
         ];
-  // <option
-  //   style={{ width: "100%" }}
-  //   key={index}
-  //   value={userName?.ep_id as any}
-  // >
-  //   <div style={{ display: "block" }}>
-  //     ( {`${userName.ep_id}`}) {`${userName?.ep_name}`} <br /> -
-  //     {`${userName.dep_name}`}
-  //   </div>
-  // </option>
+  
   {
     role == "2" &&
       posId == 2 &&
@@ -526,18 +408,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
               }),
             ]}
           >
-            {/* {" "}
-            <option value={-1}>Tất cả</option>
-            <option value={-2}>Chưa cập nhật</option>
-            {listGr?.map((item: any, index) => {
-              if (item?.group_parent == 0) {
-                return (
-                  <option key={index} value={item?.gr_id}>
-                    {item.gr_name}
-                  </option>
-                );
-              }
-            })} */}
+          
           </Select>
         </div>
 

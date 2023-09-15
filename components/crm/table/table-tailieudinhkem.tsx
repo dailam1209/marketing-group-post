@@ -15,7 +15,6 @@ const TableAddTLDK: React.FC<TableDataCampaignProps> = (props: any) => {
     setIsCancelOpen(false);
   };
   const handleAddDB = () => {
-    console.log("remove");
   };
   interface DataType {
     key: React.Key;
@@ -145,7 +144,6 @@ const TableAddTLDK: React.FC<TableDataCampaignProps> = (props: any) => {
     });
   }
   const handleSelect = (value: any) => {
-    console.log(value);
     setKey(value);
   };
   return (

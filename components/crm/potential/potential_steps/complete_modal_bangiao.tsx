@@ -4,6 +4,8 @@ import { Modal } from "antd";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { base_url } from "../../service/function";
+import styles from "../../potential/potential.module.css";
+
 const Cookies = require("js-cookie");
 interface ModalCompleteStepProps {
   modal1Open: boolean;
@@ -25,29 +27,6 @@ const ModalCompleteStep: React.FC<ModalCompleteStepProps> = ({
 
   const handleClick = async () => {
     setModal1Open(false);
-    // router.push(link);
-    const url = `${base_url}/api/crm/customerdetails/editCustomer`;
-
-    const formData = new FormData();
-    formData.append("description", editorContent);
-    formData.append("type", "2");
-    formData.append("cus_id", cusId);
-
-    const headers = {
-      Authorization: `Bearer ${Cookies.get("token_base365")}`,
-    };
-
-    const config = {
-      method: "POST",
-      headers: headers,
-      body: formData,
-    };
-    try {
-      const response = await fetch(url, config);
-      const data = await response.json();
-    } catch (error) {
-      console.error(error);
-    }
     router.push("#");
   };
   return (
@@ -65,9 +44,20 @@ const ModalCompleteStep: React.FC<ModalCompleteStepProps> = ({
           style={{ top: 20 }}
           open={modal1Open}
           onOk={handleClick}
-          className="custom_mdal_sucess"
+          className="custom_mdal_sucess popup_sucess"
         >
-          <div style={{ textAlign: "center" }}>{title}</div>
+          <div
+            style={{
+              textAlign: "center",
+              display: "flex",
+              flexDirection: "column",
+              fontSize: "16px",
+            }}
+          >
+            <p>Bàn giao công việc cho </p>
+            <span className={styles.span_success_custom}>{title}</span>
+            <p>thành công!</p>
+          </div>
         </Modal>
       </div>
     </div>

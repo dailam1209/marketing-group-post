@@ -16,7 +16,6 @@ import Image from "next/image";
 
 export default function QuoteActionLichHenTable(props: any) {
   const { record, allkey } = props;
-  console.log(record);
   const [isDelOpen, setIsDelOpen] = useState(false);
   const [isOrderBrowsingOpen, setIsOrderBrowsingOpen] = useState(false);
   const [isDenyOpen, setIsDenyOpen] = useState(false);

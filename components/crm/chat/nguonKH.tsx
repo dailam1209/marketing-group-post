@@ -49,7 +49,7 @@ export default function SelectBoxInputNguon({
         tabIndex={-1}
         aria-hidden="true"
         value={valueNguonKK?valueNguonKK:infoCus?.resoure?.info}
-          onChange={(value)=>setnguon(value)}
+          onChange={(value)=>(setnguon(value),setvalueNguonKK(value))}
       >
         {ArrNguonKK?.map((item: any, index: any) => (
           <option value={item?.id} key={index}>

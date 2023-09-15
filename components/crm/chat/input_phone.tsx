@@ -7,7 +7,6 @@ const Cookies = require("js-cookie");
 export default function InputPhone({ infoCus,refPhone, setPhone }: any) {
   const [numberValue, setNumberValue] = useState("");
   const [isCalling, setIsCalling] = useState(false);
-  const [change, setChange] = useState('')
   // console.log("infoCus",infoCus)
   const handleCallBtn = async () => {
     if (numberValue) {
@@ -43,10 +42,9 @@ export default function InputPhone({ infoCus,refPhone, setPhone }: any) {
           <input
             type="number"
             ref={refPhone}
-            // value={infoCus?.phone_number?.info}
             defaultValue={infoCus?.phone_number?.info}
             className={styles.input_phone}
-            onChange={(e)=>setPhone(e.target.name)}
+            // onChange={(e)=>console.log(e.target.name)}
           />
         </form>
       </div>

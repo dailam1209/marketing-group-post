@@ -70,16 +70,13 @@ export default function CustomerList() {
   >([]);
 
   useEffect(() => {
-    if (
-      dateS != undefined &&
-      timeStart != undefined &&
-      dateE != undefined &&
-      timeEnd != undefined
-    ) {
-      setTime_s(dateS + " " + timeStart);
+    setTime_s(dateS + " " + timeStart);
+
+    if (dateE) {
       setTime_e(dateE + " " + timeEnd);
     }
   }, [dateS, dateE, timeStart, timeEnd]);
+
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
   const fetchData = async () => {
@@ -97,7 +94,7 @@ export default function CustomerList() {
           status: status,
           resoure: resoure,
           user_create_id: nvPhuTrach,
-          userNameCreate: userNameCreate,
+          emp_id: emp_id,
           group_id: idNhom,
           // group_pins_id: nhomCon,
           time_s: time_s,

@@ -20,7 +20,6 @@ const MultipleSelection: React.FC = () => {
   const [value, setValue] = useState<string[]>([]);
 
   const onChange = (newValue: string[]) => {
-    console.log("onChange ", newValue);
     setValue(newValue);
   };
 

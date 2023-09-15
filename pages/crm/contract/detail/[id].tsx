@@ -61,7 +61,6 @@ const EditContractCoponent: React.FC = () => {
     getImageBase64();
   }, []);
 
-  console.log("-----", FormData);
 
   return (
     <>

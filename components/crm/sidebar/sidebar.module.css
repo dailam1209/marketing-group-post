@@ -1,5 +1,5 @@
 .sidebar {
-  z-index: 5;
+  z-index: 10000;
   position: fixed;
   float: left;
   background: #4c5bd4;
@@ -90,7 +90,7 @@
 
 .item_link {
   width: 100%;
-  font-family: 'Roboto-Bold';
+  font-family: "Roboto-Bold";
   padding: 15px;
   display: flex;
   align-items: center;
@@ -132,7 +132,7 @@
 }
 
 .navbar_treeview:before {
-  content: '';
+  content: "";
   position: absolute;
   background: silver;
   padding: 0 2px;

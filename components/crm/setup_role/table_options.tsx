@@ -4,7 +4,6 @@ export default function TableOptions({ checkboxState, setCheckboxState }: any) {
     target: { name: any; checked: any };
   }) => {
     const { name, checked } = event.target;
-    // console.log(checked, name)
     setCheckboxState((prevState: any) => ({
       ...prevState,
       checkboxItems: {
@@ -12,7 +11,6 @@ export default function TableOptions({ checkboxState, setCheckboxState }: any) {
         [name]: checked,
       },
     }));
-    console.log(checkboxState.checkboxItems.type1)
   };
 
   return (

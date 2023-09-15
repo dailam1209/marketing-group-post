@@ -98,7 +98,7 @@ export default function ChatBusinessBody({
   };
   useEffect(() => {
     handleGetInfoCus();
-  }, [cusId]);
+  }, []);
   // const [listGr, setListGr] = useState([]);
   const [list_gr_child, setlistGr_Child] = useState([]);
 
@@ -214,7 +214,7 @@ export default function ChatBusinessBody({
       const formData = new FormData();
       formData.append("group_id", nhonkhachhang);
       formData.append("type", infoCus?.type);
-      formData.append("cus_id", group_idFix);
+      formData.append("cus_id", cusId);
 
       const headers = {
         Authorization: `Bearer ${Cookies.get("token_base365")}`,
@@ -237,12 +237,11 @@ export default function ChatBusinessBody({
 
     // update tinh trang
     const updateTinhTrang = async () => {
-      // update nhóm kh
       const url = `${base_url}/api/crm/customerdetails/editCustomer`;
       const formData = new FormData();
       formData.append("status", tinhtrang);
       formData.append("type", infoCus?.type);
-      formData.append("cus_id", group_idFix);
+      formData.append("cus_id", cusId);
 
       const headers = {
         Authorization: `Bearer ${Cookies.get("token_base365")}`,
@@ -263,9 +262,8 @@ export default function ChatBusinessBody({
       }
     };
 
-    // update tinh trang
+    // updatenguon
     const updateNguon = async () => {
-      // update nhóm kh
       const url = `${base_url}/api/crm/customerdetails/editCustomer`;
       const formData = new FormData();
       formData.append("resoure", nguon);
@@ -290,10 +288,9 @@ export default function ChatBusinessBody({
         console.error(error);
       }
     };
-
-    // update tinh trang
+    
+    // update name
     const updateName = async () => {
-      // update nhóm kh
       const url = `${base_url}/api/crm/customerdetails/editCustomer`;
       const formData = new FormData();
       formData.append("name", refName?.current?.value);
@@ -320,7 +317,6 @@ export default function ChatBusinessBody({
     };
 
     const updateMail = async () => {
-      // update nhóm kh
       const url = `${base_url}/api/crm/customerdetails/editCustomer`;
       const formData = new FormData();
       formData.append("email", refMail?.current?.value);

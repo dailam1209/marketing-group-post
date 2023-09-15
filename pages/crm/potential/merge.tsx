@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
   const [data, setData] = useState([]);
-  console.log(data);
 
   useEffect(() => {
     const storedData = sessionStorage.getItem("myData");
@@ -13,7 +12,6 @@ export default function Home() {
       const parsedData = JSON.parse(storedData);
       setData(parsedData.data);
     } else {
-      console.log("Không có dữ liệu trong session storage");
     }
   }, []);
   return (

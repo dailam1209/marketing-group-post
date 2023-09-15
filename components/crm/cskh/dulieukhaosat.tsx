@@ -21,11 +21,9 @@ const DLKhaoSat = (props: Props) => {
     setIsShowModal(false);
   };
   const handleSelect = (id: any) => {
-    console.log(id);
     setId(id);
   };
   const handleDeleteDB = () => {
-    console.log("delete");
     setIsShowModal(false);
   };
   const data = [];

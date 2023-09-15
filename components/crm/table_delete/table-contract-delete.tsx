@@ -28,7 +28,6 @@ const Table_Contract = (props: any) => {
 
     }
     const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
-        console.log('selectedRowKeys changed: ', newSelectedRowKeys);
         setSelectedRowKeys(newSelectedRowKeys);
     };
     const rowSelection = {
@@ -62,12 +61,11 @@ const Table_Contract = (props: any) => {
         setPageSize(selectedOptionValue);
     };
     const handleDeleteDB = () => {
-        console.log("delete DB")
+        
         onClose()
 
     }
     const handleReturnDB = () => {
-        console.log("return DB")
         onClose()
 
     }

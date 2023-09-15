@@ -24,7 +24,7 @@ import SendSMSDemoModal from "../mdal_action/send_demo.sms";
 
 export default function PotentialActionSMSTable(props: any) {
   const { record, allkey } = props;
-  console.log(record);
+  
   const [isModalCancel, setIsModalCancel] = useState(false);
   const [isDelOpen, setIsDelOpen] = useState(false);
   const [isOrderBrowsingOpen, setIsOrderBrowsingOpen] = useState(false);
