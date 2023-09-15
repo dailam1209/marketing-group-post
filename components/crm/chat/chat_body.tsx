@@ -98,7 +98,7 @@ export default function ChatBusinessBody({
   };
   useEffect(() => {
     handleGetInfoCus();
-  }, []);
+  }, [cusId]);
   // const [listGr, setListGr] = useState([]);
   const [list_gr_child, setlistGr_Child] = useState([]);
 
