@@ -49,6 +49,9 @@ interface PropsComponent {
   nameNvNomor: any;
   listGr: any;
   listGr_Child?: any;
+  setIsApDung?: any;
+  setIsOpenFilterBox?: any;
+  isOpenFilterBox?: any;
 }
 
 const CustomerListFilterBox: React.FC<PropsComponent> = ({
@@ -82,6 +85,10 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
   nameNvNomor,
   listGr,
   listGr_Child,
+  setIsApDung,
+  setTime_s,
+  setIsOpenFilterBox,
+  isOpenFilterBox,
 }) => {
   const [valueSelectStatus, setValueSelectStatus] = useState<any>();
   const [valueResoure, sevalueResoure] = useState<any>();
@@ -108,7 +115,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
   const router = useRouter();
   const currentTime = moment(); // Thời điểm hiện tại
   const pastTime = currentTime.subtract(2, "days");
-  
+
   const [idChaSaved, setidChaSaved] = useState<any>(-1);
   const checkCha = useSelector((state: any) => state?.auth?.ghimCha);
   const valueChaOld = useSelector((state: any) => state?.auth?.valueCha);
@@ -121,6 +128,15 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
     if (checkCha) {
     }
   }, [idChaSaved]);
+
+  useEffect(() => {
+    if (isOpenFilterBox) {
+      setTimeStart("12:00:00");
+      setTime_s("12:00:00 " + pastTime.format("YYYY-MM-DD"));
+      setdateS(pastTime.format("YYYY-MM-DD"));
+      setTimeEnd("00:00:00");
+    }
+  }, [isOpenFilterBox]);
 
   const handleSelectNhomCha = (value) => {
     setnhomCha(value);
@@ -151,7 +167,6 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
     setdateE(e.target.value);
   };
 
- 
   const optionTest =
     role == "2" && posId !== 2
       ? [
@@ -188,15 +203,15 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
             return {
               value: userName?.ep_id,
               label:
-                `(${userName._id})` +
+                `(${userName?._id})` +
                 " " +
                 userName?.userName +
                 " " +
-                userName.nameDeparment,
+                userName?.nameDeparment,
             };
           }),
         ];
-  
+
   {
     role == "2" &&
       posId == 2 &&
@@ -227,7 +242,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
       }),
     ];
   }
-  let optionCon:any = []
+  let optionCon: any = [];
   const getOptionC = () => {
     let defaultArr = [{ value: "", label: "Tất cả" }];
     const newArr = listGr_Child
@@ -407,9 +422,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
                 }
               }),
             ]}
-          >
-          
-          </Select>
+          ></Select>
         </div>
 
         <div className={styles.form_group}>
@@ -518,6 +531,8 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
           data-dismiss="modal"
           onClick={() => {
             setOpen(false), router.push("/crm/customer/list");
+            setIsOpenFilterBox(false);
+            setIsApDung(false);
           }}
         >
           Hủy lọc
@@ -525,6 +540,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
         <button
           onClick={async () => {
             handlefilter();
+            setIsApDung(true);
           }}
           type="submit"
           className={styles.btn_apply}

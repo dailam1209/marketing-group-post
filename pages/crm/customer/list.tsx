@@ -40,6 +40,7 @@ export default function CustomerList() {
   const [name, setName] = useState();
   const [selectedCus, setSelectedCus] = useState<any>();
   const [des, setDes] = useState();
+  const [isOpenFilterBox, setIsOpenFilterBox] = useState(false)
   const [lisCus, setListCus] = useState([]);
   const [status, setStatus] = useState();
   const [resoure, setResoure] = useState();
@@ -57,26 +58,29 @@ export default function CustomerList() {
   const [totalRecords, setTotalRecords] = useState();
   const [dataStatus, setdataStatus] = useState<any>();
   const [group_id, setgroup_id] = useState();
-  const [timeStart, setTimeStart] = useState("12:00:00");
-  const [timeEnd, setTimeEnd] = useState("00:00:00");
-  const [dateS, setdateS] = useState(pastTime.format("YYYY-MM-DD"));
+  const [timeStart, setTimeStart] = useState();
+  const [timeEnd, setTimeEnd] = useState();
+  const [dateS, setdateS] = useState();
   const [dateE, setdateE] = useState(null);
   const [time_s, setTime_s] = useState<any>(null);
   const [time_e, setTime_e] = useState<any>(null);
   const [emp_id, setemp_id] = useState<any>();
   const [idNhom, setIdNhom] = useState<any>();
+  const [isAPDung, setIsApDung] = useState(false);
   const [selectedCusIds, setSelectedCusIds] = useState<
     { cus_id: number; emp_id: number }[]
   >([]);
 
   useEffect(() => {
-    setTime_s(dateS + " " + timeStart);
-
-    if (dateE) {
-      setTime_e(dateE + " " + timeEnd);
+    if (isAPDung) {
+      if (dateE) {
+        setTime_e(dateE + " " + timeEnd);
+      }
+    } else if(!isAPDung && !isOpenFilterBox) {
+      setTime_s(null);
+      setTime_e(null);
     }
-  }, [dateS, dateE, timeStart, timeEnd]);
-
+  }, [isAPDung, isOpenFilterBox]);
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
   const fetchData = async () => {
@@ -419,6 +423,9 @@ export default function CustomerList() {
             posId={posId}
             listNV={listNV}
             handover={selectedCusIds}
+            setIsOpenFilterBox ={setIsOpenFilterBox}
+            setIsApDung = {setIsApDung}
+            isOpenFilterBox = {isOpenFilterBox}
           />
           <TableListCustomer
             fetchData={fetchData}
