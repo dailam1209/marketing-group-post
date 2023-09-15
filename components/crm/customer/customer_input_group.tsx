@@ -54,6 +54,8 @@ export default function CustomerListInputGroup({
   setIsApDung,
   setIsOpenFilterBox,
   isOpenFilterBox,
+  sendingData,
+  dataLength,
 }: any) {
   const [open, setOpen] = useState(false);
   const inputFileRef = useRef<HTMLInputElement>(null);
@@ -61,11 +63,11 @@ export default function CustomerListInputGroup({
 
   const showDrawer = () => {
     setOpen(true);
-    setIsOpenFilterBox(true)
+    setIsOpenFilterBox(true);
   };
   const onClose = () => {
     setOpen(false);
-    setIsOpenFilterBox(false)
+    setIsOpenFilterBox(false);
   };
   const datas: any = datatable?.map((item: DataType) => {
     return {
@@ -231,6 +233,8 @@ export default function CustomerListInputGroup({
           listNV={listNV}
           handover={handover}
           fetchData={fetchData}
+          sendingData={sendingData}
+          dataLength={dataLength}
         />
 
         <div className={`${styles.main__control_add}`}>
@@ -309,9 +313,9 @@ export default function CustomerListInputGroup({
             nameNvNomor={nameNvNomor}
             listGr={listGr}
             listGr_Child={listGr_Child}
-            setIsApDung = {setIsApDung}
-            setIsOpenFilterBox ={setIsOpenFilterBox}
-            isOpenFilterBox = {isOpenFilterBox}
+            setIsApDung={setIsApDung}
+            setIsOpenFilterBox={setIsOpenFilterBox}
+            isOpenFilterBox={isOpenFilterBox}
           />
         </div>
       </Drawer>

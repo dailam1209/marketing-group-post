@@ -10,7 +10,7 @@ const Cookies = require("js-cookie");
 interface ModalCompleteStepProps {
   modal1Open: boolean;
   setModal1Open: any;
-  title: string;
+  // title: string;
   link: string;
   editorContent?: any;
   cusId?: any;

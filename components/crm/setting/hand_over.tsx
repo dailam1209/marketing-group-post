@@ -29,6 +29,8 @@ const ShareActionModal: React.FC<MyComponentProps> = ({
     undefined
   );
 
+  console.log(typeof selectedItems1, typeof selectedItems2);
+
   const [options, setOptions] = useState<{ value: string; label: string }[]>(
     []
   );
@@ -68,8 +70,8 @@ const ShareActionModal: React.FC<MyComponentProps> = ({
     }
 
     const dataToSend = {
-      emp_id: selectedItems1,
-      user_handing_over_work: selectedItems2,
+      emp_id: selectedItems1.toString(),
+      user_handing_over_work: selectedItems2.toString(),
     };
 
     try {
