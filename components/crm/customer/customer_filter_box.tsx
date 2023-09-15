@@ -49,6 +49,9 @@ interface PropsComponent {
   nameNvNomor: any;
   listGr: any;
   listGr_Child?: any;
+  setIsApDung?: any;
+  setIsOpenFilterBox?: any;
+  isOpenFilterBox?: any;
 }
 
 const CustomerListFilterBox: React.FC<PropsComponent> = ({
@@ -82,6 +85,10 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
   nameNvNomor,
   listGr,
   listGr_Child,
+  setIsApDung,
+  setTime_s,
+  setIsOpenFilterBox,
+  isOpenFilterBox,
 }) => {
   const [valueSelectStatus, setValueSelectStatus] = useState<any>();
   const [valueResoure, sevalueResoure] = useState<any>();
@@ -121,6 +128,15 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
     if (checkCha) {
     }
   }, [idChaSaved]);
+
+  useEffect(() => {
+    if (isOpenFilterBox) {
+      setTimeStart("12:00:00");
+      setTime_s("12:00:00 " + pastTime.format("YYYY-MM-DD"));
+      setdateS(pastTime.format("YYYY-MM-DD"));
+      setTimeEnd("00:00:00");
+    }
+  }, [isOpenFilterBox]);
 
   const handleSelectNhomCha = (value) => {
     setnhomCha(value);
@@ -187,11 +203,11 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
             return {
               value: userName?.ep_id,
               label:
-                `(${userName._id})` +
+                `(${userName?._id})` +
                 " " +
                 userName?.userName +
                 " " +
-                userName.nameDeparment,
+                userName?.nameDeparment,
             };
           }),
         ];
@@ -514,7 +530,9 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
           className={styles.btn_cancel}
           data-dismiss="modal"
           onClick={() => {
-            setOpen(false), router.push("/customer/list");
+            setOpen(false), router.push("/crm/customer/list");
+            setIsOpenFilterBox(false);
+            setIsApDung(false);
           }}
         >
           Hủy lọc
@@ -522,6 +540,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
         <button
           onClick={async () => {
             handlefilter();
+            setIsApDung(true);
           }}
           type="submit"
           className={styles.btn_apply}
