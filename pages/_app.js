@@ -9,6 +9,7 @@ import { ConfigProvider, Spin } from "antd";
 import { useRouter } from "next/router.js";
 import ChatBusiness from "@/components/crm/chat/chat";
 import { NavigateContextComponent } from "@/components/crm/context/navigateContext";
+import { UpdateTLKDComponent } from "../components/crm/context/updateTlkd";
 import TitleHeaderMobile from "@/components/crm/header/title_header_mobile";
 import styles from "@/components/crm/sidebar/sidebar.module.css";
 import { Provider } from "react-redux";
@@ -35,6 +36,7 @@ export const LoadingComp = () => {
 export default function App({ Component, pageProps }) {
   const { isOpen, toggleModal } = useModal("icon_menu_nav", [styles.sidebar]);
   const router = useRouter();
+  const { updateTlkd, setUpdateTLKD } = useState(false)
   const [loading, setLoading] = useState(false);
   const [firstLoad, setFirstLoad] = useState(
     router?.pathname?.includes("/phan-mem-nhan-su/") ? false : true
@@ -123,23 +125,25 @@ export default function App({ Component, pageProps }) {
           }}
         >
           {/* { router.pathname?.includes("") ? ( */}
-            <Provider store={store}>
-              <AccessContextComponent>
+          <Provider store={store}>
+            <AccessContextComponent>
+              <UpdateTLKDComponent>
                 <SidebarResize>
                   <NavigateContextComponent>
-                      <>
-                        <Header toggleModal={toggleModal} />
-                        <Sidebar isOpened={isOpen} />
-                        <ChatBusiness />
-                      </>
+                    <>
+                      <Header toggleModal={toggleModal} />
+                      <Sidebar isOpened={isOpen} />
+                      <ChatBusiness />
+                    </>
                     <TitleHeaderMobile />
                     <TongDaiContext>
                       <Component {...pageProps} />
                     </TongDaiContext>
                   </NavigateContextComponent>
                 </SidebarResize>
-              </AccessContextComponent>
-            </Provider>
+              </UpdateTLKDComponent>
+            </AccessContextComponent>
+          </Provider>
           {/* )  */}
           {/* :  (
             <Component {...pageProps} />

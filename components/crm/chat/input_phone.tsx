@@ -4,9 +4,10 @@ import Image from "next/image";
 import { notification } from "antd";
 import { base_url } from "../service/function";
 const Cookies = require("js-cookie");
-export default function InputPhone({ infoCus,refPhone }: any) {
+export default function InputPhone({ infoCus,refPhone, setPhone }: any) {
   const [numberValue, setNumberValue] = useState("");
   const [isCalling, setIsCalling] = useState(false);
+  // console.log("infoCus",infoCus)
   const handleCallBtn = async () => {
     if (numberValue) {
       setIsCalling(true);
@@ -39,10 +40,11 @@ export default function InputPhone({ infoCus,refPhone }: any) {
         <label className={styles.lbl_title}>Số điện thoại</label>
         <form action="" onSubmit={() => false} style={{ width: "100%" }}>
           <input
-            type="text"
+            type="number"
             ref={refPhone}
             defaultValue={infoCus?.phone_number?.info}
             className={styles.input_phone}
+            // onChange={(e)=>console.log(e.target.name)}
           />
         </form>
       </div>

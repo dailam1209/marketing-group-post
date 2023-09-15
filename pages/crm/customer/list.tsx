@@ -9,6 +9,7 @@ import Head from "next/head";
 import { base_url } from "@/components/crm/service/function";
 import { checkAndRedirectToHomeIfNotLoggedIn } from "@/components/crm/ultis/checkLogin";
 import moment from "moment";
+import { UpdateTLKD } from "@/components/crm/context/updateTlkd";
 const Cookies = require("js-cookie");
 export interface DataType {
   key: React.Key;
@@ -30,6 +31,7 @@ export interface DataType {
   type: any;
 }
 export default function CustomerList() {
+  const { updateTLKD } = useContext<any>(UpdateTLKD);
   const mainRef = useRef<HTMLDivElement>(null);
   const { isOpen } = useContext<any>(SidebarContext);
   const [selected, setSelected] = useState(false);
@@ -319,7 +321,7 @@ export default function CustomerList() {
   useEffect(() => {
     handleGetGr();
     fetchData();
-  }, [name, selectedRowKeys, des, selectedCus, page, pageSize]);
+  }, [name, selectedRowKeys, des, selectedCus, page, pageSize, updateTLKD]);
 
   useEffect(() => {
     setHeaderTitle("Danh sách khách hàng");
