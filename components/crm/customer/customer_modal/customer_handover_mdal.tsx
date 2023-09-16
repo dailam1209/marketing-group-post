@@ -4,7 +4,8 @@ import styles from "../../potential/potential.module.css";
 import ModalCompleteStep from "@/components/crm/potential/potential_steps/complete_modal_bangiao";
 import { Select } from "antd";
 import { base_url } from "@/components/crm/service/function";
-import Title from "antd/es/skeleton/Title";
+import axios from "axios"; // Import Axios
+import { Router, useRouter } from "next/router";
 const Cookies = require("js-cookie");
 
 interface MyComponentProps {
@@ -28,59 +29,36 @@ const HandeOverModalCustomer: React.FC<MyComponentProps> = ({
   dataLength,
   numberSelected,
 }) => {
+  const router = useRouter()
   const [isOpenMdalSuccess, setIsOpenMdalSuccess] = useState(false);
-
-  const sendAPIRequest = (dataToSend) => {
-    const apiUrl = `${base_url}/api/crm/customerdetails/bangiao`;
-
-    const requestOptions = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${Cookies.get("token_base365")}`,
-      },
-      body: JSON.stringify(dataToSend),
-    };
-
-    return fetch(apiUrl, requestOptions)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        return data;
-      });
-  };
-
+  const apiUrl = `${base_url}/api/crm/customerdetails/bangiao`;
   const handleOK = async () => {
-    if (!selectedItems) {
-      return;
-    }
-
-    const dataToSend = {
-      cus_id: handover,
-      emp_id: selectedItems,
-    };
-    console.log(dataLength, numberSelected);
-
-    console.log(dataLength !== numberSelected ? dataToSend : sendingData);
-
     try {
-      const apiResponse = await sendAPIRequest(
-        dataLength !== numberSelected ? dataToSend : sendingData
-      );
+      await fetch(`${apiUrl}`,
+        {
+          method: "POST",
+          headers: {
+            'Authorization': `Bearer ${Cookies.get("token_base365")}`,
+            'Content-Type': 'application/json',
+
+          },
+          body: JSON.stringify({
+            emp_id: selectedItems,
+            cus_id: handover,
+          })
+        })
       setIsModalCancel(false);
       setIsOpenMdalSuccess(true);
 
-      // setTimeout(() => {
-      //   setIsOpenMdalSuccess(false);
-      // }, 2000);
-      fetchData();
+      setTimeout(() => {
+        setIsOpenMdalSuccess(false);
+      }, 2000);
+      await fetchData()
+      router.push(router.asPath)
     } catch (error) {
-      console.error("API error:", error);
+
     }
+
   };
   const handleCancel = () => {
     setSelectedItems(undefined);

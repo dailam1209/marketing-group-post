@@ -26,7 +26,6 @@ export default function CustomerListAction({
   const [isOpenCovert, setIsOpenConvert] = useState(false);
   const [isOpenShare, setIsOpenShare] = useState(false);
   const [isHandOverOpen, setIsHandOverOpen] = useState(false);
-  console.log(dataLength, numberSelected);
 
   const [dataCustomerListAction, setDataCustomerListAction] = useState([
     {
@@ -170,6 +169,8 @@ export default function CustomerListAction({
         <SharingCustomerModal
           isModalCancel={isOpenShare}
           setIsModalCancel={setIsOpenShare}
+          listNV={listNV}
+
         />
         <HandeOverModalCustomer
           isModalCancel={isHandOverOpen}

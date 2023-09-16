@@ -29,6 +29,7 @@ export interface DataType {
   userNameCreate: string;
   NameHandingOverWork: string;
   type: any;
+  keyword: any;
 }
 export default function CustomerList() {
   const { updateTLKD } = useContext<any>(UpdateTLKD);
@@ -108,10 +109,8 @@ export default function CustomerList() {
         setloading(false);
       }
       setTotalRecords(data?.total);
-    } catch (error) {}
+    } catch (error) { }
   };
-
-  // resoure && foemData.append("resorce", resoure)
 
   const handleGetInfoSTT = async () => {
     try {
@@ -125,7 +124,7 @@ export default function CustomerList() {
       });
       const data = await res.json();
       if (data && data?.data) setdataStatus(data?.data);
-    } catch (error) {}
+    } catch (error) { }
   };
   useEffect(() => {
     handleGetInfoSTT();
@@ -219,7 +218,7 @@ export default function CustomerList() {
         });
         setlistGr_Child(arr);
       });
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const role = Cookies.get("role");
@@ -251,7 +250,7 @@ export default function CustomerList() {
           setnameNvNomor(data?.data?.data);
         }
       }
-    } catch (error) {}
+    } catch (error) { }
   };
   const handleGetInfoCus = async () => {
     try {
@@ -267,7 +266,7 @@ export default function CustomerList() {
       );
       const data = await res.json();
       if (data && data?.data) setListNv(data?.data?.items);
-    } catch (error) {}
+    } catch (error) { }
   };
   let nv = listNV?.filter((item) => item.dep_id === dep_id);
   const [listNVPT, setlistNVPT] = useState<any>();
@@ -287,7 +286,7 @@ export default function CustomerList() {
       );
       const data = await res.json();
       if (data && data?.data) setlistNVPT(data?.data?.items);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   useEffect(() => {
@@ -309,6 +308,25 @@ export default function CustomerList() {
     };
     return requestData;
   }
+
+  const formData = new FormData();
+  const formDataRequest = sendingData();
+  formDataRequest.keyword &&
+    formData.append("keyword", formDataRequest.keyword);
+  formDataRequest.status &&
+    formData.append("status", formDataRequest.status);
+  formDataRequest.resoure &&
+    formData.append("resoure", formDataRequest.resoure);
+  formDataRequest.user_create_id &&
+    formData.append("user_create_id", formDataRequest.user_create_id);
+  formDataRequest.ep_id &&
+    formData.append("ep_id", formDataRequest.ep_id);
+  formDataRequest.group_id &&
+    formData.append("group_id", formDataRequest.group_id);
+  formDataRequest.time_s &&
+    formData.append("time_s", formDataRequest.time_s);
+  formDataRequest.time_e &&
+    formData.append("time_e", formDataRequest.time_e);
 
   const handleSelectAll = () => {
     const allRowKeys = datatable?.map((item: { key: any }) => item.key);
@@ -436,7 +454,7 @@ export default function CustomerList() {
             setIsOpenFilterBox={setIsOpenFilterBox}
             setIsApDung={setIsApDung}
             isOpenFilterBox={isOpenFilterBox}
-            sendingData={sendingData()}
+            sendingData={formData}
             dataLength={data?.data?.length}
           />
           <TableListCustomer

@@ -5,6 +5,7 @@ import ModalCompleteStep from "./complete_modal";
 import Cookies from "js-cookie";
 import { base_url } from "../service/function";
 import { Select } from "antd";
+import { useRouter } from "next/router";
 
 interface MyComponentProps {
   isModalCancel?: boolean;
@@ -17,19 +18,14 @@ const ShareActionModal: React.FC<MyComponentProps> = ({
   setIsModalCancel,
   fetchData,
 }) => {
+  const router = useRouter()
   const [isOpenSelect, setIsOpenSelect] = useState(false);
   const [label, setLabel] = useState("");
   const [elements, setElements] = useState<JSX.Element[]>([]);
   const [isOpenMdalSuccess, setIsOpenMdalSuccess] = useState(false);
   const [dep_id, setDep_id] = useState<any>();
-  const [selectedItems1, setselectedItems1] = useState<string | undefined>(
-    undefined
-  );
-  const [selectedItems2, setselectedItems2] = useState<string | undefined>(
-    undefined
-  );
-
-  console.log(typeof selectedItems1, typeof selectedItems2);
+  const [selectedItems1, setselectedItems1] = useState<any>(undefined)
+  const [selectedItems2, setselectedItems2] = useState<any>(undefined)
 
   const [options, setOptions] = useState<{ value: string; label: string }[]>(
     []
@@ -39,54 +35,40 @@ const ShareActionModal: React.FC<MyComponentProps> = ({
   >([]);
   const [listNV, setListNV] = useState<any>();
 
-  const sendAPIRequest = (dataToSend) => {
-    const apiUrl = `${base_url}/api/crm/customerdetails/bangiao`;
-
-    const requestOptions = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${Cookies.get("token_base365")}`,
-      },
-      body: JSON.stringify(dataToSend),
-    };
-
-    return fetch(apiUrl, requestOptions)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        return data;
-      });
-  };
-
+  const apiUrl = `${base_url}/api/crm/customerdetails/bangiao`;
   const handleOK = async () => {
     if (selectedItems1 === selectedItems2) {
       alert("Nhân viên bàn giao không có khách hàng nào.");
       return;
     }
-
-    const dataToSend = {
-      emp_id: selectedItems1.toString(),
-      user_handing_over_work: selectedItems2.toString(),
-    };
-
     try {
-      const apiResponse = await sendAPIRequest(dataToSend);
+      await fetch(`${apiUrl}`,
+        {
+          method: "POST",
+          headers: {
+            'Authorization': `Bearer ${Cookies.get("token_base365")}`,
+            'Content-Type': 'application/json',
+
+          },
+          body: JSON.stringify({
+            emp_id: selectedItems1.toString(),
+            user_handing_over_work: selectedItems2.toString(),
+          })
+        })
       setIsModalCancel(false);
       setIsOpenMdalSuccess(true);
 
       setTimeout(() => {
         setIsOpenMdalSuccess(false);
       }, 2000);
-      fetchData();
+      await fetchData()
+      router.push(router.asPath)
     } catch (error) {
-      console.error("API error:", error);
+
     }
+
   };
+
 
   const handleCancel = () => {
     setselectedItems1("");
@@ -117,7 +99,7 @@ const ShareActionModal: React.FC<MyComponentProps> = ({
       );
       const data = await res.json();
       if (data && data?.data) setListNV(data?.data?.items);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   useEffect(() => {
