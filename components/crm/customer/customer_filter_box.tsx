@@ -170,21 +170,21 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
   const optionTest =
     role == "2" && posId !== 2
       ? [
-          { value: null, label: "Tất cả" },
-          ...nv?.map((userName, index) => {
-            return {
-              value: userName?.ep_id,
-              label:
-                `(${userName.ep_id})` +
-                " " +
-                userName?.ep_name +
-                " " +
-                userName.dep_name,
-            };
-          }),
-        ]
+        { value: null, label: "Tất cả" },
+        ...nv?.map((userName, index) => {
+          return {
+            value: userName?.ep_id,
+            label:
+              `(${userName.ep_id})` +
+              " " +
+              userName?.ep_name +
+              " " +
+              userName.dep_name,
+          };
+        }),
+      ]
       : role == "1"
-      ? [
+        ? [
           { value: null, label: "Tất cả" },
           ...listNV?.map((userName, index) => {
             return {
@@ -198,7 +198,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
             };
           }),
         ]
-      : [
+        : [
           [nameNvNomor]?.map((userName, index) => {
             return {
               value: userName?.ep_id,
@@ -530,7 +530,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
           className={styles.btn_cancel}
           data-dismiss="modal"
           onClick={() => {
-            setOpen(false), router.push("/crm/customer/list");
+            setOpen(false), router.push("/customer/list");
             setIsOpenFilterBox(false);
             setIsApDung(false);
           }}
