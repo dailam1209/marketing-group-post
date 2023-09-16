@@ -1,11 +1,12 @@
 import React from "react";
 import styles from "../components/crm/login/login.module.css";
-import { checkAndRedirectToHomeIfNotLoggedIn } from "../components/crm/ultis/checkLogin";
+import { checkAndRedirectToHomeIfNotLoggedIn, checkHomeIfLoggedIn } from "../components/crm/ultis/checkLogin";
 import SideBar from "@/components/crm/login/sidebar";
 import HeaderHomePage from "@/components/crm/login/header";
 import TableOfContents from "@/components/crm/login/TableOfContent";
 import Footer from "@/components/crm/login/Footer";
 import Head from "next/head";
+import HomePage from "@/components/crm/home/home_page";
 const HomePageLogin: React.FC = () => {
   return (
     <>
@@ -68,6 +69,8 @@ const HomePageLogin: React.FC = () => {
           <Footer />
         </>
       )}
+      {checkHomeIfLoggedIn() ? null : <HomePage />}
+
     </>
   );
 };
