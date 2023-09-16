@@ -29,7 +29,6 @@ export const checkAndRedirectToHomeIfNotLoggedIn = () => {
        }
         return false; 
       }
-      
       return true;  
 
   };

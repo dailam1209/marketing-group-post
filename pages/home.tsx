@@ -1,20 +1,8 @@
 import HomePage from "@/components/crm/home/home_page";
-import {
-  checkAndRedirectToHomeIfNotLoggedIn,
-  checkHomeIfLoggedIn,
-} from "@/components/crm/ultis/checkLogin";
+import { checkHomeIfLoggedIn } from "@/components/crm/ultis/checkLogin";
 import Head from "next/head";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
 
 export default function Home() {
-  const router = useRouter();
-
-  useEffect(() => {
-    if (!checkAndRedirectToHomeIfNotLoggedIn()) {
-      router.push("/home");
-    }
-  }, []);
   return (
     <>
       <Head>
