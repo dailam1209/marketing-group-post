@@ -18,14 +18,14 @@ const ShareActionModal: React.FC<MyComponentProps> = ({
   setIsModalCancel,
   fetchData,
 }) => {
-  const router = useRouter()
+  const router = useRouter();
   const [isOpenSelect, setIsOpenSelect] = useState(false);
   const [label, setLabel] = useState("");
   const [elements, setElements] = useState<JSX.Element[]>([]);
   const [isOpenMdalSuccess, setIsOpenMdalSuccess] = useState(false);
   const [dep_id, setDep_id] = useState<any>();
-  const [selectedItems1, setselectedItems1] = useState<any>(undefined)
-  const [selectedItems2, setselectedItems2] = useState<any>(undefined)
+  const [selectedItems1, setselectedItems1] = useState<any>(undefined);
+  const [selectedItems2, setselectedItems2] = useState<any>(undefined);
 
   const [options, setOptions] = useState<{ value: string; label: string }[]>(
     []
@@ -41,34 +41,28 @@ const ShareActionModal: React.FC<MyComponentProps> = ({
       alert("Nhân viên bàn giao không có khách hàng nào.");
       return;
     }
-    try {
-      await fetch(`${apiUrl}`,
-        {
-          method: "POST",
-          headers: {
-            'Authorization': `Bearer ${Cookies.get("token_base365")}`,
-            'Content-Type': 'application/json',
 
-          },
-          body: JSON.stringify({
-            emp_id: selectedItems1.toString(),
-            user_handing_over_work: selectedItems2.toString(),
-          })
-        })
+    const formData = new FormData();
+    formData.append("emp_id", selectedItems2.toString());
+    formData.append("user_handing_over_work", selectedItems1.toString());
+    try {
+      await fetch(`${apiUrl}`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${Cookies.get("token_base365")}`,
+        },
+        body: formData,
+      });
       setIsModalCancel(false);
       setIsOpenMdalSuccess(true);
 
       setTimeout(() => {
         setIsOpenMdalSuccess(false);
       }, 2000);
-      await fetchData()
-      router.push(router.asPath)
-    } catch (error) {
-
-    }
-
+      await fetchData();
+      router.push(router.asPath);
+    } catch (error) {}
   };
-
 
   const handleCancel = () => {
     setselectedItems1("");
@@ -99,7 +93,7 @@ const ShareActionModal: React.FC<MyComponentProps> = ({
       );
       const data = await res.json();
       if (data && data?.data) setListNV(data?.data?.items);
-    } catch (error) { }
+    } catch (error) {}
   };
 
   useEffect(() => {
