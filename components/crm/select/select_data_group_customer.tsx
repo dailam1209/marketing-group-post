@@ -11,6 +11,7 @@ export default function CustomerGroupSelect({
   setValueGroupCustomer,
   cusId,
   type,
+  showTop
 }: any) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -104,6 +105,7 @@ export default function CustomerGroupSelect({
             </span>
           </span>
         </span>
+        
         {isOpen && (
           <CustomerGroupSelectDropdownData
             cus_id={cusId}
@@ -114,6 +116,8 @@ export default function CustomerGroupSelect({
             type={type}
             setValueFilter={setValueFilter}
             valueFilter={valueFilter}
+            showTop={showTop}
+            setIsOpen={setIsOpen}
           />
         )}
       </span>

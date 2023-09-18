@@ -957,7 +957,7 @@ label {
   width: 190vw; /* 100% chiều rộng của cửa sổ trình duyệt */
   overflow-x: auto; /* Cho phép thanh trượt ngang */
   white-space: nowrap; /* Ngăn nội dung trong thanh trượt xuống dòng */
-  padding-top: 20px;
+
 }
 
 .ant-table-wrapper .ant-table-body {

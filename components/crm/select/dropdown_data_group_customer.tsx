@@ -12,6 +12,8 @@ export default function CustomerGroupSelectDropdownData({
   type,
   setValueFilter,
   valueFilter,
+  showTop,
+  setIsOpen
 }: any) {
   const [focus, setFocus] = useState(false);
   const [filterData, setFilterData] = useState(data);
@@ -22,6 +24,7 @@ export default function CustomerGroupSelectDropdownData({
 
   const handleClcikOptions = async (item: any) => {
     // const
+
     setValueOption(item.gr_name);
     const url = `${base_url}/api/crm/customerdetails/editCustomer`;
 
@@ -86,15 +89,28 @@ export default function CustomerGroupSelectDropdownData({
     if (newData[0]?.lists_child) {
       setFilterData(newData);
     } else {
-      setFilterData(newData2);  
+      setFilterData(newData2);
     }
   }, [valueFilter]);
 
   ///sua file nay
+const handleEnter = async(e:any) =>{
+  if(e.key==="Enter"){
+    setValueOption(filterData[0]?.gr_name);
+    await handleClcikOptions(filterData[0])
+    setIsOpen(false)
+  }
+}
   return (
     <span
       className={`${styles.select2_container_open} ${styles.select2_container} ${styles.select2_container_default} `}
-      style={{ position: "absolute", top: 35, left: 0, zIndex: 10 }}
+      style={{
+        position: "absolute",
+        top: showTop ? -245 : 35,
+        left: 0,
+        zIndex: 999,
+        
+      }}
     >
       <span
         className={`${styles.select2_dropdown} ${styles.select2_dropdown_below}`}
@@ -109,6 +125,7 @@ export default function CustomerGroupSelectDropdownData({
             type="search"
             value={valueFilter}
             onChange={handleChange}
+            onKeyDown={(e)=>handleEnter(e)}
             tabIndex={0}
             autoComplete="off"
             autoCorrect="off"
@@ -153,12 +170,12 @@ export default function CustomerGroupSelectDropdownData({
                       <ul className="select2-results__options">
                         <li className="select2-results__option" role="group">
                           <strong className="select2-results__group">
-                            <li >{item?.gr_name}</li>
+                            <li>{item?.gr_name}</li>
                           </strong>
                           <ul className="select2-results__options select2-results__options--nested">
                             {item?.gr_id == value ? (
                               <li
-                              style={{ background: "#ddd",}}
+                                style={{ background: "#ddd" }}
                                 className="select2-results__option"
                                 onClick={() => handleClcikOptions(item)}
                               >
@@ -209,6 +226,7 @@ export default function CustomerGroupSelectDropdownData({
                                           </li>
                                         ) : (
                                           <li
+                                            // style={{color:"red"}}
                                             onMouseOver={(e) => {
                                               e.currentTarget.style.background =
                                                 "#4c5bd4";
@@ -240,36 +258,42 @@ export default function CustomerGroupSelectDropdownData({
                   );
                 })
               : filterData?.map((item: any, i: Key | null | undefined) => {
+                  const isFirstItem = i === 0;
                   return (
-                    <span className="select2-results">
+                    <span className="select2-results" >
                       <ul className="select2-results__options">
                         <li className="select2-results__option" role="group">
                           <ul className="select2-results__options select2-results__options--nested">
                             {
                               <li
-                                // onMouseOver={(e) => {
-                                //   e.currentTarget.style.background = "#4c5bd4";
-                                //   e.currentTarget.style.color = "#fff";
-                                // }}
-                                // onMouseOut={(e) => {
-                                //   e.currentTarget.style.background = "none";
-                                //   e.currentTarget.style.color = "black";
-                                // }}
                                 style={{ marginBottom: -5 }}
                                 className="select2-results__option"
                                 onClick={() => handleClcikOptions(item)}
                               >
-                             <strong> {data?.filter(itemcha=>itemcha.gr_id===item?.group_parent)[0]?.gr_name} </strong> 
+                                <strong>
+                                  {" "}
+                                  {
+                                    data?.filter(
+                                      (itemcha) =>
+                                        itemcha.gr_id === item?.group_parent
+                                    )[0]?.gr_name
+                                  }{" "}
+                                </strong>
                                 <li
                                   onMouseOver={(e) => {
-                                    e.currentTarget.style.background = "#4c5bd4";
+                                    e.currentTarget.style.background =
+                                      "#4c5bd4";
                                     e.currentTarget.style.color = "#fff";
                                   }}
                                   onMouseOut={(e) => {
                                     e.currentTarget.style.background = "none";
                                     e.currentTarget.style.color = "black";
                                   }}
-                                  style={{ marginBottom: -5 }}
+                                  style={{
+                                    marginBottom: -5,
+                                    background: isFirstItem ? "#4c5bd4" : "",
+                                    color: isFirstItem ? "#fff" : "",
+                                  }}
                                   className="select2-results__option"
                                   onClick={() => handleClcikOptions(item)}
                                 >
@@ -283,69 +307,6 @@ export default function CustomerGroupSelectDropdownData({
                     </span>
                   );
                 })}
-
-            {/* <span className="select2-results">
-                  <ul
-                    className="select2-results__options"
-                  >
-                    <li
-                      className="select2-results__option"
-                      role="group"
-                      aria-label="Nhập liệu"
-                    >
-                      <strong className="select2-results__group">
-                        Nhập liệu
-                      </strong>
-                      <ul className="select2-results__options select2-results__options--nested">
-                        <li
-                          className="select2-results__option"
-                          id="select2-dso4-result-z0kc-190"
-                          role="treeitem"
-                          aria-selected="false"
-                          data-select2-id="select2-dso4-result-z0kc-190"
-                        >
-                          Nhập liệu
-                        </li>
-                        <li
-                          className="select2-results__option"
-                          id="select2-dso4-result-cds9-200"
-                          role="treeitem"
-                          aria-selected="false"
-                          data-select2-id="select2-dso4-result-cds9-200"
-                        >
-                          1. Ứng viên chưa sàng lọc cần gọi trong ngày
-                        </li>
-                        <li
-                          className="select2-results__option select2-results__option--highlighted"
-                          id="select2-dso4-result-nz0y-201"
-                          role="treeitem"
-                          aria-selected="true"
-                          data-select2-id="select2-dso4-result-nz0y-201"
-                        >
-                          2. Ứng viên sẽ gọi lại
-                        </li>
-                        <li
-                          className="select2-results__option"
-                          id="select2-dso4-result-s5cq-202"
-                          role="treeitem"
-                          aria-selected="false"
-                          data-select2-id="select2-dso4-result-s5cq-202"
-                        >
-                          4. Ứng viên không có nhu cầu tìm việc nữa
-                        </li>
-                        <li
-                          className="select2-results__option"
-                          id="select2-dso4-result-oyxu-203"
-                          role="treeitem"
-                          aria-selected="false"
-                          data-select2-id="select2-dso4-result-oyxu-203"
-                        >
-                          3. Ứng viên đã hỗ trợ xong và được nhập vào admin
-                        </li>
-                      </ul>
-                    </li>
-                  </ul>
-                </span> */}
           </ul>
         </span>
       </span>

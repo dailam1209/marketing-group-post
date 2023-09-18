@@ -50,6 +50,7 @@ interface MyComponentProps {
   group_idFix: any;
   show: any;
   setshow: any;
+  handleGetInfoSTT:any
 }
 
 const CallModal: React.FC<MyComponentProps> = ({
@@ -124,11 +125,11 @@ const CallModal: React.FC<MyComponentProps> = ({
     setIsModalCancel(false);
     setIsOpenMdalSuccess(true);
     setIsOpenModalZoom(false);
-    setTimeout(() => {
+    setTimeout(async() => {
       setIsOpenMdalSuccess(false);
       setshow(false);
+      await fetchData()
     }, 1200);
-    router.push(router.asPath);
   };
 
   const router = useRouter();

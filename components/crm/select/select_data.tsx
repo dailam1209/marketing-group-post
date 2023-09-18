@@ -10,7 +10,7 @@ interface MyProps {
   handleChange: any;
   stt?: any;
   cusId: any;
-  type;
+  type:any;
 }
 
 const SelectDataInputBox: React.FC<MyProps> = ({
