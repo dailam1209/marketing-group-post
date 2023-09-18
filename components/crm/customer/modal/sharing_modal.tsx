@@ -1,10 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Modal, Select } from "antd";
 import styles from "../../potential/potential.module.css";
 import styleCustomer from "../customer.module.css";
 import ModalCompleteStep from "@/components/crm/potential/potential_steps/complete_modal";
-import PotentialSelectBoxStep from "@/components/crm/potential/potential_steps/select_box_step";
-import type { SelectProps } from "antd";
+
 import Cookies from "js-cookie";
 
 interface MyComponentProps {
@@ -23,13 +22,19 @@ const SharingCustomerModal: React.FC<MyComponentProps> = ({
   const [options, setOptions] = useState<{ value: string; label: string }[]>(
     []
   );
-  const [listPB, setlistPB] = useState<any>(undefined);;
+  const [optionsDep, setOptionsDep] = useState<{ value: string; label: string }[]>(
+    []
+  );
+
+  const [selectedItems, setSelectedItems] = useState<any>(undefined);
+  const [selectedItemsPB, setSelectedItemsPB] = useState<any>(undefined);
+  const [listPB, setlistPB] = useState<any>();;
 
 
   useEffect(() => {
     if (Array.isArray(listNV)) {
       const updatedOptions = [
-        { value: "", label: "Chọn người bàn giao" },
+        { value: "", label: "Chọn nhân viên bàn giao" },
         ...listNV.map((item) => {
           const name = item?.ep_name || "";
           const id = item?.ep_id?.toString() || "";
@@ -41,6 +46,23 @@ const SharingCustomerModal: React.FC<MyComponentProps> = ({
       setOptions(updatedOptions);
     }
   }, [listNV]);
+
+  useEffect(() => {
+    if (Array.isArray(listPB)) {
+      const updatedOptionsDep = [
+        { value: "", label: "Chọn phòng ban bàn giao" },
+        ...listPB?.map((item) => {
+          const name = item?.dep_name || "";
+          const id = item?.dep_id?.toString() || "";
+
+          return { value: id, label: `(${id}) ${name}` };
+        }),
+      ];
+
+      setOptionsDep(updatedOptionsDep);
+    }
+  }, [listPB]);
+
   const handleGetPhongBan = async () => {
     try {
       const res = await fetch(
@@ -59,23 +81,37 @@ const SharingCustomerModal: React.FC<MyComponentProps> = ({
     } catch (error) { }
   };
 
-
+  useEffect(() => {
+    handleGetPhongBan();
+  }, []);
 
   const handleOK = () => {
+    setSelectedItems(undefined);
+    setSelectedItemsPB(undefined);
     setIsModalCancel(false);
     setIsOpenMdalSuccess(true);
     setTimeout(() => {
       setIsOpenMdalSuccess(false);
+      resetSharingOption()
     }, 2000);
   };
 
+  const handleCancel = () => {
+    setIsModalCancel(false);
+    setSelectedItems(undefined);
+    setSelectedItemsPB(undefined);
+    resetSharingOption()
+  }
+  const resetSharingOption = () => {
+    setValueSharing("");
+  };
   return (
     <>
       <Modal
         title={"Chia sẻ khách hàng"}
         open={isModalCancel}
         onOk={() => handleOK()}
-        onCancel={() => setIsModalCancel(false)}
+        onCancel={() => handleCancel()}
         className={"mdal_cancel email_add_mdal"}
         okText="Đồng ý"
         cancelText="Huỷ"
@@ -86,10 +122,14 @@ const SharingCustomerModal: React.FC<MyComponentProps> = ({
               {"Chia sẻ với"}
             </label>
             <select
-              onChange={(e) => setValueSharing(e.target.value)}
+              onChange={(e) => {
+                setValueSharing(e.target.value),
+                  setSelectedItems(undefined),
+                  setSelectedItemsPB(undefined)
+              }}
               className={styleCustomer.input_control}
             >
-              <option value="">Chọn đối tượng chia sẻ</option>
+              <option value="" >Chọn đối tượng chia sẻ</option>
               <option value={"staff"}>Nhân viên</option>
               <option value="department">Phòng ban</option>
               <option value="all">Phòng ban & Nhân viên</option>
@@ -101,9 +141,24 @@ const SharingCustomerModal: React.FC<MyComponentProps> = ({
               <label className={`${styles.form_label} required`}>
                 {"Phòng ban được chia sẻ"}
               </label>
-              <PotentialSelectBoxStep
-                value="Phòng ban được chia sẻ"
-                placeholder="Please select"
+              <Select
+                mode="multiple"
+                allowClear
+                showSearch
+                placeholder="Phòng ban được chia sẻ"
+                value={selectedItemsPB}
+                onChange={(value) => {
+                  if (value) {
+                    setSelectedItemsPB(value);
+                  } else {
+                    setSelectedItemsPB(undefined);
+                  }
+                }}
+                style={{ width: "100%" }}
+                options={optionsDep}
+                filterOption={(input, option) =>
+                  option?.label.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                }
               />
             </div>
           ) : valueSharing === "staff" ? (
@@ -112,15 +167,16 @@ const SharingCustomerModal: React.FC<MyComponentProps> = ({
                 {"Nhân viên được chia sẻ"}
               </label>
               <Select
-
+                mode="multiple"
+                allowClear
                 showSearch
                 placeholder="Nhân viên được chia sẻ"
-                value={listPB}
+                value={selectedItems}
                 onChange={(value) => {
                   if (value) {
-                    setlistPB(value);
+                    setSelectedItems(value);
                   } else {
-                    setlistPB(undefined);
+                    setSelectedItems(undefined);
                   }
                 }}
                 style={{ width: "100%" }}
@@ -139,9 +195,21 @@ const SharingCustomerModal: React.FC<MyComponentProps> = ({
                 <Select
                   mode="multiple"
                   allowClear
+                  showSearch
+                  placeholder="Phòng ban được chia sẻ"
+                  value={selectedItemsPB}
+                  onChange={(value) => {
+                    if (value) {
+                      setSelectedItemsPB(value);
+                    } else {
+                      setSelectedItemsPB(undefined);
+                    }
+                  }}
                   style={{ width: "100%" }}
-                  placeholder="Please select"
-                  options={options}
+                  options={optionsDep}
+                  filterOption={(input, option) =>
+                    option?.label.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                  }
                 />
               </div>
               <div style={{ marginTop: "10px" }} className={styles.choose_obj}>
@@ -151,9 +219,21 @@ const SharingCustomerModal: React.FC<MyComponentProps> = ({
                 <Select
                   mode="multiple"
                   allowClear
+                  showSearch
+                  placeholder="Nhân viên được chia sẻ"
+                  value={selectedItems}
+                  onChange={(value) => {
+                    if (value) {
+                      setSelectedItems(value);
+                    } else {
+                      setSelectedItems(undefined);
+                    }
+                  }}
                   style={{ width: "100%" }}
-                  placeholder="Please select"
                   options={options}
+                  filterOption={(input, option) =>
+                    option?.label.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                  }
                 />
               </div>
             </>
