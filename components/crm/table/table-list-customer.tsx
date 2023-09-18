@@ -91,7 +91,7 @@ interface TableDataContracDrops {
   role?: any;
   posId?: any;
   listNV?: any;
-  handleGetInfoSTT: any;
+  handleGetInfoSTT?: any;
 }
 
 const TableListCustomer: React.FC<TableDataContracDrops> = ({
