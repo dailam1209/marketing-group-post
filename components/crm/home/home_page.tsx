@@ -1,8 +1,6 @@
 "use client";
 import style from "./home.module.css";
 import HomeItemBox from "./home_item_box";
-import Header from "../header/header";
-import Sidebar from "../sidebar/sidebar";
 import HomeOverView from "./overview";
 import {
   boxDesPrimaryCustomer,
@@ -15,7 +13,6 @@ import {
 } from "../ultis/consntant";
 import { useContext, useEffect, useRef } from "react";
 import { SidebarContext } from "../context/resizeContext";
-import ChatBusiness from "../chat/chat";
 import { useHeader } from "../hooks/useHeader";
 
 export default function HomePage() {

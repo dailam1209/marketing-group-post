@@ -26,7 +26,7 @@
 }
 
 #business_assistant_close:after {
-  content: 'X';
+  content: "X";
   color: #fff;
   text-transform: uppercase;
 }
