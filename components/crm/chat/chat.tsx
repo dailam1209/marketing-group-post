@@ -1,9 +1,7 @@
 import styles from "./chat.module.css";
 import useModal from "../hooks/useModal";
-import { useContext, useRef } from "react";
-import { checkAndRedirectToHomeIfNotLoggedIn } from "@/components/crm/ultis/checkLogin";
+import { useRef } from "react";
 import NewChatBusinessBody from "./chat_body_tlkd";
-import { UpdateTLKD } from "../context/updateTlkd";
 
 export default function ChatBusiness() {
   const chatRef = useRef<HTMLDivElement>(null);
@@ -28,10 +26,11 @@ export default function ChatBusiness() {
           <div>
             <button id={styles.business_assistant_close}></button>
           </div>
-          {isOpen ? (
-            <NewChatBusinessBody handleOpenChatBody={handleOpenChatBody} />
-          ) : null}
+
         </div>
+        {isOpen ? (
+          <NewChatBusinessBody handleOpenChatBody={handleOpenChatBody} />
+        ) : null}
       </div>
     </>
   );
