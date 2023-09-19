@@ -197,7 +197,9 @@ export default function CustomerList() {
       setTotalRecords(data.total);
     }
   }, [data]);
-
+  const fetchDataDefault = async () => {
+  
+  };
   return (
     <>
       <Head>
@@ -271,6 +273,7 @@ export default function CustomerList() {
           setPageSize={setPageSize}
           page={page}
           totalRecords={totalRecords}
+          fetchDataDefault={fetchDataDefault}
         />
       </div>
     </>

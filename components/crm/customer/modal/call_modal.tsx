@@ -51,6 +51,7 @@ interface MyComponentProps {
   show: any;
   setshow: any;
   handleGetInfoSTT:any
+  fetchDataDefault:any
 }
 
 const CallModal: React.FC<MyComponentProps> = ({
@@ -91,6 +92,7 @@ const CallModal: React.FC<MyComponentProps> = ({
   group_idFix,
   show,
   setshow,
+  fetchDataDefault
 }) => {
   const [content, setContent] = useState();
   const [datae, setDate] = useState<any>();
@@ -128,8 +130,8 @@ const CallModal: React.FC<MyComponentProps> = ({
     setTimeout(async() => {
       setIsOpenMdalSuccess(false);
       setshow(false);
-      await fetchData()
-    }, 1200);
+      await fetchDataDefault()
+    }, 1000);
   };
 
   const router = useRouter();
@@ -152,7 +154,10 @@ const CallModal: React.FC<MyComponentProps> = ({
     } catch (error) {}
   };
   useEffect(() => {
-    getHisCus();
+    if(show){
+      getHisCus();
+    }
+    
   }, [show]);
   return (
     <>

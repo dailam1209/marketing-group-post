@@ -21,19 +21,8 @@ const SelectDataInputBox: React.FC<MyProps> = ({
   cusId,
   type,
 }) => {
-  // const {
-  //   data: dataDetailCustomer,
-  //   loading,
-  //   fetchData: fetchDataDetail,
-  //   updateData: updateDataDetail,
-  //   // ... other properties returned by the useApi hook
-  // } = useApi(
-  //   `${base_url}/api/crm/customerdetails/detail`,
-  //   `${Cookies.get("token_base365")}`,
-  //   "POST",
-  //   { cus_id: cusId }
-  // );
-  const [name, setName] = useState(value);
+
+  const [name, setName] = useState();
   const handleChangeApi = async (e: any, data: any) => {
     const url = `${base_url}/api/crm/customerdetails/editCustomer`;
     setName(e.target.value);
@@ -70,7 +59,7 @@ const SelectDataInputBox: React.FC<MyProps> = ({
           onChange={(e: any) => {
             handleChangeApi(e, data);
           }}
-          value={name || ""}
+          value={name?name:value}
           // defaultValue={dataStatus?.status?.info}
           // value={dataStatus?.status?.info}
           style={{ border: 0 }}
