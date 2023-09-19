@@ -246,6 +246,7 @@ export default function ChatBusinessBody({
       } catch (error) {
         console.error(error);
       }
+      setrefCall('')
     };
   useEffect(() => {
     handleChangeInforCus();
