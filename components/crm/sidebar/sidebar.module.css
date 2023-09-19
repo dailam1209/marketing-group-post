@@ -1,5 +1,5 @@
 .sidebar {
-  z-index: 10000;
+  z-index: 100;
   position: fixed;
   float: left;
   background: #4c5bd4;
