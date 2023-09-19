@@ -208,13 +208,35 @@ export default function ChatBusinessBody({
   const [refCall, setrefCall] = useState<any>();
 
   const handleChangeInforCus = async () => {
-    const handleClcikOptions = async () => {
-      // update nhóm kh
       const url = `${base_url}/api/crm/customerdetails/editCustomer`;
       const formData = new FormData();
+      formData.append("type", infoCus?.type);
+      formData.append("cus_id", cusId);
+      if (refCall) {
+        formData.append("content_call", refCall);
+      }
+      if (nhonkhachhang) {
       formData.append("group_id", nhonkhachhang);
-      formData.append("type", infoCus?.type);
-      formData.append("cus_id", cusId);
+
+      }
+      if (tinhtrang) {
+        formData.append("status", tinhtrang);
+      }
+      if (nguon) {
+        formData.append("resoure", nguon);
+      }
+      if (refName?.current?.value) {
+        formData.append("name", refName?.current?.value);
+      }
+      if (refMail?.current?.value) {
+        formData.append("email", refMail?.current?.value);
+      }
+      if (refPhone?.current?.value) {
+        formData.append("phone_number", refPhone?.current?.value);
+      }
+      if (refDes) {
+        formData.append("description", refDes);
+      }
 
       const headers = {
         Authorization: `Bearer ${Cookies.get("token_base365")}`,
@@ -234,231 +256,25 @@ export default function ChatBusinessBody({
         console.error(error);
       }
     };
-
-    // update tinh trang
-    const updateTinhTrang = async () => {
-      const url = `${base_url}/api/crm/customerdetails/editCustomer`;
-      const formData = new FormData();
-      formData.append("status", tinhtrang);
-      formData.append("type", infoCus?.type);
-      formData.append("cus_id", cusId);
-
-      const headers = {
-        Authorization: `Bearer ${Cookies.get("token_base365")}`,
-      };
-
-      const config = {
-        method: "POST",
-        headers: headers,
-        body: formData,
-      };
-      try {
-        const response = await fetch(url, config);
-        const data = await response.json();
-        if (data?.error) {
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    // updatenguon
-    const updateNguon = async () => {
-      const url = `${base_url}/api/crm/customerdetails/editCustomer`;
-      const formData = new FormData();
-      formData.append("resoure", nguon);
-      formData.append("type", infoCus?.type);
-      formData.append("cus_id", cusId);
-
-      const headers = {
-        Authorization: `Bearer ${Cookies.get("token_base365")}`,
-      };
-
-      const config = {
-        method: "POST",
-        headers: headers,
-        body: formData,
-      };
-      try {
-        const response = await fetch(url, config);
-        const data = await response.json();
-        if (data?.error) {
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    
-    // update name
-    const updateName = async () => {
-      const url = `${base_url}/api/crm/customerdetails/editCustomer`;
-      const formData = new FormData();
-      formData.append("name", refName?.current?.value);
-      formData.append("type", infoCus?.type);
-      formData.append("cus_id", cusId);
-
-      const headers = {
-        Authorization: `Bearer ${Cookies.get("token_base365")}`,
-      };
-
-      const config = {
-        method: "POST",
-        headers: headers,
-        body: formData,
-      };
-      try {
-        const response = await fetch(url, config);
-        const data = await response.json();
-        if (data?.error) {
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    const updateMail = async () => {
-      const url = `${base_url}/api/crm/customerdetails/editCustomer`;
-      const formData = new FormData();
-      formData.append("email", refMail?.current?.value);
-      formData.append("type", infoCus?.type);
-      formData.append("cus_id", cusId);
-
-      const headers = {
-        Authorization: `Bearer ${Cookies.get("token_base365")}`,
-      };
-
-      const config = {
-        method: "POST",
-        headers: headers,
-        body: formData,
-      };
-      try {
-        const response = await fetch(url, config);
-        const data = await response.json();
-        if (data?.error) {
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    const updatePhone = async () => {
-      // update nhóm kh
-      const url = `${base_url}/api/crm/customerdetails/editCustomer`;
-      const formData = new FormData();
-      formData.append("phone_number", refPhone?.current?.value);
-      formData.append("type", infoCus?.type);
-      formData.append("cus_id", cusId);
-
-      const headers = {
-        Authorization: `Bearer ${Cookies.get("token_base365")}`,
-      };
-
-      const config = {
-        method: "POST",
-        headers: headers,
-        body: formData,
-      };
-      try {
-        const response = await fetch(url, config);
-        const data = await response.json();
-        if (data?.error) {
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    const updateDes = async () => {
-      // update nhóm kh
-      const url = `${base_url}/api/crm/customerdetails/editCustomer`;
-      const formData = new FormData();
-      formData.append("description", refDes);
-      formData.append("type", infoCus?.type);
-      formData.append("cus_id", cusId);
-
-      const headers = {
-        Authorization: `Bearer ${Cookies.get("token_base365")}`,
-      };
-
-      const config = {
-        method: "POST",
-        headers: headers,
-        body: formData,
-      };
-      try {
-        const response = await fetch(url, config);
-        const data = await response.json();
-        if (data?.error) {
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    const updatevalueHis = async () => {
-      // update nhóm kh
-      const url = `${base_url}/api/crm/customerdetails/editCustomer`;
-      const formData = new FormData();
-      formData.append("content_call", refCall);
-      formData.append("type", infoCus?.type);
-      formData.append("cus_id", cusId);
-
-      const headers = {
-        Authorization: `Bearer ${Cookies.get("token_base365")}`,
-      };
-
-      const config = {
-        method: "POST",
-        headers: headers,
-        body: formData,
-      };
-      try {
-        const response = await fetch(url, config);
-        const data = await response.json();
-        if (data?.error) {
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    if (refCall) {
-      updatevalueHis();
-    }
-    if (nhonkhachhang) {
-      handleClcikOptions();
-    }
-    if (tinhtrang) {
-      updateTinhTrang();
-    }
-    if (nguon) {
-      updateNguon();
-    }
-    if (refName?.current?.value) {
-      updateName();
-    }
-    if (refMail?.current?.value) {
-      updateMail();
-    }
-    if (refPhone?.current?.value) {
-      updatePhone();
-    }
-    if (refDes) {
-      updateDes();
-    }
-  };
   useEffect(() => {
     handleChangeInforCus();
   }, [action]);
-  const [Change, setChange] = useState<any>()
-  const [mail, setMail] = useState<any>()
+  const [Change, setChange] = useState<any>();
+  const [mail, setMail] = useState<any>();
   return (
     <div className={styles.business_assistant_body}>
       <div className={styles.form_business_assistant}>
-        <InputPhone infoCus={infoCus} refPhone={refPhone} setChange={setMail}/>
-        <InputNameCustomer refName={refName} infoCus={infoCus} setChange={setChange}/>
-        <InputEmailCustomer infoCus={infoCus} refMail={refMail} setMail={setMail} />
+        <InputPhone infoCus={infoCus} refPhone={refPhone} setChange={setMail} />
+        <InputNameCustomer
+          refName={refName}
+          infoCus={infoCus}
+          setChange={setChange}
+        />
+        <InputEmailCustomer
+          infoCus={infoCus}
+          refMail={refMail}
+          setMail={setMail}
+        />
         <TextEditor
           infoCus={infoCus}
           title={"Mô tả khách hàng" as any}

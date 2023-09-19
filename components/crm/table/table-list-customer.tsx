@@ -92,6 +92,7 @@ interface TableDataContracDrops {
   posId?: any;
   listNV?: any;
   handleGetInfoSTT?: any;
+  fetchDataDefault: any;
 }
 
 const TableListCustomer: React.FC<TableDataContracDrops> = ({
@@ -149,6 +150,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   posId,
   listNV,
   handleGetInfoSTT,
+  fetchDataDefault,
 }: any) => {
   const [openModalCall, setOpenModalCall] = useState(false);
   const router = useRouter();
@@ -186,40 +188,32 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   );
   const [showTop, setshowTop] = useState(false);
   const handleCellClick = (index) => {
-    if ([8,9,10].includes(datatable.length)) {
+    if ([8, 9, 10].includes(datatable.length)) {
       if ([6, 7, 8, 9].includes(index)) {
         setshowTop(true);
       } else {
         setshowTop(false);
       }
     }
-    if ([6,7].includes(datatable.length)) {
-      if ([3,4,5].includes(index)) {
+    if ([6, 7].includes(datatable.length)) {
+      if ([3, 4, 5].includes(index)) {
         setshowTop(true);
       } else {
         setshowTop(false);
       }
     }
   };
+  const [nguon, setnguon] = useState<any>();
+  const [slectNguon, setslectNguon] = useState<any>();
+
   const handleChangeSelect = async (e: any, record) => {
-    //get type
-    const res = await fetch(`${base_url}/api/crm/customerdetails/detail`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${Cookies.get("token_base365")}`,
-      },
-      body: JSON.stringify({ cus_id: record?.cus_id }),
-    });
-    const type = await res.json();
-
+    setnguon(e.target.value);
     // const
-
     const url = `${base_url}/api/crm/customerdetails/editCustomer`;
 
     const formData = new FormData();
     formData.append("resoure", e.target.value);
-    formData.append("type", type?.data?.loai_hinh_khach_hang);
+    formData.append("type", record?.type);
     formData.append("cus_id", record.cus_id);
 
     const headers = {
@@ -235,10 +229,66 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       const response = await fetch(url, config);
       const data = await response.json();
       if (data?.error) {
-        notification.error({ message: data.error.message });
       }
     } catch (error) {
       console.error(error);
+    }
+  };
+  const [type, setType] = useState<any>();
+  const initialOption = { gr_id: "0", gr_name: "Chưa cập nhật" };
+
+  const options = [initialOption, ...(dataGroup ?? [])].map((item) => ({
+    label: item.gr_id !== "0" ? item.gr_name : "", // Không trả về label nếu item.gr_id = 0
+    options:
+      item.gr_id !== "0"
+        ? [
+            {
+              value: item.gr_id.toString(),
+              label: item.gr_name,
+            },
+            ...(item?.lists_child ?? []).map((child) => ({
+              value: child.gr_id.toString(),
+              label: child.gr_name,
+            })),
+          ]
+        : [{ label: item.gr_name, value: item.gr_id.toString() }],
+  }));
+  const [value, setvalue] = useState();
+  const [slectNhom, setslectNhom] = useState<any>();
+  const handleSelectChange = async (selectedOption) => {
+    // Kiểm tra nếu người dùng chọn một nhóm (select cha)
+    // const
+    setvalue(selectedOption);
+
+    const url = `${base_url}/api/crm/customerdetails/editCustomer`;
+
+    const formData = new FormData();
+    formData.append("group_id", selectedOption);
+    formData.append("type", type);
+    formData.append("cus_id", cusId);
+
+    const headers = {
+      Authorization: `Bearer ${Cookies.get("token_base365")}`,
+    };
+
+    const config = {
+      method: "POST",
+      headers: headers,
+      body: formData,
+    };
+    try {
+      const response = await fetch(url, config);
+      const data = await response.json();
+
+      if (data?.error) {
+      }
+    } catch (error) {
+      console.error(error);
+    }
+    if (selectedOption && selectedOption.options) {
+      console.log("Không thể chọn nhóm");
+      // Có thể hiển thị thông báo hoặc xử lý theo cách bạn muốn
+      return;
     }
   };
   const columns: ColumnsType<DataType> = [
@@ -321,23 +371,37 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       width: 400,
       render: (data, record, index) => (
         <div
-          style={{
-            padding: "5px",
-            paddingLeft: "11px",
-            width: "100%",
-            textAlign: "left",
-          }}
-          className={stylesPotentialSelect.wrap_select}
-          onClick={() => (setCusId(record.cus_id), handleCellClick(index))}
+          className="custom_slect2"
+          onClick={() => (
+            setCusId(record.cus_id),
+            setType(record.type),
+            setslectNhom(record.cus_id)
+          )}
         >
-          <CustomerGroupSelect
+          <Select
+            style={{
+              width: "100%",
+              textAlign: "left",
+            }}
+            value={
+              Number(slectNhom) === Number(record.cus_id) && value
+                ? value
+                : record?.group_id?.toString() || "0"
+            }
+            // defaultValue={value ? value : record?.group_id?.toString() || "0"}
+            showSearch
+            optionFilterProp="label"
+            options={options}
+            onChange={handleSelectChange}
+          />
+          {/* <CustomerGroupSelect
             data={dataGroup}
             value={data}
             placeholder={record?.group_id}
             cusId={cusId}
             type={record.type}
             showTop={showTop}
-          />
+          /> */}
         </div>
       ),
     },
@@ -376,10 +440,12 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       key: "3",
       width: 180,
       render: (text, record) => (
-        <select
+        <div onClick={()=>(setslectNguon(record.cus_id),setCusId(record.cus_id))}>
+           <select
           style={{ border: 0, width: "100%" }}
           onChange={(e) => handleChangeSelect(e, record)}
-          defaultValue={record?.value ? record.value : ""}
+          value={slectNguon===record.cus_id&&nguon?nguon:record?.value}
+          // defaultValue={record?.value ? record.value : ""}
         >
           {ArrNguonKK?.map((item, index) => {
             if (item?.name == record?.resoure) {
@@ -401,6 +467,8 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
             }
           })}
         </select>
+        </div>
+       
       ),
     },
     {
@@ -582,6 +650,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
         group_idFix={group_idFix}
         show={show}
         setshow={setshow}
+        fetchDataDefault={fetchDataDefault}
       />
     </>
   );
