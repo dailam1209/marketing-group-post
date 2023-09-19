@@ -458,6 +458,7 @@ export default function CustomerList() {
             dataLength={data?.data?.length}
           />
           <TableListCustomer
+          handleGetInfoSTT={handleGetInfoSTT}
             fetchData={fetchData}
             rowSelection={rowSelection}
             datatable={datatable}

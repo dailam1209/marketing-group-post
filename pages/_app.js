@@ -13,6 +13,7 @@ import TitleHeaderMobile from "@/components/crm/header/title_header_mobile";
 import styles from "@/components/crm/sidebar/sidebar.module.css";
 import { Provider } from "react-redux";
 import Seo from "@/components/head";
+// import "assets/vendor/select2/dist/css/select2.min.css";
 import { TongDaiContext } from "@/components/crm/context/tongdaiContext";
 import { store } from "@/components/crm/redux/store";
 import { checkAndRedirectToHomeIfNotLoggedIn } from "../components/crm/ultis/checkLogin";

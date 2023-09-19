@@ -91,6 +91,7 @@ interface TableDataContracDrops {
   role?: any;
   posId?: any;
   listNV?: any;
+  handleGetInfoSTT?: any;
 }
 
 const TableListCustomer: React.FC<TableDataContracDrops> = ({
@@ -147,6 +148,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   role,
   posId,
   listNV,
+  handleGetInfoSTT,
 }: any) => {
   const [openModalCall, setOpenModalCall] = useState(false);
   const router = useRouter();
@@ -155,7 +157,6 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   const [cusId, setCusId] = useState<any>();
   const [te, setTE] = useState<any>();
   const [nameNguon, setNameNguon] = useState();
-
   const [show, setshow] = useState<boolean>(false);
   const [group_idFix, setgroup_idFix] = useState<any>();
   const handleChangeStatus = (e: any, data: any) => {
@@ -183,7 +184,23 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       </button>
     </div>
   );
-
+  const [showTop, setshowTop] = useState(false);
+  const handleCellClick = (index) => {
+    if ([8,9,10].includes(datatable.length)) {
+      if ([6, 7, 8, 9].includes(index)) {
+        setshowTop(true);
+      } else {
+        setshowTop(false);
+      }
+    }
+    if ([6,7].includes(datatable.length)) {
+      if ([3,4,5].includes(index)) {
+        setshowTop(true);
+      } else {
+        setshowTop(false);
+      }
+    }
+  };
   const handleChangeSelect = async (e: any, record) => {
     //get type
     const res = await fetch(`${base_url}/api/crm/customerdetails/detail`, {
@@ -302,7 +319,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       dataIndex: "group_id",
       key: "3",
       width: 400,
-      render: (data, record) => (
+      render: (data, record, index) => (
         <div
           style={{
             padding: "5px",
@@ -311,7 +328,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
             textAlign: "left",
           }}
           className={stylesPotentialSelect.wrap_select}
-          onClick={() => setCusId(record.cus_id)}
+          onClick={() => (setCusId(record.cus_id), handleCellClick(index))}
         >
           <CustomerGroupSelect
             data={dataGroup}
@@ -319,6 +336,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
             placeholder={record?.group_id}
             cusId={cusId}
             type={record.type}
+            showTop={showTop}
           />
         </div>
       ),
@@ -525,6 +543,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       />
 
       <CallModal
+        handleGetInfoSTT={handleGetInfoSTT}
         isModalCancel={openModalCall}
         setIsModalCancel={setOpenModalCall}
         cusId={cusId}

@@ -442,13 +442,14 @@ export default function ChatBusinessBody({
   useEffect(() => {
     handleChangeInforCus();
   }, [action]);
-
+  const [Change, setChange] = useState<any>()
+  const [mail, setMail] = useState<any>()
   return (
     <div className={styles.business_assistant_body}>
       <div className={styles.form_business_assistant}>
-        <InputPhone infoCus={infoCus} refPhone={refPhone} />
-        <InputNameCustomer refName={refName} infoCus={infoCus} />
-        <InputEmailCustomer infoCus={infoCus} refMail={refMail} />
+        <InputPhone infoCus={infoCus} refPhone={refPhone} setChange={setMail}/>
+        <InputNameCustomer refName={refName} infoCus={infoCus} setChange={setChange}/>
+        <InputEmailCustomer infoCus={infoCus} refMail={refMail} setMail={setMail} />
         <TextEditor
           infoCus={infoCus}
           title={"Mô tả khách hàng" as any}
