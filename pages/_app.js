@@ -13,10 +13,13 @@ import TitleHeaderMobile from "@/components/crm/header/title_header_mobile";
 import styles from "@/components/crm/sidebar/sidebar.module.css";
 import { Provider } from "react-redux";
 import Seo from "@/components/head";
-// import "assets/vendor/select2/dist/css/select2.min.css";
 import { TongDaiContext } from "@/components/crm/context/tongdaiContext";
 import { store } from "@/components/crm/redux/store";
 import { checkAndRedirectToHomeIfNotLoggedIn } from "../components/crm/ultis/checkLogin";
+import Cookies from "js-cookie";
+import { base_url } from "@/components/crm/service/function";
+
+
 export const LoadingComp = () => {
   return (
     <Spin
@@ -37,7 +40,8 @@ export default function App({ Component, pageProps }) {
   const [firstLoad, setFirstLoad] = useState(
     router?.pathname?.includes("/crm/") ? false : true
   );
-
+  const [openModalOTPCompany, setOpenModalOTPCompany] = useState(false);
+  const [openModalModalOTPEmployee, setOpenModalOTPEmployee] = useState(false);
   useEffect(() => {
     const doLoading = () => {
       const start = () => {
@@ -87,7 +91,64 @@ export default function App({ Component, pageProps }) {
     importGlobalStyles();
   }, [router.pathname]);
 
+  const [com_auth, setCom_auth] = useState("")
+  const [employee_auth, setEmployee_auth] = useState("")
+  const role =parseInt(Cookies.get("role"))
+
+  const getInfoLoginCompany = async () => {
+    try {
+      const res = await fetch(
+        `${base_url }/api/qlc/company/info`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${Cookies.get("token_base365")}`,
+          },
+        }
+      );
+      const data = await res.json();
+      setCom_auth(parseInt(data?.data.data.com_authentic))
+    } catch (error) { }
+  };
+
+
+  const getInfoLoginEmployee = async () => {
+    try {
+      const res = await fetch(
+        `${base_url }/api/qlc/employee/info`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${Cookies.get("token_base365")}`,
+          },
+        }
+      );
+      const data = await res.json();
+      setEmployee_auth(parseInt(data?.data.data.authentic))
+    } catch (error) { }
+  };
+
+  useEffect(()=>{
+    getInfoLoginCompany();
+    getInfoLoginEmployee();
+console.log(role , com_auth);
+    if (role === 1 && com_auth !== 1 && com_auth !== "" ){
+      // return false;
+      router.push(`https://hungha365.com/xac-thuc-ma-otp-cong-ty.html`) ;
+    }
   
+    if (role === 2 && employee_auth !== 1 && employee_auth !== "") {
+      router.push(`https://hungha365.com/xac-thuc-ma-otp-nhan-vien.html`) ;    
+      }
+  
+  },[role,com_auth,employee_auth])
+
+
+
+
+
   return (
     <>
       <Seo />
@@ -132,6 +193,7 @@ export default function App({ Component, pageProps }) {
       ) : (
         <LoadingComp />
       )}
+       
     </>
   );
 }

@@ -1,12 +1,14 @@
 /** @format */
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect} from "react";
 import styles from "./Modal.module.scss";
 import Link from "next/link";
 import { useRouter } from "next/router";
+
 export default function ModalLogin({ setOpenModalLogin }) {
   const router = new useRouter();
-  const [getUrl, setUrl] = useState("");
+
+
   useEffect(() => {
     const query = router.query;
     if (query.url && query.urlRedeict) {
@@ -14,6 +16,8 @@ export default function ModalLogin({ setOpenModalLogin }) {
       setUrl(urlGet);
     }
   }, []);
+
+
   return (
     <div>
       <div className={styles.modal_login_register}>
