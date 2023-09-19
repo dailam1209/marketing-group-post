@@ -5,26 +5,17 @@ import InputEmailCustomer from "./input_email_customer";
 import SelectBoxInput from "./select_box_input";
 import { dataOptions } from "../ultis/consntant";
 import CalenderInput from "./calender_input";
-import SaveBtnChat from "./saveBtnChat";
 import TextEditor from "../text-editor/text_editor_phone";
 import { useEffect, useRef, useState } from "react";
 import TextEditorND from "../text-editor/text_editor_nd";
 import { base_url } from "../service/function";
 import SelectBoxInputNguon from "./nguonKH";
-import SelectBoxInputNhomKh from "./nhomKh";
-import SelectBoxInputNhomKhcon from "./khcon";
 import { Select } from "antd";
 import { useRouter } from "next/router";
 import moment from "moment";
 import React from "react";
-import { Input, TimePicker } from "antd";
-import dayjs from "dayjs";
 import stylePotentialSlect from "@/components/crm/potential/potential.module.css";
-import PotentialSelectBoxStep from "../potential/potential_steps/select_box_step";
-import { CaretDownOutlined, DownCircleTwoTone } from "@ant-design/icons";
-import { Router } from "next/router";
 import Cookies from "js-cookie";
-import { tr } from "date-fns/locale";
 import { useSelector } from "react-redux";
 import { doGhimCha, doSaveCha } from "../redux/user/userSlice";
 import { useDispatch } from "react-redux";
@@ -94,7 +85,7 @@ export default function ChatBusinessBody({
       });
       const data = await res.json();
       if (data && data?.data) setInfoCus(data?.data);
-    } catch (error) {}
+    } catch (error) { }
   };
   useEffect(() => {
     handleGetInfoCus();
@@ -102,7 +93,7 @@ export default function ChatBusinessBody({
   // const [listGr, setListGr] = useState([]);
   const [list_gr_child, setlistGr_Child] = useState([]);
 
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
   const [idChaSaved, setidChaSaved] = useState<any>(-1);
   const checkCha = useSelector((state: any) => state?.auth?.ghimCha);
   const valueChaOld = useSelector((state: any) => state?.auth?.valueCha);
@@ -154,7 +145,7 @@ export default function ChatBusinessBody({
     }
   };
 
-  const handleDateChangeEnd = (e) => {};
+  const handleDateChangeEnd = (e) => { };
 
   let optionCon2;
   if (valueChaOld) {
