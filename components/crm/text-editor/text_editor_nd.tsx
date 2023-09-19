@@ -7,17 +7,20 @@ export default function TextEditorND({
   infoCus,
   setContent,
   setDate,
-  setrefCall
+  setrefCall,
+  content_call,
+  content
 }: any) {
   const editorRef = useRef<any>();
   const [editorLoaded, setEditorLoaded] = useState(false);
   const { CKEditor, ClassicEditor } = editorRef.current || {};
+  const [value, setvalue] = useState<any>()
 
   const handleEditorChange = (event, editor) => {
     const data = editor.getData();
     const sanitizedData = sanitizeContent(data);
     setrefCall(sanitizedData);
-    
+    setvalue("")
   };
   const sanitizeContent = (content) => {
     const cleanContent = content.replace("&nbsp;", " "); // Loại bỏ các thẻ <p> trống và &nbsp;
@@ -34,7 +37,6 @@ export default function TextEditorND({
     };
     setEditorLoaded(true);
   }, []);
-
   return (
     <div
       className={`text_editor_${className}`}
@@ -42,6 +44,7 @@ export default function TextEditorND({
     >
       <label className="title_label">{title}</label>
       {editorLoaded ? <CKEditor
+      data={content}
        onChange={handleEditorChange}
       editor={ClassicEditor} /> : "loading..."}
     </div>

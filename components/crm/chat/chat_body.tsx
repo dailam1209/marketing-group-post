@@ -58,6 +58,7 @@ export default function ChatBusinessBody({
   listGr_Child,
   group_idFix,
   action,
+  content
 }: any) {
   const [infoCus, setInfoCus] = useState<any>();
 
@@ -100,7 +101,8 @@ export default function ChatBusinessBody({
   const [valueSelectStatus, setValueSelectStatus] = useState<any>();
   const [valueResoure, sevalueResoure] = useState<any>();
   const [check, setCheck] = useState(false);
-
+  const [nhomChaDemo, setnhomChaDemo] = useState<any>()
+  const [nhomComDeMo, setnhomComDeMo] = useState()
   const handlefilter = async () => {
     setDatatable([]);
     setloading(true);
@@ -133,10 +135,8 @@ export default function ChatBusinessBody({
   }, [idChaSaved]);
 
   const handleSelectNhomCha = (value) => {
-    setnhomCha(value);
+    setnhomChaDemo(value)
     dispatch(doSaveCha({ id: value }));
-    setIdNhom(value);
-    setnhomCon("Tất cả");
     setnhonkhachhang(value);
     if (value > 0) {
       setCheck(true);
@@ -248,11 +248,34 @@ export default function ChatBusinessBody({
       }
       setrefCall('')
     };
+    const [nhonConReal, setnhonConReal] = useState<any>()
+
   useEffect(() => {
     handleChangeInforCus();
   }, [action]);
   const [Change, setChange] = useState<any>();
   const [mail, setMail] = useState<any>();
+    const [nhomChaReal, setnhomChaReal] = useState<any>()
+  console.log("listGr",listGr)
+  const arrCha = []
+  listGr.map(item=>{
+    arrCha.push(item.gr_id)
+  })
+  console.log("arrCha",arrCha)
+  useEffect(() => {
+    setnhomChaReal("")
+    setnhonConReal("")
+  if(arrCha.includes(infoCus?.group_id?.info)){
+    setnhomChaReal(infoCus?.group_id?.info)
+    setnhomCha(infoCus?.group_id?.info)
+    
+  }else{
+    setnhonConReal(infoCus?.group_id?.info)
+    setnhomChaReal(nhomCha)
+  }
+
+  }, [nhonConReal,nhomChaReal,infoCus,cusId,arrCha])
+  
   return (
     <div className={styles.business_assistant_body}>
       <div className={styles.form_business_assistant}>
@@ -280,6 +303,7 @@ export default function ChatBusinessBody({
           className={"2"}
           setContent={setContent}
           setDate={setDate}
+          content={content}
           setrefCall={setrefCall}
         />
 
@@ -294,7 +318,7 @@ export default function ChatBusinessBody({
             </div>
           </div>
           <Select
-            value={nhomCha}
+            value={nhomChaDemo?nhomChaDemo:nhomChaReal}
             onChange={(value) => handleSelectNhomCha(value)}
             // defaultValue={group_idFix}
             suffixIcon={
@@ -338,10 +362,10 @@ export default function ChatBusinessBody({
               filterOption={(input, option: any) =>
                 option?.label.toLowerCase().includes(input.toLocaleLowerCase())
               }
-              value={nhomCon}
+              value={nhomComDeMo?nhomComDeMo:nhonConReal}
               onChange={(value) => {
-                setnhomCon(value), setIdNhom(value);
-                setnhonkhachhang(value);
+                // setnhomCon(value), setIdNhom(value);
+                setnhonkhachhang(value);setnhomComDeMo(value)
               }}
               suffixIcon={
                 <i
