@@ -16,6 +16,8 @@ import Seo from "@/components/head";
 import { TongDaiContext } from "@/components/crm/context/tongdaiContext";
 import { store } from "@/components/crm/redux/store";
 import { checkAndRedirectToHomeIfNotLoggedIn } from "../components/crm/ultis/checkLogin";
+import Cookies from "js-cookie";
+import { base_url } from "@/components/crm/service/function";
 
 export const LoadingComp = () => {
   return (
@@ -87,7 +89,32 @@ export default function App({ Component, pageProps }) {
     importGlobalStyles();
   }, [router.pathname]);
 
-  
+  const [com_auth, setCom_auth] = useState("")
+  console.log(com_auth);
+
+  const handleGetInfoLogin = async () => {
+    try {
+      const res = await fetch(
+        `${base_url }/api/qlc/company/info`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${Cookies.get("token_base365")}`,
+          },
+        }
+      );
+      const data = await res.json();
+      setCom_auth(data?.data.data.com_authentic)
+    } catch (error) { }
+  };
+  useEffect(() => {
+    handleGetInfoLogin();
+  }, []);
+
+
+
+
   return (
     <>
       <Seo />
