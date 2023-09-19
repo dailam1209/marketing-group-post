@@ -533,7 +533,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
             handlefilter();
             setIsApDung(true);
           }}
-          type="submit"
+          type="button"
           className={styles.btn_apply}
         >
           Áp dụng
