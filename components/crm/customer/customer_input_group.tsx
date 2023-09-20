@@ -62,8 +62,8 @@ export default function CustomerListInputGroup({
   const [data, setData] = useState<any>();
 
   const showDrawer = () => {
-    setOpen(true);
     setIsOpenFilterBox(true);
+    setOpen(true);
   };
   const onClose = () => {
     setOpen(false);
