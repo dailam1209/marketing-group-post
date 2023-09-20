@@ -57,8 +57,8 @@ export default function CustomerList() {
   const [pageSize, setPageSize] = useState(10);
   const [totalRecords, setTotalRecords] = useState();
   const [dataStatus, setdataStatus] = useState<any>();
-  const [group_id, setgroup_id] = useState();
-  const [timeStart, setTimeStart] = useState();
+  const [group_id, setgroup_id] = useState<any>();
+  const [timeStart, setTimeStart] = useState<any>();
   const [timeEnd, setTimeEnd] = useState();
   const [dateS, setdateS] = useState();
   const [dateE, setdateE] = useState(null);
@@ -70,15 +70,18 @@ export default function CustomerList() {
   const [selectedCusIds, setSelectedCusIds] = useState<string>("");
 
   useEffect(() => {
-    if (isAPDung) {
-      if (dateE) {
-        setTime_e(dateE + " " + timeEnd);
-      }
-    } else if (!isAPDung && !isOpenFilterBox) {
+    if (!isAPDung && !isOpenFilterBox) {
       setTime_s(null);
       setTime_e(null);
+    }else{
+      if(dateE){
+        setTime_e(dateE + " " + timeEnd);
+      }
+     
+      setTime_s(dateS + " " + timeStart);
     }
-  }, [isAPDung, isOpenFilterBox]);
+  }, [isAPDung, isOpenFilterBox, timeStart, dateS, timeEnd, dateE,time_s,time_e]);
+  console.log(time_s,time_e);
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
   const fetchData = async () => {
@@ -109,7 +112,7 @@ export default function CustomerList() {
         setloading(false);
       }
       setTotalRecords(data?.total);
-    } catch (error) { }
+    } catch (error) {}
   };
 
   const fetchDataDefault = async () => {
@@ -131,7 +134,7 @@ export default function CustomerList() {
         setloading(false);
       }
       setTotalRecords(data?.total);
-    } catch (error) { }
+    } catch (error) {}
   };
   const handleGetInfoSTT = async () => {
     try {
@@ -145,7 +148,7 @@ export default function CustomerList() {
       });
       const data = await res.json();
       if (data && data?.data) setdataStatus(data?.data);
-    } catch (error) { }
+    } catch (error) {}
   };
   useEffect(() => {
     handleGetInfoSTT();
@@ -239,7 +242,7 @@ export default function CustomerList() {
         });
         setlistGr_Child(arr);
       });
-    } catch (error) { }
+    } catch (error) {}
   };
 
   const role = Cookies.get("role");
@@ -271,7 +274,7 @@ export default function CustomerList() {
           setnameNvNomor(data?.data?.data);
         }
       }
-    } catch (error) { }
+    } catch (error) {}
   };
   const handleGetInfoCus = async () => {
     try {
@@ -287,7 +290,7 @@ export default function CustomerList() {
       );
       const data = await res.json();
       if (data && data?.data) setListNv(data?.data?.items);
-    } catch (error) { }
+    } catch (error) {}
   };
   let nv = listNV?.filter((item) => item.dep_id === dep_id);
   const [listNVPT, setlistNVPT] = useState<any>();
@@ -307,7 +310,7 @@ export default function CustomerList() {
       );
       const data = await res.json();
       if (data && data?.data) setlistNVPT(data?.data?.items);
-    } catch (error) { }
+    } catch (error) {}
   };
 
   useEffect(() => {
@@ -334,20 +337,16 @@ export default function CustomerList() {
   const formDataRequest = sendingData();
   formDataRequest.keyword &&
     formData.append("keyword", formDataRequest.keyword);
-  formDataRequest.status &&
-    formData.append("status", formDataRequest.status);
+  formDataRequest.status && formData.append("status", formDataRequest.status);
   formDataRequest.resoure &&
     formData.append("resoure", formDataRequest.resoure);
   formDataRequest.user_create_id &&
     formData.append("user_create_id", formDataRequest.user_create_id);
-  formDataRequest.ep_id &&
-    formData.append("ep_id", formDataRequest.ep_id);
+  formDataRequest.ep_id && formData.append("ep_id", formDataRequest.ep_id);
   formDataRequest.group_id &&
     formData.append("group_id", formDataRequest.group_id);
-  formDataRequest.time_s &&
-    formData.append("time_s", formDataRequest.time_s);
-  formDataRequest.time_e &&
-    formData.append("time_e", formDataRequest.time_e);
+  formDataRequest.time_s && formData.append("time_s", formDataRequest.time_s);
+  formDataRequest.time_e && formData.append("time_e", formDataRequest.time_e);
 
   const handleSelectAll = () => {
     const allRowKeys = datatable?.map((item: { key: any }) => item.key);
@@ -430,7 +429,7 @@ export default function CustomerList() {
           src="https://www.googletagmanager.com/gtm.js?id=GTM-NXVQCHN"
         ></script>
       </Head>
-      
+
       {!checkAndRedirectToHomeIfNotLoggedIn() ? null : (
         <div ref={mainRef} className={styleHome.main}>
           <CustomerListInputGroup
@@ -480,7 +479,7 @@ export default function CustomerList() {
             dataLength={data?.data?.length}
           />
           <TableListCustomer
-          handleGetInfoSTT={handleGetInfoSTT}
+            handleGetInfoSTT={handleGetInfoSTT}
             fetchData={fetchData}
             rowSelection={rowSelection}
             datatable={datatable}

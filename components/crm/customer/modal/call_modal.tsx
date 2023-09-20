@@ -225,7 +225,7 @@ const CallModal: React.FC<MyComponentProps> = ({
                         </div>
                         <br />
                         <div style={{ float: "left", color: "#4c5bd4" }}>
-                          {item?.content_call}
+                          {item?.content_call?.replace(/<[^>]*>|&nbsp;|&#160;/g, '')}
                         </div>
                         <br />
                       </div>
@@ -350,7 +350,7 @@ const CallModal: React.FC<MyComponentProps> = ({
                         </div>
                         <br />
                         <div style={{ float: "left", color: "#4c5bd4" }}>
-                          {item?.content_call}
+                          {item?.content_call.replace(/<[^>]*>|&nbsp;|&#160;/g, '')}
                         </div>
                         <br />
                       </div>
