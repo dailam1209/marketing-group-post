@@ -75,13 +75,12 @@ export default function CustomerList() {
       setTime_e(null);
     }else{
       if(dateE){
-        setTime_e(dateE + " " + timeEnd);
+        setTime_e(dateE + " " + timeEnd); 
       }
      
       setTime_s(dateS + " " + timeStart);
     }
   }, [isAPDung, isOpenFilterBox, timeStart, dateS, timeEnd, dateE,time_s,time_e]);
-  console.log(time_s,time_e);
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
   const fetchData = async () => {
@@ -293,30 +292,9 @@ export default function CustomerList() {
     } catch (error) {}
   };
   let nv = listNV?.filter((item) => item.dep_id === dep_id);
-  const [listNVPT, setlistNVPT] = useState<any>();
-
-  const handleGetNvPt = async () => {
-    try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/list`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${Cookies.get("token_base365")}`,
-          },
-          body: JSON.stringify({ dep_id: dep_id }),
-        }
-      );
-      const data = await res.json();
-      if (data && data?.data) setlistNVPT(data?.data?.items);
-    } catch (error) {}
-  };
-
   useEffect(() => {
     handleGetInfoCusNV();
     handleGetInfoCus();
-    handleGetNvPt();
   }, [dep_id]);
 
   function sendingData() {

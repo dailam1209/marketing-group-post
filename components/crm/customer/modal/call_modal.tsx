@@ -92,7 +92,8 @@ const CallModal: React.FC<MyComponentProps> = ({
   group_idFix,
   show,
   setshow,
-  fetchDataDefault
+  fetchDataDefault,
+  setDatatable
 }) => {
   const [content, setContent] = useState<any>();
   const [datae, setDate] = useState<any>();
@@ -128,6 +129,7 @@ const CallModal: React.FC<MyComponentProps> = ({
     setIsOpenModalZoom(false);
     setTimeout(async() => {
       setContent("")
+      setDatatable([]);
       setIsOpenMdalSuccess(false);
       setshow(false);
       await fetchData()
