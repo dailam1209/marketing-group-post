@@ -186,23 +186,6 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       </button>
     </div>
   );
-  const [showTop, setshowTop] = useState(false);
-  const handleCellClick = (index) => {
-    if ([8, 9, 10].includes(datatable.length)) {
-      if ([6, 7, 8, 9].includes(index)) {
-        setshowTop(true);
-      } else {
-        setshowTop(false);
-      }
-    }
-    if ([6, 7].includes(datatable.length)) {
-      if ([3, 4, 5].includes(index)) {
-        setshowTop(true);
-      } else {
-        setshowTop(false);
-      }
-    }
-  };
   const [nguon, setnguon] = useState<any>();
   const [slectNguon, setslectNguon] = useState<any>();
 
@@ -255,11 +238,15 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   }));
   const [value, setvalue] = useState();
   const [slectNhom, setslectNhom] = useState<any>();
-  const handleSelectChange = async (selectedOption) => {
+  const [groupIds, setGroupIds] = useState<any>({});
+  const handleSelectChange = async (selectedOption, record) => {
     // Kiểm tra nếu người dùng chọn một nhóm (select cha)
     // const
-    setvalue(selectedOption);
+    const newGroupIds = { ...groupIds };
+    newGroupIds[record.key] = selectedOption;
+    setGroupIds(newGroupIds);
 
+    setvalue(selectedOption);
     const url = `${base_url}/api/crm/customerdetails/editCustomer`;
 
     const formData = new FormData();
@@ -383,25 +370,12 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
               width: "100%",
               textAlign: "left",
             }}
-            value={
-              Number(slectNhom) === Number(record.cus_id) && value
-                ? value
-                : record?.group_id?.toString() || "0"
-            }
-            // defaultValue={value ? value : record?.group_id?.toString() || "0"}
+            value={groupIds[record.key] || record.group_id.toString() || "0"}
             showSearch
             optionFilterProp="label"
             options={options}
-            onChange={handleSelectChange}
+            onChange={(value) => handleSelectChange(value, record)}
           />
-          {/* <CustomerGroupSelect
-            data={dataGroup}
-            value={data}
-            placeholder={record?.group_id}
-            cusId={cusId}
-            type={record.type}
-            showTop={showTop}
-          /> */}
         </div>
       ),
     },
@@ -440,35 +414,40 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       key: "3",
       width: 180,
       render: (text, record) => (
-        <div onClick={()=>(setslectNguon(record.cus_id),setCusId(record.cus_id))}>
-           <select
-          style={{ border: 0, width: "100%" }}
-          onChange={(e) => handleChangeSelect(e, record)}
-          value={slectNguon===record.cus_id&&nguon?nguon:record?.value}
-          // defaultValue={record?.value ? record.value : ""}
+        <div
+          onClick={() => (
+            setslectNguon(record.cus_id), setCusId(record.cus_id)
+          )}
         >
-          {ArrNguonKK?.map((item, index) => {
-            if (item?.name == record?.resoure) {
-              return (
-                <option
-                  key={index}
-                  value={item?.id}
-                  style={{ background: "rgb(76, 91, 212)", color: "#fff" }}
-                >
-                  {item?.name}
-                </option>
-              );
-            } else {
-              return (
-                <option key={index} value={item?.id}>
-                  {item?.name}
-                </option>
-              );
+          <select
+            style={{ border: 0, width: "100%" }}
+            onChange={(e) => handleChangeSelect(e, record)}
+            value={
+              slectNguon === record.cus_id && nguon ? nguon : record?.value
             }
-          })}
-        </select>
+            // defaultValue={record?.value ? record.value : ""}
+          >
+            {ArrNguonKK?.map((item, index) => {
+              if (item?.name == record?.resoure) {
+                return (
+                  <option
+                    key={index}
+                    value={item?.id}
+                    style={{ background: "rgb(76, 91, 212)", color: "#fff" }}
+                  >
+                    {item?.name}
+                  </option>
+                );
+              } else {
+                return (
+                  <option key={index} value={item?.id}>
+                    {item?.name}
+                  </option>
+                );
+              }
+            })}
+          </select>
         </div>
-       
       ),
     },
     {
