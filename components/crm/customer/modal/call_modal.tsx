@@ -51,6 +51,7 @@ interface MyComponentProps {
   show: any;
   setshow: any;
   handleGetInfoSTT:any
+  fetchDataDefault:any
 }
 
 const CallModal: React.FC<MyComponentProps> = ({
@@ -91,8 +92,9 @@ const CallModal: React.FC<MyComponentProps> = ({
   group_idFix,
   show,
   setshow,
+  fetchDataDefault
 }) => {
-  const [content, setContent] = useState();
+  const [content, setContent] = useState<any>();
   const [datae, setDate] = useState<any>();
   const [isOpenMdalSuccess, setIsOpenMdalSuccess] = useState(false);
   const [isOpenMdalZoom, setIsOpenModalZoom] = useState(false);
@@ -120,16 +122,16 @@ const CallModal: React.FC<MyComponentProps> = ({
 
   const handleOK = async () => {
     setAction(!action);
-
     setDate(formattedTime);
     setIsModalCancel(false);
     setIsOpenMdalSuccess(true);
     setIsOpenModalZoom(false);
     setTimeout(async() => {
+      setContent("")
       setIsOpenMdalSuccess(false);
       setshow(false);
       await fetchData()
-    }, 1200);
+    }, 1000);
   };
 
   const router = useRouter();
@@ -152,7 +154,10 @@ const CallModal: React.FC<MyComponentProps> = ({
     } catch (error) {}
   };
   useEffect(() => {
-    getHisCus();
+    if(show){
+      getHisCus();
+    }
+    
   }, [show]);
   return (
     <>
@@ -242,6 +247,7 @@ const CallModal: React.FC<MyComponentProps> = ({
               Thông tin khách hàng
             </div>
             <ChatBusinessBody
+            content={content}
               cusId={cusId}
               setContent={setContent}
               setDate={setDate}

@@ -131,8 +131,8 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
 
   useEffect(() => {
     if (isOpenFilterBox) {
-      setTimeStart("12:00:00");
-      setTime_s("12:00:00 " + pastTime.format("YYYY-MM-DD"));
+      setTimeStart("00:00:00");
+      setTime_s("00:00:00 " + pastTime.format("YYYY-MM-DD"));
       setdateS(pastTime.format("YYYY-MM-DD"));
       setTimeEnd("00:00:00");
     }
@@ -168,37 +168,28 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
   };
 
   const optionTest =
-    role == "2" && posId !== 2
+    role == "2" && [20, 4, 12, 13, 10, 11, 5, 6].includes(posId)
       ? [
-        { value: null, label: "Tất cả" },
-        ...nv?.map((userName, index) => {
-          return {
-            value: userName?.ep_id,
-            label:
-              `(${userName.ep_id})` +
-              " " +
-              userName?.ep_name +
-              " " +
-              userName.dep_name,
-          };
-        }),
-      ]
-      : role == "1"
-        ? [
+          { value: null, label: "Tất cả" },
+          ...nv?.map((userName, index) => {
+            return {
+              value: userName?.ep_id,
+              label: `(${userName.ep_id}) ${userName?.ep_name} - ${userName.dep_name}`,
+            };
+          }),
+        ]
+      : role == "1" ||
+        (role == "2" && [7, 8, 14, 16, 22, 21, 18, 19, 17].includes(posId)) // Nếu là công ty hoặc tài khoản nhân viên cấp giám đốc (7, 8, 14, 16, 22,21 ,18,19,17)
+      ? [
           { value: null, label: "Tất cả" },
           ...listNV?.map((userName, index) => {
             return {
               value: userName?.ep_id,
-              label:
-                `(${userName.ep_id})` +
-                " " +
-                userName?.ep_name +
-                " " +
-                userName.dep_name,
+              label: `(${userName.ep_id}) ${userName?.ep_name} - ${userName.dep_name}`,
             };
           }),
         ]
-        : [
+      : [
           [nameNvNomor]?.map((userName, index) => {
             return {
               value: userName?.ep_id,
@@ -274,7 +265,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
               <TimePicker
                 onChange={handleTimeStartChange}
                 style={{ width: "100%", height: "37px" }}
-                defaultValue={dayjs("12:00", format)}
+                defaultValue={dayjs("00:00", format)}
                 format={format}
               />
             </div>
@@ -542,7 +533,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
             handlefilter();
             setIsApDung(true);
           }}
-          type="submit"
+          type="button"
           className={styles.btn_apply}
         >
           Áp dụng

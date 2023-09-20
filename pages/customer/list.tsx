@@ -99,7 +99,7 @@ export default function CustomerList() {
           emp_id: emp_id,
           group_id: idNhom,
           // group_pins_id: nhomCon,
-          // time_s: time_s,
+          time_s: time_s,
           time_e: time_e,
         }),
       });
@@ -112,6 +112,27 @@ export default function CustomerList() {
     } catch (error) { }
   };
 
+  const fetchDataDefault = async () => {
+    try {
+      const res = await fetch(`${base_url}/api/crm/customer/list`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get("token_base365")}`,
+        },
+        body: JSON.stringify({
+          perPage: pageSize,
+          page: page,
+        }),
+      });
+      const data = await res.json();
+      setData(data);
+      if (data?.data?.length <= 0) {
+        setloading(false);
+      }
+      setTotalRecords(data?.total);
+    } catch (error) { }
+  };
   const handleGetInfoSTT = async () => {
     try {
       const res = await fetch(`${base_url}/api/crm/customerStatus/list`, {
@@ -409,6 +430,7 @@ export default function CustomerList() {
           src="https://www.googletagmanager.com/gtm.js?id=GTM-NXVQCHN"
         ></script>
       </Head>
+      
       {!checkAndRedirectToHomeIfNotLoggedIn() ? null : (
         <div ref={mainRef} className={styleHome.main}>
           <CustomerListInputGroup
@@ -507,6 +529,7 @@ export default function CustomerList() {
             numberSelected={numberSelected}
             chooseAllOption={handleSelectAll}
             selectedCus={selectedCus}
+            fetchDataDefault={fetchDataDefault}
           />
         </div>
       )}

@@ -106,6 +106,8 @@ export default function CustomerGroupSelect({
           </span>
         </span>
         
+
+
         {isOpen && (
           <CustomerGroupSelectDropdownData
             cus_id={cusId}
