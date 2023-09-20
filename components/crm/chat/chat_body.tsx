@@ -256,12 +256,10 @@ export default function ChatBusinessBody({
   const [Change, setChange] = useState<any>();
   const [mail, setMail] = useState<any>();
     const [nhomChaReal, setnhomChaReal] = useState<any>()
-  console.log("listGr",listGr)
   const arrCha = []
   listGr.map(item=>{
     arrCha.push(item.gr_id)
   })
-  console.log("arrCha",arrCha)
   useEffect(() => {
     setnhomChaReal("")
     setnhonConReal("")
