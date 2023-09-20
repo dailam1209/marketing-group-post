@@ -4,8 +4,7 @@ import styles from "../../potential/potential.module.css";
 import ModalCompleteStep from "@/components/crm/potential/potential_steps/complete_modal_bangiao";
 import { Select } from "antd";
 import { base_url } from "@/components/crm/service/function";
-import axios from "axios"; // Import Axios
-import { Router, useRouter } from "next/router";
+import { useRouter } from "next/router";
 const Cookies = require("js-cookie");
 
 interface MyComponentProps {
@@ -31,46 +30,59 @@ const HandeOverModalCustomer: React.FC<MyComponentProps> = ({
 }) => {
   const router = useRouter()
   const [isOpenMdalSuccess, setIsOpenMdalSuccess] = useState(false);
+  const [selectedItems, setSelectedItems] = useState<any>(undefined);
+  const [options, setOptions] = useState<{ value: string; label: string }[]>(
+    []
+  );
+  const [errorSelectedValue, setErrorSelectedValue] = useState(false);
+
+
   const apiUrl = `${base_url}/api/crm/customerdetails/bangiao`;
   const handleOK = async () => {
-    try {
-      await fetch(`${apiUrl}`,
-        {
-          method: "POST",
-          headers: {
-            'Authorization': `Bearer ${Cookies.get("token_base365")}`,
-            'Content-Type': 'application/json',
+    const isValidSharing = validate();
+    if (isValidSharing) {
+      try {
+        await fetch(`${apiUrl}`,
+          {
+            method: "POST",
+            headers: {
+              'Authorization': `Bearer ${Cookies.get("token_base365")}`,
+              'Content-Type': 'application/json',
 
-          },
-          body: JSON.stringify({
-            emp_id: selectedItems,
-            cus_id: handover,
+            },
+            body: JSON.stringify({
+              emp_id: selectedItems,
+              cus_id: handover,
+            })
           })
-        })
+
+      } catch (error) {
+
+      }
       setIsModalCancel(false);
       setIsOpenMdalSuccess(true);
-
       setTimeout(() => {
         setIsOpenMdalSuccess(false);
       }, 2000);
       await fetchData()
-      router.push(router.asPath)
-    } catch (error) {
-
     }
-
   };
+
   const handleCancel = () => {
     setSelectedItems(undefined);
     setIsModalCancel(false);
   };
 
-  const [selectedItems, setSelectedItems] = useState<any>(undefined);
 
-  const [options, setOptions] = useState<{ value: string; label: string }[]>(
-    []
-  );
-
+  const validate = () => {
+    if (!selectedItems) {
+      setErrorSelectedValue(true);
+      return false;
+    } else {
+      setErrorSelectedValue(false);
+      return true;
+    }
+  };
   // const name = selectedItems?.ep_name;
   useEffect(() => {
     if (Array.isArray(listNV)) {
@@ -113,6 +125,7 @@ const HandeOverModalCustomer: React.FC<MyComponentProps> = ({
               onChange={(value) => {
                 if (value) {
                   setSelectedItems(value);
+                  setErrorSelectedValue(false);
                 } else {
                   setSelectedItems(undefined);
                 }
@@ -123,6 +136,9 @@ const HandeOverModalCustomer: React.FC<MyComponentProps> = ({
                 option?.label.toLowerCase().indexOf(input.toLowerCase()) >= 0
               }
             />
+            <div className={`error ${styles.error}`}>
+              {errorSelectedValue && "Bạn chưa người nhận công việc."}
+            </div>
           </div>
           <div
             style={{ marginTop: "10px" }}

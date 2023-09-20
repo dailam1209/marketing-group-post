@@ -5,6 +5,10 @@
   flex-direction: column;
 }
 
+.error {
+  color: red; /* Đặt màu chữ thành đỏ */
+  /* Thêm bất kỳ thiết lập CSS khác bạn muốn cho lỗi ở đây */
+}
 .span_success_custom {
   font-weight: 900 !important;
   font-family: "Roboto-Bold" !important;
@@ -144,9 +148,7 @@
 }
 /* CSS */
 .select-wrapper {
-
 }
-
 
 .select2_results__option {
   /* max-height: 200px; */

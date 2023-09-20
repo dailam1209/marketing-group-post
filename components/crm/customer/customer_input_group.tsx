@@ -57,6 +57,7 @@ export default function CustomerListInputGroup({
   sendingData,
   dataLength,
 }: any) {
+
   const [open, setOpen] = useState(false);
   const inputFileRef = useRef<HTMLInputElement>(null);
   const [data, setData] = useState<any>();
@@ -116,7 +117,6 @@ export default function CustomerListInputGroup({
     ];
     exportToExcel(datas, filename, sheetName, columnHeaders);
   };
-  const [isProcessing, setIsProcessing] = useState(true);
   const [nameFill, setNameFill] = useState<any>();
   const handleClickFile = () => {
     inputFileRef.current?.click();

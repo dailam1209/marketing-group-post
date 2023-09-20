@@ -8,7 +8,6 @@ import DelCustomerModal from "./modal/delete_list_Cus";
 import SharingCustomerModal from "./modal/sharing_modal";
 
 export default function CustomerListAction({
-  isSelectedRow,
   clearOption,
   chooseAllOption,
   numberSelected,
@@ -26,6 +25,12 @@ export default function CustomerListAction({
   const [isOpenCovert, setIsOpenConvert] = useState(false);
   const [isOpenShare, setIsOpenShare] = useState(false);
   const [isHandOverOpen, setIsHandOverOpen] = useState(false);
+
+  const dataToSend = {
+    data: selectedCus,
+  };
+
+  sessionStorage.setItem("myData", JSON.stringify(dataToSend));
 
   const [dataCustomerListAction, setDataCustomerListAction] = useState([
     {
@@ -72,9 +77,7 @@ export default function CustomerListAction({
     },
   ]);
 
-  useEffect(() => {
-    setDataCustomerListAction(dataCustomerListAction);
-  });
+
 
   const handleClickAction = (e: any, type: string | undefined) => {
     if (type === "delete") {
@@ -91,11 +94,7 @@ export default function CustomerListAction({
     }
   };
 
-  const dataToSend = {
-    data: selectedCus,
-  };
 
-  sessionStorage.setItem("myData", JSON.stringify(dataToSend));
 
   const items: MenuProps["items"] = [];
   for (let i = 0; i < dataCustomerListAction.length; i++) {
@@ -126,6 +125,11 @@ export default function CustomerListAction({
       ),
     });
   }
+
+  useEffect(() => {
+    setDataCustomerListAction(dataCustomerListAction);
+  });
+
   return (
     <>
       <div className={styles.div__thaotac2}>
@@ -170,6 +174,8 @@ export default function CustomerListAction({
           isModalCancel={isOpenShare}
           setIsModalCancel={setIsOpenShare}
           listNV={listNV}
+          handover={handover}
+
 
         />
         <HandeOverModalCustomer
