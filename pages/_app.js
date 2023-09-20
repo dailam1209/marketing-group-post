@@ -120,12 +120,14 @@ export default function App({ Component, pageProps }) {
       setEmployee_auth(parseInt(data?.data.data.authentic));
     } catch (error) {}
   };
-
   useEffect(() => {
     if (role === 1) {
       getInfoLoginCompany();
     }
+   if(role===2){
     getInfoLoginEmployee();
+   }
+   
     if (role === 1 && com_auth !== 1 && com_auth !== "") {
       // return false;
       router.push(`https://hungha365.com/xac-thuc-ma-otp-cong-ty.html`);

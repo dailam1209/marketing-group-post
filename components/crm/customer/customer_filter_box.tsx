@@ -96,7 +96,9 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
   const handlefilter = async () => {
     setDatatable([]);
     setloading(true);
-    setOpen(false), await fetchData();
+    setOpen(false),
+     await fetchData()
+     ;
   };
   const handleChangeStt = (value: any) => {
     setValueSelectStatus(value);
