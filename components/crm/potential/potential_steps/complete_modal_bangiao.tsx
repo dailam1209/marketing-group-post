@@ -23,11 +23,9 @@ const ModalCompleteStep: React.FC<ModalCompleteStepProps> = ({
   editorContent,
   cusId,
 }: any) => {
-  const router = useRouter();
 
   const handleClick = async () => {
     setModal1Open(false);
-    router.push("#");
   };
   return (
     <div>
