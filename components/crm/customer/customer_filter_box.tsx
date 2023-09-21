@@ -96,7 +96,9 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
   const handlefilter = async () => {
     setDatatable([]);
     setloading(true);
-    setOpen(false), await fetchData();
+    setOpen(false),
+     await fetchData()
+     ;
   };
   const handleChangeStt = (value: any) => {
     setValueSelectStatus(value);
@@ -131,12 +133,13 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
 
   useEffect(() => {
     if (isOpenFilterBox) {
+    
       setTimeStart("00:00:00");
       setTime_s("00:00:00 " + pastTime.format("YYYY-MM-DD"));
       setdateS(pastTime.format("YYYY-MM-DD"));
       setTimeEnd("00:00:00");
     }
-  }, [isOpenFilterBox]);
+  }, []);
 
   const handleSelectNhomCha = (value) => {
     setnhomCha(value);

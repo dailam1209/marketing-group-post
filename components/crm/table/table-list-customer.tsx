@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
 import styles from "../customer/customer.module.css";
-import { Select, Table, Tooltip } from "antd";
+import { Select, Table, Tooltip, notification } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import Link from "next/link";
 import Image from "next/image";
+import stylesPotentialSelect from "@/components/crm/potential/potential.module.css";
 import EditTextCustomerList from "../customer/customer_modal/custoer_mdal_edit_text";
 import { useRouter } from "next/router";
 import CallModal from "../customer/modal/call_modal";
+import { useApi } from "@/components/crm/hooks/useApi";
 import SelectDataInputBox from "../select/select_data";
+import CustomerGroupSelect from "../select/select_data_group_customer";
 import { base_url } from "../service/function";
+import { text } from "stream/consumers";
 const Cookies = require("js-cookie");
 interface DataType {
   count_content_call: number;
@@ -89,7 +93,7 @@ interface TableDataContracDrops {
   listNV?: any;
   handleGetInfoSTT?: any;
   fetchDataDefault?: any;
-  setRowDataSelected: any;
+  setRowDataSelected: any
 }
 
 const TableListCustomer: React.FC<TableDataContracDrops> = ({
@@ -100,6 +104,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   fetchData,
   des,
   setDes,
+  setTest,
   page,
   setPage,
   totalRecords,
@@ -108,12 +113,22 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   loading,
   setDatatable,
   ArrNguonKK,
+  isSelectedRow,
+  numberSelected,
+  clearOption,
+  chooseAllOption,
+  setName,
+  name,
+  setPhone,
+  selectedCus,
   setStatus,
   setResoure,
   nvPhuTrach,
   setnvPhuTrach,
   userNameCreate,
   setuserNameCreate,
+  setNameHandingOverWork,
+  NameHandingOverWork,
   nhomCha,
   setnhomCha,
   nhomCon,
@@ -137,7 +152,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   listNV,
   handleGetInfoSTT,
   fetchDataDefault,
-  setRowDataSelected,
+  setRowDataSelected
 }: any) => {
   const [openModalCall, setOpenModalCall] = useState(false);
   const router = useRouter();
@@ -145,13 +160,9 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   const [valueStatus, setValueStatus] = useState();
   const [cusId, setCusId] = useState<any>();
   const [te, setTE] = useState<any>();
+  const [nameNguon, setNameNguon] = useState();
   const [show, setshow] = useState<boolean>(false);
   const [group_idFix, setgroup_idFix] = useState<any>();
-  const [nguon, setnguon] = useState<any>();
-  const [slectNguon, setslectNguon] = useState<any>();
-  const [value, setvalue] = useState();
-  const [slectNhom, setslectNhom] = useState<any>();
-
   const handleChangeStatus = (e: any, data: any) => {
     setValueStatus(e.target.value);
   };
@@ -177,10 +188,12 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       </button>
     </div>
   );
-
+  const [nguon, setnguon] = useState<any>();
+  const [slectNguon, setslectNguon] = useState<any>();
 
   const handleChangeSelect = async (e: any, record) => {
     setnguon(e.target.value);
+    // const
     const url = `${base_url}/api/crm/customerdetails/editCustomer`;
 
     const formData = new FormData();
@@ -210,7 +223,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   const initialOption = { gr_id: "0", gr_name: "Chưa cập nhật" };
 
   const options = [initialOption, ...(dataGroup ?? [])].map((item) => ({
-    label: item.gr_id !== "0" ? item.gr_name : "",
+    label: item.gr_id !== "0" ? item.gr_name : "", // Không trả về label nếu item.gr_id = 0
     options:
       item.gr_id !== "0"
         ? [
@@ -225,10 +238,17 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
         ]
         : [{ label: item.gr_name, value: item.gr_id.toString() }],
   }));
+  const [value, setvalue] = useState();
+  const [slectNhom, setslectNhom] = useState<any>();
+  const [groupIds, setGroupIds] = useState<any>({});
+  const handleSelectChange = async (selectedOption, record) => {
+    // Kiểm tra nếu người dùng chọn một nhóm (select cha)
+    // const
+    const newGroupIds = { ...groupIds };
+    newGroupIds[record.key] = selectedOption;
+    setGroupIds(newGroupIds);
 
-  const handleSelectChange = async (selectedOption) => {
     setvalue(selectedOption);
-
     const url = `${base_url}/api/crm/customerdetails/editCustomer`;
 
     const formData = new FormData();
@@ -352,15 +372,12 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
               width: "100%",
               textAlign: "left",
             }}
-            value={
-              Number(slectNhom) === Number(record.cus_id) && value
-                ? value
-                : record?.group_id?.toString() || "0"
-            }
+            // value={groupIds[record.key] || record.group_id.toString() || "0"}
+            defaultValue={record.group_id.toString() || "0"}
             showSearch
             optionFilterProp="label"
             options={options}
-            onChange={handleSelectChange}
+            onChange={(value) => handleSelectChange(value, record)}
           />
         </div>
       ),
@@ -400,11 +417,17 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       key: "3",
       width: 180,
       render: (text, record) => (
-        <div onClick={() => (setslectNguon(record.cus_id), setCusId(record.cus_id))}>
+        <div
+          onClick={() => (
+            setslectNguon(record.cus_id), setCusId(record.cus_id)
+          )}
+        >
           <select
             style={{ border: 0, width: "100%" }}
             onChange={(e) => handleChangeSelect(e, record)}
-            value={slectNguon === record.cus_id && nguon ? nguon : record?.value}
+            value={
+              slectNguon === record.cus_id && nguon ? nguon : record?.value
+            }
           // defaultValue={record?.value ? record.value : ""}
           >
             {ArrNguonKK?.map((item, index) => {
@@ -428,7 +451,6 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
             })}
           </select>
         </div>
-
       ),
     },
     {

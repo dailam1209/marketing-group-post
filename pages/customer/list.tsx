@@ -57,8 +57,8 @@ export default function CustomerList() {
   const [pageSize, setPageSize] = useState(10);
   const [totalRecords, setTotalRecords] = useState();
   const [dataStatus, setdataStatus] = useState<any>();
-  const [group_id, setgroup_id] = useState();
-  const [timeStart, setTimeStart] = useState();
+  const [group_id, setgroup_id] = useState<any>();
+  const [timeStart, setTimeStart] = useState<any>();
   const [timeEnd, setTimeEnd] = useState();
   const [dateS, setdateS] = useState();
   const [dateE, setdateE] = useState(null);
@@ -74,6 +74,19 @@ export default function CustomerList() {
   const [dep_id, setDep_id] = useState<any>();
   const [posId, setposId] = useState<any>();
   const [nameNvNomor, setnameNvNomor] = useState<any>();
+
+  useEffect(() => {
+    if (!isAPDung && !isOpenFilterBox) {
+      setTime_s(null);
+      setTime_e(null);
+    } else {
+      if (dateE) {
+        setTime_e(dateE + " " + timeEnd);
+      }
+
+      setTime_s(dateS + " " + timeStart);
+    }
+  }, [isAPDung, isOpenFilterBox, timeStart, dateS, timeEnd, dateE, time_s, time_e]);
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
 
@@ -278,30 +291,9 @@ export default function CustomerList() {
   };
 
   let nv = listNV?.filter((item) => item.dep_id === dep_id);
-  const [listNVPT, setlistNVPT] = useState<any>();
-
-  const handleGetNvPt = async () => {
-    try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/list`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${Cookies.get("token_base365")}`,
-          },
-          body: JSON.stringify({ dep_id: dep_id }),
-        }
-      );
-      const data = await res.json();
-      if (data && data?.data) setlistNVPT(data?.data?.items);
-    } catch (error) { }
-  };
-
   useEffect(() => {
     handleGetInfoCusNV();
     handleGetInfoCus();
-    handleGetNvPt();
   }, [dep_id]);
 
   useEffect(() => {
@@ -333,6 +325,20 @@ export default function CustomerList() {
     return requestData;
   }
 
+  const formData = new FormData();
+  const formDataRequest = sendingData();
+  formDataRequest.keyword &&
+    formData.append("keyword", formDataRequest.keyword);
+  formDataRequest.status && formData.append("status", formDataRequest.status);
+  formDataRequest.resoure &&
+    formData.append("resoure", formDataRequest.resoure);
+  formDataRequest.user_create_id &&
+    formData.append("user_create_id", formDataRequest.user_create_id);
+  formDataRequest.ep_id && formData.append("ep_id", formDataRequest.ep_id);
+  formDataRequest.group_id &&
+    formData.append("group_id", formDataRequest.group_id);
+  formDataRequest.time_s && formData.append("time_s", formDataRequest.time_s);
+  formDataRequest.time_e && formData.append("time_e", formDataRequest.time_e);
 
   const handleSelectAll = () => {
     const allRowKeys = datatable?.map((item: { key: any }) => item.key);

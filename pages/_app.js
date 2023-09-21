@@ -19,7 +19,6 @@ import { checkAndRedirectToHomeIfNotLoggedIn } from "../components/crm/ultis/che
 import Cookies from "js-cookie";
 import { base_url } from "@/components/crm/service/function";
 
-
 export const LoadingComp = () => {
   return (
     <Spin
@@ -35,7 +34,7 @@ export const LoadingComp = () => {
 export default function App({ Component, pageProps }) {
   const { isOpen, toggleModal } = useModal("icon_menu_nav", [styles.sidebar]);
   const router = useRouter();
-  const { updateTlkd, setUpdateTLKD } = useState(false)
+  const { updateTlkd, setUpdateTLKD } = useState(false);
   const [loading, setLoading] = useState(false);
   const [firstLoad, setFirstLoad] = useState(
     router?.pathname?.includes("/crm/") ? false : true
@@ -62,8 +61,7 @@ export default function App({ Component, pageProps }) {
         router.events.off("routeChangeError", end);
       };
     };
-    if (
-      router?.pathname?.includes("/crm/")     ) {
+    if (router?.pathname?.includes("/crm/")) {
     } else {
       doLoading();
     }
@@ -90,61 +88,54 @@ export default function App({ Component, pageProps }) {
     importGlobalStyles();
   }, [router.pathname]);
 
-  const [com_auth, setCom_auth] = useState("")
-  const [employee_auth, setEmployee_auth] = useState("")
-  const role =parseInt(Cookies.get("role"))
+  const [com_auth, setCom_auth] = useState("");
+  const [employee_auth, setEmployee_auth] = useState("");
+  const role = parseInt(Cookies.get("role"));
 
   const getInfoLoginCompany = async () => {
     try {
-      const res = await fetch(
-        `${base_url }/api/qlc/company/info`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${Cookies.get("token_base365")}`,
-          },
-        }
-      );
+      const res = await fetch(`${base_url}/api/qlc/company/info`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get("token_base365")}`,
+        },
+      });
       const data = await res.json();
-      setCom_auth(parseInt(data?.data.data.com_authentic))
-    } catch (error) { }
+      setCom_auth(parseInt(data?.data.data.com_authentic));
+    } catch (error) {}
   };
-
 
   const getInfoLoginEmployee = async () => {
     try {
-      const res = await fetch(
-        `${base_url }/api/qlc/employee/info`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${Cookies.get("token_base365")}`,
-          },
-        }
-      );
+      const res = await fetch(`${base_url}/api/qlc/employee/info`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get("token_base365")}`,
+        },
+      });
       const data = await res.json();
-      setEmployee_auth(parseInt(data?.data.data.authentic))
-    } catch (error) { }
+      setEmployee_auth(parseInt(data?.data.data.authentic));
+    } catch (error) {}
   };
-
-  useEffect(()=>{
-    getInfoLoginCompany();
-    getInfoLoginEmployee();
-    if (role === 1 && com_auth !== 1 && com_auth !== "" ){
-      router.push(`https://hungha365.com/xac-thuc-ma-otp-cong-ty.html`) ;
+  useEffect(() => {
+    if (role === 1) {
+      getInfoLoginCompany();
     }
-  
+   if(role===2){
+    getInfoLoginEmployee();
+   }
+   
+    if (role === 1 && com_auth !== 1 && com_auth !== "") {
+      // return false;
+      router.push(`https://hungha365.com/xac-thuc-ma-otp-cong-ty.html`);
+    }
+
     if (role === 2 && employee_auth !== 1 && employee_auth !== "") {
-      router.push(`https://hungha365.com/xac-thuc-ma-otp-nhan-vien.html`) ;    
-      }
-  
-  },[role,com_auth,employee_auth])
-
-
-
-
+      router.push(`https://hungha365.com/xac-thuc-ma-otp-nhan-vien.html`);
+    }
+  }, [role]);
 
   return (
     <>
@@ -168,16 +159,15 @@ export default function App({ Component, pageProps }) {
               <UpdateTLKDComponent>
                 <SidebarResize>
                   <NavigateContextComponent>
-                  {checkAndRedirectToHomeIfNotLoggedIn() ? (
+                    {checkAndRedirectToHomeIfNotLoggedIn() ? (
                       <>
                         <Header toggleModal={toggleModal} />
                         <Sidebar isOpened={isOpen} />
                         <ChatBusiness />
                       </>
-                      ):null }    
+                    ) : null}
                     <TitleHeaderMobile />
                     <TongDaiContext>
-
                       <Component {...pageProps} />
                     </TongDaiContext>
                   </NavigateContextComponent>
@@ -185,12 +175,10 @@ export default function App({ Component, pageProps }) {
               </UpdateTLKDComponent>
             </AccessContextComponent>
           </Provider>
-         
         </ConfigProvider>
       ) : (
         <LoadingComp />
       )}
-       
     </>
   );
 }
