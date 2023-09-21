@@ -73,7 +73,7 @@ export default function PotentialSelectBoxStep1({
               id="select2-g0q1-container"
               role="textbox"
               aria-readonly="true"
-              // title="Chọn người dùng"
+            // title="Chọn người dùng"
             >
               {placeholder}
             </span>
@@ -85,7 +85,10 @@ export default function PotentialSelectBoxStep1({
             </span>
           </span>
         </span>
-        {isOpen && <PotentialDropDownDataStep1 data={data} value={value} />}
+        {isOpen && <PotentialDropDownDataStep1
+          data={data}
+          value={value}
+        />}
       </span>
     </div>
   );

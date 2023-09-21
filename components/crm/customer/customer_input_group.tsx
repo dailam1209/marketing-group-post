@@ -15,7 +15,6 @@ export default function CustomerListInputGroup({
   chooseAllOption,
   setName,
   name,
-  setPhone,
   fetchData,
   selectedCus,
   dataStatusCustomer,
@@ -26,8 +25,6 @@ export default function CustomerListInputGroup({
   setnvPhuTrach,
   userNameCreate,
   setuserNameCreate,
-  setNameHandingOverWork,
-  NameHandingOverWork,
   nhomCha,
   setnhomCha,
   nhomCon,
@@ -54,8 +51,9 @@ export default function CustomerListInputGroup({
   setIsApDung,
   setIsOpenFilterBox,
   isOpenFilterBox,
-  sendingData,
   dataLength,
+  isRowDataSelected,
+  selectedCusIds,
 }: any) {
 
   const [open, setOpen] = useState(false);
@@ -233,8 +231,9 @@ export default function CustomerListInputGroup({
           listNV={listNV}
           handover={handover}
           fetchData={fetchData}
-          sendingData={sendingData}
           dataLength={dataLength}
+          isRowDataSelected={isRowDataSelected}
+          selectedCusIds={selectedCusIds}
         />
 
         <div className={`${styles.main__control_add}`}>

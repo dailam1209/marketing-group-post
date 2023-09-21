@@ -9,7 +9,6 @@ export default function RowRadioInput({
   value = [],
 }: any) {
   const [valueRadioBox, setValueRadioBox] = useState("");
-  const [selectedCheckboxes, setSelectedCheckboxes] = useState({});
 
   const handleChange = (item: any, index: number) => {
     let newValues = selectedData?.[name];
@@ -20,12 +19,12 @@ export default function RowRadioInput({
       };
     });
 
-    newData.splice(index, 1, {
+    newData?.splice(index, 1, {
       status: true,
       val: newData[index]?.val,
     });
 
-    
+
 
     const test = { ...selectedData, [name]: newData };
     setValueRadioBox(test?.[name]?.filter((item) => item?.status)[0]?.val);
@@ -38,8 +37,8 @@ export default function RowRadioInput({
     });
     setSelectedData(test);
 
-  
   };
+
   return (
     <tr>
       <td>

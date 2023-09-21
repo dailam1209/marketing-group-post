@@ -16,8 +16,8 @@ export default function CustomerListAction({
   listNV,
   handover,
   fetchData,
-  sendingData,
   dataLength,
+  selectedCusIds,
 }: any) {
   const [isOpenCampaign, setIsOpenCampaign] = useState(false);
   const [isOpenEmail, setIsOpenIsEmail] = useState(false);
@@ -26,11 +26,12 @@ export default function CustomerListAction({
   const [isOpenShare, setIsOpenShare] = useState(false);
   const [isHandOverOpen, setIsHandOverOpen] = useState(false);
 
+
   const dataToSend = {
-    data: selectedCus,
+    data: selectedCusIds,
   };
 
-  sessionStorage.setItem("myData", JSON.stringify(dataToSend));
+  sessionStorage.setItem("DataSelectedCustomer", JSON.stringify(dataToSend));
 
   const [dataCustomerListAction, setDataCustomerListAction] = useState([
     {
@@ -184,9 +185,7 @@ export default function CustomerListAction({
           listNV={listNV}
           handover={handover}
           fetchData={fetchData}
-          sendingData={sendingData}
           dataLength={dataLength}
-          numberSelected={numberSelected}
         />
         <DelCustomerModal
           isModalCancel={isDelOpen}

@@ -93,6 +93,7 @@ interface TableDataContracDrops {
   listNV?: any;
   handleGetInfoSTT?: any;
   fetchDataDefault?: any;
+  setRowDataSelected: any
 }
 
 const TableListCustomer: React.FC<TableDataContracDrops> = ({
@@ -151,6 +152,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   listNV,
   handleGetInfoSTT,
   fetchDataDefault,
+  setRowDataSelected
 }: any) => {
   const [openModalCall, setOpenModalCall] = useState(false);
   const router = useRouter();
@@ -225,15 +227,15 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
     options:
       item.gr_id !== "0"
         ? [
-            {
-              value: item.gr_id.toString(),
-              label: item.gr_name,
-            },
-            ...(item?.lists_child ?? []).map((child) => ({
-              value: child.gr_id.toString(),
-              label: child.gr_name,
-            })),
-          ]
+          {
+            value: item.gr_id.toString(),
+            label: item.gr_name,
+          },
+          ...(item?.lists_child ?? []).map((child) => ({
+            value: child.gr_id.toString(),
+            label: child.gr_name,
+          })),
+        ]
         : [{ label: item.gr_name, value: item.gr_id.toString() }],
   }));
   const [value, setvalue] = useState();
@@ -371,7 +373,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
               textAlign: "left",
             }}
             // value={groupIds[record.key] || record.group_id.toString() || "0"}
-            defaultValue={ record.group_id.toString()||"0"}
+            defaultValue={record.group_id.toString() || "0"}
             showSearch
             optionFilterProp="label"
             options={options}
@@ -426,7 +428,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
             value={
               slectNguon === record.cus_id && nguon ? nguon : record?.value
             }
-            // defaultValue={record?.value ? record.value : ""}
+          // defaultValue={record?.value ? record.value : ""}
           >
             {ArrNguonKK?.map((item, index) => {
               if (item?.name == record?.resoure) {

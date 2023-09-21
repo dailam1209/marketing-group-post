@@ -5,13 +5,24 @@ import {
   ReactPortal,
   PromiseLikeOfReactNode,
   Key,
+  useState,
 } from "react";
 import styles from "../potential.module.css";
 
 export default function PotentialDropDownDataStep({
   data = [],
-  value = " Chọn người dùng",
+  value = [] || "Chọn điều kiện",
 }: any) {
+  const [selectedValue, setSelectedValue] = useState("");
+  console.log(value);
+
+  const handleSelectChange = (event) => {
+    const newValue = event.target.value;
+    setSelectedValue(newValue);
+
+    // In giá trị mới đã chọn
+    console.log("Giá trị đã chọn:", newValue);
+  };
   return (
     <span
       className={`${styles.select2_container_open} ${styles.select2_container} ${styles.select2_container_default} `}

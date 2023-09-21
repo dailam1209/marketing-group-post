@@ -6,6 +6,8 @@ import { useHeader } from "@/components/crm/hooks/useHeader";
 import CheckMergeBody from "@/components/crm/potential/check_merge/check_merge_body";
 import CheckMergeInputGroup from "@/components/crm/potential/check_merge/check_merge_input_group";
 import Head from "next/head";
+import { base_url } from "@/components/crm/service/function";
+const Cookies = require("js-cookie");
 
 const CheckMergeCustomerList: React.FC = () => {
   const mainRef = useRef<HTMLDivElement>(null);
@@ -16,6 +18,7 @@ const CheckMergeCustomerList: React.FC = () => {
   const imgRef = useRef<HTMLInputElement>(null);
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
+  const [newData, setNewData] = useState<any>([]);
 
   useEffect(() => {
     setHeaderTitle("Danh sách khách hàng / Kiểm tra trùng");
@@ -30,6 +33,40 @@ const CheckMergeCustomerList: React.FC = () => {
       mainRef.current?.classList.remove("content_resize");
     }
   }, [isOpen]);
+
+  const storedData = sessionStorage.getItem("DataSelectedCustomer");
+  const parsedData = JSON.parse(storedData)?.data;
+
+  const getCustomerDetail = async () => {
+    const promises =
+      parsedData &&
+      parsedData
+        ?.split(",")
+        .map(Number)
+        .map(async (cusId) => {
+          const res = await fetch(
+            `${base_url}/api/crm/customerdetails/detail`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${Cookies.get("token_base365")}`,
+              },
+              body: JSON.stringify({ cus_id: cusId }),
+            }
+          );
+          return await res.json();
+        });
+
+    const customerDetails = await Promise.all(promises);
+    setNewData(customerDetails);
+  };
+
+
+
+  useEffect(() => {
+    getCustomerDetail();
+  }, []);
 
   return (
     <>
@@ -84,23 +121,41 @@ const CheckMergeCustomerList: React.FC = () => {
                 <div className={styles.main_body_merge}>
                   <CheckMergeBody type={type} setType={setType} />
                   <CheckMergeInputGroup
+
                     label="Tên khách hàng"
-                    defaultValue="q1"
+                    name="name"
+                    value={
+                      newData?.map((item) => item?.data?.name) ||
+                      "Chưa cập nhật"
+                    }
+                    placeholder="Nhập tên khách hàng"
                   />
                   <CheckMergeInputGroup
-                    type={type}
                     label="Điện thoại"
+                    name="phone_number"
+                    value={
+                      newData?.map((item) => item?.data?.phone_number.detail) ||
+                      "Chưa cập nhật"
+                    }
                     placeholder="Nhập số điện thoại"
                   />
                   <CheckMergeInputGroup
-                    type={type}
                     label="Mã số thuế"
+                    name="tax_code"
+                    value={
+                      newData?.map((item) => item?.data?.tax_code)
+                    }
                     placeholder="Nhập mã số thuế"
+
                   />
                   <CheckMergeInputGroup
-                    type={type}
                     label="Website"
+                    name="website"
+                    value={
+                      newData?.map((item) => item?.data?.website)
+                    }
                     placeholder="Nhập website"
+
                   />
                   <div>
                     <button className={styles.btn_serach}>Tìm kiếm</button>
