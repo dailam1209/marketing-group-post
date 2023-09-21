@@ -127,13 +127,6 @@ const columns: ColumnsType<DataType> = [
     dataIndex: "operation",
     key: "6",
     width: 200,
-    // fixed:"right",
-    // render: () => (
-    //   <button className="action_table">
-    //     <img src="/crm/3_cham.png" />
-    //     Thao tác
-    //   </button>
-    // ),
   },
 ];
 
@@ -159,8 +152,8 @@ const TableDataPotential: React.FC<TableDataPotentialProps> = ({
   setNumberSelected,
   setRowDataSelected,
 }: any) => {
-  const [currentPage, setCurrentPage] = useState(1); // Trang hiện tại
-  const [pageSize, setPageSize] = useState(10); // Số mục trên mỗi trang
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
   const rowSelection: TableRowSelection<DataType> = {
     onChange: (selectedRowKeys, selectedRows) => {
       if (selectedRows?.length >= 1) {

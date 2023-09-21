@@ -68,19 +68,15 @@ export default function CustomerList() {
   const [idNhom, setIdNhom] = useState<any>();
   const [isAPDung, setIsApDung] = useState(false);
   const [selectedCusIds, setSelectedCusIds] = useState<string>("");
-
-  useEffect(() => {
-    if (isAPDung) {
-      if (dateE) {
-        setTime_e(dateE + " " + timeEnd);
-      }
-    } else if (!isAPDung && !isOpenFilterBox) {
-      setTime_s(null);
-      setTime_e(null);
-    }
-  }, [isAPDung, isOpenFilterBox]);
+  const [isRowDataSelected, setRowDataSelected] = useState([]);
+  const role = Cookies.get("role");
+  const [listNV, setListNv] = useState<any>();
+  const [dep_id, setDep_id] = useState<any>();
+  const [posId, setposId] = useState<any>();
+  const [nameNvNomor, setnameNvNomor] = useState<any>();
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
+
   const fetchData = async () => {
     try {
       const res = await fetch(`${base_url}/api/crm/customer/list`, {
@@ -147,9 +143,6 @@ export default function CustomerList() {
       if (data && data?.data) setdataStatus(data?.data);
     } catch (error) { }
   };
-  useEffect(() => {
-    handleGetInfoSTT();
-  }, []);
 
   const onSelectChange = (selectedRowKeys: any, selectedRows: DataType[]) => {
     setSelectedRowKeys(selectedRowKeys);
@@ -242,13 +235,6 @@ export default function CustomerList() {
     } catch (error) { }
   };
 
-  const role = Cookies.get("role");
-
-  const [listNV, setListNv] = useState<any>();
-
-  const [dep_id, setDep_id] = useState<any>();
-  const [posId, setposId] = useState<any>();
-  const [nameNvNomor, setnameNvNomor] = useState<any>();
   const handleGetInfoCusNV = async () => {
     try {
       if (role == "2") {
@@ -273,6 +259,7 @@ export default function CustomerList() {
       }
     } catch (error) { }
   };
+
   const handleGetInfoCus = async () => {
     try {
       const res = await fetch(
@@ -289,6 +276,7 @@ export default function CustomerList() {
       if (data && data?.data) setListNv(data?.data?.items);
     } catch (error) { }
   };
+
   let nv = listNV?.filter((item) => item.dep_id === dep_id);
   const [listNVPT, setlistNVPT] = useState<any>();
 
@@ -316,6 +304,21 @@ export default function CustomerList() {
     handleGetNvPt();
   }, [dep_id]);
 
+  useEffect(() => {
+    if (isAPDung) {
+      if (dateE) {
+        setTime_e(dateE + " " + timeEnd);
+      }
+    } else if (!isAPDung && !isOpenFilterBox) {
+      setTime_s(null);
+      setTime_e(null);
+    }
+  }, [isAPDung, isOpenFilterBox]);
+
+  useEffect(() => {
+    handleGetInfoSTT();
+  }, []);
+
   function sendingData() {
     const requestData = {
       keyword: name === null ? null : name,
@@ -330,29 +333,13 @@ export default function CustomerList() {
     return requestData;
   }
 
-  const formData = new FormData();
-  const formDataRequest = sendingData();
-  formDataRequest.keyword &&
-    formData.append("keyword", formDataRequest.keyword);
-  formDataRequest.status &&
-    formData.append("status", formDataRequest.status);
-  formDataRequest.resoure &&
-    formData.append("resoure", formDataRequest.resoure);
-  formDataRequest.user_create_id &&
-    formData.append("user_create_id", formDataRequest.user_create_id);
-  formDataRequest.ep_id &&
-    formData.append("ep_id", formDataRequest.ep_id);
-  formDataRequest.group_id &&
-    formData.append("group_id", formDataRequest.group_id);
-  formDataRequest.time_s &&
-    formData.append("time_s", formDataRequest.time_s);
-  formDataRequest.time_e &&
-    formData.append("time_e", formDataRequest.time_e);
 
   const handleSelectAll = () => {
     const allRowKeys = datatable?.map((item: { key: any }) => item.key);
     setSelectedRowKeys(allRowKeys);
     setNumberSelected(datatable?.length);
+    setRowDataSelected(datatable)
+
     if (selectedRowKeys.length > 0) {
       sendingData();
     }
@@ -368,9 +355,13 @@ export default function CustomerList() {
     onChange: onSelectChange,
     onSelect: (record, selected, selectedRows) => {
       setNumberSelected(selectedRows?.length);
+      setRowDataSelected(selectedRows)
+
     },
     onSelectAll: handleSelectAll,
   };
+
+
   useEffect(() => {
     handleGetGr();
     fetchData();
@@ -430,7 +421,7 @@ export default function CustomerList() {
           src="https://www.googletagmanager.com/gtm.js?id=GTM-NXVQCHN"
         ></script>
       </Head>
-      
+
       {!checkAndRedirectToHomeIfNotLoggedIn() ? null : (
         <div ref={mainRef} className={styleHome.main}>
           <CustomerListInputGroup
@@ -476,11 +467,12 @@ export default function CustomerList() {
             setIsOpenFilterBox={setIsOpenFilterBox}
             setIsApDung={setIsApDung}
             isOpenFilterBox={isOpenFilterBox}
-            sendingData={formData}
             dataLength={data?.data?.length}
+            isRowDataSelected={isRowDataSelected}
+            selectedCusIds={selectedCusIds}
           />
           <TableListCustomer
-          handleGetInfoSTT={handleGetInfoSTT}
+            handleGetInfoSTT={handleGetInfoSTT}
             fetchData={fetchData}
             rowSelection={rowSelection}
             datatable={datatable}
@@ -530,6 +522,7 @@ export default function CustomerList() {
             chooseAllOption={handleSelectAll}
             selectedCus={selectedCus}
             fetchDataDefault={fetchDataDefault}
+            setRowDataSelected={setRowDataSelected}
           />
         </div>
       )}

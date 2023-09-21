@@ -10,8 +10,10 @@ import styles from "../potential.module.css";
 
 export default function PotentialDropDownDataStep({
   data = [],
-  value = " Chọn người dùng",
+  value = [] || "Chọn điều kiện",
 }: any) {
+  console.log(value);
+
   return (
     <span
       className={`${styles.select2_container_open} ${styles.select2_container} ${styles.select2_container_default} `}

@@ -1,14 +1,25 @@
 import PotentialSelectBoxStep1 from "../potential_steps/select_box_step_1";
 import styles from "./check_merge.module.css";
 import styleParent from "../potential_steps/potential_main.module.css";
+import { useState } from "react";
 
 export default function CheckMergeInputGroup({
   type = "",
   label,
-  defaultValue = "",
-  placeholder = "Nhập họ và tên",
+  value = [],
+  name,
+  placeholder = "",
+
 }: any) {
   const dataSelect = ["Là", "Không là", "Chứa", "Không chứa"];
+  const [editableValue, setEditableValue] = useState(value);
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    const updatedValue = [...editableValue];
+    updatedValue[name] = value;
+    setEditableValue(updatedValue);
+  };
   return (
     <div className={styles.main__body_item}>
       <div className={`${styles.row_content} ${styles.flex_align_center}`}>
@@ -24,19 +35,22 @@ export default function CheckMergeInputGroup({
               value="Chọn điều kiện"
               placeholder="Chọn điều kiện"
               data={dataSelect}
+
             />
           </div>
         </div>
-        <div className={styles.row_item_right}>
-          <input
-            type="text"
-            className={styles.form_control}
-            name=""
-            id=""
-            placeholder="Nhập họ và tên"
-            defaultValue={defaultValue}
-          />
-        </div>
+        {value?.map((item, index) => {
+          return (
+            <div className={styles.row_item_right}>
+              <input
+                name={index.toString()}
+                value={item}
+                placeholder={placeholder}
+                className={styles.form_control}
+              />
+            </div>
+          );
+        })}
       </div>
     </div>
   );

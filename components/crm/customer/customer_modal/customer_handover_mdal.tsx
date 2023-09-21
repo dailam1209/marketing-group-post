@@ -13,9 +13,7 @@ interface MyComponentProps {
   listNV: any;
   handover: any;
   fetchData: any;
-  sendingData: string;
   dataLength: any;
-  numberSelected: any;
 }
 
 const HandeOverModalCustomer: React.FC<MyComponentProps> = ({
@@ -24,9 +22,7 @@ const HandeOverModalCustomer: React.FC<MyComponentProps> = ({
   listNV,
   handover,
   fetchData,
-  sendingData,
   dataLength,
-  numberSelected,
 }) => {
   const router = useRouter()
   const [isOpenMdalSuccess, setIsOpenMdalSuccess] = useState(false);

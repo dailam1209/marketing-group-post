@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from "react";
 import styles from "../customer/customer.module.css";
-import { Select, Table, Tooltip, notification } from "antd";
+import { Select, Table, Tooltip } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import Link from "next/link";
 import Image from "next/image";
-import stylesPotentialSelect from "@/components/crm/potential/potential.module.css";
 import EditTextCustomerList from "../customer/customer_modal/custoer_mdal_edit_text";
 import { useRouter } from "next/router";
 import CallModal from "../customer/modal/call_modal";
-import { useApi } from "@/components/crm/hooks/useApi";
 import SelectDataInputBox from "../select/select_data";
-import CustomerGroupSelect from "../select/select_data_group_customer";
 import { base_url } from "../service/function";
-import { text } from "stream/consumers";
 const Cookies = require("js-cookie");
 interface DataType {
   count_content_call: number;
@@ -93,6 +89,7 @@ interface TableDataContracDrops {
   listNV?: any;
   handleGetInfoSTT?: any;
   fetchDataDefault?: any;
+  setRowDataSelected: any;
 }
 
 const TableListCustomer: React.FC<TableDataContracDrops> = ({
@@ -103,7 +100,6 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   fetchData,
   des,
   setDes,
-  setTest,
   page,
   setPage,
   totalRecords,
@@ -112,22 +108,12 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   loading,
   setDatatable,
   ArrNguonKK,
-  isSelectedRow,
-  numberSelected,
-  clearOption,
-  chooseAllOption,
-  setName,
-  name,
-  setPhone,
-  selectedCus,
   setStatus,
   setResoure,
   nvPhuTrach,
   setnvPhuTrach,
   userNameCreate,
   setuserNameCreate,
-  setNameHandingOverWork,
-  NameHandingOverWork,
   nhomCha,
   setnhomCha,
   nhomCon,
@@ -151,6 +137,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   listNV,
   handleGetInfoSTT,
   fetchDataDefault,
+  setRowDataSelected,
 }: any) => {
   const [openModalCall, setOpenModalCall] = useState(false);
   const router = useRouter();
@@ -158,9 +145,13 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   const [valueStatus, setValueStatus] = useState();
   const [cusId, setCusId] = useState<any>();
   const [te, setTE] = useState<any>();
-  const [nameNguon, setNameNguon] = useState();
   const [show, setshow] = useState<boolean>(false);
   const [group_idFix, setgroup_idFix] = useState<any>();
+  const [nguon, setnguon] = useState<any>();
+  const [slectNguon, setslectNguon] = useState<any>();
+  const [value, setvalue] = useState();
+  const [slectNhom, setslectNhom] = useState<any>();
+
   const handleChangeStatus = (e: any, data: any) => {
     setValueStatus(e.target.value);
   };
@@ -186,29 +177,10 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       </button>
     </div>
   );
-  const [showTop, setshowTop] = useState(false);
-  const handleCellClick = (index) => {
-    if ([8, 9, 10].includes(datatable.length)) {
-      if ([6, 7, 8, 9].includes(index)) {
-        setshowTop(true);
-      } else {
-        setshowTop(false);
-      }
-    }
-    if ([6, 7].includes(datatable.length)) {
-      if ([3, 4, 5].includes(index)) {
-        setshowTop(true);
-      } else {
-        setshowTop(false);
-      }
-    }
-  };
-  const [nguon, setnguon] = useState<any>();
-  const [slectNguon, setslectNguon] = useState<any>();
+
 
   const handleChangeSelect = async (e: any, record) => {
     setnguon(e.target.value);
-    // const
     const url = `${base_url}/api/crm/customerdetails/editCustomer`;
 
     const formData = new FormData();
@@ -238,26 +210,23 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   const initialOption = { gr_id: "0", gr_name: "Chưa cập nhật" };
 
   const options = [initialOption, ...(dataGroup ?? [])].map((item) => ({
-    label: item.gr_id !== "0" ? item.gr_name : "", // Không trả về label nếu item.gr_id = 0
+    label: item.gr_id !== "0" ? item.gr_name : "",
     options:
       item.gr_id !== "0"
         ? [
-            {
-              value: item.gr_id.toString(),
-              label: item.gr_name,
-            },
-            ...(item?.lists_child ?? []).map((child) => ({
-              value: child.gr_id.toString(),
-              label: child.gr_name,
-            })),
-          ]
+          {
+            value: item.gr_id.toString(),
+            label: item.gr_name,
+          },
+          ...(item?.lists_child ?? []).map((child) => ({
+            value: child.gr_id.toString(),
+            label: child.gr_name,
+          })),
+        ]
         : [{ label: item.gr_name, value: item.gr_id.toString() }],
   }));
-  const [value, setvalue] = useState();
-  const [slectNhom, setslectNhom] = useState<any>();
+
   const handleSelectChange = async (selectedOption) => {
-    // Kiểm tra nếu người dùng chọn một nhóm (select cha)
-    // const
     setvalue(selectedOption);
 
     const url = `${base_url}/api/crm/customerdetails/editCustomer`;
@@ -388,20 +357,11 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
                 ? value
                 : record?.group_id?.toString() || "0"
             }
-            // defaultValue={value ? value : record?.group_id?.toString() || "0"}
             showSearch
             optionFilterProp="label"
             options={options}
             onChange={handleSelectChange}
           />
-          {/* <CustomerGroupSelect
-            data={dataGroup}
-            value={data}
-            placeholder={record?.group_id}
-            cusId={cusId}
-            type={record.type}
-            showTop={showTop}
-          /> */}
         </div>
       ),
     },
@@ -440,35 +400,35 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       key: "3",
       width: 180,
       render: (text, record) => (
-        <div onClick={()=>(setslectNguon(record.cus_id),setCusId(record.cus_id))}>
-           <select
-          style={{ border: 0, width: "100%" }}
-          onChange={(e) => handleChangeSelect(e, record)}
-          value={slectNguon===record.cus_id&&nguon?nguon:record?.value}
+        <div onClick={() => (setslectNguon(record.cus_id), setCusId(record.cus_id))}>
+          <select
+            style={{ border: 0, width: "100%" }}
+            onChange={(e) => handleChangeSelect(e, record)}
+            value={slectNguon === record.cus_id && nguon ? nguon : record?.value}
           // defaultValue={record?.value ? record.value : ""}
-        >
-          {ArrNguonKK?.map((item, index) => {
-            if (item?.name == record?.resoure) {
-              return (
-                <option
-                  key={index}
-                  value={item?.id}
-                  style={{ background: "rgb(76, 91, 212)", color: "#fff" }}
-                >
-                  {item?.name}
-                </option>
-              );
-            } else {
-              return (
-                <option key={index} value={item?.id}>
-                  {item?.name}
-                </option>
-              );
-            }
-          })}
-        </select>
+          >
+            {ArrNguonKK?.map((item, index) => {
+              if (item?.name == record?.resoure) {
+                return (
+                  <option
+                    key={index}
+                    value={item?.id}
+                    style={{ background: "rgb(76, 91, 212)", color: "#fff" }}
+                  >
+                    {item?.name}
+                  </option>
+                );
+              } else {
+                return (
+                  <option key={index} value={item?.id}>
+                    {item?.name}
+                  </option>
+                );
+              }
+            })}
+          </select>
         </div>
-       
+
       ),
     },
     {

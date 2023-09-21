@@ -40,8 +40,7 @@ export default function App({ Component, pageProps }) {
   const [firstLoad, setFirstLoad] = useState(
     router?.pathname?.includes("/crm/") ? false : true
   );
-  const [openModalOTPCompany, setOpenModalOTPCompany] = useState(false);
-  const [openModalModalOTPEmployee, setOpenModalOTPEmployee] = useState(false);
+  
   useEffect(() => {
     const doLoading = () => {
       const start = () => {
@@ -133,9 +132,7 @@ export default function App({ Component, pageProps }) {
   useEffect(()=>{
     getInfoLoginCompany();
     getInfoLoginEmployee();
-console.log(role , com_auth);
     if (role === 1 && com_auth !== 1 && com_auth !== "" ){
-      // return false;
       router.push(`https://hungha365.com/xac-thuc-ma-otp-cong-ty.html`) ;
     }
   

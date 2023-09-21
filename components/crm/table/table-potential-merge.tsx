@@ -15,7 +15,10 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
   const [selectedId, setSelectedId] = useState<string>("");
   const [defaultState, setDefaultState] = useState({});
   const newData = data?.data;
+  console.log(newData, "newdata");
+
   const [selectedData, setSelectedData] = useState<any>({});
+  console.log(selectedData);
 
   const handleImageChange = (selectedValue: string) => {
     setSelectedId(selectedValue);
@@ -35,13 +38,13 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
           updatedSelectedData[key] = updatedSelectedData[key].map((item, i) =>
             i === index
               ? {
-                  ...item,
-                  status: true,
-                }
+                ...item,
+                status: true,
+              }
               : {
-                  ...item,
-                  status: false,
-                }
+                ...item,
+                status: false,
+              }
           );
         }
       }
@@ -101,6 +104,7 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
       setDefaultState(data);
     }
   }, [newData]);
+
   return (
     <div className={`${styles.main_potential} ${styles["scroll-container"]}`}>
       <div className={styles.content_table}>
