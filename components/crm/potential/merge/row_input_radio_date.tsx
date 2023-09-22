@@ -1,17 +1,26 @@
 import { useEffect, useState } from "react";
 import styles from "./merge.module.css";
 
-export default function RowRadioInput({
+export default function RowRadioInputDate({
   name,
   setSelectedData,
   selectedData,
   title,
   value = [],
-  setTargetId,
-  targetId
 }: any) {
   const [valueRadioBox, setValueRadioBox] = useState("");
-  const [selectedCheckboxes, setSelectedCheckboxes] = useState({});
+
+  function generateDateCowStringFromTimestamp(unixTimestamp) {
+   if(unixTimestamp){
+    const date = new Date(unixTimestamp * 1000); // Chuyển đổi Unix timestamp thành đối tượng Date
+    const day = date.getDate().toString().padStart(2, "0"); // Lấy ngày và định dạng thành 2 chữ số
+    const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Lấy tháng và định dạng thành 2 chữ số
+    const year = date.getFullYear();
+    const result = `${day}/${month}/${year}`;
+    return result;
+   }
+   return "Chưa cập nhật"
+  }
 
   const handleChange = (item: any, index: number) => {
     let newValues = selectedData?.[name];
@@ -25,13 +34,7 @@ export default function RowRadioInput({
     newData?.splice(index, 1, {
       status: true,
       val: newData[index]?.val,
-      info: newData[index]?.info,
     });
-
-    if(targetId){
-      const targetArr = targetId.split(",")
-      setTargetId(targetArr[index])
-    }
 
     const test = { ...selectedData, [name]: newData };
     setValueRadioBox(test?.[name]?.filter((item) => item?.status)[0]?.val);
@@ -66,7 +69,7 @@ export default function RowRadioInput({
                 value={value[index]}
                 className={styles.radio}
               />
-              <p>{value[index]}</p>
+              <p>{generateDateCowStringFromTimestamp(value[index])}</p>
             </div>
           </td>
         );
