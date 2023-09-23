@@ -7,18 +7,33 @@ import CheckMergeBody from "@/components/crm/potential/check_merge/check_merge_b
 import CheckMergeInputGroup from "@/components/crm/potential/check_merge/check_merge_input_group";
 import Head from "next/head";
 import { base_url } from "@/components/crm/service/function";
+import TableDataCustomerCheckMerge from "@/components/crm/table/table-customer-check-merge";
+import CheckMergeContent from "@/components/crm/potential/check_merge/check_merge_content";
+import PotentialFooterCheckMerge from "@/components/crm/potential/check_merge/check_merge_footer";
 const Cookies = require("js-cookie");
 
 const CheckMergeCustomerList: React.FC = () => {
   const mainRef = useRef<HTMLDivElement>(null);
-  const [checkDocument, setCheckDocument] = useState(false);
   const { isOpen } = useContext<any>(SidebarContext);
-  const [numberSelected, setNumberSelected] = useState(0);
-  const [type, setType] = useState("hoặc");
+  const [type, setType] = useState<any>({ name: "hoặc", value: 2 });
   const imgRef = useRef<HTMLInputElement>(null);
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
   const [newData, setNewData] = useState<any>([]);
+  const [checkDocument, setCheckDocument] = useState(false);
+  const [numberSelected, setNumberSelected] = useState(0);
+  const [isRowDataSelected, setRowDataSelected] = useState("");
+  const [showTable, setShowTable] = useState(false);
+  const [selectOption1, setselectOption1] = useState({ name: "Chọn điều kiện", key: "" });
+  const [selectOption2, setselectOption2] = useState({ name: "Chọn điều kiện", key: "" });
+  const [selectOption3, setselectOption3] = useState({ name: "Chọn điều kiện", key: "" });
+  const [selectOption4, setselectOption4] = useState({ name: "Chọn điều kiện", key: "" });
+  const [inputValue1, setInputValue1] = useState({});
+  const [inputValue2, setInputValue2] = useState({});
+  const [inputValue3, setInputValue3] = useState({});
+  const [inputValue4, setInputValue4] = useState({});
+  console.log(type);
+
 
   useEffect(() => {
     setHeaderTitle("Danh sách khách hàng / Kiểm tra trùng");
@@ -62,6 +77,42 @@ const CheckMergeCustomerList: React.FC = () => {
     setNewData(customerDetails);
   };
 
+
+  const handleSearchCustomer = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("stt_name_customer", selectOption1.key);
+      formData.append("choose", type.value)
+      // formData.append("com_id", roleValue)
+      // formData.append("emp_id", handover)
+      // formData.append("name_customer", handover)
+      formData.append("stt_phone_customer", selectOption2.key)
+      // formData.append("phone_customer", handover)
+      formData.append("stt_tax_code_customer", selectOption3.key)
+      // formData.append("tax_code_customer", handover)      
+      formData.append("stt_website_customer", selectOption4.key)
+      // formData.append("website_customer", handover)
+
+
+
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/crm/customer/searchSame`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${Cookies.get("token_base365")}`,
+          },
+          body: formData,
+        }
+      );
+
+    } catch (error) { }
+  };
+
+  const handleSearch = async () => {
+    setShowTable(true)
+    await handleSearchCustomer();
+  }
 
 
   useEffect(() => {
@@ -120,8 +171,9 @@ const CheckMergeCustomerList: React.FC = () => {
               <div className={styles.form_add_potential}>
                 <div className={styles.main_body_merge}>
                   <CheckMergeBody type={type} setType={setType} />
-                  <CheckMergeInputGroup
 
+                  <CheckMergeInputGroup
+                    type={type}
                     label="Tên khách hàng"
                     name="name"
                     value={
@@ -129,8 +181,12 @@ const CheckMergeCustomerList: React.FC = () => {
                       "Chưa cập nhật"
                     }
                     placeholder="Nhập tên khách hàng"
+                    setOptionSelect={setselectOption1}
+                    setValue={setInputValue1}
+
                   />
                   <CheckMergeInputGroup
+                    type={type}
                     label="Điện thoại"
                     name="phone_number"
                     value={
@@ -138,29 +194,53 @@ const CheckMergeCustomerList: React.FC = () => {
                       "Chưa cập nhật"
                     }
                     placeholder="Nhập số điện thoại"
+                    setOptionSelect={setselectOption2}
+                    setValue={setInputValue2}
+
                   />
                   <CheckMergeInputGroup
+                    type={type}
                     label="Mã số thuế"
                     name="tax_code"
                     value={
                       newData?.map((item) => item?.data?.tax_code)
                     }
                     placeholder="Nhập mã số thuế"
+                    setOptionSelect={setselectOption3}
+                    setValue={setInputValue3}
 
                   />
                   <CheckMergeInputGroup
+                    type={type}
                     label="Website"
                     name="website"
                     value={
                       newData?.map((item) => item?.data?.website)
                     }
                     placeholder="Nhập website"
+                    setOptionSelect={setselectOption4}
+                    setValue={setInputValue4}
 
                   />
                   <div>
-                    <button className={styles.btn_serach}>Tìm kiếm</button>
+                    <button className={styles.btn_serach} onClick={() => handleSearch()}
+                    >Tìm kiếm</button>
                   </div>
+
+
                 </div>
+                {showTable && (
+                  <>
+                    <CheckMergeContent numberSelected={numberSelected} />
+                    <TableDataCustomerCheckMerge
+                      setSelected={setCheckDocument}
+                      setNumberSelected={setNumberSelected}
+                      setRowDataSelected={setRowDataSelected}
+                    />
+                    <PotentialFooterCheckMerge />
+                  </>
+                )}
+
               </div>
             </div>
           </div>
