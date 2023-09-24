@@ -8,9 +8,9 @@ import RowRadioInputDate from "../potential/merge/row_input_radio_date";
 import RowRadioInputDes from "../potential/merge/row_input_description";
 const Cookies = require("js-cookie");
 
-interface CustomerProps {}
+interface CustomerProps { }
 
-const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
+const TableDataCustomerMerge: React.FC<CustomerProps> = ({ }) => {
   const [defaultCheckBox, setDefaultCheckBox] = useState(false);
   const [selectedImage, setSelectedImage] = useState("/crm/user_kh.png");
   const [isOpenCancelModal, setIsOpenCancelModal] = useState(false);
@@ -23,6 +23,53 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
   const storedData = sessionStorage.getItem("DataSelectedCustomer");
   const parsedData = JSON.parse(storedData)?.data;
   const [targetId, setTargetId] = useState("");
+  const [type, setType] = useState("");
+  const [name, setName] = useState("");
+  const [stand_name, setStand_name] = useState("");
+  const [logo, setLogo] = useState("");
+  const [tax_code, setTax_code] = useState("");
+  const [address, setAddress] = useState("");
+  const [ship_invoice_address, setShip_invoice_address] = useState("");
+  const [gender, setGender] = useState("");
+  const [cmnd_ccnd_number, setCmnd_ccnd_number] = useState("");
+  const [cmnd_ccnd_address, setCmnd_ccnd_address] = useState("");
+  const [cmnd_ccnd_time, setCmnd_ccnd_time] = useState("");
+  const [description, setDescription] = useState("");
+  const [introducer, setIntroducer] = useState("");
+  const [phone_number, setPhone_number] = useState("");
+  const [emp_id, setEmp_id] = useState("");
+  const [group_id, setGroup_id] = useState("");
+  const [status, setStatus] = useState("");
+  const [classify, setClassify] = useState("");
+  const [bill_city, setBill_city] = useState("");
+  const [bill_district, setBill_district] = useState("");
+  const [bill_ward, setBill_ward] = useState("");
+  const [bill_address, setBill_address] = useState("");
+  const [bill_invoice_address, setBill_invoice_address] = useState("");
+  const [ship_city, setShip_city] = useState("");
+  const [bank_id, setBank_id] = useState("");
+  const [bank_account, setBank_account] = useState("");
+  const [revenue, setRevenue] = useState("");
+  const [resoure, setResoure] = useState("");
+  const [size, setSize] = useState("");
+  const [rank, setRank] = useState("");
+  const [website, setWebsite] = useState("");
+  const [number_of_day_owed, SetNumber_of_day_owed] = useState("");
+  const [share_all, setShare_all] = useState("");
+  const [email, setEmail] = useState("");
+  const [business_areas, setBusiness_areas] = useState("");
+  const [loai_hinh_khach_hang, setLoai_hinh_khach_hang] = useState("");
+  const [country, setCountry] = useState("");
+  const [bill_area_code, setBill_area_code] = useState("");
+  const [bill_invoice_address_email, setBill_invoice_address_email] = useState("");
+  const [giao_hang_huyen, setGiao_hang_huyen] = useState("");
+  const [giao_hang_xa, setGiao_hang_xa] = useState("");
+  const [ship_area, setShip_area] = useState("");
+  const [created_at, setCreated_at] = useState("");
+  const [la_khach_hang_tu, setLa_khach_hang_tu] = useState("");
+  const [han_muc_no, setHan_muc_no] = useState("");
+
+
 
   function generateDateCowStringFromTimestamp(unixTimestamp) {
     const date = new Date(unixTimestamp * 1000); // Chuyển đổi Unix timestamp thành đối tượng Date
@@ -31,6 +78,7 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
     const year = date.getFullYear();
     const result = `${day}/${month}/${year}`;
     return result;
+
   }
 
   const getCustomerDetail = async () => {
@@ -56,6 +104,7 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
 
     const customerDetails = await Promise.all(promises);
     const newArr = customerDetails?.map((items) => {
+
       return {
         data: {
           ...items.data,
@@ -70,7 +119,96 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
         },
       };
     });
+    console.log(newArr);
+
     setNewData(customerDetails);
+  };
+
+  // const newArray = newData?.map((items) => {
+  //   return {
+  //     data: {
+  //       ...items.data,
+  //       ngay_sua: generateDateCowStringFromTimestamp(items?.data?.ngay_sua),
+  //       ngay_tao: generateDateCowStringFromTimestamp(items?.data?.ngay_tao),
+  //       la_khach_hang_tu: generateDateCowStringFromTimestamp(
+  //         items?.data?.la_khach_hang_tu
+  //       ),
+  //       created_at: generateDateCowStringFromTimestamp(
+  //         items?.data?.created_at
+  //       ),
+  //     },
+  //   };
+  // });
+
+
+  const handleCombineCustomer = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("targetId", targetId)
+      formData.append("arrCus", parsedData);
+      formData.append("type", type)
+      formData.append("stand_name", stand_name)
+      formData.append("name", "HuuDat")
+      formData.append("logo", logo)
+      formData.append("tax_code", tax_code)
+      formData.append("address", address)
+      formData.append("ship_invoice_address", ship_invoice_address)
+      formData.append("gender", gender)
+      formData.append("cmnd_ccnd_number", cmnd_ccnd_number)
+      formData.append("cmnd_ccnd_address", cmnd_ccnd_address)
+      formData.append("cmnd_ccnd_time", cmnd_ccnd_time)
+      formData.append("description", description)
+      formData.append("introducer", introducer)
+      formData.append("phone_number", phone_number)
+      formData.append("emp_id", emp_id)
+      formData.append("group_id", group_id)
+      formData.append("status", status)
+      formData.append("classify", classify)
+      formData.append("bill_city", bill_city)
+      formData.append("bill_district", bill_district)
+      formData.append("bill_ward", bill_ward)
+      formData.append("bill_address", bill_address)
+      formData.append("bill_invoice_address", bill_invoice_address)
+      formData.append("ship_city", ship_city)
+      formData.append("bank_id", bank_id)
+      formData.append("bank_account", bank_account)
+      formData.append("revenue", revenue)
+      formData.append("resoure", resoure)
+      formData.append("size", size)
+      formData.append("rank", rank)
+      formData.append("website", website)
+      formData.append("number_of_day_owed", number_of_day_owed)
+      formData.append("share_all", share_all)
+      formData.append("email", email)
+      formData.append("business_areas", business_areas)
+      formData.append("loai_hinh_khach_hang", loai_hinh_khach_hang)
+      formData.append("han_muc_no", han_muc_no)
+      formData.append("la_khach_hang_tu", generateDateCowStringFromTimestamp(la_khach_hang_tu))
+      formData.append("created_at", generateDateCowStringFromTimestamp(created_at))
+      formData.append("ship_area", ship_area)
+      formData.append("giao_hang_xa", giao_hang_xa)
+      formData.append("giao_hang_huyen", giao_hang_huyen)
+      formData.append("bill_invoice_address_email", bill_invoice_address_email)
+      formData.append("bill_area_code", bill_area_code)
+      // formData.append("country", country)
+
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/crm/customerdetails/combineCustome`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${Cookies.get("token_base365")}`,
+          },
+          body: formData,
+        }
+      );
+
+    } catch (error) { }
+  };
+
+  const handleSaveButtonClick = async () => {
+    handleClickOpenModal();
+    await handleCombineCustomer();
   };
 
   const handleImageChange = (selectedValue: string) => {
@@ -96,9 +234,7 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
       name: checkAndReturnData("name"),
       stand_name: checkAndReturnData("stand_name"),
       logo: checkAndReturnData("logo"),
-      // birthday: checkAndReturnData("birthday"),
       tax_code: checkAndReturnData("tax_code"),
-      cit_id: checkAndReturnData("bill_city"),
       address: checkAndReturnData("address"),
       ship_invoice_address: checkAndReturnData("ship_invoice_address"),
       gender: checkAndReturnData("gender"),
@@ -106,35 +242,42 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
       cmnd_ccnd_address: checkAndReturnData("cmnd_ccnd_address"),
       cmnd_ccnd_time: checkAndReturnData("cmnd_ccnd_time"),
       description: checkAndReturnData("description"),
+      size: checkAndReturnData("size"),
+      rank: checkAndReturnData("rank"),
+      website: checkAndReturnData("website"),
       introducer: checkAndReturnData("introducer"),
-      contact_phone: checkAndReturnData("phone_number"),
+      phone_number: checkAndReturnData("phone_number"),
       emp_id: checkAndReturnData("emp_id"),
       group_id: checkAndReturnData("group_id"),
       status: checkAndReturnData("status"),
-      business_type: checkAndReturnData("sector"),
-      classify: checkAndReturnData("loai_hinh_khach_hang"),
+      business_areas: checkAndReturnData("business_areas"),
+      classify: checkAndReturnData("classify"),
+      loai_hinh_khach_hang: checkAndReturnData("loai_hinh_khach_hang"),
       bill_city: checkAndReturnData("bill_city"),
       bil_district: checkAndReturnData("bill_district"),
       bill_ward: checkAndReturnData("bill_ward"),
       bill_address: checkAndReturnData("bill_address"),
       bill_invoice_address: checkAndReturnData("bill_invoice_address"),
-      bill_invoice_address_email: checkAndReturnData(
-        "bill_invoice_address_email"
-      ),
+      bill_invoice_address_email: checkAndReturnData("bill_invoice_address_email"),
       ship_city: checkAndReturnData("ship_city"),
       bank_id: checkAndReturnData("bank_id"),
       bank_account: checkAndReturnData("bank_account"),
       revenue: checkAndReturnData("revenue"),
-      size: checkAndReturnData("size"),
-      rank: checkAndReturnData("rank"),
-      website: checkAndReturnData("website"),
+      resoure: checkAndReturnData("resoure"),
+      created_at: checkAndReturnData("created_at"),
+      ship_area: checkAndReturnData("ship_area"),
       number_of_day_owed: checkAndReturnData("number_of_day_owed"),
       share_all: checkAndReturnData("share_all"),
       type: checkAndReturnData("type"),
       target_id: targetId,
-      cus_from: checkAndReturnData("resoure"),
-      deb_limit: checkAndReturnData("han_muc_no"),
+      la_khach_hang_tu: checkAndReturnData("la_khach_hang_tu"),
+      han_muc_no: checkAndReturnData("han_muc_no"),
       email: checkAndReturnData("email"),
+      giao_hang_xa: checkAndReturnData("giao_hang_xa"),
+      giao_hang_huyen: checkAndReturnData("giao_hang_huyen"),
+      bill_area_code: checkAndReturnData("bill_area_code"),
+      country: checkAndReturnData("country"),
+
     };
 
     if (targetId && !isOpenModalError) {
@@ -155,13 +298,13 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
           updatedSelectedData[key] = updatedSelectedData[key].map((item, i) =>
             i === index
               ? {
-                  ...item,
-                  status: true,
-                }
+                ...item,
+                status: true,
+              }
               : {
-                  ...item,
-                  status: false,
-                }
+                ...item,
+                status: false,
+              }
           );
         }
       }
@@ -177,8 +320,8 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
           typeof param === "string"
             ? el?.data?.[param]
             : param?.length === 2
-            ? el?.data?.[param?.[0]]?.[param?.[1]]
-            : el?.data?.[param?.[0]]?.[param?.[1]]?.[param?.[2]],
+              ? el?.data?.[param?.[0]]?.[param?.[1]]
+              : el?.data?.[param?.[0]]?.[param?.[1]]?.[param?.[2]],
         info: typeof param === "string" ? null : el?.data?.[param?.[0]]?.info,
       };
     });
@@ -187,9 +330,11 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
   useEffect(() => {
     if (newData) {
       const data = {
-        type: setDefaultArr("type", newData),
         name: setDefaultArr("name", newData),
         stand_name: setDefaultArr(["stand_name", "detail"], newData),
+        logo: setDefaultArr("logo", newData),
+        tax_code: setDefaultArr("tax_code", newData),
+        type: setDefaultArr("type", newData),
         phone_number: setDefaultArr(["phone_number", "detail"], newData),
         classify: setDefaultArr(["classify", "detail"], newData),
         introducer: setDefaultArr(["introducer", "detail"], newData),
@@ -201,28 +346,17 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
         bill_city: setDefaultArr(["bill_city", "detail"], newData),
         bill_district: setDefaultArr(["bill_district", "detail"], newData),
         bill_ward: setDefaultArr(["bill_ward", "detail"], newData),
-        bill_invoice_address: setDefaultArr(
-          ["bill_invoice_address", "detail"],
-          newData
-        ),
+        bill_invoice_address: setDefaultArr(["bill_invoice_address", "detail"], newData),
         bill_area_code: setDefaultArr(["bill_area_code", "detail"], newData),
         bill_address: setDefaultArr(["bill_address", "detail"], newData),
-        bill_invoice_address_email: setDefaultArr(
-          ["bill_invoice_address_email", "detail"],
-          newData
-        ),
-        tax_code: setDefaultArr("tax_code", newData),
-        countryship: setDefaultArr("country", newData),
+        bill_invoice_address_email: setDefaultArr(["bill_invoice_address_email", "detail"], newData),
         ship_city: setDefaultArr("ship_city", newData),
         giao_hang_huyen: setDefaultArr("giao_hang_huyen", newData),
         giao_hang_xa: setDefaultArr("giao_hang_xa", newData),
         address: setDefaultArr(["address", "detail"], newData),
         ship_area: setDefaultArr(["ship_area", "detail"], newData),
-        ship_invoice_address: setDefaultArr(
-          ["ship_invoice_address", "detail"],
-          newData
-        ),
-        sector: setDefaultArr(["business_type", "detail"], newData),
+        ship_invoice_address: setDefaultArr(["ship_invoice_address", "detail"], newData),
+        business_areas: setDefaultArr(["business_areas", "detail"], newData),
         bank_id: setDefaultArr(["bank_id", "detail"], newData),
         bank_account: setDefaultArr(["bank_account", "detail"], newData),
         created_at: setDefaultArr("created_at", newData),
@@ -235,15 +369,12 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
         han_muc_no: setDefaultArr("han_muc_no", newData),
         number_of_day_owed: setDefaultArr("number_of_day_owed", newData),
         email: setDefaultArr(["email", "detail"], newData),
-        nguongoc: setDefaultArr("resorce", newData),
-        masothue: setDefaultArr("tax_code", newData),
         gender: setDefaultArr("gender", newData),
         cmnd_ccnd_number: setDefaultArr("cmnd_ccnd_number", newData),
         cmnd_ccnd_address: setDefaultArr("cmnd_ccnd_address", newData),
         cmnd_ccnd_time: setDefaultArr("cmnd_ccnd_time", newData),
         description: setDefaultArr(["description", "detail"], newData),
         share_all: setDefaultArr("share_all", newData),
-        logo: setDefaultArr("logo", newData),
       };
 
       setSelectedData(data);
@@ -288,6 +419,7 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
+                    setValueRadio={setType}
                     name="type"
                     title="Loại hình:"
                     setTargetId={setTargetId}
@@ -314,7 +446,7 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
                       <td key={index}>
                         <input
                           onChange={() => handleImageChange(index)}
-                          checked={selectedData?.logo?.[index]?.status}
+                          checked={selectedData?.logo?.status}
                           name="logo"
                           type="radio"
                           className={styles.radio}
@@ -345,6 +477,7 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
                   </tr>
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
+                    setValueRadio={setName}
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
@@ -361,10 +494,11 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
+                    setValueRadio={setStand_name}
                     name="stand_name"
                     title="Tên viết tắt:"
                     value={newData?.map(
-                      (item) => item?.data?.stand_name.detail || "Chưa cập nhật"
+                      (item) => item?.data?.stand_name?.detail || "Chưa cập nhật"
                     )}
                   />
 
@@ -373,6 +507,7 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
+                    setValueRadio={setTax_code}
                     name="tax_code"
                     title="Mã số thuế"
                     value={newData?.map(
@@ -385,11 +520,12 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
+                    setValueRadio={setPhone_number}
                     name="phone_number"
                     title="Điện thoại:"
                     value={newData?.map(
                       (item) =>
-                        item?.data?.phone_number.detail || "Chưa cập nhật"
+                        item?.data?.phone_number?.detail || "Chưa cập nhật"
                     )}
                   />
 
@@ -398,10 +534,11 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
+                    setValueRadio={setEmail}
                     name="email"
                     title="Email:"
                     value={newData?.map(
-                      (item) => item?.data?.email.detail || "Chưa cập nhật"
+                      (item) => item?.data?.email?.detail || "Chưa cập nhật"
                     )}
                   />
 
@@ -410,10 +547,11 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
+                    setValueRadio={setResoure}
                     name="resoure"
                     title="Nguồn khách hàng:"
                     value={newData?.map(
-                      (item) => item?.data?.resoure.detail || "Chưa cập nhật"
+                      (item) => item?.data?.resoure?.detail || "Chưa cập nhật"
                     )}
                   />
 
@@ -422,10 +560,11 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
+                    setValueRadio={setClassify}
                     name="classify"
                     title="Phân loại khách hàng"
                     value={newData?.map(
-                      (item) => item?.data?.classify.detail || "Chưa cập nhật"
+                      (item) => item?.data?.classify?.detail || "Chưa cập nhật"
                     )}
                   />
 
@@ -434,6 +573,7 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
+                    setValueRadio={setIntroducer}
                     name="introducer"
                     title="Lĩnh vực"
                     value={newData?.map(
@@ -447,6 +587,7 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
+                    setValueRadio={setLoai_hinh_khach_hang}
                     name="loai_hinh_khach_hang"
                     title="Loại hình"
                     value={newData?.map(
@@ -460,7 +601,8 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
-                    name="sector"
+                    setValueRadio={setBusiness_areas}
+                    name="business_areas"
                     title="Ngành nghề"
                     value={newData?.map(
                       (item) => item?.business_areas?.detail || "Chưa cập nhật"
@@ -472,11 +614,12 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
+                    setValueRadio={setGroup_id}
                     name="group_id"
                     title="Nhóm khách hàng"
                     value={newData?.map(
                       (item) =>
-                        item?.data?.group_id.detail.gr_name || "Chưa cập nhật"
+                        item?.data?.group_id.detail?.gr_name || "Chưa cập nhật"
                     )}
                   />
 
@@ -485,11 +628,12 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
+                    setValueRadio={setStatus}
                     name="status"
                     title="Tình trạng khách hàng"
                     value={newData?.map(
                       (item) =>
-                        item?.data?.status.detail.stt_name || "Chưa cập nhật"
+                        item?.data?.status.detail?.stt_name || "Chưa cập nhật"
                     )}
                   />
 
@@ -498,11 +642,12 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
+                    setValueRadio={setEmp_id}
                     name="emp_id"
                     title="Nhân viên phụ trách"
                     value={newData?.map(
                       (item) =>
-                        item?.data?.emp_id.detail.userName || "Chưa cập nhật"
+                        item?.data?.emp_id.detail?.userName || "Chưa cập nhật"
                     )}
                   />
 
@@ -523,9 +668,10 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
+                    setValueRadio={setCountry}
                     name="country"
                     title="Quốc gia:"
-                    value={newData?.map((item) => item?.country || "Việt Nam")}
+                    value={newData?.map((item) => item?.country || "Chưa cập nhật")}
                   />
 
                   <RowRadioInput
@@ -533,10 +679,11 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
+                    setValueRadio={setBill_city}
                     name="bill_city"
                     title="Tỉnh/Thành phố"
                     value={newData?.map(
-                      (item) => item?.data?.bill_city.detail || "Chưa cập nhật"
+                      (item) => item?.data?.bill_city?.detail || "Chưa cập nhật"
                     )}
                   />
 
@@ -545,11 +692,12 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
+                    setValueRadio={setBill_district}
                     name="bill_district"
                     title="Quận/Huyện"
                     value={newData?.map(
                       (item) =>
-                        item?.data?.bill_district.detail || "Chưa cập nhật"
+                        item?.data?.bill_district?.detail || "Chưa cập nhật"
                     )}
                   />
 
@@ -558,10 +706,11 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
+                    setValueRadio={setBill_ward}
                     name="bill_ward"
                     title="Phường/Xã"
                     value={newData?.map(
-                      (item) => item?.data?.bill_ward.detail || "Chưa cập nhật"
+                      (item) => item?.data?.bill_ward?.detail || "Chưa cập nhật"
                     )}
                   />
 
@@ -570,11 +719,12 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
+                    setValueRadio={setBill_invoice_address}
                     name="bill_invoice_address"
                     title="Số nhà "
                     value={newData?.map(
                       (item) =>
-                        item?.data?.bill_invoice_address.detail ||
+                        item?.data?.bill_invoice_address?.detail ||
                         "Chưa cập nhật"
                     )}
                   />
@@ -584,11 +734,12 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
+                    setValueRadio={setBill_area_code}
                     name="bill_area_code"
                     title="Mã vùng"
                     value={newData?.map(
                       (item) =>
-                        item?.data?.bill_area_code.detail || "Chưa cập nhật"
+                        item?.data?.bill_area_code?.detail || "Chưa cập nhật"
                     )}
                   />
                   <RowRadioInput
@@ -596,11 +747,12 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
+                    setValueRadio={setBill_address}
                     name="bill_address"
                     title="Địa chỉ hóa đơn"
                     value={newData?.map(
                       (item) =>
-                        item?.data?.bill_address.detail || "Chưa cập nhật"
+                        item?.data?.bill_address?.detail || "Chưa cập nhật"
                     )}
                   />
                   <RowRadioInput
@@ -608,6 +760,7 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
+                    setValueRadio={setBill_invoice_address_email}
                     name="bill_invoice_address_email"
                     title="Địa chỉ email nhận hóa đơn (email)"
                     value={newData?.map(
@@ -633,9 +786,10 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
-                    name="countryship"
+                    setValueRadio={setCountry}
+                    name="country"
                     title="Quốc gia"
-                    value={newData?.map((item) => item?.country || "Việt Nam")}
+                    value={newData?.map((item) => item?.country || "Chưa cập nhật")}
                   />
 
                   <RowRadioInput
@@ -643,6 +797,7 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
+                    setValueRadio={setShip_city}
                     name="ship_city"
                     title="Tỉnh/Thành phố"
                     value={newData?.map(
@@ -655,6 +810,7 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
+                    setValueRadio={setGiao_hang_huyen}
                     name="giao_hang_huyen"
                     title="Quận/Huyện"
                     value={newData?.map(
@@ -667,6 +823,7 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
+                    setValueRadio={setGiao_hang_xa}
                     name="giao_hang_xa"
                     title="Phường/Xã"
                     value={newData?.map(
@@ -679,10 +836,11 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
+                    setValueRadio={setAddress}
                     name="address"
-                    title="Số nhà "
+                    title="Số nhà"
                     value={newData?.map(
-                      (item) => item?.data?.address.detail || "Chưa cập nhật"
+                      (item) => item?.data?.address?.detail || "Chưa cập nhật"
                     )}
                   />
 
@@ -691,10 +849,11 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
+                    setValueRadio={setShip_area}
                     name="ship_area"
                     title="Mã vùng"
                     value={newData?.map(
-                      (item) => item?.data?.ship_area.detail || "Chưa cập nhật"
+                      (item) => item?.data?.ship_area?.detail || "Chưa cập nhật"
                     )}
                   />
                   <RowRadioInput
@@ -702,11 +861,12 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
+                    setValueRadio={setShip_invoice_address}
                     name="ship_invoice_address"
                     title="Địa chỉ hóa đơn"
                     value={newData?.map(
                       (item) =>
-                        item?.data?.ship_invoice_address.detail ||
+                        item?.data?.ship_invoice_address?.detail ||
                         "Chưa cập nhật"
                     )}
                   />
@@ -727,6 +887,7 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
+                    setValueRadio={setBank_id}
                     name="bank_id"
                     title="Tài khoản ngân hàng"
                     value={newData?.map(
@@ -738,6 +899,7 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
+                    setValueRadio={setBank_account}
                     name="bank_account"
                     title="Mở tại ngân hàng"
                     value={newData?.map(
@@ -750,6 +912,7 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
+                    setValueRadio={setCreated_at}
                     name="created_at"
                     title="Ngày thành lập/Ngày sinh"
                     value={newData?.map(
@@ -761,6 +924,7 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
+                    setValueRadio={setLa_khach_hang_tu}
                     name="la_khach_hang_tu"
                     title="Là khách hàng từ"
                     value={newData?.map(
@@ -772,10 +936,11 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
+                    setValueRadio={setRevenue}
                     name="revenue"
                     title="Doanh thu"
                     value={newData?.map(
-                      (item) => item?.data?.revenue.detail || "Chưa cập nhật"
+                      (item) => item?.data?.revenue?.detail || "Chưa cập nhật"
                     )}
                   />
                   <RowRadioInput
@@ -783,10 +948,11 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
+                    setValueRadio={setSize}
                     name="size"
                     title="Quy mô nhân sự"
                     value={newData?.map(
-                      (item) => item?.data?.size.detail || "Chưa cập nhật"
+                      (item) => item?.data?.size?.detail || "Chưa cập nhật"
                     )}
                   />
                   <RowRadioInput
@@ -794,10 +960,11 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
-                    name="webiste"
+                    setValueRadio={setWebsite}
+                    name="website"
                     title="Website"
                     value={newData?.map(
-                      (item) => item?.data?.webiste || "Chưa cập nhật"
+                      (item) => item?.data?.website || "Chưa cập nhật"
                     )}
                   />
                   <RowRadioInput
@@ -805,10 +972,11 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
+                    setValueRadio={setRank}
                     name="rank"
                     title="Xếp hạng khách hàng"
                     value={newData?.map(
-                      (item) => item?.data?.rank.detail || "Chưa cập nhật"
+                      (item) => item?.data?.rank?.detail || "Chưa cập nhật"
                     )}
                   />
                   <RowRadioInput
@@ -816,6 +984,7 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
+                    setValueRadio={setHan_muc_no}
                     name="han_muc_no"
                     title="Hạn mức nợ"
                     value={newData?.map(
@@ -827,6 +996,7 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
+                    setValueRadio={SetNumber_of_day_owed}
                     name="number_of_day_owed"
                     title="Số ngày được nợ"
                     value={newData?.map(
@@ -839,6 +1009,7 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
+                    setValueRadio={setGender}
                     name="gender"
                     title="Giới tính"
                     value={newData?.map(
@@ -862,6 +1033,7 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
+                    setValueRadio={setCmnd_ccnd_number}
                     name="cmnd_ccnd_number"
                     title="Số CMND/CCCD"
                     value={newData?.map(
@@ -873,6 +1045,7 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
+                    setValueRadio={setCmnd_ccnd_address}
                     name="cmnd_ccnd_address"
                     title="Nơi cấp"
                     value={newData?.map(
@@ -884,6 +1057,7 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
+                    setValueRadio={setCmnd_ccnd_time}
                     name="cmnd_ccnd_time"
                     title="Ngày cấp"
                     value={newData?.map((item) => item?.data?.cmnd_ccnd_time)}
@@ -895,6 +1069,7 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
+                    setValueRadio={setDescription}
                     name="description"
                     title="Thông tin mô tả"
                     value={newData?.map(
@@ -919,6 +1094,7 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
+                    setValueRadio={setShare_all}
                     name="share_all"
                     title="Dùng chung:"
                     value={newData?.map(
@@ -939,7 +1115,7 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
             Hủy
           </button>
           <button
-            onClick={handleClickOpenModal}
+            onClick={handleSaveButtonClick}
             type="button"
             className={styles.btn_save}
           >

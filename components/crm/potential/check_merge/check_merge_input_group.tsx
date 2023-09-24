@@ -16,10 +16,10 @@ export default function CheckMergeInputGroup({
     "Là", "Không là", "Chứa", "Không chứa"];
   const resultArray = dataSelect.map((item, index) => ({
     name: item,
-    val: index
+    val: index + 1
   }));
 
-  const [editableValue, setEditableValue] = useState(value);
+  const [editableValues, setEditableValues] = useState(value);
   const [options, setOptions] = useState<{ value: string; label: string }[]>(
     dataSelect.map((item) => ({ value: item, label: item }))
   );
@@ -37,7 +37,12 @@ export default function CheckMergeInputGroup({
     }
   }, []);
 
-
+  const handleChange = (e, index) => {
+    const updatedValues = [...editableValues];
+    updatedValues[index] = e.target.value;
+    setEditableValues(updatedValues);
+    setValue(updatedValues);
+  };
 
   return (
     <div className={styles.main__body_item}>
@@ -74,16 +79,10 @@ export default function CheckMergeInputGroup({
           return (
             <div className={styles.row_item_right} key={index} >
               <Input
-                value={editableValue[index] || item}
+                value={editableValues[index]?.length >= 0 ? editableValues[index] : item}
                 placeholder={placeholder}
+                onChange={(e) => handleChange(e, index)}
                 className={styles.form_control}
-                onChange={(e) => {
-                  const updatedValue = [...editableValue];
-                  updatedValue[index] = e.target.value;
-                  setEditableValue(updatedValue);
-                  console.log("editableValue", value);
-
-                }}
               />
             </div>
           );

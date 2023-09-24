@@ -9,7 +9,7 @@ import Head from "next/head";
 import { base_url } from "@/components/crm/service/function";
 import TableDataCustomerCheckMerge from "@/components/crm/table/table-customer-check-merge";
 import CheckMergeContent from "@/components/crm/potential/check_merge/check_merge_content";
-import PotentialFooterCheckMerge from "@/components/crm/potential/check_merge/check_merge_footer";
+import CustomerFooterCheckMerge from "@/components/crm/potential/check_merge/check_merge_customer_footer";
 const Cookies = require("js-cookie");
 
 const CheckMergeCustomerList: React.FC = () => {
@@ -28,11 +28,10 @@ const CheckMergeCustomerList: React.FC = () => {
   const [selectOption2, setselectOption2] = useState({ name: "Chọn điều kiện", key: "" });
   const [selectOption3, setselectOption3] = useState({ name: "Chọn điều kiện", key: "" });
   const [selectOption4, setselectOption4] = useState({ name: "Chọn điều kiện", key: "" });
-  const [inputValue1, setInputValue1] = useState({});
-  const [inputValue2, setInputValue2] = useState({});
-  const [inputValue3, setInputValue3] = useState({});
-  const [inputValue4, setInputValue4] = useState({});
-  console.log(type);
+  const [inputValue1, setInputValue1] = useState("");
+  const [inputValue2, setInputValue2] = useState("");
+  const [inputValue3, setInputValue3] = useState("");
+  const [inputValue4, setInputValue4] = useState("");
 
 
   useEffect(() => {
@@ -77,23 +76,30 @@ const CheckMergeCustomerList: React.FC = () => {
     setNewData(customerDetails);
   };
 
+  const com_id = newData?.map((item) => item?.data.company_id)
+  const emp_id = newData?.map((item) => item?.data.emp_id.detail._id)
+  const nameDefault = newData[0]?.data?.name
+  const phoneDefault = newData[0]?.data?.phone_number.info
+  const taxDefault = newData[0]?.data?.tax_code || ""
+  const websiteDefault = newData[0]?.data?.website || ""
+  // console.log(newData[0]?.data);
+
+  console.log(nameDefault, phoneDefault, taxDefault, websiteDefault);
 
   const handleSearchCustomer = async () => {
     try {
       const formData = new FormData();
-      formData.append("stt_name_customer", selectOption1.key);
       formData.append("choose", type.value)
-      // formData.append("com_id", roleValue)
-      // formData.append("emp_id", handover)
-      // formData.append("name_customer", handover)
+      formData.append("stt_name_customer", selectOption1.key);
       formData.append("stt_phone_customer", selectOption2.key)
-      // formData.append("phone_customer", handover)
       formData.append("stt_tax_code_customer", selectOption3.key)
-      // formData.append("tax_code_customer", handover)      
       formData.append("stt_website_customer", selectOption4.key)
-      // formData.append("website_customer", handover)
-
-
+      formData.append("name_customer", inputValue1 || nameDefault)
+      formData.append("phone_customer", inputValue2 || phoneDefault)
+      formData.append("tax_code_customer", inputValue3 || taxDefault)
+      formData.append("website_customer", inputValue4 || websiteDefault)
+      formData.append("com_id", com_id)
+      formData.append("emp_id", emp_id)
 
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/crm/customer/searchSame`,
@@ -114,11 +120,9 @@ const CheckMergeCustomerList: React.FC = () => {
     await handleSearchCustomer();
   }
 
-
   useEffect(() => {
     getCustomerDetail();
   }, []);
-
   return (
     <>
       <Head>
@@ -217,6 +221,7 @@ const CheckMergeCustomerList: React.FC = () => {
                     value={
                       newData?.map((item) => item?.data?.website)
                     }
+
                     placeholder="Nhập website"
                     setOptionSelect={setselectOption4}
                     setValue={setInputValue4}
@@ -237,7 +242,7 @@ const CheckMergeCustomerList: React.FC = () => {
                       setNumberSelected={setNumberSelected}
                       setRowDataSelected={setRowDataSelected}
                     />
-                    <PotentialFooterCheckMerge />
+                    <CustomerFooterCheckMerge />
                   </>
                 )}
 

@@ -373,7 +373,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
               textAlign: "left",
             }}
             // value={groupIds[record.key] || record.group_id.toString() || "0"}
-            defaultValue={record.group_id.toString() || "0"}
+            defaultValue={record.group_id?.toString() || "0"}
             showSearch
             optionFilterProp="label"
             options={options}
