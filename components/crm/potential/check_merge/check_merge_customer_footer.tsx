@@ -10,7 +10,7 @@ export default function PotentialFooterCheckMerge() {
       <button type="button" onClick={() => setIsModalCancel(true)}>
         Hủy
       </button>
-      <Link href={"/potential/merge"}>
+      <Link href={"/customer/check_merge"}>
         <button className={styles.save} type="submit">
           Tiếp theo
         </button>
@@ -24,7 +24,7 @@ export default function PotentialFooterCheckMerge() {
             "Bạn có chắc chắn muốn hủy thêm mới tiềm năng Tên tiềm năng mọi thông tin bạn nhập sẽ không được lưu lại?"
           }
           title={"Xác nhận hủy thêm mới tiềm năng"}
-          link="/potential/list"
+          link="/customer/list"
         />
       }
     </div>

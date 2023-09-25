@@ -6,15 +6,17 @@
 }
 
 .error {
-  color: red; /* Đặt màu chữ thành đỏ */
-  /* Thêm bất kỳ thiết lập CSS khác bạn muốn cho lỗi ở đây */
+  color: red;
 }
 .span_success_custom {
   font-weight: 900 !important;
   font-family: "Roboto-Bold" !important;
   font-size: 18px !important;
 }
-
+.custom_pagination {
+  padding-top: 50px;
+  padding-bottom: 20px;
+}
 .wrapInput {
   width: 40%;
 }

@@ -1,7 +1,7 @@
 import { useState } from "react";
-import CancelModal from "../potential_steps/cancel_modal";
 import styles from "../potential_add_files/add_file_potential.module.css";
 import Link from "next/link";
+import CancelModal from "../../potential/potential_steps/cancel_modal";
 
 export default function PotentialFooterCheckMerge() {
   const [isModalCancel, setIsModalCancel] = useState(false);
@@ -10,7 +10,7 @@ export default function PotentialFooterCheckMerge() {
       <button type="button" onClick={() => setIsModalCancel(true)}>
         Hủy
       </button>
-      <Link href={"/potential/merge"}>
+      <Link href={"/customer/same_filter"}>
         <button className={styles.save} type="submit">
           Tiếp theo
         </button>
