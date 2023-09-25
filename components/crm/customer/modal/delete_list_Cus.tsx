@@ -1,9 +1,5 @@
 import React, { useRef, useState } from "react";
 import { Modal, Select, notification } from "antd";
-import styles from "../../potential/potential.module.css";
-import styleCustomer from "../customer.module.css";
-import ModalCompleteStep from "@/components/crm/potential/potential_steps/complete_modal";
-import PotentialSelectBoxStep from "@/components/crm/potential/potential_steps/select_box_step";
 import type { SelectProps } from "antd";
 import ModalCompleteStepDEl from "../../potential/potential_steps/mdaldel_completeCus";
 import { base_url } from "../../service/function";
@@ -38,7 +34,7 @@ const DelCustomerModal: React.FC<MyComponentProps> = ({
         },
         body: JSON.stringify({ cus_id: cus_id }),
       });
-    } catch (error) {}
+    } catch (error) { }
   };
 
   return (
