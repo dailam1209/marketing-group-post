@@ -5,6 +5,7 @@ import { SidebarContext } from "@/components/crm/context/resizeContext";
 import { useHeader } from "@/components/crm/hooks/useHeader";
 import CheckMergeBody from "@/components/crm/potential/check_merge/check_merge_body";
 import CheckMergeInputGroup from "@/components/crm/potential/check_merge/check_merge_input_group";
+import CheckMergeInputTaxCode from "@/components/crm/potential/check_merge/check_merge_input_tax_code";
 import Head from "next/head";
 import { base_url } from "@/components/crm/service/function";
 import TableDataCustomerCheckMerge from "@/components/crm/table/table-customer-check-merge";
@@ -202,7 +203,7 @@ const CheckMergeCustomerList: React.FC = () => {
                     setValue={setInputValue2}
 
                   />
-                  <CheckMergeInputGroup
+                  <CheckMergeInputTaxCode
                     type={type}
                     label="Mã số thuế"
                     name="tax_code"
