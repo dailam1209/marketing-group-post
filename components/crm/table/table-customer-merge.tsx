@@ -476,7 +476,7 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
                     title="Nhóm khách hàng"
                     value={newData?.map(
                       (item) =>
-                        item?.data?.group_id.detail.gr_name || "Chưa cập nhật"
+                        item?.data?.group_id?.detail?.gr_name || "Chưa cập nhật"
                     )}
                   />
 
@@ -489,7 +489,7 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
                     title="Tình trạng khách hàng"
                     value={newData?.map(
                       (item) =>
-                        item?.data?.status.detail.stt_name || "Chưa cập nhật"
+                        item?.data?.status?.detail?.stt_name || "Chưa cập nhật"
                     )}
                   />
 
@@ -502,7 +502,7 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
                     title="Nhân viên phụ trách"
                     value={newData?.map(
                       (item) =>
-                        item?.data?.emp_id.detail.userName || "Chưa cập nhật"
+                        item?.data?.emp_id?.detail?.userName || "Chưa cập nhật"
                     )}
                   />
 
@@ -536,7 +536,7 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
                     name="bill_city"
                     title="Tỉnh/Thành phố"
                     value={newData?.map(
-                      (item) => item?.data?.bill_city.detail || "Chưa cập nhật"
+                      (item) => item?.data?.bill_city?.detail || "Chưa cập nhật"
                     )}
                   />
 
