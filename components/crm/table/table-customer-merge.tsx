@@ -6,6 +6,7 @@ import ModalError from "../customer/customer_modal/error_mdal";
 import { base_url } from "../service/function";
 import RowRadioInputDate from "../potential/merge/row_input_radio_date";
 import RowRadioInputDes from "../potential/merge/row_input_description";
+import { getCookie } from "cookies-next";
 const Cookies = require("js-cookie");
 
 interface CustomerProps {}
@@ -70,6 +71,8 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
   const [la_khach_hang_tu, setLa_khach_hang_tu] = useState("");
   const [han_muc_no, setHan_muc_no] = useState("");
 
+  const com_id = getCookie("com_id").toString()
+
   function generateDateCowStringFromTimestamp(unixTimestamp) {
     const date = new Date(unixTimestamp * 1000); // Chuyển đổi Unix timestamp thành đối tượng Date
     const day = date.getDate().toString().padStart(2, "0"); // Lấy ngày và định dạng thành 2 chữ số
@@ -78,6 +81,7 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
     const result = `${day}/${month}/${year}`;
     return result;
   }
+
 
   const getCustomerDetail = async () => {
     const promises =
@@ -175,7 +179,7 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
   };
 
   const handleSaveButtonClick = async () => {
-    handleClickOpenModal();
+    setISOpenSuccessMdal(false);
     await handleCombineCustomer();
   };
 
@@ -201,6 +205,9 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
       };
     });
   };
+
+
+
 
   const checkAndReturnData = (val) => {
     if (selectedData?.[val]?.filter((item) => item.status)?.length > 0) {
@@ -1119,7 +1126,7 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
             Hủy
           </button>
           <button
-            onClick={handleSaveButtonClick}
+            onClick={handleClickOpenModal}
             type="button"
             className={styles.btn_save}
           >
@@ -1147,7 +1154,7 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
         content={
           "Tất cả trường thông tin đã chọn sẽ được gộp vào bản ghi chính. Các thông tin liên quan (Tệp đính kèm, Ghi chú, Hoạt động và Hàng hóa) sẽ được gắn với bản ghi chính. Bạn có muốn tiếp tục gộp trùng?"
         }
-        handleCloseMdal={() => setISOpenSuccessMdal(false)}
+        handleCloseMdal={() => handleSaveButtonClick()}
       />
 
       <ModalError
