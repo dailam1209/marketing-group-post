@@ -13,7 +13,6 @@ export default function RowRadioInput({
 }: any) {
   const [valueRadioBox, setValueRadioBox] = useState("");
 
-
   const handleChange = (item: any, index: number) => {
     let newValues = selectedData?.[name];
     let newData: any = newValues?.map((item) => {

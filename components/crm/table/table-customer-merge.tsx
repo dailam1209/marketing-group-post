@@ -9,9 +9,9 @@ import RowRadioInputDes from "../potential/merge/row_input_description";
 import { getCookie } from "cookies-next";
 const Cookies = require("js-cookie");
 
-interface CustomerProps { }
+interface CustomerProps {}
 
-const TableDataCustomerMerge: React.FC<CustomerProps> = ({ }) => {
+const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
   const [defaultCheckBox, setDefaultCheckBox] = useState(false);
   const [selectedImage, setSelectedImage] = useState("/crm/user_kh.png");
   const [isOpenCancelModal, setIsOpenCancelModal] = useState(false);
@@ -62,7 +62,8 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({ }) => {
   const [loai_hinh_khach_hang, setLoai_hinh_khach_hang] = useState("");
   const [country, setCountry] = useState("");
   const [bill_area_code, setBill_area_code] = useState("");
-  const [bill_invoice_address_email, setBill_invoice_address_email] = useState("");
+  const [bill_invoice_address_email, setBill_invoice_address_email] =
+    useState("");
   const [giao_hang_huyen, setGiao_hang_huyen] = useState("");
   const [giao_hang_xa, setGiao_hang_xa] = useState("");
   const [ship_area, setShip_area] = useState("");
@@ -79,7 +80,6 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({ }) => {
     const year = date.getFullYear();
     const result = `${day}/${month}/${year}`;
     return result;
-
   }
 
 
@@ -105,75 +105,64 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({ }) => {
         });
 
     const customerDetails = await Promise.all(promises);
-    const newArr = customerDetails?.map((items) => {
-      return {
-        data: {
-          ...items.data,
-          ngay_sua: generateDateCowStringFromTimestamp(items?.data?.ngay_sua),
-          ngay_tao: generateDateCowStringFromTimestamp(items?.data?.ngay_tao),
-          la_khach_hang_tu: generateDateCowStringFromTimestamp(
-            items?.data?.la_khach_hang_tu
-          ),
-          created_at: generateDateCowStringFromTimestamp(
-            items?.data?.created_at
-          ),
-        },
-      };
-    });
     setNewData(customerDetails);
   };
-
 
   const handleCombineCustomer = async () => {
     try {
       const formData = new FormData();
-      formData.append("target_id", targetId)
+      formData.append("targetId", targetId);
       formData.append("arrCus", parsedData);
-      formData.append("comId", com_id);
-      formData.append("type", type)
-      formData.append("stand_name", stand_name)
-      formData.append("name", "HuuDat")
-      formData.append("logo", logo)
-      formData.append("tax_code", tax_code)
-      formData.append("address", address)
-      formData.append("ship_invoice_address", ship_invoice_address)
-      formData.append("gender", gender)
-      formData.append("cmnd_ccnd_number", cmnd_ccnd_number)
-      formData.append("cmnd_ccnd_address", cmnd_ccnd_address)
-      formData.append("cmnd_ccnd_time", cmnd_ccnd_time)
-      formData.append("description", description)
-      formData.append("introducer", introducer)
-      formData.append("phone_number", phone_number)
-      formData.append("emp_id", emp_id)
-      formData.append("group_id", group_id)
-      formData.append("status", status)
-      formData.append("classify", classify)
-      formData.append("bill_city", bill_city)
-      formData.append("bill_district", bill_district)
-      formData.append("bill_ward", bill_ward)
-      formData.append("bill_address", bill_address)
-      formData.append("bill_invoice_address", bill_invoice_address)
-      formData.append("ship_city", ship_city)
-      formData.append("bank_id", bank_id)
-      formData.append("bank_account", bank_account)
-      formData.append("revenue", revenue)
-      formData.append("resoure", resoure)
-      formData.append("size", size)
-      formData.append("rank", rank)
-      formData.append("website", website)
-      formData.append("number_of_day_owed", number_of_day_owed)
-      formData.append("share_all", share_all)
-      formData.append("email", email)
-      formData.append("business_areas", business_areas)
-      formData.append("loai_hinh_khach_hang", loai_hinh_khach_hang)
-      formData.append("han_muc_no", han_muc_no)
-      formData.append("la_khach_hang_tu", generateDateCowStringFromTimestamp(la_khach_hang_tu))
-      formData.append("created_at", generateDateCowStringFromTimestamp(created_at))
-      formData.append("ship_area", ship_area)
-      formData.append("giao_hang_xa", giao_hang_xa)
-      formData.append("giao_hang_huyen", giao_hang_huyen)
-      formData.append("bill_invoice_address_email", bill_invoice_address_email)
-      formData.append("bill_area_code", bill_area_code)
+      formData.append("type", type);
+      formData.append("stand_name", stand_name);
+      formData.append("name", "HuuDat");
+      formData.append("logo", logo);
+      formData.append("tax_code", tax_code);
+      formData.append("address", address);
+      formData.append("ship_invoice_address", ship_invoice_address);
+      formData.append("gender", gender);
+      formData.append("cmnd_ccnd_number", cmnd_ccnd_number);
+      formData.append("cmnd_ccnd_address", cmnd_ccnd_address);
+      formData.append("cmnd_ccnd_time", cmnd_ccnd_time);
+      formData.append("description", description);
+      formData.append("introducer", introducer);
+      formData.append("phone_number", phone_number);
+      formData.append("emp_id", emp_id);
+      formData.append("group_id", group_id);
+      formData.append("status", status);
+      formData.append("classify", classify);
+      formData.append("bill_city", bill_city);
+      formData.append("bill_district", bill_district);
+      formData.append("bill_ward", bill_ward);
+      formData.append("bill_address", bill_address);
+      formData.append("bill_invoice_address", bill_invoice_address);
+      formData.append("ship_city", ship_city);
+      formData.append("bank_id", bank_id);
+      formData.append("bank_account", bank_account);
+      formData.append("revenue", revenue);
+      formData.append("resoure", resoure);
+      formData.append("size", size);
+      formData.append("rank", rank);
+      formData.append("website", website);
+      formData.append("number_of_day_owed", number_of_day_owed);
+      formData.append("share_all", share_all);
+      formData.append("email", email);
+      formData.append("business_areas", business_areas);
+      formData.append("loai_hinh_khach_hang", loai_hinh_khach_hang);
+      formData.append("han_muc_no", han_muc_no);
+      formData.append(
+        "la_khach_hang_tu",
+        generateDateCowStringFromTimestamp(la_khach_hang_tu)
+      );
+      formData.append(
+        "created_at",
+        generateDateCowStringFromTimestamp(created_at)
+      );
+      formData.append("ship_area", ship_area);
+      formData.append("giao_hang_xa", giao_hang_xa);
+      formData.append("giao_hang_huyen", giao_hang_huyen);
+      formData.append("bill_invoice_address_email", bill_invoice_address_email);
+      formData.append("bill_area_code", bill_area_code);
       // formData.append("country", country)
 
       const res = await fetch(
@@ -186,8 +175,7 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({ }) => {
           body: formData,
         }
       );
-
-    } catch (error) { }
+    } catch (error) {}
   };
 
   const handleSaveButtonClick = async () => {
@@ -195,8 +183,27 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({ }) => {
     await handleCombineCustomer();
   };
 
-  const handleImageChange = (selectedValue: string) => {
-    setSelectedId(selectedValue);
+  const handleImageChange = (index: number) => {
+    let newValues = selectedData?.logo;
+    let newData: any = newValues?.map((item) => {
+      return {
+        ...item,
+        status: false,
+      };
+    });
+
+    newData?.splice(index, 1, {
+      status: true,
+      val: newData[index]?.val,
+      info: newData[index]?.info,
+    });
+
+    setSelectedData((prev) => {
+      return {
+        ...prev,
+        logo: newData,
+      };
+    });
   };
 
 
@@ -245,7 +252,9 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({ }) => {
       bill_ward: checkAndReturnData("bill_ward"),
       bill_address: checkAndReturnData("bill_address"),
       bill_invoice_address: checkAndReturnData("bill_invoice_address"),
-      bill_invoice_address_email: checkAndReturnData("bill_invoice_address_email"),
+      bill_invoice_address_email: checkAndReturnData(
+        "bill_invoice_address_email"
+      ),
       ship_city: checkAndReturnData("ship_city"),
       bank_id: checkAndReturnData("bank_id"),
       bank_account: checkAndReturnData("bank_account"),
@@ -264,7 +273,7 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({ }) => {
       giao_hang_huyen: checkAndReturnData("giao_hang_huyen"),
       bill_area_code: checkAndReturnData("bill_area_code"),
       country: checkAndReturnData("country"),
-
+      ship_country: checkAndReturnData("country"),
     };
 
     if (targetId && !isOpenModalError) {
@@ -285,13 +294,13 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({ }) => {
           updatedSelectedData[key] = updatedSelectedData[key].map((item, i) =>
             i === index
               ? {
-                ...item,
-                status: true,
-              }
+                  ...item,
+                  status: true,
+                }
               : {
-                ...item,
-                status: false,
-              }
+                  ...item,
+                  status: false,
+                }
           );
         }
       }
@@ -307,8 +316,8 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({ }) => {
           typeof param === "string"
             ? el?.data?.[param]
             : param?.length === 2
-              ? el?.data?.[param?.[0]]?.[param?.[1]]
-              : el?.data?.[param?.[0]]?.[param?.[1]]?.[param?.[2]],
+            ? el?.data?.[param?.[0]]?.[param?.[1]]
+            : el?.data?.[param?.[0]]?.[param?.[1]]?.[param?.[2]],
         info: typeof param === "string" ? null : el?.data?.[param?.[0]]?.info,
       };
     });
@@ -329,20 +338,29 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({ }) => {
         group_id: setDefaultArr(["group_id", "detail", "gr_name"], newData),
         status: setDefaultArr(["status", "detail", "stt_name"], newData),
         emp_id: setDefaultArr(["emp_id", "detail", "userName"], newData),
-        country: setDefaultArr("country", newData),
+        country: setDefaultArr("country", newData), //
         bill_city: setDefaultArr(["bill_city", "detail"], newData),
         bill_district: setDefaultArr(["bill_district", "detail"], newData),
         bill_ward: setDefaultArr(["bill_ward", "detail"], newData),
-        bill_invoice_address: setDefaultArr(["bill_invoice_address", "detail"], newData),
+        bill_invoice_address: setDefaultArr(
+          ["bill_invoice_address", "detail"],
+          newData
+        ),
         bill_area_code: setDefaultArr(["bill_area_code", "detail"], newData),
         bill_address: setDefaultArr(["bill_address", "detail"], newData),
-        bill_invoice_address_email: setDefaultArr(["bill_invoice_address_email", "detail"], newData),
+        bill_invoice_address_email: setDefaultArr(
+          ["bill_invoice_address_email", "detail"],
+          newData
+        ),
         ship_city: setDefaultArr("ship_city", newData),
         giao_hang_huyen: setDefaultArr("giao_hang_huyen", newData),
         giao_hang_xa: setDefaultArr("giao_hang_xa", newData),
         address: setDefaultArr(["address", "detail"], newData),
         ship_area: setDefaultArr(["ship_area", "detail"], newData),
-        ship_invoice_address: setDefaultArr(["ship_invoice_address", "detail"], newData),
+        ship_invoice_address: setDefaultArr(
+          ["ship_invoice_address", "detail"],
+          newData
+        ),
         business_areas: setDefaultArr(["business_areas", "detail"], newData),
         bank_id: setDefaultArr(["bank_id", "detail"], newData),
         bank_account: setDefaultArr(["bank_account", "detail"], newData),
@@ -362,6 +380,7 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({ }) => {
         cmnd_ccnd_time: setDefaultArr("cmnd_ccnd_time", newData),
         description: setDefaultArr(["description", "detail"], newData),
         share_all: setDefaultArr("share_all", newData),
+        ship_country: setDefaultArr("country", newData), //
       };
 
       setSelectedData(data);
@@ -433,7 +452,7 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({ }) => {
                       <td key={index}>
                         <input
                           onChange={() => handleImageChange(index)}
-                          checked={selectedData?.logo?.status}
+                          checked={selectedData?.logo?.[index]?.status}
                           name="logo"
                           type="radio"
                           className={styles.radio}
@@ -485,7 +504,8 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({ }) => {
                     name="stand_name"
                     title="Tên viết tắt:"
                     value={newData?.map(
-                      (item) => item?.data?.stand_name?.detail || "Chưa cập nhật"
+                      (item) =>
+                        item?.data?.stand_name?.detail || "Chưa cập nhật"
                     )}
                   />
 
@@ -658,7 +678,9 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({ }) => {
                     setValueRadio={setCountry}
                     name="country"
                     title="Quốc gia:"
-                    value={newData?.map((item) => item?.country || "Chưa cập nhật")}
+                    value={newData?.map(
+                      (item) => item?.data?.country || "Chưa cập nhật"
+                    )}
                   />
 
                   <RowRadioInput
@@ -774,9 +796,11 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({ }) => {
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
                     setValueRadio={setCountry}
-                    name="country"
+                    name="ship_country"
                     title="Quốc gia"
-                    value={newData?.map((item) => item?.country || "Chưa cập nhật")}
+                    value={newData?.map(
+                      (item) => item?.country || "Chưa cập nhật"
+                    )}
                   />
 
                   <RowRadioInput
