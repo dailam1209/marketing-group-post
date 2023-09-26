@@ -148,7 +148,7 @@ export default function CustomerListInputGroup({
                 )}
                 name="search"
                 defaultValue=""
-                placeholder="Tìm kiếm theo Id, tên khách hàng, điện thoại, email"
+                placeholder="Tìm kiếm theo tên khách hàng, điện thoại, email"
               />
               <button
                 onClick={() => handleSearchKH()}
