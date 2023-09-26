@@ -45,6 +45,10 @@ export default function RowRadioInput({
     setSelectedData(test);
   };
 
+  useEffect(() => {
+    const test = { ...selectedData };
+    setValueRadio(test?.[name]?.filter((item) => item?.status)[0]?.val);
+  }, [selectedData])
   return (
     <tr>
       <td>

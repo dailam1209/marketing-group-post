@@ -93,7 +93,6 @@ interface TableDataContracDrops {
   listNV?: any;
   handleGetInfoSTT?: any;
   fetchDataDefault?: any;
-  setRowDataSelected: any
 }
 
 const TableListCustomer: React.FC<TableDataContracDrops> = ({
@@ -104,7 +103,6 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   fetchData,
   des,
   setDes,
-  setTest,
   page,
   setPage,
   totalRecords,
@@ -113,22 +111,12 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   loading,
   setDatatable,
   ArrNguonKK,
-  isSelectedRow,
-  numberSelected,
-  clearOption,
-  chooseAllOption,
-  setName,
-  name,
-  setPhone,
-  selectedCus,
   setStatus,
   setResoure,
   nvPhuTrach,
   setnvPhuTrach,
   userNameCreate,
   setuserNameCreate,
-  setNameHandingOverWork,
-  NameHandingOverWork,
   nhomCha,
   setnhomCha,
   nhomCon,
@@ -152,7 +140,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   listNV,
   handleGetInfoSTT,
   fetchDataDefault,
-  setRowDataSelected
+
 }: any) => {
   const [openModalCall, setOpenModalCall] = useState(false);
   const router = useRouter();

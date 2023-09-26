@@ -9,9 +9,9 @@ import RowRadioInputDes from "../potential/merge/row_input_description";
 import { getCookie } from "cookies-next";
 const Cookies = require("js-cookie");
 
-interface CustomerProps {}
+interface CustomerProps { }
 
-const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
+const TableDataCustomerMerge: React.FC<CustomerProps> = ({ }) => {
   const [defaultCheckBox, setDefaultCheckBox] = useState(false);
   const [selectedImage, setSelectedImage] = useState("/crm/user_kh.png");
   const [isOpenCancelModal, setIsOpenCancelModal] = useState(false);
@@ -71,6 +71,7 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
   const [la_khach_hang_tu, setLa_khach_hang_tu] = useState("");
   const [han_muc_no, setHan_muc_no] = useState("");
 
+
   const com_id = getCookie("com_id").toString()
 
   function generateDateCowStringFromTimestamp(unixTimestamp) {
@@ -80,6 +81,7 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
     const year = date.getFullYear();
     const result = `${day}/${month}/${year}`;
     return result;
+
   }
 
 
@@ -108,19 +110,21 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
     setNewData(customerDetails);
   };
 
+
   const handleCombineCustomer = async () => {
     try {
       const formData = new FormData();
-      formData.append("targetId", targetId);
+      formData.append("target_id", targetId)
       formData.append("arrCus", parsedData);
-      formData.append("type", type);
+      formData.append("comId", com_id);
+      // formData.append("type", type);
       formData.append("stand_name", stand_name);
-      formData.append("name", "HuuDat");
+      formData.append("name", name);
       formData.append("logo", logo);
-      formData.append("tax_code", tax_code);
+      formData.append("tax_code", tax_code || '0');
       formData.append("address", address);
       formData.append("ship_invoice_address", ship_invoice_address);
-      formData.append("gender", gender);
+      formData.append("gender", gender || "0");
       formData.append("cmnd_ccnd_number", cmnd_ccnd_number);
       formData.append("cmnd_ccnd_address", cmnd_ccnd_address);
       formData.append("cmnd_ccnd_time", cmnd_ccnd_time);
@@ -128,26 +132,26 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
       formData.append("introducer", introducer);
       formData.append("phone_number", phone_number);
       formData.append("emp_id", emp_id);
-      formData.append("group_id", group_id);
-      formData.append("status", status);
-      formData.append("classify", classify);
+      formData.append("group_id", group_id || "0");
+      formData.append("status", status || "0");
+      formData.append("classify", classify || "0");
       formData.append("bill_city", bill_city);
       formData.append("bill_district", bill_district);
       formData.append("bill_ward", bill_ward);
       formData.append("bill_address", bill_address);
       formData.append("bill_invoice_address", bill_invoice_address);
       formData.append("ship_city", ship_city);
-      formData.append("bank_id", bank_id);
+      formData.append("bank_id", bank_id || "0");
       formData.append("bank_account", bank_account);
-      formData.append("revenue", revenue);
+      formData.append("revenue", revenue || "0");
       formData.append("resoure", resoure);
       formData.append("size", size);
-      formData.append("rank", rank);
+      formData.append("rank", rank || "0");
       formData.append("website", website);
-      formData.append("number_of_day_owed", number_of_day_owed);
-      formData.append("share_all", share_all);
+      formData.append("number_of_day_owed", number_of_day_owed || "0");
+      formData.append("share_all", share_all || "0");
       formData.append("email", email);
-      formData.append("business_areas", business_areas);
+      formData.append("business_areas", business_areas || "0");
       formData.append("loai_hinh_khach_hang", loai_hinh_khach_hang);
       formData.append("han_muc_no", han_muc_no);
       formData.append(
@@ -163,7 +167,7 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
       formData.append("giao_hang_huyen", giao_hang_huyen);
       formData.append("bill_invoice_address_email", bill_invoice_address_email);
       formData.append("bill_area_code", bill_area_code);
-      // formData.append("country", country)
+      formData.append("country", country)
 
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/crm/customerdetails/combineCustome`,
@@ -175,11 +179,15 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
           body: formData,
         }
       );
-    } catch (error) {}
+    } catch (error) { }
   };
+
+  console.log(name);
+
 
   const handleSaveButtonClick = async () => {
     setISOpenSuccessMdal(false);
+
     await handleCombineCustomer();
   };
 
@@ -294,13 +302,13 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
           updatedSelectedData[key] = updatedSelectedData[key].map((item, i) =>
             i === index
               ? {
-                  ...item,
-                  status: true,
-                }
+                ...item,
+                status: true,
+              }
               : {
-                  ...item,
-                  status: false,
-                }
+                ...item,
+                status: false,
+              }
           );
         }
       }
@@ -316,8 +324,8 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({}) => {
           typeof param === "string"
             ? el?.data?.[param]
             : param?.length === 2
-            ? el?.data?.[param?.[0]]?.[param?.[1]]
-            : el?.data?.[param?.[0]]?.[param?.[1]]?.[param?.[2]],
+              ? el?.data?.[param?.[0]]?.[param?.[1]]
+              : el?.data?.[param?.[0]]?.[param?.[1]]?.[param?.[2]],
         info: typeof param === "string" ? null : el?.data?.[param?.[0]]?.info,
       };
     });

@@ -528,7 +528,6 @@ export default function CustomerList() {
             chooseAllOption={handleSelectAll}
             selectedCus={selectedCus}
             fetchDataDefault={fetchDataDefault}
-            setRowDataSelected={setRowDataSelected}
           />
         </div>
       )}
