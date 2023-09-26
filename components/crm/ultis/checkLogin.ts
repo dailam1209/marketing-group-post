@@ -6,12 +6,12 @@ export const checkAndRedirectToHomeIfNotLoggedIn = () => {
     const rf_token = Cookies.get("rf_token");
     const role = Cookies.get("role");
   
-    // if (!acc_token || !rf_token || !role) {
-    //   if(router.pathname !== "/"){
-    //   router.push("/");
-    //  }
-    //   return false; 
-    // }
+    if (!acc_token || !rf_token || !role) {
+      if(router.pathname !== "/"){
+      router.push("/");
+     }
+      return false; 
+    }
     
     return true; 
 
