@@ -68,21 +68,28 @@ export default function CustomerList() {
   const [idNhom, setIdNhom] = useState<any>();
   const [isAPDung, setIsApDung] = useState(false);
   const [selectedCusIds, setSelectedCusIds] = useState<string>("");
+  const [isRowDataSelected, setRowDataSelected] = useState([]);
+  const role = Cookies.get("role");
+  const [listNV, setListNv] = useState<any>();
+  const [dep_id, setDep_id] = useState<any>();
+  const [posId, setposId] = useState<any>();
+  const [nameNvNomor, setnameNvNomor] = useState<any>();
 
   useEffect(() => {
     if (!isAPDung && !isOpenFilterBox) {
       setTime_s(null);
       setTime_e(null);
-    }else{
-      if(dateE){
-        setTime_e(dateE + " " + timeEnd); 
+    } else {
+      if (dateE) {
+        setTime_e(dateE + " " + timeEnd);
       }
-     
+
       setTime_s(dateS + " " + timeStart);
     }
-  }, [isAPDung, isOpenFilterBox, timeStart, dateS, timeEnd, dateE,time_s,time_e]);
+  }, [isAPDung, isOpenFilterBox, timeStart, dateS, timeEnd, dateE, time_s, time_e]);
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
+
   const fetchData = async () => {
     try {
       const res = await fetch(`${base_url}/api/crm/customer/list`, {
@@ -111,7 +118,7 @@ export default function CustomerList() {
         setloading(false);
       }
       setTotalRecords(data?.total);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const fetchDataDefault = async () => {
@@ -133,7 +140,7 @@ export default function CustomerList() {
         setloading(false);
       }
       setTotalRecords(data?.total);
-    } catch (error) {}
+    } catch (error) { }
   };
   const handleGetInfoSTT = async () => {
     try {
@@ -147,11 +154,8 @@ export default function CustomerList() {
       });
       const data = await res.json();
       if (data && data?.data) setdataStatus(data?.data);
-    } catch (error) {}
+    } catch (error) { }
   };
-  useEffect(() => {
-    handleGetInfoSTT();
-  }, []);
 
   const onSelectChange = (selectedRowKeys: any, selectedRows: DataType[]) => {
     setSelectedRowKeys(selectedRowKeys);
@@ -241,16 +245,9 @@ export default function CustomerList() {
         });
         setlistGr_Child(arr);
       });
-    } catch (error) {}
+    } catch (error) { }
   };
 
-  const role = Cookies.get("role");
-
-  const [listNV, setListNv] = useState<any>();
-
-  const [dep_id, setDep_id] = useState<any>();
-  const [posId, setposId] = useState<any>();
-  const [nameNvNomor, setnameNvNomor] = useState<any>();
   const handleGetInfoCusNV = async () => {
     try {
       if (role == "2") {
@@ -273,8 +270,9 @@ export default function CustomerList() {
           setnameNvNomor(data?.data?.data);
         }
       }
-    } catch (error) {}
+    } catch (error) { }
   };
+
   const handleGetInfoCus = async () => {
     try {
       const res = await fetch(
@@ -289,13 +287,29 @@ export default function CustomerList() {
       );
       const data = await res.json();
       if (data && data?.data) setListNv(data?.data?.items);
-    } catch (error) {}
+    } catch (error) { }
   };
+
   let nv = listNV?.filter((item) => item.dep_id === dep_id);
   useEffect(() => {
     handleGetInfoCusNV();
     handleGetInfoCus();
   }, [dep_id]);
+
+  useEffect(() => {
+    if (isAPDung) {
+      if (dateE) {
+        setTime_e(dateE + " " + timeEnd);
+      }
+    } else if (!isAPDung && !isOpenFilterBox) {
+      setTime_s(null);
+      setTime_e(null);
+    }
+  }, [isAPDung, isOpenFilterBox]);
+
+  useEffect(() => {
+    handleGetInfoSTT();
+  }, []);
 
   function sendingData() {
     const requestData = {
@@ -330,6 +344,8 @@ export default function CustomerList() {
     const allRowKeys = datatable?.map((item: { key: any }) => item.key);
     setSelectedRowKeys(allRowKeys);
     setNumberSelected(datatable?.length);
+    setRowDataSelected(datatable)
+
     if (selectedRowKeys.length > 0) {
       sendingData();
     }
@@ -345,9 +361,13 @@ export default function CustomerList() {
     onChange: onSelectChange,
     onSelect: (record, selected, selectedRows) => {
       setNumberSelected(selectedRows?.length);
+      setRowDataSelected(selectedRows)
+
     },
     onSelectAll: handleSelectAll,
   };
+
+
   useEffect(() => {
     handleGetGr();
     fetchData();
@@ -453,8 +473,9 @@ export default function CustomerList() {
             setIsOpenFilterBox={setIsOpenFilterBox}
             setIsApDung={setIsApDung}
             isOpenFilterBox={isOpenFilterBox}
-            sendingData={formData}
             dataLength={data?.data?.length}
+            isRowDataSelected={isRowDataSelected}
+            selectedCusIds={selectedCusIds}
           />
           <TableListCustomer
             handleGetInfoSTT={handleGetInfoSTT}

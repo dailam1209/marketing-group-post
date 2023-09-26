@@ -1,37 +1,300 @@
 import React, { useEffect, useState } from "react";
 import styles from "../potential/merge/merge.module.css";
 import RowRadioInput from "../potential/merge/row_input_radio";
-import RowRadioInputRow from "../customer/merege/radio_btn_input_row";
 import CancelModalCustomApi from "../customer/customer_modal/customer_mdal_cancel";
 import ModalError from "../customer/customer_modal/error_mdal";
-interface CustomerProps {
-  data: any;
-}
+import { base_url } from "../service/function";
+import RowRadioInputDate from "../potential/merge/row_input_radio_date";
+import RowRadioInputDes from "../potential/merge/row_input_description";
+import { getCookie } from "cookies-next";
+const Cookies = require("js-cookie");
 
-const TableDataCustomerMerge: React.FC<CustomerProps> = ({ data }) => {
-  const [isSelectAll, setIsSelectAll] = useState(false);
-  const [isSelectAll2, setIsSelectAll2] = useState(false);
+interface CustomerProps { }
+
+const TableDataCustomerMerge: React.FC<CustomerProps> = ({ }) => {
   const [defaultCheckBox, setDefaultCheckBox] = useState(false);
   const [selectedImage, setSelectedImage] = useState("/crm/user_kh.png");
   const [isOpenCancelModal, setIsOpenCancelModal] = useState(false);
   const [isOpenSuccessMdal, setISOpenSuccessMdal] = useState(false);
   const [isOpenModalError, setIsOpenModalError] = useState(false);
   const [selectedId, setSelectedId] = useState<string>("");
-  const newData = data?.data;
   const [selectedData, setSelectedData] = useState<any>({});
   const [defaultState, setDefaultState] = useState({});
+  const [newData, setNewData] = useState<any>([]);
+  const storedData = sessionStorage.getItem("DataSelectedCustomer");
+  const parsedData = JSON.parse(storedData)?.data;
+  const [targetId, setTargetId] = useState("");
+  const [type, setType] = useState("");
+  const [name, setName] = useState("");
+  const [stand_name, setStand_name] = useState("");
+  const [logo, setLogo] = useState("");
+  const [tax_code, setTax_code] = useState("");
+  const [address, setAddress] = useState("");
+  const [ship_invoice_address, setShip_invoice_address] = useState("");
+  const [gender, setGender] = useState("");
+  const [cmnd_ccnd_number, setCmnd_ccnd_number] = useState("");
+  const [cmnd_ccnd_address, setCmnd_ccnd_address] = useState("");
+  const [cmnd_ccnd_time, setCmnd_ccnd_time] = useState("");
+  const [description, setDescription] = useState("");
+  const [introducer, setIntroducer] = useState("");
+  const [phone_number, setPhone_number] = useState("");
+  const [emp_id, setEmp_id] = useState("");
+  const [group_id, setGroup_id] = useState("");
+  const [status, setStatus] = useState("");
+  const [classify, setClassify] = useState("");
+  const [bill_city, setBill_city] = useState("");
+  const [bill_district, setBill_district] = useState("");
+  const [bill_ward, setBill_ward] = useState("");
+  const [bill_address, setBill_address] = useState("");
+  const [bill_invoice_address, setBill_invoice_address] = useState("");
+  const [ship_city, setShip_city] = useState("");
+  const [bank_id, setBank_id] = useState("");
+  const [bank_account, setBank_account] = useState("");
+  const [revenue, setRevenue] = useState("");
+  const [resoure, setResoure] = useState("");
+  const [size, setSize] = useState("");
+  const [rank, setRank] = useState("");
+  const [website, setWebsite] = useState("");
+  const [number_of_day_owed, SetNumber_of_day_owed] = useState("");
+  const [share_all, setShare_all] = useState("");
+  const [email, setEmail] = useState("");
+  const [business_areas, setBusiness_areas] = useState("");
+  const [loai_hinh_khach_hang, setLoai_hinh_khach_hang] = useState("");
+  const [country, setCountry] = useState("");
+  const [bill_area_code, setBill_area_code] = useState("");
+  const [bill_invoice_address_email, setBill_invoice_address_email] =
+    useState("");
+  const [giao_hang_huyen, setGiao_hang_huyen] = useState("");
+  const [giao_hang_xa, setGiao_hang_xa] = useState("");
+  const [ship_area, setShip_area] = useState("");
+  const [created_at, setCreated_at] = useState("");
+  const [la_khach_hang_tu, setLa_khach_hang_tu] = useState("");
+  const [han_muc_no, setHan_muc_no] = useState("");
 
-  const handleImageChange = (selectedValue: string) => {
-    setSelectedId(selectedValue);
+
+  const com_id = getCookie("com_id").toString()
+
+  function generateDateCowStringFromTimestamp(unixTimestamp) {
+    const date = new Date(unixTimestamp * 1000); // Chuyển đổi Unix timestamp thành đối tượng Date
+    const day = date.getDate().toString().padStart(2, "0"); // Lấy ngày và định dạng thành 2 chữ số
+    const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Lấy tháng và định dạng thành 2 chữ số
+    const year = date.getFullYear();
+    const result = `${day}/${month}/${year}`;
+    return result;
+
+  }
+
+
+  const getCustomerDetail = async () => {
+    const promises =
+      parsedData &&
+      parsedData
+        ?.split(",")
+        .map(Number)
+        .map(async (cusId) => {
+          const res = await fetch(
+            `${base_url}/api/crm/customerdetails/detail`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${Cookies.get("token_base365")}`,
+              },
+              body: JSON.stringify({ cus_id: cusId }),
+            }
+          );
+          return await res.json();
+        });
+
+    const customerDetails = await Promise.all(promises);
+    setNewData(customerDetails);
+  };
+
+
+  const handleCombineCustomer = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("target_id", targetId)
+      formData.append("arrCus", parsedData);
+      formData.append("comId", com_id);
+      // formData.append("type", type);
+      formData.append("stand_name", stand_name);
+      formData.append("name", name);
+      formData.append("logo", logo);
+      formData.append("tax_code", tax_code || '0');
+      formData.append("address", address);
+      formData.append("ship_invoice_address", ship_invoice_address);
+      formData.append("gender", gender || "0");
+      formData.append("cmnd_ccnd_number", cmnd_ccnd_number);
+      formData.append("cmnd_ccnd_address", cmnd_ccnd_address);
+      formData.append("cmnd_ccnd_time", cmnd_ccnd_time);
+      formData.append("description", description);
+      formData.append("introducer", introducer);
+      formData.append("phone_number", phone_number);
+      formData.append("emp_id", emp_id);
+      formData.append("group_id", group_id || "0");
+      formData.append("status", status || "0");
+      formData.append("classify", classify || "0");
+      formData.append("bill_city", bill_city);
+      formData.append("bill_district", bill_district);
+      formData.append("bill_ward", bill_ward);
+      formData.append("bill_address", bill_address);
+      formData.append("bill_invoice_address", bill_invoice_address);
+      formData.append("ship_city", ship_city);
+      formData.append("bank_id", bank_id || "0");
+      formData.append("bank_account", bank_account);
+      formData.append("revenue", revenue || "0");
+      formData.append("resoure", resoure);
+      formData.append("size", size);
+      formData.append("rank", rank || "0");
+      formData.append("website", website);
+      formData.append("number_of_day_owed", number_of_day_owed || "0");
+      formData.append("share_all", share_all || "0");
+      formData.append("email", email);
+      formData.append("business_areas", business_areas || "0");
+      formData.append("loai_hinh_khach_hang", loai_hinh_khach_hang);
+      formData.append("han_muc_no", han_muc_no);
+      formData.append(
+        "la_khach_hang_tu",
+        generateDateCowStringFromTimestamp(la_khach_hang_tu)
+      );
+      formData.append(
+        "created_at",
+        generateDateCowStringFromTimestamp(created_at)
+      );
+      formData.append("ship_area", ship_area);
+      formData.append("giao_hang_xa", giao_hang_xa);
+      formData.append("giao_hang_huyen", giao_hang_huyen);
+      formData.append("bill_invoice_address_email", bill_invoice_address_email);
+      formData.append("bill_area_code", bill_area_code);
+      formData.append("country", country)
+
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/crm/customerdetails/combineCustome`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${Cookies.get("token_base365")}`,
+          },
+          body: formData,
+        }
+      );
+    } catch (error) { }
+  };
+
+  console.log(name);
+
+
+  const handleSaveButtonClick = async () => {
+    setISOpenSuccessMdal(false);
+
+    await handleCombineCustomer();
+  };
+
+  const handleImageChange = (index: number) => {
+    let newValues = selectedData?.logo;
+    let newData: any = newValues?.map((item) => {
+      return {
+        ...item,
+        status: false,
+      };
+    });
+
+    newData?.splice(index, 1, {
+      status: true,
+      val: newData[index]?.val,
+      info: newData[index]?.info,
+    });
+
+    setSelectedData((prev) => {
+      return {
+        ...prev,
+        logo: newData,
+      };
+    });
+  };
+
+
+
+
+  const checkAndReturnData = (val) => {
+    if (selectedData?.[val]?.filter((item) => item.status)?.length > 0) {
+      return (
+        selectedData?.[val]?.filter((item) => item.status)[0].info ||
+        selectedData?.[val]?.filter((item) => item.status)[0].val
+      );
+    } else {
+      // alert("Vui long chon day du thuoc tinh");
+      setIsOpenModalError(true);
+    }
   };
 
   const handleClickOpenModal = () => {
-    setISOpenSuccessMdal(true);
-    // setIsOpenModalError(true);
+    // setISOpenSuccessMdal(true);
+    const dataPost = {
+      arrCus: parsedData,
+      name: checkAndReturnData("name"),
+      stand_name: checkAndReturnData("stand_name"),
+      logo: checkAndReturnData("logo"),
+      tax_code: checkAndReturnData("tax_code"),
+      address: checkAndReturnData("address"),
+      ship_invoice_address: checkAndReturnData("ship_invoice_address"),
+      gender: checkAndReturnData("gender"),
+      cmnd_ccnd_number: checkAndReturnData("cmnd_ccnd_number"),
+      cmnd_ccnd_address: checkAndReturnData("cmnd_ccnd_address"),
+      cmnd_ccnd_time: checkAndReturnData("cmnd_ccnd_time"),
+      description: checkAndReturnData("description"),
+      size: checkAndReturnData("size"),
+      rank: checkAndReturnData("rank"),
+      website: checkAndReturnData("website"),
+      introducer: checkAndReturnData("introducer"),
+      phone_number: checkAndReturnData("phone_number"),
+      emp_id: checkAndReturnData("emp_id"),
+      group_id: checkAndReturnData("group_id"),
+      status: checkAndReturnData("status"),
+      business_areas: checkAndReturnData("business_areas"),
+      classify: checkAndReturnData("classify"),
+      loai_hinh_khach_hang: checkAndReturnData("loai_hinh_khach_hang"),
+      bill_city: checkAndReturnData("bill_city"),
+      bil_district: checkAndReturnData("bill_district"),
+      bill_ward: checkAndReturnData("bill_ward"),
+      bill_address: checkAndReturnData("bill_address"),
+      bill_invoice_address: checkAndReturnData("bill_invoice_address"),
+      bill_invoice_address_email: checkAndReturnData(
+        "bill_invoice_address_email"
+      ),
+      ship_city: checkAndReturnData("ship_city"),
+      bank_id: checkAndReturnData("bank_id"),
+      bank_account: checkAndReturnData("bank_account"),
+      revenue: checkAndReturnData("revenue"),
+      resoure: checkAndReturnData("resoure"),
+      created_at: checkAndReturnData("created_at"),
+      ship_area: checkAndReturnData("ship_area"),
+      number_of_day_owed: checkAndReturnData("number_of_day_owed"),
+      share_all: checkAndReturnData("share_all"),
+      type: checkAndReturnData("type"),
+      target_id: targetId,
+      la_khach_hang_tu: checkAndReturnData("la_khach_hang_tu"),
+      han_muc_no: checkAndReturnData("han_muc_no"),
+      email: checkAndReturnData("email"),
+      giao_hang_xa: checkAndReturnData("giao_hang_xa"),
+      giao_hang_huyen: checkAndReturnData("giao_hang_huyen"),
+      bill_area_code: checkAndReturnData("bill_area_code"),
+      country: checkAndReturnData("country"),
+      ship_country: checkAndReturnData("country"),
+    };
+
+    if (targetId && !isOpenModalError) {
+      setISOpenSuccessMdal(true);
+    } else {
+      setIsOpenModalError(true);
+    }
   };
 
   const handleSelectAll = (index: number) => {
     setSelectedData(defaultState);
+    const targetArr = parsedData?.split(",");
+    setTargetId(targetArr[index]);
     setSelectedData((prevSelectedData) => {
       const updatedSelectedData = { ...prevSelectedData };
       for (const key in updatedSelectedData) {
@@ -39,13 +302,13 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({ data }) => {
           updatedSelectedData[key] = updatedSelectedData[key].map((item, i) =>
             i === index
               ? {
-                  ...item,
-                  status: true,
-                }
+                ...item,
+                status: true,
+              }
               : {
-                  ...item,
-                  status: false,
-                }
+                ...item,
+                status: false,
+              }
           );
         }
       }
@@ -57,7 +320,13 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({ data }) => {
     return data?.map((el) => {
       return {
         status: false,
-        val: el?.[param],
+        val:
+          typeof param === "string"
+            ? el?.data?.[param]
+            : param?.length === 2
+              ? el?.data?.[param?.[0]]?.[param?.[1]]
+              : el?.data?.[param?.[0]]?.[param?.[1]]?.[param?.[2]],
+        info: typeof param === "string" ? null : el?.data?.[param?.[0]]?.info,
       };
     });
   };
@@ -65,51 +334,77 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({ data }) => {
   useEffect(() => {
     if (newData) {
       const data = {
-        xungho: setDefaultArr("salutation", newData),
-        tendem: setDefaultArr("operation", newData),
-        ten: setDefaultArr("name", newData),
-        hovaten: setDefaultArr("operation", newData),
-        chucdanh: setDefaultArr("name", newData),
-        phongban: setDefaultArr("name", newData),
-        dienthoaicoquan: setDefaultArr("name", newData),
-        dienthoaicanhan: setDefaultArr("name", newData),
-        emailcoquan: setDefaultArr("name", newData),
-        emailcanhan: setDefaultArr("name", newData),
-        nguongoc: setDefaultArr("name", newData),
-        masothue: setDefaultArr("name", newData),
-        loaitiemnang: setDefaultArr("name", newData),
-        mangxahoi: setDefaultArr("name", newData),
-        nhanvien: setDefaultArr("name", newData),
-        gioitinh: setDefaultArr("name", newData),
-        ngaysinh: setDefaultArr("name", newData),
-        tochuc: setDefaultArr("name", newData),
-        taikhoannh: setDefaultArr("name", newData),
-        motainh: setDefaultArr("name", newData),
-        ngaytl: setDefaultArr("name", newData),
-        loaihinh: setDefaultArr("name", newData),
-        linhvuc: setDefaultArr("name", newData),
-        nganhnghe: setDefaultArr("name", newData),
-        doanhthu: setDefaultArr("name", newData),
-        quocgia: setDefaultArr("name", newData),
-        city: setDefaultArr("name", newData),
-        district: setDefaultArr("name", newData),
-        ward: setDefaultArr("name", newData),
-        street: setDefaultArr("name", newData),
-        mavung: setDefaultArr("name", newData),
-        diachi: setDefaultArr("name", newData),
-        mota: setDefaultArr("name", newData),
-        dungchung: setDefaultArr("name", newData),
-        image: setDefaultArr("name", newData),
+        name: setDefaultArr("name", newData),
+        stand_name: setDefaultArr(["stand_name", "detail"], newData),
+        logo: setDefaultArr("logo", newData),
+        tax_code: setDefaultArr("tax_code", newData),
+        type: setDefaultArr("type", newData),
+        phone_number: setDefaultArr(["phone_number", "detail"], newData),
+        classify: setDefaultArr(["classify", "detail"], newData),
+        introducer: setDefaultArr(["introducer", "detail"], newData),
+        loai_hinh_khach_hang: setDefaultArr("loai_hinh_khach_hang", newData),
+        group_id: setDefaultArr(["group_id", "detail", "gr_name"], newData),
+        status: setDefaultArr(["status", "detail", "stt_name"], newData),
+        emp_id: setDefaultArr(["emp_id", "detail", "userName"], newData),
+        country: setDefaultArr("country", newData), //
+        bill_city: setDefaultArr(["bill_city", "detail"], newData),
+        bill_district: setDefaultArr(["bill_district", "detail"], newData),
+        bill_ward: setDefaultArr(["bill_ward", "detail"], newData),
+        bill_invoice_address: setDefaultArr(
+          ["bill_invoice_address", "detail"],
+          newData
+        ),
+        bill_area_code: setDefaultArr(["bill_area_code", "detail"], newData),
+        bill_address: setDefaultArr(["bill_address", "detail"], newData),
+        bill_invoice_address_email: setDefaultArr(
+          ["bill_invoice_address_email", "detail"],
+          newData
+        ),
+        ship_city: setDefaultArr("ship_city", newData),
+        giao_hang_huyen: setDefaultArr("giao_hang_huyen", newData),
+        giao_hang_xa: setDefaultArr("giao_hang_xa", newData),
+        address: setDefaultArr(["address", "detail"], newData),
+        ship_area: setDefaultArr(["ship_area", "detail"], newData),
+        ship_invoice_address: setDefaultArr(
+          ["ship_invoice_address", "detail"],
+          newData
+        ),
+        business_areas: setDefaultArr(["business_areas", "detail"], newData),
+        bank_id: setDefaultArr(["bank_id", "detail"], newData),
+        bank_account: setDefaultArr(["bank_account", "detail"], newData),
+        created_at: setDefaultArr("created_at", newData),
+        la_khach_hang_tu: setDefaultArr("la_khach_hang_tu", newData),
+        revenue: setDefaultArr(["revenue", "detail"], newData),
+        resoure: setDefaultArr(["resoure", "detail"], newData),
+        size: setDefaultArr(["size", "detail"], newData),
+        website: setDefaultArr("website", newData),
+        rank: setDefaultArr(["rank", "detail"], newData),
+        han_muc_no: setDefaultArr("han_muc_no", newData),
+        number_of_day_owed: setDefaultArr("number_of_day_owed", newData),
+        email: setDefaultArr(["email", "detail"], newData),
+        gender: setDefaultArr("gender", newData),
+        cmnd_ccnd_number: setDefaultArr("cmnd_ccnd_number", newData),
+        cmnd_ccnd_address: setDefaultArr("cmnd_ccnd_address", newData),
+        cmnd_ccnd_time: setDefaultArr("cmnd_ccnd_time", newData),
+        description: setDefaultArr(["description", "detail"], newData),
+        share_all: setDefaultArr("share_all", newData),
+        ship_country: setDefaultArr("country", newData), //
       };
+
       setSelectedData(data);
       setDefaultState(data);
     }
   }, [newData]);
+
+  useEffect(() => {
+    getCustomerDetail();
+  }, []);
+
   return (
     <>
       <div className={styles.main_potential}>
         <div className={styles.content_table}>
-          <div className={styles.main_title}>Gộp trùng tiềm năng</div>
+          <div className={styles.main_title}>Gộp trùng khách hàng</div>
           <div className={styles.main_table}>
             <div className={styles.scroll_table_left}>
               <table className={styles.table_info}>
@@ -133,14 +428,20 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({ data }) => {
                 </thead>
                 <tbody>
                   {/* Type */}
-                  <RowRadioInputRow
+                  <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
-                    name="type_customer"
+                    setValueRadio={setType}
+                    name="type"
                     title="Loại hình:"
-                    value={["Khách hàng cá nhân ", "Khách hàng cá nhân"]}
+                    setTargetId={setTargetId}
+                    targetId={parsedData}
+                    value={
+                      newData?.map((item) => item?.data?.type) ||
+                      "Chưa cập nhật"
+                    }
                   />
 
                   {/* Imgae */}
@@ -159,11 +460,14 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({ data }) => {
                       <td key={index}>
                         <input
                           onChange={() => handleImageChange(index)}
-                          checked={selectedData?.image?.[index]?.status}
-                          name="image"
+                          checked={selectedData?.logo?.[index]?.status}
+                          name="logo"
                           type="radio"
                           className={styles.radio}
-                          value={"/crm/user_kh.png"}
+                          value={
+                            newData?.map((item) => item?.data?.logo) ||
+                            "/crm/user_kh.png"
+                          }
                         />
                         <img
                           style={{ transform: "translate(15%, 15%)" }}
@@ -187,12 +491,16 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({ data }) => {
                   </tr>
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
+                    setValueRadio={setName}
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
-                    name="rdo_vocative"
-                    title="Tên khách hàng"
-                    value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                    name="name"
+                    title="Tên khách hàng:"
+                    value={
+                      newData?.map((item) => item?.data?.name) ||
+                      "Chưa cập nhật"
+                    }
                   />
 
                   <RowRadioInput
@@ -200,9 +508,13 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({ data }) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
-                    name="rdo_middle_name"
-                    title="Tên viết tắt"
-                    value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                    setValueRadio={setStand_name}
+                    name="stand_name"
+                    title="Tên viết tắt:"
+                    value={newData?.map(
+                      (item) =>
+                        item?.data?.stand_name?.detail || "Chưa cập nhật"
+                    )}
                   />
 
                   <RowRadioInput
@@ -210,9 +522,12 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({ data }) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
-                    name="rdo_name"
+                    setValueRadio={setTax_code}
+                    name="tax_code"
                     title="Mã số thuế"
-                    value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                    value={newData?.map(
+                      (item) => item?.data?.tax_code || "Chưa cập nhật"
+                    )}
                   />
 
                   <RowRadioInput
@@ -220,9 +535,13 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({ data }) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
-                    name="rdo_fullname"
+                    setValueRadio={setPhone_number}
+                    name="phone_number"
                     title="Điện thoại:"
-                    value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                    value={newData?.map(
+                      (item) =>
+                        item?.data?.phone_number?.detail || "Chưa cập nhật"
+                    )}
                   />
 
                   <RowRadioInput
@@ -230,9 +549,12 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({ data }) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
-                    name="rdo_titles"
-                    title="Email"
-                    value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                    setValueRadio={setEmail}
+                    name="email"
+                    title="Email:"
+                    value={newData?.map(
+                      (item) => item?.data?.email?.detail || "Chưa cập nhật"
+                    )}
                   />
 
                   <RowRadioInput
@@ -240,9 +562,12 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({ data }) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
-                    name="rdo_department"
-                    title="Nguồn khách hàng"
-                    value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                    setValueRadio={setResoure}
+                    name="resoure"
+                    title="Nguồn khách hàng:"
+                    value={newData?.map(
+                      (item) => item?.data?.resoure?.detail || "Chưa cập nhật"
+                    )}
                   />
 
                   <RowRadioInput
@@ -250,9 +575,12 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({ data }) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
-                    name="rdo_office_phone"
+                    setValueRadio={setClassify}
+                    name="classify"
                     title="Phân loại khách hàng"
-                    value={["Khách hàng bán lẻ ", "Khách hàng bán lẻ"]}
+                    value={newData?.map(
+                      (item) => item?.data?.classify?.detail || "Chưa cập nhật"
+                    )}
                   />
 
                   <RowRadioInput
@@ -260,9 +588,13 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({ data }) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
-                    name="rdo_personal_phone"
+                    setValueRadio={setIntroducer}
+                    name="introducer"
                     title="Lĩnh vực"
-                    value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                    value={newData?.map(
+                      (item) =>
+                        item?.data?.introducer?.detail || "Chưa cập nhật"
+                    )}
                   />
 
                   <RowRadioInput
@@ -270,9 +602,13 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({ data }) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
-                    name="rdo_office_email"
+                    setValueRadio={setLoai_hinh_khach_hang}
+                    name="loai_hinh_khach_hang"
                     title="Loại hình"
-                    value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                    value={newData?.map(
+                      (item) =>
+                        item?.data?.loai_hinh_khach_hang || "Chưa cập nhật"
+                    )}
                   />
 
                   <RowRadioInput
@@ -280,9 +616,12 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({ data }) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
-                    name="rdo_personal_email"
+                    setValueRadio={setBusiness_areas}
+                    name="business_areas"
                     title="Ngành nghề"
-                    value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                    value={newData?.map(
+                      (item) => item?.business_areas?.detail || "Chưa cập nhật"
+                    )}
                   />
 
                   <RowRadioInput
@@ -290,9 +629,13 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({ data }) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
-                    name="rdo_source"
+                    setValueRadio={setGroup_id}
+                    name="group_id"
                     title="Nhóm khách hàng"
-                    value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                    value={newData?.map(
+                      (item) =>
+                        item?.data?.group_id?.detail?.gr_name || "Chưa cập nhật"
+                    )}
                   />
 
                   <RowRadioInput
@@ -300,9 +643,13 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({ data }) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
-                    name="rdo_tax_code"
+                    setValueRadio={setStatus}
+                    name="status"
                     title="Tình trạng khách hàng"
-                    value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                    value={newData?.map(
+                      (item) =>
+                        item?.data?.status?.detail?.stt_name || "Chưa cập nhật"
+                    )}
                   />
 
                   <RowRadioInput
@@ -310,41 +657,16 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({ data }) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
-                    name="rdo_type"
+                    setValueRadio={setEmp_id}
+                    name="emp_id"
                     title="Nhân viên phụ trách"
-                    value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                    value={newData?.map(
+                      (item) =>
+                        item?.data?.emp_id?.detail?.userName || "Chưa cập nhật"
+                    )}
                   />
 
                   {/* Bill Infor */}
-                  <tr>
-                    <td>
-                      <p className={styles.main_body_type}>
-                        Thông tin viết hóa đơn
-                      </p>
-                    </td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <RowRadioInput
-                    defaultCheckBox={defaultCheckBox}
-                    setDefaultCheckBox={setDefaultCheckBox}
-                    selectedData={selectedData}
-                    setSelectedData={setSelectedData}
-                    name="rdo_gender"
-                    title="Giới tính:"
-                    value={["Chưa cập nhật ", "Chưa cập nhật"]}
-                  />
-
-                  <RowRadioInput
-                    defaultCheckBox={defaultCheckBox}
-                    setDefaultCheckBox={setDefaultCheckBox}
-                    selectedData={selectedData}
-                    setSelectedData={setSelectedData}
-                    name="rdo_birth"
-                    title="Ngày sinh:"
-                    value={["Chưa cập nhật ", "Chưa cập nhật"]}
-                  />
 
                   <tr>
                     <td colSpan={4}>
@@ -361,9 +683,12 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({ data }) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
-                    name="rdo_tochuc"
-                    title="Quốc gia"
-                    value={["Việt Nam ", "Việt Nam"]}
+                    setValueRadio={setCountry}
+                    name="country"
+                    title="Quốc gia:"
+                    value={newData?.map(
+                      (item) => item?.data?.country || "Chưa cập nhật"
+                    )}
                   />
 
                   <RowRadioInput
@@ -371,9 +696,12 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({ data }) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
-                    name="rdo_bank_num"
+                    setValueRadio={setBill_city}
+                    name="bill_city"
                     title="Tỉnh/Thành phố"
-                    value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                    value={newData?.map(
+                      (item) => item?.data?.bill_city?.detail || "Chưa cập nhật"
+                    )}
                   />
 
                   <RowRadioInput
@@ -381,9 +709,13 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({ data }) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
-                    name="rdo_bank_account"
+                    setValueRadio={setBill_district}
+                    name="bill_district"
                     title="Quận/Huyện"
-                    value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                    value={newData?.map(
+                      (item) =>
+                        item?.data?.bill_district?.detail || "Chưa cập nhật"
+                    )}
                   />
 
                   <RowRadioInput
@@ -391,9 +723,12 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({ data }) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
-                    name="rdo_tl"
+                    setValueRadio={setBill_ward}
+                    name="bill_ward"
                     title="Phường/Xã"
-                    value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                    value={newData?.map(
+                      (item) => item?.data?.bill_ward?.detail || "Chưa cập nhật"
+                    )}
                   />
 
                   <RowRadioInput
@@ -401,9 +736,14 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({ data }) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
-                    name="rdo_business_type"
+                    setValueRadio={setBill_invoice_address}
+                    name="bill_invoice_address"
                     title="Số nhà "
-                    value={["Chưa cập nhật. ", "Chưa cập nhật"]}
+                    value={newData?.map(
+                      (item) =>
+                        item?.data?.bill_invoice_address?.detail ||
+                        "Chưa cập nhật"
+                    )}
                   />
 
                   <RowRadioInput
@@ -411,27 +751,40 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({ data }) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
-                    name="rdo_business_areas"
+                    setValueRadio={setBill_area_code}
+                    name="bill_area_code"
                     title="Mã vùng"
-                    value={["Chưa cập nhật. ", "Chưa cập nhật"]}
+                    value={newData?.map(
+                      (item) =>
+                        item?.data?.bill_area_code?.detail || "Chưa cập nhật"
+                    )}
                   />
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
-                    name="rdo_cate"
+                    setValueRadio={setBill_address}
+                    name="bill_address"
                     title="Địa chỉ hóa đơn"
-                    value={["Chưa cập nhật. ", "Chưa cập nhật"]}
+                    value={newData?.map(
+                      (item) =>
+                        item?.data?.bill_address?.detail || "Chưa cập nhật"
+                    )}
                   />
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
-                    name="rdo_revenue"
+                    setValueRadio={setBill_invoice_address_email}
+                    name="bill_invoice_address_email"
                     title="Địa chỉ email nhận hóa đơn (email)"
-                    value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                    value={newData?.map(
+                      (item) =>
+                        item?.data?.bill_invoice_address_email?.detail ||
+                        "Chưa cập nhật"
+                    )}
                   />
 
                   {/* Giao hang Infor */}
@@ -450,9 +803,12 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({ data }) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
-                    name="rdo_tochuc1"
+                    setValueRadio={setCountry}
+                    name="ship_country"
                     title="Quốc gia"
-                    value={["Việt Nam ", "Việt Nam"]}
+                    value={newData?.map(
+                      (item) => item?.country || "Chưa cập nhật"
+                    )}
                   />
 
                   <RowRadioInput
@@ -460,9 +816,12 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({ data }) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
-                    name="rdo_bank_num1"
+                    setValueRadio={setShip_city}
+                    name="ship_city"
                     title="Tỉnh/Thành phố"
-                    value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                    value={newData?.map(
+                      (item) => item?.data?.ship_city || "Chưa cập nhật"
+                    )}
                   />
 
                   <RowRadioInput
@@ -470,9 +829,12 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({ data }) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
-                    name="rdo_bank_account1"
+                    setValueRadio={setGiao_hang_huyen}
+                    name="giao_hang_huyen"
                     title="Quận/Huyện"
-                    value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                    value={newData?.map(
+                      (item) => item?.data?.giao_hang_huyen || "Chưa cập nhật"
+                    )}
                   />
 
                   <RowRadioInput
@@ -480,9 +842,12 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({ data }) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
-                    name="rdo_tl1"
+                    setValueRadio={setGiao_hang_xa}
+                    name="giao_hang_xa"
                     title="Phường/Xã"
-                    value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                    value={newData?.map(
+                      (item) => item?.data?.giao_hang_xa || "Chưa cập nhật"
+                    )}
                   />
 
                   <RowRadioInput
@@ -490,9 +855,12 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({ data }) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
-                    name="rdo_business_type1"
-                    title="Số nhà "
-                    value={["Chưa cập nhật. ", "Chưa cập nhật"]}
+                    setValueRadio={setAddress}
+                    name="address"
+                    title="Số nhà"
+                    value={newData?.map(
+                      (item) => item?.data?.address?.detail || "Chưa cập nhật"
+                    )}
                   />
 
                   <RowRadioInput
@@ -500,18 +868,26 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({ data }) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
-                    name="rdo_business_areas1"
+                    setValueRadio={setShip_area}
+                    name="ship_area"
                     title="Mã vùng"
-                    value={["Chưa cập nhật. ", "Chưa cập nhật"]}
+                    value={newData?.map(
+                      (item) => item?.data?.ship_area?.detail || "Chưa cập nhật"
+                    )}
                   />
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
-                    name="rdo_cate1"
+                    setValueRadio={setShip_invoice_address}
+                    name="ship_invoice_address"
                     title="Địa chỉ hóa đơn"
-                    value={["Chưa cập nhật. ", "Chưa cập nhật"]}
+                    value={newData?.map(
+                      (item) =>
+                        item?.data?.ship_invoice_address?.detail ||
+                        "Chưa cập nhật"
+                    )}
                   />
 
                   {/* Bonus infor */}
@@ -530,99 +906,134 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({ data }) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
-                    name="rdo_qg"
+                    setValueRadio={setBank_id}
+                    name="bank_id"
                     title="Tài khoản ngân hàng"
-                    value={["Chưa cập nhật.", "Chưa cập nhật"]}
+                    value={newData?.map(
+                      (item) => item?.data?.bank_id?.detail || "Chưa cập nhật"
+                    )}
                   />
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
-                    name="rdo_tt"
+                    setValueRadio={setBank_account}
+                    name="bank_account"
                     title="Mở tại ngân hàng"
-                    value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                    value={newData?.map(
+                      (item) =>
+                        item?.data?.bank_account?.detail || "Chưa cập nhật"
+                    )}
                   />
-                  <RowRadioInput
+                  <RowRadioInputDate
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
-                    name="rdo_qh"
+                    setValueRadio={setCreated_at}
+                    name="created_at"
                     title="Ngày thành lập/Ngày sinh"
-                    value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                    value={newData?.map(
+                      (item) => item?.data?.created_at || "Chưa cập nhật"
+                    )}
                   />
-                  <RowRadioInput
+                  <RowRadioInputDate
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
-                    name="rdo_px"
+                    setValueRadio={setLa_khach_hang_tu}
+                    name="la_khach_hang_tu"
                     title="Là khách hàng từ"
-                    value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                    value={newData?.map(
+                      (item) => item?.data?.la_khach_hang_tu || "Chưa cập nhật"
+                    )}
                   />
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
-                    name="rdo_street"
+                    setValueRadio={setRevenue}
+                    name="revenue"
                     title="Doanh thu"
-                    value={["Chưa cập nhật.", "Chưa cập nhật"]}
+                    value={newData?.map(
+                      (item) => item?.data?.revenue?.detail || "Chưa cập nhật"
+                    )}
                   />
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
-                    name="rdo_area_code"
+                    setValueRadio={setSize}
+                    name="size"
                     title="Quy mô nhân sự"
-                    value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                    value={newData?.map(
+                      (item) => item?.data?.size?.detail || "Chưa cập nhật"
+                    )}
                   />
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
-                    name="rdo_address"
+                    setValueRadio={setWebsite}
+                    name="website"
                     title="Website"
-                    value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                    value={newData?.map(
+                      (item) => item?.data?.website || "Chưa cập nhật"
+                    )}
                   />
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
-                    name="rdo_des"
+                    setValueRadio={setRank}
+                    name="rank"
                     title="Xếp hạng khách hàng"
-                    value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                    value={newData?.map(
+                      (item) => item?.data?.rank?.detail || "Chưa cập nhật"
+                    )}
                   />
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
-                    name="rdo_des1"
+                    setValueRadio={setHan_muc_no}
+                    name="han_muc_no"
                     title="Hạn mức nợ"
-                    value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                    value={newData?.map(
+                      (item) => item?.data?.han_muc_no || "Chưa cập nhật"
+                    )}
                   />
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
-                    name="rdo_des2"
+                    setValueRadio={SetNumber_of_day_owed}
+                    name="number_of_day_owed"
                     title="Số ngày được nợ"
-                    value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                    value={newData?.map(
+                      (item) =>
+                        item?.data?.number_of_day_owed || "Chưa cập nhật"
+                    )}
                   />
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
-                    name="rdo_des2"
+                    setValueRadio={setGender}
+                    name="gender"
                     title="Giới tính"
-                    value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                    value={newData?.map(
+                      (item) => item?.data?.gender || "Chưa cập nhật"
+                    )}
                   />
 
                   {/* CCCD */}
@@ -641,38 +1052,49 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({ data }) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
-                    name="rdo_cccd"
+                    setValueRadio={setCmnd_ccnd_number}
+                    name="cmnd_ccnd_number"
                     title="Số CMND/CCCD"
-                    value={["Chưa cập nhật.", "Chưa cập nhật"]}
+                    value={newData?.map(
+                      (item) => item?.data?.cmnd_ccnd_number || "Chưa cập nhật"
+                    )}
                   />
                   <RowRadioInput
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
-                    name="rdo_rdo_area"
+                    setValueRadio={setCmnd_ccnd_address}
+                    name="cmnd_ccnd_address"
                     title="Nơi cấp"
-                    value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                    value={newData?.map(
+                      (item) => item?.data?.cmnd_ccnd_address || "Chưa cập nhật"
+                    )}
                   />
-                  <RowRadioInput
+                  <RowRadioInputDate
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
-                    name="rdo_date_provide"
+                    setValueRadio={setCmnd_ccnd_time}
+                    name="cmnd_ccnd_time"
                     title="Ngày cấp"
-                    value={["Chưa cập nhật ", "Chưa cập nhật"]}
+                    value={newData?.map((item) => item?.data?.cmnd_ccnd_time)}
                   />
 
                   {/*  Description Infor */}
-                  <RowRadioInputRow
+                  <RowRadioInputDes
                     defaultCheckBox={defaultCheckBox}
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
-                    name="rdo_description"
+                    setValueRadio={setDescription}
+                    name="description"
                     title="Thông tin mô tả"
-                    value={["Không chọn", "Chọn"]}
+                    value={newData?.map(
+                      (item) =>
+                        item?.data?.description?.detail || "Chưa cập nhật"
+                    )}
                   />
 
                   {/* System Infor */}
@@ -691,9 +1113,12 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({ data }) => {
                     setDefaultCheckBox={setDefaultCheckBox}
                     selectedData={selectedData}
                     setSelectedData={setSelectedData}
-                    name="rdo_system"
+                    setValueRadio={setShare_all}
+                    name="share_all"
                     title="Dùng chung:"
-                    value={["Không chọn", "Chọn"]}
+                    value={newData?.map(
+                      (item) => item?.data?.share_all || "Chưa cập nhật"
+                    )}
                   />
                 </tbody>
               </table>
@@ -737,7 +1162,7 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({ data }) => {
         content={
           "Tất cả trường thông tin đã chọn sẽ được gộp vào bản ghi chính. Các thông tin liên quan (Tệp đính kèm, Ghi chú, Hoạt động và Hàng hóa) sẽ được gắn với bản ghi chính. Bạn có muốn tiếp tục gộp trùng?"
         }
-        handleCloseMdal={() => setISOpenSuccessMdal(false)}
+        handleCloseMdal={() => handleSaveButtonClick()}
       />
 
       <ModalError

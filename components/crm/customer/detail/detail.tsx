@@ -9,11 +9,7 @@ import BonusInfoRow from "./bonus_infor_row";
 import CCCDInforRow from "./cccd_infor_row";
 import SystemCustomerInfo from "./system_infor";
 import { useRouter } from "next/router";
-import { useApi } from "@/components/crm/hooks/useApi";
 import WriteBillRowInforText2 from "./thongtingiaohang";
-import Image from "next/image";
-import { base_url } from "../../service/function";
-const Cookies = require("js-cookie");
 interface ComponentProps {
   cccd: boolean;
   listData: any;

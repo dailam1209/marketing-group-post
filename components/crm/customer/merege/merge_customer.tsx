@@ -9,17 +9,8 @@ export default function MergeCustomer() {
   const { isOpen } = useContext<any>(SidebarContext);
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
-  const [data, setData] = useState([]);
 
-  useEffect(() => {
-    const storedData = sessionStorage.getItem("myData");
 
-    if (storedData) {
-      const parsedData = JSON.parse(storedData);
-      setData(parsedData.data);
-    } else {
-    }
-  }, []);
   useEffect(() => {
     setHeaderTitle("Danh sách khách hàng / Gộp trùng khách hàng");
     setShowBackButton(true);
@@ -35,7 +26,7 @@ export default function MergeCustomer() {
   }, [isOpen]);
   return (
     <div ref={mainRef} className={styleHome.main}>
-      <TableDataCustomerMerge data={data} />
+      <TableDataCustomerMerge />
     </div>
   );
 }

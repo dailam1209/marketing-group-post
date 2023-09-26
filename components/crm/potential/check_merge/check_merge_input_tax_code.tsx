@@ -7,13 +7,12 @@ export default function CheckMergeInputGroup({
   type = {},
   label,
   value = [],
-  name,
   placeholder = "",
   setOptionSelect,
   setValue,
 }: any) {
   const dataSelect = [
-    "Là", "Không là", "Chứa", "Không chứa"];
+    "Là", "Không là"];
   const resultArray = dataSelect.map((item, index) => ({
     name: item,
     val: index + 1

@@ -106,7 +106,6 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   fetchData,
   des,
   setDes,
-  setTest,
   page,
   setPage,
   totalRecords,
@@ -115,22 +114,12 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   loading,
   setDatatable,
   ArrNguonKK,
-  isSelectedRow,
-  numberSelected,
-  clearOption,
-  chooseAllOption,
-  setName,
-  name,
-  setPhone,
-  selectedCus,
   setStatus,
   setResoure,
   nvPhuTrach,
   setnvPhuTrach,
   userNameCreate,
   setuserNameCreate,
-  setNameHandingOverWork,
-  NameHandingOverWork,
   nhomCha,
   setnhomCha,
   nhomCon,
@@ -154,6 +143,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   listNV,
   handleGetInfoSTT,
   fetchDataDefault,
+
 }: any) => {
   const [openModalCall, setOpenModalCall] = useState(false);
   const router = useRouter();
@@ -229,15 +219,15 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
     options:
       item.gr_id !== "0"
         ? [
-            {
-              value: item.gr_id.toString(),
-              label: item.gr_name,
-            },
-            ...(item?.lists_child ?? []).map((child) => ({
-              value: child.gr_id.toString(),
-              label: child.gr_name,
-            })),
-          ]
+          {
+            value: item.gr_id.toString(),
+            label: item.gr_name,
+          },
+          ...(item?.lists_child ?? []).map((child) => ({
+            value: child.gr_id.toString(),
+            label: child.gr_name,
+          })),
+        ]
         : [{ label: item.gr_name, value: item.gr_id.toString() }],
   }));
   const [value, setvalue] = useState();
@@ -444,7 +434,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
             value={
               slectNguon === record.cus_id && nguon ? nguon : record?.value
             }
-            // defaultValue={record?.value ? record.value : ""}
+          // defaultValue={record?.value ? record.value : ""}
           >
             {ArrNguonKK?.map((item, index) => {
               if (item?.name == record?.resoure) {

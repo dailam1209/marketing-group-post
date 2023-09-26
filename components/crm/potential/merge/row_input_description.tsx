@@ -1,17 +1,22 @@
 import { useEffect, useState } from "react";
 import styles from "./merge.module.css";
 
-export default function RowRadioInput({
+export default function RowRadioInputDes({
   name,
   setSelectedData,
   selectedData,
   title,
   value = [],
-  setTargetId,
-  targetId,
-  setValueRadio
 }: any) {
   const [valueRadioBox, setValueRadioBox] = useState("");
+  const [selectedCheckboxes, setSelectedCheckboxes] = useState({});
+
+  const viewDescription = (val) => {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(val, "text/html");
+    const text = doc.body.textContent || "";
+    return text;
+  };
 
   const handleChange = (item: any, index: number) => {
     let newValues = selectedData?.[name];
@@ -25,16 +30,10 @@ export default function RowRadioInput({
     newData?.splice(index, 1, {
       status: true,
       val: newData[index]?.val,
-      info: newData[index]?.info,
     });
 
-    if (targetId) {
-      const targetArr = targetId.split(",")
-      setTargetId(targetArr[index])
-    }
-
     const test = { ...selectedData, [name]: newData };
-    setValueRadio(test?.[name]?.filter((item) => item?.status)[0]?.val);
+    setValueRadioBox(test?.[name]?.filter((item) => item?.status)[0]?.val);
 
     setSelectedData((prev) => {
       return {
@@ -44,11 +43,6 @@ export default function RowRadioInput({
     });
     setSelectedData(test);
   };
-
-  useEffect(() => {
-    const test = { ...selectedData };
-    setValueRadio(test?.[name]?.filter((item) => item?.status)[0]?.val);
-  }, [selectedData])
   return (
     <tr>
       <td>
@@ -71,7 +65,7 @@ export default function RowRadioInput({
                 value={value[index]}
                 className={styles.radio}
               />
-              <p>{value[index]}</p>
+              <p>{viewDescription(value[index])}</p>
             </div>
           </td>
         );

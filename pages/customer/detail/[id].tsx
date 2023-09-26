@@ -3,7 +3,6 @@ import DetailInformation from "@/components/crm/customer/detail/detail";
 import CustomerHeaderTab from "@/components/crm/customer/header_customer_info_btn";
 import { useHeader } from "@/components/crm/hooks/useHeader";
 import { useRouter } from "next/router";
-import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { base_url } from "@/components/crm/service/function";
 import { checkAndRedirectToHomeIfNotLoggedIn } from "@/components/crm/ultis/checkLogin";
@@ -11,13 +10,11 @@ import Head from "next/head";
 const Cookies = require("js-cookie");
 
 export default function DetailCustomer() {
-  const pathname = usePathname();
   const router = useRouter();
   const { id } = router.query;
-  const [name, setname] = useState<any>();
-  const [listData, setListData] = useState<any>();
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
+  const [listData, setListData] = useState<any>();
   const getNameDetail = async () => {
     const res = await fetch(`${base_url}/api/crm/customerdetails/detail`, {
       method: "POST",
@@ -30,6 +27,8 @@ export default function DetailCustomer() {
     const data = await res.json();
     setListData(data?.data);
   };
+
+
   useEffect(() => {
     getNameDetail();
     setShowBackButton(true);

@@ -1,17 +1,26 @@
 import { useEffect, useState } from "react";
 import styles from "./merge.module.css";
 
-export default function RowRadioInput({
+export default function RowRadioInputDate({
   name,
   setSelectedData,
   selectedData,
   title,
   value = [],
-  setTargetId,
-  targetId,
-  setValueRadio
 }: any) {
   const [valueRadioBox, setValueRadioBox] = useState("");
+
+  function generateDateCowStringFromTimestamp(unixTimestamp) {
+    if (unixTimestamp) {
+      const date = new Date(unixTimestamp * 1000); // Chuyển đổi Unix timestamp thành đối tượng Date
+      const day = date.getDate().toString().padStart(2, "0"); // Lấy ngày và định dạng thành 2 chữ số
+      const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Lấy tháng và định dạng thành 2 chữ số
+      const year = date.getFullYear();
+      const result = `${day}/${month}/${year}`;
+      return result;
+    }
+    return "Chưa cập nhật";
+  }
 
   const handleChange = (item: any, index: number) => {
     let newValues = selectedData?.[name];
@@ -25,16 +34,10 @@ export default function RowRadioInput({
     newData?.splice(index, 1, {
       status: true,
       val: newData[index]?.val,
-      info: newData[index]?.info,
     });
 
-    if (targetId) {
-      const targetArr = targetId.split(",")
-      setTargetId(targetArr[index])
-    }
-
     const test = { ...selectedData, [name]: newData };
-    setValueRadio(test?.[name]?.filter((item) => item?.status)[0]?.val);
+    setValueRadioBox(test?.[name]?.filter((item) => item?.status)[0]?.val);
 
     setSelectedData((prev) => {
       return {
@@ -44,19 +47,16 @@ export default function RowRadioInput({
     });
     setSelectedData(test);
   };
-
-  useEffect(() => {
-    const test = { ...selectedData };
-    setValueRadio(test?.[name]?.filter((item) => item?.status)[0]?.val);
-  }, [selectedData])
   return (
     <tr>
       <td>
         <p className={styles.column_title}>{title}</p>
       </td>
       <td>
-        {selectedData?.[name]?.filter((item) => item?.status)[0]?.val ||
-          valueRadioBox ||
+        {generateDateCowStringFromTimestamp(
+          selectedData?.[name]?.filter((item) => item?.status)[0]?.val
+        ) ||
+          generateDateCowStringFromTimestamp(valueRadioBox) ||
           "Chưa cập nhật"}
       </td>
       {value?.map((item, index) => {
@@ -71,7 +71,7 @@ export default function RowRadioInput({
                 value={value[index]}
                 className={styles.radio}
               />
-              <p>{value[index]}</p>
+              <p>{generateDateCowStringFromTimestamp(value[index])}</p>
             </div>
           </td>
         );

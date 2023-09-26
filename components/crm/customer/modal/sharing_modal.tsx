@@ -181,12 +181,12 @@ const SharingCustomerModal: React.FC<MyComponentProps> = ({
   useEffect(() => {
     if (Array.isArray(listPB)) {
       const updatedOptionsDep = [
-        { value: "PB", label: "Chọn phòng ban bàn giao" },
+        { value: "", label: "Chọn phòng ban bàn giao" },
         ...listPB?.map((item) => {
           const name = item?.dep_name || "";
           const id = item?.dep_id?.toString() || "";
 
-          return { value: id, label: `(${id}) ${name}` };
+          return { value: id, label: `${name}` };
         }),
       ];
 
@@ -194,16 +194,9 @@ const SharingCustomerModal: React.FC<MyComponentProps> = ({
     }
   }, [listPB]);
 
-  useEffect(() => { })
-
   useEffect(() => {
     handleGetPhongBan();
   }, []);
-
-  useEffect(() => {
-    setErrorSelectedItems(!selectedItems);
-  }, [selectedItems]);
-
 
   return (
     <>
@@ -230,7 +223,6 @@ const SharingCustomerModal: React.FC<MyComponentProps> = ({
                     setSelectedItemsPB(undefined)
                 } else {
                   resetSharingOption()
-
                 }
 
               }}

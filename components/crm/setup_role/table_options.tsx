@@ -117,7 +117,7 @@ export default function TableOptions({ checkboxState, setCheckboxState }: any) {
 
         {/* module marketing */}
         <tr className="module" data-id_module={3}>
-          <td className="title_module"></td>
+          <td className="title_module">Marketing</td>
           <td>
             <input
               name="mkt_1"
