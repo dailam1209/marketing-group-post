@@ -25,15 +25,26 @@ const CheckMergeCustomerList: React.FC = () => {
   const [numberSelected, setNumberSelected] = useState(0);
   const [isRowDataSelected, setRowDataSelected] = useState("");
   const [showTable, setShowTable] = useState(false);
-  const [selectOption1, setselectOption1] = useState({ name: "Chọn điều kiện", key: "" });
-  const [selectOption2, setselectOption2] = useState({ name: "Chọn điều kiện", key: "" });
-  const [selectOption3, setselectOption3] = useState({ name: "Chọn điều kiện", key: "" });
-  const [selectOption4, setselectOption4] = useState({ name: "Chọn điều kiện", key: "" });
+  const [selectOption1, setselectOption1] = useState({
+    name: "Chọn điều kiện",
+    key: "",
+  });
+  const [selectOption2, setselectOption2] = useState({
+    name: "Chọn điều kiện",
+    key: "",
+  });
+  const [selectOption3, setselectOption3] = useState({
+    name: "Chọn điều kiện",
+    key: "",
+  });
+  const [selectOption4, setselectOption4] = useState({
+    name: "Chọn điều kiện",
+    key: "",
+  });
   const [inputValue1, setInputValue1] = useState("");
   const [inputValue2, setInputValue2] = useState("");
   const [inputValue3, setInputValue3] = useState("");
   const [inputValue4, setInputValue4] = useState("");
-
 
   useEffect(() => {
     setHeaderTitle("Danh sách khách hàng / Kiểm tra trùng");
@@ -53,36 +64,25 @@ const CheckMergeCustomerList: React.FC = () => {
   const parsedData = JSON.parse(storedData)?.data;
 
   const getCustomerDetail = async () => {
-    const promises =
-      parsedData &&
-      parsedData
-        ?.split(",")
-        .map(Number)
-        .map(async (cusId) => {
-          const res = await fetch(
-            `${base_url}/api/crm/customerdetails/detail`,
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${Cookies.get("token_base365")}`,
-              },
-              body: JSON.stringify({ cus_id: cusId }),
-            }
-          );
-          return await res.json();
-        });
+    const res = await fetch(`${base_url}/api/crm/customerdetails/detail`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${Cookies.get("token_base365")}`,
+      },
+      body: JSON.stringify({ cus_id: parsedData }),
+    });
 
-    const customerDetails = await Promise.all(promises);
-    setNewData(customerDetails);
+    const customerDetails = await res.json();
+    setNewData([customerDetails]);
   };
 
-  const com_id = newData?.map((item) => item?.data.company_id)
-  const emp_id = newData?.map((item) => item?.data.emp_id.detail._id)
-  const nameDefault = newData[0]?.data?.name
-  const phoneDefault = newData[0]?.data?.phone_number.info
-  const taxDefault = newData[0]?.data?.tax_code || ""
-  const websiteDefault = newData[0]?.data?.website || ""
+  const com_id = newData?.map((item) => item?.data?.company_id);
+  const emp_id = newData?.map((item) => item?.data?.emp_id?.detail?._id);
+  const nameDefault = newData[0]?.data?.name;
+  const phoneDefault = newData[0]?.data?.phone_number.info;
+  const taxDefault = newData[0]?.data?.tax_code || "";
+  const websiteDefault = newData[0]?.data?.website || "";
   // console.log(newData[0]?.data);
 
   console.log(nameDefault, phoneDefault, taxDefault, websiteDefault);
@@ -90,17 +90,17 @@ const CheckMergeCustomerList: React.FC = () => {
   const handleSearchCustomer = async () => {
     try {
       const formData = new FormData();
-      formData.append("choose", type.value)
+      formData.append("choose", type.value);
       formData.append("stt_name_customer", selectOption1.key);
-      formData.append("stt_phone_customer", selectOption2.key)
-      formData.append("stt_tax_code_customer", selectOption3.key)
-      formData.append("stt_website_customer", selectOption4.key)
-      formData.append("name_customer", inputValue1 || nameDefault)
-      formData.append("phone_customer", inputValue2 || phoneDefault)
-      formData.append("tax_code_customer", inputValue3 || taxDefault)
-      formData.append("website_customer", inputValue4 || websiteDefault)
-      formData.append("com_id", com_id)
-      formData.append("emp_id", emp_id)
+      formData.append("stt_phone_customer", selectOption2.key);
+      formData.append("stt_tax_code_customer", selectOption3.key);
+      formData.append("stt_website_customer", selectOption4.key);
+      formData.append("name_customer", inputValue1 || nameDefault);
+      formData.append("phone_customer", inputValue2 || phoneDefault);
+      formData.append("tax_code_customer", inputValue3 || taxDefault);
+      formData.append("website_customer", inputValue4 || websiteDefault);
+      formData.append("com_id", com_id);
+      formData.append("emp_id", emp_id);
 
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/crm/customer/searchSame`,
@@ -112,14 +112,13 @@ const CheckMergeCustomerList: React.FC = () => {
           body: formData,
         }
       );
-
-    } catch (error) { }
+    } catch (error) {}
   };
 
   const handleSearch = async () => {
-    setShowTable(true)
+    setShowTable(true);
     await handleSearchCustomer();
-  }
+  };
 
   useEffect(() => {
     getCustomerDetail();
@@ -188,7 +187,6 @@ const CheckMergeCustomerList: React.FC = () => {
                     placeholder="Nhập tên khách hàng"
                     setOptionSelect={setselectOption1}
                     setValue={setInputValue1}
-
                   />
                   <CheckMergeInputGroup
                     type={type}
@@ -201,39 +199,33 @@ const CheckMergeCustomerList: React.FC = () => {
                     placeholder="Nhập số điện thoại"
                     setOptionSelect={setselectOption2}
                     setValue={setInputValue2}
-
                   />
                   <CheckMergeInputTaxCode
                     type={type}
                     label="Mã số thuế"
                     name="tax_code"
-                    value={
-                      newData?.map((item) => item?.data?.tax_code)
-                    }
+                    value={newData?.map((item) => item?.data?.tax_code)}
                     placeholder="Nhập mã số thuế"
                     setOptionSelect={setselectOption3}
                     setValue={setInputValue3}
-
                   />
                   <CheckMergeInputGroup
                     type={type}
                     label="Website"
                     name="website"
-                    value={
-                      newData?.map((item) => item?.data?.website)
-                    }
-
+                    value={newData?.map((item) => item?.data?.website)}
                     placeholder="Nhập website"
                     setOptionSelect={setselectOption4}
                     setValue={setInputValue4}
-
                   />
                   <div>
-                    <button className={styles.btn_serach} onClick={() => handleSearch()}
-                    >Tìm kiếm</button>
+                    <button
+                      className={styles.btn_serach}
+                      onClick={() => handleSearch()}
+                    >
+                      Tìm kiếm
+                    </button>
                   </div>
-
-
                 </div>
                 {showTable && (
                   <>
@@ -246,7 +238,6 @@ const CheckMergeCustomerList: React.FC = () => {
                     <CustomerFooterCheckMerge />
                   </>
                 )}
-
               </div>
             </div>
           </div>
