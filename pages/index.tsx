@@ -1,6 +1,9 @@
 import React from "react";
 import styles from "../components/crm/login/login.module.css";
-import { checkAndRedirectToHomeIfNotLoggedIn, checkHomeIfLoggedIn } from "../components/crm/ultis/checkLogin";
+import {
+  checkAndRedirectToHomeIfNotLoggedIn,
+  checkHomeIfLoggedIn,
+} from "../components/crm/ultis/checkLogin";
 import SideBar from "@/components/crm/login/sidebar";
 import HeaderHomePage from "@/components/crm/login/header";
 import TableOfContents from "@/components/crm/login/TableOfContent";
@@ -11,6 +14,7 @@ const HomePageLogin: React.FC = () => {
   return (
     <>
       <Head>
+        
         <meta name="viewport" content="width=device-width" initial-scale="1" />
         <meta name="robots" content="noindex,nofollow" />
         <title>
@@ -70,7 +74,6 @@ const HomePageLogin: React.FC = () => {
         </>
       )}
       {checkHomeIfLoggedIn() ? null : <HomePage />}
-
     </>
   );
 };

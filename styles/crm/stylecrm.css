@@ -1049,3 +1049,18 @@ label {
 .popup_sucess {
   top: 44% !important;
 }
+.select2-container .select2-selection--single {
+  height: 40px !important;
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+  line-height: 40px !important;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+  height: 40px !important;
+
+}
+.select2-search--dropdown .select2-search__field {
+  padding: 8px !important;
+
+  font-size: 16px !important;
+}

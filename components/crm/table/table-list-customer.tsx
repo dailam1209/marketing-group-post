@@ -13,6 +13,9 @@ import SelectDataInputBox from "../select/select_data";
 import CustomerGroupSelect from "../select/select_data_group_customer";
 import { base_url } from "../service/function";
 import { text } from "stream/consumers";
+import $ from "jquery";
+import "select2";
+
 const Cookies = require("js-cookie");
 interface DataType {
   count_content_call: number;
@@ -188,7 +191,8 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   );
   const [nguon, setnguon] = useState<any>();
   const [slectNguon, setslectNguon] = useState<any>();
-
+  let cus_nhom;
+  let type_nhom;
   const handleChangeSelect = async (e: any, record) => {
     setnguon(e.target.value);
     // const
@@ -239,20 +243,15 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   const [value, setvalue] = useState();
   const [slectNhom, setslectNhom] = useState<any>();
   const [groupIds, setGroupIds] = useState<any>({});
-  const handleSelectChange = async (selectedOption, record) => {
-    // Kiểm tra nếu người dùng chọn một nhóm (select cha)
-    // const
-    const newGroupIds = { ...groupIds };
-    newGroupIds[record.key] = selectedOption;
-    setGroupIds(newGroupIds);
 
-    setvalue(selectedOption);
+  const handleSelectChange = async (selectedOption) => {
+    // Kiểm tra nếu người dùng chọn một nhóm (select cha)
     const url = `${base_url}/api/crm/customerdetails/editCustomer`;
 
     const formData = new FormData();
     formData.append("group_id", selectedOption);
     formData.append("type", type);
-    formData.append("cus_id", cusId);
+    formData.append("cus_id", cus_nhom);
 
     const headers = {
       Authorization: `Bearer ${Cookies.get("token_base365")}`,
@@ -278,6 +277,25 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       return;
     }
   };
+
+  $(document).ready(function () {
+    $(".js-example-basic-single").select2();
+
+    $(".js-example-basic-single").on("select2:opening", function (e) {
+      const record = JSON.parse(e.target.getAttribute("data-record"));
+      cus_nhom = record.cus_id;
+      type_nhom = record.type;
+    });
+
+    $(".js-example-basic-single").on("change", async (e) => {
+      var selectedValue = e.target.value;
+      // Đoạn mã xử lý giá trị đã chọn ở đây
+
+      if (selectedValue !== null) {
+        await handleSelectChange(selectedValue);
+      }
+    });
+  });
   const columns: ColumnsType<DataType> = [
     {
       title: "Mã KH",
@@ -357,27 +375,27 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       key: "3",
       width: 400,
       render: (data, record, index) => (
-        <div
-          className="custom_slect2"
-          onClick={() => (
-            setCusId(record.cus_id),
-            setType(record.type),
-            setslectNhom(record.cus_id)
-          )}
+        <select
+          // id="mySelect"
+          style={{
+            width: "100%",
+            height: "100%",
+          }}
+          name="value"
+          className="js-example-basic-single"
+          defaultValue={record?.group_id?.toString() || "0"}
+          data-record={JSON.stringify(record)} // Lưu bản ghi vào data attribute
         >
-          <Select
-            style={{
-              width: "100%",
-              textAlign: "left",
-            }}
-            // value={groupIds[record.key] || record.group_id.toString() || "0"}
-            defaultValue={ record.group_id.toString()||"0"}
-            showSearch
-            optionFilterProp="label"
-            options={options}
-            onChange={(value) => handleSelectChange(value, record)}
-          />
-        </div>
+          {options.map((group) => (
+            <optgroup key={group.label} label={group.label}>
+              {group.options.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </optgroup>
+          ))}
+        </select>
       ),
     },
     {
@@ -525,6 +543,15 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
 
   return (
     <>
+      <head>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <link
+          href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
+          rel="stylesheet"
+        />
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+      </head>
       <div className="custom-table">
         <Table
           locale={customLocale}
