@@ -26,10 +26,11 @@ export default function CustomerListAction({
   const [isOpenShare, setIsOpenShare] = useState(false);
   const [isHandOverOpen, setIsHandOverOpen] = useState(false);
 
-
   const dataToSend = {
     data: selectedCusIds,
   };
+
+  console.log(handover?.split(","));
 
   sessionStorage.setItem("DataSelectedCustomer", JSON.stringify(dataToSend));
 
@@ -78,8 +79,6 @@ export default function CustomerListAction({
     },
   ]);
 
-
-
   const handleClickAction = (e: any, type: string | undefined) => {
     if (type === "delete") {
       setIsDelOpen(true);
@@ -94,8 +93,6 @@ export default function CustomerListAction({
       setIsHandOverOpen(true);
     }
   };
-
-
 
   const items: MenuProps["items"] = [];
   for (let i = 0; i < dataCustomerListAction.length; i++) {
@@ -128,8 +125,29 @@ export default function CustomerListAction({
   }
 
   useEffect(() => {
-    setDataCustomerListAction(dataCustomerListAction);
-  });
+    const newData = dataCustomerListAction.slice();
+    const indexCheckMerge = newData.findIndex(
+      (item) => item.name === "Kiểm tra trùng"
+    );
+
+    const indexMerge = newData.findIndex((item) => item.name === "Gộp trùng");
+    newData.splice(indexCheckMerge, 1, {
+      link: handover?.split(",")?.length > 1 ? "#" : "/customer/check_merge",
+      name: "Kiểm tra trùng",
+      img: `bi bi-search`,
+      type: "",
+    });
+
+    newData.splice(indexMerge, 1, {
+      link: handover?.split(",")?.length <= 1 ? "#" : "/customer/same_filter",
+      name: "Gộp trùng",
+      img: `bi bi-share`,
+      type: "",
+    });
+
+    setDataCustomerListAction(newData);
+    console.log(dataCustomerListAction);
+  }, [handover]);
 
   return (
     <>
@@ -176,8 +194,6 @@ export default function CustomerListAction({
           setIsModalCancel={setIsOpenShare}
           listNV={listNV}
           handover={handover}
-
-
         />
         <HandeOverModalCustomer
           isModalCancel={isHandOverOpen}
