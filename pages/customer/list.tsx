@@ -68,12 +68,12 @@ export default function CustomerList() {
   const [idNhom, setIdNhom] = useState<any>();
   const [isAPDung, setIsApDung] = useState(false);
   const [selectedCusIds, setSelectedCusIds] = useState<string>("");
-  const [isRowDataSelected, setRowDataSelected] = useState([]);
   const role = Cookies.get("role");
   const [listNV, setListNv] = useState<any>();
   const [dep_id, setDep_id] = useState<any>();
   const [posId, setposId] = useState<any>();
   const [nameNvNomor, setnameNvNomor] = useState<any>();
+  const [isRowDataSelected, setRowDataSelected] = useState([]);
 
   useEffect(() => {
     if (!isAPDung && !isOpenFilterBox) {

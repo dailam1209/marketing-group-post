@@ -16,7 +16,7 @@ export default function CheckMergeInputGroup({
     "Là", "Không là", "Chứa", "Không chứa"];
   const resultArray = dataSelect.map((item, index) => ({
     name: item,
-    val: index + 1
+    val: index
   }));
 
   const [editableValues, setEditableValues] = useState(value);

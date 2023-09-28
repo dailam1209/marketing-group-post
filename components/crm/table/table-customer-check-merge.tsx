@@ -4,8 +4,6 @@ import type { ColumnsType } from "antd/es/table";
 import { TableRowSelection } from "antd/es/table/interface";
 import Link from "next/link";
 import styles from "@/components/crm/potential/potential.module.css";
-import { base_url } from "../service/function";
-const Cookies = require("js-cookie");
 
 interface DataType {
   key: React.Key;
@@ -44,7 +42,7 @@ const columns: ColumnsType<DataType> = [
   },
   {
     title: "Mã số thuế",
-    dataIndex: "tax_code",
+    dataIndex: "tax_code ",
     key: "tax_code",
     width: 150,
   },
@@ -76,16 +74,37 @@ interface TableDataPotentialProps {
   setSelected: (value: boolean) => void;
   setNumberSelected: any;
   setRowDataSelected: any;
+  data: any
 }
 
 const TableDataPotential: React.FC<TableDataPotentialProps> = ({
   setSelected,
   setNumberSelected,
   setRowDataSelected,
+  data,
 }: any) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  const [newData, setNewData] = useState<any>([]);
+
+
+  let arr = []
+  for (let key in Object(data)) {
+    if (data[key]?.cus_id) {
+      arr.push(data[key])
+
+    }
+  }
+  const dataTable = arr?.filter((item: any) => {
+    return {
+      name: item?.name,
+      cus_id: item?.cus_id,
+      tax_code: item?.tax_code,
+      website: item?.website,
+      bill_address: item?.bill_address,
+      user_handing_over_work: item?.user_handing_over_work,
+      phone_number: item?.phone_number,
+    };
+  });
 
 
   const rowSelection: TableRowSelection<DataType> = {
@@ -116,7 +135,7 @@ const TableDataPotential: React.FC<TableDataPotentialProps> = ({
           bordered
           scroll={{ x: 1500, y: 300 }}
           pagination={false}
-          dataSource={newData.slice((currentPage - 1) * pageSize, currentPage * pageSize)}
+          dataSource={dataTable?.slice((currentPage - 1) * pageSize, currentPage * pageSize)}
         />
       </div>
       <div className={` flex_between ${styles.custom_pagination}`} id="">
@@ -138,7 +157,7 @@ const TableDataPotential: React.FC<TableDataPotentialProps> = ({
           </select>
         </div>
         <div className="total">
-          Tổng số: <b>{newData.length}</b> Khách hàng
+          Tổng số: <b>{dataTable.length}</b> Khách hàng
         </div>
       </div>
     </>

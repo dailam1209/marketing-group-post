@@ -182,8 +182,6 @@ const TableDataCustomerMerge: React.FC<CustomerProps> = ({ }) => {
     } catch (error) { }
   };
 
-  console.log(name);
-
 
   const handleSaveButtonClick = async () => {
     setISOpenSuccessMdal(false);

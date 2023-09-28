@@ -11,6 +11,8 @@ import { base_url } from "@/components/crm/service/function";
 import TableDataCustomerCheckMerge from "@/components/crm/table/table-customer-check-merge";
 import CheckMergeContent from "@/components/crm/potential/check_merge/check_merge_content";
 import CustomerFooterCheckMerge from "@/components/crm/potential/check_merge/check_merge_customer_footer";
+import ModalErrorCheckMerge from "@/components/crm/customer/customer_modal/error_mdal_check_merge";
+
 const Cookies = require("js-cookie");
 
 const CheckMergeCustomerList: React.FC = () => {
@@ -25,6 +27,7 @@ const CheckMergeCustomerList: React.FC = () => {
   const [numberSelected, setNumberSelected] = useState(0);
   const [isRowDataSelected, setRowDataSelected] = useState("");
   const [showTable, setShowTable] = useState(false);
+  const [isOpenModalError, setIsOpenModalError] = useState(false);
   const [selectOption1, setselectOption1] = useState({
     name: "Chọn điều kiện",
     key: "",
@@ -45,6 +48,8 @@ const CheckMergeCustomerList: React.FC = () => {
   const [inputValue2, setInputValue2] = useState("");
   const [inputValue3, setInputValue3] = useState("");
   const [inputValue4, setInputValue4] = useState("");
+  const [hasData, setHasData] = useState({});
+  console.log("hasData", hasData);
 
   useEffect(() => {
     setHeaderTitle("Danh sách khách hàng / Kiểm tra trùng");
@@ -64,17 +69,22 @@ const CheckMergeCustomerList: React.FC = () => {
   const parsedData = JSON.parse(storedData)?.data;
 
   const getCustomerDetail = async () => {
-    const res = await fetch(`${base_url}/api/crm/customerdetails/detail`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${Cookies.get("token_base365")}`,
-      },
-      body: JSON.stringify({ cus_id: parsedData }),
-    });
+    try {
+      const res = await fetch(`${base_url}/api/crm/customerdetails/detail`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get("token_base365")}`,
+        },
+        body: JSON.stringify({ cus_id: parsedData }),
+      });
 
-    const customerDetails = await res.json();
-    setNewData([customerDetails]);
+      const customerDetails = await res.json();
+      setNewData([customerDetails]);
+    } catch (error) {
+
+    }
+
   };
 
   const com_id = newData?.map((item) => item?.data?.company_id);
@@ -83,9 +93,6 @@ const CheckMergeCustomerList: React.FC = () => {
   const phoneDefault = newData[0]?.data?.phone_number.info;
   const taxDefault = newData[0]?.data?.tax_code || "";
   const websiteDefault = newData[0]?.data?.website || "";
-  // console.log(newData[0]?.data);
-
-  console.log(nameDefault, phoneDefault, taxDefault, websiteDefault);
 
   const handleSearchCustomer = async () => {
     try {
@@ -103,7 +110,7 @@ const CheckMergeCustomerList: React.FC = () => {
       formData.append("emp_id", emp_id);
 
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/crm/customer/searchSame`,
+        `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/crm/customerdetails/search-customer-same`,
         {
           method: "POST",
           headers: {
@@ -112,7 +119,11 @@ const CheckMergeCustomerList: React.FC = () => {
           body: formData,
         }
       );
-    } catch (error) {}
+      const data = await res.json()
+      setHasData(data.data)
+
+    } catch (error) { }
+
   };
 
   const handleSearch = async () => {
@@ -123,13 +134,14 @@ const CheckMergeCustomerList: React.FC = () => {
   useEffect(() => {
     getCustomerDetail();
   }, []);
+
   return (
     <>
       <Head>
         <meta name="viewport" content="width=device-width" initial-scale="1" />
         <meta name="robots" content="noindex,nofollow" />
         <title>
-          CRM 365 - đáp án của bài toán tối ưu quy trình, gia tăng lợi nhuận
+          Danh sách khách hàng
         </title>
         <meta
           name="description"
@@ -231,6 +243,7 @@ const CheckMergeCustomerList: React.FC = () => {
                   <>
                     <CheckMergeContent numberSelected={numberSelected} />
                     <TableDataCustomerCheckMerge
+                      data={hasData}
                       setSelected={setCheckDocument}
                       setNumberSelected={setNumberSelected}
                       setRowDataSelected={setRowDataSelected}
@@ -238,6 +251,12 @@ const CheckMergeCustomerList: React.FC = () => {
                     <CustomerFooterCheckMerge />
                   </>
                 )}
+                <ModalErrorCheckMerge
+                  modal1Open={isOpenModalError}
+                  setModal1Open={setIsOpenModalError}
+                  title={"Bạn chưa nhập điều kiện"}
+                  link={"/customer/check-merge"}
+                />
               </div>
             </div>
           </div>
