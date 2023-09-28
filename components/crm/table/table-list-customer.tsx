@@ -230,9 +230,6 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
         ]
         : [{ label: item.gr_name, value: item.gr_id.toString() }],
   }));
-  const [value, setvalue] = useState();
-  const [slectNhom, setslectNhom] = useState<any>();
-  const [groupIds, setGroupIds] = useState<any>({});
 
   const handleSelectChange = async (selectedOption) => {
     // Kiểm tra nếu người dùng chọn một nhóm (select cha)
@@ -551,24 +548,24 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
           bordered
           // pagination={true}
           scroll={{ x: 2000, y: "auto" }}
-          pagination={{
-            style: {
-              paddingBottom: 20,
-              display: "flex",
-              float: "left",
-              marginLeft: 900,
-              position: "absolute",
-            },
-            current: page,
-            pageSize: pageSize,
-            total: totalRecords,
-            onChange: (current, pageSize) => {
-              if (current != page) {
-                setDatatable([]);
-                setPage(current);
-              }
-            },
-          }}
+        // pagination={{
+        //   style: {
+        //     paddingBottom: 20,
+        //     display: "flex",
+        //     float: "left",
+        //     marginLeft: 900,
+        //     position: "absolute",
+        //   },
+        //   current: page,
+        //   pageSize: pageSize,
+        //   total: totalRecords,
+        //   onChange: (current, pageSize) => {
+        //     if (current != page) {
+        //       setDatatable([]);
+        //       setPage(current);
+        //     }
+        //   },
+        // }}
         />
         {datatable?.length && datatable?.length > 0 && (
           <div

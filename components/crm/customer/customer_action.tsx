@@ -19,18 +19,13 @@ export default function CustomerListAction({
   dataLength,
   selectedCusIds,
 }: any) {
-  const [isOpenCampaign, setIsOpenCampaign] = useState(false);
-  const [isOpenEmail, setIsOpenIsEmail] = useState(false);
   const [isDelOpen, setIsDelOpen] = useState(false);
-  const [isOpenCovert, setIsOpenConvert] = useState(false);
   const [isOpenShare, setIsOpenShare] = useState(false);
   const [isHandOverOpen, setIsHandOverOpen] = useState(false);
 
   const dataToSend = {
     data: selectedCusIds,
   };
-
-  console.log(handover?.split(","));
 
   sessionStorage.setItem("DataSelectedCustomer", JSON.stringify(dataToSend));
 
@@ -83,9 +78,6 @@ export default function CustomerListAction({
     if (type === "delete") {
       setIsDelOpen(true);
     }
-    if (type === "convert") {
-      setIsOpenConvert(true);
-    }
     if (type === "share") {
       setIsOpenShare(true);
     }
@@ -136,6 +128,7 @@ export default function CustomerListAction({
       name: "Kiểm tra trùng",
       img: `bi bi-search`,
       type: "",
+
     });
 
     newData.splice(indexMerge, 1, {
@@ -146,7 +139,6 @@ export default function CustomerListAction({
     });
 
     setDataCustomerListAction(newData);
-    console.log(dataCustomerListAction);
   }, [handover]);
 
   return (

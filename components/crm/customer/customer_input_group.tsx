@@ -224,7 +224,6 @@ export default function CustomerListInputGroup({
         <CustomerListAction
           clearOption={clearOption}
           chooseAllOption={chooseAllOption}
-          isSelectedRow={isSelectedRow}
           numberSelected={numberSelected}
           selectedCus={selectedCus}
           id={"123"}
