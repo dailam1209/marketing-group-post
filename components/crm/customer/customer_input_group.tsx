@@ -7,6 +7,7 @@ import CustomerListAction from "./customer_action";
 import { Drawer, Input } from "antd";
 import CustomerListFilterBox from "./customer_filter_box";
 import { DataType } from "@/pages/customer/list";
+import { useRouter } from "next/router";
 
 export default function CustomerListInputGroup({
   isSelectedRow,
@@ -54,8 +55,19 @@ export default function CustomerListInputGroup({
   dataLength,
   isRowDataSelected,
   selectedCusIds,
+  keyword,
+  status,
+  resoure,
+  user_create_id,
+  emp_id,
+  group_id,
+  time_s,
+  time_e,
+  page,
+  idNhom,
+  timeEnd,
+  dateE
 }: any) {
-
   const [open, setOpen] = useState(false);
   const inputFileRef = useRef<HTMLInputElement>(null);
   const [data, setData] = useState<any>();
@@ -119,14 +131,39 @@ export default function CustomerListInputGroup({
   const handleClickFile = () => {
     inputFileRef.current?.click();
   };
+  const router = useRouter();
   const handleSearchKH = async () => {
     if (nameFill === name) {
       setName(nameFill);
       setloading(true);
+      router.push(
+        `/customer/list?${time_s ? `&start=${time_s}` : ""}${
+          time_e ? `&end=${time_e}` : ""
+        }${status ? `&status=${status}` : ""}${
+          resoure ? `&source=${resoure}` : ""
+        }${idNhom ? `&group=${idNhom}` : ""}${
+          emp_id ? `&emp_id=${emp_id}` : ""
+        }${user_create_id ? `&creater=${user_create_id}` : ""}${
+          nameFill ? `&keyword=${nameFill}` : ""
+        } 
+  `
+      );
     } else {
       setDatatable([]);
       setName(nameFill);
       setloading(true);
+      router.push(
+        `/customer/list?${time_s ? `&start=${time_s}` : ""}${
+          time_e ? `&end=${time_e}` : ""
+        }${status ? `&status=${status}` : ""}${
+          resoure ? `&source=${resoure}` : ""
+        }${idNhom ? `&group=${idNhom}` : ""}${
+          emp_id ? `&emp_id=${emp_id}` : ""
+        }${user_create_id ? `&creater=${user_create_id}` : ""}${
+          nameFill ? `&keyword=${nameFill}` : ""
+        } 
+  `
+      );
     }
   };
   return (
@@ -279,6 +316,16 @@ export default function CustomerListInputGroup({
       >
         <div>
           <CustomerListFilterBox
+            keyword={name}
+            status={status}
+            resoure={resoure}
+            user_create_id={nvPhuTrach}
+            emp_id={emp_id}
+            group_id={group_id}
+            time_s={time_s}
+            time_e={time_e}
+            page={page}
+            idNhom={idNhom}
             setIdNhom={setIdNhom}
             setTime_s={setTime_s}
             setTime_e={setTime_e}
@@ -314,6 +361,10 @@ export default function CustomerListInputGroup({
             setIsApDung={setIsApDung}
             setIsOpenFilterBox={setIsOpenFilterBox}
             isOpenFilterBox={isOpenFilterBox}
+            nameFill={nameFill}
+            name={name}
+
+
           />
         </div>
       </Drawer>
