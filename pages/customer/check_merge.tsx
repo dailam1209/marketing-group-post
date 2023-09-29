@@ -49,7 +49,6 @@ const CheckMergeCustomerList: React.FC = () => {
   const [inputValue3, setInputValue3] = useState("");
   const [inputValue4, setInputValue4] = useState("");
   const [hasData, setHasData] = useState({});
-  console.log("hasData", hasData);
 
   useEffect(() => {
     setHeaderTitle("Danh sách khách hàng / Kiểm tra trùng");
@@ -187,7 +186,6 @@ const CheckMergeCustomerList: React.FC = () => {
               <div className={styles.form_add_potential}>
                 <div className={styles.main_body_merge}>
                   <CheckMergeBody type={type} setType={setType} />
-
                   <CheckMergeInputGroup
                     type={type}
                     label="Tên khách hàng"

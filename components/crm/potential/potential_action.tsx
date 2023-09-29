@@ -17,6 +17,7 @@ export default function PotentialAction({
   isNumberSelected,
   setSelected,
   setNumberSelected,
+  listNV,
 }: any) {
   const [isOpenCampaign, setIsOpenCampaign] = useState(false);
   const [isOpenEmail, setIsOpenIsEmail] = useState(false);
@@ -172,6 +173,31 @@ export default function PotentialAction({
     });
   }
 
+  // const handover = "2020202";
+  // useEffect(() => {
+  //   const newData = dataActionPotential.slice();
+  //   const indexCheckMerge = newData.findIndex(
+  //     (item) => item.name === "Kiểm tra trùng"
+  //   );
+
+  //   const indexMerge = newData.findIndex((item) => item.name === "Gộp trùng");
+  //   newData.splice(indexCheckMerge, 1, {
+  //     link: handover?.split(",")?.length > 1 ? "#" : "/customer/check_merge",
+  //     name: "Kiểm tra trùng",
+  //     img: `bi bi-search`,
+  //     type: "",
+  //   });
+
+  //   newData.splice(indexMerge, 1, {
+  //     link: handover?.split(",")?.length <= 1 ? "#" : "/customer/same_filter",
+  //     name: "Gộp trùng",
+  //     img: `bi bi-share`,
+  //     type: "",
+  //   });
+
+  //   setDataActionPotential(newData);
+  // }, [handover]);
+
   return (
     <div className={styles.div__thaotac}>
       <div>
@@ -215,11 +241,15 @@ export default function PotentialAction({
       <ShareActionModal
         isModalCancel={isOpenShare}
         setIsModalCancel={setIsOpenShare}
+        listNV={listNV}
       />
 
       <HandeOverModal
         isModalCancel={isHandOverOpen}
         setIsModalCancel={setIsHandOverOpen}
+        listNV={listNV}
+        // handover={handover}
+        // fetchData={fetchData}
       />
     </div>
   );

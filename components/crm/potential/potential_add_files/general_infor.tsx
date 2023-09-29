@@ -17,7 +17,16 @@ export default function AddGeneralInfo({ formData, setFormData }: any) {
       <div className={styles.row_input}>
         <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
           <label className={`${styles["form-label"]}`}>Xưng hô</label>
-          <PotentialSelectBoxStep keyValue="" value="Chọn" placeholder="Chọn" />
+          <PotentialSelectBoxStep
+            placeholder="Chọn"
+            value={formData?.cus_from}
+            selectData={(value) => {
+              setFormData((prev) => {
+                return { ...prev, cus_from: value };
+              });
+            }}
+            data={["Anh", "Chị", "Ông", "Bà"]}
+          />
         </div>
         <InputText
           value={formData?.tendem}
@@ -52,11 +61,48 @@ export default function AddGeneralInfo({ formData, setFormData }: any) {
       <div className={styles.row_input}>
         <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
           <label className={`${styles["form-label"]}`}>Chức danh</label>
-          <PotentialSelectBoxStep keyValue="" value="Chọn" placeholder="Chọn" />
+          <PotentialSelectBoxStep
+            placeholder="Chọn"
+            value={formData?.cus_from}
+            selectData={(value) => {
+              setFormData((prev) => {
+                return { ...prev, cus_from: value };
+              });
+            }}
+            data={[
+              "Chủ tịch",
+              "Phó chủ tịch",
+              "Tổng giám đốc",
+              "Phó tổng giám đốc",
+              "Giám đốc",
+              "Kế toán trưởng",
+              "Trưởng phòng",
+              "Trợ lý",
+              "Nhân viên",
+            ]}
+          />
         </div>
         <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
           <label className={`${styles["form-label"]}`}>Phòng ban</label>
-          <PotentialSelectBoxStep keyValue="" value="Chọn" placeholder="Chọn" />
+          <PotentialSelectBoxStep
+            placeholder="Chọn"
+            value={formData?.cus_from}
+            selectData={(value) => {
+              setFormData((prev) => {
+                return { ...prev, cus_from: value };
+              });
+            }}
+            data={[
+              "Ban giám đốc",
+              "Phòng tài chính",
+              "Phòng nhân sự ",
+              "Phòng marketing",
+              "Phòng CSKH",
+              "Phòng hành chính tổng hợp",
+              "Phòng kỹ thuật",
+              "Phòng kinh doanh",
+            ]}
+          />
         </div>
       </div>
 
@@ -102,7 +148,25 @@ export default function AddGeneralInfo({ formData, setFormData }: any) {
       <div className={styles.row_input}>
         <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
           <label className={`${styles["form-label"]}`}>Nguồn gốc</label>
-          <PotentialSelectBoxStep keyValue="" value="Chọn" placeholder="Chọn" />
+          <PotentialSelectBoxStep
+            placeholder="Chọn"
+            value={formData?.cus_from}
+            selectData={(value) => {
+              setFormData((prev) => {
+                return { ...prev, cus_from: value };
+              });
+            }}
+            data={[
+              "Facebook",
+              "Zalo",
+              "Website",
+              "Dữ liệu bên thứ 3",
+              "Khách hàng giới thiệu",
+              "Giới thiệu",
+              "Chăm sóc khách hàng",
+              "Email",
+            ]}
+          />
         </div>
         <InputText
           value={formData?.masothue}
@@ -120,7 +184,25 @@ export default function AddGeneralInfo({ formData, setFormData }: any) {
         </div>
         <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
           <label className={`${styles["form-label"]}`}>Mạng xã hôi</label>
-          <PotentialSelectBoxStep keyValue="" value="Chọn" placeholder="Chọn" />
+          <PotentialSelectBoxStep
+            placeholder="Chọn"
+            value={formData?.cus_from}
+            selectData={(value) => {
+              setFormData((prev) => {
+                return { ...prev, cus_from: value };
+              });
+            }}
+            data={[
+              "Facebook",
+              "Zalo",
+              "Website",
+              "Dữ liệu bên thứ 3",
+              "Khách hàng giới thiệu",
+              "Giới thiệu",
+              "Chăm sóc khách hàng",
+              "Email",
+            ]}
+          />
         </div>
       </div>
 

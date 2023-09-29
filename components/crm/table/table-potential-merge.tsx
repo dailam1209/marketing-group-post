@@ -15,8 +15,51 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
   const [selectedId, setSelectedId] = useState<string>("");
   const [defaultState, setDefaultState] = useState({});
   const newData = data?.data;
-  console.log(newData, "newdata");
-
+  const [name, setName] = useState("");
+  const [stand_name, setStand_name] = useState("");
+  const [logo, setLogo] = useState("");
+  const [tax_code, setTax_code] = useState("");
+  const [address, setAddress] = useState("");
+  const [ship_invoice_address, setShip_invoice_address] = useState("");
+  const [gender, setGender] = useState("");
+  const [cmnd_ccnd_number, setCmnd_ccnd_number] = useState("");
+  const [cmnd_ccnd_address, setCmnd_ccnd_address] = useState("");
+  const [cmnd_ccnd_time, setCmnd_ccnd_time] = useState("");
+  const [description, setDescription] = useState("");
+  const [introducer, setIntroducer] = useState("");
+  const [phone_number, setPhone_number] = useState("");
+  const [emp_id, setEmp_id] = useState("");
+  const [group_id, setGroup_id] = useState("");
+  const [status, setStatus] = useState("");
+  const [classify, setClassify] = useState("");
+  const [bill_city, setBill_city] = useState("");
+  const [bill_district, setBill_district] = useState("");
+  const [bill_ward, setBill_ward] = useState("");
+  const [bill_address, setBill_address] = useState("");
+  const [bill_invoice_address, setBill_invoice_address] = useState("");
+  const [ship_city, setShip_city] = useState("");
+  const [bank_id, setBank_id] = useState("");
+  const [bank_account, setBank_account] = useState("");
+  const [revenue, setRevenue] = useState("");
+  const [resoure, setResoure] = useState("");
+  const [size, setSize] = useState("");
+  const [rank, setRank] = useState("");
+  const [website, setWebsite] = useState("");
+  const [number_of_day_owed, SetNumber_of_day_owed] = useState("");
+  const [share_all, setShare_all] = useState("");
+  const [email, setEmail] = useState("");
+  const [business_areas, setBusiness_areas] = useState("");
+  const [loai_hinh_khach_hang, setLoai_hinh_khach_hang] = useState("");
+  const [country, setCountry] = useState("");
+  const [bill_area_code, setBill_area_code] = useState("");
+  const [bill_invoice_address_email, setBill_invoice_address_email] =
+    useState("");
+  const [giao_hang_huyen, setGiao_hang_huyen] = useState("");
+  const [giao_hang_xa, setGiao_hang_xa] = useState("");
+  const [ship_area, setShip_area] = useState("");
+  const [created_at, setCreated_at] = useState("");
+  const [la_khach_hang_tu, setLa_khach_hang_tu] = useState("");
+  const [han_muc_no, setHan_muc_no] = useState("");
   const [selectedData, setSelectedData] = useState<any>({});
   console.log(selectedData);
 
@@ -171,6 +214,8 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
+                  setValueRadio={setName}
+
                   selectedData={selectedData}
                   setSelectedData={setSelectedData}
                   name="xungho"
@@ -181,6 +226,8 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
+                  setValueRadio={setName}
+
                   selectedData={selectedData}
                   setSelectedData={setSelectedData}
                   name="tendem"
@@ -191,6 +238,8 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
+                  setValueRadio={setName}
+
                   selectedData={selectedData}
                   setSelectedData={setSelectedData}
                   name="ten"
@@ -201,6 +250,8 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
+                  setValueRadio={setName}
+
                   selectedData={selectedData}
                   setSelectedData={setSelectedData}
                   name="hovaten"
@@ -211,6 +262,8 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
+                  setValueRadio={setName}
+
                   selectedData={selectedData}
                   setSelectedData={setSelectedData}
                   name="chucdanh"
@@ -221,6 +274,8 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
+                  setValueRadio={setName}
+
                   selectedData={selectedData}
                   setSelectedData={setSelectedData}
                   name="phongban"
@@ -231,6 +286,8 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
+                  setValueRadio={setName}
+
                   selectedData={selectedData}
                   setSelectedData={setSelectedData}
                   name="dienthoaicoquan"
@@ -241,6 +298,8 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
+                  setValueRadio={setName}
+
                   selectedData={selectedData}
                   setSelectedData={setSelectedData}
                   name="dienthoaicanhan"
@@ -251,6 +310,8 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
+                  setValueRadio={setName}
+
                   selectedData={selectedData}
                   setSelectedData={setSelectedData}
                   name="emailcoquan"
@@ -261,6 +322,8 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
+                  setValueRadio={setName}
+
                   selectedData={selectedData}
                   setSelectedData={setSelectedData}
                   name="emailcanhan"
@@ -271,6 +334,8 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
+                  setValueRadio={setName}
+
                   selectedData={selectedData}
                   setSelectedData={setSelectedData}
                   name="nguongoc"
@@ -281,6 +346,8 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
+                  setValueRadio={setName}
+
                   selectedData={selectedData}
                   setSelectedData={setSelectedData}
                   name="masothue"
@@ -291,6 +358,8 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
+                  setValueRadio={setName}
+
                   selectedData={selectedData}
                   setSelectedData={setSelectedData}
                   name="loaitiemnang"
@@ -301,6 +370,8 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
+                  setValueRadio={setName}
+
                   selectedData={selectedData}
                   setSelectedData={setSelectedData}
                   name="mangxahoi"
@@ -311,6 +382,8 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
+                  setValueRadio={setName}
+
                   selectedData={selectedData}
                   setSelectedData={setSelectedData}
                   name="nhanvien"
@@ -329,6 +402,8 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
+                  setValueRadio={setName}
+
                   selectedData={selectedData}
                   setSelectedData={setSelectedData}
                   name="gioitinh"
@@ -339,6 +414,8 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
+                  setValueRadio={setName}
+
                   selectedData={selectedData}
                   setSelectedData={setSelectedData}
                   name="ngaysinh"
@@ -357,6 +434,8 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
+                  setValueRadio={setName}
+
                   selectedData={selectedData}
                   setSelectedData={setSelectedData}
                   name="tochuc"
@@ -367,6 +446,8 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
+                  setValueRadio={setName}
+
                   selectedData={selectedData}
                   setSelectedData={setSelectedData}
                   name="taikhoannh"
@@ -377,6 +458,8 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
+                  setValueRadio={setName}
+
                   selectedData={selectedData}
                   setSelectedData={setSelectedData}
                   name="motainh"
@@ -387,6 +470,8 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
+                  setValueRadio={setName}
+
                   selectedData={selectedData}
                   setSelectedData={setSelectedData}
                   name="ngaytl"
@@ -397,6 +482,8 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
+                  setValueRadio={setName}
+
                   selectedData={selectedData}
                   setSelectedData={setSelectedData}
                   name="loaihinh"
@@ -407,6 +494,8 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
+                  setValueRadio={setName}
+
                   selectedData={selectedData}
                   setSelectedData={setSelectedData}
                   name="linhvuc"
@@ -416,6 +505,8 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
+                  setValueRadio={setName}
+
                   selectedData={selectedData}
                   setSelectedData={setSelectedData}
                   name="nganhnghe"
@@ -425,6 +516,8 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
+                  setValueRadio={setName}
+
                   selectedData={selectedData}
                   setSelectedData={setSelectedData}
                   name="doanhthu"
@@ -442,6 +535,8 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
+                  setValueRadio={setName}
+
                   selectedData={selectedData}
                   setSelectedData={setSelectedData}
                   name="quocgia"
@@ -451,6 +546,8 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
+                  setValueRadio={setName}
+
                   selectedData={selectedData}
                   setSelectedData={setSelectedData}
                   name="city"
@@ -460,6 +557,8 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
+                  setValueRadio={setName}
+
                   selectedData={selectedData}
                   setSelectedData={setSelectedData}
                   name="district"
@@ -469,6 +568,8 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
+                  setValueRadio={setName}
+
                   selectedData={selectedData}
                   setSelectedData={setSelectedData}
                   name="ward"
@@ -478,6 +579,8 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
+                  setValueRadio={setName}
+
                   selectedData={selectedData}
                   setSelectedData={setSelectedData}
                   name="street"
@@ -487,6 +590,8 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
+                  setValueRadio={setName}
+
                   selectedData={selectedData}
                   setSelectedData={setSelectedData}
                   name="mavung"
@@ -496,6 +601,8 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
+                  setValueRadio={setName}
+
                   selectedData={selectedData}
                   setSelectedData={setSelectedData}
                   name="diachi"
@@ -505,6 +612,8 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
+                  setValueRadio={setName}
+
                   selectedData={selectedData}
                   setSelectedData={setSelectedData}
                   name="mota"
@@ -522,6 +631,8 @@ const TableDataPotential: React.FC<PotentialProps> = ({ data }) => {
                 <RowRadioInput
                   defaultCheckBox={defaultCheckBox}
                   setDefaultCheckBox={setDefaultCheckBox}
+                  setValueRadio={setName}
+
                   selectedData={selectedData}
                   setSelectedData={setSelectedData}
                   name="dungchung"

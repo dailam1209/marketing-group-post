@@ -10,8 +10,14 @@ export default function AddPersonalInfo({ formData, setFormData }: any) {
         <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
           <label className={`${styles["form-label"]}`}>Giới tính</label>
           <PotentialSelectBoxStep
-            value="Chọn giới tính"
             placeholder="Chọn giới tính"
+            value={formData?.gender}
+            selectData={(value) => {
+              setFormData((prev) => {
+                return { ...prev, gender: value };
+              });
+            }}
+            data={["Nam", "Nữ"]}
           />
         </div>
         <InputText label="Ngày sinh" placeholder="Nhập ho và tên" type="date" />
