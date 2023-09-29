@@ -143,6 +143,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   listNV,
   handleGetInfoSTT,
   fetchDataDefault,
+
 }: any) => {
   const [openModalCall, setOpenModalCall] = useState(false);
   const router = useRouter();
@@ -218,17 +219,20 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
     options:
       item.gr_id !== "0"
         ? [
-            {
-              value: item.gr_id.toString(),
-              label: item.gr_name,
-            },
-            ...(item?.lists_child ?? []).map((child) => ({
-              value: child.gr_id.toString(),
-              label: child.gr_name,
-            })),
-          ]
+          {
+            value: item.gr_id.toString(),
+            label: item.gr_name,
+          },
+          ...(item?.lists_child ?? []).map((child) => ({
+            value: child.gr_id.toString(),
+            label: child.gr_name,
+          })),
+        ]
         : [{ label: item.gr_name, value: item.gr_id.toString() }],
   }));
+  const [value, setvalue] = useState();
+  const [slectNhom, setslectNhom] = useState<any>();
+  const [groupIds, setGroupIds] = useState<any>({});
 
   const handleSelectChange = async (selectedOption) => {
     // Kiểm tra nếu người dùng chọn một nhóm (select cha)
@@ -430,7 +434,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
             value={
               slectNguon === record.cus_id && nguon ? nguon : record?.value
             }
-            // defaultValue={record?.value ? record.value : ""}
+          // defaultValue={record?.value ? record.value : ""}
           >
             {ArrNguonKK?.map((item, index) => {
               if (item?.name == record?.resoure) {
@@ -547,6 +551,24 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
           bordered
           // pagination={true}
           scroll={{ x: 2000, y: "auto" }}
+          pagination={{
+            style: {
+              paddingBottom: 20,
+              display: "flex",
+              float: "left",
+              marginLeft: 700,
+              position: "absolute",
+            },
+            current: page,
+            pageSize: pageSize,
+            total: totalRecords,
+            onChange: (current, pageSize) => {
+              if (current != page) {
+                setDatatable([]);
+                setPage(current);
+              }
+            },
+          }}
         />
         {datatable?.length && datatable?.length > 0 && (
           <div

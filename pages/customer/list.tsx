@@ -10,6 +10,7 @@ import { base_url } from "@/components/crm/service/function";
 import { checkAndRedirectToHomeIfNotLoggedIn } from "@/components/crm/ultis/checkLogin";
 import moment from "moment";
 import { UpdateTLKD } from "@/components/crm/context/updateTlkd";
+import { useRouter } from "next/router";
 const Cookies = require("js-cookie");
 export interface DataType {
   key: React.Key;
@@ -38,14 +39,14 @@ export default function CustomerList() {
   const [selected, setSelected] = useState(false);
   const [numberSelected, setNumberSelected] = useState(0);
   const [selectedRowKeys, setSelectedRowKeys] = useState<any>([]);
-  const [name, setName] = useState();
+  const [name, setName] = useState<any>();
   const [selectedCus, setSelectedCus] = useState<any>();
   const [des, setDes] = useState();
   const [isOpenFilterBox, setIsOpenFilterBox] = useState(false);
   const [lisCus, setListCus] = useState([]);
-  const [status, setStatus] = useState();
-  const [resoure, setResoure] = useState();
-  const [nvPhuTrach, setnvPhuTrach] = useState();
+  const [status, setStatus] = useState<any>();
+  const [resoure, setResoure] = useState<any>();
+  const [nvPhuTrach, setnvPhuTrach] = useState<any>();
   const [nhomCha, setnhomCha] = useState();
   const [nhomCon, setnhomCon] = useState();
   const [loading, setloading] = useState(true);
@@ -74,8 +75,17 @@ export default function CustomerList() {
   const [posId, setposId] = useState<any>();
   const [nameNvNomor, setnameNvNomor] = useState<any>();
   const [isRowDataSelected, setRowDataSelected] = useState([]);
+  const router = useRouter();
 
   useEffect(() => {
+    setemp_id(router.query.emp_id);
+    setIdNhom(router.query.group);
+    setStatus(router.query.status);
+    setResoure(router.query.source);
+    setTime_s(router.query.start);
+    setTime_e(router.query.end);
+    setnvPhuTrach(router.query.creater);
+    setName(router.query.keyword);
     if (!isAPDung && !isOpenFilterBox) {
       setTime_s(null);
       setTime_e(null);
@@ -83,10 +93,20 @@ export default function CustomerList() {
       if (dateE) {
         setTime_e(dateE + " " + timeEnd);
       }
-
+      
       setTime_s(dateS + " " + timeStart);
     }
-  }, [isAPDung, isOpenFilterBox, timeStart, dateS, timeEnd, dateE, time_s, time_e]);
+  }, [
+    isAPDung,
+    isOpenFilterBox,
+    timeStart,
+    dateS,
+    timeEnd,
+    dateE,
+    time_s,
+    time_e,
+    router.asPath,
+  ]);
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
 
@@ -101,15 +121,15 @@ export default function CustomerList() {
         body: JSON.stringify({
           perPage: pageSize,
           page: page,
-          keyword: name === null ? null : name,
-          status: status,
-          resoure: resoure,
-          user_create_id: nvPhuTrach,
-          emp_id: emp_id,
-          group_id: idNhom,
+          keyword: router?.query?.keyword,
+          status: router.query.status,
+          resoure: router.query.source,
+          user_create_id: router.query.creater,
+          emp_id: router.query.emp_id,
+          group_id: router.query.group,
           // group_pins_id: nhomCon,
-          time_s: time_s,
-          time_e: time_e,
+          time_s: router.query.start,
+          time_e: router.query.end,
         }),
       });
       const data = await res.json();
@@ -118,7 +138,7 @@ export default function CustomerList() {
         setloading(false);
       }
       setTotalRecords(data?.total);
-    } catch (error) { }
+    } catch (error) {}
   };
 
   const fetchDataDefault = async () => {
@@ -140,7 +160,7 @@ export default function CustomerList() {
         setloading(false);
       }
       setTotalRecords(data?.total);
-    } catch (error) { }
+    } catch (error) {}
   };
   const handleGetInfoSTT = async () => {
     try {
@@ -154,7 +174,7 @@ export default function CustomerList() {
       });
       const data = await res.json();
       if (data && data?.data) setdataStatus(data?.data);
-    } catch (error) { }
+    } catch (error) {}
   };
 
   const onSelectChange = (selectedRowKeys: any, selectedRows: DataType[]) => {
@@ -245,7 +265,7 @@ export default function CustomerList() {
         });
         setlistGr_Child(arr);
       });
-    } catch (error) { }
+    } catch (error) {}
   };
 
   const handleGetInfoCusNV = async () => {
@@ -270,7 +290,7 @@ export default function CustomerList() {
           setnameNvNomor(data?.data?.data);
         }
       }
-    } catch (error) { }
+    } catch (error) {}
   };
 
   const handleGetInfoCus = async () => {
@@ -287,7 +307,7 @@ export default function CustomerList() {
       );
       const data = await res.json();
       if (data && data?.data) setListNv(data?.data?.items);
-    } catch (error) { }
+    } catch (error) {}
   };
 
   let nv = listNV?.filter((item) => item.dep_id === dep_id);
@@ -344,7 +364,7 @@ export default function CustomerList() {
     const allRowKeys = datatable?.map((item: { key: any }) => item.key);
     setSelectedRowKeys(allRowKeys);
     setNumberSelected(datatable?.length);
-    setRowDataSelected(datatable)
+    setRowDataSelected(datatable);
 
     if (selectedRowKeys.length > 0) {
       sendingData();
@@ -361,12 +381,10 @@ export default function CustomerList() {
     onChange: onSelectChange,
     onSelect: (record, selected, selectedRows) => {
       setNumberSelected(selectedRows?.length);
-      setRowDataSelected(selectedRows)
-
+      setRowDataSelected(selectedRows);
     },
     onSelectAll: handleSelectAll,
   };
-
 
   useEffect(() => {
     handleGetGr();
@@ -476,6 +494,18 @@ export default function CustomerList() {
             dataLength={data?.data?.length}
             isRowDataSelected={isRowDataSelected}
             selectedCusIds={selectedCusIds}
+            page={page}
+            keyword={name}
+            status={status}
+            resoure={resoure}
+            user_create_id={nvPhuTrach}
+            emp_id={emp_id}
+            idNhom={idNhom}
+            time_s={time_s}
+            time_e={time_e}
+            timeEnd={timeEnd}
+            dateE={dateE}
+            timeStart={timeStart}
           />
           <TableListCustomer
             handleGetInfoSTT={handleGetInfoSTT}

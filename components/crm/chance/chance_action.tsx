@@ -124,8 +124,7 @@ export default function ChanceActionDropDown({ isSelectedRow }: any) {
       <div>
         <HandeOverModal
           isModalCancel={isOpenModalUpdateStatus}
-          setIsModalCancel={setIsOpenModalUpdateStatus}
-        />
+          setIsModalCancel={setIsOpenModalUpdateStatus} listNV={undefined}        />
 
         <SharingCustomerModal
           isModalCancel={isOpenModalCancel}

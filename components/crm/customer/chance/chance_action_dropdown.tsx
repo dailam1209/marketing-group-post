@@ -119,8 +119,7 @@ const ChanceActionDropDown: React.FC = ({ idRow = "row" }: any) => {
 
       <HandeOverModal
         isModalCancel={isOpenModalUpdateStatus}
-        setIsModalCancel={setIsOpenModalUpdateStatus}
-      />
+        setIsModalCancel={setIsOpenModalUpdateStatus} listNV={undefined}      />
 
       <SharingCustomerModal
         isModalCancel={isOpenModalCancel}
