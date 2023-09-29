@@ -93,7 +93,7 @@ export default function CustomerList() {
       if (dateE) {
         setTime_e(dateE + " " + timeEnd);
       }
-
+      
       setTime_s(dateS + " " + timeStart);
     }
   }, [
@@ -505,6 +505,7 @@ export default function CustomerList() {
             time_e={time_e}
             timeEnd={timeEnd}
             dateE={dateE}
+            timeStart={timeStart}
           />
           <TableListCustomer
             handleGetInfoSTT={handleGetInfoSTT}

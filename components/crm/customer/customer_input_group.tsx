@@ -66,7 +66,8 @@ export default function CustomerListInputGroup({
   page,
   idNhom,
   timeEnd,
-  dateE
+  dateE,
+  timeStart
 }: any) {
   const [open, setOpen] = useState(false);
   const inputFileRef = useRef<HTMLInputElement>(null);
@@ -363,7 +364,9 @@ export default function CustomerListInputGroup({
             isOpenFilterBox={isOpenFilterBox}
             nameFill={nameFill}
             name={name}
-
+            timeStart={timeStart}
+            timeEnd={timeEnd}
+            dateE={dateE}
 
           />
         </div>

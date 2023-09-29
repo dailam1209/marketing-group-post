@@ -64,7 +64,9 @@ interface PropsComponent {
   idNhom;
   nameFill;
   name;
-  
+  timeStart;
+  timeEnd;
+  dateE;
 }
 
 const CustomerListFilterBox: React.FC<PropsComponent> = ({
@@ -114,6 +116,9 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
   idNhom,
   nameFill,
   name,
+  timeEnd,
+  timeStart,
+  dateE,
 }) => {
   const [valueSelectStatus, setValueSelectStatus] = useState<any>();
   const [valueResoure, sevalueResoure] = useState<any>();
@@ -154,6 +159,24 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
     }
   }, [idChaSaved]);
 
+  const starttime = router.query.start?.toString().replace("T", " ");
+
+  const parsedValue = dayjs(starttime);
+  const timeValuestart = parsedValue.format("HH:mm");
+
+  const endtime = router.query.end?.toString().replace("T", " ");
+  const parsedValueend = dayjs(endtime);
+  const timeValueEnd = parsedValueend.format("HH:mm");
+  const [time_s_change, settime_s_change] = useState<any>(router.query.start);
+  const [time_e_change, settime_e_change] = useState<any>(router.query.end);
+
+  const dateEndUrl = dayjs(endtime || time_e_change || null).format(
+    "YYYY-MM-DD"
+  );
+  const defaultstart: any = dayjs(time_s_change || pastTime).format(
+    "YYYY-MM-DD"
+  );
+
   useEffect(() => {
     if (isOpenFilterBox) {
       setTimeStart("00:00:00");
@@ -178,18 +201,24 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
   const handleTimeEndChange = (time, timeString) => {
     if (timeString) {
       setTimeEnd(timeString + ":00");
+      settime_e_change(dateEndUrl + "T" + timeString + ":00");
     }
   };
   const handleTimeStartChange = (time, timeString) => {
     if (timeString) {
       setTimeStart(timeString + ":00");
+      settime_s_change(
+        pastTime.format("YYYY-MM-DD") + "T" + timeString + ":00"
+      );
     }
   };
   const handleDateChangeStart = (e) => {
     setdateS(e.target.value);
+    settime_s_change(e.target.value + "T" + timeStart);
   };
   const handleDateChangeEnd = (e) => {
     setdateE(e.target.value);
+    settime_e_change(e.target.value + "T" + timeEnd || timeValueEnd);
   };
 
   const optionTest =
@@ -289,17 +318,6 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
     optionCon = defaultArr;
   };
 
-  const starttime = router.query.start?.toString();
-
-  const parsedValue = dayjs(starttime);
-  const timeValuestart = parsedValue.format("HH:mm");
-
-  const endtime = router.query.end?.toString();
-  const parsedValueend = dayjs(endtime);
-  const timeValueEnd = parsedValueend.format("HH:mm");
-
-
-  const dateEndUrl = dayjs(endtime).format("YYYY-MM-DD");
   return (
     <>
       <div
@@ -314,7 +332,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
                 onChange={handleTimeStartChange}
                 style={{ width: "100%", height: "37px" }}
                 defaultValue={
-                  router.query.end
+                  router.query.start
                     ? dayjs(timeValuestart, format)
                     : dayjs("00:00", format)
                 }
@@ -329,7 +347,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
                 <Input
                   onChange={handleDateChangeStart}
                   type="date"
-                  defaultValue={pastTime.format("YYYY-MM-DD")}
+                  defaultValue={defaultstart || pastTime.format("YYYY-MM-DD")}
                 />
               </div>
             </div>
@@ -594,8 +612,20 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
             setIsApDung(true);
 
             router.push(
-              `/customer/list?${time_s ? `&start=${time_s}` : ""}${
-                time_e ? `&end=${time_e}` : ""
+              `/customer/list?${
+                time_s
+                  ? `&start=${
+                      time_s_change?.replace(" ", "T") ||
+                      time_s?.replace(" ", "T")
+                    }`
+                  : ""
+              }${
+                time_e
+                  ? `&end=${
+                      time_e_change?.replace(" ", "T") ||
+                      time_e?.replace(" ", "T")
+                    }`
+                  : ""
               }${status ? `&status=${status}` : ""}${
                 resoure ? `&source=${resoure}` : ""
               }${idNhom ? `&group=${idNhom}` : ""}${
