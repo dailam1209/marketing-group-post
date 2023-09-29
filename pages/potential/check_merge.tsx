@@ -9,6 +9,8 @@ import CheckMergeBody from "@/components/crm/potential/check_merge/check_merge_b
 import CheckMergeInputGroup from "@/components/crm/potential/check_merge/check_merge_input_group";
 import CheckMergeContent from "@/components/crm/potential/check_merge/check_merge_content";
 import Head from "next/head";
+import { base_url } from "@/components/crm/service/function";
+const Cookies = require("js-cookie");
 
 const CheckMergePotential: React.FC = () => {
   const mainRef = useRef<HTMLDivElement>(null);
@@ -16,10 +18,36 @@ const CheckMergePotential: React.FC = () => {
   const { isOpen } = useContext<any>(SidebarContext);
   const [numberSelected, setNumberSelected] = useState(0);
   const [isRowDataSelected, setRowDataSelected] = useState("");
-  const [type, setType] = useState("hoặc");
+  const [type, setType] = useState<any>({ name: "hoặc", value: 2 });
   const imgRef = useRef<HTMLInputElement>(null);
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
+  const [selectOption1, setselectOption1] = useState({
+    name: "Chọn điều kiện",
+    key: "",
+  });
+  const [selectOption2, setselectOption2] = useState({
+    name: "Chọn điều kiện",
+    key: "",
+  });
+  const [selectOption3, setselectOption3] = useState({
+    name: "Chọn điều kiện",
+    key: "",
+  });
+  const [selectOption4, setselectOption4] = useState({
+    name: "Chọn điều kiện",
+    key: "",
+  });
+  const [selectOption5, setselectOption5] = useState({
+    name: "Chọn điều kiện",
+    key: "",
+  });
+  const [inputValue1, setInputValue1] = useState("");
+  const [inputValue2, setInputValue2] = useState("");
+  const [inputValue3, setInputValue3] = useState("");
+  const [inputValue4, setInputValue4] = useState("");
+  const [inputValue5, setInputValue5] = useState("");
+  const [newData, setNewData] = useState<any>([]);
 
   useEffect(() => {
     setHeaderTitle("Tiềm Năng/ Kiểm tra trùng");
@@ -38,6 +66,38 @@ const CheckMergePotential: React.FC = () => {
       mainRef.current?.classList.remove("content_resize");
     }
   }, [isOpen]);
+
+
+
+  const storedData = sessionStorage.getItem("DataSelectedCustomer");
+  const parsedData = JSON.parse(storedData)?.data;
+
+  const getCustomerDetail = async () => {
+    const cus_id = "2033501"
+    try {
+      const res = await fetch(`${base_url}/api/crm/customerdetails/detail`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get("token_base365")}`,
+        },
+        body: JSON.stringify({
+          // cus_id: parsedData 
+          cus_id: cus_id
+        }),
+      });
+
+      const customerDetails = await res.json();
+      setNewData([customerDetails]);
+    } catch (error) {
+
+    }
+
+  };
+  useEffect(() => {
+    getCustomerDetail();
+  }, []);
+
 
   return (
     <>
@@ -91,18 +151,60 @@ const CheckMergePotential: React.FC = () => {
                   <CheckMergeBody type={type} setType={setType} />
                   <CheckMergeInputGroup
                     label="Họ và tên"
-                    defaultValue="Nguyễn Trần Kim Phượng"
+                    type={type}
+                    name="name"
+                    value={
+                      newData?.map((item) => item?.name) ||
+                      "Chưa cập nhật"
+                    }
+                    placeholder="Nhập tên khách hàng"
+                    setOptionSelect={setselectOption1}
+                    setValue={setInputValue1}
+
                   />
                   <CheckMergeInputGroup
                     type={type}
                     label="Điện thoại cá nhân"
+                    name="phone_number"
+                    value={
+                      newData?.map((item) => item?.data?.phone_number) ||
+                      "Chưa cập nhật"
+                    }
+                    placeholder="Nhập số điện thoại cá nhân"
+                    setOptionSelect={setselectOption2}
+                    setValue={setInputValue2}
                   />
                   <CheckMergeInputGroup
                     type={type}
                     label="Điện thoại cơ quan"
+                    name="phone_number"
+                    value={
+                      newData?.map((item) => item?.data?.phone_number) ||
+                      "Chưa cập nhật"
+                    }
+                    placeholder="Nhập số điện thoại cơ quan"
+                    setOptionSelect={setselectOption3}
+                    setValue={setInputValue3}
                   />
-                  <CheckMergeInputGroup type={type} label="Email cá nhân" />
-                  <CheckMergeInputGroup type={type} label="Email cơ quan" />
+                  <CheckMergeInputGroup type={type} label="Email cá nhân"
+                    name="email"
+                    value={
+                      newData?.map((item) => item?.data?.email) ||
+                      "Chưa cập nhật"
+                    }
+                    placeholder="Nhập email cá nhân"
+                    setOptionSelect={setselectOption4}
+                    setValue={setInputValue4} />
+                  <CheckMergeInputGroup type={type}
+                    label="Email cơ quan"
+                    name="email"
+                    value={
+                      newData?.map((item) => item?.data?.email) ||
+                      "Chưa cập nhật"
+                    }
+                    placeholder="Nhập email cơ quan"
+                    setOptionSelect={setselectOption5}
+                    setValue={setInputValue5} />
                   <div>
                     <button className={styles.btn_serach}>Tìm kiếm</button>
                   </div>

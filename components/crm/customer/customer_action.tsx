@@ -128,7 +128,6 @@ export default function CustomerListAction({
       name: "Kiểm tra trùng",
       img: `bi bi-search`,
       type: "",
-
     });
 
     newData.splice(indexMerge, 1, {

@@ -24,7 +24,7 @@ const HandeOverModalCustomer: React.FC<MyComponentProps> = ({
   fetchData,
   dataLength,
 }) => {
-  const router = useRouter()
+  const router = useRouter();
   const [isOpenMdalSuccess, setIsOpenMdalSuccess] = useState(false);
   const [selectedItems, setSelectedItems] = useState<any>(undefined);
   const [options, setOptions] = useState<{ value: string; label: string }[]>(
@@ -32,35 +32,29 @@ const HandeOverModalCustomer: React.FC<MyComponentProps> = ({
   );
   const [errorSelectedValue, setErrorSelectedValue] = useState(false);
 
-
   const apiUrl = `${base_url}/api/crm/customerdetails/bangiao`;
   const handleOK = async () => {
     const isValidSharing = validate();
     if (isValidSharing) {
       try {
-        await fetch(`${apiUrl}`,
-          {
-            method: "POST",
-            headers: {
-              'Authorization': `Bearer ${Cookies.get("token_base365")}`,
-              'Content-Type': 'application/json',
-
-            },
-            body: JSON.stringify({
-              emp_id: selectedItems,
-              cus_id: handover,
-            })
-          })
-
-      } catch (error) {
-
-      }
+        await fetch(`${apiUrl}`, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${Cookies.get("token_base365")}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            emp_id: selectedItems,
+            cus_id: handover,
+          }),
+        });
+      } catch (error) {}
       setIsModalCancel(false);
       setIsOpenMdalSuccess(true);
       setTimeout(() => {
         setIsOpenMdalSuccess(false);
       }, 2000);
-      await fetchData()
+      await fetchData();
     }
   };
 
@@ -68,7 +62,6 @@ const HandeOverModalCustomer: React.FC<MyComponentProps> = ({
     setSelectedItems(undefined);
     setIsModalCancel(false);
   };
-
 
   const validate = () => {
     if (!selectedItems) {

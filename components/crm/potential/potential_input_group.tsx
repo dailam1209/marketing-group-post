@@ -1,10 +1,13 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import styles from "./potential2.module.css";
 import PotentialAction from "./potential_action";
 import PotentialSelectBox from "./potential_selectt";
 import Link from "next/link";
 import exportToExcel from "../ultis/export_xlxs";
-import { data } from "../table/table-potential";
+const Cookies = require("js-cookie");
+import { base_url } from "@/components/crm/service/function";
+const role = Cookies.get("role");
+
 export default function PotentialInputGroups({
   isSelectedRow,
   isRowDataSelected,
@@ -12,7 +15,53 @@ export default function PotentialInputGroups({
   setSelected,
   setNumberSelected,
 }: any) {
-  const handleClickSelectoption = () => {};
+  const [listNV, setListNv] = useState<any>();
+  const [dep_id, setDep_id] = useState<any>();
+
+  const handleGetInfoCusNV = async () => {
+    try {
+      if (role == "2") {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/employee/info`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${Cookies.get("token_base365")}`,
+            },
+            // body: JSON.stringify({ com_id: `${Cookies.get("com_id")}` }),
+          }
+        );
+
+        const data = await res.json();
+        if (data && data?.data) {
+          setDep_id(data?.data?.data?.dep_id);
+        }
+      }
+    } catch (error) {}
+  };
+
+  const handleGetInfoCus = async () => {
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/listAll`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${Cookies.get("token_base365")}`,
+          },
+        }
+      );
+      const data = await res.json();
+      if (data && data?.data) setListNv(data?.data?.items);
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    handleGetInfoCusNV();
+    handleGetInfoCus();
+  }, [dep_id]);
 
   const datas = [
     {
@@ -149,6 +198,7 @@ export default function PotentialInputGroups({
         isRowDataSelected={isRowDataSelected}
         setSelected={setSelected}
         setNumberSelected={setNumberSelected}
+        listNV={listNV}
       />
     </div>
   );
