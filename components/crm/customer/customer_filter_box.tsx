@@ -317,7 +317,15 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
     }
     optionCon = defaultArr;
   };
-
+   const chungSinhBinhDang = (inputString: any) => {
+    // Chuyển các ký tự có dấu thành các ký tự không dấu
+    const stringWithoutDiacritics = inputString?.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+  
+    // Chuyển chuỗi thành chữ thường
+    const lowercaseString = stringWithoutDiacritics?.toLowerCase()
+  
+    return lowercaseString
+  }
   return (
     <>
       <div
@@ -541,9 +549,9 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
               showSearch
               options={optionTest}
               filterOption={(input, option: any) =>
-                option?.label.toLowerCase().includes(input.toLocaleLowerCase())
+                chungSinhBinhDang(option?.label).includes(chungSinhBinhDang(input))
               }
-              defaultValue={"Tất cả"}
+              defaultValue={Number(emp_id) ? Number(emp_id) : "Tất cả"}
               suffixIcon={
                 <i
                   style={{ color: "black" }}
