@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Modal } from "antd";
 import styles from "../potential.module.css";
 import { useRouter } from "next/router";
@@ -20,7 +20,9 @@ const ShareActionModal: React.FC<MyComponentProps> = ({
   const [label, setLabel] = useState("");
   const [elements, setElements] = useState<JSX.Element[]>([]);
   const [isOpenMdalSuccess, setIsOpenMdalSuccess] = useState(false);
-
+  const [options, setOptions] = useState<{ value: string; label: string }[]>(
+    []
+  );
   const handleOK = () => {
     setIsModalCancel(false);
     clearLabel();
@@ -29,6 +31,22 @@ const ShareActionModal: React.FC<MyComponentProps> = ({
       setIsOpenMdalSuccess(false);
     }, 2000);
   };
+
+  useEffect(() => {
+    if (Array.isArray(listNV)) {
+      const updatedOptions = [
+        { value: "", label: "Chọn người bàn giao" },
+        ...listNV.map((item) => {
+          const name = item?.ep_name || "";
+          const id = item?.ep_id?.toString() || "";
+
+          return { value: id, label: `(${id}) ${name}` };
+        }),
+      ];
+
+      setOptions(updatedOptions);
+    }
+  }, [listNV]);
 
   const handleAddElement = (condition: string) => {
     const newElement = (

@@ -15,6 +15,51 @@ const SetUpRole: React.FC = () => {
   const router = useRouter();
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
+  const [infoRole, setInfoRole] = useState({});
+  console.log(infoRole[0]?.role, "info");
+
+  const handleRole = (index, role) => {
+    infoRole[index]?.role === 1 ? false : true;
+  };
+
+  const [checkboxState, setCheckboxState] = useState({
+    selectAll: false,
+    checkboxItems: {
+      custom_1: handleRole(0, "add"),
+      custom_2: handleRole(0, "edit"),
+      custom_3: handleRole(0, "delete"),
+      custom_4: handleRole(0, "seen"),
+      provider_1: handleRole(1, "add"),
+      provider_2: handleRole(1, "edit"),
+      provider_3: handleRole(1, "delete"),
+      provider_4: handleRole(1, "seen"),
+      mkt_1: handleRole(2, "add"),
+      mkt_2: handleRole(2, "edit"),
+      mkt_3: handleRole(2, "delete"),
+      mkt_4: handleRole(2, "seen"),
+      mange_1: handleRole(3, "add"),
+      mange_2: handleRole(3, "edit"),
+      mange_3: handleRole(3, "delete"),
+      mange_4: handleRole(3, "seen"),
+      care_1: handleRole(4, "add"),
+      care_2: handleRole(4, "edit"),
+      care_3: handleRole(4, "delete"),
+      care_4: handleRole(4, "seen"),
+      cost_1: handleRole(5, "add"),
+      cost_2: handleRole(5, "edit"),
+      cost_3: handleRole(5, "delete"),
+      cost_4: handleRole(5, "seen"),
+      report_1: handleRole(6, "add"),
+      report_2: handleRole(6, "edit"),
+      report_3: handleRole(6, "delete"),
+      report_4: handleRole(6, "seen"),
+      general_1: handleRole(7, "add"),
+      general_2: handleRole(7, "edit"),
+      general_3: handleRole(7, "delete"),
+      general_4: handleRole(7, "seen"),
+    },
+  });
+  // console.log(checkboxState, "checkboxState");
 
   const handleSave = () => {
     alert("set quyền thành công");
@@ -84,9 +129,12 @@ const SetUpRole: React.FC = () => {
               <div className={styles.main__title}>Thông tin quyền</div>
               <div className={styles.form_add_potential}>
                 <div className={styles.main__body}>
-                  <StaffData />
+                  <StaffData setInfoRole={setInfoRole} />
                 </div>
-                <OptionRole />
+                <OptionRole
+                  checkboxState={checkboxState}
+                  setCheckboxState={setCheckboxState}
+                />
                 <div className={stylesContract.btn_submit}>
                   <button className={stylesContract.sub1}>Hủy</button>
                   <button className={stylesContract.sub2} onClick={handleSave}>

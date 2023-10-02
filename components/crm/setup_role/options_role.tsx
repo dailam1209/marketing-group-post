@@ -1,45 +1,7 @@
 import { useState } from "react";
 import styles from "./set_up_role.module.css";
 import TableOptions from "./table_options";
-export default function OptionRole() {
-  const [checkboxState, setCheckboxState] = useState({
-    selectAll: false,
-    checkboxItems: {
-      custom_1: false,
-      custom_2: false,
-      custom_3: false,
-      custom_4: false,
-      provider_1: false,
-      provider_2: false,
-      provider_3: false,
-      provider_4: false,
-      mkt_1: false,
-      mkt_2: false,
-      mkt_3: false,
-      mkt_4: false,
-      mange_1: false,
-      mange_2: false,
-      mange_3: false,
-      mange_4: false,
-      care_1: false,
-      care_2: false,
-      care_3: false,
-      care_4: false,
-      cost_1: false,
-      cost_2: false,
-      cost_3: false,
-      cost_4: false,
-      report_1: false,
-      report_2: false,
-      report_3: false,
-      report_4: false,
-      general_1: false,
-      general_2: false,
-      general_3: false,
-      general_4: false,
-    },
-  });
-
+export default function OptionRole({ checkboxState, setCheckboxState }) {
   const handleSelectAllCheckbox = (event: any) => {
     const { checked } = event.target;
     setCheckboxState((prevState) => ({

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styles from "./set_up_role.module.css";
 export default function TableOptions({ checkboxState, setCheckboxState }: any) {
   const handleSelectCheckbox = (event: {
@@ -13,6 +14,14 @@ export default function TableOptions({ checkboxState, setCheckboxState }: any) {
     }));
   };
 
+  // const [data,setData] = useState({
+  //   kh1: {
+  //     add: false,
+  //     view: false;
+  //     edit: false,
+
+  //   }
+  // })
   return (
     <table className={styles.content_table_permi}>
       <thead>
@@ -71,7 +80,7 @@ export default function TableOptions({ checkboxState, setCheckboxState }: any) {
         </tr>
 
         {/* module nhà cung cấp */}
-        <tr className="module" data-id_module={5}>
+        <tr className="module" data-id_module={2}>
           <td className="title_module">Nhà cung cấp</td>
           <td>
             <input
@@ -160,7 +169,7 @@ export default function TableOptions({ checkboxState, setCheckboxState }: any) {
         </tr>
 
         {/* module quản lý đơn hàng */}
-        <tr className="module" data-id_module={3}>
+        <tr className="module" data-id_module={4}>
           <td className="title_module">Quản lý đơn hàng</td>
           <td>
             <input
@@ -201,7 +210,7 @@ export default function TableOptions({ checkboxState, setCheckboxState }: any) {
         </tr>
 
         {/* module chăm sóc khách hàng */}
-        <tr className="module" data-id_module={4}>
+        <tr className="module" data-id_module={5}>
           <td className="title_module">Chăm sóc khách hàng</td>
           <td>
             <input
