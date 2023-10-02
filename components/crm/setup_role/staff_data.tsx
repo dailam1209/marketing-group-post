@@ -1,10 +1,13 @@
 import styles from "./set_up_role.module.css";
-import stylePotential from "../potential/potential.module.css";
 import { useEffect, useState } from "react";
 import { Select } from "antd";
 const Cookies = require("js-cookie");
 
-export default function StaffData({ setInfoRole }: any) {
+export default function StaffData({
+  setInfoRole,
+  setCheckboxState,
+  setId_user,
+}: any) {
   const [listNV, setListNv] = useState<any>();
   const [options, setOptions] = useState<{ value: string; label: string }[]>(
     []
@@ -45,7 +48,9 @@ export default function StaffData({ setInfoRole }: any) {
         }
       );
       const data = await res.json();
-      if (data && data?.data) setInfoRole(data?.data?.roles);
+      if (data && data?.data) {
+        setInfoRole(data?.data?.roles);
+      }
     } catch (error) {}
   };
 
@@ -81,6 +86,7 @@ export default function StaffData({ setInfoRole }: any) {
             onChange={(value) => {
               if (value) {
                 setSelectedItems(value);
+                setId_user(value);
                 setErrorSelectedValue(false);
               } else {
                 setSelectedItems(undefined);

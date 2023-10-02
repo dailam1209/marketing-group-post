@@ -10,7 +10,6 @@ import Lich_hen_potential from "./lich_hen_potential";
 import Tai_lieu_dinh_kem_potetial from "./tai_lieu_dinh_kem_potetial";
 import Danh_sach_chia_se_Po from "./danh_sach_chia_se_potential";
 import Note_potential from "./note_potential";
-import TableDataCampaign from "@/components/crm/table/table-campaign";
 import Campaign_potetial from "./campaign_potetial";
 
 const Tab: React.FC = ({ key }: any) => {
