@@ -9,19 +9,11 @@ export default function TableOptions({ checkboxState, setCheckboxState }: any) {
       ...prevState,
       checkboxItems: {
         ...prevState.checkboxItems,
-        [name]: checked,
+        [name]: checked ? 1 : 0,
       },
     }));
   };
 
-  // const [data,setData] = useState({
-  //   kh1: {
-  //     add: false,
-  //     view: false;
-  //     edit: false,
-
-  //   }
-  // })
   return (
     <table className={styles.content_table_permi}>
       <thead>
@@ -41,7 +33,7 @@ export default function TableOptions({ checkboxState, setCheckboxState }: any) {
             <input
               name="custom_1"
               className={styles.check_box_input}
-              checked={checkboxState.checkboxItems.custom_1}
+              checked={checkboxState.checkboxItems?.custom_1}
               onChange={handleSelectCheckbox}
               data-type={1}
               type="checkbox"
@@ -51,7 +43,7 @@ export default function TableOptions({ checkboxState, setCheckboxState }: any) {
             <input
               name="custom_2"
               className={styles.check_box_input}
-              checked={checkboxState.checkboxItems.custom_2}
+              checked={checkboxState.checkboxItems?.custom_2}
               onChange={handleSelectCheckbox}
               data-type={2}
               type="checkbox"
@@ -61,7 +53,7 @@ export default function TableOptions({ checkboxState, setCheckboxState }: any) {
             <input
               name="custom_3"
               className={styles.check_box_input}
-              checked={checkboxState.checkboxItems.custom_3}
+              checked={checkboxState.checkboxItems?.custom_3}
               onChange={handleSelectCheckbox}
               data-type={3}
               type="checkbox"
@@ -71,7 +63,7 @@ export default function TableOptions({ checkboxState, setCheckboxState }: any) {
             <input
               name="custom_4"
               className={styles.check_box_input}
-              checked={checkboxState.checkboxItems.custom_4}
+              checked={checkboxState.checkboxItems?.custom_4}
               onChange={handleSelectCheckbox}
               data-type={4}
               type="checkbox"
@@ -86,7 +78,7 @@ export default function TableOptions({ checkboxState, setCheckboxState }: any) {
             <input
               name="provider_1"
               className={styles.check_box_input}
-              checked={checkboxState.checkboxItems.provider_1}
+              checked={checkboxState.checkboxItems?.provider_1}
               onChange={handleSelectCheckbox}
               type="checkbox"
               data-type={1}
@@ -96,7 +88,7 @@ export default function TableOptions({ checkboxState, setCheckboxState }: any) {
             <input
               name="provider_2"
               className={styles.check_box_input}
-              checked={checkboxState.checkboxItems.provider_2}
+              checked={checkboxState.checkboxItems?.provider_2}
               onChange={handleSelectCheckbox}
               type="checkbox"
               data-type={2}
@@ -106,7 +98,7 @@ export default function TableOptions({ checkboxState, setCheckboxState }: any) {
             <input
               name="provider_3"
               className={styles.check_box_input}
-              checked={checkboxState.checkboxItems.provider_3}
+              checked={checkboxState.checkboxItems?.provider_3}
               onChange={handleSelectCheckbox}
               type="checkbox"
               data-type={3}
@@ -116,7 +108,7 @@ export default function TableOptions({ checkboxState, setCheckboxState }: any) {
             <input
               name="provider_4"
               className={styles.check_box_input}
-              checked={checkboxState.checkboxItems.provider_4}
+              checked={checkboxState.checkboxItems?.provider_4}
               onChange={handleSelectCheckbox}
               type="checkbox"
               data-type={4}
@@ -131,7 +123,7 @@ export default function TableOptions({ checkboxState, setCheckboxState }: any) {
             <input
               name="mkt_1"
               className={styles.check_box_input}
-              checked={checkboxState.checkboxItems.mkt_1}
+              checked={checkboxState.checkboxItems?.mkt_1}
               onChange={handleSelectCheckbox}
               type="checkbox"
               data-type={1}
@@ -141,7 +133,7 @@ export default function TableOptions({ checkboxState, setCheckboxState }: any) {
             <input
               name="mkt_2"
               className={styles.check_box_input}
-              checked={checkboxState.checkboxItems.mkt_2}
+              checked={checkboxState.checkboxItems?.mkt_2}
               onChange={handleSelectCheckbox}
               type="checkbox"
               data-type={2}
@@ -151,7 +143,7 @@ export default function TableOptions({ checkboxState, setCheckboxState }: any) {
             <input
               name="mkt_3"
               className={styles.check_box_input}
-              checked={checkboxState.checkboxItems.mkt_3}
+              checked={checkboxState.checkboxItems?.mkt_3}
               onChange={handleSelectCheckbox}
               type="checkbox"
               data-type={3}
@@ -161,7 +153,7 @@ export default function TableOptions({ checkboxState, setCheckboxState }: any) {
             <input
               name="mkt_4"
               className={styles.check_box_input}
-              checked={checkboxState.checkboxItems.mkt_4}
+              checked={checkboxState.checkboxItems?.mkt_4}
               onChange={handleSelectCheckbox}
               type="checkbox"
             />
@@ -175,7 +167,7 @@ export default function TableOptions({ checkboxState, setCheckboxState }: any) {
             <input
               name="mange_1"
               className={styles.check_box_input}
-              checked={checkboxState.checkboxItems.mange_1}
+              checked={checkboxState.checkboxItems?.mange_1}
               onChange={handleSelectCheckbox}
               type="checkbox"
             />
@@ -184,7 +176,7 @@ export default function TableOptions({ checkboxState, setCheckboxState }: any) {
             <input
               name="mange_2"
               className={styles.check_box_input}
-              checked={checkboxState.checkboxItems.mange_2}
+              checked={checkboxState.checkboxItems?.mange_2}
               onChange={handleSelectCheckbox}
               type="checkbox"
             />
@@ -193,7 +185,7 @@ export default function TableOptions({ checkboxState, setCheckboxState }: any) {
             <input
               name="mange_3"
               className={styles.check_box_input}
-              checked={checkboxState.checkboxItems.mange_3}
+              checked={checkboxState.checkboxItems?.mange_3}
               onChange={handleSelectCheckbox}
               type="checkbox"
             />
@@ -202,7 +194,7 @@ export default function TableOptions({ checkboxState, setCheckboxState }: any) {
             <input
               name="mange_4"
               className={styles.check_box_input}
-              checked={checkboxState.checkboxItems.mange_4}
+              checked={checkboxState.checkboxItems?.mange_4}
               onChange={handleSelectCheckbox}
               type="checkbox"
             />
@@ -216,7 +208,7 @@ export default function TableOptions({ checkboxState, setCheckboxState }: any) {
             <input
               name="care_1"
               className={styles.check_box_input}
-              checked={checkboxState.checkboxItems.care_1}
+              checked={checkboxState.checkboxItems?.care_1}
               onChange={handleSelectCheckbox}
               type="checkbox"
             />
@@ -225,7 +217,7 @@ export default function TableOptions({ checkboxState, setCheckboxState }: any) {
             <input
               name="care_2"
               className={styles.check_box_input}
-              checked={checkboxState.checkboxItems.care_2}
+              checked={checkboxState.checkboxItems?.care_2}
               onChange={handleSelectCheckbox}
               type="checkbox"
             />
@@ -234,7 +226,7 @@ export default function TableOptions({ checkboxState, setCheckboxState }: any) {
             <input
               name="care_3"
               className={styles.check_box_input}
-              checked={checkboxState.checkboxItems.care_3}
+              checked={checkboxState.checkboxItems?.care_3}
               onChange={handleSelectCheckbox}
               type="checkbox"
             />
@@ -243,7 +235,7 @@ export default function TableOptions({ checkboxState, setCheckboxState }: any) {
             <input
               name="care_4"
               className={styles.check_box_input}
-              checked={checkboxState.checkboxItems.care_4}
+              checked={checkboxState.checkboxItems?.care_4}
               onChange={handleSelectCheckbox}
               type="checkbox"
             />
@@ -257,7 +249,7 @@ export default function TableOptions({ checkboxState, setCheckboxState }: any) {
             <input
               name="cost_1"
               className={styles.check_box_input}
-              checked={checkboxState.checkboxItems.cost_1}
+              checked={checkboxState.checkboxItems?.cost_1}
               onChange={handleSelectCheckbox}
               type="checkbox"
             />
@@ -266,7 +258,7 @@ export default function TableOptions({ checkboxState, setCheckboxState }: any) {
             <input
               name="cost_2"
               className={styles.check_box_input}
-              checked={checkboxState.checkboxItems.cost_2}
+              checked={checkboxState.checkboxItems?.cost_2}
               onChange={handleSelectCheckbox}
               type="checkbox"
             />
@@ -275,7 +267,7 @@ export default function TableOptions({ checkboxState, setCheckboxState }: any) {
             <input
               name="cost_3"
               className={styles.check_box_input}
-              checked={checkboxState.checkboxItems.cost_3}
+              checked={checkboxState.checkboxItems?.cost_3}
               onChange={handleSelectCheckbox}
               type="checkbox"
             />
@@ -284,7 +276,7 @@ export default function TableOptions({ checkboxState, setCheckboxState }: any) {
             <input
               name="cost_4"
               className={styles.check_box_input}
-              checked={checkboxState.checkboxItems.cost_4}
+              checked={checkboxState.checkboxItems?.cost_4}
               onChange={handleSelectCheckbox}
               type="checkbox"
             />
@@ -298,7 +290,7 @@ export default function TableOptions({ checkboxState, setCheckboxState }: any) {
             <input
               name="report_1"
               className={styles.check_box_input}
-              checked={checkboxState.checkboxItems.report_1}
+              checked={checkboxState.checkboxItems?.report_1}
               onChange={handleSelectCheckbox}
               type="checkbox"
             />
@@ -307,7 +299,7 @@ export default function TableOptions({ checkboxState, setCheckboxState }: any) {
             <input
               name="report_2"
               className={styles.check_box_input}
-              checked={checkboxState.checkboxItems.report_2}
+              checked={checkboxState.checkboxItems?.report_2}
               onChange={handleSelectCheckbox}
               type="checkbox"
             />
@@ -316,7 +308,7 @@ export default function TableOptions({ checkboxState, setCheckboxState }: any) {
             <input
               name="report_3"
               className={styles.check_box_input}
-              checked={checkboxState.checkboxItems.report_3}
+              checked={checkboxState.checkboxItems?.report_3}
               onChange={handleSelectCheckbox}
               type="checkbox"
             />
@@ -325,7 +317,7 @@ export default function TableOptions({ checkboxState, setCheckboxState }: any) {
             <input
               name="report_4"
               className={styles.check_box_input}
-              checked={checkboxState.checkboxItems.report_4}
+              checked={checkboxState.checkboxItems?.report_4}
               onChange={handleSelectCheckbox}
               type="checkbox"
             />
@@ -339,7 +331,7 @@ export default function TableOptions({ checkboxState, setCheckboxState }: any) {
             <input
               name="general_1"
               className={styles.check_box_input}
-              checked={checkboxState.checkboxItems.general_1}
+              checked={checkboxState.checkboxItems?.general_1}
               onChange={handleSelectCheckbox}
               type="checkbox"
             />
@@ -348,7 +340,7 @@ export default function TableOptions({ checkboxState, setCheckboxState }: any) {
             <input
               name="general_2"
               className={styles.check_box_input}
-              checked={checkboxState.checkboxItems.general_2}
+              checked={checkboxState.checkboxItems?.general_2}
               onChange={handleSelectCheckbox}
               type="checkbox"
             />
@@ -357,7 +349,7 @@ export default function TableOptions({ checkboxState, setCheckboxState }: any) {
             <input
               name="general_3"
               className={styles.check_box_input}
-              checked={checkboxState.checkboxItems.general_3}
+              checked={checkboxState.checkboxItems?.general_3}
               onChange={handleSelectCheckbox}
               type="checkbox"
             />
@@ -366,7 +358,7 @@ export default function TableOptions({ checkboxState, setCheckboxState }: any) {
             <input
               name="general_4"
               className={styles.check_box_input}
-              checked={checkboxState.checkboxItems.general_4}
+              checked={checkboxState.checkboxItems?.general_4}
               onChange={handleSelectCheckbox}
               type="checkbox"
             />
