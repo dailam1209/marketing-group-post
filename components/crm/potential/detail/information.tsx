@@ -8,11 +8,11 @@ import {
 } from "@ant-design/icons";
 import PotentialRowInforText from "./potential_row_info";
 import Tab from "./tab";
-import PotentialActionDetail from "../detail/potential_action";
 import { useRouter } from "next/router";
 import ConvertModal from "../potential_action_modal/convert_modal";
 import { useState } from "react";
 import DelActionModal from "../potential_action_modal/deltete_action_mdal";
+import PotentialActionDetail from "./potential_action";
 
 export default function InformationTextPotentialDetails({ key }: any) {
   const onChange = (checked: boolean) => {};

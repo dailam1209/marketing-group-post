@@ -42,8 +42,7 @@ export default function ShareBtnGroupDetails({ id }: any) {
       </div>
       <ShareActionModal
         isModalCancel={isOpenMdal}
-        setIsModalCancel={setIsOpenMdal}
-      />
+        setIsModalCancel={setIsOpenMdal} listNV={undefined}      />
     </>
   );
 }

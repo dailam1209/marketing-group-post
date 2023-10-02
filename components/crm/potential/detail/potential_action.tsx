@@ -100,8 +100,7 @@ export default function PotentialActionDetail({ isSelectedRow }: any) {
 
       <ShareActionModal
         isModalCancel={isOpenShare}
-        setIsModalCancel={setIsOpenShare}
-      />
+        setIsModalCancel={setIsOpenShare} listNV={undefined}      />
 
       <HandeOverModal
         isModalCancel={isHandOverOpen}

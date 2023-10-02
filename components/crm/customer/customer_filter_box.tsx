@@ -52,6 +52,21 @@ interface PropsComponent {
   setIsApDung?: any;
   setIsOpenFilterBox?: any;
   isOpenFilterBox?: any;
+  keyword;
+  status;
+  resoure;
+  user_create_id;
+  emp_id;
+  group_id;
+  time_s;
+  time_e;
+  page;
+  idNhom;
+  nameFill;
+  name;
+  timeStart;
+  timeEnd;
+  dateE;
 }
 
 const CustomerListFilterBox: React.FC<PropsComponent> = ({
@@ -89,6 +104,21 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
   setTime_s,
   setIsOpenFilterBox,
   isOpenFilterBox,
+  page,
+  keyword,
+  status,
+  resoure,
+  user_create_id,
+  emp_id,
+  group_id,
+  time_s,
+  time_e,
+  idNhom,
+  nameFill,
+  name,
+  timeEnd,
+  timeStart,
+  dateE,
 }) => {
   const [valueSelectStatus, setValueSelectStatus] = useState<any>();
   const [valueResoure, sevalueResoure] = useState<any>();
@@ -96,9 +126,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
   const handlefilter = async () => {
     setDatatable([]);
     setloading(true);
-    setOpen(false),
-     await fetchData()
-     ;
+    setOpen(false), await fetchData();
   };
   const handleChangeStt = (value: any) => {
     setValueSelectStatus(value);
@@ -131,9 +159,26 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
     }
   }, [idChaSaved]);
 
+  const starttime = router.query.start?.toString().replace("T", " ");
+
+  const parsedValue = dayjs(starttime);
+  const timeValuestart = parsedValue.format("HH:mm");
+
+  const endtime = router.query.end?.toString().replace("T", " ");
+  const parsedValueend = dayjs(endtime);
+  const timeValueEnd = parsedValueend.format("HH:mm");
+  const [time_s_change, settime_s_change] = useState<any>(router.query.start);
+  const [time_e_change, settime_e_change] = useState<any>(router.query.end);
+
+  const dateEndUrl = dayjs(endtime || time_e_change || null).format(
+    "YYYY-MM-DD"
+  );
+  const defaultstart: any = dayjs(time_s_change || pastTime).format(
+    "YYYY-MM-DD"
+  );
+
   useEffect(() => {
     if (isOpenFilterBox) {
-    
       setTimeStart("00:00:00");
       setTime_s("00:00:00 " + pastTime.format("YYYY-MM-DD"));
       setdateS(pastTime.format("YYYY-MM-DD"));
@@ -156,18 +201,24 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
   const handleTimeEndChange = (time, timeString) => {
     if (timeString) {
       setTimeEnd(timeString + ":00");
+      settime_e_change(dateEndUrl + "T" + timeString + ":00");
     }
   };
   const handleTimeStartChange = (time, timeString) => {
     if (timeString) {
       setTimeStart(timeString + ":00");
+      settime_s_change(
+        pastTime.format("YYYY-MM-DD") + "T" + timeString + ":00"
+      );
     }
   };
   const handleDateChangeStart = (e) => {
     setdateS(e.target.value);
+    settime_s_change(e.target.value + "T" + timeStart);
   };
   const handleDateChangeEnd = (e) => {
     setdateE(e.target.value);
+    settime_e_change(e.target.value + "T" + timeEnd || timeValueEnd);
   };
 
   const optionTest =
@@ -222,12 +273,19 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
         </option>
       ));
   }
+  const idnhomcha = listGr_Child?.filter(
+    (item) => item?.gr_id === Number(idNhom)
+  )[0]?.group_parent;
+
   let optionCon2;
   if (valueChaOld) {
     optionCon2 = [
       { value: " ", label: "Tất cả" },
       listGr_Child?.map((item: any, index) => {
-        if (item.group_parent === (checkCha ? valueChaOld : nhomCha)) {
+        if (
+          item.group_parent ===
+          (checkCha ? valueChaOld : idnhomcha || Number(idNhom) || nhomCha)
+        ) {
           return {
             value: item?.gr_id,
             label: item?.gr_name,
@@ -236,12 +294,16 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
       }),
     ];
   }
+
   let optionCon: any = [];
   const getOptionC = () => {
     let defaultArr = [{ value: "", label: "Tất cả" }];
     const newArr = listGr_Child
       ?.filter((item: any, index) => {
-        return item.group_parent === (checkCha ? valueChaOld : nhomCha);
+        return (
+          item.group_parent ===
+          (checkCha ? valueChaOld : idnhomcha || Number(idNhom) || nhomCha)
+        );
       })
       ?.map((item) => {
         return {
@@ -255,6 +317,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
     }
     optionCon = defaultArr;
   };
+
   return (
     <>
       <div
@@ -268,7 +331,11 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
               <TimePicker
                 onChange={handleTimeStartChange}
                 style={{ width: "100%", height: "37px" }}
-                defaultValue={dayjs("00:00", format)}
+                defaultValue={
+                  router.query.start
+                    ? dayjs(timeValuestart, format)
+                    : dayjs("00:00", format)
+                }
                 format={format}
               />
             </div>
@@ -280,7 +347,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
                 <Input
                   onChange={handleDateChangeStart}
                   type="date"
-                  defaultValue={pastTime.format("YYYY-MM-DD")}
+                  defaultValue={defaultstart || pastTime.format("YYYY-MM-DD")}
                 />
               </div>
             </div>
@@ -290,7 +357,11 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
               <TimePicker
                 onChange={handleTimeEndChange}
                 style={{ width: "100%", height: "37px" }}
-                defaultValue={dayjs("00:00", format)}
+                defaultValue={
+                  router.query.end
+                    ? dayjs(timeValueEnd, format)
+                    : dayjs("00:00", format)
+                }
                 format={format}
               />
             </div>
@@ -299,7 +370,11 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
                 className={styles.box_input}
                 style={{ width: "100%", marginBottom: "5px", paddingLeft: 10 }}
               >
-                <Input onChange={handleDateChangeEnd} type="date" />
+                <Input
+                  defaultValue={dateEndUrl}
+                  onChange={handleDateChangeEnd}
+                  type="date"
+                />
               </div>
             </div>
           </div>
@@ -320,7 +395,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
               borderRadius: 7,
             }}
             onChange={handleChangeStt}
-            defaultValue={""}
+            defaultValue={Number(status) ? Number(status) : ""}
             value={valueSelectStatus}
           >
             <option value={""}>Tất cả</option>
@@ -337,7 +412,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
         <div className={styles.form_group}>
           <div className={styles.label}>Nguồn khách hàng</div>
           <Select
-            defaultValue={""}
+            defaultValue={Number(resoure) ? Number(resoure) : ""}
             suffixIcon={
               <i
                 style={{ color: "black" }}
@@ -385,7 +460,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
           <Select
             value={checkCha ? +valueChaOld : nhomCha}
             onChange={(value) => handleSelectNhomCha(value)}
-            defaultValue={-1}
+            defaultValue={idnhomcha ? idnhomcha : Number(idNhom) || -1}
             suffixIcon={
               <i
                 style={{ color: "black" }}
@@ -431,7 +506,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
               onChange={(value) => {
                 setnhomCon(value), setIdNhom(value);
               }}
-              defaultValue={""}
+              defaultValue={idnhomcha ? Number(idNhom) : "" || ""}
               suffixIcon={
                 <i
                   style={{ color: "black" }}
@@ -535,6 +610,31 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
           onClick={async () => {
             handlefilter();
             setIsApDung(true);
+
+            router.push(
+              `/customer/list?${
+                time_s
+                  ? `&start=${
+                      time_s_change?.replace(" ", "T") ||
+                      time_s?.replace(" ", "T")
+                    }`
+                  : ""
+              }${
+                time_e
+                  ? `&end=${
+                      time_e_change?.replace(" ", "T") ||
+                      time_e?.replace(" ", "T")
+                    }`
+                  : ""
+              }${status ? `&status=${status}` : ""}${
+                resoure ? `&source=${resoure}` : ""
+              }${idNhom ? `&group=${idNhom}` : ""}${
+                emp_id ? `&emp_id=${emp_id}` : ""
+              }${user_create_id ? `&creater=${user_create_id}` : ""}${
+                name ? `&keyword=${name}` : ""
+              }  
+`
+            );
           }}
           type="button"
           className={styles.btn_apply}

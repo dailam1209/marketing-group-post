@@ -1066,8 +1066,24 @@ label {
 
   font-size: 16px !important;
 }
+.select2-container {
+  box-sizing: border-box;
+  display: inline-block;
+  margin: 0;
+  position: relative;
+  vertical-align: middle;
+  padding: 10px !important;
+}
+.select2-container--default
+  .select2-selection--single
+  .select2-selection__arrow {
+  height: 26px;
+  position: absolute;
+  top: 10px !important;
+  right: 10px !important;
+  width: 20px !important;
+}
 
-/* setting */
 .ant-select.set_up_role_custom_select__PY7jp.css-dev-only-do-not-override-o95mle.ant-select-single.ant-select-show-arrow.ant-select-show-search
   .ant-select-selector {
   border-radius: 5px;

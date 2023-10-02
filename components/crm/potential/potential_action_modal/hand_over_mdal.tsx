@@ -10,7 +10,7 @@ const Cookies = require("js-cookie");
 interface MyComponentProps {
   isModalCancel: boolean;
   setIsModalCancel: (value: boolean) => void;
-  listNV: any;
+  listNV?: any;
   // handover: any;
   // fetchData: any;
 }
