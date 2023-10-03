@@ -137,7 +137,7 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
     {
       img_link: "/crm/customer.svg",
       link: "#",
-      role: "seen",
+      // role: "seen",
       children: [
         {
           blank: "",
@@ -171,7 +171,7 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
     {
       img_link: "/crm/hotline.svg",
       link: "/crm",
-      role: "seen",
+      // role: "seen",
       children: [
         {
           blank: "",
@@ -205,7 +205,7 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
     {
       img_link: "/crm/form.svg",
       link: "#",
-      role: "seen",
+      // role: "seen",
       children: [],
       content: "Báo cáo",
     },
@@ -230,7 +230,7 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
     {
       img_link: "/crm/marketing.svg",
       link: "#",
-      role: "seen",
+      // role: "seen",
       children: [
         {
           blank: "",
@@ -260,7 +260,7 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
     {
       img_link: "/crm/supplier.svg",
       link: "/price_policy/list",
-      role: "seen",
+      // role: "seen",
       children: [
         {
           blank: "",
@@ -290,7 +290,7 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
     {
       img_link: "/crm/re-expen.svg",
       link: "#",
-      role: "seen",
+      // role: "seen",
       children: [
         {
           blank: "",
@@ -334,7 +334,7 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
     {
       img_link: "/crm/nav_setting.svg",
       link: "/setting/main",
-      role: "seen",
+      // role: "seen",
       children: [],
       content: "Cài đặt",
     },
@@ -388,42 +388,12 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
           : sidebar_button_group
         )?.map((items: any, i) => (
           <>
-            {items?.role === "seen" ? (
-              <div className={style.item_parent} key={i}>
-                {items && items.children && items.children.length > 0 ? (
-                  <>
-                    <div
-                      onClick={() => handleOpenChild(items.content)}
-                      className={style.item_link}
-                      style={{ cursor: "pointer" }}
-                    >
-                      <img src={items.img_link} className={style.img_link} />
-                      <div
-                        className={`${style.title} ${!isOpen ? null : "none"}`}
-                      >
-                        {items.content}
-                      </div>
-                    </div>
-                    {isOpenChild(items.content) && (
-                      <ul className={style.navbar_treeview}>
-                        {items.children.length > 0 &&
-                          items?.children.map((child, index) => (
-                            <li key={index}>
-                              <Link
-                                target={child.blank}
-                                href={child.link}
-                                className={style.navbar__item_link}
-                              >
-                                {child.label}
-                              </Link>
-                            </li>
-                          ))}
-                      </ul>
-                    )}
-                  </>
-                ) : (
-                  <Link
-                    href={items.link}
+            {/* {items?.role === "seen" ? ( */}
+            <div className={style.item_parent} key={i}>
+              {items && items.children && items.children.length > 0 ? (
+                <>
+                  <div
+                    onClick={() => handleOpenChild(items.content)}
                     className={style.item_link}
                     style={{ cursor: "pointer" }}
                   >
@@ -433,12 +403,40 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
                     >
                       {items.content}
                     </div>
-                  </Link>
-                )}
-              </div>
-            ) : (
-              <></>
-            )}
+                  </div>
+                  {isOpenChild(items.content) && (
+                    <ul className={style.navbar_treeview}>
+                      {items.children.length > 0 &&
+                        items?.children.map((child, index) => (
+                          <li key={index}>
+                            <Link
+                              target={child.blank}
+                              href={child.link}
+                              className={style.navbar__item_link}
+                            >
+                              {child.label}
+                            </Link>
+                          </li>
+                        ))}
+                    </ul>
+                  )}
+                </>
+              ) : (
+                <Link
+                  href={items.link}
+                  className={style.item_link}
+                  style={{ cursor: "pointer" }}
+                >
+                  <img src={items.img_link} className={style.img_link} />
+                  <div className={`${style.title} ${!isOpen ? null : "none"}`}>
+                    {items.content}
+                  </div>
+                </Link>
+              )}
+            </div>
+            {/* ) : ( */}
+            {/* <></> */}
+            {/* )} */}
           </>
         ))}
       </div>
