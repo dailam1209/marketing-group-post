@@ -144,7 +144,11 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
                   className={style.item_link}
                   style={{ cursor: "pointer" }}
                 >
-                  <img src={items.img_link} className={style.img_link} />
+                  <img
+                    src={items.img_link}
+                    alt="hungha365.com"
+                    className={style.img_link}
+                  />
                   <div className={`${style.title} ${!isOpen ? null : "none"}`}>
                     {items.content}
                   </div>
@@ -174,7 +178,11 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
                 onClick={() => handleCheckLogin(items.link, items.content)}
                 style={{ cursor: "pointer" }}
               >
-                <img src={items.img_link} className={style.img_link} />
+                <img
+                  alt="hungha365.com"
+                  src={items.img_link}
+                  className={style.img_link}
+                />
                 <div className={`${style.title} ${!isOpen ? null : "none"}`}>
                   {items.content}
                 </div>
