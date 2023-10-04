@@ -556,7 +556,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
               paddingBottom: 20,
               display: "flex",
               float: "left",
-              marginLeft: 700,
+              marginLeft: 850,
               position: "absolute",
             },
             current: page,

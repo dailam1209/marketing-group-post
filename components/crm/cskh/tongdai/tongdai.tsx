@@ -94,7 +94,7 @@ const TongDaiPage = (props: Props) => {
   const [fillStart, setFillStart] = useState<any>();
   const [fillEnd, setFillEnd] = useState<any>();
   const [query, setQuery] = useState(
-    `http://s02.oncall.vn:8899/api/call_logs/list?pagesize=10000&start_time=${start_T} &end_time=${end_T}`
+    `https://s02.oncall.vn:8900/api/call_logs/list?pagesize=10000&start_time=${start_T} &end_time=${end_T}`
   );
 
   const handleGet = async () => {
@@ -115,7 +115,7 @@ const TongDaiPage = (props: Props) => {
     setIsModalOpen(false);
     if (fillEnd && fillStart) {
       setQuery(
-        `http://s02.oncall.vn:8899/api/call_logs/list?pagesize=10000&start_time=${fillStart} &end_time=${fillEnd}`
+        `https://s02.oncall.vn:8900/api/call_logs/list?pagesize=10000&start_time=${fillStart} &end_time=${fillEnd}`
       );
     }
     try {
