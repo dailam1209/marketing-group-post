@@ -6,7 +6,7 @@ export default function ProductHeaderInfo() {
       <div className={styles.formInfoStep}>
         <div className={styles.info_step}>
           <div className={styles.main__title}>
-            Chi tiết đè nghị trả lại hàng bán
+            Chi tiết đề nghị trả lại hàng bán
           </div>
           <div className={styles.main__body}>
             <div className={styles.main__content__body}>

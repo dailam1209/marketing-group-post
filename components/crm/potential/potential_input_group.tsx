@@ -5,7 +5,6 @@ import PotentialSelectBox from "./potential_selectt";
 import Link from "next/link";
 import exportToExcel from "../ultis/export_xlxs";
 const Cookies = require("js-cookie");
-import { base_url } from "@/components/crm/service/function";
 const role = Cookies.get("role");
 
 export default function PotentialInputGroups({

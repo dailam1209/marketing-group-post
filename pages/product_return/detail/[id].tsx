@@ -46,7 +46,7 @@ export default function ProductReturnDetails() {
       <Head>
         <meta name="viewport" content="width=device-width" initial-scale="1" />
         <meta name="robots" content="noindex,nofollow" />
-        <title>Chi tiết Trả lại hàng bán</title>
+        <title>Chi tiết trả lại hàng bán</title>
         <meta
           name="description"
           content="CRM 365 được đánh giá là công cụ tốt nhất hiện nay trong việc kết nối khách hàng và doanh nghiệp. Phần mềm chú trọng vào các nhiệm vụ hỗ trợ doanh nghiệp tăng tập khách hàng tiềm năng và thân thiết, tăng doanh thu và tối ưu chi phí. Đăng ký hôm nay, lợi ích đến ngay!"
