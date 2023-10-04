@@ -44,7 +44,7 @@ export default function CampaignActionTable(props: any) {
       <div>
         <Dropdown menu={{ items }}>
           <button style={{ justifyContent: "center" }}>
-            <Image src="/bacham_xanh.svg" alt="" width={15} height={15} />
+            <Image src="/crm/bacham_xanh.svg" alt="" width={15} height={15} />
             Thao tác
           </button>
         </Dropdown>

@@ -1,11 +1,10 @@
-import React from "react";
-import { Table, Tooltip } from "antd";
+import React, { useEffect, useState } from "react";
+import { Pagination, Table, Tooltip } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { TableRowSelection } from "antd/es/table/interface";
 import CampaignSelectBoxStep from "@/components/crm/campaign/campaign_steps/select_box_table_step";
 import stylesCampaignSelect from "@/components/crm/campaign/campaign.module.css";
 import styles from "../order/order.module.css";
-import OrderActionTable from "../order/order_action_table";
 import Link from "next/link";
 
 interface DataType {
@@ -134,6 +133,17 @@ const TableDataOrder: React.FC<TableDataOrderProps> = ({
   setSelected,
   setNumberSelected,
 }: any) => {
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+  const dataForPage = data.slice((currentPage - 1) * 10, currentPage * 10);
+
+  useEffect(() => {
+    //
+  }, [currentPage]);
   const rowSelection: TableRowSelection<DataType> = {
     onChange: (selectedRowKeys, selectedRows) => {
       if (selectedRows?.length > 0) {
@@ -151,25 +161,20 @@ const TableDataOrder: React.FC<TableDataOrderProps> = ({
     <div className="custom_table">
       <Table
         columns={columns}
-        dataSource={data}
+        dataSource={dataForPage}
         rowSelection={{ ...rowSelection }}
         bordered
-        scroll={{ x: 1000, y: 300 }}
+        scroll={{ x: 1500, y: 400 }}
       />
       <div className={`${styles.main__footer} ${styles.flex_between}`}>
         <div className="total">
           Tổng số: <b>{data.length}</b> Chiến dịch
         </div>
-        <div className="show_number_item">
-          <b>Hiển thị:</b>
-          <select className="show_item">
-            <option value={10}>10 bản ghi trên trang</option>
-            <option value={20}>20 bản ghi trên trang</option>
-            <option value={30}>30 bản ghi trên trang</option>
-            <option value={40}>40 bản ghi trên trang</option>
-            <option value={50}>50 bản ghi trên trang</option>
-          </select>
-        </div>
+        <Pagination
+          current={currentPage}
+          total={data.length}
+          onChange={handlePageChange}
+        />
       </div>
     </div>
   );

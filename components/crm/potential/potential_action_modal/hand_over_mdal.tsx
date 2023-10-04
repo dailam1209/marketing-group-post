@@ -70,7 +70,6 @@ const HandeOverModal: React.FC<MyComponentProps> = ({
       return true;
     }
   };
-  // const name = selectedItems?.ep_name;
   useEffect(() => {
     if (Array.isArray(listNV)) {
       const updatedOptions = [

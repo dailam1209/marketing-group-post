@@ -18,7 +18,7 @@ const ContactActionDropDown: React.FC<any> = () => {
       label: (
         <Link href={`customer/contact/edit/${id}`}>
           <button className="btn-huy flex-start">
-            <Image width={16} height={16} src="/edit.svg" alt="check" />
+            <Image width={16} height={16} src="/crm/edit.svg" alt="check" />
             Chỉnh sửa
           </button>
         </Link>

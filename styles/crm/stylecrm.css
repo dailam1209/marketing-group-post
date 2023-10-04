@@ -585,9 +585,11 @@ tr {
 }
 
 .campign_mdal .ant-modal-content {
-  width: 668px;
+  width: 900px;
 }
-
+.campign_mdal .ant-modal-content svg {
+  color: #000000 !important;
+}
 .campign_mdal .ant-modal-content .ant-modal-body {
   padding: 15px;
 }
@@ -941,7 +943,7 @@ label {
   color: #000000;
   left: 0;
   margin-left: -10px;
-  font-family: 'Roboto-Medium';
+  font-family: "Roboto-Medium";
 }
 .potential_custom_multiple__3_XZy .ant-select-selector {
   height: 33px;
@@ -963,13 +965,12 @@ label {
 .custom-table {
   width: 190vw; /* 100% chiều rộng của cửa sổ trình duyệt */
   overflow-x: auto; /* Cho phép thanh trượt ngang */
-  padding-top:20px
+  padding-top: 20px;
 }
 
 .ant-table-wrapper .ant-table-body {
   overflow-y: hidden;
   z-index: 99;
-
 }
 ::-webkit-scrollbar-thumb {
   background: #4c5bd4;
@@ -1051,15 +1052,16 @@ label {
 }
 .select2-container .select2-selection--single {
   height: 40px !important;
-  
 }
-.select2-container--default .select2-selection--single .select2-selection__rendered {
+.select2-container--default
+  .select2-selection--single
+  .select2-selection__rendered {
   line-height: 40px !important;
-  
 }
-.select2-container--default .select2-selection--single .select2-selection__arrow {
+.select2-container--default
+  .select2-selection--single
+  .select2-selection__arrow {
   height: 40px !important;
-
 }
 .select2-search--dropdown .select2-search__field {
   padding: 8px !important;
@@ -1074,10 +1076,35 @@ label {
   vertical-align: middle;
   padding: 10px !important;
 }
-.select2-container--default .select2-selection--single .select2-selection__arrow {
+.select2-container--default
+  .select2-selection--single
+  .select2-selection__arrow {
   height: 26px;
   position: absolute;
   top: 10px !important;
-  right: 10px!important;
-  width: 20px!important;
+  right: 10px !important;
+  width: 20px !important;
+}
+
+.ant-select.set_up_role_custom_select__PY7jp.css-dev-only-do-not-override-o95mle.ant-select-single.ant-select-show-arrow.ant-select-show-search
+  .ant-select-selector {
+  border-radius: 5px;
+  text-align: center;
+}
+
+.add_file_campaign_mb_3__1EJ4D.add_file_campaign_col-lg-6__aPlfM.add_file_campaign_custom_select2___ZyTn
+  span.select2.select2-container.select2-container--default {
+  width: 100% !important;
+  padding: 0 !important;
+}
+
+.add_file_campaign_mb_3__1EJ4D.add_file_campaign_col-lg-6__aPlfM.add_file_campaign_custom_select2___ZyTn
+  span.select2-selection__arrow {
+  top: 0px !important;
+  right: 5px !important;
+}
+
+.add_file_campaign_row_input_custom__e44ms
+  span.ant-input-affix-wrapper.css-dev-only-do-not-override-o95mle {
+  padding: 9px 10px;
 }

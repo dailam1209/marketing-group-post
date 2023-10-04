@@ -34,7 +34,7 @@ export default function SettingModal({ dataHeader }) {
           src={
             dataHeader?.data?.avatarUser === null
               ? dataHeader?.data?.avatarUser
-              : "/logo_com (2).png"
+              : "/crm/logo_com.png"
           }
           alt=""
         />

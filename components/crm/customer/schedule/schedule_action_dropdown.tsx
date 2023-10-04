@@ -64,7 +64,7 @@ const ScheduleActionDropDown: React.FC = ({ idRow = "row" }: any) => {
           className="btn-huy flex-start"
           onClick={() => setIsOpenModalUpdateStatus(true)}
         >
-          <Image width={16} height={16} src="/edit.svg" alt="check" />
+          <Image width={16} height={16} src="/crm/edit.svg" alt="check" />
           Chỉnh sửa
         </button>
       ),
