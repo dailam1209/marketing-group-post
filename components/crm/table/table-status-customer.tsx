@@ -163,7 +163,7 @@ const TableStatusCustomer: React.FC<TableStatusCustomerProps> = ({}: any) => {
             )}
           >
             <Image
-              src="h_edit_cus.svg" // Đường dẫn tới tệp tin SVG trong thư mục 'public'
+              src="/crm/h_edit_cus.svg" // Đường dẫn tới tệp tin SVG trong thư mục 'public'
               alt="My SVG Image"
               width={15}
               height={15}
@@ -174,7 +174,7 @@ const TableStatusCustomer: React.FC<TableStatusCustomerProps> = ({}: any) => {
           {/* </Link> */}
           <button onClick={() => (setIsOpenCancel(true), setId(record.stt_id))}>
             <Image
-              src="h_delete_cus.svg" // Đường dẫn tới tệp tin SVG trong thư mục 'public'
+              src="/crm/h_delete_cus.svg" // Đường dẫn tới tệp tin SVG trong thư mục 'public'
               alt="My SVG Image"
               width={15}
               height={15}
@@ -237,7 +237,12 @@ const TableStatusCustomer: React.FC<TableStatusCustomerProps> = ({}: any) => {
               onClick={() => setIsOpen(true)}
               className={`${styles.dropbtn_add} flex_align_center`}
             >
-              <Image src="add.svg" alt="My SVG Image" width={15} height={15} />
+              <Image
+                src="/crm/add.svg"
+                alt="My SVG Image"
+                width={15}
+                height={15}
+              />
               Thêm mới
             </button>
           </div>

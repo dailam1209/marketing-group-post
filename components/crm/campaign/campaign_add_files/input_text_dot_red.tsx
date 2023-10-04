@@ -1,6 +1,6 @@
 import styles from "./add_file_campaign.module.css";
 
-export default function InputText({
+export default function InputTextDotRed({
   label,
   placeholder,
   require = false,
@@ -11,6 +11,7 @@ export default function InputText({
     <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
       <label className={`${styles["form-label"]} ${require ? "required" : ""}`}>
         {label}
+        <span className={styles.red_dot}>*</span>
       </label>
       <input
         style={{ height: "40px" }}

@@ -396,10 +396,11 @@
 }
 
 .main__footer {
-  padding: 0 0 25px 0;
+  padding: 30px 15px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   column-gap: 68px;
+  align-items: center;
 }
 
 .main__footer button {

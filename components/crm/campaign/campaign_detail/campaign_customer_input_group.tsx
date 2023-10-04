@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import styles from "@/components/crm/campaign/campaign_detail/campaign_detail_action_modal/campaign_detail_action.module.css";
-// import OrderDetailAction from "./campaign_action";
 import CampaignDetailSelectBox from "@/components/crm/campaign/campaign_detail/campaign_detail_action_modal/campaign_detail_select";
-import Link from "next/link";
 import CustomerSelectModal from "@/components/crm/campaign/campaign_detail/campaign_detail_action_modal/customer_select_action_mdal";
 import CampaignCustomerAction from "@/components/crm/campaign/campaign_detail/campaign_customer_action";
 import Image from "next/image";
@@ -18,7 +16,7 @@ export default function CampaignAppointmentInputGroups({ isSelectedRow }: any) {
             className={`${styles.select_item} flex_align_center_item ${styles.select_item_time}`}
           >
             <label htmlFor="" className="">
-              Ngày gửi:{" "}
+              Ngày gửi:
             </label>
             <div className={`${styles.input_item_time} flex_between`}>
               <input type="date" name="" id="start_time" /> -
