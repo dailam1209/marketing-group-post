@@ -70,7 +70,7 @@ const Recording = (props: Props) => {
   const [listNV, setListNV] = useState([]);
 
   const [query, setQuery] = useState(
-    `http://s02.oncall.vn:8899/api/call_logs/list?pagesize=10000&start_time=${start_T} &end_time=${end_T}&`
+    ` https://s02.oncall.vn:8900/api/call_logs/list?pagesize=10000&start_time=${start_T} &end_time=${end_T}&`
   );
   const handleGetNhanVienPhuTrach = async () => {
     try {
@@ -199,7 +199,7 @@ const Recording = (props: Props) => {
     setIsModalOpen(false);
     if (fillEnd && fillStart) {
       setQuery(
-        `http://s02.oncall.vn:8899/api/call_logs/list?pagesize=100000000&start_time=${fillStart} &end_time=${fillEnd}&`
+        ` https://s02.oncall.vn:8900/api/call_logs/list?pagesize=100000000&start_time=${fillStart} &end_time=${fillEnd}&`
       );
     }
     //lay datatable
