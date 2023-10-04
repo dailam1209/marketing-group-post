@@ -116,7 +116,7 @@ export default function ChanceActionDropDown({ isSelectedRow }: any) {
           trigger={[isSelectedRow ? "hover" : "contextMenu"]}
         >
           <button className={styles.button_thaotac}>
-            <img src="/crm/3_cham.png" />
+            <img src="/crm/3_cham.png" alt="hungha365" />
             Thao tác
           </button>
         </Dropdown>

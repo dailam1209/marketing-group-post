@@ -25,7 +25,7 @@ export default function SupplierInputSipplierGroup({ isSelectedRow }: any) {
                 height={14}
                 className={styles.img__search}
                 src="/crm/search.svg"
-                alt=""
+                alt="hungha365.com"
               />
             </button>
           </form>
@@ -35,14 +35,8 @@ export default function SupplierInputSipplierGroup({ isSelectedRow }: any) {
             type="button"
             className={`${styles.dropbtn_add} flex_align_center`}
             onClick={() => setIsOpenModal(true)}
-            
           >
-            <Image
-              height={14}
-              width={14}
-              alt="..."
-              src="/crm/add.svg"
-            />
+            <Image height={14} width={14} alt="..." src="/crm/add.svg" />
             Thêm mới
           </button>
         </div>

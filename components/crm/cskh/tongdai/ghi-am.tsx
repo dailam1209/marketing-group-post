@@ -248,7 +248,12 @@ const GhiAmPage = (props: Props) => {
                 )
               }
             >
-              <img src="/crm/ghiam.svg" alt="" width={15} height={15} />
+              <img
+                src="/crm/ghiam.svg"
+                alt="hungha365.com"
+                width={15}
+                height={15}
+              />
             </button>
           </div>
           <div className={`${styles.audio_buttons_pause}`}>
@@ -264,7 +269,12 @@ const GhiAmPage = (props: Props) => {
               }
               style={{ display: "none" }}
             >
-              <img src="/crm/pause.svg" alt="" width={15} height={15} />
+              <img
+                src="/crm/pause.svg"
+                alt="hungha365.com"
+                width={15}
+                height={15}
+              />
             </button>
           </div>
         </div>

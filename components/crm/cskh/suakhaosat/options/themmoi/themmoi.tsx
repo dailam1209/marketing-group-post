@@ -18,7 +18,7 @@ const Themmoi_Options = (props: any) => {
             onClick={handleDleteThemmoi}
             style={{ paddingLeft: 20 }}
             src="/crm/delete.svg"
-            alt=""
+            alt="hungha365.com"
           />
         </div>
       </div>

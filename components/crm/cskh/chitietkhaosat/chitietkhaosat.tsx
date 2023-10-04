@@ -42,7 +42,7 @@ export default function ChiTietKhaoSat() {
           type="button"
           className={`${styles.dropbtn_edit} `}
         >
-          <img src="/crm/edit.svg" alt="" />
+          <img src="/crm/edit.svg" alt="hungha365.com" />
           Chỉnh sửa
         </button>
         <button

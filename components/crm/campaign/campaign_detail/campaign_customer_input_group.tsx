@@ -41,7 +41,7 @@ export default function CampaignAppointmentInputGroups({ isSelectedRow }: any) {
                 <Image
                   className={styles.img__search}
                   src="/crm/search.svg"
-                  alt=""
+                  alt="hungha365.com"
                   width={15}
                   height={15}
                 />

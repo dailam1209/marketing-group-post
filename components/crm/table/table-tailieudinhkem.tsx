@@ -14,8 +14,7 @@ const TableAddTLDK: React.FC<TableDataCampaignProps> = (props: any) => {
   const onClose = () => {
     setIsCancelOpen(false);
   };
-  const handleAddDB = () => {
-  };
+  const handleAddDB = () => {};
   interface DataType {
     key: React.Key;
     number: string;
@@ -43,7 +42,7 @@ const TableAddTLDK: React.FC<TableDataCampaignProps> = (props: any) => {
           style={{ display: "flex", fontSize: 15 }}
           onClick={() => setIsCancelOpen(true)}
         >
-          <img src="/crm/icon-delete-black.svg" alt="" />
+          <img src="/crm/icon-delete-black.svg" alt="hungha365.com" />
           &nbsp; &nbsp; <p>Xóa</p>
         </div>
       ),

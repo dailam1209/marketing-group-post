@@ -4,7 +4,7 @@ import Image from "next/image";
 import { notification } from "antd";
 import { base_url } from "../service/function";
 const Cookies = require("js-cookie");
-export default function InputPhone({ infoCus,refPhone, setPhone }: any) {
+export default function InputPhone({ infoCus, refPhone, setPhone }: any) {
   const [numberValue, setNumberValue] = useState("");
   const [isCalling, setIsCalling] = useState(false);
   // console.log("infoCus",infoCus)
@@ -97,7 +97,7 @@ export default function InputPhone({ infoCus,refPhone, setPhone }: any) {
             width={36}
             height={36}
             src="/crm/phone.svg"
-            alt=""
+            alt="hungha365.com"
           />
         </button>
       )}

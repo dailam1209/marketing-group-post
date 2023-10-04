@@ -47,7 +47,7 @@ const Tai_lieu_dinh_kem_potetial = (props: Props) => {
                     <img
                       className={styles.img__search}
                       src="/crm/search.svg"
-                      alt=""
+                      alt="hungha365.com"
                     />
                   </button>
                 </form>

@@ -209,10 +209,19 @@ export default function ThemSanPham() {
                 onCancel={handleCancel}
                 onOk={handleCancel}
               >
-                <img style={{ width: "100%" }} src={previewImage} alt="" />
+                <img
+                  style={{ width: "100%" }}
+                  src={previewImage}
+                  alt="hungha365.com"
+                />
               </Modal>
               {previewImage ? (
-                <img width={"100%"} src={previewImage} alt="" id="img2" />
+                <img
+                  width={"100%"}
+                  src={previewImage}
+                  alt="hungha365.com"
+                  id="img2"
+                />
               ) : (
                 <div style={{ display: "flex", justifyContent: "center" }}>
                   <img src="/crm/img_file.svg" />

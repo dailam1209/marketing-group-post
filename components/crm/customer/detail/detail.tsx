@@ -46,7 +46,7 @@ const DetailInformation: React.FC<ComponentProps> = ({
                     <div id="upload">
                       <img
                         src={``}
-                        alt=""
+                        alt="hungha365.com"
                         width={15}
                         height={15}
                         className={styles["show_avatar"]}

@@ -35,16 +35,13 @@ export default function CustomerListInputGroup({
       <div className={`${styles.main__control} ${styles.customer_custom}`}>
         <div
           className={`${styles.main__control_add}`}
-          style={{ width: "100%"}}
+          style={{ width: "100%" }}
         >
-        <Link href="update">
-          <button
-            type="button"
-            className={styles.btn_edit}
-          >  
-            <img src="/crm/edit_kh.svg" style={{margin: "-3px 5px"}} />
-            Chỉnh sửa
-          </button>
+          <Link href="update">
+            <button type="button" className={styles.btn_edit}>
+              <img src="/crm/edit_kh.svg" style={{ margin: "-3px 5px" }} />
+              Chỉnh sửa
+            </button>
           </Link>
 
           <button
@@ -52,18 +49,21 @@ export default function CustomerListInputGroup({
             className={styles.btn_delete}
             onClick={() => setIsDelOpen(true)}
           >
-            <img src="/crm/delete_kh.svg" alt="" style={{margin: "-3px 5px"}} />
-           Xoá
+            <img
+              src="/crm/delete_kh.svg"
+              alt="hungha365.com"
+              style={{ margin: "-3px 5px" }}
+            />
+            Xoá
           </button>
           {
             <DelActionModal
-            isModalCancel={isDelOpen}
-            setIsModalCancel={setIsDelOpen}
-          />
+              isModalCancel={isDelOpen}
+              setIsModalCancel={setIsDelOpen}
+            />
           }
         </div>
       </div>
-
     </>
   );
 }

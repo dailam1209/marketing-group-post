@@ -179,7 +179,7 @@ const TabComponent = () => {
                           <Image
                             className={styles.img__search}
                             src="/crm/search.svg"
-                            alt=""
+                            alt="hungha365.com"
                             width={15}
                             height={15}
                           />
@@ -197,7 +197,7 @@ const TabComponent = () => {
                         >
                           <Image
                             src="/crm/share_white.svg"
-                            alt=""
+                            alt="hungha365.com"
                             width={15}
                             height={15}
                           />

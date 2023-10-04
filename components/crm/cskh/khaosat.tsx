@@ -56,7 +56,7 @@ const KhaoSat = (props: Props) => {
             width={18}
             height={18}
             src="/crm/icon-delete-black.svg"
-            alt=""
+            alt="hungha365.com"
           />
           &nbsp; &nbsp; <p>Xóa</p>
         </div>
@@ -72,7 +72,12 @@ const KhaoSat = (props: Props) => {
             router.push(`/chinh-sua-khao-sat/${id}`);
           }}
         >
-          <Image src="/crm/icon-edit-black.svg" alt="" width={18} height={18} />
+          <Image
+            src="/crm/icon-edit-black.svg"
+            alt="hungha365.com"
+            width={18}
+            height={18}
+          />
           &nbsp; &nbsp; <p>Chỉnh sửa</p>
         </div>
       ),

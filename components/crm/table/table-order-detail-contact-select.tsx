@@ -37,13 +37,13 @@ const columns: ColumnsType<DataType> = [
       <div style={{ display: "flex", justifyContent: "center" }}>
         {" "}
         <div>
-          <img src="crm/customer/loai_lh_1.png" alt="" />
+          <img src="crm/customer/loai_lh_1.png" alt="hungha365.com" />
           &nbsp;
-          <img src="crm/customer/loai_lh_2.png" alt="" />
+          <img src="crm/customer/loai_lh_2.png" alt="hungha365.com" />
           &nbsp;
-          <img src="crm/customer/loai_lh_3.png" alt="" />
+          <img src="crm/customer/loai_lh_3.png" alt="hungha365.com" />
           &nbsp;
-          <img src="crm/customer/loai_lh_4.png" alt="" />
+          <img src="crm/customer/loai_lh_4.png" alt="hungha365.com" />
         </div>
       </div>
     ),

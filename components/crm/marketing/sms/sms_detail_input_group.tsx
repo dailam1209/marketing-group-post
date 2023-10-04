@@ -151,7 +151,12 @@ export default function CustomerListInputGroup({
               className={`${styles.dropbtn_add} flex_align_center ${styles.btn_file}`}
               onClick={() => setIsModalCancel(true)}
             >
-              <img width="14" height="10" src="/crm/eye2.svg" alt="" />
+              <img
+                width="14"
+                height="10"
+                src="/crm/eye2.svg"
+                alt="hungha365.com"
+              />
               Xem trước
             </button>
             {
@@ -170,7 +175,7 @@ export default function CustomerListInputGroup({
                 width="14"
                 height="14"
                 src="/crm/icon_send.svg"
-                alt=""
+                alt="hungha365.com"
                 style={{ marginRight: "8px", verticalAlign: "middle" }}
               />
               Gửi
@@ -197,7 +202,7 @@ export default function CustomerListInputGroup({
             >
               <img
                 src="/crm/delete_kh.svg"
-                alt=""
+                alt="hungha365.com"
                 style={{ margin: "-3px 5px" }}
               />
               Xoá

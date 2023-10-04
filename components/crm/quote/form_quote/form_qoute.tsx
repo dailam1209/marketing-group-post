@@ -21,10 +21,9 @@ const Form_qoute = (props: Props) => {
       img?.classList.add("bi-suit-heart-fill");
     }
   };
-const handleUse = (index:any)=>{
-
-  router.push(`/quote/detail/${index+1}`)
-}
+  const handleUse = (index: any) => {
+    router.push(`/quote/detail/${index + 1}`);
+  };
   return (
     <div style={{ width: "100%" }}>
       <div
@@ -44,9 +43,16 @@ const handleUse = (index:any)=>{
             return (
               <div key={index}>
                 <div key={index} className={styles.item_image}>
-                  <img style={{ width: "100%" }} src={item.img} alt="" />
+                  <img
+                    style={{ width: "100%" }}
+                    src={item.img}
+                    alt="hungha365.com"
+                  />
                   <div className={styles.overlay2}>
-                    <Button onClick={()=>handleUse(index)} className={styles.text}>
+                    <Button
+                      onClick={() => handleUse(index)}
+                      className={styles.text}
+                    >
                       <div> Sử dụng mẫu này</div>
                       <div
                         onClick={() => handleChangeColor(index)}

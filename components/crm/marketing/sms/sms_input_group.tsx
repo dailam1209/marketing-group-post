@@ -41,7 +41,12 @@ export default function CustomerListInputGroup({
             className={`${styles.dropbtn_add} flex_align_center ${styles.btn_file}`}
             onClick={() => setIsModalCancel(true)}
           >
-            <img width="14" height="10" src="/crm/eye2.svg" alt="" />
+            <img
+              width="14"
+              height="10"
+              src="/crm/eye2.svg"
+              alt="hungha365.com"
+            />
             Xem trước
           </button>
           {

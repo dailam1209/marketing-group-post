@@ -60,7 +60,7 @@ export default function OrderDetailAppointmentInputGroups({
               <img
                 className={styles.img__search}
                 src="/crm/search.svg"
-                alt=""
+                alt="hungha365.com"
               />
             </button>
           </form>

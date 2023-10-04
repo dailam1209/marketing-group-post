@@ -24,7 +24,7 @@ export default function ModalRegsiter({ setOpenModalRegister }) {
             setOpenModalRegister(false);
           }}
         >
-          <img src="/crm/qlc_close.png" alt="" />
+          <img src="/crm/qlc_close.png" alt="hungha365.com" />
         </div>
         <div className={styles.content}>
           <div
@@ -33,19 +33,19 @@ export default function ModalRegsiter({ setOpenModalRegister }) {
           <div className={styles.khoi}>
             <Link href={`https://hungha365.com/dang-ky-cong-ty.html`}>
               <div className={styles.khoi_item}>
-                <img src="/crm/Home_fill.png" alt="" />
+                <img src="/crm/Home_fill.png" alt="hungha365.com" />
                 <span>Công ty</span>
               </div>
             </Link>
             <Link href={`https://hungha365.com/dang-ky-nhan-vien.html`}>
               <div className={styles.khoi_item}>
-                <img src="/crm/User_alt_fill.png" alt="" />
+                <img src="/crm/User_alt_fill.png" alt="hungha365.com" />
                 <span>Nhân viên</span>
               </div>
             </Link>
             <Link href={`https://hungha365.com/dang-ky-ca-nhan.html`}>
               <div className={styles.khoi_item}>
-                <img src="/crm/User_circle.png" alt="" />
+                <img src="/crm/User_circle.png" alt="hungha365.com" />
                 <span>Cá nhân</span>
               </div>
             </Link>

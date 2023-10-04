@@ -50,7 +50,7 @@ const LichChamSocKH = (props: Props) => {
             // router.push(`/sua-lich-cham-soc-khach-hang/${id}`);
           }}
         >
-          <img src="/crm/icon-edit-black.svg" alt="" />
+          <img src="/crm/icon-edit-black.svg" alt="hungha365.com" />
           &nbsp; &nbsp; <p>Chỉnh sửa</p>
         </div>
       ),

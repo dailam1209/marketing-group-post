@@ -59,7 +59,7 @@ const CancelModal: React.FC<MyComponentProps> = ({
             >
               <form onSubmit={() => false}>
                 <Input
-                  suffix={<img src="/crm/search.svg" alt="" />}
+                  suffix={<img src="/crm/search.svg" alt="hungha365.com" />}
                   style={{ width: 400 }}
                   type="text"
                   className={styles.input__search}
@@ -71,7 +71,7 @@ const CancelModal: React.FC<MyComponentProps> = ({
                   <img
                     className={styles.img__search}
                     src="/crm/search.svg"
-                    alt=""
+                    alt="hungha365.com"
                   />
                 </button>
               </form>

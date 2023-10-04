@@ -12,7 +12,7 @@ export default function AddTable() {
       <div className={styles.infotop}>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <div>
-            <img src="/crm/logo_timviec365.svg" alt="" />
+            <img src="/crm/logo_timviec365.svg" alt="hungha365.com" />
           </div>
           <div>
             <div className={styles.monneytop}>

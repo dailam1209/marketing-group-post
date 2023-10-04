@@ -119,7 +119,7 @@ export default function DetailContract({ setCheckFile, FormData }: any) {
           >
             <div style={{ display: "flex", justifyContent: "center", gap: 10 }}>
               <div>
-                <img src="/crm/icon-pen.svg" alt="" />
+                <img src="/crm/icon-pen.svg" alt="hungha365.com" />
               </div>
               <div>Chỉnh sửa</div>
             </div>

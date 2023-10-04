@@ -36,7 +36,7 @@ export default function SettingModal({ dataHeader }) {
               ? dataHeader?.data?.avatarUser
               : "/crm/logo_com.png"
           }
-          alt=""
+          alt="hungha365.com"
         />
         {/* <img
           src={
@@ -44,11 +44,11 @@ export default function SettingModal({ dataHeader }) {
               ? dataHeader?.data?.avatarUser
               : "/logo_com (2).png"
           }
-          alt=""
+          alt="hungha365.com"
         /> */}
         {/* <img
           src="https://chamcong.24hpay.vn/upload/employee/ep931547/app_1688728219772.jpg"
-          alt=""
+          alt="hungha365.com"
         /> */}
         <div className={style.name_staff}>
           {dataHeader?.data?.userName || ""}
@@ -59,10 +59,10 @@ export default function SettingModal({ dataHeader }) {
 
       <a className={style.selecter}>
         <div className={style.selecter_left}>
-          <img src="/crm/icon-help.svg" alt="" />
+          <img src="/crm/icon-help.svg" alt="hungha365.com" />
           <p className={style.text_selecter}>Hướng dẫn sử dụng</p>
         </div>
-        <img src="/crm/icon-arrow-right.svg" alt="" />
+        <img src="/crm/icon-arrow-right.svg" alt="hungha365.com" />
       </a>
 
       <Link
@@ -70,10 +70,10 @@ export default function SettingModal({ dataHeader }) {
         href="/quan-ly-thong-tin-tai-khoan-cong-ty.html"
       >
         <div className={style.selecter_left}>
-          <img src="/crm/icon-infor.svg" alt="" />
+          <img src="/crm/icon-infor.svg" alt="hungha365.com" />
           <p className={style.text_selecter}>Thông tin cá nhân</p>
         </div>
-        <img src="/crm/icon-arrow-right.svg" alt="" />
+        <img src="/crm/icon-arrow-right.svg" alt="hungha365.com" />
       </Link>
 
       <div className={style.selecter} onClick={show} style={{ width: "100%" }}>
@@ -81,12 +81,12 @@ export default function SettingModal({ dataHeader }) {
           style={{ justifyContent: "space-between" }}
           className={style.selecter_left}
         >
-          <img src="/crm/icon-logout.svg" alt="" />
+          <img src="/crm/icon-logout.svg" alt="hungha365.com" />
           <div id={style.logout_acc} className={style.text_selecter}>
             Đăng xuất
           </div>
         </div>
-        <img src="/crm/icon-arrow-right.svg" alt="" />
+        <img src="/crm/icon-arrow-right.svg" alt="hungha365.com" />
       </div>
 
       {showLogout && (

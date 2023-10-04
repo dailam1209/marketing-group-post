@@ -17,7 +17,7 @@ export default function HeaderBar({ dataHeader, isOpen }: any) {
                 ? dataHeader?.data?.avatarUser
                 : "/crm/hunghalogo.png"
             }
-            alt=""
+            alt="hungha365.com"
           />
         </Link>
       </div>

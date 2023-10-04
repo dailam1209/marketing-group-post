@@ -30,12 +30,12 @@ export default function AddQuoteDetailStatus() {
           <div className={styles.row1quote_left}>
             <b>Người tạo:</b>
           </div>
-          <div className={styles.row1quote_right} style={{ display: "flex",gap:5}}>
+          <div
+            className={styles.row1quote_right}
+            style={{ display: "flex", gap: 5 }}
+          >
             <div>
-              <img
-                src="/crm/user_kh.png"
-                alt=""
-              />{" "}
+              <img src="/crm/user_kh.png" alt="hungha365.com" />{" "}
             </div>
             <div>Nguyễn Văn Nam</div>
           </div>
@@ -48,12 +48,13 @@ export default function AddQuoteDetailStatus() {
           <div className={styles.row1quote_right}>10/10/2020</div>
         </div>
       </div>
-      <div style={{display:"flex",marginTop:-20}}>
-   <div className={styles.full_width_div}>
-        <span></span>
-      </div>   <div className={styles.full_width_div}>
-        <span></span>
-      </div>
+      <div style={{ display: "flex", marginTop: -20 }}>
+        <div className={styles.full_width_div}>
+          <span></span>
+        </div>{" "}
+        <div className={styles.full_width_div}>
+          <span></span>
+        </div>
       </div>
 
       <div className={styles.row}>
@@ -61,12 +62,12 @@ export default function AddQuoteDetailStatus() {
           <div className={styles.row1quote_left}>
             <b>Người sửa:</b>
           </div>
-          <div className={styles.row1quote_right} style={{ display: "flex",gap:5 }}>
+          <div
+            className={styles.row1quote_right}
+            style={{ display: "flex", gap: 5 }}
+          >
             <div>
-              <img
-                src="/crm/user_kh.png"
-                alt=""
-              />{" "}
+              <img src="/crm/user_kh.png" alt="hungha365.com" />{" "}
             </div>
             <div>Nguyễn Văn Nam</div>
           </div>
@@ -81,24 +82,22 @@ export default function AddQuoteDetailStatus() {
         </div>
       </div>
 
-      <div style={{display:"flex",marginTop:-20}}>
-   <div className={styles.full_width_div}>
-        <span></span>
-      </div>   <div className={styles.full_width_div}>
-        <span></span>
+      <div style={{ display: "flex", marginTop: -20 }}>
+        <div className={styles.full_width_div}>
+          <span></span>
+        </div>{" "}
+        <div className={styles.full_width_div}>
+          <span></span>
+        </div>
       </div>
-      </div>
-   
+
       <div className={styles.row}>
         <div className={styles.row1quote}>
           <div className={styles.row1quote_left}>
             <b>Dùng chung:</b>
           </div>
           <div>
-            <img
-              src="	/crm/dungchung_kh.svg"
-              alt=""
-            />
+            <img src="	/crm/dungchung_kh.svg" alt="hungha365.com" />
           </div>
           <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
 

@@ -74,7 +74,12 @@ const FilterThongKe: React.FC<MyComponentProps> = ({
     <>
       <button className={styles.filter} onClick={showModal}>
         {/* <NodeIndexOutlined /> */}
-        <Image width={23} height={23} src={"filter_alt.svg"} alt="" />
+        <Image
+          width={23}
+          height={23}
+          src={"filter_alt.svg"}
+          alt="hungha365.com"
+        />
         <p>Bộ lọc</p>
       </button>
       <Modal

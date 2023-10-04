@@ -49,7 +49,7 @@ const FailModal: React.FC<MyComponentProps> = ({
             width={300}
             height={300}
             src="https://www.asteriscoit.com/wp-content/uploads/2021/07/No-data-pana.png"
-            alt=""
+            alt="hungha365.com"
           />
         </div>
         <div

@@ -22,8 +22,7 @@ const Table_So_Quy = (props: any) => {
   const [isShowModalAdd, setIsShowModalAdd] = useState(false);
   const [isShowModalChange, setIsShowModalChange] = useState(false);
 
-  const handleSelect = (id: any) => {
-  };
+  const handleSelect = (id: any) => {};
   const handleDeleteDB = () => {
     setIsShowModal(false);
   };
@@ -53,10 +52,10 @@ const Table_So_Quy = (props: any) => {
           style={{ display: "flex", fontSize: 15 }}
           rel="noopener noreferrer"
           onClick={() => {
-            setIsShowModalChange(true)
+            setIsShowModalChange(true);
           }}
         >
-          <img src="/crm/icon-edit-black.svg" alt="" />
+          <img src="/crm/icon-edit-black.svg" alt="hungha365.com" />
           &nbsp; &nbsp; <p>Chỉnh sửa</p>
         </div>
       ),
@@ -71,7 +70,7 @@ const Table_So_Quy = (props: any) => {
             setIsShowModal(true);
           }}
         >
-          <img src="/crm/icon-delete-black.svg" alt="" />
+          <img src="/crm/icon-delete-black.svg" alt="hungha365.com" />
           &nbsp; &nbsp; <p>Xóa</p>
         </div>
       ),

@@ -54,24 +54,24 @@ export default function TableOfContents() {
       <div className={styles.left}>
         <img
           src="/crm/table_of_contents.png"
-          alt=""
+          alt="hungha365.com"
           className={styles.img_than_1024}
         />
         <img
           src="/crm/table_of_contents_1024.png"
-          alt=""
+          alt="hungha365.com"
           style={{ display: "none" }}
           className={styles.img_1024}
         />
         <img
           src="/crm/table_of_contents_768.png"
-          alt=""
+          alt="hungha365.com"
           style={{ display: "none" }}
           className={styles.img_768}
         />
         <img
           src="/crm/table_of_contents_414.png"
-          alt=""
+          alt="hungha365.com"
           style={{ display: "none" }}
           className={styles.img_414}
         />
@@ -79,7 +79,7 @@ export default function TableOfContents() {
           <div className={styles.item_img}>
             <img
               src="/crm/arrow-square-down.png"
-              alt=""
+              alt="hungha365.com"
               style={{ width: 20, paddingTop: 5 }}
             />
             <Link
@@ -101,13 +101,13 @@ export default function TableOfContents() {
             {openDropDown ? (
               <img
                 src="/crm/arrow-square-down_2.png"
-                alt=""
+                alt="hungha365.com"
                 style={{ width: 20, paddingTop: 5 }}
               />
             ) : (
               <img
                 src="/crm/arrow-square-down_3.png"
-                alt=""
+                alt="hungha365.com"
                 style={{ width: 20, paddingTop: 5 }}
               />
             )}
@@ -125,7 +125,7 @@ export default function TableOfContents() {
               <div className={styles.item_img}>
                 <img
                   src="/crm/arrow-square-down.png"
-                  alt=""
+                  alt="hungha365.com"
                   style={{ width: 20, paddingTop: 5 }}
                 />
                 <Link
@@ -143,7 +143,7 @@ export default function TableOfContents() {
               <div className={styles.item_img}>
                 <img
                   src="/crm/arrow-square-down.png"
-                  alt=""
+                  alt="hungha365.com"
                   style={{ width: 20, paddingTop: 5 }}
                 />
                 <Link
@@ -161,7 +161,7 @@ export default function TableOfContents() {
               <div className={styles.item_img}>
                 <img
                   src="/crm/arrow-square-down.png"
-                  alt=""
+                  alt="hungha365.com"
                   style={{ width: 20, paddingTop: 5 }}
                 />
                 <Link
@@ -179,7 +179,7 @@ export default function TableOfContents() {
               <div className={styles.item_img}>
                 <img
                   src="/crm/arrow-square-down.png"
-                  alt=""
+                  alt="hungha365.com"
                   style={{ width: 20, paddingTop: 5 }}
                 />
                 <Link
@@ -203,13 +203,13 @@ export default function TableOfContents() {
             {openDropDown3 ? (
               <img
                 src="/crm/arrow-square-down_2.png"
-                alt=""
+                alt="hungha365.com"
                 style={{ width: 20, paddingTop: 5 }}
               />
             ) : (
               <img
                 src="/crm/arrow-square-down_3.png"
-                alt=""
+                alt="hungha365.com"
                 style={{ width: 20, paddingTop: 5 }}
               />
             )}
@@ -229,7 +229,10 @@ export default function TableOfContents() {
         >
           <div className={styles.top}>
             <div className={styles.title}>
-              <h2>CRM – gắn kết doanh nghiệp – khách hàng bền vững</h2>
+              <h1>
+                Hướng dẫn sử dụng phần mềm CRM của AI365, chăm sóc khách hàng tự
+                động
+              </h1>
             </div>
             <span>
               Trong những năm gần đây, việc lựa chọn đúng mô hình phát triển
@@ -260,7 +263,7 @@ export default function TableOfContents() {
               </span>
             </div>
             <div className={styles.img}>
-              <img src="/crm/des1.png" alt="" />
+              <img src="/crm/des1.png" alt="hungha365.com" />
             </div>
             <div className={styles.desc}>
               <span>
@@ -276,7 +279,7 @@ export default function TableOfContents() {
               </span>
             </div>
             <div className={styles.img} id="content2">
-              <img src="/crm/des2.png" alt="" />
+              <img src="/crm/des2.png" alt="hungha365.com" />
             </div>
           </div>
         </div>
