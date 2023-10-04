@@ -67,7 +67,7 @@ export default function CustomerListInputGroup({
   idNhom,
   timeEnd,
   dateE,
-  timeStart
+  timeStart,
 }: any) {
   const [open, setOpen] = useState(false);
   const inputFileRef = useRef<HTMLInputElement>(null);
@@ -213,7 +213,7 @@ export default function CustomerListInputGroup({
                 >
                   <div>
                     <Image
-                      src={"/crm/icon_search.svg"}
+                      src="/crm/icon_search.svg"
                       alt="filter"
                       width={15}
                       height={15}
@@ -245,7 +245,7 @@ export default function CustomerListInputGroup({
                   >
                     <div>
                       <Image
-                        src={"/crm/h_export_cus.svg"}
+                        src="/crm/h_export_cus.svg"
                         alt="filter"
                         width={15}
                         height={15}
@@ -367,7 +367,6 @@ export default function CustomerListInputGroup({
             timeStart={timeStart}
             timeEnd={timeEnd}
             dateE={dateE}
-
           />
         </div>
       </Drawer>
