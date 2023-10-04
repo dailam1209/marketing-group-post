@@ -38,7 +38,7 @@ const AddVideo = (props: any) => {
           onClick={handleDletevideo}
           style={{ paddingLeft: 20 }}
           src="/crm/delete.svg"
-          alt=""
+          alt="hungha365.com"
         />
       </div>
       <Upload

@@ -67,13 +67,11 @@ const CheckMergePotential: React.FC = () => {
     }
   }, [isOpen]);
 
-
-
   const storedData = sessionStorage.getItem("DataSelectedCustomer");
   const parsedData = JSON.parse(storedData)?.data;
 
   const getCustomerDetail = async () => {
-    const cus_id = "2033501"
+    const cus_id = "2033501";
     try {
       const res = await fetch(`${base_url}/api/crm/customerdetails/detail`, {
         method: "POST",
@@ -82,22 +80,18 @@ const CheckMergePotential: React.FC = () => {
           Authorization: `Bearer ${Cookies.get("token_base365")}`,
         },
         body: JSON.stringify({
-          // cus_id: parsedData 
-          cus_id: cus_id
+          // cus_id: parsedData
+          cus_id: cus_id,
         }),
       });
 
       const customerDetails = await res.json();
       setNewData([customerDetails]);
-    } catch (error) {
-
-    }
-
+    } catch (error) {}
   };
   useEffect(() => {
     getCustomerDetail();
   }, []);
-
 
   return (
     <>
@@ -107,18 +101,21 @@ const CheckMergePotential: React.FC = () => {
         <title>Kiểm tra trùng</title>
         <meta
           name="description"
-          content="CRM 365 được đánh giá là công cụ tốt nhất hiện nay trong việc kết nối khách hàng và doanh nghiệp. Phần mềm chú trọng vào các nhiệm vụ hỗ trợ doanh nghiệp tăng tập khách hàng tiềm năng và thân thiết, tăng doanh thu và tối ưu chi phí. Đăng ký hôm nay, lợi ích đến ngay!"
+          content="CRM của AI365 là một phần mềm chăm sóc khách hàng tự động, có tính linh hoạt cao, thích hợp ứng dụng vào mọi loại hình doanh nghiệp. Phần mềm thuộc hệ sinh thái gồm 200 phần mềm, đều được AI365 kết nối trên 1 nền tảng duy nhất. Mọi báo cáo khách hàng đều được kiểm soát qua chat365 vô cùng tiện lợi"
         />
-        <meta name="Keywords" content="Phần mềm CRM, phần mềm crm miễn phí" />
+        <meta
+          name="Keywords"
+          content="CRM của AI365 là một phần mềm chăm sóc khách hàng tự động, có tính linh hoạt cao, thích hợp ứng dụng vào mọi loại hình doanh nghiệp. Phần mềm thuộc hệ sinh thái gồm 200 phần mềm, đều được AI365 kết nối trên 1 nền tảng duy nhất. Mọi báo cáo khách hàng đều được kiểm soát qua chat365 vô cùng tiện lợi"
+        />
         <meta property="og:locale" content="vi_VN" />
         <meta property="og:type" content="website" />
         <meta
           property="og:title"
-          content="CRM 365 - đáp án của bài toán tối ưu quy trình, gia tăng lợi nhuận"
+          content="Phần mềm CRM của AI365 – giải pháp tuyệt vời chăm sóc khách hàng tự động"
         />
         <meta
           property="og:description"
-          content="CRM 365 được đánh giá là công cụ tốt nhất hiện nay trong việc kết nối khách hàng và doanh nghiệp. Phần mềm chú trọng vào các nhiệm vụ hỗ trợ doanh nghiệp tăng tập khách hàng tiềm năng và thân thiết, tăng doanh thu và tối ưu chi phí. Đăng ký hôm nay, lợi ích đến ngay!"
+          content="CRM của AI365 là một phần mềm chăm sóc khách hàng tự động, có tính linh hoạt cao, thích hợp ứng dụng vào mọi loại hình doanh nghiệp. Phần mềm thuộc hệ sinh thái gồm 200 phần mềm, đều được AI365 kết nối trên 1 nền tảng duy nhất. Mọi báo cáo khách hàng đều được kiểm soát qua chat365 vô cùng tiện lợi"
         />
         <meta
           property="og:image"
@@ -127,11 +124,11 @@ const CheckMergePotential: React.FC = () => {
         <meta name="twitter:card" content="summary" />
         <meta
           name="twitter:description"
-          content="CRM 365 được đánh giá là công cụ tốt nhất hiện nay trong việc kết nối khách hàng và doanh nghiệp. Phần mềm chú trọng vào các nhiệm vụ hỗ trợ doanh nghiệp tăng tập khách hàng tiềm năng và thân thiết, tăng doanh thu và tối ưu chi phí. Đăng ký hôm nay, lợi ích đến ngay!"
+          content="CRM của AI365 là một phần mềm chăm sóc khách hàng tự động, có tính linh hoạt cao, thích hợp ứng dụng vào mọi loại hình doanh nghiệp. Phần mềm thuộc hệ sinh thái gồm 200 phần mềm, đều được AI365 kết nối trên 1 nền tảng duy nhất. Mọi báo cáo khách hàng đều được kiểm soát qua chat365 vô cùng tiện lợi"
         />
         <meta
           name="twitter:title"
-          content="CRM 365 - đáp án của bài toán tối ưu quy trình, gia tăng lợi nhuận"
+          content="Phần mềm CRM của AI365 – giải pháp tuyệt vời chăm sóc khách hàng tự động"
         />
         <link rel="canonical" href="https://hungha365.com/crm" />
 
@@ -154,13 +151,11 @@ const CheckMergePotential: React.FC = () => {
                     type={type}
                     name="name"
                     value={
-                      newData?.map((item) => item?.name) ||
-                      "Chưa cập nhật"
+                      newData?.map((item) => item?.name) || "Chưa cập nhật"
                     }
                     placeholder="Nhập tên khách hàng"
                     setOptionSelect={setselectOption1}
                     setValue={setInputValue1}
-
                   />
                   <CheckMergeInputGroup
                     type={type}
@@ -186,7 +181,9 @@ const CheckMergePotential: React.FC = () => {
                     setOptionSelect={setselectOption3}
                     setValue={setInputValue3}
                   />
-                  <CheckMergeInputGroup type={type} label="Email cá nhân"
+                  <CheckMergeInputGroup
+                    type={type}
+                    label="Email cá nhân"
                     name="email"
                     value={
                       newData?.map((item) => item?.data?.email) ||
@@ -194,8 +191,10 @@ const CheckMergePotential: React.FC = () => {
                     }
                     placeholder="Nhập email cá nhân"
                     setOptionSelect={setselectOption4}
-                    setValue={setInputValue4} />
-                  <CheckMergeInputGroup type={type}
+                    setValue={setInputValue4}
+                  />
+                  <CheckMergeInputGroup
+                    type={type}
                     label="Email cơ quan"
                     name="email"
                     value={
@@ -204,7 +203,8 @@ const CheckMergePotential: React.FC = () => {
                     }
                     placeholder="Nhập email cơ quan"
                     setOptionSelect={setselectOption5}
-                    setValue={setInputValue5} />
+                    setValue={setInputValue5}
+                  />
                   <div>
                     <button className={styles.btn_serach}>Tìm kiếm</button>
                   </div>

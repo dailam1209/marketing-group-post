@@ -13,7 +13,7 @@ const DropdownChucNangphieuchi = (props: any) => {
           rel="noopener noreferrer"
           href={`/chinh-sua-phieu-chi/${record.myPhone}`}
         >
-          <img src="/crm/icon-edit-black.svg" alt="" />
+          <img src="/crm/icon-edit-black.svg" alt="hungha365.com" />
           &nbsp; &nbsp; <p>Chỉnh sửa</p>
         </Link>
       ),
@@ -25,7 +25,7 @@ const DropdownChucNangphieuchi = (props: any) => {
           style={{ display: "flex", fontSize: 20 }}
           rel="noopener noreferrer"
         >
-          <img src="/crm/icon-delete-black.svg" alt="" />
+          <img src="/crm/icon-delete-black.svg" alt="hungha365.com" />
           &nbsp; &nbsp; <p>Xóa</p>
         </div>
       ),

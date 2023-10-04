@@ -567,7 +567,10 @@ export default function Footer() {
                   <div className={styles.left_bottom_left}>
                     <div className={styles.left_bottom_left_item}>
                       <a href="https://dev.timviec365.vn/gioi-thieu-chung.html">
-                        <img src="/crm/arrow_right_fill.png" alt="" />
+                        <img
+                          src="/crm/arrow_right_fill.png"
+                          alt="hungha365.com"
+                        />
                         <span className={styles.custom_span}>
                           Giới thiệu chung
                         </span>
@@ -575,7 +578,10 @@ export default function Footer() {
                     </div>
                     <div className={styles.left_bottom_left_item}>
                       <a href="https://dev.timviec365.vn/thong-tin-can-biet.html">
-                        <img src="/crm/arrow_right_fill.png" alt="" />
+                        <img
+                          src="/crm/arrow_right_fill.png"
+                          alt="hungha365.com"
+                        />
                         <span className={styles.custom_span}>
                           Thông tin cần biết
                         </span>
@@ -583,7 +589,10 @@ export default function Footer() {
                     </div>
                     <div className={styles.left_bottom_left_item}>
                       <a href="https://dev.timviec365.vn/thoa-thuan-su-dung.html">
-                        <img src="/crm/arrow_right_fill.png" alt="" />
+                        <img
+                          src="/crm/arrow_right_fill.png"
+                          alt="hungha365.com"
+                        />
                         <span className={styles.custom_span}>
                           Thỏa thuận sử dụng
                         </span>
@@ -591,7 +600,10 @@ export default function Footer() {
                     </div>
                     <div className={styles.left_bottom_left_item}>
                       <a href="https://dev.timviec365.vn/so-do-trang-web.html">
-                        <img src="/crm/arrow_right_fill.png" alt="" />
+                        <img
+                          src="/crm/arrow_right_fill.png"
+                          alt="hungha365.com"
+                        />
                         <span className={styles.custom_span}>
                           Sơ đồ website
                         </span>
@@ -602,7 +614,10 @@ export default function Footer() {
                   <div className={styles.left_bottom_right}>
                     <div className={styles.left_bottom_right_item}>
                       <a href="https://dev.timviec365.vn/quy-dinh-bao-mat.html">
-                        <img src="/crm/arrow_right_fill.png" alt="" />
+                        <img
+                          src="/crm/arrow_right_fill.png"
+                          alt="hungha365.com"
+                        />
                         <span className={styles.custom_span}>
                           Quy định bảo mật
                         </span>
@@ -610,7 +625,10 @@ export default function Footer() {
                     </div>
                     <div className={styles.left_bottom_right_item}>
                       <a href="https://dev.timviec365.vn/giai-quyet-tranh-chap.html">
-                        <img src="/crm/arrow_right_fill.png" alt="" />
+                        <img
+                          src="/crm/arrow_right_fill.png"
+                          alt="hungha365.com"
+                        />
                         <span className={styles.custom_span}>
                           Quy trình giải quyết tranh chấp
                         </span>
@@ -620,14 +638,14 @@ export default function Footer() {
                       <a href="http://online.gov.vn/Home/WebDetails/35979?AspxAutoDetectCookieSupport=1">
                         <img
                           src="/crm/icon_bct.png"
-                          alt=""
+                          alt="hungha365.com"
                           className={styles.icon_left}
                         />
                       </a>
                       <a href="https://www.dmca.com/Protection/Status.aspx?ID=5b1070f1-e6fb-4ba4-8283-84c7da8f8398&cdnrdr=1&refurl=https://www.hungha365.com/">
                         <img
                           src="/crm/icon_protected.png"
-                          alt=""
+                          alt="hungha365.com"
                           className={styles.icon_right}
                         />
                       </a>
@@ -637,14 +655,14 @@ export default function Footer() {
               </div>
               <div className={styles.right}>
                 <span>Tải APP Chat 365 tại đây</span>
-                <img src="/crm/qr_footer.png" alt="" />
+                <img src="/crm/qr_footer.png" alt="hungha365.com" />
               </div>
             </div>
             <div className={styles.app_mb}>
               <span>Tải APP Chat 365 tại đây</span>
               <div className={styles.icon_app}>
-                <img src="/crm/app_store.png" alt="" />
-                <img src="/crm/gg_play.png" alt="" />
+                <img src="/crm/app_store.png" alt="hungha365.com" />
+                <img src="/crm/gg_play.png" alt="hungha365.com" />
               </div>
             </div>
           </div>

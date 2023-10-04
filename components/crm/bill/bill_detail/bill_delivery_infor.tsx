@@ -139,7 +139,7 @@ export default function AddBillDeliverylInfo() {
                       width={26}
                       height={26}
                       src="/crm/user_kh.png"
-                      alt=""
+                      alt="hungha365.com"
                     />
                   </div>
                   &nbsp;Nguyễn Văn Nam
@@ -176,7 +176,7 @@ export default function AddBillDeliverylInfo() {
                       width={26}
                       height={26}
                       src="/crm/user_kh.png"
-                      alt=""
+                      alt="hungha365.com"
                     />
                   </div>
                   &nbsp;Nguyễn Văn Nam

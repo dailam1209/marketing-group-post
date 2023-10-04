@@ -26,7 +26,7 @@ export default function FooterAddEmail({
           width="14"
           height="14"
           src="/crm/icon_send.svg"
-          alt=""
+          alt="hungha365.com"
           style={{ marginRight: "8px", verticalAlign: "middle" }}
         />
         Gửi

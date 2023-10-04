@@ -56,7 +56,10 @@ const TabComponent = () => {
                         style={{ display: "flex" }}
                       >
                         <div>
-                          <img src="/crm/change_quote.svg" alt="" />
+                          <img
+                            src="/crm/change_quote.svg"
+                            alt="hungha365.com"
+                          />
                         </div>
                         <div>Đổi mẫu</div>
                       </Link>
@@ -119,7 +122,7 @@ const TabComponent = () => {
                           <img
                             className={styles.img__search}
                             src="/crm/search.svg"
-                            alt=""
+                            alt="hungha365.com"
                           />
                         </button>
                       </form>
@@ -191,7 +194,7 @@ const TabComponent = () => {
                           <img
                             className={styles.img__search}
                             src="/crm/search.svg"
-                            alt=""
+                            alt="hungha365.com"
                           />
                         </button>
                       </form>
@@ -238,7 +241,7 @@ const TabComponent = () => {
                           <img
                             className={styles.img__search}
                             src="/crm/search.svg"
-                            alt=""
+                            alt="hungha365.com"
                           />
                         </button>
                       </form>
@@ -285,7 +288,7 @@ const TabComponent = () => {
                           <img
                             className={styles.img__search}
                             src="/crm/search.svg"
-                            alt=""
+                            alt="hungha365.com"
                           />
                         </button>
                       </form>

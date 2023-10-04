@@ -13,7 +13,7 @@ const Options1 = (props: any) => {
     const newCheckboxes = [...checkboxes, checkboxes.length];
     setCheckboxes(newCheckboxes);
   };
-  
+
   return (
     <fieldset className={styles.left_option1}>
       <div>
@@ -59,7 +59,7 @@ const Options1 = (props: any) => {
                 onClick={() => handleDleteOP1()}
                 style={{ paddingLeft: 20 }}
                 src="/crm/delete.svg"
-                alt=""
+                alt="hungha365.com"
               />
             </div>
             <div>

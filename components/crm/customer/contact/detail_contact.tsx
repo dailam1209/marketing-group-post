@@ -82,7 +82,7 @@ const DetailInformationContact: React.FC<PropsDetail> = ({ id1, id2 }) => {
                         <div id="upload">
                           <img
                             src="/assets/img/crm/customer/upload_logo.png"
-                            alt=""
+                            alt="hungha365.com"
                             className={styles["show_avatar"]}
                           />
                           <input

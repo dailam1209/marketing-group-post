@@ -45,7 +45,7 @@ export default function EmailFormInputGroup({ isSelectedRow }: any) {
                 height={14}
                 className={styles.img__search}
                 src="/crm/search.svg"
-                alt=""
+                alt="hungha365.com"
               />
             </button>
           </form>

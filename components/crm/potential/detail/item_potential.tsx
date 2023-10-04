@@ -5,10 +5,10 @@ import { CheckSquareOutlined } from "@ant-design/icons";
 import ShowProductPO from "../mdal_action/mdal_show_product";
 import { useState } from "react";
 export default function ItemPotential() {
-  const [isModalCancelPO,setIsShowMdalCanCel]=useState(false)
-  const onClose = () =>{
-    setIsShowMdalCanCel(false)
-  }
+  const [isModalCancelPO, setIsShowMdalCanCel] = useState(false);
+  const onClose = () => {
+    setIsShowMdalCanCel(false);
+  };
   return (
     <div>
       <div className={style.selectbox}>
@@ -28,22 +28,22 @@ export default function ItemPotential() {
               <img
                 className={style.img__search}
                 src="/crm/search.svg"
-                alt=""
+                alt="hungha365.com"
               />
             </button>
           </form>
         </div>
-        <button onClick={()=>setIsShowMdalCanCel(true)} className={style.choose_button}>
+        <button
+          onClick={() => setIsShowMdalCanCel(true)}
+          className={style.choose_button}
+        >
           <CheckSquareOutlined /> Chọn vào
         </button>
       </div>
       <div>
         <TablePotentialItem />
       </div>
-      <ShowProductPO
-      isModalCancelPO={isModalCancelPO}
-      onClose={onClose}
-      />
+      <ShowProductPO isModalCancelPO={isModalCancelPO} onClose={onClose} />
     </div>
   );
 }

@@ -26,7 +26,11 @@ const columns: ColumnsType<DataType> = [
     width: 80,
     dataIndex: "name",
     key: "name",
-    render:(text:any)=><Link href={"/order/detail"} ><b>{text}</b></Link>
+    render: (text: any) => (
+      <Link href={"/order/detail"}>
+        <b>{text}</b>
+      </Link>
+    ),
   },
 
   {
@@ -41,14 +45,21 @@ const columns: ColumnsType<DataType> = [
     dataIndex: "date",
     key: "date",
     width: 60,
-    
   },
   {
     title: "Nhân viên thực hiện",
     dataIndex: "personnel",
     key: "personnel",
     width: 100,
-    render: (text: any) => <div style={{ display: "flex", justifyContent: 'center' }}> <div><img src="/crm/user_kh.png" alt="" /></div>&nbsp;{text}</div>
+    render: (text: any) => (
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        {" "}
+        <div>
+          <img src="/crm/user_kh.png" alt="hungha365.com" />
+        </div>
+        &nbsp;{text}
+      </div>
+    ),
   },
   {
     title: "Chức năng",
@@ -56,9 +67,7 @@ const columns: ColumnsType<DataType> = [
     key: "11",
     width: 30,
     fixed: "right",
-    render: () => 
-      <OrderActionTable/>
- 
+    render: () => <OrderActionTable />,
   },
 ];
 
@@ -67,15 +76,17 @@ for (let i = 0; i < 100; i++) {
   data.push({
     key: i,
     name: `Lịch hẹn - Nguyễn Thị Hòa`,
-    status: 'Chờ thực hiện',
-    date: '09/03/2022',
-    personnel: 'Nguyễn Văn Hùng',
+    status: "Chờ thực hiện",
+    date: "09/03/2022",
+    personnel: "Nguyễn Văn Hùng",
   });
 }
 
 interface TableDataCampaignAppointmentProps {}
 
-const TableDataCampaignAppointment: React.FC<TableDataCampaignAppointmentProps> = () => {
+const TableDataCampaignAppointment: React.FC<
+  TableDataCampaignAppointmentProps
+> = () => {
   return (
     <div className="custom_table campaign_tble">
       <Table

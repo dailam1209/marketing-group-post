@@ -45,7 +45,7 @@ const HeaderHomePage: React.FC = () => {
               sizes="100vw"
               className={styles.img_icon}
               src={"/crm/hunghalogo.png"}
-              alt=""
+              alt="hungha365.com"
             />
           </div>
         </div>

@@ -19,7 +19,7 @@ export default function CustomerInforEngineInput({ id }: any) {
               <img
                 className={styles.img__search}
                 src="/crm/search.svg"
-                alt=""
+                alt="hungha365.com"
               />
             </button>
           </form>
@@ -30,7 +30,7 @@ export default function CustomerInforEngineInput({ id }: any) {
               type="button"
               className={`${styles.dropbtn_add} flex_align_center`}
             >
-              <img src="/crm/add.svg" />
+              <img src="/crm/add.svg" alt="hungha365" />
               Thêm mới
             </button>
           </Link>

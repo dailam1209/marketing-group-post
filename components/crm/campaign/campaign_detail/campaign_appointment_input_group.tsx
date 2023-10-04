@@ -68,7 +68,7 @@ export default function CampaignAppointmentInputGroups({ isSelectedRow }: any) {
               <Image
                 className={styles.img__search}
                 src="/crm/search.svg"
-                alt=""
+                alt="hungha365.com"
                 width={15}
                 height={15}
               />
@@ -84,7 +84,12 @@ export default function CampaignAppointmentInputGroups({ isSelectedRow }: any) {
               }}
               className={`${styles.dropbtn_add} flex_align_center`}
             >
-              <Image src="/crm/add.svg" alt="" width={15} height={15} />
+              <Image
+                src="/crm/add.svg"
+                alt="hungha365.com"
+                width={15}
+                height={15}
+              />
               Thêm mới
             </button>
           </div>

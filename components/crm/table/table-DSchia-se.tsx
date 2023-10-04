@@ -15,8 +15,7 @@ const TableTLChiaSe: React.FC<TableDataTLCS> = (props: any) => {
   const onClose = () => {
     setIsCancelOpen(false);
   };
-  const handleAddDB = () => {
-  };
+  const handleAddDB = () => {};
   interface DataType {
     key: React.Key;
     number: string;
@@ -92,7 +91,7 @@ const TableTLChiaSe: React.FC<TableDataTLCS> = (props: any) => {
             style={{ display: "flex", gap: 3, color: "red", border: "none " }}
           >
             <div>
-              <img src="/crm/del_red.svg" alt="" />
+              <img src="/crm/del_red.svg" alt="hungha365.com" />
             </div>
             <div>Gỡ bỏ</div>
           </Button>

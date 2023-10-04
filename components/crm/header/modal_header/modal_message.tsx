@@ -18,7 +18,7 @@ export default function MessageModal({ isOpen, closeModal }: any) {
 
       <div className={style.search_on_chat}>
         <input type="text" className={style.input_search} />
-        <img className="img_search" src="/crm/search.svg" alt="" />
+        <img className="img_search" src="/crm/search.svg" alt="hungha365.com" />
       </div>
 
       <div className={style.title_content}>Trò chuyện gần đây</div>

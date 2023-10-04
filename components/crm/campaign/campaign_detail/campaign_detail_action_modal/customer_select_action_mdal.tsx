@@ -60,7 +60,7 @@ const CancelModal: React.FC<MyComponentProps> = ({
                 <img
                   className={styles.img__search}
                   src="/crm/search.svg"
-                  alt=""
+                  alt="hungha365.com"
                 />
               </button>
             </form>
@@ -72,7 +72,7 @@ const CancelModal: React.FC<MyComponentProps> = ({
               // onClick={() => setIsOpenAddNewOpen(true)}
               className={`${styles.dropbtn_add} flex_align_center`}
             >
-              <img src="/crm/add.svg" />
+              <img src="/crm/add.svg" alt="hungha365" />
               Thêm mới
             </button>
             {/* </Link> */}

@@ -110,7 +110,7 @@ const ChanceActionDropDown: React.FC<Myprops> = ({ data }: any) => {
             className="custom_dropdown_product "
           >
             <button className="action_table">
-              <img src="/crm/3_cham.png" />
+              <img src="/crm/3_cham.png" alt="hungha365" />
               Thao tác
             </button>
           </Dropdown>

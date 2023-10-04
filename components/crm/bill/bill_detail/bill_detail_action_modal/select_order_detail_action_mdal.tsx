@@ -74,7 +74,7 @@ const CancelModal: React.FC<MyComponentProps> = ({
                   height={20}
                   className={styles.img__search}
                   src="/crm/search.svg"
-                  alt=""
+                  alt="hungha365.com"
                 />
               </button>
             </form>

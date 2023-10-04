@@ -6,8 +6,7 @@ import styles from "./add_promotion.module.css";
 import InputText from "./input_text";
 
 export default function AddGeneralInfo() {
-  const onChange = (time: Dayjs, timeString: string) => {
-  };
+  const onChange = (time: Dayjs, timeString: string) => {};
 
   return (
     <div>
@@ -135,7 +134,7 @@ export default function AddGeneralInfo() {
           </table>
         </div>
         <button type="button" className={styles.add_product}>
-          <img src="/crm/add_blue.svg" alt="" />
+          <img src="/crm/add_blue.svg" alt="hungha365.com" />
           Thêm hàng hoá
         </button>
       </div>

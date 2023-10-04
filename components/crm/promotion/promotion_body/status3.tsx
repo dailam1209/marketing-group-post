@@ -13,7 +13,7 @@ const Status3 = () => {
             Thiết lập các chương trình khuyến mại để thu hút khách hàng của bạn
             ngay nhé!{" "}
           </p>
-          <img src="/crm/rafiki.png" alt="" />
+          <img src="/crm/rafiki.png" alt="hungha365.com" />
 
           <Link href="add">
             <button

@@ -38,7 +38,7 @@ const Table_San_Pham = (props: any) => {
           rel="noopener noreferrer"
           // onClick={() => { setIsShowModalChange(true), }}
         >
-          <img src="/crm/icon-edit-black.svg" alt="" />
+          <img src="/crm/icon-edit-black.svg" alt="hungha365.com" />
           &nbsp; &nbsp; <p>Chỉnh sửa</p>
         </Link>
       ),
@@ -51,7 +51,7 @@ const Table_San_Pham = (props: any) => {
           rel="noopener noreferrer"
           // onClick={() => { setIsShowModal(true) }}
         >
-          <img src="/crm/icon-delete-black.svg" alt="" />
+          <img src="/crm/icon-delete-black.svg" alt="hungha365.com" />
           &nbsp; &nbsp; <p>Xóa</p>
         </div>
       ),

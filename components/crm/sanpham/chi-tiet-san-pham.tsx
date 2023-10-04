@@ -127,7 +127,12 @@ export default function ChiTietSanPham() {
           </fieldset>
         </div>
         <div className={styleindex.fieldsetneright}>
-          <img width={"100%"} src={"/crm/img_file.svg"} alt="" id="img2" />
+          <img
+            width={"100%"}
+            src={"/crm/img_file.svg"}
+            alt="hungha365.com"
+            id="img2"
+          />
         </div>
       </div>
     </div>

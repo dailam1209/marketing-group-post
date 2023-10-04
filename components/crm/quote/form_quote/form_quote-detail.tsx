@@ -21,7 +21,7 @@ const Form_quote_detail = (props: Props) => {
           textAlign: "center",
         }}
         src={`/crm/mau_bg${path == "ĐH-0000" ? 1 : path}.svg`}
-        alt=""
+        alt="hungha365.com"
       />
     </div>
   );
