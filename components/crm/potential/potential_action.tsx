@@ -27,7 +27,7 @@ export default function PotentialAction({
   const [isHandOverOpen, setIsHandOverOpen] = useState(false);
   const router = useRouter();
 
-  const id = router.query;
+  const ids = "123";
 
   const [dataActionPotential, setDataActionPotential] = useState([
     {
@@ -67,7 +67,7 @@ export default function PotentialAction({
       type: "hand_over",
     },
     {
-      link: `/potential/duplicate/${id}`,
+      link: `/potential/duplicate/${ids}`,
       name: "Nhân bản",
       img: `bi bi-back`,
       type: "blank",
@@ -91,7 +91,7 @@ export default function PotentialAction({
       type: "convert",
     },
     {
-      link: `/potential/update/${id}`,
+      link: `/potential/update/${ids}`,
       name: "Chỉnh sửa",
       img: "bi bi-pencil-square",
       type: "edit",

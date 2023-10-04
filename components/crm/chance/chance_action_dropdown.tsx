@@ -4,10 +4,8 @@ import { Dropdown, Space } from "antd";
 import Image from "next/image";
 import Link from "next/link";
 import DelActionModalProductReturn from "@/components/crm/product_return/product_return_modal/product_return_del_mdal";
-import ProductReturnCancelModal from "@/components/crm/product_return/product_return_modal/product_return_cancel_mdal";
 import ProductReturnDeclineModal from "@/components/crm/product_return/product_return_modal/product_decline_action_mdal";
 import CancelModal from "@/components/crm/potential/potential_steps/cancel_modal";
-import { useRouter } from "next/router";
 import HandeOverModal from "@/components/crm/potential/potential_action_modal/hand_over_mdal";
 import SharingCustomerModal from "./chance_share_action_mdal";
 
@@ -16,8 +14,6 @@ interface Myprops {
 }
 
 const ChanceActionDropDown: React.FC<Myprops> = ({ data }: any) => {
-  const router = useRouter();
-  const { id } = router.query;
   const [isOpenModalCheck, setIsOpenModalCheck] = useState(false);
   const [isOpenModalDecline, setIsOpenModalDecline] = useState(false);
   const [isOpenModalUpdateStatus, setIsOpenModalUpdateStatus] = useState(false);
@@ -82,7 +78,7 @@ const ChanceActionDropDown: React.FC<Myprops> = ({ data }: any) => {
     {
       key: "5",
       label: (
-        <Link href={`/chance/edit/${data.person}`}>
+        <Link href={`/chance/edit/${data.key}`}>
           <button className="btn-huy flex-start">
             <Image width={16} height={16} src="/crm/edit.svg" alt="check" />
             Chỉnh sửa
@@ -123,7 +119,9 @@ const ChanceActionDropDown: React.FC<Myprops> = ({ data }: any) => {
 
       <HandeOverModal
         isModalCancel={isOpenModalUpdateStatus}
-        setIsModalCancel={setIsOpenModalUpdateStatus} listNV={undefined}      />
+        setIsModalCancel={setIsOpenModalUpdateStatus}
+        listNV={undefined}
+      />
 
       <SharingCustomerModal
         isModalCancel={isOpenModalCancel}

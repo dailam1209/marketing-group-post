@@ -26,8 +26,8 @@ const columns: ColumnsType<DataType> = [
     width: 100,
     dataIndex: "filename",
     key: "0",
-    render: (data) => (
-      <Link href={`/product_return/detail/${data}`}>
+    render: (data, record) => (
+      <Link href={`/product_return/detail/${record.key}`}>
         <span>{data}</span>
       </Link>
     ),
