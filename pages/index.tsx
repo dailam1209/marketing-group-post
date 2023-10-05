@@ -48,7 +48,7 @@ const HomePageLogin: React.FC = () => {
                 />
                 <meta
                     property="og:image"
-                    content="https://hungha365.com/img/logo_hh.png"
+                    content="https://hungha365.com/img/HH365.svg"
                 />
 
                 <meta name="twitter:card" content="summary" />
