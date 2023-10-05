@@ -48,7 +48,7 @@ const HomePageLogin: React.FC = () => {
                 />
                 <meta
                     property="og:image"
-                    content="https://timviec365.vn/favicon.ico"
+                    content="https://hungha365.com/img/logo_hh.png"
                 />
 
                 <meta name="twitter:card" content="summary" />
