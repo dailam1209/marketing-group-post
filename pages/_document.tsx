@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 
 export default function Document() {
   return (
-    <Html lang="en">
+    <Html lang="vi">
       <Head />
       <body>
         <Main />
