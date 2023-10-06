@@ -22,7 +22,7 @@ const HomePageLogin: React.FC = () => {
                 <meta name="robots" content="index,follow" />
                 <link
                     rel="icon"
-                    href="https://timviec365.vn/favicon.ico"
+                    href="https://hungha365.com/favicon/HH365.ico"
                     sizes="any"
                 />
                 <meta
