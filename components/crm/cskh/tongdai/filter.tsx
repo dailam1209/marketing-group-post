@@ -4,48 +4,37 @@ import styles from "./tongdai.module.css";
 import { NodeIndexOutlined } from "@ant-design/icons";
 import Image from "next/image";
 
-const App: React.FC = (props?: any) => {
-  const {
-    datatable,
-    isModalOpen,
-    setIsModalOpen,
-    fillStart,
-    setFillStart,
-    fillEnd,
-    setFillEnd,
-    handleGet,
-  } = props;
+const App: React.FC = (props?:any) => {
+const {datatable,isModalOpen,setIsModalOpen,fillStart,setFillStart,fillEnd,setFillEnd,handleGet} = props
   const showModal = () => {
     setIsModalOpen(true);
   };
 
   const handleOk = () => {
     setIsModalOpen(false);
-    handleGet();
+    handleGet()
   };
 
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-  const handleDateChange = (e: any) => {
-    setFillStart(`${e.target.value} 00:00:00`);
-  };
-  const handleDateChange2 = (e: any) => {
-    setFillEnd(`${e.target.value} 23:59:59`);
-  };
-  const uniqueCounts = Array.from(
-    new Set(datatable?.map((item) => item.caller))
-  ); // Lọc giá trị duy nhất
+const handleDateChange = (e:any)=>{
+  setFillStart(`${e.target.value} 00:00:00`)
+}
+const handleDateChange2 = (e:any)=>{
+  setFillEnd(`${e.target.value} 23:59:59`)
+}
+const uniqueCounts = Array.from(new Set(datatable?.map(item => item.caller))); // Lọc giá trị duy nhất
 
   return (
     <>
       <button className={styles.filter} onClick={showModal}>
-        <Image
-          width={23}
-          height={23}
-          src={"filter_alt.svg"}
-          alt="hungha365.com"
-        />
+      <Image
+            width={23}
+            height={23}
+            src={"filter_alt.svg"}
+            alt=""
+            />
         <p>Bộ lọc</p>
       </button>
       <Modal
@@ -58,18 +47,11 @@ const App: React.FC = (props?: any) => {
       >
         <div className={styles.containerfillter}>
           <div className={styles.item1}>
-            <div style={{ width: 120 }}>Thời gian</div>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                paddingRight: 10,
-                gap: 10,
-              }}
-            >
+            <div style={{width:120}}>Thời gian</div>
+            <div style={{ display: "flex", alignItems: "center",paddingRight:10, gap: 10 }}>
               <div>Từ</div>
               <div>
-                <Input onChange={handleDateChange} type="date"></Input>
+                <Input onChange={handleDateChange}  type="date"></Input>
               </div>
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
@@ -80,46 +62,41 @@ const App: React.FC = (props?: any) => {
             </div>
           </div>
           <div className={styles.item1}>
-            <div style={{ width: 128 }}>Nhân viên</div>
+            <div style={{width:128}}>Nhân viên</div>
             <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-              <div style={{ width: "100%" }}>
-                <Select style={{ width: 145 }} placeholder="Chọn nhân viên">
-                  {uniqueCounts.map((count: any, index: number) => {
-                    return (
-                      <option key={index} value={count}>
-                        {count}
-                      </option>
-                    );
-                  })}
+              
+              <div style={{width:"100%"}}>
+                
+                <Select style={{width:145}} placeholder="Chọn nhân viên">
+                {uniqueCounts.map((count:any,index:number) => {
+                  return (
+                    <option key={index} value={count}>{count}</option>
+                  )
+                })}
                 </Select>
               </div>
             </div>
+
           </div>
           <div className={styles.item1}>
-            <div style={{ width: 128 }}>Số người nghe</div>
+            <div style={{width:128}}>Số người nghe</div>
             <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-              <div style={{ width: 145 }}>
+              
+            <div style={{width:145}}>
                 <Input type="text"></Input>
               </div>
             </div>
+
           </div>
           <div className={styles.footerBTN}>
-            <div style={{ color: "#4c5bd4" }}>
-              <Button
-                onClick={handleCancel}
-                style={{ color: "#4c5bd4", border: "1px solid #4c5bd4" }}
-              >
-                {" "}
-                Hủy
-              </Button>
+            <div style={{color:"#4c5bd4"}}>
+      <Button onClick={handleCancel} style={{color:"#4c5bd4",border:"1px solid #4c5bd4"}}> Hủy</Button>
             </div>
             <div>
-              <Button
-                style={{ color: "#fff", background: "#4c5bd4" }}
-                onClick={handleGet}
-              >
-                Tìm kiếm
-              </Button>
+            <Button style={{color:"#fff",background:"#4c5bd4"}} onClick={handleGet}>
+              Tìm kiếm
+            </Button>
+
             </div>
           </div>
         </div>

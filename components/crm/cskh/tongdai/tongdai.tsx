@@ -2,6 +2,7 @@ import { Button, Table } from "antd";
 import React, { useContext, useEffect, useState } from "react";
 import styles from "./tongdai.module.css";
 import Link from "next/link";
+import Cookies from 'js-cookie';
 import ModalConnect from "../modal/modal-connect";
 import PaginationCSKH from "./pagination";
 import cskh from "../csks.module.css";
@@ -18,17 +19,19 @@ import { useRouter } from "next/router";
 type Props = {};
 
 const TongDaiPage = (props: Props) => {
+  const token = Cookies.get("token_base365")
   const [isShowModal, setIsShowModal] = useState(false);
   const [isShowModalAdd, setIsShowModalAdd] = useState(false);
   const { isConnected } = useContext<any>(CallContext);
   const [listData, setListData] = useState([]);
+  const [data, setData] = useState([]);
   const show = useSelector((state: any) => state?.auth?.account);
   const [current, setcurrent] = useState(1);
   const [pageSize, setpageSize] = useState(10);
   const [showKetNoi, setShowKetNoi] = useState(false);
   const [soNghe, setSoNghe] = useState();
   const [nv, setnv] = useState();
-  const [token, setToken] = useState();
+
   const onClose = () => {
     setIsShowModalAdd(false);
     setIsShowModal(false);
@@ -60,53 +63,21 @@ const TongDaiPage = (props: Props) => {
     }
     return acc;
   }, 0);
-  //gettime start
-  const getCurrentFormattedDate = () => {
-    const currentDate = new Date();
-
-    const year = currentDate.getFullYear();
-    const month = String(currentDate.getMonth() + 1).padStart(2, "0");
-    const day = String(currentDate.getDate()).padStart(2, "0");
-    const hours = "00";
-    const minutes = "00";
-    const seconds = "00";
-
-    const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-    return formattedDate;
-  };
-
-  const getEndOfDayFormattedDate = () => {
-    const currentDate = new Date();
-
-    const year = currentDate.getFullYear();
-    const month = String(currentDate.getMonth() + 1).padStart(2, "0");
-    const day = String(currentDate.getDate()).padStart(2, "0");
-    const hours = "23";
-    const minutes = "59";
-    const seconds = "59";
-
-    const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-    return formattedDate;
-  };
   const dispatch = useDispatch();
-  const start_T = getCurrentFormattedDate();
-  const end_T = getEndOfDayFormattedDate();
   const [fillStart, setFillStart] = useState<any>();
   const [fillEnd, setFillEnd] = useState<any>();
-  const [query, setQuery] = useState(
-    `https://s02.oncall.vn:8900/api/call_logs/list?pagesize=10000&start_time=${start_T} &end_time=${end_T}`
-  );
+  const [condition, setCondition] = useState(JSON.stringify({ token }));
 
   const handleGet = async () => {
     setListData([]);
     if (soNghe) {
-      let dataFill = listData.filter((item) => item.callee === soNghe);
+      let dataFill = data.filter((item) => item.callee === soNghe);
       setListData(dataFill);
       setIsModalOpen(false);
       return;
     }
     if (nv) {
-      let dataFill = listData.filter((item) => +item.caller === nv);
+      let dataFill = data.filter((item) => +item.caller === nv);
       setListData(dataFill);
       setIsModalOpen(false);
       return;
@@ -114,25 +85,27 @@ const TongDaiPage = (props: Props) => {
 
     setIsModalOpen(false);
     if (fillEnd && fillStart) {
-      setQuery(
-        `https://s02.oncall.vn:8900/api/call_logs/list?pagesize=10000&start_time=${fillStart} &end_time=${fillEnd}`
-      );
+      setCondition(JSON.stringify({
+        timeStart: fillStart,
+        timeEnd: fillEnd,
+        token
+      }))
     }
     try {
-      const response = await fetch(`${query}`, {
-        method: "GET",
+      const response = await fetch(`http://43.239.223.185:9000/api/getStorage`, {
+        method: "POST",
         headers: {
-          access_token: show,
-          // "Content-Type":"S"
+          'Content-Type': 'application/json'
         },
-      });
+        body: condition
+      })
       const data = await response.json();
-
-      if (data && data.items) {
-        setListData(data?.items);
+      if (data && data.data && data.data.storage) {
+        setListData(data.data.storage);
+        setData(data.data.storage);
       }
       return data;
-    } catch (error) {}
+    } catch (error) { }
   };
   const router = useRouter();
   useEffect(() => {
@@ -140,27 +113,7 @@ const TongDaiPage = (props: Props) => {
       setShowKetNoi(true);
     }
     handleGet();
-  }, [query, show]);
-  useEffect(() => {
-    const handleget = async () => {
-      if (show) {
-        const res = await fetch(
-          "https://s02.oncall.vn:8900/api/account/credentials/verify",
-          {
-            method: "POST",
-            body: JSON.stringify({
-              name: "HNCX00693",
-              password: "v2ohO6B1Nf4F",
-              domain: "hncx00693.oncall",
-            }),
-          }
-        );
-        const data = await res.json();
-        dispatch(dataSaveTD(data.access_token));
-      }
-    };
-    handleget();
-  }, []);
+  }, [condition]);
 
   const Colums = [
     {
@@ -204,16 +157,6 @@ const TongDaiPage = (props: Props) => {
       dataIndex: "status",
     },
   ];
-  const customLocale = {
-    emptyText: (
-      <div
-        key={"empty"}
-        style={{ fontWeight: 400, color: "black", fontSize: 15 }}
-      >
-        {showKetNoi ? " Đang phân tích kết quả ..." : ""}
-      </div>
-    ), // Thay thế nội dung "No Data" bằng "Hello"
-  };
 
   return (
     <div>
@@ -254,11 +197,11 @@ const TongDaiPage = (props: Props) => {
 
           <ul className={styles.cskh_info_call} style={{ fontSize: 16 }}>
             <li>Số cuộc gọi: {listData?.length}</li>
-            <li>Tổng số nghe máy: {count || ""}</li>
+            <li>Tổng số nghe máy: {count || 0}</li>
             <li>Tổng số không trả lời: {listData?.length - count}</li>
-            <li>Tổng thời gian gọi: {totalSum || ""}(s)</li>
+            <li>Tổng thời gian gọi: {totalSum || 0}(s)</li>
             <li>
-              Trung bình: {(totalSum / listData?.length).toFixed(2)}s/ cuộc gọi
+              Trung bình: {count == 0 ? 0 : (totalSum / count).toFixed(2)}s/ cuộc gọi
             </li>
           </ul>
         </div>

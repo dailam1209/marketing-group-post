@@ -21,6 +21,8 @@ const Recording = (props: Props) => {
   const [isShowModal, setIsShowModal] = useState(false);
   const [isShowModalAdd, setIsShowModalAdd] = useState(false);
   const { isConnected } = useContext<any>(CallContext);
+
+  const [listData, setListData] = useState([]);
   const show = useSelector((state: any) => state?.auth?.account);
   const [current, setcurrent] = useState(1);
   const [pageSize, setpageSize] = useState(10);
@@ -58,6 +60,37 @@ const Recording = (props: Props) => {
       setListNV(data?.data?.items);
     } catch (error) { }
   };
+  var outputArray = [];
+
+  listData?.forEach(function (call) {
+    var existingCall = outputArray.find(function (item) {
+      return item.caller === call.caller;
+    });
+
+    var ringDuration = parseInt(call.ring_duration); // Chuyển đổi chuỗi thành số
+
+    if (existingCall) {
+      existingCall.ring_duration += ringDuration;
+      existingCall.countSDT += 1;
+
+      if (call.status === "ANSWERED") {
+        existingCall.countStatus += 1;
+      }
+    } else {
+      var newCall = {
+        caller: call.caller,
+        ring_duration: ringDuration,
+        countSDT: 1,
+        countStatus: 0,
+      };
+
+      if (call.status === "ANSWERED") {
+        newCall.countStatus = 1;
+      }
+
+      outputArray.push(newCall);
+    }
+  });
   const [listLine, setlistLine] = useState([]);
   const [listPB, setlistPB] = useState([]);
   const [isLoading, setisLoading] = useState(false);
@@ -100,6 +133,7 @@ const Recording = (props: Props) => {
       });
       setIsModalOpen(false);
     }
+    setListData([]);
     setIsModalOpen(false);
     if (fillEnd && fillStart) {
       setCondition(JSON.stringify({

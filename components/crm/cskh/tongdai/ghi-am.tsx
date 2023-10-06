@@ -1,5 +1,6 @@
 import { Button, Table } from "antd";
 import React, { useContext, useEffect, useState } from "react";
+import Cookies from 'js-cookie';
 import styles from "./tongdai.module.css";
 import Link from "next/link";
 import ModalConnect from "../modal/modal-connect";
@@ -20,10 +21,12 @@ const GhiAmPage = (props: Props) => {
   const [isShowModalAdd, setIsShowModalAdd] = useState(false);
   const { isConnected } = useContext<any>(CallContext);
   const [listData, setListData] = useState([]);
+  const [dataApi, setDataApi] = useState([]);
   const show = useSelector((state: any) => state?.auth?.account);
   const [current, setcurrent] = useState(1);
   const [pageSize, setpageSize] = useState(10);
   const [showKetNoi, setShowKetNoi] = useState(false);
+  const [condition, setCondition] = useState(JSON.stringify({ state: 'ANSWERED', token: Cookies.get("token_base365") }));
   const onClose = () => {
     setIsShowModalAdd(false);
     setIsShowModal(false);
@@ -78,7 +81,7 @@ const GhiAmPage = (props: Props) => {
 
   interface CallRecord {
     id: string;
-    file_path: string;
+    filepath: string;
     filename: string;
     // Các trường dữ liệu khác của CallRecord
   }
@@ -89,106 +92,57 @@ const GhiAmPage = (props: Props) => {
     }
     return acc;
   }, 0);
-  //gettime start
-  const getCurrentFormattedDate = () => {
-    const currentDate = new Date();
-
-    const year = currentDate.getFullYear();
-    const month = String(currentDate.getMonth() + 1).padStart(2, "0");
-    const day = String(currentDate.getDate()).padStart(2, "0");
-    const hours = "00";
-    const minutes = "00";
-    const seconds = "00";
-
-    const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-    return formattedDate;
-  };
-
-  const getEndOfDayFormattedDate = () => {
-    const currentDate = new Date();
-
-    const year = currentDate.getFullYear();
-    const month = String(currentDate.getMonth() + 1).padStart(2, "0");
-    const day = String(currentDate.getDate()).padStart(2, "0");
-    const hours = "23";
-    const minutes = "59";
-    const seconds = "59";
-
-    const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-    return formattedDate;
-  };
   const dispatch = useDispatch();
-  const start_T = getCurrentFormattedDate();
-  const end_T = getEndOfDayFormattedDate();
   const [fillStart, setFillStart] = useState<any>();
   const [fillEnd, setFillEnd] = useState<any>();
-  const [query, setQuery] = useState(
-    `https://s02.oncall.vn:8900/api/recordfiles/extension/list?pagesize=1000000&start_time=${start_T} &end_time=${end_T}`
-  );
 
   const handleGet = async () => {
-    // setListData([]);
     if (soNghe) {
-      let dataFill = listData.filter((item) => item.callee === soNghe);
+      let dataFill = dataApi.filter((item) => item.callee === soNghe);
       setListData(dataFill);
       setIsModalOpen(false);
       return;
     }
     if (nv) {
-      let dataFill = listData.filter((item) => +item.caller === nv);
+      let dataFill = dataApi.filter((item) => +item.caller === nv);
       setListData(dataFill);
       setIsModalOpen(false);
       return;
     }
     setIsModalOpen(false);
     if (fillEnd && fillStart) {
-      setQuery(
-        `https://s02.oncall.vn:8900/api/recordfiles/extension/list?pagesize=1000000&start_time=${fillStart} &end_time=${fillEnd}`
-      );
+      setCondition(JSON.stringify({
+        state: 'ANSWERED',
+        timeStart: fillStart,
+        timeEnd: fillEnd,
+        token: Cookies.get("token_base365")
+      }))
     }
 
-    const response = await fetch(`${query}`, {
-      method: "GET",
+    const response = await fetch(`http://43.239.223.185:9000/api/getStorage`, {
+      method: "POST",
       headers: {
-        access_token: show,
-        // "Content-Type":"S"
+        'Content-Type': 'application/json'
       },
-    });
+      body: condition
+    })
     const data = await response.json();
-    if (data && data.items) {
-      setListData(data?.items);
+    if (data && data.data && data.data.storage) {
+      setListData(data.data.storage);
+      setDataApi(data.data.storage);
     } else {
       dispatch(doDisConnect(""));
     }
     return data;
   };
-  useEffect(() => {
-    const handleget = async () => {
-      if (show) {
-        const res = await fetch(
-          "https://s02.oncall.vn:8900/api/account/credentials/verify",
-          {
-            method: "POST",
-            body: JSON.stringify({
-              name: "HNCX00693",
-              password: "v2ohO6B1Nf4F",
-              domain: "hncx00693.oncall",
-            }),
-          }
-        );
-        const data = await res.json();
-        dispatch(dataSaveTD(data.access_token));
-      }
-    };
-    handleget();
-  }, []);
 
   useEffect(() => {
     if (show) {
       setShowKetNoi(true);
     }
     handleGet();
-  }, [query, show]);
+  }, [condition]);
+  console.log('tet', datatable)
   const Colums = [
     {
       width: "10%",
@@ -223,16 +177,11 @@ const GhiAmPage = (props: Props) => {
       width: "10%",
       title: "Ghi âm",
       dataIndex: "filepath",
-      // render: (text: any, record: any) => (
-      //   <audio controls>
-      //     <source src={`https://s02.oncall.vn:8883/filedown/${text}?filename=${record.filename}`} type="audio/ogg" />
-      //   </audio>
-      // ),
       render: (text: any, record: CallRecord) => (
         <div className={`${styles.audio_container}`}>
           <audio id={`audio-${record.id}`}>
             <source
-              src={`https://s02.oncall.vn:8883/filedown/${text}?filename=${record.filename}`}
+              src={`${record.filepath}`}
               type="audio/ogg"
             />
           </audio>
@@ -248,12 +197,7 @@ const GhiAmPage = (props: Props) => {
                 )
               }
             >
-              <img
-                src="/crm/ghiam.svg"
-                alt="hungha365.com"
-                width={15}
-                height={15}
-              />
+              <img src="/crm/ghiam.svg" alt="" width={15} height={15} />
             </button>
           </div>
           <div className={`${styles.audio_buttons_pause}`}>
@@ -269,28 +213,13 @@ const GhiAmPage = (props: Props) => {
               }
               style={{ display: "none" }}
             >
-              <img
-                src="/crm/pause.svg"
-                alt="hungha365.com"
-                width={15}
-                height={15}
-              />
+              <img src="/crm/pause.svg" alt="" width={15} height={15} />
             </button>
           </div>
         </div>
       ),
     },
   ];
-  const customLocale = {
-    emptyText: (
-      <div
-        key={"empty"}
-        style={{ fontWeight: 400, color: "black", fontSize: 15 }}
-      >
-        {showKetNoi ? " Đang phân tích kết quả ..." : ""}
-      </div>
-    ), // Thay thế nội dung "No Data" bằng "Hello"
-  };
   return (
     <div>
       {showKetNoi && (
@@ -335,7 +264,7 @@ const GhiAmPage = (props: Props) => {
 
       <div style={{ paddingTop: 20 }}>
         <Table
-          loading={datatable?.length > 0 ? false : true}
+          loading={datatable ? false : true}
           columns={Colums as any}
           dataSource={datatable}
           bordered
