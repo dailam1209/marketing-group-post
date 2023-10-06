@@ -23,7 +23,6 @@ const AddFilesPotential: React.FC = () => {
     setShowBackButton,
     setCurrentPath,
   }: any = useHeader();
-
   useEffect(() => {
     setHeaderTitle("Quản lý đơn hàng/ Chỉnh sửa");
     setShowBackButton(true);

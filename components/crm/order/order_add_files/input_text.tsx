@@ -1,4 +1,4 @@
-import styles from "./add_file_order.module.css";
+import styles from "../order_edit_files/order_edit.module.css";
 
 export default function InputText({
   label,

@@ -17,7 +17,6 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
 
   const { accessAcountRole, setAccessAcountRole }: any =
     useContext(AccessContext);
-  console.log(Cookies);
 
   const handleResize = () => {
     if (typeof window !== "undefined") {
@@ -352,7 +351,6 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
     },
   ];
   const [infoRole, setInfoRole] = useState([]);
-  console.log(infoRole);
 
   const handleGetThongTinQuyen = async () => {
     try {
@@ -371,7 +369,6 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
         }
       );
       const data = await res.json();
-      console.log("data => ", data);
       if (data && data?.data) {
         setInfoRole(data?.data?.roles);
       }

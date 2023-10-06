@@ -1,13 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TableDataOrderAddFiles from "@/components/crm/table/table-order-edit-files";
-import OrderSelectBoxStep from "../order_steps/select_box_step";
 import styles from "./edit_file_order.module.css";
-import InputText from "./input_text";
-import { Input, Tooltip } from "antd";
+import { Input } from "antd";
 import OrderListModal from "../add_order_action_modal/order_list";
 
 export default function AddTable() {
   const [isModalCancel, setIsModalCancel] = useState(false);
+  const [tongTien, setTongTien] = useState<number>(0);
+  const [chietkhau, setChieuKhau] = useState<number>(0);
+
+  const handleChietKhauChange = (e) => {
+    const newValue = e.target.value;
+    setChieuKhau(newValue);
+  };
+  const calculateOrderValue = (tongTien, chietkhau) => {
+    const giaTriDonHang = tongTien - (chietkhau * tongTien) / 100;
+    return giaTriDonHang;
+  };
+
   return (
     <div>
       <p className={styles.main__body__type}>
@@ -26,6 +36,7 @@ export default function AddTable() {
         setSelected={function (value: boolean): void {
           throw new Error("Function not implemented.");
         }}
+        setTongTien={setTongTien}
       />
 
       <div className={styles.row_input}></div>
@@ -34,25 +45,27 @@ export default function AddTable() {
           <label className={`${styles["form-label"]} `}>
             Chiết khấu đơn hàng
           </label>
-          <Input placeholder="0" suffix="%" />
+          <Input
+            value={chietkhau}
+            onChange={handleChietKhauChange}
+            suffix="%"
+          />
         </div>
         <div className={`${styles.width3} ${styles["col-lg-6"]}`}>
           <label className={`${styles["form-label"]}`}>&nbsp;</label>
-          <Input placeholder="0" suffix="VNĐ" />
+          <Input value={tongTien} suffix="VNĐ" />
         </div>
 
         <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
           <label className={`${styles["form-label"]}`}>Giá trị đơn hàng</label>
-          <Input placeholder="0" suffix="VNĐ" disabled />
+          <Input
+            value={calculateOrderValue(tongTien, chietkhau)}
+            suffix="VNĐ"
+            disabled
+          />
         </div>
       </div>
       {
-        // <OrderListModal
-        //   isModalSelect={isModalSelect}
-        //   setIsModalSelect={setIsModalSelect}
-        //   // content={contentCancel}
-        //   // title={titleCancel}
-        // />
         <OrderListModal
           isModalCancel={isModalCancel}
           setIsModalCancel={setIsModalCancel}
