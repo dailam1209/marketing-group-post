@@ -19,13 +19,16 @@ const HomePageLogin: React.FC = () => {
                     content="width=device-width"
                     initial-scale="1"
                 />
-                <meta name="robots" content="noindex,nofollow" />
+                <meta name="robots" content="index,follow" />
                 <link
                     rel="icon"
                     href="https://timviec365.vn/favicon.ico"
                     sizes="any"
                 />
-
+                <meta
+                    name="google-site-verification"
+                    content="q4vBfRDO92RvPdYuA-xEEalSufKbzQiQQYpUBGTOqC4"
+                />
                 <title>
                     Phần mềm CRM của AI365 – giải pháp tuyệt vời chăm sóc khách
                     hàng tự động
@@ -61,7 +64,17 @@ const HomePageLogin: React.FC = () => {
                     content="Phần mềm CRM của AI365 – giải pháp tuyệt vời chăm sóc khách hàng tự động"
                 />
                 <link rel="canonical" href="https://hungha365.com/crm" />
-
+                <script
+                    dangerouslySetInnerHTML={{
+                        __html: `
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KL3KDJW5');
+`,
+                    }}
+                ></script>
                 {/* CSS */}
                 <script
                     async
