@@ -179,6 +179,7 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
                 style={{ cursor: "pointer" }}
               >
                 <img
+            
                   alt="hungha365.com"
                   src={items.img_link}
                   className={style.img_link}
