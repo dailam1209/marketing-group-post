@@ -8,6 +8,8 @@ import OrderListModal from "../add_quote_action_modal/quote_list";
 
 export default function AddTable() {
   const [isModalCancel, setIsModalCancel] = useState(false);
+  const [tongTien, setTongTien] = useState<number>(0);
+
   return (
     <div>
       <p className={styles.main__body__type}>Thông tin hàng hóa</p>
@@ -15,6 +17,7 @@ export default function AddTable() {
         setSelected={function (value: boolean): void {
           throw new Error("Function not implemented.");
         }}
+        setTongTien={setTongTien}
       />
 
       <div className={styles.row_input}></div>
