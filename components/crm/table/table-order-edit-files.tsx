@@ -386,9 +386,8 @@ const TableDataOrderEditFiles: React.FC<TableDataOrderEditFilesDrops> = ({
           type="text"
           className={styles.inputform}
           value={
-            ((Number(thanhTien) - Number(totalTienChietKhau)) *
-              Number(selectedTaxRate)) /
-            100
+            // dataTable?.map((item) => item)
+            ((thanhTien - totalTienChietKhau) * Number(selectedTaxRate)) / 100
           }
         />
       ),
@@ -455,7 +454,7 @@ const TableDataOrderEditFiles: React.FC<TableDataOrderEditFilesDrops> = ({
                     {totalTienChietKhau}
                   </Table.Summary.Cell>
                   <Table.Summary.Cell index={9} colSpan={2}>
-                    {((Number(thanhTien) - Number(totalTienChietKhau)) *
+                    {((thanhTien - totalTienChietKhau) *
                       Number(selectedTaxRate)) /
                       100}
                   </Table.Summary.Cell>
