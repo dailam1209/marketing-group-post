@@ -119,7 +119,7 @@ const GhiAmPage = (props: Props) => {
       }))
     }
 
-    const response = await fetch(`http://43.239.223.185:9000/api/getStorage`, {
+    const response = await fetch(`https://43.239.223.185:9000/api/getStorage`, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
