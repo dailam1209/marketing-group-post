@@ -220,59 +220,67 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
     setdateE(e.target.value);
     settime_e_change(e.target.value + "T" + timeEnd || timeValueEnd);
   };
-console.log("listNV",listNV)
-  const optionTest =
-    role == "2" && [20, 4, 12, 13, 10, 11, 5, 6].includes(posId)
-      ? [
-          { value: null, label: "Tất cả" },
-          ...nv?.map((userName, index) => {
-            return {
-              value: userName?.ep_id,
-              label: `(${userName.ep_id}) ${userName?.ep_name} - ${userName.dep_name}`,
-            };
-          }),
-        ]
-      : role == "1" ||
-        (role == "2" && [7, 8, 14, 16, 22, 21, 18, 19, 17].includes(posId)) // Nếu là công ty hoặc tài khoản nhân viên cấp giám đốc (7, 8, 14, 16, 22,21 ,18,19,17)
-      ? [
-          { value: null, label: "Tất cả" },
-          ...listNV?.map((userName, index) => {
-            return {
-              value: userName?.ep_id,
-              label: `(${userName.ep_id}) ${userName?.ep_name} - ${userName.dep_name}`,
-            };
-          }),
-        ]
-      : [
-          [nameNvNomor]?.map((userName, index) => {
-            return {
-              value: userName?.ep_id,
-              label:
-                `(${userName?._id})` +
-                " " +
-                userName?.userName +
-                " " +
-                userName?.nameDeparment,
-            };
-          }),
-        ];
+  const optionTest = [
+    { value: null, label: "Tất cả" },
+    ...listNV?.map((userName, index) => {
+      return {
+        value: userName?.ep_id,
+        label: `(${userName.ep_id}) ${userName?.ep_name} - ${userName.dep_name}`,
+      };
+    }),
+  ];
+  // const optionTest =
+  //   role == "2" && [20, 4, 12, 13, 10, 11, 5, 6].includes(posId)
+  //     ? [
+  //         { value: null, label: "Tất cả" },
+  //         ...nv?.map((userName, index) => {
+  //           return {
+  //             value: userName?.ep_id,
+  //             label: `(${userName.ep_id}) ${userName?.ep_name} - ${userName.dep_name}`,
+  //           };
+  //         }),
+  //       ]
+  //     : role == "1" ||
+  //       (role == "2" && [7, 8, 14, 16, 22, 21, 18, 19, 17].includes(posId)) // Nếu là công ty hoặc tài khoản nhân viên cấp giám đốc (7, 8, 14, 16, 22,21 ,18,19,17)
+  //     ? [
+  //         { value: null, label: "Tất cả" },
+  //         ...listNV?.map((userName, index) => {
+  //           return {
+  //             value: userName?.ep_id,
+  //             label: `(${userName.ep_id}) ${userName?.ep_name} - ${userName.dep_name}`,
+  //           };
+  //         }),
+  //       ]
+  //     : [
+  //         [nameNvNomor]?.map((userName, index) => {
+  //           return {
+  //             value: userName?.ep_id,
+  //             label:
+  //               `(${userName?._id})` +
+  //               " " +
+  //               userName?.userName +
+  //               " " +
+  //               userName?.nameDeparment,
+  //           };
+  //         }),
+  //       ];
 
-  {
-    role == "2" &&
-      posId == 2 &&
-      [nameNvNomor]?.map((userName, index) => (
-        <option
-          style={{ width: "100%" }}
-          key={index}
-          value={userName?._id as any}
-        >
-          <div style={{ display: "block" }}>
-            ( {`${userName._id}`}) {`${userName?.userName}`} <br /> -
-            {`${userName.nameDeparment}`}
-          </div>
-        </option>
-      ));
-  }
+  // {
+  //   role == "2" &&
+  //     posId == 2 &&
+  //     [nameNvNomor]?.map((userName, index) => (
+  //       <option
+  //         style={{ width: "100%" }}
+  //         key={index}
+  //         value={userName?._id as any}
+  //       >
+  //         <div style={{ display: "block" }}>
+  //           ( {`${userName._id}`}) {`${userName?.userName}`} <br /> -
+  //           {`${userName.nameDeparment}`}
+  //         </div>
+  //       </option>
+  //     ));
+  // }
   const idnhomcha = listGr_Child?.filter(
     (item) => item?.gr_id === Number(idNhom)
   )[0]?.group_parent;
@@ -317,15 +325,17 @@ console.log("listNV",listNV)
     }
     optionCon = defaultArr;
   };
-   const chungSinhBinhDang = (inputString: any) => {
+  const chungSinhBinhDang = (inputString: any) => {
     // Chuyển các ký tự có dấu thành các ký tự không dấu
-    const stringWithoutDiacritics = inputString?.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-  
+    const stringWithoutDiacritics = inputString
+      ?.normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
+
     // Chuyển chuỗi thành chữ thường
-    const lowercaseString = stringWithoutDiacritics?.toLowerCase()
-  
-    return lowercaseString
-  }
+    const lowercaseString = stringWithoutDiacritics?.toLowerCase();
+
+    return lowercaseString;
+  };
   return (
     <>
       <div
@@ -549,7 +559,9 @@ console.log("listNV",listNV)
               showSearch
               options={optionTest}
               filterOption={(input, option: any) =>
-                chungSinhBinhDang(option?.label).includes(chungSinhBinhDang(input))
+                chungSinhBinhDang(option?.label).includes(
+                  chungSinhBinhDang(input)
+                )
               }
               defaultValue={Number(emp_id) ? Number(emp_id) : "Tất cả"}
               suffixIcon={
