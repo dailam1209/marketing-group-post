@@ -81,13 +81,13 @@ const TableStaffCustomerGroupAdd: React.FC<TableStaffCustomerGroupAddProps> = ({
   const columns: ColumnsType<DataType> = [
     {
       title: "Tên nhân viên",
-      dataIndex: "ep_name",
+      dataIndex: "userName",
       key: "1",
       width: 200,
     },
     {
       title: "Phòng ban",
-      dataIndex: "dep_name",
+      dataIndex: "organizeDetailName",
       key: "2",
       width: 150,
     },

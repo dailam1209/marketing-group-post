@@ -18,7 +18,9 @@ import CustomerGroupSelectCpmponent from "@/components/crm/select/group_componen
 import GrFooterAddFiles from "@/components/crm/potential/potential_add_files/gr_customer_footer";
 import Head from "next/head";
 import axios from "axios";
-
+import { getCookie } from "cookies-next";
+import jwt_decode from "jwt-decode";
+import { getToken } from "@/pages/api/api-hr/token";
 interface CustomJwtPayload extends jwt.JwtPayload {
   idQLC: string; // hoặc kiểu dữ liệu thích hợp
 }
@@ -51,10 +53,21 @@ const GroupCustomerAdd: React.FC = () => {
   const [api, contextHolder] = notification.useNotification();
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
+  function getToken(token) {
+    const isToken = Cookies.get(token);
+    return isToken;
+  }
 
   const accessToken = Cookies.get("token_base365");
   const com_id = Cookies.get("com_id");
-
+  const GetComId = () => {
+    const COOKIE_KEY = "token_base365";
+    const currentCookie = getToken(COOKIE_KEY);
+    if (currentCookie) {
+      const decodedToken: any = jwt_decode(currentCookie);
+      return decodedToken?.data?.com_id;
+    }
+  };
   const fetchData = async (url: string, body) => {
     try {
       const res = await fetch(url, {
@@ -96,17 +109,19 @@ const GroupCustomerAdd: React.FC = () => {
 
   const fetchDataDepartment = async (url: string, body) => {
     try {
-      const res = await fetch(url, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${accessToken}`, // Sử dụng Bearer token
-          mode: "no-cors",
-        },
-        body: body, // Chỉ truyền body nếu là phương thức POST
-      });
+      const response = await axios.post(
+        url,
+        { com_id: body.com_id },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${Cookies.get("token_base365")}`,
+          },
+        }
+      );
 
-      const data = await res.json();
-      setDataDepartment(data);
+      const data = await response.data;
+      setDataDepartment(data?.data?.data);
     } catch (err) {
       // console.error(err);
       throw err;
@@ -122,7 +137,7 @@ const GroupCustomerAdd: React.FC = () => {
       });
 
       const data = response.data;
-      setDataEmp(data);
+      setDataEmp(data?.data?.data);
 
       if (response.status !== 200) {
         throw new Error(data.message || "Có lỗi xảy ra khi gọi API");
@@ -202,10 +217,10 @@ const GroupCustomerAdd: React.FC = () => {
       gr_id: Number(id),
     });
     fetchData(`${base_url}/api/crm/group/list_group_khach_hang`, {});
-    fetchDataDepartment(`${base_url}/api/qlc/department/list`, {
-      com_id: com_id,
+    fetchDataDepartment(`${base_url}/api/qlc/organizeDetail/listAll`, {
+      com_id: GetComId(),
     });
-    fetchDataEmp(`${base_url}/api/qlc/managerUser/listAll`, {});
+    fetchDataEmp(`${base_url}/api/qlc/managerUser/listUser`, {});
   }, []);
   const [valueDefault, setvalueDefault] = useState<any>();
   const [change, setchange] = useState(false);
@@ -249,9 +264,7 @@ const GroupCustomerAdd: React.FC = () => {
         if (prevData) {
           return [...prevData, val];
         } else {
-          const newArr = dataDetails?.data?.emp_id
-            ?.split(",")
-            .map((item) => parseInt(item.trim(), 10));
+          const newArr = arr;
           newArr?.push(val);
           return newArr;
         }
@@ -275,11 +288,13 @@ const GroupCustomerAdd: React.FC = () => {
       // });
     }
     // ?.filter((emp) => selectedValueDepartments?.includes(emp.dep_id))
-    const employeeOption = dataEmp?.data?.items
-      ?.filter((emp) => selectedValueDepartments?.includes(emp.dep_id))
+    const employeeOption = dataEmp
+      ?.filter((emp) =>
+        selectedValueDepartments?.includes(emp.organizeDetailId)
+      )
       ?.map((employee) => {
         return {
-          label: employee.ep_name,
+          label: employee.userName,
           value: employee.ep_id,
         };
       });
@@ -287,11 +302,15 @@ const GroupCustomerAdd: React.FC = () => {
   }, [selectedValueDepartments]);
 
   // const dataSelectGroupParent = dataAll?.data;
-  const dataDepartments = dataDepartment?.data?.items;
+  const dataDepartments = dataDepartment;
+  let arr: any = [];
+  dataDepartments?.map((item) => {
+    arr.push(item?.id);
+  });
   const options = dataDepartments?.map((item) => {
     return {
-      label: item?.dep_name,
-      value: item?.dep_id,
+      label: item?.organizeDetailName,
+      value: item?.id,
     };
   });
 
@@ -311,9 +330,7 @@ const GroupCustomerAdd: React.FC = () => {
 
   useEffect(() => {
     setSelectedValueDepartments(
-      dataDetails?.data?.dep_id
-        ?.split(",")
-        .map((item) => parseInt(item.trim(), 10))
+    arr
     );
 
     setDataTableEmp(
@@ -321,26 +338,28 @@ const GroupCustomerAdd: React.FC = () => {
         ?.split(",")
         .map((item) => parseInt(item.trim(), 10))
     );
-  }, []);
+  }, [dataDepartments]);
   const com_ids = Cookies.get("com_id");
+  const [arremid, setarremid] = useState<any>();
   useEffect(() => {
     setTimeout(() => {
-      const employeeOption = dataEmp?.data?.items
-        ?.filter((emp) =>
-          dataDetails?.data?.dep_id
-            ?.split(",")
-            .map((item) => parseInt(item.trim(), 10))
-            ?.includes(emp.dep_id)
-        )
+      const employeeOption = dataEmp
+        ?.filter((emp) => arr?.includes(emp?.organizeDetailId))
         ?.map((employee) => {
           return {
-            label: employee.ep_name,
+            label: employee.userName,
             value: employee.ep_id,
           };
         });
       setEmployeeOptions(employeeOption);
+      let arre: any = [];
+      employeeOption.map((item) => {
+        arre.push(item?.emp_id);
+      });
+      setarremid(arre);
     }, 0);
   }, [clickOptionEmp]);
+
 
   const openNotificationWithIcon = () => {
     api.error({
@@ -530,27 +549,17 @@ const GroupCustomerAdd: React.FC = () => {
                             height: "40px !important",
                           }}
                           placeholder="Chọn phòng ban"
-                          defaultValue={
-                            !dataDetails?.data?.dep_id
-                              ?.split(",")
-                              .map((item) => parseInt(item.trim(), 10))
-                              .includes(NaN)
-                              ? dataDetails?.data?.dep_id
-                                  ?.split(",")
-                                  .map((item) => parseInt(item.trim(), 10))
-                              : null
-                          }
-                          value={
-                            selectedValueDepartments ||
-                            (!dataDetails?.data?.dep_id
-                              ?.split(",")
-                              .map((item) => parseInt(item.trim(), 10))
-                              .includes(NaN)
-                              ? dataDetails?.data?.dep_id
-                                  ?.split(",")
-                                  .map((item) => parseInt(item.trim(), 10))
-                              : [])
-                          }
+                          // defaultValue={
+                          //   !dataDetails?.data?.dep_id
+                          //     ?.split(",")
+                          //     .map((item) => parseInt(item.trim(), 10))
+                          //     .includes(NaN)
+                          //     ? dataDetails?.data?.dep_id
+                          //         ?.split(",")
+                          //         .map((item) => parseInt(item.trim(), 10))
+                          //     : null
+                          // }
+                          value={selectedValueDepartments || arr}
                           onChange={handleChange}
                           options={options}
                         />
@@ -631,13 +640,8 @@ const GroupCustomerAdd: React.FC = () => {
                     // dataDetails?.data?.dep_id !== "all" &&
                     // dataDetails?.data?.emp_id !== "all"
                     <TableStaffCustomerGroupAdd
-                      dataEmp={dataEmp?.data?.items}
-                      valueSelected={
-                        dataTableEmp ||
-                        dataDetails?.data?.emp_id
-                          ?.split(",")
-                          .map((item) => parseInt(item.trim(), 10))
-                      }
+                      dataEmp={dataEmp}
+                      valueSelected={dataTableEmp || arr}
                       setData={setDataTableEmp}
                       setSelectedRow={setSelectedRow}
                       setDataRowSelect={setDataRowSelect}
@@ -660,7 +664,6 @@ const GroupCustomerAdd: React.FC = () => {
                       valueGroupCustomer.gr_name === ""
                     ) {
                       try {
-                        // alert("me")
                         await updateDataEdit(
                           `${base_url}/api/crm/group/update_GroupKH`,
                           {
