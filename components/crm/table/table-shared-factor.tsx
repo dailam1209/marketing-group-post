@@ -24,7 +24,6 @@ const TableSharedFactor: React.FC<TableSharedFactorProps> = ({
   data,
   empIdArr,
 }: any) => {
-  console.log("empIdArr",empIdArr)
   const router = useRouter();
   const { id } = router.query;
   const [isOpenModalDel, setIsOpenModalDel] = useState(false);

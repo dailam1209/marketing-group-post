@@ -232,7 +232,6 @@ const GroupCustomerAdd: React.FC = () => {
       setchange(true);
     }, 500);
   }, [valueDefault, change]);
-  console.log("dataDetails", dataDetails);
 
   useEffect(() => {
     setHeaderTitle("Nhóm khách hàng / Chỉnh sửa");
@@ -368,7 +367,6 @@ const GroupCustomerAdd: React.FC = () => {
       description: "Trường tên nhóm khách hàng đã tồn tại hoặc không được nhập",
     });
   };
-console.log(dataTableEmp)
   return (
     <>
       <Head>
