@@ -25,7 +25,7 @@ const GhiAmPage = (props: Props) => {
   const show = useSelector((state: any) => state?.auth?.account);
   const [current, setcurrent] = useState(1);
   const [pageSize, setpageSize] = useState(10);
-  const [showKetNoi, setShowKetNoi] = useState(false);
+  const [showKetNoi, setShowKetNoi] = useState(true);
   const [condition, setCondition] = useState(JSON.stringify({ state: 'ANSWERED', token: Cookies.get("token_base365") }));
   const onClose = () => {
     setIsShowModalAdd(false);
@@ -119,7 +119,7 @@ const GhiAmPage = (props: Props) => {
       }))
     }
 
-    const response = await fetch(`https://43.239.223.185:9000/api/getStorage`, {
+    const response = await fetch(`https://voip.timviec365.vn/api/getStorage`, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
@@ -137,9 +137,6 @@ const GhiAmPage = (props: Props) => {
   };
 
   useEffect(() => {
-    if (show) {
-      setShowKetNoi(true);
-    }
     handleGet();
   }, [condition]);
   console.log('tet', datatable)
@@ -280,11 +277,11 @@ const GhiAmPage = (props: Props) => {
             },
           }}
         />
-        <ModalConnect
+        {/* <ModalConnect
           isShowModalAdd={isShowModalAdd}
           onClose={onClose}
           handleAddDB={handleAddDB}
-        />
+        /> */}
       </div>
     </div>
   );

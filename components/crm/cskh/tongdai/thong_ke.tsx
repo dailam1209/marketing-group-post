@@ -110,7 +110,7 @@ const Recording = (props: Props) => {
     }
     //lay datatable
     try {
-      const response = await fetch(`https://43.239.223.185:9000/api/thongke`, {
+      const response = await fetch(`https://voip.timviec365.vn/api/thongke`, {
         method: "POST",
         headers: {
           'Content-Type': 'application/json'
@@ -207,11 +207,11 @@ const Recording = (props: Props) => {
           scroll={{ x: "fit-content" }}
           pagination={{ pageSize: 10 }}
         />
-        <ModalConnect
+        {/* <ModalConnect
           isShowModalAdd={isShowModalAdd}
           onClose={onClose}
           handleAddDB={handleAddDB}
-        />
+        /> */}
       </div>
     </div>
   );

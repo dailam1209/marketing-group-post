@@ -28,7 +28,7 @@ const TongDaiPage = (props: Props) => {
   const show = useSelector((state: any) => state?.auth?.account);
   const [current, setcurrent] = useState(1);
   const [pageSize, setpageSize] = useState(10);
-  const [showKetNoi, setShowKetNoi] = useState(false);
+  const [showKetNoi, setShowKetNoi] = useState(true);
   const [soNghe, setSoNghe] = useState();
   const [nv, setnv] = useState();
 
@@ -92,7 +92,7 @@ const TongDaiPage = (props: Props) => {
       }))
     }
     try {
-      const response = await fetch(`https://43.239.223.185:9000/api/getStorage`, {
+      const response = await fetch(`https://voip.timviec365.vn/api/getStorage`, {
         method: "POST",
         headers: {
           'Content-Type': 'application/json'
@@ -109,9 +109,6 @@ const TongDaiPage = (props: Props) => {
   };
   const router = useRouter();
   useEffect(() => {
-    if (show.length) {
-      setShowKetNoi(true);
-    }
     handleGet();
   }, [condition]);
 
@@ -244,11 +241,11 @@ const TongDaiPage = (props: Props) => {
             },
           }}
         />
-        <ModalConnect
+        {/* <ModalConnect
           isShowModalAdd={isShowModalAdd}
           onClose={onClose}
           handleAddDB={handleAddDB}
-        />
+        /> */}
       </div>
     </div>
   );
