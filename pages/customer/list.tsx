@@ -296,7 +296,7 @@ export default function CustomerList() {
   const handleGetInfoCus = async () => {
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/listAll`,
+        `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/crm/account/employee/list`,
         {
           method: "POST",
           headers: {

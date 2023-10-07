@@ -220,7 +220,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
     setdateE(e.target.value);
     settime_e_change(e.target.value + "T" + timeEnd || timeValueEnd);
   };
-
+console.log("listNV",listNV)
   const optionTest =
     role == "2" && [20, 4, 12, 13, 10, 11, 5, 6].includes(posId)
       ? [
