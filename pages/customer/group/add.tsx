@@ -16,7 +16,9 @@ import GrFooterAddFiles from "@/components/crm/potential/potential_add_files/gr_
 import CustomerGroupSelectCpmponent from "@/components/crm/select/group_components_select";
 import { checkAndRedirectToHomeIfNotLoggedIn } from "@/components/crm/ultis/checkLogin";
 import axios from "axios";
-
+import { getCookie } from "cookies-next";
+import jwt_decode from "jwt-decode";
+import { getToken } from "@/pages/api/api-hr/token";
 const GroupCustomerAdd: React.FC = () => {
   const [valAllDepartment, setValAllDepartment] = useState(false);
   const [valAllEmp, setValAllEmp] = useState(false);
@@ -29,6 +31,21 @@ const GroupCustomerAdd: React.FC = () => {
   const [selectedValueDepartments, setSelectedValueDepartments] = useState<any>(
     []
   );
+  function getToken(token) {
+    const isToken = Cookies.get(token);
+    return isToken;
+  }
+  const accessToken = Cookies.get("token_base365");
+
+  const com_id = Cookies.get("com_id");
+  const GetComId = () => {
+    const COOKIE_KEY = "token_base365";
+    const currentCookie = getToken(COOKIE_KEY);
+    if (currentCookie) {
+      const decodedToken: any = jwt_decode(currentCookie);
+      return decodedToken?.data?.com_id;
+    }
+  };
   const [dataSelectGroupParent, setData] = useState<any>([]);
   const [dataEmp, setDataEmp] = useState<any>([]);
   const [dataDepartment, setDataDepartment] = useState<any>([]);
@@ -48,9 +65,6 @@ const GroupCustomerAdd: React.FC = () => {
 
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
-
-  const accessToken = Cookies.get("token_base365");
-  const com_id = Cookies.get("com_id");
 
   const fetchData = async (url: string, body) => {
     try {
@@ -90,17 +104,19 @@ const GroupCustomerAdd: React.FC = () => {
 
   const fetchDataDepartment = async (url: string, body) => {
     try {
-      const res = await fetch(url, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${accessToken}`, // Sử dụng Bearer token
-          mode: "no-cors",
-        },
-        body: body, // Chỉ truyền body nếu là phương thức POST
-      });
+      const response = await axios.post(
+        url,
+        { com_id: body.com_id },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${Cookies.get("token_base365")}`,
+          },
+        }
+      );
 
-      const data = await res.json();
-      setDataDepartment(data);
+      const data = await response.data;
+      setDataDepartment(data?.data?.data);
     } catch (err) {
       // console.error(err);
       throw err;
@@ -116,7 +132,7 @@ const GroupCustomerAdd: React.FC = () => {
       });
 
       const data = response.data;
-      setDataEmp(data);
+      setDataEmp(data?.data?.data);
 
       if (response.status !== 200) {
         throw new Error(data.message || "Có lỗi xảy ra khi gọi API");
@@ -131,10 +147,10 @@ const GroupCustomerAdd: React.FC = () => {
 
   useEffect(() => {
     fetchData(`${base_url}/api/crm/group/list_group_khach_hang`, {});
-    fetchDataDepartment(`${base_url}/api/qlc/department/list`, {
-      com_id: com_id,
+    fetchDataDepartment(`${base_url}/api/qlc/organizeDetail/listAll`, {
+      com_id: GetComId(),
     });
-    fetchDataEmp(`${base_url}/api/qlc/managerUser/listAll`, {});
+    fetchDataEmp(`${base_url}/api/qlc/managerUser/listUser`, {});
   }, []);
 
   useEffect(() => {
@@ -184,21 +200,27 @@ const GroupCustomerAdd: React.FC = () => {
       // });
     }
     // ?.filter((emp) => selectedValueDepartments?.includes(emp.dep_id))
-    const employeeOption = dataEmp?.data?.items
-      ?.filter((emp) => selectedValueDepartments?.includes(emp.dep_id))
+    const employeeOption = dataEmp
+      ?.filter((emp) =>
+        selectedValueDepartments?.includes(emp.organizeDetailId)
+      )
       ?.map((employee) => {
         return {
-          label: employee.ep_name,
+          label: employee.userName,
           value: employee.ep_id,
         };
       });
     setEmployeeOptions(employeeOption);
   }, [selectedValueDepartments]);
-  const dataDepartments = dataDepartment?.data?.items;
+  const dataDepartments = dataDepartment;
+  let arr: any = [];
+  dataDepartments?.map((item) => {
+    arr.push(item?.id);
+  });
   const options = dataDepartments?.map((item) => {
     return {
-      label: item?.dep_name,
-      value: item?.dep_id,
+      label: item?.organizeDetailName,
+      value: item?.id,
     };
   });
 
@@ -454,7 +476,7 @@ const GroupCustomerAdd: React.FC = () => {
 
                     {!valAllDepartment && !valAllEmp ? (
                       <TableStaffCustomerGroupAdd
-                        dataEmp={dataEmp?.data?.items}
+                        dataEmp={dataEmp}
                         valueSelected={dataTableEmp}
                         setData={setDataTableEmp}
                         setSelectedRow={setSelectedRow}

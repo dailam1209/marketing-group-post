@@ -148,29 +148,7 @@ const GroupCustomerAdd: React.FC = () => {
     }
   };
 
-  // const {
-  //   data: dataAll,
-  //   loading,
-  //   error,
-  //   fetchData,
-  //   updateData,
-  //   deleteData,
-  // } = useApi(
-  //   `${base_url}/api/crm/group/list_group_khach_hang`,
-  //   `${Cookies.get("token_base365")}`,
-  //   "POST"
-  // );
 
-  // const {
-  //   data: dataDepartment,
-  //   fetchData: fetchDataDepartment,
-  //   updateData: updateDataDepartment,
-  // } = useApi(
-  //   `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/department/list`,
-  //   `${Cookies.get("token_base365")}`,
-  //   "POST",
-  //   { com_id: `${Cookies.get("com_id")}` }
-  // );
 
   const fetchDataDetails = async (url, body) => {
     try {
