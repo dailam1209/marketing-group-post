@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import TableDataOrderAddFiles from "@/components/crm/table/table-order-edit-files";
-import styles from "./edit_file_order.module.css";
+import styles from "../order_edit_files/order_edit.module.css";
 import { Input } from "antd";
 import OrderListModal from "../add_order_action_modal/order_list";
 
@@ -51,7 +51,10 @@ export default function AddTable() {
             suffix="%"
           />
         </div>
-        <div className={`${styles.width3} ${styles["col-lg-6"]}`}>
+        <div
+          className={`${styles.width3} ${styles["col-lg-6"]}`}
+          style={{ marginBottom: "15px" }}
+        >
           <label className={`${styles["form-label"]}`}>&nbsp;</label>
           <Input value={tongTien} suffix="VNĐ" />
         </div>

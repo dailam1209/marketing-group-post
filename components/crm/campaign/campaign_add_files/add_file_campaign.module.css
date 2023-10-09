@@ -41,11 +41,7 @@
 
 .row_input,
 .row_input_product {
-  display: flex;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin-bottom: 1rem;
+  width: 48%;
 }
 
 .row_input_product {
@@ -54,7 +50,6 @@
 
 .mb_3 {
   margin-bottom: 1rem;
-  flex: 1 !important;
 }
 
 .width1 {
@@ -116,16 +111,10 @@
 .row_custom {
   display: flex;
   justify-content: space-between;
-  gap: 10px;
 }
 
-.row_custom {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 50px;
-}
 .col-lg-6 {
-  flex-basis: calc(50% - 10px);
+  flex-basis: calc(50% - 25px);
 }
 .red_dot {
   color: red;
@@ -137,6 +126,10 @@
     flex-direction: column;
   }
   .row_input_custom {
+    width: 100%;
+  }
+  .row_input,
+  .row_input_product {
     width: 100%;
   }
 }
