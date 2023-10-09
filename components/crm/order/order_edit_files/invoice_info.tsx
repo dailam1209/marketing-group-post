@@ -58,7 +58,6 @@ export default function AddInvoiceInfo() {
             className={styles["form-control"]}
             placeholder="Nhập địa chỉ"
             defaultValue={""}
-            style={{ width: "37.5rem" }}
           />
         </div>
         <InputText
