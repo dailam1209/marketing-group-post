@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import TableDataOrderAddFiles from "@/components/crm/table/table-order-edit-files";
 import styles from "../order_edit_files/order_edit.module.css";
 import { Input } from "antd";
 import OrderListModal from "../add_order_action_modal/order_list";
+import TableDataOrderEditFiles from "../../table/table-order-edit-files";
 
-export default function AddTable() {
+export default function EditTable() {
   const [isModalCancel, setIsModalCancel] = useState(false);
   const [tongTien, setTongTien] = useState<number>(0);
   const [chietkhau, setChieuKhau] = useState<number>(0);
@@ -32,12 +32,7 @@ export default function AddTable() {
           <b>Chọn hàng hóa</b>
         </button>
       </p>
-      <TableDataOrderAddFiles
-        setSelected={function (value: boolean): void {
-          throw new Error("Function not implemented.");
-        }}
-        setTongTien={setTongTien}
-      />
+      <TableDataOrderEditFiles setTongTien={setTongTien} />
 
       <div className={styles.row_input}></div>
       <div className={styles.row_input}>

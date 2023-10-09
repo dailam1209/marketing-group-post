@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
-import styles from "../order/order.module.css";
-import { Table } from "antd";
+import styles from "../../crm/order/order.module.css";
+import { Select, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import OrderSelectBoxStep from "../order/order_steps/select_box_table_step";
 import stylesOrderSelect from "@/components/crm/order/order.module.css";
 import Link from "next/link";
-import $ from "jquery";
-import "select2/dist/css/select2.min.css";
-import "select2/dist/js/select2.min.js";
 
 interface DataType {
   key: React.Key;
@@ -16,16 +13,15 @@ interface DataType {
   donvi: string;
   soluong: number;
   dongia: number;
+  tien: number;
   chietkhau: number;
   tienchietkhau: number;
-  tien: number;
   thue: string;
   tienthue: number;
   total: number;
 }
 
 interface TableDataOrderEditFilesDrops {
-  setSelected: (value: boolean) => void;
   setTongTien: (value: number) => void;
 }
 
@@ -34,13 +30,13 @@ const initialData: DataType[] = [
     key: "1",
     idproduct: "ABC123",
     nameproduct: "Sản phẩm A",
-    donvi: "Cái",
+    donvi: "-Không Chọn-",
     soluong: 0,
     dongia: 0,
     tien: 0,
     chietkhau: 0,
     tienchietkhau: 0,
-    thue: "0",
+    thue: "",
     tienthue: 0,
     total: 0,
   },
@@ -48,13 +44,13 @@ const initialData: DataType[] = [
     key: "2",
     idproduct: "DEF456",
     nameproduct: "Sản phẩm B",
-    donvi: "Hộp",
+    donvi: "-Không Chọn-",
     soluong: 0,
     dongia: 0,
     tien: 0,
     chietkhau: 0,
     tienchietkhau: 0,
-    thue: "0",
+    thue: "",
     tienthue: 0,
     total: 0,
   },
@@ -62,13 +58,13 @@ const initialData: DataType[] = [
     key: "3",
     idproduct: "FGH1212",
     nameproduct: "Sản phẩm C",
-    donvi: "Hộp",
+    donvi: "-Không Chọn-",
     soluong: 0,
     dongia: 0,
     tien: 0,
     chietkhau: 0,
     tienchietkhau: 0,
-    thue: "0",
+    thue: "",
     tienthue: 0,
     total: 0,
   },
@@ -78,47 +74,27 @@ const TableDataOrderEditFiles: React.FC<TableDataOrderEditFilesDrops> = ({
   setTongTien,
 }: any) => {
   const [dataTable, setDataTable] = useState<DataType[]>(initialData);
-  const [thanhTien, setThanhTien] = useState<number>(0);
-  const [donGia, setDonGia] = useState<number>(0);
-  const [totalTienChietKhau, setTotalTienChietKhau] = useState<number>(0);
-  const [totalSoluong, setTotalSoluong] = useState<number>(0);
-  const [selectedTaxRate, setSelectedTaxRate] = useState<string>("");
-  const [taxAmount, setTaxAmount] = useState<number>(0);
-  const [selectdRecord, setSelectdRecord] = useState<number | null>(null);
-  const [totalTien, setTotalTien] = useState<number>(0);
-
-  useEffect(() => {
-    $(".order_edit").select2();
-    $(".order_edit").on("select2:opening", function (e) {
-      const record = JSON.parse(e.target.getAttribute("data-record"));
-      setSelectdRecord(record.key);
-    });
-    $(".order_edit").on("change", (e: any) => {
-      setSelectedTaxRate(e.target.value);
-    });
-  }, []);
+  const [selectChange, setSelectChange] = useState(false);
+  console.log(dataTable, "dataTable");
 
   const handleSoluongChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     key: React.Key
   ) => {
     const newValue = parseFloat(e.target.value) || 0;
-    const updatedData = dataTable.map((item) => {
-      if (item.key === key) {
-        const newDonGia = newValue === 0 ? 0 : item.tien / newValue;
-        return { ...item, soluong: newValue, tien: newValue * item.dongia };
-      }
-      return item;
-    });
-    setDataTable(updatedData);
-    const totalTien = updatedData.reduce((total, item) => total + item.tien, 0);
-    const totalSoluong = updatedData.reduce(
-      (total, item) => total + item.soluong,
-      0
+    const updatedDataTable = [...dataTable];
+    const updatedItemIndex = updatedDataTable.findIndex(
+      (item) => item.key === key
     );
-    setDonGia(totalSoluong === 0 ? 0 : totalTien / totalSoluong);
-    setThanhTien(totalTien);
-    setTotalSoluong(totalSoluong);
+    if (updatedItemIndex !== -1) {
+      const updatedItem = { ...updatedDataTable[updatedItemIndex] };
+      const newDonGia = newValue === 0 ? 0 : updatedItem.tien / newValue;
+      updatedItem.soluong = newValue;
+      updatedItem.tien = newValue * newDonGia;
+      updatedDataTable[updatedItemIndex] = updatedItem;
+      setDataTable(updatedDataTable);
+    }
+    setSelectChange(true);
   };
 
   const handleDongiaChange = (
@@ -126,21 +102,18 @@ const TableDataOrderEditFiles: React.FC<TableDataOrderEditFilesDrops> = ({
     key: React.Key
   ) => {
     const newValue = parseFloat(e.target.value) || 0;
-    const updatedData = dataTable.map((item) => {
-      if (item.key === key) {
-        const newTien = newValue * item.soluong;
-        return { ...item, dongia: newValue, tien: newTien };
-      }
-      return item;
-    });
-    setDataTable(updatedData);
-    const totalTien = updatedData.reduce((total, item) => total + item.tien, 0);
-    const totalSoluong = updatedData.reduce(
-      (total, item) => total + item.soluong,
-      0
+    const updatedDataTable = [...dataTable];
+    const updatedItemIndex = updatedDataTable.findIndex(
+      (item) => item.key === key
     );
-    setDonGia(totalSoluong === 0 ? 0 : totalTien / totalSoluong);
-    setThanhTien(totalTien);
+    if (updatedItemIndex !== -1) {
+      const updatedItem = { ...updatedDataTable[updatedItemIndex] };
+      updatedItem.dongia = newValue;
+      updatedItem.tien = newValue * updatedItem.soluong;
+      updatedDataTable[updatedItemIndex] = updatedItem;
+      setDataTable(updatedDataTable);
+    }
+    setSelectChange(true);
   };
 
   const handleThanhTienChange = (
@@ -148,21 +121,20 @@ const TableDataOrderEditFiles: React.FC<TableDataOrderEditFilesDrops> = ({
     key: React.Key
   ) => {
     const newValue = parseFloat(e.target.value) || 0;
-    const updatedData = dataTable.map((item) => {
-      if (item.key === key) {
-        const newDonGia = item.soluong === 0 ? 0 : newValue / item.soluong;
-        return { ...item, dongia: newDonGia, tien: newValue };
-      }
-      return item;
-    });
-    setDataTable(updatedData);
-    const totalTien = updatedData.reduce((total, item) => total + item.tien, 0);
-    const totalSoluong = updatedData.reduce(
-      (total, item) => total + item.soluong,
-      0
+    const updatedDataTable = [...dataTable];
+    const updatedItemIndex = updatedDataTable.findIndex(
+      (item) => item.key === key
     );
-    setDonGia(totalSoluong === 0 ? 0 : totalTien / totalSoluong);
-    setThanhTien(totalTien);
+    if (updatedItemIndex !== -1) {
+      const updatedItem = { ...updatedDataTable[updatedItemIndex] };
+      const newDonGia =
+        updatedItem.soluong === 0 ? 0 : newValue / updatedItem.soluong;
+      updatedItem.dongia = newDonGia;
+      updatedItem.tien = newValue;
+      updatedDataTable[updatedItemIndex] = updatedItem;
+      setDataTable(updatedDataTable);
+    }
+    setSelectChange(true);
   };
 
   const handleChietKhauChange = (
@@ -170,87 +142,60 @@ const TableDataOrderEditFiles: React.FC<TableDataOrderEditFilesDrops> = ({
     key: React.Key
   ) => {
     const newValue = parseFloat(e.target.value) || 0;
-    const updatedData = dataTable.map((item) => {
-      if (item.key === key) {
-        const tienchietkhau = (newValue / 100) * item.tien;
-        return { ...item, chietkhau: newValue, tienchietkhau };
-      }
-      return item;
-    });
-    setDataTable(updatedData);
-
-    const totalTienChietKhau = updatedData.reduce(
-      (total, item) => total + item.tienchietkhau,
-      0
+    const updatedDataTable = [...dataTable];
+    const updatedItemIndex = updatedDataTable.findIndex(
+      (item) => item.key === key
     );
-    setTotalTienChietKhau(totalTienChietKhau);
+    if (updatedItemIndex !== -1) {
+      const updatedItem = { ...updatedDataTable[updatedItemIndex] };
+      const tienchietkhau = (newValue / 100) * updatedItem.tien;
+      updatedItem.chietkhau = newValue;
+      updatedItem.tienchietkhau = tienchietkhau;
+      updatedDataTable[updatedItemIndex] = updatedItem;
+      setDataTable(updatedDataTable);
+    }
+    setSelectChange(true);
   };
 
-  const handleTienChietKhauChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    key: React.Key
-  ) => {
-    const newValue = parseFloat(e.target.value) || 0;
-    const updatedData = dataTable.map((item) => {
-      if (item.key === key) {
-        const newChietKhau = (newValue / item.tien) * 100;
-        return {
-          ...item,
-          tienchietkhau: newValue,
-          chietkhau: newChietKhau,
-        };
-      }
-      return item;
-    });
-    setDataTable(updatedData);
-
-    const totalTienChietKhau = updatedData.reduce(
-      (total, item) => total + item.tienchietkhau,
-      0
-    );
-    setTotalTienChietKhau(totalTienChietKhau);
-  };
-
-  const calculateTienThue = (
-    thanhTien: number,
-    totalTienChietKhau: number,
-    selectedTaxRate: string
-  ): number => {
-    const numericThanhTien = Number(thanhTien);
-    const numericTotalTienChietKhau = Number(totalTienChietKhau);
-    const numericSelectedTaxRate = Number(selectedTaxRate);
-    return (
-      ((numericThanhTien - numericTotalTienChietKhau) *
-        numericSelectedTaxRate) /
-      100
-    );
-  };
-
-  const calculateTotalTien = (
-    thanhTien: number,
-    totalTienChietKhau: number,
-    selectedTaxRate: string
-  ): void => {
-    const numericThanhTien = Number(thanhTien);
-    const numericTotalTienChietKhau = Number(totalTienChietKhau);
-    const numericSelectedTaxRate = Number(selectedTaxRate);
-
-    const newTotalTien =
-      numericThanhTien -
-      numericTotalTienChietKhau +
-      ((numericThanhTien - numericTotalTienChietKhau) *
-        numericSelectedTaxRate) /
-        100;
-
-    setTotalTien(isNaN(newTotalTien) ? 0 : newTotalTien);
-    setTongTien(isNaN(newTotalTien) ? 0 : newTotalTien);
+  const calculateTienThue = (item: DataType) => {
+    const thueSuat = parseFloat(item.thue) || 0;
+    const tienThue = (item.tien - item.tienchietkhau) * (thueSuat / 100);
+    return tienThue;
   };
 
   useEffect(() => {
-    calculateTotalTien(thanhTien, totalTienChietKhau, selectedTaxRate);
-    calculateTienThue(thanhTien, totalTienChietKhau, selectedTaxRate);
-  }, [thanhTien, totalTienChietKhau, selectedTaxRate]);
+    if (selectChange) {
+      const newDataTable = dataTable.map((item) => {
+        const tienThue = calculateTienThue(item);
+        const total = item.tien - item.tienchietkhau + tienThue;
+        return { ...item, tienthue: tienThue, total };
+      });
+      setDataTable(newDataTable);
+      setSelectChange(false);
+    }
+  }, [selectChange]);
 
+  const totalTienThue = dataTable.reduce(
+    (total, item) => total + item.tienthue,
+    0
+  );
+
+  const totalTienChietKhau = dataTable?.reduce(
+    (total, item) => total + item.tienchietkhau,
+    0
+  );
+
+  const totalSoluong = dataTable?.reduce(
+    (total, item) => total + item.soluong,
+    0
+  );
+
+  const totalTien = dataTable?.reduce((total, item) => total + item.tien, 0);
+  const total = dataTable?.reduce((total, item) => total + item.total, 0);
+
+  useEffect(() => {
+    setTongTien(total);
+  }, [selectChange]);
   const columns: ColumnsType<DataType> = [
     {
       title: "STT",
@@ -282,7 +227,33 @@ const TableDataOrderEditFiles: React.FC<TableDataOrderEditFilesDrops> = ({
       title: "Đơn vị tính",
       dataIndex: "donvi",
       key: "2",
-      width: 100,
+      width: 150,
+      render: (_, record) => (
+        <Select
+          showSearch
+          className="order_edit"
+          style={{ width: "90%" }}
+          value={record?.donvi.toString()}
+          onChange={(value) => {
+            const index = dataTable
+              ?.slice()
+              .findIndex((e) => e.key === record.key);
+            const data = {
+              ...dataTable[index],
+              donvi: value.toString(),
+            };
+            const newData = dataTable.slice();
+            newData.splice(index, 1, data);
+            setDataTable(newData);
+            // setSelectChange(true);
+          }}
+        >
+          <Select.Option value="0">-Không chọn-</Select.Option>
+          <Select.Option value="1">Cái</Select.Option>
+          <Select.Option value="2">Hộp</Select.Option>
+          <Select.Option value="3">Bộ</Select.Option>
+        </Select>
+      ),
     },
     {
       title: "Số lượng",
@@ -346,12 +317,7 @@ const TableDataOrderEditFiles: React.FC<TableDataOrderEditFilesDrops> = ({
       key: "7",
       width: 180,
       render: (text, record) => (
-        <input
-          type="text"
-          className={styles.inputform}
-          value={text}
-          onChange={(e) => handleTienChietKhauChange(e, record.key)}
-        />
+        <input type="text" className={styles.inputform} value={text} />
       ),
     },
     {
@@ -360,20 +326,31 @@ const TableDataOrderEditFiles: React.FC<TableDataOrderEditFilesDrops> = ({
       key: "8",
       width: 150,
       render: (_, record) => (
-        <select
+        <Select
+          showSearch
           className="order_edit"
-          name="state"
-          style={{ width: "100%" }}
-          value={record.key === selectdRecord ? selectedTaxRate : ""}
-          data-record={JSON.stringify(record)} // Lưu bản ghi vào data attribute
-          onChange={(e) => setSelectedTaxRate(e.target.value)}
+          style={{ width: "90%" }}
+          value={record?.thue.toString() || 0}
+          onChange={(value) => {
+            const index = dataTable
+              ?.slice()
+              .findIndex((e) => e.key === record.key);
+            const data = {
+              ...dataTable[index],
+              thue: value.toString(),
+            };
+            const newData = dataTable.slice();
+            newData.splice(index, 1, data);
+            setDataTable(newData);
+            setSelectChange(true);
+          }}
         >
-          <option value="">-Không chọn-</option>
-          <option value="0">0%</option>
-          <option value="5">5%</option>
-          <option value="8">8%</option>
-          <option value="10">10%</option>
-        </select>
+          <Select.Option value="0">-Không chọn-</Select.Option>
+          <Select.Option value="0">0%</Select.Option>
+          <Select.Option value="5">5%</Select.Option>
+          <Select.Option value="8">8%</Select.Option>
+          <Select.Option value="10">10%</Select.Option>
+        </Select>
       ),
     },
     {
@@ -382,14 +359,7 @@ const TableDataOrderEditFiles: React.FC<TableDataOrderEditFilesDrops> = ({
       key: "9",
       width: 150,
       render: (text, record) => (
-        <input
-          type="text"
-          className={styles.inputform}
-          value={
-            // dataTable?.map((item) => item)
-            ((thanhTien - totalTienChietKhau) * Number(selectedTaxRate)) / 100
-          }
-        />
+        <input type="text" className={styles.inputform} value={text} readOnly />
       ),
     },
     {
@@ -397,8 +367,8 @@ const TableDataOrderEditFiles: React.FC<TableDataOrderEditFilesDrops> = ({
       dataIndex: "total",
       key: "10",
       width: 150,
-      render: (text) => (
-        <input disabled className={styles.inputform} value={totalTien} />
+      render: (text, record) => (
+        <input type="text" className={styles.inputform} value={text} readOnly />
       ),
     },
     {
@@ -408,7 +378,7 @@ const TableDataOrderEditFiles: React.FC<TableDataOrderEditFilesDrops> = ({
       width: 70,
       fixed: "right",
       render: () => (
-        <Link href={"#"}>
+        <Link href="#">
           <button>
             <img className={styles.icon_delete} src="/crm/h_delete_cus.svg" />{" "}
             Xóa
@@ -448,18 +418,16 @@ const TableDataOrderEditFiles: React.FC<TableDataOrderEditFilesDrops> = ({
                     {totalSoluong}
                   </Table.Summary.Cell>
                   <Table.Summary.Cell index={7} colSpan={3}>
-                    {thanhTien}
+                    {totalTien}
                   </Table.Summary.Cell>
                   <Table.Summary.Cell index={8} colSpan={1}>
                     {totalTienChietKhau}
                   </Table.Summary.Cell>
                   <Table.Summary.Cell index={9} colSpan={2}>
-                    {((thanhTien - totalTienChietKhau) *
-                      Number(selectedTaxRate)) /
-                      100}
+                    {totalTienThue}
                   </Table.Summary.Cell>
                   <Table.Summary.Cell index={11} colSpan={1}>
-                    {totalTien}
+                    {total}
                   </Table.Summary.Cell>
                   <Table.Summary.Cell
                     index={12}
