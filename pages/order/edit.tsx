@@ -90,7 +90,7 @@ const AddFilesPotential: React.FC = () => {
         <div className={styles.main_importfile}>
           <div className={styles.formInfoStep}>
             <div className={styles.info_step}>
-              <div className={styles.main__title}>Thêm mới đơn hàng</div>
+              <div className={styles.main__title}>Chỉnh sửa đơn hàng</div>
               <div className={styles.form_add_potential}>
                 <div className={styles.main__body}>
                   <AddDetailInfo />

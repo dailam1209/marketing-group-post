@@ -139,7 +139,7 @@ export default function App({ Component, pageProps }) {
 
   return (
     <>
-      <Seo />
+      
       {loading ? (
         <LoadingComp />
       ) : !firstLoad ? (

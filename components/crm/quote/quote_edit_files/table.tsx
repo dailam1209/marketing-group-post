@@ -13,12 +13,7 @@ export default function AddTable() {
   return (
     <div>
       <p className={styles.main__body__type}>Thông tin hàng hóa</p>
-      <TableDataOrderAddFiles
-        setSelected={function (value: boolean): void {
-          throw new Error("Function not implemented.");
-        }}
-        setTongTien={setTongTien}
-      />
+      <TableDataOrderAddFiles setTongTien={setTongTien} />
 
       <div className={styles.row_input}></div>
       <div className={styles.row_input}>
