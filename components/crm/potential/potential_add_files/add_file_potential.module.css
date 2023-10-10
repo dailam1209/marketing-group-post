@@ -1,9 +1,9 @@
 .main__footer {
-  padding: 25px 0;
   display: flex;
   justify-content: center;
-  grid-column-gap: 68px;
   padding-bottom: 80px;
+  gap: 60px;
+  margin-top: 50px;
 }
 
 .main__footer button {
@@ -148,5 +148,20 @@
   .row_input {
     flex-direction: column;
     justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .main__footer {
+    gap: 35px;
+  }
+}
+
+@media (max-width: 414px) {
+  .main__footer {
+    gap: 15px;
+  }
+  .main__footer button {
+    width: 130px;
   }
 }

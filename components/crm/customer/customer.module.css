@@ -116,7 +116,7 @@
   height: 36px;
   font-size: 15px;
   line-height: 18px;
-  font-family: 'Roboto-Medium';
+  font-family: "Roboto-Medium";
 }
 
 .btn_cancel {
@@ -192,7 +192,7 @@
   font-size: 16px;
   line-height: 19px;
   font-weight: bold;
-  font-family: 'Roboto-Medium';
+  font-family: "Roboto-Medium";
   color: #474747;
   display: inline-block;
   margin-bottom: 0;
@@ -253,7 +253,7 @@
 .btn_primary_connect {
   width: 168px;
   height: 36px;
-  font-family: 'Roboto-Bold';
+  font-family: "Roboto-Bold";
   font-size: 16px;
   line-height: 19px;
   background: #4c5bd4;
@@ -353,7 +353,7 @@
 .main__profile__body__item__title {
   font-size: 16px;
   line-height: 19px;
-  font-family: 'Roboto-Medium';
+  font-family: "Roboto-Medium";
   align-items: center;
   color: #474747;
   white-space: nowrap;
@@ -402,7 +402,6 @@
   .api_row {
     max-width: 100%;
   }
-
 }
 
 @media (min-width: 992px) {
@@ -434,20 +433,19 @@
   .content_history {
     width: 40%;
   }
-  .title_box_content{
+  .title_box_content {
     width: 100%;
     display: flex;
     float: right;
   }
-.btn_call_phone{
-  width: 100px;
-}
+  .btn_call_phone {
+    width: 100px;
+  }
 }
 @media (max-width: 668px) {
   .content_history {
     width: 100%;
   }
-
 }
 @media (min-width: 992px) {
   .col-lg-6 {
@@ -461,7 +459,6 @@
     padding-right: 15px;
     /* padding-left: 15px; */
   }
-
 }
 
 @media (max-width: 760px) {
@@ -480,7 +477,7 @@
   }
 
   .bot_bot {
-    width: 160%;
+    width: 100%;
   }
 
   /* .top_bot .left{
