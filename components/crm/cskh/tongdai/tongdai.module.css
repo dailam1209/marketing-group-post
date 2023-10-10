@@ -74,21 +74,36 @@
 
 /* .main_filter {
 } */
-.containerfillter{
+.containerfillter {
   display: block;
   padding-top: 20px;
   padding-left: 20px;
   padding-right: 20px;
 }
-.containerfillter .item1{
+.containerfillter .item1 {
   display: flex;
   padding-top: 20px;
   align-items: center;
 }
-.footerBTN{
+.footerBTN {
   display: flex;
   padding-top: 20px;
   justify-content: center;
   gap: 30px;
   padding-bottom: 20px;
+}
+
+@media (max-width: 414px) {
+  .custom_group_button {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 20px;
+  }
+  .group_button_right {
+    display: flex;
+    padding-top: 30px;
+  }
+  .group_button_right button {
+    width: 117px;
+  }
 }

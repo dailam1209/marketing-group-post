@@ -2,7 +2,7 @@ import { Button, Table } from "antd";
 import React, { useContext, useEffect, useState } from "react";
 import styles from "./tongdai.module.css";
 import Link from "next/link";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 import ModalConnect from "../modal/modal-connect";
 import PaginationCSKH from "./pagination";
 import cskh from "../csks.module.css";
@@ -10,16 +10,13 @@ import { CallContext } from "@/components/crm/context/tongdaiContext";
 import Filter from "./filter";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
-import { da } from "date-fns/locale";
-import { useApi } from "../../hooks/useApi";
-import { current } from "@reduxjs/toolkit";
 import FilterTongDai from "./filterTongdai";
 import { dataSaveTD, doDisConnect } from "../../redux/user/userSlice";
 import { useRouter } from "next/router";
 type Props = {};
 
 const TongDaiPage = (props: Props) => {
-  const token = Cookies.get("token_base365")
+  const token = Cookies.get("token_base365");
   const [isShowModal, setIsShowModal] = useState(false);
   const [isShowModalAdd, setIsShowModalAdd] = useState(false);
   const { isConnected } = useContext<any>(CallContext);
@@ -85,27 +82,32 @@ const TongDaiPage = (props: Props) => {
 
     setIsModalOpen(false);
     if (fillEnd && fillStart) {
-      setCondition(JSON.stringify({
-        timeStart: fillStart,
-        timeEnd: fillEnd,
-        token
-      }))
+      setCondition(
+        JSON.stringify({
+          timeStart: fillStart,
+          timeEnd: fillEnd,
+          token,
+        })
+      );
     }
     try {
-      const response = await fetch(`https://voip.timviec365.vn/api/getStorage`, {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: condition
-      })
+      const response = await fetch(
+        `https://voip.timviec365.vn/api/getStorage`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: condition,
+        }
+      );
       const data = await response.json();
       if (data && data.data && data.data.storage) {
         setListData(data.data.storage);
         setData(data.data.storage);
       }
       return data;
-    } catch (error) { }
+    } catch (error) {}
   };
   const router = useRouter();
   useEffect(() => {
@@ -159,7 +161,7 @@ const TongDaiPage = (props: Props) => {
     <div>
       {showKetNoi && (
         <div className={styles.group_button} style={{ display: "block" }}>
-          <div>
+          <div className={styles.custom_group_button}>
             <FilterTongDai
               datatable={datatable}
               isModalOpen={isModalOpen}
@@ -174,31 +176,31 @@ const TongDaiPage = (props: Props) => {
               nv={nv}
               setnv={setnv}
             />
+
+            <div
+              className={styles.group_button_right}
+              style={{ float: "right", marginTop: -40 }}
+            >
+              <Link href={"/ghi-am"}>
+                <button>Ghi âm</button>
+              </Link>
+
+              <Link href={"/thong-ke-tong-dai"}>
+                <button>Thống kê</button>
+              </Link>
+              <Link href={"/switchboard/manager/line"}>
+                <button>Quản lý line</button>
+              </Link>
+            </div>
           </div>
-
-          <div
-            className={styles.group_button_right}
-            style={{ float: "right", marginTop: -40 }}
-          >
-            <Link href={"/ghi-am"}>
-              <button>Ghi âm</button>
-            </Link>
-
-            <Link href={"/thong-ke-tong-dai"}>
-              <button>Thống kê</button>
-            </Link>
-            <Link href={"/switchboard/manager/line"}>
-              <button>Quản lý line</button>
-            </Link>
-          </div>
-
           <ul className={styles.cskh_info_call} style={{ fontSize: 16 }}>
             <li>Số cuộc gọi: {listData?.length}</li>
             <li>Tổng số nghe máy: {count || 0}</li>
             <li>Tổng số không trả lời: {listData?.length - count}</li>
             <li>Tổng thời gian gọi: {totalSum || 0}(s)</li>
             <li>
-              Trung bình: {count == 0 ? 0 : (totalSum / count).toFixed(2)}s/ cuộc gọi
+              Trung bình: {count == 0 ? 0 : (totalSum / count).toFixed(2)}s/
+              cuộc gọi
             </li>
           </ul>
         </div>
