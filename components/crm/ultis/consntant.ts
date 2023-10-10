@@ -5,7 +5,7 @@ export const sidebar_button_group = [
     img_link: '/crm/home.svg',
     link: `#`,
     children: [],
-    content: 'Trang chủ',
+    content: 'Trang chủ000000',
   },
   {
     img_link: '/crm/nav_potential.svg',
