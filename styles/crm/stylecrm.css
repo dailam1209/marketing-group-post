@@ -1108,3 +1108,15 @@ label {
   span.ant-input-affix-wrapper.css-dev-only-do-not-override-o95mle {
   padding: 9px 10px;
 }
+
+@media (max-width: 414px) {
+  .custom-table {
+    width: 125vw;
+  }
+
+  .custom-table
+    ul.ant-pagination.ant-table-pagination.ant-table-pagination-right.css-dev-only-do-not-override-o95mle {
+    margin-left: 360px !important;
+    padding-top: 10px;
+  }
+}
