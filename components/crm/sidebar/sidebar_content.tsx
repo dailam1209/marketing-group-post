@@ -47,7 +47,7 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
     if (label === "Phân quyền") {
       setAccessRoleOpen(!accessRoleOpen);
     }
-    if (label === "Khách hàng") {
+    if (label === "Thông tin khách hàng") {
       setIsCustomOpen(!isCustomOpen);
     }
     if (label === "Chăm sóc khách hàng") {
@@ -69,7 +69,7 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
     if (label === "Phân quyền") {
       return accessRoleOpen;
     }
-    if (label === "Khách hàng") {
+    if (label === "Thông tin khách hàng") {
       return isCustomOpen;
     }
     if (label === "Chăm sóc khách hàng") {
