@@ -75,6 +75,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 `,
                     }}
                 ></script>
+                <script
+                    async
+                    src="https://www.googletagmanager.com/gtag/js?id=G-6LT1XMTDC3"
+                ></script>
+                <script
+                    dangerouslySetInnerHTML={{
+                        __html: `
+ window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-6LT1XMTDC3');
+`,
+                    }}
+                ></script>
+
                 {/* CSS */}
                 <script
                     async
