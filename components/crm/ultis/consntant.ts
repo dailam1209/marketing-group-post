@@ -705,12 +705,6 @@ export const sidebar_button_group_login = [
     ],
   },
   {
-    img_link: '/crm/nav_potential.svg',
-    link: `/potential/list`,
-    children: [],
-    content: 'Tiềm năng',
-  },
-  {
     img_link: '/crm/customer.svg',
     link: '#',
     children: [
@@ -735,13 +729,7 @@ export const sidebar_button_group_login = [
         link: '/customer/input/add',
       },
     ],
-    content: 'Khách hàng',
-  },
-  {
-    img_link: '/crm/chance.svg',
-    link: '/chance/list',
-    children: [],
-    content: 'Cơ hội',
+    content: 'Thông tin khách hàng',
   },
   {
     img_link: '/crm/hotline.svg',
@@ -777,17 +765,32 @@ export const sidebar_button_group_login = [
     content: 'Hợp đồng',
   },
   {
-    img_link: '/crm/form.svg',
-    link: '#',
+    img_link: '/crm/nav_potential.svg',
+    link: `/potential/list`,
     children: [],
-    content: 'Báo cáo',
+    content: 'Tiềm năng',
   },
+  {
+    img_link: '/crm/chance.svg',
+    link: '/chance/list',
+    children: [],
+    content: 'Cơ hội',
+  },
+
   {
     img_link: '/crm/chiendich.svg',
     link: '/campaign/list',
     children: [],
     content: 'Chiến dịch',
   },
+
+  {
+    img_link: '/crm/form.svg',
+    link: '#',
+    children: [],
+    content: 'Báo cáo',
+  },
+
   {
     img_link: '/crm/baogia.svg',
     link: '/quote/list',
