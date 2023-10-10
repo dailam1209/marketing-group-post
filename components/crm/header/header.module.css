@@ -394,7 +394,7 @@
     width: 100%;
     background: #4c5bd4;
     margin-bottom: 50px;
-    /* position: fixed; */
+    position: fixed;
     z-index: 10;
     padding: 0;
   }

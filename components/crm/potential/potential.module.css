@@ -1187,6 +1187,6 @@ span.select2.potential_select2_container_step__HpQYa {
 
 @media (max-width: 414px) {
   .form_search input {
-    width: 270px;
+    width: 100%;
   }
 }
