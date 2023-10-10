@@ -128,12 +128,6 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
       ],
     },
     {
-      img_link: "/crm/nav_potential.svg",
-      link: `/potential/list`,
-      children: [],
-      content: "Tiềm năng",
-    },
-    {
       img_link: "/crm/customer.svg",
       link: "#",
       // role: "seen",
@@ -159,13 +153,7 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
           link: "/customer/input/add",
         },
       ],
-      content: "Khách hàng",
-    },
-    {
-      img_link: "/crm/chance.svg",
-      link: "/chance/list",
-      children: [],
-      content: "Cơ hội",
+      content: "Thông tin khách hàng",
     },
     {
       img_link: "/crm/hotline.svg",
@@ -201,18 +189,31 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
       children: [],
       content: "Hợp đồng",
     },
+
     {
-      img_link: "/crm/form.svg",
-      link: "#",
-      // role: "seen",
+      img_link: "/crm/nav_potential.svg",
+      link: `/potential/list`,
       children: [],
-      content: "Báo cáo",
+      content: "Tiềm năng",
+    },
+    {
+      img_link: "/crm/chance.svg",
+      link: "/chance/list",
+      children: [],
+      content: "Cơ hội",
     },
     {
       img_link: "/crm/chiendich.svg",
       link: "/campaign/list",
       children: [],
       content: "Chiến dịch",
+    },
+    {
+      img_link: "/crm/form.svg",
+      link: "#",
+      // role: "seen",
+      children: [],
+      content: "Báo cáo",
     },
     {
       img_link: "/crm/baogia.svg",
