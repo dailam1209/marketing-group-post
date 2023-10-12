@@ -31,7 +31,7 @@ export default function ModalConfirm({
                 setOpenModalConfirm(false);
               }}
             >
-              Đăng ký{" "}
+              Đăng ký
             </button>
             <button
               className={styles.btn_login}

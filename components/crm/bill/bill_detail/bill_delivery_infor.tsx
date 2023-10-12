@@ -133,7 +133,6 @@ export default function AddBillDeliverylInfo() {
               </div>
               <div className={`${styles.main__body__item__value}`}>
                 <div style={{ display: "flex", justifyContent: "center" }}>
-                  {" "}
                   <div>
                     <Image
                       width={26}
@@ -170,7 +169,6 @@ export default function AddBillDeliverylInfo() {
               </div>
               <div className={`${styles.main__body__item__value}`}>
                 <div style={{ display: "flex", justifyContent: "center" }}>
-                  {" "}
                   <div>
                     <Image
                       width={26}

@@ -9,9 +9,9 @@ const Status1 = () => {
     <>
       <div className={styles.main__control}>
         <div className={styles.main}>
-          <p style={{ width: "max-content", fontSize: "24px" }}>
+          <p style={{ width: "fit-content", fontSize: "24px" }}>
             Thiết lập các chương trình khuyến mại để thu hút khách hàng của bạn
-            ngay nhé!{" "}
+            ngay nhé!
           </p>
           <img src="/crm/rafiki.png" alt="hungha365.com" />
 

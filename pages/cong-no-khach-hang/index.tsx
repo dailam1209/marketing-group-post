@@ -1,9 +1,7 @@
 import { SidebarContext } from "@/components/crm/context/resizeContext";
-import styleHome from "@/components/crm/home/home.module.css";
+import styleHome from "../so-quy/soquy.module.css";
 import { SetStateAction, useContext, useEffect, useRef, useState } from "react";
 import { useHeader } from "@/components/crm/hooks/useHeader";
-
-import Table_Cong_NoCC from "@/components/crm/table/table-cong-no-cc";
 import Table_Cong_Nokh from "@/components/crm/table/table-cong-no-kh";
 import Head from "next/head";
 

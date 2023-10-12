@@ -138,7 +138,6 @@ const ModalCancel = (props: any) => {
           </div>,
         ]}
       >
-        {" "}
         <div></div>
         {/* <Result
                     status="success"

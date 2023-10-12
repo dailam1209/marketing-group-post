@@ -173,7 +173,6 @@ const AddTaiLieuDinhKem = (props: any) => {
           </div>,
         ]}
       >
-        {" "}
         <div></div>
         <Result status="success" title={<div>Thêm mới thành công</div>} />
       </Modal>

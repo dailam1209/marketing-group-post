@@ -155,7 +155,6 @@ export const ColumCustomer = [
     dataIndex: "companyEmail",
     render: (text: any) => (
       <div style={{ display: "flex", justifyContent: "center" }}>
-        {" "}
         <div>
           <img src="/crm/user_kh.png" alt="hungha365.com" />
         </div>
@@ -174,7 +173,6 @@ export const ColumCustomer = [
     dataIndex: "nameDelete",
     render: (text: any) => (
       <div style={{ display: "flex", justifyContent: "center" }}>
-        {" "}
         <div>
           <img src="/crm/user_kh.png" alt="hungha365.com" />
         </div>

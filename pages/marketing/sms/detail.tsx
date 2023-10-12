@@ -229,7 +229,7 @@ const AddFilesCustomerList: React.FC = () => {
                 <div className={styles.col_lg_6}>
                   <div className={styles.d_flex}>
                     <div className={styles.main__body__item__title}>
-                      Thời gian gửi:{" "}
+                      Thời gian gửi:
                     </div>
                     <div className={styles.main__body__item__value}>
                       10:10 - 22/03/2022
@@ -256,7 +256,7 @@ const AddFilesCustomerList: React.FC = () => {
                 <div className={styles.col_lg_6}>
                   <div className={styles.d_flex}>
                     <div className={styles.main__body__item__title}>
-                      Ngày tạo:{" "}
+                      Ngày tạo:
                     </div>
                     <div className={styles.main__body__item__value}>
                       10:10 - 22/03/2022

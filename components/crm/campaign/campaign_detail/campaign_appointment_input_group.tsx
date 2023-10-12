@@ -32,7 +32,7 @@ export default function CampaignAppointmentInputGroups({ isSelectedRow }: any) {
           className={`${styles.select_item} flex_align_center_item ${styles.select_item_time}`}
         >
           <label htmlFor="" className="">
-            Thời gian thực hiện:{" "}
+            Thời gian thực hiện:
           </label>
           <div className={`${styles.input_item_time} flex_between`}>
             <input type="date" name="" id="start_time" /> -
@@ -43,7 +43,7 @@ export default function CampaignAppointmentInputGroups({ isSelectedRow }: any) {
           className={`${styles.select_item} flex_align_center_item ${styles.select_item_time}`}
         >
           <label htmlFor="" className="">
-            Nhân viên thực hiện:{" "}
+            Nhân viên thực hiện:
           </label>
           <div className={`${styles.input_item_time} flex_between`}>
             <input type="date" name="" id="start_time" /> -

@@ -121,7 +121,6 @@ const EditContractComponent: React.FC<EditContractComponentProps> = ({
     }
   };
 
-
   useEffect(() => {
     getImageBase64();
   }, []);
@@ -171,7 +170,7 @@ const EditContractComponent: React.FC<EditContractComponentProps> = ({
       const countWord = dat?.data?.result?.number_text;
       const newStates = Array(countWord).fill(false);
       for (const pos of item?.index) {
-          newStates[pos] = true;
+        newStates[pos] = true;
       }
       setCheckedStates(newStates);
 
@@ -591,7 +590,7 @@ const EditContractComponent: React.FC<EditContractComponentProps> = ({
                               <img
                                 src="https://crm.timviec365.vn/assets/img/suatruong.svg"
                                 alt="button"
-                              />{" "}
+                              />
                               Sửa trường
                             </button>
                           )}
@@ -605,7 +604,7 @@ const EditContractComponent: React.FC<EditContractComponentProps> = ({
                             data-target="#modalCreate"
                             className={styles.taotruong}
                           >
-                            <img src="/crm/plus_icon_field.svg" alt="button" />{" "}
+                            <img src="/crm/plus_icon_field.svg" alt="button" />
                             Tạo trường
                           </button>
                         </>

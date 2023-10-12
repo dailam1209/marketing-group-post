@@ -23,7 +23,6 @@ export default function PotentialInputGroups({ isSelectedRow }: any) {
           </div>
         </div>
         <PotentialSelectBox title="Giai đoạn:" value="Tất cả" />
-        <br />
         <PotentialSelectBox title="Người thực hiện" value="Tất cả" />
       </div>
 

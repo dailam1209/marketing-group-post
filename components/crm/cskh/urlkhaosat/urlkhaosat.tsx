@@ -83,7 +83,6 @@ export default function URLKhaoSat() {
           }}
           style={{ width: 200, color: "#4C5BD4", border: "1px solid blue" }}
         >
-          {" "}
           Gửi
         </Button>
       </div>

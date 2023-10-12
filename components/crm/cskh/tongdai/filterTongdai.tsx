@@ -152,7 +152,6 @@ const FilterTongDai: React.FC<MyComponentProps> = ({
                 onClick={handleCancel}
                 style={{ color: "#4c5bd4", border: "1px solid #4c5bd4" }}
               >
-                {" "}
                 Hủy
               </Button>
             </div>

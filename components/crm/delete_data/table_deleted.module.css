@@ -92,56 +92,7 @@
 .ipSearch {
   width: 40%;
 }
-@media screen and (max-width: 480px) {
-  .g_input {
-    display: block;
-  }
-  .ipleft {
-    padding-top: 15px;
-  }
-}
 
-@media screen and (max-width: 739px) {
-  .day {
-    display: none;
-  }
-  .ipSearch {
-    width: 50%;
-  }
-  .main__control_search_delete {
-    width: 55%;
-    height: 36px;
-    display: flex;
-    border: 1px solid #666;
-    border-radius: 10px;
-    margin-right: 21px;
-    position: relative;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  }
-  .inputSP2 {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
-  .ip1 {
-    width: 100%;
-  }
-}
-@media screen and (min-width: 739px) and (max-width: 1023px) {
-  .ipSearch {
-    width: 50%;
-  }
-  .main__control_search_delete {
-    width: 35%;
-    height: 36px;
-    display: flex;
-    border: 1px solid #666;
-    border-radius: 10px;
-    margin-right: 21px;
-    position: relative;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  }
-}
 .main__control_search_thuchi {
   width: 30%;
   height: 36px;
@@ -153,7 +104,6 @@
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 .main__control_search {
-  /* width: 100%; */
   height: 40px;
   display: flex;
   border: 1px solid #666;
@@ -168,7 +118,6 @@
   color: #666;
   font-weight: normal;
   font-size: 29px;
-  /* width: 217px; */
   width: 70%;
 
   border-top-left-radius: 10px;
@@ -224,7 +173,6 @@
 }
 
 .selected {
-  /* display: flex   ; */
 }
 
 .btnAction {
@@ -296,4 +244,78 @@
   background-color: #eeeeee;
   padding-bottom: -50px;
   height: auto;
+}
+@media (max-width: 414px) {
+  .inputSP2 {
+    padding-top: 0px !important;
+  }
+}
+@media (max-width: 480px) {
+  .list_gr_sp {
+    width: 165px;
+    font-size: 13px;
+  }
+  .list_sp {
+    width: 165px;
+    font-size: 13px;
+  }
+  .ipSearch {
+    width: 100% !important;
+  }
+  .g_input {
+    display: block;
+  }
+  .ipleft {
+    padding-top: 15px;
+  }
+  .inputSP2 {
+    padding-top: 30px;
+  }
+}
+
+@media screen and (max-width: 739px) {
+  .day {
+    display: none;
+  }
+  .ipSearch {
+    width: 50%;
+  }
+  .main__control_search_delete {
+    width: 55%;
+    height: 36px;
+    display: flex;
+    border: 1px solid #666;
+    border-radius: 10px;
+    margin-right: 21px;
+    position: relative;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  }
+  .inputSP2 {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-top: 30px;
+  }
+  .ip1 {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 739px) and (max-width: 1024px) {
+  .ipSearch {
+    width: 50%;
+  }
+  .main__control_search_delete {
+    width: 35%;
+    height: 36px;
+    display: flex;
+    border: 1px solid #666;
+    border-radius: 10px;
+    margin-right: 21px;
+    position: relative;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  }
+  .inputSP2 {
+    padding-top: 30px;
+  }
 }

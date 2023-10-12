@@ -35,7 +35,6 @@ const columns: ColumnsType<DataType> = [
     key: "contact",
     render: (text: any) => (
       <div style={{ display: "flex", justifyContent: "center" }}>
-        {" "}
         <div>
           <img src="crm/customer/loai_lh_1.png" alt="hungha365.com" />
           &nbsp;

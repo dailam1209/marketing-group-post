@@ -50,8 +50,8 @@ interface MyComponentProps {
   group_idFix: any;
   show: any;
   setshow: any;
-  handleGetInfoSTT:any
-  fetchDataDefault:any
+  handleGetInfoSTT: any;
+  fetchDataDefault: any;
 }
 
 const CallModal: React.FC<MyComponentProps> = ({
@@ -93,7 +93,7 @@ const CallModal: React.FC<MyComponentProps> = ({
   show,
   setshow,
   fetchDataDefault,
-  setDatatable
+  setDatatable,
 }) => {
   const [content, setContent] = useState<any>();
   const [datae, setDate] = useState<any>();
@@ -127,12 +127,12 @@ const CallModal: React.FC<MyComponentProps> = ({
     setIsModalCancel(false);
     setIsOpenMdalSuccess(true);
     setIsOpenModalZoom(false);
-    setTimeout(async() => {
-      setContent("")
+    setTimeout(async () => {
+      setContent("");
       setDatatable([]);
       setIsOpenMdalSuccess(false);
       setshow(false);
-      await fetchData()
+      await fetchData();
     }, 1000);
   };
 
@@ -156,10 +156,9 @@ const CallModal: React.FC<MyComponentProps> = ({
     } catch (error) {}
   };
   useEffect(() => {
-    if(show){
+    if (show) {
       getHisCus();
     }
-    
   }, [show]);
   return (
     <>
@@ -222,12 +221,14 @@ const CallModal: React.FC<MyComponentProps> = ({
                     <div key={index} style={{ display: "block" }}>
                       <div style={{ display: "block" }}>
                         <div style={{ float: "left" }}>
-                          {" "}
                           {convertDate(item?.created_at)}
                         </div>
                         <br />
                         <div style={{ float: "left", color: "#4c5bd4" }}>
-                          {item?.content_call?.replace(/<[^>]*>|&nbsp;|&#160;/g, '')}
+                          {item?.content_call?.replace(
+                            /<[^>]*>|&nbsp;|&#160;/g,
+                            ""
+                          )}
                         </div>
                         <br />
                       </div>
@@ -249,7 +250,7 @@ const CallModal: React.FC<MyComponentProps> = ({
               Thông tin khách hàng
             </div>
             <ChatBusinessBody
-            content={content}
+              content={content}
               cusId={cusId}
               setContent={setContent}
               setDate={setDate}
@@ -347,12 +348,14 @@ const CallModal: React.FC<MyComponentProps> = ({
                     <div key={index} style={{ display: "block" }}>
                       <div style={{ display: "block" }}>
                         <div style={{ float: "left" }}>
-                          {" "}
                           {convertDate(item?.created_at)}
                         </div>
                         <br />
                         <div style={{ float: "left", color: "#4c5bd4" }}>
-                          {item?.content_call.replace(/<[^>]*>|&nbsp;|&#160;/g, '')}
+                          {item?.content_call.replace(
+                            /<[^>]*>|&nbsp;|&#160;/g,
+                            ""
+                          )}
                         </div>
                         <br />
                       </div>

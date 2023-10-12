@@ -850,6 +850,15 @@
   color: #4c5bd4;
   cursor: pointer;
 }
+@media (max-width: 414px) {
+  .main__control_search {
+    width: 100%;
+  }
+  .select_item {
+    width: 100% !important;
+    flex-wrap: nowrap;
+  }
+}
 
 @media (max-width: 768px) {
   .select2_dropdown {

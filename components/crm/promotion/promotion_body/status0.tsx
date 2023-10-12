@@ -2,16 +2,15 @@ import React from "react";
 import styles from "../promotion.module.css";
 import Link from "next/link";
 import Image from "next/image";
-import styleHome from "@/components/crm/home/home.module.css";
 
 const Status0 = () => {
   return (
     <>
       <div className={styles.main__control}>
         <div className={styles.main}>
-          <p style={{ width: "max-content", fontSize: "24px" }}>
+          <p style={{ width: "fit-content", fontSize: "24px" }}>
             Thiết lập các chương trình khuyến mại để thu hút khách hàng của bạn
-            ngay nhé!{" "}
+            ngay nhé!
           </p>
           <img src="/crm/rafiki.png" alt="hungha365.com" />
 
@@ -21,7 +20,7 @@ const Status0 = () => {
               className={`${styles.dropbtn_add} flex_align_center`}
             >
               <Image height={14} width={14} alt="..." src="/crm/add.svg" />
-              Thêm mới
+              <p> Thêm mới</p>
             </button>
           </Link>
         </div>

@@ -1,9 +1,7 @@
-import PotentialSelectBoxStep from "@/components/crm/potential/potential_steps/select_box_step";
 import styles from "./index.module.css";
 import styless from "@/components/crm/theo-doi-thu-chi/index.module.css";
 import React, { useEffect } from "react";
-import { message, Modal, Upload, UploadFile } from "antd";
-
+import { Modal, Upload, UploadFile } from "antd";
 import { Button, Input, InputNumber, Select, UploadProps } from "antd";
 import { useState } from "react";
 import ModalDelete from "../delete_data/modal/modal_delete";
@@ -80,13 +78,21 @@ export default function ThemSanPham() {
       <div style={{ display: "flex" }}>
         <div className={styles.fieldsetne}>
           <div className={styles.lefttm}>
-            <p style={{ fontSize: 20, fontWeight: "800" }}>
-              Thông tin sản phẩm *
+            <p style={{ fontSize: 18, fontWeight: "900", padding: 10 }}>
+              Thông tin sản phẩm
             </p>
-            <fieldset style={{ borderRadius: 10, padding: 20 }}>
+            <fieldset
+              style={{
+                borderRadius: 10,
+                padding: 20,
+                display: "flex",
+                flexDirection: "column",
+                gap: 10,
+              }}
+            >
               <div>
-                <label style={{ fontSize: 20, fontWeight: 500 }}>
-                  Mã sản phẩm *
+                <label style={{ fontSize: 16, fontWeight: 900 }}>
+                  Mã sản phẩm
                 </label>
                 <Input
                   style={{ width: "100%" }}
@@ -94,7 +100,7 @@ export default function ThemSanPham() {
                 ></Input>
               </div>
               <div>
-                <label style={{ fontSize: 20, fontWeight: 500 }}>
+                <label style={{ fontSize: 16, fontWeight: 900 }}>
                   Tên sản phẩm *
                 </label>
                 <Input
@@ -103,7 +109,7 @@ export default function ThemSanPham() {
                 ></Input>
               </div>
               <div>
-                <label style={{ fontSize: 20, fontWeight: 500 }}>
+                <label style={{ fontSize: 16, fontWeight: 900 }}>
                   Nhóm sản phẩm
                 </label>
                 <Select style={{ width: "100%" }}>
@@ -112,7 +118,7 @@ export default function ThemSanPham() {
                 </Select>
               </div>
               <div>
-                <label style={{ fontSize: 20, fontWeight: 500 }}>
+                <label style={{ fontSize: 16, fontWeight: 900 }}>
                   Đơn vị tính *
                 </label>
                 <Input
@@ -121,7 +127,7 @@ export default function ThemSanPham() {
                 ></Input>
               </div>
               <div>
-                <label style={{ fontSize: 20, fontWeight: 500 }}>
+                <label style={{ fontSize: 16, fontWeight: 900 }}>
                   Kích thước *
                 </label>
                 <Input
@@ -130,7 +136,7 @@ export default function ThemSanPham() {
                 ></Input>
               </div>
               <div>
-                <label style={{ fontSize: 20, fontWeight: 500 }}>
+                <label style={{ fontSize: 16, fontWeight: 900 }}>
                   Định mức tồn tối thiểu *
                 </label>
                 <Input
@@ -139,25 +145,25 @@ export default function ThemSanPham() {
                 ></Input>
               </div>
               <div>
-                <label style={{ fontSize: 20, fontWeight: 500 }}>
+                <label style={{ fontSize: 16, fontWeight: 900 }}>
                   Giá nhập *
                 </label>
                 <InputNumber style={{ width: "100%" }}></InputNumber>
               </div>
               <div>
-                <label style={{ fontSize: 20, fontWeight: 500 }}>
+                <label style={{ fontSize: 16, fontWeight: 900 }}>
                   Giá bán lẻ *
                 </label>
                 <InputNumber style={{ width: "100%" }}></InputNumber>
               </div>
               <div>
-                <label style={{ fontSize: 20, fontWeight: 500 }}>
+                <label style={{ fontSize: 16, fontWeight: 900 }}>
                   Giá bán buôn *
                 </label>
                 <InputNumber style={{ width: "100%" }}></InputNumber>
               </div>
               <div>
-                <label style={{ fontSize: 20, fontWeight: 500 }}>
+                <label style={{ fontSize: 16, fontWeight: 900 }}>
                   Bảo hành *
                 </label>
                 <Input
@@ -167,7 +173,7 @@ export default function ThemSanPham() {
               </div>
               <div>
                 <div>
-                  <label style={{ fontSize: 20, fontWeight: 500 }}>
+                  <label style={{ fontSize: 16, fontWeight: 900 }}>
                     Hạn sử dụng *
                   </label>
                   <Input style={{ width: "100%" }} type="date"></Input>
@@ -175,7 +181,7 @@ export default function ThemSanPham() {
               </div>
 
               <div>
-                <label style={{ fontSize: 20, fontWeight: 500 }}>
+                <label style={{ fontSize: 16, fontWeight: 900 }}>
                   Xuất xứ *
                 </label>
                 <Input
@@ -187,7 +193,7 @@ export default function ThemSanPham() {
           </div>
 
           <div className={styles.righttm}>
-            <p style={{ fontSize: 20, fontWeight: "800" }}>
+            <p style={{ fontSize: 18, fontWeight: "900", padding: 10 }}>
               Hình ảnh sản phẩm *
             </p>
             <fieldset className={styles.imgview}>
@@ -198,14 +204,12 @@ export default function ThemSanPham() {
                 onChange={onChange}
                 onPreview={handlePreview}
                 openFileDialogOnClick
-                // className="custom-upload" // Thêm lớp CSS tùy chỉnh
               >
                 {fileList.length < 5 && "+ Upload"}
               </Upload>
               <Modal
                 open={previewOpen}
                 title={previewTitle}
-                // footer={null}
                 onCancel={handleCancel}
                 onOk={handleCancel}
               >
@@ -233,34 +237,31 @@ export default function ThemSanPham() {
       </div>
       <div
         style={{
-          display: "flex",
-          justifyContent: "center",
-          gap: 50,
           paddingTop: 50,
         }}
       >
-        <div className={styless.btn}>
-          <Button
-            onClick={() => {
-              setIsShowModalReturn(true);
-            }}
-            style={{ width: 200, height: 40, fontSize: 18 }}
-            className="btn btn-warning"
-          >
-            Hủy
-          </Button>
-        </div>
-        <div className={styless.btn}>
-          <Button
-            onClick={() => {
-              alert("Lưu thành công"), router.push("/san-pham");
-            }}
-            style={{ width: 200, height: 40, fontSize: 18 }}
-            type="primary"
-            className="btn btn-warning"
-          >
-            Lưu
-          </Button>
+        <div className={styles.custom_btn}>
+          <div className={styless.btn}>
+            <Button
+              onClick={() => {
+                setIsShowModalReturn(true);
+              }}
+              className={styles.button_cancel}
+            >
+              Thoát
+            </Button>
+          </div>
+          <div className={styless.btn}>
+            <Button
+              onClick={() => {
+                alert("Lưu thành công"), router.push("/san-pham");
+              }}
+              type="primary"
+              className={styles.button_save}
+            >
+              Lưu
+            </Button>
+          </div>
         </div>
         <ModalDelete
           isShowModal={isShowModal}

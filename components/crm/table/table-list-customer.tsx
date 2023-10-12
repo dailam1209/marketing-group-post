@@ -470,8 +470,8 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
             height={25}
             alt="hungha365.com"
             src={"/crm/user.svg"}
-          />{" "}
-          {text ? text : "Chưa cập nhật"}{" "}
+          />
+          {text ? text : "Chưa cập nhật"}
         </div>
       ),
     },
@@ -487,8 +487,8 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
             height={25}
             alt="hungha365.com"
             src={"/crm/user.svg"}
-          />{" "}
-          {text ? text : "Chưa cập nhật"}{" "}
+          />
+          {text ? text : "Chưa cập nhật"}
         </div>
       ),
     },
@@ -504,8 +504,8 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
             height={25}
             alt="hungha365.com"
             src={"/crm/user.svg"}
-          />{" "}
-          {text ? text : "Chưa cập nhật"}{" "}
+          />
+          {text ? text : "Chưa cập nhật"}
         </div>
       ),
     },

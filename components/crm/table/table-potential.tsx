@@ -182,7 +182,6 @@ const TableDataPotential: React.FC<TableDataPotentialProps> = ({
           pageSize: pageSize,
           total: data.length,
           showSizeChanger: true,
-          showTotal: (total) => `Tổng ${total} Tiềm năng`,
           onChange: (page, pageSize) => {
             setCurrentPage(page);
           },

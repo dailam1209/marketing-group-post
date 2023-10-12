@@ -98,7 +98,6 @@ export const ColumPotential = [
     dataIndex: "nameCreate",
     render: (text: any) => (
       <div style={{ display: "flex", justifyContent: "center" }}>
-        {" "}
         <div>
           <img src="/crm/user_kh.png" alt="hungha365.com" />
         </div>
@@ -112,7 +111,6 @@ export const ColumPotential = [
     dataIndex: "nameDelete",
     render: (text: any) => (
       <div style={{ display: "flex", justifyContent: "center" }}>
-        {" "}
         <div>
           <img src="/crm/user_kh.png" alt="hungha365.com" />
         </div>

@@ -1,15 +1,12 @@
 import PotentialSelectBoxStep from "@/components/crm/potential/potential_steps/select_box_step";
 import styles from "../potential/potential_add_files/add_file_potential.module.css";
 import styless from "./index.module.css";
-
-// "../../potential/potential_add_files/add_file_potential.module.css";
 import InputText from "@/components/crm/potential/potential_add_files/input_text";
 import Link from "next/link";
 import { Button } from "antd";
 import { useState } from "react";
 import ModalDelete from "../delete_data/modal/modal_delete";
 import ModalReturn from "../delete_data/modal/modal_return";
-import { useRouter } from "next/router";
 export default function ThemPhieuChiCCpage() {
   const [isShowModal, setIsShowModal] = useState(false);
   const [isShowModalReturn, setIsShowModalReturn] = useState(false);
@@ -26,8 +23,7 @@ export default function ThemPhieuChiCCpage() {
       <div
         style={{
           display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "space-around",
+          flexDirection: "column",
         }}
       >
         <div className={styless.fieldsetne}>
@@ -104,34 +100,35 @@ export default function ThemPhieuChiCCpage() {
           </div>
         </div>
       </div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "flex-end",
-          gap: 50,
-          paddingRight: 100,
-        }}
-      >
-        <div className={styless.btn}>
-          <Button
-            onClick={() => {
-              setIsShowModalReturn(true);
-            }}
-            style={{ width: 200 }}
-            className="btn btn-warning"
-          >
-            Hủy
-          </Button>
+      <div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            gap: 20,
+          }}
+        >
+          <div className={styless.btn}>
+            <Button
+              onClick={() => {
+                setIsShowModalReturn(true);
+              }}
+              style={{ width: 150 }}
+              className="btn btn-warning"
+            >
+              Hủy
+            </Button>
+          </div>
+          <Link href={"phieu-chi"} className={styless.btn}>
+            <Button
+              style={{ width: 150 }}
+              type="primary"
+              className="btn btn-warning"
+            >
+              Lưu
+            </Button>
+          </Link>
         </div>
-        <Link href={"phieu-chi"} className={styless.btn}>
-          <Button
-            style={{ width: 200 }}
-            type="primary"
-            className="btn btn-warning"
-          >
-            Lưu
-          </Button>
-        </Link>
         <ModalDelete
           isShowModal={isShowModal}
           onClose={onClose}

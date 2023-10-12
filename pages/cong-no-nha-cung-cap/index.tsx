@@ -1,5 +1,5 @@
 import { SidebarContext } from "@/components/crm/context/resizeContext";
-import styleHome from "@/components/crm/home/home.module.css";
+import styleHome from "../so-quy/soquy.module.css";
 import { SetStateAction, useContext, useEffect, useRef, useState } from "react";
 import { useHeader } from "@/components/crm/hooks/useHeader";
 

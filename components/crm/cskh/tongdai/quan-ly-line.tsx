@@ -237,7 +237,7 @@ const Recording = (props: Props) => {
                     listNV?.map((item: any, index) => {
                       return (
                         <option key={index} value={item.ep_id}>
-                          {`(${item.ep_id}) ${item.ep_name}`} -{" "}
+                          {`(${item.ep_id}) ${item.ep_name}`} -
                           {`${item.dep_name}`}
                         </option>
                       );

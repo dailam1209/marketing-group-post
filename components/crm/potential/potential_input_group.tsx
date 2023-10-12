@@ -126,7 +126,7 @@ export default function PotentialInputGroups({
               type="date"
               name=""
               id="start_time"
-            />{" "}
+            />
             -
             <input
               style={{ fontSize: "14px" }}

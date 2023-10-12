@@ -40,7 +40,6 @@ export const ColumProductReturn = [
     dataIndex: "name",
     render: (text: any) => (
       <div>
-        {" "}
         <Tooltip placement="bottom" title={text + text + text + text + text}>
           <div>{text + text + text + text + text}</div>
         </Tooltip>
@@ -91,7 +90,6 @@ export const ColumProductReturn = [
     dataIndex: "name",
     render: (text: any) => (
       <div style={{ display: "flex", justifyContent: "center" }}>
-        {" "}
         <div>
           <img src="/crm/user_kh.png" alt="hungha365.com" />
         </div>

@@ -162,6 +162,11 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
       children: [
         {
           blank: "",
+          label: "Tổng đài",
+          link: "/tong-dai",
+        },
+        {
+          blank: "",
           label: "Khảo sát",
           link: "/khao-sat",
         },
@@ -174,11 +179,6 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
           blank: "",
           label: "Lịch hẹn",
           link: "/lich-hen",
-        },
-        {
-          blank: "",
-          label: "Tổng đài",
-          link: "/tong-dai",
         },
       ],
       content: "Chăm sóc khách hàng",

@@ -43,7 +43,6 @@ export default function AddTable() {
       <div className={styles.container_bot_title}>
         <div className={styles.infobot_title}>
           <div className={styles.infobot_title_left}>
-            {" "}
             <b>Công ty CPTT Hưng Hà</b>
           </div>
           <div className={styles.infobot_title_right}>
@@ -63,7 +62,7 @@ export default function AddTable() {
 
         <div className={styles.infobot_title}>
           <div className={styles.infobot_title_left}>
-            <b>+ 84 (8) 24567889</b>{" "}
+            <b>+ 84 (8) 24567889</b>
           </div>
           <div className={styles.infobot_title_right}>
             <span>Số điện thoại:</span>
@@ -82,7 +81,6 @@ export default function AddTable() {
         </div>
 
         <div style={{ fontSize: 15 }}>
-          {" "}
           <b>Lời giới thiệu </b>
         </div>
       </div>
@@ -117,7 +115,7 @@ export default function AddTable() {
       <div className={styles.bot_infoTotalMonney}>
         <div className={styles.monney}>
           <div>
-            <b> Số tiền viết bằng chữ</b>{" "}
+            <b> Số tiền viết bằng chữ</b>
           </div>
           <div>Một triệu đồng</div>
         </div>
@@ -125,7 +123,7 @@ export default function AddTable() {
       <div className={styles.bot_infoTotalMonney}>
         <div className={styles.monney}>
           <div>
-            <b> Điều khoản & Quy định</b>{" "}
+            <b> Điều khoản & Quy định</b>
           </div>
         </div>
       </div>
@@ -140,7 +138,7 @@ export default function AddTable() {
       <div className={styles.bot_infoTotalMonney}>
         <div className={styles.monney}>
           <div>
-            <b> Ghi chú</b>{" "}
+            <b> Ghi chú</b>
           </div>
         </div>
       </div>
@@ -153,14 +151,14 @@ export default function AddTable() {
       <div className={styles.sign}>
         <div className={styles.monney2}>
           <div style={{ textAlign: "center" }}>
-            <b> Người lập</b>{" "}
+            <b> Người lập</b>
             <div style={{ paddingBottom: 50 }}>(Ký, họ tên)</div>
             <h2>Phạm Thanh Mai</h2>
           </div>
         </div>
         <div className={styles.monney2}>
           <div style={{ textAlign: "center" }}>
-            <b> Giám đốc</b>{" "}
+            <b> Giám đốc</b>
             <div style={{ paddingBottom: 50 }}>(Ký, họ tên, đóng dấu)</div>
             <h2>Trương Văn Trắc</h2>
           </div>

@@ -89,56 +89,7 @@
   display: flex;
   gap: 15px;
 }
-@media screen and (max-width: 480px) {
-  .g_input {
-    display: block;
-  }
-  .ipleft {
-    padding-top: 15px;
-  }
-}
 
-@media screen and (max-width: 739px) {
-  .day {
-    display: none;
-  }
-  .ipSearch {
-    width: 50%;
-  }
-  .main__control_search_delete {
-    width: 25%;
-    height: 36px;
-    display: flex;
-    border: 1px solid #666;
-    border-radius: 10px;
-    margin-right: 21px;
-    position: relative;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  }
-  .inputSP2 {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
-  .ip1 {
-    width: 100%;
-  }
-}
-@media screen and (min-width: 739px) and (max-width: 1023px) {
-  .ipSearch {
-    width: 50%;
-  }
-  .main__control_search_delete {
-    width: 35%;
-    height: 36px;
-    display: flex;
-    border: 1px solid #666;
-    border-radius: 10px;
-    margin-right: 21px;
-    position: relative;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  }
-}
 .main__control_search_thuchi {
   width: 30%;
   height: 36px;
@@ -294,4 +245,70 @@
   background-color: #eeeeee;
   padding-bottom: -50px;
   height: auto;
+}
+
+@media screen and (max-width: 414px) {
+  .g_input {
+    display: block;
+  }
+  .ipleft {
+    padding-top: 15px;
+  }
+  .main__control_search_delete {
+    width: 100% !important;
+  }
+  .pagination_custom {
+    flex-direction: column;
+    gap: 10px;
+    align-items: unset !important;
+  }
+}
+
+@media screen and (min-width: 739px) and (max-width: 1023px) {
+  .ipSearch {
+    width: 50%;
+  }
+  .main__control_search_delete {
+    width: 35%;
+    height: 36px;
+    display: flex;
+    border: 1px solid #666;
+    border-radius: 10px;
+    margin-right: 21px;
+    position: relative;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  }
+  .flex_column {
+    margin-top: 45px;
+  }
+}
+
+@media screen and (max-width: 739px) {
+  .day {
+    display: none;
+  }
+  .ipSearch {
+    width: 50%;
+  }
+  .main__control_search_delete {
+    width: 25%;
+    height: 36px;
+    display: flex;
+    border: 1px solid #666;
+    border-radius: 10px;
+    margin-right: 21px;
+    position: relative;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  }
+  .inputSP2 {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .ip1 {
+    width: 100%;
+  }
+  .flex_column {
+    margin-top: 45px;
+  }
 }

@@ -30,14 +30,14 @@ import { doGhimCha, doSaveCha } from "../redux/user/userSlice";
 import { useDispatch } from "react-redux";
 import TextEditorTLKDDes from "../text-editor/new_text_ditor_phonetlkd";
 import NewCalenderInput from "./new_calendar_input";
-export default function NewChatBusinessBody({handleOpenChatBody}: any) {
+export default function NewChatBusinessBody({ handleOpenChatBody }: any) {
   const [listGr, setListGr] = useState([]);
   const [list_gr_child, setlistGr_Child] = useState([]);
 
   useEffect(() => {}, []);
   const [idChaSaved, setidChaSaved] = useState<any>(-1);
   const checkCha = useSelector((state: any) => state?.auth?.ghimCha);
-  const [mail, setMail] = useState("")
+  const [mail, setMail] = useState("");
   const [check, setCheck] = useState(false);
   const [nhonkhachhang, setnhonkhachhang] = useState<any>();
   const [nhomCon, setNhomCon] = useState<any>();
@@ -49,7 +49,7 @@ export default function NewChatBusinessBody({handleOpenChatBody}: any) {
   const refPhone = useRef<any>();
   const [refDes, setrefDes] = useState<any>();
   const [content_call, setContentCall] = useState("");
-  const [phone, setPhone] = useState()
+  const [phone, setPhone] = useState();
 
   const router = useRouter();
   const currentTime = moment(); // Thời điểm hiện tại
@@ -119,9 +119,9 @@ export default function NewChatBusinessBody({handleOpenChatBody}: any) {
   return (
     <div className={styles.business_assistant_body}>
       <div className={styles.form_business_assistant}>
-        <InputPhone refPhone={refPhone} setPhone={setPhone}/>
-        <InputNameCustomer refName={refName} setChange = {setName}/>
-        <InputEmailCustomer refMail={refMail} setMail={setMail}/>
+        <InputPhone refPhone={refPhone} setPhone={setPhone} />
+        <InputNameCustomer refName={refName} setChange={setName} />
+        <InputEmailCustomer refMail={refMail} setMail={setMail} />
         <TextEditorTLKDDes
           title={"Mô tả khách hàng" as any}
           className={"1"}
@@ -144,7 +144,6 @@ export default function NewChatBusinessBody({handleOpenChatBody}: any) {
                 style={{ padding: "5px 5px", color: "#474747" }}
                 className={styles.label}
               >
-                {" "}
                 Nhóm khách hàng cha
               </div>
             </div>
@@ -262,7 +261,7 @@ export default function NewChatBusinessBody({handleOpenChatBody}: any) {
         name={name}
         email={refMail?.current?.value}
         desCription={refDes}
-        refName = {refName}
+        refName={refName}
         content_call={content_call}
         handleOpenChatBody={handleOpenChatBody}
       />

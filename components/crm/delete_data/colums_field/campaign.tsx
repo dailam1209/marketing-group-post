@@ -61,7 +61,6 @@ export const ColumCampaign = [
     dataIndex: "name",
     render: (text: any) => (
       <div style={{ display: "flex", justifyContent: "center" }}>
-        {" "}
         <div>
           <img src="/crm/user_kh.png" alt="hungha365.com" />
         </div>
@@ -75,7 +74,6 @@ export const ColumCampaign = [
     dataIndex: "name",
     render: (text: any) => (
       <div style={{ display: "flex", justifyContent: "center" }}>
-        {" "}
         <div>
           <img src="/crm/user_kh.png" alt="hungha365.com" />
         </div>

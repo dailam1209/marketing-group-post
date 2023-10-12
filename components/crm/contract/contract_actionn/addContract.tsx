@@ -552,7 +552,7 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
                             <img
                               src="https://crm.timviec365.vn/assets/img/suatruong.svg"
                               alt="button"
-                            />{" "}
+                            />
                             Sửa trường
                           </button>
                         </>
@@ -565,7 +565,7 @@ const TableAddContract: React.FC<TableAddContractProps> = ({}: any) => {
                             data-target="#modalCreate"
                             className={styles.taotruong}
                           >
-                            <img src="/crm/plus_icon_field.svg" alt="button" />{" "}
+                            <img src="/crm/plus_icon_field.svg" alt="button" />
                             Tạo trường
                           </button>
                         </>

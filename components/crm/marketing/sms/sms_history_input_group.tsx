@@ -11,7 +11,7 @@ export default function EmailFormInputGroup({ isSelectedRow }: any) {
         className={`${styles.select_item} flex_align_center_item ${styles.select_item_time}`}
       >
         <label htmlFor="" className="">
-          Ngày gửi:{" "}
+          Ngày gửi:
         </label>
         <div className={`${styles.input_item_time} flex_between`}>
           <input
@@ -19,7 +19,7 @@ export default function EmailFormInputGroup({ isSelectedRow }: any) {
             name=""
             id="start_time"
             style={{ margin: "0px 10px" }}
-          />{" "}
+          />
           -
           <input
             type="date"

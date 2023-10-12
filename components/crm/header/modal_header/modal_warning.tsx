@@ -11,7 +11,7 @@ export default function WarningModal() {
               <img src={item.img} alt="hungha365.com" />
               <div className={style.content_help}>
                 <p className={style.text_help}>
-                  <span className={style.text_help_special}>{item.name}</span>{" "}
+                  <span className={style.text_help_special}>{item.name}</span>
                   {item.content}
                 </p>
                 <p className={style.time_help}>{item.timestamp}</p>

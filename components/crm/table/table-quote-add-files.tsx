@@ -162,13 +162,13 @@ const TableDataQuoteAddFiles: React.FC<
       render: () => (
         <div style={{ display: "flex", gap: 10, justifyContent: "center" }}>
           <div style={{ width: 15 }} onClick={() => setPageSize(pageSize + 1)}>
-            <img style={{ cursor: "pointer" }} src="/crm/add_row.svg"></img>{" "}
+            <img style={{ cursor: "pointer" }} src="/crm/add_row.svg"></img>
           </div>
           <div style={{ width: 15 }} onClick={() => setPageSize(pageSize - 1)}>
-            <img style={{ cursor: "pointer" }} src="	/crm/remove_row.svg"></img>{" "}
+            <img style={{ cursor: "pointer" }} src="	/crm/remove_row.svg"></img>
           </div>
           <div style={{ width: 15 }}>
-            <img style={{ cursor: "pointer" }} src="	/crm/menu_row.svg"></img>{" "}
+            <img style={{ cursor: "pointer" }} src="	/crm/menu_row.svg"></img>
           </div>
         </div>
       ),

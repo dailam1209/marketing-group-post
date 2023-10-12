@@ -147,7 +147,6 @@ const Bot_textEditor = ({ dataAdd, setDataAdd }: any) => {
             style={{ fontWeight: 1000, width: "100%" }}
             placeholder="Chọn nhóm khách hàng cha"
           >
-            {" "}
             {listGr?.map((item, index) => {
               return (
                 <option key={index} value={item?.gr_id}>

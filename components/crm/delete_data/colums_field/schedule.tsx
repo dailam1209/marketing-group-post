@@ -7,7 +7,7 @@ export const ColumSchedule = [
     dataIndex: "address",
     render: (text: any) => (
       <div className={styles.name} style={{ overflow: "hidden" }}>
-        <Link href="">{text}</Link>{" "}
+        <Link href="">{text}</Link>
       </div>
     ),
   },
@@ -23,7 +23,6 @@ export const ColumSchedule = [
     dataIndex: "timeDelete",
     render: (text: any) => (
       <div>
-        {" "}
         <div></div>&nbsp;{text} <div>{text}</div>
       </div>
     ),
@@ -34,7 +33,6 @@ export const ColumSchedule = [
     dataIndex: "name",
     render: (text: any) => (
       <div style={{ display: "flex", justifyContent: "center" }}>
-        {" "}
         <div>
           <img src="/crm/user_kh.png" alt="hungha365.com" />
         </div>
@@ -48,7 +46,6 @@ export const ColumSchedule = [
     dataIndex: "name",
     render: (text: any) => (
       <div style={{ display: "flex", justifyContent: "center" }}>
-        {" "}
         <div>
           <img src="/crm/user_kh.png" alt="hungha365.com" />
         </div>

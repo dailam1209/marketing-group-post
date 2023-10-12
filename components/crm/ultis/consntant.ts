@@ -737,6 +737,11 @@ export const sidebar_button_group_login = [
     children: [
       {
         blank: '',
+        label: 'Tổng đài',
+        link: '/tong-dai',
+      },
+      {
+        blank: '',
         label: 'Khảo sát',
         link: '/khao-sat',
       },
@@ -750,11 +755,7 @@ export const sidebar_button_group_login = [
         label: 'Lịch hẹn',
         link: '/lich-hen',
       },
-      {
-        blank: '',
-        label: 'Tổng đài',
-        link: '/tong-dai',
-      },
+     
     ],
     content: 'Chăm sóc khách hàng',
   },

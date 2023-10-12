@@ -206,31 +206,33 @@ const SwitchFPTTable: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className={stylex.main__footer}>
-          <button
-            className={stylex.update}
-            type="button"
-            onClick={() => handleUpdate()}
-          >
-            Cập nhật
-          </button>
-          {isVerify ? (
+        <div>
+          <div className={stylex.main__footer}>
             <button
-              style={{ color: "red", border: "1px solid" }}
+              className={stylex.update}
               type="button"
-              onClick={() => (
-                setisVerify(false),
-                dispatch(doDisConnect("")),
-                alert("Hủy kết nối thành công")
-              )}
+              onClick={() => handleUpdate()}
             >
-              Huỷ kết nối
+              Cập nhật
             </button>
-          ) : (
-            <button type="button" onClick={handleConnect}>
-              Kết nối
-            </button>
-          )}
+            {isVerify ? (
+              <button
+                style={{ color: "red", border: "1px solid" }}
+                type="button"
+                onClick={() => (
+                  setisVerify(false),
+                  dispatch(doDisConnect("")),
+                  alert("Hủy kết nối thành công")
+                )}
+              >
+                Huỷ kết nối
+              </button>
+            ) : (
+              <button type="button" onClick={handleConnect}>
+                Kết nối
+              </button>
+            )}
+          </div>
           {
             <CancelModal
               isModalCancel={isModalCancel}

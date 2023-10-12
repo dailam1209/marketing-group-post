@@ -169,10 +169,7 @@ const KhaoSat = (props: Props) => {
       </div>
 
       <div className={cskh.input}>
-        <div
-          className={styles.main__control_search_delete}
-          style={{ width: 440 }}
-        >
+        <div className={styles.main__control_search_delete}>
           <Input
             placeholder={`Tìm kiếm`}
             suffix={suffix}
