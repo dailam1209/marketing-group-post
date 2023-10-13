@@ -7,7 +7,7 @@ export default function   InputEmailCustomer({infoCus, refMail, setMail}:any) {
       className={`${styles.business_assistant_item} ${styles.business_assistant_item_gray}`}
     >
       <label className={`${styles.lbl_title}`}>Email khách hàng</label>
-      <input onChange={(e)=>setMail(e.target.value)} ref={refMail} defaultValue={infoCus?.email?.info} name="" type=" text" placeholder="Nhập email khách hàng" />
+      <input disabled onChange={(e)=>setMail(e.target.value)} ref={refMail} defaultValue={infoCus?.email?.info} name="" type=" text" placeholder="Nhập email khách hàng" />
     </div>
   );
 }

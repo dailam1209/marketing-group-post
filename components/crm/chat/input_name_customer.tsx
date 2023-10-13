@@ -14,6 +14,7 @@ export default function InputNameCustomer({
         ref={refName}
         defaultValue={infoCus?.name}
         name=""
+        disabled
         type=" text"
         placeholder="Nhập tên khách hàng"
         onChange={(e) => setChange(e.target.value)}
