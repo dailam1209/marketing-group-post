@@ -41,8 +41,8 @@ export default function InputPhone({ infoCus, refPhone, setPhone }: any) {
         <form action="" onSubmit={() => false} style={{ width: "100%" }}>
           <input
             type="number"
-            disabled
             ref={refPhone}
+            disabled
             defaultValue={infoCus?.phone_number?.info}
             className={styles.input_phone}
             // onChange={(e)=>console.log(e.target.name)}
