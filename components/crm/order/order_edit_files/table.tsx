@@ -32,7 +32,7 @@ export default function EditTable() {
           <b>Chọn hàng hóa</b>
         </button>
       </p>
-      <TableDataOrderEditFiles setTongTien={setTongTien} />
+      {/* <TableDataOrderEditFiles setTongTien={setTongTien} /> */}
 
       <div className={styles.row_input}></div>
       <div className={styles.row_input}>
