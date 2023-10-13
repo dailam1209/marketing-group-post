@@ -1159,3 +1159,51 @@ label {
   .ant-select.css-dev-only-do-not-override-o95mle.ant-select-single.ant-select-show-arrow {
   width: 100% !important;
 }
+.campaign-checkbox-column .ant-checkbox-wrapper {
+  width: 16px;
+  height: 16px;
+}
+.custom-table {
+  width: 190vw; /* 100% chiều rộng của cửa sổ trình duyệt */
+  overflow-x: auto; /* Cho phép thanh trượt ngang */
+  padding-top: 20px;
+}
+@media (max-width:1024px){
+  .custom-table {
+    width: 150vw; /* 100% chiều rộng của cửa sổ trình duyệt */
+    overflow-x: auto; /* Cho phép thanh trượt ngang */
+    padding-top: 20px;
+  }
+}
+@media (max-width:820px){
+  .custom-table {
+    width: 100%; /* 100% chiều rộng của cửa sổ trình duyệt */
+    overflow-x: auto; /* Cho phép thanh trượt ngang */
+    padding-top: 20px;
+  }
+}
+@media (max-width:460px){
+  .custom-table {
+    width: 100%; /* 100% chiều rộng của cửa sổ trình duyệt */
+    overflow-x: auto; /* Cho phép thanh trượt ngang */
+    padding-top: 20px;
+  }
+}
+.ant-table-wrapper .ant-table-body {
+  overflow-y: hidden;
+  z-index: 99;
+}
+::-webkit-scrollbar-thumb {
+  background: #4c5bd4;
+  border-radius: 0px;
+  height: 20px;
+  height: 12px !important;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #9698a1;
+}
+::-webkit-scrollbar {
+  width: 4px;
+  background-color: transparent;
+  height: 12px !important;
+}
