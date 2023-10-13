@@ -1,11 +1,30 @@
-/* .contextleft {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-} */
+.custom_btn {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+}
+.button_cancel {
+  width: 200px;
+  height: 40px;
+  font-size: 18px;
+}
+.button_save {
+  width: 200px;
+  height: 40px;
+  font-size: 18px;
+}
+
+@media (max-width: 414px) {
+  .button_cancel {
+    width: 150px;
+    height: 40px;
+    font-size: 18px;
+  }
+  .button_save {
+    width: 150px;
+  }
+}
+
 @media screen and (min-width: 821px) {
   .fieldsetne {
     display: flex;
@@ -31,9 +50,10 @@
     width: 100%;
   }
   .righttm {
- padding-bottom: 25px;
+    padding-bottom: 25px;
   }
   .imgview {
     border-radius: 10px;
+    padding: 30px;
   }
 }

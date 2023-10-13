@@ -190,7 +190,6 @@ export default function AddOrderDetailInfo() {
               </div>
               <div className={`${styles.main__body__item__value}`}>
                 <div style={{ display: "flex", justifyContent: "center" }}>
-                  {" "}
                   <div>
                     <img src="/crm/user_kh.png" alt="hungha365.com" />
                   </div>

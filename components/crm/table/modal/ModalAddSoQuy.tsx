@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Input, InputNumber, Modal, Result } from "antd";
-import styles from "./modal.module.css";
+import styles from "./modal_custom.module.css";
 import PotentialSelectBoxStep from "@/components/crm/potential/potential_steps/select_box_step";
 const ModalAddSoQuy = (props: any) => {
   const { isShowModalAdd, onClose, handleDeleteDB, name } = props;
@@ -19,33 +19,18 @@ const ModalAddSoQuy = (props: any) => {
       <Modal
         width={550}
         open={isShowModalAdd}
-        title={
-          <div
-            style={{
-              background: "#4C5BD4",
-              width: "111%",
-              margin: "-20px -24px",
-            }}
-          >
-            <div
-              style={{
-                color: "white",
-                fontSize: 20,
-                textAlign: "center",
-                paddingTop: 5,
-              }}
-            >
-              Thêm mới sổ quỹ
-            </div>
-          </div>
-        }
         onOk={handleOk}
         onCancel={onClose}
         closable={true}
         footer={[
           <div
             key={"1"}
-            style={{ display: "flex", justifyContent: "center", gap: 20 }}
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              gap: 20,
+              margin: "20px 0 ",
+            }}
           >
             <Button
               style={{
@@ -75,30 +60,35 @@ const ModalAddSoQuy = (props: any) => {
             >
               Thêm mới
             </Button>
-            ,
           </div>,
         ]}
       >
         <div
           style={{ width: "100%", alignItems: "center", paddingTop: "20px" }}
         >
+          <h3 className={styles.title}>Thêm mới sổ quỹ</h3>
           <div>
-            <div style={{ fontSize: 19, fontWeight: 500 }}> Tên sổ quỹ</div>
+            <div style={{ fontSize: 16, fontWeight: 500, paddingTop: 30 }}>
+              Tên sổ quỹ
+            </div>
             <Input placeholder="Nhập tên sổ quỹ"></Input>
           </div>
 
           <div>
-            <div style={{ fontSize: 19, fontWeight: 500 }}> Mô tả</div>
+            <div style={{ fontSize: 16, fontWeight: 500 }}> Mô tả</div>
             <textarea
-              style={{ width: "100%", height: 100, fontSize: 20, padding: 5 }}
-            >
-              {/* <option value="" style={{fontSize:12}}>Tiền mặt</option>
-                        <option value="">Chuyển khoản</option> */}
-            </textarea>
+              style={{
+                width: "100%",
+                height: 100,
+                fontSize: 20,
+                padding: 5,
+                border: "1px solid #ccc",
+              }}
+            ></textarea>
           </div>
 
           <div>
-            <div style={{ fontSize: 19, fontWeight: 500 }}>
+            <div style={{ fontSize: 16, fontWeight: 500 }}>
               Chọn người quản lý
             </div>
             <div style={{ height: 40 }}>
@@ -109,7 +99,7 @@ const ModalAddSoQuy = (props: any) => {
             </div>
           </div>
           <div>
-            <div style={{ fontSize: 19, fontWeight: 500 }}>Trạng thái</div>
+            <div style={{ fontSize: 16, fontWeight: 500 }}>Trạng thái</div>
             <div style={{ height: 40 }}>
               <PotentialSelectBoxStep
                 value="Hoạt động"

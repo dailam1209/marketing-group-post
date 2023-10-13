@@ -13,7 +13,7 @@ export default function CustomerGroupSelectDropdownData({
   setValueFilter,
   valueFilter,
   showTop,
-  setIsOpen
+  setIsOpen,
 }: any) {
   const [focus, setFocus] = useState(false);
   const [filterData, setFilterData] = useState(data);
@@ -94,13 +94,13 @@ export default function CustomerGroupSelectDropdownData({
   }, [valueFilter]);
 
   ///sua file nay
-const handleEnter = async(e:any) =>{
-  if(e.key==="Enter"){
-    setValueOption(filterData[0]?.gr_name);
-    await handleClcikOptions(filterData[0])
-    setIsOpen(false)
-  }
-}
+  const handleEnter = async (e: any) => {
+    if (e.key === "Enter") {
+      setValueOption(filterData[0]?.gr_name);
+      await handleClcikOptions(filterData[0]);
+      setIsOpen(false);
+    }
+  };
   return (
     <span
       className={`${styles.select2_container_open} ${styles.select2_container} ${styles.select2_container_default} `}
@@ -109,7 +109,6 @@ const handleEnter = async(e:any) =>{
         top: showTop ? -245 : 35,
         left: 0,
         zIndex: 999,
-        
       }}
     >
       <span
@@ -125,7 +124,7 @@ const handleEnter = async(e:any) =>{
             type="search"
             value={valueFilter}
             onChange={handleChange}
-            onKeyDown={(e)=>handleEnter(e)}
+            onKeyDown={(e) => handleEnter(e)}
             tabIndex={0}
             autoComplete="off"
             autoCorrect="off"
@@ -260,7 +259,7 @@ const handleEnter = async(e:any) =>{
               : filterData?.map((item: any, i: Key | null | undefined) => {
                   const isFirstItem = i === 0;
                   return (
-                    <span className="select2-results" >
+                    <span className="select2-results">
                       <ul className="select2-results__options">
                         <li className="select2-results__option" role="group">
                           <ul className="select2-results__options select2-results__options--nested">
@@ -271,13 +270,12 @@ const handleEnter = async(e:any) =>{
                                 onClick={() => handleClcikOptions(item)}
                               >
                                 <strong>
-                                  {" "}
                                   {
                                     data?.filter(
                                       (itemcha) =>
                                         itemcha.gr_id === item?.group_parent
                                     )[0]?.gr_name
-                                  }{" "}
+                                  }
                                 </strong>
                                 <li
                                   onMouseOver={(e) => {

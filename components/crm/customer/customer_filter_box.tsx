@@ -471,7 +471,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
                 // defaultValue={420}
                 checked={checkCha}
                 onChange={(e: any) => handleGhimNhom(e)}
-              />{" "}
+              />
               Ghim nhóm
             </div>
           </div>

@@ -27,7 +27,6 @@ export const ColumFunds = [
     render: (text: any) => (
       <div style={{ overflow: "hidden" }}>
         <Link href="">
-          {" "}
           <Tooltip placement="bottom" title={text + text + text + text + text}>
             <div>{text}</div>
           </Tooltip>
@@ -41,7 +40,6 @@ export const ColumFunds = [
     dataIndex: "name",
     render: (text: any) => (
       <div style={{ display: "flex", justifyContent: "center" }}>
-        {" "}
         <div>
           <img src="/crm/user_kh.png" alt="hungha365.com" />
         </div>
@@ -61,7 +59,6 @@ export const ColumFunds = [
     dataIndex: "name",
     render: (text: any) => (
       <div style={{ display: "flex", justifyContent: "center" }}>
-        {" "}
         <div>
           <img src="/crm/user_kh.png" alt="hungha365.com" />
         </div>

@@ -58,7 +58,7 @@ export default function ChatBusinessBody({
   listGr_Child,
   group_idFix,
   action,
-  content
+  content,
 }: any) {
   const [infoCus, setInfoCus] = useState<any>();
 
@@ -86,7 +86,7 @@ export default function ChatBusinessBody({
       });
       const data = await res.json();
       if (data && data?.data) setInfoCus(data?.data);
-    } catch (error) { }
+    } catch (error) {}
   };
   useEffect(() => {
     handleGetInfoCus();
@@ -94,15 +94,15 @@ export default function ChatBusinessBody({
   // const [listGr, setListGr] = useState([]);
   const [list_gr_child, setlistGr_Child] = useState([]);
 
-  useEffect(() => { }, []);
+  useEffect(() => {}, []);
   const [idChaSaved, setidChaSaved] = useState<any>(-1);
   const checkCha = useSelector((state: any) => state?.auth?.ghimCha);
   const valueChaOld = useSelector((state: any) => state?.auth?.valueCha);
   const [valueSelectStatus, setValueSelectStatus] = useState<any>();
   const [valueResoure, sevalueResoure] = useState<any>();
   const [check, setCheck] = useState(false);
-  const [nhomChaDemo, setnhomChaDemo] = useState<any>()
-  const [nhomComDeMo, setnhomComDeMo] = useState()
+  const [nhomChaDemo, setnhomChaDemo] = useState<any>();
+  const [nhomComDeMo, setnhomComDeMo] = useState();
   const handlefilter = async () => {
     setDatatable([]);
     setloading(true);
@@ -135,7 +135,7 @@ export default function ChatBusinessBody({
   }, [idChaSaved]);
 
   const handleSelectNhomCha = (value) => {
-    setnhomChaDemo(value)
+    setnhomChaDemo(value);
     dispatch(doSaveCha({ id: value }));
     setnhonkhachhang(value);
     if (value > 0) {
@@ -145,7 +145,7 @@ export default function ChatBusinessBody({
     }
   };
 
-  const handleDateChangeEnd = (e) => { };
+  const handleDateChangeEnd = (e) => {};
 
   let optionCon2;
   if (valueChaOld) {
@@ -199,81 +199,78 @@ export default function ChatBusinessBody({
   const [refCall, setrefCall] = useState<any>();
 
   const handleChangeInforCus = async () => {
-      const url = `${base_url}/api/crm/customerdetails/editCustomer`;
-      const formData = new FormData();
-      formData.append("type", infoCus?.type);
-      formData.append("cus_id", cusId);
-      if (refCall) {
-        formData.append("content_call", refCall);
-      }
-      if (nhonkhachhang) {
+    const url = `${base_url}/api/crm/customerdetails/editCustomer`;
+    const formData = new FormData();
+    formData.append("type", infoCus?.type);
+    formData.append("cus_id", cusId);
+    if (refCall) {
+      formData.append("content_call", refCall);
+    }
+    if (nhonkhachhang) {
       formData.append("group_id", nhonkhachhang);
+    }
+    if (tinhtrang) {
+      formData.append("status", tinhtrang);
+    }
+    if (nguon) {
+      formData.append("resoure", nguon);
+    }
+    if (refName?.current?.value) {
+      formData.append("name", refName?.current?.value);
+    }
+    if (refMail?.current?.value) {
+      formData.append("email", refMail?.current?.value);
+    }
+    if (refPhone?.current?.value) {
+      formData.append("phone_number", refPhone?.current?.value);
+    }
+    if (refDes) {
+      formData.append("description", refDes);
+    }
 
-      }
-      if (tinhtrang) {
-        formData.append("status", tinhtrang);
-      }
-      if (nguon) {
-        formData.append("resoure", nguon);
-      }
-      if (refName?.current?.value) {
-        formData.append("name", refName?.current?.value);
-      }
-      if (refMail?.current?.value) {
-        formData.append("email", refMail?.current?.value);
-      }
-      if (refPhone?.current?.value) {
-        formData.append("phone_number", refPhone?.current?.value);
-      }
-      if (refDes) {
-        formData.append("description", refDes);
-      }
-
-      const headers = {
-        Authorization: `Bearer ${Cookies.get("token_base365")}`,
-      };
-
-      const config = {
-        method: "POST",
-        headers: headers,
-        body: formData,
-      };
-      try {
-        const response = await fetch(url, config);
-        const data = await response.json();
-        if (data?.error) {
-        }
-      } catch (error) {
-        console.error(error);
-      }
-      setrefCall('')
+    const headers = {
+      Authorization: `Bearer ${Cookies.get("token_base365")}`,
     };
-    const [nhonConReal, setnhonConReal] = useState<any>()
+
+    const config = {
+      method: "POST",
+      headers: headers,
+      body: formData,
+    };
+    try {
+      const response = await fetch(url, config);
+      const data = await response.json();
+      if (data?.error) {
+      }
+    } catch (error) {
+      console.error(error);
+    }
+    setrefCall("");
+  };
+  const [nhonConReal, setnhonConReal] = useState<any>();
 
   useEffect(() => {
     handleChangeInforCus();
   }, [action]);
   const [Change, setChange] = useState<any>();
   const [mail, setMail] = useState<any>();
-    const [nhomChaReal, setnhomChaReal] = useState<any>()
-  const arrCha = []
-  listGr.map(item=>{
-    arrCha.push(item.gr_id)
-  })
+  const [nhomChaReal, setnhomChaReal] = useState<any>();
+  const arrCha = [];
+  listGr.map((item) => {
+    arrCha.push(item.gr_id);
+  });
   useEffect(() => {
-    setnhomChaReal("")
-    setnhonConReal("")
-  if(arrCha.includes(infoCus?.group_id?.info)){
-    setnhomChaReal(infoCus?.group_id?.info)
-    setnhomCha(infoCus?.group_id?.info)
-    
-  }else{
-    setnhonConReal(infoCus?.group_id?.info)
-    setnhomChaReal(nhomCha)
-  }
+    setnhomChaReal("");
+    setnhonConReal("");
+    if (arrCha.includes(infoCus?.group_id?.info)) {
+      setnhomChaReal(infoCus?.group_id?.info);
+      setnhomCha(infoCus?.group_id?.info);
+    } else {
+      setnhonConReal(infoCus?.group_id?.info);
+      setnhomChaReal(nhomCha);
+    }
+  }, [nhonConReal, nhomChaReal, infoCus, cusId, arrCha]);
 
-  }, [nhonConReal,nhomChaReal,infoCus,cusId,arrCha])
-  
   return (
     <div className={styles.business_assistant_body}>
       <div className={styles.form_business_assistant}>
@@ -311,12 +308,11 @@ export default function ChatBusinessBody({
               style={{ padding: "5px 5px", color: "#474747" }}
               className={styles.label}
             >
-              {" "}
               Nhóm khách hàng cha
             </div>
           </div>
           <Select
-            value={nhomChaDemo?nhomChaDemo:nhomChaReal}
+            value={nhomChaDemo ? nhomChaDemo : nhomChaReal}
             onChange={(value) => handleSelectNhomCha(value)}
             // defaultValue={group_idFix}
             suffixIcon={
@@ -360,10 +356,11 @@ export default function ChatBusinessBody({
               filterOption={(input, option: any) =>
                 option?.label.toLowerCase().includes(input.toLocaleLowerCase())
               }
-              value={nhomComDeMo?nhomComDeMo:nhonConReal}
+              value={nhomComDeMo ? nhomComDeMo : nhonConReal}
               onChange={(value) => {
                 // setnhomCon(value), setIdNhom(value);
-                setnhonkhachhang(value);setnhomComDeMo(value)
+                setnhonkhachhang(value);
+                setnhomComDeMo(value);
               }}
               suffixIcon={
                 <i

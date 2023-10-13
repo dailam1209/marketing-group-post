@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import styleHome from "@/components/crm/home/home.module.css";
+import styleHome from "@/components/crm/home/home_tong_dai.module.css";
 import { SidebarContext } from "@/components/crm/context/resizeContext";
 import { useHeader } from "@/components/crm/hooks/useHeader";
 import TongDaiPage from "@/components/crm/cskh/tongdai/tongdai";

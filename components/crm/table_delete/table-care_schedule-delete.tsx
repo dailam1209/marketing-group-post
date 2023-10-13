@@ -134,12 +134,19 @@ const Table_Care_Schedule = (props: any) => {
           current={current}
           total={total}
           pageSize={pageSize}
-          // showTotal={(total, range) => {
-          //     return <div style={{ display: 'flex', justifyContent: "center", width: "100%" }}>Tổng số {total} {`${name}`}</div>
-          // }}
         />
 
-        <div style={{ paddingTop: 40, display: "flex", width: "100%" }}>
+        <div
+          className={styles.pagination_custom}
+          style={{
+            paddingTop: 40,
+            display: "flex",
+            width: "100%",
+            gap: 10,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           <div className="show_number_item">
             <div>
               <b> Hiển thị:</b>
@@ -154,9 +161,7 @@ const Table_Care_Schedule = (props: any) => {
               </select>
             </div>
           </div>
-          <div
-            style={{ display: "flex", width: "60%", justifyContent: "center " }}
-          >
+          <div style={{ display: "flex", width: "60%" }}>
             <div>Tổng số:</div>
             <div>
               &nbsp; <b>{data.length}</b>&nbsp;{name}

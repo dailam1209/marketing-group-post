@@ -38,7 +38,7 @@ const ShowCampaignPOMD = (props: any) => {
         footer={
           <div style={{ display: "flex", justifyContent: "space-around" }}>
             <div style={{ width: "100px" }} onClick={() => onClose()}>
-              <Button style={{ width: 150 }}>Hủy</Button>{" "}
+              <Button style={{ width: 150 }}>Hủy</Button>
             </div>
             <div
               style={{ width: "100px" }}
@@ -48,7 +48,7 @@ const ShowCampaignPOMD = (props: any) => {
                 style={{ width: 150, color: "#fff", background: "#4C5BD4" }}
               >
                 Đồng ý
-              </Button>{" "}
+              </Button>
             </div>
           </div>
         }

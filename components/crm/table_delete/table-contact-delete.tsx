@@ -136,7 +136,17 @@ const Table_Contact = (props: any) => {
           pageSize={pageSize}
         />
 
-        <div style={{ display: "flex", width: "70%" }}>
+        <div
+          className={styles.pagination_custom}
+          style={{
+            paddingTop: 40,
+            display: "flex",
+            width: "100%",
+            gap: 10,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           <div className="show_number_item">
             <div>
               <b> Hiển thị:</b>
@@ -151,14 +161,7 @@ const Table_Contact = (props: any) => {
               </select>
             </div>
           </div>
-          <div
-            style={{
-              display: "flex",
-              width: "100%",
-              justifyContent: "center ",
-              alignItems: "center",
-            }}
-          >
+          <div style={{ display: "flex", width: "60%" }}>
             <div>Tổng số:</div>
             <div>
               &nbsp; <b>{data.length}</b>&nbsp;{name}

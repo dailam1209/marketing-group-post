@@ -3,15 +3,11 @@ import React, { useContext, useEffect, useState } from "react";
 import styles from "./tongdai.module.css";
 import Link from "next/link";
 import Cookies from "js-cookie";
-import ModalConnect from "../modal/modal-connect";
-import PaginationCSKH from "./pagination";
 import cskh from "../csks.module.css";
 import { CallContext } from "@/components/crm/context/tongdaiContext";
-import Filter from "./filter";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import FilterTongDai from "./filterTongdai";
-import { dataSaveTD, doDisConnect } from "../../redux/user/userSlice";
 import { useRouter } from "next/router";
 type Props = {};
 
@@ -177,10 +173,7 @@ const TongDaiPage = (props: Props) => {
               setnv={setnv}
             />
 
-            <div
-              className={styles.group_button_right}
-              style={{ float: "right", marginTop: -40 }}
-            >
+            <div className={styles.group_button_right}>
               <Link href={"/ghi-am"}>
                 <button>Ghi âm</button>
               </Link>

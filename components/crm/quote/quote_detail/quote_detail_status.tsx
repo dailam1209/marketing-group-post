@@ -35,7 +35,7 @@ export default function AddQuoteDetailStatus() {
             style={{ display: "flex", gap: 5 }}
           >
             <div>
-              <img src="/crm/user_kh.png" alt="hungha365.com" />{" "}
+              <img src="/crm/user_kh.png" alt="hungha365.com" />
             </div>
             <div>Nguyễn Văn Nam</div>
           </div>
@@ -51,7 +51,7 @@ export default function AddQuoteDetailStatus() {
       <div style={{ display: "flex", marginTop: -20 }}>
         <div className={styles.full_width_div}>
           <span></span>
-        </div>{" "}
+        </div>
         <div className={styles.full_width_div}>
           <span></span>
         </div>
@@ -67,7 +67,7 @@ export default function AddQuoteDetailStatus() {
             style={{ display: "flex", gap: 5 }}
           >
             <div>
-              <img src="/crm/user_kh.png" alt="hungha365.com" />{" "}
+              <img src="/crm/user_kh.png" alt="hungha365.com" />
             </div>
             <div>Nguyễn Văn Nam</div>
           </div>
@@ -85,7 +85,7 @@ export default function AddQuoteDetailStatus() {
       <div style={{ display: "flex", marginTop: -20 }}>
         <div className={styles.full_width_div}>
           <span></span>
-        </div>{" "}
+        </div>
         <div className={styles.full_width_div}>
           <span></span>
         </div>

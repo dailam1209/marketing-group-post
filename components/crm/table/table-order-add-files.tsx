@@ -380,7 +380,7 @@ const TableDataOrderAddFiles: React.FC<TableDataOrderAddFilesDrops> = ({
       render: () => (
         <Link href="#">
           <button>
-            <img className={styles.icon_delete} src="/crm/h_delete_cus.svg" />{" "}
+            <img className={styles.icon_delete} src="/crm/h_delete_cus.svg" />
             Xóa
           </button>
         </Link>

@@ -511,7 +511,7 @@ export default function ThemLichCSKH() {
                 picker="date"
                 className={styles.dateinput}
               />
-            </div>{" "}
+            </div>
           </div>
           <div className={styles.info2}>
             <div className={styles.left}>Hình thức chăm sóc </div>
@@ -548,7 +548,7 @@ export default function ThemLichCSKH() {
                 paddingTop: 20,
               }}
             >
-              Thêm khách hàng{" "}
+              Thêm khách hàng
             </div>
             <div className={styles.right}>
               {!showOp ? (

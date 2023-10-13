@@ -930,6 +930,15 @@ td .content_over {
   cursor: pointer;
 }
 
+@media (max-width: 414px) {
+  .select_item {
+    width: 100% !important;
+  }
+  .main__control_search {
+    width: 100% !important;
+  }
+}
+
 @media (max-width: 768px) {
   .select2_dropdown {
     /* left: -10%; */

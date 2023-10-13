@@ -126,7 +126,7 @@ const columns: ColumnsType<DataType> = [
   //           <img
   //             className={styles.icon_delete}
   //             src="/crm/h_delete_cus.svg"
-  //           />{" "}
+  //           />
   //           Xóa
   //         </button>
   //       </Link>

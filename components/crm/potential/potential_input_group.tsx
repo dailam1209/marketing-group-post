@@ -113,20 +113,17 @@ export default function PotentialInputGroups({
   return (
     <div className={styles.main__control}>
       <div className={`${styles.main__control_select} flex_align_center`}>
-        <div
-          style={{ fontSize: "14px", height: "40px" }}
-          className={`${styles.select_item} flex_align_center_item ${styles.select_item_time}`}
-        >
+        <div className={`${styles.select_item} ${styles.select_item_time}`}>
           <label htmlFor="" className="">
             Thời gian tạo:
           </label>
-          <div className={`${styles.input_item_time} flex_between`}>
+          <div className={styles.input_item_time}>
             <input
               style={{ fontSize: "14px" }}
               type="date"
               name=""
               id="start_time"
-            />{" "}
+            />
             -
             <input
               style={{ fontSize: "14px" }}

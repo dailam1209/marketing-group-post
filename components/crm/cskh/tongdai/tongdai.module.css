@@ -57,7 +57,6 @@
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
-  margin-right: 10px;
 }
 
 .cskh_info_call {
@@ -92,7 +91,37 @@
   gap: 30px;
   padding-bottom: 20px;
 }
+.custom_filter {
+  background-color: #4c5bd4;
+  width: 100% !important;
+  color: white;
+  font-size: 18px;
+  text-align: center;
+  padding: 10px !important;
+  border-radius: 8px 8px 0 0 !important;
+}
 
+.main_filter2 {
+}
+.main_filter {
+}
+.filter_time {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.item_time {
+  width: 100px;
+}
+
+.custom_group_button {
+  display: flex;
+  justify-content: space-between;
+}
+.group_button_right {
+  display: flex;
+  gap: 10px;
+}
 @media (max-width: 414px) {
   .custom_group_button {
     display: flex;
@@ -101,9 +130,17 @@
   }
   .group_button_right {
     display: flex;
-    padding-top: 30px;
   }
   .group_button_right button {
-    width: 117px;
+    width: 122px;
+  }
+  .item_time {
+    width: 155px;
+  }
+}
+
+@media (max-width: 375px) {
+  .group_button_right button {
+    width: 110px;
   }
 }

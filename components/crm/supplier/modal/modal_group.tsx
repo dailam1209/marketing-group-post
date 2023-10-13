@@ -26,8 +26,9 @@ const ModalSupplierGroup = (props: any) => {
           <div
             style={{
               background: "#4c5bd4",
-              width: "109%",
+              width: "115%",
               margin: "-20px -30px",
+              borderRadius: "6px 6px 0 0",
             }}
           >
             <div
@@ -141,7 +142,6 @@ const ModalSupplierGroup = (props: any) => {
           </div>,
         ]}
       >
-        {" "}
         <div></div>
         <Result status="success" title={<div>Thêm mới thành công</div>} />
       </Modal>

@@ -110,15 +110,12 @@ const columns: ColumnsType<DataType> = [
     dataIndex: "operation",
     key: "11",
     width: 50,
-    fixed:"right",
+    fixed: "right",
     render: () => (
       <>
         <Link href={"#"}>
           <button>
-            <img
-              className={styles.icon_delete}
-              src="/crm/h_delete_cus.svg"
-            />{" "}
+            <img className={styles.icon_delete} src="/crm/h_delete_cus.svg" />
             Xóa
           </button>
         </Link>
@@ -146,7 +143,9 @@ interface TableDataPricePolicyAddFilesDrops {
   setSelected: (value: boolean) => void;
 }
 
-const TableDataPricePolicyAddFiles: React.FC< TableDataPricePolicyAddFilesDrops> = ({}: any) => {
+const TableDataPricePolicyAddFiles: React.FC<
+  TableDataPricePolicyAddFilesDrops
+> = ({}: any) => {
   return (
     <div className="custom_table">
       <Table
@@ -161,7 +160,6 @@ const TableDataPricePolicyAddFiles: React.FC< TableDataPricePolicyAddFilesDrops>
         </div>
       </div>
     </div>
-    
   );
 };
 

@@ -22,27 +22,20 @@ const AddTaiLieuDinhKem = (props: any) => {
       <Modal
         width={560}
         open={isShowModalAdd}
-        title={
-          <div
-            style={{
-              background: "#4c5bd4",
-              width: "110%",
-              margin: "-20px -30px",
-            }}
-          >
-            <div style={{ color: "white", fontSize: 20, textAlign: "center" }}>
-              Thêm lịch hẹn
-            </div>
-          </div>
-        }
         onOk={handleOk}
         onCancel={onClose}
         centered
         closable={true}
+        className={styles.main_filter2}
         footer={[
           <div
             key={"1"}
-            style={{ display: "flex", justifyContent: "center", gap: 20 }}
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              gap: 20,
+              paddingBottom: 15,
+            }}
           >
             <Button
               style={{
@@ -75,10 +68,11 @@ const AddTaiLieuDinhKem = (props: any) => {
             >
               Đồng ý
             </Button>
-            ,
           </div>,
         ]}
       >
+        <div className={styles.custom_filter}>Thêm lịch hẹn</div>
+
         <div className={styles.container}>
           <div className={styles.title}>
             Tên lịch hẹn <b>*</b>
@@ -173,7 +167,6 @@ const AddTaiLieuDinhKem = (props: any) => {
           </div>,
         ]}
       >
-        {" "}
         <div></div>
         <Result status="success" title={<div>Thêm mới thành công</div>} />
       </Modal>

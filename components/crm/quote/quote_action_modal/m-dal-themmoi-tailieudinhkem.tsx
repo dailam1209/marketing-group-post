@@ -106,7 +106,6 @@ const ModalAddTL = (props: any) => {
             <p className="ant-upload-text">Kéo thả tệp vào đây</p>
             <p className="ant-upload-hint">
               <Button style={{ background: "blue", color: "#fff" }}>
-                {" "}
                 Hoặc chọn tệp
               </Button>
             </p>
@@ -146,7 +145,6 @@ const ModalAddTL = (props: any) => {
           </div>,
         ]}
       >
-        {" "}
         <div></div>
         <Result status="success" title={<div>Thêm mới thành công</div>} />
       </Modal>

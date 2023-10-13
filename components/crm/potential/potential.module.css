@@ -181,7 +181,8 @@
 
 .main__control_search {
   width: 100%;
-  display: flex;
+  margin-bottom: 20px;
+  margin-top: 20px;
 }
 
 .input__search {
@@ -523,7 +524,6 @@
   padding-left: 0;
   background-color: #fff;
   border-radius: 10px;
-  min-width: 515px;
   justify-content: space-between;
   border-radius: 6px;
 }
@@ -1087,10 +1087,37 @@ span.select2.potential_select2_container_step__HpQYa {
 .frm_2 {
   text-align: -webkit-center;
 }
+@media (max-width: 414px) {
+  .form_search {
+    width: 350px !important;
+  }
+  .main_control_new {
+    padding-top: 0 !important;
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .div__thaotac2 {
+    display: block;
+    padding-bottom: 10px;
+    padding-top: 20px;
+  }
+  .button_thaotac2 {
+    display: flex;
+    margin-left: -29px;
+  }
+}
+
+@media (max-width: 756px) {
+  .main_importfile {
+    padding-bottom: 100px;
+  }
+}
 
 @media (max-width: 768px) {
   .select2_dropdown {
-    /* left: -10%; */
     width: 260px !important;
   }
   .main__control {
@@ -1116,13 +1143,17 @@ span.select2.potential_select2_container_step__HpQYa {
   }
   .main__control_search {
     width: 90%;
-    padding-bottom: 10px;
   }
   .form_search {
     width: 450px;
   }
   .main_control_new {
     width: 200px;
+  }
+}
+@media (max-width: 820px) {
+  .main_importfile {
+    padding-bottom: 375px;
   }
 }
 
@@ -1140,53 +1171,18 @@ span.select2.potential_select2_container_step__HpQYa {
   }
 
   .customer_custom .main__control_add {
-    justify-content: flex-start;
     width: 100%;
   }
+}
 
-  /* .main_control_new {
+@media (max-width: 1188px) {
+  .main_control_new {
     width: 100%;
-    padding-top: 20px;
-  } */
+  }
 }
 
 @media (max-width: 1420px) {
   .select_item_box_step {
     padding: 0;
-  }
-}
-@media (max-width: 576px) {
-  .div__thaotac2 {
-    display: block;
-    padding-bottom: 10px;
-    padding-top: 20px;
-  }
-  .button_thaotac2 {
-    display: flex;
-    margin-left: -29px;
-  }
-}
-@media (max-width: 1188px) {
-  .main_control_new {
-    padding-top: 20px;
-    margin-left: 200px;
-  }
-}
-
-@media (max-width: 820px) {
-  .main_importfile {
-    padding-bottom: 375px;
-  }
-}
-
-@media (max-width: 756px) {
-  .main_importfile {
-    padding-bottom: 100px;
-  }
-}
-
-@media (max-width: 414px) {
-  .form_search input {
-    width: 100%;
   }
 }

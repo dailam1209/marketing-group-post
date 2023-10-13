@@ -19,7 +19,7 @@ const Info_cus = ({ dataAdd, setDataAdd }: any) => {
             onChange={(e) =>
               setDataAdd({ ...dataAdd, phone_number: e.target.value })
             }
-          />{" "}
+          />
         </div>
       </div>
 
@@ -33,7 +33,7 @@ const Info_cus = ({ dataAdd, setDataAdd }: any) => {
             placeholder="Nhập Email"
             value={dataAdd?.email}
             onChange={(e) => setDataAdd({ ...dataAdd, email: e.target.value })}
-          ></input>{" "}
+          ></input>
         </div>
       </div>
 
@@ -47,7 +47,7 @@ const Info_cus = ({ dataAdd, setDataAdd }: any) => {
             placeholder="Nhập tên khách hàng"
             value={dataAdd?.name}
             onChange={(e) => setDataAdd({ ...dataAdd, name: e.target.value })}
-          ></input>{" "}
+          ></input>
         </div>
       </div>
 

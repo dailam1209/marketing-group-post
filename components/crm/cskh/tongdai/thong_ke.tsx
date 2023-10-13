@@ -2,16 +2,10 @@ import { Table } from "antd";
 import React, { useContext, useEffect, useState } from "react";
 import styles from "./tongdai.module.css";
 import Link from "next/link";
-import ModalConnect from "../modal/modal-connect";
-import PaginationCSKH from "./pagination";
 import { CallContext } from "@/components/crm/context/tongdaiContext";
-import Filter from "./filter";
 import { useSelector } from "react-redux";
-import FilterTongdai from "./filterTongdai";
-import FilterTongDai from "./filterTongdai";
 import FilterThongKe from "./fillterThongKe";
 import { base_url } from "../../service/function";
-import { dataSaveTD } from "../../redux/user/userSlice";
 import { useDispatch } from "react-redux";
 const Cookies = require("js-cookie");
 type Props = {};
@@ -39,7 +33,9 @@ const Recording = (props: Props) => {
   const [fillStart, setFillStart] = useState<any>();
   const [fillEnd, setFillEnd] = useState<any>();
   const [listNV, setListNV] = useState([]);
-  const [condition, setCondition] = useState(JSON.stringify({ token: Cookies.get("token_base365") }));
+  const [condition, setCondition] = useState(
+    JSON.stringify({ token: Cookies.get("token_base365") })
+  );
 
   const handleGetNhanVienPhuTrach = async () => {
     try {
@@ -56,7 +52,7 @@ const Recording = (props: Props) => {
       const data = await res.json();
 
       setListNV(data?.data?.items);
-    } catch (error) { }
+    } catch (error) {}
   };
   const [listLine, setlistLine] = useState([]);
   const [listPB, setlistPB] = useState([]);
@@ -77,7 +73,7 @@ const Recording = (props: Props) => {
       );
       const data = await res.json();
       setlistPB(data?.data?.items);
-    } catch (error) { }
+    } catch (error) {}
   };
 
   const handleGetLine = async () => {
@@ -91,7 +87,7 @@ const Recording = (props: Props) => {
       });
       const data = await res.json();
       setlistLine(data?.data);
-    } catch (error) { }
+    } catch (error) {}
   };
   const handleGet = async () => {
     if (phongban) {
@@ -102,26 +98,28 @@ const Recording = (props: Props) => {
     }
     setIsModalOpen(false);
     if (fillEnd && fillStart) {
-      setCondition(JSON.stringify({
-        timeStart: fillStart,
-        timeEnd: fillEnd,
-        token: Cookies.get("token_base365")
-      }))
+      setCondition(
+        JSON.stringify({
+          timeStart: fillStart,
+          timeEnd: fillEnd,
+          token: Cookies.get("token_base365"),
+        })
+      );
     }
     //lay datatable
     try {
       const response = await fetch(`https://voip.timviec365.vn/api/thongke`, {
         method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
-        body: condition
-      })
+        body: condition,
+      });
       const data = await response.json();
       if (data && data.data && data.data.data) {
-        setDatane(data.data.data)
+        setDatane(data.data.data);
       }
-    } catch (error) { }
+    } catch (error) {}
   };
   useEffect(() => {
     handleGetPhongBan();
@@ -131,46 +129,46 @@ const Recording = (props: Props) => {
   }, [condition]);
   const Colums = [
     {
-      width: "10%",
+      width: 100,
       title: "Số gọi",
       dataIndex: "caller",
       render: (text: any, record: any) => <div>{text}</div>,
     },
     {
-      width: "10%",
+      width: 100,
       title: "Người phụ trách",
       dataIndex: "name",
       render: (text: any, record: any) => <div>{text}</div>,
     },
     {
-      width: "15%",
+      width: 100,
       title: "Phòng ban",
       dataIndex: "nameDeparment",
       render: (text: any) => <div>{text}</div>,
     },
     {
-      width: "8%",
+      width: 100,
       title: "Tổng số cuộc gọi",
       dataIndex: "countSDT",
     },
     {
-      width: "8%",
+      width: 100,
       title: "Tổng số đã trả lời",
       dataIndex: "countStatus",
     },
     {
-      width: "8%",
+      width: 100,
       title: "Tổng số không trả lời",
       dataIndex: "nocountStatus",
     },
     {
-      width: "12%",
+      width: 100,
       title: "Tổng thời gian gọi (s)",
       dataIndex: "ring_duration",
       render: (text: any, record: any) => <div>{text}s</div>,
     },
     {
-      width: "20%",
+      width: 100,
       title: "Trung bình cuộc gọi (s/ cuộc gọi)",
       dataIndex: "adv",
       render: (text: any, record: any) => <div>{text}s</div>,
@@ -204,7 +202,7 @@ const Recording = (props: Props) => {
           dataSource={datane}
           columns={Colums}
           bordered
-          scroll={{ x: "fit-content" }}
+          scroll={{ x: 1000, y: "auto" }}
           pagination={{ pageSize: 10 }}
         />
         {/* <ModalConnect

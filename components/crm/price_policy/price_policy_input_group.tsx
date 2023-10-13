@@ -41,7 +41,7 @@ export default function PotentialInputGroup({ isSelectedRow }: any) {
           className={`${styles.select_item} flex_align_center_item ${styles.select_item_time}`}
         >
           <label htmlFor="" className="">
-            Thời gian tạo:{" "}
+            Thời gian tạo:
           </label>
           <div className={`${styles.input_item_time} flex_between`}>
             <input type="date" name="" id="start_time" /> -

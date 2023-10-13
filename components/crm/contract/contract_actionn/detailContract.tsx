@@ -135,7 +135,6 @@ export default function DetailContract({ setCheckFile, FormData }: any) {
               height: 40,
             }}
           >
-            {" "}
             Xóa Hợp đồng
           </Button>
         </div>

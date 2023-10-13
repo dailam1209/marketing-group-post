@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Input, Modal, Select } from "antd";
 import styles from "./tongdai.module.css";
-import { NodeIndexOutlined } from "@ant-design/icons";
 import Image from "next/image";
 import Cookies from "js-cookie";
 interface MyComponentProps {
@@ -78,58 +77,55 @@ const FilterThongKe: React.FC<MyComponentProps> = ({
         <p>Bộ lọc</p>
       </button>
       <Modal
-        title={
-          <div
-            style={{
-              background: "#4C5BD4",
-              width: "111%",
-              margin: "-20px -25px",
-            }}
-          >
-            <div
-              style={{
-                color: "white",
-                fontSize: 18,
-                textAlign: "center",
-                paddingTop: 5,
-              }}
-            >
-              Bộ lọc
-            </div>
-          </div>
-        }
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
         footer={false}
         className={styles.main_filter}
       >
+        <div className={styles.custom_filter}>Bộ lọc</div>
+
         <div className={styles.containerfillter}>
           <div className={styles.item1}>
-            <div style={{ width: 120 }}>Thời gian</div>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                paddingRight: 10,
-                gap: 10,
-              }}
-            >
-              <div>Từ</div>
-              <div>
-                <Input onChange={handleDateChange} type="date"></Input>
+            <div className={styles.item_time}>Thời gian</div>
+            <div className={styles.filter_time}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  paddingRight: 10,
+                  gap: 10,
+                }}
+              >
+                <div>Từ</div>
+                <div>
+                  <Input onChange={handleDateChange} type="date"></Input>
+                </div>
               </div>
-            </div>
-            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-              <div>Đến</div>
-              <div>
-                <Input onChange={handleDateChange2} type="date"></Input>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 10,
+                }}
+              >
+                <div>Đến</div>
+                <div>
+                  <Input onChange={handleDateChange2} type="date"></Input>
+                </div>
               </div>
             </div>
           </div>
           <div className={styles.item1}>
             <div style={{ width: 100 }}>Phòng ban</div>
-            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 10,
+                width: "74%",
+              }}
+            >
               <div style={{ width: "100%" }}>
                 <Select
                   onChange={handleSlectPB}
@@ -153,15 +149,18 @@ const FilterThongKe: React.FC<MyComponentProps> = ({
             <div style={{ color: "#4c5bd4" }}>
               <Button
                 onClick={handleCancel}
-                style={{ color: "#4c5bd4", border: "1px solid #4c5bd4" }}
+                style={{
+                  color: "#4c5bd4",
+                  border: "1px solid #4c5bd4",
+                  width: 100,
+                }}
               >
-                {" "}
                 Hủy
               </Button>
             </div>
 
             <Button
-              style={{ color: "#fff", background: "#4c5bd4" }}
+              style={{ color: "#fff", background: "#4c5bd4", width: 100 }}
               onClick={handleGet}
             >
               Tìm kiếm

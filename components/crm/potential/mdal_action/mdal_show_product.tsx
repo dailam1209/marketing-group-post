@@ -26,7 +26,7 @@ const ShowProductPO = (props: any) => {
             }}
           >
             <div style={{ color: "white", fontSize: 20, textAlign: "center" }}>
-              Danh sách hàng hóa{" "}
+              Danh sách hàng hóa
             </div>
           </div>
         }
@@ -39,7 +39,7 @@ const ShowProductPO = (props: any) => {
         footer={
           <div style={{ display: "flex", justifyContent: "space-around" }}>
             <div style={{ width: "100px" }} onClick={() => onClose()}>
-              <Button style={{ width: 150 }}>Hủy</Button>{" "}
+              <Button style={{ width: 150 }}>Hủy</Button>
             </div>
             <div
               style={{ width: "100px" }}
@@ -49,7 +49,7 @@ const ShowProductPO = (props: any) => {
                 style={{ width: 150, color: "#fff", background: "#4C5BD4" }}
               >
                 Đồng ý
-              </Button>{" "}
+              </Button>
             </div>
           </div>
         }

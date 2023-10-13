@@ -1,13 +1,4 @@
-import {
-  Button,
-  Dropdown,
-  Input,
-  Menu,
-  MenuProps,
-  Pagination,
-  Select,
-  Table,
-} from "antd";
+import { Button, Dropdown, Input, MenuProps, Table } from "antd";
 import styles from "../delete_data/table_deleted.module.css";
 import { PlusCircleFilled, SearchOutlined } from "@ant-design/icons";
 import Link from "next/link";

@@ -25,3 +25,15 @@
   width: 45%;
   margin-bottom: 40px;
 }
+
+@media (max-width: 414px) {
+  .img_default img {
+    width: 100% !important;
+  }
+  .text_title {
+    font-size: 30px;
+    line-height: 40px;
+    color: #000000;
+    margin-bottom: 20px;
+  }
+}

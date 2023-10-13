@@ -35,6 +35,7 @@
   line-height: 18px;
   margin-bottom: 15px;
   color: #474747;
+  text-align: left;
 }
 
 .main__control {
@@ -393,7 +394,7 @@
   padding: 25px 0 25px 0;
   display: flex;
   justify-content: center;
-  column-gap: 68px;
+  column-gap: 30px;
 }
 
 .main__footer button {
@@ -426,14 +427,6 @@
   background: #4c5bd4;
   color: #ffffff;
 }
-
-/* .mdal_cancel {
-    width: 500px;
-    min-height: 300px;
-    background: #FFFFFF;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-} */
 
 .main__body_item_step2 {
   row-gap: 20px;
@@ -654,8 +647,7 @@
 
 @media (max-width: 768px) {
   .select2_dropdown {
-    left: -50%;
-    width: auto !important;
+    width: 100% !important;
   }
 
   .select_item_box_step {

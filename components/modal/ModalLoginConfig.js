@@ -178,7 +178,7 @@ export default function ModalSignInHome({ open, setOpen, type }) {
                     <Row style={{ marginTop: "20px" }}>
                         <Col span={16}>
                             <span>
-                                Bạn chưa có tài khoản?{" "}
+                                Bạn chưa có tài khoản?
                                 <a
                                     style={{
                                         color: "#4C5BD4",

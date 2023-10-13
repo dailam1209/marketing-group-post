@@ -156,23 +156,18 @@ const KhaoSat = (props: Props) => {
   );
   return (
     <div>
-      <div
-        className={`${style.select_item} flex_align_center_item ${style.select_item_time}`}
-      >
+      <div className={`${style.select_item} ${style.select_item_time}`}>
         <label htmlFor="" className="">
           Thời gian tạo:
         </label>
-        <div className={`${style.input_item_time} flex_between`}>
+        <div className={style.input_item_time}>
           <input type="date" name="" id="start_time" /> -
           <input type="date" name="" id="end_time" />
         </div>
       </div>
 
       <div className={cskh.input}>
-        <div
-          className={styles.main__control_search_delete}
-          style={{ width: 440 }}
-        >
+        <div className={styles.main__control_search_delete}>
           <Input
             placeholder={`Tìm kiếm`}
             suffix={suffix}

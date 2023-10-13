@@ -11,7 +11,7 @@ import {
 import styles from "../delete_data/table.module.css";
 import styless from "../potential/potential.module.css";
 import { SearchOutlined } from "@ant-design/icons";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ModalDelete from "../delete_data/modal/modal_delete";
 import ModalAddSoQuy from "./modal/ModalAddSoQuy";
 import ModalChangeSoQuy from "./modal/ModalChangeSoQuy";

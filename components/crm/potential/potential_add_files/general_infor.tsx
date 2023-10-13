@@ -28,6 +28,7 @@ export default function AddGeneralInfo({ formData, setFormData }: any) {
             data={["Anh", "Chị", "Ông", "Bà"]}
           />
         </div>
+
         <InputText
           value={formData?.tendem}
           setFormData={setFormData}
@@ -36,18 +37,15 @@ export default function AddGeneralInfo({ formData, setFormData }: any) {
           placeholder="Nhập tên đệm"
         />
       </div>
-
       <div className={styles.row_input}>
-        <div style={{ width: "40%", position: "relative" }}>
-          <InputText
-            value={formData?.ten}
-            setFormData={setFormData}
-            keyValue="ten"
-            label="Tên"
-            placeholder="Nhập tên khách hàng"
-          />
-          <span className={styles.red_dot}>*</span>
-        </div>
+        <InputText
+          value={formData?.ten}
+          setFormData={setFormData}
+          keyValue="ten"
+          label="Tên"
+          placeholder="Nhập tên khách hàng"
+        />
+        <span className={styles.red_dot}>*</span>
         <InputText
           value={fullname === " " ? "Họ và tên" : fullname}
           setFormData={setFormData}
@@ -114,7 +112,7 @@ export default function AddGeneralInfo({ formData, setFormData }: any) {
           label="Điện thoại cơ quan"
           placeholder="Nhập diện thoại cơ quan"
         />
-        <div style={{ width: "40.5%", position: "relative" }}>
+        <div style={{ width: "100%", position: "relative", flex: 1 }}>
           <InputText
             value={formData?.dienthoaicanhan}
             setFormData={setFormData}

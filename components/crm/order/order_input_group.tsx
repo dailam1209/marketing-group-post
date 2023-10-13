@@ -29,7 +29,7 @@ export default function OrderInputGroups({ isSelectedRow }: any) {
           className={`${styles.select_item} flex_align_center_item ${styles.select_item_time}`}
         >
           <label htmlFor="" className="">
-            Ngày đặt hàng:{" "}
+            Ngày đặt hàng:
           </label>
           <div className={`${styles.input_item_time} flex_between`}>
             <input type="date" name="" id="start_time" /> -

@@ -127,58 +127,65 @@
 }
 
 .div_phuongthuc {
-    column-gap: 30px;
-    display: -ms-flexbox!important;
-    display: flex!important;
+  column-gap: 30px;
+  display: -ms-flexbox !important;
+  display: flex !important;
 }
 
 .div_phuongthuc p {
-    display: inline-flex;
-    column-gap: 5px;
+  display: inline-flex;
+  column-gap: 5px;
 }
 
 .main__tittle_token {
-    background: #EEEEEE;
-    border-radius: 10px 10px 0px 0px;
-    box-shadow: 0px 0px 10px rgb(0 0 0 / 10%);
-    padding: 16px 15px;
-    display: flex;
+  background: #eeeeee;
+  border-radius: 10px 10px 0px 0px;
+  box-shadow: 0px 0px 10px rgb(0 0 0 / 10%);
+  padding: 16px 15px;
+  display: flex;
 }
 
 .title_token {
-    font-size: 19px;
-    line-height: 19px;
-    color: #474747;
-    width: calc(100% / 4);
-    text-align: center;
-    margin-top: auto;
-    font-weight: bold;
+  font-size: 19px;
+  line-height: 19px;
+  color: #474747;
+  width: calc(100% / 4);
+  text-align: center;
+  margin-top: auto;
+  font-weight: bold;
 }
 
 .main__content_token {
-    background: #FFFFFF;
-    box-shadow: 0px 0px 10px #CCCCCC;
-    border-radius: 0px 0px 10px 10px;
+  background: #ffffff;
+  box-shadow: 0px 0px 10px #cccccc;
+  border-radius: 0px 0px 10px 10px;
 }
 
 .row_content_token {
-    border-bottom: 1px solid rgba(204, 204, 204, 0.48);
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 7px 15px;
-    column-gap: 15px;
-    align-items: center;
-    display: flex!important;
+  border-bottom: 1px solid rgba(204, 204, 204, 0.48);
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 7px 15px;
+  column-gap: 15px;
+  align-items: center;
+  display: flex !important;
 }
 
-.row_content_token .form_label, .row_content_token .form_control {
-    width: calc(100% / 4);
-    font-size: 15px;
-    line-height: 18px;
+.row_content_token .form_label,
+.row_content_token .form_control {
+  width: calc(100% / 4);
+  font-size: 15px;
+  line-height: 18px;
 }
 
 .setting_email_body__connect_system {
-    flex-direction: column;
-    row-gap: 15px;
-    display: flex!important;
+  flex-direction: column;
+  row-gap: 15px;
+  display: flex !important;
+}
+
+@media (max-width: 414px) {
+  .form_control {
+    width: 100%;
+  }
 }

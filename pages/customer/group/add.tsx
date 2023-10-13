@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import styleHome from "@/components/crm/home/home.module.css";
-import styles from "@/components/crm/potential/potential.module.css";
+import styles from "@/components/crm/customer/add_edit/add_edit.module.css";
 import { SidebarContext } from "@/components/crm/context/resizeContext";
 import { useHeader } from "@/components/crm/hooks/useHeader";
 import InputText from "@/components/crm/potential/potential_add_files/input_text";
@@ -306,13 +306,7 @@ const GroupCustomerAdd: React.FC = () => {
                   <div className={styles.main__body}>
                     <div className={styles["main__body_item"]}></div>
 
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "flex-start",
-                        justifyContent: "space-between",
-                      }}
-                    >
+                    <div className={styles.custom_group}>
                       <InputText
                         required
                         value={valueGroupCustomer.groupName}
@@ -321,7 +315,7 @@ const GroupCustomerAdd: React.FC = () => {
                         placeholder=" Nhập tên nhóm khách hàng"
                         keyValue="groupName"
                       />
-                      <div style={{ width: "50%" }}>
+                      <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
                         <label>Nhóm khách hàng cha </label>
                         <div ref={valueOptionRef}>
                           <CustomerGroupSelectCpmponent
@@ -357,16 +351,10 @@ const GroupCustomerAdd: React.FC = () => {
                       className="flex_between"
                       style={{
                         gap: "30px",
-                        flexWrap: "wrap",
-                        alignItems: "flex-end",
-                        justifyContent: "flex-start",
                       }}
                     >
-                      <div style={{ width: "47%" }}>
-                        <div
-                          className="flex_between"
-                          // style={{ marginBottom: "3.5px" }}
-                        >
+                      <div style={{ flex: 1 }}>
+                        <div className="flex_between">
                           <label>Phòng ban</label>
                           <Checkbox
                             checked={valAllDepartment}
@@ -401,7 +389,7 @@ const GroupCustomerAdd: React.FC = () => {
                       </div>
                       <div
                         style={{
-                          width: "30%",
+                          flex: 1,
                           overflowX: "hidden",
                           overflowY: "visible",
                         }}

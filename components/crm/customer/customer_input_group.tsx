@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import styles from "../potential/potential.module.css";
+import styles from "../customer/group_customer/customer_group.module.css";
 import Link from "next/link";
 import exportToExcel from "../ultis/export_xlxs";
 import Image from "next/image";
@@ -191,7 +191,7 @@ export default function CustomerListInputGroup({
               <button
                 onClick={() => handleSearchKH()}
                 type="button"
-                style={{ width: "100px" }}
+                style={{ width: "115px" }}
               >
                 <div>Tìm kiếm </div>
               </button>

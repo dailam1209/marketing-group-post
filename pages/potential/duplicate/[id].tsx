@@ -130,7 +130,7 @@ const AddFilesPotential: React.FC = () => {
                     <p className={styles["main__body__type"]}>Ảnh</p>
                     <div id="upload">
                       <img
-                        src="/crm/customer/upload_logo.png"
+                        src="/crm/upload_logo.png"
                         alt="hungha365.com"
                         className={styles["show_avatar"]}
                         onClick={handleClickImg}

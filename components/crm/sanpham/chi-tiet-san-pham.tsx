@@ -1,12 +1,6 @@
 import styles from "@/components/crm/potential/potential_add_files/add_file_potential.module.css";
-import styless from "@/components/crm/potential/potential.module.css";
-import exportToExcel from "../ultis/export_xlxs";
 import styleindex from "./index2.module.css";
-// "../../potential/potential_add_files/add_file_potential.module.css";
-import { useState } from "react";
 import { useRouter } from "next/router";
-import { CheckCircleOutlined, UpCircleOutlined } from "@ant-design/icons";
-import ModalUpdateThanhToan from "../theo-doi-thu-chi/modal/ModalUpdateThanhToan";
 export default function ChiTietSanPham() {
   const router = useRouter();
   const path = router.query;
@@ -22,22 +16,22 @@ export default function ChiTietSanPham() {
       <div style={{ display: "flex", gap: 30, paddingBottom: 30 }}>
         <button
           onClick={() => router.push(`/chinh-sua-san-pham/${path.id}`)}
-          style={{ background: "blue  " }}
+          style={{ background: "#4c5bd4" }}
           type="button"
-          className={`${styless.dropbtn_add} flex_align_center ${styless.btn_excel}`}
+          className={styleindex.btn_edit}
         >
-          <CheckCircleOutlined />
+          <img src="/crm/edit.svg" alt="edit" />
           <p style={{ color: "#ffffff" }}>Chỉnh sửa</p>
         </button>
         <button
-          style={{ background: "red" }}
+          style={{ background: "red", border: "none" }}
           type="button"
           onClick={(e) => {
             handleDelete(e);
           }}
-          className={`${styless.dropbtn_add} flex_align_center ${styless.btn_excel}`}
+          className={styleindex.btn_delete}
         >
-          <p style={{ color: "#ffffff" }}>Xóa phiếu</p>
+          <p style={{ color: "#ffffff" }}>Xóa</p>
         </button>
       </div>
       <div className={styleindex.title}>Chi tiết sản phẩm</div>
@@ -81,9 +75,7 @@ export default function ChiTietSanPham() {
               <span></span>
             </div>
             <div className={styleindex.info}>
-              <div className={styleindex.infoleft}>
-                Định mức tồn tối thiểu:{" "}
-              </div>
+              <div className={styleindex.infoleft}>Định mức tồn tối thiểu:</div>
               <div>
                 <button className={styleindex.btntt}>
                   <p style={{ color: "#ffffff" }}>Giá nhập: </p>

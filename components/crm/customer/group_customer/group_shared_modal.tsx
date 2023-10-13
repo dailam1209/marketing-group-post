@@ -44,7 +44,7 @@ const GroupSharedAFactorModal: React.FC<MyComponentProps> = ({
               justifyContent: "center",
             }}
           >
-            <div>Đối tượng được chia sẻ</div>{" "}
+            <div>Đối tượng được chia sẻ</div>
             <div
               onClick={() => setIsModalCancel(false)}
               style={{ cursor: "pointer", position: "absolute", right: 15 }}

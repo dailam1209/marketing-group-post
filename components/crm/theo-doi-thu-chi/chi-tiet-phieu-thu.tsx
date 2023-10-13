@@ -135,9 +135,7 @@ export default function ChiTietPhieu() {
               <span></span>
             </div>
             <div className={styleindex.info}>
-              <div className={styleindex.infoleft}>
-                Số tiền cần thanh toán:{" "}
-              </div>
+              <div className={styleindex.infoleft}>Số tiền cần thanh toán:</div>
               <div>22 VNĐ</div>
             </div>
             <div className={styleindex.full_width_div}>

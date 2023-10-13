@@ -52,12 +52,14 @@ const ModalReturn = (props: any) => {
           <div
             style={{
               background: "#4C5BD4",
-              width: "111%",
+              width: "115%",
               margin: "-20px -30px",
+              borderRadius: "8px 8px 0 0",
+              padding: 10,
             }}
           >
             <div style={{ color: "white", fontSize: 20, textAlign: "center" }}>
-              {name ? "Xác nhận thoát" : " Xác nhận khôi phục dữ liệu"}{" "}
+              {name ? "Xác nhận thoát" : " Xác nhận khôi phục dữ liệu"}
             </div>
           </div>
         }
@@ -70,8 +72,8 @@ const ModalReturn = (props: any) => {
             key={"1"}
             style={{
               display: "flex",
-              justifyContent: "space-around",
-              paddingLeft: 50,
+              justifyContent: "center",
+              gap: 30,
             }}
           >
             <Button
@@ -86,7 +88,7 @@ const ModalReturn = (props: any) => {
               key="back"
               onClick={onClose}
             >
-              Hủy
+              Huỷ
             </Button>
             <Button
               key={"2"}
@@ -109,7 +111,6 @@ const ModalReturn = (props: any) => {
             >
               {name ? "Đồng ý" : "Khôi phục"}
             </Button>
-            ,
           </div>,
         ]}
       >
@@ -128,7 +129,7 @@ const ModalReturn = (props: any) => {
             <div>
               Thay đổi sẽ không được lưu
               <br />
-              <p style={{ fontWeight: 800 }}>Bạn có chắc muốn thoát?</p>{" "}
+              <p style={{ fontWeight: 800 }}>Bạn có chắc muốn thoát?</p>
             </div>
           ) : (
             "Bạn có chắc chắn muốn khôi phục dữ liệu bạn đã chọn không?"

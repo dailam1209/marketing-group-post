@@ -49,7 +49,7 @@ const CancelModal: React.FC<MyComponentProps> = ({
               className={`${styles.select_item} flex_align_center_item ${styles.select_item_time}`}
             >
               <label htmlFor="" className="">
-                Ngày đặt:{" "}
+                Ngày đặt:
               </label>
               <div className={`${styles.input_item_time} flex_between`}>
                 <input type="date" name="" id="start_time" /> -

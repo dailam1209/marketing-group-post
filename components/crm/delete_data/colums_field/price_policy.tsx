@@ -14,7 +14,6 @@ export const ColumPricePolicy = [
     render: (text: any) => (
       <div>
         <Link href="">
-          {" "}
           <Tooltip placement="bottom" title={text + text + text + text + text}>
             <div>{text + text + text + text + text}</div>
           </Tooltip>
@@ -44,7 +43,6 @@ export const ColumPricePolicy = [
     dataIndex: "name",
     render: (text: any) => (
       <div style={{ display: "flex", justifyContent: "center" }}>
-        {" "}
         <div>
           <img src="/crm/user_kh.png" alt="hungha365.com" />
         </div>
@@ -63,7 +61,6 @@ export const ColumPricePolicy = [
     dataIndex: "name",
     render: (text: any) => (
       <div style={{ display: "flex", justifyContent: "center" }}>
-        {" "}
         <div>
           <img src="/crm/user_kh.png" alt="hungha365.com" />
         </div>
