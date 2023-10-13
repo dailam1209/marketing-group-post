@@ -69,10 +69,12 @@ const initialData: DataType[] = [
     total: 0,
   },
 ];
-
-const TableDataOrderEditFiles: React.FC<TableDataOrderEditFilesDrops> = ({
+type Props = {
+  setTongTien?:any
+}
+const TableDataOrderEditFiles = ({
   setTongTien,
-}: any) => {
+}: Props) => {
   const [dataTable, setDataTable] = useState<DataType[]>(initialData);
   const [selectChange, setSelectChange] = useState(false);
   console.log(dataTable, "dataTable");

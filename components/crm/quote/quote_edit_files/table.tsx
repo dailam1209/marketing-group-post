@@ -13,7 +13,7 @@ export default function AddTable() {
   return (
     <div>
       <p className={styles.main__body__type}>Thông tin hàng hóa</p>
-      <TableDataOrderAddFiles setTongTien={setTongTien} />
+      {/* <TableDataOrderAddFiles setTongTien={setTongTien} /> */}
 
       <div className={styles.row_input}></div>
       <div className={styles.row_input}>
