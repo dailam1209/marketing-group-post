@@ -1,18 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "../contract_action.module.css";
-import Image from "next/image";
-import AddContractrModal from "../modal_add_contract";
 import CancelModal from "../../price_policy/price_policy_steps/cancel_modal";
-import ModalCompleteStep from "../../price_policy/price_policy_steps/complete_modal";
-import axios from "axios";
-import { index, json } from "d3";
 import CreatFieldModal from "./creat_field_mdal";
 import CreatFieldDefaultModal from "./creat_field_default";
-import ContractValueInputSearch from "./contract_value_input_search";
-import { imageBase64 } from "./imgBase64";
-import { setTextRange } from "typescript";
 import { base_url } from "../../service/function";
-import { el } from "date-fns/locale";
 import EditFieldModal from "./editField_mdal";
 import ModalSaveContractAdd from "../../price_policy/price_policy_steps/save_contract_mdal";
 import { useRouter } from "next/router";
