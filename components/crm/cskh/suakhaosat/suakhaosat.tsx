@@ -192,7 +192,6 @@ const Suakhaosat = (props: Props) => {
         >
           Hủy
         </Button>
-        <div>&nbsp; &nbsp; &nbsp;</div>
         <Button
           onClick={() => {
             alert("Thêm khảo sát thành công"), router.push("/khao-sat");

@@ -29,6 +29,7 @@
 .select_item_time {
   width: fit-content !important;
   flex-wrap: wrap;
+  display: flex;
 }
 
 .select_item label {
@@ -813,6 +814,9 @@
 .orange-text {
   color: orange;
 }
+.input_item_time {
+  display: flex;
+}
 @media (max-width: 414px) {
   .select_item {
     width: 100%;
@@ -822,21 +826,20 @@
   }
   .select_item_time {
     width: 100% !important;
-    flex-wrap: nowrap;
+    flex-direction: column;
   }
   .main__control_add {
     gap: 3px;
     flex-wrap: nowrap;
   }
   .dropbtn_add {
-    padding: 9px 15px;
+    /* padding: 9px 15px; */
     font-size: 16px;
   }
 }
 
 @media (max-width: 768px) {
   .select2_dropdown {
-    /* left: -10%; */
     width: 260px !important;
   }
 

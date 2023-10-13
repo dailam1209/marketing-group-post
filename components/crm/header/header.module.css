@@ -411,7 +411,7 @@
     z-index: 10000;
   }
   .mb_title_header {
-    display: none;
+    display: none !important;
   }
   .header_btn_items {
     margin-left: 30px;

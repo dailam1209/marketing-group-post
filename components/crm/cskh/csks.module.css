@@ -5,7 +5,6 @@
   border-radius: 10px;
   width: 120px;
   font-size: 18px;
-  /* text-align: end; */
 }
 .formdate {
   display: flex;
@@ -14,9 +13,9 @@
   padding-top: 15px;
   gap: 10px;
 }
-.connect_tongdai{
-float: left;
-width: 100%;
+.connect_tongdai {
+  float: left;
+  width: 100%;
 }
 .input {
   display: flex;
@@ -30,10 +29,10 @@ width: 100%;
   align-items: center;
 }
 .dropbtn_add {
-  background: #76B51B;
+  background: #76b51b;
   border-radius: 10px;
-  color: #FFFFFF;
-  font-family: 'Roboto-Medium';
+  color: #ffffff;
+  font-family: "Roboto-Medium";
   font-size: 16px;
   float: right;
 }
@@ -51,7 +50,7 @@ width: 100%;
   padding: 20px 40px;
   height: 179px;
   border: 1px solid #bbb8b8;
-  border-top: 18px solid #4C5BD4;
+  border-top: 18px solid #4c5bd4;
   border-radius: 10px;
 }
 .left_option_themkhaosat {
@@ -61,14 +60,14 @@ width: 100%;
   border: 1px solid #bbb8b8;
   border-radius: 10px;
 }
-.left_option_themkhaosat_video{
+.left_option_themkhaosat_video {
   width: 93%;
   padding: 20px 40px;
   height: f;
   border: 1px solid #bbb8b8;
   border-radius: 10px;
 }
-.left_option1{
+.left_option1 {
   width: 93%;
   padding: 20px 40px;
   height: fit-content;
@@ -78,12 +77,12 @@ width: 100%;
 .right_home_themkhaosat {
   width: 5%;
 }
-.btn_footer_themmoi{
+.btn_footer_themmoi {
   display: flex;
-  justify-content:flex-end;
-  padding-right: 100px;
+  justify-content: center;
+  gap: 50px;
 }
-.btn_footer_themmoi button{
+.btn_footer_themmoi button {
   width: 20%;
 }
 .inputtitle {
@@ -113,7 +112,7 @@ width: 100%;
   border-bottom: 1px solid #ccc;
   padding-bottom: 5px;
 }
-.inputtitle2_option1{
+.inputtitle2_option1 {
   border: none;
   width: 80%;
   resize: none;
@@ -121,48 +120,48 @@ width: 100%;
   border-bottom: 1px solid #ccc;
   padding-bottom: 5px;
 }
-.footer_op1{
+.footer_op1 {
   display: flex;
   justify-content: flex-end;
   gap: 30px;
 }
-.right_OP1{
+.right_OP1 {
   padding-left: 40px;
 }
-.right_OP1 select{
- width: 100px;
+.right_OP1 select {
+  width: 100px;
 }
 @media screen and (max-width: 739px) {
   .connect_tongdai {
-  padding-bottom: 10px;
+    padding-bottom: 10px;
   }
   .input {
     display: block;
   }
-  .btn_footer_themmoi button{
+  .btn_footer_themmoi button {
     width: 40%;
   }
   .themmoiks {
     padding-top: 20px;
   }
-  .left_option_themkhaosat{
+  .left_option_themkhaosat {
     width: 90%;
   }
   .left_home_themkhaosat {
     width: 90%;
   }
-  .left_option_themkhaosat_video{
+  .left_option_themkhaosat_video {
     width: 90%;
   }
   .right_home_themkhaosat {
     width: 8%;
   }
-  .left_option1{
+  .left_option1 {
     width: 90%;
   }
 }
 @media screen and (min-width: 740px) and (max-width: 1023px) {
-  .btn_footer_themmoi button{
+  .btn_footer_themmoi button {
     width: 30%;
   }
 }

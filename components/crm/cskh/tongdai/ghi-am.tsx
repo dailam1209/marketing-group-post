@@ -1,17 +1,12 @@
 import { Button, Table } from "antd";
 import React, { useContext, useEffect, useState } from "react";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 import styles from "./tongdai.module.css";
 import Link from "next/link";
-import ModalConnect from "../modal/modal-connect";
-import PaginationCSKH from "./pagination";
 import cskh from "../csks.module.css";
 import { CallContext } from "@/components/crm/context/tongdaiContext";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
-import { da } from "date-fns/locale";
-import { useApi } from "../../hooks/useApi";
-import { current } from "@reduxjs/toolkit";
 import FilterGhiAm from "./filterGhiAm";
 import { dataSaveTD, doDisConnect } from "../../redux/user/userSlice";
 type Props = {};
@@ -26,7 +21,9 @@ const GhiAmPage = (props: Props) => {
   const [current, setcurrent] = useState(1);
   const [pageSize, setpageSize] = useState(10);
   const [showKetNoi, setShowKetNoi] = useState(true);
-  const [condition, setCondition] = useState(JSON.stringify({ state: 'ANSWERED', token: Cookies.get("token_base365") }));
+  const [condition, setCondition] = useState(
+    JSON.stringify({ state: "ANSWERED", token: Cookies.get("token_base365") })
+  );
   const onClose = () => {
     setIsShowModalAdd(false);
     setIsShowModal(false);
@@ -111,21 +108,23 @@ const GhiAmPage = (props: Props) => {
     }
     setIsModalOpen(false);
     if (fillEnd && fillStart) {
-      setCondition(JSON.stringify({
-        state: 'ANSWERED',
-        timeStart: fillStart,
-        timeEnd: fillEnd,
-        token: Cookies.get("token_base365")
-      }))
+      setCondition(
+        JSON.stringify({
+          state: "ANSWERED",
+          timeStart: fillStart,
+          timeEnd: fillEnd,
+          token: Cookies.get("token_base365"),
+        })
+      );
     }
 
     const response = await fetch(`https://voip.timviec365.vn/api/getStorage`, {
       method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-      body: condition
-    })
+      body: condition,
+    });
     const data = await response.json();
     if (data && data.data && data.data.storage) {
       setListData(data.data.storage);
@@ -139,7 +138,7 @@ const GhiAmPage = (props: Props) => {
   useEffect(() => {
     handleGet();
   }, [condition]);
-  console.log('tet', datatable)
+  console.log("tet", datatable);
   const Colums = [
     {
       width: "10%",
@@ -177,10 +176,7 @@ const GhiAmPage = (props: Props) => {
       render: (text: any, record: CallRecord) => (
         <div className={`${styles.audio_container}`}>
           <audio id={`audio-${record.id}`}>
-            <source
-              src={`${record.filepath}`}
-              type="audio/ogg"
-            />
+            <source src={`${record.filepath}`} type="audio/ogg" />
           </audio>
           <div className={`${styles.audio_buttons_play}`}>
             <button

@@ -98,7 +98,7 @@ export default function AddContactData() {
                       <p className={styles["main__body__type"]}>Ảnh</p>
                       <div id="upload">
                         <img
-                          src="/assets/img/crm/customer/upload_logo.png"
+                          src="/crm/upload_logo.png"
                           alt="hungha365.com"
                           className={styles["show_avatar"]}
                         />

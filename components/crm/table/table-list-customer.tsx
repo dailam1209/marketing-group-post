@@ -563,15 +563,13 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
           dataSource={datatable}
           rowSelection={{ ...rowSelection }}
           bordered
-          // pagination={true}
           scroll={{ x: 2000, y: "auto" }}
           pagination={{
             style: {
               paddingBottom: 20,
               display: "flex",
-              float: "left",
-              marginLeft: 850,
               position: "absolute",
+              right: 0,
             },
             current: page,
             pageSize: pageSize,
@@ -606,7 +604,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
                 <option value={50}>50 bản ghi trên trang</option>
               </Select>
             </div>
-            <div className="total" style={{ paddingTop: 5 }}>
+            <div className="total" style={{ paddingTop: 5, marginLeft: 30 }}>
               Tổng số: <b>{totalRecords}</b> Khách hàng
             </div>
           </div>

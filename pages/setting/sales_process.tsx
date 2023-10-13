@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import styleHome from "@/components/crm/home/home.module.css";
+import styleHome from "@/components/crm/home/home_sale.module.css";
 import styles from "@/components/crm/setting/setting.module.css";
 import { SidebarContext } from "@/components/crm/context/resizeContext";
 import AddTable from "@/components/crm/setting/sales_process/sales_process_table";

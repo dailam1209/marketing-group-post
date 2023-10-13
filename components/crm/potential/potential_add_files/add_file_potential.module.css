@@ -45,14 +45,14 @@
   display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  /* margin-right: -15px;
-    margin-left: -15px; */
+
   justify-content: space-between;
   margin-bottom: 1rem;
 }
 
 .row_input {
   margin-bottom: 0rem;
+  gap: 40px;
 }
 
 .row_input_product {
@@ -138,9 +138,7 @@
 @media (min-width: 1420px) {
   .col-lg-6 {
     -webkit-box-flex: 0;
-    -ms-flex: 0 0 50%;
-    flex: 0 0 50%;
-    max-width: 520px;
+    width: 100%;
   }
 }
 
@@ -148,6 +146,7 @@
   .row_input {
     flex-direction: column;
     justify-content: center;
+    gap: 0;
   }
 }
 
@@ -163,5 +162,9 @@
   }
   .main__footer button {
     width: 130px;
+  }
+  .span_custom {
+    font-size: 14px;
+    top: 2px;
   }
 }

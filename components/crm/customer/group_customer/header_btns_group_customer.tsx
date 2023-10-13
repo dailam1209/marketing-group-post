@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import styles from "../../potential/potential.module.css";
+import styles from "./customer_group.module.css";
 import Link from "next/link";
 import GroupCustomerAction from "./group_customert_action";
 export default function HeaderBtnsCustomerGroup({

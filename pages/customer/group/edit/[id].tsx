@@ -148,8 +148,6 @@ const GroupCustomerAdd: React.FC = () => {
     }
   };
 
-
-
   const fetchDataDetails = async (url, body) => {
     try {
       const response = await axios.post(url, body, {
@@ -307,9 +305,7 @@ const GroupCustomerAdd: React.FC = () => {
   };
 
   useEffect(() => {
-    setSelectedValueDepartments(
-    arr
-    );
+    setSelectedValueDepartments(arr);
 
     setDataTableEmp(
       dataDetails?.data?.emp_id
@@ -337,7 +333,6 @@ const GroupCustomerAdd: React.FC = () => {
       setarremid(arre);
     }, 0);
   }, [clickOptionEmp]);
-
 
   const openNotificationWithIcon = () => {
     api.error({
@@ -401,26 +396,27 @@ const GroupCustomerAdd: React.FC = () => {
               <div className={styles.form_add_potential}>
                 <div className={styles.main__body}>
                   <div className={styles["main__body_item"]}></div>
-
                   <div
                     style={{
+                      gap: 30,
                       display: "flex",
-                      alignItems: "flex-start",
-                      justifyContent: "space-between",
+                      width: "100%",
                     }}
                   >
-                    <InputText
-                      required
-                      value={
-                        valueGroupCustomer?.gr_name ||
-                        dataDetails?.data?.gr_name
-                      }
-                      setFormData={setValueGroupCustomer}
-                      label={"Tên nhóm khách hàng"}
-                      placeholder=" Nhập tên nhóm khách hàng"
-                      keyValue="gr_name"
-                    />
-                    <div style={{ width: "50%" }}>
+                    <div style={{ flex: 1 }}>
+                      <InputText
+                        required
+                        value={
+                          valueGroupCustomer?.gr_name ||
+                          dataDetails?.data?.gr_name
+                        }
+                        setFormData={setValueGroupCustomer}
+                        label={"Tên nhóm khách hàng"}
+                        placeholder=" Nhập tên nhóm khách hàng"
+                        keyValue="gr_name"
+                      />
+                    </div>
+                    <div style={{ flex: 1 }}>
                       <label>Nhóm khách hàng cha </label>
                       <div ref={valueOptionRef}>
                         <CustomerGroupSelectCpmponent
@@ -485,17 +481,11 @@ const GroupCustomerAdd: React.FC = () => {
                   <div
                     className="flex_between"
                     style={{
-                      gap: "30px",
-                      flexWrap: "wrap",
-                      alignItems: "flex-end",
-                      justifyContent: "flex-start",
+                      gap: 30,
                     }}
                   >
-                    <div style={{ width: "47%" }}>
-                      <div
-                        className="flex_between"
-                        // style={{ marginBottom: "3.5px" }}
-                      >
+                    <div style={{ flex: 1 }}>
+                      <div className="flex_between">
                         <label>Phòng ban</label>
                         <Checkbox
                           defaultChecked={
@@ -527,16 +517,6 @@ const GroupCustomerAdd: React.FC = () => {
                             height: "40px !important",
                           }}
                           placeholder="Chọn phòng ban"
-                          // defaultValue={
-                          //   !dataDetails?.data?.dep_id
-                          //     ?.split(",")
-                          //     .map((item) => parseInt(item.trim(), 10))
-                          //     .includes(NaN)
-                          //     ? dataDetails?.data?.dep_id
-                          //         ?.split(",")
-                          //         .map((item) => parseInt(item.trim(), 10))
-                          //     : null
-                          // }
                           value={selectedValueDepartments || arr}
                           onChange={handleChange}
                           options={options}
@@ -545,7 +525,7 @@ const GroupCustomerAdd: React.FC = () => {
                     </div>
                     <div
                       style={{
-                        width: "30%",
+                        flex: 1,
                         overflowX: "hidden",
                         overflowY: "visible",
                       }}

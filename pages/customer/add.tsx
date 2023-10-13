@@ -210,7 +210,7 @@ const AddFilesCustomerList: React.FC = () => {
                       <p className={styles["main__body__type"]}>Ảnh</p>
                       <div id="upload">
                         <img
-                          src="/assets/img/customer/upload_logo.png"
+                          src="/crm/choose_img.png"
                           alt="hungha365.com"
                           className={styles["show_avatar"]}
                           onClick={handleClickImg}
