@@ -18,7 +18,7 @@ import { dataSaveTD, doDisConnect } from "../../redux/user/userSlice";
 import { useRouter } from "next/router";
 type Props = {};
 
-const TongDaiPage = (props: Props) => {
+const KhongTraLoiPage = (props: Props) => {
   const token = Cookies.get("token_base365")
   const [isShowModal, setIsShowModal] = useState(false);
   const [isShowModalAdd, setIsShowModalAdd] = useState(false);
@@ -40,10 +40,7 @@ const TongDaiPage = (props: Props) => {
   const handleAddDB = () => {
     setIsShowModalAdd(false);
   };
-  const totalSum = listData?.reduce(
-    (acc, current) => acc + +current.ring_duration,
-    0
-  );
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const datatable: any = listData?.map((item: any) => {
@@ -57,16 +54,10 @@ const TongDaiPage = (props: Props) => {
     };
   });
 
-  const count = listData?.reduce((acc, current) => {
-    if (current.status === "ANSWERED") {
-      return acc + 1;
-    }
-    return acc;
-  }, 0);
   const dispatch = useDispatch();
   const [fillStart, setFillStart] = useState<any>();
   const [fillEnd, setFillEnd] = useState<any>();
-  const [condition, setCondition] = useState(JSON.stringify({ token }));
+  const [condition, setCondition] = useState(JSON.stringify({ token, state: 'NONE' }));
 
   const handleGet = async () => {
     setListData([]);
@@ -92,7 +83,7 @@ const TongDaiPage = (props: Props) => {
       }))
     }
     try {
-      const response = await fetch(`https://voip.timviec365.vn/api/getStorage`, {
+      const response = await fetch(`https://voip.timviec365.vn/api/GetPhoneNoAnswer`, {
         method: "POST",
         headers: {
           'Content-Type': 'application/json'
@@ -123,35 +114,22 @@ const TongDaiPage = (props: Props) => {
     {
       key: "2",
       width: "10%",
+      title: "Người phụ trách",
+      // render: (text: any, record: any) => <div>{text}</div>,
+    },
+    {
+      key: "3",
+      width: "10%",
       title: "Số nghe",
       dataIndex: "callee",
       render: (text: any, record: any) => <div>{text}</div>,
     },
     {
-      key: "3",
+      key: "4",
       width: "20%",
       title: "Thời gian bắt đầu cuộc gọi",
       dataIndex: "start_time",
       render: (text: any) => <div>{text}</div>,
-    },
-    {
-      key: "4",
-      width: "20%",
-      title: "Thời gian kết thúc cuộc gọi",
-      dataIndex: "end_time",
-    },
-    {
-      key: "5",
-      width: "10%",
-      title: "Thời lượng",
-      dataIndex: "ring_duration",
-      render: (text: any) => <div>{text}s</div>,
-    },
-    {
-      key: "6",
-      width: "10%",
-      title: "Trạng thái",
-      dataIndex: "status",
     },
   ];
 
@@ -180,8 +158,8 @@ const TongDaiPage = (props: Props) => {
             className={styles.group_button_right}
             style={{ float: "right", marginTop: -40 }}
           >
-            <Link href={"/khong-tra-loi"}>
-              <button>Không trả lời</button>
+            <Link href={"/tong-dai"}>
+              <button>Chi tiết</button>
             </Link>
 
             <Link href={"/ghi-am"}>
@@ -191,19 +169,11 @@ const TongDaiPage = (props: Props) => {
             <Link href={"/thong-ke-tong-dai"}>
               <button>Thống kê</button>
             </Link>
-            <Link href={"/switchboard/manager/line"}>
-              <button>Quản lý line</button>
-            </Link>
           </div>
 
           <ul className={styles.cskh_info_call} style={{ fontSize: 16 }}>
-            <li>Số cuộc gọi: {listData?.length}</li>
-            <li>Tổng số nghe máy: {count || 0}</li>
-            <li>Tổng số không trả lời: {listData?.length - count}</li>
-            <li>Tổng thời gian gọi: {totalSum || 0}(s)</li>
-            <li>
-              Trung bình: {count == 0 ? 0 : (totalSum / count).toFixed(2)}s/ cuộc gọi
-            </li>
+            <li></li>
+            <li>Tổng số không trả lời: {listData?.length || 0}</li>
           </ul>
         </div>
       )}
@@ -254,4 +224,4 @@ const TongDaiPage = (props: Props) => {
     </div>
   );
 };
-export default TongDaiPage;
+export default KhongTraLoiPage;

@@ -50,9 +50,8 @@ const Recording = (props: Props) => {
         }
       );
       const data = await res.json();
-
       setListNV(data?.data?.items);
-    } catch (error) {}
+    } catch (error) { }
   };
   const [listLine, setlistLine] = useState([]);
   const [listPB, setlistPB] = useState([]);
@@ -73,7 +72,7 @@ const Recording = (props: Props) => {
       );
       const data = await res.json();
       setlistPB(data?.data?.items);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const handleGetLine = async () => {
@@ -87,8 +86,9 @@ const Recording = (props: Props) => {
       });
       const data = await res.json();
       setlistLine(data?.data);
-    } catch (error) {}
+    } catch (error) { }
   };
+
   const handleGet = async () => {
     if (phongban) {
       datane.filter((item) => {
@@ -116,10 +116,11 @@ const Recording = (props: Props) => {
         body: condition,
       });
       const data = await response.json();
+      console.log(data)
       if (data && data.data && data.data.data) {
         setDatane(data.data.data);
       }
-    } catch (error) {}
+    } catch (error) { }
   };
   useEffect(() => {
     handleGetPhongBan();

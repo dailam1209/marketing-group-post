@@ -19,19 +19,15 @@ const Recording = (props: Props) => {
   const [isShowModalAdd, setIsShowModalAdd] = useState(false);
   const { isConnected } = useContext<any>(CallContext);
   const [listLine, setlistLine] = useState([]);
+  const [data, setData] = useState([]);
   const [listNV, setListNV] = useState([]);
   const [id, setId] = useState();
   const [name, setname] = useState();
   const [option, setOption] = useState();
-  const [showKetNoi, setShowKetNoi] = useState(false);
+  const [showKetNoi, setShowKetNoi] = useState(true);
   const dispatch = useDispatch();
   const [position_id, setPosition_id] = useState();
 
-  let arr = [];
-  for (var key of Object.keys(listLine)) {
-    var value = listLine[key];
-    arr.push(value);
-  }
 
   const show = useSelector((state: any) => state?.auth?.account);
 
@@ -43,21 +39,11 @@ const Recording = (props: Props) => {
   const handleAddDB = () => {
     setIsShowModalAdd(false);
   };
-  arr.pop();
-  arr.pop();
   const handleChange = (value, name) => {
     setIsShowModalEdit(true);
     setname(name);
     setId(value);
   };
-  const data = arr?.map((item, index) => {
-    return {
-      key: index + 1,
-      extension_number: item?.extension_number,
-      userName: item?.userName,
-      status: item?.status,
-    };
-  });
 
   const Colums = [
     {
@@ -95,7 +81,7 @@ const Recording = (props: Props) => {
   ];
   const handleGetLine = async () => {
     try {
-      const res = await fetch(`${base_url}/api/crm/cutomerCare/listLine`, {
+      const res = await fetch(`${base_url}/api/crm/cutomerCare/listLine_v2`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -103,8 +89,9 @@ const Recording = (props: Props) => {
         },
       });
       const data = await res.json();
-      setlistLine(data?.data);
-    } catch (error) {}
+      console.log(data)
+      setData(data?.data?.data);
+    } catch (error) { }
   };
 
   const handleGetNhanVienPhuTrach = async () => {
@@ -121,8 +108,9 @@ const Recording = (props: Props) => {
         }
       );
       const data = await res.json();
+      console.log(data)
       setListNV(data?.data?.items);
-    } catch (error) {}
+    } catch (error) { }
   };
   useEffect(() => {
     if (show) {
@@ -149,28 +137,8 @@ const Recording = (props: Props) => {
       if (data && data.error) {
         notification.error({ message: data?.error?.message });
       }
-    } catch (error) {}
+    } catch (error) { }
   };
-  useEffect(() => {
-    const handleget = async () => {
-      if (show) {
-        const res = await fetch(
-          "https://s02.oncall.vn:8900/api/account/credentials/verify",
-          {
-            method: "POST",
-            body: JSON.stringify({
-              name: "HNCX00693",
-              password: "v2ohO6B1Nf4F",
-              domain: "hncx00693.oncall",
-            }),
-          }
-        );
-        const data = await res.json();
-        dispatch(dataSaveTD(data.access_token));
-      }
-    };
-    handleget();
-  }, []);
   return (
     <div>
       {showKetNoi && (
@@ -233,11 +201,12 @@ const Recording = (props: Props) => {
                   defaultValue={` ${name}`}
                   onChange={handleChangeOption}
                 >
+                  <option>Nhân viên phụ trách</option>
                   {listNV &&
                     listNV?.map((item: any, index) => {
                       return (
                         <option key={index} value={item.ep_id}>
-                          {`(${item.ep_id}) ${item.ep_name}`} -
+                          {`(${item.ep_id}) ${item.ep_name}`} -{" "}
                           {`${item.dep_name}`}
                         </option>
                       );
