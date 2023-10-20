@@ -20,7 +20,8 @@ const Recording = (props: Props) => {
   const [pageSize, setpageSize] = useState(10);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [phongban, setPhongban] = useState();
-  const [datane, setDatane] = useState([]);
+  let [datane, setDatane] = useState([]);
+  const [data, setData] = useState([]);
 
   const onClose = () => {
     setIsShowModalAdd(false);
@@ -57,24 +58,6 @@ const Recording = (props: Props) => {
   const [listPB, setlistPB] = useState([]);
   const [isLoading, setisLoading] = useState(false);
 
-  const handleGetPhongBan = async () => {
-    try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/department/list`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${Cookies.get("token_base365")}`,
-          },
-          body: JSON.stringify({ com_id: Cookies.get("com_id") }),
-        }
-      );
-      const data = await res.json();
-      setlistPB(data?.data?.items);
-    } catch (error) { }
-  };
-
   const handleGetLine = async () => {
     try {
       const res = await fetch(`${base_url}/api/crm/cutomerCare/listLine`, {
@@ -89,12 +72,13 @@ const Recording = (props: Props) => {
     } catch (error) { }
   };
 
-  const handleGet = async () => {
+  const handleFilter = async () => {
     if (phongban) {
-      datane.filter((item) => {
+      let tmp = data.filter((item) => {
         return item.nameDeparment === phongban;
       });
       setIsModalOpen(false);
+      setDatane(tmp)
     }
     setIsModalOpen(false);
     if (fillEnd && fillStart) {
@@ -106,7 +90,9 @@ const Recording = (props: Props) => {
         })
       );
     }
-    //lay datatable
+  }
+
+  const handleGet = async () => {
     try {
       const response = await fetch(`https://voip.timviec365.vn/api/thongke`, {
         method: "POST",
@@ -118,32 +104,32 @@ const Recording = (props: Props) => {
       const data = await response.json();
       console.log(data)
       if (data && data.data && data.data.data) {
+        setData(data.data.data);
         setDatane(data.data.data);
       }
     } catch (error) { }
   };
   useEffect(() => {
-    handleGetPhongBan();
     handleGetLine();
     handleGet();
     handleGetNhanVienPhuTrach();
   }, [condition]);
   const Colums = [
     {
-      width: 100,
+      width: 50,
       title: "Số gọi",
       dataIndex: "caller",
       render: (text: any, record: any) => <div>{text}</div>,
     },
     {
-      width: 100,
+      width: 150,
       title: "Người phụ trách",
       dataIndex: "name",
       render: (text: any, record: any) => <div>{text}</div>,
     },
     {
-      width: 100,
-      title: "Phòng ban",
+      width: 200,
+      title: "Tổ chức",
       dataIndex: "nameDeparment",
       render: (text: any) => <div>{text}</div>,
     },
@@ -186,7 +172,8 @@ const Recording = (props: Props) => {
           setFillStart={setFillStart}
           fillEnd={fillEnd}
           setFillEnd={setFillEnd}
-          handleGet={handleGet}
+          handleGet={handleFilter}
+          // handleGet={handleGet}
           setPhongban={setPhongban}
         />
 

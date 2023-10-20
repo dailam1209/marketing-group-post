@@ -46,9 +46,9 @@ const FilterThongKe: React.FC<MyComponentProps> = ({
     setFillEnd(`${e.target.value} 23:59:59`);
   };
   const handleGetPhongBan = async () => {
-    try {
+    try { 
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/department/list`,
+        `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/organizeDetail/listAll`,
         {
           method: "POST",
           headers: {
@@ -58,9 +58,9 @@ const FilterThongKe: React.FC<MyComponentProps> = ({
           body: JSON.stringify({ com_id: Cookies.get("com_id") }),
         }
       );
-      const data = await res.json();
-      setlistPB(data?.data?.items);
-    } catch (error) {}
+      const data = await res.json()
+      setlistPB(data?.data?.data);
+    } catch (error) { }
   };
 
   const handleSlectPB = (value: any) => {
@@ -130,14 +130,14 @@ const FilterThongKe: React.FC<MyComponentProps> = ({
                 <Select
                   onChange={handleSlectPB}
                   style={{ width: 145 }}
-                  placeholder="Chọn phòng ban"
+                  placeholder="Chọn tổ chức"
                 >
                   {listPB &&
                     listPB.length > 0 &&
                     listPB?.map((item: any, index: number) => {
                       return (
-                        <option key={index} value={item?.dep_name}>
-                          {item?.dep_name}
+                        <option key={index} value={item?.organizeDetailName}>
+                          {item?.organizeDetailName}
                         </option>
                       );
                     })}
