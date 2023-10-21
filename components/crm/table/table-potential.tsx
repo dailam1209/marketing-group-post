@@ -30,10 +30,12 @@ const columns: ColumnsType<DataType> = [
     dataIndex: "address",
     key: "1",
     width: 300,
-    render: (data, record) => (
-      <Link href={`/potential/detail/${record.name}`}>
+    render: (data) => (
+      // <Tooltip title={data}>
+      <Link href={`/potential/detail/${data}`}>
         <span>{data}</span>
       </Link>
+      // </Tooltip>
     ),
   },
   {
@@ -129,10 +131,10 @@ const columns: ColumnsType<DataType> = [
 ];
 
 export const data: DataType[] = [];
-for (let i = 1; i < 100; i++) {
+for (let i = 0; i < 100; i++) {
   data.push({
     key: i,
-    name: `00${i}`,
+    name: `Edward ${i}`,
     salutation: `Anh`,
     address: `London Park no. ${i}`,
     operation: `Nguyen Van Hung`,
@@ -182,6 +184,7 @@ const TableDataPotential: React.FC<TableDataPotentialProps> = ({
           pageSize: pageSize,
           total: data.length,
           showSizeChanger: true,
+          showTotal: (total) => `Tổng ${total} Tiềm năng`,
           onChange: (page, pageSize) => {
             setCurrentPage(page);
           },

@@ -17,7 +17,7 @@ export default function HeaderBar({ dataHeader, isOpen }: any) {
               ? dataHeader?.data?.avatarUser
               : "/crm/logo_com.png"
           }
-          alt="hungha365.com"
+          alt=""
         />
       </div>
       <div className={`${style.header_info} ${!isOpen ? null : "none"}`}>

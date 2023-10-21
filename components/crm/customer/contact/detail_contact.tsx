@@ -81,8 +81,8 @@ const DetailInformationContact: React.FC<PropsDetail> = ({ id1, id2 }) => {
                         <p className={styles["main__body__type"]}>Ảnh</p>
                         <div id="upload">
                           <img
-                            src="/crm/upload_logo.png"
-                            alt="hungha365.com"
+                            src="/assets/img/crm/customer/upload_logo.png"
+                            alt=""
                             className={styles["show_avatar"]}
                           />
                           <input

@@ -19,6 +19,7 @@ import Cookies from "js-cookie";
 import { useSelector } from "react-redux";
 import { doGhimCha, doSaveCha } from "../redux/user/userSlice";
 import { useDispatch } from "react-redux";
+import { number } from "yup";
 export default function ChatBusinessBody({
   cusId,
   setContent,
@@ -88,9 +89,7 @@ export default function ChatBusinessBody({
       if (data && data?.data) setInfoCus(data?.data);
     } catch (error) {}
   };
-  useEffect(() => {
-    handleGetInfoCus();
-  }, [cusId]);
+
   // const [listGr, setListGr] = useState([]);
   const [list_gr_child, setlistGr_Child] = useState([]);
 
@@ -102,7 +101,7 @@ export default function ChatBusinessBody({
   const [valueResoure, sevalueResoure] = useState<any>();
   const [check, setCheck] = useState(false);
   const [nhomChaDemo, setnhomChaDemo] = useState<any>();
-  const [nhomComDeMo, setnhomComDeMo] = useState();
+  const [nhomComDeMo, setnhomComDeMo] = useState<any>();
   const handlefilter = async () => {
     setDatatable([]);
     setloading(true);
@@ -122,6 +121,9 @@ export default function ChatBusinessBody({
   const handleChangeNameCreate = (value: any) => {
     setuserNameCreate(value);
   };
+  useEffect(() => {
+    handleGetInfoCus();
+  }, [cusId, nhomChaDemo, nhomCon]);
   const router = useRouter();
   const currentTime = moment(); // Thời điểm hiện tại
   const pastTime = currentTime.subtract(2, "days");
@@ -173,7 +175,10 @@ export default function ChatBusinessBody({
     });
     const newArr = listGr_Child
       ?.filter((item: any, index) => {
-        return item.group_parent === (checkCha ? valueChaOld : nhomCha);
+        return (
+          item.group_parent ===
+          (checkCha ? valueChaOld : nhomChaReal || nhomChaDemo)
+        );
       })
       ?.map((item) => {
         return {
@@ -246,6 +251,9 @@ export default function ChatBusinessBody({
       console.error(error);
     }
     setrefCall("");
+    setnhomChaDemo("");
+    setContent("");
+    setnhomComDeMo("");
   };
   const [nhonConReal, setnhonConReal] = useState<any>();
 
@@ -266,10 +274,18 @@ export default function ChatBusinessBody({
       setnhomChaReal(infoCus?.group_id?.info);
       setnhomCha(infoCus?.group_id?.info);
     } else {
-      setnhonConReal(infoCus?.group_id?.info);
-      setnhomChaReal(nhomCha);
+      setnhonConReal(Number(infoCus?.group_id?.info));
+      setnhomChaReal(
+        Number(
+          listGr?.filter((item) =>
+            item?.lists_child?.some((itemc) => {
+              return itemc.gr_id === infoCus?.group_id?.info; // Trả về kết quả boolean
+            })
+          )[0]?.gr_id || 0 // Kiểm tra giá trị và mặc định thành 0 nếu không tìm thấy
+        )
+      );
     }
-  }, [nhonConReal, nhomChaReal, infoCus, cusId, arrCha]);
+  }, [nhonConReal, nhomChaReal, infoCus, cusId, arrCha, cusId]);
 
   return (
     <div className={styles.business_assistant_body}>

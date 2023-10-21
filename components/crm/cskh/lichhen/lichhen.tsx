@@ -51,7 +51,7 @@ const LichHen = (props: Props) => {
           //     router.push(`/chinh-sua-khao-sat/${id}`);
           //   }}
         >
-          <img src="/crm/icon-edit-black.svg" alt="hungha365.com" />
+          <img src="/crm/icon-edit-black.svg" alt="" />
           &nbsp; &nbsp; <p>Chỉnh sửa</p>
         </div>
       ),
@@ -66,7 +66,7 @@ const LichHen = (props: Props) => {
             setIsShowModal(true);
           }}
         >
-          <img src="/crm/icon-delete-black.svg" alt="hungha365.com" />
+          <img src="/crm/icon-delete-black.svg" alt="" />
           &nbsp; &nbsp; <p>Xóa</p>
         </div>
       ),

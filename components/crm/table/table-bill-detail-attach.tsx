@@ -40,8 +40,9 @@ const columns: ColumnsType<DataType> = [
     key: "person",
     render: (text: any) => (
       <div style={{ display: "flex", justifyContent: "center" }}>
+        {" "}
         <div>
-          <img src="/crm/user_kh.png" alt="hungha365.com" />
+          <img src="/crm/user_kh.png" alt="" />
         </div>
         &nbsp;{text}
       </div>

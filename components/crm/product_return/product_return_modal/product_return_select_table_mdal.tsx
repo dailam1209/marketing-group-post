@@ -76,7 +76,7 @@ const SelectOrederProductReturnModal: React.FC<MyComponentProps> = ({
                     height={20}
                     className={styles.img__search}
                     src="/crm/search.svg"
-                    alt="hungha365.com"
+                    alt=""
                   />
                 </button>
               </form>

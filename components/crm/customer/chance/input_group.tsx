@@ -28,7 +28,7 @@ export default function ChaneInputGroup() {
               <img
                 className={styles.img__search}
                 src="/crm/search.svg"
-                alt="hungha365.com"
+                alt=""
               />
             </button>
           </form>

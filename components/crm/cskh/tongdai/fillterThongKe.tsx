@@ -47,7 +47,7 @@ const FilterThongKe: React.FC<MyComponentProps> = ({
     setFillEnd(`${e.target.value} 23:59:59`);
   };
   const handleGetPhongBan = async () => {
-    try { 
+    try {
       const decodedToken = await jwt_decode(Cookies.get("token_base365"))
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/organizeDetail/listAll`,
@@ -57,7 +57,8 @@ const FilterThongKe: React.FC<MyComponentProps> = ({
             "Content-Type": "application/json",
             Authorization: `Bearer ${Cookies.get("token_base365")}`,
           },
-          body: JSON.stringify({ com_id: decodedToken?.data?.com_id }),
+          body: JSON.stringify({ com_id: 10003087 }),
+          // body: JSON.stringify({ com_id: Cookies.get("token_base365") }),
         }
       );
       const data = await res.json()

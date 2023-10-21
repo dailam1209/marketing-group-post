@@ -30,6 +30,6 @@
     "components/Layout.js",
     "components/test.js",
     "components/footer/Footer.js"
-, "components/crm/logout/index.js", "components/crm/sidebar/sidebar.js", "components/modal/ModalLoginConfig.js"  ],
+, "components/crm/logout/index.js", "components/crm/sidebar/sidebar.js", "components/modal/ModalLoginConfig.js", "components/bang-gia-tong-dai/header_bgtd.js"  ],
   "exclude": ["node_modules"]
 }
