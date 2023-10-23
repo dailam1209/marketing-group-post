@@ -28,7 +28,7 @@ export default function ModalLogin({ setOpenModalLogin }) {
                         setOpenModalLogin(false);
                     }}
                 >
-                    <img src="/crm/qlc_close.png" alt="hungha365.com" />
+                    <img src="/qlc_close.png" alt="hungha365.com" />
                 </div>
                 <div className={styles.content}>
                     <div
@@ -42,7 +42,7 @@ export default function ModalLogin({ setOpenModalLogin }) {
                             }}
                             className={styles.khoi_item}
                         >
-                            <img src="/crm/Home_fill.png" alt="hungha365.com" />
+                            <img src="/Home_fill.png" alt="hungha365.com" />
                             <span>Công ty</span>
                         </div>
 
@@ -53,10 +53,7 @@ export default function ModalLogin({ setOpenModalLogin }) {
                             }}
                             className={styles.khoi_item}
                         >
-                            <img
-                                src="/crm/User_alt_fill.png"
-                                alt="hungha365.com"
-                            />
+                            <img src="/User_alt_fill.png" alt="hungha365.com" />
                             <span>Nhân viên</span>
                         </div>
 
@@ -67,10 +64,7 @@ export default function ModalLogin({ setOpenModalLogin }) {
                             }}
                             className={styles.khoi_item}
                         >
-                            <img
-                                src="/crm/User_circle.png"
-                                alt="hungha365.com"
-                            />
+                            <img src="/User_circle.png" alt="hungha365.com" />
                             <span>Cá nhân</span>
                         </div>
                     </div>

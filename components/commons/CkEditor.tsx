@@ -29,16 +29,20 @@ export default function ClassicCKEditor({
         editor={ClassicEditor}
         data={data}
         onReady={(editor) => {
+          console.log('ClassicCKEditor is ready to use!', editor)
         }}
         onChange={(event, editor: typeof ClassicEditor) => {
           const data = editor.getData()
+          console.log({ event, editor, data })
           form && form.setFieldValue(name, data)
           onChange(event, editor)
           form?.setFieldValue(name, editor.getData())
         }}
         onBlur={(event, editor) => {
+          console.log('Blur.', editor)
         }}
         onFocus={(event, editor) => {
+          console.log('Focus.', editor)
         }}
       />
     </Form.Item>

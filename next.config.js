@@ -1,6 +1,6 @@
 module.exports = {
-  images: {
-    domains: ["cdn.timviec365.vn"],
-  },
-  basePath: "/crm",
+    basePath: "/crm",
+    images: {
+        domains: ["cdn.timviec365.vn"],
+    },
 };

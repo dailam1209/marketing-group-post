@@ -1,4 +1,13 @@
-import { Button, Dropdown, Input, MenuProps, Table } from "antd";
+import {
+  Button,
+  Dropdown,
+  Input,
+  Menu,
+  MenuProps,
+  Pagination,
+  Select,
+  Table,
+} from "antd";
 import styles from "../delete_data/table_deleted.module.css";
 import { PlusCircleFilled, SearchOutlined } from "@ant-design/icons";
 import Link from "next/link";
@@ -29,7 +38,7 @@ const Table_San_Pham = (props: any) => {
           rel="noopener noreferrer"
           // onClick={() => { setIsShowModalChange(true), }}
         >
-          <img src="/crm/icon-edit-black.svg" alt="hungha365.com" />
+          <img src="/crm/icon-edit-black.svg" alt="" />
           &nbsp; &nbsp; <p>Chỉnh sửa</p>
         </Link>
       ),
@@ -42,7 +51,7 @@ const Table_San_Pham = (props: any) => {
           rel="noopener noreferrer"
           // onClick={() => { setIsShowModal(true) }}
         >
-          <img src="/crm/icon-delete-black.svg" alt="hungha365.com" />
+          <img src="/crm/icon-delete-black.svg" alt="" />
           &nbsp; &nbsp; <p>Xóa</p>
         </div>
       ),

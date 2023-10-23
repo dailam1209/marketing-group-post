@@ -23,7 +23,7 @@ export default function ShareBtnGroupDetails({ id }: any) {
                 <img
                   className={styles.img__search}
                   src="/crm/search.svg"
-                  alt="hungha365.com"
+                  alt=""
                 />
               </button>
             </form>
@@ -42,9 +42,7 @@ export default function ShareBtnGroupDetails({ id }: any) {
       </div>
       <ShareActionModal
         isModalCancel={isOpenMdal}
-        setIsModalCancel={setIsOpenMdal}
-        listNV={undefined}
-      />
+        setIsModalCancel={setIsOpenMdal} listNV={undefined}      />
     </>
   );
 }

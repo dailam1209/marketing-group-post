@@ -372,7 +372,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
           }}
           name="value"
           className="js-example-basic-single"
-          defaultValue={record?.group_id?.toString() || "0"}
+          defaultValue={router.query.group || record?.group_id?.toString()}
           data-record={JSON.stringify(record)} // Lưu bản ghi vào data attribute
         >
           {options.map((group) => (
@@ -569,7 +569,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
               paddingBottom: 20,
               display: "flex",
               position: "absolute",
-              right: 0,
+              left: "30%",
             },
             current: page,
             pageSize: pageSize,
@@ -586,7 +586,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
           <div
             className="main__footer_fix flex_between"
             id=""
-            style={{ marginBottom: 25 }}
+            style={{ marginBottom: 25, width: "20%" }}
           >
             <div className="show_number_item">
               <b>Hiển thị:</b>

@@ -124,9 +124,8 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
   const [valueResoure, sevalueResoure] = useState<any>();
   const [check, setCheck] = useState(false);
   const handlefilter = async () => {
-    setDatatable([]);
     setloading(true);
-    setOpen(false), await fetchData();
+    setOpen(false);
   };
   const handleChangeStt = (value: any) => {
     setValueSelectStatus(value);
@@ -185,9 +184,9 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
       setTimeEnd("00:00:00");
     }
   }, []);
-
+  const [nhomchafilter, setnhomchafilter] = useState<any>();
   const handleSelectNhomCha = (value) => {
-    setnhomCha(value);
+    setnhomchafilter(value);
     dispatch(doSaveCha({ id: value }));
     setIdNhom(value);
     setnhomCon("Tất cả");
@@ -302,6 +301,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
       }),
     ];
   }
+  const [nhomconfilter, setnhomconfilter] = useState<any>();
 
   let optionCon: any = [];
   const getOptionC = () => {
@@ -310,7 +310,9 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
       ?.filter((item: any, index) => {
         return (
           item.group_parent ===
-          (checkCha ? valueChaOld : idnhomcha || Number(idNhom) || nhomCha)
+          (checkCha
+            ? valueChaOld
+            : idnhomcha || Number(idNhom) || nhomchafilter)
         );
       })
       ?.map((item) => {
@@ -476,7 +478,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
             </div>
           </div>
           <Select
-            value={checkCha ? +valueChaOld : nhomCha}
+            // value={checkCha ? +valueChaOld : nhomCha}
             onChange={(value) => handleSelectNhomCha(value)}
             defaultValue={idnhomcha ? idnhomcha : Number(idNhom) || -1}
             suffixIcon={
@@ -520,9 +522,10 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
               filterOption={(input, option: any) =>
                 option?.label.toLowerCase().includes(input.toLocaleLowerCase())
               }
-              value={nhomCon}
+              value={nhomconfilter}
               onChange={(value) => {
                 setnhomCon(value), setIdNhom(value);
+                setnhomconfilter(value);
               }}
               defaultValue={idnhomcha ? Number(idNhom) : "" || ""}
               suffixIcon={

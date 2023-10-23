@@ -225,7 +225,7 @@ const TableStatusCustomer: React.FC<TableStatusCustomerProps> = ({}: any) => {
                   style={{ marginBottom: 100 }}
                   className={styles.img__search}
                   src="/crm/search.svg"
-                  alt="hungha365.com"
+                  alt=""
                 />
               </button>
             </form>

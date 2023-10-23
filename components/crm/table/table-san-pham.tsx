@@ -1,5 +1,14 @@
-import { Button, Dropdown, Input, MenuProps, Table } from "antd";
-import styles from "../delete_data/table_deleted.module.css";
+import {
+  Button,
+  Dropdown,
+  Input,
+  Menu,
+  MenuProps,
+  Pagination,
+  Select,
+  Table,
+} from "antd";
+import styles from "../delete_data/table.module.css";
 import { PlusCircleFilled, SearchOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import { useState } from "react";
@@ -29,7 +38,7 @@ const Table_San_Pham = (props: any) => {
           rel="noopener noreferrer"
           // onClick={() => { setIsShowModalChange(true), }}
         >
-          <img src="/crm/icon-edit-black.svg" alt="hungha365.com" />
+          <img src="/crm/icon-edit-black.svg" alt="" />
           &nbsp; &nbsp; <p>Chỉnh sửa</p>
         </Link>
       ),
@@ -42,7 +51,7 @@ const Table_San_Pham = (props: any) => {
           rel="noopener noreferrer"
           // onClick={() => { setIsShowModal(true) }}
         >
-          <img src="/crm/icon-delete-black.svg" alt="hungha365.com" />
+          <img src="/crm/icon-delete-black.svg" alt="" />
           &nbsp; &nbsp; <p>Xóa</p>
         </div>
       ),
@@ -142,24 +151,22 @@ const Table_San_Pham = (props: any) => {
   return (
     <div className={`${styles.main__content} ${styles.flex_column}`}>
       <div className={styles.inputSP2}>
-        <div style={{ display: "flex", width: "100%" }}>
-          <div className={styles.ip1}>
-            <button className={styles.list_sp}>
-              <Link
-                href="/san-pham"
-                style={{ color: "#666666", background: "#fff" }}
-              >
-                Danh sách sản phẩm
-              </Link>
-            </button>
-          </div>
-          <div className={styles.ip1}>
-            <button className={styles.list_gr_sp}>
-              <Link href="/nhom-san-pham" style={{ color: "#a3a3a3" }}>
-                Danh sách nhóm sản phẩm
-              </Link>
-            </button>
-          </div>
+        <div className={styles.ip1}>
+          <button className={styles.list_sp}>
+            <Link
+              href="/san-pham"
+              style={{ color: "#666666", background: "#fff" }}
+            >
+              Danh sách sản phẩm
+            </Link>
+          </button>
+        </div>
+        <div className={styles.ip1}>
+          <button className={styles.list_gr_sp}>
+            <Link href="/nhom-san-pham" style={{ color: "#a3a3a3" }}>
+              Danh sách nhóm sản phẩm
+            </Link>
+          </button>
         </div>
         <div className={styles.ipSearch}>
           <Input
@@ -189,9 +196,11 @@ const Table_San_Pham = (props: any) => {
       <div className={styles.table}>
         <div className={styles.scrollTable}>
           <Table
+            // className={styles.table_antd}
             columns={Colums as any}
             dataSource={data}
             bordered
+            //     scroll={{ x: 1500, y: 300 }}
             scroll={{ x: 1300 }}
             pagination={false}
           />

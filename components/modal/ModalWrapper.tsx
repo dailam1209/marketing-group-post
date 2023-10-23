@@ -1,6 +1,6 @@
-import { Button, Modal } from "antd";
-import Image from "next/image";
-import styles from "./ModalWrapper.module.css";
+import { Button, Modal } from "antd"
+import Image from "next/image"
+import styles from "./ModalWrapper.module.css"
 
 export function ModalWrapper(
   open: boolean,
@@ -26,7 +26,7 @@ export function ModalWrapper(
       destroyOnClose={true}
       style={{
         top: 0,
-        padding: "20px",
+        padding: "20px"
       }}
       className="bannerQLC"
       footer={
@@ -39,7 +39,7 @@ export function ModalWrapper(
                 style={{
                   border: "1px solid #4C5BD4",
                   borderRadius: "10px",
-                  width: "110px",
+                  width: "110px"
                 }}
                 onClick={() => setOpen(false)}
               >
@@ -57,7 +57,7 @@ export function ModalWrapper(
               id="button"
               htmlType="submit"
               onClick={() => {
-                onConfirm();
+                onConfirm()
                 // setOpen(false)
               }}
             >
@@ -68,7 +68,7 @@ export function ModalWrapper(
       }
       cancelButtonProps={{ style: { display: "none" } }}
       okButtonProps={{
-        style: { display: "none" },
+        style: { display: "none" }
       }}
     >
       {hasHeade ? (
@@ -77,7 +77,7 @@ export function ModalWrapper(
           <p className={styles.headerText}>{title}</p>
           {hasX ? (
             <Image
-              alt="hungha365.com"
+              alt="/"
               src={"/cross.png"}
               width={14}
               height={14}
@@ -91,7 +91,7 @@ export function ModalWrapper(
       ) : null}
       <div style={{ padding: hasPadding ? "20px" : "0px" }}>{children}</div>
     </Modal>
-  );
+  )
 }
 
 export function ModalWrapper2(
@@ -120,7 +120,7 @@ export function ModalWrapper2(
       className="bannerQLC"
       style={{
         top: 0,
-        padding: "20px",
+        padding: "20px"
       }}
       footer={
         hasFooter && (
@@ -132,7 +132,7 @@ export function ModalWrapper2(
                 style={{
                   border: "1px solid #4C5BD4",
                   borderRadius: "10px",
-                  width: "110px",
+                  width: "110px"
                 }}
                 onClick={cancelFunc}
               >
@@ -150,7 +150,7 @@ export function ModalWrapper2(
               id="button"
               htmlType="submit"
               onClick={() => {
-                onConfirm();
+                onConfirm()
                 // setOpen(false)
               }}
             >
@@ -161,7 +161,7 @@ export function ModalWrapper2(
       }
       cancelButtonProps={{ style: { display: "none" } }}
       okButtonProps={{
-        style: { display: "none" },
+        style: { display: "none" }
       }}
     >
       {hasHeade ? (
@@ -170,7 +170,7 @@ export function ModalWrapper2(
           <p className={styles.headerText}>{title}</p>
           {hasX ? (
             <Image
-              alt="hungha365.com"
+              alt="/"
               src={"/cross.png"}
               width={14}
               height={14}
@@ -184,5 +184,5 @@ export function ModalWrapper2(
       ) : null}
       <div style={{ padding: hasPadding ? "20px" : "0px" }}>{children}</div>
     </Modal>
-  );
+  )
 }

@@ -59,7 +59,7 @@ const Options1 = (props: any) => {
                 onClick={() => handleDleteOP1()}
                 style={{ paddingLeft: 20 }}
                 src="/crm/delete.svg"
-                alt="hungha365.com"
+                alt=""
               />
             </div>
             <div>

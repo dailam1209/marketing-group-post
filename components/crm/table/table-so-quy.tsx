@@ -11,7 +11,7 @@ import {
 import styles from "../delete_data/table.module.css";
 import styless from "../potential/potential.module.css";
 import { SearchOutlined } from "@ant-design/icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ModalDelete from "../delete_data/modal/modal_delete";
 import ModalAddSoQuy from "./modal/ModalAddSoQuy";
 import ModalChangeSoQuy from "./modal/ModalChangeSoQuy";
@@ -22,7 +22,8 @@ const Table_So_Quy = (props: any) => {
   const [isShowModalAdd, setIsShowModalAdd] = useState(false);
   const [isShowModalChange, setIsShowModalChange] = useState(false);
 
-  const handleSelect = (id: any) => {};
+  const handleSelect = (id: any) => {
+  };
   const handleDeleteDB = () => {
     setIsShowModal(false);
   };
@@ -52,10 +53,10 @@ const Table_So_Quy = (props: any) => {
           style={{ display: "flex", fontSize: 15 }}
           rel="noopener noreferrer"
           onClick={() => {
-            setIsShowModalChange(true);
+            setIsShowModalChange(true)
           }}
         >
-          <img src="/crm/icon-edit-black.svg" alt="hungha365.com" />
+          <img src="/crm/icon-edit-black.svg" alt="" />
           &nbsp; &nbsp; <p>Chỉnh sửa</p>
         </div>
       ),
@@ -70,7 +71,7 @@ const Table_So_Quy = (props: any) => {
             setIsShowModal(true);
           }}
         >
-          <img src="/crm/icon-delete-black.svg" alt="hungha365.com" />
+          <img src="/crm/icon-delete-black.svg" alt="" />
           &nbsp; &nbsp; <p>Xóa</p>
         </div>
       ),

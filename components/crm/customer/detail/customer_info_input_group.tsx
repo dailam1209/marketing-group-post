@@ -22,7 +22,7 @@ export default function CustomerInforEngineInput({ id, isLink = false }: any) {
               <img
                 className={styles.img__search}
                 src="/crm/search.svg"
-                alt="hungha365.com"
+                alt=""
               />
             </button>
           </form>
