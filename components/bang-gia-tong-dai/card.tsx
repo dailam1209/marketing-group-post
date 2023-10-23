@@ -4,18 +4,6 @@ export default function CardTongDai() {
     return (
         <div className={styles.main}>
             <div className={styles.content}>
-                {/* <div
-                    style={{
-                        zIndex: "1",
-                    }}
-                >
-                    <Image
-                        src="./card-bg.png"
-                        alt="xxx"
-                        preview={false}
-                        width="100%"
-                    />
-                </div> */}
                 <div className={styles.wrapper}>
                     <div className={styles.title}>
                         TÍNH NĂNG TỔNG ĐÀI ĐA THÔNG MINH
