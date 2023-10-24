@@ -57,8 +57,8 @@ const FilterThongKe: React.FC<MyComponentProps> = ({
             "Content-Type": "application/json",
             Authorization: `Bearer ${Cookies.get("token_base365")}`,
           },
-          body: JSON.stringify({ com_id: 10003087 }),
-          // body: JSON.stringify({ com_id: Cookies.get("token_base365") }),
+          // body: JSON.stringify({ com_id: 10003087 }),
+          body: JSON.stringify({ com_id: decodedToken["data"].com_id })
         }
       );
       const data = await res.json()
