@@ -8,14 +8,19 @@ import ModalCompleteStep from "@/components/crm/campaign/campaign_steps/complete
 interface MyComponentProps {
   isModalCancel: boolean;
   setIsModalCancel: (value: boolean) => void;
+  handleDelete?: (value: number) => void;
+  id?: number;
 }
 const DelActionModal: React.FC<MyComponentProps> = ({
   isModalCancel,
   setIsModalCancel,
+  handleDelete,
+  id,
 }) => {
   const router = useRouter();
   const handleOK = () => {
     setIsModalCancel(false);
+    handleDelete(id);
     // router.push("/list");
   };
 

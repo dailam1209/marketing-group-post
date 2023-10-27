@@ -1,5 +1,8 @@
 import styles from "./add_file_campaign.module.css";
-export default function AddDesriptionAndSystemInfo() {
+export default function AddDesriptionAndSystemInfo({
+  formFields,
+  handleChange,
+}) {
   return (
     <>
       <div>
@@ -9,11 +12,13 @@ export default function AddDesriptionAndSystemInfo() {
           <div className={`${styles.mb_3} `}>
             <label className={`${styles["form-label"]}`}>Mô tả</label>
             <textarea
-              name="address_contact"
+              name="description"
               id="address_contact"
               className={styles["form-control"]}
               placeholder="Nhập mô tả"
               defaultValue={""}
+              value={formFields?.description}
+              onChange={handleChange}
               style={{ height: "82px" }}
             />
           </div>
@@ -29,8 +34,19 @@ export default function AddDesriptionAndSystemInfo() {
               <input
                 type="checkbox"
                 defaultValue={1}
-                name="share_all"
+                name="shareAll"
                 id="share_all"
+                checked={
+                  formFields?.shareAll && Number(formFields?.shareAll) === 1
+                    ? true
+                    : false
+                }
+                onChange={handleChange}
+                value={
+                  formFields?.shareAll && Number(formFields?.shareAll) === 1
+                    ? 0
+                    : 1
+                }
               />
               Dùng chung
             </p>

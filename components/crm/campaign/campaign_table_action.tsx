@@ -6,7 +6,7 @@ import Image from "next/image";
 import DelActionModal from "@/components/crm/campaign/campaign_delete_action_mdal";
 
 export default function CampaignActionTable(props: any) {
-  const { record } = props;
+  const { record, handleDelete } = props;
   const [isDelOpen, setIsDelOpen] = useState(false);
   const [modalCompleteOpen, setModalCompleteOpen] = useState(false);
 
@@ -40,7 +40,7 @@ export default function CampaignActionTable(props: any) {
     <>
       <div>
         <Dropdown menu={{ items }}>
-          <button style={{ justifyContent: "center" }}>
+          <button style={{ justifyContent: "center", color: "#4C5BD4" }}>
             <Image
               src="/crm/3_cham.png"
               alt="hungha365.com"
@@ -55,6 +55,8 @@ export default function CampaignActionTable(props: any) {
         <DelActionModal
           isModalCancel={isDelOpen}
           setIsModalCancel={setIsDelOpen}
+          handleDelete={handleDelete}
+          id = {record}
         />
       }
     </>

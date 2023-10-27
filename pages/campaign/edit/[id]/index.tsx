@@ -3,17 +3,28 @@ import styleHome from "@/components/crm/home/home.module.css";
 import styles from "@/components/crm/campaign/campaign.module.css";
 import { SidebarContext } from "@/components/crm/context/resizeContext";
 import CampaignFooterEditFiles from "@/components/crm/campaign/campaign_edit_files/campaign_footer_edit_file";
-import AddGeneralInfo from "@/components/crm/campaign/campaign_edit_files/general_info";
-import AddDescriptionInfo from "@/components/crm/campaign/campaign_edit_files/description_info";
-
+import AddGeneralInfo from "@/components/crm/campaign/campaign_add_files/general_infor";
+import AddDescriptionInfo from "@/components/crm/campaign/campaign_add_files/description_info";
 import { useHeader } from "@/components/crm/hooks/useHeader";
 import Head from "next/head";
+import { useForm } from "@/components/crm/hooks/useForm";
+import Cookies from "js-cookie";
+import useLoading from "@/components/crm/hooks/useLoading";
+import { fetchApi } from "@/components/crm/ultis/api";
+import { useRouter } from "next/router";
+import { Spin } from "antd";
+import { timestampToCustomString } from "@/components/crm/ultis/convert_date";
 
 const CampageEditIndex: React.FC = () => {
+  const { isLoading, startLoading, stopLoading } = useLoading();
+  const { formFields, handleChange, setFormFields } = useForm();
+  const router = useRouter();
+  const typeRef = useRef(null);
+  const statusRef = useRef(null);
+  const empRef = useRef(null);
+  const chanelRef = useRef(null);
   const mainRef = useRef<HTMLDivElement>(null);
-  const [checkFile, setCheckFile] = useState(false);
   const { isOpen } = useContext<any>(SidebarContext);
-  const imgRef = useRef<HTMLInputElement>(null);
   const {
     headerTitle,
     setHeaderTitle,
@@ -21,15 +32,62 @@ const CampageEditIndex: React.FC = () => {
     setCurrentPath,
   }: any = useHeader();
 
+  const url = "http://localhost:3007/api/crm/campaign/detail-campaign";
+
+  const token = Cookies.get("token_base365");
+
+  const fetchAPICampaign = async () => {
+    const bodyAPI = {
+      cam_id: router.query.id,
+    };
+    startLoading();
+    const dataApi = await fetchApi(url, token, bodyAPI, "POST");
+    setFormFields(dataApi?.data?.data);
+    stopLoading();
+  };
+
+  const fetchAPIEditCampaign = async () => {
+    const bodyAPI = {
+      ...formFields,
+      timeStart:
+        typeof formFields?.timeStart === "number"
+          ? timestampToCustomString(formFields?.timeStart, "input")
+          : formFields?.timeStart,
+      timeEnd:
+        typeof formFields?.timeEnd === "number"
+          ? timestampToCustomString(formFields?.timeEnd, "input")
+          : formFields?.timeEnd,
+      cam_id: router.query.id,
+      shareAll: Number(formFields?.shareAll || 0),
+      money: Number(formFields?.money || 0),
+      investment: Number(formFields?.investment || 0),
+      expectedSales: Number(formFields?.expectedSales || 0),
+      status: statusRef?.current?.value ? Number(statusRef?.current?.value) : 0,
+      chanelCampaign: chanelRef?.current?.value
+        ? Number(chanelRef?.current?.value)
+        : 0,
+      typeCampaign: typeRef?.current?.value
+        ? Number(typeRef?.current?.value)
+        : 0,
+      empID: empRef?.current?.value ? Number(empRef?.current?.value) : 0,
+    };
+    const dataApi = await fetchApi(
+      "http://localhost:3007/api/crm/campaign/edit-campaign",
+      token,
+      bodyAPI,
+      "POST"
+    );
+  };
+
+  useEffect(() => {
+    fetchAPICampaign();
+  }, []);
+
   useEffect(() => {
     setHeaderTitle("Chiến dịch/ Chỉnh sửa");
     setShowBackButton(true);
     setCurrentPath("/campaign/list");
   }, [setHeaderTitle, setShowBackButton, setCurrentPath]);
-
-  const handleClickImg = () => {
-    imgRef?.current?.click();
-  };
 
   useEffect(() => {
     if (isOpen) {
@@ -47,18 +105,21 @@ const CampageEditIndex: React.FC = () => {
         <title>Chỉnh sửa chiến dịch khách hàng</title>
         <meta
           name="description"
-          content="CRM 365 được đánh giá là công cụ tốt nhất hiện nay trong việc kết nối khách hàng và doanh nghiệp. Phần mềm chú trọng vào các nhiệm vụ hỗ trợ doanh nghiệp tăng tập khách hàng tiềm năng và thân thiết, tăng doanh thu và tối ưu chi phí. Đăng ký hôm nay, lợi ích đến ngay!"
+          content="CRM của AI365 là một phần mềm chăm sóc khách hàng tự động, có tính linh hoạt cao, thích hợp ứng dụng vào mọi loại hình doanh nghiệp. Phần mềm thuộc hệ sinh thái gồm 200 phần mềm, đều được AI365 kết nối trên 1 nền tảng duy nhất. Mọi báo cáo khách hàng đều được kiểm soát qua chat365 vô cùng tiện lợi"
         />
-        <meta name="Keywords" content="Phần mềm CRM, phần mềm crm miễn phí" />
+        <meta
+          name="Keywords"
+          content="CRM của AI365 là một phần mềm chăm sóc khách hàng tự động, có tính linh hoạt cao, thích hợp ứng dụng vào mọi loại hình doanh nghiệp. Phần mềm thuộc hệ sinh thái gồm 200 phần mềm, đều được AI365 kết nối trên 1 nền tảng duy nhất. Mọi báo cáo khách hàng đều được kiểm soát qua chat365 vô cùng tiện lợi"
+        />
         <meta property="og:locale" content="vi_VN" />
         <meta property="og:type" content="website" />
         <meta
           property="og:title"
-          content="CRM 365 - đáp án của bài toán tối ưu quy trình, gia tăng lợi nhuận"
+          content="Phần mềm CRM của AI365 – giải pháp tuyệt vời chăm sóc khách hàng tự động"
         />
         <meta
           property="og:description"
-          content="CRM 365 được đánh giá là công cụ tốt nhất hiện nay trong việc kết nối khách hàng và doanh nghiệp. Phần mềm chú trọng vào các nhiệm vụ hỗ trợ doanh nghiệp tăng tập khách hàng tiềm năng và thân thiết, tăng doanh thu và tối ưu chi phí. Đăng ký hôm nay, lợi ích đến ngay!"
+          content="CRM của AI365 là một phần mềm chăm sóc khách hàng tự động, có tính linh hoạt cao, thích hợp ứng dụng vào mọi loại hình doanh nghiệp. Phần mềm thuộc hệ sinh thái gồm 200 phần mềm, đều được AI365 kết nối trên 1 nền tảng duy nhất. Mọi báo cáo khách hàng đều được kiểm soát qua chat365 vô cùng tiện lợi"
         />
         <meta
           property="og:image"
@@ -67,11 +128,11 @@ const CampageEditIndex: React.FC = () => {
         <meta name="twitter:card" content="summary" />
         <meta
           name="twitter:description"
-          content="CRM 365 được đánh giá là công cụ tốt nhất hiện nay trong việc kết nối khách hàng và doanh nghiệp. Phần mềm chú trọng vào các nhiệm vụ hỗ trợ doanh nghiệp tăng tập khách hàng tiềm năng và thân thiết, tăng doanh thu và tối ưu chi phí. Đăng ký hôm nay, lợi ích đến ngay!"
+          content="CRM của AI365 là một phần mềm chăm sóc khách hàng tự động, có tính linh hoạt cao, thích hợp ứng dụng vào mọi loại hình doanh nghiệp. Phần mềm thuộc hệ sinh thái gồm 200 phần mềm, đều được AI365 kết nối trên 1 nền tảng duy nhất. Mọi báo cáo khách hàng đều được kiểm soát qua chat365 vô cùng tiện lợi"
         />
         <meta
           name="twitter:title"
-          content="CRM 365 - đáp án của bài toán tối ưu quy trình, gia tăng lợi nhuận"
+          content="Phần mềm CRM của AI365 – giải pháp tuyệt vời chăm sóc khách hàng tự động"
         />
         <link rel="canonical" href="https://hungha365.com/crm" />
 
@@ -85,13 +146,31 @@ const CampageEditIndex: React.FC = () => {
         <div className={styles.main_importfile}>
           <div className={styles.formInfoStep}>
             <div className={styles.info_step}>
-              <div className={styles.main__title}>Chi tiết chiến dịch</div>
+              <div className={styles.main__title}>Chỉnh sửa chiến dịch</div>
               <div className={styles.form_add_potential}>
-                <div className={styles.main__body}>
-                  <AddGeneralInfo />
-                  <AddDescriptionInfo />
-                </div>
-                <CampaignFooterEditFiles title="Cập nhật Chiến dịch thành công" />
+                {isLoading ? (
+                  <Spin style={{ width: "100%", margin: "auto" }} />
+                ) : (
+                  <div className={styles.main__body}>
+                    <AddGeneralInfo
+                      formFields={formFields}
+                      handleChange={handleChange}
+                      typeRef={typeRef}
+                      chanelRef={chanelRef}
+                      statusRef={statusRef}
+                      empRef={empRef}
+                    />
+                    <AddDescriptionInfo
+                      formFields={formFields}
+                      handleChange={handleChange}
+                    />
+                  </div>
+                )}
+                <CampaignFooterEditFiles
+                  title="Cập nhật Chiến dịch thành công"
+                  formFields={formFields}
+                  handleChange={fetchAPIEditCampaign}
+                />
               </div>
             </div>
           </div>

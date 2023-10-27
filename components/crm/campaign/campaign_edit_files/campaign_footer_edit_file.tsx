@@ -8,6 +8,8 @@ export default function CampaignFooterEditFiles({
   title,
   contentCancel,
   titleCancel,
+  handleChange,
+  formFields,
 }: any) {
   const [isModalCancel, setIsModalCancel] = useState(false);
   const [modal1Open, setModal1Open] = useState(false);
@@ -19,7 +21,14 @@ export default function CampaignFooterEditFiles({
       <button
         className={styles.save}
         type="submit"
-        onClick={() => setModal1Open(true)}
+        onClick={async () => {
+          if (formFields?.nameCampaign) {
+            await handleChange();
+            setModal1Open(true);
+          } else {
+            alert("Trường tên chiến dịch không được bỏ trống");
+          }
+        }}
       >
         Lưu
       </button>
