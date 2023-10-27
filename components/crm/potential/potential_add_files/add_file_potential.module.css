@@ -140,6 +140,9 @@
     -webkit-box-flex: 0;
     width: 100%;
   }
+  .form-control {
+    width: 96.1%;
+  }
 }
 
 @media (max-width: 1420px) {
@@ -147,6 +150,9 @@
     flex-direction: column;
     justify-content: center;
     gap: 0;
+  }
+  .form-control {
+    width: 98.1%;
   }
 }
 

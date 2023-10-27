@@ -14,9 +14,10 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
+
     "paths": {
       "@/*": ["./*"],
-      "react": [ "./node_modules/@types/react" ]
+      "react": ["./node_modules/@types/react"]
     }
   },
   "include": [
@@ -30,7 +31,10 @@
     "components/header/Header.js",
     "components/Layout.js",
     "components/test.js",
-    "components/footer/Footer.js"
-, "components/crm/logout/index.js", "components/crm/sidebar/sidebar.js"  ],
+    "components/footer/Footer.js",
+    "components/crm/logout/index.js",
+    "components/crm/sidebar/sidebar.js",
+    "NOTE.jsx"
+  ],
   "exclude": ["node_modules"]
 }

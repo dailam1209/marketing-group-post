@@ -2,12 +2,22 @@ import { useEffect, useState } from "react";
 import PotentialSelectBoxStep from "../potential_steps/select_box_step";
 import styles from "./add_file_potential.module.css";
 import InputText from "./input_text";
+import { getVocative } from "@/utils/function";
+import $ from "jquery";
+import "select2/dist/css/select2.min.css";
+import "select2/dist/js/select2.min.js";
 export default function AddGeneralInfo({ formData, setFormData }: any) {
   // const fullname = `${formData.tendem} ${formData.ten}`;
   const [fullname, setFullname] = useState("");
 
   useEffect(() => {
-    setFullname(`${formData?.tendem} ${formData?.ten}`);
+    $(".js-example-basic-single").select2();
+
+    setFullname(
+      `${formData?.tendem ? formData?.tendem : ""} ${
+        formData?.ten ? formData?.ten : ""
+      }`
+    );
   }, [formData]);
 
   return (
@@ -21,11 +31,9 @@ export default function AddGeneralInfo({ formData, setFormData }: any) {
             placeholder="Chọn"
             value={formData?.cus_from}
             selectData={(value) => {
-              setFormData((prev) => {
-                return { ...prev, cus_from: value };
-              });
+              setFormData({ ...formData, cus_from: value });
             }}
-            data={["Anh", "Chị", "Ông", "Bà"]}
+            data={getVocative}
           />
         </div>
 
@@ -215,6 +223,8 @@ export default function AddGeneralInfo({ formData, setFormData }: any) {
           />
         </div>
       </div>
+      <link href="path/to/select2.min.css" rel="stylesheet" />
+      <script src="path/to/select2.min.js"></script>
     </div>
   );
 }
