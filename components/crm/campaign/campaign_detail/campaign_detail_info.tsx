@@ -1,8 +1,28 @@
 import styles from "@/components/crm/campaign/campaign_detail/campaign_detail.module.css";
 // import InputText from "./input_text";
 import { Input, Tooltip } from "antd";
+import { timestampToCustomString } from "../../ultis/convert_date";
 
-export default function AddCampaignDetailInfo() {
+export default function AddCampaignDetailInfo({ formFields }) {
+  const dataStatus = [
+    <div style={{ color: "#CCCCCC" }}>Chưa cập nhật</div>,
+    <div style={{ color: "#CCCCCC" }}>Chưa cập nhật</div>,
+    <div style={{ color: "#FFA800" }}>Chưa diễn ra</div>,
+    <div style={{ color: "#34B632" }}>Đã kết thúc</div>,
+    <div style={{ color: "#FF3333" }}>Đang tạm dừng</div>,
+    <div style={{ color: "#4C5BD4" }}>Đang diễn ra</div>,
+  ];
+
+  const dataTypeCampaign = [
+    <div style={{ color: "#CCCCCC" }}>Chưa cập nhật</div>,
+    <div style={{ color: "#CCCCCC" }}>Chưa cập nhật</div>,
+    <div>Gửi mail</div>,
+    <div>Điện thoại</div>,
+    <div>Tổ chức hội thảo tập huấn</div>,
+    <div>Gặp mặt trực tiếp</div>,
+    <div>Qua bưu điện</div>,
+    <div>Mạng xã hội</div>,
+  ];
   return (
     <div>
       <div className={styles.main__content__body}>
@@ -14,7 +34,9 @@ export default function AddCampaignDetailInfo() {
               <div className={`${styles.main__body__item__title}`}>
                 <b>Tên chiến dịch:</b>
               </div>
-              <div className={`${styles.main__body__item__value}`}>a</div>
+              <div className={`${styles.main__body__item__value}`}>
+                {formFields?.nameCampaign}
+              </div>
             </div>
           </div>
 
@@ -26,7 +48,7 @@ export default function AddCampaignDetailInfo() {
                 <b>Loại:</b>
               </div>
               <div className={`${styles.main__body__item__value}`}>
-                Gửi mail
+                {dataTypeCampaign[formFields?.typeCampaign]}
               </div>
             </div>
           </div>
@@ -41,7 +63,7 @@ export default function AddCampaignDetailInfo() {
               <div
                 className={`${styles.main__body__item__value} ${styles.stt_yellow}`}
               >
-                Chưa diễn ra
+                {dataStatus[formFields?.status]}
               </div>
             </div>
           </div>
@@ -54,7 +76,7 @@ export default function AddCampaignDetailInfo() {
                 <b>Doanh số kỳ vọng:</b>
               </div>
               <div className={`${styles.main__body__item__value}`}>
-                12.121.200 VNĐ
+                {formFields?.expectedSales} VNĐ
               </div>
             </div>
           </div>
@@ -67,7 +89,7 @@ export default function AddCampaignDetailInfo() {
                 <b>Số đã chi:</b>
               </div>
               <div className={`${styles.main__body__item__value} `}>
-                121.212.000 VNĐ
+                {formFields?.money} VNĐ
               </div>
             </div>
           </div>
@@ -79,10 +101,12 @@ export default function AddCampaignDetailInfo() {
               <div className={`${styles.main__body__item__title}`}>
                 <b>Ngày kỳ vọng/kết thúc:</b>
               </div>
-              <div
-                className={`${styles.main__body__item__value} ${styles.not_update}`}
-              >
-                Chưa cập nhật
+              <div className={`${styles.main__body__item__value}`}>
+                {timestampToCustomString(formFields?.timeEnd) ? (
+                  timestampToCustomString(formFields?.timeEnd)
+                ) : (
+                  <div color="#CCCCCC">Chưa cập nhật</div>
+                )}
               </div>
             </div>
           </div>

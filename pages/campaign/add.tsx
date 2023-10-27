@@ -5,15 +5,19 @@ import { SidebarContext } from "@/components/crm/context/resizeContext";
 import CampaignFooterAddFiles from "@/components/crm/campaign/campaign_add_files/campaign_footer_add_files";
 import AddGeneralInfo from "@/components/crm/campaign/campaign_add_files/general_infor";
 import AddDescriptionInfo from "@/components/crm/campaign/campaign_add_files/description_info";
-
 import { useHeader } from "@/components/crm/hooks/useHeader";
 import Head from "next/head";
+import { useForm } from "@/components/crm/hooks/useForm";
 
 const AddFilesPotential: React.FC = () => {
+  const { formFields, handleChange } = useForm();
+  const typeRef = useRef(null);
+  const statusRef = useRef(null);
+  const empRef = useRef(null);
+  const chanelRef = useRef(null);
   const mainRef = useRef<HTMLDivElement>(null);
-  const [checkFile, setCheckFile] = useState(false);
+
   const { isOpen } = useContext<any>(SidebarContext);
-  const imgRef = useRef<HTMLInputElement>(null);
   const {
     headerTitle,
     setHeaderTitle,
@@ -26,10 +30,6 @@ const AddFilesPotential: React.FC = () => {
     setShowBackButton(true);
     setCurrentPath("/campaign/list");
   }, [setHeaderTitle, setShowBackButton, setCurrentPath]);
-
-  const handleClickImg = () => {
-    imgRef?.current?.click();
-  };
 
   useEffect(() => {
     if (isOpen) {
@@ -47,18 +47,21 @@ const AddFilesPotential: React.FC = () => {
         <title>Thêm mới chiến dịch</title>
         <meta
           name="description"
-          content="CRM 365 được đánh giá là công cụ tốt nhất hiện nay trong việc kết nối khách hàng và doanh nghiệp. Phần mềm chú trọng vào các nhiệm vụ hỗ trợ doanh nghiệp tăng tập khách hàng tiềm năng và thân thiết, tăng doanh thu và tối ưu chi phí. Đăng ký hôm nay, lợi ích đến ngay!"
+          content="CRM của AI365 là một phần mềm chăm sóc khách hàng tự động, có tính linh hoạt cao, thích hợp ứng dụng vào mọi loại hình doanh nghiệp. Phần mềm thuộc hệ sinh thái gồm 200 phần mềm, đều được AI365 kết nối trên 1 nền tảng duy nhất. Mọi báo cáo khách hàng đều được kiểm soát qua chat365 vô cùng tiện lợi"
         />
-        <meta name="Keywords" content="Phần mềm CRM, phần mềm crm miễn phí" />
+        <meta
+          name="Keywords"
+          content="CRM của AI365 là một phần mềm chăm sóc khách hàng tự động, có tính linh hoạt cao, thích hợp ứng dụng vào mọi loại hình doanh nghiệp. Phần mềm thuộc hệ sinh thái gồm 200 phần mềm, đều được AI365 kết nối trên 1 nền tảng duy nhất. Mọi báo cáo khách hàng đều được kiểm soát qua chat365 vô cùng tiện lợi"
+        />
         <meta property="og:locale" content="vi_VN" />
         <meta property="og:type" content="website" />
         <meta
           property="og:title"
-          content="CRM 365 - đáp án của bài toán tối ưu quy trình, gia tăng lợi nhuận"
+          content="Phần mềm CRM của AI365 – giải pháp tuyệt vời chăm sóc khách hàng tự động"
         />
         <meta
           property="og:description"
-          content="CRM 365 được đánh giá là công cụ tốt nhất hiện nay trong việc kết nối khách hàng và doanh nghiệp. Phần mềm chú trọng vào các nhiệm vụ hỗ trợ doanh nghiệp tăng tập khách hàng tiềm năng và thân thiết, tăng doanh thu và tối ưu chi phí. Đăng ký hôm nay, lợi ích đến ngay!"
+          content="CRM của AI365 là một phần mềm chăm sóc khách hàng tự động, có tính linh hoạt cao, thích hợp ứng dụng vào mọi loại hình doanh nghiệp. Phần mềm thuộc hệ sinh thái gồm 200 phần mềm, đều được AI365 kết nối trên 1 nền tảng duy nhất. Mọi báo cáo khách hàng đều được kiểm soát qua chat365 vô cùng tiện lợi"
         />
         <meta
           property="og:image"
@@ -67,11 +70,11 @@ const AddFilesPotential: React.FC = () => {
         <meta name="twitter:card" content="summary" />
         <meta
           name="twitter:description"
-          content="CRM 365 được đánh giá là công cụ tốt nhất hiện nay trong việc kết nối khách hàng và doanh nghiệp. Phần mềm chú trọng vào các nhiệm vụ hỗ trợ doanh nghiệp tăng tập khách hàng tiềm năng và thân thiết, tăng doanh thu và tối ưu chi phí. Đăng ký hôm nay, lợi ích đến ngay!"
+          content="CRM của AI365 là một phần mềm chăm sóc khách hàng tự động, có tính linh hoạt cao, thích hợp ứng dụng vào mọi loại hình doanh nghiệp. Phần mềm thuộc hệ sinh thái gồm 200 phần mềm, đều được AI365 kết nối trên 1 nền tảng duy nhất. Mọi báo cáo khách hàng đều được kiểm soát qua chat365 vô cùng tiện lợi"
         />
         <meta
           name="twitter:title"
-          content="CRM 365 - đáp án của bài toán tối ưu quy trình, gia tăng lợi nhuận"
+          content="Phần mềm CRM của AI365 – giải pháp tuyệt vời chăm sóc khách hàng tự động"
         />
         <link rel="canonical" href="https://hungha365.com/crm" />
 
@@ -88,10 +91,27 @@ const AddFilesPotential: React.FC = () => {
               <div className={styles.main__title}>Thêm mới chiến dịch</div>
               <div className={styles.form_add_potential}>
                 <div className={styles.main__body}>
-                  <AddGeneralInfo />
-                  <AddDescriptionInfo />
+                  <AddGeneralInfo
+                    formFields={formFields}
+                    handleChange={handleChange}
+                    typeRef={typeRef}
+                    chanelRef={chanelRef}
+                    statusRef={statusRef}
+                    empRef={empRef}
+                  />
+                  <AddDescriptionInfo
+                    formFields={formFields}
+                    handleChange={handleChange}
+                  />
                 </div>
-                <CampaignFooterAddFiles title="Thêm mới Chiến dịch thành công" />
+                <CampaignFooterAddFiles
+                  title="Thêm mới Chiến dịch thành công"
+                  formFields={formFields}
+                  typeRef={typeRef}
+                  chanelRef={chanelRef}
+                  statusRef={statusRef}
+                  empRef={empRef}
+                />
               </div>
             </div>
           </div>

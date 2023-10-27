@@ -1,12 +1,7 @@
 import React, { useState } from "react";
-import { Tabs } from "antd";
 import Link from "next/link";
 import styles from "../campaign.module.css";
 import AddCampaignGeneralDetailInfo from "@/components/crm/campaign/campaign_detail/campaign_general_detail_info";
-import AddOrderDetailStatus from "@/components/crm/order/order_detail/order_detail_status";
-import AddOrderDetailDiary from "@/components/crm/order/order_detail/order_detail_diary";
-import AddOrderDetailTable from "@/components/crm/order/order_detail/order_detail_table";
-const { TabPane } = Tabs;
 import Image from "next/image";
 import TableDataCampaignCustomer from "@/components/crm/table/table-campaign-customer";
 import TableDataCampaginChance from "@/components/crm/table/table-campaign-chance";
@@ -24,7 +19,7 @@ import CampaignEmailInputGroup from "@/components/crm/campaign/campaign_detail/c
 // import TableDataOrderQuote from "@/components/crm/table/table-order-quote";
 import CustomerSelectModal from "@/components/crm/campaign/campaign_detail/campaign_detail_action_modal//customer_select_action_mdal";
 import ShareActionModal from "@/components/crm/campaign/campaign_detail/campaign_detail_action_modal/share_campaign_action_mdal";
-import InsertFileActionModal from "@/components/crm/order/order_detail/order_detail_action_modal/insert_file_order_detail_attach_mdal";
+import { Tabs } from "antd";
 
 const TabComponent = () => {
   const [activeTab, setActiveTab] = useState("tab1");
@@ -41,7 +36,7 @@ const TabComponent = () => {
   return (
     <div>
       <Tabs activeKey={activeTab} onChange={handleTabChange}>
-        <TabPane tab="Thông tin chi tiết" key="tab1">
+        <Tabs.Item tab="Thông tin chi tiết" key="tab1">
           <div className={styles.main_importfile}>
             <div className={styles.formInfoStep}>
               <div className={styles.info_step}>
@@ -57,8 +52,8 @@ const TabComponent = () => {
               </div>
             </div>
           </div>
-        </TabPane>
-        <TabPane tab="Khách hàng" key="tab2">
+        </Tabs.Item>
+        <Tabs.Item tab="Khách hàng" key="tab2">
           <div className={styles.main_importfile}>
             <div className={styles.formInfoStep}>
               <div className={styles.info_step}>
@@ -75,8 +70,8 @@ const TabComponent = () => {
               </div>
             </div>
           </div>
-        </TabPane>
-        <TabPane tab="Cơ hội" key="tab3">
+        </Tabs.Item>
+        <Tabs.Item tab="Cơ hội" key="tab3">
           <div className={styles.main_importfile}>
             <div className={styles.formInfoStep}>
               <div className={styles.info_step}>
@@ -90,8 +85,8 @@ const TabComponent = () => {
               </div>
             </div>
           </div>
-        </TabPane>
-        <TabPane tab="Đơn hàng" key="tab4">
+        </Tabs.Item>
+        <Tabs.Item tab="Đơn hàng" key="tab4">
           <div className={styles.main_importfile}>
             <div className={styles.formInfoStep}>
               <div className={styles.info_step}>
@@ -108,8 +103,8 @@ const TabComponent = () => {
               </div>
             </div>
           </div>
-        </TabPane>
-        <TabPane tab="Hóa đơn" key="tab5">
+        </Tabs.Item>
+        <Tabs.Item tab="Hóa đơn" key="tab5">
           <div className={styles.main_importfile}>
             <div className={styles.formInfoStep}>
               <div className={styles.info_step}>
@@ -126,8 +121,8 @@ const TabComponent = () => {
               </div>
             </div>
           </div>
-        </TabPane>
-        <TabPane tab="Lịch hẹn" key="tab6">
+        </Tabs.Item>
+        <Tabs.Item tab="Lịch hẹn" key="tab6">
           <div className={styles.main_importfile}>
             <div className={styles.formInfoStep}>
               <div className={styles.info_step}>
@@ -141,8 +136,8 @@ const TabComponent = () => {
               </div>
             </div>
           </div>
-        </TabPane>
-        <TabPane tab="Email" key="tab7">
+        </Tabs.Item>
+        <Tabs.Item tab="Email" key="tab7">
           <div className={styles.main_importfile}>
             <div className={styles.formInfoStep}>
               <div className={styles.info_step}>
@@ -156,8 +151,8 @@ const TabComponent = () => {
               </div>
             </div>
           </div>
-        </TabPane>
-        <TabPane tab="Danh sách chia sẻ" key="tab8">
+        </Tabs.Item>
+        <Tabs.Item tab="Danh sách chia sẻ" key="tab8">
           <div className={styles.main_importfile}>
             <div className={styles.formInfoStep}>
               <div className={styles.info_step}>
@@ -211,7 +206,7 @@ const TabComponent = () => {
               </div>
             </div>
           </div>
-        </TabPane>
+        </Tabs.Item>
       </Tabs>
 
       <CustomerSelectModal

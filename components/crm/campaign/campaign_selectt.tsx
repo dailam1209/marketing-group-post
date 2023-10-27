@@ -1,10 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "../campaign/campaign.module.css";
 import CampaignDropDown from "./campaign_dropdown";
-export default function CampaignSelectBox({ title = "", value = "Tất cả" }) {
+export default function CampaignSelectBox({
+  title = "",
+  value = "Tất cả",
+  dataList,
+}: any) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const [valueSelect, setValueSelect] = useState(value)
+  const [valueSelect, setValueSelect] = useState(value);
   const handleClickSelectoption = (e: any) => {
     if (e.target.getAttribute("class") !== styles.select2_search__field) {
       setIsOpen(!isOpen);
@@ -22,7 +26,7 @@ export default function CampaignSelectBox({ title = "", value = "Tất cả" }) 
   };
 
   useEffect(() => {
-    document.addEventListener("click", handleClickOutside)
+    document.addEventListener("click", handleClickOutside);
     document.addEventListener("scroll", handleScrollkOutside);
 
     return () => {
@@ -81,7 +85,12 @@ export default function CampaignSelectBox({ title = "", value = "Tất cả" }) 
             </span>
           </span>
         </span>
-        {isOpen && <CampaignDropDown valueSelect={valueSelect} setValueSelect={setValueSelect} />}
+        {isOpen && (
+          <CampaignDropDown
+            valueSelect={valueSelect}
+            setValueSelect={setValueSelect}
+          />
+        )}
       </span>
     </div>
   );
