@@ -3,17 +3,28 @@ import styleHome from "@/components/crm/home/home.module.css";
 import styles from "@/components/crm/campaign/campaign.module.css";
 import { SidebarContext } from "@/components/crm/context/resizeContext";
 import CampaignFooterEditFiles from "@/components/crm/campaign/campaign_edit_files/campaign_footer_edit_file";
-import AddGeneralInfo from "@/components/crm/campaign/campaign_edit_files/general_info";
-import AddDescriptionInfo from "@/components/crm/campaign/campaign_edit_files/description_info";
-
+import AddGeneralInfo from "@/components/crm/campaign/campaign_add_files/general_infor";
+import AddDescriptionInfo from "@/components/crm/campaign/campaign_add_files/description_info";
 import { useHeader } from "@/components/crm/hooks/useHeader";
 import Head from "next/head";
+import { useForm } from "@/components/crm/hooks/useForm";
+import Cookies from "js-cookie";
+import useLoading from "@/components/crm/hooks/useLoading";
+import { fetchApi } from "@/components/crm/ultis/api";
+import { useRouter } from "next/router";
+import { Spin } from "antd";
+import { timestampToCustomString } from "@/components/crm/ultis/convert_date";
 
 const CampageEditIndex: React.FC = () => {
+  const { isLoading, startLoading, stopLoading } = useLoading();
+  const { formFields, handleChange, setFormFields } = useForm();
+  const router = useRouter();
+  const typeRef = useRef(null);
+  const statusRef = useRef(null);
+  const empRef = useRef(null);
+  const chanelRef = useRef(null);
   const mainRef = useRef<HTMLDivElement>(null);
-  const [checkFile, setCheckFile] = useState(false);
   const { isOpen } = useContext<any>(SidebarContext);
-  const imgRef = useRef<HTMLInputElement>(null);
   const {
     headerTitle,
     setHeaderTitle,
@@ -21,15 +32,62 @@ const CampageEditIndex: React.FC = () => {
     setCurrentPath,
   }: any = useHeader();
 
+  const url = "http://localhost:3007/api/crm/campaign/detail-campaign";
+
+  const token = Cookies.get("token_base365");
+
+  const fetchAPICampaign = async () => {
+    const bodyAPI = {
+      cam_id: router.query.id,
+    };
+    startLoading();
+    const dataApi = await fetchApi(url, token, bodyAPI, "POST");
+    setFormFields(dataApi?.data?.data);
+    stopLoading();
+  };
+
+  const fetchAPIEditCampaign = async () => {
+    const bodyAPI = {
+      ...formFields,
+      timeStart:
+        typeof formFields?.timeStart === "number"
+          ? timestampToCustomString(formFields?.timeStart, "input")
+          : formFields?.timeStart,
+      timeEnd:
+        typeof formFields?.timeEnd === "number"
+          ? timestampToCustomString(formFields?.timeEnd, "input")
+          : formFields?.timeEnd,
+      cam_id: router.query.id,
+      shareAll: Number(formFields?.shareAll || 0),
+      money: Number(formFields?.money || 0),
+      investment: Number(formFields?.investment || 0),
+      expectedSales: Number(formFields?.expectedSales || 0),
+      status: statusRef?.current?.value ? Number(statusRef?.current?.value) : 0,
+      chanelCampaign: chanelRef?.current?.value
+        ? Number(chanelRef?.current?.value)
+        : 0,
+      typeCampaign: typeRef?.current?.value
+        ? Number(typeRef?.current?.value)
+        : 0,
+      empID: empRef?.current?.value ? Number(empRef?.current?.value) : 0,
+    };
+    const dataApi = await fetchApi(
+      "http://localhost:3007/api/crm/campaign/edit-campaign",
+      token,
+      bodyAPI,
+      "POST"
+    );
+  };
+
+  useEffect(() => {
+    fetchAPICampaign();
+  }, []);
+
   useEffect(() => {
     setHeaderTitle("Chiến dịch/ Chỉnh sửa");
     setShowBackButton(true);
     setCurrentPath("/campaign/list");
   }, [setHeaderTitle, setShowBackButton, setCurrentPath]);
-
-  const handleClickImg = () => {
-    imgRef?.current?.click();
-  };
 
   useEffect(() => {
     if (isOpen) {
@@ -90,11 +148,29 @@ const CampageEditIndex: React.FC = () => {
             <div className={styles.info_step}>
               <div className={styles.main__title}>Chỉnh sửa chiến dịch</div>
               <div className={styles.form_add_potential}>
-                <div className={styles.main__body}>
-                  <AddGeneralInfo />
-                  <AddDescriptionInfo />
-                </div>
-                <CampaignFooterEditFiles title="Cập nhật Chiến dịch thành công" />
+                {isLoading ? (
+                  <Spin style={{ width: "100%", margin: "auto" }} />
+                ) : (
+                  <div className={styles.main__body}>
+                    <AddGeneralInfo
+                      formFields={formFields}
+                      handleChange={handleChange}
+                      typeRef={typeRef}
+                      chanelRef={chanelRef}
+                      statusRef={statusRef}
+                      empRef={empRef}
+                    />
+                    <AddDescriptionInfo
+                      formFields={formFields}
+                      handleChange={handleChange}
+                    />
+                  </div>
+                )}
+                <CampaignFooterEditFiles
+                  title="Cập nhật Chiến dịch thành công"
+                  formFields={formFields}
+                  handleChange={fetchAPIEditCampaign}
+                />
               </div>
             </div>
           </div>

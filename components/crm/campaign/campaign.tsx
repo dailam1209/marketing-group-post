@@ -4,12 +4,59 @@ import { SidebarContext } from "../context/resizeContext";
 import { useContext, useEffect, useRef, useState } from "react";
 import { useHeader } from "../hooks/useHeader";
 import CampaignInputGroups from "./campaign_input_group";
+import { Spin } from "antd";
+import { fetchApi } from "../../crm/ultis/api";
+import Cookies from "js-cookie";
+import { useTrigger } from "../context/triggerContext";
+import useLoading from "../hooks/useLoading";
 
 export default function Campaign() {
+  const { isLoading, startLoading, stopLoading } = useLoading();
+  const { trigger, setTrigger } = useTrigger();
   const mainRef = useRef<HTMLDivElement>(null);
   const { isOpen } = useContext<any>(SidebarContext);
-  const [isSelectedRow, setIsSelectedRow] = useState(false);
-  const [isNumberSelected, setNumberSelected] = useState(0);
+  const [data, setData] = useState([]);
+  const [emp, setEmp] = useState([]);
+  const [body, setBody] = useState<any>({ page: 1, pageSize: 10 });
+
+  const url = "http://localhost:3007/api/crm/campaign/listCampaign";
+
+  const token = Cookies.get("token_base365");
+
+  const fetchAPICampaign = async () => {
+    const bodyAPI = {
+      ...body,
+      status: body?.status ? body?.status : "",
+      empID: body?.empID ? body?.empID : "",
+      nameCampaign: body?.nameCampaign ? body?.nameCampaign : "",
+    };
+    startLoading();
+    const dataApi = await fetchApi(url, token, bodyAPI, "POST");
+    setData(dataApi?.data);
+    stopLoading();
+  };
+
+  const fetchAPIEmployee = async () => {
+    const dataApi = await fetchApi(
+      "http://210.245.108.202:3000/api/qlc/managerUser/listUser",
+      token,
+      { page: 1, pageSize: 10000 },
+      "POST"
+    );
+    setEmp(dataApi?.data?.data);
+  };
+
+  useEffect(() => {
+    if (trigger) {
+      fetchAPICampaign();
+    }
+    setTrigger(false);
+  }, [body, trigger]);
+
+  useEffect(() => {
+    fetchAPIEmployee();
+  }, []);
+
   const {
     headerTitle,
     setHeaderTitle,
@@ -32,8 +79,25 @@ export default function Campaign() {
   }, [isOpen]);
   return (
     <div ref={mainRef} className={styleHome.main}>
-      <CampaignInputGroups isSelectedRow={isSelectedRow} />
-      <TableDataCampaign />
+      <CampaignInputGroups empList={emp} setBody={setBody} body={body} />
+      {isLoading ? (
+        <Spin
+          style={{
+            margin: "auto",
+            width: "100%",
+            display: "block",
+            padding: "5px",
+            height: "100%"
+          }}
+        />
+      ) : (
+        <TableDataCampaign
+          dataAPI={data}
+          empList={emp}
+          setBody={setBody}
+          body={body}
+        />
+      )}
     </div>
   );
 }

@@ -6,6 +6,9 @@ export default function InputTextDotRed({
   require = false,
   bonus = "",
   type = "text",
+  name = "",
+  formFields,
+  handleChange
 }: any) {
   return (
     <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
@@ -17,9 +20,10 @@ export default function InputTextDotRed({
         style={{ height: "40px" }}
         type={type}
         className={`${styles["form-control"]}`}
-        name="middle_name"
-        id="middle_name"
+        name={name}
         placeholder={placeholder}
+        value={formFields?.[name] || ''}
+        onChange={handleChange}
       />
     </div>
   );

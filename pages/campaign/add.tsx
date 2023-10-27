@@ -5,15 +5,19 @@ import { SidebarContext } from "@/components/crm/context/resizeContext";
 import CampaignFooterAddFiles from "@/components/crm/campaign/campaign_add_files/campaign_footer_add_files";
 import AddGeneralInfo from "@/components/crm/campaign/campaign_add_files/general_infor";
 import AddDescriptionInfo from "@/components/crm/campaign/campaign_add_files/description_info";
-
 import { useHeader } from "@/components/crm/hooks/useHeader";
 import Head from "next/head";
+import { useForm } from "@/components/crm/hooks/useForm";
 
 const AddFilesPotential: React.FC = () => {
+  const { formFields, handleChange } = useForm();
+  const typeRef = useRef(null);
+  const statusRef = useRef(null);
+  const empRef = useRef(null);
+  const chanelRef = useRef(null);
   const mainRef = useRef<HTMLDivElement>(null);
-  const [checkFile, setCheckFile] = useState(false);
+
   const { isOpen } = useContext<any>(SidebarContext);
-  const imgRef = useRef<HTMLInputElement>(null);
   const {
     headerTitle,
     setHeaderTitle,
@@ -26,10 +30,6 @@ const AddFilesPotential: React.FC = () => {
     setShowBackButton(true);
     setCurrentPath("/campaign/list");
   }, [setHeaderTitle, setShowBackButton, setCurrentPath]);
-
-  const handleClickImg = () => {
-    imgRef?.current?.click();
-  };
 
   useEffect(() => {
     if (isOpen) {
@@ -91,10 +91,27 @@ const AddFilesPotential: React.FC = () => {
               <div className={styles.main__title}>Thêm mới chiến dịch</div>
               <div className={styles.form_add_potential}>
                 <div className={styles.main__body}>
-                  <AddGeneralInfo />
-                  <AddDescriptionInfo />
+                  <AddGeneralInfo
+                    formFields={formFields}
+                    handleChange={handleChange}
+                    typeRef={typeRef}
+                    chanelRef={chanelRef}
+                    statusRef={statusRef}
+                    empRef={empRef}
+                  />
+                  <AddDescriptionInfo
+                    formFields={formFields}
+                    handleChange={handleChange}
+                  />
                 </div>
-                <CampaignFooterAddFiles title="Thêm mới Chiến dịch thành công" />
+                <CampaignFooterAddFiles
+                  title="Thêm mới Chiến dịch thành công"
+                  formFields={formFields}
+                  typeRef={typeRef}
+                  chanelRef={chanelRef}
+                  statusRef={statusRef}
+                  empRef={empRef}
+                />
               </div>
             </div>
           </div>

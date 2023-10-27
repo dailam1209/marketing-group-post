@@ -8,6 +8,7 @@ import { ConfigProvider, Spin } from "antd";
 import ChatBusiness from "@/components/crm/chat/chat";
 import { NavigateContextComponent } from "@/components/crm/context/navigateContext";
 import { UpdateTLKDComponent } from "../components/crm/context/updateTlkd";
+import {TriggerProvider} from "@/components/crm/context/triggerContext"
 import TitleHeaderMobile from "@/components/crm/header/title_header_mobile";
 import styles from "@/components/crm/sidebar/sidebar.module.css";
 import { Provider } from "react-redux";
@@ -168,9 +169,11 @@ export default function App({ Component, pageProps }) {
                       </>
                     ) : null}
                     <TitleHeaderMobile />
+                    <TriggerProvider >
                     <TongDaiContext>
                       <Component {...pageProps} />
                     </TongDaiContext>
+                    </TriggerProvider>
                   </NavigateContextComponent>
                 </SidebarResize>
               </UpdateTLKDComponent>

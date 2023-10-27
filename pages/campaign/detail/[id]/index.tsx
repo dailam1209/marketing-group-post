@@ -7,13 +7,38 @@ import AddDetailInfo from "@/components/crm/campaign/campaign_detail/campaign_de
 import TabOrderList from "@/components/crm/campaign/campaign_detail/tab_campaign_detail";
 import { useHeader } from "@/components/crm/hooks/useHeader";
 import Head from "next/head";
+import Cookies from "js-cookie";
+import { fetchApi } from "@/components/crm/ultis/api";
+import { useRouter } from "next/router";
+import useLoading from "@/components/crm/hooks/useLoading";
+import { useForm } from "@/components/crm/hooks/useForm";
+import { Spin } from "antd";
+import { useTrigger } from "@/components/crm/context/triggerContext";
+import { set } from "lodash";
 
-const AddFilesPotential: React.FC = () => {
+const DetailCampaign: React.FC = () => {
+  const router = useRouter();
+  const { isLoading, startLoading, stopLoading } = useLoading();
+  const { formFields, setFormFields } = useForm();
+  const { trigger, setTrigger } = useTrigger();
   const mainRef = useRef<HTMLDivElement>(null);
   const { isOpen } = useContext<any>(SidebarContext);
   const imgRef = useRef<HTMLInputElement>(null);
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
+
+  const url = "http://localhost:3007/api/crm/campaign/detail-campaign";
+  const token = Cookies.get("token_base365");
+
+  const fetchAPICampaign = async () => {
+    const bodyAPI = {
+      cam_id: router.query.id,
+    };
+    startLoading();
+    const dataApi = await fetchApi(url, token, bodyAPI, "POST");
+    setFormFields(dataApi?.data?.data);
+    stopLoading();
+  };
 
   useEffect(() => {
     setHeaderTitle("Chiến dịch/ Chi tiết");
@@ -28,6 +53,13 @@ const AddFilesPotential: React.FC = () => {
       mainRef.current?.classList.remove("content_resize");
     }
   }, [isOpen]);
+
+  useEffect(() => {
+    if (trigger) {
+      fetchAPICampaign();
+    }
+    setTrigger(false);
+  }, [trigger]);
 
   return (
     <>
@@ -77,18 +109,22 @@ const AddFilesPotential: React.FC = () => {
       <div className={styleHome.main} ref={mainRef}>
         <div className={styles.main_importfile}>
           <div className={styles.formInfoStep}>
-            <div className={styles.info_step}>
-              <div className={styles.form_add_potential}>
-                <AddButtonControl />
-              </div>
-              <div className={styles.main__title}>Chi tiết chiến dịch</div>
-              <div className={styles.form_add_potential}>
-                <div className={styles.main__body}>
-                  <AddDetailInfo />
-                  {/* <AddDescriptionInfo /> */}
+            {isLoading ? (
+              <Spin style={{ width: "100%", margin: "auto" }} />
+            ) : (
+              <div className={styles.info_step}>
+                <div className={styles.form_add_potential}>
+                  <AddButtonControl />
+                </div>
+                <div className={styles.main__title}>Chi tiết chiến dịch</div>
+                <div className={styles.form_add_potential}>
+                  <div className={styles.main__body}>
+                    <AddDetailInfo formFields={formFields}/>
+                    {/* <AddDescriptionInfo /> */}
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
           </div>
 
           <TabOrderList />
@@ -98,4 +134,4 @@ const AddFilesPotential: React.FC = () => {
   );
 };
 
-export default AddFilesPotential;
+export default DetailCampaign;
