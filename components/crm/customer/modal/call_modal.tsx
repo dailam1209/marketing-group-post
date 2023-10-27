@@ -160,6 +160,7 @@ const CallModal: React.FC<MyComponentProps> = ({
       getHisCus();
     }
   }, [show]);
+  
   return (
     <>
       <Modal

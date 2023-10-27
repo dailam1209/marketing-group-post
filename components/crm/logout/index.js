@@ -36,32 +36,32 @@ export default function LogoutCrm({ setShowLogout, showLogout }) {
 
   return (
     <>
-      <div className={styles.modal__logout} style={{ display: "block" }}>
-        <img
-          src="/crm/icon-log-out.svg"
-          alt="hungha365.com"
-          className={styles.img__logout}
-        />
-        <p className={styles.title__logout}>Đăng xuất</p>
-        <p className={styles.text__logout}>Bạn chắc chắn muốn đăng xuất ?</p>
-        <div className={styles.button__logout}>
-          <button
-            type="button"
-            onClick={handleNo}
-            className={`${styles.cancel__logout} ${styles.button__select}`}
-          >
-            Hủy
-          </button>
+        <div className={styles.modal__logout} style={{ display: "block" }}>
+          <img
+            src="/crm/icon-log-out.svg"
+            alt=""
+            className={styles.img__logout}
+          />
+          <p className={styles.title__logout}>Đăng xuất</p>
+          <p className={styles.text__logout}>Bạn chắc chắn muốn đăng xuất ?</p>
+          <div className={styles.button__logout}>
+            <button
+              type="button"
+              onClick={handleNo}
+              className={`${styles.cancel__logout} ${styles.button__select}`}
+            >
+              Hủy
+            </button>
 
-          <button
-            type="button"
-            onClick={yes}
-            className={`${styles.accept__logout} ${styles.button__select}`}
-          >
-            Đăng xuất
-          </button>
+            <button
+              type="button"
+              onClick={yes}
+              className={`${styles.accept__logout} ${styles.button__select}`}
+            >
+              Đăng xuất
+            </button>
+          </div>
         </div>
-      </div>
     </>
   );
 }

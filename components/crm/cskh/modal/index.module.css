@@ -1,39 +1,26 @@
-.container {
-  padding: 25px;
+.container{
+    padding: 25px 0px;
 }
-.container b {
-  color: red;
+.container b{
+    color: red;
 }
-.formdate {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-
-.dateinput {
-  width: 48%;
-}
-.title {
-  font-size: 17px;
-  padding-top: 5px;
-}
-.dateModal {
-  height: 25px;
-}
-.inpdate {
-  height: 100%;
+.formdate{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
-.custom_filter {
-  background-color: #4c5bd4;
-  width: 100% !important;
-  color: white;
-  font-size: 18px;
-  text-align: center;
-  padding: 10px !important;
-  border-radius: 8px 8px 0 0 !important;
+.dateinput{
+    width: 48%;
 }
-
-.main_filter2 {
+.title{
+    font-size: 17px;
+    padding-top: 5px;
+}
+.dateModal{
+    height: 25px;
+}
+.inpdate{
+    height: 100%;
 }

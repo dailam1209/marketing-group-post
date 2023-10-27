@@ -255,10 +255,10 @@ const TableDataGroupListCustomer: React.FC<TableDataGroupListCustomerProps> = ({
             </select>
           </div>
           <div className="total">
-            Tổng số:
+            Tổng số:{" "}
             <b>
               {datatable?.length > numberDat ? numberDat : datatable?.length}
-            </b>
+            </b>{" "}
             Nhóm khách hàng
           </div>
         </div>

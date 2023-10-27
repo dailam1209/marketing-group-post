@@ -3,7 +3,6 @@ import styles from "./order.module.css";
 import OrderAction from "./order_action";
 import OrderSelectBox from "./order_selectt";
 import Link from "next/link";
-import { data } from "../table/table-campaign";
 export default function OrderInputGroups({ isSelectedRow }: any) {
   const handleClickSelectoption = () => {};
 

@@ -34,14 +34,15 @@ const columns: ColumnsType<DataType> = [
     key: "contact",
     render: (text: any) => (
       <div style={{ display: "flex", justifyContent: "center" }}>
+        {" "}
         <div>
-          <img src="crm/customer/loai_lh_1.png" alt="hungha365.com" />
+          <img src="crm/customer/loai_lh_1.png" alt="" />
           &nbsp;
-          <img src="crm/customer/loai_lh_2.png" alt="hungha365.com" />
+          <img src="crm/customer/loai_lh_2.png" alt="" />
           &nbsp;
-          <img src="crm/customer/loai_lh_3.png" alt="hungha365.com" />
+          <img src="crm/customer/loai_lh_3.png" alt="" />
           &nbsp;
-          <img src="crm/customer/loai_lh_4.png" alt="hungha365.com" />
+          <img src="crm/customer/loai_lh_4.png" alt="" />
         </div>
       </div>
     ),

@@ -17,6 +17,7 @@ export default function Campaign() {
   const { isOpen } = useContext<any>(SidebarContext);
   const [data, setData] = useState([]);
   const [emp, setEmp] = useState([]);
+  const [isFirstTime, setIsFirstTime] = useState(true);
   const [body, setBody] = useState<any>({ page: 1, pageSize: 10 });
 
   const url = "http://localhost:3007/api/crm/campaign/listCampaign";
@@ -51,7 +52,14 @@ export default function Campaign() {
       fetchAPICampaign();
     }
     setTrigger(false);
-  }, [body, trigger]);
+  }, [trigger]);
+
+  useEffect(() => {
+    if (!isFirstTime) {
+      fetchAPICampaign();
+    }
+    setIsFirstTime(false);
+  }, [body]);
 
   useEffect(() => {
     fetchAPIEmployee();
@@ -87,7 +95,7 @@ export default function Campaign() {
             width: "100%",
             display: "block",
             padding: "5px",
-            height: "100%"
+            height: "100%",
           }}
         />
       ) : (

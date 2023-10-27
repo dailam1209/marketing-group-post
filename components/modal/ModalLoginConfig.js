@@ -114,13 +114,10 @@ export default function ModalSignInHome({ open, setOpen, type }) {
         console.log(res);
 
         if (res?.result) {
-            Cookies.set("token_base365", res?.data?.token);
-            Cookies.set("rf_token", res?.data?.refreshToken);
+            Cookies.set("token_base365", res?.data?.access_token);
+            Cookies.set("rf_token", res?.data?.refresh_token);
             Cookies.set("role", res?.data?.type);
-            Cookies.set("userID", res?.data?.idQLC);
-            Cookies.set("userName", res?.data?.userName);
-            Cookies.set("phone", res?.data?.phone);
-            Cookies.set("com_id", res?.data?.com_id);
+
             router.reload();
         } else {
             window.alert(res || "Có lỗi xảy ra");
@@ -128,7 +125,7 @@ export default function ModalSignInHome({ open, setOpen, type }) {
     };
 
     return (
-        <Modal open={open} onCancel={() => setOpen(false)}>
+        <Modal open={open} onCancel={() => setOpen(false)} footer={false}>
             <div>
                 <p className={styles.headerTxt}>
                     Nếu bạn có tài khoản rồi thì đăng nhập tại đây
@@ -178,7 +175,7 @@ export default function ModalSignInHome({ open, setOpen, type }) {
                     <Row style={{ marginTop: "20px" }}>
                         <Col span={16}>
                             <span>
-                                Bạn chưa có tài khoản?
+                                Bạn chưa có tài khoản?{" "}
                                 <a
                                     style={{
                                         color: "#4C5BD4",

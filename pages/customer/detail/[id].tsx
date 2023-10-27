@@ -3,6 +3,7 @@ import DetailInformation from "@/components/crm/customer/detail/detail";
 import CustomerHeaderTab from "@/components/crm/customer/header_customer_info_btn";
 import { useHeader } from "@/components/crm/hooks/useHeader";
 import { useRouter } from "next/router";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { base_url } from "@/components/crm/service/function";
 import { checkAndRedirectToHomeIfNotLoggedIn } from "@/components/crm/ultis/checkLogin";
@@ -10,11 +11,13 @@ import Head from "next/head";
 const Cookies = require("js-cookie");
 
 export default function DetailCustomer() {
+  const pathname = usePathname();
   const router = useRouter();
   const { id } = router.query;
+  const [name, setname] = useState<any>();
+  const [listData, setListData] = useState<any>();
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
-  const [listData, setListData] = useState<any>();
   const getNameDetail = async () => {
     const res = await fetch(`${base_url}/api/crm/customerdetails/detail`, {
       method: "POST",
@@ -27,7 +30,6 @@ export default function DetailCustomer() {
     const data = await res.json();
     setListData(data?.data);
   };
-
   useEffect(() => {
     getNameDetail();
     setShowBackButton(true);
@@ -44,21 +46,18 @@ export default function DetailCustomer() {
         <title>Thông tin khách hàng</title>
         <meta
           name="description"
-          content="CRM của AI365 là một phần mềm chăm sóc khách hàng tự động, có tính linh hoạt cao, thích hợp ứng dụng vào mọi loại hình doanh nghiệp. Phần mềm thuộc hệ sinh thái gồm 200 phần mềm, đều được AI365 kết nối trên 1 nền tảng duy nhất. Mọi báo cáo khách hàng đều được kiểm soát qua chat365 vô cùng tiện lợi"
+          content="CRM 365 được đánh giá là công cụ tốt nhất hiện nay trong việc kết nối khách hàng và doanh nghiệp. Phần mềm chú trọng vào các nhiệm vụ hỗ trợ doanh nghiệp tăng tập khách hàng tiềm năng và thân thiết, tăng doanh thu và tối ưu chi phí. Đăng ký hôm nay, lợi ích đến ngay!"
         />
-        <meta
-          name="Keywords"
-          content="CRM của AI365 là một phần mềm chăm sóc khách hàng tự động, có tính linh hoạt cao, thích hợp ứng dụng vào mọi loại hình doanh nghiệp. Phần mềm thuộc hệ sinh thái gồm 200 phần mềm, đều được AI365 kết nối trên 1 nền tảng duy nhất. Mọi báo cáo khách hàng đều được kiểm soát qua chat365 vô cùng tiện lợi"
-        />
+        <meta name="Keywords" content="Phần mềm CRM, phần mềm crm miễn phí" />
         <meta property="og:locale" content="vi_VN" />
         <meta property="og:type" content="website" />
         <meta
           property="og:title"
-          content="Phần mềm CRM của AI365 – giải pháp tuyệt vời chăm sóc khách hàng tự động"
+          content="CRM 365 - đáp án của bài toán tối ưu quy trình, gia tăng lợi nhuận"
         />
         <meta
           property="og:description"
-          content="CRM của AI365 là một phần mềm chăm sóc khách hàng tự động, có tính linh hoạt cao, thích hợp ứng dụng vào mọi loại hình doanh nghiệp. Phần mềm thuộc hệ sinh thái gồm 200 phần mềm, đều được AI365 kết nối trên 1 nền tảng duy nhất. Mọi báo cáo khách hàng đều được kiểm soát qua chat365 vô cùng tiện lợi"
+          content="CRM 365 được đánh giá là công cụ tốt nhất hiện nay trong việc kết nối khách hàng và doanh nghiệp. Phần mềm chú trọng vào các nhiệm vụ hỗ trợ doanh nghiệp tăng tập khách hàng tiềm năng và thân thiết, tăng doanh thu và tối ưu chi phí. Đăng ký hôm nay, lợi ích đến ngay!"
         />
         <meta
           property="og:image"
@@ -67,11 +66,11 @@ export default function DetailCustomer() {
         <meta name="twitter:card" content="summary" />
         <meta
           name="twitter:description"
-          content="CRM của AI365 là một phần mềm chăm sóc khách hàng tự động, có tính linh hoạt cao, thích hợp ứng dụng vào mọi loại hình doanh nghiệp. Phần mềm thuộc hệ sinh thái gồm 200 phần mềm, đều được AI365 kết nối trên 1 nền tảng duy nhất. Mọi báo cáo khách hàng đều được kiểm soát qua chat365 vô cùng tiện lợi"
+          content="CRM 365 được đánh giá là công cụ tốt nhất hiện nay trong việc kết nối khách hàng và doanh nghiệp. Phần mềm chú trọng vào các nhiệm vụ hỗ trợ doanh nghiệp tăng tập khách hàng tiềm năng và thân thiết, tăng doanh thu và tối ưu chi phí. Đăng ký hôm nay, lợi ích đến ngay!"
         />
         <meta
           name="twitter:title"
-          content="Phần mềm CRM của AI365 – giải pháp tuyệt vời chăm sóc khách hàng tự động"
+          content="CRM 365 - đáp án của bài toán tối ưu quy trình, gia tăng lợi nhuận"
         />
         <link rel="canonical" href="https://hungha365.com/crm" />
 

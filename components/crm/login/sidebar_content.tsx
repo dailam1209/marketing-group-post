@@ -53,7 +53,7 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
     if (label === "Phân quyền") {
       setAccessRoleOpen(!accessRoleOpen);
     }
-    if (label === "Thông tin khách hàng") {
+    if (label === "Khách hàng") {
       setIsCustomOpen(!isCustomOpen);
     }
     if (label === "Chăm sóc khách hàng") {
@@ -75,7 +75,7 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
     if (label === "Phân quyền") {
       return accessRoleOpen;
     }
-    if (label === "Thông tin khách hàng") {
+    if (label === "Khách hàng") {
       return isCustomOpen;
     }
     if (label === "Chăm sóc khách hàng") {
@@ -179,6 +179,7 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
                 style={{ cursor: "pointer" }}
               >
                 <img
+            
                   alt="hungha365.com"
                   src={items.img_link}
                   className={style.img_link}

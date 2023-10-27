@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import styles from "./tongdai.module.css";
 import Link from "next/link";
 import { CallContext } from "@/components/crm/context/tongdaiContext";
+import exportToExcel from "../../ultis/export_xlxs";
 import { useSelector } from "react-redux";
 import FilterThongKe from "./fillterThongKe";
 import { base_url } from "../../service/function";
@@ -92,6 +93,59 @@ const Recording = (props: Props) => {
     }
   }
 
+  const datas = [
+    {
+      "Mã tiềm năng": "TN001",
+      "Xưng hô": "Mr.",
+      "Họ tên": "John Doe",
+      "Chức danh": "Manager",
+      "Điện thoại cá nhân": "123-456-7890",
+      " cá nhân": "john.doe@example.com",
+      "Điện thoại cơ quan": "098-765-4321",
+      " cơ quan": "john.doe@company.com",
+      "Địa chỉ": "123 Main St",
+      "Tỉnh/Thành phố": "New York",
+      "Quận/Huyện": "Manhattan",
+      "Phường xã": "Central Park",
+      "Nguồn gốc": "Website",
+      "Loại hình": "B2B",
+      "Lĩnh vực": "Technology",
+      "Mô tả": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      "Mô tả loại hình": "Lorem ipsum dolor sit amet.",
+      "Người tạo": "Admin",
+    },
+    // Add more sample data objects here if needed
+  ];
+  const handleExportToExcel = () => {
+    const tmp = data.filter(e => e.nameDeparment != null)
+    tmp.sort((a, b) => a.nameDeparment.localeCompare(b.nameDeparment))
+    const datas = tmp.map(item => {
+      return {
+        "Số gọi": item.caller,
+        "Người phụ trách": item.name,
+        "Tổ chức": item.nameDeparment,
+        "Tổng số cuộc gọi": item.countSDT,
+        "Tổng số trả lời": item.countStatus,
+        "Tổng số không trả lời": item.nocountStatus,
+        "Tổng thời gian gọi": item.ring_duration,
+        "Trung bình cuộc gọi": item.adv
+      }
+    })
+    const filename = "Thống kê tổng đài.xlsx";
+    const sheetName = "Thống kê tổng đài";
+    const columnHeaders = [
+      "Số gọi",
+      "Người phụ trách",
+      "Tổ chức",
+      "Tổng số cuộc gọi",
+      "Tổng số trả lời",
+      "Tổng số không trả lời",
+      "Tổng thời gian gọi",
+      "Trung bình cuộc gọi",
+    ];
+    exportToExcel(datas, filename, sheetName, columnHeaders);
+  };
+
   const handleGet = async () => {
     try {
       const response = await fetch(`https://voip.timviec365.vn/api/thongke`, {
@@ -102,7 +156,6 @@ const Recording = (props: Props) => {
         body: condition,
       });
       const data = await response.json();
-      console.log(data)
       if (data && data.data && data.data.data) {
         setData(data.data.data);
         setDatane(data.data.data);
@@ -178,6 +231,7 @@ const Recording = (props: Props) => {
         />
 
         <div className={styles.group_button_right}>
+          <button type="button" onClick={handleExportToExcel}>Xuất Excel</button>
           <Link href={"/tong-dai"}>
             <button>Chi tiết</button>
           </Link>
