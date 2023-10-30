@@ -6,7 +6,7 @@ import Link from "next/link";
 import CampaignBillAction from "@/components/crm/order/order_action";
 import Image from "next/image";
 
-export default function CampaignBillInputGroups() {
+export default function CampaignBillInputGroup() {
   return (
     <div className={styles.main__control}>
       <div className={`${styles.main__control_select} flex_align_center`}>

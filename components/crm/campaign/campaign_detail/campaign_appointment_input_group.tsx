@@ -6,7 +6,7 @@ import Link from "next/link";
 import CampaignAppointmentModal from "@/components/crm/campaign/campaign_detail/campaign_detail_action_modal/add_appointment_action_mdal";
 import Image from "next/image";
 
-export default function CampaignAppointmentInputGroups({ isSelectedRow }: any) {
+export default function CampaignAppointmentInputGroup({ isSelectedRow }: any) {
   const handleClickSelectoption = () => {};
   const [isModalCancel, setIsModalCancel] = useState(false);
 

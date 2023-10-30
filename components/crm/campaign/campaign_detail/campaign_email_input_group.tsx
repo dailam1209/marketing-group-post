@@ -5,7 +5,7 @@ import CampaignDetailSelectBox from "@/components/crm/campaign/campaign_detail/c
 import Link from "next/link";
 import Image from "next/image";
 
-export default function CampaignAppointmentInputGroups({ isSelectedRow }: any) {
+export default function CampaignEmailInputGroup({ isSelectedRow }: any) {
   const handleClickSelectoption = () => {};
 
   const datas = [

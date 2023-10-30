@@ -14,7 +14,6 @@ import useLoading from "@/components/crm/hooks/useLoading";
 import { useForm } from "@/components/crm/hooks/useForm";
 import { Spin } from "antd";
 import { useTrigger } from "@/components/crm/context/triggerContext";
-import { set } from "lodash";
 
 const DetailCampaign: React.FC = () => {
   const router = useRouter();
@@ -59,7 +58,12 @@ const DetailCampaign: React.FC = () => {
       fetchAPICampaign();
     }
     setTrigger(false);
+
+    return () => {
+      setTrigger(true);
+    };
   }, [trigger]);
+
 
   return (
     <>
@@ -119,7 +123,7 @@ const DetailCampaign: React.FC = () => {
                 <div className={styles.main__title}>Chi tiết chiến dịch</div>
                 <div className={styles.form_add_potential}>
                   <div className={styles.main__body}>
-                    <AddDetailInfo formFields={formFields}/>
+                    <AddDetailInfo formFields={formFields} />
                     {/* <AddDescriptionInfo /> */}
                   </div>
                 </div>
@@ -127,7 +131,7 @@ const DetailCampaign: React.FC = () => {
             )}
           </div>
 
-          <TabOrderList />
+          <TabOrderList formFields={formFields} />
         </div>
       </div>
     </>

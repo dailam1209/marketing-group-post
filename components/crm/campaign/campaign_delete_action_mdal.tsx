@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import { Button, Modal } from "antd";
-import Image from "next/image";
-import styles from "../order.module.css";
 import { useRouter } from "next/router";
-import ModalCompleteStep from "@/components/crm/campaign/campaign_steps/complete_modal";
 
 interface MyComponentProps {
   isModalCancel: boolean;
