@@ -8,8 +8,8 @@ import Image from "next/image";
 import DelActionModal from "@/components/crm/campaign/campaign_delete_action_mdal";
 import ModalCompleteStep from "@/components/crm/campaign/campaign_steps/complete_modal";
 
-export default function CampaignActionTable(props: any) {
-  const { record } = props;
+export default function CampaignChanceActionTable(props: any) {
+  const { handleDel, id } = props;
   const [isDelOpen, setIsDelOpen] = useState(false);
   const [modalCompleteOpen, setModalCompleteOpen] = useState(false);
 
@@ -32,7 +32,11 @@ export default function CampaignActionTable(props: any) {
     {
       key: "2",
       label: (
-        <div onClick={() => setIsDelOpen(true)}>
+        <div
+          onClick={async () => {
+            setIsDelOpen(true);
+          }}
+        >
           <i className="bi bi-trash3"></i> Xóa
         </div>
       ),
@@ -58,6 +62,7 @@ export default function CampaignActionTable(props: any) {
         <DelActionModal
           isModalCancel={isDelOpen}
           setIsModalCancel={setIsDelOpen}
+          handleDelete={handleDel}
         />
       }
     </>

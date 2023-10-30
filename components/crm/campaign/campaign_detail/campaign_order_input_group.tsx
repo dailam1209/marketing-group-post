@@ -6,7 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import CampaignOrderAction from "@/components/crm/order/order_action";
 
-export default function CampaignOrderInputGroups({ isSelectedRow }: any) {
+export default function CampaignOrderInputGroup({ isSelectedRow }: any) {
   const handleClickSelectoption = () => {};
 
   const datas = [

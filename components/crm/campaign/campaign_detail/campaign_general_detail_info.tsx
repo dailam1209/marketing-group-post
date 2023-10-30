@@ -1,9 +1,48 @@
 // import OrderSelectBoxStep from "../order_steps/select_box_step";
+import { useEffect, useState } from "react";
+import { fetchApi } from "../../ultis/api";
+import { timestampToCustomString } from "../../ultis/convert_date";
 import styles from "./campaign_detail.module.css";
 // import InputText from "./input_text";
 import { Input, Tooltip } from "antd";
+import Cookies from "js-cookie";
+import { color } from "highcharts";
 
-export default function AddOrderDetailInfo() {
+export default function AddCampaignGeneralDetailInfo({ formFields }) {
+  const [empList, setEmpList] = useState([]);
+  const dataChanelCampaign = [
+    { value: 0, label: "Chưa cập nhật" },
+    { value: 1, label: "Chưa cập nhật" },
+    { value: 2, label: "Website" },
+    { value: 3, label: "Báo điện tử" },
+    { value: 4, label: "Báo viết" },
+    { value: 5, label: "Truyền hình" },
+    { value: 6, label: "Mạng xã hôi" },
+    { value: 7, label: "Tài trợ" },
+    { value: 8, label: "Hội thảo-Triển lãm" },
+  ];
+  const token = Cookies.get("token_base365");
+
+  const fetchAPIEmployee = async () => {
+    const dataApi = await fetchApi(
+      "http://210.245.108.202:3000/api/qlc/managerUser/listUser",
+      token,
+      { page: 1, pageSize: 10000 },
+      "POST"
+    );
+    setEmpList(dataApi?.data?.data);
+  };
+
+  const renderText = (text) => {
+    if (text) {
+      return text;
+    }
+    return <div style={{ color: "#CCCCCC" }}>Chưa cập nhật</div>;
+  };
+
+  useEffect(() => {
+    fetchAPIEmployee();
+  }, []);
   return (
     <div>
       <div className={styles.main__campaign__body}>
@@ -17,7 +56,10 @@ export default function AddOrderDetailInfo() {
                 <div className={`${styles.main__body__item__title}`}>
                   <b>Tên chiến dịch:</b>
                 </div>
-                <div className={`${styles.main__body__item__value}`}>a</div>
+                <div className={`${styles.main__body__item__value}`}>
+                  {" "}
+                  {formFields?.nameCampaign}
+                </div>
               </div>
             </div>
 
@@ -56,10 +98,8 @@ export default function AddOrderDetailInfo() {
                 <div className={`${styles.main__body__item__title}`}>
                   <b>Ngày bắt đầu:</b>
                 </div>
-                <div
-                  className={`${styles.main__body__item__value} ${styles.not_update}`}
-                >
-                  Chưa cập nhật
+                <div className={`${styles.main__body__item__value} `}>
+                  {renderText(timestampToCustomString(formFields?.timeStart))}
                 </div>
               </div>
             </div>
@@ -71,10 +111,8 @@ export default function AddOrderDetailInfo() {
                 <div className={`${styles.main__body__item__title}`}>
                   <b>Ngày kết thúc:</b>
                 </div>
-                <div
-                  className={`${styles.main__body__item__value} ${styles.not_update}`}
-                >
-                  Chưa cập nhật
+                <div className={`${styles.main__body__item__value}`}>
+                  {renderText(timestampToCustomString(formFields?.timeEnd))}
                 </div>
               </div>
             </div>
@@ -87,7 +125,7 @@ export default function AddOrderDetailInfo() {
                   <b>Ngân sách:</b>
                 </div>
                 <div className={`${styles.main__body__item__value} `}>
-                  12.000 VNĐ
+                  {formFields?.investment} VNĐ
                 </div>
               </div>
             </div>
@@ -99,7 +137,7 @@ export default function AddOrderDetailInfo() {
                   <b>Doanh số:</b>
                 </div>
                 <div className={`${styles.main__body__item__value}`}>
-                  12.200 VNĐ
+                  {formFields?.expectedSales} VNĐ
                 </div>
               </div>
             </div>
@@ -111,10 +149,8 @@ export default function AddOrderDetailInfo() {
                 <div className={`${styles.main__body__item__title}`}>
                   <b>Kênh truyền thống:</b>
                 </div>
-                <div
-                  className={`${styles.main__body__item__value} ${styles.not_update}`}
-                >
-                  Chưa cập nhật
+                <div className={`${styles.main__body__item__value}`}>
+                  {dataChanelCampaign?.[formFields?.chanelCampaign]?.label}
                 </div>
               </div>
             </div>
@@ -127,7 +163,7 @@ export default function AddOrderDetailInfo() {
                   <b>Số đã chi:</b>
                 </div>
                 <div className={`${styles.main__body__item__value} `}>
-                  121.212.000 VNĐ
+                  {formFields?.money} VNĐ
                 </div>
               </div>
             </div>
@@ -139,10 +175,12 @@ export default function AddOrderDetailInfo() {
                 <div className={`${styles.main__body__item__title}`}>
                   <b>Nhân viên phụ trách:</b>
                 </div>
-                <div
-                  className={`${styles.main__body__item__value} ${styles.not_update}`}
-                >
-                  Chưa cập nhật
+                <div className={`${styles.main__body__item__value}`}>
+                  {renderText(
+                    empList?.filter(
+                      (item) => item?.ep_id === formFields?.empID
+                    )[0]?.userName
+                  )}
                 </div>
               </div>
             </div>
@@ -159,10 +197,8 @@ export default function AddOrderDetailInfo() {
                 <div className={`${styles.main__body__item__title}`}>
                   <b>Mô tả:</b>
                 </div>
-                <div
-                  className={`${styles.main__body__item__value} ${styles.not_update}`}
-                >
-                  Chưa cập nhật
+                <div className={`${styles.main__body__item__value}`}>
+                  {renderText(formFields?.description)}
                 </div>
               </div>
             </div>
@@ -179,10 +215,12 @@ export default function AddOrderDetailInfo() {
                 <div className={`${styles.main__body__item__title}`}>
                   <b>Người tạo:</b>
                 </div>
-                <div
-                  className={`${styles.main__body__item__value} ${styles.not_update}`}
-                >
-                  Chưa cập nhật
+                <div className={`${styles.main__body__item__value}`}>
+                  {renderText(
+                    empList?.filter(
+                      (item) => item?.ep_id === formFields?.userIdCreate
+                    )[0]?.userName
+                  )}
                   {/* <div style={{ display: "flex", justifyContent: 'center' }}> <div><img src="/crm/user_kh.png" alt="hungha365.com" /></div>&nbsp;Nguyễn Văn Nam</div> */}
                 </div>
               </div>
@@ -196,7 +234,7 @@ export default function AddOrderDetailInfo() {
                   <b>Ngày tạo:</b>
                 </div>
                 <div className={`${styles.main__body__item__value}`}>
-                  14:46 - 08/08/2023
+                  {renderText(timestampToCustomString(formFields?.createdAt))}
                 </div>
               </div>
             </div>
@@ -208,10 +246,12 @@ export default function AddOrderDetailInfo() {
                 <div className={`${styles.main__body__item__title}`}>
                   <b>Người sửa:</b>
                 </div>
-                <div
-                  className={`${styles.main__body__item__value} ${styles.not_update}`}
-                >
-                  Chưa cập nhật
+                <div className={`${styles.main__body__item__value}`}>
+                  {renderText(
+                    empList?.filter(
+                      (item) => item?.ep_id === formFields?.userIdUpdate
+                    )[0]?.userName
+                  )}
                   {/* <div style={{ display: "flex", justifyContent: 'center' }}> <div><img src="/crm/user_kh.png" alt="hungha365.com" /></div>&nbsp;Nguyễn Văn Nam</div> */}
                 </div>
               </div>
@@ -224,10 +264,8 @@ export default function AddOrderDetailInfo() {
                 <div className={`${styles.main__body__item__title}`}>
                   <b>Ngày sửa:</b>
                 </div>
-                <div
-                  className={`${styles.main__body__item__value} ${styles.not_update}`}
-                >
-                  Chưa cập nhật
+                <div className={`${styles.main__body__item__value}`}>
+                  {renderText(timestampToCustomString(formFields?.updatedAt))}
                 </div>
               </div>
             </div>
@@ -239,10 +277,15 @@ export default function AddOrderDetailInfo() {
                 <div className={`${styles.main__body__item__title}`}>
                   <b>Dùng chung:</b>
                 </div>
-                <div
-                  className={`${styles.main__body__item__value} ${styles.not_update}`}
-                >
-                  <i className="bi bi-check2-circle"></i>
+                <div className={`${styles.main__body__item__value}`}>
+                  {formFields?.shareAll ? (
+                    <i
+                      style={{ color: "green", width: "16px", height: "16px" }}
+                      className="bi bi-check2-circle"
+                    ></i>
+                  ) : (
+                    <i className="bi bi-check2-circle"></i>
+                  )}
                 </div>
               </div>
             </div>
