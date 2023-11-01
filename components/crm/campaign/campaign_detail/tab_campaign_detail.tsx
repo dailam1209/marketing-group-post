@@ -35,7 +35,7 @@ const TabComponent = () => {
 
   return (
     <div>
-      <Tabs activeKey={activeTab} onChange={handleTabChange}>
+      {/* <Tabs activeKey={activeTab} onChange={handleTabChange}>
         <Tabs.Item tab="Thông tin chi tiết" key="tab1">
           <div className={styles.main_importfile}>
             <div className={styles.formInfoStep}>
@@ -45,8 +45,8 @@ const TabComponent = () => {
                   <div className={styles.main__body}>
                     <AddCampaignGeneralDetailInfo />
                     {/* <AddOrderDetailTable /> */}
-                    {/* <AddOrderDetailStatus /> */}
-                  </div>
+      {/* <AddOrderDetailStatus /> */}
+      {/* </div>
                 </div>
                 <div>&nbsp;</div>
               </div>
@@ -157,9 +157,9 @@ const TabComponent = () => {
             <div className={styles.formInfoStep}>
               <div className={styles.info_step}>
                 <div className={styles.form_add_potential}>
-                  <div className={`${styles.main__control_btn} flex_between`}>
-                    {/* <OrderDetailAppointmentInputGroup /> */}
-                  </div>
+                  <div className={`${styles.main__control_btn} flex_between`}> */}
+      {/* <OrderDetailAppointmentInputGroup /> */}
+      {/* </div>
                   <div className={`${styles.main__control_btn} flex_between`}>
                     <div className={styles.main__control_search}>
                       <form onSubmit={() => false}>
@@ -207,7 +207,7 @@ const TabComponent = () => {
             </div>
           </div>
         </Tabs.Item>
-      </Tabs>
+      </Tabs> */}
 
       <CustomerSelectModal
         isModalCancel={isModalCancel}
