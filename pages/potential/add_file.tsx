@@ -10,15 +10,32 @@ import AddDesriptionAndSystemInfo from "@/components/crm/potential/potential_add
 import AddAddressInfo from "@/components/crm/potential/potential_add_files/address_info";
 import { useHeader } from "@/components/crm/hooks/useHeader";
 import Head from "next/head";
-
+import { useForm } from "@/components/crm/hooks/useForm";
 const AddFilesPotential: React.FC = () => {
   const mainRef = useRef<HTMLDivElement>(null);
   const { isOpen } = useContext<any>(SidebarContext);
   const imgRef = useRef<HTMLInputElement>(null);
+  const refs = {
+    vocativeRef: useRef(null), //xưng hô
+    posIdRef: useRef(null), //chức danh
+    departmentRef: useRef(null), // Phòng ban
+    resourceRef: useRef(null), //nguồn gốc
+    typeRef: useRef(null), //Phân loại tiềm năng
+    socialRef: useRef(null), //Mạng xã hôi
+    empIdRef: useRef(null), //nhân viên phụ trách
+    genderRef: useRef(null),
+    bankIdRef: useRef(null),
+    categoryRef: useRef(null), // loại hình
+    sectorRef: useRef(null), //lĩnh vực
+    classifyRef: useRef(null), // ngành nghề
+    shareAllRef: useRef(null), //doanh thu
+    cityIdRef: useRef(null),
+    wardRef: useRef(null),
+  };
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
   const [formData, setFormData] = useState<any>({
-    name: "",
+    /* name: "",
     email: "",
     cus_id: "",
     stand_name: "",
@@ -78,7 +95,7 @@ const AddFilesPotential: React.FC = () => {
     updated_at: "",
     id_cus_from: "",
     cus_from: "",
-    link: "",
+    link: "", */
   });
   useEffect(() => {
     setHeaderTitle("Tiềm Năng/ Thêm mới");
@@ -98,6 +115,11 @@ const AddFilesPotential: React.FC = () => {
     }
   }, [isOpen]);
 
+  const handleTEST = () => {
+    console.log("test", refs.vocativeRef.current.value);
+  };
+
+  console.log("AddPotential", formData);
   return (
     <>
       <Head>
@@ -170,8 +192,9 @@ const AddFilesPotential: React.FC = () => {
                       />
                     </div>
                   </div>
-
+                  <button onClick={handleTEST}>TEST</button>
                   <AddGeneralInfo
+                    refs={refs}
                     formData={formData}
                     setFormData={setFormData}
                   />

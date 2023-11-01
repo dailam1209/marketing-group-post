@@ -1,16 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "../potential.module.css";
 import PotentialDropDownDataStep from "./select_box_dropdown_data";
-import { getVocative, renderVocative } from "@/utils/function";
-import $ from "jquery";
-import "select2/dist/css/select2.min.css";
-import "select2/dist/js/select2.min.js";
 export default function PotentialSelectBoxStep({
   title = "",
   value = "Tất cả",
   placeholder = "",
   data = [],
-  selectData,
+  selectedData,
 }: any) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -31,7 +27,6 @@ export default function PotentialSelectBoxStep({
   };
 
   useEffect(() => {
-    $(".js-example-basic-single").select2();
     document.addEventListener("click", handleClickOutside);
     document.addEventListener("scroll", handleScrollkOutside);
 
@@ -39,7 +34,7 @@ export default function PotentialSelectBoxStep({
       document.removeEventListener("scroll", handleScrollkOutside);
     };
   }, []);
-  console.log("PotentialSelectBoxStep", data);
+
   return (
     <div
       ref={dropdownRef}
@@ -49,22 +44,16 @@ export default function PotentialSelectBoxStep({
         {title}
       </label>
       <select
-        className={`${styles.select2} ${styles.select2_hidden_accessible} js-example-basic-single `}
+        className={`${styles.select2} ${styles.select2_hidden_accessible}`}
         data-select2-id={1}
         tabIndex={-1}
         aria-hidden="true"
-        style={{ width: "100%" }}
       >
-        {data.map((dt: { value: number; label: string }) => (
-          <option value={dt.value} data-select2-id={3}>
-            {dt.label}
-          </option>
-        ))}
-        {/* <option value="" data-select2-id={3}>
-          {renderVocative(value)}
-        </option> */}
+        <option value="" data-select2-id={3}>
+          {value}
+        </option>
       </select>
-      {/* <span
+      <span
         className={`select2 ${styles.select2_container_step}`}
         dir="ltr"
         data-select2-id={2}
@@ -87,7 +76,7 @@ export default function PotentialSelectBoxStep({
               aria-readonly="true"
               // title="Chọn người dùng"
             >
-              {renderVocative(value) || placeholder}
+              {value || placeholder}
             </span>
             <span
               className={styles.select2_selection__arrow}
@@ -101,13 +90,11 @@ export default function PotentialSelectBoxStep({
           <PotentialDropDownDataStep
             data={data}
             value={value}
-            selectData={selectData}
+            selectData={selectedData}
             placeholder={placeholder}
           />
         )}
-      </span> */}
-      <link href="path/to/select2.min.css" rel="stylesheet" />
-      <script src="path/to/select2.min.js"></script>
+      </span>
     </div>
   );
 }

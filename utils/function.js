@@ -3,20 +3,8 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import requestIp from "request-ip";
-
-export const getVocative = [
-  { value: 1, label: "Anh" },
-  { value: 2, label: "Chị" },
-  { value: 3, label: "Ông" },
-  { value: 4, label: "Bà" },
-];
-export const renderVocative = (id) => {
-  const option = { 1: "Anh", 2: "Chị", 3: "Ông", 4: "Bà" };
-  if (!option.id) {
-    return "";
-  }
-  return option.id;
-};
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export const getEducation = [
   { id: 0, value: "Chưa cập nhật" },
   { id: 1, value: "Trên Đại học" },
@@ -28,7 +16,20 @@ export const getEducation = [
   { id: 7, value: "Trung học cơ sở" },
   { id: 8, value: "Tiểu học" },
 ];
-
+export const toLowerCaseNonAccentVietnamese = (str) => {
+  str = str.toLowerCase();
+  str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
+  str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+  str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
+  str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
+  str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
+  str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+  str = str.replace(/đ/g, "d");
+  // Some system encode vietnamese combining accent as individual utf-8 characters
+  str = str.replace(/\u0300|\u0301|\u0303|\u0309|\u0323/g, ""); // Huyền sắc hỏi ngã nặng
+  str = str.replace(/\u02C6|\u0306|\u031B/g, ""); // Â, Ê, Ă, Ơ, Ư
+  return str;
+};
 export const eduLabel = getEducation.map((e) => ({
   label: e?.value,
   value: e?.id,
@@ -337,3 +338,65 @@ export function CheckLogin2() {
     }
   }, []);
 }
+export function convertTimestampToDate(timestamp) {
+  // Tạo một đối tượng Date từ timestamp
+  const date = new Date(timestamp * 1000);
+
+  // Lấy ngày, tháng và năm từ đối tượng Date
+  const day = date.getDate();
+  const month = date.getMonth() + 1; // Tháng trong JavaScript là từ 0 đến 11
+  const year = date.getFullYear();
+
+  // Sử dụng hàm padStart để thêm số 0 vào phía trước nếu cần
+  const formattedDay = String(day).padStart(2, "0");
+  const formattedMonth = String(month).padStart(2, "0");
+
+  // Tạo chuỗi ngày/tháng/năm
+  const formattedDate = `${formattedDay}/${formattedMonth}/${year}`;
+
+  return formattedDate;
+}
+export const ngayHomNay = () => {
+  const date = new Date(Date.now());
+  const day = date.getDate();
+  const month = date.getMonth() + 1; // Tháng trong JavaScript là từ 0 đến 11
+  const year = date.getFullYear();
+  const formattedDay = String(day).padStart(2, "0");
+  const formattedMonth = String(month).padStart(2, "0");
+  const formattedDate = `${formattedDay}/${formattedMonth}/${year}`;
+
+  return formattedDate;
+};
+export const notifyWarning = (notification) => {
+  if (!notification) {
+    return toast.warning("Vui lòng kiểm tra lại", {
+      position: toast.POSITION.TOP_RIGHT,
+    });
+  }
+  return toast.warning(notification, {
+    position: toast.POSITION.TOP_RIGHT,
+  });
+};
+
+export const notifySuccess = (notification) => {
+  if (!notification) {
+    return toast.warning("Thành công !", {
+      position: toast.POSITION.TOP_RIGHT,
+    });
+  }
+  return toast.success(notification, {
+    position: toast.POSITION.TOP_RIGHT,
+  });
+};
+
+export const notifyError = (notification) => {
+  if (!notification) {
+    return toast.error("Thất bại!", {
+      position: toast.POSITION.TOP_RIGHT,
+    });
+  }
+  return toast.error(notification, {
+    position: toast.POSITION.TOP_RIGHT,
+  });
+};
+<ToastContainer autoClose={2000} />;

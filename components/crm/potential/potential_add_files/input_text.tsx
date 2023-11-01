@@ -30,8 +30,8 @@ export default function InputText({
       <input
         style={{
           marginLeft: "10px",
-          // width: "96.1%",
-          height: "40px",
+
+          height: "px",
           backgroundColor: bonus === "disabled" ? "#e9ecef" : "white",
         }}
         type={type}
@@ -46,3 +46,4 @@ export default function InputText({
     </div>
   );
 }
+

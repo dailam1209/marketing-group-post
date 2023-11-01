@@ -2,3 +2,5 @@
 node_modules
 packege-lock.json
 packege.json
+yarn.lock
+tailwind.config.js

@@ -2,11 +2,17 @@ import { useEffect, useState } from "react";
 import PotentialSelectBoxStep from "../potential_steps/select_box_step";
 import styles from "./add_file_potential.module.css";
 import InputText from "./input_text";
-import { getVocative } from "@/utils/function";
+import {
+  getPotentialDepartment,
+  getPotentialPosition,
+  getPotentialResource,
+  getPotentialType,
+  getVocative,
+} from "@/utils/listOption";
 import $ from "jquery";
 import "select2/dist/css/select2.min.css";
 import "select2/dist/js/select2.min.js";
-export default function AddGeneralInfo({ formData, setFormData }: any) {
+export default function AddGeneralInfo({ formData, setFormData, refs }: any) {
   // const fullname = `${formData.tendem} ${formData.ten}`;
   const [fullname, setFullname] = useState("");
 
@@ -14,8 +20,8 @@ export default function AddGeneralInfo({ formData, setFormData }: any) {
     $(".js-example-basic-single").select2();
 
     setFullname(
-      `${formData?.tendem ? formData?.tendem : ""} ${
-        formData?.ten ? formData?.ten : ""
+      `${formData?.firstName ? formData?.firstName : ""} ${
+        formData?.lastName ? formData?.lastName : ""
       }`
     );
   }, [formData]);
@@ -29,27 +35,26 @@ export default function AddGeneralInfo({ formData, setFormData }: any) {
           <label className={`${styles["form-label"]}`}>Xưng hô</label>
           <PotentialSelectBoxStep
             placeholder="Chọn"
-            value={formData?.cus_from}
-            selectData={(value) => {
-              setFormData({ ...formData, cus_from: value });
-            }}
+            // multiple={true}
+            refKey={refs.vocativeRef}
+            value={formData?.vocative}
             data={getVocative}
           />
         </div>
 
         <InputText
-          value={formData?.tendem}
+          value={formData?.firstName}
           setFormData={setFormData}
-          keyValue="tendem"
+          keyValue="firstName"
           label="Họ và đệm"
           placeholder="Nhập tên đệm"
         />
       </div>
       <div className={styles.row_input}>
         <InputText
-          value={formData?.ten}
+          value={formData?.lastName}
           setFormData={setFormData}
-          keyValue="ten"
+          keyValue="lastName"
           label="Tên"
           placeholder="Nhập tên khách hàng"
         />
@@ -69,62 +74,39 @@ export default function AddGeneralInfo({ formData, setFormData }: any) {
           <label className={`${styles["form-label"]}`}>Chức danh</label>
           <PotentialSelectBoxStep
             placeholder="Chọn"
-            value={formData?.cus_from}
-            selectData={(value) => {
-              setFormData((prev) => {
-                return { ...prev, cus_from: value };
-              });
-            }}
-            data={[
-              "Chủ tịch",
-              "Phó chủ tịch",
-              "Tổng giám đốc",
-              "Phó tổng giám đốc",
-              "Giám đốc",
-              "Kế toán trưởng",
-              "Trưởng phòng",
-              "Trợ lý",
-              "Nhân viên",
-            ]}
+            refKey={refs.posIdRef}
+            value={formData?.pos_id}
+            data={getPotentialPosition}
           />
         </div>
         <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
           <label className={`${styles["form-label"]}`}>Phòng ban</label>
           <PotentialSelectBoxStep
             placeholder="Chọn"
-            value={formData?.cus_from}
+            value={formData?.department}
             selectData={(value) => {
               setFormData((prev) => {
-                return { ...prev, cus_from: value };
+                return { ...prev, department: value };
               });
             }}
-            data={[
-              "Ban giám đốc",
-              "Phòng tài chính",
-              "Phòng nhân sự ",
-              "Phòng marketing",
-              "Phòng CSKH",
-              "Phòng hành chính tổng hợp",
-              "Phòng kỹ thuật",
-              "Phòng kinh doanh",
-            ]}
+            data={getPotentialDepartment}
           />
         </div>
       </div>
 
       <div className={styles.row_input}>
         <InputText
-          value={formData?.dienthoaicoquan}
+          value={formData?.office_phone}
           setFormData={setFormData}
-          keyValue="dienthoaicoquan"
+          keyValue="office_phone"
           label="Điện thoại cơ quan"
           placeholder="Nhập diện thoại cơ quan"
         />
         <div style={{ width: "100%", position: "relative", flex: 1 }}>
           <InputText
-            value={formData?.dienthoaicanhan}
+            value={formData?.private_phone}
             setFormData={setFormData}
-            keyValue="dienthoaicanhan"
+            keyValue="private_phone"
             label="Điện thoại cá nhân"
             placeholder="Nhập điện thoại cá nhân"
           />
@@ -136,16 +118,16 @@ export default function AddGeneralInfo({ formData, setFormData }: any) {
 
       <div className={styles.row_input}>
         <InputText
-          value={formData?.emailcoquan}
+          value={formData?.office_email}
           setFormData={setFormData}
-          keyValue="emailcoquan"
+          keyValue="office_email"
           label="Email cơ quan"
           placeholder="Email cơ quan"
         />
         <InputText
-          value={formData?.emailcanhan}
+          value={formData?.private_email}
           setFormData={setFormData}
-          keyValue="emailcanhan"
+          keyValue="private_email"
           label="Email cá nhân"
           placeholder="Email cá nhân"
         />
@@ -156,28 +138,15 @@ export default function AddGeneralInfo({ formData, setFormData }: any) {
           <label className={`${styles["form-label"]}`}>Nguồn gốc</label>
           <PotentialSelectBoxStep
             placeholder="Chọn"
-            value={formData?.cus_from}
-            selectData={(value) => {
-              setFormData((prev) => {
-                return { ...prev, cus_from: value };
-              });
-            }}
-            data={[
-              "Facebook",
-              "Zalo",
-              "Website",
-              "Dữ liệu bên thứ 3",
-              "Khách hàng giới thiệu",
-              "Giới thiệu",
-              "Chăm sóc khách hàng",
-              "Email",
-            ]}
+            value={formData?.resoure}
+            ref={refs.resourceRef}
+            data={getPotentialResource}
           />
         </div>
         <InputText
-          value={formData?.masothue}
+          value={formData?.tax_code}
           setFormData={setFormData}
-          keyValue="masothue"
+          keyValue="tax_code"
           label="Mã số thuế"
           placeholder="Nhập mã số thuế"
         />
@@ -186,7 +155,12 @@ export default function AddGeneralInfo({ formData, setFormData }: any) {
       <div className={styles.row_input}>
         <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
           <label className={`${styles["form-label"]}`}>Loại tiềm năng</label>
-          <PotentialSelectBoxStep keyValue="" value="Chọn" placeholder="Chọn" />
+          <PotentialSelectBoxStep
+            refKey={refs.typeRef}
+            value={formData?.tyep}
+            placeholder="Chọn"
+            data={getPotentialType}
+          />
         </div>
         <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
           <label className={`${styles["form-label"]}`}>Mạng xã hôi</label>
@@ -228,3 +202,33 @@ export default function AddGeneralInfo({ formData, setFormData }: any) {
     </div>
   );
 }
+
+export const MInputAndAdd = ({
+  title = "",
+  label,
+  placeholder,
+  require = false,
+  disable = false,
+  type = "text",
+  value = "",
+  setFormData,
+  name = "",
+  id = "",
+}) => {
+  return (
+    <div style={{ width: "100%", position: "relative", flex: 1 }}>
+      <InputText
+        require={require}
+        disable={disable}
+        type={type}
+        id={id}
+        value={value}
+        setFormData={setFormData}
+        name={name}
+        label={label}
+        placeholder={placeholder}
+      />
+      {title ?? <button className={styles.span_custom}>+ {title}</button>}
+    </div>
+  );
+};
