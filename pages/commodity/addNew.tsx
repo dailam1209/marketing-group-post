@@ -14,7 +14,7 @@ import styles from "@/components/commodity/potential.module.css";
 import stylesAdd from "@/components/commodity/add_file_commodity.module.css";
 
 import TextEditor from "@/components/crm/text-editor/text_editor";
-import { axiosCRM, axiosCRMUpfile } from "@/utils/api_crm";
+import { axiosCRM, axiosCRMUpfile } from "@/utils/api/api_crm";
 import { ngayHomNay, notifyError, notifyWarning } from "@/utils/function";
 import { useEffect, useRef, useState } from "react";
 import { MInputText } from "@/components/commodity/input";
@@ -94,7 +94,7 @@ function AddNewCommodity() {
         setModal1Open(true);
         setOpenModalAddGroup(false);
         setRecallGroup(!reCallGroup);
-        setFormAddGroup({})
+        setFormAddGroup({});
       })
       .catch((err) => notifyError("Vui lòng thử lại sau!"));
   };

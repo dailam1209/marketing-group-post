@@ -2,7 +2,7 @@ import styles from "@/components/commodity/potential2.module.css";
 import Image from "next/image";
 import { MCancelModal, MModalCompleteStep } from "./modal";
 import { useState } from "react";
-import { axiosCRM } from "@/utils/api_crm";
+import { axiosCRM } from "@/utils/api/api_crm";
 import { notifyError } from "@/utils/function";
 import { ToastContainer } from "react-toastify";
 import { useRouter } from "next/router";
@@ -25,7 +25,7 @@ function CommodityAction({ record, setRecall }) {
       >
         {" "}
         <div
-          className={styles.table_sua}
+          className={`${styles.table_sua}`}
           onClick={() => router.push(`/commodity/edit/${record.idCommodity}`)}
         >
           <Image width={16} height={16} alt="/" src="/crm/sua.png" /> Sửa

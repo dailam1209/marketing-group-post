@@ -14,7 +14,7 @@ import styles from "@/components/commodity/potential.module.css";
 import stylesAdd from "@/components/commodity/add_file_commodity.module.css";
 
 import TextEditor from "@/components/crm/text-editor/text_editor";
-import { axiosCRM, axiosCRMUpfile } from "@/utils/api_crm";
+import { axiosCRM, axiosCRMUpfile } from "@/utils/api/api_crm";
 import {
   convertTimestampToDate,
   ngayHomNay,
@@ -49,10 +49,10 @@ function EditProduct() {
   const { id } = router.query;
   //Set Header
   useEffect(() => {
-    setHeaderTitle(`Sửa ${formData.prod_name}`);
+    setHeaderTitle(`Chỉnh sửa sản phẩm`);
     setShowBackButton(false);
     setCurrentPath("/commodity/list");
-  }, [setHeaderTitle, setShowBackButton, setCurrentPath, formData.prod_name]);
+  }, [setHeaderTitle, setShowBackButton, setCurrentPath]);
   //Lấy dataProduct
   useEffect(() => {
     axiosCRM

@@ -6,7 +6,7 @@ import CommodityAction from "@/components/commodity/ComodityAction";
 interface DataType {
   key: React.Key;
   idCommodity: string;
-  name: string;
+  name: HTMLElement | string;
   category: string;
   unit: string;
   capital_price: string;
@@ -24,13 +24,10 @@ interface TableDataChanceProps {
 const TableCommodityList = ({
   data,
   total,
-  // page,
   setPageSize,
   setRecall = null,
   setPage,
-  // total,
   pageSize,
-  // setPageSize,
 }): any => {
   const columns: ColumnsType<DataType> = [
     {

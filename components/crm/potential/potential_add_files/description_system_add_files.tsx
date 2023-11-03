@@ -1,3 +1,4 @@
+import { MTextArea } from "@/components/commodity/input";
 import styles from "./add_file_potential.module.css";
 export default function AddDesriptionAndSystemInfo({
   formData,
@@ -7,22 +8,13 @@ export default function AddDesriptionAndSystemInfo({
     <>
       <div>
         <p className={styles.main__body__type}>Thông tin mô tả</p>
-
-        <div className={styles.row_input}>
-          <div className={`${styles.mb_3} `}>
-            <label className={`${styles["form-label"]}`}>Mô tả</label>
-            <textarea
-              name="address_contact"
-              id="address_contact"
-              className={styles["form-control"]}
-              placeholder="Nhập địa chỉ"
-              defaultValue={""}
-              style={{ height: "82px" }}
-            />
-          </div>
-        </div>
+        <MTextArea
+          value={formData.description}
+          setFormData={setFormData}
+          name="description"
+          rows={3}
+        />
       </div>
-
       <div>
         <p className={styles.main__body__type}>Thông tin hệ thống</p>
 
@@ -30,8 +22,11 @@ export default function AddDesriptionAndSystemInfo({
           <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
             <p className={`${styles.info_system}`}>
               <input
+                onChange={() =>
+                  setFormData({ ...formData, share_all: !formData.share_all })
+                }
                 type="checkbox"
-                defaultValue={1}
+                checked={formData.share_all}
                 name="share_all"
                 id="share_all"
               />

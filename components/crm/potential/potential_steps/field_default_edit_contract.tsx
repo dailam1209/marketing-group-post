@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "../potential.module.css";
-import PotentialDropDownDataStep from "./select_box_dropdown_data";
 import DataDefaultFieldContract from "./data_default_field_contract";
 export default function FieldDefaultEditCOntract({
   title = "",

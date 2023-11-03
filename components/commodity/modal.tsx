@@ -28,7 +28,7 @@ export const MCancelModal: React.FC<MyComponentProps> = ({
 }) => {
   const router = useRouter();
   const handleOK = () => {
-    // setIsModalCancel(false);
+    setIsModalCancel(false);
     updateData && updateData();
     link && router.push(link);
   };

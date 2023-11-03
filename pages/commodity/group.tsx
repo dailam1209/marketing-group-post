@@ -1,5 +1,5 @@
 import { useHeader } from "@/components/crm/hooks/useHeader";
-import { axiosCRM } from "@/utils/api_crm";
+import { axiosCRM } from "@/utils/api/api_crm";
 import { ngayHomNay, notifyError, notifyWarning } from "@/utils/function";
 import { useEffect, useRef, useState } from "react";
 import { ToastContainer } from "react-toastify";
@@ -47,13 +47,11 @@ function CommodityGroup() {
   const handleConvertDataTable = (datas) => {
     let dataReturn: any = [];
     if (datas.length > 0) {
-      dataReturn = datas
-        .filter((data) => data.is_delete == 0)
-        ?.map((item: any, index: number) => ({
-          ...item,
-          gr_id: item._id,
-          stt: (page - 1) * pageSize + index + 1,
-        }));
+      dataReturn = datas?.map((item: any, index: number) => ({
+        ...item,
+        gr_id: item._id,
+        stt: (page - 1) * pageSize + index + 1,
+      }));
     }
     setListGroup(dataReturn);
   };

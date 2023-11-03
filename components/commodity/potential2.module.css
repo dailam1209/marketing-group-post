@@ -1,3 +1,11 @@
+.justify_center {
+  display: flex;
+  justify-content: center;
+}
+.name_product {
+  color: blue;
+  cursor: pointer;
+}
 .main__control {
   justify-content: space-between;
   row-gap: 20px;
@@ -354,8 +362,6 @@
   /* margin-top: 20px; */
 }
 
-
-
 .main__title {
   background: #4c5bd4;
   box-shadow: 0px 0px 10px rgb(0 0 0 / 10%);
@@ -375,8 +381,6 @@
   row-gap: 20px;
   border-radius: 0 0 10px 10px;
 }
-
-
 
 .flex_column {
   display: flex;

@@ -1,6 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 const baseURL = "http://localhost:3007/api/crm";
+
 export const axiosTruocDN = axios.create({
   baseURL,
   headers: {
@@ -50,3 +51,4 @@ export const checkToken = () => {
   }
   return false;
 };
+

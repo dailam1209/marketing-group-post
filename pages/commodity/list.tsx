@@ -6,14 +6,16 @@ import styles from "@/components/commodity/potential2.module.css";
 // import styleCommodity from "../commodity/commodity.css ";
 import { useEffect, useRef, useState } from "react";
 import TableCommodityList from "@/components/crm/table/table-commodity-list";
-import { axiosCRM } from "@/utils/api_crm";
+import { axiosCRM } from "@/utils/api/api_crm";
 import { getCategory, renderCategory } from "@/utils/listOption";
 import Image from "next/image";
 import { ExcelDownload } from "@/components/commodity/excelDownload";
 import { ngayHomNay } from "@/utils/function";
 import { InputSearch } from "@/components/commodity/input";
+import { useRouter } from "next/router";
 
 function commodityList() {
+  const router = useRouter();
   const mainRef = useRef<HTMLDivElement>(null);
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
@@ -25,8 +27,6 @@ function commodityList() {
   const [formSearch, setFormSearch] = useState<any>({});
   const [total, setTotal] = useState(0);
 
-  // const [renderListUnit, setRenderListUnit] = useState({});
-  const [renderGroup, setRenderGroup] = useState({});
   useEffect(() => {
     setHeaderTitle("Danh sách vật tư hàng hóa");
     setShowBackButton(false);
@@ -86,19 +86,11 @@ function commodityList() {
   };
   const handleGroup = (datas) => {
     setListGroup(
-      datas
-        .filter((item) => item.is_delete == 0)
-        .map((dt: any) => ({
-          value: dt._id,
-          label: dt.gr_name,
-        }))
+      datas.map((dt: any) => ({
+        value: dt._id,
+        label: dt.gr_name,
+      }))
     );
-    datas
-      .filter((data: any) => data.is_delete == 0)
-      .forEach((data: any) => {
-        renderGroup[data._id] = data.gr_name;
-      });
-    setRenderGroup({ ...renderGroup });
   };
 
   const convertDataToTable = (datas: any) => {
@@ -106,7 +98,14 @@ function commodityList() {
     if (datas.length > 0) {
       dataReturn = datas.map((data: any) => ({
         idCommodity: data._id,
-        name: data.prod_name,
+        name: (
+          <p
+            className={styles.justify_center}
+            onClick={() => router.push(`/commodity/detail/${data._id}`)}
+          >
+            <span className={styles.name_product}> {data.prod_name}</span>
+          </p>
+        ),
         category: renderCategory(data.category),
         unit: data.dvt?.unit_name,
         capital_price: data.capital_price,
@@ -114,17 +113,6 @@ function commodityList() {
         min_amount: data.min_amount,
         group: data.group_id?.gr_name,
         description: data.description,
-        // operation: (
-        //   <div>
-        //     <div className={styles.table_sua}>
-        //       <Image width={16} height={16} alt="/" src="/crm/sua.png" /> Sửa
-        //     </div>{" "}
-        //     <div className={styles.table_xoa}>
-        //       {" "}
-        //       <img /> Xóa
-        //     </div>
-        //   </div>
-        // ),
       }));
     }
     setListProduct(dataReturn);

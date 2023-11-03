@@ -7,7 +7,7 @@ import {
   Key,
 } from "react";
 import styles from "../potential.module.css";
-type ItemType = { value: number; label: string };
+
 export default function PotentialDropDownDataStep({
   data = [],
   value = " Chọn người dùng",
@@ -47,23 +47,23 @@ export default function PotentialDropDownDataStep({
             aria-hidden="false"
           >
             <li
-              //   onClick={() => selectData(placeholder)}
+              onClick={() => selectData(placeholder)}
               className={`${styles.select2_results__option} ${styles.select2_results__option_highlighted}`}
             >
               {placeholder}
             </li>
             {data?.map(
               (
-                item: ItemType,
-                //   | string
-                //   | number
-                //   | boolean
-                //   | ReactElement<any, string | JSXElementConstructor<any>>
-                //   | Iterable<ReactNode>
-                //   | ReactPortal
-                //   // | PromiseLikeOfReactNode
-                //   | null
-                //   | undefined,
+                item:
+                  | string
+                  | number
+                  | boolean
+                  | ReactElement<any, string | JSXElementConstructor<any>>
+                  | Iterable<ReactNode>
+                  | ReactPortal
+                  // | PromiseLikeOfReactNode
+                  | null
+                  | undefined,
                 i: Key | null | undefined
               ) => (
                 <li
@@ -74,9 +74,9 @@ export default function PotentialDropDownDataStep({
                     padding: "5px 0",
                     paddingLeft: "18px",
                   }}
-                  onClick={() => selectData(item.value)}
+                  onClick={() => selectData(item)}
                 >
-                  {item.label}
+                  {item}
                 </li>
               )
             )}

@@ -162,26 +162,25 @@ export default function SelectSingle({
 export const SelectMultiple = ({
   data,
   name,
-  formData,
   setFormData,
   value,
   maxSelect,
   label,
   placeholder,
 }: any) => {
-  const [maxValue, setMaxValue] = useState<number>(value);
+  const [select, setSelect] = useState<number>(value);
   const handleChange = (selected) => {
     if (maxSelect) {
       if (selected.length <= maxSelect) {
-        setMaxValue(selected);
-        setFormData({ ...formData, [name]: selected });
+        setSelect(selected);
+        setFormData((preData) => ({ ...preData, [name]: selected }));
       }
     } else {
-      setFormData({ ...formData, [name]: selected });
+      setFormData((preData) => ({ ...preData, [name]: selected }));
     }
   };
   return (
-    <div style={{ display: "flex", margin: "10px" }}>
+    <div>
       {label && (
         <div
           style={{ display: "flex", alignItems: "center", marginRight: "20px" }}
@@ -194,15 +193,14 @@ export const SelectMultiple = ({
         // className={styleCommodity}
         mode="multiple"
         size="large"
-        style={{ width: "100%" }}
+        style={{ width: "99.5%", margin: "10px" }}
         showSearch
         placeholder={placeholder}
         onChange={(e) => handleChange(e)}
-        value={maxValue}
-        filterOption={(
-          input: string,
-          option: { value: number; label: string }
-        ) => (option?.label ?? "").toLowerCase().includes(input.toLowerCase())}
+        value={value}
+        filterOption={(input: string, option: { value: any; label: string }) =>
+          (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
+        }
         options={data}
       />
     </div>
@@ -221,7 +219,7 @@ export const SelectSingleAndAdd = ({
   handleAdd,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectItem, setSelectItem] = useState<any>(data);
+
   const [filterValue, setFilterValue] = useState<string>("");
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [labelSelect, setLabelSelect] = useState<string>("Tất cả");
@@ -258,25 +256,11 @@ export const SelectSingleAndAdd = ({
       document.removeEventListener("scroll", handleScrollkOutside);
     };
   }, []);
-  const handleFilterSelect = (e) => {
-    let filterValue = e.target.value;
-    if (filterValue != "") {
-      setSelectItem(data);
-    } else {
-      setSelectItem(
-        data.filter((item) =>
-          toLowerCaseNonAccentVietnamese(item.label)?.includes(
-            toLowerCaseNonAccentVietnamese(filterValue)
-          )
-        )
-      );
-    }
-  };
   return (
     <div className={styles1.select_single_add}>
       <div className={styles1.box_select_add}>
         <label>{title}</label>
-        <button onClick={handleAdd}>+ {titleAdd}</button>
+        {titleAdd && <button onClick={handleAdd}>+ {titleAdd}</button>}
       </div>
       <div
         ref={dropdownRef}
@@ -425,9 +409,11 @@ export const SelectSingleAndOption = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const [labelSelect, setLabelSelect] = useState<string>("Tất cả");
+  const [labelSelect, setLabelSelect] = useState<string>(placeholder);
   useEffect(() => {
-    setLabelSelect(value ? data[value - 1]?.label : "Tất cả");
+    setLabelSelect(
+      value ? data.find((item) => item.value == value)?.label : placeholder
+    );
   }, [value]);
   const handelChooceOption = (item: { value: number; label: string }) => {
     setFormData({ ...formData, [name]: item.value });
@@ -550,13 +536,15 @@ export const SelectSingleAndOption = ({
                     aria-expanded="true"
                     aria-hidden="false"
                   >
-                    <li
-                      //   onClick={() => selectData(placeholder)}
-                      className={`${styles1.select2_results__option} ${styles1.select2_results__option_highlighted}`}
-                    >
-                      {/* Chọn tất cả */}
-                      {placeholder}
-                    </li>
+                    {placeholder && (
+                      <li
+                        //   onClick={() => selectData(placeholder)}
+                        className={`${styles1.select2_results__option} ${styles1.select2_results__option_highlighted}`}
+                      >
+                        {/* Chọn tất cả */}
+                        {placeholder}
+                      </li>
+                    )}
                     {data.length > 0 &&
                       data?.map(
                         (item: { value: number; label: string }, i: number) => (

@@ -1,75 +1,99 @@
-import PotentialSelectBoxStep from "../potential_steps/select_box_step";
+import { MInputTextAndOption } from "@/components/commodity/input";
 import styles from "./add_file_potential.module.css";
-import InputText from "./input_text";
+
+import {
+  SelectMultiple,
+  SelectSingleAndOption,
+} from "@/components/commodity/select";
+import {
+  LIST_BANK,
+  LIST_ORGANIZATIONAL,
+  LIST_PROFESSION,
+  LIST_REVENUE,
+  LIST_SECTOR,
+} from "@/utils/listOption";
+import { useEffect } from "react";
 export default function AddOrganizeInfo({ formData, setFormData }: any) {
+  useEffect(() => {
+    setFormData({ ...formData, classify: [] });
+  }, [formData.sector]);
   return (
     <div>
       <p className={styles.main__body__type}>Thông tin tổ chức</p>
 
-      <div className={styles.row_input}>
-        <InputText
+      <div className={styles.add_organize}>
+        <MInputTextAndOption
           label="Tổ chức"
           placeholder="Nhập tổ chức"
-          value={formData?.tochuc}
+          value={formData?.business_type}
           setFormData={setFormData}
-          keyValue="tochuc"
+          name="business_type"
         />
-        <InputText
-          value={formData?.taikhoannh}
+        <MInputTextAndOption
+          value={formData?.bank_account}
           setFormData={setFormData}
-          keyValue="taikhoannh"
           label="Tài khoản ngân hàng"
           placeholder="Nhập số tài khoản"
+          name="bank_account"
         />
-      </div>
 
-      <div className={styles.row_input}>
-        <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
-          <label className={`${styles["form-label"]}`}>Mở tại ngân hàng</label>
-          <PotentialSelectBoxStep
-            value="Chọn ngân hàng"
-            placeholder="Chọn ngân hàng"
-          />
-        </div>
-        <InputText
+        <SelectSingleAndOption
+          title="Mở tại ngân hàng"
+          data={LIST_BANK}
+          formData={formData}
+          setFormData={setFormData}
+          name="bank_id"
+          value={formData.bank_id}
+          placeholder="Chọn ngân hàng"
+        />
+        <MInputTextAndOption
           label="Ngày thành lập"
-          placeholder="Nhập ho và tên"
+          placeholder="Nhập ngày thành lập"
           type="date"
+          name="founding_date"
+          value={formData.founding_date}
+          setFormData={setFormData}
         />
-      </div>
-
-      <div className={styles.row_input}>
-        <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
-          <label className={`${styles["form-label"]}`}>Loại hình</label>
-          <PotentialSelectBoxStep
-            value="Chọn loại hình"
-            placeholder="Chọn loại hình"
-          />
-        </div>
-        <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
-          <label className={`${styles["form-label"]}`}>Lĩnh vực</label>
-          <PotentialSelectBoxStep
-            value="Chọn lĩnh vực"
-            placeholder="Chọn lĩnh vực"
-          />
-        </div>
-      </div>
-
-      <div className={styles.row_input}>
-        <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
-          <label className={`${styles["form-label"]}`}>Ngành nghề</label>
-          <PotentialSelectBoxStep
-            value="Chọn ngành nghề"
-            placeholder="Chọn ngành nghề"
-          />
-        </div>
-        <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
-          <label className={`${styles["form-label"]}`}>Doanh thu</label>
-          <PotentialSelectBoxStep
-            value="Chọn doanh thu"
-            placeholder="Chọn doanh thu"
-          />
-        </div>
+        <SelectSingleAndOption
+          title="Loại hình"
+          data={LIST_ORGANIZATIONAL}
+          formData={formData}
+          setFormData={setFormData}
+          name="organization"
+          value={formData.organization}
+          placeholder="Chọn loại hình"
+        />
+        <SelectMultiple
+          data={LIST_SECTOR}
+          name="sector"
+          setFormData={setFormData}
+          value={formData.sector}
+          label="Lĩnh vực"
+          placeholder="Chọn lĩnh vực"
+        />
+        <SelectMultiple
+          label="Ngành nghề"
+          name="classify"
+          setFormData={setFormData}
+          value={formData.classify}
+          placeholder="Chọn ngành nghề"
+          data={[
+            ...[].concat(
+              ...formData.sector.map((st) =>
+                LIST_PROFESSION.filter((pf) => pf.valueSector == st)
+              )
+            ),
+          ]}
+        />
+        <SelectSingleAndOption
+          title="Doanh thu"
+          placeholder="Chọn doanh thu"
+          data={LIST_REVENUE}
+          setFormData={setFormData}
+          name="revenue"
+          value={formData.revenue}
+          formData={formData}
+        />
       </div>
     </div>
   );
