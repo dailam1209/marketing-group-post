@@ -4,17 +4,28 @@ import { useState } from "react";
 import { Switch } from "antd";
 import Link from "next/link";
 
-import DelActionModal from "@/components/crm/order/order_action_modal/delete_action_mdal";
-
 // import InputText from "./input_text";
 import { Input, Tooltip } from "antd";
 import { useRouter } from "next/router";
+import DelActionModal from "../campaign_delete_action_mdal";
+import { fetchApi } from "../../ultis/api";
+import Cookies from "js-cookie";
 
-export default function AddButtonControl() {
+export default function DetailCampaignButtonControl() {
   const [isDelOpen, setIsDelOpen] = useState(false);
   const router = useRouter();
   const { id } = router.query;
+  const url = "http://localhost:3007/api/crm/campaign/delete-campaign";
+  const token = Cookies.get("token_base365");
   const onChange = (checked: boolean) => {};
+
+  const handleDelete = async (id: number) => {
+    const bodyAPI = {
+      cam_id: id,
+    };
+    const dataApi = await fetchApi(url, token, bodyAPI, "POST");
+    router.push("/campaign/list")
+  };
   return (
     <div>
       <div className={`${styles.main}`}>
@@ -41,8 +52,12 @@ export default function AddButtonControl() {
                     setIsDelOpen(true);
                   }}
                   className={`${styles.btn_delete} flex_align_center`}
+                  style={{
+                    textAlign: "center",
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
                 >
-                  &nbsp;&nbsp;&nbsp;
                   <i className="bi bi-trash3"></i>
                   Xóa
                 </button>
@@ -55,6 +70,8 @@ export default function AddButtonControl() {
       <DelActionModal
         isModalCancel={isDelOpen}
         setIsModalCancel={setIsDelOpen}
+        handleDelete={handleDelete}
+        id={Number(id)}
       />
     </div>
   );

@@ -19,6 +19,12 @@ export default function Campaign() {
   const [emp, setEmp] = useState([]);
   const [isFirstTime, setIsFirstTime] = useState(true);
   const [body, setBody] = useState<any>({ page: 1, pageSize: 10 });
+  const {
+    headerTitle,
+    setHeaderTitle,
+    setShowBackButton,
+    setCurrentPath,
+  }: any = useHeader();
 
   const url = "http://localhost:3007/api/crm/campaign/listCampaign";
 
@@ -48,10 +54,18 @@ export default function Campaign() {
   };
 
   useEffect(() => {
+    fetchAPIEmployee();
+  }, []);
+
+  useEffect(() => {
     if (trigger) {
       fetchAPICampaign();
     }
     setTrigger(false);
+
+    return () => {
+      setTrigger(true);
+    };
   }, [trigger]);
 
   useEffect(() => {
@@ -60,17 +74,6 @@ export default function Campaign() {
     }
     setIsFirstTime(false);
   }, [body]);
-
-  useEffect(() => {
-    fetchAPIEmployee();
-  }, []);
-
-  const {
-    headerTitle,
-    setHeaderTitle,
-    setShowBackButton,
-    setCurrentPath,
-  }: any = useHeader();
 
   useEffect(() => {
     setHeaderTitle("Chiến dịch");
@@ -85,6 +88,7 @@ export default function Campaign() {
       mainRef.current?.classList.remove("content_resize");
     }
   }, [isOpen]);
+
   return (
     <div ref={mainRef} className={styleHome.main}>
       <CampaignInputGroups empList={emp} setBody={setBody} body={body} />

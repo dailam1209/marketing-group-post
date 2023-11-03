@@ -4,7 +4,7 @@ import CampaignDetailSelectBox from "@/components/crm/campaign/campaign_detail/c
 import CustomerSelectModal from "@/components/crm/campaign/campaign_detail/campaign_detail_action_modal/customer_select_action_mdal";
 import CampaignCustomerAction from "@/components/crm/campaign/campaign_detail/campaign_customer_action";
 import Image from "next/image";
-export default function CampaignAppointmentInputGroups({ isSelectedRow }: any) {
+export default function CampaignCustomerInputGroup({ isSelectedRow }: any) {
   const [isModalCancel, setIsModalCancel] = useState(false);
   const handleClickSelectoption = () => {};
 

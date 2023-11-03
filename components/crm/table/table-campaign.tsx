@@ -79,6 +79,7 @@ const TableDataCampaign: React.FC<TableDataCampaignProps> = ({
       dataIndex: "key",
       key: "key",
     },
+
     {
       title: "Tên chiến dịch",
       width: 180,
@@ -89,6 +90,12 @@ const TableDataCampaign: React.FC<TableDataCampaignProps> = ({
           <b>{text}</b>
         </Link>
       ),
+    },
+    {
+      title: "ID",
+      width: 50,
+      dataIndex: "_id",
+      key: "_id",
     },
     {
       title: "Tình trạng",
