@@ -6,16 +6,20 @@ import CampaignSelectBoxStep from "@/components/crm/campaign/campaign_steps/sele
 import stylesCampaignSelect from "@/components/crm/campaign/campaign.module.css";
 import styles from "../order/order.module.css";
 import Link from "next/link";
+import {fetchApi} from "../ultis/api";
+import Cookies from "js-cookie";
+import {useTrigger} from "../context/triggerContext";
+import useLoading from "../hooks/useLoading";
 
 interface DataType {
   key: React.Key;
-  number: string;
+  cus_id: string;
   name: string;
-  phone: string;
+  phone_number: string;
   email: string;
   status: string;
   description: string;
-  source: string;
+  cus_from: string;
   group: string;
   staff: string;
   date: string;
@@ -25,8 +29,8 @@ const columns: ColumnsType<DataType> = [
   {
     title: "Mã KH",
     width: 120,
-    dataIndex: "number",
-    key: "number",
+    dataIndex: "cus_id",
+    key: "cus_id",
     // render:(text:any,record:any)=><Link href={`/order/detail/${record.key}`} ><b>{text}</b></Link>
   },
   {
@@ -42,8 +46,8 @@ const columns: ColumnsType<DataType> = [
   },
   {
     title: "Điện thoại",
-    dataIndex: "phone",
-    key: "phone",
+    dataIndex: "phone_number",
+    key: "phone_number",
     width: 150,
   },
   {
@@ -75,8 +79,8 @@ const columns: ColumnsType<DataType> = [
   },
   {
     title: "Nguồn khách hàng",
-    dataIndex: "source",
-    key: "source",
+    dataIndex: "cus_from",
+    key: "cus_from",
     width: 180,
     render: () => (
       <div
@@ -89,67 +93,86 @@ const columns: ColumnsType<DataType> = [
   },
   {
     title: "Nhóm khách hàng",
-    dataIndex: "group",
+    dataIndex: "group_id",
     key: "group",
     width: 250,
   },
   {
     title: "Nhân viên phụ trách",
-    dataIndex: "staff",
+    dataIndex: "userName",
     key: "staff",
     width: 200,
   },
   {
     title: "Ngày tạo",
-    dataIndex: "date",
+    dataIndex: "created_at",
     key: "date",
     width: 120,
   },
 ];
 
-export const data: DataType[] = [];
-for (let i = 0; i < 100; i++) {
-  data.push({
-    key: i,
-    number: `123456`,
-    name: `Nguyễn Trần Kim Phượng`,
-    phone: `0123 456 789`,
-    email: `nguyenvannam@gmail.com `,
-    status: `Hẹn gặp`,
-    description: `Khách hàng tháng 1`,
-    source: `Facebook`,
-    group: `Nhóm khách hàng không quan tâm`,
-    staff: `Nguyễn Văn Nam`,
-    date: `10/10/2021`,
-  });
-}
-
 interface TableDataOrderProps {
   setSelected: (value: boolean) => void;
   setNumberSelected: any;
+  setArrCustomerId: any
 }
 
 const TableDataOrder: React.FC<TableDataOrderProps> = ({
   setSelected,
   setNumberSelected,
+  setArrCustomerId
 }: any) => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
+  const url = "http://localhost:3007/api/crm/customer/list";
+  const token = Cookies.get("token_base365");
+  const [dataAPI, setDataApi] = useState([]);
+  const [count, setCount] = useState(0);
+  const { trigger, setTrigger } = useTrigger();
+  const { isLoading, startLoading, stopLoading } = useLoading();
 
-  const dataForPage = data.slice((currentPage - 1) * 10, currentPage * 10);
+  const fetchAPICustomer = async () => {
+    const bodyAPI = {
+    };
+    startLoading();
+    const dataApi = await fetchApi(url, token, bodyAPI, "POST");
+    console.log("aaaaa", dataApi);
+    setDataApi(dataApi?.data);
+    setCount(dataApi?.total);
+    stopLoading();
+  };
+  const data =
+    dataAPI?.map((item, index) => {
+      return {
+        ...item,
+        index: index + 1,
+        key: index,
+      };
+    }) || [];
+  useEffect(() => {
+    if (trigger) {
+      fetchAPICustomer();
+    }
+    setTrigger(false);
 
+    return () => {
+      setTrigger(true);
+    };
+  }, [trigger]);
   useEffect(() => {
     //
+    fetchAPICustomer();
   }, [currentPage]);
   const rowSelection: TableRowSelection<DataType> = {
     onChange: (selectedRowKeys, selectedRows) => {
       if (selectedRows?.length > 0) {
-        setSelected(true);
-      } else {
-        setSelected(false);
+        let arr_cus = selectedRows.map((e, i)=>{
+          return e.cus_id;
+        })
+        setArrCustomerId(arr_cus);
       }
     },
     onSelect: (record, selected, selectedRows) => {
@@ -161,18 +184,18 @@ const TableDataOrder: React.FC<TableDataOrderProps> = ({
     <div className="custom_table">
       <Table
         columns={columns}
-        dataSource={dataForPage}
+        dataSource={data}
         rowSelection={{ ...rowSelection }}
         bordered
         scroll={{ x: 1500, y: 400 }}
       />
       <div className={`${styles.main__footer} ${styles.flex_between}`}>
         <div className="total">
-          Tổng số: <b>{data.length}</b> Chiến dịch
+          Tổng số: <b>{count}</b> Chiến dịch
         </div>
         <Pagination
           current={currentPage}
-          total={data.length}
+          total={count}
           onChange={handlePageChange}
         />
       </div>

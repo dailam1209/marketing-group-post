@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import OrderSelectBox from "@/components/crm/order/order_selectt";
 // import TabOrderList from './tab_order_list';
 import TableDataCampaignCustomerSelect from "@/components/crm/table/table-campaign-customer-select";
+const Cookies = require("js-cookie");
 
 interface MyComponentProps {
   isModalCancel: boolean;
@@ -22,9 +23,47 @@ const CancelModal: React.FC<MyComponentProps> = ({
   const router = useRouter();
   const [isSelectedRow, setIsSelectedRow] = useState(false);
   const [isNumberSelected, setNumberSelected] = useState(0);
-  const handleOK = () => {
-    setIsModalCancel(false);
-    // router.push("/order/list");
+  const [arrCustomerId, setArrCustomerId] = useState([]);
+  const [errorSelectedValue, setErrorSelectedValue] = useState(false);
+  const [isOpenMdalSuccess, setIsOpenMdalSuccess] = useState(false);
+
+  // const handleOK = () => {
+  //   setIsModalCancel(false);
+  //   router.push("/order/list");
+  // };
+  const handleOK = async () => {
+    const isValidSharing = validate();
+    if (isValidSharing) {
+      console.log(arrCustomerId)
+      try {
+        await fetch(`http://localhost:3007/api/crm/customerdetails/add-campaign-customer`, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${Cookies.get("token_base365")}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            arr_campaign_id: [router.query.id],
+            arr_cus_id: arrCustomerId,
+          }),
+        });
+      } catch (error) {}
+      setIsModalCancel(false);
+      setIsOpenMdalSuccess(true);
+      setTimeout(() => {
+        setIsOpenMdalSuccess(false);
+      }, 2000);
+      // await fetchData();
+    }
+  };
+  const validate = () => {
+    if (arrCustomerId.length<0) {
+      setErrorSelectedValue(true);
+      return false;
+    } else {
+      setErrorSelectedValue(false);
+      return true;
+    }
   };
 
   return (
@@ -82,6 +121,7 @@ const CancelModal: React.FC<MyComponentProps> = ({
           <TableDataCampaignCustomerSelect
             setSelected={setIsSelectedRow}
             setNumberSelected={setNumberSelected}
+            setArrCustomerId={setArrCustomerId}
           />
         }
       </Modal>
