@@ -81,8 +81,9 @@ const TabComponent = ({ formFields }) => {
                   </div>
 
                   <TableDataCampaignCustomer
-                    setSelected={setIsSelectedRow}
-                    setNumberSelected={setNumberSelected}
+                    emp={emp}
+                    body={body}
+                    setBody={setBody}
                   />
                 </div>
               </div>
