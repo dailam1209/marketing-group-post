@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Tabs } from "antd";
 import Link from "next/link";
 import styles from "@/components/crm/quote/quote.module.css";
@@ -16,6 +16,8 @@ import TableTLChiaSe from "@/components/crm/table/table-DSchia-se";
 import ShareDSCSActionModal from "@/components/crm/quote/quote_action_modal/share_dsChiaSe.mdal";
 import TableDataNoteDetailList from "@/components/crm/table/table-note-customer";
 import NoteDetailBtnsGroup from "@/components/crm/potential/detail/note_potential_input";
+import { useRouter } from "next/router";
+const Cookies = require("js-cookie");
 
 type Props = {};
 

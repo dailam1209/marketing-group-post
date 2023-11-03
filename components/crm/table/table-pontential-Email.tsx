@@ -2,10 +2,14 @@ import React from "react";
 import { Table, Tooltip } from "antd";
 import styles from "../order/order.module.css";
 import type { ColumnsType } from "antd/es/table";
+import { SetStateAction, useContext, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 // import { TableRowSelection } from "antd/es/table/interface";
 import QuoteActionLichHenTable from "../quote/action_lich_hen_table";
 import PotentialActionEmailTable from "../potential/action_table/potential_action_Email";
+const Cookies = require("js-cookie");
+import { useRouter } from "next/router";
+
 
 interface DataType {
   key: React.Key;
@@ -106,6 +110,37 @@ for (let i = 0; i < 100; i++) {
 interface TableDataCampaignProps {}
 
 const TableDataEmailPo: React.FC<TableDataCampaignProps> = () => {
+  const [data, setData] = useState<any>([]);
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+  const [totalRecords, setTotalRecords] = useState();
+  const [loading, setloading] = useState(true);
+  const router = useRouter();
+  // const { id } = router.query;
+
+  const fetchData = async () => {
+    try {
+      const res = await fetch(`http://localhost:3007/api/crm/potential/listEmailPotential`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get("token_base365")}`,
+        },
+        body: JSON.stringify({ customer_id: 1 }),
+      });
+      let data = await res.json();
+      data = data?.data?.listEmailPotential;
+      setData(data);
+      if (data?.data?.length <= 0) {
+        setloading(false);
+      }
+      setTotalRecords(data?.total);
+    } catch (error) {}
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
+  console.log("checkdara",data)
   return (
     <div className="custom_table campaign_tble">
       <Table
