@@ -12,7 +12,8 @@ interface MyComponentProps {
   setFillStart: any;
   fillEnd: any;
   setFillEnd: any;
-  handleGet: any;
+  handleFilter: any;
+  phongban: any;
   setPhongban: any;
 }
 const FilterThongKe: React.FC<MyComponentProps> = ({
@@ -23,7 +24,8 @@ const FilterThongKe: React.FC<MyComponentProps> = ({
   setFillStart,
   fillEnd,
   setFillEnd,
-  handleGet,
+  handleFilter,
+  phongban,
   setPhongban,
 }) => {
   const [listPB, setlistPB] = useState([]);
@@ -34,7 +36,7 @@ const FilterThongKe: React.FC<MyComponentProps> = ({
 
   const handleOk = () => {
     setIsModalOpen(false);
-    handleGet();
+    handleFilter();
   };
 
   const handleCancel = () => {
@@ -58,7 +60,7 @@ const FilterThongKe: React.FC<MyComponentProps> = ({
             Authorization: `Bearer ${Cookies.get("token_base365")}`,
           },
           // body: JSON.stringify({ com_id: 10003087 }),
-          body: JSON.stringify({ com_id: decodedToken["data"].com_id })
+          body: JSON.stringify({ com_id: decodedToken["data"].com_id }),
         }
       );
       const data = await res.json()
@@ -102,7 +104,7 @@ const FilterThongKe: React.FC<MyComponentProps> = ({
               >
                 <div>Từ</div>
                 <div>
-                  <Input onChange={handleDateChange} type="date"></Input>
+                  <Input onChange={handleDateChange} type="date" defaultValue={fillStart}></Input>
                 </div>
               </div>
               <div
@@ -114,7 +116,7 @@ const FilterThongKe: React.FC<MyComponentProps> = ({
               >
                 <div>Đến</div>
                 <div>
-                  <Input onChange={handleDateChange2} type="date"></Input>
+                  <Input onChange={handleDateChange2} type="date" defaultValue={fillEnd}></Input>
                 </div>
               </div>
             </div>
@@ -133,8 +135,10 @@ const FilterThongKe: React.FC<MyComponentProps> = ({
                 <Select
                   onChange={handleSlectPB}
                   style={{ width: 145 }}
+                  value={phongban}
                   placeholder="Chọn tổ chức"
                 >
+                  <option>Chọn tổ chức</option>
                   {listPB &&
                     listPB.length > 0 &&
                     listPB?.map((item: any, index: number) => {
@@ -164,7 +168,7 @@ const FilterThongKe: React.FC<MyComponentProps> = ({
 
             <Button
               style={{ color: "#fff", background: "#4c5bd4", width: 100 }}
-              onClick={handleGet}
+              onClick={handleFilter}
             >
               Tìm kiếm
             </Button>

@@ -1,6 +1,7 @@
 import { Button, Table } from "antd";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import Cookies from "js-cookie";
+import { useRouter } from "next/router";
 import styles from "./tongdai.module.css";
 import Link from "next/link";
 import cskh from "../csks.module.css";
@@ -12,18 +13,33 @@ import { dataSaveTD, doDisConnect } from "../../redux/user/userSlice";
 type Props = {};
 
 const GhiAmPage = (props: Props) => {
+  const router = useRouter();
+  const { nhanvien, songhe, timeStart, timeEnd } = router.query as { nhanvien: string, songhe: string, timeStart: string, timeEnd: string };
   const [isShowModal, setIsShowModal] = useState(false);
   const [isShowModalAdd, setIsShowModalAdd] = useState(false);
   const { isConnected } = useContext<any>(CallContext);
   const [listData, setListData] = useState([]);
-  const [dataApi, setDataApi] = useState([]);
   const show = useSelector((state: any) => state?.auth?.account);
   const [current, setcurrent] = useState(1);
+  const [loading, setLoading] = useState(true);
   const [pageSize, setpageSize] = useState(10);
   const [showKetNoi, setShowKetNoi] = useState(true);
-  const [condition, setCondition] = useState(
-    JSON.stringify({ state: "ANSWERED", token: Cookies.get("token_base365") })
-  );
+  const [condition, setCondition] = useState(() => {
+    const query = { state: "ANSWERED", token: Cookies.get("token_base365") }
+    if (timeStart) {
+      query["timeStart"] = timeStart
+    }
+    if (timeEnd) {
+      query["timeEnd"] = timeEnd
+    }
+    if (nhanvien) {
+      query["line"] = nhanvien
+    }
+    if (songhe && songhe !== '') {
+      query["customerPhone"] = songhe
+    }
+    return JSON.stringify(query)
+  })
   const onClose = () => {
     setIsShowModalAdd(false);
     setIsShowModal(false);
@@ -31,12 +47,8 @@ const GhiAmPage = (props: Props) => {
   const handleAddDB = () => {
     setIsShowModalAdd(false);
   };
-  const [soNghe, setSoNghe] = useState();
-  const [nv, setnv] = useState();
-  const totalSum = listData?.reduce(
-    (acc, current) => acc + +current.ring_duration,
-    0
-  );
+  const [soNghe, setSoNghe] = useState(songhe);
+  const [nv, setnv] = useState(nhanvien);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const datatable: any = listData?.map((item: any) => {
@@ -58,14 +70,25 @@ const GhiAmPage = (props: Props) => {
     pauseButtonId: string
   ) {
     const audioElement = document.getElementById(audioId) as HTMLAudioElement;
-    const playButton = document.getElementById(
-      playButtonId
-    ) as HTMLButtonElement;
-    const pauseButton = document.getElementById(
-      pauseButtonId
-    ) as HTMLButtonElement;
+    const playButton = document.getElementById(playButtonId) as HTMLButtonElement;
+    const pauseButton = document.getElementById(pauseButtonId) as HTMLButtonElement;
 
-    if (audioElement.paused) {
+    if (audioElement.paused || audioElement.ended) {
+      // Dừng tất cả các audio khác đang phát
+      const allAudioElements = document.querySelectorAll("audio");
+      allAudioElements.forEach((element) => {
+        if (element.id !== audioId) {
+          element.pause();
+          element.currentTime = 0; // Đặt lại thời gian audio về đầu
+          const playId = "play-" + element.id.split("-")[1];
+          const pauseId = "pause-" + element.id.split("-")[1];
+          const playButton = document.getElementById(playId) as HTMLButtonElement;
+          const pauseButton = document.getElementById(pauseId) as HTMLButtonElement;
+          playButton.style.display = "block";
+          pauseButton.style.display = "none";
+        }
+      });
+
       audioElement.play();
       playButton.style.display = "none";
       pauseButton.style.display = "block";
@@ -76,69 +99,64 @@ const GhiAmPage = (props: Props) => {
     }
   }
 
+  // Bắt sự kiện 'ended' cho phần tử audio
+
+
   interface CallRecord {
     id: string;
     filepath: string;
     filename: string;
     // Các trường dữ liệu khác của CallRecord
   }
-
-  const count = listData?.reduce((acc, current) => {
-    if (current.status === "ANSWERED") {
-      return acc + 1;
-    }
-    return acc;
-  }, 0);
   const dispatch = useDispatch();
-  const [fillStart, setFillStart] = useState<any>();
-  const [fillEnd, setFillEnd] = useState<any>();
+  const [fillStart, setFillStart] = useState<any>(() => {
+    if (!timeStart) return undefined
+    return timeStart.split(' ')[0]
+  });
+  const [fillEnd, setFillEnd] = useState<any>(() => {
+    if (!timeEnd) return undefined
+    return timeEnd.split(' ')[0]
+  });
 
-  const handleGet = async () => {
+  const handleFilter = async () => {
+    console.log(nv)
+    let param = ''
     if (soNghe) {
-      let dataFill = dataApi.filter((item) => item.callee === soNghe);
-      setListData(dataFill);
-      setIsModalOpen(false);
-      return;
+      param += `songhe=${soNghe}&`
     }
     if (nv) {
-      let dataFill = dataApi.filter((item) => +item.caller === nv);
-      setListData(dataFill);
-      setIsModalOpen(false);
-      return;
+      param += `nhanvien=${nv}&`
     }
-    setIsModalOpen(false);
-    if (fillEnd && fillStart) {
-      setCondition(
-        JSON.stringify({
-          state: "ANSWERED",
-          timeStart: fillStart,
-          timeEnd: fillEnd,
-          token: Cookies.get("token_base365"),
-        })
-      );
+    if (fillStart) {
+      param += `timeStart=${fillStart}&`
     }
-
-    const response = await fetch(`https://voip.timviec365.vn/api/getStorage`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: condition,
-    });
-    const data = await response.json();
-    if (data && data.data && data.data.storage) {
-      setListData(data.data.storage);
-      setDataApi(data.data.storage);
-    } else {
-      dispatch(doDisConnect(""));
+    if (fillEnd) {
+      param += `timeEnd=${fillEnd}&`
     }
-    return data;
+    param !== '' ? router.push(`?${param}`) : router.push('')
   };
 
   useEffect(() => {
-    handleGet();
-  }, [condition]);
-  console.log("tet", datatable);
+    const getData = async () => {
+      const response = await fetch(`https://voip.timviec365.vn/api/getStorage`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: condition,
+      });
+      const data = await response.json();
+      setLoading(false)
+      if (data && data.data && data.data.storage) {
+        setListData(data.data.storage);
+      } else {
+        dispatch(doDisConnect(""));
+      }
+      return data;
+    };
+    getData();
+  }, []);
+
   const Colums = [
     {
       width: "10%",
@@ -175,8 +193,8 @@ const GhiAmPage = (props: Props) => {
       dataIndex: "filepath",
       render: (text: any, record: CallRecord) => (
         <div className={`${styles.audio_container}`}>
-          <audio id={`audio-${record.id}`}>
-            <source src={`${record.filepath}`} type="audio/ogg" />
+          <audio src={`${record.filepath}`} id={`audio-${record.id}`}>
+            {/* <source src={`${record.filepath}`} type="audio/ogg" /> */}
           </audio>
           <div className={`${styles.audio_buttons_play}`}>
             <button
@@ -186,7 +204,7 @@ const GhiAmPage = (props: Props) => {
                 toggleAudio(
                   `audio-${record.id}`,
                   `play-${record.id}`,
-                  `pause-${record.id}`
+                  `pause-${record.id}`,
                 )
               }
             >
@@ -201,7 +219,7 @@ const GhiAmPage = (props: Props) => {
                 toggleAudio(
                   `audio-${record.id}`,
                   `play-${record.id}`,
-                  `pause-${record.id}`
+                  `pause-${record.id}`,
                 )
               }
               style={{ display: "none" }}
@@ -226,7 +244,7 @@ const GhiAmPage = (props: Props) => {
               setFillStart={setFillStart}
               fillEnd={fillEnd}
               setFillEnd={setFillEnd}
-              handleGet={handleGet}
+              handleFilter={handleFilter}
               soNghe={soNghe}
               setSoNghe={setSoNghe}
               nv={nv}
@@ -257,7 +275,7 @@ const GhiAmPage = (props: Props) => {
 
       <div style={{ paddingTop: 20 }}>
         <Table
-          loading={datatable ? false : true}
+          loading={loading}
           columns={Colums as any}
           dataSource={datatable}
           bordered
