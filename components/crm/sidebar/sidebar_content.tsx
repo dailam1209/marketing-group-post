@@ -415,9 +415,9 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
           ? sidebar_button_group_company
           : sidebar_button_group
         )?.map((items: any, i) => (
-          <div key={i}>
+          <>
             {/* {items?.role === "seen" ? ( */}
-            <div className={style.item_parent}>
+            <div className={style.item_parent} key={i}>
               {items && items.children && items.children.length > 0 ? (
                 <>
                   <div
@@ -465,7 +465,7 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
             {/* ) : ( */}
             {/* <></> */}
             {/* )} */}
-          </div>
+          </>
         ))}
       </div>
       <button

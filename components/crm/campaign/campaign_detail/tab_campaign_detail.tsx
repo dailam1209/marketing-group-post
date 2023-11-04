@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import styles from "../campaign.module.css";
 import AddCampaignGeneralDetailInfo from "@/components/crm/campaign/campaign_detail/campaign_general_detail_info";
@@ -20,30 +20,48 @@ import CampaignEmailInputGroup from "@/components/crm/campaign/campaign_detail/c
 import CustomerSelectModal from "@/components/crm/campaign/campaign_detail/campaign_detail_action_modal//customer_select_action_mdal";
 import ShareActionModal from "@/components/crm/campaign/campaign_detail/campaign_detail_action_modal/share_campaign_action_mdal";
 import { Tabs } from "antd";
+import { fetchApi } from "../../ultis/api";
+import Cookies from "js-cookie";
 
-const TabComponent = () => {
+const TabComponent = ({ formFields }) => {
   const [activeTab, setActiveTab] = useState("tab1");
   const [isModalCancel, setIsModalCancel] = useState(false);
   const [isOpenShare, setIsOpenShare] = useState(false);
-  const [isInsertFileOpen, setIsInsertFileOpen] = useState(false);
   const [isSelectedRow, setIsSelectedRow] = useState(false);
   const [isNumberSelected, setNumberSelected] = useState(0);
+  const token = Cookies.get("token_base365");
+  const [emp, setEmp] = useState([]);
+  const [body, setBody] = useState<any>({ page: 1, pageSize: 1 });
+
+  const fetchAPIEmployee = async () => {
+    const dataApi = await fetchApi(
+      "http://210.245.108.202:3000/api/qlc/managerUser/listUser",
+      token,
+      { page: 1, pageSize: 10000 },
+      "POST"
+    );
+    setEmp(dataApi?.data?.data);
+  };
 
   const handleTabChange = (key: any) => {
     setActiveTab(key);
   };
 
+  useEffect(() => {
+    fetchAPIEmployee();
+  }, []);
+
   return (
     <div>
-      {/* <Tabs activeKey={activeTab} onChange={handleTabChange}>
-        <Tabs.Item tab="Thông tin chi tiết" key="tab1">
+      <Tabs activeKey={activeTab} onChange={handleTabChange}>
+        <Tabs.TabPane tab="Thông tin chi tiết" key="tab1">
           <div className={styles.main_importfile}>
             <div className={styles.formInfoStep}>
               <div className={styles.info_step}>
                 <div className={styles.main__title}>Thông tin đơn hàng</div>
                 <div className={styles.form_add_potential}>
                   <div className={styles.main__body}>
-                    <AddCampaignGeneralDetailInfo />
+                    <AddCampaignGeneralDetailInfo formFields={formFields} />
                     {/* <AddOrderDetailTable /> */}
       {/* <AddOrderDetailStatus /> */}
       {/* </div>
@@ -52,8 +70,8 @@ const TabComponent = () => {
               </div>
             </div>
           </div>
-        </Tabs.Item>
-        <Tabs.Item tab="Khách hàng" key="tab2">
+        </Tabs.TabPane>
+        <Tabs.TabPane tab="Khách hàng" key="tab2">
           <div className={styles.main_importfile}>
             <div className={styles.formInfoStep}>
               <div className={styles.info_step}>
@@ -63,30 +81,39 @@ const TabComponent = () => {
                   </div>
 
                   <TableDataCampaignCustomer
-                    setSelected={setIsSelectedRow}
-                    setNumberSelected={setNumberSelected}
+                    emp={emp}
+                    body={body}
+                    setBody={setBody}
                   />
                 </div>
               </div>
             </div>
           </div>
-        </Tabs.Item>
-        <Tabs.Item tab="Cơ hội" key="tab3">
+        </Tabs.TabPane>
+        <Tabs.TabPane tab="Cơ hội" key="tab3">
           <div className={styles.main_importfile}>
             <div className={styles.formInfoStep}>
               <div className={styles.info_step}>
                 <div className={styles.form_add_potential}>
                   <div className={`${styles.main__control_btn}`}>
-                    <CampaignChanceInputGroup />
+                    <CampaignChanceInputGroup
+                      emp={emp}
+                      body={body}
+                      setBody={setBody}
+                    />
                   </div>
 
-                  <TableDataCampaginChance />
+                  <TableDataCampaginChance
+                    body={body}
+                    setBody={setBody}
+                    emp={emp}
+                  />
                 </div>
               </div>
             </div>
           </div>
-        </Tabs.Item>
-        <Tabs.Item tab="Đơn hàng" key="tab4">
+        </Tabs.TabPane>
+        <Tabs.TabPane tab="Đơn hàng" key="tab4">
           <div className={styles.main_importfile}>
             <div className={styles.formInfoStep}>
               <div className={styles.info_step}>
@@ -103,8 +130,8 @@ const TabComponent = () => {
               </div>
             </div>
           </div>
-        </Tabs.Item>
-        <Tabs.Item tab="Hóa đơn" key="tab5">
+        </Tabs.TabPane>
+        <Tabs.TabPane tab="Hóa đơn" key="tab5">
           <div className={styles.main_importfile}>
             <div className={styles.formInfoStep}>
               <div className={styles.info_step}>
@@ -121,8 +148,8 @@ const TabComponent = () => {
               </div>
             </div>
           </div>
-        </Tabs.Item>
-        <Tabs.Item tab="Lịch hẹn" key="tab6">
+        </Tabs.TabPane>
+        <Tabs.TabPane tab="Lịch hẹn" key="tab6">
           <div className={styles.main_importfile}>
             <div className={styles.formInfoStep}>
               <div className={styles.info_step}>
@@ -136,8 +163,8 @@ const TabComponent = () => {
               </div>
             </div>
           </div>
-        </Tabs.Item>
-        <Tabs.Item tab="Email" key="tab7">
+        </Tabs.TabPane>
+        <Tabs.TabPane tab="Email" key="tab7">
           <div className={styles.main_importfile}>
             <div className={styles.formInfoStep}>
               <div className={styles.info_step}>
@@ -151,8 +178,8 @@ const TabComponent = () => {
               </div>
             </div>
           </div>
-        </Tabs.Item>
-        <Tabs.Item tab="Danh sách chia sẻ" key="tab8">
+        </Tabs.TabPane>
+        <Tabs.TabPane tab="Danh sách chia sẻ" key="tab8">
           <div className={styles.main_importfile}>
             <div className={styles.formInfoStep}>
               <div className={styles.info_step}>
@@ -206,8 +233,8 @@ const TabComponent = () => {
               </div>
             </div>
           </div>
-        </Tabs.Item>
-      </Tabs> */}
+        </Tabs.TabPane>
+      </Tabs>
 
       <CustomerSelectModal
         isModalCancel={isModalCancel}
