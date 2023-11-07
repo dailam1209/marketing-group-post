@@ -20,6 +20,7 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
   const [providerOpen, setProviderOpen] = useState(false);
   const [openModalLogin, setOpenModalLogin] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isCommodity, setIsCommodity] = useState(false);
 
   const { accessAcountRole, setAccessAcountRole }: any =
     useContext(AccessContext);
@@ -53,6 +54,9 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
     if (label === "Phân quyền") {
       setAccessRoleOpen(!accessRoleOpen);
     }
+    if (label === "Vật tư hàng hóa") {
+      setIsCommodity(!isCommodity);
+    }
     if (label === "Khách hàng") {
       setIsCustomOpen(!isCustomOpen);
     }
@@ -74,6 +78,9 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
   const isOpenChild = (label: string) => {
     if (label === "Phân quyền") {
       return accessRoleOpen;
+    }
+    if (label === "Vật tư hàng hóa") {
+      return isCommodity;
     }
     if (label === "Khách hàng") {
       return isCustomOpen;
@@ -179,7 +186,6 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
                 style={{ cursor: "pointer" }}
               >
                 <img
-            
                   alt="hungha365.com"
                   src={items.img_link}
                   className={style.img_link}

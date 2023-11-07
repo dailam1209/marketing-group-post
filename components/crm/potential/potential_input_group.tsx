@@ -4,6 +4,22 @@ import PotentialAction from "./potential_action";
 import PotentialSelectBox from "./potential_selectt";
 import Link from "next/link";
 import exportToExcel from "../ultis/export_xlxs";
+import { axiosQLC } from "@/utils/api/api_qlc";
+import { ngayHomNay, notifyError, renderPosition } from "@/utils/function";
+import SelectSingle from "@/components/commodity/select";
+import {
+  LIST_BUSINESS_TYPE,
+  LIST_SECTOR,
+  getPotentialResource,
+  renderBusinessType,
+  renderPotentialResource,
+  renderSector,
+  renderVocative,
+} from "@/utils/listOption";
+import { InputSearch } from "@/components/commodity/input";
+import { axiosCRM } from "@/utils/api/api_crm";
+import { renderCity, renderDistrict } from "@/constants/address-constant";
+import { ExcelDownload } from "@/components/commodity/excelDownload";
 const Cookies = require("js-cookie");
 const role = Cookies.get("role");
 
@@ -13,9 +29,12 @@ export default function PotentialInputGroups({
   isNumberSelected,
   setSelected,
   setNumberSelected,
+  formData = null,
+  setFormData = null,
 }: any) {
   const [listNV, setListNv] = useState<any>();
   const [dep_id, setDep_id] = useState<any>();
+  const [listEmp, setListEmp] = useState([]);
 
   const handleGetInfoCusNV = async () => {
     try {
@@ -39,7 +58,23 @@ export default function PotentialInputGroups({
       }
     } catch (error) {}
   };
-
+  useEffect(() => {
+    axiosQLC
+      .post("/managerUser/listUser", { ep_status: "Active" })
+      .then((res) => convertDataEmp(res.data.data.data))
+      .catch((err) => notifyError("Vui lòng thử lại sau!"));
+  }, []);
+  const convertDataEmp = (datas) => {
+    setListEmp(
+      datas.map((item: any) => ({
+        value: item.ep_id,
+        label: item.userName,
+      }))
+    );
+  };
+  const handleRecall = () => {
+    setFormData({ ...formData, recall: !formData.recall });
+  };
   const handleGetInfoCus = async () => {
     try {
       const res = await fetch(
@@ -62,41 +97,17 @@ export default function PotentialInputGroups({
     handleGetInfoCus();
   }, [dep_id]);
 
-  const datas = [
-    {
-      "Mã tiềm năng": "TN001",
-      "Xưng hô": "Mr.",
-      "Họ tên": "John Doe",
-      "Chức danh": "Manager",
-      "Điện thoại cá nhân": "123-456-7890",
-      " cá nhân": "john.doe@example.com",
-      "Điện thoại cơ quan": "098-765-4321",
-      " cơ quan": "john.doe@company.com",
-      "Địa chỉ": "123 Main St",
-      "Tỉnh/Thành phố": "New York",
-      "Quận/Huyện": "Manhattan",
-      "Phường xã": "Central Park",
-      "Nguồn gốc": "Website",
-      "Loại hình": "B2B",
-      "Lĩnh vực": "Technology",
-      "Mô tả": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      "Mô tả loại hình": "Lorem ipsum dolor sit amet.",
-      "Người tạo": "Admin",
-    },
-    // Add more sample data objects here if needed
-  ];
-  const handleExportToExcel = () => {
-    const filename = "Danh sách tiềm năng.xlsx";
-    const sheetName = "Danh sách tiềm năng";
+  const handleExportToExcel = async () => {
+    const filename = `Danh sách tiềm năng ${ngayHomNay()}.xlsx`;
     const columnHeaders = [
       "Mã tiềm năng",
       "Xưng hô",
-      "Họ tên",
+      "Họ và tên",
       "Chức danh",
       "Điện thoại cá nhân",
-      " cá nhân",
+      "Email cá nhân",
       "Điện thoại cơ quan",
-      " cơ quan",
+      "Email cơ quan",
       "Địa chỉ",
       "Tỉnh/Thành phố",
       "Quận/Huyện",
@@ -105,11 +116,36 @@ export default function PotentialInputGroups({
       "Loại hình",
       "Lĩnh vực",
       "Mô tả",
-      "Mô tả loại hình",
       "Người tạo",
     ];
-    exportToExcel(datas, filename, sheetName, columnHeaders);
+    const respon = await axiosCRM.post("/potential/listPotential", formData);
+
+    const data = await respon.data.data.data?.map((item) => [
+      item.potential_id,
+      renderVocative(item.vocative),
+      `${item.stand_name} ${item.name}`,
+      renderPosition(item.pos_id),
+      item.private_phone,
+      item.private_email,
+      item.office_phone,
+      item.office_email,
+      item.address,
+      renderCity(item.cit_id),
+      renderDistrict(item.district_id),
+      item.ward,
+      renderPotentialResource(item.resource),
+      renderBusinessType(item.business_type),
+      item.sector &&
+        item.sector
+          .split(",")
+          .map((item, index) => `${renderSector(item)}`)
+          ?.join(", "),
+      item.description,
+      "Thiếu người tạo, sẽ thêm sau",
+    ]);
+    ExcelDownload([columnHeaders, ...data], filename);
   };
+  console.log("CheckForm", formData);
   return (
     <div className={styles.main__control}>
       <div className={`${styles.main__control_select} flex_align_center`}>
@@ -123,6 +159,13 @@ export default function PotentialInputGroups({
               type="date"
               name=""
               id="start_time"
+              onChange={(e) => {
+                setFormData((prev) => ({
+                  ...prev,
+                  fromDate: e.target.value,
+                  recall: !prev.recall,
+                }));
+              }}
             />
             -
             <input
@@ -130,34 +173,66 @@ export default function PotentialInputGroups({
               type="date"
               name=""
               id="end_time"
+              onChange={(e) => {
+                setFormData((prev) => ({
+                  ...prev,
+                  toDate: e.target.value,
+                  recall: !prev.recall,
+                }));
+              }}
             />
           </div>
         </div>
-        <PotentialSelectBox title="Loại hình:" value="Tất cả" />
-        <PotentialSelectBox title="Lĩnh vực:" value="Tất cả" />
-        <PotentialSelectBox title="Nguồn gốc:" value="Tất cả" />
-        <PotentialSelectBox title="Người tạo:" value="Tất cả" />
-      </div>
-
-      <div className={`${styles.main__control_btn} flex_between`}>
-        <div className={styles.main__control_search}>
-          <form onSubmit={() => false}>
-            <input
-              type="text"
-              className={styles.input__search}
-              name="search"
-              defaultValue=""
-              placeholder="Tìm kiếm theo tên tiềm năng"
-            />
-            <button className={styles.kinh_lup}>
-              <img
-                className={styles.img__search}
-                src="/crm/search.svg"
-                alt="hungha365.com"
-              />
-            </button>
-          </form>
+        <div className={`${styles.select_itemM}`}>
+          <SelectSingle
+            setFormData={setFormData}
+            title="Loại hình"
+            data={LIST_BUSINESS_TYPE}
+            name="business_type"
+            placeholder="Tất cả"
+            onChange={handleRecall}
+          />{" "}
         </div>
+        <div className={`${styles.select_itemM}`}>
+          <SelectSingle
+            setFormData={setFormData}
+            title="Lĩnh vực"
+            data={LIST_SECTOR}
+            name="sector"
+            placeholder="Tất cả"
+            onChange={handleRecall}
+          />
+        </div>
+        <div className={`${styles.select_itemM}`}>
+          <SelectSingle
+            setFormData={setFormData}
+            title="Nguồn gốc"
+            data={getPotentialResource}
+            name="resource"
+            placeholder="Tất cả"
+            onChange={handleRecall}
+          />
+        </div>
+        <div className={`${styles.select_itemM}`}>
+          {" "}
+          <SelectSingle
+            setFormData={setFormData}
+            title="Nguời tạo"
+            data={listEmp}
+            name="user_create_id"
+            placeholder="Tất cả"
+            onChange={handleRecall}
+          />
+        </div>
+      </div>
+      <div className={`${styles.main__control_btn} flex_between`}>
+        <InputSearch
+          value={formData.name}
+          setFormData={setFormData}
+          onSubmit={handleRecall}
+          name="name"
+          placeholder="Tìm kiếm theo tên tiềm năng"
+        />
         <div className={`${styles.main__control_add} flex_end`}>
           <Link href="/potential/add_file">
             <button

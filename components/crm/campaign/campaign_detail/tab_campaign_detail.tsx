@@ -71,8 +71,8 @@ const TabComponent = ({ formFields, isHideEmptyData }) => {
                       empList={emp}
                     />
                     {/* <AddOrderDetailTable /> */}
-                    {/* <AddOrderDetailStatus /> */}
-                  </div>
+      {/* <AddOrderDetailStatus /> */}
+      {/* </div>
                 </div>
                 <div>&nbsp;</div>
               </div>
@@ -200,9 +200,9 @@ const TabComponent = ({ formFields, isHideEmptyData }) => {
             <div className={styles.formInfoStep}>
               <div className={styles.info_step}>
                 <div className={styles.form_add_potential}>
-                  <div className={`${styles.main__control_btn} flex_between`}>
-                    {/* <OrderDetailAppointmentInputGroup /> */}
-                  </div>
+                  <div className={`${styles.main__control_btn} flex_between`}> */}
+      {/* <OrderDetailAppointmentInputGroup /> */}
+      {/* </div>
                   <div className={`${styles.main__control_btn} flex_between`}>
                     <div className={styles.main__control_search}>
                       <form onSubmit={() => false}>

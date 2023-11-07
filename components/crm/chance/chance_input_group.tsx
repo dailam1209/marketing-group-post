@@ -62,3 +62,28 @@ export default function PotentialInputGroups({ isSelectedRow }: any) {
     </div>
   );
 }
+
+// export const InputSearch = ({ value, setValue, onSubmit=null, placeholder }) => {
+//   return (
+//     <div className={styles.main__control_search}>
+//       <form onSubmit={() => onSubmit}>
+//         <input
+//           onChange={(e) => setValue(e.target.value)}
+//           value={value}
+//           type="text"
+//           className={styles.input__search}
+//           name="search"
+//           defaultValue=""
+//           placeholder={placeholder}
+//         />
+//         <button onClick={onSubmit} className={styles.kinh_lup}>
+//           <img
+//             className={styles.img__search}
+//             src="/crm/search.svg"
+//             alt="hungha365.com"
+//           />
+//         </button>
+//       </form>
+//     </div>
+//   );
+// };

@@ -1,11 +1,8 @@
 import React from "react";
-import styles from "../contract/contract.module.css";
-import { Table, Tooltip } from "antd";
+import { Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import Link from "next/link";
-import ProductActionDropDown from "../product_return/product_action_dropdown";
 import ChanceActionDropDown from "../chance/chance_action_dropdown";
-import { useRouter } from "next/router";
 import { TableRowSelection } from "antd/es/table/interface";
 
 interface DataType {
@@ -24,7 +21,7 @@ const data: DataType[] = [];
 for (let i = 0; i < 100; i++) {
   data.push({
     key: i + 1,
-    filename: `Cơ hội bán gói sản phầm VIP`,
+    filename: `Cơ hội bán gói sản phầm VIP ${i}`,
     name: "Nguyễn Trần Kim Phượng",
     money: "10.000.000.000",
     title: "Mở đầu",
