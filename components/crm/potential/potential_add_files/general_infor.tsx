@@ -45,6 +45,7 @@ export default function AddGeneralInfo({
       }))
     );
   };
+
   return (
     <div>
       <p className={styles.main__body__type}>Thông tin chung</p>
@@ -105,7 +106,7 @@ export default function AddGeneralInfo({
           setFormData={setFormData}
           type="number"
         />
-        {arrPrivatePhone.map((phone, index) => (
+        {arrPrivatePhone?.map((phone, index) => (
           <MInputTextAndArr
             value={phone}
             setArr={setArrPrivatePhone}
@@ -122,7 +123,7 @@ export default function AddGeneralInfo({
         <MInputText
           label="Email cơ quan"
           placeholder="Nhập email cơ quan"
-          value={formData.office_email}
+          value={formData?.office_email}
           name="office_email"
           setFormData={setFormData}
           type="email"
@@ -130,7 +131,7 @@ export default function AddGeneralInfo({
         <MInputText
           label="Email cá nhân"
           placeholder="Nhập email cá nhân"
-          value={formData.private_email}
+          value={formData?.private_email}
           name="private_email"
           setFormData={setFormData}
           type="email"
@@ -139,15 +140,15 @@ export default function AddGeneralInfo({
           title="Nguồn gốc"
           formData={formData}
           setFormData={setFormData}
-          value={formData?.resoure}
+          value={formData?.resource}
           data={getPotentialResource}
-          name="resoure"
+          name="resource"
           placeholder="Chọn"
         />
         <MInputText
           label="Mã số thuế"
           placeholder="Nhập mã số thuế"
-          value={formData.tax_code}
+          value={formData?.tax_code}
           name="tax_code"
           setFormData={setFormData}
         />
@@ -155,9 +156,9 @@ export default function AddGeneralInfo({
           title="Loại tiềm năng"
           formData={formData}
           setFormData={setFormData}
-          value={formData?.type}
+          value={formData?.classify}
           data={getPotentialType}
-          name="type"
+          name="classify"
           placeholder="Chọn"
         />
         <SelectMultiple
@@ -166,17 +167,17 @@ export default function AddGeneralInfo({
           setFormData={setFormData}
           label="Mạng xã hội"
           placeholder="Chọn mạng xã hội"
-          value={formData.arrSocial}
+          value={formData?.arrSocial}
           formData={formData}
         />
-        {formData.arrSocial.length > 0 &&
+        {formData?.arrSocial?.length > 0 &&
           formData.arrSocial.map((item, index) => (
             <MInputTextAndArr
               setFormData={setFormData}
               name={item}
               value={formData[item]}
               setArr={setArrPrivatePhone}
-              arr={formData.arrSocial}
+              arr={formData?.arrSocial}
               index={index}
               label={`Link ${item}`}
               placeholder={`Nhập link ${item}`}
@@ -186,7 +187,7 @@ export default function AddGeneralInfo({
           ))}
         <SelectSingleAndOption
           title="Nhân viên phụ trách"
-          value={formData.emp_id}
+          value={formData?.emp_id}
           data={listEmp}
           formData={formData}
           setFormData={setFormData}

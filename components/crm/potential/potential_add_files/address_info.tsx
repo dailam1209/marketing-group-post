@@ -50,7 +50,7 @@ export default function AddAddressInfo({
   }, [formData?.district_id]);
   const convertWard = (datas) => {
     const convert = datas?.map((data) => ({
-      value: data._id,
+      value: data.name,
       label: `${data.prefix} ${data.name}`,
     }));
     setListWard(convert);
@@ -58,7 +58,7 @@ export default function AddAddressInfo({
   //Hiển thị địa chỉ
   useEffect(() => {
     setAddress(
-      `${formData.street ? `${formData.street}, ` : ""}${
+      `${formData.address ? `${formData.address}, ` : ""}${
         formData.ward
           ? `${listWard.find((ward) => ward.value == formData.ward)?.label}, `
           : ""
@@ -69,7 +69,7 @@ export default function AddAddressInfo({
       }`
     );
   }, [
-    formData.street,
+    formData.address,
     formData.ward,
     formData.district_id,
     formData.city_id,
@@ -85,16 +85,17 @@ export default function AddAddressInfo({
           data={[{ value: "Việt Nam", label: "Việt Nam" }]}
           setFormData={setFormData}
           formData={formData}
+          value={formData.country}
           name="country"
         />
         <SelectSingleAndOption
           title="Tỉnh thành"
-          data={formData.country && LIST_CITY}
+          data={/* formData.country && */ LIST_CITY}
           placeholder="Chọn tỉnh thành"
           setFormData={setFormData}
           formData={formData}
-          name="city_id"
-          value={formData.city_id}
+          name="cit_id"
+          value={formData.cit_id}
         />
         <SelectSingleAndOption
           title="Quận huyện"
@@ -117,8 +118,8 @@ export default function AddAddressInfo({
         <MInputTextAndOption
           label="Số nhà, đường phố"
           placeholder="Nhập số nhà, đường phố"
-          name="street"
-          value={formData.street}
+          name="address"
+          value={formData.address}
           setFormData={setFormData}
         />
         <MInputTextAndOption
@@ -133,73 +134,10 @@ export default function AddAddressInfo({
           rows={2}
           label="Địa chỉ"
           placeholder="Chọn địa chỉ"
-          name="arera_code"
           value={address}
           setFormData={setFormData}
         />
       </div>
-      {/* <div className={styles.row_input}>
-        <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
-          <label className={`${styles["form-label"]}`}>Quốc gia</label>
-          <PotentialSelectBoxStep
-            value="Chọn ngân hàng"
-            placeholder="Chọn quốc gia"
-          />
-        </div>
-        <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
-          <label className={`${styles["form-label"]}`}>Tỉnh thành</label>
-          <PotentialSelectBoxStep
-            value="Chọn tỉnh thành"
-            placeholder="Chọn tỉnh thành"
-          />
-        </div>
-      </div>
-
-      <div className={styles.row_input}>
-        <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
-          <label className={`${styles["form-label"]}`}>Quận huyện</label>
-          <PotentialSelectBoxStep
-            value="Chọn quận huyện"
-            placeholder="Chọn quận huyện"
-          />
-        </div>
-        <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
-          <label className={`${styles["form-label"]}`}>Phường xã</label>
-          <PotentialSelectBoxStep
-            value="Chọn phường xã"
-            placeholder="Chọn phường xã"
-          />
-        </div>
-      </div>
-
-      <div className={styles.row_input}>
-        <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
-          <label className={`${styles["form-label"]}`}>Số nhà, đường phố</label>
-          <PotentialSelectBoxStep
-            value="Chọn Số nhà, đường phố"
-            placeholder="Chọn Số nhà, đường phố"
-          />
-        </div>
-        <InputText
-          label="Mã vùng"
-          placeholder="Nhập mã vùng"
-          value={formData?.mavung}
-          setFormData={setFormData}
-        />
-      </div>
-
-      <div className={styles.row_input}>
-        <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
-          <label className={`${styles["form-label"]}`}>Địa chỉ</label>
-          <textarea
-            name="address_contact"
-            id="address_contact"
-            className={styles["form-control"]}
-            placeholder="Nhập địa chỉ"
-            defaultValue={""}
-          />
-        </div>
-      </div> */}
     </div>
   );
 }

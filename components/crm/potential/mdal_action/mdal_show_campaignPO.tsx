@@ -45,6 +45,7 @@ const ShowCampaignPOMD = (props: any) => {
               onClick={() => (setIsShowMdalADd(true), router.reload())}
             >
               <Button
+              
                 style={{ width: 150, color: "#fff", background: "#4C5BD4" }}
               >
                 Đồng ý

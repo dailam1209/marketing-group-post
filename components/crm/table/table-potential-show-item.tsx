@@ -74,10 +74,13 @@ for (let i = 0; i < 100; i++) {
 
 interface TablePotentialItemProps {}
 
-const TablePotentialshowItem: React.FC<TablePotentialItemProps> = () => {
+const TablePotentialshowItem: React.FC<TablePotentialItemProps> = ({
+  selectedRowKeys,
+}: any) => {
   return (
     <div className="custom_table campaign_tble ">
       <Table
+        rowSelection={selectedRowKeys}
         columns={columns}
         dataSource={data}
         bordered

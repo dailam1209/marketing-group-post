@@ -1,15 +1,6 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 const baseURL = "http://localhost:3007/api/crm";
-
-export const axiosTruocDN = axios.create({
-  baseURL,
-  headers: {
-    "Content-Type": "application/json",
-    // Authentication: accessToken,
-  },
-});
-
 export const axiosCRM = axios.create({
   baseURL,
   headers: {
@@ -22,13 +13,6 @@ axiosCRM.interceptors.request.use((config: any) => {
   return { ...config, headers: { Authorization: `Bearer ${accessToken}` } };
 });
 
-export const axiosLocal = axios.create({
-  url: "http://localhost:5000/api/vltg",
-  headers: {
-    "Content-Type": "application/json",
-    // Authentication: accessToken,
-  },
-});
 export const axiosCRMUpfile = axios.create({
   baseURL,
   headers: {

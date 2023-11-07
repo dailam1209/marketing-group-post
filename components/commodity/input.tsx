@@ -47,6 +47,7 @@ export const InputSearch = ({
 };
 export function MInputText({
   label,
+  defaultValue,
   placeholder,
   require = false,
   disable = false,
@@ -59,6 +60,7 @@ export function MInputText({
   labelChecked = "",
 }: any) {
   const handleChangeInput = (e: any) => {
+
     if (name !== "") {
       setFormData((preData: any) => {
         return {
@@ -68,6 +70,7 @@ export function MInputText({
       });
     }
   };
+
   return (
     <div className={`${stylesAdd.mb_3} ${stylesAdd["col-lg-6"]}`}>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -107,8 +110,9 @@ export function MInputText({
         className={`${stylesAdd["form-control"]}`}
         name={name}
         id={id}
+        defaultValue={defaultValue && defaultValue}
         placeholder={placeholder}
-        value={value && value}
+        value={value}
         onChange={handleChangeInput}
       />
     </div>
@@ -256,7 +260,7 @@ export function MInputTextAndOption({
         name={name}
         id={id}
         placeholder={placeholder}
-        value={value && value}
+        value={value}
         onChange={handleChangeInput}
       />
     </div>

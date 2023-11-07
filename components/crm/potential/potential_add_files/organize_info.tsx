@@ -7,7 +7,7 @@ import {
 } from "@/components/commodity/select";
 import {
   LIST_BANK,
-  LIST_ORGANIZATIONAL,
+  LIST_BUSINESS_TYPE,
   LIST_PROFESSION,
   LIST_REVENUE,
   LIST_SECTOR,
@@ -15,8 +15,10 @@ import {
 import { useEffect } from "react";
 export default function AddOrganizeInfo({ formData, setFormData }: any) {
   useEffect(() => {
-    setFormData({ ...formData, classify: [] });
-  }, [formData.sector]);
+    setFormData({ ...formData, category: [] });
+    console.log("kkkkkkkkk");
+  }, [formData?.sector]);
+
   return (
     <div>
       <p className={styles.main__body__type}>Thông tin tổ chức</p>
@@ -25,9 +27,9 @@ export default function AddOrganizeInfo({ formData, setFormData }: any) {
         <MInputTextAndOption
           label="Tổ chức"
           placeholder="Nhập tổ chức"
-          value={formData?.business_type}
+          value={formData?.office}
           setFormData={setFormData}
-          name="business_type"
+          name="office"
         />
         <MInputTextAndOption
           value={formData?.bank_account}
@@ -43,7 +45,7 @@ export default function AddOrganizeInfo({ formData, setFormData }: any) {
           formData={formData}
           setFormData={setFormData}
           name="bank_id"
-          value={formData.bank_id}
+          value={formData?.bank_id}
           placeholder="Chọn ngân hàng"
         />
         <MInputTextAndOption
@@ -51,35 +53,35 @@ export default function AddOrganizeInfo({ formData, setFormData }: any) {
           placeholder="Nhập ngày thành lập"
           type="date"
           name="founding_date"
-          value={formData.founding_date}
+          value={formData?.founding_date}
           setFormData={setFormData}
         />
         <SelectSingleAndOption
           title="Loại hình"
-          data={LIST_ORGANIZATIONAL}
+          data={LIST_BUSINESS_TYPE}
           formData={formData}
           setFormData={setFormData}
-          name="organization"
-          value={formData.organization}
+          name="business_type"
+          value={formData?.business_type}
           placeholder="Chọn loại hình"
         />
         <SelectMultiple
           data={LIST_SECTOR}
           name="sector"
           setFormData={setFormData}
-          value={formData.sector}
+          value={formData?.sector}
           label="Lĩnh vực"
           placeholder="Chọn lĩnh vực"
         />
         <SelectMultiple
           label="Ngành nghề"
-          name="classify"
+          name="category"
           setFormData={setFormData}
-          value={formData.classify}
+          value={formData?.category}
           placeholder="Chọn ngành nghề"
           data={[
             ...[].concat(
-              ...formData.sector.map((st) =>
+              ...formData?.sector?.map((st) =>
                 LIST_PROFESSION.filter((pf) => pf.valueSector == st)
               )
             ),
@@ -91,7 +93,7 @@ export default function AddOrganizeInfo({ formData, setFormData }: any) {
           data={LIST_REVENUE}
           setFormData={setFormData}
           name="revenue"
-          value={formData.revenue}
+          value={formData?.revenue}
           formData={formData}
         />
       </div>

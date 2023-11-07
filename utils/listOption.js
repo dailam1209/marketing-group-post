@@ -27,7 +27,7 @@ export const getPotentialPosition = [
   { value: 8, label: "Trợ lý" },
   { value: 9, label: "Nhân viên" },
 ];
-export const renderPotentialPositon = (id) => {
+export const renderPotentialPosition = (id) => {
   const option = {
     1: "Chủ tịch",
     2: "Phó chủ tịch",
@@ -283,8 +283,7 @@ export const renderBank = (id) => {
   }
   return option[id];
 };
-
-export const LIST_ORGANIZATIONAL = [
+export const LIST_BUSINESS_TYPE = [
   { value: 1, label: "Công ty TNHH" },
   { value: 2, label: "Công ty Cổ phần " },
   { value: 3, label: "Công ty có vốn đầu tư nước ngoài" },
@@ -297,7 +296,7 @@ export const LIST_ORGANIZATIONAL = [
   { value: 10, label: "Đơn vị HCSN cấp Quận/Huyện" },
   { value: 11, label: "Khác" },
 ];
-export const renderOrganizational = (id) => {
+export const renderBusinessType = (id) => {
   const option = {
     1: "Công ty TNHH",
     2: "Công ty Cổ phần ",
@@ -325,6 +324,7 @@ export const LIST_SECTOR = [
   { value: 5, label: "Công nghệ nhẹ" },
 ];
 export const renderSector = (id) => {
+  const handleId = id?.split(",");
   const option = {
     1: "Thương mại",
     2: "Dịch vụ",
@@ -332,10 +332,13 @@ export const renderSector = (id) => {
     4: "Xây lắp",
     5: "Công nghệ nhẹ",
   };
-  if (!option[id]) {
+  if (handleId?.length == 0) {
     return "Không có dữ liệu";
   }
-  return option[id];
+  // if (!option[id]) {
+  //   return "Không có dữ liệu";
+  // }
+  return handleId?.map((item) => option[item]).join(", ");
 };
 export const LIST_PROFESSION = [
   { value: 1, label: "Kinh doanh thực phẩm", valueSector: 1 },
@@ -449,6 +452,8 @@ export const LIST_PROFESSION = [
   { value: 66, label: "Sản xuất khác", valueSector: 3 },
 ];
 export const renderProfession = (id) => {
+  const handleId = id?.split(",")?.map((item) => Number(item));
+  console.log("check------", handleId);
   const option = {
     1: "Kinh doanh thực phẩm",
     2: "Kinh doanh hóa chất",
@@ -517,10 +522,11 @@ export const renderProfession = (id) => {
     65: "Sản xuất gạch, xi măng",
     66: "Sản xuất khác",
   };
-  if (!option[id]) {
+
+  if (handleId?.length == 0) {
     return "Không có dữ liệu";
   }
-  return option[id];
+  return handleId?.map((item) => option[item]).join(", ");
 };
 export const LIST_REVENUE = [
   { value: 0, label: "Không chọn" },
@@ -529,7 +535,7 @@ export const LIST_REVENUE = [
   { value: 3, label: "10 tỷ - 50 tỷ" },
   { value: 4, label: "trên 50 tỷ" },
 ];
-export const renderRevenue = () => {
+export const renderRevenue = (id) => {
   const option = {
     0: "Không chọn",
     1: "Dưới 1 tỷ",

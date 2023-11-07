@@ -5,13 +5,13 @@ import styles1 from "./potential.module.css";
 import { Select } from "antd";
 import { toLowerCaseNonAccentVietnamese } from "@/utils/function";
 export default function SelectSingle({
-  title = "",
+  title,
   value = 0,
   data,
-  setFormData,
+  setFormData = null,
   name,
   placeholder,
-  onChange,
+  onChange = null,
 }: any) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -24,9 +24,9 @@ export default function SelectSingle({
     }
   };
   const handelChooceOption = (item: { value: any; label: string }) => {
+    onChange && onChange();
     setFormData((preData) => ({ ...preData, [name]: item.value }));
     setLabelSelect(item.label);
-    onChange && onChange();
   };
   const handleScrollkOutside = (e: any) => {
     setIsOpen(false);
@@ -179,6 +179,7 @@ export const SelectMultiple = ({
       setFormData((preData) => ({ ...preData, [name]: selected }));
     }
   };
+
   return (
     <div>
       {label && (
@@ -188,7 +189,7 @@ export const SelectMultiple = ({
           {label}:
         </div>
       )}
-
+      <div></div>
       <Select
         // className={styleCommodity}
         mode="multiple"
@@ -401,6 +402,7 @@ export const SelectSingleAndOption = ({
   formData,
   setFormData,
   name,
+  handleChange = null,
   placeholder = "",
   titleAdd = "",
   handleAdd = null,
@@ -416,6 +418,7 @@ export const SelectSingleAndOption = ({
     );
   }, [value]);
   const handelChooceOption = (item: { value: number; label: string }) => {
+    handleChange && handleChange();
     setFormData({ ...formData, [name]: item.value });
     setLabelSelect(item.label);
   };

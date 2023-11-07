@@ -2,6 +2,7 @@ import { SelectSingleAndOption } from "@/components/commodity/select";
 import styles from "./add_file_potential.module.css";
 import { getPotentiaGender } from "@/utils/listOption";
 import { MInputText } from "@/components/commodity/input";
+import { convertTimestampToDate } from "@/utils/function";
 export default function AddPersonalInfo({ formData, setFormData }: any) {
   return (
     <div>
@@ -13,7 +14,7 @@ export default function AddPersonalInfo({ formData, setFormData }: any) {
           data={getPotentiaGender}
           name={"gender"}
           placeholder="Chọn giới tính"
-          value={formData.gender}
+          value={formData?.gender}
           setFormData={setFormData}
           formData={formData}
         />
@@ -33,6 +34,11 @@ export default function AddPersonalInfo({ formData, setFormData }: any) {
         <MInputText
           name="birthday"
           label="Ngày sinh"
+          // value={convertTimestampToDate(formData.birthday)}
+          // default={convertTimestampToDate(formData.birthday / 1000)
+          //   ?.split("/")
+          //   .reverse()
+          //   .join("-")}
           placeholder="Nhập ho và tên"
           type="date"
           setFormData={setFormData}

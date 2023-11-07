@@ -13,7 +13,9 @@ import Head from "next/head";
 import { notifyWarning } from "@/utils/function";
 import { axiosCRMUpfile } from "@/utils/api/api_crm";
 import { MCancelModal, MModalCompleteStep } from "@/components/commodity/modal";
+import { useRouter } from "next/router";
 const AddFilesPotential: React.FC = () => {
+  const router = useRouter();
   const mainRef = useRef<HTMLDivElement>(null);
   const { isOpen } = useContext<any>(SidebarContext);
   const imgRef = useRef<HTMLInputElement>(null);
@@ -24,7 +26,7 @@ const AddFilesPotential: React.FC = () => {
   const [formData, setFormData] = useState<any>({
     arrSocial: [],
     sector: [],
-    classify: [],
+    category: [],
   });
   const [arrPrivatePhone, setArrPrivatePhone] = useState<any>([""]);
   const [isModalCancel, setIsModalCancel] = useState(false);
@@ -38,7 +40,10 @@ const AddFilesPotential: React.FC = () => {
     imgRef?.current?.click();
   };
   const handleReset = () => {
-    setFormData({ arrSocial: [], sector: [], classify: [] });
+    // setUrlImg("");
+    // setLogo("");
+    // setFormData({ arrSocial: [], sector: [], category: [] });
+    router.push("/potential/add_file");
   };
   const handleChangeLogo = (e) => {
     if (e.target.files[0]) {
@@ -46,19 +51,24 @@ const AddFilesPotential: React.FC = () => {
       setLogo(e.target.files[0]);
     }
   };
+  const formAdd = new FormData();
   const handleAddFile = () => {
-    const formAdd = new FormData();
     if (!formData.name) {
       notifyWarning("Nhập tên khách hàng");
       return;
     }
     for (const key in formData) {
-      formAdd.append(key, formAdd[key]);
+      formAdd.append(key, formData[key]);
     }
-    formAdd.append("logo", logo);
+    logo && formAdd.append("logo", logo);
     formAdd.append("private_phone", arrPrivatePhone);
-    axiosCRMUpfile.post("/potential/add_potential", formAdd).then;
+
+    axiosCRMUpfile
+      .post("/potential/add_potential", formAdd)
+      .then((res) => setModal1Open(true))
+      .catch((err) => console.log("handleAddFileERR", formAdd));
   };
+  // console.log("Check", formAdd);
   useEffect(() => {
     if (isOpen) {
       mainRef.current?.classList.add("content_resize");
@@ -66,8 +76,6 @@ const AddFilesPotential: React.FC = () => {
       mainRef.current?.classList.remove("content_resize");
     }
   }, [isOpen]);
-
-  console.log("AddFIle", formData);
   return (
     <>
       <Head>
@@ -175,7 +183,7 @@ const AddFilesPotential: React.FC = () => {
                     type="submit"
                     onClick={() => {
                       handleAddFile();
-                      setModal1Open(true);
+                      // setModal1Open(true);
                     }}
                   >
                     Lưu
@@ -187,6 +195,7 @@ const AddFilesPotential: React.FC = () => {
                       setIsModalCancel={setIsModalCancel}
                       content={`Bạn có chắc chắn muốn hủy thêm mới tiềm năng ${formData.name}, mọi thông tin bạn nhập sẽ không được lưu lại ? `}
                       title={"Hủy thêm mới"}
+                      updateData={handleReset}
                       // link={link}
                     />
                   }
@@ -194,11 +203,11 @@ const AddFilesPotential: React.FC = () => {
                   <MModalCompleteStep
                     modal1Open={modal1Open}
                     setModal1Open={setModal1Open}
-                    title={title}
-                    link={link}
+                    title={"Thêm mới Tiềm năng thành công!"}
+                    link={"/potential/list"}
                   />
                 </div>
-                <PotentialFooterAddFiles title="Thêm mới tiềm năng tên Tiềm năng thành công" />
+                {/* <PotentialFooterAddFiles title="Thêm mới tiềm năng tên Tiềm năng thành công" /> */}
               </div>
             </div>
           </div>
