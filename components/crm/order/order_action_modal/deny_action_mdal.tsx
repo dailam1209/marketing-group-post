@@ -61,7 +61,7 @@ const DenyActionModal: React.FC<MyComponentProps> = ({
               className={`${styles.md_txtarea} ${styles.textarea}`}
               placeholder="Nhập lý do"
               defaultValue={""}
-              style={{ width: "550px" }}
+              style={{ width: "100%" }}
             />
           </div>
         </div>
