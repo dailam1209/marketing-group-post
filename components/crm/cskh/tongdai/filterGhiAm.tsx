@@ -12,7 +12,7 @@ interface MyComponentProps {
   setFillStart: any;
   fillEnd: any;
   setFillEnd: any;
-  handleGet: any;
+  handleFilter: any;
   soNghe: any;
   setSoNghe: any;
   nv: any;
@@ -26,7 +26,7 @@ const FilterGhiAm: React.FC<MyComponentProps> = ({
   setFillStart,
   fillEnd,
   setFillEnd,
-  handleGet,
+  handleFilter,
   soNghe,
   setSoNghe,
   nv,
@@ -38,7 +38,7 @@ const FilterGhiAm: React.FC<MyComponentProps> = ({
 
   const handleOk = () => {
     setIsModalOpen(false);
-    handleGet();
+    handleFilter();
   };
 
   const handleCancel = () => {
@@ -90,7 +90,7 @@ const FilterGhiAm: React.FC<MyComponentProps> = ({
               >
                 <div>Từ</div>
                 <div>
-                  <Input onChange={handleDateChange} type="date"></Input>
+                  <Input onChange={handleDateChange} type="date" defaultValue={fillStart}></Input>
                 </div>
               </div>
               <div
@@ -102,7 +102,7 @@ const FilterGhiAm: React.FC<MyComponentProps> = ({
               >
                 <div>Đến</div>
                 <div>
-                  <Input onChange={handleDateChange2} type="date"></Input>
+                  <Input onChange={handleDateChange2} type="date" defaultValue={fillEnd}></Input>
                 </div>
               </div>
             </div>
@@ -123,6 +123,7 @@ const FilterGhiAm: React.FC<MyComponentProps> = ({
                   value={nv}
                   onChange={(value) => setnv(value)}
                 >
+                  <option>Nhân viên</option>
                   {uniqueCounts.map((count: any, index: number) => {
                     return (
                       <option key={index} value={count}>
@@ -169,7 +170,7 @@ const FilterGhiAm: React.FC<MyComponentProps> = ({
 
             <Button
               style={{ color: "#fff", background: "#4c5bd4", width: 100 }}
-              onClick={handleGet}
+              onClick={handleFilter}
             >
               Tìm kiếm
             </Button>
