@@ -13,14 +13,14 @@ export function timestampToCustomString(timestamp: number, type = 'text') {
         }
         return `${day}/${month}/${year}`;
     }
-    return "Chưa cập nhật"
+    return `Chưa cập nhật`
 }
 
 
 export function stringToDateNumber(dateString: string): number {
     const date = new Date(dateString);
     if (isNaN(date.getTime())) {
-        throw new Error('Invalid date string');
+       return 
     }
     return date.getTime();
 }

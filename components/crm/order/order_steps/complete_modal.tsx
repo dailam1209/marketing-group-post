@@ -8,7 +8,7 @@ interface ModalCompleteStepProps {
   modal1Open: boolean;
   setModal1Open: any;
   title: string,
-  link: string,
+  link?: string,
 }
 
 const ModalCompleteStep: React.FC<ModalCompleteStepProps> = ({
@@ -20,7 +20,6 @@ const ModalCompleteStep: React.FC<ModalCompleteStepProps> = ({
     const router = useRouter()
     const handleClick = () => {
         setModal1Open(false)
-        router.push(link);
     };
   return (
     <div>

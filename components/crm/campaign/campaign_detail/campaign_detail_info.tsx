@@ -7,19 +7,23 @@ import { fetchApi } from "../../ultis/api";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 
-export default function AddCampaignDetailInfo({ formFields }) {
+export default function AddCampaignDetailInfo({
+  formFields,
+  isHideEmptyData,
+  inforCampaign,
+}) {
   const router = useRouter();
   const url = "http://localhost:3007/api/crm/campaign/info-campaign";
   const token = Cookies.get("token_base365");
-  const [inforCampaign, setInforCampaign] = useState<any>({});
+  // const [inforCampaign, setInforCampaign] = useState<any>({});
 
-  const fetchAPICampaign = async () => {
-    const bodyAPI = {
-      campaign_id: Number(router.query.id),
-    };
-    const dataApi = await fetchApi(url, token, bodyAPI, "POST");
-    setInforCampaign(dataApi?.data?.data);
-  };
+  // const fetchAPICampaign = async () => {
+  //   const bodyAPI = {
+  //     campaign_id: Number(router.query.id),
+  //   };
+  //   const dataApi = await fetchApi(url, token, bodyAPI, "POST");
+  //   setInforCampaign(dataApi?.data?.data);
+  // };
 
   const dataStatus = [
     <div style={{ color: "#CCCCCC" }}>Chưa cập nhật</div>,
@@ -41,14 +45,25 @@ export default function AddCampaignDetailInfo({ formFields }) {
     <div>Mạng xã hội</div>,
   ];
 
-  useEffect(() => {
-    fetchAPICampaign();
-  }, []);
+  const renderText = (text) => {
+    if (text && text !== "Chưa cập nhật") {
+      return text;
+    }
+    return <div style={{ color: "#CCCCCC" }}>Chưa cập nhật</div>;
+  };
+
   return (
     <div>
       <div className={styles.main__content__body}>
         <div className={styles.row}>
-          <div className={`${styles["col-lg-6"]}`}>
+          <div
+            style={{
+              display: isHideEmptyData(formFields?.nameCampaign || 0)
+                ? "none"
+                : null,
+            }}
+            className={`${styles["col-lg-6"]}`}
+          >
             <div
               className={`${styles.main__body__item} ${styles.d_flex} ${styles.justify_content_between} `}
             >
@@ -61,7 +76,14 @@ export default function AddCampaignDetailInfo({ formFields }) {
             </div>
           </div>
 
-          <div className={`${styles["col-lg-6"]}`}>
+          <div
+            style={{
+              display: isHideEmptyData(formFields?.typeCampaign || 0)
+                ? "none"
+                : "",
+            }}
+            className={`${styles["col-lg-6"]}`}
+          >
             <div
               className={`${styles.main__body__item} ${styles.d_flex} ${styles.justify_content_between}`}
             >
@@ -74,7 +96,12 @@ export default function AddCampaignDetailInfo({ formFields }) {
             </div>
           </div>
 
-          <div className={`${styles["col-lg-6"]}`}>
+          <div
+            style={{
+              display: isHideEmptyData(formFields?.status || 0) ? "none" : "",
+            }}
+            className={`${styles["col-lg-6"]}`}
+          >
             <div
               className={`${styles.main__body__item} ${styles.d_flex} ${styles.justify_content_between}`}
             >
@@ -89,7 +116,14 @@ export default function AddCampaignDetailInfo({ formFields }) {
             </div>
           </div>
 
-          <div className={`${styles["col-lg-6"]}`}>
+          <div
+            style={{
+              display: isHideEmptyData(formFields?.expectedSales || 0)
+                ? "none"
+                : "",
+            }}
+            className={`${styles["col-lg-6"]}`}
+          >
             <div
               className={`${styles.main__body__item} ${styles.d_flex} ${styles.justify_content_between}`}
             >
@@ -102,7 +136,12 @@ export default function AddCampaignDetailInfo({ formFields }) {
             </div>
           </div>
 
-          <div className={`${styles["col-lg-6"]}`}>
+          <div
+            style={{
+              display: isHideEmptyData(formFields?.money || 0) ? "none" : null,
+            }}
+            className={`${styles["col-lg-6"]}`}
+          >
             <div
               className={`${styles.main__body__item} ${styles.d_flex} ${styles.justify_content_between}`}
             >
@@ -115,7 +154,14 @@ export default function AddCampaignDetailInfo({ formFields }) {
             </div>
           </div>
 
-          <div className={`${styles["col-lg-6"]}`}>
+          <div
+            style={{
+              display: isHideEmptyData(formFields?.timeEnd || 0)
+                ? "none"
+                : null,
+            }}
+            className={`${styles["col-lg-6"]}`}
+          >
             <div
               className={`${styles.main__body__item} ${styles.d_flex} ${styles.justify_content_between}`}
             >
@@ -124,9 +170,9 @@ export default function AddCampaignDetailInfo({ formFields }) {
               </div>
               <div className={`${styles.main__body__item__value}`}>
                 {timestampToCustomString(formFields?.timeEnd) ? (
-                  timestampToCustomString(formFields?.timeEnd)
+                  renderText(timestampToCustomString(formFields?.timeEnd))
                 ) : (
-                  <div color="#CCCCCC">Chưa cập nhật</div>
+                  <div style={{ color: "#CCCCCC" }}>Chưa cập nhật</div>
                 )}
               </div>
             </div>

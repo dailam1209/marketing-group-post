@@ -1,15 +1,16 @@
 // import OrderSelectBoxStep from "../order_steps/select_box_step";
-import { useEffect, useState } from "react";
-import { fetchApi } from "../../ultis/api";
+import { useEffect, useMemo, useState } from "react";
 import { timestampToCustomString } from "../../ultis/convert_date";
 import styles from "./campaign_detail.module.css";
 // import InputText from "./input_text";
-import { Input, Tooltip } from "antd";
 import Cookies from "js-cookie";
 import { color } from "highcharts";
 
-export default function AddCampaignGeneralDetailInfo({ formFields }) {
-  const [empList, setEmpList] = useState([]);
+export default function AddCampaignGeneralDetailInfo({
+  formFields,
+  isHideEmptyData,
+  empList,
+}: any) {
   const dataChanelCampaign = [
     { value: 0, label: "Chưa cập nhật" },
     { value: 1, label: "Chưa cập nhật" },
@@ -21,28 +22,38 @@ export default function AddCampaignGeneralDetailInfo({ formFields }) {
     { value: 7, label: "Tài trợ" },
     { value: 8, label: "Hội thảo-Triển lãm" },
   ];
+
+  const dataStatus = [
+    <div style={{ color: "#CCCCCC" }}>Chưa cập nhật</div>,
+    <div style={{ color: "#CCCCCC" }}>Chưa cập nhật</div>,
+    <div style={{ color: "#FFA800" }}>Chưa diễn ra</div>,
+    <div style={{ color: "#34B632" }}>Đã kết thúc</div>,
+    <div style={{ color: "#FF3333" }}>Đang tạm dừng</div>,
+    <div style={{ color: "#4C5BD4" }}>Đang diễn ra</div>,
+  ];
+
+  const dataTypeCampaign = [
+    <div style={{ color: "#CCCCCC" }}>Chưa cập nhật</div>,
+    <div style={{ color: "#CCCCCC" }}>Chưa cập nhật</div>,
+    <div>Gửi mail</div>,
+    <div>Điện thoại</div>,
+    <div>Tổ chức hội thảo tập huấn</div>,
+    <div>Gặp mặt trực tiếp</div>,
+    <div>Qua bưu điện</div>,
+    <div>Mạng xã hội</div>,
+  ];
   const token = Cookies.get("token_base365");
 
-  const fetchAPIEmployee = async () => {
-    const dataApi = await fetchApi(
-      "http://210.245.108.202:3000/api/qlc/managerUser/listUser",
-      token,
-      { page: 1, pageSize: 10000 },
-      "POST"
-    );
-    setEmpList(dataApi?.data?.data);
-  };
-
   const renderText = (text) => {
-    if (text) {
+    if (text && text !== "Chưa cập nhật") {
       return text;
     }
     return <div style={{ color: "#CCCCCC" }}>Chưa cập nhật</div>;
   };
 
-  useEffect(() => {
-    fetchAPIEmployee();
-  }, []);
+  // useEffect(() => {
+  //   getDataEmp;
+  // }, []);
   return (
     <div>
       <div className={styles.main__campaign__body}>
@@ -63,7 +74,14 @@ export default function AddCampaignGeneralDetailInfo({ formFields }) {
               </div>
             </div>
 
-            <div className={`${styles["col-lg-6"]}`}>
+            <div
+              style={{
+                display: isHideEmptyData(formFields?.typeCampaign || 0)
+                  ? "none"
+                  : null,
+              }}
+              className={`${styles["col-lg-6"]}`}
+            >
               <div
                 className={`${styles.main__body__item} ${styles.d_flex} ${styles.justify_content_between}`}
               >
@@ -71,12 +89,19 @@ export default function AddCampaignGeneralDetailInfo({ formFields }) {
                   <b>Loại:</b>
                 </div>
                 <div className={`${styles.main__body__item__value}`}>
-                  Gửi mail
+                  {dataTypeCampaign?.[formFields?.typeCampaign]}
                 </div>
               </div>
             </div>
 
-            <div className={`${styles["col-lg-6"]}`}>
+            <div
+              style={{
+                display: isHideEmptyData(formFields?.status || 0)
+                  ? "none"
+                  : null,
+              }}
+              className={`${styles["col-lg-6"]}`}
+            >
               <div
                 className={`${styles.main__body__item} ${styles.d_flex} ${styles.justify_content_between}`}
               >
@@ -86,12 +111,19 @@ export default function AddCampaignGeneralDetailInfo({ formFields }) {
                 <div
                   className={`${styles.main__body__item__value} ${styles.stt_yellow}`}
                 >
-                  Chưa diễn ra
+                  {dataStatus[formFields?.status]}
                 </div>
               </div>
             </div>
 
-            <div className={`${styles["col-lg-3"]}`}>
+            <div
+              style={{
+                display: isHideEmptyData(formFields?.timeStart || 0)
+                  ? "none"
+                  : null,
+              }}
+              className={`${styles["col-lg-3"]}`}
+            >
               <div
                 className={`${styles.main__body__item} ${styles.d_flex} ${styles.justify_content_between}`}
               >
@@ -104,7 +136,14 @@ export default function AddCampaignGeneralDetailInfo({ formFields }) {
               </div>
             </div>
 
-            <div className={`${styles["col-lg-3"]}`}>
+            <div
+              style={{
+                display: isHideEmptyData(formFields?.timeEnd || 0)
+                  ? "none"
+                  : null,
+              }}
+              className={`${styles["col-lg-3"]}`}
+            >
               <div
                 className={`${styles.main__body__item} ${styles.d_flex} ${styles.justify_content_between} `}
               >
@@ -117,7 +156,14 @@ export default function AddCampaignGeneralDetailInfo({ formFields }) {
               </div>
             </div>
 
-            <div className={`${styles["col-lg-3"]} `}>
+            <div
+              style={{
+                display: isHideEmptyData(formFields?.investment || 0)
+                  ? "none"
+                  : null,
+              }}
+              className={`${styles["col-lg-3"]} `}
+            >
               <div
                 className={`${styles.main__body__item} ${styles.d_flex} ${styles.justify_content_between}`}
               >
@@ -129,7 +175,14 @@ export default function AddCampaignGeneralDetailInfo({ formFields }) {
                 </div>
               </div>
             </div>
-            <div className={`${styles["col-lg-3"]}`}>
+            <div
+              style={{
+                display: isHideEmptyData(formFields?.expectedSales || 0)
+                  ? "none"
+                  : null,
+              }}
+              className={`${styles["col-lg-3"]}`}
+            >
               <div
                 className={`${styles.main__body__item} ${styles.d_flex} ${styles.justify_content_between} `}
               >
@@ -142,7 +195,14 @@ export default function AddCampaignGeneralDetailInfo({ formFields }) {
               </div>
             </div>
 
-            <div className={`${styles["col-lg-6"]}`}>
+            <div
+              style={{
+                display: isHideEmptyData(formFields?.chanelCampaign || 0)
+                  ? "none"
+                  : null,
+              }}
+              className={`${styles["col-lg-6"]}`}
+            >
               <div
                 className={`${styles.main__body__item} ${styles.d_flex} ${styles.justify_content_between}`}
               >
@@ -155,7 +215,14 @@ export default function AddCampaignGeneralDetailInfo({ formFields }) {
               </div>
             </div>
 
-            <div className={`${styles["col-lg-6"]}`}>
+            <div
+              style={{
+                display: isHideEmptyData(formFields?.money || 0)
+                  ? "none"
+                  : null,
+              }}
+              className={`${styles["col-lg-6"]}`}
+            >
               <div
                 className={`${styles.main__body__item} ${styles.d_flex} ${styles.justify_content_between}`}
               >
@@ -168,7 +235,14 @@ export default function AddCampaignGeneralDetailInfo({ formFields }) {
               </div>
             </div>
 
-            <div className={`${styles["col-lg-6"]}`}>
+            <div
+              style={{
+                display: isHideEmptyData(formFields?.empID || 0)
+                  ? "none"
+                  : null,
+              }}
+              className={`${styles["col-lg-6"]}`}
+            >
               <div
                 className={`${styles.main__body__item} ${styles.d_flex} ${styles.justify_content_between}`}
               >
@@ -190,7 +264,14 @@ export default function AddCampaignGeneralDetailInfo({ formFields }) {
         <p className={styles.main__body__type}>Thông tin mô tả</p>
         <div className={styles.main__content__body}>
           <div className={styles.row}>
-            <div className={`${styles["col-lg-6"]}`}>
+            <div
+              style={{
+                display: isHideEmptyData(formFields?.description || 0)
+                  ? "none"
+                  : null,
+              }}
+              className={`${styles["col-lg-6"]}`}
+            >
               <div
                 className={`${styles.main__body__item_des} ${styles.d_flex} `}
               >
@@ -208,7 +289,18 @@ export default function AddCampaignGeneralDetailInfo({ formFields }) {
         <p className={styles.main__body__type}>Thông tin hệ thống</p>
         <div className={styles.main__content__body}>
           <div className={styles.row}>
-            <div className={`${styles["col-lg-6"]}`}>
+            <div
+              style={{
+                display: isHideEmptyData(
+                  formFields?.userIdCreate === formFields?.companyID
+                    ? 0
+                    : formFields?.userIdCreate
+                )
+                  ? "none"
+                  : null,
+              }}
+              className={`${styles["col-lg-6"]}`}
+            >
               <div
                 className={`${styles.main__body__item} ${styles.d_flex} ${styles.justify_content_between} `}
               >
@@ -226,7 +318,14 @@ export default function AddCampaignGeneralDetailInfo({ formFields }) {
               </div>
             </div>
 
-            <div className={`${styles["col-lg-6"]}`}>
+            <div
+              style={{
+                display: isHideEmptyData(formFields?.createdAt || 0)
+                  ? "none"
+                  : null,
+              }}
+              className={`${styles["col-lg-6"]}`}
+            >
               <div
                 className={`${styles.main__body__item} ${styles.d_flex} ${styles.justify_content_between}`}
               >
@@ -239,7 +338,18 @@ export default function AddCampaignGeneralDetailInfo({ formFields }) {
               </div>
             </div>
 
-            <div className={`${styles["col-lg-6"]}`}>
+            <div
+              style={{
+                display: isHideEmptyData(
+                  formFields?.userIdUpdate === formFields?.companyID
+                    ? 0
+                    : formFields?.userIdUpdate
+                )
+                  ? "none"
+                  : null,
+              }}
+              className={`${styles["col-lg-6"]}`}
+            >
               <div
                 className={`${styles.main__body__item} ${styles.d_flex} ${styles.justify_content_between}`}
               >
@@ -257,7 +367,14 @@ export default function AddCampaignGeneralDetailInfo({ formFields }) {
               </div>
             </div>
 
-            <div className={`${styles["col-lg-6"]}`}>
+            <div
+              style={{
+                display: isHideEmptyData(formFields?.updatedAt || 0)
+                  ? "none"
+                  : null,
+              }}
+              className={`${styles["col-lg-6"]}`}
+            >
               <div
                 className={`${styles.main__body__item} ${styles.d_flex} ${styles.justify_content_between}`}
               >

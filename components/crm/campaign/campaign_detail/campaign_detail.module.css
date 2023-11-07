@@ -214,6 +214,7 @@
   background: #ffffff;
   border-radius: 0 0 10px 10px;
 }
+
 .main__body__item__title_nhatky {
   font-size: 16px;
   line-height: 19px;
@@ -447,6 +448,7 @@
   display: flex;
   gap: 15px;
 }
+
 @media (min-width: 992px) {
   .col-lg-6 {
     -webkit-box-flex: 0;
@@ -465,11 +467,36 @@
     flex: 0 0 100%;
     max-width: 100%;
   }
+
   .col-lg-3 {
     -webkit-box-flex: 0;
     -ms-flex: 0 0 10%;
     flex: 0 0 10%;
     max-width: 25%;
+    position: relative;
+    width: 100%;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+}
+
+@media (max-width: 992px) {
+  .col-lg-6 {
+    -webkit-box-flex: 0;
+    flex: 0 0 50%;
+    min-width: 100%;
+    position: relative;
+    width: 100%;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+
+  .col-lg-3 {
+    -webkit-box-flex: 0;
+    flex: 0 0 50%;
+    min-width: 100%;
     position: relative;
     width: 100%;
     min-height: 1px;
@@ -497,5 +524,11 @@
   .row_input {
     flex-direction: column;
     justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .table_stt {
+    padding: 0;
   }
 }

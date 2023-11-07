@@ -9,14 +9,19 @@ import ModalCompleteStep from "../order_steps/complete_modal";
 interface MyComponentProps {
   isModalCancel: boolean;
   setIsModalCancel: (value: boolean) => void;
+  record?: any;
+  handleApiReq?: (type: string) => Promise<void>;
 }
-const DelActionModal: React.FC<MyComponentProps> = ({
+const OrderBrowsingModal: React.FC<MyComponentProps> = ({
   isModalCancel,
   setIsModalCancel,
+  record,
+  handleApiReq,
 }) => {
   const [isModalSuccess, setIsMdalSuccess] = useState(false);
 
-  const handleOK = () => {
+  const handleOK = async () => {
+    await handleApiReq("confirm");
     setIsModalCancel(false);
     showModalWithTimeout(setIsMdalSuccess, 2000);
   };
@@ -37,19 +42,17 @@ const DelActionModal: React.FC<MyComponentProps> = ({
         cancelText="Huỷ"
       >
         <div>Bạn có chắc chắn muốn duyệt đơn hàng</div>
-        <div>
-          <b>ĐH-0000?</b>
-        </div>
+        <div>{record?.length === 1 ? <b>{record[0]?._id}</b> : null}</div>
       </Modal>
 
       <ModalCompleteStep
         modal1Open={isModalSuccess}
         setModal1Open={setIsMdalSuccess}
-        title={"Duyệt đơn hàng ĐH-0000 thành công!"}
-        link={"/order/list"}
+        title={"Duyệt đơn hàng thành công!"}
+        // link={"/order/list"}
       />
     </>
   );
 };
 
-export default DelActionModal;
+export default OrderBrowsingModal;

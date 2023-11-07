@@ -22,8 +22,9 @@
 }
 
 .select_item_time {
-  width: fit-content !important;
-  flex-wrap: wrap;
+  width: auto;
+  padding: 3px;
+  /* flex-wrap: wrap; */
   height: 41px;
 }
 
@@ -74,7 +75,9 @@
   cursor: pointer;
 }
 
-/* .input_item_time {} */
+.input_item_time {
+  flex-direction: row !important;
+}
 
 .select2_selection__arrow {
   height: 26px;
@@ -282,8 +285,7 @@
   margin-top: 20px;
 }
 
-.info_step {
-}
+.info_step {}
 
 .main__title {
   background: #4c5bd4;
@@ -306,11 +308,9 @@
   margin-bottom: 15px;
 }
 
-.main__body_item {
-}
+.main__body_item {}
 
-.content_step1 {
-}
+.content_step1 {}
 
 .flex_column {
   display: flex;
@@ -850,17 +850,53 @@
   color: #4c5bd4;
   cursor: pointer;
 }
+
 @media (max-width: 414px) {
   .main__control_search {
     width: 100%;
   }
+
   .select_item {
     width: 100% !important;
     flex-wrap: nowrap;
   }
 }
 
+
+
+@media (max-width: 1024px) {
+  .select_item {
+    width: 50%;
+  }
+
+  .select_item_time {
+    width: 60%;
+  }
+
+  .select2_dropdown {
+    width: 100% !important;
+  }
+
+  .customer_custom .main__control_add {
+    justify-content: flex-start;
+    width: 100% !important;
+  }
+
+  .main_control_new {
+    width: 100%;
+  }
+}
+
+@media (max-width: 1420px) {
+  .select_item_box_step {
+    padding: 0;
+  }
+}
+
 @media (max-width: 768px) {
+  .main__control_search{
+    width: 100%;
+  }
   .select2_dropdown {
     /* left: -10%; */
     width: 260px !important;
@@ -873,29 +909,26 @@
   .select_item {
     width: 100%;
   }
-}
 
-@media (max-width: 1024px) {
-  .select_item {
-    width: 50%;
+  .select_item_time {
+    width: 100%;
   }
 
-  .select2_dropdown {
+  .selectAntd {
     width: 100% !important;
   }
-
-  .customer_custom .main__control_add {
-    justify-content: flex-start;
-    width: 100%;
-  }
-
-  .main_control_new {
-    width: 100%;
-  }
 }
 
-@media (max-width: 1420px) {
-  .select_item_box_step {
-    padding: 0;
+@media (max-width: 440px) {
+  .select_item_time {
+    height: auto;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
+  .input_item_time {
+    align-items: center;
+    justify-content: center;
+    flex-direction: column !important;
   }
 }
