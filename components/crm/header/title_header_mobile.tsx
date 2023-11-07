@@ -16,6 +16,7 @@ export default function TitleHeaderMobile() {
         {showBackButton && (
           <Link
             href={currentPath}
+            className="header_ttle" 
             style={{ marginRight: "11px", height: "17px", width: "10px" }}
           >
             <img
@@ -25,7 +26,7 @@ export default function TitleHeaderMobile() {
             />
           </Link>
         )}
-        <h3 style={{ color: "#474747" }}>
+        <h3 className="header_ttle" style={{ color: "#474747" }}>
           {headerTitle.includes("/") ? headerTitle : null}
         </h3>
       </div>

@@ -30,6 +30,7 @@ export default function CampaignInputGroups({ empList, body, setBody }: any) {
         <Select
           showSearch
           optionFilterProp="children"
+          className={styles.selectAntd}
           filterOption={(input, option) =>
             (option?.label ?? "").includes(input)
           }
@@ -93,6 +94,7 @@ export default function CampaignInputGroups({ empList, body, setBody }: any) {
         <Select
           showSearch
           optionFilterProp="children"
+          className={styles.selectAntd}
           filterOption={(input, option) =>
             (option?.label ?? "").includes(input)
           }
@@ -115,7 +117,7 @@ export default function CampaignInputGroups({ empList, body, setBody }: any) {
       </div>
 
       <div className={`${styles.main__control_btn} flex_between`}>
-        <div className={styles.main__control_search}>
+        <div className={`${styles.main__control_search} ${styles.selectAntd}`}>
           <form
             onSubmit={(el) => {
               el.preventDefault();
@@ -130,7 +132,7 @@ export default function CampaignInputGroups({ empList, body, setBody }: any) {
             <input
               ref={searchRef}
               type="text"
-              className={styles.input__search}
+              className={`${styles.input__search} `}
               name="search"
               defaultValue=""
               style={{

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Table, Tooltip } from "antd";
+import { Spin, Table, Tooltip } from "antd";
 import styles from "../campaign/campaign.module.css";
 import type { ColumnsType } from "antd/es/table";
 import Link from "next/link";
@@ -184,59 +184,65 @@ const TableDataCampaginChance: React.FC<TableDataCampaginChanceProps> = ({
   }, [body]);
 
   return (
-    <div className="custom_table campaign_tble">
-      <Table
-        columns={columns}
-        dataSource={data}
-        // rowSelection={{ ...rowSelection }}
-        bordered
-        scroll={{ x: 1500, y: 320 }}
-        pagination={{
-          style: {
-            paddingBottom: 20,
-            display: "flex",
-            position: "absolute",
-            right: 0,
-          },
-          current: body?.page,
-          pageSize: body?.pageSize,
-          total: count,
-          onChange: (current, pageSize) => {
-            if (current != body?.page) {
-              setBody((prev) => {
-                return {
-                  ...prev,
-                  page: current,
-                };
-              });
-            }
-          },
-        }}
-      />
-      <div style={{ marginTop: "10px" }} className="flex_between" id="">
-        <div className="show_number_item">
-          <b>Hiển thị:</b>
-          <select
-            onChange={(el) => {
-              setBody({
-                ...body,
-                pageSize: Number(el.target.value),
-              });
+    <>
+      {isLoading ? (
+        <Spin style={{ width: "100%", margin: "auto" }} />
+      ) : (
+        <div className="custom_table campaign_tble">
+          <Table
+            columns={columns}
+            dataSource={data}
+            // rowSelection={{ ...rowSelection }}
+            bordered
+            scroll={{ x: 1500, y: 320 }}
+            pagination={{
+              style: {
+                paddingBottom: 20,
+                display: "flex",
+                position: "absolute",
+                right: 0,
+              },
+              current: body?.page,
+              pageSize: body?.pageSize,
+              total: count,
+              onChange: (current, pageSize) => {
+                if (current != body?.page) {
+                  setBody((prev) => {
+                    return {
+                      ...prev,
+                      page: current,
+                    };
+                  });
+                }
+              },
             }}
-            className="show_item"
-          >
-            <option value={10}>10 bản ghi trên trang</option>
-            <option value={20}>20 bản ghi trên trang</option>
-            <option value={30}>30 bản ghi trên trang</option>
-            <option value={40}>40 bản ghi trên trang</option>
-            <option value={50}>50 bản ghi trên trang</option>
-          </select>
+          />
+          <div style={{ marginTop: "10px" }} className="flex_between" id="">
+            <div style={{ marginBottom: "10px" }} className="show_number_item">
+              <b>Hiển thị:</b>
+              <select
+                onChange={(el) => {
+                  setBody({
+                    ...body,
+                    pageSize: Number(el.target.value),
+                  });
+                }}
+                className="show_item"
+              >
+                <option value={10}>10 bản ghi trên trang</option>
+                <option value={20}>20 bản ghi trên trang</option>
+                <option value={30}>30 bản ghi trên trang</option>
+                <option value={40}>40 bản ghi trên trang</option>
+                <option value={50}>50 bản ghi trên trang</option>
+              </select>
+            </div>
+            <div style={{ marginBottom: "10px" }} className="total">
+              Tổng số: <b>{data.length}</b> Cơ hội
+            </div>
+          </div>
         </div>
-        <div className="total">
-          Tổng số: <b>{data.length}</b> Cơ hội
-        </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 

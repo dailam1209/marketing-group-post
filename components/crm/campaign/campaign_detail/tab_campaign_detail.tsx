@@ -23,15 +23,19 @@ import { Tabs } from "antd";
 import { fetchApi } from "../../ultis/api";
 import Cookies from "js-cookie";
 
-const TabComponent = ({ formFields }) => {
+const TabComponent = ({ formFields, isHideEmptyData }) => {
   const [activeTab, setActiveTab] = useState("tab1");
   const [isModalCancel, setIsModalCancel] = useState(false);
   const [isOpenShare, setIsOpenShare] = useState(false);
   const [isSelectedRow, setIsSelectedRow] = useState(false);
   const [isNumberSelected, setNumberSelected] = useState(0);
+  const [isNumberSelectedOrderTable, setNumberSelectedOrderTable] = useState(
+    []
+  );
   const token = Cookies.get("token_base365");
   const [emp, setEmp] = useState([]);
-  const [body, setBody] = useState<any>({ page: 1, pageSize: 1 });
+  const [bodyOrder, setBodyOrder] = useState<any>({ page: 1, pageSize: 10 });
+  const [body, setBody] = useState<any>({ page: 1, pageSize: 10 });
 
   const fetchAPIEmployee = async () => {
     const dataApi = await fetchApi(
@@ -61,7 +65,11 @@ const TabComponent = ({ formFields }) => {
                 <div className={styles.main__title}>Thông tin đơn hàng</div>
                 <div className={styles.form_add_potential}>
                   <div className={styles.main__body}>
-                    <AddCampaignGeneralDetailInfo formFields={formFields} />
+                    <AddCampaignGeneralDetailInfo
+                      formFields={formFields}
+                      isHideEmptyData={isHideEmptyData}
+                      empList={emp}
+                    />
                     {/* <AddOrderDetailTable /> */}
                     {/* <AddOrderDetailStatus /> */}
                   </div>
@@ -119,12 +127,20 @@ const TabComponent = ({ formFields }) => {
               <div className={styles.info_step}>
                 <div className={styles.form_add_potential}>
                   <div className={`${styles.main__control_btn} `}>
-                    <CampaignOrderInputGroup />
+                    <CampaignOrderInputGroup
+                      body={bodyOrder}
+                      setBody={setBodyOrder}
+                      emp={emp}
+                      selectedRow={isNumberSelectedOrderTable}
+                    />
                   </div>
 
                   <TableDataCampaignOrder
                     setSelected={setIsSelectedRow}
-                    setNumberSelected={setNumberSelected}
+                    setNumberSelected={setNumberSelectedOrderTable}
+                    body={bodyOrder}
+                    setBody={setBodyOrder}
+                    emp={emp}
                   />
                 </div>
               </div>

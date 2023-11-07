@@ -4,15 +4,19 @@ import Image from "next/image";
 import styles from "../order.module.css";
 import { useRouter } from "next/router";
 import { showModalWithTimeout } from "@/components/crm/ultis/helper";
-import ModalCompleteStep from "../order_steps/complete_modal";
+import DelModalCampaignOrder from "../order_steps/del_modal_campaign_order";
 
 interface MyComponentProps {
   isModalCancel: boolean;
   setIsModalCancel: (value: boolean) => void;
+  record?: any;
+  handleApiReq?: (type: string) => Promise<void>;
 }
 const DelActionModal: React.FC<MyComponentProps> = ({
   isModalCancel,
   setIsModalCancel,
+  record,
+  handleApiReq,
 }) => {
   const [isModalSuccess, setIsMdalSuccess] = useState(false);
 
@@ -36,17 +40,18 @@ const DelActionModal: React.FC<MyComponentProps> = ({
         okText="Đồng ý"
         cancelText="Huỷ"
       >
-        <div>Bạn có chắc chắn muốn xóa đơn hàng</div>
-        <div>
-          <b>ĐH-0000?</b>
-        </div>
+        <div>Bạn có chắc chắn muốn xóa đơn hàng ?</div>
+        {/* <div>
+          <b>{record?._id}?</b>
+        </div> */}
       </Modal>
 
-      <ModalCompleteStep
+      <DelModalCampaignOrder
+        handleApiReq={handleApiReq}
         modal1Open={isModalSuccess}
         setModal1Open={setIsMdalSuccess}
-        title={"Xóa đơn hàng ĐH-0000 thành công!"}
-        link={"/order/list"}
+        title={"Xóa đơn hàng thành công!"}
+        // link={"/order/list"}
       />
     </>
   );

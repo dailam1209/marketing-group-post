@@ -64,7 +64,7 @@ export default function Header({ toggleModal }: any) {
                 />
               </Link>
             )}
-            <h3 style={{ color: "#474747" }}>{headerTitle}</h3>
+            <h3 className="header_ttle" style={{ color: "#474747" }}>{headerTitle}</h3>
           </div>
           <div className={style.header_btn}>
             <div
