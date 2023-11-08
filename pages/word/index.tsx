@@ -29,7 +29,7 @@ export default function PotentialInformation() {
       const currentCookie = getToken("token_base365");
       if (currentCookie) {
         const decodedToken: any = await jwt_decode(currentCookie);
-        decodedToken?.data.idQLC === 10024092 && setCheckReceiver(true);
+        decodedToken?.data.idQLC === 10013446 && setCheckReceiver(true);
         setUserId(decodedToken?.data.idQLC ?? 0);
         setFormData({ ...formData, creator: decodedToken?.data.idQLC });
       } else {
@@ -113,7 +113,7 @@ export default function PotentialInformation() {
   }
   return (
     <div ref={mainRef} className={styleHome.main}>
-      {(checkReceiver&&userType==2) ? (
+      {(checkReceiver&&userType==1) ? (
         <div>
           <label style={{ marginBottom: "20px", fontWeight: "600" }}>
             {" "}
