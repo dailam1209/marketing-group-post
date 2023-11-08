@@ -9,6 +9,7 @@ import { Button, Input } from "antd";
 import { useRouter } from "next/router";
 import { ToastContainer } from "react-toastify";
 import { notifyError, notifySuccess, notifyWarning } from "@/utils/function";
+import Link from "next/link";
 
 export default function PotentialInformation() {
   const router = useRouter();
@@ -106,13 +107,13 @@ export default function PotentialInformation() {
       notifyError("Vui lòng thử lại");
     }
   };
-  if (userType < 2) {
+  if (userType > 2) {
     router.push("/");
     return;
   }
   return (
     <div ref={mainRef} className={styleHome.main}>
-      {checkReceiver ? (
+      {(checkReceiver&&userType==2) ? (
         <div>
           <label style={{ marginBottom: "20px", fontWeight: "600" }}>
             {" "}
@@ -122,12 +123,18 @@ export default function PotentialInformation() {
             <div
               style={{
                 display: "flex",
+                justifyContent:"space-between",
                 alignItems: "center",
                 marginBottom: "20px",
               }}
             >
-              <div>{item.word}</div>{" "}
               <div>
+
+                <div style={{marginBottom:"10px"}}>Từ: {item.word}</div>
+                <div>Link: {<Link target="blank" href={item.link}>{item.link?item.link:""}</Link> }</div>
+                {" "}</div>
+              
+              <div style={{marginLeft:"30px"}}>
                 <Button
                   onClick={() => handleAccept(item._id)}
                   style={{
@@ -159,6 +166,16 @@ export default function PotentialInformation() {
             style={{ height: "50px" }}
             placeholder="Nhập từ khóa nhạy cảm"
             onChange={(e) => setFormData({ ...formData, word: e.target.value })}
+          />
+          <label style={{ margin: "20px 0", fontWeight: "600" }}>
+            {" "}
+            Link
+          </label>
+          <Input
+            value={formData.link}
+            style={{ height: "50px" }}
+            placeholder="Nhập link"
+            onChange={(e) => setFormData({ ...formData, link: e.target.value })}
           />
           <div
             style={{
