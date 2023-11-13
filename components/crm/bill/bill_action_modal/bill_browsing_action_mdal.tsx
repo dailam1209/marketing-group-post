@@ -38,14 +38,14 @@ const DelActionModal: React.FC<MyComponentProps> = ({
       >
         <div>Bạn có chắc chắn muốn duyệt đề nghị xuất hóa đơn</div>
         <div>
-          <b>ĐH-0000?</b>
+          <b></b>
         </div>
       </Modal>
 
       <ModalCompleteStep
         modal1Open={isModalSuccess}
         setModal1Open={setIsMdalSuccess}
-        title={"Duyệt đề nghị xuất hóa đơn ĐH-0000 thành công!"}
+        title={"Duyệt đề nghị xuất hóa đơn thành công!"}
         link={"/bill/list"}
       />
     </>
