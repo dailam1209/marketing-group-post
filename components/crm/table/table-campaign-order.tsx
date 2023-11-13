@@ -76,6 +76,10 @@ const TableDataCampaignOrder: React.FC<TableDataCampaignOrderProps> = ({
       typeAPI: "hand_over",
       status: 0,
     },
+    {
+      typeAPI: "share",
+      status: 0,
+    },
   ];
 
   const fetchAPIEdit = async (id: number, bodyAPIs) => {
@@ -217,10 +221,12 @@ const TableDataCampaignOrder: React.FC<TableDataCampaignOrderProps> = ({
       }
     },
     onSelect: (record, selected, selectedRows) => {
-      setNumberSelected(selectedRows?.length);
+      // setNumberSelected(selectedRows?.length);
       setNumberSelected(selectedRows);
     },
-    onSelectAll: (selected, selectedRows, changeRows) => {},
+    onSelectAll: (selected, selectedRows, changeRows) => {
+      setNumberSelected(selectedRows);
+    },
   };
   return (
     <div className="custom_table">

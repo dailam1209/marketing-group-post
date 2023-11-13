@@ -86,18 +86,27 @@ const HandeOverModal: React.FC<MyComponentProps> = ({
               filterOption={(input, option) =>
                 (option?.label ?? "").includes(input)
               }
-              options={[
-                {
-                  label: "Người thực hiện",
-                  value: 0,
-                },
-                ...emp?.map((item) => {
-                  return {
-                    label: item?.userName,
-                    value: item.ep_id,
-                  };
-                }),
-              ]}
+              options={
+                emp
+                  ? [
+                      {
+                        label: "Người thực hiện",
+                        value: 0,
+                      },
+                      ...emp?.map((item) => {
+                        return {
+                          label: item?.userName,
+                          value: item.ep_id,
+                        };
+                      }),
+                    ]
+                  : [
+                      {
+                        label: "Người thực hiện",
+                        value: 0,
+                      },
+                    ]
+              }
             />
           </div>
           <div
