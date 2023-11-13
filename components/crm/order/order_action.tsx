@@ -15,6 +15,7 @@ export default function OrderAction({
   isSelectedRow,
   bodyAPI,
   fetchAPIEdit,
+  link ="/"
 }: any) {
   const [isOpenOrderBrowsing, setIsOpenOrderBrowsing] = useState(false);
   const [isOpenDeny, setIsOpenDeny] = useState(false);
@@ -67,7 +68,7 @@ export default function OrderAction({
       label: (
         <>
           {dataActionOrder[i].link !== "#" ? (
-            <Link href={dataActionOrder[i].link} className="flex-start-btn">
+            <Link href={link} className="flex-start-btn">
               <i className={dataActionOrder[i].img}></i>
               {dataActionOrder[i].name}
             </Link>
@@ -88,17 +89,17 @@ export default function OrderAction({
     <div className={styles.div__thaotac}>
       <div>
         <label>Đã chọn:</label>
-        <b className={styles.checked_count}>0</b>
+        <b className={styles.checked_count}></b>
       </div>
       <Dropdown
         menu={{ items }}
         placement="bottomLeft"
-        disabled={isSelectedRow.length == 0}
+        disabled={isSelectedRow?.length == 0}
       >
         <button
           className={styles.button_thaotac}
           style={{
-            background: isSelectedRow.length == 0 ? "#e6e6ee" : "#ffff",
+            background: isSelectedRow?.length == 0 ? "#e6e6ee" : "#ffff",
           }}
         >
           <img src="/crm/3_cham.png" />
