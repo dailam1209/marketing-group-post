@@ -38,6 +38,7 @@ const TabComponent = ({ formFields, isHideEmptyData }) => {
   const [bodyOrder, setBodyOrder] = useState<any>({ page: 1, pageSize: 10 });
   const [bodyBill, setBodyBill] = useState<any>({ page: 1, pageSize: 10 });
   const [body, setBody] = useState<any>({ page: 1, pageSize: 10 });
+  const [formSearch, setFormSearch] = useState<any>({ recall: true });
 
   const fetchAPIEmployee = async () => {
     const dataApi = await fetchApi(
@@ -252,7 +253,10 @@ const TabComponent = ({ formFields, isHideEmptyData }) => {
                       </div>
                     </div>
                   </div>
-                  <TableDataCampaignShareList />
+                  <TableDataCampaignShareList 
+                    formData={formSearch}
+                    setFormData={setFormSearch}
+                  />
                 </div>
               </div>
             </div>
