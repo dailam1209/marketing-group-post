@@ -11,20 +11,25 @@ import DelActionModal from "../campaign_delete_action_mdal";
 import { fetchApi } from "../../ultis/api";
 import Cookies from "js-cookie";
 
-export default function DetailCampaignButtonControl() {
+export default function DetailCampaignButtonControl({
+  isHideEmptyData,
+  setIsHideEmptyData,
+}) {
   const [isDelOpen, setIsDelOpen] = useState(false);
   const router = useRouter();
   const { id } = router.query;
   const url = "http://localhost:3007/api/crm/campaign/delete-campaign";
   const token = Cookies.get("token_base365");
-  const onChange = (checked: boolean) => {};
+  const onChange = (checked: boolean) => {
+    setIsHideEmptyData(!isHideEmptyData);
+  };
 
   const handleDelete = async (id: number) => {
     const bodyAPI = {
       cam_id: id,
     };
     const dataApi = await fetchApi(url, token, bodyAPI, "POST");
-    router.push("/campaign/list")
+    router.push("/campaign/list");
   };
   return (
     <div>
@@ -32,7 +37,7 @@ export default function DetailCampaignButtonControl() {
         <div className={styles.row_input}>
           <div className={`${styles.main__control_btn} ${styles.flex_end} `}>
             <div className={`${styles.flex_1}`}>
-              <Switch defaultChecked onChange={onChange} />
+              <Switch checked={isHideEmptyData} onChange={onChange} />
               Ẩn dữ liệu trống
             </div>
             <div className={styles.group_button}>

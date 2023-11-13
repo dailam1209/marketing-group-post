@@ -16,7 +16,9 @@ export default function OrderDetailsInputGroups({ isSelectedRow }: any) {
           className={`${stylesPotential.main__control_select} flex_align_center`}
         >
           <div
-            style={{ height: "40px", minWidth: "300px" }}
+            style={{
+              //  height: "40px",
+             minWidth: "300px" }}
             className={`${stylesPotential.select_item} flex_align_center_item ${stylesPotential.select_item_time}`}
           >
             <label htmlFor="" className="">

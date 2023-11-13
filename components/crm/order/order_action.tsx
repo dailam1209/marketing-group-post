@@ -11,8 +11,11 @@ import CancelActionModal from "./order_action_modal/cancel_action_mdal";
 import ShareActionModal from "./order_action_modal/share_action_mdal";
 import HandOverActionModal from "./order_action_modal/handover_action_mdal";
 
-
-export default function OrderAction({ isSelectedRow }: any) {
+export default function OrderAction({
+  isSelectedRow,
+  bodyAPI,
+  fetchAPIEdit,
+}: any) {
   const [isOpenOrderBrowsing, setIsOpenOrderBrowsing] = useState(false);
   const [isOpenDeny, setIsOpenDeny] = useState(false);
   const [isDelOpen, setIsDelOpen] = useState(false);
@@ -20,6 +23,22 @@ export default function OrderAction({ isSelectedRow }: any) {
   const [isOpenShare, setIsOpenShare] = useState(false);
   const [isOpenHandOver, setIsOpenHandOver] = useState(false);
 
+  const handleApiReq = async (type: string, data = {}) => {
+    const body = {
+      ...bodyAPI?.filter((record) => record.typeAPI === type)[0],
+      ...data,
+    };
+
+    const apiPromises = isSelectedRow?.map((items) =>
+      fetchAPIEdit(items?._id, body)
+    );
+
+    try {
+      await Promise.all(apiPromises);
+    } catch (error) {
+      console.error("Có lỗi xảy ra trong quá trình xử lý yêu cầu API", error);
+    }
+  };
 
   const handleClickAction = (e: any, type: string | undefined) => {
     if (type === "order_browsing") {
@@ -40,7 +59,6 @@ export default function OrderAction({ isSelectedRow }: any) {
     if (type === "hand_over") {
       setIsOpenHandOver(true);
     }
-
   };
   const items: MenuProps["items"] = [];
   for (let i = 0; i < dataActionOrder.length; i++) {
@@ -72,8 +90,17 @@ export default function OrderAction({ isSelectedRow }: any) {
         <label>Đã chọn:</label>
         <b className={styles.checked_count}>0</b>
       </div>
-      <Dropdown menu={{ items }} placement="bottomLeft">
-        <button className={styles.button_thaotac}>
+      <Dropdown
+        menu={{ items }}
+        placement="bottomLeft"
+        disabled={isSelectedRow.length == 0}
+      >
+        <button
+          className={styles.button_thaotac}
+          style={{
+            background: isSelectedRow.length == 0 ? "#e6e6ee" : "#ffff",
+          }}
+        >
           <img src="/crm/3_cham.png" />
           Thao tác
         </button>
@@ -92,21 +119,26 @@ export default function OrderAction({ isSelectedRow }: any) {
       </Dropdown> */}
 
       <OrderBrowsingModal
+        handleApiReq={handleApiReq}
+        record={isSelectedRow}
         isModalCancel={isOpenOrderBrowsing}
         setIsModalCancel={setIsOpenOrderBrowsing}
       />
 
       <DenyActionModal
+        handleApiReq={handleApiReq}
         isModalCancel={isOpenDeny}
         setIsModalCancel={setIsOpenDeny}
       />
 
       <DelActionModal
+        handleApiReq={handleApiReq}
         isModalCancel={isDelOpen}
         setIsModalCancel={setIsDelOpen}
       />
 
       <CancelActionModal
+        handleApiReq={handleApiReq}
         isModalCancel={isOpenCancel}
         setIsModalCancel={setIsOpenCancel}
       />

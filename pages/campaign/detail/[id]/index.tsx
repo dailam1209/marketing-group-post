@@ -22,12 +22,22 @@ const DetailCampaign: React.FC = () => {
   const { trigger, setTrigger } = useTrigger();
   const mainRef = useRef<HTMLDivElement>(null);
   const { isOpen } = useContext<any>(SidebarContext);
-  const imgRef = useRef<HTMLInputElement>(null);
+  const [isHideEmptyData, setIsHideEmptyData] = useState(false);
+  const [inforCampaign, setInforCampaign] = useState<any>({});
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
 
   const url = "http://localhost:3007/api/crm/campaign/detail-campaign";
   const token = Cookies.get("token_base365");
+
+  const hideEmptyDataFunc = (data) => {
+    if (isHideEmptyData) {
+      if (data !== null && data !== undefined && data !== 1 && data !== 0)
+        return false;
+      return true;
+    }
+    return false;
+  };
 
   const fetchAPICampaign = async () => {
     const bodyAPI = {
@@ -37,6 +47,19 @@ const DetailCampaign: React.FC = () => {
     const dataApi = await fetchApi(url, token, bodyAPI, "POST");
     setFormFields(dataApi?.data?.data);
     stopLoading();
+  };
+
+  const fetchAPIInforCampaign = async () => {
+    const bodyAPI = {
+      campaign_id: Number(router.query.id),
+    };
+    const dataApi = await fetchApi(
+      "http://localhost:3007/api/crm/campaign/info-campaign",
+      token,
+      bodyAPI,
+      "POST"
+    );
+    setInforCampaign(dataApi?.data?.data);
   };
 
   useEffect(() => {
@@ -64,6 +87,9 @@ const DetailCampaign: React.FC = () => {
     };
   }, [trigger]);
 
+  useEffect(() => {
+    fetchAPIInforCampaign();
+  }, []);
 
   return (
     <>
@@ -118,12 +144,19 @@ const DetailCampaign: React.FC = () => {
             ) : (
               <div className={styles.info_step}>
                 <div className={styles.form_add_potential}>
-                  <AddButtonControl />
+                  <AddButtonControl
+                    isHideEmptyData={isHideEmptyData}
+                    setIsHideEmptyData={setIsHideEmptyData}
+                  />
                 </div>
                 <div className={styles.main__title}>Chi tiết chiến dịch</div>
                 <div className={styles.form_add_potential}>
                   <div className={styles.main__body}>
-                    <AddDetailInfo formFields={formFields} />
+                    <AddDetailInfo
+                      inforCampaign={inforCampaign}
+                      formFields={formFields}
+                      isHideEmptyData={hideEmptyDataFunc}
+                    />
                     {/* <AddDescriptionInfo /> */}
                   </div>
                 </div>
@@ -131,7 +164,10 @@ const DetailCampaign: React.FC = () => {
             )}
           </div>
 
-          <TabOrderList formFields={formFields} />
+          <TabOrderList
+            formFields={formFields}
+            isHideEmptyData={hideEmptyDataFunc}
+          />
         </div>
       </div>
     </>

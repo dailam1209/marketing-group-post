@@ -197,7 +197,7 @@ const TableDataCampaign: React.FC<TableDataCampaignProps> = ({
           },
           current: body?.page,
           pageSize: body?.pageSize,
-          total: data.length,
+          total: dataAPI?.total,
           onChange: (current, pageSize) => {
             if (current != body?.page) {
               setBody((prev) => {
@@ -235,7 +235,7 @@ const TableDataCampaign: React.FC<TableDataCampaignProps> = ({
             <option value={50}>50 bản ghi trên trang</option>
           </select>
         </div>
-        <div className="total" style={{ marginTop: "5px" }}>
+        <div className="total" style={{ marginTop: "5px", marginLeft: "12px" }}>
           Tổng số: <b>{data.length}</b> Chiến dịch
         </div>
       </div>

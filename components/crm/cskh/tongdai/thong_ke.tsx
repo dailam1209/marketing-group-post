@@ -9,9 +9,12 @@ import FilterThongKe from "./fillterThongKe";
 import { base_url } from "../../service/function";
 import { useDispatch } from "react-redux";
 const Cookies = require("js-cookie");
+import { useRouter } from "next/router";
 type Props = {};
 
 const Recording = (props: Props) => {
+  const router = useRouter();
+  const { pb, timeStart, timeEnd } = router.query as { pb: string, timeStart: string, timeEnd: string };
   const dispatch = useDispatch();
   const [isShowModal, setIsShowModal] = useState(false);
   const [isShowModalAdd, setIsShowModalAdd] = useState(false);
@@ -20,7 +23,7 @@ const Recording = (props: Props) => {
   const [current, setcurrent] = useState(1);
   const [pageSize, setpageSize] = useState(10);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [phongban, setPhongban] = useState();
+  const [phongban, setPhongban] = useState(pb);
   let [datane, setDatane] = useState([]);
   const [data, setData] = useState([]);
 
@@ -32,90 +35,44 @@ const Recording = (props: Props) => {
     setIsShowModalAdd(false);
   };
 
-  const [fillStart, setFillStart] = useState<any>();
-  const [fillEnd, setFillEnd] = useState<any>();
+  const [fillStart, setFillStart] = useState<any>(() => {
+    if (!timeStart) return undefined
+    return timeStart.split(' ')[0]
+  });
+  const [fillEnd, setFillEnd] = useState<any>(() => {
+    if (!timeEnd) return undefined
+    return timeEnd.split(' ')[0]
+  });
   const [listNV, setListNV] = useState([]);
-  const [condition, setCondition] = useState(
-    JSON.stringify({ token: Cookies.get("token_base365") })
-  );
+  const [condition, setCondition] = useState(() => {
+    const query = { token: Cookies.get("token_base365") }
+    if (timeStart) {
+      query["timeStart"] = timeStart
+    }
+    if (timeEnd) {
+      query["timeEnd"] = timeEnd
+    }
+    return JSON.stringify(query)
+  })
 
-  const handleGetNhanVienPhuTrach = async () => {
-    try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/managerUser/listAll`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${Cookies.get("token_base365")}`,
-          },
-        }
-      );
-      const data = await res.json();
-      setListNV(data?.data?.items);
-    } catch (error) { }
-  };
   const [listLine, setlistLine] = useState([]);
   const [listPB, setlistPB] = useState([]);
-  const [isLoading, setisLoading] = useState(false);
-
-  const handleGetLine = async () => {
-    try {
-      const res = await fetch(`${base_url}/api/crm/cutomerCare/listLine`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${Cookies.get("token_base365")}`,
-        },
-      });
-      const data = await res.json();
-      setlistLine(data?.data);
-    } catch (error) { }
-  };
+  const [loading, setLoading] = useState(true);
 
   const handleFilter = async () => {
+    let param = ''
     if (phongban) {
-      let tmp = data.filter((item) => {
-        return item.nameDeparment === phongban;
-      });
-      setIsModalOpen(false);
-      setDatane(tmp)
+      param += `pb=${phongban}&`
     }
-    setIsModalOpen(false);
-    if (fillEnd && fillStart) {
-      setCondition(
-        JSON.stringify({
-          timeStart: fillStart,
-          timeEnd: fillEnd,
-          token: Cookies.get("token_base365"),
-        })
-      );
+    if (fillStart) {
+      param += `timeStart=${fillStart}&`
     }
+    if (fillEnd) {
+      param += `timeEnd=${fillEnd}&`
+    }
+    param !== '' ? router.push(`?${param}`) : router.push('')
   }
 
-  const datas = [
-    {
-      "Mã tiềm năng": "TN001",
-      "Xưng hô": "Mr.",
-      "Họ tên": "John Doe",
-      "Chức danh": "Manager",
-      "Điện thoại cá nhân": "123-456-7890",
-      " cá nhân": "john.doe@example.com",
-      "Điện thoại cơ quan": "098-765-4321",
-      " cơ quan": "john.doe@company.com",
-      "Địa chỉ": "123 Main St",
-      "Tỉnh/Thành phố": "New York",
-      "Quận/Huyện": "Manhattan",
-      "Phường xã": "Central Park",
-      "Nguồn gốc": "Website",
-      "Loại hình": "B2B",
-      "Lĩnh vực": "Technology",
-      "Mô tả": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      "Mô tả loại hình": "Lorem ipsum dolor sit amet.",
-      "Người tạo": "Admin",
-    },
-    // Add more sample data objects here if needed
-  ];
   const handleExportToExcel = () => {
     const tmp = data.filter(e => e.nameDeparment != null)
     tmp.sort((a, b) => a.nameDeparment.localeCompare(b.nameDeparment))
@@ -156,17 +113,25 @@ const Recording = (props: Props) => {
         body: condition,
       });
       const data = await response.json();
+      console.log(data)
+      setLoading(false)
       if (data && data.data && data.data.data) {
+        if (pb && pb !== '') {
+          let tmp = data.data.data.filter((item) => {
+            return item.nameDeparment === pb;
+          });
+          setDatane(tmp);
+        }
+        else {
+          setDatane(data.data.data)
+        }
         setData(data.data.data);
-        setDatane(data.data.data);
       }
     } catch (error) { }
   };
   useEffect(() => {
-    handleGetLine();
     handleGet();
-    handleGetNhanVienPhuTrach();
-  }, [condition]);
+  }, []);
   const Colums = [
     {
       width: 50,
@@ -225,8 +190,8 @@ const Recording = (props: Props) => {
           setFillStart={setFillStart}
           fillEnd={fillEnd}
           setFillEnd={setFillEnd}
-          handleGet={handleFilter}
-          // handleGet={handleGet}
+          handleFilter={handleFilter}
+          phongban={phongban}
           setPhongban={setPhongban}
         />
 
@@ -240,7 +205,7 @@ const Recording = (props: Props) => {
 
       <div style={{ paddingTop: 20 }}>
         <Table
-          loading={datane ? false : true}
+          loading={loading}
           dataSource={datane}
           columns={Colums}
           bordered

@@ -1,8 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Table, Pagination } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { TableRowSelection } from "antd/es/table/interface";
 import Link from "next/link";
+import { axiosCRM } from "@/utils/api/api_crm";
+import { useRouter } from "next/router";
+import { renderPosition } from "@/utils/function";
+import {
+  renderBusinessType,
+  renderPotentialResource,
+  renderSector,
+  renderVocative,
+} from "@/utils/listOption";
+import { renderCity, renderDistrict } from "@/constants/address-constant";
 
 interface DataType {
   key: React.Key;
@@ -16,116 +26,110 @@ const columns: ColumnsType<DataType> = [
   {
     title: "Mã tiềm năng",
     width: 120,
-    dataIndex: "name",
-    key: "name",
+    dataIndex: "potential_id",
+    key: "potential_id",
   },
   {
     title: "Xưng hô",
     width: 150,
-    dataIndex: "salutation",
-    key: "salutation",
+    dataIndex: "vocative",
+    key: "vocative",
   },
   {
     title: "Họ và tên",
-    dataIndex: "address",
-    key: "1",
+    dataIndex: "fullName",
+    key: "fullName",
     width: 300,
-    render: (data) => (
-      // <Tooltip title={data}>
-      <Link href={`/potential/detail/${data}`}>
-        <span>{data}</span>
-      </Link>
-      // </Tooltip>
-    ),
+    // render: (data) => (
+    //   // <Tooltip title={data}>
+    //   <Link href={`/potential/detail/${data}`}>
+    //     <span>{data}</span>
+    //   </Link>
+    //   // </Tooltip>
+    // ),
   },
   {
     title: "Chức danh",
-    dataIndex: "address",
-    key: "2",
-    width: 150,
+    dataIndex: "pos_id",
+    key: "pos_id",
+    width: 200,
   },
   {
     title: "Điện thoại cá nhân",
-    dataIndex: "address",
-    key: "3",
+    dataIndex: "private_phone",
+    key: "private_phone",
     width: 150,
   },
   {
     title: "Email cá nhân",
-    dataIndex: "address",
-    key: "4",
-    width: 150,
+    dataIndex: "private_email",
+    key: "private_email",
+    width: 200,
   },
   {
     title: "Điện thoại cơ quan",
-    dataIndex: "address",
-    key: "5",
-    width: 150,
+    dataIndex: "office_phone",
+    key: "office_phone",
+    width: 200,
   },
   {
     title: "Email cơ quan",
-    dataIndex: "address",
-    key: "5",
-    width: 150,
+    dataIndex: "office_email",
+    key: "office_email",
+    width: 200,
   },
   {
     title: "Địa chỉ",
     dataIndex: "address",
-    key: "5",
-    width: 150,
+    key: "address",
+    width: 200,
   },
   {
     title: "Tỉnh/Thành phố",
-    dataIndex: "address",
-    key: "5",
+    dataIndex: "cit_id",
+    key: "cit_id",
     width: 150,
   },
   {
     title: "Quận/Huyện",
-    dataIndex: "address",
-    key: "5",
+    dataIndex: "district_id",
+    key: "district_id",
     width: 150,
   },
   {
     title: "Phường/Xã",
-    dataIndex: "address",
-    key: "5",
+    dataIndex: "ward",
+    key: "ward",
     width: 150,
   },
   {
     title: "Nguồn gốc",
-    dataIndex: "address",
-    key: "5",
+    dataIndex: "resource",
+    key: "resource",
     width: 150,
   },
   {
     title: "Loại hình",
-    dataIndex: "address",
-    key: "5",
+    dataIndex: "business_type",
+    key: "business_type",
     width: 150,
   },
   {
     title: "Lĩnh vực",
-    dataIndex: "address",
-    key: "5",
+    dataIndex: "sector",
+    key: "sector",
     width: 150,
   },
   {
     title: "Mô tả",
-    dataIndex: "address",
-    key: "5",
-    width: 150,
-  },
-  {
-    title: "Loại hình",
-    dataIndex: "address",
-    key: "5",
+    dataIndex: "description",
+    key: "description",
     width: 150,
   },
   {
     title: "Người tạo",
-    dataIndex: "operation",
-    key: "6",
+    dataIndex: "user_create",
+    key: "user_create",
     width: 200,
   },
 ];
@@ -145,15 +149,25 @@ interface TableDataPotentialProps {
   setSelected: (value: boolean) => void;
   setNumberSelected: any;
   setRowDataSelected: any;
+  formData: any;
+  setFormData: any;
 }
 
 const TableDataPotential: React.FC<TableDataPotentialProps> = ({
   setSelected,
   setNumberSelected,
   setRowDataSelected,
+  formData = null,
+  setFormData = null,
 }: any) => {
+  const router = useRouter();
+  const [listPotential, setListPotential] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
+  const [total, setTotal] = useState(0);
+  useEffect(() => {
+    setFormData({ ...formData, pageSize: pageSize, page: currentPage });
+  }, [currentPage, pageSize]);
   const rowSelection: TableRowSelection<DataType> = {
     onChange: (selectedRowKeys, selectedRows) => {
       if (selectedRows?.length >= 1) {
@@ -171,18 +185,64 @@ const TableDataPotential: React.FC<TableDataPotentialProps> = ({
       setRowDataSelected(selectedRows);
     },
   };
+  useEffect(() => {
+    axiosCRM
+      .post("/potential/listPotential", {
+        ...formData,
+        pageSize: pageSize,
+        page: currentPage,
+      })
+      .then((res) => {
+        handleDataTable(res.data.data.data);
+        setTotal(res.data.data.total);
+      })
+      .catch((err) => console.log("error"));
+  }, [, pageSize, currentPage, formData.recall]);
+  const handleDataTable = (datas) => {
+    setListPotential(
+      datas?.map((data) => ({
+        ...data,
+        key: data.potential_id,
+        vocative: renderVocative(data.vocative),
+        fullName: (
+          <button
+            style={{ color: "blue", fontSize: "15px" }}
+            onClick={() => router.push(`/potential/detail/${data.cus_id}`)}
+          >
+            {data.stand_name} {data.name}
+          </button>
+        ),
+        pos_id: renderPosition(data.pos_id),
+        cit_id: renderCity(data.cit_id),
+        district_id: renderDistrict(data.district_id),
+        resource: renderPotentialResource(data.resource),
+        business_type: renderBusinessType(data.business_type),
+        sector:
+          data.sector &&
+          data.sector
+            .split(",")
+            .map(
+              (item, index) =>
+                `${renderSector(item)}${
+                  index < data.sector.split(",").length - 1 ? `, ` : ""
+                }`
+            ),
+      }))
+    );
+  };
+  console.log("CHekc ", total);
   return (
     <div className="custom_table">
       <Table
         columns={columns}
-        dataSource={data}
+        dataSource={listPotential}
         rowSelection={{ ...rowSelection }}
         bordered
         scroll={{ x: 1500, y: 300 }}
         pagination={{
           current: currentPage,
           pageSize: pageSize,
-          total: data.length,
+          total: total,
           showSizeChanger: true,
           showTotal: (total) => `Tổng ${total} Tiềm năng`,
           onChange: (page, pageSize) => {
@@ -209,7 +269,7 @@ const TableDataPotential: React.FC<TableDataPotentialProps> = ({
           </select>
         </div>
         <div className="total">
-          Tổng số: <b>{data.length}</b> Tiềm năng
+          Tổng số: <b>{total}</b> Tiềm năng
         </div>
       </div>
     </div>

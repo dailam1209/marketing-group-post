@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Button, Modal } from "antd";
 import Image from "next/image";
 import styles from "../order.module.css";
@@ -9,16 +9,30 @@ import ModalCompleteStep from "../order_steps/complete_modal";
 interface MyComponentProps {
   isModalCancel: boolean;
   setIsModalCancel: (value: boolean) => void;
+  record?: any;
+  handleApiReq?: (type: string, data: {}) => Promise<void>;
 }
-const DelActionModal: React.FC<MyComponentProps> = ({
+const DenyActionModal: React.FC<MyComponentProps> = ({
   isModalCancel,
   setIsModalCancel,
+  record,
+  handleApiReq,
 }) => {
   const [isModalSuccess, setIsMdalSuccess] = useState(false);
+  const textRef = useRef(null);
 
-  const handleOK = () => {
+  const handleOK = async () => {
+    const body = {
+      reason: textRef?.current?.value,
+    };
+    if (body?.reason) {
+      await handleApiReq("deny", body);
+      showModalWithTimeout(setIsMdalSuccess, 2000);
+    } else {
+      alert("Vui lòng điền lý do từ chối");
+    }
+
     setIsModalCancel(false);
-    showModalWithTimeout(setIsMdalSuccess, 2000);
   };
 
   return (
@@ -41,12 +55,13 @@ const DelActionModal: React.FC<MyComponentProps> = ({
           <div className={`${styles.md_txtarea}`}>
             Lý do*
             <textarea
+              ref={textRef}
               name="address_contact"
               id="address_contact"
               className={`${styles.md_txtarea} ${styles.textarea}`}
               placeholder="Nhập lý do"
               defaultValue={""}
-              style={{ width: "550px" }}
+              style={{ width: "100%" }}
             />
           </div>
         </div>
@@ -55,11 +70,11 @@ const DelActionModal: React.FC<MyComponentProps> = ({
       <ModalCompleteStep
         modal1Open={isModalSuccess}
         setModal1Open={setIsMdalSuccess}
-        title={"Từ chối duyệt đơn hàng ĐH-0000 thành công!"}
+        title={"Từ chối duyệt đơn hàng thành công!"}
         link={"/order/list"}
       />
     </>
   );
 };
 
-export default DelActionModal;
+export default DenyActionModal;

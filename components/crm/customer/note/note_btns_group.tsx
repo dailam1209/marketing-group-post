@@ -9,7 +9,10 @@ export default function NoteDetailBtnsGroup() {
     <div className={styles.main__control}>
       <div className={`${styles.main__control_select} flex_align_center`}>
         <div
-          style={{ height: "40px", minWidth: "300px" }}
+          style={{
+            // height: "40px",
+            minWidth: "300px",
+          }}
           className={`${styles.select_item} flex_align_center_item ${styles.select_item_time}`}
         >
           <label htmlFor="" className="">

@@ -14,7 +14,6 @@ import Campaign_potetial from "./campaign_potetial";
 
 const Tab: React.FC = ({ key }: any) => {
   const router = useRouter();
-  const { id } = router.query;
   const onChange = (key: string) => {
     switch (key) {
     }

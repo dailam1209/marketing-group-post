@@ -11,6 +11,7 @@ export default function Potential() {
   const [isSelectedRow, setSelectedRow] = useState(false);
   const [isNumberSelected, setNumberSelected] = useState(0);
   const [isRowDataSelected, setRowDataSelected] = useState("");
+  const [formSearch, setFormSearch] = useState<any>({ recall: true });
 
   const {
     headerTitle,
@@ -32,6 +33,7 @@ export default function Potential() {
       mainRef.current?.classList.remove("content_resize");
     }
   }, [isOpen]);
+  
   return (
     <div ref={mainRef} className={styleHome.main}>
       <PotentialInputGroups
@@ -40,11 +42,15 @@ export default function Potential() {
         isRowDataSelected={isRowDataSelected}
         setSelected={setSelectedRow}
         setNumberSelected={setNumberSelected}
+        formData={formSearch}
+        setFormData={setFormSearch}
       />
       <TableDataPotential
         setSelected={setSelectedRow}
         setRowDataSelected={setRowDataSelected}
         setNumberSelected={setNumberSelected}
+        formData={formSearch}
+        setFormData={setFormSearch}
       />
     </div>
   );

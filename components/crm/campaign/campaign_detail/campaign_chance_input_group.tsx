@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import styles from "@/components/crm/campaign/campaign_detail/campaign_detail_action_modal/campaign_detail_action.module.css";
 import Link from "next/link";
+import styleCampaignInput from "../campaign.module.css";
 import Image from "next/image";
 import $ from "jquery";
 import "select2/dist/css/select2.min.css";
@@ -17,21 +18,6 @@ export default function CampaignChanceInputGroup({ emp, body, setBody }: any) {
     { value: 3, label: "Giai đoạn:  Khách hàng quan tâm" },
     { value: 4, label: "Giai đoạn:  Demo/Gthieu" },
     { value: 5, label: "Giai đoạn:  Đàm phán/ thương lương" },
-  ];
-
-  const datas = [
-    {
-      STT: "TN001",
-      "Tên chiến dịch": "abc",
-      "Tình trạng": "John Doe",
-      Loại: "Manager",
-      "Ngày bắt đầu": "123-456-7890",
-      "Ngày kết thúc": "john.doe@example.com",
-      "Doanh sô kỳ vọng (VNĐ)": "098-765-4321",
-      "Ngân sách (VNĐ)": "john.doe@company.com",
-      "Chức năng": "123 Main St",
-    },
-    // Add more sample data objects here if needed
   ];
 
   useEffect(() => {
@@ -60,24 +46,29 @@ export default function CampaignChanceInputGroup({ emp, body, setBody }: any) {
   }, []);
 
   return (
-    <div className={styles.main__control}>
-      <div className={`${styles.main__control_select} flex_align_center`}>
+    <div className={styleCampaignInput.main__control}>
+      <div
+        className={`${styleCampaignInput.main__control_select} flex_align_center`}
+      >
         <div
           style={{
             borderRadius: "4px",
-            height: "40px",
+            // height: "40px",
+            marginLeft: "10px",
             boxShadow: "none",
             border: "1px solid #aaa",
           }}
-          className={`${styles.select_item} flex_align_center_item ${styles.select_item_time}`}
+          className={`${styleCampaignInput.select_item} flex_align_center_item ${styleCampaignInput.select_item_time}`}
         >
           <label htmlFor="" className="">
             Thời gian tạo:
           </label>
-          <div className={`${styles.input_item_time} flex_between`}>
+          <div
+            style={{ padding: "10px" }}
+            className={`${styleCampaignInput.input_item_time} flex_between`}
+          >
             <input
               onChange={(el) => {
-                console.log(stringToDateNumber(el.target.value));
                 setBody((prev) => {
                   return {
                     ...prev,
@@ -135,9 +126,12 @@ export default function CampaignChanceInputGroup({ emp, body, setBody }: any) {
           ))}
         </select>
       </div>
-
-      <div className={`${styles.main__control_btn} flex_between`}>
-        <div className={styles.main__control_search}>
+            
+      <div
+        style={{ padding: "0 10px" }}
+        className={`${styleCampaignInput.main__control_btn} flex_between`}
+      >
+        <div className={styleCampaignInput.main__control_search}>
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -153,7 +147,7 @@ export default function CampaignChanceInputGroup({ emp, body, setBody }: any) {
             <input
               ref={inputRef}
               type="text"
-              className={styles.input__search}
+              className={styleCampaignInput.input__search}
               name="search"
               defaultValue=""
               placeholder="Tìm kiếm theo tên cơ hội"
@@ -169,11 +163,11 @@ export default function CampaignChanceInputGroup({ emp, body, setBody }: any) {
             </button>
           </form>
         </div>
-        <div className={`${styles.main__control_add} flex_end`}>
+        <div className={`${styleCampaignInput.main__control_add} flex_end`}>
           <Link href="/chance/add">
             <button
               type="button"
-              className={`${styles.dropbtn_add} flex_align_center`}
+              className={`${styleCampaignInput.dropbtn_add} flex_align_center`}
             >
               <Image
                 src="/crm/add.svg"

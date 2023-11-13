@@ -9,6 +9,8 @@ export default function InputText({
   value = "",
   setFormData,
   keyValue = "",
+  name = "",
+  id = "",
 }: any) {
   const handleChangeInput = (e: any) => {
     if (keyValue !== "") {
@@ -27,14 +29,16 @@ export default function InputText({
       </label>
       <input
         style={{
-          height: "35px",
+          marginLeft: "10px",
+
+          height: "px",
           backgroundColor: bonus === "disabled" ? "#e9ecef" : "white",
         }}
         type={type}
         disabled={bonus === "disabled" ? true : false}
         className={`${styles["form-control"]}`}
-        name="middle_name"
-        id="middle_name"
+        name={name}
+        id={id}
         placeholder={placeholder}
         value={value}
         onChange={handleChangeInput}
@@ -42,3 +46,4 @@ export default function InputText({
     </div>
   );
 }
+

@@ -1,15 +1,68 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Modal } from "antd";
 import { useRouter } from "next/router";
+import styles from "@/components/crm/campaign/campaign.module.css";
+
 import ModalCompleteStep from "@/components/crm/quote/quote_steps/complete_modal";
 import CampaignInputGroupsModal from "../detail/campaign_input_modal";
 import TablePotentialItem from "@/components/crm/table/table-potential-item";
 import TablePotentialshowItem from "@/components/crm/table/table-potential-show-item";
+import { axiosCRM } from "@/utils/api/api_crm";
+import Link from "next/link";
+import ShowCampaignPOMD from "./mdal_show_campaignPO";
+import SelectSingle from "@/components/commodity/select";
+import CampaignAction from "../../campaign/campaign_action";
 
 const ShowProductPO = (props: any) => {
   const { isModalCancelPO, onClose } = props;
   const [showMdalAdd, setIsShowMdalADd] = useState(false);
   const router = useRouter();
+  const [listGroupProduct, setListGroupProduct] = useState([]);
+  const [formSearch, setFormSearch] = useState<any>({
+    recall: true,
+    page: 1,
+    page_size: 40,
+  });
+  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
+  //lay ra group
+  useEffect(() => {
+    axiosCRM
+      .post("/product/show-product-group")
+      .then(
+        (res) =>
+          res.data.data.data.length > 0 && handleGroup(res.data.data.data)
+      )
+      .catch((error) => console.log("reCallGroup", error));
+  }, []);
+  useEffect(() => {
+    axiosCRM
+      .post("/product/show-product", formSearch)
+      .then((res) => console.log("checkkkkkkkkkk", res.data.data));
+  }, [formSearch.recall]);
+  const handleGroup = (datas) => {
+    setListGroupProduct(
+      datas.map((dt: any) => ({
+        value: dt._id,
+        label: dt.gr_name,
+      }))
+    );
+  };
+  
+  const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
+    console.log('selectedRowKeys changed: ', newSelectedRowKeys);
+    setSelectedRowKeys(newSelectedRowKeys);
+  };const rowSelection = {
+    selectedRowKeys,
+    onChange: onSelectChange,
+  };
+
+  const handleSubmitSearch = (e) => {
+    e.preventDefault();
+    setFormSearch({ ...formSearch, recall: !formSearch.recall });
+  };
+  // const onClose = () => {
+  //   setIsModalCancelPO(false);
+  // };
   return (
     <>
       {/* <Button type="primary" onClick={() => setModal2Open(true)}>
@@ -62,7 +115,56 @@ const ShowProductPO = (props: any) => {
         />
 
         <div style={{ paddingTop: 30 }}>
-          <CampaignInputGroupsModal />
+          <div className={styles.main__control}>
+            <div className={`${styles.main__control_btn} flex_between`}>
+              <SelectSingle
+                title="Nhóm hàng hóa"
+                data={listGroupProduct}
+                setFormData={setFormSearch}
+                name="gr_id"
+                onChange={(e) =>
+                  setFormSearch({ ...formSearch, recall: !formSearch.recall })
+                }
+              />
+              <div className={styles.main__control_search}>
+                <form onSubmit={handleSubmitSearch}>
+                  <input
+                    onChange={(e) =>
+                      setFormSearch({ ...formSearch, gr_name: e.target.value })
+                    }
+                    type="text"
+                    className={styles.input__search}
+                    name="search"
+                    defaultValue=""
+                    placeholder="Tìm kiếm theo tên hàng hóa"
+                  />
+                  <button className={styles.kinh_lup}>
+                    <img
+                      className={styles.img__search}
+                      src="/crm/search.svg"
+                      alt="hungha365.com"
+                    />
+                  </button>
+                </form>
+              </div>
+              <div className={`${styles.main__control_add} flex_end`}>
+                <Link
+                  href={
+                    router.pathname === "/potential/detail/[id]"
+                      ? "#"
+                      : "/crm/campaign/add"
+                  }
+                  className={`${styles.dropbtn_add} flex_align_center`}
+                >
+                  <img src="/crm/add.svg" />
+                  Thêm mới
+                </Link>
+              </div>
+            </div>
+
+            <CampaignAction />
+          </div>
+          {/* <CampaignInputGroupsModal /> */}
         </div>
         <TablePotentialshowItem />
       </Modal>

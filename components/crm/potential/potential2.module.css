@@ -15,7 +15,9 @@
   box-shadow: none;
   width: 100%;
 }
-
+.select_itemM{
+  width: calc(100% / 3 - 15px);
+}
 .select_item {
   padding: 6px;
   background-color: #fff;
@@ -24,6 +26,8 @@
   gap: 5px;
   width: calc(100% / 3 - 15px);
   justify-content: space-between;
+  align-items: center;
+  height: 45px;
 }
 
 .select_item_time {

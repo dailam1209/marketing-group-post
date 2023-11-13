@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button, Input, Modal, Select } from "antd";
 import styles from "./tongdai.module.css";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 interface MyComponentProps {
   datatable: any;
@@ -11,7 +12,7 @@ interface MyComponentProps {
   setFillStart: any;
   fillEnd: any;
   setFillEnd: any;
-  handleGet: any;
+  handleFilter: any;
   soNghe: any;
   setSoNghe: any;
   nv: any;
@@ -25,25 +26,27 @@ const FilterTongDai: React.FC<MyComponentProps> = ({
   setFillStart,
   fillEnd,
   setFillEnd,
-  handleGet,
+  handleFilter,
   soNghe,
   setSoNghe,
   nv,
   setnv,
 }) => {
+  const router = useRouter();
   const showModal = () => {
     setIsModalOpen(true);
   };
 
   const handleOk = () => {
     setIsModalOpen(false);
-    handleGet();
+    handleFilter();
   };
 
   const handleCancel = () => {
     setIsModalOpen(false);
   };
   const handleDateChange = (e: any) => {
+    console.log(e.target.value)
     setFillStart(`${e.target.value} 00:00:00`);
   };
   const handleDateChange2 = (e: any) => {
@@ -88,7 +91,7 @@ const FilterTongDai: React.FC<MyComponentProps> = ({
               >
                 <div>Từ</div>
                 <div>
-                  <Input onChange={handleDateChange} type="date"></Input>
+                  <Input onChange={handleDateChange} type="date" defaultValue={fillStart}></Input>
                 </div>
               </div>
               <div
@@ -100,7 +103,7 @@ const FilterTongDai: React.FC<MyComponentProps> = ({
               >
                 <div>Đến</div>
                 <div>
-                  <Input onChange={handleDateChange2} type="date"></Input>
+                  <Input onChange={handleDateChange2} type="date" defaultValue={fillEnd}></Input>
                 </div>
               </div>
             </div>
@@ -121,6 +124,8 @@ const FilterTongDai: React.FC<MyComponentProps> = ({
                   value={nv}
                   onChange={(value) => setnv(value)}
                 >
+                  {/* <option>Nhân viên</option> */}
+                  <option value=''>Nhân viên</option>
                   {uniqueCounts.map((count: any, index: number) => {
                     return (
                       <option key={index} value={count}>
@@ -167,7 +172,7 @@ const FilterTongDai: React.FC<MyComponentProps> = ({
 
             <Button
               style={{ color: "#fff", background: "#4c5bd4", width: 100 }}
-              onClick={handleGet}
+              onClick={handleFilter}
             >
               Tìm kiếm
             </Button>

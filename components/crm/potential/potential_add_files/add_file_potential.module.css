@@ -5,7 +5,11 @@
   gap: 60px;
   margin-top: 50px;
 }
-
+.add_organize {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0 40px;
+}
 .main__footer button {
   background: #ffffff;
   border: 1px solid #4c5bd4;
@@ -140,6 +144,9 @@
     -webkit-box-flex: 0;
     width: 100%;
   }
+  .form-control {
+    width: 96.1%;
+  }
 }
 
 @media (max-width: 1420px) {
@@ -148,11 +155,17 @@
     justify-content: center;
     gap: 0;
   }
+  .form-control {
+    width: 98.1%;
+  }
 }
 
 @media (max-width: 768px) {
   .main__footer {
     gap: 35px;
+  }
+  .add_organize {
+    display: block;
   }
 }
 

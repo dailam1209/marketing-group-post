@@ -14,6 +14,7 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
   const [isMKTOpen, setIsMKTOpen] = useState(false);
   const [isManageCostOpen, setIsManageCostOpen] = useState(false);
   const [providerOpen, setProviderOpen] = useState(false);
+  const [isCommodity, setIsCommodity] = useState(false);
 
   const { accessAcountRole, setAccessAcountRole }: any =
     useContext(AccessContext);
@@ -46,6 +47,9 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
     }
     if (label === "Phân quyền") {
       setAccessRoleOpen(!accessRoleOpen);
+    }
+    if (label === "Vật tư hàng hóa") {
+      setIsCommodity(!isCommodity);
     }
     if (label === "Thông tin khách hàng") {
       setIsCustomOpen(!isCustomOpen);
@@ -83,6 +87,9 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
     }
     if (label === "Nhà cung cấp") {
       return providerOpen;
+    }
+    if (label === "Vật tư hàng hóa") {
+      return isCommodity;
     }
   };
 
@@ -228,6 +235,28 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
       content: "Quản lý khuyến mãi",
     },
     {
+      img_link: "/crm/warehouse.png",
+      link: "#",
+      children: [
+        {
+          blank: "",
+          label: "Danh sách vật tư, hàng hóa",
+          link: "/commodity/list",
+        },
+        {
+          blank: "",
+          label: "Nhóm vật tư, hàng hóa",
+          link: "/commodity/group",
+        },
+        {
+          blank: "",
+          label: "Đơn vị tính",
+          link: "/commodity/unit",
+        },
+      ],
+      content: "Vật tư hàng hóa",
+    },
+    {
       img_link: "/crm/marketing.svg",
       link: "#",
       // role: "seen",
@@ -251,6 +280,7 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
       children: [],
       content: "Quản lý đơn hàng",
     },
+
     {
       img_link: "/crm/bill.svg",
       link: "/bill/list",

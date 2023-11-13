@@ -1,136 +1,256 @@
+import { useRouter } from "next/router";
 import styles from "./information.module.css";
 import InforText from "./text_info";
 import { UserOutlined, CheckCircleOutlined } from "@ant-design/icons";
+import { useEffect, useState } from "react";
+import { axiosCRM } from "@/utils/api/api_crm";
+import {
+  renderBank,
+  renderBusinessType,
+  renderCategory,
+  renderListGender,
+  renderPotentialDepartment,
+  renderPotentialPosition,
+  renderPotentialResource,
+  renderPotentialType,
+  renderProfession,
+  renderRevenue,
+  renderSector,
+  renderVocative,
+} from "@/utils/listOption";
+import { convertTimestampToDate } from "@/utils/function";
+import { renderCity, renderDistrict } from "@/constants/address-constant";
 
 const diaryEntries = [
-    {
-        time: "10:10 - 10/10/2020",
-        content: "Nhóm khách hàng được cập nhật bởi",
-        author: "Nguyễn Văn Nam",
-    },
+  {
+    time: "10:10 - 10/10/2020",
+    content: "Nhóm khách hàng được cập nhật bởi",
+    author: "Nguyễn Văn Nam",
+  },
 ];
 
 export default function GeneralRowInforText() {
-    const emptyEntries = new Array(10).fill(null);
+  const router = useRouter();
+  const emptyEntries = new Array(10).fill(null);
+  const { id } = router.query;
+  const [detailData, setDataDetail] = useState<any>({});
+  let [social, setSocial] = useState([]);
+  const [detailPotential, setDetailPotential] = useState<any>({});
+  useEffect(() => {
+    axiosCRM
+      .post("/potential/detail-potential", { cus_id: id })
+      .then((res) => {
+        setDataDetail({...res.data.data.data,...res.data.data.data.potential_id});
+      })
+      .catch((err) => console.log(err));
+  }, []);
+  const handlePotentialId = (datas) => {
+    setDetailPotential(datas);
+    social = [];
+    for (const key in datas.social) {
+      if (datas.social[key]) {
+        social.push([key]);
+      }
+    }
+    setSocial(social);
+  };
+  return (
+    <main>
+      <div className={styles.table}>
+        <div className={styles.table_title}>
+          <h4>Thông tin chi tiết</h4>
+        </div>
+        <h2 className={styles.table_description}>Thông tin chung</h2>
+        <div className={styles.row_input_text}>
+          <InforText
+            field="Mã tiềm năng:"
+            value={detailPotential.potential_id}
+          />
+          <InforText
+            field="Xưng hô:"
+            value={renderVocative(detailPotential.vocative)}
+          />
+          <InforText field="Họ và đệm:" value={detailData.stand_name} />
+          <InforText field="Tên:" value={detailData.name} />
+          <InforText
+            field="Họ và tên:"
+            value={`${detailData.stand_name ? detailData.stand_name : ""} ${
+              detailData.name
+            }`}
+          />
+          <InforText
+            field="Chức danh:"
+            value={renderPotentialPosition(detailPotential.pos_id)}
+          />
+          <InforText
+            field="Phòng ban:"
+            value={renderPotentialDepartment(detailPotential.department)}
+          />
+          <InforText
+            field="Điện thoại cơ quan:"
+            value={detailPotential.office_phone}
+          />
+          <InforText
+            field="Email cơ quan:"
+            value={detailPotential.office_email}
+          />
+          <InforText
+            field="Điện thoại cá nhân:"
+            value={detailPotential.private_phone}
+          />
+          <InforText
+            field="Email cá nhân:"
+            value={detailPotential.private_email}
+          />
+          <InforText field="Mã số thuế:" value={detailData.tax_code} />
+          <InforText
+            field="Nguồn gốc:"
+            value={renderPotentialResource(detailData.resource)}
+          />
+          <InforText
+            field="Loại tiềm năng:"
+            value={renderPotentialType(detailData.classify)}
+          />
+          <InforText
+            field="Mạng xã hội:"
+            value={social ? social.join(",") : "Chưa cập nhập"}
+          />
 
-    return (
-        <main>
-            <div className={styles.table}>
-                <div className={styles.table_title}>
-                    <h4>Thông tin chi tiết</h4>
-                </div>
-                <h2 className={styles.table_description}>Thông tin chung</h2>
-                <div className={styles.row_input_text}>
-                    <InforText field="Mã tiềm năng:" value="123456" />
-                    <InforText field="Xưng hô:" value="" />
-                    <InforText field="Họ và đệm:" value="Nguyễn Thị" />
-                    <InforText field="Tên:" value="Hòa" />
-                    <InforText field="Họ và tên:" value="Nguyễn Thị Hòa" />
-                    <InforText field="Chức danh:" value="" />
-                    <InforText field="Phòng ban:" value="" />
-                    <InforText field="Điện thoại cơ quan:" value="" />
-                    <InforText field="Email cơ quan:" value="" />
-                    <InforText field="Điện thoại cá nhân:" value="" />
-                    <InforText field="Email cá nhân:" value="" />
-                    <InforText field="Mã số thuế:" value="" />
-                    <InforText field="Nguồn gốc:" value="" />
-                    <InforText field="Loại tiềm năng:" value="" />
-                    <InforText field="Mạng xã hội:" value="Zalo, Facebook" />
-                    <InforText
-                        field="Facebook:"
-                        link="12345.site.facebook.com"
-                    />
-                    <InforText field="Zalo:" value="0987654321" />
-                    <InforText
-                        field="Nhân viên phụ trách:"
-                        value="Nguyễn Văn Nam"
-                        icon={<UserOutlined rev={null} />}
-                    />
-                </div>
+          {social?.map((item) => (
+            <InforText
+              field={`${item}:`}
+              link={detailPotential.social?.[item]}
+            />
+          ))}
+          {/* <InforText field="Facebook:" link="12345.site.facebook.com" /> */}
 
-                <h2 className={styles.table_description}>Thông tin cá nhân</h2>
-                <div className={styles.row_input_text}>
-                    <InforText field="Giới tính:" value="" />
-                    <InforText field="Ngày sinh:" value="" />
-                </div>
-                <h2 className={styles.table_description}>Thông tin tổ chức</h2>
-                <div className={styles.row_input_text}>
-                    <InforText field="Tổ chức:" value="" />
-                    <InforText field="Tài khoản ngân hàng:" value="" />
-                    <InforText field="Mở tại ngân hàng:" value="" />
-                    <InforText field="Ngày thành lập:" value="" />
-                    <InforText field="Loại hình:" value="" />
-                    <InforText field="Lĩnh vực:" value="" />
-                    <InforText field="Ngành nghề:" value="" />
-                    <InforText field="Doanh thu:" value="" />
-                </div>
+          <InforText
+            field="Nhân viên phụ trách:"
+            value="Nguyễn Văn Nam Sẽ thêm sau khi có dữ liệu"
+            icon={<UserOutlined rev={null} />}
+          />
+        </div>
 
-                <h2 className={styles.table_description}>Thông tin địa chỉ</h2>
-                <div className={styles.row_input_text}>
-                    <InforText field="Quốc gia:" value="Việt Nam" />
-                    <InforText field="Tỉnh/Thành phố:" value="Hà Nội" />
-                    <InforText field="Quận/Huyện:" value="Hoàng mai" />
-                    <InforText field="Phường/Xã:" value="Định công" />
-                    <InforText
-                        field="Số nhà, đường phố:"
-                        value="1 Trần Nguyên Đán"
-                    />
-                    <InforText field="Mã vùng:" value="" />
-                    <InforText
-                        field="Địa chỉ đơn hàng:"
-                        value="1 Trần Nguyên Đán, Định Công,Hoàng Mai, Hà Nội.1 Trần Nguyên Đán, Định Công,Hoàng Mai, Hà Nội"
-                    />
-                </div>
-                <div>
-                    <h2 className={styles.table_description}>
-                        Thông tin địa chỉ
-                    </h2>
-                    <div className={styles.custom_potential_input_text}>
-                        <InforText field="Mô tả:" value="" />
-                    </div>
-                </div>
+        <h2 className={styles.table_description}>Thông tin cá nhân</h2>
+        <div className={styles.row_input_text}>
+          <InforText
+            field="Giới tính:"
+            value={renderListGender(detailData.gender)}
+          />
+          <InforText
+            field="Ngày sinh:"
+            value={
+              detailData.birthday && convertTimestampToDate(detailData.birthday)
+            }
+          />
+        </div>
+        <h2 className={styles.table_description}>Thông tin tổ chức</h2>
+        <div className={styles.row_input_text}>
+          <InforText field="Tổ chức:" value={detailPotential.office} />
+          <InforText
+            field="Tài khoản ngân hàng:"
+            value={detailData.bank_account}
+          />
+          <InforText
+            field="Mở tại ngân hàng:"
+            value={renderBank(detailData.bank_id)}
+          />
+          <InforText
+            field="Ngày thành lập:"
+            value={
+              detailData.founding_date &&
+              convertTimestampToDate(detailData.founding_date)
+            }
+          />
+          <InforText
+            field="Loại hình:"
+            value={renderBusinessType(detailData.business_type)}
+          />
+          <InforText
+            field="Lĩnh vực:"
+            value={renderSector(detailPotential.sector)}
+          />
+          <InforText
+            field="Ngành nghề:"
+            value={renderProfession(detailData.category)}
+          />
+          <InforText
+            field="Doanh thu:"
+            value={renderRevenue(detailData.revenue)}
+          />
+        </div>
+
+        <h2 className={styles.table_description}>Thông tin địa chỉ</h2>
+        <div className={styles.row_input_text}>
+          <InforText field="Quốc gia:" value="Việt Nam" />
+          <InforText
+            field="Tỉnh/Thành phố:"
+            value={renderCity(detailData.cit_id)}
+          />
+          <InforText
+            field="Quận/Huyện:"
+            value={renderDistrict(detailData.district_id)}
+          />
+          <InforText field="Phường/Xã:" value={detailData.ward} />
+          <InforText field="Số nhà, đường phố:" value={detailData.address} />
+          <InforText field="Mã vùng:" value={detailData.bill_area_code} />
+          <InforText
+            field="Địa chỉ đơn hàng:"
+            value={`${detailData.address && `${detailData.address}, `}${
+              detailData.ward && `${detailData.ward}, `
+            }${
+              detailData.district_id &&
+              `${renderDistrict(detailData.district_id)}, `
+            }${detailData.cit_id && `${renderCity(detailData.cit_id)}`} `}
+          />
+        </div>
+        <div>
+          <h2 className={styles.table_description}>Thông tin địa chỉ</h2>
+          <div className={styles.custom_potential_input_text}>
+            <InforText field="Mô tả:" value={detailData.description} />
+          </div>
+        </div>
+      </div>
+      <div className={styles.table}>
+        <div className={styles.table_title}>
+          <h4>Thông tin hệ thống</h4>
+        </div>
+        <div className={styles.row_input_text}>
+          <InforText
+            field="Người tạo:"
+            value="Chỗ này sẽ thêm sau"
+            icon={<UserOutlined rev={null} />}
+          />
+          <InforText field="Ngày tạo:" value="10:10 - 10/10/2022" />
+          <InforText
+            field="Người sửa:"
+            value="Chỗ này sẽ thêm sau"
+            icon={<UserOutlined rev={null} />}
+          />
+          <InforText field="Ngày sửa:" value="10:10 - 10/10/2022" />
+          <div className={styles.custom_icon}>
+            <InforText
+              field="Dùng chung:"
+              value={detailData.share_all && <CheckCircleOutlined rev={null} />}
+            />
+          </div>
+        </div>
+      </div>
+      <div className={styles.table}>
+        <div className={styles.table_title}>
+          <h4>Nhật ký</h4>
+        </div>
+        <div className={styles.table_overflow}>
+          {emptyEntries.map((_, index) => (
+            <div className={styles.table_diary} key={index}>
+              <h3>10:10 - 10/10/2020</h3>
+              <p>
+                Nhóm khách hàng được cập nhật bởi <span>Nguyễn Văn Nam</span>
+              </p>
             </div>
-            <div className={styles.table}>
-                <div className={styles.table_title}>
-                    <h4>Thông tin hệ thống</h4>
-                </div>
-                <div className={styles.row_input_text}>
-                    <InforText
-                        field="Người tạo:"
-                        value="Nguyễn Văn Nam"
-                        icon={<UserOutlined rev={null} />}
-                    />
-                    <InforText field="Ngày tạo:" value="10:10 - 10/10/2022" />
-                    <InforText
-                        field="Người sửa:"
-                        value="Nguyễn Văn Nam"
-                        icon={<UserOutlined rev={null} />}
-                    />
-                    <InforText field="Ngày sửa:" value="10:10 - 10/10/2022" />
-                    <div className={styles.custom_icon}>
-                        <InforText
-                            field="Dùng chung:"
-                            value={<CheckCircleOutlined rev={null} />}
-                        />
-                    </div>
-                </div>
-            </div>
-            <div className={styles.table}>
-                <div className={styles.table_title}>
-                    <h4>Nhật ký</h4>
-                </div>
-                <div className={styles.table_overflow}>
-                    {emptyEntries.map((_, index) => (
-                        <div className={styles.table_diary} key={index}>
-                            <h3>10:10 - 10/10/2020</h3>
-                            <p>
-                                Nhóm khách hàng được cập nhật bởi{" "}
-                                <span>Nguyễn Văn Nam</span>
-                            </p>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </main>
-    );
+          ))}
+        </div>
+      </div>
+    </main>
+  );
 }

@@ -19,18 +19,20 @@ import { useRouter } from "next/router";
 type Props = {};
 
 const KhongTraLoiPage = (props: Props) => {
+  const router = useRouter();
+  const { nhanvien, songhe, timeStart, timeEnd } = router.query as { nhanvien: string, songhe: string, timeStart: string, timeEnd: string };
   const token = Cookies.get("token_base365")
   const [isShowModal, setIsShowModal] = useState(false);
   const [isShowModalAdd, setIsShowModalAdd] = useState(false);
   const { isConnected } = useContext<any>(CallContext);
   const [listData, setListData] = useState([]);
-  const [data, setData] = useState([]);
   const show = useSelector((state: any) => state?.auth?.account);
   const [current, setcurrent] = useState(1);
   const [pageSize, setpageSize] = useState(10);
   const [showKetNoi, setShowKetNoi] = useState(true);
-  const [soNghe, setSoNghe] = useState();
-  const [nv, setnv] = useState();
+  const [soNghe, setSoNghe] = useState(songhe);
+  const [nv, setnv] = useState(nhanvien);
+  const [loading, setLoading] = useState(true);
 
   const onClose = () => {
     setIsShowModalAdd(false);
@@ -55,53 +57,69 @@ const KhongTraLoiPage = (props: Props) => {
   });
 
   const dispatch = useDispatch();
-  const [fillStart, setFillStart] = useState<any>();
-  const [fillEnd, setFillEnd] = useState<any>();
-  const [condition, setCondition] = useState(JSON.stringify({ token, state: 'NONE' }));
+  const [fillStart, setFillStart] = useState<any>(() => {
+    if (!timeStart) return undefined
+    return timeStart.split(' ')[0]
+  });
+  const [fillEnd, setFillEnd] = useState<any>(() => {
+    if (!timeEnd) return undefined
+    return timeEnd.split(' ')[0]
+  });
+  const [condition, setCondition] = useState(() => {
+    const query = { token, state: 'NONE' }
+    if (timeStart) {
+      query["timeStart"] = timeStart
+    }
+    if (timeEnd) {
+      query["timeEnd"] = timeEnd
+    }
+    if (nhanvien) {
+      query["line"] = nhanvien
+    }
+    if (songhe && songhe !== '') {
+      query["customerPhone"] = songhe
+    }
+    return JSON.stringify(query)
+  })
 
-  const handleGet = async () => {
-    setListData([]);
+  const handleFilter = async () => {
+    console.log(nv)
+    let param = ''
     if (soNghe) {
-      let dataFill = data.filter((item) => item.callee === soNghe);
-      setListData(dataFill);
-      setIsModalOpen(false);
-      return;
+      param += `songhe=${soNghe}&`
     }
     if (nv) {
-      let dataFill = data.filter((item) => +item.caller === nv);
-      setListData(dataFill);
-      setIsModalOpen(false);
-      return;
+      param += `nhanvien=${nv}&`
     }
-
-    setIsModalOpen(false);
-    if (fillEnd && fillStart) {
-      setCondition(JSON.stringify({
-        timeStart: fillStart,
-        timeEnd: fillEnd,
-        token
-      }))
+    if (fillStart) {
+      param += `timeStart=${fillStart}&`
     }
-    try {
-      const response = await fetch(`https://voip.timviec365.vn/api/GetPhoneNoAnswer`, {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: condition
-      })
-      const data = await response.json();
-      if (data && data.data && data.data.storage) {
-        setListData(data.data.storage);
-        setData(data.data.storage);
-      }
-      return data;
-    } catch (error) { }
+    if (fillEnd) {
+      param += `timeEnd=${fillEnd}&`
+    }
+    param !== '' ? router.push(`?${param}`) : router.push('')
   };
-  const router = useRouter();
+
   useEffect(() => {
-    handleGet();
-  }, [condition]);
+    const getData = async () => {
+      try {
+        const response = await fetch(`https://voip.timviec365.vn/api/GetPhoneNoAnswer`, {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: condition
+        })
+        const data = await response.json();
+        setLoading(false)
+        if (data && data.data && data.data.storage) {
+          setListData(data.data.storage);
+        }
+        return data;
+      } catch (error) { }
+    };
+    getData();
+  }, []);
 
   const Colums = [
     {
@@ -146,7 +164,7 @@ const KhongTraLoiPage = (props: Props) => {
               setFillStart={setFillStart}
               fillEnd={fillEnd}
               setFillEnd={setFillEnd}
-              handleGet={handleGet}
+              handleFilter={handleFilter}
               soNghe={soNghe}
               setSoNghe={setSoNghe}
               nv={nv}
@@ -199,7 +217,7 @@ const KhongTraLoiPage = (props: Props) => {
 
       <div style={{ paddingTop: 20 }}>
         <Table
-          //  loading={datatable?.length>0?false:true}
+          loading={loading}
           columns={Colums as any}
           dataSource={datatable}
           bordered
