@@ -1,6 +1,8 @@
 import axios from "axios";
 import Cookies from "js-cookie";
-const baseURL = "http://localhost:3000/api/qlc";
+// const baseURL = "http://localhost:3002/api/qlc";
+const baseURL = "http://210.245.108.202:3000/api/qlc";
+
 export const axiosQLC = axios.create({
   baseURL,
   headers: {

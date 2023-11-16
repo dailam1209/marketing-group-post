@@ -12,13 +12,13 @@ import OrderApplyModal from "../order/add_order_action_modal/order_apply";
 // import { TableRowSelection } from "antd/es/table/interface";
 import OrderActionTable from "@/components/crm/order/order_detail/order_detail_action_modal/order_detail_share_list_action";
 import { renderRight } from "@/utils/listOption";
-const optionSelect=[{value:1,label:"Toan quyen"},{value:2,label:"sua"},{value:3,label:"xem"}]
+const optionSelect=[{value:1,label:"Xem"},{value:2,label:"Sửa"},{value:3,label:"Toàn quyền"}]
 interface DataType {
   key: React.Key;
   type: string;
   name: string;
   room: string;
-  right: string;
+  role: string;
   dep_id: number,
   dep_name: string,
   emp_name: string,
@@ -33,12 +33,11 @@ const TableDataCampaignShareList: React.FC<TableDataCampaignShareListProps> = ({
   setFormData = null,
 }: any) => {
   const router = useRouter();
-  const [listPotential, setListPotential] = useState([]);
+  const [listShareCampaign, setListShareCampaign] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [total, setTotal] = useState(0);
   const [isModalCancel, setIsModalCancel] = useState(false);
-  const [dataApi, setDataApi] = useState([]);
   useEffect(() => {
     setFormData({ ...formData, pageSize: pageSize, page: currentPage });
   }, [currentPage, pageSize]);
@@ -56,35 +55,29 @@ const TableDataCampaignShareList: React.FC<TableDataCampaignShareListProps> = ({
         setTotal(res.data.data.total);
       })
       .catch((err) => console.log("error"));
-  }, [, pageSize, currentPage, formData.recall]);
+  }, [pageSize, currentPage, formData.recall]);
   const handleDataTable = (datas) => {
-    setListPotential(
+    setListShareCampaign(
       datas?.map((data, index) => ({
         ...data,
         key: index+1,
         user_name: data.user_name!=""?data.user_name: "Chưa cập nhật",
-        role: renderRight(data.role),
       }))
     );
   };
 
-  const handleChangeRole = (value)=>{
-    // axiosCRM
-    //   .post("/campaign/deleteShareCampaign", {
-    //     ...formData,
-    //     campaign_id: Number(router.query.id),
-    //     pageSize: pageSize,
-    //     page: currentPage,
-    //   })
-    //   .then((res) => {
-    //     handleDataTable(res.data.data.data);
-    //     setTotal(res.data.data.total);
-    //   })
-    //   .catch((err) => console.log("error"));
-    console.log("ccccccccccc", value)
+  const handleChangeRole = (value, record)=>{
+    axiosCRM
+      .post("/campaign/updateRoleShareCampaign", {
+        _id: record._id,
+        role: value
+      })
+      .then((res) => {
+        setFormData({...formData,recall:!formData.recall})
+      })
+      .catch((err) => console.log("error"));
   }
-  console.log("CHekc mkk", listPotential);
-  
+
   const columns: ColumnsType<DataType> = [
     {
       title: "STT",
@@ -121,36 +114,54 @@ const TableDataCampaignShareList: React.FC<TableDataCampaignShareListProps> = ({
       dataIndex: "role",
       key: "role",
       width: 100,
-      render:(value, record, index) =>(<Select options={optionSelect} value={value} onChange={()=>{handleChangeRole(value)}}/>),
+      render:(value, record, index) =>(<Select options={optionSelect} value={value} onChange={(e)=>handleChangeRole(e, record)} style={{width: 200}}/>),
     },
     {
       title: "Chức năng",
       dataIndex: "operation",
       key: "11",
       width: 30,
-      render: () => <OrderActionTable />,
+      render: (value, record, index) => <OrderActionTable record={record} setFormData={setFormData}/>,
     },
   ];
   return (
     <div className="custom_table campaign_tble">
       <Table
         columns={columns}
-        dataSource={listPotential}
+        dataSource={listShareCampaign}
         bordered
-        scroll={{ x: 1000, y: 820 }}
+        scroll={{ x: 1500, y: 320 }}
+        pagination={{
+          style: {
+            paddingBottom: 20,
+            display: "flex",
+            position: "absolute",
+            right: 0,
+          },
+          current: currentPage,
+          pageSize: pageSize,
+          total: total,
+          onChange: (current) => {
+            setCurrentPage(current);
+          },
+        }}
       />
       {
         <OrderApplyModal
           isModalCancel={isModalCancel}
           setIsModalCancel={setIsModalCancel}
           title="Áp dụng cho hàng hóa"
-          // content="Hello"
         />
       }
       <div className="main__footer flex_between" id="">
         <div className="show_number_item">
           <b>Hiển thị:</b>
-          <select className="show_item">
+          <select
+            onChange={(el) => {
+              setPageSize(Number(el.target.value));
+            }}
+            className="show_item"
+          >
             <option value={10}>10 bản ghi trên trang</option>
             <option value={20}>20 bản ghi trên trang</option>
             <option value={30}>30 bản ghi trên trang</option>

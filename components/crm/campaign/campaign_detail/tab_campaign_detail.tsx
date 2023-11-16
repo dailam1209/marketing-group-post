@@ -39,11 +39,11 @@ const TabComponent = ({ formFields, isHideEmptyData }) => {
   const [bodyOrder, setBodyOrder] = useState<any>({ page: 1, pageSize: 10 });
   const [bodyBill, setBodyBill] = useState<any>({ page: 1, pageSize: 10 });
   const [body, setBody] = useState<any>({ page: 1, pageSize: 10 });
+  const [formSearch, setFormSearch] = useState<any>({ recall: true, page: 1, pageSize: 1 });
   const [bodyCusomer, setBodyCustomer] = useState<any>({
     page: 1,
     pageSize: 10,
   });
-  const [formSearch, setFormSearch] = useState<any>({ recall: true });
 
   const fetchAPIEmployee = async () => {
     const dataApi = await fetchApi(
