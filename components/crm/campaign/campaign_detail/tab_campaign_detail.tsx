@@ -43,6 +43,7 @@ const TabComponent = ({ formFields, isHideEmptyData }) => {
     page: 1,
     pageSize: 10,
   });
+  const [formSearch, setFormSearch] = useState<any>({ recall: true });
 
   const fetchAPIEmployee = async () => {
     const dataApi = await fetchApi(
@@ -263,7 +264,10 @@ const TabComponent = ({ formFields, isHideEmptyData }) => {
                       </div>
                     </div>
                   </div>
-                  <TableDataCampaignShareList />
+                  <TableDataCampaignShareList 
+                    formData={formSearch}
+                    setFormData={setFormSearch}
+                  />
                 </div>
               </div>
             </div>

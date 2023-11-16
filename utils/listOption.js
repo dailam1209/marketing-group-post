@@ -548,3 +548,14 @@ export const renderRevenue = (id) => {
   }
   return option[id];
 };
+
+export const renderRight = (id) => {
+  const option = {
+    0: "Không có quyền",
+    1: "Xem",
+    2: "Sửa",
+    3: "Toàn quyền"
+  };
+  if(!option[id]) return "Không có dữ liệu";
+  return option[id];
+}
