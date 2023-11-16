@@ -270,7 +270,7 @@ export default function CampaignBillInputGroup({
         isSelectedRow={selectedRow}
         fetchAPIEdit={fetchAPIEdit}
         bodyAPI={bodyAPI}
-        link={`/bill/edit/${selectedRow?._id}`}
+        link={`/bill/edit/${selectedRow[0]?._id}`}
       />
     </div>
   );

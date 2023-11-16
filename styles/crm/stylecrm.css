@@ -1098,6 +1098,14 @@ label {
   padding: 9px 10px;
 }
 
+.select2-container {
+  min-width: 180px !important;
+}
+
+.customer_group_select .ant-select-selector {
+  border: 0 !important;
+}
+
 @media (max-width: 414px) {
   .main__footer_fix {
     width: 100%;
@@ -1128,6 +1136,10 @@ label {
 
   .total {
     margin-left: 0 !important;
+  }
+
+  .select2-container {
+    min-width: 300px !important;
   }
 }
 
@@ -1187,6 +1199,10 @@ label {
     overflow-x: auto;
     /* Cho phép thanh trượt ngang */
     padding-top: 20px;
+  }
+
+  .select2-container {
+    min-width: 200px !important;
   }
 }
 

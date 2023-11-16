@@ -28,7 +28,7 @@ interface DataType {
 
 interface TableDataCampaignBillProps {
   setSelected: (value: boolean) => void;
-  setNumberSelected: React.Dispatch<{}>;
+  setNumberSelected?: React.Dispatch<{}>;
   body?: {};
   setBody?: React.Dispatch<{}>;
   emp?: {}[];
@@ -46,7 +46,6 @@ const TableDataCampaignBill: React.FC<TableDataCampaignBillProps> = ({
   const router = useRouter();
   const { trigger, setTrigger } = useTrigger();
   const { isLoading, startLoading, stopLoading } = useLoading();
-  const [isFirstTime, setIsFirstTime] = useState(true);
   const [dataAPI, setDataApi] = useState([]);
   const [count, setCount] = useState(0);
 
@@ -228,6 +227,7 @@ const TableDataCampaignBill: React.FC<TableDataCampaignBillProps> = ({
         ...item,
         index: i,
         id: item?._id,
+        key: i,
       };
     }) || [];
 
