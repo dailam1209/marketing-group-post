@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Button, Modal } from "antd";
 import styles from "@/components/crm/campaign/campaign.module.css";
 import { useRouter } from "next/router";
 import OrderSelectBox from "@/components/crm/order/order_selectt";
 // import TabOrderList from './tab_order_list';
 import TableDataCampaignCustomerSelect from "@/components/crm/table/table-campaign-customer-select";
+import { useTrigger } from "@/components/crm/context/triggerContext";
+import Link from "next/link";
 const Cookies = require("js-cookie");
 
 interface MyComponentProps {
@@ -14,18 +16,20 @@ interface MyComponentProps {
   title: string;
 }
 
-const CancelModal: React.FC<MyComponentProps> = ({
+const ModalChooseCustomer: React.FC<MyComponentProps> = ({
   isModalCancel,
   setIsModalCancel,
-  // content = "Bạn có chắc chắn muốn hủy thêm mới đơn hàng thông tin bạn nhập sẽ không được lưu lại?",
   title = "Chọn liên hệ",
 }) => {
   const router = useRouter();
+  const inputRef = useRef(null);
+  const [searchParam, setSearchParam] = useState({});
   const [isSelectedRow, setIsSelectedRow] = useState(false);
   const [isNumberSelected, setNumberSelected] = useState(0);
   const [arrCustomerId, setArrCustomerId] = useState([]);
   const [errorSelectedValue, setErrorSelectedValue] = useState(false);
   const [isOpenMdalSuccess, setIsOpenMdalSuccess] = useState(false);
+  const { trigger, setTrigger } = useTrigger();
 
   // const handleOK = () => {
   //   setIsModalCancel(false);
@@ -34,30 +38,37 @@ const CancelModal: React.FC<MyComponentProps> = ({
   const handleOK = async () => {
     const isValidSharing = validate();
     if (isValidSharing) {
-      console.log(arrCustomerId)
+      console.log(arrCustomerId);
       try {
-        await fetch(`http://localhost:3007/api/crm/customerdetails/add-campaign-customer`, {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${Cookies.get("token_base365")}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            arr_campaign_id: [router.query.id],
-            arr_cus_id: arrCustomerId,
-          }),
-        });
+        await fetch(
+          `http://localhost:3007/api/crm/customerdetails/add-campaign-customer`,
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${Cookies.get("token_base365")}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              arr_campaign_id: [Number(router.query.id)],
+              arr_cus_id: arrCustomerId,
+            }),
+          }
+        );
+
+        setTrigger(true);
+
+        setIsModalCancel(false);
+        setIsOpenMdalSuccess(true);
+        setTimeout(() => {
+          setIsOpenMdalSuccess(false);
+        }, 2000);
       } catch (error) {}
-      setIsModalCancel(false);
-      setIsOpenMdalSuccess(true);
-      setTimeout(() => {
-        setIsOpenMdalSuccess(false);
-      }, 2000);
+
       // await fetchData();
     }
   };
   const validate = () => {
-    if (arrCustomerId.length<0) {
+    if (arrCustomerId.length < 0) {
       setErrorSelectedValue(true);
       return false;
     } else {
@@ -87,8 +98,21 @@ const CancelModal: React.FC<MyComponentProps> = ({
           className={`${styles.main__control_btn} flex_between`}
         >
           <div className={styles.main__control_search_campaign}>
-            <form onSubmit={() => false}>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                const value = inputRef?.current?.value;
+                setSearchParam((prev) => {
+                  return {
+                    ...prev,
+                    keyword: value,
+                    //
+                  };
+                });
+              }}
+            >
               <input
+                ref={inputRef}
                 type="text"
                 className={styles.input__search}
                 name="search"
@@ -105,20 +129,20 @@ const CancelModal: React.FC<MyComponentProps> = ({
             </form>
           </div>
           <div className={`${styles.main__control_add} flex_end`}>
-            {/* <Link href="/potential/add_file"> */}
-            <button
-              type="button"
-              // onClick={() => setIsOpenAddNewOpen(true)}
-              className={`${styles.dropbtn_add} flex_align_center`}
-            >
-              <img src="/crm/add.svg" alt="hungha365" />
-              Thêm mới
-            </button>
-            {/* </Link> */}
+            <Link href={"/customer/add"}>
+              <button
+                type="button"
+                className={`${styles.dropbtn_add} flex_align_center`}
+              >
+                <img src="/crm/add.svg" alt="hungha365" />
+                Thêm mới
+              </button>
+            </Link>
           </div>
         </div>
         {
           <TableDataCampaignCustomerSelect
+            searchParam = {searchParam}
             setSelected={setIsSelectedRow}
             setNumberSelected={setNumberSelected}
             setArrCustomerId={setArrCustomerId}
@@ -129,4 +153,4 @@ const CancelModal: React.FC<MyComponentProps> = ({
   );
 };
 
-export default CancelModal;
+export default ModalChooseCustomer;

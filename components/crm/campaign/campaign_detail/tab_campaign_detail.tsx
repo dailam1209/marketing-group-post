@@ -32,6 +32,7 @@ const TabComponent = ({ formFields, isHideEmptyData }) => {
   const [isNumberSelectedOrderTable, setNumberSelectedOrderTable] = useState(
     []
   );
+  const [isNumberSelectedCusTable, setNumberSelectedCusTable] = useState([]);
   const [isNumberSelectedBillTable, setNumberSelectedBillTable] = useState([]);
   const token = Cookies.get("token_base365");
   const [emp, setEmp] = useState([]);
@@ -39,6 +40,11 @@ const TabComponent = ({ formFields, isHideEmptyData }) => {
   const [bodyBill, setBodyBill] = useState<any>({ page: 1, pageSize: 10 });
   const [body, setBody] = useState<any>({ page: 1, pageSize: 10 });
   const [formSearch, setFormSearch] = useState<any>({ recall: true, page: 1, pageSize: 1 });
+  const [bodyCusomer, setBodyCustomer] = useState<any>({
+    page: 1,
+    pageSize: 10,
+  });
+  const [formSearch, setFormSearch] = useState<any>({ recall: true });
 
   const fetchAPIEmployee = async () => {
     const dataApi = await fetchApi(
@@ -86,13 +92,19 @@ const TabComponent = ({ formFields, isHideEmptyData }) => {
               <div className={styles.info_step}>
                 <div className={styles.form_add_potential}>
                   <div className={`${styles.main__control_btn} `}>
-                    <CampaignCustomerInputGroup isSelectedRow={isSelectedRow} />
+                    <CampaignCustomerInputGroup
+                      emp={emp}
+                      body={bodyCusomer}
+                      setBody={setBodyCustomer}
+                      selectedRow={isNumberSelectedCusTable}
+                    />
                   </div>
 
                   <TableDataCampaignCustomer
                     emp={emp}
-                    body={body}
-                    setBody={setBody}
+                    body={bodyCusomer}
+                    setBody={setBodyCustomer}
+                    setNumberSelected={setNumberSelectedCusTable}
                   />
                 </div>
               </div>
