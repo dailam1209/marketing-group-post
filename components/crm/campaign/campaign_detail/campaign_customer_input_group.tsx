@@ -113,7 +113,6 @@ export default function CampaignCustomerInputGroup({
               ))}
             </select>
 
-            {/*  */}
           </div>
         </div>
 

@@ -44,7 +44,6 @@ const TabComponent = ({ formFields, isHideEmptyData }) => {
     page: 1,
     pageSize: 10,
   });
-  const [formSearch, setFormSearch] = useState<any>({ recall: true });
 
   const fetchAPIEmployee = async () => {
     const dataApi = await fetchApi(
