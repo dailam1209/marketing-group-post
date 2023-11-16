@@ -214,7 +214,7 @@ export default function CampaignOrderInputGroup({
         isSelectedRow={selectedRow}
         fetchAPIEdit={fetchAPIEdit}
         bodyAPI={bodyAPI}
-        link={`/order/edit/${selectedRow?._id}`}
+        link={`/order/edit/${selectedRow[0]?._id}`}
       />
     </div>
   );
