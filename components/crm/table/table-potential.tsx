@@ -146,11 +146,11 @@ for (let i = 0; i < 100; i++) {
 }
 
 interface TableDataPotentialProps {
-  setSelected: (value: boolean) => void;
-  setNumberSelected: any;
-  setRowDataSelected: any;
-  formData: any;
-  setFormData: any;
+  setSelected?: (value: boolean) => void;
+  setNumberSelected?: any;
+  setRowDataSelected?: any;
+  formData?: any;
+  setFormData?: any;
 }
 
 const TableDataPotential: React.FC<TableDataPotentialProps> = ({

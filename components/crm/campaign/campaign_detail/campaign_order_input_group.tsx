@@ -145,7 +145,10 @@ export default function CampaignOrderInputGroup({
         </select>
       </div>
 
-      <div className={`${styleCampaignInput.main__control_btn} flex_between`}>
+      <div
+        className={`${styleCampaignInput.main__control_btn} flex_between`}
+        style={{ alignItems: "flex-end" }}
+      >
         <div className={styleCampaignInput.main__control_search}>
           <form
             style={{ marginRight: "10px" }}
@@ -211,6 +214,7 @@ export default function CampaignOrderInputGroup({
         isSelectedRow={selectedRow}
         fetchAPIEdit={fetchAPIEdit}
         bodyAPI={bodyAPI}
+        link={`/order/edit/${selectedRow[0]?._id}`}
       />
     </div>
   );

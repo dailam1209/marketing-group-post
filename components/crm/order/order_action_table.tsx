@@ -12,7 +12,7 @@ import ShareActionModal from "./order_action_modal/share_action_mdal";
 import HandOverActionModal from "./order_action_modal/handover_action_mdal";
 
 export default function OrderActionTable(props: any) {
-  const { record, fetchAPIEdit, bodyAPI } = props;
+  const { record, fetchAPIEdit, bodyAPI, link = "/order/edit" } = props;
   const [isDelOpen, setIsDelOpen] = useState(false);
   const [isOrderBrowsingOpen, setIsOrderBrowsingOpen] = useState(false);
   const [isDenyOpen, setIsDenyOpen] = useState(false);
@@ -55,7 +55,7 @@ export default function OrderActionTable(props: any) {
       label: (
         <>
           {dataActionOrder[i].link !== "#" ? (
-            <Link href={dataActionOrder[i].link} className="flex-start-btn">
+            <Link href={link} className="flex-start-btn">
               <i className={dataActionOrder[i].img}></i>
               {dataActionOrder[i].name}
             </Link>
@@ -77,7 +77,14 @@ export default function OrderActionTable(props: any) {
     <>
       <div>
         <Dropdown menu={{ items }}>
-          <button style={{ justifyContent: "center" }}>
+          <button
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              display: "flex",
+              margin: "auto",
+            }}
+          >
             <img src="/crm/3_cham.png" />
             Thao tác
           </button>

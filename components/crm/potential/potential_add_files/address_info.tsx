@@ -23,26 +23,26 @@ export default function AddAddressInfo({
 
   //lấy quận huyện khi chọn tỉnh thành
   useEffect(() => {
-    delete formData.district_id;
-    delete formData.ward;
+    delete formData?.district_id;
+    delete formData?.ward;
     setFormData(formData);
     setListDistrict(
-      LIST_DISTRICT.filter((district) => district.parent == formData.city_id)
+      LIST_DISTRICT.filter((district) => district.parent == formData?.city_id)
     );
-  }, [formData.city_id]);
+  }, [formData?.city_id]);
 
   // xóa xã phường khi chọn lại quận huyện
   useEffect(() => {
-    delete formData.ward;
+    delete formData?.ward;
     setFormData(formData);
-  }, [formData.district_id]);
+  }, [formData?.district_id]);
 
   // lay phuong xa
   useEffect(() => {
     if (formData?.district_id) {
       axios
         .post("http://210.245.108.202:3004/api/raonhanh/topCache/ward", {
-          id: formData.district_id,
+          id: formData?.district_id,
         })
         .then((res) => convertWard(res.data.data.data))
         .catch((err) => notifyError("Vui lòng thử lại"));
@@ -58,22 +58,22 @@ export default function AddAddressInfo({
   //Hiển thị địa chỉ
   useEffect(() => {
     setAddress(
-      `${formData.address ? `${formData.address}, ` : ""}${
-        formData.ward
-          ? `${listWard.find((ward) => ward.value == formData.ward)?.label}, `
+      `${formData?.address ? `${formData?.address}, ` : ""}${
+        formData?.ward
+          ? `${listWard.find((ward) => ward.value == formData?.ward)?.label}, `
           : ""
       }${
-        formData.district_id ? `${renderDistrict(formData.district_id)}, ` : ""
-      }${formData.city_id ? `${renderCity(formData.city_id)}, ` : ""}${
-        formData.country ? formData.country : ""
+        formData?.district_id ? `${renderDistrict(formData?.district_id)}, ` : ""
+      }${formData?.city_id ? `${renderCity(formData?.city_id)}, ` : ""}${
+        formData?.country ? formData?.country : ""
       }`
     );
   }, [
-    formData.address,
-    formData.ward,
-    formData.district_id,
-    formData.city_id,
-    formData.country,
+    formData?.address,
+    formData?.ward,
+    formData?.district_id,
+    formData?.city_id,
+    formData?.country,
   ]);
   return (
     <div>
@@ -85,17 +85,17 @@ export default function AddAddressInfo({
           data={[{ value: "Việt Nam", label: "Việt Nam" }]}
           setFormData={setFormData}
           formData={formData}
-          value={formData.country}
+          value={formData?.country}
           name="country"
         />
         <SelectSingleAndOption
           title="Tỉnh thành"
-          data={/* formData.country && */ LIST_CITY}
+          data={/* formData?.country && */ LIST_CITY}
           placeholder="Chọn tỉnh thành"
           setFormData={setFormData}
           formData={formData}
           name="cit_id"
-          value={formData.cit_id}
+          value={formData?.cit_id}
         />
         <SelectSingleAndOption
           title="Quận huyện"
@@ -104,7 +104,7 @@ export default function AddAddressInfo({
           formData={formData}
           name="district_id"
           placeholder="Chọn quận huyện"
-          value={formData.district_id}
+          value={formData?.district_id}
         />
         <SelectSingleAndOption
           title="Phường xã"
@@ -113,20 +113,20 @@ export default function AddAddressInfo({
           formData={formData}
           name="ward"
           placeholder="Chọn xã phường"
-          value={formData.ward}
+          value={formData?.ward}
         />
         <MInputTextAndOption
           label="Số nhà, đường phố"
           placeholder="Nhập số nhà, đường phố"
           name="address"
-          value={formData.address}
+          value={formData?.address}
           setFormData={setFormData}
         />
         <MInputTextAndOption
           label="Mã vùng"
           placeholder="Nhập mã vùng"
           name="arera_code"
-          value={formData.arera_code}
+          value={formData?.arera_code}
           setFormData={setFormData}
         />
         <MTextArea

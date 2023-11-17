@@ -128,7 +128,7 @@ export default function CampaignChanceInputGroup({ emp, body, setBody }: any) {
       </div>
             
       <div
-        style={{ padding: "0 10px" }}
+        style={{ padding: "0 10px", alignItems:'flex-end' }}
         className={`${styleCampaignInput.main__control_btn} flex_between`}
       >
         <div className={styleCampaignInput.main__control_search}>

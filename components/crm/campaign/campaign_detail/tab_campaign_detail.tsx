@@ -32,10 +32,18 @@ const TabComponent = ({ formFields, isHideEmptyData }) => {
   const [isNumberSelectedOrderTable, setNumberSelectedOrderTable] = useState(
     []
   );
+  const [isNumberSelectedCusTable, setNumberSelectedCusTable] = useState([]);
+  const [isNumberSelectedBillTable, setNumberSelectedBillTable] = useState([]);
   const token = Cookies.get("token_base365");
   const [emp, setEmp] = useState([]);
   const [bodyOrder, setBodyOrder] = useState<any>({ page: 1, pageSize: 10 });
+  const [bodyBill, setBodyBill] = useState<any>({ page: 1, pageSize: 10 });
   const [body, setBody] = useState<any>({ page: 1, pageSize: 10 });
+  const [formSearch, setFormSearch] = useState<any>({ recall: true, page: 1, pageSize: 1 });
+  const [bodyCusomer, setBodyCustomer] = useState<any>({
+    page: 1,
+    pageSize: 10,
+  });
 
   const fetchAPIEmployee = async () => {
     const dataApi = await fetchApi(
@@ -70,9 +78,7 @@ const TabComponent = ({ formFields, isHideEmptyData }) => {
                       isHideEmptyData={isHideEmptyData}
                       empList={emp}
                     />
-                    {/* <AddOrderDetailTable /> */}
-      {/* <AddOrderDetailStatus /> */}
-      {/* </div>
+                  </div>
                 </div>
                 <div>&nbsp;</div>
               </div>
@@ -85,13 +91,19 @@ const TabComponent = ({ formFields, isHideEmptyData }) => {
               <div className={styles.info_step}>
                 <div className={styles.form_add_potential}>
                   <div className={`${styles.main__control_btn} `}>
-                    <CampaignCustomerInputGroup isSelectedRow={isSelectedRow} />
+                    <CampaignCustomerInputGroup
+                      emp={emp}
+                      body={bodyCusomer}
+                      setBody={setBodyCustomer}
+                      selectedRow={isNumberSelectedCusTable}
+                    />
                   </div>
 
                   <TableDataCampaignCustomer
                     emp={emp}
-                    body={body}
-                    setBody={setBody}
+                    body={bodyCusomer}
+                    setBody={setBodyCustomer}
+                    setNumberSelected={setNumberSelectedCusTable}
                   />
                 </div>
               </div>
@@ -153,12 +165,20 @@ const TabComponent = ({ formFields, isHideEmptyData }) => {
               <div className={styles.info_step}>
                 <div className={styles.form_add_potential}>
                   <div className={`${styles.main__control_btn} `}>
-                    <CampaignBillInputGroup />
+                    <CampaignBillInputGroup
+                      body={bodyBill}
+                      setBody={setBodyBill}
+                      emp={emp}
+                      selectedRow={isNumberSelectedBillTable}
+                    />
                   </div>
 
                   <TableDataCampaignBill
                     setSelected={setIsSelectedRow}
-                    setNumberSelected={setNumberSelected}
+                    setNumberSelected={setNumberSelectedBillTable}
+                    body={bodyBill}
+                    setBody={setBodyBill}
+                    emp={emp}
                   />
                 </div>
               </div>
@@ -200,9 +220,9 @@ const TabComponent = ({ formFields, isHideEmptyData }) => {
             <div className={styles.formInfoStep}>
               <div className={styles.info_step}>
                 <div className={styles.form_add_potential}>
-                  <div className={`${styles.main__control_btn} flex_between`}> */}
-      {/* <OrderDetailAppointmentInputGroup /> */}
-      {/* </div>
+                  <div
+                    className={`${styles.main__control_btn} flex_between`}
+                  ></div>
                   <div className={`${styles.main__control_btn} flex_between`}>
                     <div className={styles.main__control_search}>
                       <form onSubmit={() => false}>
@@ -244,7 +264,10 @@ const TabComponent = ({ formFields, isHideEmptyData }) => {
                       </div>
                     </div>
                   </div>
-                  <TableDataCampaignShareList />
+                  <TableDataCampaignShareList 
+                    formData={formSearch}
+                    setFormData={setFormSearch}
+                  />
                 </div>
               </div>
             </div>

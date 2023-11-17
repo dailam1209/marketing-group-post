@@ -10,7 +10,7 @@ interface MyComponentProps {
   isModalCancel: boolean;
   setIsModalCancel: (value: boolean) => void;
   record?: any;
-  handleApiReq?: (type: string) => Promise<void>;
+  handleApiReq?: (type: string, data: {}) => Promise<void>;
 }
 const OrderBrowsingModal: React.FC<MyComponentProps> = ({
   isModalCancel,
@@ -21,7 +21,10 @@ const OrderBrowsingModal: React.FC<MyComponentProps> = ({
   const [isModalSuccess, setIsMdalSuccess] = useState(false);
 
   const handleOK = async () => {
-    await handleApiReq("confirm");
+    const body = {
+      reason: null,
+    };
+    await handleApiReq("confirm", body);
     setIsModalCancel(false);
     showModalWithTimeout(setIsMdalSuccess, 2000);
   };

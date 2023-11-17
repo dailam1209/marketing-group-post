@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { Table, Tooltip } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { TableRowSelection } from "antd/es/table/interface";
@@ -6,9 +6,9 @@ import styles from "../order/order.module.css";
 import OrderActionTable from "../order/order_action_table";
 import Link from "next/link";
 import Cookies from "js-cookie";
-import {useRouter} from "next/router";
-import {useTrigger} from "../context/triggerContext";
-import {fetchApi} from "../ultis/api";
+import { useRouter } from "next/router";
+import { useTrigger } from "../context/triggerContext";
+import { fetchApi } from "../ultis/api";
 import { timestampToCustomString } from "../ultis/convert_date";
 import useLoading from "../hooks/useLoading";
 
@@ -21,46 +21,40 @@ interface DataType {
   staff: string;
 }
 
-// export const data: DataType[] = [];
-// for (let i = 0; i < 100; i++) {
-//   data.push({
-//     key: i,
-//     number: `ĐH-000${i}`,
-//     name: `Nguyễn Trần Kim Phượng`,
-//     status: `Chờ duyệt`,
-//     note: `Đơn hàng Nguyễn Trần Kim Phượng Đơn hàng Nguyễn Trần Kim Phượng  `,
-//     staff: `10000000`,
-//   });
-// }
-
 interface TableDataCampaignCustomerProps {
   body?: any;
   setBody?: any;
   emp?: any;
+  setNumberSelected?: React.Dispatch<{}>;
 }
 
 const TableDataCampaignCustomer: React.FC<TableDataCampaignCustomerProps> = ({
   body,
   setBody,
   emp,
+  setNumberSelected,
 }: any) => {
   const url = "http://localhost:3007/api/crm/campaign/detail-campaign-cus";
   const token = Cookies.get("token_base365");
   const router = useRouter();
   const { trigger, setTrigger } = useTrigger();
   const { isLoading, startLoading, stopLoading } = useLoading();
-  const [isFirstTime, setIsFirstTime] = useState(true);
   const [dataAPI, setDataApi] = useState([]);
   const [count, setCount] = useState(0);
 
-  const statusList = {
-    0: "Chưa cập nhật",
-    1: "Chưa cập nhật",
-    2: "Mở đầu",
-    3: "Khách hàng quan tâm",
-    4: "Demo/Gthieu",
-    5: "Đàm phán/ thương lương",
-  };
+  const statusList = [
+    { value: 1, label: "Chưa liên hệ" },
+    { value: 0, label: "Chưa liên hệ" },
+    { value: 2, label: "Chưa gửi thư mời" },
+    { value: 3, label: "Đã liên hệ" },
+    { value: 4, label: "Đã gửi thư mời" },
+    { value: 5, label: "Đã nhận" },
+    { value: 6, label: "Đã mở" },
+    { value: 7, label: "Xác nhận tham gia" },
+    { value: 8, label: "Không liên hệ được" },
+    { value: 9, label: "Đã tham gia" },
+    { value: 10, label: "Chưa quan tâm" },
+  ];
 
   const fetchAPIDelCampaignChance = async (id: number) => {
     const bodyAPI = {
@@ -68,7 +62,7 @@ const TableDataCampaignCustomer: React.FC<TableDataCampaignCustomerProps> = ({
       campaign_id: 0,
     };
     const dataApi = await fetchApi(
-      "http://localhost:3007/api/crm/chance/edit-chance",
+      "http://localhost:3007/api/crm/customerdetails/add-campaign-customer",
       token,
       bodyAPI,
       "POST"
@@ -100,11 +94,11 @@ const TableDataCampaignCustomer: React.FC<TableDataCampaignCustomerProps> = ({
     {
       title: "Tên khách hàng",
       width: 120,
-      dataIndex: "name",
-      key: "name",
+      dataIndex: "customerDetails",
+      key: "customerDetails",
       render: (text: any, record: any) => (
-        <Link href={`/customer/detail/${record.key}`}>
-          <b>{text}</b>
+        <Link href={`/customer/detail/${text?.cus_id}`}>
+          <b>{text?.name}</b>
         </Link>
       ),
     },
@@ -113,19 +107,26 @@ const TableDataCampaignCustomer: React.FC<TableDataCampaignCustomerProps> = ({
       dataIndex: "status",
       key: "status",
       width: 150,
+      render: (text, record: any) => <>{statusList[text]?.label}</>,
     },
     {
       title: "Ghi chú",
       dataIndex: "note",
       key: "note",
       width: 320,
-      ellipsis: true,
+      render: (text) => <div>{text || "Chưa cập nhật"}</div>,
     },
     {
       title: "Nhân viên thực hiện",
-      dataIndex: "staff",
-      key: "staff",
+      dataIndex: "emp_id",
+      key: "emp_id",
       width: 120,
+      render: (empID) => (
+        <div>
+          {emp.filter((empList) => empList?.ep_id === empID)[0]?.userName ||
+            "Chưa cập nhật"}
+        </div>
+      ),
     },
   ];
 
@@ -138,26 +139,40 @@ const TableDataCampaignCustomer: React.FC<TableDataCampaignCustomerProps> = ({
       };
     }) || [];
 
+  const rowSelection: TableRowSelection<DataType> = {
+    onChange: (selectedRowKeys, selectedRows) => {
+      if (selectedRows?.length > 0) {
+        // setSelected(true);
+      } else {
+        // setSelected(false);
+      }
+    },
+    onSelect: (record, selected, selectedRows) => {
+      // setNumberSelected(selectedRows?.length);
+      setNumberSelected(selectedRows);
+    },
+    onSelectAll: (selected, selectedRows, changeRows) => {
+      setNumberSelected(selectedRows);
+    },
+  };
+
   useEffect(() => {
     if (trigger) {
       fetchAPICampaignCustomer();
     }
     setTrigger(false);
-
-    return () => {
-      setTrigger(true);
-    };
   }, [trigger]);
 
   useEffect(() => {
     fetchAPICampaignCustomer();
   }, [body]);
+
   return (
     <div className="custom_table">
       <Table
         columns={columns}
         dataSource={data}
-        // rowSelection={{ ...rowSelection }}
+        rowSelection={{ ...rowSelection }}
         bordered
         scroll={{ x: 1200, y: 1200 }}
         pagination={{
@@ -182,8 +197,8 @@ const TableDataCampaignCustomer: React.FC<TableDataCampaignCustomerProps> = ({
           },
         }}
       />
-      <div className="main__footer flex_between" id="">
-        <div className="show_number_item">
+      <div style={{ marginTop: "10px" }} className="flex_between" id="">
+        <div style={{ marginBottom: "10px" }} className="show_number_item">
           <b>Hiển thị:</b>
           <select
             onChange={(el) => {
@@ -201,7 +216,7 @@ const TableDataCampaignCustomer: React.FC<TableDataCampaignCustomerProps> = ({
             <option value={50}>50 bản ghi trên trang</option>
           </select>
         </div>
-        <div className="total">
+        <div style={{ marginBottom: "10px" }} className="total">
           Tổng số: <b>{data.length}</b> Khách hàng
         </div>
       </div>
