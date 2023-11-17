@@ -6,12 +6,16 @@ import ShowProductPO from "../mdal_action/mdal_show_product";
 import { useEffect, useMemo, useState } from "react";
 import { axiosCRM } from "@/utils/api/api_crm";
 import SelectSingle from "@/components/commodity/select";
+import { useRouter } from "next/router";
 export default function ItemPotential() {
+  const router=useRouter()
+  const {id}=router.query;
   const [isModalCancelPO, setIsShowMdalCanCel] = useState(false);
   const onClose = () => {
     setIsShowMdalCanCel(false);
   };
-  const [formSearch, setFormSearch] = useState<any>({ recall: true });
+  
+  const [formSearch, setFormSearch] = useState<any>({ recall: false,potential_id:id,page:1,pageSize:10 });
   const [listGroupProduct, setListGroupProduct] = useState([]);
   useEffect(() => {
     axiosCRM
@@ -38,11 +42,13 @@ export default function ItemPotential() {
     <div>
       <div style={{ width: "30%" }} className={style.selectbox}>
         <SelectSingle
+        placeholder="Tất cả"
           title="Nhóm hàng hóa"
           setFormData={setFormSearch}
           onChange={() =>
-            setFormSearch({ ...setFormSearch, recall: !formSearch.recall })
+            setFormSearch({ ...formSearch, recall: !formSearch.recall })
           }
+          name="product_group"
           data={listGroupProduct}
         />
         {/* <PotentialSelectBox title="Nhóm hàng hoá:" value="Tất cả" /> */}
@@ -53,8 +59,7 @@ export default function ItemPotential() {
             <input
               type="text"
               className={style.input__search}
-              name="search"
-              defaultValue=""
+              onChange={(e)=>setFormSearch({...formSearch,product_name:e.target.value})}
               placeholder="Tìm kiếm theo tên hàng hoá"
             />
             <button className={style.kinh_lup}>
@@ -74,9 +79,9 @@ export default function ItemPotential() {
         </button>
       </div>
       <div>
-        <TablePotentialItem />
+        <TablePotentialItem formSearch={formSearch} setFormSearch={setFormSearch}/>
       </div>
-      <ShowProductPO isModalCancelPO={isModalCancelPO} onClose={onClose} />
+      <ShowProductPO recall={()=>{setFormSearch({...formSearch,recall:!formSearch.recall})}} isModalCancelPO={isModalCancelPO} onClose={onClose} />
     </div>
   );
 }

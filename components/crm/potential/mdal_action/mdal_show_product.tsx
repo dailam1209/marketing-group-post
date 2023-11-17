@@ -12,17 +12,21 @@ import Link from "next/link";
 import ShowCampaignPOMD from "./mdal_show_campaignPO";
 import SelectSingle from "@/components/commodity/select";
 import CampaignAction from "../../campaign/campaign_action";
-
+import { MModalCompleteStep } from "@/components/commodity/modal";
+import { notifyError } from "@/utils/function";
 const ShowProductPO = (props: any) => {
-  const { isModalCancelPO, onClose } = props;
-  const [showMdalAdd, setIsShowMdalADd] = useState(false);
   const router = useRouter();
+  const { isModalCancelPO, onClose, recall } = props;
+  const [showMdalAdd, setIsShowMdalADd] = useState(false);
+
   const [listGroupProduct, setListGroupProduct] = useState([]);
+  const [listProduct, setListProduct] = useState([]);
   const [formSearch, setFormSearch] = useState<any>({
     recall: true,
     page: 1,
     page_size: 40,
   });
+  const { id } = router.query;
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
   //lay ra group
   useEffect(() => {
@@ -37,7 +41,7 @@ const ShowProductPO = (props: any) => {
   useEffect(() => {
     axiosCRM
       .post("/product/show-product", formSearch)
-      .then((res) => console.log("checkkkkkkkkkk", res.data.data));
+      .then((res) => handleDataTable(res.data.data.data));
   }, [formSearch.recall]);
   const handleGroup = (datas) => {
     setListGroupProduct(
@@ -47,19 +51,44 @@ const ShowProductPO = (props: any) => {
       }))
     );
   };
-  
+  const handleDataTable = (datas) => {
+    const convert = [];
+    datas?.forEach((item, index) =>
+      convert.push({
+        ...item,
+        stt: index + 1,
+        gr_name: item?.group_id?.gr_name,
+        unit_name: item?.dvt?.unit_name,
+        key: item._id,
+      })
+    );
+    setListProduct(convert);
+  };
   const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
-    console.log('selectedRowKeys changed: ', newSelectedRowKeys);
     setSelectedRowKeys(newSelectedRowKeys);
-  };const rowSelection = {
+  };
+  const rowSelection = {
     selectedRowKeys,
     onChange: onSelectChange,
   };
-
   const handleSubmitSearch = (e) => {
     e.preventDefault();
     setFormSearch({ ...formSearch, recall: !formSearch.recall });
   };
+
+  const handleAddProductInterest = () => {
+    axiosCRM
+      .post("/potential/addProductInterest", {
+        arr_potential_id: [Number(id)],
+        arr_product_id: selectedRowKeys,
+      })
+      .then((res) => {
+        recall();
+        setIsShowMdalADd(true);
+      })
+      .catch((err) => notifyError("Vui lòng thử lại!"));
+  };
+  console.log("ShowProductPO", id);
   // const onClose = () => {
   //   setIsModalCancelPO(false);
   // };
@@ -94,11 +123,9 @@ const ShowProductPO = (props: any) => {
             <div style={{ width: "100px" }} onClick={() => onClose()}>
               <Button style={{ width: 150 }}>Hủy</Button>
             </div>
-            <div
-              style={{ width: "100px" }}
-              onClick={() => (setIsShowMdalADd(true), router.reload())}
-            >
+            <div style={{ width: "100px" }}>
               <Button
+                onClick={handleAddProductInterest}
                 style={{ width: 150, color: "#fff", background: "#4C5BD4" }}
               >
                 Đồng ý
@@ -107,11 +134,10 @@ const ShowProductPO = (props: any) => {
           </div>
         }
       >
-        <ModalCompleteStep
+        <MModalCompleteStep
           modal1Open={showMdalAdd}
           setModal1Open={setIsShowMdalADd}
-          title={`Thêm khách thành công`}
-          link={"#"}
+          title="Thêm hàng hóa thành công!"
         />
 
         <div style={{ paddingTop: 30 }}>
@@ -166,7 +192,10 @@ const ShowProductPO = (props: any) => {
           </div>
           {/* <CampaignInputGroupsModal /> */}
         </div>
-        <TablePotentialshowItem />
+        <TablePotentialshowItem
+          selectedRowKeys={rowSelection}
+          data={listProduct}
+        />
       </Modal>
     </>
   );

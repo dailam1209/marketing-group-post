@@ -5,20 +5,42 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { AccessContext } from "../context/accessContext";
 import React from "react";
 import Cookies from "js-cookie";
+import { getToken } from "@/pages/api/api-hr/token";
+import jwt_decode from "jwt-decode";
+
 export default function SiebarContent({ isOpen, toggleModal }: any) {
   const tokenBase = Cookies.get("token_base365");
   const btnResize = useRef<HTMLDivElement>(null);
   const [accessRoleOpen, setAccessRoleOpen] = useState(false);
+  const [isAutoOpen, setIsAutoOpen] = useState(false);
   const [isCustomOpen, setIsCustomOpen] = useState(false);
   const [isCustomCareOpen, setIsCustomCareOpen] = useState(false);
   const [isMKTOpen, setIsMKTOpen] = useState(false);
   const [isManageCostOpen, setIsManageCostOpen] = useState(false);
   const [providerOpen, setProviderOpen] = useState(false);
   const [isCommodity, setIsCommodity] = useState(false);
+  const [isWordSentitive, setIsWordSentitive] = useState(false);
+  const [userType, setUserType] = useState(0);
+  const [checkReceiver, setCheckReceiver] = useState(false);
 
   const { accessAcountRole, setAccessAcountRole }: any =
     useContext(AccessContext);
-
+  useEffect(() => {
+    const fetchDataType = async () => {
+      const currentCookie = getToken("token_base365");
+      if (currentCookie) {
+        const decodedToken: any = jwt_decode(currentCookie);
+        setUserType(decodedToken?.data.type ?? 0);
+        decodedToken?.data.com_id === 10013446 && setCheckReceiver(true);
+      } else {
+        const interval = setInterval(async () => {
+          clearInterval(interval);
+          fetchDataType();
+        }, 500);
+      }
+    };
+    fetchDataType();
+  }, []);
   const handleResize = () => {
     if (typeof window !== "undefined") {
       if (window.innerWidth <= 1024) {
@@ -51,6 +73,12 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
     if (label === "Vật tư hàng hóa") {
       setIsCommodity(!isCommodity);
     }
+    if (label === "Từ khóa nhạy cảm") {
+      setIsWordSentitive(!isWordSentitive);
+    }
+    if (label === "Auto") {
+      setIsAutoOpen(!isAutoOpen);
+    }
     if (label === "Thông tin khách hàng") {
       setIsCustomOpen(!isCustomOpen);
     }
@@ -75,6 +103,12 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
     }
     if (label === "Thông tin khách hàng") {
       return isCustomOpen;
+    }
+    if (label === "Auto") {
+      return isAutoOpen;
+    }
+    if (label === "Từ khóa nhạy cảm") {
+      return isWordSentitive;
     }
     if (label === "Chăm sóc khách hàng") {
       return isCustomCareOpen;
@@ -234,6 +268,7 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
       children: [],
       content: "Quản lý khuyến mãi",
     },
+
     {
       img_link: "/crm/warehouse.png",
       link: "#",
@@ -381,6 +416,56 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
       content: "",
     },
   ];
+  checkReceiver &&
+    userType <= 2 &&
+    sidebar_button_group_company.splice(
+      1,
+      0,
+      {
+        img_link: "/crm/nav_setting.svg",
+        link: `#`,
+        children: [
+          {
+            blank: "",
+            label: "Đề xuất",
+            link: "/word",
+          },
+          {
+            blank: "",
+            label: "Danh sách vi phạm",
+            link: "/word/list",
+          },
+        ],
+        content: "Từ khóa nhạy cảm",
+      },
+      {
+        img_link: "/crm/nav_setting.svg",
+        link: "#",
+        children: [
+          {
+            blank: "",
+            label: "Xét duyệt",
+            link: "/contact/set-role",
+          },
+          {
+            blank: "",
+            label: "AutoCall",
+            link: "/contact/phone",
+          },
+          {
+            blank: "",
+            label: "AutoEmail",
+            link: "/contact/email",
+          },
+          {
+            blank: "",
+            label: "AutoZalo",
+            link: "/contact/zalo",
+          },
+        ],
+        content: "Auto",
+      }
+    );
   const [infoRole, setInfoRole] = useState([]);
 
   const handleGetThongTinQuyen = async () => {

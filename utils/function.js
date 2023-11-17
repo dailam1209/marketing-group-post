@@ -5,6 +5,8 @@ import { useRouter } from "next/router";
 import requestIp from "request-ip";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import byteSize from "byte-size";
+import moment from "moment";
 export const getEducation = [
   { id: 0, value: "Chưa cập nhật" },
   { id: 1, value: "Trên Đại học" },
@@ -35,6 +37,10 @@ export const eduLabel = getEducation.map((e) => ({
   value: e?.id,
 }));
 
+export const convertFileSize = (e) => {
+  const result = byteSize(e);
+  return `${result?.value}${result?.unit}`;
+};
 export async function getServerSideProps({ req, query }) {
   const clientIp = requestIp.getClientIp(req);
   const allowedIPs = [
@@ -338,10 +344,9 @@ export function CheckLogin2() {
     }
   }, []);
 }
-export function convertTimestampToDate(timestamp) {
-  // Tạo một đối tượng Date từ timestamp
-  const date = new Date(timestamp * 1000);
-
+export function convertTimeToDate(time) {
+  // Tạo một đối tượng Date từ time
+  const date = new Date(time);
   // Lấy ngày, tháng và năm từ đối tượng Date
   const day = date.getDate();
   const month = date.getMonth() + 1; // Tháng trong JavaScript là từ 0 đến 11
@@ -353,6 +358,51 @@ export function convertTimestampToDate(timestamp) {
 
   // Tạo chuỗi ngày/tháng/năm
   const formattedDate = `${formattedDay}/${formattedMonth}/${year}`;
+
+  return formattedDate;
+}
+export function convertTimestampToDate(timestamp) {
+  // Tạo một đối tượng Date từ timestamp
+  const date = new Date(timestamp * 1000);
+  // Lấy ngày, tháng và năm từ đối tượng Date
+  const day = date.getDate();
+  const month = date.getMonth() + 1; // Tháng trong JavaScript là từ 0 đến 11
+  const year = date.getFullYear();
+
+  // Sử dụng hàm padStart để thêm số 0 vào phía trước nếu cần
+  const formattedDay = String(day).padStart(2, "0");
+  const formattedMonth = String(month).padStart(2, "0");
+
+  // Tạo chuỗi ngày/tháng/năm
+  const formattedDate = `${formattedDay}/${formattedMonth}/${year}`;
+
+  return formattedDate;
+}
+export function convertTimestampToFull(timestamp) {
+  // Tạo một đối tượng Date từ timestamp
+  const date = new Date(timestamp * 1000);
+  // Lấy giờ, phút và giây từ đối tượng Date
+  let hours = date.getHours();
+  let minutes = date.getMinutes();
+  let seconds = date.getSeconds();
+
+  // Lấy ngày, tháng và năm từ đối tượng Date
+  const thu = date.getDay();
+  const day = date.getDate();
+  const month = date.getMonth() + 1; // Tháng trong JavaScript là từ 0 đến 11
+  const year = date.getFullYear();
+
+  // Sử dụng hàm padStart để thêm số 0 vào phía trước nếu cần
+  const formattedDay = String(day).padStart(2, "0");
+  const formattedMonth = String(month).padStart(2, "0");
+  const formattedHours = String(hours).padStart(2, "0");
+  const formattedMinutes = String(minutes).padStart(2, "0");
+  const formattedSecond = String(seconds).padStart(2, "0");
+
+  // Tạo chuỗi ngày/tháng/năm
+  const formattedDate = `${
+    thu == 0 ? "CN" : `T${thu + 1}`
+  } ${formattedDay}/${formattedMonth}/${year} ${formattedHours}:${formattedMinutes}:${formattedSecond}`;
 
   return formattedDate;
 }
@@ -377,7 +427,6 @@ export const notifyWarning = (notification) => {
     position: toast.POSITION.TOP_RIGHT,
   });
 };
-
 export const notifySuccess = (notification) => {
   if (!notification) {
     return toast.warning("Thành công !", {
@@ -399,4 +448,15 @@ export const notifyError = (notification) => {
     position: toast.POSITION.TOP_RIGHT,
   });
 };
-<ToastContainer autoClose={2000} />;
+
+export const convertTimeToDatePicker = (date, format) => {
+  // Kiểm tra nếu ngày là null hoặc undefined
+  if (!date) {
+    return null;
+  }
+
+  // Sử dụng moment để chuyển đổi ngày thành định dạng YYYY-MM-DD
+  const formattedDate = moment(date).format(format);
+
+  return formattedDate;
+};

@@ -42,7 +42,8 @@ const Note_potential = (props: Props) => {
   };
   return (
     <div className={styles.form_add_potential}>
-      <NoteDetailBtnsGroup />
+      {/* Thêm mới */}
+      <NoteDetailBtnsGroup  />
       <TableDataNoteDetailList />
       <ShareDSCSActionModal
         isShowModalShareCS={isShowModalShareCS}

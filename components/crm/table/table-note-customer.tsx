@@ -1,32 +1,36 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styles from "../contract/contract.module.css";
 import { Table, Tooltip, Select } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import Link from "next/link";
 import NoteActionDropDown from "../customer/note/note_dropdown_action";
 import { useRouter } from "next/router";
+import { axiosCRM } from "@/utils/api/api_crm";
+import { convertTimestampToDate, notifyError } from "@/utils/function";
+import { useFormData } from "../context/formDataContext";
 const Cookies = require("js-cookie");
 
 interface DataType {
   key: React.Key;
+  id: number;
   personname: string;
   date1: string;
   date2: string;
-  filename: string;
+  content: string;
   operation: string;
 }
 
 const columns: ColumnsType<DataType> = [
   {
     title: "STT",
-    width: 80,
-    dataIndex: "key",
-    key: "key",
+    width: 40,
+    dataIndex: "stt",
+    key: "stt",
   },
   {
     title: "Nội dung ghi chú",
     width: 160,
-    dataIndex: "filename",
+    dataIndex: "content",
     key: "0",
     render: (data) => (
       <Tooltip title={data}>
@@ -36,7 +40,7 @@ const columns: ColumnsType<DataType> = [
   },
   {
     title: "Người ghi chú",
-    dataIndex: "personname",
+    dataIndex: "user_name",
     key: "2",
     width: 130,
   },
@@ -50,91 +54,76 @@ const columns: ColumnsType<DataType> = [
     title: "Chức năng",
     dataIndex: "operation",
     key: "4",
-    width: 120,
-    // fixed:"right",
-    render: () => (
+    width: 50,
+    fixed: "right",
+    render: (_, record) => (
       <div>
-        <NoteActionDropDown />
+        <NoteActionDropDown record={record} />
       </div>
     ),
   },
 ];
 
-interface TableDataContracDrops {}
-
-const TableDataNoteDetailList: React.FC<TableDataContracDrops> = ({}: any) => {
-  const [data, setData] = useState<any>([]);
+const TableDataNoteDetailList: React.FC<any> = ({}: any) => {
+  const [totalRecords, setTotalRecords] = useState();
+  const [dataTable, setDataTable] = useState([]);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  const [totalRecords, setTotalRecords] = useState();
   const [loading, setloading] = useState(true);
   const router = useRouter();
-  // const { id } = router.query;
-
-  const fetchData = async () => {
-    try {
-      const res = await fetch(`http://localhost:3007/api/crm/potential/listNotePotential`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${Cookies.get("token_base365")}`,
-        },
-        body: JSON.stringify({ 
-          cus_id: 1,
-          pageSize: pageSize,
-          page: page,
-        }),
-      });
-      let data = await res.json();
-      data = data?.data?.data;
-      setData(data);
-      if (data?.length <= 0) {
-        setloading(false);
-      }
-      setTotalRecords(data?.total);
-    } catch (error) {}
-  };
+  const { id } = router.query;
+  const { formData, setFormData } = useContext(useFormData);
   useEffect(() => {
-    fetchData();
-  }, [page, pageSize]);
-  const datatable = data?.map((item, index: number) => {
-    return {
+    setFormData({ recall: false });
+  }, []);
+  useEffect(() => {
+    axiosCRM
+      .post("/potential/listNotePotential", { ...formData, cus_id: id })
+      .then((res) => {
+        setTotalRecords(res.data.data.total);
+        handleDataTable(res.data.data.data);
+      })
+      .catch((err) => notifyError("Vui lòng thử lại sau"));
+  }, [page, pageSize, formData.recall, formData.emp_id]);
+  const handleDataTable = (datas) => {
+    const datatable = datas?.map((item, index: number) => ({
+      id: item.id,
       key: index + 1,
-      filename: item.content,
+      stt: (page - 1) * pageSize + index + 1,
+      user_name: item.user_name,
+      content: item.content,
       personname: item.emp_name,
-      date1: item.updated_at
-    };
-  });
-  console.log("checkdara",totalRecords, data)
+      date1: convertTimestampToDate(item.updated_at),
+    }));
+    setDataTable(datatable);
+  };
 
   return (
     <div className="custom_table">
       <Table
         columns={columns}
-        dataSource={datatable}
+        dataSource={dataTable}
         bordered
         scroll={{ x: 2000, y: 1100 }}
-        pagination={
-          {
-            // style: {
-            //   paddingBottom: 20,
-            //   display: "flex",
-            //   position: "absolute",
-            //   left: "30%",
-            // },
-            current: page,
-            pageSize: pageSize,
-            total: totalRecords,
-            onChange: (current, pageSize) => {
-              if (current != page) {
-                // setDatatable([]);
-                setPage(current);
-              }
-            },
-          }
-        }
+        pagination={{
+          // style: {
+          //   paddingBottom: 20,
+          //   display: "flex",
+          //   position: "absolute",
+          //   left: "30%",
+          // },
+          current: page,
+          pageSize: pageSize,
+          total: totalRecords,
+          onChange: (current, pageSize) => {
+            if (current != page) {
+              // setDatatable([]);
+              setPage(current);
+            }
+          },
+        }}
       />
-        <div className="main__footer flex_between" id="">
+      <div className="main__footer flex_between" id="">
         <div className="show_number_item">
           <b>Hiển thị:</b>
           <Select
@@ -142,7 +131,10 @@ const TableDataNoteDetailList: React.FC<TableDataContracDrops> = ({}: any) => {
             placeholder={
               <div style={{ color: "black" }}>10 bản ghi trên trang</div>
             }
-            onChange={(value) => setPageSize(value)}
+            onChange={(value) => {
+              setPageSize(value);
+              setPage(1);
+            }}
           >
             <option value={10}>10 bản ghi trên trang</option>
             <option value={20}>20 bản ghi trên trang</option>
@@ -152,7 +144,7 @@ const TableDataNoteDetailList: React.FC<TableDataContracDrops> = ({}: any) => {
           </Select>
         </div>
         <div className="total">
-          Tổng số: <b>{data.length}</b> Ghi chú
+          Tổng số: <b>{totalRecords}</b> Ghi chú
         </div>
       </div>
     </div>

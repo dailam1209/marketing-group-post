@@ -46,7 +46,7 @@ export const InputSearch = ({
   );
 };
 export function MInputText({
-  label,
+  label="",
   defaultValue,
   placeholder,
   require = false,

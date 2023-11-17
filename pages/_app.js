@@ -20,6 +20,7 @@ import { checkAndRedirectToHomeIfNotLoggedIn } from "../components/crm/ultis/che
 import Cookies from "js-cookie";
 import { base_url } from "@/components/crm/service/function";
 import Head from "next/head";
+import { FormDataContext } from "@/components/crm/context/formDataContext";
 
 export const LoadingComp = () => {
   return (
@@ -240,6 +241,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <Component {...pageProps} />
           ) : (
             <Provider store={store}>
+              <FormDataContext>
               <AccessContextComponent>
                 <UpdateTLKDComponent>
                   <SidebarResize>
@@ -261,6 +263,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                   </SidebarResize>
                 </UpdateTLKDComponent>
               </AccessContextComponent>
+              </FormDataContext>
             </Provider>
           )}
         </ConfigProvider>

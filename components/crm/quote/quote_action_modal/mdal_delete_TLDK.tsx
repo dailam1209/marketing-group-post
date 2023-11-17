@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Button, Modal } from "antd";
 import Image from "next/image";
 import styles from "@/components/crm/quote/quote.module.css";
 import { useRouter } from "next/router";
 import { showModalWithTimeout } from "@/components/crm/ultis/helper";
 import ModalCompleteStep from "../quote_steps/complete_modal";
+import { axiosCRM } from "@/utils/api/api_crm";
+import { useFormData } from "../../context/formDataContext";
+import { notifyError } from "@/utils/function";
+import { ToastContainer } from "react-toastify";
 
 interface MyComponentProps {
   isModalCancel: boolean;
@@ -17,7 +21,15 @@ const DelTLDK: React.FC<MyComponentProps> = ({
   record,
 }) => {
   const [isModalSuccess, setIsMdalSuccess] = useState(false);
-
+  const { handleRecall } = useContext(useFormData);
+  const handleDeleteFile = () => {
+    axiosCRM
+      .post("/potential/deleteAttachment", { id: record.id })
+      .then((res) => {
+        setIsMdalSuccess(true), onClose(), handleRecall();
+      })
+      .catch(() => notifyError());
+  };
   return (
     <>
       {/* <Button type="primary" onClick={() => setModal2Open(true)}>
@@ -29,19 +41,25 @@ const DelTLDK: React.FC<MyComponentProps> = ({
         open={isModalCancel}
         onCancel={() => onClose()}
         className={"mdal_cancel"}
-        onOk={() => (setIsMdalSuccess(true), onClose())}
+        onOk={handleDeleteFile}
         okText="Đồng ý"
         cancelText="Huỷ"
       >
-        <div>Bạn có chắc chắn muốn xóa tài liệu đính kèm {`${record}`}</div>
+        <div>
+          Bạn có chắc chắn muốn xóa tài liệu đính kèm:{" "}
+          <p>{`${record.linkFile?.split("file-")[1]}`}</p>
+        </div>
       </Modal>
 
       <ModalCompleteStep
         modal1Open={isModalSuccess}
         setModal1Open={setIsMdalSuccess}
-        title={`Xóa tài liệu đính kèm ${record} thành công!`}
+        title={`Xóa tài liệu đính kèm ${
+          record.linkFile?.split("file-")[1]
+        } thành công!`}
         link={"#"}
       />
+      <ToastContainer autoClose={2000} />
     </>
   );
 };

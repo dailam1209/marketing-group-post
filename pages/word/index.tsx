@@ -1,4 +1,6 @@
 import styleHome from "@/components/crm/home/home.module.css";
+import styles from "@/components/crm/potential/potential.module.css";
+
 import { SidebarContext } from "@/components/crm/context/resizeContext";
 import { useContext, useEffect, useRef, useState } from "react";
 import { useHeader } from "@/components/crm/hooks/useHeader";
@@ -29,7 +31,7 @@ export default function PotentialInformation() {
       const currentCookie = getToken("token_base365");
       if (currentCookie) {
         const decodedToken: any = await jwt_decode(currentCookie);
-        decodedToken?.data.idQLC === 10024092 && setCheckReceiver(true);
+        decodedToken?.data.idQLC === 10013446 && setCheckReceiver(true);
         setUserId(decodedToken?.data.idQLC ?? 0);
         setFormData({ ...formData, creator: decodedToken?.data.idQLC });
       } else {
@@ -112,8 +114,12 @@ export default function PotentialInformation() {
     return;
   }
   return (
-    <div ref={mainRef} className={styleHome.main}>
-      {(checkReceiver&&userType==2) ? (
+    <div className={styleHome.main} ref={mainRef}>
+    <div className={styles.main_importfile}>
+      <div className={styles.formInfoStep}>
+        <div className={styles.info_step}>
+          <div className={styles.form_add_potential}>
+          {(checkReceiver&&userType==1) ? (
         <div>
           <label style={{ marginBottom: "20px", fontWeight: "600" }}>
             {" "}
@@ -188,7 +194,11 @@ export default function PotentialInformation() {
           </div>
         </div>
       )}
-      <ToastContainer autoClose={2000} />
+      <ToastContainer autoClose={2000} />            {/* <PotentialFooterAddFiles title="Thêm mới tiềm năng tên Tiềm năng thành công" /> */}
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
   );
 }

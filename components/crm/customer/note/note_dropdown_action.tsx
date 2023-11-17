@@ -1,26 +1,27 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import type { MenuProps } from "antd";
-import { Dropdown, Space } from "antd";
+import { Dropdown, Modal, Space } from "antd";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/router";
-import DelActionModalContactCustomer from "../contact/delete_action_modal";
-import CancelModal from "@/components/crm/potential/potential_steps/cancel_modal";
-import NoteModalAddOrEdit from "./note_mdal_add";
+import { MTextArea } from "@/components/commodity/input";
+import { axiosCRM } from "@/utils/api/api_crm";
+import { useFormData } from "../../context/formDataContext";
+import { notifyError } from "@/utils/function";
+import { ToastContainer } from "react-toastify";
+import { MCancelModal } from "@/components/commodity/modal";
 
-const NoteActionDropDown: React.FC<any> = () => {
-  const [isOpenModalUpdateStatus, setIsOpenModalUpdateStatus] = useState(false);
+const NoteActionDropDown: React.FC<any> = ({ record }: any) => {
   const [isOpenModalDel, setIsOpenModalDel] = useState(false);
-  const router = useRouter();
-  const { id } = router.query;
-
+  const [isOpenModalUpdateNoti, setIsOpenModalUpdateNoti] = useState(false);
+  const [formUpdate, setFormUpdate] = useState(record);
+  const { handleRecall } = useContext(useFormData);
   const items: MenuProps["items"] = [
     {
       key: "4",
       label: (
         <button
           style={{ display: "flex", gap: 5, fontSize: 15, fontWeight: 900 }}
-          onClick={() => setIsOpenModalUpdateStatus(true)}
+          onClick={() => setIsOpenModalUpdateNoti(true)}
         >
           <i className="bi bi-pencil-square"></i> <p>Chỉnh sửa</p>
         </button>
@@ -39,7 +40,24 @@ const NoteActionDropDown: React.FC<any> = () => {
       ),
     },
   ];
-
+  const handleDelete = () => {
+    axiosCRM
+      .post("/potential/deleteNotePotential", { id: record?.id })
+      .then((res) => {
+        setIsOpenModalDel(false);
+        handleRecall();
+      })
+      .catch((err) => notifyError());
+  };
+  const handleUpdateNote = () => {
+    axiosCRM
+      .post("/potential/updateNoteForPotential", formUpdate)
+      .then((res) => {
+        setIsOpenModalUpdateNoti(false);
+        handleRecall();
+      })
+      .catch((err) => notifyError());
+  };
   return (
     <>
       <Space direction="vertical">
@@ -57,19 +75,37 @@ const NoteActionDropDown: React.FC<any> = () => {
         </Space>
       </Space>
 
-      <CancelModal
+      <MCancelModal
         isModalCancel={isOpenModalDel}
         setIsModalCancel={setIsOpenModalDel}
+        updateData={handleDelete}
         content={"Bạn có chắc chắn muốn xóa ghi chú?"}
         title={"Xóa ghi chú"}
-        link={"#"}
       />
-      <NoteModalAddOrEdit
-        isModalCancel={isOpenModalUpdateStatus}
-        setIsModalCancel={setIsOpenModalUpdateStatus}
-        title={"Chỉnh sửa ghi chú"}
-        content={"Chỉnh sửa ghi chú thành công"}
-      />
+      <Modal
+        title={"Sửa ghi chú"}
+        centered
+        open={isOpenModalUpdateNoti}
+        onOk={handleUpdateNote}
+        onCancel={() => {
+          setFormUpdate(record);
+          setIsOpenModalUpdateNoti(false);
+        }}
+        className={"mdal_cancel"}
+        okText="Đồng ý"
+        cancelText="Huỷ"
+      >
+        <div>
+          <MTextArea
+            value={formUpdate?.content}
+            setFormData={setFormUpdate}
+            name="content"
+            label="Ghi chú"
+            placeholder="Nhập ghi chú"
+          />
+        </div>
+      </Modal>
+      <ToastContainer autoClose={2000} />
     </>
   );
 };

@@ -1,20 +1,26 @@
 import ModalAddTL from "@/components/crm/quote/quote_action_modal/m-dal-themmoi-tailieudinhkem";
 import TableAddTLDK from "@/components/crm/table/table-tailieudinhkem";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "@/components/crm/quote/quote.module.css";
 import ModalThemMoiLichhen from "@/components/crm/cskh/modal/modalthemmoilichhen";
 import TableDataLichhen from "@/components/crm/table/table-lich-hen-quote";
 import OrderDetailSelectBox from "@/components/crm/campaign/campaign_detail/campaign_detail_action_modal/campaign_detail_select";
+import PotentailModalAddTL from "./potential_model_addfile";
+import { useFormData } from "../../context/formDataContext";
 
 type Props = {};
 
 const Tai_lieu_dinh_kem_potetial = (props: Props) => {
+  const { formData, setFormData, handleChangeData, handleRecall } =
+    useContext(useFormData);
   const [isShowModal, setIsShowModal] = useState(false);
   const [isShowModalAdd, setIsShowModalAdd] = useState(false);
   const [activeTab, setActiveTab] = useState("tab1");
   const [isShowModalAddTL, setIsShowModalAddTL] = useState(false);
   const [isShowModalShareCS, setIsShowModalShareCS] = useState(false);
-
+  useEffect(() => {
+    setFormData({ recall: true });
+  }, []);
   const handleTabChange = (key: any) => {
     setActiveTab(key);
   };
@@ -35,15 +41,20 @@ const Tai_lieu_dinh_kem_potetial = (props: Props) => {
             <div className={`${styles.main__control_btn} `}></div>
             <div className={`${styles.main__control_btn} flex_between`}>
               <div className={styles.main__control_search}>
-                <form onSubmit={() => false}>
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    handleRecall();
+                  }}
+                >
                   <input
                     type="text"
                     className={styles.input__search}
-                    name="search"
-                    defaultValue=""
+                    name="file_name"
+                    onChange={(e) => handleChangeData(e)}
                     placeholder="Tìm kiếm theo tên tài liệu đính kèm"
                   />
-                  <button className={styles.kinh_lup}>
+                  <button onClick={handleRecall} className={styles.kinh_lup}>
                     <img
                       className={styles.img__search}
                       src="/crm/search.svg"
@@ -64,7 +75,7 @@ const Tai_lieu_dinh_kem_potetial = (props: Props) => {
               </div>
             </div>
             <TableAddTLDK />
-            <ModalAddTL
+            <PotentailModalAddTL
               isShowModalAddTL={isShowModalAddTL}
               onClose={onClose}
               handleAddDB={handleAddDB}

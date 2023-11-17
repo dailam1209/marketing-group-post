@@ -35,17 +35,18 @@ export default function GeneralRowInforText() {
   const { id } = router.query;
   const [detailData, setDataDetail] = useState<any>({});
   let [social, setSocial] = useState([]);
-  const [detailPotential, setDetailPotential] = useState<any>({});
   useEffect(() => {
     axiosCRM
       .post("/potential/detail-potential", { cus_id: id })
       .then((res) => {
+
         setDataDetail({...res.data.data.data,...res.data.data.data.potential_id});
+        handlePotentialId(res.data.data.data.potential_id)
       })
       .catch((err) => console.log(err));
   }, []);
+
   const handlePotentialId = (datas) => {
-    setDetailPotential(datas);
     social = [];
     for (const key in datas.social) {
       if (datas.social[key]) {
@@ -64,11 +65,11 @@ export default function GeneralRowInforText() {
         <div className={styles.row_input_text}>
           <InforText
             field="Mã tiềm năng:"
-            value={detailPotential.potential_id}
+            value={detailData.potential_id}
           />
           <InforText
             field="Xưng hô:"
-            value={renderVocative(detailPotential.vocative)}
+            value={renderVocative(detailData.vocative)}
           />
           <InforText field="Họ và đệm:" value={detailData.stand_name} />
           <InforText field="Tên:" value={detailData.name} />
@@ -80,27 +81,27 @@ export default function GeneralRowInforText() {
           />
           <InforText
             field="Chức danh:"
-            value={renderPotentialPosition(detailPotential.pos_id)}
+            value={renderPotentialPosition(detailData.pos_id)}
           />
           <InforText
             field="Phòng ban:"
-            value={renderPotentialDepartment(detailPotential.department)}
+            value={renderPotentialDepartment(detailData.department)}
           />
           <InforText
             field="Điện thoại cơ quan:"
-            value={detailPotential.office_phone}
+            value={detailData.office_phone}
           />
           <InforText
             field="Email cơ quan:"
-            value={detailPotential.office_email}
+            value={detailData.office_email}
           />
           <InforText
             field="Điện thoại cá nhân:"
-            value={detailPotential.private_phone}
+            value={detailData.private_phone}
           />
           <InforText
             field="Email cá nhân:"
-            value={detailPotential.private_email}
+            value={detailData.private_email}
           />
           <InforText field="Mã số thuế:" value={detailData.tax_code} />
           <InforText
@@ -119,7 +120,7 @@ export default function GeneralRowInforText() {
           {social?.map((item) => (
             <InforText
               field={`${item}:`}
-              link={detailPotential.social?.[item]}
+              link={detailData.social?.[item]}
             />
           ))}
           {/* <InforText field="Facebook:" link="12345.site.facebook.com" /> */}
@@ -146,7 +147,7 @@ export default function GeneralRowInforText() {
         </div>
         <h2 className={styles.table_description}>Thông tin tổ chức</h2>
         <div className={styles.row_input_text}>
-          <InforText field="Tổ chức:" value={detailPotential.office} />
+          <InforText field="Tổ chức:" value={detailData.office} />
           <InforText
             field="Tài khoản ngân hàng:"
             value={detailData.bank_account}
@@ -168,7 +169,7 @@ export default function GeneralRowInforText() {
           />
           <InforText
             field="Lĩnh vực:"
-            value={renderSector(detailPotential.sector)}
+            value={renderSector(detailData.sector)}
           />
           <InforText
             field="Ngành nghề:"
