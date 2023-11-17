@@ -230,7 +230,6 @@ const TableDataPotential: React.FC<TableDataPotentialProps> = ({
       }))
     );
   };
-  console.log("CHekc ", total);
   return (
     <div className="custom_table">
       <Table
@@ -238,7 +237,7 @@ const TableDataPotential: React.FC<TableDataPotentialProps> = ({
         dataSource={listPotential}
         rowSelection={{ ...rowSelection }}
         bordered
-        scroll={{ x: 1500, y: 300 }}
+        scroll={{ x: 1500, y: 430 }}
         pagination={{
           current: currentPage,
           pageSize: pageSize,

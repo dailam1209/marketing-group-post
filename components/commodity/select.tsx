@@ -5,25 +5,25 @@ import styles1 from "./potential.module.css";
 import { Select } from "antd";
 import { toLowerCaseNonAccentVietnamese } from "@/utils/function";
 export default function SelectSingle({
-  title,
+  title = "",
   value = 0,
-  data,
+  data = null,
   setFormData = null,
-  name,
-  placeholder,
+  name = "",
+  placeholder = "Tất cả",
   onChange = null,
 }: any) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [labelSelect, setLabelSelect] = useState<string>(
-    value ? data[Number(value - 1)]?.label : "Tất cả"
+    value ? data[Number(value - 1)]?.label : placeholder
   );
   const handleClickSelectoption = (e: any) => {
     if (e.target.getAttribute("class") !== styles.select2_search__field) {
       setIsOpen(!isOpen);
     }
   };
-  const handelChooceOption = (item: { value: any; label: string }) => {
+  const handelChooceOption = async (item: { value: any; label: string }) => {
     onChange && onChange();
     setFormData((preData) => ({ ...preData, [name]: item.value }));
     setLabelSelect(item.label);

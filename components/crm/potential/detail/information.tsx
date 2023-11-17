@@ -19,18 +19,31 @@ import { ToastContainer } from "react-toastify";
 
 export default function InformationTextPotentialDetails({ key }: any) {
   const onChange = (checked: boolean) => {};
+  const router = useRouter();
+  const { id } = router.query;
   const items: MenuProps["items"] = [];
   const [isOpenCovert, setIsOpenConvert] = useState(false);
   const [isDelOpen, setIsDelOpen] = useState(false);
   const [dataDetail, setDataDetail] = useState({});
-  const router = useRouter();
-  const { id } = router.query;
+
   useEffect(() => {
     axiosCRM
       .post("/potential/detail-potential", { cus_id: id })
       .then((res) => setDataDetail(res.data.data.data))
       .catch((err) => notifyError("Vui lòng thử lại sau"));
   }, []);
+  const handleDelete = () => {
+    axiosCRM
+      .post("/potential/delete-potential", { cus_id: id })
+      .then((res) => {
+        setIsDelOpen(true);
+        setTimeout(() => {
+          setIsDelOpen(false);
+          router.push("/potential/list");
+        }, 2000);
+      })
+      .catch((err) => console.log("checkrrrr", err));
+  };
   return (
     <div className={style.main}>
       <div className={style.main_button}>
@@ -50,7 +63,7 @@ export default function InformationTextPotentialDetails({ key }: any) {
           >
             <FormOutlined rev={null} /> Chỉnh sửa
           </button>
-          <button className={style.delete} onClick={() => setIsDelOpen(true)}>
+          <button className={style.delete} onClick={handleDelete}>
             <DeleteOutlined rev={null} /> Xoá
           </button>
           <Dropdown menu={{ items }} placement="bottomLeft">
@@ -67,7 +80,7 @@ export default function InformationTextPotentialDetails({ key }: any) {
             <UserOutlined rev={null} />
           </div>
           <div className={style.potential_table}>
-            <PotentialRowInforText formData={dataDetail}/>
+            <PotentialRowInforText formData={dataDetail} />
           </div>
         </div>
       </div>

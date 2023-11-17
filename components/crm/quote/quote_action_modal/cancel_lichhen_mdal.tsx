@@ -8,19 +8,28 @@ import ModalCompleteStep from "../quote_steps/complete_modal";
 
 interface MyComponentProps {
   isModalCancel: boolean;
+  cancelContent: string;
   setIsModalCancel: (value: boolean) => void;
+  handleCancel: any;
   record: any;
+  setCancelContent: any;
+  name: string;
 }
 const CanCel_LichHen_Mdal: React.FC<MyComponentProps> = ({
+  handleCancel,
   isModalCancel,
+  cancelContent,
   setIsModalCancel,
+  setCancelContent,
   record,
+  name = "address_contact",
 }) => {
   const [isModalSuccess, setIsMdalSuccess] = useState(false);
 
   const handleOK = () => {
-    setIsModalCancel(false);
-    showModalWithTimeout(setIsMdalSuccess, 2000);
+    /* handleCancel thực hiện mới thực hiện tiếp */
+    handleCancel() &&
+      (setIsModalCancel(false), showModalWithTimeout(setIsMdalSuccess, 2000));
   };
 
   return (
@@ -44,7 +53,9 @@ const CanCel_LichHen_Mdal: React.FC<MyComponentProps> = ({
           <div className={`${styles.md_txtarea}`}>
             Lý do*
             <textarea
-              name="address_contact"
+              onChange={(e) => setCancelContent({ [name]: e.target.value })}
+              name={name}
+              value={cancelContent}
               id="address_contact"
               className={`${styles.md_txtarea} ${styles.textarea}`}
               placeholder="Nhập lý do"
@@ -58,7 +69,7 @@ const CanCel_LichHen_Mdal: React.FC<MyComponentProps> = ({
       <ModalCompleteStep
         modal1Open={isModalSuccess}
         setModal1Open={setIsMdalSuccess}
-        title={`Hủy bỏ lịch ${record} thành công!`}
+        title={`Hủy bỏ lịch hẹn thành công!`}
         link={"#"}
       />
     </>

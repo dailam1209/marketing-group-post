@@ -10,15 +10,18 @@ interface MyComponentProps {
   isModalCancel: boolean;
   setIsModalCancel: (value: boolean) => void;
   record: any;
+  handleDelete: any;
 }
 const DelLichHenModal: React.FC<MyComponentProps> = ({
   isModalCancel,
   setIsModalCancel,
   record,
+  handleDelete,
 }) => {
   const [isModalSuccess, setIsMdalSuccess] = useState(false);
 
   const handleOK = () => {
+    handleDelete();
     setIsModalCancel(false);
     showModalWithTimeout(setIsMdalSuccess, 2000);
   };
@@ -44,7 +47,7 @@ const DelLichHenModal: React.FC<MyComponentProps> = ({
       <ModalCompleteStep
         modal1Open={isModalSuccess}
         setModal1Open={setIsMdalSuccess}
-        title={`Xóa lịch hẹn ${record} thành công!`}
+        title={`Xóa lịch hẹn thành công!`}
         link={"#"}
       />
     </>

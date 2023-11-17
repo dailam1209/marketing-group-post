@@ -68,7 +68,7 @@ const TableCommodityGroup = ({
       ),
     },
   ];
-  console.log("checkData", data);
+
   return (
     <div className="custom_table product_return">
       <Table

@@ -3,7 +3,7 @@ import type { MenuProps } from "antd";
 import { Button, Dropdown, Space } from "antd";
 import Link from "next/link";
 import { dataActionLichHenQuote } from "../ultis/consntant";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import QuoteBrowsingModal from "./quote_action_modal/quote_browsing_action_mdal";
 import DenyActionModal from "./quote_action_modal/deny_action_mdal";
 import DelActionModal from "./quote_action_modal/delete_action_mdal";
@@ -16,9 +16,19 @@ import CallModal from "./quote_action_modal/complete-mdal";
 import CanCel_LichHen_Mdal from "./quote_action_modal/cancel_lichhen_mdal";
 import ModalSuaLichhen from "../cskh/modal/modalsualichhen";
 import DelLichHenModal from "./quote_action_modal/delete_lich_hen-mdal";
+import ModalPotentialEditAppointment from "../potential/mdal_action/modal_appointment_edit";
+import { useFormData } from "../context/formDataContext";
+import { axiosCRM } from "@/utils/api/api_crm";
+import { notifyError, notifyWarning } from "@/utils/function";
+import { ToastContainer } from "react-toastify";
+import ModalCompleteAppointment from "../potential/mdal_action/modal_complete";
 
 export default function QuoteActionLichHenTable(props: any) {
   const { record, allkey } = props;
+  const { handleRecall } = useContext(useFormData);
+  const [formComplete, setFormComplete] = useState<any>();
+  const [dataRecord, setDataRecord] = useState(record);
+  const [cancelContent, setCancelContent] = useState({ reason_cancel: "" });
   const [isDelOpen, setIsDelOpen] = useState(false);
   const [isOrderBrowsingOpen, setIsOrderBrowsingOpen] = useState(false);
   const [isDenyOpen, setIsDenyOpen] = useState(false);
@@ -29,11 +39,13 @@ export default function QuoteActionLichHenTable(props: any) {
   const [isOpenSend, setIsOpenSend] = useState(false);
   const [isShowModal, setIsShowModal] = useState(false);
   const [isShowModalAdd, setIsShowModalAdd] = useState(false);
-
   const onClose = () => {
     setIsShowModalAdd(false);
     setIsShowModal(false);
   };
+  useEffect(() => {
+    setDataRecord(record);
+  }, [record._id]);
   const handleAddDB = () => {
     setIsShowModalAdd(false);
   };
@@ -54,7 +66,7 @@ export default function QuoteActionLichHenTable(props: any) {
       setIsOpenShare(true);
     }
     if (type === "edit") {
-        setIsShowModalAdd(true);
+      setIsShowModalAdd(true);
     }
     if (type === "complete") {
       setIsOpenUpdate(true);
@@ -62,6 +74,49 @@ export default function QuoteActionLichHenTable(props: any) {
     if (type === "send") {
       setIsOpenSend(true);
     }
+  };
+  const handleDelete = () => {
+    axiosCRM
+      .post("/dataDeleted/deleteMany", {
+        arr_id: [record._id],
+        type: 1, //1-> xóa tạm thời, 2-> khôi phục, 3-> xóa vĩnh viễn
+        model: "appointment",
+      })
+      .then((res) => {
+        onClose(), handleRecall();
+      })
+      .catch((err) => notifyError());
+  };
+  const handleCancel = () => {
+    if (!cancelContent.reason_cancel) {
+      notifyWarning("Nhập lý do!");
+      return false;
+    }
+    axiosCRM
+      .post("/potential/cancelAppointment", {
+        id_schedule: record._id,
+        ...cancelContent,
+      })
+      .then((res) => {
+        onClose(), handleRecall();
+      })
+      .catch((err) => notifyError());
+  };
+  const handleComplete = () => {
+    if (!formComplete.content || !formComplete.status) {
+      notifyWarning("Nhập đầy đủ thông tin!");
+      return false;
+    }
+    axiosCRM
+      .post("/potential/changeStatusAppointment", {
+        id_schedule: record._id,
+        ...formComplete,
+      })
+      .then((res) => {
+        setFormComplete({});
+        onClose(), handleRecall();
+      })
+      .catch((err) => notifyError());
   };
   const items: MenuProps["items"] = [];
   for (let i = 0; i < dataActionLichHenQuote.length; i++) {
@@ -103,51 +158,40 @@ export default function QuoteActionLichHenTable(props: any) {
           </button>
         </Dropdown>
       </div>
-      <QuoteBrowsingModal
-        isModalCancel={isOrderBrowsingOpen}
-        setIsModalCancel={setIsOrderBrowsingOpen}
-      />
-      <ModalSuaLichhen
+
+      {/* Chỉnh sửa */}
+      <ModalPotentialEditAppointment
+        record={record}
         isShowModalAdd={isShowModalAdd}
         onClose={onClose}
         handleAddDB={handleAddDB}
       />
-      <DenyActionModal
-        isModalCancel={isDenyOpen}
-        setIsModalCancel={setIsDenyOpen}
-      />
+      {/* Xóa */}
       <DelLichHenModal
-        record={record}
+        handleDelete={handleDelete}
+        record={record?.schedule_name}
         isModalCancel={isDelOpen}
         setIsModalCancel={setIsDelOpen}
       />
+      {/* hủy */}
       <CanCel_LichHen_Mdal
-        record={record}
+        name="reason_cancel"
+        handleCancel={handleCancel}
+        setCancelContent={setCancelContent}
+        cancelContent={cancelContent.reason_cancel}
+        record={record?.schedule_name}
         isModalCancel={isCancelOpen}
         setIsModalCancel={setIsCancelOpen}
       />
-      <ShareActionModal
-        record={record}
-        isModalCancel={isOpenShare}
-        setIsModalCancel={setIsOpenShare}
-      />
-      <HandOverActionModal
-        record={record}
-        isModalCancel={isOpenHandOver}
-        setIsModalCancel={setIsOpenHandOver}
-      />
-      <CallModal
-        record={record}
-        allkey={allkey}
+      {/* Hoàn thành cuộc hẹn */}
+      <ModalCompleteAppointment
+        handleComplete={handleComplete}
+        formData={formComplete}
+        setFormData={setFormComplete}
         isModalCancel={isOpenUpdate}
         setIsModalCancel={setIsOpenUpdate}
       />
-      <SendMailModal
-        record={record}
-        allkey={allkey}
-        isModalCancel={isOpenSend}
-        setIsModalCancel={setIsOpenSend}
-      />
+      <ToastContainer autoClose={2000} />
     </>
   );
 }

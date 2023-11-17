@@ -60,6 +60,7 @@ interface ModalCompleteStepProps {
   editorContent?: any;
   cusId?: any;
   setRecall?: any;
+  handleUpdate?:any
 }
 
 export const MModalCompleteStep: React.FC<ModalCompleteStepProps> = ({

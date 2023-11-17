@@ -1,18 +1,49 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "@/components/crm/quote/quote.module.css";
 
 type Props = {};
 import ModalThemMoiLichhen from "@/components/crm/cskh/modal/modalthemmoilichhen";
 import TableDataLichhen from "@/components/crm/table/table-lich-hen-quote";
 import OrderDetailSelectBox from "@/components/crm/campaign/campaign_detail/campaign_detail_action_modal/campaign_detail_select";
+import { useRouter } from "next/router";
+import { useFormData } from "../../context/formDataContext";
+import PotentialCreateAppointment from "../mdal_action/modal_create_appointment";
+import SelectSingle from "@/components/commodity/select";
+import { axiosQLC } from "@/utils/api/api_qlc";
+import { notifyError } from "@/utils/function";
+import { LIST_APPOINTMENT_STATUS } from "@/utils/listOption";
 const Lich_hen_potential = (props: Props) => {
+  const router = useRouter();
+  const {
+    setFormData,
+    handleChangeData,
+    formData,
+    handleRecall,
+    handleChangeAndRecall,
+  } = useContext(useFormData);
+  const { id } = router.query;
+  useEffect(() => {
+    setFormData({ recall: true, cus_id: id });
+  }, []);
   const [isShowModal, setIsShowModal] = useState(false);
   const [isShowModalAdd, setIsShowModalAdd] = useState(false);
   const [activeTab, setActiveTab] = useState("tab1");
   const [isShowModalAddTL, setIsShowModalAddTL] = useState(false);
   const [isShowModalShareCS, setIsShowModalShareCS] = useState(false);
-  const handleTabChange = (key: any) => {
-    setActiveTab(key);
+  const [listEmp, setListEmp] = useState([]);
+  useEffect(() => {
+    axiosQLC
+      .post("/managerUser/listUser", { ep_status: "Active" })
+      .then((res) => convertDataEmp(res.data.data.data))
+      .catch((err) => notifyError("Vui lòng thử lại sau!"));
+  }, []);
+  const convertDataEmp = (datas) => {
+    setListEmp(
+      datas.map((item: any) => ({
+        value: item.ep_id,
+        label: item.userName,
+      }))
+    );
   };
   const onClose = () => {
     setIsShowModalAdd(false);
@@ -41,31 +72,61 @@ const Lich_hen_potential = (props: Props) => {
                     Thời gian thực hiện:
                   </label>
                   <div className={`${styles.input_item_time} flex_between`}>
-                    <input type="date" name="" id="start_time" />-
-                    <input type="date" name="" id="start_time" />
+                    <input
+                      type="date"
+                      name="fromDate"
+                      id="fromDate"
+                      onChange={handleChangeAndRecall}
+                    />
+                    -
+                    <input
+                      type="date"
+                      name="toDate"
+                      id="toDate"
+                      onChange={handleChangeAndRecall}
+                    />
                   </div>
                 </div>
-                <OrderDetailSelectBox
-                  title="Nhân viên thực hiện:"
-                  value="Tất cả"
-                />
+                <div style={{ width: "30%" }}>
+                  {" "}
+                  <SelectSingle
+                    onChange={handleRecall}
+                    data={listEmp}
+                    title="Nhân viên thực hiện:"
+                    setFormData={setFormData}
+                    name="ep_id"
+                  />
+                </div>
+                <div style={{ width: "30%" }}>
+                  {" "}
+                  <SelectSingle
+                    onChange={handleRecall}
+                    data={LIST_APPOINTMENT_STATUS}
+                    title="Trạng thái"
+                    setFormData={setFormData}
+                    name="status"
+                  />
+                </div>
               </div>
-            </div>
-            <div style={{ paddingBottom: 20 }}>
-              <OrderDetailSelectBox title="Trạng thái:" value="Tất cả" />
             </div>
 
             <div className={`${styles.main__control_btn} flex_between`}>
               <div className={styles.main__control_search}>
-                <form onSubmit={() => false}>
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    handleRecall();
+                  }}
+                >
                   <input
                     type="text"
                     className={styles.input__search}
-                    name="search"
+                    onChange={handleChangeData}
+                    name="name"
                     defaultValue=""
                     placeholder="Tìm kiếm theo tên lịch hẹn"
                   />
-                  <button className={styles.kinh_lup}>
+                  <button onClick={handleRecall} className={styles.kinh_lup}>
                     <img
                       className={styles.img__search}
                       src="/crm/search.svg"
@@ -86,7 +147,7 @@ const Lich_hen_potential = (props: Props) => {
               </div>
             </div>
             <TableDataLichhen />
-            <ModalThemMoiLichhen
+            <PotentialCreateAppointment
               isShowModalAdd={isShowModalAdd}
               onClose={onClose}
               handleAddDB={handleAddDB}

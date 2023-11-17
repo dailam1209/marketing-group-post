@@ -453,7 +453,7 @@ export const LIST_PROFESSION = [
 ];
 export const renderProfession = (id) => {
   const handleId = id?.split(",")?.map((item) => Number(item));
-  console.log("check------", handleId);
+
   const option = {
     1: "Kinh doanh thực phẩm",
     2: "Kinh doanh hóa chất",
@@ -548,14 +548,28 @@ export const renderRevenue = (id) => {
   }
   return option[id];
 };
-
-export const renderRight = (id) => {
+export const LIST_APPOINTMENT_STATUS = [
+  { value: 2, label: "Chờ thực hiện" },
+  { value: 3, label: "Chưa liên hệ được" },
+  { value: 1, label: "Hoàn thành" },
+  { value: 5, label: "Hoàn thành muộn" },
+  { value: 4, label: "Hủy" },
+];
+export const LIST_APPOINTMENT_STATUS_COMPLETE = [
+  { value: 3, label: "Chưa liên hệ được" },
+  { value: 1, label: "Hoàn thành" },
+  { value: 5, label: "Hoàn thành muộn" },
+];
+export const renderAppointmentStatus = (id) => {
   const option = {
-    0: "Không có quyền",
-    1: "Xem",
-    2: "Sửa",
-    3: "Toàn quyền"
+    1: <span style={{ color: "#34B632" }}>Hoàn thành</span>,
+    2: <span style={{ color: "#4C5BD4" }}>Chờ thực hiện</span>,
+    3: <span style={{ color: "#2A38A2" }}>Chưa liên hệ được</span>,
+    4: <span style={{ color: "red" }}>Hủy</span>,
+    5: <span>Hoàn thành muộn</span>,
   };
-  if(!option[id]) return "Không có dữ liệu";
+  if (!option[id]) {
+    return "Chưa cập nhập";
+  }
   return option[id];
-}
+};

@@ -1,8 +1,6 @@
 import React from "react";
 import { Table } from "antd";
-import styles from "../campaign/campaign.module.css";
-import style from "../potential/detail/information.module.css";
-import Link from "next/link";
+
 import { ColumnsType } from "antd/es/table";
 
 interface DataType {
@@ -18,65 +16,59 @@ const columns: ColumnsType<DataType> = [
   {
     title: "STT",
     width: 50,
-    dataIndex: "key",
+    dataIndex: "stt",
     key: "STT",
   },
   {
     title: "Mã hàng hoá",
     width: 180,
-    dataIndex: "MaHangHoa",
-    key: "MaHangHoa",
+    dataIndex: "_id",
+    key: "_id",
   },
   {
     title: "Tên hàng hóa",
     width: 150,
-    dataIndex: "TenHangHoa",
-    key: "TenHangHoa",
-    render: (data) => (
-      // <Tooltip title={data}>
-      <Link href={`/potential/detail/${data}`}>
-        <span>{data}</span>
-      </Link>
-      // </Tooltip>
-    ),
+    dataIndex: "prod_name",
+    key: "prod_name",
   },
   {
     title: "Nhóm hàng hóa",
-    dataIndex: "NhomHangHoa",
-    key: "NhomHangHoa",
+    dataIndex: "gr_name",
+    key: "gr_name",
     width: 70,
   },
   {
     title: "Đơn vị tính",
-    dataIndex: "DonViTinh",
-    key: "DonViTinh",
+    dataIndex: "unit_name",
+    key: "unit_name",
     width: 150,
   },
   {
     title: "Đơn giá (VNĐ)",
-    dataIndex: "DonGia",
-    key: "DonGia",
+    dataIndex: "price",
+    key: "price",
     width: 150,
   },
 ];
 
-const data: DataType[] = [];
-for (let i = 0; i < 100; i++) {
-  data.push({
-    key: i.toString(),
-    MaHangHoa: `HH-000`,
-    TenHangHoa: "Dịch vụ bảo hành máy tính trọn đời",
-    NhomHangHoa: "Dịch vụ máy tính",
-    DonViTinh: "Gói",
-    DonGia: `1.000.000.000`,
-  });
-}
+// const data: DataType[] = [];
+// for (let i = 0; i < 100; i++) {
+//   data.push({
+//     key: i.toString(),
+//     MaHangHoa: `HH-000`,
+//     TenHangHoa: "Dịch vụ bảo hành máy tính trọn đời",
+//     NhomHangHoa: "Dịch vụ máy tính",
+//     DonViTinh: "Gói",
+//     DonGia: `1.000.000.000`,
+//   });
+// }
 
-interface TablePotentialItemProps {}
 
-const TablePotentialshowItem: React.FC<TablePotentialItemProps> = ({
+const TablePotentialshowItem= ({
   selectedRowKeys,
+  data
 }: any) => {
+  console.log("TablePotentialshowItem",selectedRowKeys)
   return (
     <div className="custom_table campaign_tble ">
       <Table
