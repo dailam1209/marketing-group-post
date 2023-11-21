@@ -10,16 +10,17 @@ import PotentialRowInforText from "./potential_row_info";
 import Tab from "./tab";
 import { useRouter } from "next/router";
 import ConvertModal from "../potential_action_modal/convert_modal";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import DelActionModal from "../potential_action_modal/deltete_action_mdal";
 import PotentialActionDetail from "./potential_action";
 import { axiosCRM } from "@/utils/api/api_crm";
 import { notifyError } from "@/utils/function";
 import { ToastContainer } from "react-toastify";
+import { useFormData } from "../../context/formDataContext";
 
 export default function InformationTextPotentialDetails({ key }: any) {
-  const onChange = (checked: boolean) => {};
   const router = useRouter();
+  const { setFormData } = useContext(useFormData);
   const { id } = router.query;
   const items: MenuProps["items"] = [];
   const [isOpenCovert, setIsOpenConvert] = useState(false);
@@ -43,6 +44,9 @@ export default function InformationTextPotentialDetails({ key }: any) {
         }, 2000);
       })
       .catch((err) => console.log("checkrrrr", err));
+  };
+  const onChange = (checked: boolean) => {
+    setFormData((prev) => ({ ...prev, checked: checked }));
   };
   return (
     <div className={style.main}>

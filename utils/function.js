@@ -361,6 +361,32 @@ export function convertTimeToDate(time) {
 
   return formattedDate;
 }
+export function convertTimestampToDateHMDMY(timestamp) {
+  // Tạo một đối tượng Date từ timestamp
+  const date = new Date(timestamp * 1000);
+  // Lấy giờ, phút và giây từ đối tượng Date
+  let hours = date.getHours();
+  let minutes = date.getMinutes();
+  let seconds = date.getSeconds();
+
+  // Lấy ngày, tháng và năm từ đối tượng Date
+  const thu = date.getDay();
+  const day = date.getDate();
+  const month = date.getMonth() + 1; // Tháng trong JavaScript là từ 0 đến 11
+  const year = date.getFullYear();
+
+  // Sử dụng hàm padStart để thêm số 0 vào phía trước nếu cần
+  const formattedDay = String(day).padStart(2, "0");
+  const formattedMonth = String(month).padStart(2, "0");
+  const formattedHours = String(hours).padStart(2, "0");
+  const formattedMinutes = String(minutes).padStart(2, "0");
+  const formattedSecond = String(seconds).padStart(2, "0");
+
+  // Tạo chuỗi ngày/tháng/năm
+  const formattedDate = `${formattedHours}:${formattedMinutes} - ${formattedDay}/${formattedMonth}/${year} `;
+
+  return formattedDate;
+}
 export function convertTimestampToDate(timestamp) {
   // Tạo một đối tượng Date từ timestamp
   const date = new Date(timestamp * 1000);

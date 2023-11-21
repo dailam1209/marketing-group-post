@@ -10,6 +10,7 @@ import { convertTimeToDate, notifyError } from "@/utils/function";
 import { useFormData } from "../context/formDataContext";
 import { axiosCRM } from "@/utils/api/api_crm";
 import { ToastContainer } from "react-toastify";
+import { useRouter } from "next/router";
 
 interface DataType {
   key: React.Key;
@@ -96,11 +97,14 @@ const TableDataLichhen: React.FC<TableDataCampaignProps> = () => {
   const [pageSize, setPageSize] = useState<any>(10);
   const [total, setTotal] = useState(0);
   const [listAppointment, setListAppointment] = useState([]);
+  const router = useRouter();
+  const { id } = router.query;
   useEffect(() => {
     axiosCRM
       .post("/potential/listAppointment", {
         ...formData,
         page: page,
+        cus_id: Number(id),
         pageSize: pageSize,
       })
       .then((res) => {
@@ -114,7 +118,6 @@ const TableDataLichhen: React.FC<TableDataCampaignProps> = () => {
       })
       .catch((err) => notifyError("Vui lòng thử lại sau!"));
   }, [formData.recall, page, pageSize]);
-  console.log("check list", listAppointment);
   return (
     <div className="custom_table campaign_tble">
       <Table

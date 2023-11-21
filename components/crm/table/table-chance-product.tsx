@@ -4,6 +4,7 @@ import { Button, Form, Input, Popconfirm, Table } from "antd";
 import type { FormInstance } from "antd/es/form";
 import Image from "next/image";
 import { ColumnsType } from "antd/es/table";
+import { axiosCRM } from "@/utils/api/api_crm";
 
 const EditableContext = React.createContext<FormInstance<any> | null>(null);
 
@@ -106,6 +107,21 @@ type EditableTableProps = Parameters<typeof Table>[0];
 type ColumnTypes = Exclude<EditableTableProps["columns"], undefined>;
 
 const TableChanceProduct: React.FC = () => {
+  const [listCommodities, setListCommodities] = useState([]);
+  useEffect(() => {
+    axiosCRM
+      .post("/product/show-product", { page_size: 50 })
+      .then((res) => handleConvertCommodity(res.data.data.data))
+      .catch((err) => console.log("errrCommodity", err));
+  }, []);
+  const handleConvertCommodity = (datas) => {
+    const convert = datas?.map((item) => ({
+      ...item,
+      unit_name: item?.dvt?.unit_name,
+      unit_id: item?.dvt?._id,
+    }));
+    setListCommodities(convert);
+  };
   const columnsDefault: ColumnsType<any> = [
     {
       title: "STT",
@@ -114,88 +130,64 @@ const TableChanceProduct: React.FC = () => {
       key: "key",
     },
     {
-      title: "Số đơn hàng",
-      width: 200,
-      dataIndex: "filename",
+      title: "Tên hàng hóa",
+      width: 350,
+      dataIndex: "prod_name",
       key: "0",
     },
     {
-      title: "Ngày đặt hàng",
-      dataIndex: "personname",
-      key: "1",
-      width: 200,
-    },
-    {
-      title: "Mã hàng hóa",
-      dataIndex: "date1",
-      key: "2",
-      width: 150,
-    },
-    {
-      title: "Tên hàng hóa",
-      dataIndex: "date1",
-      key: "2",
-      width: 150,
-    },
-    {
       title: "Đơn vị tính",
-      dataIndex: "date2",
-      key: "3",
+      dataIndex: "unit_name",
+      key: "1",
       width: 150,
     },
     {
       title: "Số lượng",
-      dataIndex: "date2",
-      key: "3",
-      width: 150,
-    },
-    {
-      title: "Số lượng trả",
-      dataIndex: "date2",
-      key: "3",
+      dataIndex: "count",
+      key: "2",
       width: 150,
     },
     {
       title: "Đơn giá (VNĐ)",
-      dataIndex: "date2",
-      key: "3",
-      width: 150,
+      dataIndex: "price",
+      key: "2",
+      width: 200,
     },
     {
       title: "Thành tiền (VNĐ)",
-      dataIndex: "date2",
+      dataIndex: "total_price",
+      key: "3",
+      width: 200,
+    },
+    {
+      title: "Tỉ lệ chiết khấu (%)",
+      dataIndex: "discount_rates",
       key: "3",
       width: 150,
     },
     {
-      title: "Tỷ lệ chiết khấu (%)",
-      dataIndex: "date2",
+      title: "Tiền chiết khẩu (VNĐ)",
+      dataIndex: "discount_money",
+      key: "3",
+      width: 250,
+    },
+    {
+      title: "Thế suất (%)",
+      dataIndex: "tax_rates",
       key: "3",
       width: 150,
     },
     {
-      title: "Tiền chiết khấu (VNĐ)",
-      dataIndex: "date2",
+      title: "Tiền thuế (VNĐ)",
+      dataIndex: "tax_money",
       key: "3",
-      width: 150,
-    },
-    {
-      title: "Thuế suất (%)",
-      dataIndex: "date2",
-      key: "3",
-      width: 150,
-    },
-    {
-      title: "Tiền thuế (VNĐ)	",
-      dataIndex: "date2",
-      key: "3",
-      width: 150,
+      width: 200,
     },
     {
       title: "Tổng tiền (VNĐ)",
-      dataIndex: "date2",
+      dataIndex: "total_money",
       key: "3",
-      width: 150,
+      width: 200,
     },
     {
       title: "Chức năng",

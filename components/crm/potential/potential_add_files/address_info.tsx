@@ -27,9 +27,9 @@ export default function AddAddressInfo({
     delete formData?.ward;
     setFormData(formData);
     setListDistrict(
-      LIST_DISTRICT.filter((district) => district.parent == formData?.city_id)
+      LIST_DISTRICT.filter((district) => district.parent == formData?.cit_id)
     );
-  }, [formData?.city_id]);
+  }, [formData?.cit_id]);
 
   // xóa xã phường khi chọn lại quận huyện
   useEffect(() => {
@@ -63,8 +63,10 @@ export default function AddAddressInfo({
           ? `${listWard.find((ward) => ward.value == formData?.ward)?.label}, `
           : ""
       }${
-        formData?.district_id ? `${renderDistrict(formData?.district_id)}, ` : ""
-      }${formData?.city_id ? `${renderCity(formData?.city_id)}, ` : ""}${
+        formData?.district_id
+          ? `${renderDistrict(formData?.district_id)}, `
+          : ""
+      }${formData?.cit_id ? `${renderCity(formData?.cit_id)}, ` : ""}${
         formData?.country ? formData?.country : ""
       }`
     );
@@ -72,7 +74,7 @@ export default function AddAddressInfo({
     formData?.address,
     formData?.ward,
     formData?.district_id,
-    formData?.city_id,
+    formData?.cit_id,
     formData?.country,
   ]);
   return (

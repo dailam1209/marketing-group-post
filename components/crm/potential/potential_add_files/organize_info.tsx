@@ -16,9 +16,8 @@ import { useEffect } from "react";
 export default function AddOrganizeInfo({ formData, setFormData }: any) {
   useEffect(() => {
     setFormData({ ...formData, category: [] });
-    console.log("kkkkkkkkk");
   }, [formData?.sector]);
-
+  console.log("CheckCategory", formData.category);
   return (
     <div>
       <p className={styles.main__body__type}>Thông tin tổ chức</p>

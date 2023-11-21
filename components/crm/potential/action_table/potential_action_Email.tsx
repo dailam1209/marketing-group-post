@@ -131,11 +131,11 @@ export default function PotentialActionEmailTable(props: any) {
         isModalCancel={isDenyOpen}
         setIsModalCancel={setIsDenyOpen}
       />
-      <CanCel_LichHen_Mdal
+      {/* <CanCel_LichHen_Mdal
         record={record}
         isModalCancel={isCancelOpen}
         setIsModalCancel={setIsCancelOpen}
-      />
+      /> */}
       <ShareActionModal
         record={record}
         isModalCancel={isOpenShare}

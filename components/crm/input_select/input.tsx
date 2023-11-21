@@ -1,39 +1,28 @@
 import styles from "./potential2.module.css";
 import stylesAdd from "./add_file_commodity.module.css";
 import { useContext } from "react";
-import { useFormData } from "../crm/context/formDataContext";
-
-export const InputSearch = ({
-  value,
-  setFormData,
-  onSubmit = null,
+import { useFormData } from "../context/formDataContext";
+export const InputSearchV2 = ({
+  onSubmit = false,
   placeholder,
   name,
+  defaultValue = "",
 }) => {
-  const handleChangeInput = (e: any) => {
-    if (name !== "") {
-      setFormData((preData: any) => {
-        return {
-          ...preData,
-          [name]: e.target.value,
-        };
-      });
-    }
-  };
+  const { formData, handleChangeData, handleRecall } = useContext(useFormData);
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit();
+    onSubmit && handleRecall();
   };
   return (
     <div className={styles.main__control_search}>
       <form onSubmit={handleSubmit}>
         <input
-          onChange={(e) => handleChangeInput(e)}
-          value={value && value}
+          onChange={handleChangeData}
+          value={formData[name] && formData[name]}
           type="text"
           className={styles.input__search}
-          name="search"
-          defaultValue=""
+          name={name}
+          defaultValue={defaultValue}
           placeholder={placeholder}
         />
         <button onClick={handleSubmit} className={styles.kinh_lup}>
@@ -47,59 +36,25 @@ export const InputSearch = ({
     </div>
   );
 };
-export function MInputText({
+export function MInputTextV2({
   label = "",
-  defaultValue,
+  defaultValue = null,
   placeholder,
   require = false,
   disable = false,
   type = "text",
-  value,
-  setFormData,
   name = "",
   id = "",
-  nameChecked = "",
-  labelChecked = "",
 }: any) {
-  const handleChangeInput = (e: any) => {
-    if (name !== "") {
-      setFormData((preData: any) => {
-        return {
-          ...preData,
-          [name]: e.target.value,
-        };
-      });
-    }
-  };
+  const { handleChangeData, formData } = useContext(useFormData);
 
   return (
     <div className={`${stylesAdd.mb_3} ${stylesAdd["col-lg-6"]}`}>
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
-        {" "}
-        <label
-          className={`${stylesAdd["form-label"]} ${require ? "required" : ""}`}
-        >
-          {label}
-        </label>
-        {nameChecked && (
-          <div>
-            <input
-              style={{ marginRight: "5px" }}
-              type="checkbox"
-              onChange={(e) =>
-                setFormData((preData: any) => {
-                  return {
-                    ...preData,
-                    [nameChecked]: e.target.checked,
-                  };
-                })
-              }
-            />
-            <label> {labelChecked}</label>
-          </div>
-        )}
-      </div>
-
+      <label
+        className={`${stylesAdd["form-label"]} ${require ? "required" : ""}`}
+      >
+        {label}
+      </label>
       <input
         style={{
           marginLeft: "10px",
@@ -113,35 +68,23 @@ export function MInputText({
         id={id}
         defaultValue={defaultValue && defaultValue}
         placeholder={placeholder}
-        value={value}
-        onChange={handleChangeInput}
+        value={formData[name]}
+        onChange={handleChangeData}
       />
     </div>
   );
 }
-export function MTextArea({
-  label = "Mô tả",
+export function MTextAreaV2({
+  label = null,
   placeholder = "Nhập mô tả",
   require = false,
   disable = false,
-  value,
-  setFormData,
   name = "description",
-  id = "",
   nameChecked = "",
   labelChecked = "",
   rows = 4,
 }: any) {
-  const handleChangeInput = (e: any) => {
-    if (name !== "") {
-      setFormData((preData: any) => {
-        return {
-          ...preData,
-          [name]: e.target.value,
-        };
-      });
-    }
-  };
+  const { setFormData, formData, handleChangeData } = useContext(useFormData);
   return (
     <div className={`${stylesAdd.mb_3} ${stylesAdd["col-lg-6"]}`}>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -180,10 +123,9 @@ export function MTextArea({
         disabled={disable}
         className={`${stylesAdd["form-control"]}`}
         name={name}
-        id={id}
-        value={value && value}
+        value={formData[name] && formData[name]}
         placeholder={placeholder}
-        onChange={handleChangeInput}
+        onChange={handleChangeData}
       />
     </div>
   );
@@ -194,25 +136,14 @@ export function MInputTextAndOption({
   require = false,
   disable = false,
   type = "text",
-  value,
-  setFormData,
   name = "",
-  id = "",
   labelAdd = "",
-  handleAdd = "",
+  handleAdd = null,
   nameChecked = "",
   labelChecked = "",
 }: any) {
-  const handleChangeInput = (e: any) => {
-    if (name !== "") {
-      setFormData((preData: any) => {
-        return {
-          ...preData,
-          [name]: e.target.value,
-        };
-      });
-    }
-  };
+  const { handleChangeData, setFormData, formData } = useContext(useFormData);
+
   return (
     <div className={`${stylesAdd.mb_3} ${stylesAdd["col-lg-6"]}`}>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -235,6 +166,7 @@ export function MInputTextAndOption({
             <input
               style={{ marginRight: "5px" }}
               type="checkbox"
+              value={formData[nameChecked] && formData[nameChecked]}
               onChange={(e) =>
                 setFormData((preData: any) => {
                   return {
@@ -259,10 +191,9 @@ export function MInputTextAndOption({
         disabled={disable}
         className={`${stylesAdd["form-control"]}`}
         name={name}
-        id={id}
         placeholder={placeholder}
-        value={value}
-        onChange={handleChangeInput}
+        value={formData[name]}
+        onChange={handleChangeData}
       />
     </div>
   );

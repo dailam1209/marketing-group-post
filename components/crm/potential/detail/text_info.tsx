@@ -15,11 +15,11 @@ export default function InforText({ field, value, icon, link }: any) {
         ) : (
           <div
             className={`${style.main__profile__body__item__value} ${
-              value === "" ? style["not-updated"] : ""
+              !value || value == "Không có dữ liệu" ? style["not-updated"] : ""
             }`}
           >
             {icon && <span className="icon">{icon}</span>}
-            {value !== "" ? value : "Chưa cập nhật"}
+            {!value || value == "Không có dữ liệu" ? "Chưa cập nhật" : value}
           </div>
         )}
       </div>

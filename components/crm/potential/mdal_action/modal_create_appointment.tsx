@@ -7,11 +7,14 @@ import { convertTimeToDatePicker, notifyError } from "@/utils/function";
 import { SelectSingleAndOption } from "@/components/commodity/select";
 import { axiosCRM } from "@/utils/api/api_crm";
 import { MInputText } from "@/components/commodity/input";
+import { useRouter } from "next/router";
 
 const PotentialCreateAppointment = (props: any) => {
   const { isShowModalAdd, onClose } = props;
-  const { setFormData, formData, handleChangeData, handleRecall } =
-    useContext(useFormData);
+  const router = useRouter();
+  const { id } = router.query;
+  const [formAddData, setFormAddData] = useState<any>({});
+  const { formData, handleChangeData, handleRecall } = useContext(useFormData);
   const [loading, setLoading] = useState(false);
   const [openSuccess, setOpenSuccess] = useState(false);
   const [listEmp, setListEmp] = useState([]);
@@ -21,6 +24,16 @@ const PotentialCreateAppointment = (props: any) => {
       .then((res) => convertDataEmp(res.data.data.data))
       .catch((err) => notifyError("Vui lòng thử lại sau!"));
   }, []);
+  useEffect(() => {
+    setFormAddData({
+      schedule_name: "",
+      ep_id: null,
+      address: "",
+      start_date_schedule: null,
+      end_date_schedule: null,
+      description: "",
+    });
+  }, [formData.recall]);
   const convertDataEmp = (datas) => {
     setListEmp(
       datas.map((item: any) => ({
@@ -32,11 +45,12 @@ const PotentialCreateAppointment = (props: any) => {
 
   const handleCreateAppointment = () => {
     axiosCRM
-      .post("/potential/createAppointment", formData)
+      .post("/potential/createAppointment", { ...formAddData, cus_id: id })
       .then((res) => {
         setOpenSuccess(true);
-        setFormData({ recall: true });
-        // handleRecall();
+
+        // setFormAddData({ recall: !formAddData.recall });
+        handleRecall();
       })
       .catch((err) => notifyError());
   };
@@ -45,6 +59,7 @@ const PotentialCreateAppointment = (props: any) => {
     setOpenSuccess(false);
     onClose();
   };
+  console.log("CHeck", formAddData);
   return (
     <div>
       <Modal
@@ -114,8 +129,8 @@ const PotentialCreateAppointment = (props: any) => {
               required={true}
               width={"100%"}
               name="schedule_name"
-              value={formData.schedule_name}
-              setFormData={handleChangeData}
+              value={formAddData.schedule_name}
+              setFormData={setFormAddData}
               placeholder={"Nhập tên lịch hẹn"}
             />
           </div>
@@ -129,9 +144,10 @@ const PotentialCreateAppointment = (props: any) => {
                 <MInputText
                   type="datetime-local"
                   value={convertTimeToDatePicker(
-                    formData.start_date_schedule,
+                    formAddData.start_date_schedule,
                     "YYYY-MM-DD HH:mm:ss"
                   )}
+                  setFormData={setFormAddData}
                   name="start_date_schedule"
                 />
               </div>
@@ -142,9 +158,10 @@ const PotentialCreateAppointment = (props: any) => {
                 <MInputText
                   type="datetime-local"
                   value={convertTimeToDatePicker(
-                    formData.end_date_schedule,
+                    formAddData.end_date_schedule,
                     "YYYY-MM-DD HH:mm:ss"
                   )}
+                  setFormData={setFormAddData}
                   name="end_date_schedule"
                 />
               </div>
@@ -156,8 +173,9 @@ const PotentialCreateAppointment = (props: any) => {
           <div>
             <SelectSingleAndOption
               data={listEmp}
-              setFormData={setFormData}
-              formData={formData}
+              value={formAddData.ep_id}
+              setFormData={setFormAddData}
+              formData={formAddData}
               name="ep_id"
               placeholder="Chọn nhân viên thực hiện"
             />
@@ -168,18 +186,23 @@ const PotentialCreateAppointment = (props: any) => {
           <div>
             <MInputText
               name="address"
-              setFormData={handleChangeData}
-            
+              value={formAddData.address}
+              setFormData={setFormAddData}
               placeholder={"Nhập địa điểm"}
             />
-          
           </div>
           <div className={styles.title}>
             Mô tả<span>*</span>
           </div>
           <div>
             <textarea
-              onChange={(e) => handleChangeData(e)}
+              onChange={(e) =>
+                setFormAddData({
+                  ...formAddData,
+                  [e.target.name]: e.target.value,
+                })
+              }
+              value={formAddData.description}
               style={{ width: "100%", padding: 15 }}
               name="description"
               placeholder={"Nhập mô tả"}
