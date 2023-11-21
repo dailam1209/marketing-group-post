@@ -6,7 +6,13 @@ import TextEditor from "@/components/crm/text-editor/text_editor";
 import GeneralCustomerInfor from "./general_customer_info";
 import PotentialFooterAddFiles from "@/components/crm/potential/potential_add_files/potential_footer_add_files";
 import { useRouter } from "next/router";
+import { useContext, useState } from "react";
+import { useFormData } from "../../context/formDataContext";
+import TextEditorV2 from "../../input_select/text_editor";
+import { MTextAreaV2 } from "../../input_select/input";
 export default function ChanceAddInfo() {
+  const { formData } = useContext(useFormData);
+  const [formDataTest, setFormDataTest] = useState<any>({});
   const router = useRouter();
   const { id } = router.query;
   return (
@@ -26,10 +32,13 @@ export default function ChanceAddInfo() {
                 >
                   Thông tin mô tả
                 </div>
-                <label>Mô tả</label>
-                <TextEditor />
 
-                <AddAddressInfo />
+                <MTextAreaV2 label="Mô tả" />
+
+                <AddAddressInfo
+                  formData={formDataTest}
+                  setFormData={setFormDataTest}
+                />
                 <GeneralCustomerInfor />
               </div>
               <PotentialFooterAddFiles

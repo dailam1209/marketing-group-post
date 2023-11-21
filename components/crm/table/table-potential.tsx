@@ -26,8 +26,8 @@ const columns: ColumnsType<DataType> = [
   {
     title: "Mã tiềm năng",
     width: 120,
-    dataIndex: "potential_id",
-    key: "potential_id",
+    dataIndex: "cus_id",
+    key: "cus_id",
   },
   {
     title: "Xưng hô",
@@ -128,22 +128,11 @@ const columns: ColumnsType<DataType> = [
   },
   {
     title: "Người tạo",
-    dataIndex: "user_create",
+    dataIndex: "user_create_name",
     key: "user_create",
     width: 200,
   },
 ];
-
-export const data: DataType[] = [];
-for (let i = 0; i < 100; i++) {
-  data.push({
-    key: i,
-    name: `Edward ${i}`,
-    salutation: `Anh`,
-    address: `London Park no. ${i}`,
-    operation: `Nguyen Van Hung`,
-  });
-}
 
 interface TableDataPotentialProps {
   setSelected?: (value: boolean) => void;

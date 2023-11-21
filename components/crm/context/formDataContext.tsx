@@ -6,6 +6,14 @@ export const FormDataContext: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [formData, setFormData] = useState<any>({ recall: false });
+
+  const hanldeClearRecall = () => {
+    setFormData({
+      ...(typeof formData.recall !== "undefined"
+        ? { recall: !formData.recall }
+        : { recall: true }),
+    });
+  };
   const handleRecall = () => {
     setFormData({
       ...formData,
@@ -44,6 +52,7 @@ export const FormDataContext: React.FC<{ children: React.ReactNode }> = ({
           handleChangeData,
           handleRecall,
           handleChangeAndRecall,
+          hanldeClearRecall,
         } as any
       }
     >

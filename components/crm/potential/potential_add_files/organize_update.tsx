@@ -15,8 +15,9 @@ import {
 import { useEffect, useState } from "react";
 export default function UpdateOrganizeInfo({ formData, setFormData }: any) {
   let [data, setData] = useState([]);
+  const [flag, setFlag] = useState(1);
   useEffect(() => {
-    setFormData({ ...formData, category: [] });
+    flag > 2 && setFormData({ ...formData, category: [] });
     data = [];
     if (formData.sector) {
       formData.sector.forEach((st) => {
@@ -27,8 +28,9 @@ export default function UpdateOrganizeInfo({ formData, setFormData }: any) {
       });
     }
     setData(data);
+    setFlag(flag + 1);
   }, [formData?.sector]);
-
+  console.log("LOCK FLAG", flag);
   return (
     <div>
       <p className={styles.main__body__type}>Thông tin tổ chức</p>

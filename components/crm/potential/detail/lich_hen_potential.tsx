@@ -21,10 +21,6 @@ const Lich_hen_potential = (props: Props) => {
     handleRecall,
     handleChangeAndRecall,
   } = useContext(useFormData);
-  const { id } = router.query;
-  useEffect(() => {
-    setFormData({ recall: true, cus_id: id });
-  }, []);
   const [isShowModal, setIsShowModal] = useState(false);
   const [isShowModalAdd, setIsShowModalAdd] = useState(false);
   const [activeTab, setActiveTab] = useState("tab1");
@@ -73,6 +69,7 @@ const Lich_hen_potential = (props: Props) => {
                   </label>
                   <div className={`${styles.input_item_time} flex_between`}>
                     <input
+                      style={{ border: "none", marginRight: "5px" }}
                       type="date"
                       name="fromDate"
                       id="fromDate"
@@ -81,6 +78,7 @@ const Lich_hen_potential = (props: Props) => {
                     -
                     <input
                       type="date"
+                      style={{ border: "none", marginLeft: "5px" }}
                       name="toDate"
                       id="toDate"
                       onChange={handleChangeAndRecall}

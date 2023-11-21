@@ -77,12 +77,15 @@ const EditFilesPotential: React.FC = () => {
   useEffect(() => {
     axiosCRM
       .post("/potential/detail-potential", { cus_id: id })
-      .then((res) =>
+      .then((res) => {
+        console.log("CHeckres", res.data.data.data);
         handleData({
           ...res.data.data.data,
-        })
-      )
-      .catch((err) => notifyError("Vui lòng thử lại sau"));
+        });
+      })
+      .catch((err) => {
+        console.log("CHeckerr", err), notifyError("Vui lòng thử lại sau");
+      });
   }, []);
   const handleData = async (datas) => {
     const convertSocialArr = [];
@@ -95,22 +98,26 @@ const EditFilesPotential: React.FC = () => {
     datas?.potential_id?.sector?.split(",")?.forEach((item) => {
       convertSector.push(Number(item));
     });
-
+    const convertCategory = [];
+    datas?.potential_id?.category?.split(",")?.forEach((item) => {
+      convertCategory.push(Number(item));
+    });
     const convertData = {
       ...datas,
       ...datas.potential_id,
       ...datas.potential_id.social,
       arrSocial: convertSocialArr,
-      category: datas?.category?.split(",")?.map((item) => Number(item)),
+      category: convertCategory,
       sector: convertSector,
       area_code: datas.bill_area_code,
     };
+    console.log("check convertData", convertData);
     setFormData({ ...convertData });
   };
   const handleClickImg = () => {
     imgRef?.current?.click();
   };
-  console.log("check Fomra", formData);
+
   useEffect(() => {
     if (isOpen) {
       mainRef.current?.classList.add("content_resize");
@@ -120,7 +127,11 @@ const EditFilesPotential: React.FC = () => {
   }, [isOpen]);
   const handleUpdate = () => {
     axiosCRM
-      .post("/potential/edit_potential", formData)
+      .post("/potential/edit_potential", {
+        ...formData,
+        category: formData?.category?.join(","),
+        sector: formData?.sector?.join(","),
+      })
       .then((res) => setModal1Open(true))
       .catch((error) => {
         console.log("checkerrrr", error);

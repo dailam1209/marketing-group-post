@@ -39,12 +39,6 @@ const AddFilesPotential: React.FC = () => {
   const handleClickImg = () => {
     imgRef?.current?.click();
   };
-  const handleReset = () => {
-    // setUrlImg("");
-    // setLogo("");
-    // setFormData({ arrSocial: [], sector: [], category: [] });
-    router.push("/potential/add_file");
-  };
   const handleChangeLogo = (e) => {
     if (e.target.files[0]) {
       setUrlImg(URL.createObjectURL(e.target.files[0]));
@@ -62,13 +56,11 @@ const AddFilesPotential: React.FC = () => {
     }
     logo && formAdd.append("logo", logo);
     formAdd.append("private_phone", arrPrivatePhone);
-
     axiosCRMUpfile
       .post("/potential/add_potential", formAdd)
       .then((res) => setModal1Open(true))
       .catch((err) => console.log("handleAddFileERR", formAdd));
   };
-  // console.log("Check", formAdd);
   useEffect(() => {
     if (isOpen) {
       mainRef.current?.classList.add("content_resize");
@@ -195,7 +187,7 @@ const AddFilesPotential: React.FC = () => {
                       setIsModalCancel={setIsModalCancel}
                       content={`Bạn có chắc chắn muốn hủy thêm mới tiềm năng ${formData.name}, mọi thông tin bạn nhập sẽ không được lưu lại ? `}
                       title={"Hủy thêm mới"}
-                      updateData={handleReset}
+                      updateData={() => router.reload()}
                       // link={link}
                     />
                   }

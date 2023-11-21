@@ -1,23 +1,23 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import styles from "./potential2.module.css";
 import styles1 from "./potential.module.css";
 import stylesAdd from "./add_file_commodity.module.css";
 
 import { Select } from "antd";
 import { toLowerCaseNonAccentVietnamese } from "@/utils/function";
-export default function SelectSingle({
-  title = "",
-  value = 0,
+import { useFormData } from "../context/formDataContext";
+export function SelectSingleTitleV2({
+  title,
   data = null,
-  setFormData = null,
   name = "",
   placeholder = "Tất cả",
   onChange = null,
 }: any) {
   const [isOpen, setIsOpen] = useState(false);
+  const { setFormData, formData } = useContext(useFormData);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [labelSelect, setLabelSelect] = useState<string>(
-    value ? data[Number(value - 1)]?.label : placeholder
+    formData[name] ? data[Number(formData[name] - 1)]?.label : placeholder
   );
   const handleClickSelectoption = (e: any) => {
     if (e.target.getAttribute("class") !== styles.select2_search__field) {
@@ -162,13 +162,12 @@ export default function SelectSingle({
 }
 export const SelectMultiple = ({
   data,
-  name,
-  setFormData,
-  value,
   maxSelect,
+  name,
   label,
   placeholder,
 }: any) => {
+  const { setFormData, formData } = useContext(useFormData);
   const handleChange = (selected) => {
     if (maxSelect) {
       if (selected.length <= maxSelect) {
@@ -197,7 +196,7 @@ export const SelectMultiple = ({
         showSearch
         placeholder={placeholder}
         onChange={(e) => handleChange(e)}
-        value={value}
+        value={formData[name] && formData[name]}
         filterOption={(input: string, option: { value: any; label: string }) =>
           (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
         }
@@ -259,11 +258,7 @@ export const SelectSingleAndAdd = ({
   return (
     <div className={styles1.select_single_add}>
       <div className={styles1.box_select_add}>
-        <label
-          className={`${stylesAdd["form-label"]} ${require ? "required" : ""}`}
-        >
-          {title}
-        </label>
+        <label>{title}</label>
         {titleAdd && <button onClick={handleAdd}>+ {titleAdd}</button>}
       </div>
       <div
@@ -397,30 +392,31 @@ export const SelectSingleAndAdd = ({
     </div>
   );
 };
-export const SelectSingleAndOption = ({
-  title = "",
-  value = 0,
-  valueChecked = false,
-  data = [],
-  formData,
-  setFormData,
+export const SelectSingleV2 = ({
+  label,
+  data,
   name,
+  require = false,
   handleChange = null,
   placeholder = "",
   titleAdd = "",
   handleAdd = null,
   nameChecked = "",
   labelChecked = "",
-  require = false,
+  valueChecked = false,
 }) => {
+  const { formData, setFormData } = useContext(useFormData);
+  const [searchLabel, setSearchLabel] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [labelSelect, setLabelSelect] = useState<string>(placeholder);
   useEffect(() => {
     setLabelSelect(
-      value ? data.find((item) => item.value == value)?.label : placeholder
+      formData[name]
+        ? data.find((item) => item.value == formData[name])?.label
+        : placeholder
     );
-  }, [value]);
+  }, [formData[name]]);
   const handelChooceOption = (item: { value: number; label: string }) => {
     handleChange && handleChange();
     setFormData({ ...formData, [name]: item.value });
@@ -456,7 +452,7 @@ export const SelectSingleAndOption = ({
         <label
           className={`${stylesAdd["form-label"]} ${require ? "required" : ""}`}
         >
-          {title}
+          {label}
         </label>
         {titleAdd && <button onClick={handleAdd}>+ {titleAdd}</button>}
         {nameChecked && (
@@ -531,6 +527,9 @@ export const SelectSingleAndOption = ({
                     className={styles1.select2_search__field}
                     type="search"
                     tabIndex={0}
+                    onChange={(e) => {
+                      setSearchLabel(e.target.value);
+                    }}
                     autoComplete="off"
                     autoCorrect="off"
                     autoCapitalize="none"
@@ -556,23 +555,53 @@ export const SelectSingleAndOption = ({
                         {placeholder}
                       </li>
                     )}
-                    {data.length > 0 &&
-                      data?.map(
-                        (item: { value: number; label: string }, i: number) => (
-                          <li
-                            key={i}
-                            className={`${styles1.select2_results__option}}`}
-                            style={{
-                              marginTop: "10px",
-                              padding: "5px 0",
-                              paddingLeft: "18px",
-                            }}
-                            onClick={() => handelChooceOption(item)}
-                          >
-                            {item.label}
-                          </li>
-                        )
-                      )}
+                    {searchLabel
+                      ? data
+                          ?.filter((itemFilter: any) =>
+                            toLowerCaseNonAccentVietnamese(
+                              itemFilter.label
+                            ).includes(
+                              toLowerCaseNonAccentVietnamese(searchLabel)
+                            )
+                          )
+                          .map(
+                            (
+                              item: { value: number; label: string },
+                              i: number
+                            ) => (
+                              <li
+                                key={i}
+                                className={`${styles1.select2_results__option}}`}
+                                style={{
+                                  marginTop: "10px",
+                                  padding: "5px 0",
+                                  paddingLeft: "18px",
+                                }}
+                                onClick={() => handelChooceOption(item)}
+                              >
+                                {item.label}
+                              </li>
+                            )
+                          )
+                      : data?.map(
+                          (
+                            item: { value: number; label: string },
+                            i: number
+                          ) => (
+                            <li
+                              key={i}
+                              className={`${styles1.select2_results__option}}`}
+                              style={{
+                                marginTop: "10px",
+                                padding: "5px 0",
+                                paddingLeft: "18px",
+                              }}
+                              onClick={() => handelChooceOption(item)}
+                            >
+                              {item.label}
+                            </li>
+                          )
+                        )}
                   </ul>
                 </span>
               </span>
@@ -606,12 +635,7 @@ export const InputAndSelect = ({
   };
   return (
     <div className={styles.input_select_container}>
-      <label
-        className={`${stylesAdd["form-label"]} ${require ? "required" : ""}`}
-      >
-        {title}
-      </label>{" "}
-      <br />
+      <strong> {title} </strong> <br />
       <div className={styles.input_select_box}>
         <input
           onChange={(e) => handleChange(e)}
