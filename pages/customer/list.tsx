@@ -138,7 +138,7 @@ export default function CustomerList() {
         setloading(false);
       }
       setTotalRecords(data?.total);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const fetchDataDefault = async () => {
@@ -160,7 +160,7 @@ export default function CustomerList() {
         setloading(false);
       }
       setTotalRecords(data?.total);
-    } catch (error) {}
+    } catch (error) { }
   };
   const handleGetInfoSTT = async () => {
     try {
@@ -174,7 +174,7 @@ export default function CustomerList() {
       });
       const data = await res.json();
       if (data && data?.data) setdataStatus(data?.data);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const onSelectChange = (selectedRowKeys: any, selectedRows: DataType[]) => {
@@ -236,6 +236,7 @@ export default function CustomerList() {
       link: item?.link,
       value: item?.resoure,
       count_content_call: item?.count_content_call,
+      text_record: item.text_record
     };
   });
 
@@ -265,7 +266,7 @@ export default function CustomerList() {
         });
         setlistGr_Child(arr);
       });
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const handleGetInfoCusNV = async () => {
@@ -290,7 +291,7 @@ export default function CustomerList() {
           setnameNvNomor(data?.data?.data);
         }
       }
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const handleGetInfoCus = async () => {
@@ -307,7 +308,7 @@ export default function CustomerList() {
       );
       const data = await res.json();
       if (data && data?.data) setListNv(data?.data?.items);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   let nv = listNV?.filter((item) => item.dep_id === dep_id);
@@ -562,6 +563,7 @@ export default function CustomerList() {
             selectedCus={selectedCus}
             fetchDataDefault={fetchDataDefault}
           />
+
         </div>
       )}
     </>

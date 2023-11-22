@@ -113,7 +113,6 @@ const Recording = (props: Props) => {
         body: condition,
       });
       const data = await response.json();
-      console.log(data)
       setLoading(false)
       if (data && data.data && data.data.data) {
         if (pb && pb !== '') {
@@ -143,7 +142,13 @@ const Recording = (props: Props) => {
       width: 150,
       title: "Người phụ trách",
       dataIndex: "name",
-      render: (text: any, record: any) => <div>{text}</div>,
+      render: (text: any, record: any) => (
+        <div>
+          {record.idQLC !== 0 && (
+            <div>{record.idQLC} - {record.name}</div>
+          )}
+        </div>
+      ),
     },
     {
       width: 200,
@@ -197,9 +202,6 @@ const Recording = (props: Props) => {
 
         <div className={styles.group_button_right}>
           <button type="button" onClick={handleExportToExcel}>Xuất Excel</button>
-          <Link href={"/tong-dai"}>
-            <button>Chi tiết</button>
-          </Link>
         </div>
       </div>
 

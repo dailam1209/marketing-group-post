@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "../customer/customer.module.css";
-import { Select, Table, Tooltip, notification } from "antd";
+import { Select, Table, Tooltip, notification, Modal, Button } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import Link from "next/link";
 import Image from "next/image";
@@ -15,6 +15,7 @@ import { base_url } from "../service/function";
 import { text } from "stream/consumers";
 import $ from "jquery";
 import "select2";
+import { divide } from "lodash";
 
 const Cookies = require("js-cookie");
 interface DataType {
@@ -38,6 +39,7 @@ interface DataType {
   cus_from: any;
   link: any;
   value: any;
+  text_record: any;
 }
 
 interface TableDataContracDrops {
@@ -153,6 +155,10 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   const [nameNguon, setNameNguon] = useState();
   const [show, setshow] = useState<boolean>(false);
   const [group_idFix, setgroup_idFix] = useState<any>();
+  const [modalRecord, setModalRecord] = useState({
+    isOpen: false,
+    content: ''
+  })
   const handleChangeStatus = (e: any, data: any) => {
     setValueStatus(e.target.value);
   };
@@ -218,15 +224,15 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
     options:
       item.gr_id !== "0"
         ? [
-            {
-              value: item.gr_id.toString(),
-              label: item.gr_name,
-            },
-            ...(item?.lists_child ?? []).map((child) => ({
-              value: child.gr_id.toString(),
-              label: child.gr_name,
-            })),
-          ]
+          {
+            value: item.gr_id.toString(),
+            label: item.gr_name,
+          },
+          ...(item?.lists_child ?? []).map((child) => ({
+            value: child.gr_id.toString(),
+            label: child.gr_name,
+          })),
+        ]
         : [{ label: item.gr_name, value: item.gr_id.toString() }],
   }));
   const [value, setvalue] = useState();
@@ -388,6 +394,22 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       ),
     },
     {
+      title: "Cuộc hội thoại",
+      dataIndex: "text_record",
+      key: "3",
+      width: 150,
+      render: (text, record) => (
+        <>
+          {
+            record.group_id === 467 &&
+            <div onClick={() => setModalRecord({ isOpen: true, content: record.text_record })} style={{ color: '#4c5bd4', cursor: 'pointer' }}>
+              Xem chi tiết
+            </div>
+          }
+        </>
+      ),
+    },
+    {
       title: "Tình trạng khách hàng",
       dataIndex: "status",
       key: "3",
@@ -433,7 +455,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
             value={
               slectNguon === record.cus_id && nguon ? nguon : record?.value
             }
-            // defaultValue={record?.value ? record.value : ""}
+          // defaultValue={record?.value ? record.value : ""}
           >
             {ArrNguonKK?.map((item, index) => {
               if (item?.name == record?.resoure) {
@@ -544,7 +566,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       </div>
     ), // Thay thế nội dung "No Data" bằng "Hello"
   };
-
+  console.log(datatable)
   return (
     <>
       <head>
@@ -661,6 +683,19 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
         setshow={setshow}
         fetchDataDefault={fetchDataDefault}
       />
+      <Modal
+        title="Nội dung ghi âm"
+        open={modalRecord.isOpen}
+        width={600}
+        bodyStyle={{ maxHeight: '40vh', overflowY: 'auto' }}
+        footer={[
+          <Button key="submit" type="primary" onClick={() => setModalRecord({ ...modalRecord, isOpen: false })}>
+            OK
+          </Button>,
+        ]}
+      >
+        <p>{modalRecord.content}</p>
+      </Modal>
     </>
   );
 };

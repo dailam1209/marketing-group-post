@@ -49,6 +49,8 @@ const KhongTraLoiPage = (props: Props) => {
     return {
       caller: item.caller,
       callee: item.callee,
+      callerName: item.callerName,
+      callerIdQLC: item.callerIdQLC,
       start_time: item.start_time,
       end_time: item.end_time,
       ring_duration: +item.ring_duration,
@@ -83,7 +85,6 @@ const KhongTraLoiPage = (props: Props) => {
   })
 
   const handleFilter = async () => {
-    console.log(nv)
     let param = ''
     if (soNghe) {
       param += `songhe=${soNghe}&`
@@ -133,7 +134,14 @@ const KhongTraLoiPage = (props: Props) => {
       key: "2",
       width: "10%",
       title: "Người phụ trách",
-      // render: (text: any, record: any) => <div>{text}</div>,
+      dataIndex: "callerName",
+      render: (text: any, record: any) => (
+        <div>
+          {record.callerIdQLC !== 0 && (
+            <div>{record.callerIdQLC} - {record.callerName}</div>
+          )}
+        </div>
+      )
     },
     {
       key: "3",
@@ -171,24 +179,6 @@ const KhongTraLoiPage = (props: Props) => {
               setnv={setnv}
             />
           </div>
-
-          <div
-            className={styles.group_button_right}
-            style={{ float: "right", marginTop: -40 }}
-          >
-            <Link href={"/tong-dai"}>
-              <button>Chi tiết</button>
-            </Link>
-
-            <Link href={"/ghi-am"}>
-              <button>Ghi âm</button>
-            </Link>
-
-            <Link href={"/thong-ke-tong-dai"}>
-              <button>Thống kê</button>
-            </Link>
-          </div>
-
           <ul className={styles.cskh_info_call} style={{ fontSize: 16 }}>
             <li></li>
             <li>Tổng số không trả lời: {listData?.length || 0}</li>

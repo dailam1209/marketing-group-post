@@ -92,11 +92,12 @@ const TongDaiPage = (props: Props) => {
   })
 
   const handleFilter = async () => {
+    console.log(nv)
     let param = ''
     if (soNghe) {
       param += `songhe=${soNghe}&`
     }
-    if (nv && nv !== '') {
+    if (nv) {
       param += `nhanvien=${nv}&`
     }
     if (fillStart) {

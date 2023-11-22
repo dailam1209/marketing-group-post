@@ -108,7 +108,7 @@ const FilterGhiAm: React.FC<MyComponentProps> = ({
             </div>
           </div>
           <div className={styles.item1}>
-            <div style={{ width: 130 }}>Nhân viên</div>
+            <div style={{ width: 130 }}>Số gọi</div>
             <div
               style={{
                 display: "flex",
@@ -119,11 +119,11 @@ const FilterGhiAm: React.FC<MyComponentProps> = ({
             >
               <div style={{ width: "100%" }}>
                 <Select
-                  placeholder="Chọn nhân viên"
+                  placeholder="Chọn số gọi"
                   value={nv}
                   onChange={(value) => setnv(value)}
                 >
-                  <option>Nhân viên</option>
+                  <option>Số gọi</option>
                   {uniqueCounts.map((count: any, index: number) => {
                     return (
                       <option key={index} value={count}>

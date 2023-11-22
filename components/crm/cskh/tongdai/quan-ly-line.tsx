@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import { base_url } from "../../service/function";
 import { dataSaveTD } from "../../redux/user/userSlice";
 import { useDispatch } from "react-redux";
+import { CloseSquareFilled } from "@ant-design/icons";
 const Cookies = require("js-cookie");
 type Props = {};
 
@@ -20,6 +21,7 @@ const Recording = (props: Props) => {
   const { isConnected } = useContext<any>(CallContext);
   const [listLine, setlistLine] = useState([]);
   const [data, setData] = useState([]);
+  const [rootNV, setRootNV] = useState([]);
   const [listNV, setListNV] = useState([]);
   const [id, setId] = useState();
   const [name, setname] = useState();
@@ -110,6 +112,7 @@ const Recording = (props: Props) => {
       const data = await res.json();
       console.log(data)
       setListNV(data?.data?.items);
+      setRootNV(data?.data?.items);
     } catch (error) { }
   };
   useEffect(() => {
@@ -121,6 +124,44 @@ const Recording = (props: Props) => {
   }, [isShowModalEdit]);
   const handleChangeOption = (value: any) => {
     setOption(value);
+  };
+  function removeVietnameseTones(str: any) {
+    str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
+    str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+    str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
+    str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
+    str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
+    str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+    str = str.replace(/đ/g, "d");
+    str = str.replace(/À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ/g, "A");
+    str = str.replace(/È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ/g, "E");
+    str = str.replace(/Ì|Í|Ị|Ỉ|Ĩ/g, "I");
+    str = str.replace(/Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ/g, "O");
+    str = str.replace(/Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ/g, "U");
+    str = str.replace(/Ỳ|Ý|Ỵ|Ỷ|Ỹ/g, "Y");
+    str = str.replace(/Đ/g, "D");
+    // Some system encode vietnamese combining accent as individual utf-8 characters
+    // Một vài bộ encode coi các dấu mũ, dấu chữ như một kí tự riêng biệt nên thêm hai dòng này
+    str = str.replace(/\u0300|\u0301|\u0303|\u0309|\u0323/g, ""); // ̀ ́ ̃ ̉ ̣  huyền, sắc, ngã, hỏi, nặng
+    str = str.replace(/\u02C6|\u0306|\u031B/g, ""); // ˆ ̆ ̛  Â, Ê, Ă, Ơ, Ư
+    // Remove extra spaces
+    // Bỏ các khoảng trắng liền nhau
+    str = str.replace(/ + /g, " ");
+    str = str.trim();
+
+    str = str.replace(/!|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\:|{|}|\||\\/g, " ");
+    return str;
+  }
+  const handleSearch = (value: any) => {
+    console.log(rootNV)
+    if (isNaN(value)) {
+      const tmp = rootNV.filter(item => removeVietnameseTones(item.ep_name).includes(removeVietnameseTones(value)))
+      setListNV(tmp)
+    }
+    else {
+      const tmp = rootNV.filter(item => String(item.ep_id).includes(String(value)))
+      setListNV(tmp)
+    }
   };
   const handleOK = async () => {
     setIsShowModalEdit(false);
@@ -199,15 +240,17 @@ const Recording = (props: Props) => {
                 <Select
                   style={{ width: "100%" }}
                   defaultValue={` ${name}`}
+                  optionFilterProp="children"
+                  showSearch
                   onChange={handleChangeOption}
+                  onSearch={handleSearch}
                 >
                   <option>Nhân viên phụ trách</option>
                   {listNV &&
                     listNV?.map((item: any, index) => {
                       return (
                         <option key={index} value={item.ep_id}>
-                          {`(${item.ep_id}) ${item.ep_name}`} -{" "}
-                          {`${item.dep_name}`}
+                          {`${item.ep_id} - ${item.ep_name}`}
                         </option>
                       );
                     })}
