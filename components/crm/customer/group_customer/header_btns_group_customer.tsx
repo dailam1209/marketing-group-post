@@ -1,12 +1,12 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import styles from "./customer_group.module.css";
 import Link from "next/link";
 import GroupCustomerAction from "./group_customert_action";
-import { ModalGroupCustomerShare } from "./modal_share";
 import { ModalGroupCustomerDelete } from "./modal_delete";
 import ModalGroupCustomerMove from "./modal_move";
 import ModalGroupCustomerAddEmp from "./modal_add_emp";
-
+import { getToken } from "@/pages/api/api-hr/token";
+import jwt_decode from "jwt-decode";
 export default function HeaderBtnsCustomerGroup({
   isSelectedRow,
   selectedRow,
@@ -15,14 +15,23 @@ export default function HeaderBtnsCustomerGroup({
   setValFilter,
   handleClickSearch,
 }: any) {
-  const [isOpenModalShare, setIsOpenModalShare] = useState(false);
   const [isOpenModalMove, setIsOpenModalMove] = useState(false);
   const [isOpenModalDelete, setIsOpenModalDelete] = useState(false);
   const [isOpenModalAddEmp, setIsOpenModalAddEmp] = useState(false);
   const handleChangeInput = useCallback((e: any) => {
     setValFilter(e.target.value);
   }, []);
+  const [company_id, setCompanyId] = useState(null);
+  const [typeComp, setTypeComp] = useState(0);
 
+  useEffect(() => {
+    const currentCookie = getToken("token_base365");
+    if (currentCookie) {
+      const decodedToken: any = jwt_decode(currentCookie);
+      setCompanyId(decodedToken?.data?.com_id);
+      setTypeComp(decodedToken?.data?.type);
+    }
+  }, []);
   return (
     <div className={styles.main__control}>
       <div className={`${styles.main__control_btn} flex_between`}>
@@ -56,35 +65,33 @@ export default function HeaderBtnsCustomerGroup({
           </form>
         </div>
         <div className={`${styles.main__control_add} flex_end`}>
-          <button
-            type="button"
-            onClick={() => setIsOpenModalShare(true)}
-            className={`${styles.dropbtn_add} flex_align_center`}
-          >
-            Đối tượng được chia sẻ
-          </button>
-          <button
-            type="button"
-            onClick={() => setIsOpenModalDelete(true)}
-            className={`${styles.dropbtn_delete} flex_align_center`}
-          >
-            Xóa
-          </button>{" "}
-          <button
-            onClick={() => setIsOpenModalMove(true)}
-            type="button"
-            className={`${styles.dropbtn_add} flex_align_center`}
-          >
-            Chuyển giỏ
-          </button>
-          <button
-            onClick={() => setIsOpenModalAddEmp(true)}
-            type="button"
-            className={`${styles.dropbtn_add} flex_align_center`}
-          >
-            <img src="/crm/add.svg" />
-            Thêm cán bộ
-          </button>
+          {company_id === 10013446 && typeComp === 1 && (
+            <div className={`${styles.main__control_add} flex_end`}>
+              <button
+                type="button"
+                onClick={() => setIsOpenModalDelete(true)}
+                className={`${styles.dropbtn_delete} flex_align_center`}
+              >
+                Xóa
+              </button>{" "}
+              <button
+                onClick={() => setIsOpenModalMove(true)}
+                type="button"
+                className={`${styles.dropbtn_add} flex_align_center`}
+              >
+                Chuyển giỏ
+              </button>
+              <button
+                onClick={() => setIsOpenModalAddEmp(true)}
+                type="button"
+                className={`${styles.dropbtn_add} flex_align_center`}
+              >
+                <img src="/crm/add.svg" />
+                Thêm cán bộ
+              </button>
+            </div>
+          )}
+
           <Link href="/customer/group/add">
             <button
               type="button"
@@ -96,10 +103,6 @@ export default function HeaderBtnsCustomerGroup({
           </Link>
         </div>
       </div>
-      <ModalGroupCustomerShare
-        isOpenModalShare={isOpenModalShare}
-        setIsOpenModalShare={setIsOpenModalShare}
-      />
       <ModalGroupCustomerDelete
         isOpenModalDelete={isOpenModalDelete}
         setIsOpenModalDelete={setIsOpenModalDelete}

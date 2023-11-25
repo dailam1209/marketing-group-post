@@ -1,14 +1,60 @@
 import { SelectSingleAndOption } from "@/components/commodity/select";
 import { Modal } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import stylesBtn from "@/styles//crm/button.module.css";
 import styles from "./customer_group.module.css";
+import { getToken } from "@/pages/api/api-hr/token";
+import jwt_decode from "jwt-decode";
+import { notifyError, notifySuccess, notifyWarning } from "@/utils/function";
+import { ToastContainer } from "react-toastify";
+import { axiosQLC } from "@/utils/api/api_qlc";
+import { axiosCRM } from "@/utils/api/api_crm";
+
 function ModalGroupCustomerMove({ isOpenModalMove, setIsOpenModalMove }) {
-  const [formData, setFormData] = useState({});
-  let data = [];
-  for (let i = 1; i < 20; i++) {
-    data.push({ value: i, label: `Nhân viên ${i}` });
-  }
+  const [formData, setFormData] = useState<any>({});
+  const [listEmp, setListEmp] = useState([]);
+  const [company_id, setCompanyId] = useState(null);
+
+  useEffect(() => {
+    const currentCookie = getToken("token_base365");
+    if (currentCookie) {
+      const decodedToken: any = jwt_decode(currentCookie);
+      setCompanyId(decodedToken?.data?.com_id);
+    }
+  }, []);
+  const fetchListEmp = () => {
+    axiosQLC
+      .post("/managerUser/listUser", {
+        pageSize: 10000,
+        authentic: 1,
+      })
+      .then((res) =>
+        setListEmp(
+          res.data.data.data?.map((emp) => ({
+            value: emp.ep_id,
+            label: emp.userName,
+          }))
+        )
+      )
+      .catch((err) => console.log("err", err));
+  };
+  useEffect(() => {
+    if (company_id) {
+      fetchListEmp();
+    }
+  }, [company_id]);
+  const handleTranformCart = () => {
+    if (!formData.IdCrmFrom || !formData.IdCrmTo) {
+      notifyWarning("Chọn đầy đủ thông tin");
+      return;
+    }
+    axiosCRM
+      .post("/account/tranformCart", formData)
+      .then((res) => {
+        notifySuccess("Chuyển giỏ hàng thành công");
+      })
+      .catch((err) => notifyError("Chuyển thất bại"));
+  };
   return (
     <Modal
       title={"Chuyển giỏ"}
@@ -20,20 +66,20 @@ function ModalGroupCustomerMove({ isOpenModalMove, setIsOpenModalMove }) {
     >
       <div className={styles.modal_move_item}>
         <SelectSingleAndOption
-          title="Chọn nhân viên"
-          data={data}
+          title="Từ nhân viên"
+          data={listEmp}
           formData={formData}
           setFormData={setFormData}
-          name={"TRường cần chọn"}
+          name={"IdCrmFrom"}
         />
       </div>
       <div className={styles.modal_move_item}>
         <SelectSingleAndOption
-          title="Chọn nhân viên"
-          data={data}
+          title="Đến nhân viên"
+          data={listEmp}
           formData={formData}
           setFormData={setFormData}
-          name={"TRường cần chọn"}
+          name={"IdCrmTo"}
         />
       </div>
       <div
@@ -42,8 +88,11 @@ function ModalGroupCustomerMove({ isOpenModalMove, setIsOpenModalMove }) {
           justifyContent: "center",
         }}
       >
-        <button className={stylesBtn.back_button}>Chuyển giỏ</button>
+        <button onClick={handleTranformCart} className={stylesBtn.back_button}>
+          Chuyển giỏ
+        </button>
       </div>{" "}
+      <ToastContainer autoClose={1000} />
     </Modal>
   );
 }

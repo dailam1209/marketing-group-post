@@ -5,7 +5,6 @@ import { base_url } from "../service/function";
 import Cookies from "js-cookie";
 
 export default function HeaderBar({ dataHeader, isOpen }: any) {
-  console.log("dataHeader", dataHeader);
   return (
     <div className={style.header_bar}>
       <div className={`${style.header_icon} ${!isOpen ? null : "none"}`}>

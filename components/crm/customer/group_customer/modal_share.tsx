@@ -1,70 +1,75 @@
-import { Modal, Table } from "antd";
-import { useRouter } from "next/router";
+import { Modal, Pagination, Table } from "antd";
 import style from "@/components/crm/customer/group_customer/modal_share.module.css";
 import type { ColumnsType } from "antd/es/table";
+import { useEffect, useState } from "react";
+import { getToken } from "@/pages/api/api-hr/token";
+import jwt_decode from "jwt-decode";
+import { axiosCRM } from "@/utils/api/api_crm";
+
 interface TypeShareProps {
   isOpenModalShare: boolean;
   setIsOpenModalShare: (value: boolean) => void;
-  title?: string;
-  link?: string;
-  id?: any;
-  name?: string;
-  description?: string;
-  updateData?: any;
+  IdGroup?: number;
 }
 interface TableType {
   key: React.Key;
-  name: string;
-  office: string;
-  pos_id: number;
+  userName: string;
+  organization: string;
+  position: number;
   address: string;
-  ID: string[];
+  idQLC: string[];
 }
 
 export const ModalGroupCustomerShare: React.FC<TypeShareProps> = ({
   isOpenModalShare,
   setIsOpenModalShare,
+  IdGroup,
 }) => {
+  const [listEmpTable, setListEmpTable] = useState([]);
+  const [companyId, setCompanyId] = useState(null);
+  useEffect(() => {
+    const currentCookie = getToken("token_base365");
+    if (currentCookie) {
+      const decodedToken: any = jwt_decode(currentCookie);
+      setCompanyId(decodedToken?.data?.com_id);
+    }
+  }, []);
   const columns: ColumnsType<TableType> = [
     {
       title: "Tên",
-      dataIndex: "name",
-      key: "name",
+      dataIndex: "userName",
+      key: "userName",
       width: 250,
     },
     {
       title: "Tổ chức",
-      dataIndex: "office",
-      key: "office",
+      dataIndex: "organization",
+      key: "organization",
       width: 250,
     },
     {
       title: "Vị trí",
-      dataIndex: "pos_id",
+      dataIndex: "position",
       width: 200,
-      key: "pos_id",
+      key: "position",
     },
     {
-      title: "ID",
-      dataIndex: "ID",
+      title: "idQLC",
+      dataIndex: "idQLC",
       width: 150,
-      key: "ID",
+      key: "idQLC",
     },
   ];
-  let data = [];
-  for (let i = 0; i < 100; i++) {
-    data.push({
-      name: `Trần Văn Tèo ${i}`,
-      office: `Trần Văn Tí ${i}`,
-      pos_id: `Vị trí ${i}`,
-      ID: i,
-    });
-  }
+  useEffect(() => {
+    if (IdGroup && companyId) {
+      axiosCRM
+        .post("/account/TakeListUserFromGroup", { IdGroup, companyId })
+        .then((res) => setListEmpTable(res.data.data.listUser))
+        .catch((err) => console.log("ModalGroupCustomerShare", err));
+    }
+  }, [IdGroup]);
   return (
     <>
-      {/* <Button type="primary" onClick={() => setModal2Open(true)}>
-        Vertically centered modal dialog
-      </Button> */}
       <div className={style.modal_share}>
         {" "}
         <Modal
@@ -78,14 +83,11 @@ export const ModalGroupCustomerShare: React.FC<TypeShareProps> = ({
         >
           <Table
             columns={columns}
-            dataSource={data}
+            dataSource={listEmpTable}
             scroll={{ y: 400 }}
-            // footer={}
+            bordered
             pagination={{
-              pageSize: 20,
-              total: 200,
-              showSizeChanger: true,
-              showQuickJumper: true,
+              pageSize: 100,
             }}
           />
         </Modal>
