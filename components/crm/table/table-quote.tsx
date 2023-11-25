@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Spin, Table, Tooltip } from "antd";
-import type { ColumnsType } from "antd/es/table";
+import type { ColumnsType, TablePaginationConfig } from "antd/es/table";
 import { TableRowSelection } from "antd/es/table/interface";
 import styles from "../order/order.module.css";
 import Link from "next/link";
@@ -10,6 +10,8 @@ import { axiosCRMCall } from "@/utils/api/api_crm_call";
 import { axiosCRM } from "@/utils/api/api_crm";
 import dayjs from "dayjs";
 import useLoading from "../hooks/useLoading";
+import { PaginationConfig } from "antd/es/pagination";
+import { set } from "lodash";
 
 interface DataType {
   key: React.Key;
@@ -34,11 +36,12 @@ const TableDataQuote: React.FC<TableDataOrderProps> = ({
   const [key, setKey] = useState();
   const [allKey, setAllKey] = useState<any>();
 
-  const { dateQuote, dateQuoteEnd, status, quoteCode, shouldFetchData, setShouldFetchData } = useContext(QuoteFilterContext);
+  const { dateQuote, dateQuoteEnd, status, quoteCode, shouldFetchData, setShouldFetchData, setRecordId, setListRecordId, listRecordId } = useContext(QuoteFilterContext);
   const [quoteData, setQuoteData] = useState<any>([]) // Data từ API
   const [data, setData] = useState<DataType[]>([]); // Data đổ bảng
   const [perPage, setPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
+  const [total, setTotal] = useState(0);
   const { isLoading, startLoading, stopLoading } = useLoading();
 
   const statusToString = (num: Number) => {
@@ -67,6 +70,13 @@ const TableDataQuote: React.FC<TableDataOrderProps> = ({
 
   const handlePerPage = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setPerPage(Number(event.target.value) || 10)
+    setCurrentPage(1)
+    setShouldFetchData(true)
+  }
+
+  const handleTablePageChange = (pagination: TablePaginationConfig) => {
+    setCurrentPage(pagination.current)
+    setShouldFetchData(true)
   }
 
   const convertToDataType = (data?) => {
@@ -89,13 +99,18 @@ const TableDataQuote: React.FC<TableDataOrderProps> = ({
         date_quote: dateQuote,
         date_quote_end: dateQuoteEnd,
         status: status === 0 ? null : Math.max(Math.min(status, 6), 1),
-        quote_code_str: quoteCode
+        quote_code_str: quoteCode,
+        page: currentPage,
+        perPage: perPage
       })
       .then((res) => {
-        // console.log(res?.data?.data?.data);
+        // console.log(res?.data?.data);
         res?.data?.data?.data?.length > 0 ?
           setQuoteData(res.data.data.data) :
           setQuoteData([])
+        res?.data?.data?.total ?
+          setTotal(res?.data?.data?.total) :
+          setTotal(res?.data?.data?.data?.length) // Tạm thời khi API chưa sửa
       })
       .catch((err) => console.log(err))
   }
@@ -176,14 +191,14 @@ const TableDataQuote: React.FC<TableDataOrderProps> = ({
       width: 150,
       fixed: "right",
       render: (text: any, record: any) => (
-        <div onClick={() => setKey(record.order_number)}>
-          <QuoteActionTable record={key} allKey={allKey} />
+        <div onClick={() => {setKey(record.key); setRecordId(record.key)}}>
+          <QuoteActionTable record={key} allKey={[]} />
         </div>
       ),
     },
   ];
 
-  // const data: DataType[] = [];
+// const data: DataType[] = [];
   // for (let i = 0; i < 15; i++) {
   //   data.push({
   //     key: i,
@@ -206,6 +221,7 @@ const TableDataQuote: React.FC<TableDataOrderProps> = ({
       } else {
         setSelected(false);
       }
+      setListRecordId(selectedRowKeys) // Lưu id bản ghi 
     },
     onSelect: (record, selected, selectedRows) => {
       setNumberSelected(selectedRows?.length);
@@ -232,8 +248,11 @@ const TableDataQuote: React.FC<TableDataOrderProps> = ({
           bordered
           scroll={{ x: 1500, y: 1200 }}
           pagination={{
-            pageSize: perPage
+            current: currentPage,
+            pageSize: perPage,
+            total: total
           }}
+          onChange={handleTablePageChange}
         />
       )}
       <div className="main__footer flex_between" id="">
@@ -243,10 +262,8 @@ const TableDataQuote: React.FC<TableDataOrderProps> = ({
             className="show_item"
             value={perPage}
             onChange={handlePerPage}
+            defaultValue={perPage}
           >
-            <option value={1}>1 bản ghi trên trang</option>
-            <option value={2}>2 bản ghi trên trang</option>
-            <option value={3}>3 bản ghi trên trang</option>
             <option value={10}>10 bản ghi trên trang</option>
             <option value={20}>20 bản ghi trên trang</option>
             <option value={30}>30 bản ghi trên trang</option>
@@ -255,7 +272,7 @@ const TableDataQuote: React.FC<TableDataOrderProps> = ({
           </select>
         </div>
         <div className="total">
-          Tổng số: <b>{data.length}</b> Đơn hàng
+          Tổng số: <b>{total}</b> Đơn hàng
         </div>
       </div>
     </div>

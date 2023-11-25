@@ -3,7 +3,7 @@ import type { MenuProps } from "antd";
 import { Button, Dropdown, Space } from "antd";
 import Link from "next/link";
 import { dataActionQuote } from "../ultis/consntant";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import OrderBrowsingModal from "./quote_action_modal/quote_browsing_action_mdal";
 import DenyActionModal from "./quote_action_modal/deny_action_mdal";
 import DelActionModal from "./quote_action_modal/delete_action_mdal";
@@ -12,8 +12,10 @@ import ShareActionModal from "./quote_action_modal/share_action_mdal";
 import HandOverActionModal from "./quote_action_modal/handover_action_mdal";
 import StatusModal from "./quote_action_modal/status-mdal";
 import { useRouter } from "next/router";
+import { QuoteFilterContext } from "./quoteFilterContext";
 
 export default function QuoteAction({ isSelectedRow, record, allkey }: any) {
+  const { listRecordId } = useContext(QuoteFilterContext)
   const [isOpenOrderBrowsing, setIsOpenOrderBrowsing] = useState(false);
   const [isOpenDeny, setIsOpenDeny] = useState(false);
   const [isDelOpen, setIsDelOpen] = useState(false);
@@ -139,7 +141,7 @@ export default function QuoteAction({ isSelectedRow, record, allkey }: any) {
       />
       <StatusModal
         record={record}
-        allkey={allkey}
+        allkey={listRecordId}
         isModalCancel={isOpenUpdate}
         setIsModalCancel={setIsOpenUpdate}
       />

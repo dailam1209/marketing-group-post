@@ -3,7 +3,7 @@ import type { MenuProps } from "antd";
 import { Button, Dropdown, Image, Space } from "antd";
 import Link from "next/link";
 import { dataActionQuote } from "../ultis/consntant";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import QuoteBrowsingModal from "./quote_action_modal/quote_browsing_action_mdal";
 import DenyActionModal from "./quote_action_modal/deny_action_mdal";
 import DelActionModal from "./quote_action_modal/delete_action_mdal";
@@ -12,8 +12,10 @@ import ShareActionModal from "./quote_action_modal/share_action_mdal";
 import HandOverActionModal from "./quote_action_modal/handover_action_mdal";
 import StatusModal from "./quote_action_modal/status-mdal";
 import SendMailModal from "./quote_action_modal/send_mail_mdal";
+import { QuoteFilterContext } from "./quoteFilterContext";
 
 export default function QuoteActionTable(props: any) {
+  const { recordId } = useContext(QuoteFilterContext)
   const { record, allkey } = props;
   const [isDelOpen, setIsDelOpen] = useState(false);
   const [isOrderBrowsingOpen, setIsOrderBrowsingOpen] = useState(false);
@@ -117,7 +119,7 @@ export default function QuoteActionTable(props: any) {
       />
       <StatusModal
         record={record}
-        allkey={allkey}
+        allkey={[]}
         isModalCancel={isOpenUpdate}
         setIsModalCancel={setIsOpenUpdate}
       />

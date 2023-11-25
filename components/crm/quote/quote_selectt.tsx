@@ -7,7 +7,7 @@ export default function QuoteSelectBox({ title = "", value = "Tất cả" }) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [valueSelect, setValueSelect] = useState(value);
-  const {setShouldFetchData} = useContext(QuoteFilterContext)
+  const {setShouldFetchData, statusNumberFromString, statusStringFromNumber} = useContext(QuoteFilterContext)
   const handleClickSelectoption = (e: any) => {
     if (e.target.getAttribute("class") !== styles.select2_search__field) {
       setIsOpen(!isOpen);
@@ -34,83 +34,85 @@ export default function QuoteSelectBox({ title = "", value = "Tất cả" }) {
   }, []);
 
   const { status, setStatus } = useContext(QuoteFilterContext)
-  const setStatusFromValue = (value: String) => {
-    switch (value) {
-      case "Tất cả":
-        setStatus(0);
-        break;
+  // const setStatusFromValue = (value: String) => {
+  //   switch (value) {
+  //     case "Tất cả":
+  //       setStatus(0);
+  //       break;
 
-      case "Bản thảo":
-        setStatus(1);
-        break;
+  //     case "Bản thảo":
+  //       setStatus(1);
+  //       break;
 
-      case "Đàm phán":
-        setStatus(2);
-        break;
+  //     case "Đàm phán":
+  //       setStatus(2);
+  //       break;
 
-      case "Đã gửi":
-        setStatus(3);
-        break;
+  //     case "Đã gửi":
+  //       setStatus(3);
+  //       break;
 
-      case "Chờ xác nhận":
-        setStatus(4);
-        break;
+  //     case "Chờ xác nhận":
+  //       setStatus(4);
+  //       break;
 
-      case "Đồng ý":
-        setStatus(5);
-        break;
+  //     case "Đồng ý":
+  //       setStatus(5);
+  //       break;
 
-      case "Từ chối":
-        setStatus(6);
-        break;
+  //     case "Từ chối":
+  //       setStatus(6);
+  //       break;
 
-      default:
-        setStatus(0);
-        break;
-    }
-  }
+  //     default:
+  //       setStatus(0);
+  //       break;
+  //   }
+  // }
   useEffect(() => {
-    setStatusFromValue(valueSelect)
+    // setStatusFromValue(valueSelect)
+    setStatus(statusNumberFromString(valueSelect))
     setShouldFetchData(true)
   }, [valueSelect])
 
-  const setValueFromStatus = (status: Number) => {
-    switch (status) {
-      case 0:
-        setValueSelect("Tất cả");
-        break;
+  // const setValueFromStatus = (status: Number) => {
+  //   switch (status) {
+  //     case 0:
+  //       setValueSelect("Tất cả");
+  //       break;
 
-      case 1:
-        setValueSelect("Bản thảo")
-        break;
+  //     case 1:
+  //       setValueSelect("Bản thảo")
+  //       break;
 
-      case 2:
-        setValueSelect("Đàm phán")
-        break;
+  //     case 2:
+  //       setValueSelect("Đàm phán")
+  //       break;
 
-      case 3:
-        setValueSelect("Đã gửi")
-        break;
+  //     case 3:
+  //       setValueSelect("Đã gửi")
+  //       break;
 
-      case 4:
-        setValueSelect("Chờ xác nhận")
-        break;
+  //     case 4:
+  //       setValueSelect("Chờ xác nhận")
+  //       break;
 
-      case 5:
-        setValueSelect("Đồng ý")
-        break;
+  //     case 5:
+  //       setValueSelect("Đồng ý")
+  //       break;
 
-      case 6:
-        setValueSelect("Từ chối")
-        break;
+  //     case 6:
+  //       setValueSelect("Từ chối")
+  //       break;
 
-      default:
-        setValueSelect("Tất cả");
-        break;
-    }
-  }
+  //     default:
+  //       setValueSelect("Tất cả");
+  //       break;
+  //   }
+  // }
   useEffect(() => {
-    setValueFromStatus(status)
+    // setValueFromStatus(status)
+    setValueSelect(statusStringFromNumber(status))
   }, [status])
 
   return (

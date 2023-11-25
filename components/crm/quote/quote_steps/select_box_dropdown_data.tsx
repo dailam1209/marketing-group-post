@@ -11,6 +11,7 @@ import styles from "@/components/crm/quote/quote.module.css";
 export default function OrderDropDownDataStep({
     data = [],
     value = " Chọn",
+    setValue
 }: any) {
     return (
         <span
@@ -74,6 +75,7 @@ export default function OrderDropDownDataStep({
                                         padding: "5px 0",
                                         paddingLeft: "18px",
                                     }}
+                                    onClick={() => setValue(item)}
                                 >
                                     {item}
                                 </li>

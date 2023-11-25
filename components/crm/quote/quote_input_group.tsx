@@ -22,7 +22,7 @@ export default function QuoteInputGroups({ isSelectedRow }: any) {
     // Add more sample data objects here if needed
   ];
 
-  const { dateQuote, setDateQuote, dateQuoteEnd, setDateQuoteEnd, quoteCode, setQuoteCode, setShouldFetchData } = useContext(QuoteFilterContext)
+  const { dateQuote, setDateQuote, dateQuoteEnd, setDateQuoteEnd, quoteCode, setQuoteCode, setShouldFetchData, recordId, listRecordId } = useContext(QuoteFilterContext)
   const handleDateQuote = (event: React.ChangeEvent<HTMLInputElement>) => {
     setDateQuote(event.target.valueAsDate)
     setShouldFetchData(true)

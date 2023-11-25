@@ -1,8 +1,10 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Modal } from "antd";
 import styles from "@/components/crm/quote/quote.module.css";
 import PotentialSelectBoxStep from "../quote_steps/select_box_step";
 import ModalCompleteStep from "../quote_steps/complete_modal";
+import { QuoteFilterContext } from "../quoteFilterContext";
+import { axiosCRMCall } from "@/utils/api/api_crm_call";
 
 interface MyComponentProps {
   isModalCancel: boolean;
@@ -18,12 +20,41 @@ const StatusModal: React.FC<MyComponentProps> = ({
   allkey,
 }) => {
   const [isOpenMdalSuccess, setIsOpenMdalSuccess] = useState(false);
+  const {allAvailableStatusString, statusNumberFromString, recordId, listRecordId, setShouldFetchData} = useContext(QuoteFilterContext);
+  const [value, setValue] = useState('Bản thảo')
+
+  // useEffect(() => {
+  //   console.log(value)
+  // }, [value])
+
+  const updateStatus = async (id: Number, status: Number) => {
+    await axiosCRMCall
+    .post('/quote/updateStatus', {id: id, status: status})
+    .then((res) => {
+      // console.log(res)
+    })
+    .catch((err) => console.log(err))
+  }
 
   const handleOK = () => {
+    const status = statusNumberFromString(value);
+    if (allkey?.length > 0) { // Nếu là sửa nhiều
+      // listRecordId.map((id) => {
+      //   updateStatus(id, status)
+      // })
+      // console.log(allkey)
+      allkey.map((id) => {
+        updateStatus(id, status)
+      })
+    } else { // Sửa 1
+      updateStatus(recordId, status)
+    }
+
     setIsModalCancel(false);
     setIsOpenMdalSuccess(true);
     setTimeout(() => {
       setIsOpenMdalSuccess(false);
+      setShouldFetchData(true)
     }, 2000);
   };
 
@@ -44,7 +75,7 @@ const StatusModal: React.FC<MyComponentProps> = ({
             <label className={`${styles.form_label} required`}>
               {"Tình trạng"}
             </label>
-            <PotentialSelectBoxStep value="Bản thảo" placeholder="Chọn" />
+            <PotentialSelectBoxStep value={value} placeholder="Chọn" data={() => allAvailableStatusString()} setValue={setValue}/>
           </div>
         </div>
       </Modal>

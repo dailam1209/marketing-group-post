@@ -1,8 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import styles from "@/components/crm/quote/quote.module.css";
+import { QuoteFilterContext } from "./quoteFilterContext";
 
 export default function OrderDropDown({ valueSelect, setValueSelect }: any) {
-  const data: any[] = ["Tất cả", "Bản thảo", "Đàm phán", "Đã gửi", "Chờ xác nhận", "Đồng ý", "Từ chối"];
+  // const data: any[] = ["Tất cả", "Bản thảo", "Đàm phán", "Đã gửi", "Chờ xác nhận", "Đồng ý", "Từ chối"];
+  const {allStatusString} = useContext(QuoteFilterContext)
+  const data: any[] = allStatusString();
   
   // const [valueSelect, setValueSelect] = useState("")
   return (
