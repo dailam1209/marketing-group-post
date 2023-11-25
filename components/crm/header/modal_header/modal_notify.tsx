@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import style from "../header.module.css";
-import io from "socket.io-client";
 export default function NotifyModal() {
 
   return (

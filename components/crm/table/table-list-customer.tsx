@@ -582,7 +582,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
             },
           }}
         />
-        {datatable?.length && datatable?.length > 0 && (
+        {datatable?.length && datatable?.length > 0 ? (
           <div
             className="main__footer_fix flex_between"
             id=""
@@ -608,7 +608,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
               Tổng số: <b>{totalRecords}</b> Khách hàng
             </div>
           </div>
-        )}
+        ) : null}
       </div>
 
       <EditTextCustomerList

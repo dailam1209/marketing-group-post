@@ -345,6 +345,61 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
         style={{ padding: 0, maxHeight: "100%" }}
       >
         <div className={styles.form_group}>
+          <div className={styles.label}>Thời gian cập nhập</div>
+          <div className={styles.row}>
+            <div className={`${styles["col-lg-6"]}`}>
+              <TimePicker
+                onChange={handleTimeStartChange}
+                style={{ width: "100%", height: "37px" }}
+                defaultValue={
+                  router.query.start
+                    ? dayjs(timeValuestart, format)
+                    : dayjs("00:00", format)
+                }
+                format={format}
+              />
+            </div>
+            <div className={`${styles["col-lg-6"]}`}>
+              <div
+                className={styles.box_input}
+                style={{ width: "100%", marginBottom: "5px", paddingLeft: 10 }}
+              >
+                <Input
+                  onChange={handleDateChangeStart}
+                  type="date"
+                  defaultValue={defaultstart || pastTime.format("YYYY-MM-DD")}
+                />
+              </div>
+            </div>
+          </div>
+          <div className={styles.row}>
+            <div className={`${styles["col-lg-6"]}`}>
+              <TimePicker
+                onChange={handleTimeEndChange}
+                style={{ width: "100%", height: "37px" }}
+                defaultValue={
+                  router.query.end
+                    ? dayjs(timeValueEnd, format)
+                    : dayjs("00:00", format)
+                }
+                format={format}
+              />
+            </div>
+            <div className={`${styles["col-lg-6"]}`}>
+              <div
+                className={styles.box_input}
+                style={{ width: "100%", marginBottom: "5px", paddingLeft: 10 }}
+              >
+                <Input
+                  defaultValue={dateEndUrl}
+                  onChange={handleDateChangeEnd}
+                  type="date"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className={styles.form_group}>
           <div className={styles.label}>Thời gian tạo khách hàng</div>
           <div className={styles.row}>
             <div className={`${styles["col-lg-6"]}`}>
@@ -399,7 +454,6 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
             </div>
           </div>
         </div>
-
         <div className={styles.form_group}>
           <div className={styles.label}>Tình trạng khách hàng</div>
           <Select

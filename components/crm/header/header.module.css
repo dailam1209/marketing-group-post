@@ -5,7 +5,24 @@
   padding: 22px 22px 0px 22px;
   background-color: #f7f8fc;
 }
-
+.totalUnreadBox,
+.totalUnreadBox2 {
+  position: relative;
+}
+.totalUnread {
+  position: absolute;
+  top: 12px;
+  left: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: rgb(241, 86, 86);
+  width: 20px;
+  height: 20px;
+  color: white;
+  font-size: 10px;
+}
 .main {
   height: 64px;
   box-shadow: 0px 0px 10px rgb(0 0 0 / 10%);
@@ -45,7 +62,8 @@
 .mess_icon_2,
 .warning_icon_2,
 .setting_icon_2,
-.notify_icon_2 {
+.notify_icon_2,
+.totalUnreadBox2 {
   display: none;
 }
 
@@ -326,6 +344,7 @@
 }
 
 .accept_all {
+  border-top: 1px solid #cccccc;
   display: flex;
   justify-content: center;
   padding-top: 20px;
@@ -356,12 +375,15 @@
 
 .select_notice {
   padding: 23px 21px 0 28px;
+  height: 300px;
+  overflow: scroll;
 }
 
 .all_notice {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  border-bottom: 1px solid #cccccc;
+
   padding-bottom: 16px;
 }
 
@@ -373,8 +395,19 @@
   font-weight: 500;
   font-size: 16px;
   line-height: 19px;
+  padding: 5px 0;
+  margin-bottom: 5px;
 }
-
+.select__tab {
+  text-decoration: none;
+  color: black;
+}
+.notice__item:hover {
+  background-color: white;
+}
+.readed {
+  background-color: #ececec;
+}
 .notice_box {
   overflow-y: scroll;
   max-height: 450px;
@@ -479,7 +512,8 @@
   .mess_icon_2,
   .warning_icon_2,
   .setting_icon_2,
-  .notify_icon_2 {
+  .notify_icon_2,
+  .totalUnreadBox2 {
     display: block;
   }
 

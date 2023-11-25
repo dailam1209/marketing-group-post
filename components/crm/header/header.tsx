@@ -8,13 +8,13 @@ import React, {
 } from "react";
 import MessageButtonHeader from "./message";
 import WarningBtnHeader from "./warning";
-import NotifyButtonHeader from "./notify_icon";
 import SettingButtonHeader from "./setting_icon";
 import style from "./header.module.css";
 import { SidebarContext } from "../context/resizeContext";
 import { useHeader } from "../hooks/useHeader";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import NotifyButtonHeader from "./notify_icon";
 
 export default function Header({ toggleModal }: any) {
   const { isOpen } = useContext<any>(SidebarContext);
@@ -64,7 +64,9 @@ export default function Header({ toggleModal }: any) {
                 />
               </Link>
             )}
-            <h3 className="header_ttle" style={{ color: "#474747" }}>{headerTitle}</h3>
+            <h3 className="header_ttle" style={{ color: "#474747" }}>
+              {headerTitle}
+            </h3>
           </div>
           <div className={style.header_btn}>
             <div

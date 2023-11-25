@@ -35,6 +35,6 @@
     "components/crm/logout/index.js",
     "components/crm/sidebar/sidebar.js",
     "NOTE.jsx"
-, "components/crm/header/modal_header/modal_notify.tsx"  ],
+, "components/crm/header/modal_header/modal_notify.tsx", "components/crm/header/notify_icon.tsx"  ],
   "exclude": ["node_modules"]
 }

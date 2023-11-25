@@ -5,6 +5,7 @@ import { base_url } from "../service/function";
 import Cookies from "js-cookie";
 
 export default function HeaderBar({ dataHeader, isOpen }: any) {
+  console.log("dataHeader", dataHeader);
   return (
     <div className={style.header_bar}>
       <div className={`${style.header_icon} ${!isOpen ? null : "none"}`}>
@@ -12,10 +13,11 @@ export default function HeaderBar({ dataHeader, isOpen }: any) {
           width={120}
           height={60}
           className={style.img_icon}
-          src={
-            dataHeader?.data?.avatarUser === null
+          src="/crm/no-avartar-user.png"
+          data-src={
+            dataHeader?.data?.avatarUser
               ? dataHeader?.data?.avatarUser
-              : "/crm/logo_com.png"
+              : "/crm/no-avartar-user.png"
           }
           alt=""
         />

@@ -17,6 +17,8 @@ import {
 } from "@/pages/api/api-hr/cai-dat/generalSettings";
 import Cookies from "js-cookie";
 import { base_url } from "../service/function";
+import { useFormData } from "../context/formDataContext";
+import { useNotificationReload } from "../context/notificationContext";
 
 export default function SideBar({ isOpened }) {
   const { isOpen, setIsOpen, setDataHeaderSidebar } =
@@ -26,7 +28,7 @@ export default function SideBar({ isOpened }) {
   const COOKIE_KEY = "token_base365";
   const [tokenType, setTokenType] = useState(null);
   const { accessAcountRole, setAccessAcountRole } = useContext(AccessContext);
-
+  const { hanldeReload } = useContext(useNotificationReload);
   const handleResize = () => {
     if (typeof window !== "undefined") {
       if (window.innerWidth <= 1024) {
@@ -221,6 +223,7 @@ export default function SideBar({ isOpened }) {
               boxAlertElement.insertAdjacentHTML("afterbegin", alert);
             }
           }
+          hanldeReload();
         }
       );
     }
@@ -233,18 +236,16 @@ export default function SideBar({ isOpened }) {
 
   return (
     <>
-        <div
-          ref={sidebarRef}
-          // style={{ width: isOpen ? "70px" : "302px" }}
-          className={`${style.sidebar} ${
-            !isOpened ? `${style.mSideBar}` : null
-          }`}
-        >
-          <div id="box_alert"></div>
+      <div
+        ref={sidebarRef}
+        // style={{ width: isOpen ? "70px" : "302px" }}
+        className={`${style.sidebar} ${!isOpened ? `${style.mSideBar}` : null}`}
+      >
+        <div id="box_alert"></div>
 
-          <HeaderBar dataHeader={dataHeader} isOpen={isOpen} />
-          <SiebarContent isOpen={isOpen} toggleModal={setIsOpen} />
-        </div>
+        <HeaderBar dataHeader={dataHeader} isOpen={isOpen} />
+        <SiebarContent isOpen={isOpen} toggleModal={setIsOpen} />
+      </div>
     </>
   );
 }
