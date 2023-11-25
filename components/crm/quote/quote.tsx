@@ -1,10 +1,11 @@
 import TableDataOrder from "../table/table-order";
 import styleHome from "../home/home.module.css";
 import { SidebarContext } from "../context/resizeContext";
-import { useContext, useEffect, useRef, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { useHeader } from "../hooks/useHeader";
 import QuoteInputGroups from "./quote_input_group";
 import TableDataQuote from "../table/table-quote";
+import { QuoteFilterContext, QuoteFilterProvider } from "./quoteFilterContext";
 
 export default function Quote() {
   const mainRef = useRef<HTMLDivElement>(null);
@@ -31,13 +32,21 @@ export default function Quote() {
       mainRef.current?.classList.remove("content_resize");
     }
   }, [isOpen]);
+
+  // const [dateQuote, setDateQuote] = useState<null | Date>(null)
+  // const [dateQuoteEnd, setDateQuoteEnd] = useState<null | Date>(null)
+  // const [status, setStatus] = useState<Number>(0)
+  // const [quoteCode, setQuoteCode] = useState('')
+
   return (
     <div ref={mainRef} className={styleHome.main}>
-      <QuoteInputGroups isSelectedRow={isSelectedRow} />
-      <TableDataQuote
-        setSelected={setIsSelectedRow}
-        setNumberSelected={setNumberSelected}
-      />
+      <QuoteFilterProvider>
+        <QuoteInputGroups isSelectedRow={isSelectedRow} />
+        <TableDataQuote
+          setSelected={setIsSelectedRow}
+          setNumberSelected={setNumberSelected}
+        />
+      </QuoteFilterProvider>
     </div>
   );
 }
