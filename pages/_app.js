@@ -21,6 +21,7 @@ import Cookies from "js-cookie";
 import { base_url } from "@/components/crm/service/function";
 import Head from "next/head";
 import { FormDataContext } from "@/components/crm/context/formDataContext";
+import { NotificationContext } from "@/components/crm/context/notificationContext";
 
 export const LoadingComp = () => {
   return (
@@ -242,27 +243,29 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           ) : (
             <Provider store={store}>
               <FormDataContext>
-              <AccessContextComponent>
-                <UpdateTLKDComponent>
-                  <SidebarResize>
-                    <NavigateContextComponent>
-                      {checkAndRedirectToHomeIfNotLoggedIn() ? (
-                        <>
-                          <Header toggleModal={toggleModal} />
-                          <Sidebar isOpened={isOpen} />
-                          <ChatBusiness />
-                        </>
-                      ) : null}
-                      <TitleHeaderMobile />
-                      <TriggerProvider>
-                        <TongDaiContext>
-                          <Component {...pageProps} />
-                        </TongDaiContext>
-                      </TriggerProvider>
-                    </NavigateContextComponent>
-                  </SidebarResize>
-                </UpdateTLKDComponent>
-              </AccessContextComponent>
+                <AccessContextComponent>
+                  <NotificationContext>
+                    <UpdateTLKDComponent>
+                      <SidebarResize>
+                        <NavigateContextComponent>
+                          {checkAndRedirectToHomeIfNotLoggedIn() ? (
+                            <>
+                              <Header toggleModal={toggleModal} />
+                              <Sidebar isOpened={isOpen} />
+                              <ChatBusiness />
+                            </>
+                          ) : null}
+                          <TitleHeaderMobile />
+                          <TriggerProvider>
+                            <TongDaiContext>
+                              <Component {...pageProps} />
+                            </TongDaiContext>
+                          </TriggerProvider>
+                        </NavigateContextComponent>
+                      </SidebarResize>
+                    </UpdateTLKDComponent>
+                  </NotificationContext>
+                </AccessContextComponent>
               </FormDataContext>
             </Provider>
           )}

@@ -47,7 +47,7 @@ export function MInputTextV2({
   id = "",
 }: any) {
   const { handleChangeData, formData } = useContext(useFormData);
-
+  console.log("value", formData[name]);
   return (
     <div className={`${stylesAdd.mb_3} ${stylesAdd["col-lg-6"]}`}>
       <label
@@ -68,7 +68,7 @@ export function MInputTextV2({
         id={id}
         defaultValue={defaultValue && defaultValue}
         placeholder={placeholder}
-        value={formData[name]}
+        value={formData[name] ? formData[name] : ""}
         onChange={handleChangeData}
       />
     </div>

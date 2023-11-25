@@ -11,6 +11,8 @@ import { checkAndRedirectToHomeIfNotLoggedIn } from "@/components/crm/ultis/chec
 import moment from "moment";
 import { UpdateTLKD } from "@/components/crm/context/updateTlkd";
 import { useRouter } from "next/router";
+import { useFormData } from "@/components/crm/context/formDataContext";
+import { useNotificationReload } from "@/components/crm/context/notificationContext";
 const Cookies = require("js-cookie");
 export interface DataType {
   key: React.Key;
@@ -36,6 +38,7 @@ export default function CustomerList() {
   const { updateTLKD } = useContext<any>(UpdateTLKD);
   const mainRef = useRef<HTMLDivElement>(null);
   const { isOpen } = useContext<any>(SidebarContext);
+  const { reloadNotification } = useContext(useNotificationReload);
   const [selected, setSelected] = useState(false);
   const [numberSelected, setNumberSelected] = useState(0);
   const [selectedRowKeys, setSelectedRowKeys] = useState<any>([]);
@@ -70,7 +73,7 @@ export default function CustomerList() {
   const [isAPDung, setIsApDung] = useState(false);
   const [selectedCusIds, setSelectedCusIds] = useState<string>("");
   const role = Cookies.get("role");
-  const [listNV, setListNv] = useState<any>();
+  const [listNV, setListNv] = useState<any>([]);
   const [dep_id, setDep_id] = useState<any>();
   const [posId, setposId] = useState<any>();
   const [nameNvNomor, setnameNvNomor] = useState<any>();
@@ -346,20 +349,24 @@ export default function CustomerList() {
     return requestData;
   }
 
-  const formData = new FormData();
+  const formDataSencond = new FormData();
   const formDataRequest = sendingData();
   formDataRequest.keyword &&
-    formData.append("keyword", formDataRequest.keyword);
-  formDataRequest.status && formData.append("status", formDataRequest.status);
+    formDataSencond.append("keyword", formDataRequest.keyword);
+  formDataRequest.status &&
+    formDataSencond.append("status", formDataRequest.status);
   formDataRequest.resoure &&
-    formData.append("resoure", formDataRequest.resoure);
+    formDataSencond.append("resoure", formDataRequest.resoure);
   formDataRequest.user_create_id &&
-    formData.append("user_create_id", formDataRequest.user_create_id);
-  formDataRequest.ep_id && formData.append("ep_id", formDataRequest.ep_id);
+    formDataSencond.append("user_create_id", formDataRequest.user_create_id);
+  formDataRequest.ep_id &&
+    formDataSencond.append("ep_id", formDataRequest.ep_id);
   formDataRequest.group_id &&
-    formData.append("group_id", formDataRequest.group_id);
-  formDataRequest.time_s && formData.append("time_s", formDataRequest.time_s);
-  formDataRequest.time_e && formData.append("time_e", formDataRequest.time_e);
+    formDataSencond.append("group_id", formDataRequest.group_id);
+  formDataRequest.time_s &&
+    formDataSencond.append("time_s", formDataRequest.time_s);
+  formDataRequest.time_e &&
+    formDataSencond.append("time_e", formDataRequest.time_e);
 
   const handleSelectAll = () => {
     const allRowKeys = datatable?.map((item: { key: any }) => item.key);
@@ -390,8 +397,16 @@ export default function CustomerList() {
   useEffect(() => {
     handleGetGr();
     fetchData();
-  }, [name, selectedRowKeys, des, selectedCus, page, pageSize, updateTLKD]);
-
+  }, [
+    name,
+    selectedRowKeys,
+    des,
+    selectedCus,
+    page,
+    pageSize,
+    updateTLKD,
+    reloadNotification,
+  ]);
   useEffect(() => {
     setHeaderTitle("Danh sách khách hàng");
     setShowBackButton(false);

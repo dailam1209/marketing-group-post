@@ -11,10 +11,11 @@ import { useFormData } from "../../context/formDataContext";
 import TextEditorV2 from "../../input_select/text_editor";
 import { MTextAreaV2 } from "../../input_select/input";
 export default function ChanceAddInfo() {
-  const { formData } = useContext(useFormData);
+  const { formData, hanldeClearRecall } = useContext(useFormData);
   const [formDataTest, setFormDataTest] = useState<any>({});
   const router = useRouter();
   const { id } = router.query;
+  console.log("check", formData);
   return (
     <>
       <div className={styles.main_importfile}>
@@ -25,7 +26,6 @@ export default function ChanceAddInfo() {
               <div className={styles.main__body}>
                 <AddGeneralInfoChance />
                 <TableChanceProduct />
-
                 <div
                   style={{ marginBottom: -10 }}
                   className={styles["main__body__type"]}
