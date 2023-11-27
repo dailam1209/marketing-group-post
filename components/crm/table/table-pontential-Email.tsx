@@ -120,7 +120,7 @@ const TableDataEmailPo: React.FC<TableDataCampaignProps> = () => {
 
   const fetchData = async () => {
     try {
-      const res = await fetch(`http://localhost:3007/api/crm/potential/listEmailPotential`, {
+      const res = await fetch(`https://api.timviec365.vn/api/crm/potential/listEmailPotential`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

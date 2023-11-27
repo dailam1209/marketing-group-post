@@ -71,7 +71,7 @@ export default function CampaignBillInputGroup({
       id: id,
     };
     const dataApi = await fetchApi(
-      "http://localhost:3007/api/crm/bill/edit-bill",
+      "https://api.timviec365.vn/api/crm/bill/edit-bill",
       token,
       bodyAPIs,
       "POST"
