@@ -18,11 +18,7 @@ interface TableDataCampaginChanceProps {
   emp?: any;
 }
 
-const TableDataCampaginChance: React.FC<TableDataCampaginChanceProps> = ({
-  body,
-  setBody,
-  emp,
-}) => {
+const TableDataCampaginChance = ({ body, setBody, emp }) => {
   const url = "http://localhost:3007/api/crm/chance/list-chance";
   const token = Cookies.get("token_base365");
   const router = useRouter();

@@ -30,7 +30,7 @@ interface TableDataCampaignShareListProps {
 const TableDataCampaignShareList: React.FC<TableDataCampaignShareListProps> = ({
   formData = null,
   setFormData = null,
-}: any) => {
+}) => {
   const router = useRouter();
   const [listShareCampaign, setListShareCampaign] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);

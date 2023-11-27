@@ -9,7 +9,7 @@ const Campaign_potetial = (props: Props) => {
   return (
     <div>
       <CampaignInputGroupsPO />
-      <TableDataCampaign />
+      {/* <TableDataCampaign /> */}
     </div>
   );
 };

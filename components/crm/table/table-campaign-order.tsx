@@ -37,7 +37,7 @@ const TableDataCampaignOrder: React.FC<TableDataCampaignOrderProps> = ({
   setSelected,
   setNumberSelected,
   emp,
-}: any) => {
+}) => {
   const url = "http://localhost:3007/api/crm/order/list-order";
   const token = Cookies.get("token_base365");
   const router = useRouter();

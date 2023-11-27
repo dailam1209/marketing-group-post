@@ -1,12 +1,10 @@
-import { Button, Input, Modal, Pagination, Table } from "antd";
+import { Modal, Pagination, Table } from "antd";
 import style from "@/components/crm/customer/group_customer/modal_share.module.css";
 import type { ColumnsType } from "antd/es/table";
 import { useEffect, useState } from "react";
 import { getToken } from "@/pages/api/api-hr/token";
 import jwt_decode from "jwt-decode";
 import { axiosCRM } from "@/utils/api/api_crm";
-import { MInputText } from "@/components/commodity/input";
-import { toLowerCaseNonAccentVietnamese } from "@/utils/function";
 
 interface TypeShareProps {
   isOpenModalShare: boolean;
@@ -29,7 +27,6 @@ export const ModalGroupCustomerShare: React.FC<TypeShareProps> = ({
 }) => {
   const [listEmpTable, setListEmpTable] = useState([]);
   const [companyId, setCompanyId] = useState(null);
-  const [tableShow, setTableShow] = useState<any>([]);
   useEffect(() => {
     const currentCookie = getToken("token_base365");
     if (currentCookie) {
@@ -57,7 +54,7 @@ export const ModalGroupCustomerShare: React.FC<TypeShareProps> = ({
       key: "position",
     },
     {
-      title: "idQLC",
+      title: "ID",
       dataIndex: "idQLC",
       width: 150,
       key: "idQLC",
@@ -83,13 +80,11 @@ export const ModalGroupCustomerShare: React.FC<TypeShareProps> = ({
     if (IdGroup && companyId) {
       axiosCRM
         .post("/account/TakeListUserFromGroup", { IdGroup, companyId })
-        .then((res) => {
-          setListEmpTable(res.data.data.listUser);
-          setTableShow(res.data.data.listUser);
-        })
+        .then((res) => setListEmpTable(res.data.data.listUser))
         .catch((err) => console.log("ModalGroupCustomerShare", err));
     }
   }, [IdGroup]);
+
   const HandleDeleteUserFromFroup = async (idQLC: any) => {
     try {
       axiosCRM
@@ -109,19 +104,6 @@ export const ModalGroupCustomerShare: React.FC<TypeShareProps> = ({
       return false;
     }
   };
-  const handleSearchEmp = (search) => {
-    if (!search) {
-      setTableShow(listEmpTable);
-    } else {
-      setTableShow(
-        listEmpTable?.filter((emp) =>
-          toLowerCaseNonAccentVietnamese(emp.userName)?.includes(
-            toLowerCaseNonAccentVietnamese(search)
-          )
-        )
-      );
-    }
-  };
   return (
     <>
       <div className={style.modal_share}>
@@ -135,18 +117,9 @@ export const ModalGroupCustomerShare: React.FC<TypeShareProps> = ({
           className={"mdal_share_group_customer"}
           width={1000}
         >
-          <div
-            style={{ display: "flex", alignItems: "center", height: "50px" }}
-          >
-            <label style={{ width: "200px", display: "block" }}>
-              Tìm kiếm nhân viên
-            </label>
-            <Input onChange={(e) => handleSearchEmp(e.target.value)} />
-          </div>
-
           <Table
             columns={columns}
-            dataSource={tableShow}
+            dataSource={listEmpTable}
             scroll={{ y: 400 }}
             bordered
             pagination={{

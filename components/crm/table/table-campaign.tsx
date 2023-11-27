@@ -17,12 +17,7 @@ interface TableDataCampaignProps {
   body?: any;
 }
 
-const TableDataCampaign: React.FC<TableDataCampaignProps> = ({
-  dataAPI,
-  empList,
-  setBody,
-  body,
-}) => {
+const TableDataCampaign = ({ dataAPI, empList, setBody, body }) => {
   const url = "http://localhost:3007/api/crm/campaign/delete-campaign";
   const token = Cookies.get("token_base365");
   const { trigger, setTrigger } = useTrigger();

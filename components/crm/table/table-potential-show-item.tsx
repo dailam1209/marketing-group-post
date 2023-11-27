@@ -12,7 +12,7 @@ interface DataType {
   DonGia: string;
 }
 
-const columns: ColumnsType<DataType> = [
+const columns: ColumnsType /* <DataType> */ = [
   {
     title: "STT",
     width: 50,
@@ -63,12 +63,7 @@ const columns: ColumnsType<DataType> = [
 //   });
 // }
 
-
-const TablePotentialshowItem= ({
-  selectedRowKeys,
-  data
-}: any) => {
-  console.log("TablePotentialshowItem",selectedRowKeys)
+const TablePotentialshowItem = ({ selectedRowKeys, data }) => {
   return (
     <div className="custom_table campaign_tble ">
       <Table
