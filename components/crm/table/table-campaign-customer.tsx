@@ -33,8 +33,8 @@ const TableDataCampaignCustomer: React.FC<TableDataCampaignCustomerProps> = ({
   setBody,
   emp,
   setNumberSelected,
-}) => {
-  const url = "http://localhost:3007/api/crm/campaign/detail-campaign-cus";
+}: any) => {
+  const url = "https://api.timviec365.vn/api/crm/campaign/detail-campaign-cus";
   const token = Cookies.get("token_base365");
   const router = useRouter();
   const { trigger, setTrigger } = useTrigger();
@@ -62,7 +62,7 @@ const TableDataCampaignCustomer: React.FC<TableDataCampaignCustomerProps> = ({
       campaign_id: 0,
     };
     const dataApi = await fetchApi(
-      "http://localhost:3007/api/crm/customerdetails/add-campaign-customer",
+      "https://api.timviec365.vn/api/crm/customerdetails/add-campaign-customer",
       token,
       bodyAPI,
       "POST"

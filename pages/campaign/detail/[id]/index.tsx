@@ -27,7 +27,7 @@ const DetailCampaign: React.FC = () => {
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
 
-  const url = "http://localhost:3007/api/crm/campaign/detail-campaign";
+  const url = "https://api.timviec365.vn/api/crm/campaign/detail-campaign";
   const token = Cookies.get("token_base365");
 
   const hideEmptyDataFunc = (data) => {
@@ -54,7 +54,7 @@ const DetailCampaign: React.FC = () => {
       campaign_id: Number(router.query.id),
     };
     const dataApi = await fetchApi(
-      "http://localhost:3007/api/crm/campaign/info-campaign",
+      "https://api.timviec365.vn/api/crm/campaign/info-campaign",
       token,
       bodyAPI,
       "POST"

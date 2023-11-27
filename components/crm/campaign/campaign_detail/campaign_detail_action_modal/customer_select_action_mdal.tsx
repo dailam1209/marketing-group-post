@@ -38,10 +38,9 @@ const ModalChooseCustomer: React.FC<MyComponentProps> = ({
   const handleOK = async () => {
     const isValidSharing = validate();
     if (isValidSharing) {
-      console.log(arrCustomerId);
       try {
         await fetch(
-          `http://localhost:3007/api/crm/customerdetails/add-campaign-customer`,
+          `https://api.timviec365.vn/api/crm/customerdetails/add-campaign-customer`,
           {
             method: "POST",
             headers: {

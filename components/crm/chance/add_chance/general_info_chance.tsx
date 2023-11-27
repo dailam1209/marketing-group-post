@@ -34,7 +34,7 @@ export default function AddGeneralInfoChance() {
 
   const fetchAPICustomer = async () => {
     const dataApi = await fetchApi(
-      "http://localhost:3007/api/crm/customer/list",
+      "https://api.timviec365.vn/api/crm/customer/list",
       token,
       {},
       "POST"
@@ -49,7 +49,7 @@ export default function AddGeneralInfoChance() {
 
   const fetchAPICampaign = async () => {
     const dataApi = await fetchApi(
-      "http://localhost:3007/api/crm/campaign/listCampaign",
+      "https://api.timviec365.vn/api/crm/campaign/listCampaign",
       token,
       {},
       "POST"
@@ -66,7 +66,7 @@ export default function AddGeneralInfoChance() {
 
   const fetchAPIGroupProduct = async () => {
     const dataApi = await fetchApi(
-      "http://localhost:3007/api/crm/product/show-product-group",
+      "https://api.timviec365.vn/api/crm/product/show-product-group",
       token,
       {},
       "POST"

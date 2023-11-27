@@ -32,7 +32,7 @@ const CampageEditIndex: React.FC = () => {
     setCurrentPath,
   }: any = useHeader();
 
-  const url = "http://localhost:3007/api/crm/campaign/detail-campaign";
+  const url = "https://api.timviec365.vn/api/crm/campaign/detail-campaign";
 
   const token = Cookies.get("token_base365");
 
@@ -72,7 +72,7 @@ const CampageEditIndex: React.FC = () => {
       empID: empRef?.current?.value ? Number(empRef?.current?.value) : 0,
     };
     const dataApi = await fetchApi(
-      "http://localhost:3007/api/crm/campaign/edit-campaign",
+      "https://api.timviec365.vn/api/crm/campaign/edit-campaign",
       token,
       bodyAPI,
       "POST"
