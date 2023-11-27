@@ -157,8 +157,8 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   const [group_idFix, setgroup_idFix] = useState<any>();
   const [modalRecord, setModalRecord] = useState({
     isOpen: false,
-    content: ''
-  })
+    content: "",
+  });
   const handleChangeStatus = (e: any, data: any) => {
     setValueStatus(e.target.value);
   };
@@ -170,16 +170,8 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
 
   const renderTitle = (record, text) => (
     <div className="tooltip-content">
-      <button
-        onClick={() => (setOpenEditText(true), setCusId(record), setDes(text))}
-      >
-        <Image
-          className="edit-icon"
-          src="/crm/h_edit_cus.svg"
-          alt="hungha365.com"
-          width={15}
-          height={15}
-        />
+      <button onClick={() => (setOpenEditText(true), setCusId(record), setDes(text))}>
+        <Image className="edit-icon" src="/crm/h_edit_cus.svg" alt="hungha365.com" width={15} height={15} />
         Chỉnh sửa
       </button>
     </div>
@@ -224,15 +216,15 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
     options:
       item.gr_id !== "0"
         ? [
-          {
-            value: item.gr_id.toString(),
-            label: item.gr_name,
-          },
-          ...(item?.lists_child ?? []).map((child) => ({
-            value: child.gr_id.toString(),
-            label: child.gr_name,
-          })),
-        ]
+            {
+              value: item.gr_id.toString(),
+              label: item.gr_name,
+            },
+            ...(item?.lists_child ?? []).map((child) => ({
+              value: child.gr_id.toString(),
+              label: child.gr_name,
+            })),
+          ]
         : [{ label: item.gr_name, value: item.gr_id.toString() }],
   }));
   const [value, setvalue] = useState();
@@ -318,20 +310,11 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
           </Link>
           <br />
           {record?.link && record?.cus_from ? (
-            <Link
-              target="_blank"
-              rel="nofollow noopener noreferrer"
-              href={`${record?.link}`}
-              style={{ color: "#ffa800", fontWeight: 600 }}
-            >
+            <Link target="_blank" rel="nofollow noopener noreferrer" href={`${record?.link}`} style={{ color: "#ffa800", fontWeight: 600 }}>
               ({record?.cus_from ? record?.cus_from : ""})
             </Link>
           ) : (
-            <div style={{ color: "#ffa800", fontWeight: 600 }}>
-              {record?.cus_from && (
-                <div> ({record?.cus_from ? record?.cus_from : ""})</div>
-              )}
-            </div>
+            <div style={{ color: "#ffa800", fontWeight: 600 }}>{record?.cus_from && <div> ({record?.cus_from ? record?.cus_from : ""})</div>}</div>
           )}
         </div>
       ),
@@ -346,10 +329,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
           onClick={() => handleShowCall(record)}
           style={{
             cursor: "pointer",
-            color:
-              record?.count_content_call !== 0 && record?.count_content_call
-                ? "#ffa800"
-                : "#474747",
+            color: record?.count_content_call !== 0 && record?.count_content_call ? "#ffa800" : "#474747",
           }}
           className={data?.length > 20 ? "truncate-text" : ""}
         >
@@ -400,12 +380,11 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       width: 150,
       render: (text, record) => (
         <>
-          {
-            record.group_id === 467 &&
-            <div onClick={() => setModalRecord({ isOpen: true, content: record.text_record })} style={{ color: '#4c5bd4', cursor: 'pointer' }}>
+          {record.group_id === 467 && (
+            <div onClick={() => setModalRecord({ isOpen: true, content: record.text_record })} style={{ color: "#4c5bd4", cursor: "pointer" }}>
               Xem chi tiết
             </div>
-          }
+          )}
         </>
       ),
     },
@@ -416,14 +395,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       width: 300,
       render: (text, record) => (
         <div style={{ padding: "5px" }}>
-          <SelectDataInputBox
-            data={dataStatusCustomer}
-            value={record.status}
-            handleChange={handleChangeStatus}
-            stt={record.status}
-            cusId={record.cus_id}
-            type={record.type}
-          />
+          <SelectDataInputBox data={dataStatusCustomer} value={record.status} handleChange={handleChangeStatus} stt={record.status} cusId={record.cus_id} type={record.type} />
         </div>
       ),
     },
@@ -444,27 +416,17 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       key: "3",
       width: 180,
       render: (text, record) => (
-        <div
-          onClick={() => (
-            setslectNguon(record.cus_id), setCusId(record.cus_id)
-          )}
-        >
+        <div onClick={() => (setslectNguon(record.cus_id), setCusId(record.cus_id))}>
           <select
             style={{ border: 0, width: "100%" }}
             onChange={(e) => handleChangeSelect(e, record)}
-            value={
-              slectNguon === record.cus_id && nguon ? nguon : record?.value
-            }
-          // defaultValue={record?.value ? record.value : ""}
+            value={slectNguon === record.cus_id && nguon ? nguon : record?.value}
+            // defaultValue={record?.value ? record.value : ""}
           >
             {ArrNguonKK?.map((item, index) => {
               if (item?.name == record?.resoure) {
                 return (
-                  <option
-                    key={index}
-                    value={item?.id}
-                    style={{ background: "rgb(76, 91, 212)", color: "#fff" }}
-                  >
+                  <option key={index} value={item?.id} style={{ background: "rgb(76, 91, 212)", color: "#fff" }}>
                     {item?.name}
                   </option>
                 );
@@ -487,12 +449,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       width: 220,
       render: (text) => (
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <Image
-            width={25}
-            height={25}
-            alt="hungha365.com"
-            src={"/crm/user.svg"}
-          />
+          <Image width={25} height={25} alt="hungha365.com" src={"/crm/user.svg"} />
           {text ? text : "Chưa cập nhật"}
         </div>
       ),
@@ -504,12 +461,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       width: 220,
       render: (text) => (
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <Image
-            width={25}
-            height={25}
-            alt="hungha365.com"
-            src={"/crm/user.svg"}
-          />
+          <Image width={25} height={25} alt="hungha365.com" src={"/crm/user.svg"} />
           {text ? text : "Chưa cập nhật"}
         </div>
       ),
@@ -521,12 +473,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       width: 220,
       render: (text) => (
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <Image
-            width={25}
-            height={25}
-            alt="hungha365.com"
-            src={"/crm/user.svg"}
-          />
+          <Image width={25} height={25} alt="hungha365.com" src={"/crm/user.svg"} />
           {text ? text : "Chưa cập nhật"}
         </div>
       ),
@@ -558,24 +505,18 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   //nut select
   const customLocale = {
     emptyText: (
-      <div
-        key={"empty"}
-        style={{ fontWeight: 400, color: "black", fontSize: 15 }}
-      >
+      <div key={"empty"} style={{ fontWeight: 400, color: "black", fontSize: 15 }}>
         {loading ? " Đang phân tích kết quả ..." : " Không có kết quả phù hợp"}
       </div>
     ), // Thay thế nội dung "No Data" bằng "Hello"
   };
-  console.log(datatable)
+  //console.log(datatable)
   return (
     <>
       <head>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-        <link
-          href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
-          rel="stylesheet"
-        />
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
       </head>
       <div className="custom-table">
@@ -605,20 +546,10 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
           }}
         />
         {datatable?.length && datatable?.length > 0 ? (
-          <div
-            className="main__footer_fix flex_between"
-            id=""
-            style={{ marginBottom: 25, width: "20%" }}
-          >
+          <div className="main__footer_fix flex_between" id="" style={{ marginBottom: 25, width: "20%" }}>
             <div className="show_number_item">
               <b>Hiển thị:</b>
-              <Select
-                style={{ width: 200 }}
-                placeholder={
-                  <div style={{ color: "black" }}>10 bản ghi trên trang</div>
-                }
-                onChange={(value) => setPageSize(value)}
-              >
+              <Select style={{ width: 200 }} placeholder={<div style={{ color: "black" }}>10 bản ghi trên trang</div>} onChange={(value) => setPageSize(value)}>
                 <option value={10}>10 bản ghi trên trang</option>
                 <option value={20}>20 bản ghi trên trang</option>
                 <option value={30}>30 bản ghi trên trang</option>
@@ -633,13 +564,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
         ) : null}
       </div>
 
-      <EditTextCustomerList
-        isModalCancel={openEditText}
-        setIsModalCancel={setOpenEditText}
-        cusId={cusId}
-        des={des}
-        setDes={setDes}
-      />
+      <EditTextCustomerList isModalCancel={openEditText} setIsModalCancel={setOpenEditText} cusId={cusId} des={des} setDes={setDes} />
 
       <CallModal
         handleGetInfoSTT={handleGetInfoSTT}
@@ -687,7 +612,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
         title="Nội dung ghi âm"
         open={modalRecord.isOpen}
         width={600}
-        bodyStyle={{ maxHeight: '40vh', overflowY: 'auto' }}
+        bodyStyle={{ maxHeight: "40vh", overflowY: "auto" }}
         footer={[
           <Button key="submit" type="primary" onClick={() => setModalRecord({ ...modalRecord, isOpen: false })}>
             OK
