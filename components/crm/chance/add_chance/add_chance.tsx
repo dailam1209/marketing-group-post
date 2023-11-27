@@ -10,8 +10,9 @@ import { useContext, useState } from "react";
 import { useFormData } from "../../context/formDataContext";
 import TextEditorV2 from "../../input_select/text_editor";
 import { MTextAreaV2 } from "../../input_select/input";
+import { MModalCompleteStep } from "@/components/commodity/modal";
 export default function ChanceAddInfo() {
-  const { formData, hanldeClearRecall } = useContext(useFormData);
+  const { formData, hanldeClearRecall, setFormData } = useContext(useFormData);
   const [formDataTest, setFormDataTest] = useState<any>({});
   const router = useRouter();
   return (
@@ -33,13 +34,10 @@ export default function ChanceAddInfo() {
 
                 <MTextAreaV2 label="Mô tả" />
 
-                <AddAddressInfo
-                  formData={formDataTest}
-                  setFormData={setFormDataTest}
-                />
+                <AddAddressInfo formData={formData} setFormData={setFormData} />
                 <GeneralCustomerInfor />
               </div>
-              <div className={styles.main__footer}>
+              <div className={styles.main__footer} style={{marginTop:'20px'}}>
                 <button
                   type="button"
                   // onClick={() => setIsModalCancel(true)}
@@ -65,14 +63,16 @@ export default function ChanceAddInfo() {
                     title={titleCancel}
                     link={link}
                   />
-                }
+                } */}
 
-                <ModalCompleteStep
-                  modal1Open={modal1Open}
-                  setModal1Open={setModal1Open}
-                  title={title}
-                  link={link}
-                /> */}
+                <MModalCompleteStep
+                  modal1Open={false}
+                  setModal1Open={() => {}} 
+                  // modal1Open={modal1Open}
+                  // setModal1Open={setModal1Open}
+                  // title={title}
+                  // link={link}
+                />
               </div>
             </div>
           </div>

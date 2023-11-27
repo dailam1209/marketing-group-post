@@ -13,7 +13,7 @@ export default function AddCampaignDetailInfo({
   inforCampaign,
 }) {
   const router = useRouter();
-  const url = "http://localhost:3007/api/crm/campaign/info-campaign";
+  const url = "https://api.timviec365.vn/api/crm/campaign/info-campaign";
   const token = Cookies.get("token_base365");
   // const [inforCampaign, setInforCampaign] = useState<any>({});
 

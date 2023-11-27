@@ -40,7 +40,7 @@ export default function Chance() {
     startLoading();
     const dataApi = await fetchApi(
       `${
-        process.env.NEXT_DEV_API_URL || "http://localhost:3007/api/crm"
+        process.env.NEXT_DEV_API_URL || "https://api.timviec365.vn/api/crm"
       }/chance/list-chance`,
       token,
       bodyAPI,

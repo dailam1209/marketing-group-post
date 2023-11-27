@@ -37,8 +37,8 @@ const TableDataCampaignOrder: React.FC<TableDataCampaignOrderProps> = ({
   setSelected,
   setNumberSelected,
   emp,
-}) => {
-  const url = "http://localhost:3007/api/crm/order/list-order";
+}: any) => {
+  const url = "https://api.timviec365.vn/api/crm/order/list-order";
   const token = Cookies.get("token_base365");
   const router = useRouter();
   const { trigger, setTrigger } = useTrigger();
@@ -88,7 +88,7 @@ const TableDataCampaignOrder: React.FC<TableDataCampaignOrderProps> = ({
       id: id,
     };
     const dataApi = await fetchApi(
-      "http://localhost:3007/api/crm/order/edit-order",
+      "https://api.timviec365.vn/api/crm/order/edit-order",
       token,
       bodyAPIs,
       "POST"

@@ -18,8 +18,12 @@ interface TableDataCampaginChanceProps {
   emp?: any;
 }
 
-const TableDataCampaginChance = ({ body, setBody, emp }) => {
-  const url = "http://localhost:3007/api/crm/chance/list-chance";
+const TableDataCampaginChance: React.FC<TableDataCampaginChanceProps> = ({
+  body,
+  setBody,
+  emp,
+}) => {
+  const url = "https://api.timviec365.vn/api/crm/chance/list-chance";
   const token = Cookies.get("token_base365");
   const router = useRouter();
   const { trigger, setTrigger } = useTrigger();
@@ -43,7 +47,7 @@ const TableDataCampaginChance = ({ body, setBody, emp }) => {
       campaign_id: 0,
     };
     const dataApi = await fetchApi(
-      "http://localhost:3007/api/crm/chance/edit-chance",
+      "https://api.timviec365.vn/api/crm/chance/edit-chance",
       token,
       bodyAPI,
       "POST"

@@ -26,7 +26,7 @@ export default function Campaign() {
     setCurrentPath,
   }: any = useHeader();
 
-  const url = "http://localhost:3007/api/crm/campaign/listCampaign";
+  const url = "https://api.timviec365.vn/api/crm/campaign/listCampaign";
 
   const token = Cookies.get("token_base365");
 

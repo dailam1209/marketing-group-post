@@ -40,8 +40,8 @@ const TableDataCampaignBill = ({
   body,
   setBody,
   emp,
-}) => {
-  const url = "http://localhost:3007/api/crm/bill/list-bill";
+}: any) => {
+  const url = "https://api.timviec365.vn/api/crm/bill/list-bill";
   const token = Cookies.get("token_base365");
   const router = useRouter();
   const { trigger, setTrigger } = useTrigger();
@@ -97,7 +97,7 @@ const TableDataCampaignBill = ({
       id: id,
     };
     const dataApi = await fetchApi(
-      "http://localhost:3007/api/crm/bill/edit-bill",
+      "https://api.timviec365.vn/api/crm/bill/edit-bill",
       token,
       bodyAPIs,
       "POST"
