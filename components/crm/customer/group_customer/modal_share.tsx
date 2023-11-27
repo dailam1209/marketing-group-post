@@ -7,6 +7,7 @@ import jwt_decode from "jwt-decode";
 import { axiosCRM } from "@/utils/api/api_crm";
 import { MInputText } from "@/components/commodity/input";
 import { toLowerCaseNonAccentVietnamese } from "@/utils/function";
+import { axiosCRMSite } from "@/utils/api/api_crm_site";
 
 interface TypeShareProps {
   isOpenModalShare: boolean;
@@ -81,7 +82,7 @@ export const ModalGroupCustomerShare: React.FC<TypeShareProps> = ({
   ];
   useEffect(() => {
     if (IdGroup && companyId) {
-      axiosCRM
+      axiosCRMSite
         .post("/account/TakeListUserFromGroup", { IdGroup, companyId })
         .then((res) => {
           setListEmpTable(res.data.data.listUser);
@@ -92,7 +93,7 @@ export const ModalGroupCustomerShare: React.FC<TypeShareProps> = ({
   }, [IdGroup]);
   const HandleDeleteUserFromFroup = async (idQLC: any) => {
     try {
-      axiosCRM
+      axiosCRMSite
         .post("/account/DeleteUserFromCart", {
           IdCart: IdGroup,
           IdCrm: idQLC,

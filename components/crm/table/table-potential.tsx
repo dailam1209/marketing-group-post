@@ -231,13 +231,13 @@ const TableDataPotential: React.FC<TableDataPotentialProps> = ({
           pageSize: pageSize,
           total: total,
           showSizeChanger: true,
-          showTotal: (total) => `Tổng ${total} Tiềm năng`,
+
           onChange: (page, pageSize) => {
             setCurrentPage(page);
           },
         }}
       />
-      <div className="main__footer flex_between" id="">
+      <div style={{ marginTop: "5px", width: "50%" }} className="flex_between">
         <div className="show_number_item">
           <b>Hiển thị:</b>
           <select
