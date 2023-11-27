@@ -36,7 +36,7 @@ const TableDataQuote: React.FC<TableDataOrderProps> = ({
   const [key, setKey] = useState();
   const [allKey, setAllKey] = useState<any>();
 
-  const { dateQuote, dateQuoteEnd, status, quoteCode, shouldFetchData, setShouldFetchData, setRecordId, setListRecordId, listRecordId } = useContext(QuoteFilterContext);
+  const { dateQuote, dateQuoteEnd, status, quoteCode, shouldFetchData, setShouldFetchData, setRecordId, setListRecordId, listRecordId, setRecordName, setListRecordName } = useContext(QuoteFilterContext);
   const [quoteData, setQuoteData] = useState<any>([]) // Data từ API
   const [data, setData] = useState<DataType[]>([]); // Data đổ bảng
   const [perPage, setPerPage] = useState(10);
@@ -82,7 +82,7 @@ const TableDataQuote: React.FC<TableDataOrderProps> = ({
   const convertToDataType = (data?) => {
     const newData = data?.map((item) => ({
       key: item.id,
-      order_number: item.quote_code_str,
+      quote_code: item.quote_code_str,
       status: statusToString(item.status),
       customer: item.customer_name,
       description: item.description,
@@ -128,6 +128,8 @@ const TableDataQuote: React.FC<TableDataOrderProps> = ({
       startLoading();
       getData();
     }
+    setRecordId(0)
+    setListRecordId([])
     setShouldFetchData(false)
   }, [shouldFetchData])
   useEffect(() => {
@@ -139,10 +141,10 @@ const TableDataQuote: React.FC<TableDataOrderProps> = ({
     {
       title: "Số báo giá",
       width: 120,
-      dataIndex: "order_number",
-      key: "order_number",
+      dataIndex: "quote_code",
+      key: "quote_code",
       render: (text: any, record: any) => (
-        <Link href={`/quote/detail/${record.order_number}`}>
+        <Link href={`/quote/detail/${record.key}`}>
           <b>{text}</b>
         </Link>
       ),
@@ -191,7 +193,7 @@ const TableDataQuote: React.FC<TableDataOrderProps> = ({
       width: 150,
       fixed: "right",
       render: (text: any, record: any) => (
-        <div onClick={() => {setKey(record.key); setRecordId(record.key)}}>
+        <div onClick={() => {setKey(record.key); setRecordId(record.key); setRecordName(record.quote_code)}}>
           <QuoteActionTable record={key} allKey={[]} />
         </div>
       ),
@@ -222,6 +224,7 @@ const TableDataQuote: React.FC<TableDataOrderProps> = ({
         setSelected(false);
       }
       setListRecordId(selectedRowKeys) // Lưu id bản ghi 
+      setListRecordName(selectedRows.map((row) => row.quote_code))
     },
     onSelect: (record, selected, selectedRows) => {
       setNumberSelected(selectedRows?.length);

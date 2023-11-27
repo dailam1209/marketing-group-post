@@ -20,8 +20,10 @@ const StatusModal: React.FC<MyComponentProps> = ({
   allkey,
 }) => {
   const [isOpenMdalSuccess, setIsOpenMdalSuccess] = useState(false);
-  const {allAvailableStatusString, statusNumberFromString, recordId, listRecordId, setShouldFetchData} = useContext(QuoteFilterContext);
+  const {allAvailableStatusString, statusNumberFromString, recordId, listRecordId, setShouldFetchData, recordName, listRecordName} = useContext(QuoteFilterContext);
   const [value, setValue] = useState('Bản thảo')
+  const allStatusString = allAvailableStatusString();
+  const quoteName = allkey?.length > 0 ? listRecordName.join(', ') : recordName
 
   // useEffect(() => {
   //   console.log(value)
@@ -75,14 +77,14 @@ const StatusModal: React.FC<MyComponentProps> = ({
             <label className={`${styles.form_label} required`}>
               {"Tình trạng"}
             </label>
-            <PotentialSelectBoxStep value={value} placeholder="Chọn" data={() => allAvailableStatusString()} setValue={setValue}/>
+            <PotentialSelectBoxStep value={value} placeholder="Chọn" data={allStatusString} setValue={setValue}/>
           </div>
         </div>
       </Modal>
       <ModalCompleteStep
         modal1Open={isOpenMdalSuccess}
         setModal1Open={setIsOpenMdalSuccess}
-        title={`Cập nhật tình trạng ${record} thành công`}
+        title={`Cập nhật tình trạng ${quoteName} thành công`}
         link={"/quote/list"}
       />
     </>

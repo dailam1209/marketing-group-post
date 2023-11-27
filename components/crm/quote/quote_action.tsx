@@ -16,6 +16,7 @@ import { QuoteFilterContext } from "./quoteFilterContext";
 
 export default function QuoteAction({ isSelectedRow, record, allkey }: any) {
   const { listRecordId } = useContext(QuoteFilterContext)
+  const [dropdownOpen, setDropdownOpen] = useState(false)
   const [isOpenOrderBrowsing, setIsOpenOrderBrowsing] = useState(false);
   const [isOpenDeny, setIsOpenDeny] = useState(false);
   const [isDelOpen, setIsDelOpen] = useState(false);
@@ -25,6 +26,7 @@ export default function QuoteAction({ isSelectedRow, record, allkey }: any) {
   const [isOpenUpdate, setIsOpenUpdate] = useState(false);
   const [isOpenSend, setIsOpenSend] = useState(false);
   const handleClickAction = (e: any, type: string | undefined) => {
+    setDropdownOpen(false);
     if (type === "order_browsing") {
       setIsOpenOrderBrowsing(true);
     }
@@ -50,6 +52,15 @@ export default function QuoteAction({ isSelectedRow, record, allkey }: any) {
       setIsOpenSend(true);
     }
   };
+
+  const handleDropdownOpen = (visible: boolean) => {
+    if (listRecordId.length > 0) {
+      setDropdownOpen(visible)
+    } else {
+      alert('Hãy chọn báo giá')
+    }
+  }
+
   const items: MenuProps["items"] = [];
   for (let i = 0; i < dataActionQuote.length; i++) {
     items.push({
@@ -81,13 +92,15 @@ export default function QuoteAction({ isSelectedRow, record, allkey }: any) {
     <div className={styles.div__thaotac}>
       <div>
         <label>Đã chọn:</label>
-        <b className={styles.checked_count}>0</b>
+        <b className={styles.checked_count}> {listRecordId.length}</b>
       </div>
 
       <Dropdown
         trigger={"click" as any}
         menu={{ items }}
         placement="bottomLeft"
+        open={dropdownOpen}
+        onOpenChange={handleDropdownOpen}
       >
         <button className={styles.button_thaotac}>
           <img src="/crm/3_cham.png" />
@@ -119,6 +132,7 @@ export default function QuoteAction({ isSelectedRow, record, allkey }: any) {
 
       <DelActionModal
         record={record}
+        allkey={listRecordId}
         isModalCancel={isDelOpen}
         setIsModalCancel={setIsDelOpen}
       />

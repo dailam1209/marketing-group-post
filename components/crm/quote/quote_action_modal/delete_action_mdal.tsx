@@ -1,26 +1,53 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Button, Modal } from "antd";
 import Image from "next/image";
 import styles from "@/components/crm/quote/quote.module.css";
 import { useRouter } from "next/router";
 import { showModalWithTimeout } from "@/components/crm/ultis/helper";
 import ModalCompleteStep from "../quote_steps/complete_modal";
+import { QuoteFilterContext } from "../quoteFilterContext";
+import { axiosCRMCall } from "@/utils/api/api_crm_call";
 
 interface MyComponentProps {
   isModalCancel: boolean;
   setIsModalCancel: (value: boolean) => void;
   record: any;
+  allkey: any;
 }
 const DelActionModal: React.FC<MyComponentProps> = ({
   isModalCancel,
   setIsModalCancel,
   record,
+  allkey
 }) => {
   const [isModalSuccess, setIsMdalSuccess] = useState(false);
+  const { recordId, listRecordId, setShouldFetchData, listRecordName, recordName } = useContext(QuoteFilterContext)
+  const quoteName = allkey?.length > 0 ? listRecordName.join(', ') : recordName
 
+  const deleteQuote = async (id: Number) => {
+    await axiosCRMCall
+    .post('/quote/delete', {id: id})
+    .then((res) => {
+
+    })
+    .catch((err) => console.log(err))
+  }
+  
   const handleOK = () => {
+    if (allkey?.length > 0) {
+      allkey.map((id) => {
+        deleteQuote(id)
+      })
+    } else {
+      deleteQuote(recordId)
+    }
     setIsModalCancel(false);
-    showModalWithTimeout(setIsMdalSuccess, 2000);
+    // showModalWithTimeout(setIsMdalSuccess, 2000);
+    setIsMdalSuccess(true);
+    setTimeout(() => {
+      setIsMdalSuccess(false)
+      setShouldFetchData(true)
+    }, 2000);
   };
 
   return (
@@ -38,13 +65,13 @@ const DelActionModal: React.FC<MyComponentProps> = ({
         okText="Đồng ý"
         cancelText="Huỷ"
       >
-        <div>Bạn có chắc chắn muốn xóa báo giá {`${record}`}</div>
+        <div>Bạn có chắc chắn muốn xóa báo giá <strong>{`${quoteName}`}</strong></div>
       </Modal>
 
       <ModalCompleteStep
         modal1Open={isModalSuccess}
         setModal1Open={setIsMdalSuccess}
-        title={`Xóa báo giá ${record} thành công!`}
+        title={`Xóa báo giá ${quoteName} thành công!`}
         link={"/quote/list"}
       />
     </>

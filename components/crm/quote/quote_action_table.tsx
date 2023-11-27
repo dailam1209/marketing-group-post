@@ -100,6 +100,7 @@ export default function QuoteActionTable(props: any) {
       />
       <DelActionModal
         record={record}
+        allkey={[]}
         isModalCancel={isDelOpen}
         setIsModalCancel={setIsDelOpen}
       />
