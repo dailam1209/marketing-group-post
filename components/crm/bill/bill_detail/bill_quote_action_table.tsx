@@ -118,7 +118,7 @@ export default function QuoteActionLichHenTable(props: any) {
         isModalCancel={isDenyOpen}
         setIsModalCancel={setIsDenyOpen}
       />
-      <DelLichHenModal
+      {/* <DelLichHenModal
         record={record}
         isModalCancel={isDelOpen}
         setIsModalCancel={setIsDelOpen}
@@ -127,7 +127,7 @@ export default function QuoteActionLichHenTable(props: any) {
         record={record}
         isModalCancel={isCancelOpen}
         setIsModalCancel={setIsCancelOpen}
-      />
+      /> */}
       <ShareActionModal
         record={record}
         isModalCancel={isOpenShare}

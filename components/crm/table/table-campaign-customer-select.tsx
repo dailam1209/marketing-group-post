@@ -42,7 +42,7 @@ const TableDataOrder: React.FC<TableDataOrderProps> = ({
   setNumberSelected,
   setArrCustomerId,
   searchParam,
-}: any) => {
+}) => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const handlePageChange = (page) => {
@@ -363,7 +363,14 @@ const TableDataOrder: React.FC<TableDataOrderProps> = ({
   return (
     <>
       {isLoading ? (
-        <Spin style={{ width: "100%", minWidth: "300px", margin: "auto", marginTop: '10px' }} />
+        <Spin
+          style={{
+            width: "100%",
+            minWidth: "300px",
+            margin: "auto",
+            marginTop: "10px",
+          }}
+        />
       ) : (
         <div className="custom_table">
           <Table

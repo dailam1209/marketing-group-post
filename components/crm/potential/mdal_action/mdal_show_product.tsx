@@ -3,9 +3,6 @@ import { Button, Modal } from "antd";
 import { useRouter } from "next/router";
 import styles from "@/components/crm/campaign/campaign.module.css";
 
-import ModalCompleteStep from "@/components/crm/quote/quote_steps/complete_modal";
-import CampaignInputGroupsModal from "../detail/campaign_input_modal";
-import TablePotentialItem from "@/components/crm/table/table-potential-item";
 import TablePotentialshowItem from "@/components/crm/table/table-potential-show-item";
 import { axiosCRM } from "@/utils/api/api_crm";
 import Link from "next/link";
@@ -27,7 +24,7 @@ const ShowProductPO = (props: any) => {
     page_size: 40,
   });
   const { id } = router.query;
-  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
+  const [selectedRowKeys, setSelectedRowKeys] = useState<any>([]);
   //lay ra group
   useEffect(() => {
     axiosCRM
@@ -193,7 +190,7 @@ const ShowProductPO = (props: any) => {
           {/* <CampaignInputGroupsModal /> */}
         </div>
         <TablePotentialshowItem
-          selectedRowKeys={rowSelection}
+          selectedRowKeys={selectedRowKeys}
           data={listProduct}
         />
       </Modal>

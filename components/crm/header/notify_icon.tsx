@@ -30,15 +30,15 @@ export default function NotifyButtonHeader() {
     style.notify_icon_2,
   ]);
   const [totalUnread, setTotalUnread] = useState(0);
-  const {reloadNotification}=useContext(useNotificationReload)
-  useEffect(() => {
-    axiosCRM
-      .post("/notification/list_notification", { page, pageSize })
-      .then((res) => {
-        setListNotifi([...listNotifi, ...res.data.data.data]);
-        setTotalUnread(res.data.data.countUnread);
-      });
-  }, [page,reloadNotification]);
+  const { reloadNotification } = useContext(useNotificationReload);
+  // useEffect(() => {
+  //   axiosCRM
+  //     .post("/notification/list_notification", { page, pageSize })
+  //     .then((res) => {
+  //       setListNotifi([...listNotifi, ...res.data.data.data]);
+  //       setTotalUnread(res.data.data.countUnread);
+  //     });
+  // }, [page,reloadNotification]);
 
   const handleReadNotification = (idNotification, index) => {
     axiosCRM.post("/notification/read_one_notification", {

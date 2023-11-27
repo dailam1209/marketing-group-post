@@ -34,7 +34,7 @@ interface TableDataCampaignBillProps {
   emp?: {}[];
 }
 
-const TableDataCampaignBill: React.FC<TableDataCampaignBillProps> = ({
+const TableDataCampaignBill = ({
   setSelected,
   setNumberSelected,
   body,

@@ -17,7 +17,7 @@ export default function AddOrganizeInfo({ formData, setFormData }: any) {
   useEffect(() => {
     setFormData({ ...formData, category: [] });
   }, [formData?.sector]);
-  console.log("CheckCategory", formData.category);
+
   return (
     <div>
       <p className={styles.main__body__type}>Thông tin tổ chức</p>

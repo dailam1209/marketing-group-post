@@ -32,7 +32,7 @@ function ModalGroupCustomerMove({ isOpenModalMove, setIsOpenModalMove }) {
         setListEmp(
           res.data.data.data?.map((emp) => ({
             value: emp.ep_id,
-            label: emp.userName,
+            label:`${emp.ep_id}. ${emp.userName}` ,
           }))
         )
       )
