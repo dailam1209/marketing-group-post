@@ -169,6 +169,10 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
     if (checkCha) {
     }
   }, [idChaSaved]);
+  const [time_s_change, settime_s_change] = useState<any>(router.query.start ? router.query.start : null);
+  const [time_e_change, settime_e_change] = useState<any>(router.query.end ? router.query.end : null);
+  const [create_at_s_change, setcreate_at_s_change] = useState<any>(router.query.create_at_s ? router.query.create_at_s : null);
+  const [create_at_e_change, setcreate_at_e_change] = useState<any>(router.query.create_at_e ? router.query.create_at_e : null);
 
   //const starttime = router.query.start?.toString().replace("T", " ");
   //const createstarttime = router.query.create_at_s?.toString().replace("T", " ");
@@ -184,10 +188,6 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
   //const parsedValueCreateend = dayjs(createendtime);
   //const timeValueEnd = parsedValueend.format("HH:mm");
   //const timeValueCreateEnd = parsedValueCreateend.format("HH:mm");
-  const [time_s_change, settime_s_change] = useState<any>(router.query.start ? router.query.start : null);
-  const [time_e_change, settime_e_change] = useState<any>(router.query.end ? router.query.end : null);
-  const [create_at_s_change, setcreate_at_s_change] = useState<any>(router.query.create_at_s ? router.query.create_at_s : null);
-  const [create_at_e_change, setcreate_at_e_change] = useState<any>(router.query.create_at_e ? router.query.create_at_e : null);
   //const dateEndUrl = dayjs(endtime || time_e_change || null).format("YYYY-MM-DD");
   //const dateCreateEndUrl = dayjs(createendtime || create_at_e_change || null).format("YYYY-MM-DD");
   //const defaultstart: any = dayjs(/* starttime || */ time_s_change || null).format("YYYY-MM-DD");
@@ -292,9 +292,9 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
   // console.log(timeEnd, "timeEnd");
   // console.log(time_e_change, "time_e_change");
 
-  console.log(time_at_e, "time_at_e");
-  console.log(date_at_s, "date_at_s");
-  console.log(create_at_e_change, "create_at_e_change");
+  // console.log(time_at_e, "time_at_e");
+  // console.log(date_at_s, "date_at_s");
+  // console.log(create_at_e_change, "create_at_e_change");
 
   const optionTest = [
     { value: null, label: "Tất cả" },
