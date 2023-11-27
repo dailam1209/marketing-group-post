@@ -733,6 +733,12 @@ img {
   font-weight: bold !important;
 }
 
+.focus_input_none {
+  outline: none !important;
+  border: 0;
+  text-align: center;
+}
+
 @media (max-width: 912px) {
   .main__footer {
     flex-direction: column;
@@ -1099,7 +1105,11 @@ label {
 }
 
 .select2-container {
-  min-width: 180px !important;
+  min-width: 200px !important;
+}
+
+.user_custom_select2 .select2-container {
+  min-width: 270px !important;
 }
 
 .customer_group_select .ant-select-selector {

@@ -4,113 +4,140 @@ import type { ColumnsType } from "antd/es/table";
 import Link from "next/link";
 import ChanceActionDropDown from "../chance/chance_action_dropdown";
 import { TableRowSelection } from "antd/es/table/interface";
-
-interface DataType {
-  key: React.Key;
-  filename: string;
-  name: string;
-  money: string;
-  title: string;
-  date_finish: string;
-  person: string;
-  date_start: string;
-  operation: "";
-}
-
-const data: DataType[] = [];
-for (let i = 0; i < 100; i++) {
-  data.push({
-    key: i + 1,
-    filename: `Cơ hội bán gói sản phầm VIP ${i}`,
-    name: "Nguyễn Trần Kim Phượng",
-    money: "10.000.000.000",
-    title: "Mở đầu",
-    date_finish: "10/10/2020",
-    person: "Nguyễn Văn Nam",
-    date_start: "10/10/2020",
-    operation: "",
-  });
-}
-
-const columns: ColumnsType<DataType> = [
-  {
-    title: "Tên cơ hội",
-    width: 200,
-    dataIndex: "filename",
-    key: "0",
-    render: (data) => (
-      <Link href={`/chance/detail/main`}>
-        <span>{data}</span>
-      </Link>
-    ),
-  },
-  {
-    title: "Khách hàng",
-    width: 200,
-    dataIndex: "name",
-    key: "1",
-  },
-  {
-    title: "Số tiền (VNĐ)",
-    dataIndex: "money",
-    key: "2",
-    width: 150,
-  },
-  {
-    title: "Giai đoạn",
-    dataIndex: "title",
-    key: "3",
-    width: 120,
-  },
-  {
-    title: "Ngày kỳ vọng/kết thúc	",
-    dataIndex: "date_finish",
-    key: "4",
-    width: 180,
-  },
-  {
-    title: "Người thực hiện",
-    dataIndex: "person",
-    key: "5",
-    width: 250,
-  },
-  {
-    title: "Ngày tạo",
-    dataIndex: "date_start",
-    key: "6",
-    width: 120,
-  },
-  {
-    title: "Chức năng",
-    dataIndex: "operation",
-    key: "7",
-    width: 120,
-    fixed: "right",
-    render: (data, record) => <ChanceActionDropDown data={record} />,
-  },
-];
+import { timestampToCustomString } from "../ultis/convert_date";
 
 interface TableDataChanceProps {
   setSelected: (value: boolean) => void;
-  setNumberSelected: any;
+  body?: any;
+  setBody?: any;
+  emp?: any;
+  dataAPI?: {}[];
 }
 const TableDataChance: React.FC<TableDataChanceProps> = ({
   setSelected,
-  setNumberSelected,
+  body,
+  setBody,
+  emp,
+  dataAPI,
 }: any) => {
-  const rowSelection: TableRowSelection<DataType> = {
+  const statusList = {
+    0: "Chưa cập nhật",
+    1: "Chưa cập nhật",
+    2: "Mở đầu",
+    3: "Khách hàng quan tâm",
+    4: "Demo/Gthieu",
+    5: "Đàm phán/ thương lương",
+  };
+
+  const rowSelection: TableRowSelection<any> = {
     onChange: (selectedRowKeys, selectedRows) => {
-      if (selectedRows?.length > 0) {
-        setSelected(true);
-      } else {
-        setSelected(false);
-      }
+      // if (selectedRows?.length > 0) {
+      //   setSelected(true);
+      // } else {
+      //   setSelected(false);
+      // }
     },
     onSelect: (record, selected, selectedRows) => {
-      setNumberSelected(selectedRows?.length);
+      setSelected(selectedRows);
     },
-    onSelectAll: (selected, selectedRows, changeRows) => {},
+    onSelectAll: (selected, selectedRows, changeRows) => {
+      setSelected(selectedRows);
+    },
   };
+
+  const columns: ColumnsType<any> = [
+    {
+      title: "STT",
+      width: 50,
+      dataIndex: "index",
+      key: "index",
+    },
+    {
+      title: "Tên cơ hội",
+      width: 180,
+      dataIndex: "name",
+      key: "name",
+      render: (text: any, record: any) => (
+        <Link target="_blank" href={`/chance/detail/${record.id}`}>
+          <b>{text}</b>
+        </Link>
+      ),
+    },
+    {
+      title: "ID",
+      width: 50,
+      dataIndex: "id",
+      key: "id",
+    },
+    {
+      title: "Khách hàng",
+      width: 150,
+      dataIndex: "cus_id",
+      key: "cus_id",
+      render: (data) => <span>{data?.name || "Chưa cập nhật"}</span>,
+    },
+    {
+      title: "Số tiền (VNĐ)",
+      dataIndex: "total_money",
+      key: "total_money",
+      width: 150,
+    },
+    {
+      title: "Giai đoạn",
+      dataIndex: "stages",
+      key: "stages",
+      width: 150,
+      render: (data) => <span>{statusList?.[data]}</span>,
+    },
+    {
+      title: "Tỷ lệ thành công",
+      dataIndex: "success_rate",
+      key: "success_rate",
+      width: 150,
+    },
+    {
+      title: "Doanh số kỳ vọng (VNĐ)",
+      dataIndex: "expected_sales",
+      key: "expected_sales",
+      width: 250,
+    },
+    {
+      title: "Ngày kỳ vọng/kết thúc",
+      dataIndex: "time_complete",
+      key: "time_complete",
+      width: 150,
+      render: (date) => <div>{timestampToCustomString(date)}</div>,
+    },
+    {
+      title: "Người thực hiện",
+      dataIndex: "emp_id",
+      key: "emp_id",
+      width: 150,
+      render: (empID) => (
+        <div>
+          {emp.filter((empList) => empList?.ep_id === empID)[0]?.userName ||
+            "Chưa cập nhật"}
+        </div>
+      ),
+    },
+    {
+      title: "Chức năng",
+      dataIndex: "id",
+      key: "11",
+      width: 150,
+      fixed: "right",
+      render: (data, record) => <ChanceActionDropDown data={record} />,
+    },
+  ];
+
+  const data =
+    dataAPI?.data?.map((item, index) => {
+      return {
+        ...item,
+        index: index + 1,
+        key: index,
+      };
+    }) || [];
 
   return (
     <div className="custom_table product_return">
@@ -120,11 +147,41 @@ const TableDataChance: React.FC<TableDataChanceProps> = ({
         rowSelection={{ ...rowSelection }}
         bordered
         scroll={{ x: 1500, y: 1100 }}
+        pagination={{
+          style: {
+            paddingBottom: 20,
+            display: "flex",
+            position: "absolute",
+            right: 0,
+          },
+          current: body?.page,
+          pageSize: body?.pageSize,
+          total: dataAPI?.count,
+          onChange: (current, pageSize) => {
+            if (current != body?.page) {
+              setBody((prev) => {
+                return {
+                  ...prev,
+                  page: current,
+                };
+              });
+            }
+          },
+        }}
       />
-      <div className="main__footer flex_between" id="">
-        <div className="show_number_item">
+      <div style={{ marginTop: "10px" }} className="flex_between" id="">
+        <div style={{ marginBottom: "10px" }} className="show_number_item">
           <b>Hiển thị:</b>
-          <select className="show_item">
+          <select
+            onChange={(el) => {
+              setBody({
+                ...body,
+                pageSize: Number(el.target.value),
+              });
+            }}
+            className="show_item"
+            value={body?.pageSize || 10}
+          >
             <option value={10}>10 bản ghi trên trang</option>
             <option value={20}>20 bản ghi trên trang</option>
             <option value={30}>30 bản ghi trên trang</option>
@@ -132,8 +189,8 @@ const TableDataChance: React.FC<TableDataChanceProps> = ({
             <option value={50}>50 bản ghi trên trang</option>
           </select>
         </div>
-        <div className="total">
-          Tổng số: <b>{data.length}</b> Liên hệ
+        <div style={{ marginBottom: "10px" }} className="total">
+          Tổng số: <b>{data.length}</b> Cơ hội
         </div>
       </div>
     </div>

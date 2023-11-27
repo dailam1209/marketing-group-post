@@ -4,7 +4,7 @@ import Image from "next/image";
 import useModal from "../hooks/useModal";
 import NotifyModal from "./modal_header/modal_notify";
 import { useEffect } from "react";
-import io from "socket.io-client";
+import io  from "socket.io-client";
 import jwtDecode from "jwt-decode";
 import { getToken } from "@/pages/api/api-hr/token";
 export default function NotifyButtonHeader() {
