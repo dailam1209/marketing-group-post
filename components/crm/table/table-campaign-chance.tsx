@@ -223,6 +223,7 @@ const TableDataCampaginChance = ({ body, setBody, emp }) => {
                     pageSize: Number(el.target.value),
                   });
                 }}
+                value={body?.pageSize || 10}
                 className="show_item"
               >
                 <option value={10}>10 bản ghi trên trang</option>

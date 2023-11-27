@@ -4,7 +4,9 @@ import { MInputTextV2 } from "../../input_select/input";
 import { SelectSingleV2 } from "../../input_select/select";
 import { LIST_CITY } from "@/constants/address-constant";
 import { getPotentialResource } from "@/utils/listOption";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { fetchApi } from "../../ultis/api";
+import Cookies from "js-cookie";
 export default function AddGeneralInfoChance() {
   const [listCustomer, setListCustomer] = useState<any>([]);
   const [listContact, setListContact] = useState<any>([]);
@@ -12,6 +14,104 @@ export default function AddGeneralInfoChance() {
   const [listReason, setListReason] = useState<any>([]);
   const [listCampaign, setListCampaign] = useState<any>([]);
   const [listEmp, setListEmp] = useState<any>([]);
+  const token = Cookies.get("token_base365");
+
+  const statusList = [
+    { value: 1, label: "Chưa cập nhật" },
+    { value: 2, label: "Mở đầu" },
+    { value: 3, label: "Khách hàng quan tâm" },
+    { value: 4, label: "Demo/Gthieu" },
+    { value: 5, label: "Đàm phán/ thương lương" },
+  ];
+
+  const listReasons = [
+    { value: 1, label: "Giá cả và chính sách bán hàng tốt" },
+    { value: 2, label: "Dịch vụ chăm sóc khách hàng của công ty tốt" },
+    { value: 3, label: "Tin tưởng thương hiệu của công ty" },
+    { value: 4, label: "Khả năng thuyết phục khách hàng của NVKD tốt" },
+    { value: 5, label: "Sản phẩm đáp ứng yêu cầu của khách hàng" },
+  ];
+
+  const fetchAPICustomer = async () => {
+    const dataApi = await fetchApi(
+      "http://localhost:3007/api/crm/customer/list",
+      token,
+      {},
+      "POST"
+    );
+    setListCustomer( dataApi?.data?.map((item) => {
+      return {
+        value: item?.cus_id,
+        label: item?.name,
+      };
+    }));
+  };
+
+  const fetchAPICampaign = async () => {
+    const dataApi = await fetchApi(
+      "http://localhost:3007/api/crm/campaign/listCampaign",
+      token,
+      {},
+      "POST"
+    );
+    setListCampaign(
+      dataApi?.data?.data?.map((item) => {
+        return {
+          value: item?._id,
+          label: item?.nameCampaign,
+        };
+      })
+    );
+  };
+
+  const fetchAPIGroupProduct = async () => {
+    const dataApi = await fetchApi(
+      "http://localhost:3007/api/crm/product/show-product-group",
+      token,
+      {},
+      "POST"
+    );
+    setListCommodities( dataApi?.data?.data?.map((item) => {
+      return {
+        value: item?._id,
+        label: item?.gr_name,
+      };
+    }));
+  };
+
+  const fetchAPIEmployee = async () => {
+    const dataApi = await fetchApi(
+      "http://210.245.108.202:3000/api/qlc/managerUser/listUser",
+      token,
+      { page: 1, pageSize: 10000 },
+      "POST"
+    );
+    setListEmp(
+      dataApi?.data?.data?.map((item) => {
+        return {
+          value: item?.ep_id,
+          label: item?.userName,
+        };
+      })
+    );
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await Promise.all([
+          fetchAPICustomer(),
+          fetchAPIEmployee(),
+          fetchAPIGroupProduct(),
+          fetchAPICampaign(),
+        ]);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <div>
@@ -21,13 +121,13 @@ export default function AddGeneralInfoChance() {
         <SelectSingleV2
           label={"Khách hàng"}
           name="id_customer"
-          data={LIST_CITY}
+          data={listCustomer}
           placeholder="Chọn"
         />
         <SelectSingleV2
           label="Liên hệ"
           name="contact_id"
-          data={LIST_CITY}
+          data={[]}
           placeholder="Chọn"
         />
       </div>
@@ -42,7 +142,7 @@ export default function AddGeneralInfoChance() {
         <SelectSingleV2
           label="Loại cơ hội"
           name="chance_type"
-          data={LIST_CITY}
+          data={[]}
           placeholder="Chọn"
         />
       </div>
@@ -51,7 +151,7 @@ export default function AddGeneralInfoChance() {
         <SelectSingleV2
           label="Nhóm hàng hóa"
           name="group_commodities"
-          data={LIST_CITY}
+          data={listCommodities}
           placeholder="Chọn"
         />
         <MInputTextV2
@@ -65,7 +165,7 @@ export default function AddGeneralInfoChance() {
         <SelectSingleV2
           label="Giai đoạn"
           name="reason"
-          data={LIST_CITY}
+          data={statusList}
           placeholder="Chọn"
         />
         <MInputTextV2
@@ -94,7 +194,7 @@ export default function AddGeneralInfoChance() {
         <SelectSingleV2
           label="Chiến dịch"
           name="campaign_id"
-          data={LIST_CITY}
+          data={listCampaign}
           placeholder="Chọn"
         />
         <SelectSingleV2
@@ -109,7 +209,7 @@ export default function AddGeneralInfoChance() {
         <SelectSingleV2
           label="Nhân viên phụ trách"
           name="emp_id"
-          data={getPotentialResource}
+          data={listEmp}
           placeholder="Chọn"
         />
       </div>

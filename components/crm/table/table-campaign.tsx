@@ -221,6 +221,7 @@ const TableDataCampaign = ({ dataAPI, empList, setBody, body }) => {
                 };
               });
             }}
+            value={body?.pageSize || 10}
             className="show_item"
           >
             <option value={10}>10 bản ghi trên trang</option>

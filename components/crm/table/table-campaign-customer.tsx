@@ -208,6 +208,7 @@ const TableDataCampaignCustomer: React.FC<TableDataCampaignCustomerProps> = ({
               });
             }}
             className="show_item"
+            value={body?.pageSize || 10}
           >
             <option value={10}>10 bản ghi trên trang</option>
             <option value={20}>20 bản ghi trên trang</option>

@@ -7,13 +7,13 @@ import { showModalWithTimeout } from "@/components/crm/ultis/helper";
 import ModalCompleteStep from "../quote_steps/complete_modal";
 
 interface MyComponentProps {
-  isModalCancel: boolean;
-  cancelContent: string;
-  setIsModalCancel: (value: boolean) => void;
-  handleCancel: any;
-  record: any;
-  setCancelContent: any;
-  name: string;
+  isModalCancel?: boolean;
+  cancelContent?: string;
+  setIsModalCancel?: (value: boolean) => void;
+  handleCancel?: any;
+  record?: any;
+  setCancelContent?: any;
+  name?: string;
 }
 const CanCel_LichHen_Mdal: React.FC<MyComponentProps> = ({
   handleCancel,
