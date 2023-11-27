@@ -120,6 +120,7 @@
   display: flex;
   justify-content: space-between;
 }
+
 .span_custom {
   position: absolute;
   right: 0px;
@@ -135,11 +136,13 @@
   left: 30px;
   top: 0;
 }
+
 @media (min-width: 1420px) {
   .col-lg-6 {
     -webkit-box-flex: 0;
     width: 100%;
   }
+
   .form-control {
     width: 99%;
     padding-right: 20px;
@@ -152,6 +155,7 @@
     justify-content: center;
     gap: 0;
   }
+
   .form-control {
     width: 98.1%;
   }
@@ -167,9 +171,11 @@
   .main__footer {
     gap: 15px;
   }
+
   .main__footer button {
     width: 130px;
   }
+
   .span_custom {
     font-size: 14px;
     top: 2px;

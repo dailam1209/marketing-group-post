@@ -14,8 +14,6 @@ export default function ChanceAddInfo() {
   const { formData, hanldeClearRecall } = useContext(useFormData);
   const [formDataTest, setFormDataTest] = useState<any>({});
   const router = useRouter();
-  const { id } = router.query;
-  console.log("check", formData);
   return (
     <>
       <div className={styles.main_importfile}>
@@ -41,12 +39,41 @@ export default function ChanceAddInfo() {
                 />
                 <GeneralCustomerInfor />
               </div>
-              <PotentialFooterAddFiles
-                link={`/chance/list`}
-                titleCancel="Xác nhận hủy thêm mới cơ hội"
-                title="Thêm mới cơ hội thành công!"
-                contentCancel="Bạn có chắc chắn muốn hủy thêm mới cơ hội mọi thông tin bạn nhập sẽ không được lưu lại?"
-              />
+              <div className={styles.main__footer}>
+                <button
+                  type="button"
+                  // onClick={() => setIsModalCancel(true)}
+                >
+                  Hủy
+                </button>
+                <button
+                  className={styles.save}
+                  type="submit"
+                  onClick={() => {
+                    // handleSave();
+                    // setModal1Open(true);
+                  }}
+                >
+                  Lưu
+                </button>
+
+                {/* {
+                  <CancelModal
+                    isModalCancel={isModalCancel}
+                    setIsModalCancel={setIsModalCancel}
+                    content={contentCancel}
+                    title={titleCancel}
+                    link={link}
+                  />
+                }
+
+                <ModalCompleteStep
+                  modal1Open={modal1Open}
+                  setModal1Open={setModal1Open}
+                  title={title}
+                  link={link}
+                /> */}
+              </div>
             </div>
           </div>
         </div>

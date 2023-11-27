@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import type { InputRef } from "antd";
+import { InputRef, Select } from "antd";
 import { Button, Form, Input, Popconfirm, Table } from "antd";
 import type { FormInstance } from "antd/es/form";
 import Image from "next/image";
@@ -108,20 +108,9 @@ type ColumnTypes = Exclude<EditableTableProps["columns"], undefined>;
 
 const TableChanceProduct: React.FC = () => {
   const [listCommodities, setListCommodities] = useState([]);
-  useEffect(() => {
-    axiosCRM
-      .post("/product/show-product", { page_size: 50 })
-      .then((res) => handleConvertCommodity(res.data.data.data))
-      .catch((err) => console.log("errrCommodity", err));
-  }, []);
-  const handleConvertCommodity = (datas) => {
-    const convert = datas?.map((item) => ({
-      ...item,
-      unit_name: item?.dvt?.unit_name,
-      unit_id: item?.dvt?._id,
-    }));
-    setListCommodities(convert);
-  };
+  const [dataSource, setDataSource] = useState<any[]>([]);
+  const [count, setCount] = useState(2);
+
   const columnsDefault: ColumnsType<any> = [
     {
       title: "STT",
@@ -134,24 +123,84 @@ const TableChanceProduct: React.FC = () => {
       width: 350,
       dataIndex: "prod_name",
       key: "0",
+      render: (product, record) => (
+        <Select
+          showSearch
+          optionFilterProp="children"
+          filterOption={(input, option) =>
+            (option?.label ?? "").includes(input)
+          }
+          placeholder="Chọn"
+          style={{ width: "80%" }}
+          // onChange={(e) =>
+          //   setFormData({ ...formData, listGroup: e?.join(",") })
+          // }
+          defaultValue={record?._id}
+          options={listCommodities?.map((item) => {
+            return {
+              label: item?.prod_name,
+              value: item?._id,
+            };
+          })}
+        />
+      ),
     },
     {
       title: "Đơn vị tính",
-      dataIndex: "unit_name",
+      dataIndex: "dvt",
       key: "1",
       width: 150,
+      render: (product, record) => (
+        <Select
+          showSearch
+          optionFilterProp="children"
+          filterOption={(input, option) =>
+            (option?.label ?? "").includes(input)
+          }
+          style={{ width: "80%" }}
+          placeholder="Chọn"
+          // onChange={(e) =>
+          //   setFormData({ ...formData, listGroup: e?.join(",") })
+          // }
+          defaultValue={product?._id}
+          options={listCommodities?.map((item) => {
+            return {
+              label: item?.dvt?.unit_name,
+              value: item?.dvt?._id,
+            };
+          })}
+        />
+      ),
     },
     {
       title: "Số lượng",
-      dataIndex: "count",
+      dataIndex: "min_amount",
       key: "2",
       width: 150,
+      render: (value) => (
+        <input
+          className="focus_input_none"
+          style={{ border: 0, padding: "5px" }}
+          type="number"
+          placeholder="Nhập"
+          defaultValue={value}
+        />
+      ),
     },
     {
       title: "Đơn giá (VNĐ)",
       dataIndex: "price",
       key: "2",
       width: 200,
+      render: (value) => (
+        <input
+          className="focus_input_none"
+          style={{ border: 0, padding: "5px" }}
+          type="number"
+          placeholder="Nhập"
+          defaultValue={value}
+        />
+      ),
     },
     {
       title: "Thành tiền (VNĐ)",
@@ -164,6 +213,14 @@ const TableChanceProduct: React.FC = () => {
       dataIndex: "discount_rates",
       key: "3",
       width: 150,
+      render: () => (
+        <input
+          className="focus_input_none"
+          style={{ border: 0, padding: "5px" }}
+          type="number"
+          placeholder="Nhập"
+        />
+      ),
     },
     {
       title: "Tiền chiết khẩu (VNĐ)",
@@ -176,6 +233,14 @@ const TableChanceProduct: React.FC = () => {
       dataIndex: "tax_rates",
       key: "3",
       width: 150,
+      render: () => (
+        <input
+          className="focus_input_none"
+          style={{ border: 0, padding: "5px" }}
+          type="number"
+          placeholder="Nhập"
+        />
+      ),
     },
     {
       title: "Tiền thuế (VNĐ)",
@@ -203,41 +268,9 @@ const TableChanceProduct: React.FC = () => {
       ),
     },
   ];
-  const [dataSource, setDataSource] = useState<any[]>([]);
-
-  const [count, setCount] = useState(2);
-
-  const defaultColumns: (ColumnTypes[number] & {
-    editable?: boolean;
-    dataIndex: string;
-  })[] = [
-    {
-      title: "name",
-      dataIndex: "name",
-      width: "30%",
-      editable: true,
-    },
-    {
-      title: "age",
-      dataIndex: "age",
-    },
-    {
-      title: "address",
-      dataIndex: "address",
-    },
-    {
-      title: "operation",
-      dataIndex: "operation",
-    },
-  ];
 
   const handleAdd = () => {
-    const newData: any = {
-      key: count,
-      name: `Edward King ${count}`,
-      age: "32",
-      address: `London, Park Lane no. ${count}`,
-    };
+    const newData: any = listCommodities[0];
     setDataSource([...dataSource, newData]);
     setCount(count + 1);
   };
@@ -260,21 +293,20 @@ const TableChanceProduct: React.FC = () => {
     },
   };
 
-  const columns = defaultColumns.map((col) => {
-    if (!col.editable) {
-      return col;
-    }
-    return {
-      ...col,
-      onCell: (record: any) => ({
-        record,
-        editable: col.editable,
-        dataIndex: col.dataIndex,
-        title: col.title,
-        handleSave,
-      }),
-    };
-  });
+  useEffect(() => {
+    axiosCRM
+      .post("/product/show-product", { page_size: 50 })
+      .then((res) => handleConvertCommodity(res.data.data.data))
+      .catch((err) => console.log("errrCommodity", err));
+  }, []);
+  const handleConvertCommodity = (datas) => {
+    const convert = datas?.map((item) => ({
+      ...item,
+      unit_name: item?.dvt?.unit_name,
+      unit_id: item?.dvt?._id,
+    }));
+    setListCommodities(convert);
+  };
 
   return (
     <div>
@@ -315,7 +347,7 @@ const TableChanceProduct: React.FC = () => {
                     >
                       <Image
                         alt="img"
-                        src={"	/crm/customer/add_column.svg"}
+                        src={"/crm/plus_icon_field.svg"}
                         width={25}
                         height={25}
                       />
@@ -330,7 +362,7 @@ const TableChanceProduct: React.FC = () => {
         }}
       />
       <div style={{ width: "100%", fontSize: "14px" }}>
-        Tổng số: <span> 0 Hàng hóa</span>
+        Tổng số: <span> {dataSource?.length} Hàng hóa</span>
       </div>
     </div>
   );

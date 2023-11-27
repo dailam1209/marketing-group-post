@@ -10,7 +10,7 @@ import HandeOverModal from "@/components/crm/potential/potential_action_modal/ha
 import SharingCustomerModal from "./chance_share_action_mdal";
 
 interface Myprops {
-  data: any;
+  data?: any;
 }
 
 const ChanceActionDropDown: React.FC<Myprops> = ({ data }: any) => {
@@ -78,9 +78,9 @@ const ChanceActionDropDown: React.FC<Myprops> = ({ data }: any) => {
     {
       key: "5",
       label: (
-        <Link href={`/chance/edit/${data.key}`}>
+        <Link href={`/chance/edit/${data?.key}`}>
           <button className="btn-huy flex-start">
-            <Image width={16} height={16} src="/crm/edit.svg" alt="check" />
+            <i className="bi bi-pencil-square"></i>
             Chỉnh sửa
           </button>
         </Link>
