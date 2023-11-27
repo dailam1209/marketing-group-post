@@ -72,7 +72,6 @@ const columns: ColumnsType<DataType> = [
     dataIndex: "operation",
     key: "11",
     width: 30,
-    render: () => <OrderActionTable />,
   },
 ];
 

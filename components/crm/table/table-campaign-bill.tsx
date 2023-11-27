@@ -34,13 +34,13 @@ interface TableDataCampaignBillProps {
   emp?: {}[];
 }
 
-const TableDataCampaignBill: React.FC<TableDataCampaignBillProps> = ({
+const TableDataCampaignBill = ({
   setSelected,
   setNumberSelected,
   body,
   setBody,
   emp,
-}: any) => {
+}) => {
   const url = "http://localhost:3007/api/crm/bill/list-bill";
   const token = Cookies.get("token_base365");
   const router = useRouter();

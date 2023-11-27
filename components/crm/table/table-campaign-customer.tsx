@@ -33,7 +33,7 @@ const TableDataCampaignCustomer: React.FC<TableDataCampaignCustomerProps> = ({
   setBody,
   emp,
   setNumberSelected,
-}: any) => {
+}) => {
   const url = "http://localhost:3007/api/crm/campaign/detail-campaign-cus";
   const token = Cookies.get("token_base365");
   const router = useRouter();

@@ -34,7 +34,7 @@ function ModalGroupCustomerAddEmp({ isOpenModalAddEmp, setIsOpenModalAddEmp }) {
         setListEmp(
           res.data.data.data?.map((emp) => ({
             value: emp.ep_id,
-            label: emp.userName,
+            label: `${emp.ep_id}. ${emp.userName}`,
           }))
         )
       )
@@ -49,7 +49,7 @@ function ModalGroupCustomerAddEmp({ isOpenModalAddEmp, setIsOpenModalAddEmp }) {
         setListGroup(
           res.data.data.Group?.map((group) => ({
             value: group.gr_id,
-            label: group.gr_name,
+            label: `${group.gr_id}. ${group.gr_name}`,
           }))
         )
       )
@@ -62,9 +62,9 @@ function ModalGroupCustomerAddEmp({ isOpenModalAddEmp, setIsOpenModalAddEmp }) {
     }
   }, [company_id]);
   const handleAddUserToCart = () => {
-    if(!formData.IdCrm||!formData.IdCart){
-        notifyWarning("Chọn đầy đủ thông tin!")
-        return
+    if (!formData.IdCrm || !formData.IdCart) {
+      notifyWarning("Chọn đầy đủ thông tin!");
+      return;
     }
     axiosCRM
       .post("/account/AddUserToCart", formData)

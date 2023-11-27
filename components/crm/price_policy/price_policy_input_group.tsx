@@ -4,7 +4,7 @@ import PricePolicyAction from "./price_policy_action";
 import PricePolicySelectBox from "./price_policy_selectt";
 import Link from "next/link";
 import exportToExcel from "../ultis/export_xlxs";
-import { data } from "../table/table-potential";
+// import { data } from "../table/table-potential";
 export default function PotentialInputGroup({ isSelectedRow }: any) {
   const handleClickSelectoption = () => {};
 

@@ -4,7 +4,6 @@ import PotentialAction from "./chance_action";
 import PotentialSelectBox from "../potential/potential_selectt";
 import Link from "next/link";
 import exportToExcel from "../ultis/export_xlxs";
-import { data } from "../table/table-potential";
 export default function PotentialInputGroups({ isSelectedRow }: any) {
   const handleClickSelectoption = () => {};
 
