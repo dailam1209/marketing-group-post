@@ -15,7 +15,7 @@ const KhongTraLoi: React.FC = () => {
     useHeader();
   const router = useRouter();
   useEffect(() => {
-    setHeaderTitle("Tổng đài");
+    setHeaderTitle("Không trả lời");
     setShowBackButton(false);
     setCurrentPath("/tong-dai");
   }, [setHeaderTitle, setShowBackButton, setCurrentPath]);

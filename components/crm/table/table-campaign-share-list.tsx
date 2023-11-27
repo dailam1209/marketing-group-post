@@ -11,7 +11,6 @@ import stylesOrderSelect from "@/components/crm/order/order.module.css";
 import OrderApplyModal from "../order/add_order_action_modal/order_apply";
 // import { TableRowSelection } from "antd/es/table/interface";
 import OrderActionTable from "@/components/crm/order/order_detail/order_detail_action_modal/order_detail_share_list_action";
-import { renderRight } from "@/utils/listOption";
 const optionSelect=[{value:1,label:"Xem"},{value:2,label:"Sửa"},{value:3,label:"Toàn quyền"}]
 interface DataType {
   key: React.Key;

@@ -413,6 +413,7 @@ export const SelectSingleAndOption = ({
   labelChecked = "",
   require = false,
 }) => {
+  const [searchLabel, setSearchLabel] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [labelSelect, setLabelSelect] = useState<string>(placeholder);
@@ -535,6 +536,9 @@ export const SelectSingleAndOption = ({
                     autoCorrect="off"
                     autoCapitalize="none"
                     spellCheck="false"
+                    onChange={(e) => {
+                      setSearchLabel(e.target.value);
+                    }}
                     role="textbox"
                     style={{ height: "34px" }}
                     onClick={(e) => e.stopPropagation()}
@@ -556,23 +560,53 @@ export const SelectSingleAndOption = ({
                         {placeholder}
                       </li>
                     )}
-                    {data.length > 0 &&
-                      data?.map(
-                        (item: { value: number; label: string }, i: number) => (
-                          <li
-                            key={i}
-                            className={`${styles1.select2_results__option}}`}
-                            style={{
-                              marginTop: "10px",
-                              padding: "5px 0",
-                              paddingLeft: "18px",
-                            }}
-                            onClick={() => handelChooceOption(item)}
-                          >
-                            {item.label}
-                          </li>
-                        )
-                      )}
+                    {searchLabel
+                      ? data
+                          ?.filter((itemFilter: any) =>
+                            toLowerCaseNonAccentVietnamese(
+                              itemFilter.label
+                            ).includes(
+                              toLowerCaseNonAccentVietnamese(searchLabel)
+                            )
+                          )
+                          .map(
+                            (
+                              item: { value: number; label: string },
+                              i: number
+                            ) => (
+                              <li
+                                key={i}
+                                className={`${styles1.select2_results__option}}`}
+                                style={{
+                                  marginTop: "10px",
+                                  padding: "5px 0",
+                                  paddingLeft: "18px",
+                                }}
+                                onClick={() => handelChooceOption(item)}
+                              >
+                                {item.label}
+                              </li>
+                            )
+                          )
+                      : data?.map(
+                          (
+                            item: { value: number; label: string },
+                            i: number
+                          ) => (
+                            <li
+                              key={i}
+                              className={`${styles1.select2_results__option}}`}
+                              style={{
+                                marginTop: "10px",
+                                padding: "5px 0",
+                                paddingLeft: "18px",
+                              }}
+                              onClick={() => handelChooceOption(item)}
+                            >
+                              {item.label}
+                            </li>
+                          )
+                        )}
                   </ul>
                 </span>
               </span>

@@ -226,7 +226,7 @@ const TableDataPotential: React.FC<TableDataPotentialProps> = ({
         dataSource={listPotential}
         rowSelection={{ ...rowSelection }}
         bordered
-        scroll={{ x: 1500, y: 430 }}
+        scroll={{ x: 1500, y: 500 }}
         pagination={{
           current: currentPage,
           pageSize: pageSize,
