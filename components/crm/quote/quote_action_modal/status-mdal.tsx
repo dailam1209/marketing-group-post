@@ -20,7 +20,7 @@ const StatusModal: React.FC<MyComponentProps> = ({
   allkey,
 }) => {
   const [isOpenMdalSuccess, setIsOpenMdalSuccess] = useState(false);
-  const {allAvailableStatusString, statusStrToNum, recordId, listRecordId, setShouldFetchData, recordName, listRecordName} = useContext(QuoteContext);
+  const {allAvailableStatusString, statusStrToNum, recordId, listRecordId, setShouldFetchData, recordName, listRecordName, setShouldFetchDetailData} = useContext(QuoteContext);
   const [value, setValue] = useState('Bản thảo')
   const allStatusString = allAvailableStatusString();
   const quoteName = allkey?.length > 0 ? listRecordName.join(', ') : recordName
@@ -57,6 +57,7 @@ const StatusModal: React.FC<MyComponentProps> = ({
     setTimeout(() => {
       setIsOpenMdalSuccess(false);
       setShouldFetchData(true)
+      setShouldFetchDetailData(true);
     }, 2000);
   };
 

@@ -23,6 +23,7 @@ const DelActionModal: React.FC<MyComponentProps> = ({
   const [isModalSuccess, setIsMdalSuccess] = useState(false);
   const { recordId, listRecordId, setShouldFetchData, listRecordName, recordName } = useContext(QuoteContext)
   const quoteName = allkey?.length > 0 ? listRecordName.join(', ') : recordName
+  const router = useRouter();
 
   const deleteQuote = async (id: Number) => {
     await axiosCRMCall
@@ -47,6 +48,7 @@ const DelActionModal: React.FC<MyComponentProps> = ({
     setTimeout(() => {
       setIsMdalSuccess(false)
       setShouldFetchData(true)
+      router.push("/quote/list")
     }, 2000);
   };
 

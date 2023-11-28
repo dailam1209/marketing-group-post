@@ -58,6 +58,9 @@ export default function AddButtonControl({ isSelectedRow }: any) {
   const path = router.query;
   const items: MenuProps["items"] = [];
   for (let i = 0; i < dataActionOrder.length; i++) {
+    if (["edit", "delete"].includes(dataActionOrder[i].type)) {
+      continue;
+    }
     items.push({
       key: i,
       label: (
@@ -147,7 +150,7 @@ export default function AddButtonControl({ isSelectedRow }: any) {
 
       <DelActionModal
         record={path.id}
-        allkey={allkey}
+        allkey={[]}
         isModalCancel={isDelOpen}
         setIsModalCancel={setIsDelOpen}
       />
@@ -164,7 +167,7 @@ export default function AddButtonControl({ isSelectedRow }: any) {
       />
       <StatusModal
         record={path.id}
-        allkey={allkey}
+        allkey={[]}
         isModalCancel={isOpenUpdate}
         setIsModalCancel={setIsOpenUpdate}
       />

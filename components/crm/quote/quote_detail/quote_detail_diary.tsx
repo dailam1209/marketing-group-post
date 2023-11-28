@@ -6,6 +6,7 @@ import { Input, Spin, Tooltip } from 'antd';
 import { QuoteContext } from "../quoteFilterContext";
 import useLoading from "../../hooks/useLoading";
 import { axiosCRMCall } from "@/utils/api/api_crm_call";
+import dayjs from "dayjs";
 
 export default function AddQuoteDetailInfo() {
     const { recordId, setRecordId, getPropOrDefault, shouldFetchDetailData } = useContext(QuoteContext)
@@ -17,36 +18,45 @@ export default function AddQuoteDetailInfo() {
     const convertData = () => {
         if (apiData.length > 0) {
             setData(apiData.map((item) => ({
-                user
+                userName: getPropOrDefault(item, 'user_id.userName', 'Không tên'),
+                modify_at: getPropOrDefault(item, 'modify_at'),
+                action: getPropOrDefault(item, 'action')
             })))
+        } else {
+            setData([])
         }
     }
 
     useEffect(() => {
-        startLoading();
-        setShouldFetchHistory(true)
-    }, [])
-
-    useEffect(() => {
-        startLoading();
-        setShouldFetchHistory(true)
+        console.log('shouldFetchDetailData')
+        if (shouldFetchDetailData) {
+            startLoading();
+            setShouldFetchHistory(true)
+            console.log('Run shouldFetchDetailData')
+        }
     }, [shouldFetchDetailData])
 
     useEffect(() => {
-        axiosCRMCall
-            .post('/quote/getQuoteHistory', { quote_id: Number(recordId) || 0 })
-            .then((res) => {
-                res?.data?.data?.data ?
-                    setApiData(res?.data?.data?.data) :
-                    setApiData([])
-            })
-    }, [shouldFetchHistory])
+        console.log('shouldFetchHistory')
+        if (shouldFetchHistory) {
+            axiosCRMCall
+                .post('/quote/getQuoteHistory', { quote_id: Number(recordId) || 0 })
+                .then((res) => {
+                    res?.data?.data?.data ?
+                        setApiData(res?.data?.data?.data) :
+                        setApiData([])
+                })
+            console.log('Run shouldFetchHistory')
+            setShouldFetchHistory(false)
+        }
+    }, [shouldFetchHistory, shouldFetchDetailData])
 
     useEffect(() => {
+        console.log('apiData')
         startLoading();
         convertData()
         stopLoading();
-        console.log(apiData)
+        console.log('Run apiData')
     }, [apiData])
 
     return (
@@ -66,50 +76,18 @@ export default function AddQuoteDetailInfo() {
                 <div className={styles.main__content__body}>
                     <div className={`${styles.main_content_nhatky} ${styles.row1}`}>
                         <div className={`${styles["col-lg-12"]} ${styles.content_nhatky}`}>
-                            <div className={`${styles.main__body__item_nhatky}`}>
+                            {
+                                data.map((item) => (
+                                    <div className={`${styles.main__body__item_nhatky}`}>
+                                        <div className={`${styles.main__body__item__title_nhatky}`}><b>{dayjs(item.modify_at).format('HH:mm - DD/MM/YYYY')}</b></div>
+                                        <div className={`${styles.main__body__item__value_nhatky}`}>{item.action + ' bởi ' + item.userName}</div>
+                                    </div>
+                                ))
+                            }
+                            {/* <div className={`${styles.main__body__item_nhatky}`}>
                                 <div className={`${styles.main__body__item__title_nhatky}`}><b>10:10 - 10/10/2020</b></div>
                                 <div className={`${styles.main__body__item__value_nhatky}`}>Nhóm khách hàng được cập nhật bởi Nguyễn Văn Nam</div>
-                            </div>
-
-                            <div className={`${styles.main__body__item_nhatky}`}>
-                                <div className={`${styles.main__body__item__title_nhatky}`}><b>10:10 - 10/10/2020</b></div>
-                                <div className={`${styles.main__body__item__value_nhatky}`}>Nhóm khách hàng được cập nhật bởi Nguyễn Văn Nam</div>
-                            </div>
-
-                            <div className={`${styles.main__body__item_nhatky}`}>
-                                <div className={`${styles.main__body__item__title_nhatky}`}><b>10:10 - 10/10/2020</b></div>
-                                <div className={`${styles.main__body__item__value_nhatky}`}>Nhóm khách hàng được cập nhật bởi Nguyễn Văn Nam</div>
-                            </div>
-
-                            <div className={`${styles.main__body__item_nhatky}`}>
-                                <div className={`${styles.main__body__item__title_nhatky}`}><b>10:10 - 10/10/2020</b></div>
-                                <div className={`${styles.main__body__item__value_nhatky}`}>Nhóm khách hàng được cập nhật bởi Nguyễn Văn Nam</div>
-                            </div>
-
-                            <div className={`${styles.main__body__item_nhatky}`}>
-                                <div className={`${styles.main__body__item__title_nhatky}`}><b>10:10 - 10/10/2020</b></div>
-                                <div className={`${styles.main__body__item__value_nhatky}`}>Nhóm khách hàng được cập nhật bởi Nguyễn Văn Nam</div>
-                            </div>
-
-                            <div className={`${styles.main__body__item_nhatky}`}>
-                                <div className={`${styles.main__body__item__title_nhatky}`}><b>10:10 - 10/10/2020</b></div>
-                                <div className={`${styles.main__body__item__value_nhatky}`}>Nhóm khách hàng được cập nhật bởi Nguyễn Văn Nam</div>
-                            </div>
-
-                            <div className={`${styles.main__body__item_nhatky}`}>
-                                <div className={`${styles.main__body__item__title_nhatky}`}><b>10:10 - 10/10/2020</b></div>
-                                <div className={`${styles.main__body__item__value_nhatky}`}>Nhóm khách hàng được cập nhật bởi Nguyễn Văn Nam</div>
-                            </div>
-
-                            <div className={`${styles.main__body__item_nhatky}`}>
-                                <div className={`${styles.main__body__item__title_nhatky}`}><b>10:10 - 10/10/2020</b></div>
-                                <div className={`${styles.main__body__item__value_nhatky}`}>Nhóm khách hàng được cập nhật bởi Nguyễn Văn Nam</div>
-                            </div>
-
-                            <div className={`${styles.main__body__item_nhatky}`}>
-                                <div className={`${styles.main__body__item__title_nhatky}`}><b>10:10 - 10/10/2020</b></div>
-                                <div className={`${styles.main__body__item__value_nhatky}`}>Nhóm khách hàng được cập nhật bởi Nguyễn Văn Nam</div>
-                            </div>
+                            </div> */}
 
                         </div>
 
