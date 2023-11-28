@@ -3,7 +3,7 @@ import styles from "@/components/crm/quote/quote.module.css";
 import Link from "next/link";
 import QuoteSelectBox from "./quote_selectt";
 import QuoteAction from "./quote_action";
-import { QuoteFilterContext } from "./quoteFilterContext";
+import { QuoteContext } from "./quoteFilterContext";
 import dayjs from "dayjs";
 export default function QuoteInputGroups({ isSelectedRow }: any) {
   const handleClickSelectoption = () => { };
@@ -22,7 +22,7 @@ export default function QuoteInputGroups({ isSelectedRow }: any) {
     // Add more sample data objects here if needed
   ];
 
-  const { dateQuote, setDateQuote, dateQuoteEnd, setDateQuoteEnd, quoteCode, setQuoteCode, setShouldFetchData, recordId, listRecordId } = useContext(QuoteFilterContext)
+  const { dateQuote, setDateQuote, dateQuoteEnd, setDateQuoteEnd, quoteCode, setQuoteCode, setShouldFetchData, recordId, listRecordId } = useContext(QuoteContext)
   const handleDateQuote = (event: React.ChangeEvent<HTMLInputElement>) => {
     setDateQuote(event.target.valueAsDate)
     setShouldFetchData(true)

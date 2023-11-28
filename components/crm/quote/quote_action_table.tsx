@@ -12,10 +12,10 @@ import ShareActionModal from "./quote_action_modal/share_action_mdal";
 import HandOverActionModal from "./quote_action_modal/handover_action_mdal";
 import StatusModal from "./quote_action_modal/status-mdal";
 import SendMailModal from "./quote_action_modal/send_mail_mdal";
-import { QuoteFilterContext } from "./quoteFilterContext";
+import { QuoteContext } from "./quoteFilterContext";
 
 export default function QuoteActionTable(props: any) {
-  const { recordId } = useContext(QuoteFilterContext)
+  const { recordId } = useContext(QuoteContext)
   const { record, allkey } = props;
   const [isDelOpen, setIsDelOpen] = useState(false);
   const [isOrderBrowsingOpen, setIsOrderBrowsingOpen] = useState(false);

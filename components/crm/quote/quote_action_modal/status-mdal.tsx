@@ -3,7 +3,7 @@ import { Modal } from "antd";
 import styles from "@/components/crm/quote/quote.module.css";
 import PotentialSelectBoxStep from "../quote_steps/select_box_step";
 import ModalCompleteStep from "../quote_steps/complete_modal";
-import { QuoteFilterContext } from "../quoteFilterContext";
+import { QuoteContext } from "../quoteFilterContext";
 import { axiosCRMCall } from "@/utils/api/api_crm_call";
 
 interface MyComponentProps {
@@ -20,7 +20,7 @@ const StatusModal: React.FC<MyComponentProps> = ({
   allkey,
 }) => {
   const [isOpenMdalSuccess, setIsOpenMdalSuccess] = useState(false);
-  const {allAvailableStatusString, statusNumberFromString, recordId, listRecordId, setShouldFetchData, recordName, listRecordName} = useContext(QuoteFilterContext);
+  const {allAvailableStatusString, statusStrToNum, recordId, listRecordId, setShouldFetchData, recordName, listRecordName} = useContext(QuoteContext);
   const [value, setValue] = useState('Bản thảo')
   const allStatusString = allAvailableStatusString();
   const quoteName = allkey?.length > 0 ? listRecordName.join(', ') : recordName
@@ -39,7 +39,7 @@ const StatusModal: React.FC<MyComponentProps> = ({
   }
 
   const handleOK = () => {
-    const status = statusNumberFromString(value);
+    const status = statusStrToNum(value);
     if (allkey?.length > 0) { // Nếu là sửa nhiều
       // listRecordId.map((id) => {
       //   updateStatus(id, status)

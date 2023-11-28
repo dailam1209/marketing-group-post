@@ -5,7 +5,7 @@ import { TableRowSelection } from "antd/es/table/interface";
 import styles from "../order/order.module.css";
 import Link from "next/link";
 import QuoteActionTable from "../quote/quote_action_table";
-import { QuoteFilterContext } from "../quote/quoteFilterContext";
+import { QuoteContext } from "../quote/quoteFilterContext";
 import { axiosCRMCall } from "@/utils/api/api_crm_call";
 import { axiosCRM } from "@/utils/api/api_crm";
 import dayjs from "dayjs";
@@ -36,7 +36,7 @@ const TableDataQuote: React.FC<TableDataOrderProps> = ({
   const [key, setKey] = useState();
   const [allKey, setAllKey] = useState<any>();
 
-  const { dateQuote, dateQuoteEnd, status, quoteCode, shouldFetchData, setShouldFetchData, setRecordId, setListRecordId, listRecordId, setRecordName, setListRecordName } = useContext(QuoteFilterContext);
+  const { dateQuote, dateQuoteEnd, status, quoteCode, shouldFetchData, setShouldFetchData, setRecordId, setListRecordId, listRecordId, setRecordName, setListRecordName, statusStrToColor, statusNumToStr } = useContext(QuoteContext);
   const [quoteData, setQuoteData] = useState<any>([]) // Data từ API
   const [data, setData] = useState<DataType[]>([]); // Data đổ bảng
   const [perPage, setPerPage] = useState(10);
@@ -44,29 +44,29 @@ const TableDataQuote: React.FC<TableDataOrderProps> = ({
   const [total, setTotal] = useState(0);
   const { isLoading, startLoading, stopLoading } = useLoading();
 
-  const statusToString = (num: Number) => {
-    switch (Number(num)) {
-      case 1: return "Bản thảo"
-      case 2: return "Đàm phán"
-      case 3: return "Đã gửi"
-      case 4: return "Chờ xác nhận"
-      case 5: return "Đồng ý"
-      case 6: return "Từ chối"
-      default: return ""
-    }
-  }
+  // const statusToString = (num: Number) => {
+  //   switch (Number(num)) {
+  //     case 1: return "Bản thảo"
+  //     case 2: return "Đàm phán"
+  //     case 3: return "Đã gửi"
+  //     case 4: return "Chờ xác nhận"
+  //     case 5: return "Đồng ý"
+  //     case 6: return "Từ chối"
+  //     default: return ""
+  //   }
+  // }
 
-  const statusToColor = (status: String) => {
-    switch (status) {
-      case "Bản thảo":
-      case "Chờ xác nhận": return '#FFA800'
-      case "Đàm phán":
-      case "Đã gửi": return '#4C5BD4'
-      case "Đồng ý": return '#34B632'
-      case "Từ chối": return '#FF3333'
-      default: return 'inherit'
-    }
-  }
+  // const statusToColor = (status: String) => {
+  //   switch (status) {
+  //     case "Bản thảo":
+  //     case "Chờ xác nhận": return '#FFA800'
+  //     case "Đàm phán":
+  //     case "Đã gửi": return '#4C5BD4'
+  //     case "Đồng ý": return '#34B632'
+  //     case "Từ chối": return '#FF3333'
+  //     default: return 'inherit'
+  //   }
+  // }
 
   const handlePerPage = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setPerPage(Number(event.target.value) || 10)
@@ -83,7 +83,7 @@ const TableDataQuote: React.FC<TableDataOrderProps> = ({
     const newData = data?.map((item) => ({
       key: item.id,
       quote_code: item.quote_code_str,
-      status: statusToString(item.status),
+      status: statusNumToStr(item.status),
       customer: item.customer_name,
       description: item.description,
       value: item.total_money,
@@ -154,7 +154,7 @@ const TableDataQuote: React.FC<TableDataOrderProps> = ({
       width: 120,
       dataIndex: "status",
       key: "status",
-      render: (text) => <div style={{ color: statusToColor(text) }}>{text}</div>,
+      render: (text) => <div style={{ color: statusStrToColor(text) }}>{text}</div>,
     },
     {
       title: "Ngày báo giá",
@@ -265,7 +265,7 @@ const TableDataQuote: React.FC<TableDataOrderProps> = ({
             className="show_item"
             value={perPage}
             onChange={handlePerPage}
-            defaultValue={perPage}
+            // defaultValue={perPage}
           >
             <option value={10}>10 bản ghi trên trang</option>
             <option value={20}>20 bản ghi trên trang</option>

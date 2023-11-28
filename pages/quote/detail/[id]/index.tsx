@@ -7,6 +7,10 @@ import AddButtonControl from "@/components/crm/quote/quote_detail/quote_button_c
 import AddQuoteInfo from "@/components/crm/quote/quote_detail/quote_info";
 import TabQuoteList from "@/components/crm/quote/quote_detail/tab_quote_detail";
 import Head from "next/head";
+import { useParams } from "react-router-dom";
+import { QuoteContext, QuoteProvider } from "@/components/crm/quote/quoteFilterContext";
+import { useRouter } from "next/router";
+import Recording from "@/components/crm/cskh/tongdai/quan-ly-line";
 
 const AddFilesPotential: React.FC = () => {
   const mainRef = useRef<HTMLDivElement>(null);
@@ -19,7 +23,10 @@ const AddFilesPotential: React.FC = () => {
     setShowBackButton,
     setCurrentPath,
   }: any = useHeader();
-
+  
+  const router = useRouter();
+  const { id } = router.query;
+  
   useEffect(() => {
     setHeaderTitle("Báo giá / Chi tiết");
     setShowBackButton(true);
@@ -80,25 +87,27 @@ const AddFilesPotential: React.FC = () => {
           src="https://www.googletagmanager.com/gtm.js?id=GTM-NXVQCHN"
         ></script>
       </Head>
-      <div className={styleHome.main} ref={mainRef}>
-        <div className={styles.main_importfile}>
-          <div className={styles.formInfoStep}>
-            <div className={styles.info_step}>
-              <div className={styles.form_add_potential}>
-                <AddButtonControl />
-              </div>
+      <QuoteProvider>
+        <div className={styleHome.main} ref={mainRef}>
+          <div className={styles.main_importfile}>
+            <div className={styles.formInfoStep}>
+              <div className={styles.info_step}>
+                <div className={styles.form_add_potential}>
+                  <AddButtonControl />
+                </div>
 
-              <div className={styles.main__title}>Thông tin báo giá</div>
-              <div className={styles.form_add_potential}>
-                <div className={styles.main__body} style={{ height: 180 }}>
-                  <AddQuoteInfo />
+                <div className={styles.main__title}>Thông tin báo giá</div>
+                <div className={styles.form_add_potential}>
+                  <div className={styles.main__body} style={{ height: 180 }}>
+                    <AddQuoteInfo id={id}/>
+                  </div>
                 </div>
               </div>
             </div>
+            <TabQuoteList />
           </div>
-          <TabQuoteList />
         </div>
-      </div>
+      </QuoteProvider>
     </>
   );
 };

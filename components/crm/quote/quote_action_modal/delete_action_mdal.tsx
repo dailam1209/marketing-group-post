@@ -5,7 +5,7 @@ import styles from "@/components/crm/quote/quote.module.css";
 import { useRouter } from "next/router";
 import { showModalWithTimeout } from "@/components/crm/ultis/helper";
 import ModalCompleteStep from "../quote_steps/complete_modal";
-import { QuoteFilterContext } from "../quoteFilterContext";
+import { QuoteContext } from "../quoteFilterContext";
 import { axiosCRMCall } from "@/utils/api/api_crm_call";
 
 interface MyComponentProps {
@@ -21,7 +21,7 @@ const DelActionModal: React.FC<MyComponentProps> = ({
   allkey
 }) => {
   const [isModalSuccess, setIsMdalSuccess] = useState(false);
-  const { recordId, listRecordId, setShouldFetchData, listRecordName, recordName } = useContext(QuoteFilterContext)
+  const { recordId, listRecordId, setShouldFetchData, listRecordName, recordName } = useContext(QuoteContext)
   const quoteName = allkey?.length > 0 ? listRecordName.join(', ') : recordName
 
   const deleteQuote = async (id: Number) => {

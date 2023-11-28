@@ -1,13 +1,13 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import styles from "@/components/crm/quote/quote.module.css";
 import OrderDropDown from "./quote_dropdown";
-import { QuoteFilterContext } from "./quoteFilterContext";
+import { QuoteContext } from "./quoteFilterContext";
 import sessionStorage from "redux-persist/es/storage/session";
 export default function QuoteSelectBox({ title = "", value = "Tất cả" }) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [valueSelect, setValueSelect] = useState(value);
-  const {setShouldFetchData, statusNumberFromString, statusStringFromNumber} = useContext(QuoteFilterContext)
+  const {setShouldFetchData, statusStrToNum, statusNumToStr} = useContext(QuoteContext)
   const handleClickSelectoption = (e: any) => {
     if (e.target.getAttribute("class") !== styles.select2_search__field) {
       setIsOpen(!isOpen);
@@ -33,7 +33,7 @@ export default function QuoteSelectBox({ title = "", value = "Tất cả" }) {
     };
   }, []);
 
-  const { status, setStatus } = useContext(QuoteFilterContext)
+  const { status, setStatus } = useContext(QuoteContext)
   // const setStatusFromValue = (value: String) => {
   //   switch (value) {
   //     case "Tất cả":
@@ -71,7 +71,7 @@ export default function QuoteSelectBox({ title = "", value = "Tất cả" }) {
   // }
   useEffect(() => {
     // setStatusFromValue(valueSelect)
-    setStatus(statusNumberFromString(valueSelect))
+    setStatus(statusStrToNum(valueSelect))
     setShouldFetchData(true)
   }, [valueSelect])
 
@@ -112,7 +112,7 @@ export default function QuoteSelectBox({ title = "", value = "Tất cả" }) {
   // }
   useEffect(() => {
     // setValueFromStatus(status)
-    setValueSelect(statusStringFromNumber(status))
+    setValueSelect(statusNumToStr(status))
   }, [status])
 
   return (

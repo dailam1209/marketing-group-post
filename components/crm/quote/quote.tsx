@@ -5,7 +5,7 @@ import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { useHeader } from "../hooks/useHeader";
 import QuoteInputGroups from "./quote_input_group";
 import TableDataQuote from "../table/table-quote";
-import { QuoteFilterContext, QuoteFilterProvider } from "./quoteFilterContext";
+import { QuoteContext, QuoteProvider } from "./quoteFilterContext";
 
 export default function Quote() {
   const mainRef = useRef<HTMLDivElement>(null);
@@ -40,13 +40,13 @@ export default function Quote() {
 
   return (
     <div ref={mainRef} className={styleHome.main}>
-      <QuoteFilterProvider>
+      <QuoteProvider>
         <QuoteInputGroups isSelectedRow={isSelectedRow} />
         <TableDataQuote
           setSelected={setIsSelectedRow}
           setNumberSelected={setNumberSelected}
         />
-      </QuoteFilterProvider>
+      </QuoteProvider>
     </div>
   );
 }

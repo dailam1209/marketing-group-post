@@ -12,10 +12,10 @@ import ShareActionModal from "./quote_action_modal/share_action_mdal";
 import HandOverActionModal from "./quote_action_modal/handover_action_mdal";
 import StatusModal from "./quote_action_modal/status-mdal";
 import { useRouter } from "next/router";
-import { QuoteFilterContext } from "./quoteFilterContext";
+import { QuoteContext } from "./quoteFilterContext";
 
 export default function QuoteAction({ isSelectedRow, record, allkey }: any) {
-  const { listRecordId } = useContext(QuoteFilterContext)
+  const { listRecordId } = useContext(QuoteContext)
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [isOpenOrderBrowsing, setIsOpenOrderBrowsing] = useState(false);
   const [isOpenDeny, setIsOpenDeny] = useState(false);
