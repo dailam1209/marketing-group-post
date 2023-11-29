@@ -9,11 +9,14 @@ import { notifyError, notifySuccess, notifyWarning } from "@/utils/function";
 import { ToastContainer } from "react-toastify";
 import { axiosQLC } from "@/utils/api/api_qlc";
 import { axiosCRM } from "@/utils/api/api_crm";
+import useLoading from "../../hooks/useLoading";
+import LoadingLayout from "@/constants/LoadingLayout";
 
 function ModalGroupCustomerMove({ isOpenModalMove, setIsOpenModalMove }) {
   const [formData, setFormData] = useState<any>({});
   const [listEmp, setListEmp] = useState([]);
   const [company_id, setCompanyId] = useState(null);
+  const { isLoading, handleLoading } = useLoading();
 
   useEffect(() => {
     const currentCookie = getToken("token_base365");
@@ -23,16 +26,15 @@ function ModalGroupCustomerMove({ isOpenModalMove, setIsOpenModalMove }) {
     }
   }, []);
   const fetchListEmp = () => {
-    axiosQLC
-      .post("/managerUser/listUser", {
-        pageSize: 10000,
-        authentic: 1,
+    axiosCRM
+      .post("/account/takeListNvienKinhDoanh", {
+        com_id: company_id,
       })
       .then((res) =>
         setListEmp(
-          res.data.data.data?.map((emp) => ({
-            value: emp.ep_id,
-            label:`${emp.ep_id}. ${emp.userName}` ,
+          res.data.data.listUser?.map((emp) => ({
+            value: emp.idQLC,
+            label: `${emp.idQLC}. ${emp.userName}`,
           }))
         )
       )
@@ -40,7 +42,7 @@ function ModalGroupCustomerMove({ isOpenModalMove, setIsOpenModalMove }) {
   };
   useEffect(() => {
     if (company_id) {
-      fetchListEmp();
+      handleLoading(fetchListEmp);
     }
   }, [company_id]);
   const handleTranformCart = () => {
@@ -52,6 +54,10 @@ function ModalGroupCustomerMove({ isOpenModalMove, setIsOpenModalMove }) {
       .post("/account/tranformCart", formData)
       .then((res) => {
         notifySuccess("Chuyển giỏ hàng thành công");
+        setFormData({});
+        setTimeout(() => {
+          setIsOpenModalMove(false);
+        }, 1700);
       })
       .catch((err) => notifyError("Chuyển thất bại"));
   };
@@ -62,37 +68,52 @@ function ModalGroupCustomerMove({ isOpenModalMove, setIsOpenModalMove }) {
       footer={null}
       open={isOpenModalMove}
       onCancel={() => setIsOpenModalMove(false)}
-      className={"mdal_cancel"}
+      className={"mdal_default"}
+      width={500}
     >
-      <div className={styles.modal_move_item}>
-        <SelectSingleAndOption
-          title="Từ nhân viên"
-          data={listEmp}
-          formData={formData}
-          setFormData={setFormData}
-          name={"IdCrmFrom"}
-        />
-      </div>
-      <div className={styles.modal_move_item}>
-        <SelectSingleAndOption
-          title="Đến nhân viên"
-          data={listEmp}
-          formData={formData}
-          setFormData={setFormData}
-          name={"IdCrmTo"}
-        />
-      </div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        <button onClick={handleTranformCart} className={stylesBtn.back_button}>
-          Chuyển giỏ
-        </button>
-      </div>{" "}
-      <ToastContainer autoClose={1000} />
+      {isLoading ? (
+        <LoadingLayout />
+      ) : (
+        <div>
+          <div className={styles.modal_move_item}>
+            <SelectSingleAndOption
+              title="Từ nhân viên"
+              data={listEmp}
+              formData={formData}
+              setFormData={setFormData}
+              value={formData.IdCrmFrom}
+              name={"IdCrmFrom"}
+              placeholder="Chọn nhân viên"
+            />
+          </div>
+          <div className={styles.modal_move_item}>
+            <SelectSingleAndOption
+              title="Đến nhân viên"
+              data={listEmp}
+              formData={formData}
+              value={formData.IdCrmTo}
+              setFormData={setFormData}
+              name={"IdCrmTo"}
+              placeholder="Chọn nhân viên"
+            />
+          </div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <button
+              onClick={handleTranformCart}
+              className={stylesBtn.button_primary}
+            >
+              Chuyển giỏ
+            </button>
+          </div>{" "}
+        </div>
+      )}
+
+      <ToastContainer autoClose={500} />
     </Modal>
   );
 }

@@ -530,6 +530,7 @@ export const SelectSingleV2 = ({
                     onChange={(e) => {
                       setSearchLabel(e.target.value);
                     }}
+                    value={searchLabel}
                     autoComplete="off"
                     autoCorrect="off"
                     autoCapitalize="none"

@@ -14,6 +14,10 @@ import { useRouter } from "next/router";
 import { useFormData } from "@/components/crm/context/formDataContext";
 import { useNotificationReload } from "@/components/crm/context/notificationContext";
 import { login } from "@/utils/handleApi";
+import { axiosCRM } from "@/utils/api/api_crm";
+import { getToken } from "../api/api-hr/token";
+import jwt_decode from "jwt-decode";
+
 const Cookies = require("js-cookie");
 export interface DataType {
   key: React.Key;
@@ -85,7 +89,15 @@ export default function CustomerList() {
   const [nameNvNomor, setnameNvNomor] = useState<any>();
   const [isRowDataSelected, setRowDataSelected] = useState([]);
   //console.log(dateS, "Props from father");
+  const [companyId, setCompanyId] = useState(null);
 
+  useEffect(() => {
+    const currentCookie = getToken("token_base365");
+    if (currentCookie) {
+      const decodedToken: any = jwt_decode(currentCookie);
+      setCompanyId(decodedToken?.data?.com_id);
+    }
+  }, []);
   useEffect(() => {
     setemp_id(router.query.emp_id);
     setIdNhom(router.query.group);
@@ -108,8 +120,23 @@ export default function CustomerList() {
       }
       setTime_s(dateS + " " + timeStart);
     }
-  }, [isAPDung, isOpenFilterBox, timeStart, dateS, timeEnd, dateE, time_s, time_e, time_at_e, time_at_s, date_at_e, date_at_s, router.asPath]);
-  const { setHeaderTitle, setShowBackButton, setCurrentPath }: any = useHeader();
+  }, [
+    isAPDung,
+    isOpenFilterBox,
+    timeStart,
+    dateS,
+    timeEnd,
+    dateE,
+    time_s,
+    time_e,
+    time_at_e,
+    time_at_s,
+    date_at_e,
+    date_at_s,
+    router.asPath,
+  ]);
+  const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
+    useHeader();
 
   const fetchData = async () => {
     try {
@@ -214,7 +241,10 @@ export default function CustomerList() {
         nguonKH = key.name;
       }
     }
-    let des = item?.description?.replace(/<p>/g, "").replace(/<\/p>/g, "").replace("&nbsp;", "");
+    let des = item?.description
+      ?.replace(/<p>/g, "")
+      .replace(/<\/p>/g, "")
+      .replace("&nbsp;", "");
     return {
       key: index + 1,
       cus_id: item.cus_id,
@@ -246,14 +276,17 @@ export default function CustomerList() {
 
   const handleGetGr = async () => {
     try {
-      const res = await fetch(`${base_url}/api/crm/group/list_group_khach_hang`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${Cookies.get("token_base365")}`,
-        },
-        body: JSON.stringify({ com_id: Cookies.get("com_id") }),
-      });
+      const res = await fetch(
+        `${base_url}/api/crm/group/list_group_khach_hang`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${Cookies.get("token_base365")}`,
+          },
+          body: JSON.stringify({ com_id: Cookies.get("com_id") }),
+        }
+      );
       let arr = [];
       const data = await res.json();
       setListGr(data?.data);
@@ -269,14 +302,17 @@ export default function CustomerList() {
   const handleGetInfoCusNV = async () => {
     try {
       if (role == "2") {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/employee/info`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${Cookies.get("token_base365")}`,
-          },
-          // body: JSON.stringify({ com_id: `${Cookies.get("com_id")}` }),
-        });
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/qlc/employee/info`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${Cookies.get("token_base365")}`,
+            },
+            // body: JSON.stringify({ com_id: `${Cookies.get("com_id")}` }),
+          }
+        );
 
         const data = await res.json();
         if (data && data?.data) {
@@ -288,26 +324,54 @@ export default function CustomerList() {
     } catch (error) {}
   };
 
-  const handleGetInfoCus = async () => {
+  // const handleGetInfoCusAll = async () => {
+  //   try {
+  //     const res = await fetch(
+  //       `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/crm/account/employee/list`,
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: `Bearer ${Cookies.get("token_base365")}`,
+  //         },
+  //       }
+  //     );
+  //     const data = await res.json();
+  //     console.log("Check", data);
+  //     // if (data && data?.data) setListNv(data?.data?.items);
+  //   } catch (error) {}
+  // };
+  const handleGetInfoCusAll = async () => {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/crm/account/employee/list`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${Cookies.get("token_base365")}`,
-        },
-      });
-      const data = await res.json();
-      if (data && data?.data) setListNv(data?.data?.items);
+      axiosCRM
+        .post("/account/takeListNvienKinhDoanh", {
+          com_id: companyId,
+        })
+        .then((res) => setListNv(res.data?.data?.listUser))
+        .catch((err) => {});
+      // if (data && data?.data) setListNv(data?.data?.items);
     } catch (error) {}
   };
-
+  const handleGetInfoCus = async () => {
+    try {
+      axiosCRM
+        .post("/account/TakeListUserFromGroup", {
+          companyId,
+          IdGroup: idNhom,
+        })
+        .then((res) => setListNv(res.data?.data?.listUser))
+        .catch((err) => {});
+    } catch (error) {}
+  };
+  useEffect(() => {
+    if (companyId) {
+      idNhom ? handleGetInfoCus() : handleGetInfoCusAll();
+    }
+  }, [idNhom, companyId]);
   let nv = listNV?.filter((item) => item.dep_id === dep_id);
   useEffect(() => {
     handleGetInfoCusNV();
-    handleGetInfoCus();
   }, [dep_id]);
-
   useEffect(() => {
     if (isAPDung) {
       /* if (dateE) {
@@ -342,14 +406,22 @@ export default function CustomerList() {
 
   const formDataSencond = new FormData();
   const formDataRequest = sendingData();
-  formDataRequest.keyword && formDataSencond.append("keyword", formDataRequest.keyword);
-  formDataRequest.status && formDataSencond.append("status", formDataRequest.status);
-  formDataRequest.resoure && formDataSencond.append("resoure", formDataRequest.resoure);
-  formDataRequest.user_create_id && formDataSencond.append("user_create_id", formDataRequest.user_create_id);
-  formDataRequest.ep_id && formDataSencond.append("ep_id", formDataRequest.ep_id);
-  formDataRequest.group_id && formDataSencond.append("group_id", formDataRequest.group_id);
-  formDataRequest.time_s && formDataSencond.append("time_s", formDataRequest.time_s);
-  formDataRequest.time_e && formDataSencond.append("time_e", formDataRequest.time_e);
+  formDataRequest.keyword &&
+    formDataSencond.append("keyword", formDataRequest.keyword);
+  formDataRequest.status &&
+    formDataSencond.append("status", formDataRequest.status);
+  formDataRequest.resoure &&
+    formDataSencond.append("resoure", formDataRequest.resoure);
+  formDataRequest.user_create_id &&
+    formDataSencond.append("user_create_id", formDataRequest.user_create_id);
+  formDataRequest.ep_id &&
+    formDataSencond.append("ep_id", formDataRequest.ep_id);
+  formDataRequest.group_id &&
+    formDataSencond.append("group_id", formDataRequest.group_id);
+  formDataRequest.time_s &&
+    formDataSencond.append("time_s", formDataRequest.time_s);
+  formDataRequest.time_e &&
+    formDataSencond.append("time_e", formDataRequest.time_e);
 
   const handleSelectAll = () => {
     const allRowKeys = datatable?.map((item: { key: any }) => item.key);
@@ -380,7 +452,16 @@ export default function CustomerList() {
   useEffect(() => {
     handleGetGr();
     fetchData();
-  }, [name, selectedRowKeys, des, selectedCus, page, pageSize, updateTLKD, reloadNotification]);
+  }, [
+    name,
+    selectedRowKeys,
+    des,
+    selectedCus,
+    page,
+    pageSize,
+    updateTLKD,
+    reloadNotification,
+  ]);
   useEffect(() => {
     setHeaderTitle("Danh sách khách hàng");
     setShowBackButton(false);
@@ -409,22 +490,34 @@ export default function CustomerList() {
         />
         <meta property="og:locale" content="vi_VN" />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Phần mềm CRM của AI365 – giải pháp tuyệt vời chăm sóc khách hàng tự động" />
+        <meta
+          property="og:title"
+          content="Phần mềm CRM của AI365 – giải pháp tuyệt vời chăm sóc khách hàng tự động"
+        />
         <meta
           property="og:description"
           content="CRM của AI365 là một phần mềm chăm sóc khách hàng tự động, có tính linh hoạt cao, thích hợp ứng dụng vào mọi loại hình doanh nghiệp. Phần mềm thuộc hệ sinh thái gồm 200 phần mềm, đều được AI365 kết nối trên 1 nền tảng duy nhất. Mọi báo cáo khách hàng đều được kiểm soát qua chat365 vô cùng tiện lợi"
         />
-        <meta property="og:image" content="https://crm.timviec365.vn/assets/img/images-banners.png" />
+        <meta
+          property="og:image"
+          content="https://crm.timviec365.vn/assets/img/images-banners.png"
+        />
         <meta name="twitter:card" content="summary" />
         <meta
           name="twitter:description"
           content="CRM của AI365 là một phần mềm chăm sóc khách hàng tự động, có tính linh hoạt cao, thích hợp ứng dụng vào mọi loại hình doanh nghiệp. Phần mềm thuộc hệ sinh thái gồm 200 phần mềm, đều được AI365 kết nối trên 1 nền tảng duy nhất. Mọi báo cáo khách hàng đều được kiểm soát qua chat365 vô cùng tiện lợi"
         />
-        <meta name="twitter:title" content="Phần mềm CRM của AI365 – giải pháp tuyệt vời chăm sóc khách hàng tự động" />
+        <meta
+          name="twitter:title"
+          content="Phần mềm CRM của AI365 – giải pháp tuyệt vời chăm sóc khách hàng tự động"
+        />
         <link rel="canonical" href="https://hungha365.com/crm" />
 
         {/* CSS */}
-        <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-NXVQCHN"></script>
+        <script
+          async
+          src="https://www.googletagmanager.com/gtm.js?id=GTM-NXVQCHN"
+        ></script>
       </Head>
 
       {!checkAndRedirectToHomeIfNotLoggedIn() ? null : (

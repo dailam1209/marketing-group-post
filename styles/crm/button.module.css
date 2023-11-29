@@ -37,3 +37,14 @@
   color: #4c5bd4;
   border-radius: 5px;
 }
+.button_primary {
+  font-family: "Roboto-Bold";
+  font-weight: bold;
+  font-size: 16px;
+  border: 1px solid #4c5bd4;
+  width: 222px;
+  height: 40px;
+  background: #4c5bd4;
+  color: #ffffff;
+  border-radius: 5px;
+}

@@ -21,6 +21,7 @@ import axios from "axios";
 import { getCookie } from "cookies-next";
 import jwt_decode from "jwt-decode";
 import { getToken } from "@/pages/api/api-hr/token";
+import { axiosCRM } from "@/utils/api/api_crm";
 interface CustomJwtPayload extends jwt.JwtPayload {
   idQLC: string; // hoặc kiểu dữ liệu thích hợp
 }
@@ -59,7 +60,6 @@ const GroupCustomerAdd: React.FC = () => {
   }
 
   const accessToken = Cookies.get("token_base365");
-  const com_id = Cookies.get("com_id");
   const GetComId = () => {
     const COOKIE_KEY = "token_base365";
     const currentCookie = getToken(COOKIE_KEY);
@@ -68,6 +68,7 @@ const GroupCustomerAdd: React.FC = () => {
       return decodedToken?.data?.com_id;
     }
   };
+  //Lấy nhóm khách cha
   const fetchData = async (url: string, body) => {
     try {
       const res = await fetch(url, {
@@ -106,7 +107,7 @@ const GroupCustomerAdd: React.FC = () => {
       throw err;
     }
   };
-
+  //Lấy danh sách phòng ban
   const fetchDataDepartment = async (url: string, body) => {
     try {
       const response = await axios.post(
@@ -127,7 +128,7 @@ const GroupCustomerAdd: React.FC = () => {
       throw err;
     }
   };
-
+  //Lấy toàn bộ danh sách nhân viên
   const fetchDataEmp = async (url, body) => {
     try {
       const response = await axios.post(url, body, {
@@ -175,7 +176,18 @@ const GroupCustomerAdd: React.FC = () => {
       throw err;
     }
   };
-
+  //Lấy danh sách nhân viên được chia sẻ
+  const fetchListEmpShare = () => {
+    axiosCRM
+      .post("/account/TakeListUserFromGroup", {
+        IdGroup: id,
+        companyId: GetComId(),
+      })
+      .then((res) => {
+        setDataTableEmp([...res.data.data.listUser?.map((item) => item.idQLC)]);
+      })
+      .catch((err) => console.log("fetchListEmpShare", err));
+  };
   const dataPassFromId = dataSelectGroupParent?.data?.filter(
     (item: any) => item?.gr_id === Number(id)
   )?.[0];
@@ -188,6 +200,7 @@ const GroupCustomerAdd: React.FC = () => {
     emp_id: null,
     group_cus_parent: null,
   });
+
   useEffect(() => {
     fetchDataDetails(`${base_url}/api/crm/group/details`, {
       gr_id: Number(id),
@@ -196,7 +209,9 @@ const GroupCustomerAdd: React.FC = () => {
     fetchDataDepartment(`${base_url}/api/qlc/organizeDetail/listAll`, {
       com_id: GetComId(),
     });
-    fetchDataEmp(`${base_url}/api/qlc/managerUser/listUser`, {});
+    fetchDataEmp(`${base_url}/api/qlc/managerUser/listUser`, {
+      pageSize: 2000,
+    });
   }, []);
   const [valueDefault, setvalueDefault] = useState<any>();
   const [change, setchange] = useState(false);
@@ -270,7 +285,7 @@ const GroupCustomerAdd: React.FC = () => {
       )
       ?.map((employee) => {
         return {
-          label: employee.userName,
+          label: `${employee.ep_id}. ${employee.userName}`,
           value: employee.ep_id,
         };
       });
@@ -307,11 +322,11 @@ const GroupCustomerAdd: React.FC = () => {
   useEffect(() => {
     setSelectedValueDepartments(arr);
 
-    setDataTableEmp(
-      dataDetails?.data?.emp_id
-        ?.split(",")
-        .map((item) => parseInt(item.trim(), 10))
-    );
+    // setDataTableEmp(
+    //   dataDetails?.data?.emp_id
+    //     ?.split(",")
+    //     .map((item) => parseInt(item.trim(), 10))
+    // );
   }, [dataDepartments]);
   const com_ids = Cookies.get("com_id");
   const [arremid, setarremid] = useState<any>();
@@ -340,6 +355,10 @@ const GroupCustomerAdd: React.FC = () => {
       description: "Trường tên nhóm khách hàng đã tồn tại hoặc không được nhập",
     });
   };
+  useEffect(() => {
+    fetchListEmpShare();
+  }, [id]);
+  console.log("GroupCustomerAdd", dataEmp);
   return (
     <>
       <Head>

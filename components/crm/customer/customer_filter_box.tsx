@@ -169,10 +169,18 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
     if (checkCha) {
     }
   }, [idChaSaved]);
-  const [time_s_change, settime_s_change] = useState<any>(router.query.start ? router.query.start : null);
-  const [time_e_change, settime_e_change] = useState<any>(router.query.end ? router.query.end : null);
-  const [create_at_s_change, setcreate_at_s_change] = useState<any>(router.query.create_at_s ? router.query.create_at_s : null);
-  const [create_at_e_change, setcreate_at_e_change] = useState<any>(router.query.create_at_e ? router.query.create_at_e : null);
+  const [time_s_change, settime_s_change] = useState<any>(
+    router.query.start ? router.query.start : null
+  );
+  const [time_e_change, settime_e_change] = useState<any>(
+    router.query.end ? router.query.end : null
+  );
+  const [create_at_s_change, setcreate_at_s_change] = useState<any>(
+    router.query.create_at_s ? router.query.create_at_s : null
+  );
+  const [create_at_e_change, setcreate_at_e_change] = useState<any>(
+    router.query.create_at_e ? router.query.create_at_e : null
+  );
 
   //const starttime = router.query.start?.toString().replace("T", " ");
   //const createstarttime = router.query.create_at_s?.toString().replace("T", " ");
@@ -223,6 +231,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
     dispatch(doSaveCha({ id: value }));
     setIdNhom(value);
     setnhomCon("Tất cả");
+    setnhomconfilter(null);
     if (value > 0) {
       setCheck(true);
     } else {
@@ -235,8 +244,18 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
       setTimeStart("00:00:00");
       settime_s_change(dayjs(dateS).format("YYYY-MM-DD") + "T" + "00:00:00");
     } else {
-      setTimeStart(dayjs(e).format("hh:mm:ss"));
-      settime_s_change(dayjs(dateS).format("YYYY-MM-DD") + "T" + dayjs(e).format("hh:mm:ss"));
+      let str = "";
+      let hour = e["$d"].getHours();
+      let default_time = dayjs(e).format("hh:mm:ss");
+      if (hour <= 12) {
+        str = default_time;
+      } else {
+        str = `${String(hour)}:${default_time.split(":")[1]}:${
+          default_time.split(":")[2]
+        }`;
+      }
+      setTimeStart(str);
+      settime_s_change(dayjs(dateS).format("YYYY-MM-DD") + "T" + str);
     }
   };
   const handleDateChangeStart = (e) => {
@@ -249,8 +268,18 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
       setTimeEnd("00:00:00");
       settime_e_change(dayjs(dateE).format("YYYY-MM-DD") + "T" + "00:00:00");
     } else {
-      setTimeEnd(dayjs(e).format("hh:mm:ss"));
-      settime_e_change(dayjs(dateE).format("YYYY-MM-DD") + "T" + dayjs(e).format("hh:mm:ss"));
+      let str = "";
+      let hour = e["$d"].getHours();
+      let default_time = dayjs(e).format("hh:mm:ss");
+      if (hour <= 12) {
+        str = default_time;
+      } else {
+        str = `${String(hour)}:${default_time.split(":")[1]}:${
+          default_time.split(":")[2]
+        }`;
+      }
+      setTimeEnd(str);
+      settime_e_change(dayjs(dateE).format("YYYY-MM-DD") + "T" + str);
     }
   };
   const handleDateChangeEnd = (e) => {
@@ -258,14 +287,25 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
     settime_e_change(e.target.value + "T" + timeEnd);
   };
 
-  //handle create_at_e
   const handleTimeCreateStartChange = (e) => {
     if (!e) {
       settime_at_s("00:00:00");
-      setcreate_at_s_change(dayjs(date_at_s).format("YYYY-MM-DD") + "T" + "00:00:00");
+      setcreate_at_s_change(
+        dayjs(date_at_s).format("YYYY-MM-DD") + "T" + "00:00:00"
+      );
     } else {
-      settime_at_s(dayjs(e).format("hh:mm:ss"));
-      setcreate_at_s_change(dayjs(date_at_s).format("YYYY-MM-DD") + "T" + dayjs(e).format("hh:mm:ss"));
+      let str = "";
+      let hour = e["$d"].getHours();
+      let default_time = dayjs(e).format("hh:mm:ss");
+      if (hour <= 12) {
+        str = default_time;
+      } else {
+        str = `${String(hour)}:${default_time.split(":")[1]}:${
+          default_time.split(":")[2]
+        }`;
+      }
+      settime_at_s(str);
+      setcreate_at_s_change(dayjs(date_at_s).format("YYYY-MM-DD") + "T" + str);
     }
   };
   const handleDateCreateChangeStart = (e) => {
@@ -277,10 +317,22 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
   const handleTimeCreateEndChange = (e) => {
     if (!e) {
       settime_at_e("00:00:00");
-      setcreate_at_e_change(dayjs(date_at_e).format("YYYY-MM-DD") + "T" + "00:00:00");
+      setcreate_at_e_change(
+        dayjs(date_at_e).format("YYYY-MM-DD") + "T" + "00:00:00"
+      );
     } else {
-      settime_at_e(dayjs(e).format("hh:mm:ss"));
-      setcreate_at_e_change(dayjs(date_at_e).format("YYYY-MM-DD") + "T" + dayjs(e).format("hh:mm:ss"));
+      let str = "";
+      let hour = e["$d"].getHours();
+      let default_time = dayjs(e).format("hh:mm:ss");
+      if (hour <= 12) {
+        str = default_time;
+      } else {
+        str = `${String(hour)}:${default_time.split(":")[1]}:${
+          default_time.split(":")[2]
+        }`;
+      }
+      settime_at_e(str);
+      setcreate_at_e_change(dayjs(date_at_e).format("YYYY-MM-DD") + "T" + str);
     }
   };
   const handleDateCreateChangeEnd = (e) => {
@@ -300,8 +352,10 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
     { value: null, label: "Tất cả" },
     ...listNV?.map((userName, index) => {
       return {
-        value: userName?.ep_id,
-        label: `(${userName.ep_id}) ${userName?.ep_name} - ${userName.dep_name}`,
+        value: userName?.idQLC,
+        label: `(${userName.idQLC}) ${userName?.userName}  ${
+          userName.organization ? `- ${userName.organization}` : ""
+        }`,
       };
     }),
   ];
@@ -357,14 +411,19 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
   //       </option>
   //     ));
   // }
-  const idnhomcha = listGr_Child?.filter((item) => item?.gr_id === Number(idNhom))[0]?.group_parent;
+  const idnhomcha = listGr_Child?.filter(
+    (item) => item?.gr_id === Number(idNhom)
+  )[0]?.group_parent;
 
   let optionCon2;
   if (valueChaOld) {
     optionCon2 = [
       { value: " ", label: "Tất cả" },
       listGr_Child?.map((item: any, index) => {
-        if (item.group_parent === (checkCha ? valueChaOld : idnhomcha || Number(idNhom) || nhomCha)) {
+        if (
+          item.group_parent ===
+          (checkCha ? valueChaOld : idnhomcha || Number(idNhom) || nhomCha)
+        ) {
           return {
             value: item?.gr_id,
             label: item?.gr_name,
@@ -380,7 +439,12 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
     let defaultArr = [{ value: "", label: "Tất cả" }];
     const newArr = listGr_Child
       ?.filter((item: any, index) => {
-        return item.group_parent === (checkCha ? valueChaOld : idnhomcha || Number(idNhom) || nhomchafilter);
+        return (
+          item.group_parent ===
+          (checkCha
+            ? valueChaOld
+            : idnhomcha || Number(idNhom) || nhomchafilter)
+        );
       })
       ?.map((item) => {
         return {
@@ -396,7 +460,9 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
   };
   const chungSinhBinhDang = (inputString: any) => {
     // Chuyển các ký tự có dấu thành các ký tự không dấu
-    const stringWithoutDiacritics = inputString?.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    const stringWithoutDiacritics = inputString
+      ?.normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
 
     // Chuyển chuỗi thành chữ thường
     const lowercaseString = stringWithoutDiacritics?.toLowerCase();
@@ -405,26 +471,51 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
   };
   return (
     <>
-      <div className={styles.mdal_body} style={{ padding: 0, maxHeight: "100%" }}>
+      <div
+        className={styles.mdal_body}
+        style={{ padding: 0, maxHeight: "100%" }}
+      >
         <div className={styles.form_group}>
           <div className={styles.label}>Thời gian cập nhập</div>
           <div className={styles.row}>
             <div className={`${styles["col-lg-6"]}`}>
-              <TimePicker onChange={handleTimeStartChange} style={{ width: "100%", height: "37px" }} value={dayjs(timeStart, format)} />
+              <TimePicker
+                onChange={handleTimeStartChange}
+                style={{ width: "100%", height: "37px" }}
+                value={dayjs(timeStart, format)}
+              />
             </div>
             <div className={`${styles["col-lg-6"]}`}>
-              <div className={styles.box_input} style={{ width: "100%", marginBottom: "5px", paddingLeft: 10 }}>
-                <Input onChange={handleDateChangeStart} type="date" value={dayjs(time_s_change)?.format("YYYY-MM-DD")} />
+              <div
+                className={styles.box_input}
+                style={{ width: "100%", marginBottom: "5px", paddingLeft: 10 }}
+              >
+                <Input
+                  onChange={handleDateChangeStart}
+                  type="date"
+                  value={dayjs(time_s_change)?.format("YYYY-MM-DD")}
+                />
               </div>
             </div>
           </div>
           <div className={styles.row}>
             <div className={`${styles["col-lg-6"]}`}>
-              <TimePicker onChange={handleTimeEndChange} style={{ width: "100%", height: "37px" }} value={dayjs(timeEnd, format)} />
+              <TimePicker
+                onChange={handleTimeEndChange}
+                style={{ width: "100%", height: "37px" }}
+                value={dayjs(timeEnd, format)}
+              />
             </div>
             <div className={`${styles["col-lg-6"]}`}>
-              <div className={styles.box_input} style={{ width: "100%", marginBottom: "5px", paddingLeft: 10 }}>
-                <Input value={dayjs(time_e_change)?.format("YYYY-MM-DD")} onChange={handleDateChangeEnd} type="date" />
+              <div
+                className={styles.box_input}
+                style={{ width: "100%", marginBottom: "5px", paddingLeft: 10 }}
+              >
+                <Input
+                  value={dayjs(time_e_change)?.format("YYYY-MM-DD")}
+                  onChange={handleDateChangeEnd}
+                  type="date"
+                />
               </div>
             </div>
           </div>
@@ -433,21 +524,43 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
           <div className={styles.label}>Thời gian tạo khách hàng</div>
           <div className={styles.row}>
             <div className={`${styles["col-lg-6"]}`}>
-              <TimePicker onChange={handleTimeCreateStartChange} style={{ width: "100%", height: "37px" }} value={dayjs(time_at_s, format)} />
+              <TimePicker
+                onChange={handleTimeCreateStartChange}
+                style={{ width: "100%", height: "37px" }}
+                value={dayjs(time_at_s, format)}
+              />
             </div>
             <div className={`${styles["col-lg-6"]}`}>
-              <div className={styles.box_input} style={{ width: "100%", marginBottom: "5px", paddingLeft: 10 }}>
-                <Input onChange={handleDateCreateChangeStart} type="date" value={dayjs(create_at_s_change)?.format("YYYY-MM-DD")} />
+              <div
+                className={styles.box_input}
+                style={{ width: "100%", marginBottom: "5px", paddingLeft: 10 }}
+              >
+                <Input
+                  onChange={handleDateCreateChangeStart}
+                  type="date"
+                  value={dayjs(create_at_s_change)?.format("YYYY-MM-DD")}
+                />
               </div>
             </div>
           </div>
           <div className={styles.row}>
             <div className={`${styles["col-lg-6"]}`}>
-              <TimePicker onChange={handleTimeCreateEndChange} style={{ width: "100%", height: "37px" }} value={dayjs(time_at_e, format)} />
+              <TimePicker
+                onChange={handleTimeCreateEndChange}
+                style={{ width: "100%", height: "37px" }}
+                value={dayjs(time_at_e, format)}
+              />
             </div>
             <div className={`${styles["col-lg-6"]}`}>
-              <div className={styles.box_input} style={{ width: "100%", marginBottom: "5px", paddingLeft: 10 }}>
-                <Input onChange={handleDateCreateChangeEnd} value={dayjs(create_at_e_change)?.format("YYYY-MM-DD")} type="date" />
+              <div
+                className={styles.box_input}
+                style={{ width: "100%", marginBottom: "5px", paddingLeft: 10 }}
+              >
+                <Input
+                  onChange={handleDateCreateChangeEnd}
+                  value={dayjs(create_at_e_change)?.format("YYYY-MM-DD")}
+                  type="date"
+                />
               </div>
             </div>
           </div>
@@ -455,7 +568,12 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
         <div className={styles.form_group}>
           <div className={styles.label}>Tình trạng khách hàng</div>
           <Select
-            suffixIcon={<i style={{ color: "black" }} className="bi bi-caret-down-fill"></i>}
+            suffixIcon={
+              <i
+                style={{ color: "black" }}
+                className="bi bi-caret-down-fill"
+              ></i>
+            }
             style={{
               width: "100%",
               border: "1px solid black",
@@ -480,7 +598,12 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
           <div className={styles.label}>Nguồn khách hàng</div>
           <Select
             defaultValue={Number(resoure) ? Number(resoure) : ""}
-            suffixIcon={<i style={{ color: "black" }} className="bi bi-caret-down-fill"></i>}
+            suffixIcon={
+              <i
+                style={{ color: "black" }}
+                className="bi bi-caret-down-fill"
+              ></i>
+            }
             style={{
               width: "100%",
               border: "1px solid black",
@@ -504,7 +627,10 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
         <div className={styles.form_group}>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <div className={styles.label}>Nhóm khách hàng cha</div>
-            <div className={styles.label} style={{ display: "flex", alignItems: "center" }}>
+            <div
+              className={styles.label}
+              style={{ display: "flex", alignItems: "center" }}
+            >
               <input
                 type="checkbox"
                 id="group_pins"
@@ -520,14 +646,21 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
             // value={checkCha ? +valueChaOld : nhomCha}
             onChange={(value) => handleSelectNhomCha(value)}
             defaultValue={idnhomcha ? idnhomcha : Number(idNhom) || -1}
-            suffixIcon={<i style={{ color: "black" }} className="bi bi-caret-down-fill"></i>}
+            suffixIcon={
+              <i
+                style={{ color: "black" }}
+                className="bi bi-caret-down-fill"
+              ></i>
+            }
             style={{
               width: "100%",
               border: "1px solid black",
               borderRadius: 7,
             }}
             showSearch
-            filterOption={(input, option: any) => option?.label.toLowerCase().includes(input.toLocaleLowerCase())}
+            filterOption={(input, option: any) =>
+              option?.label.toLowerCase().includes(input.toLocaleLowerCase())
+            }
             options={[
               { value: -1, label: "Tất cả" },
               { value: -2, label: "Chưa cập nhật" },
@@ -551,14 +684,21 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
           <div className={stylePotentialSlect.customer_list}>
             <Select
               showSearch
-              filterOption={(input, option: any) => option?.label.toLowerCase().includes(input.toLocaleLowerCase())}
+              filterOption={(input, option: any) =>
+                option?.label.toLowerCase().includes(input.toLocaleLowerCase())
+              }
               value={nhomconfilter}
               onChange={(value) => {
                 setnhomCon(value), setIdNhom(value);
                 setnhomconfilter(value);
               }}
               defaultValue={idnhomcha ? Number(idNhom) : "" || ""}
-              suffixIcon={<i style={{ color: "black" }} className="bi bi-caret-down-fill"></i>}
+              suffixIcon={
+                <i
+                  style={{ color: "black" }}
+                  className="bi bi-caret-down-fill"
+                ></i>
+              }
               style={{
                 width: "100%",
                 border: "1px solid black",
@@ -586,9 +726,18 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
             <Select
               showSearch
               options={optionTest}
-              filterOption={(input, option: any) => chungSinhBinhDang(option?.label).includes(chungSinhBinhDang(input))}
+              filterOption={(input, option: any) =>
+                chungSinhBinhDang(option?.label).includes(
+                  chungSinhBinhDang(input)
+                )
+              }
               defaultValue={Number(emp_id) ? Number(emp_id) : "Tất cả"}
-              suffixIcon={<i style={{ color: "black" }} className="bi bi-caret-down-fill"></i>}
+              suffixIcon={
+                <i
+                  style={{ color: "black" }}
+                  className="bi bi-caret-down-fill"
+                ></i>
+              }
               style={{
                 width: "100%",
                 border: "1px solid black",
@@ -605,7 +754,12 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
           <div className={stylePotentialSlect.customer_list}>
             <Select
               defaultValue={"Tất cả"}
-              suffixIcon={<i style={{ color: "black" }} className="bi bi-caret-down-fill"></i>}
+              suffixIcon={
+                <i
+                  style={{ color: "black" }}
+                  className="bi bi-caret-down-fill"
+                ></i>
+              }
               style={{
                 width: "100%",
                 border: "1px solid black",
@@ -645,13 +799,31 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
             handlefilter();
             setIsApDung(true);
             router.push(
-              `/customer/list?${isNaN(new Date(time_s_change).getDate()) || !time_s_change ? "" : `&start=${time_s_change}`}${
-                isNaN(new Date(time_e_change).getDate()) || !time_e_change ? "" : `&end=${time_e_change}`
-              }${isNaN(new Date(create_at_s_change).getDate()) || !create_at_s_change ? "" : `&create_at_s=${create_at_s_change}`}${
-                isNaN(new Date(create_at_e_change).getDate()) || !create_at_e_change ? "" : `&create_at_e=${create_at_e_change}`
-              }${status ? `&status=${status}` : ""}${resoure ? `&source=${resoure}` : ""}${idNhom ? `&group=${idNhom}` : ""}${emp_id ? `&emp_id=${emp_id}` : ""}${
-                user_create_id ? `&creater=${user_create_id}` : ""
-              }${name ? `&keyword=${name}` : ""}  
+              `/customer/list?${
+                isNaN(new Date(time_s_change).getDate()) || !time_s_change
+                  ? ""
+                  : `&start=${time_s_change}`
+              }${
+                isNaN(new Date(time_e_change).getDate()) || !time_e_change
+                  ? ""
+                  : `&end=${time_e_change}`
+              }${
+                isNaN(new Date(create_at_s_change).getDate()) ||
+                !create_at_s_change
+                  ? ""
+                  : `&create_at_s=${create_at_s_change}`
+              }${
+                isNaN(new Date(create_at_e_change).getDate()) ||
+                !create_at_e_change
+                  ? ""
+                  : `&create_at_e=${create_at_e_change}`
+              }${status ? `&status=${status}` : ""}${
+                resoure ? `&source=${resoure}` : ""
+              }${idNhom ? `&group=${idNhom}` : ""}${
+                emp_id ? `&emp_id=${emp_id}` : ""
+              }${user_create_id ? `&creater=${user_create_id}` : ""}${
+                name ? `&keyword=${name}` : ""
+              }  
 `
             );
           }}

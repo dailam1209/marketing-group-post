@@ -412,6 +412,7 @@ export const SelectSingleAndOption = ({
   nameChecked = "",
   labelChecked = "",
   require = false,
+  valueAll = "",
 }) => {
   const [searchLabel, setSearchLabel] = useState("");
   const [isOpen, setIsOpen] = useState(false);
@@ -536,6 +537,7 @@ export const SelectSingleAndOption = ({
                     autoCorrect="off"
                     autoCapitalize="none"
                     spellCheck="false"
+                    value={searchLabel}
                     onChange={(e) => {
                       setSearchLabel(e.target.value);
                     }}
@@ -553,11 +555,28 @@ export const SelectSingleAndOption = ({
                   >
                     {placeholder && (
                       <li
+                        onClick={() => {
+                          setFormData({ ...formData, [name]: "" });
+                          setLabelSelect(placeholder);
+                        }}
                         //   onClick={() => selectData(placeholder)}
                         className={`${styles1.select2_results__option} ${styles1.select2_results__option_highlighted}`}
                       >
                         {/* Chọn tất cả */}
                         {placeholder}
+                      </li>
+                    )}
+                    {valueAll && (
+                      <li
+                        onClick={() => {
+                          setFormData({ ...formData, [name]: valueAll });
+                          setLabelSelect("Chọn tất cả");
+                        }}
+                        //   onClick={() => selectData(placeholder)}
+                        className={`${styles1.select2_results__option} ${styles1.select2_results__option_highlighted}`}
+                      >
+                        {/* Chọn tất cả */}
+                        Chọn tất cả
                       </li>
                     )}
                     {searchLabel

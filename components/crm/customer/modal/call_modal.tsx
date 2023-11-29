@@ -129,9 +129,11 @@ const CallModal: React.FC<MyComponentProps> = ({
     setIsOpenModalZoom(false);
     setTimeout(async () => {
       setContent("");
+      setshow(false);
+      // setContent("");
       setDatatable([]);
       setIsOpenMdalSuccess(false);
-      setshow(false);
+
       await fetchData();
     }, 1000);
   };
@@ -160,7 +162,7 @@ const CallModal: React.FC<MyComponentProps> = ({
       getHisCus();
     }
   }, [show]);
-  
+
   return (
     <>
       <Modal
@@ -251,6 +253,7 @@ const CallModal: React.FC<MyComponentProps> = ({
               Thông tin khách hàng
             </div>
             <ChatBusinessBody
+              show={show}
               content={content}
               cusId={cusId}
               setContent={setContent}
