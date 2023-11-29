@@ -4,7 +4,7 @@ import styles from "./quote_detail.module.css";
 // import InputText from "./input_text";
 import { Input, Spin, Tooltip } from "antd";
 import useLoading from "../../hooks/useLoading";
-import { QuoteContext } from "../quoteFilterContext";
+import { QuoteContext } from "../quoteContext";
 import dayjs from "dayjs";
 
 export default function AddQuoteDetailStatus() {

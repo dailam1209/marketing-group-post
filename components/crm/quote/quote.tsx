@@ -5,7 +5,7 @@ import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { useHeader } from "../hooks/useHeader";
 import QuoteInputGroups from "./quote_input_group";
 import TableDataQuote from "../table/table-quote";
-import { QuoteContext, QuoteProvider } from "./quoteFilterContext";
+import { QuoteContext, QuoteProvider } from "./quoteContext";
 
 export default function Quote() {
   const mainRef = useRef<HTMLDivElement>(null);

@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import styles from "./quote_detail.module.css";
 // import InputText from "./input_text";
 import { Input, Spin, Tooltip } from "antd";
-import { QuoteContext } from "../quoteFilterContext";
+import { QuoteContext } from "../quoteContext";
 import { axiosCRMCall } from "@/utils/api/api_crm_call";
 import dayjs from "dayjs";
 import useLoading from "../../hooks/useLoading";

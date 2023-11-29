@@ -9,6 +9,7 @@ import Head from "next/head";
 
 import AddDescriptionInfo from "@/components/crm/order/order_add_files/description_info";
 import { useHeader } from "@/components/crm/hooks/useHeader";
+import { QuoteProvider } from "@/components/crm/quote/quoteContext";
 
 const AddFilesPotential: React.FC = () => {
   const mainRef = useRef<HTMLDivElement>(null);
@@ -82,26 +83,28 @@ const AddFilesPotential: React.FC = () => {
           src="https://www.googletagmanager.com/gtm.js?id=GTM-NXVQCHN"
         ></script>
       </Head>
-      <div className={styleHome.main} ref={mainRef}>
-        <div className={styles.main_importfile}>
-          <div className={styles.formInfoStep}>
-            <div className={styles.info_step}>
-              <div className={styles.main__title}>Thêm mới báo giá</div>
-              <div className={styles.form_add_potential}>
-                <div className={styles.main__body}>
-                  <AddDetailInfo />
-                  <AddTable />
-                  {/* <AddStatusOrderInfo/> */}
-                  {/* <AddInvoiceInfo /> */}
-                  {/* <AddDeliveryInfo /> */}
-                  <AddDescriptionInfo />
+      <QuoteProvider>
+        <div className={styleHome.main} ref={mainRef}>
+          <div className={styles.main_importfile}>
+            <div className={styles.formInfoStep}>
+              <div className={styles.info_step}>
+                <div className={styles.main__title}>Thêm mới báo giá</div>
+                <div className={styles.form_add_potential}>
+                  <div className={styles.main__body}>
+                    <AddDetailInfo />
+                    <AddTable />
+                    {/* <AddStatusOrderInfo/> */}
+                    {/* <AddInvoiceInfo /> */}
+                    {/* <AddDeliveryInfo /> */}
+                    <AddDescriptionInfo />
+                  </div>
+                  <QuoteFooterAddFiles title="Thêm mới báo giá thành công" />
                 </div>
-                <QuoteFooterAddFiles title="Thêm mới báo giá thành công" />
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </QuoteProvider>
     </>
   );
 };

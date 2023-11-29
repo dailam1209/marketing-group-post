@@ -8,7 +8,7 @@ import AddQuoteInfo from "@/components/crm/quote/quote_detail/quote_info";
 import TabQuoteList from "@/components/crm/quote/quote_detail/tab_quote_detail";
 import Head from "next/head";
 import { useParams } from "react-router-dom";
-import { QuoteContext, QuoteProvider } from "@/components/crm/quote/quoteFilterContext";
+import { QuoteContext, QuoteProvider } from "@/components/crm/quote/quoteContext";
 import { useRouter } from "next/router";
 import Recording from "@/components/crm/cskh/tongdai/quan-ly-line";
 

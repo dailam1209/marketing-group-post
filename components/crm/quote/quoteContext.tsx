@@ -72,6 +72,7 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
         }
         setShouldFetchDetailData(false)
     }, [shouldFetchDetailData])
+
     function getPropOrDefault(obj, propPath, defaultValue = '') {
         const props = propPath.split('.');
         let currentObj = obj;
@@ -87,25 +88,98 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
         return currentObj ?? defaultValue;
     }
 
+    // Thêm mới báo giá
+    const [newQuote, setNewQuote] = useState({
+        id: 0,
+        date_quote: '',
+        date_quote_end: '',
+        status: 0,
+        customer_id: 0,
+        tax_code: '',
+        address: '',
+        phone_number: '',
+        introducer: '',
+        product_list: [],
+        discount_rate: 0,
+        terms_and_conditions: '',
+        note: '',
+        creator_name: '',
+        ceo_name: '',
+        description: '',
+        use_system_info: false,
+    })
+
+    const validateQuote = (fieldName: string, value: any) => {
+        return true
+    }
+
+    const inputQuote = (fieldName: string, value: any) => {
+        setNewQuote((prev) => {
+            if (prev.hasOwnProperty(fieldName)) {
+                if (validateQuote(fieldName, value)) {
+                    return { ...prev, [fieldName]: value }
+                }
+            }
+            return prev
+        })
+    }
+    //test
+    useEffect(() => {
+        console.log(newQuote)
+        // console.log(Object.keys(newQuote).map(key => `\x1b[96m${key}:\x1b[0m \x1b[36m${newQuote[key]}\x1b[0m`).join('\n'));
+    }, [newQuote])
+
+    // Khách hàng trong báo giá
+    const [listCustomer, setListCustomer] = useState([])
+    const [listCusOption, setListCusOption] = useState([])
+    const [keyword, setKeyword] = useState('')
+    const [shouldFetchCus, setShouldFetchCus] = useState(false)
+    useEffect(() => {
+        const newOption = listCustomer
+            .filter(item => 'cus_id' in item && 'name' in item)
+            .filter(item => item.cus_id && item.name)
+            .map(item => ({ cus_id: Number(item.cus_id), name: item.name }));
+        setListCusOption(newOption)
+    }, [listCustomer])
+    useEffect(() =>{
+if(shouldFetchCus){
+    axiosCRMCall
+    .post('/customer/list', {keyword: keyword})
+    .then((res)=>{
+        
+    })
+}
+    },[shouldFetchCus])
+
     return (
         <QuoteContext.Provider value={
             {
+                // Filter tìm kiếm
                 dateQuote, setDateQuote,
                 dateQuoteEnd, setDateQuoteEnd,
-                status, setStatus,
-                quoteCode, setQuoteCode,
                 shouldFetchData, setShouldFetchData,
+                quoteCode, setQuoteCode,
+
+                // Lưu lại cho modal và thao tác
                 recordId, setRecordId,
                 listRecordId, setListRecordId,
-                // createQuoteCode, createListQuoteCode,
                 recordName, setRecordName,
                 listRecordName, setListRecordName,
+
+                // Trạng thái báo giá
+                status, setStatus,
                 statusArray, statusNumToStr: statusNumToStr, statusStrToNum: statusStrToNum,
                 allStatusString, allAvailableStatusString,
                 statusStrToColor, statusToColor,
+
+                // Chi tiết
                 detailData, setDetailData,
                 shouldFetchDetailData, setShouldFetchDetailData,
-                getPropOrDefault
+                getPropOrDefault,
+
+                // Thêm mới
+                newQuote, setNewQuote,
+                inputQuote
             }
         }
         >

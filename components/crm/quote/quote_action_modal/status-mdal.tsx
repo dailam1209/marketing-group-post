@@ -3,7 +3,7 @@ import { Modal } from "antd";
 import styles from "@/components/crm/quote/quote.module.css";
 import PotentialSelectBoxStep from "../quote_steps/select_box_step";
 import ModalCompleteStep from "../quote_steps/complete_modal";
-import { QuoteContext } from "../quoteFilterContext";
+import { QuoteContext } from "../quoteContext";
 import { axiosCRMCall } from "@/utils/api/api_crm_call";
 
 interface MyComponentProps {

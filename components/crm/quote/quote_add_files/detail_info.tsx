@@ -1,24 +1,63 @@
+import { ChangeEvent, useContext, useState } from "react";
 import OrderSelectBoxStep from "../quote_steps/select_box_step";
 import styles from "./add_file_order.module.css";
 import InputText from "./input_text";
 import { Input, Tooltip } from 'antd';
+import { QuoteContext } from "../quoteContext";
 
 export default function AddDetailInfo() {
+  const { newQuote, inputQuote, allAvailableStatusString, statusStrToNum } = useContext(QuoteContext)
+  const [localStatus, setLocalStatus] = useState('Chọn')
+  const [listCustomer, setListCustomer] = useState([])
+
+  const handleSimpleInput = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    inputQuote(name, value);
+  }
+
+  const handleStatus = (str) => {
+    setLocalStatus(str)
+    // if (str === 'Chọn') {
+    //   inputQuote('status', 0)
+    // } else {
+      inputQuote('status', statusStrToNum(str))
+    // }
+  }
+
   return (
     <div>
       <p className={styles.main__body__type}>Thông tin chi tiết</p>
 
       <div className={styles.row_input}>
-        <InputText label="Ngày báo giá*" placeholder="" type="date"/>
+        <InputText
+          label="Ngày báo giá*"
+          placeholder=""
+          type="date"
+          name="date_quote"
+          value={newQuote.date_quote}
+          onChange={handleSimpleInput}
+        />
         <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
-        <InputText label="Hạn thanh toán*" placeholder="Nhập" type="date"/> 
+          <InputText
+            label="Hạn thanh toán*"
+            placeholder="Nhập"
+            type="date"
+            name="date_quote_end"
+            value={newQuote.date_quote_end}
+            onChange={handleSimpleInput}
+          />
         </div>
       </div>
 
       <div className={styles.row_input}>
         <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
           <label className={`${styles["form-label"]}`}>Tình trạng</label>
-          <OrderSelectBoxStep value="Chọn" placeholder="Chọn" />
+          <OrderSelectBoxStep
+            value={localStatus}
+            placeholder="Chọn"
+            data={allAvailableStatusString()}
+            setValue={handleStatus}
+          />
         </div>
         <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
           <label className={`${styles["form-label"]}`}>Khách hàng</label>
@@ -28,26 +67,50 @@ export default function AddDetailInfo() {
 
       <div className={styles.row_input}>
         <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
-          <InputText label="Mã số thuế" placeholder="Nhập mã số thuế"/>
+          <InputText
+            label="Mã số thuế"
+            placeholder="Nhập mã số thuế"
+            name="tax_code"
+            value={newQuote.tax_code}
+            onChange={handleSimpleInput}
+          />
         </div>
         <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
-          <InputText label="Địa chỉ" placeholder="Nhập địa chỉ"/>
+          <InputText
+            label="Địa chỉ"
+            placeholder="Nhập địa chỉ"
+            name="address"
+            value={newQuote.address}
+            onChange={handleSimpleInput}
+          />
         </div>
       </div>
 
       <div className={styles.row_input}>
-        <InputText label="Số điện thoại" placeholder="Nhập số điện thoại"/>
+        <InputText
+          label="Số điện thoại"
+          placeholder="Nhập số điện thoại"
+          name="phone_number"
+          value={newQuote.phone_number}
+          onChange={handleSimpleInput}
+        />
         <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
           <label className={`${styles["form-label"]}`}>Cơ hội</label>
           <OrderSelectBoxStep value="Chọn" placeholder="Chọn" />
         </div>
-        
+
       </div>
 
 
       <div className={styles.row_input}>
-      <label className={`${styles["form-label"]}`}>Lời giới thiệu</label>
-      <textarea placeholder="Nhập lời giới thiệu" style={{width:"100%",fontSize:15, padding:10,height:80}}></textarea>
+        <label className={`${styles["form-label"]}`}>Lời giới thiệu</label>
+        <textarea
+          placeholder="Nhập lời giới thiệu"
+          style={{ width: "100%", fontSize: 15, padding: 10, height: 80 }}
+          name="introducer"
+          value={newQuote.introducer}
+          onChange={handleSimpleInput}
+        ></textarea>
       </div>
     </div>
   );

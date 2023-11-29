@@ -3,7 +3,7 @@ import styles from "@/components/crm/quote/quote.module.css";
 import Link from "next/link";
 import QuoteSelectBox from "./quote_selectt";
 import QuoteAction from "./quote_action";
-import { QuoteContext } from "./quoteFilterContext";
+import { QuoteContext } from "./quoteContext";
 import dayjs from "dayjs";
 export default function QuoteInputGroups({ isSelectedRow }: any) {
   const handleClickSelectoption = () => { };
