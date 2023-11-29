@@ -65,6 +65,8 @@ const TableDataQuoteAddFiles: React.FC<
       key: "0",
       // render: (text) => <div style={{ background: "#EEEEEE", color: "black", textAlign: "center", }}>{text}</div>,
     },
+    // CÓ vẻ như giống với dropdown của customer, cóp sang
+    // Hiện đang dùng của order, lưu ý không sửa
     {
       title: "Tên hàng hóa",
       dataIndex: "nameproduct",

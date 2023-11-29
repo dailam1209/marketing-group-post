@@ -1,18 +1,26 @@
-import { ChangeEvent, useContext, useState } from "react";
+import { ChangeEvent, useContext, useEffect, useState } from "react";
 import OrderSelectBoxStep from "../quote_steps/select_box_step";
+import CustomerSelectBoxStep from "../quote_steps/select_box_step_customer";
 import styles from "./add_file_order.module.css";
 import InputText from "./input_text";
 import { Input, Tooltip } from 'antd';
 import { QuoteContext } from "../quoteContext";
 
 export default function AddDetailInfo() {
-  const { newQuote, inputQuote, allAvailableStatusString, statusStrToNum } = useContext(QuoteContext)
+  const { newQuote, inputQuote, allAvailableStatusString, statusStrToNum,
+  listCusOption, getCusId, keyword, setKeyword, setShouldFetchCus } = useContext(QuoteContext)
   const [localStatus, setLocalStatus] = useState('Chọn')
-  const [listCustomer, setListCustomer] = useState([])
+  const [localCustomer, setLocalCustomer] = useState('Chọn')
+  const [localPhoneNum, setLocalPhoneNum] = useState('')
 
   const handleSimpleInput = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     inputQuote(name, value);
+  }
+
+  const handlePhoneInput = (e: ChangeEvent<HTMLInputElement>) => {
+    const newPhone = e.target.value.replace(/\s/g, '').replace(/[^0-9]/g, '').slice(0, 11);
+    inputQuote('phone_number', newPhone)
   }
 
   const handleStatus = (str) => {
@@ -20,9 +28,18 @@ export default function AddDetailInfo() {
     // if (str === 'Chọn') {
     //   inputQuote('status', 0)
     // } else {
-      inputQuote('status', statusStrToNum(str))
+    inputQuote('status', statusStrToNum(str))
     // }
   }
+
+  const handleCusId = (str) => {
+    setLocalCustomer(str)
+    inputQuote('customer_id', getCusId(str))
+  }
+
+  useEffect(()=>{
+    setShouldFetchCus(true)
+  },[])
 
   return (
     <div>
@@ -61,7 +78,14 @@ export default function AddDetailInfo() {
         </div>
         <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
           <label className={`${styles["form-label"]}`}>Khách hàng</label>
-          <OrderSelectBoxStep value="Chọn" placeholder="Chọn" />
+          <CustomerSelectBoxStep
+            value={localCustomer}
+            placeholder="Chọn"
+            data={listCusOption}
+            setValue={handleCusId}
+            setKeyword={setKeyword}
+            keyword={keyword}
+          />
         </div>
       </div>
 
@@ -92,7 +116,7 @@ export default function AddDetailInfo() {
           placeholder="Nhập số điện thoại"
           name="phone_number"
           value={newQuote.phone_number}
-          onChange={handleSimpleInput}
+          onChange={handlePhoneInput}
         />
         <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
           <label className={`${styles["form-label"]}`}>Cơ hội</label>

@@ -109,6 +109,32 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
         use_system_info: false,
     })
 
+    const clearQuote = () => {
+        setNewQuote({
+            id: 0,
+            date_quote: '',
+            date_quote_end: '',
+            status: 0,
+            customer_id: 0,
+            tax_code: '',
+            address: '',
+            phone_number: '',
+            introducer: '',
+            product_list: [],
+            discount_rate: 0,
+            terms_and_conditions: '',
+            note: '',
+            creator_name: '',
+            ceo_name: '',
+            description: '',
+            use_system_info: false,
+        })
+    }
+
+    useEffect(() => {
+        clearQuote();
+    }, [])
+
     const validateQuote = (fieldName: string, value: any) => {
         return true
     }
@@ -130,26 +156,40 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
     }, [newQuote])
 
     // Khách hàng trong báo giá
-    const [listCustomer, setListCustomer] = useState([])
     const [listCusOption, setListCusOption] = useState([])
     const [keyword, setKeyword] = useState('')
     const [shouldFetchCus, setShouldFetchCus] = useState(false)
+
     useEffect(() => {
-        const newOption = listCustomer
-            .filter(item => 'cus_id' in item && 'name' in item)
-            .filter(item => item.cus_id && item.name)
-            .map(item => ({ cus_id: Number(item.cus_id), name: item.name }));
-        setListCusOption(newOption)
-    }, [listCustomer])
-    useEffect(() =>{
-if(shouldFetchCus){
-    axiosCRMCall
-    .post('/customer/list', {keyword: keyword})
-    .then((res)=>{
-        
-    })
-}
-    },[shouldFetchCus])
+        setShouldFetchCus(true)
+    }, [keyword])
+
+    useEffect(() => {
+        if (shouldFetchCus) {
+            axiosCRMCall
+                .post('/customer/list', { keyword: keyword })
+                .then((res) => {
+                    // res?.data?.data?.data ?
+                    //     setListCustomer(res?.data?.data?.data) :
+                    //     setListCustomer([])
+                    console.log(res?.data?.data)
+                    if (res?.data?.data?.length > 0) {
+                        const newArray = res?.data?.data
+                            .filter(item => 'cus_id' in item && 'name' in item)
+                            .filter(item => item.cus_id && item.name)
+                            .map(item => `${item.cus_id} - ${item.name}`)
+                        setListCusOption(newArray)
+                    }
+                })
+                .catch((err) => console.log(err))
+        }
+        setShouldFetchCus(false)
+    }, [shouldFetchCus])
+
+    const getCusId = (str: string) => {
+        const match = str.match(/^(\d+) -/);
+        return match ? Number(match[1]) : 0;
+    }
 
     return (
         <QuoteContext.Provider value={
@@ -179,7 +219,11 @@ if(shouldFetchCus){
 
                 // Thêm mới
                 newQuote, setNewQuote,
-                inputQuote
+                inputQuote, clearQuote,
+                // Khách hàng trong báo giá
+                shouldFetchCus, setShouldFetchCus,
+                listCusOption, getCusId,
+                keyword, setKeyword
             }
         }
         >
