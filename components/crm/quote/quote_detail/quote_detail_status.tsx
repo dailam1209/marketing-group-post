@@ -8,7 +8,7 @@ import { QuoteContext } from "../quoteFilterContext";
 import dayjs from "dayjs";
 
 export default function AddQuoteDetailStatus() {
-  const { recordId, setRecordId, detailData, setShouldFetchDetailData, statusToColor, statusNumToStr, getPropOrDefault } = useContext(QuoteContext)
+  const { detailData, getPropOrDefault, shouldFetchDetailData } = useContext(QuoteContext)
   const { isLoading, startLoading, stopLoading } = useLoading();
   const [data, setData] = useState<any>({
     description: '',
@@ -34,6 +34,10 @@ export default function AddQuoteDetailStatus() {
     }
     setData(newData)
   }
+
+  useEffect(()=>{
+    shouldFetchDetailData && startLoading();
+  }, [shouldFetchDetailData])
 
   useEffect(() => {
     startLoading();

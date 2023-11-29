@@ -9,7 +9,7 @@ import { axiosCRMCall } from "@/utils/api/api_crm_call";
 import dayjs from "dayjs";
 
 export default function AddQuoteDetailInfo() {
-    const { recordId, setRecordId, getPropOrDefault, shouldFetchDetailData } = useContext(QuoteContext)
+    const { recordId, setRecordId, getPropOrDefault, shouldFetchDetailData, setShouldFetchDetailData } = useContext(QuoteContext)
     const { isLoading, startLoading, stopLoading } = useLoading();
     const [shouldFetchHistory, setShouldFetchHistory] = useState(false);
     const [apiData, setApiData] = useState<any>([])
@@ -28,16 +28,13 @@ export default function AddQuoteDetailInfo() {
     }
 
     useEffect(() => {
-        console.log('shouldFetchDetailData')
         if (shouldFetchDetailData) {
             startLoading();
             setShouldFetchHistory(true)
-            console.log('Run shouldFetchDetailData')
         }
     }, [shouldFetchDetailData])
 
     useEffect(() => {
-        console.log('shouldFetchHistory')
         if (shouldFetchHistory) {
             axiosCRMCall
                 .post('/quote/getQuoteHistory', { quote_id: Number(recordId) || 0 })
@@ -46,17 +43,15 @@ export default function AddQuoteDetailInfo() {
                         setApiData(res?.data?.data?.data) :
                         setApiData([])
                 })
-            console.log('Run shouldFetchHistory')
             setShouldFetchHistory(false)
+            // setShouldFetchDetailData(false)
         }
     }, [shouldFetchHistory, shouldFetchDetailData])
 
     useEffect(() => {
-        console.log('apiData')
         startLoading();
         convertData()
         stopLoading();
-        console.log('Run apiData')
     }, [apiData])
 
     return (

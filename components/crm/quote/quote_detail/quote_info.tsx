@@ -9,7 +9,7 @@ import dayjs from "dayjs";
 import useLoading from "../../hooks/useLoading";
 
 export default function AddQuoteInfo({ id = null }) {
-  const { recordId, setRecordId, detailData, setShouldFetchDetailData, statusToColor, statusNumToStr, getPropOrDefault } = useContext(QuoteContext)
+  const { recordId, setRecordId, detailData, setShouldFetchDetailData, shouldFetchDetailData, statusToColor, statusNumToStr, getPropOrDefault } = useContext(QuoteContext)
   const { isLoading, startLoading, stopLoading } = useLoading();
   const [data, setData] = useState<any>({
     quote_code_str: '',
@@ -28,13 +28,15 @@ export default function AddQuoteInfo({ id = null }) {
     setData(newData)
   }
 
+  useEffect(()=>{
+    shouldFetchDetailData && startLoading();
+  }, [shouldFetchDetailData])
+
   useEffect(() => {
-    startLoading();
     setRecordId(Number(id) || 0)
   }, [])
 
   useEffect(() => {
-    startLoading();
     setShouldFetchDetailData(true)
   }, [recordId])
 
@@ -42,7 +44,6 @@ export default function AddQuoteInfo({ id = null }) {
     startLoading();
     convertData()
     stopLoading();
-    console.log(detailData)
   }, [detailData])
 
   return (
