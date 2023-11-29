@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import styles from "./customer_group.module.css";
+import btnStyles from "@/styles/crm/button.module.css";
 import Link from "next/link";
 import GroupCustomerAction from "./group_customert_action";
 import { ModalGroupCustomerDelete } from "./modal_delete";
@@ -70,9 +71,9 @@ export default function HeaderBtnsCustomerGroup({
               <button
                 type="button"
                 onClick={() => setIsOpenModalDelete(true)}
-                className={`${styles.dropbtn_delete} flex_align_center`}
+                className={`${btnStyles.delete_button} flex_align_center`}
               >
-                Xóa
+                Xóa giỏ cán bộ
               </button>{" "}
               <button
                 onClick={() => setIsOpenModalMove(true)}

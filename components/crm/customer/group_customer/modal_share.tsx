@@ -7,6 +7,8 @@ import jwt_decode from "jwt-decode";
 import { axiosCRM } from "@/utils/api/api_crm";
 import { MInputText } from "@/components/commodity/input";
 import { toLowerCaseNonAccentVietnamese } from "@/utils/function";
+import useLoading from "../../hooks/useLoading";
+import LoadingLayout from "@/constants/LoadingLayout";
 
 interface TypeShareProps {
   isOpenModalShare: boolean;
@@ -30,6 +32,8 @@ export const ModalGroupCustomerShare: React.FC<TypeShareProps> = ({
   const [listEmpTable, setListEmpTable] = useState([]);
   const [companyId, setCompanyId] = useState(null);
   const [tableShow, setTableShow] = useState<any>([]);
+  const { isLoading, handleLoading, startLoading } = useLoading();
+
   useEffect(() => {
     const currentCookie = getToken("token_base365");
     if (currentCookie) {
@@ -63,9 +67,9 @@ export const ModalGroupCustomerShare: React.FC<TypeShareProps> = ({
       key: "idQLC",
     },
     {
-      title: "",
+      title: "Thao tác",
       dataIndex: "idQLC",
-      width: 150,
+      width: 100,
       key: "idQLC",
       render: (data, record) => (
         // <Tooltip title={data}>
@@ -79,15 +83,18 @@ export const ModalGroupCustomerShare: React.FC<TypeShareProps> = ({
       ),
     },
   ];
+  const fetchTakeListUser = () => {
+    axiosCRM
+      .post("/account/TakeListUserFromGroup", { IdGroup, companyId })
+      .then((res) => {
+        setListEmpTable(res.data.data.listUser);
+        setTableShow(res.data.data.listUser);
+      })
+      .catch((err) => console.log("ModalGroupCustomerShare", err));
+  };
   useEffect(() => {
     if (IdGroup && companyId) {
-      axiosCRM
-        .post("/account/TakeListUserFromGroup", { IdGroup, companyId })
-        .then((res) => {
-          setListEmpTable(res.data.data.listUser);
-          setTableShow(res.data.data.listUser);
-        })
-        .catch((err) => console.log("ModalGroupCustomerShare", err));
+      handleLoading(fetchTakeListUser);
     }
   }, [IdGroup]);
   const HandleDeleteUserFromFroup = async (idQLC: any) => {
@@ -98,10 +105,7 @@ export const ModalGroupCustomerShare: React.FC<TypeShareProps> = ({
           IdCrm: idQLC,
         })
         .then((res) => {
-          axiosCRM
-            .post("/account/TakeListUserFromGroup", { IdGroup, companyId })
-            .then((res) => setListEmpTable(res.data.data.listUser))
-            .catch((err) => console.log("ModalGroupCustomerShare", err));
+          fetchTakeListUser();
         })
         .catch((err) => console.log("ModalGroupCustomerShare", err));
     } catch (e) {
@@ -131,7 +135,9 @@ export const ModalGroupCustomerShare: React.FC<TypeShareProps> = ({
           centered
           footer={null}
           open={isOpenModalShare}
-          onCancel={() => setIsOpenModalShare(false)}
+          onCancel={() => {
+            setIsOpenModalShare(false);
+          }}
           className={"mdal_share_group_customer"}
           width={1000}
         >
@@ -143,16 +149,19 @@ export const ModalGroupCustomerShare: React.FC<TypeShareProps> = ({
             </label>
             <Input onChange={(e) => handleSearchEmp(e.target.value)} />
           </div>
-
-          <Table
-            columns={columns}
-            dataSource={tableShow}
-            scroll={{ y: 400 }}
-            bordered
-            pagination={{
-              pageSize: 100,
-            }}
-          />
+          {isLoading ? (
+            <LoadingLayout />
+          ) : (
+            <Table
+              columns={columns}
+              dataSource={tableShow}
+              scroll={{ y: 400 }}
+              bordered
+              pagination={{
+                pageSize: 100,
+              }}
+            />
+          )}
         </Modal>
       </div>
     </>

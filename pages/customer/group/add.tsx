@@ -19,6 +19,7 @@ import axios from "axios";
 import { getCookie } from "cookies-next";
 import jwt_decode from "jwt-decode";
 import { getToken } from "@/pages/api/api-hr/token";
+import Link from "next/link";
 const GroupCustomerAdd: React.FC = () => {
   const [valAllDepartment, setValAllDepartment] = useState(false);
   const [valAllEmp, setValAllEmp] = useState(false);
@@ -46,7 +47,7 @@ const GroupCustomerAdd: React.FC = () => {
       return decodedToken?.data?.com_id;
     }
   };
-  const [dataSelectGroupParent, setData] = useState<any>([]);
+  const [dataSelectGroupParent, setDataGroupParent] = useState<any>([]);
   const [dataEmp, setDataEmp] = useState<any>([]);
   const [dataDepartment, setDataDepartment] = useState<any>([]);
   const [dataRowSelect, setDataRowSelect] = useState<any>([]);
@@ -66,6 +67,7 @@ const GroupCustomerAdd: React.FC = () => {
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
 
+  //Lấy nhóm khách cha
   const fetchData = async (url: string, body) => {
     try {
       const res = await fetch(url, {
@@ -78,7 +80,7 @@ const GroupCustomerAdd: React.FC = () => {
       });
 
       const data = await res.json();
-      setData(data?.data);
+      setDataGroupParent(data?.data);
     } catch (err) {
       // console.error(err);
       throw err;
@@ -102,6 +104,7 @@ const GroupCustomerAdd: React.FC = () => {
     }
   };
 
+  //Lấy danh sách phòng ban
   const fetchDataDepartment = async (url: string, body) => {
     try {
       const response = await axios.post(
@@ -116,13 +119,14 @@ const GroupCustomerAdd: React.FC = () => {
       );
 
       const data = await response.data;
+      console.log("fetchDataDepartment", response.data);
       setDataDepartment(data?.data?.data);
     } catch (err) {
       // console.error(err);
       throw err;
     }
   };
-
+  //Lấy toàn bộ danh sách nhân viên
   const fetchDataEmp = async (url, body) => {
     try {
       const response = await axios.post(url, body, {
@@ -133,6 +137,7 @@ const GroupCustomerAdd: React.FC = () => {
 
       const data = response.data;
       setDataEmp(data?.data?.data);
+      console.log("employeeOptions", response.data);
 
       if (response.status !== 200) {
         throw new Error(data.message || "Có lỗi xảy ra khi gọi API");
@@ -150,7 +155,9 @@ const GroupCustomerAdd: React.FC = () => {
     fetchDataDepartment(`${base_url}/api/qlc/organizeDetail/listAll`, {
       com_id: GetComId(),
     });
-    fetchDataEmp(`${base_url}/api/qlc/managerUser/listUser`, {});
+    fetchDataEmp(`${base_url}/api/qlc/managerUser/listUser`, {
+      pageSize: 2000,
+    });
   }, []);
 
   useEffect(() => {
@@ -170,10 +177,9 @@ const GroupCustomerAdd: React.FC = () => {
   function handleChange(val: any): void {
     setSelectedValueDepartments(val);
   }
-
+  //Xử lý khi chọn nhân viên
   function handleChangeEmps(val: any): void {
     const valueExists = dataTableEmp?.some((item) => item === val);
-
     if (!valueExists) {
       setDataTableEmp((prevData) => {
         if (prevData) {
@@ -206,12 +212,13 @@ const GroupCustomerAdd: React.FC = () => {
       )
       ?.map((employee) => {
         return {
-          label: employee.userName,
+          label: `${employee.ep_id}. ${employee.userName}`,
           value: employee.ep_id,
         };
       });
     setEmployeeOptions(employeeOption);
   }, [selectedValueDepartments]);
+
   const dataDepartments = dataDepartment;
   let arr: any = [];
   dataDepartments?.map((item) => {

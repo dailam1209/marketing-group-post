@@ -10,6 +10,8 @@ import { SelectSingleAndOption } from "@/components/commodity/select";
 import { ToastContainer } from "react-toastify";
 import { axiosCRM } from "@/utils/api/api_crm";
 import { axiosQLC } from "@/utils/api/api_qlc";
+import useLoading from "../../hooks/useLoading";
+import LoadingLayout from "@/constants/LoadingLayout";
 
 interface TypeDeleteProps {
   isOpenModalDelete: boolean;
@@ -22,6 +24,7 @@ export const ModalGroupCustomerDelete: React.FC<TypeDeleteProps> = ({
   const [formData, setFormData] = useState<any>({});
   const [listEmp, setListEmp] = useState([]);
   const [company_id, setCompanyId] = useState(null);
+  const { isLoading, handleLoading } = useLoading();
 
   useEffect(() => {
     const currentCookie = getToken("token_base365");
@@ -41,7 +44,7 @@ export const ModalGroupCustomerDelete: React.FC<TypeDeleteProps> = ({
         setListEmp(
           res.data.data.data?.map((emp) => ({
             value: emp.ep_id,
-            label:`${emp.ep_id}. ${emp.userName}` ,
+            label: `${emp.ep_id}. ${emp.userName}`,
           }))
         )
       )
@@ -49,7 +52,7 @@ export const ModalGroupCustomerDelete: React.FC<TypeDeleteProps> = ({
   };
   useEffect(() => {
     if (company_id) {
-      fetchListEmp();
+      handleLoading(fetchListEmp);
     }
   }, [company_id]);
 
@@ -62,8 +65,14 @@ export const ModalGroupCustomerDelete: React.FC<TypeDeleteProps> = ({
       .post("/account/deleteCart", formData)
       .then((res) => {
         notifySuccess("Xoá thành công!");
+        setFormData({});
+        setTimeout(() => {
+          setIsOpenModalDelete(false);
+        }, 1700);
       })
-      .catch((err) => notifyError());
+      .catch((err) => {
+        notifyError();
+      });
   };
   return (
     <>
@@ -73,33 +82,41 @@ export const ModalGroupCustomerDelete: React.FC<TypeDeleteProps> = ({
         footer={null}
         open={isOpenModalDelete}
         onCancel={() => setIsOpenModalDelete(false)}
-        className={"mdal_cancel"}
+        className={"mdal_default"}
       >
-        <div>
-          {" "}
-          <SelectSingleAndOption
-            title="Chọn giỏ"
-            data={listEmp}
-            formData={formData}
-            setFormData={setFormData}
-            name={"idCRM"}
-          />
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              marginTop: "20px",
-            }}
-          >
-            <button
-              onClick={handleDeleteCart}
-              className={stylesBtn.delete_button}
+        {isLoading ? (
+          <LoadingLayout />
+        ) : (
+          <div>
+            {" "}
+            <SelectSingleAndOption
+              title="Chọn giỏ"
+              data={listEmp}
+              formData={formData}
+              value={formData.idCRM}
+              setFormData={setFormData}
+              // placeholder="Chọn tất cả"
+              name={"idCRM"}
+              valueAll={listEmp?.map((emp) => emp.value).toString()}
+            />
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                marginTop: "20px",
+              }}
             >
-              Xóa
-            </button>
+              <button
+                onClick={handleDeleteCart}
+                className={stylesBtn.delete_button}
+              >
+                Xóa
+              </button>
+            </div>
           </div>
-        </div>
-        <ToastContainer autoClose={2200} />
+        )}
+
+        <ToastContainer autoClose={500} />
       </Modal>
     </>
   );
