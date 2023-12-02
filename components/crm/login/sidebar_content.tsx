@@ -21,6 +21,7 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
   const [openModalLogin, setOpenModalLogin] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isCommodity, setIsCommodity] = useState(false);
+  const [isCustomerInfor, setIsCustomerInfor] = useState(false);
 
   const { accessAcountRole, setAccessAcountRole }: any =
     useContext(AccessContext);
@@ -54,6 +55,9 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
     if (label === "Phân quyền") {
       setAccessRoleOpen(!accessRoleOpen);
     }
+    if (label === "Thông tin khách hàng") {
+      setIsCustomerInfor(!isCustomerInfor);
+    }
     if (label === "Vật tư hàng hóa") {
       setIsCommodity(!isCommodity);
     }
@@ -81,6 +85,9 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
     }
     if (label === "Vật tư hàng hóa") {
       return isCommodity;
+    }
+    if (label === "Thông tin khách hàng") {
+      return isCustomerInfor;
     }
     if (label === "Khách hàng") {
       return isCustomOpen;

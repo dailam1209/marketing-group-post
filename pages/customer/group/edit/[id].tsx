@@ -291,7 +291,6 @@ const GroupCustomerAdd: React.FC = () => {
       });
     setEmployeeOptions(employeeOption);
   }, [selectedValueDepartments]);
-
   // const dataSelectGroupParent = dataAll?.data;
   const dataDepartments = dataDepartment;
   let arr: any = [];
@@ -336,7 +335,7 @@ const GroupCustomerAdd: React.FC = () => {
         ?.filter((emp) => arr?.includes(emp?.organizeDetailId))
         ?.map((employee) => {
           return {
-            label: employee.userName,
+            label: `${employee.ep_id}. ${employee.userName}`,
             value: employee.ep_id,
           };
         });
