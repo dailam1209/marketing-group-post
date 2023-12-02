@@ -2,18 +2,6 @@ import { ChangeEvent, useContext } from "react";
 import styles from "./add_file_order.module.css";
 import { QuoteContext } from "../../quote/quoteContext";
 export default function AddDesriptionAndSystemInfo() {
-  const { newQuote, inputQuote } = useContext(QuoteContext)
-
-  const handleInput = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    inputQuote(name, value);
-  }
-
-  const handleCheckbox = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, checked } = e.target;
-    inputQuote(name, checked);
-  }
-
   return (
     <>
       <div>
@@ -27,9 +15,7 @@ export default function AddDesriptionAndSystemInfo() {
               id="address_contact"
               className={styles["form-control"]}
               placeholder="Nhập mô tả"
-              value={newQuote.description}
               style={{ height: "82px" }}
-              onChange={handleInput}
             />
           </div>
         </div>
@@ -46,7 +32,6 @@ export default function AddDesriptionAndSystemInfo() {
                 defaultValue={1}
                 name="use_system_info"
                 id="share_all"
-                onChange={handleCheckbox}
               />
               Dùng chung
             </p>

@@ -7,7 +7,7 @@ import AddDetailInfo from "@/components/crm/quote/quote_add_files/detail_info";
 import AddTable from "@/components/crm/quote/quote_add_files/table";
 import Head from "next/head";
 
-import AddDescriptionInfo from "@/components/crm/order/order_add_files/description_info";
+import AddDescriptionInfo from "@/components/crm/quote/quote_add_files/description_info copy";
 import { useHeader } from "@/components/crm/hooks/useHeader";
 import { QuoteProvider } from "@/components/crm/quote/quoteContext";
 

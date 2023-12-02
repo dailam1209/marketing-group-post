@@ -1,10 +1,8 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import styles from "@/components/crm/quote/quote.module.css";
-import OrderDropDownDataStep from "./select_box_dropdown_data";
+import styles from "../order.module.css";
+import OrderDropDownDataStep from "./select_box_dropdown_data copy";
 import { QuoteContext } from "../quoteContext";
-import CustomerDropDownDataStep from "./select_box_dropdown_data_customer";
-import ProductDropDownDataStep from "./select_box_dropdown_data_product";
-export default function ProductSelectBoxStep({
+export default function OrderSelectBoxStep({
   title = "",
   value = "Tất cả",
   placeholder = "",
@@ -13,7 +11,7 @@ export default function ProductSelectBoxStep({
   setKeyword = () => { },
   keyword = '',
 }: any) {
-  const { setShouldFetchCus, listCusOption } = useContext(QuoteContext)
+  const { setShouldFetchProd, listProductOptions } = useContext(QuoteContext)
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const handleClickSelectoption = (e: any) => {
@@ -42,7 +40,9 @@ export default function ProductSelectBoxStep({
   }, []);
 
   useEffect(()=>{
-    isOpen && listCusOption.length == 0 && setShouldFetchCus(true);
+    isOpen && 
+    // listProductOptions.length == 0 && 
+    setShouldFetchProd(true);
   },[isOpen])
 
   return (
@@ -64,7 +64,7 @@ export default function ProductSelectBoxStep({
         </option>
       </select>
       <span
-        className={`select2 ${styles.select2_container_step}`}
+        className={`select2 ${styles.select3_container_step}`}
         dir="ltr"
         data-select2-id={2}
         style={{ width: "100%" }}
@@ -84,9 +84,9 @@ export default function ProductSelectBoxStep({
               id="select2-g0q1-container"
               role="textbox"
               aria-readonly="true"
-            // title="Chọn người dùng"
+              // title="Chọn người dùng"
             >
-              {value}
+              {placeholder}
             </span>
             <span
               className={styles.select2_selection__arrow}
@@ -96,7 +96,7 @@ export default function ProductSelectBoxStep({
             </span>
           </span>
         </span>
-        {isOpen && <ProductDropDownDataStep data={data} value={value} setValue={setValue} setKeyword={setKeyword} keyword={keyword} />}
+        {isOpen && <OrderDropDownDataStep data={data} value={value} setValue={setValue} setKeyword={setKeyword} keyword={keyword}/>}
       </span>
     </div>
   );

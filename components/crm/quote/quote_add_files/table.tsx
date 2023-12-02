@@ -1,4 +1,4 @@
-import { ChangeEvent, useContext, useState } from "react";
+import { ChangeEvent, useContext, useEffect, useState } from "react";
 import TableDataOrderAddFiles from "@/components/crm/table/table-order-add-files";
 import OrderSelectBoxStep from "../quote_steps/select_box_step";
 import styles from "./add_file_order.module.css";
@@ -11,7 +11,22 @@ import { QuoteContext } from "../quoteContext";
 
 export default function AddTable() {
   const [isModalCancel, setIsModalCancel] = useState(false);
-  const { newQuote, inputQuote } = useContext(QuoteContext)
+  const { newQuote, inputQuote, tempListProd } = useContext(QuoteContext)
+  const [localTotal, setLocalTotal] = useState(0)
+  const [localTotalWithDiscount, setLocalTotalWithDiscount] = useState(0)
+
+  useEffect(() => {
+    let total = 0
+    if (tempListProd.length > 0) {
+      tempListProd
+        .filter((prod) => prod.product_id !== 'VT-0000')
+        .map((prod) => {
+          total += prod.total
+        })
+    }
+    setLocalTotal(total)
+    setLocalTotalWithDiscount(total * (1 - Number(newQuote.discount_rate) * 1.0 / 100))
+  }, [tempListProd, inputQuote])
 
   const handleSimpleInput = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -57,9 +72,11 @@ export default function AddTable() {
         <div>
           <label className={`${styles["form-label"]}`}>Tổng thành tiền</label>
           <Input
+            style={{ background: "#e9ecef", color: "black !important" }}
             placeholder="0"
             suffix="VNĐ"
             disabled
+            value={localTotal}
           />
         </div>
         <div>
@@ -84,6 +101,7 @@ export default function AddTable() {
             placeholder="0"
             suffix="VNĐ"
             disabled
+            value={localTotalWithDiscount}
           />
         </div>
       </div>

@@ -196,6 +196,7 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
     const [listProductOptions, setListProductOptions] = useState([])
     const [prodName, setProdName] = useState('')
     const [shouldFetchProd, setShouldFetchProd] = useState(false);
+    const [tempListProd, setTempListProd] = useState([])
 
     useEffect(() => {
         setShouldFetchProd(true)
@@ -206,12 +207,31 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
             axiosCRMCall
             .post('/product/show-product', {prod_name: prodName})
             .then((res)=>{
-                console.log(res)
+                // TODO Lấy dữ liệu về, đổ vào listProduct (id, name, dvt, price)
+                if (res?.data?.data?.data.length > 0) {
+                    setListProduct(res?.data?.data?.data.map(item => ({
+                        id: item._id,
+                        name: item.prod_name,
+                        dvt: item.dvt.unit_name,
+                        price: item.price
+                    })))
+                } else {
+                    setListProduct([])
+                }
             })
             .catch((err) => console.log(err))
         }
         setShouldFetchProd(false)
     }, [shouldFetchProd])
+
+    useEffect(()=>{
+        setListProductOptions(listProduct.map(prod => `${prod.id} - ${prod.name}`))
+    },[listProduct])
+
+    useEffect(()=>{
+        console.log(listProduct)
+        console.log(listProductOptions)
+    },[listProductOptions])
 
     return (
         <QuoteContext.Provider value={
@@ -250,6 +270,7 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
                 shouldFetchProd, setShouldFetchProd,
                 listProduct, listProductOptions,
                 prodName, setProdName,
+                tempListProd, setTempListProd,
             }
         }
         >

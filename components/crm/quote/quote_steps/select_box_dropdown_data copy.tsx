@@ -5,23 +5,23 @@ import {
     ReactPortal,
     // PromiseLikeOfReactNode,
     Key,
-    useEffect,
-    useState,
     useContext,
+    useState,
+    useEffect,
 } from "react";
-import styles from "@/components/crm/quote/quote.module.css";
+import styles from "../order.module.css";
 import { QuoteContext } from "../quoteContext";
 import useLoading from "../../hooks/useLoading";
 import { Spin } from "antd";
 
-export default function ProductDropDownDataStep({
+export default function OrderDropDownDataStep({
     data = [],
     value = " Chọn",
     setValue = () => { },
     setKeyword = () => { },
     keyword = '',
 }: any) {
-    const { shouldFetchCus } = useContext(QuoteContext)
+    const { shouldFetchProd } = useContext(QuoteContext)
     const { isLoading, startLoading, stopLoading } = useLoading();
     const [inputValue, setInputValue] = useState('')
 
@@ -34,12 +34,12 @@ export default function ProductDropDownDataStep({
     }, [inputValue])
 
     useEffect(() => {
-        if (shouldFetchCus) {
+        if (shouldFetchProd) {
             startLoading();
         } else {
             stopLoading();
         }
-    }, [shouldFetchCus])
+    }, [shouldFetchProd])
 
     return (
         <span
@@ -64,8 +64,6 @@ export default function ProductDropDownDataStep({
                         spellCheck="false"
                         role="textbox"
                         style={{ height: "34px" }}
-                        onChange={(e) => setInputValue(e.target.value)}
-                        value={inputValue}
                     />
                 </span>
                 <span className={styles.select2_results}>
@@ -97,9 +95,9 @@ export default function ProductDropDownDataStep({
                                     | number
                                     | boolean
                                     | ReactElement<
-                                        any,
-                                        string | JSXElementConstructor<any>
-                                    >
+                                          any,
+                                          string | JSXElementConstructor<any>
+                                      >
                                     | Iterable<ReactNode>
                                     | ReactPortal
                                     // | PromiseLikeOfReactNode
