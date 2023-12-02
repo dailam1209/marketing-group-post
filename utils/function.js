@@ -6,6 +6,7 @@ import requestIp from "request-ip";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import byteSize from "byte-size";
+import jwt_decode from "jwt-decode";
 import moment from "moment";
 export const getEducation = [
   { id: 0, value: "Chưa cập nhật" },
@@ -486,3 +487,20 @@ export const convertTimeToDatePicker = (date, format) => {
 
   return formattedDate;
 };
+export function decodeToken() {
+  const currentCookie = Cookies.get("token_base365");
+  let idQLC = null;
+  let userType = null;
+  let com_id = null;
+  let userName = null;
+  let idTimViec365 = null;
+  if (currentCookie) {
+    const decodedToken = jwt_decode(currentCookie);
+    userType = decodedToken?.data?.type;
+    idQLC = decodedToken?.data?.idQLC;
+    com_id = decodedToken?.data?.com_id;
+    userName = decodedToken?.data?.userName;
+    idTimViec365 = decodedToken?.data?.idTimViec365;
+  }
+  return { idQLC, userType, com_id, userName, idTimViec365 };
+}

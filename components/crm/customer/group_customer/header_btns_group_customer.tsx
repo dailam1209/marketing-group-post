@@ -8,6 +8,7 @@ import ModalGroupCustomerMove from "./modal_move";
 import ModalGroupCustomerAddEmp from "./modal_add_emp";
 import { getToken } from "@/pages/api/api-hr/token";
 import jwt_decode from "jwt-decode";
+import FilterCart from "./modal_filter_cart";
 export default function HeaderBtnsCustomerGroup({
   isSelectedRow,
   selectedRow,
@@ -19,6 +20,7 @@ export default function HeaderBtnsCustomerGroup({
   const [isOpenModalMove, setIsOpenModalMove] = useState(false);
   const [isOpenModalDelete, setIsOpenModalDelete] = useState(false);
   const [isOpenModalAddEmp, setIsOpenModalAddEmp] = useState(false);
+
   const handleChangeInput = useCallback((e: any) => {
     setValFilter(e.target.value);
   }, []);
@@ -104,6 +106,7 @@ export default function HeaderBtnsCustomerGroup({
           </Link>
         </div>
       </div>
+      <FilterCart/>
       <ModalGroupCustomerDelete
         isOpenModalDelete={isOpenModalDelete}
         setIsOpenModalDelete={setIsOpenModalDelete}
@@ -116,6 +119,7 @@ export default function HeaderBtnsCustomerGroup({
         isOpenModalAddEmp={isOpenModalAddEmp}
         setIsOpenModalAddEmp={setIsOpenModalAddEmp}
       />
+      
       <GroupCustomerAction
         isSelectedRow={isSelectedRow}
         selectedRow={selectedRow}

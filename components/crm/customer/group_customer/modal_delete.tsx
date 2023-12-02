@@ -90,7 +90,7 @@ export const ModalGroupCustomerDelete: React.FC<TypeDeleteProps> = ({
           <div>
             {" "}
             <SelectSingleAndOption
-              title="Chọn giỏ"
+              title="Chọn nhân viên"
               data={listEmp}
               formData={formData}
               value={formData.idCRM}

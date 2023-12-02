@@ -7,18 +7,30 @@ import { axiosQLCSite } from "@/utils/api/api_qlc_site";
 import jwt_decode from "jwt-decode";
 import { getToken } from "@/pages/api/api-hr/token";
 import { axiosCRMSite } from "@/utils/api/api_crm_site";
-import { notifyError, notifySuccess, notifyWarning } from "@/utils/function";
+import {
+  decodeToken,
+  notifyError,
+  notifySuccess,
+  notifyWarning,
+} from "@/utils/function";
 import { ToastContainer } from "react-toastify";
 import { axiosCRM } from "@/utils/api/api_crm";
 import { axiosQLC } from "@/utils/api/api_qlc";
 import useLoading from "../../hooks/useLoading";
 import LoadingLayout from "@/constants/LoadingLayout";
 function ModalGroupCustomerAddEmp({ isOpenModalAddEmp, setIsOpenModalAddEmp }) {
-  const [formData, setFormData] = useState<any>({});
+  const [formData, setFormData] = useState<any>({
+    recall: true,
+    ep_status: "Active",
+    pageNumber: 1,
+    pageSize: 1000000,
+  });
+  const [listDepartment, setListDepartment] = useState([]);
   const [listEmp, setListEmp] = useState([]);
   const [listGroup, setListGroup] = useState([]);
   const [company_id, setCompanyId] = useState(null);
   const { isLoading, handleLoading } = useLoading();
+
   useEffect(() => {
     const currentCookie = getToken("token_base365");
     if (currentCookie) {
@@ -26,22 +38,74 @@ function ModalGroupCustomerAddEmp({ isOpenModalAddEmp, setIsOpenModalAddEmp }) {
       setCompanyId(decodedToken?.data?.com_id);
     }
   }, []);
-  const fetchListEmp = () => {
+  //Get list department
+  useEffect(() => {
+    company_id &&
+      axiosQLC
+        .post("/organizeDetail/listAll", { com_id: company_id })
+        .then((res) =>
+          setListDepartment(
+            res.data.data.data?.map((dp) => ({
+              value: dp.listOrganizeDetailId,
+              label: dp.organizeDetailName,
+            }))
+          )
+        )
+        .catch((err) => console.log("getListDepartment", err));
+  }, [company_id]);
+  const getListAllNvienKinhDoanh = () => {
+    company_id &&
+      axiosCRM
+        .post("/account/takeListNvienKinhDoanh", { com_id: company_id })
+        .then((res) => {
+          setListEmp(
+            res.data.data.listUser?.map((emp) => ({
+              value: emp.ep_id,
+              label: `${emp.ep_id}. ${emp.userName}`,
+            }))
+          );
+        })
+        .catch((err) => console.log("FilterCart", err));
+  };
+  // const fetchListEmp = () => {
+  //   axiosQLC
+  //     .post("/managerUser/listUser", {
+  //       pageSize: 10000,
+  //       authentic: 1,
+  //     })
+  //     .then((res) =>
+  //       setListEmp(
+  //         res.data.data.data?.map((emp) => ({
+  //           value: emp.ep_id,
+  //           label: `${emp.ep_id}. ${emp.userName}`,
+  //         }))
+  //       )
+  //     )
+  //     .catch((err) => console.log("err", err));
+  // };
+  const getListNVKDofDepartment = () => {
     axiosQLC
-      .post("/managerUser/listUser", {
-        pageSize: 10000,
-        authentic: 1,
-      })
-      .then((res) =>
+      .post("/managerUser/listUser", formData)
+      .then((res) => {
+        console.log("getListNVKDofDepartment", res);
+
         setListEmp(
           res.data.data.data?.map((emp) => ({
             value: emp.ep_id,
             label: `${emp.ep_id}. ${emp.userName}`,
           }))
-        )
-      )
-      .catch((err) => console.log("err", err));
+        );
+      })
+      .catch((err) => console.log("errgetListNVKDofDepartment", err));
   };
+  console.log("formData", formData);
+  useEffect(() => {
+    if (formData.listOrganizeDetailId) {
+      getListNVKDofDepartment();
+    } else {
+      getListAllNvienKinhDoanh();
+    }
+  }, [formData.listOrganizeDetailId, company_id]);
   const fetchListGroup = () => {
     axiosCRM
       .post("/account/TakeListGroup", {
@@ -59,7 +123,7 @@ function ModalGroupCustomerAddEmp({ isOpenModalAddEmp, setIsOpenModalAddEmp }) {
   };
   useEffect(() => {
     if (company_id) {
-      handleLoading(fetchListEmp);
+      // handleLoading(fetchListEmp);
       fetchListGroup();
     }
   }, [company_id]);
@@ -87,11 +151,22 @@ function ModalGroupCustomerAddEmp({ isOpenModalAddEmp, setIsOpenModalAddEmp }) {
       open={isOpenModalAddEmp}
       onCancel={() => setIsOpenModalAddEmp(false)}
       className={"mdal_default"}
+      width={700}
     >
       {isLoading ? (
         <LoadingLayout />
       ) : (
         <div>
+          <div className={styles.modal_move_item}>
+            <SelectSingleAndOption
+              title="Chọn phòng ban"
+              data={listDepartment}
+              formData={formData}
+              value={formData.IdDepartment}
+              setFormData={setFormData}
+              name={"listOrganizeDetailId"}
+            />
+          </div>
           <div className={styles.modal_move_item}>
             <SelectSingleAndOption
               title="Chọn nhân viên"
