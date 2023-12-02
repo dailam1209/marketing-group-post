@@ -88,7 +88,6 @@ export default function CustomerList() {
   const [posId, setposId] = useState<any>();
   const [nameNvNomor, setnameNvNomor] = useState<any>();
   const [isRowDataSelected, setRowDataSelected] = useState([]);
-  //console.log(dateS, "Props from father");
   const [companyId, setCompanyId] = useState(null);
 
   useEffect(() => {

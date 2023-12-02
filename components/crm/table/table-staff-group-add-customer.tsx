@@ -76,13 +76,20 @@ const TableStaffCustomerGroupAdd: React.FC<TableStaffCustomerGroupAddProps> = ({
     },
     onSelectAll: (selected: any, selectedRows: any, changeRows: any) => {},
   };
-
+  
   const columns: ColumnsType<DataType> = [
     {
       title: "Tên nhân viên",
       dataIndex: "userName",
       key: "1",
       width: 200,
+      render(value, record, index) {
+        return (
+          <span>
+            {record.ep_id}. {record.userName}
+          </span>
+        );
+      },
     },
     {
       title: "Phòng ban",

@@ -3,10 +3,15 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { base_url } from "../service/function";
 import Cookies from "js-cookie";
+import { Link } from "react-scroll";
 
 export default function HeaderBar({ dataHeader, isOpen }: any) {
   return (
-    <div className={style.header_bar}>
+    <div
+      onClick={() => window.open("https://hungha365.com/", "_self")}
+      className={style.header_bar}
+      style={{cursor:"pointer"}}
+    >
       <div className={`${style.header_icon} ${!isOpen ? null : "none"}`}>
         <Image
           width={120}

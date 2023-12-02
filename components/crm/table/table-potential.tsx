@@ -237,7 +237,7 @@ const TableDataPotential: React.FC<TableDataPotentialProps> = ({
           },
         }}
       />
-      <div style={{ marginTop: "5px", width: "50%" }} className="flex_between">
+      <div style={{ marginTop: "5px", width: "55%" }} className="flex_between">
         <div className="show_number_item">
           <b>Hiển thị:</b>
           <select

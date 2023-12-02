@@ -288,8 +288,6 @@ export default function ChatBusinessBody({
       );
     }
   }, [nhonConReal, nhomChaReal, infoCus, cusId, arrCha, cusId]);
-  console.log("ChatBody", content);
-
   return (
     <div className={styles.business_assistant_body}>
       <div className={styles.form_business_assistant}>
@@ -326,17 +324,6 @@ export default function ChatBusinessBody({
             />
           </div>
         </div>
-
-        <TextEditorND
-          show={show}
-          infoCus={infoCus}
-          title={"Nội dung cuộc gọi" as any}
-          className={"2"}
-          setContent={setContent}
-          setDate={setDate}
-          content={content}
-          setrefCall={setrefCall}
-        />
 
         <div className={styles.form_group}>
           <div style={{ display: "flex", justifyContent: "space-between" }}>

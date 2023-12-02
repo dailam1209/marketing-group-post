@@ -131,7 +131,7 @@ const CallModal: React.FC<MyComponentProps> = ({
       setContent("");
       setshow(false);
       // setContent("");
-      setDatatable([]);
+      // setDatatable([]);
       setIsOpenMdalSuccess(false);
 
       await fetchData();
