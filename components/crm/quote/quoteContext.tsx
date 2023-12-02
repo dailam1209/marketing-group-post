@@ -191,6 +191,28 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
         return match ? Number(match[1]) : 0;
     }
 
+    // Hàng hóa trong báo giá
+    const [listProduct, setListProduct] = useState([])
+    const [listProductOptions, setListProductOptions] = useState([])
+    const [prodName, setProdName] = useState('')
+    const [shouldFetchProd, setShouldFetchProd] = useState(false);
+
+    useEffect(() => {
+        setShouldFetchProd(true)
+    }, [prodName])
+
+    useEffect(()=>{
+        if (shouldFetchProd) {
+            axiosCRMCall
+            .post('/product/show-product', {prod_name: prodName})
+            .then((res)=>{
+                console.log(res)
+            })
+            .catch((err) => console.log(err))
+        }
+        setShouldFetchProd(false)
+    }, [shouldFetchProd])
+
     return (
         <QuoteContext.Provider value={
             {
@@ -223,7 +245,11 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
                 // Khách hàng trong báo giá
                 shouldFetchCus, setShouldFetchCus,
                 listCusOption, getCusId,
-                keyword, setKeyword
+                keyword, setKeyword,
+                // Hàng hóa trong báo giá
+                shouldFetchProd, setShouldFetchProd,
+                listProduct, listProductOptions,
+                prodName, setProdName,
             }
         }
         >

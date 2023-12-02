@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import styles from "../order/order.module.css";
 import { Button, Table, Tooltip } from "antd";
@@ -24,9 +24,10 @@ interface DataType {
   total: string;
 }
 
-const data: DataType[] = [];
-for (let i = 0; i < 100; i++) {
-  data.push({
+const [data, setData] = useState<DataType[]>([]);
+const testData: DataType[] = []
+for (let i = 0; i < 1; i++) {
+  testData.push({
     key: i + 1,
     idproduct: "VT-0000",
     nameproduct: "Bánh",
@@ -48,9 +49,37 @@ interface TableDataOrderAddFilesDrops {
 
 const TableDataQuoteAddFiles: React.FC<
   TableDataOrderAddFilesDrops
-> = ({}: any) => {
+> = ({ }: any) => {
   const [isModalCancel, setIsModalCancel] = useState(false);
-  const [pageSize, setPageSize] = useState<number>(4);
+  const [pageSize, setPageSize] = useState<number>(data.length);
+
+  useEffect(() => {
+    setData(testData)
+  }, [])
+
+  const handleAddRow = () => {
+    const newEmptyRow = {
+      key: data.reduce((maxKey, obj) => {
+        return Number(obj.key) > maxKey ? obj.key : maxKey
+      }, 0),
+      idproduct: "VT-0000",
+      nameproduct: "Bánh",
+      donvi: "Hộp",
+      soluong: "0",
+      dongia: "0",
+      tien: "0",
+      chietkhau: "0",
+      tienchietkhau: "0",
+      thue: "0",
+      tienthue: "0",
+      total: "0",
+    }
+  }
+
+  const handleDeleteRow = () => {
+
+  }
+
   const columns: ColumnsType<DataType> = [
     {
       title: "STT",
@@ -161,7 +190,7 @@ const TableDataQuoteAddFiles: React.FC<
       key: "11",
       width: 120,
       fixed: "right",
-      render: () => (
+      render: (text, record, index) => (
         <div style={{ display: "flex", gap: 10, justifyContent: "center" }}>
           <div style={{ width: 15 }} onClick={() => setPageSize(pageSize + 1)}>
             <img style={{ cursor: "pointer" }} src="/crm/add_row.svg"></img>{" "}
@@ -204,7 +233,7 @@ const TableDataQuoteAddFiles: React.FC<
           isModalCancel={isModalCancel}
           setIsModalCancel={setIsModalCancel}
           title="Áp dụng cho hàng hóa"
-          // content="Hello"
+        // content="Hello"
         />
       }
 
