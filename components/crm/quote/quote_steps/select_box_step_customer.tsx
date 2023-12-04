@@ -41,7 +41,9 @@ export default function CustomerSelectBoxStep({
   }, []);
 
   useEffect(()=>{
-    isOpen && listCusOption.length == 0 && setShouldFetchCus(true);
+    isOpen && 
+    listCusOption.length == 0 && 
+    setShouldFetchCus(true);
   },[isOpen])
 
   return (

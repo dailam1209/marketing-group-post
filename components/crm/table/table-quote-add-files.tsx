@@ -60,15 +60,15 @@ const TableDataQuoteAddFiles: React.FC<
   useEffect(() => {
     setPageSize(data.length)
     const newProd = data
-    .filter((prod) => prod.idproduct !== 'VT-0000')
-    .map((item) => ({
-      product_id: item.idproduct,
-      amount: item.soluong,
-      price: item.dongia,
-      discount: item.chietkhau,
-      tax_rate: item.thue,
-      total: (Number(item.soluong) * Number(item.dongia)) * (1 - Number(item.chietkhau) * 1.0 / 100) * (1 + Number(item.thue) * 1.0 / 100)
-    }))
+      .filter((prod) => prod.idproduct !== 'VT-0000')
+      .map((item) => ({
+        product_id: item.idproduct,
+        amount: item.soluong,
+        price: item.dongia,
+        discount: item.chietkhau,
+        tax_rate: item.thue,
+        total: (Number(item.soluong) * Number(item.dongia)) * (1 - Number(item.chietkhau) * 1.0 / 100) * (1 + Number(item.thue) * 1.0 / 100)
+      }))
     setTempListProd(newProd)
     console.log(data)
   }, [data])
@@ -103,26 +103,69 @@ const TableDataQuoteAddFiles: React.FC<
     setData((prevData) => {
       let newData = [...prevData];
 
-      let sannitizedValue = 0;
-      if (key === 'soluong') {
-        sannitizedValue = parseInt(value, 10)
-      } else if (['chietkhau', 'thue'].includes(key)) {
-        sannitizedValue = Math.min(100, Math.max(0, parseFloat(value))) || 0
-      }
-      // FIXME Thiếu dongia
+      // let sannitizedValue = 0;
+      // if (key === 'soluong') {
+      //   sannitizedValue = Math.max(0, parseInt(value, 10)) || 0
+      // } else if (['chietkhau', 'thue'].includes(key)) {
+      //   sannitizedValue = Math.min(100, Math.max(0, parseFloat(value))) || 0
+      // } else {
+      //   sannitizedValue = Math.max(0, parseFloat(value)) || 0
+      // }
+      // // FIXME Thiếu dongia
 
-      newData[index] = { ...newData[index], [key]: sannitizedValue }
+      // newData[index] = { ...newData[index], [key]: sannitizedValue }
+      newData[index] = { ...newData[index], [key]: value }
 
       if (['soluong', 'dongia', 'chietkhau', 'thue'].includes(key)) {
         const { soluong, dongia, tien, chietkhau, tienchietkhau, thue, tienthue, total } = newData[index]
-        newData[index].tien = (Number(soluong) * Number(dongia))
-        newData[index].tienchietkhau = (Number(newData[index].tien) * 1.0 * Number(chietkhau) / 100)
-        newData[index].tienthue = ((Number(newData[index].tien) - Number(newData[index].tienchietkhau)) * 1.0 * Number(thue) / 100)
-        newData[index].total = (Number(newData[index].tien) - Number(newData[index].tienchietkhau) + Number(newData[index].tienthue))
+        newData[index].tien = Number((Number(soluong) * Number(dongia)).toFixed(2))
+        newData[index].tienchietkhau = Number((Number(newData[index].tien) * 1.0 * Number(chietkhau) / 100).toFixed(2))
+        newData[index].tienthue = Number(((Number(newData[index].tien) - Number(newData[index].tienchietkhau)) * 1.0 * Number(thue) / 100).toFixed(2))
+        newData[index].total = Number((Number(newData[index].tien) - Number(newData[index].tienchietkhau) + Number(newData[index].tienthue)).toFixed(2))
       }
 
       return newData;
     })
+  }
+
+  const handleOnBlur = (key, index, value) => {
+    setData(prevData => {
+      let newData = [...prevData]
+      if (['soluong', 'dongia', 'chietkhau', 'thue'].includes(key)) {
+        let sannitizedValue = 0;
+        if (key === 'soluong') {
+          sannitizedValue = Math.max(0, parseInt(value, 10)) || 0
+        } else if (['chietkhau', 'thue'].includes(key)) {
+          sannitizedValue = Math.min(100, Math.max(0, parseFloat(value))) || 0
+        } else {
+          sannitizedValue = Math.max(0, parseFloat(value)) || 0
+        }
+        newData[index] = { ...newData[index], [key]: sannitizedValue }
+      }
+
+      return newData
+    })
+  }
+
+  const handleInputKeyPress = (e, key, index, value) => {
+    if (e.key === 'Enter') {
+      setData(prevData => {
+        let newData = [...prevData]
+        if (['soluong', 'dongia', 'chietkhau', 'thue'].includes(key)) {
+          let sannitizedValue = 0;
+          if (key === 'soluong') {
+            sannitizedValue = Math.max(0, parseInt(value, 10)) || 0
+          } else if (['chietkhau', 'thue'].includes(key)) {
+            sannitizedValue = Math.min(100, Math.max(0, parseFloat(value))) || 0
+          } else {
+            sannitizedValue = Math.max(0, parseFloat(value)) || 0
+          }
+          newData[index] = { ...newData[index], [key]: sannitizedValue }
+        }
+
+        return newData
+      })
+    }
   }
 
   const handleProductChange = (index, product) => {
@@ -157,7 +200,7 @@ const TableDataQuoteAddFiles: React.FC<
       key: "0",
       // render: (text) => <div style={{ background: "#EEEEEE", color: "black", textAlign: "center", }}>{text}</div>,
     },
-    
+
     // FIXME Chưa chọn
     {
       title: "Tên hàng hóa",
@@ -195,10 +238,13 @@ const TableDataQuoteAddFiles: React.FC<
         <>
           <input
             type="number"
+            min={0}
             className={styles.inputform}
             placeholder="Nhập"
-            value={text}
+            value={String(text)}
             onChange={(e) => handleInputChange('soluong', index, e.target.value)}
+            onBlur={(e) => handleOnBlur('soluong', index, e.target.value)}
+            onKeyDown={(e) => handleInputKeyPress(e, 'soluong', index, e.currentTarget.value)}
           />
         </>
       ),
@@ -212,10 +258,13 @@ const TableDataQuoteAddFiles: React.FC<
         <>
           <input
             type="number"
+            min={0}
             className={styles.inputform}
             placeholder="Nhập"
-            value={text}
+            value={String(text)}
             onChange={(e) => handleInputChange('dongia', index, e.target.value)}
+            onBlur={(e) => handleOnBlur('dongia', index, e.target.value)}
+            onKeyDown={(e) => handleInputKeyPress(e, 'dongia', index, e.currentTarget.value)}
           />
         </>
       ),
@@ -225,6 +274,11 @@ const TableDataQuoteAddFiles: React.FC<
       dataIndex: "tien",
       key: "5",
       width: 100,
+      render: (text) => {
+        return Number(text).toLocaleString('en-US', {
+          maximumFractionDigits: 2,
+        })
+      }
     },
     {
       title: "Tỷ lệ chiết khấu (%)",
@@ -234,11 +288,13 @@ const TableDataQuoteAddFiles: React.FC<
       render: (text, record, index) => (
         <>
           <input
-            type="text"
+            type="number"
             className={styles.inputform}
             placeholder="Nhập"
-            value={text}
+            value={String(text)}
             onChange={(e) => handleInputChange('chietkhau', index, e.target.value)}
+            onBlur={(e) => handleOnBlur('chietkhau', index, e.target.value)}
+            onKeyDown={(e) => handleInputKeyPress(e, 'chietkhau', index, e.currentTarget.value)}
           />
         </>
       ),
@@ -262,11 +318,13 @@ const TableDataQuoteAddFiles: React.FC<
       render: (text, record, index) => (
         <>
           <input
-            type="text"
+            type="number"
             className={styles.inputform}
             placeholder="Nhập"
-            value={text}
+            value={String(text)}
             onChange={(e) => handleInputChange('thue', index, e.target.value)}
+            onBlur={(e) => handleOnBlur('thue', index, e.target.value)}
+            onKeyDown={(e) => handleInputKeyPress(e, 'thue', index, e.currentTarget.value)}
           />
         </>
       ),
