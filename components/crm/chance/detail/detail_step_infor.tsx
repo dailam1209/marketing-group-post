@@ -39,9 +39,9 @@ interface DetailChance {
 }
 
 interface PropsDetail {
-  isHideEmpty: boolean;
-  setIsHideEmty: Dispatch<SetStateAction<boolean>>;
-  dataApi: {
+  isHideEmpty?: boolean;
+  setIsHideEmty?: Dispatch<SetStateAction<boolean>>;
+  dataApi?: {
     result?: boolean;
     message?: string;
     total_money?: number;
@@ -67,6 +67,14 @@ const DetailInformationChance: React.FC<PropsDetail> = ({
   const [percentSuccess, setPerCentSuccess] = useState(0);
   const [isOpenModalCancel, setIsOpenModalCancel] = useState(false);
   const token = Cookies.get("token_base365");
+
+  const statusList = {
+    1: "Mở đầu",
+    0: "Mở đầu",
+    2: "Khách hàng quan tâm",
+    3: "Demo/Gthieu",
+    4: "Đàm phán/ thương lương",
+  };
 
   const switchHandle = (checked: boolean) => {
     setIsHideEmty(checked);
@@ -146,7 +154,7 @@ const DetailInformationChance: React.FC<PropsDetail> = ({
                     />
                     <TextInfoChance
                       label="Giai đoạn"
-                      value={dataApi?.detailChance?.stages}
+                      value={statusList?.[dataApi?.detailChance?.stages]}
                       isHideEmpty={isHideEmpty}
                     />
                     <TextInfoChance

@@ -9,6 +9,7 @@ interface HeaderProps {
 
 const HeaderBarChanceDetails: React.FC<HeaderProps> = ({ keyTab }: any) => {
   const router = useRouter();
+  const { id } = router.query;
   const [activeKey, setActiveKey] = useState(keyTab);
   const items: TabsProps["items"] = [
     {
@@ -56,25 +57,25 @@ const HeaderBarChanceDetails: React.FC<HeaderProps> = ({ keyTab }: any) => {
     if (key) {
       switch (key) {
         case "1":
-          router.push(`/chance/detail/main`);
+          router.push(`/chance/detail/${id}`);
           return;
         case "2":
-          router.push(`/chance/detail/contact`);
+          router.push(`/chance/detail/contact/${id}`);
           return;
         case "3":
-          router.push(`/chance/detail/schedule`);
+          router.push(`/chance/detail/schedule//${id}`);
           return;
         case "4":
-          router.push(`/chance/detail/quote`);
+          router.push(`/chance/detail/quote/${id}`);
           return;
         case "5":
-          router.push(`/chance/detail/order`);
+          router.push(`/chance/detail/order/${id}`);
           return;
         case "6":
-          router.push(`/chance/detail/attachment`);
+          router.push(`/chance/detail/attachment/${id}`);
           return;
         case "7":
-          router.push(`/chance/detail/history`);
+          router.push(`/chance/detail/history/${id}`);
           return;
         case "8":
           router.push(`/chance/detail/share`);
