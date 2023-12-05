@@ -28,8 +28,8 @@ for (let i = 0; i < 4; i++) {
   testData.push({
     key: i + 1,
     idproduct: "VT-0000",
-    nameproduct: "Bánh",
-    donvi: "Hộp",
+    nameproduct: "Chọn",
+    donvi: "Đơn vị",
     soluong: 0,
     dongia: 0,
     tien: 0,
@@ -64,8 +64,8 @@ const TableDataQuoteAddFiles: React.FC<
       .map((item) => ({
         product_id: item.idproduct,
         amount: item.soluong,
-        price: item.dongia,
-        discount: item.chietkhau,
+        product_price: item.dongia,
+        product_discount_rate: item.chietkhau,
         tax_rate: item.thue,
         total: (Number(item.soluong) * Number(item.dongia)) * (1 - Number(item.chietkhau) * 1.0 / 100) * (1 + Number(item.thue) * 1.0 / 100)
       }))
@@ -143,6 +143,12 @@ const TableDataQuoteAddFiles: React.FC<
         newData[index] = { ...newData[index], [key]: sannitizedValue }
       }
 
+      const { soluong, dongia, tien, chietkhau, tienchietkhau, thue, tienthue, total } = newData[index]
+      newData[index].tien = Number((Number(soluong) * Number(dongia)).toFixed(2))
+      newData[index].tienchietkhau = Number((Number(newData[index].tien) * 1.0 * Number(chietkhau) / 100).toFixed(2))
+      newData[index].tienthue = Number(((Number(newData[index].tien) - Number(newData[index].tienchietkhau)) * 1.0 * Number(thue) / 100).toFixed(2))
+      newData[index].total = Number((Number(newData[index].tien) - Number(newData[index].tienchietkhau) + Number(newData[index].tienthue)).toFixed(2))
+
       return newData
     })
   }
@@ -163,12 +169,19 @@ const TableDataQuoteAddFiles: React.FC<
           newData[index] = { ...newData[index], [key]: sannitizedValue }
         }
 
+        const { soluong, dongia, tien, chietkhau, tienchietkhau, thue, tienthue, total } = newData[index]
+        newData[index].tien = Number((Number(soluong) * Number(dongia)).toFixed(2))
+        newData[index].tienchietkhau = Number((Number(newData[index].tien) * 1.0 * Number(chietkhau) / 100).toFixed(2))
+        newData[index].tienthue = Number(((Number(newData[index].tien) - Number(newData[index].tienchietkhau)) * 1.0 * Number(thue) / 100).toFixed(2))
+        newData[index].total = Number((Number(newData[index].tien) - Number(newData[index].tienchietkhau) + Number(newData[index].tienthue)).toFixed(2))
+
         return newData
       })
     }
   }
 
   const handleProductChange = (index, product) => {
+    console.log(product)
     const product_id = getCusId(product)
     console.log(product_id)
     setData((prevData) => {
@@ -289,6 +302,8 @@ const TableDataQuoteAddFiles: React.FC<
         <>
           <input
             type="number"
+            min={0}
+            max={100}
             className={styles.inputform}
             placeholder="Nhập"
             value={String(text)}
@@ -319,6 +334,8 @@ const TableDataQuoteAddFiles: React.FC<
         <>
           <input
             type="number"
+            min={0}
+            max={100}
             className={styles.inputform}
             placeholder="Nhập"
             value={String(text)}

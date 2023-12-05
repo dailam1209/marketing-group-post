@@ -84,7 +84,6 @@ export default function QuoteInputGroups({ isSelectedRow }: any) {
               type="text"
               className={styles.input__search}
               name="search"
-              defaultValue=""
               placeholder="Tìm kiếm theo số báo giá"
               style={{ fontSize: 18 }}
               value={quoteCode}

@@ -33,6 +33,7 @@ export default function AddTable() {
     inputQuote(name, value);
   }
 
+  // TODO Input string, unfocus or enter number
   const handlePercentInput = (e: ChangeEvent<HTMLInputElement>) => {
     const eleName = e.target.name;
     let value = e.target.value;
@@ -48,11 +49,12 @@ export default function AddTable() {
 
     // Convert to a floating-point number
     const floatValue = value ? parseFloat(value) : 0;
+    console.log(!!value)
 
     // Clamp the value within the range of 0 to 100
     const clampedValue = Math.min(100, Math.max(0, floatValue));
 
-    inputQuote(eleName, floatValue < 0 || floatValue > 100 ? clampedValue + '' : value)
+    inputQuote(eleName, floatValue < 0 || floatValue > 100 ? clampedValue + '' : (value ? value : 0))
   }
 
   return (
@@ -72,11 +74,12 @@ export default function AddTable() {
         <div>
           <label className={`${styles["form-label"]}`}>Tổng thành tiền</label>
           <Input
-            style={{ background: "#e9ecef", color: "black !important" }}
+            style={{ background: "#e9ecef", color: "black", pointerEvents: 'none' }}
             placeholder="0"
             suffix="VNĐ"
-            disabled
+            // disabled
             value={localTotal}
+            
           />
         </div>
         <div>
@@ -97,10 +100,10 @@ export default function AddTable() {
             Tổng tiền thanh toán
           </label>
           <Input
-            style={{ background: "#e9ecef", color: "black" }}
+            style={{ background: "#e9ecef", color: "black", pointerEvents: 'none' }}
             placeholder="0"
             suffix="VNĐ"
-            disabled
+            // disabled
             value={localTotalWithDiscount}
           />
         </div>
@@ -135,7 +138,7 @@ export default function AddTable() {
 
       <div style={{ display: "flex", justifyContent: "space-around" }}>
         <div>
-          <div style={{ textAlign: "center" }}>Người lập</div>
+          <div style={{ textAlign: "center" }} className="required">Người lập</div>
           <div style={{ textAlign: "center" }}>(Ký, họ tên)</div>
           <div style={{ paddingTop: 10 }}>
             <Input
@@ -147,7 +150,7 @@ export default function AddTable() {
           </div>
         </div>
         <div>
-          <div style={{ textAlign: "center" }}>Giám đốc</div>
+          <div style={{ textAlign: "center" }} className="required">Giám đốc</div>
           <div style={{ textAlign: "center" }}>(Ký, họ tên, đóng dấu)</div>
           <div style={{ paddingTop: 10 }}>
             <Input

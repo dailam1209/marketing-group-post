@@ -50,3 +50,4 @@ export default function Home() {
 }
 // TODO Cần phải xem lại các component xem có bị dùng chung với bên nào không
 // Nếu có, cóp dùng riêng 
+// TODO Thêm modal cảnh báo

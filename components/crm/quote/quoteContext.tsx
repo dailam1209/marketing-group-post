@@ -89,6 +89,7 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
     }
 
     // Thêm mới báo giá
+    // TODO Trim and validate
     const [newQuote, setNewQuote] = useState({
         id: 0,
         date_quote: '',
@@ -131,25 +132,67 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
         })
     }
 
+    // TODO Conditional clear
     useEffect(() => {
         clearQuote();
     }, [])
 
-    const validateQuote = (fieldName: string, value: any) => {
-        return true
+    const validateQuote = () => {
+        let invalidMsg = []
+        // Check empty check zero
+        const requiredFields = ['date_quote', 'date_quote_end', 'status', 'customer_id', 'creator_name', 'ceo_name']
+        let isEmptyField = false
+        requiredFields.forEach((fieldName) => {
+            const value = newQuote[fieldName]
+            if (value === null || value === undefined || value === '' || value === 0) {
+                isEmptyField = true
+            }
+        })
+        if (isEmptyField) {
+            invalidMsg.push(`Các trường bắt buộc không được để trống`)
+        }
+
+        // product check empty
+        if (!newQuote.product_list || newQuote.product_list.length === 0) {
+            invalidMsg.push(`Danh sách hàng hóa không được để trống`)
+        }
+
+        return invalidMsg
+    }
+
+    const stringifyObject = (obj) => {
+        if (obj === null || obj === undefined) {
+            return '';  // Convert null or undefined to an empty string
+        }
+    
+        if (Array.isArray(obj)) {
+            // If it's an array, use JSON.stringify
+            return JSON.stringify(obj);
+        }
+    
+        if (typeof obj === 'object') {
+            const result = {};
+            // Recursively stringify object properties
+            for (let key in obj) {
+                result[key] = stringifyObject(obj[key]);
+            }
+            return result;
+        } else if (typeof obj === 'string') {
+            return obj.trim();  // Trim string values
+        }
+    
+        return obj.toString();  // Convert other values to strings
     }
 
     const inputQuote = (fieldName: string, value: any) => {
         setNewQuote((prev) => {
             if (prev.hasOwnProperty(fieldName)) {
-                if (validateQuote(fieldName, value)) {
-                    return { ...prev, [fieldName]: value }
-                }
+                return { ...prev, [fieldName]: value }
             }
             return prev
         })
     }
-    //test
+    // TODO remove test log
     useEffect(() => {
         console.log(newQuote)
         // console.log(Object.keys(newQuote).map(key => `\x1b[96m${key}:\x1b[0m \x1b[36m${newQuote[key]}\x1b[0m`).join('\n'));
@@ -202,36 +245,44 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
         setShouldFetchProd(true)
     }, [prodName])
 
-    useEffect(()=>{
+    useEffect(() => {
         if (shouldFetchProd) {
             axiosCRMCall
-            .post('/product/show-product', {prod_name: prodName})
-            .then((res)=>{
-                // TODO Lấy dữ liệu về, đổ vào listProduct (id, name, dvt, price)
-                if (res?.data?.data?.data.length > 0) {
-                    setListProduct(res?.data?.data?.data.map(item => ({
-                        id: item._id,
-                        name: item.prod_name,
-                        dvt: item.dvt.unit_name,
-                        price: item.price
-                    })))
-                } else {
-                    setListProduct([])
-                }
-            })
-            .catch((err) => console.log(err))
+                .post('/product/show-product', { prod_name: prodName })
+                .then((res) => {
+                    if (res?.data?.data?.data.length > 0) {
+                        setListProduct(res?.data?.data?.data.map(item => ({
+                            id: item._id,
+                            name: item.prod_name,
+                            dvt: item.dvt.unit_name,
+                            price: item.price
+                        })))
+                    } else {
+                        setListProduct([])
+                    }
+                })
+                .catch((err) => console.log(err))
         }
         setShouldFetchProd(false)
     }, [shouldFetchProd])
 
-    useEffect(()=>{
+    useEffect(() => {
         setListProductOptions(listProduct.map(prod => `${prod.id} - ${prod.name}`))
-    },[listProduct])
+    }, [listProduct])
 
-    useEffect(()=>{
+    // TODO remove test log
+    useEffect(() => {
         console.log(listProduct)
         console.log(listProductOptions)
-    },[listProductOptions])
+    }, [listProductOptions])
+
+    // TODO remove test log
+    useEffect(() => {
+        console.log(tempListProd)
+        setNewQuote(prevData => (
+            { ...prevData, product_list: tempListProd.map(({ total, ...prod }) => prod) }
+        ))
+    }, [tempListProd])
 
     return (
         <QuoteContext.Provider value={
@@ -241,6 +292,7 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
                 dateQuoteEnd, setDateQuoteEnd,
                 shouldFetchData, setShouldFetchData,
                 quoteCode, setQuoteCode,
+                stringifyObject,
 
                 // Lưu lại cho modal và thao tác
                 recordId, setRecordId,
@@ -261,7 +313,7 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
 
                 // Thêm mới
                 newQuote, setNewQuote,
-                inputQuote, clearQuote,
+                inputQuote, clearQuote, validateQuote,
                 // Khách hàng trong báo giá
                 shouldFetchCus, setShouldFetchCus,
                 listCusOption, getCusId,

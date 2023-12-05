@@ -86,7 +86,7 @@ export default function OrderSelectBoxStep({
               aria-readonly="true"
               // title="Chọn người dùng"
             >
-              {placeholder}
+              {value}
             </span>
             <span
               className={styles.select2_selection__arrow}

@@ -47,28 +47,30 @@ export default function AddDetailInfo() {
 
       <div className={styles.row_input}>
         <InputText
-          label="Ngày báo giá*"
+          label="Ngày báo giá"
           placeholder=""
           type="date"
           name="date_quote"
           value={newQuote.date_quote}
           onChange={handleSimpleInput}
+          require={true}
         />
         <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
           <InputText
-            label="Hạn thanh toán*"
+            label="Hạn thanh toán"
             placeholder="Nhập"
             type="date"
             name="date_quote_end"
             value={newQuote.date_quote_end}
             onChange={handleSimpleInput}
+            require={true}
           />
         </div>
       </div>
 
       <div className={styles.row_input}>
         <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
-          <label className={`${styles["form-label"]}`}>Tình trạng</label>
+          <label className={`${styles["form-label"]} required`}>Tình trạng</label>
           <OrderSelectBoxStep
             value={localStatus}
             placeholder="Chọn"
@@ -77,7 +79,7 @@ export default function AddDetailInfo() {
           />
         </div>
         <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
-          <label className={`${styles["form-label"]}`}>Khách hàng</label>
+          <label className={`${styles["form-label"]} required`}>Khách hàng</label>
           <CustomerSelectBoxStep
             value={localCustomer}
             placeholder="Chọn"

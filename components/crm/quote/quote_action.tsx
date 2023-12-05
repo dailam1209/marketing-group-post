@@ -13,6 +13,7 @@ import HandOverActionModal from "./quote_action_modal/handover_action_mdal";
 import StatusModal from "./quote_action_modal/status-mdal";
 import { useRouter } from "next/router";
 import { QuoteContext } from "./quoteContext";
+import ModalError from "./quote_steps/error_mdal";
 
 export default function QuoteAction({ isSelectedRow, record, allkey }: any) {
   const { listRecordId } = useContext(QuoteContext)
@@ -25,6 +26,7 @@ export default function QuoteAction({ isSelectedRow, record, allkey }: any) {
   const [isOpenHandOver, setIsOpenHandOver] = useState(false);
   const [isOpenUpdate, setIsOpenUpdate] = useState(false);
   const [isOpenSend, setIsOpenSend] = useState(false);
+  const [isOpenError, setIsOpenError] = useState(false);
   const handleClickAction = (e: any, type: string | undefined) => {
     setDropdownOpen(false);
     if (type === "order_browsing") {
@@ -57,7 +59,7 @@ export default function QuoteAction({ isSelectedRow, record, allkey }: any) {
     if (listRecordId.length > 0) {
       setDropdownOpen(visible)
     } else {
-      alert('Hãy chọn báo giá')
+      setIsOpenError(true)
     }
   }
 
@@ -158,6 +160,12 @@ export default function QuoteAction({ isSelectedRow, record, allkey }: any) {
         allkey={listRecordId}
         isModalCancel={isOpenUpdate}
         setIsModalCancel={setIsOpenUpdate}
+      />
+
+      <ModalError
+        modal1Open={isOpenError}
+        setModal1Open={setIsOpenError}
+        title="Hãy chọn báo giá"
       />
     </div>
   );
