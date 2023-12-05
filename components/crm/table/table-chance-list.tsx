@@ -21,12 +21,10 @@ const TableDataChance: React.FC<TableDataChanceProps> = ({
   dataAPI,
 }: any) => {
   const statusList = {
-    0: "Chưa cập nhật",
-    1: "Chưa cập nhật",
-    2: "Mở đầu",
-    3: "Khách hàng quan tâm",
-    4: "Demo/Gthieu",
-    5: "Đàm phán/ thương lương",
+    1: "Mở đầu",
+    2: "Khách hàng quan tâm",
+    3: "Demo/Gthieu",
+    4: "Đàm phán/ thương lương",
   };
 
   const rowSelection: TableRowSelection<any> = {
@@ -115,7 +113,7 @@ const TableDataChance: React.FC<TableDataChanceProps> = ({
       width: 150,
       render: (empID) => (
         <div>
-          {emp.filter((empList) => empList?.ep_id === empID)[0]?.userName ||
+          {emp?.filter((empList) => empList?.ep_id === empID)[0]?.userName ||
             "Chưa cập nhật"}
         </div>
       ),

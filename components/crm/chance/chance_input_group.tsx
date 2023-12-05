@@ -14,16 +14,16 @@ export default function PotentialInputGroups({
   emp,
   body,
   setBody,
+  setSelectedRow,
 }) {
   const inputRef = useRef(null);
 
   const statusList = [
     { value: 0, label: "Giai đoạn:  Tất cả" },
-    { value: 1, label: "Giai đoạn:  Chưa cập nhật" },
-    { value: 2, label: "Giai đoạn:  Mở đầu" },
-    { value: 3, label: "Giai đoạn:  Khách hàng quan tâm" },
-    { value: 4, label: "Giai đoạn:  Demo/Gthieu" },
-    { value: 5, label: "Giai đoạn:  Đàm phán/ thương lương" },
+    { value: 1, label: "Giai đoạn:  Mở đầu" },
+    { value: 2, label: "Giai đoạn:  Khách hàng quan tâm" },
+    { value: 3, label: "Giai đoạn:  Demo/Gthieu" },
+    { value: 4, label: "Giai đoạn:  Đàm phán/ thương lương" },
   ];
 
   useEffect(() => {
@@ -191,7 +191,10 @@ export default function PotentialInputGroups({
       </div>
       <link href="path/to/select2.min.css" rel="stylesheet" />
       <script src="path/to/select2.min.js"></script>
-      <ChanceHeaderActionDropDown selectedRow={selectedRow} />
+      <ChanceHeaderActionDropDown
+        selectedRow={selectedRow}
+        setSelectedRow={setSelectedRow}
+      />
     </div>
   );
 }

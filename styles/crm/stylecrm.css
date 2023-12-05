@@ -53,8 +53,7 @@ p {
 }
 
 /*nhom khach hang  */
-.ant-table-wrapper.contract_custom_table_children_row__5etMc.css-dev-only-do-not-override-fpg3f5
-  td.ant-table-cell.ant-table-cell-with-append {
+.ant-table-wrapper.contract_custom_table_children_row__5etMc.css-dev-only-do-not-override-fpg3f5 td.ant-table-cell.ant-table-cell-with-append {
   display: flex !important;
   width: 100% !important;
   justify-content: space-between !important;
@@ -62,19 +61,15 @@ p {
   align-items: center !important;
 }
 
-.ant-table-wrapper.contract_custom_table_children_row__5etMc.css-dev-only-do-not-override-fpg3f5
-  span.ant-table-row-indent.indent-level-0 {
+.ant-table-wrapper.contract_custom_table_children_row__5etMc.css-dev-only-do-not-override-fpg3f5 span.ant-table-row-indent.indent-level-0 {
   display: none;
 }
 
-.ant-table-wrapper.contract_custom_table_children_row__5etMc.css-dev-only-do-not-override-fpg3f5
-  tr.ant-table-row.ant-table-row-level-1
-  a {
+.ant-table-wrapper.contract_custom_table_children_row__5etMc.css-dev-only-do-not-override-fpg3f5 tr.ant-table-row.ant-table-row-level-1 a {
   color: rgb(7, 7, 7);
 }
 
-.ant-table-wrapper.contract_custom_table_children_row__5etMc.css-dev-only-do-not-override-fpg3f5
-  span {
+.ant-table-wrapper.contract_custom_table_children_row__5etMc.css-dev-only-do-not-override-fpg3f5 span {
   /* display: none; */
   padding-left: 10px;
 }
@@ -333,7 +328,7 @@ svg {
   margin-top: 20px;
 }
 
-tr > th {
+tr>th {
   background-color: #4c5bd4 !important;
   color: #fff !important;
   text-align: center !important;
@@ -355,7 +350,7 @@ tr {
   margin: auto;
 }
 
-.ant-table-tbody > tr {
+.ant-table-tbody>tr {
   height: 58px;
 }
 
@@ -455,6 +450,14 @@ tr {
   background-color: #1677ff !important;
 }
 
+.ant-steps .ant-steps-item-error .ant-steps-item-icon {
+  background-color: #ff4d4f !important;
+}
+
+.ant-steps .ant-steps-item-finish .ant-steps-item-icon {
+  background-color: #e6f4ff !important;
+}
+
 .ant-steps-item-description {
   color: black !important;
 }
@@ -470,6 +473,7 @@ tr {
   /* padding-top: 0; */
   padding: 0;
 }
+
 .mdal_share_group_customer .ant-modal-content {
   width: 1000px;
   min-height: 300px;
@@ -479,6 +483,7 @@ tr {
   /* padding-top: 0; */
   padding: 0;
 }
+
 .mdal_share_group_customer .ant-modal-body {
   padding: 20px;
   text-align: center;
@@ -489,6 +494,7 @@ tr {
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
 }
+
 .mdal_cancel .ant-modal-content svg {
   color: white;
 }
@@ -672,30 +678,9 @@ img {
   background-color: white;
 }
 
-.ant-table-wrapper
-  .ant-table.ant-table-bordered
-  > .ant-table-container
-  > .ant-table-header
-  > table
-  > thead
-  > tr
-  > th,
-.ant-table-wrapper
-  .ant-table.ant-table-bordered
-  > .ant-table-container
-  > .ant-table-body
-  > table
-  > tbody
-  > tr
-  > td,
-.ant-table-wrapper
-  .ant-table.ant-table-bordered
-  > .ant-table-container
-  > .ant-table-body
-  > table
-  > tfoot
-  > tr
-  > td {
+.ant-table-wrapper .ant-table.ant-table-bordered>.ant-table-container>.ant-table-header>table>thead>tr>th,
+.ant-table-wrapper .ant-table.ant-table-bordered>.ant-table-container>.ant-table-body>table>tbody>tr>td,
+.ant-table-wrapper .ant-table.ant-table-bordered>.ant-table-container>.ant-table-body>table>tfoot>tr>td {
   border-inline-end: 1px solid #ccc !important;
 }
 
@@ -710,8 +695,7 @@ img {
 /* .ant-table-row-level-0 .ant-table-row-expand-icon::after {
   content: '';
 } */
-:where(.css-dev-only-do-not-override-o95mle).ant-table-wrapper
-  .ant-table-row-expand-icon {
+:where(.css-dev-only-do-not-override-o95mle).ant-table-wrapper .ant-table-row-expand-icon {
   float: right;
 }
 
@@ -836,19 +820,16 @@ label {
   color: #fff;
 }
 
-.ant-popover.header_custom-popover__u1Hoy.css-dev-only-do-not-override-o95mle.css-dev-only-do-not-override-o95mle.ant-popover-placement-bottomLeft
-  .ant-popover-arrow {
+.ant-popover.header_custom-popover__u1Hoy.css-dev-only-do-not-override-o95mle.css-dev-only-do-not-override-o95mle.ant-popover-placement-bottomLeft .ant-popover-arrow {
   visibility: hidden;
 }
 
-.ant-popover.header_custom-popover__u1Hoy.css-dev-only-do-not-override-o95mle.css-dev-only-do-not-override-o95mle.ant-popover-placement-bottomLeft
-  .ant-popover-inner {
+.ant-popover.header_custom-popover__u1Hoy.css-dev-only-do-not-override-o95mle.css-dev-only-do-not-override-o95mle.ant-popover-placement-bottomLeft .ant-popover-inner {
   background-color: #4c5bd4;
   color: #fff;
 }
 
-.ant-popover.header_custom-popover__u1Hoy.css-dev-only-do-not-override-o95mle.css-dev-only-do-not-override-o95mle.ant-popover-placement-bottomLeft
-  .ant-popover-content {
+.ant-popover.header_custom-popover__u1Hoy.css-dev-only-do-not-override-o95mle.css-dev-only-do-not-override-o95mle.ant-popover-placement-bottomLeft .ant-popover-content {
   right: 16px;
   top: 4px;
 }
@@ -1066,10 +1047,7 @@ label {
   cursor: pointer;
 }
 
-:where(.css-dev-only-do-not-override-o95mle).ant-select-single:not(
-    .ant-select-customize-input
-  )
-  .ant-select-selector {
+:where(.css-dev-only-do-not-override-o95mle).ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
   width: 100%;
   height: 37px;
   padding: 4px 7px;
@@ -1105,15 +1083,11 @@ label {
   height: 40px !important;
 }
 
-.select2-container--default
-  .select2-selection--single
-  .select2-selection__rendered {
+.select2-container--default .select2-selection--single .select2-selection__rendered {
   line-height: 40px !important;
 }
 
-.select2-container--default
-  .select2-selection--single
-  .select2-selection__arrow {
+.select2-container--default .select2-selection--single .select2-selection__arrow {
   height: 40px !important;
 }
 
@@ -1132,9 +1106,7 @@ label {
   padding: 10px !important;
 }
 
-.select2-container--default
-  .select2-selection--single
-  .select2-selection__arrow {
+.select2-container--default .select2-selection--single .select2-selection__arrow {
   height: 26px;
   position: absolute;
   top: 10px !important;
@@ -1142,31 +1114,31 @@ label {
   width: 20px !important;
 }
 
-.ant-select.set_up_role_custom_select__PY7jp.css-dev-only-do-not-override-o95mle.ant-select-single.ant-select-show-arrow.ant-select-show-search
-  .ant-select-selector {
+.ant-select.set_up_role_custom_select__PY7jp.css-dev-only-do-not-override-o95mle.ant-select-single.ant-select-show-arrow.ant-select-show-search .ant-select-selector {
   border-radius: 5px;
   text-align: center;
 }
 
-.add_file_campaign_mb_3__1EJ4D.add_file_campaign_col-lg-6__aPlfM.add_file_campaign_custom_select2___ZyTn
-  span.select2.select2-container.select2-container--default {
+.add_file_campaign_mb_3__1EJ4D.add_file_campaign_col-lg-6__aPlfM.add_file_campaign_custom_select2___ZyTn span.select2.select2-container.select2-container--default {
   width: 100% !important;
   padding: 0 !important;
 }
 
-.add_file_campaign_mb_3__1EJ4D.add_file_campaign_col-lg-6__aPlfM.add_file_campaign_custom_select2___ZyTn
-  span.select2-selection__arrow {
+.add_file_campaign_mb_3__1EJ4D.add_file_campaign_col-lg-6__aPlfM.add_file_campaign_custom_select2___ZyTn span.select2-selection__arrow {
   top: 0px !important;
   right: 5px !important;
 }
 
-.add_file_campaign_row_input_custom__e44ms
-  span.ant-input-affix-wrapper.css-dev-only-do-not-override-o95mle {
+.add_file_campaign_row_input_custom__e44ms span.ant-input-affix-wrapper.css-dev-only-do-not-override-o95mle {
   padding: 9px 10px;
 }
 
 .select2-container {
   min-width: 200px !important;
+}
+
+.select2-container:hover .select2-selection--single {
+  border: 1px solid #4096ff !important;
 }
 
 .user_custom_select2 .select2-container {
@@ -1214,23 +1186,19 @@ label {
   }
 }
 
-.ant-modal.css-dev-only-do-not-override-o95mle.modal_main_filter2__stxqu
-  .ant-modal-content {
+.ant-modal.css-dev-only-do-not-override-o95mle.modal_main_filter2__stxqu .ant-modal-content {
   padding: 0 !important;
 }
 
-.ant-modal.css-dev-only-do-not-override-o95mle.tongdai_main_filter2___yUa5
-  .ant-modal-content {
+.ant-modal.css-dev-only-do-not-override-o95mle.tongdai_main_filter2___yUa5 .ant-modal-content {
   padding: 0 !important;
 }
 
-.ant-modal.css-dev-only-do-not-override-o95mle.tongdai_main_filter__7gjFZ
-  .ant-modal-content {
+.ant-modal.css-dev-only-do-not-override-o95mle.tongdai_main_filter__7gjFZ .ant-modal-content {
   padding: 0 !important;
 }
 
-.tongdai_item1__TxqEx
-  .ant-select.css-dev-only-do-not-override-o95mle.ant-select-single.ant-select-show-arrow {
+.tongdai_item1__TxqEx .ant-select.css-dev-only-do-not-override-o95mle.ant-select-single.ant-select-show-arrow {
   width: 100% !important;
 }
 

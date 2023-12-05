@@ -40,7 +40,7 @@ export default function Chance() {
     startLoading();
     const dataApi = await fetchApi(
       `${
-        process.env.NEXT_DEV_API_URL || "https://api.timviec365.vn/api/crm"
+        process.env.NEXT_DEV_API_URL || "http://localhost:3007/api/crm"
       }/chance/list-chance`,
       token,
       bodyAPI,
@@ -52,7 +52,7 @@ export default function Chance() {
 
   const fetchAPIEmployee = async () => {
     const dataApi = await fetchApi(
-      "http://210.245.108.202:3000/api/qlc/managerUser/listUser",
+      "https://210.245.108.202:3000/api/qlc/managerUser/listUser",
       token,
       { page: 1, pageSize: 10000 },
       "POST"
@@ -99,6 +99,7 @@ export default function Chance() {
     <div ref={mainRef} className={styleHome.main}>
       <ChanceInputGroups
         selectedRow={selectedRow}
+        setSelectedRow = {setSelectedRow}
         emp={emp}
         body={body}
         setBody={setBody}

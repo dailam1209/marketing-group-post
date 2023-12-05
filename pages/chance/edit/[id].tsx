@@ -7,6 +7,7 @@ import styleHome from "@/components/crm/home/home.module.css";
 import { useContext, useEffect, useRef } from "react";
 import ChanceAddInfo from "@/components/crm/chance/add_chance/edit_chance";
 import Head from "next/head";
+import ChanceEdit from "@/components/crm/chance/add_chance/edit_chance";
 
 export default function AddChance() {
   const router = useRouter();
@@ -73,7 +74,7 @@ export default function AddChance() {
         ></script>
       </Head>
       <div ref={mainRef} className={styleHome.main}>
-        <ChanceAddInfo />
+        <ChanceEdit />
       </div>
     </>
   );

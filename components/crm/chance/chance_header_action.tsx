@@ -9,17 +9,26 @@ import ProductReturnDeclineModal from "@/components/crm/product_return/product_r
 import CancelModal from "@/components/crm/potential/potential_steps/cancel_modal";
 import HandeOverModal from "@/components/crm/potential/potential_action_modal/hand_over_mdal";
 import SharingCustomerModal from "./chance_share_action_mdal";
+import CancelModalChance from "./modals/cancel_modal";
+import { fetchApi } from "../ultis/api";
+import Cookies from "js-cookie";
+import { useTrigger } from "../context/triggerContext";
+import { useRouter } from "next/router";
 
 interface Myprops {
   data?: any;
   selectedRow?: any;
+  setSelectedRow?: any;
 }
 
 const ChanceHeaderActionDropDown: React.FC<Myprops> = ({
   data,
   selectedRow,
+  setSelectedRow,
 }) => {
   const [isOpenModalCheck, setIsOpenModalCheck] = useState(false);
+  const token = Cookies.get("token_base365");
+  const { trigger, setTrigger } = useTrigger();
   const [isOpenModalDecline, setIsOpenModalDecline] = useState(false);
   const [isOpenModalUpdateStatus, setIsOpenModalUpdateStatus] = useState(false);
   const [isOpenModalDel, setIsOpenModalDel] = useState(false);
@@ -118,6 +127,20 @@ const ChanceHeaderActionDropDown: React.FC<Myprops> = ({
     },
   ];
 
+  const fetchApiChance = async () => {
+    const promiseChanceDel = selectedRow?.map((item) =>
+      fetchApi(
+        "http://localhost:3007/api/crm/chance/delete-chance",
+        token,
+        { chance_id: item?.id },
+        "POST"
+      )
+    );
+    Promise.all(promiseChanceDel);
+    setTrigger(true);
+    setSelectedRow([]);
+  };
+
   return (
     <>
       <div className={styles.div__thaotac} style={{ marginLeft: "15px" }}>
@@ -158,17 +181,12 @@ const ChanceHeaderActionDropDown: React.FC<Myprops> = ({
           setIsModalCancel={setIsOpenModalDecline}
         />
 
-        <DelActionModalProductReturn
+        <CancelModalChance
           isModalCancel={isOpenModalDel}
           setIsModalCancel={setIsOpenModalDel}
-        />
-
-        <CancelModal
-          isModalCancel={isOpenModalDel}
-          setIsModalCancel={setIsOpenModalDel}
-          content={"Bạn có chắc chắn muốn xoá cơ hội này không?"}
-          title={"Xác nhận xoá cơ hội"}
-          link={"/chance/list"}
+          content="Bạn có chắc chắn muốn xoá cơ hội này không?"
+          title="Xác nhận xoá cơ hội"
+          fetchApi={fetchApiChance}
         />
       </div>
     </>

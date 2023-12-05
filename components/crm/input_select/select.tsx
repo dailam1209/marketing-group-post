@@ -17,7 +17,7 @@ export function SelectSingleTitleV2({
   const { setFormData, formData } = useContext(useFormData);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [labelSelect, setLabelSelect] = useState<string>(
-    formData[name] ? data[Number(formData[name] - 1)]?.label : placeholder
+    formData?.[name] ? data[Number(formData?.[name] - 1)]?.label : placeholder
   );
   const handleClickSelectoption = (e: any) => {
     if (e.target.getAttribute("class") !== styles.select2_search__field) {
@@ -196,7 +196,7 @@ export const SelectMultiple = ({
         showSearch
         placeholder={placeholder}
         onChange={(e) => handleChange(e)}
-        value={formData[name] && formData[name]}
+        value={formData?.[name] && formData?.[name]}
         filterOption={(input: string, option: { value: any; label: string }) =>
           (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
         }
@@ -412,11 +412,11 @@ export const SelectSingleV2 = ({
   const [labelSelect, setLabelSelect] = useState<string>(placeholder);
   useEffect(() => {
     setLabelSelect(
-      formData[name]
-        ? data.find((item) => item.value == formData[name])?.label
+      formData?.[name]
+        ? data.find((item) => item.value == formData?.[name])?.label
         : placeholder
     );
-  }, [formData[name]]);
+  }, [formData?.[name]]);
   const handelChooceOption = (item: { value: number; label: string }) => {
     handleChange && handleChange();
     setFormData({ ...formData, [name]: item.value });
