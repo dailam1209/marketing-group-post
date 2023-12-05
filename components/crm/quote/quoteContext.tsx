@@ -1,4 +1,5 @@
 import { axiosCRMCall } from "@/utils/api/api_crm_call";
+import dayjs from "dayjs";
 import { createContext, useEffect, useState } from "react";
 
 
@@ -56,11 +57,11 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
         return statusStrToColor(statusNumToStr(status))
     }
 
-    // Chi tiết
+    // Chi tiết báo giá
     const [shouldFetchDetailData, setShouldFetchDetailData] = useState(false)
     const [detailData, setDetailData] = useState<any>({})
     useEffect(() => {
-        if (shouldFetchDetailData && Number(recordId) && Number(recordId) != 0) {
+        if (shouldFetchDetailData && Number(recordId) && Number(recordId) !== 0) {
             axiosCRMCall
                 .post('/quote/getDetail', { id: Number(recordId) || 0 })
                 .then((res) => {
@@ -89,7 +90,8 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
     }
 
     // Thêm mới báo giá
-    // TODO Trim and validate
+    const [isCreate, setIsCreate] = useState(true)
+    const [shouldFetchEditData, setShouldFetchEditData] = useState(false)
     const [newQuote, setNewQuote] = useState({
         id: 0,
         date_quote: '',
@@ -110,6 +112,7 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
         use_system_info: false,
     })
 
+    // Reset
     const clearQuote = () => {
         setNewQuote({
             id: 0,
@@ -132,10 +135,63 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
         })
     }
 
+    const [editQuote, setEditQuote] = useState({
+        id: 0,
+        date_quote: '',
+        date_quote_end: '',
+        status: 0,
+        customer_id: 0,
+        tax_code: '',
+        address: '',
+        phone_number: '',
+        introducer: '',
+        product_list: [],
+        discount_rate: 0,
+        terms_and_conditions: '',
+        note: '',
+        creator_name: '',
+        ceo_name: '',
+        description: '',
+        use_system_info: false,
+    })
+
     // TODO Conditional clear
     useEffect(() => {
-        clearQuote();
-    }, [])
+        if (isCreate) {
+            newQuote.id !== 0 && clearQuote();
+        } else {
+            setShouldFetchDetailData(true)
+        }
+    }, [isCreate])
+
+    // If edit (not create)
+    useEffect(() => {
+        console.log(detailData)
+        if (!isCreate) {
+            setEditQuote({
+                id: detailData.id ? detailData.id : 0,
+                date_quote: detailData.date_quote ? dayjs(detailData.date_quote).format('YYYY-MM-DD') : '',
+                date_quote_end: detailData.date_quote_end ? dayjs(detailData.date_quote_end).format('YYYY-MM-DD') : '',
+                status: detailData.status ? detailData.status : 0,
+                customer_id: detailData.customer_id ? detailData.customer_id : 0,
+                tax_code: detailData.tax_code ? detailData.tax_code : '',
+                address: detailData.address ? detailData.address : '',
+                phone_number: detailData.phone_number ? detailData.phone_number : '',
+                introducer: detailData.introducer ? detailData.introducer : '',
+                product_list: detailData.product_list ? detailData.product_list : [],
+                discount_rate: detailData.discount_rate ? detailData.discount_rate : 0,
+                terms_and_conditions: detailData.terms_and_conditions ? detailData.terms_and_conditions : '',
+                note: detailData.note ? detailData.note : '',
+                creator_name: detailData.creator_name ? detailData.creator_name : '',
+                ceo_name: detailData.ceo_name ? detailData.ceo_name : '',
+                description: detailData.description ? detailData.description : '',
+                use_system_info: detailData.use_system_info ? detailData.use_system_info : false,
+            })
+        }
+    }, [detailData])
+    useEffect(() => {
+        setNewQuote(editQuote)
+    }, [editQuote])
 
     const validateQuote = () => {
         let invalidMsg = []
@@ -164,12 +220,12 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
         if (obj === null || obj === undefined) {
             return '';  // Convert null or undefined to an empty string
         }
-    
+
         if (Array.isArray(obj)) {
             // If it's an array, use JSON.stringify
             return JSON.stringify(obj);
         }
-    
+
         if (typeof obj === 'object') {
             const result = {};
             // Recursively stringify object properties
@@ -180,7 +236,7 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
         } else if (typeof obj === 'string') {
             return obj.trim();  // Trim string values
         }
-    
+
         return obj.toString();  // Convert other values to strings
     }
 
@@ -193,10 +249,10 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
         })
     }
     // TODO remove test log
-    useEffect(() => {
-        console.log(newQuote)
-        // console.log(Object.keys(newQuote).map(key => `\x1b[96m${key}:\x1b[0m \x1b[36m${newQuote[key]}\x1b[0m`).join('\n'));
-    }, [newQuote])
+    // useEffect(() => {
+    //     console.log(newQuote)
+    //     // console.log(Object.keys(newQuote).map(key => `\x1b[96m${key}:\x1b[0m \x1b[36m${newQuote[key]}\x1b[0m`).join('\n'));
+    // }, [newQuote])
 
     // Khách hàng trong báo giá
     const [listCusOption, setListCusOption] = useState([])
@@ -270,15 +326,7 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
         setListProductOptions(listProduct.map(prod => `${prod.id} - ${prod.name}`))
     }, [listProduct])
 
-    // TODO remove test log
     useEffect(() => {
-        console.log(listProduct)
-        console.log(listProductOptions)
-    }, [listProductOptions])
-
-    // TODO remove test log
-    useEffect(() => {
-        console.log(tempListProd)
         setNewQuote(prevData => (
             { ...prevData, product_list: tempListProd.map(({ total, ...prod }) => prod) }
         ))
@@ -293,6 +341,7 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
                 shouldFetchData, setShouldFetchData,
                 quoteCode, setQuoteCode,
                 stringifyObject,
+                isCreate, setIsCreate,
 
                 // Lưu lại cho modal và thao tác
                 recordId, setRecordId,
@@ -314,6 +363,9 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
                 // Thêm mới
                 newQuote, setNewQuote,
                 inputQuote, clearQuote, validateQuote,
+                // Chỉnh sửa
+                editQuote, setEditQuote,
+
                 // Khách hàng trong báo giá
                 shouldFetchCus, setShouldFetchCus,
                 listCusOption, getCusId,

@@ -1,4 +1,4 @@
-import { ChangeEvent, useContext, useEffect, useState } from "react";
+import { ChangeEvent, useContext, useEffect, useRef, useState } from "react";
 import TableDataOrderAddFiles from "@/components/crm/table/table-order-add-files";
 import OrderSelectBoxStep from "../quote_steps/select_box_step";
 import styles from "./add_file_order.module.css";
@@ -11,9 +11,18 @@ import { QuoteContext } from "../quoteContext";
 
 export default function AddTable() {
   const [isModalCancel, setIsModalCancel] = useState(false);
-  const { newQuote, inputQuote, tempListProd } = useContext(QuoteContext)
+  const { newQuote, inputQuote, tempListProd, isCreate, editQuote } = useContext(QuoteContext)
+  const [localDiscountRate, setLocalDiscountRate] = useState('0')
   const [localTotal, setLocalTotal] = useState(0)
   const [localTotalWithDiscount, setLocalTotalWithDiscount] = useState(0)
+
+  // TODO check infinite loop
+  useEffect(() => {
+    if (!isCreate) {
+      console.log('1')
+      setLocalDiscountRate(editQuote.discount_rate.toString())
+    }
+  }, [editQuote])
 
   useEffect(() => {
     let total = 0
@@ -26,35 +35,43 @@ export default function AddTable() {
     }
     setLocalTotal(total)
     setLocalTotalWithDiscount(total * (1 - Number(newQuote.discount_rate) * 1.0 / 100))
-  }, [tempListProd, inputQuote])
+  }, [tempListProd, newQuote])
+
+  useEffect(() => {
+    console.log('2')
+    inputQuote('discount_rate', Number(localDiscountRate))
+  }, [localDiscountRate])
 
   const handleSimpleInput = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     inputQuote(name, value);
   }
 
-  // TODO Input string, unfocus or enter number
   const handlePercentInput = (e: ChangeEvent<HTMLInputElement>) => {
-    const eleName = e.target.name;
-    let value = e.target.value;
+    let value = e.target.value
 
-    // Remove spaces and non-numeric characters, except for the dot (.)
-    value = value.replace(/[\s]|[^0-9.]/g, '');
+    // Remove non-numeric characters except dots
+    value = value.replace(/[^\d.]/g, '');
 
-    // Replace multiple commas or dots with a single dot
-    // value = value.replace(/([,.])[,.]+/g, '$1');
+    // Split the value by dot
+    const parts = value.split('.');
 
-    // Allow a single dot and remove subsequent dots
-    value = value.replace(/\.(?=.*\.)/g, '');
+    // Allow only one dot and concatenate the parts back
+    if (parts.length > 1) {
+      value = `${parts[0]}.${parts.slice(1).join('')}`;
+    }
 
-    // Convert to a floating-point number
-    const floatValue = value ? parseFloat(value) : 0;
-    console.log(!!value)
+    // Convert the value to a number
+    const numericValue = parseFloat(value)
 
-    // Clamp the value within the range of 0 to 100
-    const clampedValue = Math.min(100, Math.max(0, floatValue));
+    // Ensure the value is within the range of 0 to 100
+    const clampedValue = isNaN(numericValue) ? 0 : Math.min(Math.max(numericValue, 0), 100);
 
-    inputQuote(eleName, floatValue < 0 || floatValue > 100 ? clampedValue + '' : (value ? value : 0))
+    setLocalDiscountRate(clampedValue === 100 || clampedValue === 0 ? clampedValue.toString() : value)
+  }
+
+  const handleBlurAndPressEnter = () => {
+    setLocalDiscountRate(String(Number(localDiscountRate)))
   }
 
   return (
@@ -79,7 +96,7 @@ export default function AddTable() {
             suffix="VNĐ"
             // disabled
             value={localTotal}
-            
+
           />
         </div>
         <div>
@@ -89,9 +106,11 @@ export default function AddTable() {
           <Input
             placeholder="0"
             suffix="%"
-            value={newQuote.discount_rate}
+            value={localDiscountRate}
             onChange={handlePercentInput}
             name="discount_rate"
+            onBlur={handleBlurAndPressEnter}
+            onPressEnter={handleBlurAndPressEnter}
           />
         </div>
 

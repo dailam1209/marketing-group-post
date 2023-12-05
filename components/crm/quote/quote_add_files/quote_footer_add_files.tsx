@@ -17,20 +17,32 @@ export default function QuoteFooterAddFiles({
   const [modal1Open, setModal1Open] = useState(false);
   const [errorModalOpen, setErrorModelOpen] = useState(false);
   const [invalidMessage, setInvalidMessage] = useState('')
-  const { newQuote, validateQuote, setShouldFetchData, stringifyObject } = useContext(QuoteContext)
+  const { newQuote, validateQuote, setShouldFetchData, stringifyObject,
+    isCreate } = useContext(QuoteContext)
 
   const handleSave = () => {
     const invalidMsg = validateQuote();
     if (invalidMsg.length === 0) {
-      const sendData = (({id: _, ...rest}) => rest)(newQuote)
-      axiosCRMCall
-      .post('/quote/create', stringifyObject(sendData))
-      .then((res) => {
-        console.log(res)
-        setShouldFetchData(true)
-        setModal1Open(true)
-      })
-      .catch((err) => console.log(err))
+      if (isCreate) { // Thêm mới
+        const sendData = (({ id: _, ...rest }) => rest)(newQuote)
+        axiosCRMCall
+          .post('/quote/create', stringifyObject(sendData))
+          .then((res) => {
+            console.log(res)
+            setShouldFetchData(true)
+            setModal1Open(true)
+          })
+          .catch((err) => console.log(err))
+      } else { // Chỉnh sửa
+        axiosCRMCall
+          .post('/quote/update', stringifyObject(newQuote))
+          .then((res) => {
+            console.log(res)
+            setShouldFetchData(true)
+            setModal1Open(true)
+          })
+          .catch((err) => console.log(err))
+      }
     } else {
       setInvalidMessage(invalidMsg.join('\n'))
       setErrorModelOpen(true)

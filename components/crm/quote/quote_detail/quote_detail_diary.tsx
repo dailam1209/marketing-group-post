@@ -35,9 +35,9 @@ export default function AddQuoteDetailInfo() {
     }, [shouldFetchDetailData])
 
     useEffect(() => {
-        if (shouldFetchHistory) {
+        if (shouldFetchHistory && Number(recordId) && Number(recordId) !== 0) {
             axiosCRMCall
-                .post('/quote/getQuoteHistory', { quote_id: Number(recordId) || 0 })
+                .post('/quote/getQuoteHistory', { quote_id: Number(recordId) })
                 .then((res) => {
                     res?.data?.data?.data ?
                         setApiData(res?.data?.data?.data) :

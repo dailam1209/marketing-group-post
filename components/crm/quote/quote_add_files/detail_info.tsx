@@ -5,13 +5,14 @@ import styles from "./add_file_order.module.css";
 import InputText from "./input_text";
 import { Input, Tooltip } from 'antd';
 import { QuoteContext } from "../quoteContext";
+import { axiosCRMCall } from "@/utils/api/api_crm_call";
 
-export default function AddDetailInfo() {
-  const { newQuote, inputQuote, allAvailableStatusString, statusStrToNum,
-  listCusOption, getCusId, keyword, setKeyword, setShouldFetchCus } = useContext(QuoteContext)
+export default function AddDetailInfo({ id = 0 }) {
+  const { newQuote, inputQuote, allAvailableStatusString, statusStrToNum, statusNumToStr,
+    listCusOption, getCusId, keyword, setKeyword, setShouldFetchCus,
+    isCreate, setIsCreate, detailData, setRecordId } = useContext(QuoteContext)
   const [localStatus, setLocalStatus] = useState('Chọn')
   const [localCustomer, setLocalCustomer] = useState('Chọn')
-  const [localPhoneNum, setLocalPhoneNum] = useState('')
 
   const handleSimpleInput = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -25,11 +26,7 @@ export default function AddDetailInfo() {
 
   const handleStatus = (str) => {
     setLocalStatus(str)
-    // if (str === 'Chọn') {
-    //   inputQuote('status', 0)
-    // } else {
     inputQuote('status', statusStrToNum(str))
-    // }
   }
 
   const handleCusId = (str) => {
@@ -37,9 +34,33 @@ export default function AddDetailInfo() {
     inputQuote('customer_id', getCusId(str))
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     setShouldFetchCus(true)
-  },[])
+    if (id !== 0) {
+      setRecordId(id)
+      setIsCreate(true)
+      setIsCreate(false)
+    } else {
+      setIsCreate(true)
+    }
+  }, [])
+
+  // Nếu là chỉnh sửa
+  useEffect(() => {
+    if (!isCreate) {
+      setLocalStatus(statusNumToStr(newQuote.status))
+      if (newQuote.customer_id && newQuote.customer_id !== 0) {
+        axiosCRMCall
+          .post('/customerdetails/detail', { cus_id: newQuote.customer_id })
+          .then(res => {
+            if (res?.data) {
+              setLocalCustomer(`${newQuote.customer_id} - ${res?.data?.name}`)
+            }
+          })
+          .catch((err) => console.log(err))
+      }
+    }
+  }, [newQuote])
 
   return (
     <div>

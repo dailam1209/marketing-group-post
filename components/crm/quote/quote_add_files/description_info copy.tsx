@@ -43,7 +43,7 @@ export default function AddDesriptionAndSystemInfo() {
             <p className={`${styles.info_system}`}>
               <input
                 type="checkbox"
-                defaultValue={1}
+                checked={newQuote.use_system_info}
                 name="use_system_info"
                 id="share_all"
                 onChange={handleCheckbox}

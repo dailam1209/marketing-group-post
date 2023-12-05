@@ -1,7 +1,7 @@
 import stylesOrderSelect from "@/components/crm/quote/order.module.css";
 import { Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import styles from "../quote/order.module.css";
 // import OrderSelectBoxStep from "../";
 import OrderApplyModal from "../quote/add_quote_action_modal/quote_apply";
@@ -48,14 +48,43 @@ interface TableDataOrderAddFilesDrops {
 const TableDataQuoteAddFiles: React.FC<
   TableDataOrderAddFilesDrops
 > = ({ }: any) => {
-  const { tempListProd, setTempListProd, listProduct, listProductOptions, getCusId, prodName, setProdName } = useContext(QuoteContext);
+  const { tempListProd, setTempListProd, listProduct, listProductOptions,
+    getCusId, prodName, setProdName, isCreate, newQuote, editQuote } = useContext(QuoteContext);
   const [data, setData] = useState<DataType[]>([]);
   const [isModalCancel, setIsModalCancel] = useState(false);
   const [pageSize, setPageSize] = useState<number>(data.length);
 
   useEffect(() => {
-    setData(testData)
+    if (isCreate) {
+      setData(testData)
+    }
   }, [])
+
+  // TODO check infinite
+  useEffect(() => {
+    if (!isCreate) {
+      if (editQuote.product_list.length > 0) {
+        let tempData = []
+        for (let i = 0; i < editQuote.product_list.length; i++) {
+          tempData.push({
+            key: i + 1,
+            idproduct: editQuote.product_list[i].product_id._id,
+            nameproduct: editQuote.product_list[i].product_id.prod_name,
+            donvi: editQuote.product_list[i].product_id.dvt.unit_name,
+            soluong: editQuote.product_list[i].amount,
+            dongia: editQuote.product_list[i].product_price,
+            tien: editQuote.product_list[i].amount * editQuote.product_list[i].product_price,
+            chietkhau: editQuote.product_list[i].product_discount_rate,
+            tienchietkhau: (editQuote.product_list[i].amount * editQuote.product_list[i].product_price) * (1.0 * editQuote.product_list[i].product_discount_rate / 100),
+            thue: editQuote.product_list[i].tax_rate,
+            tienthue: (editQuote.product_list[i].amount * editQuote.product_list[i].product_price) * (1 - editQuote.product_list[i].product_discount_rate / 100.0) * (editQuote.product_list[i].tax_rate / 100.0),
+            total: editQuote.product_list[i].product_total_money,
+          })
+        }
+        setData(tempData)
+      }
+    }
+  }, [editQuote])
 
   useEffect(() => {
     setPageSize(data.length)
@@ -70,7 +99,6 @@ const TableDataQuoteAddFiles: React.FC<
         total: (Number(item.soluong) * Number(item.dongia)) * (1 - Number(item.chietkhau) * 1.0 / 100) * (1 + Number(item.thue) * 1.0 / 100)
       }))
     setTempListProd(newProd)
-    console.log(data)
   }, [data])
 
   const handleAddRow = () => {
@@ -102,18 +130,6 @@ const TableDataQuoteAddFiles: React.FC<
   const handleInputChange = (key, index, value) => {
     setData((prevData) => {
       let newData = [...prevData];
-
-      // let sannitizedValue = 0;
-      // if (key === 'soluong') {
-      //   sannitizedValue = Math.max(0, parseInt(value, 10)) || 0
-      // } else if (['chietkhau', 'thue'].includes(key)) {
-      //   sannitizedValue = Math.min(100, Math.max(0, parseFloat(value))) || 0
-      // } else {
-      //   sannitizedValue = Math.max(0, parseFloat(value)) || 0
-      // }
-      // // FIXME Thiếu dongia
-
-      // newData[index] = { ...newData[index], [key]: sannitizedValue }
       newData[index] = { ...newData[index], [key]: value }
 
       if (['soluong', 'dongia', 'chietkhau', 'thue'].includes(key)) {
@@ -181,13 +197,10 @@ const TableDataQuoteAddFiles: React.FC<
   }
 
   const handleProductChange = (index, product) => {
-    console.log(product)
     const product_id = getCusId(product)
-    console.log(product_id)
     setData((prevData) => {
       let newData = [...prevData]
       const product = listProduct.find(prod => prod.id === product_id)
-      console.log(product)
       if (product) {
         newData[index].idproduct = product_id
         newData[index].donvi = product.dvt
@@ -214,7 +227,6 @@ const TableDataQuoteAddFiles: React.FC<
       // render: (text) => <div style={{ background: "#EEEEEE", color: "black", textAlign: "center", }}>{text}</div>,
     },
 
-    // FIXME Chưa chọn
     {
       title: "Tên hàng hóa",
       dataIndex: "nameproduct",
