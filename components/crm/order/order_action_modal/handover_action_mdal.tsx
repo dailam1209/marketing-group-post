@@ -45,8 +45,10 @@ const HandeOverModal: React.FC<MyComponentProps> = ({
   };
 
   useEffect(() => {
-    fetchAPIEmployee();
-  }, []);
+    if (isModalCancel) {
+      fetchAPIEmployee();
+    }
+  }, [isModalCancel]);
 
   useEffect(() => {
     $(".em-select2-modal").select2();

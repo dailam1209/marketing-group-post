@@ -3,26 +3,43 @@ import { SidebarContext } from "@/components/crm/context/resizeContext";
 import { useHeader } from "@/components/crm/hooks/useHeader";
 import { useRouter } from "next/router";
 import styleHome from "@/components/crm/home/home.module.css";
-import { useContext, useEffect, useRef } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import DetailInformationChance from "@/components/crm/chance/detail/detail_step_infor";
 import HeaderBarChanceDetails from "@/components/crm/chance/detail/header_bar_detail";
-import TableChanceDetailHistory from "@/components/crm/table/table-history-details";
+import OrderDetails from "@/components/crm/customer/order/order_details";
 import Head from "next/head";
+import Cookies from "js-cookie";
+import useLoading from "@/components/crm/hooks/useLoading";
+import { fetchApi } from "@/components/crm/ultis/api";
+import { useTrigger } from "@/components/crm/context/triggerContext";
+import { Spin } from "antd";
 
-export default function HistoryDetail() {
+export default function SheduleDetailCustomer() {
   const router = useRouter();
-  const { id1, id2 } = router.query;
+  const id = router.query.id;
   const mainRef = useRef<HTMLDivElement>(null);
   const { isOpen } = useContext<any>(SidebarContext);
   const cccd = false;
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
+  const token = Cookies.get("token_base365");
+  const [isHideEmpty, setIsHideEmpty] = useState(false);
+  const { isLoading, startLoading, stopLoading } = useLoading();
+  const [data, setData] = useState({});
+  const { trigger, setTrigger } = useTrigger();
+
+  const fetchAPIChance = async (url: string, bodyAPI = {}) => {
+    startLoading();
+    const dataApi = await fetchApi(url, token, bodyAPI, "POST");
+    setData(dataApi?.data);
+    stopLoading();
+  };
 
   useEffect(() => {
     setHeaderTitle(`Cơ hội / Chi tiết`);
     setShowBackButton(true);
     setCurrentPath(`/chance/list`);
-  }, [setHeaderTitle, setShowBackButton, setCurrentPath, id1, id2]);
+  }, [setHeaderTitle, setShowBackButton, setCurrentPath, id]);
 
   useEffect(() => {
     if (isOpen) {
@@ -39,6 +56,15 @@ export default function HistoryDetail() {
       mainRef.current?.classList.remove("content_resize");
     }
   }, [isOpen]);
+
+  useEffect(() => {
+    if (trigger) {
+      fetchAPIChance("http://localhost:3007/api/crm/chance/detail-chance", {
+        chance_id: id,
+      });
+    }
+    setTrigger(false);
+  }, [trigger]);
 
   return (
     <>
@@ -84,11 +110,29 @@ export default function HistoryDetail() {
           src="https://www.googletagmanager.com/gtm.js?id=GTM-NXVQCHN"
         ></script>
       </Head>
+
       <div ref={mainRef} className={styleHome.main}>
-        <DetailInformationChance />
-        <HeaderBarChanceDetails keyTab={"7"} />
-        <TableChanceDetailHistory />
+        {isLoading ? (
+          <Spin
+            style={{
+              width: "100%",
+              margin: "auto",
+              marginTop: "30px",
+              height: "100%",
+            }}
+          />
+        ) : (
+          <>
+            <DetailInformationChance
+              isHideEmpty={isHideEmpty}
+              dataApi={data}
+              setIsHideEmty={setIsHideEmpty}
+            />
+            <HeaderBarChanceDetails keyTab={"5"} />
+          </>
+        )}
       </div>
+      <OrderDetails />
     </>
   );
 }

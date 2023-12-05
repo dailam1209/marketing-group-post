@@ -3,27 +3,61 @@ import { SidebarContext } from "@/components/crm/context/resizeContext";
 import { useHeader } from "@/components/crm/hooks/useHeader";
 import { useRouter } from "next/router";
 import styleHome from "@/components/crm/home/home.module.css";
-import { useContext, useEffect, useRef } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import DetailInformationChance from "@/components/crm/chance/detail/detail_step_infor";
 import HeaderBarChanceDetails from "@/components/crm/chance/detail/header_bar_detail";
 import TableChanceDetailDocuments from "@/components/crm/table/table-document-details";
 import HeaderBtnsDocumentEngine from "@/components/crm/customer/documents/header_buttons_group";
 import Head from "next/head";
+import Cookies from "js-cookie";
+import useLoading from "@/components/crm/hooks/useLoading";
+import { fetchApi } from "@/components/crm/ultis/api";
+import { Spin } from "antd";
 
 export default function AttachmentDetails() {
   const router = useRouter();
-  const { id1, id2 } = router.query;
+  const id = router.query.id;
   const mainRef = useRef<HTMLDivElement>(null);
   const { isOpen } = useContext<any>(SidebarContext);
   const cccd = false;
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
+  const [body, setBody] = useState({ page: 1, pageSize: 10 });
+
+  const token = Cookies.get("token_base365");
+  const [isHideEmpty, setIsHideEmpty] = useState(false);
+  const { isLoading, startLoading, stopLoading } = useLoading();
+  const [data, setData] = useState({});
+  const [loadingTable, setLoadingTable] = useState(false);
+  const [fileChance, setFileChance] = useState([]);
+
+  const fetchAPIChance = async (url: string, bodyAPI = {}) => {
+    startLoading();
+    const dataApi = await fetchApi(url, token, bodyAPI, "POST");
+    setData(dataApi?.data);
+    stopLoading();
+  };
+
+  const fetchApiFileChance = async () => {
+    setLoadingTable(true);
+    const data = await fetchApi(
+      "http://localhost:3007/api/crm/chance/list-attachment-chance",
+      token,
+      {
+        chance_id: id,
+        ...body,
+      },
+      "POST"
+    );
+    setLoadingTable(false);
+    setFileChance(data?.data);
+  };
 
   useEffect(() => {
     setHeaderTitle(`Cơ hội / Chi tiết`);
     setShowBackButton(true);
     setCurrentPath(`/chance/list`);
-  }, [setHeaderTitle, setShowBackButton, setCurrentPath, id1, id2]);
+  }, [setHeaderTitle, setShowBackButton, setCurrentPath, id]);
 
   useEffect(() => {
     if (isOpen) {
@@ -40,6 +74,16 @@ export default function AttachmentDetails() {
       mainRef.current?.classList.remove("content_resize");
     }
   }, [isOpen]);
+
+  useEffect(() => {
+    fetchAPIChance("http://localhost:3007/api/crm/chance/detail-chance", {
+      chance_id: id,
+    });
+  }, []);
+
+  useEffect(() => {
+    fetchApiFileChance();
+  }, [body]);
 
   return (
     <>
@@ -86,10 +130,45 @@ export default function AttachmentDetails() {
         ></script>
       </Head>
       <div ref={mainRef} className={styleHome.main}>
-        <DetailInformationChance />
-        <HeaderBarChanceDetails keyTab={"6"} />
-        <HeaderBtnsDocumentEngine id={id1} />
-        <TableChanceDetailDocuments />
+        {isLoading ? (
+          <Spin
+            style={{
+              width: "100%",
+              margin: "auto",
+              marginTop: "30px",
+              height: "100%",
+              marginBottom: "30px",
+            }}
+          />
+        ) : (
+          <>
+            <DetailInformationChance
+              isHideEmpty={isHideEmpty}
+              dataApi={data}
+              setIsHideEmty={setIsHideEmpty}
+            />
+            <HeaderBarChanceDetails keyTab={"6"} />
+          </>
+        )}
+
+        <HeaderBtnsDocumentEngine id={id} body={body} setBody={setBody} />
+        {loadingTable ? (
+          <Spin
+            style={{
+              width: "100%",
+              margin: "auto",
+              marginTop: "30px",
+              height: "100%",
+              marginBottom: "30px",
+            }}
+          />
+        ) : (
+          <TableChanceDetailDocuments
+            body={body}
+            setBody={setBody}
+            dataApi={fileChance}
+          />
+        )}
       </div>
     </>
   );

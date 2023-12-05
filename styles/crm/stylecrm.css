@@ -455,7 +455,8 @@ tr {
 }
 
 .ant-steps .ant-steps-item-finish .ant-steps-item-icon {
-  background-color: #e6f4ff !important;
+  background-color: #8fe88d !important;
+  color: white !important;
 }
 
 .ant-steps-item-description {
