@@ -81,7 +81,7 @@ export default function AddGeneralInfoChance() {
 
   const fetchAPIEmployee = async () => {
     const dataApi = await fetchApi(
-      "http://210.245.108.202:3000/api/qlc/managerUser/listUser",
+      "https://210.245.108.202:3000/api/qlc/managerUser/listUser",
       token,
       { page: 1, pageSize: 10000 },
       "POST"
@@ -156,8 +156,10 @@ export default function AddGeneralInfoChance() {
         />
         <MInputTextV2
           label="Số tiền"
+          type = "number"
           placeholder="Nhập số tiền"
           name="total_money"
+          // disable = {true}
         />
       </div>
 
@@ -170,6 +172,7 @@ export default function AddGeneralInfoChance() {
         />
         <MInputTextV2
           label="Tỷ lệ thành công"
+          type = "number"
           placeholder="Nhập tỉ lệ thành công"
           name="success_rate"
         />

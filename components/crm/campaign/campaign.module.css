@@ -21,6 +21,10 @@
   justify-content: space-between;
 }
 
+.select_item_time:hover {
+  border: 1px solid #4096ff !important;
+}
+
 .select_item_time {
   width: auto;
   padding: 3px;
@@ -894,9 +898,10 @@
 }
 
 @media (max-width: 768px) {
-  .main__control_search{
+  .main__control_search {
     width: 100%;
   }
+
   .select2_dropdown {
     /* left: -10%; */
     width: 260px !important;

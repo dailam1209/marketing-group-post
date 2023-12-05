@@ -4,16 +4,45 @@ import styles from "../../potential/potential2.module.css";
 import stylesChance from "../chance.module.css";
 import { SidebarContext } from "@/components/crm/context/resizeContext";
 import GeneralRowInforText from "./general_row_info";
-import AddressRowInforText from "./address_info";
-import SystemInfoRow from "./system_infor";
+import AddressRowInforTextChance from "./address_info";
+import SystemInfoRowChance from "./system_infor";
 import CCCDInforRow from "./cccd_infor_row";
-import SystemCustomerInfo from "./diary";
+import DiaryChanceList from "./diary";
 import AddOrderDetailTable from "../../order/order_detail/order_detail_table";
-interface ComponentProps {
-  cccd: boolean;
+import ChanceProductDetailTable from "./chance_detail_table";
+
+interface DetailChance {
+  description: string;
+  result: number;
+  expected_end_date: number;
+  expected_sales: number;
+  total_money: number;
+  stages: number;
+  name: string;
+  success_rate: number;
 }
 
-const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
+interface ComponentProps {
+  cccd: boolean;
+  isHideEmpty: boolean;
+  dataApi: {
+    result?: boolean;
+    message?: string;
+    total_money?: number;
+    total_count?: number;
+    total_product_cost?: number;
+    total_tax?: number;
+    total_money_discount?: number;
+    data?: [];
+    detailChance?: DetailChance;
+  };
+}
+
+const DetailInformation: React.FC<ComponentProps> = ({
+  cccd = true,
+  dataApi,
+  isHideEmpty,
+}) => {
   const mainRef = useRef<HTMLDivElement>(null);
   const { isOpen } = useContext<any>(SidebarContext);
   const imgRef = useRef<HTMLInputElement>(null);
@@ -43,9 +72,14 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
                     >
                       Thông tin chung
                     </p>
-                    <GeneralRowInforText />
+                    <GeneralRowInforText
+                      formData={dataApi}
+                      isHideEmpty={isHideEmpty}
+                    />
                     <br />
-                    <AddOrderDetailTable />
+                    <ChanceProductDetailTable
+                      formData={dataApi}
+                    />
                     <p
                       style={{ marginTop: "20px" }}
                       className={styles["main__body__type"]}
@@ -54,7 +88,14 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
                     </p>
                     <div className={styles.col_lg_input}>
                       <div
-                        style={{ justifyContent: "flex-start", border: "0" }}
+                        style={{
+                          justifyContent: "flex-start",
+                          border: "0",
+                          display:
+                            isHideEmpty &&
+                            !dataApi?.detailChance?.description &&
+                            "none",
+                        }}
                         className={stylesChance.main_profile_body_item}
                       >
                         <div
@@ -69,7 +110,8 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
                             stylesChance.main__profile__body__item__value
                           }
                         >
-                          Chưa cập nhật
+                          {dataApi?.detailChance?.description ||
+                            "Chưa cập nhật"}
                         </div>
                       </div>
                     </div>
@@ -80,7 +122,10 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
                     >
                       Thông tin địa chỉ
                     </p>
-                    <AddressRowInforText />
+                    <AddressRowInforTextChance
+                      formData={dataApi}
+                      isHideEmpty={isHideEmpty}
+                    />
 
                     {/* Thong tin bo sung */}
                     <p
@@ -89,7 +134,10 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
                     >
                       Thông tin hệ thống
                     </p>
-                    <SystemInfoRow />
+                    <SystemInfoRowChance
+                      formData={dataApi}
+                      isHideEmpty={isHideEmpty}
+                    />
                     {/*  */}
                   </div>
                 </div>
@@ -99,7 +147,7 @@ const DetailInformation: React.FC<ComponentProps> = ({ cccd = true }) => {
         </div>
       </div>
 
-      <SystemCustomerInfo />
+      <DiaryChanceList formData={dataApi} />
     </>
   );
 };

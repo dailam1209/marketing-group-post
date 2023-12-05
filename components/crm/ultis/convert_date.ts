@@ -18,11 +18,11 @@ export function timestampToCustomString(timestamp: number, type = 'text') {
 
 
 export function stringToDateNumber(dateString: string): number {
-    const date = new Date(dateString);
-    if (isNaN(date.getTime())) {
+    const dateObj = new Date(dateString);
+    if (isNaN(dateObj.getTime())) {
        return 
     }
-    return date.getTime();
+    return dateObj.getTime();
 }
 
 
