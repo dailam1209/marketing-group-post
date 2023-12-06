@@ -1,5 +1,8 @@
 import styles from "@/components/crm/potential/potential.module.css";
-import { Button, Select, Table } from "antd";
+import axios from "axios";
+import { Button, Select, Table, Modal, Upload, message } from "antd";
+import { UploadOutlined } from '@ant-design/icons';
+import type { UploadProps } from 'antd';
 import type { ColumnsType } from "antd/es/table";
 import { useEffect, useState } from "react";
 import { useHeader } from "@/components/crm/hooks/useHeader";
@@ -14,6 +17,8 @@ import { getToken } from "@/pages/api/api-hr/token";
 import jwt_decode from "jwt-decode";
 import { ToastContainer } from "react-toastify";
 import { useRouter } from "next/router";
+import { current } from "@reduxjs/toolkit";
+import { pointer } from "d3";
 
 interface DataType {
   key: string;
@@ -36,32 +41,34 @@ interface DataTableType {
   status_doing: string;
 }
 type TypeFormPropose = {
-  listGroup: string;
+  listGroup: any;
   timeStartUpdate: number;
   timeEndUpdate: number;
   timeStart: number;
   recall: boolean;
 };
 function PhoneEmployee() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [dataTableStatus, setDataTableStatus] = useState([]);
+  const [dataGroupCustomer, setDataGroupCustomer] = useState([]);
+  const [fileRecord, setFileRecord] = useState(null);
   const [dataTable, setDataTable] = useState<any>();
   const [formData, setFormData] = useState<TypeFormPropose>({
-    listGroup: "",
+    listGroup: [],
     timeStartUpdate: 0,
     timeEndUpdate: 0,
     timeStart: 0,
     recall: true,
   });
   const [listGroup, setListGroup] = useState([]);
-  const [count, setCount] = useState(0);
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
   //Lấy userName
+  const currentCookie = getToken("token_base365");
   useEffect(() => {
-    const currentCookie = getToken("token_base365");
     if (currentCookie) {
       const decodedToken: any = jwt_decode(currentCookie);
-      setDataTable({ ...dataTable, emp_name: decodedToken?.data.userName });
+      setDataTable({ ...dataTable, emp_name: decodedToken?.data.userName, emp_id: decodedToken?.data.idQLC });
     }
   }, []);
   useEffect(() => {
@@ -80,6 +87,27 @@ function PhoneEmployee() {
         notifyError("Vui lòng thử lại sau");
       });
   }, []);
+  //Lấy file ghi âm
+  useEffect(() => {
+    const decodedToken: any = jwt_decode(currentCookie);
+    axios.post(
+      `https://voip.timviec365.vn/api/GetFileRecord`,
+      {
+        emp_id: decodedToken.data.idQLC
+      },
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    ).then((res) => {
+      setFileRecord(res.data.data.file)
+    })
+      .catch((err) => {
+        console.log(err)
+        notifyError("Vui lòng thử lại sau");
+      });
+  }, [fileRecord]);
   //Lấy số lượng
   useEffect(() => {
     if (
@@ -90,10 +118,7 @@ function PhoneEmployee() {
       axiosCRMCall
         .post("/scheduleAutoCall/getGroupCustomer", formData)
         .then((res) => {
-          console.log("Checkkkkkk", res.data.data.data);
-          res.data.data.data.length > 0
-            ? setCount(res.data.data.data[0]?.count)
-            : setCount(0);
+          res.data.data.data.length > 0 ? setDataGroupCustomer(res.data.data.data) : setDataGroupCustomer([])
         })
         .catch((err) => console.log(err));
     }
@@ -104,6 +129,9 @@ function PhoneEmployee() {
       .then((res) => setDataTableStatus(res.data.data.data))
       .catch((err) => notifyError("Đã có lỗi xảy ra"));
   }, [formData.recall]);
+  const count = dataGroupCustomer.reduce((total, current) => {
+    return total + Number(current.count)
+  }, 0)
   const columns: ColumnsType<DataType> = [
     {
       title: "Người phụ trách",
@@ -122,7 +150,7 @@ function PhoneEmployee() {
           placeholder="Chọn loại"
           style={{ width: 330 }}
           onChange={(e) =>
-            setFormData({ ...formData, listGroup: e?.join(",") })
+            setFormData({ ...formData, listGroup: e })
           }
           options={listGroup}
         />
@@ -145,8 +173,8 @@ function PhoneEmployee() {
                 id="start_time"
               />
             </div>
-            -
             <div className={`${styles.input_item_time} flex_between`}>
+              -
               <input
                 type="date"
                 onChange={(e) => handleChangeSearch(e)}
@@ -183,7 +211,9 @@ function PhoneEmployee() {
       title: "Số lượng",
       dataIndex: "quantity",
       width: 150,
-      render: () => <div> {count} </div>,
+      render: () => (
+        <div onClick={handleShowModal} style={{ color: '#4c5bd4', cursor: 'pointer' }}>{count}</div>
+      ),
     },
     {
       title: "Đề xuất",
@@ -239,16 +269,30 @@ function PhoneEmployee() {
       width: 150,
     },
     {
-      title: "Trạng thái",
+      title: "Trạng thái đề xuất",
+      dataIndex: "status",
+      width: 150,
+      render: (value) => (
+        <div>{value == 1 ? 'Đang chờ duyệt' : value == 2 ? 'Đã duyệt' : 'Từ chối'}</div>
+      ),
+    },
+    {
+      title: "Trạng thái chạy",
       fixed: "right",
       dataIndex: "status_doing",
       width: 100,
     },
   ];
+  const handleShowModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
   const handleChangeSearch = async (e) => {
     const { name, value } = e.target;
     if (value) {
-      const timeStamp = new Date(value);
+      const timeStamp = name === 'timeEndUpdate' ? new Date(`${value} 23:59:59`) : new Date(`${value}`)
       setFormData({ ...formData, [name]: timeStamp.getTime() / 1000 });
     } else {
       setFormData({ ...formData, [name]: 0 });
@@ -275,13 +319,65 @@ function PhoneEmployee() {
     axiosCRMCall
       .post("/scheduleAutoCall/suggest", formData)
       .then(() => {
-        setFormData({ ...formData, recall: formData.recall });
+        setFormData({ ...formData, recall: false });
         notifySuccess("Thành công");
       })
       .catch((err) => notifyError());
   };
+  const props: UploadProps = {
+    name: 'file',
+    accept: 'audio/*,.aac',
+    maxCount: 1,
+    disabled: true,
+    showUploadList: false,
+    method: 'POST',
+    action: 'https://voip.timviec365.vn/api/UploadRecord',
+    headers: {
+      Authorization: `Bearer ${currentCookie}`,
+    },
+    beforeUpload: (file) => {
+      const MAX_FILE_SIZE_MB = 50
+      const check_size_file = file.size / 1024 / 1024 < MAX_FILE_SIZE_MB;
+      if (!check_size_file) {
+        notifyError(`Vượt quá giới hạn kích thước file ${MAX_FILE_SIZE_MB}MB`);
+        return false
+      }
+      return true
+    },
+    onChange(info) {
+      if (info.file.status !== 'uploading') {
+        console.log(info.file, info.fileList);
+      }
+      if (info.file.status === 'done') {
+        if (info.file.response.data) {
+          notifySuccess('Upload thành công')
+          // setFileRecord
+        }
+        else {
+          notifyError(info.file.response.error.message);
+        }
+      } else if (info.file.status === 'error') {
+        notifyError('Đã có lỗi xảy ra');
+      }
+    },
+  };
   return (
     <div>
+      <div style={{ margin: '8px', display: 'flex', justifyContent: 'right', alignItems: 'center' }}>
+        <Upload {...props}>
+          <Button icon={<UploadOutlined />}>Upload file ghi âm</Button>
+        </Upload>
+        {fileRecord && (
+          <audio
+            style={{ height: '32px', backgroundColor: '#f1f3f' }}
+            src={fileRecord}
+            controls>
+          </audio>
+        )}
+        {!fileRecord && (
+          <div style={{ margin: '16px' }}>Chưa cài đặt ghi âm</div>
+        )}
+      </div>
       <Table
         scroll={{ x: 1700 }}
         columns={columns}
@@ -296,8 +392,30 @@ function PhoneEmployee() {
         scroll={{ x: 1700 }}
         columns={columnsProposed}
         dataSource={dataTableStatus}
-        // pagination={false}
+      // pagination={false}
       />
+      <Modal
+        title="Chi tiết"
+        open={isModalOpen}
+        width={600}
+        bodyStyle={{ maxHeight: '40vh', overflowY: 'auto' }}
+        footer={[
+          <Button key="submit" type="primary" onClick={handleOk}>
+            OK
+          </Button>,
+        ]}
+      >
+        {dataGroupCustomer.map(item => (
+          <div key={item.id}>
+            <div style={{ fontSize: '14px', fontWeight: 'bold' }}>{item.group_name} ({item.count})</div>
+            {item.list.map((tmp, index) => (
+              <div key={index}>
+                <span>{tmp.phone_number} - </span>{tmp.name}
+              </div>
+            ))}
+          </div>
+        ))}
+      </Modal>
       <ToastContainer autoClose={2000} />
     </div>
   );

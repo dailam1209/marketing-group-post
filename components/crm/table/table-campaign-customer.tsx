@@ -34,7 +34,7 @@ const TableDataCampaignCustomer: React.FC<TableDataCampaignCustomerProps> = ({
   emp,
   setNumberSelected,
 }: any) => {
-  const url = "http://localhost:3007/api/crm/campaign/detail-campaign-cus";
+  const url = "https://api.timviec365.vn/api/crm/campaign/detail-campaign-cus";
   const token = Cookies.get("token_base365");
   const router = useRouter();
   const { trigger, setTrigger } = useTrigger();
@@ -62,7 +62,7 @@ const TableDataCampaignCustomer: React.FC<TableDataCampaignCustomerProps> = ({
       campaign_id: 0,
     };
     const dataApi = await fetchApi(
-      "http://localhost:3007/api/crm/customerdetails/add-campaign-customer",
+      "https://api.timviec365.vn/api/crm/customerdetails/add-campaign-customer",
       token,
       bodyAPI,
       "POST"
@@ -208,6 +208,7 @@ const TableDataCampaignCustomer: React.FC<TableDataCampaignCustomerProps> = ({
               });
             }}
             className="show_item"
+            value={body?.pageSize || 10}
           >
             <option value={10}>10 bản ghi trên trang</option>
             <option value={20}>20 bản ghi trên trang</option>

@@ -8,7 +8,7 @@ import "select2/dist/css/select2.min.css";
 import "select2/dist/js/select2.min.js";
 import { stringToDateNumber } from "../../ultis/convert_date";
 
-export default function CampaignChanceInputGroup({ emp, body, setBody }: any) {
+export default function CampaignChanceInputGroup({ emp, body, setBody }) {
   const inputRef = useRef(null);
 
   const statusList = [
@@ -126,9 +126,9 @@ export default function CampaignChanceInputGroup({ emp, body, setBody }: any) {
           ))}
         </select>
       </div>
-            
+
       <div
-        style={{ padding: "0 10px", alignItems:'flex-end' }}
+        style={{ padding: "0 10px", alignItems: "flex-end" }}
         className={`${styleCampaignInput.main__control_btn} flex_between`}
       >
         <div className={styleCampaignInput.main__control_search}>

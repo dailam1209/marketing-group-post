@@ -15,8 +15,9 @@
   box-shadow: none;
   width: 100%;
 }
-.select_itemM{
+.select_itemM {
   width: calc(100% / 3 - 15px);
+  height: 50px;
 }
 .select_item {
   padding: 6px;

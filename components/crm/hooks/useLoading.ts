@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { Spin } from "antd";
+import { useState } from "react";
 
 const useLoading = () => {
-  const [isLoading, setLoading] = useState(false);
-
+  let [isLoading, setLoading] = useState(false);
   const startLoading = () => {
     setLoading(true);
   };
@@ -10,8 +10,17 @@ const useLoading = () => {
   const stopLoading = () => {
     setLoading(false);
   };
+  const handleLoading = async (fetchAPI) => {
+    await startLoading();
+    try {
+      await fetchAPI();
+    } finally {
+      await stopLoading();
+    }
+  };
 
   return {
+    handleLoading,
     isLoading,
     startLoading,
     stopLoading,

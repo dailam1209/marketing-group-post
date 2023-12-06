@@ -13,6 +13,7 @@ import { tr } from "date-fns/locale";
 import { useSelector } from "react-redux";
 import { doGhimCha, doSaveCha } from "../redux/user/userSlice";
 import { useDispatch } from "react-redux";
+import { timestampToCustomString } from "../ultis/convert_date";
 
 const format = "HH:mm";
 
@@ -38,8 +39,6 @@ interface PropsComponent {
   setTimeStart: any;
   setdateS: any;
   setdateE: any;
-  setTime_s: any;
-  setTime_e: any;
   setemp_id: any;
   setIdNhom: any;
   nv: any;
@@ -58,8 +57,6 @@ interface PropsComponent {
   user_create_id;
   emp_id;
   group_id;
-  time_s;
-  time_e;
   page;
   idNhom;
   nameFill;
@@ -67,6 +64,15 @@ interface PropsComponent {
   timeStart;
   timeEnd;
   dateE;
+  dateS;
+  date_at_e;
+  time_at_e;
+  date_at_s;
+  time_at_s;
+  setdate_at_e;
+  settime_at_e;
+  setdate_at_s;
+  settime_at_s;
 }
 
 const CustomerListFilterBox: React.FC<PropsComponent> = ({
@@ -101,7 +107,6 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
   listGr,
   listGr_Child,
   setIsApDung,
-  setTime_s,
   setIsOpenFilterBox,
   isOpenFilterBox,
   page,
@@ -111,14 +116,21 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
   user_create_id,
   emp_id,
   group_id,
-  time_s,
-  time_e,
   idNhom,
   nameFill,
   name,
   timeEnd,
   timeStart,
   dateE,
+  dateS,
+  date_at_e,
+  time_at_e,
+  date_at_s,
+  time_at_s,
+  setdate_at_e,
+  settime_at_e,
+  setdate_at_s,
+  settime_at_s,
 }) => {
   const [valueSelectStatus, setValueSelectStatus] = useState<any>();
   const [valueResoure, sevalueResoure] = useState<any>();
@@ -142,8 +154,8 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
     setuserNameCreate(value);
   };
   const router = useRouter();
-  const currentTime = moment(); // Thời điểm hiện tại
-  const pastTime = currentTime.subtract(2, "days");
+  //const currentTime = moment(); // Thời điểm hiện tại
+  //const pastTime = currentTime.subtract(1, "days");
 
   const [idChaSaved, setidChaSaved] = useState<any>(-1);
   const checkCha = useSelector((state: any) => state?.auth?.ghimCha);
@@ -157,31 +169,60 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
     if (checkCha) {
     }
   }, [idChaSaved]);
-
-  const starttime = router.query.start?.toString().replace("T", " ");
-
-  const parsedValue = dayjs(starttime);
-  const timeValuestart = parsedValue.format("HH:mm");
-
-  const endtime = router.query.end?.toString().replace("T", " ");
-  const parsedValueend = dayjs(endtime);
-  const timeValueEnd = parsedValueend.format("HH:mm");
-  const [time_s_change, settime_s_change] = useState<any>(router.query.start);
-  const [time_e_change, settime_e_change] = useState<any>(router.query.end);
-
-  const dateEndUrl = dayjs(endtime || time_e_change || null).format(
-    "YYYY-MM-DD"
+  const [time_s_change, settime_s_change] = useState<any>(
+    router.query.start ? router.query.start : null
   );
-  const defaultstart: any = dayjs(time_s_change || pastTime).format(
-    "YYYY-MM-DD"
+  const [time_e_change, settime_e_change] = useState<any>(
+    router.query.end ? router.query.end : null
   );
+  const [create_at_s_change, setcreate_at_s_change] = useState<any>(
+    router.query.create_at_s ? router.query.create_at_s : null
+  );
+  const [create_at_e_change, setcreate_at_e_change] = useState<any>(
+    router.query.create_at_e ? router.query.create_at_e : null
+  );
+
+  //const starttime = router.query.start?.toString().replace("T", " ");
+  //const createstarttime = router.query.create_at_s?.toString().replace("T", " ");
+
+  //const parsedValue = dayjs(starttime);
+  //const parsedValueCreateStart = dayjs(createstarttime);
+  //const timeValuestart = parsedValue.format("HH:mm");
+  //const timeValueCreate_at_s = parsedValueCreateStart.format("HH:mm");
+
+  //const endtime = router.query.end?.toString().replace("T", " ");
+  //const createendtime = router.query.create_at_e?.toString().replace("T", " ");
+  //const parsedValueend = dayjs(endtime);
+  //const parsedValueCreateend = dayjs(createendtime);
+  //const timeValueEnd = parsedValueend.format("HH:mm");
+  //const timeValueCreateEnd = parsedValueCreateend.format("HH:mm");
+  //const dateEndUrl = dayjs(endtime || time_e_change || null).format("YYYY-MM-DD");
+  //const dateCreateEndUrl = dayjs(createendtime || create_at_e_change || null).format("YYYY-MM-DD");
+  //const defaultstart: any = dayjs(/* starttime || */ time_s_change || null).format("YYYY-MM-DD");
+  //const defaultcreate_at_s: any = dayjs(/* createstarttime || */ create_at_s_change || null).format("YYYY-MM-DD");
 
   useEffect(() => {
     if (isOpenFilterBox) {
-      setTimeStart("00:00:00");
-      setTime_s("00:00:00 " + pastTime.format("YYYY-MM-DD"));
-      setdateS(pastTime.format("YYYY-MM-DD"));
-      setTimeEnd("00:00:00");
+      if (timeStart) {
+        setTimeStart(dayjs(timeStart).format(format));
+      } else {
+        setTimeStart("00:00:00");
+      }
+      if (timeEnd) {
+        setTimeEnd(dayjs(timeEnd).format(format));
+      } else {
+        setTimeEnd("00:00:00");
+      }
+      if (time_at_s) {
+        settime_at_s(dayjs(time_at_s).format(format));
+      } else {
+        settime_at_s("00:00:00");
+      }
+      if (time_at_e) {
+        settime_at_e(dayjs(time_at_e).format(format));
+      } else {
+        settime_at_e("00:00:00");
+      }
     }
   }, []);
   const [nhomchafilter, setnhomchafilter] = useState<any>();
@@ -190,6 +231,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
     dispatch(doSaveCha({ id: value }));
     setIdNhom(value);
     setnhomCon("Tất cả");
+    setnhomconfilter(null);
     if (value > 0) {
       setCheck(true);
     } else {
@@ -197,34 +239,123 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
     }
   };
 
-  const handleTimeEndChange = (time, timeString) => {
-    if (timeString) {
-      setTimeEnd(timeString + ":00");
-      settime_e_change(dateEndUrl + "T" + timeString + ":00");
-    }
-  };
-  const handleTimeStartChange = (time, timeString) => {
-    if (timeString) {
-      setTimeStart(timeString + ":00");
-      settime_s_change(
-        pastTime.format("YYYY-MM-DD") + "T" + timeString + ":00"
-      );
+  const handleTimeStartChange = (e) => {
+    if (!e) {
+      setTimeStart("00:00:00");
+      settime_s_change(dayjs(dateS).format("YYYY-MM-DD") + "T" + "00:00:00");
+    } else {
+      let str = "";
+      let hour = e["$d"].getHours();
+      let default_time = dayjs(e).format("hh:mm:ss");
+      if (hour <= 12) {
+        str = default_time;
+      } else {
+        str = `${String(hour)}:${default_time.split(":")[1]}:${
+          default_time.split(":")[2]
+        }`;
+      }
+      setTimeStart(str);
+      settime_s_change(dayjs(dateS).format("YYYY-MM-DD") + "T" + str);
     }
   };
   const handleDateChangeStart = (e) => {
     setdateS(e.target.value);
     settime_s_change(e.target.value + "T" + timeStart);
   };
+
+  const handleTimeEndChange = (e) => {
+    if (!e) {
+      setTimeEnd("00:00:00");
+      settime_e_change(dayjs(dateE).format("YYYY-MM-DD") + "T" + "00:00:00");
+    } else {
+      let str = "";
+      let hour = e["$d"].getHours();
+      let default_time = dayjs(e).format("hh:mm:ss");
+      if (hour <= 12) {
+        str = default_time;
+      } else {
+        str = `${String(hour)}:${default_time.split(":")[1]}:${
+          default_time.split(":")[2]
+        }`;
+      }
+      setTimeEnd(str);
+      settime_e_change(dayjs(dateE).format("YYYY-MM-DD") + "T" + str);
+    }
+  };
   const handleDateChangeEnd = (e) => {
     setdateE(e.target.value);
-    settime_e_change(e.target.value + "T" + timeEnd || timeValueEnd);
+    settime_e_change(e.target.value + "T" + timeEnd);
   };
+
+  const handleTimeCreateStartChange = (e) => {
+    if (!e) {
+      settime_at_s("00:00:00");
+      setcreate_at_s_change(
+        dayjs(date_at_s).format("YYYY-MM-DD") + "T" + "00:00:00"
+      );
+    } else {
+      let str = "";
+      let hour = e["$d"].getHours();
+      let default_time = dayjs(e).format("hh:mm:ss");
+      if (hour <= 12) {
+        str = default_time;
+      } else {
+        str = `${String(hour)}:${default_time.split(":")[1]}:${
+          default_time.split(":")[2]
+        }`;
+      }
+      settime_at_s(str);
+      setcreate_at_s_change(dayjs(date_at_s).format("YYYY-MM-DD") + "T" + str);
+    }
+  };
+  const handleDateCreateChangeStart = (e) => {
+    setdate_at_s(e.target.value);
+    setcreate_at_s_change(e.target.value + "T" + time_at_s);
+  };
+  //console.log(isNaN(new Date(time_s_change).getDate()));
+
+  const handleTimeCreateEndChange = (e) => {
+    if (!e) {
+      settime_at_e("00:00:00");
+      setcreate_at_e_change(
+        dayjs(date_at_e).format("YYYY-MM-DD") + "T" + "00:00:00"
+      );
+    } else {
+      let str = "";
+      let hour = e["$d"].getHours();
+      let default_time = dayjs(e).format("hh:mm:ss");
+      if (hour <= 12) {
+        str = default_time;
+      } else {
+        str = `${String(hour)}:${default_time.split(":")[1]}:${
+          default_time.split(":")[2]
+        }`;
+      }
+      settime_at_e(str);
+      setcreate_at_e_change(dayjs(date_at_e).format("YYYY-MM-DD") + "T" + str);
+    }
+  };
+  const handleDateCreateChangeEnd = (e) => {
+    console.log(e.target.value, "DateCreEnd");
+    setdate_at_e(e.target.value);
+    setcreate_at_e_change(e.target.value + "T" + time_at_e);
+  };
+  // console.log(dateE, "dateE");
+  // console.log(timeEnd, "timeEnd");
+  // console.log(time_e_change, "time_e_change");
+
+  // console.log(time_at_e, "time_at_e");
+  // console.log(date_at_s, "date_at_s");
+  // console.log(create_at_e_change, "create_at_e_change");
+
   const optionTest = [
     { value: null, label: "Tất cả" },
     ...listNV?.map((userName, index) => {
       return {
-        value: userName?.ep_id,
-        label: `(${userName.ep_id}) ${userName?.ep_name} - ${userName.dep_name}`,
+        value: userName?.idQLC,
+        label: `(${userName.idQLC}) ${userName?.userName}  ${
+          userName.organization ? `- ${userName.organization}` : ""
+        }`,
       };
     }),
   ];
@@ -345,18 +476,13 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
         style={{ padding: 0, maxHeight: "100%" }}
       >
         <div className={styles.form_group}>
-          <div className={styles.label}>Thời gian tạo khách hàng</div>
+          <div className={styles.label}>Thời gian cập nhập</div>
           <div className={styles.row}>
             <div className={`${styles["col-lg-6"]}`}>
               <TimePicker
                 onChange={handleTimeStartChange}
                 style={{ width: "100%", height: "37px" }}
-                defaultValue={
-                  router.query.start
-                    ? dayjs(timeValuestart, format)
-                    : dayjs("00:00", format)
-                }
-                format={format}
+                value={dayjs(timeStart, format)}
               />
             </div>
             <div className={`${styles["col-lg-6"]}`}>
@@ -367,7 +493,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
                 <Input
                   onChange={handleDateChangeStart}
                   type="date"
-                  defaultValue={defaultstart || pastTime.format("YYYY-MM-DD")}
+                  value={dayjs(time_s_change)?.format("YYYY-MM-DD")}
                 />
               </div>
             </div>
@@ -377,12 +503,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
               <TimePicker
                 onChange={handleTimeEndChange}
                 style={{ width: "100%", height: "37px" }}
-                defaultValue={
-                  router.query.end
-                    ? dayjs(timeValueEnd, format)
-                    : dayjs("00:00", format)
-                }
-                format={format}
+                value={dayjs(timeEnd, format)}
               />
             </div>
             <div className={`${styles["col-lg-6"]}`}>
@@ -391,7 +512,7 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
                 style={{ width: "100%", marginBottom: "5px", paddingLeft: 10 }}
               >
                 <Input
-                  defaultValue={dateEndUrl}
+                  value={dayjs(time_e_change)?.format("YYYY-MM-DD")}
                   onChange={handleDateChangeEnd}
                   type="date"
                 />
@@ -399,7 +520,51 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
             </div>
           </div>
         </div>
-
+        <div className={styles.form_group}>
+          <div className={styles.label}>Thời gian tạo khách hàng</div>
+          <div className={styles.row}>
+            <div className={`${styles["col-lg-6"]}`}>
+              <TimePicker
+                onChange={handleTimeCreateStartChange}
+                style={{ width: "100%", height: "37px" }}
+                value={dayjs(time_at_s, format)}
+              />
+            </div>
+            <div className={`${styles["col-lg-6"]}`}>
+              <div
+                className={styles.box_input}
+                style={{ width: "100%", marginBottom: "5px", paddingLeft: 10 }}
+              >
+                <Input
+                  onChange={handleDateCreateChangeStart}
+                  type="date"
+                  value={dayjs(create_at_s_change)?.format("YYYY-MM-DD")}
+                />
+              </div>
+            </div>
+          </div>
+          <div className={styles.row}>
+            <div className={`${styles["col-lg-6"]}`}>
+              <TimePicker
+                onChange={handleTimeCreateEndChange}
+                style={{ width: "100%", height: "37px" }}
+                value={dayjs(time_at_e, format)}
+              />
+            </div>
+            <div className={`${styles["col-lg-6"]}`}>
+              <div
+                className={styles.box_input}
+                style={{ width: "100%", marginBottom: "5px", paddingLeft: 10 }}
+              >
+                <Input
+                  onChange={handleDateCreateChangeEnd}
+                  value={dayjs(create_at_e_change)?.format("YYYY-MM-DD")}
+                  type="date"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
         <div className={styles.form_group}>
           <div className={styles.label}>Tình trạng khách hàng</div>
           <Select
@@ -633,22 +798,25 @@ const CustomerListFilterBox: React.FC<PropsComponent> = ({
           onClick={async () => {
             handlefilter();
             setIsApDung(true);
-
             router.push(
               `/customer/list?${
-                time_s
-                  ? `&start=${
-                      time_s_change?.replace(" ", "T") ||
-                      time_s?.replace(" ", "T")
-                    }`
-                  : ""
+                isNaN(new Date(time_s_change).getDate()) || !time_s_change
+                  ? ""
+                  : `&start=${time_s_change}`
               }${
-                time_e
-                  ? `&end=${
-                      time_e_change?.replace(" ", "T") ||
-                      time_e?.replace(" ", "T")
-                    }`
-                  : ""
+                isNaN(new Date(time_e_change).getDate()) || !time_e_change
+                  ? ""
+                  : `&end=${time_e_change}`
+              }${
+                isNaN(new Date(create_at_s_change).getDate()) ||
+                !create_at_s_change
+                  ? ""
+                  : `&create_at_s=${create_at_s_change}`
+              }${
+                isNaN(new Date(create_at_e_change).getDate()) ||
+                !create_at_e_change
+                  ? ""
+                  : `&create_at_e=${create_at_e_change}`
               }${status ? `&status=${status}` : ""}${
                 resoure ? `&source=${resoure}` : ""
               }${idNhom ? `&group=${idNhom}` : ""}${

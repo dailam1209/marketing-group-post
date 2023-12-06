@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./potential2.module.css";
 import PotentialAction from "./potential_action";
-import PotentialSelectBox from "./potential_selectt";
 import Link from "next/link";
-import exportToExcel from "../ultis/export_xlxs";
 import { axiosQLC } from "@/utils/api/api_qlc";
 import { ngayHomNay, notifyError, renderPosition } from "@/utils/function";
 import SelectSingle from "@/components/commodity/select";
@@ -68,7 +66,7 @@ export default function PotentialInputGroups({
     setListEmp(
       datas.map((item: any) => ({
         value: item.ep_id,
-        label: item.userName,
+        label: `${item.ep_id}. ${item.userName}`,
       }))
     );
   };
@@ -145,7 +143,6 @@ export default function PotentialInputGroups({
     ]);
     ExcelDownload([columnHeaders, ...data], filename);
   };
-  console.log("CheckForm", formData);
   return (
     <div className={styles.main__control}>
       <div className={`${styles.main__control_select} flex_align_center`}>

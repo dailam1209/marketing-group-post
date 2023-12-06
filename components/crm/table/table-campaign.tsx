@@ -23,7 +23,7 @@ const TableDataCampaign: React.FC<TableDataCampaignProps> = ({
   setBody,
   body,
 }) => {
-  const url = "http://localhost:3007/api/crm/campaign/delete-campaign";
+  const url = "https://api.timviec365.vn/api/crm/campaign/delete-campaign";
   const token = Cookies.get("token_base365");
   const { trigger, setTrigger } = useTrigger();
 
@@ -226,6 +226,7 @@ const TableDataCampaign: React.FC<TableDataCampaignProps> = ({
                 };
               });
             }}
+            value={body?.pageSize || 10}
             className="show_item"
           >
             <option value={10}>10 bản ghi trên trang</option>

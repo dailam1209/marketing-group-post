@@ -42,13 +42,13 @@ const TableDataOrder: React.FC<TableDataOrderProps> = ({
   setNumberSelected,
   setArrCustomerId,
   searchParam,
-}: any) => {
+}) => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
-  const url = "http://localhost:3007/api/crm/customer/list";
+  const url = "https://api.timviec365.vn/api/crm/customer/list";
   const token = Cookies.get("token_base365");
   const [dataAPI, setDataApi] = useState([]);
   const [count, setCount] = useState(0);
@@ -113,7 +113,7 @@ const TableDataOrder: React.FC<TableDataOrderProps> = ({
   const handleGetInfoSTT = async () => {
     try {
       const res = await fetch(
-        `http://localhost:3007/api/crm/customerStatus/list`,
+        `https://api.timviec365.vn/api/crm/customerStatus/list`,
         {
           method: "POST",
           headers: {
@@ -139,7 +139,7 @@ const TableDataOrder: React.FC<TableDataOrderProps> = ({
   const handleGetGr = async () => {
     try {
       const res = await fetch(
-        `http://localhost:3007/api/crm/group/list_group_khach_hang`,
+        `https://api.timviec365.vn/api/crm/group/list_group_khach_hang`,
         {
           method: "POST",
           headers: {
@@ -224,7 +224,7 @@ const TableDataOrder: React.FC<TableDataOrderProps> = ({
           placeholder="Tình trạng khách hàng "
           onChange={async (value) => {
             await fetchApi(
-              "http://localhost:3007/api/crm/customerdetails/editCustomer",
+              "https://api.timviec365.vn/api/crm/customerdetails/editCustomer",
               token,
               { status: value, cus_id: record?.cus_id },
               "POST"
@@ -256,7 +256,7 @@ const TableDataOrder: React.FC<TableDataOrderProps> = ({
           placeholder="Nguồn: "
           onChange={async (value) => {
             await fetchApi(
-              "http://localhost:3007/api/crm/customerdetails/editCustomer",
+              "https://api.timviec365.vn/api/crm/customerdetails/editCustomer",
               token,
               { resoure: value, cus_id: record?.cus_id },
               "POST"
@@ -288,7 +288,7 @@ const TableDataOrder: React.FC<TableDataOrderProps> = ({
           placeholder="Nhóm khách hàng: "
           onChange={async (value) => {
             await fetchApi(
-              "http://localhost:3007/api/crm/customerdetails/editCustomer",
+              "https://api.timviec365.vn/api/crm/customerdetails/editCustomer",
               token,
               { group_id: value, cus_id: record?.cus_id },
               "POST"
@@ -363,7 +363,14 @@ const TableDataOrder: React.FC<TableDataOrderProps> = ({
   return (
     <>
       {isLoading ? (
-        <Spin style={{ width: "100%", minWidth: "300px", margin: "auto", marginTop: '10px' }} />
+        <Spin
+          style={{
+            width: "100%",
+            minWidth: "300px",
+            margin: "auto",
+            marginTop: "10px",
+          }}
+        />
       ) : (
         <div className="custom_table">
           <Table

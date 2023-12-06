@@ -19,7 +19,7 @@ export default function CampaignFooterAddFiles({
   const [isModalCancel, setIsModalCancel] = useState(false);
   const [modal1Open, setModal1Open] = useState(false);
   const [failModel, setFailModel] = useState(false);
-  const url = "http://localhost:3007/api/crm/campaign/createCampaign";
+  const url = "https://api.timviec365.vn/api/crm/campaign/createCampaign";
   const token = Cookies.get("token_base365");
 
   const fetchAPICampaign = async () => {

@@ -1,18 +1,17 @@
 import React, { useState } from "react";
-import { Table, Tooltip } from "antd";
+import { Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { useRouter } from "next/router";
 import Image from "next/image";
-import PotentialSelectBox from "../potential/potential_selectt";
-import CancelModal from "../potential/potential_steps/cancel_modal";
+
 import { TableRowSelection } from "antd/es/table/interface";
 import ModalDelEmpGroup from "../modals/modal_del_group";
-import { number } from "yup";
 
 interface DataType {
   key: React.Key;
-  ep_name: string;
-  nameDeparment: string;
+  userName: string;
+  organizeDetailName: string;
+  ep_id: number;
 }
 
 interface TableStaffCustomerGroupAddProps {
@@ -24,9 +23,9 @@ interface TableStaffCustomerGroupAddProps {
 }
 
 const TableStaffCustomerGroupAdd: React.FC<TableStaffCustomerGroupAddProps> = ({
-  dataEmp,
+  dataEmp, //Toàn bộ nhân viên
   setData,
-  valueSelected,
+  valueSelected, //Nhân viên được chọn
   setSelectedRow,
   setDataRowSelect,
 }) => {
@@ -57,7 +56,7 @@ const TableStaffCustomerGroupAdd: React.FC<TableStaffCustomerGroupAddProps> = ({
   });
   function handleDelRow(item: any): void {
     setIsOpenModalDel(true);
-    setIdDel(item?._id);
+    setIdDel(item);
   }
 
   const handleDelGroup = (id) => {
@@ -77,13 +76,20 @@ const TableStaffCustomerGroupAdd: React.FC<TableStaffCustomerGroupAddProps> = ({
     },
     onSelectAll: (selected: any, selectedRows: any, changeRows: any) => {},
   };
-
+  
   const columns: ColumnsType<DataType> = [
     {
       title: "Tên nhân viên",
       dataIndex: "userName",
       key: "1",
       width: 200,
+      render(value, record, index) {
+        return (
+          <span>
+            {record.ep_id}. {record.userName}
+          </span>
+        );
+      },
     },
     {
       title: "Phòng ban",
@@ -93,7 +99,7 @@ const TableStaffCustomerGroupAdd: React.FC<TableStaffCustomerGroupAddProps> = ({
     },
     {
       title: "Chức năng",
-      dataIndex: "item",
+      dataIndex: "ep_id",
       key: "4",
       width: 120,
       fixed: "right",

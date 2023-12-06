@@ -1,6 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
-const baseURL = "http://localhost:3007/api/crm";
+// const baseURL = "http://localhost:3007/api/crm";
+const baseURL = "https://api.timviec365.vn/api/crm";
 export const axiosCRM = axios.create({
   baseURL,
   headers: {
@@ -35,4 +36,3 @@ export const checkToken = () => {
   }
   return false;
 };
-

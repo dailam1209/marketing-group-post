@@ -60,7 +60,7 @@ export default function CampaignOrderInputGroup({
       id: id,
     };
     const dataApi = await fetchApi(
-      "http://localhost:3007/api/crm/order/edit-order",
+      "https://api.timviec365.vn/api/crm/order/edit-order",
       token,
       bodyAPIs,
       "POST"

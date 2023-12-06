@@ -11,6 +11,13 @@ import { checkAndRedirectToHomeIfNotLoggedIn } from "@/components/crm/ultis/chec
 import moment from "moment";
 import { UpdateTLKD } from "@/components/crm/context/updateTlkd";
 import { useRouter } from "next/router";
+import { useFormData } from "@/components/crm/context/formDataContext";
+import { useNotificationReload } from "@/components/crm/context/notificationContext";
+import { login } from "@/utils/handleApi";
+import { axiosCRM } from "@/utils/api/api_crm";
+import { getToken } from "../api/api-hr/token";
+import jwt_decode from "jwt-decode";
+
 const Cookies = require("js-cookie");
 export interface DataType {
   key: React.Key;
@@ -33,9 +40,11 @@ export interface DataType {
   keyword: any;
 }
 export default function CustomerList() {
+  const router = useRouter();
   const { updateTLKD } = useContext<any>(UpdateTLKD);
   const mainRef = useRef<HTMLDivElement>(null);
   const { isOpen } = useContext<any>(SidebarContext);
+  const { reloadNotification } = useContext(useNotificationReload);
   const [selected, setSelected] = useState(false);
   const [numberSelected, setNumberSelected] = useState(0);
   const [selectedRowKeys, setSelectedRowKeys] = useState<any>([]);
@@ -59,24 +68,35 @@ export default function CustomerList() {
   const [totalRecords, setTotalRecords] = useState();
   const [dataStatus, setdataStatus] = useState<any>();
   const [group_id, setgroup_id] = useState<any>();
-  const [timeStart, setTimeStart] = useState<any>();
-  const [timeEnd, setTimeEnd] = useState();
-  const [dateS, setdateS] = useState();
-  const [dateE, setdateE] = useState(null);
+  const [timeStart, setTimeStart] = useState<any>(router.query.start);
+  const [timeEnd, setTimeEnd] = useState<any>(router.query.end);
+  const [dateS, setdateS] = useState<any>();
+  const [dateE, setdateE] = useState<any>();
   const [time_s, setTime_s] = useState<any>(null);
   const [time_e, setTime_e] = useState<any>(null);
+  const [time_at_s, settime_at_s] = useState<any>(router.query.create_at_s);
+  const [time_at_e, settime_at_e] = useState<any>(router.query.create_at_e);
+  const [date_at_s, setdate_at_s] = useState();
+  const [date_at_e, setdate_at_e] = useState();
   const [emp_id, setemp_id] = useState<any>();
   const [idNhom, setIdNhom] = useState<any>();
   const [isAPDung, setIsApDung] = useState(false);
   const [selectedCusIds, setSelectedCusIds] = useState<string>("");
   const role = Cookies.get("role");
-  const [listNV, setListNv] = useState<any>();
+  const [listNV, setListNv] = useState<any>([]);
   const [dep_id, setDep_id] = useState<any>();
   const [posId, setposId] = useState<any>();
   const [nameNvNomor, setnameNvNomor] = useState<any>();
   const [isRowDataSelected, setRowDataSelected] = useState([]);
-  const router = useRouter();
+  const [companyId, setCompanyId] = useState(null);
 
+  useEffect(() => {
+    const currentCookie = getToken("token_base365");
+    if (currentCookie) {
+      const decodedToken: any = jwt_decode(currentCookie);
+      setCompanyId(decodedToken?.data?.com_id);
+    }
+  }, []);
   useEffect(() => {
     setemp_id(router.query.emp_id);
     setIdNhom(router.query.group);
@@ -84,6 +104,7 @@ export default function CustomerList() {
     setResoure(router.query.source);
     setTime_s(router.query.start);
     setTime_e(router.query.end);
+    //setdateS(router.query.start);
     setnvPhuTrach(router.query.creater);
     setName(router.query.keyword);
     if (!isAPDung && !isOpenFilterBox) {
@@ -93,7 +114,9 @@ export default function CustomerList() {
       if (dateE) {
         setTime_e(dateE + " " + timeEnd);
       }
-
+      if (dateS) {
+        setTime_s(dateS + " " + timeStart);
+      }
       setTime_s(dateS + " " + timeStart);
     }
   }, [
@@ -105,6 +128,10 @@ export default function CustomerList() {
     dateE,
     time_s,
     time_e,
+    time_at_e,
+    time_at_s,
+    date_at_e,
+    date_at_s,
     router.asPath,
   ]);
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
@@ -130,6 +157,8 @@ export default function CustomerList() {
           // group_pins_id: nhomCon,
           time_s: router.query.start,
           time_e: router.query.end,
+          create_at_s: router.query.create_at_s,
+          create_at_e: router.query.create_at_e,
         }),
       });
       const data = await res.json();
@@ -236,6 +265,7 @@ export default function CustomerList() {
       link: item?.link,
       value: item?.resoure,
       count_content_call: item?.count_content_call,
+      text_record: item.text_record,
     };
   });
 
@@ -293,34 +323,62 @@ export default function CustomerList() {
     } catch (error) {}
   };
 
-  const handleGetInfoCus = async () => {
+  // const handleGetInfoCusAll = async () => {
+  //   try {
+  //     const res = await fetch(
+  //       `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/crm/account/employee/list`,
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: `Bearer ${Cookies.get("token_base365")}`,
+  //         },
+  //       }
+  //     );
+  //     const data = await res.json();
+  //     console.log("Check", data);
+  //     // if (data && data?.data) setListNv(data?.data?.items);
+  //   } catch (error) {}
+  // };
+  const handleGetInfoCusAll = async () => {
     try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/crm/account/employee/list`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${Cookies.get("token_base365")}`,
-          },
-        }
-      );
-      const data = await res.json();
-      if (data && data?.data) setListNv(data?.data?.items);
+      axiosCRM
+        .post("/account/takeListNvienKinhDoanh", {
+          com_id: companyId,
+        })
+        .then((res) => setListNv(res.data?.data?.listUser))
+        .catch((err) => {});
+      // if (data && data?.data) setListNv(data?.data?.items);
     } catch (error) {}
   };
-
+  const handleGetInfoCus = async () => {
+    try {
+      axiosCRM
+        .post("/account/TakeListUserFromGroup", {
+          companyId,
+          IdGroup: idNhom,
+        })
+        .then((res) => setListNv(res.data?.data?.listUser))
+        .catch((err) => {});
+    } catch (error) {}
+  };
+  useEffect(() => {
+    if (companyId) {
+      idNhom ? handleGetInfoCus() : handleGetInfoCusAll();
+    }
+  }, [idNhom, companyId]);
   let nv = listNV?.filter((item) => item.dep_id === dep_id);
   useEffect(() => {
     handleGetInfoCusNV();
-    handleGetInfoCus();
   }, [dep_id]);
-
   useEffect(() => {
     if (isAPDung) {
-      if (dateE) {
+      /* if (dateE) {
         setTime_e(dateE + " " + timeEnd);
       }
+      if (date_at_e) {
+        setcreate_at_e(date_at_e + " " + time_at_e);
+      } */
     } else if (!isAPDung && !isOpenFilterBox) {
       setTime_s(null);
       setTime_e(null);
@@ -345,20 +403,24 @@ export default function CustomerList() {
     return requestData;
   }
 
-  const formData = new FormData();
+  const formDataSencond = new FormData();
   const formDataRequest = sendingData();
   formDataRequest.keyword &&
-    formData.append("keyword", formDataRequest.keyword);
-  formDataRequest.status && formData.append("status", formDataRequest.status);
+    formDataSencond.append("keyword", formDataRequest.keyword);
+  formDataRequest.status &&
+    formDataSencond.append("status", formDataRequest.status);
   formDataRequest.resoure &&
-    formData.append("resoure", formDataRequest.resoure);
+    formDataSencond.append("resoure", formDataRequest.resoure);
   formDataRequest.user_create_id &&
-    formData.append("user_create_id", formDataRequest.user_create_id);
-  formDataRequest.ep_id && formData.append("ep_id", formDataRequest.ep_id);
+    formDataSencond.append("user_create_id", formDataRequest.user_create_id);
+  formDataRequest.ep_id &&
+    formDataSencond.append("ep_id", formDataRequest.ep_id);
   formDataRequest.group_id &&
-    formData.append("group_id", formDataRequest.group_id);
-  formDataRequest.time_s && formData.append("time_s", formDataRequest.time_s);
-  formDataRequest.time_e && formData.append("time_e", formDataRequest.time_e);
+    formDataSencond.append("group_id", formDataRequest.group_id);
+  formDataRequest.time_s &&
+    formDataSencond.append("time_s", formDataRequest.time_s);
+  formDataRequest.time_e &&
+    formDataSencond.append("time_e", formDataRequest.time_e);
 
   const handleSelectAll = () => {
     const allRowKeys = datatable?.map((item: { key: any }) => item.key);
@@ -389,8 +451,16 @@ export default function CustomerList() {
   useEffect(() => {
     handleGetGr();
     fetchData();
-  }, [name, selectedRowKeys, des, selectedCus, page, pageSize, updateTLKD]);
-
+  }, [
+    name,
+    selectedRowKeys,
+    des,
+    selectedCus,
+    page,
+    pageSize,
+    updateTLKD,
+    reloadNotification,
+  ]);
   useEffect(() => {
     setHeaderTitle("Danh sách khách hàng");
     setShowBackButton(false);
@@ -480,8 +550,6 @@ export default function CustomerList() {
             setloading={setloading}
             setDatatable={setData}
             setgroup_id={setgroup_id}
-            setTime_s={setTime_s}
-            setTime_e={setTime_e}
             setemp_id={setemp_id}
             listGr={listGr}
             listGr_Child={listGr_Child}
@@ -504,10 +572,17 @@ export default function CustomerList() {
             user_create_id={nvPhuTrach}
             emp_id={emp_id}
             idNhom={idNhom}
-            time_s={time_s}
-            time_e={time_e}
+            time_at_e={time_at_e}
+            time_at_s={time_at_s}
+            date_at_s={date_at_s}
+            date_at_e={date_at_e}
+            settime_at_e={settime_at_e}
+            settime_at_s={settime_at_s}
+            setdate_at_s={setdate_at_s}
+            setdate_at_e={setdate_at_e}
             timeEnd={timeEnd}
             dateE={dateE}
+            dateS={dateS}
             timeStart={timeStart}
           />
           <TableListCustomer

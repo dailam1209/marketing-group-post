@@ -34,14 +34,14 @@ interface TableDataCampaignBillProps {
   emp?: {}[];
 }
 
-const TableDataCampaignBill: React.FC<TableDataCampaignBillProps> = ({
+const TableDataCampaignBill = ({
   setSelected,
   setNumberSelected,
   body,
   setBody,
   emp,
 }: any) => {
-  const url = "http://localhost:3007/api/crm/bill/list-bill";
+  const url = "https://api.timviec365.vn/api/crm/bill/list-bill";
   const token = Cookies.get("token_base365");
   const router = useRouter();
   const { trigger, setTrigger } = useTrigger();
@@ -97,7 +97,7 @@ const TableDataCampaignBill: React.FC<TableDataCampaignBillProps> = ({
       id: id,
     };
     const dataApi = await fetchApi(
-      "http://localhost:3007/api/crm/bill/edit-bill",
+      "https://api.timviec365.vn/api/crm/bill/edit-bill",
       token,
       bodyAPIs,
       "POST"
@@ -283,6 +283,7 @@ const TableDataCampaignBill: React.FC<TableDataCampaignBillProps> = ({
               });
             }}
             className="show_item"
+            value={body?.pageSize || 10}
           >
             <option value={10}>10 bản ghi trên trang</option>
             <option value={20}>20 bản ghi trên trang</option>

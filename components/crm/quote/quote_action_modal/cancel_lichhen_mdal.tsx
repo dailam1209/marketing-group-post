@@ -7,13 +7,13 @@ import { showModalWithTimeout } from "@/components/crm/ultis/helper";
 import ModalCompleteStep from "../quote_steps/complete_modal";
 
 interface MyComponentProps {
-  isModalCancel: boolean;
-  cancelContent: string;
-  setIsModalCancel: (value: boolean) => void;
-  handleCancel: any;
-  record: any;
-  setCancelContent: any;
-  name: string;
+  isModalCancel?: boolean;
+  cancelContent?: string;
+  setIsModalCancel?: (value: boolean) => void;
+  handleCancel?: any;
+  record?: any;
+  setCancelContent?: any;
+  name?: string;
 }
 const CanCel_LichHen_Mdal: React.FC<MyComponentProps> = ({
   handleCancel,
@@ -28,8 +28,8 @@ const CanCel_LichHen_Mdal: React.FC<MyComponentProps> = ({
 
   const handleOK = () => {
     /* handleCancel thực hiện mới thực hiện tiếp */
-    handleCancel() &&
-      (setIsModalCancel(false), showModalWithTimeout(setIsMdalSuccess, 2000));
+    // handleCancel() &&
+    setIsModalCancel(false), showModalWithTimeout(setIsMdalSuccess, 2000);
   };
 
   return (
@@ -53,9 +53,9 @@ const CanCel_LichHen_Mdal: React.FC<MyComponentProps> = ({
           <div className={`${styles.md_txtarea}`}>
             Lý do*
             <textarea
-              onChange={(e) => setCancelContent({ [name]: e.target.value })}
-              name={name}
-              value={cancelContent}
+              // onChange={(e) => setCancelContent({ [name]: e.target.value })}
+              // name={name}
+              // value={cancelContent}
               id="address_contact"
               className={`${styles.md_txtarea} ${styles.textarea}`}
               placeholder="Nhập lý do"

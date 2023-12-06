@@ -41,6 +41,7 @@ export default function AddPersonalInfo({ formData, setFormData }: any) {
           //   .join("-")}
           placeholder="Nhập ho và tên"
           type="date"
+          
           setFormData={setFormData}
         />
       </div>

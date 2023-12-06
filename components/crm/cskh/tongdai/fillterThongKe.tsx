@@ -134,7 +134,7 @@ const FilterThongKe: React.FC<MyComponentProps> = ({
               <div style={{ width: "100%" }}>
                 <Select
                   onChange={handleSlectPB}
-                  style={{ width: 145 }}
+                  style={{ width: '100% !important' }}
                   value={phongban}
                   placeholder="Chọn tổ chức"
                 >

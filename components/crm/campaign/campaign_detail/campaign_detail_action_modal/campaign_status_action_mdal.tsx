@@ -40,7 +40,7 @@ const StatusCustomerCampaignModal: React.FC<MyComponentProps> = ({
 
   const fetchAPIUpdateStatus = async (id) => {
     const dataApi = await fetchApi(
-      "http://localhost:3007/api/crm/campaign/update-status-campaign-cus",
+      "https://api.timviec365.vn/api/crm/campaign/update-status-campaign-cus",
       token,
       {
         ...body,

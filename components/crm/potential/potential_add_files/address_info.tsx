@@ -15,7 +15,7 @@ import { MInputTextAndOption, MTextArea } from "@/components/commodity/input";
 export default function AddAddressInfo({
   title = "Thông tin địa chỉ",
   formData,
-  setFormData,
+  setFormData = () => {},
 }: any) {
   const [listWard, setListWard] = useState([]);
   const [listDistrict, setListDistrict] = useState<any>();

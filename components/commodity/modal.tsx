@@ -8,8 +8,8 @@ import Image from "next/image";
 import { MInputText, MTextArea } from "./input";
 const Cookies = require("js-cookie");
 interface MyComponentProps {
-  isModalCancel: boolean;
-  setIsModalCancel: (value: boolean) => void;
+  isModalCancel?: boolean;
+  setIsModalCancel?: (value: boolean) => void;
   content?: any;
   title?: string;
   link?: string;
@@ -55,7 +55,7 @@ export const MCancelModal: React.FC<MyComponentProps> = ({
 interface ModalCompleteStepProps {
   modal1Open: boolean;
   setModal1Open: any;
-  title: string;
+  title?: string;
   link?: string;
   editorContent?: any;
   cusId?: any;
@@ -66,7 +66,7 @@ interface ModalCompleteStepProps {
 export const MModalCompleteStep: React.FC<ModalCompleteStepProps> = ({
   modal1Open = true,
   setModal1Open,
-  title,
+  title = "Hihi",
   link = "",
   setRecall,
   handleUpdate,

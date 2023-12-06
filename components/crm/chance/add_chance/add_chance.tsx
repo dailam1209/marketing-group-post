@@ -10,11 +10,11 @@ import { useContext, useState } from "react";
 import { useFormData } from "../../context/formDataContext";
 import TextEditorV2 from "../../input_select/text_editor";
 import { MTextAreaV2 } from "../../input_select/input";
+import { MModalCompleteStep } from "@/components/commodity/modal";
 export default function ChanceAddInfo() {
-  const { formData } = useContext(useFormData);
+  const { formData, hanldeClearRecall, setFormData } = useContext(useFormData);
   const [formDataTest, setFormDataTest] = useState<any>({});
   const router = useRouter();
-  const { id } = router.query;
   return (
     <>
       <div className={styles.main_importfile}>
@@ -25,7 +25,6 @@ export default function ChanceAddInfo() {
               <div className={styles.main__body}>
                 <AddGeneralInfoChance />
                 <TableChanceProduct />
-
                 <div
                   style={{ marginBottom: -10 }}
                   className={styles["main__body__type"]}
@@ -35,18 +34,46 @@ export default function ChanceAddInfo() {
 
                 <MTextAreaV2 label="Mô tả" />
 
-                <AddAddressInfo
-                  formData={formDataTest}
-                  setFormData={setFormDataTest}
-                />
+                <AddAddressInfo formData={formData} setFormData={setFormData} />
                 <GeneralCustomerInfor />
               </div>
-              <PotentialFooterAddFiles
-                link={`/chance/list`}
-                titleCancel="Xác nhận hủy thêm mới cơ hội"
-                title="Thêm mới cơ hội thành công!"
-                contentCancel="Bạn có chắc chắn muốn hủy thêm mới cơ hội mọi thông tin bạn nhập sẽ không được lưu lại?"
-              />
+              <div className={styles.main__footer} style={{marginTop:'20px'}}>
+                <button
+                  type="button"
+                  // onClick={() => setIsModalCancel(true)}
+                >
+                  Hủy
+                </button>
+                <button
+                  className={styles.save}
+                  type="submit"
+                  onClick={() => {
+                    // handleSave();
+                    // setModal1Open(true);
+                  }}
+                >
+                  Lưu
+                </button>
+
+                {/* {
+                  <CancelModal
+                    isModalCancel={isModalCancel}
+                    setIsModalCancel={setIsModalCancel}
+                    content={contentCancel}
+                    title={titleCancel}
+                    link={link}
+                  />
+                } */}
+
+                <MModalCompleteStep
+                  modal1Open={false}
+                  setModal1Open={() => {}} 
+                  // modal1Open={modal1Open}
+                  // setModal1Open={setModal1Open}
+                  // title={title}
+                  // link={link}
+                />
+              </div>
             </div>
           </div>
         </div>

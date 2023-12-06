@@ -21,6 +21,7 @@ import { doGhimCha, doSaveCha } from "../redux/user/userSlice";
 import { useDispatch } from "react-redux";
 import { number } from "yup";
 export default function ChatBusinessBody({
+  show,
   cusId,
   setContent,
   setDate,
@@ -211,6 +212,7 @@ export default function ChatBusinessBody({
     if (refCall) {
       formData.append("content_call", refCall);
     }
+
     if (nhonkhachhang) {
       formData.append("group_id", nhonkhachhang);
     }
@@ -286,7 +288,6 @@ export default function ChatBusinessBody({
       );
     }
   }, [nhonConReal, nhomChaReal, infoCus, cusId, arrCha, cusId]);
-
   return (
     <div className={styles.business_assistant_body}>
       <div className={styles.form_business_assistant}>
@@ -308,15 +309,21 @@ export default function ChatBusinessBody({
           refDes={refDes}
           setrefDes={setrefDes}
         />
-        <TextEditorND
-          infoCus={infoCus}
-          title={"Nội dung cuộc gọi" as any}
-          className={"2"}
-          setContent={setContent}
-          setDate={setDate}
-          content={content}
-          setrefCall={setrefCall}
-        />
+        <div>
+          <p style={{ fontWeight: "600", padding: "10px 0 0 5px" }}>
+            Nội dung cuộc gọi
+          </p>
+          <div style={{ width: "100%", padding: "0 5px" }}>
+            {" "}
+            <textarea
+              style={{ width: "100%", padding: "10px", fontSize: "14px" }}
+              rows={7}
+              placeholder="Chưa cập nhập"
+              value={refCall}
+              onChange={(e) => setrefCall(e.target.value)}
+            />
+          </div>
+        </div>
 
         <div className={styles.form_group}>
           <div style={{ display: "flex", justifyContent: "space-between" }}>

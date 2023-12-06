@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Table, Pagination } from "antd";
+import { Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { TableRowSelection } from "antd/es/table/interface";
-import Link from "next/link";
 import { axiosCRM } from "@/utils/api/api_crm";
 import { useRouter } from "next/router";
 import { renderPosition } from "@/utils/function";
@@ -148,7 +147,7 @@ const TableDataPotential: React.FC<TableDataPotentialProps> = ({
   setRowDataSelected,
   formData = null,
   setFormData = null,
-}: any) => {
+}) => {
   const router = useRouter();
   const [listPotential, setListPotential] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -185,7 +184,7 @@ const TableDataPotential: React.FC<TableDataPotentialProps> = ({
         handleDataTable(res.data.data.data);
         setTotal(res.data.data.total);
       })
-      .catch((err) => console.log("error"));
+      .catch((err) => console.log("error", err));
   }, [, pageSize, currentPage, formData.recall]);
   const handleDataTable = (datas) => {
     setListPotential(
@@ -226,19 +225,19 @@ const TableDataPotential: React.FC<TableDataPotentialProps> = ({
         dataSource={listPotential}
         rowSelection={{ ...rowSelection }}
         bordered
-        scroll={{ x: 1500, y: 430 }}
+        scroll={{ x: 1500, y: 500 }}
         pagination={{
           current: currentPage,
           pageSize: pageSize,
           total: total,
           showSizeChanger: true,
-          showTotal: (total) => `Tổng ${total} Tiềm năng`,
+
           onChange: (page, pageSize) => {
             setCurrentPage(page);
           },
         }}
       />
-      <div className="main__footer flex_between" id="">
+      <div style={{ marginTop: "5px", width: "55%" }} className="flex_between">
         <div className="show_number_item">
           <b>Hiển thị:</b>
           <select

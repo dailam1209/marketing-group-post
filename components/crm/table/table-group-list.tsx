@@ -13,6 +13,7 @@ import { useApi } from "../hooks/useApi";
 import CancelModalDelGroup from "../customer/group_customer/delete_mdal_gr_cus";
 import { base_url } from "../service/function";
 import Cookies from "js-cookie";
+import { ModalGroupCustomerShare } from "../customer/group_customer/modal_share";
 
 interface TableDataGroupListCustomerProps {
   setSelected: (value: boolean) => void;
@@ -33,15 +34,14 @@ const TableDataGroupListCustomer: React.FC<TableDataGroupListCustomerProps> = ({
   data,
   updateData,
 }: any) => {
-  const [openSharedModal, setOpenSharedModal] = useState(false);
   const [isOpenCancel, setIsOpenCancel] = useState(false);
   const [keyDeleted, setKeyDeleted] = useState<any>();
   const [listKeyDeleted, setListKeyDeleted] = useState([]);
   const [numberDat, setNumberData] = useState(10);
   const accessToken = Cookies.get("token_base365");
-  const [depId, setDepId] = useState(null);
+  const [groupId, setGroupId] = useState(null);
   const [empId, setEmpId] = useState(null);
-
+  const [isOpenModalShare, setIsOpenModalShare] = useState(false);
   interface DataType {
     key: React.Key;
     gr_id: number;
@@ -82,9 +82,8 @@ const TableDataGroupListCustomer: React.FC<TableDataGroupListCustomerProps> = ({
         // <Tooltip title={data}>
         <button
           onClick={() => {
-            setDepId(record?.dep_id);
-            setEmpId(record?.emp_id);
-            setOpenSharedModal(true);
+            setGroupId(record.gr_id);
+            setIsOpenModalShare(true);
           }}
         >
           <img alt="logo" width={26} height={26} src={"/crm/user_kh.png"} />
@@ -275,12 +274,17 @@ const TableDataGroupListCustomer: React.FC<TableDataGroupListCustomerProps> = ({
         setChange={setChange}
       />
 
-      <GroupSharedAFactorModal
+      <ModalGroupCustomerShare
+        setIsOpenModalShare={setIsOpenModalShare}
+        isOpenModalShare={isOpenModalShare}
+        IdGroup={groupId}
+      />
+      {/* <GroupSharedAFactorModal
         isModalCancel={openSharedModal}
         setIsModalCancel={setOpenSharedModal}
         empId={empId}
         depId={depId}
-      />
+      /> */}
     </div>
   );
 };
