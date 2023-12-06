@@ -25,15 +25,10 @@ const StatusModal: React.FC<MyComponentProps> = ({
   const allStatusString = allAvailableStatusString();
   const quoteName = allkey?.length > 0 ? listRecordName.join(', ') : recordName
 
-  // useEffect(() => {
-  //   console.log(value)
-  // }, [value])
-
   const updateStatus = async (id: Number, status: Number) => {
     await axiosCRMCall
     .post('/quote/updateStatus', {id: id, status: status})
     .then((res) => {
-      // console.log(res)
     })
     .catch((err) => console.log(err))
   }
@@ -41,10 +36,6 @@ const StatusModal: React.FC<MyComponentProps> = ({
   const handleOK = () => {
     const status = statusStrToNum(value);
     if (allkey?.length > 0) { // Nếu là sửa nhiều
-      // listRecordId.map((id) => {
-      //   updateStatus(id, status)
-      // })
-      // console.log(allkey)
       allkey.map((id) => {
         updateStatus(id, status)
       })

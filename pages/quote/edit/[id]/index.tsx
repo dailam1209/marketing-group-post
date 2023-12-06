@@ -111,6 +111,5 @@ const AddFilesPotential: React.FC = () => {
     </>
   );
 };
-// TODO loading screen first
 
 export default AddFilesPotential;

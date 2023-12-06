@@ -28,7 +28,6 @@ export default function QuoteFooterAddFiles({
         axiosCRMCall
           .post('/quote/create', stringifyObject(sendData))
           .then((res) => {
-            console.log(res)
             setShouldFetchData(true)
             setModal1Open(true)
           })
@@ -37,7 +36,6 @@ export default function QuoteFooterAddFiles({
         axiosCRMCall
           .post('/quote/update', stringifyObject(newQuote))
           .then((res) => {
-            console.log(res)
             setShouldFetchData(true)
             setModal1Open(true)
           })

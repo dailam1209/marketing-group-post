@@ -8,18 +8,17 @@ import OrderListModal from "../add_quote_action_modal/quote_list";
 import TableDataQuoteAddFiles from "@/components/crm/table/table-quote-add-files";
 import TextArea from "antd/es/input/TextArea";
 import { QuoteContext } from "../quoteContext";
+import useLoading from "../../hooks/useLoading";
 
 export default function AddTable() {
   const [isModalCancel, setIsModalCancel] = useState(false);
-  const { newQuote, inputQuote, tempListProd, isCreate, editQuote, detailData } = useContext(QuoteContext)
+  const { newQuote, inputQuote, tempListProd, isCreate, editQuote, detailData, shouldFetchDetailData } = useContext(QuoteContext)
   const [localDiscountRate, setLocalDiscountRate] = useState('0')
   const [localTotal, setLocalTotal] = useState(0)
   const [localTotalWithDiscount, setLocalTotalWithDiscount] = useState(0)
 
-  // TODO check infinite loop
   useEffect(() => {
     if (!isCreate) {
-      console.log('1')
       setLocalDiscountRate(detailData.discount_rate.toString())
     }
   }, [detailData])
@@ -38,7 +37,6 @@ export default function AddTable() {
   }, [tempListProd, newQuote])
 
   useEffect(() => {
-    console.log('2')
     inputQuote('discount_rate', Number(localDiscountRate))
   }, [localDiscountRate])
 

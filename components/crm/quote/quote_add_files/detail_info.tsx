@@ -3,16 +3,18 @@ import OrderSelectBoxStep from "../quote_steps/select_box_step";
 import CustomerSelectBoxStep from "../quote_steps/select_box_step_customer";
 import styles from "./add_file_order.module.css";
 import InputText from "./input_text";
-import { Input, Tooltip } from 'antd';
+import { Input, Spin, Tooltip } from 'antd';
 import { QuoteContext } from "../quoteContext";
 import { axiosCRMCall } from "@/utils/api/api_crm_call";
+import useLoading from "../../hooks/useLoading";
 
 export default function AddDetailInfo({ id = 0 }) {
   const { newQuote, inputQuote, allAvailableStatusString, statusStrToNum, statusNumToStr,
     listCusOption, getCusId, keyword, setKeyword, setShouldFetchCus, setShouldFetchDetailData,
-    isCreate, setIsCreate, detailData, setRecordId } = useContext(QuoteContext)
+    isCreate, setIsCreate, detailData, setRecordId, shouldFetchDetailData } = useContext(QuoteContext)
   const [localStatus, setLocalStatus] = useState('Chọn')
   const [localCustomer, setLocalCustomer] = useState('Chọn')
+  const { isLoading, startLoading, stopLoading } = useLoading();
 
   const handleSimpleInput = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -45,6 +47,16 @@ export default function AddDetailInfo({ id = 0 }) {
     }
   }, [])
 
+  useEffect(() => {
+    if (!isCreate) {
+      if (shouldFetchDetailData) {
+        startLoading();
+      }
+    } else {
+      stopLoading();
+    }
+  }, [shouldFetchDetailData])
+
   // Nếu là chỉnh sửa
   useEffect(() => {
     if (!isCreate) {
@@ -60,105 +72,119 @@ export default function AddDetailInfo({ id = 0 }) {
           .catch((err) => console.log(err))
       }
     }
+    stopLoading();
   }, [detailData])
 
   return (
-    <div>
-      <p className={styles.main__body__type}>Thông tin chi tiết</p>
-
-      <div className={styles.row_input}>
-        <InputText
-          label="Ngày báo giá"
-          placeholder=""
-          type="date"
-          name="date_quote"
-          value={newQuote.date_quote}
-          onChange={handleSimpleInput}
-          require={true}
+    <>
+      {isLoading && (
+        <Spin
+          style={{
+            margin: "auto",
+            width: "100%",
+            display: "block",
+            padding: "5px",
+            height: "100%",
+          }}
         />
-        <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
-          <InputText
-            label="Hạn thanh toán"
-            placeholder="Nhập"
-            type="date"
-            name="date_quote_end"
-            value={newQuote.date_quote_end}
-            onChange={handleSimpleInput}
-            require={true}
-          />
-        </div>
-      </div>
+      )}
+        <div>
+          <p className={styles.main__body__type}>Thông tin chi tiết</p>
 
-      <div className={styles.row_input}>
-        <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
-          <label className={`${styles["form-label"]} required`}>Tình trạng</label>
-          <OrderSelectBoxStep
-            value={localStatus}
-            placeholder="Chọn"
-            data={allAvailableStatusString()}
-            setValue={handleStatus}
-          />
-        </div>
-        <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
-          <label className={`${styles["form-label"]} required`}>Khách hàng</label>
-          <CustomerSelectBoxStep
-            value={localCustomer}
-            placeholder="Chọn"
-            data={listCusOption}
-            setValue={handleCusId}
-            setKeyword={setKeyword}
-            keyword={keyword}
-          />
-        </div>
-      </div>
+          <div className={styles.row_input}>
+            <InputText
+              label="Ngày báo giá"
+              placeholder=""
+              type="date"
+              name="date_quote"
+              value={newQuote.date_quote}
+              onChange={handleSimpleInput}
+              require={true}
+            />
+            <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
+              <InputText
+                label="Hạn thanh toán"
+                placeholder="Nhập"
+                type="date"
+                name="date_quote_end"
+                value={newQuote.date_quote_end}
+                onChange={handleSimpleInput}
+                require={true}
+              />
+            </div>
+          </div>
 
-      <div className={styles.row_input}>
-        <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
-          <InputText
-            label="Mã số thuế"
-            placeholder="Nhập mã số thuế"
-            name="tax_code"
-            value={newQuote.tax_code}
-            onChange={handleSimpleInput}
-          />
+          <div className={styles.row_input}>
+            <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
+              <label className={`${styles["form-label"]} required`}>Tình trạng</label>
+              <OrderSelectBoxStep
+                value={localStatus}
+                placeholder="Chọn"
+                data={allAvailableStatusString()}
+                setValue={handleStatus}
+              />
+            </div>
+            <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
+              <label className={`${styles["form-label"]} required`}>Khách hàng</label>
+              <CustomerSelectBoxStep
+                value={localCustomer}
+                placeholder="Chọn"
+                data={listCusOption}
+                setValue={handleCusId}
+                setKeyword={setKeyword}
+                keyword={keyword}
+              />
+            </div>
+          </div>
+
+          <div className={styles.row_input}>
+            <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
+              <InputText
+                label="Mã số thuế"
+                placeholder="Nhập mã số thuế"
+                name="tax_code"
+                value={newQuote.tax_code}
+                onChange={handleSimpleInput}
+              />
+            </div>
+            <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
+              <InputText
+                label="Địa chỉ"
+                placeholder="Nhập địa chỉ"
+                name="address"
+                value={newQuote.address}
+                onChange={handleSimpleInput}
+              />
+            </div>
+          </div>
+
+          <div className={styles.row_input}>
+            <InputText
+              label="Số điện thoại"
+              placeholder="Nhập số điện thoại"
+              name="phone_number"
+              value={newQuote.phone_number}
+              onChange={handlePhoneInput}
+            />
+            <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
+              <label className={`${styles["form-label"]}`}>Cơ hội</label>
+              <OrderSelectBoxStep value="Chọn" placeholder="Chọn" />
+            </div>
+
+          </div>
+
+
+          <div className={styles.row_input}>
+            <label className={`${styles["form-label"]}`}>Lời giới thiệu</label>
+            <textarea
+              placeholder="Nhập lời giới thiệu"
+              style={{ width: "100%", fontSize: 15, padding: 10, height: 80 }}
+              name="introducer"
+              value={newQuote.introducer}
+              onChange={handleSimpleInput}
+            ></textarea>
+          </div>
         </div>
-        <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
-          <InputText
-            label="Địa chỉ"
-            placeholder="Nhập địa chỉ"
-            name="address"
-            value={newQuote.address}
-            onChange={handleSimpleInput}
-          />
-        </div>
-      </div>
-
-      <div className={styles.row_input}>
-        <InputText
-          label="Số điện thoại"
-          placeholder="Nhập số điện thoại"
-          name="phone_number"
-          value={newQuote.phone_number}
-          onChange={handlePhoneInput}
-        />
-        <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
-          <label className={`${styles["form-label"]}`}>Cơ hội</label>
-          <OrderSelectBoxStep value="Chọn" placeholder="Chọn" />
-        </div>
-
-      </div>
-
-
-      <div className={styles.row_input}>
-        <label className={`${styles["form-label"]}`}>Lời giới thiệu</label>
-        <textarea
-          placeholder="Nhập lời giới thiệu"
-          style={{ width: "100%", fontSize: 15, padding: 10, height: 80 }}
-          name="introducer"
-          value={newQuote.introducer}
-          onChange={handleSimpleInput}
-        ></textarea>
-      </div>
-    </div>
+    </>
   );
 }

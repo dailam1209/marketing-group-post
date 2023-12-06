@@ -61,7 +61,6 @@ const TableDataQuoteAddFiles: React.FC<
     }
   }, [])
 
-  // TODO check infinite
   useEffect(() => {
     if (!isCreate) {
       if (detailData && getPropOrDefault(detailData, 'product_list') !== '' && detailData.product_list.length > 0) {
