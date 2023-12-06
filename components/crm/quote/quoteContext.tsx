@@ -9,20 +9,21 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
     children,
 }) => {
     // Filter tìm kiếm
-    const [dateQuote, setDateQuote] = useState<null | Date>(null)
-    const [dateQuoteEnd, setDateQuoteEnd] = useState<null | Date>(null)
-    const [quoteCode, setQuoteCode] = useState('')
+    const [dateQuote, setDateQuote] = useState<null | Date>(null) // Ngày báo giá
+    const [dateQuoteEnd, setDateQuoteEnd] = useState<null | Date>(null) // Hạn báo giá
+    const [quoteCode, setQuoteCode] = useState('') // Mã báo giá
 
-    const [shouldFetchData, setShouldFetchData] = useState(false)
+    const [shouldFetchData, setShouldFetchData] = useState(false) // Trigger gọi API danh sách báo giá
+    // Hàm gọi ở màn trang chính
 
     // Lưu lại cho modal và thao tác
-    const [recordId, setRecordId] = useState<Number>()
-    const [listRecordId, setListRecordId] = useState([])
-    const [recordName, setRecordName] = useState('')
-    const [listRecordName, setListRecordName] = useState([])
+    const [recordId, setRecordId] = useState<Number>() // Lưu id 1 bản ghi được chọn
+    const [listRecordId, setListRecordId] = useState([]) // Lưu id nhiều bản ghi được chọn
+    const [recordName, setRecordName] = useState('') // Lưu tên bản ghi được chọn (cho phần modal)
+    const [listRecordName, setListRecordName] = useState([]) // Lưu nhiều tên (cho modal)
 
     // Trạng thái báo giá
-    const [status, setStatus] = useState<Number>(0)
+    const [status, setStatus] = useState<Number>(0) // Lưu trạng thái cho phần filter
     const statusArray = [
         { key: 0, value: "Tất cả" },
         { key: 1, value: "Bản thảo" },
@@ -32,17 +33,17 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
         { key: 5, value: "Đồng ý" },
         { key: 6, value: "Từ chối" },
     ]
-    const statusNumToStr = (num: Number) => {
+    const statusNumToStr = (num: Number) => { // Trạng thái số -> tên
         const item = statusArray.find((pair) => pair.key === num)
         return item ? item.value : ""
     }
-    const statusStrToNum = (str: String) => {
+    const statusStrToNum = (str: String) => { // Trạng thái tên -> số
         const item = statusArray.find((pair) => pair.value === str)
         return item ? item.key : 0
     }
-    const allStatusString = () => statusArray.map((pair) => pair.value)
+    const allStatusString = () => statusArray.map((pair) => pair.value) // Trả về danh sách các tên trạng thái
     const allAvailableStatusString = () => statusArray.slice(1).map((pair) => pair.value) // Bỏ "Tất cả"
-    const statusStrToColor = (status: String) => {
+    const statusStrToColor = (status: String) => { // Trạng thái tên -> màu tương ứng
         switch (status) {
             case "Bản thảo":
             case "Chờ xác nhận": return '#FFA800'
@@ -53,14 +54,14 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
             default: return 'inherit'
         }
     }
-    const statusToColor = (status: Number) => {
+    const statusToColor = (status: Number) => { // Trạng thái số -> màu
         return statusStrToColor(statusNumToStr(status))
     }
 
     // Chi tiết báo giá
-    const [shouldFetchDetailData, setShouldFetchDetailData] = useState(false)
-    const [detailData, setDetailData] = useState<any>({})
-    useEffect(() => {
+    const [shouldFetchDetailData, setShouldFetchDetailData] = useState(false) // Trigger gọi API chi tiết báo giá
+    const [detailData, setDetailData] = useState<any>({}) // Lưu dữ liệu chi tiết báo giá trả về
+    useEffect(() => { // Gọi API lấy chi tiết báo giá
         if (shouldFetchDetailData && Number(recordId) && Number(recordId) !== 0) {
             axiosCRMCall
                 .post('/quote/getDetail', { id: Number(recordId) || 0 })
@@ -74,7 +75,7 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
         setShouldFetchDetailData(false)
     }, [shouldFetchDetailData])
 
-    function getPropOrDefault(obj, propPath, defaultValue = '') {
+    function getPropOrDefault(obj, propPath, defaultValue = '') { // Lấy của đối tượng theo trường, nếu không có trả giá trị mặc định
         const props = propPath.split('.');
         let currentObj = obj;
 
@@ -90,9 +91,8 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
     }
 
     // Thêm mới báo giá
-    const [isCreate, setIsCreate] = useState(true)
-    const [shouldFetchEditData, setShouldFetchEditData] = useState(false)
-    const [newQuote, setNewQuote] = useState({
+    const [isCreate, setIsCreate] = useState(true) // Trigger thêm mới / chỉnh sửa
+    const [newQuote, setNewQuote] = useState({ // Lưu thông tin báo giá khi người dùng nhập liệu
         id: 0,
         date_quote: '',
         date_quote_end: '',
@@ -113,7 +113,7 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
     })
 
     // Reset
-    const clearQuote = () => {
+    const clearQuote = () => { // Reset nhập liệu
         setNewQuote({
             id: 0,
             date_quote: '',
@@ -135,7 +135,8 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
         })
     }
 
-    const [editQuote, setEditQuote] = useState({
+    // Có thể sử dụng trực tiếp detailData
+    const [editQuote, setEditQuote] = useState({ // Lưu dữ liệu sẵn có khi chỉnh sửa
         id: 0,
         date_quote: '',
         date_quote_end: '',
@@ -168,7 +169,7 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
     useEffect(() => {
         console.log(detailData)
         if (!isCreate) {
-            setEditQuote({
+            setNewQuote({
                 id: detailData.id ? detailData.id : 0,
                 date_quote: detailData.date_quote ? dayjs(detailData.date_quote).format('YYYY-MM-DD') : '',
                 date_quote_end: detailData.date_quote_end ? dayjs(detailData.date_quote_end).format('YYYY-MM-DD') : '',
@@ -189,11 +190,11 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
             })
         }
     }, [detailData])
-    useEffect(() => {
-        setNewQuote(editQuote)
-    }, [editQuote])
+    // useEffect(() => {
+    //     setNewQuote(editQuote)
+    // }, [editQuote])
 
-    const validateQuote = () => {
+    const validateQuote = () => { // Kiểm tra giá trị nhập liệu
         let invalidMsg = []
         // Check empty check zero
         const requiredFields = ['date_quote', 'date_quote_end', 'status', 'customer_id', 'creator_name', 'ceo_name']
@@ -216,7 +217,7 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
         return invalidMsg
     }
 
-    const stringifyObject = (obj) => {
+    const stringifyObject = (obj) => { // Chuyển dữ liệu thành string trước khi gửi
         if (obj === null || obj === undefined) {
             return '';  // Convert null or undefined to an empty string
         }
@@ -240,7 +241,7 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
         return obj.toString();  // Convert other values to strings
     }
 
-    const inputQuote = (fieldName: string, value: any) => {
+    const inputQuote = (fieldName: string, value: any) => { // Nhập liệu vào theo tên trường 
         setNewQuote((prev) => {
             if (prev.hasOwnProperty(fieldName)) {
                 return { ...prev, [fieldName]: value }
@@ -249,21 +250,22 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
         })
     }
     // TODO remove test log
-    // useEffect(() => {
-    //     console.log(newQuote)
-    //     // console.log(Object.keys(newQuote).map(key => `\x1b[96m${key}:\x1b[0m \x1b[36m${newQuote[key]}\x1b[0m`).join('\n'));
-    // }, [newQuote])
+    useEffect(() => {
+        console.log(newQuote)
+        // console.log(Object.keys(newQuote).map(key => `\x1b[96m${key}:\x1b[0m \x1b[36m${newQuote[key]}\x1b[0m`).join('\n'));
+    }, [newQuote])
 
     // Khách hàng trong báo giá
-    const [listCusOption, setListCusOption] = useState([])
-    const [keyword, setKeyword] = useState('')
-    const [shouldFetchCus, setShouldFetchCus] = useState(false)
+    const [listCusOption, setListCusOption] = useState([]) // Lưu danh sách lựa chọn khách hàng (id - tên)
+    const [keyword, setKeyword] = useState('') // Lưu từ khóa tìm kiếm
+    const [shouldFetchCus, setShouldFetchCus] = useState(false) // Trigger gọi API danh sách khách hàng
 
-    useEffect(() => {
+    useEffect(() => { // Gọi khi từ khóa đổi
         setShouldFetchCus(true)
     }, [keyword])
 
-    useEffect(() => {
+    // TODO Tìm theo cả id và tên
+    useEffect(() => { // Gọi API danh sách khách hàng
         if (shouldFetchCus) {
             axiosCRMCall
                 .post('/customer/list', { keyword: keyword })
@@ -285,23 +287,24 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
         setShouldFetchCus(false)
     }, [shouldFetchCus])
 
-    const getCusId = (str: string) => {
+    const getCusId = (str: string) => { // Lấy íd từ lựa chọn
         const match = str.match(/^(\d+) -/);
         return match ? Number(match[1]) : 0;
     }
 
     // Hàng hóa trong báo giá
-    const [listProduct, setListProduct] = useState([])
-    const [listProductOptions, setListProductOptions] = useState([])
-    const [prodName, setProdName] = useState('')
-    const [shouldFetchProd, setShouldFetchProd] = useState(false);
-    const [tempListProd, setTempListProd] = useState([])
+    const [listProduct, setListProduct] = useState([]) // Lưu danh sách hàng hóa từ API
+    const [listProductOptions, setListProductOptions] = useState([]) // Lưu danh sách lựa chọn hàng hóa (id - tên)
+    const [prodName, setProdName] = useState('') // Lưu từ khóa tìm kiếm
+    const [shouldFetchProd, setShouldFetchProd] = useState(false); // Trigger gọi API danh sách hàng hóa
+    const [tempListProd, setTempListProd] = useState([]) // Lưu danh sách hàng hóa từ nhập liệu
 
-    useEffect(() => {
+    useEffect(() => { // Tìm kiếm khi từ khóa đổi
         setShouldFetchProd(true)
     }, [prodName])
 
-    useEffect(() => {
+    // TODO Tìm theo cả id và tên
+    useEffect(() => { // Gọi API danh sách hàng hóa
         if (shouldFetchProd) {
             axiosCRMCall
                 .post('/product/show-product', { prod_name: prodName })
@@ -322,11 +325,11 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
         setShouldFetchProd(false)
     }, [shouldFetchProd])
 
-    useEffect(() => {
+    useEffect(() => { // Lưu danh sách lựa chọn khi trả về
         setListProductOptions(listProduct.map(prod => `${prod.id} - ${prod.name}`))
     }, [listProduct])
 
-    useEffect(() => {
+    useEffect(() => { // Lưu vào báo giá khi nhập liệu hàng hóa
         setNewQuote(prevData => (
             { ...prevData, product_list: tempListProd.map(({ total, ...prod }) => prod) }
         ))

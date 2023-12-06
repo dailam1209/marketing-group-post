@@ -11,7 +11,7 @@ import { QuoteContext } from "../quoteContext";
 
 export default function AddTable() {
   const [isModalCancel, setIsModalCancel] = useState(false);
-  const { newQuote, inputQuote, tempListProd, isCreate, editQuote } = useContext(QuoteContext)
+  const { newQuote, inputQuote, tempListProd, isCreate, editQuote, detailData } = useContext(QuoteContext)
   const [localDiscountRate, setLocalDiscountRate] = useState('0')
   const [localTotal, setLocalTotal] = useState(0)
   const [localTotalWithDiscount, setLocalTotalWithDiscount] = useState(0)
@@ -20,9 +20,9 @@ export default function AddTable() {
   useEffect(() => {
     if (!isCreate) {
       console.log('1')
-      setLocalDiscountRate(editQuote.discount_rate.toString())
+      setLocalDiscountRate(detailData.discount_rate.toString())
     }
-  }, [editQuote])
+  }, [detailData])
 
   useEffect(() => {
     let total = 0
@@ -33,8 +33,8 @@ export default function AddTable() {
           total += prod.total
         })
     }
-    setLocalTotal(total)
-    setLocalTotalWithDiscount(total * (1 - Number(newQuote.discount_rate) * 1.0 / 100))
+    setLocalTotal(Number(total.toFixed(2)))
+    setLocalTotalWithDiscount(Number((total * (1 - Number(newQuote.discount_rate) * 1.0 / 100)).toFixed(2)))
   }, [tempListProd, newQuote])
 
   useEffect(() => {

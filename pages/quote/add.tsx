@@ -91,7 +91,7 @@ const AddFilesPotential: React.FC = () => {
                 <div className={styles.main__title}>Thêm mới báo giá</div>
                 <div className={styles.form_add_potential}>
                   <div className={styles.main__body}>
-                    <AddDetailInfo />
+                    <AddDetailInfo id={0} />
                     <AddTable />
                     {/* <AddStatusOrderInfo/> */}
                     {/* <AddInvoiceInfo /> */}

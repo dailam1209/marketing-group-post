@@ -9,7 +9,7 @@ import { axiosCRMCall } from "@/utils/api/api_crm_call";
 
 export default function AddDetailInfo({ id = 0 }) {
   const { newQuote, inputQuote, allAvailableStatusString, statusStrToNum, statusNumToStr,
-    listCusOption, getCusId, keyword, setKeyword, setShouldFetchCus,
+    listCusOption, getCusId, keyword, setKeyword, setShouldFetchCus, setShouldFetchDetailData,
     isCreate, setIsCreate, detailData, setRecordId } = useContext(QuoteContext)
   const [localStatus, setLocalStatus] = useState('Chọn')
   const [localCustomer, setLocalCustomer] = useState('Chọn')
@@ -38,8 +38,8 @@ export default function AddDetailInfo({ id = 0 }) {
     setShouldFetchCus(true)
     if (id !== 0) {
       setRecordId(id)
-      setIsCreate(true)
       setIsCreate(false)
+      setShouldFetchDetailData(true)
     } else {
       setIsCreate(true)
     }
@@ -48,19 +48,19 @@ export default function AddDetailInfo({ id = 0 }) {
   // Nếu là chỉnh sửa
   useEffect(() => {
     if (!isCreate) {
-      setLocalStatus(statusNumToStr(newQuote.status))
-      if (newQuote.customer_id && newQuote.customer_id !== 0) {
+      setLocalStatus(statusNumToStr(detailData.status))
+      if (detailData.customer_id && detailData.customer_id !== 0) {
         axiosCRMCall
-          .post('/customerdetails/detail', { cus_id: newQuote.customer_id })
+          .post('/customerdetails/detail', { cus_id: detailData.customer_id })
           .then(res => {
-            if (res?.data) {
-              setLocalCustomer(`${newQuote.customer_id} - ${res?.data?.name}`)
+            if (res && res?.data && res?.data.hasOwnProperty('data') && res?.data?.data) {
+              setLocalCustomer(`${detailData.customer_id} - ${res?.data?.data.name}`)
             }
           })
           .catch((err) => console.log(err))
       }
     }
-  }, [newQuote])
+  }, [detailData])
 
   return (
     <div>

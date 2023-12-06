@@ -49,7 +49,8 @@ const TableDataQuoteAddFiles: React.FC<
   TableDataOrderAddFilesDrops
 > = ({ }: any) => {
   const { tempListProd, setTempListProd, listProduct, listProductOptions,
-    getCusId, prodName, setProdName, isCreate, newQuote, editQuote } = useContext(QuoteContext);
+    getCusId, prodName, setProdName, isCreate, newQuote, editQuote, 
+    detailData, getPropOrDefault } = useContext(QuoteContext);
   const [data, setData] = useState<DataType[]>([]);
   const [isModalCancel, setIsModalCancel] = useState(false);
   const [pageSize, setPageSize] = useState<number>(data.length);
@@ -63,28 +64,28 @@ const TableDataQuoteAddFiles: React.FC<
   // TODO check infinite
   useEffect(() => {
     if (!isCreate) {
-      if (editQuote.product_list.length > 0) {
+      if (detailData && getPropOrDefault(detailData, 'product_list') !== '' && detailData.product_list.length > 0) {
         let tempData = []
-        for (let i = 0; i < editQuote.product_list.length; i++) {
+        for (let i = 0; i < detailData.product_list.length; i++) {
           tempData.push({
             key: i + 1,
-            idproduct: editQuote.product_list[i].product_id._id,
-            nameproduct: editQuote.product_list[i].product_id.prod_name,
-            donvi: editQuote.product_list[i].product_id.dvt.unit_name,
-            soluong: editQuote.product_list[i].amount,
-            dongia: editQuote.product_list[i].product_price,
-            tien: editQuote.product_list[i].amount * editQuote.product_list[i].product_price,
-            chietkhau: editQuote.product_list[i].product_discount_rate,
-            tienchietkhau: (editQuote.product_list[i].amount * editQuote.product_list[i].product_price) * (1.0 * editQuote.product_list[i].product_discount_rate / 100),
-            thue: editQuote.product_list[i].tax_rate,
-            tienthue: (editQuote.product_list[i].amount * editQuote.product_list[i].product_price) * (1 - editQuote.product_list[i].product_discount_rate / 100.0) * (editQuote.product_list[i].tax_rate / 100.0),
-            total: editQuote.product_list[i].product_total_money,
+            idproduct: detailData.product_list[i].product_id._id,
+            nameproduct: detailData.product_list[i].product_id.prod_name,
+            donvi: detailData.product_list[i].product_id.dvt.unit_name,
+            soluong: detailData.product_list[i].amount,
+            dongia: detailData.product_list[i].product_price,
+            tien: detailData.product_list[i].amount * detailData.product_list[i].product_price,
+            chietkhau: detailData.product_list[i].product_discount_rate,
+            tienchietkhau: Number(((detailData.product_list[i].amount * detailData.product_list[i].product_price) * (1.0 * detailData.product_list[i].product_discount_rate / 100)).toFixed(2)),
+            thue: detailData.product_list[i].tax_rate,
+            tienthue: Number(((detailData.product_list[i].amount * detailData.product_list[i].product_price) * (1 - detailData.product_list[i].product_discount_rate / 100.0) * (detailData.product_list[i].tax_rate / 100.0)).toFixed(2)),
+            total: detailData.product_list[i].product_total_money,
           })
         }
         setData(tempData)
       }
     }
-  }, [editQuote])
+  }, [detailData])
 
   useEffect(() => {
     setPageSize(data.length)
@@ -226,7 +227,7 @@ const TableDataQuoteAddFiles: React.FC<
       key: "0",
       // render: (text) => <div style={{ background: "#EEEEEE", color: "black", textAlign: "center", }}>{text}</div>,
     },
-
+// TODO Dropdown ở ngoài bảng
     {
       title: "Tên hàng hóa",
       dataIndex: "nameproduct",
