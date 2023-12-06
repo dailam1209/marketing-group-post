@@ -110,7 +110,6 @@ const Recording = (props: Props) => {
         }
       );
       const data = await res.json();
-      console.log(data)
       setListNV(data?.data?.items);
       setRootNV(data?.data?.items);
     } catch (error) { }

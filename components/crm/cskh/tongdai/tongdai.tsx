@@ -198,6 +198,10 @@ const TongDaiPage = (props: Props) => {
             className={styles.group_button_right}
             style={{ float: "right", marginTop: -40 }}
           >
+            <Link href={"/thong-ke-ai365"}>
+              <button>Thống kê AI365</button>
+            </Link>
+
             <Link href={"/khong-tra-loi"}>
               <button>Không trả lời</button>
             </Link>

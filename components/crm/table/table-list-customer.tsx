@@ -162,6 +162,13 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
   const handleChangeStatus = (e: any, data: any) => {
     setValueStatus(e.target.value);
   };
+  useEffect(() => {
+    if (router.query.group_id && router.query.cus_id) {
+      setgroup_idFix(Number(router.query.group_id));
+      setCusId(Number(router.query.cus_id));
+      setshow(true);
+    }
+  }, [router.query.group_id, router.query.cus_id]);
   const handleShowCall = (record: any) => {
     setgroup_idFix(record.group_id);
     setCusId(record.cus_id);
@@ -224,15 +231,15 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
     options:
       item.gr_id !== "0"
         ? [
-            {
-              value: item.gr_id.toString(),
-              label: item.gr_name,
-            },
-            ...(item?.lists_child ?? []).map((child) => ({
-              value: child.gr_id.toString(),
-              label: child.gr_name,
-            })),
-          ]
+          {
+            value: item.gr_id.toString(),
+            label: item.gr_name,
+          },
+          ...(item?.lists_child ?? []).map((child) => ({
+            value: child.gr_id.toString(),
+            label: child.gr_name,
+          })),
+        ]
         : [{ label: item.gr_name, value: item.gr_id.toString() }],
   }));
   const [value, setvalue] = useState();
@@ -459,7 +466,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
             value={
               slectNguon === record.cus_id && nguon ? nguon : record?.value
             }
-            // defaultValue={record?.value ? record.value : ""}
+          // defaultValue={record?.value ? record.value : ""}
           >
             {ArrNguonKK?.map((item, index) => {
               if (item?.name == record?.resoure) {

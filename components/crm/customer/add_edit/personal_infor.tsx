@@ -72,6 +72,7 @@ export default function AddPersonalCustomerInfor({
               "Giới thiệu",
               "Chăm sóc khách hàng",
               "Email",
+              "Chợ tốt",
             ]}
           />
         </div>

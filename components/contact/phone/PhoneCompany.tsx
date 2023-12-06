@@ -10,6 +10,7 @@ import jwt_decode from "jwt-decode";
 import SelectSingle from "@/components/commodity/select";
 import { ToastContainer } from "react-toastify";
 import { current } from "@reduxjs/toolkit";
+import Link from "next/link";
 
 interface DataType {
   key: string;
@@ -134,6 +135,7 @@ function PhoneCompany() {
       axiosCRMCall
         .post("/scheduleAutoCall/getGroupCustomer", formDataCreate)
         .then((res) => {
+          console.log(formDataCreate.emp_id)
           res.data.data.data.length > 0 ? setDataGroupCustomer(res.data.data.data) : setDataGroupCustomer([])
         })
         .catch((err) => console.log(err));
@@ -396,9 +398,24 @@ function PhoneCompany() {
     },
     {
       title: "Trạng thái chạy",
-      fixed: "right",
+      // fixed: "right",
       dataIndex: "status_doing",
       width: 100,
+    },
+    {
+      title: " ",
+      fixed: "right",
+      width: 100,
+      render: (value, record, index) => (
+        <Link
+          href={{
+            pathname: '/thong-ke-ai365',
+            query: { idSchedule: record._id }
+          }}
+          target="_blank">
+          Xem chi tiết
+        </Link>
+      )
     },
   ];
 

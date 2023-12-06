@@ -68,6 +68,7 @@ const Info_cus = ({ dataAdd, setDataAdd }: any) => {
           <option value={6}>{" Giới thiệu"}</option>
           <option value={7}>{" Chăm sóc khách hàng"}</option>
           <option value={8}>{" Email"}</option>
+          <option value={9}>{" Chợ tốt"}</option>
         </Select>
       </div>
     </div>

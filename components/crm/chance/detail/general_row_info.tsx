@@ -27,6 +27,7 @@ export default function GeneralRowInforText({ formData, isHideEmpty }) {
     { label: "Giới thiệu", value: 6 },
     { label: "Chăm sóc khách hàng", value: 7 },
     { label: "Email", value: 8 },
+    { label: "Chợt tốt", value: 9 },
   ];
 
   return (

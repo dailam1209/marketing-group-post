@@ -69,6 +69,7 @@ const TableDataOrder: React.FC<TableDataOrderProps> = ({
     { label: "Giới thiệu", value: 6 },
     { label: "Chăm sóc khách hàng", value: 7 },
     { label: "Email", value: 8 },
+    { label: "Chợ tốt", value: 9 },
   ];
 
   const options = [...(dataGroup ?? [])].map((item) => ({

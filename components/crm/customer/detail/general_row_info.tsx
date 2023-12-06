@@ -11,6 +11,7 @@ export default function GeneralRowInforText({formData}: any) {
     { name: "Giới thiệu", id: 6 },
     { name: "Chăm sóc khach hàng", id: 7 },
     { name: "Email", id: 8 },
+    { name: "Chợt tốt", id: 9 },
   ];
   let nameNguon = ArrNguonKK?.filter(item => item.id ===formData?.resoure?.info )
   return (
