@@ -167,7 +167,6 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
 
     // If edit (not create)
     useEffect(() => {
-        console.log(detailData)
         if (!isCreate) {
             setNewQuote({
                 id: detailData.id ? detailData.id : 0,
@@ -250,10 +249,10 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
         })
     }
     // TODO remove test log
-    useEffect(() => {
-        console.log(newQuote)
-        // console.log(Object.keys(newQuote).map(key => `\x1b[96m${key}:\x1b[0m \x1b[36m${newQuote[key]}\x1b[0m`).join('\n'));
-    }, [newQuote])
+    // useEffect(() => {
+    //     console.log(newQuote)
+    //     // console.log(Object.keys(newQuote).map(key => `\x1b[96m${key}:\x1b[0m \x1b[36m${newQuote[key]}\x1b[0m`).join('\n'));
+    // }, [newQuote])
 
     // Khách hàng trong báo giá
     const [listCusOption, setListCusOption] = useState([]) // Lưu danh sách lựa chọn khách hàng (id - tên)
@@ -264,16 +263,11 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
         setShouldFetchCus(true)
     }, [keyword])
 
-    // TODO Tìm theo cả id và tên
-    useEffect(() => { // Gọi API danh sách khách hàng
+    useEffect(() => { // Gọi API danh sách khách hàng - Chỉ tìm được theo tên, không có tìm theo id
         if (shouldFetchCus) {
             axiosCRMCall
                 .post('/customer/list', { keyword: keyword })
                 .then((res) => {
-                    // res?.data?.data?.data ?
-                    //     setListCustomer(res?.data?.data?.data) :
-                    //     setListCustomer([])
-                    console.log(res?.data?.data)
                     if (res?.data?.data?.length > 0) {
                         const newArray = res?.data?.data
                             .filter(item => 'cus_id' in item && 'name' in item)
@@ -303,6 +297,9 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
         setShouldFetchProd(true)
     }, [prodName])
 
+    const [result1, setResult1] = useState([])
+    const [result2, setResult2] = useState([])
+    const [combinedArray, setCombinedArray] = useState([])
     // TODO Tìm theo cả id và tên
     useEffect(() => { // Gọi API danh sách hàng hóa
         if (shouldFetchProd) {
@@ -316,14 +313,50 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
                             dvt: item.dvt.unit_name,
                             price: item.price
                         })))
+                        setResult1(res?.data?.data?.data.map(item => ({
+                            id: item._id,
+                            name: item.prod_name,
+                            dvt: item.dvt.unit_name,
+                            price: item.price
+                        })))
                     } else {
                         setListProduct([])
                     }
                 })
                 .catch((err) => console.log(err))
+
+            axiosCRMCall
+                .post('/product/show-product', { prod_id: Number(prodName) ? Number(prodName) : 0 })
+                .then((res) => {
+                    if (res?.data?.data?.data.length > 0) {
+                        setListProduct(res?.data?.data?.data.map(item => ({
+                            id: item._id,
+                            name: item.prod_name,
+                            dvt: item.dvt.unit_name,
+                            price: item.price
+                        })))
+                        setResult2(res?.data?.data?.data.map(item => ({
+                            id: item._id,
+                            name: item.prod_name,
+                            dvt: item.dvt.unit_name,
+                            price: item.price
+                        })))
+                    } else {
+                        setListProduct([])
+                    }
+                })
+                .catch((err) => console.log(err))
+
+            setCombinedArray([...result1, ...result2].filter((item, index, self) =>
+                index === self.findIndex((t) => t.id === item.id)
+            ));
         }
         setShouldFetchProd(false)
     }, [shouldFetchProd])
+
+    useEffect(() => {
+        console.log(combinedArray)
+    }, [combinedArray])
 
     useEffect(() => { // Lưu danh sách lựa chọn khi trả về
         setListProductOptions(listProduct.map(prod => `${prod.id} - ${prod.name}`))

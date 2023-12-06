@@ -50,5 +50,4 @@ export default function Home() {
 }
 // TODO Cần phải xem lại các component xem có bị dùng chung với bên nào không
 // Nếu có, cóp dùng riêng 
-// TODO Xóa các lựa chọn thừa
-// TODO Ẩn bớt dữ liệu nếu dài quá, sử dụng tooltips
+// TODO Thao tác ngoài luồng chính

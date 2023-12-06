@@ -111,6 +111,6 @@ const AddFilesPotential: React.FC = () => {
     </>
   );
 };
-// TODO get id and pass to children
+// TODO loading screen first
 
 export default AddFilesPotential;

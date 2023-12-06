@@ -64,6 +64,8 @@ export default function OrderDropDownDataStep({
                         spellCheck="false"
                         role="textbox"
                         style={{ height: "34px" }}
+                        onChange={(e) => setInputValue(e.target.value)}
+                        value={inputValue}
                     />
                 </span>
                 <span className={styles.select2_results}>
@@ -95,9 +97,9 @@ export default function OrderDropDownDataStep({
                                     | number
                                     | boolean
                                     | ReactElement<
-                                          any,
-                                          string | JSXElementConstructor<any>
-                                      >
+                                        any,
+                                        string | JSXElementConstructor<any>
+                                    >
                                     | Iterable<ReactNode>
                                     | ReactPortal
                                     // | PromiseLikeOfReactNode

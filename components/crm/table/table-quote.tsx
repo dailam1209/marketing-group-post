@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { CSSProperties, useContext, useEffect, useState } from "react";
 import { Spin, Table, Tooltip } from "antd";
 import type { ColumnsType, TablePaginationConfig } from "antd/es/table";
 import { TableRowSelection } from "antd/es/table/interface";
@@ -43,30 +43,10 @@ const TableDataQuote: React.FC<TableDataOrderProps> = ({
   const [currentPage, setCurrentPage] = useState(1);
   const [total, setTotal] = useState(0);
   const { isLoading, startLoading, stopLoading } = useLoading();
-
-  // const statusToString = (num: Number) => {
-  //   switch (Number(num)) {
-  //     case 1: return "Bản thảo"
-  //     case 2: return "Đàm phán"
-  //     case 3: return "Đã gửi"
-  //     case 4: return "Chờ xác nhận"
-  //     case 5: return "Đồng ý"
-  //     case 6: return "Từ chối"
-  //     default: return ""
-  //   }
-  // }
-
-  // const statusToColor = (status: String) => {
-  //   switch (status) {
-  //     case "Bản thảo":
-  //     case "Chờ xác nhận": return '#FFA800'
-  //     case "Đàm phán":
-  //     case "Đã gửi": return '#4C5BD4'
-  //     case "Đồng ý": return '#34B632'
-  //     case "Từ chối": return '#FF3333'
-  //     default: return 'inherit'
-  //   }
-  // }
+  const tooltipStyle: CSSProperties = {
+    backgroundColor: 'white',
+    color: 'black'
+  }
 
   const handlePerPage = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setPerPage(Number(event.target.value) || 10)
@@ -173,18 +153,34 @@ const TableDataQuote: React.FC<TableDataOrderProps> = ({
       dataIndex: "customer",
       key: "customer",
       width: 300,
+      ellipsis: {
+        showTitle: false
+      },
+      render: (text) => (
+        <Tooltip placement="topLeft" title={text} color="white" overlayInnerStyle={tooltipStyle}>
+          {text}
+        </Tooltip>
+      )
     },
     {
       title: "Tổng tiền (VNĐ)",
       dataIndex: "value",
       key: "value",
-      width: 120,
+      width: 180,
     },
     {
       title: "Mô tả",
       dataIndex: "description",
       key: "description",
       width: 300,
+      ellipsis: {
+        showTitle: false
+      },
+      render: (text) => (
+        <Tooltip placement="topLeft" title={text} color="white" overlayInnerStyle={tooltipStyle}>
+          {text}
+        </Tooltip>
+      )
     },
     {
       title: "Chức năng",
@@ -193,14 +189,14 @@ const TableDataQuote: React.FC<TableDataOrderProps> = ({
       width: 150,
       fixed: "right",
       render: (text: any, record: any) => (
-        <div onClick={() => {setKey(record.key); setRecordId(record.key); setRecordName(record.quote_code)}}>
+        <div onClick={() => { setKey(record.key); setRecordId(record.key); setRecordName(record.quote_code) }}>
           <QuoteActionTable record={key} allKey={[]} />
         </div>
       ),
     },
   ];
 
-// const data: DataType[] = [];
+  // const data: DataType[] = [];
   // for (let i = 0; i < 15; i++) {
   //   data.push({
   //     key: i,
@@ -265,7 +261,7 @@ const TableDataQuote: React.FC<TableDataOrderProps> = ({
             className="show_item"
             value={perPage}
             onChange={handlePerPage}
-            // defaultValue={perPage}
+          // defaultValue={perPage}
           >
             <option value={10}>10 bản ghi trên trang</option>
             <option value={20}>20 bản ghi trên trang</option>

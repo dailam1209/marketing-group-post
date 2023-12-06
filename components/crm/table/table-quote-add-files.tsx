@@ -69,9 +69,9 @@ const TableDataQuoteAddFiles: React.FC<
         for (let i = 0; i < detailData.product_list.length; i++) {
           tempData.push({
             key: i + 1,
-            idproduct: detailData.product_list[i].product_id._id,
-            nameproduct: detailData.product_list[i].product_id.prod_name,
-            donvi: detailData.product_list[i].product_id.dvt.unit_name,
+            idproduct: detailData.product_list[i].product_id ? detailData.product_list[i].product_id._id : '',
+            nameproduct: detailData.product_list[i].product_id ? detailData.product_list[i].product_id.prod_name : '',
+            donvi: detailData.product_list[i].product_id ? (detailData.product_list[i].product_id.dvt ? detailData.product_list[i].product_id.dvt.unit_name : '') : '',
             soluong: detailData.product_list[i].amount,
             dongia: detailData.product_list[i].product_price,
             tien: detailData.product_list[i].amount * detailData.product_list[i].product_price,
@@ -90,7 +90,7 @@ const TableDataQuoteAddFiles: React.FC<
   useEffect(() => {
     setPageSize(data.length)
     const newProd = data
-      .filter((prod) => prod.idproduct !== 'VT-0000')
+      .filter((prod) => prod.idproduct !== 'VT-0000' && prod.idproduct !== '' && prod.idproduct !== "0")
       .map((item) => ({
         product_id: item.idproduct,
         amount: item.soluong,
