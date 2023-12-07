@@ -1,22 +1,23 @@
-import React, { useState } from "react";
-import { Table, Tooltip } from "antd";
-import type { ColumnsType } from "antd/es/table";
+import { axiosCRMCall } from "@/utils/api/api_crm_call";
+import { Spin, Table, Tooltip } from "antd";
+import type { ColumnsType, TablePaginationConfig } from "antd/es/table";
 import { TableRowSelection } from "antd/es/table/interface";
-import styles from "../order/order.module.css";
+import dayjs from "dayjs";
 import Link from "next/link";
+import React, { CSSProperties, useContext, useEffect, useState } from "react";
+import useLoading from "../hooks/useLoading";
+import { QuoteContext } from "../quote/quoteContext";
 import QuoteActionTable from "../quote/quote_action_table";
 
 interface DataType {
   key: React.Key;
-  order_number: string;
+  quote_code: string;
   status: string;
   customer: string;
-  explain: string;
+  description: string;
   value: number;
-  name: string;
-  order_date: string;
-  order_status: string;
-  delivery_status: string;
+  quote_date: string;
+  quote_date_end: string;
 }
 
 interface TableDataOrderProps {
@@ -30,14 +31,96 @@ const TableDataQuote: React.FC<TableDataOrderProps> = ({
 }: any) => {
   const [key, setKey] = useState();
   const [allKey, setAllKey] = useState<any>();
+
+  const { dateQuote, dateQuoteEnd, status, quoteCode, shouldFetchData, setShouldFetchData, setRecordId, setListRecordId, listRecordId, setRecordName, setListRecordName, statusStrToColor, statusNumToStr } = useContext(QuoteContext);
+  const [quoteData, setQuoteData] = useState<any>([]) // Data từ API
+  const [data, setData] = useState<DataType[]>([]); // Data đổ bảng
+  const [perPage, setPerPage] = useState(10);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [total, setTotal] = useState(0);
+  const { isLoading, startLoading, stopLoading } = useLoading();
+  const tooltipStyle: CSSProperties = {
+    backgroundColor: 'white',
+    color: 'black'
+  }
+
+  const handlePerPage = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setPerPage(Number(event.target.value) || 10)
+    setCurrentPage(1)
+    setShouldFetchData(true)
+  }
+
+  const handleTablePageChange = (pagination: TablePaginationConfig) => {
+    setCurrentPage(pagination.current)
+    setShouldFetchData(true)
+  }
+
+  const convertToDataType = (data?) => {
+    const newData = data?.map((item) => ({
+      key: item.id,
+      quote_code: item.quote_code_str,
+      status: statusNumToStr(item.status),
+      customer: item.customer_name,
+      description: item.description,
+      value: item.total_money,
+      quote_date: dayjs(item.date_quote).format('DD/MM/YYYY'),
+      quote_date_end: dayjs(item.date_quote_end).format('DD/MM/YYYY'),
+    }))
+    setData(newData)
+  }
+
+  const getData = () => {
+    axiosCRMCall
+      .post('/quote/list', {
+        date_quote: dateQuote,
+        date_quote_end: dateQuoteEnd,
+        status: status === 0 ? null : Math.max(Math.min(status, 6), 1),
+        quote_code_str: quoteCode,
+        page: currentPage,
+        perPage: perPage
+      })
+      .then((res) => {
+        // console.log(res?.data?.data);
+        res?.data?.data?.data?.length > 0 ?
+          setQuoteData(res.data.data.data) :
+          setQuoteData([])
+        res?.data?.data?.total ?
+          setTotal(res?.data?.data?.total) :
+          setTotal(res?.data?.data?.data?.length) // Tạm thời khi API chưa sửa
+      })
+      .catch((err) => console.log(err))
+  }
+
+  // Run first
+  useEffect(() => {
+    startLoading();
+    getData();
+    stopLoading();
+  }, [])
+
+  // Run when triggered
+  useEffect(() => {
+    if (shouldFetchData) {
+      startLoading();
+      getData();
+    }
+    setRecordId(0)
+    setListRecordId([])
+    setShouldFetchData(false)
+  }, [shouldFetchData])
+  useEffect(() => {
+    convertToDataType(quoteData);
+    stopLoading();
+  }, [quoteData])
+
   const columns: ColumnsType<DataType> = [
     {
       title: "Số báo giá",
       width: 120,
-      dataIndex: "order_number",
-      key: "order_number",
+      dataIndex: "quote_code",
+      key: "quote_code",
       render: (text: any, record: any) => (
-        <Link href={`/quote/detail/${record.order_number}`}>
+        <Link href={`/quote/detail/${record.key}`}>
           <b>{text}</b>
         </Link>
       ),
@@ -47,37 +130,53 @@ const TableDataQuote: React.FC<TableDataOrderProps> = ({
       width: 120,
       dataIndex: "status",
       key: "status",
-      render: (text) => <div style={{ color: "#34B632" }}>{text}</div>,
+      render: (text) => <div style={{ color: statusStrToColor(text) }}>{text}</div>,
     },
     {
       title: "Ngày báo giá",
-      dataIndex: "order_date",
-      key: "order_date",
+      dataIndex: "quote_date",
+      key: "quote_date",
       width: 250,
     },
     {
       title: "Hiệu lực đến ngày",
-      dataIndex: "order_date",
-      key: "order_date",
+      dataIndex: "quote_date_end",
+      key: "quote_date_end",
       width: 250,
     },
     {
       title: "Khách hàng",
-      dataIndex: "explain",
+      dataIndex: "customer",
       key: "customer",
       width: 300,
+      ellipsis: {
+        showTitle: false
+      },
+      render: (text) => (
+        <Tooltip placement="topLeft" title={text} color="white" overlayInnerStyle={tooltipStyle}>
+          {text}
+        </Tooltip>
+      )
     },
     {
       title: "Tổng tiền (VNĐ)",
       dataIndex: "value",
       key: "value",
-      width: 120,
+      width: 180,
     },
     {
       title: "Mô tả",
-      dataIndex: "customer",
-      key: "customer",
+      dataIndex: "description",
+      key: "description",
       width: 300,
+      ellipsis: {
+        showTitle: false
+      },
+      render: (text) => (
+        <Tooltip placement="topLeft" title={text} color="white" overlayInnerStyle={tooltipStyle}>
+          {text}
+        </Tooltip>
+      )
     },
     {
       title: "Chức năng",
@@ -86,28 +185,28 @@ const TableDataQuote: React.FC<TableDataOrderProps> = ({
       width: 150,
       fixed: "right",
       render: (text: any, record: any) => (
-        <div onClick={() => setKey(record.order_number)}>
-          <QuoteActionTable record={key} allKey={allKey} />
+        <div onClick={() => { setKey(record.key); setRecordId(record.key); setRecordName(record.quote_code) }}>
+          <QuoteActionTable record={key} allKey={[]} />
         </div>
       ),
     },
   ];
 
-  const data: DataType[] = [];
-  for (let i = 0; i < 15; i++) {
-    data.push({
-      key: i,
-      order_number: `ĐH-000${i}`,
-      status: `Chờ duyệt`,
-      customer: `Nguyễn Trần Kim Phượng`,
-      explain: `Đơn hàng Nguyễn Trần Kim Phượng Đơn hàng Nguyễn Trần Kim Phượng  `,
-      value: 10000000,
-      name: `Nguyễn Văn Nam`,
-      order_date: "01/08/2023",
-      order_status: `Đã thanh toán một phần`,
-      delivery_status: `Chưa giao hàng`,
-    });
-  }
+  // const data: DataType[] = [];
+  // for (let i = 0; i < 15; i++) {
+  //   data.push({
+  //     key: i,
+  //     order_number: `ĐH-000${i}`,
+  //     status: `Chờ duyệt`,
+  //     customer: `Nguyễn Trần Kim Phượng`,
+  //     explain: `Đơn hàng Nguyễn Trần Kim Phượng Đơn hàng Nguyễn Trần Kim Phượng  `,
+  //     value: 10000000,
+  //     name: `Nguyễn Văn Nam`,
+  //     order_date: "01/08/2023",
+  //     order_status: `Đã thanh toán một phần`,
+  //     delivery_status: `Chưa giao hàng`,
+  //   });
+  // }
   const rowSelection: TableRowSelection<DataType> = {
     onChange: (selectedRowKeys, selectedRows) => {
       setAllKey(selectedRows);
@@ -116,25 +215,50 @@ const TableDataQuote: React.FC<TableDataOrderProps> = ({
       } else {
         setSelected(false);
       }
+      setListRecordId(selectedRowKeys) // Lưu id bản ghi 
+      setListRecordName(selectedRows.map((row) => row.quote_code))
     },
     onSelect: (record, selected, selectedRows) => {
       setNumberSelected(selectedRows?.length);
     },
-    onSelectAll: (selected, selectedRows, changeRows) => {},
+    onSelectAll: (selected, selectedRows, changeRows) => { },
   };
   return (
     <div className="custom_table">
-      <Table
-        columns={columns}
-        dataSource={data}
-        rowSelection={{ ...rowSelection }}
-        bordered
-        scroll={{ x: 1500, y: 1200 }}
-      />
+      {isLoading ? (
+        <Spin
+          style={{
+            margin: "auto",
+            width: "100%",
+            display: "block",
+            padding: "5px",
+            height: "100%",
+          }}
+        />
+      ) : (
+        <Table
+          columns={columns}
+          dataSource={data}
+          rowSelection={{ ...rowSelection }}
+          bordered
+          scroll={{ x: 1500, y: 1200 }}
+          pagination={{
+            current: currentPage,
+            pageSize: perPage,
+            total: total
+          }}
+          onChange={handleTablePageChange}
+        />
+      )}
       <div className="main__footer flex_between" id="">
         <div className="show_number_item">
           <b>Hiển thị:</b>
-          <select className="show_item">
+          <select
+            className="show_item"
+            value={perPage}
+            onChange={handlePerPage}
+          // defaultValue={perPage}
+          >
             <option value={10}>10 bản ghi trên trang</option>
             <option value={20}>20 bản ghi trên trang</option>
             <option value={30}>30 bản ghi trên trang</option>
@@ -143,7 +267,7 @@ const TableDataQuote: React.FC<TableDataOrderProps> = ({
           </select>
         </div>
         <div className="total">
-          Tổng số: <b>{data.length}</b> Đơn hàng
+          Tổng số: <b>{total}</b> Đơn hàng
         </div>
       </div>
     </div>

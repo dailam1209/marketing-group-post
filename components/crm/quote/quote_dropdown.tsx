@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import styles from "@/components/crm/quote/quote.module.css";
+import { QuoteContext } from "./quoteContext";
 
 export default function OrderDropDown({ valueSelect, setValueSelect }: any) {
-  const data: any[] = ["Hello", "Test", "Hi"];
-
+  // const data: any[] = ["Tất cả", "Bản thảo", "Đàm phán", "Đã gửi", "Chờ xác nhận", "Đồng ý", "Từ chối"];
+  const {allStatusString} = useContext(QuoteContext)
+  const data: any[] = allStatusString();
+  
   // const [valueSelect, setValueSelect] = useState("")
   return (
     <span
@@ -46,7 +49,7 @@ export default function OrderDropDown({ valueSelect, setValueSelect }: any) {
                 style={{ paddingLeft: "18px" }}
                 key={i}
                 className={`${styles.select2_results__option} `}
-                onClick={() => setValueSelect(item)}
+                onClick={() => {setValueSelect(item)}}
               >
                 {item}
               </li>

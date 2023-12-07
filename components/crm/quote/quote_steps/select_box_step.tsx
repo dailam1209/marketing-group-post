@@ -6,6 +6,7 @@ export default function OrderSelectBoxStep({
   value = "Tất cả",
   placeholder = "",
   data = [],
+  setValue
 }: any) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -75,7 +76,7 @@ export default function OrderSelectBoxStep({
               aria-readonly="true"
               // title="Chọn người dùng"
             >
-              {placeholder}
+              {value}
             </span>
             <span
               className={styles.select2_selection__arrow}
@@ -85,7 +86,7 @@ export default function OrderSelectBoxStep({
             </span>
           </span>
         </span>
-        {isOpen && <OrderDropDownDataStep data={data} value={value} />}
+        {isOpen && <OrderDropDownDataStep data={data} value={value} setValue={setValue}/>}
       </span>
     </div>
   );

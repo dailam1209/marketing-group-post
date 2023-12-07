@@ -12,13 +12,13 @@ interface MyComponentProps {
 const CancelModal: React.FC<MyComponentProps> = ({
   isModalCancel,
   setIsModalCancel,
-  content = "Bạn có chắc chắn muốn hủy thêm mới đơn hàng thông tin bạn nhập sẽ không được lưu lại?",
-  title = "Xác nhận hủy thêm mới đơn hàng",
+  content = "Bạn có chắc chắn muốn hủy thao tác thông tin bạn nhập sẽ không được lưu lại?",
+  title = "Xác nhận hủy thao tác",
 }) => {
   const router = useRouter();
   const handleOK = () => {
     setIsModalCancel(false);
-    router.push("/order/list");
+    router.push("/quote/list");
   };
 
   return (

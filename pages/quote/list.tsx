@@ -48,3 +48,4 @@ export default function Home() {
     </>
   );
 }
+// TODO Thao tác ngoài luồng chính

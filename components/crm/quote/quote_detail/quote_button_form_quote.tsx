@@ -119,6 +119,7 @@ export default function ButtonControlForm({ isSelectedRow }: any) {
 
       <DelActionModal
         record={path.id}
+        allkey={allkey}
         isModalCancel={isDelOpen}
         setIsModalCancel={setIsDelOpen}
       />
