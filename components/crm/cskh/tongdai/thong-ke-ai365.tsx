@@ -1,198 +1,202 @@
-import { Button, Table, Modal } from "antd";
-import React, { useContext, useEffect, useState, useRef } from "react";
-import { useRouter } from "next/router";
+import React, { useState, useEffect } from "react";
+import { Button, Input, Modal, Select } from "antd";
 import styles from "./tongdai.module.css";
-type Props = {};
+import { NodeIndexOutlined } from "@ant-design/icons";
+import Image from "next/image";
+import Cookies from "js-cookie";
+import jwt_decode from "jwt-decode";
 
-const ThongKeAi365 = (props: Props) => {
-  const router = useRouter();
-  const [listData, setListData] = useState([]);
-  const [textRecord, setTextRecord] = useState('');
-  const [current, setcurrent] = useState(1);
-  const [loading, setLoading] = useState(true);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const { idSchedule } = router.query
+interface MyComponentProps {
+  isModalFilter: any;
+  setIsModalFilter: any;
+  fillStart: any;
+  setFillStart: any;
+  fillEnd: any;
+  setFillEnd: any;
+  handleFilter: any;
+  nv: any;
+  setNv: any;
+  status: any;
+  setStatus: any;
+}
+const FilterGhiAm: React.FC<MyComponentProps> = ({
+  isModalFilter,
+  setIsModalFilter,
+  fillStart,
+  setFillStart,
+  fillEnd,
+  setFillEnd,
+  handleFilter,
+  nv,
+  setNv,
+  status,
+  setStatus,
+}) => {
+  const [listNv, setListNv] = useState([])
+  const showModal = () => {
+    setIsModalFilter(true);
+  };
 
-  const toggleAudio = (audioId: string, playButtonId: string, pauseButtonId: string) => {
-    const audioElement = document.getElementById(audioId) as HTMLAudioElement;
-    const playButton = document.getElementById(playButtonId) as HTMLButtonElement;
-    const pauseButton = document.getElementById(pauseButtonId) as HTMLButtonElement;
+  const handleOk = () => {
+    setIsModalFilter(false);
+    handleFilter();
+  };
 
-    if (audioElement?.paused || audioElement?.ended) {
-      // Dừng tất cả các audio khác đang phát
-      const allAudioElements = document.querySelectorAll("audio");
-      allAudioElements.forEach((element) => {
-        if (element.id !== audioId) {
-          element.pause();
-          element.currentTime = 0; // Đặt lại thời gian audio về đầu
-          const playId = "play-" + element.id.split("-")[1];
-          const pauseId = "pause-" + element.id.split("-")[1];
-          const playButton = document.getElementById(playId) as HTMLButtonElement;
-          const pauseButton = document.getElementById(pauseId) as HTMLButtonElement;
-          playButton.style.display = "block";
-          pauseButton.style.display = "none";
+  const handleCancel = () => {
+    setIsModalFilter(false);
+  };
+  const handleDateChange = (e: any) => {
+    setFillStart(`${e.target.value} 00:00:00`);
+  };
+  const handleDateChange2 = (e: any) => {
+    setFillEnd(`${e.target.value} 23:59:59`);
+  };
+  const handleSlectNv = (value: any) => {
+    setNv(value)
+  }
+  const handleGetListNv = async () => {
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/crm/scheduleAutoCall/getListAdminUsers`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${Cookies.get("token_base365")}`,
+          },
         }
-      });
-
-      audioElement.play();
-      playButton.style.display = "none";
-      pauseButton.style.display = "block";
-    } else {
-      audioElement?.pause();
-      playButton.style.display = "block";
-      pauseButton.style.display = "none";
-    }
-  }
-
-  const handleShowModal = (record: any) => {
-    setTextRecord(record.text)
-    setIsModalOpen(true)
-  }
-
+      );
+      const data = await res.json()
+      setListNv(data?.data?.admin);
+    } catch (error) { }
+  };
   useEffect(() => {
-    const getData = async () => {
-      const response = await fetch(`https://api.timviec365.vn/api/crm/scheduleAutoCall/GetStorageAutoCall`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(idSchedule ? { idSchedule: idSchedule } : {}),
-      });
-      const data = await response.json();
-      setLoading(false)
-      if (data && data.data && data.data.list) {
-        setListData(data.data.list);
-      }
-    };
-    getData();
+    handleGetListNv();
   }, []);
-
-  const Colums = [
-    {
-      width: "15%",
-      title: "Chuyên viên",
-      dataIndex: "emp_name",
-      render: (text: any, record: any) => <div>{record.emp_id} - {record.emp_name}</div>,
-    },
-    {
-      width: "15%",
-      title: "Tên khách hàng",
-      dataIndex: "customer_name",
-    },
-    {
-      width: "10%",
-      title: "Số khách hàng",
-      dataIndex: "customer_phone",
-    },
-    {
-      width: "20%",
-      title: "Nhóm khách hàng",
-      dataIndex: "group_name",
-    },
-    {
-      width: "10%",
-      title: "Thời gian bắt đầu gọi",
-      dataIndex: "start_time",
-      render: (text: any) => <div>{text}</div>,
-    },
-    {
-      width: "10%",
-      title: "Trạng thái cuộc gọi",
-      dataIndex: "state",
-      render: (text: any) => <div>{text}</div>,
-    },
-    {
-      width: "10%",
-      title: "Nội dung cuộc gọi",
-      dataIndex: "text",
-      render: (text: any, record: any) => (
-        <>
-          {record.text !== '' && (
-            <div onClick={() => handleShowModal(record)} style={{ color: '#4c5bd4', cursor: 'pointer' }}>Chi tiết</div>
-          )}
-        </>
-      )
-    },
-    {
-      width: "10%",
-      title: "Ghi âm",
-      dataIndex: "filepath",
-      render: (text: any, record: any) => (
-        <>
-          {record.link !== '' && (
-            <div className={`${styles.audio_container}`}>
-              <audio src={`${record.link}`} id={`audio-${record._id}`}>
-              </audio>
-              <div className={`${styles.audio_buttons_play}`}>
-                <button
-                  className={`${styles.tb_ga}`}
-                  id={`play-${record.id}`}
-                  onClick={() =>
-                    toggleAudio(
-                      `audio-${record.id}`,
-                      `play-${record.id}`,
-                      `pause-${record.id}`,
-                    )
-                  }
-                >
-                  <img src="/crm/ghiam.svg" alt="" width={15} height={15} />
-                </button>
+  return (
+    <>
+      <button className={styles.filter} onClick={showModal}>
+        <Image width={23} height={23} src={"/crm/filter_alt.svg"} alt="" />
+        <p>Bộ lọc</p>
+      </button>
+      <Modal
+        open={isModalFilter}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        footer={false}
+        className={styles.main_filter2}
+      >
+        <div className={styles.custom_filter}>Bộ lọc</div>
+        <div className={styles.containerfillter}>
+          <div className={styles.item1}>
+            <div className={styles.item_time}>Thời gian</div>
+            <div className={styles.filter_time}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  paddingRight: 10,
+                  gap: 10,
+                }}
+              >
+                <div>Từ</div>
+                <div>
+                  <Input onChange={handleDateChange} type="date" defaultValue={fillStart}></Input>
+                </div>
               </div>
-              <div className={`${styles.audio_buttons_pause}`}>
-                <button
-                  className={`${styles.tb_ga}`}
-                  id={`pause-${record.id}`}
-                  onClick={() =>
-                    toggleAudio(
-                      `audio-${record.id}`,
-                      `play-${record.id}`,
-                      `pause-${record.id}`,
-                    )
-                  }
-                  style={{ display: "none" }}
-                >
-                  <img src="/crm/pause.svg" alt="" width={15} height={15} />
-                </button>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 10,
+                }}
+              >
+                <div>Đến</div>
+                <div>
+                  <Input onChange={handleDateChange2} type="date" defaultValue={fillEnd}></Input>
+                </div>
               </div>
             </div>
-          )}
-        </>
-      ),
-    },
-  ];
-  return (
-    <div style={{ paddingTop: 20 }}>
-      <Table
-        loading={loading}
-        columns={Colums as any}
-        dataSource={listData}
-        bordered
-        scroll={{ x: '1600px' }}
-        pagination={{
-          style: { paddingBottom: 30, float: "left" },
-          current: current,
-          pageSize: 15,
-          onChange(page, pageSize) {
-            if (page != current) {
-              setcurrent(page);
-            }
-          },
-        }}
-      />
-      <Modal
-        title="Chi tiết"
-        open={isModalOpen}
-        width={600}
-        bodyStyle={{ maxHeight: '40vh', overflowY: 'auto' }}
-        footer={[
-          <Button key="submit" type="primary" onClick={() => setIsModalOpen(false)}>
-            OK
-          </Button>,
-        ]}
-      >
-        <p>{textRecord}</p>
+          </div>
+          <div className={styles.item1}>
+            <div style={{ width: 130 }}>Chuyên viên</div>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 10,
+                width: "100%",
+              }}
+            >
+              <div style={{ width: "100%" }}>
+                <Select
+                  onChange={handleSlectNv}
+                  style={{ width: '100% !important' }}
+                  value={nv}
+                  placeholder="Chọn chuyên viên"
+                >
+                  <option>Chuyên viên</option>
+                  {listNv &&
+                    listNv.length > 0 &&
+                    listNv?.map((item: any, index: number) => {
+                      return (
+                        <option key={index} value={`${item.emp_id} - ${item.emp_name}`}>
+                          {item.emp_id} - {item.emp_name}
+                        </option>
+                      );
+                    })}
+                </Select>
+              </div>
+            </div>
+          </div>
+          <div className={styles.item1}>
+            <div style={{ width: 130 }}>Trạng thái</div>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 10,
+                width: "100%",
+              }}
+            >
+              <div style={{ width: "100%" }}>
+                <Select
+                  placeholder="Trạng thái cuộc gọi"
+                  value={status}
+                  onChange={(value) => setStatus(value)}
+                >
+                  <option>Trạng thái</option>
+                  <option value={'Nghe máy'}>Nghe máy</option>
+                  <option value='Không nghe máy'>Không nghe máy</option>
+                </Select>
+              </div>
+            </div>
+          </div>
+          <div className={styles.footerBTN}>
+            <div style={{ color: "#4c5bd4" }}>
+              <Button
+                onClick={handleCancel}
+                style={{
+                  color: "#4c5bd4",
+                  border: "1px solid #4c5bd4",
+                  width: 100,
+                }}
+              >
+                Hủy
+              </Button>
+            </div>
+
+            <Button
+              style={{ color: "#fff", background: "#4c5bd4", width: 100 }}
+              onClick={handleFilter}
+            >
+              Tìm kiếm
+            </Button>
+          </div>
+        </div>
       </Modal>
-    </div>
+    </>
   );
 };
-export default ThongKeAi365;
+
+export default FilterGhiAm;
