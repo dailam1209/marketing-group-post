@@ -1,18 +1,17 @@
-import styles from "./order.module.css";
 import type { MenuProps } from "antd";
-import { Button, Dropdown, Image, Space } from "antd";
+import { Dropdown, Image } from "antd";
 import Link from "next/link";
-import { dataActionQuote } from "../ultis/consntant";
 import { useContext, useState } from "react";
-import QuoteBrowsingModal from "./quote_action_modal/quote_browsing_action_mdal";
-import DenyActionModal from "./quote_action_modal/deny_action_mdal";
-import DelActionModal from "./quote_action_modal/delete_action_mdal";
-import CancelActionModal from "./quote_action_modal/cancel_action_mdal";
-import ShareActionModal from "./quote_action_modal/share_action_mdal";
-import HandOverActionModal from "./quote_action_modal/handover_action_mdal";
-import StatusModal from "./quote_action_modal/status-mdal";
-import SendMailModal from "./quote_action_modal/send_mail_mdal";
+import { dataActionQuote } from "../ultis/consntant";
 import { QuoteContext } from "./quoteContext";
+import CancelActionModal from "./quote_action_modal/cancel_action_mdal";
+import DelActionModal from "./quote_action_modal/delete_action_mdal";
+import DenyActionModal from "./quote_action_modal/deny_action_mdal";
+import HandOverActionModal from "./quote_action_modal/handover_action_mdal";
+import QuoteBrowsingModal from "./quote_action_modal/quote_browsing_action_mdal";
+import SendMailModal from "./quote_action_modal/send_mail_mdal";
+import ShareActionModal from "./quote_action_modal/share_action_mdal";
+import StatusModal from "./quote_action_modal/status-mdal";
 
 export default function QuoteActionTable(props: any) {
   const { recordId } = useContext(QuoteContext)

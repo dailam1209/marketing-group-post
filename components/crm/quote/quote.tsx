@@ -1,11 +1,10 @@
-import TableDataOrder from "../table/table-order";
-import styleHome from "../home/home.module.css";
+import { useContext, useEffect, useRef, useState } from "react";
 import { SidebarContext } from "../context/resizeContext";
-import { createContext, useContext, useEffect, useRef, useState } from "react";
+import styleHome from "../home/home.module.css";
 import { useHeader } from "../hooks/useHeader";
-import QuoteInputGroups from "./quote_input_group";
 import TableDataQuote from "../table/table-quote";
-import { QuoteContext, QuoteProvider } from "./quoteContext";
+import { QuoteProvider } from "./quoteContext";
+import QuoteInputGroups from "./quote_input_group";
 
 export default function Quote() {
   const mainRef = useRef<HTMLDivElement>(null);

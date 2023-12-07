@@ -12,8 +12,8 @@ interface MyComponentProps {
 const CancelModal: React.FC<MyComponentProps> = ({
   isModalCancel,
   setIsModalCancel,
-  content = "Bạn có chắc chắn muốn hủy thêm mới báo giá thông tin bạn nhập sẽ không được lưu lại?",
-  title = "Xác nhận hủy thêm mới báo giá",
+  content = "Bạn có chắc chắn muốn hủy thao tác thông tin bạn nhập sẽ không được lưu lại?",
+  title = "Xác nhận hủy thao tác",
 }) => {
   const router = useRouter();
   const handleOK = () => {

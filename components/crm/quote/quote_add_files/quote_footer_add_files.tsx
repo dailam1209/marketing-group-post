@@ -4,7 +4,6 @@ import styles from "./add_file_order.module.css";
 import ModalCompleteStep from "../quote_steps/complete_modal";
 import { QuoteContext } from "../quoteContext";
 import { axiosCRMCall } from "@/utils/api/api_crm_call";
-import _ from "lodash";
 import ModalError from "../quote_steps/error_mdal";
 
 export default function QuoteFooterAddFiles({

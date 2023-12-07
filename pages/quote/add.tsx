@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import styleHome from "@/components/crm/home/home.module.css";
-import styles from "@/components/crm/order/order.module.css";
+import styles from "@/components/crm/quote/order.module.css";
 import { SidebarContext } from "@/components/crm/context/resizeContext";
 import QuoteFooterAddFiles from "@/components/crm/quote/quote_add_files/quote_footer_add_files";
 import AddDetailInfo from "@/components/crm/quote/quote_add_files/detail_info";

@@ -1,17 +1,13 @@
-import React, { CSSProperties, useContext, useEffect, useState } from "react";
+import { axiosCRMCall } from "@/utils/api/api_crm_call";
 import { Spin, Table, Tooltip } from "antd";
 import type { ColumnsType, TablePaginationConfig } from "antd/es/table";
 import { TableRowSelection } from "antd/es/table/interface";
-import styles from "../order/order.module.css";
-import Link from "next/link";
-import QuoteActionTable from "../quote/quote_action_table";
-import { QuoteContext } from "../quote/quoteContext";
-import { axiosCRMCall } from "@/utils/api/api_crm_call";
-import { axiosCRM } from "@/utils/api/api_crm";
 import dayjs from "dayjs";
+import Link from "next/link";
+import React, { CSSProperties, useContext, useEffect, useState } from "react";
 import useLoading from "../hooks/useLoading";
-import { PaginationConfig } from "antd/es/pagination";
-import { set } from "lodash";
+import { QuoteContext } from "../quote/quoteContext";
+import QuoteActionTable from "../quote/quote_action_table";
 
 interface DataType {
   key: React.Key;
