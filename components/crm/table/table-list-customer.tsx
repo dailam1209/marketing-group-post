@@ -242,6 +242,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
         ]
         : [{ label: item.gr_name, value: item.gr_id.toString() }],
   }));
+
   const [value, setvalue] = useState();
   const [slectNhom, setslectNhom] = useState<any>();
   const [groupIds, setGroupIds] = useState<any>({});
@@ -385,11 +386,16 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
           }}
           name="value"
           className="js-example-basic-single"
+          value={record?.group_id}
           defaultValue={router.query.group || record?.group_id?.toString()}
           data-record={JSON.stringify(record)} // Lưu bản ghi vào data attribute
         >
           {options.map((group) => (
-            <optgroup key={group.label} label={group.label}>
+            <optgroup
+              defaultValue={record.group_id}
+              key={group.label}
+              label={group.label}
+            >
               {group.options.map((option) => (
                 <option key={option.value} value={option.value}>
                   {option.label}
