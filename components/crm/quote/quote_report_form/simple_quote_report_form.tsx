@@ -1,4 +1,4 @@
-import React from "react";
+import React, { CSSProperties } from "react";
 import { Col, Descriptions, DescriptionsProps, Grid, Image, Typography } from 'antd'
 import Table, { ColumnType, ColumnsType } from "antd/es/table";
 const { Title } = Typography
@@ -14,6 +14,21 @@ interface QuoteDataType {
     chietkhau: number;
     thue: number;
     total: number;
+}
+
+const sectionCss: CSSProperties = {
+    width: 'calc(100% - 40px)',
+    display: 'flex',
+    marginBottom: '20px'
+}
+
+const descriptLabel: CSSProperties = {
+    color: 'black',
+    fontWeight: 600,
+}
+
+const descriptChild: CSSProperties = {
+
 }
 
 const sampleData: QuoteDataType[] = []
@@ -72,7 +87,7 @@ const simple_quote_report = () => {
         },
         {
             key: '5',
-            label: (<a>timviec365.vn</a>),
+            label: (<a><p style={{ color: 'blue !important' }}>timviec365.vn</p></a>),
             children: ''
         }
     ]
@@ -115,6 +130,14 @@ const simple_quote_report = () => {
             key: '3',
             label: 'Tổng tiền thanh toán',
             children: '1.000.000 VNĐ'
+        },
+    ]
+
+    const introInfo: DescriptionsProps['items'] = [
+        {
+            key: '1',
+            label: 'Lời giới thiệu',
+            children: 'Công ty  Cổ phần Thanh toán Hưng Hà xin trân trọng gửi tới quý khách hàng bảng báo giá chi tiết về sản phầm hàng hoá trong quý 3 năm 2022 như sau:'
         },
     ]
 
@@ -168,11 +191,13 @@ const simple_quote_report = () => {
             width: 100,
         },
     ]
+
     return (
         <>
             <div style={{ width: '100%', margin: '20px' }}>
                 {/* Logo + thông tin báo giá cơ bản */}
-                <div>
+                <div style={sectionCss}>
+                    {/* <Col span={24}> */}
                     <Col span={8}>
                         <Image
                             width={'100%'}
@@ -182,47 +207,72 @@ const simple_quote_report = () => {
                     </Col>
                     <Col span={8}></Col>
                     <Col span={8}>
-                        <Descriptions items={basicQuoteInfo} />
+                        <Descriptions
+                            items={basicQuoteInfo}
+                            column={1}
+                            labelStyle={descriptLabel}
+                        />
                     </Col>
+                    {/* </Col> */}
                 </div>
 
                 {/* Tiêu đề */}
-                <div style={{ textAlign: 'center' }}>
+                <div style={{ textAlign: 'center', width: 'calc(100% - 40px)', marginBottom: '50px' }}>
                     <Title>BẢNG BÁO GIÁ</Title>
                 </div>
 
                 {/* Thông tin cty và thông tin khách hàng */}
-                <div>
+                <div style={sectionCss}>
                     <Col span={11}>
-                        <Descriptions items={companyInfo} />
+                        <Descriptions
+                            items={companyInfo}
+                            column={1}
+                            labelStyle={descriptLabel}
+                            colon={false}
+                        />
                     </Col>
                     <Col span={2}></Col>
                     <Col span={11}>
-                        <Descriptions items={customerInfo} />
+                        <Descriptions
+                            items={customerInfo}
+                            column={1}
+                            labelStyle={descriptLabel}
+                        />
                     </Col>
                 </div>
 
                 {/* Lời giới thiệu */}
-                <div>
-                    <p>Lời giới thiệu</p>
-                    <p>Công ty  Cổ phần Thanh toán Hưng Hà xin trân trọng gửi tới quý khách hàng bảng báo giá chi tiết về sản phầm hàng hoá trong
-                        quý 3 năm 2022 như sau:</p>
+                <div style={sectionCss}>
+                    <Col span={24}>
+                        <Descriptions
+                            items={introInfo}
+                            column={1}
+                            labelStyle={descriptLabel}
+                        />
+                    </Col>
                 </div>
 
                 {/* Bảng báo giá */}
-                <div>
+                <div style={{ width: 'calc(100% - 20px)', marginBottom: '20px' }}>
                     <Table
                         columns={columns}
                         dataSource={sampleData}
                         bordered
+                        pagination={{
+                            position: [],
+                        }}
                     />
                 </div>
 
                 {/* Tổng hợp */}
-                <div>
+                <div style={sectionCss}>
                     <Col span={12}></Col>
                     <Col span={12}>
-                        <Descriptions items={totalPriceInfo} />
+                        <Descriptions
+                            items={totalPriceInfo}
+                            column={1}
+                            labelStyle={descriptLabel}
+                        />
                     </Col>
                 </div>
 
