@@ -14,12 +14,14 @@ interface MyComponentProps {
   setIsModalCancel: (value: boolean) => void;
   // content: string;
   title: string;
+  fetchApi?: (arrCustomerId: any) => Promise<void>;
 }
 
 const ModalChooseCustomer: React.FC<MyComponentProps> = ({
   isModalCancel,
   setIsModalCancel,
   title = "Chọn liên hệ",
+  fetchApi,
 }) => {
   const router = useRouter();
   const inputRef = useRef(null);
@@ -39,20 +41,21 @@ const ModalChooseCustomer: React.FC<MyComponentProps> = ({
     const isValidSharing = validate();
     if (isValidSharing) {
       try {
-        await fetch(
-          `https://api.timviec365.vn/api/crm/customerdetails/add-campaign-customer`,
-          {
-            method: "POST",
-            headers: {
-              Authorization: `Bearer ${Cookies.get("token_base365")}`,
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              arr_campaign_id: [Number(router.query.id)],
-              arr_cus_id: arrCustomerId,
-            }),
-          }
-        );
+        // await fetch(
+        //   `https://api.timviec365.vn/api/crm/customerdetails/add-campaign-customer`,
+        //   {
+        //     method: "POST",
+        //     headers: {
+        //       Authorization: `Bearer ${Cookies.get("token_base365")}`,
+        //       "Content-Type": "application/json",
+        //     },
+        //     body: JSON.stringify({
+        //       arr_campaign_id: [Number(router.query.id)],
+        //       arr_cus_id: arrCustomerId,
+        //     }),
+        //   }
+        // );
+        await fetchApi(arrCustomerId);
 
         setTrigger(true);
 
@@ -141,7 +144,7 @@ const ModalChooseCustomer: React.FC<MyComponentProps> = ({
         </div>
         {
           <TableDataCampaignCustomerSelect
-            searchParam = {searchParam}
+            searchParam={searchParam}
             setSelected={setIsSelectedRow}
             setNumberSelected={setNumberSelected}
             setArrCustomerId={setArrCustomerId}

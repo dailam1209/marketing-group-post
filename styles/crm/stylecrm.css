@@ -425,6 +425,13 @@ tr {
   margin: auto;
 }
 
+.detail_header_chance {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0 0 20px 0;
+}
+
 .emp_select_custom .select2-container {
   width: 100% !important;
 }
@@ -798,6 +805,10 @@ img {
     font-size: 13px;
     gap: 12px;
     flex-direction: row;
+  }
+
+  .detail_header_chance {
+    flex-wrap: wrap;
   }
 }
 

@@ -4,7 +4,7 @@ import styles from "@/components/crm/campaign/campaign.module.css";
 import { SidebarContext } from "@/components/crm/context/resizeContext";
 import AddButtonControl from "@/components/crm/campaign/campaign_detail/campaign_button_control";
 import AddDetailInfo from "@/components/crm/campaign/campaign_detail/campaign_detail_info";
-import TabOrderList from "@/components/crm/campaign/campaign_detail/tab_campaign_detail";
+import TabChanceList from "@/components/crm/campaign/campaign_detail/tab_campaign_detail";
 import { useHeader } from "@/components/crm/hooks/useHeader";
 import Head from "next/head";
 import Cookies from "js-cookie";
@@ -164,7 +164,7 @@ const DetailCampaign: React.FC = () => {
             )}
           </div>
 
-          <TabOrderList
+          <TabChanceList
             formFields={formFields}
             isHideEmptyData={hideEmptyDataFunc}
           />

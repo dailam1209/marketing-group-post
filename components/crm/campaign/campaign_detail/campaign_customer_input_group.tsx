@@ -81,6 +81,23 @@ export default function CampaignCustomerInputGroup({
     }
   };
 
+  const fetchApiCustomer = async (arrCustomerId) => {
+    await fetch(
+      `https://api.timviec365.vn/api/crm/customerdetails/add-campaign-customer`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${Cookies.get("token_base365")}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          arr_campaign_id: [Number(router.query.id)],
+          arr_cus_id: arrCustomerId,
+        }),
+      }
+    );
+  };
+
   useEffect(() => {
     $(".js-example-basic-single").select2();
 
@@ -112,7 +129,6 @@ export default function CampaignCustomerInputGroup({
                 </option>
               ))}
             </select>
-
           </div>
         </div>
 
@@ -178,6 +194,7 @@ export default function CampaignCustomerInputGroup({
         isModalCancel={isModalCancel}
         setIsModalCancel={setIsModalCancel}
         title="Chọn khách hàng"
+        fetchApi={fetchApiCustomer}
         // content="Hello"
       />
     </div>
