@@ -100,6 +100,7 @@ const DetailInformationChance: React.FC<PropsDetail> = ({
       />
 
       <div
+        className="detail_header_chance"
         style={{
           display: "flex",
           justifyContent: "space-between",

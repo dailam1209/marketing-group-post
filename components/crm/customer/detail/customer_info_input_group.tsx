@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "./customer_detail.module.css";
 import Link from "next/link";
 import CancelModal from "@/components/crm/order/order_detail/order_detail_action_modal/contact_order_detail_action_mdal";
+import ModalChooseCustomer from "../../campaign/campaign_detail/campaign_detail_action_modal/customer_select_action_mdal";
 export default function CustomerInforEngineInput({ id, isLink = false }: any) {
   const [isModalOpen, setIsModalCancel] = useState(false);
   const [selected, setSelected] = useState(false);
@@ -61,10 +62,11 @@ export default function CustomerInforEngineInput({ id, isLink = false }: any) {
           setNumberSelected={setNumberSelected}
         />
       )} */}
-      <CancelModal
+      <ModalChooseCustomer
         isModalCancel={isModalOpen}
         setIsModalCancel={setIsModalCancel}
         title={"Chọn khách hàng"}
+        fetchApi={async (arrCustomerId) => {}}
       />
     </div>
   );
