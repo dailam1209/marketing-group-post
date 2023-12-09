@@ -87,8 +87,7 @@ function ModalGroupCustomerAddEmp({ isOpenModalAddEmp, setIsOpenModalAddEmp }) {
     axiosQLC
       .post("/managerUser/listUser", formData)
       .then((res) => {
-        console.log("getListNVKDofDepartment", res);
-
+     
         setListEmp(
           res.data.data.data?.map((emp) => ({
             value: emp.ep_id,
