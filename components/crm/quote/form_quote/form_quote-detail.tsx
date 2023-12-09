@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import ButtonControlForm from "../quote_detail/quote_button_form_quote";
-import SimpleQuoteReport from '../quote_report_form/simple_quote_report_form'
+import SimpleQuoteReport from '@/components/crm/quote/quote_report_form/simple_quote_report_form'
 
 type Props = {};
 

@@ -7,10 +7,13 @@ import { QuoteContext } from "../quoteContext";
 import { axiosCRMCall } from "@/utils/api/api_crm_call";
 import dayjs from "dayjs";
 import useLoading from "../../hooks/useLoading";
+import { useRouter } from "next/router";
 
-export default function AddQuoteInfo({ id = null }) {
+export default function AddQuoteInfo({ id: quoteId = null }) {
   const { recordId, setRecordId, detailData, setShouldFetchDetailData, shouldFetchDetailData, statusToColor, statusNumToStr, getPropOrDefault } = useContext(QuoteContext)
   const { isLoading, startLoading, stopLoading } = useLoading();
+  const router = useRouter();
+  const { id } = router.query
   const [data, setData] = useState<any>({
     quote_code_str: '',
     date_quote: '',
@@ -28,22 +31,18 @@ export default function AddQuoteInfo({ id = null }) {
     setData(newData)
   }
 
-  useEffect(()=>{
-    shouldFetchDetailData && startLoading();
-  }, [shouldFetchDetailData])
-
   useEffect(() => {
     setRecordId(Number(id) || 0)
-  }, [])
+  }, [router.query])
 
   useEffect(() => {
     setShouldFetchDetailData(true)
   }, [recordId])
 
   useEffect(() => {
-    startLoading();
+    startLoading()
     convertData()
-    stopLoading();
+    stopLoading()
   }, [detailData])
 
   return (

@@ -1,6 +1,9 @@
-import React, { CSSProperties } from "react";
-import { Col, Descriptions, DescriptionsProps, Grid, Image, Typography } from 'antd'
-import Table, { ColumnType, ColumnsType } from "antd/es/table";
+import React, { CSSProperties, useContext, useEffect, useState } from "react";
+import { Col, Descriptions, DescriptionsProps, Grid, Image, Typography, Table } from 'antd'
+import type { ColumnsType } from "antd/es/table";
+import { QuoteContext } from "../quoteContext";
+import { axiosCRMCall } from "@/utils/api/api_crm_call";
+import dayjs from "dayjs";
 const { Title } = Typography
 
 type QuoteDetailData = {}
@@ -23,12 +26,29 @@ const sectionCss: CSSProperties = {
 }
 
 const descriptLabel: CSSProperties = {
-    color: 'black',
+    color: '#474747',
     fontWeight: 600,
+    fontSize: '15px',
 }
 
-const descriptChild: CSSProperties = {
+const descriptContent: CSSProperties = {
+    color: '#474747',
+    fontWeight: 400,
+    fontSize: '13px'
+}
 
+const simpleLabel: CSSProperties = {
+    color: '#474747',
+    fontWeight: 600,
+    fontSize: '15px',
+    marginBottom: '10px'
+}
+
+const simpleContent: CSSProperties = {
+    color: '#474747',
+    fontWeight: 400,
+    fontSize: '13px',
+    // wordWrap: "break-word"
 }
 
 const sampleData: QuoteDataType[] = []
@@ -45,22 +65,73 @@ for (let i = 0; i < 4; i++) {
     })
 }
 
-const simple_quote_report = () => {
+const simple_quote_report: React.FC = ({ id = 0 }: any) => {
+    const { getPropOrDefault, recordId, shouldFetchDetailData } = useContext(QuoteContext)
+    const [quoteData, setQuoteData] = useState<any>({})
+    const [companyData, setCompanyData] = useState<any>({})
+    const [customerData, setCustomerData] = useState<any>({})
+    const [productData, setProductData] = useState<any>([])
+    const [productTableData, setProductTableData] = useState<QuoteDataType[]>([])
+    const [totalMoneyBeforeDiscount, setTotalMoneyBeforeDiscount] = useState(0)
+
+    const getQuoteData = () => {
+        axiosCRMCall
+            .post('/quote/getDetail', { id: Number(recordId) || id || 0 })
+            .then((res) => {
+                if (res?.data?.data?.data) {
+                    setQuoteData(res?.data?.data?.data)
+                    setProductData(res?.data?.data?.data.product_list)
+                } else {
+                    setQuoteData({})
+                    setProductData([])
+                }
+            })
+            .catch((err) => console.log(err))
+    }
+
+    useEffect(() => {
+        let tempData = []
+        let tempTotal = 0
+        for (let i = 0; i < productData.length; i++) {
+            tempData.push({
+                key: i + 1,
+                idproduct: getPropOrDefault(productData[i], 'product_id._id', 'Chưa cập nhật'),
+                nameproduct: getPropOrDefault(productData[i], 'product_id.prod_name', 'Chưa cập nhật'),
+                soluong: getPropOrDefault(productData[i], 'amount', '0'),
+                dongia: getPropOrDefault(productData[i], 'product_price', '0'),
+                chietkhau: getPropOrDefault(productData[i], 'product_discount_rate', '0'),
+                thue: getPropOrDefault(productData[i], 'tax_rate', '0'),
+                total: getPropOrDefault(productData[i], 'product_total_money', '0'),
+            })
+            tempTotal += Number(getPropOrDefault(productData[i], 'product_total_money', '0')) || 0
+        }
+        setProductTableData(tempData)
+        setTotalMoneyBeforeDiscount(tempTotal)
+    }, [productData])
+
+    useEffect(() => {
+        getQuoteData();
+    }, [])
+
+    useEffect(() => {
+        getQuoteData();
+    }, [shouldFetchDetailData])
+
     const basicQuoteInfo: DescriptionsProps['items'] = [
         {
             key: '1',
             label: 'Số báo giá',
-            children: '965848'
+            children: getPropOrDefault(quoteData, 'quote_code_str', 'Chưa cập nhật')
         },
         {
             key: '2',
             label: 'Ngày báo giá',
-            children: '09/07/2022'
+            children: getPropOrDefault(quoteData, 'date_quote', '') ? dayjs(getPropOrDefault(quoteData, 'date_quote', '')).format('DD/MM/YYYY') : 'Chưa cập nhật'
         },
         {
             key: '3',
             label: 'Hiệu lực báo giá',
-            children: '08/10/2023'
+            children: getPropOrDefault(quoteData, 'date_quote_end', '') ? dayjs(getPropOrDefault(quoteData, 'date_quote_end', '')).format('DD/MM/YYYY') : 'Chưa cập nhật'
         }
     ]
 
@@ -119,25 +190,17 @@ const simple_quote_report = () => {
         {
             key: '1',
             label: 'Tổng thành tiền',
-            children: '1.000.000 VNĐ'
+            children: `${totalMoneyBeforeDiscount.toLocaleString('vi-VN')} VNĐ`
         },
         {
             key: '2',
             label: 'Chiết khấu đơn hàng',
-            children: '2,1 %'
+            children: `${Number(getPropOrDefault(quoteData, 'discount_rate', '0')).toLocaleString('vi-VN')} %`
         },
         {
             key: '3',
             label: 'Tổng tiền thanh toán',
-            children: '1.000.000 VNĐ'
-        },
-    ]
-
-    const introInfo: DescriptionsProps['items'] = [
-        {
-            key: '1',
-            label: 'Lời giới thiệu',
-            children: 'Công ty  Cổ phần Thanh toán Hưng Hà xin trân trọng gửi tới quý khách hàng bảng báo giá chi tiết về sản phầm hàng hoá trong quý 3 năm 2022 như sau:'
+            children: `${Number(getPropOrDefault(quoteData, 'total_money', '0')).toLocaleString('vi-VN')} VNĐ`
         },
     ]
 
@@ -165,43 +228,58 @@ const simple_quote_report = () => {
             dataIndex: "soluong",
             key: "3",
             width: 30,
+            render: (text) => (
+                Number(text).toLocaleString('vi-VN')
+            )
         },
         {
             title: "Đơn giá (VNĐ)",
             dataIndex: "dongia",
             key: "4",
             width: 100,
+            render: (text) => (
+                Number(text).toLocaleString('vi-VN')
+            )
         },
         {
-            title: "CK (%)",
+            title: "Chiết khấu (%)",
             dataIndex: "chietkhau",
             key: "5",
             width: 60,
+            render: (text) => (
+                Number(text).toLocaleString('vi-VN')
+            )
         },
         {
             title: "VAT (%)",
             dataIndex: "thue",
             key: "6",
             width: 60,
+            render: (text) => (
+                Number(text).toLocaleString('vi-VN')
+            )
         },
         {
             title: "Thành tiền (VNĐ)",
             dataIndex: "total",
             key: "7",
             width: 100,
+            render: (text) => (
+                Number(text).toLocaleString('vi-VN')
+            )
         },
     ]
 
     return (
         <>
-            <div style={{ width: '100%', margin: '20px' }}>
+            <div style={{ width: '100%', margin: '20px', pointerEvents: "none" }}>
                 {/* Logo + thông tin báo giá cơ bản */}
                 <div style={sectionCss}>
                     {/* <Col span={24}> */}
                     <Col span={8}>
                         <Image
                             width={'100%'}
-                            src="/img/TimViec365_logo.svg"
+                            src="/crm/img/TimViec365_logo.svg"
                             alt="Logo TimViec365"
                         />
                     </Col>
@@ -211,6 +289,8 @@ const simple_quote_report = () => {
                             items={basicQuoteInfo}
                             column={1}
                             labelStyle={descriptLabel}
+                            contentStyle={descriptContent}
+                            size="small"
                         />
                     </Col>
                     {/* </Col> */}
@@ -228,7 +308,9 @@ const simple_quote_report = () => {
                             items={companyInfo}
                             column={1}
                             labelStyle={descriptLabel}
+                            contentStyle={descriptContent}
                             colon={false}
+                            size="small"
                         />
                     </Col>
                     <Col span={2}></Col>
@@ -237,26 +319,23 @@ const simple_quote_report = () => {
                             items={customerInfo}
                             column={1}
                             labelStyle={descriptLabel}
+                            contentStyle={descriptContent}
+                            size="small"
                         />
                     </Col>
                 </div>
 
                 {/* Lời giới thiệu */}
-                <div style={sectionCss}>
-                    <Col span={24}>
-                        <Descriptions
-                            items={introInfo}
-                            column={1}
-                            labelStyle={descriptLabel}
-                        />
-                    </Col>
+                <div style={{ width: 'calc(100% - 40px)', marginBottom: '20px' }}>
+                    <p style={simpleLabel}>Lời giới thiệu</p>
+                    <p style={simpleContent}>{getPropOrDefault(quoteData, 'introducer', 'Chưa cập nhật')}</p>
                 </div>
 
                 {/* Bảng báo giá */}
-                <div style={{ width: 'calc(100% - 20px)', marginBottom: '20px' }}>
+                <div style={{ width: 'calc(100% - 40px)', marginBottom: '20px' }}>
                     <Table
                         columns={columns}
-                        dataSource={sampleData}
+                        dataSource={productTableData}
                         bordered
                         pagination={{
                             position: [],
@@ -272,39 +351,75 @@ const simple_quote_report = () => {
                             items={totalPriceInfo}
                             column={1}
                             labelStyle={descriptLabel}
+                            contentStyle={descriptContent}
+                            size="small"
                         />
                     </Col>
                 </div>
 
                 {/* Tiền bằng chữ */}
-                <div>
-                    <p>Số tiền viết bằng chữ: {`Một triệu đồng`}</p>
+                <div style={sectionCss}>
+                    <p><span style={simpleLabel}>Số tiền viết bằng chữ:</span><span style={simpleContent}>{` Một triệu đồng`}</span></p>
                 </div>
 
                 {/* Điều khoản và quy định + ghi chú */}
-                <div>
-                    <p>Điều khoản &  Quy định </p>
-                    <p>Quy định của Công ty CPTT Hưng Hà...........................................................................................................................................................................
+                <div style={{ width: 'calc(100% - 40px)', marginBottom: '20px' }}>
+                    <p style={simpleLabel}>Điều khoản &  Quy định </p>
+                    <p style={simpleContent}>Quy định của Công ty CPTT Hưng Hà ...........................................................................................................................................................................
                         .........................................................................................................................................................................................................................................</p>
-                    <p>Ghi chú:</p>
-                    <p>Báo giá chưa bao gồm thuế VAT</p>
+                </div>
+                <div style={{ width: 'calc(100% - 40px)', marginBottom: '40px' }}>
+                    <p style={simpleLabel}>Ghi chú:</p>
+                    <p style={simpleContent}>Báo giá chưa bao gồm thuế VAT</p>
                 </div>
 
                 {/* Chỗ ký tên */}
-                <div>
-                    <Col span={8}>
-                        <div>
-                            <p>Người lập</p>
-                            <p>(Ký, họ tên)</p>
-                            <p>Phạm Thanh Mai</p>
+                <div style={sectionCss}>
+                    <Col span={12}>
+                        <div style={{ textAlign: 'center' }}>
+                            <p style={{
+                                fontSize: '16px',
+                                fontWeight: 700
+                            }}>
+                                Người lập
+                            </p>
+                            <p style={{
+                                fontSize: '16px',
+                                fontWeight: 400,
+                                marginBottom: '30px'
+                            }}>
+                                (Ký, họ tên)
+                            </p>
+                            <p style={{
+                                fontSize: '20px',
+                                fontWeight: 600
+                            }}>
+                                Phạm Thanh Mai
+                            </p>
                         </div>
                     </Col>
-                    <Col span={8}></Col>
-                    <Col span={8}>
-                        <div>
-                            <p> Giám đốc</p>
-                            <p>(Ký, họ tên,đóng dấu)</p>
-                            <p>Trương Văn Trắc</p>
+                    {/* <Col span={6}></Col> */}
+                    <Col span={12}>
+                        <div style={{ textAlign: 'center' }}>
+                            <p style={{
+                                fontSize: '16px',
+                                fontWeight: 700
+                            }}>
+                                Giám đốc
+                            </p>
+                            <p style={{
+                                fontSize: '16px',
+                                fontWeight: 400,
+                                marginBottom: '30px'
+                            }}>
+                                (Ký, họ tên, đóng dấu)
+                            </p>
+                            <p style={{
+                                fontSize: '20px',
+                                fontWeight: 600
+                            }}>
+                                Trương Văn Trắc
+                            </p>
                         </div>
                     </Col>
                 </div>
