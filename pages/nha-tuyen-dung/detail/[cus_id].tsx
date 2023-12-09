@@ -7,6 +7,7 @@ import DetailHeader from "@/components/crm/nha_tuyen_dung/DetailHeader";
 import { useDataContainer } from "@/components/crm/context/dataContainer";
 import DetailBody from "@/components/crm/nha_tuyen_dung/DetailBody";
 import { Pagination } from "antd";
+import Cookies from "js-cookie";
 
 export default function ChiTietNTD() {
   const router = useRouter();
@@ -14,7 +15,7 @@ export default function ChiTietNTD() {
   const [page, setPage] = useState(1);
 
   const { setDataContainer } = useContext(useDataContainer);
-  const { id } = router.query;
+  const { cus_id } = router.query;
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
   useEffect(() => {
@@ -26,19 +27,33 @@ export default function ChiTietNTD() {
   }, [setHeaderTitle, setShowBackButton, setCurrentPath]);
   useEffect(() => {
     //Lấy data ra rồi nhét nó vào thằng setDataContainer
+    const getCustomer = async () => {
+      try {
+        const response = await fetch(`https://api.timviec365.vn/api/crm/customerdetails/GetDetailCustomerSocial`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${Cookies.get("token_base365")}`,
+          },
+          body: JSON.stringify({ cus_id: cus_id })
+        });
+        const data = await response.json()
+        setDataContainer(data?.data?.customer)
+      } catch (error) { console.log(error) }
+    }
+    getCustomer()
   }, []);
   return (
     <div ref={mainRef} className={styleHome.main}>
       <DetailHeader />
       <DetailBody />
-      <div style={{ display: "flex", justifyContent: "center" }}>
+      {/* <div style={{ display: "flex", justifyContent: "center" }}>
         <Pagination
           total={1000}
           pageSize={20}
-          onChange={(page)=>setPage(page)}
-       
+          onChange={(page) => setPage(page)}
         />
-      </div>
+      </div> */}
     </div>
   );
 }
