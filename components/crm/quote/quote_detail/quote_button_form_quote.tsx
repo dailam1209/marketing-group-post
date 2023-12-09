@@ -17,6 +17,8 @@ import { Input, Tooltip } from "antd";
 import StatusModal from "../quote_action_modal/status-mdal";
 import { useRouter } from "next/router";
 import SendMailModal from "../quote_action_modal/send_mail_mdal";
+// import { handlePrintPDF } from "../quote_report_form/pdf_helper";
+// import SimpleQuoteReport from "../quote_report_form/simple_quote_report_form"
 
 export default function ButtonControlForm({ isSelectedRow }: any) {
   const [isOpenOrderBrowsing, setIsOpenOrderBrowsing] = useState(false);
@@ -53,6 +55,12 @@ export default function ButtonControlForm({ isSelectedRow }: any) {
     }
     if (type === "hand_over") {
       setIsOpenHandOver(true);
+    }
+    if (type === "printer") {
+      // handlePrintPDF(<SimpleQuoteReport/>)
+    }
+    if (type === "download") {
+
     }
   };
   const router = useRouter();
@@ -119,7 +127,7 @@ export default function ButtonControlForm({ isSelectedRow }: any) {
 
       <DelActionModal
         record={path.id}
-        allkey={allkey}
+        allkey={[]}
         isModalCancel={isDelOpen}
         setIsModalCancel={setIsDelOpen}
       />
@@ -136,7 +144,7 @@ export default function ButtonControlForm({ isSelectedRow }: any) {
       />
       <StatusModal
         record={path.id}
-        allkey={allkey}
+        allkey={[]}
         isModalCancel={isOpenUpdate}
         setIsModalCancel={setIsOpenUpdate}
       />
