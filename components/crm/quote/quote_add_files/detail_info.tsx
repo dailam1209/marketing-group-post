@@ -11,26 +11,11 @@ import { useRouter } from "next/router";
 import { SelectSingleV2 } from "../../input_select/select";
 
 export default function AddDetailInfo({ id: quoteId = 0 }) {
-  const {
-    newQuote,
-    inputQuote,
-    allAvailableStatusString,
-    statusStrToNum,
-    statusNumToStr,
-    listCusOption,
-    getCusId,
-    keyword,
-    setKeyword,
-    setShouldFetchCus,
-    setShouldFetchDetailData,
-    isCreate,
-    setIsCreate,
-    detailData,
-    setRecordId,
-    shouldFetchDetailData,
-  } = useContext(QuoteContext);
-  const [localStatus, setLocalStatus] = useState("Chọn");
-  const [localCustomer, setLocalCustomer] = useState("Chọn");
+  const { newQuote, inputQuote, allAvailableStatusString, statusStrToNum, statusNumToStr,
+    listCusOption, getCusId, keyword, setKeyword, setShouldFetchCus, setShouldFetchDetailData,
+    isCreate, setIsCreate, detailData, setRecordId, shouldFetchDetailData, getPropOrDefault } = useContext(QuoteContext)
+  const [localStatus, setLocalStatus] = useState('Chọn')
+  const [localCustomer, setLocalCustomer] = useState('Chọn')
   const { isLoading, startLoading, stopLoading } = useLoading();
   const router = useRouter();
   const { id } = router.query;
@@ -56,20 +41,34 @@ export default function AddDetailInfo({ id: quoteId = 0 }) {
   };
 
   const handleCusId = (str) => {
-    setLocalCustomer(str);
-    inputQuote("customer_id", getCusId(str));
-  };
+    setLocalCustomer(str)
+    inputQuote('customer_id', getCusId(str))
+    getCusDataFromId(getCusId(str))
+  }
+
+  const getCusDataFromId = (id) => {
+    axiosCRMCall
+      .post('/customerdetails/detail', { cus_id: id })
+      .then(res => {
+        if (res && res?.data && res?.data.hasOwnProperty('data') && res?.data?.data) {
+          inputQuote('address', getPropOrDefault(res?.data?.data, 'address.info'))
+          inputQuote('phone_number', getPropOrDefault(res?.data?.data, 'phone_number.info'))
+          inputQuote('tax_code', getPropOrDefault(res?.data?.data, 'tax_code'))
+        }
+      })
+      .catch((err) => console.log(err))
+  }
 
   useEffect(() => {
-    setShouldFetchCus(true);
-    if (Number(id) !== 0) {
-      setRecordId(Number(id));
-      setIsCreate(false);
-      setShouldFetchDetailData(true);
+    setShouldFetchCus(true)
+    if (Number(id) && Number(id) !== 0) {
+      setRecordId(Number(id))
+      setIsCreate(false)
+      setShouldFetchDetailData(true)
     } else {
       setIsCreate(true);
     }
-  }, [router.query]);
+  }, [router.query])
 
   // Nếu là chỉnh sửa
   useEffect(() => {

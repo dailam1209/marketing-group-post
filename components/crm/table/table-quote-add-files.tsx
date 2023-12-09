@@ -23,7 +23,7 @@ interface DataType {
   total: number;
 }
 
-const testData: DataType[] = []
+let testData: DataType[] = []
 for (let i = 0; i < 4; i++) {
   testData.push({
     key: i + 1,
@@ -40,6 +40,25 @@ for (let i = 0; i < 4; i++) {
     total: 0,
   });
 }
+const resetData = () => {
+  testData = []
+  for (let i = 0; i < 4; i++) {
+    testData.push({
+      key: i + 1,
+      idproduct: "VT-0000",
+      nameproduct: "Chọn",
+      donvi: "Đơn vị",
+      soluong: 0,
+      dongia: 0,
+      tien: 0,
+      chietkhau: 0,
+      tienchietkhau: 0,
+      thue: 0,
+      tienthue: 0,
+      total: 0,
+    });
+  }
+}
 
 interface TableDataOrderAddFilesDrops {
   setSelected: (value: boolean) => void;
@@ -49,16 +68,15 @@ const TableDataQuoteAddFiles: React.FC<
   TableDataOrderAddFilesDrops
 > = ({ }: any) => {
   const { tempListProd, setTempListProd, listProduct, listProductOptions,
-    getCusId, prodName, setProdName, isCreate, newQuote, editQuote, 
+    getCusId, prodName, setProdName, isCreate, newQuote, editQuote,
     detailData, getPropOrDefault } = useContext(QuoteContext);
   const [data, setData] = useState<DataType[]>([]);
   const [isModalCancel, setIsModalCancel] = useState(false);
   const [pageSize, setPageSize] = useState<number>(data.length);
 
   useEffect(() => {
-    if (isCreate) {
-      setData(testData)
-    }
+    resetData()
+    setData(testData)
   }, [])
 
   useEffect(() => {
@@ -83,6 +101,9 @@ const TableDataQuoteAddFiles: React.FC<
         }
         setData(tempData)
       }
+    } else {
+      resetData()
+      setData(testData)
     }
   }, [detailData])
 
@@ -226,7 +247,7 @@ const TableDataQuoteAddFiles: React.FC<
       key: "0",
       // render: (text) => <div style={{ background: "#EEEEEE", color: "black", textAlign: "center", }}>{text}</div>,
     },
-// TODO Dropdown ở ngoài bảng
+    // TODO Dropdown ở ngoài bảng
     {
       title: "Tên hàng hóa",
       dataIndex: "nameproduct",
