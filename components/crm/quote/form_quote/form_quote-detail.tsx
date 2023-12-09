@@ -32,7 +32,9 @@ const Form_quote_detail = (props: Props) => {
         src={`/crm/mau_bg${path == "ĐH-0000" ? 1 : path}.svg`}
         alt="hungha365.com"
       /> */}
-      <SimpleQuoteReport />
+      <div style={{maxWidth: 'fit-content', margin: '0px auto'}}>
+        <SimpleQuoteReport />
+      </div>
     </div>
   );
 };

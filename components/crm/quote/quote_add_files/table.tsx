@@ -12,14 +12,15 @@ import useLoading from "../../hooks/useLoading";
 
 export default function AddTable() {
   const [isModalCancel, setIsModalCancel] = useState(false);
-  const { newQuote, inputQuote, tempListProd, isCreate, editQuote, detailData, shouldFetchDetailData } = useContext(QuoteContext)
+  const { newQuote, inputQuote, tempListProd, isCreate, editQuote,
+    detailData, shouldFetchDetailData, getPropOrDefault } = useContext(QuoteContext)
   const [localDiscountRate, setLocalDiscountRate] = useState('0')
   const [localTotal, setLocalTotal] = useState(0)
   const [localTotalWithDiscount, setLocalTotalWithDiscount] = useState(0)
 
   useEffect(() => {
     if (!isCreate) {
-      setLocalDiscountRate(detailData.discount_rate.toString())
+      setLocalDiscountRate(getPropOrDefault(detailData, 'discount_rate', '0'))
     }
   }, [detailData])
 

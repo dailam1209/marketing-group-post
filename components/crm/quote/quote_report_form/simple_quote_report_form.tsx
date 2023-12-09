@@ -4,6 +4,7 @@ import type { ColumnsType } from "antd/es/table";
 import { QuoteContext } from "../quoteContext";
 import { axiosCRMCall } from "@/utils/api/api_crm_call";
 import dayjs from "dayjs";
+import { axiosQLC } from "@/utils/api/api_qlc";
 const { Title } = Typography
 
 type QuoteDetailData = {}
@@ -47,7 +48,7 @@ const simpleLabel: CSSProperties = {
 const simpleContent: CSSProperties = {
     color: '#474747',
     fontWeight: 400,
-    fontSize: '13px',
+    fontSize: '14px',
     // wordWrap: "break-word"
 }
 
@@ -63,6 +64,123 @@ for (let i = 0; i < 4; i++) {
         thue: 2.1,
         total: 100000000,
     })
+}
+
+const defaultNumbers = ' hai ba bốn năm sáu bảy tám chín';
+
+const chuHangDonVi = ('1 một' + defaultNumbers).split(' ');
+const chuHangChuc = ('lẻ mười' + defaultNumbers).split(' ');
+const chuHangTram = ('không một' + defaultNumbers).split(' ');
+
+function convert_block_three(number) {
+    if (number == '000') return '';
+    var _a = number + ''; //Convert biến 'number' thành kiểu string
+
+    //Kiểm tra độ dài của khối
+    switch (_a.length) {
+        case 0: return '';
+        case 1: return chuHangDonVi[_a];
+        case 2: return convert_block_two(_a);
+        case 3:
+            var chuc_dv = '';
+            if (_a.slice(1, 3) != '00') {
+                chuc_dv = convert_block_two(_a.slice(1, 3));
+            }
+            var tram = chuHangTram[_a[0]] + ' trăm';
+            return tram + ' ' + chuc_dv;
+    }
+}
+
+function convert_block_two(number) {
+    var dv = chuHangDonVi[number[1]];
+    var chuc = chuHangChuc[number[0]];
+    var append = '';
+
+    // Nếu chữ số hàng đơn vị là 5
+    if (number[0] > 0 && number[1] == 5) {
+        dv = 'lăm'
+    }
+
+    // Nếu số hàng chục lớn hơn 1
+    if (number[0] > 1) {
+        append = ' mươi';
+
+        if (number[1] == 1) {
+            dv = ' mốt';
+        }
+    }
+
+    return chuc + '' + append + ' ' + dv;
+}
+
+const dvBlock = '1 nghìn triệu tỷ'.split(' ');
+
+function to_vietnamese(number) {
+    var str = parseInt(number) + '';
+    var i = 0;
+    var arr = [];
+    var index = str.length;
+    var result = [];
+    var rsString = '';
+
+    if (index == 0 || str == 'NaN') {
+        return '';
+    }
+
+    // Chia chuỗi số thành một mảng từng khối có 3 chữ số
+    while (index >= 0) {
+        arr.push(str.substring(index, Math.max(index - 3, 0)));
+        index -= 3;
+    }
+
+    // Lặp từng khối trong mảng trên và convert từng khối đấy ra chữ Việt Nam
+    for (i = arr.length - 1; i >= 0; i--) {
+        if (arr[i] != '' && arr[i] != '000') {
+            result.push(convert_block_three(arr[i]));
+
+            // Thêm đuôi của mỗi khối
+            if (dvBlock[i]) {
+                result.push(dvBlock[i]);
+            }
+        }
+    }
+
+    // Join mảng kết quả lại thành chuỗi string
+    rsString = result.join(' ');
+
+    // Trả về kết quả kèm xóa những ký tự thừa
+    return rsString.replace(/[0-9]/g, '').replace(/ /g, ' ').replace(/ $/, '');
+}
+
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function formatPhoneNumber(phoneNumber) {
+    // Remove any non-numeric characters from the input string
+    const numericOnly = phoneNumber.replace(/\D/g, '');
+
+    // Check if the numericOnly string is empty or not
+    if (numericOnly.length === 0) {
+        return '';  // Return an empty string if there are no numeric characters
+    }
+
+    // Split the numericOnly string into groups of 4, 3, and the remaining characters
+    const groups = [];
+    let remaining = numericOnly.length;
+
+    while (remaining > 0) {
+        if (remaining >= 4) {
+            groups.push(numericOnly.substr(-remaining, 4));
+            remaining -= 4;
+        } else {
+            groups.push(numericOnly.substr(-remaining));
+            remaining = 0;
+        }
+    }
+
+    // Join the groups with dots and return the formatted string
+    return groups.join('.');
 }
 
 const simple_quote_report: React.FC = ({ id = 0 }: any) => {
@@ -89,6 +207,32 @@ const simple_quote_report: React.FC = ({ id = 0 }: any) => {
             .catch((err) => console.log(err))
     }
 
+    const getCustomerData = () => {
+        axiosCRMCall
+            .post('/customerdetails/detail', { cus_id: getPropOrDefault(quoteData, 'customer_id', 0) })
+            .then(res => {
+                if (res && res?.data && res?.data.hasOwnProperty('data') && res?.data?.data) {
+                    setCustomerData(res?.data?.data)
+                    console.log(res?.data?.data)
+                }
+            })
+            .catch((err) => console.log(err))
+    }
+
+    const getCompanyData = () => {
+        axiosQLC
+            .post('/company/info')
+            .then(res => {
+                res?.data?.data?.data ?
+                    setCompanyData(res?.data?.data?.data) :
+                    setCompanyData({})
+            })
+            .catch((err) => console.log(err))
+    }
+
+    useEffect(() => {
+        Object.keys(quoteData).length > 0 && getCustomerData()
+    }, [quoteData])
     useEffect(() => {
         let tempData = []
         let tempTotal = 0
@@ -111,10 +255,14 @@ const simple_quote_report: React.FC = ({ id = 0 }: any) => {
 
     useEffect(() => {
         getQuoteData();
+        getCompanyData();
     }, [])
 
     useEffect(() => {
-        getQuoteData();
+        if (shouldFetchDetailData) {
+            getQuoteData();
+            getCompanyData();
+        }
     }, [shouldFetchDetailData])
 
     const basicQuoteInfo: DescriptionsProps['items'] = [
@@ -138,27 +286,27 @@ const simple_quote_report: React.FC = ({ id = 0 }: any) => {
     const companyInfo: DescriptionsProps['items'] = [
         {
             key: '1',
-            label: 'Công ty CPTT Hưng Hà',
+            label: getPropOrDefault(companyData, 'com_name', 'Chưa cập nhật tên'),
             children: ''
         },
         {
             key: '2',
-            label: 'Số 1, Trần Nguyên Đán, Định Công, Hoàng Mai, HN',
+            label: getPropOrDefault(companyData, 'com_address', 'Chưa cập nhật địa chỉ'),
             children: ''
         },
         {
             key: '3',
-            label: '0982.079.209',
+            label: getPropOrDefault(companyData, 'com_phone', '') ? formatPhoneNumber(getPropOrDefault(companyData, 'com_phone', '')) : 'Chưa cập nhật số điện thoại',
             children: ''
         },
         {
             key: '4',
-            label: '+84 (8) 24567889',
+            label: getPropOrDefault(companyData, 'com_phone_tk', '') ? formatPhoneNumber(getPropOrDefault(companyData, 'com_phone_tk', '')) : 'Chưa cập nhật số điện thoại',
             children: ''
         },
         {
             key: '5',
-            label: (<a><p style={{ color: 'blue !important' }}>timviec365.vn</p></a>),
+            label: getPropOrDefault(companyData, 'com_email_lh', 'Chưa cập nhật email liên hệ'),
             children: ''
         }
     ]
@@ -167,22 +315,22 @@ const simple_quote_report: React.FC = ({ id = 0 }: any) => {
         {
             key: '1',
             label: 'Khách hàng',
-            children: 'Công ty TNHH Meta'
+            children: getPropOrDefault(customerData, 'name', 'Chưa cập nhật')
         },
         {
             key: '2',
             label: 'Địa chỉ',
-            children: 'Artemis tower, Lê Trọng Tấn, Khương Mai, Thanh Xuân, HN'
+            children: getPropOrDefault(quoteData, 'address', 'Chưa cập nhật')
         },
         {
             key: '3',
             label: 'Số điện thoại',
-            children: '023446778'
+            children: getPropOrDefault(quoteData, 'phone_number', 'Chưa cập nhật')
         },
         {
             key: '4',
             label: 'Mã số thuế',
-            children: 'TX873'
+            children: getPropOrDefault(quoteData, 'tax_code', 'Chưa cập nhật')
         },
     ]
 
@@ -200,7 +348,7 @@ const simple_quote_report: React.FC = ({ id = 0 }: any) => {
         {
             key: '3',
             label: 'Tổng tiền thanh toán',
-            children: `${Number(getPropOrDefault(quoteData, 'total_money', '0')).toLocaleString('vi-VN')} VNĐ`
+            children: `${Number(Number(getPropOrDefault(quoteData, 'total_money', '0')).toFixed(0)).toLocaleString('vi-VN')} VNĐ`
         },
     ]
 
@@ -272,7 +420,7 @@ const simple_quote_report: React.FC = ({ id = 0 }: any) => {
 
     return (
         <>
-            <div style={{ width: '100%', margin: '20px', pointerEvents: "none" }}>
+            <div style={{ width: '210mm', maxWidth: '100%', margin: '20px', pointerEvents: "none", pageBreakBefore: 'always' }}>
                 {/* Logo + thông tin báo giá cơ bản */}
                 <div style={sectionCss}>
                     {/* <Col span={24}> */}
@@ -345,8 +493,8 @@ const simple_quote_report: React.FC = ({ id = 0 }: any) => {
 
                 {/* Tổng hợp */}
                 <div style={sectionCss}>
-                    <Col span={12}></Col>
-                    <Col span={12}>
+                    <Col span={14}></Col>
+                    <Col span={10}>
                         <Descriptions
                             items={totalPriceInfo}
                             column={1}
@@ -359,18 +507,24 @@ const simple_quote_report: React.FC = ({ id = 0 }: any) => {
 
                 {/* Tiền bằng chữ */}
                 <div style={sectionCss}>
-                    <p><span style={simpleLabel}>Số tiền viết bằng chữ:</span><span style={simpleContent}>{` Một triệu đồng`}</span></p>
+                    <p>
+                        <span style={simpleLabel}>
+                            Số tiền viết bằng chữ:
+                        </span>
+                        <span style={simpleContent}>
+                            {` ${capitalizeFirstLetter(to_vietnamese(Number(getPropOrDefault(quoteData, 'total_money', '0')).toFixed(0)))} đồng`}
+                        </span>
+                    </p>
                 </div>
 
                 {/* Điều khoản và quy định + ghi chú */}
                 <div style={{ width: 'calc(100% - 40px)', marginBottom: '20px' }}>
                     <p style={simpleLabel}>Điều khoản &  Quy định </p>
-                    <p style={simpleContent}>Quy định của Công ty CPTT Hưng Hà ...........................................................................................................................................................................
-                        .........................................................................................................................................................................................................................................</p>
+                    <p style={simpleContent}>{getPropOrDefault(quoteData, 'terms_and_conditions', 'Chưa cập nhật')}</p>
                 </div>
                 <div style={{ width: 'calc(100% - 40px)', marginBottom: '40px' }}>
                     <p style={simpleLabel}>Ghi chú:</p>
-                    <p style={simpleContent}>Báo giá chưa bao gồm thuế VAT</p>
+                    <p style={simpleContent}>{getPropOrDefault(quoteData, 'note', 'Chưa cập nhật')}</p>
                 </div>
 
                 {/* Chỗ ký tên */}
@@ -394,7 +548,7 @@ const simple_quote_report: React.FC = ({ id = 0 }: any) => {
                                 fontSize: '20px',
                                 fontWeight: 600
                             }}>
-                                Phạm Thanh Mai
+                                {getPropOrDefault(quoteData, 'user_updated_id.userName', 'Chưa cập nhật')}
                             </p>
                         </div>
                     </Col>
@@ -418,7 +572,7 @@ const simple_quote_report: React.FC = ({ id = 0 }: any) => {
                                 fontSize: '20px',
                                 fontWeight: 600
                             }}>
-                                Trương Văn Trắc
+                                
                             </p>
                         </div>
                     </Col>

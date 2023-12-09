@@ -158,7 +158,8 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
 
     useEffect(() => {
         if (isCreate) {
-            newQuote.id !== 0 && clearQuote();
+            clearQuote();
+            setDetailData({})
         } else {
             setShouldFetchDetailData(true)
         }
