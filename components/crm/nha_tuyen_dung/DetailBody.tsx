@@ -14,7 +14,12 @@ export default function DetailBody() {
           {dataContainer?.list_post?.reverse()?.map((post, index) => (
             <div key={index} className={styles.post_item}>
               {/* <h4 className={styles.post_name}>Tên bài đăng</h4> */}
-              <Link href={post.link_user_post !== '' ? post.link_user_post : 'https://www.facebook.com'} style={{ margin: '0 16px', display: 'block' }} target="_blank">Link Facebook người đăng bài</Link>
+              {post.link_user_post && post.link_user_post !== '' && (
+                <Link href={post.link_user_post} style={{ margin: '0 16px', display: 'block' }} target="_blank">Link Facebook người đăng bài</Link>
+              )}
+              {post.link_post && post.link_post !== '' && (
+                <Link href={post.link_post} style={{ margin: '0 16px', display: 'block' }} target="_blank">Link bài đăng</Link>
+              )}
               <div style={{ margin: '8px 16px' }}>Nội dung tin đăng:</div>
               <p style={{ margin: '8px 16px' }}>{post.description}</p>
             </div>
