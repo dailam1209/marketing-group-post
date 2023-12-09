@@ -19,18 +19,11 @@ const useLoading = () => {
     }
   };
 
-  const handleLoading = async (fetchAPI) => {
-    startLoading();
-    await fetchAPI()
-    stopLoading()
-  }
-
   return {
     handleLoading,
     isLoading,
     startLoading,
     stopLoading,
-    handleLoading
   };
 };
 

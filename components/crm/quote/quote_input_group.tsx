@@ -5,8 +5,9 @@ import QuoteSelectBox from "./quote_selectt";
 import QuoteAction from "./quote_action";
 import { QuoteContext } from "./quoteContext";
 import dayjs from "dayjs";
+import { MInputTextV2 } from "../input_select/input";
 export default function QuoteInputGroups({ isSelectedRow }: any) {
-  const handleClickSelectoption = () => { };
+  const handleClickSelectoption = () => {};
   const datas = [
     {
       STT: "TN001",
@@ -22,22 +23,32 @@ export default function QuoteInputGroups({ isSelectedRow }: any) {
     // Add more sample data objects here if needed
   ];
 
-  const { dateQuote, setDateQuote, dateQuoteEnd, setDateQuoteEnd, quoteCode, setQuoteCode, setShouldFetchData, recordId, listRecordId } = useContext(QuoteContext)
+  const {
+    dateQuote,
+    setDateQuote,
+    dateQuoteEnd,
+    setDateQuoteEnd,
+    quoteCode,
+    setQuoteCode,
+    setShouldFetchData,
+    recordId,
+    listRecordId,
+  } = useContext(QuoteContext);
   const handleDateQuote = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setDateQuote(event.target.valueAsDate)
-    setShouldFetchData(true)
-  }
+    setDateQuote(event.target.valueAsDate);
+    setShouldFetchData(true);
+  };
   const handleDateQuoteEnd = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setDateQuoteEnd(event.target.valueAsDate)
-    setShouldFetchData(true)
-  }
+    setDateQuoteEnd(event.target.valueAsDate);
+    setShouldFetchData(true);
+  };
   const handleQuoteCode = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setQuoteCode(event.target.value)
-  }
+    setQuoteCode(event.target.value);
+  };
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setShouldFetchData(true);
-  }
+  };
 
   return (
     <div className={styles.main__control}>
@@ -51,11 +62,12 @@ export default function QuoteInputGroups({ isSelectedRow }: any) {
           </label>
           <div className={`${styles.input_item_time} flex_between`}>
             <input
-              type="date" 
-              name="" id="start_time" 
-              value={dateQuote ? dayjs(dateQuote).format("YYYY-MM-DD") : ''} 
-              onChange={handleDateQuote} 
-              />
+              type="date"
+              name=""
+              id="start_time"
+              value={dateQuote ? dayjs(dateQuote).format("YYYY-MM-DD") : ""}
+              onChange={handleDateQuote}
+            />
           </div>
         </div>
         <div
@@ -66,11 +78,14 @@ export default function QuoteInputGroups({ isSelectedRow }: any) {
             Hiệu lực đến ngày:
           </label>
           <div className={`${styles.input_item_time} flex_between`}>
-            <input 
-            type="date" 
-            name="" id="start_time" 
-            value={dateQuoteEnd ? dayjs(dateQuoteEnd).format('YYYY-MM-DD') : ''}
-            onChange={handleDateQuoteEnd}
+            <input
+              type="date"
+              name=""
+              id="start_time"
+              value={
+                dateQuoteEnd ? dayjs(dateQuoteEnd).format("YYYY-MM-DD") : ""
+              }
+              onChange={handleDateQuoteEnd}
             />
           </div>
         </div>
