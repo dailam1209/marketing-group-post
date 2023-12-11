@@ -30,11 +30,12 @@ const ModalUpdateResultChance: React.FC<MyComponentProps> = ({
   });
   const token = Cookies.get("token_base365");
   const listReasons = [
-    { value: 1, label: "Giá cả và chính sách bán hàng tốt" },
-    { value: 2, label: "Dịch vụ chăm sóc khách hàng của công ty tốt" },
-    { value: 3, label: "Tin tưởng thương hiệu của công ty" },
-    { value: 4, label: "Khả năng thuyết phục khách hàng của NVKD tốt" },
-    { value: 5, label: "Sản phẩm đáp ứng yêu cầu của khách hàng" },
+    { value: 6, label: "Giá cả và chính sách bán hàng chưa tốt" },
+    { value: 7, label: "Dịch vụ chăm sóc khách hàng của công ty chưa tốt" },
+    { value: 8, label: "Thương hiệu của công ty không có uy tín" },
+    { value: 9, label: "Khả năng thuyết phục khách hàng của NVKD chưa tốt" },
+    { value: 10, label: "Sản phẩm không đáp ứng yêu cầu của khách hàng" },
+    { value: 11, label: "Khácg hàng sử dụng gói miễn phí" },
   ];
 
   function padZero(number) {
@@ -84,7 +85,7 @@ const ModalUpdateResultChance: React.FC<MyComponentProps> = ({
   };
 
   const handleOK = async () => {
-    if (formData?.total_money && formData?.reason?.length > 0) {
+    if (formData?.reason?.length > 0) {
       setIsModalCancel(false);
       await fetchEditChance({
         chance_id: Number(id),
@@ -115,7 +116,7 @@ const ModalUpdateResultChance: React.FC<MyComponentProps> = ({
         cancelText="Huỷ"
       >
         <div className={styles.row_mdal}>
-          <div className={styles.choose_obj}>
+          {/* <div className={styles.choose_obj}>
             <InputText
               label="Số tiền"
               require={true}
@@ -124,7 +125,7 @@ const ModalUpdateResultChance: React.FC<MyComponentProps> = ({
               setFormData={setFormData}
               value={formData?.total_money}
             />
-          </div>
+          </div> */}
 
           <div className={styles.choose_obj}>
             <InputText

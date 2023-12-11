@@ -85,7 +85,7 @@ const ModalUpdateResultChance: React.FC<MyComponentProps> = ({
   };
 
   const handleOK = async () => {
-    if (formData?.total_money && formData?.reason?.length > 0) {
+    if ( formData?.reason?.length > 0) {
       setIsModalCancel(false);
       await fetchEditChance({
         chance_id: Number(id),
@@ -116,7 +116,7 @@ const ModalUpdateResultChance: React.FC<MyComponentProps> = ({
         cancelText="Huỷ"
       >
         <div className={styles.row_mdal}>
-          <div className={styles.choose_obj}>
+          {/* <div className={styles.choose_obj}>
             <InputText
               label="Số tiền"
               require={true}
@@ -125,7 +125,7 @@ const ModalUpdateResultChance: React.FC<MyComponentProps> = ({
               setFormData={setFormData}
               value={formData?.total_money}
             />
-          </div>
+          </div> */}
 
           <div className={styles.choose_obj}>
             <InputText
