@@ -19,6 +19,7 @@ import { useRouter } from "next/router";
 import SendMailModal from "../quote_action_modal/send_mail_mdal";
 // import { handlePrintPDF } from "../quote_report_form/pdf_helper";
 // import SimpleQuoteReport from "../quote_report_form/simple_quote_report_form"
+import PdfGenerator from "../quote_report_form/pdfGenerator"
 
 export default function ButtonControlForm({ isSelectedRow }: any) {
   const [isOpenOrderBrowsing, setIsOpenOrderBrowsing] = useState(false);
@@ -58,6 +59,8 @@ export default function ButtonControlForm({ isSelectedRow }: any) {
     }
     if (type === "printer") {
       // handlePrintPDF(<SimpleQuoteReport/>)
+      console.log('printer click')
+      PdfGenerator("quote_report_simple")
     }
     if (type === "download") {
 

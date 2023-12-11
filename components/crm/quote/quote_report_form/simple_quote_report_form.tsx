@@ -183,7 +183,7 @@ function formatPhoneNumber(phoneNumber) {
     return groups.join('.');
 }
 
-const simple_quote_report: React.FC = ({ id = 0 }: any) => {
+const simple_quote_report: React.FC = ({ id = 0, visible = 'visible' }: any) => {
     const { getPropOrDefault, recordId, shouldFetchDetailData } = useContext(QuoteContext)
     const [quoteData, setQuoteData] = useState<any>({})
     const [companyData, setCompanyData] = useState<any>({})
@@ -213,7 +213,6 @@ const simple_quote_report: React.FC = ({ id = 0 }: any) => {
             .then(res => {
                 if (res && res?.data && res?.data.hasOwnProperty('data') && res?.data?.data) {
                     setCustomerData(res?.data?.data)
-                    console.log(res?.data?.data)
                 }
             })
             .catch((err) => console.log(err))
@@ -420,7 +419,7 @@ const simple_quote_report: React.FC = ({ id = 0 }: any) => {
 
     return (
         <>
-            <div style={{ width: '210mm', maxWidth: '100%', margin: '20px', pointerEvents: "none", pageBreakBefore: 'always' }}>
+            <div id="quote_report_simple" style={{ width: '100%', maxWidth: '210mm', margin: '20px', pointerEvents: "none", pageBreakBefore: 'always', visibility: visible }}>
                 {/* Logo + thông tin báo giá cơ bản */}
                 <div style={sectionCss}>
                     {/* <Col span={24}> */}
