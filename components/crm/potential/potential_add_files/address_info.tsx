@@ -18,7 +18,7 @@ export default function AddAddressInfo({
   setFormData = () => {},
 }: any) {
   const [listWard, setListWard] = useState([]);
-  const [isFirstTime, setIsFirstTime] = useState(false);
+  const [isFirstTime, setIsFirstTime] = useState(0);
   const [listDistrict, setListDistrict] = useState<any>();
   const [address, setAddress] = useState<string>("");
 
@@ -58,7 +58,7 @@ export default function AddAddressInfo({
   };
   //Hiển thị địa chỉ
   useEffect(() => {
-    if (isFirstTime) {
+    if (isFirstTime > 1) {
       const address_chance = `${
         formData?.address ? `${formData?.address},` : ""
       }${
@@ -80,7 +80,7 @@ export default function AddAddressInfo({
       });
     }
 
-    setIsFirstTime(true);
+    setIsFirstTime(isFirstTime + 1);
   }, [
     formData?.street_chance,
     formData?.ward,
