@@ -78,7 +78,6 @@
     "highcharts-react-official": "^3.2.0",
     "html-to-image": "^1.11.11",
     "html2canvas": "^1.4.1",
-    "html2pdf.js": "^0.10.1",
     "image-pixels": "^2.2.2",
     "isomorphic-unfetch": "^4.0.2",
     "jquery": "^3.7.0",

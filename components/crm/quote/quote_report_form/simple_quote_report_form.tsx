@@ -1,10 +1,10 @@
-import React, { CSSProperties, useContext, useEffect, useState } from "react";
-import { Col, Descriptions, DescriptionsProps, Grid, Image, Typography, Table } from 'antd'
-import type { ColumnsType } from "antd/es/table";
-import { QuoteContext } from "../quoteContext";
 import { axiosCRMCall } from "@/utils/api/api_crm_call";
-import dayjs from "dayjs";
 import { axiosQLC } from "@/utils/api/api_qlc";
+import { Col, Descriptions, DescriptionsProps, Image, Table, Typography } from 'antd';
+import type { ColumnsType } from "antd/es/table";
+import dayjs from "dayjs";
+import React, { CSSProperties, useContext, useEffect, useLayoutEffect, useState } from "react";
+import { QuoteContext } from "../quoteContext";
 const { Title } = Typography
 
 type QuoteDetailData = {}
@@ -23,7 +23,7 @@ interface QuoteDataType {
 const sectionCss: CSSProperties = {
     width: 'calc(100% - 40px)',
     display: 'flex',
-    marginBottom: '20px'
+    marginBottom: '10px'
 }
 
 const descriptLabel: CSSProperties = {
@@ -35,14 +35,14 @@ const descriptLabel: CSSProperties = {
 const descriptContent: CSSProperties = {
     color: '#474747',
     fontWeight: 400,
-    fontSize: '13px'
+    fontSize: '14px'
 }
 
 const simpleLabel: CSSProperties = {
     color: '#474747',
     fontWeight: 600,
     fontSize: '15px',
-    marginBottom: '10px'
+    // marginBottom: '10px'
 }
 
 const simpleContent: CSSProperties = {
@@ -183,7 +183,7 @@ function formatPhoneNumber(phoneNumber) {
     return groups.join('.');
 }
 
-const simple_quote_report: React.FC = ({ id = 0, visible = 'visible' }: any) => {
+const SimpleQuoteReport = ({ id = 0, visible = 'visible', setIsLoaded = (value) => {} }: any) => {
     const { getPropOrDefault, recordId, shouldFetchDetailData } = useContext(QuoteContext)
     const [quoteData, setQuoteData] = useState<any>({})
     const [companyData, setCompanyData] = useState<any>({})
@@ -419,6 +419,8 @@ const simple_quote_report: React.FC = ({ id = 0, visible = 'visible' }: any) => 
 
     return (
         <>
+
+
             <div id="quote_report_simple" style={{ width: '100%', maxWidth: '210mm', margin: '20px', pointerEvents: "none", pageBreakBefore: 'always', visibility: visible }}>
                 {/* Logo + thông tin báo giá cơ bản */}
                 <div style={sectionCss}>
@@ -444,7 +446,7 @@ const simple_quote_report: React.FC = ({ id = 0, visible = 'visible' }: any) => 
                 </div>
 
                 {/* Tiêu đề */}
-                <div style={{ textAlign: 'center', width: 'calc(100% - 40px)', marginBottom: '50px' }}>
+                <div style={{ textAlign: 'center', width: 'calc(100% - 40px)', marginBottom: '30px' }}>
                     <Title>BẢNG BÁO GIÁ</Title>
                 </div>
 
@@ -521,7 +523,7 @@ const simple_quote_report: React.FC = ({ id = 0, visible = 'visible' }: any) => 
                     <p style={simpleLabel}>Điều khoản &  Quy định </p>
                     <p style={simpleContent}>{getPropOrDefault(quoteData, 'terms_and_conditions', 'Chưa cập nhật')}</p>
                 </div>
-                <div style={{ width: 'calc(100% - 40px)', marginBottom: '40px' }}>
+                <div style={{ width: 'calc(100% - 40px)', marginBottom: '20px' }}>
                     <p style={simpleLabel}>Ghi chú:</p>
                     <p style={simpleContent}>{getPropOrDefault(quoteData, 'note', 'Chưa cập nhật')}</p>
                 </div>
@@ -571,14 +573,15 @@ const simple_quote_report: React.FC = ({ id = 0, visible = 'visible' }: any) => 
                                 fontSize: '20px',
                                 fontWeight: 600
                             }}>
-                                
+
                             </p>
                         </div>
                     </Col>
                 </div>
             </div>
+
         </>
     )
 }
 
-export default simple_quote_report
+export default SimpleQuoteReport
