@@ -68,6 +68,7 @@ function FilterCart() {
           res.data.data.listUser?.map((emp) => ({
             value: emp.ep_id,
             label: `${emp.ep_id}. ${emp.userName}`,
+            phoneTK: emp.phoneTK,
           }))
         )
       )
@@ -81,16 +82,19 @@ function FilterCart() {
           res.data.data.data?.map((emp) => ({
             value: emp.ep_id,
             label: `${emp.ep_id}. ${emp.userName}`,
+            phoneTK: emp.phoneTK,
           }))
         );
       })
       .catch((err) => console.log("errgetListNVKDofDepartment", err));
   };
   useEffect(() => {
-    if (formData.listOrganizeDetailId) {
-      getListNVKDofDepartment();
-    } else {
-      getListAllNvienKinhDoanh();
+    if (com_id) {
+      if (formData.listOrganizeDetailId) {
+        getListNVKDofDepartment();
+      } else {
+        getListAllNvienKinhDoanh();
+      }
     }
   }, [formData.listOrganizeDetailId, com_id]);
   const getListCart = () => {
@@ -163,19 +167,19 @@ function FilterCart() {
 
   return (
     <div>
-      <div style={{ width: "60%" }}>
+      <div>
         {isLoading ? (
           <LoadingLayout />
         ) : (
           <div style={{ display: "flex", width: "100%" }}>
             <div style={{ width: "50%", marginRight: "30px" }}>
               <SelectSingleAndOption
-                title="Danh sách phòng ban"
+                title="Danh sách tổ chức"
                 data={listDepartment}
                 setFormData={setFormData}
                 formData={formData}
                 name={"listOrganizeDetailId"}
-                placeholder="Chọn phòng ban"
+                placeholder="Chọn tổ chức"
               />
             </div>
             <div style={{ width: "50%" }}>
@@ -220,12 +224,14 @@ function FilterCart() {
               marginLeft: "20px",
             }}
           >
-            <label style={{ width: "150px", display: "block" }}>
+            <label style={{ width: "150px", marginRight: "30px" }}>
               Tên nhóm khách hàng
             </label>
             <Input
-              style={{ width: 300 }}
+              style={{ width: "80%" }}
+              placeholder="Nhập ID, tên nhóm khách hàng"
               onChange={(e) => handleSearchEmp(e.target.value)}
+              prefix={<div></div>}
             />
           </div>
 

@@ -13,10 +13,24 @@ import useLoading from "../../hooks/useLoading";
 import LoadingLayout from "@/constants/LoadingLayout";
 
 function ModalGroupCustomerMove({ isOpenModalMove, setIsOpenModalMove }) {
-  const [formData, setFormData] = useState<any>({});
-  const [listEmp, setListEmp] = useState([]);
+  const [formData, setFormData] = useState<any>({
+    ep_status: "Active",
+    pageNumber: 1,
+    pageSize: 1000000,
+  });
+  const [formDataTo, setFormDataTo] = useState<any>({
+    ep_status: "Active",
+    pageNumber: 1,
+    pageSize: 1000000,
+  });
+  const [listEmpAll, setListEmpAll] = useState([]);
+
+  const [listEmpFrom, setListEmpFrom] = useState([]);
+  const [listEmpTo, setListEmpTo] = useState([]);
   const [company_id, setCompanyId] = useState(null);
   const { isLoading, handleLoading } = useLoading();
+  const [listGroup, setListGroup] = useState([]);
+  const [listDepartment, setListDepartment] = useState([]);
 
   useEffect(() => {
     const currentCookie = getToken("token_base365");
@@ -25,29 +39,94 @@ function ModalGroupCustomerMove({ isOpenModalMove, setIsOpenModalMove }) {
       setCompanyId(decodedToken?.data?.com_id);
     }
   }, []);
-  const fetchListEmp = () => {
-    axiosCRM
-      .post("/account/takeListNvienKinhDoanh", {
-        com_id: company_id,
-      })
+  //Get list department
+  const getListDepartment = () => {
+    axiosQLC
+      .post("/organizeDetail/listAll", { com_id: company_id })
       .then((res) =>
-        setListEmp(
-          res.data.data.listUser?.map((emp) => ({
-            value: emp.idQLC,
-            label: `${emp.idQLC}. ${emp.userName}`,
+        setListDepartment(
+          res.data.data.data?.map((dp) => ({
+            value: dp.listOrganizeDetailId,
+            label: dp.organizeDetailName,
           }))
         )
       )
-      .catch((err) => console.log("err", err));
+      .catch((err) => console.log("getListDepartment", err));
+  };
+  const getListAllNvienKinhDoanh = () => {
+    company_id &&
+      axiosCRM
+        .post("/account/takeListNvienKinhDoanh", { com_id: company_id })
+        .then((res) => {
+          setListEmpAll(
+            res.data.data.listUser?.map((emp) => ({
+              value: emp.ep_id,
+              label: `${emp.ep_id}. ${emp.userName}`,
+              phoneTK: emp.phoneTK,
+            }))
+          );
+        })
+        .catch((err) => console.log("FilterCart", err));
   };
   useEffect(() => {
-    if (company_id) {
-      handleLoading(fetchListEmp);
+    if (!company_id) {
+      return;
     }
+    getListDepartment();
+    getListAllNvienKinhDoanh();
   }, [company_id]);
+  const getListNVKDofDepartmentFrom = () => {
+    axiosQLC
+      .post("/managerUser/listUser", formData)
+      .then((res) => {
+        setListEmpFrom(
+          res.data.data.data?.map((emp) => ({
+            value: emp.ep_id,
+            label: `${emp.ep_id}. ${emp.userName}`,
+            phoneTK: emp.phoneTK,
+          }))
+        );
+      })
+      .catch((err) => console.log("errgetListNVKDofDepartment", err));
+  };
+  const getListNVKDofDepartmentTo = () => {
+    axiosQLC
+      .post("/managerUser/listUser", formDataTo)
+      .then((res) => {
+        setListEmpTo(
+          res.data.data.data?.map((emp) => ({
+            value: emp.ep_id,
+            label: `${emp.ep_id}. ${emp.userName}`,
+            phoneTK: emp.phoneTK,
+          }))
+        );
+      })
+      .catch((err) => console.log("errgetListNVKDofDepartment", err));
+  };
+
+  useEffect(() => {
+    if (!company_id) {
+      return;
+    }
+    if (formData.listOrganizeDetailId) {
+      getListNVKDofDepartmentFrom();
+    }
+    if (formDataTo.listOrganizeDetailId) {
+      getListNVKDofDepartmentTo();
+    }
+  }, [
+    formData.listOrganizeDetailId,
+    formDataTo.listOrganizeDetailId,
+    company_id,
+  ]);
+
   const handleTranformCart = () => {
-    if (!formData.IdCrmFrom || !formData.IdCrmTo) {
-      notifyWarning("Chọn đầy đủ thông tin");
+    if (!formData.IdCrmFrom) {
+      notifyWarning("Chọn nhân viên bàn giao");
+      return;
+    }
+    if (!formData.IdCrmTo) {
+      notifyWarning("Chọn nhân viên được bàn giao");
       return;
     }
     axiosCRM
@@ -69,7 +148,7 @@ function ModalGroupCustomerMove({ isOpenModalMove, setIsOpenModalMove }) {
       open={isOpenModalMove}
       onCancel={() => setIsOpenModalMove(false)}
       className={"mdal_default"}
-      width={500}
+      width={700}
     >
       {isLoading ? (
         <LoadingLayout />
@@ -77,8 +156,17 @@ function ModalGroupCustomerMove({ isOpenModalMove, setIsOpenModalMove }) {
         <div>
           <div className={styles.modal_move_item}>
             <SelectSingleAndOption
+              title="Tổ chức bàn giao"
+              data={listDepartment}
+              formData={formData}
+              placeholder="Chọn tổ chức"
+              value={formData.IdDepartment}
+              setFormData={setFormData}
+              name={"listOrganizeDetailId"}
+            />
+            <SelectSingleAndOption
               title="Từ nhân viên"
-              data={listEmp}
+              data={!formData.listOrganizeDetailId ? listEmpAll : listEmpFrom}
               formData={formData}
               setFormData={setFormData}
               value={formData.IdCrmFrom}
@@ -88,8 +176,17 @@ function ModalGroupCustomerMove({ isOpenModalMove, setIsOpenModalMove }) {
           </div>
           <div className={styles.modal_move_item}>
             <SelectSingleAndOption
+              title="Tổ chức nhận bàn giao"
+              data={listDepartment}
+              formData={formDataTo}
+              placeholder="Chọn tổ chức"
+              value={formDataTo.IdDepartment}
+              setFormData={setFormDataTo}
+              name={"listOrganizeDetailId"}
+            />
+            <SelectSingleAndOption
               title="Đến nhân viên"
-              data={listEmp}
+              data={!formDataTo.listOrganizeDetailId ? listEmpAll : listEmpTo}
               formData={formData}
               value={formData.IdCrmTo}
               setFormData={setFormData}

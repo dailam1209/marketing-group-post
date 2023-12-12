@@ -8,7 +8,11 @@
   pointer-events: none;
   opacity: 0.5;
 }
-
+.action_box {
+  display: flex;
+  justify-content: space-between;
+  padding-right: 5px;
+}
 .error {
   color: red;
 }
@@ -22,7 +26,7 @@
   padding-bottom: 20px;
 }
 .wrapInput {
-  width: 40%;
+  width: 100%;
 }
 
 .main__control_select {
@@ -182,7 +186,7 @@
 
 .main__control_search {
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
   margin-top: 20px;
 }
 
