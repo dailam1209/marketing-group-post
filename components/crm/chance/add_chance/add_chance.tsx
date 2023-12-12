@@ -55,7 +55,7 @@ export default function ChanceAddInfo() {
     }
 
     const dataApi = await fetchApi(
-      "http://localhost:3007/api/crm/chance/add-chance",
+      "https://api.timviec365.vn/api/crm/chance/add-chance",
       token,
       body,
       "POST"

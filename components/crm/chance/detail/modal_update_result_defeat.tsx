@@ -72,7 +72,7 @@ const ModalUpdateResultChance: React.FC<MyComponentProps> = ({
   const fetchEditChance = async (body = {}) => {
     try {
       const dataApi = await fetchApi(
-        "http://localhost:3007/api/crm/chance/edit-chance",
+        "https://api.timviec365.vn/api/crm/chance/edit-chance",
         token,
         // { chance_id: id, result: value + 1 },
         body,

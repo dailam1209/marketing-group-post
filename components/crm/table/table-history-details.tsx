@@ -49,7 +49,7 @@ const TableChanceDetailHistory = () => {
   const fetchApiHistoryChance = async () => {
     startLoading();
     const data = await fetchApi(
-      "http://localhost:3007/api/crm/chance/list-history-stages-chance",
+      "https://api.timviec365.vn/api/crm/chance/list-history-stages-chance",
       token,
       {
         chance_id: id,

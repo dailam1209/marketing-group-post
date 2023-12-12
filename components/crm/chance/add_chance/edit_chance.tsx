@@ -125,7 +125,7 @@ export default function ChanceEdit() {
 
     if (formData?.chance_name && formData?.expected_end_date) {
       const data = await fetchAPIChance(
-        "http://localhost:3007/api/crm/chance/edit-chance",
+        "https://api.timviec365.vn/api/crm/chance/edit-chance",
         body
       );
       if (data) {
@@ -139,7 +139,7 @@ export default function ChanceEdit() {
   useEffect(() => {
     setFormData({ recall: false });
     fetchAPIChance(
-      "http://localhost:3007/api/crm/chance/detail-chance",
+      "https://api.timviec365.vn/api/crm/chance/detail-chance",
       {
         chance_id: id,
       },

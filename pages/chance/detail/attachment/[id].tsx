@@ -41,7 +41,7 @@ export default function AttachmentDetails() {
   const fetchApiFileChance = async () => {
     setLoadingTable(true);
     const data = await fetchApi(
-      "http://localhost:3007/api/crm/chance/list-attachment-chance",
+      "https://api.timviec365.vn/api/crm/chance/list-attachment-chance",
       token,
       {
         chance_id: id,
@@ -76,7 +76,7 @@ export default function AttachmentDetails() {
   }, [isOpen]);
 
   useEffect(() => {
-    fetchAPIChance("http://localhost:3007/api/crm/chance/detail-chance", {
+    fetchAPIChance("https://api.timviec365.vn/api/crm/chance/detail-chance", {
       chance_id: id,
     });
   }, []);
