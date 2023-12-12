@@ -217,7 +217,10 @@ const TableDataCampaginChance: React.FC<TableDataCampaginChanceProps> = ({
               },
             }}
           />
-          <div style={{ marginTop: "10px" }} className="flex_between" id="">
+          <div
+            style={{ marginTop: "10px" }}
+            className={`flex_between ${data.length ? "custom_info_table" : ""}`}
+          >
             <div style={{ marginBottom: "10px" }} className="show_number_item">
               <b>Hiển thị:</b>
               <select
@@ -227,7 +230,6 @@ const TableDataCampaginChance: React.FC<TableDataCampaginChanceProps> = ({
                     pageSize: Number(el.target.value),
                   });
                 }}
-                value={body?.pageSize || 10}
                 className="show_item"
               >
                 <option value={10}>10 bản ghi trên trang</option>
@@ -237,7 +239,13 @@ const TableDataCampaginChance: React.FC<TableDataCampaginChanceProps> = ({
                 <option value={50}>50 bản ghi trên trang</option>
               </select>
             </div>
-            <div style={{ marginBottom: "10px" }} className="total">
+            <div
+              style={{
+                marginBottom: "10px",
+                transform: data.length ? "translateX(50%)" : "",
+              }}
+              className="total"
+            >
               Tổng số: <b>{data.length}</b> Cơ hội
             </div>
           </div>

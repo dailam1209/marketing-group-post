@@ -8,7 +8,7 @@ export default function AddDesriptionAndSystemInfo({
       <div>
         <p className={styles.main__body__type}>Thông tin mô tả</p>
 
-        <div className={styles.row_input}>
+        <div >
           <div className={`${styles.mb_3} `}>
             <label className={`${styles["form-label"]}`}>Mô tả</label>
             <textarea
@@ -19,7 +19,7 @@ export default function AddDesriptionAndSystemInfo({
               defaultValue={""}
               value={formFields?.description}
               onChange={handleChange}
-              style={{ height: "82px" }}
+              style={{ height: "100px", width: "100%" }}
             />
           </div>
         </div>

@@ -98,7 +98,7 @@ const TableDataChanceOrder: React.FC<TableDataChanceOrderProps> = ({
   const fetchAPIChanceOrder = async () => {
     const bodyAPI = {
       ...body,
-      chance_id: Number(router.query.order),
+      chance_id: Number(router.query.id),
     };
     startLoading();
     const dataApi = await fetchApi(url, token, bodyAPI, "POST");
@@ -251,7 +251,10 @@ const TableDataChanceOrder: React.FC<TableDataChanceOrderProps> = ({
               },
             }}
           />
-          <div style={{ marginTop: "10px" }} className="flex_between" id="">
+          <div
+            style={{ marginTop: "10px" }}
+            className={`flex_between ${data.length ? "custom_info_table" : ""}`}
+          >
             <div style={{ marginBottom: "10px" }} className="show_number_item">
               <b>Hiển thị:</b>
               <select
@@ -270,7 +273,13 @@ const TableDataChanceOrder: React.FC<TableDataChanceOrderProps> = ({
                 <option value={50}>50 bản ghi trên trang</option>
               </select>
             </div>
-            <div style={{ marginBottom: "10px" }} className="total">
+            <div
+              style={{
+                marginBottom: "10px",
+                transform: data.length ? "translateX(50%)" : "",
+              }}
+              className="total"
+            >
               Tổng số: <b>{data.length}</b> Đơn hàng
             </div>
           </div>

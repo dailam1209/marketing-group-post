@@ -272,7 +272,10 @@ const TableDataCampaignBill = ({
           },
         }}
       />
-      <div style={{ marginTop: "10px" }} className="flex_between" id="">
+      <div
+        style={{ marginTop: "10px" }}
+        className={`flex_between ${data.length ? "custom_info_table" : ""}`}
+      >
         <div style={{ marginBottom: "10px" }} className="show_number_item">
           <b>Hiển thị:</b>
           <select
@@ -283,7 +286,6 @@ const TableDataCampaignBill = ({
               });
             }}
             className="show_item"
-            value={body?.pageSize || 10}
           >
             <option value={10}>10 bản ghi trên trang</option>
             <option value={20}>20 bản ghi trên trang</option>
@@ -292,8 +294,14 @@ const TableDataCampaignBill = ({
             <option value={50}>50 bản ghi trên trang</option>
           </select>
         </div>
-        <div style={{ marginBottom: "10px" }} className="total">
-          Tổng số: <b>{data.length}</b> Đơn hàng
+        <div
+          style={{
+            marginBottom: "10px",
+            transform: data.length ? "translateX(50%)" : "",
+          }}
+          className="total"
+        >
+          Tổng số: <b>{data.length}</b> Hoá đơn
         </div>
       </div>
     </div>

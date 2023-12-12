@@ -132,7 +132,10 @@ export default function SheduleDetailCustomer() {
           </>
         )}
       </div>
-      <OrderDetails />
+
+      <div className="order_chance_detail">
+        <OrderDetails />
+      </div>
     </>
   );
 }
