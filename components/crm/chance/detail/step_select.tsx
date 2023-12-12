@@ -26,7 +26,7 @@ const StepSelection: React.FC<StepProps> = ({ stages, result }) => {
 
   const fetchApiChance = async (body = {}) => {
     const data = await fetchApi(
-      "http://localhost:3007/api/crm/chance/edit-chance",
+      "https://api.timviec365.vn/api/crm/chance/edit-chance",
       token,
       body,
       "POST"

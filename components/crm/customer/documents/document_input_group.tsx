@@ -15,7 +15,7 @@ const DocumentActionDropDown = ({ record, fetchApi }) => {
 
   const fetchAPIDel = async () => {
     await fetchApi(
-      "http://localhost:3007/api/crm/chance/delete-attachment-chance",
+      "https://api.timviec365.vn/api/crm/chance/delete-attachment-chance",
       record?.id
     );
   };

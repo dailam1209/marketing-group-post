@@ -97,7 +97,7 @@ export default function ContractDetailsSend() {
   const getDataEmps = async () => {
     try {
       const res = await fetch(
-        `http://210.245.108.202:3000/api/qlc/managerUser/listAll`,
+        `https://api.timviec365.vn/api/qlc/managerUser/listAll`,
         {
           method: "POST",
           headers: {

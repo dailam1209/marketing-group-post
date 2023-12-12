@@ -34,8 +34,7 @@ const TableDataChanceOrder: React.FC<TableDataChanceOrderProps> = ({
   setBody,
   emp,
 }: any) => {
-  //   const url = "https://api.timviec365.vn/api/crm/order/list-order";
-  const url = "http://localhost:3007/api/crm/order/list-order";
+    const url = "https://api.timviec365.vn/api/crm/order/list-order";
   const token = Cookies.get("token_base365");
   const router = useRouter();
   const { trigger, setTrigger } = useTrigger();

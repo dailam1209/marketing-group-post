@@ -28,7 +28,7 @@ const ChanceActionDropDown: React.FC<Myprops> = ({ data }: any) => {
 
   const fetchApiChance = async () => {
     const dataApi = await fetchApi(
-      "http://localhost:3007/api/crm/chance/delete-chance",
+      "https://api.timviec365.vn/api/crm/chance/delete-chance",
       token,
       { chance_id: data?.id },
       "POST"

@@ -29,7 +29,7 @@ const TableChanceDetailDocuments: React.FC<TableChanceDetailDocumentsProps> = ({
   const { id } = router.query;
 
   const fetchApiFile = async (
-    url = "http://localhost:3007/api/crm/chance/delete-attachment-chance",
+    url = "https://api.timviec365.vn/api/crm/chance/delete-attachment-chance",
     id
   ) => {
     const data = await fetchApi(

@@ -59,7 +59,7 @@ export default function SheduleDetailCustomer() {
 
   useEffect(() => {
     if (trigger) {
-      fetchAPIChance("http://localhost:3007/api/crm/chance/detail-chance", {
+      fetchAPIChance("https://api.timviec365.vn/api/crm/chance/detail-chance", {
         chance_id: id,
       });
     }
