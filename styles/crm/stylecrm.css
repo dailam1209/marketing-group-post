@@ -1161,6 +1161,16 @@ label {
   border: 0 !important;
 }
 
+.custom_info_table {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transform: translateY(-50%);
+  width: 50%;
+}
+
 @media (max-width: 414px) {
   .main__footer_fix {
     width: 100%;
@@ -1191,10 +1201,20 @@ label {
 
   .total {
     margin-left: 0 !important;
+    transform: translateX(0%) !important;
   }
 
   .select2-container {
     min-width: 300px !important;
+  }
+
+  .custom_info_table {
+    position: relative;
+    width: 100%;
+    gap: 12px;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
   }
 }
 
@@ -1244,6 +1264,10 @@ label {
     overflow-x: auto;
     /* Cho phép thanh trượt ngang */
     padding-top: 20px;
+  }
+
+  .order_chance_detail {
+    margin-top: -50px;
   }
 }
 

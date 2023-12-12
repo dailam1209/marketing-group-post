@@ -53,7 +53,7 @@ export default function CampaignInputGroups({ empList, body, setBody }: any) {
         <div
           style={{
             border: "1px solid #d9d9d9",
-            borderRadius: "6px",
+            borderRadius: "0px",
             boxShadow: "none",
           }}
           className={`${styles.select_item} flex_align_center_item ${styles.select_item_time}`}
