@@ -390,6 +390,54 @@ const GroupCustomerAdd: React.FC = () => {
     }
     formData.listOrganizeDetailId && getListNVKDofDepartment();
   }, [formData.listOrganizeDetailId]);
+  const handleUpdate = async () => {
+    if (
+      valueGroupCustomer.gr_name === dataDetails?.data?.data?.gr_name ||
+      valueGroupCustomer.gr_name === ""
+    ) {
+      try {
+        await updateDataEdit(`${base_url}/api/crm/group/update_GroupKH`, {
+          ...valueDefault,
+          name: valueDefault.gr_name,
+          description: valueDefault?.gr_description,
+          group_cus_parent:
+            valueDefault.group_cus_parent !== undefined &&
+            valueDefault.group_cus_parent !== null
+              ? valueDefault.group_cus_parent
+              : valueDefault.group_cus_parent === 0
+              ? 0
+              : dataDetails?.data?.group_parent,
+          gr_id: id,
+          emp_id: dataTableEmp?.join(","),
+          share_group_child: share_group_child,
+        });
+        // setModal1Open(true);
+      } catch (error) {
+        // setModal1Open(true);
+      }
+    } else {
+      try {
+        await updateDataEdit(`${base_url}/api/crm/group/update_GroupKH`, {
+          ...valueGroupCustomer,
+          name: valueGroupCustomer.gr_name,
+          description: valueGroupCustomer?.gr_description,
+          group_cus_parent:
+            valueGroupCustomer.group_cus_parent !== undefined &&
+            valueGroupCustomer.group_cus_parent !== null
+              ? valueGroupCustomer.group_cus_parent
+              : valueGroupCustomer.group_cus_parent === 0
+              ? 0
+              : dataDetails?.data?.group_parent,
+          gr_id: id,
+          emp_id: dataTableEmp?.join(","),
+          share_group_child: share_group_child,
+        });
+        setModal1Open(true);
+      } catch (error) {
+        setModal1Open(true);
+      }
+    }
+  };
   return (
     <>
       <Head>
@@ -501,7 +549,7 @@ const GroupCustomerAdd: React.FC = () => {
                   >
                     Danh sách chia sẻ
                   </div>
-                  {valueGroupCustomer?.group_cus_parent == null &&
+                  {/* {valueGroupCustomer?.group_cus_parent == null &&
                     valueOptionRef?.current?.querySelector(".value_options")
                       .innerHTML === "Chọn" && (
                       <div
@@ -527,7 +575,7 @@ const GroupCustomerAdd: React.FC = () => {
                           Chia sẻ nhóm khách hàng con
                         </p>
                       </div>
-                    )}
+                    )} */}
                   <div
                     className="flex_between"
                     style={{
@@ -620,64 +668,7 @@ const GroupCustomerAdd: React.FC = () => {
                   }
                   modal1Open={modal1Open}
                   setModal1Open={setModal1Open}
-                  handleSave={async () => {
-                    if (
-                      valueGroupCustomer.gr_name ===
-                        dataDetails?.data?.data?.gr_name ||
-                      valueGroupCustomer.gr_name === ""
-                    ) {
-                      try {
-                        await updateDataEdit(
-                          `${base_url}/api/crm/group/update_GroupKH`,
-                          {
-                            ...valueDefault,
-                            name: valueDefault.gr_name,
-                            description: valueDefault?.gr_description,
-                            group_cus_parent:
-                              valueDefault.group_cus_parent !== undefined &&
-                              valueDefault.group_cus_parent !== null
-                                ? valueDefault.group_cus_parent
-                                : valueDefault.group_cus_parent === 0
-                                ? 0
-                                : dataDetails?.data?.group_parent,
-                            gr_id: id,
-                            emp_id: dataTableEmp?.join(","),
-                            dep_id: selectedValueDepartments?.join(","),
-                            share_group_child: share_group_child,
-                          }
-                        );
-                        // setModal1Open(true);
-                      } catch (error) {
-                        // setModal1Open(true);
-                      }
-                    } else {
-                      try {
-                        await updateDataEdit(
-                          `${base_url}/api/crm/group/update_GroupKH`,
-                          {
-                            ...valueGroupCustomer,
-                            name: valueGroupCustomer.gr_name,
-                            description: valueGroupCustomer?.gr_description,
-                            group_cus_parent:
-                              valueGroupCustomer.group_cus_parent !==
-                                undefined &&
-                              valueGroupCustomer.group_cus_parent !== null
-                                ? valueGroupCustomer.group_cus_parent
-                                : valueGroupCustomer.group_cus_parent === 0
-                                ? 0
-                                : dataDetails?.data?.group_parent,
-                            gr_id: id,
-                            emp_id: dataTableEmp?.join(","),
-                            dep_id: selectedValueDepartments?.join(","),
-                            share_group_child: share_group_child,
-                          }
-                        );
-                        setModal1Open(true);
-                      } catch (error) {
-                        setModal1Open(true);
-                      }
-                    }
-                  }}
+                  handleSave={handleUpdate}
                 />
               </div>
             </div>

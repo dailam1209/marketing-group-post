@@ -612,10 +612,8 @@ export const SelectSingleAndOption = ({
                           setFormData({ ...formData, [name]: "" });
                           setLabelSelect(placeholder);
                         }}
-                        //   onClick={() => selectData(placeholder)}
-                        className={`${styles1.select2_results__option} `}
+                        className={styles1.select2_results__option}
                       >
-                        {/* Chọn tất cả */}
                         {placeholder}
                       </li>
                     )}
@@ -624,7 +622,6 @@ export const SelectSingleAndOption = ({
                         style={{
                           padding: "5px 0",
                           paddingLeft: "18px",
-                          fontSize: "17px",
                         }}
                         onClick={() => {
                           setFormData({ ...formData, [name]: valueAll });
@@ -654,7 +651,7 @@ export const SelectSingleAndOption = ({
                             ) => (
                               <li
                                 key={i}
-                                className={`${styles1.select2_results__option}}`}
+                                className={styles1.select2_results__option}
                                 style={{
                                   marginTop: "10px",
                                   padding: "5px 0",
@@ -673,7 +670,7 @@ export const SelectSingleAndOption = ({
                           ) => (
                             <li
                               key={i}
-                              className={`${styles1.select2_results__option}}`}
+                              className={`${styles1.select2_results__option}`}
                               style={{
                                 marginTop: "10px",
                                 padding: "5px 0",

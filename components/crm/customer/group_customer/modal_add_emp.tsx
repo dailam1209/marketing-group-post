@@ -3,16 +3,9 @@ import { Modal } from "antd";
 import { useEffect, useState } from "react";
 import stylesBtn from "@/styles/crm/button.module.css";
 import styles from "./customer_group.module.css";
-import { axiosQLCSite } from "@/utils/api/api_qlc_site";
 import jwt_decode from "jwt-decode";
 import { getToken } from "@/pages/api/api-hr/token";
-import { axiosCRMSite } from "@/utils/api/api_crm_site";
-import {
-  decodeToken,
-  notifyError,
-  notifySuccess,
-  notifyWarning,
-} from "@/utils/function";
+import { notifyError, notifySuccess, notifyWarning } from "@/utils/function";
 import { ToastContainer } from "react-toastify";
 import { axiosCRM } from "@/utils/api/api_crm";
 import { axiosQLC } from "@/utils/api/api_qlc";
@@ -152,7 +145,7 @@ function ModalGroupCustomerAddEmp({ isOpenModalAddEmp, setIsOpenModalAddEmp }) {
               data={listDepartment}
               formData={formData}
               placeholder="Chọn tổ chức"
-              value={formData.IdDepartment}
+              value={formData.listOrganizeDetailId}
               setFormData={setFormData}
               name={"listOrganizeDetailId"}
             />

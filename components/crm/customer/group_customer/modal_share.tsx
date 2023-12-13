@@ -39,8 +39,6 @@ export const ModalGroupCustomerShare: React.FC<TypeShareProps> = React.memo(
     const { isLoading, handleLoading, startLoading } = useLoading();
     const [searchName, setSearchName] = useState("");
     const [searchDepartment, setSearchDepartment] = useState("");
-    const [searchSDT, setSearchSDT] = useState("");
-
     useEffect(() => {
       const currentCookie = getToken("token_base365");
       if (currentCookie) {
@@ -134,24 +132,24 @@ export const ModalGroupCustomerShare: React.FC<TypeShareProps> = React.memo(
       }
     }, [IdGroup]);
     useEffect(() => {
-      if (!searchDepartment && !searchName && !searchSDT) {
+      if (!searchDepartment && !searchName) {
         setTableShow(listEmpTable);
         return;
       }
       setTableShow(
         listEmpTable?.filter(
           (emp) =>
-            ((toLowerCaseNonAccentVietnamese(emp.organization)?.includes(
+            toLowerCaseNonAccentVietnamese(emp.organization)?.includes(
               toLowerCaseNonAccentVietnamese(searchDepartment)
             ) &&
-              toLowerCaseNonAccentVietnamese(emp.userName)?.includes(
-                toLowerCaseNonAccentVietnamese(searchName)
-              )) ||
-              emp.idQLC.toString()?.includes(searchName)) &&
-            emp.phoneTK?.includes(searchSDT)
+            (toLowerCaseNonAccentVietnamese(emp.userName)?.includes(
+              toLowerCaseNonAccentVietnamese(searchName)
+            ) ||
+              emp.idQLC.toString()?.includes(searchName) ||
+              emp.phoneTK?.includes(searchName))
         )
       );
-    }, [searchDepartment, searchName, searchSDT]);
+    }, [searchDepartment, searchName]);
     const HandleDeleteUserFromFroup = async (idQLC: any) => {
       try {
         axiosCRM
@@ -244,21 +242,6 @@ export const ModalGroupCustomerShare: React.FC<TypeShareProps> = React.memo(
                   <Input
                     onChange={(e) => setSearchName(e.target.value)}
                     placeholder="Nhập tên, id của nhân viên"
-                  />
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    height: "50px",
-                  }}
-                >
-                  <p style={{ width: "230px", display: "block" }}>
-                    Tìm kiếm theo SĐT
-                  </p>
-                  <Input
-                    onChange={(e) => setSearchSDT(e.target.value)}
-                    placeholder="Nhập SĐT của nhân viên"
                   />
                 </div>
               </div>
