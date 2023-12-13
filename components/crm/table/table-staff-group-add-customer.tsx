@@ -34,7 +34,6 @@ const TableStaffCustomerGroupAdd: React.FC<TableStaffCustomerGroupAddProps> = ({
   const [searchName, setSearchName] = useState("");
   const [searchDepartment, setSearchDepartment] = useState("");
   const [listEmpTable, setListEmpTable] = useState([]);
-  const [searchSDT, setSearchSDT] = useState("");
   const [listEmpShow, setListEmpShow] = useState<any>([]);
   const [dataRowSelect, setDataRowSelect] = useState<any>([]);
   const [selectedRow, setSelectedRow] = useState(0);
@@ -64,24 +63,24 @@ const TableStaffCustomerGroupAdd: React.FC<TableStaffCustomerGroupAddProps> = ({
   }, [data.length]);
 
   useEffect(() => {
-    if (!searchDepartment && !searchName && !searchSDT) {
+    if (!searchDepartment && !searchName) {
       setListEmpShow(listEmpTable);
       return;
     }
     setListEmpShow(
       listEmpTable?.filter(
         (emp) =>
-          ((toLowerCaseNonAccentVietnamese(emp.organizeDetailName)?.includes(
+          toLowerCaseNonAccentVietnamese(emp.organizeDetailName)?.includes(
             toLowerCaseNonAccentVietnamese(searchDepartment)
           ) &&
-            toLowerCaseNonAccentVietnamese(emp.userName)?.includes(
-              toLowerCaseNonAccentVietnamese(searchName)
-            )) ||
-            emp.ep_id.toString()?.includes(searchName)) &&
-          emp.phoneTK?.includes(searchSDT)
+          (toLowerCaseNonAccentVietnamese(emp.userName)?.includes(
+            toLowerCaseNonAccentVietnamese(searchName)
+          ) ||
+            emp.ep_id.toString()?.includes(searchName) ||
+            emp.phoneTK?.includes(searchName))
       )
     );
-  }, [searchDepartment, searchName, searchSDT]);
+  }, [searchDepartment, searchName]);
 
   function handleDelRow(item: any): void {
     setIsOpenModalDel(true);
@@ -144,7 +143,6 @@ const TableStaffCustomerGroupAdd: React.FC<TableStaffCustomerGroupAddProps> = ({
           }}
         >
           <Image alt="img" width={26} height={26} src={"/crm/del_red.svg"} />
-          
         </button>
       ),
     },
@@ -202,21 +200,7 @@ const TableStaffCustomerGroupAdd: React.FC<TableStaffCustomerGroupAddProps> = ({
                 placeholder="Nhập tên, id của nhân viên"
               />
             </div>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                height: "50px",
-              }}
-            >
-              <p style={{ width: "230px", display: "block" }}>
-                Tìm kiếm theo SĐT
-              </p>
-              <Input
-                onChange={(e) => setSearchSDT(e.target.value)}
-                placeholder="Nhập SĐT của nhân viên"
-              />
-            </div>
+
             {selectedRow >= 2 && (
               <div style={{ marginLeft: "10px" }}>
                 <button

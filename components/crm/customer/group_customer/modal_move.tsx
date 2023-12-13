@@ -134,6 +134,7 @@ function ModalGroupCustomerMove({ isOpenModalMove, setIsOpenModalMove }) {
       .then((res) => {
         notifySuccess("Chuyển giỏ hàng thành công");
         setFormData({});
+        setFormDataTo({})
         setTimeout(() => {
           setIsOpenModalMove(false);
         }, 1700);
@@ -160,7 +161,7 @@ function ModalGroupCustomerMove({ isOpenModalMove, setIsOpenModalMove }) {
               data={listDepartment}
               formData={formData}
               placeholder="Chọn tổ chức"
-              value={formData.IdDepartment}
+              value={formData.listOrganizeDetailId}
               setFormData={setFormData}
               name={"listOrganizeDetailId"}
             />
@@ -180,7 +181,7 @@ function ModalGroupCustomerMove({ isOpenModalMove, setIsOpenModalMove }) {
               data={listDepartment}
               formData={formDataTo}
               placeholder="Chọn tổ chức"
-              value={formDataTo.IdDepartment}
+              value={formDataTo.listOrganizeDetailId}
               setFormData={setFormDataTo}
               name={"listOrganizeDetailId"}
             />
