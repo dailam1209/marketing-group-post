@@ -32,7 +32,10 @@ const TableDataQuote: React.FC<TableDataOrderProps> = ({
   const [key, setKey] = useState();
   const [allKey, setAllKey] = useState<any>();
 
-  const { dateQuote, dateQuoteEnd, status, quoteCode, shouldFetchData, setShouldFetchData, setRecordId, setListRecordId, listRecordId, setRecordName, setListRecordName, statusStrToColor, statusNumToStr } = useContext(QuoteContext);
+  const { dateQuote, dateQuoteEnd, status, quoteCode, shouldFetchData, 
+    setShouldFetchData, setRecordId, setListRecordId, listRecordId, 
+    setRecordName, setListRecordName, statusStrToColor, statusNumToStr,
+    setShouldFetchDetailData } = useContext(QuoteContext);
   const [quoteData, setQuoteData] = useState<any>([]) // Data từ API
   const [data, setData] = useState<DataType[]>([]); // Data đổ bảng
   const [perPage, setPerPage] = useState(10);
@@ -185,7 +188,7 @@ const TableDataQuote: React.FC<TableDataOrderProps> = ({
       width: 150,
       fixed: "right",
       render: (text: any, record: any) => (
-        <div onClick={() => { setKey(record.key); setRecordId(record.key); setRecordName(record.quote_code) }}>
+        <div onClick={() => { setKey(record.key); setRecordId(record.key); setRecordName(record.quote_code); setShouldFetchDetailData(true) }}>
           <QuoteActionTable record={key} allKey={[]} />
         </div>
       ),

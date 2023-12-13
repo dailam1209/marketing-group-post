@@ -1,4 +1,5 @@
 import { axiosCRMCall } from "@/utils/api/api_crm_call";
+import { axiosQLC } from "@/utils/api/api_qlc";
 import dayjs from "dayjs";
 import { createContext, useEffect, useState } from "react";
 
@@ -323,6 +324,42 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
         ))
     }, [tempListProd])
 
+    // Lấy dữ liệu bổ sung cho mẫu báo giá
+    const [companyData, setCompanyData] = useState<any>({})
+    const [customerData, setCustomerData] = useState<any>({})
+    const [shouldGetCus, setShouldGetCus] = useState(false)
+    const [shouldGetCom, setShouldGetCom] = useState(false)
+
+    useEffect(() => {
+        if (shouldGetCus && Object.keys(detailData).length > 0) {
+            setShouldGetCus(false)
+            axiosCRMCall
+                .post('/customerdetails/detail', { cus_id: getPropOrDefault(detailData, 'customer_id', '0') })
+                .then(res => {
+                    if (res && res?.data && res?.data.hasOwnProperty('data') && res?.data?.data) {
+                        setCustomerData(res?.data?.data)
+                    } else {
+                        setCustomerData({})
+                    }
+                })
+                .catch((err) => {console.log(err); setCustomerData({})})
+        }
+    }, [shouldGetCus])
+
+    useEffect(() => {
+        if (shouldGetCom) {
+            setShouldGetCom(false)
+            axiosQLC
+                .post('/company/info')
+                .then(res => {
+                    res?.data?.data?.data ?
+                        setCompanyData(res?.data?.data?.data) :
+                        setCompanyData({})
+                })
+                .catch((err) => {console.log(err); setCompanyData({})})
+        }
+    }, [shouldGetCom])
+
     return (
         <QuoteContext.Provider value={
             {
@@ -366,6 +403,12 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
                 listProduct, listProductOptions,
                 prodName, setProdName,
                 tempListProd, setTempListProd,
+
+                // Lấy dữ liệu bổ sung cho mẫu báo giá
+                companyData, setCompanyData,
+                customerData, setCustomerData,
+                shouldGetCus, setShouldGetCus,
+                shouldGetCom, setShouldGetCom,
             }
         }
         >

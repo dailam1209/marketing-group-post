@@ -55,22 +55,16 @@ export default function QuoteActionTable(props: any) {
       setIsOpenSend(true);
     }
     if (type === "printer") {
-      setShouldFetchDetailData(true)
+      // setShouldFetchDetailData(true)
       setIsDownloadPdf(false)
       setIsOpenPdf(true)
     }
     if (type === "download") {
-      setShouldFetchDetailData(true)
+      // setShouldFetchDetailData(true)
       setIsDownloadPdf(true)
       setIsOpenPdf(true)
     }
   };
-  // TODO Check multiple time
-  // useEffect(() => {
-  //   if (Number(recordId) && Number(recordId) !== 0) {
-  //     setShouldFetchDetailData(true)
-  //   }
-  // }, [recordId])
 
   const items: MenuProps["items"] = [];
   for (let i = 0; i < dataActionQuote.length; i++) {
@@ -153,12 +147,12 @@ export default function QuoteActionTable(props: any) {
         isModalCancel={isOpenSend}
         setIsModalCancel={setIsOpenSend}
       />
-
-      {/* <PdfGenerator2
+      {/* TODO Test hiệu năng sau build */}
+      <PdfGenerator2
         isVisible={isOpenPdf}
         closePdfModal={setIsOpenPdf}
         isDownload={isDownloadPdf}
-      /> */}
+      />
     </>
   );
 }

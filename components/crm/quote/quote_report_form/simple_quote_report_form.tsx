@@ -42,6 +42,7 @@ const simpleLabel: CSSProperties = {
     color: '#474747',
     fontWeight: 600,
     fontSize: '15px',
+    textAlign: 'left',
     // marginBottom: '10px'
 }
 
@@ -49,6 +50,7 @@ const simpleContent: CSSProperties = {
     color: '#474747',
     fontWeight: 400,
     fontSize: '14px',
+    textAlign: 'left',
     // wordWrap: "break-word"
 }
 
@@ -184,15 +186,15 @@ function formatPhoneNumber(phoneNumber) {
 }
 
 const SimpleQuoteReport = ({ id = 0, visible = 'visible', setIsLoaded = (value) => { } }: any) => {
-    const { getPropOrDefault, recordId, shouldFetchDetailData, detailData } = useContext(QuoteContext)
+    const { getPropOrDefault, recordId, shouldFetchDetailData, detailData,
+        customerData, companyData, setShouldGetCus, setShouldGetCom } = useContext(QuoteContext)
     const [quoteData, setQuoteData] = useState<any>({})
-    const [companyData, setCompanyData] = useState<any>({})
-    const [customerData, setCustomerData] = useState<any>({})
+    // const [companyData, setCompanyData] = useState<any>({})
+    // const [customerData, setCustomerData] = useState<any>({})
     const [productData, setProductData] = useState<any>([])
     const [productTableData, setProductTableData] = useState<QuoteDataType[]>([])
     const [totalMoneyBeforeDiscount, setTotalMoneyBeforeDiscount] = useState(0)
-    const [shouldGetCus, setShouldGetCus] = useState(false)
-    const [shouldGetQuoteAndCom, setShouldGetQuoteAndCom] = useState(false)
+    // const [shouldGetCus, setShouldGetCus] = useState(false)
 
     const getQuoteData = () => {
         if ((Number(recordId) && Number(recordId) !== 0) || (id !== 0)) {
@@ -216,32 +218,36 @@ const SimpleQuoteReport = ({ id = 0, visible = 'visible', setIsLoaded = (value) 
         }
     }
 
-    const getCustomerData = () => {
-        axiosCRMCall
-            .post('/customerdetails/detail', { cus_id: getPropOrDefault(quoteData, 'customer_id', 0) })
-            .then(res => {
-                if (res && res?.data && res?.data.hasOwnProperty('data') && res?.data?.data) {
-                    setCustomerData(res?.data?.data)
-                }
-            })
-            .catch((err) => console.log(err))
-    }
+    // const getCustomerData = () => {
+    //     if (shouldGetCus) {
+    //         axiosCRMCall
+    //             .post('/customerdetails/detail', { cus_id: getPropOrDefault(quoteData, 'customer_id', 0) })
+    //             .then(res => {
+    //                 if (res && res?.data && res?.data.hasOwnProperty('data') && res?.data?.data) {
+    //                     setCustomerData(res?.data?.data)
+    //                 }
+    //             })
+    //             .catch((err) => console.log(err))
+    //     }
+    // }
 
-    const getCompanyData = () => {
-        axiosQLC
-            .post('/company/info')
-            .then(res => {
-                res?.data?.data?.data ?
-                    setCompanyData(res?.data?.data?.data) :
-                    setCompanyData({})
-            })
-            .catch((err) => console.log(err))
-    }
+    // const getCompanyData = () => {
+    //     if (shouldGetQuoteAndCom) {
+    //         axiosQLC
+    //             .post('/company/info')
+    //             .then(res => {
+    //                 res?.data?.data?.data ?
+    //                     setCompanyData(res?.data?.data?.data) :
+    //                     setCompanyData({})
+    //             })
+    //             .catch((err) => console.log(err))
+    //     }
+    // }
 
-    useEffect(() => {
-        Object.keys(quoteData).length > 0 && shouldGetCus && getCustomerData()
-        setShouldGetCus(false)
-    }, [quoteData, shouldGetCus])
+    // useEffect(() => {
+    //     Object.keys(quoteData).length > 0 && shouldGetCus && getCustomerData()
+    //     setShouldGetCus(false)
+    // }, [quoteData, shouldGetCus])
     useEffect(() => {
         let tempData = []
         let tempTotal = 0
@@ -262,27 +268,28 @@ const SimpleQuoteReport = ({ id = 0, visible = 'visible', setIsLoaded = (value) 
         setTotalMoneyBeforeDiscount(tempTotal)
     }, [productData])
 
+    // useEffect(() => {
+    //     if (shouldGetQuoteAndCom) {
+    //         setShouldGetQuoteAndCom(false)
+    //         getQuoteData();
+    //         getCompanyData();
+    //     }
+    // }, [shouldGetQuoteAndCom])
+
     useEffect(() => {
-        if (shouldGetQuoteAndCom) {
+        if (Object.keys(detailData).length > 0) {
+            // setShouldGetQuoteAndCom(true)
             getQuoteData();
-            getCompanyData();
+            setShouldGetCus(true)
+            setShouldGetCom(true)
         }
-        setShouldGetQuoteAndCom(false)
-    }, [shouldGetQuoteAndCom])
+    }, [detailData])
 
-    useEffect(() => {
-        setShouldGetQuoteAndCom(true)
-    }, [])
-
-    useEffect(() => {
-        if (shouldFetchDetailData) {
-            setShouldGetQuoteAndCom(true)
-        }
-    }, [shouldFetchDetailData])
-
-    // useLayoutEffect(() => {
-    //     setIsLoaded(true)
-    // })
+    // useEffect(() => {
+    //     if (shouldFetchDetailData) {
+    //         setShouldGetQuoteAndCom(true)
+    //     }
+    // }, [shouldFetchDetailData])
 
     const basicQuoteInfo: DescriptionsProps['items'] = [
         {

@@ -9,20 +9,22 @@ import { Spin } from 'antd';
 import ModalInfo from '../quote_steps/info_mdal';
 
 const PdfGenerator2 = ({ isVisible = false, closePdfModal, isDownload = false }) => {
-    const { recordId, shouldFetchDetailData, setShouldFetchDetailData } = useContext(QuoteContext)
+    const { recordId, shouldFetchDetailData, setShouldFetchDetailData,
+        companyData, customerData, detailData} = useContext(QuoteContext)
     const captureRef = useRef(null)
     const [isModalOpen, setIsModalOpen] = useState(false)
     // const [isLoaded, setIsLoaded] = useState(false)
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         if (isVisible) {
+            setIsModalOpen(true)
             generatePdf();
             // closePdfModal();
         }
     }, [isVisible]);
 
     const generatePdf = () => {
-        setIsModalOpen(true)
+        // setIsModalOpen(true)
         const element = captureRef.current
         // const element = document.getElementById('capture')
 
@@ -85,7 +87,6 @@ const PdfGenerator2 = ({ isVisible = false, closePdfModal, isDownload = false })
     return (
         // isVisible ? (
         <>
-            {/* TODO not 100%, fixed mm */}
             <div
                 style={{
                     position: 'fixed',
