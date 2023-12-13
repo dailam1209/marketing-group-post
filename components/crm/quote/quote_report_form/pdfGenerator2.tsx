@@ -12,6 +12,7 @@ const PdfGenerator2 = ({ isVisible = false, closePdfModal, isDownload = false })
     const { recordId, shouldFetchDetailData, setShouldFetchDetailData } = useContext(QuoteContext)
     const captureRef = useRef(null)
     const [isModalOpen, setIsModalOpen] = useState(false)
+    // const [isLoaded, setIsLoaded] = useState(false)
 
     useLayoutEffect(() => {
         if (isVisible) {
@@ -76,49 +77,53 @@ const PdfGenerator2 = ({ isVisible = false, closePdfModal, isDownload = false })
             // pdf.addImage(imageData, 'PNG', 0, 0, scaledWidth, scaledHeight);
             isDownload ? pdf.save('Báo giá') : window.open(pdf.output('bloburl'), '_blank');
             closePdfModal(); // Close the PdfGenerator after PDF generation is complete
+
+            // setIsLoaded(false)
         });
     };
 
     return (
         // isVisible ? (
-            <>
+        <>
             {/* TODO not 100%, fixed mm */}
+            <div
+                style={{
+                    position: 'fixed',
+                    top: -9999,
+                    left: -9999,
+                    width: '210mm',
+                    // height: '295mm',
+                    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                    zIndex: -1000,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    margin: 0,
+                    padding: 0,
+                }}
+            >
                 <div
+                    id="capture"
+                    ref={captureRef}
                     style={{
-                        position: 'fixed',
-                        top: -9999,
-                        left: -9999,
-                        width: '100%',
-                        height: '100%',
-                        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                        // maxWidth: '210mm',
+                        width: '210mm',
+                        // height: '295mm',
+                        backgroundColor: '#fff',
+                        // padding: '20px',
                         zIndex: -1000,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        margin: 0,
-                        padding: 0,
                     }}
                 >
-                    <div
-                        id="capture"
-                        ref={captureRef}
-                        style={{
-                            maxWidth: '210mm',
-                            backgroundColor: '#fff',
-                            padding: '20px',
-                            zIndex: -1000,
-                        }}
-                    >
-                        <SimpleQuoteReport id={Number(recordId) || 0}/>
-                    </div>
+                    <SimpleQuoteReport id={Number(recordId) || 0} />
                 </div>
+            </div>
 
-                <ModalInfo
-                    modal1Open={isModalOpen}
-                    setModal1Open={setIsModalOpen}
-                    title='Vui lòng chờ'
-                />
-            </>
+            <ModalInfo
+                modal1Open={isModalOpen}
+                setModal1Open={setIsModalOpen}
+                title='Vui lòng chờ'
+            />
+        </>
         // ) : null
     );
 };

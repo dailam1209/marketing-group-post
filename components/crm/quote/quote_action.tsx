@@ -65,7 +65,11 @@ export default function QuoteAction({ isSelectedRow, record, allkey }: any) {
 
   const items: MenuProps["items"] = [];
   for (let i = 0; i < dataActionQuote.length; i++) {
-    if (['update-status', "delete"].includes(dataActionQuote[i].type)) // Chỉ hiển thị nút cho nhiều báo giá
+    // if (['update-status', "delete"].includes(dataActionQuote[i].type)) 
+    // Chỉ hiển thị nút cho nhiều báo giá
+    if (['edit'].includes(dataActionQuote[i].type)) {
+      continue
+    }
     items.push({
       key: i,
       label: (

@@ -65,16 +65,18 @@ export default function QuoteActionTable(props: any) {
       setIsOpenPdf(true)
     }
   };
-// TODO Check multiple time
-  useEffect(() => {
-    setShouldFetchDetailData(true)
-  }, [])
+  // TODO Check multiple time
+  // useEffect(() => {
+  //   if (Number(recordId) && Number(recordId) !== 0) {
+  //     setShouldFetchDetailData(true)
+  //   }
+  // }, [recordId])
 
   const items: MenuProps["items"] = [];
   for (let i = 0; i < dataActionQuote.length; i++) {
-    if (['download'].includes(dataActionQuote[i].type)) {
-      continue;
-    }
+    // if (['download'].includes(dataActionQuote[i].type)) {
+    //   continue;
+    // }
     items.push({
       key: i,
       label: (
@@ -152,11 +154,11 @@ export default function QuoteActionTable(props: any) {
         setIsModalCancel={setIsOpenSend}
       />
 
-      <PdfGenerator2
+      {/* <PdfGenerator2
         isVisible={isOpenPdf}
         closePdfModal={setIsOpenPdf}
         isDownload={isDownloadPdf}
-      />
+      /> */}
     </>
   );
 }

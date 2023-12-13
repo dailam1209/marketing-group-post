@@ -183,28 +183,37 @@ function formatPhoneNumber(phoneNumber) {
     return groups.join('.');
 }
 
-const SimpleQuoteReport = ({ id = 0, visible = 'visible', setIsLoaded = (value) => {} }: any) => {
-    const { getPropOrDefault, recordId, shouldFetchDetailData } = useContext(QuoteContext)
+const SimpleQuoteReport = ({ id = 0, visible = 'visible', setIsLoaded = (value) => { } }: any) => {
+    const { getPropOrDefault, recordId, shouldFetchDetailData, detailData } = useContext(QuoteContext)
     const [quoteData, setQuoteData] = useState<any>({})
     const [companyData, setCompanyData] = useState<any>({})
     const [customerData, setCustomerData] = useState<any>({})
     const [productData, setProductData] = useState<any>([])
     const [productTableData, setProductTableData] = useState<QuoteDataType[]>([])
     const [totalMoneyBeforeDiscount, setTotalMoneyBeforeDiscount] = useState(0)
+    const [shouldGetCus, setShouldGetCus] = useState(false)
+    const [shouldGetQuoteAndCom, setShouldGetQuoteAndCom] = useState(false)
 
     const getQuoteData = () => {
-        axiosCRMCall
-            .post('/quote/getDetail', { id: Number(recordId) || id || 0 })
-            .then((res) => {
-                if (res?.data?.data?.data) {
-                    setQuoteData(res?.data?.data?.data)
-                    setProductData(res?.data?.data?.data.product_list)
-                } else {
-                    setQuoteData({})
-                    setProductData([])
-                }
-            })
-            .catch((err) => console.log(err))
+        if ((Number(recordId) && Number(recordId) !== 0) || (id !== 0)) {
+            // axiosCRMCall
+            //     .post('/quote/getDetail', { id: Number(recordId) || id || 0 })
+            //     .then((res) => {
+            //         if (res?.data?.data?.data) {
+            //             setQuoteData(res?.data?.data?.data)
+            //             setProductData(res?.data?.data?.data.product_list)
+            //             setShouldGetCus(true)
+            //         } else {
+            //             setQuoteData({})
+            //             setProductData([])
+            //         }
+            //     })
+            //     .catch((err) => console.log(err))
+
+            setQuoteData(detailData)
+            Object.keys(detailData).length > 0 && setProductData(getPropOrDefault(detailData, 'product_list', []))
+            setShouldGetCus(true)
+        }
     }
 
     const getCustomerData = () => {
@@ -230,8 +239,9 @@ const SimpleQuoteReport = ({ id = 0, visible = 'visible', setIsLoaded = (value) 
     }
 
     useEffect(() => {
-        Object.keys(quoteData).length > 0 && getCustomerData()
-    }, [quoteData])
+        Object.keys(quoteData).length > 0 && shouldGetCus && getCustomerData()
+        setShouldGetCus(false)
+    }, [quoteData, shouldGetCus])
     useEffect(() => {
         let tempData = []
         let tempTotal = 0
@@ -253,16 +263,26 @@ const SimpleQuoteReport = ({ id = 0, visible = 'visible', setIsLoaded = (value) 
     }, [productData])
 
     useEffect(() => {
-        getQuoteData();
-        getCompanyData();
+        if (shouldGetQuoteAndCom) {
+            getQuoteData();
+            getCompanyData();
+        }
+        setShouldGetQuoteAndCom(false)
+    }, [shouldGetQuoteAndCom])
+
+    useEffect(() => {
+        setShouldGetQuoteAndCom(true)
     }, [])
 
     useEffect(() => {
         if (shouldFetchDetailData) {
-            getQuoteData();
-            getCompanyData();
+            setShouldGetQuoteAndCom(true)
         }
     }, [shouldFetchDetailData])
+
+    // useLayoutEffect(() => {
+    //     setIsLoaded(true)
+    // })
 
     const basicQuoteInfo: DescriptionsProps['items'] = [
         {
