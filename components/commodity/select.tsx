@@ -14,6 +14,7 @@ export default function SelectSingle({
   placeholder = "Tất cả",
   onChange = null,
 }: any) {
+  const [searchLabel, setSearchLabel] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [labelSelect, setLabelSelect] = useState<string>(
@@ -48,100 +49,148 @@ export default function SelectSingle({
   }, []);
 
   return (
-    <div
-      style={{ width: "100%" }}
-      ref={dropdownRef}
-      className={`${styles.select_item} flex_align_center_item`}
-    >
-      <div>
-        <label htmlFor="" className="">
-          {title}
-        </label>
-      </div>
-
-      <select
-        className={`${styles.select2} ${styles.select2_hidden_accessible}`}
-        data-select2-id={1}
-        tabIndex={-1}
-        aria-hidden="true"
-      >
-        <option value="" data-select2-id={3}>
-          {labelSelect}
-        </option>
-      </select>
-      <span
-        className={`select2 ${styles.select2_container}`}
-        dir="ltr"
-        data-select2-id={2}
+    <div>
+      <div
         style={{ width: "100%" }}
-        onClick={handleClickSelectoption}
+        ref={dropdownRef}
+        className={`${styles.select_item} flex_align_center_item`}
       >
-        <span className={`${styles.selection}`}>
-          <span
-            className={`${styles.select2_selection} select2_selection_single`}
-            role="combobox"
-            aria-haspopup="true"
-            aria-expanded="false"
-            tabIndex={0}
-            aria-labelledby="select2-g0q1-container"
-          >
+        <div>
+          <label htmlFor="" className="">
+            {title}
+          </label>
+        </div>
+
+        <select
+          className={`${styles.select2} ${styles.select2_hidden_accessible}`}
+          data-select2-id={1}
+          tabIndex={-1}
+          aria-hidden="true"
+        >
+          <option value="" data-select2-id={3}>
+            {labelSelect}
+          </option>
+        </select>
+        <span
+          className={`select2 ${styles.select2_container}`}
+          dir="ltr"
+          data-select2-id={2}
+          style={{ width: "100%", paddingTop: "5px" }}
+          onClick={handleClickSelectoption}
+        >
+          <span className={`${styles.selection}`}>
             <span
-              className={styles.select2_selection__rendered}
-              id="select2-g0q1-container"
-              role="textbox"
-              aria-readonly="true"
-              title="Chọn"
+              className={`${styles.select2_selection} select2_selection_single`}
+              role="combobox"
+              aria-haspopup="true"
+              aria-expanded="false"
+              tabIndex={0}
+              aria-labelledby="select2-g0q1-container"
             >
-              {labelSelect ? labelSelect : placeholder}
-            </span>
-            <span
-              className={styles.select2_selection__arrow}
-              role="presentation"
-            >
-              <b role="presentation" />
+              <span
+                className={styles.select2_selection__rendered}
+                id="select2-g0q1-container"
+                role="textbox"
+                aria-readonly="true"
+                title="Chọn"
+              >
+                {labelSelect ? labelSelect : placeholder}
+              </span>
+              <span
+                className={styles.select2_selection__arrow}
+                role="presentation"
+              >
+                <b role="presentation" />
+              </span>
             </span>
           </span>
         </span>
-        {isOpen && (
+      </div>{" "}
+      {isOpen && (
+        <span
+          className={`${styles.select2_container_open} ${styles.select2_container} ${styles.select2_container_default} `}
+          // style={{ position: "absolute", top: 35, left: 0, zIndex: 10 }}
+          style={{ width: "100%" }}
+        >
           <span
-            className={`${styles.select2_container_open} ${styles.select2_container} ${styles.select2_container_default} `}
-            style={{ position: "absolute", top: 35, left: 0, zIndex: 10 }}
+            className={`${styles.select2_dropdown} ${styles.select2_dropdown_below}`}
+            dir="ltr"
+            style={{ width: "100%", display: "block" }}
           >
             <span
-              className={`${styles.select2_dropdown} ${styles.select2_dropdown_below}`}
-              dir="ltr"
-              style={{ width: "100%", display: "block" }}
+              className={`${styles.select2_search} ${styles.select2_search__dropdown}`}
             >
-              <span
-                className={`${styles.select2_search} ${styles.select2_search__dropdown}`}
+              <input
+                className={styles.select2_search__field}
+                type="search"
+                tabIndex={0}
+                autoComplete="off"
+                autoCorrect="off"
+                autoCapitalize="none"
+                spellCheck="false"
+                role="textbox"
+                value={searchLabel}
+                onChange={(e) => {
+                  setSearchLabel(e.target.value);
+                }}
+                onClick={(e) => e.stopPropagation()}
+              />
+            </span>
+            <span className={styles.select2_results}>
+              <ul
+                className={styles.select2_results__options}
+                role="tree"
+                aria-expanded="true"
+                aria-hidden="false"
               >
-                <input
-                  className={styles.select2_search__field}
-                  type="search"
-                  tabIndex={0}
-                  autoComplete="off"
-                  autoCorrect="off"
-                  autoCapitalize="none"
-                  spellCheck="false"
-                  role="textbox"
-                />
-              </span>
-              <span className={styles.select2_results}>
-                <ul
-                  className={styles.select2_results__options}
-                  role="tree"
-                  aria-expanded="true"
-                  aria-hidden="false"
+                <li
+                  style={{
+                    padding: "5px 0",
+                    marginLeft: "18px",
+                  }}
+                  onClick={() =>
+                    handelChooceOption({ value: "", label: placeholder })
+                  }
+                  className={`${styles.select2_results__option}`}
                 >
-                  <li
-                    onClick={() =>
-                      handelChooceOption({ value: "", label: placeholder })
-                    }
-                    className={`${styles.select2_results__option} ${styles.select2_results__option_highlighted}`}
-                  >
-                    {placeholder}
-                  </li>
-                  {data?.map((item: { value: number; label: string }, i) => (
+                  {placeholder}
+                </li>
+                {searchLabel
+                  ? data
+                      ?.filter((itemFilter: any) =>
+                        toLowerCaseNonAccentVietnamese(
+                          itemFilter.label
+                        ).includes(toLowerCaseNonAccentVietnamese(searchLabel))
+                      )
+                      .map(
+                        (item: { value: number; label: string }, i: number) => (
+                          <li
+                            key={i}
+                            className={`${styles1.select2_results__option}}`}
+                            style={{
+                              padding: "5px 0",
+                              marginLeft: "18px",
+                            }}
+                            onClick={() => handelChooceOption(item)}
+                          >
+                            {item.label}
+                          </li>
+                        )
+                      )
+                  : data?.map((item: { value: number; label: string }, i) => (
+                      <li
+                        style={{
+                          padding: "5px 0",
+                          paddingLeft: "18px",
+                        }}
+                        key={i}
+                        className={`${styles.select2_results__option} `}
+                        onClick={() => handelChooceOption(item)}
+                      >
+                        {item.label}
+                      </li>
+                    ))}
+                {/* {data?.map((item: { value: number; label: string }, i) => (
                     <li
                       style={{ paddingLeft: "18px" }}
                       key={i}
@@ -150,13 +199,12 @@ export default function SelectSingle({
                     >
                       {item.label}
                     </li>
-                  ))}
-                </ul>
-              </span>
+                  ))} */}
+              </ul>
             </span>
           </span>
-        )}
-      </span>
+        </span>
+      )}
     </div>
   );
 }
@@ -412,6 +460,7 @@ export const SelectSingleAndOption = ({
   nameChecked = "",
   labelChecked = "",
   require = false,
+  valueAll = "",
 }) => {
   const [searchLabel, setSearchLabel] = useState("");
   const [isOpen, setIsOpen] = useState(false);
@@ -536,6 +585,7 @@ export const SelectSingleAndOption = ({
                     autoCorrect="off"
                     autoCapitalize="none"
                     spellCheck="false"
+                    value={searchLabel}
                     onChange={(e) => {
                       setSearchLabel(e.target.value);
                     }}
@@ -553,30 +603,55 @@ export const SelectSingleAndOption = ({
                   >
                     {placeholder && (
                       <li
+                        style={{
+                          padding: "5px 0",
+                          paddingLeft: "18px",
+                          fontSize: "17px",
+                        }}
+                        onClick={() => {
+                          setFormData({ ...formData, [name]: "" });
+                          setLabelSelect(placeholder);
+                        }}
+                        className={styles1.select2_results__option}
+                      >
+                        {placeholder}
+                      </li>
+                    )}
+                    {valueAll && (
+                      <li
+                        style={{
+                          padding: "5px 0",
+                          paddingLeft: "18px",
+                        }}
+                        onClick={() => {
+                          setFormData({ ...formData, [name]: valueAll });
+                          setLabelSelect("Chọn tất cả");
+                        }}
                         //   onClick={() => selectData(placeholder)}
-                        className={`${styles1.select2_results__option} ${styles1.select2_results__option_highlighted}`}
+                        className={`${styles1.select2_results__option} `}
                       >
                         {/* Chọn tất cả */}
-                        {placeholder}
+                        Chọn tất cả
                       </li>
                     )}
                     {searchLabel
                       ? data
-                          ?.filter((itemFilter: any) =>
-                            toLowerCaseNonAccentVietnamese(
-                              itemFilter.label
-                            ).includes(
-                              toLowerCaseNonAccentVietnamese(searchLabel)
-                            )
+                          ?.filter(
+                            (itemFilter: any) =>
+                              toLowerCaseNonAccentVietnamese(
+                                itemFilter.label
+                              ).includes(
+                                toLowerCaseNonAccentVietnamese(searchLabel)
+                              ) || itemFilter.phoneTK?.includes(searchLabel)
                           )
                           .map(
                             (
-                              item: { value: number; label: string },
+                              item: { value: number; label: string; phoneTK },
                               i: number
                             ) => (
                               <li
                                 key={i}
-                                className={`${styles1.select2_results__option}}`}
+                                className={styles1.select2_results__option}
                                 style={{
                                   marginTop: "10px",
                                   padding: "5px 0",
@@ -595,7 +670,7 @@ export const SelectSingleAndOption = ({
                           ) => (
                             <li
                               key={i}
-                              className={`${styles1.select2_results__option}}`}
+                              className={`${styles1.select2_results__option}`}
                               style={{
                                 marginTop: "10px",
                                 padding: "5px 0",

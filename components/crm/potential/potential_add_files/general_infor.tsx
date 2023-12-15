@@ -33,7 +33,7 @@ export default function AddGeneralInfo({
   }, [formData?.stand_name, formData?.name]);
   useEffect(() => {
     axiosQLC
-      .post("/managerUser/listUser", { ep_status: "Active" })
+      .post("/managerUser/listUser", { ep_status: "Active", pageSize: 2000 })
       .then((res) => convertDataEmp(res.data.data.data))
       .catch((err) => notifyError("Vui lòng thử lại sau!"));
   }, []);
@@ -41,7 +41,7 @@ export default function AddGeneralInfo({
     setListEmp(
       datas.map((item: any) => ({
         value: item.ep_id,
-        label: item.userName,
+        label: `${item.ep_id}. ${item.userName}`,
       }))
     );
   };

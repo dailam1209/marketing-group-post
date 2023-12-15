@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import styles from "./customer_group.module.css";
+import btnStyles from "@/styles/crm/button.module.css";
 import Link from "next/link";
 import GroupCustomerAction from "./group_customert_action";
 import { ModalGroupCustomerDelete } from "./modal_delete";
@@ -7,6 +8,7 @@ import ModalGroupCustomerMove from "./modal_move";
 import ModalGroupCustomerAddEmp from "./modal_add_emp";
 import { getToken } from "@/pages/api/api-hr/token";
 import jwt_decode from "jwt-decode";
+import FilterCart from "./modal_filter_cart";
 export default function HeaderBtnsCustomerGroup({
   isSelectedRow,
   selectedRow,
@@ -18,6 +20,7 @@ export default function HeaderBtnsCustomerGroup({
   const [isOpenModalMove, setIsOpenModalMove] = useState(false);
   const [isOpenModalDelete, setIsOpenModalDelete] = useState(false);
   const [isOpenModalAddEmp, setIsOpenModalAddEmp] = useState(false);
+
   const handleChangeInput = useCallback((e: any) => {
     setValFilter(e.target.value);
   }, []);
@@ -34,7 +37,7 @@ export default function HeaderBtnsCustomerGroup({
   }, []);
   return (
     <div className={styles.main__control}>
-      <div className={`${styles.main__control_btn} flex_between`}>
+      <div className={`${styles.main__control_btn}`}>
         <div className={styles.wrapInput}>
           <form
             style={{
@@ -63,16 +66,37 @@ export default function HeaderBtnsCustomerGroup({
               />
             </button>
           </form>
-        </div>
-        <div className={`${styles.main__control_add} flex_end`}>
+        </div>{" "}
+        <FilterCart />
+      </div>
+      <ModalGroupCustomerDelete
+        isOpenModalDelete={isOpenModalDelete}
+        setIsOpenModalDelete={setIsOpenModalDelete}
+      />
+      <ModalGroupCustomerMove
+        isOpenModalMove={isOpenModalMove}
+        setIsOpenModalMove={setIsOpenModalMove}
+      />{" "}
+      <ModalGroupCustomerAddEmp
+        isOpenModalAddEmp={isOpenModalAddEmp}
+        setIsOpenModalAddEmp={setIsOpenModalAddEmp}
+      />
+      <div className={styles.action_box}>
+        {" "}
+        <GroupCustomerAction
+          isSelectedRow={isSelectedRow}
+          selectedRow={selectedRow}
+          updateData={updateData}
+        />
+        <div className={`${styles.main__control_add}`}>
           {company_id === 10013446 && typeComp === 1 && (
             <div className={`${styles.main__control_add} flex_end`}>
               <button
                 type="button"
                 onClick={() => setIsOpenModalDelete(true)}
-                className={`${styles.dropbtn_delete} flex_align_center`}
+                className={`${btnStyles.delete_button} flex_align_center`}
               >
-                Xóa
+                Xóa giỏ cán bộ
               </button>{" "}
               <button
                 onClick={() => setIsOpenModalMove(true)}
@@ -103,23 +127,6 @@ export default function HeaderBtnsCustomerGroup({
           </Link>
         </div>
       </div>
-      <ModalGroupCustomerDelete
-        isOpenModalDelete={isOpenModalDelete}
-        setIsOpenModalDelete={setIsOpenModalDelete}
-      />
-      <ModalGroupCustomerMove
-        isOpenModalMove={isOpenModalMove}
-        setIsOpenModalMove={setIsOpenModalMove}
-      />{" "}
-      <ModalGroupCustomerAddEmp
-        isOpenModalAddEmp={isOpenModalAddEmp}
-        setIsOpenModalAddEmp={setIsOpenModalAddEmp}
-      />
-      <GroupCustomerAction
-        isSelectedRow={isSelectedRow}
-        selectedRow={selectedRow}
-        updateData={updateData}
-      />
     </div>
   );
 }

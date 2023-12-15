@@ -1,35 +1,67 @@
+import io from "socket.io-client";
 import { useState } from "react";
+import { useRouter } from 'next/router';
 import styles from "./chat.module.css";
 import Image from "next/image";
-import { notification } from "antd";
+import { notification, Modal } from "antd";
 import { base_url } from "../service/function";
+import jwt_decode from "jwt-decode";
 const Cookies = require("js-cookie");
+
+
 export default function InputPhone({ infoCus, refPhone, setPhone }: any) {
+  const currentCookie = Cookies.get("token_base365");
+  const decodedToken: any = jwt_decode(currentCookie);
+
+  const router = useRouter();
   const [numberValue, setNumberValue] = useState("");
   const [isCalling, setIsCalling] = useState(false);
-  // console.log("infoCus",infoCus)
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [listPhone, setListPhone] = useState([]);
+
   const handleCallBtn = async () => {
-    if (numberValue) {
-      setIsCalling(true);
+    const arr_phone = infoCus?.phone_number?.info.split(',')
+    if (arr_phone.length === 1) {
+      const phone_number = infoCus?.phone_number?.info
+      const id_chat = decodedToken?.data?._id
+      //Gọi socket, link, bắn thông báo thành công
+      router.push(`chat365:/${btoa(phone_number)}/${btoa(String(id_chat))}`);
+      try {
+        await fetch(`https://voip.timviec365.vn/api/CallSocket`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            user_id: id_chat,
+            phone_number: phone_number
+          })
+        });
+      } catch (error) { }
     }
+    else {
+      setListPhone(arr_phone)
+      setIsModalOpen(true)
+    }
+  };
+  const handleCalling = async (phone: string) => {
+    const id_chat = decodedToken?.data?._id
+    //Gọi socket, link, bắn thông báo thành công
+    router.push(`chat365:/${btoa(phone)}/${btoa(String(id_chat))}`);
     try {
-      const res = await fetch(`${base_url}/api/crm/cutomerCare/Call`, {
+      await fetch(`https://voip.timviec365.vn/api/CallSocket`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${Cookies.get("token_base365")}`,
         },
-        body: JSON.stringify({ phone: `${+infoCus?.dien_thoai}` }),
+        body: JSON.stringify({
+          user_id: id_chat,
+          phone_number: phone
+        })
       });
-      const data = await res.json();
-      if (data && data.error) {
-        notification.error({ message: data.error.message });
-      }
-    } catch (error) {}
-  };
-  const handleDisConnectCalling = () => {
-    setIsCalling(false);
-  };
+    } catch (error) { }
+    setIsModalOpen(false)
+  }
   return (
     <div
       className={`${styles.business_assistant_item} ${styles.business_assistant_item_phone}`}
@@ -40,21 +72,19 @@ export default function InputPhone({ infoCus, refPhone, setPhone }: any) {
         <label className={styles.lbl_title}>Số điện thoại</label>
         <form action="" onSubmit={() => false} style={{ width: "100%" }}>
           <input
-            type="number"
+            type="string"
             ref={refPhone}
             disabled
             defaultValue={infoCus?.phone_number?.info}
             className={styles.input_phone}
-            // onChange={(e)=>console.log(e.target.name)}
           />
         </form>
       </div>
 
-      {isCalling ? (
+      {false ? (
         <button
           type="button"
           className={styles.phone_btn_icon}
-          onClick={handleDisConnectCalling}
         >
           <svg
             width={36}
@@ -102,6 +132,18 @@ export default function InputPhone({ infoCus, refPhone, setPhone }: any) {
           />
         </button>
       )}
+      <Modal
+        title="Danh sách số điện thoại"
+        open={isModalOpen}
+        width={300}
+        maskClosable={true}
+        onCancel={() => setIsModalOpen(false)}
+        footer={null}
+      >
+        {listPhone.map((phone, index) => (
+          <div key={index} className={styles.phone_item} onClick={() => handleCalling(phone)}>{phone}</div>
+        ))}
+      </Modal>
     </div>
   );
 }

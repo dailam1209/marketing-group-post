@@ -1,4 +1,6 @@
+import { ChangeEvent, useContext } from "react";
 import styles from "./add_file_order.module.css";
+import { QuoteContext } from "../../quote/quoteContext";
 export default function AddDesriptionAndSystemInfo() {
   return (
     <>
@@ -9,11 +11,10 @@ export default function AddDesriptionAndSystemInfo() {
           <div className={`${styles.mb_3} `}>
             <label className={`${styles["form-label"]}`}>Mô tả</label>
             <textarea
-              name="address_contact"
+              name="description"
               id="address_contact"
               className={styles["form-control"]}
               placeholder="Nhập mô tả"
-              defaultValue={""}
               style={{ height: "82px" }}
             />
           </div>
@@ -29,7 +30,7 @@ export default function AddDesriptionAndSystemInfo() {
               <input
                 type="checkbox"
                 defaultValue={1}
-                name="share_all"
+                name="use_system_info"
                 id="share_all"
               />
               Dùng chung

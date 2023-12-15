@@ -223,7 +223,7 @@ export default function SideBar({ isOpened }) {
               boxAlertElement.insertAdjacentHTML("afterbegin", alert);
             }
           }
-          hanldeReload();
+          // hanldeReload();
         }
       );
     }

@@ -3,7 +3,7 @@ import type { MenuProps } from "antd";
 import { Button, Dropdown, Space } from "antd";
 import Link from "next/link";
 import { dataActionQuote } from "../ultis/consntant";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import OrderBrowsingModal from "./quote_action_modal/quote_browsing_action_mdal";
 import DenyActionModal from "./quote_action_modal/deny_action_mdal";
 import DelActionModal from "./quote_action_modal/delete_action_mdal";
@@ -12,8 +12,12 @@ import ShareActionModal from "./quote_action_modal/share_action_mdal";
 import HandOverActionModal from "./quote_action_modal/handover_action_mdal";
 import StatusModal from "./quote_action_modal/status-mdal";
 import { useRouter } from "next/router";
+import { QuoteContext } from "./quoteContext";
+import ModalError from "./quote_steps/error_mdal";
 
 export default function QuoteAction({ isSelectedRow, record, allkey }: any) {
+  const { listRecordId } = useContext(QuoteContext)
+  const [dropdownOpen, setDropdownOpen] = useState(false)
   const [isOpenOrderBrowsing, setIsOpenOrderBrowsing] = useState(false);
   const [isOpenDeny, setIsOpenDeny] = useState(false);
   const [isDelOpen, setIsDelOpen] = useState(false);
@@ -22,7 +26,9 @@ export default function QuoteAction({ isSelectedRow, record, allkey }: any) {
   const [isOpenHandOver, setIsOpenHandOver] = useState(false);
   const [isOpenUpdate, setIsOpenUpdate] = useState(false);
   const [isOpenSend, setIsOpenSend] = useState(false);
+  const [isOpenError, setIsOpenError] = useState(false);
   const handleClickAction = (e: any, type: string | undefined) => {
+    setDropdownOpen(false);
     if (type === "order_browsing") {
       setIsOpenOrderBrowsing(true);
     }
@@ -48,8 +54,18 @@ export default function QuoteAction({ isSelectedRow, record, allkey }: any) {
       setIsOpenSend(true);
     }
   };
+
+  const handleDropdownOpen = (visible: boolean) => {
+    if (listRecordId.length > 0) {
+      setDropdownOpen(visible)
+    } else {
+      setIsOpenError(true)
+    }
+  }
+
   const items: MenuProps["items"] = [];
   for (let i = 0; i < dataActionQuote.length; i++) {
+    if (['update-status', "delete"].includes(dataActionQuote[i].type)) // Chỉ hiển thị nút cho nhiều báo giá
     items.push({
       key: i,
       label: (
@@ -79,13 +95,15 @@ export default function QuoteAction({ isSelectedRow, record, allkey }: any) {
     <div className={styles.div__thaotac}>
       <div>
         <label>Đã chọn:</label>
-        <b className={styles.checked_count}>0</b>
+        <b className={styles.checked_count}> {listRecordId.length}</b>
       </div>
 
       <Dropdown
         trigger={"click" as any}
         menu={{ items }}
         placement="bottomLeft"
+        open={dropdownOpen}
+        onOpenChange={handleDropdownOpen}
       >
         <button className={styles.button_thaotac}>
           <img src="/crm/3_cham.png" />
@@ -117,6 +135,7 @@ export default function QuoteAction({ isSelectedRow, record, allkey }: any) {
 
       <DelActionModal
         record={record}
+        allkey={listRecordId}
         isModalCancel={isDelOpen}
         setIsModalCancel={setIsDelOpen}
       />
@@ -139,9 +158,15 @@ export default function QuoteAction({ isSelectedRow, record, allkey }: any) {
       />
       <StatusModal
         record={record}
-        allkey={allkey}
+        allkey={listRecordId}
         isModalCancel={isOpenUpdate}
         setIsModalCancel={setIsOpenUpdate}
+      />
+
+      <ModalError
+        modal1Open={isOpenError}
+        setModal1Open={setIsOpenError}
+        title="Hãy chọn báo giá"
       />
     </div>
   );

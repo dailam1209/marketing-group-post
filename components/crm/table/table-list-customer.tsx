@@ -167,6 +167,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
     setCusId(record.cus_id);
     setshow(true);
   };
+  const [groupId, setgroupId] = useState<any>();
 
   const renderTitle = (record, text) => (
     <div className="tooltip-content">
@@ -199,9 +200,13 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
       headers: headers,
       body: formData,
     };
+
     try {
       const response = await fetch(url, config);
       const data = await response.json();
+      console.log(response);
+      console.log(data);
+
       if (data?.error) {
       }
     } catch (error) {
@@ -227,11 +232,25 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
           ]
         : [{ label: item.gr_name, value: item.gr_id.toString() }],
   }));
+
   const [value, setvalue] = useState();
   const [slectNhom, setslectNhom] = useState<any>();
   const [groupIds, setGroupIds] = useState<any>({});
 
   const handleSelectChange = async (selectedOption) => {
+    console.log("handleSelectChange", selectedOption, datatable, setDatatable);
+    let tempt = [];
+    for (let i = 0; i < datatable.length; i++) {
+      let obj = datatable[i];
+      if (Number(obj.cus_id) !== Number(cus_nhom)) {
+        tempt.push(obj);
+      } else {
+        tempt.push({ ...obj, group_id: Number(selectedOption) });
+      }
+    }
+    console.log("tempt", tempt);
+    setDatatable({ data: tempt });
+    console.log(datatable);
     // Kiểm tra nếu người dùng chọn một nhóm (select cha)
     const url = `${base_url}/api/crm/customerdetails/editCustomer`;
 
@@ -243,7 +262,6 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
     const headers = {
       Authorization: `Bearer ${Cookies.get("token_base365")}`,
     };
-
     const config = {
       method: "POST",
       headers: headers,
@@ -252,7 +270,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
     try {
       const response = await fetch(url, config);
       const data = await response.json();
-
+      //response?.ok ? fetchDataDefault() : window.alert("lỗi");
       if (data?.error) {
       }
     } catch (error) {
@@ -358,11 +376,12 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
           }}
           name="value"
           className="js-example-basic-single"
+          value={record?.group_id}
           defaultValue={router.query.group || record?.group_id?.toString()}
           data-record={JSON.stringify(record)} // Lưu bản ghi vào data attribute
         >
           {options.map((group) => (
-            <optgroup key={group.label} label={group.label}>
+            <optgroup defaultValue={record.group_id} key={group.label} label={group.label}>
               {group.options.map((option) => (
                 <option key={option.value} value={option.value}>
                   {option.label}
@@ -539,7 +558,7 @@ const TableListCustomer: React.FC<TableDataContracDrops> = ({
             total: totalRecords,
             onChange: (current, pageSize) => {
               if (current != page) {
-                setDatatable([]);
+                // setDatatable([]);
                 setPage(current);
               }
             },

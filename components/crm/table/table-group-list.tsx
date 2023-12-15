@@ -273,7 +273,6 @@ const TableDataGroupListCustomer: React.FC<TableDataGroupListCustomerProps> = ({
         updateData={updateData}
         setChange={setChange}
       />
-
       <ModalGroupCustomerShare
         setIsOpenModalShare={setIsOpenModalShare}
         isOpenModalShare={isOpenModalShare}

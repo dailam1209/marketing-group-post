@@ -66,7 +66,7 @@ export default function PotentialInputGroups({
     setListEmp(
       datas.map((item: any) => ({
         value: item.ep_id,
-        label: item.userName,
+        label: `${item.ep_id}. ${item.userName}`,
       }))
     );
   };

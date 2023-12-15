@@ -1,13 +1,15 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import styleHome from "@/components/crm/home/home.module.css";
-import styles from "@/components/crm/order/order.module.css";
+import styles from "@/components/crm/quote/order.module.css";
 import { SidebarContext } from "@/components/crm/context/resizeContext";
 import QuoteFooterAddFiles from "@/components/crm/quote/quote_add_files/quote_footer_add_files";
 import AddDetailInfo from "@/components/crm/quote/quote_add_files/detail_info";
 import AddTable from "@/components/crm/quote/quote_add_files/table";
-import AddDescriptionInfo from "@/components/crm/order/order_add_files/description_info";
+import AddDescriptionInfo from "@/components/crm/quote/quote_add_files/description_info copy";
 import { useHeader } from "@/components/crm/hooks/useHeader";
 import Head from "next/head";
+import { useRouter } from "next/router";
+import { QuoteProvider } from "@/components/crm/quote/quoteContext";
 
 const AddFilesPotential: React.FC = () => {
   const mainRef = useRef<HTMLDivElement>(null);
@@ -20,6 +22,9 @@ const AddFilesPotential: React.FC = () => {
     setShowBackButton,
     setCurrentPath,
   }: any = useHeader();
+
+  const router = useRouter();
+  const { id } = router.query;
 
   useEffect(() => {
     setHeaderTitle("Báo giá / Chỉnh sửa");
@@ -81,26 +86,28 @@ const AddFilesPotential: React.FC = () => {
           src="https://www.googletagmanager.com/gtm.js?id=GTM-NXVQCHN"
         ></script>
       </Head>
-      <div className={styleHome.main} ref={mainRef}>
-        <div className={styles.main_importfile}>
-          <div className={styles.formInfoStep}>
-            <div className={styles.info_step}>
-              <div className={styles.main__title}>Chỉnh sửa báo giá</div>
-              <div className={styles.form_add_potential}>
-                <div className={styles.main__body}>
-                  <AddDetailInfo />
-                  <AddTable />
-                  {/* <AddStatusOrderInfo/> */}
-                  {/* <AddInvoiceInfo /> */}
-                  {/* <AddDeliveryInfo /> */}
-                  <AddDescriptionInfo />
+      <QuoteProvider>
+        <div className={styleHome.main} ref={mainRef}>
+          <div className={styles.main_importfile}>
+            <div className={styles.formInfoStep}>
+              <div className={styles.info_step}>
+                <div className={styles.main__title}>Chỉnh sửa báo giá</div>
+                <div className={styles.form_add_potential}>
+                  <div className={styles.main__body}>
+                    <AddDetailInfo id={Number(id) ? Number(id) : 0} />
+                    <AddTable />
+                    {/* <AddStatusOrderInfo/> */}
+                    {/* <AddInvoiceInfo /> */}
+                    {/* <AddDeliveryInfo /> */}
+                    <AddDescriptionInfo />
+                  </div>
+                  <QuoteFooterAddFiles title="Chỉnh sửa báo giá thành công" />
                 </div>
-                <QuoteFooterAddFiles title="Chỉnh sửa báo giá thành công" />
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </QuoteProvider>
     </>
   );
 };

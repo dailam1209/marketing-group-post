@@ -5,13 +5,21 @@ import {
     ReactPortal,
     // PromiseLikeOfReactNode,
     Key,
+    useState,
+    useEffect,
 } from "react";
 import styles from "@/components/crm/quote/quote.module.css";
 
 export default function OrderDropDownDataStep({
     data = [],
     value = " Chọn",
+    setValue
 }: any) {
+    const [inputValue, setInputValue] = useState('')
+    const filteredData = data.filter(item =>
+        item.toLowerCase().includes(inputValue.trim().toLowerCase()))
+    const displayItems = inputValue === '' ? data : filteredData
+
     return (
         <span
             className={`${styles.select2_container_open} ${styles.select2_container} ${styles.select2_container_default} `}
@@ -35,6 +43,8 @@ export default function OrderDropDownDataStep({
                         spellCheck="false"
                         role="textbox"
                         style={{ height: "34px" }}
+                        onChange={(e) => setInputValue(e.target.value)}
+                        value={inputValue}
                     />
                 </span>
                 <span className={styles.select2_results}>
@@ -49,16 +59,16 @@ export default function OrderDropDownDataStep({
                         >
                             {value}
                         </li>
-                        {data?.map(
+                        {displayItems?.map(
                             (
                                 item:
                                     | string
                                     | number
                                     | boolean
                                     | ReactElement<
-                                          any,
-                                          string | JSXElementConstructor<any>
-                                      >
+                                        any,
+                                        string | JSXElementConstructor<any>
+                                    >
                                     | Iterable<ReactNode>
                                     | ReactPortal
                                     // | PromiseLikeOfReactNode
@@ -74,6 +84,7 @@ export default function OrderDropDownDataStep({
                                         padding: "5px 0",
                                         paddingLeft: "18px",
                                     }}
+                                    onClick={() => {setValue(item); setInputValue('')}}
                                 >
                                     {item}
                                 </li>

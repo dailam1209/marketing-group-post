@@ -47,7 +47,6 @@ export function MInputTextV2({
   id = "",
 }: any) {
   const { handleChangeData, formData } = useContext(useFormData);
-  // console.log("formDataaaaa", formData);
 
   return (
     <div className={`${stylesAdd.mb_3} ${stylesAdd["col-lg-6"]}`}>
