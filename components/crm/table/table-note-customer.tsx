@@ -123,8 +123,12 @@ const TableDataNoteDetailList: React.FC<any> = ({}: any) => {
           },
         }}
       />
-      <div className="main__footer flex_between" id="">
-        <div className="show_number_item">
+
+      <div
+        style={{ marginTop: "10px", transform: "translateY(0px)" }}
+        className={`flex_between ${totalRecords ? "custom_info_table" : ""}`}
+      >
+        <div style={{ marginBottom: "10px" }} className="show_number_item">
           <b>Hiển thị:</b>
           <Select
             style={{ width: 200 }}
@@ -143,8 +147,16 @@ const TableDataNoteDetailList: React.FC<any> = ({}: any) => {
             <option value={50}>50 bản ghi trên trang</option>
           </Select>
         </div>
-        <div className="total">
-          Tổng số: <b>{totalRecords}</b> Ghi chú
+        <div
+          style={{
+            marginBottom: "10px",
+            transform: totalRecords ? "translateX(50%)" : "",
+          }}
+          className="total"
+        >
+          <div className="total">
+            Tổng số: <b>{totalRecords}</b> Ghi chú
+          </div>
         </div>
       </div>
     </div>

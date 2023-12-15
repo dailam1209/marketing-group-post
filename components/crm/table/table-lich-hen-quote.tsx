@@ -133,12 +133,15 @@ const TableDataLichhen: React.FC<TableDataCampaignProps> = () => {
         }}
         scroll={{ x: "100%", y: 600 }}
       />
-      <div className="main__footer flex_between" id="">
-        <div className="show_number_item">
+      <div
+        style={{ marginTop: "10px", transform: "translateY(0px)" }}
+        className={`flex_between ${total ? "custom_info_table" : ""}`}
+      >
+        <div style={{ marginBottom: "10px" }} className="show_number_item">
           <b>Hiển thị:</b>
           <select
             onChange={(e) => {
-              setPageSize(e.target.value), setPage(1);
+              setPageSize(Number(e.target.value)), setPage(1);
             }}
             className="show_item"
           >
@@ -149,8 +152,16 @@ const TableDataLichhen: React.FC<TableDataCampaignProps> = () => {
             <option value={50}>50 bản ghi trên trang</option>
           </select>
         </div>
-        <div className="total">
-          Tổng số: <b>{total}</b> Lịch hẹn
+        <div
+          style={{
+            marginBottom: "10px",
+            transform: total ? "translateX(50%)" : "",
+          }}
+          className="total"
+        >
+          <div className="total">
+            Tổng số: <b>{total}</b> Lịch hẹn
+          </div>
         </div>
       </div>
       <ToastContainer autoClose={2000} />

@@ -17,7 +17,6 @@ export default function DetailCampaignButtonControl({
   setIsHideEmptyData,
   formFields,
 }) {
-  console.log(formFields);
   const [isDelOpen, setIsDelOpen] = useState(false);
   const [isOpenPause, setIsOpenPause] = useState(false);
   const router = useRouter();

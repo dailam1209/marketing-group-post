@@ -85,7 +85,7 @@ const Lich_hen_potential = (props: Props) => {
                     />
                   </div>
                 </div>
-                <div style={{ width: "30%" }}>
+                <div style={{ width: "40%" }}>
                   {" "}
                   <SelectSingle
                     onChange={handleRecall}
