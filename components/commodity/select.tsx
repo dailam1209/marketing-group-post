@@ -73,7 +73,7 @@ export default function SelectSingle({
         className={`select2 ${styles.select2_container}`}
         dir="ltr"
         data-select2-id={2}
-        style={{ width: "100%", paddingTop: "5px" }}
+        style={{ width: "100%" }}
         onClick={handleClickSelectoption}
       >
         <span className={`${styles.selection}`}>

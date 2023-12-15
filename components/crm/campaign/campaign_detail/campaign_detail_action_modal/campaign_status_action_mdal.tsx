@@ -91,7 +91,7 @@ const StatusCustomerCampaignModal: React.FC<MyComponentProps> = ({
                 (option?.label ?? "").includes(input)
               }
               style={{ marginTop: "10px", height: "40px" }}
-              placeholder="Người thực hiện: "
+              placeholder="Tình trạng: "
               value={body?.status ? body?.status : null}
               onChange={(value) => {
                 setBody((prev) => {
