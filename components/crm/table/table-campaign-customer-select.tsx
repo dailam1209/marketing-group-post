@@ -30,14 +30,14 @@ interface DataType {
   date: string;
 }
 
-interface TableDataOrderProps {
+interface TableDataCustomerProps {
   setSelected: (value: boolean) => void;
   setNumberSelected: any;
   setArrCustomerId: any;
   searchParam?: {};
 }
 
-const TableDataOrder: React.FC<TableDataOrderProps> = ({
+const TableDataCustomer: React.FC<TableDataCustomerProps> = ({
   setSelected,
   setNumberSelected,
   setArrCustomerId,
@@ -396,4 +396,4 @@ const TableDataOrder: React.FC<TableDataOrderProps> = ({
   );
 };
 
-export default TableDataOrder;
+export default TableDataCustomer;
