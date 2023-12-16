@@ -35,7 +35,7 @@ const TableDataQuote: React.FC<TableDataOrderProps> = ({
   const { dateQuote, dateQuoteEnd, status, quoteCode, shouldFetchData, 
     setShouldFetchData, setRecordId, setListRecordId, listRecordId, 
     setRecordName, setListRecordName, statusStrToColor, statusNumToStr,
-    setShouldFetchDetailData } = useContext(QuoteContext);
+    setShouldFetchDetailData, recordId } = useContext(QuoteContext);
   const [quoteData, setQuoteData] = useState<any>([]) // Data từ API
   const [data, setData] = useState<DataType[]>([]); // Data đổ bảng
   const [perPage, setPerPage] = useState(10);
@@ -116,6 +116,11 @@ const TableDataQuote: React.FC<TableDataOrderProps> = ({
     stopLoading();
   }, [quoteData])
 
+  useEffect(() => {
+    if (recordId && Number(recordId) && Number(recordId) !== 0)
+    setShouldFetchDetailData(true)
+  }, [recordId])
+
   const columns: ColumnsType<DataType> = [
     {
       title: "Số báo giá",
@@ -188,7 +193,7 @@ const TableDataQuote: React.FC<TableDataOrderProps> = ({
       width: 150,
       fixed: "right",
       render: (text: any, record: any) => (
-        <div onClick={() => { setKey(record.key); setRecordId(record.key); setRecordName(record.quote_code); setShouldFetchDetailData(true) }}>
+        <div onClick={() => { setKey(record.key); setRecordId(record.key); setRecordName(record.quote_code);  }}>
           <QuoteActionTable record={key} allKey={[]} />
         </div>
       ),

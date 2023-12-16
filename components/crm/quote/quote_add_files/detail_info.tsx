@@ -8,38 +8,52 @@ import { QuoteContext } from "../quoteContext";
 import { axiosCRMCall } from "@/utils/api/api_crm_call";
 import useLoading from "../../hooks/useLoading";
 import { useRouter } from "next/router";
+import ChanceSelectBoxStep from "../quote_steps/select_box_step_chance";
 
 export default function AddDetailInfo({ id: quoteId = 0 }) {
   const { newQuote, inputQuote, allAvailableStatusString, statusStrToNum, statusNumToStr,
     listCusOption, getCusId, keyword, setKeyword, setShouldFetchCus, setShouldFetchDetailData,
-    isCreate, setIsCreate, detailData, setRecordId, shouldFetchDetailData, getPropOrDefault } = useContext(QuoteContext)
+    isCreate, setIsCreate, detailData, setRecordId, shouldFetchDetailData, getPropOrDefault,
+    listChanceOption, chanceKeyword, setChanceKeyword, clearQuote } = useContext(QuoteContext)
   const [localStatus, setLocalStatus] = useState('Chọn')
   const [localCustomer, setLocalCustomer] = useState('Chọn')
+  const [localChance, setLocalChance] = useState('Chọn')
   const { isLoading, startLoading, stopLoading } = useLoading();
   const router = useRouter();
   const { id } = router.query
 
+  // Textbox
   const handleSimpleInput = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     inputQuote(name, value);
   }
 
+  // Textbox phone
   const handlePhoneInput = (e: ChangeEvent<HTMLInputElement>) => {
     const newPhone = e.target.value.replace(/\s/g, '').replace(/[^0-9]/g, '').slice(0, 11);
     inputQuote('phone_number', newPhone)
   }
 
+  // Dropdown status
   const handleStatus = (str) => {
     setLocalStatus(str)
     inputQuote('status', statusStrToNum(str))
   }
 
+  // Dropdown Customer
   const handleCusId = (str) => {
     setLocalCustomer(str)
     inputQuote('customer_id', getCusId(str))
     getCusDataFromId(getCusId(str))
   }
 
+  // Dropdown Chance
+  const handleChanceId = (str) => {
+    setLocalChance(str)
+    inputQuote('chance_id', getCusId(str))
+  }
+
+  // Đổ dữ liệu có sẵn của customer khi chọn 
   const getCusDataFromId = (id) => {
     axiosCRMCall
       .post('/customerdetails/detail', { cus_id: id })
@@ -61,6 +75,7 @@ export default function AddDetailInfo({ id: quoteId = 0 }) {
       setShouldFetchDetailData(true)
     } else {
       setIsCreate(true)
+      clearQuote()
     }
   }, [router.query])
 
@@ -175,7 +190,14 @@ export default function AddDetailInfo({ id: quoteId = 0 }) {
           />
           <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
             <label className={`${styles["form-label"]}`}>Cơ hội</label>
-            <OrderSelectBoxStep value="Chọn" placeholder="Chọn" />
+            <ChanceSelectBoxStep
+              value={localChance}
+              placeholder="Chọn"
+              data={listChanceOption}
+              setValue={handleChanceId}
+              setKeyword={setChanceKeyword}
+              keyword={chanceKeyword}
+            />
           </div>
 
         </div>
