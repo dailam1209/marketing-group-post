@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Tabs } from "antd";
 import Link from "next/link";
 import styles from "../quote.module.css";
@@ -12,7 +12,7 @@ import ModalThemMoiLichhen from "@/components/crm/cskh/modal/modalthemmoilichhen
 import TableDataLichhen from "@/components/crm/table/table-lich-hen-quote";
 import OrderDetailSelectBox from "@/components/crm/order/order_detail/order_detail_action_modal/order_detail_select";
 import ModalAddTL from "../quote_action_modal/m-dal-themmoi-tailieudinhkem";
-import TableAddTLDK from "@/components/crm/table/table-tailieudinhkem";
+import TableAddTLDK from "@/components/crm/table/table-quote-tailieudinhkem";
 import TableTLChiaSe from "@/components/crm/table/table-DSchia-se";
 import ShareDSCSActionModal from "../quote_action_modal/share_dsChiaSe.mdal";
 import Form_quote_detail from "../form_quote/form_quote-detail";
@@ -22,6 +22,14 @@ const TabComponent = () => {
   const [activeTab, setActiveTab] = useState("tab1");
   const [isShowModalAddTL, setIsShowModalAddTL] = useState(false);
   const [isShowModalShareCS, setIsShowModalShareCS] = useState(false);
+
+  // Quote file
+  const [quoteFileNameInput, setQuoteFileNameInput] = useState('')
+  const [quoteFileName, setQuoteFileName] = useState('')
+  const handleSearchQuoteFile = (e) => {
+    e.preventDefault()
+    setQuoteFileName(quoteFileNameInput)
+  }
 
   const handleTabChange = (key: any) => {
     setActiveTab(key);
@@ -229,12 +237,14 @@ const TabComponent = () => {
                   <div className={`${styles.main__control_btn} `}></div>
                   <div className={`${styles.main__control_btn} flex_between`}>
                     <div className={styles.main__control_search}>
-                      <form onSubmit={() => false}>
+                      <form onSubmit={handleSearchQuoteFile}>
                         <input
                           type="text"
                           className={styles.input__search}
-                          name="search"
-                          defaultValue=""
+                          name="searchFile"
+                          // defaultValue=""
+                          value={quoteFileNameInput}
+                          onChange={(e) => setQuoteFileNameInput(e.target.value)}
                           placeholder="Tìm kiếm theo tên tài liệu đính kèm"
                         />
                         <button className={styles.kinh_lup}>
@@ -257,7 +267,7 @@ const TabComponent = () => {
                       </button>
                     </div>
                   </div>
-                  <TableAddTLDK />
+                  <TableAddTLDK keyword={quoteFileName}/>
                   <ModalAddTL
                     isShowModalAddTL={isShowModalAddTL}
                     onClose={onClose}

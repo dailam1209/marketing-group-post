@@ -9,6 +9,7 @@ import { axiosCRM } from "@/utils/api/api_crm";
 import { useFormData } from "../../context/formDataContext";
 import { notifyError } from "@/utils/function";
 import { ToastContainer } from "react-toastify";
+import { axiosCRMCall } from "@/utils/api/api_crm_call";
 
 interface MyComponentProps {
   isModalCancel: boolean;
@@ -23,8 +24,8 @@ const DelTLDK: React.FC<MyComponentProps> = ({
   const [isModalSuccess, setIsMdalSuccess] = useState(false);
   const { handleRecall } = useContext(useFormData);
   const handleDeleteFile = () => {
-    axiosCRM
-      .post("/potential/deleteAttachment", { id: record.id })
+    axiosCRMCall
+      .post("/quote/delete-attachment", { id: record.id })
       .then((res) => {
         setIsMdalSuccess(true), onClose(), handleRecall();
       })

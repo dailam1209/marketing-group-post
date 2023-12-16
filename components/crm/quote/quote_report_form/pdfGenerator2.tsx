@@ -80,9 +80,9 @@ const PdfGenerator2 = ({ isVisible = false, closePdfModal, isDownload = false })
             // pdf.addImage(imageData, 'PNG', 0, 0, scaledWidth, scaledHeight);
             isDownload ? pdf.save('Báo giá') : window.open(pdf.output('bloburl'), '_blank');
             closePdfModal(); // Close the PdfGenerator after PDF generation is complete
-
             // setIsLoaded(false)
         });
+        setIsModalOpen(false)
     };
 
     return (

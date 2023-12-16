@@ -102,7 +102,7 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
         tax_code: '',
         address: '',
         phone_number: '',
-        chance_id: '',
+        chance_id: 0,
         introducer: '',
         product_list: [],
         discount_rate: 0,
@@ -125,7 +125,7 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
             tax_code: '',
             address: '',
             phone_number: '',
-            chance_id: '',
+            chance_id: 0,
             introducer: '',
             product_list: [],
             discount_rate: 0,
@@ -139,6 +139,7 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
     }
 
     // Có thể sử dụng trực tiếp detailData
+    // TODO Check needed
     const [editQuote, setEditQuote] = useState({ // Lưu dữ liệu sẵn có khi chỉnh sửa
         id: 0,
         date_quote: '',
@@ -300,8 +301,8 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
             axiosCRMCall
                 .post('/chance/list-chance', { keyword: chanceKeyword })
                 .then(res => {
-                    if (res?.data?.data?.length > 0) {
-                        const newArr = res?.data?.data
+                    if (res?.data?.data?.data?.length > 0) {
+                        const newArr = res?.data?.data?.data
                             .filter(item => 'id' in item && 'name' in item)
                             .filter(item => item.id && item.name)
                             .map(item => `${item.id} - ${item.name}`)
@@ -423,7 +424,7 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
                 newQuote, setNewQuote,
                 inputQuote, clearQuote, validateQuote,
                 // Chỉnh sửa
-                editQuote, setEditQuote,
+                // editQuote, setEditQuote,
 
                 // Khách hàng trong báo giá
                 shouldFetchCus, setShouldFetchCus,

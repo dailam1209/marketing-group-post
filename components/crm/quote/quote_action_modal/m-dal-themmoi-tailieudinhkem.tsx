@@ -27,6 +27,8 @@ const ModalAddTL = (props: any) => {
   const [open, setOpen] = useState(false);
   const [openSuccess, setOpenSuccess] = useState(false);
 
+  const [fileList, setFileList] = useState([])
+
   const showModal = () => {
     setOpen(true);
   };
