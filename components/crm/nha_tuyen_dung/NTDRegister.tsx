@@ -4,11 +4,22 @@ import { useRouter } from "next/router";
 import Link from 'next/link'
 import Cookies from "js-cookie";
 import FilterNTD from "./filter";
+import styles from "../cskh/tongdai/tongdai.module.css";
+import * as XLSX from 'xlsx';
+import exportToExcel from "../ultis/export_xlxs";
+import jwt_decode from "jwt-decode";
 type Props = {};
 
 const NTDRegister = (props: Props) => {
     const router = useRouter();
     const { nhanvien, nguon, timeStart, timeEnd } = router.query as { nhanvien: string, nguon: string, timeStart: string, timeEnd: string };
+    const [user, setUser] = useState(() => {
+        const decodedToken = jwt_decode(Cookies.get("token_base365"))
+        if (decodedToken && decodedToken['data']) {
+            return decodedToken['data']
+        }
+        return undefined
+    })
     const [listData, setListData] = useState([]);
     const [textRecord, setTextRecord] = useState('');
     const [current, setcurrent] = useState(1);
@@ -23,11 +34,23 @@ const NTDRegister = (props: Props) => {
         if (!timeEnd) return undefined
         return timeEnd.split(' ')[0]
     });
-    const [nv, setNv] = useState(nhanvien)
+    const [nv, setNv] = useState(() => {
+        if (user?.type === 1) {
+            return nhanvien
+        }
+        else {
+            return `${user.idQLC} - ${user.userName}`
+        }
+    })
     const [cusFrom, setCusFrom] = useState(nguon)
     const [condition, setCondition] = useState(() => {
         const query = {}
-        if (nhanvien) query['emp_id'] = Number(nhanvien.split(' ')[0])
+        if (user?.type === 1) {
+            if (nhanvien) query['emp_id'] = Number(nhanvien.split(' ')[0])
+        }
+        else {
+            query['emp_id'] = user.idQLC
+        }
         if (nguon) query['cus_from'] = nguon
         if (timeStart) {
             const time = Math.floor((new Date(timeStart)).getTime() / 1000)
@@ -61,6 +84,51 @@ const NTDRegister = (props: Props) => {
         }
         param !== '' ? router.push(`?${param}`) : router.push('')
     }
+
+    const handleExportPhone = () => {
+        const arr_list_phone = []  // mảng lưu sdt
+        listData.map(item => {
+            if (item.phone_number) {
+                const arr = item.phone_number.split(',')
+                arr.map((phone: any) => {
+                    if (!isNaN(phone) && !arr_list_phone.includes(phone)) {
+                        arr_list_phone.push(phone)
+                    }
+                })
+            }
+        })
+        const exportToExcel = () => {
+            const data = arr_list_phone.map(phoneNumber => [phoneNumber]);
+            const ws = XLSX.utils.aoa_to_sheet(data);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'Danh sách điện thoại');
+            XLSX.writeFile(wb, 'danh_sach_dien_thoai.xlsx');
+        };
+        exportToExcel()
+    }
+
+    const handleExportEmail = () => {
+        const arr_list_email = []
+        listData.map(item => {
+            if (item.email) {
+                const arr = item.email.split(',')
+                arr.map((e: any) => {
+                    if (!arr_list_email.includes(e)) {
+                        arr_list_email.push(e)
+                    }
+                })
+            }
+        })
+        const exportToExcel = () => {
+            const data = arr_list_email.map(email => [email]);
+            const ws = XLSX.utils.aoa_to_sheet(data);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'Danh sách email');
+            XLSX.writeFile(wb, 'danh_sach_email.xlsx');
+        };
+        exportToExcel()
+    }
+
 
     useEffect(() => {
         const getData = async () => {
@@ -136,19 +204,30 @@ const NTDRegister = (props: Props) => {
     ];
     return (
         <>
-            <FilterNTD
-                isModalOpen={isModalFilter}
-                setIsModalOpen={setIsModalFilter}
-                fillStart={fillStart}
-                setFillStart={setFillStart}
-                fillEnd={fillEnd}
-                setFillEnd={setFillEnd}
-                handleFilter={handleFilter}
-                nv={nv}
-                setnv={setNv}
-                cusFrom={cusFrom}
-                setCusFrom={setCusFrom}
-            />
+            <div className={styles.group_button}>
+                <FilterNTD
+                    isModalOpen={isModalFilter}
+                    setIsModalOpen={setIsModalFilter}
+                    fillStart={fillStart}
+                    setFillStart={setFillStart}
+                    fillEnd={fillEnd}
+                    setFillEnd={setFillEnd}
+                    handleFilter={handleFilter}
+                    nv={nv}
+                    setnv={setNv}
+                    cusFrom={cusFrom}
+                    setCusFrom={setCusFrom}
+                    user={user}
+                />
+                <div className={styles.group_button_right}>
+                    <div >
+                        <button type="button" onClick={handleExportPhone}>Xuất số điện thoại</button>
+                    </div>
+                    <div >
+                        <button type="button" onClick={handleExportEmail}>Xuất email</button>
+                    </div>
+                </div>
+            </div>
             <div style={{ paddingTop: 20 }}>
                 <div style={{ margin: '8px' }}>Tổng số NTD: {listData.length}</div>
                 <Table

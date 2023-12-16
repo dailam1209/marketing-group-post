@@ -18,6 +18,14 @@ interface MyComponentProps {
     setnv: any;
     cusFrom: any;
     setCusFrom: any
+    user?: any
+}
+
+interface UserProps {
+    com_id: number;
+    idQLC: number;
+    type: number;
+    userName: number;
 }
 const FilterNTD: React.FC<MyComponentProps> = ({
     isModalOpen,
@@ -30,10 +38,12 @@ const FilterNTD: React.FC<MyComponentProps> = ({
     nv,
     setnv,
     cusFrom,
-    setCusFrom
+    setCusFrom,
+    user
 }) => {
     const router = useRouter();
     const [listNv, setListNv] = useState([])
+    const [listCusfrom, setListCusfrom] = useState([])
     const showModal = () => {
         setIsModalOpen(true);
     };
@@ -47,11 +57,9 @@ const FilterNTD: React.FC<MyComponentProps> = ({
     };
     const handleDateChange = (e: any) => {
         setFillStart(e.target.value);
-        // setFillStart(`${e.target.value} 00:00:00`);
     };
     const handleDateChange2 = (e: any) => {
         setFillEnd(e.target.value);
-        // setFillEnd(`${e.target.value} 23:59:59`);
     };
 
     const handleGetListNv = async () => {
@@ -70,8 +78,29 @@ const FilterNTD: React.FC<MyComponentProps> = ({
             setListNv(data?.data?.admin);
         } catch (error) { }
     };
+
+    const handleGetListCusfrom = async () => {
+        try {
+            const res = await fetch(
+                `${process.env.NEXT_PUBLIC_BASE_URL_QLC}/api/crm/customer/GetListCusfromMXH`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${Cookies.get("token_base365")}`,
+                    },
+                }
+            );
+            const data = await res.json()
+            if(data?.data?.list) {
+                setListCusfrom(data.data.list)
+            }
+        } catch (error) { }
+    };
+
     useEffect(() => {
         handleGetListNv();
+        handleGetListCusfrom()
     }, []);
 
     return (
@@ -134,6 +163,7 @@ const FilterNTD: React.FC<MyComponentProps> = ({
                                     placeholder="Chuyên viên phụ trách"
                                     value={nv}
                                     onChange={(value) => setnv(value)}
+                                    disabled={user && user?.type === 1 ? false : true}
                                 >
                                     <option>Chuyên viên phụ trách</option>
                                     {listNv &&
@@ -166,8 +196,13 @@ const FilterNTD: React.FC<MyComponentProps> = ({
                                     onChange={(value) => setCusFrom(value)}
                                 >
                                     <option>Nguồn khách hàng</option>
-                                    <option value={'facebook'}>Facebook</option>
-                                    <option value={'chợ tốt'}>Chợ tốt</option>
+                                    {listCusfrom?.map((item: any, index: number) => {
+                                        return (
+                                            <option key={index} value={item}>
+                                                {item}
+                                            </option>
+                                        );
+                                    })}
                                 </Select>
                             </div>
                         </div>
