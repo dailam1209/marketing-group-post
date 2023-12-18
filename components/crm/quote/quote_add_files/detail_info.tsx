@@ -93,13 +93,12 @@ export default function AddDetailInfo({ id: quoteId = 0 }) {
           })
           .catch((err) => console.log(err))
       }
-      if (detailData.chance_id && detailData.chance_id !== 0) {
+      if (detailData.chance_id) {
         axiosCRMCall
-          .post('/chance/detail-chance', { chance_id: detailData.chance_id })
+          .post('/chance/detail-chance', { chance_id: detailData.chance_id.id })
           .then(res => {
-            console.log(res)
             if (res && res?.data && res?.data.hasOwnProperty('data') && res?.data?.data) {
-              setLocalChance(`${detailData.chance_id} - ${res?.data?.data?.detailChance?.name}`)
+              setLocalChance(`${detailData.chance_id.id} - ${res?.data?.data?.detailChance?.name}`)
             }
           })
           .catch((err) => console.log(err))
