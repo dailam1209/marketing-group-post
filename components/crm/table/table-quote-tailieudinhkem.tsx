@@ -85,7 +85,13 @@ const TableAddTLDK: React.FC<TableDataCampaignProps> = (props: any) => {
     {
       key: "1",
       label: (
-        <Link href={linkDocument} style={{ display: "flex", fontSize: 15 }}>
+        <Link
+          href={linkDocument}
+          style={{ display: "flex", fontSize: 15 }}
+          target="_blank"
+          download
+          // download={linkDocument.split('/').pop()}
+        >
           <i className="bi bi-download" />
           &nbsp; &nbsp; <p>Tải xuống</p>
         </Link>
@@ -186,7 +192,8 @@ const TableAddTLDK: React.FC<TableDataCampaignProps> = (props: any) => {
     },
   ];
   const handleSelect = (record: DataType) => {
-    setLinkDocument(record.linkFile);
+    // Vì lý do nào đó, link file bị lỗi nên cần sửa lại
+    setLinkDocument('http://210.245.108.202:3007' + record.linkFile.replace(/^undefined/, ''));
     setRecord(record);
   };
   return (
