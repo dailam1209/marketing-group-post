@@ -15,7 +15,6 @@ const PdfGenerator2 = ({ isVisible = false, closePdfModal, isDownload = false })
     const [isModalOpen, setIsModalOpen] = useState(false)
     // const [isLoaded, setIsLoaded] = useState(false)
 
-    // TODO Why call API multiple time
     useEffect(() => {
         if (isVisible) {
             setIsModalOpen(true)

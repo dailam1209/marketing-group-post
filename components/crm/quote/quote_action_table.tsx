@@ -147,7 +147,7 @@ export default function QuoteActionTable(props: any) {
         isModalCancel={isOpenSend}
         setIsModalCancel={setIsOpenSend}
       />
-      {/* TODO Test hiệu năng sau build */}
+      {/* TODO Test hiệu năng sau build: Hơi chậm */}
       <PdfGenerator2
         isVisible={isOpenPdf}
         closePdfModal={setIsOpenPdf}

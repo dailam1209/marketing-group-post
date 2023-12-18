@@ -13,6 +13,8 @@ type Props = {};
 // 2. Truyền key/id/... đó để chọn mẫu tương ứng cho các thao tác (xem, in, tải)
 // 3. Thao tác đổi mẫu
 
+// TODO Nếu site chậm, cân nhắc việc đổi sang lấy link tải từ backend
+
 const Form_quote_detail = (props: Props) => {
   const router = useRouter();
 

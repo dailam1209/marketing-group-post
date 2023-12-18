@@ -1,8 +1,9 @@
-import React, { useState } from "react";
-import { Button, DatePicker, Input, Modal, Result, UploadProps } from "antd";
+import React, { useContext, useRef, useState } from "react";
+import { Button, DatePicker, Input, Modal, Result, UploadFile, UploadProps } from "antd";
 import PotentialSelectBoxStep from "@/components/crm/potential/potential_steps/select_box_step";
 import { InboxOutlined } from "@ant-design/icons";
 import { message, Upload } from "antd";
+import { QuoteContext } from "../quoteContext";
 const { Dragger } = Upload;
 
 const props: UploadProps = {
@@ -19,23 +20,36 @@ const props: UploadProps = {
       message.error(`${info.file.name} file upload failed.`);
     }
   },
-  onDrop(e) {},
+  onDrop(e) { },
 };
+
+// TODO Ghép API thêm mới
+
 const ModalAddTL = (props: any) => {
   const { isShowModalAddTL, onClose, handleAddDB, name } = props;
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [openSuccess, setOpenSuccess] = useState(false);
 
+  const { recordId } = useContext(QuoteContext)
   const [fileList, setFileList] = useState([])
+  const draggerRef = useRef(null)
+
+  const handleUpload = () => {
+    fileList.forEach((file) => {
+      console.log(file)
+    })
+    // console.log(draggerRef)
+  }
 
   const showModal = () => {
     setOpen(true);
   };
 
-  const handleOk = () => {};
+  const handleOk = () => { };
 
   const handleClose = () => {
+    setFileList([])
     onClose();
   };
   return (
@@ -101,7 +115,8 @@ const ModalAddTL = (props: any) => {
               type="primary"
               loading={loading}
               onClick={() => {
-                handleAddDB(), setOpenSuccess(true);
+                handleUpload(), handleAddDB(), setOpenSuccess(true);
+                setFileList([])
               }}
             >
               Đồng ý
@@ -111,7 +126,15 @@ const ModalAddTL = (props: any) => {
         ]}
       >
         <div style={{ paddingTop: 40 }}>
-          <Dragger {...props}>
+          <Dragger
+            // {...props}
+            beforeUpload={() => false}
+            // customRequest={customRequest}
+            fileList={fileList}
+            onChange={({ fileList }) => setFileList(fileList)}
+            ref={draggerRef}
+            
+          >
             <p className="ant-upload-drag-icon">
               <InboxOutlined rev={null} />
             </p>
