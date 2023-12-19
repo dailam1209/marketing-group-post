@@ -1,14 +1,57 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Modal } from "antd";
 import { useRouter } from "next/router";
 import ModalCompleteStep from "@/components/crm/quote/quote_steps/complete_modal";
 import CampaignInputGroupsModal from "../detail/campaign_input_modal";
 import TableDataCampaignModal from "@/components/crm/table/table_data_campain_modal";
+import Cookies from "js-cookie";
+import useLoading from "../../hooks/useLoading";
+import { fetchApi } from "../../ultis/api";
+import { axiosQLC } from "@/utils/api/api_qlc";
+import { notifyError } from "@/utils/function";
 
 const ShowCampaignPOMD = (props: any) => {
   const { isModalCancelPO, onClose } = props;
   const [showMdalAdd, setIsShowMdalADd] = useState(false);
   const router = useRouter();
+  const { isLoading, startLoading, stopLoading } = useLoading();
+  const token = Cookies.get("token_base365");
+  const [data, setData] = useState([]);
+  const [listEmp, setListEmp] = useState();
+  const [formData, setFormData] = useState({ nameCampaign: "" });
+  const url = "https://api.timviec365.vn/api/crm/campaign/listCampaign";
+
+  const fetchAPICampaign = async () => {
+    const bodyAPI = {
+      ...formData,
+      nameCampaign: formData?.nameCampaign ? formData?.nameCampaign : "",
+    };
+    startLoading();
+    const dataApi = await fetchApi(url, token, bodyAPI, "POST");
+    setData(dataApi?.data);
+    stopLoading();
+  };
+
+  useEffect(() => {
+    axiosQLC
+      .post("/managerUser/listUser", { ep_status: "Active" })
+      .then((res) => convertDataEmp(res.data.data.data))
+      .catch((err) => notifyError("Vui lòng thử lại sau!"));
+  }, []);
+  const convertDataEmp = (datas) => {
+    setListEmp(
+      datas.map((item: any) => ({
+        ...item,
+        value: item.ep_id,
+        label: item.userName,
+      }))
+    );
+  };
+
+  useEffect(() => {
+    fetchAPICampaign();
+  }, [formData]);
+
   return (
     <>
       {/* <Button type="primary" onClick={() => setModal2Open(true)}>
@@ -45,7 +88,6 @@ const ShowCampaignPOMD = (props: any) => {
               onClick={() => (setIsShowMdalADd(true), router.reload())}
             >
               <Button
-              
                 style={{ width: 150, color: "#fff", background: "#4C5BD4" }}
               >
                 Đồng ý
@@ -62,9 +104,9 @@ const ShowCampaignPOMD = (props: any) => {
         />
 
         <div style={{ paddingTop: 30 }}>
-          <CampaignInputGroupsModal />
+          <CampaignInputGroupsModal setFormData={setFormData} />
         </div>
-        <TableDataCampaignModal />
+        <TableDataCampaignModal empList={listEmp} dataAPI={data} />
       </Modal>
     </>
   );

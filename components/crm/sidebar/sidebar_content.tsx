@@ -313,6 +313,11 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
           label: "SMS",
           link: "/marketing/sms",
         },
+        {
+          blank: "",
+          label: "Zalo",
+          link: "/marketing/zalo",
+        },
       ],
       content: "Marketing",
     },
@@ -446,6 +451,23 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
         content: "Từ khóa nhạy cảm",
       },
       {
+        img_link: "/crm/customer.svg",
+        link: `#`,
+        children: [
+          {
+            blank: "",
+            label: "Nhà tuyển dụng đăng ký mới",
+            link: "/nha-tuyen-dung/dang-ky-moi",
+          },
+          {
+            blank: "",
+            label: "Nhà tuyển dụng đăng tin",
+            link: "/nha-tuyen-dung/dang-tin",
+          },
+        ],
+        content: "Thống kê nhà tuyển dụng MXH",
+      },
+      {
         img_link: "/crm/nav_setting.svg",
         link: "#",
         children: [
@@ -473,29 +495,7 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
         content: "Auto",
       }
     );
-  checkReceiver &&
-    userType == 1 &&
-    sidebar_button_group_company.splice(
-      2,
-      0,
-      {
-        img_link: "/crm/customer.svg",
-        link: `#`,
-        children: [
-          {
-            blank: "",
-            label: "Nhà tuyển dụng đăng ký mới",
-            link: "/nha-tuyen-dung/dang-ky-moi",
-          },
-          {
-            blank: "",
-            label: "Nhà tuyển dụng đăng tin",
-            link: "/nha-tuyen-dung/dang-tin",
-          },
-        ],
-        content: "Thống kê nhà tuyển dụng MXH",
-      }
-    );
+
   const [infoRole, setInfoRole] = useState([]);
 
   const handleGetThongTinQuyen = async () => {

@@ -129,6 +129,20 @@
   text-align: center;
 }
 
+.btn_pause {
+  background: #ff3333;
+  width: 145px;
+  box-shadow: 0px 0px 10px rgb(0 0 0 / 10%);
+  border-radius: 10px;
+  padding: 9px 21px;
+  color: #ffffff;
+  font-family: "Roboto-Medium";
+  font-size: 16px;
+  line-height: 19px;
+  gap: 9px;
+  text-align: center;
+}
+
 .btn_execute {
   background: #ffffff;
   width: 130px;

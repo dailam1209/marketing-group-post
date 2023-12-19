@@ -20,6 +20,7 @@ import { useSelector } from "react-redux";
 import { doGhimCha, doSaveCha } from "../redux/user/userSlice";
 import { useDispatch } from "react-redux";
 import { number } from "yup";
+import Link from 'next/link'
 export default function ChatBusinessBody({
   show,
   cusId,
@@ -310,6 +311,9 @@ export default function ChatBusinessBody({
           refMail={refMail}
           setMail={setMail}
         />
+        {infoCus && infoCus.link_user_post && infoCus.link_user_post !== '' && (
+          <Link href={infoCus.link_user_post} style={{margin: '0 4px'}} target="_blank">Link Facebook người đăng bài</Link>
+        )}
         <TextEditor
           infoCus={infoCus}
           title={"Mô tả khách hàng" as any}

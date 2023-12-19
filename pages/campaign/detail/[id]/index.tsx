@@ -146,6 +146,7 @@ const DetailCampaign: React.FC = () => {
                 <div className={styles.form_add_potential}>
                   <AddButtonControl
                     isHideEmptyData={isHideEmptyData}
+                    formFields={formFields}
                     setIsHideEmptyData={setIsHideEmptyData}
                   />
                 </div>
