@@ -48,7 +48,8 @@ const DelTLDK: React.FC<MyComponentProps> = ({
       >
         <div>
           Bạn có chắc chắn muốn xóa tài liệu đính kèm:{" "}
-          <p>{`${record.linkFile?.split("file-")[1]}`}</p>
+          {/* <p>{`${record.linkFile?.split("file-")[1]}`}</p> */}
+          <p>{`${record.file_name}`}</p>
         </div>
       </Modal>
 
