@@ -132,7 +132,7 @@ const ModalAddTL = (props: any) => {
               loading={loading}
               onClick={async () => {
                 await uploadFile()
-                  setFileList([]);
+                setFileList([]);
                 setOpenSuccess(true);
               }}
             >
@@ -146,27 +146,23 @@ const ModalAddTL = (props: any) => {
           <Dragger
             // {...props}
             onRemove={(file) => {
-              const index = fileList.indexOf(file);
+              const index = fileList.indexOf(f => f.uid === file.uid);
               const newFileList = fileList.slice();
               newFileList.splice(index, 1);
               setFileList(newFileList);
             }}
-            beforeUpload={(file, filelist) => {
-              setFileList([...fileList, ...filelist])
+            beforeUpload={(file) => {
+              const maxSize = 2 * 1024 * 1024
+              if (file.size > maxSize) {
+                message.error(`File không lớn hơn 2MB`);
+                return false
+              }
+              setFileList(prev => [...prev, file])
               return false
             }}
             fileList={fileList}
             multiple={true}
-            onChange={(info) => {
-              const { status } = info.file;
-              if (status !== "uploading") {
-              }
-              if (status === "done") {
-                message.success(`${info.file.name} file uploaded successfully.`);
-              } else if (status === "error") {
-                message.error(`${info.file.name} file upload failed.`);
-              }
-            }}
+          // maxCount={1}
           >
             <p className="ant-upload-drag-icon">
               <InboxOutlined rev={null} />

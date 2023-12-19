@@ -57,6 +57,7 @@ const TableAddTLDK: React.FC<TableDataCampaignProps> = (props: any) => {
     datas &&
       setListDocument(
         datas.map((item: any, index: number) => ({
+          key: index,
           stt: (page - 1) * pageSize + index + 1,
           // file_name: item.file_name.split("file-")[1],
           file_name: item.original_name,
