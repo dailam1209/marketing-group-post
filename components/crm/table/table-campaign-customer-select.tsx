@@ -30,14 +30,14 @@ interface DataType {
   date: string;
 }
 
-interface TableDataOrderProps {
+interface TableDataCustomerProps {
   setSelected: (value: boolean) => void;
   setNumberSelected: any;
   setArrCustomerId: any;
   searchParam?: {};
 }
 
-const TableDataOrder: React.FC<TableDataOrderProps> = ({
+const TableDataCustomer: React.FC<TableDataCustomerProps> = ({
   setSelected,
   setNumberSelected,
   setArrCustomerId,
@@ -69,6 +69,7 @@ const TableDataOrder: React.FC<TableDataOrderProps> = ({
     { label: "Giới thiệu", value: 6 },
     { label: "Chăm sóc khách hàng", value: 7 },
     { label: "Email", value: 8 },
+    { label: "Chợ tốt", value: 9 },
   ];
 
   const options = [...(dataGroup ?? [])].map((item) => ({
@@ -102,7 +103,7 @@ const TableDataOrder: React.FC<TableDataOrderProps> = ({
 
   const fetchAPIEmployee = async () => {
     const dataApi = await fetchApi(
-      "http://210.245.108.202:3000/api/qlc/managerUser/listUser",
+      "https://api.timviec365.vn/api/qlc/managerUser/listUser",
       token,
       { page: 1, pageSize: 10000 },
       "POST"
@@ -396,4 +397,4 @@ const TableDataOrder: React.FC<TableDataOrderProps> = ({
   );
 };
 
-export default TableDataOrder;
+export default TableDataCustomer;

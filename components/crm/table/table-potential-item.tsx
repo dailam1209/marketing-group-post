@@ -124,8 +124,12 @@ const TablePotentialItem = ({ formSearch, setFormSearch }) => {
         }}
         scroll={{ x: 1500, y: 320 }}
       />
-      <div className="main__footer flex_between" id="">
-        <div className="show_number_item">
+
+      <div
+        style={{ marginTop: "10px", transform: "translateY(0px)" }}
+        className={`flex_between ${total ? "custom_info_table" : ""}`}
+      >
+        <div style={{ marginBottom: "10px" }} className="show_number_item">
           <b>Hiển thị:</b>
           <select
             onChange={(e) =>
@@ -144,8 +148,16 @@ const TablePotentialItem = ({ formSearch, setFormSearch }) => {
             <option value={50}>50 bản ghi trên trang</option>
           </select>
         </div>
-        <div className="total">
-          Tổng số: <b>{total}</b> Hàng hoá
+        <div
+          style={{
+            marginBottom: "10px",
+            transform: total ? "translateX(50%)" : "",
+          }}
+          className="total"
+        >
+          <div className="total">
+            Tổng số: <b>{total}</b> Hàng hoá
+          </div>
         </div>
       </div>
     </div>

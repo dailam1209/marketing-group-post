@@ -3,11 +3,12 @@ import OrderSelectBoxStep from "../quote_steps/select_box_step";
 import CustomerSelectBoxStep from "../quote_steps/select_box_step_customer";
 import styles from "./add_file_order.module.css";
 import InputText from "./input_text";
-import { Input, Spin, Tooltip } from 'antd';
+import { Input, Spin, Tooltip } from "antd";
 import { QuoteContext } from "../quoteContext";
 import { axiosCRMCall } from "@/utils/api/api_crm_call";
 import useLoading from "../../hooks/useLoading";
 import { useRouter } from "next/router";
+import { SelectSingleV2 } from "../../input_select/select";
 import ChanceSelectBoxStep from "../quote_steps/select_box_step_chance";
 
 export default function AddDetailInfo({ id: quoteId = 0 }) {
@@ -20,13 +21,13 @@ export default function AddDetailInfo({ id: quoteId = 0 }) {
   const [localChance, setLocalChance] = useState('Chọn')
   const { isLoading, startLoading, stopLoading } = useLoading();
   const router = useRouter();
-  const { id } = router.query
+  const { id } = router.query;
 
   // Textbox
   const handleSimpleInput = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     inputQuote(name, value);
-  }
+  };
 
   // Textbox phone
   const handlePhoneInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -82,16 +83,33 @@ export default function AddDetailInfo({ id: quoteId = 0 }) {
   // Nếu là chỉnh sửa
   useEffect(() => {
     if (!isCreate) {
-      setLocalStatus(statusNumToStr(detailData.status))
+      setLocalStatus(statusNumToStr(detailData.status));
       if (detailData.customer_id && detailData.customer_id !== 0) {
         axiosCRMCall
-          .post('/customerdetails/detail', { cus_id: detailData.customer_id })
-          .then(res => {
-            if (res && res?.data && res?.data.hasOwnProperty('data') && res?.data?.data) {
-              setLocalCustomer(`${detailData.customer_id} - ${res?.data?.data.name}`)
+          .post("/customerdetails/detail", { cus_id: detailData.customer_id })
+          .then((res) => {
+            if (
+              res &&
+              res?.data &&
+              res?.data.hasOwnProperty("data") &&
+              res?.data?.data
+            ) {
+              setLocalCustomer(
+                `${detailData.customer_id} - ${res?.data?.data.name}`
+              );
             }
           })
-          .catch((err) => console.log(err))
+          .catch((err) => console.log(err));
+      }
+      if (detailData.chance_id) {
+        axiosCRMCall
+          .post('/chance/detail-chance', { chance_id: detailData.chance_id.id })
+          .then(res => {
+            if (res && res?.data && res?.data.hasOwnProperty('data') && res?.data?.data) {
+              setLocalChance(`${detailData.chance_id.id} - ${res?.data?.data?.detailChance?.name}`)
+            }
+          })
+          .catch((err) => console.log(err));
       }
       if (detailData.chance_id) {
         axiosCRMCall
@@ -105,7 +123,7 @@ export default function AddDetailInfo({ id: quoteId = 0 }) {
       }
     }
     stopLoading();
-  }, [detailData])
+  }, [detailData]);
 
   return (
     <>
@@ -148,7 +166,9 @@ export default function AddDetailInfo({ id: quoteId = 0 }) {
 
         <div className={styles.row_input}>
           <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
-            <label className={`${styles["form-label"]} required`}>Tình trạng</label>
+            <label className={`${styles["form-label"]} required`}>
+              Tình trạng
+            </label>
             <OrderSelectBoxStep
               value={localStatus}
               placeholder="Chọn"
@@ -157,7 +177,10 @@ export default function AddDetailInfo({ id: quoteId = 0 }) {
             />
           </div>
           <div className={`${styles.mb_3} ${styles["col-lg-6"]}`}>
-            <label className={`${styles["form-label"]} required`}>Khách hàng</label>
+            <label className={`${styles["form-label"]} required`}>
+              Khách hàng
+            </label>
+
             <CustomerSelectBoxStep
               value={localCustomer}
               placeholder="Chọn"
@@ -209,9 +232,7 @@ export default function AddDetailInfo({ id: quoteId = 0 }) {
               keyword={chanceKeyword}
             />
           </div>
-
         </div>
-
 
         <div className={styles.row_input}>
           <label className={`${styles["form-label"]}`}>Lời giới thiệu</label>

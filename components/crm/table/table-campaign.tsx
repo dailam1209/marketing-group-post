@@ -15,6 +15,8 @@ interface TableDataCampaignProps {
   empList?: any;
   setBody?: any;
   body?: any;
+  typeFunc?: string;
+  funcForTypeEdit?: any;
 }
 
 const TableDataCampaign: React.FC<TableDataCampaignProps> = ({
@@ -22,6 +24,8 @@ const TableDataCampaign: React.FC<TableDataCampaignProps> = ({
   empList,
   setBody,
   body,
+  typeFunc = "del",
+  funcForTypeEdit = async (id: number) => {},
 }) => {
   const url = "https://api.timviec365.vn/api/crm/campaign/delete-campaign";
   const token = Cookies.get("token_base365");
@@ -93,7 +97,7 @@ const TableDataCampaign: React.FC<TableDataCampaignProps> = ({
     },
     {
       title: "ID",
-      width: 50,
+      width: 100,
       dataIndex: "_id",
       key: "_id",
     },
@@ -166,7 +170,7 @@ const TableDataCampaign: React.FC<TableDataCampaignProps> = ({
       render: (text: any, record: any) => (
         <CampaignActionTable
           record={record._id}
-          handleDelete={fetchAPICampaign}
+          handleDelete={typeFunc === "del" ? fetchAPICampaign : funcForTypeEdit}
         />
       ),
     },
@@ -211,22 +215,18 @@ const TableDataCampaign: React.FC<TableDataCampaignProps> = ({
         }}
       />
       <div
-        style={{ marginTop: "5px", width: "50%" }}
-        className="flex_between"
-        id=""
+        style={{ marginTop: "10px" }}
+        className={`flex_between ${data.length ? "custom_info_table" : ""}`}
       >
-        <div className="show_number_item">
+        <div style={{ marginBottom: "10px" }} className="show_number_item">
           <b>Hiển thị:</b>
           <select
-            onChange={(e) => {
-              setBody((prev) => {
-                return {
-                  ...prev,
-                  pageSize: e.target.value,
-                };
+            onChange={(el) => {
+              setBody({
+                ...body,
+                pageSize: Number(el.target.value),
               });
             }}
-            value={body?.pageSize || 10}
             className="show_item"
           >
             <option value={10}>10 bản ghi trên trang</option>
@@ -236,7 +236,13 @@ const TableDataCampaign: React.FC<TableDataCampaignProps> = ({
             <option value={50}>50 bản ghi trên trang</option>
           </select>
         </div>
-        <div className="total" style={{ marginTop: "5px", marginLeft: "12px" }}>
+        <div
+          style={{
+            marginBottom: "10px",
+            transform: data.length ? "translateX(50%)" : "",
+          }}
+          className="total"
+        >
           Tổng số: <b>{data.length}</b> Chiến dịch
         </div>
       </div>

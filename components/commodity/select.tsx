@@ -51,7 +51,7 @@ export default function SelectSingle({
   return (
     <div>
       <div
-        style={{ width: "100%"}}
+        style={{ width: "100%" }}
         ref={dropdownRef}
         className={`${styles.select_item} flex_align_center_item`}
       >
@@ -603,25 +603,32 @@ export const SelectSingleAndOption = ({
                   >
                     {placeholder && (
                       <li
+                        style={{
+                          padding: "5px 0",
+                          paddingLeft: "18px",
+                          fontSize: "17px",
+                        }}
                         onClick={() => {
                           setFormData({ ...formData, [name]: "" });
                           setLabelSelect(placeholder);
                         }}
-                        //   onClick={() => selectData(placeholder)}
-                        className={`${styles1.select2_results__option} ${styles1.select2_results__option_highlighted}`}
+                        className={styles1.select2_results__option}
                       >
-                        {/* Chọn tất cả */}
                         {placeholder}
                       </li>
                     )}
                     {valueAll && (
                       <li
+                        style={{
+                          padding: "5px 0",
+                          paddingLeft: "18px",
+                        }}
                         onClick={() => {
                           setFormData({ ...formData, [name]: valueAll });
                           setLabelSelect("Chọn tất cả");
                         }}
                         //   onClick={() => selectData(placeholder)}
-                        className={`${styles1.select2_results__option} ${styles1.select2_results__option_highlighted}`}
+                        className={`${styles1.select2_results__option} `}
                       >
                         {/* Chọn tất cả */}
                         Chọn tất cả
@@ -629,21 +636,22 @@ export const SelectSingleAndOption = ({
                     )}
                     {searchLabel
                       ? data
-                          ?.filter((itemFilter: any) =>
-                            toLowerCaseNonAccentVietnamese(
-                              itemFilter.label
-                            ).includes(
-                              toLowerCaseNonAccentVietnamese(searchLabel)
-                            )
+                          ?.filter(
+                            (itemFilter: any) =>
+                              toLowerCaseNonAccentVietnamese(
+                                itemFilter.label
+                              ).includes(
+                                toLowerCaseNonAccentVietnamese(searchLabel)
+                              ) || itemFilter.phoneTK?.includes(searchLabel)
                           )
                           .map(
                             (
-                              item: { value: number; label: string },
+                              item: { value: number; label: string; phoneTK },
                               i: number
                             ) => (
                               <li
                                 key={i}
-                                className={`${styles1.select2_results__option}}`}
+                                className={styles1.select2_results__option}
                                 style={{
                                   marginTop: "10px",
                                   padding: "5px 0",
@@ -662,7 +670,7 @@ export const SelectSingleAndOption = ({
                           ) => (
                             <li
                               key={i}
-                              className={`${styles1.select2_results__option}}`}
+                              className={`${styles1.select2_results__option}`}
                               style={{
                                 marginTop: "10px",
                                 padding: "5px 0",

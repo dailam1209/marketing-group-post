@@ -81,6 +81,7 @@ export const getPotentialResource = [
   { value: 6, label: "Giới thiệu" },
   { value: 7, label: "Chăm sóc khách hàng" },
   { value: 8, label: "Email" },
+  { value: 9, label: "Chợ tốt" },
 ];
 
 export const renderPotentialResource = (id) => {
@@ -93,6 +94,7 @@ export const renderPotentialResource = (id) => {
     6: "Giới thiệu",
     7: "Chăm sóc khách hàng",
     8: "Email",
+    9: "Chợ tốt",
   };
   if (!option[id]) {
     return "Không có dữ liệu";

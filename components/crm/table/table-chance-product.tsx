@@ -106,10 +106,84 @@ type EditableTableProps = Parameters<typeof Table>[0];
 
 type ColumnTypes = Exclude<EditableTableProps["columns"], undefined>;
 
-const TableChanceProduct: React.FC = () => {
+type TableChanceType = {
+  setFormData?: any;
+  dataTable?: any;
+};
+
+const TableChanceProduct: React.FC<TableChanceType> = ({
+  setFormData,
+  dataTable,
+}) => {
   const [listCommodities, setListCommodities] = useState([]);
-  const [dataSource, setDataSource] = useState<any[]>([]);
+  const [dataSource, setDataSource] = useState<any[]>(dataTable || []);
   const [count, setCount] = useState(2);
+
+  const handleChangeValueMoney = (e, valKey, restValKey, index) => {
+    const rowData = dataSource?.filter((item) => item?.key === index)[0];
+    const newRowData = {
+      ...rowData,
+      [valKey]: Number(e.target?.value),
+      money: Number(e.target?.value) * rowData?.[restValKey],
+      discount_money:
+        (rowData?.discount_rate / 100) *
+        (Number(e.target?.value) * rowData?.[restValKey]),
+      tax_money:
+        (rowData?.tax_rate / 100) *
+        (Number(e.target?.value) * rowData?.[restValKey]),
+      total: (
+        Number(e.target?.value) * rowData?.[restValKey] -
+        (rowData?.discount_rate / 100) *
+          (Number(e.target?.value) * rowData?.[restValKey]) +
+        (rowData?.tax_rate / 100) *
+          (Number(e.target?.value) * rowData?.[restValKey])
+      )?.toFixed,
+    };
+    const newDataSource = [...dataSource];
+    newDataSource?.splice(index, 1, newRowData);
+    setDataSource(newDataSource);
+  };
+
+  const handleChangeDisountRate = (e, index) => {
+    const rowData = dataSource?.filter((item) => item?.key === index)[0];
+    const newRowData = {
+      ...rowData,
+      discount_rate: Number(e.target?.value),
+      discount_money: (
+        (Number(e.target?.value) / 100) *
+        rowData?.money
+      )?.toFixed(2),
+      total: (
+        rowData?.money +
+        rowData?.tax_money -
+        (Number(e.target?.value) / 100) * rowData?.money
+      ).toFixed(2),
+    };
+    const newDataSource = [...dataSource];
+    newDataSource?.splice(index, 1, newRowData);
+    setDataSource(newDataSource);
+  };
+
+  const handleChangeTaxRate = (e, index) => {
+    const rowData = dataSource?.filter((item) => item?.key === index)[0];
+    const newRowData = {
+      ...rowData,
+      tax_rate: Number(e.target?.value),
+      tax_money: (
+        Number(e.target?.value) *
+        ((rowData?.money - rowData?.discount_money) / 100)
+      ).toFixed(2),
+      total: (
+        rowData?.money -
+        rowData?.discount_money +
+        Number(e.target?.value) *
+          ((rowData?.money - rowData?.discount_money) / 100)
+      ).toFixed(2),
+    };
+    const newDataSource = [...dataSource];
+    newDataSource?.splice(index, 1, newRowData);
+    setDataSource(newDataSource);
+  };
 
   const columnsDefault: ColumnsType<any> = [
     {
@@ -121,7 +195,7 @@ const TableChanceProduct: React.FC = () => {
     {
       title: "Tên hàng hóa",
       width: 350,
-      dataIndex: "prod_name",
+      dataIndex: "key",
       key: "0",
       render: (product, record) => (
         <Select
@@ -132,10 +206,33 @@ const TableChanceProduct: React.FC = () => {
           }
           placeholder="Chọn"
           style={{ width: "80%" }}
-          // onChange={(e) =>
-          //   setFormData({ ...formData, listGroup: e?.join(",") })
-          // }
-          defaultValue={record?._id}
+          onChange={(val) => {
+            const newProduct = listCommodities?.filter(
+              (item) => item?._id === val
+            )[0];
+            const indexFilter = dataSource.findIndex(
+              (item) => item.key === product
+            );
+            const newData = [...dataSource];
+            newData.splice(indexFilter, 1, newProduct);
+            setDataSource(
+              newData?.map((item, i) => {
+                return {
+                  ...item,
+                  key: i,
+                  count: Number(item?.min_amount) || 0,
+                  money: item?.price * Number(item?.min_amount) || 0,
+                  discount_rate: 0,
+                  discount_money: 0,
+                  tax_rate: 0,
+                  tax_money: 0,
+                  total: 0,
+                };
+              })
+            );
+          }}
+          // defaultValue={record?._id}
+          value={record?._id}
           options={listCommodities?.map((item) => {
             return {
               label: item?.prod_name,
@@ -150,40 +247,29 @@ const TableChanceProduct: React.FC = () => {
       dataIndex: "dvt",
       key: "1",
       width: 150,
-      render: (product, record) => (
-        <Select
-          showSearch
-          optionFilterProp="children"
-          filterOption={(input, option) =>
-            (option?.label ?? "").includes(input)
-          }
-          style={{ width: "80%" }}
-          placeholder="Chọn"
-          // onChange={(e) =>
-          //   setFormData({ ...formData, listGroup: e?.join(",") })
-          // }
-          defaultValue={product?._id}
-          options={listCommodities?.map((item) => {
-            return {
-              label: item?.dvt?.unit_name,
-              value: item?.dvt?._id,
-            };
-          })}
-        />
-      ),
+      render: (product, record) => <div>{product?.unit_name}</div>,
     },
     {
       title: "Số lượng",
-      dataIndex: "min_amount",
+      dataIndex: "count",
       key: "2",
       width: 150,
-      render: (value) => (
+      render: (value, record, index) => (
         <input
           className="focus_input_none"
           style={{ border: 0, padding: "5px" }}
           type="number"
           placeholder="Nhập"
-          defaultValue={value}
+          min={Number(record?.min_amount) || 0}
+          onChange={(e) => {
+            handleChangeValueMoney(e, "count", "price", index);
+          }}
+          // value={
+          //   value < Number(record?.min_amount)
+          //     ? Number(record?.min_amount)
+          //     : value
+          // }
+          value={value}
         />
       ),
     },
@@ -192,32 +278,44 @@ const TableChanceProduct: React.FC = () => {
       dataIndex: "price",
       key: "2",
       width: 200,
-      render: (value) => (
+      render: (value, record, index) => (
         <input
           className="focus_input_none"
           style={{ border: 0, padding: "5px" }}
           type="number"
           placeholder="Nhập"
+          min={0}
+          onChange={(e) => {
+            handleChangeValueMoney(e, "price", "count", index);
+          }}
           defaultValue={value}
         />
       ),
     },
     {
       title: "Thành tiền (VNĐ)",
-      dataIndex: "total_price",
+      dataIndex: "money",
       key: "3",
       width: 200,
+      render: (money, record) => {
+        return <div>{money}</div>;
+      },
     },
     {
       title: "Tỉ lệ chiết khấu (%)",
-      dataIndex: "discount_rates",
+      dataIndex: "discount_rate",
       key: "3",
       width: 150,
-      render: () => (
+      render: (discount_rate, record, index) => (
         <input
           className="focus_input_none"
           style={{ border: 0, padding: "5px" }}
           type="number"
+          min={0}
+          value={discount_rate}
+          onChange={(e) => {
+            handleChangeDisountRate(e, index);
+          }}
           placeholder="Nhập"
         />
       ),
@@ -227,17 +325,25 @@ const TableChanceProduct: React.FC = () => {
       dataIndex: "discount_money",
       key: "3",
       width: 250,
+      render: (discount_money, record) => {
+        return <div>{discount_money}</div>;
+      },
     },
     {
-      title: "Thế suất (%)",
-      dataIndex: "tax_rates",
+      title: "Thuế suất (%)",
+      dataIndex: "tax_rate",
       key: "3",
       width: 150,
-      render: () => (
+      render: (tax_rate, _, index) => (
         <input
           className="focus_input_none"
           style={{ border: 0, padding: "5px" }}
           type="number"
+          value={tax_rate}
+          min={0}
+          onChange={(e) => {
+            handleChangeTaxRate(e, index);
+          }}
           placeholder="Nhập"
         />
       ),
@@ -247,21 +353,34 @@ const TableChanceProduct: React.FC = () => {
       dataIndex: "tax_money",
       key: "3",
       width: 200,
+      render: (tax_money, record) => {
+        return <div>{tax_money}</div>;
+      },
     },
     {
       title: "Tổng tiền (VNĐ)",
-      dataIndex: "total_money",
+      dataIndex: "total",
       key: "3",
       width: 200,
+      render: (total) => {
+        return <div>{total}</div>;
+      },
     },
     {
       title: "Chức năng",
-      dataIndex: "operation",
+      dataIndex: "key",
       key: "4",
       width: 120,
       fixed: "right",
-      render: () => (
-        <div style={{ color: "#FF3333", fontSize: "15px" }}>
+      render: (index) => (
+        <div
+          key={index}
+          style={{ color: "#FF3333", fontSize: "15px" }}
+          onClick={() => {
+            const newData = dataSource.filter((item) => item.key !== index);
+            setDataSource(newData);
+          }}
+        >
           <Image width={16} height={16} alt="del" src="/crm/del_red.svg" />
           Xóa
         </div>
@@ -270,8 +389,31 @@ const TableChanceProduct: React.FC = () => {
   ];
 
   const handleAdd = () => {
-    const newData: any = listCommodities[0];
-    setDataSource([...dataSource, newData]);
+    const newData: any = {
+      ...listCommodities[0],
+    };
+
+    setDataSource(
+      [...dataSource, newData]?.map((item, i) => {
+        return {
+          ...item,
+          key: i,
+          count: item?.count || Number(item?.min_amount) || 0,
+          money:
+            item?.money ||
+            item?.product_cost ||
+            item?.price * Number(item?.min_amount) ||
+            0,
+          discount_rate: item?.discount_rate || 0,
+          discount_money: item?.discount_money || 0,
+          tax_rate: item?.tax_rate || 0,
+          tax_money: item?.tax_money || 0,
+          total: item?.total
+            ? item?.total
+            : item?.price * Number(item?.min_amount),
+        };
+      })
+    );
     setCount(count + 1);
   };
 
@@ -292,6 +434,20 @@ const TableChanceProduct: React.FC = () => {
       cell: EditableCell,
     },
   };
+
+  useEffect(() => {
+    let sumMoney = 0;
+    if (dataSource?.length > 0) {
+      sumMoney = dataSource?.reduce((a, b) => a?.total + b?.total);
+    }
+    setFormData((prev) => {
+      return {
+        ...prev,
+        productData: dataSource,
+        total_money: sumMoney,
+      };
+    });
+  }, [dataSource]);
 
   useEffect(() => {
     axiosCRM
@@ -337,6 +493,7 @@ const TableChanceProduct: React.FC = () => {
                     <div
                       onClick={handleAdd}
                       style={{
+                        width: "100px",
                         textAlign: "left",
                         marginLeft: "10px",
                         color: "#4C5BD4",

@@ -51,7 +51,7 @@ export default function AddGeneralInfo({
 
   const fetchAPIEmployee = async () => {
     const dataApi = await fetchApi(
-      "http://210.245.108.202:3000/api/qlc/managerUser/listUser",
+      "https://api.timviec365.vn/api/qlc/managerUser/listUser",
       token,
       { page: 1, pageSize: 10000 },
       "POST"

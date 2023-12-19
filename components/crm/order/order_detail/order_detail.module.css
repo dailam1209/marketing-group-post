@@ -459,6 +459,11 @@
   .row {
     display: block;
   }
+
+  .col-lg-6 {
+    padding-left: 15;
+    padding-right: 0;
+  }
 }
 
 @media (min-width: 992px) {

@@ -181,8 +181,9 @@ const TableDataPotential: React.FC<TableDataPotentialProps> = ({
         page: currentPage,
       })
       .then((res) => {
-        handleDataTable(res.data.data.data);
-        setTotal(res.data.data.total);
+        handleDataTable(res?.data?.data?.data);
+        console.log(res?.data?.data);
+        setTotal(res?.data?.data?.total);
       })
       .catch((err) => console.log("error", err));
   }, [, pageSize, currentPage, formData.recall]);
@@ -237,16 +238,19 @@ const TableDataPotential: React.FC<TableDataPotentialProps> = ({
           },
         }}
       />
-      <div style={{ marginTop: "5px", width: "55%" }} className="flex_between">
-        <div className="show_number_item">
+
+      <div
+        style={{ marginTop: "10px", transform: "translateY(0px)" }}
+        className={`flex_between ${total ? "custom_info_table" : ""}`}
+      >
+        <div style={{ marginBottom: "10px" }} className="show_number_item">
           <b>Hiển thị:</b>
           <select
-            className="show_item"
-            value={pageSize}
             onChange={(e) => {
               setPageSize(Number(e.target.value));
               setCurrentPage(1);
             }}
+            className="show_item"
           >
             <option value={10}>10 bản ghi trên trang</option>
             <option value={20}>20 bản ghi trên trang</option>
@@ -255,8 +259,16 @@ const TableDataPotential: React.FC<TableDataPotentialProps> = ({
             <option value={50}>50 bản ghi trên trang</option>
           </select>
         </div>
-        <div className="total">
-          Tổng số: <b>{total}</b> Tiềm năng
+        <div
+          style={{
+            marginBottom: "10px",
+            transform: total ? "translateX(50%)" : "",
+          }}
+          className="total"
+        >
+          <div className="total">
+            Tổng số: <b>{total}</b> Tiềm năng
+          </div>
         </div>
       </div>
     </div>

@@ -18,7 +18,7 @@ export const InputSearchV2 = ({
       <form onSubmit={handleSubmit}>
         <input
           onChange={handleChangeData}
-          value={formData[name] && formData[name]}
+          value={formData?.[name] && formData?.[name]}
           type="text"
           className={styles.input__search}
           name={name}
@@ -47,7 +47,7 @@ export function MInputTextV2({
   id = "",
 }: any) {
   const { handleChangeData, formData } = useContext(useFormData);
-  console.log("value", formData[name]);
+
   return (
     <div className={`${stylesAdd.mb_3} ${stylesAdd["col-lg-6"]}`}>
       <label
@@ -68,7 +68,7 @@ export function MInputTextV2({
         id={id}
         defaultValue={defaultValue && defaultValue}
         placeholder={placeholder}
-        value={formData[name] ? formData[name] : ""}
+        value={formData?.[name] ? formData?.[name] : ""}
         onChange={handleChangeData}
       />
     </div>
@@ -123,7 +123,7 @@ export function MTextAreaV2({
         disabled={disable}
         className={`${stylesAdd["form-control"]}`}
         name={name}
-        value={formData[name] && formData[name]}
+        value={formData?.[name] && formData?.[name]}
         placeholder={placeholder}
         onChange={handleChangeData}
       />
@@ -166,7 +166,7 @@ export function MInputTextAndOption({
             <input
               style={{ marginRight: "5px" }}
               type="checkbox"
-              value={formData[nameChecked] && formData[nameChecked]}
+              value={formData?.[nameChecked] && formData?.[nameChecked]}
               onChange={(e) =>
                 setFormData((preData: any) => {
                   return {
@@ -192,7 +192,7 @@ export function MInputTextAndOption({
         className={`${stylesAdd["form-control"]}`}
         name={name}
         placeholder={placeholder}
-        value={formData[name]}
+        value={formData?.[name]}
         onChange={handleChangeData}
       />
     </div>

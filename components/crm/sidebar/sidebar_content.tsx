@@ -20,6 +20,7 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
   const [providerOpen, setProviderOpen] = useState(false);
   const [isCommodity, setIsCommodity] = useState(false);
   const [isWordSentitive, setIsWordSentitive] = useState(false);
+  const [isRecruiterStatistic, setIsRecruiterStatistic] = useState(false);
   const [userType, setUserType] = useState(0);
   const [checkReceiver, setCheckReceiver] = useState(false);
 
@@ -76,6 +77,9 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
     if (label === "Từ khóa nhạy cảm") {
       setIsWordSentitive(!isWordSentitive);
     }
+    if (label === "Thống kê nhà tuyển dụng MXH") {
+      setIsRecruiterStatistic(!isRecruiterStatistic);
+    }
     if (label === "Auto") {
       setIsAutoOpen(!isAutoOpen);
     }
@@ -109,6 +113,9 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
     }
     if (label === "Từ khóa nhạy cảm") {
       return isWordSentitive;
+    }
+    if (label === "Thống kê nhà tuyển dụng MXH") {
+      return isRecruiterStatistic;
     }
     if (label === "Chăm sóc khách hàng") {
       return isCustomCareOpen;
@@ -306,6 +313,11 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
           label: "SMS",
           link: "/marketing/sms",
         },
+        {
+          blank: "",
+          label: "Zalo",
+          link: "/marketing/zalo",
+        },
       ],
       content: "Marketing",
     },
@@ -439,6 +451,23 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
         content: "Từ khóa nhạy cảm",
       },
       {
+        img_link: "/crm/customer.svg",
+        link: `#`,
+        children: [
+          {
+            blank: "",
+            label: "Nhà tuyển dụng đăng ký mới",
+            link: "/nha-tuyen-dung/dang-ky-moi",
+          },
+          {
+            blank: "",
+            label: "Nhà tuyển dụng đăng tin",
+            link: "/nha-tuyen-dung/dang-tin",
+          },
+        ],
+        content: "Thống kê nhà tuyển dụng MXH",
+      },
+      {
         img_link: "/crm/nav_setting.svg",
         link: "#",
         children: [
@@ -466,6 +495,7 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
         content: "Auto",
       }
     );
+
   const [infoRole, setInfoRole] = useState([]);
 
   const handleGetThongTinQuyen = async () => {
@@ -488,7 +518,7 @@ export default function SiebarContent({ isOpen, toggleModal }: any) {
       if (data && data?.data) {
         setInfoRole(data?.data?.roles);
       }
-    } catch (error) {}
+    } catch (error) { }
   };
   useEffect(() => {
     handleGetThongTinQuyen();

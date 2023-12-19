@@ -204,8 +204,15 @@
   display: block;
   text-align: left;
   z-index: 999;
+  font-size: "17px";
 }
-
+.select2_results__option:hover {
+  background-color: #5897fb;
+  color: white;
+  cursor: pointer;
+  padding: 6px;
+  padding-left: 18px;
+}
 .select2_results__option_highlighted {
   background-color: #5897fb;
   color: white;

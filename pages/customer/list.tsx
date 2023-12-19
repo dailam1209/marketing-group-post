@@ -231,6 +231,7 @@ export default function CustomerList() {
     { name: "Giới thiệu", id: 6 },
     { name: "Chăm sóc khach hàng", id: 7 },
     { name: "Email", id: 8 },
+    { name: "Chợ tốt", id: 9 },
   ];
   const datatable = data?.data?.map((item, index: number) => {
     let nguonKH = "";
@@ -288,6 +289,7 @@ export default function CustomerList() {
       );
       let arr = [];
       const data = await res.json();
+
       setListGr(data?.data);
       data?.data?.map((item) => {
         item?.lists_child.map((item) => {

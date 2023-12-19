@@ -4,88 +4,135 @@ import type { ColumnsType } from "antd/es/table";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import DocumentActionDropDown from "../customer/documents/document_input_group";
+import { timestampToCustomString } from "../ultis/convert_date";
+import { fetchApi } from "../ultis/api";
+import Cookies from "js-cookie";
 
 interface DataType {
+  linkFile: string;
   key: React.Key;
-  personname: string;
-  date1: string;
-  date2: string;
-  filename: string;
-  operation: string;
 }
 
-const data: DataType[] = [];
-for (let i = 0; i < 100; i++) {
-  data.push({
-    key: i + 1,
-    filename: `Dulich.docx ${i}`,
-    personname: `NguyenVanHung`,
-    operation: "",
-    date1: `10/07/2023`,
-    date2: `17/07/2023`,
-  });
+interface TableChanceDetailDocumentsProps {
+  dataApi?: any;
+  body?: any;
+  setBody?: any;
 }
 
-interface TableChanceDetailDocumentsProps {}
-
-const TableChanceDetailDocuments: React.FC<
-  TableChanceDetailDocumentsProps
-> = () => {
+const TableChanceDetailDocuments: React.FC<TableChanceDetailDocumentsProps> = ({
+  dataApi,
+  setBody,
+  body,
+}) => {
   const router = useRouter();
+  const token = Cookies.get("token_base365");
   const { id } = router.query;
+
+  const fetchApiFile = async (
+    url = "https://api.timviec365.vn/api/crm/chance/delete-attachment-chance",
+    id
+  ) => {
+    const data = await fetchApi(
+      url,
+      token,
+      {
+        chance_id: id,
+        id,
+      },
+      "POST"
+    );
+    setBody((prev) => {
+      return {
+        ...prev,
+        file_deleted: id,
+      };
+    });
+  };
 
   const columns: ColumnsType<DataType> = [
     {
       title: "STT",
       width: 50,
-      dataIndex: "key",
-      key: "key",
+      dataIndex: "index",
+      key: "index",
     },
     {
       title: "Tên tài liệu",
       width: 200,
-      dataIndex: "filename",
+      dataIndex: "file_name",
       key: "0",
-      render: (data) => (
-        // <Link href={`/customer/chance/detail/${id}/${data}`}>
-        <span>{data}</span>
-        // </Link>
+      render: (text, record) => (
+        <Link href={`${record?.linkFile}`} target="_blank">
+          <span>{text}</span>
+        </Link>
       ),
     },
     {
       title: "Người đính kèm",
-      dataIndex: "personname",
+      dataIndex: "user_name",
       key: "1",
       width: 200,
+      render: (text) => <span>{text || "Chưa cập nhật"}</span>,
     },
     {
       title: "Ngày đính kèm",
-      dataIndex: "date1",
+      dataIndex: "created_at",
       key: "2",
       width: 150,
+      render: (date) => <span>{timestampToCustomString(Number(date))} </span>,
     },
     {
       title: "Dung lượng",
-      dataIndex: "date1",
+      dataIndex: "file_size",
       key: "2",
       width: 150,
+      render: (text) => <span>{text} kb</span>,
     },
     {
       title: "Chức năng",
-      dataIndex: "operation",
+      dataIndex: "linkFile",
       key: "4",
       width: 120,
       fixed: "right",
-      render: () => <DocumentActionDropDown />,
+      render: (linkFile: string, record) => (
+        <DocumentActionDropDown record={record} fetchApi={fetchApiFile} />
+      ),
     },
   ];
+
   return (
     <div className="custom_table product_return">
       <Table
         columns={columns}
-        dataSource={data}
+        dataSource={dataApi?.data?.map((item, index) => {
+          return {
+            ...item,
+            index: index + 1,
+          };
+        })}
         bordered
         scroll={{ x: 992, y: 1100 }}
+        pagination={{
+          style: {
+            paddingBottom: 20,
+            display: "flex",
+            position: "absolute",
+            right: 0,
+          },
+          current: body?.page,
+          pageSize: body?.pageSize,
+          total: dataApi?.total,
+          onChange: (current, pageSize) => {
+            if (current != body?.page) {
+              setBody((prev) => {
+                return {
+                  ...prev,
+                  page: current,
+                };
+              });
+            }
+          },
+        }}
       />
     </div>
   );

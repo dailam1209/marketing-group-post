@@ -20,6 +20,7 @@ import { useSelector } from "react-redux";
 import { doGhimCha, doSaveCha } from "../redux/user/userSlice";
 import { useDispatch } from "react-redux";
 import { number } from "yup";
+import Link from 'next/link'
 export default function ChatBusinessBody({
   show,
   cusId,
@@ -61,6 +62,7 @@ export default function ChatBusinessBody({
   group_idFix,
   action,
   content,
+  hisContent,
 }: any) {
   const [infoCus, setInfoCus] = useState<any>();
 
@@ -88,13 +90,13 @@ export default function ChatBusinessBody({
       });
       const data = await res.json();
       if (data && data?.data) setInfoCus(data?.data);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   // const [listGr, setListGr] = useState([]);
   const [list_gr_child, setlistGr_Child] = useState([]);
 
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
   const [idChaSaved, setidChaSaved] = useState<any>(-1);
   const checkCha = useSelector((state: any) => state?.auth?.ghimCha);
   const valueChaOld = useSelector((state: any) => state?.auth?.valueCha);
@@ -148,7 +150,7 @@ export default function ChatBusinessBody({
     }
   };
 
-  const handleDateChangeEnd = (e) => {};
+  const handleDateChangeEnd = (e) => { };
 
   let optionCon2;
   if (valueChaOld) {
@@ -202,7 +204,7 @@ export default function ChatBusinessBody({
   const refMail = useRef<any>();
   const refPhone = useRef<any>();
   const [refDes, setrefDes] = useState<any>();
-  const [refCall, setrefCall] = useState<any>();
+  const [refCall, setrefCall] = useState<any>()
 
   const handleChangeInforCus = async () => {
     const url = `${base_url}/api/crm/customerdetails/editCustomer`;
@@ -288,6 +290,13 @@ export default function ChatBusinessBody({
       );
     }
   }, [nhonConReal, nhomChaReal, infoCus, cusId, arrCha, cusId]);
+
+
+  useEffect(() => {
+    if (hisContent && hisContent.length > 0) {
+      setrefCall(hisContent[0].content_call)
+    }
+  }, [hisContent])
   return (
     <div className={styles.business_assistant_body}>
       <div className={styles.form_business_assistant}>
@@ -302,6 +311,9 @@ export default function ChatBusinessBody({
           refMail={refMail}
           setMail={setMail}
         />
+        {infoCus && infoCus.link_user_post && infoCus.link_user_post !== '' && (
+          <Link href={infoCus.link_user_post} style={{margin: '0 4px'}} target="_blank">Link Facebook người đăng bài</Link>
+        )}
         <TextEditor
           infoCus={infoCus}
           title={"Mô tả khách hàng" as any}

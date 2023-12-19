@@ -4,21 +4,38 @@ import DetailInformationContact from "@/components/crm/customer/contact/detail_c
 import { useHeader } from "@/components/crm/hooks/useHeader";
 import { useRouter } from "next/router";
 import styleHome from "@/components/crm/home/home.module.css";
-import { useContext, useEffect, useRef } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import ChanceAddInfo from "@/components/crm/customer/chance/add_chance";
 import DetailInformationChance from "@/components/crm/chance/detail/detail_step_infor";
 import HeaderBarChanceDetails from "@/components/crm/chance/detail/header_bar_detail";
 import DetailInformation from "@/components/crm/chance/detail/detail";
 import Head from "next/head";
+import { fetchApi } from "@/components/crm/ultis/api";
+import Cookies from "js-cookie";
+import useLoading from "@/components/crm/hooks/useLoading";
+import { Spin } from "antd";
+import { useTrigger } from "@/components/crm/context/triggerContext";
 
 export default function ContactDetailCustomer() {
   const router = useRouter();
-  const { id1, id2 } = router.query;
+  const { id } = router.query;
   const mainRef = useRef<HTMLDivElement>(null);
+  const [data, setData] = useState({});
   const { isOpen } = useContext<any>(SidebarContext);
+  const { trigger, setTrigger } = useTrigger();
   const cccd = false;
+  const [isHideEmpty, setIsHideEmpty] = useState(false);
+  const { isLoading, startLoading, stopLoading } = useLoading();
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
+  const token = Cookies.get("token_base365");
+
+  const fetchAPIChance = async (url: string, bodyAPI = {}) => {
+    startLoading();
+    const dataApi = await fetchApi(url, token, bodyAPI, "POST");
+    setData(dataApi?.data);
+    stopLoading();
+  };
 
   useEffect(() => {
     setHeaderTitle(`Cơ hội / Chi tiết`);
@@ -41,6 +58,21 @@ export default function ContactDetailCustomer() {
       mainRef.current?.classList.remove("content_resize");
     }
   }, [isOpen]);
+
+  // useEffect(() => {
+  //   fetchAPIChance("https://api.timviec365.vn/api/crm/chance/detail-chance", {
+  //     chance_id: id,
+  //   });
+  // }, []);
+
+  useEffect(() => {
+    if (trigger) {
+      fetchAPIChance("https://api.timviec365.vn/api/crm/chance/detail-chance", {
+        chance_id: id,
+      });
+    }
+    setTrigger(false);
+  }, [trigger]);
 
   return (
     <>
@@ -84,15 +116,38 @@ export default function ContactDetailCustomer() {
           src="https://www.googletagmanager.com/gtm.js?id=GTM-NXVQCHN"
         ></script>
       </Head>
-      <div
-        style={{ marginBottom: "-40px" }}
-        ref={mainRef}
-        className={styleHome.main}
-      >
-        <DetailInformationChance />
-        <HeaderBarChanceDetails keyTab={"1"} />
-      </div>
-      <DetailInformation cccd={cccd} />
+      {isLoading ? (
+        <div
+          style={{ marginBottom: "-40px" }}
+          ref={mainRef}
+          className={styleHome.main}
+        >
+          <Spin
+            style={{
+              width: "100%",
+              margin: "auto",
+              marginTop: "30px",
+              height: "100%",
+            }}
+          />
+        </div>
+      ) : (
+        <>
+          <div
+            style={{ marginBottom: "-40px" }}
+            ref={mainRef}
+            className={styleHome.main}
+          >
+            <DetailInformationChance
+              isHideEmpty={isHideEmpty}
+              dataApi={data}
+              setIsHideEmty={setIsHideEmpty}
+            />
+            <HeaderBarChanceDetails keyTab={"1"} />
+          </div>
+          <DetailInformation cccd={cccd} dataApi={data} isHideEmpty={isHideEmpty}/>
+        </>
+      )}
     </>
   );
 }

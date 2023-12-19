@@ -1,8 +1,14 @@
-import React, { useRef, useState } from "react";
+import React, { Dispatch, useRef, useState } from "react";
 import { Modal, Select, SelectProps } from "antd";
-import styles from "@/components/crm/potential/potential2.module.css";
+import styles from "@/components/crm/potential/potential.module.css";
 import ModalCompleteStep from "@/components/crm/potential/potential_steps/complete_modal";
 import InputText from "@/components/crm/potential/potential_add_files/input_text";
+import CompleteModalChance from "@/components/crm/chance/modals/complete_modal";
+import { number } from "yup";
+import { fetchApi } from "@/components/crm/ultis/api";
+import Cookies from "js-cookie";
+import { useRouter } from "next/router";
+import { useTrigger } from "@/components/crm/context/triggerContext";
 
 interface MyComponentProps {
   isModalCancel: boolean;
@@ -13,22 +19,88 @@ const ModalUpdateResultChance: React.FC<MyComponentProps> = ({
   isModalCancel,
   setIsModalCancel,
 }) => {
+  const router = useRouter();
+  const { id } = router.query;
+  const { setTrigger } = useTrigger();
   const [isOpenMdalSuccess, setIsOpenMdalSuccess] = useState(false);
-  const options: SelectProps["options"] = [
-    {
-      label: "abc",
-      value: "cds",
-    },
+  const [formData, setFormData] = useState({
+    total_money: "",
+    reason: [],
+    expected_end_date: 0,
+  });
+  const token = Cookies.get("token_base365");
+  const listReasons = [
+    { value: 6, label: "Giá cả và chính sách bán hàng chưa tốt" },
+    { value: 7, label: "Dịch vụ chăm sóc khách hàng của công ty chưa tốt" },
+    { value: 8, label: "Thương hiệu của công ty không có uy tín" },
+    { value: 9, label: "Khả năng thuyết phục khách hàng của NVKD chưa tốt" },
+    { value: 10, label: "Sản phẩm không đáp ứng yêu cầu của khách hàng" },
+    { value: 11, label: "Khácg hàng sử dụng gói miễn phí" },
   ];
 
-  const handleChange = () => {};
+  function padZero(number) {
+    return number < 10 ? `0${number}` : number;
+  }
 
-  const handleOK = () => {
-    setIsModalCancel(false);
-    setIsOpenMdalSuccess(true);
-    setTimeout(() => {
-      setIsOpenMdalSuccess(false);
-    }, 2000);
+  function getCurrentDate() {
+    const currentDate = new Date();
+
+    const day = currentDate.getDate();
+    const month = currentDate.getMonth() + 1;
+    const year = currentDate.getFullYear();
+
+    const formattedDate = `${padZero(day)}/${padZero(month)}/${padZero(year)}`;
+
+    return formattedDate;
+  }
+
+  function stringToDate(dateString) {
+    const timestamp = new Date(dateString).getTime();
+
+    return timestamp;
+  }
+
+  const handleChange = (value) => {
+    setFormData((prev) => {
+      return {
+        ...prev,
+        reason: value,
+      };
+    });
+  };
+
+  const fetchEditChance = async (body = {}) => {
+    try {
+      const dataApi = await fetchApi(
+        "https://api.timviec365.vn/api/crm/chance/edit-chance",
+        token,
+        // { chance_id: id, result: value + 1 },
+        body,
+        "POST"
+      );
+      setTrigger(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleOK = async () => {
+    if (formData?.reason?.length > 0) {
+      setIsModalCancel(false);
+      await fetchEditChance({
+        chance_id: Number(id),
+        total_money: Number(formData?.total_money),
+        result: 2,
+        expected_end_date: stringToDate(getCurrentDate()),
+        reason: formData?.reason,
+      });
+      setIsOpenMdalSuccess(true);
+      setTimeout(() => {
+        setIsOpenMdalSuccess(false);
+      }, 2000);
+    } else {
+      alert("Vui lòng điền đầy đủ thông tin");
+    }
   };
 
   return (
@@ -44,9 +116,16 @@ const ModalUpdateResultChance: React.FC<MyComponentProps> = ({
         cancelText="Huỷ"
       >
         <div className={styles.row_mdal}>
-          <div className={styles.choose_obj}>
-            <InputText label="Người nhận công việc" require={true} />
-          </div>
+          {/* <div className={styles.choose_obj}>
+            <InputText
+              label="Số tiền"
+              require={true}
+              type="number"
+              keyValue="total_money"
+              setFormData={setFormData}
+              value={formData?.total_money}
+            />
+          </div> */}
 
           <div className={styles.choose_obj}>
             <InputText
@@ -61,7 +140,7 @@ const ModalUpdateResultChance: React.FC<MyComponentProps> = ({
               <InputText
                 label="Ngày kỳ vọng/kết thúc"
                 require={true}
-                placeholder="08/08/2023"
+                placeholder={getCurrentDate()}
                 bonus="disabled"
               />
             </div>
@@ -74,19 +153,25 @@ const ModalUpdateResultChance: React.FC<MyComponentProps> = ({
             <Select
               mode="multiple"
               allowClear
-              style={{ width: "100%", maxWidth: "509px" }}
+              style={{ width: "98.1%", maxWidth: "509px", marginLeft: "10px" }}
               placeholder="Please select"
               onChange={handleChange}
-              options={options}
+              options={listReasons}
             />
           </div>
         </div>
       </Modal>
-      <ModalCompleteStep
+      {/* <ModalCompleteStep
         modal1Open={isOpenMdalSuccess}
         setModal1Open={setIsOpenMdalSuccess}
         title={"Cập nhật giai đoạn thành công!"}
         link={""}
+      /> */}
+
+      <CompleteModalChance
+        modal1Open={isOpenMdalSuccess}
+        setModal1Open={setIsOpenMdalSuccess}
+        title={"Cập nhật giai đoạn thành công!"}
       />
     </>
   );

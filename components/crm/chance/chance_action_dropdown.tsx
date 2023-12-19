@@ -8,6 +8,10 @@ import ProductReturnDeclineModal from "@/components/crm/product_return/product_r
 import CancelModal from "@/components/crm/potential/potential_steps/cancel_modal";
 import HandeOverModal from "@/components/crm/potential/potential_action_modal/hand_over_mdal";
 import SharingCustomerModal from "./chance_share_action_mdal";
+import { fetchApi } from "../ultis/api";
+import Cookies from "js-cookie";
+import CancelModalChance from "./modals/cancel_modal";
+import { useTrigger } from "../context/triggerContext";
 
 interface Myprops {
   data?: any;
@@ -16,9 +20,21 @@ interface Myprops {
 const ChanceActionDropDown: React.FC<Myprops> = ({ data }: any) => {
   const [isOpenModalCheck, setIsOpenModalCheck] = useState(false);
   const [isOpenModalDecline, setIsOpenModalDecline] = useState(false);
+  const { trigger, setTrigger } = useTrigger();
   const [isOpenModalUpdateStatus, setIsOpenModalUpdateStatus] = useState(false);
   const [isOpenModalDel, setIsOpenModalDel] = useState(false);
   const [isOpenModalCancel, setIsOpenModalCancel] = useState(false);
+  const token = Cookies.get("token_base365");
+
+  const fetchApiChance = async () => {
+    const dataApi = await fetchApi(
+      "https://api.timviec365.vn/api/crm/chance/delete-chance",
+      token,
+      { chance_id: data?.id },
+      "POST"
+    );
+    setTrigger(true);
+  };
 
   const items: MenuProps["items"] = [
     {
@@ -78,7 +94,7 @@ const ChanceActionDropDown: React.FC<Myprops> = ({ data }: any) => {
     {
       key: "5",
       label: (
-        <Link href={`/chance/edit/${data?.key}`}>
+        <Link href={`/chance/edit/${data?.id}`}>
           <button className="btn-huy flex-start">
             <i className="bi bi-pencil-square"></i>
             Chỉnh sửa
@@ -91,7 +107,10 @@ const ChanceActionDropDown: React.FC<Myprops> = ({ data }: any) => {
       label: (
         <button
           className="btn-huy flex-start"
-          onClick={() => setIsOpenModalDel(true)}
+          onClick={async () => {
+            // await fetchApiChance();
+            setIsOpenModalDel(true);
+          }}
         >
           <Image width={16} height={16} src="/crm/del.svg" alt="check" />
           Xoá
@@ -133,17 +152,17 @@ const ChanceActionDropDown: React.FC<Myprops> = ({ data }: any) => {
         setIsModalCancel={setIsOpenModalDecline}
       />
 
-      <DelActionModalProductReturn
+      {/* <DelActionModalProductReturn
         isModalCancel={isOpenModalDel}
         setIsModalCancel={setIsOpenModalDel}
-      />
+      /> */}
 
-      <CancelModal
+      <CancelModalChance
         isModalCancel={isOpenModalDel}
         setIsModalCancel={setIsOpenModalDel}
-        content={"Bạn có chắc chắn muốn xoá cơ hội này không?"}
-        title={"Xác nhận xoá cơ hội"}
-        link={"/chance/list"}
+        content="Bạn có chắc chắn muốn xoá cơ hội này không?"
+        title="Xác nhận xoá cơ hội"
+        fetchApi={fetchApiChance}
       />
     </>
   );

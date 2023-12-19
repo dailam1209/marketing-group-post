@@ -11,7 +11,8 @@ export default function GeneralCustomerInfor() {
           <p className={`${styles.info_system}`}>
             <input
               type="checkbox"
-              value={formData.share_all}
+              value={formData?.share_all}
+              checked={formData?.share_all}
               onChange={(e) =>
                 setFormData({ ...formData, share_all: e.target.checked })
               }

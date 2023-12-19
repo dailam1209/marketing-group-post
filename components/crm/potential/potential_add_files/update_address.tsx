@@ -31,7 +31,7 @@ export default function UpdateAddressInfo({
   useEffect(() => {
     if (formData?.district_id) {
       axios
-        .post("http://210.245.108.202:3004/api/raonhanh/topCache/ward", {
+        .post("https://210.245.108.202:3004/api/raonhanh/topCache/ward", {
           id: formData.district_id,
         })
         .then((res) => convertWard(res.data.data.data))

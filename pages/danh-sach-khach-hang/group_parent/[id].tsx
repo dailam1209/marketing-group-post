@@ -113,6 +113,7 @@ export default function CustomerList() {
     { name: "Giới thiệu", id: 6 },
     { name: "Chăm sóc khach hàng", id: 7 },
     { name: "Email", id: 8 },
+    { name: "Chợ tốt", id: 9 },
   ];
   const datatable = data?.data?.map((item: DataType, index: number) => {
     let nguonKH = "";

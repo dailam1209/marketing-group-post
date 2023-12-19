@@ -1,11 +1,12 @@
-import React, { useState } from "react";
-import { Table } from "antd";
+import React, { useEffect, useState } from "react";
+import { Input, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { useRouter } from "next/router";
 import Image from "next/image";
 
 import { TableRowSelection } from "antd/es/table/interface";
 import ModalDelEmpGroup from "../modals/modal_del_group";
+import { toLowerCaseNonAccentVietnamese } from "@/utils/function";
 
 interface DataType {
   key: React.Key;
@@ -18,21 +19,24 @@ interface TableStaffCustomerGroupAddProps {
   dataEmp: any;
   setData: any;
   valueSelected: any;
-  setSelectedRow: any;
-  setDataRowSelect: any;
 }
 
 const TableStaffCustomerGroupAdd: React.FC<TableStaffCustomerGroupAddProps> = ({
   dataEmp, //Toàn bộ nhân viên
   setData,
   valueSelected, //Nhân viên được chọn
-  setSelectedRow,
-  setDataRowSelect,
 }) => {
   const router = useRouter();
   const { id } = router.query;
   const [isOpenModalDel, setIsOpenModalDel] = useState(false);
+  const [isOpenModalDelMulti, setIsOpenModalDelMulti] = useState(false);
   const [idDel, setIdDel] = useState();
+  const [searchName, setSearchName] = useState("");
+  const [searchDepartment, setSearchDepartment] = useState("");
+  const [listEmpTable, setListEmpTable] = useState([]);
+  const [listEmpShow, setListEmpShow] = useState<any>([]);
+  const [dataRowSelect, setDataRowSelect] = useState<any>([]);
+  const [selectedRow, setSelectedRow] = useState(0);
 
   const newArray = dataEmp?.filter((item) => {
     if (typeof valueSelected === "object") {
@@ -41,7 +45,6 @@ const TableStaffCustomerGroupAdd: React.FC<TableStaffCustomerGroupAddProps> = ({
       return [valueSelected]?.includes(item.ep_id);
     }
   });
-
   const data: any = newArray?.map((item) => {
     return {
       key: item.ep_id,
@@ -50,15 +53,39 @@ const TableStaffCustomerGroupAdd: React.FC<TableStaffCustomerGroupAddProps> = ({
       item: item,
     };
   });
-  let data2 = [];
-  data?.map((item) => {
-    data2.push(item.item);
-  });
+  useEffect(() => {
+    setListEmpTable(
+      data?.map((item) => ({ ...item.item, key: item.item.ep_id }))
+    );
+    setListEmpShow(
+      data?.map((item) => ({ ...item.item, key: item.item.ep_id }))
+    );
+  }, [data.length]);
+
+  useEffect(() => {
+    if (!searchDepartment && !searchName) {
+      setListEmpShow(listEmpTable);
+      return;
+    }
+    setListEmpShow(
+      listEmpTable?.filter(
+        (emp) =>
+          toLowerCaseNonAccentVietnamese(emp.organizeDetailName)?.includes(
+            toLowerCaseNonAccentVietnamese(searchDepartment)
+          ) &&
+          (toLowerCaseNonAccentVietnamese(emp.userName)?.includes(
+            toLowerCaseNonAccentVietnamese(searchName)
+          ) ||
+            emp.ep_id.toString()?.includes(searchName) ||
+            emp.phoneTK?.includes(searchName))
+      )
+    );
+  }, [searchDepartment, searchName]);
+
   function handleDelRow(item: any): void {
     setIsOpenModalDel(true);
     setIdDel(item);
   }
-
   const handleDelGroup = (id) => {
     const index = valueSelected?.findIndex((item) => item === id);
     const arrVal = valueSelected.slice();
@@ -76,7 +103,7 @@ const TableStaffCustomerGroupAdd: React.FC<TableStaffCustomerGroupAddProps> = ({
     },
     onSelectAll: (selected: any, selectedRows: any, changeRows: any) => {},
   };
-  
+
   const columns: ColumnsType<DataType> = [
     {
       title: "Tên nhân viên",
@@ -116,17 +143,100 @@ const TableStaffCustomerGroupAdd: React.FC<TableStaffCustomerGroupAddProps> = ({
           }}
         >
           <Image alt="img" width={26} height={26} src={"/crm/del_red.svg"} />
-          Gỡ bỏ
         </button>
       ),
     },
   ];
+  const handleDelMultiRow = () => {
+    const newData = valueSelected?.filter((el) => !dataRowSelect?.includes(el));
+    setData(newData);
+    console.log("check", newData);
+  };
+
   return (
     <>
       <div className="custom_table product_return">
+        <div>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              height: "50px",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                height: "50px",
+              }}
+            >
+              <p
+                style={{
+                  width: "250px",
+                  display: "block",
+                }}
+              >
+                Tìm kiếm phòng ban
+              </p>
+              <Input
+                onChange={(e) => setSearchDepartment(e.target.value)}
+                placeholder="Nhập tên phòng ban"
+              />
+            </div>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                height: "50px",
+                margin: " 0 20px",
+              }}
+            >
+              <p style={{ width: "240px", display: "block" }}>
+                Tìm kiếm nhân viên
+              </p>
+              <Input
+                onChange={(e) => setSearchName(e.target.value)}
+                placeholder="Nhập tên, id của nhân viên"
+              />
+            </div>
+
+            {selectedRow >= 2 && (
+              <div style={{ marginLeft: "10px" }}>
+                <button
+                  style={{
+                    color: "#FF3333",
+                    display: "flex",
+                    alignItems: "center",
+                    margin: "auto",
+                    width: "138px",
+                    background: "#FFFF",
+                    boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
+                    borderRadius: "3px",
+                    height: "32px",
+                    justifyContent: "center",
+                    gap: "3px",
+                  }}
+                  onClick={() => {
+                    setIsOpenModalDelMulti(true);
+                    // handleDelRow(item);
+                  }}
+                >
+                  <Image
+                    alt="img"
+                    width={26}
+                    height={26}
+                    src={"/crm/del_red.svg"}
+                  />
+                  Gỡ bỏ
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
         <Table
           columns={columns}
-          dataSource={data2}
+          dataSource={listEmpShow}
           rowSelection={{ ...rowSelection }}
           bordered
           pagination={false}
@@ -141,6 +251,16 @@ const TableStaffCustomerGroupAdd: React.FC<TableStaffCustomerGroupAddProps> = ({
         link={"#"}
         handleOk={() => {
           handleDelGroup(idDel);
+        }}
+      />
+      <ModalDelEmpGroup
+        isModalCancel={isOpenModalDelMulti}
+        setIsModalCancel={setIsOpenModalDelMulti}
+        content={`Bạn có chắc chắn muốn gỡ bỏ ${dataRowSelect.length} chia sẻ này không?`}
+        title={"Xác nhận gỡ bỏ chia sẻ"}
+        link={"#"}
+        handleOk={() => {
+          handleDelMultiRow();
         }}
       />
     </>

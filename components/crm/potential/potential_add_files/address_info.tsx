@@ -18,6 +18,7 @@ export default function AddAddressInfo({
   setFormData = () => {},
 }: any) {
   const [listWard, setListWard] = useState([]);
+  const [isFirstTime, setIsFirstTime] = useState(0);
   const [listDistrict, setListDistrict] = useState<any>();
   const [address, setAddress] = useState<string>("");
 
@@ -57,24 +58,35 @@ export default function AddAddressInfo({
   };
   //Hiển thị địa chỉ
   useEffect(() => {
-    setAddress(
-      `${formData?.address ? `${formData?.address}, ` : ""}${
+    if (isFirstTime > 1) {
+      const address_chance = `${
+        formData?.address ? `${formData?.address},` : ""
+      }${
         formData?.ward
-          ? `${listWard.find((ward) => ward.value == formData?.ward)?.label}, `
+          ? ` ${listWard.find((ward) => ward.value == formData?.ward)?.label}, `
           : ""
       }${
-        formData?.district_id
+        formData?.district_id || formData?.district_chance
           ? `${renderDistrict(formData?.district_id)}, `
           : ""
       }${formData?.cit_id ? `${renderCity(formData?.cit_id)}, ` : ""}${
-        formData?.country ? formData?.country : ""
-      }`
-    );
+        formData?.country ? `${formData?.country}` : ""
+      }`;
+      setFormData((prev) => {
+        return {
+          ...prev,
+          address_chance,
+        };
+      });
+    }
+
+    setIsFirstTime(isFirstTime + 1);
   }, [
-    formData?.address,
+    formData?.street_chance,
     formData?.ward,
     formData?.district_id,
     formData?.cit_id,
+    formData?.district_chance,
     formData?.country,
   ]);
   return (
@@ -101,12 +113,16 @@ export default function AddAddressInfo({
         />
         <SelectSingleAndOption
           title="Quận huyện"
-          data={listDistrict}
+          data={
+            LIST_DISTRICT.filter(
+              (district) => district.parent == formData?.cit_id
+            ) || listDistrict
+          }
           setFormData={setFormData}
           formData={formData}
           name="district_id"
           placeholder="Chọn quận huyện"
-          value={formData?.district_id}
+          value={formData?.district_id || formData?.district_chance}
         />
         <SelectSingleAndOption
           title="Phường xã"
@@ -120,15 +136,15 @@ export default function AddAddressInfo({
         <MInputTextAndOption
           label="Số nhà, đường phố"
           placeholder="Nhập số nhà, đường phố"
-          name="address"
-          value={formData?.address}
+          name="street_chance"
+          value={formData?.street_chance}
           setFormData={setFormData}
         />
         <MInputTextAndOption
           label="Mã vùng"
           placeholder="Nhập mã vùng"
-          name="arera_code"
-          value={formData?.arera_code}
+          name="area_code_chance"
+          value={formData?.area_code_chance}
           setFormData={setFormData}
         />
         <MTextArea
@@ -136,7 +152,7 @@ export default function AddAddressInfo({
           rows={2}
           label="Địa chỉ"
           placeholder="Chọn địa chỉ"
-          value={address}
+          value={formData?.address_chance}
           setFormData={setFormData}
         />
       </div>

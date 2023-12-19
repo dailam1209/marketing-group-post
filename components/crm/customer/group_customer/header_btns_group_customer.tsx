@@ -37,7 +37,7 @@ export default function HeaderBtnsCustomerGroup({
   }, []);
   return (
     <div className={styles.main__control}>
-      <div className={`${styles.main__control_btn} flex_between`}>
+      <div className={`${styles.main__control_btn}`}>
         <div className={styles.wrapInput}>
           <form
             style={{
@@ -66,8 +66,29 @@ export default function HeaderBtnsCustomerGroup({
               />
             </button>
           </form>
-        </div>
-        <div className={`${styles.main__control_add} flex_end`}>
+        </div>{" "}
+        <FilterCart />
+      </div>
+      <ModalGroupCustomerDelete
+        isOpenModalDelete={isOpenModalDelete}
+        setIsOpenModalDelete={setIsOpenModalDelete}
+      />
+      <ModalGroupCustomerMove
+        isOpenModalMove={isOpenModalMove}
+        setIsOpenModalMove={setIsOpenModalMove}
+      />{" "}
+      <ModalGroupCustomerAddEmp
+        isOpenModalAddEmp={isOpenModalAddEmp}
+        setIsOpenModalAddEmp={setIsOpenModalAddEmp}
+      />
+      <div className={styles.action_box}>
+        {" "}
+        <GroupCustomerAction
+          isSelectedRow={isSelectedRow}
+          selectedRow={selectedRow}
+          updateData={updateData}
+        />
+        <div className={`${styles.main__control_add}`}>
           {company_id === 10013446 && typeComp === 1 && (
             <div className={`${styles.main__control_add} flex_end`}>
               <button
@@ -106,25 +127,6 @@ export default function HeaderBtnsCustomerGroup({
           </Link>
         </div>
       </div>
-      <FilterCart/>
-      <ModalGroupCustomerDelete
-        isOpenModalDelete={isOpenModalDelete}
-        setIsOpenModalDelete={setIsOpenModalDelete}
-      />
-      <ModalGroupCustomerMove
-        isOpenModalMove={isOpenModalMove}
-        setIsOpenModalMove={setIsOpenModalMove}
-      />{" "}
-      <ModalGroupCustomerAddEmp
-        isOpenModalAddEmp={isOpenModalAddEmp}
-        setIsOpenModalAddEmp={setIsOpenModalAddEmp}
-      />
-      
-      <GroupCustomerAction
-        isSelectedRow={isSelectedRow}
-        selectedRow={selectedRow}
-        updateData={updateData}
-      />
     </div>
   );
 }

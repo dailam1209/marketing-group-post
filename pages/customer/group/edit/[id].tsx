@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 import jwt from "jsonwebtoken";
 import styleHome from "@/components/crm/home/home.module.css";
 import styles from "@/components/crm/potential/potential.module.css";
@@ -22,13 +22,13 @@ import { getCookie } from "cookies-next";
 import jwt_decode from "jwt-decode";
 import { getToken } from "@/pages/api/api-hr/token";
 import { axiosCRM } from "@/utils/api/api_crm";
+import { SelectSingleAndOption } from "@/components/commodity/select";
+import { axiosQLC } from "@/utils/api/api_qlc";
 interface CustomJwtPayload extends jwt.JwtPayload {
   idQLC: string; // hoặc kiểu dữ liệu thích hợp
 }
 
 const GroupCustomerAdd: React.FC = () => {
-  const [valAllDepartment, setValAllDepartment] = useState(false);
-  const [valAllEmp, setValAllEmp] = useState(false);
   const mainRef = useRef<HTMLDivElement>(null);
   const valueOptionRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
@@ -39,18 +39,16 @@ const GroupCustomerAdd: React.FC = () => {
   const [selectedValueDepartments, setSelectedValueDepartments] = useState<any>(
     []
   );
+
   const [share_group_child, setshare_group_child] = useState<any>(0);
   const [dataDetails, setDataDetails] = useState<any>([]);
   const [dataSelectGroupParent, setData] = useState<any>([]);
   const [dataEmp, setDataEmp] = useState<any>([]);
   const [dataDepartment, setDataDepartment] = useState<any>([]);
   const [dataRowSelect, setDataRowSelect] = useState<any>([]);
-  const [selectedRow, setSelectedRow] = useState(0);
-  const [valEmp, setValEmp] = useState<any>([]);
   const [dataTableEmp, setDataTableEmp] = useState([]);
   const [employeeOptions, setEmployeeOptions] = useState([]);
   const [isOpenModalDel, setIsOpenModalDel] = useState(false);
-  const [clickOptionEmp, setClickOptionEmp] = useState(false);
   const [api, contextHolder] = notification.useNotification();
   const { setHeaderTitle, setShowBackButton, setCurrentPath }: any =
     useHeader();
@@ -58,6 +56,15 @@ const GroupCustomerAdd: React.FC = () => {
     const isToken = Cookies.get(token);
     return isToken;
   }
+  const [listDepartment, setListDepartment] = useState([]);
+  const [formData, setFormData] = useState<any>({
+    ep_status: "Active",
+    pageNumber: 1,
+    pageSize: 1000000,
+  });
+  const [listEmpAll, setListEmpAll] = useState([]);
+  const [listEmp, setListEmp] = useState([]);
+  const [companyId, setCompanyId] = useState(null);
 
   const accessToken = Cookies.get("token_base365");
   const GetComId = () => {
@@ -65,6 +72,7 @@ const GroupCustomerAdd: React.FC = () => {
     const currentCookie = getToken(COOKIE_KEY);
     if (currentCookie) {
       const decodedToken: any = jwt_decode(currentCookie);
+      setCompanyId(decodedToken?.data?.com_id);
       return decodedToken?.data?.com_id;
     }
   };
@@ -159,14 +167,6 @@ const GroupCustomerAdd: React.FC = () => {
 
       const data = response.data;
       setDataDetails(data);
-      const dataCheckEmp = data?.data?.emp_id;
-      const dataCheckDep = data?.data?.dep_id;
-      if (dataCheckDep === "all" || dataCheckDep === "") {
-        setValAllDepartment(true);
-      }
-      if (dataCheckEmp === "all" || dataCheckEmp === "") {
-        setValAllEmp(true);
-      }
 
       if (response.status !== 200) {
         throw new Error(data.message || "Có lỗi xảy ra khi gọi API");
@@ -238,34 +238,39 @@ const GroupCustomerAdd: React.FC = () => {
     }
   }, [isOpen]);
 
-  function handleChange(val: any): void {
-    setSelectedValueDepartments(val);
-  }
-
-  function handleChangeEmps(val: any): void {
-    const valueExists = dataTableEmp?.some((item) => item === val);
-
-    if (!valueExists) {
-      // if (dataTableEmp) {
-      //   setDataTableEmp((prevData) => [...prevData, val]);
-      // } else {
-      //   setDataTableEmp([val]);
-      // }
+  useEffect(() => {
+    if (typeof formData.idCRM == "number") {
       setDataTableEmp((prevData) => {
         if (prevData) {
-          return [...prevData, val];
+          return [...prevData, formData.idCRM];
         } else {
           const newArr = arr;
-          newArr?.push(val);
+          newArr?.push(formData.idCRM);
           return newArr;
         }
       });
-    } else {
-      setErrModal(true);
+      return;
     }
 
-    setValEmp(val);
-  }
+    if (formData.idCRM?.split(",").length > 1) {
+      const newArr = [
+        ...dataTableEmp,
+        ...formData.idCRM?.split(",").map((item) => Number(item)),
+      ];
+      const uniqueArray = [];
+
+      const seen = {};
+
+      for (const value of newArr) {
+        if (!seen.hasOwnProperty(value)) {
+          seen[value] = true;
+          uniqueArray.push(value);
+        }
+      }
+      setDataTableEmp([...uniqueArray]);
+    }
+  }, [formData.idCRM]);
+
   //
   useEffect(() => {
     if (selectedValueDepartments?.length > 0) {
@@ -313,11 +318,6 @@ const GroupCustomerAdd: React.FC = () => {
     });
   }, [dataTableEmp]);
 
-  const handleDelMultiRow = () => {
-    const newData = dataTableEmp?.filter((el) => !dataRowSelect?.includes(el));
-    setDataTableEmp(newData);
-  };
-
   useEffect(() => {
     setSelectedValueDepartments(arr);
 
@@ -327,27 +327,6 @@ const GroupCustomerAdd: React.FC = () => {
     //     .map((item) => parseInt(item.trim(), 10))
     // );
   }, [dataDepartments]);
-  const com_ids = Cookies.get("com_id");
-  const [arremid, setarremid] = useState<any>();
-  useEffect(() => {
-    setTimeout(() => {
-      const employeeOption = dataEmp
-        ?.filter((emp) => arr?.includes(emp?.organizeDetailId))
-        ?.map((employee) => {
-          return {
-            label: `${employee.ep_id}. ${employee.userName}`,
-            value: employee.ep_id,
-          };
-        });
-      setEmployeeOptions(employeeOption);
-      let arre: any = [];
-      employeeOption.map((item) => {
-        arre.push(item?.emp_id);
-      });
-      setarremid(arre);
-    }, 0);
-  }, [clickOptionEmp]);
-
   const openNotificationWithIcon = () => {
     api.error({
       message: "Notification Title",
@@ -357,7 +336,108 @@ const GroupCustomerAdd: React.FC = () => {
   useEffect(() => {
     fetchListEmpShare();
   }, [id]);
-  console.log("GroupCustomerAdd", dataEmp);
+  const getListDepartment = useMemo(() => {
+    if (companyId) {
+      return axiosQLC
+        .post("/organizeDetail/listAll", { com_id: companyId })
+        .then((res) =>
+          setListDepartment(
+            res.data.data.data?.map((dp) => ({
+              value: dp.listOrganizeDetailId,
+              label: dp.organizeDetailName,
+            }))
+          )
+        )
+        .catch((err) => console.log("getListDepartment", err));
+    }
+  }, [companyId]);
+  const fetchListEmp = useMemo(() => {
+    return axiosQLC
+      .post("/managerUser/listUser", {
+        pageSize: 10000,
+        authentic: 1,
+      })
+      .then((res) =>
+        setListEmpAll(
+          res.data.data.data?.map((emp) => ({
+            value: emp.ep_id,
+            label: `${emp.ep_id}. ${emp.userName}`,
+            phoneTK: emp.phoneTK,
+          }))
+        )
+      )
+      .catch((err) => console.log("err", err));
+  }, [companyId]);
+
+  const getListNVKDofDepartment = () => {
+    axiosQLC
+      .post("/managerUser/listUser", formData)
+      .then((res) => {
+        setListEmp(
+          res.data.data.data?.map((emp) => ({
+            value: emp.ep_id,
+            label: `${emp.ep_id}. ${emp.userName}`,
+            phoneTK: emp.phoneTK,
+          }))
+        );
+      })
+      .catch((err) => console.log("errgetListNVKDofDepartment", err));
+  };
+
+  useEffect(() => {
+    if (!formData.listOrganizeDetailId) {
+      setListEmp([]);
+    }
+    formData.listOrganizeDetailId && getListNVKDofDepartment();
+  }, [formData.listOrganizeDetailId]);
+  const handleUpdate = async () => {
+    if (
+      valueGroupCustomer.gr_name === dataDetails?.data?.data?.gr_name ||
+      valueGroupCustomer.gr_name === ""
+    ) {
+      try {
+        await updateDataEdit(`${base_url}/api/crm/group/update_GroupKH`, {
+          ...valueDefault,
+          name: valueDefault.gr_name,
+          description: valueDefault?.gr_description,
+          group_cus_parent:
+            valueDefault.group_cus_parent !== undefined &&
+            valueDefault.group_cus_parent !== null
+              ? valueDefault.group_cus_parent
+              : valueDefault.group_cus_parent === 0
+              ? 0
+              : dataDetails?.data?.group_parent,
+          gr_id: id,
+          emp_id: dataTableEmp?.join(","),
+          share_group_child: share_group_child,
+        });
+        // setModal1Open(true);
+      } catch (error) {
+        // setModal1Open(true);
+      }
+    } else {
+      try {
+        await updateDataEdit(`${base_url}/api/crm/group/update_GroupKH`, {
+          ...valueGroupCustomer,
+          name: valueGroupCustomer.gr_name,
+          description: valueGroupCustomer?.gr_description,
+          group_cus_parent:
+            valueGroupCustomer.group_cus_parent !== undefined &&
+            valueGroupCustomer.group_cus_parent !== null
+              ? valueGroupCustomer.group_cus_parent
+              : valueGroupCustomer.group_cus_parent === 0
+              ? 0
+              : dataDetails?.data?.group_parent,
+          gr_id: id,
+          emp_id: dataTableEmp?.join(","),
+          share_group_child: share_group_child,
+        });
+        setModal1Open(true);
+      } catch (error) {
+        setModal1Open(true);
+      }
+    }
+  };
   return (
     <>
       <Head>
@@ -469,7 +549,7 @@ const GroupCustomerAdd: React.FC = () => {
                   >
                     Danh sách chia sẻ
                   </div>
-                  {valueGroupCustomer?.group_cus_parent == null &&
+                  {/* {valueGroupCustomer?.group_cus_parent == null &&
                     valueOptionRef?.current?.querySelector(".value_options")
                       .innerHTML === "Chọn" && (
                       <div
@@ -495,7 +575,7 @@ const GroupCustomerAdd: React.FC = () => {
                           Chia sẻ nhóm khách hàng con
                         </p>
                       </div>
-                    )}
+                    )} */}
                   <div
                     className="flex_between"
                     style={{
@@ -503,43 +583,49 @@ const GroupCustomerAdd: React.FC = () => {
                     }}
                   >
                     <div style={{ flex: 1 }}>
+                      <SelectSingleAndOption
+                        title="Chọn tổ chức"
+                        data={listDepartment}
+                        formData={formData}
+                        placeholder="Chọn tổ chức"
+                        value={formData.listOrganizeDetailId}
+                        setFormData={setFormData}
+                        name={"listOrganizeDetailId"}
+                      />{" "}
+                    </div>
+                    <div style={{ flex: 1 }}>
+                      {" "}
+                      <SelectSingleAndOption
+                        title="Chọn nhân viên"
+                        data={
+                          formData.listOrganizeDetailId ? listEmp : listEmpAll
+                        }
+                        formData={formData}
+                        value={formData.idCRM}
+                        setFormData={setFormData}
+                        placeholder="Chọn nhân viên"
+                        name={"idCRM"}
+                        valueAll={listEmp?.map((emp) => emp.value).toString()}
+                      />
+                    </div>
+
+                    {/* <div style={{ flex: 1 }}>
                       <div className="flex_between">
                         <label>Phòng ban</label>
-                        <Checkbox
-                          defaultChecked={
-                            dataDetails?.data?.dep_id === null ||
-                            dataDetails?.data?.dep_id === "all"
-                          }
-                          checked={valAllDepartment}
-                          onChange={() => {
-                            setValAllDepartment(!valAllDepartment);
-                            if (valAllDepartment) {
-                              setValueGroupCustomer((prev) => {
-                                return {
-                                  ...prev,
-                                  dep_id: null,
-                                };
-                              });
-                            }
-                          }}
-                        >
-                          Tất cả
-                        </Checkbox>
                       </div>
-                      {!valAllDepartment && (
-                        <Select
-                          mode="multiple"
-                          allowClear
-                          style={{
-                            width: "100%",
-                            height: "40px !important",
-                          }}
-                          placeholder="Chọn phòng ban"
-                          value={selectedValueDepartments || arr}
-                          onChange={handleChange}
-                          options={options}
-                        />
-                      )}
+
+                      <Select
+                        mode="multiple"
+                        allowClear
+                        style={{
+                          width: "100%",
+                          height: "40px !important",
+                        }}
+                        placeholder="Chọn phòng ban"
+                        value={selectedValueDepartments || arr}
+                        onChange={handleChange}
+                        options={options}
+                      />
                     </div>
                     <div
                       style={{
@@ -550,79 +636,28 @@ const GroupCustomerAdd: React.FC = () => {
                     >
                       <div style={{ height: "27px" }} className="flex_between">
                         <label>Nhân viên</label>
-                        <Checkbox
-                          checked={valAllEmp}
-                          onChange={() => {
-                            setValAllEmp(!valAllEmp);
-                          }}
-                        >
-                          Tất cả
-                        </Checkbox>
                       </div>
-                      {!valAllDepartment && (
-                        <Select
-                          style={{
-                            width: "100%",
-                            height: "40px !important",
-                          }}
-                          disabled={valAllEmp}
-                          placeholder="Chọn nhân viên"
-                          // defaultValue={dataDepartments?.dep_id}
-                          value={valEmp}
-                          onChange={handleChangeEmps}
-                          options={employeeOptions}
-                          onClick={() => setClickOptionEmp(true)}
-                        />
-                      )}
-                    </div>
 
-                    {selectedRow >= 2 && (
-                      <div>
-                        <button
-                          style={{
-                            color: "#FF3333",
-                            display: "flex",
-                            alignItems: "center",
-                            margin: "auto",
-                            width: "138px",
-                            background: "#FFFF",
-                            boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
-                            borderRadius: "3px",
-                            height: "32px",
-                            justifyContent: "center",
-                            gap: "3px",
-                          }}
-                          onClick={() => {
-                            setIsOpenModalDel(true);
-                            // handleDelRow(item);
-                          }}
-                        >
-                          <Image
-                            alt="img"
-                            width={26}
-                            height={26}
-                            src={"/crm/del_red.svg"}
-                          />
-                          Gỡ bỏ
-                        </button>
-                      </div>
-                    )}
+                      <Select
+                        style={{
+                          width: "100%",
+                          height: "40px !important",
+                        }}
+                        placeholder="Chọn nhân viên"
+                        // defaultValue={dataDepartments?.dep_id}
+                        value={valEmp}
+                        onChange={handleChangeEmps}
+                        options={employeeOptions}
+                        onClick={() => setClickOptionEmp(true)}
+                      />
+                    </div> */}
                   </div>
 
-                  {!valAllDepartment && !valAllEmp ? (
-                    //  &&
-                    // dataDetails?.data?.dep_id !== null &&
-                    // dataDetails?.data?.emp_id !== null &&
-                    // dataDetails?.data?.dep_id !== "all" &&
-                    // dataDetails?.data?.emp_id !== "all"
-                    <TableStaffCustomerGroupAdd
-                      dataEmp={dataEmp}
-                      valueSelected={dataTableEmp || arr}
-                      setData={setDataTableEmp}
-                      setSelectedRow={setSelectedRow}
-                      setDataRowSelect={setDataRowSelect}
-                    />
-                  ) : null}
+                  <TableStaffCustomerGroupAdd
+                    dataEmp={dataEmp}
+                    valueSelected={dataTableEmp || arr}
+                    setData={setDataTableEmp}
+                  />
                 </div>
                 <GrFooterAddFiles
                   link="/customer/group/list"
@@ -633,83 +668,12 @@ const GroupCustomerAdd: React.FC = () => {
                   }
                   modal1Open={modal1Open}
                   setModal1Open={setModal1Open}
-                  handleSave={async () => {
-                    if (
-                      valueGroupCustomer.gr_name ===
-                        dataDetails?.data?.data?.gr_name ||
-                      valueGroupCustomer.gr_name === ""
-                    ) {
-                      try {
-                        await updateDataEdit(
-                          `${base_url}/api/crm/group/update_GroupKH`,
-                          {
-                            ...valueDefault,
-                            name: valueDefault.gr_name,
-                            description: valueDefault?.gr_description,
-                            group_cus_parent:
-                              valueDefault.group_cus_parent !== undefined &&
-                              valueDefault.group_cus_parent !== null
-                                ? valueDefault.group_cus_parent
-                                : valueDefault.group_cus_parent === 0
-                                ? 0
-                                : dataDetails?.data?.group_parent,
-                            gr_id: id,
-                            emp_id: valAllEmp ? "all" : dataTableEmp?.join(","),
-                            dep_id: valAllDepartment
-                              ? "all"
-                              : selectedValueDepartments?.join(","),
-                            share_group_child: share_group_child,
-                          }
-                        );
-                        // setModal1Open(true);
-                      } catch (error) {
-                        // setModal1Open(true);
-                      }
-                    } else {
-                      try {
-                        await updateDataEdit(
-                          `${base_url}/api/crm/group/update_GroupKH`,
-                          {
-                            ...valueGroupCustomer,
-                            name: valueGroupCustomer.gr_name,
-                            description: valueGroupCustomer?.gr_description,
-                            group_cus_parent:
-                              valueGroupCustomer.group_cus_parent !==
-                                undefined &&
-                              valueGroupCustomer.group_cus_parent !== null
-                                ? valueGroupCustomer.group_cus_parent
-                                : valueGroupCustomer.group_cus_parent === 0
-                                ? 0
-                                : dataDetails?.data?.group_parent,
-                            gr_id: id,
-                            emp_id: valAllEmp ? "all" : dataTableEmp?.join(","),
-                            dep_id: valAllDepartment
-                              ? "all"
-                              : selectedValueDepartments?.join(","),
-                            share_group_child: share_group_child,
-                          }
-                        );
-                        setModal1Open(true);
-                      } catch (error) {
-                        setModal1Open(true);
-                      }
-                    }
-                  }}
+                  handleSave={handleUpdate}
                 />
               </div>
             </div>
           </div>
         </div>
-        <ModalDelEmpGroup
-          isModalCancel={isOpenModalDel}
-          setIsModalCancel={setIsOpenModalDel}
-          content={"Bạn có chắc chắn muốn gỡ bỏ chia sẻ này không?"}
-          title={"Xác nhận gỡ bỏ chia sẻ"}
-          link={"#"}
-          handleOk={() => {
-            handleDelMultiRow();
-          }}
-        />
       </div>
     </>
   );

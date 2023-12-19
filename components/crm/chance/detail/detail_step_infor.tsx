@@ -1,4 +1,11 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, {
+  Dispatch,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import styleHome from "@/components/crm/home/home.module.css";
 import styles from "@/components/crm/potential/potential2.module.css";
 import { SidebarContext } from "@/components/crm/context/resizeContext";
@@ -11,31 +18,89 @@ import StepSelection from "./step_select";
 import { Switch } from "antd";
 import CancelModal from "@/components/crm/potential/potential_steps/cancel_modal";
 import { useRouter } from "next/router";
+import CancelModalChance from "../modals/cancel_modal";
+import { fetchApi } from "../../ultis/api";
+import Cookies from "js-cookie";
+import { stringToDateNumber } from "../../ultis/convert_date";
+import { timestampToCustomString } from "../../ultis/convert_date";
 
-interface PropsDetail {}
+interface DetailChance {
+  cus_id: {
+    name: string;
+  };
+  result: number;
+  expected_end_date: number;
+  expected_sales: number;
+  total_money: number;
+  stages: number;
+  name: string;
+  success_rate: number;
+  // Add other properties as needed
+}
 
-const DetailInformationChance: React.FC<PropsDetail> = () => {
+interface PropsDetail {
+  isHideEmpty?: boolean;
+  setIsHideEmty?: Dispatch<SetStateAction<boolean>>;
+  dataApi?: {
+    result?: boolean;
+    message?: string;
+    total_money?: number;
+    total_count?: number;
+    total_product_cost?: number;
+    total_tax?: number;
+    total_money_discount?: number;
+    data?: [];
+    detailChance?: DetailChance;
+  };
+}
+
+const DetailInformationChance: React.FC<PropsDetail> = ({
+  isHideEmpty,
+  setIsHideEmty,
+  dataApi,
+}) => {
   const { isOpen } = useContext<any>(SidebarContext);
   const imgRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
-  const id = router.query;
+  const { id } = router.query;
   const [valueProcess, setValueProccess] = useState("");
   const [percentSuccess, setPerCentSuccess] = useState(0);
   const [isOpenModalCancel, setIsOpenModalCancel] = useState(false);
+  const token = Cookies.get("token_base365");
 
-  const switchHandle = (checked: boolean) => {};
+  const statusList = {
+    1: "Mở đầu",
+    0: "Mở đầu",
+    2: "Khách hàng quan tâm",
+    3: "Demo/Gthieu",
+    4: "Đàm phán/ thương lương",
+  };
+
+  const switchHandle = (checked: boolean) => {
+    setIsHideEmty(checked);
+  };
+
+  const fetchApiChance = async () => {
+    const dataApi = await fetchApi(
+      "https://api.timviec365.vn/api/crm/chance/delete-chance",
+      token,
+      { chance_id: id },
+      "POST"
+    );
+  };
 
   return (
     <>
-      <CancelModal
+      <CancelModalChance
         isModalCancel={isOpenModalCancel}
         setIsModalCancel={setIsOpenModalCancel}
-        content={"Bạn có chắc chắn muốn xoá cơ hội này không?"}
-        title={"Xác nhận xoá cơ hội"}
-        link={`/chance/list`}
+        content="Bạn có chắc chắn muốn xoá cơ hội này không?"
+        title="Xác nhận xoá cơ hội"
+        fetchApi={fetchApiChance}
       />
 
       <div
+        className="detail_header_chance"
         style={{
           display: "flex",
           justifyContent: "space-between",
@@ -77,18 +142,47 @@ const DetailInformationChance: React.FC<PropsDetail> = () => {
               <div className={styles.main__body}>
                 <div className={styles["main__body_item"]}>
                   <div className={styleChance.row}>
-                    <TextInfoChance label="Liên hệ" value="Nguyễn Văn Nam" />
-                    <TextInfoChance label="Số tiền" value="100000 VND" />
-                    <TextInfoChance label="Giai đoạn" value="Mở đầu" />
-                    <TextInfoChance label="Tỷ lệ thành công" value="30%" />
-                    <TextInfoChance label="Doanh số kỳ vọng" value="100" />
+                    <TextInfoChance
+                      label="Liên hệ"
+                      value={dataApi?.detailChance?.cus_id?.name}
+                      isHideEmpty={isHideEmpty}
+                    />
+                    <TextInfoChance
+                      label="Số tiền"
+                      value={dataApi?.detailChance?.total_money}
+                      text="VNĐ"
+                      isHideEmpty={isHideEmpty}
+                    />
+                    <TextInfoChance
+                      label="Giai đoạn"
+                      value={statusList?.[dataApi?.detailChance?.stages]}
+                      isHideEmpty={isHideEmpty}
+                    />
+                    <TextInfoChance
+                      label="Tỷ lệ thành công"
+                      value={dataApi?.detailChance?.success_rate}
+                      text="%"
+                      isHideEmpty={isHideEmpty}
+                    />
+                    <TextInfoChance
+                      label="Doanh số kỳ vọng"
+                      value={dataApi?.detailChance?.expected_sales}
+                      text="VNĐ"
+                      isHideEmpty={isHideEmpty}
+                    />
                     <TextInfoChance
                       label="Ngày kỳ vọng/kết thúc"
-                      value="10/02/2024"
+                      value={timestampToCustomString(
+                        Number(dataApi?.detailChance?.expected_end_date) / 1000
+                      )}
+                      isHideEmpty={isHideEmpty}
                     />
                   </div>
                   <div className={styleChance.step_select}>
-                    <StepSelection setValueProccess={setValueProccess} />
+                    <StepSelection
+                      stages={dataApi?.detailChance?.stages || 0}
+                      result={dataApi?.detailChance?.result}
+                    />
                   </div>
                 </div>
               </div>

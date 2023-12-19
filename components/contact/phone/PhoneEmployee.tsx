@@ -19,6 +19,7 @@ import { ToastContainer } from "react-toastify";
 import { useRouter } from "next/router";
 import { current } from "@reduxjs/toolkit";
 import { pointer } from "d3";
+import Link from "next/link";
 
 interface DataType {
   key: string;
@@ -29,6 +30,7 @@ interface DataType {
   index: number;
 }
 interface DataTableType {
+  _id: string,
   key: string;
   time_create: string;
   emp_name: string;
@@ -51,7 +53,11 @@ function PhoneEmployee() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [dataTableStatus, setDataTableStatus] = useState([]);
   const [dataGroupCustomer, setDataGroupCustomer] = useState([]);
-  const [fileRecord, setFileRecord] = useState(null);
+  const [fileRecord, setFileRecord] = useState({
+    file: null,
+    recall: true,
+    audioKey: 0
+  });
   const [dataTable, setDataTable] = useState<any>();
   const [formData, setFormData] = useState<TypeFormPropose>({
     listGroup: [],
@@ -101,13 +107,13 @@ function PhoneEmployee() {
         },
       }
     ).then((res) => {
-      setFileRecord(res.data.data.file)
+      setFileRecord({ ...fileRecord, file: res.data.data.file })
     })
       .catch((err) => {
         console.log(err)
         notifyError("Vui lòng thử lại sau");
       });
-  }, [fileRecord]);
+  }, [fileRecord.recall]);
   //Lấy số lượng
   useEffect(() => {
     if (
@@ -278,9 +284,23 @@ function PhoneEmployee() {
     },
     {
       title: "Trạng thái chạy",
-      fixed: "right",
       dataIndex: "status_doing",
       width: 100,
+    },
+    {
+      title: " ",
+      fixed: "right",
+      width: 100,
+      render: (value, record, index) => (
+        <Link
+          href={{
+            pathname: '/thong-ke-ai365',
+            query: { idSchedule: record._id }
+          }}
+          target="_blank">
+          Xem chi tiết
+        </Link>
+      )
     },
   ];
   const handleShowModal = () => {
@@ -328,7 +348,7 @@ function PhoneEmployee() {
     name: 'file',
     accept: 'audio/*,.aac',
     maxCount: 1,
-    disabled: true,
+    // disabled: true,
     showUploadList: false,
     method: 'POST',
     action: 'https://voip.timviec365.vn/api/UploadRecord',
@@ -336,7 +356,7 @@ function PhoneEmployee() {
       Authorization: `Bearer ${currentCookie}`,
     },
     beforeUpload: (file) => {
-      const MAX_FILE_SIZE_MB = 50
+      const MAX_FILE_SIZE_MB = 5
       const check_size_file = file.size / 1024 / 1024 < MAX_FILE_SIZE_MB;
       if (!check_size_file) {
         notifyError(`Vượt quá giới hạn kích thước file ${MAX_FILE_SIZE_MB}MB`);
@@ -346,12 +366,11 @@ function PhoneEmployee() {
     },
     onChange(info) {
       if (info.file.status !== 'uploading') {
-        console.log(info.file, info.fileList);
       }
       if (info.file.status === 'done') {
         if (info.file.response.data) {
           notifySuccess('Upload thành công')
-          // setFileRecord
+          setFileRecord({ ...fileRecord, recall: !fileRecord.recall, audioKey: fileRecord.audioKey + 1 })
         }
         else {
           notifyError(info.file.response.error.message);
@@ -367,14 +386,15 @@ function PhoneEmployee() {
         <Upload {...props}>
           <Button icon={<UploadOutlined />}>Upload file ghi âm</Button>
         </Upload>
-        {fileRecord && (
+        {fileRecord.file && (
           <audio
+            key={fileRecord.audioKey}
             style={{ height: '32px', backgroundColor: '#f1f3f' }}
-            src={fileRecord}
+            src={fileRecord.file}
             controls>
           </audio>
         )}
-        {!fileRecord && (
+        {!fileRecord.file && (
           <div style={{ margin: '16px' }}>Chưa cài đặt ghi âm</div>
         )}
       </div>

@@ -21,12 +21,10 @@ const TableDataChance: React.FC<TableDataChanceProps> = ({
   dataAPI,
 }: any) => {
   const statusList = {
-    0: "Chưa cập nhật",
-    1: "Chưa cập nhật",
-    2: "Mở đầu",
-    3: "Khách hàng quan tâm",
-    4: "Demo/Gthieu",
-    5: "Đàm phán/ thương lương",
+    1: "Mở đầu",
+    2: "Khách hàng quan tâm",
+    3: "Demo/Gthieu",
+    4: "Đàm phán/ thương lương",
   };
 
   const rowSelection: TableRowSelection<any> = {
@@ -115,7 +113,7 @@ const TableDataChance: React.FC<TableDataChanceProps> = ({
       width: 150,
       render: (empID) => (
         <div>
-          {emp.filter((empList) => empList?.ep_id === empID)[0]?.userName ||
+          {emp?.filter((empList) => empList?.ep_id === empID)[0]?.userName ||
             "Chưa cập nhật"}
         </div>
       ),
@@ -169,30 +167,38 @@ const TableDataChance: React.FC<TableDataChanceProps> = ({
           },
         }}
       />
-      <div style={{ marginTop: "10px" }} className="flex_between" id="">
-        <div style={{ marginBottom: "10px" }} className="show_number_item">
-          <b>Hiển thị:</b>
-          <select
-            onChange={(el) => {
-              setBody({
-                ...body,
-                pageSize: Number(el.target.value),
-              });
-            }}
-            className="show_item"
-            value={body?.pageSize || 10}
+       <div
+            style={{ marginTop: "10px" }}
+            className={`flex_between ${data.length ? "custom_info_table" : ""}`}
           >
-            <option value={10}>10 bản ghi trên trang</option>
-            <option value={20}>20 bản ghi trên trang</option>
-            <option value={30}>30 bản ghi trên trang</option>
-            <option value={40}>40 bản ghi trên trang</option>
-            <option value={50}>50 bản ghi trên trang</option>
-          </select>
-        </div>
-        <div style={{ marginBottom: "10px" }} className="total">
-          Tổng số: <b>{data.length}</b> Cơ hội
-        </div>
-      </div>
+            <div style={{ marginBottom: "10px" }} className="show_number_item">
+              <b>Hiển thị:</b>
+              <select
+                onChange={(el) => {
+                  setBody({
+                    ...body,
+                    pageSize: Number(el.target.value),
+                  });
+                }}
+                className="show_item"
+              >
+                <option value={10}>10 bản ghi trên trang</option>
+                <option value={20}>20 bản ghi trên trang</option>
+                <option value={30}>30 bản ghi trên trang</option>
+                <option value={40}>40 bản ghi trên trang</option>
+                <option value={50}>50 bản ghi trên trang</option>
+              </select>
+            </div>
+            <div
+              style={{
+                marginBottom: "10px",
+                transform: data.length ? "translateX(50%)" : "",
+              }}
+              className="total"
+            >
+              Tổng số: <b>{data.length}</b> Cơ hội
+            </div>
+          </div>
     </div>
   );
 };

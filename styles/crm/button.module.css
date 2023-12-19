@@ -48,3 +48,17 @@
   color: #ffffff;
   border-radius: 5px;
 }
+
+.btn_excel {
+  background: #34b632;
+  box-shadow: 0px 0px 10px rgb(0 0 0 / 10%);
+  border-radius: 10px;
+  padding: 9px 21px;
+  color: #ffffff;
+  font-family: "Roboto-Medium";
+  font-size: 16px;
+  line-height: 19px;
+  column-gap: 5px;
+  display: flex;
+  align-items: center;
+}

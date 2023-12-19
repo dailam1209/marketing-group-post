@@ -3,16 +3,9 @@ import { Modal } from "antd";
 import { useEffect, useState } from "react";
 import stylesBtn from "@/styles/crm/button.module.css";
 import styles from "./customer_group.module.css";
-import { axiosQLCSite } from "@/utils/api/api_qlc_site";
 import jwt_decode from "jwt-decode";
 import { getToken } from "@/pages/api/api-hr/token";
-import { axiosCRMSite } from "@/utils/api/api_crm_site";
-import {
-  decodeToken,
-  notifyError,
-  notifySuccess,
-  notifyWarning,
-} from "@/utils/function";
+import { notifyError, notifySuccess, notifyWarning } from "@/utils/function";
 import { ToastContainer } from "react-toastify";
 import { axiosCRM } from "@/utils/api/api_crm";
 import { axiosQLC } from "@/utils/api/api_qlc";
@@ -20,7 +13,6 @@ import useLoading from "../../hooks/useLoading";
 import LoadingLayout from "@/constants/LoadingLayout";
 function ModalGroupCustomerAddEmp({ isOpenModalAddEmp, setIsOpenModalAddEmp }) {
   const [formData, setFormData] = useState<any>({
-    recall: true,
     ep_status: "Active",
     pageNumber: 1,
     pageSize: 1000000,
@@ -62,43 +54,28 @@ function ModalGroupCustomerAddEmp({ isOpenModalAddEmp, setIsOpenModalAddEmp }) {
             res.data.data.listUser?.map((emp) => ({
               value: emp.ep_id,
               label: `${emp.ep_id}. ${emp.userName}`,
+              phoneTK: emp.phoneTK,
             }))
           );
         })
         .catch((err) => console.log("FilterCart", err));
   };
-  // const fetchListEmp = () => {
-  //   axiosQLC
-  //     .post("/managerUser/listUser", {
-  //       pageSize: 10000,
-  //       authentic: 1,
-  //     })
-  //     .then((res) =>
-  //       setListEmp(
-  //         res.data.data.data?.map((emp) => ({
-  //           value: emp.ep_id,
-  //           label: `${emp.ep_id}. ${emp.userName}`,
-  //         }))
-  //       )
-  //     )
-  //     .catch((err) => console.log("err", err));
-  // };
+
   const getListNVKDofDepartment = () => {
     axiosQLC
       .post("/managerUser/listUser", formData)
       .then((res) => {
-        console.log("getListNVKDofDepartment", res);
-
         setListEmp(
           res.data.data.data?.map((emp) => ({
             value: emp.ep_id,
             label: `${emp.ep_id}. ${emp.userName}`,
+            phoneTK: emp.phoneTK,
           }))
         );
       })
       .catch((err) => console.log("errgetListNVKDofDepartment", err));
   };
-  console.log("formData", formData);
+
   useEffect(() => {
     if (formData.listOrganizeDetailId) {
       getListNVKDofDepartment();
@@ -128,10 +105,15 @@ function ModalGroupCustomerAddEmp({ isOpenModalAddEmp, setIsOpenModalAddEmp }) {
     }
   }, [company_id]);
   const handleAddUserToCart = () => {
-    if (!formData.IdCrm || !formData.IdCart) {
-      notifyWarning("Chọn đầy đủ thông tin!");
+    if (!formData.IdCrm) {
+      notifyWarning("Chọn nhân viên muốn thêm vào giỏ!");
       return;
     }
+    if (!formData.IdCart) {
+      notifyWarning("Chọn giỏ!");
+      return;
+    }
+
     axiosCRM
       .post("/account/AddUserToCart", formData)
       .then((res) => {
@@ -159,10 +141,11 @@ function ModalGroupCustomerAddEmp({ isOpenModalAddEmp, setIsOpenModalAddEmp }) {
         <div>
           <div className={styles.modal_move_item}>
             <SelectSingleAndOption
-              title="Chọn phòng ban"
+              title="Chọn tổ chức"
               data={listDepartment}
               formData={formData}
-              value={formData.IdDepartment}
+              placeholder="Chọn tổ chức"
+              value={formData.listOrganizeDetailId}
               setFormData={setFormData}
               name={"listOrganizeDetailId"}
             />
@@ -175,18 +158,20 @@ function ModalGroupCustomerAddEmp({ isOpenModalAddEmp, setIsOpenModalAddEmp }) {
               value={formData.IdCrm}
               setFormData={setFormData}
               name={"IdCrm"}
+              placeholder="Chọn nhân viên"
               valueAll={listEmp?.map((emp) => emp.value).toString()}
             />
           </div>
           <div className={styles.modal_move_item}>
             <SelectSingleAndOption
+              placeholder="Chọn nhóm"
               title="Chọn nhóm"
               data={listGroup}
               formData={formData}
               value={formData.IdCart}
               setFormData={setFormData}
               name={"IdCart"}
-              valueAll={listEmp?.map((emp) => emp.value).toString()}
+              valueAll={listGroup?.map((emp) => emp.value).toString()}
             />
           </div>
           <div

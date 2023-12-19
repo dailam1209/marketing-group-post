@@ -22,6 +22,7 @@ export default function SelectBoxInputNguon({
     { name: "Giới thiệu", id: 6 },
     { name: "Chăm sóc khach hàng", id: 7 },
     { name: "Email", id: 8 },
+    { name: "Chợt tốt", id: 9 },
   ];
   const name2 = ArrNguonKK.filter(item => item.id == infoCus?.resoure?.info)
   useEffect(() => {

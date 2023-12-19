@@ -10,7 +10,6 @@ import PotentialActionEmailTable from "../potential/action_table/potential_actio
 const Cookies = require("js-cookie");
 import { useRouter } from "next/router";
 
-
 interface DataType {
   key: React.Key;
   number: string;
@@ -120,14 +119,17 @@ const TableDataEmailPo: React.FC<TableDataCampaignProps> = () => {
 
   const fetchData = async () => {
     try {
-      const res = await fetch(`https://api.timviec365.vn/api/crm/potential/listEmailPotential`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${Cookies.get("token_base365")}`,
-        },
-        body: JSON.stringify({ customer_id: 1 }),
-      });
+      const res = await fetch(
+        `https://api.timviec365.vn/api/crm/potential/listEmailPotential`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${Cookies.get("token_base365")}`,
+          },
+          body: JSON.stringify({ customer_id: 1 }),
+        }
+      );
       let data = await res.json();
       data = data?.data?.listEmailPotential;
       setData(data);
@@ -140,7 +142,7 @@ const TableDataEmailPo: React.FC<TableDataCampaignProps> = () => {
   useEffect(() => {
     fetchData();
   }, []);
-  console.log("checkdara",data)
+  console.log("checkdara", data);
   return (
     <div className="custom_table campaign_tble">
       <Table
@@ -150,10 +152,18 @@ const TableDataEmailPo: React.FC<TableDataCampaignProps> = () => {
         bordered
         scroll={{ x: "100%", y: 600 }}
       />
-      <div className="main__footer flex_between" id="">
-        <div className="show_number_item">
+      <div
+        style={{ marginTop: "10px", transform: "translateY(0px)" }}
+        className={`flex_between ${data?.length > 0 ? "custom_info_table" : ""}`}
+      >
+        <div style={{ marginBottom: "10px" }} className="show_number_item">
           <b>Hiển thị:</b>
-          <select className="show_item">
+          <select
+            // onChange={(e) => {
+            //   setPageSize(Number(e.target.value));
+            // }}
+            className="show_item"
+          >
             <option value={10}>10 bản ghi trên trang</option>
             <option value={20}>20 bản ghi trên trang</option>
             <option value={30}>30 bản ghi trên trang</option>
@@ -161,8 +171,16 @@ const TableDataEmailPo: React.FC<TableDataCampaignProps> = () => {
             <option value={50}>50 bản ghi trên trang</option>
           </select>
         </div>
-        <div className="total">
-          Tổng số: <b>{data.length}</b> Email
+        <div
+          style={{
+            marginBottom: "10px",
+            transform: data?.length ? "translateX(50%)" : "",
+          }}
+          className="total"
+        >
+          <div className="total">
+            Tổng số: <b>{data?.length}</b> Email
+          </div>
         </div>
       </div>
     </div>

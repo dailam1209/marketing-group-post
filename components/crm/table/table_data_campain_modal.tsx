@@ -5,111 +5,177 @@ import type { ColumnsType } from "antd/es/table";
 import Link from "next/link";
 // import { TableRowSelection } from "antd/es/table/interface";
 import CampaignActionTable from "@/components/crm/campaign/campaign_table_action";
+import { fetchApi } from "../ultis/api";
+import Cookies from "js-cookie";
+import { timestampToCustomString } from "../ultis/convert_date";
 
 interface DataType {
   key: React.Key;
-  name: string;
-  status: string;
-  type: string;
-  date_start: string;
-  date_end: string;
-  sale: number;
-  budget: number;
-  person: string;
+  nameCampaign: string;
+  _id: number;
+  status: number;
+  typeCampaign: number;
+  timeStart: string;
+  timeEnd: string;
+  discount: number;
+  expectedSales: number;
+  companyID: number;
+  empID: number;
+  description: string;
+  money: number;
 }
 
-const columns: ColumnsType<DataType> = [
-  {
-    title: <Checkbox></Checkbox>,
-    width: 50,
-    dataIndex: "key",
-    key: "key",
-    render: (text: any, record: any) => <Checkbox></Checkbox>,
-  },
-  {
-    title: "Tên chiến dịch",
-    width: 180,
-    dataIndex: "name",
-    key: "name",
-    render: (text: any, record: any) => (
-      <Link href={`/campaign/detail/${record.key}`}>
-        <b>{text}</b>
-      </Link>
-    ),
-  },
-  {
-    title: "Tình trạng",
-    width: 150,
-    dataIndex: "status",
-    key: "status",
-    // render: (data) => (
-    //   <Tooltip title={data}>
-    //     <span>{data}</span>
-    //   </Tooltip>
-    // ),
-  },
-  {
-    title: "Loại",
-    dataIndex: "type",
-    key: "type",
-    width: 70,
-  },
-  {
-    title: "Ngày bắt đầu",
-    dataIndex: "date_start",
-    key: "date_start",
-    width: 150,
-  },
-  {
-    title: "Ngày kết thúc",
-    dataIndex: "date_end",
-    key: "date_end",
-    width: 150,
-  },
-  {
-    title: "Doanh số kỳ vọng (VNĐ)",
-    dataIndex: "sale",
-    key: "sale",
-    width: 250,
-  },
-  {
-    title: "Ngân sách (VNĐ)",
-    dataIndex: "budget",
-    key: "budget",
-    width: 150,
-  },
-  {
-    title: "Người phụ trách",
-    dataIndex: "person",
-    key: "person",
-    width: 150,
-  },
-];
-
-export const data: DataType[] = [];
-for (let i = 0; i < 100; i++) {
-  data.push({
-    key: i,
-    name: `Campaign ${i}`,
-    status: "Đang diễn ra",
-    type: "abc",
-    date_start: "29/07/2023",
-    date_end: `30/07/2023`,
-    sale: 10000000,
-    budget: 10000000,
-    person: `Nguyen Van Hung`,
-  });
+interface TableDataCampaignProps {
+  dataAPI?: any;
+  empList?: any;
+  setArrCampaign?: any;
 }
 
-interface TableDataCampaignProps {}
+const TableDataCampaignModal: React.FC<TableDataCampaignProps> = ({
+  dataAPI,
+  empList,
+  setArrCampaign,
+}) => {
+  const url = "https://api.timviec365.vn/api/crm/campaign/delete-campaign";
+  const token = Cookies.get("token_base365");
 
-const TableDataCampaignModal: React.FC<TableDataCampaignProps> = () => {
+  const dataStatus = [
+    <div>Chưa cập nhật</div>,
+    <div>Chưa cập nhật</div>,
+    <div style={{ color: "#FFA800" }}>Chưa diễn ra</div>,
+    <div style={{ color: "#34B632" }}>Đã kết thúc</div>,
+    <div style={{ color: "#FF3333" }}>Đang tạm dừng</div>,
+    <div style={{ color: "#4C5BD4" }}>Đang diễn ra</div>,
+  ];
+
+  const dataTypeCampaign = [
+    <div>Chưa cập nhật</div>,
+    <div>Chưa cập nhật</div>,
+    <div>Gửi mail</div>,
+    <div>Điện thoại</div>,
+    <div>Tổ chức hội thảo tập huấn</div>,
+    <div>Gặp mặt trực tiếp</div>,
+    <div>Qua bưu điện</div>,
+    <div>Mạng xã hội</div>,
+  ];
+
+  const columns: ColumnsType<DataType> = [
+    {
+      title: "STT",
+      width: 50,
+      dataIndex: "key",
+      key: "key",
+    },
+
+    {
+      title: "Tên chiến dịch",
+      width: 180,
+      dataIndex: "nameCampaign",
+      key: "nameCampaign",
+      render: (text: any, record: any) => (
+        <Link href={`/campaign/detail/${record._id}`}>
+          <b>{text}</b>
+        </Link>
+      ),
+    },
+    {
+      title: "ID",
+      width: 50,
+      dataIndex: "_id",
+      key: "_id",
+    },
+    {
+      title: "Tình trạng",
+      width: 150,
+      dataIndex: "status",
+      key: "status",
+      render: (data) => <>{dataStatus[data]}</>,
+    },
+    {
+      title: "Loại",
+      dataIndex: "typeCampaign",
+      key: "typeCampaign",
+      width: 120,
+      render: (data) => <>{dataTypeCampaign[data]}</>,
+    },
+    {
+      title: "Ngày bắt đầu",
+      dataIndex: "timeStart",
+      key: "timeStart",
+      width: 150,
+      render: (date) => <div>{timestampToCustomString(date)}</div>,
+    },
+    {
+      title: "Ngày kết thúc",
+      dataIndex: "timeEnd",
+      key: "timeEnd",
+      width: 150,
+      render: (date) => <div>{timestampToCustomString(date)}</div>,
+    },
+    {
+      title: "Doanh số kỳ vọng (VNĐ)",
+      dataIndex: "expectedSales",
+      key: "expectedSales",
+      width: 180,
+    },
+    {
+      title: "Ngân sách (VNĐ)",
+      dataIndex: "money",
+      key: "money",
+      width: 160,
+    },
+    {
+      title: "Người phụ trách",
+      dataIndex: "empID",
+      key: "empID",
+      width: 180,
+      render: (text: any, record: any) => (
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "5px",
+            justifyContent: "center",
+          }}
+        >
+          <img src="/crm/user_kh.png" alt="user" />
+          {empList?.filter((emp) => emp.ep_id === text)[0]?.userName ||
+            "Chưa cập nhật"}
+        </div>
+      ),
+    },
+  ];
+
+  const data: DataType[] =
+    dataAPI?.data?.map((item, index) => {
+      return {
+        ...item,
+        key: index + 1,
+      };
+    }) || [];
+
+  const rowSelection: any = {
+    onChange: (selectedRowKeys, selectedRows) => {
+      if (selectedRows?.length > 0) {
+        let arr_cam = selectedRows.map((e, i) => {
+          return e._id;
+        });
+        // setArrCustomerId(arr_cam);
+        setArrCampaign(arr_cam);
+      }
+    },
+    onSelect: (record, selected, selectedRows) => {
+      // setNumberSelected(selectedRows?.length);
+    },
+    onSelectAll: (selected, selectedRows, changeRows) => {},
+  };
+
   return (
     <div className="custom_table campaign_tble">
       <Table
         columns={columns}
         dataSource={data}
-        // rowSelection={{ ...rowSelection }}
+        rowSelection={{ ...rowSelection }}
         bordered
         scroll={{ x: 1500, y: 320 }}
       />

@@ -5,12 +5,10 @@ import styles from "./order_detail.module.css";
 import { Input, Tooltip } from "antd";
 import OrderListModal from "../add_order_action_modal/order_list";
 
-export default function AddTable() {
+export default function AddTable(formData) {
   return (
     <div>
-      <p style={{ marginLeft: "15px" }} className={styles.main__body__type}>
-        Thông tin hàng hóa
-      </p>
+      <p className={styles.main__body__type}>Thông tin hàng hóa</p>
       <TableDataOrderDetail
         setSelected={function (value: boolean): void {
           throw new Error("Function not implemented.");

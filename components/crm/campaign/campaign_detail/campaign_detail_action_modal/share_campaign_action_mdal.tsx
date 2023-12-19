@@ -31,7 +31,6 @@ const ShareActionModal: React.FC<MyComponentProps> = ({
   const handleOK = () => {
     setIsModalCancel(false);
     setIsOpenMdalSuccess(true);
-    console.log(arrDep);
     setTimeout(() => {
       setIsOpenMdalSuccess(false);
     }, 2000);
@@ -152,7 +151,7 @@ const ShareActionModal: React.FC<MyComponentProps> = ({
       // setElements([newElement]);
     }
   };
-  console.log("checkkkk listOption", listOption);
+
   return (
     <>
       <Modal

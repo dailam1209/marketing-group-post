@@ -18,7 +18,7 @@ import { notifyError } from "@/utils/function";
 import { ToastContainer } from "react-toastify";
 import { useFormData } from "../../context/formDataContext";
 
-export default function InformationTextPotentialDetails({ key }: any) {
+export default function InformationTextPotentialDetails() {
   const router = useRouter();
   const { setFormData } = useContext(useFormData);
   const { id } = router.query;
@@ -50,11 +50,24 @@ export default function InformationTextPotentialDetails({ key }: any) {
   };
   return (
     <div className={style.main}>
-      <div className={style.main_button}>
-        <div className={style.switch}>
+      <div
+        className={`${style.main_button} ${style.flex_end} `}
+        style={{ flexWrap: "wrap", gap: "15px", overflow: "hidden" }}
+      >
+        <div
+          className={style.switch}
+          style={{ marginBottom: "10px", marginTop: "5px" }}
+        >
           <Switch onChange={onChange} /> <p>Ẩn dữ liệu trống</p>
         </div>
-        <div className={style.group_button}>
+        <div
+          className={style.group_button}
+          style={{
+            flexWrap: "wrap",
+            gap: "15px",
+            overflow: "hidden",
+          }}
+        >
           <button
             className={style.change}
             onClick={() => setIsOpenConvert(true)}

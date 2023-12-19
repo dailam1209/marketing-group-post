@@ -155,7 +155,7 @@ const CallModal: React.FC<MyComponentProps> = ({
       );
       const data = await res.json();
       sethisContent(data?.data?.checkHis);
-    } catch (error) {}
+    } catch (error) { }
   };
   useEffect(() => {
     if (show) {
@@ -223,11 +223,11 @@ const CallModal: React.FC<MyComponentProps> = ({
                   return (
                     <div key={index} style={{ display: "block" }}>
                       <div style={{ display: "block" }}>
-                        <div style={{ float: "left" }}>
+                        <div style={{ float: "left", margin: '0 8px 0 0' }}>
                           {convertDate(item?.created_at)}
                         </div>
                         <br />
-                        <div style={{ float: "left", color: "#4c5bd4" }}>
+                        <div style={{ float: "left", color: "#4c5bd4", textAlign: 'left', whiteSpace: 'pre-line' }}>
                           {item?.content_call?.replace(
                             /<[^>]*>|&nbsp;|&#160;/g,
                             ""
@@ -255,6 +255,7 @@ const CallModal: React.FC<MyComponentProps> = ({
             <ChatBusinessBody
               show={show}
               content={content}
+              hisContent={hisContent}
               cusId={cusId}
               setContent={setContent}
               setDate={setDate}
@@ -351,11 +352,11 @@ const CallModal: React.FC<MyComponentProps> = ({
                   return (
                     <div key={index} style={{ display: "block" }}>
                       <div style={{ display: "block" }}>
-                        <div style={{ float: "left" }}>
+                        <div style={{ float: "left", margin: '0 8px 0 0' }}>
                           {convertDate(item?.created_at)}
                         </div>
                         <br />
-                        <div style={{ float: "left", color: "#4c5bd4" }}>
+                        <div style={{ float: "left", color: "#4c5bd4", textAlign: 'left', whiteSpace: 'pre-line' }}>
                           {item?.content_call.replace(
                             /<[^>]*>|&nbsp;|&#160;/g,
                             ""
