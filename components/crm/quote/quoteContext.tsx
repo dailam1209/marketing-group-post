@@ -1,4 +1,5 @@
 import { axiosCRMCall } from "@/utils/api/api_crm_call";
+import { axiosQLC } from "@/utils/api/api_qlc";
 import dayjs from "dayjs";
 import { createContext, useEffect, useState } from "react";
 
@@ -101,6 +102,7 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
         tax_code: '',
         address: '',
         phone_number: '',
+        chance_id: 0,
         introducer: '',
         product_list: [],
         discount_rate: 0,
@@ -123,6 +125,7 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
             tax_code: '',
             address: '',
             phone_number: '',
+            chance_id: 0,
             introducer: '',
             product_list: [],
             discount_rate: 0,
@@ -136,6 +139,7 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
     }
 
     // Có thể sử dụng trực tiếp detailData
+    // TODO Check needed
     const [editQuote, setEditQuote] = useState({ // Lưu dữ liệu sẵn có khi chỉnh sửa
         id: 0,
         date_quote: '',
@@ -145,6 +149,7 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
         tax_code: '',
         address: '',
         phone_number: '',
+        chance_id: '',
         introducer: '',
         product_list: [],
         discount_rate: 0,
@@ -177,6 +182,7 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
                 tax_code: detailData.tax_code ? detailData.tax_code : '',
                 address: detailData.address ? detailData.address : '',
                 phone_number: detailData.phone_number ? detailData.phone_number : '',
+                chance_id: detailData.chance_id ? detailData.chance_id.id : -1,
                 introducer: detailData.introducer ? detailData.introducer : '',
                 product_list: detailData.product_list ? detailData.product_list : [],
                 discount_rate: detailData.discount_rate ? detailData.discount_rate : 0,
@@ -281,6 +287,33 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
         return match ? Number(match[1]) : 0;
     }
 
+    // Cơ hội trong báo giá
+    const [listChanceOption, setListChanceOption] = useState([])
+    const [chanceKeyword, setChanceKeyword] = useState('')
+    const [shouldFetchChance, setShouldFetchChance] = useState(false)
+
+    useEffect(() => {
+        setShouldFetchChance(true)
+    }, [chanceKeyword])
+
+    useEffect(() => {
+        if (shouldFetchChance) {
+            axiosCRMCall
+                .post('/chance/list-chance', { keyword: chanceKeyword })
+                .then(res => {
+                    if (res?.data?.data?.data?.length > 0) {
+                        const newArr = res?.data?.data?.data
+                            .filter(item => 'id' in item && 'name' in item)
+                            .filter(item => item.id && item.name)
+                            .map(item => `${item.id} - ${item.name}`)
+                        setListChanceOption(newArr)
+                    }
+                })
+                .catch((err) => console.log(err))
+        }
+        setShouldFetchChance(false)
+    }, [shouldFetchChance])
+
     // Hàng hóa trong báo giá
     const [listProduct, setListProduct] = useState([]) // Lưu danh sách hàng hóa từ API
     const [listProductOptions, setListProductOptions] = useState([]) // Lưu danh sách lựa chọn hàng hóa (id - tên)
@@ -323,6 +356,42 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
         ))
     }, [tempListProd])
 
+    // Lấy dữ liệu bổ sung cho mẫu báo giá
+    const [companyData, setCompanyData] = useState<any>({})
+    const [customerData, setCustomerData] = useState<any>({})
+    const [shouldGetCus, setShouldGetCus] = useState(false)
+    const [shouldGetCom, setShouldGetCom] = useState(false)
+
+    useEffect(() => {
+        if (shouldGetCus && Object.keys(detailData).length > 0) {
+            setShouldGetCus(false)
+            axiosCRMCall
+                .post('/customerdetails/detail', { cus_id: getPropOrDefault(detailData, 'customer_id', '0') })
+                .then(res => {
+                    if (res && res?.data && res?.data.hasOwnProperty('data') && res?.data?.data) {
+                        setCustomerData(res?.data?.data)
+                    } else {
+                        setCustomerData({})
+                    }
+                })
+                .catch((err) => { console.log(err); setCustomerData({}) })
+        }
+    }, [shouldGetCus])
+
+    useEffect(() => {
+        if (shouldGetCom) {
+            setShouldGetCom(false)
+            axiosQLC
+                .post('/company/info')
+                .then(res => {
+                    res?.data?.data?.data ?
+                        setCompanyData(res?.data?.data?.data) :
+                        setCompanyData({})
+                })
+                .catch((err) => { console.log(err); setCompanyData({}) })
+        }
+    }, [shouldGetCom])
+
     return (
         <QuoteContext.Provider value={
             {
@@ -355,17 +424,27 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
                 newQuote, setNewQuote,
                 inputQuote, clearQuote, validateQuote,
                 // Chỉnh sửa
-                editQuote, setEditQuote,
+                // editQuote, setEditQuote,
 
                 // Khách hàng trong báo giá
                 shouldFetchCus, setShouldFetchCus,
                 listCusOption, getCusId,
                 keyword, setKeyword,
+                // Cơ hội trong báo giá
+                listChanceOption, setListChanceOption,
+                chanceKeyword, setChanceKeyword,
+                shouldFetchChance, setShouldFetchChance,
                 // Hàng hóa trong báo giá
                 shouldFetchProd, setShouldFetchProd,
                 listProduct, listProductOptions,
                 prodName, setProdName,
                 tempListProd, setTempListProd,
+
+                // Lấy dữ liệu bổ sung cho mẫu báo giá
+                companyData, setCompanyData,
+                customerData, setCustomerData,
+                shouldGetCus, setShouldGetCus,
+                shouldGetCom, setShouldGetCom,
             }
         }
         >

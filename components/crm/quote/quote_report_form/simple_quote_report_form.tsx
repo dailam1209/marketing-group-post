@@ -1,10 +1,10 @@
-import React, { CSSProperties, useContext, useEffect, useState } from "react";
-import { Col, Descriptions, DescriptionsProps, Grid, Image, Typography, Table } from 'antd'
-import type { ColumnsType } from "antd/es/table";
-import { QuoteContext } from "../quoteContext";
 import { axiosCRMCall } from "@/utils/api/api_crm_call";
-import dayjs from "dayjs";
 import { axiosQLC } from "@/utils/api/api_qlc";
+import { Col, Descriptions, DescriptionsProps, Image, Table, Typography } from 'antd';
+import type { ColumnsType } from "antd/es/table";
+import dayjs from "dayjs";
+import React, { CSSProperties, useContext, useEffect, useLayoutEffect, useState } from "react";
+import { QuoteContext } from "../quoteContext";
 const { Title } = Typography
 
 type QuoteDetailData = {}
@@ -23,7 +23,7 @@ interface QuoteDataType {
 const sectionCss: CSSProperties = {
     width: 'calc(100% - 40px)',
     display: 'flex',
-    marginBottom: '20px'
+    marginBottom: '10px'
 }
 
 const descriptLabel: CSSProperties = {
@@ -35,20 +35,22 @@ const descriptLabel: CSSProperties = {
 const descriptContent: CSSProperties = {
     color: '#474747',
     fontWeight: 400,
-    fontSize: '13px'
+    fontSize: '14px'
 }
 
 const simpleLabel: CSSProperties = {
     color: '#474747',
     fontWeight: 600,
     fontSize: '15px',
-    marginBottom: '10px'
+    textAlign: 'left',
+    // marginBottom: '10px'
 }
 
 const simpleContent: CSSProperties = {
     color: '#474747',
     fontWeight: 400,
     fontSize: '14px',
+    textAlign: 'left',
     // wordWrap: "break-word"
 }
 
@@ -183,56 +185,69 @@ function formatPhoneNumber(phoneNumber) {
     return groups.join('.');
 }
 
-const simple_quote_report: React.FC = ({ id = 0 }: any) => {
-    const { getPropOrDefault, recordId, shouldFetchDetailData } = useContext(QuoteContext)
+const SimpleQuoteReport = ({ id = 0, visible = 'visible', setIsLoaded = (value) => { } }: any) => {
+    const { getPropOrDefault, recordId, shouldFetchDetailData, detailData,
+        customerData, companyData, setShouldGetCus, setShouldGetCom } = useContext(QuoteContext)
     const [quoteData, setQuoteData] = useState<any>({})
-    const [companyData, setCompanyData] = useState<any>({})
-    const [customerData, setCustomerData] = useState<any>({})
+    // const [companyData, setCompanyData] = useState<any>({})
+    // const [customerData, setCustomerData] = useState<any>({})
     const [productData, setProductData] = useState<any>([])
     const [productTableData, setProductTableData] = useState<QuoteDataType[]>([])
     const [totalMoneyBeforeDiscount, setTotalMoneyBeforeDiscount] = useState(0)
+    // const [shouldGetCus, setShouldGetCus] = useState(false)
 
     const getQuoteData = () => {
-        axiosCRMCall
-            .post('/quote/getDetail', { id: Number(recordId) || id || 0 })
-            .then((res) => {
-                if (res?.data?.data?.data) {
-                    setQuoteData(res?.data?.data?.data)
-                    setProductData(res?.data?.data?.data.product_list)
-                } else {
-                    setQuoteData({})
-                    setProductData([])
-                }
-            })
-            .catch((err) => console.log(err))
+        if ((Number(recordId) && Number(recordId) !== 0) || (id !== 0)) {
+            // axiosCRMCall
+            //     .post('/quote/getDetail', { id: Number(recordId) || id || 0 })
+            //     .then((res) => {
+            //         if (res?.data?.data?.data) {
+            //             setQuoteData(res?.data?.data?.data)
+            //             setProductData(res?.data?.data?.data.product_list)
+            //             setShouldGetCus(true)
+            //         } else {
+            //             setQuoteData({})
+            //             setProductData([])
+            //         }
+            //     })
+            //     .catch((err) => console.log(err))
+
+            setQuoteData(detailData)
+            Object.keys(detailData).length > 0 && setProductData(getPropOrDefault(detailData, 'product_list', []))
+            setShouldGetCus(true)
+        }
     }
 
-    const getCustomerData = () => {
-        axiosCRMCall
-            .post('/customerdetails/detail', { cus_id: getPropOrDefault(quoteData, 'customer_id', 0) })
-            .then(res => {
-                if (res && res?.data && res?.data.hasOwnProperty('data') && res?.data?.data) {
-                    setCustomerData(res?.data?.data)
-                    console.log(res?.data?.data)
-                }
-            })
-            .catch((err) => console.log(err))
-    }
+    // const getCustomerData = () => {
+    //     if (shouldGetCus) {
+    //         axiosCRMCall
+    //             .post('/customerdetails/detail', { cus_id: getPropOrDefault(quoteData, 'customer_id', 0) })
+    //             .then(res => {
+    //                 if (res && res?.data && res?.data.hasOwnProperty('data') && res?.data?.data) {
+    //                     setCustomerData(res?.data?.data)
+    //                 }
+    //             })
+    //             .catch((err) => console.log(err))
+    //     }
+    // }
 
-    const getCompanyData = () => {
-        axiosQLC
-            .post('/company/info')
-            .then(res => {
-                res?.data?.data?.data ?
-                    setCompanyData(res?.data?.data?.data) :
-                    setCompanyData({})
-            })
-            .catch((err) => console.log(err))
-    }
+    // const getCompanyData = () => {
+    //     if (shouldGetQuoteAndCom) {
+    //         axiosQLC
+    //             .post('/company/info')
+    //             .then(res => {
+    //                 res?.data?.data?.data ?
+    //                     setCompanyData(res?.data?.data?.data) :
+    //                     setCompanyData({})
+    //             })
+    //             .catch((err) => console.log(err))
+    //     }
+    // }
 
-    useEffect(() => {
-        Object.keys(quoteData).length > 0 && getCustomerData()
-    }, [quoteData])
+    // useEffect(() => {
+    //     Object.keys(quoteData).length > 0 && shouldGetCus && getCustomerData()
+    //     setShouldGetCus(false)
+    // }, [quoteData, shouldGetCus])
     useEffect(() => {
         let tempData = []
         let tempTotal = 0
@@ -253,17 +268,28 @@ const simple_quote_report: React.FC = ({ id = 0 }: any) => {
         setTotalMoneyBeforeDiscount(tempTotal)
     }, [productData])
 
-    useEffect(() => {
-        getQuoteData();
-        getCompanyData();
-    }, [])
+    // useEffect(() => {
+    //     if (shouldGetQuoteAndCom) {
+    //         setShouldGetQuoteAndCom(false)
+    //         getQuoteData();
+    //         getCompanyData();
+    //     }
+    // }, [shouldGetQuoteAndCom])
 
     useEffect(() => {
-        if (shouldFetchDetailData) {
+        if (Object.keys(detailData).length > 0) {
+            // setShouldGetQuoteAndCom(true)
             getQuoteData();
-            getCompanyData();
+            setShouldGetCus(true)
+            setShouldGetCom(true)
         }
-    }, [shouldFetchDetailData])
+    }, [detailData])
+
+    // useEffect(() => {
+    //     if (shouldFetchDetailData) {
+    //         setShouldGetQuoteAndCom(true)
+    //     }
+    // }, [shouldFetchDetailData])
 
     const basicQuoteInfo: DescriptionsProps['items'] = [
         {
@@ -420,7 +446,9 @@ const simple_quote_report: React.FC = ({ id = 0 }: any) => {
 
     return (
         <>
-            <div style={{ width: '210mm', maxWidth: '100%', margin: '20px', pointerEvents: "none", pageBreakBefore: 'always' }}>
+
+
+            <div id="quote_report_simple" style={{ width: '100%', maxWidth: '210mm', margin: '20px', pointerEvents: "none", pageBreakBefore: 'always', visibility: visible }}>
                 {/* Logo + thông tin báo giá cơ bản */}
                 <div style={sectionCss}>
                     {/* <Col span={24}> */}
@@ -445,7 +473,7 @@ const simple_quote_report: React.FC = ({ id = 0 }: any) => {
                 </div>
 
                 {/* Tiêu đề */}
-                <div style={{ textAlign: 'center', width: 'calc(100% - 40px)', marginBottom: '50px' }}>
+                <div style={{ textAlign: 'center', width: 'calc(100% - 40px)', marginBottom: '30px' }}>
                     <Title>BẢNG BÁO GIÁ</Title>
                 </div>
 
@@ -522,7 +550,7 @@ const simple_quote_report: React.FC = ({ id = 0 }: any) => {
                     <p style={simpleLabel}>Điều khoản &  Quy định </p>
                     <p style={simpleContent}>{getPropOrDefault(quoteData, 'terms_and_conditions', 'Chưa cập nhật')}</p>
                 </div>
-                <div style={{ width: 'calc(100% - 40px)', marginBottom: '40px' }}>
+                <div style={{ width: 'calc(100% - 40px)', marginBottom: '20px' }}>
                     <p style={simpleLabel}>Ghi chú:</p>
                     <p style={simpleContent}>{getPropOrDefault(quoteData, 'note', 'Chưa cập nhật')}</p>
                 </div>
@@ -572,14 +600,15 @@ const simple_quote_report: React.FC = ({ id = 0 }: any) => {
                                 fontSize: '20px',
                                 fontWeight: 600
                             }}>
-                                
+
                             </p>
                         </div>
                     </Col>
                 </div>
             </div>
+
         </>
     )
 }
 
-export default simple_quote_report
+export default SimpleQuoteReport

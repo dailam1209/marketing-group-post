@@ -18,6 +18,7 @@ export default function AddQuoteDetailInfo() {
     const convertData = () => {
         if (apiData.length > 0) {
             setData(apiData.map((item) => ({
+                key: getPropOrDefault(item, '_id'),
                 userName: getPropOrDefault(item, 'user_id.userName', 'Không tên'),
                 modify_at: getPropOrDefault(item, 'modify_at'),
                 action: getPropOrDefault(item, 'action')
@@ -73,7 +74,7 @@ export default function AddQuoteDetailInfo() {
                         <div className={`${styles["col-lg-12"]} ${styles.content_nhatky}`}>
                             {
                                 data.map((item) => (
-                                    <div className={`${styles.main__body__item_nhatky}`}>
+                                    <div className={`${styles.main__body__item_nhatky}`} key={item.key}>
                                         <div className={`${styles.main__body__item__title_nhatky}`}><b>{dayjs(item.modify_at).format('HH:mm - DD/MM/YYYY')}</b></div>
                                         <div className={`${styles.main__body__item__value_nhatky}`}>{item.action + ' bởi ' + item.userName}</div>
                                     </div>
