@@ -28,11 +28,13 @@ interface DataType {
 interface TableDataCampaignProps {
   dataAPI?: any;
   empList?: any;
+  setArrCampaign?: any;
 }
 
 const TableDataCampaignModal: React.FC<TableDataCampaignProps> = ({
   dataAPI,
   empList,
+  setArrCampaign,
 }) => {
   const url = "https://api.timviec365.vn/api/crm/campaign/delete-campaign";
   const token = Cookies.get("token_base365");
@@ -58,13 +60,6 @@ const TableDataCampaignModal: React.FC<TableDataCampaignProps> = ({
   ];
 
   const columns: ColumnsType<DataType> = [
-    {
-      title: <Checkbox></Checkbox>,
-      width: 50,
-      dataIndex: "key",
-      key: "key",
-      render: (text: any, record: any) => <Checkbox></Checkbox>,
-    },
     {
       title: "STT",
       width: 50,
@@ -159,12 +154,28 @@ const TableDataCampaignModal: React.FC<TableDataCampaignProps> = ({
       };
     }) || [];
 
+  const rowSelection: any = {
+    onChange: (selectedRowKeys, selectedRows) => {
+      if (selectedRows?.length > 0) {
+        let arr_cam = selectedRows.map((e, i) => {
+          return e._id;
+        });
+        // setArrCustomerId(arr_cam);
+        setArrCampaign(arr_cam);
+      }
+    },
+    onSelect: (record, selected, selectedRows) => {
+      // setNumberSelected(selectedRows?.length);
+    },
+    onSelectAll: (selected, selectedRows, changeRows) => {},
+  };
+
   return (
     <div className="custom_table campaign_tble">
       <Table
         columns={columns}
         dataSource={data}
-        // rowSelection={{ ...rowSelection }}
+        rowSelection={{ ...rowSelection }}
         bordered
         scroll={{ x: 1500, y: 320 }}
       />

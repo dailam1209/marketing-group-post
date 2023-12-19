@@ -45,7 +45,7 @@ export default function CampaignInputGroupsModal({ setFormData }: any) {
         </div>
         <div className={`${styles.main__control_add} flex_end`}>
           <Link
-            href={"/crm/campaign/add"}
+            href={"/campaign/add"}
             className={`${styles.dropbtn_add} flex_align_center`}
           >
             <img src="/crm/add.svg" />

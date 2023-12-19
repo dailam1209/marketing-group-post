@@ -9,17 +9,21 @@ import useLoading from "../../hooks/useLoading";
 import { fetchApi } from "../../ultis/api";
 import { axiosQLC } from "@/utils/api/api_qlc";
 import { notifyError } from "@/utils/function";
+import { useTrigger } from "../../context/triggerContext";
 
 const ShowCampaignPOMD = (props: any) => {
   const { isModalCancelPO, onClose } = props;
   const [showMdalAdd, setIsShowMdalADd] = useState(false);
   const router = useRouter();
+  const { trigger, setTrigger } = useTrigger();
   const { isLoading, startLoading, stopLoading } = useLoading();
   const token = Cookies.get("token_base365");
   const [data, setData] = useState([]);
   const [listEmp, setListEmp] = useState();
   const [formData, setFormData] = useState({ nameCampaign: "" });
+  const [arrCampaign, setArrCampaign] = useState([]);
   const url = "https://api.timviec365.vn/api/crm/campaign/listCampaign";
+  // const url = "http://localhost:3007/api/crm/campaign/listCampaign";
 
   const fetchAPICampaign = async () => {
     const bodyAPI = {
@@ -32,12 +36,6 @@ const ShowCampaignPOMD = (props: any) => {
     stopLoading();
   };
 
-  useEffect(() => {
-    axiosQLC
-      .post("/managerUser/listUser", { ep_status: "Active" })
-      .then((res) => convertDataEmp(res.data.data.data))
-      .catch((err) => notifyError("Vui lòng thử lại sau!"));
-  }, []);
   const convertDataEmp = (datas) => {
     setListEmp(
       datas.map((item: any) => ({
@@ -49,8 +47,19 @@ const ShowCampaignPOMD = (props: any) => {
   };
 
   useEffect(() => {
-    fetchAPICampaign();
-  }, [formData]);
+    if (isModalCancelPO) {
+      axiosQLC
+        .post("/managerUser/listUser", { ep_status: "Active" })
+        .then((res) => convertDataEmp(res.data.data.data))
+        .catch((err) => notifyError("Vui lòng thử lại sau!"));
+    }
+  }, [isModalCancelPO]);
+
+  useEffect(() => {
+    if (isModalCancelPO) {
+      fetchAPICampaign();
+    }
+  }, [formData, isModalCancelPO]);
 
   return (
     <>
@@ -85,7 +94,20 @@ const ShowCampaignPOMD = (props: any) => {
             </div>
             <div
               style={{ width: "100px" }}
-              onClick={() => (setIsShowMdalADd(true), router.reload())}
+              onClick={async () => {
+                await fetchApi(
+                  "https://api.timviec365.vn/api/crm/customerdetails/add-campaign-customer",
+                  token,
+                  {
+                    arr_cus_id: [Number(router.query.id)],
+                    arr_campaign_id: arrCampaign,
+                  },
+                  "POST"
+                );
+                // router.reload();
+                setTrigger(true);
+                onClose();
+              }}
             >
               <Button
                 style={{ width: 150, color: "#fff", background: "#4C5BD4" }}
@@ -96,17 +118,21 @@ const ShowCampaignPOMD = (props: any) => {
           </div>
         }
       >
-        <ModalCompleteStep
-          modal1Open={showMdalAdd}
+        {/* <ModalCompleteStep
+          modal1Open={trigger}
           setModal1Open={setIsShowMdalADd}
           title={`Thêm khách hàng vào chiến dịch thành công`}
           link={"#"}
-        />
+        /> */}
 
         <div style={{ paddingTop: 30 }}>
           <CampaignInputGroupsModal setFormData={setFormData} />
         </div>
-        <TableDataCampaignModal empList={listEmp} dataAPI={data} />
+        <TableDataCampaignModal
+          empList={listEmp}
+          dataAPI={data}
+          setArrCampaign={setArrCampaign}
+        />
       </Modal>
     </>
   );

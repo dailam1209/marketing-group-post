@@ -12,7 +12,7 @@ interface ModalCompleteStepProps {
 }
 
 const ModalCompleteStep: React.FC<ModalCompleteStepProps> = ({
-  modal1Open = true,
+  modal1Open,
   setModal1Open,
   title,
   link = "/",
@@ -36,7 +36,9 @@ const ModalCompleteStep: React.FC<ModalCompleteStepProps> = ({
           }
           style={{ top: 20 }}
           open={modal1Open}
-          onOk={handleClick}
+          onOk={() => {
+            handleClick();
+          }}
           className="custom_mdal_sucess"
         >
           <div style={{ textAlign: "center" }}>{title}</div>
