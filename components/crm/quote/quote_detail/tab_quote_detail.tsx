@@ -126,7 +126,7 @@ const TabComponent = () => {
                         <input
                           type="text"
                           className={styles.input__search}
-                          name="search"
+                          name="searchOrder"
                           defaultValue=""
                           placeholder="Tìm kiếm theo số đơn hàng, người thực hiện"
                         />

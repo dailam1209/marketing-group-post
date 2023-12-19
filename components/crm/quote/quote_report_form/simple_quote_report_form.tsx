@@ -576,7 +576,7 @@ const SimpleQuoteReport = ({ id = 0, visible = 'visible', setIsLoaded = (value) 
                                 fontSize: '20px',
                                 fontWeight: 600
                             }}>
-                                {getPropOrDefault(quoteData, 'user_updated_id.userName', 'Chưa cập nhật')}
+                                {getPropOrDefault(quoteData, 'creator_name', 'Chưa cập nhật')}
                             </p>
                         </div>
                     </Col>
@@ -600,7 +600,7 @@ const SimpleQuoteReport = ({ id = 0, visible = 'visible', setIsLoaded = (value) 
                                 fontSize: '20px',
                                 fontWeight: 600
                             }}>
-
+                                {getPropOrDefault(quoteData, 'ceo_name', 'Chưa cập nhật')}
                             </p>
                         </div>
                     </Col>

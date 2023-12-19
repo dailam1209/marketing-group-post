@@ -41,7 +41,7 @@ export default function ChanceSelectBoxStep({
 
   useEffect(()=>{
     isOpen && 
-    data.length === 0 && 
+    // data.length === 0 && 
     setShouldFetchChance(true);
   },[isOpen])
 

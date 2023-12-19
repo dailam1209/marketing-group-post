@@ -39,11 +39,11 @@ export default function OrderSelectBoxStep({
     };
   }, []);
 
-  useEffect(()=>{
-    isOpen && 
-    // listProductOptions.length == 0 && 
-    setShouldFetchProd(true);
-  },[isOpen])
+  useEffect(() => {
+    isOpen &&
+      // listProductOptions.length == 0 && 
+      setShouldFetchProd(true);
+  }, [isOpen])
 
   return (
     <div
@@ -84,7 +84,7 @@ export default function OrderSelectBoxStep({
               id="select2-g0q1-container"
               role="textbox"
               aria-readonly="true"
-              // title="Chọn người dùng"
+            // title="Chọn người dùng"
             >
               {value}
             </span>
@@ -96,7 +96,7 @@ export default function OrderSelectBoxStep({
             </span>
           </span>
         </span>
-        {isOpen && <OrderDropDownDataStep data={data} value={value} setValue={setValue} setKeyword={setKeyword} keyword={keyword}/>}
+        {isOpen && <OrderDropDownDataStep data={data} value={value} setValue={setValue} setKeyword={setKeyword} keyword={keyword} />}
       </span>
     </div>
   );
