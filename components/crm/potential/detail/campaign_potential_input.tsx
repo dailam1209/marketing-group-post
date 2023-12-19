@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import styles from "@/components/crm/campaign/campaign.module.css";
 import CampaignAction from "@/components/crm/campaign/campaign_action";
 import CampaignSelectBox from "@/components/crm/campaign/campaign_selectt";
@@ -15,6 +15,7 @@ import { fetchApi } from "../../ultis/api";
 import { useTrigger } from "../../context/triggerContext";
 import { Spin } from "antd";
 import { useRouter } from "next/router";
+import { stringToDateNumber } from "../../ultis/convert_date";
 export default function CampaignInputGroupsPO({ isSelectedRow }: any) {
   const handleClickSelectoption = () => {};
   const [isModalCancelPO, setIsModalCancelPO] = useState(false);
@@ -27,11 +28,15 @@ export default function CampaignInputGroupsPO({ isSelectedRow }: any) {
   } = useContext(useFormData);
   const [listEmp, setListEmp] = useState([]);
   const router = useRouter();
+  const searchRef = useRef<HTMLInputElement>(null);
   const { isLoading, startLoading, stopLoading } = useLoading();
+  const [isFirstTime, setIsFirstTime] = useState(true);
   const token = Cookies.get("token_base365");
   const [data, setData] = useState([]);
   const { trigger, setTrigger } = useTrigger();
   const url = "https://api.timviec365.vn/api/crm/campaign/listCampaign";
+  // const url = "http://localhost:3007/api/crm/campaign/listCampaign";
+
   const dataStatus = [
     { label: "Chưa cập nhật", value: 1 },
     { label: "Chưa diễn ra", value: 2 },
@@ -42,6 +47,24 @@ export default function CampaignInputGroupsPO({ isSelectedRow }: any) {
 
   const onClose = () => {
     setIsModalCancelPO(false);
+  };
+
+  const fetchAPIDelCampaignPotential = async (id: number) => {
+    const idCus = Number(router.query.id);
+    const bodyAPI = {
+      cam_id: id,
+      customer_ids: [idCus],
+    };
+    const dataApi = await fetchApi(
+      "https://api.timviec365.vn/api/crm/campaign/delete-campaign-cus",
+      // "http://localhost:3007/api/crm/campaign/delete-campaign-cus",
+      token,
+      bodyAPI,
+      "POST"
+    );
+    if (dataApi) {
+      setTrigger(true);
+    }
   };
 
   const fetchAPICampaign = async () => {
@@ -85,17 +108,25 @@ export default function CampaignInputGroupsPO({ isSelectedRow }: any) {
     };
   }, [trigger]);
 
+  useEffect(() => {
+    if (!isFirstTime) {
+      fetchAPICampaign();
+    }
+    setIsFirstTime(false);
+  }, [formData]);
+
   return (
     <div className={styles.main__control}>
       <div className={`${styles.main__control_select} flex_align_center`}>
-        {/* <CampaignSelectBox title="Tình trạng:" value="Tất cả" /> */}
-        <SelectSingle
-          onChange={handleRecall}
-          data={dataStatus}
-          title="Trạng thái"
-          setFormData={setFormData}
-          name="status"
-        />
+        <div className="select_box_custom">
+          <SelectSingle
+            onChange={handleRecall}
+            data={dataStatus}
+            title="Trạng thái"
+            setFormData={setFormData}
+            name="status"
+          />
+        </div>
         <div
           className={`${styles.select_item} flex_align_center_item ${styles.select_item_time}`}
         >
@@ -103,24 +134,62 @@ export default function CampaignInputGroupsPO({ isSelectedRow }: any) {
             Thời gian tạo:
           </label>
           <div className={`${styles.input_item_time} flex_between`}>
-            <input type="date" name="" id="start_time" /> -
-            <input type="date" name="" id="end_time" />
+            <input
+              type="date"
+              name=""
+              id="start_time"
+              onChange={(el) => {
+                setFormData((prev) => {
+                  return {
+                    ...prev,
+                    fromDate: stringToDateNumber(el.target.value),
+                  };
+                });
+              }}
+            />{" "}
+            -
+            <input
+              type="date"
+              name=""
+              id="end_time"
+              onChange={(el) => {
+                setFormData((prev) => {
+                  return {
+                    ...prev,
+                    toDate: stringToDateNumber(el.target.value),
+                  };
+                });
+              }}
+            />
           </div>
         </div>
         {/* <CampaignSelectBox title="Người phụ trách:" value="Tất cả" /> */}
-        <SelectSingle
-          onChange={handleRecall}
-          data={listEmp}
-          title="Người phụ trách:"
-          setFormData={setFormData}
-          name="ep_id"
-        />
+        <div className="select_box_custom">
+          <SelectSingle
+            onChange={handleRecall}
+            data={listEmp}
+            title="Người phụ trách:"
+            setFormData={setFormData}
+            name="empID"
+          />
+        </div>
       </div>
 
       <div className={`${styles.main__control_btn} flex_between`}>
         <div className={styles.main__control_search}>
-          <form onSubmit={() => false}>
+          <form
+            onSubmit={(el) => {
+              el.preventDefault();
+              setFormData((prev) => {
+                return {
+                  ...prev,
+                  keyword: searchRef.current?.value,
+                };
+              });
+            }}
+          >
             <input
+              ref={searchRef}
               type="text"
               className={styles.input__search}
               name="search"
@@ -180,6 +249,8 @@ export default function CampaignInputGroupsPO({ isSelectedRow }: any) {
           empList={listEmp}
           setBody={setFormData}
           body={formData}
+          typeFunc="edit"
+          funcForTypeEdit={fetchAPIDelCampaignPotential}
         />
       )}
     </div>

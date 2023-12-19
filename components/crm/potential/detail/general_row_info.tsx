@@ -46,20 +46,20 @@ export default function GeneralRowInforText() {
       .post("/potential/detail-potential", { cus_id: id })
       .then((res) => {
         setDataDetail({
-          ...res.data.data.data,
-          ...res.data.data.data.potential_id,
-          ...res.data.data.data.emp_id,
-          empName: res.data.data.data?.emp_id?.userName,
+          ...res?.data?.data?.data,
+          ...res?.data?.data?.data?.potential_id,
+          ...res?.data?.data?.data?.emp_id,
+          empName: res?.data?.data?.data?.emp_id?.userName,
         });
-        handlePotentialId(res.data.data.data.potential_id);
+        handlePotentialId(res?.data?.data?.data?.potential_id);
       })
       .catch((err) => console.log(err));
   }, []);
 
   const handlePotentialId = (datas) => {
     social = [];
-    for (const key in datas.social) {
-      if (datas.social[key]) {
+    for (const key in datas?.social) {
+      if (datas?.social[key]) {
         social.push([key]);
       }
     }
@@ -73,15 +73,15 @@ export default function GeneralRowInforText() {
         </div>
         <h2 className={styles.table_description}>Thông tin chung</h2>
         <div className={styles.row_input_text}>
-          <InforText field="Mã tiềm năng:" value={detailData.potential_id} />
+          <InforText field="Mã tiềm năng:" value={detailData?.potential_id} />
           {checked && !detailData.vocative ? null : (
             <InforText
               field="Xưng hô:"
-              value={renderVocative(detailData.vocative)}
+              value={renderVocative(detailData?.vocative)}
             />
           )}
           {checked && !detailData.stand_name ? null : (
-            <InforText field="Họ và đệm:" value={detailData.stand_name} />
+            <InforText field="Họ và đệm:" value={detailData?.stand_name} />
           )}
           {checked && !detailData.name ? null : (
             <InforText field="Tên:" value={detailData.name} />
@@ -89,72 +89,75 @@ export default function GeneralRowInforText() {
           {checked && !detailData.name && !detailData.stand_name ? null : (
             <InforText
               field="Họ và tên:"
-              value={`${detailData.stand_name ? detailData.stand_name : ""} ${
-                detailData.name
+              value={`${detailData?.stand_name ? detailData.stand_name : ""} ${
+                detailData?.name
               }`}
             />
           )}
-          {checked && !detailData.pos_id ? null : (
+          {checked && !detailData?.pos_id ? null : (
             <InforText
               field="Chức danh:"
-              value={renderPotentialPosition(detailData.pos_id)}
+              value={renderPotentialPosition(detailData?.pos_id)}
             />
           )}
-          {checked && !detailData.department ? null : (
+          {checked && !detailData?.department ? null : (
             <InforText
               field="Phòng ban:"
-              value={renderPotentialDepartment(detailData.department)}
+              value={renderPotentialDepartment(detailData?.department)}
             />
           )}
           {checked && !detailData.office_phone ? null : (
             <InforText
               field="Điện thoại cơ quan:"
-              value={detailData.office_phone}
+              value={detailData?.office_phone}
             />
           )}
           {checked && !detailData.office_email ? null : (
-            <InforText field="Email cơ quan:" value={detailData.office_email} />
+            <InforText
+              field="Email cơ quan:"
+              value={detailData?.office_email}
+            />
           )}
-          {checked && !detailData.private_phone ? null : (
+          {checked && !detailData?.private_phone ? null : (
             <InforText
               field="Điện thoại cá nhân:"
-              value={detailData.private_phone}
+              value={detailData?.private_phone}
             />
           )}
-          {checked && !detailData.private_email ? null : (
+          {checked && !detailData?.private_email ? null : (
             <InforText
               field="Email cá nhân:"
-              value={detailData.private_email}
+              value={detailData?.private_email}
             />
           )}
-          {checked && !detailData.tax_code ? null : (
+          {checked && !detailData?.tax_code ? null : (
             <InforText field="Mã số thuế:" value={detailData.tax_code} />
           )}
-          {checked && !detailData.resource ? null : (
+          {checked && !detailData?.resource ? null : (
             <InforText
               field="Nguồn gốc:"
-              value={renderPotentialResource(detailData.resource)}
+              value={renderPotentialResource(detailData?.resource)}
             />
           )}
-          {checked && !detailData.classify ? null : (
+          {checked && !detailData?.classify ? null : (
             <InforText
               field="Loại tiềm năng:"
-              value={renderPotentialType(detailData.classify)}
+              value={renderPotentialType(detailData?.classify)}
             />
           )}
-          {checked && !detailData.social ? null : (
+          {checked && !detailData?.social ? null : (
             <InforText
               field="Mạng xã hội:"
-              value={social ? social.join(", ") : "Chưa cập nhập"}
+              value={social ? social?.join(", ") : "Chưa cập nhập"}
             />
           )}
           {social?.map((item) => (
-            <InforText field={`${item}:`} link={detailData.social?.[item]} />
+            <InforText field={`${item}:`} link={detailData?.social?.[item]} />
           ))}
-          {checked && !detailData.empName ? null : (
+          {checked && !detailData?.empName ? null : (
             <InforText
               field="Nhân viên phụ trách:"
-              value={detailData.empName}
+              value={detailData?.empName}
               icon={<UserOutlined rev={null} />}
             />
           )}
@@ -162,18 +165,18 @@ export default function GeneralRowInforText() {
 
         <h2 className={styles.table_description}>Thông tin cá nhân</h2>
         <div className={styles.row_input_text}>
-          {checked && !detailData.gender ? null : (
+          {checked && !detailData?.gender ? null : (
             <InforText
               field="Giới tính:"
-              value={renderListGender(detailData.gender)}
+              value={renderListGender(detailData?.gender)}
             />
           )}
-          {checked && !detailData.birthday ? null : (
+          {checked && !detailData?.birthday ? null : (
             <InforText
               field="Ngày sinh:"
               value={
-                detailData.birthday &&
-                convertTimestampToDate(detailData.birthday)
+                detailData?.birthday &&
+                convertTimestampToDate(detailData?.birthday)
               }
             />
           )}

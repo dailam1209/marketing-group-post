@@ -15,6 +15,7 @@ export default function CampaignActionTable(props: any) {
       setIsDelOpen(true);
     }
   };
+  
   const items: MenuProps["items"] = [
     {
       key: "1",

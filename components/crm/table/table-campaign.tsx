@@ -15,6 +15,8 @@ interface TableDataCampaignProps {
   empList?: any;
   setBody?: any;
   body?: any;
+  typeFunc?: string;
+  funcForTypeEdit?: any;
 }
 
 const TableDataCampaign: React.FC<TableDataCampaignProps> = ({
@@ -22,6 +24,8 @@ const TableDataCampaign: React.FC<TableDataCampaignProps> = ({
   empList,
   setBody,
   body,
+  typeFunc = "del",
+  funcForTypeEdit = async (id: number) => {},
 }) => {
   const url = "https://api.timviec365.vn/api/crm/campaign/delete-campaign";
   const token = Cookies.get("token_base365");
@@ -93,7 +97,7 @@ const TableDataCampaign: React.FC<TableDataCampaignProps> = ({
     },
     {
       title: "ID",
-      width: 50,
+      width: 100,
       dataIndex: "_id",
       key: "_id",
     },
@@ -166,7 +170,7 @@ const TableDataCampaign: React.FC<TableDataCampaignProps> = ({
       render: (text: any, record: any) => (
         <CampaignActionTable
           record={record._id}
-          handleDelete={fetchAPICampaign}
+          handleDelete={typeFunc === "del" ? fetchAPICampaign : funcForTypeEdit}
         />
       ),
     },
