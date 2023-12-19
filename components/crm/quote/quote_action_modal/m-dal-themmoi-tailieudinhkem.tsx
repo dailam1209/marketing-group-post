@@ -39,7 +39,6 @@ const ModalAddTL = (props: any) => {
   const { id } = router.query;
   const [fileList, setFileList] = useState([])
   const [successFiles, setSuccessFiles] = useState([])
-  const [uploadResult, setUploadResult] = useState(false)
 
   const uploadFile = async () => {
     setSuccessFiles([]);
@@ -57,10 +56,6 @@ const ModalAddTL = (props: any) => {
 
     return true
   }
-
-  useEffect(() => {
-    successFiles.length > 0 ? setUploadResult(true) : setUploadResult(false)
-  }, [successFiles])
 
   const showModal = () => {
     setOpen(true);
@@ -220,10 +215,10 @@ const ModalAddTL = (props: any) => {
       >
         <div></div>
         <Result
-          status={uploadResult ? "success" : "error"}
+          status={successFiles.length > 0 ? "success" : "error"}
           title={
-            uploadResult ?
-              <div>Thêm mới <strong>{successFiles.join(', ')}</strong> thành công</div> :
+            successFiles.length > 0 ?
+              <div>Thêm mới {successFiles.length + ' tệp'} thành công: {'\n' + successFiles.join(', ')}</div> :
               <div>Thêm mới không thành công</div>
           }
         />
