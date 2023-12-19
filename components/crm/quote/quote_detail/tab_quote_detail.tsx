@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button, Tabs } from "antd";
 import Link from "next/link";
 import styles from "../quote.module.css";
@@ -16,6 +16,7 @@ import TableAddTLDK from "@/components/crm/table/table-quote-tailieudinhkem";
 import TableTLChiaSe from "@/components/crm/table/table-DSchia-se";
 import ShareDSCSActionModal from "../quote_action_modal/share_dsChiaSe.mdal";
 import Form_quote_detail from "../form_quote/form_quote-detail";
+import { useFormData } from "../../context/formDataContext";
 const TabComponent = () => {
   const [isShowModal, setIsShowModal] = useState(false);
   const [isShowModalAdd, setIsShowModalAdd] = useState(false);
@@ -24,11 +25,13 @@ const TabComponent = () => {
   const [isShowModalShareCS, setIsShowModalShareCS] = useState(false);
 
   // Quote file
+  const { handleRecall } = useContext(useFormData)
   const [quoteFileNameInput, setQuoteFileNameInput] = useState('')
   const [quoteFileName, setQuoteFileName] = useState('')
   const handleSearchQuoteFile = (e) => {
     e.preventDefault()
     setQuoteFileName(quoteFileNameInput)
+    handleRecall()
   }
 
   const handleTabChange = (key: any) => {
@@ -39,6 +42,7 @@ const TabComponent = () => {
     setIsShowModal(false);
     setIsShowModalAddTL(false);
     setIsShowModalShareCS(false);
+    handleRecall();
   };
   const handleAddDB = () => {
     setIsShowModalAdd(false);
@@ -267,7 +271,7 @@ const TabComponent = () => {
                       </button>
                     </div>
                   </div>
-                  <TableAddTLDK keyword={quoteFileName}/>
+                  <TableAddTLDK keyword={quoteFileName} />
                   <ModalAddTL
                     isShowModalAddTL={isShowModalAddTL}
                     onClose={onClose}

@@ -47,7 +47,7 @@ const TableAddTLDK: React.FC<TableDataCampaignProps> = (props: any) => {
         handleDataTable(response.data.data.data);
       })
       .catch((err) => console.log("err", err));
-  }, [formData.recall, page, pageSize, keyword]);
+  }, [formData.recall, page, pageSize]);
 
   const onClose = () => {
     setIsCancelOpen(false);
@@ -58,7 +58,8 @@ const TableAddTLDK: React.FC<TableDataCampaignProps> = (props: any) => {
       setListDocument(
         datas.map((item: any, index: number) => ({
           stt: (page - 1) * pageSize + index + 1,
-          file_name: item.file_name.split("file-")[1],
+          // file_name: item.file_name.split("file-")[1],
+          file_name: item.original_name,
           user_name: item.user_created_id ? item.user_created_id.userName : "Chưa trả ra",
           created_at: convertTimestampToDate(item.created_at),
           file_size: convertFileSize(item.file_size),

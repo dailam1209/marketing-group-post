@@ -1,9 +1,13 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Button, DatePicker, Input, Modal, Result, UploadFile, UploadProps } from "antd";
 import PotentialSelectBoxStep from "@/components/crm/potential/potential_steps/select_box_step";
 import { InboxOutlined } from "@ant-design/icons";
 import { message, Upload } from "antd";
 import { QuoteContext } from "../quoteContext";
+import { axiosCRMCall } from "@/utils/api/api_crm_call";
+import { useRouter } from "next/router";
+import FormData from "form-data";
+import { useFormData } from "../../context/formDataContext";
 const { Dragger } = Upload;
 
 const props: UploadProps = {
@@ -31,16 +35,32 @@ const ModalAddTL = (props: any) => {
   const [open, setOpen] = useState(false);
   const [openSuccess, setOpenSuccess] = useState(false);
 
-  const { recordId } = useContext(QuoteContext)
+  const router = useRouter();
+  const { id } = router.query;
   const [fileList, setFileList] = useState([])
-  const draggerRef = useRef(null)
+  const [successFiles, setSuccessFiles] = useState([])
+  const [uploadResult, setUploadResult] = useState(false)
 
-  const handleUpload = () => {
-    fileList.forEach((file) => {
-      console.log(file)
+  const uploadFile = async () => {
+    setSuccessFiles([]);
+    fileList.forEach(async (file) => {
+      let formData = new FormData();
+      formData.append('quote_id', id);
+      formData.append('document', file);
+      await axiosCRMCall
+        .post('/quote/create-attachment', formData)
+        .then(res => {
+          setSuccessFiles(prev => [...prev, file.name]);
+        })
+        .catch((err) => console.log("err", err));
     })
-    // console.log(draggerRef)
+
+    return true
   }
+
+  useEffect(() => {
+    successFiles.length > 0 ? setUploadResult(true) : setUploadResult(false)
+  }, [successFiles])
 
   const showModal = () => {
     setOpen(true);
@@ -50,6 +70,7 @@ const ModalAddTL = (props: any) => {
 
   const handleClose = () => {
     setFileList([])
+    setSuccessFiles([])
     onClose();
   };
   return (
@@ -114,9 +135,10 @@ const ModalAddTL = (props: any) => {
               }}
               type="primary"
               loading={loading}
-              onClick={() => {
-                handleUpload(), handleAddDB(), setOpenSuccess(true);
-                setFileList([])
+              onClick={async () => {
+                await uploadFile()
+                  setFileList([]);
+                setOpenSuccess(true);
               }}
             >
               Đồng ý
@@ -128,12 +150,28 @@ const ModalAddTL = (props: any) => {
         <div style={{ paddingTop: 40 }}>
           <Dragger
             // {...props}
-            beforeUpload={() => false}
-            // customRequest={customRequest}
+            onRemove={(file) => {
+              const index = fileList.indexOf(file);
+              const newFileList = fileList.slice();
+              newFileList.splice(index, 1);
+              setFileList(newFileList);
+            }}
+            beforeUpload={(file, filelist) => {
+              setFileList([...fileList, ...filelist])
+              return false
+            }}
             fileList={fileList}
-            onChange={({ fileList }) => setFileList(fileList)}
-            ref={draggerRef}
-            
+            multiple={true}
+            onChange={(info) => {
+              const { status } = info.file;
+              if (status !== "uploading") {
+              }
+              if (status === "done") {
+                message.success(`${info.file.name} file uploaded successfully.`);
+              } else if (status === "error") {
+                message.error(`${info.file.name} file upload failed.`);
+              }
+            }}
           >
             <p className="ant-upload-drag-icon">
               <InboxOutlined rev={null} />
@@ -181,7 +219,14 @@ const ModalAddTL = (props: any) => {
         ]}
       >
         <div></div>
-        <Result status="success" title={<div>Thêm mới thành công</div>} />
+        <Result
+          status={uploadResult ? "success" : "error"}
+          title={
+            uploadResult ?
+              <div>Thêm mới <strong>{successFiles.join(', ')}</strong> thành công</div> :
+              <div>Thêm mới không thành công</div>
+          }
+        />
       </Modal>
     </div>
   );
