@@ -96,7 +96,7 @@ export default function CustomerListInputGroup({
   const cancelDownloadRef = useRef(false);
   const [isOpenModalConvertCart, setIsOpenModalConvertCart] = useState(false);
   const [isOpenModalDataCustomerKD, setIsOpenModalDataCustomerKD] =
-    useState(true);
+    useState(false);
   const { isLoading, handleLoading } = useLoading();
   const showDrawer = () => {
     setIsOpenFilterBox(true);
@@ -351,7 +351,7 @@ export default function CustomerListInputGroup({
           </button>
           <button
             type="button"
-            onClick={() => setIsOpenModalConvertCart(true)}
+            onClick={() => setIsOpenModalDataCustomerKD(true)}
             className={`${styles.dropbtn_add} flex_align_center ${btnStyle.btn_yellow}`}
           >
             Dữ liệu kinh doanh

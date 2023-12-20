@@ -13,6 +13,7 @@ export const InputSearchV2 = ({
     e.preventDefault();
     onSubmit && handleRecall();
   };
+ 
   return (
     <div className={styles.main__control_search}>
       <form onSubmit={handleSubmit}>

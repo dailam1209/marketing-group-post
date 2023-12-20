@@ -16,7 +16,7 @@ axiosCRM.interceptors.request.use((config: any) => {
 export const axiosCRMv2 = async (url: string, body: any) => {
   try {
     const res = await axiosCRM.post(url, body);
-    return res.data.data.data || res.data.data;
+    return res.data.data.data || res.data.data || res.data;
   } catch (error) {
     return error;
   }
@@ -28,6 +28,7 @@ export const axiosCRMUpfile = axios.create({
     // Authentication: accessToken,
   },
 });
+
 axiosCRMUpfile.interceptors.request.use((config: any) => {
   let accessToken = Cookies.get("token_base365");
   return { ...config, headers: { Authorization: `Bearer ${accessToken}` } };
