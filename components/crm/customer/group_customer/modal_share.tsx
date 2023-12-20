@@ -3,7 +3,7 @@ import stylesBtn from "@/styles/crm/button.module.css";
 
 import style from "@/components/crm/customer/group_customer/modal_share.module.css";
 import type { ColumnsType } from "antd/es/table";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { getToken } from "@/pages/api/api-hr/token";
 import jwt_decode from "jwt-decode";
 import { axiosCRM } from "@/utils/api/api_crm";
@@ -14,6 +14,7 @@ import {
 import useLoading from "../../hooks/useLoading";
 import LoadingLayout from "@/constants/LoadingLayout";
 import { ExcelDownload } from "@/components/commodity/excelDownload";
+import { useFormData } from "../../context/formDataContext";
 
 interface TypeShareProps {
   isOpenModalShare: boolean;
@@ -46,6 +47,7 @@ export const ModalGroupCustomerShare: React.FC<TypeShareProps> = React.memo(
         setCompanyId(decodedToken?.data?.com_id);
       }
     }, []);
+    const { formData } = useContext(useFormData);
     const columns: ColumnsType<TableType> = [
       {
         title: "STT",
@@ -130,7 +132,7 @@ export const ModalGroupCustomerShare: React.FC<TypeShareProps> = React.memo(
       if (IdGroup && companyId) {
         handleLoading(fetchTakeListUser);
       }
-    }, [IdGroup]);
+    }, [IdGroup, formData.recall]);
     useEffect(() => {
       if (!searchDepartment && !searchName) {
         setTableShow(listEmpTable);

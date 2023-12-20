@@ -8,6 +8,13 @@ import { Drawer, Input } from "antd";
 import CustomerListFilterBox from "./customer_filter_box";
 import { DataType } from "@/pages/customer/list";
 import { useRouter } from "next/router";
+import { axiosCRMv2 } from "@/utils/api/api_crm";
+import { decodeToken } from "@/utils/function";
+import useLoading from "../hooks/useLoading";
+import LoadingLayout from "@/constants/LoadingLayout";
+import btnStyle from "@/styles/crm/button.module.css";
+import ModalDataConvertCart from "./customer_modal/modal_data_convert_cart";
+import ModalDataCustomerKD from "./customer_modal/modal_data_KD";
 
 export default function CustomerListInputGroup({
   isSelectedRow,
@@ -85,17 +92,54 @@ export default function CustomerListInputGroup({
   const [open, setOpen] = useState(false);
   const inputFileRef = useRef<HTMLInputElement>(null);
   const [data, setData] = useState<any>();
-
+  const [nameFill, setNameFill] = useState<any>();
+  const cancelDownloadRef = useRef(false);
+  const [isOpenModalConvertCart, setIsOpenModalConvertCart] = useState(false);
+  const [isOpenModalDataCustomerKD, setIsOpenModalDataCustomerKD] =
+    useState(false);
+  const { isLoading, handleLoading } = useLoading();
   const showDrawer = () => {
     setIsOpenFilterBox(true);
     setOpen(true);
   };
+  const { userType, idQLC } = decodeToken();
   const onClose = () => {
     setOpen(false);
     setIsOpenFilterBox(false);
   };
-  const datas: any = datatable?.map((item: DataType) => {
-    return {
+  const handleGetAllCustomer = async () => {
+    const dataExport = [];
+    let page = 1;
+
+    try {
+      while (!cancelDownloadRef.current) {
+        const res = await axiosCRMv2("/customer/list", {
+          page: page,
+          perPage: 1000,
+          ...(userType === 2 && { emp_id: idQLC }),
+        });
+
+        dataExport.push(...res);
+        page++;
+        if (cancelDownloadRef.current || res.length < 1000) {
+          break;
+        }
+      }
+
+      if (!cancelDownloadRef.current) {
+        // Hoàn thành quá trình tải dữ liệu
+        handleExportToExcel(dataExport);
+      } else {
+        cancelDownloadRef.current = false;
+      }
+    } catch (error) {
+      // Xử lý lỗi nếu có
+      console.error("Error in handleGetAllCustomer:", error);
+    }
+  };
+
+  const handleExportToExcel = (data) => {
+    const dataExport = data?.map((item: DataType) => ({
       "Mã tiềm năng": item?.cus_id,
       "Xưng hô": "",
       "Họ tên": item?.name,
@@ -114,9 +158,7 @@ export default function CustomerListInputGroup({
       "Mô tả": item?.description,
       "Mô tả loại hình": "",
       "Người tạo": item?.userNameCreate,
-    };
-  });
-  const handleExportToExcel = () => {
+    }));
     const filename = "Danh sách khách hàng.xlsx";
     const sheetName = "Danh sách khách hàng";
     const columnHeaders = [
@@ -139,9 +181,9 @@ export default function CustomerListInputGroup({
       "Mô tả loại hình",
       "Người tạo",
     ];
-    exportToExcel(datas, filename, sheetName, columnHeaders);
+    exportToExcel(dataExport, filename, sheetName, columnHeaders);
   };
-  const [nameFill, setNameFill] = useState<any>();
+
   const handleClickFile = () => {
     inputFileRef.current?.click();
   };
@@ -151,9 +193,15 @@ export default function CustomerListInputGroup({
       setName(nameFill);
       setloading(true);
       router.push(
-        `/customer/list?${time_s ? `&start=${time_s}` : ""}${time_e ? `&end=${time_e}` : ""}${create_at_s ? `&create_at_s=${create_at_s}` : ""}${create_at_e ? `&create_at_e=${create_at_e}` : ""}${
-          status ? `&status=${status}` : ""
-        }${resoure ? `&source=${resoure}` : ""}${idNhom ? `&group=${idNhom}` : ""}${emp_id ? `&emp_id=${emp_id}` : ""}${user_create_id ? `&creater=${user_create_id}` : ""}${
+        `/customer/list?${time_s ? `&start=${time_s}` : ""}${
+          time_e ? `&end=${time_e}` : ""
+        }${create_at_s ? `&create_at_s=${create_at_s}` : ""}${
+          create_at_e ? `&create_at_e=${create_at_e}` : ""
+        }${status ? `&status=${status}` : ""}${
+          resoure ? `&source=${resoure}` : ""
+        }${idNhom ? `&group=${idNhom}` : ""}${
+          emp_id ? `&emp_id=${emp_id}` : ""
+        }${user_create_id ? `&creater=${user_create_id}` : ""}${
           nameFill ? `&keyword=${nameFill}` : ""
         } 
   `
@@ -163,9 +211,15 @@ export default function CustomerListInputGroup({
       setName(nameFill);
       setloading(true);
       router.push(
-        `/customer/list?${time_s ? `&start=${time_s}` : ""}${time_e ? `&end=${time_e}` : ""}${create_at_s ? `&create_at_s=${create_at_s}` : ""}${create_at_e ? `&create_at_e=${create_at_e}` : ""}${
-          status ? `&status=${status}` : ""
-        }${resoure ? `&source=${resoure}` : ""}${idNhom ? `&group=${idNhom}` : ""}${emp_id ? `&emp_id=${emp_id}` : ""}${user_create_id ? `&creater=${user_create_id}` : ""}${
+        `/customer/list?${time_s ? `&start=${time_s}` : ""}${
+          time_e ? `&end=${time_e}` : ""
+        }${create_at_s ? `&create_at_s=${create_at_s}` : ""}${
+          create_at_e ? `&create_at_e=${create_at_e}` : ""
+        }${status ? `&status=${status}` : ""}${
+          resoure ? `&source=${resoure}` : ""
+        }${idNhom ? `&group=${idNhom}` : ""}${
+          emp_id ? `&emp_id=${emp_id}` : ""
+        }${user_create_id ? `&creater=${user_create_id}` : ""}${
           nameFill ? `&keyword=${nameFill}` : ""
         } 
   `
@@ -176,24 +230,39 @@ export default function CustomerListInputGroup({
     <>
       <div className={`${styles.main__control} ${styles.customer_custom}`}>
         <div className={`${styles.main__control_btn} flex_between`}>
-          <div className={`${styles.main__control_search} ${styles.f_search_customer}`}>
-            <form onSubmit={(e) => (e.preventDefault(), handleSearchKH())} className={styles.form_search}>
+          <div
+            className={`${styles.main__control_search} ${styles.f_search_customer}`}
+          >
+            <form
+              onSubmit={(e) => (e.preventDefault(), handleSearchKH())}
+              className={styles.form_search}
+            >
               <Input
                 type="text"
                 value={data}
-                onChange={(e) => (setNameFill(e.target.value.trim()), setData(e.target.value))}
+                onChange={(e) => (
+                  setNameFill(e.target.value.trim()), setData(e.target.value)
+                )}
                 name="search"
                 defaultValue=""
                 placeholder="Tìm kiếm theo tên khách hàng, điện thoại, email"
               />
-              <button onClick={() => handleSearchKH()} type="button" style={{ width: "115px" }}>
+              <button
+                onClick={() => handleSearchKH()}
+                type="button"
+                style={{ width: "115px" }}
+              >
                 <div>Tìm kiếm </div>
               </button>
             </form>
           </div>
           <div className={styles.main_control_new}>
             <div className={styles.dropdown_action_btn}>
-              <button onClick={showDrawer} className={styles.btn_light_filter} style={{ color: "#4C5BD4", fontWeight: 600, fontSize: 15 }}>
+              <button
+                onClick={showDrawer}
+                className={styles.btn_light_filter}
+                style={{ color: "#4C5BD4", fontWeight: 600, fontSize: 15 }}
+              >
                 <div
                   style={{
                     display: "flex",
@@ -202,7 +271,12 @@ export default function CustomerListInputGroup({
                   }}
                 >
                   <div>
-                    <Image src="/crm/icon_search.svg" alt="filter" width={15} height={15} />
+                    <Image
+                      src="/crm/icon_search.svg"
+                      alt="filter"
+                      width={15}
+                      height={15}
+                    />
                   </div>
                   <div>Bộ lọc</div>
                 </div>
@@ -229,7 +303,12 @@ export default function CustomerListInputGroup({
                     }}
                   >
                     <div>
-                      <Image src="/crm/h_export_cus.svg" alt="filter" width={15} height={15} />
+                      <Image
+                        src="/crm/h_export_cus.svg"
+                        alt="filter"
+                        width={15}
+                        height={15}
+                      />
                     </div>
                     <div>Kết nối API</div>
                   </div>
@@ -255,21 +334,59 @@ export default function CustomerListInputGroup({
 
         <div className={`${styles.main__control_add}`}>
           <Link href="/customer/add">
-            <button type="button" className={`${styles.dropbtn_add} flex_align_center`}>
+            <button
+              type="button"
+              className={`${styles.dropbtn_add} flex_align_center`}
+            >
               <img src="/crm/add.svg" />
               Thêm mới
             </button>
           </Link>
-
-          <button type="button" onClick={handleClickFile} className={`${styles.dropbtn_add} flex_align_center ${styles.btn_file}`}>
+          <button
+            type="button"
+            onClick={() => setIsOpenModalConvertCart(true)}
+            className={`${styles.dropbtn_add} flex_align_center ${btnStyle.btn_yellow}`}
+          >
+            Dữ liệu chia khách hàng
+          </button>
+          <button
+            type="button"
+            onClick={() => setIsOpenModalDataCustomerKD(true)}
+            className={`${styles.dropbtn_add} flex_align_center ${btnStyle.btn_yellow}`}
+          >
+            Dữ liệu kinh doanh
+          </button>
+          <button
+            type="button"
+            onClick={handleClickFile}
+            className={`${styles.dropbtn_add} flex_align_center ${styles.btn_file}`}
+          >
             <img src="/crm/h_import_cus.svg" />
             Nhập từ file
             <input type="file" hidden ref={inputFileRef} />
           </button>
-          <button type="button" onClick={handleExportToExcel} className={`${styles.dropbtn_add} flex_align_center ${styles.btn_excel}`}>
-            <img src="/crm/icon_excel.svg" />
-            Xuất excel
-          </button>
+          {isLoading ? (
+            <button
+              type="button"
+              style={{ height: "39px" }}
+              onClick={() => {
+                cancelDownloadRef.current = true;
+              }}
+              className={`${styles.dropbtn_add} flex_align_center ${styles.btn_excel}`}
+            >
+              Hủy
+              <LoadingLayout />
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={() => handleLoading(handleGetAllCustomer)}
+              className={`${styles.dropbtn_add} flex_align_center ${styles.btn_excel}`}
+            >
+              <img src="/crm/icon_excel.svg" />
+              Xuất excel
+            </button>
+          )}
         </div>
       </div>
 
@@ -344,6 +461,14 @@ export default function CustomerListInputGroup({
           />
         </div>
       </Drawer>
+      <ModalDataConvertCart
+        isOpenModalConvertCart={isOpenModalConvertCart}
+        setIsOpenModalConvertCart={setIsOpenModalConvertCart}
+      />
+      <ModalDataCustomerKD
+        isOpenModalDataCustomerKD={isOpenModalDataCustomerKD}
+        setIsOpenModalDataCustomerKD={setIsOpenModalDataCustomerKD}
+      />
     </>
   );
 }

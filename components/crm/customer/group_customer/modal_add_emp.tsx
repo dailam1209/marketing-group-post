@@ -1,6 +1,6 @@
 import { SelectSingleAndOption } from "@/components/commodity/select";
 import { Modal } from "antd";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import stylesBtn from "@/styles/crm/button.module.css";
 import styles from "./customer_group.module.css";
 import jwt_decode from "jwt-decode";
@@ -11,6 +11,7 @@ import { axiosCRM } from "@/utils/api/api_crm";
 import { axiosQLC } from "@/utils/api/api_qlc";
 import useLoading from "../../hooks/useLoading";
 import LoadingLayout from "@/constants/LoadingLayout";
+import { useFormData } from "../../context/formDataContext";
 function ModalGroupCustomerAddEmp({ isOpenModalAddEmp, setIsOpenModalAddEmp }) {
   const [formData, setFormData] = useState<any>({
     ep_status: "Active",
@@ -22,7 +23,7 @@ function ModalGroupCustomerAddEmp({ isOpenModalAddEmp, setIsOpenModalAddEmp }) {
   const [listGroup, setListGroup] = useState([]);
   const [company_id, setCompanyId] = useState(null);
   const { isLoading, handleLoading } = useLoading();
-
+  const { handleRecall } = useContext(useFormData);
   useEffect(() => {
     const currentCookie = getToken("token_base365");
     if (currentCookie) {
@@ -119,6 +120,7 @@ function ModalGroupCustomerAddEmp({ isOpenModalAddEmp, setIsOpenModalAddEmp }) {
       .then((res) => {
         notifySuccess("Thêm thành công");
         setFormData({});
+        handleRecall();
         setTimeout(() => {
           setIsOpenModalAddEmp(false);
         }, 1700);
