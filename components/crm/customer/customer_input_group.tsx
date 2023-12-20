@@ -12,6 +12,9 @@ import { axiosCRMv2 } from "@/utils/api/api_crm";
 import { decodeToken } from "@/utils/function";
 import useLoading from "../hooks/useLoading";
 import LoadingLayout from "@/constants/LoadingLayout";
+import btnStyle from "@/styles/crm/button.module.css";
+import ModalDataConvertCart from "./customer_modal/modal_data_convert_cart";
+import ModalDataCustomerKD from "./customer_modal/modal_data_KD";
 
 export default function CustomerListInputGroup({
   isSelectedRow,
@@ -91,6 +94,9 @@ export default function CustomerListInputGroup({
   const [data, setData] = useState<any>();
   const [nameFill, setNameFill] = useState<any>();
   const cancelDownloadRef = useRef(false);
+  const [isOpenModalConvertCart, setIsOpenModalConvertCart] = useState(false);
+  const [isOpenModalDataCustomerKD, setIsOpenModalDataCustomerKD] =
+    useState(true);
   const { isLoading, handleLoading } = useLoading();
   const showDrawer = () => {
     setIsOpenFilterBox(true);
@@ -336,7 +342,20 @@ export default function CustomerListInputGroup({
               Thêm mới
             </button>
           </Link>
-
+          <button
+            type="button"
+            onClick={() => setIsOpenModalConvertCart(true)}
+            className={`${styles.dropbtn_add} flex_align_center ${btnStyle.btn_yellow}`}
+          >
+            Dữ liệu chia khách hàng
+          </button>
+          <button
+            type="button"
+            onClick={() => setIsOpenModalConvertCart(true)}
+            className={`${styles.dropbtn_add} flex_align_center ${btnStyle.btn_yellow}`}
+          >
+            Dữ liệu kinh doanh
+          </button>
           <button
             type="button"
             onClick={handleClickFile}
@@ -442,6 +461,14 @@ export default function CustomerListInputGroup({
           />
         </div>
       </Drawer>
+      <ModalDataConvertCart
+        isOpenModalConvertCart={isOpenModalConvertCart}
+        setIsOpenModalConvertCart={setIsOpenModalConvertCart}
+      />
+      <ModalDataCustomerKD
+        isOpenModalDataCustomerKD={isOpenModalDataCustomerKD}
+        setIsOpenModalDataCustomerKD={setIsOpenModalDataCustomerKD}
+      />
     </>
   );
 }
