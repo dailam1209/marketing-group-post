@@ -9,7 +9,7 @@ import QuoteDetailBillInputGroup from "@/components/crm/quote/quote_detail/quote
 import AddQuoteDetailInfo from "@/components/crm/quote/quote_detail/quote_detail_diary";
 import AddQuoteDetailStatus from "./quote_detail_status";
 import ModalThemMoiLichhen from "@/components/crm/cskh/modal/modalthemmoilichhen";
-import TableDataLichhen from "@/components/crm/table/table-lich-hen-quote";
+import TableDataLichhen from "@/components/crm/table/table-quote-lich-hen-quote";
 import OrderDetailSelectBox from "@/components/crm/order/order_detail/order_detail_action_modal/order_detail_select";
 import ModalAddTL from "../quote_action_modal/m-dal-themmoi-tailieudinhkem";
 import TableAddTLDK from "@/components/crm/table/table-quote-tailieudinhkem";
@@ -20,8 +20,10 @@ import { useFormData } from "../../context/formDataContext";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
 import { QuoteContext } from "../quoteContext";
+import AppointEmpDetailSelectBox from "./tab_detail/appointment_emp_detail_select";
+import AppointmentDetailSelectBox from "./tab_detail/appointment_detail_select";
 const TabComponent = () => {
-  // const { setRecordId } = useContext(QuoteContext)
+  const { detailData } = useContext(QuoteContext)
   const [isShowModal, setIsShowModal] = useState(false);
   const [isShowModalAdd, setIsShowModalAdd] = useState(false);
   const [activeTab, setActiveTab] = useState("tab1");
@@ -40,6 +42,9 @@ const TabComponent = () => {
     setQuoteFileName(quoteFileNameInput)
     handleRecall()
   }
+  useEffect(() => {
+    handleRecall()
+  }, [quoteFileName])
 
   // Order
   const [orderKeywordInput, setOrderKeywordInput] = useState('')
@@ -53,7 +58,32 @@ const TabComponent = () => {
   }
   useEffect(() => {
     handleRecall()
-  }, [orderDate, orderStatus])
+  }, [orderDate, orderStatus, orderKeyword])
+
+  // Appointment
+  const [appointFromDate, setAppointFromDate] = useState<null | Date>(null)
+  const [appointToDate, setAppointToDate] = useState<null | Date>(null)
+  const [appointEmpId, setAppointEmpId] = useState(0)
+  const [appointStatus, setAppointStatus] = useState(0)
+  const [appointKeyword, setAppointKeyword] = useState('')
+  const [appointKeywordInput, setAppointKeywordInput] = useState('')
+  const [appointCusId, setAppointCusId] = useState(0)
+  const handleSearchAppoint = (e) => {
+    e.preventDefault()
+    setAppointKeyword(appointKeywordInput)
+    handleRecall()
+  }
+  useEffect(() => {
+    handleRecall()
+  }, [appointFromDate, appointToDate, appointEmpId, appointStatus, appointCusId, appointKeyword])
+  useEffect(() => {
+    detailData &&
+    detailData.hasOwnProperty('customer_id') &&
+    detailData.customer_id &&
+    Number(detailData.customer_id) &&
+    setAppointCusId(Number(detailData.customer_id)) 
+  }, [detailData])
+
 
   const handleTabChange = (key: any) => {
     setActiveTab(key);
@@ -214,30 +244,47 @@ const TabComponent = () => {
                         <div
                           className={`${styles.input_item_time} flex_between`}
                         >
-                          <input type="date" name="" id="start_time" />-
-                          <input type="date" name="" id="start_time" />
+                          <input
+                            type="date"
+                            name=""
+                            id="start_time"
+                            value={appointFromDate ? dayjs(appointFromDate).format('YYYY-MM-DD') : ''}
+                            onChange={(e) => setAppointFromDate(e.target.valueAsDate)}
+                          />-
+                          <input
+                            type="date"
+                            name=""
+                            id="end_time"
+                            value={appointToDate ? dayjs(appointToDate).format('YYYY-MM-DD') : ''}
+                            onChange={(e) => setAppointToDate(e.target.valueAsDate)}
+                          />
                         </div>
                       </div>
-                      <OrderDetailSelectBox
+                      <AppointEmpDetailSelectBox
                         title="Nhân viên thực hiện:"
                         value="Tất cả"
+                        setValue={setAppointEmpId}
+                        num={appointEmpId}
                       />
 
-                      <OrderDetailSelectBox
+                      <AppointmentDetailSelectBox
                         title="Tình trạng:"
                         value="Tất cả"
+                        setValue={setAppointStatus}
+                        num={appointStatus}
                       />
                     </div>
                   </div>
                   <div className={`${styles.main__control_btn} flex_between`}>
                     <div className={styles.main__control_search}>
-                      <form onSubmit={() => false}>
+                      <form onSubmit={handleSearchAppoint}>
                         <input
                           type="text"
                           className={styles.input__search}
-                          name="search"
-                          defaultValue=""
+                          name="searchAppoint"
                           placeholder="Tìm kiếm theo tên lịch hẹn"
+                          value={appointKeywordInput}
+                          onChange={(e) => setAppointKeywordInput(e.target.value)}
                         />
                         <button className={styles.kinh_lup}>
                           <img
@@ -259,7 +306,14 @@ const TabComponent = () => {
                       </button>
                     </div>
                   </div>
-                  <TableDataLichhen />
+                  <TableDataLichhen
+                    fromDate={appointFromDate}
+                    toDate={appointToDate}
+                    cus_id={appointCusId}
+                    emp_id={appointEmpId}
+                    status={appointStatus}
+                    keyword={appointKeyword}
+                  />
                   <ModalThemMoiLichhen
                     isShowModalAdd={isShowModalAdd}
                     onClose={onClose}
