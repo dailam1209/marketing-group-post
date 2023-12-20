@@ -275,7 +275,7 @@ const TableDataQuote: React.FC<TableDataOrderProps> = ({
           </select>
         </div>
         <div className="total">
-          Tổng số: <b>{total}</b> Đơn hàng
+          Tổng số: <b>{total}</b> Báo giá
         </div>
       </div>
     </div>
