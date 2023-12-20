@@ -214,6 +214,14 @@ svg {
   display: none;
 }
 
+.select_box_custom {
+  width: 30%;
+}
+
+.select_box_custom .select2 {
+  padding-top: 0px !important;
+}
+
 @media (min-width: 1024px) {
   .active_resize {
     width: 70px !important;
@@ -265,6 +273,10 @@ svg {
     top: 0;
     left: 0;
     right: 0;
+  }
+
+  .select_box_custom {
+    width: 100%;
   }
 }
 
@@ -569,6 +581,7 @@ tr {
   background-color: white !important;
   text-align: center;
 }
+
 .mdal_default .ant-btn-primary {
   width: 140px;
   height: 36px;
@@ -590,6 +603,7 @@ tr {
 .mdal_default .ant-modal-title {
   color: white !important;
 }
+
 .mdal_default .ant-modal-content svg {
   color: white;
 }
@@ -636,6 +650,7 @@ tr {
   background-color: #4c5bd4 !important;
   color: #fff;
 }
+
 .mdal_default .ant-modal-content {
   min-height: 300px;
   background: #ffffff;
@@ -644,6 +659,7 @@ tr {
   /* padding-top: 0; */
   padding: 0;
 }
+
 .sucess-mdal .ant-modal-header img {
   margin: auto;
 }

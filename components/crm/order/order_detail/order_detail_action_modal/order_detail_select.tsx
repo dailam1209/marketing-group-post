@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./order_detail_action.module.css";
 import OrderDetailDropDown from "./order_detail_dropdown";
-export default function OrderDetailSelectBox({ title = "", value = "Tất cả" }) {
+export default function OrderDetailSelectBox({ title = "", value = "Tất cả", setValue = (value) => { }, num = 0 }) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [valueSelect, setValueSelect] = useState(value)
@@ -10,6 +10,32 @@ export default function OrderDetailSelectBox({ title = "", value = "Tất cả" 
       setIsOpen(!isOpen);
     }
   };
+
+  // Cần đưa vào 1 hàm dùng chung cho nhiều nơi
+  const status = [
+    { key: 0, value: "Tất cả" },
+    { key: 1, value: "Chờ duyệt" },
+    { key: 2, value: "Đã duyệt" },
+    { key: 3, value: "Hủy bỏ" },
+  ]
+  const statusToNum = (str) => {
+    const result = status.find(s => s.value === str)
+    const num = result ? result.key : 0
+    setValue(num)
+  }
+  const numToStatus = (numb) => {
+    const result = status.find(s => s.key === numb)
+    const str = result ? result.value : "Tất cả"
+    setValueSelect(str)
+  }
+
+  useEffect(() => {
+    statusToNum(valueSelect)
+  }, [valueSelect])
+
+  useEffect(() => {
+    numToStatus(num)
+  }, [num])
 
   const handleScrollkOutside = (e: any) => {
     setIsOpen(false);

@@ -19,6 +19,7 @@ import { useRouter } from "next/router";
 import SendMailModal from "../quote_action_modal/send_mail_mdal";
 // import { handlePrintPDF } from "../quote_report_form/pdf_helper";
 // import SimpleQuoteReport from "../quote_report_form/simple_quote_report_form"
+import PdfGenerator2 from "../quote_report_form/pdfGenerator2";
 
 export default function ButtonControlForm({ isSelectedRow }: any) {
   const [isOpenOrderBrowsing, setIsOpenOrderBrowsing] = useState(false);
@@ -31,6 +32,8 @@ export default function ButtonControlForm({ isSelectedRow }: any) {
   const [isOpenUpdate, setIsOpenUpdate] = useState(false);
   const [isOpenSend, setIsOpenSend] = useState(false);
   const [allkey, setAllkey] = useState();
+  const [isOpenPdf, setIsOpenPdf] = useState(false)
+  const [isDownload, setIsDownload] = useState(false)
   const handleClickAction = (e: any, type: string | undefined) => {
     if (type === "order_browsing") {
       setIsOpenOrderBrowsing(true);
@@ -57,10 +60,12 @@ export default function ButtonControlForm({ isSelectedRow }: any) {
       setIsOpenHandOver(true);
     }
     if (type === "printer") {
-      // handlePrintPDF(<SimpleQuoteReport/>)
+      setIsDownload(false)
+      setIsOpenPdf(true)
     }
     if (type === "download") {
-
+      setIsDownload(true)
+      setIsOpenPdf(true)
     }
   };
   const router = useRouter();
@@ -158,6 +163,12 @@ export default function ButtonControlForm({ isSelectedRow }: any) {
         record={record}
         isModalCancel={isOpenHandOver}
         setIsModalCancel={setIsOpenHandOver}
+      />
+
+      <PdfGenerator2 
+        isVisible={isOpenPdf}
+        closePdfModal={() => setIsOpenPdf(false)}
+        isDownload={isDownload}
       />
     </div>
   );

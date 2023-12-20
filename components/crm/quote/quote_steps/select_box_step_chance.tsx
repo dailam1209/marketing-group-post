@@ -2,7 +2,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import styles from "@/components/crm/quote/quote.module.css";
 import { QuoteContext } from "../quoteContext";
 import CustomerDropDownDataStep from "./select_box_dropdown_data_customer";
-export default function CustomerSelectBoxStep({
+export default function ChanceSelectBoxStep({
   title = "",
   value = "Tất cả",
   placeholder = "",
@@ -11,7 +11,7 @@ export default function CustomerSelectBoxStep({
   setKeyword = () => { },
   keyword = '',
 }: any) {
-  const { setShouldFetchCus, listCusOption } = useContext(QuoteContext)
+  const { setShouldFetchChance, listCusOption } = useContext(QuoteContext)
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const handleClickSelectoption = (e: any) => {
@@ -41,8 +41,8 @@ export default function CustomerSelectBoxStep({
 
   useEffect(()=>{
     isOpen && 
-    // listCusOption.length == 0 && 
-    setShouldFetchCus(true);
+    // data.length === 0 && 
+    setShouldFetchChance(true);
   },[isOpen])
 
   return (

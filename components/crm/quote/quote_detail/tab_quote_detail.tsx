@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button, Tabs } from "antd";
 import Link from "next/link";
 import styles from "../quote.module.css";
@@ -12,16 +12,48 @@ import ModalThemMoiLichhen from "@/components/crm/cskh/modal/modalthemmoilichhen
 import TableDataLichhen from "@/components/crm/table/table-lich-hen-quote";
 import OrderDetailSelectBox from "@/components/crm/order/order_detail/order_detail_action_modal/order_detail_select";
 import ModalAddTL from "../quote_action_modal/m-dal-themmoi-tailieudinhkem";
-import TableAddTLDK from "@/components/crm/table/table-tailieudinhkem";
+import TableAddTLDK from "@/components/crm/table/table-quote-tailieudinhkem";
 import TableTLChiaSe from "@/components/crm/table/table-DSchia-se";
 import ShareDSCSActionModal from "../quote_action_modal/share_dsChiaSe.mdal";
 import Form_quote_detail from "../form_quote/form_quote-detail";
+import { useFormData } from "../../context/formDataContext";
+import dayjs from "dayjs";
+import { useRouter } from "next/router";
+import { QuoteContext } from "../quoteContext";
 const TabComponent = () => {
+  // const { setRecordId } = useContext(QuoteContext)
   const [isShowModal, setIsShowModal] = useState(false);
   const [isShowModalAdd, setIsShowModalAdd] = useState(false);
   const [activeTab, setActiveTab] = useState("tab1");
   const [isShowModalAddTL, setIsShowModalAddTL] = useState(false);
   const [isShowModalShareCS, setIsShowModalShareCS] = useState(false);
+  const router = useRouter();
+  const { id } = router.query;
+
+  const { handleRecall } = useContext(useFormData)
+
+  // Quote file
+  const [quoteFileNameInput, setQuoteFileNameInput] = useState('')
+  const [quoteFileName, setQuoteFileName] = useState('')
+  const handleSearchQuoteFile = (e) => {
+    e.preventDefault()
+    setQuoteFileName(quoteFileNameInput)
+    handleRecall()
+  }
+
+  // Order
+  const [orderKeywordInput, setOrderKeywordInput] = useState('')
+  const [orderKeyword, setOrderKeyword] = useState('')
+  const [orderDate, setOrderDate] = useState<null | Date>(null)
+  const [orderStatus, setOrderStatus] = useState(0)
+  const handleSearchOrder = (e) => {
+    e.preventDefault()
+    setOrderKeyword(orderKeywordInput)
+    handleRecall()
+  }
+  useEffect(() => {
+    handleRecall()
+  }, [orderDate, orderStatus])
 
   const handleTabChange = (key: any) => {
     setActiveTab(key);
@@ -31,6 +63,7 @@ const TabComponent = () => {
     setIsShowModal(false);
     setIsShowModalAddTL(false);
     setIsShowModalShareCS(false);
+    handleRecall();
   };
   const handleAddDB = () => {
     setIsShowModalAdd(false);
@@ -52,7 +85,7 @@ const TabComponent = () => {
                   >
                     <Button>
                       <Link
-                        href={"/quote/form_quote/list_form_quote"}
+                        href={`/quote/form_quote/list_form_quote/${id}`}
                         style={{ display: "flex" }}
                       >
                         <div>
@@ -102,20 +135,32 @@ const TabComponent = () => {
                         Ngày hóa đơn:
                       </label>
                       <div className={`${styles.input_item_time} flex_between`}>
-                        <input type="date" name="" id="start_time" />
+                        <input
+                          type="date"
+                          name=""
+                          id="start_time"
+                          value={orderDate ? dayjs(orderDate).format('YYYY-MM-DD') : ''}
+                          onChange={(e) => setOrderDate(e.target.valueAsDate)}
+                        />
                       </div>
                     </div>
-                    <OrderDetailSelectBox title="Tình trạng:" value="Tất cả" />
+                    <OrderDetailSelectBox
+                      title="Tình trạng:"
+                      value="Tất cả"
+                      setValue={setOrderStatus}
+                      num={orderStatus}
+                    />
                   </div>
 
                   <div className={`${styles.main__control_btn} flex_between`}>
                     <div className={styles.main__control_search}>
-                      <form onSubmit={() => false}>
+                      <form onSubmit={handleSearchOrder}>
                         <input
                           type="text"
                           className={styles.input__search}
-                          name="search"
-                          defaultValue=""
+                          name="searchOrder"
+                          value={orderKeywordInput}
+                          onChange={(e) => setOrderKeywordInput(e.target.value)}
                           placeholder="Tìm kiếm theo số đơn hàng, người thực hiện"
                         />
                         <button className={styles.kinh_lup}>
@@ -139,7 +184,11 @@ const TabComponent = () => {
                       </Link>
                     </div>
                   </div>
-                  <TableDataQuoteDetailBill />
+                  <TableDataQuoteDetailBill
+                    keyword={orderKeyword}
+                    date={orderDate}
+                    status={orderStatus}
+                  />
                 </div>
               </div>
             </div>
@@ -229,12 +278,14 @@ const TabComponent = () => {
                   <div className={`${styles.main__control_btn} `}></div>
                   <div className={`${styles.main__control_btn} flex_between`}>
                     <div className={styles.main__control_search}>
-                      <form onSubmit={() => false}>
+                      <form onSubmit={handleSearchQuoteFile}>
                         <input
                           type="text"
                           className={styles.input__search}
-                          name="search"
-                          defaultValue=""
+                          name="searchFile"
+                          // defaultValue=""
+                          value={quoteFileNameInput}
+                          onChange={(e) => setQuoteFileNameInput(e.target.value)}
                           placeholder="Tìm kiếm theo tên tài liệu đính kèm"
                         />
                         <button className={styles.kinh_lup}>
@@ -257,7 +308,7 @@ const TabComponent = () => {
                       </button>
                     </div>
                   </div>
-                  <TableAddTLDK />
+                  <TableAddTLDK keyword={quoteFileName} />
                   <ModalAddTL
                     isShowModalAddTL={isShowModalAddTL}
                     onClose={onClose}

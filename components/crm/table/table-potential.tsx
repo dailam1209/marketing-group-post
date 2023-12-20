@@ -181,8 +181,9 @@ const TableDataPotential: React.FC<TableDataPotentialProps> = ({
         page: currentPage,
       })
       .then((res) => {
-        handleDataTable(res.data.data.data);
-        setTotal(res.data.data.total);
+        handleDataTable(res?.data?.data?.data);
+        console.log(res?.data?.data);
+        setTotal(res?.data?.data?.total);
       })
       .catch((err) => console.log("error", err));
   }, [, pageSize, currentPage, formData.recall]);

@@ -185,7 +185,7 @@ function formatPhoneNumber(phoneNumber) {
     return groups.join('.');
 }
 
-const SimpleQuoteReport = ({ id = 0, visible = 'visible', setIsLoaded = (value) => { } }: any) => {
+const SimpleQuoteReport2 = ({ id = 0, visible = 'visible', setIsLoaded = (value) => { } }: any) => {
     const { getPropOrDefault, recordId, shouldFetchDetailData, detailData,
         customerData, companyData, setShouldGetCus, setShouldGetCom } = useContext(QuoteContext)
     const [quoteData, setQuoteData] = useState<any>({})
@@ -461,11 +461,19 @@ const SimpleQuoteReport = ({ id = 0, visible = 'visible', setIsLoaded = (value) 
                     </Col>
                     <Col span={8}></Col>
                     <Col span={8}>
-                        <Descriptions
+                        {/* <Descriptions
                             items={basicQuoteInfo}
                             column={1}
                             labelStyle={descriptLabel}
                             contentStyle={descriptContent}
+                            size="small"
+                        /> */}
+                        <Descriptions
+                            items={companyInfo}
+                            column={1}
+                            labelStyle={descriptLabel}
+                            contentStyle={descriptContent}
+                            colon={false}
                             size="small"
                         />
                     </Col>
@@ -480,12 +488,19 @@ const SimpleQuoteReport = ({ id = 0, visible = 'visible', setIsLoaded = (value) 
                 {/* Thông tin cty và thông tin khách hàng */}
                 <div style={sectionCss}>
                     <Col span={11}>
-                        <Descriptions
+                        {/* <Descriptions
                             items={companyInfo}
                             column={1}
                             labelStyle={descriptLabel}
                             contentStyle={descriptContent}
                             colon={false}
+                            size="small"
+                        /> */}
+                        <Descriptions
+                            items={basicQuoteInfo}
+                            column={1}
+                            labelStyle={descriptLabel}
+                            contentStyle={descriptContent}
                             size="small"
                         />
                     </Col>
@@ -611,4 +626,4 @@ const SimpleQuoteReport = ({ id = 0, visible = 'visible', setIsLoaded = (value) 
     )
 }
 
-export default SimpleQuoteReport
+export default SimpleQuoteReport2

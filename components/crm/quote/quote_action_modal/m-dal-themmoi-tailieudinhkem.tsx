@@ -1,8 +1,13 @@
-import React, { useState } from "react";
-import { Button, DatePicker, Input, Modal, Result, UploadProps } from "antd";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { Button, DatePicker, Input, Modal, Result, UploadFile, UploadProps } from "antd";
 import PotentialSelectBoxStep from "@/components/crm/potential/potential_steps/select_box_step";
 import { InboxOutlined } from "@ant-design/icons";
 import { message, Upload } from "antd";
+import { QuoteContext } from "../quoteContext";
+import { axiosCRMCall } from "@/utils/api/api_crm_call";
+import { useRouter } from "next/router";
+import FormData from "form-data";
+import { useFormData } from "../../context/formDataContext";
 const { Dragger } = Upload;
 
 const props: UploadProps = {
@@ -19,21 +24,46 @@ const props: UploadProps = {
       message.error(`${info.file.name} file upload failed.`);
     }
   },
-  onDrop(e) {},
+  onDrop(e) { },
 };
+
 const ModalAddTL = (props: any) => {
   const { isShowModalAddTL, onClose, handleAddDB, name } = props;
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [openSuccess, setOpenSuccess] = useState(false);
 
+  const router = useRouter();
+  const { id } = router.query;
+  const [fileList, setFileList] = useState([])
+  const [successFiles, setSuccessFiles] = useState([])
+
+  const uploadFile = async () => {
+    setSuccessFiles([]);
+    fileList.forEach(async (file) => {
+      let formData = new FormData();
+      formData.append('quote_id', id);
+      formData.append('document', file);
+      await axiosCRMCall
+        .post('/quote/create-attachment', formData)
+        .then(res => {
+          setSuccessFiles(prev => [...prev, file.name]);
+        })
+        .catch((err) => console.log("err", err));
+    })
+
+    return true
+  }
+
   const showModal = () => {
     setOpen(true);
   };
 
-  const handleOk = () => {};
+  const handleOk = () => { };
 
   const handleClose = () => {
+    setFileList([])
+    setSuccessFiles([])
     onClose();
   };
   return (
@@ -98,8 +128,10 @@ const ModalAddTL = (props: any) => {
               }}
               type="primary"
               loading={loading}
-              onClick={() => {
-                handleAddDB(), setOpenSuccess(true);
+              onClick={async () => {
+                await uploadFile()
+                setFileList([]);
+                setOpenSuccess(true);
               }}
             >
               Đồng ý
@@ -109,7 +141,27 @@ const ModalAddTL = (props: any) => {
         ]}
       >
         <div style={{ paddingTop: 40 }}>
-          <Dragger {...props}>
+          <Dragger
+            // {...props}
+            onRemove={(file) => {
+              const index = fileList.indexOf(f => f.uid === file.uid);
+              const newFileList = fileList.slice();
+              newFileList.splice(index, 1);
+              setFileList(newFileList);
+            }}
+            beforeUpload={(file) => {
+              const maxSize = 2 * 1024 * 1024
+              if (file.size > maxSize) {
+                message.error(`File không lớn hơn 2MB`);
+                return false
+              }
+              setFileList(prev => [...prev, file])
+              return false
+            }}
+            fileList={fileList}
+            multiple={true}
+          // maxCount={1}
+          >
             <p className="ant-upload-drag-icon">
               <InboxOutlined rev={null} />
             </p>
@@ -156,7 +208,14 @@ const ModalAddTL = (props: any) => {
         ]}
       >
         <div></div>
-        <Result status="success" title={<div>Thêm mới thành công</div>} />
+        <Result
+          status={successFiles.length > 0 ? "success" : "error"}
+          title={
+            successFiles.length > 0 ?
+              <div>Thêm mới {successFiles.length + ' tệp'} thành công: {'\n' + successFiles.join(', ')}</div> :
+              <div>Thêm mới không thành công</div>
+          }
+        />
       </Modal>
     </div>
   );

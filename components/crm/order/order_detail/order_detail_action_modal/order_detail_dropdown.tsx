@@ -5,7 +5,9 @@ export default function OrderDetailDropDown({
   valueSelect,
   setValueSelect,
 }: any) {
-  const data: any[] = ["Hello", "Test", "Hi"];
+  // 20/12/2023 - Thiết kế trên figma không rõ ràng 
+  // Có thể phải chỉnh sửa
+  const data: any[] = ["Tất cả", "Chờ duyệt", "Đã duyệt", "Hủy bỏ"];
 
   // const [valueSelect, setValueSelect] = useState("")
   return (

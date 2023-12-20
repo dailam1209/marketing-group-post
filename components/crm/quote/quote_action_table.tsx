@@ -1,7 +1,7 @@
 import type { MenuProps } from "antd";
 import { Dropdown, Image } from "antd";
 import Link from "next/link";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { dataActionQuote } from "../ultis/consntant";
 import { QuoteContext } from "./quoteContext";
 import CancelActionModal from "./quote_action_modal/cancel_action_mdal";
@@ -12,9 +12,11 @@ import QuoteBrowsingModal from "./quote_action_modal/quote_browsing_action_mdal"
 import SendMailModal from "./quote_action_modal/send_mail_mdal";
 import ShareActionModal from "./quote_action_modal/share_action_mdal";
 import StatusModal from "./quote_action_modal/status-mdal";
+import PdfGenerator2 from "./quote_report_form/pdfGenerator2";
+import SimpleQuoteReport from "./quote_report_form/simple_quote_report_form";
 
 export default function QuoteActionTable(props: any) {
-  const { recordId } = useContext(QuoteContext)
+  const { recordId, setRecordId, setShouldFetchDetailData } = useContext(QuoteContext)
   const { record, allkey } = props;
   const [isDelOpen, setIsDelOpen] = useState(false);
   const [isOrderBrowsingOpen, setIsOrderBrowsingOpen] = useState(false);
@@ -24,6 +26,8 @@ export default function QuoteActionTable(props: any) {
   const [isOpenHandOver, setIsOpenHandOver] = useState(false);
   const [isOpenUpdate, setIsOpenUpdate] = useState(false);
   const [isOpenSend, setIsOpenSend] = useState(false);
+  const [isOpenPdf, setIsOpenPdf] = useState(false);
+  const [isDownloadPdf, setIsDownloadPdf] = useState(false)
 
   const handleClickAction = (e: any, type: string | undefined) => {
     if (type === "delete") {
@@ -50,9 +54,23 @@ export default function QuoteActionTable(props: any) {
     if (type === "send") {
       setIsOpenSend(true);
     }
+    if (type === "printer") {
+      // setShouldFetchDetailData(true)
+      setIsDownloadPdf(false)
+      setIsOpenPdf(true)
+    }
+    if (type === "download") {
+      // setShouldFetchDetailData(true)
+      setIsDownloadPdf(true)
+      setIsOpenPdf(true)
+    }
   };
+
   const items: MenuProps["items"] = [];
   for (let i = 0; i < dataActionQuote.length; i++) {
+    // if (['download'].includes(dataActionQuote[i].type)) {
+    //   continue;
+    // }
     items.push({
       key: i,
       label: (
@@ -128,6 +146,12 @@ export default function QuoteActionTable(props: any) {
         allkey={allkey}
         isModalCancel={isOpenSend}
         setIsModalCancel={setIsOpenSend}
+      />
+      {/* TODO Test hiệu năng sau build: Hơi chậm */}
+      <PdfGenerator2
+        isVisible={isOpenPdf}
+        closePdfModal={setIsOpenPdf}
+        isDownload={isDownloadPdf}
       />
     </>
   );

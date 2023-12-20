@@ -48,4 +48,11 @@ export default function Home() {
     </>
   );
 }
+// 20/12/2023
 // TODO Thao tác ngoài luồng chính
+// Còn chia sẻ, bàn giao, gửi qua chat chưa có
+// Lý do: chưa rõ luồng, mâu thuẫn với phân quyền
+// Còn lịch hẹn, đơn hàng (các thao tác)
+// Lý do: Đầu việc riêng, chưa ai làm
+// Còn các mẫu báo giá
+// Lý do: Chưa ai cắt, chỉ có mẫu tạm thời

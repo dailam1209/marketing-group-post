@@ -11,7 +11,7 @@ import DelActionModal from "@/components/crm/quote/quote_action_modal/delete_act
 import CancelActionModal from "@/components/crm/quote/quote_action_modal/cancel_action_mdal";
 import ShareActionModal from "@/components/crm/quote/quote_action_modal/share_action_mdal";
 import HandOverActionModal from "@/components/crm/quote/quote_action_modal/handover_action_mdal";
-import { dataActionOrder } from "@/components/crm/ultis/consntant";
+import { dataActionQuote } from "@/components/crm/ultis/consntant";
 // import InputText from "./input_text";
 import { Input, Tooltip } from "antd";
 import StatusModal from "../quote_action_modal/status-mdal";
@@ -57,26 +57,27 @@ export default function AddButtonControl({ isSelectedRow }: any) {
   const router = useRouter();
   const path = router.query;
   const items: MenuProps["items"] = [];
-  for (let i = 0; i < dataActionOrder.length; i++) {
-    if (["edit", "delete"].includes(dataActionOrder[i].type)) {
+  for (let i = 0; i < dataActionQuote.length; i++) {
+    // Ẩn các nút đã hiện ở vị trí khác
+    if (["edit", "delete", "update-status", "send", "download", "printer"].includes(dataActionQuote[i].type)) {
       continue;
     }
     items.push({
       key: i,
       label: (
         <>
-          {dataActionOrder[i].link !== "#" ? (
-            <Link href={dataActionOrder[i].link} className="flex-start-btn">
-              <i className={dataActionOrder[i].img}></i>
-              {dataActionOrder[i].name}
+          {dataActionQuote[i].link !== "#" ? (
+            <Link href={dataActionQuote[i].link} className="flex-start-btn">
+              <i className={dataActionQuote[i].img}></i>
+              {dataActionQuote[i].name}
             </Link>
           ) : (
             <button
               className="flex-start-btn"
-              onClick={(e) => handleClickAction(e, dataActionOrder[i].type)}
+              onClick={(e) => handleClickAction(e, dataActionQuote[i].type)}
             >
-              <i className={dataActionOrder[i].img}></i>
-              {dataActionOrder[i].name}
+              <i className={dataActionQuote[i].img}></i>
+              {dataActionQuote[i].name}
             </button>
           )}
         </>
