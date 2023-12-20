@@ -27,8 +27,6 @@ const props: UploadProps = {
   onDrop(e) { },
 };
 
-// TODO Ghép API thêm mới
-
 const ModalAddTL = (props: any) => {
   const { isShowModalAddTL, onClose, handleAddDB, name } = props;
   const [loading, setLoading] = useState(false);

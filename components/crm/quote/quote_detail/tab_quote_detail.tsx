@@ -17,15 +17,22 @@ import TableTLChiaSe from "@/components/crm/table/table-DSchia-se";
 import ShareDSCSActionModal from "../quote_action_modal/share_dsChiaSe.mdal";
 import Form_quote_detail from "../form_quote/form_quote-detail";
 import { useFormData } from "../../context/formDataContext";
+import dayjs from "dayjs";
+import { useRouter } from "next/router";
+import { QuoteContext } from "../quoteContext";
 const TabComponent = () => {
+  // const { setRecordId } = useContext(QuoteContext)
   const [isShowModal, setIsShowModal] = useState(false);
   const [isShowModalAdd, setIsShowModalAdd] = useState(false);
   const [activeTab, setActiveTab] = useState("tab1");
   const [isShowModalAddTL, setIsShowModalAddTL] = useState(false);
   const [isShowModalShareCS, setIsShowModalShareCS] = useState(false);
+  const router = useRouter();
+  const { id } = router.query;
+
+  const { handleRecall } = useContext(useFormData)
 
   // Quote file
-  const { handleRecall } = useContext(useFormData)
   const [quoteFileNameInput, setQuoteFileNameInput] = useState('')
   const [quoteFileName, setQuoteFileName] = useState('')
   const handleSearchQuoteFile = (e) => {
@@ -33,6 +40,20 @@ const TabComponent = () => {
     setQuoteFileName(quoteFileNameInput)
     handleRecall()
   }
+
+  // Order
+  const [orderKeywordInput, setOrderKeywordInput] = useState('')
+  const [orderKeyword, setOrderKeyword] = useState('')
+  const [orderDate, setOrderDate] = useState<null | Date>(null)
+  const [orderStatus, setOrderStatus] = useState(0)
+  const handleSearchOrder = (e) => {
+    e.preventDefault()
+    setOrderKeyword(orderKeywordInput)
+    handleRecall()
+  }
+  useEffect(() => {
+    handleRecall()
+  }, [orderDate, orderStatus])
 
   const handleTabChange = (key: any) => {
     setActiveTab(key);
@@ -64,7 +85,7 @@ const TabComponent = () => {
                   >
                     <Button>
                       <Link
-                        href={"/quote/form_quote/list_form_quote"}
+                        href={`/quote/form_quote/list_form_quote/${id}`}
                         style={{ display: "flex" }}
                       >
                         <div>
@@ -114,20 +135,32 @@ const TabComponent = () => {
                         Ngày hóa đơn:
                       </label>
                       <div className={`${styles.input_item_time} flex_between`}>
-                        <input type="date" name="" id="start_time" />
+                        <input
+                          type="date"
+                          name=""
+                          id="start_time"
+                          value={orderDate ? dayjs(orderDate).format('YYYY-MM-DD') : ''}
+                          onChange={(e) => setOrderDate(e.target.valueAsDate)}
+                        />
                       </div>
                     </div>
-                    <OrderDetailSelectBox title="Tình trạng:" value="Tất cả" />
+                    <OrderDetailSelectBox
+                      title="Tình trạng:"
+                      value="Tất cả"
+                      setValue={setOrderStatus}
+                      num={orderStatus}
+                    />
                   </div>
 
                   <div className={`${styles.main__control_btn} flex_between`}>
                     <div className={styles.main__control_search}>
-                      <form onSubmit={() => false}>
+                      <form onSubmit={handleSearchOrder}>
                         <input
                           type="text"
                           className={styles.input__search}
                           name="searchOrder"
-                          defaultValue=""
+                          value={orderKeywordInput}
+                          onChange={(e) => setOrderKeywordInput(e.target.value)}
                           placeholder="Tìm kiếm theo số đơn hàng, người thực hiện"
                         />
                         <button className={styles.kinh_lup}>
@@ -151,7 +184,11 @@ const TabComponent = () => {
                       </Link>
                     </div>
                   </div>
-                  <TableDataQuoteDetailBill />
+                  <TableDataQuoteDetailBill
+                    keyword={orderKeyword}
+                    date={orderDate}
+                    status={orderStatus}
+                  />
                 </div>
               </div>
             </div>
