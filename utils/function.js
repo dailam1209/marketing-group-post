@@ -405,6 +405,10 @@ export function convertTimestampToDate(timestamp) {
 
   return formattedDate;
 }
+export function convertStringToTimestamp(isoString) {
+  const timestamp = new Date(isoString).getTime();
+  return timestamp / 1000;
+}
 export function convertTimestampToFull(timestamp) {
   // Tạo một đối tượng Date từ timestamp
   const date = new Date(timestamp * 1000);

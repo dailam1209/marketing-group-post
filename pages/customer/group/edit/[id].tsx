@@ -89,8 +89,7 @@ const GroupCustomerAdd: React.FC = () => {
       });
 
       const data = await res.json();
-      setData(data?.data);
-
+      setData(data?.data?.filter((parent) => parent.gr_id != id));
       return data;
     } catch (err) {
       // console.error(err);
