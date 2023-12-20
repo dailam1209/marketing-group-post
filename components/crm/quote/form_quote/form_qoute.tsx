@@ -1,13 +1,21 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./form.module.css";
 import { Button } from "antd";
 import { HeartOutlined } from "@ant-design/icons";
-type Props = {};
 import list_data_form from "./list_data_form";
 import { useRouter } from "next/router";
+import { QuoteContext } from "../quoteContext";
+import { axiosCRMCall } from "@/utils/api/api_crm_call";
+
+type Props = {};
+
 const Form_qoute = (props: Props) => {
   const router = useRouter();
+  const { id } = router.query;
+  const { setShouldFetchDetailData } = useContext(QuoteContext)
+
   const [HeartRed, setHeartRed] = useState(false);
+  const { recordId } = useContext(QuoteContext)
 
   const handleChangeColor = (index: any) => {
     const img = document?.getElementById(index);
@@ -22,8 +30,15 @@ const Form_qoute = (props: Props) => {
     }
   };
   const handleUse = (index: any) => {
-    router.push(`/quote/detail/${index + 1}`);
+    axiosCRMCall
+      .post('/quote/update', { id: id, print_template_id: index + 1 })
+      .then((res) => {
+        setShouldFetchDetailData(true)
+      })
+      .catch((err) => console.log(err))
+    router.push(`/quote/detail/${id}`);
   };
+
   return (
     <div style={{ width: "100%" }}>
       <div
@@ -73,11 +88,11 @@ const Form_qoute = (props: Props) => {
                 </div>
                 <div className={styles.bot}>
                   <Button
-                    onClick={() =>
-                      router.push(
-                        `/quote/form_quote/detail_form_quote/${index + 1}`
-                      )
-                    }
+                    // onClick={() =>
+                    //   router.push(
+                    //     `/quote/form_quote/detail_form_quote/${index + 1}`
+                    //   )
+                    // }
                     style={{
                       width: "100%",
                       background: "#E2E5FF",

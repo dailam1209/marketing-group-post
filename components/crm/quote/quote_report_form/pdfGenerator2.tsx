@@ -7,13 +7,24 @@ import { isLastDayOfMonth } from 'date-fns';
 import useLoading from '../../hooks/useLoading';
 import { Spin } from 'antd';
 import ModalInfo from '../quote_steps/info_mdal';
+import QuoteReportPicker from './quote_report_picker';
 
 const PdfGenerator2 = ({ isVisible = false, closePdfModal, isDownload = false }) => {
     const { recordId, shouldFetchDetailData, setShouldFetchDetailData,
-        companyData, customerData, detailData} = useContext(QuoteContext)
+        companyData, customerData, detailData } = useContext(QuoteContext)
     const captureRef = useRef(null)
     const [isModalOpen, setIsModalOpen] = useState(false)
     // const [isLoaded, setIsLoaded] = useState(false)
+
+    const [template, setTemplate] = useState(0)
+
+    useEffect(() => {
+        detailData &&
+            detailData.hasOwnProperty('print_template_id') &&
+            detailData.print_template_id &&
+            Number(detailData.print_template_id) &&
+            setTemplate(Number(detailData.print_template_id))
+    }, [detailData])
 
     useEffect(() => {
         if (isVisible) {
@@ -70,7 +81,7 @@ const PdfGenerator2 = ({ isVisible = false, closePdfModal, isDownload = false })
 
             while (heightLeft >= 0) {
                 // position += heightLeft - imgHeight; // top padding for other pages
-                position = heightLeft - imgHeight + 10
+                position = heightLeft - imgHeight + 5;
                 pdf.addPage();
                 pdf.addImage(imageData, 'PNG', 0, position, imgWidth, imgHeight);
                 heightLeft -= pageHeight;
@@ -115,7 +126,8 @@ const PdfGenerator2 = ({ isVisible = false, closePdfModal, isDownload = false })
                         zIndex: -1000,
                     }}
                 >
-                    <SimpleQuoteReport id={Number(recordId) || 0} />
+                    {/* <SimpleQuoteReport /> */}
+                    <QuoteReportPicker template={template}/>
                 </div>
             </div>
 

@@ -139,27 +139,26 @@ export const QuoteProvider: React.FC<{ children: React.ReactNode }> = ({
     }
 
     // Có thể sử dụng trực tiếp detailData
-    // TODO Check needed
-    const [editQuote, setEditQuote] = useState({ // Lưu dữ liệu sẵn có khi chỉnh sửa
-        id: 0,
-        date_quote: '',
-        date_quote_end: '',
-        status: 0,
-        customer_id: 0,
-        tax_code: '',
-        address: '',
-        phone_number: '',
-        chance_id: '',
-        introducer: '',
-        product_list: [],
-        discount_rate: 0,
-        terms_and_conditions: '',
-        note: '',
-        creator_name: '',
-        ceo_name: '',
-        description: '',
-        use_system_info: false,
-    })
+    // const [editQuote, setEditQuote] = useState({ // Lưu dữ liệu sẵn có khi chỉnh sửa
+    //     id: 0,
+    //     date_quote: '',
+    //     date_quote_end: '',
+    //     status: 0,
+    //     customer_id: 0,
+    //     tax_code: '',
+    //     address: '',
+    //     phone_number: '',
+    //     chance_id: '',
+    //     introducer: '',
+    //     product_list: [],
+    //     discount_rate: 0,
+    //     terms_and_conditions: '',
+    //     note: '',
+    //     creator_name: '',
+    //     ceo_name: '',
+    //     description: '',
+    //     use_system_info: false,
+    // })
 
     useEffect(() => {
         if (isCreate) {
