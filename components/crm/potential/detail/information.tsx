@@ -27,23 +27,37 @@ export default function InformationTextPotentialDetails() {
   const [isDelOpen, setIsDelOpen] = useState(false);
   const [dataDetail, setDataDetail] = useState({});
 
+  const fetchApiDelPotential = async () => {
+    axiosCRM
+      .post("/potential/delete-potential", {
+        cus_id: Number(id),
+      })
+      .then((res) => setIsDelOpen(true))
+      .catch((error) => {
+        console.log("checkerrrr", error);
+        notifyError("Vui lòng thử lại sau");
+      });
+  };
+
   useEffect(() => {
     axiosCRM
       .post("/potential/detail-potential", { cus_id: id })
       .then((res) => setDataDetail(res.data.data.data))
       .catch((err) => notifyError("Vui lòng thử lại sau"));
   }, []);
+
   const handleDelete = () => {
-    axiosCRM
-      .post("/potential/delete-potential", { cus_id: id })
-      .then((res) => {
-        setIsDelOpen(true);
-        setTimeout(() => {
-          setIsDelOpen(false);
-          router.push("/potential/list");
-        }, 2000);
-      })
-      .catch((err) => console.log("checkrrrr", err));
+    setIsDelOpen(true);
+    // axiosCRM
+    //   .post("/potential/delete-potential", { cus_id: id })
+    //   .then((res) => {
+    //     setIsDelOpen(true);
+    //     setTimeout(() => {
+    //       setIsDelOpen(false);
+    //       router.push("/potential/list");
+    //     }, 2000);
+    //   })
+    //   .catch((err) => console.log("checkrrrr", err));
   };
   const onChange = (checked: boolean) => {
     setFormData((prev) => ({ ...prev, checked: checked }));
@@ -109,6 +123,7 @@ export default function InformationTextPotentialDetails() {
         setIsModalCancel={setIsOpenConvert}
       />
       <DelActionModal
+        fetchApiDel={fetchApiDelPotential}
         isModalCancel={isDelOpen}
         setIsModalCancel={setIsDelOpen}
       />

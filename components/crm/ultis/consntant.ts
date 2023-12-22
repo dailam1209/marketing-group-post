@@ -297,10 +297,10 @@ export const dataActionPotential = [
     type: "",
   },
   {
-    link: "/potential/update/",
+    link: "#",
     name: "Chuyển đổi",
     img: "bi bi-check-square",
-    type: "campaign",
+    type: "convert",
   },
   {
     link: "/potential/edit",
