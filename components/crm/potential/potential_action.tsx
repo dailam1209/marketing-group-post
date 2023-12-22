@@ -10,6 +10,8 @@ import ConvertModal from "./potential_action_modal/convert_modal";
 import ShareActionModal from "./potential_action_modal/potential_share_action_mdal";
 import HandeOverModal from "./potential_action_modal/hand_over_mdal";
 import { useRouter } from "next/router";
+import { axiosCRM } from "@/utils/api/api_crm";
+import { notifyError } from "@/utils/function";
 
 export default function PotentialAction({
   isSelectedRow,
@@ -26,9 +28,7 @@ export default function PotentialAction({
   const [isOpenShare, setIsOpenShare] = useState(false);
   const [isHandOverOpen, setIsHandOverOpen] = useState(false);
   const router = useRouter();
-
   const ids = "123";
-
   const [dataActionPotential, setDataActionPotential] = useState([
     {
       link: "",
@@ -103,6 +103,18 @@ export default function PotentialAction({
       type: "delete",
     },
   ]);
+
+  const fetchApiDelPotential = async () => {
+    axiosCRM
+      .post("/potential/delete-potential", {
+        // cus_id: Number(1),
+      })
+      .then((res) => setIsDelOpen(true))
+      .catch((error) => {
+        console.log("checkerrrr", error);
+        notifyError("Vui lòng thử lại sau");
+      });
+  };
 
   useEffect(() => {
     setDataActionPotential(dataActionPotential);
@@ -229,6 +241,7 @@ export default function PotentialAction({
       />
 
       <DelActionModal
+        fetchApiDel={fetchApiDelPotential}
         isModalCancel={isDelOpen}
         setIsModalCancel={setIsDelOpen}
       />

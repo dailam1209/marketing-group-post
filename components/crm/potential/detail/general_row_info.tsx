@@ -24,14 +24,7 @@ import {
 } from "@/utils/function";
 import { renderCity, renderDistrict } from "@/constants/address-constant";
 import { useFormData } from "../../context/formDataContext";
-
-const diaryEntries = [
-  {
-    time: "10:10 - 10/10/2020",
-    content: "Nhóm khách hàng được cập nhật bởi",
-    author: "Nguyễn Văn Nam",
-  },
-];
+import { timestampToCustomString } from "../../ultis/convert_date";
 
 export default function GeneralRowInforText() {
   const router = useRouter();
@@ -41,6 +34,8 @@ export default function GeneralRowInforText() {
   const { checked } = formData;
   const [detailData, setDataDetail] = useState<any>({});
   let [social, setSocial] = useState([]);
+  const dataAction = ["cập nhật", "xoá", "khôi phục", "thêm"];
+
   useEffect(() => {
     axiosCRM
       .post("/potential/detail-potential", { cus_id: id })
@@ -50,6 +45,7 @@ export default function GeneralRowInforText() {
           ...res?.data?.data?.data?.potential_id,
           ...res?.data?.data?.data?.emp_id,
           empName: res?.data?.data?.data?.emp_id?.userName,
+          history: res?.data?.data?.history,
         });
         handlePotentialId(res?.data?.data?.data?.potential_id);
       })
@@ -65,6 +61,7 @@ export default function GeneralRowInforText() {
     }
     setSocial(social);
   };
+
   return (
     <main>
       <div className={styles.table}>
@@ -216,7 +213,7 @@ export default function GeneralRowInforText() {
           {checked && !detailData.sector ? null : (
             <InforText
               field="Lĩnh vực:"
-              value={renderSector(detailData.sector)}
+              value={(detailData.sector)}
             />
           )}
           {checked && !detailData.category ? null : (
@@ -228,7 +225,7 @@ export default function GeneralRowInforText() {
           {checked && !detailData.revenue ? null : (
             <InforText
               field="Doanh thu:"
-              value={renderRevenue(detailData.revenue)}
+              value={(detailData?.revenue)}
             />
           )}
         </div>
@@ -270,11 +267,12 @@ export default function GeneralRowInforText() {
             <InforText
               field="Địa chỉ đơn hàng:"
               value={`${detailData.address && `${detailData.address}, `}${
-                detailData.ward && `${detailData.ward}, `
+                detailData.ward ? `${detailData.ward}, ` : ``
               }${
-                detailData.district_id &&
-                `${renderDistrict(detailData.district_id)}, `
-              }${detailData.cit_id && `${renderCity(detailData.cit_id)}`} `}
+                detailData.district_id
+                  ? `${renderDistrict(detailData.district_id)}, `
+                  : ``
+              }${detailData.cit_id ? `${renderCity(detailData.cit_id)}` : ""} `}
             />
           )}
         </div>
@@ -310,7 +308,7 @@ export default function GeneralRowInforText() {
           {checked && !detailData.office_email ? null : (
             <InforText
               field="Người sửa:"
-              value="Chỗ này sẽ thêm sau"
+              value={detailData?.user_edit_id?.userName}
               icon={<UserOutlined rev={null} />}
             />
           )}
@@ -332,11 +330,12 @@ export default function GeneralRowInforText() {
           <h4>Nhật ký</h4>
         </div>
         <div className={styles.table_overflow}>
-          {emptyEntries.map((_, index) => (
+          {detailData?.history?.map((items, index) => (
             <div className={styles.table_diary} key={index}>
-              <h3>10:10 - 10/10/2020</h3>
+              <h3>{timestampToCustomString(items?.create_at/1000)}</h3>
               <p>
-                Nhóm khách hàng được cập nhật bởi <span>Nguyễn Văn Nam</span>
+                Nhóm khách hàng được {dataAction[items?.action]} bởi{" "}
+                <span>{items?.emp_id?.userName}</span>
               </p>
             </div>
           ))}

@@ -16,7 +16,7 @@ import UpdateAddressInfo from "@/components/crm/potential/potential_add_files/up
 import { MModalCompleteStep } from "@/components/commodity/modal";
 import { error } from "highcharts";
 
-const EditFilesPotential: React.FC = () => {
+const EditPotential = () => {
   const router = useRouter();
   const { id } = router.query;
   const mainRef = useRef<HTMLDivElement>(null);
@@ -89,8 +89,8 @@ const EditFilesPotential: React.FC = () => {
   }, []);
   const handleData = async (datas) => {
     const convertSocialArr = [];
-    for (const key in datas.potential_id.social) {
-      if (datas.potential_id.social[key]) {
+    for (const key in datas?.potential_id?.social) {
+      if (datas.potential_id?.social[key]) {
         convertSocialArr.push(key);
       }
     }
@@ -104,12 +104,12 @@ const EditFilesPotential: React.FC = () => {
     });
     const convertData = {
       ...datas,
-      ...datas.potential_id,
-      ...datas.potential_id.social,
+      ...datas?.potential_id,
+      ...datas?.potential_id?.social,
       arrSocial: convertSocialArr,
       category: convertCategory,
       sector: convertSector,
-      area_code: datas.bill_area_code,
+      area_code: datas?.bill_area_code,
     };
     console.log("check convertData", convertData);
     setFormData({ ...convertData });
@@ -197,7 +197,7 @@ const EditFilesPotential: React.FC = () => {
                     <p className={styles["main__body__type"]}>Ảnh</p>
                     <div id="upload">
                       <img
-                        src="/crm/upload_logo.png"
+                        src="/crm/upload.png"
                         alt="hungha365.com"
                         className={styles["show_avatar"]}
                         onClick={handleClickImg}
@@ -270,4 +270,4 @@ const EditFilesPotential: React.FC = () => {
   );
 };
 
-export default EditFilesPotential;
+export default EditPotential;

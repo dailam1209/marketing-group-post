@@ -6,14 +6,17 @@ import ModalCompleteStep from "../potential_steps/complete_modal";
 interface MyComponentProps {
   isModalCancel: boolean;
   setIsModalCancel: (value: boolean) => void;
+  fetchApiDel: () => Promise<void>;
 }
 const DelActionModal: React.FC<MyComponentProps> = ({
   isModalCancel,
   setIsModalCancel,
+  fetchApiDel,
 }) => {
   const [isModalSuccess, setIsMdalSuccess] = useState(false);
 
-  const handleOK = () => {
+  const handleOK = async () => {
+    await fetchApiDel();
     setIsModalCancel(false);
     showModalWithTimeout(setIsMdalSuccess, 2000);
   };

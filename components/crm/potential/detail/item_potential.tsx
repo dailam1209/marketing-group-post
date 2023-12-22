@@ -45,17 +45,20 @@ export default function ItemPotential() {
   };
   return (
     <div>
-      <div style={{ width: "30%" }} className={style.selectbox}>
-        <SelectSingle
-          placeholder="Tất cả"
-          title="Nhóm hàng hóa"
-          setFormData={setFormSearch}
-          onChange={() =>
-            setFormSearch({ ...formSearch, recall: !formSearch.recall })
-          }
-          name="product_group"
-          data={listGroupProduct}
-        />
+      <div className={style.selectbox}>
+        <div className="select_box_custom">
+          <SelectSingle
+            placeholder="Tất cả"
+            title="Nhóm hàng hóa"
+            setFormData={setFormSearch}
+            onChange={() =>
+              setFormSearch({ ...formSearch, recall: !formSearch.recall })
+            }
+            name="product_group"
+            data={listGroupProduct}
+          />
+        </div>
+
         {/* <PotentialSelectBox title="Nhóm hàng hoá:" value="Tất cả" /> */}
       </div>
       <div className={style.input_search}>
