@@ -1,0 +1,286 @@
+.facebook_detail {
+  display: flex;
+}
+
+.facebook__nav {
+  width: 50%;
+}
+
+.title_nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.title_nav_title {
+  color: var(--LOGO, #4c5bd4);
+  font-family: Roboto;
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.facebook_icon {
+    display: flex;
+    justify-content: center;
+  border-radius: 0.25rem;
+  background: #e6e8f8;
+  padding: 0.25rem;
+  text-align: center;
+  align-items: center;
+  line-height: 1.25rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  cursor: pointer;
+
+}
+
+.facebook__content {
+  width: 75%;
+  /* flex: 1; */
+}
+
+.nav_1 {
+  margin-bottom: 1.5rem;
+}
+
+/* scroll */
+.facebook__nav_scroll {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem;
+  align-items: center;
+  border-radius: 0.25rem;
+  background: rgba(76, 91, 212, 0.1);
+}
+
+.facebook__nav_scroll_title {
+  color: var(--LOGO, #4c5bd4);
+  font-family: Roboto;
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.facebook__nav_scroll_icon {
+  transition: all 0.3s ease-in-out;
+}
+
+.facebook__nav_scroll_list {
+  width: 100%;
+  max-height: 0;
+  visibility: hidden;
+  opacity: 0;
+  transition: max-height 0.2s ease-in-out, opacity 0.2s ease-in-out;
+}
+
+.facebook__nav_scroll_item {
+  color: #474747;
+  display: flex;
+  height: 3.125rem;
+  padding: 0.625rem 1.25rem 0.625rem 1.5rem;
+  align-items: center;
+  gap: 0.625rem;
+  align-self: stretch;
+  border-bottom: 1px dashed #cecece;
+  /* background: rgba(42, 66, 255, 0.20); */
+}
+
+.active {
+  max-height: 250px;
+  visibility: visible;
+  opacity: 1;
+}
+
+.icon_ronate {
+  transform: rotate(180deg);
+}
+
+/* input filler */
+
+.facebook__fillter {
+  display: flex;
+  gap: 1.06rem;
+  margin-bottom: 1.06rem;
+  margin-left: 0.75rem;
+}
+
+.facebook__choose_fillter {
+  height: 2.5rem;
+  width: 100%;
+  position: relative;
+  cursor: pointer;
+}
+.facebook_input {
+  width: 100%;
+  outline: 0;
+  border: none;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.25rem;
+  background: #fff;
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.1);
+}
+
+.box_delete {
+  display: flex;
+  color: #fff;
+  border-radius: 0.5rem;
+  background: #d44c4c;
+  height: 2.5rem;
+  padding: 0rem 1rem;
+  align-items: center;
+  gap: 0.62rem;
+}
+
+.facebook__input_icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 1.25rem;
+}
+
+.choose {
+  flex-direction: column;
+  position: absolute;
+  z-index: 10;
+  right: 0;
+  left: 0;
+  border-radius: 0.25rem;
+  background: #fff;
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.12);
+  padding: 0.75rem 1rem;
+  display: none ;
+}
+
+.choose_item {
+    display: flex;
+}
+
+.choose_input {
+    width: 1.25rem;
+height: 1.25rem;
+accent-color: #4C5BD4;
+}
+
+.choose_des {
+    color: #474747;
+    font-family: Roboto;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-left: 0.5rem;
+}
+
+.choose_item:not(:last-child) {
+    margin-bottom: 0.75rem;
+}
+
+.facebook__choose_fillter:hover .choose {
+    display: flex;
+}
+
+
+  :where(.css-dev-only-do-not-override-o95mle).ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
+    border-radius: 8px !important;
+  }
+
+  .bg_modal {
+    margin-bottom: 2.5rem;
+  }
+
+  .modal_row {
+    display: flex;
+    margin-bottom: 0.75rem;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .modal_row_title {
+    color: #333;
+    font-family: Roboto;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+
+  .modal_row_input {
+    display: flex;
+width: 20.0625rem;
+padding: 0.75rem 0.5rem;
+align-items: center;
+gap: 0.625rem;
+border-radius: 0.5rem;
+border: 1px solid rgba(5, 19, 130, 0.28);
+background: #FFF;
+outline: none;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .moddal__options {
+    position: relative;
+  }
+
+  .dropdown__options_filter {
+    display: flex;
+    width: 20.0625rem;
+    padding: 0.75rem 0.5rem;
+    align-items: center;
+    border-radius: 0.5rem;
+    border: 1px solid rgba(5, 19, 130, 0.28);
+    background: #FFF;
+    color: #898989;
+    height: 2.6875rem;
+  }
+
+  .modal__option_icon {
+    position: absolute;
+    top: 30%;
+    right: 1.25rem;
+    transform: translateY(-30%);
+  }
+
+  .dropdown__filter {
+    position: absolute;
+    background: #FFF;
+    right: 0;
+    left: 0;
+    top: 2.6875rem;
+    z-index: 10;
+    border-radius: 8px;
+    height: 120px;
+    overflow-y: scroll;
+box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.12);
+  }
+
+  .dropdown__select {
+    /* padding: 0 1rem; */
+  }
+
+  .dropdown__select_option {
+    cursor: pointer;
+    font-size: 0.875rem;
+    color: #474747;
+    font-family: Roboto;
+    padding: 0.5rem;
+    border-bottom: 0.5px solid #C3C3C3;
+  }
+
+  .dropdown__select_option:hover {
+    background: #C3C3C3;
+  }
+
+  .moddal__options:hover .dropdown__filter{
+    display: block;
+  }
+
+
+
+
